@@ -1,4 +1,4 @@
-# Munib tracker
+# Munib (مُنيب) Tracker
 Tracking salah, dhikr, and qadha in your journey back to Allah.
 
 
