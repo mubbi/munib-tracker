@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - app_network
+  db:
+    image: mongo
+    restart: always
+    container_name: munib-tracker-db
+    ports:
+      - 27017:27017
+    env_file:
+      - ./.env.local
+    volumes:
+      - munib-tracker-data:/data/db
+
+  db-test:
+    image: mongo
+    restart: always
+    container_name: munib-tracker-test-db
+    ports:
+      - 27018:27017
+    env_file:
+      - ./.env.test.local
+
+  redis:
+    image: redis
+    restart: always
+    container_name: munib-tracker-redis
+    ports:
+      - 6379:6379
+
+  admin:
+    image: mongo-express
+    restart: always
+    container_name: munib-tracker-admin
+    ports:
+      - 8081:8081
+    env_file:
+      - ./.env.local
+
+volumes:
+  munib-tracker-data:
+
+networks:
+  app_network:
+    external: true
