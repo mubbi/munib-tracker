@@ -1,8 +1,7 @@
-
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <div>
-     <h1>test</h1>
+      <h1>test</h1>
     </div>
   );
 }
