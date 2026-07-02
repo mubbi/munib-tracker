@@ -16,7 +16,9 @@
       "!**/.turbo",
       "!**/*.snap",
       "!**/android",
-      "!**/ios"
+      "!**/ios",
+      "!**/.agents/skills/nestjs/docs",
+      "!**/packages/api-client/src/generated"
     ]
   },
   "formatter": {
@@ -60,6 +62,14 @@
           "style": {
             "useNodejsImportProtocol": "off"
           }
+        }
+      }
+    },
+    {
+      "includes": ["apps/api/**"],
+      "javascript": {
+        "parser": {
+          "unsafeParameterDecoratorsEnabled": true
         }
       }
     }

@@ -1,0 +1,10 @@
+{
+  "extends": "@munib-tracker/typescript-config/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM"],
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "orval.config.ts"],
+  "exclude": ["node_modules", "src/generated"]
+}

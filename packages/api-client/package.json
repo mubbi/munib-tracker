@@ -1,0 +1,29 @@
+{
+  "name": "@munib-tracker/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./datetime": "./src/datetime.ts",
+    "./provider": "./src/provider.tsx"
+  },
+  "scripts": {
+    "generate": "orval",
+    "lint": "biome check .",
+    "check-types": "tsc --noEmit",
+    "transit": "echo transit"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.90.2",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@munib-tracker/typescript-config": "workspace:*",
+    "orval": "^7.17.0",
+    "typescript": "^6.0.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

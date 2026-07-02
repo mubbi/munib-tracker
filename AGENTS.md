@@ -8,8 +8,9 @@ This is a **pnpm + Turborepo** monorepo for Munib Tracker (salah, dhikr, qadha).
 |-----|------|------|-------------|
 | **Product** | `apps/app` | Expo SDK 57 — iOS, Android, Web (single codebase) | `pnpm dev:app` |
 | **Marketing** | `apps/marketing-web` | Next.js 16 landing site (port 3000) | `pnpm dev:marketing-web` |
+| **API** | `apps/api` | NestJS 11 — cloud sync, auth, backend services (port 3001) | `pnpm dev:api` |
 
-**Important:** `apps/marketing-web` (port 3000) and `apps/app web` (Expo, ~8081) are different apps.
+**Important:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), and `apps/app web` (Expo, ~8081) are different apps.
 
 ## Shared packages
 
@@ -19,6 +20,8 @@ Import via workspace package names:
 - `@munib-tracker/theme` — design tokens, `resolveTheme()`, accent palette
 - `@munib-tracker/typescript-config` — shared TS configs
 - `@munib-tracker/vitest-config` — Vitest presets
+- `@munib-tracker/api-contract` — OpenAPI spec exported from `apps/api`
+- `@munib-tracker/api-client` — Orval-generated fetch + TanStack Query SDK
 
 ## Conventions
 
@@ -31,11 +34,13 @@ Import via workspace package names:
 
 - [apps/app/AGENTS.md](apps/app/AGENTS.md) — Expo product app
 - [apps/marketing-web/AGENTS.md](apps/marketing-web/AGENTS.md) — Next.js marketing site
+- [apps/api/AGENTS.md](apps/api/AGENTS.md) — NestJS API server
 
 ## Common commands
 
 ```bash
 pnpm install              # always from repo root
+pnpm generate:api         # export OpenAPI + generate typed client (Orval)
 pnpm dev                  # all dev servers (turbo)
 pnpm turbo run lint check-types test
 pnpm --filter app ios     # Expo iOS dev build
@@ -48,3 +53,4 @@ pnpm --filter app web     # Expo web
 - `vercel/turborepo` — monorepo patterns
 - `expo/skills` — Expo / React Native
 - `vercel/next.js` — Next.js 16 best practices
+- `.agents/skills/nestjs` — official NestJS markdown guides (mirrored from [nestjs/docs.nestjs.com](https://github.com/nestjs/docs.nestjs.com/tree/master/content))

@@ -4,7 +4,7 @@
   "tasks": {
     "build": {
       "description": "Compiles and bundles applications for production",
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^generate"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
@@ -19,7 +19,7 @@
     },
     "check-types": {
       "description": "Runs TypeScript type checking",
-      "dependsOn": ["^check-types"]
+      "dependsOn": ["^check-types", "^generate"]
     },
     "test": {
       "description": "Runs unit and feature tests",
@@ -35,6 +35,16 @@
     "transit": {
       "description": "Invalidates downstream tests when dependencies change",
       "dependsOn": ["^transit"]
+    },
+    "openapi": {
+      "description": "Exports OpenAPI contract from the NestJS API",
+      "dependsOn": ["transit"],
+      "outputs": ["$TURBO_ROOT$/packages/api-contract/openapi.json"]
+    },
+    "generate": {
+      "description": "Generates typed API client from OpenAPI via Orval",
+      "dependsOn": ["^openapi"],
+      "outputs": ["src/generated/**"]
     },
     "//#format-and-lint": {
       "description": "Runs Biome format and lint on the entire repo"

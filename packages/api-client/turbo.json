@@ -1,0 +1,9 @@
+{
+  "extends": ["//"],
+  "tasks": {
+    "generate": {
+      "dependsOn": ["api#openapi"],
+      "outputs": ["src/generated/**"]
+    }
+  }
+}

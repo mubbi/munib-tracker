@@ -1,0 +1,53 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "nest build",
+    "dev": "nest start --watch",
+    "start": "nest start",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "biome check .",
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "vitest run --config vitest.config.e2e.ts",
+    "openapi": "cross-env DATABASE_TYPE=sqlite NODE_ENV=test EXPORT_OPENAPI=true nest build && cross-env DATABASE_TYPE=sqlite NODE_ENV=test EXPORT_OPENAPI=true node dist/main.js",
+    "transit": "echo transit"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.0",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.0.0",
+    "@nestjs/typeorm": "^11.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "date-fns": "^4.1.0",
+    "helmet": "^8.0.0",
+    "pg": "^8.16.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "sql.js": "^1.13.0",
+    "typeorm": "^0.3.26"
+  },
+  "devDependencies": {
+    "@munib-tracker/typescript-config": "workspace:*",
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.0.1",
+    "@swc/core": "^1.11.0",
+    "@types/node": "^20",
+    "@types/supertest": "^7.0.0",
+    "@vitest/coverage-v8": "^3.2.0",
+    "supertest": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "swc-loader": "^0.2.6",
+    "tsx": "^4.20.5",
+    "typescript": "^6.0.0",
+    "unplugin-swc": "^1.5.0",
+    "vitest": "^3.2.0"
+  }
+}
