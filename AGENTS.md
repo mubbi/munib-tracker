@@ -1,0 +1,50 @@
+# Munib Tracker — Agent Guide
+
+This is a **pnpm + Turborepo** monorepo for Munib Tracker (salah, dhikr, qadha).
+
+## Apps
+
+| App | Path | Role | Dev command |
+|-----|------|------|-------------|
+| **Product** | `apps/app` | Expo SDK 57 — iOS, Android, Web (single codebase) | `pnpm dev:app` |
+| **Marketing** | `apps/marketing-web` | Next.js 16 landing site (port 3000) | `pnpm dev:marketing-web` |
+
+**Important:** `apps/marketing-web` (port 3000) and `apps/app web` (Expo, ~8081) are different apps.
+
+## Shared packages
+
+Import via workspace package names:
+
+- `@munib-tracker/shared` — domain types, constants, validators
+- `@munib-tracker/theme` — design tokens, `resolveTheme()`, accent palette
+- `@munib-tracker/typescript-config` — shared TS configs
+- `@munib-tracker/vitest-config` — Vitest presets
+
+## Conventions
+
+- **Lint/format:** Biome at repo root (`pnpm lint`, `pnpm format-and-lint:fix`)
+- **Tests:** Vitest (marketing-web, packages) + Jest (apps/app). No Playwright or Maestro.
+- **Product theme:** All screens use `useTheme()` from `apps/app/src/providers/theme-provider.tsx` — no hardcoded colors.
+- **Marketing styling:** Tailwind CSS v4.3 with `@source` scanning monorepo packages in `globals.css`.
+
+## Per-app agent files
+
+- [apps/app/AGENTS.md](apps/app/AGENTS.md) — Expo product app
+- [apps/marketing-web/AGENTS.md](apps/marketing-web/AGENTS.md) — Next.js marketing site
+
+## Common commands
+
+```bash
+pnpm install              # always from repo root
+pnpm dev                  # all dev servers (turbo)
+pnpm turbo run lint check-types test
+pnpm --filter app ios     # Expo iOS dev build
+pnpm --filter app android # Expo Android dev build
+pnpm --filter app web     # Expo web
+```
+
+## AI skills (installed via `pnpm dlx skills add`)
+
+- `vercel/turborepo` — monorepo patterns
+- `expo/skills` — Expo / React Native
+- `vercel/next.js` — Next.js 16 best practices

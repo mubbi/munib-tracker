@@ -1,0 +1,20 @@
+{
+  "name": "@munib-tracker/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./types": "./src/types/index.ts",
+    "./constants": "./src/constants/index.ts",
+    "./validators": "./src/validators/index.ts"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "check-types": "tsc --noEmit",
+    "transit": "echo transit"
+  },
+  "devDependencies": {
+    "@munib-tracker/typescript-config": "workspace:*",
+    "typescript": "^6.0.0"
+  }
+}

@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@source "../app/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../../../../packages/theme/src/**/*.{ts,tsx}";
+
+@theme {
+  --color-brand: #059669;
+  --color-brand-foreground: #ffffff;
+  --color-background: #fafafa;
+  --color-foreground: #0a0a0a;
+  --color-muted: #71717a;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0a0a0a;
+    --color-foreground: #fafafa;
+    --color-muted: #a1a1aa;
+  }
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}

@@ -1,0 +1,37 @@
+{
+  "name": "munib-tracker",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:app": "pnpm --filter app dev",
+    "dev:marketing-web": "pnpm --filter marketing-web dev",
+    "lint": "turbo run lint",
+    "format": "biome format --write .",
+    "format-and-lint": "biome check .",
+    "format-and-lint:fix": "biome check --write .",
+    "check-types": "turbo run check-types",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.0",
+    "husky": "^9.1.7",
+    "turbo": "^2.5.4",
+    "typescript": "^6.0.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.9"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
+      "react-test-renderer": "19.1.0",
+      "postcss@<8.5.10": ">=8.5.10",
+      "uuid@<11.1.1": ">=11.1.1"
+    }
+  }
+}
