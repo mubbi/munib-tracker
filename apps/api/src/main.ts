@@ -47,10 +47,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
 
   if (process.env.EXPORT_OPENAPI === "true") {
-    const outputPath = resolve(
-      process.cwd(),
-      "../../packages/api-contract/openapi.json",
-    );
+    const outputPath = resolve(process.cwd(), "../../packages/api-contract/openapi.json");
     writeFileSync(outputPath, `${JSON.stringify(document, null, 2)}\n`);
     await app.close();
     return;

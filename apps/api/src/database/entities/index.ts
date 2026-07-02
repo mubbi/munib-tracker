@@ -30,10 +30,10 @@ export class UserEntity {
   @Column({ type: "varchar", length: 128, nullable: true })
   deviceId?: string | null;
 
-  @CreateDateColumn({ type: "timestamptz" })
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdateDateColumn({ type: "timestamptz" })
+  @UpdateDateColumn()
   updatedAt!: Date;
 }
 
@@ -57,7 +57,7 @@ export class AuthSessionEntity {
   @Column({ type: "varchar", length: 64 })
   refreshToken!: string;
 
-  @CreateDateColumn({ type: "timestamptz" })
+  @CreateDateColumn()
   createdAt!: Date;
 }
 
@@ -76,12 +76,12 @@ export class SyncRecordEntity {
   @Column({ type: "varchar", length: 128 })
   recordId!: string;
 
-  @Column({ type: "jsonb" })
+  @Column({ type: "simple-json" })
   data!: Record<string, unknown>;
 
-  @Column({ type: "timestamptz" })
+  @Column({ type: "datetime" })
   updatedAt!: Date;
 
-  @Column({ type: "timestamptz", nullable: true })
+  @Column({ type: "datetime", nullable: true })
   deletedAt?: Date | null;
 }

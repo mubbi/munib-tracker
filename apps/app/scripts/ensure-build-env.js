@@ -35,26 +35,17 @@ function loadEnvFile(filePath) {
 loadEnvFile(path.join(appRoot, ".env"));
 loadEnvFile(path.join(appRoot, ".env.local"));
 
-const required = [
-  "APP_VERSION",
-  "ANDROID_VERSION_CODE",
-  "IOS_BUILD_NUMBER",
-];
+const required = ["APP_VERSION", "ANDROID_VERSION_CODE", "IOS_BUILD_NUMBER"];
 
 const missing = required.filter((key) => !process.env[key]);
 
 if (missing.length > 0) {
-  console.error(
-    `Missing required version environment variables: ${missing.join(", ")}`,
-  );
+  console.error(`Missing required version environment variables: ${missing.join(", ")}`);
   console.error("Copy apps/app/.env.example to apps/app/.env and set values.");
   process.exit(1);
 }
 
-const androidVersionCode = Number.parseInt(
-  process.env.ANDROID_VERSION_CODE,
-  10,
-);
+const androidVersionCode = Number.parseInt(process.env.ANDROID_VERSION_CODE, 10);
 
 if (!Number.isFinite(androidVersionCode) || androidVersionCode < 1) {
   console.error("ANDROID_VERSION_CODE must be a positive integer.");

@@ -2,11 +2,11 @@ import { ConfigModule } from "@nestjs/config";
 import { Test, type TestingModule } from "@nestjs/testing";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { beforeEach, describe, expect, it } from "vitest";
-import { AuthModule } from "../auth/auth.module";
 import { AuthService } from "../auth/auth.service";
+import { AuthProvider } from "../auth/dto/auth.dto";
 import { validateEnvironment } from "../config/env.validation";
 import { AuthSessionEntity, SyncRecordEntity, UserEntity } from "../database/entities";
-import { AuthProvider } from "../auth/dto/auth.dto";
+import { createInMemorySqliteOptions } from "../database/in-memory-sqlite.options";
 import { SyncService } from "./sync.service";
 
 describe("SyncService", () => {
@@ -22,17 +22,10 @@ describe("SyncService", () => {
           isGlobal: true,
           validate: validateEnvironment,
         }),
-        TypeOrmModule.forRoot({
-          type: "sqljs",
-          autoSave: false,
-          location: "memory",
-          entities: [UserEntity, AuthSessionEntity, SyncRecordEntity],
-          synchronize: true,
-        }),
-        AuthModule,
-        TypeOrmModule.forFeature([SyncRecordEntity]),
+        TypeOrmModule.forRoot(createInMemorySqliteOptions()),
+        TypeOrmModule.forFeature([UserEntity, AuthSessionEntity, SyncRecordEntity]),
       ],
-      providers: [SyncService],
+      providers: [AuthService, SyncService],
     }).compile();
 
     authService = module.get(AuthService);

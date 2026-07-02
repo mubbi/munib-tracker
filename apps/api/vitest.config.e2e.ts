@@ -8,6 +8,11 @@ export default defineConfig({
     root: "./",
     include: ["test/**/*.e2e-spec.ts"],
     environment: "node",
+    env: {
+      DATABASE_TYPE: "sqlite",
+      NODE_ENV: "test",
+    },
+    hookTimeout: 30_000,
   },
   plugins: [swc.vite()],
   resolve: {

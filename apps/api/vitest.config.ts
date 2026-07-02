@@ -8,6 +8,10 @@ export default defineConfig({
     root: "./",
     include: ["src/**/*.spec.ts"],
     environment: "node",
+    env: {
+      DATABASE_TYPE: "sqlite",
+      NODE_ENV: "test",
+    },
   },
   plugins: [
     swc.vite({

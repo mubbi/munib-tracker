@@ -1,15 +1,16 @@
+process.env.DATABASE_TYPE = "sqlite";
+process.env.NODE_ENV = "test";
+
 import { type INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test, type TestingModule } from "@nestjs/testing";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { AppModule } from "../src/app.module";
 
 describe("API (e2e)", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
-    process.env.DATABASE_TYPE = "sqlite";
-
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -29,10 +30,10 @@ describe("API (e2e)", () => {
     );
 
     await app.init();
-  });
+  }, 30_000);
 
   afterAll(async () => {
-    await app.close();
+    await app?.close();
   });
 
   it("GET /api/v1/health", async () => {

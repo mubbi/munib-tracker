@@ -6,7 +6,7 @@
  */
 
 import { execSync } from "node:child_process";
-import { cpSync, mkdirSync, mkdtempSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { cpSync, mkdtempSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -44,7 +44,10 @@ function listMarkdownFiles(directory, prefix = "") {
 const upstreamDir = mkdtempSync(join(tmpdir(), "nestjs-docs-"));
 
 try {
-  run(`git clone --depth 1 --branch ${branch} --filter=blob:none --sparse ${repoUrl} .`, upstreamDir);
+  run(
+    `git clone --depth 1 --branch ${branch} --filter=blob:none --sparse ${repoUrl} .`,
+    upstreamDir,
+  );
   run("git sparse-checkout set content", upstreamDir);
   run("git checkout", upstreamDir);
 

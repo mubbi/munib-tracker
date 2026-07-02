@@ -1,26 +1,23 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule, type TypeOrmModuleOptions } from "@nestjs/typeorm";
-import type { EnvironmentVariables } from "../config/env.schema";
-import { DatabaseType } from "../config/env.schema";
+import { DatabaseType, EnvironmentVariables } from "../config/env.schema";
 import { AuthSessionEntity, SyncRecordEntity, UserEntity } from "./entities";
+import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService<EnvironmentVariables, true>): TypeOrmModuleOptions => {
+      useFactory: (
+        configService: ConfigService<EnvironmentVariables, true>,
+      ): TypeOrmModuleOptions => {
         const databaseType = configService.get("DATABASE_TYPE", { infer: true });
+        const nodeEnv = configService.get("NODE_ENV", { infer: true });
 
-        if (databaseType === DatabaseType.Sqlite) {
-          return {
-            type: "sqljs",
-            autoSave: false,
-            location: "memory",
-            entities: [UserEntity, AuthSessionEntity, SyncRecordEntity],
-            synchronize: true,
-          };
+        if (databaseType === DatabaseType.Sqlite || nodeEnv === "test") {
+          return createInMemorySqliteOptions();
         }
 
         return {

@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
 import { ConfigService } from "@nestjs/config";
+import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { AuthSessionEntity, UserEntity } from "../database/entities";
@@ -151,10 +151,7 @@ export class AuthService {
     }
   }
 
-  private toSessionResponse(
-    session: AuthSessionEntity,
-    user: UserEntity,
-  ): AuthSessionResponseDto {
+  private toSessionResponse(session: AuthSessionEntity, user: UserEntity): AuthSessionResponseDto {
     return {
       accessToken: session.accessToken,
       refreshToken: session.refreshToken,
