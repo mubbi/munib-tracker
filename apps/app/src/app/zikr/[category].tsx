@@ -48,7 +48,9 @@ export default function ZikrCategoryScreen() {
                   item={item}
                   isFavorite={favoriteIds.includes(item.id)}
                   onToggleFavorite={() => toggleFavorite(item.id)}
-                  onPress={() => router.push({ pathname: "/zikr/[id]", params: { id: item.id } })}
+                  onPress={() =>
+                    router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
+                  }
                 />
               ))}
             </View>

@@ -45,7 +45,9 @@ export default function ZikrHomeScreen() {
                 <ZikrRow
                   key={item.id}
                   item={item}
-                  onPress={() => router.push({ pathname: "/zikr/[id]", params: { id: item.id } })}
+                  onPress={() =>
+                    router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
+                  }
                 />
               ))}
             </View>

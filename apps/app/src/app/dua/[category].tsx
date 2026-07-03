@@ -39,7 +39,9 @@ export default function DuaCategoryScreen() {
               <PressableScale
                 key={item.id}
                 haptic="light"
-                onPress={() => router.push({ pathname: "/dua/[id]", params: { id: item.id } })}
+                onPress={() =>
+                  router.push({ pathname: "/dua/detail/[id]", params: { id: item.id } })
+                }
                 style={[styles.row, { backgroundColor: colors.muted }]}
               >
                 <View style={styles.body}>

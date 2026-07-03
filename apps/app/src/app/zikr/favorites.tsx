@@ -52,7 +52,9 @@ export default function ZikrFavoritesScreen() {
               <View key={item.id} style={[styles.row, { backgroundColor: colors.muted }]}>
                 <PressableScale
                   haptic="light"
-                  onPress={() => router.push({ pathname: "/zikr/[id]", params: { id: item.id } })}
+                  onPress={() =>
+                    router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
+                  }
                   style={styles.body}
                 >
                   <ThemedText type="small" numberOfLines={1}>
