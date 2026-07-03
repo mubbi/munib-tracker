@@ -1,0 +1,65 @@
+import type { ZikrProgress } from "@munib-tracker/shared/types";
+
+import { createId } from "../id";
+import { DB_KEYS, zikrProgressKey } from "../keys";
+import { KeyedCollection } from "../store";
+
+const collection = new KeyedCollection<ZikrProgress>(DB_KEYS.zikrProgress);
+
+function build(zikrId: string, date: string, count: number, target: number): ZikrProgress {
+  return {
+    id: createId("zikr"),
+    zikrId,
+    date,
+    count,
+    target,
+    completed: target > 0 && count >= target,
+  };
+}
+
+export const ZikrRepository = {
+  async getAll(): Promise<ZikrProgress[]> {
+    return collection.getAll();
+  },
+
+  async getByDate(date: string): Promise<ZikrProgress[]> {
+    return (await collection.getAll()).filter((entry) => entry.date === date);
+  },
+
+  async getProgress(zikrId: string, date: string): Promise<ZikrProgress | undefined> {
+    return collection.get(zikrProgressKey(zikrId, date));
+  },
+
+  async setCount(
+    zikrId: string,
+    date: string,
+    count: number,
+    target: number,
+  ): Promise<ZikrProgress> {
+    const existing = await collection.get(zikrProgressKey(zikrId, date));
+    const safeCount = Math.max(0, count);
+    const entry: ZikrProgress = {
+      ...(existing ?? build(zikrId, date, 0, target)),
+      count: safeCount,
+      target,
+      completed: target > 0 && safeCount >= target,
+    };
+    return collection.upsert(zikrProgressKey(zikrId, date), entry);
+  },
+
+  async increment(zikrId: string, date: string, target: number, by = 1): Promise<ZikrProgress> {
+    const existing = await collection.get(zikrProgressKey(zikrId, date));
+    const nextCount = Math.max(0, (existing?.count ?? 0) + by);
+    return this.setCount(zikrId, date, nextCount, target);
+  },
+
+  async reset(zikrId: string, date: string, target: number): Promise<ZikrProgress> {
+    return this.setCount(zikrId, date, 0, target);
+  },
+
+  async clear(): Promise<void> {
+    await collection.clear();
+  },
+};
+
+export type ZikrRepositoryType = typeof ZikrRepository;

@@ -1,5 +1,6 @@
 import { accentColorIds, accentColors } from "@munib-tracker/theme/accents";
 import type { AccentColorId, ColorMode } from "@munib-tracker/theme/types";
+import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { StyleSheet, View } from "react-native";
 
@@ -19,12 +20,18 @@ const colorModes: { id: ColorMode; label: string }[] = [
   { id: "system", label: "System" },
 ];
 
-export default function SettingsScreen() {
+export default function AppearanceScreen() {
+  const router = useRouter();
   const { colors, tokens, colorMode, accentColorId, scheme, setColorMode, setAccentColor } =
     useThemeTokens();
 
   return (
-    <ScreenLayout eyebrow="Personalize" title="Settings" subtitle="Appearance & preferences">
+    <ScreenLayout
+      eyebrow="Settings"
+      title="Appearance"
+      subtitle="Theme & accent color"
+      onBack={router.canGoBack() ? () => router.back() : undefined}
+    >
       <Stagger>
         <Card>
           <View style={styles.sectionHead}>

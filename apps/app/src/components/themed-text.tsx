@@ -16,7 +16,8 @@ export type ThemedTextProps = TextProps & {
     | "label"
     | "link"
     | "linkPrimary"
-    | "code";
+    | "code"
+    | "arabic";
   themeColor?: ThemeColor;
 };
 
@@ -40,6 +41,7 @@ export function ThemedText({ style, type = "default", themeColor, ...rest }: The
         type === "link" && styles.link,
         type === "linkPrimary" && styles.linkPrimary,
         type === "code" && styles.code,
+        type === "arabic" && styles.arabic,
         style,
       ]}
       {...rest}
@@ -111,5 +113,11 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.mono,
     fontWeight: Platform.select({ android: "700" }) ?? "500",
     fontSize: 12,
+  },
+  arabic: {
+    fontFamily: Fonts.serif,
+    fontSize: 28,
+    lineHeight: 52,
+    fontWeight: "500",
   },
 });

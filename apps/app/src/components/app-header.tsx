@@ -12,6 +12,7 @@ type AppHeaderProps = {
   eyebrow?: string;
   notificationCount?: number;
   onNotificationsPress?: () => void;
+  onBack?: () => void;
 };
 
 export function AppHeader({
@@ -20,6 +21,7 @@ export function AppHeader({
   eyebrow,
   notificationCount = 0,
   onNotificationsPress,
+  onBack,
 }: AppHeaderProps) {
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
@@ -34,6 +36,24 @@ export function AppHeader({
         },
       ]}
     >
+      {onBack ? (
+        <Pressable
+          accessibilityLabel="Go back"
+          accessibilityRole="button"
+          onPress={onBack}
+          style={({ pressed }) => [
+            styles.backButton,
+            { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.7 : 1 },
+          ]}
+        >
+          <SymbolView
+            name={{ ios: "chevron.left", android: "arrow_back", web: "arrow_back" }}
+            size={19}
+            tintColor={colors.accent}
+          />
+        </Pressable>
+      ) : null}
+
       <View style={styles.textBlock}>
         {eyebrow ? (
           <ThemedText type="label" style={{ color: colors.accent }}>
@@ -93,6 +113,14 @@ const styles = StyleSheet.create({
     gap: Spacing.half,
   },
   notificationButton: {
+    width: 44,
+    height: 44,
+    borderRadius: Radius.md,
+    alignItems: "center",
+    justifyContent: "center",
+    borderCurve: "continuous",
+  },
+  backButton: {
     width: 44,
     height: 44,
     borderRadius: Radius.md,

@@ -11,6 +11,7 @@ type ScreenLayoutProps = {
   eyebrow?: string;
   notificationCount?: number;
   onNotificationsPress?: () => void;
+  onBack?: () => void;
   scrollable?: boolean;
   children: ReactNode;
   contentStyle?: ViewStyle;
@@ -22,6 +23,7 @@ export function ScreenLayout({
   eyebrow,
   notificationCount,
   onNotificationsPress,
+  onBack,
   scrollable = true,
   children,
   contentStyle,
@@ -42,6 +44,7 @@ export function ScreenLayout({
         eyebrow={eyebrow}
         notificationCount={notificationCount}
         onNotificationsPress={onNotificationsPress}
+        onBack={onBack}
       />
       {scrollable ? (
         <ScrollView

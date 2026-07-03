@@ -1,0 +1,127 @@
+import type { AppLocale } from "@munib-tracker/shared/types";
+import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
+import { StyleSheet, View } from "react-native";
+
+import { ScreenLayout } from "@/components/screen-layout";
+import { ThemedText } from "@/components/themed-text";
+import { Card } from "@/components/ui/card";
+import { PressableScale } from "@/components/ui/pressable-scale";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Stagger } from "@/components/ui/stagger";
+import { Radius, Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
+
+const LOCALES: { id: AppLocale; label: string; native: string }[] = [
+  { id: "en", label: "English", native: "English" },
+  { id: "ar", label: "Arabic", native: "العربية" },
+  { id: "ur", label: "Urdu", native: "اردو" },
+];
+
+export default function LanguageScreen() {
+  const router = useRouter();
+  const prefs = usePreferences();
+  const { update } = usePreferencesActions();
+
+  return (
+    <ScreenLayout
+      eyebrow="Settings"
+      title="Language"
+      subtitle="App and translation language"
+      onBack={router.canGoBack() ? () => router.back() : undefined}
+    >
+      <Stagger>
+        <Card padding="three">
+          <SectionHeader
+            title="App language"
+            icon={{ ios: "globe", android: "language", web: "language" }}
+          />
+          <Choices value={prefs.locale} onChange={(id) => update({ locale: id })} />
+        </Card>
+
+        <Card padding="three">
+          <SectionHeader
+            title="Translation language"
+            icon={{ ios: "character.book.closed.fill", android: "menu_book", web: "menu_book" }}
+          />
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+            Used for the meaning of Arabic religious text.
+          </ThemedText>
+          <Choices
+            value={prefs.translationLocale}
+            onChange={(id) => update({ translationLocale: id })}
+          />
+        </Card>
+
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
+          More of the interface is being translated over time. Arabic selection enables
+          right-to-left layout where supported.
+        </ThemedText>
+      </Stagger>
+    </ScreenLayout>
+  );
+}
+
+function Choices({ value, onChange }: { value: AppLocale; onChange: (id: AppLocale) => void }) {
+  const { colors, tokens } = useThemeTokens();
+  return (
+    <View style={styles.rows}>
+      {LOCALES.map((locale) => {
+        const selected = locale.id === value;
+        return (
+          <PressableScale
+            key={locale.id}
+            haptic="selection"
+            accessibilityRole="button"
+            accessibilityState={{ selected }}
+            onPress={() => onChange(locale.id)}
+            style={[styles.row, { backgroundColor: selected ? tokens.accentSoft : colors.muted }]}
+          >
+            <View style={styles.rowBody}>
+              <ThemedText type="small">{locale.label}</ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {locale.native}
+              </ThemedText>
+            </View>
+            {selected ? (
+              <SymbolView
+                name={{
+                  ios: "checkmark.circle.fill",
+                  android: "check_circle",
+                  web: "check_circle",
+                }}
+                size={22}
+                tintColor={colors.accent}
+              />
+            ) : null}
+          </PressableScale>
+        );
+      })}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  rows: {
+    gap: Spacing.two,
+    marginTop: Spacing.three,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  rowBody: {
+    gap: 2,
+  },
+  hint: {
+    marginTop: Spacing.two,
+  },
+  footer: {
+    textAlign: "center",
+  },
+});

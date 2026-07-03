@@ -6,15 +6,19 @@
   "exports": {
     "./types": "./src/types/index.ts",
     "./constants": "./src/constants/index.ts",
-    "./validators": "./src/validators/index.ts"
+    "./validators": "./src/validators/index.ts",
+    "./utils": "./src/utils/index.ts",
+    "./content": "./src/content/index.ts"
   },
   "scripts": {
     "lint": "biome check .",
     "check-types": "tsc --noEmit",
+    "test": "vitest run",
     "transit": "echo transit"
   },
   "devDependencies": {
     "@munib-tracker/typescript-config": "workspace:*",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.0",
+    "vitest": "^3.2.0"
   }
 }

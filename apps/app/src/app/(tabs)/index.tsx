@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { useState } from "react";
+import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { type PrayerTime, PrayerTimesHero } from "@/components/prayer-times-hero";
@@ -14,6 +15,12 @@ import { Stagger } from "@/components/ui/stagger";
 import { StatCard } from "@/components/ui/stat-card";
 import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  useDailySummary,
+  useQazaSummary,
+  useStreak,
+  useTrackerActions,
+} from "@/stores/tracker-store";
 
 const PRAYERS: PrayerTime[] = [
   {
@@ -48,26 +55,61 @@ const PRAYERS: PrayerTime[] = [
   },
 ];
 
-const DAILY_TASKS_TOTAL = 24;
-const DAILY_TASKS_DONE = 8;
-
 export default function HomeScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
+  const summary = useDailySummary();
+  const streak = useStreak();
+  const qaza = useQazaSummary();
+  const { refresh } = useTrackerActions();
+  const [refreshing, setRefreshing] = useState(false);
+
   const now = new Date();
   const currentTime = now.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
   });
-  const progressPct = Math.round((DAILY_TASKS_DONE / DAILY_TASKS_TOTAL) * 100);
+
+  const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
+  const tasksTotal = summary.salahTotal + summary.zikrTotal;
+  const progressPct = tasksTotal ? Math.round((tasksDone / tasksTotal) * 100) : 0;
+  const isFreshStart = tasksDone === 0 && streak === 0;
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await refresh();
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   const quickActions: QuickActionItem[] = [
     {
-      id: "quran",
-      label: "Quran",
-      icon: { ios: "book.fill", android: "menu_book", web: "menu_book" },
+      id: "checklist",
+      label: "Checklist",
+      icon: { ios: "checklist", android: "checklist", web: "checklist" },
+      onPress: () => router.push("/tracker"),
+    },
+    {
+      id: "zikr",
+      label: "Zikr",
+      icon: { ios: "heart.fill", android: "favorite", web: "favorite" },
+      onPress: () => router.push("/zikr"),
+    },
+    {
+      id: "tasbeeh",
+      label: "Tasbeeh",
+      icon: { ios: "circle.hexagongrid.fill", android: "hive", web: "hive" },
+      onPress: () => router.push("/tasbeeh/free"),
+    },
+    {
+      id: "qaza",
+      label: "Qaza",
+      icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
+      onPress: () => router.push("/qaza"),
     },
     {
       id: "duas",
@@ -77,38 +119,25 @@ export default function HomeScreen() {
         android: "volunteer_activism",
         web: "volunteer_activism",
       },
-    },
-    {
-      id: "tasbeeh",
-      label: "Tasbeeh",
-      icon: { ios: "circle.hexagongrid.fill", android: "hive", web: "hive" },
-      onPress: () => router.push("/tracker"),
-    },
-    {
-      id: "qibla",
-      label: "Qibla",
-      icon: { ios: "safari.fill", android: "explore", web: "explore" },
-    },
-    {
-      id: "qaza",
-      label: "Qaza",
-      icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
-      onPress: () => router.push("/tracker"),
+      onPress: () => router.push("/dua"),
     },
     {
       id: "names",
       label: "99 Names",
       icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
+      onPress: () => router.push("/names-of-allah"),
     },
     {
       id: "calendar",
       label: "Calendar",
       icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
+      onPress: () => router.push("/calendar"),
     },
     {
       id: "stats",
       label: "Stats",
       icon: { ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" },
+      onPress: () => router.push("/statistics"),
     },
   ];
 
@@ -121,6 +150,9 @@ export default function HomeScreen() {
           { paddingBottom: BottomTabInset + Spacing.four },
         ]}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
+        }
       >
         <View style={styles.column}>
           <PrayerTimesHero
@@ -146,7 +178,9 @@ export default function HomeScreen() {
                   <View style={styles.goalTitle}>
                     <ThemedText type="subtitle">Today&apos;s Goal</ThemedText>
                     <ThemedText type="small" themeColor="mutedForeground">
-                      Complete the daily activity checklist
+                      {isFreshStart
+                        ? "Log your first act of worship to begin"
+                        : "Complete the daily activity checklist"}
                     </ThemedText>
                   </View>
                   <Pill
@@ -158,13 +192,13 @@ export default function HomeScreen() {
 
                 <View style={styles.goalProgress}>
                   <ThemedText type="smallBold" themeColor="mutedForeground">
-                    {DAILY_TASKS_DONE} of {DAILY_TASKS_TOTAL} tasks
+                    {tasksDone} of {tasksTotal} tasks
                   </ThemedText>
-                  <SegmentedProgress total={DAILY_TASKS_TOTAL} completed={DAILY_TASKS_DONE} />
+                  <SegmentedProgress total={Math.max(tasksTotal, 1)} completed={tasksDone} />
                 </View>
 
                 <Button
-                  label="Go to Checklist"
+                  label={isFreshStart ? "Start tracking" : "Go to Checklist"}
                   fullWidth
                   trailingIcon={{
                     ios: "arrow.right",
@@ -178,18 +212,18 @@ export default function HomeScreen() {
               <View style={styles.statsRow}>
                 <StatCard
                   label="Prayers"
-                  value="2/5"
+                  value={`${summary.salahCompleted}/${summary.salahTotal}`}
                   icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
                 />
                 <StatCard
                   label="Dhikr"
-                  value="1/3"
+                  value={`${summary.zikrCompleted}/${summary.zikrTotal}`}
                   icon={{ ios: "heart.fill", android: "favorite", web: "favorite" }}
                   tint={tokens.status.danger.color}
                 />
                 <StatCard
                   label="Streak"
-                  value="7"
+                  value={`${streak}`}
                   icon={{
                     ios: "flame.fill",
                     android: "local_fire_department",
@@ -198,6 +232,20 @@ export default function HomeScreen() {
                   tint={tokens.status.warning.color}
                 />
               </View>
+
+              <Card variant="outline" style={styles.qazaCard} onPress={() => router.push("/qaza")}>
+                <View style={[styles.qazaIcon, { backgroundColor: tokens.status.info.soft }]}>
+                  <ThemedText type="subtitle" style={{ color: tokens.status.info.color }}>
+                    {qaza.remaining}
+                  </ThemedText>
+                </View>
+                <View style={styles.qazaText}>
+                  <ThemedText type="smallBold">Qaza remaining</ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {qaza.completed} made up so far · tap to manage
+                  </ThemedText>
+                </View>
+              </Card>
 
               <Card variant="muted" style={styles.reminder}>
                 <View style={[styles.reminderIcon, { backgroundColor: tokens.accentSoft }]}>
@@ -224,23 +272,10 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
-    alignItems: "center",
-  },
-  column: {
-    width: "100%",
-    maxWidth: MaxContentWidth,
-  },
-  body: {
-    paddingHorizontal: Spacing.four,
-    marginTop: -Spacing.five,
-    gap: Spacing.four,
-    zIndex: 1,
-  },
+  root: { flex: 1 },
+  scrollContent: { flexGrow: 1, alignItems: "center" },
+  column: { width: "100%", maxWidth: MaxContentWidth },
+  body: { paddingHorizontal: Spacing.four, marginTop: -Spacing.five, gap: Spacing.four, zIndex: 1 },
   goalHeader: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -248,23 +283,20 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     marginBottom: Spacing.three,
   },
-  goalTitle: {
-    flex: 1,
-    gap: 2,
-  },
-  goalProgress: {
-    gap: Spacing.two,
-    marginBottom: Spacing.four,
-  },
-  statsRow: {
-    flexDirection: "row",
-    gap: Spacing.two,
-  },
-  reminder: {
-    flexDirection: "row",
+  goalTitle: { flex: 1, gap: 2 },
+  goalProgress: { gap: Spacing.two, marginBottom: Spacing.four },
+  statsRow: { flexDirection: "row", gap: Spacing.two },
+  qazaCard: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
+  qazaIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    borderCurve: "continuous",
     alignItems: "center",
-    gap: Spacing.three,
+    justifyContent: "center",
   },
+  qazaText: { flex: 1, gap: 2 },
+  reminder: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
   reminderIcon: {
     width: 48,
     height: 48,
@@ -273,8 +305,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  reminderText: {
-    flex: 1,
-    gap: 2,
-  },
+  reminderText: { flex: 1, gap: 2 },
 });

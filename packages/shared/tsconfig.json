@@ -1,7 +1,7 @@
 {
   "extends": "@munib-tracker/typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "noEmit": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

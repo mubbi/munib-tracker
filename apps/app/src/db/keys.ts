@@ -1,0 +1,23 @@
+/** All persisted AsyncStorage keys live under this namespace. */
+const PREFIX = "@munib-tracker/db";
+
+export const DB_KEYS = {
+  version: `${PREFIX}/version`,
+  prayerLogs: `${PREFIX}/prayer_logs`,
+  zikrProgress: `${PREFIX}/zikr_progress`,
+  qazaCounters: `${PREFIX}/qaza_counters`,
+  qazaDailyPlans: `${PREFIX}/qaza_daily_plans`,
+  qazaRoza: `${PREFIX}/qaza_roza`,
+  userPreferences: `${PREFIX}/user_preferences`,
+  syncMetadata: `${PREFIX}/sync_metadata`,
+} as const;
+
+/** Composite key for one prayer on one day. */
+export function prayerLogKey(prayerId: string, date: string): string {
+  return `${prayerId}::${date}`;
+}
+
+/** Composite key for one zikr on one day. */
+export function zikrProgressKey(zikrId: string, date: string): string {
+  return `${zikrId}::${date}`;
+}

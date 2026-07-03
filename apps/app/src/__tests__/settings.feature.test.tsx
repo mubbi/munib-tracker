@@ -1,6 +1,10 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react-native";
-import SettingsScreen from "@/app/settings";
+import AppearanceScreen from "@/app/settings/appearance";
 import { MunibThemeProvider } from "@/providers/theme-provider";
+
+jest.mock("expo-router", () => ({
+  useRouter: () => ({ push: jest.fn(), back: jest.fn(), canGoBack: () => false }),
+}));
 
 jest.mock("react-native-safe-area-context", () => ({
   SafeAreaProvider: ({ children }: { children: React.ReactNode }) => children,
@@ -10,7 +14,7 @@ jest.mock("react-native-safe-area-context", () => ({
 function renderSettings() {
   return render(
     <MunibThemeProvider>
-      <SettingsScreen />
+      <AppearanceScreen />
     </MunibThemeProvider>,
   );
 }

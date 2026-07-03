@@ -1,0 +1,144 @@
+import { OBLIGATORY_PRAYERS, PRAYER_LABELS, SUNNAH_PRAYERS } from "@munib-tracker/shared/constants";
+import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import { formatShortDate, getLocalDateString } from "@munib-tracker/shared/utils";
+import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+
+import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
+import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
+import { ScreenLayout } from "@/components/screen-layout";
+import { Card } from "@/components/ui/card";
+import { Collapsible } from "@/components/ui/collapsible";
+import { EmptyState } from "@/components/ui/empty-state";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Stagger } from "@/components/ui/stagger";
+import { Spacing } from "@/constants/theme";
+import { PrayerRepository, QazaRepository } from "@/db";
+import { trackerStore } from "@/stores/tracker-store";
+
+export default function CalendarDayScreen() {
+  const router = useRouter();
+  const params = useLocalSearchParams<{ date: string }>();
+  const date = params.date ?? getLocalDateString();
+  const today = getLocalDateString();
+  const isFuture = date > today;
+
+  const [status, setStatus] = useState<Record<string, PrayerStatus>>({});
+  const [notes, setNotes] = useState<Record<string, string | undefined>>({});
+  const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
+
+  const reload = useCallback(async () => {
+    const logs = await PrayerRepository.getByDate(date);
+    const nextStatus: Record<string, PrayerStatus> = {};
+    const nextNotes: Record<string, string | undefined> = {};
+    for (const log of logs) {
+      nextStatus[log.prayerId] = log.status;
+      if (log.notes) nextNotes[log.prayerId] = log.notes;
+    }
+    setStatus(nextStatus);
+    setNotes(nextNotes);
+  }, [date]);
+
+  useEffect(() => {
+    void reload();
+  }, [reload]);
+
+  const applyStatus = async (prayerId: PrayerId, next: PrayerStatus) => {
+    const previous = status[prayerId] ?? "pending";
+    await PrayerRepository.setStatus(prayerId, date, next);
+    if (isObligatoryPrayer(prayerId)) {
+      const wasMissed = previous === "missed";
+      const isMissed = next === "missed";
+      if (isMissed && !wasMissed) await QazaRepository.incrementRemaining(prayerId, 1);
+      else if (wasMissed && !isMissed) await QazaRepository.incrementRemaining(prayerId, -1);
+    }
+    await reload();
+    if (date === today) await trackerStore.getState().refresh();
+  };
+
+  const applyNotes = async (prayerId: PrayerId, text: string) => {
+    await PrayerRepository.setNotes(prayerId, date, text);
+    await reload();
+    if (date === today) await trackerStore.getState().refresh();
+  };
+
+  const completed = OBLIGATORY_PRAYERS.filter((p) => status[p] === "completed").length;
+
+  return (
+    <ScreenLayout
+      eyebrow={date === today ? "Today" : "History"}
+      title={formatShortDate(date)}
+      subtitle={
+        isFuture
+          ? "This day hasn't happened yet"
+          : `${completed} of ${OBLIGATORY_PRAYERS.length} obligatory prayers`
+      }
+      onBack={router.canGoBack() ? () => router.back() : undefined}
+    >
+      {isFuture ? (
+        <EmptyState
+          icon={{ ios: "clock.badge.exclamationmark", android: "schedule", web: "schedule" }}
+          title="Nothing to log yet"
+          description="You can only record worship for today and past days."
+        />
+      ) : (
+        <Stagger>
+          <Card padding="three">
+            <SectionHeader
+              title="Obligatory"
+              icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
+            />
+            <View style={styles.rows}>
+              {OBLIGATORY_PRAYERS.map((prayerId) => (
+                <PrayerTrackerRow
+                  key={prayerId}
+                  prayerId={prayerId}
+                  status={status[prayerId] ?? "pending"}
+                  hasNotes={!!notes[prayerId]}
+                  onPress={() => setActivePrayer(prayerId)}
+                />
+              ))}
+            </View>
+          </Card>
+
+          <Card padding="three">
+            <Collapsible title="Sunnah & optional prayers">
+              <View style={styles.rows}>
+                {SUNNAH_PRAYERS.map((prayerId) => (
+                  <PrayerTrackerRow
+                    key={prayerId}
+                    prayerId={prayerId}
+                    status={status[prayerId] ?? "pending"}
+                    hasNotes={!!notes[prayerId]}
+                    onPress={() => setActivePrayer(prayerId)}
+                  />
+                ))}
+              </View>
+            </Collapsible>
+          </Card>
+        </Stagger>
+      )}
+
+      {activePrayer ? (
+        <PrayerStatusSheet
+          visible
+          prayerLabel={PRAYER_LABELS[activePrayer]}
+          currentStatus={status[activePrayer] ?? "pending"}
+          currentNotes={notes[activePrayer]}
+          onSelect={(next) => applyStatus(activePrayer, next)}
+          onSaveNotes={(text) => applyNotes(activePrayer, text)}
+          onClose={() => setActivePrayer(null)}
+        />
+      ) : null}
+    </ScreenLayout>
+  );
+}
+
+const styles = StyleSheet.create({
+  rows: {
+    gap: Spacing.two,
+    marginTop: Spacing.three,
+  },
+});
