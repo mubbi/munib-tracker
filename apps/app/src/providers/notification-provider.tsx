@@ -3,7 +3,12 @@ import { useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
 import { Platform } from "react-native";
 
-import { configureNotifications, rescheduleAll } from "@/notifications/scheduler";
+import {
+  configureNotifications,
+  rescheduleAll,
+  SNOOZE_ACTION_IDENTIFIER,
+  snoozeNotification,
+} from "@/notifications/scheduler";
 import { useStore } from "@/stores/create-store";
 import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
@@ -34,7 +39,11 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isNative) return;
-    const subscription = Notifications.addNotificationResponseReceivedListener(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+      if (response.actionIdentifier === SNOOZE_ACTION_IDENTIFIER) {
+        void snoozeNotification(response);
+        return;
+      }
       router.push("/notifications");
     });
     return () => subscription.remove();

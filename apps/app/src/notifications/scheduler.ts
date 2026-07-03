@@ -16,6 +16,11 @@ const CHANNELS: { id: ChannelId; name: string }[] = [
   { id: "qaza", name: "Qaza reminders" },
 ];
 
+/** Category + action wiring so reminders can be snoozed from the notification. */
+const REMINDER_CATEGORY = "reminder";
+export const SNOOZE_ACTION_IDENTIFIER = "snooze";
+const SNOOZE_MINUTES = 10;
+
 /** Sets the foreground handler and Android channels. Call once at startup. */
 export async function configureNotifications(): Promise<void> {
   if (!isNative) return;
@@ -27,6 +32,13 @@ export async function configureNotifications(): Promise<void> {
       shouldSetBadge: false,
     }),
   });
+  await Notifications.setNotificationCategoryAsync(REMINDER_CATEGORY, [
+    {
+      identifier: SNOOZE_ACTION_IDENTIFIER,
+      buttonTitle: `Snooze ${SNOOZE_MINUTES} min`,
+      options: { opensAppToForeground: false },
+    },
+  ]);
   if (Platform.OS === "android") {
     for (const channel of CHANNELS) {
       await Notifications.setNotificationChannelAsync(channel.id, {
@@ -119,7 +131,12 @@ export async function rescheduleAll(prefs: UserPreferences): Promise<void> {
   for (const reminder of buildReminders(prefs)) {
     const { hour, minute } = parseHhMm(reminder.when);
     await Notifications.scheduleNotificationAsync({
-      content: { title: reminder.title, body: reminder.body },
+      content: {
+        title: reminder.title,
+        body: reminder.body,
+        categoryIdentifier: REMINDER_CATEGORY,
+        data: { channelId: reminder.channelId },
+      },
       trigger: {
         type: Notifications.SchedulableTriggerInputTypes.DAILY,
         hour,
@@ -128,6 +145,32 @@ export async function rescheduleAll(prefs: UserPreferences): Promise<void> {
       },
     });
   }
+}
+
+/**
+ * Re-fires a reminder `SNOOZE_MINUTES` from now. Called when the user taps the
+ * notification's Snooze action.
+ */
+export async function snoozeNotification(
+  response: Notifications.NotificationResponse,
+): Promise<void> {
+  if (!isNative) return;
+  const { content } = response.notification.request;
+  const channelId = (content.data?.channelId as ChannelId | undefined) ?? "prayer";
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: content.title ?? "Reminder",
+      body: content.body ?? "",
+      categoryIdentifier: REMINDER_CATEGORY,
+      data: content.data ?? {},
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+      seconds: SNOOZE_MINUTES * 60,
+      channelId,
+      repeats: false,
+    },
+  });
 }
 
 export async function listScheduled(): Promise<
