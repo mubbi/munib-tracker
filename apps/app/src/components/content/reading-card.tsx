@@ -1,19 +1,23 @@
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
 export type ReadingItem = {
+  id?: string;
+  title?: string;
   arabic: string;
   transliteration: string;
   translation: string;
   virtues?: string;
   reference?: string;
+  audioUri?: string;
 };
 
 /** Shared reading view for religious text (zikr, dua, durood, names). */
@@ -21,11 +25,32 @@ export function ReadingCard({ item }: { item: ReadingItem }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
+  const audio = useAudioPlayerContext();
   const arabicSize = fontPrefs.arabic.size;
   const textSize = fontPrefs.translation.size;
 
+  const playAudio = () => {
+    if (!item.audioUri) return;
+    audio.play([{ id: item.id ?? "reading", title: item.title ?? "", uri: item.audioUri }]);
+  };
+
   return (
     <Card padding="four">
+      {item.audioUri ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t("common.play")}
+          hitSlop={8}
+          onPress={playAudio}
+          style={[styles.play, { backgroundColor: tokens.accentSoft }]}
+        >
+          <SymbolView
+            name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+            size={16}
+            tintColor={colors.accent}
+          />
+        </Pressable>
+      ) : null}
       <ThemedText
         type="arabic"
         style={[
@@ -78,6 +103,15 @@ export function ReadingCard({ item }: { item: ReadingItem }) {
 }
 
 const styles = StyleSheet.create({
+  play: {
+    alignSelf: "flex-end",
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: Spacing.two,
+  },
   arabic: { writingDirection: "rtl", textAlign: "right" },
   divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.three },
   transliteration: { fontStyle: "italic" },

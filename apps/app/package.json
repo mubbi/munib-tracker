@@ -20,6 +20,7 @@
     "build:android:local": "node scripts/ensure-build-env.js && eas build --platform android --profile production --local",
     "build:ios:local": "node scripts/ensure-build-env.js && eas build --platform ios --profile production --local",
     "version:print": "node scripts/ensure-build-env.js",
+    "build:data": "node scripts/build-data/index.mjs && biome check --write ../../packages/shared/src/content src/lib/quran-loader.ts",
     "check-types": "tsc --noEmit",
     "lint": "biome check .",
     "test": "jest",

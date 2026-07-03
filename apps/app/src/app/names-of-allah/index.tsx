@@ -1,7 +1,8 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
@@ -9,11 +10,14 @@ import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { nameAudioTrack } from "@/lib/audio-tracks";
+import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 
 export default function NamesOfAllahScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const audio = useAudioPlayerContext();
 
   return (
     <ScreenLayout
@@ -36,11 +40,30 @@ export default function NamesOfAllahScreen() {
                   {name.arabic}
                 </ThemedText>
               </View>
-              <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                {name.transliteration}
-              </ThemedText>
+              <View style={styles.nameRow}>
+                <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                  {name.transliteration}
+                </ThemedText>
+                {name.audioUri ? (
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={t("common.play")}
+                    hitSlop={8}
+                    onPress={() => {
+                      const track = nameAudioTrack(name);
+                      if (track) audio.play([track]);
+                    }}
+                  >
+                    <SymbolView
+                      name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
+                      size={18}
+                      tintColor={colors.accent}
+                    />
+                  </Pressable>
+                ) : null}
+              </View>
               <ThemedText type="caption" themeColor="mutedForeground">
-                {name.translation}
+                {name.meaning ?? name.translation}
               </ThemedText>
             </Card>
           ))}
@@ -78,5 +101,11 @@ const styles = StyleSheet.create({
   arabic: {
     fontSize: 26,
     lineHeight: 44,
+  },
+  nameRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
   },
 });

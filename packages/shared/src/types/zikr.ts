@@ -19,6 +19,10 @@ export interface ZikrItem {
   audioUri?: string;
   /** daily target if applicable */
   targetCount?: number;
+  /** Hisnul Muslim chapter this zikr belongs to, when preserved from source. */
+  chapter?: string;
+  /** Position within its Hisnul Muslim chapter. */
+  orderInChapter?: number;
 }
 
 export interface ZikrProgress {

@@ -3,6 +3,7 @@ import { type ReactNode, useEffect } from "react";
 import { AppState, type AppStateStatus } from "react-native";
 
 import { preferencesStore } from "@/stores/preferences-store";
+import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
 
 /**
@@ -15,6 +16,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     let mounted = true;
     void preferencesStore.getState().load();
     void trackerStore.getState().load();
+    void quranStore.getState().load();
 
     const onChange = (status: AppStateStatus) => {
       if (!mounted || status !== "active") return;

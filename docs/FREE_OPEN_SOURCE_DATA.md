@@ -428,3 +428,26 @@ translation/reciter, and add the Credits screen.
   audio doesn't exist openly, so scope hadith audio to curated highlights.
 - **Don't encrypt scripture;** use SHA-256 integrity hashes instead. Keep AsyncStorage for *user
   data only*; avoid new native deps unless offline Hadith search forces SQLite.
+
+---
+
+## Implementation status (data ingestion)
+
+Implemented per `DATA_INGESTION_TODO.md` — all §13 gates green (types, biome, jest+vitest):
+
+- **Qur'an core (bundled, offline):** Arabic (Uthmani) + English transliteration + Pickthall +
+  Yusuf Ali + Jalandhry (Urdu), validated at 114 surahs / 6236 ayahs. Assets under
+  `apps/app/assets/data/quran/*`, loaded via the generated `src/lib/quran-loader.ts`. Reader with
+  per-ayah recitation (everyayah), reciter/translation pickers, bookmarks, last-read, verse search.
+- **Extra translations (D2, runtime):** Saheeh International + Clear Qur'an (Khattab) via
+  fawazahmed0, cache-first over AsyncStorage (offline after first open).
+- **Hadith:** bundled highlights (40 Nawawi, Riyad as-Salihin) offline + full six books via
+  fawazahmed0 CDN (cache-first). Reference + grade always shown ("Ungraded" when absent).
+- **Content:** complete 99 Names; expanded adhkar/duas/duroods (every item carries a reference).
+- **Credits screen** renders from `assets/data/manifest.json` (SHA-256 per file) + runtime sources.
+- **Build pipeline:** `pnpm --filter app build:data` (dev/CI only) — cached fetch, validation,
+  deterministic committed output.
+
+**Deferred (needs a maintainer-supplied binary + prebuild):** the bundled adhan-call MP3 (D11) — see
+`apps/app/assets/audio/adhan/README.md`. Content audio (`audioUri`, D9) infrastructure is wired but
+play controls stay hidden until real per-item audio URLs are supplied (nothing fabricated).

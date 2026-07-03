@@ -114,6 +114,18 @@ export default function HomeScreen() {
       onPress: () => router.push("/qaza"),
     },
     {
+      id: "quran",
+      label: t("actions.quran"),
+      icon: { ios: "book.fill", android: "menu_book", web: "menu_book" },
+      onPress: () => router.push("/quran"),
+    },
+    {
+      id: "hadith",
+      label: t("actions.hadith"),
+      icon: { ios: "text.book.closed.fill", android: "auto_stories", web: "auto_stories" },
+      onPress: () => router.push("/hadith"),
+    },
+    {
       id: "duas",
       label: t("actions.duas"),
       icon: {

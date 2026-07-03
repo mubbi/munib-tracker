@@ -101,6 +101,12 @@ export default function SettingsScreen() {
               subtitle={t("settings.aboutSub")}
               onPress={() => router.push("/settings/about")}
             />
+            <SettingsRow
+              icon={{ ios: "text.badge.checkmark", android: "verified", web: "verified" }}
+              title={t("credits.settingsLabel")}
+              subtitle={t("credits.settingsSub")}
+              onPress={() => router.push("/credits")}
+            />
           </View>
         </Card>
 
