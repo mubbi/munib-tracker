@@ -6,6 +6,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "app", "exec", "expo", "start", "--web", "--port", "8123"],
       "port": 8123
+    },
+    {
+      "name": "app-web-8124",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "app", "exec", "expo", "start", "--web", "--port", "8124"],
+      "port": 8124
     }
   ]
 }

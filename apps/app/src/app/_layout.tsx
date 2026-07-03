@@ -2,9 +2,12 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import "@/global.css";
+// Web-only focus-visible ring (WCAG 2.4.7). Resolves to a no-op on native.
+import "@/styles/focus-visible";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { MiniPlayer } from "@/components/audio/mini-player";
 import { OnboardingGate } from "@/components/onboarding-gate";
+import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { AppApiProvider } from "@/providers/api-provider";
 import { AppProviders } from "@/providers/app-providers";
 import { AudioPlayerProvider } from "@/providers/audio-player-provider";
@@ -29,6 +32,7 @@ export default function RootLayout() {
                     <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
                     <Stack.Screen name="(onboarding)/intro" options={{ gestureEnabled: false }} />
                   </Stack>
+                  <WebNavigationFocusManager />
                   <OnboardingGate />
                   <MiniPlayer />
                   <AnimatedSplashOverlay />

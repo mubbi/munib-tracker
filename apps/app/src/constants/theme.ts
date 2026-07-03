@@ -82,31 +82,20 @@ export const StatusPalette = {
 export type StatusKey = keyof typeof StatusPalette;
 
 /**
- * Layered elevation presets. `shadowColor` uses black which is not a themed
- * color; opacity is kept low so it reads on cream and deep-green surfaces.
+ * Layered elevation presets using the cross-platform `boxShadow` shorthand
+ * ("offsetX offsetY blur color"). Black is used (not a themed color) with low
+ * opacity so it reads on both cream and deep-green surfaces.
  */
 export const Shadows = {
   none: {},
   sm: {
-    shadowColor: "#000000",
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
+    boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.06)",
   },
   md: {
-    shadowColor: "#000000",
-    shadowOpacity: 0.1,
-    shadowRadius: 14,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 5,
+    boxShadow: "0px 6px 14px rgba(0, 0, 0, 0.1)",
   },
   lg: {
-    shadowColor: "#000000",
-    shadowOpacity: 0.16,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: 12 },
-    elevation: 10,
+    boxShadow: "0px 12px 24px rgba(0, 0, 0, 0.16)",
   },
 } as const;
 

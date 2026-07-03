@@ -9,6 +9,7 @@ export const DB_KEYS = {
   qazaDailyPlans: `${PREFIX}/qaza_daily_plans`,
   qazaRoza: `${PREFIX}/qaza_roza`,
   userPreferences: `${PREFIX}/user_preferences`,
+  location: `${PREFIX}/location`,
   syncMetadata: `${PREFIX}/sync_metadata`,
   achievements: `${PREFIX}/achievements`,
   quranBookmarks: `${PREFIX}/quran_bookmarks`,

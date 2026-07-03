@@ -1,11 +1,13 @@
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Platform, Share, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -20,8 +22,25 @@ export type ReadingItem = {
   audioUri?: string;
 };
 
-/** Shared reading view for religious text (zikr, dua, durood, names). */
-export function ReadingCard({ item, sourceHref }: { item: ReadingItem; sourceHref?: string }) {
+/**
+ * Shared reading view for religious text (zikr, dua, durood, names).
+ *
+ * `onToggleFavorite`/`isFavorite` render an inline favorite toggle in the header
+ * (parity across zikr/dua/durood). Sharing is handled inline: native uses the
+ * OS share sheet, web falls back to `navigator.share` or a clipboard copy so web
+ * users are never left without a way to share.
+ */
+export function ReadingCard({
+  item,
+  sourceHref,
+  isFavorite,
+  onToggleFavorite,
+}: {
+  item: ReadingItem;
+  sourceHref?: string;
+  isFavorite?: boolean;
+  onToggleFavorite?: () => void;
+}) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
@@ -45,23 +64,69 @@ export function ReadingCard({ item, sourceHref }: { item: ReadingItem; sourceHre
     );
   };
 
+  const onShare = async () => {
+    const message = formatReadingShare(item);
+    if (Platform.OS === "web") {
+      const nav = typeof navigator !== "undefined" ? navigator : undefined;
+      try {
+        if (nav?.share) {
+          await nav.share({ text: message });
+        } else if (nav?.clipboard?.writeText) {
+          await nav.clipboard.writeText(message);
+        }
+      } catch {
+        // user cancelled or share/clipboard unavailable
+      }
+      return;
+    }
+    try {
+      await Share.share({ message });
+    } catch {
+      // user cancelled or share unavailable
+    }
+  };
+
   return (
     <Card padding="four">
-      {item.audioUri ? (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t("common.play")}
-          hitSlop={8}
-          onPress={playAudio}
-          style={[styles.play, { backgroundColor: tokens.accentSoft }]}
-        >
-          <SymbolView
+      <View style={styles.header}>
+        {item.audioUri ? (
+          <IconButton
             name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
             size={16}
             tintColor={colors.accent}
+            background={tokens.accentSoft}
+            accessibilityLabel={t("common.play")}
+            onPress={playAudio}
           />
-        </Pressable>
-      ) : null}
+        ) : (
+          <View />
+        )}
+        <View style={styles.headerActions}>
+          {onToggleFavorite ? (
+            <IconButton
+              name={
+                isFavorite
+                  ? { ios: "star.fill", android: "star", web: "star" }
+                  : { ios: "star", android: "star_border", web: "star_border" }
+              }
+              size={18}
+              tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+              accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
+              accessibilityState={{ selected: !!isFavorite }}
+              haptic="selection"
+              onPress={onToggleFavorite}
+            />
+          ) : null}
+          <IconButton
+            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+            size={18}
+            tintColor={colors.mutedForeground}
+            accessibilityLabel={t("reading.share")}
+            onPress={onShare}
+          />
+        </View>
+      </View>
+
       <ThemedText
         type="arabic"
         style={[
@@ -78,7 +143,7 @@ export function ReadingCard({ item, sourceHref }: { item: ReadingItem; sourceHre
         type="small"
         style={[
           styles.transliteration,
-          { color: colors.accent },
+          { color: colors.accentText },
           textSize ? { fontSize: textSize } : null,
         ]}
       >
@@ -114,14 +179,15 @@ export function ReadingCard({ item, sourceHref }: { item: ReadingItem; sourceHre
 }
 
 const styles = StyleSheet.create({
-  play: {
-    alignSelf: "flex-end",
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+  header: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     marginBottom: Spacing.two,
+  },
+  headerActions: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   arabic: { writingDirection: "rtl", textAlign: "right" },
   divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.three },

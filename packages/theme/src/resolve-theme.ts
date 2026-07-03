@@ -1,4 +1,5 @@
 import { accentColors, defaultAccentColorId } from "./accents";
+import { accentOnSurface, bestForeground } from "./color";
 import type { AccentColorId, ColorMode, ThemeColors } from "./types";
 
 const lightBase = {
@@ -31,10 +32,15 @@ export function resolveTheme(
 
   const base = resolvedScheme === "dark" ? darkBase : lightBase;
   const accent = accentColors[accentColorId] ?? accentColors[defaultAccentColorId];
+  const resolvedAccent = resolvedScheme === "dark" ? accent.dark : accent.light;
+  // Accent text sits on the surface with the least contrast headroom for that
+  // scheme: the (darker) page background in light mode, the (lighter) card in dark.
+  const textSurface = resolvedScheme === "dark" ? base.card : base.background;
 
   return {
     ...base,
-    accent: resolvedScheme === "dark" ? accent.dark : accent.light,
-    accentForeground: accent.foreground,
+    accent: resolvedAccent,
+    accentForeground: bestForeground(resolvedAccent),
+    accentText: accentOnSurface(resolvedAccent, textSurface),
   };
 }

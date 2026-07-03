@@ -1,3 +1,4 @@
+import type { AchievementStats } from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type {
   DailySummary,
@@ -7,12 +8,29 @@ import type {
   QazaCounter,
   QazaRozaCounter,
 } from "@munib-tracker/shared/types";
-import { buildDailySummary, computeStreak, getLocalDateString } from "@munib-tracker/shared/utils";
+import {
+  aggregateByDate,
+  buildDailySummary,
+  computeStreak,
+  getLocalDateString,
+} from "@munib-tracker/shared/utils";
 import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
 
 import { initDatabase, PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 
 import { createStore, useStore } from "./create-store";
+
+const OBLIGATORY_SET = new Set<string>(OBLIGATORY_PRAYERS);
+
+function emptyStats(): AchievementStats {
+  return {
+    streak: 0,
+    prayersCompleted: 0,
+    qazaCompleted: 0,
+    zikrCompleted: 0,
+    bestDay: 0,
+  };
+}
 
 function emptySummary(date: string): DailySummary {
   return {
@@ -37,6 +55,7 @@ export interface TrackerState {
   roza: QazaRozaCounter;
   summary: DailySummary;
   streakDays: number;
+  achievementStats: AchievementStats;
 
   load: () => Promise<void>;
   refresh: () => Promise<void>;
@@ -51,9 +70,10 @@ export interface TrackerState {
 }
 
 async function recompute(date: string): Promise<Partial<TrackerState>> {
-  const [allLogs, todayZikr, counters, roza] = await Promise.all([
+  const [allLogs, todayZikr, allZikr, counters, roza] = await Promise.all([
     PrayerRepository.getAll(),
     ZikrRepository.getByDate(date),
+    ZikrRepository.getAll(),
     QazaRepository.getCounters(),
     QazaRepository.getRoza(),
   ]);
@@ -78,6 +98,21 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
     streakDays,
   });
 
+  // Lifetime achievement stats — mirrors the achievements screen so the two
+  // stay in lock-step (streak, lifetime completed obligatory prayers, qaza
+  // made up, zikr sessions completed, best single-day obligatory count).
+  const prayersCompleted = allLogs.filter(
+    (l) => l.status === "completed" && OBLIGATORY_SET.has(l.prayerId),
+  ).length;
+  const bestDay = Math.max(0, ...[...aggregateByDate(allLogs).values()].map((d) => d.completed));
+  const achievementStats: AchievementStats = {
+    streak: streakDays,
+    prayersCompleted,
+    qazaCompleted: counters.reduce((sum, c) => sum + c.completed, 0),
+    zikrCompleted: allZikr.filter((z) => z.completed).length,
+    bestDay,
+  };
+
   return {
     prayerStatus,
     prayerNotes,
@@ -86,6 +121,7 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
     roza,
     summary,
     streakDays,
+    achievementStats,
   };
 }
 
@@ -111,6 +147,7 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     roza: { remaining: 0, completed: 0 },
     summary: emptySummary(today),
     streakDays: 0,
+    achievementStats: emptyStats(),
 
     async load() {
       await initDatabase();
@@ -218,6 +255,10 @@ export function useDailySummary(): DailySummary {
 
 export function useStreak(): number {
   return useStore(trackerStore, (s) => s.streakDays);
+}
+
+export function useAchievementStats(): AchievementStats {
+  return useStore(trackerStore, (s) => s.achievementStats);
 }
 
 export function useTodayPrayers(): {

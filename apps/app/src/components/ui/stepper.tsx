@@ -87,7 +87,7 @@ function StepButton({
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={disabled}
-      hitSlop={6}
+      hitSlop={Math.max(6, Math.ceil((44 - dim) / 2))}
       onPress={onPress}
       style={[
         styles.button,

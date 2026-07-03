@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, StyleSheet, TextInput, View } from "react-native";
 
+import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
@@ -28,11 +29,14 @@ export default function ProfileScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { user, isGuest, isAuthenticated, signOut } = useAuth();
+  const { user, isAuthenticated, signOut } = useAuth();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
 
   const displayName = prefs.displayName ?? user?.displayName ?? t("profile.guestName");
+  // Treat anyone who isn't a fully linked account (a real guest session OR an
+  // offline/null session) as a guest so they can still link a provider.
+  const isGuest = !isAuthenticated;
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(displayName);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -146,12 +150,12 @@ export default function ProfileScreen() {
         </Card>
 
         {isGuest ? (
-          <Button
-            label={t("profile.signInToSync")}
-            icon={{ ios: "icloud.fill", android: "cloud", web: "cloud" }}
-            fullWidth
-            onPress={() => router.push("/login")}
-          />
+          <Card padding="three">
+            <View style={styles.signIn}>
+              <ThemedText type="small">{t("profile.signInToSync")}</ThemedText>
+              <SocialLoginButtons />
+            </View>
+          </Card>
         ) : null}
 
         <Card padding="three">
@@ -243,5 +247,8 @@ const styles = StyleSheet.create({
   },
   actions: {
     gap: Spacing.two,
+  },
+  signIn: {
+    gap: Spacing.three,
   },
 });

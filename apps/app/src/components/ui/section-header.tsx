@@ -2,7 +2,7 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type SectionHeaderProps = {
@@ -33,9 +33,9 @@ export function SectionHeader({ title, icon, actionLabel, onActionPress }: Secti
           accessibilityRole="button"
           onPress={onActionPress}
           hitSlop={8}
-          style={({ pressed }) => pressed && styles.pressed}
+          style={({ pressed }) => [styles.action, pressed && styles.pressed]}
         >
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
+          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
             {actionLabel}
           </ThemedText>
         </Pressable>
@@ -59,9 +59,13 @@ const styles = StyleSheet.create({
   iconWell: {
     width: 28,
     height: 28,
-    borderRadius: 9,
+    borderRadius: Radius.sm,
     borderCurve: "continuous",
     alignItems: "center",
+    justifyContent: "center",
+  },
+  action: {
+    minHeight: 44,
     justifyContent: "center",
   },
   pressed: {

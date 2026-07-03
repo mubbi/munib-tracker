@@ -173,6 +173,7 @@ function NumberField({
         value={value}
         onChangeText={(text) => onChange(text.replace(/[^0-9]/g, "").slice(0, 3))}
         keyboardType="number-pad"
+        accessibilityLabel={label}
         placeholder={placeholder}
         placeholderTextColor={colors.mutedForeground}
         style={[

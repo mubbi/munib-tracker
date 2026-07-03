@@ -3,13 +3,21 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, type ScrollView, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  type ScrollView,
+  Share,
+  StyleSheet,
+  View,
+} from "react-native";
 
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
@@ -42,12 +50,21 @@ function editionDirection(id: string): "ltr" | "rtl" {
   );
 }
 
+/** Compose Arabic + translation + "Surah:Ayah" reference for the share sheet. */
+export function shareAyah(arabic: string, translation: string, surah: number, ayah: number) {
+  const parts = [arabic, translation].filter(Boolean);
+  parts.push(`— ${surah}:${ayah}`);
+  void Share.share({ message: parts.join("\n\n") });
+}
+
 export default function SurahReaderScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const params = useLocalSearchParams<{ surah: string }>();
+  const params = useLocalSearchParams<{ surah: string; ayah?: string }>();
   const surahNumber = Number(params.surah);
   const surah = getSurahByNumber(surahNumber);
+  // Optional deep-link target (e.g. from universal search) — scroll to & mark it.
+  const focusAyah = params.ayah ? Number(params.ayah) : undefined;
 
   const { colors, tokens } = useThemeTokens();
   const prefs = useQuranPrefs();
@@ -55,7 +72,10 @@ export default function SurahReaderScreen() {
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
   const scrollRef = useRef<ScrollView>(null);
-  const { register: registerCard, onScroll } = useScrollToActive(scrollRef, audio.current?.id);
+  const { register: registerCard, onScroll } = useScrollToActive(
+    scrollRef,
+    audio.current?.id ?? (focusAyah ? `${surahNumber}:${focusAyah}` : undefined),
+  );
 
   const ayahs = useMemo(() => (surah ? getSurahAyahs(surahNumber) : []), [surah, surahNumber]);
 
@@ -80,7 +100,8 @@ export default function SurahReaderScreen() {
   );
   // Remote data when available, otherwise fall back to a bundled translation.
   const translation = remoteActive ? (remoteQuery.data ?? bundledTranslation) : bundledTranslation;
-  const usingFallback = remoteActive && !remoteQuery.data;
+  const translationLoading = remoteActive && (remoteQuery.isPending || remoteQuery.isFetching);
+  const usingFallback = remoteActive && !remoteQuery.data && !translationLoading;
   const translationDir = usingFallback ? "ltr" : editionDirection(knownEdition);
 
   const transliteration = useMemo(
@@ -90,7 +111,7 @@ export default function SurahReaderScreen() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: record entry once per surah open.
   useEffect(() => {
-    if (surah) void setLastRead(surahNumber, 1);
+    if (surah) void setLastRead(surahNumber, focusAyah ?? 1);
   }, [surahNumber]);
 
   if (!surah) {
@@ -175,7 +196,14 @@ export default function SurahReaderScreen() {
                 );
               })}
             </View>
-            {usingFallback ? (
+            {translationLoading ? (
+              <View style={styles.loadingRow}>
+                <ActivityIndicator size="small" color={colors.accent} />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("quran.loadingTranslation")}
+                </ThemedText>
+              </View>
+            ) : usingFallback ? (
               <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
                 {t("quran.offlineTranslation")}
               </ThemedText>
@@ -207,9 +235,18 @@ export default function SurahReaderScreen() {
                 translation={translation[String(ayah.ayah)] ?? ""}
                 translationDir={translationDir}
                 isPlaying={audio.current?.id === `${surahNumber}:${ayah.ayah}`}
+                highlighted={ayah.ayah === focusAyah}
                 isBookmarked={bookmarkedSet.has(`${surahNumber}:${ayah.ayah}`)}
                 onPlay={() => playFrom(index)}
                 onBookmark={() => toggleBookmark(surahNumber, ayah.ayah)}
+                onShare={() =>
+                  shareAyah(
+                    ayah.arabic,
+                    translation[String(ayah.ayah)] ?? "",
+                    surahNumber,
+                    ayah.ayah,
+                  )
+                }
               />
             </View>
           ))}
@@ -270,18 +307,22 @@ function AyahRow({
   translation,
   translationDir,
   isPlaying,
+  highlighted,
   isBookmarked,
   onPlay,
   onBookmark,
+  onShare,
 }: {
   ayah: Ayah;
   transliteration?: string;
   translation: string;
   translationDir: "ltr" | "rtl";
   isPlaying: boolean;
+  highlighted?: boolean;
   isBookmarked: boolean;
   onPlay: () => void;
   onBookmark: () => void;
+  onShare: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
@@ -289,7 +330,7 @@ function AyahRow({
   return (
     <Card
       padding="four"
-      style={isPlaying ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
+      style={isPlaying || highlighted ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
     >
       <View style={styles.ayahHeader}>
         <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
@@ -301,38 +342,41 @@ function AyahRow({
           {ayah.sajda ? (
             <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
           ) : null}
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t("quran.playAyah", { n: ayah.ayah })}
-            hitSlop={8}
+          <IconButton
+            name={
+              isPlaying
+                ? { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" }
+                : { ios: "play.circle", android: "play_circle", web: "play_circle" }
+            }
+            size={22}
+            tintColor={colors.accent}
+            accessibilityLabel={
+              isPlaying ? t("quran.pauseAyah") : t("quran.playAyah", { n: ayah.ayah })
+            }
+            haptic="light"
             onPress={onPlay}
-          >
-            <SymbolView
-              name={
-                isPlaying
-                  ? { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" }
-                  : { ios: "play.circle", android: "play_circle", web: "play_circle" }
-              }
-              size={22}
-              tintColor={colors.accent}
-            />
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t("quran.bookmark")}
-            hitSlop={8}
+          />
+          <IconButton
+            name={
+              isBookmarked
+                ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+                : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
+            }
+            size={20}
+            tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+            accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
+            accessibilityState={{ selected: isBookmarked }}
+            haptic="light"
             onPress={onBookmark}
-          >
-            <SymbolView
-              name={
-                isBookmarked
-                  ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
-                  : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
-              }
-              size={20}
-              tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
-            />
-          </Pressable>
+          />
+          <IconButton
+            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+            size={20}
+            tintColor={colors.mutedForeground}
+            accessibilityLabel={t("quran.shareAyah")}
+            haptic="light"
+            onPress={onShare}
+          />
         </View>
       </View>
 
@@ -375,6 +419,12 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   offlineNote: { marginTop: Spacing.two },
+  loadingRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    marginTop: Spacing.two,
+  },
   toggle: {
     width: 44,
     height: 26,

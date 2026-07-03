@@ -9,7 +9,9 @@ import {
   useRef,
   useState,
 } from "react";
+import { Platform } from "react-native";
 
+import { triggerHaptic } from "@/lib/haptics";
 import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
 export type AudioTrack = {
@@ -28,6 +30,10 @@ interface AudioContextValue {
   queue: AudioTrack[];
   index: number;
   isPlaying: boolean;
+  /** True while the player is fetching/decoding audio and not yet ready. */
+  isBuffering: boolean;
+  /** True once the current source has finished loading and can play. */
+  isLoaded: boolean;
   position: number;
   duration: number;
   rate: number;
@@ -47,7 +53,7 @@ interface AudioContextValue {
 
 export const AUDIO_SPEEDS = [0.5, 1, 1.5, 2];
 
-/** Cycle order: off → repeat all → repeat one → off. */
+/** Cycle order: off → repeat all → repeat once → off. */
 const LOOP_CYCLE: LoopMode[] = ["off", "all", "one"];
 
 const AudioContext = createContext<AudioContextValue | null>(null);
@@ -72,6 +78,23 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 
   const current = queue[index] ?? null;
   const prefsReady = usePreferencesReady();
+
+  // On web, expo-audio's fire-and-forget `play()` rejects its pending media
+  // promise when playback is interrupted by a near-immediate `pause()`/`replace()`
+  // (rapid toggling or switching tracks). Because `play()` returns void we can't
+  // `.catch()` it, so this surfaces as an "Uncaught (in promise) AbortError".
+  // Swallow only that specific benign rejection; let everything else through.
+  useEffect(() => {
+    if (Platform.OS !== "web" || typeof window === "undefined") return;
+    const onRejection = (event: PromiseRejectionEvent) => {
+      const reason = event.reason as { name?: string; message?: string } | undefined;
+      if (reason?.name === "AbortError" && /play\(\)/.test(String(reason.message ?? ""))) {
+        event.preventDefault();
+      }
+    };
+    window.addEventListener("unhandledrejection", onRejection);
+    return () => window.removeEventListener("unhandledrejection", onRejection);
+  }, []);
 
   // Apply the saved playback speed once preferences have loaded, and re-apply if
   // the underlying player instance changes.
@@ -115,6 +138,9 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   );
 
   const toggle = useCallback(() => {
+    // Instant tactile feedback on the tap, before the (possibly buffering) audio
+    // engine responds.
+    triggerHaptic("light");
     try {
       if (status.playing) player.pause();
       else player.play();
@@ -202,15 +228,24 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     setSourceHref(null);
   }, [player]);
 
-  // Auto-advance when a track finishes — repeat-one replays, otherwise advance.
+  // Auto-advance when a track finishes. "one" replays the current track a single
+  // time and then clears itself (play again once, not forever); otherwise advance.
   useEffect(() => {
     if (!status.didJustFinish) return;
     if (loopRef.current === "one") {
+      loopRef.current = "off";
+      setLoopMode("off");
       playIndex(queueRef.current, indexRef.current);
     } else {
       next();
     }
   }, [status.didJustFinish, next, playIndex]);
+
+  const isLoaded = status.isLoaded ?? false;
+  // Treat an unloaded source with a live track as "buffering" too, so the play
+  // button spins immediately after a tap while the engine spins up, not just
+  // once expo-audio flips its own `isBuffering` flag.
+  const isBuffering = Boolean(current) && ((status.isBuffering ?? false) || !isLoaded);
 
   const value = useMemo<AudioContextValue>(
     () => ({
@@ -218,6 +253,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       queue,
       index,
       isPlaying: status.playing,
+      isBuffering,
+      isLoaded,
       position: status.currentTime ?? 0,
       duration: status.duration ?? 0,
       rate,
@@ -238,6 +275,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       queue,
       index,
       status.playing,
+      isBuffering,
+      isLoaded,
       status.currentTime,
       status.duration,
       rate,

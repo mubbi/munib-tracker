@@ -29,6 +29,7 @@ Import via workspace package names:
 - **Tests:** Vitest (marketing-web, packages) + Jest (apps/app). No Playwright or Maestro.
 - **Product theme:** All screens use `useTheme()` from `apps/app/src/providers/theme-provider.tsx` — no hardcoded colors.
 - **Marketing styling:** Tailwind CSS v4.3 with `@source` scanning monorepo packages in `globals.css`.
+- **Fuzzy search:** Fuse.js v7 in `apps/app` — canonical module `apps/app/src/lib/search.ts`. See [apps/app/AGENTS.md](apps/app/AGENTS.md) and `.agents/skills/fuse-js/SKILL.md`.
 
 ## Per-app agent files
 
@@ -54,3 +55,4 @@ pnpm --filter app web     # Expo web
 - `expo/skills` — Expo / React Native
 - `vercel/next.js` — Next.js 16 best practices
 - `.agents/skills/nestjs` — official NestJS markdown guides (mirrored from [nestjs/docs.nestjs.com](https://github.com/nestjs/docs.nestjs.com/tree/master/content))
+- `.agents/skills/fuse-js` — Fuse.js fuzzy search (from [krisk/Fuse/docs](https://github.com/krisk/Fuse/tree/main/docs)); use for all search bars and `apps/app/src/lib/search.ts`

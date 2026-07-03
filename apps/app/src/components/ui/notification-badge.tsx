@@ -1,3 +1,4 @@
+import { bestForeground } from "@munib-tracker/theme/color";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -24,7 +25,10 @@ export function NotificationBadge({ count, borderColor }: NotificationBadgeProps
         },
       ]}
     >
-      <ThemedText type="caption" style={styles.text}>
+      <ThemedText
+        type="caption"
+        style={[styles.text, { color: bestForeground(tokens.status.danger.color) }]}
+      >
         {count > 9 ? "9+" : String(count)}
       </ThemedText>
     </View>
@@ -45,8 +49,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3,
   },
   text: {
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 12,
-    color: "#FFFFFF",
   },
 });

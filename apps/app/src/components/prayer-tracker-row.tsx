@@ -9,6 +9,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { triggerHaptic } from "@/lib/haptics";
 import {
   PRAYER_ICONS,
   PRAYER_STATUS_META,
@@ -22,9 +23,17 @@ type PrayerTrackerRowProps = {
   status: PrayerStatus;
   hasNotes?: boolean;
   onPress: () => void;
+  /** Quick one-tap toggle between completed and pending. */
+  onToggleComplete?: () => void;
 };
 
-export function PrayerTrackerRow({ prayerId, status, hasNotes, onPress }: PrayerTrackerRowProps) {
+export function PrayerTrackerRow({
+  prayerId,
+  status,
+  hasNotes,
+  onPress,
+  onToggleComplete,
+}: PrayerTrackerRowProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const meta = PRAYER_STATUS_META[status];
@@ -35,6 +44,8 @@ export function PrayerTrackerRow({ prayerId, status, hasNotes, onPress }: Prayer
   const timeHint = PRAYER_TIME_HINTS[prayerId];
   const prayerName = t(`prayers.${prayerId}`);
   const statusLabel = t(`prayerStatus.${status}`);
+  const isCompleted = status === "completed";
+  const successColor = tokens.status.success.color;
 
   return (
     <PressableScale
@@ -44,6 +55,33 @@ export function PrayerTrackerRow({ prayerId, status, hasNotes, onPress }: Prayer
       accessibilityLabel={t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel })}
       style={[styles.row, { backgroundColor: colors.muted }]}
     >
+      {onToggleComplete ? (
+        <PressableScale
+          haptic={false}
+          onPress={() => {
+            triggerHaptic("success");
+            onToggleComplete();
+          }}
+          accessibilityRole="checkbox"
+          accessibilityLabel={prayerName}
+          accessibilityState={{ checked: isCompleted }}
+          style={[
+            styles.check,
+            {
+              backgroundColor: isCompleted ? successColor : "transparent",
+              borderColor: isCompleted ? successColor : colors.border,
+            },
+          ]}
+        >
+          {isCompleted ? (
+            <SymbolView
+              name={{ ios: "checkmark", android: "check", web: "check" }}
+              size={14}
+              tintColor="#ffffff"
+            />
+          ) : null}
+        </PressableScale>
+      ) : null}
       <IconWell icon={PRAYER_ICONS[prayerId]} tint={toneColor} background={toneSoft} />
       <View style={styles.body}>
         <ThemedText type="small">{prayerName}</ThemedText>
@@ -80,6 +118,15 @@ const styles = StyleSheet.create({
     padding: Spacing.two + 2,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  check: {
+    width: 28,
+    height: 28,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
   },
   body: {
     flex: 1,

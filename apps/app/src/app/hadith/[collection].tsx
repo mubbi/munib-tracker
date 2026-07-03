@@ -1,9 +1,8 @@
 import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import { Share, StyleSheet, TextInput, View } from "react-native";
 
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,6 +10,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { IconButton } from "@/components/ui/icon-button";
 import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
@@ -20,6 +20,12 @@ import { useRemoteCollection } from "@/hooks/use-hadith";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getBundledCollection, getBundledCollectionData, searchHadiths } from "@/lib/hadith";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { usePreferences } from "@/stores/preferences-store";
+
+/** Build the plain-text body shared for a hadith (arabic + english + reference). */
+function hadithShareMessage(item: HadithItem): string {
+  return [item.arabic, item.english, item.reference].filter(Boolean).join("\n\n");
+}
 
 const PAGE_SIZE = 20;
 
@@ -27,7 +33,7 @@ export default function HadithCollectionScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
-  const params = useLocalSearchParams<{ collection: string }>();
+  const params = useLocalSearchParams<{ collection: string; q?: string }>();
   const collectionId = params.collection ?? "";
   const remote = isRemoteCollection(collectionId);
 
@@ -40,7 +46,9 @@ export default function HadithCollectionScreen() {
   const sections = data?.sections ?? [];
   const allItems = data?.items ?? [];
 
-  const [query, setQuery] = useState("");
+  // Seed the in-collection search from a `q` param (e.g. arriving from universal
+  // search) so the matched hadith is already filtered into view.
+  const [query, setQuery] = useState(params.q ?? "");
   const [sectionId, setSectionId] = useState<string | null>(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
   const searching = query.trim().length > 0;
@@ -131,6 +139,7 @@ export default function HadithCollectionScreen() {
                 }}
                 placeholder={t("hadith.searchPlaceholder")}
                 placeholderTextColor={colors.mutedForeground}
+                accessibilityLabel={t("hadith.searchPlaceholder")}
                 style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
               />
               <ThemedText type="caption" themeColor="mutedForeground">
@@ -212,6 +221,12 @@ function HadithCard({
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const audio = useAudioPlayerContext();
+  const { fontPrefs } = usePreferences();
+  const arabicSize = fontPrefs.arabic.size;
+
+  const onShare = () => {
+    void Share.share({ message: hadithShareMessage(item) });
+  };
 
   return (
     <Card padding="four">
@@ -230,10 +245,11 @@ function HadithCard({
         </View>
         <View style={styles.cardActions}>
           {item.audioUri ? (
-            <Pressable
-              accessibilityRole="button"
+            <IconButton
+              name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
+              size={22}
+              tintColor={colors.accent}
               accessibilityLabel={t("common.play")}
-              hitSlop={8}
               onPress={() =>
                 item.audioUri &&
                 audio.play([
@@ -245,35 +261,38 @@ function HadithCard({
                   },
                 ])
               }
-            >
-              <SymbolView
-                name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
-                size={22}
-                tintColor={colors.accent}
-              />
-            </Pressable>
-          ) : null}
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t("hadith.bookmark")}
-            hitSlop={8}
-            onPress={onBookmark}
-          >
-            <SymbolView
-              name={
-                isBookmarked
-                  ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
-                  : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
-              }
-              size={20}
-              tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
             />
-          </Pressable>
+          ) : null}
+          <IconButton
+            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+            size={20}
+            tintColor={colors.mutedForeground}
+            accessibilityLabel={t("hadith.share")}
+            onPress={onShare}
+          />
+          <IconButton
+            name={
+              isBookmarked
+                ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+                : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
+            }
+            size={20}
+            tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+            accessibilityLabel={isBookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd")}
+            accessibilityState={{ selected: isBookmarked }}
+            onPress={onBookmark}
+          />
         </View>
       </View>
 
       {item.arabic ? (
-        <ThemedText type="arabic" style={styles.arabic}>
+        <ThemedText
+          type="arabic"
+          style={[
+            styles.arabic,
+            arabicSize ? { fontSize: arabicSize, lineHeight: arabicSize * 1.8 } : null,
+          ]}
+        >
           {item.arabic}
         </ThemedText>
       ) : null}
@@ -315,7 +334,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     flexWrap: "wrap",
   },
-  cardActions: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
+  cardActions: { flexDirection: "row", alignItems: "center", marginRight: -Spacing.two },
   arabic: { writingDirection: "rtl", textAlign: "right", fontSize: 22, lineHeight: 42 },
   narrator: { marginTop: Spacing.three, fontStyle: "italic" },
   english: { marginTop: Spacing.two },

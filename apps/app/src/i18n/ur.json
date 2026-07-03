@@ -25,7 +25,8 @@
     "count": "شمار کریں",
     "minus": "منفی",
     "set": "مقرر کریں",
-    "play": "چلائیں"
+    "play": "چلائیں",
+    "appName": "Munib Tracker"
   },
   "tabs": {
     "home": "ہوم",
@@ -42,7 +43,8 @@
     "quran": "قرآن",
     "hadith": "حدیث",
     "calendar": "کیلنڈر",
-    "stats": "اعداد و شمار"
+    "stats": "اعداد و شمار",
+    "qibla": "قبلہ"
   },
   "home": {
     "todaysGoal": "آج کا ہدف",
@@ -57,7 +59,9 @@
     "qazaRemaining": "باقی قضا",
     "qazaMeta": "اب تک {{completed}} ادا · منظم کرنے کے لیے دبائیں",
     "gentleReminder": "نرم یاد دہانی",
-    "gentleReminderBody": "کمال سے زیادہ چھوٹے اور مستقل قدم اہم ہیں۔ جو مکمل کریں اُسے درج کریں اور کل پھر لوٹ آئیں۔"
+    "gentleReminderBody": "کمال سے زیادہ چھوٹے اور مستقل قدم اہم ہیں۔ جو مکمل کریں اُسے درج کریں اور کل پھر لوٹ آئیں۔",
+    "scheduleTitle": "آج کا شیڈول",
+    "scheduleNext": "اگلی"
   },
   "tracker": {
     "eyebrow": "ٹریک اور درج کریں",
@@ -72,7 +76,8 @@
     "keepGoingShort": "لگے رہیں",
     "almostThere": "بس تھوڑا اور",
     "summaryLogged": "آج {{total}} میں سے {{completed}} فرض نمازیں درج ہو چکیں۔",
-    "streakLine": "🔥 {{count}} دن کا تسلسل"
+    "streakLine": "🔥 {{count}} دن کا تسلسل",
+    "streakLabel": "{{count}} دن کا تسلسل"
   },
   "settings": {
     "eyebrow": "اپنی پسند کے مطابق",
@@ -119,7 +124,8 @@
     "slide3Title": "اللہ کو یاد کریں",
     "slide3Body": "اذکار کا ذخیرہ اور آپ کے دن کے ہر لمحے کے لیے ایک آسان تسبیح شمار کنندہ۔",
     "slide4Title": "نرم یاد دہانیاں",
-    "slide4Body": "نماز، ذکر اور قضا کے لیے اختیاری یاد دہانیاں — ہمیشہ آپ کے اختیار میں۔"
+    "slide4Body": "نماز، ذکر اور قضا کے لیے اختیاری یاد دہانیاں — ہمیشہ آپ کے اختیار میں۔",
+    "pageOf": "صفحہ {{page}} از {{total}}"
   },
   "appearance": {
     "eyebrow": "ترتیبات",
@@ -129,12 +135,10 @@
     "modeDark": "تاریک",
     "modeSystem": "سسٹم",
     "accentTitle": "نمایاں رنگ",
-    "accentHint": "سنہری رنگ منیب کے برانڈ سے میل کھاتا ہے",
-    "customTitle": "اپنی پسند کا رنگ",
-    "customUsing": "{{hex}} استعمال ہو رہا ہے",
-    "customHint": "اپنے نمایاں رنگ کے لیے ہیکس کوڈ درج کریں",
-    "lowContrast": "کم تضاد — اس رنگ پر ہلکا متن پڑھنا مشکل ہو سکتا ہے۔",
-    "reset": "طے شدہ رنگوں پر واپس لائیں",
+    "accentHint": "پری سیٹ، پیلیٹ رنگ یا پکر سے اپنی مرضی کا رنگ منتخب کریں",
+    "accentPresets": "پری سیٹ",
+    "accentAllColors": "تمام رنگ",
+    "customColorPicker": "اپنی پسند کا رنگ",
     "preview": "جھلک",
     "sampleAction": "نمونہ عمل",
     "secondary": "ثانوی",
@@ -249,7 +253,11 @@
     "anytime": "ہر وقت کا ذکر"
   },
   "reading": {
-    "reference": "حوالہ: {{ref}}"
+    "reference": "حوالہ: {{ref}}",
+    "share": "شیئر کریں",
+    "showMore": "مزید دکھائیں",
+    "showLess": "کم دکھائیں",
+    "copied": "کلپ بورڈ پر کاپی ہو گیا"
   },
   "dua": {
     "eyebrow": "دعا",
@@ -261,7 +269,12 @@
     "detailEyebrow": "دعا",
     "notFoundTitle": "دعا نہیں ملی",
     "notFoundDesc": "ممکن ہے یہ آئٹم ہٹا دیا گیا ہو۔",
-    "share": "شیئر کریں"
+    "share": "شیئر کریں",
+    "favorite": "دعا محفوظ کریں",
+    "unfavorite": "محفوظ سے ہٹائیں",
+    "favorites": "محفوظ دعائیں",
+    "favoritesEmpty": "ابھی کوئی محفوظ دعا نہیں",
+    "viewFavorites": "محفوظ دعائیں"
   },
   "duaCat": {
     "sunnah": "سنت دعائیں",
@@ -278,7 +291,10 @@
     "title": "۹۹ نام",
     "subtitle": "اللہ کے خوبصورت ناموں میں سے {{count}}",
     "playAll": "سب چلائیں",
-    "playContinuous": "متواتر"
+    "playContinuous": "متواتر",
+    "share": "شیئر کریں",
+    "play": "تلاوت چلائیں",
+    "pause": "تلاوت روکیں"
   },
   "quran": {
     "eyebrow": "قرآنِ کریم",
@@ -313,7 +329,13 @@
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "سورہ نہیں ملی",
     "notFoundDesc": "شاید یہ سورہ موجود نہیں۔",
-    "offlineTranslation": "یہ ترجمہ ڈاؤن لوڈ کرنے کے لیے انٹرنیٹ سے جُڑیں۔ اس کے بجائے بندل شدہ ترجمہ دکھایا جا رہا ہے۔"
+    "offlineTranslation": "یہ ترجمہ ڈاؤن لوڈ کرنے کے لیے انٹرنیٹ سے جُڑیں۔ اس کے بجائے بندل شدہ ترجمہ دکھایا جا رہا ہے۔",
+    "shareAyah": "آیت شیئر کریں",
+    "pauseAyah": "آیت روکیں",
+    "bookmarkAdd": "آیت بک مارک کریں",
+    "bookmarkRemove": "بک مارک ہٹائیں",
+    "loadingTranslation": "ترجمہ لوڈ ہو رہا ہے…",
+    "searching": "تلاش ہو رہی ہے…"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",
@@ -336,7 +358,14 @@
     "notFoundTitle": "نہیں ملا",
     "notFoundDesc": "شاید یہ آئٹم ہٹا دیا گیا ہے۔",
     "bookCount": "{{count}} کتابیں",
-    "loadMore": "مزید لوڈ کریں"
+    "loadMore": "مزید لوڈ کریں",
+    "share": "حدیث شیئر کریں",
+    "bookmarkAdd": "بک مارک",
+    "bookmarkRemove": "بک مارک ہٹائیں",
+    "bookmarks": "بک مارکس",
+    "bookmarksSubtitle": "آپ کی محفوظ احادیث",
+    "bookmarksEmpty": "ابھی کوئی محفوظ حدیث نہیں",
+    "viewBookmarks": "بک مارکس دیکھیں"
   },
   "credits": {
     "eyebrow": "انتساب",
@@ -496,12 +525,38 @@
     "unlimited": "لامحدود",
     "customTitle": "اپنی پسند کا ہدف",
     "customPrompt": "آپ کتنی بار دہرانا چاہیں گے؟",
-    "customPlaceholder": "مثلاً ۳۱۳"
+    "customPlaceholder": "مثلاً ۳۱۳",
+    "modeLabel": "{{mode}}، شمار {{count}}"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} میں صرف {{min}} منٹ باقی",
     "nextPrayerAwayHours": "{{prayer}} میں {{hours}} گھنٹے {{min}} منٹ باقی",
-    "locating": "آپ کا مقام تلاش کیا جا رہا ہے…"
+    "locating": "آپ کا مقام تلاش کیا جا رہا ہے…",
+    "changeLocation": "مقام تبدیل کریں",
+    "scheduleTitle": "آج کی نمازیں",
+    "nextIn": "{{time}} میں",
+    "current": "اب",
+    "clockLabel": "{{time}}، {{countdown}}",
+    "prayerItem": "{{name}} {{time}} پر",
+    "prayerItemActive": "{{name}} {{time}} پر، موجودہ نماز"
+  },
+  "location": {
+    "eyebrow": "مقام",
+    "title": "اپنا مقام مقرر کریں",
+    "subtitle": "نماز کے اوقات اسی مقام کے حساب سے نکالے جاتے ہیں۔ کوئی بھی شہر تلاش کریں، یا اپنا موجودہ مقام استعمال کریں۔",
+    "currentTitle": "موجودہ مقام",
+    "useCurrent": "میرا موجودہ مقام استعمال کریں",
+    "locating": "آپ کا مقام معلوم کیا جا رہا ہے…",
+    "searchLabel": "شہر یا ملک تلاش کریں",
+    "searchPlaceholder": "کوئی شہر تلاش کریں…",
+    "hint": "شہر تلاش کرنے کے لیے کم از کم دو حروف لکھیں۔",
+    "noResultsTitle": "کوئی مقام نہیں ملا",
+    "noResultsDesc": "مختلف ہجے آزمائیں، یا قریبی کوئی بڑا شہر تلاش کریں۔",
+    "permissionDenied": "مقام کی اجازت بند ہے۔ اسے سیٹنگز میں آن کریں، یا اوپر اپنا شہر تلاش کریں۔",
+    "deviceError": "آپ کا موجودہ مقام معلوم نہیں ہو سکا۔ اس کے بجائے اوپر اپنا شہر تلاش کریں۔",
+    "manualBadge": "آپ کا مقرر کردہ",
+    "gpsBadge": "ڈیوائس سے",
+    "defaultBadge": "طے شدہ"
   },
   "moon": {
     "aria": "چاند کا مرحلہ: {{phase}}",
@@ -541,7 +596,8 @@
     "eyebrow": "سنگِ میل",
     "subtitle": "{{total}} میں سے {{unlocked}} حاصل",
     "share": "شیئر کریں",
-    "shareMessage": "الحمدللہ — میں نے منیب ٹریکر میں \"{{title}}\" حاصل کیا: {{description}}۔"
+    "shareMessage": "الحمدللہ — میں نے منیب ٹریکر میں \"{{title}}\" حاصل کیا: {{description}}۔",
+    "unlockedToast": "کامیابی حاصل ہوئی: {{name}}"
   },
   "notifCenter": {
     "eyebrow": "یاد دہانیاں",
@@ -564,7 +620,14 @@
     "webHint": "براؤزر میں کمپاس سینسر دستیاب نہیں۔ تیر شمال سے قبلہ کی سمت دکھاتا ہے — درست کرنے کے لیے حقیقی کمپاس استعمال کریں۔",
     "noCompassHint": "کوئی کمپاس سینسر نہیں ملا۔ تیر حقیقی شمال سے، گھڑی کی سمت ماپی گئی قبلہ کی سمت دکھاتا ہے۔",
     "calibrateHint": "درستی کے لیے، اپنا آلہ سیدھا پکڑیں اور دھات و مقناطیس سے دور، آٹھ (8) کی شکل میں گھمائیں تاکہ کمپاس کیلیبریٹ ہو۔",
-    "tryAgain": "دوبارہ کوشش کریں"
+    "tryAgain": "دوبارہ کوشش کریں",
+    "compassLabel": "قبلہ کمپاس",
+    "compassValue": "کعبہ کی طرف {{bearing}} درجے، {{distance}} کے فاصلے پر",
+    "aligned": "قبلہ کے ساتھ ہم رخ",
+    "cardinalN": "شمال",
+    "cardinalE": "مشرق",
+    "cardinalS": "جنوب",
+    "cardinalW": "مغرب"
   },
   "profile": {
     "eyebrow": "اکاؤنٹ",
@@ -583,13 +646,47 @@
     "appLanguage": "ایپ کی زبان",
     "translationLanguage": "ترجمے کی زبان",
     "translationHint": "عربی دینی متن کے معنی کے لیے استعمال ہوتی ہے۔",
-    "footer": "انٹرفیس کا مزید حصہ بتدریج ترجمہ کیا جا رہا ہے۔ عربی کے انتخاب سے، جہاں معاون ہو، دائیں سے بائیں ترتیب فعال ہو جاتی ہے۔"
+    "footer": "انٹرفیس کا مزید حصہ بتدریج ترجمہ کیا جا رہا ہے۔ عربی کے انتخاب سے، جہاں معاون ہو، دائیں سے بائیں ترتیب فعال ہو جاتی ہے۔",
+    "eyebrow": "ترتیبات",
+    "subtitle": "ایپ اور ترجمے کی زبان"
+  },
+  "about": {
+    "eyebrow": "ترتیبات",
+    "title": "متعلق",
+    "subtitle": "کریڈٹس، صداقت اور پالیسیاں",
+    "version": "ورژن {{version}}",
+    "credits": "کریڈٹس",
+    "authorLabel": "مصنف",
+    "authorValue": "منیب ٹریکر ٹیم",
+    "collaboratorsLabel": "معاونین",
+    "collaboratorsValue": "کمیونٹی کے تعاون کنندگان",
+    "duaTitle": "ایک دعا",
+    "duaBody": "اللہ ہر اُس شخص کی کوششیں قبول فرمائے جس نے تعاون کیا، اُن کی کوتاہیاں معاف فرمائے اور اُن کے مرحومین پر رحم فرمائے۔ آمین۔",
+    "authenticityTitle": "مواد کی صداقت",
+    "authenticityBody": "اذکار اور دعائیں معروف مجموعوں سے لی گئی ہیں اور وسیع پیمانے پر شائع شدہ متون کے قریب رکھی گئی ہیں۔ کسی مخصوص حکم یا تعداد پر انحصار سے پہلے براہِ کرم کسی معتبر عالم یا ماخذ سے تصدیق کر لیں۔",
+    "privacyPolicy": "پرائیویسی پالیسی",
+    "termsOfService": "سروس کی شرائط"
   },
   "player": {
     "nowPlaying": "چل رہا ہے",
     "upNext": "اگلا",
     "remaining": "{{count}} باقی",
     "trackOf": "{{total}} میں سے {{current}}",
-    "goToScreen": "پڑھنے کی اسکرین پر جائیں"
+    "goToScreen": "پڑھنے کی اسکرین پر جائیں",
+    "play": "چلائیں",
+    "pause": "روکیں",
+    "next": "اگلا ٹریک",
+    "previous": "پچھلا ٹریک",
+    "close": "پلیئر بند کریں",
+    "collapse": "سمیٹیں",
+    "expand": "پلیئر کھولیں",
+    "speed": "چلانے کی رفتار",
+    "speedValue": "رفتار {{value}}×",
+    "loopOff": "دہرانا بند",
+    "loopAll": "سب دہرائیں",
+    "loopOne": "ایک بار دہرائیں",
+    "seek": "چلانے کا مقام",
+    "buffering": "بفر ہو رہا ہے…",
+    "loading": "لوڈ ہو رہا ہے…"
   }
 }

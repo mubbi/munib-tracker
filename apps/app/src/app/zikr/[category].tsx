@@ -46,6 +46,7 @@ export default function ZikrCategoryScreen() {
                 <ZikrRow
                   key={item.id}
                   item={item}
+                  expandable
                   isFavorite={favoriteIds.includes(item.id)}
                   onToggleFavorite={() => toggleFavorite(item.id)}
                   onPress={() =>

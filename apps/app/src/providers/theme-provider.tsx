@@ -1,4 +1,5 @@
-import { accentColorIds, defaultAccentColorId } from "@munib-tracker/theme/accents";
+import { defaultAccentColorId, resolveAccentColorId } from "@munib-tracker/theme/accents";
+import { accentOnSurface, bestForeground, ensureContrastAgainst } from "@munib-tracker/theme/color";
 import { resolveTheme } from "@munib-tracker/theme/resolve";
 import type { AccentColorId, ColorMode, ThemeColors } from "@munib-tracker/theme/types";
 import { STORAGE_KEYS } from "@munib-tracker/theme/types";
@@ -16,7 +17,7 @@ import {
 } from "react";
 import { useColorScheme } from "react-native";
 
-import { normalizeHex, readableForeground } from "@/lib/color";
+import { normalizeHex } from "@/lib/color";
 
 interface ThemeContextValue {
   colors: ThemeColors;
@@ -39,10 +40,6 @@ const CUSTOM_ACCENT_KEY = "@munib-tracker/custom-accent";
 
 function isColorMode(value: string | null): value is ColorMode {
   return value === "light" || value === "dark" || value === "system";
-}
-
-function isAccentColorId(value: string | null): value is AccentColorId {
-  return value !== null && accentColorIds.includes(value as AccentColorId);
 }
 
 export function MunibThemeProvider({ children }: { children: ReactNode }) {
@@ -71,8 +68,12 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
           setColorModeState(storedMode);
         }
 
-        if (isAccentColorId(storedAccent)) {
-          setAccentColorIdState(storedAccent);
+        const resolvedAccent = resolveAccentColorId(storedAccent);
+        if (resolvedAccent) {
+          setAccentColorIdState(resolvedAccent);
+          if (storedAccent !== resolvedAccent) {
+            void AsyncStorage.setItem(STORAGE_KEYS.accent, resolvedAccent);
+          }
         }
 
         if (storedCustom && normalizeHex(storedCustom)) {
@@ -107,10 +108,21 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
       accentColorId,
     );
     if (customAccent) {
-      return { ...base, accent: customAccent, accentForeground: readableForeground(customAccent) };
+      const textSurface = scheme === "dark" ? base.card : base.background;
+      // Presets ship hand-tuned light/dark pairs; a custom hex is a single
+      // colour, so give it the same adaptation — rescue near-white accents in
+      // light mode and near-black accents in dark mode so `accent` stays visible
+      // wherever it's used as a fill/icon on the page background.
+      const accent = ensureContrastAgainst(customAccent, base.background, 3);
+      return {
+        ...base,
+        accent,
+        accentForeground: bestForeground(accent),
+        accentText: accentOnSurface(accent, textSurface),
+      };
     }
     return base;
-  }, [accentColorId, colorMode, systemScheme, customAccent]);
+  }, [accentColorId, colorMode, systemScheme, customAccent, scheme]);
 
   useEffect(() => {
     void SystemUI.setBackgroundColorAsync(colors.background);

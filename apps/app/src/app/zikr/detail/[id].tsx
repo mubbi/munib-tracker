@@ -1,7 +1,9 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, View } from "react-native";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
@@ -11,6 +13,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatReadingShare } from "@/lib/share";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 import { useZikrCount } from "@/stores/tracker-store";
@@ -19,10 +22,12 @@ export default function ZikrDetailScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ id: string }>();
+  const { colors } = useThemeTokens();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
   const item = params.id ? getZikrById(params.id) : undefined;
   const count = useZikrCount(item?.id ?? "");
+  const [toast, setToast] = useState<string | null>(null);
 
   if (!item) {
     return (
@@ -42,10 +47,29 @@ export default function ZikrDetailScreen() {
   const isFavorite = favoriteIds.includes(item.id);
   const target = item.targetCount ?? 0;
 
+  const showToast = (message: string) => {
+    setToast(message);
+    setTimeout(() => setToast(null), 2000);
+  };
+
   const onShare = async () => {
-    if (Platform.OS === "web") return;
+    const message = formatReadingShare(item);
+    if (Platform.OS === "web") {
+      const nav = typeof navigator !== "undefined" ? navigator : undefined;
+      try {
+        if (nav?.share) {
+          await nav.share({ text: message });
+        } else if (nav?.clipboard?.writeText) {
+          await nav.clipboard.writeText(message);
+          showToast(t("reading.copied"));
+        }
+      } catch {
+        // user cancelled or share/clipboard unavailable
+      }
+      return;
+    }
     try {
-      await Share.share({ message: formatReadingShare(item) });
+      await Share.share({ message });
     } catch {
       // user cancelled or share unavailable
     }
@@ -93,17 +117,26 @@ export default function ZikrDetailScreen() {
               onPress={() => toggleFavorite(item.id)}
               style={styles.flex}
             />
-            {Platform.OS !== "web" ? (
-              <Button
-                label={t("zikr.share")}
-                variant="ghost"
-                icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                onPress={onShare}
-                style={styles.flex}
-              />
-            ) : null}
+            <Button
+              label={t("zikr.share")}
+              variant="ghost"
+              icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+              onPress={onShare}
+              style={styles.flex}
+            />
           </View>
         </View>
+
+        {toast ? (
+          <Animated.View
+            entering={FadeIn.duration(160)}
+            style={[styles.toast, { backgroundColor: colors.foreground }]}
+          >
+            <ThemedText type="small" style={{ color: colors.background }}>
+              {toast}
+            </ThemedText>
+          </Animated.View>
+        ) : null}
       </Stagger>
     </ScreenLayout>
   );
@@ -125,5 +158,12 @@ const styles = StyleSheet.create({
   },
   flex: {
     flex: 1,
+  },
+  toast: {
+    alignSelf: "center",
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.four,
+    borderRadius: 999,
+    borderCurve: "continuous",
   },
 });

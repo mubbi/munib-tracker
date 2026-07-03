@@ -28,6 +28,11 @@ export function normalizeHex(hex: string): string | null {
   return `#${toHex(rgb.r)}${toHex(rgb.g)}${toHex(rgb.b)}`;
 }
 
+/** Normalises to #RRGGBB for color picker value (falls back to black). */
+export function normalizeHexForPicker(color: string): string {
+  return normalizeHex(color) ?? "#000000";
+}
+
 function channel(value: number): number {
   const c = value / 255;
   return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;

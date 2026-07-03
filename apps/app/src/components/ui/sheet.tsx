@@ -36,6 +36,11 @@ export function Sheet({
       onRequestClose={onClose}
     >
       <Pressable
+        // Intentionally NOT accessibilityRole="button": on react-native-web a
+        // button role renders a real <button>, which would wrap the dialog's
+        // own buttons and trigger a nested-<button> DOM error. This is just a
+        // tap-to-dismiss backdrop; keyboard users close via Escape (handled by
+        // Modal's onRequestClose).
         style={[
           styles.scrim,
           isBottom ? styles.scrimBottom : styles.scrimCenter,
@@ -44,6 +49,7 @@ export function Sheet({
         onPress={onClose}
       >
         <Pressable
+          accessibilityViewIsModal
           style={[
             isBottom ? styles.bottomCard : styles.centerCard,
             { backgroundColor: colors.card, borderColor: colors.border },
@@ -51,7 +57,7 @@ export function Sheet({
           ]}
           onPress={(event) => event.stopPropagation()}
         >
-          {isBottom ? <View style={styles.handle} /> : null}
+          {isBottom ? <View style={[styles.handle, { backgroundColor: tokens.track }]} /> : null}
           {children}
         </Pressable>
       </Pressable>
@@ -94,7 +100,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: "rgba(128,128,128,0.4)",
     marginBottom: Spacing.two,
   },
 });

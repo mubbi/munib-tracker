@@ -5,6 +5,7 @@ import { useReducedMotion } from "react-native-reanimated";
 import { ThemedText } from "@/components/themed-text";
 import { Shadows } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { gradientBackground } from "@/lib/gradient";
 
 type ProgressRingProps = {
   /** Progress from 0 to 1. */
@@ -108,10 +109,10 @@ export function ProgressRing({
       <View
         style={[
           StyleSheet.absoluteFill,
-          {
-            borderRadius: size / 2,
-            experimental_backgroundImage: `conic-gradient(${fill} 0deg ${deg}deg, transparent ${deg}deg 360deg)`,
-          },
+          { borderRadius: size / 2 },
+          gradientBackground(
+            `conic-gradient(${fill} 0deg ${deg}deg, transparent ${deg}deg 360deg)`,
+          ),
         ]}
       >
         <View

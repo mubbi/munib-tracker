@@ -1,47 +1,24 @@
 import { useRouter } from "expo-router";
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useState } from "react";
+import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
-import type { OAuthProvider } from "@/api/endpoints";
+import { StyleSheet, View } from "react-native";
+import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
+import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { Brand, Radius, Spacing } from "@/constants/theme";
+import { gradientBackground } from "@/lib/gradient";
 import { useAuth } from "@/providers/auth-provider";
-
-const PROVIDERS: { id: OAuthProvider; icon: SymbolViewProps["name"] }[] = [
-  { id: "google", icon: { ios: "g.circle.fill", android: "login", web: "login" } },
-  { id: "apple", icon: { ios: "apple.logo", android: "login", web: "login" } },
-  { id: "facebook", icon: { ios: "f.circle.fill", android: "login", web: "login" } },
-];
 
 export default function LoginScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const { isGuest, linkProvider, signInWithProvider } = useAuth();
-  const [busy, setBusy] = useState<OAuthProvider | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { isGuest } = useAuth();
 
-  const connect = async (provider: OAuthProvider) => {
-    setBusy(provider);
-    setError(null);
-    try {
-      // Real provider tokens (via expo-auth-session) would be passed here when
-      // client IDs are configured; the API completes the exchange server-side.
-      if (isGuest) await linkProvider(provider);
-      else await signInWithProvider(provider);
-      if (router.canGoBack()) router.back();
-    } catch {
-      setError(t("login.error"));
-    } finally {
-      setBusy(null);
-    }
+  const onSignedIn = () => {
+    if (router.canGoBack()) router.back();
   };
 
   return (
@@ -52,49 +29,32 @@ export default function LoginScreen() {
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
-        <Card style={styles.hero}>
-          <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
+        <View
+          style={[
+            styles.hero,
+            gradientBackground(
+              `linear-gradient(150deg, ${Brand.heroTop} 0%, ${Brand.heroGlow} 55%, ${Brand.heroBottom} 100%)`,
+            ),
+          ]}
+        >
+          {/* Branded splash header so the highest-intent screen matches the intro. */}
+          <MosqueSilhouette color={Brand.heroBottom} opacity={0.4} scale={1.15} />
+          <View style={[styles.badge, { backgroundColor: Brand.onHeroStrongSurface }]}>
             <SymbolView
-              name={{ ios: "icloud.fill", android: "cloud", web: "cloud" }}
+              name={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
               size={30}
-              tintColor={colors.accent}
+              tintColor={Brand.heroAccent}
             />
           </View>
-          <ThemedText type="small" themeColor="mutedForeground" style={styles.heroText}>
+          <ThemedText type="title" style={[styles.wordmark, { color: Brand.heroText }]}>
+            {t("common.appName")}
+          </ThemedText>
+          <ThemedText type="small" style={[styles.heroText, { color: Brand.heroSubtext }]}>
             {isGuest ? t("login.heroGuest") : t("login.heroUser")}
           </ThemedText>
-        </Card>
-
-        <View style={styles.providers}>
-          {PROVIDERS.map((provider) => (
-            <PressableScale
-              key={provider.id}
-              haptic="light"
-              disabled={busy !== null}
-              onPress={() => connect(provider.id)}
-              style={[
-                styles.providerButton,
-                { backgroundColor: colors.card, borderColor: colors.border },
-              ]}
-            >
-              {busy === provider.id ? (
-                <ActivityIndicator color={colors.accent} />
-              ) : (
-                <SymbolView name={provider.icon} size={20} tintColor={colors.foreground} />
-              )}
-              <ThemedText type="smallBold">{t(`login.${provider.id}`)}</ThemedText>
-            </PressableScale>
-          ))}
         </View>
 
-        {error ? (
-          <ThemedText
-            type="caption"
-            style={{ color: tokens.status.danger.color, textAlign: "center" }}
-          >
-            {error}
-          </ThemedText>
-        ) : null}
+        <SocialLoginButtons onSuccess={onSignedIn} />
 
         <Button
           label={t("common.continueAsGuest")}
@@ -110,8 +70,15 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   hero: {
     alignItems: "center",
-    gap: Spacing.three,
-    paddingVertical: Spacing.four,
+    gap: Spacing.two,
+    paddingVertical: Spacing.five,
+    paddingHorizontal: Spacing.four,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    overflow: "hidden",
+  },
+  wordmark: {
+    textAlign: "center",
   },
   badge: {
     width: 64,
@@ -124,18 +91,5 @@ const styles = StyleSheet.create({
   heroText: {
     textAlign: "center",
     maxWidth: 300,
-  },
-  providers: {
-    gap: Spacing.two,
-  },
-  providerButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.three,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
   },
 });

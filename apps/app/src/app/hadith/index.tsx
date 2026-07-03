@@ -63,6 +63,20 @@ export default function HadithHomeScreen() {
             ))}
           </View>
         </Card>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("hadith.bookmarks")}
+            icon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+          />
+          <View style={styles.list}>
+            <NavRow
+              icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
+              label={t("hadith.viewBookmarks")}
+              onPress={() => router.push("/hadith/bookmarks")}
+            />
+          </View>
+        </Card>
       </Stagger>
     </ScreenLayout>
   );

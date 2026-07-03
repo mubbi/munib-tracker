@@ -38,6 +38,12 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Munib Tracker uses your location to calculate accurate prayer times and the qibla direction for where you are."
+        }
       ]
     ],
     "experiments": {

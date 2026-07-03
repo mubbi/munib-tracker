@@ -67,10 +67,13 @@ export function TrackerRow({
       ]}
     >
       <Animated.View
-        pointerEvents="none"
         style={[
           styles.highlight,
-          { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
+          {
+            backgroundColor: tokens.accentSoft,
+            borderColor: tokens.accentBorder,
+            pointerEvents: "none",
+          },
           highlightStyle,
         ]}
       />

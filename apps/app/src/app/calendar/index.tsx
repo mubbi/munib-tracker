@@ -1,3 +1,4 @@
+import type { AppLocale } from "@munib-tracker/shared/types";
 import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -9,20 +10,37 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { PrayerRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { buildMonthGrid, monthLabel, WEEKDAYS } from "@/lib/calendar";
+import {
+  buildHijriMonthGrid,
+  buildMonthGrid,
+  localizedMonthLabel,
+  localizedWeekdayInitials,
+} from "@/lib/calendar";
+import { formatHijriDate, gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
+
+type CalendarMode = "gregorian" | "hijri";
 
 export default function CalendarScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const now = new Date();
+  const todayHijri = gregorianToHijri(now);
+  const [mode, setMode] = useState<CalendarMode>("gregorian");
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth());
+  const [hYear, setHYear] = useState(todayHijri.year);
+  const [hMonth, setHMonth] = useState(todayHijri.month);
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
+
+  const base = i18n.language?.split("-")[0];
+  const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
+  const bcp47 = locale === "ar" ? "ar" : locale === "ur" ? "ur" : "en-US";
 
   useFocusEffect(
     useCallback(() => {
@@ -36,10 +54,47 @@ export default function CalendarScreen() {
     }, []),
   );
 
-  const weeks = buildMonthGrid(year, month);
   const today = getLocalDateString();
+  const weeks =
+    mode === "hijri" ? buildHijriMonthGrid(hYear, hMonth, today) : buildMonthGrid(year, month);
+  const label =
+    mode === "hijri"
+      ? hijriMonthLabel(hYear, hMonth, locale)
+      : localizedMonthLabel(year, month, i18n.language ?? "en");
+  const weekdays = localizedWeekdayInitials(i18n.language ?? "en");
+
+  // Localized, screen-reader-friendly label for a day cell: the full date in the
+  // active calendar plus its worship status (prayed / partial / missed / today).
+  const describeDay = (date: string, isToday: boolean) => {
+    const parsed = new Date(`${date}T00:00:00`);
+    const dateText =
+      mode === "hijri"
+        ? formatHijriDate(parsed, locale)
+        : parsed.toLocaleDateString(bcp47, {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+    const info = activity.get(date);
+    let statusText: string | null;
+    if (date > today) statusText = t("calDay.futureSubtitle");
+    else if ((info?.level ?? 0) >= 1) statusText = t("calendar.prayed");
+    else if ((info?.level ?? 0) > 0) statusText = t("calendar.partial");
+    else if ((info?.missed ?? 0) > 0) statusText = t("calendar.missed");
+    else statusText = null; // past/current day with no logged worship yet
+    const todayPrefix = isToday ? `${t("calDay.today")}, ` : "";
+    return statusText ? `${todayPrefix}${dateText}, ${statusText}` : `${todayPrefix}${dateText}`;
+  };
 
   const shift = (delta: number) => {
+    if (mode === "hijri") {
+      // hMonth is 1-based; normalize across year boundaries.
+      const zeroBased = hMonth - 1 + delta;
+      setHYear(hYear + Math.floor(zeroBased / 12));
+      setHMonth((((zeroBased % 12) + 12) % 12) + 1);
+      return;
+    }
     const next = new Date(year, month + delta, 1);
     setYear(next.getFullYear());
     setMonth(next.getMonth());
@@ -53,6 +108,15 @@ export default function CalendarScreen() {
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
+        <SegmentedControl<CalendarMode>
+          options={[
+            { id: "gregorian", label: t("calendar.gregorian") },
+            { id: "hijri", label: t("calendar.hijri") },
+          ]}
+          value={mode}
+          onChange={setMode}
+        />
+
         <Card padding="three">
           <View style={styles.header}>
             <NavButton
@@ -60,7 +124,7 @@ export default function CalendarScreen() {
               label={t("calendar.prevMonth")}
               onPress={() => shift(-1)}
             />
-            <ThemedText type="subtitle">{monthLabel(year, month)}</ThemedText>
+            <ThemedText type="subtitle">{label}</ThemedText>
             <NavButton
               icon={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
               label={t("calendar.nextMonth")}
@@ -69,7 +133,7 @@ export default function CalendarScreen() {
           </View>
 
           <View style={styles.weekRow}>
-            {WEEKDAYS.map((weekday) => (
+            {weekdays.map((weekday) => (
               <View key={weekday.key} style={styles.cell}>
                 <ThemedText type="caption" themeColor="mutedForeground">
                   {weekday.label}
@@ -95,9 +159,13 @@ export default function CalendarScreen() {
                     key={day.date}
                     disabled={disabled}
                     accessibilityRole="button"
-                    accessibilityLabel={day.date}
+                    accessibilityLabel={describeDay(day.date, day.isToday)}
+                    accessibilityState={{ disabled }}
                     onPress={() =>
-                      router.push({ pathname: "/calendar/[date]", params: { date: day.date } })
+                      router.push({
+                        pathname: "/calendar/[date]",
+                        params: { date: day.date, calendar: mode },
+                      })
                     }
                     style={styles.cell}
                   >

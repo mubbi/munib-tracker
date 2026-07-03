@@ -1,10 +1,14 @@
+import { accentOnSurface } from "@munib-tracker/theme/color";
 import { useMemo } from "react";
 
 import { Brand, type StatusKey, StatusPalette, withAlpha } from "@/constants/theme";
 import { useTheme } from "@/providers/theme-provider";
 
 export type StatusToken = {
+  /** Raw status hue — use for fills, icons, borders (not small text). */
   color: string;
+  /** AA-passing tone for status-coloured TEXT on a card/background surface. */
+  text: string;
   soft: string;
   border: string;
 };
@@ -29,11 +33,13 @@ export function useThemeTokens() {
   const tokens = useMemo(() => {
     const isDark = scheme === "dark";
 
+    const textSurface = isDark ? colors.card : colors.background;
     const status = Object.fromEntries(
       (Object.keys(StatusPalette) as StatusKey[]).map((key) => [
         key,
         {
           color: StatusPalette[key],
+          text: accentOnSurface(StatusPalette[key], textSurface),
           soft: withAlpha(StatusPalette[key], isDark ? 0.22 : 0.14),
           border: withAlpha(StatusPalette[key], isDark ? 0.4 : 0.28),
         } satisfies StatusToken,
@@ -56,7 +62,7 @@ export function useThemeTokens() {
       hero: Brand,
       status,
     };
-  }, [colors.accent, colors.card, colors.foreground, colors.muted, scheme]);
+  }, [colors.accent, colors.background, colors.card, colors.foreground, colors.muted, scheme]);
 
   return {
     colors,

@@ -1,4 +1,3 @@
-import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
 import { Platform } from "react-native";
@@ -39,14 +38,19 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isNative) return;
-    const subscription = Notifications.addNotificationResponseReceivedListener((response) => {
-      if (response.actionIdentifier === SNOOZE_ACTION_IDENTIFIER) {
-        void snoozeNotification(response);
-        return;
-      }
-      router.push("/notifications");
+    // Import lazily so the web bundle never loads `expo-notifications` (its
+    // module-load push-token auto-registration logs an unsupported-on-web warning).
+    let subscription: { remove: () => void } | undefined;
+    void import("expo-notifications").then((Notifications) => {
+      subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+        if (response.actionIdentifier === SNOOZE_ACTION_IDENTIFIER) {
+          void snoozeNotification(response);
+          return;
+        }
+        router.push("/notifications");
+      });
     });
-    return () => subscription.remove();
+    return () => subscription?.remove();
   }, [router]);
 
   return <>{children}</>;

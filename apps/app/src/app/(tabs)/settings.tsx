@@ -17,7 +17,10 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
-  const { isGuest, user } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  // A null/offline session isn't "guest" per the API, but the user still has no
+  // linked account — treat them as a guest until they're a real authenticated user.
+  const isGuest = !isAuthenticated;
 
   return (
     <ScreenLayout

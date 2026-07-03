@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { type PrayerTime, PrayerTimesHero } from "@/components/prayer-times-hero";
+import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -14,47 +14,16 @@ import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { Stagger } from "@/components/ui/stagger";
 import { StatCard } from "@/components/ui/stat-card";
-import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
+import { BottomTabInset, MaxContentWidth, Radius, Spacing } from "@/constants/theme";
+import { useHomeHero } from "@/hooks/use-home-hero";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useLocationActions } from "@/stores/location-store";
 import {
   useDailySummary,
   useQazaSummary,
   useStreak,
   useTrackerActions,
 } from "@/stores/tracker-store";
-
-const PRAYERS: PrayerTime[] = [
-  {
-    name: "Fajr",
-    time: "4:50",
-    icon: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
-  },
-  {
-    name: "Sunrise",
-    time: "6:12",
-    icon: { ios: "sun.horizon.fill", android: "wb_sunny", web: "wb_sunny" },
-  },
-  {
-    name: "Dhuhr",
-    time: "11:48",
-    icon: { ios: "sun.max.fill", android: "light_mode", web: "light_mode" },
-  },
-  {
-    name: "Asr",
-    time: "15:05",
-    icon: { ios: "cloud.sun.fill", android: "wb_cloudy", web: "wb_cloudy" },
-  },
-  {
-    name: "Maghrib",
-    time: "17:06",
-    icon: { ios: "sunset.fill", android: "wb_twilight", web: "wb_twilight" },
-  },
-  {
-    name: "Isha",
-    time: "18:28",
-    icon: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
-  },
-];
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -65,14 +34,9 @@ export default function HomeScreen() {
   const streak = useStreak();
   const qaza = useQazaSummary();
   const { refresh } = useTrackerActions();
+  const location = useLocationActions();
+  const hero = useHomeHero();
   const [refreshing, setRefreshing] = useState(false);
-
-  const now = new Date();
-  const currentTime = now.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
 
   const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
   const tasksTotal = summary.salahTotal + summary.zikrTotal;
@@ -82,7 +46,7 @@ export default function HomeScreen() {
   const onRefresh = async () => {
     setRefreshing(true);
     try {
-      await refresh();
+      await Promise.all([refresh(), location.refresh()]);
     } finally {
       setRefreshing(false);
     }
@@ -93,36 +57,42 @@ export default function HomeScreen() {
       id: "checklist",
       label: t("actions.checklist"),
       icon: { ios: "checklist", android: "checklist", web: "checklist" },
+      tint: tokens.status.success.color,
       onPress: () => router.push("/tracker"),
     },
     {
       id: "zikr",
       label: t("actions.zikr"),
       icon: { ios: "heart.fill", android: "favorite", web: "favorite" },
+      tint: tokens.status.danger.color,
       onPress: () => router.push("/zikr"),
     },
     {
       id: "tasbeeh",
       label: t("actions.tasbeeh"),
-      icon: { ios: "circle.hexagongrid.fill", android: "hive", web: "hive" },
+      icon: { ios: "hand.tap.fill", android: "touch_app", web: "touch_app" },
+      tint: colors.accent,
       onPress: () => router.push("/tasbeeh/free"),
     },
     {
       id: "qaza",
       label: t("actions.qaza"),
       icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
+      tint: tokens.status.warning.color,
       onPress: () => router.push("/qaza"),
     },
     {
       id: "quran",
       label: t("actions.quran"),
       icon: { ios: "book.fill", android: "menu_book", web: "menu_book" },
+      tint: colors.accent,
       onPress: () => router.push("/quran"),
     },
     {
       id: "hadith",
       label: t("actions.hadith"),
       icon: { ios: "text.book.closed.fill", android: "auto_stories", web: "auto_stories" },
+      tint: tokens.status.info.color,
       onPress: () => router.push("/hadith"),
     },
     {
@@ -133,24 +103,35 @@ export default function HomeScreen() {
         android: "volunteer_activism",
         web: "volunteer_activism",
       },
+      tint: tokens.status.danger.color,
       onPress: () => router.push("/dua"),
     },
     {
       id: "names",
       label: t("actions.names"),
       icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
+      tint: colors.accent,
       onPress: () => router.push("/names-of-allah"),
+    },
+    {
+      id: "qibla",
+      label: t("actions.qibla"),
+      icon: { ios: "location.north.line.fill", android: "explore", web: "explore" },
+      tint: tokens.status.info.color,
+      onPress: () => router.push("/qibla"),
     },
     {
       id: "calendar",
       label: t("actions.calendar"),
       icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
+      tint: tokens.status.warning.color,
       onPress: () => router.push("/calendar"),
     },
     {
       id: "stats",
       label: t("actions.stats"),
       icon: { ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" },
+      tint: tokens.status.success.color,
       onPress: () => router.push("/statistics"),
     },
   ];
@@ -170,16 +151,20 @@ export default function HomeScreen() {
       >
         <View style={styles.column}>
           <PrayerTimesHero
-            location="Sylhet, Bangladesh"
-            hijriDate="Jumada al-Akhira 15, 1446 AH"
-            currentTime={currentTime}
-            nextPrayer={t("prayers.maghrib")}
-            minutesToNext={27}
-            prayers={PRAYERS}
-            activeIndex={4}
+            location={hero.location}
+            hijriDate={hero.hijriDate}
+            currentTime={hero.currentTime}
+            countdown={hero.countdown}
+            prayers={hero.prayers}
+            activeIndex={hero.activeIndex}
             topInset={insets.top}
-            notificationCount={2}
+            sky={hero.sky}
+            now={hero.now}
+            moonLabel={hero.moonLabel}
+            windowProgress={hero.windowProgress}
+            onSearchPress={() => router.push("/search")}
             onNotificationsPress={() => router.push("/notifications")}
+            onLocationPress={() => router.push("/location")}
           />
 
           <View style={styles.body}>
@@ -220,6 +205,56 @@ export default function HomeScreen() {
                   }}
                   onPress={() => router.push("/tracker")}
                 />
+              </Card>
+
+              <Card>
+                <ThemedText type="subtitle" style={styles.scheduleTitle}>
+                  {t("home.scheduleTitle")}
+                </ThemedText>
+                <View>
+                  {hero.schedule.map((item) => (
+                    <View
+                      key={item.id}
+                      accessibilityRole="text"
+                      accessibilityLabel={t(
+                        item.active ? "hero.prayerItemActive" : "hero.prayerItem",
+                        { name: item.name, time: item.time },
+                      )}
+                      style={[
+                        styles.scheduleRow,
+                        {
+                          borderLeftColor: item.active ? colors.accent : "transparent",
+                          backgroundColor: item.active ? tokens.accentSoft : "transparent",
+                        },
+                      ]}
+                    >
+                      <ThemedText
+                        type={item.active ? "smallBold" : "small"}
+                        style={item.active ? { color: colors.accentText } : undefined}
+                        themeColor={item.active ? undefined : "mutedForeground"}
+                      >
+                        {item.name}
+                      </ThemedText>
+                      <View style={styles.scheduleRight}>
+                        {item.active ? (
+                          <ThemedText type="caption" style={{ color: colors.accentText }}>
+                            {hero.nextIn}
+                          </ThemedText>
+                        ) : null}
+                        <ThemedText
+                          type={item.active ? "smallBold" : "small"}
+                          style={[
+                            styles.scheduleTime,
+                            item.active ? { color: colors.accentText } : undefined,
+                          ]}
+                          themeColor={item.active ? undefined : "foreground"}
+                        >
+                          {item.time}
+                        </ThemedText>
+                      </View>
+                    </View>
+                  ))}
+                </View>
               </Card>
 
               <View style={styles.statsRow}>
@@ -296,6 +331,25 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.three,
   },
   goalTitle: { flex: 1, gap: 2 },
+  scheduleTitle: { marginBottom: Spacing.two },
+  scheduleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.three,
+    paddingVertical: Spacing.two,
+    paddingRight: Spacing.two,
+    paddingLeft: Spacing.two + 2,
+    borderLeftWidth: 3,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+  },
+  scheduleRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  scheduleTime: { fontVariant: ["tabular-nums"] },
   goalProgress: { gap: Spacing.two, marginBottom: Spacing.four },
   statsRow: { flexDirection: "row", gap: Spacing.two },
   qazaCard: { flexDirection: "row", alignItems: "center", gap: Spacing.three },

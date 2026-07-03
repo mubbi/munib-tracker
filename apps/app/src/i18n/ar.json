@@ -25,7 +25,8 @@
     "count": "عدّ",
     "minus": "ناقص",
     "set": "تعيين",
-    "play": "تشغيل"
+    "play": "تشغيل",
+    "appName": "Munib Tracker"
   },
   "tabs": {
     "home": "الرئيسية",
@@ -42,7 +43,8 @@
     "quran": "القرآن",
     "hadith": "الحديث",
     "calendar": "التقويم",
-    "stats": "الإحصاءات"
+    "stats": "الإحصاءات",
+    "qibla": "القبلة"
   },
   "home": {
     "todaysGoal": "هدف اليوم",
@@ -57,7 +59,9 @@
     "qazaRemaining": "القضاء المتبقّي",
     "qazaMeta": "تم قضاء {{completed}} حتى الآن · اضغط للإدارة",
     "gentleReminder": "تذكير لطيف",
-    "gentleReminderBody": "الخطوات الصغيرة الثابتة أهمّ من الكمال. سجّل ما تُتمّه وعُد غداً."
+    "gentleReminderBody": "الخطوات الصغيرة الثابتة أهمّ من الكمال. سجّل ما تُتمّه وعُد غداً.",
+    "scheduleTitle": "جدول اليوم",
+    "scheduleNext": "التالية"
   },
   "tracker": {
     "eyebrow": "سجّل وتابِع",
@@ -72,7 +76,8 @@
     "keepGoingShort": "واصِل",
     "almostThere": "اقتربت من الإتمام",
     "summaryLogged": "سُجّلت {{completed}} من {{total}} صلوات فرض اليوم.",
-    "streakLine": "🔥 تتابع {{count}} يوم"
+    "streakLine": "🔥 تتابع {{count}} يوم",
+    "streakLabel": "تتابع {{count}} يوم"
   },
   "settings": {
     "eyebrow": "خصّص",
@@ -119,7 +124,8 @@
     "slide3Title": "اذكر الله",
     "slide3Body": "مكتبة أذكار وعدّاد تسبيح سهل لكل لحظة من يومك.",
     "slide4Title": "تذكيرات لطيفة",
-    "slide4Body": "تنبيهات اختيارية للصلاة والذكر والقضاء — دائماً بين يديك."
+    "slide4Body": "تنبيهات اختيارية للصلاة والذكر والقضاء — دائماً بين يديك.",
+    "pageOf": "الصفحة {{page}} من {{total}}"
   },
   "appearance": {
     "eyebrow": "الإعدادات",
@@ -129,12 +135,10 @@
     "modeDark": "داكن",
     "modeSystem": "النظام",
     "accentTitle": "اللون المميّز",
-    "accentHint": "الذهبي يوافق هوية منيب",
-    "customTitle": "لون مخصّص",
-    "customUsing": "يُستخدم {{hex}}",
-    "customHint": "أدخل رمزاً سداسياً للونك المميّز",
-    "lowContrast": "تباين منخفض — قد يصعب قراءة النص الفاتح على هذا اللون.",
-    "reset": "إعادة التعيين إلى الافتراضي",
+    "accentHint": "اختر لونًا جاهزًا أو من اللوحة أو عدّل بالمنتقي",
+    "accentPresets": "ألوان جاهزة",
+    "accentAllColors": "كل الألوان",
+    "customColorPicker": "لون مخصّص",
     "preview": "معاينة",
     "sampleAction": "إجراء تجريبي",
     "secondary": "ثانوي",
@@ -249,7 +253,11 @@
     "anytime": "أذكار كل وقت"
   },
   "reading": {
-    "reference": "المرجع: {{ref}}"
+    "reference": "المرجع: {{ref}}",
+    "share": "مشاركة",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل",
+    "copied": "تم النسخ إلى الحافظة"
   },
   "dua": {
     "eyebrow": "الدعاء",
@@ -261,7 +269,12 @@
     "detailEyebrow": "دعاء",
     "notFoundTitle": "الدعاء غير موجود",
     "notFoundDesc": "قد يكون هذا العنصر قد حُذف.",
-    "share": "مشاركة"
+    "share": "مشاركة",
+    "favorite": "حفظ الدعاء",
+    "unfavorite": "إزالة من المحفوظات",
+    "favorites": "الأدعية المحفوظة",
+    "favoritesEmpty": "لا أدعية محفوظة بعد",
+    "viewFavorites": "الأدعية المحفوظة"
   },
   "duaCat": {
     "sunnah": "أدعية من السنة",
@@ -278,7 +291,10 @@
     "title": "أسماء الله",
     "subtitle": "{{count}} من أسماء الله الحسنى",
     "playAll": "تشغيل الكل",
-    "playContinuous": "متواصل"
+    "playContinuous": "متواصل",
+    "share": "مشاركة",
+    "play": "تشغيل التلاوة",
+    "pause": "إيقاف التلاوة"
   },
   "quran": {
     "eyebrow": "القرآن الكريم",
@@ -313,7 +329,13 @@
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "السورة غير موجودة",
     "notFoundDesc": "قد لا تكون هذه السورة موجودة.",
-    "offlineTranslation": "اتصل بالإنترنت لتنزيل هذه الترجمة. يتم عرض ترجمة مضمنة بدلاً منها."
+    "offlineTranslation": "اتصل بالإنترنت لتنزيل هذه الترجمة. يتم عرض ترجمة مضمنة بدلاً منها.",
+    "shareAyah": "مشاركة الآية",
+    "pauseAyah": "إيقاف الآية",
+    "bookmarkAdd": "حفظ الآية",
+    "bookmarkRemove": "إزالة الإشارة",
+    "loadingTranslation": "جارٍ تحميل الترجمة…",
+    "searching": "جارٍ البحث…"
   },
   "hadith": {
     "eyebrow": "السنة النبوية",
@@ -336,7 +358,14 @@
     "notFoundTitle": "غير موجود",
     "notFoundDesc": "قد يكون هذا العنصر قد أُزيل.",
     "bookCount": "{{count}} كتاب",
-    "loadMore": "تحميل المزيد"
+    "loadMore": "تحميل المزيد",
+    "share": "مشاركة الحديث",
+    "bookmarkAdd": "إشارة مرجعية",
+    "bookmarkRemove": "إزالة الإشارة",
+    "bookmarks": "الإشارات المرجعية",
+    "bookmarksSubtitle": "أحاديثك المحفوظة",
+    "bookmarksEmpty": "لا أحاديث محفوظة بعد",
+    "viewBookmarks": "عرض الإشارات"
   },
   "credits": {
     "eyebrow": "الإسناد",
@@ -496,12 +525,38 @@
     "unlimited": "غير محدود",
     "customTitle": "هدف مخصّص",
     "customPrompt": "كم مرة تودّ التكرار؟",
-    "customPlaceholder": "مثلاً 313"
+    "customPlaceholder": "مثلاً 313",
+    "modeLabel": "{{mode}}، العدد {{count}}"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} بعد {{min}} دقيقة فقط",
     "nextPrayerAwayHours": "{{prayer}} بعد {{hours}} س {{min}} د",
-    "locating": "جارٍ تحديد موقعك…"
+    "locating": "جارٍ تحديد موقعك…",
+    "changeLocation": "تغيير الموقع",
+    "scheduleTitle": "صلوات اليوم",
+    "nextIn": "بعد {{time}}",
+    "current": "الآن",
+    "clockLabel": "{{time}}، {{countdown}}",
+    "prayerItem": "{{name}} عند {{time}}",
+    "prayerItemActive": "{{name}} عند {{time}}، الصلاة الحالية"
+  },
+  "location": {
+    "eyebrow": "الموقع",
+    "title": "حدّد موقعك",
+    "subtitle": "تُحسب أوقات الصلاة لهذا المكان. ابحث عن أي مدينة، أو استخدم موقعك الحالي.",
+    "currentTitle": "الموقع الحالي",
+    "useCurrent": "استخدام موقعي الحالي",
+    "locating": "جارٍ تحديد موقعك…",
+    "searchLabel": "ابحث عن مدينة أو دولة",
+    "searchPlaceholder": "ابحث عن مدينة…",
+    "hint": "اكتب حرفين على الأقل للبحث عن مدينة.",
+    "noResultsTitle": "لم يتم العثور على أماكن",
+    "noResultsDesc": "جرّب تهجئة مختلفة، أو ابحث عن مدينة كبيرة قريبة.",
+    "permissionDenied": "الوصول إلى الموقع مُعطَّل. فعّله من الإعدادات، أو ابحث عن مدينتك أعلاه.",
+    "deviceError": "تعذّر تحديد موقعك الحالي. ابحث عن مدينتك أعلاه بدلاً من ذلك.",
+    "manualBadge": "بتحديدك",
+    "gpsBadge": "من الجهاز",
+    "defaultBadge": "افتراضي"
   },
   "moon": {
     "aria": "طور القمر: {{phase}}",
@@ -541,7 +596,8 @@
     "eyebrow": "المحطّات",
     "subtitle": "{{unlocked}} من {{total}} مفتوحة",
     "share": "مشاركة",
-    "shareMessage": "الحمد لله — فتحت \"{{title}}\" في منيب تراكر: {{description}}."
+    "shareMessage": "الحمد لله — فتحت \"{{title}}\" في منيب تراكر: {{description}}.",
+    "unlockedToast": "إنجاز مفتوح: {{name}}"
   },
   "notifCenter": {
     "eyebrow": "التذكيرات",
@@ -564,7 +620,14 @@
     "webHint": "مستشعرات البوصلة غير متوفّرة في المتصفّح. يشير السهم إلى اتجاه القبلة من الشمال — استخدم بوصلة حقيقية للمحاذاة.",
     "noCompassHint": "لم يُكتشف مستشعر بوصلة. يشير السهم إلى اتجاه القبلة مقيساً باتجاه عقارب الساعة من الشمال الحقيقي.",
     "calibrateHint": "للدقّة، أمسك جهازك مستوياً وحرّكه على شكل الرقم ثمانية لمعايرة البوصلة، بعيداً عن المعادن والمغناطيس.",
-    "tryAgain": "حاول مجدداً"
+    "tryAgain": "حاول مجدداً",
+    "compassLabel": "بوصلة القبلة",
+    "compassValue": "{{bearing}} درجة نحو الكعبة، على بُعد {{distance}}",
+    "aligned": "محاذٍ للقبلة",
+    "cardinalN": "شمال",
+    "cardinalE": "شرق",
+    "cardinalS": "جنوب",
+    "cardinalW": "غرب"
   },
   "profile": {
     "eyebrow": "الحساب",
@@ -583,13 +646,47 @@
     "appLanguage": "لغة التطبيق",
     "translationLanguage": "لغة الترجمة",
     "translationHint": "تُستخدم لمعنى النص الديني العربي.",
-    "footer": "تتم ترجمة المزيد من الواجهة تدريجياً. اختيار العربية يفعّل التخطيط من اليمين إلى اليسار حيثما كان مدعوماً."
+    "footer": "تتم ترجمة المزيد من الواجهة تدريجياً. اختيار العربية يفعّل التخطيط من اليمين إلى اليسار حيثما كان مدعوماً.",
+    "eyebrow": "الإعدادات",
+    "subtitle": "لغة التطبيق والترجمة"
+  },
+  "about": {
+    "eyebrow": "الإعدادات",
+    "title": "حول التطبيق",
+    "subtitle": "الاعتمادات والصحّة والسياسات",
+    "version": "الإصدار {{version}}",
+    "credits": "الاعتمادات",
+    "authorLabel": "المؤلف",
+    "authorValue": "فريق منيب تراكر",
+    "collaboratorsLabel": "المساهمون",
+    "collaboratorsValue": "مساهمو المجتمع",
+    "duaTitle": "دعاء",
+    "duaBody": "تقبّل الله جهود كل من ساهم، وغفر تقصيرهم، ورحم مرحوميهم. آمين.",
+    "authenticityTitle": "صحّة المحتوى",
+    "authenticityBody": "الأذكار والأدعية مستمدّة من مجموعات معروفة ومحفوظة قريبة من النصوص المنشورة على نطاق واسع. يُرجى التحقّق من عالم أو مصدر موثوق قبل الاعتماد على أي حكم أو عدد محدد.",
+    "privacyPolicy": "سياسة الخصوصية",
+    "termsOfService": "شروط الخدمة"
   },
   "player": {
     "nowPlaying": "قيد التشغيل",
     "upNext": "التالي",
     "remaining": "{{count}} متبقٍ",
     "trackOf": "{{current}} من {{total}}",
-    "goToScreen": "الذهاب إلى صفحة القراءة"
+    "goToScreen": "الذهاب إلى صفحة القراءة",
+    "play": "تشغيل",
+    "pause": "إيقاف مؤقت",
+    "next": "المقطع التالي",
+    "previous": "المقطع السابق",
+    "close": "إغلاق المشغّل",
+    "collapse": "طيّ",
+    "expand": "توسيع المشغّل",
+    "speed": "سرعة التشغيل",
+    "speedValue": "السرعة {{value}}×",
+    "loopOff": "إيقاف التكرار",
+    "loopAll": "تكرار الكل",
+    "loopOne": "تكرار مرة واحدة",
+    "seek": "موضع التشغيل",
+    "buffering": "جارٍ التخزين المؤقت…",
+    "loading": "جارٍ التحميل…"
   }
 }
