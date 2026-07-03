@@ -50,8 +50,11 @@ export function SegmentedControl<T extends string>({
     <View style={[styles.container, { backgroundColor: colors.muted }]} onLayout={onLayout}>
       {segmentWidth > 0 ? (
         <Animated.View
-          pointerEvents="none"
-          style={[styles.thumb, { width: segmentWidth, backgroundColor: colors.card }, thumbStyle]}
+          style={[
+            styles.thumb,
+            { width: segmentWidth, backgroundColor: colors.card, pointerEvents: "none" },
+            thumbStyle,
+          ]}
         />
       ) : null}
 
@@ -100,6 +103,7 @@ const styles = StyleSheet.create({
   },
   segment: {
     flex: 1,
+    minHeight: 44,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: Spacing.two + 2,

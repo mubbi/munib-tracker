@@ -28,7 +28,7 @@ export function PlaceholderScreen({
       eyebrow={eyebrow}
       title={title}
       subtitle={subtitle}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <EmptyState icon={icon} title={emptyTitle} description={description} />
     </ScreenLayout>

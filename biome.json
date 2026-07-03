@@ -19,7 +19,9 @@
       "!**/ios",
       "!**/.agents/skills/nestjs/docs",
       "!**/packages/api-client/src/generated",
-      "!**/packages/api-contract/openapi.json"
+      "!**/packages/api-contract/openapi.json",
+      "!**/apps/app/assets/data",
+      "!**/apps/app/scripts/build-data/.cache"
     ]
   },
   "formatter": {

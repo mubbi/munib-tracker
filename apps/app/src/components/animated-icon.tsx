@@ -5,6 +5,8 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, { Easing, Keyframe } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 
+import { gradientBackground } from "@/lib/gradient";
+
 const INITIAL_SCALE_FACTOR = Dimensions.get("screen").height / 90;
 const DURATION = 600;
 
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
   },
   background: {
     borderRadius: 40,
-    experimental_backgroundImage: `linear-gradient(180deg, #2A453C, #152921)`,
+    ...gradientBackground("linear-gradient(180deg, #2A453C, #152921)"),
     width: 128,
     height: 128,
     position: "absolute",

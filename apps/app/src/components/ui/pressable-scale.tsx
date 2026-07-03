@@ -1,6 +1,7 @@
-import { forwardRef } from "react";
+import { forwardRef, useCallback } from "react";
 import {
   type GestureResponderEvent,
+  Platform,
   Pressable,
   type PressableProps,
   type StyleProp,
@@ -10,6 +11,7 @@ import {
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
 import { Springs } from "@/constants/motion";
+import { blurActiveElement } from "@/lib/blur-active-element";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -39,12 +41,22 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     style,
     onPressIn,
     onPressOut,
+    onPress,
     disabled,
     ...rest
   },
   ref,
 ) {
   const pressed = useSharedValue(0);
+
+  const handlePress = useCallback(
+    (event: GestureResponderEvent) => {
+      // Release focus before the outgoing screen is aria-hidden on web.
+      if (Platform.OS === "web") blurActiveElement();
+      onPress?.(event);
+    },
+    [onPress],
+  );
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: withSpring(pressed.value ? scaleTo : 1, Springs.press) }],
@@ -68,6 +80,7 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
       disabled={disabled}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      onPress={handlePress}
       style={[style, animatedStyle]}
       {...rest}
     >

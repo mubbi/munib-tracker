@@ -2,7 +2,9 @@ import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { type ReactNode, useEffect } from "react";
 import { AppState, type AppStateStatus } from "react-native";
 
+import { locationStore } from "@/stores/location-store";
 import { preferencesStore } from "@/stores/preferences-store";
+import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
 
 /**
@@ -15,9 +17,13 @@ export function AppProviders({ children }: { children: ReactNode }) {
     let mounted = true;
     void preferencesStore.getState().load();
     void trackerStore.getState().load();
+    void quranStore.getState().load();
+    void locationStore.getState().load();
 
     const onChange = (status: AppStateStatus) => {
       if (!mounted || status !== "active") return;
+      // Refresh prayer times for the current position (handles travel + new day).
+      void locationStore.getState().refresh();
       const tracker = trackerStore.getState();
       // A new day means a fresh set of prayers/zikr targets.
       if (tracker.date !== getLocalDateString()) {

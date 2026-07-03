@@ -11,6 +11,7 @@
     "build:app:ios": "pnpm --filter app build:ios",
     "build:app:android:preview": "pnpm --filter app build:android:preview",
     "build:app:ios:preview": "pnpm --filter app build:ios:preview",
+    "build:app:web": "pnpm --filter app build:web",
     "dev:marketing-web": "pnpm --filter marketing-web dev",
     "dev:api": "pnpm --filter api dev",
     "sync:nestjs-docs": "node .agents/skills/nestjs/scripts/sync-docs.js",

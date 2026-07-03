@@ -60,7 +60,7 @@ export default function QazaCalculatorScreen() {
       eyebrow={t("qazaCalc.eyebrow")}
       title={t("qazaCalc.title")}
       subtitle={t("qazaCalc.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">
@@ -173,6 +173,7 @@ function NumberField({
         value={value}
         onChangeText={(text) => onChange(text.replace(/[^0-9]/g, "").slice(0, 3))}
         keyboardType="number-pad"
+        accessibilityLabel={label}
         placeholder={placeholder}
         placeholderTextColor={colors.mutedForeground}
         style={[

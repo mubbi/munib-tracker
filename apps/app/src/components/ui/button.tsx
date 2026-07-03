@@ -46,7 +46,7 @@ export function Button({
       ? colors.accentForeground
       : variant === "ghost"
         ? colors.mutedForeground
-        : colors.accent;
+        : colors.accentText;
 
   const paddingVertical = size === "sm" ? Spacing.two : Spacing.three - 2;
   const paddingHorizontal = size === "sm" ? Spacing.three : Spacing.four;
@@ -64,6 +64,7 @@ export function Button({
         styles.base,
         {
           backgroundColor: bg,
+          minHeight: size === "sm" ? 44 : 48,
           paddingVertical,
           paddingHorizontal,
           opacity: disabled ? 0.5 : 1,

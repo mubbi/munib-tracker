@@ -7,11 +7,12 @@ import {
   type TabTriggerSlotProps,
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { blurActiveElement } from "@/lib/blur-active-element";
 import { ThemedText } from "./themed-text";
 
 type TabConfig = {
@@ -42,53 +43,131 @@ const tabs: TabConfig[] = [
   },
 ];
 
+/** Width at/above which we switch the bottom tab bar for a persistent side rail. */
+const SideRailBreakpoint = 768;
+const SideRailWidth = 232;
+
 export default function AppTabs() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= SideRailBreakpoint;
+
+  const triggers = (variant: TabVariant) =>
+    tabs.map((tab) => (
+      <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
+        <TabButton icon={tab.icon} label={tab.label} variant={variant} />
+      </TabTrigger>
+    ));
+
+  // Wide viewports (tablet / desktop web): rail beside the content column.
+  // `style` is spread onto the Tabs root View (overriding its default), so we
+  // switch it to a row and keep TabList/TabSlot as DIRECT children of Tabs —
+  // required for expo-router to discover the triggers.
+  if (isWide) {
+    return (
+      <Tabs style={styles.wideRoot}>
+        <TabList asChild>
+          <SideRail>{triggers("rail")}</SideRail>
+        </TabList>
+        <TabSlot style={styles.wideSlot} />
+      </Tabs>
+    );
+  }
+
+  // Narrow viewports: keep the floating bottom tab bar.
   return (
     <Tabs>
-      <TabSlot style={{ flex: 1, height: "100%" }} />
+      <TabSlot style={styles.narrowSlot} />
       <TabList asChild>
-        <BottomTabBar>
-          {tabs.map((tab) => (
-            <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
-              <TabButton icon={tab.icon} label={tab.label} />
-            </TabTrigger>
-          ))}
-        </BottomTabBar>
+        <BottomTabBar>{triggers("bar")}</BottomTabBar>
       </TabList>
     </Tabs>
   );
 }
 
+type TabVariant = "bar" | "rail";
+
 type TabButtonProps = TabTriggerSlotProps & {
   label: string;
   icon: TabConfig["icon"];
+  variant?: TabVariant;
 };
 
-export function TabButton({ label, icon, isFocused, ...props }: TabButtonProps) {
+export function TabButton({
+  label,
+  icon,
+  isFocused,
+  variant = "bar",
+  onPress,
+  ...props
+}: TabButtonProps) {
   const { colors, tokens } = useThemeTokens();
   const tint = isFocused ? colors.accent : colors.mutedForeground;
+  const isRail = variant === "rail";
+
+  const handlePress: TabButtonProps["onPress"] = (event) => {
+    blurActiveElement();
+    onPress?.(event);
+  };
 
   return (
     <Pressable
       {...props}
       accessibilityRole="tab"
       accessibilityState={{ selected: isFocused }}
-      style={({ pressed }) => [styles.tabButton, pressed && styles.pressed]}
+      onPress={handlePress}
+      style={({ pressed }) => [
+        isRail ? styles.railButton : styles.tabButton,
+        pressed && styles.pressed,
+      ]}
     >
-      <View style={[styles.tabInner, isFocused && { backgroundColor: tokens.accentSoft }]}>
-        <SymbolView name={icon} size={20} tintColor={tint} />
+      <View
+        style={[
+          isRail ? styles.railInner : styles.tabInner,
+          isFocused && { backgroundColor: tokens.accentSoft },
+        ]}
+      >
+        <SymbolView name={icon} size={isRail ? 22 : 20} tintColor={tint} />
         <ThemedText
           type="small"
           style={{
             color: tint,
             fontWeight: isFocused ? "700" : "500",
-            fontSize: 12,
+            fontSize: isRail ? 15 : 12,
           }}
         >
           {label}
         </ThemedText>
       </View>
     </Pressable>
+  );
+}
+
+/**
+ * Persistent left navigation rail shown on wide web / tablet. Receives the same
+ * `TabTrigger` children as the bottom bar (via `TabList asChild`), so routing
+ * behaviour is identical — only the presentation differs.
+ */
+export function SideRail(props: TabListProps) {
+  const insets = useSafeAreaInsets();
+  const { colors, tokens } = useThemeTokens();
+
+  return (
+    <View
+      {...props}
+      // A11y: this is the primary site navigation landmark on web.
+      role="navigation"
+      style={[
+        styles.railContainer,
+        {
+          paddingTop: Math.max(insets.top, Spacing.four),
+          paddingBottom: Math.max(insets.bottom, Spacing.four),
+          backgroundColor: colors.card,
+          borderRightColor: tokens.hairline,
+        },
+      ]}
+    >
+      <View style={styles.railList}>{props.children}</View>
+    </View>
   );
 }
 
@@ -115,6 +194,41 @@ export function BottomTabBar(props: TabListProps) {
 }
 
 const styles = StyleSheet.create({
+  wideRoot: {
+    flex: 1,
+    flexDirection: "row",
+    height: "100%",
+  },
+  wideSlot: {
+    flex: 1,
+    height: "100%",
+  },
+  narrowSlot: {
+    flex: 1,
+    height: "100%",
+  },
+  railContainer: {
+    width: SideRailWidth,
+    height: "100%",
+    borderRightWidth: StyleSheet.hairlineWidth,
+    paddingHorizontal: Spacing.three,
+  },
+  railList: {
+    flexDirection: "column",
+    gap: Spacing.one,
+  },
+  railButton: {
+    width: "100%",
+  },
+  railInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
   tabBarContainer: {
     position: "absolute",
     bottom: 0,

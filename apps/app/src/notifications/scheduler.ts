@@ -1,10 +1,18 @@
-import { PRAYER_LABELS } from "@munib-tracker/shared/constants";
-import type { NotificationPreferences, UserPreferences } from "@munib-tracker/shared/types";
+import type { UserPreferences } from "@munib-tracker/shared/types";
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 
-import { PRAYER_TIME_HINTS } from "@/lib/prayer-ui";
-import { parseHhMm } from "@/lib/time";
+import type { StoredLocation } from "@/lib/location";
+import {
+  type BuiltReminder,
+  buildReminders,
+  summarizeReminders,
+} from "@/lib/notifications/build-reminders";
+import {
+  readNotificationPermissionUiState,
+  requestNotificationPermission,
+} from "@/lib/notifications/permissions";
+import { isLocalNotificationSupported } from "@/lib/notifications/platform";
 
 const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
@@ -50,100 +58,61 @@ export async function configureNotifications(): Promise<void> {
 }
 
 export async function getPermissionStatus(): Promise<"granted" | "denied" | "undetermined"> {
-  if (!isNative) return "denied";
-  const { status } = await Notifications.getPermissionsAsync();
-  return status;
+  return readNotificationPermissionUiState();
 }
 
-export async function requestPermission(): Promise<boolean> {
-  if (!isNative) return false;
-  const { status } = await Notifications.requestPermissionsAsync();
-  return status === "granted";
-}
-
-type Reminder = {
-  when: string;
-  title: string;
-  body: string;
-  channelId: ChannelId;
-  enabled: (n: NotificationPreferences) => boolean;
-};
-
-function buildReminders(prefs: UserPreferences): Reminder[] {
-  const n = prefs.notificationPrefs;
-  const reminders: Reminder[] = [];
-
-  for (const [prayerId, time] of Object.entries(PRAYER_TIME_HINTS)) {
-    if (!time) continue;
-    reminders.push({
-      when: time,
-      title: `${PRAYER_LABELS[prayerId as keyof typeof PRAYER_LABELS]} time`,
-      body: "It's time to pray. May Allah accept it from you.",
-      channelId: "prayer",
-      enabled: (np) => np.prayer,
-    });
-  }
-
-  reminders.push({
-    when: "07:00",
-    title: "Morning adhkar",
-    body: "Begin your day in remembrance of Allah.",
-    channelId: "zikr",
-    enabled: (np) => np.morningZikr,
-  });
-  reminders.push({
-    when: "17:30",
-    title: "Evening adhkar",
-    body: "Take a moment for your evening dhikr.",
-    channelId: "zikr",
-    enabled: (np) => np.eveningZikr,
-  });
-  reminders.push({
-    when: prefs.bedtime ?? "22:30",
-    title: "Before-sleep adhkar",
-    body: "Recite your before-sleep supplications.",
-    channelId: "zikr",
-    enabled: (np) => np.beforeSleep,
-  });
-  reminders.push({
-    when: "20:00",
-    title: "Qaza reminder",
-    body: "Make up a missed prayer or fast today.",
-    channelId: "qaza",
-    enabled: (np) => np.qaza,
-  });
-
-  return reminders.filter((reminder) => reminder.enabled(n));
-}
+export { requestNotificationPermission as requestPermission };
 
 export async function cancelAll(): Promise<void> {
   if (!isNative) return;
   await Notifications.cancelAllScheduledNotificationsAsync();
 }
 
-/** Cancels existing reminders and schedules the set implied by preferences. */
-export async function rescheduleAll(prefs: UserPreferences): Promise<void> {
-  if (!isNative) return;
-  await cancelAll();
-  if (!prefs.notificationPrefs.masterEnabled) return;
-  if ((await getPermissionStatus()) !== "granted") return;
+async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
+  const content = {
+    title: reminder.title,
+    body: reminder.body,
+    categoryIdentifier: REMINDER_CATEGORY,
+    data: { channelId: reminder.channelId, reminderId: reminder.id },
+  };
 
-  for (const reminder of buildReminders(prefs)) {
-    const { hour, minute } = parseHhMm(reminder.when);
+  if (reminder.repeat === "daily") {
     await Notifications.scheduleNotificationAsync({
-      content: {
-        title: reminder.title,
-        body: reminder.body,
-        categoryIdentifier: REMINDER_CATEGORY,
-        data: { channelId: reminder.channelId },
-      },
+      content,
       trigger: {
         type: Notifications.SchedulableTriggerInputTypes.DAILY,
-        hour,
-        minute,
+        hour: reminder.fireAt.getHours(),
+        minute: reminder.fireAt.getMinutes(),
         channelId: reminder.channelId,
       },
     });
+    return;
+  }
+
+  await Notifications.scheduleNotificationAsync({
+    content,
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.DATE,
+      date: reminder.fireAt,
+      channelId: reminder.channelId,
+    },
+  });
+}
+
+/** Cancels existing reminders and schedules the set implied by preferences + location. */
+export async function rescheduleAll(
+  prefs: UserPreferences,
+  location: StoredLocation,
+): Promise<void> {
+  if (!isNative) return;
+  await cancelAll();
+  if (!prefs.notificationPrefs.masterEnabled) return;
+  if (!isLocalNotificationSupported()) return;
+  if ((await getPermissionStatus()) !== "granted") return;
+
+  const reminders = buildReminders(prefs, location);
+  for (const reminder of reminders) {
+    await scheduleReminder(reminder);
   }
 }
 
@@ -173,22 +142,39 @@ export async function snoozeNotification(
   });
 }
 
-export async function listScheduled(): Promise<
-  { id: string; title: string; body: string; time?: string }[]
-> {
-  if (!isNative) return [];
+export async function listScheduled(
+  prefs: UserPreferences,
+  location: StoredLocation,
+): Promise<{ id: string; title: string; body: string; time?: string }[]> {
+  if (!isNative) {
+    if (!prefs.notificationPrefs.masterEnabled) return [];
+    return summarizeReminders(buildReminders(prefs, location));
+  }
+
   const scheduled = await Notifications.getAllScheduledNotificationsAsync();
-  return scheduled.map((item) => {
-    const trigger = item.trigger as { hour?: number; minute?: number } | null;
-    const time =
-      trigger && typeof trigger.hour === "number"
-        ? `${`${trigger.hour}`.padStart(2, "0")}:${`${trigger.minute ?? 0}`.padStart(2, "0")}`
-        : undefined;
-    return {
-      id: item.identifier,
-      title: item.content.title ?? "Reminder",
-      body: item.content.body ?? "",
-      time,
-    };
-  });
+  if (scheduled.length > 0) {
+    return scheduled.map((item) => {
+      const trigger = item.trigger as {
+        hour?: number;
+        minute?: number;
+        date?: number | string;
+      } | null;
+      let time: string | undefined;
+      if (trigger && typeof trigger.hour === "number") {
+        time = `${`${trigger.hour}`.padStart(2, "0")}:${`${trigger.minute ?? 0}`.padStart(2, "0")}`;
+      } else if (trigger?.date != null) {
+        const date = new Date(trigger.date);
+        time = `${`${date.getHours()}`.padStart(2, "0")}:${`${date.getMinutes()}`.padStart(2, "0")}`;
+      }
+      return {
+        id: item.identifier,
+        title: item.content.title ?? "Reminder",
+        body: item.content.body ?? "",
+        time,
+      };
+    });
+  }
+
+  if (!prefs.notificationPrefs.masterEnabled) return [];
+  return summarizeReminders(buildReminders(prefs, location));
 }

@@ -87,6 +87,11 @@ export class EnvironmentVariables {
   @IsOptional()
   GOOGLE_CLIENT_SECRET?: string;
 
+  /**
+   * Allowed audiences for Apple id_token verification (comma/space separated).
+   * Include the iOS bundle id (native Sign in with Apple) and, when using the
+   * web/Android Apple OAuth flow, the Services ID.
+   */
   @IsString()
   @IsOptional()
   APPLE_CLIENT_ID?: string;
@@ -94,6 +99,29 @@ export class EnvironmentVariables {
   @IsString()
   @IsOptional()
   APPLE_CLIENT_SECRET?: string;
+
+  /** Apple Services ID used as the `client_id` for the web/Android OAuth code exchange. */
+  @IsString()
+  @IsOptional()
+  APPLE_SERVICES_ID?: string;
+
+  /** Apple developer Team ID (issuer of the client-secret JWT). */
+  @IsString()
+  @IsOptional()
+  APPLE_TEAM_ID?: string;
+
+  /** Key ID of the Apple .p8 private key (Sign in with Apple key). */
+  @IsString()
+  @IsOptional()
+  APPLE_KEY_ID?: string;
+
+  /**
+   * Apple .p8 private key (PKCS#8 PEM). In `.env` keep it on one line with literal
+   * `\n` between PEM lines; we expand them before importing.
+   */
+  @IsString()
+  @IsOptional()
+  APPLE_PRIVATE_KEY?: string;
 
   @IsString()
   @IsOptional()

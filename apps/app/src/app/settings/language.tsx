@@ -30,8 +30,8 @@ export default function LanguageScreen() {
     <ScreenLayout
       eyebrow={t("settings.title")}
       title={t("language.title")}
-      subtitle="App and translation language"
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      subtitle={t("language.subtitle")}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

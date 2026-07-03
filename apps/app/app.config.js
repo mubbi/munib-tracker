@@ -6,6 +6,7 @@ module.exports = ({ config }) => {
     10,
   );
   const iosBuildNumber = process.env.IOS_BUILD_NUMBER ?? config.ios?.buildNumber ?? "1";
+  const vapidPublicKey = (process.env.EXPO_PUBLIC_VAPID_PUBLIC_KEY ?? "").trim();
 
   return {
     ...config,
@@ -17,6 +18,13 @@ module.exports = ({ config }) => {
     android: {
       ...config.android,
       versionCode: androidVersionCode,
+    },
+    extra: {
+      ...config.extra,
+      /** Web Push VAPID public key for expo-constants on web. */
+      vapidPublicKey: vapidPublicKey || undefined,
+      /** Service worker path for web push registration. */
+      serviceWorkerPath: "/expo-service-worker.js",
     },
   };
 };

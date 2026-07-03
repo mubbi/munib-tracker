@@ -24,7 +24,10 @@
     "goBack": "واپس جائیں",
     "count": "شمار کریں",
     "minus": "منفی",
-    "set": "مقرر کریں"
+    "set": "مقرر کریں",
+    "play": "چلائیں",
+    "appName": "Munib Tracker",
+    "appTagline": "اللہ کی طرف اپنے سفر کو ٹریک کریں۔"
   },
   "tabs": {
     "home": "ہوم",
@@ -38,8 +41,11 @@
     "qaza": "قضا",
     "duas": "دعائیں",
     "names": "۹۹ نام",
+    "quran": "قرآن",
+    "hadith": "حدیث",
     "calendar": "کیلنڈر",
-    "stats": "اعداد و شمار"
+    "stats": "اعداد و شمار",
+    "qibla": "قبلہ"
   },
   "home": {
     "todaysGoal": "آج کا ہدف",
@@ -54,7 +60,9 @@
     "qazaRemaining": "باقی قضا",
     "qazaMeta": "اب تک {{completed}} ادا · منظم کرنے کے لیے دبائیں",
     "gentleReminder": "نرم یاد دہانی",
-    "gentleReminderBody": "کمال سے زیادہ چھوٹے اور مستقل قدم اہم ہیں۔ جو مکمل کریں اُسے درج کریں اور کل پھر لوٹ آئیں۔"
+    "gentleReminderBody": "کمال سے زیادہ چھوٹے اور مستقل قدم اہم ہیں۔ جو مکمل کریں اُسے درج کریں اور کل پھر لوٹ آئیں۔",
+    "scheduleTitle": "آج کا شیڈول",
+    "scheduleNext": "اگلی"
   },
   "tracker": {
     "eyebrow": "ٹریک اور درج کریں",
@@ -69,7 +77,8 @@
     "keepGoingShort": "لگے رہیں",
     "almostThere": "بس تھوڑا اور",
     "summaryLogged": "آج {{total}} میں سے {{completed}} فرض نمازیں درج ہو چکیں۔",
-    "streakLine": "🔥 {{count}} دن کا تسلسل"
+    "streakLine": "🔥 {{count}} دن کا تسلسل",
+    "streakLabel": "{{count}} دن کا تسلسل"
   },
   "settings": {
     "eyebrow": "اپنی پسند کے مطابق",
@@ -116,7 +125,8 @@
     "slide3Title": "اللہ کو یاد کریں",
     "slide3Body": "اذکار کا ذخیرہ اور آپ کے دن کے ہر لمحے کے لیے ایک آسان تسبیح شمار کنندہ۔",
     "slide4Title": "نرم یاد دہانیاں",
-    "slide4Body": "نماز، ذکر اور قضا کے لیے اختیاری یاد دہانیاں — ہمیشہ آپ کے اختیار میں۔"
+    "slide4Body": "نماز، ذکر اور قضا کے لیے اختیاری یاد دہانیاں — ہمیشہ آپ کے اختیار میں۔",
+    "pageOf": "صفحہ {{page}} از {{total}}"
   },
   "appearance": {
     "eyebrow": "ترتیبات",
@@ -126,12 +136,10 @@
     "modeDark": "تاریک",
     "modeSystem": "سسٹم",
     "accentTitle": "نمایاں رنگ",
-    "accentHint": "سنہری رنگ منیب کے برانڈ سے میل کھاتا ہے",
-    "customTitle": "اپنی پسند کا رنگ",
-    "customUsing": "{{hex}} استعمال ہو رہا ہے",
-    "customHint": "اپنے نمایاں رنگ کے لیے ہیکس کوڈ درج کریں",
-    "lowContrast": "کم تضاد — اس رنگ پر ہلکا متن پڑھنا مشکل ہو سکتا ہے۔",
-    "reset": "طے شدہ رنگوں پر واپس لائیں",
+    "accentHint": "پری سیٹ، پیلیٹ رنگ یا پکر سے اپنی مرضی کا رنگ منتخب کریں",
+    "accentPresets": "پری سیٹ",
+    "accentAllColors": "تمام رنگ",
+    "customColorPicker": "اپنی پسند کا رنگ",
     "preview": "جھلک",
     "sampleAction": "نمونہ عمل",
     "secondary": "ثانوی",
@@ -151,7 +159,29 @@
     "subtitle": "منتخب کریں کہ آپ کس چیز کی یاد دہانی چاہتے ہیں",
     "master": "تمام اطلاعات",
     "masterSub": "ہر یاد دہانی کے لیے مرکزی سوئچ",
+    "adhanTitle": "اذان کا نمونہ",
+    "adhanSub": "بنڈل شدہ اذان کی آواز چلائیں",
     "footer": "جیسے ہی آپ کی ڈیوائس پر اطلاعات فعال ہوں گی، یہ یاد دہانیاں شیڈول ہو جائیں گی۔",
+    "permissionBannerTitle": "یاددہانیاں فعال کریں",
+    "permissionBannerMessage": "منیب ٹریکر کو نماز، ذکر اور قضا کی یاد دہانے کے لیے اطلاعات کی اجازت دیں۔",
+    "permissionGrantedTitle": "اطلاعات فعال ہیں",
+    "permissionGrantedMessage": "اس آلے پر یاددہانیاں شیڈول ہیں۔ ذیل میں اقسام منظم کریں۔",
+    "permissionDenied": "اطلاعات بلاک ہیں",
+    "permissionDeniedSub": "براؤزر یا آلے کی ترتیبات میں اطلاعات آن کریں۔",
+    "permissionDismissed": "اجازت کی درخواست مسترد ہوئی۔ تیار ہوں تو Allow دبائیں۔",
+    "openSettingsHint": "ترتیبات کھولیں اور منیب ٹریکر کی اطلاعات آن کریں۔",
+    "openSettings": "ترتیبات کھولیں",
+    "webUseAllowButton": "براؤزر اطلاعات کے لیے نیچے Allow بٹن دبائیں۔",
+    "unsupportedTitle": "یاددہانیوں کے لیے موبائل ایپ درکار ہے",
+    "expoGoTitle": "ڈیولپمنٹ بلڈ درکار ہے",
+    "expoGoMessage": "مقامی یاددہانیوں کے لیے ڈیولپ یا پروڈکشن بلڈ چاہیے۔ Expo Go OS اطلاعات شیڈول نہیں کرتا۔",
+    "iosPwaTitle": "پہلے ویب ایپ انسٹال کریں",
+    "iosPwaMessage": "iPhone پر براؤزر اطلاعات صرف ہوم اسکرین پر شامل کرنے کے بعد کام کرتی ہیں۔",
+    "iosPwaSteps": "Safari میں: Share ← Add to Home Screen، پھر ہوم اسکرین سے ایپ کھولیں اور اطلاعات کی اجازت دیں۔",
+    "iosPwaStepsSafari": "یہ صفحہ Safari میں کھولیں، پھر Share ← Add to Home Screen۔ iPhone پر اس براؤزر میں اطلاعات دستیاب نہیں۔",
+    "webAllowMessage": "اس آلے پر نماز، ذکر اور قضا کی اطلاعات کے لیے براؤزر اطلاعات کی اجازت دیں۔",
+    "webGrantedMobileNote": "براؤزر اطلاعات آن ہیں۔ قابلِ اعتماد نماز یاددہانیوں کے لیے iOS یا Android ایپ انسٹال کریں۔",
+    "webLimitedTitle": "یاددہانیاں موبائل ایپ پر چلتی ہیں",
     "groupWorship": "عبادت",
     "groupZikr": "ذکر",
     "groupMilestones": "سنگِ میل",
@@ -160,14 +190,38 @@
         "title": "نماز کی یاد دہانیاں",
         "subtitle": "ہر نماز کے وقت کے آس پاس یاد دہانی"
       },
-      "qaza": { "title": "قضا کی یاد دہانیاں", "subtitle": "قضا نمازوں کی رفتار برقرار رکھیں" },
-      "afterAzan": { "title": "اذان کے بعد", "subtitle": "اذان کے بعد کی دعا" },
-      "morningZikr": { "title": "صبح کے اذکار", "subtitle": "دن کا آغاز یادِ الٰہی سے کریں" },
-      "eveningZikr": { "title": "شام کے اذکار", "subtitle": "ذکر کے ساتھ دن کا اختتام کریں" },
-      "beforeSleep": { "title": "سونے سے پہلے", "subtitle": "آپ کے سونے کے وقت کے مطابق" },
-      "beforePrayer": { "title": "نماز سے پہلے", "subtitle": "اپنے دل کو تیار کریں" },
-      "afterPrayer": { "title": "نماز کے بعد", "subtitle": "تسبیح کی یاد دہانی" },
-      "achievements": { "title": "کامیابیاں", "subtitle": "تسلسل اور بیجز کا جشن منائیں" }
+      "qaza": {
+        "title": "قضا کی یاد دہانیاں",
+        "subtitle": "قضا نمازوں کی رفتار برقرار رکھیں"
+      },
+      "afterAzan": {
+        "title": "اذان کے بعد",
+        "subtitle": "اذان کے بعد کی دعا"
+      },
+      "morningZikr": {
+        "title": "صبح کے اذکار",
+        "subtitle": "دن کا آغاز یادِ الٰہی سے کریں"
+      },
+      "eveningZikr": {
+        "title": "شام کے اذکار",
+        "subtitle": "ذکر کے ساتھ دن کا اختتام کریں"
+      },
+      "beforeSleep": {
+        "title": "سونے سے پہلے",
+        "subtitle": "آپ کے سونے کے وقت کے مطابق"
+      },
+      "beforePrayer": {
+        "title": "نماز سے پہلے",
+        "subtitle": "اپنے دل کو تیار کریں"
+      },
+      "afterPrayer": {
+        "title": "نماز کے بعد",
+        "subtitle": "تسبیح کی یاد دہانی"
+      },
+      "achievements": {
+        "title": "کامیابیاں",
+        "subtitle": "تسلسل اور بیجز کا جشن منائیں"
+      }
     }
   },
   "fonts": {
@@ -220,7 +274,11 @@
     "anytime": "ہر وقت کا ذکر"
   },
   "reading": {
-    "reference": "حوالہ: {{ref}}"
+    "reference": "حوالہ: {{ref}}",
+    "share": "شیئر کریں",
+    "showMore": "مزید دکھائیں",
+    "showLess": "کم دکھائیں",
+    "copied": "کلپ بورڈ پر کاپی ہو گیا"
   },
   "dua": {
     "eyebrow": "دعا",
@@ -232,7 +290,12 @@
     "detailEyebrow": "دعا",
     "notFoundTitle": "دعا نہیں ملی",
     "notFoundDesc": "ممکن ہے یہ آئٹم ہٹا دیا گیا ہو۔",
-    "share": "شیئر کریں"
+    "share": "شیئر کریں",
+    "favorite": "دعا محفوظ کریں",
+    "unfavorite": "محفوظ سے ہٹائیں",
+    "favorites": "محفوظ دعائیں",
+    "favoritesEmpty": "ابھی کوئی محفوظ دعا نہیں",
+    "viewFavorites": "محفوظ دعائیں"
   },
   "duaCat": {
     "sunnah": "سنت دعائیں",
@@ -247,7 +310,92 @@
   "names": {
     "eyebrow": "اسمائے حُسنیٰ",
     "title": "۹۹ نام",
-    "subtitle": "اللہ کے خوبصورت ناموں میں سے {{count}}"
+    "subtitle": "اللہ کے خوبصورت ناموں میں سے {{count}}",
+    "playAll": "سب چلائیں",
+    "playContinuous": "متواتر",
+    "share": "شیئر کریں",
+    "play": "تلاوت چلائیں",
+    "pause": "تلاوت روکیں"
+  },
+  "quran": {
+    "eyebrow": "قرآنِ کریم",
+    "title": "قرآن",
+    "subtitle": "پڑھیں، سنیں اور غور کریں",
+    "searchSurah": "نام یا نمبر سے سورہ تلاش کریں",
+    "continueReading": "پڑھنا جاری رکھیں",
+    "continueAt": "سورہ {{surah}} · آیت {{ayah}}",
+    "makki": "مکی",
+    "madani": "مدنی",
+    "ayahCount": "{{count}} آیات",
+    "surahList": "سورتیں",
+    "reciter": "قاری",
+    "translation": "ترجمہ",
+    "showTransliteration": "نقل حرفی دکھائیں",
+    "playSurah": "سورہ چلائیں",
+    "playAyah": "آیت {{n}} چلائیں",
+    "bookmark": "بک مارک",
+    "bookmarks": "بک مارکس",
+    "bookmarksTitle": "بک مارکس",
+    "bookmarksSubtitle": "آپ کی محفوظ آیات",
+    "bookmarkEmptyTitle": "ابھی کوئی بک مارک نہیں",
+    "bookmarkEmptyDesc": "کسی بھی آیت پر بک مارک آئیکن دبائیں تاکہ یہاں محفوظ ہو۔",
+    "removeBookmark": "بک مارک ہٹائیں",
+    "search": "تلاش",
+    "searchTitle": "قرآن میں تلاش کریں",
+    "searchSubtitle": "ترجمہ یا نقل حرفی سے آیات تلاش کریں",
+    "searchPlaceholder": "ترجمے کے الفاظ تلاش کریں…",
+    "searchHint": "بندل شدہ ترجمہ اور نقل حرفی میں آف لائن تلاش کرتا ہے۔",
+    "noResults": "کوئی آیت آپ کی تلاش سے مطابقت نہیں رکھتی۔",
+    "resultsCount": "{{count}} نتائج",
+    "ayahRef": "{{surah}}:{{ayah}}",
+    "notFoundTitle": "سورہ نہیں ملی",
+    "notFoundDesc": "شاید یہ سورہ موجود نہیں۔",
+    "offlineTranslation": "یہ ترجمہ ڈاؤن لوڈ کرنے کے لیے انٹرنیٹ سے جُڑیں۔ اس کے بجائے بندل شدہ ترجمہ دکھایا جا رہا ہے۔",
+    "shareAyah": "آیت شیئر کریں",
+    "pauseAyah": "آیت روکیں",
+    "bookmarkAdd": "آیت بک مارک کریں",
+    "bookmarkRemove": "بک مارک ہٹائیں",
+    "loadingTranslation": "ترجمہ لوڈ ہو رہا ہے…",
+    "searching": "تلاش ہو رہی ہے…"
+  },
+  "hadith": {
+    "eyebrow": "سنتِ نبوی",
+    "title": "حدیث",
+    "subtitle": "نبی ﷺ کے فرامین کے مجموعے",
+    "collections": "مجموعے",
+    "highlights": "آف لائن منتخب",
+    "fullCollections": "مکمل مجموعے",
+    "hadithCount": "{{count}} احادیث",
+    "ungraded": "غیر درجہ بند",
+    "grade": "درجہ: {{grade}}",
+    "narrator": "راوی {{narrator}}",
+    "bookmark": "بک مارک",
+    "searchPlaceholder": "اس مجموعے میں تلاش کریں…",
+    "emptyTitle": "ابھی یہاں کچھ نہیں",
+    "emptyDesc": "یہ مجموعہ لوڈ نہیں ہو سکا۔",
+    "offlineTitle": "یہ مجموعہ لوڈ کرنے کے لیے انٹرنیٹ سے جُڑیں",
+    "offlineDesc": "مکمل مجموعے طلب پر ڈاؤن لوڈ ہوتے ہیں اور بعد میں آف لائن پڑھنے کے لیے محفوظ رہتے ہیں۔",
+    "loading": "لوڈ ہو رہا ہے…",
+    "notFoundTitle": "نہیں ملا",
+    "notFoundDesc": "شاید یہ آئٹم ہٹا دیا گیا ہے۔",
+    "bookCount": "{{count}} کتابیں",
+    "loadMore": "مزید لوڈ کریں",
+    "share": "حدیث شیئر کریں",
+    "bookmarkAdd": "بک مارک",
+    "bookmarkRemove": "بک مارک ہٹائیں",
+    "bookmarks": "بک مارکس",
+    "bookmarksSubtitle": "آپ کی محفوظ احادیث",
+    "bookmarksEmpty": "ابھی کوئی محفوظ حدیث نہیں",
+    "viewBookmarks": "بک مارکس دیکھیں"
+  },
+  "credits": {
+    "eyebrow": "انتساب",
+    "title": "کریڈٹس اور ذرائع",
+    "subtitle": "کھلے ڈیٹا اور آڈیو جو اس ایپ کو چلاتے ہیں",
+    "settingsLabel": "کریڈٹس اور ڈیٹا ذرائع",
+    "settingsSub": "لائسنس اور انتساب",
+    "openSource": "اوپن سورس",
+    "viewSource": "ماخذ دیکھیں"
   },
   "tasbeeh": {
     "eyebrow": "تسبیح",
@@ -259,6 +407,7 @@
   },
   "prayers": {
     "fajr": "فجر",
+    "sunrise": "طلوعِ آفتاب",
     "dhuhr": "ظہر",
     "asr": "عصر",
     "maghrib": "مغرب",
@@ -338,6 +487,8 @@
     "subtitle": "آپ کی عبادت، دن بہ دن",
     "prevMonth": "پچھلا مہینہ",
     "nextMonth": "اگلا مہینہ",
+    "gregorian": "عیسوی",
+    "hijri": "ہجری",
     "prayed": "پڑھی",
     "partial": "جزوی",
     "missed": "چھوٹی",
@@ -388,19 +539,86 @@
     "targetReached": "ماشاءاللہ — ہدف مکمل ہوا",
     "tapToCount": "گننے کے لیے دائرے پر دبائیں",
     "ofTarget": "{{target}} میں سے",
+    "remaining": "{{count}} باقی",
+    "complete": "مکمل",
+    "startAgain": "دوبارہ شروع کریں",
+    "undo": "واپس",
     "unlimited": "لامحدود",
     "customTitle": "اپنی پسند کا ہدف",
     "customPrompt": "آپ کتنی بار دہرانا چاہیں گے؟",
-    "customPlaceholder": "مثلاً ۳۱۳"
+    "customPlaceholder": "مثلاً ۳۱۳",
+    "modeLabel": "{{mode}}، شمار {{count}}"
   },
   "hero": {
-    "nextPrayerAway": "{{prayer}} میں صرف {{min}} منٹ باقی"
+    "nextPrayerAway": "{{prayer}} میں صرف {{min}} منٹ باقی",
+    "nextPrayerAwayHours": "{{prayer}} میں {{hours}} گھنٹے {{min}} منٹ باقی",
+    "locating": "آپ کا مقام تلاش کیا جا رہا ہے…",
+    "changeLocation": "مقام تبدیل کریں",
+    "scheduleTitle": "آج کی نمازیں",
+    "nextIn": "{{time}} میں",
+    "current": "اب",
+    "clockLabel": "{{time}}، {{countdown}}",
+    "prayerItem": "{{name}} {{time}} پر",
+    "prayerItemActive": "{{name}} {{time}} پر، موجودہ نماز"
+  },
+  "location": {
+    "eyebrow": "مقام",
+    "title": "اپنا مقام مقرر کریں",
+    "subtitle": "نماز کے اوقات اسی مقام کے حساب سے نکالے جاتے ہیں۔ کوئی بھی شہر تلاش کریں، یا اپنا موجودہ مقام استعمال کریں۔",
+    "currentTitle": "موجودہ مقام",
+    "useCurrent": "میرا موجودہ مقام استعمال کریں",
+    "locating": "آپ کا مقام معلوم کیا جا رہا ہے…",
+    "searchLabel": "شہر یا ملک تلاش کریں",
+    "searchPlaceholder": "کوئی شہر تلاش کریں…",
+    "hint": "شہر تلاش کرنے کے لیے کم از کم دو حروف لکھیں۔",
+    "noResultsTitle": "کوئی مقام نہیں ملا",
+    "noResultsDesc": "مختلف ہجے آزمائیں، یا قریبی کوئی بڑا شہر تلاش کریں۔",
+    "permissionDenied": "مقام کی اجازت بند ہے۔ اسے سیٹنگز میں آن کریں، یا اوپر اپنا شہر تلاش کریں۔",
+    "deviceError": "آپ کا موجودہ مقام معلوم نہیں ہو سکا۔ اس کے بجائے اوپر اپنا شہر تلاش کریں۔",
+    "manualBadge": "آپ کا مقرر کردہ",
+    "gpsBadge": "ڈیوائس سے",
+    "defaultBadge": "طے شدہ"
+  },
+  "moon": {
+    "aria": "چاند کا مرحلہ: {{phase}}",
+    "new": "نیا چاند",
+    "waxingCrescent": "بڑھتا ہلال",
+    "firstQuarter": "پہلی چوتھائی",
+    "waxingGibbous": "بڑھتا محدب چاند",
+    "full": "پورا چاند",
+    "waningGibbous": "گھٹتا محدب چاند",
+    "lastQuarter": "آخری چوتھائی",
+    "waningCrescent": "گھٹتا ہلال"
+  },
+  "moonSheet": {
+    "open": "{{phase}}۔ تفصیل کے لیے دبائیں",
+    "waxing": "بڑھتا ہوا — ہر رات زیادہ روشن",
+    "waning": "گھٹتا ہوا — نئے چاند کی طرف مدھم",
+    "illuminationLabel": "روشنی",
+    "hijriDate": "اسلامی تاریخ",
+    "lunarDay": "قمری دن",
+    "lunarDayValue": "{{month}} کا {{day}} واں دن",
+    "age": "چاند کی عمر",
+    "ageValue": "نئے چاند سے {{days}} دن",
+    "nextNewMoon": "اگلا نیا چاند",
+    "nextNewMoonValue": "~{{days}} دن · {{month}} کا آغاز",
+    "note": {
+      "whiteDaysTitle": "ایامِ بیض",
+      "whiteDaysBody": "ہر اسلامی مہینے کی ۱۳، ۱۴ اور ۱۵ تاریخ پورے چاند کے قریب آتی ہیں۔ اِن تین روشن دنوں کے روزے نبی ﷺ کی محبوب سنت ہیں۔",
+      "newMonthTitle": "نئے مہینے کا آغاز",
+      "newMonthBody": "باریک ہلال {{month}} کے آغاز کی نشانی ہے۔ ہر اسلامی مہینہ غروبِ آفتاب کے بعد نیا چاند نظر آنے پر شروع ہوتا ہے۔",
+      "fullTitle": "آج پورا چاند",
+      "fullBody": "چاند {{month}} کے وسط کے قریب مکمل روشن ہے — ایامِ بیض کی راتیں، جن میں روزہ رکھنا مستحب ہے۔",
+      "generalTitle": "قمری تقویم",
+      "generalBody": "اسلامی (ہجری) تقویم چاند کے مطابق چلتی ہے: ہر مہینہ ۲۹ یا ۳۰ دن کا ہوتا ہے، جو نئے ہلال کے دیدار سے شروع ہوتا ہے۔"
+    }
   },
   "achievements": {
     "eyebrow": "سنگِ میل",
     "subtitle": "{{total}} میں سے {{unlocked}} حاصل",
     "share": "شیئر کریں",
-    "shareMessage": "الحمدللہ — میں نے منیب ٹریکر میں \"{{title}}\" حاصل کیا: {{description}}۔"
+    "shareMessage": "الحمدللہ — میں نے منیب ٹریکر میں \"{{title}}\" حاصل کیا: {{description}}۔",
+    "unlockedToast": "کامیابی حاصل ہوئی: {{name}}"
   },
   "notifCenter": {
     "eyebrow": "یاد دہانیاں",
@@ -411,7 +629,11 @@
     "scheduled": "شیڈول شدہ",
     "settings": "ترتیبات",
     "emptyTitle": "کوئی یاد دہانی شیڈول نہیں",
-    "emptyDesc": "انہیں یہاں دیکھنے کے لیے اطلاعات کی ترتیبات میں زمرے فعال کریں۔"
+    "emptyDesc": "انہیں یہاں دیکھنے کے لیے اطلاعات کی ترتیبات میں زمرے فعال کریں۔",
+    "inbox": "حالیہ",
+    "inboxEmptyTitle": "کوئی حالیہ اطلاع نہیں",
+    "inboxEmptyDesc": "موصول یاددہانیاں اور کامیابیاں یہاں ظاہر ہوں گی۔",
+    "markAllRead": "سب پڑھا ہوا نشان لگائیں"
   },
   "qibla": {
     "eyebrow": "سمت",
@@ -423,7 +645,14 @@
     "webHint": "براؤزر میں کمپاس سینسر دستیاب نہیں۔ تیر شمال سے قبلہ کی سمت دکھاتا ہے — درست کرنے کے لیے حقیقی کمپاس استعمال کریں۔",
     "noCompassHint": "کوئی کمپاس سینسر نہیں ملا۔ تیر حقیقی شمال سے، گھڑی کی سمت ماپی گئی قبلہ کی سمت دکھاتا ہے۔",
     "calibrateHint": "درستی کے لیے، اپنا آلہ سیدھا پکڑیں اور دھات و مقناطیس سے دور، آٹھ (8) کی شکل میں گھمائیں تاکہ کمپاس کیلیبریٹ ہو۔",
-    "tryAgain": "دوبارہ کوشش کریں"
+    "tryAgain": "دوبارہ کوشش کریں",
+    "compassLabel": "قبلہ کمپاس",
+    "compassValue": "کعبہ کی طرف {{bearing}} درجے، {{distance}} کے فاصلے پر",
+    "aligned": "قبلہ کے ساتھ ہم رخ",
+    "cardinalN": "شمال",
+    "cardinalE": "مشرق",
+    "cardinalS": "جنوب",
+    "cardinalW": "مغرب"
   },
   "profile": {
     "eyebrow": "اکاؤنٹ",
@@ -442,6 +671,55 @@
     "appLanguage": "ایپ کی زبان",
     "translationLanguage": "ترجمے کی زبان",
     "translationHint": "عربی دینی متن کے معنی کے لیے استعمال ہوتی ہے۔",
-    "footer": "انٹرفیس کا مزید حصہ بتدریج ترجمہ کیا جا رہا ہے۔ عربی کے انتخاب سے، جہاں معاون ہو، دائیں سے بائیں ترتیب فعال ہو جاتی ہے۔"
+    "footer": "انٹرفیس کا مزید حصہ بتدریج ترجمہ کیا جا رہا ہے۔ عربی کے انتخاب سے، جہاں معاون ہو، دائیں سے بائیں ترتیب فعال ہو جاتی ہے۔",
+    "eyebrow": "ترتیبات",
+    "subtitle": "ایپ اور ترجمے کی زبان"
+  },
+  "about": {
+    "eyebrow": "ترتیبات",
+    "title": "متعلق",
+    "subtitle": "کریڈٹس، صداقت اور پالیسیاں",
+    "version": "ورژن {{version}}",
+    "credits": "کریڈٹس",
+    "authorLabel": "مصنف",
+    "authorValue": "منیب ٹریکر ٹیم",
+    "collaboratorsLabel": "معاونین",
+    "collaboratorsValue": "کمیونٹی کے تعاون کنندگان",
+    "duaTitle": "ایک دعا",
+    "duaBody": "اللہ ہر اُس شخص کی کوششیں قبول فرمائے جس نے تعاون کیا، اُن کی کوتاہیاں معاف فرمائے اور اُن کے مرحومین پر رحم فرمائے۔ آمین۔",
+    "authenticityTitle": "مواد کی صداقت",
+    "authenticityBody": "اذکار اور دعائیں معروف مجموعوں سے لی گئی ہیں اور وسیع پیمانے پر شائع شدہ متون کے قریب رکھی گئی ہیں۔ کسی مخصوص حکم یا تعداد پر انحصار سے پہلے براہِ کرم کسی معتبر عالم یا ماخذ سے تصدیق کر لیں۔",
+    "privacyPolicy": "پرائیویسی پالیسی",
+    "termsOfService": "سروس کی شرائط"
+  },
+  "player": {
+    "nowPlaying": "چل رہا ہے",
+    "upNext": "اگلا",
+    "remaining": "{{count}} باقی",
+    "trackOf": "{{total}} میں سے {{current}}",
+    "goToScreen": "پڑھنے کی اسکرین پر جائیں",
+    "play": "چلائیں",
+    "pause": "روکیں",
+    "next": "اگلا ٹریک",
+    "previous": "پچھلا ٹریک",
+    "close": "پلیئر بند کریں",
+    "collapse": "سمیٹیں",
+    "expand": "پلیئر کھولیں",
+    "speed": "چلانے کی رفتار",
+    "speedValue": "رفتار {{value}}×",
+    "loopOff": "دہرانا بند",
+    "loopAll": "سب دہرائیں",
+    "loopOne": "ایک بار دہرائیں",
+    "seek": "چلانے کا مقام",
+    "buffering": "بفر ہو رہا ہے…",
+    "loading": "لوڈ ہو رہا ہے…"
+  },
+  "pwa": {
+    "installBannerMessage": "iPhone پر ایپ جیسا تجربہ اور براؤزر اطلاعات کے لیے منیب ٹریکر کو ہوم اسکرین پر انسٹال کریں۔",
+    "installStepsViaSafari": "نیچے لنک کاپی کریں، Safari میں کھولیں، پھر Share ← Add to Home Screen۔",
+    "installCopyLink": "Safari کے لیے لنک کاپی کریں",
+    "installLinkCopied": "لنک کاپی ہو گیا — Safari کے address bar میں پیسٹ کریں۔",
+    "installLinkCopyFailed": "لنک کاپی نہیں ہو سکا۔ یہ صفحہ Safari میں دستی کھولیں۔",
+    "installDismiss": "بند کریں"
   }
 }

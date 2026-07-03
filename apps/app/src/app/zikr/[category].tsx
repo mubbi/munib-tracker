@@ -30,7 +30,7 @@ export default function ZikrCategoryScreen() {
       eyebrow={t("zikr.categoryEyebrow")}
       title={t(`zikrCat.${categoryId}`)}
       subtitle={t("zikr.adhkarCount", { count: items.length })}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       {items.length === 0 ? (
         <EmptyState
@@ -46,9 +46,12 @@ export default function ZikrCategoryScreen() {
                 <ZikrRow
                   key={item.id}
                   item={item}
+                  expandable
                   isFavorite={favoriteIds.includes(item.id)}
                   onToggleFavorite={() => toggleFavorite(item.id)}
-                  onPress={() => router.push({ pathname: "/zikr/[id]", params: { id: item.id } })}
+                  onPress={() =>
+                    router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
+                  }
                 />
               ))}
             </View>

@@ -18,7 +18,7 @@ export default function DuroodsScreen() {
       eyebrow={t("duroods.eyebrow")}
       title={t("duroods.title")}
       subtitle={t("duroods.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         {DUROOD_ITEMS.map((item) => (
@@ -26,7 +26,7 @@ export default function DuroodsScreen() {
             <ThemedText type="smallBold" style={styles.title}>
               {item.title}
             </ThemedText>
-            <ReadingCard item={item} />
+            <ReadingCard item={item} sourceHref="/duroods" />
           </View>
         ))}
       </Stagger>

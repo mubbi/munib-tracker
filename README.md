@@ -1,6 +1,6 @@
 # Munib (مُنيب) Tracker
 
-Tracking salah, dhikr, and qadha in your journey back to Allah.
+Track Your Journey Back to Allah.
 
 ## Monorepo structure
 

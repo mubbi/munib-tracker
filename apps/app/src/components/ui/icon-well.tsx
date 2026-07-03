@@ -1,6 +1,7 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
+import { Radius } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type IconWellProps = {
@@ -24,7 +25,7 @@ export function IconWell({
   tint,
   background,
   well = 38,
-  radius = 12,
+  radius = Radius.md,
   style,
 }: IconWellProps) {
   const { colors, tokens } = useThemeTokens();

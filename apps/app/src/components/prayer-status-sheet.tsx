@@ -10,12 +10,27 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import {
   PRAYER_STATUS_META,
   PRAYER_STATUS_ORDER,
   statusToneColor,
   statusToneSoft,
 } from "@/lib/prayer-ui";
+
+/** Maps the picked status to a fitting outcome haptic. */
+function outcomeHaptic(status: PrayerStatus): HapticFeedback {
+  switch (status) {
+    case "completed":
+    case "qaza":
+      return "success";
+    case "missed":
+      return "warning";
+    default:
+      // delayed / pending (clear) — a neutral selection tick.
+      return "selection";
+  }
+}
 
 type PrayerStatusSheetProps = {
   visible: boolean;
@@ -56,10 +71,17 @@ export function PrayerStatusSheet({
             return (
               <PressableScale
                 key={status}
-                haptic="light"
+                haptic={false}
+                accessibilityRole="button"
+                accessibilityLabel={t(`prayerStatus.${status}`)}
+                accessibilityState={{ selected: active }}
                 onPress={() => {
                   // Tapping the active status clears back to pending.
-                  onSelect(active ? "pending" : status);
+                  const next = active ? "pending" : status;
+                  // Outcome-specific haptic: success for completed/qaza,
+                  // warning for missed, a neutral tick for delayed/clear.
+                  triggerHaptic(outcomeHaptic(next));
+                  onSelect(next);
                   onClose();
                 }}
                 style={[

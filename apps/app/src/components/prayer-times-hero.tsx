@@ -1,7 +1,7 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
   interpolate,
@@ -12,10 +12,16 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { MoonPhaseIcon } from "@/components/moon-phase";
+import { MoonPhaseSheet } from "@/components/moon-phase-sheet";
+import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { Durations } from "@/constants/motion";
 import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
+import { gradientBackground } from "@/lib/gradient";
+import type { SkyPalette } from "@/lib/sky";
 
 export type PrayerTime = {
   name: string;
@@ -27,40 +33,74 @@ type PrayerTimesHeroProps = {
   location: string;
   hijriDate: string;
   currentTime: string;
-  nextPrayer: string;
-  minutesToNext: number;
+  /** Pre-localized countdown line, e.g. "Maghrib is 27 min away". */
+  countdown: string;
   prayers: PrayerTime[];
-  /** Index of the currently active / upcoming prayer to highlight. */
+  /** Index of the prayer whose window is currently running (the highlighted card). */
   activeIndex: number;
   /** Safe-area top inset so the hero can sit under the status bar. */
   topInset: number;
+  /** Time-of-day palette driving the background, glow, and accent. */
+  sky: SkyPalette;
+  /** Instant used to draw the current moon phase. */
+  now: Date;
+  /** Localized accessibility label for the moon phase glyph. */
+  moonLabel: string;
+  /** Fraction (0..1) of the current prayer window that has elapsed. */
+  windowProgress: number;
   notificationCount?: number;
   onSearchPress?: () => void;
   onNotificationsPress?: () => void;
+  /** Re-request / refresh the stored location (fires on tapping the location row). */
+  onLocationPress?: () => void;
 };
 
 /**
- * The full-bleed home header and emotional centrepiece. A real layered gradient
- * (native, no SVG) plus a slow breathing glow give it depth and calm life. The
- * deep-green "prayer" palette stays constant across light/dark for a premium,
- * serene feel; brand-gold marks the live prayer and countdown.
+ * Inactive prayer names/times: a high-alpha cream rather than the muted
+ * `heroSubtext` teal, so they keep ~4.5:1 contrast even on the brightest
+ * (noon) sky while still reading as secondary next to the active marker.
+ */
+const INACTIVE_PRAYER_TEXT = withAlpha(Brand.heroText, 0.82);
+
+/** Fixed positions for the faint night starfield (left %, top px, size, opacity). */
+const STARS = [
+  { left: "14%", top: 40, size: 2, opacity: 0.7 },
+  { left: "27%", top: 74, size: 1.5, opacity: 0.5 },
+  { left: "42%", top: 52, size: 2, opacity: 0.8 },
+  { left: "58%", top: 88, size: 1.5, opacity: 0.55 },
+  { left: "69%", top: 46, size: 2.5, opacity: 0.85 },
+  { left: "83%", top: 70, size: 1.5, opacity: 0.6 },
+  { left: "90%", top: 100, size: 2, opacity: 0.7 },
+] as const;
+
+/**
+ * The full-bleed home header and emotional centrepiece. A layered gradient sky
+ * (native, no SVG) shifts with the time of day, a soft celestial glow breathes
+ * overhead (sun by day, moon by night), and a mosque silhouette rises from the
+ * base. The current moon phase sits beside the lunar (Hijri) date; the sky's
+ * accent marks the live prayer and location.
  */
 export function PrayerTimesHero({
   location,
   hijriDate,
   currentTime,
-  nextPrayer,
-  minutesToNext,
+  countdown,
   prayers,
   activeIndex,
   topInset,
+  sky,
+  now,
+  moonLabel,
+  windowProgress,
   notificationCount = 0,
   onSearchPress,
   onNotificationsPress,
+  onLocationPress,
 }: PrayerTimesHeroProps) {
   const { t } = useTranslation();
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
+  const [moonOpen, setMoonOpen] = useState(false);
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -72,96 +112,203 @@ export function PrayerTimesHero({
   }, [reducedMotion, breath]);
 
   const glowStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(breath.value, [0, 1], [0.5, 0.9]),
-    transform: [{ scale: interpolate(breath.value, [0, 1], [1, 1.14]) }],
+    opacity: interpolate(breath.value, [0, 1], [0.55, 0.95]),
   }));
 
   return (
-    <View style={[styles.hero, { paddingTop: topInset + Spacing.two }]}>
-      {/* Base vertical gradient. */}
-      <View style={styles.gradientBase} />
-      {/* Breathing accent glow, top-right. */}
-      <Animated.View style={[styles.glow, styles.glowTop, glowStyle]} />
-      {/* Static depth glow, bottom-left. */}
-      <View style={[styles.glow, styles.glowBottom]} />
-
-      {/* Top bar: location + actions. */}
-      <View style={styles.topBar}>
-        <View style={styles.locationRow}>
-          <SymbolView
-            name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
-            size={14}
-            tintColor={Brand.heroAccent}
-          />
-          <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
-            {location}
-          </ThemedText>
-        </View>
-        <View style={styles.actions}>
-          <HeroIconButton
-            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            label={t("common.search")}
-            onPress={onSearchPress}
-          />
-          <HeroIconButton
-            icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-            label={t("common.notifications")}
-            onPress={onNotificationsPress}
-            badgeCount={notificationCount}
-          />
-        </View>
-      </View>
-
-      {/* Centre clock block. */}
-      <View style={styles.clockBlock}>
-        <ThemedText type="caption" style={{ color: Brand.heroSubtext }}>
-          {hijriDate}
-        </ThemedText>
-        <ThemedText type="display" style={[styles.clock, { color: Brand.heroText }]}>
-          {currentTime}
-        </ThemedText>
-        <ThemedText type="small" style={{ color: Brand.heroSubtext }}>
-          {t("hero.nextPrayerAway", { prayer: nextPrayer, min: minutesToNext })}
-        </ThemedText>
-      </View>
-
-      {/* Prayer row. */}
-      <View style={styles.prayerRow}>
-        {prayers.map((prayer, index) => {
-          const active = index === activeIndex;
-          return (
-            <View
-              key={prayer.name}
-              style={[
-                styles.prayerItem,
-                active && {
-                  backgroundColor: Brand.onHeroStrongSurface,
-                  borderColor: withAlpha(Brand.heroAccent, 0.5),
-                },
-              ]}
-            >
-              <ThemedText
-                type="caption"
-                style={{ color: active ? Brand.heroText : Brand.heroSubtext }}
-              >
-                {prayer.name}
-              </ThemedText>
-              <SymbolView
-                name={prayer.icon}
-                size={19}
-                tintColor={active ? Brand.heroAccent : Brand.heroSubtext}
+    <>
+      <View
+        style={[styles.hero, { paddingTop: topInset + Spacing.two, backgroundColor: sky.bottom }]}
+      >
+        {/* Base vertical gradient sky. */}
+        <View
+          style={[
+            styles.fill,
+            gradientBackground(
+              `linear-gradient(180deg, ${sky.top} 0%, ${sky.mid} 46%, ${sky.bottom} 100%)`,
+            ),
+          ]}
+        />
+        {/* Warm/cool wash along the horizon. */}
+        <View
+          style={[
+            styles.fill,
+            gradientBackground(
+              `linear-gradient(180deg, ${withAlpha(sky.bottom, 0)} 42%, ${sky.horizon} 100%)`,
+            ),
+          ]}
+        />
+        {/* Breathing celestial glow (sun by day, moon by night). */}
+        <Animated.View
+          style={[
+            styles.fill,
+            glowStyle,
+            gradientBackground(
+              `radial-gradient(circle at ${sky.glowX}% ${sky.glowY}%, ${sky.glow} 0%, ${withAlpha(toHex(sky.glow), 0)} 55%)`,
+            ),
+          ]}
+        />
+        {/* Faint starfield at night. */}
+        {sky.stars
+          ? STARS.map((star) => (
+              <View
+                key={`${star.left}-${star.top}`}
+                style={[
+                  styles.star,
+                  {
+                    left: star.left,
+                    top: topInset + star.top,
+                    width: star.size,
+                    height: star.size,
+                    borderRadius: star.size,
+                    opacity: star.opacity,
+                  },
+                ]}
               />
-              <ThemedText
-                type="caption"
-                style={{ color: active ? Brand.heroText : Brand.heroSubtext, fontWeight: "700" }}
+            ))
+          : null}
+        {/* Mosque skyline rising from the base. */}
+        <MosqueSilhouette color={sky.silhouette} />
+        {/* Readability scrim: darkens the top (location) and bottom (prayer row)
+          for legible text on any sky, while leaving the mid glow mostly clear. */}
+        <View
+          style={[
+            styles.fill,
+            gradientBackground(
+              "linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.06) 24%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.52) 100%)",
+            ),
+          ]}
+        />
+
+        {/* Top bar: location + actions. */}
+        <View style={styles.topBar}>
+          <PressableScale
+            onPress={onLocationPress}
+            haptic="light"
+            scaleTo={0.96}
+            hitSlop={8}
+            accessibilityRole="button"
+            accessibilityLabel={t("hero.changeLocation")}
+            style={styles.locationRow}
+          >
+            <SymbolView
+              name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
+              size={14}
+              tintColor={sky.accent}
+            />
+            <ThemedText type="smallBold" style={[styles.softShadow, { color: Brand.heroText }]}>
+              {location}
+            </ThemedText>
+            <SymbolView
+              name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
+              size={11}
+              tintColor={Brand.heroText}
+            />
+          </PressableScale>
+          <View style={styles.actions}>
+            <HeroIconButton
+              icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+              label={t("common.search")}
+              onPress={onSearchPress}
+            />
+            <HeroIconButton
+              icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+              label={t("common.notifications")}
+              onPress={onNotificationsPress}
+              badgeCount={notificationCount}
+            />
+          </View>
+        </View>
+
+        {/* Centre clock block. */}
+        <View style={styles.clockBlock}>
+          <PressableScale
+            onPress={() => setMoonOpen(true)}
+            haptic="light"
+            scaleTo={0.94}
+            hitSlop={10}
+            accessibilityRole="button"
+            accessibilityLabel={t("moonSheet.open", { phase: moonLabel })}
+            style={styles.dateRow}
+          >
+            <MoonPhaseIcon date={now} size={22} />
+            <ThemedText style={[styles.hijri, styles.softShadow, { color: Brand.heroText }]}>
+              {hijriDate}
+            </ThemedText>
+            <SymbolView
+              name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
+              size={12}
+              tintColor={Brand.heroSubtext}
+            />
+          </PressableScale>
+          <View
+            accessible
+            accessibilityLiveRegion="polite"
+            accessibilityLabel={t("hero.clockLabel", { time: currentTime, countdown })}
+            style={styles.clockGroup}
+          >
+            <ThemedText type="display" style={[styles.clock, { color: Brand.heroText }]}>
+              {currentTime}
+            </ThemedText>
+            <ThemedText style={[styles.countdown, styles.softShadow, { color: Brand.heroText }]}>
+              {countdown}
+            </ThemedText>
+          </View>
+          {/* Thin progress through the current prayer window, tinted with the sky accent. */}
+          <ProgressBar
+            value={windowProgress}
+            height={4}
+            color={sky.accent}
+            trackColor={Brand.onHeroStrongSurface}
+            style={styles.windowProgress}
+          />
+        </View>
+
+        {/* Prayer row. */}
+        <View style={styles.prayerRow}>
+          {prayers.map((prayer, index) => {
+            const active = index === activeIndex;
+            // Inactive names/times use a high-alpha cream (not the low-contrast
+            // subtext) so they still clear ~4.5:1 on the brightest daytime skies.
+            const textColor = active ? Brand.heroText : INACTIVE_PRAYER_TEXT;
+            return (
+              <View
+                key={prayer.name}
+                accessible
+                accessibilityRole="text"
+                accessibilityLabel={t(active ? "hero.prayerItemActive" : "hero.prayerItem", {
+                  name: prayer.name,
+                  time: prayer.time,
+                })}
+                style={[
+                  styles.prayerItem,
+                  active && {
+                    backgroundColor: Brand.onHeroStrongSurface,
+                    borderColor: withAlpha(toHex(sky.accent), 0.5),
+                  },
+                ]}
               >
-                {prayer.time}
-              </ThemedText>
-            </View>
-          );
-        })}
+                <ThemedText type="caption" style={[styles.softShadow, { color: textColor }]}>
+                  {prayer.name}
+                </ThemedText>
+                <SymbolView
+                  name={prayer.icon}
+                  size={19}
+                  tintColor={active ? sky.accent : INACTIVE_PRAYER_TEXT}
+                />
+                <ThemedText
+                  type="caption"
+                  style={[styles.softShadow, { color: textColor, fontWeight: "700" }]}
+                >
+                  {prayer.time}
+                </ThemedText>
+              </View>
+            );
+          })}
+        </View>
       </View>
-    </View>
+      <MoonPhaseSheet visible={moonOpen} date={now} onClose={() => setMoonOpen(false)} />
+    </>
   );
 }
 
@@ -197,6 +344,11 @@ function HeroIconButton({
   );
 }
 
+/** Strips an alpha suffix from an 8-digit hex so `withAlpha` gets a clean 6-digit base. */
+function toHex(color: string): string {
+  return color.length === 9 && color.startsWith("#") ? color.slice(0, 7) : color;
+}
+
 const styles = StyleSheet.create({
   hero: {
     overflow: "hidden",
@@ -206,34 +358,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingBottom: Spacing.six,
     gap: Spacing.four,
-    backgroundColor: Brand.heroBottom,
   },
-  gradientBase: {
+  fill: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    experimental_backgroundImage: `linear-gradient(160deg, ${Brand.heroTop} 0%, ${Brand.heroBottom} 100%)`,
   },
-  glow: {
+  star: {
     position: "absolute",
-    borderRadius: 220,
-  },
-  glowTop: {
-    width: 260,
-    height: 260,
-    top: -110,
-    right: -70,
-    experimental_backgroundImage: `radial-gradient(circle, ${Brand.heroGlow} 0%, ${withAlpha(Brand.heroGlow, 0)} 70%)`,
-  },
-  glowBottom: {
-    width: 320,
-    height: 320,
-    bottom: -190,
-    left: -90,
-    opacity: 0.55,
-    experimental_backgroundImage: `radial-gradient(circle, ${Brand.heroTop} 0%, ${withAlpha(Brand.heroTop, 0)} 72%)`,
+    backgroundColor: "#FFFFFF",
   },
   topBar: {
     flexDirection: "row",
@@ -282,8 +417,53 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     paddingVertical: Spacing.two,
   },
+  clockGroup: {
+    alignItems: "center",
+    gap: Spacing.one,
+  },
+  windowProgress: {
+    width: "56%",
+    marginTop: Spacing.two,
+  },
+  dateRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one + 3,
+  },
+  hijri: {
+    fontSize: 15,
+    lineHeight: 20,
+    fontWeight: "600",
+    letterSpacing: 0.2,
+  },
   clock: {
     fontVariant: ["tabular-nums"],
+    // `textShadow` shorthand on web (avoids the deprecated `textShadow*` props);
+    // native still uses the longhand props, which remain the supported form.
+    ...Platform.select({
+      web: { textShadow: "0px 1px 12px rgba(0, 0, 0, 0.42)" },
+      default: {
+        textShadowColor: "rgba(0, 0, 0, 0.42)",
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 12,
+      },
+    }),
+  },
+  countdown: {
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: "600",
+  },
+  /** Soft dark shadow that lifts light text off any sky. */
+  softShadow: {
+    ...Platform.select({
+      web: { textShadow: "0px 1px 5px rgba(0, 0, 0, 0.45)" },
+      default: {
+        textShadowColor: "rgba(0, 0, 0, 0.45)",
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 5,
+      },
+    }),
   },
   prayerRow: {
     flexDirection: "row",

@@ -44,6 +44,7 @@ export function PrayerNotesModal({
       <TextInput
         value={value}
         onChangeText={(text) => setValue(text.slice(0, MAX_NOTES))}
+        accessibilityLabel={t("notesModal.placeholder")}
         placeholder={t("notesModal.placeholder")}
         placeholderTextColor={colors.mutedForeground}
         multiline

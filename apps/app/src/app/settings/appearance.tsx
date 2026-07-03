@@ -2,20 +2,21 @@ import { accentColorIds, accentColors } from "@munib-tracker/theme/accents";
 import type { AccentColorId, ColorMode } from "@munib-tracker/theme/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { InlineCustomColorPicker } from "@/components/ui/inline-custom-color-picker";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
+import { COLOR_PALETTE } from "@/constants/color-palette";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { contrastRatio, isValidHex, normalizeHex, readableForeground } from "@/lib/color";
+import { normalizeHex, readableForeground } from "@/lib/color";
 
 const colorModeIds: ColorMode[] = ["light", "dark", "system"];
 
@@ -37,19 +38,16 @@ export default function AppearanceScreen() {
     setAccentColor,
     setCustomAccent,
   } = useThemeTokens();
-  const [hexDraft, setHexDraft] = useState(customAccent ?? "");
 
-  const draftValid = isValidHex(hexDraft);
-  const draftContrast = draftValid
-    ? contrastRatio(normalizeHex(hexDraft) ?? "#000000", "#FFFFFF")
-    : 0;
+  const pickerValue = customAccent ?? colors.accent;
+  const accentLabel = customAccent ?? accentColorId;
 
   return (
     <ScreenLayout
       eyebrow={t("appearance.eyebrow")}
       title={t("settings.appearance")}
       subtitle={t("settings.appearanceSub")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card>
@@ -88,10 +86,13 @@ export default function AppearanceScreen() {
             </View>
           </View>
 
-          <View style={styles.swatchRow}>
+          <ThemedText type="label" themeColor="mutedForeground" style={styles.sectionLabel}>
+            {t("appearance.accentPresets")}
+          </ThemedText>
+          <View style={styles.presetGrid}>
             {accentColorIds.map((id) => {
               const accent = accentColors[id];
-              const selected = accentColorId === id;
+              const selected = !customAccent && accentColorId === id;
               const swatchColor = scheme === "dark" ? accent.dark : accent.light;
               return (
                 <PressableScale
@@ -102,7 +103,7 @@ export default function AppearanceScreen() {
                   onPress={() => setAccentColor(id as AccentColorId)}
                   scaleTo={0.9}
                   haptic="selection"
-                  style={styles.swatchItem}
+                  style={styles.presetItem}
                 >
                   <View
                     style={[
@@ -126,6 +127,7 @@ export default function AppearanceScreen() {
                   <ThemedText
                     type="caption"
                     style={{ color: selected ? colors.foreground : colors.mutedForeground }}
+                    numberOfLines={1}
                   >
                     {accent.label}
                   </ThemedText>
@@ -133,92 +135,52 @@ export default function AppearanceScreen() {
               );
             })}
           </View>
-        </Card>
 
-        <Card>
-          <View style={styles.sectionHead}>
-            <View style={[styles.iconWell, { backgroundColor: tokens.accentSoft }]}>
-              <SymbolView
-                name={{ ios: "eyedropper.halffull", android: "colorize", web: "colorize" }}
-                size={18}
-                tintColor={colors.accent}
-              />
-            </View>
-            <View style={styles.sectionTitle}>
-              <ThemedText type="subtitle">{t("appearance.customTitle")}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {customAccent
-                  ? t("appearance.customUsing", { hex: customAccent })
-                  : t("appearance.customHint")}
-              </ThemedText>
-            </View>
+          <ThemedText type="label" themeColor="mutedForeground" style={styles.sectionLabel}>
+            {t("appearance.accentAllColors")}
+          </ThemedText>
+          <View style={styles.paletteGrid}>
+            {COLOR_PALETTE.map((c) => {
+              const normalized = normalizeHex(c);
+              const selected =
+                customAccent !== null &&
+                normalized !== null &&
+                normalizeHex(customAccent) === normalized;
+              return (
+                <PressableScale
+                  key={c}
+                  accessibilityLabel={c}
+                  accessibilityRole="button"
+                  accessibilityState={{ selected }}
+                  onPress={() => setCustomAccent(c)}
+                  scaleTo={0.92}
+                  haptic="selection"
+                  style={[
+                    styles.paletteDot,
+                    { backgroundColor: c },
+                    selected && {
+                      borderWidth: 3,
+                      borderColor: colors.background,
+                      transform: [{ scale: 1.12 }],
+                    },
+                  ]}
+                >
+                  {selected ? (
+                    <SymbolView
+                      name={{ ios: "checkmark", android: "check", web: "check" }}
+                      size={12}
+                      tintColor={readableForeground(c)}
+                    />
+                  ) : null}
+                </PressableScale>
+              );
+            })}
           </View>
 
-          <View style={styles.hexRow}>
-            <View
-              style={[
-                styles.hexPreview,
-                {
-                  backgroundColor: draftValid
-                    ? (normalizeHex(hexDraft) ?? colors.muted)
-                    : colors.muted,
-                  borderColor: tokens.hairline,
-                },
-              ]}
-            >
-              {draftValid ? (
-                <SymbolView
-                  name={{ ios: "checkmark", android: "check", web: "check" }}
-                  size={16}
-                  tintColor={readableForeground(normalizeHex(hexDraft) ?? "#000000")}
-                />
-              ) : null}
-            </View>
-            <TextInput
-              value={hexDraft}
-              onChangeText={(text) => setHexDraft(text.slice(0, 7))}
-              autoCapitalize="characters"
-              autoCorrect={false}
-              placeholder="#1E7A63"
-              placeholderTextColor={colors.mutedForeground}
-              style={[
-                styles.hexInput,
-                {
-                  color: colors.foreground,
-                  backgroundColor: colors.muted,
-                  borderColor: colors.border,
-                },
-              ]}
-            />
-            <Button
-              label={t("common.apply")}
-              size="sm"
-              disabled={!draftValid}
-              onPress={() => setCustomAccent(hexDraft)}
-            />
-          </View>
-
-          {draftValid && draftContrast < 3 ? (
-            <ThemedText
-              type="caption"
-              style={[styles.contrast, { color: tokens.status.warning.color }]}
-            >
-              {t("appearance.lowContrast")}
-            </ThemedText>
-          ) : null}
-
-          {customAccent ? (
-            <Button
-              label={t("appearance.reset")}
-              variant="ghost"
-              size="sm"
-              onPress={() => {
-                setCustomAccent(null);
-                setHexDraft("");
-              }}
-              style={styles.reset}
-            />
-          ) : null}
+          <ThemedText type="label" themeColor="mutedForeground" style={styles.sectionLabel}>
+            {t("appearance.customColorPicker")}
+          </ThemedText>
+          <InlineCustomColorPicker value={pickerValue} onChange={(hex) => setCustomAccent(hex)} />
         </Card>
 
         <Card variant="muted">
@@ -230,7 +192,7 @@ export default function AppearanceScreen() {
             <Button label={t("appearance.secondary")} size="sm" variant="secondary" />
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.previewMeta}>
-            {t("appearance.previewMeta", { mode: colorMode, accent: accentColorId })}
+            {t("appearance.previewMeta", { mode: colorMode, accent: accentLabel })}
           </ThemedText>
         </Card>
       </Stagger>
@@ -257,13 +219,21 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 2,
   },
-  swatchRow: {
+  sectionLabel: {
+    textTransform: "uppercase",
+    letterSpacing: 0.8,
+    marginTop: Spacing.two,
+    marginBottom: Spacing.two,
+  },
+  presetGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: Spacing.four,
+    gap: Spacing.two,
     rowGap: Spacing.three,
   },
-  swatchItem: {
+  presetItem: {
+    width: "22%",
+    minWidth: 72,
     alignItems: "center",
     gap: Spacing.one + 2,
   },
@@ -278,6 +248,20 @@ const styles = StyleSheet.create({
   swatchSelected: {
     transform: [{ scale: 1.06 }],
   },
+  paletteGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    marginBottom: Spacing.two,
+  },
+  paletteDot: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   previewRow: {
     flexDirection: "row",
     gap: Spacing.two,
@@ -287,35 +271,5 @@ const styles = StyleSheet.create({
   },
   previewMeta: {
     marginTop: Spacing.one,
-  },
-  hexRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  hexPreview: {
-    width: 40,
-    height: 40,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  hexInput: {
-    flex: 1,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  contrast: {
-    marginTop: Spacing.two,
-  },
-  reset: {
-    marginTop: Spacing.two,
   },
 });

@@ -4,9 +4,13 @@ import { removeKey } from "./store";
 
 export { createId } from "./id";
 export { DB_KEYS } from "./keys";
+export { HadithRepository } from "./repositories/hadith-repository";
+export { LocationRepository } from "./repositories/location-repository";
 export { PrayerRepository } from "./repositories/prayer-repository";
 export { PreferencesRepository } from "./repositories/preferences-repository";
 export { QazaRepository } from "./repositories/qaza-repository";
+export { QuranCacheRepository } from "./repositories/quran-cache-repository";
+export { QuranRepository } from "./repositories/quran-repository";
 export { ZikrRepository } from "./repositories/zikr-repository";
 
 let initPromise: Promise<void> | null = null;
@@ -29,8 +33,16 @@ export async function resetDatabase(): Promise<void> {
       DB_KEYS.qazaDailyPlans,
       DB_KEYS.qazaRoza,
       DB_KEYS.userPreferences,
+      DB_KEYS.location,
       DB_KEYS.syncMetadata,
       DB_KEYS.achievements,
+      DB_KEYS.quranBookmarks,
+      DB_KEYS.quranLastRead,
+      DB_KEYS.quranReadingProgress,
+      DB_KEYS.quranPrefs,
+      DB_KEYS.quranEditionCache,
+      DB_KEYS.hadithBookmarks,
+      DB_KEYS.hadithBookCache,
     ].map((key) => removeKey(key)),
   );
 }

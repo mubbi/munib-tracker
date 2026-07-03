@@ -7,8 +7,23 @@ import type {
   ZikrCategoryId,
 } from "../types/index";
 
-export const APP_NAME = "Munib Tracker";
-export const APP_TAGLINE = "Track salah, dhikr, and qadha in your journey back to Allah.";
+export {
+  APP_DESCRIPTION,
+  APP_NAME,
+  APP_SLUG,
+  APP_TAGLINE,
+} from "./branding";
+
+export {
+  APP_ACHIEVEMENTS,
+  APP_FEATURE_PILLARS,
+  APP_HOME_FEATURES,
+  APP_VALUE_PROPS,
+  type AppFeatureIcon,
+  type AppFeaturePillar,
+  type AppHomeFeature,
+  type AppValueProp,
+} from "./features";
 
 /** The five timed daily prayers plus Witr, treated as obligatory in this app. */
 export const OBLIGATORY_PRAYERS = [

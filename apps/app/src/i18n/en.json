@@ -24,7 +24,31 @@
     "goBack": "Go back",
     "count": "Count",
     "minus": "Minus",
-    "set": "Set"
+    "set": "Set",
+    "play": "Play",
+    "appName": "Munib Tracker",
+    "appTagline": "Track Your Journey Back to Allah."
+  },
+  "search": {
+    "placeholder": "Search Qur'an, hadith, duas, adhkar…",
+    "clear": "Clear search",
+    "all": "All",
+    "resultsCount": "{{count}} results",
+    "seeAllCount": "See all {{count}}",
+    "noResultsTitle": "No matches found",
+    "noResultsDesc": "Try a different word or spelling.",
+    "recent": "Recent searches",
+    "clearRecent": "Clear",
+    "suggestions": "Try searching",
+    "searchingQuran": "Searching the Qur'an…",
+    "cat": {
+      "quran": "Qur'an",
+      "hadith": "Hadith",
+      "dua": "Duas",
+      "zikr": "Adhkar",
+      "name": "99 Names",
+      "durood": "Duroods"
+    }
   },
   "tabs": {
     "home": "Home",
@@ -38,8 +62,11 @@
     "qaza": "Qaza",
     "duas": "Duas",
     "names": "99 Names",
+    "quran": "Qur'an",
+    "hadith": "Hadith",
     "calendar": "Calendar",
-    "stats": "Stats"
+    "stats": "Stats",
+    "qibla": "Qibla"
   },
   "home": {
     "todaysGoal": "Today's Goal",
@@ -54,7 +81,9 @@
     "qazaRemaining": "Qaza remaining",
     "qazaMeta": "{{completed}} made up so far · tap to manage",
     "gentleReminder": "Gentle reminder",
-    "gentleReminderBody": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow."
+    "gentleReminderBody": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow.",
+    "scheduleTitle": "Today's schedule",
+    "scheduleNext": "Next"
   },
   "tracker": {
     "eyebrow": "Track & log",
@@ -69,7 +98,8 @@
     "keepGoingShort": "Keep going",
     "almostThere": "Almost there",
     "summaryLogged": "{{completed}} of {{total}} obligatory prayers logged today.",
-    "streakLine": "🔥 {{count}}-day streak"
+    "streakLine": "🔥 {{count}}-day streak",
+    "streakLabel": "{{count}} day streak"
   },
   "settings": {
     "eyebrow": "Personalize",
@@ -116,7 +146,8 @@
     "slide3Title": "Remember Allah",
     "slide3Body": "A library of adhkar and a tactile tasbeeh counter for every part of your day.",
     "slide4Title": "Gentle reminders",
-    "slide4Body": "Optional nudges for prayer, zikr, and qaza — always in your control."
+    "slide4Body": "Optional nudges for prayer, zikr, and qaza — always in your control.",
+    "pageOf": "Page {{page}} of {{total}}"
   },
   "appearance": {
     "eyebrow": "Settings",
@@ -126,12 +157,10 @@
     "modeDark": "Dark",
     "modeSystem": "System",
     "accentTitle": "Accent color",
-    "accentHint": "Gold matches the Munib brand",
-    "customTitle": "Custom color",
-    "customUsing": "Using {{hex}}",
-    "customHint": "Enter a hex code for your own accent",
-    "lowContrast": "Low contrast — light text may be hard to read on this color.",
-    "reset": "Reset to presets",
+    "accentHint": "Pick a preset, palette color, or fine-tune with the picker",
+    "accentPresets": "Presets",
+    "accentAllColors": "All colors",
+    "customColorPicker": "Custom color",
     "preview": "Preview",
     "sampleAction": "Sample action",
     "secondary": "Secondary",
@@ -151,20 +180,69 @@
     "subtitle": "Choose what you'd like to be reminded about",
     "master": "All notifications",
     "masterSub": "Master switch for every reminder",
+    "adhanTitle": "Preview adhan",
+    "adhanSub": "Play the bundled call-to-prayer sound",
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",
+    "permissionBannerTitle": "Enable reminders",
+    "permissionBannerMessage": "Allow notifications so Munib Tracker can remind you about prayer, zikr, and qaza.",
+    "permissionGrantedTitle": "Notifications enabled",
+    "permissionGrantedMessage": "Reminders are scheduled on this device. Manage categories below.",
+    "permissionDenied": "Notifications blocked",
+    "permissionDeniedSub": "Turn notifications on in your browser or device settings.",
+    "permissionDismissed": "Permission request dismissed. Tap Allow when you're ready.",
+    "openSettingsHint": "Open Settings and turn on notifications for Munib Tracker.",
+    "openSettings": "Open Settings",
+    "webUseAllowButton": "Tap the Allow button below to enable browser notifications.",
+    "unsupportedTitle": "Reminders need the mobile app",
+    "expoGoTitle": "Development build required",
+    "expoGoMessage": "Local reminders need a dev or production build. Expo Go cannot schedule OS notifications.",
+    "iosPwaTitle": "Install the web app first",
+    "iosPwaMessage": "On iPhone, browser notifications only work when Munib Tracker is added to your Home Screen.",
+    "iosPwaSteps": "In Safari: Share → Add to Home Screen, then open the app from your home screen and allow notifications.",
+    "iosPwaStepsSafari": "Open this page in Safari, then Share → Add to Home Screen. Notifications aren't available in this browser on iPhone.",
+    "webAllowMessage": "Allow browser notifications to get prayer, zikr, and qaza alerts on this device.",
+    "webGrantedMobileNote": "Browser notifications are on. For reliable prayer-time reminders, install the iOS or Android app.",
+    "webLimitedTitle": "Reminders run on the mobile app",
     "groupWorship": "Worship",
     "groupZikr": "Zikr",
     "groupMilestones": "Milestones",
     "items": {
-      "prayer": { "title": "Prayer reminders", "subtitle": "Nudges around each prayer time" },
-      "qaza": { "title": "Qaza reminders", "subtitle": "Stay on pace with make-up prayers" },
-      "afterAzan": { "title": "After azan", "subtitle": "Post-adhan supplication" },
-      "morningZikr": { "title": "Morning adhkar", "subtitle": "Start the day in remembrance" },
-      "eveningZikr": { "title": "Evening adhkar", "subtitle": "Wind down with dhikr" },
-      "beforeSleep": { "title": "Before sleep", "subtitle": "Uses your bedtime" },
-      "beforePrayer": { "title": "Before prayer", "subtitle": "Prepare your heart" },
-      "afterPrayer": { "title": "After prayer", "subtitle": "Tasbih reminders" },
-      "achievements": { "title": "Achievements", "subtitle": "Celebrate streaks and badges" }
+      "prayer": {
+        "title": "Prayer reminders",
+        "subtitle": "Nudges around each prayer time"
+      },
+      "qaza": {
+        "title": "Qaza reminders",
+        "subtitle": "Stay on pace with make-up prayers"
+      },
+      "afterAzan": {
+        "title": "After azan",
+        "subtitle": "Post-adhan supplication"
+      },
+      "morningZikr": {
+        "title": "Morning adhkar",
+        "subtitle": "Start the day in remembrance"
+      },
+      "eveningZikr": {
+        "title": "Evening adhkar",
+        "subtitle": "Wind down with dhikr"
+      },
+      "beforeSleep": {
+        "title": "Before sleep",
+        "subtitle": "Uses your bedtime"
+      },
+      "beforePrayer": {
+        "title": "Before prayer",
+        "subtitle": "Prepare your heart"
+      },
+      "afterPrayer": {
+        "title": "After prayer",
+        "subtitle": "Tasbih reminders"
+      },
+      "achievements": {
+        "title": "Achievements",
+        "subtitle": "Celebrate streaks and badges"
+      }
     }
   },
   "fonts": {
@@ -217,7 +295,11 @@
     "anytime": "Anytime Zikr"
   },
   "reading": {
-    "reference": "Reference: {{ref}}"
+    "reference": "Reference: {{ref}}",
+    "share": "Share",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "copied": "Copied to clipboard"
   },
   "dua": {
     "eyebrow": "Supplication",
@@ -229,7 +311,12 @@
     "detailEyebrow": "Dua",
     "notFoundTitle": "Dua not found",
     "notFoundDesc": "This item may have been removed.",
-    "share": "Share"
+    "share": "Share",
+    "favorite": "Save dua",
+    "unfavorite": "Remove from saved",
+    "favorites": "Saved duas",
+    "favoritesEmpty": "No saved duas yet",
+    "viewFavorites": "Saved duas"
   },
   "duaCat": {
     "sunnah": "Sunnah Duas",
@@ -244,7 +331,92 @@
   "names": {
     "eyebrow": "Asma-ul-Husna",
     "title": "99 Names",
-    "subtitle": "{{count}} of the beautiful names of Allah"
+    "subtitle": "{{count}} of the beautiful names of Allah",
+    "playAll": "Play all",
+    "playContinuous": "Continuous",
+    "share": "Share",
+    "play": "Play recitation",
+    "pause": "Pause recitation"
+  },
+  "quran": {
+    "eyebrow": "The Noble Qur'an",
+    "title": "Qur'an",
+    "subtitle": "Read, listen, and reflect",
+    "searchSurah": "Search surah by name or number",
+    "continueReading": "Continue reading",
+    "continueAt": "Surah {{surah}} · Ayah {{ayah}}",
+    "makki": "Makki",
+    "madani": "Madani",
+    "ayahCount": "{{count}} ayahs",
+    "surahList": "Surahs",
+    "reciter": "Reciter",
+    "translation": "Translation",
+    "showTransliteration": "Show transliteration",
+    "playSurah": "Play surah",
+    "playAyah": "Play ayah {{n}}",
+    "bookmark": "Bookmark",
+    "bookmarks": "Bookmarks",
+    "bookmarksTitle": "Bookmarks",
+    "bookmarksSubtitle": "Your saved ayahs",
+    "bookmarkEmptyTitle": "No bookmarks yet",
+    "bookmarkEmptyDesc": "Tap the bookmark icon on any ayah to save it here.",
+    "removeBookmark": "Remove bookmark",
+    "search": "Search",
+    "searchTitle": "Search the Qur'an",
+    "searchSubtitle": "Find ayahs by translation or transliteration",
+    "searchPlaceholder": "Search words in translation…",
+    "searchHint": "Searches the bundled translation and transliteration offline.",
+    "noResults": "No ayahs matched your search.",
+    "resultsCount": "{{count}} results",
+    "ayahRef": "{{surah}}:{{ayah}}",
+    "notFoundTitle": "Surah not found",
+    "notFoundDesc": "This surah may not exist.",
+    "offlineTranslation": "Connect to download this translation. Showing a bundled translation instead.",
+    "shareAyah": "Share verse",
+    "pauseAyah": "Pause verse",
+    "bookmarkAdd": "Bookmark verse",
+    "bookmarkRemove": "Remove bookmark",
+    "loadingTranslation": "Loading translation…",
+    "searching": "Searching…"
+  },
+  "hadith": {
+    "eyebrow": "Prophetic tradition",
+    "title": "Hadith",
+    "subtitle": "Collections of the sayings of the Prophet ﷺ",
+    "collections": "Collections",
+    "highlights": "Offline highlights",
+    "fullCollections": "Full collections",
+    "hadithCount": "{{count}} hadith",
+    "ungraded": "Ungraded",
+    "grade": "Grade: {{grade}}",
+    "narrator": "Narrated by {{narrator}}",
+    "bookmark": "Bookmark",
+    "searchPlaceholder": "Search within this collection…",
+    "emptyTitle": "Nothing here yet",
+    "emptyDesc": "This collection could not be loaded.",
+    "offlineTitle": "Connect to load this collection",
+    "offlineDesc": "Full collections are downloaded on demand and cached for offline reading afterward.",
+    "loading": "Loading…",
+    "notFoundTitle": "Not found",
+    "notFoundDesc": "This item may have been removed.",
+    "bookCount": "{{count}} books",
+    "loadMore": "Load more",
+    "share": "Share hadith",
+    "bookmarkAdd": "Bookmark",
+    "bookmarkRemove": "Remove bookmark",
+    "bookmarks": "Bookmarks",
+    "bookmarksSubtitle": "Your saved hadith",
+    "bookmarksEmpty": "No saved hadith yet",
+    "viewBookmarks": "View bookmarks"
+  },
+  "credits": {
+    "eyebrow": "Attribution",
+    "title": "Credits & sources",
+    "subtitle": "The open data and audio that power this app",
+    "settingsLabel": "Credits & data sources",
+    "settingsSub": "Licenses and attribution",
+    "openSource": "Open source",
+    "viewSource": "View source"
   },
   "tasbeeh": {
     "eyebrow": "Tasbeeh",
@@ -256,6 +428,7 @@
   },
   "prayers": {
     "fajr": "Fajr",
+    "sunrise": "Sunrise",
     "dhuhr": "Dhuhr",
     "asr": "Asr",
     "maghrib": "Maghrib",
@@ -335,6 +508,8 @@
     "subtitle": "Your worship, day by day",
     "prevMonth": "Previous month",
     "nextMonth": "Next month",
+    "gregorian": "Gregorian",
+    "hijri": "Hijri",
     "prayed": "Prayed",
     "partial": "Partial",
     "missed": "Missed",
@@ -385,19 +560,86 @@
     "targetReached": "MashaAllah — target reached",
     "tapToCount": "Tap the circle to count",
     "ofTarget": "of {{target}}",
+    "remaining": "{{count}} left",
+    "complete": "Complete",
+    "startAgain": "Start again",
+    "undo": "Undo",
     "unlimited": "unlimited",
     "customTitle": "Custom target",
     "customPrompt": "How many times would you like to repeat?",
-    "customPlaceholder": "e.g. 313"
+    "customPlaceholder": "e.g. 313",
+    "modeLabel": "{{mode}}, count {{count}}"
   },
   "hero": {
-    "nextPrayerAway": "{{prayer}} is only {{min}} min away"
+    "nextPrayerAway": "{{prayer}} is only {{min}} min away",
+    "nextPrayerAwayHours": "{{prayer}} is {{hours}}h {{min}}m away",
+    "locating": "Finding your location…",
+    "changeLocation": "Change location",
+    "scheduleTitle": "Today's prayers",
+    "nextIn": "in {{time}}",
+    "current": "Now",
+    "clockLabel": "{{time}}, {{countdown}}",
+    "prayerItem": "{{name}} at {{time}}",
+    "prayerItemActive": "{{name}} at {{time}}, current prayer"
+  },
+  "location": {
+    "eyebrow": "Location",
+    "title": "Set your location",
+    "subtitle": "Prayer times are calculated for this place. Search any city, or use your current location.",
+    "currentTitle": "Current location",
+    "useCurrent": "Use my current location",
+    "locating": "Getting your location…",
+    "searchLabel": "Search city or country",
+    "searchPlaceholder": "Search for a city…",
+    "hint": "Type at least two letters to search for a city.",
+    "noResultsTitle": "No places found",
+    "noResultsDesc": "Try a different spelling, or search for a larger city nearby.",
+    "permissionDenied": "Location access is off. Turn it on in Settings, or just search for your city above.",
+    "deviceError": "Couldn't get your current location. Search for your city above instead.",
+    "manualBadge": "Set by you",
+    "gpsBadge": "From device",
+    "defaultBadge": "Default"
+  },
+  "moon": {
+    "aria": "Moon phase: {{phase}}",
+    "new": "New moon",
+    "waxingCrescent": "Waxing crescent",
+    "firstQuarter": "First quarter",
+    "waxingGibbous": "Waxing gibbous",
+    "full": "Full moon",
+    "waningGibbous": "Waning gibbous",
+    "lastQuarter": "Last quarter",
+    "waningCrescent": "Waning crescent"
+  },
+  "moonSheet": {
+    "open": "{{phase}}. Tap for details",
+    "waxing": "Waxing — growing brighter each night",
+    "waning": "Waning — fading toward the new moon",
+    "illuminationLabel": "Illuminated",
+    "hijriDate": "Islamic date",
+    "lunarDay": "Lunar day",
+    "lunarDayValue": "Day {{day}} of {{month}}",
+    "age": "Moon age",
+    "ageValue": "{{days}} days since the new moon",
+    "nextNewMoon": "Next new crescent",
+    "nextNewMoonValue": "~{{days}} days · begins {{month}}",
+    "note": {
+      "whiteDaysTitle": "Ayyām al-Bīḍ — the White Days",
+      "whiteDaysBody": "The 13th, 14th, and 15th of each Islamic month fall around the full moon. Fasting these three bright days is a beloved sunnah of the Prophet ﷺ.",
+      "newMonthTitle": "A new month begins",
+      "newMonthBody": "The thin crescent (hilāl) marks the start of {{month}}. Each Islamic month begins when the new moon is first sighted after sunset.",
+      "fullTitle": "Full moon tonight",
+      "fullBody": "The moon is fully lit near the middle of {{month}} — the nights of the White Days, when fasting is especially recommended.",
+      "generalTitle": "A calendar of the moon",
+      "generalBody": "The Islamic (Hijri) calendar follows the moon: every month is 29 or 30 days, beginning with the sighting of the new crescent."
+    }
   },
   "achievements": {
     "eyebrow": "Milestones",
     "subtitle": "{{unlocked}} of {{total}} unlocked",
     "share": "Share",
-    "shareMessage": "Alhamdulillah — I unlocked \"{{title}}\" in Munib Tracker: {{description}}."
+    "shareMessage": "Alhamdulillah — I unlocked \"{{title}}\" in Munib Tracker: {{description}}.",
+    "unlockedToast": "Achievement unlocked: {{name}}"
   },
   "notifCenter": {
     "eyebrow": "Reminders",
@@ -408,7 +650,11 @@
     "scheduled": "Scheduled",
     "settings": "Settings",
     "emptyTitle": "No reminders scheduled",
-    "emptyDesc": "Enable categories in notification settings to see them here."
+    "emptyDesc": "Enable categories in notification settings to see them here.",
+    "inbox": "Recent",
+    "inboxEmptyTitle": "No recent notifications",
+    "inboxEmptyDesc": "Delivered reminders and achievements will appear here.",
+    "markAllRead": "Mark all read"
   },
   "qibla": {
     "eyebrow": "Direction",
@@ -420,7 +666,14 @@
     "webHint": "Compass sensors aren't available in the browser. The arrow shows the qibla bearing from north — use a physical compass to align.",
     "noCompassHint": "No compass sensor detected. The arrow points to the qibla bearing measured clockwise from true north.",
     "calibrateHint": "For accuracy, hold your device flat and move it in a figure-eight to calibrate the compass, away from metal and magnets.",
-    "tryAgain": "Try again"
+    "tryAgain": "Try again",
+    "compassLabel": "Qibla compass",
+    "compassValue": "{{bearing}} degrees to the Kaaba, {{distance}} away",
+    "aligned": "Aligned with the Qibla",
+    "cardinalN": "N",
+    "cardinalE": "E",
+    "cardinalS": "S",
+    "cardinalW": "W"
   },
   "profile": {
     "eyebrow": "Account",
@@ -439,6 +692,55 @@
     "appLanguage": "App language",
     "translationLanguage": "Translation language",
     "translationHint": "Used for the meaning of Arabic religious text.",
-    "footer": "More of the interface is being translated over time. Arabic selection enables right-to-left layout where supported."
+    "footer": "More of the interface is being translated over time. Arabic selection enables right-to-left layout where supported.",
+    "eyebrow": "Settings",
+    "subtitle": "App and translation language"
+  },
+  "about": {
+    "eyebrow": "Settings",
+    "title": "About",
+    "subtitle": "Credits, authenticity, and policies",
+    "version": "Version {{version}}",
+    "credits": "Credits",
+    "authorLabel": "Author",
+    "authorValue": "The Munib Tracker team",
+    "collaboratorsLabel": "Collaborators",
+    "collaboratorsValue": "Community contributors",
+    "duaTitle": "A dua",
+    "duaBody": "May Allah accept the efforts of everyone who contributed, forgive their shortcomings, and have mercy on their marhumeen. Ameen.",
+    "authenticityTitle": "Content authenticity",
+    "authenticityBody": "Adhkar and supplications are drawn from well-known collections and kept close to widely published renderings. Please verify against a trusted scholar or source before relying on any specific ruling or count.",
+    "privacyPolicy": "Privacy policy",
+    "termsOfService": "Terms of service"
+  },
+  "player": {
+    "nowPlaying": "Now Playing",
+    "upNext": "Up next",
+    "remaining": "{{count}} remaining",
+    "trackOf": "{{current}} of {{total}}",
+    "goToScreen": "Go to reading view",
+    "play": "Play",
+    "pause": "Pause",
+    "next": "Next track",
+    "previous": "Previous track",
+    "close": "Close player",
+    "collapse": "Collapse",
+    "expand": "Expand player",
+    "speed": "Playback speed",
+    "speedValue": "Speed {{value}}×",
+    "loopOff": "Repeat off",
+    "loopAll": "Repeat all",
+    "loopOne": "Repeat once",
+    "seek": "Playback position",
+    "buffering": "Buffering…",
+    "loading": "Loading…"
+  },
+  "pwa": {
+    "installBannerMessage": "Install Munib Tracker on your Home Screen for an app-like experience and browser notifications on iPhone.",
+    "installStepsViaSafari": "Copy the link below, open it in Safari, then Share → Add to Home Screen.",
+    "installCopyLink": "Copy link for Safari",
+    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
+    "installLinkCopyFailed": "Could not copy the link. Open this page in Safari manually.",
+    "installDismiss": "Dismiss"
   }
 }

@@ -125,7 +125,7 @@ export default function StatisticsScreen() {
       eyebrow={t("statistics.eyebrow")}
       title={t("statistics.title")}
       subtitle={t("statistics.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <SegmentedControl<Period>

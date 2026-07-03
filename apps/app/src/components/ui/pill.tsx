@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.half + 2,
     paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.half + 2,
+    paddingVertical: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     alignSelf: "flex-start",

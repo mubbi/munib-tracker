@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
+  Pressable,
   ScrollView,
   StyleSheet,
   useWindowDimensions,
@@ -13,10 +14,12 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { Brand, Spacing } from "@/constants/theme";
+import { gradientBackground } from "@/lib/gradient";
+import { triggerHaptic } from "@/lib/haptics";
 import { usePreferencesActions } from "@/stores/preferences-store";
 
 type Slide = { icon: SymbolViewProps["name"]; key: string };
@@ -36,7 +39,6 @@ export default function OnboardingIntroScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const { colors, tokens } = useThemeTokens();
   const { update } = usePreferencesActions();
   const scrollRef = useRef<ScrollView>(null);
   const [index, setIndex] = useState(0);
@@ -58,16 +60,34 @@ export default function OnboardingIntroScreen() {
   };
 
   return (
-    <View style={[styles.root, { backgroundColor: colors.background, paddingTop: insets.top }]}>
-      <StatusBar style={tokens.isDark ? "light" : "dark"} />
+    <View
+      style={[
+        styles.root,
+        { paddingTop: insets.top },
+        gradientBackground(
+          `linear-gradient(180deg, ${Brand.heroTop} 0%, ${Brand.heroGlow} 48%, ${Brand.heroBottom} 100%)`,
+        ),
+      ]}
+    >
+      <StatusBar style="light" />
+      {/* Branded splash backdrop: a quiet mosque skyline behind the slides. */}
+      <MosqueSilhouette color={Brand.heroBottom} opacity={0.35} scale={1.6} />
+
       <View style={styles.skipRow}>
-        <ThemedText
-          type="smallBold"
-          style={{ color: colors.mutedForeground }}
-          onPress={() => finish("/")}
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t("common.skip")}
+          hitSlop={12}
+          style={styles.skipButton}
+          onPress={() => {
+            triggerHaptic("light");
+            finish("/");
+          }}
         >
-          {t("common.skip")}
-        </ThemedText>
+          <ThemedText type="smallBold" style={{ color: Brand.heroSubtext }}>
+            {t("common.skip")}
+          </ThemedText>
+        </Pressable>
       </View>
 
       <ScrollView
@@ -75,31 +95,37 @@ export default function OnboardingIntroScreen() {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={16}
+        onScroll={onScroll}
         onMomentumScrollEnd={onScroll}
       >
         {SLIDES.map((slide) => (
           <View key={slide.key} style={[styles.slide, { width }]}>
-            <View style={[styles.icon, { backgroundColor: tokens.accentSoft }]}>
-              <SymbolView name={slide.icon} size={56} tintColor={colors.accent} />
+            <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
+              <SymbolView name={slide.icon} size={56} tintColor={Brand.heroAccent} />
             </View>
-            <ThemedText type="title" style={styles.title}>
+            <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
               {t(`onboarding.${slide.key}Title`)}
             </ThemedText>
-            <ThemedText type="default" themeColor="mutedForeground" style={styles.body}>
+            <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
               {t(`onboarding.${slide.key}Body`)}
             </ThemedText>
           </View>
         ))}
       </ScrollView>
 
-      <View style={styles.dots}>
+      <View
+        style={styles.dots}
+        accessibilityRole="progressbar"
+        accessibilityLabel={t("onboarding.pageOf", { page: index + 1, total: SLIDES.length })}
+      >
         {SLIDES.map((slide, i) => (
           <View
             key={slide.key}
             style={[
               styles.dot,
               {
-                backgroundColor: i === index ? colors.accent : tokens.track,
+                backgroundColor: i === index ? Brand.heroAccent : Brand.onHeroStrongSurface,
                 width: i === index ? 22 : 8,
               },
             ]}
@@ -141,6 +167,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
+  },
+  skipButton: {
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: "flex-end",
+    justifyContent: "center",
+    paddingHorizontal: Spacing.two,
   },
   slide: {
     alignItems: "center",

@@ -1,13 +1,13 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -35,7 +35,7 @@ export default function ZikrFavoritesScreen() {
       eyebrow={t("zikr.detailEyebrow")}
       title={t("zikr.favTitle")}
       subtitle={t("zikr.favSubtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       {items.length === 0 ? (
         <EmptyState
@@ -52,7 +52,9 @@ export default function ZikrFavoritesScreen() {
               <View key={item.id} style={[styles.row, { backgroundColor: colors.muted }]}>
                 <PressableScale
                   haptic="light"
-                  onPress={() => router.push({ pathname: "/zikr/[id]", params: { id: item.id } })}
+                  onPress={() =>
+                    router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
+                  }
                   style={styles.body}
                 >
                   <ThemedText type="small" numberOfLines={1}>
@@ -64,54 +66,38 @@ export default function ZikrFavoritesScreen() {
                 </PressableScale>
 
                 <View style={styles.controls}>
-                  <Pressable
+                  <IconButton
+                    name={{
+                      ios: "chevron.up",
+                      android: "keyboard_arrow_up",
+                      web: "keyboard_arrow_up",
+                    }}
+                    size={18}
+                    tintColor={colors.foreground}
                     accessibilityLabel={t("zikr.moveUp")}
-                    accessibilityRole="button"
                     disabled={index === 0}
-                    hitSlop={6}
                     onPress={() => move(index, -1)}
-                    style={{ opacity: index === 0 ? 0.3 : 1 }}
-                  >
-                    <SymbolView
-                      name={{
-                        ios: "chevron.up",
-                        android: "keyboard_arrow_up",
-                        web: "keyboard_arrow_up",
-                      }}
-                      size={18}
-                      tintColor={colors.foreground}
-                    />
-                  </Pressable>
-                  <Pressable
+                  />
+                  <IconButton
+                    name={{
+                      ios: "chevron.down",
+                      android: "keyboard_arrow_down",
+                      web: "keyboard_arrow_down",
+                    }}
+                    size={18}
+                    tintColor={colors.foreground}
                     accessibilityLabel={t("zikr.moveDown")}
-                    accessibilityRole="button"
                     disabled={index === items.length - 1}
-                    hitSlop={6}
                     onPress={() => move(index, 1)}
-                    style={{ opacity: index === items.length - 1 ? 0.3 : 1 }}
-                  >
-                    <SymbolView
-                      name={{
-                        ios: "chevron.down",
-                        android: "keyboard_arrow_down",
-                        web: "keyboard_arrow_down",
-                      }}
-                      size={18}
-                      tintColor={colors.foreground}
-                    />
-                  </Pressable>
-                  <Pressable
+                  />
+                  <IconButton
+                    name={{ ios: "star.slash", android: "star_border", web: "star_border" }}
+                    size={18}
+                    tintColor={tokens.status.danger.color}
                     accessibilityLabel={t("zikr.removeFavorite")}
-                    accessibilityRole="button"
-                    hitSlop={6}
+                    haptic="warning"
                     onPress={() => toggleFavorite(item.id)}
-                  >
-                    <SymbolView
-                      name={{ ios: "star.slash", android: "star_border", web: "star_border" }}
-                      size={18}
-                      tintColor={tokens.status.danger.color}
-                    />
-                  </Pressable>
+                  />
                 </View>
               </View>
             ))}
@@ -141,6 +127,5 @@ const styles = StyleSheet.create({
   controls: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.three,
   },
 });

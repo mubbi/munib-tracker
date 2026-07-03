@@ -1,6 +1,6 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
@@ -10,26 +10,39 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
+import { usePreferences } from "@/stores/preferences-store";
 import { trackerStore } from "@/stores/tracker-store";
 
 export default function ZikrTasbeehScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ zikrId: string }>();
+  const { fontPrefs } = usePreferences();
+  const arabicSize = fontPrefs.arabic.size;
   const item = params.zikrId ? getZikrById(params.zikrId) : undefined;
   const target = item?.targetCount && item.targetCount > 0 ? item.targetCount : 33;
 
   // Local, responsive count seeded once from today's stored progress; every
   // change is persisted so the dashboard and zikr detail stay in sync.
-  const [count, setCount] = useState(() =>
-    item ? (trackerStore.getState().zikrCounts[item.id] ?? 0) : 0,
-  );
+  const [count, setCount] = useState(() => {
+    if (!item) return 0;
+    const stored = trackerStore.getState().zikrCounts[item.id] ?? 0;
+    return Math.max(0, Math.min(stored, target));
+  });
+
+  useEffect(() => {
+    if (!item) return;
+    const stored = trackerStore.getState().zikrCounts[item.id] ?? 0;
+    if (stored > target) {
+      void trackerStore.getState().setZikrCount(item.id, target, target);
+    }
+  }, [item, target]);
 
   if (!item) {
     return (
       <ScreenLayout
         title={t("tasbeeh.eyebrow")}
-        onBack={router.canGoBack() ? () => router.back() : undefined}
+        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       >
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
@@ -41,7 +54,7 @@ export default function ZikrTasbeehScreen() {
   }
 
   const persist = (next: number) => {
-    const safe = Math.max(0, next);
+    const safe = Math.max(0, target > 0 ? Math.min(next, target) : next);
     setCount(safe);
     void trackerStore.getState().setZikrCount(item.id, safe, target);
   };
@@ -50,10 +63,16 @@ export default function ZikrTasbeehScreen() {
     <ScreenLayout
       eyebrow={t("tasbeeh.eyebrow")}
       title={item.title}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
-      <Card padding="four" style={styles.reading}>
-        <ThemedText type="arabic" style={styles.arabic}>
+      <Card variant="muted" padding="four" style={styles.reading}>
+        <ThemedText
+          type="arabic"
+          style={[
+            styles.arabic,
+            arabicSize ? { fontSize: arabicSize, lineHeight: arabicSize * 1.8 } : null,
+          ]}
+        >
           {item.arabic}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.translit}>
@@ -61,7 +80,7 @@ export default function ZikrTasbeehScreen() {
         </ThemedText>
       </Card>
 
-      <Card padding="four" style={styles.card}>
+      <Card variant="plain" padding="five" style={styles.card}>
         <TasbeehCounter
           count={count}
           target={target}
@@ -77,18 +96,21 @@ export default function ZikrTasbeehScreen() {
 const styles = StyleSheet.create({
   reading: {
     alignItems: "center",
+    marginBottom: Spacing.one,
   },
   arabic: {
     textAlign: "center",
     writingDirection: "rtl",
+    lineHeight: 52,
   },
   translit: {
     textAlign: "center",
     marginTop: Spacing.two,
     fontStyle: "italic",
+    maxWidth: 320,
   },
   card: {
-    alignItems: "center",
-    paddingVertical: Spacing.five,
+    alignItems: "stretch",
+    flex: 1,
   },
 });

@@ -1,12 +1,22 @@
 import { SymbolView } from "expo-symbols";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useReducedMotion,
+  useSharedValue,
+  withSequence,
+  withSpring,
+} from "react-native-reanimated";
 
+import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Shadows, Spacing } from "@/constants/theme";
+import { Springs } from "@/constants/motion";
+import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 
 export type TasbeehMode = { label: string; target: number };
@@ -18,8 +28,9 @@ export const TASBEEH_MODES: TasbeehMode[] = [
   { label: "∞", target: 0 },
 ];
 
-const RING_SIZE = 240;
-const RING_STROKE = 16;
+const RING_SIZE = 272;
+const RING_STROKE = 14;
+const TAP_SIZE = RING_SIZE + 48;
 
 type TasbeehCounterProps = {
   count: number;
@@ -44,97 +55,160 @@ export function TasbeehCounter({
 }: TasbeehCounterProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
-  const complete = target > 0 && count >= target;
+  const displayCount = target > 0 ? Math.min(count, target) : count;
+  const atLimit = target > 0 && count >= target;
+  const complete = atLimit;
+  const remaining = target > 0 ? Math.max(target - displayCount, 0) : 0;
   const prevComplete = useRef(complete);
+  const [celebrationKey, setCelebrationKey] = useState(0);
+  const celebrationColors = useMemo(
+    () => [
+      colors.accent,
+      tokens.status.success.color,
+      tokens.status.warning.color,
+      colors.foreground,
+    ],
+    [colors.accent, colors.foreground, tokens.status.success.color, tokens.status.warning.color],
+  );
 
   useEffect(() => {
-    if (complete && !prevComplete.current) triggerHaptic("success");
+    if (complete && !prevComplete.current) {
+      triggerHaptic("success");
+      setCelebrationKey((key) => key + 1);
+    }
     prevComplete.current = complete;
   }, [complete]);
 
   const handleTap = () => {
-    triggerHaptic(complete ? "medium" : "light");
+    if (atLimit) {
+      triggerHaptic("light");
+      return;
+    }
+    triggerHaptic("light");
     onIncrement();
   };
 
   return (
     <View style={styles.root}>
       {onSelectMode ? (
-        <View style={styles.modes}>
-          {modes.map((mode) => {
-            const active = mode.target === target;
-            return (
-              <PressableScale
-                key={mode.label}
-                haptic="light"
-                onPress={() => onSelectMode(mode.target)}
-                style={[
-                  styles.modeChip,
-                  { backgroundColor: active ? colors.accent : colors.muted },
-                ]}
-              >
-                <ThemedText
-                  type="smallBold"
-                  style={{ color: active ? colors.accentForeground : colors.mutedForeground }}
-                >
-                  {mode.label}
-                </ThemedText>
-              </PressableScale>
-            );
-          })}
-          {onCustom ? (
-            <PressableScale
-              haptic="light"
-              onPress={onCustom}
-              style={[styles.modeChip, { backgroundColor: colors.muted }]}
-            >
-              <ThemedText type="smallBold" themeColor="mutedForeground">
-                {t("tasbeehUi.custom")}
-              </ThemedText>
-            </PressableScale>
-          ) : null}
-        </View>
+        <TargetModeBar
+          modes={modes}
+          target={target}
+          count={displayCount}
+          onSelectMode={onSelectMode}
+          onCustom={onCustom}
+        />
       ) : null}
 
-      <PressableScale
-        haptic={false}
-        onPress={handleTap}
-        scaleTo={0.97}
-        accessibilityRole="button"
-        accessibilityLabel={t("common.count")}
-        accessibilityValue={{ now: count, min: 0, max: target > 0 ? target : undefined }}
-      >
-        <CounterRing count={count} target={target} complete={complete} />
-      </PressableScale>
+      <View style={styles.counterStage}>
+        <PartyPopper burstKey={celebrationKey} colors={celebrationColors} />
+        <PressableScale
+          haptic={false}
+          onPress={handleTap}
+          scaleTo={0.96}
+          accessibilityRole="button"
+          accessibilityLabel={t("common.count")}
+          accessibilityValue={{ now: displayCount, min: 0, max: target > 0 ? target : undefined }}
+          style={styles.tapZone}
+        >
+          <CounterRing count={displayCount} target={target} complete={complete} />
+        </PressableScale>
+      </View>
 
       {complete ? (
-        <ThemedText type="smallBold" style={{ color: tokens.status.success.color }}>
-          {t("tasbeehUi.targetReached")}
-        </ThemedText>
+        <CompletionBanner onStartAgain={onReset} />
       ) : (
-        <ThemedText type="caption" themeColor="mutedForeground">
-          {t("tasbeehUi.tapToCount")}
-        </ThemedText>
+        <View style={styles.hintRow}>
+          {target > 0 ? (
+            <View style={[styles.remainingPill, { backgroundColor: tokens.accentSoft }]}>
+              <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+                {t("tasbeehUi.remaining", { count: remaining })}
+              </ThemedText>
+            </View>
+          ) : null}
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hintText}>
+            {t("tasbeehUi.tapToCount")}
+          </ThemedText>
+        </View>
       )}
 
-      <View style={styles.controls}>
-        <ControlButton
-          icon={{ ios: "minus", android: "remove", web: "remove" }}
-          label={t("common.minus")}
-          onPress={() => {
-            triggerHaptic("light");
-            onDecrement();
-          }}
-        />
-        <ControlButton
-          icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
-          label={t("common.reset")}
-          onPress={() => {
-            triggerHaptic("medium");
-            onReset();
-          }}
-        />
-      </View>
+      <ControlBar
+        count={displayCount}
+        onDecrement={() => {
+          triggerHaptic("light");
+          onDecrement();
+        }}
+        onReset={() => {
+          triggerHaptic("medium");
+          onReset();
+        }}
+      />
+    </View>
+  );
+}
+
+function TargetModeBar({
+  modes,
+  target,
+  count,
+  onSelectMode,
+  onCustom,
+}: {
+  modes: TasbeehMode[];
+  target: number;
+  count: number;
+  onSelectMode: (target: number) => void;
+  onCustom?: () => void;
+}) {
+  const { colors } = useThemeTokens();
+  const { t } = useTranslation();
+  const isCustom =
+    onCustom && target > 0 && !modes.some((mode) => mode.target === target && mode.target > 0);
+
+  return (
+    <View accessibilityRole="tablist" style={[styles.modeTrack, { backgroundColor: colors.muted }]}>
+      {modes.map((mode) => {
+        const active = mode.target === target;
+        const modeName = mode.target > 0 ? mode.label : t("tasbeehUi.unlimited");
+        return (
+          <PressableScale
+            key={mode.label}
+            haptic="selection"
+            accessibilityRole="tab"
+            accessibilityLabel={t("tasbeehUi.modeLabel", { mode: modeName, count })}
+            accessibilityState={{ selected: active }}
+            onPress={() => onSelectMode(mode.target)}
+            style={[styles.modeSegment, active && { backgroundColor: colors.card, ...Shadows.sm }]}
+          >
+            <ThemedText
+              type="smallBold"
+              style={{ color: active ? colors.accentText : colors.mutedForeground }}
+            >
+              {mode.label}
+            </ThemedText>
+          </PressableScale>
+        );
+      })}
+      {onCustom ? (
+        <PressableScale
+          haptic="selection"
+          accessibilityRole="tab"
+          accessibilityLabel={t("tasbeehUi.modeLabel", {
+            mode: isCustom && target > 0 ? String(target) : t("tasbeehUi.custom"),
+            count,
+          })}
+          accessibilityState={{ selected: !!isCustom }}
+          onPress={onCustom}
+          style={[styles.modeSegment, isCustom && { backgroundColor: colors.card, ...Shadows.sm }]}
+        >
+          <ThemedText
+            type="smallBold"
+            style={{ color: isCustom ? colors.accentText : colors.mutedForeground }}
+          >
+            {isCustom && target > 0 ? String(target) : t("tasbeehUi.custom")}
+          </ThemedText>
+        </PressableScale>
+      ) : null}
     </View>
   );
 }
@@ -150,26 +224,122 @@ function CounterRing({
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
-  const progress = target > 0 ? Math.min(count / target, 1) : 0;
-  const deg = progress * 360;
+  const reducedMotion = useReducedMotion();
+  const progressTarget = target > 0 ? Math.min(count / target, 1) : 0;
+  const progress = useSharedValue(progressTarget);
+  const countPop = useSharedValue(1);
+  const prevCount = useRef(count);
+
+  useEffect(() => {
+    progress.value = reducedMotion ? progressTarget : withSpring(progressTarget, Springs.gentle);
+  }, [progress, progressTarget, reducedMotion]);
+
+  useEffect(() => {
+    if (count !== prevCount.current) {
+      if (!reducedMotion) {
+        countPop.value = withSequence(withSpring(1.1, Springs.pop), withSpring(1, Springs.gentle));
+      }
+      prevCount.current = count;
+    }
+  }, [count, countPop, reducedMotion]);
+
   const fill = complete ? tokens.status.success.color : colors.accent;
+  const glowOpacity = complete ? 0.28 : 0.12 + progressTarget * 0.14;
+  const [displayProgress, setDisplayProgress] = useState(progressTarget);
+  const displayRef = useRef(displayProgress);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      displayRef.current = progressTarget;
+      setDisplayProgress(progressTarget);
+      return;
+    }
+
+    const from = displayRef.current;
+    const delta = progressTarget - from;
+    let start: number | null = null;
+
+    const tick = (timestamp: number) => {
+      if (start === null) start = timestamp;
+      const t = Math.min(1, (timestamp - start) / 420);
+      const eased = 1 - (1 - t) ** 3;
+      const value = from + delta * eased;
+      displayRef.current = value;
+      setDisplayProgress(value);
+      if (t < 1) rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [progressTarget, reducedMotion]);
+
+  const deg = displayProgress * 360;
+  const angle = displayProgress * 2 * Math.PI;
+  const orbit = (RING_SIZE - RING_STROKE) / 2;
+  const knob = RING_STROKE + 2;
+  const knobX = RING_SIZE / 2 + orbit * Math.sin(angle) - knob / 2;
+  const knobY = RING_SIZE / 2 - orbit * Math.cos(angle) - knob / 2;
   const inset = RING_STROKE;
+
+  const countAnimStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: countPop.value }],
+  }));
 
   return (
     <View style={[styles.ring, { width: RING_SIZE, height: RING_SIZE }]}>
+      <View
+        style={[
+          styles.ringGlow,
+          {
+            width: RING_SIZE + 36,
+            height: RING_SIZE + 36,
+            borderRadius: (RING_SIZE + 36) / 2,
+            backgroundColor: withAlpha(fill, glowOpacity),
+          },
+        ]}
+      />
+
       <View
         style={[
           StyleSheet.absoluteFill,
           { borderRadius: RING_SIZE / 2, borderWidth: RING_STROKE, borderColor: tokens.track },
         ]}
       />
+
       {target > 0 ? (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { borderRadius: RING_SIZE / 2 },
+            gradientBackground(
+              `conic-gradient(${fill} 0deg ${deg}deg, transparent ${deg}deg 360deg)`,
+            ),
+          ]}
+        >
+          <View
+            style={{
+              position: "absolute",
+              top: inset,
+              left: inset,
+              right: inset,
+              bottom: inset,
+              borderRadius: RING_SIZE / 2,
+              backgroundColor: colors.card,
+              ...Shadows.sm,
+            }}
+          />
+        </View>
+      ) : (
         <View
           style={[
             StyleSheet.absoluteFill,
             {
               borderRadius: RING_SIZE / 2,
-              experimental_backgroundImage: `conic-gradient(${fill} 0deg ${deg}deg, transparent ${deg}deg 360deg)`,
+              borderWidth: RING_STROKE,
+              borderColor: withAlpha(colors.accent, 0.35),
             },
           ]}
         >
@@ -186,19 +356,51 @@ function CounterRing({
             }}
           />
         </View>
+      )}
+
+      {target > 0 && displayProgress > 0 ? (
+        <View
+          style={[
+            styles.knob,
+            {
+              width: knob,
+              height: knob,
+              borderRadius: knob / 2,
+              left: knobX,
+              top: knobY,
+              backgroundColor: fill,
+              borderColor: colors.card,
+            },
+          ]}
+        />
       ) : null}
 
       <View style={styles.ringCenter}>
-        <ThemedText type="display" style={styles.count}>
-          {count}
-        </ThemedText>
+        <View style={styles.countRow}>
+          <Animated.View style={countAnimStyle}>
+            <ThemedText type="display" style={styles.count}>
+              {count}
+            </ThemedText>
+          </Animated.View>
+          {target > 0 ? (
+            <ThemedText type="header" themeColor="mutedForeground" style={styles.targetSuffix}>
+              / {target}
+            </ThemedText>
+          ) : null}
+        </View>
+
         {target > 0 ? (
           complete ? (
-            <SymbolView
-              name={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
-              size={22}
-              tintColor={fill}
-            />
+            <View style={[styles.completeBadge, { backgroundColor: tokens.status.success.soft }]}>
+              <SymbolView
+                name={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
+                size={16}
+                tintColor={tokens.status.success.color}
+              />
+              <ThemedText type="smallBold" style={{ color: tokens.status.success.color }}>
+                {t("tasbeehUi.complete")}
+              </ThemedText>
+            </View>
           ) : (
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("tasbeehUi.ofTarget", { target })}
@@ -214,69 +416,237 @@ function CounterRing({
   );
 }
 
+function CompletionBanner({ onStartAgain }: { onStartAgain: () => void }) {
+  const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
+
+  return (
+    <View style={styles.completionBlock}>
+      <View style={[styles.successBanner, { backgroundColor: tokens.status.success.soft }]}>
+        <SymbolView
+          name={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+          size={18}
+          tintColor={tokens.status.success.color}
+        />
+        <ThemedText type="smallBold" style={{ color: tokens.status.success.color, flex: 1 }}>
+          {t("tasbeehUi.targetReached")}
+        </ThemedText>
+      </View>
+      <PressableScale
+        haptic="light"
+        onPress={onStartAgain}
+        style={[styles.startAgain, { backgroundColor: colors.muted, borderColor: tokens.hairline }]}
+      >
+        <SymbolView
+          name={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+          size={16}
+          tintColor={colors.foreground}
+        />
+        <ThemedText type="smallBold">{t("tasbeehUi.startAgain")}</ThemedText>
+      </PressableScale>
+    </View>
+  );
+}
+
+function ControlBar({
+  count,
+  onDecrement,
+  onReset,
+}: {
+  count: number;
+  onDecrement: () => void;
+  onReset: () => void;
+}) {
+  const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
+
+  return (
+    <View
+      style={[styles.controlBar, { backgroundColor: colors.muted, borderColor: tokens.hairline }]}
+    >
+      <ControlButton
+        icon={{ ios: "minus", android: "remove", web: "remove" }}
+        label={t("tasbeehUi.undo")}
+        onPress={onDecrement}
+        disabled={count <= 0}
+      />
+      <View style={[styles.controlDivider, { backgroundColor: tokens.hairline }]} />
+      <ControlButton
+        icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
+        label={t("common.reset")}
+        onPress={onReset}
+      />
+    </View>
+  );
+}
+
 function ControlButton({
   icon,
   label,
   onPress,
+  disabled = false,
 }: {
   icon: Parameters<typeof SymbolView>[0]["name"];
   label: string;
   onPress: () => void;
+  disabled?: boolean;
 }) {
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
+
   return (
     <PressableScale
       accessibilityRole="button"
       accessibilityLabel={label}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
       onPress={onPress}
-      style={[styles.control, { backgroundColor: colors.muted, borderColor: tokens.hairline }]}
+      style={[styles.controlButton, disabled && styles.controlDisabled]}
     >
-      <SymbolView name={icon} size={22} tintColor={colors.foreground} />
+      <SymbolView
+        name={icon}
+        size={20}
+        tintColor={disabled ? colors.mutedForeground : colors.foreground}
+      />
+      <ThemedText type="smallBold" themeColor={disabled ? "mutedForeground" : "foreground"}>
+        {label}
+      </ThemedText>
     </PressableScale>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: "center",
+    alignItems: "stretch",
     gap: Spacing.four,
+    width: "100%",
   },
-  modes: {
+  modeTrack: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: Spacing.two,
-  },
-  modeChip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.pill,
+    padding: Spacing.half + 2,
+    borderRadius: Radius.md,
     borderCurve: "continuous",
-    minWidth: 52,
+    gap: Spacing.half,
+  },
+  modeSegment: {
+    flex: 1,
     alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Spacing.two + 2,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    minHeight: 40,
+  },
+  counterStage: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "visible",
+    minHeight: TAP_SIZE,
+  },
+  tapZone: {
+    width: TAP_SIZE,
+    height: TAP_SIZE,
+    alignItems: "center",
+    justifyContent: "center",
   },
   ring: {
     alignItems: "center",
     justifyContent: "center",
   },
+  ringGlow: {
+    position: "absolute",
+    alignSelf: "center",
+  },
+  knob: {
+    position: "absolute",
+    borderWidth: 2,
+    ...Shadows.sm,
+  },
   ringCenter: {
     alignItems: "center",
+    gap: Spacing.one,
+  },
+  countRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
     gap: Spacing.one,
   },
   count: {
     fontVariant: ["tabular-nums"],
   },
-  controls: {
-    flexDirection: "row",
-    gap: Spacing.four,
+  targetSuffix: {
+    fontVariant: ["tabular-nums"],
+    opacity: 0.55,
+    marginBottom: 6,
   },
-  control: {
-    width: 56,
-    height: 56,
+  completeBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.half + 2,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+  },
+  hintRow: {
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  remainingPill: {
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.one,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+  },
+  hintText: {
+    textAlign: "center",
+  },
+  completionBlock: {
+    alignItems: "center",
+    gap: Spacing.two,
+    width: "100%",
+  },
+  successBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    width: "100%",
+    justifyContent: "center",
+  },
+  startAgain: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
+  },
+  controlBar: {
+    flexDirection: "row",
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+    overflow: "hidden",
+  },
+  controlButton: {
+    flex: 1,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    gap: Spacing.one,
+    paddingVertical: Spacing.three,
+  },
+  controlDisabled: {
+    opacity: 0.45,
+  },
+  controlDivider: {
+    width: StyleSheet.hairlineWidth,
+    alignSelf: "stretch",
   },
 });

@@ -84,7 +84,11 @@ export function SegmentedProgress({ total, completed, color, trackColor }: Segme
   const segments = Array.from({ length: Math.max(0, total) });
 
   return (
-    <View style={styles.segments}>
+    <View
+      accessibilityRole="progressbar"
+      accessibilityValue={{ min: 0, max: Math.max(0, total), now: completed }}
+      style={styles.segments}
+    >
       {segments.map((_, index) => {
         const filled = index < completed;
         return (

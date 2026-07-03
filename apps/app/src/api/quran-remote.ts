@@ -1,0 +1,80 @@
+import type { QuranEdition } from "@munib-tracker/shared/types";
+
+import { QuranCacheRepository } from "@/db";
+
+/**
+ * D2 — extra Qur'an translations fetched on demand from fawazahmed0/quran-api
+ * (no key). There is no react-query persister, so every fetch is cache-first
+ * over AsyncStorage (`quran-cache-repository`): opened translations work offline
+ * afterward.
+ */
+
+const FAWAZ = "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions";
+
+interface RemoteEditionDef {
+  id: string;
+  fawaz: string;
+  name: string;
+  language: string;
+  direction: "ltr" | "rtl";
+}
+
+const REMOTE_DEFS: RemoteEditionDef[] = [
+  {
+    id: "en-saheehintl",
+    fawaz: "eng-ummmuhammad",
+    name: "Saheeh International",
+    language: "en",
+    direction: "ltr",
+  },
+  {
+    id: "en-clearquran",
+    fawaz: "eng-mustafakhattaba",
+    name: "Clear Qur'an (Khattab)",
+    language: "en",
+    direction: "ltr",
+  },
+];
+
+export const REMOTE_EDITIONS: QuranEdition[] = REMOTE_DEFS.map((d) => ({
+  id: d.id,
+  kind: "translation",
+  language: d.language,
+  name: d.name,
+  bundled: false,
+  direction: d.direction,
+}));
+
+export function isRemoteEdition(editionId: string): boolean {
+  return REMOTE_DEFS.some((d) => d.id === editionId);
+}
+
+function fawazId(editionId: string): string | undefined {
+  return REMOTE_DEFS.find((d) => d.id === editionId)?.fawaz;
+}
+
+/**
+ * Cache-first fetch of a remote edition for one surah. Returns ayah-number →
+ * text. Reads AsyncStorage first; on a miss, fetches, then writes back so the
+ * translation is available offline afterward.
+ */
+export async function fetchRemoteEditionSurah(
+  editionId: string,
+  surah: number,
+): Promise<Record<string, string>> {
+  const cached = await QuranCacheRepository.get(editionId, surah);
+  if (cached) return cached;
+
+  const fawaz = fawazId(editionId);
+  if (!fawaz) throw new Error(`Unknown remote edition: ${editionId}`);
+
+  const res = await fetch(`${FAWAZ}/${fawaz}/${surah}.json`);
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${editionId} surah ${surah}`);
+  const json = (await res.json()) as { chapter: Array<{ verse: number; text: string }> };
+
+  const map: Record<string, string> = {};
+  for (const row of json.chapter) map[String(row.verse)] = row.text;
+
+  await QuranCacheRepository.set(editionId, surah, map);
+  return map;
+}

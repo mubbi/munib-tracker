@@ -74,7 +74,7 @@ export default function QazaPlannerScreen() {
       eyebrow={t("qazaPlan.eyebrow")}
       title={t("qazaPlan.title")}
       subtitle={t("qazaPlan.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card>

@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, Text, type TextProps } from "react-native";
+import { Platform, StyleSheet, Text, type TextProps, useWindowDimensions } from "react-native";
 
 import { Fonts, type ThemeColor } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
@@ -21,9 +21,33 @@ export type ThemedTextProps = TextProps & {
   themeColor?: ThemeColor;
 };
 
+/**
+ * Base line heights per type. React Native scales `fontSize` with the OS font
+ * scale but NOT a fixed `lineHeight`, so at large Dynamic Type the text clips.
+ * We multiply these by the live `fontScale` so lines reflow instead.
+ */
+const LINE_HEIGHTS: Partial<Record<NonNullable<ThemedTextProps["type"]>, number>> = {
+  default: 24,
+  display: 58,
+  title: 46,
+  header: 32,
+  subtitle: 26,
+  small: 20,
+  smallBold: 20,
+  caption: 16,
+  label: 14,
+  link: 30,
+  linkPrimary: 30,
+  arabic: 52,
+};
+
 export function ThemedText({ style, type = "default", themeColor, ...rest }: ThemedTextProps) {
   const { colors } = useTheme();
+  const { fontScale } = useWindowDimensions();
   const resolvedColor = type === "linkPrimary" ? colors.accent : colors[themeColor ?? "foreground"];
+  const baseLineHeight = LINE_HEIGHTS[type];
+  const scaledLineHeight =
+    baseLineHeight != null ? { lineHeight: baseLineHeight * fontScale } : null;
 
   return (
     <Text
@@ -42,6 +66,7 @@ export function ThemedText({ style, type = "default", themeColor, ...rest }: The
         type === "linkPrimary" && styles.linkPrimary,
         type === "code" && styles.code,
         type === "arabic" && styles.arabic,
+        scaledLineHeight,
         style,
       ]}
       {...rest}

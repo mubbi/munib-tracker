@@ -1,20 +1,72 @@
+import type { JsonWebKey, KeyObject } from "node:crypto";
+import { sign as cryptoSign, generateKeyPairSync } from "node:crypto";
 import type { ConfigService } from "@nestjs/config";
 import { describe, expect, it } from "vitest";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { AuthProvider } from "./dto/auth.dto";
 import { OAuthProviderService } from "./oauth-provider.service";
 
-function makeService(env: Partial<EnvironmentVariables> = {}): OAuthProviderService {
-  const config = {
-    get: (key: keyof EnvironmentVariables) => env[key],
-  } as unknown as ConfigService<EnvironmentVariables, true>;
-  return new OAuthProviderService(config);
+const TEST_KID = "test-apple-key";
+
+/**
+ * Test double that verifies Apple id_tokens against a locally generated RSA key
+ * instead of Apple's live JWKS endpoint (offline, deterministic).
+ */
+class TestOAuthProviderService extends OAuthProviderService {
+  constructor(
+    config: ConfigService<EnvironmentVariables, true>,
+    private readonly publicJwk: JsonWebKey,
+  ) {
+    super(config);
+  }
+
+  protected override async fetchAppleJwks(): Promise<JsonWebKey[]> {
+    return [this.publicJwk];
+  }
 }
 
-/** Builds an unsigned JWT with the given payload (Apple path validates claims only). */
-function makeIdToken(payload: Record<string, unknown>): string {
-  const encode = (obj: unknown) => Buffer.from(JSON.stringify(obj)).toString("base64url");
-  return `${encode({ alg: "none" })}.${encode(payload)}.`;
+function makeConfig(env: Partial<EnvironmentVariables> = {}) {
+  return {
+    get: (key: keyof EnvironmentVariables) => env[key],
+  } as unknown as ConfigService<EnvironmentVariables, true>;
+}
+
+function makeService(env: Partial<EnvironmentVariables> = {}): OAuthProviderService {
+  return new OAuthProviderService(makeConfig(env));
+}
+
+function base64Url(input: string): string {
+  return Buffer.from(input, "utf8").toString("base64url");
+}
+
+/** Signs an RS256 id_token that mimics an Apple identity token. */
+function signAppleToken(
+  privateKey: KeyObject,
+  claims: { aud: string; sub: string; email?: string; expiresIn?: number },
+): string {
+  const now = Math.floor(Date.now() / 1000);
+  const header = { alg: "RS256", kid: TEST_KID, typ: "JWT" };
+  const payload = {
+    iss: "https://appleid.apple.com",
+    aud: claims.aud,
+    sub: claims.sub,
+    iat: now,
+    exp: now + (claims.expiresIn ?? 3600),
+    ...(claims.email ? { email: claims.email } : {}),
+  };
+  const signingInput = `${base64Url(JSON.stringify(header))}.${base64Url(JSON.stringify(payload))}`;
+  const signature = cryptoSign("RSA-SHA256", Buffer.from(signingInput), privateKey);
+  return `${signingInput}.${signature.toString("base64url")}`;
+}
+
+function makeAppleService(env: Partial<EnvironmentVariables> = {}) {
+  const { privateKey, publicKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
+  const jwk = publicKey.export({ format: "jwk" }) as JsonWebKey & { kid?: string };
+  jwk.kid = TEST_KID;
+  jwk.alg = "RS256";
+  jwk.use = "sig";
+  const service = new TestOAuthProviderService(makeConfig(env), jwk);
+  return { service, privateKey };
 }
 
 describe("OAuthProviderService", () => {
@@ -33,13 +85,11 @@ describe("OAuthProviderService", () => {
   });
 
   it("validates and accepts an Apple identity token", async () => {
-    const service = makeService({ APPLE_CLIENT_ID: "app.munib.tracker" });
-    const idToken = makeIdToken({
-      iss: "https://appleid.apple.com",
+    const { service, privateKey } = makeAppleService({ APPLE_CLIENT_ID: "app.munib.tracker" });
+    const idToken = signAppleToken(privateKey, {
       aud: "app.munib.tracker",
       sub: "apple-user-1",
       email: "user@privaterelay.appleid.com",
-      exp: Math.floor(Date.now() / 1000) + 3600,
     });
 
     const profile = await service.exchange(AuthProvider.Apple, { idToken });
@@ -47,13 +97,24 @@ describe("OAuthProviderService", () => {
     expect(profile.email).toBe("user@privaterelay.appleid.com");
   });
 
+  it("accepts an id_token whose audience matches one of several configured ids", async () => {
+    const { service, privateKey } = makeAppleService({
+      APPLE_CLIENT_ID: "com.munibtracker.app, com.munibtracker.web",
+    });
+    const idToken = signAppleToken(privateKey, {
+      aud: "com.munibtracker.web",
+      sub: "apple-user-2",
+    });
+
+    const profile = await service.exchange(AuthProvider.Apple, { idToken });
+    expect(profile.providerAccountId).toBe("apple-user-2");
+  });
+
   it("rejects an Apple token with a mismatched audience", async () => {
-    const service = makeService({ APPLE_CLIENT_ID: "app.munib.tracker" });
-    const idToken = makeIdToken({
-      iss: "https://appleid.apple.com",
+    const { service, privateKey } = makeAppleService({ APPLE_CLIENT_ID: "app.munib.tracker" });
+    const idToken = signAppleToken(privateKey, {
       aud: "some.other.app",
       sub: "apple-user-1",
-      exp: Math.floor(Date.now() / 1000) + 3600,
     });
 
     await expect(service.exchange(AuthProvider.Apple, { idToken })).rejects.toThrow(
@@ -62,14 +123,24 @@ describe("OAuthProviderService", () => {
   });
 
   it("rejects an expired Apple token", async () => {
-    const service = makeService({ APPLE_CLIENT_ID: "app.munib.tracker" });
-    const idToken = makeIdToken({
-      iss: "https://appleid.apple.com",
+    const { service, privateKey } = makeAppleService({ APPLE_CLIENT_ID: "app.munib.tracker" });
+    const idToken = signAppleToken(privateKey, {
       aud: "app.munib.tracker",
       sub: "apple-user-1",
-      exp: Math.floor(Date.now() / 1000) - 10,
+      expiresIn: -10,
     });
 
     await expect(service.exchange(AuthProvider.Apple, { idToken })).rejects.toThrow("expired");
+  });
+
+  it("rejects an Apple token signed by an unknown key", async () => {
+    const { service } = makeAppleService({ APPLE_CLIENT_ID: "app.munib.tracker" });
+    // Sign with a different key than the one exposed via the JWKS.
+    const { privateKey: rogueKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
+    const forged = signAppleToken(rogueKey, { aud: "app.munib.tracker", sub: "apple-user-1" });
+
+    await expect(service.exchange(AuthProvider.Apple, { idToken: forged })).rejects.toThrow(
+      "Invalid Apple identity token signature",
+    );
   });
 });

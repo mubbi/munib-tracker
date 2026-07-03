@@ -2,6 +2,7 @@ import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import Constants from "expo-constants";
 import { useRouter } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -19,6 +20,7 @@ const TERMS_URL = `${SITE_URL}/terms`;
 
 export default function AboutScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const version = Constants.expoConfig?.version ?? "1.0.0";
 
@@ -28,10 +30,10 @@ export default function AboutScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Settings"
-      title="About"
-      subtitle="Credits, authenticity, and policies"
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      eyebrow={t("about.eyebrow")}
+      title={t("about.title")}
+      subtitle={t("about.subtitle")}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card style={styles.hero}>
@@ -45,38 +47,35 @@ export default function AboutScreen() {
             {APP_TAGLINE}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
-            Version {version}
+            {t("about.version", { version })}
           </ThemedText>
         </Card>
 
         <Card padding="three">
           <SectionHeader
-            title="Credits"
+            title={t("about.credits")}
             icon={{ ios: "person.2.fill", android: "group", web: "group" }}
           />
           <View style={styles.creditRows}>
-            <Credit label="Author" value="The Munib Tracker team" />
-            <Credit label="Collaborators" value="Community contributors" />
+            <Credit label={t("about.authorLabel")} value={t("about.authorValue")} />
+            <Credit label={t("about.collaboratorsLabel")} value={t("about.collaboratorsValue")} />
           </View>
         </Card>
 
         <Card variant="muted" padding="three">
-          <ThemedText type="smallBold">A dua</ThemedText>
+          <ThemedText type="smallBold">{t("about.duaTitle")}</ThemedText>
           <ThemedText type="small" themeColor="mutedForeground" style={styles.dua}>
-            May Allah accept the efforts of everyone who contributed, forgive their shortcomings,
-            and have mercy on their marhumeen. Ameen.
+            {t("about.duaBody")}
           </ThemedText>
         </Card>
 
         <Card padding="three">
           <SectionHeader
-            title="Content authenticity"
+            title={t("about.authenticityTitle")}
             icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
           />
           <ThemedText type="small" themeColor="mutedForeground" style={styles.authenticity}>
-            Adhkar and supplications are drawn from well-known collections and kept close to widely
-            published renderings. Please verify against a trusted scholar or source before relying
-            on any specific ruling or count.
+            {t("about.authenticityBody")}
           </ThemedText>
         </Card>
 
@@ -84,12 +83,12 @@ export default function AboutScreen() {
           <View style={styles.links}>
             <SettingsRow
               icon={{ ios: "hand.raised.fill", android: "privacy_tip", web: "privacy_tip" }}
-              title="Privacy policy"
+              title={t("about.privacyPolicy")}
               onPress={() => openLink(PRIVACY_URL)}
             />
             <SettingsRow
               icon={{ ios: "doc.text.fill", android: "description", web: "description" }}
-              title="Terms of service"
+              title={t("about.termsOfService")}
               onPress={() => openLink(TERMS_URL)}
             />
           </View>

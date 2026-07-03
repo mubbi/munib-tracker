@@ -1,3 +1,10 @@
+import {
+  createPrivateKey,
+  createPublicKey,
+  sign as cryptoSign,
+  verify as cryptoVerify,
+  type JsonWebKey,
+} from "node:crypto";
 import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import type { EnvironmentVariables } from "../config/env.schema";
@@ -18,9 +25,32 @@ export interface OAuthProfile {
  * The service is intentionally isolated from `AuthService` so tests can override
  * it without hitting the network.
  */
+const APPLE_ISSUER = "https://appleid.apple.com";
+const APPLE_TOKEN_URL = "https://appleid.apple.com/auth/token";
+const APPLE_JWKS_URL = "https://appleid.apple.com/auth/keys";
+/** Cache Apple's public keys briefly so we don't refetch on every sign-in. */
+const APPLE_JWKS_TTL_MS = 60 * 60 * 1000;
+
 @Injectable()
 export class OAuthProviderService {
+  private appleJwksCache: { keys: JsonWebKey[]; fetchedAt: number } | null = null;
+
   constructor(private readonly configService: ConfigService<EnvironmentVariables, true>) {}
+
+  /**
+   * Fetches Apple's JSON Web Key Set (RSA public keys) used to verify id_token
+   * signatures. Overridable in tests so we can verify locally-signed tokens
+   * without reaching Apple's JWKS endpoint.
+   */
+  protected async fetchAppleJwks(): Promise<JsonWebKey[]> {
+    const now = Date.now();
+    if (this.appleJwksCache && now - this.appleJwksCache.fetchedAt < APPLE_JWKS_TTL_MS) {
+      return this.appleJwksCache.keys;
+    }
+    const jwks = await this.fetchJson<{ keys: JsonWebKey[] }>(APPLE_JWKS_URL);
+    this.appleJwksCache = { keys: jwks.keys, fetchedAt: now };
+    return jwks.keys;
+  }
 
   async exchange(provider: AuthProvider, dto: OAuthCallbackDto): Promise<OAuthProfile> {
     if (!dto.code?.trim() && !dto.idToken?.trim()) {
@@ -122,38 +152,154 @@ export class OAuthProviderService {
 
   // --- Apple --------------------------------------------------------------
 
+  /**
+   * Native iOS sends an `idToken` directly (Sign in with Apple). Web and Android
+   * use the OAuth code flow: the app hands us an authorization `code`, which we
+   * exchange for an `id_token` using a short-lived ES256 client secret signed
+   * with the Apple `.p8` key (the app can never hold that secret).
+   */
   private async exchangeApple(dto: OAuthCallbackDto): Promise<OAuthProfile> {
-    const clientId = this.requireCredential("APPLE_CLIENT_ID", "apple");
     const idToken = dto.idToken?.trim();
-    if (!idToken) {
-      throw new BadRequestException("Apple sign-in requires an identity token");
+    if (idToken) {
+      return this.verifyAppleIdToken(idToken);
     }
-    return this.verifyAppleIdToken(idToken, clientId);
+
+    const code = dto.code?.trim();
+    if (!code) {
+      throw new BadRequestException(
+        "Apple sign-in requires an identity token or an authorization code",
+      );
+    }
+
+    const tokens = await this.exchangeAppleAuthorizationCode({
+      code,
+      redirectUri: dto.redirectUri ?? "",
+      codeVerifier: dto.codeVerifier,
+    });
+    if (!tokens.id_token) {
+      const detail = tokens.error_description || tokens.error || "no id_token returned";
+      throw new UnauthorizedException(`Apple code exchange failed: ${detail}`);
+    }
+    return this.verifyAppleIdToken(tokens.id_token);
+  }
+
+  /** Comma/space separated allowed audiences (iOS bundle id + web Services ID). */
+  private appleAudiences(): string[] {
+    const raw = this.requireCredential("APPLE_CLIENT_ID", "apple");
+    return raw
+      .split(/[\s,]+/)
+      .map((value) => value.trim())
+      .filter(Boolean);
+  }
+
+  private createAppleClientSecret(): string {
+    const teamId = this.requireCredential("APPLE_TEAM_ID", "apple");
+    const keyId = this.requireCredential("APPLE_KEY_ID", "apple");
+    const rawKey = this.requireCredential("APPLE_PRIVATE_KEY", "apple");
+    const servicesId = this.appleServicesId();
+
+    const now = Math.floor(Date.now() / 1000);
+    const header = { alg: "ES256", kid: keyId, typ: "JWT" };
+    const payload = {
+      iss: teamId,
+      iat: now,
+      // Mint a fresh secret per exchange; Apple allows up to 6 months, we keep it short.
+      exp: now + 300,
+      aud: APPLE_ISSUER,
+      sub: servicesId,
+    };
+
+    const signingInput = `${base64UrlEncode(JSON.stringify(header))}.${base64UrlEncode(JSON.stringify(payload))}`;
+    const privateKey = createPrivateKey(rawKey.replace(/\\n/g, "\n"));
+    // JWT ES256 requires the raw R||S signature (IEEE P1363), not ASN.1/DER.
+    const signature = cryptoSign("sha256", Buffer.from(signingInput), {
+      key: privateKey,
+      dsaEncoding: "ieee-p1363",
+    });
+    return `${signingInput}.${signature.toString("base64url")}`;
+  }
+
+  /** Services ID used as the OAuth `client_id` for web/Android Apple sign-in. */
+  private appleServicesId(): string {
+    const explicit = this.env("APPLE_SERVICES_ID");
+    if (explicit) return String(explicit);
+    // Fall back to the first configured audience (single-app setups reuse one id).
+    const [first] = this.appleAudiences();
+    if (!first) {
+      throw new BadRequestException("apple sign-in is not configured on the server yet");
+    }
+    return first;
+  }
+
+  private async exchangeAppleAuthorizationCode(params: {
+    code: string;
+    redirectUri: string;
+    codeVerifier?: string;
+  }): Promise<AppleTokenResponse> {
+    const clientSecret = this.createAppleClientSecret();
+    return this.postForm<AppleTokenResponse>(APPLE_TOKEN_URL, {
+      client_id: this.appleServicesId(),
+      client_secret: clientSecret,
+      code: params.code,
+      grant_type: "authorization_code",
+      redirect_uri: params.redirectUri,
+      ...(params.codeVerifier ? { code_verifier: params.codeVerifier } : {}),
+    });
   }
 
   /**
-   * Validates an Apple identity token by its claims (issuer, audience, expiry).
-   *
-   * NOTE: For production, add cryptographic signature verification against
-   * Apple's JWKS (`https://appleid.apple.com/auth/keys`). We validate claims here
-   * to avoid pulling a JWKS/JWT-verify dependency into the MVP; the surrounding
-   * flow is otherwise complete.
+   * Cryptographically verifies an Apple identity token: RSA (RS256) signature
+   * against Apple's JWKS, plus issuer, audience, and expiry claims.
    */
-  private verifyAppleIdToken(idToken: string, clientId: string): OAuthProfile {
-    const claims = decodeJwtClaims<AppleIdTokenClaims>(idToken);
-    if (!claims) {
+  private async verifyAppleIdToken(idToken: string): Promise<OAuthProfile> {
+    const audiences = this.appleAudiences();
+    const parts = idToken.split(".");
+    if (parts.length !== 3) {
       throw new UnauthorizedException("Malformed Apple identity token");
     }
-    if (claims.iss !== "https://appleid.apple.com") {
+    const [encodedHeader, encodedPayload, encodedSignature] = parts as [string, string, string];
+
+    let header: { kid?: string; alg?: string };
+    let claims: AppleIdTokenClaims;
+    try {
+      header = JSON.parse(Buffer.from(encodedHeader, "base64url").toString("utf8"));
+      claims = JSON.parse(Buffer.from(encodedPayload, "base64url").toString("utf8"));
+    } catch {
+      throw new UnauthorizedException("Malformed Apple identity token");
+    }
+
+    const jwk = (await this.fetchAppleJwks()).find(
+      (key) => (key as { kid?: string }).kid === header.kid,
+    );
+    if (!jwk) {
+      throw new UnauthorizedException("Apple signing key not found for token");
+    }
+
+    const publicKey = createPublicKey({ key: jwk, format: "jwk" });
+    const signatureValid = cryptoVerify(
+      "RSA-SHA256",
+      Buffer.from(`${encodedHeader}.${encodedPayload}`),
+      publicKey,
+      Buffer.from(encodedSignature, "base64url"),
+    );
+    if (!signatureValid) {
+      throw new UnauthorizedException("Invalid Apple identity token signature");
+    }
+
+    if (claims.iss !== APPLE_ISSUER) {
       throw new UnauthorizedException("Apple id_token issuer mismatch");
     }
-    const audience = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
-    if (!audience.includes(clientId)) {
+    const tokenAudiences = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
+    if (!tokenAudiences.some((aud) => audiences.includes(aud))) {
       throw new UnauthorizedException("Apple id_token audience mismatch");
     }
     if (typeof claims.exp === "number" && claims.exp * 1000 < Date.now()) {
       throw new UnauthorizedException("Apple id_token has expired");
     }
+    if (!claims.sub) {
+      throw new UnauthorizedException("Apple identity token is missing a subject");
+    }
+
     return {
       providerAccountId: claims.sub,
       email: claims.email,
@@ -200,16 +346,8 @@ function asMessage(error: unknown): string | undefined {
   return undefined;
 }
 
-/** Base64url-decodes a JWT payload without verifying its signature. */
-function decodeJwtClaims<T>(token: string): T | null {
-  const segments = token.split(".");
-  if (segments.length < 2 || !segments[1]) return null;
-  try {
-    const json = Buffer.from(segments[1], "base64url").toString("utf8");
-    return JSON.parse(json) as T;
-  } catch {
-    return null;
-  }
+function base64UrlEncode(input: string): string {
+  return Buffer.from(input, "utf8").toString("base64url");
 }
 
 interface GoogleTokenResponse {
@@ -234,6 +372,13 @@ interface FacebookProfile {
   id: string;
   name?: string;
   email?: string;
+}
+interface AppleTokenResponse {
+  access_token?: string;
+  id_token?: string;
+  refresh_token?: string;
+  error?: string;
+  error_description?: string;
 }
 interface AppleIdTokenClaims {
   iss: string;

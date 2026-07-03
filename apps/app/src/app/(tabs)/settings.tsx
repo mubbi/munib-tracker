@@ -17,7 +17,10 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
-  const { isGuest, user } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+  // A null/offline session isn't "guest" per the API, but the user still has no
+  // linked account — treat them as a guest until they're a real authenticated user.
+  const isGuest = !isAuthenticated;
 
   return (
     <ScreenLayout
@@ -100,6 +103,12 @@ export default function SettingsScreen() {
               title={t("settings.about")}
               subtitle={t("settings.aboutSub")}
               onPress={() => router.push("/settings/about")}
+            />
+            <SettingsRow
+              icon={{ ios: "text.badge.checkmark", android: "verified", web: "verified" }}
+              title={t("credits.settingsLabel")}
+              subtitle={t("credits.settingsSub")}
+              onPress={() => router.push("/credits")}
             />
           </View>
         </Card>

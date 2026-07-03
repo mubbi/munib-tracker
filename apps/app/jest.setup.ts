@@ -25,6 +25,7 @@ jest.mock("react-native-reanimated", () => {
     default: {
       View: AnimatedView,
       createAnimatedComponent: (Component: unknown) => Component,
+      addWhitelistedNativeProps: jest.fn(),
     },
     useSharedValue: (initial: unknown) => ({ value: initial }),
     useAnimatedStyle: () => ({}),
@@ -41,6 +42,32 @@ jest.mock("react-native-reanimated", () => {
     Easing: new Proxy({}, { get: () => () => 0 }),
     FadeIn: chain,
     FadeInDown: chain,
+    FadeOut: chain,
+  };
+});
+
+jest.mock("@/components/ui/stagger", () => {
+  const React = require("react");
+  return {
+    Stagger: ({ children }: { children?: React.ReactNode }) => children,
+  };
+});
+
+jest.mock("reanimated-color-picker", () => {
+  const React = require("react");
+  const { View } = require("react-native");
+
+  const ColorPicker = ({ children }: { children?: React.ReactNode }) =>
+    React.createElement(View, { testID: "color-picker-mock" }, children);
+
+  const SubComponent = () => React.createElement(View, null);
+
+  return {
+    __esModule: true,
+    default: ColorPicker,
+    HueSlider: SubComponent,
+    Panel1: SubComponent,
+    Preview: SubComponent,
   };
 });
 
@@ -73,7 +100,13 @@ jest.mock("expo-localization", () => ({
 // stub the router with no-op navigation and collapse insets to zero so component
 // tests render without a real navigator or device frame.
 jest.mock("expo-router", () => ({
-  useRouter: () => ({ push: jest.fn(), back: jest.fn(), canGoBack: () => false }),
+  useRouter: () => ({
+    push: jest.fn(),
+    back: jest.fn(),
+    replace: jest.fn(),
+    canGoBack: () => false,
+  }),
+  useFocusEffect: jest.fn(),
 }));
 
 jest.mock("react-native-safe-area-context", () => ({

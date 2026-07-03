@@ -1,7 +1,9 @@
 export * from "./content";
+export * from "./hadith";
 export * from "./prayer";
 export * from "./preferences";
 export * from "./qaza";
+export * from "./quran";
 export * from "./zikr";
 
 export interface DailySummary {

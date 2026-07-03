@@ -44,6 +44,7 @@ export function CustomTargetModal({ visible, initial, onSubmit, onClose }: Custo
         keyboardType="number-pad"
         placeholder={t("tasbeehUi.customPlaceholder")}
         placeholderTextColor={colors.mutedForeground}
+        accessibilityLabel={t("tasbeehUi.customPlaceholder")}
         style={[
           styles.input,
           { color: colors.foreground, backgroundColor: colors.muted, borderColor: colors.border },

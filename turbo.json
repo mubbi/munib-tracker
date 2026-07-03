@@ -46,6 +46,12 @@
       "dependsOn": ["^openapi"],
       "outputs": ["src/generated/**"]
     },
+    "build:web": {
+      "description": "Exports the Expo app as a static PWA web bundle",
+      "dependsOn": ["transit"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
     "//#format-and-lint": {
       "description": "Runs Biome format and lint on the entire repo"
     },

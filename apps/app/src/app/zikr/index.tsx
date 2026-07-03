@@ -29,7 +29,7 @@ export default function ZikrHomeScreen() {
       eyebrow={t("zikr.eyebrow")}
       title={t("zikr.title")}
       subtitle={t("zikr.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         {favorites.length > 0 ? (
@@ -45,7 +45,9 @@ export default function ZikrHomeScreen() {
                 <ZikrRow
                   key={item.id}
                   item={item}
-                  onPress={() => router.push({ pathname: "/zikr/[id]", params: { id: item.id } })}
+                  onPress={() =>
+                    router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
+                  }
                 />
               ))}
             </View>

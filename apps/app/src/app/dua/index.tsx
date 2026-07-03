@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { NavRow } from "@/components/ui/nav-row";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
 
 const CATEGORY_ICONS: Record<DuaCategoryId, SymbolViewProps["name"]> = {
   sunnah: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
@@ -22,13 +23,15 @@ const CATEGORIES: DuaCategoryId[] = ["sunnah", "quranic", "daily"];
 export default function DuaHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureDuaFavoritesLoaded();
+  const favoriteCount = useFavoriteDuaIds().length;
 
   return (
     <ScreenLayout
       eyebrow={t("dua.eyebrow")}
       title={t("dua.title")}
       subtitle={t("dua.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">
@@ -48,11 +51,19 @@ export default function DuaHomeScreen() {
         </Card>
 
         <Card padding="three">
-          <NavRow
-            icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-            label={t("dua.duroodsLink")}
-            onPress={() => router.push("/duroods")}
-          />
+          <View style={styles.list}>
+            <NavRow
+              icon={{ ios: "star.fill", android: "star", web: "star" }}
+              label={t("dua.favorites")}
+              count={favoriteCount > 0 ? favoriteCount : undefined}
+              onPress={() => router.push("/dua/favorites")}
+            />
+            <NavRow
+              icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
+              label={t("dua.duroodsLink")}
+              onPress={() => router.push("/duroods")}
+            />
+          </View>
         </Card>
       </Stagger>
     </ScreenLayout>

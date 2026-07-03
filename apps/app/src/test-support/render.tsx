@@ -1,11 +1,21 @@
 import { type RenderOptions, render } from "@testing-library/react-native";
 import type { ReactElement, ReactNode } from "react";
-
+import { AppProviders } from "@/providers/app-providers";
+import { InAppNotificationsProvider } from "@/providers/in-app-notifications-provider";
 import { MunibThemeProvider } from "@/providers/theme-provider";
+import { ToastProvider } from "@/providers/toast-provider";
 
 /** Wraps children in the app-wide providers screens rely on at runtime. */
-function AppProviders({ children }: { children: ReactNode }) {
-  return <MunibThemeProvider>{children}</MunibThemeProvider>;
+function TestProviders({ children }: { children: ReactNode }) {
+  return (
+    <MunibThemeProvider>
+      <AppProviders>
+        <ToastProvider>
+          <InAppNotificationsProvider>{children}</InAppNotificationsProvider>
+        </ToastProvider>
+      </AppProviders>
+    </MunibThemeProvider>
+  );
 }
 
 /**
@@ -14,5 +24,5 @@ function AppProviders({ children }: { children: ReactNode }) {
  * Library's `render` signature.
  */
 export function renderWithProviders(ui: ReactElement, options?: Omit<RenderOptions, "wrapper">) {
-  return render(ui, { wrapper: AppProviders, ...options });
+  return render(ui, { wrapper: TestProviders, ...options });
 }

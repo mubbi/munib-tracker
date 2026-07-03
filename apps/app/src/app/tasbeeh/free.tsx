@@ -7,7 +7,6 @@ import { CustomTargetModal } from "@/components/tasbeeh/custom-target-modal";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { Spacing } from "@/constants/theme";
 
 export default function FreeTasbeehScreen() {
   const router = useRouter();
@@ -21,14 +20,14 @@ export default function FreeTasbeehScreen() {
       eyebrow={t("tasbeeh.eyebrow")}
       title={t("tasbeeh.freeTitle")}
       subtitle={t("tasbeeh.freeSubtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       scrollable
     >
-      <Card padding="four" style={styles.card}>
+      <Card variant="plain" padding="five" style={styles.card}>
         <TasbeehCounter
           count={count}
           target={target}
-          onIncrement={() => setCount((c) => c + 1)}
+          onIncrement={() => setCount((c) => (target > 0 ? Math.min(c + 1, target) : c + 1))}
           onDecrement={() => setCount((c) => Math.max(0, c - 1))}
           onReset={() => setCount(0)}
           onSelectMode={setTarget}
@@ -54,8 +53,7 @@ export default function FreeTasbeehScreen() {
 
 const styles = StyleSheet.create({
   card: {
-    alignItems: "center",
-    paddingVertical: Spacing.five,
+    alignItems: "stretch",
   },
   hint: {
     alignItems: "center",
