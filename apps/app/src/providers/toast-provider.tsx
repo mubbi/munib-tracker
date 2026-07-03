@@ -107,7 +107,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 }
 
 function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void }) {
-  const { tokens } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const statusKey = item.type === "error" ? "danger" : item.type;
   const palette = tokens.status[statusKey];
 
@@ -115,7 +115,14 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
     <Animated.View
       entering={FadeInDown.duration(220)}
       exiting={FadeOut.duration(160)}
-      style={[styles.toast, { backgroundColor: palette.soft, borderLeftColor: palette.color }]}
+      style={[
+        styles.toast,
+        {
+          backgroundColor: colors.card,
+          borderColor: tokens.hairline,
+          borderLeftColor: palette.color,
+        },
+      ]}
     >
       <View style={styles.textWrap}>
         <ThemedText type="smallBold">{item.title}</ThemedText>
@@ -158,6 +165,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.three,
+    borderWidth: StyleSheet.hairlineWidth,
     borderLeftWidth: 4,
   },
   textWrap: {
