@@ -161,15 +161,42 @@
     "groupZikr": "Zikr",
     "groupMilestones": "Milestones",
     "items": {
-      "prayer": { "title": "Prayer reminders", "subtitle": "Nudges around each prayer time" },
-      "qaza": { "title": "Qaza reminders", "subtitle": "Stay on pace with make-up prayers" },
-      "afterAzan": { "title": "After azan", "subtitle": "Post-adhan supplication" },
-      "morningZikr": { "title": "Morning adhkar", "subtitle": "Start the day in remembrance" },
-      "eveningZikr": { "title": "Evening adhkar", "subtitle": "Wind down with dhikr" },
-      "beforeSleep": { "title": "Before sleep", "subtitle": "Uses your bedtime" },
-      "beforePrayer": { "title": "Before prayer", "subtitle": "Prepare your heart" },
-      "afterPrayer": { "title": "After prayer", "subtitle": "Tasbih reminders" },
-      "achievements": { "title": "Achievements", "subtitle": "Celebrate streaks and badges" }
+      "prayer": {
+        "title": "Prayer reminders",
+        "subtitle": "Nudges around each prayer time"
+      },
+      "qaza": {
+        "title": "Qaza reminders",
+        "subtitle": "Stay on pace with make-up prayers"
+      },
+      "afterAzan": {
+        "title": "After azan",
+        "subtitle": "Post-adhan supplication"
+      },
+      "morningZikr": {
+        "title": "Morning adhkar",
+        "subtitle": "Start the day in remembrance"
+      },
+      "eveningZikr": {
+        "title": "Evening adhkar",
+        "subtitle": "Wind down with dhikr"
+      },
+      "beforeSleep": {
+        "title": "Before sleep",
+        "subtitle": "Uses your bedtime"
+      },
+      "beforePrayer": {
+        "title": "Before prayer",
+        "subtitle": "Prepare your heart"
+      },
+      "afterPrayer": {
+        "title": "After prayer",
+        "subtitle": "Tasbih reminders"
+      },
+      "achievements": {
+        "title": "Achievements",
+        "subtitle": "Celebrate streaks and badges"
+      }
     }
   },
   "fonts": {
@@ -307,7 +334,9 @@
     "offlineDesc": "Full collections are downloaded on demand and cached for offline reading afterward.",
     "loading": "Loading…",
     "notFoundTitle": "Not found",
-    "notFoundDesc": "This item may have been removed."
+    "notFoundDesc": "This item may have been removed.",
+    "bookCount": "{{count}} books",
+    "loadMore": "Load more"
   },
   "credits": {
     "eyebrow": "Attribution",
@@ -328,6 +357,7 @@
   },
   "prayers": {
     "fajr": "Fajr",
+    "sunrise": "Sunrise",
     "dhuhr": "Dhuhr",
     "asr": "Asr",
     "maghrib": "Maghrib",
@@ -407,6 +437,8 @@
     "subtitle": "Your worship, day by day",
     "prevMonth": "Previous month",
     "nextMonth": "Next month",
+    "gregorian": "Gregorian",
+    "hijri": "Hijri",
     "prayed": "Prayed",
     "partial": "Partial",
     "missed": "Missed",
@@ -457,13 +489,53 @@
     "targetReached": "MashaAllah — target reached",
     "tapToCount": "Tap the circle to count",
     "ofTarget": "of {{target}}",
+    "remaining": "{{count}} left",
+    "complete": "Complete",
+    "startAgain": "Start again",
+    "undo": "Undo",
     "unlimited": "unlimited",
     "customTitle": "Custom target",
     "customPrompt": "How many times would you like to repeat?",
     "customPlaceholder": "e.g. 313"
   },
   "hero": {
-    "nextPrayerAway": "{{prayer}} is only {{min}} min away"
+    "nextPrayerAway": "{{prayer}} is only {{min}} min away",
+    "nextPrayerAwayHours": "{{prayer}} is {{hours}}h {{min}}m away",
+    "locating": "Finding your location…"
+  },
+  "moon": {
+    "aria": "Moon phase: {{phase}}",
+    "new": "New moon",
+    "waxingCrescent": "Waxing crescent",
+    "firstQuarter": "First quarter",
+    "waxingGibbous": "Waxing gibbous",
+    "full": "Full moon",
+    "waningGibbous": "Waning gibbous",
+    "lastQuarter": "Last quarter",
+    "waningCrescent": "Waning crescent"
+  },
+  "moonSheet": {
+    "open": "{{phase}}. Tap for details",
+    "waxing": "Waxing — growing brighter each night",
+    "waning": "Waning — fading toward the new moon",
+    "illuminationLabel": "Illuminated",
+    "hijriDate": "Islamic date",
+    "lunarDay": "Lunar day",
+    "lunarDayValue": "Day {{day}} of {{month}}",
+    "age": "Moon age",
+    "ageValue": "{{days}} days since the new moon",
+    "nextNewMoon": "Next new crescent",
+    "nextNewMoonValue": "~{{days}} days · begins {{month}}",
+    "note": {
+      "whiteDaysTitle": "Ayyām al-Bīḍ — the White Days",
+      "whiteDaysBody": "The 13th, 14th, and 15th of each Islamic month fall around the full moon. Fasting these three bright days is a beloved sunnah of the Prophet ﷺ.",
+      "newMonthTitle": "A new month begins",
+      "newMonthBody": "The thin crescent (hilāl) marks the start of {{month}}. Each Islamic month begins when the new moon is first sighted after sunset.",
+      "fullTitle": "Full moon tonight",
+      "fullBody": "The moon is fully lit near the middle of {{month}} — the nights of the White Days, when fasting is especially recommended.",
+      "generalTitle": "A calendar of the moon",
+      "generalBody": "The Islamic (Hijri) calendar follows the moon: every month is 29 or 30 days, beginning with the sighting of the new crescent."
+    }
   },
   "achievements": {
     "eyebrow": "Milestones",
@@ -512,5 +584,12 @@
     "translationLanguage": "Translation language",
     "translationHint": "Used for the meaning of Arabic religious text.",
     "footer": "More of the interface is being translated over time. Arabic selection enables right-to-left layout where supported."
+  },
+  "player": {
+    "nowPlaying": "Now Playing",
+    "upNext": "Up next",
+    "remaining": "{{count}} remaining",
+    "trackOf": "{{current}} of {{total}}",
+    "goToScreen": "Go to reading view"
   }
 }

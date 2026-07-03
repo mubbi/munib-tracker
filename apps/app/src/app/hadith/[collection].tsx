@@ -1,4 +1,4 @@
-import type { HadithItem } from "@munib-tracker/shared/types";
+import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
@@ -11,35 +11,39 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useRemoteCollection } from "@/hooks/use-hadith";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getBundledCollection, searchHadiths } from "@/lib/hadith";
+import { getBundledCollection, getBundledCollectionData, searchHadiths } from "@/lib/hadith";
+import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 
 const PAGE_SIZE = 20;
 
 export default function HadithCollectionScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { colors } = useThemeTokens();
   const params = useLocalSearchParams<{ collection: string }>();
   const collectionId = params.collection ?? "";
   const remote = isRemoteCollection(collectionId);
 
   const bundled = getBundledCollection(collectionId);
+  const bundledData = useMemo(() => getBundledCollectionData(collectionId), [collectionId]);
   const remoteQuery = useRemoteCollection(remote ? collectionId : null);
 
   const collection = bundled?.collection ?? getRemoteCollection(collectionId);
-  const allItems = useMemo<HadithItem[]>(
-    () => (remote ? (remoteQuery.data ?? []) : (bundled?.items ?? [])),
-    [remote, remoteQuery.data, bundled],
-  );
+  const data = remote ? remoteQuery.data : bundledData;
+  const sections = data?.sections ?? [];
+  const allItems = data?.items ?? [];
 
   const [query, setQuery] = useState("");
+  const [sectionId, setSectionId] = useState<string | null>(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const { colors } = useThemeTokens();
+  const searching = query.trim().length > 0;
 
   const [bookmarked, setBookmarked] = useState<Set<string>>(new Set());
   useEffect(() => {
@@ -52,8 +56,17 @@ export default function HadithCollectionScreen() {
     };
   }, []);
 
-  const filtered = useMemo(() => searchHadiths(allItems, query), [allItems, query]);
-  const shown = filtered.slice(0, visible);
+  // What to show: the section list, or a filtered list of hadith.
+  const showSectionList = sections.length > 0 && !sectionId && !searching;
+
+  const listItems = useMemo(() => {
+    if (searching) return searchHadiths(allItems, query);
+    if (sectionId) return allItems.filter((h) => h.chapterId === sectionId);
+    return allItems;
+  }, [allItems, query, sectionId, searching]);
+  const shown = listItems.slice(0, visible);
+
+  const activeSection = sections.find((s) => s.id === sectionId);
 
   const toggleBookmark = async (item: HadithItem) => {
     const added = await HadithRepository.toggleBookmark(item);
@@ -64,6 +77,8 @@ export default function HadithCollectionScreen() {
       return next;
     });
   };
+
+  const resetPage = () => setVisible(PAGE_SIZE);
 
   if (!collection) {
     return (
@@ -80,12 +95,18 @@ export default function HadithCollectionScreen() {
   const isLoading = remote && remoteQuery.isPending;
   const failedOffline = remote && remoteQuery.isError && !remoteQuery.data;
 
+  const goBackToBooks = () => {
+    setSectionId(null);
+    setQuery("");
+    resetPage();
+  };
+
   return (
     <ScreenLayout
       eyebrow={t("hadith.title")}
-      title={collection.nameEnglish}
-      subtitle={collection.nameArabic}
-      onBack={() => router.back()}
+      title={activeSection ? activeSection.name : collection.nameEnglish}
+      subtitle={activeSection ? collection.nameEnglish : collection.nameArabic}
+      onBack={activeSection ? goBackToBooks : () => router.back()}
     >
       <Stagger>
         {isLoading ? (
@@ -106,18 +127,35 @@ export default function HadithCollectionScreen() {
                 value={query}
                 onChangeText={(text) => {
                   setQuery(text);
-                  setVisible(PAGE_SIZE);
+                  resetPage();
                 }}
                 placeholder={t("hadith.searchPlaceholder")}
                 placeholderTextColor={colors.mutedForeground}
                 style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
               />
               <ThemedText type="caption" themeColor="mutedForeground">
-                {t("hadith.hadithCount", { count: filtered.length })}
+                {showSectionList
+                  ? t("hadith.bookCount", { count: sections.length })
+                  : t("hadith.hadithCount", { count: listItems.length })}
               </ThemedText>
             </Card>
 
-            {shown.length === 0 ? (
+            {showSectionList ? (
+              <Card padding="three">
+                <View style={styles.list}>
+                  {sections.map((section) => (
+                    <SectionRow
+                      key={section.id}
+                      section={section}
+                      onPress={() => {
+                        setSectionId(section.id);
+                        resetPage();
+                      }}
+                    />
+                  ))}
+                </View>
+              </Card>
+            ) : shown.length === 0 ? (
               <EmptyState
                 icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
                 title={t("hadith.emptyTitle")}
@@ -136,9 +174,9 @@ export default function HadithCollectionScreen() {
               </View>
             )}
 
-            {visible < filtered.length ? (
+            {!showSectionList && visible < listItems.length ? (
               <Button
-                label={t("common.next")}
+                label={t("hadith.loadMore")}
                 variant="secondary"
                 fullWidth
                 onPress={() => setVisible((v) => v + PAGE_SIZE)}
@@ -148,6 +186,17 @@ export default function HadithCollectionScreen() {
         )}
       </Stagger>
     </ScreenLayout>
+  );
+}
+
+function SectionRow({ section, onPress }: { section: HadithSection; onPress: () => void }) {
+  return (
+    <NavRow
+      icon={{ ios: "book.closed", android: "menu_book", web: "menu_book" }}
+      label={section.name}
+      count={section.count}
+      onPress={onPress}
+    />
   );
 }
 
@@ -162,19 +211,48 @@ function HadithCard({
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const audio = useAudioPlayerContext();
 
   return (
     <Card padding="four">
       <View style={styles.cardHeader}>
-        <ThemedText type="smallBold" style={{ color: colors.accent }}>
-          {item.reference}
-        </ThemedText>
+        <View style={styles.cardRef}>
+          <ThemedText type="smallBold" style={{ color: colors.accent }}>
+            {item.reference}
+          </ThemedText>
+          {item.grade ? (
+            <Pill
+              label={item.grade}
+              color={tokens.status.success.color}
+              background={tokens.status.success.soft}
+            />
+          ) : null}
+        </View>
         <View style={styles.cardActions}>
-          <Pill
-            label={item.grade ? t("hadith.grade", { grade: item.grade }) : t("hadith.ungraded")}
-            color={item.grade ? tokens.status.success.color : colors.mutedForeground}
-            background={item.grade ? tokens.status.success.soft : colors.muted}
-          />
+          {item.audioUri ? (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t("common.play")}
+              hitSlop={8}
+              onPress={() =>
+                item.audioUri &&
+                audio.play([
+                  {
+                    id: item.id,
+                    title: item.reference,
+                    subtitle: item.narrator,
+                    uri: item.audioUri,
+                  },
+                ])
+              }
+            >
+              <SymbolView
+                name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
+                size={22}
+                tintColor={colors.accent}
+              />
+            </Pressable>
+          ) : null}
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={t("hadith.bookmark")}
@@ -222,15 +300,22 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.two,
     fontSize: 15,
   },
-  list: { gap: Spacing.three },
+  list: { gap: Spacing.two },
   cardHeader: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
     marginBottom: Spacing.three,
     gap: Spacing.two,
   },
-  cardActions: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
+  cardRef: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    flexWrap: "wrap",
+  },
+  cardActions: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
   arabic: { writingDirection: "rtl", textAlign: "right", fontSize: 22, lineHeight: 42 },
   narrator: { marginTop: Spacing.three, fontStyle: "italic" },
   english: { marginTop: Spacing.two },

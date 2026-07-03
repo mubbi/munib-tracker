@@ -1,8 +1,9 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, type ScrollView, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, namesCompleteTrack } from "@/lib/audio-tracks";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
@@ -21,12 +23,16 @@ export default function NamesOfAllahScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const audio = useAudioPlayerContext();
+  const scrollRef = useRef<ScrollView>(null);
+  const { register: registerCard, onScroll } = useScrollToActive(scrollRef, audio.current?.id);
 
   const playFrom = (position: number) =>
     audio.play(allNameTracks(NAMES_OF_ALLAH), position, { sourceHref: NAMES_HREF });
 
   return (
     <ScreenLayout
+      scrollRef={scrollRef}
+      onScroll={onScroll}
       eyebrow={t("names.eyebrow")}
       title={t("names.title")}
       subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
@@ -55,59 +61,60 @@ export default function NamesOfAllahScreen() {
           {NAMES_OF_ALLAH.map((name, position) => {
             const isPlaying = audio.current?.id === name.id;
             return (
-              <Card
-                key={name.id}
-                padding="three"
-                style={[
-                  styles.card,
-                  isPlaying ? { borderColor: colors.accent, borderWidth: 1 } : null,
-                ]}
-              >
-                <View style={styles.cardHeader}>
-                  <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
-                    <ThemedText type="caption" style={{ color: colors.accent }}>
-                      {position + 1}
+              <View key={name.id} ref={registerCard(name.id)} style={styles.cardWrap}>
+                <Card
+                  padding="three"
+                  style={[
+                    styles.card,
+                    isPlaying ? { borderColor: colors.accent, borderWidth: 1 } : null,
+                  ]}
+                >
+                  <View style={styles.cardHeader}>
+                    <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
+                      <ThemedText type="caption" style={{ color: colors.accent }}>
+                        {position + 1}
+                      </ThemedText>
+                    </View>
+                    <ThemedText type="arabic" style={styles.arabic}>
+                      {name.arabic}
                     </ThemedText>
                   </View>
-                  <ThemedText type="arabic" style={styles.arabic}>
-                    {name.arabic}
+                  <View style={styles.nameRow}>
+                    <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                      {name.transliteration}
+                    </ThemedText>
+                    {name.audioUri ? (
+                      <Pressable
+                        accessibilityRole="button"
+                        accessibilityLabel={t("common.play")}
+                        hitSlop={8}
+                        onPress={() => (isPlaying ? audio.toggle() : playFrom(position))}
+                      >
+                        <SymbolView
+                          name={
+                            isPlaying && audio.isPlaying
+                              ? {
+                                  ios: "pause.circle.fill",
+                                  android: "pause_circle",
+                                  web: "pause_circle",
+                                }
+                              : {
+                                  ios: "play.circle.fill",
+                                  android: "play_circle",
+                                  web: "play_circle",
+                                }
+                          }
+                          size={18}
+                          tintColor={colors.accent}
+                        />
+                      </Pressable>
+                    ) : null}
+                  </View>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {name.meaning ?? name.translation}
                   </ThemedText>
-                </View>
-                <View style={styles.nameRow}>
-                  <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                    {name.transliteration}
-                  </ThemedText>
-                  {name.audioUri ? (
-                    <Pressable
-                      accessibilityRole="button"
-                      accessibilityLabel={t("common.play")}
-                      hitSlop={8}
-                      onPress={() => (isPlaying ? audio.toggle() : playFrom(position))}
-                    >
-                      <SymbolView
-                        name={
-                          isPlaying && audio.isPlaying
-                            ? {
-                                ios: "pause.circle.fill",
-                                android: "pause_circle",
-                                web: "pause_circle",
-                              }
-                            : {
-                                ios: "play.circle.fill",
-                                android: "play_circle",
-                                web: "play_circle",
-                              }
-                        }
-                        size={18}
-                        tintColor={colors.accent}
-                      />
-                    </Pressable>
-                  ) : null}
-                </View>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {name.meaning ?? name.translation}
-                </ThemedText>
-              </Card>
+                </Card>
+              </View>
             );
           })}
         </View>
@@ -127,9 +134,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: Spacing.two,
   },
-  card: {
+  cardWrap: {
     flexGrow: 1,
     flexBasis: "47%",
+  },
+  card: {
     gap: Spacing.one,
   },
   cardHeader: {

@@ -1,9 +1,9 @@
 import type { Ayah } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, type ScrollView, StyleSheet, View } from "react-native";
 
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -15,6 +15,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useRemoteEditionSurah } from "@/hooks/use-quran";
+import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   getBundledEdition,
@@ -53,6 +54,8 @@ export default function SurahReaderScreen() {
   const { updatePrefs, setLastRead, toggleBookmark } = useQuranActions();
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
+  const scrollRef = useRef<ScrollView>(null);
+  const { register: registerCard, onScroll } = useScrollToActive(scrollRef, audio.current?.id);
 
   const ayahs = useMemo(() => (surah ? getSurahAyahs(surahNumber) : []), [surah, surahNumber]);
 
@@ -122,6 +125,8 @@ export default function SurahReaderScreen() {
 
   return (
     <ScreenLayout
+      scrollRef={scrollRef}
+      onScroll={onScroll}
       eyebrow={t("quran.title")}
       title={surah.nameTransliteration}
       subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
@@ -193,19 +198,20 @@ export default function SurahReaderScreen() {
 
         <View style={styles.ayahList}>
           {ayahs.map((ayah, index) => (
-            <AyahRow
-              key={ayah.ayah}
-              ayah={ayah}
-              transliteration={
-                prefs.showTransliteration ? transliteration[String(ayah.ayah)] : undefined
-              }
-              translation={translation[String(ayah.ayah)] ?? ""}
-              translationDir={translationDir}
-              isPlaying={audio.current?.id === `${surahNumber}:${ayah.ayah}`}
-              isBookmarked={bookmarkedSet.has(`${surahNumber}:${ayah.ayah}`)}
-              onPlay={() => playFrom(index)}
-              onBookmark={() => toggleBookmark(surahNumber, ayah.ayah)}
-            />
+            <View key={ayah.ayah} ref={registerCard(`${surahNumber}:${ayah.ayah}`)}>
+              <AyahRow
+                ayah={ayah}
+                transliteration={
+                  prefs.showTransliteration ? transliteration[String(ayah.ayah)] : undefined
+                }
+                translation={translation[String(ayah.ayah)] ?? ""}
+                translationDir={translationDir}
+                isPlaying={audio.current?.id === `${surahNumber}:${ayah.ayah}`}
+                isBookmarked={bookmarkedSet.has(`${surahNumber}:${ayah.ayah}`)}
+                onPlay={() => playFrom(index)}
+                onBookmark={() => toggleBookmark(surahNumber, ayah.ayah)}
+              />
+            </View>
           ))}
         </View>
       </Stagger>

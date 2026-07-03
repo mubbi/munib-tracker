@@ -39,6 +39,7 @@ interface AudioContextValue {
   seekTo: (seconds: number) => void;
   next: () => void;
   previous: () => void;
+  jumpTo: (index: number) => void;
   setRate: (rate: number) => void;
   cycleLoopMode: () => void;
   stop: () => void;
@@ -146,6 +147,16 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     });
   }, [playIndex]);
 
+  const jumpTo = useCallback(
+    (i: number) => {
+      const q = queueRef.current;
+      if (i < 0 || i >= q.length) return;
+      setIndex(i);
+      playIndex(q, i);
+    },
+    [playIndex],
+  );
+
   const previous = useCallback(() => {
     setIndex((prev) => {
       const q = queueRef.current;
@@ -217,6 +228,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       seekTo,
       next,
       previous,
+      jumpTo,
       setRate,
       cycleLoopMode,
       stop,
@@ -236,6 +248,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       seekTo,
       next,
       previous,
+      jumpTo,
       setRate,
       cycleLoopMode,
       stop,

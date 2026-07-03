@@ -1,4 +1,9 @@
-import type { HadithCollection, HadithItem } from "@munib-tracker/shared/types";
+import type {
+  HadithCollection,
+  HadithCollectionData,
+  HadithItem,
+  HadithSection,
+} from "@munib-tracker/shared/types";
 
 import nawawi from "@/assets/data/hadith/nawawi40.json";
 import riyad from "@/assets/data/hadith/riyad-as-salihin.json";
@@ -24,6 +29,25 @@ export function getBundledCollection(id: string): BundledHadithCollection | unde
 
 export function isBundledCollection(id: string): boolean {
   return id in BUNDLED;
+}
+
+/** Group a bundled collection into the same {sections, items} shape as remote. */
+export function getBundledCollectionData(id: string): HadithCollectionData | undefined {
+  const bundled = BUNDLED[id];
+  if (!bundled) return undefined;
+  const counts = new Map<string, number>();
+  for (const item of bundled.items) {
+    const key = item.chapterId ?? "";
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  const sections: HadithSection[] = bundled.chapters
+    .map((ch) => ({
+      id: ch.id,
+      name: ch.nameEnglish || ch.nameArabic || `Chapter ${ch.id}`,
+      count: counts.get(ch.id) ?? 0,
+    }))
+    .filter((s) => s.count > 0);
+  return { sections, items: bundled.items };
 }
 
 /** Case-insensitive search over english text + reference within a hadith set. */

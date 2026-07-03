@@ -165,14 +165,38 @@
         "title": "نماز کی یاد دہانیاں",
         "subtitle": "ہر نماز کے وقت کے آس پاس یاد دہانی"
       },
-      "qaza": { "title": "قضا کی یاد دہانیاں", "subtitle": "قضا نمازوں کی رفتار برقرار رکھیں" },
-      "afterAzan": { "title": "اذان کے بعد", "subtitle": "اذان کے بعد کی دعا" },
-      "morningZikr": { "title": "صبح کے اذکار", "subtitle": "دن کا آغاز یادِ الٰہی سے کریں" },
-      "eveningZikr": { "title": "شام کے اذکار", "subtitle": "ذکر کے ساتھ دن کا اختتام کریں" },
-      "beforeSleep": { "title": "سونے سے پہلے", "subtitle": "آپ کے سونے کے وقت کے مطابق" },
-      "beforePrayer": { "title": "نماز سے پہلے", "subtitle": "اپنے دل کو تیار کریں" },
-      "afterPrayer": { "title": "نماز کے بعد", "subtitle": "تسبیح کی یاد دہانی" },
-      "achievements": { "title": "کامیابیاں", "subtitle": "تسلسل اور بیجز کا جشن منائیں" }
+      "qaza": {
+        "title": "قضا کی یاد دہانیاں",
+        "subtitle": "قضا نمازوں کی رفتار برقرار رکھیں"
+      },
+      "afterAzan": {
+        "title": "اذان کے بعد",
+        "subtitle": "اذان کے بعد کی دعا"
+      },
+      "morningZikr": {
+        "title": "صبح کے اذکار",
+        "subtitle": "دن کا آغاز یادِ الٰہی سے کریں"
+      },
+      "eveningZikr": {
+        "title": "شام کے اذکار",
+        "subtitle": "ذکر کے ساتھ دن کا اختتام کریں"
+      },
+      "beforeSleep": {
+        "title": "سونے سے پہلے",
+        "subtitle": "آپ کے سونے کے وقت کے مطابق"
+      },
+      "beforePrayer": {
+        "title": "نماز سے پہلے",
+        "subtitle": "اپنے دل کو تیار کریں"
+      },
+      "afterPrayer": {
+        "title": "نماز کے بعد",
+        "subtitle": "تسبیح کی یاد دہانی"
+      },
+      "achievements": {
+        "title": "کامیابیاں",
+        "subtitle": "تسلسل اور بیجز کا جشن منائیں"
+      }
     }
   },
   "fonts": {
@@ -310,7 +334,9 @@
     "offlineDesc": "مکمل مجموعے طلب پر ڈاؤن لوڈ ہوتے ہیں اور بعد میں آف لائن پڑھنے کے لیے محفوظ رہتے ہیں۔",
     "loading": "لوڈ ہو رہا ہے…",
     "notFoundTitle": "نہیں ملا",
-    "notFoundDesc": "شاید یہ آئٹم ہٹا دیا گیا ہے۔"
+    "notFoundDesc": "شاید یہ آئٹم ہٹا دیا گیا ہے۔",
+    "bookCount": "{{count}} کتابیں",
+    "loadMore": "مزید لوڈ کریں"
   },
   "credits": {
     "eyebrow": "انتساب",
@@ -331,6 +357,7 @@
   },
   "prayers": {
     "fajr": "فجر",
+    "sunrise": "طلوعِ آفتاب",
     "dhuhr": "ظہر",
     "asr": "عصر",
     "maghrib": "مغرب",
@@ -410,6 +437,8 @@
     "subtitle": "آپ کی عبادت، دن بہ دن",
     "prevMonth": "پچھلا مہینہ",
     "nextMonth": "اگلا مہینہ",
+    "gregorian": "عیسوی",
+    "hijri": "ہجری",
     "prayed": "پڑھی",
     "partial": "جزوی",
     "missed": "چھوٹی",
@@ -460,13 +489,53 @@
     "targetReached": "ماشاءاللہ — ہدف مکمل ہوا",
     "tapToCount": "گننے کے لیے دائرے پر دبائیں",
     "ofTarget": "{{target}} میں سے",
+    "remaining": "{{count}} باقی",
+    "complete": "مکمل",
+    "startAgain": "دوبارہ شروع کریں",
+    "undo": "واپس",
     "unlimited": "لامحدود",
     "customTitle": "اپنی پسند کا ہدف",
     "customPrompt": "آپ کتنی بار دہرانا چاہیں گے؟",
     "customPlaceholder": "مثلاً ۳۱۳"
   },
   "hero": {
-    "nextPrayerAway": "{{prayer}} میں صرف {{min}} منٹ باقی"
+    "nextPrayerAway": "{{prayer}} میں صرف {{min}} منٹ باقی",
+    "nextPrayerAwayHours": "{{prayer}} میں {{hours}} گھنٹے {{min}} منٹ باقی",
+    "locating": "آپ کا مقام تلاش کیا جا رہا ہے…"
+  },
+  "moon": {
+    "aria": "چاند کا مرحلہ: {{phase}}",
+    "new": "نیا چاند",
+    "waxingCrescent": "بڑھتا ہلال",
+    "firstQuarter": "پہلی چوتھائی",
+    "waxingGibbous": "بڑھتا محدب چاند",
+    "full": "پورا چاند",
+    "waningGibbous": "گھٹتا محدب چاند",
+    "lastQuarter": "آخری چوتھائی",
+    "waningCrescent": "گھٹتا ہلال"
+  },
+  "moonSheet": {
+    "open": "{{phase}}۔ تفصیل کے لیے دبائیں",
+    "waxing": "بڑھتا ہوا — ہر رات زیادہ روشن",
+    "waning": "گھٹتا ہوا — نئے چاند کی طرف مدھم",
+    "illuminationLabel": "روشنی",
+    "hijriDate": "اسلامی تاریخ",
+    "lunarDay": "قمری دن",
+    "lunarDayValue": "{{month}} کا {{day}} واں دن",
+    "age": "چاند کی عمر",
+    "ageValue": "نئے چاند سے {{days}} دن",
+    "nextNewMoon": "اگلا نیا چاند",
+    "nextNewMoonValue": "~{{days}} دن · {{month}} کا آغاز",
+    "note": {
+      "whiteDaysTitle": "ایامِ بیض",
+      "whiteDaysBody": "ہر اسلامی مہینے کی ۱۳، ۱۴ اور ۱۵ تاریخ پورے چاند کے قریب آتی ہیں۔ اِن تین روشن دنوں کے روزے نبی ﷺ کی محبوب سنت ہیں۔",
+      "newMonthTitle": "نئے مہینے کا آغاز",
+      "newMonthBody": "باریک ہلال {{month}} کے آغاز کی نشانی ہے۔ ہر اسلامی مہینہ غروبِ آفتاب کے بعد نیا چاند نظر آنے پر شروع ہوتا ہے۔",
+      "fullTitle": "آج پورا چاند",
+      "fullBody": "چاند {{month}} کے وسط کے قریب مکمل روشن ہے — ایامِ بیض کی راتیں، جن میں روزہ رکھنا مستحب ہے۔",
+      "generalTitle": "قمری تقویم",
+      "generalBody": "اسلامی (ہجری) تقویم چاند کے مطابق چلتی ہے: ہر مہینہ ۲۹ یا ۳۰ دن کا ہوتا ہے، جو نئے ہلال کے دیدار سے شروع ہوتا ہے۔"
+    }
   },
   "achievements": {
     "eyebrow": "سنگِ میل",
@@ -515,5 +584,12 @@
     "translationLanguage": "ترجمے کی زبان",
     "translationHint": "عربی دینی متن کے معنی کے لیے استعمال ہوتی ہے۔",
     "footer": "انٹرفیس کا مزید حصہ بتدریج ترجمہ کیا جا رہا ہے۔ عربی کے انتخاب سے، جہاں معاون ہو، دائیں سے بائیں ترتیب فعال ہو جاتی ہے۔"
+  },
+  "player": {
+    "nowPlaying": "چل رہا ہے",
+    "upNext": "اگلا",
+    "remaining": "{{count}} باقی",
+    "trackOf": "{{total}} میں سے {{current}}",
+    "goToScreen": "پڑھنے کی اسکرین پر جائیں"
   }
 }

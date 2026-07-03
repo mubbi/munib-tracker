@@ -161,15 +161,42 @@
     "groupZikr": "الأذكار",
     "groupMilestones": "المحطّات",
     "items": {
-      "prayer": { "title": "تذكيرات الصلاة", "subtitle": "تنبيهات حول وقت كل صلاة" },
-      "qaza": { "title": "تذكيرات القضاء", "subtitle": "حافِظ على وتيرة قضاء الصلوات" },
-      "afterAzan": { "title": "بعد الأذان", "subtitle": "دعاء ما بعد الأذان" },
-      "morningZikr": { "title": "أذكار الصباح", "subtitle": "ابدأ يومك بالذكر" },
-      "eveningZikr": { "title": "أذكار المساء", "subtitle": "اختم يومك بالذكر" },
-      "beforeSleep": { "title": "قبل النوم", "subtitle": "يعتمد على وقت نومك" },
-      "beforePrayer": { "title": "قبل الصلاة", "subtitle": "هيّئ قلبك" },
-      "afterPrayer": { "title": "بعد الصلاة", "subtitle": "تذكيرات التسبيح" },
-      "achievements": { "title": "الإنجازات", "subtitle": "احتفِ بالتتابع والأوسمة" }
+      "prayer": {
+        "title": "تذكيرات الصلاة",
+        "subtitle": "تنبيهات حول وقت كل صلاة"
+      },
+      "qaza": {
+        "title": "تذكيرات القضاء",
+        "subtitle": "حافِظ على وتيرة قضاء الصلوات"
+      },
+      "afterAzan": {
+        "title": "بعد الأذان",
+        "subtitle": "دعاء ما بعد الأذان"
+      },
+      "morningZikr": {
+        "title": "أذكار الصباح",
+        "subtitle": "ابدأ يومك بالذكر"
+      },
+      "eveningZikr": {
+        "title": "أذكار المساء",
+        "subtitle": "اختم يومك بالذكر"
+      },
+      "beforeSleep": {
+        "title": "قبل النوم",
+        "subtitle": "يعتمد على وقت نومك"
+      },
+      "beforePrayer": {
+        "title": "قبل الصلاة",
+        "subtitle": "هيّئ قلبك"
+      },
+      "afterPrayer": {
+        "title": "بعد الصلاة",
+        "subtitle": "تذكيرات التسبيح"
+      },
+      "achievements": {
+        "title": "الإنجازات",
+        "subtitle": "احتفِ بالتتابع والأوسمة"
+      }
     }
   },
   "fonts": {
@@ -307,7 +334,9 @@
     "offlineDesc": "يتم تنزيل المجموعات الكاملة عند الطلب وتخزينها للقراءة دون اتصال لاحقًا.",
     "loading": "جارٍ التحميل…",
     "notFoundTitle": "غير موجود",
-    "notFoundDesc": "قد يكون هذا العنصر قد أُزيل."
+    "notFoundDesc": "قد يكون هذا العنصر قد أُزيل.",
+    "bookCount": "{{count}} كتاب",
+    "loadMore": "تحميل المزيد"
   },
   "credits": {
     "eyebrow": "الإسناد",
@@ -328,6 +357,7 @@
   },
   "prayers": {
     "fajr": "الفجر",
+    "sunrise": "الشروق",
     "dhuhr": "الظهر",
     "asr": "العصر",
     "maghrib": "المغرب",
@@ -407,6 +437,8 @@
     "subtitle": "عباداتك يوماً بيوم",
     "prevMonth": "الشهر السابق",
     "nextMonth": "الشهر التالي",
+    "gregorian": "ميلادي",
+    "hijri": "هجري",
     "prayed": "صُلّيت",
     "partial": "جزئي",
     "missed": "فائتة",
@@ -457,13 +489,53 @@
     "targetReached": "ما شاء الله — بلغت الهدف",
     "tapToCount": "اضغط الدائرة للعدّ",
     "ofTarget": "من {{target}}",
+    "remaining": "{{count}} متبقية",
+    "complete": "مكتمل",
+    "startAgain": "ابدأ من جديد",
+    "undo": "تراجع",
     "unlimited": "غير محدود",
     "customTitle": "هدف مخصّص",
     "customPrompt": "كم مرة تودّ التكرار؟",
     "customPlaceholder": "مثلاً 313"
   },
   "hero": {
-    "nextPrayerAway": "{{prayer}} بعد {{min}} دقيقة فقط"
+    "nextPrayerAway": "{{prayer}} بعد {{min}} دقيقة فقط",
+    "nextPrayerAwayHours": "{{prayer}} بعد {{hours}} س {{min}} د",
+    "locating": "جارٍ تحديد موقعك…"
+  },
+  "moon": {
+    "aria": "طور القمر: {{phase}}",
+    "new": "محاق",
+    "waxingCrescent": "هلال متزايد",
+    "firstQuarter": "التربيع الأول",
+    "waxingGibbous": "أحدب متزايد",
+    "full": "بدر",
+    "waningGibbous": "أحدب متناقص",
+    "lastQuarter": "التربيع الأخير",
+    "waningCrescent": "هلال متناقص"
+  },
+  "moonSheet": {
+    "open": "{{phase}}. اضغط للتفاصيل",
+    "waxing": "في تزايد — يزداد إضاءةً كل ليلة",
+    "waning": "في تناقص — يخبو نحو المحاق",
+    "illuminationLabel": "نسبة الإضاءة",
+    "hijriDate": "التاريخ الهجري",
+    "lunarDay": "اليوم القمري",
+    "lunarDayValue": "اليوم {{day}} من {{month}}",
+    "age": "عمر القمر",
+    "ageValue": "{{days}} يوماً منذ المحاق",
+    "nextNewMoon": "الهلال الجديد القادم",
+    "nextNewMoonValue": "~{{days}} يوماً · يبدأ {{month}}",
+    "note": {
+      "whiteDaysTitle": "أيام البِيض",
+      "whiteDaysBody": "الثالث عشر والرابع عشر والخامس عشر من كل شهر هجري تكون حول اكتمال القمر. وصيام هذه الأيام البِيض الثلاثة سنة محبَّبة عن النبي ﷺ.",
+      "newMonthTitle": "بداية شهر جديد",
+      "newMonthBody": "يُعلن الهلال بداية {{month}}. يبدأ كل شهر هجري عند رؤية الهلال الجديد بعد غروب الشمس.",
+      "fullTitle": "اكتمال القمر الليلة",
+      "fullBody": "القمر مكتمل قرب منتصف {{month}} — ليالي الأيام البِيض التي يُستحب فيها الصيام.",
+      "generalTitle": "تقويم قمري",
+      "generalBody": "يتبع التقويم الهجري القمر: كل شهر ٢٩ أو ٣٠ يوماً، يبدأ برؤية الهلال الجديد."
+    }
   },
   "achievements": {
     "eyebrow": "المحطّات",
@@ -512,5 +584,12 @@
     "translationLanguage": "لغة الترجمة",
     "translationHint": "تُستخدم لمعنى النص الديني العربي.",
     "footer": "تتم ترجمة المزيد من الواجهة تدريجياً. اختيار العربية يفعّل التخطيط من اليمين إلى اليسار حيثما كان مدعوماً."
+  },
+  "player": {
+    "nowPlaying": "قيد التشغيل",
+    "upNext": "التالي",
+    "remaining": "{{count}} متبقٍ",
+    "trackOf": "{{current}} من {{total}}",
+    "goToScreen": "الذهاب إلى صفحة القراءة"
   }
 }

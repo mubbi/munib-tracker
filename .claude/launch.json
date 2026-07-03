@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "app-web",
+      "name": "app-web-8123",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "app", "exec", "expo", "start", "--web", "--port", "8100"],
-      "port": 8100
+      "runtimeArgs": ["--filter", "app", "exec", "expo", "start", "--web", "--port", "8123"],
+      "port": 8123
     }
   ]
 }

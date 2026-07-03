@@ -1,5 +1,12 @@
-import type { ReactNode } from "react";
-import { ScrollView, StyleSheet, View, type ViewStyle } from "react-native";
+import type { ReactNode, RefObject } from "react";
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  ScrollView,
+  StyleSheet,
+  View,
+  type ViewStyle,
+} from "react-native";
 
 import { AppHeader } from "@/components/app-header";
 import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
@@ -15,6 +22,9 @@ type ScreenLayoutProps = {
   scrollable?: boolean;
   children: ReactNode;
   contentStyle?: ViewStyle;
+  /** Ref to the internal ScrollView (e.g. to auto-scroll to a playing card). */
+  scrollRef?: RefObject<ScrollView | null>;
+  onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 };
 
 export function ScreenLayout({
@@ -27,6 +37,8 @@ export function ScreenLayout({
   scrollable = true,
   children,
   contentStyle,
+  scrollRef,
+  onScroll,
 }: ScreenLayoutProps) {
   const { colors } = useTheme();
 
@@ -48,6 +60,9 @@ export function ScreenLayout({
       />
       {scrollable ? (
         <ScrollView
+          ref={scrollRef}
+          onScroll={onScroll}
+          scrollEventThrottle={16}
           contentContainerStyle={styles.scrollContent}
           contentInsetAdjustmentBehavior="automatic"
           showsVerticalScrollIndicator={false}

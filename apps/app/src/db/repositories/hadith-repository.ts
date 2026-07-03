@@ -1,4 +1,4 @@
-import type { HadithItem } from "@munib-tracker/shared/types";
+import type { HadithCollectionData, HadithItem } from "@munib-tracker/shared/types";
 
 import { createId } from "../id";
 import { DB_KEYS } from "../keys";
@@ -12,7 +12,7 @@ export interface HadithBookmark {
   createdAt: string;
 }
 
-type BookCache = Record<string, HadithItem[]>;
+type BookCache = Record<string, HadithCollectionData>;
 
 const bookmarks = new KeyedCollection<HadithBookmark>(DB_KEYS.hadithBookmarks);
 
@@ -43,18 +43,18 @@ export const HadithRepository = {
   },
 
   // ── Offline cache of fetched books (D6) ────────────────
-  async getCachedBook(cacheKey: string): Promise<HadithItem[] | null> {
+  async getCachedBook(cacheKey: string): Promise<HadithCollectionData | null> {
     const cache = await readJSON<BookCache>(DB_KEYS.hadithBookCache, {});
     return cache[cacheKey] ?? null;
   },
 
-  async setCachedBook(cacheKey: string, items: HadithItem[]): Promise<void> {
+  async setCachedBook(cacheKey: string, data: HadithCollectionData): Promise<void> {
     // Best-effort: a full collection can exceed the storage quota (notably
     // localStorage on web). Never let a cache-write failure break the fetch —
     // the collection simply won't be available offline.
     try {
       const cache = await readJSON<BookCache>(DB_KEYS.hadithBookCache, {});
-      cache[cacheKey] = items;
+      cache[cacheKey] = data;
       await writeJSON(DB_KEYS.hadithBookCache, cache);
     } catch {
       // storage full / unavailable — skip caching
