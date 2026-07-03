@@ -1,6 +1,6 @@
 import type { Ayah, QuranEdition, Surah } from "@munib-tracker/shared/types";
 
-import metaJson from "@/assets/data/quran/meta.json";
+import metaJson from "../../assets/data/quran/meta.json";
 import { arabicLoaders, translationLoaders, transliterationLoaders } from "./quran-loader";
 
 type SurahMeta = { surahs: Surah[]; editions: QuranEdition[] };

@@ -5,6 +5,20 @@ const { getDefaultConfig } = require("expo/metro-config");
 const projectRoot = __dirname;
 const config = getDefaultConfig(projectRoot);
 
+// `@/assets/*` maps to `./assets/*` in tsconfig (not `./src/assets/*` like `@/*`).
+// Mirror jest.config.js: resolve this before the generic `@/*` alias.
+const originalResolveRequest = config.resolver.resolveRequest;
+config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (moduleName.startsWith("@/assets/")) {
+    const assetPath = path.join(projectRoot, "assets", moduleName.slice("@/assets/".length));
+    return context.resolveRequest(context, assetPath, platform);
+  }
+  if (originalResolveRequest) {
+    return originalResolveRequest(context, moduleName, platform);
+  }
+  return context.resolveRequest(context, moduleName, platform);
+};
+
 // Serve the Web Push service worker in dev so /expo-service-worker.js is available at localhost
 config.server = config.server || {};
 const originalEnhanceMiddleware = config.server.enhanceMiddleware;
