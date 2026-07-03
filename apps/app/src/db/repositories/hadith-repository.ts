@@ -49,9 +49,16 @@ export const HadithRepository = {
   },
 
   async setCachedBook(cacheKey: string, items: HadithItem[]): Promise<void> {
-    const cache = await readJSON<BookCache>(DB_KEYS.hadithBookCache, {});
-    cache[cacheKey] = items;
-    await writeJSON(DB_KEYS.hadithBookCache, cache);
+    // Best-effort: a full collection can exceed the storage quota (notably
+    // localStorage on web). Never let a cache-write failure break the fetch —
+    // the collection simply won't be available offline.
+    try {
+      const cache = await readJSON<BookCache>(DB_KEYS.hadithBookCache, {});
+      cache[cacheKey] = items;
+      await writeJSON(DB_KEYS.hadithBookCache, cache);
+    } catch {
+      // storage full / unavailable — skip caching
+    }
   },
 
   async clear(): Promise<void> {

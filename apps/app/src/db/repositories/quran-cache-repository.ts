@@ -20,9 +20,15 @@ export const QuranCacheRepository = {
   },
 
   async set(editionId: string, surah: number, ayahText: Record<string, string>): Promise<void> {
-    const cache = await readJSON<EditionCache>(DB_KEYS.quranEditionCache, {});
-    cache[cacheKey(editionId, surah)] = ayahText;
-    await writeJSON(DB_KEYS.quranEditionCache, cache);
+    // Best-effort: never let a cache-write failure (e.g. storage quota) break
+    // the fetch that produced this data.
+    try {
+      const cache = await readJSON<EditionCache>(DB_KEYS.quranEditionCache, {});
+      cache[cacheKey(editionId, surah)] = ayahText;
+      await writeJSON(DB_KEYS.quranEditionCache, cache);
+    } catch {
+      // storage full / unavailable — skip caching
+    }
   },
 
   async clear(): Promise<void> {

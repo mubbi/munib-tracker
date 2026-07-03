@@ -77,8 +77,8 @@ export default function HadithCollectionScreen() {
     );
   }
 
-  const isLoading = remote && remoteQuery.isLoading;
-  const failedOffline = remote && !remoteQuery.data && !remoteQuery.isLoading;
+  const isLoading = remote && remoteQuery.isPending;
+  const failedOffline = remote && remoteQuery.isError && !remoteQuery.data;
 
   return (
     <ScreenLayout
