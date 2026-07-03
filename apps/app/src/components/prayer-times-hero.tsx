@@ -14,7 +14,7 @@ import Animated, {
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Durations } from "@/constants/motion";
-import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
 
 export type PrayerTime = {
   name: string;
@@ -270,14 +270,14 @@ const styles = StyleSheet.create({
     height: 16,
     borderRadius: 8,
     paddingHorizontal: 3,
-    backgroundColor: "#D9604C",
+    backgroundColor: StatusPalette.danger,
     alignItems: "center",
     justifyContent: "center",
   },
   badgeText: {
     fontSize: 9,
     lineHeight: 11,
-    color: "#FFFFFF",
+    color: Brand.heroText,
   },
   clockBlock: {
     alignItems: "center",

@@ -18,10 +18,17 @@ export class GuestSessionDto {
 }
 
 export class OAuthCallbackDto {
-  @ApiProperty({ description: "Authorization code from the OAuth provider" })
+  @ApiPropertyOptional({ description: "Authorization code from the OAuth provider" })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  code!: string;
+  code?: string;
+
+  @ApiPropertyOptional({
+    description: "OpenID Connect id_token from a native sign-in (Apple, Google native)",
+  })
+  @IsOptional()
+  @IsString()
+  idToken?: string;
 
   @ApiPropertyOptional({ description: "PKCE code verifier when using auth code + PKCE" })
   @IsOptional()
@@ -39,10 +46,17 @@ export class LinkAccountDto {
   @IsEnum(AuthProvider)
   provider!: AuthProvider;
 
-  @ApiProperty()
+  @ApiPropertyOptional({ description: "Authorization code from the OAuth provider" })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  code!: string;
+  code?: string;
+
+  @ApiPropertyOptional({
+    description: "OpenID Connect id_token from a native sign-in (Apple, Google native)",
+  })
+  @IsOptional()
+  @IsString()
+  idToken?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
@@ -55,11 +69,21 @@ export class LinkAccountDto {
   redirectUri?: string;
 }
 
+export class RefreshTokenDto {
+  @ApiProperty({ description: "The opaque refresh token issued with the session" })
+  @IsString()
+  @IsNotEmpty()
+  refreshToken!: string;
+}
+
 export class AuthSessionResponseDto {
-  @ApiProperty()
+  @ApiProperty({ description: "Short-lived signed JWT access token" })
   accessToken!: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: "Seconds until the access token expires" })
+  accessTokenExpiresIn!: number;
+
+  @ApiProperty({ description: "Opaque refresh token; rotates on every refresh" })
   refreshToken!: string;
 
   @ApiProperty({ enum: ["guest", "user"] })

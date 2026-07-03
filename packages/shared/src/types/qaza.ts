@@ -4,6 +4,8 @@ export interface QazaCounter {
   prayerId: ObligatoryPrayer;
   remaining: number;
   completed: number;
+  /** ISO datetime of the last change (used for sync last-write-wins). */
+  updatedAt?: string;
 }
 
 export interface QazaDailyPlan {

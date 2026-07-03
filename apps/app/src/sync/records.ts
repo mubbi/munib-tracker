@@ -36,7 +36,7 @@ export function buildSyncRecords(snapshot: LocalSnapshot): SyncRecordDto[] {
       entity: "zikr_progress",
       id: zikrProgressKey(entry.zikrId, entry.date),
       data: { ...entry },
-      updatedAt: snapshot.nowIso,
+      updatedAt: entry.updatedAt ?? snapshot.nowIso,
     });
   }
 
@@ -45,7 +45,7 @@ export function buildSyncRecords(snapshot: LocalSnapshot): SyncRecordDto[] {
       entity: "qaza_entries",
       id: counter.prayerId,
       data: { ...counter },
-      updatedAt: snapshot.nowIso,
+      updatedAt: counter.updatedAt ?? snapshot.nowIso,
     });
   }
   records.push({
@@ -73,15 +73,4 @@ export function buildSyncRecords(snapshot: LocalSnapshot): SyncRecordDto[] {
   });
 
   return records;
-}
-
-/** Keeps the record with the most recent `updatedAt` for each (entity, id) pair. */
-export function mergeByUpdatedAt(records: SyncRecordDto[]): SyncRecordDto[] {
-  const winners = new Map<string, SyncRecordDto>();
-  for (const record of records) {
-    const key = `${record.entity}::${record.id}`;
-    const current = winners.get(key);
-    if (!current || record.updatedAt > current.updatedAt) winners.set(key, record);
-  }
-  return [...winners.values()];
 }

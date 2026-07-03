@@ -1,8 +1,7 @@
-import type { SyncRecordDto } from "@munib-tracker/api-client";
 import { DEFAULT_USER_PREFERENCES } from "@munib-tracker/shared/constants";
 import type { PrayerLog, UserPreferences } from "@munib-tracker/shared/types";
 
-import { buildSyncRecords, mergeByUpdatedAt } from "./records";
+import { buildSyncRecords } from "./records";
 
 const prefs: UserPreferences = {
   ...DEFAULT_USER_PREFERENCES,
@@ -52,24 +51,10 @@ describe("buildSyncRecords", () => {
     const fav = records.find((r) => r.entity === "favorites");
     expect(fav?.data.order).toEqual(["z1"]);
   });
-});
 
-describe("mergeByUpdatedAt", () => {
-  it("keeps the newest record per (entity, id)", () => {
-    const older: SyncRecordDto = {
-      entity: "preferences",
-      id: "preferences",
-      data: {},
-      updatedAt: "2026-07-01T00:00:00Z",
-    };
-    const newer: SyncRecordDto = {
-      entity: "preferences",
-      id: "preferences",
-      data: { locale: "ur" },
-      updatedAt: "2026-07-03T00:00:00Z",
-    };
-    const merged = mergeByUpdatedAt([older, newer]);
-    expect(merged).toHaveLength(1);
-    expect(merged[0]?.data.locale).toBe("ur");
+  it("uses the record's own updatedAt when available", () => {
+    const zikr = records.find((r) => r.entity === "zikr_progress");
+    // The seeded zikr entry has no updatedAt, so it falls back to nowIso.
+    expect(zikr?.updatedAt).toBe("2026-07-03T12:00:00.000Z");
   });
 });

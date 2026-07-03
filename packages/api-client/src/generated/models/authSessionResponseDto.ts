@@ -9,7 +9,11 @@ import type { AuthSessionResponseDtoAccountType } from './authSessionResponseDto
 import type { AuthSessionResponseDtoProvider } from './authSessionResponseDtoProvider';
 
 export interface AuthSessionResponseDto {
+  /** Short-lived signed JWT access token */
   accessToken: string;
+  /** Seconds until the access token expires */
+  accessTokenExpiresIn: number;
+  /** Opaque refresh token; rotates on every refresh */
   refreshToken: string;
   accountType: AuthSessionResponseDtoAccountType;
   userId: string;

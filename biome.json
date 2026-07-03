@@ -18,7 +18,8 @@
       "!**/android",
       "!**/ios",
       "!**/.agents/skills/nestjs/docs",
-      "!**/packages/api-client/src/generated"
+      "!**/packages/api-client/src/generated",
+      "!**/packages/api-contract/openapi.json"
     ]
   },
   "formatter": {

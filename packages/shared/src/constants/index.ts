@@ -47,8 +47,12 @@ export const PRAYER_NAMES = OBLIGATORY_PRAYERS.map((id) => PRAYER_LABELS[id]);
 
 export const SUNNAH_PRAYER_NAMES = SUNNAH_PRAYERS.map((id) => PRAYER_LABELS[id]);
 
-/** Legacy category list. */
+/** Top-level tracking categories (consumed by the marketing site). */
 export const TRACKER_CATEGORIES = ["salah", "dhikr", "qadha"] as const;
+
+/** Shared read-only lookup sets, so consumers don't each re-allocate them. */
+export const OBLIGATORY_PRAYER_SET: ReadonlySet<string> = new Set(OBLIGATORY_PRAYERS);
+export const SUNNAH_PRAYER_SET: ReadonlySet<string> = new Set(SUNNAH_PRAYERS);
 
 export const ZIKR_CATEGORY_IDS = [
   "morning",
@@ -59,6 +63,8 @@ export const ZIKR_CATEGORY_IDS = [
   "before_sleep",
   "anytime",
 ] as const satisfies readonly ZikrCategoryId[];
+
+export const ZIKR_CATEGORY_SET: ReadonlySet<string> = new Set(ZIKR_CATEGORY_IDS);
 
 export const ZIKR_CATEGORY_LABELS: Record<ZikrCategoryId, string> = {
   morning: "Morning Adhkar",

@@ -1,8 +1,7 @@
 import { computeMissedFasts } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useState } from "react";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
@@ -10,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { StatPair } from "@/components/ui/stat-pair";
+import { Stepper } from "@/components/ui/stepper";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useRoza, useTrackerActions } from "@/stores/tracker-store";
@@ -33,42 +34,29 @@ export default function QazaRozaScreen() {
       <Stagger>
         <Card>
           <View style={styles.summary}>
-            <View style={styles.stat}>
-              <ThemedText type="display" style={{ color: tokens.status.info.color }}>
-                {roza.remaining}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                remaining
-              </ThemedText>
-            </View>
-            <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-            <View style={styles.stat}>
-              <ThemedText type="display" style={{ color: tokens.status.success.color }}>
-                {roza.completed}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                completed
-              </ThemedText>
-            </View>
+            <StatPair
+              divider
+              primary={{
+                value: roza.remaining,
+                label: "remaining",
+                color: tokens.status.info.color,
+              }}
+              secondary={{
+                value: roza.completed,
+                label: "completed",
+                color: tokens.status.success.color,
+              }}
+            />
           </View>
 
           <View style={styles.controls}>
-            <View style={styles.stepper}>
-              <StepButton
-                icon={{ ios: "minus", android: "remove", web: "remove" }}
-                label="Decrease remaining"
-                disabled={roza.remaining === 0}
-                onPress={() => setRoza({ ...roza, remaining: Math.max(0, roza.remaining - 1) })}
-              />
-              <ThemedText type="smallBold" style={styles.count}>
-                {roza.remaining}
-              </ThemedText>
-              <StepButton
-                icon={{ ios: "plus", android: "add", web: "add" }}
-                label="Increase remaining"
-                onPress={() => setRoza({ ...roza, remaining: roza.remaining + 1 })}
-              />
-            </View>
+            <Stepper
+              value={roza.remaining}
+              label="fasts remaining"
+              onDecrement={() => setRoza({ ...roza, remaining: Math.max(0, roza.remaining - 1) })}
+              onIncrement={() => setRoza({ ...roza, remaining: roza.remaining + 1 })}
+              size="md"
+            />
             <Button
               label="Fasted a qaza"
               variant="secondary"
@@ -123,70 +111,15 @@ export default function QazaRozaScreen() {
   );
 }
 
-function StepButton({
-  icon,
-  label,
-  onPress,
-  disabled,
-}: {
-  icon: Parameters<typeof SymbolView>[0]["name"];
-  label: string;
-  onPress: () => void;
-  disabled?: boolean;
-}) {
-  const { colors } = useThemeTokens();
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      disabled={disabled}
-      hitSlop={6}
-      onPress={onPress}
-      style={[styles.step, { backgroundColor: colors.muted, opacity: disabled ? 0.3 : 1 }]}
-    >
-      <SymbolView name={icon} size={18} tintColor={colors.foreground} />
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
   summary: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
     marginBottom: Spacing.four,
-  },
-  stat: {
-    alignItems: "center",
-    gap: Spacing.one,
-  },
-  divider: {
-    width: StyleSheet.hairlineWidth,
-    alignSelf: "stretch",
   },
   controls: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: Spacing.three,
-  },
-  stepper: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-  },
-  step: {
-    width: 40,
-    height: 40,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  count: {
-    minWidth: 32,
-    textAlign: "center",
-    fontVariant: ["tabular-nums"],
   },
   calcHint: {
     marginTop: Spacing.two,

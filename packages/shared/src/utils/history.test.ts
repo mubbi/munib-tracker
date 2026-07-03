@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import type { PrayerLog } from "../types/index";
-import { buildDayActivity, dailyCompletionSeries, sumPrayerTotals } from "./history";
+import {
+  aggregateByDate,
+  buildDayActivity,
+  dailyCompletionSeries,
+  sumPrayerTotals,
+} from "./history";
 
 function log(
   date: string,
@@ -46,6 +51,21 @@ describe("sumPrayerTotals", () => {
     const totals = sumPrayerTotals(logs, "2026-07-01", "2026-07-03");
     expect(totals.completed).toBe(1);
     expect(totals.missed).toBe(1);
+  });
+});
+
+describe("aggregateByDate", () => {
+  it("produces one activity record per date with activity", () => {
+    const logs = [
+      log("2026-07-01", "fajr", "completed"),
+      log("2026-07-01", "dhuhr", "missed"),
+      log("2026-07-03", "asr", "completed"),
+    ];
+    const map = aggregateByDate(logs);
+    expect(map.size).toBe(2);
+    expect(map.get("2026-07-01")?.completed).toBe(1);
+    expect(map.get("2026-07-01")?.missed).toBe(1);
+    expect(map.get("2026-07-03")?.completed).toBe(1);
   });
 });
 

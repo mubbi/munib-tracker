@@ -8,28 +8,22 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { formatHhMm, parseHhMm } from "@/lib/time";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
-
-function parseTime(value: string | undefined): { h: number; m: number } {
-  const [h, m] = (value ?? "22:30").split(":").map((part) => Number.parseInt(part, 10));
-  return { h: Number.isFinite(h) ? h : 22, m: Number.isFinite(m) ? m : 30 };
-}
-
-function format(h: number, m: number): string {
-  return `${`${h}`.padStart(2, "0")}:${`${m}`.padStart(2, "0")}`;
-}
 
 export default function BedtimeScreen() {
   const router = useRouter();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
-  const [{ h, m }, setTime] = useState(() => parseTime(prefs.bedtime));
+  const [{ hour: h, minute: m }, setTime] = useState(() =>
+    parseHhMm(prefs.bedtime, { hour: 22, minute: 30 }),
+  );
 
   const apply = (nextH: number, nextM: number) => {
     const wrappedH = (nextH + 24) % 24;
     const wrappedM = (nextM + 60) % 60;
-    setTime({ h: wrappedH, m: wrappedM });
-    void update({ bedtime: format(wrappedH, wrappedM) });
+    setTime({ hour: wrappedH, minute: wrappedM });
+    void update({ bedtime: formatHhMm(wrappedH, wrappedM) });
   };
 
   return (

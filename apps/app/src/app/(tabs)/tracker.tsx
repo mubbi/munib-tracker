@@ -9,7 +9,7 @@ import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { Collapsible } from "@/components/ui/collapsible";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -107,7 +107,10 @@ export default function TrackerScreen() {
         </Card>
 
         <Card padding="three">
-          <Collapsible title="Sunnah & optional prayers">
+          <CollapsibleSection
+            title="Sunnah & optional"
+            icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
+          >
             <View style={styles.rows}>
               {SUNNAH_PRAYERS.map((prayerId) => (
                 <PrayerTrackerRow
@@ -119,7 +122,7 @@ export default function TrackerScreen() {
                 />
               ))}
             </View>
-          </Collapsible>
+          </CollapsibleSection>
         </Card>
 
         <Card padding="three">

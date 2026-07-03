@@ -29,4 +29,6 @@ export interface ZikrProgress {
   count: number;
   target: number;
   completed: boolean;
+  /** ISO datetime of the last change (used for sync last-write-wins). */
+  updatedAt?: string;
 }

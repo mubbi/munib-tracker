@@ -7,8 +7,11 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
+import { StatPair } from "@/components/ui/stat-pair";
+import { Stepper } from "@/components/ui/stepper";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
@@ -30,25 +33,19 @@ export default function QazaHomeScreen() {
     >
       <Stagger>
         <Card>
-          <View style={styles.summary}>
-            <View style={styles.summaryStat}>
-              <ThemedText type="display" style={{ color: tokens.status.info.color }}>
-                {summary.remaining}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                remaining
-              </ThemedText>
-            </View>
-            <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-            <View style={styles.summaryStat}>
-              <ThemedText type="display" style={{ color: tokens.status.success.color }}>
-                {summary.completed}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                made up
-              </ThemedText>
-            </View>
-          </View>
+          <StatPair
+            divider
+            primary={{
+              value: summary.remaining,
+              label: "remaining",
+              color: tokens.status.info.color,
+            }}
+            secondary={{
+              value: summary.completed,
+              label: "made up",
+              color: tokens.status.success.color,
+            }}
+          />
         </Card>
 
         <View style={styles.tools}>
@@ -83,13 +80,7 @@ export default function QazaHomeScreen() {
           <View style={styles.rows}>
             {counters.map((counter) => (
               <View key={counter.prayerId} style={[styles.row, { backgroundColor: colors.muted }]}>
-                <View style={[styles.iconWell, { backgroundColor: tokens.accentSoft }]}>
-                  <SymbolView
-                    name={PRAYER_ICONS[counter.prayerId]}
-                    size={18}
-                    tintColor={colors.accent}
-                  />
-                </View>
+                <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
                 <View style={styles.rowBody}>
                   <ThemedText type="small">{PRAYER_LABELS[counter.prayerId]}</ThemedText>
                   <ThemedText type="caption" themeColor="mutedForeground">
@@ -97,30 +88,20 @@ export default function QazaHomeScreen() {
                   </ThemedText>
                 </View>
 
-                <View style={styles.stepper}>
-                  <StepButton
-                    icon={{ ios: "minus", android: "remove", web: "remove" }}
-                    label={`Decrease ${counter.prayerId}`}
-                    disabled={counter.remaining === 0}
-                    onPress={() =>
-                      adjustQaza(counter.prayerId, counter.remaining - 1, counter.completed)
-                    }
-                  />
-                  <ThemedText type="smallBold" style={styles.count}>
-                    {counter.remaining}
-                  </ThemedText>
-                  <StepButton
-                    icon={{ ios: "plus", android: "add", web: "add" }}
-                    label={`Increase ${counter.prayerId}`}
-                    onPress={() =>
-                      adjustQaza(counter.prayerId, counter.remaining + 1, counter.completed)
-                    }
-                  />
-                </View>
+                <Stepper
+                  value={counter.remaining}
+                  label={PRAYER_LABELS[counter.prayerId]}
+                  onDecrement={() =>
+                    adjustQaza(counter.prayerId, counter.remaining - 1, counter.completed)
+                  }
+                  onIncrement={() =>
+                    adjustQaza(counter.prayerId, counter.remaining + 1, counter.completed)
+                  }
+                />
 
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel={`Mark ${counter.prayerId} qaza performed`}
+                  accessibilityLabel={`Mark ${PRAYER_LABELS[counter.prayerId]} qaza performed`}
                   disabled={counter.remaining === 0}
                   hitSlop={6}
                   onPress={() => performQaza(counter.prayerId)}
@@ -149,46 +130,7 @@ export default function QazaHomeScreen() {
   );
 }
 
-function StepButton({
-  icon,
-  label,
-  onPress,
-  disabled,
-}: {
-  icon: Parameters<typeof SymbolView>[0]["name"];
-  label: string;
-  onPress: () => void;
-  disabled?: boolean;
-}) {
-  const { colors } = useThemeTokens();
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      disabled={disabled}
-      hitSlop={6}
-      onPress={onPress}
-      style={[styles.step, { backgroundColor: colors.card, opacity: disabled ? 0.3 : 1 }]}
-    >
-      <SymbolView name={icon} size={16} tintColor={colors.foreground} />
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
-  summary: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  summaryStat: {
-    alignItems: "center",
-    gap: Spacing.one,
-  },
-  divider: {
-    width: StyleSheet.hairlineWidth,
-    alignSelf: "stretch",
-  },
   tools: {
     flexDirection: "row",
     gap: Spacing.two,
@@ -208,35 +150,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  iconWell: {
-    width: 38,
-    height: 38,
-    borderRadius: 12,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   rowBody: {
     flex: 1,
     gap: 2,
-  },
-  stepper: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  step: {
-    width: 30,
-    height: 30,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  count: {
-    minWidth: 28,
-    textAlign: "center",
-    fontVariant: ["tabular-nums"],
   },
   hint: {
     marginTop: Spacing.three,

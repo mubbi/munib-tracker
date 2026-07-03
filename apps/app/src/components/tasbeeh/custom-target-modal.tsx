@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Modal, Pressable, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -14,7 +15,7 @@ type CustomTargetModalProps = {
 };
 
 export function CustomTargetModal({ visible, initial, onSubmit, onClose }: CustomTargetModalProps) {
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const [value, setValue] = useState(initial ? String(initial) : "");
 
   useEffect(() => {
@@ -30,57 +31,31 @@ export function CustomTargetModal({ visible, initial, onSubmit, onClose }: Custo
   };
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-      <Pressable style={[styles.scrim, { backgroundColor: tokens.scrim }]} onPress={onClose}>
-        <Pressable
-          style={[styles.sheet, { backgroundColor: colors.card, borderColor: colors.border }]}
-          onPress={(event) => event.stopPropagation()}
-        >
-          <ThemedText type="subtitle">Custom target</ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            How many times would you like to repeat?
-          </ThemedText>
-          <TextInput
-            value={value}
-            onChangeText={(text) => setValue(text.replace(/[^0-9]/g, "").slice(0, 5))}
-            keyboardType="number-pad"
-            placeholder="e.g. 313"
-            placeholderTextColor={colors.mutedForeground}
-            style={[
-              styles.input,
-              {
-                color: colors.foreground,
-                backgroundColor: colors.muted,
-                borderColor: colors.border,
-              },
-            ]}
-          />
-          <View style={styles.actions}>
-            <Button label="Cancel" variant="ghost" onPress={onClose} />
-            <Button label="Set" onPress={submit} />
-          </View>
-        </Pressable>
-      </Pressable>
-    </Modal>
+    <Sheet visible={visible} onClose={onClose}>
+      <ThemedText type="subtitle">Custom target</ThemedText>
+      <ThemedText type="caption" themeColor="mutedForeground">
+        How many times would you like to repeat?
+      </ThemedText>
+      <TextInput
+        value={value}
+        onChangeText={(text) => setValue(text.replace(/[^0-9]/g, "").slice(0, 5))}
+        keyboardType="number-pad"
+        placeholder="e.g. 313"
+        placeholderTextColor={colors.mutedForeground}
+        style={[
+          styles.input,
+          { color: colors.foreground, backgroundColor: colors.muted, borderColor: colors.border },
+        ]}
+      />
+      <View style={styles.actions}>
+        <Button label="Cancel" variant="ghost" onPress={onClose} />
+        <Button label="Set" onPress={submit} />
+      </View>
+    </Sheet>
   );
 }
 
 const styles = StyleSheet.create({
-  scrim: {
-    flex: 1,
-    justifyContent: "center",
-    padding: Spacing.four,
-  },
-  sheet: {
-    borderRadius: Radius.lg,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    padding: Spacing.four,
-    gap: Spacing.two,
-    maxWidth: 420,
-    width: "100%",
-    alignSelf: "center",
-  },
   input: {
     marginTop: Spacing.two,
     padding: Spacing.three,

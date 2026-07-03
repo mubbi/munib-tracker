@@ -1,5 +1,6 @@
 import {
   Column,
+  type ColumnType,
   CreateDateColumn,
   Entity,
   Index,
@@ -9,6 +10,12 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+
+// SQLite (unit/e2e tests + `DATABASE_TYPE=sqlite`) uses `datetime`; Postgres uses
+// `timestamp`. Mirrors the driver choice in `database.module.ts` so the same
+// entities validate under both drivers.
+const usingSqlite = process.env.DATABASE_TYPE === "sqlite" || process.env.NODE_ENV === "test";
+const TIMESTAMP_TYPE: ColumnType = usingSqlite ? "datetime" : "timestamp";
 
 @Entity("users")
 export class UserEntity {
@@ -49,13 +56,16 @@ export class AuthSessionEntity {
   @JoinColumn({ name: "userId" })
   user!: UserEntity;
 
-  @Index({ unique: true })
-  @Column({ type: "varchar", length: 64 })
-  accessToken!: string;
-
+  /**
+   * Opaque, rotating refresh token. Access tokens are stateless JWTs that carry
+   * this session's id, so we only persist the refresh secret here.
+   */
   @Index({ unique: true })
   @Column({ type: "varchar", length: 64 })
   refreshToken!: string;
+
+  @Column({ type: TIMESTAMP_TYPE })
+  refreshExpiresAt!: Date;
 
   @CreateDateColumn()
   createdAt!: Date;
@@ -79,9 +89,9 @@ export class SyncRecordEntity {
   @Column({ type: "simple-json" })
   data!: Record<string, unknown>;
 
-  @Column({ type: "datetime" })
+  @Column({ type: TIMESTAMP_TYPE })
   updatedAt!: Date;
 
-  @Column({ type: "datetime", nullable: true })
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
   deletedAt?: Date | null;
 }

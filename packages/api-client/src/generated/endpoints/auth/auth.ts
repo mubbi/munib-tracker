@@ -161,6 +161,68 @@ export const useAuthControllerCompleteOAuth = <TError = unknown,
       return useMutation(mutationOptions, queryClient);
     }
     /**
+ * @summary Rotate the refresh token and issue a new access token
+ */
+export const authControllerRefresh = (
+    
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<AuthSessionResponseDto>(
+      {url: `/api/v1/auth/refresh`, method: 'POST', signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerRefreshMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,void, TContext> => {
+
+const mutationKey = ['authControllerRefresh'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerRefresh>>, void> = () => {
+          
+
+          return  authControllerRefresh(requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerRefreshMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerRefresh>>>
+    
+    export type AuthControllerRefreshMutationError = unknown
+
+    /**
+ * @summary Rotate the refresh token and issue a new access token
+ */
+export const useAuthControllerRefresh = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerRefresh>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerRefresh>>,
+        TError,
+        void,
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerRefreshMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
  * @summary Upgrade a guest account by linking an OAuth provider
  */
 export const authControllerLinkAccount = (

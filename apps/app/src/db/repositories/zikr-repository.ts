@@ -43,6 +43,7 @@ export const ZikrRepository = {
       count: safeCount,
       target,
       completed: target > 0 && safeCount >= target,
+      updatedAt: new Date().toISOString(),
     };
     return collection.upsert(zikrProgressKey(zikrId, date), entry);
   },
@@ -51,10 +52,6 @@ export const ZikrRepository = {
     const existing = await collection.get(zikrProgressKey(zikrId, date));
     const nextCount = Math.max(0, (existing?.count ?? 0) + by);
     return this.setCount(zikrId, date, nextCount, target);
-  },
-
-  async reset(zikrId: string, date: string, target: number): Promise<ZikrProgress> {
-    return this.setCount(zikrId, date, 0, target);
   },
 
   /** Writes a progress entry verbatim (used when applying a server record). */

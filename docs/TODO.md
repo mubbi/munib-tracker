@@ -67,9 +67,9 @@
 |------|--------|-----------|
 | Landing page (Hero, Features, CTA) | `done` | `src/app/page.tsx`, `src/components/{hero,features,cta-button}.tsx` |
 | Layout, metadata, footer | `done` | `src/app/layout.tsx`, `src/components/footer.tsx` |
-| `robots.ts` / `sitemap.ts` | `partial` | Placeholder domain `munib-tracker.example.com` |
+| `robots.ts` / `sitemap.ts` | `done` | Real domain via `NEXT_PUBLIC_SITE_URL` (`src/lib/site.ts`) |
 | TanStack Query provider (API client shell) | `partial` | `src/providers/api-provider.tsx` — wired, unused |
-| About, privacy, terms pages | `todo` | — |
+| About, privacy, terms pages | `done` | `src/app/{about,privacy,terms}/page.tsx` |
 
 ### API server (`apps/api`)
 
@@ -79,13 +79,14 @@
 | Config + env validation | `done` | `src/config/`, `.env.example` |
 | Health probe | `done` | `GET /api/v1/health` — `src/health/` |
 | TypeORM database (Postgres prod / SQLite in-memory tests) | `done` | `src/database/` — `UserEntity`, `AuthSessionEntity`, `SyncRecordEntity` |
+| Production migrations (datasource + baseline + scripts) | `done` | `src/database/data-source.ts`, `src/database/migrations/` |
 | Guest auth (create/resume by `deviceId`) | `done` | `POST /api/v1/auth/guest` — `src/auth/` |
-| OAuth + account linking | `partial` | `POST /api/v1/auth/oauth/:provider`, `POST /api/v1/auth/link` — stub token exchange; needs real provider integration |
+| OAuth + account linking | `done` (code) | Real exchange in `oauth-provider.service.ts`; needs provider secrets to go live |
 | Session management (`me`, `logout`) | `done` | `GET /api/v1/auth/me`, `POST /api/v1/auth/logout` |
 | Cloud sync pull/push (last-write-wins, guest blocked) | `done` | `GET /api/v1/sync/pull`, `POST /api/v1/sync/push` — `src/sync/` |
-| OpenAPI at `/docs` + export script | `partial` | `src/main.ts`, `scripts/export-openapi.ts` — run `pnpm generate:api` to commit spec |
-| JWT / refresh-token rotation | `todo` | Tokens are UUIDs today; `JWT_SECRET` unused |
-| Unit + e2e tests | `partial` | `src/**/*.spec.ts`, `test/app.e2e-spec.ts` |
+| OpenAPI at `/docs` + export script | `done` | `src/main.ts` — `pnpm generate:api` commits spec + Orval client |
+| JWT access tokens + refresh-token rotation | `done` | `token.service.ts`, `POST /api/v1/auth/refresh` |
+| Unit + e2e tests | `done` | `src/**/*.spec.ts` (15), `test/app.e2e-spec.ts` (5) |
 
 ### Shared packages
 
@@ -93,9 +94,9 @@
 |------|--------|-----------|
 | Theme tokens + `resolveTheme()` + tests | `done` | `packages/theme/src/` |
 | Domain stubs | `partial` | `packages/shared/src/{types,constants,validators}/` |
-| API client mutator + Query provider | `partial` | `packages/api-client/src/{mutator,provider,datetime}.ts` |
-| Orval codegen pipeline | `partial` | `packages/api-client/orval.config.ts` — `src/generated/**` created by `pnpm generate:api` |
-| OpenAPI contract artifact | `todo` | `packages/api-contract/openapi.json` not committed yet |
+| API client mutator + Query provider | `done` | `packages/api-client/src/{mutator,provider,datetime}.ts` |
+| Orval codegen pipeline | `done` | `packages/api-client/orval.config.ts` — `src/generated/**` committed |
+| OpenAPI contract artifact | `done` | `packages/api-contract/openapi.json` committed + regenerated |
 | Vitest + TS configs | `done` | `packages/vitest-config/`, `packages/typescript-config/` |
 
 **Product status:** Phases 1–12 implemented — see progress log below.
@@ -104,7 +105,15 @@
 
 ### Implementation progress — 2026-07-03
 
-**Phases 1–12 are all implemented, typechecked, and tested.** 52 tests pass (30 Vitest in `@munib-tracker/shared`, 22 Jest in `apps/app`); repo-wide `check-types` (10 workspace tasks) and Biome are clean.
+**Phases 1–12 are all implemented, typechecked, and tested. Phase 0.5 (API/backend) and Phase 8 server hardening are now code-complete.** 87 tests pass (39 Vitest in `@munib-tracker/shared`, 21 in `apps/api` — 16 unit + 5 e2e, 3 in `@munib-tracker/theme`, 22 Jest in `apps/app`, 2 in `apps/marketing-web`); repo-wide `check-types` (10 workspace tasks) and Biome are clean.
+
+**Backend/infra completion pass (2026-07-03):**
+
+- **Auth hardening (P8.0.1 / P0.5.5):** access tokens are now signed JWTs (`@nestjs/jwt`, `TokenService`) with a configurable TTL; `POST /auth/refresh` rotates the opaque refresh token; sessions are revocable server-side (logout invalidates even an unexpired JWT). Real OAuth code/id_token exchange is implemented in `OAuthProviderService` (Google via token+userinfo, Facebook via graph API, Apple via id_token claim validation) — activates when provider secrets are set; unit + e2e tests use a stubbed exchange. The Expo client rotates tokens proactively on boot/foreground (`auth-provider.tsx` `refresh()`).
+- **Sync e2e (P0.5.6):** full guest-403 + push→pull round-trip + last-write-wins conflict covered in `apps/api/test/app.e2e-spec.ts`. `POST /sync/push` now returns 200 to match its contract.
+- **Production migrations (P0.5.3):** `src/database/data-source.ts` + baseline migration in `src/database/migrations/` + `migration:run|revert|generate` scripts; entities use a driver-portable timestamp type so the same schema validates on SQLite (tests) and Postgres (prod). Prod runs `synchronize: false`.
+- **Marketing site (P0.5.1 / P11.2):** About, Privacy, and Terms pages added; real domain wired via `NEXT_PUBLIC_SITE_URL` (default `https://munibtracker.app`) across metadata/robots/sitemap; footer links them. The app's About screen reads `EXPO_PUBLIC_SITE_URL`.
+- **Env wiring (P0.5.4):** `.env.example` added for `apps/app` and `apps/marketing-web` documenting `EXPO_PUBLIC_API_URL` / `NEXT_PUBLIC_API_URL` (+ site URL); OpenAPI spec + Orval client regenerated.
 
 The user authorized adding native dependencies (accepting a dev-client rebuild), so the later phases use real Expo native modules. Installed: `expo-audio`, `expo-notifications`, `expo-secure-store`, `expo-auth-session`, `expo-crypto`, `expo-location`, `expo-sensors`, `expo-image-picker`, `expo-sharing`, `expo-localization`, plus `i18next`/`react-i18next`/`adhan`.
 
@@ -118,7 +127,12 @@ The user authorized adding native dependencies (accepting a dev-client rebuild),
 
 **Per phase:** P1 data layer/utils · P2 prayer statuses + notes + dashboard · P3 zikr library/favorites/tasbeeh · P4 qaza counters/calculator/planner/roza · P5 calendar/day-detail/statistics · P6 global audio player + mini-player + 99 Names/Dua/Duroods libraries · P7 settings (appearance incl. custom-hex accent, notifications, bedtime, fonts, language, about) + i18n scaffold (en/ar/ur + RTL) · P8 auth (guest + OAuth scaffold) + secure token storage + sync engine · P9 notification scheduler/center + permission flow + reminders · P10 onboarding flow + achievements · P11 profile (avatar/name/sign-out/delete) · P12 qibla compass with web fallback.
 
-**Remaining polish (not blocking):** full i18n string extraction across every screen (infra + language switching are in place; only a subset of strings use `t()` so far); real OAuth provider credentials + server-side token exchange (P8.0.1); bundling real audio files for the player (infra is ready, content `audioUri`s are empty); live end-to-end sync testing against a running API.
+**Remaining work — requires external assets/credentials (all code paths are ready):**
+
+- **i18n string extraction (P7.5):** infrastructure, language switching, and RTL are complete, but only a subset of screens route strings through `t()`. Exhaustive per-screen extraction plus **professional Arabic/Urdu translation** of UI copy is a content task best done with a native translator (auto-translation of religious-app UI is intentionally avoided). Non-English UI currently falls back to English.
+- **OAuth provider credentials (P8.0.1):** the exchange code is implemented and tested; it needs real Google/Apple/Facebook client IDs + secrets in the API env to go live. Apple id_token validation checks claims — add JWKS signature verification before production (noted in `oauth-provider.service.ts`).
+- **Audio content (P6):** the global player, mini-player, and playlists are built; the `audioUri`s in content JSON are empty pending licensed/recorded audio files.
+- **Live multi-device sync:** the sync engine + server round-trip are covered by automated e2e tests; a final smoke test against a deployed API on two physical devices remains.
 
 **Existing shared types** (`packages/shared/src/types/index.ts`):
 
@@ -183,8 +197,8 @@ Shell, navigation, and theme for `apps/app`. No further work unless regressions 
 - [x] Next.js 16 landing with Hero, Features, CTA (`src/app/page.tsx`)
 - [x] Tailwind v4 + `@munib-tracker/theme` tokens
 - [x] Vitest feature tests (`src/app/page.feature.test.tsx`)
-- [ ] Replace placeholder domain in `robots.ts` / `sitemap.ts` before launch
-- [ ] About / privacy / terms pages (stretch — link from app P11.2)
+- [x] Real domain via `NEXT_PUBLIC_SITE_URL` in `robots.ts` / `sitemap.ts` (`src/lib/site.ts`)
+- [x] About / privacy / terms pages (`src/app/{about,privacy,terms}/page.tsx`, linked from footer + app P11.2)
 
 ---
 
@@ -223,7 +237,7 @@ Shell, navigation, and theme for `apps/app`. No further work unless regressions 
 
 - [x] Postgres for local dev (`DATABASE_TYPE=postgres` in `.env.example`)
 - [x] SQLite in-memory for tests (`DATABASE_TYPE=sqlite`)
-- [ ] Production migrations (TypeORM `synchronize: false` + migration files) — before deploy
+- [x] Production migrations — `data-source.ts` + baseline migration + `migration:run|revert|generate` scripts; `synchronize: false` in production
 
 ---
 
@@ -233,7 +247,7 @@ Shell, navigation, and theme for `apps/app`. No further work unless regressions 
 |---|---|
 | **ID** | P0.5.4 |
 | **Depends on** | P0.5.2 |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Files** | `apps/api/scripts/export-openapi.ts`, `packages/api-contract/`, `packages/api-client/` |
 
 **Pipeline:** `apps/api` openapi task → `packages/api-contract/openapi.json` → Orval → `packages/api-client/src/generated/**`
@@ -244,8 +258,8 @@ Shell, navigation, and theme for `apps/app`. No further work unless regressions 
 - [x] `pnpm generate:api` script at repo root
 - [x] Fetch mutator + `ApiQueryProvider` (`packages/api-client/src/`)
 - [x] `AppApiProvider` in `apps/app` and `apps/marketing-web`
-- [ ] Commit generated `openapi.json` + `src/generated/**` (or CI step that runs before typecheck)
-- [ ] `setApiBaseUrl()` wired per environment (Expo `EXPO_PUBLIC_API_URL`, Next.js `NEXT_PUBLIC_API_URL`)
+- [x] Committed `openapi.json` + `src/generated/**` (regenerated this pass)
+- [x] API base URL per environment via `EXPO_PUBLIC_API_URL` / `NEXT_PUBLIC_API_URL` (`getApiBaseUrl()` + `.env.example` in both apps)
 
 ---
 
@@ -271,8 +285,8 @@ Shell, navigation, and theme for `apps/app`. No further work unless regressions 
 
 - [x] Guest session create/resume by `deviceId`
 - [x] Bearer token auth on protected routes
-- [ ] JWT access tokens (replace UUID tokens) — P8.0.1
-- [ ] Refresh token endpoint — P8.0.1
+- [x] JWT access tokens (replace UUID tokens) — `token.service.ts`
+- [x] Refresh token endpoint — `POST /api/v1/auth/refresh` with rotation
 
 ---
 
@@ -294,7 +308,7 @@ Shell, navigation, and theme for `apps/app`. No further work unless regressions 
 - [x] Guest accounts receive `403` on sync routes
 - [x] Entity types: `prayer_log`, `zikr_progress`, `qaza_counter`, `user_preferences`, `favorite_zikr`
 - [x] Unit tests for guest block + push conflict path
-- [ ] E2e tests for full pull/push round-trip
+- [x] E2e tests for full pull/push round-trip (`test/app.e2e-spec.ts`)
 
 ---
 
@@ -1006,7 +1020,7 @@ export interface DailySummary {
 |---|---|
 | **ID** | P7.5 |
 | **Depends on** | P7.1 |
-| **Status** | `todo` |
+| **Status** | `partial` — infra + RTL + switching done; string extraction + ar/ur translation pending |
 | **Packages** | `expo-localization`, `i18next`, `react-i18next` |
 | **Files** | `apps/app/src/i18n/{en,ar,ur}.json`, `apps/app/src/i18n/index.ts` |
 
@@ -1016,8 +1030,8 @@ export interface DailySummary {
 
 **AC:**
 
-- [ ] RTL layout when Arabic UI selected
-- [ ] All user-facing strings use `t()` — no hardcoded English in new screens
+- [x] RTL layout when Arabic UI selected (`I18nManager` forceRTL on `ar`)
+- [ ] All user-facing strings use `t()` — infra in place; exhaustive per-screen extraction + professional ar/ur translation is a remaining content task (non-English falls back to English). Auto-translating religious-app UI is intentionally avoided.
 - [ ] Language change without restart (hot reload acceptable in dev)
 
 ---
@@ -1052,23 +1066,24 @@ export interface DailySummary {
 |---|---|
 | **ID** | P8.0.1 |
 | **Depends on** | P0.5.5 |
-| **Status** | `todo` |
+| **Status** | `done` (code) — needs provider secrets to go live |
 | **App** | `apps/api` |
-| **Files** | `apps/api/src/auth/auth.service.ts`, `apps/api/src/auth/strategies/` (new) |
+| **Files** | `apps/api/src/auth/auth.service.ts`, `token.service.ts`, `oauth-provider.service.ts` |
 
 **Work:**
 
-- Replace UUID bearer tokens with signed JWTs (`@nestjs/jwt` + `JWT_SECRET`)
-- `POST /api/v1/auth/refresh` — rotate refresh tokens
-- Real OAuth code exchange for Google, Apple, Facebook (not stub emails)
-- Passport strategies or provider-specific SDKs
+- [x] Replace UUID bearer tokens with signed JWTs (`@nestjs/jwt` + `JWT_SECRET`, configurable TTL)
+- [x] `POST /api/v1/auth/refresh` — rotate refresh tokens
+- [x] Real OAuth code/id_token exchange for Google, Apple, Facebook (`oauth-provider.service.ts`)
 
 **AC:**
 
-- [ ] OAuth returns real user email/name from provider
-- [ ] Expired access token → 401; refresh flow works
-- [ ] Provider env vars documented in `.env.example`
-- [ ] E2e tests for OAuth mock + link guest flow
+- [x] OAuth returns real user email/name from provider (live when provider secrets are set)
+- [x] Expired access token → 401; refresh flow works (short TTL + `refresh` + server-side revocation)
+- [x] Provider env vars documented in `.env.example`
+- [x] E2e/unit tests for OAuth (stubbed exchange) + link-guest flow
+
+> **Note:** Apple id_token validation checks claims (iss/aud/exp). Add JWKS signature verification before production — flagged in `oauth-provider.service.ts`.
 
 ---
 
@@ -1400,7 +1415,7 @@ Use `expo-router` groups: `(tabs)`, `(auth)`, `(onboarding)`.
 | D3 | State management | Zustand · Redux Toolkit · Context | Open | P1.3 |
 | D4 | Chart library | victory-native · gifted-charts · WebView | Open | P5.3 |
 | D5 | Content authoring | JSON in repo · CMS later | Open | P3.1, P6 |
-| D6 | API URL per environment | Expo public env · build-time config · dev proxy | Open | P0.5.4 |
+| D6 | API URL per environment | **Expo/Next public env** (`EXPO_PUBLIC_API_URL` / `NEXT_PUBLIC_API_URL`) | **Resolved** | P0.5.4 |
 
 ---
 
@@ -1491,11 +1506,11 @@ Base URL: `http://localhost:3001/api/v1` (dev). OpenAPI: `http://localhost:3001/
 |--------|------|------|--------|--------|
 | `GET` | `/health` | — | `done` | health |
 | `POST` | `/auth/guest` | — | `done` | auth |
-| `POST` | `/auth/oauth/:provider` | — | `partial` | auth |
-| `POST` | `/auth/link` | Bearer | `partial` | auth |
+| `POST` | `/auth/oauth/:provider` | — | `done` (code) | auth |
+| `POST` | `/auth/link` | Bearer | `done` (code) | auth |
 | `GET` | `/auth/me` | Bearer | `done` | auth |
 | `POST` | `/auth/logout` | Bearer | `done` | auth |
-| `POST` | `/auth/refresh` | — | `todo` | auth |
+| `POST` | `/auth/refresh` | — | `done` | auth |
 | `GET` | `/sync/pull` | Bearer (non-guest) | `done` | sync |
 | `POST` | `/sync/push` | Bearer (non-guest) | `done` | sync |
 

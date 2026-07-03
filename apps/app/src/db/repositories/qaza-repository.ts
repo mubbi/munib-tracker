@@ -51,6 +51,7 @@ export const QazaRepository = {
       prayerId,
       remaining: Math.max(0, Math.round(remaining)),
       completed: Math.max(0, Math.round(completed)),
+      updatedAt: new Date().toISOString(),
     };
     await writeJSON(DB_KEYS.qazaCounters, map);
     return map[prayerId];

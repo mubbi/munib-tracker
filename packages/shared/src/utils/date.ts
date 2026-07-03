@@ -9,10 +9,23 @@ export function getLocalDateString(date: Date = new Date()): string {
   return `${year}-${month}-${day}`;
 }
 
-/** Parses a YYYY-MM-DD string into a local Date at midnight. */
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Parses a YYYY-MM-DD string into a local Date at midnight.
+ * Throws on malformed input so bugs fail loudly instead of silently yielding an
+ * Invalid Date that propagates as NaN through downstream date math.
+ */
 export function parseLocalDateString(value: string): Date {
-  const [year, month, day] = value.split("-").map((part) => Number.parseInt(part, 10));
-  return new Date(year ?? 1970, (month ?? 1) - 1, day ?? 1);
+  if (!DATE_PATTERN.test(value)) {
+    throw new RangeError(`Invalid date string: "${value}" (expected YYYY-MM-DD)`);
+  }
+  const [year, month, day] = value.split("-").map((part) => Number.parseInt(part, 10)) as [
+    number,
+    number,
+    number,
+  ];
+  return new Date(year, month - 1, day);
 }
 
 /** Returns a new YYYY-MM-DD string offset by `days` from the given date string. */

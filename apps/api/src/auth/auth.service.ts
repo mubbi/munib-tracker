@@ -13,6 +13,8 @@ import type {
   LinkAccountDto,
   OAuthCallbackDto,
 } from "./dto/auth.dto";
+import { type OAuthProfile, OAuthProviderService } from "./oauth-provider.service";
+import { TokenService } from "./token.service";
 
 @Injectable()
 export class AuthService {
@@ -22,6 +24,8 @@ export class AuthService {
     @InjectRepository(AuthSessionEntity)
     private readonly sessionsRepository: Repository<AuthSessionEntity>,
     private readonly configService: ConfigService<EnvironmentVariables, true>,
+    private readonly tokenService: TokenService,
+    private readonly oauthProvider: OAuthProviderService,
   ) {}
 
   async createGuestSession(dto: GuestSessionDto): Promise<AuthSessionResponseDto> {
@@ -31,14 +35,7 @@ export class AuthService {
       });
 
       if (existingUser) {
-        const existingSession = await this.sessionsRepository.findOne({
-          where: { userId: existingUser.id },
-          order: { createdAt: "DESC" },
-        });
-
-        if (existingSession) {
-          return this.toSessionResponse(existingSession, existingUser);
-        }
+        return this.issueSession(existingUser);
       }
     }
 
@@ -50,56 +47,63 @@ export class AuthService {
       }),
     );
 
-    const session = await this.createSession(user);
-    return this.toSessionResponse(session, user);
+    return this.issueSession(user);
   }
 
   async completeOAuth(
     provider: AuthProvider,
     dto: OAuthCallbackDto,
   ): Promise<AuthSessionResponseDto> {
-    this.assertProviderConfigured(provider);
-
-    if (!dto.code.trim()) {
-      throw new BadRequestException("OAuth code is required");
-    }
-
-    const user = await this.usersRepository.save(
-      this.usersRepository.create({
-        id: randomUUID(),
-        accountType: "user",
-        provider,
-        email: `${provider}-user@example.com`,
-        displayName: `${provider} user`,
-      }),
-    );
-
-    const session = await this.createSession(user);
-    return this.toSessionResponse(session, user);
+    const profile = await this.oauthProvider.exchange(provider, dto);
+    const user = await this.upsertProviderUser(provider, profile);
+    return this.issueSession(user);
   }
 
   async linkGuestAccount(
     accessToken: string,
     dto: LinkAccountDto,
   ): Promise<AuthSessionResponseDto> {
-    const { session, user } = await this.getSessionByAccessToken(accessToken);
+    const { user } = await this.getSessionByAccessToken(accessToken);
 
     if (user.accountType !== "guest") {
       throw new BadRequestException("Only guest accounts can be linked");
     }
 
-    this.assertProviderConfigured(dto.provider);
+    const profile = await this.oauthProvider.exchange(dto.provider, dto);
 
     user.accountType = "user";
     user.provider = dto.provider;
-    user.email = `${dto.provider}-user@example.com`;
-    user.displayName = `${dto.provider} user`;
+    user.email = profile.email ?? user.email ?? null;
+    user.displayName = profile.displayName ?? user.displayName ?? null;
     await this.usersRepository.save(user);
 
-    await this.sessionsRepository.delete({ id: session.id });
+    // Invalidate every existing session for the upgraded user, then issue a fresh one.
+    await this.sessionsRepository.delete({ userId: user.id });
+    return this.issueSession(user);
+  }
 
-    const upgradedSession = await this.createSession(user);
-    return this.toSessionResponse(upgradedSession, user);
+  async refreshSession(refreshToken: string): Promise<AuthSessionResponseDto> {
+    const session = await this.sessionsRepository.findOne({
+      where: { refreshToken },
+      relations: { user: true },
+    });
+
+    if (!session?.user) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    if (session.refreshExpiresAt.getTime() < Date.now()) {
+      await this.sessionsRepository.delete({ id: session.id });
+      throw new UnauthorizedException("Refresh token has expired");
+    }
+
+    // Rotate the refresh secret so a stolen token can't be replayed after use.
+    session.refreshToken = randomUUID();
+    session.refreshExpiresAt = this.refreshExpiry();
+    await this.sessionsRepository.save(session);
+
+    const access = this.tokenService.signAccessToken(session.user.id, session.id);
+    return this.toSessionResponse(session, session.user, access);
   }
 
   async getCurrentUser(accessToken: string): Promise<AuthUserResponseDto> {
@@ -112,48 +116,75 @@ export class AuthService {
     await this.sessionsRepository.delete({ id: session.id });
   }
 
-  private async createSession(user: UserEntity): Promise<AuthSessionEntity> {
-    return this.sessionsRepository.save(
-      this.sessionsRepository.create({
+  private async upsertProviderUser(
+    provider: AuthProvider,
+    profile: OAuthProfile,
+  ): Promise<UserEntity> {
+    if (profile.email) {
+      const existing = await this.usersRepository.findOne({
+        where: { provider, email: profile.email },
+      });
+      if (existing) {
+        existing.displayName = profile.displayName ?? existing.displayName ?? null;
+        return this.usersRepository.save(existing);
+      }
+    }
+
+    return this.usersRepository.save(
+      this.usersRepository.create({
         id: randomUUID(),
-        userId: user.id,
-        user,
-        accessToken: randomUUID(),
-        refreshToken: randomUUID(),
+        accountType: "user",
+        provider,
+        email: profile.email ?? null,
+        displayName: profile.displayName ?? null,
       }),
     );
   }
 
+  private async issueSession(user: UserEntity): Promise<AuthSessionResponseDto> {
+    const session = await this.sessionsRepository.save(
+      this.sessionsRepository.create({
+        id: randomUUID(),
+        userId: user.id,
+        user,
+        refreshToken: randomUUID(),
+        refreshExpiresAt: this.refreshExpiry(),
+      }),
+    );
+
+    const access = this.tokenService.signAccessToken(user.id, session.id);
+    return this.toSessionResponse(session, user, access);
+  }
+
   private async getSessionByAccessToken(accessToken: string) {
+    const claims = this.tokenService.verifyAccessToken(accessToken);
     const session = await this.sessionsRepository.findOne({
-      where: { accessToken },
+      where: { id: claims.sid },
       relations: { user: true },
     });
 
-    if (!session?.user) {
+    // A missing session means it was revoked (logout / relink) — reject even a
+    // still-unexpired JWT.
+    if (!session?.user || session.userId !== claims.sub) {
       throw new UnauthorizedException("Invalid or expired session");
     }
 
     return { session, user: session.user };
   }
 
-  private assertProviderConfigured(provider: AuthProvider): void {
-    const envKey = {
-      google: "GOOGLE_CLIENT_ID",
-      apple: "APPLE_CLIENT_ID",
-      facebook: "FACEBOOK_APP_ID",
-    }[provider] as keyof EnvironmentVariables;
-
-    const configured = this.configService.get(envKey, { infer: true });
-
-    if (!configured) {
-      throw new BadRequestException(`${provider} sign-in is not configured on the server yet`);
-    }
+  private refreshExpiry(): Date {
+    const days = this.configService.get("JWT_REFRESH_TTL_DAYS", { infer: true });
+    return new Date(Date.now() + days * 86_400_000);
   }
 
-  private toSessionResponse(session: AuthSessionEntity, user: UserEntity): AuthSessionResponseDto {
+  private toSessionResponse(
+    session: AuthSessionEntity,
+    user: UserEntity,
+    access: { token: string; expiresIn: number },
+  ): AuthSessionResponseDto {
     return {
-      accessToken: session.accessToken,
+      accessToken: access.token,
+      accessTokenExpiresIn: access.expiresIn,
       refreshToken: session.refreshToken,
       accountType: user.accountType,
       userId: user.id,

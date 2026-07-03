@@ -7,6 +7,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { formatReadingShare } from "@/lib/share";
 
 export default function DuaDetailScreen() {
   const router = useRouter();
@@ -28,9 +29,7 @@ export default function DuaDetailScreen() {
   const onShare = async () => {
     if (Platform.OS === "web") return;
     try {
-      await Share.share({
-        message: `${item.title}\n\n${item.arabic}\n\n${item.transliteration}\n\n${item.translation}${item.reference ? `\n\n— ${item.reference}` : ""}`,
-      });
+      await Share.share({ message: formatReadingShare(item) });
     } catch {
       // cancelled
     }

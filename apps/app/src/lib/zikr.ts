@@ -36,9 +36,3 @@ export function zikrCategories(): Array<{
     count: zikrByCategory(id).length,
   }));
 }
-
-export function formatZikrShare(item: ZikrItem): string {
-  const lines = [item.title, "", item.arabic, "", item.transliteration, "", item.translation];
-  if (item.reference) lines.push("", `— ${item.reference}`);
-  return lines.join("\n");
-}

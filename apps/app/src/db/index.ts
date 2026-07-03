@@ -30,6 +30,7 @@ export async function resetDatabase(): Promise<void> {
       DB_KEYS.qazaRoza,
       DB_KEYS.userPreferences,
       DB_KEYS.syncMetadata,
+      DB_KEYS.achievements,
     ].map((key) => removeKey(key)),
   );
 }

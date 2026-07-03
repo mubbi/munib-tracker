@@ -10,7 +10,7 @@ import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Card } from "@/components/ui/card";
-import { Collapsible } from "@/components/ui/collapsible";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -104,7 +104,10 @@ export default function CalendarDayScreen() {
           </Card>
 
           <Card padding="three">
-            <Collapsible title="Sunnah & optional prayers">
+            <CollapsibleSection
+              title="Sunnah & optional"
+              icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
+            >
               <View style={styles.rows}>
                 {SUNNAH_PRAYERS.map((prayerId) => (
                   <PrayerTrackerRow
@@ -116,7 +119,7 @@ export default function CalendarDayScreen() {
                   />
                 ))}
               </View>
-            </Collapsible>
+            </CollapsibleSection>
           </Card>
         </Stagger>
       )}

@@ -59,6 +59,28 @@
         ]
       }
     },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "operationId": "AuthController_refresh",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Rotate the refresh token and issue a new access token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
     "/api/v1/auth/link": {
       "post": {
         "operationId": "AuthController_linkAccount",
@@ -224,10 +246,16 @@
         "type": "object",
         "properties": {
           "accessToken": {
-            "type": "string"
+            "type": "string",
+            "description": "Short-lived signed JWT access token"
+          },
+          "accessTokenExpiresIn": {
+            "type": "number",
+            "description": "Seconds until the access token expires"
           },
           "refreshToken": {
-            "type": "string"
+            "type": "string",
+            "description": "Opaque refresh token; rotates on every refresh"
           },
           "accountType": {
             "type": "string",
@@ -250,6 +278,7 @@
         },
         "required": [
           "accessToken",
+          "accessTokenExpiresIn",
           "refreshToken",
           "accountType",
           "userId"

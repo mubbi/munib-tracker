@@ -1,15 +1,14 @@
-import { OBLIGATORY_PRAYERS } from "../constants/index";
+import { OBLIGATORY_PRAYER_SET, OBLIGATORY_PRAYERS } from "../constants/index";
 import type { DailySummary, PrayerLog, QazaCounter, ZikrProgress } from "../types/index";
 import { addDays, getLocalDateString } from "./date";
-
-const OBLIGATORY_SET = new Set<string>(OBLIGATORY_PRAYERS);
+import { buildDayActivity } from "./history";
 
 /** A day counts toward a streak if a prayer was completed or a qaza performed that day. */
 function activeDates(logs: PrayerLog[], obligatoryOnly: boolean): Set<string> {
   const dates = new Set<string>();
   for (const log of logs) {
     if (log.status !== "completed" && log.status !== "qaza") continue;
-    if (obligatoryOnly && !OBLIGATORY_SET.has(log.prayerId)) continue;
+    if (obligatoryOnly && !OBLIGATORY_PRAYER_SET.has(log.prayerId)) continue;
     dates.add(log.date);
   }
   return dates;
@@ -62,11 +61,7 @@ export function buildDailySummary(input: DailySummaryInput): DailySummary {
     streakDays = 0,
   } = input;
 
-  const logsForDate = prayerLogs.filter((log) => log.date === date);
-  const salahCompleted = logsForDate.filter(
-    (log) => log.status === "completed" && OBLIGATORY_SET.has(log.prayerId),
-  ).length;
-  const qazaCompletedToday = logsForDate.filter((log) => log.status === "qaza").length;
+  const activity = buildDayActivity(prayerLogs, date, obligatoryTotal);
 
   const zikrForDate = zikrProgress.filter((entry) => entry.date === date);
   const zikrCompleted = zikrForDate.filter((entry) => entry.completed).length;
@@ -75,12 +70,12 @@ export function buildDailySummary(input: DailySummaryInput): DailySummary {
 
   return {
     date,
-    salahCompleted,
+    salahCompleted: activity.completed,
     salahTotal: obligatoryTotal,
     zikrCompleted,
     zikrTotal: zikrForDate.length,
     qazaRemaining,
-    qazaCompletedToday,
+    qazaCompletedToday: activity.qaza,
     streakDays,
   };
 }

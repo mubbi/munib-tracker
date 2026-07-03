@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Headers, Post, Query, UnauthorizedException } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Query,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import {
   type SyncPullQueryDto,
@@ -25,6 +35,7 @@ export class SyncController {
   }
 
   @Post("push")
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Push local changes using last-write-wins semantics" })
   @ApiOkResponse({ type: SyncPushResponseDto })
   push(

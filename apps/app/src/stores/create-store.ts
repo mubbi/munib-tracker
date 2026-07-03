@@ -23,7 +23,10 @@ export function createStore<T extends object>(
   const getState = () => state;
   const setState: SetState<T> = (partial) => {
     const next = typeof partial === "function" ? partial(state) : partial;
-    state = { ...state, ...next };
+    const merged = { ...state, ...next };
+    // Skip the notification (and keep the reference stable) on no-op writes.
+    if (shallowEqual(state, merged)) return;
+    state = merged;
     for (const listener of listeners) listener();
   };
   const subscribe = (listener: Listener) => {

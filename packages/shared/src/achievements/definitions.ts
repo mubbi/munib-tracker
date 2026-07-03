@@ -1,5 +1,3 @@
-export type AchievementPeriod = "daily" | "weekly" | "monthly" | "yearly" | "lifetime";
-
 export type AchievementMetric =
   | "streak"
   | "prayersCompleted"
@@ -11,7 +9,6 @@ export interface AchievementDefinition {
   id: string;
   title: string;
   description: string;
-  period: AchievementPeriod;
   metric: AchievementMetric;
   threshold: number;
 }
@@ -41,7 +38,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "first-prayer",
     title: "First Step",
     description: "Log your first prayer",
-    period: "lifetime",
     metric: "prayersCompleted",
     threshold: 1,
   },
@@ -49,7 +45,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "perfect-day",
     title: "Perfect Day",
     description: "Complete all obligatory prayers in one day",
-    period: "daily",
     metric: "bestDay",
     threshold: 6,
   },
@@ -57,7 +52,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "streak-3",
     title: "Getting Consistent",
     description: "Keep a 3-day streak",
-    period: "weekly",
     metric: "streak",
     threshold: 3,
   },
@@ -65,7 +59,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "streak-7",
     title: "One Week Strong",
     description: "Keep a 7-day streak",
-    period: "weekly",
     metric: "streak",
     threshold: 7,
   },
@@ -73,7 +66,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "streak-30",
     title: "A Month of Devotion",
     description: "Keep a 30-day streak",
-    period: "monthly",
     metric: "streak",
     threshold: 30,
   },
@@ -81,7 +73,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "prayers-100",
     title: "Hundred Prayers",
     description: "Complete 100 prayers",
-    period: "lifetime",
     metric: "prayersCompleted",
     threshold: 100,
   },
@@ -89,7 +80,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "qaza-10",
     title: "Making Amends",
     description: "Make up 10 qaza prayers",
-    period: "lifetime",
     metric: "qazaCompleted",
     threshold: 10,
   },
@@ -97,7 +87,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "qaza-100",
     title: "Clearing the Debt",
     description: "Make up 100 qaza prayers",
-    period: "lifetime",
     metric: "qazaCompleted",
     threshold: 100,
   },
@@ -105,7 +94,6 @@ export const ACHIEVEMENTS: AchievementDefinition[] = [
     id: "zikr-50",
     title: "Remembrance",
     description: "Complete 50 zikr sessions",
-    period: "lifetime",
     metric: "zikrCompleted",
     threshold: 50,
   },
@@ -123,6 +111,10 @@ function valueFor(stats: AchievementStats, metric: AchievementMetric): number {
       return stats.zikrCompleted;
     case "bestDay":
       return stats.bestDay;
+    default: {
+      const _exhaustive: never = metric;
+      return _exhaustive;
+    }
   }
 }
 

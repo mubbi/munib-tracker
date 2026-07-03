@@ -60,6 +60,21 @@ export class EnvironmentVariables {
   @IsString()
   JWT_SECRET = "change-me-in-development";
 
+  /** Access-token lifetime (any `jsonwebtoken` duration string, e.g. `15m`, `1h`, `7d`). */
+  @IsString()
+  @IsOptional()
+  JWT_ACCESS_TTL = "15m";
+
+  /** Refresh-token lifetime in days. */
+  @Transform(({ value }) => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : 30;
+  })
+  @IsInt()
+  @Min(1)
+  @Max(365)
+  JWT_REFRESH_TTL_DAYS = 30;
+
   @IsString()
   @IsOptional()
   CORS_ORIGINS?: string;
@@ -75,6 +90,10 @@ export class EnvironmentVariables {
   @IsString()
   @IsOptional()
   APPLE_CLIENT_ID?: string;
+
+  @IsString()
+  @IsOptional()
+  APPLE_CLIENT_SECRET?: string;
 
   @IsString()
   @IsOptional()

@@ -1,7 +1,7 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Platform, Share, StyleSheet, View } from "react-native";
-
+import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -9,9 +9,8 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
-import { ZikrCard } from "@/components/zikr/zikr-card";
 import { Spacing } from "@/constants/theme";
-import { formatZikrShare } from "@/lib/zikr";
+import { formatReadingShare } from "@/lib/share";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 import { useZikrCount } from "@/stores/tracker-store";
 
@@ -41,7 +40,7 @@ export default function ZikrDetailScreen() {
   const onShare = async () => {
     if (Platform.OS === "web") return;
     try {
-      await Share.share({ message: formatZikrShare(item) });
+      await Share.share({ message: formatReadingShare(item) });
     } catch {
       // user cancelled or share unavailable
     }
@@ -54,7 +53,7 @@ export default function ZikrDetailScreen() {
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
-        <ZikrCard item={item} />
+        <ReadingCard item={item} />
 
         {target > 0 ? (
           <Card padding="three">

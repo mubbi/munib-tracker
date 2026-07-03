@@ -2,6 +2,7 @@ import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "@/components/footer";
+import { SITE_URL } from "@/lib/site";
 import { MarketingApiProvider } from "@/providers/api-provider";
 import "./globals.css";
 
@@ -16,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: APP_NAME,
     template: `%s | ${APP_NAME}`,

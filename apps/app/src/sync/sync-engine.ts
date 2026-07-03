@@ -51,6 +51,8 @@ async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
           await QazaRepository.setRoza({
             remaining: Number(data.remaining ?? 0),
             completed: Number(data.completed ?? 0),
+            estimatedMissed:
+              data.estimatedMissed != null ? Number(data.estimatedMissed) : undefined,
           });
         } else {
           const counter = data as unknown as QazaCounter;

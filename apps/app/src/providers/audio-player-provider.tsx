@@ -6,11 +6,10 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 
-import { preferencesStore } from "@/stores/preferences-store";
+import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
 export type AudioTrack = {
   id: string;
@@ -48,12 +47,12 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   const [rate, setRateState] = useState(1);
 
   const current = queue[index] ?? null;
-  const restoredSpeed = useRef(false);
+  const prefsReady = usePreferencesReady();
 
-  // Apply the saved playback speed once.
+  // Apply the saved playback speed once preferences have loaded, and re-apply if
+  // the underlying player instance changes.
   useEffect(() => {
-    if (restoredSpeed.current) return;
-    restoredSpeed.current = true;
+    if (!prefsReady) return;
     const saved = preferencesStore.getState().prefs.audioSpeed;
     if (saved) {
       setRateState(saved);
@@ -63,7 +62,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
         // player not ready
       }
     }
-  }, [player]);
+  }, [prefsReady, player]);
 
   const playIndex = useCallback(
     (tracks: AudioTrack[], startIndex: number) => {

@@ -66,12 +66,20 @@ export function useIsFavoriteZikr(zikrId: string): boolean {
   return useStore(preferencesStore, (s) => s.prefs.favoriteZikrIds.includes(zikrId));
 }
 
+// Stable singleton — actions never change reference, so no subscription needed.
+const preferencesActions = {
+  load: (...args: Parameters<PreferencesState["load"]>) =>
+    preferencesStore.getState().load(...args),
+  update: (...args: Parameters<PreferencesState["update"]>) =>
+    preferencesStore.getState().update(...args),
+  setNotificationPrefs: (...args: Parameters<PreferencesState["setNotificationPrefs"]>) =>
+    preferencesStore.getState().setNotificationPrefs(...args),
+  toggleFavorite: (...args: Parameters<PreferencesState["toggleFavorite"]>) =>
+    preferencesStore.getState().toggleFavorite(...args),
+  setFavoriteOrder: (...args: Parameters<PreferencesState["setFavoriteOrder"]>) =>
+    preferencesStore.getState().setFavoriteOrder(...args),
+} as const;
+
 export function usePreferencesActions() {
-  return useStore(preferencesStore, (s) => ({
-    load: s.load,
-    update: s.update,
-    setNotificationPrefs: s.setNotificationPrefs,
-    toggleFavorite: s.toggleFavorite,
-    setFavoriteOrder: s.setFavoriteOrder,
-  }));
+  return preferencesActions;
 }

@@ -89,6 +89,15 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
   };
 }
 
+// Serializes DB mutations so rapid taps can't interleave read-modify-write
+// races (e.g. double-counting qaza when a prayer is toggled quickly).
+let mutationQueue: Promise<unknown> = Promise.resolve();
+function enqueue<T>(task: () => Promise<T>): Promise<T> {
+  const run = mutationQueue.then(task, task);
+  mutationQueue = run.catch(() => undefined);
+  return run;
+}
+
 export const trackerStore = createStore<TrackerState>((set, get) => {
   const today = getLocalDateString();
 
@@ -116,68 +125,84 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       set({ ...next, date });
     },
 
-    async setPrayerStatus(prayerId, status) {
-      const { date, prayerStatus } = get();
-      const previous = prayerStatus[prayerId];
+    setPrayerStatus(prayerId, status) {
+      return enqueue(async () => {
+        const { date, prayerStatus } = get();
+        const previous = prayerStatus[prayerId];
 
-      // Optimistic update.
-      set({ prayerStatus: { ...prayerStatus, [prayerId]: status } });
-      await PrayerRepository.setStatus(prayerId, date, status);
+        // Optimistic update.
+        set({ prayerStatus: { ...prayerStatus, [prayerId]: status } });
+        await PrayerRepository.setStatus(prayerId, date, status);
 
-      // Reconcile the qaza debt for obligatory prayers on missed <-> not-missed.
-      if (isObligatoryPrayer(prayerId)) {
-        const wasMissed = previous === "missed";
-        const isMissed = status === "missed";
-        if (isMissed && !wasMissed) {
-          await QazaRepository.incrementRemaining(prayerId, 1);
-        } else if (wasMissed && !isMissed) {
-          await QazaRepository.incrementRemaining(prayerId, -1);
+        // Reconcile the qaza debt for obligatory prayers on missed <-> not-missed.
+        if (isObligatoryPrayer(prayerId)) {
+          const wasMissed = previous === "missed";
+          const isMissed = status === "missed";
+          if (isMissed && !wasMissed) {
+            await QazaRepository.incrementRemaining(prayerId, 1);
+          } else if (wasMissed && !isMissed) {
+            await QazaRepository.incrementRemaining(prayerId, -1);
+          }
         }
-      }
 
-      await get().refresh();
+        await get().refresh();
+      });
     },
 
-    async setPrayerNotes(prayerId, notes) {
-      const { date, prayerNotes } = get();
-      set({ prayerNotes: { ...prayerNotes, [prayerId]: notes } });
-      await PrayerRepository.setNotes(prayerId, date, notes);
-      await get().refresh();
+    setPrayerNotes(prayerId, notes) {
+      return enqueue(async () => {
+        const { date, prayerNotes } = get();
+        set({ prayerNotes: { ...prayerNotes, [prayerId]: notes } });
+        await PrayerRepository.setNotes(prayerId, date, notes);
+        await get().refresh();
+      });
     },
 
-    async setZikrCount(zikrId, count, target) {
-      const { date, zikrCounts } = get();
-      set({ zikrCounts: { ...zikrCounts, [zikrId]: Math.max(0, count) } });
-      await ZikrRepository.setCount(zikrId, date, count, target);
-      await get().refresh();
+    setZikrCount(zikrId, count, target) {
+      return enqueue(async () => {
+        const { date, zikrCounts } = get();
+        set({ zikrCounts: { ...zikrCounts, [zikrId]: Math.max(0, count) } });
+        await ZikrRepository.setCount(zikrId, date, count, target);
+        await get().refresh();
+      });
     },
 
-    async incrementZikr(zikrId, target, by = 1) {
-      const { date, zikrCounts } = get();
-      const next = Math.max(0, (zikrCounts[zikrId] ?? 0) + by);
-      set({ zikrCounts: { ...zikrCounts, [zikrId]: next } });
-      await ZikrRepository.increment(zikrId, date, target, by);
-      await get().refresh();
+    incrementZikr(zikrId, target, by = 1) {
+      return enqueue(async () => {
+        const { date, zikrCounts } = get();
+        const next = Math.max(0, (zikrCounts[zikrId] ?? 0) + by);
+        set({ zikrCounts: { ...zikrCounts, [zikrId]: next } });
+        await ZikrRepository.increment(zikrId, date, target, by);
+        await get().refresh();
+      });
     },
 
-    async adjustQaza(prayerId, remaining, completed) {
-      await QazaRepository.setCounter(prayerId, remaining, completed);
-      await get().refresh();
+    adjustQaza(prayerId, remaining, completed) {
+      return enqueue(async () => {
+        await QazaRepository.setCounter(prayerId, remaining, completed);
+        await get().refresh();
+      });
     },
 
-    async performQaza(prayerId, by = 1) {
-      await QazaRepository.performQaza(prayerId, by);
-      await get().refresh();
+    performQaza(prayerId, by = 1) {
+      return enqueue(async () => {
+        await QazaRepository.performQaza(prayerId, by);
+        await get().refresh();
+      });
     },
 
-    async setRoza(roza) {
-      await QazaRepository.setRoza(roza);
-      await get().refresh();
+    setRoza(roza) {
+      return enqueue(async () => {
+        await QazaRepository.setRoza(roza);
+        await get().refresh();
+      });
     },
 
-    async performRoza(by = 1) {
-      await QazaRepository.performRoza(by);
-      await get().refresh();
+    performRoza(by = 1) {
+      return enqueue(async () => {
+        await QazaRepository.performRoza(by);
+        await get().refresh();
+      });
     },
   };
 });
@@ -225,17 +250,30 @@ export function useZikrCount(zikrId: string): number {
   return useStore(trackerStore, (s) => s.zikrCounts[zikrId] ?? 0);
 }
 
+// Actions are defined once and never change reference, so expose them as a
+// stable singleton — components don't need to subscribe to the store for these.
+const trackerActions = {
+  load: (...args: Parameters<TrackerState["load"]>) => trackerStore.getState().load(...args),
+  refresh: (...args: Parameters<TrackerState["refresh"]>) =>
+    trackerStore.getState().refresh(...args),
+  setPrayerStatus: (...args: Parameters<TrackerState["setPrayerStatus"]>) =>
+    trackerStore.getState().setPrayerStatus(...args),
+  setPrayerNotes: (...args: Parameters<TrackerState["setPrayerNotes"]>) =>
+    trackerStore.getState().setPrayerNotes(...args),
+  setZikrCount: (...args: Parameters<TrackerState["setZikrCount"]>) =>
+    trackerStore.getState().setZikrCount(...args),
+  incrementZikr: (...args: Parameters<TrackerState["incrementZikr"]>) =>
+    trackerStore.getState().incrementZikr(...args),
+  adjustQaza: (...args: Parameters<TrackerState["adjustQaza"]>) =>
+    trackerStore.getState().adjustQaza(...args),
+  performQaza: (...args: Parameters<TrackerState["performQaza"]>) =>
+    trackerStore.getState().performQaza(...args),
+  setRoza: (...args: Parameters<TrackerState["setRoza"]>) =>
+    trackerStore.getState().setRoza(...args),
+  performRoza: (...args: Parameters<TrackerState["performRoza"]>) =>
+    trackerStore.getState().performRoza(...args),
+} as const;
+
 export function useTrackerActions() {
-  return useStore(trackerStore, (s) => ({
-    load: s.load,
-    refresh: s.refresh,
-    setPrayerStatus: s.setPrayerStatus,
-    setPrayerNotes: s.setPrayerNotes,
-    setZikrCount: s.setZikrCount,
-    incrementZikr: s.incrementZikr,
-    adjustQaza: s.adjustQaza,
-    performQaza: s.performQaza,
-    setRoza: s.setRoza,
-    performRoza: s.performRoza,
-  }));
+  return trackerActions;
 }

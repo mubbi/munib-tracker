@@ -55,6 +55,14 @@ export function linkAccount(
   );
 }
 
+export function refreshSession(refreshToken: string): Promise<AuthSessionResponseDto> {
+  return apiFetch<AuthSessionResponseDto>({
+    url: "/auth/refresh",
+    method: "POST",
+    body: JSON.stringify({ refreshToken }),
+  });
+}
+
 export function getCurrentUser(accessToken: string): Promise<AuthUserResponseDto> {
   return apiFetch<AuthUserResponseDto>({ url: "/auth/me", method: "GET" }, { accessToken });
 }

@@ -4,6 +4,7 @@ import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 
 import { PRAYER_TIME_HINTS } from "@/lib/prayer-ui";
+import { parseHhMm } from "@/lib/time";
 
 const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
@@ -46,11 +47,6 @@ export async function requestPermission(): Promise<boolean> {
   if (!isNative) return false;
   const { status } = await Notifications.requestPermissionsAsync();
   return status === "granted";
-}
-
-function parseTime(value: string): { hour: number; minute: number } {
-  const [h, m] = value.split(":").map((part) => Number.parseInt(part, 10));
-  return { hour: Number.isFinite(h) ? h : 8, minute: Number.isFinite(m) ? m : 0 };
 }
 
 type Reminder = {
@@ -121,7 +117,7 @@ export async function rescheduleAll(prefs: UserPreferences): Promise<void> {
   if ((await getPermissionStatus()) !== "granted") return;
 
   for (const reminder of buildReminders(prefs)) {
-    const { hour, minute } = parseTime(reminder.when);
+    const { hour, minute } = parseHhMm(reminder.when);
     await Notifications.scheduleNotificationAsync({
       content: { title: reminder.title, body: reminder.body },
       trigger: {

@@ -1,7 +1,31 @@
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import type { ThemeColors } from "@munib-tracker/theme/types";
 import type { SymbolViewProps } from "expo-symbols";
 
 export type StatusTone = "success" | "danger" | "warning" | "info" | "muted";
+
+type StatusTokens = {
+  accentSoft: string;
+  status: Record<"success" | "danger" | "warning" | "info", { color: string; soft: string }>;
+};
+
+/** Resolves a status tone to a foreground color from the theme. */
+export function statusToneColor(
+  tone: StatusTone,
+  colors: Pick<ThemeColors, "mutedForeground">,
+  tokens: StatusTokens,
+): string {
+  return tone === "muted" ? colors.mutedForeground : tokens.status[tone].color;
+}
+
+/**
+ * Resolves a status tone to a soft background tint. The `muted` tone's fill is
+ * caller-supplied because it depends on the surrounding surface (a muted row
+ * needs the soft-accent fill to stay visible; a card sheet uses the muted fill).
+ */
+export function statusToneSoft(tone: StatusTone, mutedSoft: string, tokens: StatusTokens): string {
+  return tone === "muted" ? mutedSoft : tokens.status[tone].soft;
+}
 
 type SymbolName = SymbolViewProps["name"];
 

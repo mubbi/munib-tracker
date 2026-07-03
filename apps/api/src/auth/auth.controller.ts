@@ -25,6 +25,7 @@ import {
   type GuestSessionDto,
   type LinkAccountDto,
   type OAuthCallbackDto,
+  type RefreshTokenDto,
 } from "./dto/auth.dto";
 
 @ApiTags("auth")
@@ -50,6 +51,14 @@ export class AuthController {
     @Body() dto: OAuthCallbackDto,
   ): Promise<AuthSessionResponseDto> {
     return this.authService.completeOAuth(provider, dto);
+  }
+
+  @Post("refresh")
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: "Rotate the refresh token and issue a new access token" })
+  @ApiCreatedResponse({ type: AuthSessionResponseDto })
+  refresh(@Body() dto: RefreshTokenDto): Promise<AuthSessionResponseDto> {
+    return this.authService.refreshSession(dto.refreshToken);
   }
 
   @Post("link")

@@ -4,7 +4,8 @@ import { type ReactNode, useEffect } from "react";
 import { Platform } from "react-native";
 
 import { configureNotifications, rescheduleAll } from "@/notifications/scheduler";
-import { usePreferences, usePreferencesReady } from "@/stores/preferences-store";
+import { useStore } from "@/stores/create-store";
+import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
 const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
@@ -14,16 +15,22 @@ const isNative = Platform.OS === "ios" || Platform.OS === "android";
  */
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const prefs = usePreferences();
   const ready = usePreferencesReady();
+  // Only the notification-relevant slice — so unrelated writes (e.g. audio
+  // speed, favorites) don't cancel and reschedule every reminder.
+  const notificationPrefs = useStore(preferencesStore, (s) => s.prefs.notificationPrefs);
+  const bedtime = useStore(preferencesStore, (s) => s.prefs.bedtime);
 
   useEffect(() => {
     void configureNotifications();
   }, []);
 
+  // notificationPrefs/bedtime are intentional trigger deps — they re-run the
+  // reschedule when the relevant slice changes, without being read in the body.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional trigger dependencies
   useEffect(() => {
-    if (ready) void rescheduleAll(prefs);
-  }, [ready, prefs]);
+    if (ready) void rescheduleAll(preferencesStore.getState().prefs);
+  }, [ready, notificationPrefs, bedtime]);
 
   useEffect(() => {
     if (!isNative) return;

@@ -2,6 +2,7 @@ import { SymbolView } from "expo-symbols";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { NotificationBadge } from "@/components/ui/notification-badge";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ThemedText } from "./themed-text";
@@ -82,18 +83,7 @@ export function AppHeader({
           size={19}
           tintColor={colors.accent}
         />
-        {notificationCount > 0 ? (
-          <View
-            style={[
-              styles.badge,
-              { backgroundColor: tokens.status.danger.color, borderColor: colors.background },
-            ]}
-          >
-            <ThemedText type="caption" style={[styles.badgeText, { color: "#FFFFFF" }]}>
-              {notificationCount > 9 ? "9+" : String(notificationCount)}
-            </ThemedText>
-          </View>
-        ) : null}
+        <NotificationBadge count={notificationCount} />
       </Pressable>
     </View>
   );
@@ -127,21 +117,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderCurve: "continuous",
-  },
-  badge: {
-    position: "absolute",
-    top: 3,
-    right: 3,
-    minWidth: 18,
-    height: 18,
-    borderRadius: 9,
-    borderWidth: 1.5,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 3,
-  },
-  badgeText: {
-    fontSize: 10,
-    lineHeight: 12,
   },
 });

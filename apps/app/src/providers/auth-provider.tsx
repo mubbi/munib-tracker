@@ -17,6 +17,7 @@ import {
   linkAccount,
   logout as logoutRequest,
   type OAuthProvider,
+  refreshSession,
   requestGuestSession,
 } from "@/api/endpoints";
 import { SessionStore, type StoredSession } from "@/auth/session-store";
@@ -62,9 +63,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isReady, setIsReady] = useState(false);
   const syncing = useRef(false);
 
-  const syncNow = useCallback(async () => {
+  // Access tokens are short-lived JWTs; rotate them (and the refresh token) using
+  // the stored refresh token. Returns the freshest session we could obtain.
+  const refresh = useCallback(async (): Promise<StoredSession | null> => {
     const current = await SessionStore.get();
-    if (!current || current.accountType === "guest" || syncing.current) return;
+    if (current?.accountType !== "user" || !current.refreshToken) return current;
+    try {
+      const stored = toStored(await refreshSession(current.refreshToken));
+      await SessionStore.set(stored);
+      setSession(stored);
+      return stored;
+    } catch {
+      // Offline, or the refresh token was revoked — keep the existing session.
+      return current;
+    }
+  }, []);
+
+  const syncNow = useCallback(async () => {
+    if (syncing.current) return;
+    const current = await refresh();
+    if (!current || current.accountType === "guest") return;
     syncing.current = true;
     try {
       await runSync(current);
@@ -73,7 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       syncing.current = false;
     }
-  }, []);
+  }, [refresh]);
 
   const persist = useCallback(async (dto: AuthSessionResponseDto) => {
     const stored = toStored(dto);

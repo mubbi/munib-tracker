@@ -13,8 +13,9 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
-const PRIVACY_URL = "https://munib-tracker.example.com/privacy";
-const TERMS_URL = "https://munib-tracker.example.com/terms";
+const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? "https://munibtracker.app";
+const PRIVACY_URL = `${SITE_URL}/privacy`;
+const TERMS_URL = `${SITE_URL}/terms`;
 
 export default function AboutScreen() {
   const router = useRouter();

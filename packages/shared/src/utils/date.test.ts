@@ -26,4 +26,10 @@ describe("date utils", () => {
     expect(diffInDays("2026-07-03", "2026-07-01")).toBe(2);
     expect(diffInDays("2026-07-01", "2026-07-03")).toBe(-2);
   });
+
+  it("throws on malformed date strings instead of silently defaulting", () => {
+    expect(() => parseLocalDateString("not-a-date")).toThrow();
+    expect(() => parseLocalDateString("2026-7-3")).toThrow();
+    expect(() => parseLocalDateString("")).toThrow();
+  });
 });

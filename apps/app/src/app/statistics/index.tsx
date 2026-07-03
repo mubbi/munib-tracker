@@ -24,6 +24,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
+import { StatPair } from "@/components/ui/stat-pair";
 import { Spacing } from "@/constants/theme";
 import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -146,41 +147,49 @@ export default function StatisticsScreen() {
         </Card>
 
         <View style={styles.grid}>
-          <StatPair
+          <TitledStatPair
             title="Prayer"
-            primary={prayerTotals.completed}
-            primaryLabel="completed"
-            secondary={prayerTotals.missed}
-            secondaryLabel="missed"
-            primaryColor={tokens.status.success.color}
-            secondaryColor={tokens.status.danger.color}
+            primary={{
+              value: prayerTotals.completed,
+              label: "completed",
+              color: tokens.status.success.color,
+            }}
+            secondary={{
+              value: prayerTotals.missed,
+              label: "missed",
+              color: tokens.status.danger.color,
+            }}
           />
-          <StatPair
+          <TitledStatPair
             title="Qaza"
-            primary={qazaRemaining}
-            primaryLabel="remaining"
-            secondary={qazaCompleted}
-            secondaryLabel="made up"
-            primaryColor={tokens.status.info.color}
-            secondaryColor={tokens.status.success.color}
+            primary={{ value: qazaRemaining, label: "remaining", color: tokens.status.info.color }}
+            secondary={{
+              value: qazaCompleted,
+              label: "made up",
+              color: tokens.status.success.color,
+            }}
           />
-          <StatPair
+          <TitledStatPair
             title="Roza"
-            primary={roza.remaining}
-            primaryLabel="remaining"
-            secondary={roza.completed}
-            secondaryLabel="completed"
-            primaryColor={tokens.status.info.color}
-            secondaryColor={tokens.status.success.color}
+            primary={{ value: roza.remaining, label: "remaining", color: tokens.status.info.color }}
+            secondary={{
+              value: roza.completed,
+              label: "completed",
+              color: tokens.status.success.color,
+            }}
           />
-          <StatPair
+          <TitledStatPair
             title="Zikr"
-            primary={zikrCompleted}
-            primaryLabel="completed"
-            secondary={zikrByCategory.size}
-            secondaryLabel="categories"
-            primaryColor={tokens.status.warning.color}
-            secondaryColor={tokens.status.info.color}
+            primary={{
+              value: zikrCompleted,
+              label: "completed",
+              color: tokens.status.warning.color,
+            }}
+            secondary={{
+              value: zikrByCategory.size,
+              label: "categories",
+              color: tokens.status.info.color,
+            }}
           />
         </View>
       </Stagger>
@@ -188,46 +197,23 @@ export default function StatisticsScreen() {
   );
 }
 
-function StatPair({
+type StatItem = { value: number; label: string; color: string };
+
+function TitledStatPair({
   title,
   primary,
-  primaryLabel,
   secondary,
-  secondaryLabel,
-  primaryColor,
-  secondaryColor,
 }: {
   title: string;
-  primary: number;
-  primaryLabel: string;
-  secondary: number;
-  secondaryLabel: string;
-  primaryColor: string;
-  secondaryColor: string;
+  primary: StatItem;
+  secondary: StatItem;
 }) {
   return (
     <Card padding="three" style={styles.pair}>
       <ThemedText type="caption" themeColor="mutedForeground">
         {title}
       </ThemedText>
-      <View style={styles.pairRow}>
-        <View style={styles.pairStat}>
-          <ThemedText type="header" style={{ color: primaryColor }}>
-            {primary}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {primaryLabel}
-          </ThemedText>
-        </View>
-        <View style={styles.pairStat}>
-          <ThemedText type="header" style={{ color: secondaryColor }}>
-            {secondary}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {secondaryLabel}
-          </ThemedText>
-        </View>
-      </View>
+      <StatPair size="header" primary={primary} secondary={secondary} />
     </Card>
   );
 }
@@ -245,13 +231,5 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexBasis: "47%",
     gap: Spacing.two,
-  },
-  pairRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  pairStat: {
-    alignItems: "center",
-    gap: 2,
   },
 });

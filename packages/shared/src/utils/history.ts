@@ -1,8 +1,6 @@
-import { OBLIGATORY_PRAYERS } from "../constants/index";
+import { OBLIGATORY_PRAYER_SET, OBLIGATORY_PRAYERS } from "../constants/index";
 import type { PrayerLog } from "../types/index";
 import { addDays, getLocalDateString } from "./date";
-
-const OBLIGATORY_SET = new Set<string>(OBLIGATORY_PRAYERS);
 
 export interface DayActivity {
   date: string;
@@ -26,7 +24,7 @@ export function buildDayActivity(
   let qaza = 0;
   let delayed = 0;
   for (const log of logs) {
-    if (log.date !== date || !OBLIGATORY_SET.has(log.prayerId)) continue;
+    if (log.date !== date || !OBLIGATORY_PRAYER_SET.has(log.prayerId)) continue;
     if (log.status === "completed") completed += 1;
     else if (log.status === "missed") missed += 1;
     else if (log.status === "qaza") qaza += 1;
@@ -54,7 +52,7 @@ export interface PrayerTotals {
 export function sumPrayerTotals(logs: PrayerLog[], from: string, to: string): PrayerTotals {
   const totals: PrayerTotals = { completed: 0, missed: 0, qaza: 0, delayed: 0 };
   for (const log of logs) {
-    if (!OBLIGATORY_SET.has(log.prayerId)) continue;
+    if (!OBLIGATORY_PRAYER_SET.has(log.prayerId)) continue;
     if (log.date < from || log.date > to) continue;
     if (log.status === "completed") totals.completed += 1;
     else if (log.status === "missed") totals.missed += 1;
