@@ -1,5 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants/branding";
 import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
@@ -38,8 +39,10 @@ async function bootstrap() {
   );
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle("Munib Tracker API")
-    .setDescription("Cloud sync, authentication, and backend services for Munib Tracker")
+    .setTitle(`${APP_NAME} API`)
+    .setDescription(
+      `Cloud sync, authentication, and backend services for ${APP_NAME}. ${APP_TAGLINE}`,
+    )
     .setVersion("1.0")
     .addBearerAuth()
     .build();

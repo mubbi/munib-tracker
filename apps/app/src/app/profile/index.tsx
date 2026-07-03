@@ -68,7 +68,7 @@ export default function ProfileScreen() {
       eyebrow={t("profile.eyebrow")}
       title={t("profile.title")}
       subtitle={t("profile.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card style={styles.hero}>

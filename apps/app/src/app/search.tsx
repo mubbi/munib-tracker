@@ -250,7 +250,7 @@ export default function SearchScreen() {
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t("common.goBack")}
-          onPress={() => router.back()}
+          onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))}
           style={({ pressed }) => [
             styles.backButton,
             { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.7 : 1 },

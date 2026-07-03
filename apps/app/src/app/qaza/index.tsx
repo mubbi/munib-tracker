@@ -30,7 +30,7 @@ export default function QazaHomeScreen() {
       eyebrow={t("qaza.eyebrow")}
       title={t("qaza.title")}
       subtitle={t("qaza.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card>

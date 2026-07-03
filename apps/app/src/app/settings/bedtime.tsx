@@ -33,7 +33,7 @@ export default function BedtimeScreen() {
       eyebrow={t("bedtime.eyebrow")}
       title={t("settings.bedtime")}
       subtitle={t("bedtime.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Card style={styles.card}>
         <View style={styles.picker}>

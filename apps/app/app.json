@@ -11,7 +11,10 @@
       "bundleIdentifier": "com.munibtracker.app",
       "buildNumber": "1",
       "supportsTablet": true,
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "infoPlist": {
+        "UIBackgroundModes": ["remote-notification"]
+      }
     },
     "android": {
       "package": "com.munibtracker.app",
@@ -27,7 +30,12 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "name": "Munib Tracker",
+      "shortName": "Munib Tracker",
+      "description": "Track Your Journey Back to Allah. A free, offline-first companion for salah, dhikr, qadha, Qur'an, hadith, and daily worship.",
+      "themeColor": "#059669",
+      "backgroundColor": "#059669"
     },
     "plugins": [
       "expo-router",
@@ -43,6 +51,15 @@
         "expo-location",
         {
           "locationWhenInUsePermission": "Munib Tracker uses your location to calculate accurate prayer times and the qibla direction for where you are."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#059669",
+          "sounds": [],
+          "mode": "production"
         }
       ]
     ],

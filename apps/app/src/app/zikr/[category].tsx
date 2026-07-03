@@ -30,7 +30,7 @@ export default function ZikrCategoryScreen() {
       eyebrow={t("zikr.categoryEyebrow")}
       title={t(`zikrCat.${categoryId}`)}
       subtitle={t("zikr.adhkarCount", { count: items.length })}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       {items.length === 0 ? (
         <EmptyState

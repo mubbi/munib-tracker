@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import ColorPicker, { HueSlider, Panel1, Preview } from "reanimated-color-picker";
 
@@ -11,22 +12,48 @@ type Props = {
   onChange: (hex: string) => void;
 };
 
-/** Inline saturation/hue picker — same UI on iOS, Android, and web (no browser popup). */
+/**
+ * Inline saturation/hue picker — same UI on iOS, Android, and web.
+ *
+ * `ColorPicker` re-syncs its internal HSV state (via `setColor`) whenever its
+ * `value` prop changes. If we pipe the picker's own `onChange` output back into
+ * `value`, the HSV↔hex round-trip never lands on a stable fixed point, so
+ * `value` keeps changing and React throws "Maximum update depth exceeded". To
+ * avoid that, we treat `value` as a seed: the picker is only re-synced for
+ * genuine external changes (tapping a preset/palette swatch), never for the
+ * echo of a colour it just emitted.
+ */
 export function InlineCustomColorPicker({ value, onChange }: Props) {
   const { colors } = useThemeTokens();
-  const hex = normalizeHexForPicker(value);
+  const incoming = normalizeHexForPicker(value);
+  const lastEmitted = useRef<string | null>(null);
+  const [seed, setSeed] = useState(incoming);
+  const [display, setDisplay] = useState(incoming);
+
+  useEffect(() => {
+    if (incoming !== lastEmitted.current) {
+      setSeed(incoming);
+      setDisplay(incoming);
+    }
+  }, [incoming]);
+
+  const handleChange = useCallback(
+    ({ hex }: { hex: string }) => {
+      const next = normalizeHexForPicker(hex);
+      lastEmitted.current = next;
+      setDisplay(next);
+      onChange(next);
+    },
+    [onChange],
+  );
 
   return (
     <View style={styles.block}>
       <View style={[styles.wrap, { backgroundColor: colors.card, borderColor: colors.border }]}>
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.hexLabel}>
-          {hex}
+          {display.toUpperCase()}
         </ThemedText>
-        <ColorPicker
-          value={hex}
-          onChangeJS={({ hex: next }: { hex: string }) => onChange(next)}
-          style={styles.picker}
-        >
+        <ColorPicker value={seed} onChangeJS={handleChange} style={styles.picker}>
           <Preview style={styles.preview} />
           <Panel1 style={styles.panel} />
           <HueSlider style={styles.hue} />

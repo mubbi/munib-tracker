@@ -64,7 +64,7 @@ export default function HadithBookmarksScreen() {
       eyebrow={t("hadith.title")}
       title={t("hadith.bookmarks")}
       subtitle={t("hadith.bookmarksSubtitle")}
-      onBack={() => router.back()}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       {loaded && entries.length === 0 ? (
         <EmptyState

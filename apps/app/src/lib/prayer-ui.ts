@@ -81,7 +81,7 @@ export const PRAYER_ICONS: Record<PrayerId, SymbolName> = {
   },
 };
 
-/** Approximate times shown as hints only (real prayer times land in Phase 9). */
+/** Approximate times used only for non-scheduling UI hints. Reminders use computed adhan times. */
 export const PRAYER_TIME_HINTS: Partial<Record<PrayerId, string>> = {
   fajr: "4:50",
   dhuhr: "11:48",

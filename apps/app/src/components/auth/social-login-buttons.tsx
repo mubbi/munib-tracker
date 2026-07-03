@@ -7,8 +7,8 @@ import type { OAuthProvider } from "@/api/endpoints";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { OAUTH_CANCELLED, useSocialAuth } from "@/hooks/use-social-auth";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { useAuth } from "@/providers/auth-provider";
 
 /**
  * Brand-locked styling for each sign-in button, following the official
@@ -46,38 +46,23 @@ const PROVIDERS: { id: OAuthProvider; brand: ProviderBrand }[] = [
       logo: require("@/assets/brands/apple.svg"),
     },
   },
-  {
-    id: "facebook",
-    brand: {
-      background: "#1877F2",
-      foreground: "#FFFFFF",
-      border: "transparent",
-      spinner: "#FFFFFF",
-      logo: require("@/assets/brands/facebook.svg"),
-    },
-  },
 ];
 
 export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
-  const { isGuest, linkProvider, signInWithProvider } = useAuth();
-  const [busy, setBusy] = useState<OAuthProvider | null>(null);
+  const { signIn, busy } = useSocialAuth();
   const [error, setError] = useState<string | null>(null);
 
   const connect = async (provider: OAuthProvider) => {
-    setBusy(provider);
     setError(null);
     try {
-      // Real provider tokens (via expo-auth-session) would be passed here when
-      // client IDs are configured; the API completes the exchange server-side.
-      if (isGuest) await linkProvider(provider);
-      else await signInWithProvider(provider);
+      await signIn(provider);
       onSuccess?.();
-    } catch {
-      setError(t("login.error"));
-    } finally {
-      setBusy(null);
+    } catch (e) {
+      // A user-dismissed sheet isn't an error worth surfacing.
+      if (e instanceof Error && e.message === OAUTH_CANCELLED) return;
+      setError(e instanceof Error && e.message ? e.message : t("login.error"));
     }
   };
 

@@ -44,7 +44,7 @@ export default function QuranHomeScreen() {
       eyebrow={t("quran.eyebrow")}
       title={t("quran.title")}
       subtitle={t("quran.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <View style={styles.headerActions}>

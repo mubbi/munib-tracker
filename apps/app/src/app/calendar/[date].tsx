@@ -95,7 +95,7 @@ export default function CalendarDayScreen() {
           ? t("calDay.futureSubtitle")
           : t("calDay.summary", { completed, total: OBLIGATORY_PRAYERS.length })
       }
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       {isFuture ? (
         <EmptyState

@@ -42,7 +42,7 @@ export default function ZikrTasbeehScreen() {
     return (
       <ScreenLayout
         title={t("tasbeeh.eyebrow")}
-        onBack={router.canGoBack() ? () => router.back() : undefined}
+        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       >
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
@@ -63,7 +63,7 @@ export default function ZikrTasbeehScreen() {
     <ScreenLayout
       eyebrow={t("tasbeeh.eyebrow")}
       title={item.title}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Card variant="muted" padding="four" style={styles.reading}>
         <ThemedText

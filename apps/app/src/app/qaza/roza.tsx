@@ -31,7 +31,7 @@ export default function QazaRozaScreen() {
       eyebrow={t("qazaRoza.eyebrow")}
       title={t("qazaRoza.title")}
       subtitle={t("qazaRoza.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card>

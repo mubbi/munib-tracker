@@ -47,7 +47,7 @@ export default function AppearanceScreen() {
       eyebrow={t("appearance.eyebrow")}
       title={t("settings.appearance")}
       subtitle={t("settings.appearanceSub")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card>

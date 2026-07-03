@@ -26,7 +26,8 @@
     "minus": "Minus",
     "set": "Set",
     "play": "Play",
-    "appName": "Munib Tracker"
+    "appName": "Munib Tracker",
+    "appTagline": "Track Your Journey Back to Allah."
   },
   "search": {
     "placeholder": "Search Qur'an, hadith, duas, adhkar…",
@@ -182,6 +183,26 @@
     "adhanTitle": "Preview adhan",
     "adhanSub": "Play the bundled call-to-prayer sound",
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",
+    "permissionBannerTitle": "Enable reminders",
+    "permissionBannerMessage": "Allow notifications so Munib Tracker can remind you about prayer, zikr, and qaza.",
+    "permissionGrantedTitle": "Notifications enabled",
+    "permissionGrantedMessage": "Reminders are scheduled on this device. Manage categories below.",
+    "permissionDenied": "Notifications blocked",
+    "permissionDeniedSub": "Turn notifications on in your browser or device settings.",
+    "permissionDismissed": "Permission request dismissed. Tap Allow when you're ready.",
+    "openSettingsHint": "Open Settings and turn on notifications for Munib Tracker.",
+    "openSettings": "Open Settings",
+    "webUseAllowButton": "Tap the Allow button below to enable browser notifications.",
+    "unsupportedTitle": "Reminders need the mobile app",
+    "expoGoTitle": "Development build required",
+    "expoGoMessage": "Local reminders need a dev or production build. Expo Go cannot schedule OS notifications.",
+    "iosPwaTitle": "Install the web app first",
+    "iosPwaMessage": "On iPhone, browser notifications only work when Munib Tracker is added to your Home Screen.",
+    "iosPwaSteps": "In Safari: Share → Add to Home Screen, then open the app from your home screen and allow notifications.",
+    "iosPwaStepsSafari": "Open this page in Safari, then Share → Add to Home Screen. Notifications aren't available in this browser on iPhone.",
+    "webAllowMessage": "Allow browser notifications to get prayer, zikr, and qaza alerts on this device.",
+    "webGrantedMobileNote": "Browser notifications are on. For reliable prayer-time reminders, install the iOS or Android app.",
+    "webLimitedTitle": "Reminders run on the mobile app",
     "groupWorship": "Worship",
     "groupZikr": "Zikr",
     "groupMilestones": "Milestones",
@@ -629,7 +650,11 @@
     "scheduled": "Scheduled",
     "settings": "Settings",
     "emptyTitle": "No reminders scheduled",
-    "emptyDesc": "Enable categories in notification settings to see them here."
+    "emptyDesc": "Enable categories in notification settings to see them here.",
+    "inbox": "Recent",
+    "inboxEmptyTitle": "No recent notifications",
+    "inboxEmptyDesc": "Delivered reminders and achievements will appear here.",
+    "markAllRead": "Mark all read"
   },
   "qibla": {
     "eyebrow": "Direction",
@@ -709,5 +734,13 @@
     "seek": "Playback position",
     "buffering": "Buffering…",
     "loading": "Loading…"
+  },
+  "pwa": {
+    "installBannerMessage": "Install Munib Tracker on your Home Screen for an app-like experience and browser notifications on iPhone.",
+    "installStepsViaSafari": "Copy the link below, open it in Safari, then Share → Add to Home Screen.",
+    "installCopyLink": "Copy link for Safari",
+    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
+    "installLinkCopyFailed": "Could not copy the link. Open this page in Safari manually.",
+    "installDismiss": "Dismiss"
   }
 }

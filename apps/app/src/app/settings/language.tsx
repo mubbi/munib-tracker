@@ -31,7 +31,7 @@ export default function LanguageScreen() {
       eyebrow={t("settings.title")}
       title={t("language.title")}
       subtitle={t("language.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

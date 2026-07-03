@@ -92,7 +92,7 @@ export default function QuranSearchScreen() {
       eyebrow={t("quran.title")}
       title={t("quran.searchTitle")}
       subtitle={t("quran.searchSubtitle")}
-      onBack={() => router.back()}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Card padding="three">
         <TextInput

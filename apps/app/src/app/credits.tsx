@@ -106,7 +106,7 @@ export default function CreditsScreen() {
       eyebrow={t("credits.eyebrow")}
       title={t("credits.title")}
       subtitle={t("credits.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

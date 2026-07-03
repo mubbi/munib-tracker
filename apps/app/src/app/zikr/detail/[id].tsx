@@ -33,7 +33,7 @@ export default function ZikrDetailScreen() {
     return (
       <ScreenLayout
         title={t("zikr.title")}
-        onBack={router.canGoBack() ? () => router.back() : undefined}
+        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       >
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
@@ -79,7 +79,7 @@ export default function ZikrDetailScreen() {
     <ScreenLayout
       eyebrow={t("zikr.detailEyebrow")}
       title={item.title}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <ReadingCard item={item} sourceHref={`/zikr/detail/${item.id}`} />

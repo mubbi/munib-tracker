@@ -40,7 +40,7 @@ export default function DuaFavoritesScreen() {
       eyebrow={t("dua.detailEyebrow")}
       title={t("dua.favorites")}
       subtitle={t("zikr.favSubtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       {items.length === 0 ? (
         <EmptyState

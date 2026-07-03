@@ -62,7 +62,7 @@ export default function FontsScreen() {
       eyebrow={t("fonts.eyebrow")}
       title={t("settings.fonts")}
       subtitle={t("fonts.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card variant="muted" style={styles.preview}>

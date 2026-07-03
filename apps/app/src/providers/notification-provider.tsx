@@ -1,48 +1,70 @@
 import { useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
-import { Platform } from "react-native";
-
+import { AppState, Platform } from "react-native";
 import {
   configureNotifications,
   rescheduleAll,
   SNOOZE_ACTION_IDENTIFIER,
   snoozeNotification,
 } from "@/notifications/scheduler";
+import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useStore } from "@/stores/create-store";
+import { locationStore } from "@/stores/location-store";
 import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
 const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
 /**
  * Owns the local-notification lifecycle: configures channels once, reschedules
- * whenever preferences change, and routes taps to the notification centre.
+ * whenever preferences or location change, and routes taps to the notification centre.
  */
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const ready = usePreferencesReady();
-  // Only the notification-relevant slice — so unrelated writes (e.g. audio
-  // speed, favorites) don't cancel and reschedule every reminder.
+  const { deliver } = useInAppNotifications();
   const notificationPrefs = useStore(preferencesStore, (s) => s.prefs.notificationPrefs);
   const bedtime = useStore(preferencesStore, (s) => s.prefs.bedtime);
+  const location = useStore(locationStore, (s) => s.location);
+  const locationReady = useStore(locationStore, (s) => s.isReady);
 
   useEffect(() => {
     void configureNotifications();
   }, []);
 
-  // notificationPrefs/bedtime are intentional trigger deps — they re-run the
-  // reschedule when the relevant slice changes, without being read in the body.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional trigger dependencies
   useEffect(() => {
-    if (ready) void rescheduleAll(preferencesStore.getState().prefs);
-  }, [ready, notificationPrefs, bedtime]);
+    if (!ready || !locationReady) return;
+    const prefs = preferencesStore.getState().prefs;
+    void rescheduleAll({ ...prefs, notificationPrefs, bedtime }, location);
+  }, [ready, locationReady, notificationPrefs, bedtime, location]);
+
+  useEffect(() => {
+    const sub = AppState.addEventListener("change", (status) => {
+      if (status !== "active" || !ready || !locationReady) return;
+      const prefs = preferencesStore.getState().prefs;
+      void rescheduleAll({ ...prefs, notificationPrefs, bedtime }, location);
+    });
+    return () => sub.remove();
+  }, [ready, locationReady, notificationPrefs, bedtime, location]);
 
   useEffect(() => {
     if (!isNative) return;
-    // Import lazily so the web bundle never loads `expo-notifications` (its
-    // module-load push-token auto-registration logs an unsupported-on-web warning).
-    let subscription: { remove: () => void } | undefined;
+    let receivedSub: { remove: () => void } | undefined;
+    let responseSub: { remove: () => void } | undefined;
+
     void import("expo-notifications").then((Notifications) => {
-      subscription = Notifications.addNotificationResponseReceivedListener((response) => {
+      receivedSub = Notifications.addNotificationReceivedListener((notification) => {
+        const title = notification.request.content.title ?? "Reminder";
+        const body = notification.request.content.body ?? "";
+        void deliver({
+          kind: "reminder",
+          title,
+          body,
+          route: "/notifications",
+          id: `os-${notification.request.identifier}`,
+        });
+      });
+
+      responseSub = Notifications.addNotificationResponseReceivedListener((response) => {
         if (response.actionIdentifier === SNOOZE_ACTION_IDENTIFIER) {
           void snoozeNotification(response);
           return;
@@ -50,8 +72,12 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
         router.push("/notifications");
       });
     });
-    return () => subscription?.remove();
-  }, [router]);
+
+    return () => {
+      receivedSub?.remove();
+      responseSub?.remove();
+    };
+  }, [router, deliver]);
 
   return <>{children}</>;
 }

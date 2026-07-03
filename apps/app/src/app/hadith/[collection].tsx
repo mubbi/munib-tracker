@@ -90,7 +90,10 @@ export default function HadithCollectionScreen() {
 
   if (!collection) {
     return (
-      <ScreenLayout title={t("hadith.title")} onBack={() => router.back()}>
+      <ScreenLayout
+        title={t("hadith.title")}
+        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      >
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("hadith.notFoundTitle")}
@@ -114,7 +117,11 @@ export default function HadithCollectionScreen() {
       eyebrow={t("hadith.title")}
       title={activeSection ? activeSection.name : collection.nameEnglish}
       subtitle={activeSection ? collection.nameEnglish : collection.nameArabic}
-      onBack={activeSection ? goBackToBooks : () => router.back()}
+      onBack={
+        activeSection
+          ? goBackToBooks
+          : () => (router.canGoBack() ? router.back() : router.replace("/"))
+      }
     >
       <Stagger>
         {isLoading ? (

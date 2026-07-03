@@ -35,7 +35,7 @@ export default function ZikrFavoritesScreen() {
       eyebrow={t("zikr.detailEyebrow")}
       title={t("zikr.favTitle")}
       subtitle={t("zikr.favSubtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       {items.length === 0 ? (
         <EmptyState

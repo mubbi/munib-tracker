@@ -31,7 +31,7 @@ export default function DuaHomeScreen() {
       eyebrow={t("dua.eyebrow")}
       title={t("dua.title")}
       subtitle={t("dua.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

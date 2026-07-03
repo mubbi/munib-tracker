@@ -28,9 +28,12 @@ export function normalizeHex(hex: string): string | null {
   return `#${toHex(rgb.r)}${toHex(rgb.g)}${toHex(rgb.b)}`;
 }
 
-/** Normalises to #RRGGBB for color picker value (falls back to black). */
+/** Normalises to #RRGGBB for the color picker, dropping any alpha channel. */
 export function normalizeHexForPicker(color: string): string {
-  return normalizeHex(color) ?? "#000000";
+  const body = color.trim().replace(/^#/, "");
+  // #RRGGBBAA / #RGBA → strip alpha so it doesn't collapse to the null fallback.
+  const rgb = body.length === 8 ? body.slice(0, 6) : body.length === 4 ? body.slice(0, 3) : body;
+  return normalizeHex(rgb) ?? "#000000";
 }
 
 function channel(value: number): number {

@@ -59,7 +59,7 @@ export default function NamesOfAllahScreen() {
       eyebrow={t("names.eyebrow")}
       title={t("names.title")}
       subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

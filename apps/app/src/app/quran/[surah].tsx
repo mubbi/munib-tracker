@@ -116,7 +116,10 @@ export default function SurahReaderScreen() {
 
   if (!surah) {
     return (
-      <ScreenLayout title={t("quran.title")} onBack={() => router.back()}>
+      <ScreenLayout
+        title={t("quran.title")}
+        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      >
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("quran.notFoundTitle")}
@@ -151,7 +154,7 @@ export default function SurahReaderScreen() {
       eyebrow={t("quran.title")}
       title={surah.nameTransliteration}
       subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
-      onBack={() => router.back()}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

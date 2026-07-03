@@ -106,7 +106,7 @@ export default function LocationScreen() {
       eyebrow={t("location.eyebrow")}
       title={t("location.title")}
       subtitle={t("location.subtitle")}
-      onBack={() => router.back()}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Card>
         <View style={styles.currentHeader}>

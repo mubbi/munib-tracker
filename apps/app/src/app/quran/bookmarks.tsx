@@ -35,7 +35,7 @@ export default function QuranBookmarksScreen() {
       eyebrow={t("quran.title")}
       title={t("quran.bookmarksTitle")}
       subtitle={t("quran.bookmarksSubtitle")}
-      onBack={() => router.back()}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       {bookmarks.length === 0 ? (
         <EmptyState

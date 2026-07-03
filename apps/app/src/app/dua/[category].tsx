@@ -40,7 +40,7 @@ export default function DuaCategoryScreen() {
       eyebrow={t("dua.categoryEyebrow")}
       title={t(`duaCat.${categoryId}`)}
       subtitle={t("dua.supplicationsCount", { count: items.length })}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

@@ -234,7 +234,7 @@ export default function QiblaScreen() {
       eyebrow={t("qibla.eyebrow")}
       title={t("settings.qibla")}
       subtitle={t("qibla.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card style={styles.compassCard}>

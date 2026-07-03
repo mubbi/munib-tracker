@@ -26,7 +26,8 @@
     "minus": "منفی",
     "set": "مقرر کریں",
     "play": "چلائیں",
-    "appName": "Munib Tracker"
+    "appName": "Munib Tracker",
+    "appTagline": "اللہ کی طرف اپنے سفر کو ٹریک کریں۔"
   },
   "tabs": {
     "home": "ہوم",
@@ -161,6 +162,26 @@
     "adhanTitle": "اذان کا نمونہ",
     "adhanSub": "بنڈل شدہ اذان کی آواز چلائیں",
     "footer": "جیسے ہی آپ کی ڈیوائس پر اطلاعات فعال ہوں گی، یہ یاد دہانیاں شیڈول ہو جائیں گی۔",
+    "permissionBannerTitle": "یاددہانیاں فعال کریں",
+    "permissionBannerMessage": "منیب ٹریکر کو نماز، ذکر اور قضا کی یاد دہانے کے لیے اطلاعات کی اجازت دیں۔",
+    "permissionGrantedTitle": "اطلاعات فعال ہیں",
+    "permissionGrantedMessage": "اس آلے پر یاددہانیاں شیڈول ہیں۔ ذیل میں اقسام منظم کریں۔",
+    "permissionDenied": "اطلاعات بلاک ہیں",
+    "permissionDeniedSub": "براؤزر یا آلے کی ترتیبات میں اطلاعات آن کریں۔",
+    "permissionDismissed": "اجازت کی درخواست مسترد ہوئی۔ تیار ہوں تو Allow دبائیں۔",
+    "openSettingsHint": "ترتیبات کھولیں اور منیب ٹریکر کی اطلاعات آن کریں۔",
+    "openSettings": "ترتیبات کھولیں",
+    "webUseAllowButton": "براؤزر اطلاعات کے لیے نیچے Allow بٹن دبائیں۔",
+    "unsupportedTitle": "یاددہانیوں کے لیے موبائل ایپ درکار ہے",
+    "expoGoTitle": "ڈیولپمنٹ بلڈ درکار ہے",
+    "expoGoMessage": "مقامی یاددہانیوں کے لیے ڈیولپ یا پروڈکشن بلڈ چاہیے۔ Expo Go OS اطلاعات شیڈول نہیں کرتا۔",
+    "iosPwaTitle": "پہلے ویب ایپ انسٹال کریں",
+    "iosPwaMessage": "iPhone پر براؤزر اطلاعات صرف ہوم اسکرین پر شامل کرنے کے بعد کام کرتی ہیں۔",
+    "iosPwaSteps": "Safari میں: Share ← Add to Home Screen، پھر ہوم اسکرین سے ایپ کھولیں اور اطلاعات کی اجازت دیں۔",
+    "iosPwaStepsSafari": "یہ صفحہ Safari میں کھولیں، پھر Share ← Add to Home Screen۔ iPhone پر اس براؤزر میں اطلاعات دستیاب نہیں۔",
+    "webAllowMessage": "اس آلے پر نماز، ذکر اور قضا کی اطلاعات کے لیے براؤزر اطلاعات کی اجازت دیں۔",
+    "webGrantedMobileNote": "براؤزر اطلاعات آن ہیں۔ قابلِ اعتماد نماز یاددہانیوں کے لیے iOS یا Android ایپ انسٹال کریں۔",
+    "webLimitedTitle": "یاددہانیاں موبائل ایپ پر چلتی ہیں",
     "groupWorship": "عبادت",
     "groupZikr": "ذکر",
     "groupMilestones": "سنگِ میل",
@@ -608,7 +629,11 @@
     "scheduled": "شیڈول شدہ",
     "settings": "ترتیبات",
     "emptyTitle": "کوئی یاد دہانی شیڈول نہیں",
-    "emptyDesc": "انہیں یہاں دیکھنے کے لیے اطلاعات کی ترتیبات میں زمرے فعال کریں۔"
+    "emptyDesc": "انہیں یہاں دیکھنے کے لیے اطلاعات کی ترتیبات میں زمرے فعال کریں۔",
+    "inbox": "حالیہ",
+    "inboxEmptyTitle": "کوئی حالیہ اطلاع نہیں",
+    "inboxEmptyDesc": "موصول یاددہانیاں اور کامیابیاں یہاں ظاہر ہوں گی۔",
+    "markAllRead": "سب پڑھا ہوا نشان لگائیں"
   },
   "qibla": {
     "eyebrow": "سمت",
@@ -688,5 +713,13 @@
     "seek": "چلانے کا مقام",
     "buffering": "بفر ہو رہا ہے…",
     "loading": "لوڈ ہو رہا ہے…"
+  },
+  "pwa": {
+    "installBannerMessage": "iPhone پر ایپ جیسا تجربہ اور براؤزر اطلاعات کے لیے منیب ٹریکر کو ہوم اسکرین پر انسٹال کریں۔",
+    "installStepsViaSafari": "نیچے لنک کاپی کریں، Safari میں کھولیں، پھر Share ← Add to Home Screen۔",
+    "installCopyLink": "Safari کے لیے لنک کاپی کریں",
+    "installLinkCopied": "لنک کاپی ہو گیا — Safari کے address bar میں پیسٹ کریں۔",
+    "installLinkCopyFailed": "لنک کاپی نہیں ہو سکا۔ یہ صفحہ Safari میں دستی کھولیں۔",
+    "installDismiss": "بند کریں"
   }
 }

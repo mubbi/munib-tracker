@@ -20,7 +20,7 @@ export default function FreeTasbeehScreen() {
       eyebrow={t("tasbeeh.eyebrow")}
       title={t("tasbeeh.freeTitle")}
       subtitle={t("tasbeeh.freeSubtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       scrollable
     >
       <Card variant="plain" padding="five" style={styles.card}>

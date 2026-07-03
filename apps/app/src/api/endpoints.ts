@@ -18,6 +18,7 @@ type OAuthPayload = {
   code?: string;
   idToken?: string;
   accessToken?: string;
+  codeVerifier?: string;
   email?: string;
   displayName?: string;
   redirectUri?: string;

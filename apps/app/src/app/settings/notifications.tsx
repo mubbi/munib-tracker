@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
 import { ScreenLayout } from "@/components/screen-layout";
 import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
@@ -10,10 +11,18 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { adhanTrack } from "@/lib/adhan-audio";
-import { requestPermission } from "@/notifications/scheduler";
+import { isWeb } from "@/lib/notifications/platform";
+import { rescheduleAll } from "@/notifications/scheduler";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
-import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
+import { useToast } from "@/providers/toast-provider";
+import { locationStore } from "@/stores/location-store";
+import {
+  preferencesStore,
+  usePreferences,
+  usePreferencesActions,
+} from "@/stores/preferences-store";
 
 type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled">;
 
@@ -32,16 +41,50 @@ export default function NotificationsScreen() {
   const prefs = usePreferences();
   const { setNotificationPrefs } = usePreferencesActions();
   const audio = useAudioPlayerContext();
+  const toast = useToast();
+  const { requestPermission, canEnableLocalReminders } = useNotificationPermissions();
   const master = prefs.notificationPrefs.masterEnabled;
+
+  const enableMaster = async () => {
+    // Web has no service-worker push backend, so OS reminders can't be delivered
+    // there. Keep the toggle on (in-app inbox still works) but be honest about it.
+    if (isWeb) {
+      await setNotificationPrefs({ masterEnabled: true });
+      toast.info(t("notif.webLimitedTitle"), t("notifCenter.webNote"));
+      return;
+    }
+
+    if (!canEnableLocalReminders) {
+      toast.info(t("notif.expoGoTitle"), t("notif.expoGoMessage"));
+      return;
+    }
+
+    const result = await requestPermission();
+    if (!result.granted) {
+      if (result.reason === "permission_denied") {
+        toast.warning(t("notif.permissionDenied"), t("notif.openSettingsHint"));
+      } else if (result.reason === "unsupported") {
+        toast.info(t("notif.unsupportedTitle"), t("notifCenter.webNote"));
+      } else {
+        toast.info(t("notif.permissionDismissed"));
+      }
+      return;
+    }
+
+    await setNotificationPrefs({ masterEnabled: true });
+    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+  };
 
   return (
     <ScreenLayout
       eyebrow={t("notif.eyebrow")}
       title={t("settings.notifications")}
       subtitle={t("notif.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
+        <NotificationPermissionBanner />
+
         <Card padding="three">
           <ToggleRow
             icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
@@ -49,8 +92,11 @@ export default function NotificationsScreen() {
             subtitle={t("notif.masterSub")}
             value={master}
             onValueChange={async (value) => {
-              if (value) await requestPermission();
-              await setNotificationPrefs({ masterEnabled: value });
+              if (value) {
+                await enableMaster();
+                return;
+              }
+              await setNotificationPrefs({ masterEnabled: false });
             }}
           />
         </Card>

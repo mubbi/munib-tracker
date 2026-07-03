@@ -33,7 +33,7 @@ export default function AboutScreen() {
       eyebrow={t("about.eyebrow")}
       title={t("about.title")}
       subtitle={t("about.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card style={styles.hero}>

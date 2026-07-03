@@ -5,13 +5,6 @@ import { useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useReducedMotion,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -25,12 +18,15 @@ import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-act
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { StatCard } from "@/components/ui/stat-card";
-import { Durations } from "@/constants/motion";
-import { Radius, Spacing } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
+import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
+import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
+import { useToast } from "@/providers/toast-provider";
+import { preferencesStore } from "@/stores/preferences-store";
 import {
   useAchievementStats,
   useDailySummary,
@@ -64,17 +60,28 @@ export default function TrackerScreen() {
 
   // --- Confetti + achievement celebration -----------------------------------
   const [celebrationKey, setCelebrationKey] = useState(0);
-  const [toast, setToast] = useState<string | null>(null);
+  const toast = useToast();
+  const { deliver } = useInAppNotifications();
   // Guards so we only fire on the pending -> complete *edge*, not every render.
   const prevCompleteRef = useRef<boolean | null>(null);
   const knownAchievementsRef = useRef<string[] | null>(null);
-  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const showToast = useCallback((message: string) => {
-    setToast(message);
-    if (toastTimer.current) clearTimeout(toastTimer.current);
-    toastTimer.current = setTimeout(() => setToast(null), 3200);
-  }, []);
+  const showAchievementCelebration = useCallback(
+    (title: string, achievementId: string) => {
+      triggerHaptic("success");
+      setCelebrationKey((k) => k + 1);
+      toast.success(t("achievements.unlockedToast", { name: title }));
+      void deliver({
+        kind: "achievement",
+        id: `achievement:${achievementId}`,
+        title: t("achievements.unlockedToast", { name: title }),
+        body: title,
+        route: "/tracker",
+      });
+      void notifyAchievementUnlocked(title, preferencesStore.getState().prefs);
+    },
+    [deliver, t, toast],
+  );
 
   // Load the persisted unlocked set once so the first refresh doesn't
   // re-announce badges the user already earned.
@@ -113,16 +120,8 @@ export default function TrackerScreen() {
     void writeJSON(DB_KEYS.achievements, merged);
 
     const first = ACHIEVEMENTS.find((a) => a.id === unlocked[0]);
-    triggerHaptic("success");
-    setCelebrationKey((k) => k + 1);
-    showToast(t("achievements.unlockedToast", { name: first?.title ?? "" }));
-  }, [stats, showToast, t]);
-
-  useEffect(() => {
-    return () => {
-      if (toastTimer.current) clearTimeout(toastTimer.current);
-    };
-  }, []);
+    showAchievementCelebration(first?.title ?? "", unlocked[0]);
+  }, [stats, showAchievementCelebration]);
 
   const shortcuts: QuickActionItem[] = [
     {
@@ -275,8 +274,6 @@ export default function TrackerScreen() {
         </Card>
       </Stagger>
 
-      {toast ? <AchievementToast message={toast} /> : null}
-
       {activePrayer ? (
         <PrayerStatusSheet
           visible
@@ -289,39 +286,6 @@ export default function TrackerScreen() {
         />
       ) : null}
     </ScreenLayout>
-  );
-}
-
-/** A lightweight, self-dismissing in-screen snackbar for unlocked badges. */
-function AchievementToast({ message }: { message: string }) {
-  const { colors, tokens } = useThemeTokens();
-  const reducedMotion = useReducedMotion();
-  const enter = useSharedValue(reducedMotion ? 1 : 0);
-
-  useEffect(() => {
-    enter.value = reducedMotion
-      ? 1
-      : withTiming(1, { duration: Durations.base, easing: Easing.out(Easing.cubic) });
-  }, [enter, reducedMotion]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: enter.value,
-    transform: [{ translateY: (1 - enter.value) * 16 }],
-  }));
-
-  return (
-    <Animated.View
-      accessibilityRole="alert"
-      accessibilityLabel={message}
-      style={[styles.toast, { backgroundColor: colors.foreground }, animatedStyle]}
-    >
-      <ThemedText type="smallBold" style={{ color: tokens.status.warning.color }}>
-        {"🏆  "}
-        <ThemedText type="small" style={{ color: colors.background }}>
-          {message}
-        </ThemedText>
-      </ThemedText>
-    </Animated.View>
   );
 }
 
@@ -349,18 +313,5 @@ const styles = StyleSheet.create({
   },
   shortcuts: {
     marginTop: Spacing.three,
-  },
-  toast: {
-    position: "absolute",
-    left: Spacing.four,
-    right: Spacing.four,
-    bottom: Spacing.six,
-    paddingVertical: Spacing.three,
-    paddingHorizontal: Spacing.four,
-    borderRadius: Radius.lg,
-    borderCurve: "continuous",
-    boxShadow: "0px 6px 16px rgba(0, 0, 0, 0.18)",
-    pointerEvents: "none",
-    zIndex: 10,
   },
 });

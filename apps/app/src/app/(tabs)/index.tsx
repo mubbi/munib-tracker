@@ -6,6 +6,7 @@ import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
+import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -16,6 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { StatCard } from "@/components/ui/stat-card";
 import { BottomTabInset, MaxContentWidth, Radius, Spacing } from "@/constants/theme";
 import { useHomeHero } from "@/hooks/use-home-hero";
+import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useLocationActions } from "@/stores/location-store";
 import {
@@ -36,6 +38,7 @@ export default function HomeScreen() {
   const { refresh } = useTrackerActions();
   const location = useLocationActions();
   const hero = useHomeHero();
+  const notificationCount = useNotificationBadgeCount();
   const [refreshing, setRefreshing] = useState(false);
 
   const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
@@ -162,12 +165,15 @@ export default function HomeScreen() {
             now={hero.now}
             moonLabel={hero.moonLabel}
             windowProgress={hero.windowProgress}
+            notificationCount={notificationCount}
             onSearchPress={() => router.push("/search")}
             onNotificationsPress={() => router.push("/notifications")}
             onLocationPress={() => router.push("/location")}
           />
 
           <View style={styles.body}>
+            <IosPwaInstallBanner />
+
             <Stagger>
               <Card padding="three">
                 <QuickActionGrid items={quickActions} columns={4} />

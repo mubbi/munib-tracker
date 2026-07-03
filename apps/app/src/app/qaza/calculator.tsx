@@ -60,7 +60,7 @@ export default function QazaCalculatorScreen() {
       eyebrow={t("qazaCalc.eyebrow")}
       title={t("qazaCalc.title")}
       subtitle={t("qazaCalc.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

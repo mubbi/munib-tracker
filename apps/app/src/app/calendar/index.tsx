@@ -105,7 +105,7 @@ export default function CalendarScreen() {
       eyebrow={t("calendar.eyebrow")}
       title={t("calendar.title")}
       subtitle={t("calendar.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <SegmentedControl<CalendarMode>

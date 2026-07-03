@@ -35,7 +35,7 @@ export default function DuaDetailScreen() {
     return (
       <ScreenLayout
         title={t("dua.detailEyebrow")}
-        onBack={router.canGoBack() ? () => router.back() : undefined}
+        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       >
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
@@ -78,7 +78,7 @@ export default function DuaDetailScreen() {
     <ScreenLayout
       eyebrow={t("dua.detailEyebrow")}
       title={item.title}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <ReadingCard

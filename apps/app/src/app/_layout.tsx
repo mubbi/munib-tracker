@@ -7,14 +7,17 @@ import "@/styles/focus-visible";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { MiniPlayer } from "@/components/audio/mini-player";
 import { OnboardingGate } from "@/components/onboarding-gate";
+import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { AppApiProvider } from "@/providers/api-provider";
 import { AppProviders } from "@/providers/app-providers";
 import { AudioPlayerProvider } from "@/providers/audio-player-provider";
 import { AuthProvider } from "@/providers/auth-provider";
 import { I18nProvider } from "@/providers/i18n-provider";
+import { InAppNotificationsProvider } from "@/providers/in-app-notifications-provider";
 import { NotificationProvider } from "@/providers/notification-provider";
 import { MunibThemeProvider } from "@/providers/theme-provider";
+import { ToastProvider } from "@/providers/toast-provider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,19 +28,27 @@ export default function RootLayout() {
         <AppProviders>
           <I18nProvider>
             <AuthProvider>
-              <NotificationProvider>
-                <AudioPlayerProvider>
-                  <Stack screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="(tabs)" />
-                    <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
-                    <Stack.Screen name="(onboarding)/intro" options={{ gestureEnabled: false }} />
-                  </Stack>
-                  <WebNavigationFocusManager />
-                  <OnboardingGate />
-                  <MiniPlayer />
-                  <AnimatedSplashOverlay />
-                </AudioPlayerProvider>
-              </NotificationProvider>
+              <ToastProvider>
+                <InAppNotificationsProvider>
+                  <NotificationProvider>
+                    <AudioPlayerProvider>
+                      <Stack screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name="(tabs)" />
+                        <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
+                        <Stack.Screen
+                          name="(onboarding)/intro"
+                          options={{ gestureEnabled: false }}
+                        />
+                      </Stack>
+                      <WebNavigationFocusManager />
+                      <WebPwaBootstrap />
+                      <OnboardingGate />
+                      <MiniPlayer />
+                      <AnimatedSplashOverlay />
+                    </AudioPlayerProvider>
+                  </NotificationProvider>
+                </InAppNotificationsProvider>
+              </ToastProvider>
             </AuthProvider>
           </I18nProvider>
         </AppProviders>

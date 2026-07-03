@@ -26,7 +26,7 @@ export default function HadithHomeScreen() {
       eyebrow={t("hadith.eyebrow")}
       title={t("hadith.title")}
       subtitle={t("hadith.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <Card padding="three">

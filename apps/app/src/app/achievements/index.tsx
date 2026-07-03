@@ -85,7 +85,7 @@ export default function AchievementsScreen() {
       eyebrow={t("achievements.eyebrow")}
       title={t("settings.achievements")}
       subtitle={t("achievements.subtitle", { unlocked: unlockedCount, total: items.length })}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <View style={styles.grid}>

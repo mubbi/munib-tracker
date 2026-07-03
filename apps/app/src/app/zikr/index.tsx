@@ -29,7 +29,7 @@ export default function ZikrHomeScreen() {
       eyebrow={t("zikr.eyebrow")}
       title={t("zikr.title")}
       subtitle={t("zikr.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         {favorites.length > 0 ? (

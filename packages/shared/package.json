@@ -6,6 +6,7 @@
   "exports": {
     "./types": "./src/types/index.ts",
     "./constants": "./src/constants/index.ts",
+    "./constants/branding": "./src/constants/branding.ts",
     "./validators": "./src/validators/index.ts",
     "./utils": "./src/utils/index.ts",
     "./content": "./src/content/index.ts",

@@ -26,7 +26,7 @@ export default function LoginScreen() {
       eyebrow={isGuest ? t("login.eyebrowGuest") : t("login.eyebrowWelcome")}
       title={t("login.title")}
       subtitle={t("login.subtitle")}
-      onBack={router.canGoBack() ? () => router.back() : undefined}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
         <View
