@@ -286,7 +286,11 @@ export default function QiblaScreen() {
                 key={key}
                 style={[
                   styles.cardinal,
-                  { height: dialSize, transform: [{ rotate: `${angle}deg` }], pointerEvents: "none" },
+                  {
+                    height: dialSize,
+                    transform: [{ rotate: `${angle}deg` }],
+                    pointerEvents: "none",
+                  },
                 ]}
               >
                 <ThemedText

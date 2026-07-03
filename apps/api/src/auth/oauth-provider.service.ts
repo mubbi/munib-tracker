@@ -186,15 +186,17 @@ export class OAuthProviderService {
     const pem = rawKey.replace(/\\n/g, "\n");
     const key = await importPKCS8(pem, "ES256");
     const now = Math.floor(Date.now() / 1000);
-    return new SignJWT({})
-      .setProtectedHeader({ alg: "ES256", kid: keyId })
-      .setIssuer(teamId)
-      .setAudience(APPLE_ISSUER)
-      .setSubject(servicesId)
-      .setIssuedAt(now)
-      // Mint a fresh secret per exchange; Apple allows up to 6 months, we keep it short.
-      .setExpirationTime(now + 300)
-      .sign(key);
+    return (
+      new SignJWT({})
+        .setProtectedHeader({ alg: "ES256", kid: keyId })
+        .setIssuer(teamId)
+        .setAudience(APPLE_ISSUER)
+        .setSubject(servicesId)
+        .setIssuedAt(now)
+        // Mint a fresh secret per exchange; Apple allows up to 6 months, we keep it short.
+        .setExpirationTime(now + 300)
+        .sign(key)
+    );
   }
 
   /** Services ID used as the OAuth `client_id` for web/Android Apple sign-in. */

@@ -11,8 +11,8 @@ import {
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
 import { Springs } from "@/constants/motion";
-import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import { blurActiveElement } from "@/lib/blur-active-element";
+import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 

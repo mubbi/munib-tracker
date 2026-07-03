@@ -70,7 +70,9 @@ describe("OAuthProviderService", () => {
   });
 
   it("validates and accepts an Apple identity token", async () => {
-    const { service, privateKey } = await makeAppleService({ APPLE_CLIENT_ID: "app.munib.tracker" });
+    const { service, privateKey } = await makeAppleService({
+      APPLE_CLIENT_ID: "app.munib.tracker",
+    });
     const idToken = await signAppleToken(privateKey, {
       aud: "app.munib.tracker",
       sub: "apple-user-1",
@@ -96,7 +98,9 @@ describe("OAuthProviderService", () => {
   });
 
   it("rejects an Apple token with a mismatched audience", async () => {
-    const { service, privateKey } = await makeAppleService({ APPLE_CLIENT_ID: "app.munib.tracker" });
+    const { service, privateKey } = await makeAppleService({
+      APPLE_CLIENT_ID: "app.munib.tracker",
+    });
     const idToken = await signAppleToken(privateKey, {
       aud: "some.other.app",
       sub: "apple-user-1",
@@ -108,7 +112,9 @@ describe("OAuthProviderService", () => {
   });
 
   it("rejects an expired Apple token", async () => {
-    const { service, privateKey } = await makeAppleService({ APPLE_CLIENT_ID: "app.munib.tracker" });
+    const { service, privateKey } = await makeAppleService({
+      APPLE_CLIENT_ID: "app.munib.tracker",
+    });
     const idToken = await signAppleToken(privateKey, {
       aud: "app.munib.tracker",
       sub: "apple-user-1",
