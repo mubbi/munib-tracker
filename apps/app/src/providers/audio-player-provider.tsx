@@ -16,6 +16,8 @@ export type AudioTrack = {
   title: string;
   subtitle?: string;
   uri: string;
+  /** Bundled asset module (from `require()`), used instead of `uri` when set. */
+  source?: number;
 };
 
 interface AudioContextValue {
@@ -69,7 +71,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       const track = tracks[startIndex];
       if (!track) return;
       try {
-        player.replace({ uri: track.uri });
+        // Bundled assets are `require()`d module ids; remote tracks use a URI.
+        player.replace(track.source ?? { uri: track.uri });
         player.setPlaybackRate(rate);
         player.play();
       } catch {

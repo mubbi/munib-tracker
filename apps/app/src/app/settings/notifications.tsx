@@ -4,13 +4,15 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
-import { ToggleRow } from "@/components/settings/settings-rows";
+import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { adhanTrack } from "@/lib/adhan-audio";
 import { requestPermission } from "@/notifications/scheduler";
+import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled">;
@@ -29,6 +31,7 @@ export default function NotificationsScreen() {
   const { t } = useTranslation();
   const prefs = usePreferences();
   const { setNotificationPrefs } = usePreferencesActions();
+  const audio = useAudioPlayerContext();
   const master = prefs.notificationPrefs.masterEnabled;
 
   return (
@@ -49,6 +52,15 @@ export default function NotificationsScreen() {
               if (value) await requestPermission();
               await setNotificationPrefs({ masterEnabled: value });
             }}
+          />
+        </Card>
+
+        <Card padding="three">
+          <SettingsRow
+            icon={{ ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }}
+            title={t("notif.adhanTitle")}
+            subtitle={t("notif.adhanSub")}
+            onPress={() => audio.play([adhanTrack()])}
           />
         </Card>
 

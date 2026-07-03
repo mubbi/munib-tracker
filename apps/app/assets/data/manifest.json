@@ -55,16 +55,16 @@
     {
       "id": "names-99",
       "kind": "content",
-      "version": 2,
+      "version": 3,
       "files": [
         {
           "path": "../../packages/shared/src/content/names.ts",
-          "sha256": "49f39017737bd9b162b60d3ba6b30fe881c02553a9e539c9948003f5e9e120db",
-          "bytes": 19750
+          "sha256": "3b5b43714b7c20d33ea81868f4f987fedaa6a6e5e5ca72635c756937ccb2605b",
+          "bytes": 34555
         }
       ],
-      "license": "Public domain (classical text)",
-      "attribution": "Asma-ul-Husna — standard Tirmidhi enumeration.",
+      "license": "Text: public domain (classical). Audio: streamed, © reciter.",
+      "attribution": "Asma-ul-Husna — standard Tirmidhi enumeration. Audio via ProgrammerHasan/99-names-of-allah-audios.",
       "sourceUrl": "https://sunnah.com/tirmidhi:3507"
     },
     {

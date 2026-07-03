@@ -1,17 +1,15 @@
 # Adhan call audio (D11)
 
-Drop a small, license-cleared muezzin clip here per style, e.g.:
+`adhan.mp3` — a small (~53 KB) bundled call-to-prayer clip, played through the
+shared audio player via `src/lib/adhan-audio.ts` (`require()`d — Metro bundles
+`.mp3` under `assets/`, so no native dependency is added). It is previewable
+from Settings → Notifications.
 
-- `adhan-makkah.mp3`
-- `adhan-madinah.mp3`
+Source: https://github.com/itsnavee/prayeraudio (`sounds/adhan.mp3`).
 
-Wire it via `src/lib/adhan-audio.ts` (`require("@/assets/audio/adhan/adhan-makkah.mp3")`)
-and reference it from the prayer notification flow (`src/notifications/scheduler.ts`).
+To add more styles, drop additional MP3s here and extend `ADHAN_STYLES` in
+`src/lib/adhan-audio.ts`.
 
-Expo bundles `.mp3` under `assets/` automatically — no native dependency is
-added. A custom notification sound additionally needs the file registered in
-`app.json` and a prebuild; foreground in-app playback works without that.
-
-The binary is intentionally **not** committed here: it must be a specific,
-license-verified recording chosen by the maintainer (Internet Archive muezzin
-clips are a good no-key source — see `docs/FREE_OPEN_SOURCE_DATA.md`).
+**Custom notification sound** (optional): using this clip as the actual OS
+notification sound additionally requires registering it in `app.json` and a
+prebuild. Foreground in-app playback (the preview) works without that.

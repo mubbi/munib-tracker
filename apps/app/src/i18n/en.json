@@ -154,6 +154,8 @@
     "subtitle": "Choose what you'd like to be reminded about",
     "master": "All notifications",
     "masterSub": "Master switch for every reminder",
+    "adhanTitle": "Preview adhan",
+    "adhanSub": "Play the bundled call-to-prayer sound",
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",
     "groupWorship": "Worship",
     "groupZikr": "Zikr",

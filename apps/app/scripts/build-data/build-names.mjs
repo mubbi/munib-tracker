@@ -5,7 +5,46 @@
 
 import { join } from "node:path";
 
+import { fetchJSON } from "./fetch.mjs";
 import { datasetEntry, SHARED_CONTENT_DIR, writeFileStable } from "./manifest.mjs";
+
+// Per-name recitation audio (D9), streamed via jsDelivr and pinned to a commit
+// so the resolved URLs are reproducible.
+const AUDIO_REPO = "ProgrammerHasan/99-names-of-allah-audios";
+const AUDIO_SHA = "03c526366d460c3acb163c89fadb0201fd057b96";
+const AUDIO_CDN = `https://cdn.jsdelivr.net/gh/${AUDIO_REPO}@${AUDIO_SHA}`;
+
+/**
+ * Resolve name-index (1..99) → per-name mp3 filename by parsing the leading
+ * number of each file (the repo mixes `NN_name.mp3` and `audioNN_NN_name.mp3`).
+ * Returns {} if the source is unreachable so the build never breaks on it.
+ */
+async function fetchNameAudioMap() {
+  try {
+    const tree = await fetchJSON(
+      `https://api.github.com/repos/${AUDIO_REPO}/git/trees/${AUDIO_SHA}?recursive=1`,
+    );
+    const map = {};
+    for (const node of tree.tree ?? []) {
+      const path = node.path;
+      if (!/\.mp3$/i.test(path) || /all_names/i.test(path)) continue;
+      const match = path.match(/(\d+)/);
+      if (!match) continue;
+      const n = Number.parseInt(match[1], 10);
+      if (n >= 1 && n <= 99 && !map[n]) map[n] = path;
+    }
+    const missing = [];
+    for (let i = 1; i <= 99; i++) if (!map[i]) missing.push(i);
+    if (missing.length) {
+      console.warn(`  [names] audio missing for ${missing.length} names; skipping audio`);
+      return {};
+    }
+    return map;
+  } catch (err) {
+    console.warn(`  [names] audio map unavailable (${err.message}); generating without audio`);
+    return {};
+  }
+}
 
 // [id, arabic, transliteration, translation, meaning]
 const NAMES = [
@@ -552,8 +591,10 @@ function esc(str) {
   return str.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }
 
-function render() {
-  const lines = NAMES.map(([id, arabic, transliteration, translation, meaning]) => {
+function render(audioMap) {
+  const lines = NAMES.map(([id, arabic, transliteration, translation, meaning], index) => {
+    const file = audioMap[index + 1];
+    const audioLine = file ? [`    audioUri: "${AUDIO_CDN}/${esc(file)}",`] : [];
     return [
       "  {",
       `    id: "${esc(id)}",`,
@@ -561,13 +602,14 @@ function render() {
       `    transliteration: "${esc(transliteration)}",`,
       `    translation: "${esc(translation)}",`,
       `    meaning: "${esc(meaning)}",`,
+      ...audioLine,
       "  },",
     ].join("\n");
   });
 
   return `import type { NameOfAllah } from "../types/index";
 
-export const NAMES_CONTENT_VERSION = 2;
+export const NAMES_CONTENT_VERSION = 3;
 
 /**
  * The 99 names of Allah (Asma-ul-Husna), following the standard Tirmidhi
@@ -587,18 +629,21 @@ export async function buildNames() {
   if (ids.size !== NAMES.length) throw new Error("[names] duplicate id detected");
   if (NAMES.length !== 99) throw new Error(`[names] expected 99 names, got ${NAMES.length}`);
 
+  const audioMap = await fetchNameAudioMap();
+  const withAudio = Object.keys(audioMap).length;
+
   const outPath = join(SHARED_CONTENT_DIR, "names.ts");
-  await writeFileStable(outPath, render());
-  console.log(`  names.ts → ${NAMES.length} names`);
+  await writeFileStable(outPath, render(audioMap));
+  console.log(`  names.ts → ${NAMES.length} names (${withAudio} with audio)`);
 
   return [
     await datasetEntry({
       id: "names-99",
       kind: "content",
-      version: 2,
+      version: 3,
       absFiles: [outPath],
-      license: "Public domain (classical text)",
-      attribution: "Asma-ul-Husna — standard Tirmidhi enumeration.",
+      license: "Text: public domain (classical). Audio: streamed, © reciter.",
+      attribution: `Asma-ul-Husna — standard Tirmidhi enumeration. Audio via ${AUDIO_REPO}.`,
       sourceUrl: "https://sunnah.com/tirmidhi:3507",
     }),
   ];

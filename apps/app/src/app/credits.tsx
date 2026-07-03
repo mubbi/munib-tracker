@@ -46,6 +46,12 @@ const RUNTIME_SOURCES: CreditRow[] = [
     attribution: "QuranicAudio.com and Internet Archive.",
     sourceUrl: "https://archive.org/",
   },
+  {
+    name: "Adhan call audio",
+    license: "Bundled clip, © reciter",
+    attribution: "Bundled call-to-prayer clip.",
+    sourceUrl: "https://github.com/itsnavee/prayeraudio",
+  },
 ];
 
 export default function CreditsScreen() {
