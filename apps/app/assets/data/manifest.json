@@ -4,26 +4,26 @@
     {
       "id": "adhkar",
       "kind": "content",
-      "version": 2,
+      "version": 3,
       "files": [
         {
           "path": "../../packages/shared/src/content/duas.ts",
-          "sha256": "4001dd426d41ce685f82726a7367f3b348ad56cccaaaf45b240315a0219cc523",
-          "bytes": 9003
+          "sha256": "165d1c34b952da919dc71d756d1c05d8d3dc476d1d36bd43b1ea20cccc545758",
+          "bytes": 9960
         },
         {
           "path": "../../packages/shared/src/content/duroods.ts",
-          "sha256": "94cc55c5aca64481e28b00eb4ae7857a508926223f0400e933191122e99f985d",
-          "bytes": 2554
+          "sha256": "bed93f19ca4a6df227279809b87f240837096a03f712327d4ba8e2ba70174be9",
+          "bytes": 2826
         },
         {
           "path": "../../packages/shared/src/content/zikr.ts",
-          "sha256": "f66d00fd7a86d35d56024c1bbb65d9841e895ab1c54ab9d72d10fb6607774d22",
-          "bytes": 14618
+          "sha256": "f6441a925b30ae13e57847eef2f20d35af41795511c730e3cbcbbfb16d082cdc",
+          "bytes": 16527
         }
       ],
-      "license": "Public domain (classical texts of Qur'an & Hadith)",
-      "attribution": "Adhkar & duas curated from Hisnul Muslim (Sa'id bin Ali al-Qahtani).",
+      "license": "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
+      "attribution": "Adhkar & duas curated from Hisnul Muslim. Audio matched to sheikhhanif/Hisnul_Muslim_Database.",
       "sourceUrl": "https://www.hisnmuslim.com/"
     },
     {

@@ -21,7 +21,7 @@ export type ReadingItem = {
 };
 
 /** Shared reading view for religious text (zikr, dua, durood, names). */
-export function ReadingCard({ item }: { item: ReadingItem }) {
+export function ReadingCard({ item, sourceHref }: { item: ReadingItem; sourceHref?: string }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
@@ -31,7 +31,18 @@ export function ReadingCard({ item }: { item: ReadingItem }) {
 
   const playAudio = () => {
     if (!item.audioUri) return;
-    audio.play([{ id: item.id ?? "reading", title: item.title ?? "", uri: item.audioUri }]);
+    audio.play(
+      [
+        {
+          id: item.id ?? "reading",
+          title: item.title ?? "",
+          subtitle: item.reference,
+          uri: item.audioUri,
+        },
+      ],
+      0,
+      sourceHref ? { sourceHref } : undefined,
+    );
   };
 
   return (

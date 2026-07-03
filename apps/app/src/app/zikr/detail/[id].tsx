@@ -58,7 +58,7 @@ export default function ZikrDetailScreen() {
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
-        <ReadingCard item={item} />
+        <ReadingCard item={item} sourceHref={`/zikr/detail/${item.id}`} />
 
         {target > 0 ? (
           <Card padding="three">

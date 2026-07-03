@@ -249,7 +249,9 @@
   "names": {
     "eyebrow": "الأسماء الحسنى",
     "title": "أسماء الله",
-    "subtitle": "{{count}} من أسماء الله الحسنى"
+    "subtitle": "{{count}} من أسماء الله الحسنى",
+    "playAll": "تشغيل الكل",
+    "playContinuous": "متواصل"
   },
   "quran": {
     "eyebrow": "القرآن الكريم",

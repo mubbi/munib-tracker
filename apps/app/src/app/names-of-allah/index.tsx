@@ -6,18 +6,24 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { nameAudioTrack } from "@/lib/audio-tracks";
+import { allNameTracks, namesCompleteTrack } from "@/lib/audio-tracks";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+
+const NAMES_HREF = "/names-of-allah";
 
 export default function NamesOfAllahScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const audio = useAudioPlayerContext();
+
+  const playFrom = (position: number) =>
+    audio.play(allNameTracks(NAMES_OF_ALLAH), position, { sourceHref: NAMES_HREF });
 
   return (
     <ScreenLayout
@@ -27,46 +33,83 @@ export default function NamesOfAllahScreen() {
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
+        <Card padding="three">
+          <View style={styles.playActions}>
+            <Button
+              label={t("names.playAll")}
+              icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+              onPress={() => playFrom(0)}
+              style={styles.flex}
+            />
+            <Button
+              label={t("names.playContinuous")}
+              variant="secondary"
+              icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+              onPress={() => audio.play([namesCompleteTrack()], 0, { sourceHref: NAMES_HREF })}
+              style={styles.flex}
+            />
+          </View>
+        </Card>
+
         <View style={styles.grid}>
-          {NAMES_OF_ALLAH.map((name, position) => (
-            <Card key={name.id} padding="three" style={styles.card}>
-              <View style={styles.cardHeader}>
-                <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
-                  <ThemedText type="caption" style={{ color: colors.accent }}>
-                    {position + 1}
+          {NAMES_OF_ALLAH.map((name, position) => {
+            const isPlaying = audio.current?.id === name.id;
+            return (
+              <Card
+                key={name.id}
+                padding="three"
+                style={[
+                  styles.card,
+                  isPlaying ? { borderColor: colors.accent, borderWidth: 1 } : null,
+                ]}
+              >
+                <View style={styles.cardHeader}>
+                  <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
+                    <ThemedText type="caption" style={{ color: colors.accent }}>
+                      {position + 1}
+                    </ThemedText>
+                  </View>
+                  <ThemedText type="arabic" style={styles.arabic}>
+                    {name.arabic}
                   </ThemedText>
                 </View>
-                <ThemedText type="arabic" style={styles.arabic}>
-                  {name.arabic}
+                <View style={styles.nameRow}>
+                  <ThemedText type="smallBold" style={{ color: colors.accent }}>
+                    {name.transliteration}
+                  </ThemedText>
+                  {name.audioUri ? (
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel={t("common.play")}
+                      hitSlop={8}
+                      onPress={() => (isPlaying ? audio.toggle() : playFrom(position))}
+                    >
+                      <SymbolView
+                        name={
+                          isPlaying && audio.isPlaying
+                            ? {
+                                ios: "pause.circle.fill",
+                                android: "pause_circle",
+                                web: "pause_circle",
+                              }
+                            : {
+                                ios: "play.circle.fill",
+                                android: "play_circle",
+                                web: "play_circle",
+                              }
+                        }
+                        size={18}
+                        tintColor={colors.accent}
+                      />
+                    </Pressable>
+                  ) : null}
+                </View>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {name.meaning ?? name.translation}
                 </ThemedText>
-              </View>
-              <View style={styles.nameRow}>
-                <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                  {name.transliteration}
-                </ThemedText>
-                {name.audioUri ? (
-                  <Pressable
-                    accessibilityRole="button"
-                    accessibilityLabel={t("common.play")}
-                    hitSlop={8}
-                    onPress={() => {
-                      const track = nameAudioTrack(name);
-                      if (track) audio.play([track]);
-                    }}
-                  >
-                    <SymbolView
-                      name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
-                      size={18}
-                      tintColor={colors.accent}
-                    />
-                  </Pressable>
-                ) : null}
-              </View>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {name.meaning ?? name.translation}
-              </ThemedText>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </View>
       </Stagger>
     </ScreenLayout>
@@ -74,6 +117,11 @@ export default function NamesOfAllahScreen() {
 }
 
 const styles = StyleSheet.create({
+  playActions: {
+    flexDirection: "row",
+    gap: Spacing.two,
+  },
+  flex: { flex: 1 },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",

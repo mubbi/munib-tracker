@@ -249,7 +249,9 @@
   "names": {
     "eyebrow": "Asma-ul-Husna",
     "title": "99 Names",
-    "subtitle": "{{count}} of the beautiful names of Allah"
+    "subtitle": "{{count}} of the beautiful names of Allah",
+    "playAll": "Play all",
+    "playContinuous": "Continuous"
   },
   "quran": {
     "eyebrow": "The Noble Qur'an",

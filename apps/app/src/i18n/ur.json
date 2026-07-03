@@ -252,7 +252,9 @@
   "names": {
     "eyebrow": "اسمائے حُسنیٰ",
     "title": "۹۹ نام",
-    "subtitle": "اللہ کے خوبصورت ناموں میں سے {{count}}"
+    "subtitle": "اللہ کے خوبصورت ناموں میں سے {{count}}",
+    "playAll": "سب چلائیں",
+    "playContinuous": "متواتر"
   },
   "quran": {
     "eyebrow": "قرآنِ کریم",

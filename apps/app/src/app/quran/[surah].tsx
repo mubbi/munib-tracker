@@ -106,7 +106,9 @@ export default function SurahReaderScreen() {
   const reciter = RECITERS.find((r) => r.dir === reciterDir) ?? RECITERS[0];
 
   const playFrom = (index: number) => {
-    audio.play(ayahTracks(reciterDir, surah.nameTransliteration, surahNumber, ayahs), index);
+    audio.play(ayahTracks(reciterDir, surah.nameTransliteration, surahNumber, ayahs), index, {
+      sourceHref: `/quran/${surahNumber}`,
+    });
     void setLastRead(surahNumber, index + 1);
   };
 

@@ -47,7 +47,7 @@ export default function DuaDetailScreen() {
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
-        <ReadingCard item={item} />
+        <ReadingCard item={item} sourceHref={`/dua/detail/${item.id}`} />
         {Platform.OS !== "web" ? (
           <Button
             label={t("dua.share")}

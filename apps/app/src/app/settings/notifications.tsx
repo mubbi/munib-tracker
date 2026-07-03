@@ -60,7 +60,7 @@ export default function NotificationsScreen() {
             icon={{ ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }}
             title={t("notif.adhanTitle")}
             subtitle={t("notif.adhanSub")}
-            onPress={() => audio.play([adhanTrack()])}
+            onPress={() => audio.play([adhanTrack()], 0, { sourceHref: "/settings/notifications" })}
           />
         </Card>
 

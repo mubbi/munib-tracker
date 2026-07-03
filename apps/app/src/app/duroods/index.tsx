@@ -26,7 +26,7 @@ export default function DuroodsScreen() {
             <ThemedText type="smallBold" style={styles.title}>
               {item.title}
             </ThemedText>
-            <ReadingCard item={item} />
+            <ReadingCard item={item} sourceHref="/duroods" />
           </View>
         ))}
       </Stagger>

@@ -31,6 +31,24 @@ export function nameAudioTrack(name: NameOfAllah): AudioTrack | null {
   };
 }
 
+/** A single continuous recitation of all 99 names. */
+const ALL_NAMES_COMPLETE_URI =
+  "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/all_names_audio_2.mp3";
+
+export function namesCompleteTrack(): AudioTrack {
+  return {
+    id: "names:complete",
+    title: "Asma-ul-Husna",
+    subtitle: "All 99 names",
+    uri: ALL_NAMES_COMPLETE_URI,
+  };
+}
+
+/** One track per name, for continuous name-by-name playback (auto-advances). */
+export function allNameTracks(names: NameOfAllah[]): AudioTrack[] {
+  return names.map(nameAudioTrack).filter((t): t is AudioTrack => t != null);
+}
+
 /** Whether an item has playable audio (used to show/hide the play control). */
 export function hasAudio(item: { audioUri?: string }): boolean {
   return Boolean(item.audioUri);

@@ -1,6 +1,6 @@
 import type { DuaCategoryId, DuaItem } from "../types/index";
 
-export const DUA_CONTENT_VERSION = 2;
+export const DUA_CONTENT_VERSION = 3;
 
 export const DUA_CATEGORY_LABELS: Record<DuaCategoryId, string> = {
   sunnah: "Sunnah Duas",
@@ -23,6 +23,8 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
     reference: "Quran 2:201",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/235hm.mp3",
   },
   {
     id: "quranic-ilma",
@@ -60,6 +62,8 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "Hasbunallahu wa ni'mal-wakil",
     translation: "Allah is sufficient for us, and He is the best disposer of affairs.",
     reference: "Quran 3:173",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/128hm.mp3",
   },
   {
     id: "quranic-dhun-nun",
@@ -70,6 +74,8 @@ export const DUA_ITEMS: DuaItem[] = [
     translation: "There is no god but You; glory be to You. Indeed, I have been of the wrongdoers.",
     virtues: "No Muslim supplicates with it for anything but Allah answers him.",
     reference: "Quran 21:87 · Tirmidhi",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/124hm.mp3",
   },
   {
     id: "sunnah-huda-tuqa",
@@ -88,6 +94,8 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "Allahumma inni a'udhu bika minal-hammi wal-hazan",
     translation: "O Allah, I seek refuge in You from anxiety and grief.",
     reference: "Bukhari",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/121hm.mp3",
   },
   {
     id: "sunnah-afiyah",
@@ -108,6 +116,8 @@ export const DUA_ITEMS: DuaItem[] = [
       "O Allah, help me to remember You, to thank You, and to worship You in the best manner.",
     virtues: "The Prophet ﷺ advised Mu'adh never to leave this after every prayer.",
     reference: "Abu Dawud & An-Nasa'i",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/59hm.mp3",
   },
   {
     id: "sunnah-thabbit-qalbi",
@@ -138,6 +148,8 @@ export const DUA_ITEMS: DuaItem[] = [
       "All praise is for Allah who fed me this and provided it for me without any might or power on my part.",
     virtues: "Whoever says it after eating has his past sins forgiven.",
     reference: "Abu Dawud & Tirmidhi",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/180hm.mp3",
   },
   {
     id: "daily-leaving-home",
@@ -148,6 +160,8 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "In the name of Allah, I place my trust in Allah; there is no might nor power except with Allah.",
     reference: "Abu Dawud & Tirmidhi",
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/16hm.mp3",
   },
   {
     id: "daily-entering-home",
