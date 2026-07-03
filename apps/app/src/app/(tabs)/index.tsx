@@ -165,6 +165,7 @@ export default function HomeScreen() {
             activeIndex={4}
             topInset={insets.top}
             notificationCount={2}
+            onNotificationsPress={() => router.push("/notifications")}
           />
 
           <View style={styles.body}>

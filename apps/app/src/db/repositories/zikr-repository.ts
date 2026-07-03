@@ -57,6 +57,11 @@ export const ZikrRepository = {
     return this.setCount(zikrId, date, 0, target);
   },
 
+  /** Writes a progress entry verbatim (used when applying a server record). */
+  async upsertProgress(entry: ZikrProgress): Promise<ZikrProgress> {
+    return collection.upsert(zikrProgressKey(entry.zikrId, entry.date), entry);
+  },
+
   async clear(): Promise<void> {
     await collection.clear();
   },

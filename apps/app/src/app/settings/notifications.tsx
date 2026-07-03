@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { requestPermission } from "@/notifications/scheduler";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled">;
@@ -60,7 +61,10 @@ export default function NotificationsScreen() {
             title="All notifications"
             subtitle="Master switch for every reminder"
             value={master}
-            onValueChange={(value) => setNotificationPrefs({ masterEnabled: value })}
+            onValueChange={async (value) => {
+              if (value) await requestPermission();
+              await setNotificationPrefs({ masterEnabled: value });
+            }}
           />
         </Card>
 

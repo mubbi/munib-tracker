@@ -16,20 +16,26 @@ import {
 } from "react";
 import { useColorScheme } from "react-native";
 
+import { normalizeHex, readableForeground } from "@/lib/color";
+
 interface ThemeContextValue {
   colors: ThemeColors;
   colorMode: ColorMode;
   /** The resolved scheme after applying `colorMode` + system preference. */
   scheme: "light" | "dark";
   accentColorId: AccentColorId;
+  /** Custom accent hex overriding the preset, or null. */
+  customAccent: string | null;
   isReady: boolean;
   setColorMode: (mode: ColorMode) => void;
   setAccentColor: (accentId: AccentColorId) => void;
+  setCustomAccent: (hex: string | null) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const defaultColorMode: ColorMode = "dark";
+const CUSTOM_ACCENT_KEY = "@munib-tracker/custom-accent";
 
 function isColorMode(value: string | null): value is ColorMode {
   return value === "light" || value === "dark" || value === "system";
@@ -43,6 +49,7 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
   const systemScheme = useColorScheme();
   const [colorMode, setColorModeState] = useState<ColorMode>(defaultColorMode);
   const [accentColorId, setAccentColorIdState] = useState<AccentColorId>(defaultAccentColorId);
+  const [customAccent, setCustomAccentState] = useState<string | null>(null);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -50,9 +57,10 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
     async function loadPreferences() {
       try {
-        const [storedMode, storedAccent] = await Promise.all([
+        const [storedMode, storedAccent, storedCustom] = await Promise.all([
           AsyncStorage.getItem(STORAGE_KEYS.colorMode),
           AsyncStorage.getItem(STORAGE_KEYS.accent),
+          AsyncStorage.getItem(CUSTOM_ACCENT_KEY),
         ]);
 
         if (!mounted) {
@@ -65,6 +73,10 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
         if (isAccentColorId(storedAccent)) {
           setAccentColorIdState(storedAccent);
+        }
+
+        if (storedCustom && normalizeHex(storedCustom)) {
+          setCustomAccentState(normalizeHex(storedCustom));
         }
       } finally {
         if (mounted) {
@@ -88,15 +100,17 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     return colorMode;
   }, [colorMode, systemScheme]);
 
-  const colors = useMemo(
-    () =>
-      resolveTheme(
-        colorMode,
-        systemScheme === "dark" ? "dark" : systemScheme === "light" ? "light" : null,
-        accentColorId,
-      ),
-    [accentColorId, colorMode, systemScheme],
-  );
+  const colors = useMemo(() => {
+    const base = resolveTheme(
+      colorMode,
+      systemScheme === "dark" ? "dark" : systemScheme === "light" ? "light" : null,
+      accentColorId,
+    );
+    if (customAccent) {
+      return { ...base, accent: customAccent, accentForeground: readableForeground(customAccent) };
+    }
+    return base;
+  }, [accentColorId, colorMode, systemScheme, customAccent]);
 
   useEffect(() => {
     void SystemUI.setBackgroundColorAsync(colors.background);
@@ -109,7 +123,17 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
   const setAccentColor = useCallback((accentId: AccentColorId) => {
     setAccentColorIdState(accentId);
+    // Choosing a preset clears any custom accent.
+    setCustomAccentState(null);
     void AsyncStorage.setItem(STORAGE_KEYS.accent, accentId);
+    void AsyncStorage.removeItem(CUSTOM_ACCENT_KEY);
+  }, []);
+
+  const setCustomAccent = useCallback((hex: string | null) => {
+    const normalized = hex ? normalizeHex(hex) : null;
+    setCustomAccentState(normalized);
+    if (normalized) void AsyncStorage.setItem(CUSTOM_ACCENT_KEY, normalized);
+    else void AsyncStorage.removeItem(CUSTOM_ACCENT_KEY);
   }, []);
 
   const value = useMemo(
@@ -118,11 +142,23 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
       colorMode,
       scheme,
       accentColorId,
+      customAccent,
       isReady,
       setColorMode,
       setAccentColor,
+      setCustomAccent,
     }),
-    [accentColorId, colorMode, colors, isReady, scheme, setAccentColor, setColorMode],
+    [
+      accentColorId,
+      customAccent,
+      colorMode,
+      colors,
+      isReady,
+      scheme,
+      setAccentColor,
+      setColorMode,
+      setCustomAccent,
+    ],
   );
 
   if (!isReady) {

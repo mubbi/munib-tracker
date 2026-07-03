@@ -7,6 +7,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useAuth } from "@/providers/auth-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
 const LOCALE_LABELS: Record<string, string> = { en: "English", ar: "العربية", ur: "اردو" };
@@ -14,10 +15,26 @@ const LOCALE_LABELS: Record<string, string> = { en: "English", ar: "العربي
 export default function SettingsScreen() {
   const router = useRouter();
   const prefs = usePreferences();
+  const { isGuest, user } = useAuth();
 
   return (
     <ScreenLayout eyebrow="Personalize" title="Settings" subtitle="Appearance & preferences">
       <Stagger>
+        <Card padding="three">
+          <View style={styles.group}>
+            <SettingsRow
+              icon={{
+                ios: "person.crop.circle.fill",
+                android: "account_circle",
+                web: "account_circle",
+              }}
+              title="Account"
+              subtitle={isGuest ? "Guest — sign in to sync" : (user?.email ?? "Signed in")}
+              onPress={() => router.push("/profile")}
+            />
+          </View>
+        </Card>
+
         <Card padding="three">
           <View style={styles.group}>
             <SettingsRow
@@ -58,6 +75,18 @@ export default function SettingsScreen() {
 
         <Card padding="three">
           <View style={styles.group}>
+            <SettingsRow
+              icon={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
+              title="Achievements"
+              subtitle="Milestones and badges"
+              onPress={() => router.push("/achievements")}
+            />
+            <SettingsRow
+              icon={{ ios: "safari.fill", android: "explore", web: "explore" }}
+              title="Qibla"
+              subtitle="Find the direction of prayer"
+              onPress={() => router.push("/qibla")}
+            />
             <SettingsRow
               icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
               title="About"

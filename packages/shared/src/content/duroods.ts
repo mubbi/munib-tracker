@@ -1,0 +1,50 @@
+import type { DurudItem } from "../types/index";
+
+export const DUROOD_CONTENT_VERSION = 1;
+
+export const DUROOD_ITEMS: DurudItem[] = [
+  {
+    id: "durood-ibrahim",
+    title: "Durood Ibrahim",
+    arabic: "اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+    transliteration:
+      "Allahumma salli 'ala Muhammadin wa 'ala aali Muhammad, kama sallayta 'ala Ibrahim wa 'ala aali Ibrahim, innaka Hamidun Majid",
+    translation:
+      "O Allah, send blessings upon Muhammad and the family of Muhammad, as You sent blessings upon Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious.",
+    virtues:
+      "Recited in every prayer; the most complete form of sending blessings on the Prophet ﷺ.",
+    reference: "Bukhari & Muslim",
+  },
+  {
+    id: "durood-short",
+    title: "Short Salawat",
+    arabic: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَىٰ نَبِيِّنَا مُحَمَّدٍ",
+    transliteration: "Allahumma salli wa sallim 'ala Nabiyyina Muhammad",
+    translation: "O Allah, send blessings and peace upon our Prophet Muhammad.",
+    virtues: "Whoever sends blessings once, Allah sends ten upon him.",
+    reference: "Muslim",
+  },
+  {
+    id: "durood-salli-ala",
+    title: "Salli 'ala Muhammad",
+    arabic: "صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ",
+    transliteration: "Sallallahu 'alayhi wa sallam",
+    translation: "May Allah send blessings and peace upon him.",
+    virtues: "Said upon hearing the name of the Prophet ﷺ.",
+    reference: "Tirmidhi",
+  },
+  {
+    id: "durood-afdal",
+    title: "Blessings and peace",
+    arabic: "اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ عَبْدِكَ وَرَسُولِكَ وَصَلِّ عَلَى الْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ",
+    transliteration:
+      "Allahumma salli 'ala Muhammadin 'abdika wa rasulika, wa salli 'alal-mu'minina wal-mu'minat",
+    translation:
+      "O Allah, send blessings upon Muhammad, Your servant and messenger, and upon the believing men and women.",
+    reference: "Bukhari",
+  },
+];
+
+export function getDurudById(id: string): DurudItem | undefined {
+  return DUROOD_ITEMS.find((item) => item.id === id);
+}

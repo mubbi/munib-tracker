@@ -1,6 +1,7 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -21,20 +22,21 @@ const LOCALES: { id: AppLocale; label: string; native: string }[] = [
 
 export default function LanguageScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
 
   return (
     <ScreenLayout
-      eyebrow="Settings"
-      title="Language"
+      eyebrow={t("settings.title")}
+      title={t("language.title")}
       subtitle="App and translation language"
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
         <Card padding="three">
           <SectionHeader
-            title="App language"
+            title={t("language.appLanguage")}
             icon={{ ios: "globe", android: "language", web: "language" }}
           />
           <Choices value={prefs.locale} onChange={(id) => update({ locale: id })} />
@@ -42,11 +44,11 @@ export default function LanguageScreen() {
 
         <Card padding="three">
           <SectionHeader
-            title="Translation language"
+            title={t("language.translationLanguage")}
             icon={{ ios: "character.book.closed.fill", android: "menu_book", web: "menu_book" }}
           />
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            Used for the meaning of Arabic religious text.
+            {t("language.translationHint")}
           </ThemedText>
           <Choices
             value={prefs.translationLocale}
@@ -55,8 +57,7 @@ export default function LanguageScreen() {
         </Card>
 
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
-          More of the interface is being translated over time. Arabic selection enables
-          right-to-left layout where supported.
+          {t("language.footer")}
         </ThemedText>
       </Stagger>
     </ScreenLayout>

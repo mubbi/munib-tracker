@@ -37,4 +37,12 @@ export interface UserPreferences {
   favoriteZikrIds: string[];
   favoriteZikrOrder: string[];
   hasCompletedOnboarding: boolean;
+  /** Local display name (falls back to the provider's name when signed in). */
+  displayName?: string;
+  /** Local avatar image URI chosen from the gallery. */
+  avatarUri?: string;
+  /** Custom accent hex when the user picks their own colour (P7.6). */
+  customAccent?: string;
+  /** Preferred audio playback speed for the global player. */
+  audioSpeed?: number;
 }

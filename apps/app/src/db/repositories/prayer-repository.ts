@@ -52,6 +52,11 @@ export const PrayerRepository = {
     return collection.upsert(prayerLogKey(prayerId, date), log);
   },
 
+  /** Writes a log verbatim (used when applying a record pulled from the server). */
+  async upsertLog(log: PrayerLog): Promise<PrayerLog> {
+    return collection.upsert(prayerLogKey(log.prayerId, log.date), log);
+  },
+
   async remove(prayerId: PrayerId, date: string): Promise<void> {
     await collection.remove(prayerLogKey(prayerId, date));
   },

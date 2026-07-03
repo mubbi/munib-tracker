@@ -1,0 +1,35 @@
+{
+  "common": {
+    "cancel": "منسوخ کریں",
+    "save": "محفوظ کریں",
+    "done": "مکمل",
+    "continueAsGuest": "بطور مہمان جاری رکھیں",
+    "signIn": "سائن ان",
+    "back": "واپس"
+  },
+  "tabs": {
+    "home": "ہوم",
+    "tracker": "ٹریکر",
+    "settings": "ترتیبات"
+  },
+  "settings": {
+    "title": "ترتیبات",
+    "subtitle": "ظاہری شکل اور ترجیحات",
+    "account": "اکاؤنٹ",
+    "appearance": "ظاہری شکل",
+    "notifications": "اطلاعات",
+    "bedtime": "سونے کا وقت",
+    "fonts": "فونٹس",
+    "language": "زبان",
+    "about": "متعلق",
+    "achievements": "کامیابیاں",
+    "qibla": "قبلہ"
+  },
+  "language": {
+    "title": "زبان",
+    "appLanguage": "ایپ کی زبان",
+    "translationLanguage": "ترجمے کی زبان",
+    "translationHint": "عربی دینی متن کے معنی کے لیے استعمال ہوتا ہے۔",
+    "footer": "انٹرفیس کا مزید حصہ بتدریج ترجمہ کیا جا رہا ہے۔ عربی کے انتخاب سے دائیں سے بائیں ترتیب فعال ہو جاتی ہے جہاں معاون ہو۔"
+  }
+}

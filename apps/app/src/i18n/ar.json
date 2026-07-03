@@ -1,0 +1,35 @@
+{
+  "common": {
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "done": "تم",
+    "continueAsGuest": "المتابعة كضيف",
+    "signIn": "تسجيل الدخول",
+    "back": "رجوع"
+  },
+  "tabs": {
+    "home": "الرئيسية",
+    "tracker": "المتابعة",
+    "settings": "الإعدادات"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "subtitle": "المظهر والتفضيلات",
+    "account": "الحساب",
+    "appearance": "المظهر",
+    "notifications": "الإشعارات",
+    "bedtime": "وقت النوم",
+    "fonts": "الخطوط",
+    "language": "اللغة",
+    "about": "حول",
+    "achievements": "الإنجازات",
+    "qibla": "القبلة"
+  },
+  "language": {
+    "title": "اللغة",
+    "appLanguage": "لغة التطبيق",
+    "translationLanguage": "لغة الترجمة",
+    "translationHint": "تُستخدم لمعنى النص الديني العربي.",
+    "footer": "تتم ترجمة المزيد من الواجهة تدريجياً. اختيار العربية يفعّل التخطيط من اليمين إلى اليسار حيثما كان مدعوماً."
+  }
+}

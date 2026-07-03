@@ -14,8 +14,17 @@ export type StatusToken = {
  * status colors, hero surface) so screens never hardcode raw colors.
  */
 export function useThemeTokens() {
-  const { colors, scheme, accentColorId, colorMode, isReady, setColorMode, setAccentColor } =
-    useTheme();
+  const {
+    colors,
+    scheme,
+    accentColorId,
+    customAccent,
+    colorMode,
+    isReady,
+    setColorMode,
+    setAccentColor,
+    setCustomAccent,
+  } = useTheme();
 
   const tokens = useMemo(() => {
     const isDark = scheme === "dark";
@@ -54,9 +63,11 @@ export function useThemeTokens() {
     tokens,
     scheme,
     accentColorId,
+    customAccent,
     colorMode,
     isReady,
     setColorMode,
     setAccentColor,
+    setCustomAccent,
   };
 }

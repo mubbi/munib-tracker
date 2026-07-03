@@ -1,4 +1,6 @@
+import { DB_KEYS } from "./keys";
 import { runMigrations } from "./migrations";
+import { removeKey } from "./store";
 
 export { createId } from "./id";
 export { DB_KEYS } from "./keys";
@@ -15,4 +17,19 @@ export function initDatabase(): Promise<void> {
     initPromise = runMigrations();
   }
   return initPromise;
+}
+
+/** Wipes all locally stored tracking data (used when deleting an account). */
+export async function resetDatabase(): Promise<void> {
+  await Promise.all(
+    [
+      DB_KEYS.prayerLogs,
+      DB_KEYS.zikrProgress,
+      DB_KEYS.qazaCounters,
+      DB_KEYS.qazaDailyPlans,
+      DB_KEYS.qazaRoza,
+      DB_KEYS.userPreferences,
+      DB_KEYS.syncMetadata,
+    ].map((key) => removeKey(key)),
+  );
 }

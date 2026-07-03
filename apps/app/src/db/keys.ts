@@ -10,6 +10,7 @@ export const DB_KEYS = {
   qazaRoza: `${PREFIX}/qaza_roza`,
   userPreferences: `${PREFIX}/user_preferences`,
   syncMetadata: `${PREFIX}/sync_metadata`,
+  achievements: `${PREFIX}/achievements`,
 } as const;
 
 /** Composite key for one prayer on one day. */

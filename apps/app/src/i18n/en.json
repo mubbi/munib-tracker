@@ -1,0 +1,35 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "done": "Done",
+    "continueAsGuest": "Continue as guest",
+    "signIn": "Sign in",
+    "back": "Back"
+  },
+  "tabs": {
+    "home": "Home",
+    "tracker": "Tracker",
+    "settings": "Settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Appearance & preferences",
+    "account": "Account",
+    "appearance": "Appearance",
+    "notifications": "Notifications",
+    "bedtime": "Bedtime",
+    "fonts": "Fonts",
+    "language": "Language",
+    "about": "About",
+    "achievements": "Achievements",
+    "qibla": "Qibla"
+  },
+  "language": {
+    "title": "Language",
+    "appLanguage": "App language",
+    "translationLanguage": "Translation language",
+    "translationHint": "Used for the meaning of Arabic religious text.",
+    "footer": "More of the interface is being translated over time. Arabic selection enables right-to-left layout where supported."
+  }
+}

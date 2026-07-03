@@ -8,7 +8,8 @@
     "./constants": "./src/constants/index.ts",
     "./validators": "./src/validators/index.ts",
     "./utils": "./src/utils/index.ts",
-    "./content": "./src/content/index.ts"
+    "./content": "./src/content/index.ts",
+    "./achievements": "./src/achievements/index.ts"
   },
   "scripts": {
     "lint": "biome check .",
