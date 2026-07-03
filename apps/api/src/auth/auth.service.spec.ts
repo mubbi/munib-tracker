@@ -1,48 +1,13 @@
-import { ConfigModule } from "@nestjs/config";
-import { JwtModule } from "@nestjs/jwt";
-import { Test, type TestingModule } from "@nestjs/testing";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { beforeEach, describe, expect, it } from "vitest";
-import { validateEnvironment } from "../config/env.validation";
-import { AuthSessionEntity, UserEntity } from "../database/entities";
-import { createInMemorySqliteOptions } from "../database/in-memory-sqlite.options";
+import { createAuthTestingModule } from "../../test/support/testing-module";
 import { AuthService } from "./auth.service";
 import { AuthProvider } from "./dto/auth.dto";
-import { type OAuthProfile, OAuthProviderService } from "./oauth-provider.service";
-import { TokenService } from "./token.service";
-
-/** Deterministic stand-in for the network-backed provider exchange. */
-class StubOAuthProviderService {
-  async exchange(provider: AuthProvider): Promise<OAuthProfile> {
-    return {
-      providerAccountId: `${provider}-account`,
-      email: `${provider}-user@example.com`,
-      displayName: `${provider} user`,
-    };
-  }
-}
 
 describe("AuthService", () => {
   let service: AuthService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        ConfigModule.forRoot({
-          isGlobal: true,
-          validate: validateEnvironment,
-        }),
-        JwtModule.register({ secret: "test-secret" }),
-        TypeOrmModule.forRoot(createInMemorySqliteOptions([UserEntity, AuthSessionEntity])),
-        TypeOrmModule.forFeature([UserEntity, AuthSessionEntity]),
-      ],
-      providers: [
-        AuthService,
-        TokenService,
-        { provide: OAuthProviderService, useClass: StubOAuthProviderService },
-      ],
-    }).compile();
-
+    const module = await createAuthTestingModule();
     service = module.get(AuthService);
   });
 

@@ -4,7 +4,7 @@ import { DUROOD_ITEMS } from "./duroods";
 import { NAMES_OF_ALLAH } from "./names";
 import { ZIKR_ITEMS } from "./zikr";
 
-describe("content", () => {
+describe.concurrent("content", () => {
   it("has globally unique ids across every content set", () => {
     const ids = [
       ...ZIKR_ITEMS.map((i) => i.id),

@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 process.env.RNTL_SKIP_DEPS_CHECK = "1";
 
 // Reanimated 4's bundled mock pulls in the native worklets runtime, which isn't
@@ -65,6 +67,18 @@ jest.mock("expo-system-ui", () => ({
 
 jest.mock("expo-localization", () => ({
   getLocales: () => [{ languageCode: "en" }],
+}));
+
+// Navigation and safe-area are ambient concerns for every screen under test:
+// stub the router with no-op navigation and collapse insets to zero so component
+// tests render without a real navigator or device frame.
+jest.mock("expo-router", () => ({
+  useRouter: () => ({ push: jest.fn(), back: jest.fn(), canGoBack: () => false }),
+}));
+
+jest.mock("react-native-safe-area-context", () => ({
+  SafeAreaProvider: ({ children }: { children: ReactNode }) => children,
+  useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
 }));
 
 // Initialise i18n (English) so `t()` returns real strings in component tests.

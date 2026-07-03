@@ -7,7 +7,7 @@ import {
   isZikrCategoryId,
 } from "./index";
 
-describe("validators", () => {
+describe.concurrent("validators", () => {
   it("recognises obligatory prayers", () => {
     expect(isObligatoryPrayer("fajr")).toBe(true);
     expect(isObligatoryPrayer("witr")).toBe(true);

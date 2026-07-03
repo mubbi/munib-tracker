@@ -8,17 +8,7 @@ import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { AppModule } from "../src/app.module";
 import { OAuthProviderService } from "../src/auth/oauth-provider.service";
-
-/** Deterministic OAuth exchange so e2e never touches the network. */
-class StubOAuthProviderService {
-  async exchange(provider: string) {
-    return {
-      providerAccountId: `${provider}-account`,
-      email: `${provider}-user@example.com`,
-      displayName: `${provider} user`,
-    };
-  }
-}
+import { StubOAuthProviderService } from "./support/oauth-stub";
 
 describe("API (e2e)", () => {
   let app: INestApplication;

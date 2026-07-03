@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { ZIKR_CATEGORY_IDS } from "../constants/index";
 import { getZikrById, ZIKR_CONTENT_VERSION, ZIKR_ITEMS } from "./zikr";
 
-describe("zikr content", () => {
+describe.concurrent("zikr content", () => {
   it("has a content version", () => {
     expect(ZIKR_CONTENT_VERSION).toBeGreaterThanOrEqual(1);
   });

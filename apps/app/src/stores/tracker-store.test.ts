@@ -1,17 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { QazaRepository } from "@/db";
+import { loadTrackerStore, resetTrackerStore } from "@/test-support/store";
 
 import { trackerStore } from "./tracker-store";
 
-async function reload() {
-  await trackerStore.getState().load();
-}
-
-beforeEach(async () => {
-  await AsyncStorage.clear();
-  await reload();
-});
+beforeEach(resetTrackerStore);
 
 describe("trackerStore", () => {
   it("becomes ready after load", () => {
@@ -55,7 +47,7 @@ describe("trackerStore", () => {
 
   it("persists prayer status across a reload (offline, no network)", async () => {
     await trackerStore.getState().setPrayerStatus("maghrib", "completed");
-    await reload();
+    await loadTrackerStore();
     expect(trackerStore.getState().prayerStatus.maghrib).toBe("completed");
   });
 });

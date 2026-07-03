@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { addDays, diffInDays, getLocalDateString, parseLocalDateString } from "./date";
 
-describe("date utils", () => {
+describe.concurrent("date utils", () => {
   it("formats a local date as YYYY-MM-DD", () => {
     const date = new Date(2026, 6, 3); // 3 Jul 2026, local
     expect(getLocalDateString(date)).toBe("2026-07-03");

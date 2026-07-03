@@ -1,23 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { PrayerLog } from "../types/index";
+import { makePrayerLog as log } from "../test-support/factories";
 import { buildDailySummary, computeStreak } from "./streak";
 
-function log(
-  date: string,
-  prayerId: PrayerLog["prayerId"],
-  status: PrayerLog["status"],
-): PrayerLog {
-  return {
-    id: `${date}-${prayerId}`,
-    prayerId,
-    date,
-    status,
-    updatedAt: `${date}T00:00:00.000Z`,
-    source: "manual",
-  };
-}
-
-describe("computeStreak", () => {
+describe.concurrent("computeStreak", () => {
   it("returns 0 with no qualifying activity", () => {
     expect(computeStreak([], true, "2026-07-03")).toBe(0);
     expect(computeStreak([log("2026-07-03", "fajr", "missed")], true, "2026-07-03")).toBe(0);
@@ -58,7 +43,7 @@ describe("computeStreak", () => {
   });
 });
 
-describe("buildDailySummary", () => {
+describe.concurrent("buildDailySummary", () => {
   it("aggregates prayers, zikr, and qaza for a date", () => {
     const summary = buildDailySummary({
       date: "2026-07-03",

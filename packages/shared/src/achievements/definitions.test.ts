@@ -9,7 +9,7 @@ const base: AchievementStats = {
   bestDay: 0,
 };
 
-describe("evaluateAchievements", () => {
+describe.concurrent("evaluateAchievements", () => {
   it("unlocks based on thresholds and reports progress", () => {
     const result = evaluateAchievements({ ...base, prayersCompleted: 1, streak: 3 });
     const firstPrayer = result.find((a) => a.id === "first-prayer");
@@ -25,7 +25,7 @@ describe("evaluateAchievements", () => {
   });
 });
 
-describe("newlyUnlocked", () => {
+describe.concurrent("newlyUnlocked", () => {
   it("only returns achievements not already known", () => {
     const stats: AchievementStats = { ...base, prayersCompleted: 100, streak: 7 };
     const fresh = newlyUnlocked(stats, ["first-prayer"]);

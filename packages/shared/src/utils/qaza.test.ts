@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { computeLifetimeMissedPrayers, computeMissedFasts, computeQazaEta } from "./qaza";
 
-describe("computeLifetimeMissedPrayers", () => {
+describe.concurrent("computeLifetimeMissedPrayers", () => {
   it("multiplies missed years by the lunar year length", () => {
     const result = computeLifetimeMissedPrayers({
       currentAge: 30,
@@ -45,7 +45,7 @@ describe("computeLifetimeMissedPrayers", () => {
   });
 });
 
-describe("computeQazaEta", () => {
+describe.concurrent("computeQazaEta", () => {
   it("computes days and completion date", () => {
     const eta = computeQazaEta(100, 10, "2026-07-03");
     expect(eta?.days).toBe(10);
@@ -58,7 +58,7 @@ describe("computeQazaEta", () => {
   });
 });
 
-describe("computeMissedFasts", () => {
+describe.concurrent("computeMissedFasts", () => {
   it("estimates from whole years", () => {
     expect(computeMissedFasts(3)).toBe(90);
     expect(computeMissedFasts(2, 29)).toBe(58);

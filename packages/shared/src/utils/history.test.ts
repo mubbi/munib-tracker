@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { PrayerLog } from "../types/index";
+import { makePrayerLog as log } from "../test-support/factories";
 import {
   aggregateByDate,
   buildDayActivity,
@@ -7,22 +7,7 @@ import {
   sumPrayerTotals,
 } from "./history";
 
-function log(
-  date: string,
-  prayerId: PrayerLog["prayerId"],
-  status: PrayerLog["status"],
-): PrayerLog {
-  return {
-    id: `${date}-${prayerId}`,
-    prayerId,
-    date,
-    status,
-    updatedAt: `${date}T00:00:00Z`,
-    source: "manual",
-  };
-}
-
-describe("buildDayActivity", () => {
+describe.concurrent("buildDayActivity", () => {
   it("counts obligatory statuses for a date", () => {
     const logs = [
       log("2026-07-03", "fajr", "completed"),
@@ -41,7 +26,7 @@ describe("buildDayActivity", () => {
   });
 });
 
-describe("sumPrayerTotals", () => {
+describe.concurrent("sumPrayerTotals", () => {
   it("sums within an inclusive range", () => {
     const logs = [
       log("2026-07-01", "fajr", "completed"),
@@ -54,7 +39,7 @@ describe("sumPrayerTotals", () => {
   });
 });
 
-describe("aggregateByDate", () => {
+describe.concurrent("aggregateByDate", () => {
   it("produces one activity record per date with activity", () => {
     const logs = [
       log("2026-07-01", "fajr", "completed"),
@@ -69,7 +54,7 @@ describe("aggregateByDate", () => {
   });
 });
 
-describe("dailyCompletionSeries", () => {
+describe.concurrent("dailyCompletionSeries", () => {
   it("returns one bucket per day, oldest first", () => {
     const logs = [log("2026-07-03", "fajr", "completed")];
     const series = dailyCompletionSeries(logs, 3, "2026-07-03");

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { resolveTheme } from "./resolve-theme";
 
-describe("resolveTheme", () => {
+describe.concurrent("resolveTheme", () => {
   it("returns light theme colors", () => {
     const colors = resolveTheme("light", "light", "gold");
     expect(colors.background).toBe("#F5F0E6");
