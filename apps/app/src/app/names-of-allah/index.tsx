@@ -1,5 +1,6 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,13 +12,14 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 export default function NamesOfAllahScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
 
   return (
     <ScreenLayout
-      eyebrow="Asma-ul-Husna"
-      title="99 Names"
-      subtitle={`${NAMES_OF_ALLAH.length} of the beautiful names of Allah`}
+      eyebrow={t("names.eyebrow")}
+      title={t("names.title")}
+      subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>

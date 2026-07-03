@@ -1,6 +1,7 @@
 import { computeMissedFasts } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -17,6 +18,7 @@ import { useRoza, useTrackerActions } from "@/stores/tracker-store";
 
 export default function QazaRozaScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const roza = useRoza();
   const { setRoza, performRoza } = useTrackerActions();
@@ -26,9 +28,9 @@ export default function QazaRozaScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Qaza"
-      title="Fasting (Roza)"
-      subtitle="Track and make up missed fasts"
+      eyebrow={t("qazaRoza.eyebrow")}
+      title={t("qazaRoza.title")}
+      subtitle={t("qazaRoza.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -38,12 +40,12 @@ export default function QazaRozaScreen() {
               divider
               primary={{
                 value: roza.remaining,
-                label: "remaining",
+                label: t("stats.remaining"),
                 color: tokens.status.info.color,
               }}
               secondary={{
                 value: roza.completed,
-                label: "completed",
+                label: t("stats.completed"),
                 color: tokens.status.success.color,
               }}
             />
@@ -52,13 +54,13 @@ export default function QazaRozaScreen() {
           <View style={styles.controls}>
             <Stepper
               value={roza.remaining}
-              label="fasts remaining"
+              label={t("qazaRoza.fastsRemaining")}
               onDecrement={() => setRoza({ ...roza, remaining: Math.max(0, roza.remaining - 1) })}
               onIncrement={() => setRoza({ ...roza, remaining: roza.remaining + 1 })}
               size="md"
             />
             <Button
-              label="Fasted a qaza"
+              label={t("qazaRoza.fastedQaza")}
               variant="secondary"
               icon={{ ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }}
               disabled={roza.remaining === 0}
@@ -69,18 +71,18 @@ export default function QazaRozaScreen() {
 
         <Card padding="three">
           <SectionHeader
-            title="Estimate missed fasts"
+            title={t("qazaRoza.estimateTitle")}
             icon={{ ios: "function", android: "calculate", web: "calculate" }}
           />
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
-            Roughly how many years of Ramadan fasts were missed?
+            {t("qazaRoza.estimateHint")}
           </ThemedText>
           <View style={styles.calcRow}>
             <TextInput
               value={years}
               onChangeText={(text) => setYears(text.replace(/[^0-9]/g, "").slice(0, 2))}
               keyboardType="number-pad"
-              placeholder="years"
+              placeholder={t("qazaRoza.yearsPlaceholder")}
               placeholderTextColor={colors.mutedForeground}
               style={[
                 styles.input,
@@ -92,11 +94,11 @@ export default function QazaRozaScreen() {
               ]}
             />
             <ThemedText type="small" themeColor="mutedForeground" style={styles.estimate}>
-              ≈ {estimate} fasts
+              {t("qazaRoza.estimateResult", { count: estimate })}
             </ThemedText>
           </View>
           <Button
-            label="Add to remaining"
+            label={t("qazaRoza.addToRemaining")}
             fullWidth
             disabled={estimate === 0}
             onPress={() => {

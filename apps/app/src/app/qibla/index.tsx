@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { Magnetometer } from "expo-sensors";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -28,6 +29,7 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
 
 export default function QiblaScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [bearing, setBearing] = useState<number | null>(null);
   const [heading, setHeading] = useState(0);
@@ -40,7 +42,7 @@ export default function QiblaScreen() {
     void (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        if (mounted) setError("Location permission is needed to find the qibla.");
+        if (mounted) setError("qibla.locationDenied");
         return;
       }
       try {
@@ -50,7 +52,7 @@ export default function QiblaScreen() {
         setBearing(Qibla(new Coordinates(latitude, longitude)));
         setDistance(haversineKm(latitude, longitude, KAABA.lat, KAABA.lng));
       } catch {
-        if (mounted) setError("Couldn't determine your location. Try again outdoors.");
+        if (mounted) setError("qibla.locationError");
       }
     })();
     return () => {
@@ -78,9 +80,9 @@ export default function QiblaScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Direction"
-      title="Qibla"
-      subtitle="Face the Kaaba in Makkah"
+      eyebrow={t("qibla.eyebrow")}
+      title={t("settings.qibla")}
+      subtitle={t("qibla.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -111,12 +113,12 @@ export default function QiblaScreen() {
             <ThemedText type="header">{Math.round(bearing)}°</ThemedText>
           ) : (
             <ThemedText type="small" themeColor="mutedForeground">
-              {error ?? "Locating…"}
+              {error ? t(error) : t("qibla.locating")}
             </ThemedText>
           )}
           {distance != null ? (
             <ThemedText type="caption" themeColor="mutedForeground">
-              {distance.toLocaleString()} km to the Kaaba
+              {t("qibla.distanceKm", { km: distance.toLocaleString() })}
             </ThemedText>
           ) : null}
         </Card>
@@ -124,22 +126,19 @@ export default function QiblaScreen() {
         {!hasCompass && bearing != null ? (
           <Card variant="muted" padding="three">
             <ThemedText type="small" themeColor="mutedForeground">
-              {Platform.OS === "web"
-                ? "Compass sensors aren't available in the browser. The arrow shows the qibla bearing from north — use a physical compass to align."
-                : "No compass sensor detected. The arrow points to the qibla bearing measured clockwise from true north."}
+              {Platform.OS === "web" ? t("qibla.webHint") : t("qibla.noCompassHint")}
             </ThemedText>
           </Card>
         ) : (
           <Card variant="muted" padding="three">
             <ThemedText type="small" themeColor="mutedForeground">
-              For accuracy, hold your device flat and move it in a figure-eight to calibrate the
-              compass, away from metal and magnets.
+              {t("qibla.calibrateHint")}
             </ThemedText>
           </Card>
         )}
 
         {error && bearing == null ? (
-          <Button label="Try again" onPress={() => router.replace("/qibla")} />
+          <Button label={t("qibla.tryAgain")} onPress={() => router.replace("/qibla")} />
         ) : null}
       </Stagger>
     </ScreenLayout>

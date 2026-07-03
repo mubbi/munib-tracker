@@ -1,6 +1,6 @@
-import { PRAYER_LABELS } from "@munib-tracker/shared/constants";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -19,6 +19,7 @@ import { useQazaCounters, useQazaSummary, useTrackerActions } from "@/stores/tra
 
 export default function QazaHomeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const counters = useQazaCounters();
   const summary = useQazaSummary();
@@ -26,9 +27,9 @@ export default function QazaHomeScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Make-up worship"
-      title="Qaza"
-      subtitle="Track and clear missed prayers"
+      eyebrow={t("qaza.eyebrow")}
+      title={t("qaza.title")}
+      subtitle={t("qaza.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -37,12 +38,12 @@ export default function QazaHomeScreen() {
             divider
             primary={{
               value: summary.remaining,
-              label: "remaining",
+              label: t("stats.remaining"),
               color: tokens.status.info.color,
             }}
             secondary={{
               value: summary.completed,
-              label: "made up",
+              label: t("stats.madeUp"),
               color: tokens.status.success.color,
             }}
           />
@@ -50,21 +51,21 @@ export default function QazaHomeScreen() {
 
         <View style={styles.tools}>
           <Button
-            label="Calculator"
+            label={t("qaza.calculator")}
             variant="secondary"
             icon={{ ios: "function", android: "calculate", web: "calculate" }}
             onPress={() => router.push("/qaza/calculator")}
             style={styles.tool}
           />
           <Button
-            label="Planner"
+            label={t("qaza.planner")}
             variant="secondary"
             icon={{ ios: "calendar.badge.clock", android: "event", web: "event" }}
             onPress={() => router.push("/qaza/planner")}
             style={styles.tool}
           />
           <Button
-            label="Roza"
+            label={t("qaza.roza")}
             variant="secondary"
             icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
             onPress={() => router.push("/qaza/roza")}
@@ -74,7 +75,7 @@ export default function QazaHomeScreen() {
 
         <Card padding="three">
           <SectionHeader
-            title="Per prayer"
+            title={t("qaza.perPrayer")}
             icon={{ ios: "list.bullet", android: "list", web: "list" }}
           />
           <View style={styles.rows}>
@@ -82,15 +83,18 @@ export default function QazaHomeScreen() {
               <View key={counter.prayerId} style={[styles.row, { backgroundColor: colors.muted }]}>
                 <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
                 <View style={styles.rowBody}>
-                  <ThemedText type="small">{PRAYER_LABELS[counter.prayerId]}</ThemedText>
+                  <ThemedText type="small">{t(`prayers.${counter.prayerId}`)}</ThemedText>
                   <ThemedText type="caption" themeColor="mutedForeground">
-                    {counter.remaining} left · {counter.completed} done
+                    {t("qaza.rowMeta", {
+                      remaining: counter.remaining,
+                      completed: counter.completed,
+                    })}
                   </ThemedText>
                 </View>
 
                 <Stepper
                   value={counter.remaining}
-                  label={PRAYER_LABELS[counter.prayerId]}
+                  label={t(`prayers.${counter.prayerId}`)}
                   onDecrement={() =>
                     adjustQaza(counter.prayerId, counter.remaining - 1, counter.completed)
                   }
@@ -101,7 +105,9 @@ export default function QazaHomeScreen() {
 
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel={`Mark ${PRAYER_LABELS[counter.prayerId]} qaza performed`}
+                  accessibilityLabel={t("qaza.markPerformed", {
+                    prayer: t(`prayers.${counter.prayerId}`),
+                  })}
                   disabled={counter.remaining === 0}
                   hitSlop={6}
                   onPress={() => performQaza(counter.prayerId)}
@@ -121,8 +127,7 @@ export default function QazaHomeScreen() {
             ))}
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            Tap the check to record a made-up prayer. Missing a prayer in the tracker adds to these
-            counts automatically.
+            {t("qaza.hint")}
           </ThemedText>
         </Card>
       </Stagger>

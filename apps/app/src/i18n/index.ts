@@ -24,6 +24,7 @@ if (!i18n.isInitialized) {
     fallbackLng: "en",
     interpolation: { escapeValue: false },
     returnNull: false,
+    react: { useSuspense: false },
   });
 }
 

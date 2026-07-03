@@ -2,6 +2,7 @@ import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tr
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -16,6 +17,7 @@ import { buildMonthGrid, monthLabel, WEEKDAYS } from "@/lib/calendar";
 
 export default function CalendarScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const now = new Date();
   const [year, setYear] = useState(now.getFullYear());
@@ -45,9 +47,9 @@ export default function CalendarScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="History"
-      title="Calendar"
-      subtitle="Your worship, day by day"
+      eyebrow={t("calendar.eyebrow")}
+      title={t("calendar.title")}
+      subtitle={t("calendar.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -55,13 +57,13 @@ export default function CalendarScreen() {
           <View style={styles.header}>
             <NavButton
               icon={{ ios: "chevron.left", android: "chevron_left", web: "chevron_left" }}
-              label="Previous month"
+              label={t("calendar.prevMonth")}
               onPress={() => shift(-1)}
             />
             <ThemedText type="subtitle">{monthLabel(year, month)}</ThemedText>
             <NavButton
               icon={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-              label="Next month"
+              label={t("calendar.nextMonth")}
               onPress={() => shift(1)}
             />
           </View>
@@ -130,12 +132,18 @@ export default function CalendarScreen() {
 
         <Card variant="muted" padding="three">
           <View style={styles.legend}>
-            <LegendSwatch color={withAlpha(tokens.status.success.color, 0.75)} label="Prayed" />
-            <LegendSwatch color={withAlpha(tokens.status.success.color, 0.3)} label="Partial" />
-            <LegendDot color={tokens.status.danger.color} label="Missed" />
+            <LegendSwatch
+              color={withAlpha(tokens.status.success.color, 0.75)}
+              label={t("calendar.prayed")}
+            />
+            <LegendSwatch
+              color={withAlpha(tokens.status.success.color, 0.3)}
+              label={t("calendar.partial")}
+            />
+            <LegendDot color={tokens.status.danger.color} label={t("calendar.missed")} />
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
-            Tap any past or current day to review and adjust it. Today is {today}.
+            {t("calendar.legendHint", { date: today })}
           </ThemedText>
         </Card>
       </Stagger>

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,18 +12,20 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 const ARABIC_SIZES = [
-  { id: "s", label: "Small", size: 22 },
-  { id: "m", label: "Medium", size: 28 },
-  { id: "l", label: "Large", size: 36 },
+  { id: "s", size: 22 },
+  { id: "m", size: 28 },
+  { id: "l", size: 36 },
 ] as const;
 
 const TEXT_SIZES = [
-  { id: "s", label: "Small", size: 14 },
-  { id: "m", label: "Medium", size: 16 },
-  { id: "l", label: "Large", size: 18 },
+  { id: "s", size: 14 },
+  { id: "m", size: 16 },
+  { id: "l", size: 18 },
 ] as const;
 
 type SizeId = "s" | "m" | "l";
+
+const SIZE_LABEL_KEY: Record<SizeId, string> = { s: "small", m: "medium", l: "large" };
 
 function idForSize(
   sizes: readonly { id: SizeId; size: number }[],
@@ -34,9 +37,11 @@ function idForSize(
 
 export default function FontsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { tokens } = useThemeTokens();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
+  const sizeLabel = (id: SizeId) => t(`fonts.${SIZE_LABEL_KEY[id]}`);
 
   const arabicSize = prefs.fontPrefs.arabic.size ?? 28;
   const translationSize = prefs.fontPrefs.translation.size ?? 16;
@@ -54,15 +59,15 @@ export default function FontsScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Settings"
-      title="Fonts"
-      subtitle="Size the text you read most"
+      eyebrow={t("fonts.eyebrow")}
+      title={t("settings.fonts")}
+      subtitle={t("fonts.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
         <Card variant="muted" style={styles.preview}>
           <ThemedText type="label" themeColor="mutedForeground">
-            Preview
+            {t("fonts.preview")}
           </ThemedText>
           <ThemedText
             type="arabic"
@@ -71,16 +76,16 @@ export default function FontsScreen() {
             سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
           </ThemedText>
           <ThemedText style={{ fontSize: translationSize, lineHeight: translationSize * 1.5 }}>
-            Glory is to Allah and praise is to Him.
+            {t("fonts.sampleTranslation")}
           </ThemedText>
         </Card>
 
         <Card padding="three">
           <ThemedText type="smallBold" style={styles.label}>
-            Arabic text
+            {t("fonts.arabicText")}
           </ThemedText>
           <SegmentedControl<SizeId>
-            options={ARABIC_SIZES.map((s) => ({ id: s.id, label: s.label }))}
+            options={ARABIC_SIZES.map((s) => ({ id: s.id, label: sizeLabel(s.id) }))}
             value={idForSize(ARABIC_SIZES, arabicSize, "m")}
             onChange={setArabic}
           />
@@ -88,10 +93,10 @@ export default function FontsScreen() {
 
         <Card padding="three">
           <ThemedText type="smallBold" style={styles.label}>
-            Translation & transliteration
+            {t("fonts.translationText")}
           </ThemedText>
           <SegmentedControl<SizeId>
-            options={TEXT_SIZES.map((s) => ({ id: s.id, label: s.label }))}
+            options={TEXT_SIZES.map((s) => ({ id: s.id, label: sizeLabel(s.id) }))}
             value={idForSize(TEXT_SIZES, translationSize, "m")}
             onChange={setTranslation}
           />
@@ -102,7 +107,7 @@ export default function FontsScreen() {
           themeColor="mutedForeground"
           style={{ color: tokens.status.info.color }}
         >
-          Applied across zikr, dua, and tasbeeh reading views.
+          {t("fonts.footer")}
         </ThemedText>
       </Stagger>
     </ScreenLayout>

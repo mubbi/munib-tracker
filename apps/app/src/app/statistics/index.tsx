@@ -15,6 +15,7 @@ import {
 } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { BarChart, type BarDatum } from "@/components/charts/bar-chart";
@@ -35,6 +36,7 @@ const MONTH_INITIALS = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "
 
 export default function StatisticsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { tokens } = useThemeTokens();
   const [period, setPeriod] = useState<Period>("week");
   const [logs, setLogs] = useState<PrayerLog[]>([]);
@@ -120,17 +122,17 @@ export default function StatisticsScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Insights"
-      title="Statistics"
-      subtitle="Trends across prayer, qaza, and zikr"
+      eyebrow={t("statistics.eyebrow")}
+      title={t("statistics.title")}
+      subtitle={t("statistics.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
         <SegmentedControl<Period>
           options={[
-            { id: "week", label: "Week" },
-            { id: "month", label: "Month" },
-            { id: "year", label: "Year" },
+            { id: "week", label: t("statistics.week") },
+            { id: "month", label: t("statistics.month") },
+            { id: "year", label: t("statistics.year") },
           ]}
           value={period}
           onChange={setPeriod}
@@ -138,7 +140,7 @@ export default function StatisticsScreen() {
 
         <Card padding="three">
           <SectionHeader
-            title="Prayer completion"
+            title={t("statistics.prayerCompletion")}
             icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
           />
           <View style={styles.chart}>
@@ -148,46 +150,54 @@ export default function StatisticsScreen() {
 
         <View style={styles.grid}>
           <TitledStatPair
-            title="Prayer"
+            title={t("statistics.prayer")}
             primary={{
               value: prayerTotals.completed,
-              label: "completed",
+              label: t("stats.completed"),
               color: tokens.status.success.color,
             }}
             secondary={{
               value: prayerTotals.missed,
-              label: "missed",
+              label: t("stats.missed"),
               color: tokens.status.danger.color,
             }}
           />
           <TitledStatPair
-            title="Qaza"
-            primary={{ value: qazaRemaining, label: "remaining", color: tokens.status.info.color }}
+            title={t("statistics.qaza")}
+            primary={{
+              value: qazaRemaining,
+              label: t("stats.remaining"),
+              color: tokens.status.info.color,
+            }}
             secondary={{
               value: qazaCompleted,
-              label: "made up",
+              label: t("stats.madeUp"),
               color: tokens.status.success.color,
             }}
           />
           <TitledStatPair
-            title="Roza"
-            primary={{ value: roza.remaining, label: "remaining", color: tokens.status.info.color }}
+            title={t("statistics.roza")}
+            primary={{
+              value: roza.remaining,
+              label: t("stats.remaining"),
+              color: tokens.status.info.color,
+            }}
             secondary={{
               value: roza.completed,
-              label: "completed",
+              label: t("stats.completed"),
               color: tokens.status.success.color,
             }}
           />
           <TitledStatPair
-            title="Zikr"
+            title={t("statistics.zikr")}
             primary={{
               value: zikrCompleted,
-              label: "completed",
+              label: t("stats.completed"),
               color: tokens.status.warning.color,
             }}
             secondary={{
               value: zikrByCategory.size,
-              label: "categories",
+              label: t("stats.categories"),
               color: tokens.status.info.color,
             }}
           />

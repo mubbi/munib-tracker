@@ -127,9 +127,10 @@ The user authorized adding native dependencies (accepting a dev-client rebuild),
 
 **Per phase:** P1 data layer/utils · P2 prayer statuses + notes + dashboard · P3 zikr library/favorites/tasbeeh · P4 qaza counters/calculator/planner/roza · P5 calendar/day-detail/statistics · P6 global audio player + mini-player + 99 Names/Dua/Duroods libraries · P7 settings (appearance incl. custom-hex accent, notifications, bedtime, fonts, language, about) + i18n scaffold (en/ar/ur + RTL) · P8 auth (guest + OAuth scaffold) + secure token storage + sync engine · P9 notification scheduler/center + permission flow + reminders · P10 onboarding flow + achievements · P11 profile (avatar/name/sign-out/delete) · P12 qibla compass with web fallback.
 
+**i18n complete (2026-07-03):** every screen and shared component now routes UI strings through `t()`; the `en`/`ur`/`ar` catalogs are at full key parity (370+ keys each) covering chrome, prayer names, prayer statuses, and zikr/dua category names, with natural human-tone Urdu and Arabic. Religious content bodies (Arabic zikr/dua/durood text) intentionally stay in source. i18n is initialised in Jest (`jest.setup.ts`) so component tests assert real English strings.
+
 **Remaining work — requires external assets/credentials (all code paths are ready):**
 
-- **i18n string extraction (P7.5):** infrastructure, language switching, and RTL are complete, but only a subset of screens route strings through `t()`. Exhaustive per-screen extraction plus **professional Arabic/Urdu translation** of UI copy is a content task best done with a native translator (auto-translation of religious-app UI is intentionally avoided). Non-English UI currently falls back to English.
 - **OAuth provider credentials (P8.0.1):** the exchange code is implemented and tested; it needs real Google/Apple/Facebook client IDs + secrets in the API env to go live. Apple id_token validation checks claims — add JWKS signature verification before production (noted in `oauth-provider.service.ts`).
 - **Audio content (P6):** the global player, mini-player, and playlists are built; the `audioUri`s in content JSON are empty pending licensed/recorded audio files.
 - **Live multi-device sync:** the sync engine + server round-trip are covered by automated e2e tests; a final smoke test against a deployed API on two physical devices remains.
@@ -1020,9 +1021,9 @@ export interface DailySummary {
 |---|---|
 | **ID** | P7.5 |
 | **Depends on** | P7.1 |
-| **Status** | `partial` — infra + RTL + switching done; string extraction + ar/ur translation pending |
+| **Status** | `done` |
 | **Packages** | `expo-localization`, `i18next`, `react-i18next` |
-| **Files** | `apps/app/src/i18n/{en,ar,ur}.json`, `apps/app/src/i18n/index.ts` |
+| **Files** | `apps/app/src/i18n/{en,ar,ur}.json` (370+ keys each), `apps/app/src/i18n/index.ts` |
 
 **Languages:** English, Arabic, Urdu.
 
@@ -1031,7 +1032,7 @@ export interface DailySummary {
 **AC:**
 
 - [x] RTL layout when Arabic UI selected (`I18nManager` forceRTL on `ar`)
-- [ ] All user-facing strings use `t()` — infra in place; exhaustive per-screen extraction + professional ar/ur translation is a remaining content task (non-English falls back to English). Auto-translating religious-app UI is intentionally avoided.
+- [x] All user-facing UI strings use `t()` — every screen + shared component wired; en/ur/ar catalogs at full key parity (prayer names, statuses, zikr/dua categories, and all chrome translated). Religious content text (Arabic zikr/dua bodies) stays in source.
 - [x] Language change without restart for LTR locales (`i18next.changeLanguage`; RTL flip needs a reload on native)
 
 ---

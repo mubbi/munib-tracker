@@ -1,9 +1,11 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
+import { useTranslation } from "react-i18next";
 
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 export default function AppTabs() {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
 
   return (
     <NativeTabs
@@ -16,12 +18,12 @@ export default function AppTabs() {
       }}
     >
       <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{t("tabs.home")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: "house", selected: "house.fill" }} md="home" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="tracker">
-        <NativeTabs.Trigger.Label>Tracker</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{t("tabs.tracker")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           sf={{ default: "list.bullet.clipboard", selected: "list.bullet.clipboard.fill" }}
           md="checklist"
@@ -29,7 +31,7 @@ export default function AppTabs() {
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="settings">
-        <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{t("tabs.settings")}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           sf={{ default: "gearshape", selected: "gearshape.fill" }}
           md="settings"

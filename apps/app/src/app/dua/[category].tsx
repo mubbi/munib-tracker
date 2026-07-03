@@ -1,7 +1,8 @@
-import { DUA_CATEGORY_LABELS, duasByCategory } from "@munib-tracker/shared/content";
+import { duasByCategory } from "@munib-tracker/shared/content";
 import type { DuaCategoryId } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -16,6 +17,7 @@ const VALID: DuaCategoryId[] = ["sunnah", "quranic", "daily"];
 
 export default function DuaCategoryScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const params = useLocalSearchParams<{ category: string }>();
   const categoryId = (
@@ -25,9 +27,9 @@ export default function DuaCategoryScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Duas"
-      title={DUA_CATEGORY_LABELS[categoryId]}
-      subtitle={`${items.length} supplications`}
+      eyebrow={t("dua.categoryEyebrow")}
+      title={t(`duaCat.${categoryId}`)}
+      subtitle={t("dua.supplicationsCount", { count: items.length })}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>

@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { CustomTargetModal } from "@/components/tasbeeh/custom-target-modal";
@@ -10,15 +11,16 @@ import { Spacing } from "@/constants/theme";
 
 export default function FreeTasbeehScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [count, setCount] = useState(0);
   const [target, setTarget] = useState(33);
   const [customOpen, setCustomOpen] = useState(false);
 
   return (
     <ScreenLayout
-      eyebrow="Tasbeeh"
-      title="Counter"
-      subtitle="Count any dhikr, hands-free"
+      eyebrow={t("tasbeeh.eyebrow")}
+      title={t("tasbeeh.freeTitle")}
+      subtitle={t("tasbeeh.freeSubtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
       scrollable
     >
@@ -36,8 +38,7 @@ export default function FreeTasbeehScreen() {
 
       <View style={styles.hint}>
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.hintText}>
-          Free counter — this total resets when you leave. Open a specific zikr to save daily
-          progress.
+          {t("tasbeeh.freeHint")}
         </ThemedText>
       </View>
 

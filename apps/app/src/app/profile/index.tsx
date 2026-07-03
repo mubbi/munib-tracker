@@ -2,6 +2,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Image, StyleSheet, TextInput, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
@@ -25,12 +26,13 @@ import { trackerStore } from "@/stores/tracker-store";
 
 export default function ProfileScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { user, isGuest, isAuthenticated, signOut } = useAuth();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
 
-  const displayName = prefs.displayName ?? user?.displayName ?? "Guest";
+  const displayName = prefs.displayName ?? user?.displayName ?? t("profile.guestName");
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(displayName);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -59,14 +61,18 @@ export default function ProfileScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Account"
-      title="Profile"
-      subtitle="Your details and account"
+      eyebrow={t("profile.eyebrow")}
+      title={t("profile.title")}
+      subtitle={t("profile.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
         <Card style={styles.hero}>
-          <PressableScale haptic="light" onPress={pickAvatar} accessibilityLabel="Change avatar">
+          <PressableScale
+            haptic="light"
+            onPress={pickAvatar}
+            accessibilityLabel={t("profile.changeAvatar")}
+          >
             {prefs.avatarUri ? (
               <Image source={{ uri: prefs.avatarUri }} style={styles.avatar} />
             ) : (
@@ -106,7 +112,7 @@ export default function ProfileScreen() {
                   },
                 ]}
               />
-              <Button label="Save" size="sm" onPress={saveName} />
+              <Button label={t("common.save")} size="sm" onPress={saveName} />
             </View>
           ) : (
             <PressableScale
@@ -133,7 +139,7 @@ export default function ProfileScreen() {
           ) : null}
 
           <Pill
-            label={isGuest ? "Guest" : (user?.provider ?? "Signed in")}
+            label={isGuest ? t("profile.guestName") : (user?.provider ?? t("common.signedIn"))}
             color={isGuest ? colors.mutedForeground : tokens.status.success.color}
             background={isGuest ? colors.muted : tokens.status.success.soft}
           />
@@ -141,7 +147,7 @@ export default function ProfileScreen() {
 
         {isGuest ? (
           <Button
-            label="Sign in to sync"
+            label={t("profile.signInToSync")}
             icon={{ ios: "icloud.fill", android: "cloud", web: "cloud" }}
             fullWidth
             onPress={() => router.push("/login")}
@@ -152,7 +158,7 @@ export default function ProfileScreen() {
           <View style={styles.actions}>
             {isAuthenticated ? (
               <Button
-                label="Sign out"
+                label={t("common.signOut")}
                 variant="secondary"
                 icon={{
                   ios: "rectangle.portrait.and.arrow.right",
@@ -164,7 +170,7 @@ export default function ProfileScreen() {
               />
             ) : null}
             <Button
-              label="Delete account & data"
+              label={t("profile.deleteAccount")}
               variant="ghost"
               icon={{ ios: "trash", android: "delete", web: "delete" }}
               fullWidth
@@ -177,9 +183,9 @@ export default function ProfileScreen() {
 
       <ConfirmDialog
         visible={confirmDelete}
-        title="Delete account & data?"
-        message="This permanently erases all your local tracking data on this device and signs you out. This cannot be undone."
-        confirmLabel="Delete everything"
+        title={t("profile.deleteTitle")}
+        message={t("profile.deleteMsg")}
+        confirmLabel={t("profile.deleteConfirm")}
         destructive
         onConfirm={() => void deleteAccount()}
         onClose={() => setConfirmDelete(false)}

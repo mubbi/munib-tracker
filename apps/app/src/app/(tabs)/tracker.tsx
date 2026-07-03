@@ -1,7 +1,8 @@
-import { OBLIGATORY_PRAYERS, PRAYER_LABELS, SUNNAH_PRAYERS } from "@munib-tracker/shared/constants";
+import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS } from "@munib-tracker/shared/constants";
 import type { PrayerId } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
@@ -22,15 +23,16 @@ import {
   useTrackerActions,
 } from "@/stores/tracker-store";
 
-function encouragement(progress: number): string {
-  if (progress >= 1) return "MashaAllah — all done";
-  if (progress === 0) return "A fresh start";
-  if (progress < 0.5) return "Keep going";
-  return "Almost there";
+function encouragementKey(progress: number): string {
+  if (progress >= 1) return "tracker.allDone";
+  if (progress === 0) return "tracker.freshStart";
+  if (progress < 0.5) return "tracker.keepGoingShort";
+  return "tracker.almostThere";
 }
 
 export default function TrackerScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const summary = useDailySummary();
   const streak = useStreak();
   const { status, notes } = useTodayPrayers();
@@ -42,25 +44,25 @@ export default function TrackerScreen() {
   const shortcuts: QuickActionItem[] = [
     {
       id: "zikr",
-      label: "Zikr",
+      label: t("actions.zikr"),
       icon: { ios: "heart.fill", android: "favorite", web: "favorite" },
       onPress: () => router.push("/zikr"),
     },
     {
       id: "tasbeeh",
-      label: "Tasbeeh",
+      label: t("actions.tasbeeh"),
       icon: { ios: "circle.hexagongrid.fill", android: "hive", web: "hive" },
       onPress: () => router.push("/tasbeeh/free"),
     },
     {
       id: "qaza",
-      label: "Qaza",
+      label: t("actions.qaza"),
       icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
       onPress: () => router.push("/qaza"),
     },
     {
       id: "calendar",
-      label: "Calendar",
+      label: t("actions.calendar"),
       icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
       onPress: () => router.push("/calendar"),
     },
@@ -68,21 +70,29 @@ export default function TrackerScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Track & log"
-      title="Tracker"
-      subtitle="Tap a prayer to set its status — saved on this device."
+      eyebrow={t("tracker.eyebrow")}
+      title={t("tracker.title")}
+      subtitle={t("tracker.subtitle")}
     >
       <Stagger>
         <Card>
           <View style={styles.summaryRow}>
-            <ProgressRing progress={progress} size={100} stroke={11} caption="salah" />
+            <ProgressRing
+              progress={progress}
+              size={100}
+              stroke={11}
+              caption={t("tracker.salahCaption")}
+            />
             <View style={styles.summaryCopy}>
-              <ThemedText type="subtitle">{encouragement(progress)}</ThemedText>
+              <ThemedText type="subtitle">{t(encouragementKey(progress))}</ThemedText>
               <ThemedText type="small" themeColor="mutedForeground">
-                {summary.salahCompleted} of {summary.salahTotal} obligatory prayers logged today.
+                {t("tracker.summaryLogged", {
+                  completed: summary.salahCompleted,
+                  total: summary.salahTotal,
+                })}
               </ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
-                🔥 {streak}-day streak
+                {t("tracker.streakLine", { count: streak })}
               </ThemedText>
             </View>
           </View>
@@ -90,7 +100,7 @@ export default function TrackerScreen() {
 
         <Card padding="three">
           <SectionHeader
-            title="Obligatory"
+            title={t("tracker.obligatory")}
             icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
           />
           <View style={styles.rows}>
@@ -108,7 +118,7 @@ export default function TrackerScreen() {
 
         <Card padding="three">
           <CollapsibleSection
-            title="Sunnah & optional"
+            title={t("tracker.sunnahOptional")}
             icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
           >
             <View style={styles.rows}>
@@ -127,7 +137,7 @@ export default function TrackerScreen() {
 
         <Card padding="three">
           <SectionHeader
-            title="Keep going"
+            title={t("tracker.keepGoing")}
             icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
           />
           <View style={styles.shortcuts}>
@@ -139,7 +149,7 @@ export default function TrackerScreen() {
       {activePrayer ? (
         <PrayerStatusSheet
           visible
-          prayerLabel={PRAYER_LABELS[activePrayer]}
+          prayerLabel={t(`prayers.${activePrayer}`)}
           currentStatus={status[activePrayer] ?? "pending"}
           currentNotes={notes[activePrayer]}
           onSelect={(next) => setPrayerStatus(activePrayer, next)}

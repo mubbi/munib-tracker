@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -26,6 +27,7 @@ export function PrayerNotesModal({
   onClose,
 }: PrayerNotesModalProps) {
   const { colors } = useThemeTokens();
+  const { t } = useTranslation();
   const [value, setValue] = useState(initialValue ?? "");
 
   useEffect(() => {
@@ -36,13 +38,13 @@ export function PrayerNotesModal({
     <Sheet visible={visible} onClose={onClose}>
       <ThemedText type="subtitle">{title}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
-        Optional — a private note for this day.
+        {t("notesModal.hint")}
       </ThemedText>
 
       <TextInput
         value={value}
         onChangeText={(text) => setValue(text.slice(0, MAX_NOTES))}
-        placeholder="e.g. prayed in congregation at the masjid"
+        placeholder={t("notesModal.placeholder")}
         placeholderTextColor={colors.mutedForeground}
         multiline
         style={[
@@ -55,9 +57,9 @@ export function PrayerNotesModal({
       </ThemedText>
 
       <View style={styles.actions}>
-        <Button label="Cancel" variant="ghost" onPress={onClose} />
+        <Button label={t("common.cancel")} variant="ghost" onPress={onClose} />
         <Button
-          label="Save note"
+          label={t("notesModal.saveNote")}
           onPress={() => {
             onSave(value.trim());
             onClose();

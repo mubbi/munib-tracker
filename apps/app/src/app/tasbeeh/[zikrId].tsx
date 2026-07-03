@@ -1,6 +1,7 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +14,7 @@ import { trackerStore } from "@/stores/tracker-store";
 
 export default function ZikrTasbeehScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const params = useLocalSearchParams<{ zikrId: string }>();
   const item = params.zikrId ? getZikrById(params.zikrId) : undefined;
   const target = item?.targetCount && item.targetCount > 0 ? item.targetCount : 33;
@@ -25,11 +27,14 @@ export default function ZikrTasbeehScreen() {
 
   if (!item) {
     return (
-      <ScreenLayout title="Tasbeeh" onBack={router.canGoBack() ? () => router.back() : undefined}>
+      <ScreenLayout
+        title={t("tasbeeh.eyebrow")}
+        onBack={router.canGoBack() ? () => router.back() : undefined}
+      >
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
-          title="Zikr not found"
-          description="This item may have been removed."
+          title={t("tasbeeh.notFoundTitle")}
+          description={t("tasbeeh.notFoundDesc")}
         />
       </ScreenLayout>
     );
@@ -43,7 +48,7 @@ export default function ZikrTasbeehScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Tasbeeh"
+      eyebrow={t("tasbeeh.eyebrow")}
       title={item.title}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >

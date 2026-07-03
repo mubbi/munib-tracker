@@ -1,6 +1,7 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -24,6 +25,7 @@ type Scheduled = Awaited<ReturnType<typeof listScheduled>>;
 
 export default function NotificationCenterScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const prefs = usePreferences();
   const [scheduled, setScheduled] = useState<Scheduled>([]);
@@ -53,17 +55,16 @@ export default function NotificationCenterScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Reminders"
-      title="Notifications"
-      subtitle="Your scheduled reminders"
+      eyebrow={t("notifCenter.eyebrow")}
+      title={t("settings.notifications")}
+      subtitle={t("notifCenter.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
         {isWeb ? (
           <Card variant="muted" padding="three">
             <ThemedText type="small" themeColor="mutedForeground">
-              Scheduled reminders run on iOS and Android. On the web, use the app on your phone to
-              receive prayer, zikr, and qaza reminders.
+              {t("notifCenter.webNote")}
             </ThemedText>
           </Card>
         ) : permission !== "granted" ? (
@@ -80,24 +81,24 @@ export default function NotificationCenterScreen() {
               />
             </View>
             <ThemedText type="small" themeColor="mutedForeground" style={styles.permissionText}>
-              Turn on notifications to receive reminders for prayer, zikr, and qaza.
+              {t("notifCenter.permissionText")}
             </ThemedText>
-            <Button label="Enable notifications" onPress={() => void enable()} />
+            <Button label={t("notifCenter.enable")} onPress={() => void enable()} />
           </Card>
         ) : null}
 
         <Card padding="three">
           <SectionHeader
-            title="Scheduled"
+            title={t("notifCenter.scheduled")}
             icon={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
-            actionLabel="Settings"
+            actionLabel={t("notifCenter.settings")}
             onActionPress={() => router.push("/settings/notifications")}
           />
           {sorted.length === 0 ? (
             <EmptyState
               icon={{ ios: "bell.slash", android: "notifications_off", web: "notifications_off" }}
-              title="No reminders scheduled"
-              description="Enable categories in notification settings to see them here."
+              title={t("notifCenter.emptyTitle")}
+              description={t("notifCenter.emptyDesc")}
             />
           ) : (
             <View style={styles.list}>

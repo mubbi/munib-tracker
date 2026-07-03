@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import type { OAuthProvider } from "@/api/endpoints";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,26 +14,15 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useAuth } from "@/providers/auth-provider";
 
-const PROVIDERS: { id: OAuthProvider; label: string; icon: SymbolViewProps["name"] }[] = [
-  {
-    id: "google",
-    label: "Continue with Google",
-    icon: { ios: "g.circle.fill", android: "login", web: "login" },
-  },
-  {
-    id: "apple",
-    label: "Continue with Apple",
-    icon: { ios: "apple.logo", android: "login", web: "login" },
-  },
-  {
-    id: "facebook",
-    label: "Continue with Facebook",
-    icon: { ios: "f.circle.fill", android: "login", web: "login" },
-  },
+const PROVIDERS: { id: OAuthProvider; icon: SymbolViewProps["name"] }[] = [
+  { id: "google", icon: { ios: "g.circle.fill", android: "login", web: "login" } },
+  { id: "apple", icon: { ios: "apple.logo", android: "login", web: "login" } },
+  { id: "facebook", icon: { ios: "f.circle.fill", android: "login", web: "login" } },
 ];
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { isGuest, linkProvider, signInWithProvider } = useAuth();
   const [busy, setBusy] = useState<OAuthProvider | null>(null);
@@ -48,9 +38,7 @@ export default function LoginScreen() {
       else await signInWithProvider(provider);
       if (router.canGoBack()) router.back();
     } catch {
-      setError(
-        "Couldn't sign in. Make sure the API server is running and this provider is configured.",
-      );
+      setError(t("login.error"));
     } finally {
       setBusy(null);
     }
@@ -58,9 +46,9 @@ export default function LoginScreen() {
 
   return (
     <ScreenLayout
-      eyebrow={isGuest ? "Save your progress" : "Welcome"}
-      title="Sign in"
-      subtitle="Sync your worship across devices"
+      eyebrow={isGuest ? t("login.eyebrowGuest") : t("login.eyebrowWelcome")}
+      title={t("login.title")}
+      subtitle={t("login.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -73,9 +61,7 @@ export default function LoginScreen() {
             />
           </View>
           <ThemedText type="small" themeColor="mutedForeground" style={styles.heroText}>
-            {isGuest
-              ? "You're using a guest account. Link a provider to back up and sync your data — nothing is lost."
-              : "Sign in to keep your prayers, qaza, and zikr safe in the cloud."}
+            {isGuest ? t("login.heroGuest") : t("login.heroUser")}
           </ThemedText>
         </Card>
 
@@ -96,7 +82,7 @@ export default function LoginScreen() {
               ) : (
                 <SymbolView name={provider.icon} size={20} tintColor={colors.foreground} />
               )}
-              <ThemedText type="smallBold">{provider.label}</ThemedText>
+              <ThemedText type="smallBold">{t(`login.${provider.id}`)}</ThemedText>
             </PressableScale>
           ))}
         </View>
@@ -111,7 +97,7 @@ export default function LoginScreen() {
         ) : null}
 
         <Button
-          label="Continue as guest"
+          label={t("common.continueAsGuest")}
           variant="ghost"
           fullWidth
           onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))}

@@ -1,5 +1,6 @@
 import type { NotificationPreferences } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,52 +15,35 @@ import { usePreferences, usePreferencesActions } from "@/stores/preferences-stor
 
 type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled">;
 
-const GROUPS: { title: string; items: { key: ToggleKey; title: string; subtitle: string }[] }[] = [
+const GROUPS: { titleKey: string; items: ToggleKey[] }[] = [
+  { titleKey: "groupWorship", items: ["prayer", "qaza", "afterAzan"] },
   {
-    title: "Worship",
-    items: [
-      { key: "prayer", title: "Prayer reminders", subtitle: "Nudges around each prayer time" },
-      { key: "qaza", title: "Qaza reminders", subtitle: "Stay on pace with make-up prayers" },
-      { key: "afterAzan", title: "After azan", subtitle: "Post-adhan supplication" },
-    ],
+    titleKey: "groupZikr",
+    items: ["morningZikr", "eveningZikr", "beforeSleep", "beforePrayer", "afterPrayer"],
   },
-  {
-    title: "Zikr",
-    items: [
-      { key: "morningZikr", title: "Morning adhkar", subtitle: "Start the day in remembrance" },
-      { key: "eveningZikr", title: "Evening adhkar", subtitle: "Wind down with dhikr" },
-      { key: "beforeSleep", title: "Before sleep", subtitle: "Uses your bedtime" },
-      { key: "beforePrayer", title: "Before prayer", subtitle: "Prepare your heart" },
-      { key: "afterPrayer", title: "After prayer", subtitle: "Tasbih reminders" },
-    ],
-  },
-  {
-    title: "Milestones",
-    items: [
-      { key: "achievements", title: "Achievements", subtitle: "Celebrate streaks and badges" },
-    ],
-  },
+  { titleKey: "groupMilestones", items: ["achievements"] },
 ];
 
 export default function NotificationsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const prefs = usePreferences();
   const { setNotificationPrefs } = usePreferencesActions();
   const master = prefs.notificationPrefs.masterEnabled;
 
   return (
     <ScreenLayout
-      eyebrow="Settings"
-      title="Notifications"
-      subtitle="Choose what you'd like to be reminded about"
+      eyebrow={t("notif.eyebrow")}
+      title={t("settings.notifications")}
+      subtitle={t("notif.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
         <Card padding="three">
           <ToggleRow
             icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-            title="All notifications"
-            subtitle="Master switch for every reminder"
+            title={t("notif.master")}
+            subtitle={t("notif.masterSub")}
             value={master}
             onValueChange={async (value) => {
               if (value) await requestPermission();
@@ -69,9 +53,9 @@ export default function NotificationsScreen() {
         </Card>
 
         {GROUPS.map((group) => (
-          <Card key={group.title} padding="three">
+          <Card key={group.titleKey} padding="three">
             <SectionHeader
-              title={group.title}
+              title={t(`notif.${group.titleKey}`)}
               icon={{
                 ios: "bell.badge.fill",
                 android: "notifications_active",
@@ -79,14 +63,14 @@ export default function NotificationsScreen() {
               }}
             />
             <View style={styles.rows}>
-              {group.items.map((item) => (
+              {group.items.map((key) => (
                 <ToggleRow
-                  key={item.key}
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  value={prefs.notificationPrefs[item.key]}
+                  key={key}
+                  title={t(`notif.items.${key}.title`)}
+                  subtitle={t(`notif.items.${key}.subtitle`)}
+                  value={prefs.notificationPrefs[key]}
                   disabled={!master}
-                  onValueChange={(value) => setNotificationPrefs({ [item.key]: value })}
+                  onValueChange={(value) => setNotificationPrefs({ [key]: value })}
                 />
               ))}
             </View>
@@ -94,7 +78,7 @@ export default function NotificationsScreen() {
         ))}
 
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
-          Delivery of these reminders is scheduled once notifications are enabled on your device.
+          {t("notif.footer")}
         </ThemedText>
       </Stagger>
     </ScreenLayout>

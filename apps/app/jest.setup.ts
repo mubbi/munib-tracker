@@ -62,3 +62,10 @@ jest.mock("expo-splash-screen", () => ({
 jest.mock("expo-system-ui", () => ({
   setBackgroundColorAsync: jest.fn().mockResolvedValue(undefined),
 }));
+
+jest.mock("expo-localization", () => ({
+  getLocales: () => [{ languageCode: "en" }],
+}));
+
+// Initialise i18n (English) so `t()` returns real strings in component tests.
+require("./src/i18n");

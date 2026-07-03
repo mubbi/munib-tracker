@@ -1,5 +1,6 @@
 import { SymbolView } from "expo-symbols";
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -42,6 +43,7 @@ export function TasbeehCounter({
   onCustom,
 }: TasbeehCounterProps) {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
   const complete = target > 0 && count >= target;
   const prevComplete = useRef(complete);
 
@@ -87,7 +89,7 @@ export function TasbeehCounter({
               style={[styles.modeChip, { backgroundColor: colors.muted }]}
             >
               <ThemedText type="smallBold" themeColor="mutedForeground">
-                Custom
+                {t("tasbeehUi.custom")}
               </ThemedText>
             </PressableScale>
           ) : null}
@@ -99,7 +101,7 @@ export function TasbeehCounter({
         onPress={handleTap}
         scaleTo={0.97}
         accessibilityRole="button"
-        accessibilityLabel="Count"
+        accessibilityLabel={t("common.count")}
         accessibilityValue={{ now: count, min: 0, max: target > 0 ? target : undefined }}
       >
         <CounterRing count={count} target={target} complete={complete} />
@@ -107,18 +109,18 @@ export function TasbeehCounter({
 
       {complete ? (
         <ThemedText type="smallBold" style={{ color: tokens.status.success.color }}>
-          MashaAllah — target reached
+          {t("tasbeehUi.targetReached")}
         </ThemedText>
       ) : (
         <ThemedText type="caption" themeColor="mutedForeground">
-          Tap the circle to count
+          {t("tasbeehUi.tapToCount")}
         </ThemedText>
       )}
 
       <View style={styles.controls}>
         <ControlButton
           icon={{ ios: "minus", android: "remove", web: "remove" }}
-          label="Minus"
+          label={t("common.minus")}
           onPress={() => {
             triggerHaptic("light");
             onDecrement();
@@ -126,7 +128,7 @@ export function TasbeehCounter({
         />
         <ControlButton
           icon={{ ios: "arrow.counterclockwise", android: "restart_alt", web: "restart_alt" }}
-          label="Reset"
+          label={t("common.reset")}
           onPress={() => {
             triggerHaptic("medium");
             onReset();
@@ -147,6 +149,7 @@ function CounterRing({
   complete: boolean;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
   const progress = target > 0 ? Math.min(count / target, 1) : 0;
   const deg = progress * 360;
   const fill = complete ? tokens.status.success.color : colors.accent;
@@ -198,12 +201,12 @@ function CounterRing({
             />
           ) : (
             <ThemedText type="caption" themeColor="mutedForeground">
-              of {target}
+              {t("tasbeehUi.ofTarget", { target })}
             </ThemedText>
           )
         ) : (
           <ThemedText type="caption" themeColor="mutedForeground">
-            unlimited
+            {t("tasbeehUi.unlimited")}
           </ThemedText>
         )}
       </View>

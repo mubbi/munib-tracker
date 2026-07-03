@@ -1,5 +1,6 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { SettingsRow } from "@/components/settings/settings-rows";
@@ -14,11 +15,16 @@ const LOCALE_LABELS: Record<string, string> = { en: "English", ar: "العربي
 
 export default function SettingsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const prefs = usePreferences();
   const { isGuest, user } = useAuth();
 
   return (
-    <ScreenLayout eyebrow="Personalize" title="Settings" subtitle="Appearance & preferences">
+    <ScreenLayout
+      eyebrow={t("settings.eyebrow")}
+      title={t("settings.title")}
+      subtitle={t("settings.subtitle")}
+    >
       <Stagger>
         <Card padding="three">
           <View style={styles.group}>
@@ -28,8 +34,10 @@ export default function SettingsScreen() {
                 android: "account_circle",
                 web: "account_circle",
               }}
-              title="Account"
-              subtitle={isGuest ? "Guest — sign in to sync" : (user?.email ?? "Signed in")}
+              title={t("settings.account")}
+              subtitle={
+                isGuest ? t("settings.accountGuest") : (user?.email ?? t("common.signedIn"))
+              }
               onPress={() => router.push("/profile")}
             />
           </View>
@@ -39,34 +47,34 @@ export default function SettingsScreen() {
           <View style={styles.group}>
             <SettingsRow
               icon={{ ios: "paintpalette.fill", android: "palette", web: "palette" }}
-              title="Appearance"
-              subtitle="Theme & accent color"
+              title={t("settings.appearance")}
+              subtitle={t("settings.appearanceSub")}
               onPress={() => router.push("/settings/appearance")}
             />
             <SettingsRow
               icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-              title="Notifications"
-              subtitle="Reminders for prayer, qaza, and zikr"
-              value={prefs.notificationPrefs.masterEnabled ? "On" : "Off"}
+              title={t("settings.notifications")}
+              subtitle={t("settings.notificationsSub")}
+              value={prefs.notificationPrefs.masterEnabled ? t("common.on") : t("common.off")}
               onPress={() => router.push("/settings/notifications")}
             />
             <SettingsRow
               icon={{ ios: "moon.zzz.fill", android: "bedtime", web: "bedtime" }}
-              title="Bedtime"
-              subtitle="Used for before-sleep adhkar"
+              title={t("settings.bedtime")}
+              subtitle={t("settings.bedtimeSub")}
               value={prefs.bedtime}
               onPress={() => router.push("/settings/bedtime")}
             />
             <SettingsRow
               icon={{ ios: "textformat.size", android: "format_size", web: "format_size" }}
-              title="Fonts"
-              subtitle="Arabic & translation text size"
+              title={t("settings.fonts")}
+              subtitle={t("settings.fontsSub")}
               onPress={() => router.push("/settings/fonts")}
             />
             <SettingsRow
               icon={{ ios: "globe", android: "language", web: "language" }}
-              title="Language"
-              subtitle="App & translation language"
+              title={t("settings.language")}
+              subtitle={t("settings.languageSub")}
               value={LOCALE_LABELS[prefs.locale]}
               onPress={() => router.push("/settings/language")}
             />
@@ -77,27 +85,27 @@ export default function SettingsScreen() {
           <View style={styles.group}>
             <SettingsRow
               icon={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
-              title="Achievements"
-              subtitle="Milestones and badges"
+              title={t("settings.achievements")}
+              subtitle={t("settings.achievementsSub")}
               onPress={() => router.push("/achievements")}
             />
             <SettingsRow
               icon={{ ios: "safari.fill", android: "explore", web: "explore" }}
-              title="Qibla"
-              subtitle="Find the direction of prayer"
+              title={t("settings.qibla")}
+              subtitle={t("settings.qiblaSub")}
               onPress={() => router.push("/qibla")}
             />
             <SettingsRow
               icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
-              title="About"
-              subtitle="Version, credits, and policies"
+              title={t("settings.about")}
+              subtitle={t("settings.aboutSub")}
               onPress={() => router.push("/settings/about")}
             />
           </View>
         </Card>
 
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
-          {APP_NAME} · built with intention
+          {t("settings.footer", { app: APP_NAME })}
         </ThemedText>
       </Stagger>
     </ScreenLayout>

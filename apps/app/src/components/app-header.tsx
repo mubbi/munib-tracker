@@ -1,4 +1,5 @@
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -26,6 +27,7 @@ export function AppHeader({
 }: AppHeaderProps) {
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
 
   return (
     <View
@@ -39,7 +41,7 @@ export function AppHeader({
     >
       {onBack ? (
         <Pressable
-          accessibilityLabel="Go back"
+          accessibilityLabel={t("common.goBack")}
           accessibilityRole="button"
           onPress={onBack}
           style={({ pressed }) => [
@@ -70,7 +72,7 @@ export function AppHeader({
       </View>
 
       <Pressable
-        accessibilityLabel="Notifications"
+        accessibilityLabel={t("common.notifications")}
         accessibilityRole="button"
         onPress={onNotificationsPress}
         style={({ pressed }) => [

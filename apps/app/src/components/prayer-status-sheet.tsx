@@ -1,6 +1,7 @@
 import type { PrayerStatus } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { PrayerNotesModal } from "@/components/prayer-notes-modal";
@@ -36,6 +37,7 @@ export function PrayerStatusSheet({
   onClose,
 }: PrayerStatusSheetProps) {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
   const [notesOpen, setNotesOpen] = useState(false);
 
   return (
@@ -43,7 +45,7 @@ export function PrayerStatusSheet({
       <Sheet visible={visible} onClose={onClose} variant="bottom">
         <ThemedText type="subtitle">{prayerLabel}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
-          How did this prayer go today?
+          {t("statusSheet.prompt")}
         </ThemedText>
 
         <View style={styles.options}>
@@ -72,7 +74,7 @@ export function PrayerStatusSheet({
               >
                 <SymbolView name={meta.icon} size={22} tintColor={toneColor} />
                 <ThemedText type="smallBold" style={{ color: toneColor }}>
-                  {meta.label}
+                  {t(`prayerStatus.${status}`)}
                 </ThemedText>
               </PressableScale>
             );
@@ -90,7 +92,7 @@ export function PrayerStatusSheet({
             tintColor={colors.accent}
           />
           <ThemedText type="small" style={{ color: colors.accent }}>
-            {currentNotes ? "Edit note" : "Add a note"}
+            {currentNotes ? t("statusSheet.editNote") : t("statusSheet.addNote")}
           </ThemedText>
         </PressableScale>
 
@@ -103,7 +105,7 @@ export function PrayerStatusSheet({
 
       <PrayerNotesModal
         visible={notesOpen}
-        title={`${prayerLabel} — note`}
+        title={t("statusSheet.noteTitle", { prayer: prayerLabel })}
         initialValue={currentNotes}
         onSave={onSaveNotes}
         onClose={() => setNotesOpen(false)}

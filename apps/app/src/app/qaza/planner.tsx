@@ -1,8 +1,9 @@
-import { OBLIGATORY_PRAYERS, PRAYER_LABELS } from "@munib-tracker/shared/constants";
+import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
 import { computeQazaEta, formatShortDate, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -27,6 +28,7 @@ function emptyTargets(): Targets {
 
 export default function QazaPlannerScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const summary = useQazaSummary();
   const [targets, setTargets] = useState<Targets>(emptyTargets);
@@ -69,9 +71,9 @@ export default function QazaPlannerScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Qaza"
-      title="Planner"
-      subtitle="Set a daily pace to clear your backlog"
+      eyebrow={t("qazaPlan.eyebrow")}
+      title={t("qazaPlan.title")}
+      subtitle={t("qazaPlan.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -80,34 +82,37 @@ export default function QazaPlannerScreen() {
             <View style={styles.etaStat}>
               <ThemedText type="header">{dailyTotal}</ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
-                prayers / day
+                {t("qazaPlan.prayersPerDay")}
               </ThemedText>
             </View>
             <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
             <View style={styles.etaStat}>
               <ThemedText type="header">{eta ? eta.days : "—"}</ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
-                days to clear
+                {t("qazaPlan.daysToClear")}
               </ThemedText>
             </View>
           </View>
           <ThemedText type="small" themeColor="mutedForeground" style={styles.etaCaption}>
             {eta
-              ? `At this pace, ${summary.remaining} qaza prayers are cleared by ${formatShortDate(eta.date)}.`
-              : "Set a daily target below to estimate a completion date."}
+              ? t("qazaPlan.etaCaption", {
+                  count: summary.remaining,
+                  date: formatShortDate(eta.date),
+                })
+              : t("qazaPlan.etaEmpty")}
           </ThemedText>
         </Card>
 
         <Card padding="three">
           <SectionHeader
-            title="Daily targets"
+            title={t("qazaPlan.dailyTargets")}
             icon={{ ios: "target", android: "track_changes", web: "track_changes" }}
           />
           <View style={styles.rows}>
             {OBLIGATORY_PRAYERS.map((prayerId) => (
               <View key={prayerId} style={[styles.row, { backgroundColor: colors.muted }]}>
                 <ThemedText type="small" style={styles.rowLabel}>
-                  {PRAYER_LABELS[prayerId]}
+                  {t(`prayers.${prayerId}`)}
                 </ThemedText>
                 <TextInput
                   value={targets[prayerId]}
@@ -133,7 +138,7 @@ export default function QazaPlannerScreen() {
         </Card>
 
         <Button
-          label={saved ? "Plan saved" : "Save plan"}
+          label={saved ? t("qazaPlan.planSaved") : t("qazaPlan.savePlan")}
           icon={
             saved
               ? { ios: "checkmark", android: "check", web: "check" }

@@ -1,7 +1,7 @@
-import { ZIKR_CATEGORY_LABELS } from "@munib-tracker/shared/constants";
 import type { ZikrCategoryId } from "@munib-tracker/shared/types";
 import { isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -15,6 +15,7 @@ import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-
 
 export default function ZikrCategoryScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const params = useLocalSearchParams<{ category: string }>();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
@@ -26,16 +27,16 @@ export default function ZikrCategoryScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Zikr"
-      title={ZIKR_CATEGORY_LABELS[categoryId]}
-      subtitle={`${items.length} adhkar`}
+      eyebrow={t("zikr.categoryEyebrow")}
+      title={t(`zikrCat.${categoryId}`)}
+      subtitle={t("zikr.adhkarCount", { count: items.length })}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       {items.length === 0 ? (
         <EmptyState
           icon={{ ios: "heart", android: "favorite_border", web: "favorite_border" }}
-          title="No adhkar yet"
-          description="More entries for this category are on the way."
+          title={t("zikr.emptyTitle")}
+          description={t("zikr.emptyDesc")}
         />
       ) : (
         <Card padding="three">

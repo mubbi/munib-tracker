@@ -1,5 +1,6 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
@@ -57,6 +58,7 @@ export function PrayerTimesHero({
   onSearchPress,
   onNotificationsPress,
 }: PrayerTimesHeroProps) {
+  const { t } = useTranslation();
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
 
@@ -98,12 +100,12 @@ export function PrayerTimesHero({
         <View style={styles.actions}>
           <HeroIconButton
             icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            label="Search"
+            label={t("common.search")}
             onPress={onSearchPress}
           />
           <HeroIconButton
             icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-            label="Notifications"
+            label={t("common.notifications")}
             onPress={onNotificationsPress}
             badgeCount={notificationCount}
           />
@@ -119,11 +121,7 @@ export function PrayerTimesHero({
           {currentTime}
         </ThemedText>
         <ThemedText type="small" style={{ color: Brand.heroSubtext }}>
-          {nextPrayer} is only{" "}
-          <ThemedText type="smallBold" style={{ color: Brand.heroAccent }}>
-            {minutesToNext} min
-          </ThemedText>{" "}
-          away
+          {t("hero.nextPrayerAway", { prayer: nextPrayer, min: minutesToNext })}
         </ThemedText>
       </View>
 

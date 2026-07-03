@@ -1,7 +1,8 @@
-import { DUA_CATEGORY_LABELS, duasByCategory } from "@munib-tracker/shared/content";
+import { duasByCategory } from "@munib-tracker/shared/content";
 import type { DuaCategoryId } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -20,12 +21,13 @@ const CATEGORIES: DuaCategoryId[] = ["sunnah", "quranic", "daily"];
 
 export default function DuaHomeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <ScreenLayout
-      eyebrow="Supplication"
-      title="Duas"
-      subtitle="Sunnah, Quranic, and daily duas"
+      eyebrow={t("dua.eyebrow")}
+      title={t("dua.title")}
+      subtitle={t("dua.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -35,7 +37,7 @@ export default function DuaHomeScreen() {
               <NavRow
                 key={categoryId}
                 icon={CATEGORY_ICONS[categoryId]}
-                label={DUA_CATEGORY_LABELS[categoryId]}
+                label={t(`duaCat.${categoryId}`)}
                 count={duasByCategory(categoryId).length}
                 onPress={() =>
                   router.push({ pathname: "/dua/[category]", params: { category: categoryId } })
@@ -48,7 +50,7 @@ export default function DuaHomeScreen() {
         <Card padding="three">
           <NavRow
             icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-            label="Duroods & Salawat"
+            label={t("dua.duroodsLink")}
             onPress={() => router.push("/duroods")}
           />
         </Card>

@@ -1,5 +1,6 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,6 +15,7 @@ import { useFavoriteZikrIds } from "@/stores/preferences-store";
 
 export default function ZikrHomeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const favoriteIds = useFavoriteZikrIds();
   const categories = zikrCategories();
 
@@ -24,18 +26,18 @@ export default function ZikrHomeScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Remembrance"
-      title="Zikr"
-      subtitle="Adhkar for every part of your day"
+      eyebrow={t("zikr.eyebrow")}
+      title={t("zikr.title")}
+      subtitle={t("zikr.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
         {favorites.length > 0 ? (
           <Card padding="three">
             <SectionHeader
-              title="Favorites"
+              title={t("zikr.favorites")}
               icon={{ ios: "star.fill", android: "star", web: "star" }}
-              actionLabel="See all"
+              actionLabel={t("zikr.seeAll")}
               onActionPress={() => router.push("/zikr/favorites")}
             />
             <View style={styles.list}>
@@ -52,7 +54,7 @@ export default function ZikrHomeScreen() {
 
         <Card padding="three">
           <SectionHeader
-            title="Categories"
+            title={t("zikr.categories")}
             icon={{ ios: "square.grid.2x2.fill", android: "grid_view", web: "grid_view" }}
           />
           <View style={styles.list}>
@@ -60,7 +62,7 @@ export default function ZikrHomeScreen() {
               <NavRow
                 key={category.id}
                 icon={category.icon}
-                label={category.label}
+                label={t(`zikrCat.${category.id}`)}
                 count={category.count}
                 onPress={() =>
                   router.push({ pathname: "/zikr/[category]", params: { category: category.id } })

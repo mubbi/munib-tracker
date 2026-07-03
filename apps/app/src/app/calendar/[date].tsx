@@ -1,9 +1,10 @@
-import { OBLIGATORY_PRAYERS, PRAYER_LABELS, SUNNAH_PRAYERS } from "@munib-tracker/shared/constants";
+import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS } from "@munib-tracker/shared/constants";
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { formatShortDate, getLocalDateString } from "@munib-tracker/shared/utils";
 import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
@@ -20,6 +21,7 @@ import { trackerStore } from "@/stores/tracker-store";
 
 export default function CalendarDayScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const params = useLocalSearchParams<{ date: string }>();
   const date = params.date ?? getLocalDateString();
   const today = getLocalDateString();
@@ -68,26 +70,26 @@ export default function CalendarDayScreen() {
 
   return (
     <ScreenLayout
-      eyebrow={date === today ? "Today" : "History"}
+      eyebrow={date === today ? t("calDay.today") : t("calDay.history")}
       title={formatShortDate(date)}
       subtitle={
         isFuture
-          ? "This day hasn't happened yet"
-          : `${completed} of ${OBLIGATORY_PRAYERS.length} obligatory prayers`
+          ? t("calDay.futureSubtitle")
+          : t("calDay.summary", { completed, total: OBLIGATORY_PRAYERS.length })
       }
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       {isFuture ? (
         <EmptyState
           icon={{ ios: "clock.badge.exclamationmark", android: "schedule", web: "schedule" }}
-          title="Nothing to log yet"
-          description="You can only record worship for today and past days."
+          title={t("calDay.emptyTitle")}
+          description={t("calDay.emptyDesc")}
         />
       ) : (
         <Stagger>
           <Card padding="three">
             <SectionHeader
-              title="Obligatory"
+              title={t("tracker.obligatory")}
               icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
             />
             <View style={styles.rows}>
@@ -105,7 +107,7 @@ export default function CalendarDayScreen() {
 
           <Card padding="three">
             <CollapsibleSection
-              title="Sunnah & optional"
+              title={t("tracker.sunnahOptional")}
               icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
             >
               <View style={styles.rows}>
@@ -127,7 +129,7 @@ export default function CalendarDayScreen() {
       {activePrayer ? (
         <PrayerStatusSheet
           visible
-          prayerLabel={PRAYER_LABELS[activePrayer]}
+          prayerLabel={t(`prayers.${activePrayer}`)}
           currentStatus={status[activePrayer] ?? "pending"}
           currentNotes={notes[activePrayer]}
           onSelect={(next) => applyStatus(activePrayer, next)}

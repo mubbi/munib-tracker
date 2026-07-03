@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -57,6 +58,7 @@ const PRAYERS: PrayerTime[] = [
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const summary = useDailySummary();
@@ -89,31 +91,31 @@ export default function HomeScreen() {
   const quickActions: QuickActionItem[] = [
     {
       id: "checklist",
-      label: "Checklist",
+      label: t("actions.checklist"),
       icon: { ios: "checklist", android: "checklist", web: "checklist" },
       onPress: () => router.push("/tracker"),
     },
     {
       id: "zikr",
-      label: "Zikr",
+      label: t("actions.zikr"),
       icon: { ios: "heart.fill", android: "favorite", web: "favorite" },
       onPress: () => router.push("/zikr"),
     },
     {
       id: "tasbeeh",
-      label: "Tasbeeh",
+      label: t("actions.tasbeeh"),
       icon: { ios: "circle.hexagongrid.fill", android: "hive", web: "hive" },
       onPress: () => router.push("/tasbeeh/free"),
     },
     {
       id: "qaza",
-      label: "Qaza",
+      label: t("actions.qaza"),
       icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
       onPress: () => router.push("/qaza"),
     },
     {
       id: "duas",
-      label: "Duas",
+      label: t("actions.duas"),
       icon: {
         ios: "hands.and.sparkles.fill",
         android: "volunteer_activism",
@@ -123,19 +125,19 @@ export default function HomeScreen() {
     },
     {
       id: "names",
-      label: "99 Names",
+      label: t("actions.names"),
       icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
       onPress: () => router.push("/names-of-allah"),
     },
     {
       id: "calendar",
-      label: "Calendar",
+      label: t("actions.calendar"),
       icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
       onPress: () => router.push("/calendar"),
     },
     {
       id: "stats",
-      label: "Stats",
+      label: t("actions.stats"),
       icon: { ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" },
       onPress: () => router.push("/statistics"),
     },
@@ -159,7 +161,7 @@ export default function HomeScreen() {
             location="Sylhet, Bangladesh"
             hijriDate="Jumada al-Akhira 15, 1446 AH"
             currentTime={currentTime}
-            nextPrayer="Maghrib"
+            nextPrayer={t("prayers.maghrib")}
             minutesToNext={27}
             prayers={PRAYERS}
             activeIndex={4}
@@ -177,11 +179,9 @@ export default function HomeScreen() {
               <Card>
                 <View style={styles.goalHeader}>
                   <View style={styles.goalTitle}>
-                    <ThemedText type="subtitle">Today&apos;s Goal</ThemedText>
+                    <ThemedText type="subtitle">{t("home.todaysGoal")}</ThemedText>
                     <ThemedText type="small" themeColor="mutedForeground">
-                      {isFreshStart
-                        ? "Log your first act of worship to begin"
-                        : "Complete the daily activity checklist"}
+                      {isFreshStart ? t("home.freshStartHint") : t("home.checklistHint")}
                     </ThemedText>
                   </View>
                   <Pill
@@ -193,13 +193,13 @@ export default function HomeScreen() {
 
                 <View style={styles.goalProgress}>
                   <ThemedText type="smallBold" themeColor="mutedForeground">
-                    {tasksDone} of {tasksTotal} tasks
+                    {t("home.tasksProgress", { done: tasksDone, total: tasksTotal })}
                   </ThemedText>
                   <SegmentedProgress total={Math.max(tasksTotal, 1)} completed={tasksDone} />
                 </View>
 
                 <Button
-                  label={isFreshStart ? "Start tracking" : "Go to Checklist"}
+                  label={isFreshStart ? t("home.startTracking") : t("home.goToChecklist")}
                   fullWidth
                   trailingIcon={{
                     ios: "arrow.right",
@@ -212,18 +212,18 @@ export default function HomeScreen() {
 
               <View style={styles.statsRow}>
                 <StatCard
-                  label="Prayers"
+                  label={t("home.prayersStat")}
                   value={`${summary.salahCompleted}/${summary.salahTotal}`}
                   icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
                 />
                 <StatCard
-                  label="Dhikr"
+                  label={t("home.dhikrStat")}
                   value={`${summary.zikrCompleted}/${summary.zikrTotal}`}
                   icon={{ ios: "heart.fill", android: "favorite", web: "favorite" }}
                   tint={tokens.status.danger.color}
                 />
                 <StatCard
-                  label="Streak"
+                  label={t("home.streakStat")}
                   value={`${streak}`}
                   icon={{
                     ios: "flame.fill",
@@ -241,9 +241,9 @@ export default function HomeScreen() {
                   </ThemedText>
                 </View>
                 <View style={styles.qazaText}>
-                  <ThemedText type="smallBold">Qaza remaining</ThemedText>
+                  <ThemedText type="smallBold">{t("home.qazaRemaining")}</ThemedText>
                   <ThemedText type="caption" themeColor="mutedForeground">
-                    {qaza.completed} made up so far · tap to manage
+                    {t("home.qazaMeta", { completed: qaza.completed })}
                   </ThemedText>
                 </View>
               </Card>
@@ -256,11 +256,10 @@ export default function HomeScreen() {
                 </View>
                 <View style={styles.reminderText}>
                   <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                    Gentle reminder
+                    {t("home.gentleReminder")}
                   </ThemedText>
                   <ThemedText type="small" themeColor="mutedForeground">
-                    Small, steady steps matter more than perfection. Log what you complete and
-                    return tomorrow.
+                    {t("home.gentleReminderBody")}
                   </ThemedText>
                 </View>
               </Card>

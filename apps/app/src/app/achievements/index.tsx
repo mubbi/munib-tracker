@@ -4,6 +4,7 @@ import { aggregateByDate, computeStreak } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -21,6 +22,7 @@ const OBLIGATORY = new Set<string>(OBLIGATORY_PRAYERS);
 
 export default function AchievementsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [items, setItems] = useState<AchievementProgress[]>([]);
 
@@ -68,7 +70,10 @@ export default function AchievementsScreen() {
     if (Platform.OS === "web") return;
     try {
       await Share.share({
-        message: `Alhamdulillah — I unlocked "${achievement.title}" in Munib Tracker: ${achievement.description}.`,
+        message: t("achievements.shareMessage", {
+          title: achievement.title,
+          description: achievement.description,
+        }),
       });
     } catch {
       // cancelled
@@ -77,9 +82,9 @@ export default function AchievementsScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Milestones"
-      title="Achievements"
-      subtitle={`${unlockedCount} of ${items.length} unlocked`}
+      eyebrow={t("achievements.eyebrow")}
+      title={t("settings.achievements")}
+      subtitle={t("achievements.subtitle", { unlocked: unlockedCount, total: items.length })}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -119,7 +124,7 @@ export default function AchievementsScreen() {
                     style={{ color: colors.accent }}
                     onPress={() => share(achievement)}
                   >
-                    Share
+                    {t("achievements.share")}
                   </ThemedText>
                 ) : null
               ) : (

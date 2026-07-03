@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
@@ -18,33 +19,21 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { usePreferencesActions } from "@/stores/preferences-store";
 
-type Slide = { icon: SymbolViewProps["name"]; title: string; body: string };
+type Slide = { icon: SymbolViewProps["name"]; key: string };
 
 const SLIDES: Slide[] = [
-  {
-    icon: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
-    title: "Track your prayers",
-    body: "Mark each prayer completed, missed, delayed, or made up — and watch your streak grow.",
-  },
-  {
-    icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
-    title: "Clear your qaza",
-    body: "Estimate a lifetime of missed prayers and plan a pace to make them up.",
-  },
-  {
-    icon: { ios: "heart.fill", android: "favorite", web: "favorite" },
-    title: "Remember Allah",
-    body: "A library of adhkar and a tactile tasbeeh counter for every part of your day.",
-  },
+  { icon: { ios: "moon.stars.fill", android: "mosque", web: "mosque" }, key: "slide1" },
+  { icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" }, key: "slide2" },
+  { icon: { ios: "heart.fill", android: "favorite", web: "favorite" }, key: "slide3" },
   {
     icon: { ios: "bell.badge.fill", android: "notifications_active", web: "notifications_active" },
-    title: "Gentle reminders",
-    body: "Optional nudges for prayer, zikr, and qaza — always in your control.",
+    key: "slide4",
   },
 ];
 
 export default function OnboardingIntroScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const { colors, tokens } = useThemeTokens();
@@ -77,7 +66,7 @@ export default function OnboardingIntroScreen() {
           style={{ color: colors.mutedForeground }}
           onPress={() => finish("/")}
         >
-          Skip
+          {t("common.skip")}
         </ThemedText>
       </View>
 
@@ -89,15 +78,15 @@ export default function OnboardingIntroScreen() {
         onMomentumScrollEnd={onScroll}
       >
         {SLIDES.map((slide) => (
-          <View key={slide.title} style={[styles.slide, { width }]}>
+          <View key={slide.key} style={[styles.slide, { width }]}>
             <View style={[styles.icon, { backgroundColor: tokens.accentSoft }]}>
               <SymbolView name={slide.icon} size={56} tintColor={colors.accent} />
             </View>
             <ThemedText type="title" style={styles.title}>
-              {slide.title}
+              {t(`onboarding.${slide.key}Title`)}
             </ThemedText>
             <ThemedText type="default" themeColor="mutedForeground" style={styles.body}>
-              {slide.body}
+              {t(`onboarding.${slide.key}Body`)}
             </ThemedText>
           </View>
         ))}
@@ -106,7 +95,7 @@ export default function OnboardingIntroScreen() {
       <View style={styles.dots}>
         {SLIDES.map((slide, i) => (
           <View
-            key={slide.title}
+            key={slide.key}
             style={[
               styles.dot,
               {
@@ -121,9 +110,13 @@ export default function OnboardingIntroScreen() {
       <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.four }]}>
         {isLast ? (
           <View style={styles.finalActions}>
-            <Button label="Sign in to sync" fullWidth onPress={() => finish("/login")} />
             <Button
-              label="Continue as guest"
+              label={t("onboarding.signInToSync")}
+              fullWidth
+              onPress={() => finish("/login")}
+            />
+            <Button
+              label={t("common.continueAsGuest")}
               variant="ghost"
               fullWidth
               onPress={() => finish("/")}
@@ -131,7 +124,7 @@ export default function OnboardingIntroScreen() {
           </View>
         ) : (
           <Button
-            label="Next"
+            label={t("common.next")}
             fullWidth
             trailingIcon={{ ios: "arrow.right", android: "arrow_forward", web: "arrow_forward" }}
             onPress={goNext}

@@ -1,8 +1,9 @@
-import { OBLIGATORY_PRAYERS, PRAYER_LABELS } from "@munib-tracker/shared/constants";
+import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import { computeLifetimeMissedPrayers } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
@@ -23,6 +24,7 @@ function toInt(value: string): number {
 
 export default function QazaCalculatorScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const counters = useQazaCounters();
   const { adjustQaza } = useTrackerActions();
 
@@ -55,40 +57,44 @@ export default function QazaCalculatorScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Qaza"
-      title="Calculator"
-      subtitle="Estimate a lifetime of missed prayers"
+      eyebrow={t("qazaCalc.eyebrow")}
+      title={t("qazaCalc.title")}
+      subtitle={t("qazaCalc.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
         <Card padding="three">
           <View style={styles.fields}>
             <NumberField
-              label="Current age"
+              label={t("qazaCalc.currentAge")}
               value={currentAge}
               onChange={setCurrentAge}
               placeholder="30"
             />
-            <NumberField label="Age at puberty" value={pubertyAge} onChange={setPubertyAge} />
             <NumberField
-              label="Years prayed consistently"
+              label={t("qazaCalc.pubertyAge")}
+              value={pubertyAge}
+              onChange={setPubertyAge}
+            />
+            <NumberField
+              label={t("qazaCalc.yearsPrayed")}
               value={yearsPrayed}
               onChange={setYearsPrayed}
             />
             <NumberField
-              label="Exempt days / year (optional)"
+              label={t("qazaCalc.exemptDays")}
               value={exemptDays}
               onChange={setExemptDays}
-              hint="e.g. menstruation days when prayers are not owed"
+              hint={t("qazaCalc.exemptHint")}
             />
             <View>
               <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
-                Year length
+                {t("qazaCalc.yearLength")}
               </ThemedText>
               <SegmentedControl<"lunar" | "solar">
                 options={[
-                  { id: "lunar", label: "Lunar (354)" },
-                  { id: "solar", label: "Solar (365)" },
+                  { id: "lunar", label: t("qazaCalc.lunar") },
+                  { id: "solar", label: t("qazaCalc.solar") },
                 ]}
                 value={yearMode}
                 onChange={setYearMode}
@@ -100,19 +106,18 @@ export default function QazaCalculatorScreen() {
         <Card>
           <View style={styles.resultHeader}>
             <ThemedText type="small" themeColor="mutedForeground">
-              Estimated missed days
+              {t("qazaCalc.estimatedDays")}
             </ThemedText>
             <ThemedText type="header">{result.missedDays.toLocaleString()}</ThemedText>
             <ThemedText type="caption" themeColor="mutedForeground">
-              {result.missedYears} year{result.missedYears === 1 ? "" : "s"} · one of each prayer
-              per day
+              {t("qazaCalc.resultYears", { years: result.missedYears })}
             </ThemedText>
           </View>
           <View style={styles.perPrayer}>
             {OBLIGATORY_PRAYERS.map((prayerId) => (
               <View key={prayerId} style={styles.perPrayerItem}>
                 <ThemedText type="caption" themeColor="mutedForeground">
-                  {PRAYER_LABELS[prayerId]}
+                  {t(`prayers.${prayerId}`)}
                 </ThemedText>
                 <ThemedText type="smallBold">
                   {result.byPrayer[prayerId].toLocaleString()}
@@ -123,7 +128,7 @@ export default function QazaCalculatorScreen() {
         </Card>
 
         <Button
-          label="Apply to my counters"
+          label={t("qazaCalc.apply")}
           icon={{ ios: "square.and.arrow.down", android: "save", web: "save" }}
           fullWidth
           disabled={result.missedDays === 0}
@@ -135,9 +140,9 @@ export default function QazaCalculatorScreen() {
 
       <ConfirmDialog
         visible={confirmOpen}
-        title="Apply estimate?"
-        message="This replaces the remaining count for every obligatory prayer with the estimate above. Completed counts are kept."
-        confirmLabel="Apply"
+        title={t("qazaCalc.confirmTitle")}
+        message={t("qazaCalc.confirmMsg")}
+        confirmLabel={t("common.apply")}
         onConfirm={applyToCounters}
         onClose={() => setConfirmOpen(false)}
       />
@@ -186,6 +191,7 @@ function NumberField({
 
 function Disclaimer() {
   const { tokens } = useThemeTokens();
+  const { t } = useTranslation();
   return (
     <View style={[styles.disclaimer, { backgroundColor: tokens.status.warning.soft }]}>
       <SymbolView
@@ -194,8 +200,7 @@ function Disclaimer() {
         tintColor={tokens.status.warning.color}
       />
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimerText}>
-        This is an estimate only. Rulings on making up missed prayers vary — please consult a
-        knowledgeable scholar for your situation.
+        {t("qazaCalc.disclaimer")}
       </ThemedText>
     </View>
   );

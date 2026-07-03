@@ -1,5 +1,6 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -16,6 +17,7 @@ import { useZikrCount } from "@/stores/tracker-store";
 
 export default function ZikrDetailScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const params = useLocalSearchParams<{ id: string }>();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
@@ -24,11 +26,14 @@ export default function ZikrDetailScreen() {
 
   if (!item) {
     return (
-      <ScreenLayout title="Zikr" onBack={router.canGoBack() ? () => router.back() : undefined}>
+      <ScreenLayout
+        title={t("zikr.title")}
+        onBack={router.canGoBack() ? () => router.back() : undefined}
+      >
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
-          title="Zikr not found"
-          description="This item may have been removed."
+          title={t("zikr.notFoundTitle")}
+          description={t("zikr.notFoundDesc")}
         />
       </ScreenLayout>
     );
@@ -48,7 +53,7 @@ export default function ZikrDetailScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Zikr"
+      eyebrow={t("zikr.detailEyebrow")}
       title={item.title}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
@@ -58,7 +63,7 @@ export default function ZikrDetailScreen() {
         {target > 0 ? (
           <Card padding="three">
             <View style={styles.progressHeader}>
-              <ThemedText type="smallBold">Today</ThemedText>
+              <ThemedText type="smallBold">{t("zikr.today")}</ThemedText>
               <ThemedText type="small" themeColor="mutedForeground">
                 {Math.min(count, target)} / {target}
               </ThemedText>
@@ -69,7 +74,7 @@ export default function ZikrDetailScreen() {
 
         <View style={styles.actions}>
           <Button
-            label="Open in Tasbeeh"
+            label={t("zikr.openInTasbeeh")}
             icon={{ ios: "circle.hexagongrid.fill", android: "hive", web: "hive" }}
             fullWidth
             onPress={() =>
@@ -78,7 +83,7 @@ export default function ZikrDetailScreen() {
           />
           <View style={styles.actionRow}>
             <Button
-              label={isFavorite ? "Favorited" : "Favorite"}
+              label={isFavorite ? t("zikr.favorited") : t("zikr.favorite")}
               variant="secondary"
               icon={
                 isFavorite
@@ -90,7 +95,7 @@ export default function ZikrDetailScreen() {
             />
             {Platform.OS !== "web" ? (
               <Button
-                label="Share"
+                label={t("zikr.share")}
                 variant="ghost"
                 icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
                 onPress={onShare}

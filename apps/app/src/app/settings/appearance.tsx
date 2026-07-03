@@ -3,6 +3,7 @@ import type { AccentColorId, ColorMode } from "@munib-tracker/theme/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -16,14 +17,15 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { contrastRatio, isValidHex, normalizeHex, readableForeground } from "@/lib/color";
 
-const colorModes: { id: ColorMode; label: string }[] = [
-  { id: "light", label: "Light" },
-  { id: "dark", label: "Dark" },
-  { id: "system", label: "System" },
-];
+const colorModeIds: ColorMode[] = ["light", "dark", "system"];
 
 export default function AppearanceScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
+  const colorModes = colorModeIds.map((id) => ({
+    id,
+    label: t(`appearance.mode${id.charAt(0).toUpperCase()}${id.slice(1)}`),
+  }));
   const {
     colors,
     tokens,
@@ -44,9 +46,9 @@ export default function AppearanceScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Settings"
-      title="Appearance"
-      subtitle="Theme & accent color"
+      eyebrow={t("appearance.eyebrow")}
+      title={t("settings.appearance")}
+      subtitle={t("settings.appearanceSub")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Stagger>
@@ -60,9 +62,9 @@ export default function AppearanceScreen() {
               />
             </View>
             <View style={styles.sectionTitle}>
-              <ThemedText type="subtitle">Appearance</ThemedText>
+              <ThemedText type="subtitle">{t("appearance.themeTitle")}</ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
-                Choose light, dark, or follow your device
+                {t("appearance.themeHint")}
               </ThemedText>
             </View>
           </View>
@@ -79,9 +81,9 @@ export default function AppearanceScreen() {
               />
             </View>
             <View style={styles.sectionTitle}>
-              <ThemedText type="subtitle">Accent color</ThemedText>
+              <ThemedText type="subtitle">{t("appearance.accentTitle")}</ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
-                Gold matches the Munib brand
+                {t("appearance.accentHint")}
               </ThemedText>
             </View>
           </View>
@@ -143,9 +145,11 @@ export default function AppearanceScreen() {
               />
             </View>
             <View style={styles.sectionTitle}>
-              <ThemedText type="subtitle">Custom color</ThemedText>
+              <ThemedText type="subtitle">{t("appearance.customTitle")}</ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
-                {customAccent ? `Using ${customAccent}` : "Enter a hex code for your own accent"}
+                {customAccent
+                  ? t("appearance.customUsing", { hex: customAccent })
+                  : t("appearance.customHint")}
               </ThemedText>
             </View>
           </View>
@@ -187,7 +191,7 @@ export default function AppearanceScreen() {
               ]}
             />
             <Button
-              label="Apply"
+              label={t("common.apply")}
               size="sm"
               disabled={!draftValid}
               onPress={() => setCustomAccent(hexDraft)}
@@ -199,13 +203,13 @@ export default function AppearanceScreen() {
               type="caption"
               style={[styles.contrast, { color: tokens.status.warning.color }]}
             >
-              Low contrast — light text may be hard to read on this color.
+              {t("appearance.lowContrast")}
             </ThemedText>
           ) : null}
 
           {customAccent ? (
             <Button
-              label="Reset to presets"
+              label={t("appearance.reset")}
               variant="ghost"
               size="sm"
               onPress={() => {
@@ -219,14 +223,14 @@ export default function AppearanceScreen() {
 
         <Card variant="muted">
           <ThemedText type="label" themeColor="mutedForeground">
-            Preview
+            {t("appearance.preview")}
           </ThemedText>
           <View style={styles.previewRow}>
-            <Button label="Sample action" size="sm" />
-            <Button label="Secondary" size="sm" variant="secondary" />
+            <Button label={t("appearance.sampleAction")} size="sm" />
+            <Button label={t("appearance.secondary")} size="sm" variant="secondary" />
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.previewMeta}>
-            Current mode: {colorMode} · accent: {accentColorId}
+            {t("appearance.previewMeta", { mode: colorMode, accent: accentColorId })}
           </ThemedText>
         </Card>
       </Stagger>

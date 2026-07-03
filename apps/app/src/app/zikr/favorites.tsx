@@ -1,6 +1,7 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,6 +15,7 @@ import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-
 
 export default function ZikrFavoritesScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const order = useFavoriteZikrIds();
   const { setFavoriteOrder, toggleFavorite } = usePreferencesActions();
@@ -30,17 +32,17 @@ export default function ZikrFavoritesScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Zikr"
-      title="Favorites"
-      subtitle="Reorder or remove your saved adhkar"
+      eyebrow={t("zikr.detailEyebrow")}
+      title={t("zikr.favTitle")}
+      subtitle={t("zikr.favSubtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       {items.length === 0 ? (
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
-          title="No favorites yet"
-          description="Tap the star on any zikr to keep it here for quick access."
-          actionLabel="Browse zikr"
+          title={t("zikr.favEmptyTitle")}
+          description={t("zikr.favEmptyDesc")}
+          actionLabel={t("zikr.browseZikr")}
           onAction={() => router.replace("/zikr")}
         />
       ) : (
@@ -63,7 +65,7 @@ export default function ZikrFavoritesScreen() {
 
                 <View style={styles.controls}>
                   <Pressable
-                    accessibilityLabel="Move up"
+                    accessibilityLabel={t("zikr.moveUp")}
                     accessibilityRole="button"
                     disabled={index === 0}
                     hitSlop={6}
@@ -81,7 +83,7 @@ export default function ZikrFavoritesScreen() {
                     />
                   </Pressable>
                   <Pressable
-                    accessibilityLabel="Move down"
+                    accessibilityLabel={t("zikr.moveDown")}
                     accessibilityRole="button"
                     disabled={index === items.length - 1}
                     hitSlop={6}
@@ -99,7 +101,7 @@ export default function ZikrFavoritesScreen() {
                     />
                   </Pressable>
                   <Pressable
-                    accessibilityLabel="Remove favorite"
+                    accessibilityLabel={t("zikr.removeFavorite")}
                     accessibilityRole="button"
                     hitSlop={6}
                     onPress={() => toggleFavorite(item.id)}

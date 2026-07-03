@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -22,13 +23,14 @@ export function ConfirmDialog({
   visible,
   title,
   message,
-  confirmLabel = "Confirm",
-  cancelLabel = "Cancel",
+  confirmLabel,
+  cancelLabel,
   destructive,
   onConfirm,
   onClose,
 }: ConfirmDialogProps) {
   const { tokens } = useThemeTokens();
+  const { t } = useTranslation();
 
   return (
     <Sheet visible={visible} onClose={onClose}>
@@ -39,9 +41,9 @@ export function ConfirmDialog({
         </ThemedText>
       ) : null}
       <View style={styles.actions}>
-        <Button label={cancelLabel} variant="ghost" onPress={onClose} />
+        <Button label={cancelLabel ?? t("common.cancel")} variant="ghost" onPress={onClose} />
         <Button
-          label={confirmLabel}
+          label={confirmLabel ?? t("common.confirm")}
           onPress={() => {
             onConfirm();
             onClose();

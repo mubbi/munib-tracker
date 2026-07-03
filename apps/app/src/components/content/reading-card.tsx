@@ -1,4 +1,5 @@
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -17,6 +18,7 @@ export type ReadingItem = {
 
 /** Shared reading view for religious text (zikr, dua, durood, names). */
 export function ReadingCard({ item }: { item: ReadingItem }) {
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
   const arabicSize = fontPrefs.arabic.size;
@@ -68,7 +70,7 @@ export function ReadingCard({ item }: { item: ReadingItem }) {
 
       {item.reference ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.reference}>
-          Reference: {item.reference}
+          {t("reading.reference", { ref: item.reference })}
         </ThemedText>
       ) : null}
     </Card>

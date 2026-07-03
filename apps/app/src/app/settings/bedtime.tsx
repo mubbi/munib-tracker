@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +14,7 @@ import { usePreferences, usePreferencesActions } from "@/stores/preferences-stor
 
 export default function BedtimeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
   const [{ hour: h, minute: m }, setTime] = useState(() =>
@@ -28,29 +30,29 @@ export default function BedtimeScreen() {
 
   return (
     <ScreenLayout
-      eyebrow="Settings"
-      title="Bedtime"
-      subtitle="When should before-sleep adhkar remind you?"
+      eyebrow={t("bedtime.eyebrow")}
+      title={t("settings.bedtime")}
+      subtitle={t("bedtime.subtitle")}
       onBack={router.canGoBack() ? () => router.back() : undefined}
     >
       <Card style={styles.card}>
         <View style={styles.picker}>
           <TimeColumn
             value={`${h}`.padStart(2, "0")}
-            label="hour"
+            unitKey="hour"
             onUp={() => apply(h + 1, m)}
             onDown={() => apply(h - 1, m)}
           />
           <ThemedText type="display">:</ThemedText>
           <TimeColumn
             value={`${m}`.padStart(2, "0")}
-            label="min"
+            unitKey="min"
             onUp={() => apply(h, m + 5)}
             onDown={() => apply(h, m - 5)}
           />
         </View>
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-          Saved automatically · 24-hour time
+          {t("bedtime.hint")}
         </ThemedText>
       </Card>
     </ScreenLayout>
@@ -59,21 +61,23 @@ export default function BedtimeScreen() {
 
 function TimeColumn({
   value,
-  label,
+  unitKey,
   onUp,
   onDown,
 }: {
   value: string;
-  label: string;
+  unitKey: "hour" | "min";
   onUp: () => void;
   onDown: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
+  const unit = t(`bedtime.${unitKey}`);
   return (
     <View style={styles.column}>
       <ArrowButton
         icon={{ ios: "chevron.up", android: "keyboard_arrow_up", web: "keyboard_arrow_up" }}
-        label={`Increase ${label}`}
+        label={t("bedtime.increase", { unit })}
         onPress={onUp}
       />
       <View style={[styles.value, { backgroundColor: tokens.accentSoft }]}>
@@ -83,7 +87,7 @@ function TimeColumn({
       </View>
       <ArrowButton
         icon={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
-        label={`Decrease ${label}`}
+        label={t("bedtime.decrease", { unit })}
         onPress={onDown}
       />
     </View>

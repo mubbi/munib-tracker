@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -16,6 +17,7 @@ type CustomTargetModalProps = {
 
 export function CustomTargetModal({ visible, initial, onSubmit, onClose }: CustomTargetModalProps) {
   const { colors } = useThemeTokens();
+  const { t } = useTranslation();
   const [value, setValue] = useState(initial ? String(initial) : "");
 
   useEffect(() => {
@@ -32,15 +34,15 @@ export function CustomTargetModal({ visible, initial, onSubmit, onClose }: Custo
 
   return (
     <Sheet visible={visible} onClose={onClose}>
-      <ThemedText type="subtitle">Custom target</ThemedText>
+      <ThemedText type="subtitle">{t("tasbeehUi.customTitle")}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
-        How many times would you like to repeat?
+        {t("tasbeehUi.customPrompt")}
       </ThemedText>
       <TextInput
         value={value}
         onChangeText={(text) => setValue(text.replace(/[^0-9]/g, "").slice(0, 5))}
         keyboardType="number-pad"
-        placeholder="e.g. 313"
+        placeholder={t("tasbeehUi.customPlaceholder")}
         placeholderTextColor={colors.mutedForeground}
         style={[
           styles.input,
@@ -48,8 +50,8 @@ export function CustomTargetModal({ visible, initial, onSubmit, onClose }: Custo
         ]}
       />
       <View style={styles.actions}>
-        <Button label="Cancel" variant="ghost" onPress={onClose} />
-        <Button label="Set" onPress={submit} />
+        <Button label={t("common.cancel")} variant="ghost" onPress={onClose} />
+        <Button label={t("common.set")} onPress={submit} />
       </View>
     </Sheet>
   );

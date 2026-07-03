@@ -1,6 +1,6 @@
-import { PRAYER_LABELS } from "@munib-tracker/shared/constants";
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -26,24 +26,27 @@ type PrayerTrackerRowProps = {
 
 export function PrayerTrackerRow({ prayerId, status, hasNotes, onPress }: PrayerTrackerRowProps) {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
   const meta = PRAYER_STATUS_META[status];
   const toneColor = statusToneColor(meta.tone, colors, tokens);
   // A muted row needs the soft-accent fill so the pending well stays visible.
   const toneSoft = statusToneSoft(meta.tone, tokens.accentSoft, tokens);
 
   const timeHint = PRAYER_TIME_HINTS[prayerId];
+  const prayerName = t(`prayers.${prayerId}`);
+  const statusLabel = t(`prayerStatus.${status}`);
 
   return (
     <PressableScale
       haptic="light"
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`${PRAYER_LABELS[prayerId]}, ${meta.label}`}
+      accessibilityLabel={t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel })}
       style={[styles.row, { backgroundColor: colors.muted }]}
     >
       <IconWell icon={PRAYER_ICONS[prayerId]} tint={toneColor} background={toneSoft} />
       <View style={styles.body}>
-        <ThemedText type="small">{PRAYER_LABELS[prayerId]}</ThemedText>
+        <ThemedText type="small">{prayerName}</ThemedText>
         <View style={styles.subRow}>
           {timeHint ? (
             <ThemedText type="caption" themeColor="mutedForeground">
@@ -60,7 +63,7 @@ export function PrayerTrackerRow({ prayerId, status, hasNotes, onPress }: Prayer
         </View>
       </View>
       <Pill
-        label={meta.label}
+        label={statusLabel}
         color={toneColor}
         background={toneSoft}
         icon={status === "pending" ? undefined : meta.icon}
