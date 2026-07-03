@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
@@ -13,6 +13,8 @@ import { Durations } from "@/constants/motion";
 
 const PARTICLE_COUNT = 28;
 const BURST_DURATION = Durations.slow + 280;
+const MAX_DELAY = 100;
+const CLEANUP_DURATION = BURST_DURATION + MAX_DELAY + 80;
 
 type ParticleConfig = {
   angle: number;
@@ -58,7 +60,7 @@ function ConfettiParticle({ config }: { config: ParticleConfig }) {
     const x = Math.cos(rad) * config.distance * p;
     const y = Math.sin(rad) * config.distance * p - 28 * p;
     return {
-      opacity: 1 - p * 0.85,
+      opacity: p < 0.7 ? 1 - p * 0.3 : Math.max(0, (1 - p) / 0.3) * 0.79,
       transform: [
         { translateX: x },
         { translateY: y },
@@ -87,18 +89,26 @@ type PartyPopperProps = {
 
 export function PartyPopper({ burstKey, colors }: PartyPopperProps) {
   const reducedMotion = useReducedMotion();
+  const [activeKey, setActiveKey] = useState(0);
   const particles = useMemo(
-    () => (burstKey > 0 ? createParticles(burstKey, colors) : []),
-    [burstKey, colors],
+    () => (activeKey > 0 ? createParticles(activeKey, colors) : []),
+    [activeKey, colors],
   );
 
-  if (reducedMotion || burstKey === 0 || particles.length === 0) return null;
+  useEffect(() => {
+    if (burstKey === 0) return;
+    setActiveKey(burstKey);
+    const timeout = setTimeout(() => setActiveKey(0), CLEANUP_DURATION);
+    return () => clearTimeout(timeout);
+  }, [burstKey]);
+
+  if (reducedMotion || activeKey === 0 || particles.length === 0) return null;
 
   return (
     <View style={styles.container}>
       {particles.map((particle, index) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length decorative burst, never reordered
-        <ConfettiParticle key={`${burstKey}-${index}`} config={particle} />
+        <ConfettiParticle key={`${activeKey}-${index}`} config={particle} />
       ))}
     </View>
   );
