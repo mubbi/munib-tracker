@@ -19,6 +19,8 @@ import { useColorScheme } from "react-native";
 interface ThemeContextValue {
   colors: ThemeColors;
   colorMode: ColorMode;
+  /** The resolved scheme after applying `colorMode` + system preference. */
+  scheme: "light" | "dark";
   accentColorId: AccentColorId;
   isReady: boolean;
   setColorMode: (mode: ColorMode) => void;
@@ -79,6 +81,13 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  const scheme: "light" | "dark" = useMemo(() => {
+    if (colorMode === "system") {
+      return systemScheme === "dark" ? "dark" : "light";
+    }
+    return colorMode;
+  }, [colorMode, systemScheme]);
+
   const colors = useMemo(
     () =>
       resolveTheme(
@@ -107,12 +116,13 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     () => ({
       colors,
       colorMode,
+      scheme,
       accentColorId,
       isReady,
       setColorMode,
       setAccentColor,
     }),
-    [accentColorId, colorMode, colors, isReady, setAccentColor, setColorMode],
+    [accentColorId, colorMode, colors, isReady, scheme, setAccentColor, setColorMode],
   );
 
   if (!isReady) {

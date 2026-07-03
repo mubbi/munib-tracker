@@ -10,8 +10,8 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { MaxContentWidth, Spacing } from "@/constants/theme";
-import { useTheme } from "@/hooks/use-theme";
+import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ThemedText } from "./themed-text";
 
 type TabConfig = {
@@ -65,7 +65,7 @@ type TabButtonProps = TabTriggerSlotProps & {
 };
 
 export function TabButton({ label, icon, isFocused, ...props }: TabButtonProps) {
-  const { colors } = useTheme();
+  const { colors, tokens } = useThemeTokens();
   const tint = isFocused ? colors.accent : colors.mutedForeground;
 
   return (
@@ -75,24 +75,26 @@ export function TabButton({ label, icon, isFocused, ...props }: TabButtonProps) 
       accessibilityState={{ selected: isFocused }}
       style={({ pressed }) => [styles.tabButton, pressed && styles.pressed]}
     >
-      <SymbolView name={icon} size={22} tintColor={tint} />
-      <ThemedText
-        type="small"
-        style={{
-          color: tint,
-          fontWeight: isFocused ? "700" : "500",
-          fontSize: 12,
-        }}
-      >
-        {label}
-      </ThemedText>
+      <View style={[styles.tabInner, isFocused && { backgroundColor: tokens.accentSoft }]}>
+        <SymbolView name={icon} size={20} tintColor={tint} />
+        <ThemedText
+          type="small"
+          style={{
+            color: tint,
+            fontWeight: isFocused ? "700" : "500",
+            fontSize: 12,
+          }}
+        >
+          {label}
+        </ThemedText>
+      </View>
     </Pressable>
   );
 }
 
 export function BottomTabBar(props: TabListProps) {
   const insets = useSafeAreaInsets();
-  const { colors } = useTheme();
+  const { colors, tokens } = useThemeTokens();
 
   return (
     <View
@@ -102,7 +104,8 @@ export function BottomTabBar(props: TabListProps) {
         {
           paddingBottom: Math.max(insets.bottom, Spacing.two),
           backgroundColor: colors.card,
-          borderTopColor: colors.border,
+          borderTopColor: tokens.hairline,
+          ...Shadows.lg,
         },
       ]}
     >
@@ -133,8 +136,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.half,
-    paddingVertical: Spacing.one,
+  },
+  tabInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.one + 2,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
   },
   pressed: {
     opacity: 0.75,

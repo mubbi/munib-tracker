@@ -8,7 +8,9 @@ import { useTheme } from "@/hooks/use-theme";
 type ScreenLayoutProps = {
   title: string;
   subtitle?: string;
+  eyebrow?: string;
   notificationCount?: number;
+  onNotificationsPress?: () => void;
   scrollable?: boolean;
   children: ReactNode;
   contentStyle?: ViewStyle;
@@ -17,7 +19,9 @@ type ScreenLayoutProps = {
 export function ScreenLayout({
   title,
   subtitle,
+  eyebrow,
   notificationCount,
+  onNotificationsPress,
   scrollable = true,
   children,
   contentStyle,
@@ -32,7 +36,13 @@ export function ScreenLayout({
 
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
-      <AppHeader title={title} subtitle={subtitle} notificationCount={notificationCount} />
+      <AppHeader
+        title={title}
+        subtitle={subtitle}
+        eyebrow={eyebrow}
+        notificationCount={notificationCount}
+        onNotificationsPress={onNotificationsPress}
+      />
       {scrollable ? (
         <ScrollView
           contentContainerStyle={styles.scrollContent}
@@ -60,11 +70,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingHorizontal: Spacing.four,
-    paddingTop: Spacing.three,
+    paddingTop: Spacing.one,
   },
   inner: {
     width: "100%",
     maxWidth: MaxContentWidth,
-    gap: Spacing.three,
+    gap: Spacing.four,
   },
 });

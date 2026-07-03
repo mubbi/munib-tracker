@@ -2,13 +2,14 @@ import { SymbolView } from "expo-symbols";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Spacing } from "@/constants/theme";
-import { useTheme } from "@/hooks/use-theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ThemedText } from "./themed-text";
 
 type AppHeaderProps = {
   title: string;
   subtitle?: string;
+  eyebrow?: string;
   notificationCount?: number;
   onNotificationsPress?: () => void;
 };
@@ -16,11 +17,12 @@ type AppHeaderProps = {
 export function AppHeader({
   title,
   subtitle,
+  eyebrow,
   notificationCount = 0,
   onNotificationsPress,
 }: AppHeaderProps) {
   const insets = useSafeAreaInsets();
-  const { colors } = useTheme();
+  const { colors, tokens } = useThemeTokens();
 
   return (
     <View
@@ -29,14 +31,16 @@ export function AppHeader({
         {
           paddingTop: insets.top + Spacing.two,
           backgroundColor: colors.background,
-          borderBottomColor: colors.border,
         },
       ]}
     >
       <View style={styles.textBlock}>
-        <ThemedText type="header" style={{ color: colors.foreground }}>
-          {title}
-        </ThemedText>
+        {eyebrow ? (
+          <ThemedText type="label" style={{ color: colors.accent }}>
+            {eyebrow}
+          </ThemedText>
+        ) : null}
+        <ThemedText type="header">{title}</ThemedText>
         {subtitle ? (
           <ThemedText type="small" themeColor="mutedForeground">
             {subtitle}
@@ -50,24 +54,22 @@ export function AppHeader({
         onPress={onNotificationsPress}
         style={({ pressed }) => [
           styles.notificationButton,
-          {
-            backgroundColor: colors.card,
-            borderColor: colors.border,
-            opacity: pressed ? 0.75 : 1,
-          },
+          { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.7 : 1 },
         ]}
       >
         <SymbolView
           name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-          size={20}
+          size={19}
           tintColor={colors.accent}
         />
         {notificationCount > 0 ? (
-          <View style={[styles.badge, { backgroundColor: colors.accent }]}>
-            <ThemedText
-              type="smallBold"
-              style={[styles.badgeText, { color: colors.accentForeground }]}
-            >
+          <View
+            style={[
+              styles.badge,
+              { backgroundColor: tokens.status.danger.color, borderColor: colors.background },
+            ]}
+          >
+            <ThemedText type="caption" style={[styles.badgeText, { color: "#FFFFFF" }]}>
               {notificationCount > 9 ? "9+" : String(notificationCount)}
             </ThemedText>
           </View>
@@ -84,7 +86,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: Spacing.four,
     paddingBottom: Spacing.three,
-    borderBottomWidth: StyleSheet.hairlineWidth,
     gap: Spacing.three,
   },
   textBlock: {
@@ -94,22 +95,22 @@ const styles = StyleSheet.create({
   notificationButton: {
     width: 44,
     height: 44,
-    borderRadius: 22,
-    borderWidth: 1,
+    borderRadius: Radius.md,
     alignItems: "center",
     justifyContent: "center",
     borderCurve: "continuous",
   },
   badge: {
     position: "absolute",
-    top: 4,
-    right: 4,
+    top: 3,
+    right: 3,
     minWidth: 18,
     height: 18,
     borderRadius: 9,
+    borderWidth: 1.5,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 4,
+    paddingHorizontal: 3,
   },
   badgeText: {
     fontSize: 10,

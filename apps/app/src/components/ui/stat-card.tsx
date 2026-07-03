@@ -1,31 +1,34 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { StyleSheet, View } from "react-native";
+
 import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Spacing } from "@/constants/theme";
-import { useTheme } from "@/hooks/use-theme";
+import { Card } from "@/components/ui/card";
+import { Radius, Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type StatCardProps = {
   label: string;
   value: string;
   icon: SymbolViewProps["name"];
+  tint?: string;
 };
 
-export function StatCard({ label, value, icon }: StatCardProps) {
-  const { colors } = useTheme();
+export function StatCard({ label, value, icon, tint }: StatCardProps) {
+  const { colors, tokens } = useThemeTokens();
+  const accent = tint ?? colors.accent;
 
   return (
-    <ThemedView type="card" style={[styles.card, { borderColor: colors.border }]}>
-      <View style={[styles.iconWrap, { backgroundColor: colors.muted }]}>
-        <SymbolView name={icon} size={18} tintColor={colors.accent} />
+    <Card variant="elevated" padding="three" style={styles.card}>
+      <View style={[styles.iconWrap, { backgroundColor: tokens.accentSoft }]}>
+        <SymbolView name={icon} size={18} tintColor={accent} />
       </View>
-      <ThemedText type="smallBold" style={{ color: colors.accent }}>
+      <ThemedText type="subtitle" style={{ color: colors.foreground }}>
         {value}
       </ThemedText>
-      <ThemedText type="small" themeColor="mutedForeground">
+      <ThemedText type="caption" themeColor="mutedForeground">
         {label}
       </ThemedText>
-    </ThemedView>
+    </Card>
   );
 }
 
@@ -34,18 +37,14 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 96,
     gap: Spacing.one,
-    padding: Spacing.three,
-    borderRadius: Spacing.three,
-    borderWidth: 1,
-    borderCurve: "continuous",
   },
   iconWrap: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 36,
+    height: 36,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: Spacing.one,
-    borderCurve: "continuous",
+    marginBottom: Spacing.two,
   },
 });

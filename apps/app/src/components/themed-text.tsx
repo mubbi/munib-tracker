@@ -6,11 +6,14 @@ import { useTheme } from "@/hooks/use-theme";
 export type ThemedTextProps = TextProps & {
   type?:
     | "default"
+    | "display"
     | "title"
     | "header"
+    | "subtitle"
     | "small"
     | "smallBold"
-    | "subtitle"
+    | "caption"
+    | "label"
     | "link"
     | "linkPrimary"
     | "code";
@@ -26,11 +29,14 @@ export function ThemedText({ style, type = "default", themeColor, ...rest }: The
       style={[
         { color: resolvedColor },
         type === "default" && styles.default,
+        type === "display" && styles.display,
         type === "title" && styles.title,
         type === "header" && styles.header,
+        type === "subtitle" && styles.subtitle,
         type === "small" && styles.small,
         type === "smallBold" && styles.smallBold,
-        type === "subtitle" && styles.subtitle,
+        type === "caption" && styles.caption,
+        type === "label" && styles.label,
         type === "link" && styles.link,
         type === "linkPrimary" && styles.linkPrimary,
         type === "code" && styles.code,
@@ -57,21 +63,41 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontWeight: "500",
   },
+  display: {
+    fontSize: 56,
+    fontWeight: "800",
+    lineHeight: 58,
+    letterSpacing: -1,
+  },
   title: {
-    fontSize: 48,
-    fontWeight: "600",
-    lineHeight: 52,
+    fontSize: 40,
+    fontWeight: "700",
+    lineHeight: 46,
+    letterSpacing: -0.6,
   },
   header: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: "700",
-    lineHeight: 34,
-    letterSpacing: -0.3,
+    lineHeight: 32,
+    letterSpacing: -0.4,
   },
   subtitle: {
-    fontSize: 32,
-    lineHeight: 44,
+    fontSize: 20,
+    lineHeight: 26,
+    fontWeight: "700",
+    letterSpacing: -0.2,
+  },
+  caption: {
+    fontSize: 12,
+    lineHeight: 16,
     fontWeight: "600",
+  },
+  label: {
+    fontSize: 11,
+    lineHeight: 14,
+    fontWeight: "700",
+    letterSpacing: 0.8,
+    textTransform: "uppercase",
   },
   link: {
     lineHeight: 30,

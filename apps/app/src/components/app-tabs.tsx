@@ -1,14 +1,14 @@
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 
-import { useTheme } from "@/hooks/use-theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 export default function AppTabs() {
-  const { colors } = useTheme();
+  const { colors, tokens } = useThemeTokens();
 
   return (
     <NativeTabs
       backgroundColor={colors.card}
-      indicatorColor={colors.muted}
+      indicatorColor={tokens.accentSoft}
       iconColor={{ default: colors.mutedForeground, selected: colors.accent }}
       labelStyle={{
         default: { color: colors.mutedForeground, fontWeight: "500" },
