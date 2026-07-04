@@ -7,6 +7,7 @@ import type { StoredLocation } from "@/lib/location";
 import {
   type BuiltReminder,
   buildReminders,
+  type ScheduledReminderRow,
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
 import {
@@ -80,7 +81,7 @@ async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
     title: reminder.title,
     body: reminder.body,
     categoryIdentifier: REMINDER_CATEGORY,
-    data: { channelId: reminder.channelId, reminderId: reminder.id, route: "/notifications" },
+    data: { channelId: reminder.channelId, reminderId: reminder.id, route: reminder.route },
   };
 
   if (reminder.repeat === "daily") {
@@ -156,7 +157,7 @@ export async function snoozeNotification(
 export async function listScheduled(
   prefs: UserPreferences,
   location: StoredLocation,
-): Promise<{ id: string; title: string; body: string; time?: string }[]> {
+): Promise<ScheduledReminderRow[]> {
   if (!isNative) {
     if (!prefs.notificationPrefs.masterEnabled) return [];
     return summarizeReminders(buildReminders(prefs, location), prefs.timeFormat);
@@ -164,8 +165,15 @@ export async function listScheduled(
 
   const scheduled = await Notifications.getAllScheduledNotificationsAsync();
   if (scheduled.length > 0) {
-    const seen = new Set<string>();
-    const rows: { id: string; title: string; body: string; time?: string }[] = [];
+    const now = Date.now();
+    const parsed: {
+      id: string;
+      title: string;
+      body: string;
+      time?: string;
+      atMs: number;
+      route?: string;
+    }[] = [];
 
     for (const item of scheduled) {
       const trigger = item.trigger as {
@@ -174,28 +182,51 @@ export async function listScheduled(
         date?: number | string;
       } | null;
       let time: string | undefined;
+      let atMs = Number.MAX_SAFE_INTEGER;
       if (trigger && typeof trigger.hour === "number") {
+        const next = new Date();
+        next.setHours(trigger.hour, trigger.minute ?? 0, 0, 0);
+        if (next.getTime() <= now) next.setDate(next.getDate() + 1);
+        atMs = next.getTime();
         time = formatDisplayHhMm(trigger.hour, trigger.minute ?? 0, prefs.timeFormat);
       } else if (trigger?.date != null) {
         const date = new Date(trigger.date);
+        atMs = date.getTime();
         time = formatDisplayHhMm(date.getHours(), date.getMinutes(), prefs.timeFormat);
       }
 
       const title = item.content.title ?? i18n.t("notif.defaultTitle");
       const body = item.content.body ?? "";
-      const dedupeKey = `${title}\0${body}\0${time ?? ""}`;
-      if (seen.has(dedupeKey)) continue;
-      seen.add(dedupeKey);
-
-      rows.push({
+      const route = (item.content.data as { route?: string } | undefined)?.route;
+      parsed.push({
         id: item.identifier,
         title,
         body,
         time,
+        atMs,
+        route,
       });
     }
 
-    return rows.sort((a, b) => (a.time ?? "").localeCompare(b.time ?? ""));
+    parsed.sort((a, b) => a.atMs - b.atMs);
+
+    const seen = new Set<string>();
+    const rows: ScheduledReminderRow[] = [];
+    for (const item of parsed) {
+      const dedupeKey = `${item.title}\0${item.body}`;
+      if (seen.has(dedupeKey)) continue;
+      seen.add(dedupeKey);
+      rows.push({
+        id: item.id,
+        title: item.title,
+        body: item.body,
+        fireAt: new Date(item.atMs).toISOString(),
+        time: item.time,
+        route: item.route,
+      });
+    }
+
+    return rows.sort((a, b) => a.fireAt.localeCompare(b.fireAt));
   }
 
   if (!prefs.notificationPrefs.masterEnabled) return [];

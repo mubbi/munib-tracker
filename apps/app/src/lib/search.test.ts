@@ -130,8 +130,37 @@ describe("searchSurahList", () => {
     expect(searchSurahList("fatiah").some((s) => s.number === 1)).toBe(true);
   });
 
-  it("returns nothing for an empty query and respects the limit", () => {
-    expect(searchSurahList("")).toEqual([]);
+  it("finds a surah by English meaning", () => {
+    expect(searchSurahList("cow").some((s) => s.number === 2)).toBe(true);
+    expect(searchSurahList("opener").some((s) => s.number === 1)).toBe(true);
+  });
+
+  it("finds a surah by Arabic name", () => {
+    expect(searchSurahList("فات").some((s) => s.number === 1)).toBe(true);
+    expect(searchSurahList("بقر").some((s) => s.number === 2)).toBe(true);
+  });
+
+  it("matches an exact surah number", () => {
+    expect(searchSurahList("1").some((s) => s.number === 1)).toBe(true);
+    expect(searchSurahList("114").some((s) => s.number === 114)).toBe(true);
+  });
+
+  it("filters by revelation place", () => {
+    const makki = searchSurahList("", { revelation: "makkah" });
+    const madani = searchSurahList("", { revelation: "madinah" });
+    expect(makki.every((s) => s.revelationPlace === "makkah")).toBe(true);
+    expect(madani.every((s) => s.revelationPlace === "madinah")).toBe(true);
+    expect(makki.length + madani.length).toBe(114);
+  });
+
+  it("combines fuzzy search with a revelation filter", () => {
+    const hits = searchSurahList("al", { revelation: "makkah" });
+    expect(hits.length).toBeGreaterThan(0);
+    expect(hits.every((s) => s.revelationPlace === "makkah")).toBe(true);
+  });
+
+  it("returns the full list for an empty query and respects the limit", () => {
+    expect(searchSurahList("").length).toBe(114);
     expect(searchSurahList("al", 3).length).toBeLessThanOrEqual(3);
   });
 });
@@ -150,7 +179,7 @@ describe("createHadithSearch", () => {
 
 describe("createDuaSearch", () => {
   it("fuzzy-searches within one category's duas", () => {
-    const items = duasByCategory("daily");
+    const items = duasByCategory("food");
     const index = createDuaSearch(items);
     expect(index.search("eating").length).toBeGreaterThan(0);
     expect(index.search("")).toEqual([]);
@@ -168,7 +197,7 @@ describe("createZikrSearch", () => {
 
 describe("searchDuaList", () => {
   it("finds duas by title or category, typo-tolerant", () => {
-    expect(searchDuaList("sunnah").length).toBeGreaterThan(0);
+    expect(searchDuaList("travel").length).toBeGreaterThan(0);
     expect(searchDuaList("forgivness").length).toBeGreaterThan(0);
     expect(searchDuaList("")).toEqual([]);
   });

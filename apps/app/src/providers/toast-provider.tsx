@@ -97,7 +97,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     <ToastContext.Provider value={value}>
       {children}
       {toasts.length > 0 ? (
-        <View style={[styles.container, { top: topOffset }]} pointerEvents="box-none">
+        <View style={[styles.container, { top: topOffset, pointerEvents: "box-none" }]}>
           {toasts.map((item) => (
             <ToastCard key={item.id} item={item} onDismiss={() => dismiss(item.id)} />
           ))}

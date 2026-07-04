@@ -1,3 +1,4 @@
+import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import { getZikrById } from "@munib-tracker/shared/content";
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
@@ -6,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { NavRow } from "@/components/ui/nav-row";
@@ -15,6 +17,7 @@ import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { searchZikrList } from "@/lib/search";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
 
@@ -53,6 +56,28 @@ export default function ZikrHomeScreen() {
       }
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/zikr"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("zikr.title"), path: "/zikr" },
+        ]}
+        jsonLd={[
+          collectionPageSchema({
+            path: "/zikr",
+            name: "Daily Adhkar & Dhikr",
+            description: "Morning, evening, and situational adhkar for every part of your day.",
+            items: ZIKR_CATEGORY_IDS.map((id) => ({
+              name: t(`zikrCat.${id}`),
+              path: `/zikr/${id}`,
+            })),
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("zikr.title"), path: "/zikr" },
+            ],
+          }),
+        ]}
+      />
       <Stagger>
         <Card padding="three">
           <TextInput

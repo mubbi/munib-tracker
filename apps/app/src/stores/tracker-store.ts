@@ -7,11 +7,11 @@ import {
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type {
   DailySummary,
-  ObligatoryPrayer,
   PrayerId,
   PrayerStatus,
   QazaCounter,
   QazaDailyProgress,
+  QazaPrayer,
   QazaRozaCounter,
   QazaSchedule,
 } from "@munib-tracker/shared/types";
@@ -85,9 +85,9 @@ export interface TrackerState {
   setPrayerNotes: (prayerId: PrayerId, notes: string) => Promise<void>;
   setZikrCount: (zikrId: string, count: number, target: number) => Promise<void>;
   incrementZikr: (zikrId: string, target: number, by?: number) => Promise<void>;
-  adjustQaza: (prayerId: ObligatoryPrayer, remaining: number, completed: number) => Promise<void>;
-  performQaza: (prayerId: ObligatoryPrayer, by?: number) => Promise<void>;
-  resetQazaCounter: (prayerId: ObligatoryPrayer) => Promise<void>;
+  adjustQaza: (prayerId: QazaPrayer, remaining: number, completed: number) => Promise<void>;
+  performQaza: (prayerId: QazaPrayer, by?: number) => Promise<void>;
+  resetQazaCounter: (prayerId: QazaPrayer) => Promise<void>;
   resetAllQazaCounters: () => Promise<void>;
   setQazaSchedule: (schedule: QazaSchedule) => Promise<void>;
   setRoza: (roza: QazaRozaCounter) => Promise<void>;

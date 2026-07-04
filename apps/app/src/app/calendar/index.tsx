@@ -6,7 +6,9 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 
+import { CalendarMonthPicker } from "@/components/calendar-month-picker";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -36,6 +38,7 @@ export default function CalendarScreen() {
   const [month, setMonth] = useState(now.getMonth());
   const [hYear, setHYear] = useState(todayHijri.year);
   const [hMonth, setHMonth] = useState(todayHijri.month);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
 
   const base = i18n.language?.split("-")[0];
@@ -107,6 +110,7 @@ export default function CalendarScreen() {
       subtitle={t("calendar.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/calendar" />
       <Stagger>
         <SegmentedControl<CalendarMode>
           options={[
@@ -124,7 +128,24 @@ export default function CalendarScreen() {
               label={t("calendar.prevMonth")}
               onPress={() => shift(-1)}
             />
-            <ThemedText type="subtitle">{label}</ThemedText>
+            <PressableScale
+              haptic="light"
+              accessibilityRole="button"
+              accessibilityLabel={t("calendar.pickMonthYear")}
+              onPress={() => setPickerOpen(true)}
+              style={styles.monthLabelButton}
+            >
+              <ThemedText type="subtitle">{label}</ThemedText>
+              <SymbolView
+                name={{
+                  ios: "chevron.down",
+                  android: "keyboard_arrow_down",
+                  web: "keyboard_arrow_down",
+                }}
+                size={14}
+                tintColor={colors.mutedForeground}
+              />
+            </PressableScale>
             <NavButton
               icon={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
               label={t("calendar.nextMonth")}
@@ -198,6 +219,26 @@ export default function CalendarScreen() {
           ))}
         </Card>
 
+        <CalendarMonthPicker
+          visible={pickerOpen}
+          onClose={() => setPickerOpen(false)}
+          mode={mode}
+          year={mode === "hijri" ? hYear : year}
+          month={mode === "hijri" ? hMonth : month}
+          locale={locale}
+          language={i18n.language ?? "en"}
+          anchorYear={mode === "hijri" ? todayHijri.year : now.getFullYear()}
+          onSelect={(nextYear, nextMonth) => {
+            if (mode === "hijri") {
+              setHYear(nextYear);
+              setHMonth(nextMonth);
+              return;
+            }
+            setYear(nextYear);
+            setMonth(nextMonth);
+          }}
+        />
+
         <Card variant="muted" padding="three">
           <View style={styles.legend}>
             <LegendSwatch
@@ -270,6 +311,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: Spacing.three,
+  },
+  monthLabelButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.one,
+    maxWidth: "52%",
   },
   navButton: {
     width: 36,

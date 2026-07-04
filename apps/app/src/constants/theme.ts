@@ -1,4 +1,4 @@
-import { Platform } from "react-native";
+import { Platform, type ViewStyle } from "react-native";
 
 export type ThemeColor =
   | "foreground"
@@ -100,6 +100,45 @@ export const Shadows = {
 } as const;
 
 export type Elevation = keyof typeof Shadows;
+
+export type ShadowOptions = {
+  offsetX?: number;
+  offsetY?: number;
+  blur?: number;
+  opacity?: number;
+  elevation?: number;
+};
+
+/**
+ * Cross-platform shadow helper — `boxShadow` on web, legacy shadow* on iOS,
+ * `elevation` on Android. Prefer this over raw shadow props to avoid RN Web
+ * deprecation warnings.
+ */
+export function createShadow(color: string, options: ShadowOptions = {}): ViewStyle {
+  const {
+    offsetX = 0,
+    offsetY = 2,
+    blur = 6,
+    opacity = 0.1,
+    elevation = Math.max(1, Math.round(blur / 3)),
+  } = options;
+
+  return (
+    Platform.select<ViewStyle>({
+      ios: {
+        shadowColor: color,
+        shadowOffset: { width: offsetX, height: offsetY },
+        shadowOpacity: opacity,
+        shadowRadius: blur,
+      },
+      android: { elevation },
+      web: {
+        boxShadow: `${offsetX}px ${offsetY}px ${blur}px ${withAlpha(color, opacity)}`,
+      },
+      default: {},
+    }) ?? {}
+  );
+}
 
 /**
  * Applies an alpha channel to a 6-digit hex color, returning an 8-digit hex.

@@ -10,6 +10,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
+import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { AppApiProvider } from "@/providers/api-provider";
 import { AppProviders } from "@/providers/app-providers";
 import { AudioPlayerProvider } from "@/providers/audio-player-provider";
@@ -36,19 +37,21 @@ export default function RootLayout() {
                   <InAppNotificationsProvider>
                     <NotificationProvider>
                       <AudioPlayerProvider>
-                        <Stack screenOptions={{ headerShown: false }}>
-                          <Stack.Screen name="(tabs)" />
-                          <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
-                          <Stack.Screen
-                            name="(onboarding)/intro"
-                            options={{ gestureEnabled: false }}
-                          />
-                        </Stack>
-                        <WebNavigationFocusManager />
-                        <WebPwaBootstrap />
-                        <OnboardingGate />
-                        <MiniPlayer />
-                        <AnimatedSplashOverlay />
+                        <MiniPlayerInsetProvider>
+                          <Stack screenOptions={{ headerShown: false }}>
+                            <Stack.Screen name="(tabs)" />
+                            <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
+                            <Stack.Screen
+                              name="(onboarding)/intro"
+                              options={{ gestureEnabled: false }}
+                            />
+                          </Stack>
+                          <WebNavigationFocusManager />
+                          <WebPwaBootstrap />
+                          <OnboardingGate />
+                          <MiniPlayer />
+                          <AnimatedSplashOverlay />
+                        </MiniPlayerInsetProvider>
                       </AudioPlayerProvider>
                     </NotificationProvider>
                   </InAppNotificationsProvider>

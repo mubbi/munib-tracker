@@ -5,9 +5,11 @@ import { StyleSheet, View } from "react-native";
 
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { webPageSchema } from "@/lib/seo/structured-data";
 
 export default function DuroodsScreen() {
   const router = useRouter();
@@ -20,6 +22,26 @@ export default function DuroodsScreen() {
       subtitle={t("duroods.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/duroods"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("duroods.title"), path: "/duroods" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/duroods",
+            name: "Duroods & Salawat",
+            description:
+              "Recite Durood and Salawat — sending blessings upon the Prophet Muhammad ﷺ.",
+            type: "CollectionPage",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("duroods.title"), path: "/duroods" },
+            ],
+          }),
+        ]}
+      />
       <Stagger>
         {DUROOD_ITEMS.map((item) => (
           <View key={item.id} style={styles.item}>

@@ -1,7 +1,7 @@
 import type { Ayah } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
@@ -14,15 +14,17 @@ import {
 } from "react-native";
 
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
+import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
-import { BottomTabInset, Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteEditionSurah } from "@/hooks/use-quran";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -32,9 +34,11 @@ import {
   getEditionById,
   getSurahAyahs,
   getSurahByNumber,
+  getSurahMeta,
   getTransliteration,
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
+import { articleSchema } from "@/lib/seo/structured-data";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
@@ -45,10 +49,21 @@ const ALL_TRANSLATIONS = [
   ...REMOTE_EDITIONS,
 ];
 
+const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
+const TRANSLATION_OPTIONS = ALL_TRANSLATIONS.map((e) => ({ id: e.id, label: e.name }));
+
 function editionDirection(id: string): "ltr" | "rtl" {
   return (
     getEditionById(id)?.direction ?? REMOTE_EDITIONS.find((e) => e.id === id)?.direction ?? "ltr"
   );
+}
+
+/**
+ * Pre-render a static HTML page for every surah (1–114) at web export time, so
+ * each has its own crawlable URL, metadata, and Arabic ayah text for search/AI.
+ */
+export function generateStaticParams(): Array<{ surah: string }> {
+  return getSurahMeta().map((s) => ({ surah: String(s.number) }));
 }
 
 /** Compose Arabic + translation + "Surah:Ayah" reference for the share sheet. */
@@ -67,12 +82,15 @@ export default function SurahReaderScreen() {
   // Optional deep-link target (e.g. from universal search) — scroll to & mark it.
   const focusAyah = params.ayah ? Number(params.ayah) : undefined;
 
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
+  const contentBottomInset = useContentBottomInset();
   const prefs = useQuranPrefs();
   const { updatePrefs, setLastRead, toggleBookmark } = useQuranActions();
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Ayah>>(null);
+  const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
+  const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
 
   const ayahs = useMemo(() => (surah ? getSurahAyahs(surahNumber) : []), [surah, surahNumber]);
 
@@ -81,18 +99,25 @@ export default function SurahReaderScreen() {
   // gaps by validating against the actual data.
   const indexForKey = useCallback(
     (key: string) => {
-      const ayahNumber = Number(key.split(":")[1]);
+      const [surahPart, ayahPart] = key.split(":");
+      if (Number(surahPart) !== surahNumber) return -1;
+      const ayahNumber = Number(ayahPart);
       if (!Number.isFinite(ayahNumber)) return -1;
       const guess = ayahNumber - 1;
       if (ayahs[guess]?.ayah === ayahNumber) return guess;
       return ayahs.findIndex((a) => a.ayah === ayahNumber);
     },
-    [ayahs],
+    [ayahs, surahNumber],
   );
 
+  const audioActiveKey =
+    audio.current?.id.startsWith(`${surahNumber}:`) === true ? audio.current.id : undefined;
   // Follow the currently-playing card (or a deep-linked ayah) via scrollToIndex.
-  const activeKey = audio.current?.id ?? (focusAyah ? `${surahNumber}:${focusAyah}` : undefined);
-  const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, activeKey, indexForKey);
+  const activeKey = audioActiveKey ?? (focusAyah ? `${surahNumber}:${focusAyah}` : undefined);
+  const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, activeKey, indexForKey, {
+    viewOffset: Spacing.two,
+    itemCount: ayahs.length,
+  });
 
   const requestedEdition = prefs.preferredTranslationIds[0] ?? FALLBACK_TRANSLATION;
   const knownEdition = ALL_TRANSLATIONS.some((e) => e.id === requestedEdition)
@@ -115,7 +140,7 @@ export default function SurahReaderScreen() {
   );
   // Remote data when available, otherwise fall back to a bundled translation.
   const translation = remoteActive ? (remoteQuery.data ?? bundledTranslation) : bundledTranslation;
-  const translationLoading = remoteActive && (remoteQuery.isPending || remoteQuery.isFetching);
+  const translationLoading = remoteActive && remoteQuery.isPending;
   const usingFallback = remoteActive && !remoteQuery.data && !translationLoading;
   const translationDir = usingFallback ? "ltr" : editionDirection(knownEdition);
 
@@ -131,33 +156,48 @@ export default function SurahReaderScreen() {
 
   if (!surah) {
     return (
-      <ScreenLayout
-        title={t("quran.title")}
-        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
-      >
-        <EmptyState
-          icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
+      <>
+        <Seo
+          path={`/quran/${params.surah}`}
           title={t("quran.notFoundTitle")}
           description={t("quran.notFoundDesc")}
+          index={false}
         />
-      </ScreenLayout>
+        <ScreenLayout
+          title={t("quran.title")}
+          onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+        >
+          <EmptyState
+            icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
+            title={t("quran.notFoundTitle")}
+            description={t("quran.notFoundDesc")}
+          />
+        </ScreenLayout>
+      </>
     );
   }
 
+  const revelation = surah.revelationPlace === "makkah" ? "Makkah" : "Madinah";
+  const surahTitle = `Surah ${surah.nameTransliteration} — ${surah.nameEnglish}`;
+  const surahDescription = `Read and listen to Surah ${surah.nameTransliteration} (${surah.nameEnglish}), chapter ${surah.number} of the Qur'an — ${surah.ayahCount} ayahs, revealed in ${revelation}. Arabic text, transliteration, translation, and recitation, offline.`;
+  const surahBreadcrumbs = [
+    { name: t("tabs.home"), path: "/" },
+    { name: t("quran.title"), path: "/quran" },
+    { name: surah.nameTransliteration, path: `/quran/${surah.number}` },
+  ];
+
   const reciterDir = prefs.preferredReciterDir;
   const reciter = RECITERS.find((r) => r.dir === reciterDir) ?? RECITERS[0];
+  const selectedEdition =
+    ALL_TRANSLATIONS.find((e) => e.id === knownEdition) ??
+    ALL_TRANSLATIONS.find((e) => e.id === FALLBACK_TRANSLATION) ??
+    ALL_TRANSLATIONS[0];
 
   const playFrom = (index: number) => {
     audio.play(ayahTracks(reciterDir, surah.nameTransliteration, surahNumber, ayahs), index, {
       sourceHref: `/quran/${surahNumber}`,
     });
     void setLastRead(surahNumber, index + 1, { isAudio: true });
-  };
-
-  const cycleReciter = () => {
-    const idx = RECITERS.findIndex((r) => r.dir === reciterDir);
-    const next = RECITERS[(idx + 1) % RECITERS.length];
-    void updatePrefs({ preferredReciterDir: next.dir });
   };
 
   const bookmarkedSet = new Set(bookmarks.map((b) => `${b.surah}:${b.ayah}`));
@@ -171,62 +211,43 @@ export default function SurahReaderScreen() {
       <Card padding="three">
         <View style={styles.controlRow}>
           <ThemedText type="smallBold">{t("quran.reciter")}</ThemedText>
-          <Pressable
-            accessibilityRole="button"
+          <SelectTrigger
+            label={reciter.name}
             accessibilityLabel={t("quran.reciter")}
-            onPress={cycleReciter}
-          >
-            <Pill label={reciter.name} color={colors.accent} background={tokens.accentSoft} />
-          </Pressable>
+            onPress={() => setReciterPickerOpen(true)}
+          />
         </View>
 
-        <View style={styles.translationPicker}>
-          <ThemedText type="smallBold" style={styles.pickerLabel}>
-            {t("quran.translation")}
-          </ThemedText>
-          <View style={styles.chipRow}>
-            {ALL_TRANSLATIONS.map((edition) => {
-              const selected = edition.id === knownEdition;
-              return (
-                <PressableScale
-                  key={edition.id}
-                  haptic="light"
-                  accessibilityRole="button"
-                  accessibilityState={{ selected }}
-                  accessibilityLabel={edition.name}
-                  onPress={() => updatePrefs({ preferredTranslationIds: [edition.id] })}
-                  style={[
-                    styles.chip,
-                    { backgroundColor: selected ? colors.accent : colors.muted },
-                  ]}
-                >
-                  <ThemedText
-                    type="caption"
-                    style={{ color: selected ? colors.accentForeground : colors.mutedForeground }}
-                  >
-                    {edition.name}
-                  </ThemedText>
-                </PressableScale>
-              );
-            })}
-          </View>
-          {translationLoading ? (
-            <View style={styles.loadingRow}>
-              <ActivityIndicator size="small" color={colors.accent} />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("quran.loadingTranslation")}
-              </ThemedText>
-            </View>
-          ) : usingFallback ? (
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
-              {t("quran.offlineTranslation")}
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ThemedText type="smallBold">{t("quran.translation")}</ThemedText>
+          <SelectTrigger
+            label={selectedEdition.name}
+            accessibilityLabel={t("quran.translation")}
+            onPress={() => setTranslationPickerOpen(true)}
+          />
+        </View>
+        {translationLoading ? (
+          <View style={styles.loadingRow}>
+            <ActivityIndicator size="small" color={colors.accent} />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("quran.loadingTranslation")}
             </ThemedText>
-          ) : null}
-        </View>
+          </View>
+        ) : usingFallback ? (
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
+            {t("quran.offlineTranslation")}
+          </ThemedText>
+        ) : null}
 
-        <TransliterationToggle
+        <PrefToggle
+          label={t("quran.showTransliteration")}
           enabled={prefs.showTransliteration}
           onToggle={() => updatePrefs({ showTransliteration: !prefs.showTransliteration })}
+        />
+        <PrefToggle
+          label={t("quran.showTranslation")}
+          enabled={prefs.showTranslation}
+          onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
         />
 
         <PlaySurahButton onPress={() => playFrom(0)} />
@@ -244,7 +265,7 @@ export default function SurahReaderScreen() {
     <AyahRow
       ayah={ayah}
       transliteration={prefs.showTransliteration ? transliteration[String(ayah.ayah)] : undefined}
-      translation={translation[String(ayah.ayah)] ?? ""}
+      translation={prefs.showTranslation ? (translation[String(ayah.ayah)] ?? "") : ""}
       translationDir={translationDir}
       isPlaying={currentAudioId === `${surahNumber}:${ayah.ayah}`}
       highlighted={ayah.ayah === focusAyah}
@@ -258,29 +279,71 @@ export default function SurahReaderScreen() {
   );
 
   return (
-    <ScreenLayout
-      scrollable={false}
-      eyebrow={t("quran.title")}
-      title={surah.nameTransliteration}
-      subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
-    >
-      <FlatList
-        ref={listRef}
-        data={ayahs}
-        keyExtractor={ayahKeyExtractor}
-        renderItem={renderItem}
-        ListHeaderComponent={listHeader}
-        onScrollToIndexFailed={onScrollToIndexFailed}
-        style={styles.list}
-        contentContainerStyle={styles.listContent}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        initialNumToRender={12}
-        windowSize={9}
-        removeClippedSubviews
+    <>
+      <Seo
+        path={`/quran/${surah.number}`}
+        title={surahTitle}
+        description={surahDescription}
+        type="article"
+        breadcrumbs={surahBreadcrumbs}
+        keywords={[
+          `Surah ${surah.nameTransliteration}`,
+          surah.nameEnglish,
+          `surah ${surah.number}`,
+          "read Quran online",
+        ]}
+        jsonLd={[
+          articleSchema({
+            path: `/quran/${surah.number}`,
+            type: "CreativeWork",
+            headline: surahTitle,
+            description: surahDescription,
+            inLanguage: "ar",
+            breadcrumbs: surahBreadcrumbs,
+          }),
+        ]}
       />
-    </ScreenLayout>
+      <ScreenLayout
+        scrollable={false}
+        eyebrow={t("quran.title")}
+        title={surah.nameTransliteration}
+        subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
+        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      >
+        <FlatList
+          ref={listRef}
+          data={ayahs}
+          keyExtractor={ayahKeyExtractor}
+          renderItem={renderItem}
+          ListHeaderComponent={listHeader}
+          ItemSeparatorComponent={AyahSeparator}
+          onScrollToIndexFailed={onScrollToIndexFailed}
+          style={styles.list}
+          contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          initialNumToRender={12}
+          windowSize={9}
+          removeClippedSubviews
+        />
+        <OptionPickerSheet
+          visible={reciterPickerOpen}
+          title={t("quran.reciter")}
+          options={RECITER_OPTIONS}
+          selectedId={reciterDir}
+          onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
+          onClose={() => setReciterPickerOpen(false)}
+        />
+        <OptionPickerSheet
+          visible={translationPickerOpen}
+          title={t("quran.translation")}
+          options={TRANSLATION_OPTIONS}
+          selectedId={knownEdition}
+          onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
+          onClose={() => setTranslationPickerOpen(false)}
+        />
+      </ScreenLayout>
+    </>
   );
 }
 
@@ -289,8 +352,19 @@ function ayahKeyExtractor(ayah: Ayah) {
   return String(ayah.ayah);
 }
 
-function TransliterationToggle({ enabled, onToggle }: { enabled: boolean; onToggle: () => void }) {
-  const { t } = useTranslation();
+function AyahSeparator() {
+  return <View style={styles.ayahSeparator} />;
+}
+
+function PrefToggle({
+  label,
+  enabled,
+  onToggle,
+}: {
+  label: string;
+  enabled: boolean;
+  onToggle: () => void;
+}) {
   const { colors, tokens } = useThemeTokens();
   return (
     <Pressable
@@ -299,7 +373,7 @@ function TransliterationToggle({ enabled, onToggle }: { enabled: boolean; onTogg
       onPress={onToggle}
       style={[styles.controlRow, styles.toggleRow]}
     >
-      <ThemedText type="smallBold">{t("quran.showTransliteration")}</ThemedText>
+      <ThemedText type="smallBold">{label}</ThemedText>
       <View style={[styles.toggle, { backgroundColor: enabled ? colors.accent : tokens.hairline }]}>
         <View
           style={[
@@ -444,22 +518,14 @@ const styles = StyleSheet.create({
   // The FlatList owns scrolling (ScreenLayout is scrollable={false}); fill the
   // available height and clear the bottom tab bar the way ScreenLayout normally does.
   list: { flex: 1 },
-  listContent: { paddingBottom: BottomTabInset + Spacing.four },
+  listContent: { paddingBottom: 0 },
   controlRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
   toggleRow: { marginTop: Spacing.three },
-  translationPicker: { marginTop: Spacing.three },
-  pickerLabel: { marginBottom: Spacing.two },
-  chipRow: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  chip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-  },
+  translationRow: { marginTop: Spacing.three },
   offlineNote: { marginTop: Spacing.two },
   loadingRow: {
     flexDirection: "row",
@@ -485,8 +551,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     marginTop: Spacing.three,
   },
-  bismillah: { textAlign: "center", fontSize: 24, lineHeight: 44 },
-  ayahList: { gap: Spacing.three },
+  bismillah: { textAlign: "center", fontSize: 24, lineHeight: 44, marginBottom: Spacing.two },
+  ayahSeparator: { height: Spacing.three },
   ayahHeader: {
     flexDirection: "row",
     alignItems: "center",

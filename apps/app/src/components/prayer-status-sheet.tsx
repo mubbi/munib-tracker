@@ -1,5 +1,6 @@
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
-import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
+import { isObligatoryPrayer, isQazaPrayer } from "@munib-tracker/shared/validators";
+import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -61,6 +62,7 @@ export function PrayerStatusSheet({
 }: PrayerStatusSheetProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const router = useRouter();
   const [notesOpen, setNotesOpen] = useState(false);
   const [qazaPromptOpen, setQazaPromptOpen] = useState(false);
   const [pendingStatus, setPendingStatus] = useState<PrayerStatus | null>(null);
@@ -86,7 +88,7 @@ export function PrayerStatusSheet({
     const next = active ? "pending" : status;
     triggerHaptic(outcomeHaptic(next));
 
-    if ((status === "missed" || status === "qaza") && !active && isObligatoryPrayer(prayerId)) {
+    if ((status === "missed" || status === "qaza") && !active && isQazaPrayer(prayerId)) {
       setPendingStatus(status);
       setQazaPromptOpen(true);
       return;
@@ -156,6 +158,34 @@ export function PrayerStatusSheet({
             “{currentNotes}”
           </ThemedText>
         ) : null}
+
+        {isObligatoryPrayer(prayerId) ? (
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            onPress={() => {
+              onClose();
+              router.push({
+                pathname: "/zikr/[category]",
+                params: { category: "after_prayer" },
+              });
+            }}
+            style={[styles.adhkarRow, { backgroundColor: tokens.accentSoft }]}
+          >
+            <SymbolView
+              name={{
+                ios: "hands.and.sparkles.fill",
+                android: "volunteer_activism",
+                web: "volunteer_activism",
+              }}
+              size={18}
+              tintColor={colors.accent}
+            />
+            <ThemedText type="smallBold" style={{ color: colors.accent }}>
+              {t("statusSheet.afterSalahAdhkar")}
+            </ThemedText>
+          </PressableScale>
+        ) : null}
       </Sheet>
 
       <ConfirmDialog
@@ -211,6 +241,17 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
+    marginTop: Spacing.two,
+  },
+  adhkarRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
     marginTop: Spacing.two,
   },
 });

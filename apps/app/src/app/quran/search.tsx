@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -111,6 +112,7 @@ export default function QuranSearchScreen() {
       subtitle={t("quran.searchSubtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/quran/search" />
       <Card padding="three">
         <TextInput
           value={query}

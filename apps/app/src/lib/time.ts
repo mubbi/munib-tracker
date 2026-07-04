@@ -21,6 +21,52 @@ export function usesHour12(format: TimeFormat): boolean {
   return format === "12";
 }
 
+export function localeToBcp47(locale: string): string {
+  if (locale === "ar") return "ar";
+  if (locale === "ur") return "ur";
+  return "en-US";
+}
+
+/** Calendar Y-M-D key in an IANA timezone (device local when omitted). */
+export function dayKeyInTimeZone(now: Date, timeZone?: string): string {
+  if (!timeZone) {
+    return `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+  }
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
+}
+
+/**
+ * Date whose local Y/M/D components match the calendar day in `timeZone`.
+ * adhan reads getFullYear/getMonth/getDate — pass this when computing prayer
+ * times for a manually-selected city in another timezone than the device.
+ */
+export function prayerDayAnchor(now: Date, timeZone?: string): Date {
+  if (!timeZone) return now;
+  const [year, month, day] = dayKeyInTimeZone(now, timeZone).split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+/** Shifts a prayer-day anchor by whole calendar days. */
+export function shiftPrayerDay(anchor: Date, days: number): Date {
+  const next = new Date(anchor);
+  next.setDate(next.getDate() + days);
+  return next;
+}
+
+/** Formats a calendar date for on-screen display. */
+export function formatDisplayDate(
+  date: Date,
+  locale = "en",
+  options: Intl.DateTimeFormatOptions = { month: "short", day: "numeric", year: "numeric" },
+): string {
+  return date.toLocaleDateString(localeToBcp47(locale), options);
+}
+
 /**
  * Formats a Date for on-screen display according to the user's clock preference.
  * Pass `timeZone` (an IANA id) to render the instant in a specific city's clock —
@@ -45,6 +91,17 @@ export function formatDisplayHhMm(hour: number, minute: number, format: TimeForm
   const date = new Date();
   date.setHours(hour, minute, 0, 0);
   return formatDisplayTime(date, format);
+}
+
+/** Formats a full date and time for notification timestamps. */
+export function formatDisplayDateTime(
+  date: Date,
+  timeFormat: TimeFormat = "24",
+  locale = "en",
+): string {
+  const datePart = formatDisplayDate(date, locale);
+  const timePart = formatDisplayTime(date, timeFormat);
+  return `${datePart}, ${timePart}`;
 }
 
 /** Formats a stored "HH:mm" value for display. */

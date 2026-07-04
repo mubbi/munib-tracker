@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconWell } from "@/components/ui/icon-well";
@@ -250,6 +251,7 @@ export default function SearchScreen() {
 
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
+      <Seo path="/search" />
       {/* Search bar */}
       <View style={[styles.header, { paddingTop: insets.top + Spacing.two }]}>
         <Pressable

@@ -66,7 +66,8 @@ Use [`packages/shared/src/constants/features.ts`](../packages/shared/src/constan
 
 | Feature | Route(s) | Key files |
 |---------|----------|-----------|
-| Salah tracker (6 obligatory + Witr + 5 sunnah) | `(tabs)/tracker`, `calendar/[date]` | `stores/tracker-store.ts`, `components/prayer-status-sheet.tsx`, `db/repositories/prayer-repository.ts` |
+| Salah tracker (5 fard + Witr sunnah mu'akkadah + 5 sunnah) | `(tabs)/tracker`, `calendar/[date]` | `stores/tracker-store.ts`, `components/prayer-status-sheet.tsx`, `db/repositories/prayer-repository.ts` |
+| Per-prayer virtues & references (sheet) | tracker rows, schedule | `lib/prayer-info.ts`, `components/prayer-info-sheet.tsx` — **not** a full salah/how-to guide |
 | Qaza (counters, calculator, planner, roza) | `qaza/*` | `stores/tracker-store.ts`, `db/repositories/qaza-repository.ts`, `components/qaza-*` |
 | Dhikr (7 categories, favorites, counters) | `zikr/*` | `packages/shared/src/content/zikr.ts`, `stores/preferences-store.ts` |
 | Tasbeeh (free + custom) | `tasbeeh/*` | `stores/custom-tasbeeh-store.ts`, `components/tasbeeh/*` |
@@ -227,6 +228,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | NF-1.5 | **Jama' (congregation) flag** | app, shared | `PrayerLog` type extension, `prayer-tracker-row` | Optional toggle on completed salah; stats column |
 | NF-1.6 | **Weekly worship report** | app | `statistics`, in-app notification | Push/in-app summary: perfect days, qaza cleared, zikr totals |
 | NF-1.7 | **Per-prayer reminder offsets** | app, shared | `NotificationPreferences`, `build-reminders.ts` | User sets minutes before/after per prayer; reschedule on save |
+| NF-1.33 | **Salah guide** | app, shared | See **NF-1.33** below | Offline wudu + step-by-step salah + rakats per prayer; extends existing prayer info |
 
 ### Qur'an & learning
 
@@ -252,12 +254,13 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 
 | ID | Feature | Scope | Key touchpoints | AC summary |
 |----|---------|-------|-----------------|------------|
-| NF-1.18 | **Home screen widgets** | app | Expo widgets / `expo-widgets` when available | Next prayer + countdown + today progress |
+| NF-1.18 | **Native home-screen widgets (iOS + Android)** | app | See **NF-1.18** below | WidgetKit + Android App Widgets; next prayer, countdown, today progress |
 | NF-1.19 | **Live Activities (iOS)** | app | native module or Expo plugin | Lock-screen next-prayer countdown |
 | NF-1.20 | **Local backup export/import** | app | new settings flow, JSON schema in `shared` | Export all `DB_KEYS` data; import with validation; no account required |
 | NF-1.21 | **Customizable home modules** | app, shared | `(tabs)/index.tsx`, prefs | Reorder/hide cards: goal, qaza, schedule, knowledge |
 | NF-1.22 | **Library tab (4th tab)** | app | `components/app-tabs.tsx`, move routes | Qur'an / Hadith / Duas / Zikr entry; reduces 16-tile grid clutter |
 | NF-1.23 | **Customizable quick actions** | app, shared | home `quickActions`, prefs | User pins 4–8 shortcuts |
+| NF-1.30 | **App icon quick actions (long-press)** | app | See **NF-1.30** below | iOS Home Screen Quick Actions + Android static shortcuts; deep-link into app |
 
 ### Notifications & content
 
@@ -267,11 +270,101 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | NF-1.25 | **Friday reminders** | app | extend knowledge Friday entries | Jumu'ah + Surah Al-Kahf nudge |
 | NF-1.26 | **Adhan style picker** | app | `lib/adhan-audio.ts`, settings | Multiple bundled adhan MP3s if assets added |
 
+### Reading & typography
+
+| ID | Feature | Scope | Key touchpoints | AC summary |
+|----|---------|-------|-----------------|------------|
+| NF-1.31 | **Arabic font family picker** | app, shared | See **NF-1.31** below | User selects Arabic typeface in Settings; applied app-wide to all Arabic script |
+| NF-1.32 | **In-context reading font size override** | app, shared | See **NF-1.32** below | Per-screen A+/A− (or slider) on every dua/zikr/surah/hadith view; optional persist per content type |
+
 ### Accessibility
 
 | ID | Feature | Scope | Key touchpoints | AC summary |
 |----|---------|-------|-----------------|------------|
 | NF-1.29 | **Accessibility audit** | app | VoiceOver / TalkBack on tracker, qibla, tasbeeh | Meaningful labels; reduced motion respected (`useReducedMotion`) |
+
+---
+
+## Platform & typography (detailed requirements)
+
+### NF-1.18 — Native home-screen widgets (iOS + Android)
+
+| | |
+|---|---|
+| **Priority** | P1 |
+| **Scope** | `app` (native targets only; web N/A) |
+| **Status** | `todo` |
+| **Problem** | Users expect glanceable next-prayer info on the home screen without opening the app. Current app has no WidgetKit or Android widget extension. |
+| **Platforms** | **iOS:** WidgetKit (small + medium widgets; optional lock-screen accessory on iOS 16+). **Android:** App Widget (`AppWidgetProvider`) via Expo config plugin or dev-client native module. |
+| **Key files** | `app.config.ts` / `app.json`, new `widgets/` native target or Expo widgets module, `hooks/use-home-hero.ts`, `lib/prayer-times.ts`, `stores/location-store.ts`, `stores/tracker-store.ts` |
+| **Widget content (minimum)** | Next prayer name + time; countdown to next prayer; optional: today’s salah progress (e.g. 3/6), Hijri date, location label (truncated). |
+| **Widget content (medium / large)** | Above plus today’s schedule list (Fajr→Isha), qaza daily target progress, or streak — pick one layout for v1. |
+| **Data freshness** | Widgets must read from shared app group / `SharedPreferences` (or Expo widget data API) updated when: app foregrounds, location changes, prayer crossed, tracker updated. Schedule timeline reload at each prayer boundary (mirror `use-home-hero` day-crossing logic). |
+| **Requirements** | 1) At least **one small** and **one medium** widget on both iOS and Android. 2) Tapping widget opens app to Home or Tracker via deep link (`munib-tracker://` or Expo Router path). 3) Respect user theme (light/dark) where platform supports widget appearance. 4) Graceful empty state when location denied (show “Set location” CTA deep link). 5) No network required for prayer times (use on-device `adhan` + cached location). |
+| **Guide** | Read `.agents/skills/expo-deployment/SKILL.md` and Expo SDK 57 widget docs before adding native targets. Requires **dev client / EAS build** — widgets do not work in Expo Go. Prefer shared Swift/Kotlin helpers that duplicate minimal prayer-time math or pass precomputed JSON from JS on app launch. |
+| **AC** | Widget renders correct next prayer on iOS simulator + Android emulator with manual location; updates within 1 minute of prayer boundary in test; tap navigates to app; `pnpm --filter app check-types` still green; document widget setup in `apps/app/README.md` or AGENTS.md addendum. |
+
+### NF-1.30 — App icon quick actions (long-press)
+
+| | |
+|---|---|
+| **Priority** | P1 |
+| **Scope** | `app` (native iOS + Android; web N/A) |
+| **Status** | `todo` |
+| **Problem** | Power users cannot jump to common tasks from the home-screen app icon long-press menu. |
+| **Platforms** | **iOS:** `UIApplicationShortcutItem` / Home Screen Quick Actions (static shortcuts declared at build time; dynamic optional in v2). **Android:** static `<shortcut>` entries in `AndroidManifest.xml` via Expo config plugin (`expo-quick-actions` or custom plugin). |
+| **Key files** | `app.config.ts`, `app/_layout.tsx` (handle cold-start shortcut intent), Expo Router deep links, `lib/continue-activity.ts` patterns for route targets |
+| **Default shortcuts (v1)** | Suggested set (i18n titles/subtitles): **Open Tracker** → `/tracker`; **Mark checklist** → `/tracker`; **Qibla** → `/qibla`; **Tasbeeh** → `/tasbeeh/free`; **Next prayer** → `/` (home hero). Max 4 on iOS; Android allows more but keep parity at 4. |
+| **Requirements** | 1) Shortcuts visible after long-pressing the app icon on home screen (not in-app only). 2) Cold start and warm start both route correctly via Expo Router. 3) Shortcut labels respect app locale where OS allows (fallback English). 4) Icons use SF Symbols mapping on iOS / Material on Android. 5) Optional v2: user-customizable shortcuts in Settings (persist in `UserPreferences`). |
+| **Guide** | Use typed deep links already supported by Expo Router. Handle shortcut payload in root layout `useEffect` + `Linking.getInitialURL()`. Test cold launch from shortcut on physical device — simulators sometimes skip Quick Actions. |
+| **AC** | All four default shortcuts open the correct screen from killed state on iOS + Android dev builds; no duplicate navigation stack loops; accessibility labels on shortcut actions. |
+
+### NF-1.31 — Arabic font family selection
+
+| | |
+|---|---|
+| **Priority** | P1 |
+| **Scope** | `app`, `shared` |
+| **Status** | `partial` |
+| **Problem** | `FontScopePrefs.family` exists on `fontPrefs.arabic` (`packages/shared/src/types/preferences.ts`) but `settings/fonts.tsx` only exposes **size** presets (S/M/L). Arabic renders via `ThemedText type="arabic"` without a user-chosen typeface. |
+| **Key files** | `app/settings/fonts.tsx`, `components/themed-text.tsx`, `components/content/reading-card.tsx`, `app/quran/[surah].tsx`, `app/hadith/[collection].tsx`, `constants/theme.ts` (`Fonts`), bundled font assets under `apps/app/assets/fonts/` |
+| **Requirements** | 1) Settings screen: picker listing **bundled** Arabic-capable fonts (minimum: system default, Amiri or Scheherazade, Noto Naskh Arabic — all bundled via `expo-font`, no runtime download). 2) Persist selection to `fontPrefs.arabic.family`. 3) Apply globally wherever Arabic script appears: Qur'an ayahs, hadith Arabic, duas/zikr/durood `ReadingCard`, 99 Names, tasbeeh Arabic labels, knowledge flash card Arabic. 4) Live preview on Fonts screen (reuse existing preview card). 5) Sync Arabic family via preferences sync entity when NF-0.4 ships. |
+| **Guide** | Load fonts with `expo-font` in `app/_layout.tsx` before first Arabic render. Map family id → `fontFamily` in a single helper e.g. `lib/reading-typography.ts` consumed by `ThemedText` and reading surfaces — avoid duplicating font resolution per screen. RTL `writingDirection` unchanged. |
+| **AC** | Changing Arabic font in Settings updates Qur'an reader + ReadingCard + hadith list without restart; persists across app relaunch; en/ar/ur strings for font names; web falls back to CSS webfont or system stack. |
+
+### NF-1.32 — In-context reading font size override
+
+| | |
+|---|---|
+| **Priority** | P1 |
+| **Scope** | `app`, `shared` |
+| **Status** | `todo` |
+| **Depends on** | NF-1.31 (shared typography helper recommended) |
+| **Problem** | Global S/M/L sizes in Settings (`settings/fonts.tsx`) are coarse. Users reading a long surah or hadith need **on-the-spot** text sizing without leaving the screen. Qur'an surah reader (`quran/[surah].tsx`) still uses hardcoded `fontSize: 26` in styles — not wired to `fontPrefs` today. |
+| **Surfaces (all required)** | **Qur'an:** `app/quran/[surah].tsx` (Arabic, transliteration, translation). **Hadith:** `app/hadith/[collection].tsx`, `app/hadith/bookmarks.tsx`. **Duas:** `app/dua/detail/[id].tsx`, `app/dua/[category].tsx` list previews if Arabic shown. **Zikr:** `app/zikr/detail/[id].tsx`, `app/zikr/[category].tsx`. **Shared:** `components/content/reading-card.tsx` (dua, zikr, durood). **Also:** `app/duroods/index.tsx`, `app/names-of-allah/index.tsx` wherever Arabic + translation render. |
+| **UX** | Compact control in screen header or floating toolbar: **A− / A+** buttons (or single “Text size” sheet with slider). Adjust **Arabic**, **transliteration**, and **translation** together by default; optional expand to adjust scopes independently. Show current step label (e.g. “Large +2”). |
+| **Persistence model** | **Session override** applies immediately on the active screen. **Optional persist:** save delta per content type (`quran` \| `hadith` \| `dua_zikr`) in `fontPrefs.readingOverrides?: Record<ReadingSurface, { arabicDelta?, textDelta? }>` so returning to Qur'an remembers last in-context size without changing global Settings. “Reset to default” clears override for current surface. |
+| **Key files** | New `hooks/use-reading-typography.ts` or `lib/reading-typography.ts`; extend `FontPreferences` in `packages/shared/src/types/preferences.ts`; `components/reading-font-controls.tsx` reusable toolbar; wire into `ScreenLayout` optional slot or per-screen header |
+| **Requirements** | 1) Controls visible on every listed surface without cluttering small phones (collapse to one icon opening sheet). 2) Minimum/maximum font bounds (e.g. 14–48 Arabic, 12–28 translation) to prevent layout break. 3) Respects `useReducedMotion` — no animating font size aggressively. 4) Global Settings sizes remain the baseline; in-context control applies **delta** on top. 5) Fix Qur'an reader to use shared typography helper instead of hardcoded sizes. |
+| **Guide** | Centralize resolved sizes: `resolveReadingFontSizes(scope, fontPrefs) → { arabic, transliteration, translation }`. `ReadingCard` and surah/hadith rows consume this hook. Add unit tests for delta clamping in `lib/reading-typography.test.ts`. |
+| **AC** | User can enlarge Arabic on an open surah, navigate away, return — persisted per `quran` override if enabled; A+/A− works offline; hadith collection with 1000+ items does not re-render entire list on each tap (memo row props); VoiceOver announces “Increase text size” / “Decrease text size”. |
+
+### NF-1.33 — Salah guide (wudu, steps, rakats)
+
+| | |
+|---|---|
+| **Priority** | P1 |
+| **Scope** | `app`, `shared` |
+| **Status** | `todo` |
+| **Problem** | The app tracks salah but does not teach it. `PrayerInfoSheet` (`lib/prayer-info.ts`) only shows curated **Qur'an/hadith references** per prayer — no wudu steps, no posture sequence, no rakats breakdown. New Muslims and refreshers need an offline, in-app guide. |
+| **Relationship to existing** | **Extend, don’t duplicate:** keep `PRAYER_INFO` refs; salah guide links into them from each prayer’s detail page. `PrayerInfoButton` on tracker rows may open guide section or show “Learn more” link alongside current sheet. |
+| **Key files** | New `packages/shared/src/content/salah-guide.ts` (+ types in `packages/shared/src/types/salah-guide.ts`); `app/salah-guide/index.tsx`, `app/salah-guide/[topic].tsx`, optional `app/salah-guide/prayer/[prayerId].tsx`; `lib/prayer-info.ts`, `components/prayer-info-sheet.tsx`, `(tabs)/index.tsx` quick action, `(tabs)/tracker.tsx` entry |
+| **Content modules (v1, bundled offline)** | 1) **Overview** — pillars of salah, prerequisites, intention (niyyah). 2) **Wudu** — ordered steps with short descriptions; optional illustration placeholders (SVG or SF Symbol / Material icons only — no new native deps). 3) **How to pray** — standing → takbir → recitation → ruku → sujud → tashahhud → salam (generic fard flow); note variations briefly (e.g. Fajr 2 rakats). 4) **Rakats reference table** — per `PrayerId` + schedule markers: fard count, common sunnah before/after (aligned with app’s `OBLIGATORY_PRAYERS` / `SUNNAH_PRAYERS` in `@munib-tracker/shared/constants`). 5) **Per-prayer detail** — timing window (link to schedule), rakats summary, virtues, **`PRAYER_INFO` references** with deep links to Qur'an/hadith readers. 6) **Common questions** — qasr/jam’ pointer (→ NF-1.3 when shipped), missing a prayer → tracker/qaza, witr after isha. |
+| **Content rules** | Scholar-neutral, concise, no madhab debates in v1 — add disclaimer (“Consult a qualified teacher for your situation”). Store copy in `@munib-tracker/shared/content` with i18n keys in app JSON for UI chrome; body text may start English-only in shared with ar/ur follow-up, or use keyed strings from day one (preferred). **Do not alter Arabic Qur'an/hadith text** — link out to readers. Bump `SALAH_GUIDE_CONTENT_VERSION` when content changes. |
+| **Navigation & discovery** | Home quick action **Salah guide** → `/salah-guide`. Tracker header link or info affordance. Optional Settings row under About/Learn. Include in universal search via `search.ts` (`SearchCategory` `salah_guide` or extend `searchLight`). NF-1.30 app shortcut optional: **How to pray** → `/salah-guide`. |
+| **UX** | `ScreenLayout` + `Stagger` + `Card` sections; collapsible steps for wudu/salah; progress checkmarks optional (local-only, `DB_KEYS` `salah_guide_progress` — v2). Use `ReadingCard` styling for any quoted duas in guide. NF-1.32 reading controls apply to guide text surfaces. |
+| **Guide** | Mirror content pattern from `packages/shared/src/content/zikr.ts` / `duas.ts`. Accessor `lib/salah-guide.ts` in app. No network. Update `APP_FEATURE_PILLARS` (`packages/shared/src/constants/features.ts`) when shipped. |
+| **AC** | All v1 modules reachable offline; per-prayer page deep-links to at least one existing Qur'an or hadith ref; en (required) + ar + ur for UI labels; tracker `PrayerInfoButton` still works; new guide does not regress prayer tracking; content version test in shared; `pnpm --filter app test` passes. |
 
 ---
 
@@ -325,7 +418,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 1. NF-0.1, NF-0.2 — Prayer method + madhab UI  
 2. NF-0.3, NF-0.4 — Sync status + expanded entities  
 3. NF-0.5 — Adhan notification option  
-4. NF-1.18 or NF-1.19 — Widgets / Live Activity (platform pick)
+4. NF-1.18, NF-1.30 — Native widgets + app icon quick actions (iOS + Android dev builds)
 
 **Exit gate:** `pnpm turbo run lint check-types test` green; manual test on iOS + Android dev builds.
 
@@ -343,16 +436,18 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 3. NF-1.9 — Hifz lite  
 4. NF-1.10 — Tafsir on-demand  
 
-### Phase D — Inclusivity & travel
+### Phase D — Inclusivity, travel & worship education
 
 1. NF-1.2 — Hayd mode  
 2. NF-1.3, NF-1.4 — Travel / sick modes  
+3. NF-1.33 — Salah guide (wudu, steps, rakats)  
 
 ### Phase E — Platform polish
 
 1. NF-1.20 — Local backup  
 2. NF-1.21, NF-1.22 — Home customization + Library tab  
-3. NF-1.29 — Accessibility audit  
+3. NF-1.31, NF-1.32 — Arabic font family + in-context reading size controls  
+4. NF-1.29 — Accessibility audit  
 
 ---
 
@@ -423,6 +518,35 @@ When a P1 feature ships, update:
 - `packages/shared/src/constants/features.ts` (`APP_FEATURE_PILLARS`, `APP_HOME_FEATURES`)
 - `apps/marketing-web` feature sections if visible on landing page
 
+### Native widgets & app icon shortcuts
+
+1. Read `.agents/skills/expo-deployment/SKILL.md` — widgets and shortcuts require **EAS dev/production builds**, not Expo Go.
+2. **iOS widgets:** WidgetKit extension + App Group for shared prayer-time JSON; update timeline on app foreground and at prayer boundaries.
+3. **Android widgets:** `RemoteViews` widget + `SharedPreferences` or equivalent; match iOS data schema where possible.
+4. **Quick actions:** declare static shortcuts in `app.config.ts` (Expo plugin or config mod); handle launch URL in `app/_layout.tsx` before initial route resolves.
+5. Deep-link targets must exist as Expo Router paths (`/tracker`, `/qibla`, `/tasbeeh/free`, `/`).
+6. Manual QA checklist: cold start from each shortcut; widget tap; widget refresh after location change.
+
+### Reading typography (Arabic family + in-context size)
+
+1. Extend `FontPreferences` in `packages/shared/src/types/preferences.ts` if adding `readingOverrides` per NF-1.32.
+2. Bundle Arabic fonts via `expo-font` in root layout; register in `lib/reading-typography.ts`.
+3. Wire `fontPrefs.arabic.family` in `components/themed-text.tsx` for `type="arabic"`.
+4. Add `components/reading-font-controls.tsx`; pass into `ScreenLayout` via optional `headerAccessory` or screen-local header row.
+5. Migrate hardcoded Qur'an ayah styles in `quran/[surah].tsx` to shared resolver.
+6. Ensure `ReadingCard`, hadith rows, and names list use the same hook — one implementation, all surfaces.
+7. Tests: `lib/reading-typography.test.ts` for clamp/delta math; snapshot optional for `ReadingCard` sizes.
+
+### Salah guide content
+
+1. Define types in `packages/shared/src/types/salah-guide.ts` (`SalahGuideTopic`, `SalahGuideStep`, `PrayerRakatSummary`, etc.).
+2. Add bundled content in `packages/shared/src/content/salah-guide.ts` with `SALAH_GUIDE_CONTENT_VERSION`.
+3. Export from `packages/shared/src/content/index.ts`; add accessor `apps/app/src/lib/salah-guide.ts`.
+4. Routes under `apps/app/src/app/salah-guide/` — hub + topic screens; reuse `PRAYER_INFO` from `lib/prayer-info.ts` on per-prayer pages.
+5. Wire discovery: home `quickActions`, tracker header, optional `search.ts` category.
+6. i18n: `salahGuide.*` namespace in en/ar/ur; scholar disclaimer string reused on calculator/qaza screens.
+7. Tests: shared content shape test; feature test navigating hub → wudu → back.
+
 ---
 
 ## UX observations to preserve
@@ -461,3 +585,5 @@ When a P1 feature ships, update:
 |------|--------|
 | 2026-07-04 | Initial backlog from product review of shipped `apps/app` features |
 | 2026-07-04 | Removed NF-1.27, NF-1.28, NF-2.5, NF-2.6, NF-2.16, NF-2.18, NF-2.22, NF-2.25, NF-2.26 |
+| 2026-07-04 | Added NF-1.18 (native widgets), NF-1.30 (app icon quick actions), NF-1.31 (Arabic font family), NF-1.32 (in-context reading font size) with detailed requirements |
+| 2026-07-04 | Added NF-1.33 Salah guide (wudu, step-by-step salah, rakats); noted partial baseline via `PrayerInfoSheet` |

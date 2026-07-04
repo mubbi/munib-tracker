@@ -1,4 +1,5 @@
 import { SymbolView } from "expo-symbols";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { PrayerInfoButton } from "@/components/prayer-info-button";
@@ -6,16 +7,20 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import type { ScheduleItem } from "@/hooks/use-home-hero";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { PrayerInfoId } from "@/lib/prayer-info";
 import type { ScheduleKind } from "@/lib/prayer-times";
 import {
-  groupScheduleItems,
-  kindBadgeKey,
+  buildScheduleTimelineSegments,
+  computeScheduleFocusWindow,
+  groupScheduleItemsInOrder,
   SCHEDULE_GROUP_LABEL_KEY,
   type ScheduleEntryStatus,
+  type ScheduleGroupId,
+  type ScheduleTimelineSegment,
   scheduleEntryIcon,
   scheduleGroupFor,
 } from "@/lib/schedule-ui";
@@ -35,6 +40,16 @@ type RowVisuals = {
   borderColor: string;
   opacity: number;
 };
+
+function kindRailColor(
+  kind: ScheduleKind,
+  colors: ReturnType<typeof useThemeTokens>["colors"],
+  tokens: ReturnType<typeof useThemeTokens>["tokens"],
+): string {
+  if (kind === "obligatory") return tokens.status.info.color;
+  if (kind === "optional") return tokens.status.warning.color;
+  return colors.border;
+}
 
 function rowVisuals(
   status: ScheduleEntryStatus,
@@ -102,37 +117,144 @@ function ScheduleLegend() {
   );
 }
 
+function ScheduleCollapseBar({
+  count,
+  variant,
+  expanded,
+  onPress,
+}: {
+  count: number;
+  variant: "past" | "future";
+  expanded: boolean;
+  onPress: () => void;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const isPast = variant === "past";
+
+  const title = expanded
+    ? isPast
+      ? t("home.scheduleHidePast")
+      : t("home.scheduleHideLater")
+    : isPast
+      ? t("home.scheduleShowPast", { count })
+      : t("home.scheduleShowLater", { count });
+
+  const hint = expanded
+    ? undefined
+    : isPast
+      ? t("home.scheduleShowPastHint")
+      : t("home.scheduleShowLaterHint");
+
+  const accessibilityLabel = expanded
+    ? isPast
+      ? t("home.scheduleHidePastA11y")
+      : t("home.scheduleHideLaterA11y")
+    : isPast
+      ? t("home.scheduleShowPastA11y", { count })
+      : t("home.scheduleShowLaterA11y", { count });
+
+  return (
+    <PressableScale
+      haptic="light"
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      accessibilityHint={hint}
+      accessibilityState={{ expanded }}
+      scaleTo={0.985}
+      onPress={onPress}
+      style={[
+        styles.collapseBar,
+        {
+          backgroundColor: expanded ? colors.muted : tokens.accentSoft,
+          borderColor: expanded ? colors.border : colors.accent,
+        },
+      ]}
+    >
+      <View style={[styles.collapseIconWrap, { backgroundColor: colors.background }]}>
+        <SymbolView
+          name={{
+            ios: expanded ? "chevron.up.circle.fill" : "ellipsis.circle.fill",
+            android: expanded ? "expand_less" : "more_horiz",
+            web: expanded ? "expand_less" : "more_horiz",
+          }}
+          size={18}
+          tintColor={expanded ? colors.mutedForeground : colors.accent}
+        />
+      </View>
+
+      <View style={styles.collapseCopy}>
+        <ThemedText type="smallBold" themeColor={expanded ? "foreground" : "foreground"}>
+          {title}
+        </ThemedText>
+        {hint ? (
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {hint}
+          </ThemedText>
+        ) : null}
+      </View>
+
+      {!expanded ? (
+        <View style={[styles.collapseAction, { backgroundColor: colors.accent }]}>
+          <ThemedText type="caption" style={{ color: colors.accentForeground, fontWeight: "600" }}>
+            {t("common.show")}
+          </ThemedText>
+          <SymbolView
+            name={{
+              ios: "chevron.down",
+              android: "keyboard_arrow_down",
+              web: "keyboard_arrow_down",
+            }}
+            size={12}
+            tintColor={colors.accentForeground}
+          />
+        </View>
+      ) : (
+        <SymbolView
+          name={{ ios: "chevron.up", android: "keyboard_arrow_up", web: "keyboard_arrow_up" }}
+          size={16}
+          tintColor={colors.mutedForeground}
+        />
+      )}
+    </PressableScale>
+  );
+}
+
 function ScheduleTimelineRow({
   item,
   nextIn,
   isNext,
-  isLastInGroup,
+  isLastInTimeline,
+  compact = false,
 }: {
   item: ScheduleItem;
   nextIn?: string;
   isNext: boolean;
-  isLastInGroup: boolean;
+  isLastInTimeline: boolean;
+  compact?: boolean;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const isCurrent = item.active;
+  const emphasized = isCurrent || isNext;
   const visuals = rowVisuals(item.status, item.kind, colors, tokens);
-  const badgeKey = kindBadgeKey(item.kind);
   const icon = scheduleEntryIcon(item.id as Parameters<typeof scheduleEntryIcon>[0]);
+  const railColor = kindRailColor(item.kind, colors, tokens);
 
   return (
     <View style={[styles.rowWrap, { opacity: visuals.opacity }]}>
-      <View style={styles.rail}>
+      <View style={[styles.rail, compact ? styles.railCompact : null]}>
         <View
           style={[
             styles.railDot,
+            compact ? styles.railDotCompact : null,
             {
-              backgroundColor: isCurrent ? colors.accent : isNext ? colors.border : colors.border,
-              borderColor: isCurrent ? colors.accent : isNext ? colors.accent : colors.border,
+              backgroundColor: isCurrent ? colors.accent : colors.background,
+              borderColor: isCurrent ? colors.accent : isNext ? colors.accent : railColor,
             },
           ]}
         />
-        {!isLastInGroup ? (
+        {!isLastInTimeline ? (
           <View style={[styles.railLine, { backgroundColor: colors.border }]} />
         ) : null}
       </View>
@@ -151,6 +273,8 @@ function ScheduleTimelineRow({
         )}
         style={[
           styles.row,
+          compact ? styles.rowCompact : null,
+          emphasized ? styles.rowEmphasized : null,
           {
             backgroundColor: visuals.rowBg,
             borderColor: visuals.borderColor,
@@ -159,8 +283,8 @@ function ScheduleTimelineRow({
       >
         <IconWell
           icon={icon}
-          size={16}
-          well={36}
+          size={compact && !emphasized ? 14 : 16}
+          well={compact && !emphasized ? 30 : 36}
           radius={Radius.sm}
           tint={visuals.iconTint}
           background={visuals.iconBg}
@@ -169,40 +293,13 @@ function ScheduleTimelineRow({
         <View style={styles.rowBody}>
           <View style={styles.nameRow}>
             <ThemedText
-              type={isCurrent ? "smallBold" : "small"}
+              type={emphasized ? "smallBold" : "small"}
               style={visuals.nameColor ? { color: visuals.nameColor } : undefined}
               themeColor={visuals.nameColor ? undefined : "foreground"}
               numberOfLines={1}
             >
               {item.name}
             </ThemedText>
-            {badgeKey ? (
-              <View
-                style={[
-                  styles.kindChip,
-                  {
-                    backgroundColor:
-                      item.kind === "obligatory"
-                        ? tokens.status.info.soft
-                        : tokens.status.warning.soft,
-                  },
-                ]}
-              >
-                <ThemedText
-                  type="caption"
-                  style={{
-                    color:
-                      item.kind === "obligatory"
-                        ? tokens.status.info.color
-                        : tokens.status.warning.color,
-                    fontSize: 10,
-                    lineHeight: 12,
-                  }}
-                >
-                  {t(badgeKey)}
-                </ThemedText>
-              </View>
-            ) : null}
             {isCurrent ? (
               <Pill
                 label={t("home.scheduleCurrent")}
@@ -234,7 +331,7 @@ function ScheduleTimelineRow({
             </ThemedText>
           ) : null}
           <ThemedText
-            type={isCurrent ? "smallBold" : "small"}
+            type={emphasized ? "smallBold" : "small"}
             style={[styles.time, visuals.timeColor ? { color: visuals.timeColor } : undefined]}
             themeColor={visuals.timeColor ? undefined : "foreground"}
           >
@@ -243,6 +340,7 @@ function ScheduleTimelineRow({
           <PrayerInfoButton
             prayerId={item.id as PrayerInfoId}
             tintColor={visuals.iconTint}
+            hitTarget={compact && !emphasized ? 30 : 36}
             showLabel
           />
         </View>
@@ -251,11 +349,149 @@ function ScheduleTimelineRow({
   );
 }
 
+function isLastTimelineItem(
+  segments: ScheduleTimelineSegment<ScheduleItem>[],
+  index: number,
+): boolean {
+  for (let i = index + 1; i < segments.length; i++) {
+    if (segments[i]?.type === "item") return false;
+  }
+  return true;
+}
+
+function ScheduleTimeline({
+  segments,
+  nextScheduleId,
+  nextIn,
+  pastExpanded,
+  futureExpanded,
+  onTogglePast,
+  onToggleFuture,
+}: {
+  segments: ScheduleTimelineSegment<ScheduleItem>[];
+  nextScheduleId: string | null;
+  nextIn: string;
+  pastExpanded: boolean;
+  futureExpanded: boolean;
+  onTogglePast: () => void;
+  onToggleFuture: () => void;
+}) {
+  const { t } = useTranslation();
+  let lastGroup: ScheduleGroupId | null = null;
+
+  return (
+    <>
+      {segments.map((segment, index) => {
+        if (segment.type === "collapse-past") {
+          lastGroup = null;
+          return (
+            <ScheduleCollapseBar
+              key="collapse-past"
+              count={segment.count}
+              variant="past"
+              expanded={pastExpanded}
+              onPress={onTogglePast}
+            />
+          );
+        }
+
+        if (segment.type === "collapse-future") {
+          lastGroup = null;
+          return (
+            <ScheduleCollapseBar
+              key="collapse-future"
+              count={segment.count}
+              variant="future"
+              expanded={futureExpanded}
+              onPress={onToggleFuture}
+            />
+          );
+        }
+
+        const group = scheduleGroupFor(segment.item.id as Parameters<typeof scheduleGroupFor>[0]);
+        const showHeader = group !== lastGroup;
+        lastGroup = group;
+        const compact = segment.item.status === "past" && !segment.item.active;
+        const isLastInTimeline = isLastTimelineItem(segments, index);
+
+        return (
+          <View key={segment.item.id}>
+            {showHeader ? (
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.groupLabel}>
+                {t(SCHEDULE_GROUP_LABEL_KEY[group]).toUpperCase()}
+              </ThemedText>
+            ) : null}
+            <ScheduleTimelineRow
+              item={segment.item}
+              compact={compact || group === "flexible"}
+              isNext={nextScheduleId !== null && segment.item.id === nextScheduleId}
+              nextIn={
+                nextScheduleId !== null && segment.item.id === nextScheduleId ? nextIn : undefined
+              }
+              isLastInTimeline={isLastInTimeline}
+            />
+          </View>
+        );
+      })}
+    </>
+  );
+}
+
+function ScheduleFlexibleBlock({
+  items,
+  nextScheduleId,
+  nextIn,
+}: {
+  items: ScheduleItem[];
+  nextScheduleId: string | null;
+  nextIn: string;
+}) {
+  const { t } = useTranslation();
+  const groups = groupScheduleItemsInOrder(items, (id) =>
+    scheduleGroupFor(id as Parameters<typeof scheduleGroupFor>[0]),
+  );
+
+  return (
+    <>
+      {groups.map((group) => (
+        <View key={group.group} style={styles.group}>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.groupLabel}>
+            {t(SCHEDULE_GROUP_LABEL_KEY[group.group]).toUpperCase()}
+          </ThemedText>
+          {group.items.map((item, index) => (
+            <ScheduleTimelineRow
+              key={item.id}
+              item={item}
+              compact
+              isNext={nextScheduleId !== null && item.id === nextScheduleId}
+              nextIn={nextScheduleId !== null && item.id === nextScheduleId ? nextIn : undefined}
+              isLastInTimeline={index === group.items.length - 1}
+            />
+          ))}
+        </View>
+      ))}
+    </>
+  );
+}
+
 export function PrayerScheduleCard({ schedule, nextIn, nextScheduleId }: PrayerScheduleCardProps) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
-  const groups = groupScheduleItems(schedule, (id) =>
-    scheduleGroupFor(id as Parameters<typeof scheduleGroupFor>[0]),
+  const [pastExpanded, setPastExpanded] = useState(false);
+  const [futureExpanded, setFutureExpanded] = useState(false);
+
+  const window = useMemo(
+    () => computeScheduleFocusWindow(schedule, nextScheduleId),
+    [schedule, nextScheduleId],
+  );
+
+  const segments = useMemo(
+    () =>
+      buildScheduleTimelineSegments(schedule, window, {
+        pastExpanded,
+        futureExpanded,
+      }),
+    [schedule, window, pastExpanded, futureExpanded],
   );
 
   return (
@@ -273,22 +509,23 @@ export function PrayerScheduleCard({ schedule, nextIn, nextScheduleId }: PrayerS
       </View>
 
       <View style={styles.groups}>
-        {groups.map((group) => (
-          <View key={group.group} style={styles.group}>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.groupLabel}>
-              {t(SCHEDULE_GROUP_LABEL_KEY[group.group]).toUpperCase()}
-            </ThemedText>
-            {group.items.map((item, index) => (
-              <ScheduleTimelineRow
-                key={item.id}
-                item={item}
-                isNext={nextScheduleId !== null && item.id === nextScheduleId}
-                nextIn={nextScheduleId !== null && item.id === nextScheduleId ? nextIn : undefined}
-                isLastInGroup={index === group.items.length - 1}
-              />
-            ))}
-          </View>
-        ))}
+        <ScheduleTimeline
+          segments={segments}
+          nextScheduleId={nextScheduleId}
+          nextIn={nextIn}
+          pastExpanded={pastExpanded}
+          futureExpanded={futureExpanded}
+          onTogglePast={() => setPastExpanded((value) => !value)}
+          onToggleFuture={() => setFutureExpanded((value) => !value)}
+        />
+
+        {window.flexible.length > 0 ? (
+          <ScheduleFlexibleBlock
+            items={window.flexible}
+            nextScheduleId={nextScheduleId}
+            nextIn={nextIn}
+          />
+        ) : null}
       </View>
     </Card>
   );
@@ -320,7 +557,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
   },
   groups: {
-    gap: Spacing.three,
+    gap: Spacing.half,
   },
   group: {
     gap: Spacing.half,
@@ -329,6 +566,39 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     marginBottom: Spacing.one,
     paddingLeft: Spacing.one,
+    marginTop: Spacing.one,
+  },
+  collapseBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth * 2,
+    marginVertical: Spacing.one,
+  },
+  collapseIconWrap: {
+    width: 32,
+    height: 32,
+    borderRadius: Radius.pill,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  collapseCopy: {
+    flex: 1,
+    gap: 2,
+    minWidth: 0,
+  },
+  collapseAction: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.half,
+    paddingVertical: Spacing.one,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
   },
   rowWrap: {
     flexDirection: "row",
@@ -337,7 +607,11 @@ const styles = StyleSheet.create({
   rail: {
     width: 12,
     alignItems: "center",
+    alignSelf: "stretch",
     paddingTop: 18,
+  },
+  railCompact: {
+    paddingTop: 14,
   },
   railDot: {
     width: 8,
@@ -345,9 +619,14 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
     borderWidth: 2,
   },
+  railDotCompact: {
+    width: 7,
+    height: 7,
+  },
   railLine: {
     flex: 1,
     width: 2,
+    minHeight: Spacing.three,
     marginTop: Spacing.half,
     borderRadius: Radius.pill,
   },
@@ -355,12 +634,19 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two + 2,
+    gap: Spacing.two,
     paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
+  },
+  rowCompact: {
+    paddingVertical: Spacing.one + 2,
+    gap: Spacing.one + 2,
+  },
+  rowEmphasized: {
+    paddingVertical: Spacing.two,
   },
   rowBody: {
     flex: 1,
@@ -372,12 +658,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexWrap: "wrap",
     gap: Spacing.one + 2,
-  },
-  kindChip: {
-    paddingHorizontal: Spacing.one + 2,
-    paddingVertical: 2,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
   },
   statePill: {
     paddingVertical: Spacing.half + 1,

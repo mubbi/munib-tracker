@@ -81,7 +81,7 @@ describe.concurrent("buildDailySummary", () => {
     });
 
     expect(summary.salahCompleted).toBe(2);
-    expect(summary.salahTotal).toBe(6);
+    expect(summary.salahTotal).toBe(5);
     expect(summary.qazaCompletedToday).toBe(1);
     expect(summary.qazaTargetToday).toBe(3);
     expect(summary.zikrCompleted).toBe(1);

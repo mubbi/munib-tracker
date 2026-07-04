@@ -1,5 +1,5 @@
 import type { PrayerId, PrayerLog, PrayerStatus } from "@munib-tracker/shared/types";
-import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
+import { isQazaPrayer } from "@munib-tracker/shared/validators";
 
 import { QazaRepository } from "@/db";
 
@@ -17,7 +17,7 @@ export async function reconcileQazaDebtForStatusChange(
   existingLog: PrayerLog | undefined,
   options?: ReconcileQazaDebtOptions,
 ): Promise<boolean | undefined> {
-  if (!isObligatoryPrayer(prayerId)) {
+  if (!isQazaPrayer(prayerId)) {
     return existingLog?.qazaDebtAdded;
   }
 

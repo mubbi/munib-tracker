@@ -17,7 +17,7 @@ export async function notifyAchievementUnlocked(
     content: {
       title: i18n.t("notif.reminders.achievementTitle"),
       body: title,
-      data: { channelId: "zikr", route: "/tracker" },
+      data: { channelId: "zikr", route: "/achievements" },
     },
     trigger: null,
   });

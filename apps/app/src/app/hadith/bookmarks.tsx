@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Share, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -66,6 +67,7 @@ export default function HadithBookmarksScreen() {
       subtitle={t("hadith.bookmarksSubtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/hadith/bookmarks" />
       {loaded && entries.length === 0 ? (
         <EmptyState
           icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}

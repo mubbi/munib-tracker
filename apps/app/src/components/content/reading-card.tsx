@@ -17,7 +17,7 @@ export type ReadingItem = {
   id?: string;
   title?: string;
   arabic: string;
-  transliteration: string;
+  transliteration?: string;
   translation: string;
   virtues?: string;
   reference?: string;
@@ -144,16 +144,18 @@ export function ReadingCard({
 
       <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
 
-      <ThemedText
-        type="small"
-        style={[
-          styles.transliteration,
-          { color: colors.accentText },
-          textSize ? { fontSize: textSize } : null,
-        ]}
-      >
-        {item.transliteration}
-      </ThemedText>
+      {item.transliteration ? (
+        <ThemedText
+          type="small"
+          style={[
+            styles.transliteration,
+            { color: colors.accentText },
+            textSize ? { fontSize: textSize } : null,
+          ]}
+        >
+          {item.transliteration}
+        </ThemedText>
+      ) : null}
       <ThemedText
         type="default"
         style={[styles.translation, textSize ? { fontSize: textSize } : null]}

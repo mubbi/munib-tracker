@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -108,6 +109,7 @@ export default function LocationScreen() {
       subtitle={t("location.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/location" />
       <Card>
         <View style={styles.currentHeader}>
           <View style={[styles.pin, { backgroundColor: tokens.accentSoft }]}>

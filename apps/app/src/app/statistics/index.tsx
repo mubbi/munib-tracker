@@ -23,6 +23,7 @@ import { StyleSheet, View } from "react-native";
 
 import { BarChart, type BarDatum } from "@/components/charts/bar-chart";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import {
   CardDivider,
   LinkRow,
@@ -275,6 +276,7 @@ export default function StatisticsScreen() {
       subtitle={t("statistics.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/statistics" />
       <Stagger>
         <View style={styles.stack}>
           <Card padding="four" style={styles.journeyCard}>

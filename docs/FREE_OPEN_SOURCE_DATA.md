@@ -443,7 +443,11 @@ Implemented per `DATA_INGESTION_TODO.md` — all §13 gates green (types, biome,
   fawazahmed0, cache-first over AsyncStorage (offline after first open).
 - **Hadith:** bundled highlights (40 Nawawi, Riyad as-Salihin) offline + full six books via
   fawazahmed0 CDN (cache-first). Reference + grade always shown ("Ungraded" when absent).
-- **Content:** complete 99 Names; expanded adhkar/duas/duroods (every item carries a reference).
+- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas
+  now ship the full Hisnul Muslim corpus (~266 supplications) across 16 situational/source
+  categories** — sourced verbatim from the `sheikhhanif/Hisnul_Muslim_Database` CSV (Arabic +
+  translation + reference + per-item audio), chapters mapped to categories in `build-adhkar.mjs`.
+  Transliteration is optional (only where a clean open source provides it; never auto-generated).
 - **Credits screen** renders from `assets/data/manifest.json` (SHA-256 per file) + runtime sources.
 - **Build pipeline:** `pnpm --filter app build:data` (dev/CI only) — cached fetch, validation,
   deterministic committed output.

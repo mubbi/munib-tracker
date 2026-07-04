@@ -4,17 +4,17 @@
     {
       "id": "adhkar",
       "kind": "content",
-      "version": 4,
+      "version": 5,
       "files": [
         {
           "path": "../../packages/shared/src/content/duas.ts",
-          "sha256": "94f1912c7efcbbfae960a0788f2966212af550791d427f41cfdd0c7011cee987",
-          "bytes": 44385
+          "sha256": "c45f76ae771b7144529e308a0fc0ea2707232f35ca4ca8f4d0a9f830831a5d12",
+          "bytes": 233369
         },
         {
           "path": "../../packages/shared/src/content/duroods.ts",
-          "sha256": "3dd4cf579e24b66fcba5e6c2e9dbcb9eec029aaf5fd94bc34828feab5e6cf848",
-          "bytes": 2826
+          "sha256": "0e768e8136d841598918ce103d2996b483554dce17ed2418b804383f68fc09a9",
+          "bytes": 3365
         },
         {
           "path": "../../packages/shared/src/content/zikr.ts",
@@ -23,7 +23,7 @@
         }
       ],
       "license": "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
-      "attribution": "Adhkar & duas from fitrahive/dua-dhikr (Arabic, transliteration, translation) + Hisnul Muslim. Audio matched to sheikhhanif/Hisnul_Muslim_Database.",
+      "attribution": "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
       "sourceUrl": "https://github.com/fitrahive/dua-dhikr"
     },
     {

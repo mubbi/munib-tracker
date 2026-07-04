@@ -27,7 +27,7 @@ const DETAILED_SECTIONS = [
   {
     title: "Tracker",
     items: [
-      "Fajr, Dhuhr, Asr, Maghrib, Isha, and Witr with five statuses each",
+      "Five fard prayers (Fajr through Isha) with five statuses each, plus Witr (sunnah mu'akkadah) tracked separately",
       "Sunnah prayers: Tahajjud, Ishraq, Duha, Tahiyyatul Masjid, Hajat & Istikhara",
       "Private per-prayer notes",
       "Progress ring, streak display, and confetti on a perfect day",

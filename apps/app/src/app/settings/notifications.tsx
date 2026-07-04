@@ -1,4 +1,4 @@
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { OBLIGATORY_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type { NotificationPreferences, PrayerId } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -6,6 +6,7 @@ import { StyleSheet, View } from "react-native";
 
 import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -89,6 +90,7 @@ export default function NotificationsScreen() {
       subtitle={t("notif.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/settings/notifications" />
       <Stagger>
         <NotificationPermissionBanner />
 
@@ -167,7 +169,7 @@ export default function NotificationsScreen() {
             icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
           />
           <View style={styles.rows}>
-            {SUNNAH_ALERTABLE_PRAYERS.map((prayerId) => (
+            {[WITR_PRAYER, ...SUNNAH_ALERTABLE_PRAYERS].map((prayerId) => (
               <ToggleRow
                 key={prayerId}
                 title={t(`prayers.${prayerId}`)}

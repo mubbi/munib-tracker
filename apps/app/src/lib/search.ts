@@ -4,6 +4,7 @@ import type {
   DurudItem,
   HadithItem,
   NameOfAllah,
+  RevelationPlace,
   Surah,
   ZikrItem,
 } from "@munib-tracker/shared/types";
@@ -294,14 +295,44 @@ function getNameFuse(): Fuse<FuseDoc<NameOfAllah>> {
   return nameFuse;
 }
 
+function surahRevelationLabel(place: RevelationPlace): string {
+  return place === "makkah" ? "makki makkah meccan" : "madani madinah medinan";
+}
+
 function getSurahFuse(): Fuse<FuseDoc<Surah>> {
   surahFuse ??= makeFuse(getSurahMeta(), [
     { key: "translit", weight: 5, get: (s) => s.nameTransliteration },
     { key: "english", weight: 4, get: (s) => s.nameEnglish },
     { key: "number", weight: 5, get: (s) => String(s.number) },
-    { key: "arabic", weight: 2, get: (s) => s.nameArabic },
+    { key: "arabic", weight: 3, get: (s) => s.nameArabic },
+    { key: "revelation", weight: 1, get: (s) => surahRevelationLabel(s.revelationPlace) },
   ]);
   return surahFuse;
+}
+
+/** Makki / Madani filter for the Qur'an surah list. */
+export type SurahRevelationFilter = "all" | RevelationPlace;
+
+export interface SearchSurahListOptions {
+  limit?: number;
+  revelation?: SurahRevelationFilter;
+}
+
+function applySurahRevelationFilter(
+  surahs: Surah[],
+  revelation: SurahRevelationFilter = "all",
+): Surah[] {
+  if (revelation === "all") return surahs;
+  return surahs.filter((surah) => surah.revelationPlace === revelation);
+}
+
+/** Exact surah number (1–114) when the query is a bare integer. */
+function exactSurahNumberMatch(query: string): Surah | null {
+  const trimmed = query.trim();
+  if (!/^\d{1,3}$/.test(trimmed)) return null;
+  const number = Number(trimmed);
+  if (number < 1 || number > 114) return null;
+  return getSurahMeta().find((surah) => surah.number === number) ?? null;
 }
 
 /** Shared hadith field weights, used by the global index and per-collection search. */
@@ -372,15 +403,34 @@ export function searchZikrList(query: string, limit?: number): ZikrItem[] {
 }
 
 /**
- * Fuzzy-ranked surah list for the Qur'an index filter (by name, English, number,
- * or Arabic). Reuses the cached global surah index. `[]` for a too-short query —
- * callers show the full list when the query is empty.
+ * Fuzzy-ranked surah list for the Qur'an index filter (transliteration, English
+ * meaning, number, Arabic, or makki/madani). Reuses the cached global surah
+ * index. An empty query returns the full list (optionally revelation-filtered).
  */
-export function searchSurahList(query: string, limit?: number): Surah[] {
-  const pattern = fusePattern(query);
+export function searchSurahList(query: string, options?: number | SearchSurahListOptions): Surah[] {
+  const { limit, revelation = "all" } =
+    typeof options === "number" ? { limit: options, revelation: "all" as const } : (options ?? {});
+
+  const trimmed = query.trim();
+  if (!trimmed) {
+    return applySurahRevelationFilter(getSurahMeta(), revelation);
+  }
+
+  const exact = exactSurahNumberMatch(trimmed);
+  if (exact) {
+    const matched = applySurahRevelationFilter([exact], revelation);
+    return limit ? matched.slice(0, limit) : matched;
+  }
+
+  const pattern = fusePattern(trimmed);
   if (!pattern) return [];
-  const matches = getSurahFuse().search(pattern, limit ? { limit } : undefined);
-  return matches.map((match) => match.item.item);
+
+  const matches = getSurahFuse().search(pattern);
+  const ranked = applySurahRevelationFilter(
+    matches.map((match) => match.item.item),
+    revelation,
+  );
+  return limit ? ranked.slice(0, limit) : ranked;
 }
 
 // ── Qur'an ayah index (lazy, heavy — build off the interaction thread) ────────

@@ -2,6 +2,11 @@ import * as Location from "expo-location";
 import { Platform } from "react-native";
 
 import {
+  ReverseGeocodeCacheRepository,
+  type ReverseGeocodePlace,
+  reverseGeocodeCacheKey,
+} from "@/db/repositories/reverse-geocode-cache-repository";
+import {
   type CalculationMethodKey,
   DEFAULT_CALCULATION_METHOD,
   DEFAULT_MADHAB,
@@ -64,6 +69,20 @@ interface Place {
   country?: string;
 }
 
+export type { ReverseGeocodePlace };
+export { reverseGeocodeCacheKey };
+
+/** True when two fixes fall in the same reverse-geocode cache bucket. */
+export function coordsMatchCache(
+  a: { latitude: number; longitude: number },
+  latitude: number,
+  longitude: number,
+): boolean {
+  return (
+    reverseGeocodeCacheKey(a.latitude, a.longitude) === reverseGeocodeCacheKey(latitude, longitude)
+  );
+}
+
 function buildLabel(place: Place, latitude: number, longitude: number): string {
   const parts = [place.city, place.country].filter(Boolean);
   if (parts.length > 0) return parts.join(", ");
@@ -71,7 +90,19 @@ function buildLabel(place: Place, latitude: number, longitude: number): string {
 }
 
 /** Reverse-geocodes coordinates to a { city, country }, best-effort. */
-async function reverseGeocode(latitude: number, longitude: number): Promise<Place> {
+const reverseGeocodeMemory = new Map<string, ReverseGeocodePlace>();
+const reverseGeocodeInflight = new Map<string, Promise<ReverseGeocodePlace>>();
+
+/** @internal Test helper — reset the in-memory reverse-geocode cache. */
+export function clearReverseGeocodeMemoryCache(): void {
+  reverseGeocodeMemory.clear();
+  reverseGeocodeInflight.clear();
+}
+
+async function fetchReverseGeocodeFromNetwork(
+  latitude: number,
+  longitude: number,
+): Promise<ReverseGeocodePlace> {
   // Native OS geocoder first (offline-capable, no network on most devices).
   if (Platform.OS !== "web") {
     try {
@@ -109,6 +140,50 @@ async function reverseGeocode(latitude: number, longitude: number): Promise<Plac
   return {};
 }
 
+/** Resolves a display label for coordinates via the reverse-geocode cache/API. */
+export async function resolvePlaceFromCoordinates(
+  latitude: number,
+  longitude: number,
+): Promise<{ city?: string; country?: string; label: string }> {
+  const place = await reverseGeocode(latitude, longitude);
+  return {
+    city: place.city,
+    country: place.country,
+    label: buildLabel(place, latitude, longitude),
+  };
+}
+
+async function reverseGeocode(latitude: number, longitude: number): Promise<ReverseGeocodePlace> {
+  const key = reverseGeocodeCacheKey(latitude, longitude);
+  const memHit = reverseGeocodeMemory.get(key);
+  if (memHit) return memHit;
+
+  const inflight = reverseGeocodeInflight.get(key);
+  if (inflight) return inflight;
+
+  const promise = (async () => {
+    const cached = await ReverseGeocodeCacheRepository.get(latitude, longitude);
+    if (cached && (cached.city || cached.country)) {
+      reverseGeocodeMemory.set(key, cached);
+      return cached;
+    }
+
+    const place = await fetchReverseGeocodeFromNetwork(latitude, longitude);
+    if (place.city || place.country) {
+      reverseGeocodeMemory.set(key, place);
+      await ReverseGeocodeCacheRepository.set(latitude, longitude, place);
+    }
+    return place;
+  })();
+
+  reverseGeocodeInflight.set(key, promise);
+  try {
+    return await promise;
+  } finally {
+    reverseGeocodeInflight.delete(key);
+  }
+}
+
 /** How long to wait for a fresh GPS fix before falling back to the last known one. */
 const LOCATION_TIMEOUT_MS = 10_000;
 
@@ -144,15 +219,25 @@ export type LocationResult =
 /**
  * Requests foreground permission, gets a fix, and resolves a place label.
  * Never throws — returns a discriminated result the store can act on.
+ *
+ * When `existing` coordinates match the new fix, reuses the stored city/country
+ * so tab switches and background refreshes do not re-hit the reverse-geocode API.
  */
-export async function getDeviceLocation(): Promise<LocationResult> {
+export async function getDeviceLocation(
+  existing?: Pick<StoredLocation, "latitude" | "longitude" | "city" | "country">,
+): Promise<LocationResult> {
   try {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") return { status: "denied" };
 
     const position = await getPositionWithTimeout();
     const { latitude, longitude } = position.coords;
-    const place = await reverseGeocode(latitude, longitude);
+    const place =
+      existing &&
+      coordsMatchCache(existing, latitude, longitude) &&
+      (existing.city || existing.country)
+        ? { city: existing.city, country: existing.country }
+        : await reverseGeocode(latitude, longitude);
 
     return {
       status: "granted",

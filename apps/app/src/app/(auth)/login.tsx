@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Stagger } from "@/components/ui/stagger";
@@ -28,6 +29,12 @@ export default function LoginScreen() {
       subtitle={t("login.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/login"
+        title={t("login.title")}
+        description="Sign in to sync your worship data across devices."
+        index={false}
+      />
       <Stagger>
         <View
           style={[

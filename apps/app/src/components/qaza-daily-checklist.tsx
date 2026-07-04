@@ -1,5 +1,5 @@
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
-import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
+import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
+import type { QazaPrayer } from "@munib-tracker/shared/types";
 import { sumQazaScheduleTargets } from "@munib-tracker/shared/utils";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
@@ -31,7 +31,7 @@ export function QazaDailyChecklist() {
   const dailyTotal = sumQazaScheduleTargets(schedule);
   if (dailyTotal <= 0) return null;
 
-  const dailyDone = OBLIGATORY_PRAYERS.reduce(
+  const dailyDone = QAZA_PRAYERS.reduce(
     (sum, prayerId) =>
       sum + Math.min(progress.completed[prayerId] ?? 0, schedule.targets[prayerId] ?? 0),
     0,
@@ -53,7 +53,7 @@ export function QazaDailyChecklist() {
       </View>
 
       <View style={styles.rows}>
-        {OBLIGATORY_PRAYERS.map((prayerId) => {
+        {QAZA_PRAYERS.map((prayerId) => {
           const target = schedule.targets[prayerId] ?? 0;
           if (target <= 0) return null;
 
@@ -80,7 +80,7 @@ export function QazaDailyChecklist() {
                 })}
                 disabled={!canPerform}
                 hitSlop={6}
-                onPress={() => performQaza(prayerId as ObligatoryPrayer)}
+                onPress={() => performQaza(prayerId as QazaPrayer)}
                 style={{ opacity: canPerform ? 1 : 0.3 }}
               >
                 <SymbolView

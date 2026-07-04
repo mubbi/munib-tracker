@@ -1,9 +1,9 @@
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
 import type {
-  ObligatoryPrayer,
   QazaCounter,
   QazaDailyPlan,
   QazaDailyProgress,
+  QazaPrayer,
   QazaRozaCounter,
   QazaSchedule,
 } from "@munib-tracker/shared/types";
@@ -12,7 +12,7 @@ import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { DB_KEYS } from "../keys";
 import { readJSON, updateJSON, withKeyLock, writeJSON } from "../store";
 
-type CounterMap = Record<ObligatoryPrayer, QazaCounter>;
+type CounterMap = Record<QazaPrayer, QazaCounter>;
 
 const EMPTY_SCHEDULE: QazaSchedule = { targets: {} };
 
@@ -21,10 +21,10 @@ function emptyProgress(date: string): QazaDailyProgress {
 }
 
 function normalizeScheduleTargets(
-  targets: Partial<Record<ObligatoryPrayer, number>>,
-): Partial<Record<ObligatoryPrayer, number>> {
-  const normalized: Partial<Record<ObligatoryPrayer, number>> = {};
-  for (const prayerId of OBLIGATORY_PRAYERS) {
+  targets: Partial<Record<QazaPrayer, number>>,
+): Partial<Record<QazaPrayer, number>> {
+  const normalized: Partial<Record<QazaPrayer, number>> = {};
+  for (const prayerId of QAZA_PRAYERS) {
     const value = targets[prayerId];
     if (value == null) continue;
     normalized[prayerId] = Math.max(0, Math.min(999, Math.round(value)));
@@ -34,7 +34,7 @@ function normalizeScheduleTargets(
 
 function emptyCounters(): CounterMap {
   const map = {} as CounterMap;
-  for (const prayerId of OBLIGATORY_PRAYERS) {
+  for (const prayerId of QAZA_PRAYERS) {
     map[prayerId] = { prayerId, remaining: 0, completed: 0 };
   }
   return map;
@@ -43,7 +43,7 @@ function emptyCounters(): CounterMap {
 async function readCounters(): Promise<CounterMap> {
   const stored = await readJSON<Partial<CounterMap>>(DB_KEYS.qazaCounters, {});
   const map = emptyCounters();
-  for (const prayerId of OBLIGATORY_PRAYERS) {
+  for (const prayerId of QAZA_PRAYERS) {
     const counter = stored[prayerId];
     if (counter) map[prayerId] = { ...map[prayerId], ...counter, prayerId };
   }
@@ -65,15 +65,15 @@ const DEFAULT_ROZA: QazaRozaCounter = { remaining: 0, completed: 0 };
 export const QazaRepository = {
   async getCounters(): Promise<QazaCounter[]> {
     const map = await readCounters();
-    return OBLIGATORY_PRAYERS.map((prayerId) => map[prayerId]);
+    return QAZA_PRAYERS.map((prayerId) => map[prayerId]);
   },
 
-  async getCounter(prayerId: ObligatoryPrayer): Promise<QazaCounter> {
+  async getCounter(prayerId: QazaPrayer): Promise<QazaCounter> {
     return (await readCounters())[prayerId];
   },
 
   async setCounter(
-    prayerId: ObligatoryPrayer,
+    prayerId: QazaPrayer,
     remaining: number,
     completed: number,
   ): Promise<QazaCounter> {
@@ -89,7 +89,7 @@ export const QazaRepository = {
   },
 
   /** Applies a pulled counter with last-write-wins on `updatedAt` (server time preserved). */
-  async applyRemoteCounter(prayerId: ObligatoryPrayer, counter: QazaCounter): Promise<void> {
+  async applyRemoteCounter(prayerId: QazaPrayer, counter: QazaCounter): Promise<void> {
     await mutateCounters((counters) => {
       const existing = counters[prayerId];
       if (existing.updatedAt && counter.updatedAt && existing.updatedAt >= counter.updatedAt) {
@@ -104,7 +104,7 @@ export const QazaRepository = {
     });
   },
 
-  async resetCounter(prayerId: ObligatoryPrayer): Promise<QazaCounter> {
+  async resetCounter(prayerId: QazaPrayer): Promise<QazaCounter> {
     return this.setCounter(prayerId, 0, 0);
   },
 
@@ -114,11 +114,11 @@ export const QazaRepository = {
       await writeJSON(DB_KEYS.qazaCounters, counters);
       return counters;
     });
-    return OBLIGATORY_PRAYERS.map((prayerId) => map[prayerId]);
+    return QAZA_PRAYERS.map((prayerId) => map[prayerId]);
   },
 
   /** Marks a missed prayer: one more qaza owed. */
-  async incrementRemaining(prayerId: ObligatoryPrayer, by = 1): Promise<QazaCounter> {
+  async incrementRemaining(prayerId: QazaPrayer, by = 1): Promise<QazaCounter> {
     const map = await mutateCounters((counters) => {
       const counter = counters[prayerId];
       counters[prayerId] = {
@@ -132,7 +132,7 @@ export const QazaRepository = {
   },
 
   /** Performs qaza: remaining decreases, completed increases. */
-  async performQaza(prayerId: ObligatoryPrayer, by = 1): Promise<QazaCounter> {
+  async performQaza(prayerId: QazaPrayer, by = 1): Promise<QazaCounter> {
     let step = 0;
     const map = await mutateCounters((counters) => {
       const counter = counters[prayerId];
@@ -247,7 +247,7 @@ export const QazaRepository = {
   },
 
   async incrementDailyProgress(
-    prayerId: ObligatoryPrayer,
+    prayerId: QazaPrayer,
     date: string,
     by = 1,
   ): Promise<QazaDailyProgress> {

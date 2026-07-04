@@ -1,11 +1,11 @@
-import { OBLIGATORY_PRAYERS } from "../constants/index";
-import type { ObligatoryPrayer, QazaDailyProgress, QazaSchedule } from "../types/index";
+import { QAZA_PRAYERS } from "../constants/index";
+import type { QazaDailyProgress, QazaPrayer, QazaSchedule } from "../types/index";
 import { addDays, getLocalDateString } from "./date";
 
 /** Sums all per-prayer targets in a qaza schedule. */
 export function sumQazaScheduleTargets(schedule?: QazaSchedule): number {
   if (!schedule) return 0;
-  return OBLIGATORY_PRAYERS.reduce(
+  return QAZA_PRAYERS.reduce(
     (sum, prayerId) => sum + Math.max(0, schedule.targets[prayerId] ?? 0),
     0,
   );
@@ -14,7 +14,7 @@ export function sumQazaScheduleTargets(schedule?: QazaSchedule): number {
 /** Sums all per-prayer completions for a day. */
 export function sumQazaDailyProgress(progress?: QazaDailyProgress): number {
   if (!progress) return 0;
-  return OBLIGATORY_PRAYERS.reduce(
+  return QAZA_PRAYERS.reduce(
     (sum, prayerId) => sum + Math.max(0, progress.completed[prayerId] ?? 0),
     0,
   );
@@ -38,7 +38,7 @@ export interface QazaCalculatorResult {
   missedDays: number;
   /** Missed count for a single prayer slot (equal across prayers). */
   perPrayer: number;
-  byPrayer: Record<ObligatoryPrayer, number>;
+  byPrayer: Record<QazaPrayer, number>;
 }
 
 /**
@@ -46,8 +46,8 @@ export interface QazaCalculatorResult {
  *
  * Formula: missedYears = max(0, currentAge − pubertyAge − yearsPrayedConsistently).
  * missedDays = round(missedYears × daysPerYear) − (annualExemptDays × missedYears).
- * Each missed day owes one of every obligatory prayer, so every prayer's count
- * equals missedDays. This is an estimate only — consult a scholar.
+ * Each missed day owes one of every fard prayer (and optionally Witr for qaza tracking).
+ * This is an estimate only — consult a scholar.
  */
 export function computeLifetimeMissedPrayers(input: QazaCalculatorInput): QazaCalculatorResult {
   const daysPerYear = input.useLunarYear === false ? 365 : 354;
@@ -58,8 +58,8 @@ export function computeLifetimeMissedPrayers(input: QazaCalculatorInput): QazaCa
   const exempt = Math.max(0, input.annualExemptDays ?? 0) * missedYears;
   const missedDays = Math.max(0, Math.round(missedYears * daysPerYear - exempt));
 
-  const byPrayer = {} as Record<ObligatoryPrayer, number>;
-  for (const prayerId of OBLIGATORY_PRAYERS) byPrayer[prayerId] = missedDays;
+  const byPrayer = {} as Record<QazaPrayer, number>;
+  for (const prayerId of QAZA_PRAYERS) byPrayer[prayerId] = missedDays;
 
   return { missedYears, missedDays, perPrayer: missedDays, byPrayer };
 }

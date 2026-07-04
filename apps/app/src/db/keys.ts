@@ -30,6 +30,8 @@ export const DB_KEYS = {
   // User-created tasbeeh counters (title, target, persisted count).
   customTasbeeh: `${PREFIX}/custom_tasbeeh`,
   weatherCache: `${PREFIX}/weather_cache`,
+  audioDurationCache: `${PREFIX}/audio_duration_cache`,
+  reverseGeocodeCache: `${PREFIX}/reverse_geocode_cache`,
 } as const;
 
 /** Composite key for one prayer on one day. */

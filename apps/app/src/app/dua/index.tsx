@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -18,15 +19,54 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { searchDuaList } from "@/lib/search";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
 
 const CATEGORY_ICONS: Record<DuaCategoryId, SymbolViewProps["name"]> = {
-  sunnah: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
+  morning_evening: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
+  sleep: { ios: "moon.zzz.fill", android: "bedtime", web: "bedtime" },
+  prayer: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
+  forgiveness: {
+    ios: "hands.sparkles.fill",
+    android: "volunteer_activism",
+    web: "volunteer_activism",
+  },
+  distress: { ios: "exclamationmark.bubble.fill", android: "mood_bad", web: "mood_bad" },
+  protection: { ios: "shield.fill", android: "shield", web: "shield" },
   quranic: { ios: "book.fill", android: "menu_book", web: "menu_book" },
-  daily: { ios: "sun.max.fill", android: "light_mode", web: "light_mode" },
+  food: { ios: "fork.knife", android: "restaurant", web: "restaurant" },
+  home: { ios: "house.fill", android: "home", web: "home" },
+  travel: { ios: "airplane", android: "flight", web: "flight" },
+  family: {
+    ios: "figure.2.and.child.holdinghands",
+    android: "family_restroom",
+    web: "family_restroom",
+  },
+  illness: { ios: "cross.case.fill", android: "medical_services", web: "medical_services" },
+  weather: { ios: "cloud.sun.fill", android: "cloud", web: "cloud" },
+  hajj: { ios: "building.columns.fill", android: "account_balance", web: "account_balance" },
+  purification: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
+  social: { ios: "person.2.fill", android: "groups", web: "groups" },
 };
 
-const CATEGORIES: DuaCategoryId[] = ["sunnah", "quranic", "daily"];
+const CATEGORIES: DuaCategoryId[] = [
+  "morning_evening",
+  "sleep",
+  "prayer",
+  "forgiveness",
+  "distress",
+  "protection",
+  "quranic",
+  "food",
+  "home",
+  "travel",
+  "family",
+  "illness",
+  "weather",
+  "hajj",
+  "purification",
+  "social",
+];
 
 export default function DuaHomeScreen() {
   const router = useRouter();
@@ -58,6 +98,29 @@ export default function DuaHomeScreen() {
       }
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/dua"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("dua.title"), path: "/dua" },
+        ]}
+        jsonLd={[
+          collectionPageSchema({
+            path: "/dua",
+            name: "Duas & Supplications",
+            description:
+              "Authentic duas and supplications from the Qur'an and Sunnah — morning & evening, prayer, protection, travel, forgiveness, and more.",
+            items: CATEGORIES.map((category) => ({
+              name: t(`duaCat.${category}`),
+              path: `/dua/${category}`,
+            })),
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("dua.title"), path: "/dua" },
+            ],
+          }),
+        ]}
+      />
       <Stagger>
         <Card padding="three">
           <TextInput
@@ -163,7 +226,7 @@ function DuaSearchRow({
           {item.title}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-          {item.transliteration}
+          {item.transliteration ?? item.translation}
         </ThemedText>
       </View>
       <Pill label={categoryLabel} color={colors.mutedForeground} background={colors.card} />

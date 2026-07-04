@@ -15,13 +15,24 @@ describe.concurrent("content", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("has non-empty arabic, transliteration, and translation for every item", () => {
+  it("has non-empty arabic and translation for every item", () => {
     const all = [...ZIKR_ITEMS, ...NAMES_OF_ALLAH, ...DUA_ITEMS, ...DUROOD_ITEMS];
     for (const item of all) {
       expect(item.arabic.length).toBeGreaterThan(0);
-      expect(item.transliteration.length).toBeGreaterThan(0);
       expect(item.translation.length).toBeGreaterThan(0);
     }
+  });
+
+  it("has a transliteration for every zikr, name, and durood (optional for duas)", () => {
+    for (const item of [...ZIKR_ITEMS, ...NAMES_OF_ALLAH, ...DUROOD_ITEMS]) {
+      expect(item.transliteration.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("ships the full Hisnul Muslim dua corpus across many categories", () => {
+    expect(DUA_ITEMS.length).toBeGreaterThan(200);
+    const categories = new Set(DUA_ITEMS.map((item) => item.categoryId));
+    expect(categories.size).toBeGreaterThanOrEqual(12);
   });
 
   it("ships all 99 names of Allah", () => {

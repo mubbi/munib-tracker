@@ -1,12 +1,15 @@
 import { describe, expect, it } from "@jest/globals";
 
 import {
+  dayKeyInTimeZone,
+  formatDisplayDateTime,
   formatDisplayHhMm,
   formatDisplayTime,
   formatHhMm,
   formatStoredTime,
   from12HourParts,
   parseHhMm,
+  prayerDayAnchor,
   to12HourParts,
 } from "./time";
 
@@ -14,6 +17,23 @@ describe("formatHhMm", () => {
   it("zero-pads hours and minutes for storage", () => {
     expect(formatHhMm(5, 7)).toBe("05:07");
     expect(formatHhMm(22, 30)).toBe("22:30");
+  });
+});
+
+describe("dayKeyInTimeZone", () => {
+  it("returns the calendar day in the selected timezone", () => {
+    const instant = new Date("2026-07-04T19:57:00.000Z");
+    expect(dayKeyInTimeZone(instant, "America/New_York")).toBe("2026-07-04");
+    expect(dayKeyInTimeZone(instant, "Asia/Karachi")).toBe("2026-07-05");
+  });
+});
+
+describe("prayerDayAnchor", () => {
+  it("builds an adhan day anchor for the location timezone", () => {
+    const anchor = prayerDayAnchor(new Date("2026-07-04T19:57:00.000Z"), "America/New_York");
+    expect(anchor.getFullYear()).toBe(2026);
+    expect(anchor.getMonth()).toBe(6);
+    expect(anchor.getDate()).toBe(4);
   });
 });
 
@@ -33,6 +53,14 @@ describe("formatDisplayHhMm", () => {
   it("formats stored hour/minute pairs for display", () => {
     expect(formatDisplayHhMm(22, 30, "24")).toBe("22:30");
     expect(formatDisplayHhMm(22, 30, "12")).toMatch(/10:30 PM/);
+  });
+});
+
+describe("formatDisplayDateTime", () => {
+  it("combines localized date and time", () => {
+    const value = formatDisplayDateTime(new Date(2025, 5, 15, 14, 30, 0), "24", "en");
+    expect(value).toContain("2025");
+    expect(value).toContain("14:30");
   });
 });
 

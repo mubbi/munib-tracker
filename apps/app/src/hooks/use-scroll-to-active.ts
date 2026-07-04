@@ -6,6 +6,9 @@ import type {
   ScrollView,
   View,
 } from "react-native";
+import { useWindowDimensions } from "react-native";
+
+import { useMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
 
 /**
  * Scrolls a `ScrollView` so the card matching `activeKey` is brought into view.
@@ -76,6 +79,37 @@ export function useScrollToActive(
   return { register, onScroll };
 }
 
+function isIndexInRange(index: number, itemCount: number | undefined): boolean {
+  return index >= 0 && (itemCount == null || index < itemCount);
+}
+
+export type ScrollToActiveIndexConfig = {
+  /** Distance from the top of the viewport to the active row (header inset). */
+  viewOffset?: number;
+  /**
+   * Where in the viewport to place the row (0 = top, 1 = bottom).
+   * When omitted, biases upward to clear the docked mini-player.
+   */
+  viewPosition?: number;
+  /** Total data length — out-of-range indices are ignored. */
+  itemCount?: number;
+  /** For multi-column lists, average row height (not per-cell height). */
+  numColumns?: number;
+  /** Estimated `ListHeaderComponent` height for scroll recovery. */
+  listHeaderHeight?: number;
+};
+
+/** Compute a viewPosition that keeps rows above the docked mini-player. */
+export function useScrollFollowViewPosition(explicit?: number): number {
+  const { height } = useWindowDimensions();
+  const miniPlayerInset = useMiniPlayerInset();
+  const tabBarOffset = useTabBarOffset();
+  if (explicit != null) return explicit;
+  if (height <= 0) return 0.35;
+  const obstructed = tabBarOffset + miniPlayerInset;
+  return Math.max(0.22, Math.min(0.45, 0.5 - obstructed / height / 2));
+}
+
 /**
  * Virtualized sibling of {@link useScrollToActive} for lists rendered with a
  * `FlatList`. Rows are off-screen (unmounted) most of the time, so we can't
@@ -83,45 +117,81 @@ export function useScrollToActive(
  * `scrollToIndex`. When the target row hasn't been laid out yet (common when
  * scrolling far into a virtualized list) `onScrollToIndexFailed` fires; we scroll
  * roughly toward it, then retry once layout catches up.
- *
- * `indexForKey(activeKey)` returns the row's index in the FlatList `data`, or -1
- * when the key isn't in the list. `viewOffset` mirrors the pixel padding the
- * ScrollView variant left above the active card (header inset).
  */
 export function useScrollToActiveIndex(
   listRef: RefObject<FlatList | null>,
   activeKey: string | null | undefined,
   indexForKey: (key: string) => number,
-  viewOffset = 96,
+  config: ScrollToActiveIndexConfig = {},
 ) {
-  // Keep the latest resolver without re-running the scroll effect on each render.
+  const {
+    viewOffset = 96,
+    viewPosition: explicitViewPosition,
+    itemCount,
+    numColumns = 1,
+    listHeaderHeight = 0,
+  } = config;
+
+  const viewPosition = useScrollFollowViewPosition(explicitViewPosition);
+
   const resolver = useRef(indexForKey);
   resolver.current = indexForKey;
+  const countRef = useRef(itemCount);
+  countRef.current = itemCount;
+  const retryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollConfigRef = useRef({ viewOffset, viewPosition, numColumns, listHeaderHeight });
+  scrollConfigRef.current = { viewOffset, viewPosition, numColumns, listHeaderHeight };
+
+  const scrollToIndexSafe = useCallback(
+    (index: number, animated: boolean) => {
+      const list = listRef.current;
+      if (!list || !isIndexInRange(index, countRef.current)) return;
+      const { viewOffset: offset, viewPosition: position } = scrollConfigRef.current;
+      try {
+        list.scrollToIndex({ index, viewOffset: offset, viewPosition: position, animated });
+      } catch {
+        // RN web throws synchronously when the index is out of range.
+      }
+    },
+    [listRef],
+  );
 
   useEffect(() => {
+    if (retryTimerRef.current) {
+      clearTimeout(retryTimerRef.current);
+      retryTimerRef.current = null;
+    }
     if (!activeKey) return;
     const index = resolver.current(activeKey);
-    if (index < 0) return;
-    // Defer so a freshly-mounted list has a settled layout before we scroll.
-    const timer = setTimeout(() => {
-      listRef.current?.scrollToIndex({ index, viewOffset, animated: true });
-    }, 60);
+    if (!isIndexInRange(index, countRef.current)) return;
+    const timer = setTimeout(() => scrollToIndexSafe(index, true), 60);
     return () => clearTimeout(timer);
-  }, [activeKey, listRef, viewOffset]);
+  }, [activeKey, scrollToIndexSafe]);
 
-  // Pass to FlatList: recover when the target row isn't measured yet.
+  useEffect(
+    () => () => {
+      if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+    },
+    [],
+  );
+
   const onScrollToIndexFailed = useCallback(
     (info: { index: number; averageItemLength: number }) => {
       const list = listRef.current;
-      if (!list) return;
-      // Nudge toward the row using the average item height, then retry once the
-      // rows around it have mounted and their real offsets are known.
-      list.scrollToOffset({ offset: info.averageItemLength * info.index, animated: false });
-      setTimeout(() => {
-        list.scrollToIndex({ index: info.index, viewOffset, animated: true });
+      if (!list || !isIndexInRange(info.index, countRef.current)) return;
+      const { numColumns: cols, listHeaderHeight: headerHeight } = scrollConfigRef.current;
+      const row = Math.floor(info.index / cols);
+      list.scrollToOffset({
+        offset: headerHeight + row * info.averageItemLength,
+        animated: false,
+      });
+      if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+      retryTimerRef.current = setTimeout(() => {
+        retryTimerRef.current = null;
+        scrollToIndexSafe(info.index, true);
       }, 80);
     },
-    [listRef, viewOffset],
+    [listRef, scrollToIndexSafe],
   );
 
   return { onScrollToIndexFailed };

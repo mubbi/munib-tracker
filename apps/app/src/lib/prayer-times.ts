@@ -2,7 +2,7 @@ import type { PrayerId, SunnahPrayer, TimeFormat } from "@munib-tracker/shared/t
 import { CalculationMethod, Coordinates, HighLatitudeRule, Madhab, PrayerTimes } from "adhan";
 import type { SymbolViewProps } from "expo-symbols";
 
-import { formatDisplayTime } from "./time";
+import { formatDisplayTime, prayerDayAnchor, shiftPrayerDay } from "./time";
 
 /**
  * On-device prayer-time calculation with the `adhan` library (already a
@@ -125,8 +125,10 @@ export function nextPrayer(
   now: Date,
   method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
   madhab: MadhabKey = DEFAULT_MADHAB,
+  timeZone?: string,
 ): NextPrayer {
-  const today = computePrayerTimes(coords, now, method, madhab);
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = computePrayerTimes(coords, anchor, method, madhab);
   const upcoming = today.nextPrayer(now);
 
   // The currently running window: the latest marker that has already begun.
@@ -144,8 +146,7 @@ export function nextPrayer(
   let activeIndex: number;
 
   if (upcoming === "none") {
-    const tomorrow = new Date(now);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrow = shiftPrayerDay(anchor, 1);
     const next = computePrayerTimes(coords, tomorrow, method, madhab);
     id = "fajr";
     date = next.fajr;
@@ -269,13 +270,10 @@ export function buildPrayerTimeMap(
   timeFormat: TimeFormat = "24",
   timeZone?: string,
 ): Record<PrayerId, string> {
-  const today = computePrayerTimes(coords, now, method, madhab);
-  const tomorrow = new Date(now);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowTimes = computePrayerTimes(coords, tomorrow, method, madhab);
-  const yesterday = new Date(now);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayTimes = computePrayerTimes(coords, yesterday, method, madhab);
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = computePrayerTimes(coords, anchor, method, madhab);
+  const tomorrowTimes = computePrayerTimes(coords, shiftPrayerDay(anchor, 1), method, madhab);
+  const yesterdayTimes = computePrayerTimes(coords, shiftPrayerDay(anchor, -1), method, madhab);
 
   const duha = duhaWindow(today.sunrise, today.dhuhr);
 
@@ -307,14 +305,12 @@ export function buildDailySchedule(
   now: Date,
   method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
   madhab: MadhabKey = DEFAULT_MADHAB,
+  timeZone?: string,
 ): DailyScheduleEntry[] {
-  const today = computePrayerTimes(coords, now, method, madhab);
-  const tomorrow = new Date(now);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowTimes = computePrayerTimes(coords, tomorrow, method, madhab);
-  const yesterday = new Date(now);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayTimes = computePrayerTimes(coords, yesterday, method, madhab);
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = computePrayerTimes(coords, anchor, method, madhab);
+  const tomorrowTimes = computePrayerTimes(coords, shiftPrayerDay(anchor, 1), method, madhab);
+  const yesterdayTimes = computePrayerTimes(coords, shiftPrayerDay(anchor, -1), method, madhab);
 
   const tahajjudAt = tahajjudTime(now, today, tomorrowTimes.fajr, yesterdayTimes.maghrib);
   const ishraqAt = ishraqTime(today.sunrise);
@@ -352,7 +348,7 @@ export function buildDailySchedule(
     { id: "isha", kind: "obligatory", at: today.isha, active: false },
     {
       id: "witr",
-      kind: "obligatory",
+      kind: "optional",
       at: witrAt,
       active: nowMs >= witrAt.getTime() && nowMs < witrEnd,
     },
@@ -361,7 +357,7 @@ export function buildDailySchedule(
   ];
 
   // Highlight the obligatory/marker window that is currently running.
-  const next = nextPrayer(coords, now, method, madhab);
+  const next = nextPrayer(coords, now, method, madhab, timeZone);
   const slotActive = new Set<PrayerSlotId>();
   if (next.currentIndex >= 0) slotActive.add(PRAYER_SLOT_ORDER[next.currentIndex]);
 

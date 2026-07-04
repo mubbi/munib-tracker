@@ -6,6 +6,7 @@ import type {
 } from "@munib-tracker/shared/types";
 
 import { HadithRepository } from "@/db";
+import { fetchStaticJson } from "@/lib/static-json-fetch";
 
 /**
  * D6 — full hadith collections fetched on demand from fawazahmed0/hadith-api
@@ -66,9 +67,7 @@ interface RemoteEdition {
 }
 
 async function fetchEdition(name: string): Promise<RemoteEdition> {
-  const res = await fetch(`${HADITH_CDN}/${name}.min.json`);
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${name}`);
-  return (await res.json()) as RemoteEdition;
+  return fetchStaticJson<RemoteEdition>(`${HADITH_CDN}/${name}.min.json`);
 }
 
 /**

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { SettingsRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -35,6 +36,7 @@ export default function AboutScreen() {
       subtitle={t("about.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/settings/about" />
       <Stagger>
         <Card style={styles.hero}>
           <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>

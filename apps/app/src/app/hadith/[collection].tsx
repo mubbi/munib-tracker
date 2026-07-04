@@ -6,6 +6,7 @@ import { InteractionManager, Share, StyleSheet, TextInput, View } from "react-na
 
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -19,8 +20,13 @@ import { HadithRepository } from "@/db";
 import { useRemoteCollection } from "@/hooks/use-hadith";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildHadithActivity, buildHadithCollectionActivity } from "@/lib/continue-activity";
-import { getBundledCollection, getBundledCollectionData } from "@/lib/hadith";
+import {
+  getBundledCollection,
+  getBundledCollectionData,
+  getBundledCollections,
+} from "@/lib/hadith";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
@@ -31,6 +37,14 @@ function hadithShareMessage(item: HadithItem): string {
 }
 
 const PAGE_SIZE = 20;
+
+/**
+ * Pre-render a static HTML page for every bundled hadith collection at web
+ * export time, so each has its own crawlable URL and metadata.
+ */
+export function generateStaticParams(): Array<{ collection: string }> {
+  return getBundledCollections().map((c) => ({ collection: c.id }));
+}
 
 export default function HadithCollectionScreen() {
   const router = useRouter();
@@ -138,6 +152,12 @@ export default function HadithCollectionScreen() {
         title={t("hadith.title")}
         onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       >
+        <Seo
+          path={`/hadith/${collectionId}`}
+          title={t("hadith.notFoundTitle")}
+          description={t("hadith.notFoundDesc")}
+          index={false}
+        />
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("hadith.notFoundTitle")}
@@ -156,6 +176,14 @@ export default function HadithCollectionScreen() {
     resetPage();
   };
 
+  const collectionName = collection.nameEnglish;
+  const collectionDescription = `Read hadith from ${collectionName} — the sayings and traditions of the Prophet Muhammad ﷺ, with narrator and grading details.`;
+  const collectionBreadcrumbs = [
+    { name: t("tabs.home"), path: "/" },
+    { name: t("hadith.title"), path: "/hadith" },
+    { name: collectionName, path: `/hadith/${collectionId}` },
+  ];
+
   return (
     <ScreenLayout
       eyebrow={t("hadith.title")}
@@ -167,6 +195,21 @@ export default function HadithCollectionScreen() {
           : () => (router.canGoBack() ? router.back() : router.replace("/"))
       }
     >
+      <Seo
+        path={`/hadith/${collectionId}`}
+        title={collectionName}
+        description={collectionDescription}
+        type="article"
+        breadcrumbs={collectionBreadcrumbs}
+        jsonLd={[
+          collectionPageSchema({
+            path: `/hadith/${collectionId}`,
+            name: collectionName,
+            description: collectionDescription,
+            breadcrumbs: collectionBreadcrumbs,
+          }),
+        ]}
+      />
       <Stagger>
         {isLoading ? (
           <EmptyState

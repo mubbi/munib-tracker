@@ -70,13 +70,15 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
       };
 
       receivedSub = Notifications.addNotificationReceivedListener((notification) => {
-        const title = notification.request.content.title ?? "Reminder";
-        const body = notification.request.content.body ?? "";
+        const { content } = notification.request;
+        const title = content.title ?? "Reminder";
+        const body = content.body ?? "";
+        const route = (content.data as { route?: string } | undefined)?.route;
         void deliver({
           kind: "reminder",
           title,
           body,
-          route: "/notifications",
+          route: route ?? "/notifications",
           id: `os-${notification.request.identifier}`,
         });
       });

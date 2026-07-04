@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { CustomTasbeehFormModal } from "@/components/tasbeeh/custom-tasbeeh-form-modal";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { ThemedText } from "@/components/themed-text";
@@ -33,6 +34,11 @@ export default function CustomTasbeehScreen() {
   if (!item) {
     return (
       <ScreenLayout title={t("tasbeeh.eyebrow")} onBack={goBack}>
+        <Seo
+          title={t("tasbeeh.customSection")}
+          description="Your custom tasbeeh counter."
+          index={false}
+        />
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("tasbeeh.notFoundTitle")}
@@ -53,6 +59,11 @@ export default function CustomTasbeehScreen() {
 
   return (
     <ScreenLayout eyebrow={t("tasbeeh.eyebrow")} title={item.title} onBack={goBack} scrollable>
+      <Seo
+        title={t("tasbeeh.customSection")}
+        description="Your custom tasbeeh counter."
+        index={false}
+      />
       {item.description ? (
         <Card variant="muted" padding="four" style={styles.reading}>
           <ThemedText type="small" themeColor="mutedForeground">

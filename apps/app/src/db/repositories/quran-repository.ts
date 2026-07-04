@@ -19,6 +19,7 @@ export interface QuranPrefs {
   preferredTranslationIds: string[];
   preferredReciterDir: string;
   showTransliteration: boolean;
+  showTranslation: boolean;
   script?: "uthmani";
 }
 
@@ -29,6 +30,7 @@ export const DEFAULT_QURAN_PREFS: QuranPrefs = {
   preferredTranslationIds: ["en-pickthall"],
   preferredReciterDir: "Alafasy_128kbps",
   showTransliteration: true,
+  showTranslation: true,
   script: "uthmani",
 };
 

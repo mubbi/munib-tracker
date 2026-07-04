@@ -66,7 +66,9 @@ export function AppHeader({
             {eyebrow}
           </ThemedText>
         ) : null}
-        <ThemedText type="header">{title}</ThemedText>
+        <ThemedText type="header" heading={1}>
+          {title}
+        </ThemedText>
         {subtitle ? (
           <ThemedText type="small" themeColor="mutedForeground">
             {subtitle}

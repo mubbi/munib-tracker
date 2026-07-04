@@ -2,9 +2,11 @@ import type {
   NotificationPreferences,
   ObligatoryPrayer,
   PrayerId,
+  QazaPrayer,
   SunnahPrayer,
   UserPreferences,
   WeatherPreferences,
+  WitrPrayer,
   ZikrCategoryId,
 } from "../types/index";
 
@@ -28,15 +30,26 @@ export {
   type AppValueProp,
 } from "./features";
 
-/** The five timed daily prayers plus Witr, treated as obligatory in this app. */
+/** The five daily fard prayers. */
 export const OBLIGATORY_PRAYERS = [
   "fajr",
   "dhuhr",
   "asr",
   "maghrib",
   "isha",
-  "witr",
 ] as const satisfies readonly ObligatoryPrayer[];
+
+/** Witr — sunnah mu'akkadah, tracked separately from the five fard prayers. */
+export const WITR_PRAYER = "witr" as const satisfies WitrPrayer;
+
+/** Fard plus Witr — used for qaza counters and lifetime estimates (Witr make-up is madhhab-dependent). */
+export const QAZA_PRAYERS = [
+  ...OBLIGATORY_PRAYERS,
+  WITR_PRAYER,
+] as const satisfies readonly QazaPrayer[];
+
+/** The five daily prayers called with adhan. Witr is prayed after Isha without a separate adhan. */
+export const ADHAN_PRAYERS = [...OBLIGATORY_PRAYERS] as const satisfies readonly ObligatoryPrayer[];
 
 export const SUNNAH_PRAYERS = [
   "tahajjud",
@@ -60,8 +73,8 @@ export const PRAYER_LABELS: Record<PrayerId, string> = {
   hajat_istikhara: "Hajat & Istikhara",
 };
 
-/** Display names for the five timed prayers plus Witr. */
-export const PRAYER_NAMES = OBLIGATORY_PRAYERS.map((id) => PRAYER_LABELS[id]);
+/** Display names for the five fard prayers plus Witr. */
+export const PRAYER_NAMES = QAZA_PRAYERS.map((id) => PRAYER_LABELS[id]);
 
 export const SUNNAH_PRAYER_NAMES = SUNNAH_PRAYERS.map((id) => PRAYER_LABELS[id]);
 
@@ -70,6 +83,8 @@ export const TRACKER_CATEGORIES = ["salah", "dhikr", "qadha"] as const;
 
 /** Shared read-only lookup sets, so consumers don't each re-allocate them. */
 export const OBLIGATORY_PRAYER_SET: ReadonlySet<string> = new Set(OBLIGATORY_PRAYERS);
+export const QAZA_PRAYER_SET: ReadonlySet<string> = new Set(QAZA_PRAYERS);
+export const ADHAN_PRAYER_SET: ReadonlySet<string> = new Set(ADHAN_PRAYERS);
 export const SUNNAH_PRAYER_SET: ReadonlySet<string> = new Set(SUNNAH_PRAYERS);
 
 export const ZIKR_CATEGORY_IDS = [
@@ -130,5 +145,6 @@ export const DEFAULT_USER_PREFERENCES: UserPreferences = {
   favoriteZikrIds: [],
   favoriteZikrOrder: [],
   hasCompletedOnboarding: false,
+  audioVolume: 1,
   weatherPrefs: DEFAULT_WEATHER_PREFERENCES,
 };

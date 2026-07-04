@@ -1,5 +1,5 @@
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
-import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
+import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
+import type { QazaPrayer } from "@munib-tracker/shared/types";
 import { sumQazaScheduleTargets } from "@munib-tracker/shared/utils";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -29,7 +29,7 @@ export function QazaDailyTargets({ showProgress = true, framed = true }: QazaDai
   const { setQazaSchedule } = useTrackerActions();
   const dailyTotal = sumQazaScheduleTargets(schedule);
 
-  const setTarget = (prayerId: ObligatoryPrayer, target: number) => {
+  const setTarget = (prayerId: QazaPrayer, target: number) => {
     void setQazaSchedule({
       targets: {
         ...schedule.targets,
@@ -40,7 +40,7 @@ export function QazaDailyTargets({ showProgress = true, framed = true }: QazaDai
 
   const rows = (
     <View style={styles.rows}>
-      {OBLIGATORY_PRAYERS.map((prayerId) => {
+      {QAZA_PRAYERS.map((prayerId) => {
         const target = schedule.targets[prayerId] ?? 0;
         const done = progress.completed[prayerId] ?? 0;
         return (

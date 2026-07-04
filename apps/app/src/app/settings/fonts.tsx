@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SegmentedControl } from "@/components/ui/segmented-control";
@@ -64,6 +65,7 @@ export default function FontsScreen() {
       subtitle={t("fonts.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/settings/fonts" />
       <Stagger>
         <Card variant="muted" style={styles.preview}>
           <ThemedText type="label" themeColor="mutedForeground">

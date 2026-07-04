@@ -1,3 +1,4 @@
+import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import type { ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
 import { isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -6,14 +7,21 @@ import { useTranslation } from "react-i18next";
 import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { createZikrSearch } from "@/lib/search";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { zikrByCategory } from "@/lib/zikr";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
+
+/** Pre-render a static HTML page for each fixed zikr category at web export time. */
+export function generateStaticParams(): Array<{ category: string }> {
+  return ZIKR_CATEGORY_IDS.map((id) => ({ category: id }));
+}
 
 export default function ZikrCategoryScreen() {
   const router = useRouter();
@@ -25,9 +33,8 @@ export default function ZikrCategoryScreen() {
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
 
-  const categoryId = (
-    isZikrCategoryId(params.category) ? params.category : "anytime"
-  ) as ZikrCategoryId;
+  const isKnownCategory = isZikrCategoryId(params.category);
+  const categoryId = (isKnownCategory ? params.category : "anytime") as ZikrCategoryId;
   const items = zikrByCategory(categoryId);
 
   const zikrIndex = useMemo(() => createZikrSearch(items), [items]);
@@ -60,6 +67,14 @@ export default function ZikrCategoryScreen() {
     [favoriteIds, indexById, toggleFavorite, onOpen],
   );
 
+  const categoryName = t(`zikrCat.${categoryId}`);
+  const categoryDescription = `${categoryName} — authentic supplications with Arabic, transliteration, and meaning.`;
+  const categoryBreadcrumbs = [
+    { name: t("tabs.home"), path: "/" },
+    { name: t("zikr.title"), path: "/zikr" },
+    { name: categoryName, path: `/zikr/${categoryId}` },
+  ];
+
   return (
     <ScreenLayout
       eyebrow={t("zikr.categoryEyebrow")}
@@ -72,6 +87,21 @@ export default function ZikrCategoryScreen() {
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       scrollable={false}
     >
+      <Seo
+        path={`/zikr/${categoryId}`}
+        title={categoryName}
+        description={categoryDescription}
+        index={isKnownCategory}
+        breadcrumbs={categoryBreadcrumbs}
+        jsonLd={[
+          collectionPageSchema({
+            path: `/zikr/${categoryId}`,
+            name: categoryName,
+            description: categoryDescription,
+            breadcrumbs: categoryBreadcrumbs,
+          }),
+        ]}
+      />
       {items.length === 0 ? (
         <EmptyState
           icon={{ ios: "heart", android: "favorite_border", web: "favorite_border" }}

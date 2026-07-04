@@ -1,4 +1,4 @@
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
 import { computeLifetimeMissedPrayers } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -8,6 +8,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -15,6 +16,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import { useQazaCounters, useTrackerActions } from "@/stores/tracker-store";
 
 function toInt(value: string): number {
@@ -48,7 +50,7 @@ export default function QazaCalculatorScreen() {
   );
 
   const applyToCounters = () => {
-    for (const prayerId of OBLIGATORY_PRAYERS) {
+    for (const prayerId of QAZA_PRAYERS) {
       const existing = counters.find((c) => c.prayerId === prayerId);
       void adjustQaza(prayerId, result.byPrayer[prayerId], existing?.completed ?? 0);
     }
@@ -62,6 +64,39 @@ export default function QazaCalculatorScreen() {
       subtitle={t("qazaCalc.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/qaza/calculator"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("qaza.title"), path: "/qaza" },
+          { name: t("qazaCalc.title"), path: "/qaza/calculator" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/qaza/calculator",
+            name: "Qaza Prayer Calculator",
+            description:
+              "Estimate a lifetime of missed prayers from your age, age at puberty, and years prayed.",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("qaza.title"), path: "/qaza" },
+              { name: t("qazaCalc.title"), path: "/qaza/calculator" },
+            ],
+          }),
+          faqSchema([
+            {
+              question: "How does the qaza prayer calculator work?",
+              answer:
+                "It estimates your missed prayers from the years between puberty and when you began praying consistently, minus any exempt days, giving one make-up of each daily prayer per missed day.",
+            },
+            {
+              question: "Is the estimate exact?",
+              answer:
+                "No. It is an approximation to help you plan. Rulings on making up missed prayers vary — consult a knowledgeable scholar for your situation.",
+            },
+          ]),
+        ]}
+      />
       <Stagger>
         <Card padding="three">
           <View style={styles.fields}>
@@ -114,7 +149,7 @@ export default function QazaCalculatorScreen() {
             </ThemedText>
           </View>
           <View style={styles.perPrayer}>
-            {OBLIGATORY_PRAYERS.map((prayerId) => (
+            {QAZA_PRAYERS.map((prayerId) => (
               <View key={prayerId} style={styles.perPrayerItem}>
                 <ThemedText type="caption" themeColor="mutedForeground">
                   {t(`prayers.${prayerId}`)}

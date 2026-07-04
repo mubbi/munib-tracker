@@ -5,20 +5,27 @@ import { useTranslation } from "react-i18next";
 import { FlatList, type ListRenderItemInfo, Platform, Share, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
-import { BottomTabInset, Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
 import { buildNamesActivity } from "@/lib/continue-activity";
+import { webPageSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 
 const NAMES_HREF = "/names-of-allah";
+/** Approximate row height (card + column gap) for scroll recovery in the 2-column grid. */
+const NAME_ROW_HEIGHT = 196;
+/** Play-all header card + bottom margin. */
+const NAMES_LIST_HEADER_HEIGHT = 88;
 
 type Name = (typeof NAMES_OF_ALLAH)[number];
 
@@ -26,11 +33,31 @@ export default function NamesOfAllahScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const contentBottomInset = useContentBottomInset();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Name>>(null);
 
+  const activeId =
+    audio.current?.id && NAMES_OF_ALLAH.some((n) => n.id === audio.current?.id)
+      ? audio.current.id
+      : undefined;
+
   const indexForKey = useCallback((id: string) => NAMES_OF_ALLAH.findIndex((n) => n.id === id), []);
-  const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, audio.current?.id, indexForKey);
+  const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, activeId, indexForKey, {
+    viewOffset: Spacing.two,
+    itemCount: NAMES_OF_ALLAH.length,
+    numColumns: 2,
+    listHeaderHeight: NAMES_LIST_HEADER_HEIGHT,
+  });
+
+  const getItemLayout = useCallback((_: ArrayLike<Name> | null | undefined, index: number) => {
+    const row = Math.floor(index / 2);
+    return {
+      length: NAME_ROW_HEIGHT,
+      offset: NAMES_LIST_HEADER_HEIGHT + row * NAME_ROW_HEIGHT,
+      index,
+    };
+  }, []);
 
   const playFrom = (position: number) => {
     audio.play(allNameTracks(NAMES_OF_ALLAH), position, { sourceHref: NAMES_HREF });
@@ -62,8 +89,6 @@ export default function NamesOfAllahScreen() {
       // cancelled
     }
   };
-
-  const activeId = audio.current?.id;
 
   const header = (
     <Card padding="three" style={styles.headerCard}>
@@ -160,6 +185,25 @@ export default function NamesOfAllahScreen() {
       subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/names-of-allah"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("names.title"), path: "/names-of-allah" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/names-of-allah",
+            name: "99 Names of Allah — Asma ul Husna",
+            description:
+              "The 99 beautiful names of Allah (Asma ul-Husna) with Arabic, transliteration, and meaning.",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("names.title"), path: "/names-of-allah" },
+            ],
+          }),
+        ]}
+      />
       <FlatList
         ref={listRef}
         data={NAMES_OF_ALLAH}
@@ -168,9 +212,10 @@ export default function NamesOfAllahScreen() {
         numColumns={2}
         columnWrapperStyle={styles.columnWrapper}
         ListHeaderComponent={header}
+        getItemLayout={getItemLayout}
         onScrollToIndexFailed={onScrollToIndexFailed}
         style={styles.list}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
         showsVerticalScrollIndicator={false}
         initialNumToRender={8}
         windowSize={7}
@@ -182,7 +227,7 @@ export default function NamesOfAllahScreen() {
 
 const styles = StyleSheet.create({
   list: { flex: 1, width: "100%" },
-  listContent: { gap: Spacing.two, paddingBottom: BottomTabInset + Spacing.four },
+  listContent: { gap: Spacing.two },
   columnWrapper: { gap: Spacing.two },
   cell: { flex: 1 },
   headerCard: { marginBottom: Spacing.two },

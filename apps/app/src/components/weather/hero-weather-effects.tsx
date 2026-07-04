@@ -1,6 +1,6 @@
 import type { WeatherEffectKind } from "@munib-tracker/shared/types";
 import { useEffect, useMemo } from "react";
-import { Platform, StyleSheet, View, type ViewStyle } from "react-native";
+import { StyleSheet, View, type ViewStyle } from "react-native";
 import Animated, {
   Easing,
   interpolate,
@@ -17,6 +17,7 @@ import {
   cloudPlacementsFor,
   generateCloudPuffs,
 } from "@/components/weather/cloud-shape";
+import { createShadow } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 
 /** Global scale — keeps location, clock, and prayer row legible over the hero. */
@@ -128,7 +129,7 @@ export function HeroWeatherEffects({ effects }: HeroWeatherEffectsProps) {
   if (reducedMotion || effects.length === 0) return null;
 
   return (
-    <View pointerEvents="none" style={[styles.root, { opacity: EFFECTS_MASTER_OPACITY }]}>
+    <View style={[styles.root, { opacity: EFFECTS_MASTER_OPACITY, pointerEvents: "none" }]}>
       {showClear ? <SunShimmer /> : null}
       {showClouds ? <CloudLayer configs={cloudConfigs} /> : null}
       {showFog ? <FogLayer /> : null}
@@ -295,18 +296,11 @@ function DriftingCloud({
                 backgroundColor: color.backgroundColor,
                 opacity: color.opacity,
                 ...(isBody
-                  ? Platform.select({
-                      ios: {
-                        shadowColor: tone.shadow,
-                        shadowOffset: { width: 0, height: 2 },
-                        shadowOpacity: 0.1,
-                        shadowRadius: 3,
-                      },
-                      android: { elevation: 2 },
-                      web: {
-                        boxShadow: `0 2px 6px ${tone.shadow}26`,
-                      },
-                      default: {},
+                  ? createShadow(tone.shadow, {
+                      offsetY: 2,
+                      blur: 6,
+                      opacity: 0.1,
+                      elevation: 2,
                     })
                   : null),
               },
@@ -593,16 +587,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -20,
     backgroundColor: "rgba(255, 255, 255, 0.55)",
-    ...Platform.select({
-      ios: {
-        shadowColor: "#FFFFFF",
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.35,
-        shadowRadius: 3,
-      },
-      android: { elevation: 2 },
-      default: {},
-    }),
+    ...createShadow("#FFFFFF", { blur: 3, opacity: 0.35, elevation: 2 }),
   },
   thunderFlash: {
     backgroundColor: "#FFFFFF",

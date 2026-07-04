@@ -1,5 +1,7 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
 
+import { prayerDayAnchor } from "@/lib/time";
+
 /**
  * Offline Gregorian → Hijri (Islamic) date conversion.
  *
@@ -127,9 +129,12 @@ function islamicToJDN(hy: number, hm: number, hd: number): number {
   );
 }
 
-/** Converts a Gregorian calendar day (the date's local Y/M/D) to a Hijri date. */
-export function gregorianToHijri(date: Date): HijriDate {
-  return jdnToIslamic(gregorianToJDN(date.getFullYear(), date.getMonth() + 1, date.getDate()));
+/** Converts a Gregorian calendar day to a Hijri date. Pass `timeZone` for manual locations. */
+export function gregorianToHijri(date: Date, timeZone?: string): HijriDate {
+  const anchor = prayerDayAnchor(date, timeZone);
+  return jdnToIslamic(
+    gregorianToJDN(anchor.getFullYear(), anchor.getMonth() + 1, anchor.getDate()),
+  );
 }
 
 /** Converts a Hijri date to a Gregorian `Date` at local midnight. */
@@ -155,8 +160,8 @@ export function hijriMonthName(month: number, locale: AppLocale): string {
  * Formats a Gregorian date as a localized Hijri string, e.g. "Muharram 17, 1448 AH"
  * (en) or "17 محرم 1448 هـ" (ar/ur, day-first).
  */
-export function formatHijriDate(date: Date, locale: AppLocale): string {
-  const { year, month, day } = gregorianToHijri(date);
+export function formatHijriDate(date: Date, locale: AppLocale, timeZone?: string): string {
+  const { year, month, day } = gregorianToHijri(date, timeZone);
   const name = hijriMonthName(month, locale);
   const suffix = HIJRI_SUFFIX[locale] ?? HIJRI_SUFFIX.en;
   if (locale === "en") {

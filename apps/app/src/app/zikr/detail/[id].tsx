@@ -1,4 +1,4 @@
-import { getZikrById } from "@munib-tracker/shared/content";
+import { getZikrById, ZIKR_ITEMS } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,6 +6,7 @@ import { Platform, Share, StyleSheet, View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -15,10 +16,16 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildZikrActivity } from "@/lib/continue-activity";
+import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 import { useZikrCount } from "@/stores/tracker-store";
+
+/** Pre-render a static HTML page for every bundled zikr at web export time. */
+export function generateStaticParams(): Array<{ id: string }> {
+  return ZIKR_ITEMS.map((zikr) => ({ id: zikr.id }));
+}
 
 export default function ZikrDetailScreen() {
   const router = useRouter();
@@ -41,6 +48,12 @@ export default function ZikrDetailScreen() {
         title={t("zikr.title")}
         onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       >
+        <Seo
+          path={`/zikr/detail/${params.id ?? ""}`}
+          title={t("zikr.notFoundTitle")}
+          description={t("zikr.notFoundDesc")}
+          index={false}
+        />
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("zikr.notFoundTitle")}
@@ -81,12 +94,39 @@ export default function ZikrDetailScreen() {
     }
   };
 
+  const zikrTitle = item.title;
+  const zikrDescription = `${item.translation}${
+    item.reference ? ` — ${item.reference}` : ""
+  }`.slice(0, 155);
+  const zikrBreadcrumbs = [
+    { name: t("tabs.home"), path: "/" },
+    { name: t("zikr.title"), path: "/zikr" },
+    { name: zikrTitle, path: `/zikr/detail/${item.id}` },
+  ];
+
   return (
     <ScreenLayout
       eyebrow={t("zikr.detailEyebrow")}
       title={item.title}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path={`/zikr/detail/${item.id}`}
+        title={zikrTitle}
+        description={zikrDescription}
+        type="article"
+        breadcrumbs={zikrBreadcrumbs}
+        jsonLd={[
+          articleSchema({
+            path: `/zikr/detail/${item.id}`,
+            headline: zikrTitle,
+            description: zikrDescription,
+            type: "CreativeWork",
+            inLanguage: "ar",
+            breadcrumbs: zikrBreadcrumbs,
+          }),
+        ]}
+      />
       <Stagger>
         <ReadingCard item={item} sourceHref={`/zikr/detail/${item.id}`} />
 

@@ -25,6 +25,7 @@ import {
 } from "@/lib/prayer-times";
 import { type ScheduleEntryStatus, scheduleEntryStatus } from "@/lib/schedule-ui";
 import { type SkyMarkers, type SkyPalette, skyPalette, skyPhaseForTime } from "@/lib/sky";
+import { dayKeyInTimeZone, prayerDayAnchor, shiftPrayerDay } from "@/lib/time";
 import { useLocation, useLocationStatus } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -61,6 +62,8 @@ export interface ScheduleItem {
   active: boolean;
   /** Visual state for timeline styling. */
   status: ScheduleEntryStatus;
+  /** Epoch ms for timed entries; null for flexible markers. */
+  atMs: number | null;
 }
 
 /**
@@ -92,9 +95,9 @@ function scheduleBoundaries(
   return boundaries;
 }
 
-/** Local calendar-day key (Y-M-D). adhan derives prayer times from the device-local date. */
-function dayKeyOf(date: Date): string {
-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+/** Local calendar-day key for prayer-time recomputation. Uses the selected city's timezone when set. */
+function dayKeyOf(date: Date, timeZone?: string): string {
+  return dayKeyInTimeZone(date, timeZone);
 }
 
 /**
@@ -119,7 +122,7 @@ export function useHomeHero(): HomeHeroData {
   const base = i18n.language?.split("-")[0];
   const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
 
-  const dayKey = dayKeyOf(now);
+  const dayKey = dayKeyOf(now, location.timeZone);
 
   // Day-scoped adhan objects: stable for the whole local calendar day at a given
   // location. Recomputing these is the expensive part, so they are memoized here
@@ -127,13 +130,20 @@ export function useHomeHero(): HomeHeroData {
   // biome-ignore lint/correctness/useExhaustiveDependencies: dayKey is the calendar-day proxy for `now`; recompute only when the day (or location) changes, not every tick.
   const day = useMemo(() => {
     const coords = { latitude: location.latitude, longitude: location.longitude };
-    const today = computePrayerTimes(coords, now, location.method, location.madhab);
-    const tomorrow = new Date(now);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const yesterday = new Date(now);
-    yesterday.setDate(yesterday.getDate() - 1);
-    const tomorrowTimes = computePrayerTimes(coords, tomorrow, location.method, location.madhab);
-    const yesterdayTimes = computePrayerTimes(coords, yesterday, location.method, location.madhab);
+    const anchor = prayerDayAnchor(now, location.timeZone);
+    const today = computePrayerTimes(coords, anchor, location.method, location.madhab);
+    const tomorrowTimes = computePrayerTimes(
+      coords,
+      shiftPrayerDay(anchor, 1),
+      location.method,
+      location.madhab,
+    );
+    const yesterdayTimes = computePrayerTimes(
+      coords,
+      shiftPrayerDay(anchor, -1),
+      location.method,
+      location.madhab,
+    );
     const slots = prayerSlots(today);
     const boundaries = scheduleBoundaries(today, tomorrowTimes, yesterdayTimes, now);
     // Sky-phase markers are day-stable; build them once so the per-tick palette
@@ -166,8 +176,14 @@ export function useHomeHero(): HomeHeroData {
     const { coords } = day;
     const tz = location.timeZone;
     const flexibleTime = t("home.scheduleAnyTime");
-    const next = nextPrayer(coords, now, location.method, location.madhab);
-    const rawSchedule = buildDailySchedule(coords, now, location.method, location.madhab);
+    const next = nextPrayer(coords, now, location.method, location.madhab, location.timeZone);
+    const rawSchedule = buildDailySchedule(
+      coords,
+      now,
+      location.method,
+      location.madhab,
+      location.timeZone,
+    );
     const nextEntry = nextScheduleEntry(rawSchedule, now);
 
     const schedule: ScheduleItem[] = rawSchedule.map((entry) => ({
@@ -177,6 +193,7 @@ export function useHomeHero(): HomeHeroData {
       kind: entry.kind,
       active: entry.active,
       status: scheduleEntryStatus(entry.kind, entry.active, entry.at, now),
+      atMs: entry.at?.getTime() ?? null,
     }));
 
     return {
@@ -221,7 +238,7 @@ export function useHomeHero(): HomeHeroData {
 
     return {
       location: location.label,
-      hijriDate: formatHijriDate(now, locale),
+      hijriDate: formatHijriDate(now, locale, location.timeZone),
       currentTime: formatPrayerTime(now, timeFormat, tz),
       countdown,
       prayers,

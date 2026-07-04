@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -14,6 +15,7 @@ import { StatPair } from "@/components/ui/stat-pair";
 import { Stepper } from "@/components/ui/stepper";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { webPageSchema } from "@/lib/seo/structured-data";
 import { useRoza, useTrackerActions } from "@/stores/tracker-store";
 
 export default function QazaRozaScreen() {
@@ -33,6 +35,27 @@ export default function QazaRozaScreen() {
       subtitle={t("qazaRoza.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/qaza/roza"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("qaza.title"), path: "/qaza" },
+          { name: t("qazaRoza.title"), path: "/qaza/roza" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/qaza/roza",
+            name: "Missed Fasts Tracker — Qaza Roza",
+            description:
+              "Track and make up missed fasts (qaza roza). Estimate missed Ramadan fasts and record each make-up.",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("qaza.title"), path: "/qaza" },
+              { name: t("qazaRoza.title"), path: "/qaza/roza" },
+            ],
+          }),
+        ]}
+      />
       <Stagger>
         <Card>
           <View style={styles.summary}>

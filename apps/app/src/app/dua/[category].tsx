@@ -6,6 +6,7 @@ import { memo, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -16,13 +17,36 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chevronForward } from "@/lib/rtl";
 import { createDuaSearch } from "@/lib/search";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
   useFavoriteDuaIds,
 } from "@/stores/dua-favorites-store";
 
-const VALID: DuaCategoryId[] = ["sunnah", "quranic", "daily"];
+const VALID: DuaCategoryId[] = [
+  "morning_evening",
+  "sleep",
+  "prayer",
+  "forgiveness",
+  "distress",
+  "protection",
+  "quranic",
+  "food",
+  "home",
+  "travel",
+  "family",
+  "illness",
+  "weather",
+  "hajj",
+  "purification",
+  "social",
+];
+
+/** Pre-render a static HTML page for each fixed dua category at web export time. */
+export function generateStaticParams(): Array<{ category: string }> {
+  return VALID.map((category) => ({ category }));
+}
 
 export default function DuaCategoryScreen() {
   const router = useRouter();
@@ -31,9 +55,8 @@ export default function DuaCategoryScreen() {
   const favoriteIds = useFavoriteDuaIds();
   const { toggle } = useDuaFavoritesActions();
   const params = useLocalSearchParams<{ category: string }>();
-  const categoryId = (
-    VALID.includes(params.category as DuaCategoryId) ? params.category : "daily"
-  ) as DuaCategoryId;
+  const isKnownCategory = VALID.includes(params.category as DuaCategoryId);
+  const categoryId = (isKnownCategory ? params.category : "morning_evening") as DuaCategoryId;
   const items = duasByCategory(categoryId);
   const { colors } = useThemeTokens();
   const [query, setQuery] = useState("");
@@ -71,6 +94,14 @@ export default function DuaCategoryScreen() {
     [favoriteIds, indexById, toggle, onOpen],
   );
 
+  const categoryName = t(`duaCat.${categoryId}`);
+  const categoryDescription = `${categoryName} — authentic supplications with Arabic, transliteration, and meaning.`;
+  const categoryBreadcrumbs = [
+    { name: t("tabs.home"), path: "/" },
+    { name: t("dua.title"), path: "/dua" },
+    { name: categoryName, path: `/dua/${categoryId}` },
+  ];
+
   return (
     <ScreenLayout
       eyebrow={t("dua.categoryEyebrow")}
@@ -83,6 +114,21 @@ export default function DuaCategoryScreen() {
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       scrollable={false}
     >
+      <Seo
+        path={`/dua/${categoryId}`}
+        title={categoryName}
+        description={categoryDescription}
+        index={isKnownCategory}
+        breadcrumbs={categoryBreadcrumbs}
+        jsonLd={[
+          collectionPageSchema({
+            path: `/dua/${categoryId}`,
+            name: categoryName,
+            description: categoryDescription,
+            breadcrumbs: categoryBreadcrumbs,
+          }),
+        ]}
+      />
       {/* The Card supplies the list chrome; the FlatList scrolls inside it and
           virtualizes rows (ScreenLayout is non-scrolling here). No Stagger wrapper:
           its item view has no flex, which would break the FlatList's height chain. */}
@@ -166,7 +212,7 @@ const DuaRow = memo(function DuaRow({
             {item.title}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-            {item.transliteration}
+            {item.transliteration ?? item.translation}
           </ThemedText>
         </View>
         <View style={styles.favoriteSlot} />

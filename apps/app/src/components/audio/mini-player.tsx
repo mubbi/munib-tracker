@@ -1,24 +1,37 @@
 import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type AccessibilityActionEvent,
   ActivityIndicator,
+  FlatList,
   type LayoutChangeEvent,
   PanResponder,
   Pressable,
-  ScrollView,
   StyleSheet,
   View,
 } from "react-native";
+import Reanimated, {
+  cancelAnimation,
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { BottomTabInset, Radius, Shadows, Spacing } from "@/constants/theme";
+import { Fonts, Radius, Shadows, Spacing } from "@/constants/theme";
+import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  queuePosition as computeQueuePosition,
+  queueDurationForProgress,
+} from "@/lib/audio-queue-timing";
 import { triggerHaptic } from "@/lib/haptics";
 import {
   AUDIO_SPEEDS,
@@ -40,8 +53,17 @@ const LOOP_LABEL_KEY: Record<LoopMode, string> = {
   one: "player.loopOne",
 };
 
+const REPLAY_ICON: SymbolViewProps["name"] = {
+  ios: "arrow.counterclockwise",
+  android: "replay",
+  web: "replay",
+};
+
 /** How far a keyboard/AT increment or decrement nudges the position, in seconds. */
 const SEEK_STEP = 10;
+
+/** Volume slider step for keyboard/AT adjustments (0–1). */
+const VOLUME_STEP = 0.1;
 
 function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
@@ -50,10 +72,166 @@ function formatTime(seconds: number): string {
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
+function nextPlaybackRate(rate: number): number {
+  const idx = AUDIO_SPEEDS.indexOf(rate);
+  return AUDIO_SPEEDS[(idx + 1) % AUDIO_SPEEDS.length] ?? 1;
+}
+
+/** rAF-driven progress from the engine clock — smooth without status polling. */
+function useLivePlaybackUi({
+  readSeconds,
+  isPlaying,
+  isTransitioning,
+  hasQueue,
+  queue,
+  index,
+  trackDurations,
+  heldPosition,
+  heldProgress,
+  trackDuration,
+}: {
+  readSeconds: () => number;
+  isPlaying: boolean;
+  isTransitioning: boolean;
+  hasQueue: boolean;
+  queue: AudioTrack[];
+  index: number;
+  trackDurations: Record<string, number>;
+  heldPosition: number;
+  heldProgress: number;
+  trackDuration: number;
+}) {
+  const frozen = !isPlaying || isTransitioning;
+  const [live, setLive] = useState({ position: heldPosition, progress: heldProgress });
+
+  useEffect(() => {
+    if (frozen) {
+      setLive({ position: heldPosition, progress: heldProgress });
+      return;
+    }
+
+    let frame = 0;
+    const tick = () => {
+      const trackPos = Math.max(0, readSeconds());
+      if (hasQueue) {
+        const position = computeQueuePosition(queue, index, trackPos, trackDurations);
+        const duration = queueDurationForProgress(queue, index, trackPos, trackDurations);
+        const progress = duration > 0 ? Math.min(position / duration, 1) : 0;
+        setLive({ position, progress });
+      } else {
+        const progress = trackDuration > 0 ? Math.min(trackPos / trackDuration, 1) : 0;
+        setLive({ position: trackPos, progress });
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [
+    frozen,
+    readSeconds,
+    hasQueue,
+    queue,
+    index,
+    trackDurations,
+    heldPosition,
+    heldProgress,
+    trackDuration,
+  ]);
+
+  return frozen ? { position: heldPosition, progress: heldProgress } : live;
+}
+
+const BUFFER_SWEEP_MS = 1200;
+
+/** Continuous dual-band shimmer while audio is loading — runs on the UI thread. */
+function BufferingBand({ color, active }: { color: string; active: boolean }) {
+  const trackWidth = useSharedValue(0);
+  const phase = useSharedValue(0);
+  const fade = useSharedValue(0);
+
+  // Keep the sweep running even when hidden so re-showing never restarts cold.
+  useEffect(() => {
+    phase.value = 0;
+    phase.value = withRepeat(
+      withTiming(1, { duration: BUFFER_SWEEP_MS, easing: Easing.linear }),
+      -1,
+      false,
+    );
+    return () => cancelAnimation(phase);
+  }, [phase]);
+
+  useEffect(() => {
+    fade.value = withTiming(active ? 1 : 0, {
+      duration: active ? 140 : 90,
+      easing: Easing.out(Easing.quad),
+    });
+  }, [active, fade]);
+
+  const band1Style = useAnimatedStyle(() => {
+    const w = trackWidth.value;
+    if (w <= 0) {
+      return { opacity: 0, width: 0, transform: [{ translateX: 0 }] };
+    }
+    const bandW = Math.max(18, w * 0.28);
+    const travel = w + bandW * 2;
+    const p = phase.value % 1;
+    return {
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      width: bandW,
+      backgroundColor: color,
+      opacity: fade.value * 0.5,
+      transform: [{ translateX: -bandW + p * travel }],
+    };
+  });
+
+  const band2Style = useAnimatedStyle(() => {
+    const w = trackWidth.value;
+    if (w <= 0) {
+      return { opacity: 0, width: 0, transform: [{ translateX: 0 }] };
+    }
+    const bandW = Math.max(18, w * 0.28);
+    const travel = w + bandW * 2;
+    const p = (phase.value + 0.5) % 1;
+    return {
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      width: bandW,
+      backgroundColor: color,
+      opacity: fade.value * 0.35,
+      transform: [{ translateX: -bandW + p * travel }],
+    };
+  });
+
+  const onLayout = (event: LayoutChangeEvent) => {
+    trackWidth.value = event.nativeEvent.layout.width;
+  };
+
+  return (
+    <Reanimated.View pointerEvents="none" style={StyleSheet.absoluteFill} onLayout={onLayout}>
+      <Reanimated.View style={band1Style} />
+      <Reanimated.View style={band2Style} />
+    </Reanimated.View>
+  );
+}
+
+/** Approximate playlist row height for scroll recovery before layout. */
+const PLAYLIST_ROW_HEIGHT = 88;
+
+/** Scroll params that keep the active row vertically centered in the playlist. */
+const PLAYLIST_CENTER_VIEW = { viewPosition: 0.5 as const };
+
 /** Global audio player: a compact bar that expands into a full player. */
 export function MiniPlayer() {
   const { current } = useAudioPlayerContext();
+  const setMiniPlayerInset = useSetMiniPlayerInset();
   const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!current) setMiniPlayerInset(0);
+  }, [current, setMiniPlayerInset]);
 
   if (!current) return null;
   return expanded ? (
@@ -66,26 +244,77 @@ export function MiniPlayer() {
 // ── Compact bar ──────────────────────────────────────────────────────────────
 
 function CompactPlayer({ onExpand }: { onExpand: () => void }) {
-  const insets = useSafeAreaInsets();
+  const tabBarOffset = useTabBarOffset();
+  const setMiniPlayerInset = useSetMiniPlayerInset();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { current, isPlaying, isBuffering, toggle, next, stop, position, duration, queue } =
-    useAudioPlayerContext();
+  const {
+    current,
+    isPlaying,
+    isBuffering,
+    isTransitioning,
+    toggle,
+    next,
+    previous,
+    replay,
+    stop,
+    isQueueFinished,
+    position,
+    duration,
+    queuePosition,
+    queueDuration,
+    queueProgress,
+    queue,
+    index,
+    trackDurations,
+    rate,
+    setRate,
+    readPlaybackSeconds,
+  } = useAudioPlayerContext();
+
+  useEffect(() => () => setMiniPlayerInset(0), [setMiniPlayerInset]);
+
+  const hasQueue = queue.length > 1;
+  const shownPosition = hasQueue ? queuePosition : position;
+  const shownDuration = hasQueue ? (queueDuration > 0 ? queueDuration : duration) : duration;
+  const heldProgress = hasQueue
+    ? queueProgress
+    : shownDuration > 0
+      ? Math.min(shownPosition / shownDuration, 1)
+      : 0;
+  const { position: livePosition, progress } = useLivePlaybackUi({
+    readSeconds: readPlaybackSeconds,
+    isPlaying: Boolean(current) && isPlaying,
+    isTransitioning,
+    hasQueue,
+    queue,
+    index,
+    trackDurations,
+    heldPosition: shownPosition,
+    heldProgress,
+    trackDuration: shownDuration,
+  });
+
+  const showBufferingBar = isBuffering || isTransitioning;
+
   if (!current) return null;
 
-  const progress = duration > 0 ? Math.min(position / duration, 1) : 0;
-  const hasQueue = queue.length > 1;
-  const showSpinner = isBuffering && !isPlaying;
+  const showSpinner = isBuffering && !isPlaying && !isTransitioning;
+  const cycleRate = () => setRate(nextPlaybackRate(rate));
+
+  const onLayout = (event: LayoutChangeEvent) => {
+    setMiniPlayerInset(event.nativeEvent.layout.height);
+  };
 
   return (
     <View
+      onLayout={onLayout}
       style={[
         styles.container,
         {
-          bottom: BottomTabInset + insets.bottom * 0 + Spacing.two,
+          bottom: tabBarOffset,
           backgroundColor: colors.card,
           borderColor: colors.border,
-          ...Shadows.lg,
         },
       ]}
     >
@@ -96,6 +325,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
             { width: `${progress * 100}%`, backgroundColor: colors.accent },
           ]}
         />
+        <BufferingBand color={colors.accent} active={showBufferingBar} />
       </View>
 
       <View style={styles.row}>
@@ -122,7 +352,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               {current.subtitle ? `${current.subtitle} · ` : ""}
               {showSpinner
                 ? t("player.buffering")
-                : `${formatTime(position)} / ${formatTime(duration)}`}
+                : `${formatTime(livePosition)} / ${formatTime(shownDuration)}`}
             </ThemedText>
           </View>
           <SymbolView
@@ -133,12 +363,27 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
         </PressableScale>
 
         <View style={styles.compactControls}>
+          {hasQueue ? (
+            <IconButton
+              name={{ ios: "backward.fill", android: "skip_previous", web: "skip_previous" }}
+              size={20}
+              tintColor={colors.foreground}
+              accessibilityLabel={t("player.previous")}
+              onPress={previous}
+            />
+          ) : null}
           <PressableScale
             haptic="medium"
             accessibilityRole="button"
-            accessibilityLabel={isPlaying ? t("player.pause") : t("player.play")}
+            accessibilityLabel={
+              isQueueFinished
+                ? t("player.replay")
+                : isPlaying
+                  ? t("player.pause")
+                  : t("player.play")
+            }
             accessibilityState={{ busy: showSpinner }}
-            onPress={toggle}
+            onPress={isQueueFinished ? replay : toggle}
             style={[styles.playButton, { backgroundColor: colors.accent }]}
           >
             {showSpinner ? (
@@ -146,9 +391,11 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
             ) : (
               <SymbolView
                 name={
-                  isPlaying
-                    ? { ios: "pause.fill", android: "pause", web: "pause" }
-                    : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
+                  isQueueFinished
+                    ? REPLAY_ICON
+                    : isPlaying
+                      ? { ios: "pause.fill", android: "pause", web: "pause" }
+                      : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
                 }
                 size={20}
                 tintColor={colors.accentForeground}
@@ -164,6 +411,17 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               onPress={next}
             />
           ) : null}
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={t("player.speedValue", { value: rate })}
+            onPress={cycleRate}
+            style={[styles.compactSpeed, { backgroundColor: colors.muted }]}
+          >
+            <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "700" }}>
+              {rate}×
+            </ThemedText>
+          </PressableScale>
           <IconButton
             name={{ ios: "xmark", android: "close", web: "close" }}
             size={16}
@@ -186,6 +444,7 @@ function SeekBar({
   trackColor,
   fillColor,
   thumbColor,
+  buffering = false,
 }: {
   position: number;
   duration: number;
@@ -193,6 +452,7 @@ function SeekBar({
   trackColor: string;
   fillColor: string;
   thumbColor: string;
+  buffering?: boolean;
 }) {
   const { t } = useTranslation();
   const [barWidth, setBarWidth] = useState(0);
@@ -276,6 +536,101 @@ function SeekBar({
             ]}
           />
         </View>
+        <BufferingBand color={fillColor} active={buffering && scrub == null} />
+      </View>
+    </View>
+  );
+}
+
+// ── Volume slider ────────────────────────────────────────────────────────────
+
+function VolumeBar({
+  volume,
+  onChange,
+  trackColor,
+  fillColor,
+  thumbColor,
+}: {
+  volume: number;
+  onChange: (volume: number) => void;
+  trackColor: string;
+  fillColor: string;
+  thumbColor: string;
+}) {
+  const { t } = useTranslation();
+  const [barWidth, setBarWidth] = useState(0);
+  const [scrub, setScrub] = useState<number | null>(null);
+
+  const widthRef = useRef(0);
+  widthRef.current = barWidth;
+
+  const responder = useMemo(() => {
+    const ratioFromX = (x: number) => {
+      const w = widthRef.current;
+      if (w <= 0) return 0;
+      return Math.max(0, Math.min(1, x / w));
+    };
+    return PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: (e) => {
+        triggerHaptic("selection");
+        setScrub(ratioFromX(e.nativeEvent.locationX));
+      },
+      onPanResponderMove: (e) => {
+        setScrub(ratioFromX(e.nativeEvent.locationX));
+      },
+      onPanResponderRelease: (e) => {
+        onChange(ratioFromX(e.nativeEvent.locationX));
+        setScrub(null);
+      },
+      onPanResponderTerminate: () => setScrub(null),
+    });
+  }, [onChange]);
+
+  const shown = scrub ?? volume;
+  const progress = Math.min(Math.max(shown, 0), 1);
+  const percent = Math.round(progress * 100);
+
+  const onLayout = (e: LayoutChangeEvent) => setBarWidth(e.nativeEvent.layout.width);
+
+  const onAccessibilityAction = (event: AccessibilityActionEvent) => {
+    const delta =
+      event.nativeEvent.actionName === "increment"
+        ? VOLUME_STEP
+        : event.nativeEvent.actionName === "decrement"
+          ? -VOLUME_STEP
+          : 0;
+    if (delta === 0) return;
+    onChange(Math.max(0, Math.min(1, volume + delta)));
+  };
+
+  return (
+    <View
+      style={styles.volumeBar}
+      accessibilityRole="adjustable"
+      accessibilityLabel={t("player.volume")}
+      accessibilityValue={{
+        min: 0,
+        max: 100,
+        now: percent,
+        text: t("player.volumeValue", { value: percent }),
+      }}
+      accessibilityActions={[{ name: "increment" }, { name: "decrement" }]}
+      onAccessibilityAction={onAccessibilityAction}
+      {...responder.panHandlers}
+    >
+      <View onLayout={onLayout} style={[styles.volumeTrack, { backgroundColor: trackColor }]}>
+        <View
+          style={[styles.volumeFill, { width: `${progress * 100}%`, backgroundColor: fillColor }]}
+        >
+          <View
+            style={[
+              styles.volumeThumb,
+              { backgroundColor: thumbColor, transform: [{ scale: scrub != null ? 1.25 : 1 }] },
+            ]}
+          />
+        </View>
       </View>
     </View>
   );
@@ -285,10 +640,14 @@ function SeekBar({
 
 function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
   const insets = useSafeAreaInsets();
+  const setMiniPlayerInset = useSetMiniPlayerInset();
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const audio = useAudioPlayerContext();
+  const playlistRef = useRef<FlatList<AudioTrack>>(null);
+  const playlistHeightRef = useRef(0);
+  const [playlistHeight, setPlaylistHeight] = useState(0);
 
   const {
     current,
@@ -296,31 +655,105 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
     index,
     isPlaying,
     isBuffering,
+    isTransitioning,
     rate,
+    volume,
     loopMode,
     sourceHref,
     position,
     duration,
+    queuePosition,
+    queueDuration,
+    queueProgress,
+    trackDurations,
+    isQueueFinished,
     toggle,
     next,
     previous,
+    replay,
     jumpTo,
     seekTo,
+    seekToQueuePosition,
     setRate,
+    setVolume,
     cycleLoopMode,
     stop,
+    readPlaybackSeconds,
   } = audio;
+
+  const listCenterInset = Math.max(0, playlistHeight / 2 - PLAYLIST_ROW_HEIGHT / 2);
+
+  const scrollActiveToCenter = useCallback((targetIndex: number, animated = true) => {
+    try {
+      playlistRef.current?.scrollToIndex({
+        index: targetIndex,
+        ...PLAYLIST_CENTER_VIEW,
+        animated,
+      });
+    } catch {
+      // FlatList throws on web when the row is not yet measured.
+    }
+  }, []);
+
+  const onScrollToIndexFailed = useCallback(
+    (info: { index: number; averageItemLength: number }) => {
+      const centerInset = Math.max(0, playlistHeightRef.current / 2 - info.averageItemLength / 2);
+      playlistRef.current?.scrollToOffset({
+        offset: Math.max(0, info.index * info.averageItemLength - centerInset),
+        animated: false,
+      });
+      setTimeout(() => scrollActiveToCenter(info.index), 80);
+    },
+    [scrollActiveToCenter],
+  );
+
+  const onPlaylistLayout = useCallback((event: LayoutChangeEvent) => {
+    const height = event.nativeEvent.layout.height;
+    playlistHeightRef.current = height;
+    setPlaylistHeight(height);
+  }, []);
+
+  // Keep the active playlist row centered when the track changes or the sheet opens.
+  useEffect(() => {
+    if (!current || queue.length <= 1 || playlistHeight <= 0) return;
+    const timer = setTimeout(() => scrollActiveToCenter(index), 60);
+    return () => clearTimeout(timer);
+  }, [index, current, queue.length, playlistHeight, scrollActiveToCenter]);
+
+  useEffect(() => {
+    setMiniPlayerInset(0);
+  }, [setMiniPlayerInset]);
+
+  const hasQueue = queue.length > 1;
+  const shownPosition = hasQueue ? queuePosition : position;
+  const shownDuration = hasQueue ? (queueDuration > 0 ? queueDuration : duration) : duration;
+  const heldProgress = hasQueue
+    ? queueProgress
+    : shownDuration > 0
+      ? Math.min(shownPosition / shownDuration, 1)
+      : 0;
+  const { position: livePosition } = useLivePlaybackUi({
+    readSeconds: readPlaybackSeconds,
+    isPlaying: Boolean(current) && isPlaying,
+    isTransitioning,
+    hasQueue,
+    queue,
+    index,
+    trackDurations,
+    heldPosition: shownPosition,
+    heldProgress,
+    trackDuration: shownDuration,
+  });
+
+  const showBufferingBar = isBuffering || isTransitioning;
+
   if (!current) return null;
 
   const remainingTracks = Math.max(0, queue.length - (index + 1));
-  const hasQueue = queue.length > 1;
   const loopActive = loopMode !== "off";
-  const showSpinner = isBuffering && !isPlaying;
+  const showSpinner = isBuffering && !isPlaying && !isTransitioning;
 
-  const cycleRate = () => {
-    const idx = AUDIO_SPEEDS.indexOf(rate);
-    setRate(AUDIO_SPEEDS[(idx + 1) % AUDIO_SPEEDS.length] ?? 1);
-  };
+  const cycleRate = () => setRate(nextPlaybackRate(rate));
   const openSource = () => {
     if (sourceHref) {
       onCollapse();
@@ -391,20 +824,41 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
 
       {/* Draggable seek bar + times */}
       <SeekBar
-        position={position}
-        duration={duration}
-        onSeek={seekTo}
+        position={livePosition}
+        duration={shownDuration}
+        onSeek={hasQueue ? seekToQueuePosition : seekTo}
         trackColor={tokens.track}
         fillColor={colors.accent}
         thumbColor={colors.accent}
+        buffering={showBufferingBar}
       />
       <View style={styles.times}>
         <ThemedText type="caption" themeColor="mutedForeground">
-          {formatTime(position)}
+          {formatTime(livePosition)}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
-          -{formatTime(Math.max(0, duration - position))}
+          -{formatTime(Math.max(0, shownDuration - livePosition))}
         </ThemedText>
+      </View>
+
+      <View style={styles.volumeRow}>
+        <SymbolView
+          name={{ ios: "speaker.fill", android: "volume_down", web: "volume_down" }}
+          size={18}
+          tintColor={colors.mutedForeground}
+        />
+        <VolumeBar
+          volume={volume}
+          onChange={setVolume}
+          trackColor={tokens.track}
+          fillColor={colors.accent}
+          thumbColor={colors.accent}
+        />
+        <SymbolView
+          name={{ ios: "speaker.wave.3.fill", android: "volume_up", web: "volume_up" }}
+          size={18}
+          tintColor={colors.mutedForeground}
+        />
       </View>
 
       {/* Controls */}
@@ -428,9 +882,11 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
         <PressableScale
           haptic="medium"
           accessibilityRole="button"
-          accessibilityLabel={isPlaying ? t("player.pause") : t("player.play")}
+          accessibilityLabel={
+            isQueueFinished ? t("player.replay") : isPlaying ? t("player.pause") : t("player.play")
+          }
           accessibilityState={{ busy: showSpinner }}
-          onPress={toggle}
+          onPress={isQueueFinished ? replay : toggle}
           style={[styles.bigPlay, { backgroundColor: colors.accent }]}
         >
           {showSpinner ? (
@@ -438,9 +894,11 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           ) : (
             <SymbolView
               name={
-                isPlaying
-                  ? { ios: "pause.fill", android: "pause", web: "pause" }
-                  : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
+                isQueueFinished
+                  ? REPLAY_ICON
+                  : isPlaying
+                    ? { ios: "pause.fill", android: "pause", web: "pause" }
+                    : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
               }
               size={28}
               tintColor={colors.accentForeground}
@@ -492,21 +950,32 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.upNext}>
             {t("player.upNext")}
           </ThemedText>
-          <ScrollView
+          <FlatList
+            ref={playlistRef}
+            data={queue}
+            keyExtractor={(track) => track.id}
             style={styles.playlist}
-            contentContainerStyle={{ paddingBottom: insets.bottom + Spacing.four }}
+            onLayout={onPlaylistLayout}
+            contentContainerStyle={{
+              paddingTop: listCenterInset,
+              paddingBottom: listCenterInset + insets.bottom + Spacing.four,
+            }}
             showsVerticalScrollIndicator={false}
-          >
-            {queue.map((track, i) => (
+            onScrollToIndexFailed={onScrollToIndexFailed}
+            getItemLayout={(_, i) => ({
+              length: PLAYLIST_ROW_HEIGHT,
+              offset: PLAYLIST_ROW_HEIGHT * i,
+              index: i,
+            })}
+            renderItem={({ item: track, index: i }) => (
               <PlaylistRow
-                key={track.id}
                 track={track}
                 position={i + 1}
                 active={i === index}
                 onPress={() => jumpTo(i)}
               />
-            ))}
-          </ScrollView>
+            )}
+          />
         </>
       ) : null}
     </View>
@@ -525,11 +994,16 @@ function PlaylistRow({
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const primary = track.playlistPrimary ?? track.subtitle ?? track.title;
+  const secondary = track.playlistSecondary ?? track.preview;
+  const primaryIsArabic = track.playlistPrimaryRtl === true;
+  const secondaryIsArabic = track.playlistSecondary == null && Boolean(track.preview);
+
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityState={{ selected: active }}
-      accessibilityLabel={track.subtitle ?? track.title}
+      accessibilityLabel={secondary ? `${primary}. ${secondary}` : primary}
       onPress={onPress}
       style={[styles.plRow, active ? { backgroundColor: tokens.accentSoft } : null]}
     >
@@ -548,12 +1022,26 @@ function PlaylistRow({
       </View>
       <View style={styles.plBody}>
         <ThemedText
-          type="small"
-          numberOfLines={1}
-          style={active ? { color: colors.accentText } : undefined}
+          type={primaryIsArabic ? "arabic" : "small"}
+          numberOfLines={primaryIsArabic ? 2 : 1}
+          style={[
+            primaryIsArabic ? styles.plArabic : undefined,
+            active && !primaryIsArabic ? { color: colors.accentText } : undefined,
+            active && primaryIsArabic ? { color: colors.accentText } : undefined,
+          ]}
         >
-          {track.subtitle || track.title}
+          {primary}
         </ThemedText>
+        {secondary ? (
+          <ThemedText
+            type="caption"
+            numberOfLines={primaryIsArabic ? 2 : 1}
+            themeColor="mutedForeground"
+            style={secondaryIsArabic ? styles.plPreview : undefined}
+          >
+            {secondary}
+          </ThemedText>
+        ) : null}
       </View>
     </Pressable>
   );
@@ -562,17 +1050,13 @@ function PlaylistRow({
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    left: Spacing.three,
-    right: Spacing.three,
-    borderRadius: Radius.lg,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
+    left: 0,
+    right: 0,
+    zIndex: 40,
+    borderTopWidth: StyleSheet.hairlineWidth,
     overflow: "hidden",
-    maxWidth: 760,
-    alignSelf: "center",
-    width: "auto",
   },
-  progress: { height: 3, width: "100%" },
+  progress: { height: 3, width: "100%", overflow: "hidden" },
   progressFill: { height: "100%" },
   row: { flexDirection: "row", alignItems: "center", gap: Spacing.two, padding: Spacing.two + 2 },
   info: { flex: 1, flexDirection: "row", alignItems: "center", gap: Spacing.two + 2 },
@@ -590,6 +1074,15 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 19,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  compactSpeed: {
+    minWidth: 34,
+    minHeight: 34,
+    paddingHorizontal: 6,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -624,7 +1117,7 @@ const styles = StyleSheet.create({
   centerText: { textAlign: "center" },
   // Tall touch area so the thin bar is easy to grab while dragging.
   seekArea: { paddingVertical: Spacing.two, justifyContent: "center" },
-  seekTrack: { height: 6, borderRadius: 3 },
+  seekTrack: { height: 6, borderRadius: 3, overflow: "hidden" },
   seekFill: { height: "100%", borderRadius: 3, position: "relative" },
   seekThumb: {
     position: "absolute",
@@ -635,7 +1128,25 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     ...Shadows.sm,
   },
-  times: { flexDirection: "row", justifyContent: "space-between", marginBottom: Spacing.four },
+  times: { flexDirection: "row", justifyContent: "space-between", marginBottom: Spacing.three },
+  volumeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    marginBottom: Spacing.four,
+  },
+  volumeBar: { flex: 1, paddingVertical: Spacing.one, justifyContent: "center" },
+  volumeTrack: { height: 4, borderRadius: 2, overflow: "hidden" },
+  volumeFill: { height: "100%", borderRadius: 2, position: "relative" },
+  volumeThumb: {
+    position: "absolute",
+    right: -6,
+    top: -4,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    ...Shadows.sm,
+  },
   controls: {
     flexDirection: "row",
     alignItems: "center",
@@ -675,11 +1186,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
+    minHeight: PLAYLIST_ROW_HEIGHT,
     paddingVertical: Spacing.two + 2,
     paddingHorizontal: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
   },
   plIndex: { width: 24, alignItems: "center" },
-  plBody: { flex: 1 },
+  plBody: { flex: 1, gap: 2 },
+  plArabic: {
+    fontSize: 22,
+    lineHeight: 36,
+    writingDirection: "rtl",
+    textAlign: "right",
+  },
+  plPreview: {
+    fontFamily: Fonts.serif,
+    writingDirection: "rtl",
+    textAlign: "right",
+  },
 });

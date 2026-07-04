@@ -6,11 +6,13 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 import manifest from "@/assets/data/manifest.json";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { webPageSchema } from "@/lib/seo/structured-data";
 
 interface CreditRow {
   name: string;
@@ -108,6 +110,25 @@ export default function CreditsScreen() {
       subtitle={t("credits.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/credits"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("credits.title"), path: "/credits" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/credits",
+            name: "Credits & Data Sources",
+            description:
+              "The open datasets, translations, and recitation audio that power the app, with licenses and attribution.",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("credits.title"), path: "/credits" },
+            ],
+          }),
+        ]}
+      />
       <Stagger>
         <Card padding="three">
           <View style={styles.list}>{bundledRows.map(renderRow)}</View>

@@ -18,6 +18,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -32,6 +33,7 @@ import {
   qiblaAlignmentProgress,
   qiblaArrowAngle,
 } from "@/lib/qibla-guidance";
+import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 
 const KAABA = { lat: 21.4225, lng: 39.8262 };
 
@@ -392,10 +394,22 @@ export default function QiblaScreen() {
 
   const hairlineColor = tokens.hairline;
   const accentColor = colors.accent;
+  const isWeb = Platform.OS === "web";
+  const glowShadowPeak = withAlpha(accentColor, 0.35);
+  const glowShadowBase = withAlpha(accentColor, 0);
 
   const ringStyle = useAnimatedStyle(() => ({
     borderColor: interpolateColor(alignGlow.value, [0, 1], [hairlineColor, accentColor]),
-    shadowOpacity: alignGlow.value * 0.35,
+    ...(isWeb
+      ? {
+          boxShadow: `0px 0px 18px ${interpolateColor(alignGlow.value, [0, 1], [glowShadowBase, glowShadowPeak])}`,
+        }
+      : {
+          shadowColor: accentColor,
+          shadowOffset: { width: 0, height: 0 },
+          shadowRadius: 18,
+          shadowOpacity: alignGlow.value * 0.35,
+        }),
   }));
 
   const guidanceA11y = showTurnGuidance
@@ -425,6 +439,36 @@ export default function QiblaScreen() {
       subtitle={t("qibla.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/qibla"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("actions.qibla"), path: "/qibla" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/qibla",
+            name: "Qibla Direction Finder",
+            description: "Find the qibla direction toward the Kaaba in Makkah from anywhere.",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("actions.qibla"), path: "/qibla" },
+            ],
+          }),
+          faqSchema([
+            {
+              question: "What is the qibla?",
+              answer:
+                "The qibla is the direction Muslims face during prayer — toward the Kaaba in the Sacred Mosque (Masjid al-Haram) in Makkah.",
+            },
+            {
+              question: "How does the qibla finder work?",
+              answer:
+                "It calculates the great-circle bearing from your current location to the Kaaba in Makkah and shows it on a compass, along with the distance.",
+            },
+          ]),
+        ]}
+      />
       <Stagger>
         {showTurnGuidance ? (
           <Card
@@ -495,7 +539,6 @@ export default function QiblaScreen() {
                   width: dialSize + 24,
                   height: dialSize + 24,
                   borderRadius: (dialSize + 24) / 2,
-                  shadowColor: colors.accent,
                 },
               ]}
             >
@@ -637,8 +680,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 2,
     borderCurve: "continuous",
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 18,
   },
   dial: {
     borderWidth: 1.5,

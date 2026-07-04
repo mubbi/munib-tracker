@@ -30,6 +30,13 @@ function pad3(n: number): string {
   return String(n).padStart(3, "0");
 }
 
+/** Short Arabic opening shown in the player playlist. */
+function ayahPreview(arabic: string, maxChars = 42): string {
+  const text = arabic.replace(/\s+/g, " ").trim();
+  if (text.length <= maxChars) return text;
+  return `${text.slice(0, maxChars)}…`;
+}
+
 /** everyayah file id: zero-padded surah(3) + ayah(3), e.g. 001001. */
 function ayahFileId(surah: number, ayah: number): string {
   return `${pad3(surah)}${pad3(ayah)}`;
@@ -46,6 +53,7 @@ export function ayahTracks(
     id: `${surah}:${a.ayah}`,
     title: surahName,
     subtitle: `Ayah ${a.ayah}`,
+    preview: ayahPreview(a.arabic),
     uri: `${EVERYAYAH}/${reciterDir}/${ayahFileId(surah, a.ayah)}.mp3`,
   }));
 }

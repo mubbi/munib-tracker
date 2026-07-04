@@ -27,6 +27,9 @@ export function nameAudioTrack(name: NameOfAllah): AudioTrack | null {
     id: name.id,
     title: name.transliteration,
     subtitle: name.translation,
+    playlistPrimary: name.arabic,
+    playlistPrimaryRtl: true,
+    playlistSecondary: name.meaning ?? name.translation,
     uri: name.audioUri,
   };
 }

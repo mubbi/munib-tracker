@@ -4,7 +4,7 @@ import { getBundledCollectionData } from "@/lib/hadith";
 
 import { createId } from "../id";
 import { DB_KEYS } from "../keys";
-import { KeyedCollection, readJSON, removeKey, writeJSON } from "../store";
+import { KeyedCollection, readJSON, removeKey, updateJSON } from "../store";
 
 /** A saved hadith resolved back to its full content for display. */
 export interface BookmarkedHadith {
@@ -22,7 +22,19 @@ export interface HadithBookmark {
 
 type BookCache = Record<string, HadithCollectionData>;
 
+const bookMemory = new Map<string, HadithCollectionData>();
+let bookStorageLoaded = false;
+
 const bookmarks = new KeyedCollection<HadithBookmark>(DB_KEYS.hadithBookmarks);
+
+async function ensureBookStorageLoaded(): Promise<void> {
+  if (bookStorageLoaded) return;
+  const cache = await readJSON<BookCache>(DB_KEYS.hadithBookCache, {});
+  for (const [key, value] of Object.entries(cache)) {
+    bookMemory.set(key, value);
+  }
+  bookStorageLoaded = true;
+}
 
 export const HadithRepository = {
   // ── Bookmarks ──────────────────────────────────────────
@@ -81,24 +93,32 @@ export const HadithRepository = {
 
   // ── Offline cache of fetched books (D6) ────────────────
   async getCachedBook(cacheKey: string): Promise<HadithCollectionData | null> {
-    const cache = await readJSON<BookCache>(DB_KEYS.hadithBookCache, {});
-    return cache[cacheKey] ?? null;
+    const hit = bookMemory.get(cacheKey);
+    if (hit) return hit;
+
+    await ensureBookStorageLoaded();
+    return bookMemory.get(cacheKey) ?? null;
   },
 
   async setCachedBook(cacheKey: string, data: HadithCollectionData): Promise<void> {
+    bookMemory.set(cacheKey, data);
+
     // Best-effort: a full collection can exceed the storage quota (notably
     // localStorage on web). Never let a cache-write failure break the fetch —
     // the collection simply won't be available offline.
     try {
-      const cache = await readJSON<BookCache>(DB_KEYS.hadithBookCache, {});
-      cache[cacheKey] = data;
-      await writeJSON(DB_KEYS.hadithBookCache, cache);
+      await updateJSON<BookCache>(DB_KEYS.hadithBookCache, {}, (cache) => {
+        cache[cacheKey] = data;
+        return cache;
+      });
     } catch {
       // storage full / unavailable — skip caching
     }
   },
 
   async clear(): Promise<void> {
+    bookMemory.clear();
+    bookStorageLoaded = false;
     await Promise.all([bookmarks.clear(), removeKey(DB_KEYS.hadithBookCache)]);
   },
 };

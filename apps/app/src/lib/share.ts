@@ -1,7 +1,7 @@
 export type ShareableReading = {
   title?: string;
   arabic: string;
-  transliteration: string;
+  transliteration?: string;
   translation: string;
   reference?: string;
 };
@@ -10,7 +10,9 @@ export type ShareableReading = {
 export function formatReadingShare(item: ShareableReading): string {
   const lines: string[] = [];
   if (item.title) lines.push(item.title, "");
-  lines.push(item.arabic, "", item.transliteration, "", item.translation);
+  lines.push(item.arabic, "");
+  if (item.transliteration) lines.push(item.transliteration, "");
+  lines.push(item.translation);
   if (item.reference) lines.push("", `— ${item.reference}`);
   return lines.join("\n");
 }

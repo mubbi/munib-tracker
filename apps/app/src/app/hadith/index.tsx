@@ -4,12 +4,19 @@ import { StyleSheet, View } from "react-native";
 
 import { REMOTE_COLLECTIONS } from "@/api/hadith-remote";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
 import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
+
+const HADITH_ITEMS = getBundledCollections().map((collection) => ({
+  name: collection.nameEnglish,
+  path: `/hadith/${collection.id}`,
+}));
 
 export default function HadithHomeScreen() {
   const router = useRouter();
@@ -28,6 +35,26 @@ export default function HadithHomeScreen() {
       subtitle={t("hadith.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/hadith"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("hadith.title"), path: "/hadith" },
+        ]}
+        jsonLd={[
+          collectionPageSchema({
+            path: "/hadith",
+            name: "Hadith Collections",
+            description:
+              "Authentic hadith from the major collections — the sayings and traditions of the Prophet Muhammad ﷺ.",
+            items: HADITH_ITEMS,
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("hadith.title"), path: "/hadith" },
+            ],
+          }),
+        ]}
+      />
       <Stagger>
         <Card padding="three">
           <SectionHeader

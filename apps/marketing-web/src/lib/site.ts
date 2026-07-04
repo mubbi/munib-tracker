@@ -9,7 +9,7 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://munibtrack
 
 /** Product app (Expo web) URL for "Open app" / PWA demo CTAs. */
 export const PRODUCT_APP_URL = (
-  process.env.NEXT_PUBLIC_PRODUCT_APP_URL ?? "https://app.munibtracker.app"
+  process.env.NEXT_PUBLIC_PRODUCT_APP_URL ?? "https://my.munibtracker.app"
 ).replace(/\/$/, "");
 
 /** Google Analytics 4 measurement ID (e.g. G-XXXXXXXX). */

@@ -1,5 +1,5 @@
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
-import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
+import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
+import type { QazaPrayer } from "@munib-tracker/shared/types";
 import {
   computeQazaEta,
   formatShortDate,
@@ -13,12 +13,14 @@ import { StyleSheet, View } from "react-native";
 
 import { QazaDailyTargets } from "@/components/qaza-daily-targets";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatQazaDuration } from "@/lib/qaza-duration";
+import { webPageSchema } from "@/lib/seo/structured-data";
 import { useQazaSchedule, useQazaSummary } from "@/stores/tracker-store";
 
 export default function QazaPlannerScreen() {
@@ -34,10 +36,7 @@ export default function QazaPlannerScreen() {
   const eta = computeQazaEta(summary.remaining, dailyTotal, today);
 
   const activePrayers = useMemo(
-    () =>
-      OBLIGATORY_PRAYERS.filter(
-        (prayerId) => (schedule.targets[prayerId] ?? 0) > 0,
-      ) as ObligatoryPrayer[],
+    () => QAZA_PRAYERS.filter((prayerId) => (schedule.targets[prayerId] ?? 0) > 0) as QazaPrayer[],
     [schedule.targets],
   );
 
@@ -48,6 +47,27 @@ export default function QazaPlannerScreen() {
       subtitle={t("qazaPlan.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/qaza/planner"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("qaza.title"), path: "/qaza" },
+          { name: t("qazaPlan.title"), path: "/qaza/planner" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/qaza/planner",
+            name: "Qaza Planner",
+            description:
+              "Set a realistic daily pace to make up missed prayers and see an estimated date to clear your backlog.",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("qaza.title"), path: "/qaza" },
+              { name: t("qazaPlan.title"), path: "/qaza/planner" },
+            ],
+          }),
+        ]}
+      />
       <Stagger>
         <Card>
           <View style={styles.etaRow}>

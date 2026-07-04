@@ -13,6 +13,9 @@ export function useRemoteCollection(id: string | null) {
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     networkMode: "offlineFirst",
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
     retry: 1,
     queryFn: () => fetchRemoteCollection(id as string),
   });

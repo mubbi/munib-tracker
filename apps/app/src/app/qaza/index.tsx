@@ -1,4 +1,4 @@
-import type { ObligatoryPrayer } from "@munib-tracker/shared/types";
+import type { QazaPrayer } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
@@ -7,6 +7,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -19,6 +20,7 @@ import { WitrQazaInfo } from "@/components/witr-qaza-info";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   useQazaCounters,
   useQazaDailyProgress,
@@ -30,12 +32,12 @@ import {
 type QazaConfirmAction =
   | {
       kind: "decrement" | "increment";
-      prayerId: ObligatoryPrayer;
+      prayerId: QazaPrayer;
       nextRemaining: number;
       completed: number;
     }
-  | { kind: "perform"; prayerId: ObligatoryPrayer }
-  | { kind: "resetPrayer"; prayerId: ObligatoryPrayer }
+  | { kind: "perform"; prayerId: QazaPrayer }
+  | { kind: "resetPrayer"; prayerId: QazaPrayer }
   | { kind: "resetAll" };
 
 export default function QazaHomeScreen() {
@@ -53,7 +55,7 @@ export default function QazaHomeScreen() {
 
   const confirmCopy = useMemo(() => {
     if (!pending) return null;
-    const prayerName = (prayerId: ObligatoryPrayer) => t(`prayers.${prayerId}`);
+    const prayerName = (prayerId: QazaPrayer) => t(`prayers.${prayerId}`);
 
     switch (pending.kind) {
       case "decrement":
@@ -121,6 +123,41 @@ export default function QazaHomeScreen() {
       subtitle={t("qaza.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        path="/qaza"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("qaza.title"), path: "/qaza" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/qaza",
+            name: "Qaza Namaz Tracker",
+            description: "Track and clear missed (qaza) prayers, one make-up at a time.",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("qaza.title"), path: "/qaza" },
+            ],
+          }),
+          faqSchema([
+            {
+              question: "What is qaza (qadha) namaz?",
+              answer:
+                "Qaza (qadha) namaz is a prayer performed after its prescribed time has passed. The majority of scholars hold that missed obligatory prayers must be made up.",
+            },
+            {
+              question: "How do I make up missed prayers?",
+              answer:
+                "Track how many prayers you owe per type, then pray extra make-up prayers alongside your daily prayers at a steady pace until the backlog is cleared.",
+            },
+            {
+              question: "Is missed Witr counted as qaza?",
+              answer:
+                "It depends on your madhhab: the Hanafi school treats Witr as wajib and requires making it up, while the Shafi'i, Maliki, and Hanbali schools treat it as a strongly emphasized sunnah for which make-up is recommended.",
+            },
+          ]),
+        ]}
+      />
       <Stagger>
         <Card>
           <StatPair

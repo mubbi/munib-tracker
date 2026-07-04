@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { CustomTargetModal } from "@/components/tasbeeh/custom-target-modal";
 import { CustomTasbeehFormModal } from "@/components/tasbeeh/custom-tasbeeh-form-modal";
 import { CustomTasbeehRow } from "@/components/tasbeeh/custom-tasbeeh-row";
@@ -14,6 +15,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   useCustomTasbeehActions,
   useCustomTasbeehList,
@@ -49,6 +51,36 @@ export default function FreeTasbeehScreen() {
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       scrollable
     >
+      <Seo
+        path="/tasbeeh/free"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("actions.tasbeeh"), path: "/tasbeeh/free" },
+        ]}
+        jsonLd={[
+          webPageSchema({
+            path: "/tasbeeh/free",
+            name: "Digital Tasbeeh Counter",
+            description: "A free digital tasbeeh (misbaha) counter for any dhikr, hands-free.",
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("actions.tasbeeh"), path: "/tasbeeh/free" },
+            ],
+          }),
+          faqSchema([
+            {
+              question: "What is a digital tasbeeh counter?",
+              answer:
+                "A digital tasbeeh is an on-screen tap counter that replaces prayer beads (misbaha) for counting dhikr such as SubhanAllah, Alhamdulillah, and Allahu Akbar.",
+            },
+            {
+              question: "Can I set a custom target count?",
+              answer:
+                "Yes. You can count freely or set a target such as 33, 100, or 313, and the counter tracks your progress toward it.",
+            },
+          ]),
+        ]}
+      />
       <Stagger>
         <SectionHeader
           title={t("tasbeeh.quickCounter")}

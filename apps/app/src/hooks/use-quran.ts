@@ -14,6 +14,9 @@ export function useRemoteEditionSurah(editionId: string | null, surah: number) {
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,
     networkMode: "offlineFirst",
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
     retry: 1,
     queryFn: () => fetchRemoteEditionSurah(editionId as string, surah),
   });

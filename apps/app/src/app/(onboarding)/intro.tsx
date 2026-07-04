@@ -1,3 +1,5 @@
+import { APP_NAME } from "@munib-tracker/shared/constants";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
@@ -14,25 +16,62 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
-import { Brand, Spacing } from "@/constants/theme";
+import { Brand, Radius, Spacing } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { arrowForward } from "@/lib/rtl";
 import { usePreferencesActions } from "@/stores/preferences-store";
 
-type Slide = { icon: SymbolViewProps["name"]; key: string };
+type SlideKind = "brand" | "feature" | "cta";
+
+type Slide = {
+  key: string;
+  kind: SlideKind;
+  icon?: SymbolViewProps["name"];
+  highlightCount?: number;
+};
 
 const SLIDES: Slide[] = [
-  { icon: { ios: "moon.stars.fill", android: "mosque", web: "mosque" }, key: "slide1" },
-  { icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" }, key: "slide2" },
-  { icon: { ios: "heart.fill", android: "favorite", web: "favorite" }, key: "slide3" },
+  { key: "brand", kind: "brand" },
   {
-    icon: { ios: "bell.badge.fill", android: "notifications_active", web: "notifications_active" },
+    key: "slide1",
+    kind: "feature",
+    icon: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
+    highlightCount: 3,
+  },
+  {
+    key: "slide2",
+    kind: "feature",
+    icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
+    highlightCount: 3,
+  },
+  {
+    key: "slide3",
+    kind: "feature",
+    icon: { ios: "heart.fill", android: "favorite", web: "favorite" },
+    highlightCount: 3,
+  },
+  {
     key: "slide4",
+    kind: "feature",
+    icon: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
+    highlightCount: 3,
+  },
+  {
+    key: "cta",
+    kind: "cta",
+    icon: { ios: "lock.shield.fill", android: "shield", web: "shield" },
   },
 ];
+
+const HIGHLIGHT_ICON: SymbolViewProps["name"] = {
+  ios: "checkmark.circle.fill",
+  android: "check_circle",
+  web: "check_circle",
+};
 
 export default function OnboardingIntroScreen() {
   const router = useRouter();
@@ -43,7 +82,9 @@ export default function OnboardingIntroScreen() {
   const scrollRef = useRef<ScrollView>(null);
   const [index, setIndex] = useState(0);
 
+  const slide = SLIDES[index];
   const isLast = index === SLIDES.length - 1;
+  const isBrand = slide.kind === "brand";
 
   const finish = async (destination: "/" | "/login") => {
     await update({ hasCompletedOnboarding: true });
@@ -69,25 +110,34 @@ export default function OnboardingIntroScreen() {
         ),
       ]}
     >
+      <Seo
+        path="/intro"
+        title="Welcome"
+        description="Get started with your offline-first Islamic companion."
+        index={false}
+      />
       <StatusBar style="light" />
-      {/* Branded splash backdrop: a quiet mosque skyline behind the slides. */}
-      <MosqueSilhouette color={Brand.heroBottom} opacity={0.35} scale={1.6} />
+      <MosqueSilhouette color={Brand.heroBottom} opacity={0.3} scale={1.6} />
 
       <View style={styles.skipRow}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t("common.skip")}
-          hitSlop={12}
-          style={styles.skipButton}
-          onPress={() => {
-            triggerHaptic("light");
-            finish("/");
-          }}
-        >
-          <ThemedText type="smallBold" style={{ color: Brand.heroSubtext }}>
-            {t("common.skip")}
-          </ThemedText>
-        </Pressable>
+        {!isBrand ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t("common.skip")}
+            hitSlop={12}
+            style={styles.skipButton}
+            onPress={() => {
+              triggerHaptic("light");
+              finish("/");
+            }}
+          >
+            <ThemedText type="smallBold" style={{ color: Brand.heroSubtext }}>
+              {t("common.skip")}
+            </ThemedText>
+          </Pressable>
+        ) : (
+          <View style={styles.skipButton} />
+        )}
       </View>
 
       <ScrollView
@@ -99,17 +149,15 @@ export default function OnboardingIntroScreen() {
         onScroll={onScroll}
         onMomentumScrollEnd={onScroll}
       >
-        {SLIDES.map((slide) => (
-          <View key={slide.key} style={[styles.slide, { width }]}>
-            <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
-              <SymbolView name={slide.icon} size={56} tintColor={Brand.heroAccent} />
-            </View>
-            <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
-              {t(`onboarding.${slide.key}Title`)}
-            </ThemedText>
-            <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
-              {t(`onboarding.${slide.key}Body`)}
-            </ThemedText>
+        {SLIDES.map((item) => (
+          <View key={item.key} style={[styles.slidePage, { width }]}>
+            {item.kind === "brand" ? (
+              <BrandSlide />
+            ) : item.kind === "cta" ? (
+              <CtaSlide icon={item.icon} />
+            ) : (
+              <FeatureSlide slide={item} />
+            )}
           </View>
         ))}
       </ScrollView>
@@ -119,9 +167,9 @@ export default function OnboardingIntroScreen() {
         accessibilityRole="progressbar"
         accessibilityLabel={t("onboarding.pageOf", { page: index + 1, total: SLIDES.length })}
       >
-        {SLIDES.map((slide, i) => (
+        {SLIDES.map((item, i) => (
           <View
-            key={slide.key}
+            key={item.key}
             style={[
               styles.dot,
               {
@@ -149,8 +197,128 @@ export default function OnboardingIntroScreen() {
             />
           </View>
         ) : (
-          <Button label={t("common.next")} fullWidth trailingIcon={arrowForward} onPress={goNext} />
+          <Button
+            label={isBrand ? t("onboarding.begin") : t("common.next")}
+            fullWidth
+            trailingIcon={arrowForward}
+            onPress={goNext}
+          />
         )}
+      </View>
+    </View>
+  );
+}
+
+function BrandSlide() {
+  const { t } = useTranslation();
+
+  return (
+    <View style={styles.brandSlide}>
+      <ThemedText type="header" style={[styles.bismillah, { color: Brand.heroAccent }]}>
+        ﷽
+      </ThemedText>
+
+      <View style={styles.logoWrap}>
+        <Image style={styles.logoGlow} source={require("@/assets/images/logo-glow.png")} />
+        <View
+          style={[
+            styles.logoFrame,
+            gradientBackground("linear-gradient(180deg, #2A453C, #152921)"),
+          ]}
+        >
+          <Image style={styles.logo} source={require("@/assets/images/munib-logo.png")} />
+        </View>
+      </View>
+
+      <ThemedText type="display" style={[styles.brandTitle, { color: Brand.heroText }]}>
+        {APP_NAME}
+      </ThemedText>
+      <ThemedText type="subtitle" style={[styles.brandTagline, { color: Brand.heroSubtext }]}>
+        {t("common.appTagline")}
+      </ThemedText>
+
+      <View style={[styles.duaCard, { backgroundColor: Brand.onHeroStrongSurface }]}>
+        <ThemedText type="label" style={[styles.duaLabel, { color: Brand.heroAccent }]}>
+          {t("onboarding.brandDuaLabel")}
+        </ThemedText>
+        <ThemedText type="arabic" style={[styles.duaArabic, { color: Brand.heroText }]}>
+          {t("onboarding.brandDuaArabic")}
+        </ThemedText>
+        <ThemedText type="caption" style={[styles.duaTranslit, { color: Brand.heroSubtext }]}>
+          {t("onboarding.brandDuaTransliteration")}
+        </ThemedText>
+        <ThemedText type="small" style={[styles.duaTranslation, { color: Brand.heroSubtext }]}>
+          {t("onboarding.brandDuaTranslation")}
+        </ThemedText>
+      </View>
+    </View>
+  );
+}
+
+function FeatureSlide({ slide }: { slide: Slide }) {
+  const { t } = useTranslation();
+  const highlights = Array.from({ length: slide.highlightCount ?? 0 }, (_, i) =>
+    t(`onboarding.${slide.key}Highlight${i + 1}`),
+  );
+
+  return (
+    <View style={styles.featureSlide}>
+      <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
+        {slide.icon ? (
+          <SymbolView name={slide.icon} size={52} tintColor={Brand.heroAccent} />
+        ) : null}
+      </View>
+
+      <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
+        {t(`onboarding.${slide.key}Eyebrow`)}
+      </ThemedText>
+      <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
+        {t(`onboarding.${slide.key}Title`)}
+      </ThemedText>
+      <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
+        {t(`onboarding.${slide.key}Body`)}
+      </ThemedText>
+
+      <View style={styles.highlights}>
+        {highlights.map((line) => (
+          <View key={line} style={styles.highlightRow}>
+            <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
+            <ThemedText type="small" style={[styles.highlightText, { color: Brand.heroText }]}>
+              {line}
+            </ThemedText>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+function CtaSlide({ icon }: { icon?: SymbolViewProps["name"] }) {
+  const { t } = useTranslation();
+
+  return (
+    <View style={styles.ctaSlide}>
+      <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
+        {icon ? <SymbolView name={icon} size={52} tintColor={Brand.heroAccent} /> : null}
+      </View>
+
+      <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
+        {t("onboarding.ctaEyebrow")}
+      </ThemedText>
+      <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
+        {t("onboarding.ctaTitle")}
+      </ThemedText>
+      <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
+        {t("onboarding.ctaBody")}
+      </ThemedText>
+
+      <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
+        <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
+          {t("onboarding.ctaPrivacyTitle")}
+        </ThemedText>
+        <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
+          {t("onboarding.ctaPrivacyBody")}
+        </ThemedText>
       </View>
     </View>
   );
@@ -162,6 +330,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
+    minHeight: 44,
   },
   skipButton: {
     minWidth: 44,
@@ -170,19 +339,102 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: Spacing.two,
   },
-  slide: {
+  slidePage: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: Spacing.four,
+  },
+  brandSlide: {
+    alignItems: "center",
+    gap: Spacing.three,
+    paddingBottom: Spacing.two,
+  },
+  bismillah: {
+    textAlign: "center",
+  },
+  logoWrap: {
+    width: 128,
+    height: 128,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: Spacing.five,
-    gap: Spacing.four,
+    marginVertical: Spacing.two,
   },
-  icon: {
-    width: 120,
-    height: 120,
-    borderRadius: 40,
+  logoGlow: {
+    position: "absolute",
+    width: 160,
+    height: 160,
+    opacity: 0.85,
+  },
+  logoFrame: {
+    width: 112,
+    height: 112,
+    borderRadius: Radius.xl,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
+  },
+  logo: {
+    width: 80,
+    height: 80,
+    borderRadius: Radius.lg,
+  },
+  brandTitle: {
+    textAlign: "center",
+  },
+  brandTagline: {
+    textAlign: "center",
+    maxWidth: 300,
+  },
+  duaCard: {
+    width: "100%",
+    maxWidth: 360,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    padding: Spacing.three,
+    gap: Spacing.two,
+    marginTop: Spacing.two,
+  },
+  duaLabel: {
+    textAlign: "center",
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+  duaArabic: {
+    textAlign: "center",
+    color: Brand.heroText,
+    fontSize: 22,
+    lineHeight: 40,
+  },
+  duaTranslit: {
+    textAlign: "center",
+    fontStyle: "italic",
+  },
+  duaTranslation: {
+    textAlign: "center",
+  },
+  featureSlide: {
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+  },
+  ctaSlide: {
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+  },
+  icon: {
+    width: 108,
+    height: 108,
+    borderRadius: 36,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: Spacing.two,
+  },
+  eyebrow: {
+    textAlign: "center",
+    textTransform: "uppercase",
+    letterSpacing: 1.2,
   },
   title: {
     textAlign: "center",
@@ -191,11 +443,37 @@ const styles = StyleSheet.create({
     textAlign: "center",
     maxWidth: 320,
   },
+  highlights: {
+    width: "100%",
+    maxWidth: 340,
+    gap: Spacing.two,
+    marginTop: Spacing.three,
+  },
+  highlightRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.two,
+  },
+  highlightText: {
+    flex: 1,
+  },
+  privacyCard: {
+    width: "100%",
+    maxWidth: 340,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    padding: Spacing.three,
+    gap: Spacing.one + 2,
+    marginTop: Spacing.three,
+  },
+  privacyBody: {
+    lineHeight: 20,
+  },
   dots: {
     flexDirection: "row",
     justifyContent: "center",
     gap: Spacing.one + 2,
-    paddingVertical: Spacing.four,
+    paddingVertical: Spacing.three,
   },
   dot: {
     height: 8,

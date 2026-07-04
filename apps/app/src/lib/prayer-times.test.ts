@@ -16,6 +16,20 @@ import {
 } from "@/lib/prayer-times";
 
 const MAKKAH: Coords = { latitude: 21.4225, longitude: 39.8262 };
+const NYC: Coords = { latitude: 40.7128, longitude: -74.006 };
+
+describe("nextPrayer with manual location timezone", () => {
+  it("uses the selected city's calendar day, not the device day", () => {
+    // 3:57 PM EDT on Jul 4, 2026 — also midnight Jul 5 in Pakistan (UTC+5).
+    const now = new Date("2026-07-04T19:57:00.000Z");
+    const next = nextPrayer(NYC, now, "MuslimWorldLeague", "shafi", "America/New_York");
+
+    expect(next.id).toBe("asr");
+    expect(next.currentIndex).toBe(PRAYER_SLOT_ORDER.indexOf("dhuhr"));
+    expect(next.minutesUntil).toBeGreaterThan(0);
+    expect(next.minutesUntil).toBeLessThan(120);
+  });
+});
 
 describe("computePrayerTimes / prayerSlots", () => {
   it("returns the six markers in chronological order", () => {

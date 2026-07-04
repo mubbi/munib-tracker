@@ -12,6 +12,7 @@ export { PreferencesRepository } from "./repositories/preferences-repository";
 export { QazaRepository } from "./repositories/qaza-repository";
 export { QuranCacheRepository } from "./repositories/quran-cache-repository";
 export { QuranRepository } from "./repositories/quran-repository";
+export { ReverseGeocodeCacheRepository } from "./repositories/reverse-geocode-cache-repository";
 export { TombstoneRepository } from "./repositories/tombstone-repository";
 export { WeatherCacheRepository } from "./repositories/weather-cache-repository";
 export { ZikrRepository } from "./repositories/zikr-repository";
@@ -57,6 +58,8 @@ export async function resetDatabase(): Promise<void> {
       DB_KEYS.duaFavorites,
       DB_KEYS.tombstones,
       DB_KEYS.weatherCache,
+      DB_KEYS.audioDurationCache,
+      DB_KEYS.reverseGeocodeCache,
     ].map((key) => removeKey(key)),
   );
 }

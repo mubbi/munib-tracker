@@ -8,6 +8,7 @@ import { Image, StyleSheet, TextInput, View } from "react-native";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -82,6 +83,7 @@ export default function ProfileScreen() {
       subtitle={t("profile.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/profile" />
       <Stagger>
         <Card style={styles.hero}>
           <PressableScale

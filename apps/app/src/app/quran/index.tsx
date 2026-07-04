@@ -1,9 +1,18 @@
+import type { Surah } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { memo, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
+import {
+  FlatList,
+  type ListRenderItem,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -11,13 +20,19 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { BottomTabInset, Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahMeta } from "@/lib/quran";
-import { searchSurahList } from "@/lib/search";
+import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
+import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useLastRead } from "@/stores/quran-store";
 
-type Surah = ReturnType<typeof getSurahMeta>[number];
+/** All 114 surahs as crawlable ItemList entries (the visual list isn't <a>-based). */
+const SURAH_ITEMS = getSurahMeta().map((s) => ({
+  name: `${s.number}. ${s.nameTransliteration} (${s.nameEnglish})`,
+  path: `/quran/${s.number}`,
+}));
 
 /**
  * Memoized surah row for the virtualized list. Extracted + `memo`'d so scrolling
@@ -67,17 +82,60 @@ const SurahRow = memo(function SurahRow({
   );
 });
 
+const REVELATION_FILTERS: SurahRevelationFilter[] = ["all", "makkah", "madinah"];
+
+function RevelationFilterChip({
+  label,
+  active,
+  onPress,
+}: {
+  label: string;
+  active: boolean;
+  onPress: () => void;
+}) {
+  const { colors } = useThemeTokens();
+  return (
+    <PressableScale
+      haptic="light"
+      accessibilityRole="button"
+      accessibilityState={{ selected: active }}
+      accessibilityLabel={label}
+      onPress={onPress}
+      scaleTo={0.95}
+      style={[styles.filterChip, { backgroundColor: active ? colors.accent : colors.card }]}
+    >
+      <ThemedText
+        type="smallBold"
+        style={{ color: active ? colors.accentForeground : colors.mutedForeground }}
+      >
+        {label}
+      </ThemedText>
+    </PressableScale>
+  );
+}
+
 export default function QuranHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const contentBottomInset = useContentBottomInset();
   const [query, setQuery] = useState("");
+  const [revelationFilter, setRevelationFilter] = useState<SurahRevelationFilter>("all");
   const lastRead = useLastRead();
-  const surahs = getSurahMeta();
 
-  // Fuzzy, typo-tolerant surah filter (name / English / number / Arabic); the
-  // full list shows when the query is empty.
-  const filtered = useMemo(() => (query.trim() ? searchSurahList(query) : surahs), [query, surahs]);
+  const filtered = useMemo(
+    () => searchSurahList(query, { revelation: revelationFilter }),
+    [query, revelationFilter],
+  );
+
+  const revelationFilterLabel = useCallback(
+    (filter: SurahRevelationFilter) => {
+      if (filter === "all") return t("quran.filterAll");
+      if (filter === "makkah") return t("quran.makki");
+      return t("quran.madani");
+    },
+    [t],
+  );
 
   const openSurah = useCallback(
     (n: number) => router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } }),
@@ -148,8 +206,24 @@ export default function QuranHomeScreen() {
             onChangeText={setQuery}
             placeholder={t("quran.searchSurah")}
             placeholderTextColor={colors.mutedForeground}
+            accessibilityLabel={t("quran.searchSurah")}
             style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
           />
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.filterRow}
+          >
+            {REVELATION_FILTERS.map((filter) => (
+              <RevelationFilterChip
+                key={filter}
+                label={revelationFilterLabel(filter)}
+                active={revelationFilter === filter}
+                onPress={() => setRevelationFilter(filter)}
+              />
+            ))}
+          </ScrollView>
           <SectionHeader
             title={t("quran.surahList")}
             icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
@@ -160,36 +234,58 @@ export default function QuranHomeScreen() {
   );
 
   return (
-    <ScreenLayout
-      scrollable={false}
-      eyebrow={t("quran.eyebrow")}
-      title={t("quran.title")}
-      subtitle={t("quran.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
-    >
-      <FlatList
-        data={filtered}
-        keyExtractor={keyExtractor}
-        renderItem={renderItem}
-        ListHeaderComponent={listHeader}
-        ListEmptyComponent={
-          <EmptyState
-            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            title={t("quran.noResults")}
-          />
-        }
-        style={styles.flatList}
-        contentContainerStyle={styles.listContent}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
+    <>
+      <Seo
+        path="/quran"
+        breadcrumbs={[
+          { name: t("tabs.home"), path: "/" },
+          { name: t("quran.title"), path: "/quran" },
+        ]}
+        jsonLd={[
+          collectionPageSchema({
+            path: "/quran",
+            name: "The Noble Qur'an — All 114 Surahs",
+            description:
+              "Read and listen to the complete Qur'an offline with Arabic, transliteration, translations, and recitation.",
+            items: SURAH_ITEMS,
+            breadcrumbs: [
+              { name: t("tabs.home"), path: "/" },
+              { name: t("quran.title"), path: "/quran" },
+            ],
+          }),
+        ]}
       />
-    </ScreenLayout>
+      <ScreenLayout
+        scrollable={false}
+        eyebrow={t("quran.eyebrow")}
+        title={t("quran.title")}
+        subtitle={t("quran.subtitle")}
+        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      >
+        <FlatList
+          data={filtered}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+          ListHeaderComponent={listHeader}
+          ListEmptyComponent={
+            <EmptyState
+              icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+              title={t("quran.noResults")}
+            />
+          }
+          style={styles.flatList}
+          contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        />
+      </ScreenLayout>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   flatList: { flex: 1, width: "100%" },
-  listContent: { gap: Spacing.two, paddingBottom: BottomTabInset + Spacing.four },
+  listContent: { gap: Spacing.two },
   header: { gap: Spacing.four },
   headerActions: { flexDirection: "row", gap: Spacing.two },
   iconButton: {
@@ -214,8 +310,19 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.three,
-    marginBottom: Spacing.three,
+    marginBottom: Spacing.two,
     fontSize: 15,
+  },
+  filterRow: {
+    flexDirection: "row",
+    gap: Spacing.two,
+    marginBottom: Spacing.three,
+  },
+  filterChip: {
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
   },
   row: {
     flexDirection: "row",

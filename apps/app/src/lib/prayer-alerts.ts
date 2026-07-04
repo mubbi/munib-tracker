@@ -1,4 +1,8 @@
-import { OBLIGATORY_PRAYER_SET, OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import {
+  OBLIGATORY_PRAYER_SET,
+  OBLIGATORY_PRAYERS,
+  WITR_PRAYER,
+} from "@munib-tracker/shared/constants";
 import type { PrayerId, SunnahPrayer, UserPreferences } from "@munib-tracker/shared/types";
 
 /** Sunnah prayers with a fixed daily reminder time. */
@@ -8,7 +12,11 @@ export const SUNNAH_ALERTABLE_PRAYERS = [
   "duha",
 ] as const satisfies readonly SunnahPrayer[];
 
-const SCHEDULABLE_PRAYERS: PrayerId[] = [...OBLIGATORY_PRAYERS, ...SUNNAH_ALERTABLE_PRAYERS];
+const SCHEDULABLE_PRAYERS: PrayerId[] = [
+  ...OBLIGATORY_PRAYERS,
+  WITR_PRAYER,
+  ...SUNNAH_ALERTABLE_PRAYERS,
+];
 
 /** Prayers that can receive a timed local notification. */
 export const ALERTABLE_PRAYERS = SCHEDULABLE_PRAYERS;

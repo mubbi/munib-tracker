@@ -23,7 +23,7 @@ export function SectionHeader({ title, icon, actionLabel, onActionPress }: Secti
             <SymbolView name={icon} size={14} tintColor={colors.accent} />
           </View>
         ) : null}
-        <ThemedText type="subtitle" style={{ textTransform: "capitalize" }}>
+        <ThemedText type="subtitle" heading={2} style={{ textTransform: "capitalize" }}>
           {title}
         </ThemedText>
       </View>

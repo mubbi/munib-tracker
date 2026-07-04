@@ -2,7 +2,7 @@ import { DEFAULT_NOTIFICATION_PREFERENCES } from "@munib-tracker/shared/constant
 import type { UserPreferences } from "@munib-tracker/shared/types";
 
 import { DEFAULT_LOCATION } from "@/lib/location";
-import { buildReminders } from "@/lib/notifications/build-reminders";
+import { buildReminders, summarizeReminders } from "@/lib/notifications/build-reminders";
 import { computePrayerTimes } from "@/lib/prayer-times";
 
 const basePrefs: UserPreferences = {
@@ -60,6 +60,38 @@ describe("buildReminders", () => {
     expect(reminders.some((item) => item.id.startsWith("prayer:tahajjud:"))).toBe(true);
   });
 
+  it("deep-links each reminder to the collection it is about", () => {
+    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+
+    // Every reminder carries a non-empty in-app route so a tap always lands somewhere useful.
+    expect(reminders.every((item) => typeof item.route === "string" && item.route.length > 0)).toBe(
+      true,
+    );
+
+    const routeFor = (prefix: string) =>
+      reminders.find((item) => item.id.startsWith(prefix))?.route;
+
+    expect(routeFor("prayer:")).toBe("/tracker");
+    expect(routeFor("afterAzan:")).toBe("/zikr/after_azan");
+    expect(routeFor("beforePrayer:")).toBe("/zikr/before_prayer");
+  });
+
+  it("carries the reminder route through to summary rows", () => {
+    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const rows = summarizeReminders(reminders, "24");
+
+    const azan = rows.find((row) => row.id.startsWith("afterAzan:"));
+    expect(azan?.route).toBe("/zikr/after_azan");
+  });
+
+  it("does not schedule after-adhan reminders for Witr", () => {
+    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+
+    expect(reminders.some((item) => item.id.startsWith("afterAzan:witr:"))).toBe(false);
+    expect(reminders.some((item) => item.id.startsWith("afterAzan:fajr:"))).toBe(true);
+    expect(reminders.some((item) => item.id.startsWith("prayer:witr:"))).toBe(true);
+  });
+
   it("computes Fajr's fireAt from the prayer-times engine, not a static hint", () => {
     const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
 
@@ -85,6 +117,18 @@ describe("buildReminders", () => {
 
     const deltaMs = Math.abs((fajr as { fireAt: Date }).fireAt.getTime() - expected.getTime());
     expect(deltaMs).toBeLessThanOrEqual(60_000);
+  });
+
+  it("summarizeReminders collapses multi-day prayer slots to one row per template", () => {
+    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const rows = summarizeReminders(reminders, "12");
+
+    const keys = rows.map((row) => `${row.title}\0${row.body}`);
+    expect(new Set(keys).size).toBe(keys.length);
+
+    const tahajjud = rows.filter((row) => row.title.toLowerCase().includes("tahajjud"));
+    expect(tahajjud).toHaveLength(1);
+    expect(tahajjud[0]?.fireAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
   });
 
   it("drops date-based reminders that have already passed relative to now", () => {

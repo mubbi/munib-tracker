@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { ProgressBar } from "@/components/ui/progress-bar";
@@ -183,6 +184,7 @@ export default function AchievementsScreen() {
       }
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/achievements" />
       <Stagger>
         <View style={styles.stack}>
           {devotion ? (

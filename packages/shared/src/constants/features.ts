@@ -27,7 +27,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Log each prayer as you walk back to Allah — completed, missed, delayed, or qaza — with streaks, notes, and an honest calendar.",
     highlights: [
-      "Six obligatory prayers plus Witr and five sunnah categories",
+      "Five fard prayers plus Witr (sunnah mu'akkadah) and five sunnah categories",
       "Progress ring, streaks, and gentle encouragement",
       "Calendar with prayed, partial, and missed days",
       "Prayer times hero with Hijri date, moon phase, and countdown",
@@ -230,6 +230,6 @@ export const APP_ACHIEVEMENTS = [
   },
   {
     name: "Consistency Track",
-    trigger: "Perfect days with all six obligatory prayers — always a next target waiting",
+    trigger: "Perfect days with all five fard prayers — always a next target waiting",
   },
 ] as const;

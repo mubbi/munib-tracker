@@ -14,7 +14,8 @@ import {
 
 import { AppHeader } from "@/components/app-header";
 import { ErrorBoundary } from "@/components/error-boundary";
-import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
+import { MaxContentWidth, Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useTheme } from "@/hooks/use-theme";
 
 /** Breakpoint above which we allow a wider content column (wide web/tablet). */
@@ -52,6 +53,7 @@ export function ScreenLayout({
 }: ScreenLayoutProps) {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
+  const contentBottomInset = useContentBottomInset();
   const rootRef = useRef<View>(null);
 
   // On web, move focus into the incoming screen so it isn't left on a button in
@@ -69,7 +71,11 @@ export function ScreenLayout({
   const maxWidth = width >= WideBreakpoint ? WideMaxContentWidth : MaxContentWidth;
 
   const content = (
-    <View style={[styles.content, contentStyle]}>
+    <View
+      // Web-only landmark: exposes the screen body as <main> for crawlers/AT.
+      {...(Platform.OS === "web" ? { role: "main" as const } : {})}
+      style={[styles.content, contentStyle]}
+    >
       {/* When the screen owns its own scroller (scrollable={false}, e.g. a screen
           hosting a FlatList), the inner wrapper must fill the available height so
           the child list is bounded and can scroll — otherwise it grows to its full
@@ -100,7 +106,7 @@ export function ScreenLayout({
           ref={scrollRef}
           onScroll={onScroll}
           scrollEventThrottle={16}
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
           contentInsetAdjustmentBehavior="automatic"
           showsVerticalScrollIndicator={false}
         >
@@ -119,7 +125,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: BottomTabInset + Spacing.four,
   },
   content: {
     flex: 1,

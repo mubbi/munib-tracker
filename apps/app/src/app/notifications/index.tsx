@@ -1,21 +1,27 @@
-import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useState } from "react";
+import { type Href, useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import {
+  type NotificationListItem,
+  NotificationListRow,
+} from "@/components/notifications/notification-list-row";
+import { NotificationToolbar } from "@/components/notifications/notification-toolbar";
 import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
+import { formatDisplayDateTime } from "@/lib/time";
 import { listScheduled, rescheduleAll } from "@/notifications/scheduler";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -24,18 +30,50 @@ import { usePreferences } from "@/stores/preferences-store";
 
 type Scheduled = Awaited<ReturnType<typeof listScheduled>>;
 
+const PAGE_SIZE = 10;
+
+function mergeNotifications(
+  inbox: ReturnType<typeof useInAppNotifications>["items"],
+  scheduled: Scheduled,
+): NotificationListItem[] {
+  const rows: NotificationListItem[] = [
+    ...inbox.map((item) => ({
+      id: `inbox:${item.id}`,
+      title: item.title,
+      body: item.body,
+      at: item.createdAt,
+      readAt: item.readAt,
+      inboxId: item.id,
+      kind: item.kind,
+      reminderKey: extractReminderKey(`inbox:${item.id}`, item.id),
+    })),
+    ...scheduled.map((item) => ({
+      id: `scheduled:${item.id}`,
+      title: item.title,
+      body: item.body,
+      at: item.fireAt,
+      readAt: null,
+      reminderKey: extractReminderKey(`scheduled:${item.id}`),
+      route: item.route,
+    })),
+  ];
+
+  return rows.sort((a, b) => b.at.localeCompare(a.at));
+}
+
 export default function NotificationCenterScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
   const prefs = usePreferences();
   const toast = useToast();
   const { items, unreadCount, open, markAllRead } = useInAppNotifications();
   const { requestPermission, granted } = useNotificationPermissions();
   const [scheduled, setScheduled] = useState<Scheduled>([]);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const reload = useCallback(async () => {
     setScheduled(await listScheduled(prefs, locationStore.getState().location));
+    setVisibleCount(PAGE_SIZE);
   }, [prefs]);
 
   useFocusEffect(
@@ -57,8 +95,10 @@ export default function NotificationCenterScreen() {
     await reload();
   };
 
-  const sorted = [...scheduled].sort((a, b) => (a.time ?? "").localeCompare(b.time ?? ""));
-  const inbox = items.slice(0, 20);
+  const notifications = useMemo(() => mergeNotifications(items, scheduled), [items, scheduled]);
+  const visible = notifications.slice(0, visibleCount);
+  const formatWhen = (iso: string) =>
+    formatDisplayDateTime(new Date(iso), prefs.timeFormat, prefs.locale);
 
   return (
     <ScreenLayout
@@ -67,6 +107,7 @@ export default function NotificationCenterScreen() {
       subtitle={t("notifCenter.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo path="/notifications" />
       <Stagger>
         <NotificationPermissionBanner showWhenGranted={isWeb} />
 
@@ -87,49 +128,13 @@ export default function NotificationCenterScreen() {
         ) : null}
 
         <Card padding="three">
-          <SectionHeader
-            title={t("notifCenter.inbox")}
-            icon={{ ios: "tray.fill", android: "inbox", web: "inbox" }}
-            actionLabel={unreadCount > 0 ? t("notifCenter.markAllRead") : undefined}
-            onActionPress={unreadCount > 0 ? () => void markAllRead() : undefined}
+          <NotificationToolbar
+            unreadCount={unreadCount}
+            onMarkAllRead={unreadCount > 0 ? () => void markAllRead() : undefined}
+            onOpenSettings={() => router.push("/settings/notifications")}
           />
-          {inbox.length === 0 ? (
-            <EmptyState
-              icon={{ ios: "tray", android: "inbox", web: "inbox" }}
-              title={t("notifCenter.inboxEmptyTitle")}
-              description={t("notifCenter.inboxEmptyDesc")}
-            />
-          ) : (
-            <View style={styles.list}>
-              {inbox.map((item) => (
-                <PressableScale
-                  key={item.id}
-                  onPress={() => void open(item.id)}
-                  style={[
-                    styles.inboxRow,
-                    {
-                      backgroundColor: item.readAt ? colors.muted : tokens.accentSoft,
-                    },
-                  ]}
-                >
-                  <ThemedText type="smallBold">{item.title}</ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
-                    {item.body}
-                  </ThemedText>
-                </PressableScale>
-              ))}
-            </View>
-          )}
-        </Card>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("notifCenter.scheduled")}
-            icon={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
-            actionLabel={t("notifCenter.settings")}
-            onActionPress={() => router.push("/settings/notifications")}
-          />
-          {sorted.length === 0 ? (
+          {visible.length === 0 ? (
             <EmptyState
               icon={{ ios: "bell.slash", android: "notifications_off", web: "notifications_off" }}
               title={t("notifCenter.emptyTitle")}
@@ -137,21 +142,28 @@ export default function NotificationCenterScreen() {
             />
           ) : (
             <View style={styles.list}>
-              {sorted.map((item) => (
-                <View key={item.id} style={[styles.row, { backgroundColor: colors.muted }]}>
-                  <View style={[styles.time, { backgroundColor: tokens.accentSoft }]}>
-                    <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                      {item.time ?? "—"}
-                    </ThemedText>
-                  </View>
-                  <View style={styles.rowBody}>
-                    <ThemedText type="small">{item.title}</ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                      {item.body}
-                    </ThemedText>
-                  </View>
-                </View>
+              {visible.map((item) => (
+                <NotificationListRow
+                  key={item.id}
+                  item={item}
+                  formattedWhen={formatWhen(item.at)}
+                  onPress={
+                    item.inboxId
+                      ? () => void open(item.inboxId as string)
+                      : item.route
+                        ? () => router.push(item.route as Href)
+                        : undefined
+                  }
+                />
               ))}
+              {visibleCount < notifications.length ? (
+                <Button
+                  label={t("notifCenter.loadMore")}
+                  variant="secondary"
+                  fullWidth
+                  onPress={() => setVisibleCount((count) => count + PAGE_SIZE)}
+                />
+              ) : null}
             </View>
           )}
         </Card>
@@ -170,31 +182,5 @@ const styles = StyleSheet.create({
   },
   list: {
     gap: Spacing.two,
-    marginTop: Spacing.three,
-  },
-  inboxRow: {
-    gap: 2,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    padding: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-  },
-  time: {
-    minWidth: 54,
-    paddingVertical: Spacing.one + 2,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-  },
-  rowBody: {
-    flex: 1,
-    gap: 2,
   },
 });

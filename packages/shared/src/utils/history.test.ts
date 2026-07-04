@@ -21,8 +21,8 @@ describe.concurrent("buildDayActivity", () => {
     expect(activity.completed).toBe(2);
     expect(activity.missed).toBe(1);
     expect(activity.qaza).toBe(1);
-    expect(activity.total).toBe(6);
-    expect(activity.level).toBeCloseTo(2 / 6);
+    expect(activity.total).toBe(5);
+    expect(activity.level).toBeCloseTo(2 / 5);
   });
 });
 

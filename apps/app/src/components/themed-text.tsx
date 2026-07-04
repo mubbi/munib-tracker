@@ -19,7 +19,22 @@ export type ThemedTextProps = TextProps & {
     | "code"
     | "arabic";
   themeColor?: ThemeColor;
+  /**
+   * Renders a semantic heading. On web this becomes a real `<h1>`–`<h6>` tag
+   * (react-native-web maps `role="heading"` + `aria-level` to `<hN>`), giving
+   * search engines and AI crawlers a proper document outline; on native it maps
+   * to the accessibility "header" trait. Keep one `heading={1}` per screen.
+   */
+  heading?: 1 | 2 | 3 | 4 | 5 | 6;
 };
+
+/** Cross-platform props that turn a Text node into a semantic heading. */
+function headingProps(level?: 1 | 2 | 3 | 4 | 5 | 6): Record<string, unknown> {
+  if (!level) return {};
+  return Platform.OS === "web"
+    ? { role: "heading", "aria-level": level }
+    : { accessibilityRole: "header" };
+}
 
 /**
  * Base line heights per type. React Native scales `fontSize` with the OS font
@@ -41,7 +56,13 @@ const LINE_HEIGHTS: Partial<Record<NonNullable<ThemedTextProps["type"]>, number>
   arabic: 52,
 };
 
-export function ThemedText({ style, type = "default", themeColor, ...rest }: ThemedTextProps) {
+export function ThemedText({
+  style,
+  type = "default",
+  themeColor,
+  heading,
+  ...rest
+}: ThemedTextProps) {
   const { colors } = useTheme();
   const { fontScale } = useWindowDimensions();
   const resolvedColor = type === "linkPrimary" ? colors.accent : colors[themeColor ?? "foreground"];
@@ -51,6 +72,7 @@ export function ThemedText({ style, type = "default", themeColor, ...rest }: The
 
   return (
     <Text
+      {...headingProps(heading)}
       style={[
         { color: resolvedColor },
         type === "default" && styles.default,

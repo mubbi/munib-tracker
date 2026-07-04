@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect } from "react";
-import { I18nManager } from "react-native";
+import { I18nManager, Platform } from "react-native";
 
 import i18n from "@/i18n";
 import { usePreferences } from "@/stores/preferences-store";
@@ -18,7 +18,16 @@ const RTL_LOCALES = new Set(["ar", "ur"]);
 const RESTART_HINT =
   "[i18n] Layout direction changed. Restart the app to apply the right-to-left flip.";
 
+function applyWebLayoutDirection(shouldRTL: boolean, locale: string): void {
+  if (Platform.OS !== "web" || typeof document === "undefined") return;
+  document.documentElement.dir = shouldRTL ? "rtl" : "ltr";
+  document.documentElement.lang = locale;
+}
+
 async function reloadForRtlFlip(): Promise<void> {
+  // Web applies direction via `document.dir` immediately — no reload or warning.
+  if (Platform.OS === "web") return;
+
   try {
     // Optional dependency: not installed in every build. The specifier is held
     // in a variable so bundlers/type-checkers don't hard-require the module;
@@ -44,11 +53,12 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (i18n.language !== locale) void i18n.changeLanguage(locale);
     const shouldRTL = RTL_LOCALES.has(locale);
+    applyWebLayoutDirection(shouldRTL, locale);
     if (I18nManager.isRTL !== shouldRTL) {
       I18nManager.allowRTL(shouldRTL);
       I18nManager.forceRTL(shouldRTL);
-      // The flip only applies after a reload; do it atomically so the UI never
-      // renders half-mirrored.
+      // Native flip only applies after a reload; do it atomically so the UI
+      // never renders half-mirrored. Web uses `document.dir` above.
       void reloadForRtlFlip();
     }
   }, [locale]);

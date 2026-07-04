@@ -15,7 +15,7 @@ describe("Prayer tracking dashboard", () => {
 
     await waitFor(
       () => {
-        expect(screen.getByText("0 of 6 tasks")).toBeTruthy();
+        expect(screen.getByText("0 of 5 tasks")).toBeTruthy();
       },
       { timeout: 5000 },
     );
@@ -25,7 +25,7 @@ describe("Prayer tracking dashboard", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText("1 of 6 tasks")).toBeTruthy();
+      expect(screen.getByText("1 of 5 tasks")).toBeTruthy();
     });
   }, 15_000);
 });

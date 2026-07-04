@@ -112,6 +112,109 @@ function matchAdhkarAudio(arabic, db) {
   return `${HISN_AUDIO_CDN}/${best.audio}`;
 }
 
+// ── Full Hisnul Muslim dua corpus (sheikhhanif database CSV) ────────────────
+// The same CSV that supplies per-item audio also carries the complete Fortress
+// of the Muslim: Arabic (verbatim), English translation, Qur'an/Hadith
+// reference, chapter (group_id) and audio filename for all ~267 supplications.
+// It has no transliteration — that is layered on later from clean open sources.
+
+/** Does the string contain at least one Arabic letter (not just an instruction)? */
+function hasArabic(text) {
+  return /[ء-ي]/.test(text ?? "");
+}
+
+/** Fetch + parse the full Hisnul Muslim dua corpus. Returns [] on any failure. */
+async function fetchHisnDuas() {
+  try {
+    const rows = parseCSV(await fetchText(HISN_CSV)).slice(1); // skip header
+    // Columns: id,group_id,ar_dua,en_translation,en_reference,bn_translation,subtitle,audio
+    return rows
+      .filter((r) => r.length >= 8 && hasArabic(r[2]) && r[3]?.trim())
+      .map((r) => ({
+        hisnId: r[0],
+        groupId: Number.parseInt(r[1], 10),
+        arabic: r[2].trim(),
+        translation: r[3].trim(),
+        reference: (r[4] ?? "").trim(),
+        title: (r[6] ?? "").trim(),
+        audioFile: (r[7] ?? "").trim(),
+      }));
+  } catch (err) {
+    console.warn(`  [adhkar] Hisnul Muslim corpus unavailable (${err.message})`);
+    return [];
+  }
+}
+
+/**
+ * Build a normalized-Arabic → transliteration lookup from clean, trusted
+ * sources only (hand-curated base + fitrahive dataset). Transliteration is
+ * never fabricated, so items with no clean source simply carry none.
+ */
+function buildTranslitLookup(datasetItems) {
+  const map = new Map();
+  const add = (arabic, translit) => {
+    const n = normalizeArabic(arabic);
+    const t = (translit ?? "").trim();
+    if (n && t && !map.has(n)) map.set(n, t);
+  };
+  // Every clean transliteration we ship — curated duas + curated adhkar + the
+  // fitrahive dataset (dua + dhikr). The morning/evening/after-salah adhkar
+  // overlap heavily with Hisnul Muslim chapters, so they lift dua coverage.
+  for (const item of DUA_ITEMS) add(item.arabic, item.transliteration);
+  for (const item of ZIKR_ITEMS) add(item.arabic, item.transliteration);
+  for (const item of datasetItems) add(item.arabic, item.transliteration);
+  return map;
+}
+
+/** Exact normalized-Arabic transliteration match (no fuzzy pairing — accuracy). */
+function findTranslit(arabic, lookup) {
+  return lookup.get(normalizeArabic(arabic));
+}
+
+/**
+ * Merge the full Hisnul Muslim corpus onto the curated base: keep every curated
+ * item (preserving ids/titles/transliteration/favorites), then append each
+ * Hisnul dua whose Arabic isn't already present, categorized by its chapter.
+ */
+function buildDuaCorpus(hisnDuas, translitLookup) {
+  const seenArabic = new Set();
+  const seenIds = new Set();
+  const merged = [];
+
+  for (const item of DUA_ITEMS) {
+    const categoryId = BASE_CATEGORY_OVERRIDE[item.id] ?? item.categoryId;
+    merged.push({ ...item, categoryId });
+    const n = normalizeArabic(item.arabic);
+    if (n) seenArabic.add(n);
+    seenIds.add(item.id);
+  }
+
+  for (const h of hisnDuas) {
+    const n = normalizeArabic(h.arabic);
+    if (!n || seenArabic.has(n)) continue;
+    seenArabic.add(n);
+    let id = `hisn-${h.hisnId}`;
+    let k = 2;
+    while (seenIds.has(id)) id = `hisn-${h.hisnId}-${k++}`;
+    seenIds.add(id);
+
+    const item = {
+      id,
+      categoryId: HISN_CATEGORY_BY_GROUP[h.groupId] ?? "social",
+      title: h.title || `Supplication ${h.hisnId}`,
+      arabic: h.arabic,
+      translation: h.translation,
+      reference: h.reference || "Hisn al-Muslim",
+    };
+    const translit = findTranslit(h.arabic, translitLookup);
+    if (translit) item.transliteration = translit;
+    if (h.audioFile) item.audioUri = `${HISN_AUDIO_CDN}/${h.audioFile}`;
+    merged.push(item);
+  }
+
+  return merged;
+}
+
 // ── Open-source dua/dhikr dataset (fitrahive/dua-dhikr) ─────────────────────
 // Provides Arabic + latin transliteration + English translation + source, keyed
 // by exactly the categories we track. Pinned to a commit for reproducibility.
@@ -530,10 +633,181 @@ const ZIKR_ITEMS = [
   },
 ];
 
+// Expanded, situational + source-based dua taxonomy mirroring how mainstream
+// apps (GTAF Hisnul Muslim, Athan, IslamicFinder) group the Fortress-of-the-
+// Muslim corpus. Order here is the on-screen display order.
 const DUA_CATEGORY_LABELS = {
-  sunnah: "Sunnah Duas",
+  morning_evening: "Morning & Evening",
+  sleep: "Sleep & Waking",
+  prayer: "Prayer & Mosque",
+  forgiveness: "Forgiveness & Gratitude",
+  distress: "Distress & Hardship",
+  protection: "Protection & Refuge",
   quranic: "Quranic Duas",
-  daily: "Daily Duas",
+  food: "Food & Drink",
+  home: "Home & Clothing",
+  travel: "Travel",
+  family: "Family & Marriage",
+  illness: "Sickness & Death",
+  weather: "Weather & Nature",
+  hajj: "Hajj & Umrah",
+  purification: "Purification",
+  social: "Manners & Social",
+};
+
+// Hisnul Muslim chapter (group_id in the sheikhhanif database) → our category.
+// Derived from the canonical 132-chapter Fortress of the Muslim index.
+const HISN_CATEGORY_BY_GROUP = {
+  1: "sleep", // upon waking
+  2: "home",
+  3: "home",
+  4: "home",
+  5: "home",
+  6: "purification",
+  7: "purification",
+  8: "purification",
+  9: "purification",
+  10: "home",
+  11: "home",
+  12: "prayer",
+  13: "prayer",
+  14: "prayer",
+  15: "prayer",
+  16: "prayer",
+  17: "prayer",
+  18: "prayer",
+  19: "prayer",
+  20: "prayer",
+  21: "prayer",
+  22: "prayer",
+  23: "prayer",
+  24: "prayer",
+  25: "prayer",
+  26: "prayer",
+  27: "morning_evening",
+  28: "sleep",
+  29: "sleep",
+  30: "sleep",
+  31: "sleep",
+  32: "prayer",
+  33: "prayer",
+  34: "distress",
+  35: "distress",
+  36: "distress",
+  37: "distress",
+  38: "distress",
+  39: "distress",
+  40: "protection",
+  41: "distress",
+  42: "protection",
+  43: "distress",
+  44: "forgiveness",
+  45: "protection",
+  46: "distress",
+  47: "family",
+  48: "family",
+  49: "illness",
+  50: "illness",
+  51: "illness",
+  52: "illness",
+  53: "distress",
+  54: "illness",
+  55: "illness",
+  56: "illness",
+  57: "illness",
+  58: "illness",
+  59: "illness",
+  60: "illness",
+  61: "weather",
+  62: "weather",
+  63: "weather",
+  64: "weather",
+  65: "weather",
+  66: "weather",
+  67: "weather",
+  68: "food",
+  69: "food",
+  70: "food",
+  71: "food",
+  72: "food",
+  73: "food",
+  74: "food",
+  75: "food",
+  76: "food",
+  77: "social",
+  78: "social",
+  79: "family",
+  80: "family",
+  81: "family",
+  82: "distress",
+  83: "social",
+  84: "social",
+  85: "forgiveness",
+  86: "social",
+  87: "social",
+  88: "protection",
+  89: "social",
+  90: "social",
+  91: "social",
+  92: "protection",
+  93: "social",
+  94: "protection",
+  95: "travel",
+  96: "travel",
+  97: "travel",
+  98: "travel",
+  99: "travel",
+  100: "travel",
+  101: "travel",
+  102: "travel",
+  103: "travel",
+  104: "travel",
+  105: "travel",
+  106: "social",
+  107: "social",
+  108: "social",
+  109: "social",
+  110: "protection",
+  111: "protection",
+  112: "social",
+  113: "social",
+  114: "social",
+  115: "hajj",
+  116: "hajj",
+  117: "hajj",
+  118: "hajj",
+  119: "hajj",
+  120: "hajj",
+  121: "hajj",
+  122: "social",
+  123: "social",
+  124: "illness",
+  125: "protection",
+  126: "protection",
+  127: "food",
+  128: "protection",
+  129: "forgiveness",
+  130: "forgiveness",
+  131: "forgiveness",
+  132: "protection",
+};
+
+// Re-map the hand-curated base items (which predate the taxonomy) onto the new
+// categories. Ids are preserved so existing saved-dua favorites still resolve.
+// `quranic-*` items already carry a valid category, so they need no entry.
+const BASE_CATEGORY_OVERRIDE = {
+  "sunnah-huda-tuqa": "forgiveness",
+  "sunnah-hamm-hazan": "distress",
+  "sunnah-afiyah": "protection",
+  "sunnah-dhikr-shukr": "prayer",
+  "sunnah-thabbit-qalbi": "protection",
+  "daily-before-eating": "food",
+  "daily-after-eating": "food",
+  "daily-leaving-home": "home",
+  "daily-entering-home": "home",
+  "daily-travel": "travel",
+  "daily-entering-masjid": "prayer",
+  "daily-distress": "distress",
 };
 
 const DUA_ITEMS = [
@@ -781,8 +1055,10 @@ function serializeObject(obj, fieldOrder) {
 }
 
 function withAudio(items, audioById) {
+  // An item's own audioUri (e.g. the exact Hisnul Muslim track carried on each
+  // dua row) wins over a fuzzy match; fuzzy matching only fills the gaps.
   return items.map((item) =>
-    audioById[item.id] ? { ...item, audioUri: audioById[item.id] } : item,
+    item.audioUri || !audioById[item.id] ? item : { ...item, audioUri: audioById[item.id] },
   );
 }
 
@@ -845,7 +1121,7 @@ function renderDuas(items, audioById) {
     .join("\n");
   return `import type { DuaCategoryId, DuaItem } from "../types/index";
 
-export const DUA_CONTENT_VERSION = 4;
+export const DUA_CONTENT_VERSION = 5;
 
 export const DUA_CATEGORY_LABELS: Record<DuaCategoryId, string> = {
 ${labels}
@@ -909,8 +1185,15 @@ function assertContent(zikr, dua) {
     if (!item.reference?.trim()) {
       throw new Error(`[adhkar] item ${item.id} is missing a reference`);
     }
-    if (!item.transliteration?.trim() || !item.translation?.trim()) {
-      throw new Error(`[adhkar] item ${item.id} is missing transliteration/translation`);
+    if (!item.translation?.trim()) {
+      throw new Error(`[adhkar] item ${item.id} is missing a translation`);
+    }
+  }
+  // Zikr must keep transliteration; dua transliteration is optional (the full
+  // Hisnul Muslim corpus is ingested for breadth and only partly transliterated).
+  for (const item of zikr) {
+    if (!item.transliteration?.trim()) {
+      throw new Error(`[adhkar] zikr ${item.id} is missing transliteration`);
     }
   }
   const cats = [
@@ -929,10 +1212,14 @@ function assertContent(zikr, dua) {
 }
 
 export async function buildAdhkar() {
-  // Merge the open dua/dhikr dataset into the hand-curated base (dedup by Arabic).
+  // Zikr: merge the open dua/dhikr dataset onto the curated base (dedup by Arabic).
   const dataset = await fetchDuaDhikrDataset();
   const zikrItems = mergeUnique(ZIKR_ITEMS, dataset.zikr);
-  const duaItems = mergeUnique(DUA_ITEMS, dataset.dua);
+  // Duas: the full Hisnul Muslim corpus merged onto the curated base, with clean
+  // transliteration layered from the curated + dataset sources where it exists.
+  const hisnDuas = await fetchHisnDuas();
+  const translitLookup = buildTranslitLookup([...dataset.dua, ...dataset.zikr]);
+  const duaItems = buildDuaCorpus(hisnDuas, translitLookup);
   const duroodItems = DUROOD_ITEMS;
 
   assertContent(zikrItems, duaItems);
@@ -956,18 +1243,22 @@ export async function buildAdhkar() {
   await writeFileStable(zikrPath, renderZikr(zikrItems, audioById));
   await writeFileStable(duasPath, renderDuas(duaItems, audioById));
   await writeFileStable(duroodsPath, renderDuroods(duroodItems, audioById));
+  const duasWithTranslit = withAudio(duaItems, audioById).filter((d) =>
+    d.transliteration?.trim(),
+  ).length;
+  const duasWithAudio = withAudio(duaItems, audioById).filter((d) => d.audioUri).length;
   console.log(
-    `  zikr.ts → ${zikrItems.length}, duas.ts → ${duaItems.length}, duroods.ts → ${duroodItems.length} (${matched} with audio, +${zikrItems.length - ZIKR_ITEMS.length + duaItems.length - DUA_ITEMS.length} from dataset)`,
+    `  zikr.ts → ${zikrItems.length}, duas.ts → ${duaItems.length} (${duasWithTranslit} transliterated, ${duasWithAudio} with audio), duroods.ts → ${duroodItems.length} (${matched} matched via audio db)`,
   );
 
   return [
     await datasetEntry({
       id: "adhkar",
       kind: "content",
-      version: 4,
+      version: 5,
       absFiles: [zikrPath, duasPath, duroodsPath],
       license: "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
-      attribution: `Adhkar & duas from ${DUADHIKR_REPO} (Arabic, transliteration, translation) + Hisnul Muslim. Audio matched to ${HISN_AUDIO_REPO}.`,
+      attribution: `Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (${HISN_AUDIO_REPO}); adhkar & transliteration from ${DUADHIKR_REPO} (Arabic, transliteration, translation). Audio streamed from ${HISN_AUDIO_REPO}.`,
       sourceUrl: `https://github.com/${DUADHIKR_REPO}`,
     }),
   ];

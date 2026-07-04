@@ -90,6 +90,23 @@ function localeToBcp47(locale: string): string {
  * "July 2026" (en), "يوليو ٢٠٢٦" (ar). Falls back to the English label if
  * `Intl.DateTimeFormat` is unavailable.
  */
+/** How many years before/after the anchor year the month picker exposes. */
+export const CALENDAR_YEAR_LOOKBACK = 50;
+export const CALENDAR_YEAR_LOOKAHEAD = 1;
+
+/** Localized short month names for a Gregorian year grid (Jan–Dec). */
+export function localizedMonthNames(locale: string): string[] {
+  return Array.from({ length: 12 }, (_, month) => {
+    try {
+      return new Intl.DateTimeFormat(localeToBcp47(locale), { month: "short" }).format(
+        new Date(2024, month, 1),
+      );
+    } catch {
+      return MONTH_NAMES[month].slice(0, 3);
+    }
+  });
+}
+
 export function localizedMonthLabel(year: number, month: number, locale: string): string {
   const date = new Date(year, month, 1);
   try {

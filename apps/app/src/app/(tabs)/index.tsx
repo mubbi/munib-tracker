@@ -18,6 +18,7 @@ import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
 import { QazaSummaryCard } from "@/components/qaza-summary-card";
+import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -26,13 +27,16 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar, SegmentedProgress } from "@/components/ui/progress-bar";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { Stagger } from "@/components/ui/stagger";
-import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
+import { MaxContentWidth, Spacing } from "@/constants/theme";
+import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { arrowForward, chevronForward } from "@/lib/rtl";
+import { HOME_FAQ } from "@/lib/seo/faq-content";
+import { faqSchema } from "@/lib/seo/structured-data";
 import { useLocationActions } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 import {
@@ -49,6 +53,7 @@ export default function HomeScreen() {
   const { t, i18n } = useTranslation();
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
+  const contentBottomInset = useContentBottomInset();
   const summary = useDailySummary();
   const streak = useStreak();
   const devotion = useDevotionProgress();
@@ -198,21 +203,23 @@ export default function HomeScreen() {
 
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
+      <Seo path="/" isHome jsonLd={[faqSchema(HOME_FAQ)]} />
       <StatusBar style="light" />
       <ScrollView
         ref={scrollRef}
         onScroll={onScroll}
         scrollEventThrottle={16}
-        contentContainerStyle={[
-          styles.scrollContent,
-          { paddingBottom: BottomTabInset + Spacing.four },
-        ]}
+        contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
         }
       >
         <View style={styles.column}>
+          {/* Semantic H1 for search/AI crawlers; the visible hero is a graphic. */}
+          <ThemedText heading={1} style={styles.srOnly}>
+            {t("common.appName")} — {t("common.appTagline")}
+          </ThemedText>
           <PrayerTimesHero
             location={hero.location}
             hijriDate={hero.hijriDate}
@@ -341,6 +348,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
+  // Visually hidden but present in the DOM/accessibility tree (sr-only heading).
+  srOnly: { position: "absolute", width: 1, height: 1, margin: -1, overflow: "hidden", opacity: 0 },
   scrollContent: { flexGrow: 1, alignItems: "center" },
   column: { width: "100%", maxWidth: MaxContentWidth },
   body: { paddingHorizontal: Spacing.four, marginTop: -Spacing.five, gap: Spacing.four, zIndex: 1 },

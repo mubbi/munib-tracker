@@ -57,6 +57,8 @@ export interface UserPreferences {
   customAccent?: string;
   /** Preferred audio playback speed for the global player. */
   audioSpeed?: number;
+  /** Preferred audio volume for the global player (0–1). */
+  audioVolume?: number;
   /** Hero weather display and animated overlays. */
   weatherPrefs: WeatherPreferences;
   /** ISO datetime the preferences blob was last edited (sync last-write-wins). */

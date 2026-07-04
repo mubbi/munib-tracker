@@ -1,0 +1,47 @@
+import { useSegments } from "expo-router";
+import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { BottomTabInset, Spacing } from "@/constants/theme";
+
+const MiniPlayerInsetContext = createContext<{
+  inset: number;
+  setInset: (height: number) => void;
+}>({
+  inset: 0,
+  setInset: () => {},
+});
+
+/** Tracks the measured height of the docked compact mini-player. */
+export function MiniPlayerInsetProvider({ children }: { children: ReactNode }) {
+  const [inset, setInset] = useState(0);
+  const value = useMemo(() => ({ inset, setInset }), [inset]);
+  return (
+    <MiniPlayerInsetContext.Provider value={value}>{children}</MiniPlayerInsetContext.Provider>
+  );
+}
+
+/** Extra bottom padding when the compact mini-player is visible. */
+export function useMiniPlayerInset(): number {
+  return useContext(MiniPlayerInsetContext).inset;
+}
+
+/** @internal Called by the mini-player when it mounts or changes size. */
+export function useSetMiniPlayerInset(): (height: number) => void {
+  return useContext(MiniPlayerInsetContext).setInset;
+}
+
+/** Space reserved for the tab bar, or the home indicator on stack screens. */
+export function useTabBarOffset(): number {
+  const insets = useSafeAreaInsets();
+  const segments = useSegments();
+  const inTabs = segments[0] === "(tabs)";
+  return inTabs ? BottomTabInset : insets.bottom;
+}
+
+/** Scroll/list bottom padding: tab bar + mini-player + breathing room. */
+export function useContentBottomInset(extra = Spacing.four): number {
+  const tabBarOffset = useTabBarOffset();
+  const miniPlayerInset = useMiniPlayerInset();
+  return tabBarOffset + miniPlayerInset + extra;
+}

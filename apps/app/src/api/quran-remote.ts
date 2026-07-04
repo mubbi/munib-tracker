@@ -1,6 +1,7 @@
 import type { QuranEdition } from "@munib-tracker/shared/types";
 
 import { QuranCacheRepository } from "@/db";
+import { fetchStaticJson } from "@/lib/static-json-fetch";
 
 /**
  * D2 — extra Qur'an translations fetched on demand from fawazahmed0/quran-api
@@ -68,9 +69,9 @@ export async function fetchRemoteEditionSurah(
   const fawaz = fawazId(editionId);
   if (!fawaz) throw new Error(`Unknown remote edition: ${editionId}`);
 
-  const res = await fetch(`${FAWAZ}/${fawaz}/${surah}.json`);
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${editionId} surah ${surah}`);
-  const json = (await res.json()) as { chapter: Array<{ verse: number; text: string }> };
+  const json = await fetchStaticJson<{ chapter: Array<{ verse: number; text: string }> }>(
+    `${FAWAZ}/${fawaz}/${surah}.json`,
+  );
 
   const map: Record<string, string> = {};
   for (const row of json.chapter) map[String(row.verse)] = row.text;

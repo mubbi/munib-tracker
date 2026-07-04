@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -44,6 +45,11 @@ export default function ZikrTasbeehScreen() {
         title={t("tasbeeh.eyebrow")}
         onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
       >
+        <Seo
+          title={t("tasbeeh.eyebrow")}
+          description="Count this dhikr with a tactile tasbeeh counter."
+          index={false}
+        />
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("tasbeeh.notFoundTitle")}
@@ -65,6 +71,11 @@ export default function ZikrTasbeehScreen() {
       title={item.title}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      <Seo
+        title={t("tasbeeh.eyebrow")}
+        description="Count this dhikr with a tactile tasbeeh counter."
+        index={false}
+      />
       <Card variant="muted" padding="four" style={styles.reading}>
         <ThemedText
           type="arabic"

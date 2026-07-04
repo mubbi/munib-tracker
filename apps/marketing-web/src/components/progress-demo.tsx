@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const DEMO_MAX = 6;
+const DEMO_MAX = 5;
 
 export function ProgressDemo() {
   const [value, setValue] = useState(3);
@@ -13,7 +13,7 @@ export function ProgressDemo() {
     <div className="rounded-[var(--radius-card)] border border-border/60 bg-card p-6">
       <h3 className="text-lg font-semibold">Today&apos;s prayer progress</h3>
       <p className="mt-1 text-sm text-muted">
-        Interactive demo — tap a prayer to mark it complete.
+        Interactive demo — tap a fard prayer to mark it complete.
       </p>
 
       <div
@@ -21,7 +21,7 @@ export function ProgressDemo() {
         aria-valuenow={value}
         aria-valuemin={0}
         aria-valuemax={DEMO_MAX}
-        aria-label={`${value} of ${DEMO_MAX} obligatory prayers completed`}
+        aria-label={`${value} of ${DEMO_MAX} fard prayers completed`}
         className="mt-6"
       >
         <div className="flex items-center justify-between text-sm">
@@ -39,7 +39,7 @@ export function ProgressDemo() {
       </div>
 
       <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha", "Witr"].map((prayer, index) => {
+        {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"].map((prayer, index) => {
           const done = index < value;
           return (
             <li key={prayer}>

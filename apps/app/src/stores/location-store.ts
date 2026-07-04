@@ -3,9 +3,11 @@ import {
   DEFAULT_LOCATION,
   getDeviceLocation,
   type LocationSearchResult,
+  resolvePlaceFromCoordinates,
   type StoredLocation,
 } from "@/lib/location";
 import type { CalculationMethodKey, MadhabKey } from "@/lib/prayer-times";
+import { weatherActions } from "@/stores/weather-store";
 
 import { createStore, useStore } from "./create-store";
 
@@ -61,17 +63,20 @@ export const locationStore = createStore<LocationState>((set, get) => ({
   async requestDeviceLocation() {
     if (get().status === "loading") return;
     set({ status: "loading" });
-    const result = await getDeviceLocation();
+    const result = await getDeviceLocation(get().location);
     if (result.status !== "granted") {
       set({ status: result.status });
       return;
     }
     const location = await LocationRepository.update(result.location);
     set({ location, status: "ready" });
+    void weatherActions.sync({ force: true });
   },
 
   async setManualLocation(place) {
-    const location = await LocationRepository.update({
+    // Apply coords + timezone immediately so prayer times and the hero schedule
+    // update before the reverse-geocode round-trip finishes.
+    const optimistic = await LocationRepository.update({
       latitude: place.latitude,
       longitude: place.longitude,
       city: place.name,
@@ -82,7 +87,20 @@ export const locationStore = createStore<LocationState>((set, get) => ({
       // Show the chosen city's prayer times in that city's clock, not the device's.
       timeZone: place.timeZone,
     });
-    set({ location, status: "ready" });
+    set({ location: optimistic, status: "ready" });
+    void weatherActions.sync({ force: true });
+
+    const resolved = await resolvePlaceFromCoordinates(place.latitude, place.longitude);
+    const city = resolved.city ?? place.name;
+    const country = resolved.country ?? place.country;
+    const label = resolved.city || resolved.country ? resolved.label : place.label;
+
+    if (city === optimistic.city && country === optimistic.country && label === optimistic.label) {
+      return;
+    }
+
+    const location = await LocationRepository.update({ city, country, label });
+    set({ location });
   },
 
   async setMethod(method) {

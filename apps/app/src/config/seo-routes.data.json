@@ -1,0 +1,187 @@
+{
+  "/": {
+    "title": "Munib Tracker — Prayer Times, Salah & Qaza Tracker",
+    "description": "A free, offline-first Islamic companion. Track your five daily prayers, qaza, and dhikr; read the Qur'an and hadith; and get accurate prayer times, qibla, and gentle reminders.",
+    "keywords": ["salah tracker app", "namaz tracker", "prayer tracker", "offline Islamic app"]
+  },
+  "/quran": {
+    "title": "Read the Qur'an Online — All 114 Surahs",
+    "description": "Read and listen to the complete Noble Qur'an offline. Browse all 114 surahs with Arabic text, transliteration, translations, and recitation — free and without ads.",
+    "keywords": ["read Quran online", "Quran with translation", "listen to Quran", "114 surahs"]
+  },
+  "/quran/search": {
+    "title": "Search the Qur'an",
+    "description": "Search the Qur'an by word, translation, or transliteration and jump straight to any ayah. Works fully offline across the bundled translation.",
+    "keywords": ["search Quran", "find ayah", "Quran verse search"],
+    "index": false
+  },
+  "/quran/bookmarks": {
+    "title": "Qur'an Bookmarks",
+    "description": "Your saved Qur'an ayahs, kept together for quick return.",
+    "index": false
+  },
+  "/hadith": {
+    "title": "Hadith Collections — Sayings of the Prophet ﷺ",
+    "description": "Browse authentic hadith from the major collections. Read the sayings and traditions of the Prophet Muhammad ﷺ offline, with narrator and grading details.",
+    "keywords": ["hadith collections", "sahih hadith", "sunnah", "prophetic traditions"]
+  },
+  "/hadith/bookmarks": {
+    "title": "Hadith Bookmarks",
+    "description": "Your saved hadith, kept together for quick return.",
+    "index": false
+  },
+  "/dua": {
+    "title": "Duas & Supplications — Sunnah and Quranic",
+    "description": "A collection of authentic duas and supplications — Sunnah, Quranic, and daily. Read the Arabic, transliteration, and meaning, and save your favorites offline.",
+    "keywords": ["islamic duas", "supplications", "sunnah dua", "quranic dua", "daily dua"]
+  },
+  "/dua/favorites": {
+    "title": "Saved Duas",
+    "description": "Your saved duas, kept together for quick return.",
+    "index": false
+  },
+  "/duroods": {
+    "title": "Duroods & Salawat — Blessings upon the Prophet ﷺ",
+    "description": "Recite Durood and Salawat — sending blessings upon the Prophet Muhammad ﷺ. Read the Arabic, transliteration, and meaning of well-known salawat offline.",
+    "keywords": ["durood shareef", "salawat", "blessings on the prophet", "durood"]
+  },
+  "/zikr": {
+    "title": "Daily Adhkar & Dhikr — Morning and Evening Remembrance",
+    "description": "Morning, evening, and situational adhkar for every part of your day. Read authentic dhikr with Arabic, transliteration, and meaning, and count along with the tasbeeh.",
+    "keywords": ["morning adhkar", "evening adhkar", "daily dhikr", "azkar", "remembrance of Allah"]
+  },
+  "/zikr/favorites": {
+    "title": "Favorite Adhkar",
+    "description": "Your favorited adhkar, kept together for quick access.",
+    "index": false
+  },
+  "/names-of-allah": {
+    "title": "99 Names of Allah — Asma ul Husna",
+    "description": "The 99 beautiful names of Allah (Asma ul-Husna) with Arabic, transliteration, and meaning. Listen to the recitation of each name — free and offline.",
+    "keywords": ["99 names of Allah", "asma ul husna", "beautiful names of Allah", "names of Allah"]
+  },
+  "/qibla": {
+    "title": "Qibla Direction Finder — Face the Kaaba",
+    "description": "Find the qibla direction toward the Kaaba in Makkah from anywhere. A compass and precise bearing help you face the right direction for prayer.",
+    "keywords": ["qibla direction", "qibla finder", "qibla compass", "direction of Kaaba", "kaaba"]
+  },
+  "/qaza": {
+    "title": "Qaza Namaz Tracker — Make Up Missed Prayers",
+    "description": "Track and clear missed (qaza) prayers, one make-up at a time. Per-prayer counters, a daily schedule, and scholar-aware guidance on making up missed salah.",
+    "keywords": ["qaza namaz", "missed prayers", "make up prayers", "qadha salah", "qaza tracker"]
+  },
+  "/qaza/calculator": {
+    "title": "Qaza Prayer Calculator — Estimate Missed Salah",
+    "description": "Estimate a lifetime of missed prayers from your age, puberty age, and years prayed. A simple qaza calculator to turn an overwhelming backlog into a clear number.",
+    "keywords": ["qaza calculator", "missed prayer calculator", "qadha calculator", "lifetime qaza"]
+  },
+  "/qaza/planner": {
+    "title": "Qaza Planner — A Daily Pace to Clear Your Backlog",
+    "description": "Set a realistic daily pace to make up missed prayers and see an estimated date to clear your qaza backlog. Plan a steady, doable routine.",
+    "keywords": ["qaza planner", "make up missed prayers plan", "qadha schedule"]
+  },
+  "/qaza/roza": {
+    "title": "Missed Fasts Tracker — Qaza Roza",
+    "description": "Track and make up missed fasts (qaza roza). Estimate missed Ramadan fasts and record each make-up as you go.",
+    "keywords": ["qaza roza", "missed fasts", "make up fasts", "ramadan qaza", "fasting tracker"]
+  },
+  "/tasbeeh/free": {
+    "title": "Digital Tasbeeh Counter — Count Any Dhikr",
+    "description": "A free digital tasbeeh (misbaha) counter for any dhikr, hands-free. Count SubhanAllah, Alhamdulillah, Allahu Akbar, durood, or istighfar with a tactile tap.",
+    "keywords": ["tasbeeh counter", "digital tasbeeh", "misbaha", "dhikr counter", "online tasbeeh"]
+  },
+  "/credits": {
+    "title": "Credits & Data Sources",
+    "description": "The open datasets, translations, and recitation audio that power Munib Tracker, with licenses and attribution for every source.",
+    "keywords": ["credits", "data sources", "open source Islamic data", "attribution"]
+  },
+  "/tracker": {
+    "title": "Prayer Tracker",
+    "description": "Log each of today's prayers and keep your streak going. Saved on your device.",
+    "index": false
+  },
+  "/settings": {
+    "title": "Settings",
+    "description": "Appearance, notifications, language, and preferences for Munib Tracker.",
+    "index": false
+  },
+  "/settings/appearance": {
+    "title": "Appearance",
+    "description": "Choose light, dark, or system theme and your accent color.",
+    "index": false
+  },
+  "/settings/notifications": {
+    "title": "Notification Settings",
+    "description": "Choose reminders for salah, qaza, and zikr.",
+    "index": false
+  },
+  "/settings/bedtime": {
+    "title": "Bedtime",
+    "description": "Set when before-sleep adhkar reminders arrive.",
+    "index": false
+  },
+  "/settings/fonts": {
+    "title": "Fonts",
+    "description": "Size the Arabic and translation text you read most.",
+    "index": false
+  },
+  "/settings/language": {
+    "title": "Language",
+    "description": "Choose the app and translation language.",
+    "index": false
+  },
+  "/settings/time-format": {
+    "title": "Time Format",
+    "description": "Show times in a 12-hour or 24-hour clock.",
+    "index": false
+  },
+  "/settings/weather": {
+    "title": "Weather",
+    "description": "Home hero weather effects and temperature unit.",
+    "index": false
+  },
+  "/settings/about": {
+    "title": "About Munib Tracker",
+    "description": "About Munib Tracker — credits, content authenticity, privacy policy, and terms of service."
+  },
+  "/calendar": {
+    "title": "Worship Calendar",
+    "description": "Review your prayers day by day across the month.",
+    "index": false
+  },
+  "/search": {
+    "title": "Search",
+    "description": "Search across the Qur'an, hadith, duas, adhkar, duroods, and the 99 Names.",
+    "index": false
+  },
+  "/bookmarks": {
+    "title": "Bookmarks & Saved Reading",
+    "description": "All of your saved ayahs, hadith, duas, and adhkar in one place.",
+    "index": false
+  },
+  "/achievements": {
+    "title": "Achievements",
+    "description": "Milestones, badges, and your devotion level.",
+    "index": false
+  },
+  "/statistics": {
+    "title": "Statistics",
+    "description": "Lifetime progress, today's snapshot, and worship trends over time.",
+    "index": false
+  },
+  "/profile": {
+    "title": "Profile",
+    "description": "Your details and account.",
+    "index": false
+  },
+  "/location": {
+    "title": "Set Your Location",
+    "description": "Set the location used to calculate your prayer times and qibla.",
+    "index": false
+  },
+  "/notifications": {
+    "title": "Notifications",
+    "description": "Delivered and upcoming reminders.",
+    "index": false
+  }
+}

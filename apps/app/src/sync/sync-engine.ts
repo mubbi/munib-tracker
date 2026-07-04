@@ -5,7 +5,7 @@ import type {
   UserPreferences,
   ZikrProgress,
 } from "@munib-tracker/shared/types";
-import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
+import { isQazaPrayer } from "@munib-tracker/shared/validators";
 
 import { syncPull, syncPush } from "@/api/endpoints";
 import type { StoredSession } from "@/auth/session-store";
@@ -73,7 +73,7 @@ async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
               data.estimatedMissed != null ? Number(data.estimatedMissed) : undefined,
             updatedAt: record.updatedAt,
           });
-        } else if (isObligatoryPrayer(record.id)) {
+        } else if (isQazaPrayer(record.id)) {
           await QazaRepository.applyRemoteCounter(record.id, {
             prayerId: record.id,
             remaining: Number(data.remaining ?? 0),
