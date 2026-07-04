@@ -122,7 +122,9 @@ export async function rescheduleAll(
     if ((await getPermissionStatus()) !== "granted") return;
 
     const reminders = buildReminders(prefs, location);
+    const now = Date.now();
     for (const reminder of reminders) {
+      if (reminder.fireAt.getTime() <= now - 60_000) continue;
       await scheduleReminder(reminder);
     }
   });
@@ -160,7 +162,12 @@ export async function listScheduled(
 ): Promise<ScheduledReminderRow[]> {
   if (!isNative) {
     if (!prefs.notificationPrefs.masterEnabled) return [];
-    return summarizeReminders(buildReminders(prefs, location), prefs.timeFormat);
+    return summarizeReminders(
+      buildReminders(prefs, location),
+      prefs.timeFormat,
+      new Date(),
+      location.timeZone,
+    );
   }
 
   const scheduled = await Notifications.getAllScheduledNotificationsAsync();
@@ -230,5 +237,10 @@ export async function listScheduled(
   }
 
   if (!prefs.notificationPrefs.masterEnabled) return [];
-  return summarizeReminders(buildReminders(prefs, location), prefs.timeFormat);
+  return summarizeReminders(
+    buildReminders(prefs, location),
+    prefs.timeFormat,
+    new Date(),
+    location.timeZone,
+  );
 }

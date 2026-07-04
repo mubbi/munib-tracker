@@ -7,7 +7,6 @@ import {
   type StoredLocation,
 } from "@/lib/location";
 import type { CalculationMethodKey, MadhabKey } from "@/lib/prayer-times";
-import { weatherActions } from "@/stores/weather-store";
 
 import { createStore, useStore } from "./create-store";
 
@@ -70,7 +69,6 @@ export const locationStore = createStore<LocationState>((set, get) => ({
     }
     const location = await LocationRepository.update(result.location);
     set({ location, status: "ready" });
-    void weatherActions.sync({ force: true });
   },
 
   async setManualLocation(place) {
@@ -88,7 +86,6 @@ export const locationStore = createStore<LocationState>((set, get) => ({
       timeZone: place.timeZone,
     });
     set({ location: optimistic, status: "ready" });
-    void weatherActions.sync({ force: true });
 
     const resolved = await resolvePlaceFromCoordinates(place.latitude, place.longitude);
     const city = resolved.city ?? place.name;

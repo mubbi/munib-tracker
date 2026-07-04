@@ -242,3 +242,12 @@ export function isIosWebKitBrowserTab(): boolean {
   if (!isWebSession()) return false;
   return isIosWebKitDevice() && isWebBrowserTab();
 }
+
+/**
+ * iOS WebKit third-party browser (Chrome/Firefox/Edge) in a tab: Add to Home
+ * Screen must be done from Safari. Desktop/Android browsers always return false.
+ */
+export function isIosThirdPartyBrowserShell(): boolean {
+  const matrix = detectWebPwaBrowserMatrix();
+  return matrix?.needsSafariForInstall ?? false;
+}

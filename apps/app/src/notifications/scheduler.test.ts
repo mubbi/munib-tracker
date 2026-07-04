@@ -130,37 +130,27 @@ describe("rescheduleAll", () => {
     expect(mockSchedule).not.toHaveBeenCalled();
   });
 
-  it("uses a DAILY trigger for repeating reminders and a DATE trigger for one-offs", async () => {
+  it("uses DATE triggers for every built reminder", async () => {
     const prefs = makePrefs();
     await rescheduleAll(prefs, DEFAULT_LOCATION);
 
     const triggers = mockSchedule.mock.calls.map(
       ([arg]) => (arg as { trigger: { type: string } }).trigger,
     );
-    const daily = triggers.filter((t) => t.type === TRIGGER.DAILY);
     const date = triggers.filter((t) => t.type === TRIGGER.DATE);
 
-    // The built set contains both repeat kinds; every reminder is one or the other.
     const built = buildReminders(prefs, DEFAULT_LOCATION);
-    expect(daily.length).toBe(built.filter((r) => r.repeat === "daily").length);
-    expect(date.length).toBe(built.filter((r) => r.repeat === "date").length);
-    expect(daily.length).toBeGreaterThan(0);
-    expect(date.length).toBeGreaterThan(0);
-    expect(daily.length + date.length).toBe(triggers.length);
+    expect(date.length).toBe(built.length);
+    expect(triggers.every((t) => t.type === TRIGGER.DATE)).toBe(true);
   });
 
-  it("gives daily triggers an hour/minute and date triggers an absolute date", async () => {
+  it("gives date triggers an absolute fire instant", async () => {
     await rescheduleAll(makePrefs(), DEFAULT_LOCATION);
 
-    const daily = mockSchedule.mock.calls
-      .map(([arg]) => (arg as { trigger: Record<string, unknown> }).trigger)
-      .find((t) => t.type === TRIGGER.DAILY);
     const date = mockSchedule.mock.calls
       .map(([arg]) => (arg as { trigger: Record<string, unknown> }).trigger)
       .find((t) => t.type === TRIGGER.DATE);
 
-    expect(typeof daily?.hour).toBe("number");
-    expect(typeof daily?.minute).toBe("number");
     expect(date?.date).toBeInstanceOf(Date);
   });
 

@@ -8,6 +8,8 @@ import {
   SNOOZE_ACTION_IDENTIFIER,
   snoozeNotification,
 } from "@/notifications/scheduler";
+import { isWeb } from "@/lib/notifications/platform";
+import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useStore } from "@/stores/create-store";
 import { locationStore } from "@/stores/location-store";
@@ -32,6 +34,31 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     void configureNotifications();
   }, []);
+
+  useEffect(() => {
+    if (!isWeb) return;
+    setWebReminderFireHandler((reminder) => {
+      void deliver({
+        kind: "reminder",
+        title: reminder.title,
+        body: reminder.body,
+        route: reminder.route,
+        id: `web-${reminder.id}`,
+      });
+      if (
+        typeof window !== "undefined" &&
+        "Notification" in window &&
+        Notification.permission === "granted"
+      ) {
+        try {
+          new Notification(reminder.title, { body: reminder.body, tag: reminder.id });
+        } catch {
+          // Ignore — permission can change between check and show.
+        }
+      }
+    });
+    return () => setWebReminderFireHandler(null);
+  }, [deliver]);
 
   useEffect(() => {
     if (!ready || !locationReady) return;

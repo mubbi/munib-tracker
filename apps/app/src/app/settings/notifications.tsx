@@ -53,7 +53,7 @@ export default function NotificationsScreen() {
   const enableMaster = async () => {
     if (isWeb) {
       await setNotificationPrefs({ masterEnabled: true });
-      toast.info(t("notif.webLimitedTitle"), t("notifCenter.webNote"));
+      await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
       return;
     }
 

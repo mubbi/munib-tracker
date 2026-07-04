@@ -1135,6 +1135,8 @@
     "permissionText": "Turn on notifications to receive reminders for Salah, Zikr, and Qaza.",
     "enable": "Enable notifications",
     "scheduled": "Scheduled",
+    "scheduledHint": "These alerts fire at the scheduled time in your location's timezone. They are not delivered until then.",
+    "delivered": "Delivered",
     "settings": "Settings",
     "emptyTitle": "No notifications",
     "emptyDesc": "Delivered reminders and upcoming alerts will appear here.",

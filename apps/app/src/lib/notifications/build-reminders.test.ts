@@ -131,13 +131,11 @@ describe("buildReminders", () => {
     expect(tahajjud[0]?.fireAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
   });
 
-  it("drops date-based reminders that have already passed relative to now", () => {
-    // A `now` far in the future prunes every one-off (date) reminder; only the
-    // repeating daily reminders survive.
+  it("drops reminders that have already passed relative to now", () => {
     const future = new Date(FIXED_NOW.getTime() + 30 * 24 * 60 * 60 * 1000);
     const reminders = buildReminders(basePrefs, DEFAULT_LOCATION, future);
 
-    expect(reminders.every((r) => r.repeat === "daily")).toBe(true);
     expect(reminders.length).toBeGreaterThan(0);
+    expect(reminders.every((r) => r.fireAt.getTime() > future.getTime() - 60_000)).toBe(true);
   });
 });

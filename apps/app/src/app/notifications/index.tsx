@@ -25,55 +25,52 @@ import { formatDisplayDateTime } from "@/lib/time";
 import { listScheduled, rescheduleAll } from "@/notifications/scheduler";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
-import { locationStore } from "@/stores/location-store";
+import { locationStore, useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 
 type Scheduled = Awaited<ReturnType<typeof listScheduled>>;
 
 const PAGE_SIZE = 10;
 
-function mergeNotifications(
-  inbox: ReturnType<typeof useInAppNotifications>["items"],
-  scheduled: Scheduled,
-): NotificationListItem[] {
-  const rows: NotificationListItem[] = [
-    ...inbox.map((item) => ({
-      id: `inbox:${item.id}`,
-      title: item.title,
-      body: item.body,
-      at: item.createdAt,
-      readAt: item.readAt,
-      inboxId: item.id,
-      kind: item.kind,
-      reminderKey: extractReminderKey(`inbox:${item.id}`, item.id),
-    })),
-    ...scheduled.map((item) => ({
-      id: `scheduled:${item.id}`,
-      title: item.title,
-      body: item.body,
-      at: item.fireAt,
-      readAt: null,
-      reminderKey: extractReminderKey(`scheduled:${item.id}`),
-      route: item.route,
-    })),
-  ];
+function mapInboxItems(inbox: ReturnType<typeof useInAppNotifications>["items"]): NotificationListItem[] {
+  return inbox.map((item) => ({
+    id: `inbox:${item.id}`,
+    title: item.title,
+    body: item.body,
+    at: item.createdAt,
+    readAt: item.readAt,
+    inboxId: item.id,
+    kind: item.kind,
+    reminderKey: extractReminderKey(`inbox:${item.id}`, item.id),
+  }));
+}
 
-  return rows.sort((a, b) => b.at.localeCompare(a.at));
+function mapScheduledItems(scheduled: Scheduled): NotificationListItem[] {
+  return scheduled.map((item) => ({
+    id: `scheduled:${item.id}`,
+    title: item.title,
+    body: item.body,
+    at: item.fireAt,
+    readAt: null,
+    reminderKey: extractReminderKey(`scheduled:${item.id}`),
+    route: item.route,
+  }));
 }
 
 export default function NotificationCenterScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
+  const location = useLocation();
   const toast = useToast();
   const { items, unreadCount, open, markAllRead } = useInAppNotifications();
   const { requestPermission, granted } = useNotificationPermissions();
   const [scheduled, setScheduled] = useState<Scheduled>([]);
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [upcomingVisibleCount, setUpcomingVisibleCount] = useState(PAGE_SIZE);
 
   const reload = useCallback(async () => {
     setScheduled(await listScheduled(prefs, locationStore.getState().location));
-    setVisibleCount(PAGE_SIZE);
+    setUpcomingVisibleCount(PAGE_SIZE);
   }, [prefs]);
 
   useFocusEffect(
@@ -95,10 +92,26 @@ export default function NotificationCenterScreen() {
     await reload();
   };
 
-  const notifications = useMemo(() => mergeNotifications(items, scheduled), [items, scheduled]);
-  const visible = notifications.slice(0, visibleCount);
+  const delivered = useMemo(() => mapInboxItems(items), [items]);
+  const upcoming = useMemo(() => mapScheduledItems(scheduled), [scheduled]);
   const formatWhen = (iso: string) =>
-    formatDisplayDateTime(new Date(iso), prefs.timeFormat, prefs.locale);
+    formatDisplayDateTime(new Date(iso), prefs.timeFormat, prefs.locale, location.timeZone);
+
+  const renderRows = (rows: NotificationListItem[]) =>
+    rows.map((item) => (
+      <NotificationListRow
+        key={item.id}
+        item={item}
+        formattedWhen={formatWhen(item.at)}
+        onPress={
+          item.inboxId
+            ? () => void open(item.inboxId as string)
+            : item.route
+              ? () => router.push(item.route as Href)
+              : undefined
+        }
+      />
+    ));
 
   return (
     <ScreenLayout
@@ -134,7 +147,7 @@ export default function NotificationCenterScreen() {
             onOpenSettings={() => router.push("/settings/notifications")}
           />
 
-          {visible.length === 0 ? (
+          {delivered.length === 0 && upcoming.length === 0 ? (
             <EmptyState
               icon={{ ios: "bell.slash", android: "notifications_off", web: "notifications_off" }}
               title={t("notifCenter.emptyTitle")}
@@ -142,26 +155,31 @@ export default function NotificationCenterScreen() {
             />
           ) : (
             <View style={styles.list}>
-              {visible.map((item) => (
-                <NotificationListRow
-                  key={item.id}
-                  item={item}
-                  formattedWhen={formatWhen(item.at)}
-                  onPress={
-                    item.inboxId
-                      ? () => void open(item.inboxId as string)
-                      : item.route
-                        ? () => router.push(item.route as Href)
-                        : undefined
-                  }
-                />
-              ))}
-              {visibleCount < notifications.length ? (
+              {delivered.length > 0 ? (
+                <>
+                  <ThemedText type="smallBold">{t("notifCenter.delivered")}</ThemedText>
+                  {renderRows(delivered)}
+                </>
+              ) : null}
+
+              {upcoming.length > 0 ? (
+                <>
+                  <ThemedText type="smallBold" style={styles.sectionTitle}>
+                    {t("notifCenter.scheduled")}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("notifCenter.scheduledHint")}
+                  </ThemedText>
+                  {renderRows(upcoming.slice(0, upcomingVisibleCount))}
+                </>
+              ) : null}
+
+              {upcomingVisibleCount < upcoming.length ? (
                 <Button
                   label={t("notifCenter.loadMore")}
                   variant="secondary"
                   fullWidth
-                  onPress={() => setVisibleCount((count) => count + PAGE_SIZE)}
+                  onPress={() => setUpcomingVisibleCount((count) => count + PAGE_SIZE)}
                 />
               ) : null}
             </View>
@@ -182,5 +200,8 @@ const styles = StyleSheet.create({
   },
   list: {
     gap: Spacing.two,
+  },
+  sectionTitle: {
+    marginTop: Spacing.two,
   },
 });

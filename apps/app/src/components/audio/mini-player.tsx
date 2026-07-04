@@ -32,6 +32,7 @@ import {
   queuePosition as computeQueuePosition,
   queueDurationForProgress,
 } from "@/lib/audio-queue-timing";
+import { supportsProgrammaticVolume } from "@/lib/audio-volume";
 import { triggerHaptic } from "@/lib/haptics";
 import {
   AUDIO_SPEEDS,
@@ -841,25 +842,27 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
         </ThemedText>
       </View>
 
-      <View style={styles.volumeRow}>
-        <SymbolView
-          name={{ ios: "speaker.fill", android: "volume_down", web: "volume_down" }}
-          size={18}
-          tintColor={colors.mutedForeground}
-        />
-        <VolumeBar
-          volume={volume}
-          onChange={setVolume}
-          trackColor={tokens.track}
-          fillColor={colors.accent}
-          thumbColor={colors.accent}
-        />
-        <SymbolView
-          name={{ ios: "speaker.wave.3.fill", android: "volume_up", web: "volume_up" }}
-          size={18}
-          tintColor={colors.mutedForeground}
-        />
-      </View>
+      {supportsProgrammaticVolume() ? (
+        <View style={styles.volumeRow}>
+          <SymbolView
+            name={{ ios: "speaker.fill", android: "volume_down", web: "volume_down" }}
+            size={18}
+            tintColor={colors.mutedForeground}
+          />
+          <VolumeBar
+            volume={volume}
+            onChange={setVolume}
+            trackColor={tokens.track}
+            fillColor={colors.accent}
+            thumbColor={colors.accent}
+          />
+          <SymbolView
+            name={{ ios: "speaker.wave.3.fill", android: "volume_up", web: "volume_up" }}
+            size={18}
+            tintColor={colors.mutedForeground}
+          />
+        </View>
+      ) : null}
 
       {/* Controls */}
       <View style={styles.controls}>

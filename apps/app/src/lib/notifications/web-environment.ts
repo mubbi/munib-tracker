@@ -70,6 +70,14 @@ export function getWebNotificationGuidance(): WebNotificationGuidance {
   };
 }
 
+/** True when the browser can show the native permission prompt (Chromium / iOS installed PWA). */
+export function canRequestWebNotificationPermission(): boolean {
+  if (!isWeb) return false;
+  if (getWebNotificationBlockingReason() != null) return false;
+  if (!isWebNotificationApiAvailable()) return false;
+  return readWebNotificationPermission() === "default";
+}
+
 /**
  * Start the browser permission prompt synchronously (call directly from onPress
  * so Safari accepts it as a user gesture). Returns null when not started.

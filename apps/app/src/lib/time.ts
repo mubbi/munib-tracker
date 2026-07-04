@@ -58,6 +58,99 @@ export function shiftPrayerDay(anchor: Date, days: number): Date {
   return next;
 }
 
+type ZonedParts = {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+};
+
+/** Calendar + clock parts for an instant in an IANA timezone. */
+export function getZonedParts(date: Date, timeZone?: string): ZonedParts {
+  if (!timeZone) {
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+      hour: date.getHours(),
+      minute: date.getMinutes(),
+    };
+  }
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(date);
+  const pick = (type: Intl.DateTimeFormatPartTypes) =>
+    Number(parts.find((part) => part.type === type)?.value ?? 0);
+  return {
+    year: pick("year"),
+    month: pick("month"),
+    day: pick("day"),
+    hour: pick("hour"),
+    minute: pick("minute"),
+  };
+}
+
+/**
+ * Absolute instant for a wall-clock HH:mm on a calendar day in `timeZone`.
+ * Matches the hero banner's location-timezone semantics.
+ */
+export function wallClockInTimeZoneToDate(
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+  minute: number,
+  timeZone?: string,
+): Date {
+  if (!timeZone) {
+    return new Date(year, month - 1, day, hour, minute, 0, 0);
+  }
+
+  let candidate = new Date(Date.UTC(year, month - 1, day, hour, minute, 0, 0));
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const parts = getZonedParts(candidate, timeZone);
+    const desired = Date.UTC(year, month - 1, day, hour, minute);
+    const actual = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute);
+    const deltaMinutes = (desired - actual) / 60_000;
+    if (Math.abs(deltaMinutes) < 1) break;
+    candidate = new Date(candidate.getTime() + deltaMinutes * 60_000);
+  }
+  return candidate;
+}
+
+/** Next future instant for HH:mm in a location timezone (today or tomorrow). */
+export function nextWallClockInTimeZone(
+  hour: number,
+  minute: number,
+  timeZone?: string,
+  now = new Date(),
+): Date {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const y = anchor.getFullYear();
+  const m = anchor.getMonth() + 1;
+  const d = anchor.getDate();
+  let candidate = wallClockInTimeZoneToDate(y, m, d, hour, minute, timeZone);
+  if (candidate.getTime() <= now.getTime()) {
+    const tomorrow = shiftPrayerDay(anchor, 1);
+    candidate = wallClockInTimeZoneToDate(
+      tomorrow.getFullYear(),
+      tomorrow.getMonth() + 1,
+      tomorrow.getDate(),
+      hour,
+      minute,
+      timeZone,
+    );
+  }
+  return candidate;
+}
+
 /** Formats a calendar date for on-screen display. */
 export function formatDisplayDate(
   date: Date,
@@ -98,9 +191,15 @@ export function formatDisplayDateTime(
   date: Date,
   timeFormat: TimeFormat = "24",
   locale = "en",
+  timeZone?: string,
 ): string {
-  const datePart = formatDisplayDate(date, locale);
-  const timePart = formatDisplayTime(date, timeFormat);
+  const datePart = date.toLocaleDateString(localeToBcp47(locale), {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone,
+  });
+  const timePart = formatDisplayTime(date, timeFormat, timeZone);
   return `${datePart}, ${timePart}`;
 }
 

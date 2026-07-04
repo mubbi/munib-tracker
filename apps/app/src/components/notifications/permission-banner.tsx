@@ -8,7 +8,10 @@ import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWeb } from "@/lib/notifications/platform";
-import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
+import {
+  beginWebNotificationPermissionRequest,
+  canRequestWebNotificationPermission,
+} from "@/lib/notifications/web-environment";
 import { useToast } from "@/providers/toast-provider";
 
 type NotificationPermissionBannerProps = {
@@ -59,7 +62,10 @@ export function NotificationPermissionBanner({
   let title = t("notif.permissionBannerTitle");
   let message = t("notif.permissionBannerMessage");
   let steps: string | undefined;
-  let showAllow = !granted && canEnableLocalReminders && !isExpoGo;
+  const canRequestPermission = isWeb
+    ? canRequestWebNotificationPermission()
+    : canEnableLocalReminders;
+  let showAllow = !granted && !denied && canRequestPermission && !isExpoGo;
   const showOpenSettings = !isWeb && (denied || granted);
 
   if (isExpoGo) {

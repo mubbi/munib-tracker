@@ -6,13 +6,15 @@ import {
   readNotificationPermissionUiState,
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
+import {
+  cancelWebReminderTimers,
+  scheduleWebReminderTimers,
+} from "@/lib/notifications/web-reminder-scheduler";
 import { getWebNotificationBlockingReason } from "@/lib/notifications/web-environment";
 
 /**
- * Web build of the notification scheduler. Local notifications aren't available
- * on web, and merely importing `expo-notifications` there triggers its
- * push-token auto-registration warning. This platform-specific stub avoids the
- * dependency entirely while still exposing permission state and planned reminders.
+ * Web build of the notification scheduler. Uses in-app timers + optional browser
+ * notifications instead of expo-notifications (which is native-only).
  */
 
 export const SNOOZE_ACTION_IDENTIFIER = "snooze";
@@ -29,16 +31,18 @@ export async function getPermissionStatus(): Promise<"granted" | "denied" | "und
 export const requestPermission = requestNotificationPermission;
 
 export async function cancelAll(): Promise<void> {
-  return;
+  cancelWebReminderTimers();
 }
 
 export async function rescheduleAll(
   prefs: UserPreferences,
   location: StoredLocation = DEFAULT_LOCATION,
 ): Promise<void> {
-  void prefs;
-  void location;
-  return;
+  cancelWebReminderTimers();
+  if (!prefs.notificationPrefs.masterEnabled) return;
+
+  const reminders = buildReminders(prefs, location);
+  scheduleWebReminderTimers(reminders);
 }
 
 export async function snoozeNotification(_response: unknown): Promise<void> {
@@ -48,7 +52,12 @@ export async function snoozeNotification(_response: unknown): Promise<void> {
 export async function listScheduled(
   prefs: UserPreferences,
   location: StoredLocation = DEFAULT_LOCATION,
-): Promise<{ id: string; title: string; body: string; time?: string }[]> {
+): Promise<{ id: string; title: string; body: string; time?: string; fireAt: string; route?: string }[]> {
   if (!prefs.notificationPrefs.masterEnabled) return [];
-  return summarizeReminders(buildReminders(prefs, location), prefs.timeFormat);
+  return summarizeReminders(
+    buildReminders(prefs, location),
+    prefs.timeFormat,
+    new Date(),
+    location.timeZone,
+  );
 }

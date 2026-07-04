@@ -1,30 +1,45 @@
+/**
+ * iOS PWA install guidance — thin wrapper over the single source of truth in
+ * `@/lib/notifications/browser-capabilities` (Bowser + navigator hints + runtime
+ * probes). The previous hand-rolled UA regex here mislabelled environments (e.g.
+ * desktop/Android or non-iOS WebKit shells), which made the install banner show
+ * incorrectly. Delegating keeps the install banner and the notification
+ * permission banner on the exact same platform detection.
+ */
+
 import { Platform } from "react-native";
 
-import { isWebBrowserTab } from "@/lib/pwa/display-mode";
+import {
+  detectWebPwaBrowserMatrix,
+  isIosThirdPartyBrowserShell,
+  isIosWebKitBrowserTab,
+} from "@/lib/notifications/browser-capabilities";
 
-function isIosWebKitDevice(): boolean {
-  if (typeof navigator === "undefined") return false;
-  const ua = navigator.userAgent;
-  return (
-    /iPad|iPhone|iPod/.test(ua) ||
-    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
-  );
+export {
+  isIosThirdPartyBrowserShell,
+  isIosWebKitBrowserTab,
+  isIosWebKitDevice,
+} from "@/lib/notifications/browser-capabilities";
+
+/** iPhone/iPad Safari (WebKit) that can Add to Home Screen directly. */
+export function isIosSafariBrowser(): boolean {
+  const matrix = detectWebPwaBrowserMatrix();
+  return matrix?.isIosWebKit === true && !matrix.needsSafariForInstall;
 }
 
-/** Non-Safari iOS browsers (Chrome, Edge, etc.) must open the page in Safari to install. */
-export function isIosThirdPartyBrowserShell(): boolean {
-  if (typeof navigator === "undefined") return false;
-  const ua = navigator.userAgent;
-  if (!isIosWebKitDevice()) return false;
-  return !/Safari/.test(ua) || /CriOS|FxiOS|EdgiOS|OPiOS/.test(ua);
+/** iPhone/iPad Chrome shell — install must go through Safari. */
+export function isIosChromeBrowser(): boolean {
+  const matrix = detectWebPwaBrowserMatrix();
+  return matrix?.isIosWebKit === true && matrix.browser.browserName?.toLowerCase() === "chrome";
 }
 
-export function isIosWebKitBrowserTab(): boolean {
-  return Platform.OS === "web" && isIosWebKitDevice() && isWebBrowserTab();
+/** iPhone/iPad in a browser tab (not launched from the Home Screen). */
+export function isIosBrowserTab(): boolean {
+  return isIosWebKitBrowserTab();
 }
 
 export function shouldShowIosPwaInstallBanner(): boolean {
-  return isIosWebKitBrowserTab();
+  return Platform.OS === "web" && isIosWebKitBrowserTab();
 }
 
 export function getIosPwaInstallNeedsSafari(): boolean {

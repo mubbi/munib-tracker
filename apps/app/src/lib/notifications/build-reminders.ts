@@ -4,7 +4,7 @@ import i18n from "@/i18n";
 import type { StoredLocation } from "@/lib/location";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
 import { computePrayerTimes, prayerReminderTime, witrTime } from "@/lib/prayer-times";
-import { formatDisplayHhMm, parseHhMm, prayerDayAnchor, shiftPrayerDay } from "@/lib/time";
+import { formatDisplayHhMm, getZonedParts, parseHhMm, prayerDayAnchor, shiftPrayerDay, wallClockInTimeZoneToDate } from "@/lib/time";
 
 export type ReminderChannelId = "prayer" | "zikr" | "qaza";
 
@@ -153,21 +153,45 @@ function pushPrayerReminders(
   }
 }
 
-function pushDailyReminder(
+function pushDailyReminders(
   reminders: BuiltReminder[],
   when: string,
-  id: string,
+  idPrefix: string,
   title: string,
   body: string,
   channelId: ReminderChannelId,
   route: string,
   enabled: boolean,
+  location: StoredLocation,
+  now: Date,
 ): void {
   if (!enabled) return;
   const { hour, minute } = parseHhMm(when);
-  const fireAt = new Date();
-  fireAt.setHours(hour, minute, 0, 0);
-  reminders.push({ id, fireAt, title, body, channelId, repeat: "daily", route });
+  const anchor = prayerDayAnchor(now, location.timeZone);
+
+  for (let offset = 0; offset < SCHEDULE_DAYS_AHEAD; offset += 1) {
+    const day = shiftPrayerDay(anchor, offset);
+    const fireAt = wallClockInTimeZoneToDate(
+      day.getFullYear(),
+      day.getMonth() + 1,
+      day.getDate(),
+      hour,
+      minute,
+      location.timeZone,
+    );
+    if (fireAt.getTime() <= now.getTime() - 60_000) continue;
+
+    const dayKey = `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
+    reminders.push({
+      id: `${idPrefix}:${dayKey}`,
+      fireAt,
+      title,
+      body,
+      channelId,
+      repeat: "date",
+      route,
+    });
+  }
 }
 
 export function buildReminders(
@@ -182,7 +206,7 @@ export function buildReminders(
     pushPrayerReminders(reminders, prefs, location, offset);
   }
 
-  pushDailyReminder(
+  pushDailyReminders(
     reminders,
     "07:00",
     "morningZikr",
@@ -191,8 +215,10 @@ export function buildReminders(
     "zikr",
     zikrRoute("morning"),
     n.morningZikr,
+    location,
+    now,
   );
-  pushDailyReminder(
+  pushDailyReminders(
     reminders,
     "17:30",
     "eveningZikr",
@@ -201,8 +227,10 @@ export function buildReminders(
     "zikr",
     zikrRoute("evening"),
     n.eveningZikr,
+    location,
+    now,
   );
-  pushDailyReminder(
+  pushDailyReminders(
     reminders,
     prefs.bedtime ?? "22:30",
     "beforeSleep",
@@ -211,8 +239,10 @@ export function buildReminders(
     "zikr",
     zikrRoute("before_sleep"),
     n.beforeSleep,
+    location,
+    now,
   );
-  pushDailyReminder(
+  pushDailyReminders(
     reminders,
     "20:00",
     "qaza",
@@ -221,13 +251,12 @@ export function buildReminders(
     "qaza",
     "/qaza",
     n.qaza,
+    location,
+    now,
   );
 
-  // Drop reminders that already passed (date-based only).
-  return reminders.filter((reminder) => {
-    if (reminder.repeat === "daily") return true;
-    return reminder.fireAt.getTime() > now.getTime() - 60_000;
-  });
+  // Drop reminders whose fire time has already passed.
+  return reminders.filter((reminder) => reminder.fireAt.getTime() > now.getTime() - 60_000);
 }
 
 export type ScheduledReminderRow = {
@@ -251,6 +280,7 @@ export function summarizeReminders(
   reminders: BuiltReminder[],
   timeFormat: TimeFormat = "24",
   now = new Date(),
+  timeZone?: string,
 ): ScheduledReminderRow[] {
   const sorted = [...reminders].sort((a, b) => a.fireAt.getTime() - b.fireAt.getTime());
   const seen = new Set<string>();
@@ -261,18 +291,15 @@ export function summarizeReminders(
     if (seen.has(key)) continue;
     seen.add(key);
 
-    let fireAt = reminder.fireAt;
-    if (reminder.repeat === "daily" && fireAt.getTime() <= now.getTime()) {
-      fireAt = new Date(fireAt);
-      fireAt.setDate(fireAt.getDate() + 1);
-    }
+    if (reminder.fireAt.getTime() <= now.getTime()) continue;
 
+    const clock = getZonedParts(reminder.fireAt, timeZone);
     rows.push({
       id: reminder.id,
       title: reminder.title,
       body: reminder.body,
-      fireAt: fireAt.toISOString(),
-      time: formatDisplayHhMm(fireAt.getHours(), fireAt.getMinutes(), timeFormat),
+      fireAt: reminder.fireAt.toISOString(),
+      time: formatDisplayHhMm(clock.hour, clock.minute, timeFormat),
       route: reminder.route,
     });
   }
