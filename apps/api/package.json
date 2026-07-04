@@ -13,7 +13,7 @@
     "test": "vitest run && vitest run --config vitest.config.e2e.ts",
     "test:watch": "vitest",
     "test:e2e": "vitest run --config vitest.config.e2e.ts",
-    "openapi": "cross-env DATABASE_TYPE=sqlite NODE_ENV=test EXPORT_OPENAPI=true nest build && cross-env DATABASE_TYPE=sqlite NODE_ENV=test EXPORT_OPENAPI=true node dist/main.js",
+    "openapi": "cross-env DATABASE_TYPE=sqlite NODE_ENV=test EXPORT_OPENAPI=true node dist/main.js",
     "typeorm": "tsx ./node_modules/typeorm/cli.js -d src/database/data-source.ts",
     "migration:run": "pnpm typeorm migration:run",
     "migration:revert": "pnpm typeorm migration:revert",

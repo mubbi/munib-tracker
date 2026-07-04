@@ -107,6 +107,13 @@ jest.mock("expo-router", () => ({
     canGoBack: () => false,
   }),
   useFocusEffect: jest.fn(),
+  usePathname: () => "/",
+  useSegments: () => ["(tabs)"],
+}));
+
+// `<Seo>` uses the vendored Helmet, which needs a document head context absent in Jest.
+jest.mock("expo-router/vendor/react-helmet-async/lib", () => ({
+  Helmet: ({ children }: { children?: ReactNode }) => children ?? null,
 }));
 
 jest.mock("react-native-safe-area-context", () => ({
