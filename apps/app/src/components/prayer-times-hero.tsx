@@ -23,6 +23,7 @@ import { HeroWeatherEffects } from "@/components/weather/hero-weather-effects";
 import { Durations } from "@/constants/motion";
 import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
+import { chevronForward } from "@/lib/rtl";
 import type { SkyPalette } from "@/lib/sky";
 
 import { heroMotionClasses } from "./prayer-times-hero-motion";
@@ -259,11 +260,7 @@ export function PrayerTimesHero({
                   </ThemedText>
                 </>
               ) : null}
-              <SymbolView
-                name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-                size={11}
-                tintColor={Brand.heroText}
-              />
+              <SymbolView name={chevronForward} size={11} tintColor={Brand.heroText} />
             </PressableScale>
             <View style={styles.actions}>
               <HeroIconButton
@@ -295,11 +292,7 @@ export function PrayerTimesHero({
               <ThemedText style={[styles.hijri, styles.softShadow, { color: Brand.heroText }]}>
                 {hijriDate}
               </ThemedText>
-              <SymbolView
-                name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-                size={12}
-                tintColor={Brand.heroSubtext}
-              />
+              <SymbolView name={chevronForward} size={12} tintColor={Brand.heroSubtext} />
             </PressableScale>
             <View
               accessible

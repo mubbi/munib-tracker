@@ -3,7 +3,6 @@ import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -14,6 +13,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type LocationSearchResult, searchLocations } from "@/lib/location";
+import { chevronForward } from "@/lib/rtl";
 import {
   locationStore,
   useLocation,
@@ -214,7 +214,7 @@ export default function LocationScreen() {
                             android: "check_circle",
                             web: "check_circle",
                           }
-                        : { ios: "chevron.right", android: "chevron_right", web: "chevron_right" }
+                        : chevronForward
                     }
                     size={selected ? 20 : 15}
                     tintColor={selected ? colors.accent : colors.mutedForeground}

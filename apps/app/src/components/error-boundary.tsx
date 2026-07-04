@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { Radius, Spacing } from "@/constants/theme";
@@ -7,22 +8,23 @@ import { useTheme } from "@/hooks/use-theme";
 /** Themed, calm fallback shown when a subtree throws during render. */
 function ErrorFallback({ onReset }: { onReset: () => void }) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.foreground }]}>Something went wrong</Text>
-      <Text style={[styles.body, { color: colors.mutedForeground }]}>
-        The app ran into an unexpected problem. Your saved data is safe — you can try again.
-      </Text>
+      <Text style={[styles.title, { color: colors.foreground }]}>{t("errors.title")}</Text>
+      <Text style={[styles.body, { color: colors.mutedForeground }]}>{t("errors.body")}</Text>
       <Pressable
         onPress={onReset}
         accessibilityRole="button"
-        accessibilityLabel="Try again"
+        accessibilityLabel={t("common.tryAgain")}
         style={({ pressed }) => [
           styles.button,
           { backgroundColor: colors.accent, opacity: pressed ? 0.85 : 1 },
         ]}
       >
-        <Text style={[styles.buttonLabel, { color: colors.accentForeground }]}>Try again</Text>
+        <Text style={[styles.buttonLabel, { color: colors.accentForeground }]}>
+          {t("common.tryAgain")}
+        </Text>
       </Pressable>
     </View>
   );

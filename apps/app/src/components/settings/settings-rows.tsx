@@ -5,6 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chevronForward } from "@/lib/rtl";
 
 type SymbolName = SymbolViewProps["name"];
 
@@ -46,11 +47,7 @@ export function SettingsRow({
           {value}
         </ThemedText>
       ) : null}
-      <SymbolView
-        name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-        size={14}
-        tintColor={colors.mutedForeground}
-      />
+      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

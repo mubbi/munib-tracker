@@ -1,10 +1,10 @@
 import { SymbolView } from "expo-symbols";
 import { Pressable, StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chevronForward } from "@/lib/rtl";
 
 export type Metric = {
   value: string | number;
@@ -136,11 +136,7 @@ export function LinkRow({ label, onPress }: LinkRowProps) {
       <ThemedText type="smallBold" style={{ color: colors.accent }}>
         {label}
       </ThemedText>
-      <SymbolView
-        name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-        size={14}
-        tintColor={colors.accent}
-      />
+      <SymbolView name={chevronForward} size={14} tintColor={colors.accent} />
     </Pressable>
   );
 }

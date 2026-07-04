@@ -4,7 +4,6 @@ import { SymbolView } from "expo-symbols";
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
@@ -18,6 +17,7 @@ import {
   type ContinueKind,
   navigateToContinue,
 } from "@/lib/continue-activity";
+import { chevronForward } from "@/lib/rtl";
 import { continueStore, useContinueActivity } from "@/stores/continue-store";
 
 type KindVisual = {
@@ -256,11 +256,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
           <ThemedText type="smallBold" style={{ color: palette.text }}>
             {t(actionKey)}
           </ThemedText>
-          <SymbolView
-            name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-            size={14}
-            tintColor={palette.color}
-          />
+          <SymbolView name={chevronForward} size={14} tintColor={palette.color} />
         </View>
       </PressableScale>
     </Card>

@@ -1,4 +1,5 @@
 import type { UserPreferences } from "@munib-tracker/shared/types";
+import i18n from "@/i18n";
 import { readNotificationPermissionUiState } from "@/lib/notifications/permissions";
 import { isLocalNotificationSupported } from "@/lib/notifications/platform";
 
@@ -14,7 +15,7 @@ export async function notifyAchievementUnlocked(
   const Notifications = await import("expo-notifications");
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "Achievement unlocked",
+      title: i18n.t("notif.reminders.achievementTitle"),
       body: title,
       data: { channelId: "zikr", route: "/tracker" },
     },

@@ -32,6 +32,7 @@ import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
+import { chevronForward } from "@/lib/rtl";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
 import { preferencesStore } from "@/stores/preferences-store";
@@ -306,15 +307,7 @@ export default function TrackerScreen() {
                   })}
                 </ThemedText>
               </View>
-              <SymbolView
-                name={{
-                  ios: "chevron.right",
-                  android: "chevron_right",
-                  web: "chevron_right",
-                }}
-                size={14}
-                tintColor={colors.mutedForeground}
-              />
+              <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
             </View>
             <ProgressBar value={devotion.progress} height={4} color={tokens.status.warning.color} />
           </PressableScale>

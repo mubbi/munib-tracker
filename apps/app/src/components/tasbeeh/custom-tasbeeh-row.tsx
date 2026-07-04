@@ -1,12 +1,12 @@
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chevronForward } from "@/lib/rtl";
 import type { CustomTasbeeh } from "@/stores/custom-tasbeeh-store";
 
 type CustomTasbeehRowProps = {
@@ -60,11 +60,7 @@ export function CustomTasbeehRow({ item, onPress }: CustomTasbeehRowProps) {
         }
       />
 
-      <SymbolView
-        name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-        size={14}
-        tintColor={colors.mutedForeground}
-      />
+      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

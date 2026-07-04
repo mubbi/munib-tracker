@@ -14,10 +14,12 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
-const LOCALES: { id: AppLocale; label: string; native: string }[] = [
-  { id: "en", label: "English", native: "English" },
-  { id: "ar", label: "Arabic", native: "العربية" },
-  { id: "ur", label: "Urdu", native: "اردو" },
+// `native` is the endonym — always shown in its own script regardless of the
+// active UI language. The primary label is localized via `t("language.<id>")`.
+const LOCALES: { id: AppLocale; native: string }[] = [
+  { id: "en", native: "English" },
+  { id: "ar", native: "العربية" },
+  { id: "ur", native: "اردو" },
 ];
 
 export default function LanguageScreen() {
@@ -66,6 +68,7 @@ export default function LanguageScreen() {
 
 function Choices({ value, onChange }: { value: AppLocale; onChange: (id: AppLocale) => void }) {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
   return (
     <View style={styles.rows}>
       {LOCALES.map((locale) => {
@@ -80,7 +83,7 @@ function Choices({ value, onChange }: { value: AppLocale; onChange: (id: AppLoca
             style={[styles.row, { backgroundColor: selected ? tokens.accentSoft : colors.muted }]}
           >
             <View style={styles.rowBody}>
-              <ThemedText type="small">{locale.label}</ThemedText>
+              <ThemedText type="small">{t(`language.${locale.id}`)}</ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
                 {locale.native}
               </ThemedText>

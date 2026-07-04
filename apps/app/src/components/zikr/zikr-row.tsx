@@ -2,7 +2,6 @@ import type { ZikrItem } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { ListIndexBadge } from "@/components/ui/list-index-badge";
@@ -10,6 +9,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chevronForward } from "@/lib/rtl";
 
 const CHEVRON_SIZE = 14;
 const FAVORITE_SIZE = 18;
@@ -74,11 +74,7 @@ export function ZikrRow({
 
         {onToggleFavorite ? <View style={styles.favoriteSlot} /> : null}
 
-        <SymbolView
-          name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-          size={CHEVRON_SIZE}
-          tintColor={colors.mutedForeground}
-        />
+        <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
       </PressableScale>
 
       {onToggleFavorite ? (

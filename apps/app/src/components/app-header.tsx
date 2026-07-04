@@ -7,6 +7,7 @@ import { NotificationBadge } from "@/components/ui/notification-badge";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
+import { chevronBack } from "@/lib/rtl";
 import { ThemedText } from "./themed-text";
 
 type AppHeaderProps = {
@@ -55,11 +56,7 @@ export function AppHeader({
             { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.7 : 1 },
           ]}
         >
-          <SymbolView
-            name={{ ios: "chevron.left", android: "arrow_back", web: "arrow_back" }}
-            size={19}
-            tintColor={colors.accent}
-          />
+          <SymbolView name={chevronBack} size={19} tintColor={colors.accent} />
         </Pressable>
       ) : null}
 

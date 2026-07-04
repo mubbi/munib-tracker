@@ -30,7 +30,9 @@
     "increase": "زيادة {{label}}",
     "decrease": "إنقاص {{label}}",
     "appName": "Munib Tracker",
-    "appTagline": "تتبع رحلتك إلى الله."
+    "appTagline": "تتبع رحلتك إلى الله.",
+    "dismiss": "تجاهل",
+    "tryAgain": "حاول مرة أخرى"
   },
   "search": {
     "placeholder": "ابحث في القرآن والحديث والأدعية والأذكار…",
@@ -51,6 +53,16 @@
       "zikr": "الأذكار",
       "name": "أسماء الله الحسنى",
       "durood": "الصلوات"
+    },
+    "suggestion": {
+      "kursi": "آية الكرسي",
+      "forgiveness": "المغفرة",
+      "morning": "الصباح",
+      "patience": "الصبر",
+      "rizq": "الرزق",
+      "rahman": "الرحمن",
+      "sleep": "النوم",
+      "istighfar": "الاستغفار"
     }
   },
   "tabs": {
@@ -391,15 +403,60 @@
     "prayerAlertsObligatory": "تنبيهات الصلوات الفرض",
     "prayerAlertsSunnah": "تنبيهات السنن والنوافل",
     "prayerAlertItems": {
-      "fajr": { "subtitle": "تنبيه وقت الفجر" },
-      "dhuhr": { "subtitle": "تنبيه وقت الظهر" },
-      "asr": { "subtitle": "تنبيه وقت العصر" },
-      "maghrib": { "subtitle": "تنبيه وقت المغرب" },
-      "isha": { "subtitle": "تنبيه وقت العشاء" },
-      "witr": { "subtitle": "تنبيه وقت الوتر" },
-      "tahajjud": { "subtitle": "تنبيه في الثلث الأخير من الليل" },
-      "ishraq": { "subtitle": "تنبيه عند وقت الإشراق" },
-      "duha": { "subtitle": "تنبيه في وقت الضحى" }
+      "fajr": {
+        "subtitle": "تنبيه وقت الفجر"
+      },
+      "dhuhr": {
+        "subtitle": "تنبيه وقت الظهر"
+      },
+      "asr": {
+        "subtitle": "تنبيه وقت العصر"
+      },
+      "maghrib": {
+        "subtitle": "تنبيه وقت المغرب"
+      },
+      "isha": {
+        "subtitle": "تنبيه وقت العشاء"
+      },
+      "witr": {
+        "subtitle": "تنبيه وقت الوتر"
+      },
+      "tahajjud": {
+        "subtitle": "تنبيه في الثلث الأخير من الليل"
+      },
+      "ishraq": {
+        "subtitle": "تنبيه عند وقت الإشراق"
+      },
+      "duha": {
+        "subtitle": "تنبيه في وقت الضحى"
+      }
+    },
+    "channels": {
+      "prayer": "تذكيرات الصلاة",
+      "zikr": "تذكيرات الذكر",
+      "qaza": "تذكيرات القضاء"
+    },
+    "snooze": "تأجيل {{minutes}} دقيقة",
+    "defaultTitle": "تذكير",
+    "reminders": {
+      "prayerTitle": "وقت {{prayer}}",
+      "prayerBodyObligatory": "حان وقت الصلاة. تقبّل الله منك.",
+      "prayerBodySunnah": "حان وقت صلاة السنة. تقبّل الله منك.",
+      "afterAdhanTitle": "بعد أذان {{prayer}}",
+      "afterAdhanBody": "اقرأ دعاء ما بعد الأذان.",
+      "beforePrayerTitle": "{{prayer}} قريباً",
+      "beforePrayerBody": "هيّئ قلبك — اقتربت الصلاة.",
+      "afterPrayerTitle": "بعد {{prayer}}",
+      "afterPrayerBody": "خذ لحظة للتسبيح والذكر.",
+      "morningZikrTitle": "أذكار الصباح",
+      "morningZikrBody": "ابدأ يومك بذكر الله.",
+      "eveningZikrTitle": "أذكار المساء",
+      "eveningZikrBody": "خذ لحظة لأذكار المساء.",
+      "beforeSleepTitle": "أذكار ما قبل النوم",
+      "beforeSleepBody": "اقرأ أذكار ما قبل النوم.",
+      "qazaTitle": "تذكير القضاء",
+      "qazaBody": "اقضِ صلاةً أو صياماً فائتاً اليوم.",
+      "achievementTitle": "تم فتح إنجاز"
     }
   },
   "fonts": {
@@ -1073,9 +1130,12 @@
     "appLanguage": "لغة التطبيق",
     "translationLanguage": "لغة الترجمة",
     "translationHint": "تُستخدم لمعنى النص الديني العربي.",
-    "footer": "تتم ترجمة المزيد من الواجهة تدريجياً. اختيار العربية يفعّل التخطيط من اليمين إلى اليسار حيثما كان مدعوماً.",
+    "footer": "تتم ترجمة المزيد من الواجهة تدريجياً. يفعّل اختيار العربية أو الأردية تخطيط الواجهة من اليمين إلى اليسار.",
     "eyebrow": "الإعدادات",
-    "subtitle": "لغة التطبيق والترجمة"
+    "subtitle": "لغة التطبيق والترجمة",
+    "english": "الإنجليزية",
+    "arabic": "العربية",
+    "urdu": "الأردية"
   },
   "about": {
     "eyebrow": "الإعدادات",
@@ -1124,5 +1184,13 @@
     "installLinkCopied": "تم نسخ الرابط — الصقه في شريط عنوان Safari للمتابعة.",
     "installLinkCopyFailed": "تعذّر نسخ الرابط. افتح هذه الصفحة في Safari يدوياً.",
     "installDismiss": "إغلاق"
+  },
+  "errors": {
+    "title": "حدث خطأ ما",
+    "body": "واجه التطبيق مشكلة غير متوقعة. بياناتك المحفوظة آمنة — يمكنك المحاولة مرة أخرى."
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "action": "الذهاب إلى الرئيسية"
   }
 }

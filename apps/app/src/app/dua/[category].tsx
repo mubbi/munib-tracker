@@ -5,7 +5,6 @@ import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -15,6 +14,7 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chevronForward } from "@/lib/rtl";
 import { createDuaSearch } from "@/lib/search";
 import {
   useDuaFavoritesActions,
@@ -170,11 +170,7 @@ const DuaRow = memo(function DuaRow({
           </ThemedText>
         </View>
         <View style={styles.favoriteSlot} />
-        <SymbolView
-          name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-          size={CHEVRON_SIZE}
-          tintColor={colors.mutedForeground}
-        />
+        <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
       </PressableScale>
 
       <IconButton

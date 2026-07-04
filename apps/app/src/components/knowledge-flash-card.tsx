@@ -3,7 +3,6 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
@@ -14,6 +13,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useKnowledgeCard } from "@/hooks/use-knowledge-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { KnowledgeCardPalette, ResolvedKnowledgeCard } from "@/lib/knowledge-card";
+import { chevronForward } from "@/lib/rtl";
 
 function getPalette(
   colors: ReturnType<typeof useThemeTokens>["colors"],
@@ -103,11 +103,7 @@ function KnowledgeCardBody({
             <ThemedText type="caption" style={{ color: palette.text }}>
               {t(card.actionKey)}
             </ThemedText>
-            <SymbolView
-              name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-              size={12}
-              tintColor={palette.color}
-            />
+            <SymbolView name={chevronForward} size={12} tintColor={palette.color} />
           </View>
         ) : null}
       </View>

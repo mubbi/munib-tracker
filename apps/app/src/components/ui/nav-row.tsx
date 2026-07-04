@@ -7,6 +7,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chevronForward } from "@/lib/rtl";
 
 type NavRowProps = {
   icon: SymbolViewProps["name"];
@@ -34,11 +35,7 @@ export function NavRow({ icon, label, count, onPress }: NavRowProps) {
       {count != null ? (
         <Pill label={`${count}`} color={colors.mutedForeground} background={colors.card} />
       ) : null}
-      <SymbolView
-        name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-        size={14}
-        tintColor={colors.mutedForeground}
-      />
+      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

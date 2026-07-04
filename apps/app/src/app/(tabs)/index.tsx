@@ -32,6 +32,7 @@ import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
+import { arrowForward, chevronForward } from "@/lib/rtl";
 import { useLocationActions } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 import {
@@ -289,11 +290,7 @@ export default function HomeScreen() {
                       </ThemedText>
                     </View>
                     <SymbolView
-                      name={{
-                        ios: "chevron.right",
-                        android: "chevron_right",
-                        web: "chevron_right",
-                      }}
+                      name={chevronForward}
                       size={14}
                       tintColor={colors.mutedForeground}
                     />
@@ -308,11 +305,7 @@ export default function HomeScreen() {
                 <Button
                   label={isFreshStart ? t("home.startTracking") : t("home.goToChecklist")}
                   fullWidth
-                  trailingIcon={{
-                    ios: "arrow.right",
-                    android: "arrow_forward",
-                    web: "arrow_forward",
-                  }}
+                  trailingIcon={arrowForward}
                   onPress={() => router.push("/tracker")}
                 />
               </Card>

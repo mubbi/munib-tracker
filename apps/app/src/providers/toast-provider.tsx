@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -108,6 +109,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
 function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void }) {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
   const statusKey = item.type === "error" ? "danger" : item.type;
   const palette = tokens.status[statusKey];
 
@@ -120,7 +122,7 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
         {
           backgroundColor: colors.card,
           borderColor: tokens.hairline,
-          borderLeftColor: palette.color,
+          borderStartColor: palette.color,
         },
       ]}
     >
@@ -132,7 +134,7 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
           </ThemedText>
         ) : null}
       </View>
-      <PressableScale onPress={onDismiss} accessibilityLabel="Dismiss">
+      <PressableScale onPress={onDismiss} accessibilityLabel={t("common.dismiss")}>
         <ThemedText type="caption" themeColor="mutedForeground">
           ✕
         </ThemedText>
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.three,
     borderWidth: StyleSheet.hairlineWidth,
-    borderLeftWidth: 4,
+    borderStartWidth: 4,
   },
   textWrap: {
     flex: 1,

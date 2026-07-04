@@ -32,32 +32,26 @@ type SymbolName = SymbolViewProps["name"];
 /** Selectable statuses (excludes the implicit "pending" default). */
 export const PRAYER_STATUS_ORDER: PrayerStatus[] = ["completed", "missed", "delayed", "qaza"];
 
-export const PRAYER_STATUS_META: Record<
-  PrayerStatus,
-  { label: string; icon: SymbolName; tone: StatusTone }
-> = {
+// Labels are rendered via i18n (`t("prayerStatus.<status>")`); this map only
+// carries the icon and tone so status copy lives in a single place.
+export const PRAYER_STATUS_META: Record<PrayerStatus, { icon: SymbolName; tone: StatusTone }> = {
   pending: {
-    label: "Pending",
     icon: { ios: "circle", android: "radio_button_unchecked", web: "radio_button_unchecked" },
     tone: "muted",
   },
   completed: {
-    label: "Completed",
     icon: { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" },
     tone: "success",
   },
   missed: {
-    label: "Missed",
     icon: { ios: "xmark.circle.fill", android: "cancel", web: "cancel" },
     tone: "danger",
   },
   delayed: {
-    label: "Delayed",
     icon: { ios: "clock.fill", android: "schedule", web: "schedule" },
     tone: "warning",
   },
   qaza: {
-    label: "Qaza",
     icon: { ios: "arrow.clockwise.circle.fill", android: "history", web: "history" },
     tone: "info",
   },

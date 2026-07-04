@@ -13,6 +13,8 @@
     "add": "Add",
     "reset": "Reset",
     "close": "Close",
+    "dismiss": "Dismiss",
+    "tryAgain": "Try again",
     "continueAsGuest": "Continue as guest",
     "signIn": "Sign in",
     "signOut": "Sign out",
@@ -44,6 +46,16 @@
     "clearRecent": "Clear",
     "suggestions": "Try searching",
     "searchingQuran": "Searching the Qur'an…",
+    "suggestion": {
+      "kursi": "Ayat al-Kursi",
+      "forgiveness": "Forgiveness",
+      "morning": "Morning",
+      "patience": "Patience",
+      "rizq": "Rizq",
+      "rahman": "Rahman",
+      "sleep": "Sleep",
+      "istighfar": "Istighfar"
+    },
     "cat": {
       "quran": "Qur'an",
       "hadith": "Hadith",
@@ -104,8 +116,8 @@
     "tasksProgress": "{{done}} of {{total}} tasks",
     "startTracking": "Start tracking",
     "goToChecklist": "Go to Checklist",
-    "prayersStat": "Prayers",
-    "dhikrStat": "Dhikr",
+    "prayersStat": "Salah",
+    "dhikrStat": "Zikr",
     "streakStat": "Streak",
     "qazaRemaining": "Qaza remaining",
     "qazaMeta": "{{completed}} made up so far · tap to manage",
@@ -124,7 +136,7 @@
     "knowledgeTopic": {
       "prayer": "Salah",
       "qaza": "Qaza",
-      "zikr": "Dhikr",
+      "zikr": "Zikr",
       "fasting": "Fasting",
       "steadfastness": "Steadfastness",
       "general": "Reminder"
@@ -212,7 +224,7 @@
     "appearance": "Appearance",
     "appearanceSub": "Theme & accent color",
     "notifications": "Notifications",
-    "notificationsSub": "Reminders for prayer, qaza, and zikr",
+    "notificationsSub": "Reminders for Salah, Qaza, and Zikr",
     "bedtime": "Bedtime",
     "bedtimeSub": "Used for before-sleep adhkar",
     "fonts": "Fonts",
@@ -324,7 +336,7 @@
     "adhanSub": "Play the bundled call-to-prayer sound",
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",
     "permissionBannerTitle": "Enable reminders",
-    "permissionBannerMessage": "Allow notifications so Munib Tracker can remind you about prayer, zikr, and qaza.",
+    "permissionBannerMessage": "Allow notifications so Munib Tracker can remind you about Salah, Zikr, and Qaza.",
     "permissionGrantedTitle": "Notifications enabled",
     "permissionGrantedMessage": "Reminders are scheduled on this device. Manage categories below.",
     "permissionDenied": "Notifications blocked",
@@ -340,16 +352,43 @@
     "iosPwaMessage": "On iPhone, browser notifications only work when Munib Tracker is added to your Home Screen.",
     "iosPwaSteps": "In Safari: Share → Add to Home Screen, then open the app from your home screen and allow notifications.",
     "iosPwaStepsSafari": "Open this page in Safari, then Share → Add to Home Screen. Notifications aren't available in this browser on iPhone.",
-    "webAllowMessage": "Allow browser notifications to get prayer, zikr, and qaza alerts on this device.",
-    "webGrantedMobileNote": "Browser notifications are on. For reliable prayer-time reminders, install the iOS or Android app.",
+    "webAllowMessage": "Allow browser notifications to get Salah, Zikr, and Qaza alerts on this device.",
+    "webGrantedMobileNote": "Browser notifications are on. For reliable Salah-time reminders, install the iOS or Android app.",
     "webLimitedTitle": "Reminders run on the mobile app",
     "groupWorship": "Worship",
     "groupZikr": "Zikr",
     "groupMilestones": "Milestones",
+    "channels": {
+      "prayer": "Salah reminders",
+      "zikr": "Zikr reminders",
+      "qaza": "Qaza reminders"
+    },
+    "snooze": "Snooze {{minutes}} min",
+    "defaultTitle": "Reminder",
+    "reminders": {
+      "prayerTitle": "{{prayer}} time",
+      "prayerBodyObligatory": "It's time to pray. May Allah accept it from you.",
+      "prayerBodySunnah": "A Sunnah Salah window is here. May Allah accept it from you.",
+      "afterAdhanTitle": "After {{prayer}} Adhan",
+      "afterAdhanBody": "Recite the supplication after the Adhan.",
+      "beforePrayerTitle": "{{prayer}} soon",
+      "beforePrayerBody": "Prepare your heart — Salah is approaching.",
+      "afterPrayerTitle": "After {{prayer}}",
+      "afterPrayerBody": "Take a moment for tasbeeh and zikr.",
+      "morningZikrTitle": "Morning adhkar",
+      "morningZikrBody": "Begin your day in remembrance of Allah.",
+      "eveningZikrTitle": "Evening adhkar",
+      "eveningZikrBody": "Take a moment for your evening zikr.",
+      "beforeSleepTitle": "Before-sleep adhkar",
+      "beforeSleepBody": "Recite your before-sleep supplications.",
+      "qazaTitle": "Qaza reminder",
+      "qazaBody": "Make up a missed Salah or fast today.",
+      "achievementTitle": "Achievement unlocked"
+    },
     "items": {
       "prayer": {
-        "title": "Prayer reminders",
-        "subtitle": "Nudges around each prayer time"
+        "title": "Salah reminders",
+        "subtitle": "Nudges around each Salah time"
       },
       "sunnahPrayer": {
         "title": "Sunnah & optional",
@@ -360,7 +399,7 @@
         "subtitle": "Stay on pace with make-up prayers"
       },
       "afterAzan": {
-        "title": "After azan",
+        "title": "After Adhan",
         "subtitle": "Post-adhan supplication"
       },
       "morningZikr": {
@@ -369,26 +408,26 @@
       },
       "eveningZikr": {
         "title": "Evening adhkar",
-        "subtitle": "Wind down with dhikr"
+        "subtitle": "Wind down with zikr"
       },
       "beforeSleep": {
         "title": "Before sleep",
         "subtitle": "Uses your bedtime"
       },
       "beforePrayer": {
-        "title": "Before prayer",
+        "title": "Before Salah",
         "subtitle": "Prepare your heart"
       },
       "afterPrayer": {
-        "title": "After prayer",
-        "subtitle": "Tasbih reminders"
+        "title": "After Salah",
+        "subtitle": "Tasbeeh reminders"
       },
       "achievements": {
         "title": "Achievements",
         "subtitle": "Celebrate streaks and badges"
       }
     },
-    "prayerAlertsObligatory": "Obligatory prayer alerts",
+    "prayerAlertsObligatory": "Obligatory Salah alerts",
     "prayerAlertsSunnah": "Sunnah & optional alerts",
     "prayerAlertItems": {
       "fajr": { "subtitle": "Alert at Fajr time" },
@@ -449,9 +488,9 @@
   "zikrCat": {
     "morning": "Morning Adhkar",
     "evening": "Evening Adhkar",
-    "before_prayer": "Before Prayer",
-    "after_prayer": "After Prayer",
-    "after_azan": "After Azan",
+    "before_prayer": "Before Salah",
+    "after_prayer": "After Salah",
+    "after_azan": "After Adhan",
     "before_sleep": "Before Sleep",
     "anytime": "Anytime Zikr"
   },
@@ -586,14 +625,14 @@
   "tasbeeh": {
     "eyebrow": "Tasbeeh",
     "freeTitle": "Counter",
-    "freeSubtitle": "Count any dhikr, hands-free",
+    "freeSubtitle": "Count any zikr, hands-free",
     "freeHint": "Quick counter — this total resets when you leave. Create a saved counter below to keep your progress.",
     "quickCounter": "Quick counter",
     "customSection": "Your counters",
     "customCreateTitle": "New counter",
     "customEditTitle": "Edit counter",
     "customCreateAction": "Create counter",
-    "customFormHint": "Name your dhikr, add a note, and pick a target count.",
+    "customFormHint": "Name your zikr, add a note, and pick a target count.",
     "customTitleLabel": "Title",
     "customTitlePlaceholder": "e.g. Durood Shareef",
     "customDescLabel": "Description (optional)",
@@ -602,7 +641,7 @@
     "customTargetSummary": "Target: {{target}}",
     "customUnlimitedSummary": "Unlimited count",
     "customEmptyTitle": "No saved counters yet",
-    "customEmptyDesc": "Create a counter for durood, istighfar, or any dhikr you repeat often — your count is saved automatically.",
+    "customEmptyDesc": "Create a counter for durood, istighfar, or any zikr you repeat often — your count is saved automatically.",
     "customDeleteTitle": "Delete counter?",
     "customDeleteMessage": "\"{{title}}\" and its saved count will be removed permanently.",
     "customBackToCounters": "Back to counters",
@@ -637,7 +676,7 @@
     "tahajjud": {
       "summary": "The night prayer offered in the last third of the night, before Fajr.",
       "why": "Allah descends to the lowest heaven in the last third of the night and asks who will call upon Him. The Prophet ﷺ regularly prayed at night even when optional for him.",
-      "benefits": "Draws one closer to Allah, softens the heart, and was the habit of the righteous before him. A time when du'a is especially answered."
+      "benefits": "Draws one closer to Allah, softens the heart, and was the habit of the righteous before him. A time when dua is especially answered."
     },
     "fajr": {
       "summary": "The dawn prayer — the first of the five daily obligatory prayers.",
@@ -652,7 +691,7 @@
     "ishraq": {
       "summary": "A two-rak'ah sunnah prayer after the sun has fully risen (about 15–20 minutes after sunrise).",
       "why": "The Prophet ﷺ said whoever prays Fajr in congregation then sits remembering Allah until sunrise, then prays two rak'ahs, receives the reward of a complete Hajj and 'Umrah.",
-      "benefits": "Immense reward with minimal effort when combined with Fajr in congregation. A peaceful start to the day in dhikr and optional prayer."
+      "benefits": "Immense reward with minimal effort when combined with Fajr in congregation. A peaceful start to the day in zikr and optional prayer."
     },
     "duha": {
       "summary": "The forenoon prayer — typically two to eight rak'ahs between sunrise and Dhuhr.",
@@ -685,13 +724,13 @@
       "benefits": "A distinctive mark of the believer's night routine. Closing the day with odd-numbered prayer aligns with Allah's names and the Prophet's consistent practice."
     },
     "tahiyyatul_masjid": {
-      "summary": "Two rak'ahs greeting the mosque when entering, before sitting.",
-      "why": "When one of you enters the mosque, let him pray two rak'ahs before sitting — a direct instruction of the Prophet ﷺ.",
+      "summary": "Two rak'ahs greeting the masjid when entering, before sitting.",
+      "why": "When one of you enters the masjid, let him pray two rak'ahs before sitting — a direct instruction of the Prophet ﷺ.",
       "benefits": "Honors the house of Allah, prepares the heart for congregation or private worship, and replaces idle sitting with immediate good."
     },
     "hajat_istikhara": {
       "summary": "Optional prayers for personal needs (Salat al-Hajah) and seeking Allah's guidance (Salat al-Istikhara).",
-      "why": "Istikhara is to ask Allah to choose good for you when facing a decision. Hajah is to present one's need to Allah through prayer before or alongside du'a.",
+      "why": "Istikhara is to ask Allah to choose good for you when facing a decision. Hajah is to present one's need to Allah through prayer before or alongside dua.",
       "benefits": "Builds reliance on Allah (tawakkul) instead of anxiety alone. Istikhara brings clarity; Hajah pairs worship with sincere request — and Allah answers those who call upon Him."
     }
   },
@@ -714,7 +753,7 @@
     "subtitle": "Track and clear missed prayers",
     "calculator": "Calculator",
     "planner": "Planner",
-    "roza": "Roza",
+    "roza": "Fasting",
     "perPrayer": "Per prayer",
     "rowMeta": "{{remaining}} left · {{completed}} done",
     "rowMetaWithDaily": "{{remaining}} left · {{completed}} done · today {{done}}/{{target}}",
@@ -742,14 +781,14 @@
       "title": "Is Witr qaza required?",
       "intro": "According to the majority of scholars, making up a missed Witr is allowed, but whether it is required depends on your madhhab (school of thought).",
       "hanafiTitle": "Hanafi madhhab",
-      "hanafiBody": "Witr is wajib (obligatory). If you miss it, you must make it up (qada'). Pray it as soon as you remember — even if days or weeks have passed. This is the view followed by most Muslims in South Asia, Central Asia, and Turkey.",
+      "hanafiBody": "Witr is wajib (obligatory). If you miss it, you must make it up (qaza). Pray it as soon as you remember — even if days or weeks have passed. This is the view followed by most Muslims in South Asia, Central Asia, and Turkey.",
       "othersTitle": "Shafi'i, Maliki & Hanbali",
       "othersBody": "Witr is a strongly emphasized sunnah (sunnah mu'akkadah), not obligatory. Making it up is recommended (mustahabb) but not required. The Prophet ﷺ would make up night prayers missed due to sleep or illness.",
       "evidenceTitle": "Evidence",
       "evidenceBody": "The Prophet ﷺ said: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — scholars differ on its grading.) In Sahih Muslim, when he missed night prayer due to illness or sleep, he made it up during the day with an even number of rak'ahs.",
       "tableHeader": "Summary by madhhab",
       "rows": {
-        "hanafi": "Hanafi — Wajib — Qada' required",
+        "hanafi": "Hanafi — Wajib — Qaza required",
         "shafii": "Shafi'i — Sunnah mu'akkadah — Recommended",
         "maliki": "Maliki — Sunnah mu'akkadah — Recommended",
         "hanbali": "Hanbali — Sunnah mu'akkadah — Recommended"
@@ -798,7 +837,7 @@
   },
   "qazaRoza": {
     "eyebrow": "Qaza",
-    "title": "Fasting (Roza)",
+    "title": "Fasting",
     "subtitle": "Track and make up missed fasts",
     "fastsRemaining": "fasts remaining",
     "fastedQaza": "Fasted a qaza",
@@ -843,7 +882,7 @@
     "details": "Details",
     "detailsHint": "Breakdowns when you have tracked data",
     "streak": "Current streak",
-    "totalPrayers": "Prayers logged",
+    "totalPrayers": "Salah logged",
     "totalZikr": "Zikr sessions",
     "perfectDays": "Perfect days",
     "viewAchievements": "View achievements",
@@ -853,11 +892,11 @@
     "week": "Week",
     "month": "Month",
     "year": "Year",
-    "prayerCompletion": "Prayer completion",
+    "prayerCompletion": "Salah completion",
     "prayer": "Salah",
     "consistency": "Consistency",
     "qaza": "Qaza",
-    "roza": "Roza",
+    "roza": "Fasting",
     "zikr": "Zikr",
     "perPrayer": "Per prayer",
     "zikrBreakdown": "Zikr by category",
@@ -916,7 +955,7 @@
     "nextPrayerAwayHours": "{{prayer}} is {{hours}}h {{min}}m away",
     "locating": "Finding your location…",
     "changeLocation": "Change location",
-    "scheduleTitle": "Today's prayers",
+    "scheduleTitle": "Today's Salah",
     "nextIn": "in {{time}}",
     "current": "Now",
     "clockLabel": "{{time}}, {{countdown}}",
@@ -928,7 +967,7 @@
   "location": {
     "eyebrow": "Location",
     "title": "Set your location",
-    "subtitle": "Prayer times are calculated for this place. Search any city, or use your current location.",
+    "subtitle": "Salah times are calculated for this place. Search any city, or use your current location.",
     "currentTitle": "Current location",
     "useCurrent": "Use my current location",
     "locating": "Getting your location…",
@@ -986,7 +1025,7 @@
     "devotionNoor": "{{current}} / {{next}} Noor to next level",
     "devotionHint": "Noor grows from salah, qaza, zikr, perfect days, and your current streak.",
     "activeGoals": "Next targets",
-    "activeGoalsHint": "Always a next target — plus qaza and roza when you track debt.",
+    "activeGoalsHint": "Always a next target — plus qaza and fasting when you track debt.",
     "milestonesReached": "Milestones reached",
     "milestonesReachedHint": "{{count}} unlocked so far — and counting.",
     "level": "Lv {{level}}",
@@ -994,7 +1033,7 @@
       "salah": "Salah",
       "streak": "Streak",
       "qaza": "Qaza",
-      "roza": "Roza",
+      "roza": "Fasting",
       "zikr": "Zikr",
       "consistency": "Consistency"
     },
@@ -1005,8 +1044,8 @@
   "notifCenter": {
     "eyebrow": "Reminders",
     "subtitle": "Your scheduled reminders",
-    "webNote": "Scheduled reminders run on iOS and Android. On the web, use the app on your phone to receive prayer, zikr, and qaza reminders.",
-    "permissionText": "Turn on notifications to receive reminders for prayer, zikr, and qaza.",
+    "webNote": "Scheduled reminders run on iOS and Android. On the web, use the app on your phone to receive Salah, Zikr, and Qaza reminders.",
+    "permissionText": "Turn on notifications to receive reminders for Salah, Zikr, and Qaza.",
     "enable": "Enable notifications",
     "scheduled": "Scheduled",
     "settings": "Settings",
@@ -1061,10 +1100,13 @@
   },
   "language": {
     "title": "Language",
+    "english": "English",
+    "arabic": "Arabic",
+    "urdu": "Urdu",
     "appLanguage": "App language",
     "translationLanguage": "Translation language",
     "translationHint": "Used for the meaning of Arabic religious text.",
-    "footer": "More of the interface is being translated over time. Arabic selection enables right-to-left layout where supported.",
+    "footer": "More of the interface is being translated over time. Arabic and Urdu switch the app to a right-to-left layout.",
     "eyebrow": "Settings",
     "subtitle": "App and translation language"
   },
@@ -1107,6 +1149,14 @@
     "seek": "Playback position",
     "buffering": "Buffering…",
     "loading": "Loading…"
+  },
+  "errors": {
+    "title": "Something went wrong",
+    "body": "The app ran into an unexpected problem. Your saved data is safe — you can try again."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "action": "Go home"
   },
   "pwa": {
     "installBannerMessage": "Install Munib Tracker on your Home Screen for an app-like experience and browser notifications on iPhone.",

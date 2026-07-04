@@ -1,5 +1,5 @@
-import { PRAYER_LABELS } from "@munib-tracker/shared/constants";
 import type { PrayerId, TimeFormat, UserPreferences } from "@munib-tracker/shared/types";
+import i18n from "@/i18n";
 import type { StoredLocation } from "@/lib/location";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
 import { computePrayerTimes, prayerReminderTime, witrTime } from "@/lib/prayer-times";
@@ -84,17 +84,17 @@ function pushPrayerReminders(
     if (!isPrayerAlertEnabled(prefs, slot as PrayerId)) continue;
 
     const at = prayerDate(times, slot, tomorrowTimes.fajr, yesterdayTimes.maghrib, day);
-    const label = PRAYER_LABELS[slot as PrayerId];
+    const label = i18n.t(`prayers.${slot}`);
     const dayKey = day.toISOString().slice(0, 10);
     const isObligatory = OBLIGATORY_SLOTS.includes(slot as (typeof OBLIGATORY_SLOTS)[number]);
 
     reminders.push({
       id: `prayer:${slot}:${dayKey}`,
       fireAt: at,
-      title: `${label} time`,
+      title: i18n.t("notif.reminders.prayerTitle", { prayer: label }),
       body: isObligatory
-        ? "It's time to pray. May Allah accept it from you."
-        : "A sunnah prayer window is here. May Allah accept it from you.",
+        ? i18n.t("notif.reminders.prayerBodyObligatory")
+        : i18n.t("notif.reminders.prayerBodySunnah"),
       channelId: "prayer",
       repeat: "date",
     });
@@ -106,8 +106,8 @@ function pushPrayerReminders(
       reminders.push({
         id: `afterAzan:${slot}:${dayKey}`,
         fireAt: azanAt,
-        title: `After ${label} adhan`,
-        body: "Recite the supplication after the call to prayer.",
+        title: i18n.t("notif.reminders.afterAdhanTitle", { prayer: label }),
+        body: i18n.t("notif.reminders.afterAdhanBody"),
         channelId: "zikr",
         repeat: "date",
       });
@@ -118,8 +118,8 @@ function pushPrayerReminders(
       reminders.push({
         id: `beforePrayer:${slot}:${dayKey}`,
         fireAt: beforeAt,
-        title: `${label} soon`,
-        body: "Prepare your heart — prayer is approaching.",
+        title: i18n.t("notif.reminders.beforePrayerTitle", { prayer: label }),
+        body: i18n.t("notif.reminders.beforePrayerBody"),
         channelId: "zikr",
         repeat: "date",
       });
@@ -130,8 +130,8 @@ function pushPrayerReminders(
       reminders.push({
         id: `afterPrayer:${slot}:${dayKey}`,
         fireAt: afterAt,
-        title: `After ${label}`,
-        body: "Take a moment for tasbih and dhikr.",
+        title: i18n.t("notif.reminders.afterPrayerTitle", { prayer: label }),
+        body: i18n.t("notif.reminders.afterPrayerBody"),
         channelId: "zikr",
         repeat: "date",
       });
@@ -171,8 +171,8 @@ export function buildReminders(
     reminders,
     "07:00",
     "morningZikr",
-    "Morning adhkar",
-    "Begin your day in remembrance of Allah.",
+    i18n.t("notif.reminders.morningZikrTitle"),
+    i18n.t("notif.reminders.morningZikrBody"),
     "zikr",
     n.morningZikr,
   );
@@ -180,8 +180,8 @@ export function buildReminders(
     reminders,
     "17:30",
     "eveningZikr",
-    "Evening adhkar",
-    "Take a moment for your evening dhikr.",
+    i18n.t("notif.reminders.eveningZikrTitle"),
+    i18n.t("notif.reminders.eveningZikrBody"),
     "zikr",
     n.eveningZikr,
   );
@@ -189,8 +189,8 @@ export function buildReminders(
     reminders,
     prefs.bedtime ?? "22:30",
     "beforeSleep",
-    "Before-sleep adhkar",
-    "Recite your before-sleep supplications.",
+    i18n.t("notif.reminders.beforeSleepTitle"),
+    i18n.t("notif.reminders.beforeSleepBody"),
     "zikr",
     n.beforeSleep,
   );
@@ -198,8 +198,8 @@ export function buildReminders(
     reminders,
     "20:00",
     "qaza",
-    "Qaza reminder",
-    "Make up a missed prayer or fast today.",
+    i18n.t("notif.reminders.qazaTitle"),
+    i18n.t("notif.reminders.qazaBody"),
     "qaza",
     n.qaza,
   );

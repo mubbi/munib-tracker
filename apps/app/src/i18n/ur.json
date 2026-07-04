@@ -30,7 +30,9 @@
     "increase": "{{label}} بڑھائیں",
     "decrease": "{{label}} کم کریں",
     "appName": "Munib Tracker",
-    "appTagline": "اللہ کی طرف اپنے سفر کو ٹریک کریں۔"
+    "appTagline": "اللہ کی طرف اپنے سفر کو ٹریک کریں۔",
+    "dismiss": "برخاست کریں",
+    "tryAgain": "دوبارہ کوشش کریں"
   },
   "search": {
     "placeholder": "قرآن، حدیث، دعائیں، اذکار تلاش کریں…",
@@ -51,6 +53,16 @@
       "zikr": "اذکار",
       "name": "۹۹ نام",
       "durood": "درود"
+    },
+    "suggestion": {
+      "kursi": "آیت الکرسی",
+      "forgiveness": "مغفرت",
+      "morning": "صبح",
+      "patience": "صبر",
+      "rizq": "رزق",
+      "rahman": "رحمٰن",
+      "sleep": "نیند",
+      "istighfar": "استغفار"
     }
   },
   "tabs": {
@@ -391,15 +403,60 @@
     "prayerAlertsObligatory": "فرض نمازوں کی الرٹس",
     "prayerAlertsSunnah": "سنت و نفل کی الرٹس",
     "prayerAlertItems": {
-      "fajr": { "subtitle": "فجر کے وقت الرٹ" },
-      "dhuhr": { "subtitle": "ظہر کے وقت الرٹ" },
-      "asr": { "subtitle": "عصر کے وقت الرٹ" },
-      "maghrib": { "subtitle": "مغرب کے وقت الرٹ" },
-      "isha": { "subtitle": "عشاء کے وقت الرٹ" },
-      "witr": { "subtitle": "وتر کے وقت الرٹ" },
-      "tahajjud": { "subtitle": "رات کے آخری تہائی میں الرٹ" },
-      "ishraq": { "subtitle": "اشراق کے وقت الرٹ" },
-      "duha": { "subtitle": "چاشت کے وقت الرٹ" }
+      "fajr": {
+        "subtitle": "فجر کے وقت الرٹ"
+      },
+      "dhuhr": {
+        "subtitle": "ظہر کے وقت الرٹ"
+      },
+      "asr": {
+        "subtitle": "عصر کے وقت الرٹ"
+      },
+      "maghrib": {
+        "subtitle": "مغرب کے وقت الرٹ"
+      },
+      "isha": {
+        "subtitle": "عشاء کے وقت الرٹ"
+      },
+      "witr": {
+        "subtitle": "وتر کے وقت الرٹ"
+      },
+      "tahajjud": {
+        "subtitle": "رات کے آخری تہائی میں الرٹ"
+      },
+      "ishraq": {
+        "subtitle": "اشراق کے وقت الرٹ"
+      },
+      "duha": {
+        "subtitle": "چاشت کے وقت الرٹ"
+      }
+    },
+    "channels": {
+      "prayer": "نماز کی یاد دہانیاں",
+      "zikr": "ذکر کی یاد دہانیاں",
+      "qaza": "قضا کی یاد دہانیاں"
+    },
+    "snooze": "{{minutes}} منٹ کے لیے مؤخر کریں",
+    "defaultTitle": "یاد دہانی",
+    "reminders": {
+      "prayerTitle": "{{prayer}} کا وقت",
+      "prayerBodyObligatory": "نماز کا وقت ہو گیا ہے۔ اللہ آپ سے قبول فرمائے۔",
+      "prayerBodySunnah": "سنت نماز کا وقت ہے۔ اللہ آپ سے قبول فرمائے۔",
+      "afterAdhanTitle": "{{prayer}} کی اذان کے بعد",
+      "afterAdhanBody": "اذان کے بعد کی دعا پڑھیں۔",
+      "beforePrayerTitle": "{{prayer}} قریب ہے",
+      "beforePrayerBody": "اپنے دل کو تیار کریں — نماز کا وقت قریب ہے۔",
+      "afterPrayerTitle": "{{prayer}} کے بعد",
+      "afterPrayerBody": "تسبیح اور ذکر کے لیے چند لمحے نکالیں۔",
+      "morningZikrTitle": "صبح کے اذکار",
+      "morningZikrBody": "اپنے دن کا آغاز اللہ کے ذکر سے کریں۔",
+      "eveningZikrTitle": "شام کے اذکار",
+      "eveningZikrBody": "اپنے شام کے ذکر کے لیے چند لمحے نکالیں۔",
+      "beforeSleepTitle": "سونے سے پہلے کے اذکار",
+      "beforeSleepBody": "سونے سے پہلے کی دعائیں پڑھیں۔",
+      "qazaTitle": "قضا کی یاد دہانی",
+      "qazaBody": "آج کوئی قضا نماز یا روزہ ادا کریں۔",
+      "achievementTitle": "کامیابی حاصل ہوئی"
     }
   },
   "fonts": {
@@ -1064,9 +1121,12 @@
     "appLanguage": "ایپ کی زبان",
     "translationLanguage": "ترجمے کی زبان",
     "translationHint": "عربی دینی متن کے معنی کے لیے استعمال ہوتی ہے۔",
-    "footer": "انٹرفیس کا مزید حصہ بتدریج ترجمہ کیا جا رہا ہے۔ عربی کے انتخاب سے، جہاں معاون ہو، دائیں سے بائیں ترتیب فعال ہو جاتی ہے۔",
+    "footer": "انٹرفیس کا مزید حصہ بتدریج ترجمہ کیا جا رہا ہے۔ عربی اور اردو کے انتخاب سے ایپ دائیں سے بائیں ترتیب میں بدل جاتی ہے۔",
     "eyebrow": "ترتیبات",
-    "subtitle": "ایپ اور ترجمے کی زبان"
+    "subtitle": "ایپ اور ترجمے کی زبان",
+    "english": "انگریزی",
+    "arabic": "عربی",
+    "urdu": "اردو"
   },
   "about": {
     "eyebrow": "ترتیبات",
@@ -1115,5 +1175,13 @@
     "installLinkCopied": "لنک کاپی ہو گیا — Safari کے address bar میں پیسٹ کریں۔",
     "installLinkCopyFailed": "لنک کاپی نہیں ہو سکا۔ یہ صفحہ Safari میں دستی کھولیں۔",
     "installDismiss": "بند کریں"
+  },
+  "errors": {
+    "title": "کچھ غلط ہو گیا",
+    "body": "ایپ کو ایک غیر متوقع مسئلہ پیش آیا۔ آپ کا محفوظ ڈیٹا محفوظ ہے — آپ دوبارہ کوشش کر سکتے ہیں۔"
+  },
+  "notFound": {
+    "title": "صفحہ نہیں ملا",
+    "action": "ہوم پر جائیں"
   }
 }

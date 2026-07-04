@@ -13,13 +13,13 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Brand, Spacing } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
+import { arrowForward } from "@/lib/rtl";
 import { usePreferencesActions } from "@/stores/preferences-store";
 
 type Slide = { icon: SymbolViewProps["name"]; key: string };
@@ -149,12 +149,7 @@ export default function OnboardingIntroScreen() {
             />
           </View>
         ) : (
-          <Button
-            label={t("common.next")}
-            fullWidth
-            trailingIcon={{ ios: "arrow.right", android: "arrow_forward", web: "arrow_forward" }}
-            onPress={goNext}
-          />
+          <Button label={t("common.next")} fullWidth trailingIcon={arrowForward} onPress={goNext} />
         )}
       </View>
     </View>

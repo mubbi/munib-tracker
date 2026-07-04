@@ -13,13 +13,13 @@ import {
 } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
 import { ThemedText } from "@/components/themed-text";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chevronBack, chevronForward } from "@/lib/rtl";
 import {
   SEARCH_CATEGORY_ORDER,
   type SearchCategory,
@@ -38,16 +38,21 @@ const AYAH_FETCH_LIMIT = 30;
 /** Rows shown per group in the combined "All" view before "see all". */
 const PREVIEW_LIMIT = 4;
 
-/** Seed prompts shown when the field is empty — tap to search. */
-const SUGGESTIONS = [
-  "Ayat al-Kursi",
-  "Forgiveness",
-  "Morning",
-  "Patience",
-  "Rizq",
-  "Rahman",
-  "Sleep",
-  "Istighfar",
+/**
+ * Seed prompts shown when the field is empty — tap to search. `key` selects the
+ * localized chip label (`search.suggestion.*`); `query` is the language-neutral
+ * transliteration the offline index matches, so results are consistent in every
+ * locale.
+ */
+const SUGGESTIONS: { key: string; query: string }[] = [
+  { key: "kursi", query: "Ayat al-Kursi" },
+  { key: "forgiveness", query: "Forgiveness" },
+  { key: "morning", query: "Morning" },
+  { key: "patience", query: "Patience" },
+  { key: "rizq", query: "Rizq" },
+  { key: "rahman", query: "Rahman" },
+  { key: "sleep", query: "Sleep" },
+  { key: "istighfar", query: "Istighfar" },
 ];
 
 type CategoryVisual = {
@@ -256,11 +261,7 @@ export default function SearchScreen() {
             { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.7 : 1 },
           ]}
         >
-          <SymbolView
-            name={{ ios: "chevron.left", android: "arrow_back", web: "arrow_back" }}
-            size={19}
-            tintColor={colors.accent}
-          />
+          <SymbolView name={chevronBack} size={19} tintColor={colors.accent} />
         </Pressable>
 
         <View style={[styles.field, { backgroundColor: colors.muted }]}>
@@ -395,15 +396,7 @@ export default function SearchScreen() {
                       <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                         {t("search.seeAllCount", { count: group.total })}
                       </ThemedText>
-                      <SymbolView
-                        name={{
-                          ios: "chevron.right",
-                          android: "chevron_right",
-                          web: "chevron_right",
-                        }}
-                        size={13}
-                        tintColor={colors.accentText}
-                      />
+                      <SymbolView name={chevronForward} size={13} tintColor={colors.accentText} />
                     </Pressable>
                   ) : null}
                 </View>
@@ -542,7 +535,7 @@ function IdleState({
   onClearRecent,
 }: {
   recent: string[];
-  suggestions: string[];
+  suggestions: { key: string; query: string }[];
   onPick: (term: string) => void;
   onClearRecent: () => void;
 }) {
@@ -580,8 +573,12 @@ function IdleState({
           {t("search.suggestions")}
         </ThemedText>
         <View style={styles.tagRow}>
-          {suggestions.map((term) => (
-            <TermChip key={term} label={term} onPress={() => onPick(term)} />
+          {suggestions.map((item) => (
+            <TermChip
+              key={item.key}
+              label={t(`search.suggestion.${item.key}`)}
+              onPress={() => onPick(item.query)}
+            />
           ))}
         </View>
       </View>

@@ -2,6 +2,7 @@ import type { UserPreferences } from "@munib-tracker/shared/types";
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 
+import i18n from "@/i18n";
 import type { StoredLocation } from "@/lib/location";
 import {
   type BuiltReminder,
@@ -28,11 +29,7 @@ function enqueueReschedule(task: () => Promise<void>): Promise<void> {
 
 type ChannelId = "prayer" | "zikr" | "qaza";
 
-const CHANNELS: { id: ChannelId; name: string }[] = [
-  { id: "prayer", name: "Prayer reminders" },
-  { id: "zikr", name: "Zikr reminders" },
-  { id: "qaza", name: "Qaza reminders" },
-];
+const CHANNEL_IDS: ChannelId[] = ["prayer", "zikr", "qaza"];
 
 /** Category + action wiring so reminders can be snoozed from the notification. */
 const REMINDER_CATEGORY = "reminder";
@@ -53,14 +50,14 @@ export async function configureNotifications(): Promise<void> {
   await Notifications.setNotificationCategoryAsync(REMINDER_CATEGORY, [
     {
       identifier: SNOOZE_ACTION_IDENTIFIER,
-      buttonTitle: `Snooze ${SNOOZE_MINUTES} min`,
+      buttonTitle: i18n.t("notif.snooze", { minutes: SNOOZE_MINUTES }),
       options: { opensAppToForeground: false },
     },
   ]);
   if (Platform.OS === "android") {
-    for (const channel of CHANNELS) {
-      await Notifications.setNotificationChannelAsync(channel.id, {
-        name: channel.name,
+    for (const id of CHANNEL_IDS) {
+      await Notifications.setNotificationChannelAsync(id, {
+        name: i18n.t(`notif.channels.${id}`),
         importance: Notifications.AndroidImportance.DEFAULT,
       });
     }
@@ -142,7 +139,7 @@ export async function snoozeNotification(
   const channelId = (content.data?.channelId as ChannelId | undefined) ?? "prayer";
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: content.title ?? "Reminder",
+      title: content.title ?? i18n.t("notif.defaultTitle"),
       body: content.body ?? "",
       categoryIdentifier: REMINDER_CATEGORY,
       data: content.data ?? {},
@@ -184,7 +181,7 @@ export async function listScheduled(
         time = formatDisplayHhMm(date.getHours(), date.getMinutes(), prefs.timeFormat);
       }
 
-      const title = item.content.title ?? "Reminder";
+      const title = item.content.title ?? i18n.t("notif.defaultTitle");
       const body = item.content.body ?? "";
       const dedupeKey = `${title}\0${body}\0${time ?? ""}`;
       if (seen.has(dedupeKey)) continue;
