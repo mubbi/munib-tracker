@@ -13,6 +13,7 @@ import {
   migrateLegacyAchievementIds,
   newlyUnlocked,
   resolveUnlockedMilestones,
+  syncAchievementIds,
   totalNoorForDevotionLevel,
 } from "./definitions";
 
@@ -135,6 +136,28 @@ describe.concurrent("devotion noor", () => {
 
   it("uses an ever-increasing noor curve", () => {
     expect(totalNoorForDevotionLevel(2)).toBeGreaterThan(totalNoorForDevotionLevel(1));
+  });
+});
+
+describe.concurrent("syncAchievementIds", () => {
+  it("prunes milestones when stats drop below the threshold", () => {
+    const earned = syncAchievementIds({ ...base, prayersCompleted: 5, streak: 7 }, []);
+    expect(earned.synced).toEqual(["salah:1", "salah:2", "streak:1", "streak:2", "streak:3"]);
+
+    const pruned = syncAchievementIds({ ...base, prayersCompleted: 2, streak: 3 }, earned.synced);
+    expect(pruned.synced).toEqual(["salah:1", "streak:1", "streak:2"]);
+    expect(pruned.newlyUnlocked).toEqual([]);
+  });
+
+  it("drops cleared debt milestones when debt tracking is removed", () => {
+    const cleared = syncAchievementIds(
+      { ...base, qazaDebt: { total: 10, completed: 10, remaining: 0 } },
+      [],
+    );
+    expect(cleared.synced).toContain("qaza:debt:10:cleared");
+
+    const reset = syncAchievementIds(base, cleared.synced);
+    expect(reset.synced).not.toContain("qaza:debt:10:cleared");
   });
 });
 

@@ -1,5 +1,5 @@
 import type { PrayerId, SunnahPrayer, TimeFormat } from "@munib-tracker/shared/types";
-import { CalculationMethod, Coordinates, Madhab, PrayerTimes } from "adhan";
+import { CalculationMethod, Coordinates, HighLatitudeRule, Madhab, PrayerTimes } from "adhan";
 import type { SymbolViewProps } from "expo-symbols";
 
 import { formatDisplayTime } from "./time";
@@ -69,10 +69,18 @@ export const PRAYER_SLOT_ICONS: Record<PrayerSlotId, SymbolViewProps["name"]> = 
 export const DEFAULT_CALCULATION_METHOD: CalculationMethodKey = "MuslimWorldLeague";
 export const DEFAULT_MADHAB: MadhabKey = "shafi";
 
-function buildParameters(method: CalculationMethodKey, madhab: MadhabKey) {
+function buildParameters(
+  coordinates: Coordinates,
+  method: CalculationMethodKey,
+  madhab: MadhabKey,
+) {
   const factory = CalculationMethod[method] ?? CalculationMethod[DEFAULT_CALCULATION_METHOD];
   const params = factory();
   params.madhab = madhab === "hanafi" ? Madhab.Hanafi : Madhab.Shafi;
+  // At high (polar) latitudes the sun may not cross the twilight angles, leaving
+  // Fajr/Isha undefined and producing "Invalid Date"/NaN. The latitude-aware
+  // recommended rule substitutes a sane fallback so times stay computable.
+  params.highLatitudeRule = HighLatitudeRule.recommended(coordinates);
   return params;
 }
 
@@ -83,11 +91,17 @@ export function computePrayerTimes(
   method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
   madhab: MadhabKey = DEFAULT_MADHAB,
 ): PrayerTimes {
-  return new PrayerTimes(
-    new Coordinates(coords.latitude, coords.longitude),
-    date,
-    buildParameters(method, madhab),
-  );
+  const coordinates = new Coordinates(coords.latitude, coords.longitude);
+  return new PrayerTimes(coordinates, date, buildParameters(coordinates, method, madhab));
+}
+
+/**
+ * Whether every marker computed to a real instant. Even with the high-latitude
+ * rule, extreme polar days/nights can yield an invalid time — callers can use
+ * this to show an "unavailable at this location" state instead of "NaNm".
+ */
+export function hasValidPrayerTimes(times: PrayerTimes): boolean {
+  return prayerSlots(times).every((slot) => !Number.isNaN(slot.date.getTime()));
 }
 
 /** The six ordered markers for the given day. */
@@ -146,9 +160,13 @@ export function nextPrayer(
   return { id, date, minutesUntil, activeIndex, currentIndex };
 }
 
-/** Formats a marker time for display using the user's clock preference. */
-export function formatPrayerTime(date: Date, timeFormat: TimeFormat = "24"): string {
-  return formatDisplayTime(date, timeFormat);
+/** Formats a marker time for display using the user's clock preference + timezone. */
+export function formatPrayerTime(
+  date: Date,
+  timeFormat: TimeFormat = "24",
+  timeZone?: string,
+): string {
+  return formatDisplayTime(date, timeFormat, timeZone);
 }
 
 /**
@@ -249,6 +267,7 @@ export function buildPrayerTimeMap(
   madhab: MadhabKey = DEFAULT_MADHAB,
   flexibleLabel = "Any time",
   timeFormat: TimeFormat = "24",
+  timeZone?: string,
 ): Record<PrayerId, string> {
   const today = computePrayerTimes(coords, now, method, madhab);
   const tomorrow = new Date(now);
@@ -261,18 +280,19 @@ export function buildPrayerTimeMap(
   const duha = duhaWindow(today.sunrise, today.dhuhr);
 
   return {
-    fajr: formatPrayerTime(today.fajr, timeFormat),
-    dhuhr: formatPrayerTime(today.dhuhr, timeFormat),
-    asr: formatPrayerTime(today.asr, timeFormat),
-    maghrib: formatPrayerTime(today.maghrib, timeFormat),
-    isha: formatPrayerTime(today.isha, timeFormat),
-    witr: formatPrayerTime(witrTime(today.isha), timeFormat),
+    fajr: formatPrayerTime(today.fajr, timeFormat, timeZone),
+    dhuhr: formatPrayerTime(today.dhuhr, timeFormat, timeZone),
+    asr: formatPrayerTime(today.asr, timeFormat, timeZone),
+    maghrib: formatPrayerTime(today.maghrib, timeFormat, timeZone),
+    isha: formatPrayerTime(today.isha, timeFormat, timeZone),
+    witr: formatPrayerTime(witrTime(today.isha), timeFormat, timeZone),
     tahajjud: formatPrayerTime(
       tahajjudTime(now, today, tomorrowTimes.fajr, yesterdayTimes.maghrib),
       timeFormat,
+      timeZone,
     ),
-    ishraq: formatPrayerTime(ishraqTime(today.sunrise), timeFormat),
-    duha: formatPrayerTime(duha.recommended, timeFormat),
+    ishraq: formatPrayerTime(ishraqTime(today.sunrise), timeFormat, timeZone),
+    duha: formatPrayerTime(duha.recommended, timeFormat, timeZone),
     tahiyyatul_masjid: flexibleLabel,
     hajat_istikhara: flexibleLabel,
   };

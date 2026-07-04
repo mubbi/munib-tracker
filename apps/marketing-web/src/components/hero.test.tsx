@@ -8,7 +8,7 @@ describe("Hero", () => {
     render(<Hero />);
     expect(screen.getByRole("heading", { name: APP_NAME })).toBeInTheDocument();
     expect(screen.getByText(APP_TAGLINE)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Download on the App Store/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /View iOS download options/i })).toHaveAttribute(
       "href",
       "/download",
     );

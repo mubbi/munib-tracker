@@ -9,7 +9,7 @@ import Animated, {
   withSequence,
   withSpring,
 } from "react-native-reanimated";
-
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -43,6 +43,8 @@ type TasbeehCounterProps = {
   onCustom?: () => void;
 };
 
+type PendingConfirm = "decrement" | "reset" | "startAgain";
+
 export function TasbeehCounter({
   count,
   target,
@@ -55,6 +57,7 @@ export function TasbeehCounter({
 }: TasbeehCounterProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const [pending, setPending] = useState<PendingConfirm | null>(null);
   const displayCount = target > 0 ? Math.min(count, target) : count;
   const atLimit = target > 0 && count >= target;
   const complete = atLimit;
@@ -88,6 +91,46 @@ export function TasbeehCounter({
     onIncrement();
   };
 
+  const confirmCopy = useMemo(() => {
+    switch (pending) {
+      case "decrement":
+        return {
+          title: t("tasbeehUi.confirmUndoTitle"),
+          message: t("tasbeehUi.confirmUndoMessage"),
+          confirmLabel: t("tasbeehUi.undo"),
+          destructive: false,
+        };
+      case "reset":
+        return {
+          title: t("tasbeehUi.confirmResetTitle"),
+          message: t("tasbeehUi.confirmResetMessage", { count: displayCount }),
+          confirmLabel: t("common.reset"),
+          destructive: true,
+        };
+      case "startAgain":
+        return {
+          title: t("tasbeehUi.confirmStartAgainTitle"),
+          message: t("tasbeehUi.confirmStartAgainMessage"),
+          confirmLabel: t("tasbeehUi.startAgain"),
+          destructive: true,
+        };
+      default:
+        return null;
+    }
+  }, [pending, displayCount, t]);
+
+  const executePending = () => {
+    if (pending === "decrement") {
+      triggerHaptic("light");
+      onDecrement();
+      return;
+    }
+    if (pending === "reset" || pending === "startAgain") {
+      triggerHaptic("medium");
+      onReset();
+    }
+  };
+
   return (
     <View style={styles.root}>
       {onSelectMode ? (
@@ -116,7 +159,7 @@ export function TasbeehCounter({
       </View>
 
       {complete ? (
-        <CompletionBanner onStartAgain={onReset} />
+        <CompletionBanner onStartAgain={() => setPending("startAgain")} />
       ) : (
         <View style={styles.hintRow}>
           {target > 0 ? (
@@ -134,14 +177,18 @@ export function TasbeehCounter({
 
       <ControlBar
         count={displayCount}
-        onDecrement={() => {
-          triggerHaptic("light");
-          onDecrement();
-        }}
-        onReset={() => {
-          triggerHaptic("medium");
-          onReset();
-        }}
+        onDecrement={() => setPending("decrement")}
+        onReset={() => setPending("reset")}
+      />
+
+      <ConfirmDialog
+        visible={pending !== null}
+        title={confirmCopy?.title ?? ""}
+        message={confirmCopy?.message}
+        confirmLabel={confirmCopy?.confirmLabel}
+        destructive={confirmCopy?.destructive}
+        onConfirm={executePending}
+        onClose={() => setPending(null)}
       />
     </View>
   );

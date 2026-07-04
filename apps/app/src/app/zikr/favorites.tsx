@@ -8,6 +8,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
+import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -50,12 +51,14 @@ export default function ZikrFavoritesScreen() {
           <View style={styles.list}>
             {items.map((item, index) => (
               <View key={item.id} style={[styles.row, { backgroundColor: colors.muted }]}>
+                <ListIndexBadge index={index + 1} />
                 <PressableScale
                   haptic="light"
                   onPress={() =>
                     router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
                   }
                   style={styles.body}
+                  accessibilityLabel={`${index + 1}. ${item.title}`}
                 >
                   <ThemedText type="small" numberOfLines={1}>
                     {item.title}

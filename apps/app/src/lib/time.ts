@@ -21,13 +21,22 @@ export function usesHour12(format: TimeFormat): boolean {
   return format === "12";
 }
 
-/** Formats a Date for on-screen display according to the user's clock preference. */
-export function formatDisplayTime(date: Date, format: TimeFormat = "24"): string {
+/**
+ * Formats a Date for on-screen display according to the user's clock preference.
+ * Pass `timeZone` (an IANA id) to render the instant in a specific city's clock —
+ * e.g. a manually-selected location in a different timezone than the device.
+ */
+export function formatDisplayTime(
+  date: Date,
+  format: TimeFormat = "24",
+  timeZone?: string,
+): string {
   const hour12 = usesHour12(format);
   return date.toLocaleTimeString([], {
     hour: hour12 ? "numeric" : "2-digit",
     minute: "2-digit",
     hour12,
+    timeZone,
   });
 }
 

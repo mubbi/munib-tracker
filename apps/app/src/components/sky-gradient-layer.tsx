@@ -1,6 +1,9 @@
 import { StyleSheet, View, type ViewStyle } from "react-native";
 import Animated, { type AnimatedStyle } from "react-native-reanimated";
 
+/** Gradient layers are drawn larger than the hero so drift transforms reveal shifting colour. */
+const GRADIENT_OVERSCAN = 1.4;
+
 type SkyGradientLayerProps = {
   gradient: ViewStyle;
   motionStyle?: AnimatedStyle<ViewStyle>;
@@ -9,16 +12,20 @@ type SkyGradientLayerProps = {
 };
 
 /**
- * Motion wrapper for hero sky gradients. The transform runs on the outer shell
- * while the inner view keeps the static background image.
+ * Motion wrapper for hero sky gradients. A fixed clip shell masks the hero while
+ * the oversized inner layer drifts underneath for full-banner parallax.
  */
 export function SkyGradientLayer({ gradient, motionStyle }: SkyGradientLayerProps) {
   return (
-    <Animated.View style={[styles.fill, motionStyle]}>
-      <View style={[styles.fill, gradient]} />
-    </Animated.View>
+    <View style={[styles.fill, styles.clip]}>
+      <Animated.View style={[styles.overscan, motionStyle]}>
+        <View style={[styles.overscanFill, gradient]} />
+      </Animated.View>
+    </View>
   );
 }
+
+const overscanInset = `${((1 - GRADIENT_OVERSCAN) / 2) * 100}%`;
 
 const styles = StyleSheet.create({
   fill: {
@@ -27,5 +34,18 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  clip: {
+    overflow: "hidden",
+  },
+  overscan: {
+    position: "absolute",
+    width: `${GRADIENT_OVERSCAN * 100}%`,
+    height: `${GRADIENT_OVERSCAN * 100}%`,
+    left: overscanInset,
+    top: overscanInset,
+  },
+  overscanFill: {
+    flex: 1,
   },
 });

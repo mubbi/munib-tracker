@@ -1,4 +1,5 @@
 import { APP_DESCRIPTION, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import type { FaqItem } from "@/lib/faq";
 import { PRODUCT_APP_URL, SITE_URL } from "@/lib/site";
 
 export function JsonLd() {
@@ -28,6 +29,30 @@ export function JsonLd() {
     ],
     inLanguage: ["en", "ar", "ur"],
     isAccessibleForFree: true,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD requires inline script
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+/** FAQPage structured data for the /faq page, built from the shared FAQ list. */
+export function FaqJsonLd({ items }: { items: readonly FaqItem[] }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 
   return (

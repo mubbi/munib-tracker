@@ -12,7 +12,7 @@ import { createStore, useStore } from "./create-store";
  * (AsyncStorage already ships on iOS/Android/Web, no native rebuild).
  */
 
-const STORAGE_KEY = `${DB_KEYS.userPreferences}/favorite_dua_order`;
+const STORAGE_KEY = DB_KEYS.duaFavorites;
 
 interface DuaFavoritesState {
   order: string[];

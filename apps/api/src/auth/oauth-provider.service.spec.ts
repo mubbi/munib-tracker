@@ -1,7 +1,7 @@
 import type { JsonWebKey, KeyObject } from "node:crypto";
-import { sign as cryptoSign, generateKeyPairSync } from "node:crypto";
+import { createHmac, sign as cryptoSign, generateKeyPairSync } from "node:crypto";
 import type { ConfigService } from "@nestjs/config";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { AuthProvider } from "./dto/auth.dto";
 import { OAuthProviderService } from "./oauth-provider.service";
@@ -70,6 +70,43 @@ function makeAppleService(env: Partial<EnvironmentVariables> = {}) {
 }
 
 describe("OAuthProviderService", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("sends appsecret_proof and keys Facebook identity off the provider id", async () => {
+    const service = makeService({
+      FACEBOOK_APP_ID: "fb-app-id",
+      FACEBOOK_APP_SECRET: "fb-app-secret",
+    });
+
+    const accessToken = "fb-access-token";
+    const requestedUrls: string[] = [];
+    vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {
+      const url = String(input);
+      requestedUrls.push(url);
+      if (url.includes("/oauth/access_token")) {
+        return new Response(JSON.stringify({ access_token: accessToken }), { status: 200 });
+      }
+      // Graph /me call.
+      return new Response(
+        JSON.stringify({ id: "fb-user-123", name: "FB User", email: "fb@example.com" }),
+        { status: 200 },
+      );
+    });
+
+    const profile = await service.exchange(AuthProvider.Facebook, { code: "fb-code" });
+
+    expect(profile.providerAccountId).toBe("fb-user-123");
+    expect(profile.displayName).toBe("FB User");
+
+    const meUrl = requestedUrls.find((url) => url.includes("graph.facebook.com/me"));
+    expect(meUrl).toBeDefined();
+    const proof = new URL(meUrl as string).searchParams.get("appsecret_proof");
+    const expectedProof = createHmac("sha256", "fb-app-secret").update(accessToken).digest("hex");
+    expect(proof).toBe(expectedProof);
+  });
+
   it("requires a code or id_token", async () => {
     const service = makeService({ GOOGLE_CLIENT_ID: "gid" });
     await expect(service.exchange(AuthProvider.Google, {})).rejects.toThrow(

@@ -21,6 +21,7 @@ export function useDailyPrayerTimes() {
       location.madhab,
       t("home.scheduleAnyTime"),
       timeFormat,
+      location.timeZone,
     );
   }, [location, now, timeFormat, t]);
 }

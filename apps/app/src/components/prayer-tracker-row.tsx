@@ -12,6 +12,8 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { PRAYER_ICONS, PRAYER_STATUS_META, statusToneColor, statusToneSoft } from "@/lib/prayer-ui";
 
+const ICON_WELL = 34;
+
 type PrayerTrackerRowProps = {
   prayerId: PrayerId;
   status: PrayerStatus;
@@ -38,11 +40,11 @@ export function PrayerTrackerRow({
   // A muted row needs the soft-accent fill so the pending well stays visible.
   const toneSoft = statusToneSoft(meta.tone, tokens.accentSoft, tokens);
 
-  const timeHint = time;
   const prayerName = t(`prayers.${prayerId}`);
   const statusLabel = t(`prayerStatus.${status}`);
   const isCompleted = status === "completed";
   const successColor = tokens.status.success.color;
+  const rowA11y = t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel });
 
   return (
     <View style={[styles.row, { backgroundColor: colors.muted }]}>
@@ -56,6 +58,7 @@ export function PrayerTrackerRow({
           accessibilityRole="checkbox"
           accessibilityLabel={prayerName}
           accessibilityState={{ checked: isCompleted }}
+          hitSlop={8}
           style={[
             styles.check,
             {
@@ -73,39 +76,61 @@ export function PrayerTrackerRow({
           ) : null}
         </PressableScale>
       ) : null}
-      <PressableScale
-        haptic="light"
-        onPress={onPress}
-        accessibilityRole="button"
-        accessibilityLabel={t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel })}
-        style={styles.mainPress}
-      >
-        <IconWell icon={PRAYER_ICONS[prayerId]} tint={toneColor} background={toneSoft} />
-        <View style={styles.body}>
-          <ThemedText type="small">{prayerName}</ThemedText>
-          <View style={styles.subRow}>
-            {timeHint ? (
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {timeHint}
-              </ThemedText>
-            ) : null}
-            {hasNotes ? (
-              <SymbolView
-                name={{ ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" }}
-                size={12}
-                tintColor={colors.mutedForeground}
-              />
+
+      <View style={styles.body}>
+        <PressableScale
+          haptic="light"
+          onPress={onPress}
+          accessibilityRole="button"
+          accessibilityLabel={rowA11y}
+          style={styles.mainPress}
+        >
+          <IconWell
+            icon={PRAYER_ICONS[prayerId]}
+            size={16}
+            well={ICON_WELL}
+            tint={toneColor}
+            background={toneSoft}
+          />
+          <View style={styles.copy}>
+            <ThemedText type="smallBold" numberOfLines={1}>
+              {prayerName}
+            </ThemedText>
+            {time || hasNotes ? (
+              <View style={styles.metaLine}>
+                {time ? (
+                  <ThemedText
+                    type="caption"
+                    themeColor="mutedForeground"
+                    numberOfLines={1}
+                    style={styles.time}
+                  >
+                    {time}
+                  </ThemedText>
+                ) : null}
+                {hasNotes ? (
+                  <SymbolView
+                    name={{ ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" }}
+                    size={12}
+                    tintColor={colors.mutedForeground}
+                  />
+                ) : null}
+              </View>
             ) : null}
           </View>
+        </PressableScale>
+
+        <View style={styles.actions}>
+          <Pill
+            label={statusLabel}
+            color={toneColor}
+            background={toneSoft}
+            icon={status === "pending" ? undefined : meta.icon}
+            compact
+          />
+          <PrayerInfoButton prayerId={prayerId} hitTarget={32} showLabel />
         </View>
-      </PressableScale>
-      <PrayerInfoButton prayerId={prayerId} hitTarget={32} showLabel />
-      <Pill
-        label={statusLabel}
-        color={toneColor}
-        background={toneSoft}
-        icon={status === "pending" ? undefined : meta.icon}
-      />
+      </View>
     </View>
   );
 }
@@ -114,17 +139,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.three,
-    padding: Spacing.two + 2,
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.two + 2,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-  },
-  mainPress: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.three,
-    minWidth: 0,
   },
   check: {
     width: 28,
@@ -134,14 +153,40 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
+    flexShrink: 0,
   },
   body: {
     flex: 1,
-    gap: 2,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    minWidth: 0,
   },
-  subRow: {
+  mainPress: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    minWidth: 0,
+  },
+  copy: {
+    flex: 1,
+    minWidth: 0,
+    gap: 0,
+  },
+  metaLine: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
+    marginTop: 1,
+  },
+  time: {
+    flexShrink: 1,
+    fontVariant: ["tabular-nums"],
+  },
+  actions: {
+    flexShrink: 0,
+    alignItems: "flex-end",
+    gap: Spacing.half + 2,
   },
 });

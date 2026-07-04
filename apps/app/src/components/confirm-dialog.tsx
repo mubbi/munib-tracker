@@ -15,6 +15,9 @@ type ConfirmDialogProps = {
   cancelLabel?: string;
   destructive?: boolean;
   onConfirm: () => void;
+  /** Cancel button; defaults to `onClose` when omitted. */
+  onCancel?: () => void;
+  /** Backdrop dismiss — does not run when the cancel button is pressed. */
   onClose: () => void;
 };
 
@@ -27,6 +30,7 @@ export function ConfirmDialog({
   cancelLabel,
   destructive,
   onConfirm,
+  onCancel,
   onClose,
 }: ConfirmDialogProps) {
   const { tokens } = useThemeTokens();
@@ -41,9 +45,15 @@ export function ConfirmDialog({
         </ThemedText>
       ) : null}
       <View style={styles.actions}>
-        <Button label={cancelLabel ?? t("common.cancel")} variant="ghost" onPress={onClose} />
+        <Button
+          label={cancelLabel ?? t("common.cancel")}
+          variant="ghost"
+          fullWidth
+          onPress={onCancel ?? onClose}
+        />
         <Button
           label={confirmLabel ?? t("common.confirm")}
+          fullWidth
           onPress={() => {
             onConfirm();
             onClose();
@@ -57,8 +67,6 @@ export function ConfirmDialog({
 
 const styles = StyleSheet.create({
   actions: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
     gap: Spacing.two,
     marginTop: Spacing.three,
   },

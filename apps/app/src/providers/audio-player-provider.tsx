@@ -1,4 +1,4 @@
-import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
+import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
 import {
   createContext,
   type ReactNode,
@@ -79,6 +79,20 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 
   const current = queue[index] ?? null;
   const prefsReady = usePreferencesReady();
+
+  // Configure the audio session once: keep playing through the iOS mute switch
+  // (otherwise recitation is silent when the ringer is off) and in the background.
+  // Native only — the web audio element ignores these.
+  useEffect(() => {
+    if (Platform.OS === "web") return;
+    setAudioModeAsync({
+      playsInSilentMode: true,
+      shouldPlayInBackground: true,
+      interruptionMode: "doNotMix",
+    }).catch(() => {
+      // Non-fatal: playback still works, just without the preferred session mode.
+    });
+  }, []);
 
   // On web, expo-audio's fire-and-forget `play()` rejects its pending media
   // promise when playback is interrupted by a near-immediate `pause()`/`replace()`

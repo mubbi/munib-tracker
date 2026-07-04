@@ -38,6 +38,12 @@ export interface StoredLocation {
   source: LocationSource;
   /** ISO timestamp of the last successful device fix, or null if defaulted. */
   updatedAt: string | null;
+  /**
+   * IANA timezone id (e.g. "Asia/Karachi") for a manually-picked city, so its
+   * prayer times display in that city's local clock rather than the device's.
+   * Undefined for device/default locations, which use the device timezone.
+   */
+  timeZone?: string;
 }
 
 /** Sensible default until a real fix is available: the Kaaba, Makkah. */
@@ -103,6 +109,33 @@ async function reverseGeocode(latitude: number, longitude: number): Promise<Plac
   return {};
 }
 
+/** How long to wait for a fresh GPS fix before falling back to the last known one. */
+const LOCATION_TIMEOUT_MS = 10_000;
+
+/**
+ * Gets a device fix, but never hangs: if `getCurrentPositionAsync` doesn't
+ * resolve within {@link LOCATION_TIMEOUT_MS} (common indoors / with weak GPS),
+ * fall back to the last known position so the "loading" state always resolves.
+ */
+async function getPositionWithTimeout(): Promise<Location.LocationObject> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<null>((resolve) => {
+    timer = setTimeout(() => resolve(null), LOCATION_TIMEOUT_MS);
+  });
+  try {
+    const result = await Promise.race([
+      Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Low }),
+      timeout,
+    ]);
+    if (result) return result;
+    const last = await Location.getLastKnownPositionAsync();
+    if (last) return last;
+    throw new Error("Location request timed out");
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
 export type LocationResult =
   | { status: "granted"; location: Omit<StoredLocation, "method" | "madhab"> }
   | { status: "denied" }
@@ -117,9 +150,7 @@ export async function getDeviceLocation(): Promise<LocationResult> {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") return { status: "denied" };
 
-    const position = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.Low,
-    });
+    const position = await getPositionWithTimeout();
     const { latitude, longitude } = position.coords;
     const place = await reverseGeocode(latitude, longitude);
 
@@ -133,6 +164,9 @@ export async function getDeviceLocation(): Promise<LocationResult> {
         label: buildLabel(place, latitude, longitude),
         source: "device",
         updatedAt: new Date().toISOString(),
+        // A device fix uses the device clock — clear any timezone carried over
+        // from a previously-selected manual city.
+        timeZone: undefined,
       },
     };
   } catch {
@@ -153,6 +187,8 @@ export interface LocationSearchResult {
   longitude: number;
   /** Compact display label persisted as the location, e.g. "Karachi, Pakistan". */
   label: string;
+  /** IANA timezone id from the geocoder, so times render in the city's clock. */
+  timeZone?: string;
 }
 
 /** Shape of a result row from the Open-Meteo geocoding endpoint. */
@@ -165,6 +201,8 @@ interface OpenMeteoPlace {
   country_code?: string;
   admin1?: string;
   admin2?: string;
+  /** IANA timezone id, e.g. "Asia/Karachi" (Open-Meteo returns this per result). */
+  timezone?: string;
 }
 
 function toSearchResult(place: OpenMeteoPlace): LocationSearchResult {
@@ -184,6 +222,7 @@ function toSearchResult(place: OpenMeteoPlace): LocationSearchResult {
     latitude: place.latitude,
     longitude: place.longitude,
     label: [place.name, place.country].filter(Boolean).join(", "),
+    timeZone: place.timezone,
   };
 }
 

@@ -79,6 +79,8 @@ export const locationStore = createStore<LocationState>((set, get) => ({
       label: place.label,
       source: "manual",
       updatedAt: new Date().toISOString(),
+      // Show the chosen city's prayer times in that city's clock, not the device's.
+      timeZone: place.timeZone,
     });
     set({ location, status: "ready" });
   },

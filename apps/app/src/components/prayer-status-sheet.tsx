@@ -1,9 +1,11 @@
-import type { PrayerStatus } from "@munib-tracker/shared/types";
+import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
 import { SymbolView } from "expo-symbols";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { PrayerNotesModal } from "@/components/prayer-notes-modal";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -32,18 +34,24 @@ function outcomeHaptic(status: PrayerStatus): HapticFeedback {
   }
 }
 
+export type PrayerStatusSelectionOptions = {
+  addToQaza?: boolean;
+};
+
 type PrayerStatusSheetProps = {
   visible: boolean;
+  prayerId: PrayerId;
   prayerLabel: string;
   currentStatus: PrayerStatus;
   currentNotes?: string;
-  onSelect: (status: PrayerStatus) => void;
+  onSelect: (status: PrayerStatus, options?: PrayerStatusSelectionOptions) => void;
   onSaveNotes: (notes: string) => void;
   onClose: () => void;
 };
 
 export function PrayerStatusSheet({
   visible,
+  prayerId,
   prayerLabel,
   currentStatus,
   currentNotes,
@@ -54,10 +62,43 @@ export function PrayerStatusSheet({
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const [notesOpen, setNotesOpen] = useState(false);
+  const [qazaPromptOpen, setQazaPromptOpen] = useState(false);
+  const [pendingStatus, setPendingStatus] = useState<PrayerStatus | null>(null);
+
+  useEffect(() => {
+    if (!visible) {
+      setQazaPromptOpen(false);
+      setPendingStatus(null);
+    }
+  }, [visible]);
+
+  const finishQazaPrompt = (addToQaza: boolean) => {
+    if (pendingStatus) {
+      onSelect(pendingStatus, { addToQaza });
+    }
+    setPendingStatus(null);
+    setQazaPromptOpen(false);
+    onClose();
+  };
+
+  const handleStatusPress = (status: (typeof PRAYER_STATUS_ORDER)[number]) => {
+    const active = currentStatus === status;
+    const next = active ? "pending" : status;
+    triggerHaptic(outcomeHaptic(next));
+
+    if ((status === "missed" || status === "qaza") && !active && isObligatoryPrayer(prayerId)) {
+      setPendingStatus(status);
+      setQazaPromptOpen(true);
+      return;
+    }
+
+    onSelect(next);
+    onClose();
+  };
 
   return (
     <>
-      <Sheet visible={visible} onClose={onClose} variant="bottom">
+      <Sheet visible={visible && !qazaPromptOpen} onClose={onClose} variant="bottom">
         <ThemedText type="subtitle">{prayerLabel}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("statusSheet.prompt")}
@@ -75,15 +116,7 @@ export function PrayerStatusSheet({
                 accessibilityRole="button"
                 accessibilityLabel={t(`prayerStatus.${status}`)}
                 accessibilityState={{ selected: active }}
-                onPress={() => {
-                  // Tapping the active status clears back to pending.
-                  const next = active ? "pending" : status;
-                  // Outcome-specific haptic: success for completed/qaza,
-                  // warning for missed, a neutral tick for delayed/clear.
-                  triggerHaptic(outcomeHaptic(next));
-                  onSelect(next);
-                  onClose();
-                }}
+                onPress={() => handleStatusPress(status)}
                 style={[
                   styles.option,
                   {
@@ -124,6 +157,20 @@ export function PrayerStatusSheet({
           </ThemedText>
         ) : null}
       </Sheet>
+
+      <ConfirmDialog
+        visible={visible && qazaPromptOpen}
+        title={t("statusSheet.qazaPromptTitle")}
+        message={t("statusSheet.qazaPromptMessage", { prayer: prayerLabel })}
+        confirmLabel={t("statusSheet.qazaPromptConfirm")}
+        cancelLabel={t("statusSheet.qazaPromptDecline")}
+        onConfirm={() => finishQazaPrompt(true)}
+        onCancel={() => finishQazaPrompt(false)}
+        onClose={() => {
+          setQazaPromptOpen(false);
+          setPendingStatus(null);
+        }}
+      />
 
       <PrayerNotesModal
         visible={notesOpen}

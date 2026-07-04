@@ -12,6 +12,16 @@ export enum DatabaseType {
   Sqlite = "sqlite",
 }
 
+/**
+ * The insecure default JWT secret. Fine for local dev/test, but production must
+ * override it with a strong secret — see the production check in
+ * `validateEnvironment`.
+ */
+export const DEV_JWT_SECRET = "change-me-in-development";
+
+/** Minimum acceptable JWT secret length (bytes) in production. */
+export const MIN_PROD_JWT_SECRET_LENGTH = 32;
+
 export class EnvironmentVariables {
   @Transform(({ value }) => {
     const parsed = Number(value);
@@ -58,7 +68,7 @@ export class EnvironmentVariables {
   DATABASE_SSL = false;
 
   @IsString()
-  JWT_SECRET = "change-me-in-development";
+  JWT_SECRET = DEV_JWT_SECRET;
 
   /** Access-token lifetime (any `jsonwebtoken` duration string, e.g. `15m`, `1h`, `7d`). */
   @IsString()

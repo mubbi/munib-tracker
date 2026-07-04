@@ -8,6 +8,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
+import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -28,11 +29,14 @@ export default function DuaFavoritesScreen() {
   const items = order.map((id) => getDuaById(id)).filter((item) => item != null);
 
   const move = (index: number, direction: -1 | 1) => {
-    const next = [...order];
     const target = index + direction;
-    if (target < 0 || target >= next.length) return;
-    [next[index], next[target]] = [next[target], next[index]];
-    void setOrder(next);
+    if (target < 0 || target >= items.length) return;
+    // Reorder the *resolved* id list so the rendered index matches the array we
+    // mutate — `order` may contain ids that no longer resolve to a dua, which
+    // would otherwise make the raw-index swap move the wrong entries.
+    const ids = items.map((item) => item.id);
+    [ids[index], ids[target]] = [ids[target], ids[index]];
+    void setOrder(ids);
   };
 
   return (
@@ -55,10 +59,11 @@ export default function DuaFavoritesScreen() {
           <View style={styles.list}>
             {items.map((item, index) => (
               <View key={item.id} style={[styles.row, { backgroundColor: colors.muted }]}>
+                <ListIndexBadge index={index + 1} />
                 <PressableScale
                   haptic="light"
                   accessibilityRole="button"
-                  accessibilityLabel={item.title}
+                  accessibilityLabel={`${index + 1}. ${item.title}`}
                   onPress={() =>
                     router.push({ pathname: "/dua/detail/[id]", params: { id: item.id } })
                   }

@@ -1,4 +1,4 @@
-import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentPage, ContentSection } from "@/components/content-page";
@@ -56,9 +56,17 @@ export default function AboutPage() {
 
       <ContentSection heading="Author & collaborators">
         <p className="text-muted">
-          {APP_NAME} is built and maintained by the Munib Tracker team, with content reviewed for
-          authenticity before it ships. We are grateful to every contributor, tester, and reviewer
-          who has helped shape the app.
+          {APP_NAME} is built and maintained by{" "}
+          <a
+            href={APP_AUTHOR_URL}
+            className="font-medium text-brand hover:underline"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {APP_AUTHOR}
+          </a>
+          , with content reviewed for authenticity before it ships. We are grateful to every
+          contributor, tester, and reviewer who has helped shape the app.
         </p>
       </ContentSection>
 

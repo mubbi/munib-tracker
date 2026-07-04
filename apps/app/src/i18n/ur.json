@@ -8,6 +8,7 @@
     "skip": "چھوڑ دیں",
     "apply": "لاگو کریں",
     "delete": "حذف کریں",
+    "edit": "ترمیم",
     "remove": "ہٹا دیں",
     "add": "شامل کریں",
     "reset": "دوبارہ ترتیب دیں",
@@ -26,8 +27,31 @@
     "minus": "منفی",
     "set": "مقرر کریں",
     "play": "چلائیں",
+    "increase": "{{label}} بڑھائیں",
+    "decrease": "{{label}} کم کریں",
     "appName": "Munib Tracker",
     "appTagline": "اللہ کی طرف اپنے سفر کو ٹریک کریں۔"
+  },
+  "search": {
+    "placeholder": "قرآن، حدیث، دعائیں، اذکار تلاش کریں…",
+    "clear": "تلاش صاف کریں",
+    "all": "سب",
+    "resultsCount": "{{count}} نتائج",
+    "seeAllCount": "سب دیکھیں ({{count}})",
+    "noResultsTitle": "کوئی نتیجہ نہیں ملا",
+    "noResultsDesc": "کوئی اور لفظ یا ہجے آزما کر دیکھیں۔",
+    "recent": "حالیہ تلاشیں",
+    "clearRecent": "صاف کریں",
+    "suggestions": "یہ تلاش کر کے دیکھیں",
+    "searchingQuran": "قرآن میں تلاش جاری ہے…",
+    "cat": {
+      "quran": "قرآن",
+      "hadith": "حدیث",
+      "dua": "دعائیں",
+      "zikr": "اذکار",
+      "name": "۹۹ نام",
+      "durood": "درود"
+    }
   },
   "tabs": {
     "home": "ہوم",
@@ -45,7 +69,33 @@
     "hadith": "حدیث",
     "calendar": "کیلنڈر",
     "stats": "اعداد و شمار",
-    "qibla": "قبلہ"
+    "qibla": "قبلہ",
+    "bookmarks": "بک مارکس"
+  },
+  "bookmarks": {
+    "eyebrow": "لائبریری",
+    "title": "بک مارکس",
+    "subtitle": "آپ کی تمام محفوظ مطالعہ ایک جگہ",
+    "subtitleCount": "{{count}} محفوظ اشیاء",
+    "reading": "مطالعہ",
+    "saved": "محفوظ",
+    "quran": "قرآن کی آیات",
+    "hadith": "احادیث",
+    "duas": "محفوظ دعائیں",
+    "zikr": "پسندیدہ اذکار",
+    "emptyTitle": "ابھی کچھ محفوظ نہیں",
+    "emptySubtitle": "نیچے سے پڑھیں اور محفوظ کریں",
+    "emptyDesc": "آپ کی بک مارک آیات، احادیث، دعائیں اور اذکار یہاں جمع ہوں گے۔",
+    "exploreReading": "پڑھنا شروع کریں",
+    "exploreSaved": "محفوظ کرنا شروع کریں",
+    "exploreQuran": "قرآن دیکھیں",
+    "exploreQuranHint": "کسی بھی آیت پر بک مارک آئیکن دبائیں",
+    "exploreHadith": "احادیث دیکھیں",
+    "exploreHadithHint": "کسی بھی مجموعے سے بک مارک کریں",
+    "exploreDuas": "دعائیں دیکھیں",
+    "exploreDuasHint": "دعا محفوظ کرنے کے لیے ستارہ دبائیں",
+    "exploreZikr": "اذکار دیکھیں",
+    "exploreZikrHint": "ذکر پسندیدہ میں شامل کرنے کے لیے دل دبائیں"
   },
   "home": {
     "todaysGoal": "آج کا ہدف",
@@ -171,6 +221,8 @@
     "languageSub": "ایپ اور ترجمے کی زبان",
     "timeFormat": "وقت کی شکل",
     "timeFormatSub": "۱۲ یا ۲۴ گھنٹے",
+    "weather": "موسم",
+    "weatherSub": "ہیرو اثرات اور درجہ حرارت کی اکائی",
     "achievements": "کامیابیاں",
     "achievementsSub": "سنگِ میل اور بیجز",
     "qibla": "قبلہ",
@@ -240,6 +292,28 @@
     "am": "AM",
     "pm": "PM",
     "footer": "آپ کی پسند خودکار محفوظ ہوتی ہے اور ہر جگہ لاگو ہوتی ہے جہاں وقت دکھایا جاتا ہے۔"
+  },
+  "weather": {
+    "title": "موسم",
+    "subtitle": "ہوم ہیرو پر موجودہ حالات",
+    "effectsTitle": "ہیرو اثرات",
+    "effectsHint": "ہوم بینر پر مقامی موسم کے مطابق متحرک اوورلیز۔",
+    "effectsToggle": "موسمی اثرات",
+    "effectsToggleSub": "بارش، بادل، دھوپ، ہوا وغیرہ ہیرو پر",
+    "unitTitle": "درجہ حرارت کی اکائی",
+    "unitHint": "ہوم اسکرین پر مقام کے بعد دکھایا جاتا ہے",
+    "unitCelsius": "سیلسیس (°C)",
+    "unitFahrenheit": "فارن ہائٹ (°F)",
+    "footer": "موسم ہر 3 گھنٹے بعد Open-Meteo اور MET Norway سے مفت اپ ڈیٹ ہوتا ہے۔",
+    "condition": {
+      "clear": "صاف",
+      "partly_cloudy": "جزوی بادل",
+      "cloudy": "ابر آلود",
+      "fog": "دھند",
+      "rain": "بارش",
+      "snow": "برف",
+      "thunderstorm": "طوفان"
+    }
   },
   "notif": {
     "eyebrow": "ترتیبات",
@@ -366,7 +440,11 @@
     "browseZikr": "ذکر دیکھیں",
     "moveUp": "اوپر لے جائیں",
     "moveDown": "نیچے لے جائیں",
-    "removeFavorite": "پسندیدہ سے ہٹائیں"
+    "removeFavorite": "پسندیدہ سے ہٹائیں",
+    "searchPlaceholder": "عنوان، موضوع یا متن سے اذکار تلاش کریں…",
+    "searchInCategory": "اس زمرے میں تلاش کریں…",
+    "searchResultCount": "{{count}} نتائج",
+    "noResults": "آپ کی تلاش سے کوئی ذکر نہیں ملا۔"
   },
   "zikrCat": {
     "morning": "صبح کے اذکار",
@@ -399,7 +477,11 @@
     "unfavorite": "محفوظ سے ہٹائیں",
     "favorites": "محفوظ دعائیں",
     "favoritesEmpty": "ابھی کوئی محفوظ دعا نہیں",
-    "viewFavorites": "محفوظ دعائیں"
+    "viewFavorites": "محفوظ دعائیں",
+    "searchPlaceholder": "عنوان، موضوع یا متن سے دعائیں تلاش کریں…",
+    "searchInCategory": "اس زمرے میں تلاش کریں…",
+    "searchResultCount": "{{count}} نتائج",
+    "noResults": "آپ کی تلاش سے کوئی دعا نہیں ملی۔"
   },
   "duaCat": {
     "sunnah": "سنت دعائیں",
@@ -505,7 +587,25 @@
     "eyebrow": "تسبیح",
     "freeTitle": "شمار کنندہ",
     "freeSubtitle": "کوئی بھی ذکر بغیر ہاتھ لگائے گنیں",
-    "freeHint": "آزاد شمار کنندہ — یہ مجموعہ صفحہ چھوڑنے پر ری سیٹ ہو جاتا ہے۔ روزانہ پیش رفت محفوظ کرنے کے لیے کوئی مخصوص ذکر کھولیں۔",
+    "freeHint": "فوری شمار کنندہ — یہ مجموعہ صفحہ چھوڑنے پر ری سیٹ ہو جاتا ہے۔ پیش رفت محفوظ رکھنے کے لیے نیچے اپنا شمار کنندہ بنائیں۔",
+    "quickCounter": "فوری شمار کنندہ",
+    "customSection": "آپ کے شمار کنندے",
+    "customCreateTitle": "نیا شمار کنندہ",
+    "customEditTitle": "شمار کنندہ میں ترمیم",
+    "customCreateAction": "شمار کنندہ بنائیں",
+    "customFormHint": "ذکر کا نام، مختصر نوٹ، اور ہدف تعداد منتخب کریں۔",
+    "customTitleLabel": "عنوان",
+    "customTitlePlaceholder": "مثال: درود شریف",
+    "customDescLabel": "تفصیل (اختیاری)",
+    "customDescPlaceholder": "مثال: ہر نماز کے بعد",
+    "customTargetLabel": "ہدف تعداد",
+    "customTargetSummary": "ہدف: {{target}}",
+    "customUnlimitedSummary": "لامحدود گنتی",
+    "customEmptyTitle": "ابھی کوئی محفوظ شمار کنندہ نہیں",
+    "customEmptyDesc": "درود، استغفار یا کسی بھی ذکر کے لیے شمار کنندہ بنائیں — گنتی خود بخود محفوظ ہو جاتی ہے۔",
+    "customDeleteTitle": "شمار کنندہ حذف کریں؟",
+    "customDeleteMessage": "\"{{title}}\" اور اس کی محفوظ گنتی مستقل طور پر ہٹا دی جائے گی۔",
+    "customBackToCounters": "شمار کنندوں پر واپس",
     "notFoundTitle": "ذکر نہیں ملا",
     "notFoundDesc": "ممکن ہے یہ آئٹم ہٹا دیا گیا ہو۔"
   },
@@ -779,7 +879,11 @@
     "editNote": "نوٹ میں ترمیم کریں",
     "addNote": "نوٹ شامل کریں",
     "noteTitle": "{{prayer}} — نوٹ",
-    "rowA11y": "{{prayer}}، {{status}}"
+    "rowA11y": "{{prayer}}، {{status}}",
+    "qazaPromptTitle": "قضا کی تعداد میں شامل کریں؟",
+    "qazaPromptMessage": "{{prayer}} کی قضا میں ایک شامل کریں؟",
+    "qazaPromptConfirm": "ہاں، قضا میں شامل کریں",
+    "qazaPromptDecline": "نہیں، چھوڑ دیں"
   },
   "notesModal": {
     "hint": "اختیاری — اس دن کے لیے ایک نجی نوٹ۔",
@@ -799,7 +903,13 @@
     "customTitle": "اپنی پسند کا ہدف",
     "customPrompt": "آپ کتنی بار دہرانا چاہیں گے؟",
     "customPlaceholder": "مثلاً ۳۱۳",
-    "modeLabel": "{{mode}}، شمار {{count}}"
+    "modeLabel": "{{mode}}، شمار {{count}}",
+    "confirmUndoTitle": "آخری گنتی واپس لیں؟",
+    "confirmUndoMessage": "موجودہ گنتی میں سے ایک کم ہو جائے گا۔",
+    "confirmResetTitle": "شمار کنندہ ری سیٹ کریں؟",
+    "confirmResetMessage": "آپ کی گنتی {{count}} صاف ہو جائے گی۔",
+    "confirmStartAgainTitle": "دوبارہ شروع کریں؟",
+    "confirmStartAgainMessage": "مکمل گنتی صاف ہو جائے گی تاکہ آپ نیا دور شروع کر سکیں۔"
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} میں صرف {{min}} منٹ باقی",
@@ -811,7 +921,9 @@
     "current": "اب",
     "clockLabel": "{{time}}، {{countdown}}",
     "prayerItem": "{{name}} {{time}} پر",
-    "prayerItemActive": "{{name}} {{time}} پر، موجودہ نماز"
+    "prayerItemActive": "{{name}} {{time}} پر، موجودہ نماز",
+    "weatherA11y": "{{temp}}، {{condition}}",
+    "locationWeatherA11y": "{{location}}، {{weather}}۔ مقام تبدیل کریں"
   },
   "location": {
     "eyebrow": "مقام",
@@ -963,7 +1075,8 @@
     "version": "ورژن {{version}}",
     "credits": "کریڈٹس",
     "authorLabel": "مصنف",
-    "authorValue": "منیب ٹریکر ٹیم",
+    "authorValue": "Mubbasher Ahmed Qureshi",
+    "authorWebsiteLabel": "ویب سائٹ",
     "collaboratorsLabel": "معاونین",
     "collaboratorsValue": "کمیونٹی کے تعاون کنندگان",
     "duaTitle": "ایک دعا",

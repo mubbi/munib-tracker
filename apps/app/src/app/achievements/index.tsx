@@ -1,7 +1,6 @@
 import {
   evaluateProgression,
   type MilestoneProgress,
-  migrateLegacyAchievementIds,
   type ProgressionState,
   resolveUnlockedMilestones,
   summarizeQazaDebt,
@@ -22,9 +21,8 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
-import { DB_KEYS } from "@/db/keys";
-import { readJSON, writeJSON } from "@/db/store";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { persistAchievementSync } from "@/lib/achievements-persistence";
 
 const OBLIGATORY = new Set<string>(OBLIGATORY_PRAYERS);
 
@@ -114,39 +112,38 @@ export default function AchievementsScreen() {
     useCallback(() => {
       let active = true;
       void (async () => {
-        const [logs, zikr, counters, roza] = await Promise.all([
-          PrayerRepository.getAll(),
-          ZikrRepository.getAll(),
-          QazaRepository.getCounters(),
-          QazaRepository.getRoza(),
-        ]);
-        const prayersCompleted = logs.filter(
-          (l) => l.status === "completed" && OBLIGATORY.has(l.prayerId),
-        ).length;
-        const stats = {
-          streak: computeStreak(logs, true),
-          prayersCompleted,
-          qazaDebt: summarizeQazaDebt(counters),
-          rozaDebt: summarizeRozaDebt(roza),
-          zikrCompleted: zikr.filter((z) => z.completed).length,
-          perfectDays: countPerfectDays(logs),
-        };
-        const progression = evaluateProgression(stats);
+        try {
+          const [logs, zikr, counters, roza] = await Promise.all([
+            PrayerRepository.getAll(),
+            ZikrRepository.getAll(),
+            QazaRepository.getCounters(),
+            QazaRepository.getRoza(),
+          ]);
+          const prayersCompleted = logs.filter(
+            (l) => l.status === "completed" && OBLIGATORY.has(l.prayerId),
+          ).length;
+          const stats = {
+            streak: computeStreak(logs, true),
+            prayersCompleted,
+            qazaDebt: summarizeQazaDebt(counters),
+            rozaDebt: summarizeRozaDebt(roza),
+            zikrCompleted: zikr.filter((z) => z.completed).length,
+            perfectDays: countPerfectDays(logs),
+          };
+          const progression = evaluateProgression(stats);
+          const { synced } = await persistAchievementSync(stats);
 
-        const known = migrateLegacyAchievementIds(
-          await readJSON<string[]>(DB_KEYS.achievements, []),
-        );
-        const unlockedIds = progression.unlockedMilestones.map((m) => m.id);
-        const merged = Array.from(new Set([...known, ...unlockedIds]));
-        await writeJSON(DB_KEYS.achievements, merged);
+          const persistedUnlocked = resolveUnlockedMilestones(synced, stats).sort(
+            (a, b) => b.level - a.level,
+          );
 
-        const persistedUnlocked = resolveUnlockedMilestones(merged, stats).sort(
-          (a, b) => b.level - a.level,
-        );
-
-        if (active) {
-          setState(progression);
-          setUnlocked(persistedUnlocked);
+          if (active) {
+            setState(progression);
+            setUnlocked(persistedUnlocked);
+          }
+        } catch (error) {
+          // Keep the last-known state rather than silently showing an empty screen.
+          if (__DEV__) console.error("Failed to load achievements", error);
         }
       })();
       return () => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { type LayoutChangeEvent, Pressable, StyleSheet, View } from "react-native";
+import { I18nManager, type LayoutChangeEvent, Pressable, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
@@ -37,10 +37,14 @@ export function SegmentedControl<T extends string>({
   );
   const segmentWidth = trackWidth > 0 ? (trackWidth - PAD * 2 - GAP * (count - 1)) / count : 0;
 
+  // In RTL the row of segments is mirrored, so the thumb must travel from the
+  // opposite edge. We anchor it to the end (see thumb style) and flip the sign.
+  const rtlSign = I18nManager.isRTL ? -1 : 1;
+
   const translateX = useSharedValue(0);
   useEffect(() => {
-    translateX.value = withSpring(selectedIndex * (segmentWidth + GAP), Springs.gentle);
-  }, [selectedIndex, segmentWidth, translateX]);
+    translateX.value = withSpring(rtlSign * selectedIndex * (segmentWidth + GAP), Springs.gentle);
+  }, [selectedIndex, segmentWidth, translateX, rtlSign]);
 
   const thumbStyle = useAnimatedStyle(() => ({ transform: [{ translateX: translateX.value }] }));
 
@@ -52,6 +56,9 @@ export function SegmentedControl<T extends string>({
         <Animated.View
           style={[
             styles.thumb,
+            // Anchor to the leading edge for the writing direction so the
+            // mirrored translateX lands the thumb under the selected segment.
+            I18nManager.isRTL ? { right: PAD } : { left: PAD },
             { width: segmentWidth, backgroundColor: colors.card, pointerEvents: "none" },
             thumbStyle,
           ]}
@@ -96,7 +103,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: PAD,
     bottom: PAD,
-    left: PAD,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     ...Shadows.sm,

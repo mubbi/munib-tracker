@@ -1,5 +1,5 @@
 import { Children, type ReactNode, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -10,6 +10,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { Durations, Stagger as StaggerTokens } from "@/constants/motion";
+import { Spacing } from "@/constants/theme";
 
 type StaggerProps = {
   children: ReactNode;
@@ -43,7 +44,7 @@ export function Stagger({
   const items = Children.toArray(children);
 
   return (
-    <>
+    <View style={styles.stack}>
       {items.map((child, index) => (
         <StaggerItem
           // biome-ignore lint/suspicious/noArrayIndexKey: stack order is stable
@@ -56,7 +57,7 @@ export function Stagger({
           {child}
         </StaggerItem>
       ))}
-    </>
+    </View>
   );
 }
 
@@ -96,6 +97,10 @@ function StaggerItem({
 }
 
 const styles = StyleSheet.create({
+  stack: {
+    width: "100%",
+    gap: Spacing.four,
+  },
   item: {
     width: "100%",
   },

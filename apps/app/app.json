@@ -13,7 +13,7 @@
       "supportsTablet": true,
       "icon": "./assets/expo.icon",
       "infoPlist": {
-        "UIBackgroundModes": ["remote-notification"]
+        "UIBackgroundModes": ["remote-notification", "audio"]
       }
     },
     "android": {

@@ -8,6 +8,7 @@
     "skip": "Skip",
     "apply": "Apply",
     "delete": "Delete",
+    "edit": "Edit",
     "remove": "Remove",
     "add": "Add",
     "reset": "Reset",
@@ -26,6 +27,8 @@
     "minus": "Minus",
     "set": "Set",
     "play": "Play",
+    "increase": "Increase {{label}}",
+    "decrease": "Decrease {{label}}",
     "appName": "Munib Tracker",
     "appTagline": "Track Your Journey Back to Allah."
   },
@@ -66,7 +69,33 @@
     "hadith": "Hadith",
     "calendar": "Calendar",
     "stats": "Stats",
-    "qibla": "Qibla"
+    "qibla": "Qibla",
+    "bookmarks": "Bookmarks"
+  },
+  "bookmarks": {
+    "eyebrow": "Library",
+    "title": "Bookmarks",
+    "subtitle": "All your saved reading in one place",
+    "subtitleCount": "{{count}} saved items",
+    "reading": "Reading",
+    "saved": "Saved",
+    "quran": "Qur'an ayahs",
+    "hadith": "Hadith",
+    "duas": "Saved duas",
+    "zikr": "Favorite adhkar",
+    "emptyTitle": "Nothing saved yet",
+    "emptySubtitle": "Explore below and save as you read",
+    "emptyDesc": "Your bookmarked ayahs, hadith, duas, and adhkar will collect here.",
+    "exploreReading": "Start reading",
+    "exploreSaved": "Start saving",
+    "exploreQuran": "Browse Qur'an",
+    "exploreQuranHint": "Tap the bookmark icon on any ayah",
+    "exploreHadith": "Browse Hadith",
+    "exploreHadithHint": "Bookmark from any collection",
+    "exploreDuas": "Browse Duas",
+    "exploreDuasHint": "Tap the star to save a dua",
+    "exploreZikr": "Browse Adhkar",
+    "exploreZikrHint": "Tap the heart to favorite adhkar"
   },
   "home": {
     "todaysGoal": "Today's Goal",
@@ -192,6 +221,8 @@
     "languageSub": "App & translation language",
     "timeFormat": "Time format",
     "timeFormatSub": "12-hour or 24-hour clock",
+    "weather": "Weather",
+    "weatherSub": "Hero effects and temperature unit",
     "achievements": "Achievements",
     "achievementsSub": "Milestones and badges",
     "qibla": "Qibla",
@@ -261,6 +292,28 @@
     "am": "AM",
     "pm": "PM",
     "footer": "Your choice is saved automatically and used everywhere times are shown."
+  },
+  "weather": {
+    "title": "Weather",
+    "subtitle": "Live conditions on your home hero",
+    "effectsTitle": "Hero effects",
+    "effectsHint": "Animated overlays on the home banner that match local weather.",
+    "effectsToggle": "Weather effects",
+    "effectsToggleSub": "Rain, clouds, sunshine, wind, and more on the hero",
+    "unitTitle": "Temperature unit",
+    "unitHint": "Shown beside your location on the home screen",
+    "unitCelsius": "Celsius (°C)",
+    "unitFahrenheit": "Fahrenheit (°F)",
+    "footer": "Weather refreshes every 3 hours using free Open-Meteo and MET Norway data.",
+    "condition": {
+      "clear": "Clear",
+      "partly_cloudy": "Partly cloudy",
+      "cloudy": "Cloudy",
+      "fog": "Foggy",
+      "rain": "Rainy",
+      "snow": "Snowy",
+      "thunderstorm": "Stormy"
+    }
   },
   "notif": {
     "eyebrow": "Settings",
@@ -387,7 +440,11 @@
     "browseZikr": "Browse zikr",
     "moveUp": "Move up",
     "moveDown": "Move down",
-    "removeFavorite": "Remove favorite"
+    "removeFavorite": "Remove favorite",
+    "searchPlaceholder": "Search adhkar by title, topic, or text…",
+    "searchInCategory": "Search in this category…",
+    "searchResultCount": "{{count}} matches",
+    "noResults": "No adhkar matched your search."
   },
   "zikrCat": {
     "morning": "Morning Adhkar",
@@ -420,7 +477,11 @@
     "unfavorite": "Remove from saved",
     "favorites": "Saved duas",
     "favoritesEmpty": "No saved duas yet",
-    "viewFavorites": "Saved duas"
+    "viewFavorites": "Saved duas",
+    "searchPlaceholder": "Search duas by title, topic, or text…",
+    "searchInCategory": "Search in this category…",
+    "searchResultCount": "{{count}} matches",
+    "noResults": "No duas matched your search."
   },
   "duaCat": {
     "sunnah": "Sunnah Duas",
@@ -526,7 +587,25 @@
     "eyebrow": "Tasbeeh",
     "freeTitle": "Counter",
     "freeSubtitle": "Count any dhikr, hands-free",
-    "freeHint": "Free counter — this total resets when you leave. Open a specific zikr to save daily progress.",
+    "freeHint": "Quick counter — this total resets when you leave. Create a saved counter below to keep your progress.",
+    "quickCounter": "Quick counter",
+    "customSection": "Your counters",
+    "customCreateTitle": "New counter",
+    "customEditTitle": "Edit counter",
+    "customCreateAction": "Create counter",
+    "customFormHint": "Name your dhikr, add a note, and pick a target count.",
+    "customTitleLabel": "Title",
+    "customTitlePlaceholder": "e.g. Durood Shareef",
+    "customDescLabel": "Description (optional)",
+    "customDescPlaceholder": "e.g. After every salah",
+    "customTargetLabel": "Target count",
+    "customTargetSummary": "Target: {{target}}",
+    "customUnlimitedSummary": "Unlimited count",
+    "customEmptyTitle": "No saved counters yet",
+    "customEmptyDesc": "Create a counter for durood, istighfar, or any dhikr you repeat often — your count is saved automatically.",
+    "customDeleteTitle": "Delete counter?",
+    "customDeleteMessage": "\"{{title}}\" and its saved count will be removed permanently.",
+    "customBackToCounters": "Back to counters",
     "notFoundTitle": "Zikr not found",
     "notFoundDesc": "This item may have been removed."
   },
@@ -800,7 +879,11 @@
     "editNote": "Edit note",
     "addNote": "Add a note",
     "noteTitle": "{{prayer}} — note",
-    "rowA11y": "{{prayer}}, {{status}}"
+    "rowA11y": "{{prayer}}, {{status}}",
+    "qazaPromptTitle": "Add to qaza count?",
+    "qazaPromptMessage": "Add one to your qaza count for {{prayer}}?",
+    "qazaPromptConfirm": "Yes, add to qaza",
+    "qazaPromptDecline": "No, skip"
   },
   "notesModal": {
     "hint": "Optional — a private note for this day.",
@@ -820,7 +903,13 @@
     "customTitle": "Custom target",
     "customPrompt": "How many times would you like to repeat?",
     "customPlaceholder": "e.g. 313",
-    "modeLabel": "{{mode}}, count {{count}}"
+    "modeLabel": "{{mode}}, count {{count}}",
+    "confirmUndoTitle": "Undo last count?",
+    "confirmUndoMessage": "This will subtract one from your current count.",
+    "confirmResetTitle": "Reset counter?",
+    "confirmResetMessage": "Your count of {{count}} will be cleared.",
+    "confirmStartAgainTitle": "Start again?",
+    "confirmStartAgainMessage": "Your completed count will be cleared so you can begin a new round."
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} is only {{min}} min away",
@@ -832,7 +921,9 @@
     "current": "Now",
     "clockLabel": "{{time}}, {{countdown}}",
     "prayerItem": "{{name}} at {{time}}",
-    "prayerItemActive": "{{name}} at {{time}}, current prayer"
+    "prayerItemActive": "{{name}} at {{time}}, current prayer",
+    "weatherA11y": "{{temp}}, {{condition}}",
+    "locationWeatherA11y": "{{location}}, {{weather}}. Change location"
   },
   "location": {
     "eyebrow": "Location",
@@ -984,7 +1075,8 @@
     "version": "Version {{version}}",
     "credits": "Credits",
     "authorLabel": "Author",
-    "authorValue": "The Munib Tracker team",
+    "authorValue": "Mubbasher Ahmed Qureshi",
+    "authorWebsiteLabel": "Website",
     "collaboratorsLabel": "Collaborators",
     "collaboratorsValue": "Community contributors",
     "duaTitle": "A dua",

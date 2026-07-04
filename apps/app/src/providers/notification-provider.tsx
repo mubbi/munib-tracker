@@ -1,4 +1,5 @@
-import { useRouter } from "expo-router";
+import type { NotificationResponse } from "expo-notifications";
+import { type Href, useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
 import { AppState, Platform } from "react-native";
 import {
@@ -51,8 +52,23 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     if (!isNative) return;
     let receivedSub: { remove: () => void } | undefined;
     let responseSub: { remove: () => void } | undefined;
+    // Guard against handling the same tap twice — on some platforms a cold-start
+    // response is also replayed to the live listener.
+    const handledResponses = new Set<string>();
 
     void import("expo-notifications").then((Notifications) => {
+      const handleResponse = (response: NotificationResponse) => {
+        if (response.actionIdentifier === SNOOZE_ACTION_IDENTIFIER) {
+          void snoozeNotification(response);
+          return;
+        }
+        const id = response.notification.request.identifier;
+        if (handledResponses.has(id)) return;
+        handledResponses.add(id);
+        const data = response.notification.request.content.data as { route?: string } | undefined;
+        router.push((data?.route ?? "/notifications") as Href);
+      };
+
       receivedSub = Notifications.addNotificationReceivedListener((notification) => {
         const title = notification.request.content.title ?? "Reminder";
         const body = notification.request.content.body ?? "";
@@ -65,12 +81,12 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
         });
       });
 
-      responseSub = Notifications.addNotificationResponseReceivedListener((response) => {
-        if (response.actionIdentifier === SNOOZE_ACTION_IDENTIFIER) {
-          void snoozeNotification(response);
-          return;
-        }
-        router.push("/notifications");
+      responseSub = Notifications.addNotificationResponseReceivedListener(handleResponse);
+
+      // Cold start: the app was launched by tapping a notification. The live
+      // listener doesn't replay that launch tap, so handle it explicitly once.
+      void Notifications.getLastNotificationResponseAsync().then((response) => {
+        if (response) handleResponse(response);
       });
     });
 

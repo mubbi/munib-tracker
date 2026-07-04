@@ -1,9 +1,9 @@
-import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import Constants from "expo-constants";
 import { useRouter } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { SettingsRow } from "@/components/settings/settings-rows";
@@ -57,7 +57,13 @@ export default function AboutScreen() {
             icon={{ ios: "person.2.fill", android: "group", web: "group" }}
           />
           <View style={styles.creditRows}>
-            <Credit label={t("about.authorLabel")} value={t("about.authorValue")} />
+            <Credit label={t("about.authorLabel")} value={APP_AUTHOR} />
+            <Credit
+              label={t("about.authorWebsiteLabel")}
+              value={APP_AUTHOR_URL.replace(/^https?:\/\//, "")}
+              onPress={() => openLink(APP_AUTHOR_URL)}
+              linkColor={colors.accent}
+            />
             <Credit label={t("about.collaboratorsLabel")} value={t("about.collaboratorsValue")} />
           </View>
         </Card>
@@ -98,13 +104,35 @@ export default function AboutScreen() {
   );
 }
 
-function Credit({ label, value }: { label: string; value: string }) {
+function Credit({
+  label,
+  value,
+  onPress,
+  linkColor,
+}: {
+  label: string;
+  value: string;
+  onPress?: () => void;
+  linkColor?: string;
+}) {
+  const valueNode = (
+    <ThemedText type="small" style={linkColor ? { color: linkColor } : undefined}>
+      {value}
+    </ThemedText>
+  );
+
   return (
     <View style={styles.credit}>
       <ThemedText type="caption" themeColor="mutedForeground">
         {label}
       </ThemedText>
-      <ThemedText type="small">{value}</ThemedText>
+      {onPress ? (
+        <Pressable accessibilityRole="link" onPress={onPress}>
+          {valueNode}
+        </Pressable>
+      ) : (
+        valueNode
+      )}
     </View>
   );
 }

@@ -1,3 +1,4 @@
+import type { WeatherEffectKind } from "@munib-tracker/shared/types";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,7 +12,6 @@ import {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-
 import { MoonPhaseIcon } from "@/components/moon-phase";
 import { MoonPhaseSheet } from "@/components/moon-phase-sheet";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
@@ -19,6 +19,7 @@ import { SkyGradientLayer } from "@/components/sky-gradient-layer";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { HeroWeatherEffects } from "@/components/weather/hero-weather-effects";
 import { Durations } from "@/constants/motion";
 import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
@@ -52,6 +53,10 @@ type PrayerTimesHeroProps = {
   /** Fraction (0..1) of the current prayer window that has elapsed. */
   windowProgress: number;
   notificationCount?: number;
+  /** Localized weather line shown after the location label, e.g. "22° · Sunny". */
+  weatherSummary?: string | null;
+  weatherAccessibilityLabel?: string | null;
+  weatherEffects?: WeatherEffectKind[];
   onSearchPress?: () => void;
   onNotificationsPress?: () => void;
   /** Re-request / refresh the stored location (fires on tapping the location row). */
@@ -97,6 +102,9 @@ export function PrayerTimesHero({
   moonLabel,
   windowProgress,
   notificationCount = 0,
+  weatherSummary = null,
+  weatherAccessibilityLabel = null,
+  weatherEffects = [],
   onSearchPress,
   onNotificationsPress,
   onLocationPress,
@@ -116,26 +124,26 @@ export function PrayerTimesHero({
 
   const baseSkyStyle = useAnimatedStyle(() => ({
     transform: [
-      { scale: interpolate(drift.value, [0, 1], [1, 1.055]) },
-      { translateX: interpolate(drift.value, [0, 1], [0, 10]) },
-      { translateY: interpolate(drift.value, [0, 1], [0, -12]) },
+      { scale: interpolate(drift.value, [0, 1], [1, 1.1]) },
+      { translateX: interpolate(drift.value, [0, 1], [-22, 22]) },
+      { translateY: interpolate(drift.value, [0, 1], [-26, 26]) },
     ],
   }));
 
   const horizonStyle = useAnimatedStyle(() => ({
     transform: [
-      { scale: interpolate(drift.value, [0, 1], [1.02, 1.065]) },
-      { translateX: interpolate(drift.value, [0, 1], [-7, 7]) },
-      { translateY: interpolate(drift.value, [0, 1], [7, -7]) },
+      { scale: interpolate(drift.value, [0, 1], [1.04, 1.14]) },
+      { translateX: interpolate(drift.value, [0, 1], [22, -22]) },
+      { translateY: interpolate(drift.value, [0, 1], [-20, 20]) },
     ],
   }));
 
   const glowStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(breath.value, [0, 1], [0.55, 0.95]),
+    opacity: interpolate(breath.value, [0, 1], [0.5, 0.92]),
     transform: [
-      { scale: interpolate(breath.value, [0, 1], [1, 1.08]) },
-      { translateX: interpolate(drift.value, [0, 1], [-5, 5]) },
-      { translateY: interpolate(drift.value, [0, 1], [-4, 4]) },
+      { scale: interpolate(breath.value, [0, 1], [1, 1.14]) },
+      { translateX: interpolate(drift.value, [0, 1], [-14, 14]) },
+      { translateY: interpolate(drift.value, [0, 1], [-12, 12]) },
     ],
   }));
 
@@ -149,7 +157,7 @@ export function PrayerTimesHero({
           webMotionClass={heroMotionClasses.baseDrift}
           motionStyle={baseSkyStyle}
           gradient={gradientBackground(
-            `linear-gradient(180deg, ${sky.top} 0%, ${sky.mid} 46%, ${sky.bottom} 100%)`,
+            `linear-gradient(165deg, ${sky.top} 0%, ${sky.mid} 42%, ${sky.bottom} 100%)`,
           )}
         />
         {/* Warm/cool wash along the horizon — counter-drifts for depth. */}
@@ -157,7 +165,7 @@ export function PrayerTimesHero({
           webMotionClass={heroMotionClasses.horizonDrift}
           motionStyle={horizonStyle}
           gradient={gradientBackground(
-            `linear-gradient(180deg, ${withAlpha(sky.bottom, 0)} 42%, ${sky.horizon} 100%)`,
+            `linear-gradient(195deg, ${withAlpha(sky.bottom, 0)} 38%, ${sky.horizon} 100%)`,
           )}
         />
         {/* Breathing celestial glow (sun by day, moon by night). */}
@@ -166,7 +174,7 @@ export function PrayerTimesHero({
           webMotionClassInner={heroMotionClasses.glowBreath}
           motionStyle={glowStyle}
           gradient={gradientBackground(
-            `radial-gradient(circle at ${sky.glowX}% ${sky.glowY}%, ${sky.glow} 0%, ${withAlpha(toHex(sky.glow), 0)} 55%)`,
+            `radial-gradient(circle at ${sky.glowX}% ${sky.glowY}%, ${sky.glow} 0%, ${withAlpha(toHex(sky.glow), 0)} 72%)`,
           )}
         />
         {/* Faint starfield at night. */}
@@ -195,137 +203,169 @@ export function PrayerTimesHero({
         <View
           style={[
             styles.fill,
+            styles.scrimLayer,
             gradientBackground(
               "linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.06) 24%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.52) 100%)",
             ),
           ]}
         />
+        <HeroWeatherEffects effects={weatherEffects} />
 
         {/* Top bar: location + actions. */}
-        <View style={styles.topBar}>
-          <PressableScale
-            onPress={onLocationPress}
-            haptic="light"
-            scaleTo={0.96}
-            hitSlop={8}
-            accessibilityRole="button"
-            accessibilityLabel={t("hero.changeLocation")}
-            style={styles.locationRow}
-          >
-            <SymbolView
-              name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
-              size={14}
-              tintColor={sky.accent}
-            />
-            <ThemedText type="smallBold" style={[styles.softShadow, { color: Brand.heroText }]}>
-              {location}
-            </ThemedText>
-            <SymbolView
-              name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-              size={11}
-              tintColor={Brand.heroText}
-            />
-          </PressableScale>
-          <View style={styles.actions}>
-            <HeroIconButton
-              icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-              label={t("common.search")}
-              onPress={onSearchPress}
-            />
-            <HeroIconButton
-              icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-              label={t("common.notifications")}
-              onPress={onNotificationsPress}
-              badgeCount={notificationCount}
-            />
-          </View>
-        </View>
-
-        {/* Centre clock block. */}
-        <View style={styles.clockBlock}>
-          <PressableScale
-            onPress={() => setMoonOpen(true)}
-            haptic="light"
-            scaleTo={0.94}
-            hitSlop={10}
-            accessibilityRole="button"
-            accessibilityLabel={t("moonSheet.open", { phase: moonLabel })}
-            style={styles.dateRow}
-          >
-            <MoonPhaseIcon date={now} size={22} />
-            <ThemedText style={[styles.hijri, styles.softShadow, { color: Brand.heroText }]}>
-              {hijriDate}
-            </ThemedText>
-            <SymbolView
-              name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-              size={12}
-              tintColor={Brand.heroSubtext}
-            />
-          </PressableScale>
-          <View
-            accessible
-            accessibilityLiveRegion="polite"
-            accessibilityLabel={t("hero.clockLabel", { time: currentTime, countdown })}
-            style={styles.clockGroup}
-          >
-            <ThemedText type="display" style={[styles.clock, { color: Brand.heroText }]}>
-              {currentTime}
-            </ThemedText>
-            <ThemedText style={[styles.countdown, styles.softShadow, { color: Brand.heroText }]}>
-              {countdown}
-            </ThemedText>
-          </View>
-          {/* Thin progress through the current prayer window, tinted with the sky accent. */}
-          <ProgressBar
-            value={windowProgress}
-            height={4}
-            color={sky.accent}
-            trackColor={Brand.onHeroStrongSurface}
-            style={styles.windowProgress}
-          />
-        </View>
-
-        {/* Prayer row. */}
-        <View style={styles.prayerRow}>
-          {prayers.map((prayer, index) => {
-            const active = index === activeIndex;
-            // Inactive names/times use a high-alpha cream (not the low-contrast
-            // subtext) so they still clear ~4.5:1 on the brightest daytime skies.
-            const textColor = active ? Brand.heroText : INACTIVE_PRAYER_TEXT;
-            return (
-              <View
-                key={prayer.name}
-                accessible
-                accessibilityRole="text"
-                accessibilityLabel={t(active ? "hero.prayerItemActive" : "hero.prayerItem", {
-                  name: prayer.name,
-                  time: prayer.time,
-                })}
-                style={[
-                  styles.prayerItem,
-                  active && {
-                    backgroundColor: Brand.onHeroStrongSurface,
-                    borderColor: withAlpha(toHex(sky.accent), 0.5),
-                  },
-                ]}
+        <View style={styles.heroForeground}>
+          <View style={styles.topBar}>
+            <PressableScale
+              onPress={onLocationPress}
+              haptic="light"
+              scaleTo={0.96}
+              hitSlop={8}
+              accessibilityRole="button"
+              accessibilityLabel={
+                weatherAccessibilityLabel
+                  ? t("hero.locationWeatherA11y", {
+                      location,
+                      weather: weatherAccessibilityLabel,
+                    })
+                  : t("hero.changeLocation")
+              }
+              style={styles.locationRow}
+            >
+              <SymbolView
+                name={{ ios: "location.fill", android: "location_on", web: "location_on" }}
+                size={14}
+                tintColor={sky.accent}
+              />
+              <ThemedText
+                type="smallBold"
+                numberOfLines={1}
+                style={[styles.softShadow, styles.locationText, { color: Brand.heroText }]}
               >
-                <ThemedText type="caption" style={[styles.softShadow, { color: textColor }]}>
-                  {prayer.name}
-                </ThemedText>
-                <SymbolView
-                  name={prayer.icon}
-                  size={19}
-                  tintColor={active ? sky.accent : INACTIVE_PRAYER_TEXT}
-                />
-                <ThemedText
-                  type="caption"
-                  style={[styles.softShadow, { color: textColor, fontWeight: "700" }]}
+                {location}
+              </ThemedText>
+              {weatherSummary ? (
+                <>
+                  <ThemedText
+                    type="smallBold"
+                    style={[styles.softShadow, { color: Brand.heroSubtext }]}
+                  >
+                    ·
+                  </ThemedText>
+                  <ThemedText
+                    type="smallBold"
+                    numberOfLines={1}
+                    style={[styles.softShadow, styles.weatherText, { color: Brand.heroText }]}
+                  >
+                    {weatherSummary}
+                  </ThemedText>
+                </>
+              ) : null}
+              <SymbolView
+                name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
+                size={11}
+                tintColor={Brand.heroText}
+              />
+            </PressableScale>
+            <View style={styles.actions}>
+              <HeroIconButton
+                icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+                label={t("common.search")}
+                onPress={onSearchPress}
+              />
+              <HeroIconButton
+                icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+                label={t("common.notifications")}
+                onPress={onNotificationsPress}
+                badgeCount={notificationCount}
+              />
+            </View>
+          </View>
+
+          {/* Centre clock block. */}
+          <View style={styles.clockBlock}>
+            <PressableScale
+              onPress={() => setMoonOpen(true)}
+              haptic="light"
+              scaleTo={0.94}
+              hitSlop={10}
+              accessibilityRole="button"
+              accessibilityLabel={t("moonSheet.open", { phase: moonLabel })}
+              style={styles.dateRow}
+            >
+              <MoonPhaseIcon date={now} size={22} />
+              <ThemedText style={[styles.hijri, styles.softShadow, { color: Brand.heroText }]}>
+                {hijriDate}
+              </ThemedText>
+              <SymbolView
+                name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
+                size={12}
+                tintColor={Brand.heroSubtext}
+              />
+            </PressableScale>
+            <View
+              accessible
+              accessibilityLiveRegion="polite"
+              accessibilityLabel={t("hero.clockLabel", { time: currentTime, countdown })}
+              style={styles.clockGroup}
+            >
+              <ThemedText type="display" style={[styles.clock, { color: Brand.heroText }]}>
+                {currentTime}
+              </ThemedText>
+              <ThemedText style={[styles.countdown, styles.softShadow, { color: Brand.heroText }]}>
+                {countdown}
+              </ThemedText>
+            </View>
+            {/* Thin progress through the current prayer window, tinted with the sky accent. */}
+            <ProgressBar
+              value={windowProgress}
+              height={4}
+              color={sky.accent}
+              trackColor={Brand.onHeroStrongSurface}
+              style={styles.windowProgress}
+            />
+          </View>
+
+          {/* Prayer row. */}
+          <View style={styles.prayerRow}>
+            {prayers.map((prayer, index) => {
+              const active = index === activeIndex;
+              // Inactive names/times use a high-alpha cream (not the low-contrast
+              // subtext) so they still clear ~4.5:1 on the brightest daytime skies.
+              const textColor = active ? Brand.heroText : INACTIVE_PRAYER_TEXT;
+              return (
+                <View
+                  key={prayer.name}
+                  accessible
+                  accessibilityRole="text"
+                  accessibilityLabel={t(active ? "hero.prayerItemActive" : "hero.prayerItem", {
+                    name: prayer.name,
+                    time: prayer.time,
+                  })}
+                  style={[
+                    styles.prayerItem,
+                    active && {
+                      backgroundColor: Brand.onHeroStrongSurface,
+                      borderColor: withAlpha(toHex(sky.accent), 0.5),
+                    },
+                  ]}
                 >
-                  {prayer.time}
-                </ThemedText>
-              </View>
-            );
-          })}
+                  <ThemedText type="caption" style={[styles.softShadow, { color: textColor }]}>
+                    {prayer.name}
+                  </ThemedText>
+                  <SymbolView
+                    name={prayer.icon}
+                    size={19}
+                    tintColor={active ? sky.accent : INACTIVE_PRAYER_TEXT}
+                  />
+                  <ThemedText
+                    type="caption"
+                    style={[styles.softShadow, { color: textColor, fontWeight: "700" }]}
+                  >
+                    {prayer.time}
+                  </ThemedText>
+                </View>
+              );
+            })}
+          </View>
         </View>
       </View>
       <MoonPhaseSheet visible={moonOpen} date={now} onClose={() => setMoonOpen(false)} />
@@ -387,6 +427,13 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  scrimLayer: {
+    zIndex: 1,
+  },
+  heroForeground: {
+    zIndex: 3,
+    gap: Spacing.four,
+  },
   star: {
     position: "absolute",
     backgroundColor: "#FFFFFF",
@@ -402,6 +449,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.one + 2,
     flexShrink: 1,
+    minWidth: 0,
+  },
+  locationText: {
+    flexShrink: 1,
+  },
+  weatherText: {
+    flexShrink: 0,
   },
   actions: {
     flexDirection: "row",

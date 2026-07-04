@@ -242,11 +242,27 @@ export function resolveUnlockedMilestones(
   return [...byId.values()];
 }
 
+/** Milestone ids currently earned from live stats (not historical persistence). */
+export function earnedAchievementIds(stats: AchievementStats): string[] {
+  return evaluateProgression(stats)
+    .unlockedMilestones.filter((m) => m.unlocked)
+    .map((m) => m.id);
+}
+
+/** Reconciles persisted ids with current stats — prunes lapsed unlocks. */
+export function syncAchievementIds(
+  stats: AchievementStats,
+  known: string[],
+): { synced: string[]; newlyUnlocked: string[] } {
+  const synced = earnedAchievementIds(stats);
+  const knownSet = new Set(migrateLegacyAchievementIds(known));
+  const newlyUnlocked = synced.filter((id) => !knownSet.has(id));
+  return { synced, newlyUnlocked };
+}
+
 /** Returns milestone ids newly unlocked (not in `known`). */
 export function newlyUnlocked(stats: AchievementStats, known: string[]): string[] {
-  const knownSet = new Set(migrateLegacyAchievementIds(known));
-  const state = evaluateProgression(stats);
-  return state.unlockedMilestones.filter((m) => m.unlocked && !knownSet.has(m.id)).map((m) => m.id);
+  return syncAchievementIds(stats, known).newlyUnlocked;
 }
 
 /** Looks up a milestone title for celebrations and sharing. */

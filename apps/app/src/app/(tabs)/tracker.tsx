@@ -1,11 +1,12 @@
 import {
   getMilestoneById,
   migrateLegacyAchievementIds,
-  newlyUnlocked,
+  syncAchievementIds,
 } from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS } from "@munib-tracker/shared/constants";
 import type { PrayerId } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -17,7 +18,8 @@ import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
-import { NavRow } from "@/components/ui/nav-row";
+import { PressableScale } from "@/components/ui/pressable-scale";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -25,7 +27,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { StatCard } from "@/components/ui/stat-card";
 import { Spacing } from "@/constants/theme";
 import { DB_KEYS } from "@/db/keys";
-import { readJSON, writeJSON } from "@/db/store";
+import { readJSON } from "@/db/store";
 import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
@@ -36,6 +38,7 @@ import { preferencesStore } from "@/stores/preferences-store";
 import {
   useAchievementStats,
   useDailySummary,
+  useDevotionProgress,
   useStreak,
   useTodayPrayers,
   useTrackerActions,
@@ -52,10 +55,11 @@ const CONFETTI_COLORS = ["#D4AF37", "#4CAF7D", "#5AA9E6", "#F2C94C"];
 
 export default function TrackerScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const summary = useDailySummary();
   const streak = useStreak();
+  const devotion = useDevotionProgress();
   const stats = useAchievementStats();
   const { status, notes } = useTodayPrayers();
   const prayerTimes = useDailyPrayerTimes();
@@ -64,6 +68,10 @@ export default function TrackerScreen() {
 
   const progress = summary.salahTotal ? summary.salahCompleted / summary.salahTotal : 0;
   const isComplete = progress >= 1;
+  const locale = i18n.language?.split("-")[0];
+  const formatCount = (value: number) => value.toLocaleString(locale);
+  const devotionLevelProgress = devotion.noor - devotion.noorForCurrentLevel;
+  const devotionLevelSpan = devotion.noorForNextLevel - devotion.noorForCurrentLevel;
 
   // --- Confetti + achievement celebration -----------------------------------
   const [celebrationKey, setCelebrationKey] = useState(0);
@@ -114,20 +122,18 @@ export default function TrackerScreen() {
     prevCompleteRef.current = isComplete;
   }, [isComplete]);
 
-  // Newly-unlocked achievements — evaluate against the persisted set, and on a
-  // non-empty result celebrate + persist so it isn't announced again.
+  // Sync achievements with live stats (including reversals), celebrate new unlocks.
   useEffect(() => {
     const known = knownAchievementsRef.current;
     if (known == null) return; // wait until the persisted set has loaded
-    const unlocked = newlyUnlocked(stats, known);
-    if (unlocked.length === 0) return;
+    const { synced, newlyUnlocked: unlocked } = syncAchievementIds(stats, known);
+    knownAchievementsRef.current = synced;
 
-    const merged = Array.from(new Set([...known, ...unlocked]));
-    knownAchievementsRef.current = merged;
-    void writeJSON(DB_KEYS.achievements, merged);
-
-    const first = getMilestoneById(unlocked[0], stats);
-    showAchievementCelebration(first?.title ?? "", unlocked[0]);
+    const first = unlocked[0];
+    if (first) {
+      const milestone = getMilestoneById(first, stats);
+      showAchievementCelebration(milestone?.title ?? "", first);
+    }
   }, [stats, showAchievementCelebration]);
 
   const shortcuts: QuickActionItem[] = [
@@ -246,16 +252,22 @@ export default function TrackerScreen() {
             icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
           >
             <View style={styles.rows}>
-              {SUNNAH_PRAYERS.map((prayerId) => (
-                <PrayerTrackerRow
-                  key={prayerId}
-                  prayerId={prayerId}
-                  status={status[prayerId] ?? "pending"}
-                  time={prayerTimes[prayerId]}
-                  hasNotes={!!notes[prayerId]}
-                  onPress={() => setActivePrayer(prayerId)}
-                />
-              ))}
+              {SUNNAH_PRAYERS.map((prayerId) => {
+                const current = status[prayerId] ?? "pending";
+                return (
+                  <PrayerTrackerRow
+                    key={prayerId}
+                    prayerId={prayerId}
+                    status={current}
+                    time={prayerTimes[prayerId]}
+                    hasNotes={!!notes[prayerId]}
+                    onPress={() => setActivePrayer(prayerId)}
+                    onToggleComplete={() =>
+                      setPrayerStatus(prayerId, current === "completed" ? "pending" : "completed")
+                    }
+                  />
+                );
+              })}
             </View>
           </CollapsibleSection>
         </Card>
@@ -265,13 +277,47 @@ export default function TrackerScreen() {
             title={t("settings.achievements")}
             icon={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
           />
-          <View style={styles.rows}>
-            <NavRow
-              icon={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
-              label={t("settings.achievements")}
-              onPress={() => router.push("/achievements")}
-            />
-          </View>
+          <PressableScale
+            onPress={() => router.push("/achievements")}
+            haptic="light"
+            scaleTo={0.98}
+            accessibilityRole="button"
+            accessibilityLabel={t("home.devotionA11y", {
+              level: devotion.level,
+              noor: devotion.noor,
+              current: devotionLevelProgress,
+              next: devotionLevelSpan,
+            })}
+            style={styles.devotionBlock}
+          >
+            <View style={styles.devotionRow}>
+              <View style={styles.devotionCopy}>
+                <ThemedText type="smallBold">
+                  {t("achievements.devotion")} ·{" "}
+                  {t("home.devotionMeta", {
+                    level: devotion.level,
+                    noor: formatCount(devotion.noor),
+                  })}
+                </ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("home.devotionProgress", {
+                    current: formatCount(devotionLevelProgress),
+                    next: formatCount(devotionLevelSpan),
+                  })}
+                </ThemedText>
+              </View>
+              <SymbolView
+                name={{
+                  ios: "chevron.right",
+                  android: "chevron_right",
+                  web: "chevron_right",
+                }}
+                size={14}
+                tintColor={colors.mutedForeground}
+              />
+            </View>
+            <ProgressBar value={devotion.progress} height={4} color={tokens.status.warning.color} />
+          </PressableScale>
         </Card>
 
         <Card padding="three">
@@ -288,10 +334,11 @@ export default function TrackerScreen() {
       {activePrayer ? (
         <PrayerStatusSheet
           visible
+          prayerId={activePrayer}
           prayerLabel={t(`prayers.${activePrayer}`)}
           currentStatus={status[activePrayer] ?? "pending"}
           currentNotes={notes[activePrayer]}
-          onSelect={(next) => setPrayerStatus(activePrayer, next)}
+          onSelect={(next, options) => setPrayerStatus(activePrayer, next, options)}
           onSaveNotes={(text) => setPrayerNotes(activePrayer, text)}
           onClose={() => setActivePrayer(null)}
         />
@@ -324,5 +371,18 @@ const styles = StyleSheet.create({
   },
   shortcuts: {
     marginTop: Spacing.three,
+  },
+  devotionBlock: {
+    gap: Spacing.one + 2,
+    marginTop: Spacing.three,
+  },
+  devotionRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  devotionCopy: {
+    flex: 1,
+    gap: 2,
   },
 });

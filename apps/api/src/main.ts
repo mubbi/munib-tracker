@@ -20,9 +20,12 @@ async function bootstrap() {
   const corsOrigins = parseCorsOrigins(configService.get("CORS_ORIGINS", { infer: true }));
 
   app.use(helmet());
+  // Only enable credentialed CORS against an explicit allowlist. When no origins
+  // are configured, `corsOrigins` is `false` (deny) so we never reflect an
+  // arbitrary origin back with `credentials: true`.
   app.enableCors({
     origin: corsOrigins,
-    credentials: true,
+    credentials: corsOrigins !== false,
   });
 
   app.setGlobalPrefix("api/v1");

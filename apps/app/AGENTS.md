@@ -18,9 +18,13 @@ All search bars and content filtering use **[Fuse.js v7](https://github.com/kris
 | `normalize()` / `tokenize()` | Diacritic-insensitive, Arabic-aware text folding |
 | `createFuzzyIndex(items, fields)` | Reusable `FuzzyIndex` for a screen-local list (project defaults + `normalize()`) — memoize per list |
 | `createHadithSearch(items)` | `FuzzyIndex<HadithItem>` for an in-collection hadith search bar |
+| `createDuaSearch(items)` | `FuzzyIndex<DuaItem>` for an in-category dua search bar |
+| `createZikrSearch(items)` | `FuzzyIndex<ZikrItem>` for an in-category zikr search bar |
+| `searchDuaList(query, limit?)` | Ranked `DuaItem[]` for the duas index filter |
+| `searchZikrList(query, limit?)` | Ranked `ZikrItem[]` for the zikr index filter |
 | `searchSurahList(query, limit?)` | Ranked `Surah[]` for the Qur'an index filter (reuses the cached surah index) |
 
-Search bars wired to these: home `src/app/search.tsx` (universal), `quran/index.tsx` (surah filter → `searchSurahList`), `quran/search.tsx` (ayah full-text → `searchQuranAyahs`), `hadith/[collection].tsx` (in-collection → `createHadithSearch`).
+Search bars wired to these: home `src/app/search.tsx` (universal), `quran/index.tsx` (surah filter → `searchSurahList`), `quran/search.tsx` (ayah full-text → `searchQuranAyahs`), `hadith/[collection].tsx` (in-collection → `createHadithSearch`), `dua/index.tsx` + `dua/[category].tsx` (→ `searchDuaList` / `createDuaSearch`), `zikr/index.tsx` + `zikr/[category].tsx` (→ `searchZikrList` / `createZikrSearch`).
 
 ### Rules for agents
 

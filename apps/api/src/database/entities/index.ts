@@ -18,6 +18,13 @@ const usingSqlite = process.env.DATABASE_TYPE === "sqlite" || process.env.NODE_E
 const TIMESTAMP_TYPE: ColumnType = usingSqlite ? "datetime" : "timestamp";
 
 @Entity("users")
+// The provider's stable subject id is the authoritative identity key; email is
+// non-authoritative metadata. Unique per (provider, providerAccountId) so two
+// distinct provider accounts can never collapse into one row.
+@Index(["provider", "providerAccountId"], {
+  unique: true,
+  where: '"providerAccountId" IS NOT NULL',
+})
 export class UserEntity {
   @PrimaryColumn("uuid")
   id!: string;
@@ -27,6 +34,10 @@ export class UserEntity {
 
   @Column({ type: "varchar", length: 32, nullable: true })
   provider?: string | null;
+
+  /** The provider's stable subject id (Google/Apple `sub`, Facebook `id`). */
+  @Column({ type: "varchar", length: 255, nullable: true })
+  providerAccountId?: string | null;
 
   @Column({ type: "varchar", length: 320, nullable: true })
   email?: string | null;

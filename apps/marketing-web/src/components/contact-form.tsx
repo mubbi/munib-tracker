@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { FormInput } from "@/components/form-input";
 
 export function ContactForm() {
@@ -8,8 +8,24 @@ export function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  // Honeypot: kept in state so React controls the input, but never sent by a
+  // real user (the field is hidden). A filled value signals a bot.
+  const [company, setCompany] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const successRef = useRef<HTMLDivElement>(null);
+  const errorRef = useRef<HTMLParagraphElement>(null);
+
+  // Move focus to the confirmation on success so keyboard and screen-reader
+  // users are taken to the outcome instead of being left on the old form.
+  useEffect(() => {
+    if (status === "success") successRef.current?.focus();
+  }, [status]);
+
+  // On a submit failure, move focus to the alert so it is announced and reachable.
+  useEffect(() => {
+    if (status === "error" && errors.form) errorRef.current?.focus();
+  }, [status, errors.form]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -30,7 +46,7 @@ export function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, company }),
       });
 
       if (!response.ok) throw new Error("Request failed");
@@ -48,8 +64,10 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <div
+        ref={successRef}
         role="status"
-        className="rounded-[var(--radius-card)] border border-border/60 bg-card p-6"
+        tabIndex={-1}
+        className="rounded-[var(--radius-card)] border border-border/60 bg-card p-6 outline-none"
       >
         <p className="font-semibold">Message sent.</p>
         <p className="mt-1 text-sm text-muted">Thank you — we will respond as soon as we can.</p>
@@ -59,6 +77,19 @@ export function ContactForm() {
 
   return (
     <form id={formId} onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+      {/* Honeypot: hidden from users; bots that autofill it are rejected server-side. */}
+      <div aria-hidden="true" className="sr-only">
+        <label htmlFor={`${formId}-company`}>Company</label>
+        <input
+          id={`${formId}-company`}
+          type="text"
+          name="company"
+          value={company}
+          onChange={(event) => setCompany(event.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       <FormInput
         id={`${formId}-name`}
         label="Name"
@@ -92,7 +123,12 @@ export function ContactForm() {
         required
       />
       {errors.form ? (
-        <p role="alert" className="text-sm text-red-600 dark:text-red-400">
+        <p
+          ref={errorRef}
+          role="alert"
+          tabIndex={-1}
+          className="text-sm text-red-600 outline-none dark:text-red-400"
+        >
           {errors.form}
         </p>
       ) : null}

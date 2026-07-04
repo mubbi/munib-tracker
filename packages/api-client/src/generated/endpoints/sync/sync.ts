@@ -25,7 +25,9 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  SyncControllerPullParams,
   SyncPullResponseDto,
+  SyncPushDto,
   SyncPushResponseDto
 } from '../../models';
 
@@ -40,13 +42,14 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
  * @summary Pull cloud changes since a timestamp
  */
 export const syncControllerPull = (
-    
+    params?: SyncControllerPullParams,
  options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
 ) => {
       
       
       return apiFetch<SyncPullResponseDto>(
-      {url: `/api/v1/sync/pull`, method: 'GET', signal
+      {url: `/api/v1/sync/pull`, method: 'GET',
+        params, signal
     },
       options);
     }
@@ -54,23 +57,23 @@ export const syncControllerPull = (
 
 
 
-export const getSyncControllerPullQueryKey = () => {
+export const getSyncControllerPullQueryKey = (params?: SyncControllerPullParams,) => {
     return [
-    `/api/v1/sync/pull`
+    `/api/v1/sync/pull`, ...(params ? [params]: [])
     ] as const;
     }
 
     
-export const getSyncControllerPullQueryOptions = <TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+export const getSyncControllerPullQueryOptions = <TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(params?: SyncControllerPullParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getSyncControllerPullQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getSyncControllerPullQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof syncControllerPull>>> = ({ signal }) => syncControllerPull(requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof syncControllerPull>>> = ({ signal }) => syncControllerPull(params, requestOptions, signal);
 
       
 
@@ -84,7 +87,7 @@ export type SyncControllerPullQueryError = unknown
 
 
 export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>> & Pick<
+ params: undefined |  SyncControllerPullParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof syncControllerPull>>,
           TError,
@@ -94,7 +97,7 @@ export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncCont
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>> & Pick<
+ params?: SyncControllerPullParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof syncControllerPull>>,
           TError,
@@ -104,7 +107,7 @@ export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncCont
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ params?: SyncControllerPullParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
@@ -112,11 +115,11 @@ export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncCont
  */
 
 export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncControllerPull>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ params?: SyncControllerPullParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof syncControllerPull>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getSyncControllerPullQueryOptions(options)
+  const queryOptions = getSyncControllerPullQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -132,13 +135,15 @@ export function useSyncControllerPull<TData = Awaited<ReturnType<typeof syncCont
  * @summary Push local changes using last-write-wins semantics
  */
 export const syncControllerPush = (
-    
+    syncPushDto: SyncPushDto,
  options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
 ) => {
       
       
       return apiFetch<SyncPushResponseDto>(
-      {url: `/api/v1/sync/push`, method: 'POST', signal
+      {url: `/api/v1/sync/push`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: syncPushDto, signal
     },
       options);
     }
@@ -146,8 +151,8 @@ export const syncControllerPush = (
 
 
 export const getSyncControllerPushMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof syncControllerPush>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof syncControllerPush>>, TError,void, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof syncControllerPush>>, TError,{data: SyncPushDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof syncControllerPush>>, TError,{data: SyncPushDto}, TContext> => {
 
 const mutationKey = ['syncControllerPush'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -159,10 +164,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof syncControllerPush>>, void> = () => {
-          
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof syncControllerPush>>, {data: SyncPushDto}> = (props) => {
+          const {data} = props ?? {};
 
-          return  syncControllerPush(requestOptions)
+          return  syncControllerPush(data,requestOptions)
         }
 
         
@@ -171,18 +176,18 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
   return  { mutationFn, ...mutationOptions }}
 
     export type SyncControllerPushMutationResult = NonNullable<Awaited<ReturnType<typeof syncControllerPush>>>
-    
+    export type SyncControllerPushMutationBody = SyncPushDto
     export type SyncControllerPushMutationError = unknown
 
     /**
  * @summary Push local changes using last-write-wins semantics
  */
 export const useSyncControllerPush = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof syncControllerPush>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof syncControllerPush>>, TError,{data: SyncPushDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof syncControllerPush>>,
         TError,
-        void,
+        {data: SyncPushDto},
         TContext
       > => {
 

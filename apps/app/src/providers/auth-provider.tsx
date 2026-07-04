@@ -1,4 +1,5 @@
 import type { AuthSessionResponseDto, AuthUserResponseDto } from "@munib-tracker/api-client";
+import { setTokenRefresher } from "@munib-tracker/api-client";
 import {
   createContext,
   type ReactNode,
@@ -63,35 +64,58 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUserResponseDto | null>(null);
   const [isReady, setIsReady] = useState(false);
   const syncing = useRef(false);
+  const refreshInFlight = useRef<Promise<StoredSession | null> | null>(null);
 
-  // Access tokens are short-lived JWTs; rotate them (and the refresh token) using
-  // the stored refresh token. Returns the freshest session we could obtain.
-  const refresh = useCallback(async (): Promise<StoredSession | null> => {
-    const current = await SessionStore.get();
-    if (current?.accountType !== "user" || !current.refreshToken) return current;
-    try {
-      const stored = toStored(await refreshSession(current.refreshToken));
-      await SessionStore.set(stored);
-      setSession(stored);
-      return stored;
-    } catch {
-      // Offline, or the refresh token was revoked — keep the existing session.
-      return current;
-    }
+  // Access tokens are short-lived JWTs; rotate them (and the single-use refresh
+  // token) using the stored refresh token. Refresh is single-flight: concurrent
+  // callers (boot, foreground, a 401 retry) await the same rotation so the
+  // one-time refresh token can't be double-spent into a revoked session.
+  const refresh = useCallback((): Promise<StoredSession | null> => {
+    if (refreshInFlight.current) return refreshInFlight.current;
+    const run = (async (): Promise<StoredSession | null> => {
+      const current = await SessionStore.get();
+      if (current?.accountType !== "user" || !current.refreshToken) return current;
+      try {
+        const stored = toStored(await refreshSession(current.refreshToken));
+        await SessionStore.set(stored);
+        setSession(stored);
+        return stored;
+      } catch {
+        // Offline, or the refresh token was revoked — keep the existing session.
+        return current;
+      }
+    })();
+    refreshInFlight.current = run;
+    void run.finally(() => {
+      refreshInFlight.current = null;
+    });
+    return run;
   }, []);
 
   const syncNow = useCallback(async () => {
+    // Claim the guard synchronously, before any await, so two overlapping calls
+    // can't both pass the check and interleave (duplicate pushes / double refresh).
     if (syncing.current) return;
-    const current = await refresh();
-    if (!current || current.accountType === "guest") return;
     syncing.current = true;
     try {
+      const current = await refresh();
+      if (!current || current.accountType === "guest") return;
       await runSync(current);
     } catch {
       // Offline or server error — try again on the next foreground.
     } finally {
       syncing.current = false;
     }
+  }, [refresh]);
+
+  // Let apiFetch transparently recover from an expired access token: on a 401 it
+  // calls this to rotate the token and retry the request once.
+  useEffect(() => {
+    setTokenRefresher(async () => {
+      const refreshed = await refresh();
+      return refreshed?.accessToken ?? null;
+    });
+    return () => setTokenRefresher(null);
   }, [refresh]);
 
   const persist = useCallback(async (dto: AuthSessionResponseDto) => {
@@ -127,7 +151,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const linkProvider = useCallback(
     async (provider: OAuthProvider, payload: OAuthPayload = {}) => {
-      const current = await SessionStore.get();
+      // Use the freshest token (rotated first for a user session) so the link
+      // request isn't rejected for an expired access token.
+      const current = (await refresh()) ?? (await SessionStore.get());
       if (!current) {
         await signInWithProvider(provider, payload);
         return;
@@ -137,7 +163,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Push the guest's local data up to the newly linked account.
       void syncNow();
     },
-    [persist, signInWithProvider, syncNow],
+    [persist, signInWithProvider, syncNow, refresh],
   );
 
   const signOut = useCallback(async () => {

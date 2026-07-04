@@ -23,9 +23,9 @@ export const Durations = {
   base: 260,
   slow: 420,
   /** Slow ambient loops (breathing glow, shimmer). */
-  ambient: 4000,
+  ambient: 9877,
   /** Live-wallpaper drift — one full cycle; calm but clearly perceptible. */
-  wallpaper: 18000,
+  wallpaper: 44443,
 } as const;
 
 /** Staggered-entrance cadence (ms between successive children). */

@@ -16,6 +16,9 @@ import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
         const databaseType = configService.get("DATABASE_TYPE", { infer: true });
         const nodeEnv = configService.get("NODE_ENV", { infer: true });
 
+        // Auto-sync is only ever safe for sqlite/test; those return here. Every
+        // other path is Postgres, which relies exclusively on committed
+        // migrations so schema changes are never silently applied in prod.
         if (databaseType === DatabaseType.Sqlite || nodeEnv === "test") {
           return createInMemorySqliteOptions();
         }
@@ -31,7 +34,7 @@ import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
             ? { rejectUnauthorized: false }
             : false,
           entities: [UserEntity, AuthSessionEntity, SyncRecordEntity],
-          synchronize: configService.get("NODE_ENV", { infer: true }) !== "production",
+          synchronize: false,
           autoLoadEntities: true,
         };
       },

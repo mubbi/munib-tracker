@@ -7,7 +7,6 @@ import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/site-header";
 import { SkipLink } from "@/components/skip-link";
 import { SITE_URL } from "@/lib/site";
-import { MarketingApiProvider } from "@/providers/api-provider";
 import "./globals.css";
 
 const splineSans = Spline_Sans({
@@ -75,12 +74,10 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <SkipLink />
         <Analytics />
-        <MarketingApiProvider>
-          <SiteHeader />
-          <main id="main-content" className="flex flex-1 flex-col">
-            {children}
-          </main>
-        </MarketingApiProvider>
+        <SiteHeader />
+        <main id="main-content" className="flex flex-1 flex-col">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

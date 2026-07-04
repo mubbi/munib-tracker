@@ -1,4 +1,5 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
+import type { PrayerTimes } from "adhan";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -9,14 +10,18 @@ import { moonPhase } from "@/lib/moon";
 import {
   buildDailySchedule,
   computePrayerTimes,
+  duhaWindow,
   formatDuration,
   formatPrayerTime,
+  ishraqTime,
   nextPrayer,
   nextScheduleEntry,
   PRAYER_SLOT_ICONS,
   prayerSlots,
   type ScheduleKind,
+  tahajjudTime,
   windowProgress,
+  witrTime,
 } from "@/lib/prayer-times";
 import { type ScheduleEntryStatus, scheduleEntryStatus } from "@/lib/schedule-ui";
 import { type SkyMarkers, type SkyPalette, skyPalette, skyPhaseForTime } from "@/lib/sky";
@@ -59,9 +64,50 @@ export interface ScheduleItem {
 }
 
 /**
+ * Every boundary instant on the current day at which the "next prayer" and the
+ * schedule's active-window flags can flip: the six markers plus each sunnah
+ * window's start/end edge. Counting how many of these lie at or before `now`
+ * yields a key that changes only when the clock actually crosses a boundary —
+ * so the adhan-heavy derivations below re-run a handful of times a day rather
+ * than on every one-minute tick.
+ */
+function scheduleBoundaries(
+  today: PrayerTimes,
+  tomorrow: PrayerTimes,
+  yesterday: PrayerTimes,
+  now: Date,
+): number[] {
+  const slots = prayerSlots(today);
+  const duha = duhaWindow(today.sunrise, today.dhuhr);
+  const tahajjud = tahajjudTime(now, today, tomorrow.fajr, yesterday.maghrib);
+  const boundaries = slots.map((slot) => slot.date.getTime());
+  boundaries.push(
+    tahajjud.getTime(),
+    ishraqTime(today.sunrise).getTime(),
+    duha.start.getTime(),
+    duha.end.getTime(),
+    witrTime(today.isha).getTime(),
+    tomorrow.fajr.getTime(),
+  );
+  return boundaries;
+}
+
+/** Local calendar-day key (Y-M-D). adhan derives prayer times from the device-local date. */
+function dayKeyOf(date: Date): string {
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+}
+
+/**
  * Derives everything the prayer-times hero renders from the stored location and
  * the live clock. Prayer times are computed on-device via `adhan`; the Hijri
  * date and countdown update as the clock ticks.
+ *
+ * The heavy adhan computations (the day's `PrayerTimes` objects and the derived
+ * schedule/next-prayer selection) are split from the minute-scoped values: the
+ * former recompute only when the calendar day, the location, or a prayer-window
+ * boundary changes, while the clock, countdown, and sky palette recompute each
+ * tick. This keeps the once-a-minute `useNow` tick from rebuilding ~8 adhan
+ * `PrayerTimes` objects it doesn't need.
  */
 export function useHomeHero(): HomeHeroData {
   const { t, i18n } = useTranslation();
@@ -73,42 +119,91 @@ export function useHomeHero(): HomeHeroData {
   const base = i18n.language?.split("-")[0];
   const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
 
-  return useMemo(() => {
-    const coords = { latitude: location.latitude, longitude: location.longitude };
-    const times = computePrayerTimes(coords, now, location.method, location.madhab);
-    const next = nextPrayer(coords, now, location.method, location.madhab);
-    const slots = prayerSlots(times);
-    const flexibleTime = t("home.scheduleAnyTime");
+  const dayKey = dayKeyOf(now);
 
-    const prayers: PrayerTime[] = slots.map((slot) => ({
+  // Day-scoped adhan objects: stable for the whole local calendar day at a given
+  // location. Recomputing these is the expensive part, so they are memoized here
+  // and everything below reuses them.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: dayKey is the calendar-day proxy for `now`; recompute only when the day (or location) changes, not every tick.
+  const day = useMemo(() => {
+    const coords = { latitude: location.latitude, longitude: location.longitude };
+    const today = computePrayerTimes(coords, now, location.method, location.madhab);
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const tomorrowTimes = computePrayerTimes(coords, tomorrow, location.method, location.madhab);
+    const yesterdayTimes = computePrayerTimes(coords, yesterday, location.method, location.madhab);
+    const slots = prayerSlots(today);
+    const boundaries = scheduleBoundaries(today, tomorrowTimes, yesterdayTimes, now);
+    // Sky-phase markers are day-stable; build them once so the per-tick palette
+    // lookup below is a cheap `skyPhaseForTime(now, markers)` call.
+    const markers = Object.fromEntries(slots.map((s) => [s.id, s.date])) as unknown as SkyMarkers;
+    return { coords, today, slots, boundaries, markers };
+  }, [location, dayKey]);
+
+  // Prayer-row display times are day-stable (the formatted marker strings don't
+  // change within a day), so they are keyed on the day + formatting inputs only.
+  const prayers = useMemo<PrayerTime[]>(() => {
+    const tz = location.timeZone;
+    return day.slots.map((slot) => ({
       name: t(`prayers.${slot.id}`),
-      time: formatPrayerTime(slot.date, timeFormat),
+      time: formatPrayerTime(slot.date, timeFormat, tz),
       icon: PRAYER_SLOT_ICONS[slot.id],
     }));
+  }, [day, timeFormat, location.timeZone, t]);
 
+  // How many boundary instants have already passed. Changes only when the clock
+  // crosses a prayer/window edge — the sole trigger for re-selecting the next
+  // prayer and rebuilding the schedule.
+  const crossingKey = day.boundaries.reduce((n, at) => (at <= now.getTime() ? n + 1 : n), 0);
+
+  // Selection layer: which prayer is next and the schedule's active windows.
+  // Recomputed only on a boundary crossing (or day/location/formatting change),
+  // never on a plain minute tick.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `crossingKey` gates the boundary-sensitive parts; `now` is intentionally excluded so this doesn't re-run every tick.
+  const selection = useMemo(() => {
+    const { coords } = day;
+    const tz = location.timeZone;
+    const flexibleTime = t("home.scheduleAnyTime");
+    const next = nextPrayer(coords, now, location.method, location.madhab);
     const rawSchedule = buildDailySchedule(coords, now, location.method, location.madhab);
     const nextEntry = nextScheduleEntry(rawSchedule, now);
-    const nextScheduleId = nextEntry?.id ?? null;
 
     const schedule: ScheduleItem[] = rawSchedule.map((entry) => ({
       id: entry.id,
       name: t(`prayers.${entry.id}`),
-      time: entry.at ? formatPrayerTime(entry.at, timeFormat) : flexibleTime,
+      time: entry.at ? formatPrayerTime(entry.at, timeFormat, tz) : flexibleTime,
       kind: entry.kind,
       active: entry.active,
       status: scheduleEntryStatus(entry.kind, entry.active, entry.at, now),
     }));
 
-    // Progress through the running window: from the active marker to the next one.
-    const windowStart = slots[next.currentIndex]?.date ?? now;
+    return {
+      next,
+      schedule,
+      nextScheduleId: nextEntry?.id ?? null,
+      nextEntryAt: nextEntry?.at ?? null,
+      windowStart: day.slots[next.currentIndex]?.date ?? now,
+    };
+  }, [day, crossingKey, location.method, location.madhab, location.timeZone, timeFormat, t]);
+
+  // Minute-scoped layer: the clock, countdown, live progress, and sky/moon. These
+  // are cheap scalars derived from the memoized selection + day objects each tick.
+  return useMemo(() => {
+    const { next, windowStart, nextEntryAt } = selection;
+    const tz = location.timeZone;
+
     const progress = windowProgress(windowStart, next.date, now);
-    const scheduleMinutesUntil = nextEntry?.at
-      ? Math.max(0, Math.round((nextEntry.at.getTime() - now.getTime()) / 60000))
-      : next.minutesUntil;
+    // `minutesUntil` is recomputed live from the memoized `next.date` so the
+    // countdown ticks every minute without re-running the adhan selection.
+    const minutesUntil = Math.max(0, Math.round((next.date.getTime() - now.getTime()) / 60000));
+    const scheduleMinutesUntil = nextEntryAt
+      ? Math.max(0, Math.round((nextEntryAt.getTime() - now.getTime()) / 60000))
+      : minutesUntil;
     const nextIn = t("hero.nextIn", { time: formatDuration(scheduleMinutesUntil) });
 
-    const markers = Object.fromEntries(slots.map((s) => [s.id, s.date])) as unknown as SkyMarkers;
-    const sky = skyPalette(skyPhaseForTime(now, markers));
+    const sky = skyPalette(skyPhaseForTime(now, day.markers));
     const moon = moonPhase(now);
     const moonLabel = t("moon.aria", { phase: t(`moon.${moon.name}`) });
 
@@ -116,18 +211,18 @@ export function useHomeHero(): HomeHeroData {
     const countdown =
       status === "loading" && location.updatedAt == null
         ? t("hero.locating")
-        : next.minutesUntil >= 60
+        : minutesUntil >= 60
           ? t("hero.nextPrayerAwayHours", {
               prayer: prayerName,
-              hours: Math.floor(next.minutesUntil / 60),
-              min: next.minutesUntil % 60,
+              hours: Math.floor(minutesUntil / 60),
+              min: minutesUntil % 60,
             })
-          : t("hero.nextPrayerAway", { prayer: prayerName, min: next.minutesUntil });
+          : t("hero.nextPrayerAway", { prayer: prayerName, min: minutesUntil });
 
     return {
       location: location.label,
       hijriDate: formatHijriDate(now, locale),
-      currentTime: formatPrayerTime(now, timeFormat),
+      currentTime: formatPrayerTime(now, timeFormat, tz),
       countdown,
       prayers,
       activeIndex: next.currentIndex,
@@ -136,8 +231,8 @@ export function useHomeHero(): HomeHeroData {
       moonLabel,
       windowProgress: progress,
       nextIn,
-      nextScheduleId,
-      schedule,
+      nextScheduleId: selection.nextScheduleId,
+      schedule: selection.schedule,
     };
-  }, [location, status, now, locale, timeFormat, t]);
+  }, [day, selection, prayers, now, locale, timeFormat, location, status, t]);
 }

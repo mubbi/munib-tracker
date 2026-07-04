@@ -30,4 +30,6 @@ export interface QazaRozaCounter {
   remaining: number;
   completed: number;
   estimatedMissed?: number;
+  /** ISO datetime of the last change (used for sync last-write-wins). */
+  updatedAt?: string;
 }

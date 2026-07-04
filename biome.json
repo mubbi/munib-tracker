@@ -18,6 +18,7 @@
       "!**/android",
       "!**/ios",
       "!**/.agents/skills/nestjs/docs",
+      "!**/.agents/skills/*/scripts",
       "!**/packages/api-client/src/generated",
       "!**/packages/api-contract/openapi.json",
       "!**/apps/app/assets/data",
@@ -64,6 +65,16 @@
         "rules": {
           "style": {
             "useNodejsImportProtocol": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/app/src/components/weather/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noArrayIndexKey": "off"
           }
         }
       }

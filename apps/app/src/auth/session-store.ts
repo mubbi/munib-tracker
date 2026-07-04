@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Crypto from "expo-crypto";
 import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
@@ -59,7 +60,10 @@ export const SessionStore = {
   async getDeviceId(): Promise<string> {
     const existing = await getItem(DEVICE_ID_KEY);
     if (existing) return existing;
-    const id = `dev_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`;
+    // The deviceId is a bearer credential for the guest account (it can create or
+    // resume a session), so it must be cryptographically random and unguessable —
+    // never Date.now()/Math.random(). expo-crypto is already a dependency.
+    const id = `dev_${Crypto.randomUUID()}`;
     await setItem(DEVICE_ID_KEY, id);
     return id;
   },

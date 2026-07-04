@@ -4,10 +4,13 @@ import type {
   PrayerId,
   SunnahPrayer,
   UserPreferences,
+  WeatherPreferences,
   ZikrCategoryId,
 } from "../types/index";
 
 export {
+  APP_AUTHOR,
+  APP_AUTHOR_URL,
   APP_DESCRIPTION,
   APP_NAME,
   APP_SLUG,
@@ -91,6 +94,11 @@ export const ZIKR_CATEGORY_LABELS: Record<ZikrCategoryId, string> = {
   anytime: "Anytime Zikr",
 };
 
+export const DEFAULT_WEATHER_PREFERENCES: WeatherPreferences = {
+  effectsEnabled: true,
+  unit: "celsius",
+};
+
 export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
   masterEnabled: false,
   prayer: true,
@@ -122,4 +130,5 @@ export const DEFAULT_USER_PREFERENCES: UserPreferences = {
   favoriteZikrIds: [],
   favoriteZikrOrder: [],
   hasCompletedOnboarding: false,
+  weatherPrefs: DEFAULT_WEATHER_PREFERENCES,
 };

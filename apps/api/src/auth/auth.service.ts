@@ -1,5 +1,10 @@
 import { randomUUID } from "node:crypto";
-import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
@@ -71,8 +76,19 @@ export class AuthService {
 
     const profile = await this.oauthProvider.exchange(dto.provider, dto);
 
+    // If this provider identity already belongs to another user, linking would
+    // hijack/collide with it. Reject rather than silently overwrite — the caller
+    // must sign in to that existing account instead.
+    const existing = await this.usersRepository.findOne({
+      where: { provider: dto.provider, providerAccountId: profile.providerAccountId },
+    });
+    if (existing && existing.id !== user.id) {
+      throw new ConflictException("This account is already linked to another user");
+    }
+
     user.accountType = "user";
     user.provider = dto.provider;
+    user.providerAccountId = profile.providerAccountId;
     user.email = profile.email ?? user.email ?? null;
     user.displayName = profile.displayName ?? user.displayName ?? null;
     await this.usersRepository.save(user);
@@ -83,24 +99,37 @@ export class AuthService {
   }
 
   async refreshSession(refreshToken: string): Promise<AuthSessionResponseDto> {
+    const now = new Date();
+    const nextToken = randomUUID();
+    const nextExpiry = this.refreshExpiry();
+
+    // Atomically claim-and-rotate: a single conditional UPDATE guarded on the
+    // presented token still being valid. Two concurrent requests with the same
+    // token race on this row; exactly one flips it, the loser sees affected === 0
+    // and is treated as a replay. This closes the read-modify-write window.
+    const result = await this.sessionsRepository
+      .createQueryBuilder()
+      .update(AuthSessionEntity)
+      .set({ refreshToken: nextToken, refreshExpiresAt: nextExpiry })
+      .where("refreshToken = :refreshToken", { refreshToken })
+      .andWhere("refreshExpiresAt > :now", { now })
+      .execute();
+
+    if (!result.affected) {
+      // Either an unknown/rotated-out token (replay) or an expired one. In both
+      // cases the presented secret is dead; if a matching-but-expired session
+      // lingers, delete it so a stale row can't be probed again.
+      await this.sessionsRepository.delete({ refreshToken });
+      throw new UnauthorizedException("Invalid or expired refresh token");
+    }
+
     const session = await this.sessionsRepository.findOne({
-      where: { refreshToken },
+      where: { refreshToken: nextToken },
       relations: { user: true },
     });
-
     if (!session?.user) {
       throw new UnauthorizedException("Invalid refresh token");
     }
-
-    if (session.refreshExpiresAt.getTime() < Date.now()) {
-      await this.sessionsRepository.delete({ id: session.id });
-      throw new UnauthorizedException("Refresh token has expired");
-    }
-
-    // Rotate the refresh secret so a stolen token can't be replayed after use.
-    session.refreshToken = randomUUID();
-    session.refreshExpiresAt = this.refreshExpiry();
-    await this.sessionsRepository.save(session);
 
     const access = this.tokenService.signAccessToken(session.user.id, session.id);
     return this.toSessionResponse(session, session.user, access);
@@ -120,14 +149,15 @@ export class AuthService {
     provider: AuthProvider,
     profile: OAuthProfile,
   ): Promise<UserEntity> {
-    if (profile.email) {
-      const existing = await this.usersRepository.findOne({
-        where: { provider, email: profile.email },
-      });
-      if (existing) {
-        existing.displayName = profile.displayName ?? existing.displayName ?? null;
-        return this.usersRepository.save(existing);
-      }
+    // The provider's stable subject id is the authoritative identity key. Email
+    // is non-authoritative metadata (mutable, and not unique across providers).
+    const existing = await this.usersRepository.findOne({
+      where: { provider, providerAccountId: profile.providerAccountId },
+    });
+    if (existing) {
+      existing.email = profile.email ?? existing.email ?? null;
+      existing.displayName = profile.displayName ?? existing.displayName ?? null;
+      return this.usersRepository.save(existing);
     }
 
     return this.usersRepository.save(
@@ -135,6 +165,7 @@ export class AuthService {
         id: randomUUID(),
         accountType: "user",
         provider,
+        providerAccountId: profile.providerAccountId,
         email: profile.email ?? null,
         displayName: profile.displayName ?? null,
       }),

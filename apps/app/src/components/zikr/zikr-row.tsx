@@ -1,12 +1,11 @@
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
+import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
@@ -18,101 +17,69 @@ const ROW_GAP = Spacing.two + 2;
 
 type ZikrRowProps = {
   item: ZikrItem;
+  /** 1-based position in the source list (category, favorites order, etc.). */
+  index?: number;
   isFavorite?: boolean;
   onPress: () => void;
   onToggleFavorite?: () => void;
-  /**
-   * When true, tapping the row expands a full-text preview in place instead of
-   * firing `onPress` immediately; a "show more" link inside then calls
-   * `onPress` to open the detail screen. Keeps long category lists scannable.
-   */
-  expandable?: boolean;
+  /** Optional category pill shown in cross-category search results. */
+  categoryLabel?: string;
 };
 
-export function ZikrRow({ item, isFavorite, onPress, onToggleFavorite, expandable }: ZikrRowProps) {
+export function ZikrRow({
+  item,
+  index,
+  isFavorite,
+  onPress,
+  onToggleFavorite,
+  categoryLabel,
+}: ZikrRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const [expanded, setExpanded] = useState(false);
 
   return (
     // The favorite toggle is rendered as a sibling overlay rather than nested
     // inside the row's Pressable — on web, nesting a <button> inside another
     // <button> is invalid HTML and triggers a DOM-nesting warning.
     <View style={styles.wrapper}>
-      <View style={[styles.card, { backgroundColor: colors.muted }]}>
-        <PressableScale
-          haptic="light"
-          onPress={expandable ? () => setExpanded((value) => !value) : onPress}
-          accessibilityRole="button"
-          accessibilityLabel={item.title}
-          accessibilityState={expandable ? { expanded } : undefined}
-          style={styles.row}
-        >
-          <View style={styles.body}>
-            <ThemedText type="small" numberOfLines={1}>
-              {item.title}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-              {item.transliteration}
-            </ThemedText>
-          </View>
+      <PressableScale
+        haptic="light"
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
+        style={[styles.row, { backgroundColor: colors.muted }]}
+      >
+        {index != null ? <ListIndexBadge index={index} /> : null}
 
-          {item.targetCount ? (
-            <Pill
-              label={`×${item.targetCount}`}
-              color={colors.accent}
-              background={tokens.accentSoft}
-            />
-          ) : null}
+        <View style={styles.body}>
+          <ThemedText type="small" numberOfLines={1}>
+            {item.title}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {item.transliteration}
+          </ThemedText>
+        </View>
 
-          {onToggleFavorite ? <View style={styles.favoriteSlot} /> : null}
-
-          <SymbolView
-            name={
-              expandable
-                ? {
-                    ios: "chevron.down",
-                    android: "keyboard_arrow_down",
-                    web: "keyboard_arrow_down",
-                  }
-                : { ios: "chevron.right", android: "chevron_right", web: "chevron_right" }
-            }
-            size={CHEVRON_SIZE}
-            tintColor={colors.mutedForeground}
-            style={
-              expandable ? { transform: [{ rotate: expanded ? "180deg" : "0deg" }] } : undefined
-            }
+        {item.targetCount ? (
+          <Pill
+            label={`×${item.targetCount}`}
+            color={colors.accent}
+            background={tokens.accentSoft}
           />
-        </PressableScale>
-
-        {expandable && expanded ? (
-          <Animated.View
-            entering={FadeIn.duration(180)}
-            style={[styles.expanded, { borderTopColor: tokens.hairline }]}
-          >
-            <ThemedText type="arabic" style={styles.arabic}>
-              {item.arabic}
-            </ThemedText>
-            <ThemedText type="default">{item.translation}</ThemedText>
-            <PressableScale
-              haptic="light"
-              accessibilityRole="button"
-              accessibilityLabel={item.title}
-              onPress={onPress}
-              style={styles.openRow}
-            >
-              <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-                {t("reading.showMore")}
-              </ThemedText>
-              <SymbolView
-                name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-                size={13}
-                tintColor={colors.accentText}
-              />
-            </PressableScale>
-          </Animated.View>
         ) : null}
-      </View>
+
+        {categoryLabel ? (
+          <Pill label={categoryLabel} color={colors.mutedForeground} background={colors.card} />
+        ) : null}
+
+        {onToggleFavorite ? <View style={styles.favoriteSlot} /> : null}
+
+        <SymbolView
+          name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
+          size={CHEVRON_SIZE}
+          tintColor={colors.mutedForeground}
+        />
+      </PressableScale>
 
       {onToggleFavorite ? (
         <IconButton
@@ -138,37 +105,17 @@ const styles = StyleSheet.create({
   wrapper: {
     position: "relative",
   },
-  card: {
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    overflow: "hidden",
-  },
   row: {
     flexDirection: "row",
     alignItems: "center",
     gap: ROW_GAP,
     padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
   body: {
     flex: 1,
     gap: 2,
-  },
-  expanded: {
-    paddingHorizontal: Spacing.three,
-    paddingBottom: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    gap: Spacing.two,
-  },
-  arabic: {
-    writingDirection: "rtl",
-    textAlign: "right",
-    marginTop: Spacing.two,
-  },
-  openRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    marginTop: Spacing.one,
   },
   favoriteSlot: {
     width: FAVORITE_SIZE,

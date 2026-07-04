@@ -86,6 +86,23 @@ export default function SettingsScreen() {
               onPress={() => router.push("/settings/fonts")}
             />
             <SettingsRow
+              icon={{
+                ios: "cloud.sun.fill",
+                android: "partly_cloudy_day",
+                web: "partly_cloudy_day",
+              }}
+              title={t("settings.weather")}
+              subtitle={t("settings.weatherSub")}
+              value={
+                prefs.weatherPrefs.effectsEnabled
+                  ? prefs.weatherPrefs.unit === "celsius"
+                    ? t("weather.unitCelsius")
+                    : t("weather.unitFahrenheit")
+                  : t("common.off")
+              }
+              onPress={() => router.push("/settings/weather")}
+            />
+            <SettingsRow
               icon={{ ios: "globe", android: "language", web: "language" }}
               title={t("settings.language")}
               subtitle={t("settings.languageSub")}

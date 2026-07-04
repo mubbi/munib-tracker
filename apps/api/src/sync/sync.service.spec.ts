@@ -39,4 +39,64 @@ describe("SyncService", () => {
     expect(response.accepted).toBe(1);
     expect(response.conflicts).toHaveLength(0);
   });
+
+  it("rejects an older change as a conflict and returns the newer stored record", async () => {
+    const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+
+    // Store the authoritative (newer) version first.
+    await syncService.push(session.accessToken, {
+      changes: [
+        {
+          entity: "prayer_logs",
+          id: "log-conflict",
+          data: { status: "completed" },
+          updatedAt: "2026-01-02T00:00:00.000Z",
+        },
+      ],
+    });
+
+    // A stale change with an older updatedAt loses last-write-wins.
+    const response = await syncService.push(session.accessToken, {
+      changes: [
+        {
+          entity: "prayer_logs",
+          id: "log-conflict",
+          data: { status: "missed" },
+          updatedAt: "2026-01-01T00:00:00.000Z",
+        },
+      ],
+    });
+
+    expect(response.accepted).toBe(0);
+    expect(response.conflicts).toHaveLength(1);
+    expect(response.conflicts[0]?.id).toBe("log-conflict");
+    expect(response.conflicts[0]?.data.status).toBe("completed");
+    expect(response.conflicts[0]?.updatedAt).toBe("2026-01-02T00:00:00.000Z");
+  });
+
+  it("pull(since) only returns records updated after the given timestamp", async () => {
+    const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+
+    await syncService.push(session.accessToken, {
+      changes: [
+        {
+          entity: "prayer_logs",
+          id: "old-record",
+          data: { status: "completed" },
+          updatedAt: "2026-01-01T00:00:00.000Z",
+        },
+        {
+          entity: "prayer_logs",
+          id: "new-record",
+          data: { status: "completed" },
+          updatedAt: "2026-03-01T00:00:00.000Z",
+        },
+      ],
+    });
+
+    const pulled = await syncService.pull(session.accessToken, "2026-02-01T00:00:00.000Z");
+
+    expect(pulled.changes).toHaveLength(1);
+    expect(pulled.changes[0]?.id).toBe("new-record");
+  });
 });

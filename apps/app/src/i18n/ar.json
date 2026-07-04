@@ -8,6 +8,7 @@
     "skip": "تخطّي",
     "apply": "تطبيق",
     "delete": "حذف",
+    "edit": "تعديل",
     "remove": "إزالة",
     "add": "إضافة",
     "reset": "إعادة ضبط",
@@ -26,8 +27,31 @@
     "minus": "ناقص",
     "set": "تعيين",
     "play": "تشغيل",
+    "increase": "زيادة {{label}}",
+    "decrease": "إنقاص {{label}}",
     "appName": "Munib Tracker",
     "appTagline": "تتبع رحلتك إلى الله."
+  },
+  "search": {
+    "placeholder": "ابحث في القرآن والحديث والأدعية والأذكار…",
+    "clear": "مسح البحث",
+    "all": "الكل",
+    "resultsCount": "{{count}} نتيجة",
+    "seeAllCount": "عرض الكل ({{count}})",
+    "noResultsTitle": "لا توجد نتائج",
+    "noResultsDesc": "جرّب كلمة أخرى أو تهجئة مختلفة.",
+    "recent": "عمليات البحث الأخيرة",
+    "clearRecent": "مسح",
+    "suggestions": "جرّب البحث عن",
+    "searchingQuran": "جارٍ البحث في القرآن…",
+    "cat": {
+      "quran": "القرآن",
+      "hadith": "الحديث",
+      "dua": "الأدعية",
+      "zikr": "الأذكار",
+      "name": "أسماء الله الحسنى",
+      "durood": "الصلوات"
+    }
   },
   "tabs": {
     "home": "الرئيسية",
@@ -45,7 +69,33 @@
     "hadith": "الحديث",
     "calendar": "التقويم",
     "stats": "الإحصاءات",
-    "qibla": "القبلة"
+    "qibla": "القبلة",
+    "bookmarks": "الإشارات المرجعية"
+  },
+  "bookmarks": {
+    "eyebrow": "المكتبة",
+    "title": "الإشارات المرجعية",
+    "subtitle": "كل ما حفظته من قراءاتك في مكان واحد",
+    "subtitleCount": "{{count}} عنصر محفوظ",
+    "reading": "القراءة",
+    "saved": "المحفوظ",
+    "quran": "آيات القرآن",
+    "hadith": "الأحاديث",
+    "duas": "الأدعية المحفوظة",
+    "zikr": "الأذكار المفضلة",
+    "emptyTitle": "لا شيء محفوظ بعد",
+    "emptySubtitle": "استكشف أدناه واحفظ أثناء القراءة",
+    "emptyDesc": "ستجمع هنا آياتك وأحاديثك وأدعيتك وأذكارك المحفوظة.",
+    "exploreReading": "ابدأ القراءة",
+    "exploreSaved": "ابدأ الحفظ",
+    "exploreQuran": "تصفّح القرآن",
+    "exploreQuranHint": "اضغط أيقونة الإشارة المرجعية على أي آية",
+    "exploreHadith": "تصفّح الأحاديث",
+    "exploreHadithHint": "احفظ من أي مجموعة حديث",
+    "exploreDuas": "تصفّح الأدعية",
+    "exploreDuasHint": "اضغط النجمة لحفظ دعاء",
+    "exploreZikr": "تصفّح الأذكار",
+    "exploreZikrHint": "اضغط القلب لإضافة ذكر للمفضلة"
   },
   "home": {
     "todaysGoal": "هدف اليوم",
@@ -171,6 +221,8 @@
     "languageSub": "لغة التطبيق والترجمة",
     "timeFormat": "تنسيق الوقت",
     "timeFormatSub": "ساعة 12 أو 24",
+    "weather": "الطقس",
+    "weatherSub": "تأثيرات البانر ووحدة الحرارة",
     "achievements": "الإنجازات",
     "achievementsSub": "المحطّات والأوسمة",
     "qibla": "القبلة",
@@ -240,6 +292,28 @@
     "am": "ص",
     "pm": "م",
     "footer": "يُحفظ اختيارك تلقائياً ويُستخدم في كل الأوقات المعروضة."
+  },
+  "weather": {
+    "title": "الطقس",
+    "subtitle": "الأحوال الحية على البانر الرئيسي",
+    "effectsTitle": "تأثيرات البانر",
+    "effectsHint": "طبقات متحركة على البانر الرئيسي تطابق الطقس المحلي.",
+    "effectsToggle": "تأثيرات الطقس",
+    "effectsToggleSub": "مطر، سحب، شمس، رياح وغيرها على البانر",
+    "unitTitle": "وحدة الحرارة",
+    "unitHint": "تظهر بجانب موقعك على الشاشة الرئيسية",
+    "unitCelsius": "مئوية (°C)",
+    "unitFahrenheit": "فهرنهايت (°F)",
+    "footer": "يُحدَّث الطقس كل 3 ساعات عبر Open-Meteo وMET Norway مجاناً.",
+    "condition": {
+      "clear": "صافٍ",
+      "partly_cloudy": "غائم جزئياً",
+      "cloudy": "غائم",
+      "fog": "ضباب",
+      "rain": "ممطر",
+      "snow": "ثلج",
+      "thunderstorm": "عاصف"
+    }
   },
   "notif": {
     "eyebrow": "الإعدادات",
@@ -366,7 +440,11 @@
     "browseZikr": "تصفّح الأذكار",
     "moveUp": "تحريك لأعلى",
     "moveDown": "تحريك لأسفل",
-    "removeFavorite": "إزالة من المفضّلة"
+    "removeFavorite": "إزالة من المفضّلة",
+    "searchPlaceholder": "ابحث في الأذكار بالعنوان أو الموضوع أو النص…",
+    "searchInCategory": "ابحث في هذه الفئة…",
+    "searchResultCount": "{{count}} نتيجة",
+    "noResults": "لم يطابق أي ذكر بحثك."
   },
   "zikrCat": {
     "morning": "أذكار الصباح",
@@ -399,7 +477,11 @@
     "unfavorite": "إزالة من المحفوظات",
     "favorites": "الأدعية المحفوظة",
     "favoritesEmpty": "لا أدعية محفوظة بعد",
-    "viewFavorites": "الأدعية المحفوظة"
+    "viewFavorites": "الأدعية المحفوظة",
+    "searchPlaceholder": "ابحث في الأدعية بالعنوان أو الموضوع أو النص…",
+    "searchInCategory": "ابحث في هذه الفئة…",
+    "searchResultCount": "{{count}} نتيجة",
+    "noResults": "لم تطابق أي دعاء بحثك."
   },
   "duaCat": {
     "sunnah": "أدعية من السنة",
@@ -505,7 +587,25 @@
     "eyebrow": "التسبيح",
     "freeTitle": "العدّاد",
     "freeSubtitle": "عُدّ أي ذكر دون استخدام يديك",
-    "freeHint": "عدّاد حر — يُعاد ضبط هذا المجموع عند مغادرتك. افتح ذكراً محدداً لحفظ التقدّم اليومي.",
+    "freeHint": "عدّاد سريع — يُعاد ضبط هذا المجموع عند مغادرتك. أنشئ عدّاداً محفوظاً أدناه للاحتفاظ بتقدّمك.",
+    "quickCounter": "عدّاد سريع",
+    "customSection": "عدّاداتك",
+    "customCreateTitle": "عدّاد جديد",
+    "customEditTitle": "تعديل العدّاد",
+    "customCreateAction": "إنشاء عدّاد",
+    "customFormHint": "سمِّ ذكرك، أضف ملاحظة، واختر عدد التكرار.",
+    "customTitleLabel": "العنوان",
+    "customTitlePlaceholder": "مثال: الصلاة على النبي",
+    "customDescLabel": "الوصف (اختياري)",
+    "customDescPlaceholder": "مثال: بعد كل صلاة",
+    "customTargetLabel": "عدد التكرار",
+    "customTargetSummary": "الهدف: {{target}}",
+    "customUnlimitedSummary": "عدّ غير محدود",
+    "customEmptyTitle": "لا توجد عدّادات محفوظة بعد",
+    "customEmptyDesc": "أنشئ عدّاداً للصلاة على النبي أو الاستغفار أو أي ذكر تكرّره — يُحفظ العدّ تلقائياً.",
+    "customDeleteTitle": "حذف العدّاد؟",
+    "customDeleteMessage": "سيُحذف \"{{title}}\" وعدّه المحفوظ نهائياً.",
+    "customBackToCounters": "العودة إلى العدّادات",
     "notFoundTitle": "الذكر غير موجود",
     "notFoundDesc": "قد يكون هذا العنصر قد حُذف."
   },
@@ -788,7 +888,11 @@
     "editNote": "تعديل الملاحظة",
     "addNote": "إضافة ملاحظة",
     "noteTitle": "{{prayer}} — ملاحظة",
-    "rowA11y": "{{prayer}}، {{status}}"
+    "rowA11y": "{{prayer}}، {{status}}",
+    "qazaPromptTitle": "إضافة إلى عدد القضاء؟",
+    "qazaPromptMessage": "إضافة واحدة إلى عدد القضاء لصلاة {{prayer}}؟",
+    "qazaPromptConfirm": "نعم، أضف إلى القضاء",
+    "qazaPromptDecline": "لا، تخطَّ"
   },
   "notesModal": {
     "hint": "اختياري — ملاحظة خاصة لهذا اليوم.",
@@ -808,7 +912,13 @@
     "customTitle": "هدف مخصّص",
     "customPrompt": "كم مرة تودّ التكرار؟",
     "customPlaceholder": "مثلاً 313",
-    "modeLabel": "{{mode}}، العدد {{count}}"
+    "modeLabel": "{{mode}}، العدد {{count}}",
+    "confirmUndoTitle": "التراجع عن آخر عدّ؟",
+    "confirmUndoMessage": "سيُخصم واحد من العدّ الحالي.",
+    "confirmResetTitle": "إعادة ضبط العدّاد؟",
+    "confirmResetMessage": "سيُمسح عدّك البالغ {{count}}.",
+    "confirmStartAgainTitle": "البدء من جديد؟",
+    "confirmStartAgainMessage": "سيُمسح العدّ المكتمل لتبدأ جولة جديدة."
   },
   "hero": {
     "nextPrayerAway": "{{prayer}} بعد {{min}} دقيقة فقط",
@@ -820,7 +930,9 @@
     "current": "الآن",
     "clockLabel": "{{time}}، {{countdown}}",
     "prayerItem": "{{name}} عند {{time}}",
-    "prayerItemActive": "{{name}} عند {{time}}، الصلاة الحالية"
+    "prayerItemActive": "{{name}} عند {{time}}، الصلاة الحالية",
+    "weatherA11y": "{{temp}}، {{condition}}",
+    "locationWeatherA11y": "{{location}}، {{weather}}. تغيير الموقع"
   },
   "location": {
     "eyebrow": "الموقع",
@@ -972,7 +1084,8 @@
     "version": "الإصدار {{version}}",
     "credits": "الاعتمادات",
     "authorLabel": "المؤلف",
-    "authorValue": "فريق منيب تراكر",
+    "authorValue": "Mubbasher Ahmed Qureshi",
+    "authorWebsiteLabel": "الموقع",
     "collaboratorsLabel": "المساهمون",
     "collaboratorsValue": "مساهمو المجتمع",
     "duaTitle": "دعاء",

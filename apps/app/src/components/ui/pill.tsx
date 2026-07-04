@@ -11,17 +11,19 @@ type PillProps = {
   background?: string;
   icon?: SymbolViewProps["name"];
   style?: StyleProp<ViewStyle>;
+  /** Tighter padding for dense list rows. */
+  compact?: boolean;
 };
 
-export function Pill({ label, color, background, icon, style }: PillProps) {
+export function Pill({ label, color, background, icon, style, compact }: PillProps) {
   const { colors, tokens } = useThemeTokens();
   const fg = color ?? colors.accent;
   const bg = background ?? tokens.accentSoft;
 
   return (
-    <View style={[styles.pill, { backgroundColor: bg }, style]}>
+    <View style={[styles.pill, compact && styles.pillCompact, { backgroundColor: bg }, style]}>
       {icon ? <SymbolView name={icon} size={12} tintColor={fg} /> : null}
-      <ThemedText type="caption" style={{ color: fg }}>
+      <ThemedText type="caption" numberOfLines={1} style={{ color: fg }}>
         {label}
       </ThemedText>
     </View>
@@ -38,5 +40,11 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     alignSelf: "flex-start",
+    flexShrink: 0,
+  },
+  pillCompact: {
+    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.half + 2,
+    alignSelf: "center",
   },
 });

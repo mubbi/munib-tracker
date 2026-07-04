@@ -158,7 +158,18 @@
     "/api/v1/sync/pull": {
       "get": {
         "operationId": "SyncController_pull",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "since",
+            "required": false,
+            "in": "query",
+            "description": "ISO timestamp — return changes updated after this moment",
+            "schema": {
+              "example": "2026-01-01T00:00:00.000Z",
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -186,6 +197,16 @@
       "post": {
         "operationId": "SyncController_push",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncPushDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "",
@@ -368,6 +389,20 @@
         "required": [
           "changes",
           "serverTime"
+        ]
+      },
+      "SyncPushDto": {
+        "type": "object",
+        "properties": {
+          "changes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SyncRecordDto"
+            }
+          }
+        },
+        "required": [
+          "changes"
         ]
       },
       "SyncPushResponseDto": {

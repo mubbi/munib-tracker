@@ -21,9 +21,10 @@ import {
   countPerfectDays,
   getLocalDateString,
 } from "@munib-tracker/shared/utils";
-import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
 
 import { initDatabase, PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
+import { persistAchievementSync } from "@/lib/achievements-persistence";
+import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 
 import { createStore, useStore } from "./create-store";
 
@@ -54,6 +55,11 @@ function emptySummary(date: string): DailySummary {
   };
 }
 
+export type SetPrayerStatusOptions = {
+  /** When marking missed, whether to increment the obligatory qaza counter. */
+  addToQaza?: boolean;
+};
+
 export interface TrackerState {
   date: string;
   isReady: boolean;
@@ -71,7 +77,11 @@ export interface TrackerState {
 
   load: () => Promise<void>;
   refresh: () => Promise<void>;
-  setPrayerStatus: (prayerId: PrayerId, status: PrayerStatus) => Promise<void>;
+  setPrayerStatus: (
+    prayerId: PrayerId,
+    status: PrayerStatus,
+    options?: SetPrayerStatusOptions,
+  ) => Promise<void>;
   setPrayerNotes: (prayerId: PrayerId, notes: string) => Promise<void>;
   setZikrCount: (zikrId: string, count: number, target: number) => Promise<void>;
   incrementZikr: (zikrId: string, target: number, by?: number) => Promise<void>;
@@ -182,34 +192,32 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       const date = getLocalDateString();
       const next = await recompute(date);
       set({ ...next, date, isReady: true });
+      await persistAchievementSync(next.achievementStats ?? emptyStats());
     },
 
     async refresh() {
       const date = getLocalDateString();
       const next = await recompute(date);
       set({ ...next, date });
+      await persistAchievementSync(next.achievementStats ?? emptyStats());
     },
 
-    setPrayerStatus(prayerId, status) {
+    setPrayerStatus(prayerId, status, options) {
       return enqueue(async () => {
         const { date, prayerStatus } = get();
-        const previous = prayerStatus[prayerId];
+        const previous = prayerStatus[prayerId] ?? "pending";
+        const existingLog = await PrayerRepository.getLog(prayerId, date);
 
-        // Optimistic update.
+        const qazaDebtAdded = await reconcileQazaDebtForStatusChange(
+          prayerId,
+          previous,
+          status,
+          existingLog,
+          options,
+        );
+
         set({ prayerStatus: { ...prayerStatus, [prayerId]: status } });
-        await PrayerRepository.setStatus(prayerId, date, status);
-
-        // Reconcile the qaza debt for obligatory prayers on missed <-> not-missed.
-        if (isObligatoryPrayer(prayerId)) {
-          const wasMissed = previous === "missed";
-          const isMissed = status === "missed";
-          if (isMissed && !wasMissed) {
-            await QazaRepository.incrementRemaining(prayerId, 1);
-          } else if (wasMissed && !isMissed) {
-            await QazaRepository.incrementRemaining(prayerId, -1);
-          }
-        }
-
+        await PrayerRepository.setStatus(prayerId, date, status, { qazaDebtAdded });
         await get().refresh();
       });
     },

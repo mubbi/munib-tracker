@@ -2,19 +2,20 @@ import { duasByCategory } from "@munib-tracker/shared/content";
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
+import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
+import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { createDuaSearch } from "@/lib/search";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
@@ -34,87 +35,145 @@ export default function DuaCategoryScreen() {
     VALID.includes(params.category as DuaCategoryId) ? params.category : "daily"
   ) as DuaCategoryId;
   const items = duasByCategory(categoryId);
+  const { colors } = useThemeTokens();
+  const [query, setQuery] = useState("");
+  const searching = query.trim().length > 0;
+
+  const duaIndex = useMemo(() => createDuaSearch(items), [items]);
+  const indexById = useMemo(
+    () => new Map(items.map((item, position) => [item.id, position + 1])),
+    [items],
+  );
+  const filtered = useMemo(
+    () => (searching ? duaIndex.search(query) : items),
+    [duaIndex, items, query, searching],
+  );
+
+  // Stable, id-taking handlers so memoized rows keep their prop identity and
+  // only the toggled row re-renders on a favorite change.
+  const onOpen = useCallback(
+    (id: string) => router.push({ pathname: "/dua/detail/[id]", params: { id } }),
+    [router],
+  );
+
+  const keyExtractor = useCallback((item: DuaItem) => item.id, []);
+
+  const renderItem = useCallback<ListRenderItem<DuaItem>>(
+    ({ item }) => (
+      <DuaRow
+        item={item}
+        index={indexById.get(item.id)}
+        isFavorite={favoriteIds.includes(item.id)}
+        onToggleFavorite={toggle}
+        onOpen={onOpen}
+      />
+    ),
+    [favoriteIds, indexById, toggle, onOpen],
+  );
 
   return (
     <ScreenLayout
       eyebrow={t("dua.categoryEyebrow")}
       title={t(`duaCat.${categoryId}`)}
-      subtitle={t("dua.supplicationsCount", { count: items.length })}
+      subtitle={
+        searching
+          ? t("dua.searchResultCount", { count: filtered.length })
+          : t("dua.supplicationsCount", { count: items.length })
+      }
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      scrollable={false}
     >
-      <Stagger>
-        <Card padding="three">
-          <View style={styles.list}>
-            {items.map((item) => (
-              <DuaRow
-                key={item.id}
-                item={item}
-                isFavorite={favoriteIds.includes(item.id)}
-                onToggleFavorite={() => toggle(item.id)}
-                onOpen={() =>
-                  router.push({ pathname: "/dua/detail/[id]", params: { id: item.id } })
-                }
+      {/* The Card supplies the list chrome; the FlatList scrolls inside it and
+          virtualizes rows (ScreenLayout is non-scrolling here). No Stagger wrapper:
+          its item view has no flex, which would break the FlatList's height chain. */}
+      <Card padding="three" style={styles.listCard}>
+        <TextInput
+          value={query}
+          onChangeText={setQuery}
+          placeholder={t("dua.searchInCategory")}
+          placeholderTextColor={colors.mutedForeground}
+          accessibilityLabel={t("dua.searchInCategory")}
+          style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
+        />
+        <FlatList
+          style={styles.flatList}
+          data={filtered}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+          ItemSeparatorComponent={ListSeparator}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          ListEmptyComponent={
+            searching ? (
+              <EmptyState
+                icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+                title={t("dua.noResults")}
+                description={t("search.noResultsDesc")}
               />
-            ))}
-          </View>
-        </Card>
-      </Stagger>
+            ) : null
+          }
+        />
+      </Card>
     </ScreenLayout>
   );
 }
 
-/**
- * An expandable dua row: tapping toggles a full-text preview in place (no
- * gesture libs — cross-platform), with a favorite toggle and a jump-to-detail
- * chevron. Long category lists stay scannable while still giving the full text
- * a tap away.
- */
-function DuaRow({
+/** Spacer matching the previous `gap: Spacing.two` between rows. */
+function ListSeparator() {
+  return <View style={styles.separator} />;
+}
+
+const CHEVRON_SIZE = 14;
+const FAVORITE_SIZE = 18;
+
+const DuaRow = memo(function DuaRow({
   item,
+  index,
   isFavorite,
   onToggleFavorite,
   onOpen,
 }: {
   item: DuaItem;
+  index?: number;
   isFavorite: boolean;
-  onToggleFavorite: () => void;
-  onOpen: () => void;
+  onToggleFavorite: (id: string) => void;
+  onOpen: (id: string) => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const [expanded, setExpanded] = useState(false);
+
+  const handleToggleFavorite = useCallback(
+    () => onToggleFavorite(item.id),
+    [onToggleFavorite, item.id],
+  );
+  const handleOpen = useCallback(() => onOpen(item.id), [onOpen, item.id]);
 
   return (
-    // The favorite toggle is a sibling overlay, not nested inside the header's
+    // The favorite toggle is a sibling overlay, not nested inside the row's
     // Pressable — nesting a <button> inside another <button> is invalid HTML on
     // web (matches the ZikrRow pattern).
-    <View style={[styles.rowWrap, { backgroundColor: colors.muted }]}>
+    <View style={styles.rowWrap}>
       <PressableScale
         haptic="light"
         accessibilityRole="button"
-        accessibilityLabel={item.title}
-        accessibilityState={{ expanded }}
-        onPress={() => setExpanded((value) => !value)}
-        style={styles.rowHeader}
+        accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
+        onPress={handleOpen}
+        style={[styles.rowHeader, { backgroundColor: colors.muted }]}
       >
+        {index != null ? <ListIndexBadge index={index} /> : null}
         <View style={styles.body}>
-          <ThemedText type="small" numberOfLines={expanded ? undefined : 1}>
+          <ThemedText type="small" numberOfLines={1}>
             {item.title}
           </ThemedText>
-          <ThemedText
-            type="caption"
-            themeColor="mutedForeground"
-            numberOfLines={expanded ? undefined : 1}
-          >
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
             {item.transliteration}
           </ThemedText>
         </View>
         <View style={styles.favoriteSlot} />
         <SymbolView
-          name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
-          size={14}
+          name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
+          size={CHEVRON_SIZE}
           tintColor={colors.mutedForeground}
-          style={{ transform: [{ rotate: expanded ? "180deg" : "0deg" }] }}
         />
       </PressableScale>
 
@@ -124,84 +183,46 @@ function DuaRow({
             ? { ios: "star.fill", android: "star", web: "star" }
             : { ios: "star", android: "star_border", web: "star_border" }
         }
-        size={18}
+        size={FAVORITE_SIZE}
         tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
         accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
         accessibilityState={{ selected: isFavorite }}
         haptic="selection"
-        onPress={onToggleFavorite}
+        onPress={handleToggleFavorite}
         style={styles.favoriteButton}
       />
-
-      {expanded ? (
-        <Animated.View
-          entering={FadeIn.duration(180)}
-          style={[styles.expanded, { borderTopColor: tokens.hairline }]}
-        >
-          <ThemedText type="arabic" style={styles.arabic}>
-            {item.arabic}
-          </ThemedText>
-          <ThemedText type="default">{item.translation}</ThemedText>
-          <PressableScale
-            haptic="light"
-            accessibilityRole="button"
-            accessibilityLabel={item.title}
-            onPress={onOpen}
-            style={styles.openRow}
-          >
-            <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-              {t("reading.showMore")}
-            </ThemedText>
-            <SymbolView
-              name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-              size={13}
-              tintColor={colors.accentText}
-            />
-          </PressableScale>
-        </Animated.View>
-      ) : null}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
-  list: { gap: Spacing.two },
-  rowWrap: {
+  listCard: { flex: 1 },
+  flatList: { flex: 1 },
+  input: {
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    overflow: "hidden",
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.three,
+    marginBottom: Spacing.three,
+    fontSize: 15,
+  },
+  separator: { height: Spacing.two },
+  rowWrap: {
+    position: "relative",
   },
   rowHeader: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
     padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
   },
   body: { flex: 1, gap: 2 },
-  favoriteSlot: { width: 18, height: 18 },
+  favoriteSlot: { width: FAVORITE_SIZE, height: FAVORITE_SIZE },
   favoriteButton: {
     position: "absolute",
-    // Vertically centered over the collapsed header (two text lines + padding
-    // ≈ 58pt, minus the 44pt target ≈ 7pt inset from the top).
     top: 7,
-    // Center the 44pt target over the reserved slot, just left of the chevron.
-    right: Spacing.three + 14 + Spacing.two + 18 / 2 - 22,
-  },
-  expanded: {
-    paddingHorizontal: Spacing.three,
-    paddingBottom: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    gap: Spacing.two,
-  },
-  arabic: {
-    writingDirection: "rtl",
-    textAlign: "right",
-    marginTop: Spacing.two,
-  },
-  openRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-    marginTop: Spacing.one,
+    right: Spacing.three + CHEVRON_SIZE + Spacing.two + FAVORITE_SIZE / 2 - 22,
   },
 });

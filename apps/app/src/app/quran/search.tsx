@@ -1,7 +1,14 @@
 import { useRouter } from "expo-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, Share, StyleSheet, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  InteractionManager,
+  Share,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
@@ -58,20 +65,44 @@ export default function QuranSearchScreen() {
     };
   }, [query, debounced]);
 
+  const [results, setResults] = useState<SearchHit[]>([]);
+  const [searching, setSearching] = useState(false);
+
   // Fuzzy, typo-tolerant search over the shared Qur'an ayah index (translation +
-  // transliteration), mapped to this screen's row shape.
-  const results = useMemo<SearchHit[]>(() => {
-    if (debounced.trim().length < 2) return [];
-    return searchQuranAyahs(debounced, MAX_RESULTS).results.map((hit) => ({
-      surah: Number(hit.params?.surah),
-      ayah: Number(hit.params?.ayah),
-      surahName: hit.title,
-      text: hit.subtitle ?? "",
-      arabic: hit.arabic ?? "",
-    }));
+  // transliteration), mapped to this screen's row shape. Building/scanning the
+  // 6,236-ayah Fuse index is heavy, so run it off the interaction thread — the
+  // spinner stays up until it resolves and typing stays smooth. Every setState is
+  // guarded by `cancelled` so nothing lands after a new query or unmount.
+  useEffect(() => {
+    if (debounced.trim().length < 2) {
+      setResults([]);
+      setSearching(false);
+      return;
+    }
+    setSearching(true);
+    let cancelled = false;
+    const handle = InteractionManager.runAfterInteractions(() => {
+      if (cancelled) return;
+      const hits = searchQuranAyahs(debounced, MAX_RESULTS).results.map((hit) => ({
+        surah: Number(hit.params?.surah),
+        ayah: Number(hit.params?.ayah),
+        surahName: hit.title,
+        text: hit.subtitle ?? "",
+        arabic: hit.arabic ?? "",
+      }));
+      if (cancelled) return;
+      setResults(hits);
+      setSearching(false);
+    });
+    return () => {
+      cancelled = true;
+      handle.cancel();
+    };
   }, [debounced]);
 
-  const showEmpty = !pending && debounced.trim().length >= 2 && results.length === 0;
+  // Show the spinner while the debounce is settling OR the deferred scan runs.
+  const busy = pending || searching;
+  const showEmpty = !busy && debounced.trim().length >= 2 && results.length === 0;
 
   return (
     <ScreenLayout
@@ -90,7 +121,7 @@ export default function QuranSearchScreen() {
           autoFocus
           style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
         />
-        {pending ? (
+        {busy ? (
           <View style={styles.statusRow}>
             <ActivityIndicator size="small" color={colors.accent} />
             <ThemedText type="caption" themeColor="mutedForeground">
@@ -110,7 +141,7 @@ export default function QuranSearchScreen() {
             icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
             title={t("quran.noResults")}
           />
-        ) : !pending ? (
+        ) : !busy ? (
           <View style={styles.list}>
             {results.map((hit) => (
               <View

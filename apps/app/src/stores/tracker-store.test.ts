@@ -18,13 +18,29 @@ describe("trackerStore", () => {
     expect(state.streakDays).toBe(1);
   });
 
-  it("increments the qaza counter when an obligatory prayer is missed", async () => {
-    await trackerStore.getState().setPrayerStatus("dhuhr", "missed");
+  it("increments the qaza counter when an obligatory prayer is missed and confirmed", async () => {
+    await trackerStore.getState().setPrayerStatus("dhuhr", "missed", { addToQaza: true });
     expect((await QazaRepository.getCounter("dhuhr")).remaining).toBe(1);
   });
 
+  it("does not increment qaza when missed without confirmation", async () => {
+    await trackerStore.getState().setPrayerStatus("dhuhr", "missed", { addToQaza: false });
+    expect((await QazaRepository.getCounter("dhuhr")).remaining).toBe(0);
+  });
+
+  it("increments the qaza counter when an obligatory prayer is marked qaza and confirmed", async () => {
+    await trackerStore.getState().setPrayerStatus("isha", "qaza", { addToQaza: true });
+    expect((await QazaRepository.getCounter("isha")).remaining).toBe(1);
+  });
+
+  it("does not double-increment when switching between missed and qaza with qaza linked", async () => {
+    await trackerStore.getState().setPrayerStatus("maghrib", "missed", { addToQaza: true });
+    await trackerStore.getState().setPrayerStatus("maghrib", "qaza");
+    expect((await QazaRepository.getCounter("maghrib")).remaining).toBe(1);
+  });
+
   it("reverses the qaza debt when a missed prayer is later completed", async () => {
-    await trackerStore.getState().setPrayerStatus("asr", "missed");
+    await trackerStore.getState().setPrayerStatus("asr", "missed", { addToQaza: true });
     await trackerStore.getState().setPrayerStatus("asr", "completed");
     expect((await QazaRepository.getCounter("asr")).remaining).toBe(0);
   });
@@ -43,6 +59,24 @@ describe("trackerStore", () => {
     await trackerStore.getState().incrementZikr("zikr-morning", 3);
     expect(trackerStore.getState().zikrCounts["zikr-morning"]).toBe(3);
     expect(trackerStore.getState().summary.zikrCompleted).toBe(1);
+  });
+
+  it("reverses achievement stats when a completed prayer is undone", async () => {
+    await trackerStore.getState().setPrayerStatus("fajr", "completed");
+    expect(trackerStore.getState().achievementStats.prayersCompleted).toBe(1);
+    const noorBefore = trackerStore.getState().devotionProgress.noor;
+
+    await trackerStore.getState().setPrayerStatus("fajr", "pending");
+    expect(trackerStore.getState().achievementStats.prayersCompleted).toBe(0);
+    expect(trackerStore.getState().devotionProgress.noor).toBeLessThan(noorBefore);
+  });
+
+  it("reverses zikr completion in achievement stats when count drops below target", async () => {
+    await trackerStore.getState().setZikrCount("zikr-morning", 3, 3);
+    expect(trackerStore.getState().achievementStats.zikrCompleted).toBe(1);
+
+    await trackerStore.getState().setZikrCount("zikr-morning", 2, 3);
+    expect(trackerStore.getState().achievementStats.zikrCompleted).toBe(0);
   });
 
   it("persists prayer status across a reload (offline, no network)", async () => {

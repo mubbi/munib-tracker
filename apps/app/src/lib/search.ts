@@ -243,25 +243,34 @@ let hadithFuse: Fuse<FuseDoc<HadithItem>> | null = null;
 /** Precomputed 1-based position for each name (drives the "34/99" badge). */
 const NAME_POSITION = new Map(NAMES_OF_ALLAH.map((name, index) => [name.id, index + 1]));
 
+/** Shared dua field weights, used by the global index and per-category search. */
+const DUA_FIELDS: FuzzyField<DuaItem>[] = [
+  { key: "title", weight: 5, get: (d) => d.title },
+  { key: "translit", weight: 3, get: (d) => d.transliteration },
+  { key: "translation", weight: 2, get: (d) => d.translation },
+  { key: "arabic", weight: 2, get: (d) => d.arabic },
+  { key: "reference", weight: 1, get: (d) => d.reference },
+  { key: "chapter", weight: 1, get: (d) => d.chapter },
+  { key: "categoryId", weight: 1, get: (d) => d.categoryId },
+];
+
+/** Shared zikr field weights, used by the global index and per-category search. */
+const ZIKR_FIELDS: FuzzyField<ZikrItem>[] = [
+  { key: "title", weight: 5, get: (z) => z.title },
+  { key: "translit", weight: 3, get: (z) => z.transliteration },
+  { key: "translation", weight: 2, get: (z) => z.translation },
+  { key: "arabic", weight: 2, get: (z) => z.arabic },
+  { key: "reference", weight: 1, get: (z) => z.reference },
+  { key: "categoryId", weight: 1, get: (z) => z.categoryId },
+];
+
 function getDuaFuse(): Fuse<FuseDoc<DuaItem>> {
-  duaFuse ??= makeFuse(DUA_ITEMS, [
-    { key: "title", weight: 5, get: (d) => d.title },
-    { key: "translit", weight: 3, get: (d) => d.transliteration },
-    { key: "translation", weight: 2, get: (d) => d.translation },
-    { key: "arabic", weight: 2, get: (d) => d.arabic },
-    { key: "reference", weight: 1, get: (d) => d.reference },
-  ]);
+  duaFuse ??= makeFuse(DUA_ITEMS, DUA_FIELDS);
   return duaFuse;
 }
 
 function getZikrFuse(): Fuse<FuseDoc<ZikrItem>> {
-  zikrFuse ??= makeFuse(ZIKR_ITEMS, [
-    { key: "title", weight: 5, get: (z) => z.title },
-    { key: "translit", weight: 3, get: (z) => z.transliteration },
-    { key: "translation", weight: 2, get: (z) => z.translation },
-    { key: "arabic", weight: 2, get: (z) => z.arabic },
-    { key: "reference", weight: 1, get: (z) => z.reference },
-  ]);
+  zikrFuse ??= makeFuse(ZIKR_ITEMS, ZIKR_FIELDS);
   return zikrFuse;
 }
 
@@ -322,6 +331,44 @@ function getHadithFuse(): Fuse<FuseDoc<HadithItem>> {
  */
 export function createHadithSearch(items: HadithItem[]): FuzzyIndex<HadithItem> {
   return createFuzzyIndex(items, HADITH_FIELDS);
+}
+
+/**
+ * A fuzzy index over one dua category's items, for the in-category search bar.
+ * Memoize per category list — the bundled corpus is small, so a synchronous build
+ * on first search is fine.
+ */
+export function createDuaSearch(items: DuaItem[]): FuzzyIndex<DuaItem> {
+  return createFuzzyIndex(items, DUA_FIELDS);
+}
+
+/**
+ * A fuzzy index over one zikr category's items, for the in-category search bar.
+ */
+export function createZikrSearch(items: ZikrItem[]): FuzzyIndex<ZikrItem> {
+  return createFuzzyIndex(items, ZIKR_FIELDS);
+}
+
+/**
+ * Fuzzy-ranked dua list for the duas index filter (title, translation, Arabic,
+ * reference, chapter, or category id). Reuses the cached global dua index.
+ */
+export function searchDuaList(query: string, limit?: number): DuaItem[] {
+  const pattern = fusePattern(query);
+  if (!pattern) return [];
+  const matches = getDuaFuse().search(pattern, limit ? { limit } : undefined);
+  return matches.map((match) => match.item.item);
+}
+
+/**
+ * Fuzzy-ranked zikr list for the zikr index filter (title, translation, Arabic,
+ * reference, or category id). Reuses the cached global zikr index.
+ */
+export function searchZikrList(query: string, limit?: number): ZikrItem[] {
+  const pattern = fusePattern(query);
+  if (!pattern) return [];
+  const matches = getZikrFuse().search(pattern, limit ? { limit } : undefined);
+  return matches.map((match) => match.item.item);
 }
 
 /**

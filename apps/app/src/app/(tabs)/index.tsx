@@ -31,7 +31,9 @@ import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { useLocationActions } from "@/stores/location-store";
+import { usePreferences } from "@/stores/preferences-store";
 import {
   useDailySummary,
   useDevotionProgress,
@@ -39,6 +41,7 @@ import {
   useStreak,
   useTrackerActions,
 } from "@/stores/tracker-store";
+import { resolveWeatherEffects, useWeatherSnapshot, weatherActions } from "@/stores/weather-store";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -52,6 +55,9 @@ export default function HomeScreen() {
   const { refresh } = useTrackerActions();
   const location = useLocationActions();
   const hero = useHomeHero();
+  const weather = useWeatherDisplay();
+  const weatherSnapshot = useWeatherSnapshot();
+  const { weatherPrefs } = usePreferences();
   const notificationCount = useNotificationBadgeCount();
   const [refreshing, setRefreshing] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -78,7 +84,7 @@ export default function HomeScreen() {
   const onRefresh = async () => {
     setRefreshing(true);
     try {
-      await Promise.all([refresh(), location.refresh()]);
+      await Promise.all([refresh(), location.refresh(), weatherActions.sync({ force: true })]);
     } finally {
       setRefreshing(false);
     }
@@ -133,6 +139,13 @@ export default function HomeScreen() {
       icon: { ios: "text.book.closed.fill", android: "auto_stories", web: "auto_stories" },
       tint: tokens.status.info.color,
       onPress: () => router.push("/hadith"),
+    },
+    {
+      id: "bookmarks",
+      label: t("actions.bookmarks"),
+      icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
+      tint: tokens.status.warning.color,
+      onPress: () => router.push("/bookmarks"),
     },
     {
       id: "duas",
@@ -212,6 +225,9 @@ export default function HomeScreen() {
             moonLabel={hero.moonLabel}
             windowProgress={hero.windowProgress}
             notificationCount={notificationCount}
+            weatherSummary={weather?.summary ?? null}
+            weatherAccessibilityLabel={weather?.accessibilityLabel ?? null}
+            weatherEffects={resolveWeatherEffects(weatherSnapshot, weatherPrefs)}
             onSearchPress={() => router.push("/search")}
             onNotificationsPress={() => router.push("/notifications")}
             onLocationPress={() => router.push("/location")}

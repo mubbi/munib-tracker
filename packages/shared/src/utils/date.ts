@@ -25,7 +25,14 @@ export function parseLocalDateString(value: string): Date {
     number,
     number,
   ];
-  return new Date(year, month - 1, day);
+  const date = new Date(year, month - 1, day);
+  // The regex accepts out-of-range fields (e.g. "2026-13-45"); the Date
+  // constructor would silently roll those over into a valid-but-wrong day.
+  // Verify each field round-trips so genuinely invalid calendar dates throw.
+  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
+    throw new RangeError(`Invalid date string: "${value}" (out-of-range calendar date)`);
+  }
+  return date;
 }
 
 /** Returns a new YYYY-MM-DD string offset by `days` from the given date string. */

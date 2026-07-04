@@ -1,16 +1,23 @@
+import { duasByCategory } from "@munib-tracker/shared/content";
+
 import { getBundledCollection } from "@/lib/hadith";
 import {
+  createDuaSearch,
   createFuzzyIndex,
   createHadithSearch,
+  createZikrSearch,
   isAyahIndexReady,
   normalize,
   SEARCH_CATEGORY_ORDER,
   searchAll,
+  searchDuaList,
   searchLight,
   searchQuranAyahs,
   searchSurahList,
+  searchZikrList,
   tokenize,
 } from "@/lib/search";
+import { zikrByCategory } from "@/lib/zikr";
 
 describe("normalize", () => {
   it("strips Latin diacritics and lowercases", () => {
@@ -138,6 +145,40 @@ describe("createHadithSearch", () => {
     expect(index.search("mesenger").length).toBeGreaterThan(0);
     expect(index.count("messenger")).toBeGreaterThan(0);
     expect(index.search("")).toEqual([]);
+  });
+});
+
+describe("createDuaSearch", () => {
+  it("fuzzy-searches within one category's duas", () => {
+    const items = duasByCategory("daily");
+    const index = createDuaSearch(items);
+    expect(index.search("eating").length).toBeGreaterThan(0);
+    expect(index.search("")).toEqual([]);
+  });
+});
+
+describe("createZikrSearch", () => {
+  it("fuzzy-searches within one category's adhkar", () => {
+    const items = zikrByCategory("morning");
+    const index = createZikrSearch(items);
+    expect(index.search("subhan").length).toBeGreaterThan(0);
+    expect(index.search("")).toEqual([]);
+  });
+});
+
+describe("searchDuaList", () => {
+  it("finds duas by title or category, typo-tolerant", () => {
+    expect(searchDuaList("sunnah").length).toBeGreaterThan(0);
+    expect(searchDuaList("forgivness").length).toBeGreaterThan(0);
+    expect(searchDuaList("")).toEqual([]);
+  });
+});
+
+describe("searchZikrList", () => {
+  it("finds adhkar by title or category id", () => {
+    expect(searchZikrList("morning").length).toBeGreaterThan(0);
+    expect(searchZikrList("subhanallah").length).toBeGreaterThan(0);
+    expect(searchZikrList("")).toEqual([]);
   });
 });
 

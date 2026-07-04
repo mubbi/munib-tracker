@@ -1,4 +1,5 @@
 import {
+  createHmac,
   createPrivateKey,
   createPublicKey,
   sign as cryptoSign,
@@ -139,10 +140,18 @@ export class OAuthProviderService {
     tokenUrl.searchParams.set("code", dto.code ?? "");
     const tokens = await this.fetchJson<FacebookTokenResponse>(tokenUrl.toString());
 
+    // Prove server-side possession of the app secret so a leaked access token
+    // alone can't query the Graph API on our behalf (Facebook's appsecret_proof).
+    const appSecretProof = createHmac("sha256", appSecret)
+      .update(tokens.access_token)
+      .digest("hex");
+
     const profileUrl = new URL("https://graph.facebook.com/me");
     profileUrl.searchParams.set("fields", "id,name,email");
     profileUrl.searchParams.set("access_token", tokens.access_token);
+    profileUrl.searchParams.set("appsecret_proof", appSecretProof);
     const profile = await this.fetchJson<FacebookProfile>(profileUrl.toString());
+    // Identity is keyed off the stable provider `id`, never the (unverified) email.
     return {
       providerAccountId: profile.id,
       email: profile.email,

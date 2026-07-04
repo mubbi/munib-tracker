@@ -85,7 +85,9 @@ export function syncPush(
   records: SyncRecordDto[],
 ): Promise<SyncPushResponseDto> {
   return apiFetch<SyncPushResponseDto>(
-    { url: "/sync/push", method: "POST", body: JSON.stringify({ records }) },
+    // The server DTO field is `changes` (SyncPushDto.changes) — the payload key
+    // must match or the ValidationPipe rejects every push.
+    { url: "/sync/push", method: "POST", body: JSON.stringify({ changes: records }) },
     { accessToken },
   );
 }

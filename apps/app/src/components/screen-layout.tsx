@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 import { AppHeader } from "@/components/app-header";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 
@@ -69,7 +70,13 @@ export function ScreenLayout({
 
   const content = (
     <View style={[styles.content, contentStyle]}>
-      <View style={[styles.inner, { maxWidth }]}>{children}</View>
+      {/* When the screen owns its own scroller (scrollable={false}, e.g. a screen
+          hosting a FlatList), the inner wrapper must fill the available height so
+          the child list is bounded and can scroll — otherwise it grows to its full
+          content height and nothing scrolls. */}
+      <View style={[styles.inner, !scrollable && styles.innerFill, { maxWidth }]}>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </View>
     </View>
   );
 
@@ -123,5 +130,9 @@ const styles = StyleSheet.create({
   inner: {
     width: "100%",
     gap: Spacing.four,
+  },
+  /** Fill the available height when the screen hosts its own scroller (FlatList). */
+  innerFill: {
+    flex: 1,
   },
 });

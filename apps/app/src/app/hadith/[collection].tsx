@@ -2,7 +2,7 @@ import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Share, StyleSheet, TextInput, View } from "react-native";
+import { InteractionManager, Share, StyleSheet, TextInput, View } from "react-native";
 
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -20,7 +20,7 @@ import { useRemoteCollection } from "@/hooks/use-hadith";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildHadithActivity, buildHadithCollectionActivity } from "@/lib/continue-activity";
 import { getBundledCollection, getBundledCollectionData } from "@/lib/hadith";
-import { createHadithSearch } from "@/lib/search";
+import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
@@ -49,16 +49,43 @@ export default function HadithCollectionScreen() {
   const sections = data?.sections ?? [];
   const allItems = data?.items ?? [];
 
-  // Fuzzy index over this collection's hadith, rebuilt only when the item list
-  // changes (a remote collection can hold thousands — don't rebuild per keystroke).
-  const hadithIndex = useMemo(() => createHadithSearch(allItems), [allItems]);
-
   // Seed the in-collection search from a `q` param (e.g. arriving from universal
   // search) so the matched hadith is already filtered into view.
   const [query, setQuery] = useState(params.q ?? "");
   const [sectionId, setSectionId] = useState<string | null>(null);
   const [visible, setVisible] = useState(PAGE_SIZE);
   const searching = query.trim().length > 0;
+
+  // Fuzzy index over this collection's hadith. Building it is O(n) over every
+  // item (a remote collection can hold thousands), so we never do it in a
+  // render-blocking useMemo. Instead we keep it in state and build it lazily:
+  // deferred off the interaction thread once data has loaded, or immediately
+  // (synchronously) the moment the user starts searching if that deferred build
+  // hasn't landed yet. Keyed to the item list so it rebuilds only when the data
+  // changes — never per keystroke.
+  const [hadithIndex, setHadithIndex] = useState<{
+    key: HadithItem[];
+    index: FuzzyIndex<HadithItem>;
+  } | null>(null);
+  const activeIndex = hadithIndex?.key === allItems ? hadithIndex.index : null;
+  useEffect(() => {
+    // Already have an index for exactly this item list — nothing to do.
+    if (hadithIndex?.key === allItems) return;
+    if (allItems.length === 0) {
+      if (hadithIndex) setHadithIndex(null);
+      return;
+    }
+    const build = () => setHadithIndex({ key: allItems, index: createHadithSearch(allItems) });
+    // Searching now: build synchronously so results aren't stalled behind a
+    // pending interaction (also covers the `q`-seeded arrival case).
+    if (searching) {
+      build();
+      return;
+    }
+    // Idle: defer the build so it doesn't compete with mount/nav animations.
+    const handle = InteractionManager.runAfterInteractions(build);
+    return () => handle.cancel();
+  }, [allItems, searching, hadithIndex]);
 
   const [bookmarked, setBookmarked] = useState<Set<string>>(new Set());
   useEffect(() => {
@@ -83,10 +110,12 @@ export default function HadithCollectionScreen() {
   const showSectionList = sections.length > 0 && !sectionId && !searching;
 
   const listItems = useMemo(() => {
-    if (searching) return hadithIndex.search(query);
+    // `activeIndex` is null only for the single frame between a search starting
+    // and the synchronous build effect landing — treat that as "no results yet".
+    if (searching) return activeIndex ? activeIndex.search(query) : [];
     if (sectionId) return allItems.filter((h) => h.chapterId === sectionId);
     return allItems;
-  }, [allItems, hadithIndex, query, sectionId, searching]);
+  }, [allItems, activeIndex, query, sectionId, searching]);
   const shown = listItems.slice(0, visible);
 
   const activeSection = sections.find((s) => s.id === sectionId);

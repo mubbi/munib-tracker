@@ -1,7 +1,7 @@
 import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
@@ -11,11 +11,61 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { BottomTabInset, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahMeta } from "@/lib/quran";
 import { searchSurahList } from "@/lib/search";
 import { useLastRead } from "@/stores/quran-store";
+
+type Surah = ReturnType<typeof getSurahMeta>[number];
+
+/**
+ * Memoized surah row for the virtualized list. Extracted + `memo`'d so scrolling
+ * the 114-row list only re-renders rows whose props actually change.
+ */
+const SurahRow = memo(function SurahRow({
+  surah,
+  onPress,
+}: {
+  surah: Surah;
+  onPress: (n: number) => void;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  return (
+    <PressableScale
+      haptic="light"
+      accessibilityRole="button"
+      accessibilityLabel={surah.nameEnglish}
+      onPress={() => onPress(surah.number)}
+      style={[styles.row, { backgroundColor: colors.muted }]}
+    >
+      <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
+        <ThemedText type="caption" style={{ color: colors.accent }}>
+          {surah.number}
+        </ThemedText>
+      </View>
+      <View style={styles.rowBody}>
+        <ThemedText type="small" numberOfLines={1}>
+          {surah.nameTransliteration}
+        </ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+          {surah.nameEnglish} · {t("quran.ayahCount", { count: surah.ayahCount })}
+        </ThemedText>
+      </View>
+      <View style={styles.rowMeta}>
+        <ThemedText type="arabic" style={styles.rowArabic}>
+          {surah.nameArabic}
+        </ThemedText>
+        <Pill
+          label={surah.revelationPlace === "makkah" ? t("quran.makki") : t("quran.madani")}
+          color={colors.mutedForeground}
+          background={colors.card}
+        />
+      </View>
+    </PressableScale>
+  );
+});
 
 export default function QuranHomeScreen() {
   const router = useRouter();
@@ -29,16 +79,23 @@ export default function QuranHomeScreen() {
   // full list shows when the query is empty.
   const filtered = useMemo(() => (query.trim() ? searchSurahList(query) : surahs), [query, surahs]);
 
-  const openSurah = (n: number) =>
-    router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } });
+  const openSurah = useCallback(
+    (n: number) => router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } }),
+    [router],
+  );
 
-  return (
-    <ScreenLayout
-      eyebrow={t("quran.eyebrow")}
-      title={t("quran.title")}
-      subtitle={t("quran.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
-    >
+  const keyExtractor = useCallback((surah: Surah) => String(surah.number), []);
+
+  const renderItem = useCallback<ListRenderItem<Surah>>(
+    ({ item }) => <SurahRow surah={item} onPress={openSurah} />,
+    [openSurah],
+  );
+
+  // The header (screen actions, continue card, search input + section header)
+  // scrolls with the list as the FlatList's header so the surah list owns
+  // scrolling (ScreenLayout is `scrollable={false}`).
+  const listHeader = (
+    <View style={styles.header}>
       <Stagger>
         <View style={styles.headerActions}>
           <PressableScale
@@ -97,58 +154,43 @@ export default function QuranHomeScreen() {
             title={t("quran.surahList")}
             icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
           />
-          {filtered.length === 0 ? (
-            <EmptyState
-              icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-              title={t("quran.noResults")}
-            />
-          ) : (
-            <View style={styles.list}>
-              {filtered.map((surah) => (
-                <PressableScale
-                  key={surah.number}
-                  haptic="light"
-                  accessibilityRole="button"
-                  accessibilityLabel={surah.nameEnglish}
-                  onPress={() => openSurah(surah.number)}
-                  style={[styles.row, { backgroundColor: colors.muted }]}
-                >
-                  <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
-                    <ThemedText type="caption" style={{ color: colors.accent }}>
-                      {surah.number}
-                    </ThemedText>
-                  </View>
-                  <View style={styles.rowBody}>
-                    <ThemedText type="small" numberOfLines={1}>
-                      {surah.nameTransliteration}
-                    </ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                      {surah.nameEnglish} · {t("quran.ayahCount", { count: surah.ayahCount })}
-                    </ThemedText>
-                  </View>
-                  <View style={styles.rowMeta}>
-                    <ThemedText type="arabic" style={styles.rowArabic}>
-                      {surah.nameArabic}
-                    </ThemedText>
-                    <Pill
-                      label={
-                        surah.revelationPlace === "makkah" ? t("quran.makki") : t("quran.madani")
-                      }
-                      color={colors.mutedForeground}
-                      background={colors.card}
-                    />
-                  </View>
-                </PressableScale>
-              ))}
-            </View>
-          )}
         </Card>
       </Stagger>
+    </View>
+  );
+
+  return (
+    <ScreenLayout
+      scrollable={false}
+      eyebrow={t("quran.eyebrow")}
+      title={t("quran.title")}
+      subtitle={t("quran.subtitle")}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+    >
+      <FlatList
+        data={filtered}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        ListHeaderComponent={listHeader}
+        ListEmptyComponent={
+          <EmptyState
+            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+            title={t("quran.noResults")}
+          />
+        }
+        style={styles.flatList}
+        contentContainerStyle={styles.listContent}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      />
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  flatList: { flex: 1, width: "100%" },
+  listContent: { gap: Spacing.two, paddingBottom: BottomTabInset + Spacing.four },
+  header: { gap: Spacing.four },
   headerActions: { flexDirection: "row", gap: Spacing.two },
   iconButton: {
     flex: 1,
@@ -175,7 +217,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.three,
     fontSize: 15,
   },
-  list: { gap: Spacing.two, marginTop: Spacing.three },
   row: {
     flexDirection: "row",
     alignItems: "center",

@@ -6,6 +6,7 @@ import { locationStore } from "@/stores/location-store";
 import { preferencesStore } from "@/stores/preferences-store";
 import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
+import { weatherStore } from "@/stores/weather-store";
 
 /**
  * Boots the local data stores and keeps them fresh when the app returns to the
@@ -20,11 +21,23 @@ export function AppProviders({ children }: { children: ReactNode }) {
     void quranStore.getState().load();
     void continueStore.getState().load();
     void locationStore.getState().load();
+    void weatherStore.getState().load();
+
+    let lastCoords: { latitude: number; longitude: number } | null = null;
+    const unsubscribeLocation = locationStore.subscribe(() => {
+      const { latitude, longitude } = locationStore.getState().location;
+      const unchanged =
+        lastCoords && lastCoords.latitude === latitude && lastCoords.longitude === longitude;
+      if (unchanged) return;
+      lastCoords = { latitude, longitude };
+      void weatherStore.getState().sync();
+    });
 
     const onChange = (status: AppStateStatus) => {
       if (!mounted || status !== "active") return;
       // Refresh prayer times for the current position (handles travel + new day).
       void locationStore.getState().refresh();
+      void weatherStore.getState().sync();
       const tracker = trackerStore.getState();
       // A new day means a fresh set of prayers/zikr targets.
       if (tracker.date !== getLocalDateString()) {
@@ -37,6 +50,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
     const subscription = AppState.addEventListener("change", onChange);
     return () => {
       mounted = false;
+      unsubscribeLocation();
       subscription.remove();
     };
   }, []);

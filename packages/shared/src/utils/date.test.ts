@@ -32,4 +32,11 @@ describe.concurrent("date utils", () => {
     expect(() => parseLocalDateString("2026-7-3")).toThrow();
     expect(() => parseLocalDateString("")).toThrow();
   });
+
+  it("throws on semantically out-of-range dates instead of rolling over", () => {
+    expect(() => parseLocalDateString("2026-13-01")).toThrow();
+    expect(() => parseLocalDateString("2026-02-30")).toThrow();
+    expect(() => parseLocalDateString("2026-00-10")).toThrow();
+    expect(() => parseLocalDateString("2026-07-32")).toThrow();
+  });
 });

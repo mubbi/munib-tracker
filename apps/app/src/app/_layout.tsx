@@ -6,6 +6,7 @@ import "@/global.css";
 import "@/styles/focus-visible";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { MiniPlayer } from "@/components/audio/mini-player";
+import { ErrorBoundary } from "@/components/error-boundary";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
@@ -25,33 +26,37 @@ export default function RootLayout() {
   return (
     <AppApiProvider>
       <MunibThemeProvider>
-        <AppProviders>
-          <I18nProvider>
-            <AuthProvider>
-              <ToastProvider>
-                <InAppNotificationsProvider>
-                  <NotificationProvider>
-                    <AudioPlayerProvider>
-                      <Stack screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name="(tabs)" />
-                        <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
-                        <Stack.Screen
-                          name="(onboarding)/intro"
-                          options={{ gestureEnabled: false }}
-                        />
-                      </Stack>
-                      <WebNavigationFocusManager />
-                      <WebPwaBootstrap />
-                      <OnboardingGate />
-                      <MiniPlayer />
-                      <AnimatedSplashOverlay />
-                    </AudioPlayerProvider>
-                  </NotificationProvider>
-                </InAppNotificationsProvider>
-              </ToastProvider>
-            </AuthProvider>
-          </I18nProvider>
-        </AppProviders>
+        {/* Catches any render error below the theme provider so a thrown screen
+            shows a recoverable fallback instead of white-screening the app. */}
+        <ErrorBoundary>
+          <AppProviders>
+            <I18nProvider>
+              <AuthProvider>
+                <ToastProvider>
+                  <InAppNotificationsProvider>
+                    <NotificationProvider>
+                      <AudioPlayerProvider>
+                        <Stack screenOptions={{ headerShown: false }}>
+                          <Stack.Screen name="(tabs)" />
+                          <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
+                          <Stack.Screen
+                            name="(onboarding)/intro"
+                            options={{ gestureEnabled: false }}
+                          />
+                        </Stack>
+                        <WebNavigationFocusManager />
+                        <WebPwaBootstrap />
+                        <OnboardingGate />
+                        <MiniPlayer />
+                        <AnimatedSplashOverlay />
+                      </AudioPlayerProvider>
+                    </NotificationProvider>
+                  </InAppNotificationsProvider>
+                </ToastProvider>
+              </AuthProvider>
+            </I18nProvider>
+          </AppProviders>
+        </ErrorBoundary>
       </MunibThemeProvider>
     </AppApiProvider>
   );

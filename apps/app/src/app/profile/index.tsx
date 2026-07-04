@@ -18,11 +18,15 @@ import { Radius, Spacing } from "@/constants/theme";
 import { resetDatabase } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useAuth } from "@/providers/auth-provider";
+import { continueStore } from "@/stores/continue-store";
+import { duaFavoritesStore } from "@/stores/dua-favorites-store";
+import { locationStore } from "@/stores/location-store";
 import {
   preferencesStore,
   usePreferences,
   usePreferencesActions,
 } from "@/stores/preferences-store";
+import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
 
 export default function ProfileScreen() {
@@ -57,8 +61,16 @@ export default function ProfileScreen() {
 
   const deleteAccount = async () => {
     await resetDatabase();
-    await preferencesStore.getState().load();
-    await trackerStore.getState().load();
+    // Reload every store that reads a key resetDatabase clears, so no screen is
+    // left holding stale in-memory data after the wipe.
+    await Promise.all([
+      preferencesStore.getState().load(),
+      trackerStore.getState().load(),
+      locationStore.getState().load(),
+      quranStore.getState().load(),
+      continueStore.getState().load(),
+      duaFavoritesStore.getState().load(),
+    ]);
     await signOut();
     router.replace("/");
   };

@@ -14,7 +14,7 @@ export function StoreBadges({ className = "", layout = "row" }: StoreBadgesProps
     <div className={`${flexClass} ${className}`}>
       <Link
         href={SITE_PATHS.download}
-        aria-label="Download on the App Store"
+        aria-label="View iOS download options"
         className="inline-block transition-transform hover:scale-[1.02] active:scale-[0.98]"
         data-analytics-event="download_ios_click"
       >
@@ -22,7 +22,7 @@ export function StoreBadges({ className = "", layout = "row" }: StoreBadgesProps
       </Link>
       <Link
         href={SITE_PATHS.download}
-        aria-label="Get it on Google Play"
+        aria-label="View Android download options"
         className="inline-block transition-transform hover:scale-[1.02] active:scale-[0.98]"
         data-analytics-event="download_android_click"
       >

@@ -15,6 +15,8 @@ export interface PrayerLog {
   date: string;
   status: PrayerStatus;
   notes?: string;
+  /** When true, leaving "missed" decrements the linked qaza debt once. */
+  qazaDebtAdded?: boolean;
   /** ISO datetime */
   updatedAt: string;
   source: PrayerLogSource;

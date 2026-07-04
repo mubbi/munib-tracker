@@ -17,6 +17,15 @@ import { formatDisplayHhMm } from "@/lib/time";
 
 const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
+/** Serializes reschedule passes so overlapping calls cannot stack duplicate OS notifications. */
+let rescheduleTail: Promise<void> = Promise.resolve();
+
+function enqueueReschedule(task: () => Promise<void>): Promise<void> {
+  const run = rescheduleTail.then(task, task);
+  rescheduleTail = run.catch(() => {});
+  return run;
+}
+
 type ChannelId = "prayer" | "zikr" | "qaza";
 
 const CHANNELS: { id: ChannelId; name: string }[] = [
@@ -74,11 +83,12 @@ async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
     title: reminder.title,
     body: reminder.body,
     categoryIdentifier: REMINDER_CATEGORY,
-    data: { channelId: reminder.channelId, reminderId: reminder.id },
+    data: { channelId: reminder.channelId, reminderId: reminder.id, route: "/notifications" },
   };
 
   if (reminder.repeat === "daily") {
     await Notifications.scheduleNotificationAsync({
+      identifier: reminder.id,
       content,
       trigger: {
         type: Notifications.SchedulableTriggerInputTypes.DAILY,
@@ -91,6 +101,7 @@ async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
   }
 
   await Notifications.scheduleNotificationAsync({
+    identifier: reminder.id,
     content,
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DATE,
@@ -106,15 +117,17 @@ export async function rescheduleAll(
   location: StoredLocation,
 ): Promise<void> {
   if (!isNative) return;
-  await cancelAll();
-  if (!prefs.notificationPrefs.masterEnabled) return;
-  if (!isLocalNotificationSupported()) return;
-  if ((await getPermissionStatus()) !== "granted") return;
+  return enqueueReschedule(async () => {
+    await cancelAll();
+    if (!prefs.notificationPrefs.masterEnabled) return;
+    if (!isLocalNotificationSupported()) return;
+    if ((await getPermissionStatus()) !== "granted") return;
 
-  const reminders = buildReminders(prefs, location);
-  for (const reminder of reminders) {
-    await scheduleReminder(reminder);
-  }
+    const reminders = buildReminders(prefs, location);
+    for (const reminder of reminders) {
+      await scheduleReminder(reminder);
+    }
+  });
 }
 
 /**
@@ -154,7 +167,10 @@ export async function listScheduled(
 
   const scheduled = await Notifications.getAllScheduledNotificationsAsync();
   if (scheduled.length > 0) {
-    return scheduled.map((item) => {
+    const seen = new Set<string>();
+    const rows: { id: string; title: string; body: string; time?: string }[] = [];
+
+    for (const item of scheduled) {
       const trigger = item.trigger as {
         hour?: number;
         minute?: number;
@@ -167,13 +183,22 @@ export async function listScheduled(
         const date = new Date(trigger.date);
         time = formatDisplayHhMm(date.getHours(), date.getMinutes(), prefs.timeFormat);
       }
-      return {
+
+      const title = item.content.title ?? "Reminder";
+      const body = item.content.body ?? "";
+      const dedupeKey = `${title}\0${body}\0${time ?? ""}`;
+      if (seen.has(dedupeKey)) continue;
+      seen.add(dedupeKey);
+
+      rows.push({
         id: item.identifier,
-        title: item.content.title ?? "Reminder",
-        body: item.content.body ?? "",
+        title,
+        body,
         time,
-      };
-    });
+      });
+    }
+
+    return rows.sort((a, b) => (a.time ?? "").localeCompare(b.time ?? ""));
   }
 
   if (!prefs.notificationPrefs.masterEnabled) return [];

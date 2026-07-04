@@ -13,7 +13,7 @@ type ContentPageProps = {
 /** Shared shell for long-form marketing/legal pages. */
 export function ContentPage({ eyebrow, title, intro, children, wide = false }: ContentPageProps) {
   return (
-    <main className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col">
       <article
         className={`mx-auto w-full px-6 py-16 md:px-8 md:py-20 ${wide ? "max-w-4xl" : "max-w-2xl"}`}
       >
@@ -32,7 +32,7 @@ export function ContentPage({ eyebrow, title, intro, children, wide = false }: C
         {intro ? <p className="mt-4 text-lg leading-relaxed text-muted">{intro}</p> : null}
         <div className="mt-10 flex flex-col gap-8 text-base leading-relaxed">{children}</div>
       </article>
-    </main>
+    </div>
   );
 }
 

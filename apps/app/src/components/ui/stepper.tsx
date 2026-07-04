@@ -1,4 +1,5 @@
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -29,6 +30,7 @@ export function Stepper({
   buttonBackground,
 }: StepperProps) {
   const { colors } = useThemeTokens();
+  const { t } = useTranslation();
   const dim = size === "sm" ? 30 : 40;
   const iconSize = size === "sm" ? 16 : 18;
 
@@ -36,7 +38,7 @@ export function Stepper({
     <View style={styles.row}>
       <StepButton
         icon={{ ios: "minus", android: "remove", web: "remove" }}
-        label={`Decrease ${label}`}
+        label={t("common.decrease", { label })}
         disabled={value <= min}
         dim={dim}
         iconSize={iconSize}
@@ -51,7 +53,7 @@ export function Stepper({
       </ThemedText>
       <StepButton
         icon={{ ios: "plus", android: "add", web: "add" }}
-        label={`Increase ${label}`}
+        label={t("common.increase", { label })}
         dim={dim}
         iconSize={iconSize}
         background={buttonBackground ?? colors.card}

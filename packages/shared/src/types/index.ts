@@ -4,6 +4,7 @@ export * from "./prayer";
 export * from "./preferences";
 export * from "./qaza";
 export * from "./quran";
+export * from "./weather";
 export * from "./zikr";
 
 export interface DailySummary {

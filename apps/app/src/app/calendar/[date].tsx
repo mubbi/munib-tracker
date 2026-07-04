@@ -1,7 +1,6 @@
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS } from "@munib-tracker/shared/constants";
 import type { AppLocale, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,8 +15,9 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { PrayerRepository, QazaRepository } from "@/db";
+import { PrayerRepository } from "@/db";
 import { formatHijriDate } from "@/lib/hijri";
+import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { trackerStore } from "@/stores/tracker-store";
 
 export default function CalendarDayScreen() {
@@ -65,23 +65,32 @@ export default function CalendarDayScreen() {
     void reload();
   }, [reload]);
 
-  const applyStatus = async (prayerId: PrayerId, next: PrayerStatus) => {
+  const applyStatus = async (
+    prayerId: PrayerId,
+    next: PrayerStatus,
+    options?: { addToQaza?: boolean },
+  ) => {
     const previous = status[prayerId] ?? "pending";
-    await PrayerRepository.setStatus(prayerId, date, next);
-    if (isObligatoryPrayer(prayerId)) {
-      const wasMissed = previous === "missed";
-      const isMissed = next === "missed";
-      if (isMissed && !wasMissed) await QazaRepository.incrementRemaining(prayerId, 1);
-      else if (wasMissed && !isMissed) await QazaRepository.incrementRemaining(prayerId, -1);
-    }
+    const existingLog = await PrayerRepository.getLog(prayerId, date);
+
+    const qazaDebtAdded = await reconcileQazaDebtForStatusChange(
+      prayerId,
+      previous,
+      next,
+      existingLog,
+      options,
+    );
+
+    await PrayerRepository.setStatus(prayerId, date, next, { qazaDebtAdded });
     await reload();
-    if (date === today) await trackerStore.getState().refresh();
+    // Lifetime stats (prayers, streak, perfect days) must refresh for any date edit.
+    await trackerStore.getState().refresh();
   };
 
   const applyNotes = async (prayerId: PrayerId, text: string) => {
     await PrayerRepository.setNotes(prayerId, date, text);
     await reload();
-    if (date === today) await trackerStore.getState().refresh();
+    await trackerStore.getState().refresh();
   };
 
   const completed = OBLIGATORY_PRAYERS.filter((p) => status[p] === "completed").length;
@@ -147,10 +156,11 @@ export default function CalendarDayScreen() {
       {activePrayer ? (
         <PrayerStatusSheet
           visible
+          prayerId={activePrayer}
           prayerLabel={t(`prayers.${activePrayer}`)}
           currentStatus={status[activePrayer] ?? "pending"}
           currentNotes={notes[activePrayer]}
-          onSelect={(next) => applyStatus(activePrayer, next)}
+          onSelect={(next, options) => applyStatus(activePrayer, next, options)}
           onSaveNotes={(text) => applyNotes(activePrayer, text)}
           onClose={() => setActivePrayer(null)}
         />

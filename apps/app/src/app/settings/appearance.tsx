@@ -1,4 +1,5 @@
 import { accentColorIds, accentColors } from "@munib-tracker/theme/accents";
+import { bestForeground } from "@munib-tracker/theme/color";
 import type { AccentColorId, ColorMode } from "@munib-tracker/theme/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -120,7 +121,9 @@ export default function AppearanceScreen() {
                       <SymbolView
                         name={{ ios: "checkmark", android: "check", web: "check" }}
                         size={16}
-                        tintColor={accent.foreground}
+                        // Derive the checkmark colour from the actual swatch fill so it
+                        // stays visible on every preset in both light and dark mode.
+                        tintColor={bestForeground(swatchColor)}
                       />
                     ) : null}
                   </View>

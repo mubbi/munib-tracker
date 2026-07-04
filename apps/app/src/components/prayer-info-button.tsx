@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   learnMore: {
     flexDirection: "row",
     alignItems: "center",
+    flexShrink: 0,
     gap: Spacing.half + 2,
-    minHeight: 28,
-    paddingVertical: 2,
+    paddingVertical: 0,
   },
 });

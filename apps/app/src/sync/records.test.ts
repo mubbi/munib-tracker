@@ -28,6 +28,7 @@ describe("buildSyncRecords", () => {
     qazaCounters: [{ prayerId: "fajr", remaining: 4, completed: 1 }],
     roza: { remaining: 2, completed: 0 },
     preferences: prefs,
+    tombstones: [],
   });
 
   it("emits one record per entity type", () => {
@@ -56,5 +57,25 @@ describe("buildSyncRecords", () => {
     const zikr = records.find((r) => r.entity === "zikr_progress");
     // The seeded zikr entry has no updatedAt, so it falls back to nowIso.
     expect(zikr?.updatedAt).toBe("2026-07-03T12:00:00.000Z");
+  });
+
+  it("emits deletions as records with deletedAt so they propagate", () => {
+    const withTombstone = buildSyncRecords({
+      nowIso: "2026-07-03T12:00:00.000Z",
+      prayerLogs: [],
+      zikrProgress: [],
+      qazaCounters: [],
+      roza: { remaining: 0, completed: 0 },
+      preferences: prefs,
+      tombstones: [
+        { entity: "prayer_logs", id: "fajr::2026-07-01", deletedAt: "2026-07-03T09:00:00.000Z" },
+      ],
+    });
+    const deletion = withTombstone.find((r) => r.deletedAt);
+    expect(deletion?.entity).toBe("prayer_logs");
+    expect(deletion?.id).toBe("fajr::2026-07-01");
+    expect(deletion?.deletedAt).toBe("2026-07-03T09:00:00.000Z");
+    // The payload carries enough to apply the delete on the other device.
+    expect(deletion?.data).toMatchObject({ prayerId: "fajr", date: "2026-07-01" });
   });
 });

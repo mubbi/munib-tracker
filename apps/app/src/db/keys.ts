@@ -22,6 +22,14 @@ export const DB_KEYS = {
   hadithBookmarks: `${PREFIX}/hadith_bookmarks`,
   hadithBookCache: `${PREFIX}/hadith_book_cache`,
   continueActivity: `${PREFIX}/continue_activity`,
+  // Ordered favorite-dua id list. Kept under the user_preferences namespace for
+  // backward compatibility with data written before this key was centralized.
+  duaFavorites: `${PREFIX}/user_preferences/favorite_dua_order`,
+  // Pending deletions awaiting sync (records the server should tombstone).
+  tombstones: `${PREFIX}/tombstones`,
+  // User-created tasbeeh counters (title, target, persisted count).
+  customTasbeeh: `${PREFIX}/custom_tasbeeh`,
+  weatherCache: `${PREFIX}/weather_cache`,
 } as const;
 
 /** Composite key for one prayer on one day. */

@@ -59,6 +59,16 @@ export const ZikrRepository = {
     return collection.upsert(zikrProgressKey(entry.zikrId, entry.date), entry);
   },
 
+  /** Applies a pulled entry with last-write-wins on `updatedAt` (keeps newer local). */
+  async applyRemoteProgress(entry: ZikrProgress): Promise<void> {
+    await collection.mutate((map) => {
+      const key = zikrProgressKey(entry.zikrId, entry.date);
+      const existing = map[key];
+      if (existing && (existing.updatedAt ?? "") >= (entry.updatedAt ?? "")) return;
+      map[key] = entry;
+    });
+  },
+
   async clear(): Promise<void> {
     await collection.clear();
   },

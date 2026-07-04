@@ -1,7 +1,12 @@
-import { format, formatISO, isValid, parseISO } from "date-fns";
+import { format, isValid, parseISO } from "date-fns";
 
+/**
+ * Serializes a Date as a UTC ISO-8601 string. Timestamps must be timezone-safe
+ * so they compare correctly on the server and match the sync engine's
+ * `Date.prototype.toISOString()` format (both are UTC "Z" instants).
+ */
 export function toApiDateTime(date: Date): string {
-  return formatISO(date);
+  return date.toISOString();
 }
 
 export function fromApiDateTime(value: string): Date {

@@ -3,6 +3,7 @@ import type {
   NotificationPreferences,
   PrayerId,
   UserPreferences,
+  WeatherPreferences,
 } from "@munib-tracker/shared/types";
 
 import { initDatabase, PreferencesRepository } from "@/db";
@@ -16,6 +17,7 @@ export interface PreferencesState {
   load: () => Promise<void>;
   update: (patch: Partial<UserPreferences>) => Promise<void>;
   setNotificationPrefs: (patch: Partial<NotificationPreferences>) => Promise<void>;
+  setWeatherPrefs: (patch: Partial<WeatherPreferences>) => Promise<void>;
   setPrayerAlert: (prayerId: PrayerId, enabled: boolean) => Promise<void>;
   toggleFavorite: (zikrId: string) => Promise<void>;
   setFavoriteOrder: (order: string[]) => Promise<void>;
@@ -40,6 +42,14 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
     const current = get().prefs;
     const prefs = await PreferencesRepository.update({
       notificationPrefs: { ...current.notificationPrefs, ...patch },
+    });
+    set({ prefs });
+  },
+
+  async setWeatherPrefs(patch) {
+    const current = get().prefs;
+    const prefs = await PreferencesRepository.update({
+      weatherPrefs: { ...current.weatherPrefs, ...patch },
     });
     set({ prefs });
   },
@@ -86,6 +96,8 @@ const preferencesActions = {
     preferencesStore.getState().update(...args),
   setNotificationPrefs: (...args: Parameters<PreferencesState["setNotificationPrefs"]>) =>
     preferencesStore.getState().setNotificationPrefs(...args),
+  setWeatherPrefs: (...args: Parameters<PreferencesState["setWeatherPrefs"]>) =>
+    preferencesStore.getState().setWeatherPrefs(...args),
   setPrayerAlert: (...args: Parameters<PreferencesState["setPrayerAlert"]>) =>
     preferencesStore.getState().setPrayerAlert(...args),
   toggleFavorite: (...args: Parameters<PreferencesState["toggleFavorite"]>) =>

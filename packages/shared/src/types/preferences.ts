@@ -1,4 +1,5 @@
 import type { PrayerId } from "./prayer";
+import type { WeatherPreferences } from "./weather";
 
 export type AppLocale = "en" | "ar" | "ur";
 
@@ -56,4 +57,10 @@ export interface UserPreferences {
   customAccent?: string;
   /** Preferred audio playback speed for the global player. */
   audioSpeed?: number;
+  /** Hero weather display and animated overlays. */
+  weatherPrefs: WeatherPreferences;
+  /** ISO datetime the preferences blob was last edited (sync last-write-wins). */
+  updatedAt?: string;
+  /** ISO datetime the favorite-zikr list was last edited (sync last-write-wins). */
+  favoritesUpdatedAt?: string;
 }
