@@ -77,6 +77,7 @@
     "tasbeeh": "التسبيح",
     "qaza": "القضاء",
     "duas": "الأدعية",
+    "duroods": "الصلوات",
     "names": "أسماء الله",
     "quran": "القرآن",
     "hadith": "الحديث",
@@ -525,6 +526,7 @@
     "categories": "الفئات",
     "categoryEyebrow": "الأذكار",
     "adhkarCount": "{{count}} ذكر",
+    "allPrayers": "الكل",
     "emptyTitle": "لا أذكار بعد",
     "emptyDesc": "المزيد من هذه الفئة في الطريق.",
     "detailEyebrow": "ذكر",
@@ -559,6 +561,7 @@
   },
   "reading": {
     "reference": "المرجع: {{ref}}",
+    "openReference": "افتح المرجع {{ref}}",
     "share": "مشاركة",
     "showMore": "عرض المزيد",
     "showLess": "عرض أقل",

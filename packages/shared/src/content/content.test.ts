@@ -23,9 +23,16 @@ describe.concurrent("content", () => {
     }
   });
 
-  it("has a transliteration for every zikr, name, and durood (optional for duas)", () => {
-    for (const item of [...ZIKR_ITEMS, ...NAMES_OF_ALLAH, ...DUROOD_ITEMS]) {
+  it("has a transliteration for every zikr and name (optional for duas & duroods)", () => {
+    for (const item of [...ZIKR_ITEMS, ...NAMES_OF_ALLAH]) {
       expect(item.transliteration.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("never ships truncated Arabic (no ellipsis) in any content set", () => {
+    const all = [...ZIKR_ITEMS, ...DUA_ITEMS, ...DUROOD_ITEMS];
+    for (const item of all) {
+      expect(item.arabic).not.toMatch(/…|\.\.\./);
     }
   });
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
+import { ReferenceLine } from "@/components/content/reference-line";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
@@ -86,9 +87,14 @@ export default function ZikrTasbeehScreen() {
         >
           {item.arabic}
         </ThemedText>
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.translit}>
-          {item.transliteration}
-        </ThemedText>
+        {item.transliteration ? (
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.translit}>
+            {item.transliteration}
+          </ThemedText>
+        ) : null}
+        {item.reference ? (
+          <ReferenceLine reference={item.reference} style={styles.reference} />
+        ) : null}
       </Card>
 
       <Card variant="plain" padding="five" style={styles.card}>
@@ -119,6 +125,10 @@ const styles = StyleSheet.create({
     marginTop: Spacing.two,
     fontStyle: "italic",
     maxWidth: 320,
+  },
+  reference: {
+    textAlign: "center",
+    marginTop: Spacing.two,
   },
   card: {
     alignItems: "stretch",

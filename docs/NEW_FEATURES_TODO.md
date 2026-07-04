@@ -1,10 +1,12 @@
 # Munib Tracker — New Features TODO
 
-> **Purpose:** Backlog of product enhancements beyond the shipped baseline in [`docs/TODO.md`](./TODO.md). Each item includes priority, requirements, key file paths, and acceptance criteria aligned with monorepo conventions.
+> **Purpose:** The **active roadmap** for Munib Tracker — product enhancements beyond the shipped MVP baseline in [`docs/TODO.md`](./TODO.md) (whose Phases 0–12 are all `done`). Each item is written as a **complete, self-contained flow**: problem → key files → numbered implementation steps → acceptance criteria, all grounded in real symbols so an AI agent (or developer) can execute it without re-discovering the codebase.
 >
-> **Last reviewed:** 2026-07-04  
+> **How to use:** Pick an item, read its **Flow** top-to-bottom, and follow the numbered steps. Every step names a real file/symbol (verified against the source — see **Verified codebase facts** below). Honor the **Implementation rules** and finish on the **Lint / test gates**. When in doubt about the shipped architecture, the project memory covers each subsystem (data layer, content library, weather/location/times, retention/personalization, i18n, search, SEO).
+>
+> **Last reviewed:** 2026-07-05  
 > **Apps:** `apps/app` (Expo SDK 57) · `apps/marketing-web` (Next.js 16) · `apps/api` (NestJS 11)  
-> **Agent guides:** [`AGENTS.md`](../AGENTS.md), [`apps/app/AGENTS.md`](../apps/app/AGENTS.md), [`apps/api/AGENTS.md`](../apps/api/AGENTS.md)
+> **Agent guides:** [`AGENTS.md`](../AGENTS.md), [`apps/app/AGENTS.md`](../apps/app/AGENTS.md), [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md), [`apps/api/AGENTS.md`](../apps/api/AGENTS.md)
 
 ---
 
@@ -26,8 +28,8 @@
 - **Domain:** types, constants, validators → `@munib-tracker/shared` (`packages/shared/src/`).
 - **Design tokens:** `@munib-tracker/theme`; app layout/spacing → `apps/app/src/constants/theme.ts`.
 - **Screens:** Expo Router file routes under `apps/app/src/app/`; reuse `ScreenLayout`, `Card`, `Stagger`, `SectionHeader`.
-- **State:** Zustand-style stores via `createStore` (`apps/app/src/stores/create-store.ts`); persist via repositories in `apps/app/src/db/`.
-- **New persisted data:** add keys to `apps/app/src/db/keys.ts`, repository in `apps/app/src/db/repositories/`, export from `apps/app/src/db/index.ts`, register in `resetDatabase()`.
+- **State:** zero-dep `useSyncExternalStore` stores via `createStore` (`apps/app/src/stores/create-store.ts`, Zustand-like but no dependency); persist via repositories in `apps/app/src/db/`. Action hooks return a stable singleton — don't subscribe to them.
+- **New persisted data:** add a key to `apps/app/src/db/keys.ts` (`DB_KEYS`), a repository in `apps/app/src/db/repositories/` (use `readJSON`/`writeJSON`/`withKeyLock`), export it from `apps/app/src/db/index.ts`, **and register the key in `resetDatabase()`** so account deletion clears it.
 - **i18n:** add strings to `apps/app/src/i18n/{en,ar,ur}.json` for every user-facing label.
 - **Search:** extend `apps/app/src/lib/search.ts` — do not add standalone `new Fuse()` in screens (see [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) and `.agents/skills/fuse-js/SKILL.md`).
 - **Audio:** reuse `useAudioPlayerContext()` from `apps/app/src/providers/audio-player-provider.tsx` — build `AudioTrack[]`, call `play()`.
@@ -47,6 +49,32 @@
 | NestJS sync/API | `.agents/skills/nestjs/SKILL.md` |
 | EAS build / widgets | `.agents/skills/expo-deployment/SKILL.md` |
 | Content ingestion | [`docs/DATA_INGESTION_TODO.md`](./DATA_INGESTION_TODO.md), [`docs/FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |
+
+---
+
+## Verified codebase facts (build on these — don't re-discover)
+
+Confirmed by reading the source (2026-07-05). Reuse these exact symbols in the flows below.
+
+**Stores & actions (hooks):**
+- Preferences — `usePreferences()` → `UserPreferences`; `usePreferencesActions()` → `update(patch)`, `setNotificationPrefs(patch)`, `setPrayerAlert(prayerId, enabled)`. Persisted via `PreferencesRepository`.
+- Location — `useLocation()` → `StoredLocation`; `useLocationActions()` → `requestDeviceLocation()`, `setManualLocation(place)`, `setMethod(key)`, `setMadhab(key)`; `useLocationStatus()`. Persisted via `LocationRepository` (`setMethod`/`setMadhab` already exist and persist — they just have **no UI**).
+- Auth — `useAuth()` → `{ user, isAuthenticated, isGuest, syncNow(), signOut() }`. **`syncNow()` already exists on the context** (runs on sign-in + foreground); it is simply not surfaced in the UI. Account deletion calls `resetDatabase()` in `profile/index.tsx`.
+
+**Types (all in `packages/shared/src/types/`):**
+- `NotificationPreferences` = `{ masterEnabled, prayer, sunnahPrayer, qaza, morningZikr, eveningZikr, beforePrayer, afterPrayer, beforeSleep, afterAzan, achievements }` — all default **off** (`masterEnabled: false`).
+- `UserPreferences` also carries `prayerAlerts?: Partial<Record<PrayerId, boolean>>` (per-prayer overrides), `fontPrefs`, `weatherPrefs`, `timeFormat`, `bedtime`, `customAccent`, `audioSpeed/Volume`, `updatedAt`.
+- `FontPreferences` = `{ global, arabic, translation, transliteration, titles: FontScopePrefs, color? }`, where `FontScopePrefs = { family?: string; size?: number }`. **`fontPrefs.arabic.family` already exists in the type but has no UI and is not read anywhere.**
+- `PrayerLogSource = "manual" | "bulk_import" | "sync"` (`types/prayer.ts`).
+- `CalculationMethodKey = keyof typeof CalculationMethod` (adhan), `MadhabKey = "shafi" | "hanafi"`, `DEFAULT_CALCULATION_METHOD = "MuslimWorldLeague"`, `DEFAULT_MADHAB = "shafi"` (all in `lib/prayer-times.ts`).
+
+**Cloud sync — actual entities** (`sync/records.ts` `buildSyncRecords()` + API `SYNC_ENTITIES` in `apps/api/src/sync/dto/sync.dto.ts`): `prayer_logs`, `zikr_progress`, **`qaza_entries`** (not "qaza_counter"), `preferences`, `favorites` (zikr favorites only). `LocalSnapshot` is the client input; LWW on `updatedAt` + tombstones (`TombstoneRepository`). `DB_KEYS.syncMetadata` holds `lastSyncedAt`/`lastPushedAt`.
+
+**Notifications:** `lib/notifications/build-reminders.ts` `buildReminders(prefs, location)` already schedules from **real computed `adhan` times** (`computePrayerTimes`/`prayerReminderTime`/`witrTime`), 7 days ahead; `notifications/scheduler.ts` `rescheduleAll(prefs, location)` is called from `settings/notifications.tsx` after every toggle. `PRAYER_TIME_HINTS` (`lib/prayer-ui.ts`) is **UI-only**, never used for scheduling. `lib/adhan-audio.ts` bundles one clip (`ADHAN_STYLES = [{ id: "default" }]`, `adhanTrack()`); preview-only today.
+
+**Qur'an:** `JUZ_STARTS` (30 juz start `surah:ayah`) + a per-ayah `juz` field exist in `lib/quran.ts`, but `juzForAyah()` is **module-private** — export a helper/`JUZ_STARTS` to build a Juz index. `quran/[surah].tsx` still uses **hardcoded** `fontSize: 26` (arabic) / `24` (bismillah) — not wired to `fontPrefs`. `reading-card.tsx` DOES read `fontPrefs.arabic.size` / `fontPrefs.translation.size`.
+
+**Reusable UI primitives** (`components/ui/`): `SegmentedControl<T>` (`options=[{id,label}] value onChange` — used in `settings/fonts.tsx`; good for 2–4 options, not long lists), `Sheet` (`variant: "center" | "bottom"`), `NavRow`, `SectionHeader`, `Stepper`, `IconButton` (≥44pt), `Card`, `Stagger`, `ScreenLayout`, `AppHeader` (all `onBack`-aware). Settings rows: `ToggleRow` + `SettingsRow` live in `components/settings/settings-rows.tsx` (not in `ui/`). `ConfirmDialog` for destructive actions. **`assets/fonts/` does not exist yet** — NF-1.31 must create it.
 
 ---
 
@@ -119,11 +147,19 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Priority** | P0 |
 | **Scope** | `app` |
 | **Status** | `partial` |
-| **Problem** | `locationStore.setMethod()` and `StoredLocation.method` exist; defaults to `MuslimWorldLeague` in `lib/prayer-times.ts`. No user-facing control. |
-| **Key files** | `app/location/index.tsx`, `stores/location-store.ts`, `lib/prayer-times.ts`, `lib/location.ts` |
-| **Requirements** | Segmented control or picker listing `CalculationMethodKey` values from `adhan`. Persist via `LocationRepository.update`. Reschedule notifications after change. Show current method on Location card. |
-| **Guide** | Mirror `settings/time-format.tsx` (`SegmentedControl`). After save: `rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location)`. |
-| **AC** | Changing method updates hero times, tracker schedule, and scheduled reminders; persists across restart; strings in en/ar/ur. |
+| **Problem** | `useLocationActions().setMethod()` and `StoredLocation.method` exist and persist; defaults to `DEFAULT_CALCULATION_METHOD` in `lib/prayer-times.ts`. No user-facing control, so users in regions using ISNA/Karachi/Egypt/Umm-al-Qura get wrong times. |
+| **Key files** | `app/location/index.tsx` (Location card is at the top), `lib/prayer-times.ts` (`CalculationMethodKey`, `DEFAULT_CALCULATION_METHOD`), `stores/location-store.ts`, `notifications/scheduler.ts` (`rescheduleAll`) |
+
+**Flow:**
+
+1. In `lib/prayer-times.ts` export a label map `CALCULATION_METHOD_LABELS: Record<CalculationMethodKey, string>` (adhan's methods: `MuslimWorldLeague`, `Egyptian`, `Karachi`, `UmmAlQura`, `Dubai`, `MoonsightingCommittee`, `NorthAmerica`, `Kuwait`, `Qatar`, `Singapore`, `Tehran`, `Turkey`, `Other`) plus a short regional hint per method.
+2. Because there are ~13 methods, use a **`Sheet` (`variant: "bottom"`) picker**, not `SegmentedControl`: on the location screen add a `NavRow` "Calculation method" showing the current method's label; tapping it opens a Sheet listing the methods as `PressableScale` rows with a checkmark on the active one (mirror the `Choices` sub-component in `settings/time-format.tsx`).
+3. On select: `await useLocationActions().setMethod(key)` then close the sheet.
+4. Reschedule reminders after save: `await rescheduleAll(usePreferences.getState?.() ?? preferencesStore.getState().prefs, locationStore.getState().location)` (import `rescheduleAll` from `@/notifications/scheduler`).
+5. Add i18n keys `location.method`, `location.methodHint`, and one label per method under `location.methods.*` in `en/ar/ur`.
+6. Gates: `pnpm --filter app check-types` · `pnpm --filter app test` · `pnpm format-and-lint:fix`.
+
+| **AC** | Location screen shows current method + a picker; changing it re-derives the home hero times (`use-home-hero`), the tracker schedule (`buildDailySchedule`), and reschedules notifications; persists across restart; all method labels exist in en/ar/ur; `check-types` green. |
 
 ### NF-0.2 — Asr madhab picker (Shafi / Hanafi)
 
@@ -132,10 +168,17 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Priority** | P0 |
 | **Scope** | `app` |
 | **Status** | `partial` |
-| **Problem** | `locationStore.setMadhab()` exists; tested in `lib/prayer-times.test.ts` but no UI. |
-| **Key files** | Same as NF-0.1 |
-| **Requirements** | Two-option control (Shafi / Hanafi). Scholar-neutral copy. Reschedule notifications on change. |
-| **AC** | Asr time shifts correctly (Hanafi later than Shafi); persisted; i18n complete. |
+| **Problem** | `useLocationActions().setMadhab()` exists and persists (`MadhabKey = "shafi" \| "hanafi"`, tested in `lib/prayer-times.test.ts`); no UI. Hanafi users see the wrong (earlier) Asr. |
+| **Key files** | Same as NF-0.1. Ships together with NF-0.1 on the Location screen. |
+
+**Flow:**
+
+1. On the Location screen, below the method picker, add a **`SegmentedControl<MadhabKey>`** with two options — `{ id: "shafi", label: t("location.madhabShafi") }`, `{ id: "hanafi", label: t("location.madhabHanafi") }` — `value={location.madhab}` (mirror the size control in `settings/fonts.tsx`).
+2. `onChange={(key) => { await useLocationActions().setMadhab(key); await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location); }}`.
+3. Copy must be scholar-neutral (e.g. "Asr calculation" with a one-line "Hanafi uses a later Asr" hint) — no fatwa language.
+4. i18n keys `location.madhab`, `location.madhabShafi`, `location.madhabHanafi`, `location.madhabHint` in en/ar/ur.
+
+| **AC** | Toggling Hanafi shifts Asr later everywhere (hero, tracker schedule, reminders); persists; scholar-neutral copy; en/ar/ur complete; `check-types` green. |
 
 ### NF-0.3 — Manual sync + sync status UI
 
@@ -144,10 +187,19 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Priority** | P0 |
 | **Scope** | `app` |
 | **Status** | `partial` |
-| **Problem** | `syncNow()` in `auth-provider.tsx` runs on sign-in and app foreground only. No user feedback or manual trigger. |
-| **Key files** | `app/profile/index.tsx`, `providers/auth-provider.tsx`, `sync/sync-engine.ts`, `db/keys.ts` (`syncMetadata`) |
-| **Requirements** | Profile row: last synced time (from `DB_KEYS.syncMetadata.lastSyncedAt`), "Sync now" button, loading/error states. Expose `syncNow` from `useAuth()`. Guest shows sign-in CTA only. |
-| **AC** | Signed-in user can force sync; timestamp updates on success; errors show toast, no crash offline. |
+| **Problem** | `syncNow()` runs silently on sign-in + foreground. **It is already on `useAuth()`** but there's no manual trigger, no last-synced time, and no success/error feedback — users can't tell if their data is backed up. |
+| **Key files** | `app/profile/index.tsx`, `providers/auth-provider.tsx` (`syncNow` already exported), `sync/sync-engine.ts`, `db/keys.ts` (`DB_KEYS.syncMetadata`), `providers/toast-provider.tsx` |
+
+**Flow:**
+
+1. Add a small `read`/`write` helper (or reuse the sync-engine's) to read `DB_KEYS.syncMetadata` → `{ lastSyncedAt, lastPushedAt }`. Expose it as a tiny `useSyncMetadata()` hook or read on mount into local state.
+2. In `profile/index.tsx`, for a **signed-in** user (`isAuthenticated && !isGuest`), add a `Card` "Cloud sync" with: a `NavRow`/row showing "Last synced {relative time}" (reuse the relative-time formatter from `continue-card.tsx`) and a `Button` "Sync now".
+3. `onPress`: set a local `isSyncing` flag → `try { await syncNow(); toast.success(t("sync.done")); } catch { toast.error(t("sync.failed")); } finally { setIsSyncing(false); refresh last-synced }`. Disable the button + show a spinner while syncing.
+4. For **guest** users, show the existing sign-in CTA instead (no sync controls).
+5. Offline: `syncNow()` must reject cleanly (no crash) → caught by step 3 → toast only.
+6. i18n `sync.title`, `sync.lastSynced`, `sync.now`, `sync.done`, `sync.failed`, `sync.never` in en/ar/ur.
+
+| **AC** | Signed-in user can tap "Sync now"; button shows loading then updates the timestamp on success; failure/offline shows a toast and never crashes; guests see only the sign-in CTA; en/ar/ur complete. |
 
 ### NF-0.4 — Expand cloud sync entities
 
@@ -157,11 +209,20 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Scope** | `multi` |
 | **Status** | `partial` |
 | **Depends on** | NF-0.3 |
-| **Problem** | `buildSyncRecords()` syncs prayer logs, zikr, qaza, preferences, zikr favorites only. Not synced: Qur'an bookmarks, hadith bookmarks, dua favorites, custom tasbeeh, quran last-read, achievements. |
-| **Key files** | `sync/records.ts`, `sync/sync-engine.ts`, `apps/api/src/sync/`, `packages/shared/src/types/` |
-| **Requirements** | Add sync entities + DTOs in API OpenAPI spec. Client repositories: `applyRemote*` with last-write-wins on `updatedAt`. Regenerate client: `pnpm generate:api`. |
-| **Guide** | Follow existing `favorites` entity pattern in `sync/records.ts`. Read `docs/TODO.md` Phase 8 sync section. |
-| **AC** | Bookmarks and dua favorites round-trip across two devices; tombstones respected; tests in `sync-engine.test.ts`. |
+| **Problem** | Sync covers only `prayer_logs`, `zikr_progress`, `qaza_entries`, `preferences`, `favorites` (zikr favorites). **Not** synced: dua favorites, Qur'an bookmarks + last-read, hadith bookmarks, custom tasbeeh, achievements. A user who switches devices loses these. |
+| **Key files** | `apps/api/src/sync/dto/sync.dto.ts` (`SYNC_ENTITIES`), `sync/records.ts` (`LocalSnapshot` + `buildSyncRecords`), `sync/sync-engine.ts` (`applyRemoteRecords`), the relevant repositories, `packages/shared/src/types/` |
+
+**Flow (per new entity — do dua favorites first as the reference):**
+
+1. **API:** add the entity id to `SYNC_ENTITIES` in `apps/api/src/sync/dto/sync.dto.ts` (e.g. `"dua_favorites"`). The server stores an opaque JSONB payload per entity, so no new server logic — just the enum + a Swagger example.
+2. Regenerate the client contract: `pnpm generate:api` (updates `packages/api-contract/openapi.json` + `@munib-tracker/api-client`).
+3. **Client push:** extend `LocalSnapshot` and `buildSyncRecords()` in `sync/records.ts` to emit a `SyncRecordDto` for the entity (mirror the `favorites` record — a single blob `{ ids, order }` with an `updatedAt`, or one record per row with per-row `updatedAt` for bookmarks/custom tasbeeh).
+4. **Client pull:** handle the entity in `applyRemoteRecords()` (`sync-engine.ts`) with **last-write-wins on `updatedAt`**; each source repo needs an `applyRemote*` method (mirror the existing repo LWW methods). Ensure the store carries `updatedAt` and honors **tombstones** for deletions.
+5. Feed the snapshot from the right store/repo (`dua-favorites-store`, `quran-store`/`QuranRepository`, `hadith-repository`, `custom-tasbeeh-store`, achievements persistence).
+6. **Tests:** add a round-trip + LWW + tombstone case to `sync/sync-engine.test.ts` per entity.
+7. Gates include `pnpm --filter api test` (API DTO changed) + `pnpm --filter app test`.
+
+| **AC** | Each new entity round-trips across two devices with LWW on `updatedAt`; deletions propagate via tombstones; guest still gets 403; `sync-engine.test.ts` covers each; `pnpm generate:api` committed. |
 
 ### NF-0.5 — Adhan at prayer notification time
 
@@ -170,11 +231,20 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Priority** | P0 |
 | **Scope** | `app` |
 | **Status** | `partial` |
-| **Problem** | `lib/adhan-audio.ts` supports preview in settings only. Scheduled reminders in `build-reminders.ts` are silent text nudges. |
-| **Key files** | `lib/adhan-audio.ts`, `lib/notifications/build-reminders.ts`, `notifications/scheduler.ts`, `settings/notifications.tsx` |
-| **Requirements** | New pref: `playAdhanOnPrayer` (per prayer or global). Attach bundled sound to obligatory prayer notifications where platform allows. Respect silent mode / web limitations (document in i18n). |
-| **Guide** | Read `assets/audio/adhan/README.md`. Test on dev build (not Expo Go) for custom notification sounds. |
-| **AC** | Optional adhan sound fires at prayer reminder on iOS/Android dev build; web shows limitation note; master toggle disables all. |
+| **Problem** | `lib/adhan-audio.ts` bundles the clip for **settings preview only** (`ADHAN_STYLES`, `adhanTrack()`). Scheduled prayer reminders (`build-reminders.ts`) are silent text nudges — there is no option to play the adhan at prayer time. |
+| **Key files** | `packages/shared/src/types/preferences.ts` (`NotificationPreferences`), `constants/index.ts` (defaults), `app.json` (`expo-notifications` sound registration), `lib/notifications/build-reminders.ts`, `notifications/scheduler.ts`, `settings/notifications.tsx`, `assets/audio/adhan/README.md` |
+
+**Flow:**
+
+1. **Register the sound** for a real OS notification tone: add the adhan file to the `expo-notifications` plugin `sounds` array in `app.json` (per `assets/audio/adhan/README.md`). Custom notification sounds require a **dev/EAS build + prebuild** — they do NOT work in Expo Go or on web.
+2. **Pref:** add `playAdhanOnPrayer: boolean` to `NotificationPreferences` + default `false` in `constants/index.ts` (extend the `parity.test.ts`-style shape tests if any).
+3. **Toggle:** add a `ToggleRow` in `settings/notifications.tsx` under the prayer section, gated/disabled when `platform === "web"` (show a "not available on web" subtitle). Persist via `setNotificationPrefs({ playAdhanOnPrayer })` and call `rescheduleAll(...)` after.
+4. **Schedule:** in `build-reminders.ts`, when the pref is on and the reminder is an **obligatory** prayer, attach the registered sound to that reminder's payload (`sound: "adhan.wav"`/style id) so `scheduler.ts` passes it to `expo-notifications`; leave sunnah/zikr reminders silent.
+5. Respect the master toggle + per-prayer alert overrides (`prayerAlerts`) — an off prayer never plays.
+6. i18n `notif.playAdhan`, `notif.playAdhanHint`, `notif.adhanWebUnavailable` in en/ar/ur.
+7. Test the reminder payload in `build-reminders.test.ts` (sound attached only for obligatory + pref on); QA the actual sound on an iOS/Android dev build.
+
+| **AC** | With the pref on (dev build), obligatory prayer reminders play the adhan; sunnah/zikr stay silent; web shows the limitation note and the toggle is disabled; master toggle + per-prayer off suppress it; `build-reminders.test.ts` covers the payload. |
 
 ### NF-0.6 — Juz browser (metadata exists)
 
@@ -183,10 +253,19 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Priority** | P0 |
 | **Scope** | `app` |
 | **Status** | `partial` |
-| **Problem** | `juzForAyah()` in `lib/quran.ts`; ayahs carry `juz` field. No Juz index screen. |
-| **Key files** | `lib/quran.ts`, new route `app/quran/juz.tsx` or section in `quran/index.tsx` |
-| **Requirements** | 30-juz list with starting surah:ayah; tap opens `quran/[surah]?ayah=`. Optional progress (% ayahs read) from `quran-store`. |
-| **AC** | All 30 juz navigate correctly; last-read progress shown if available; themed + i18n. |
+| **Problem** | `JUZ_STARTS` (30 `[surah, ayah]` starts) and a per-ayah `juz` field already exist in `lib/quran.ts`, but `juzForAyah()` is **module-private** and there is no Juz index screen. |
+| **Key files** | `lib/quran.ts` (`JUZ_STARTS`), `app/quran/[surah].tsx` (already reads an `?ayah=` param → scrolls + highlights via `useScrollToActive`), new `app/quran/juz.tsx`, `app/quran/index.tsx` (add entry point), `stores/quran-store.ts` (reading progress) |
+
+**Flow:**
+
+1. In `lib/quran.ts`, `export` a small accessor: `getJuzList(): { juz: number; surah: number; ayah: number; surahName: string }[]` derived from `JUZ_STARTS` + `getSurahMeta()` (and export `juzForAyah` if a screen needs the reverse lookup).
+2. Create `app/quran/juz.tsx` (`ScreenLayout` + `onBack` + `Stagger`): a `FlatList`/list of 30 `NavRow`s — "Juz N" + starting "SurahName · s:a".
+3. Row `onPress` → `router.push({ pathname: "/quran/[surah]", params: { surah, ayah } })` (the reader already deep-links to & highlights the ayah).
+4. Add discovery: a "Browse by Juz" `NavRow`/segment at the top of `quran/index.tsx` (and optionally a home quick action).
+5. **Optional progress:** if `quran-store` reading progress exists per surah, show a subtle "% read" per juz (compute from `furthestAyah` across the juz's surah span); skip if not cheap.
+6. i18n `quran.juz`, `quran.juzN` (`"Juz {{n}}"`), `quran.browseByJuz` in en/ar/ur.
+
+| **AC** | All 30 juz render with correct start surah:ayah; tapping opens the reader scrolled to that ayah; entry point visible from `quran/index`; themed + RTL + en/ar/ur; `check-types` green. |
 
 ### NF-0.7 — Duroods & Names: search + favorites
 
@@ -195,11 +274,20 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Priority** | P0 |
 | **Scope** | `app`, `shared` |
 | **Status** | `partial` |
-| **Problem** | Universal search indexes duroods/names via `search.ts`, but list screens lack local search/favorites. |
-| **Key files** | `app/duroods/index.tsx`, `app/names-of-allah/index.tsx`, `lib/search.ts`, `stores/preferences-store.ts` or dedicated stores |
-| **Requirements** | Extend search helpers if needed (`createDuroodSearch`, etc.). Favorites pattern mirrors dua/zikr. Bookmarks hub optional new section. |
-| **Guide** | Follow `dua/favorites.tsx` and `searchDuaList` pattern in `apps/app/AGENTS.md`. |
-| **AC** | Favorite durood/name persists; appears in bookmarks hub or dedicated list; Fuse tests updated. |
+| **Problem** | Universal `/search` indexes duroods/names, but the `duroods` and `names-of-allah` list screens have no in-screen search bar and no favorites (dua/zikr both have both). |
+| **Key files** | `app/duroods/index.tsx`, `app/names-of-allah/index.tsx`, `lib/search.ts`, `stores/dua-favorites-store.ts` (pattern to copy), `app/bookmarks/index.tsx`, `apps/app/AGENTS.md` (Fuse rules) |
+
+**Flow:**
+
+1. **Search:** add `createDuroodSearch(items)` and `createNameSearch(items)` (or a generic `createFuzzyIndex(items, fields)`) in `lib/search.ts` per the existing `createDuaSearch`/`createZikrSearch` pattern — `normalize()` the indexed fields, project defaults (`threshold: 0.2`, weighted keys). **Do not** add a raw `new Fuse()` in the screen.
+2. Wire an in-screen search bar on each list screen, memoizing the index per list; filter the rendered `FlatList` by the query.
+3. **Favorites:** create `stores/durood-favorites-store.ts` and `stores/name-favorites-store.ts` mirroring `dua-favorites-store.ts` (ordered id array, `useEnsure*Loaded()`, graceful stale-id filter). Add `DB_KEYS.duroodFavorites`/`nameFavorites`, register in `resetDatabase()`.
+4. Add a favorite (star) toggle to each list row + a favorites screen (`app/duroods/favorites.tsx`, `app/names-of-allah/favorites.tsx`) mirroring `dua/favorites.tsx`.
+5. **Bookmarks hub:** add "Saved duroods" / "Saved names" rows to `app/bookmarks/index.tsx` "Saved" section with counts.
+6. When NF-0.4 ships, add these to sync.
+7. i18n additions under `duroods.*` / `names.*`; tests: extend `lib/search.test.ts` for the new helpers; a favorites persistence test.
+
+| **AC** | Both screens have working fuzzy search; favoriting a durood/name persists across restart and appears in the Bookmarks hub; Fuse helpers live in `search.ts` (no inline `new Fuse()`); `search.test.ts` updated; en/ar/ur complete. |
 
 ### NF-0.8 — Bulk historical prayer import
 
@@ -208,10 +296,20 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Priority** | P0 |
 | **Scope** | `app`, `shared` |
 | **Status** | `partial` |
-| **Problem** | `PrayerLogSource` includes `bulk_import` but no import UI. |
-| **Key files** | `packages/shared/src/types/prayer.ts`, `db/repositories/prayer-repository.ts`, new `app/settings/import.tsx` or qaza calculator flow |
-| **Requirements** | CSV/JSON import with validation; preview before commit; scholar disclaimer for qaza estimates. |
-| **AC** | Import creates logs with `source: "bulk_import"`; qaza counters optionally updated; botched file rejected with clear error. |
+| **Problem** | `PrayerLogSource` already includes `"bulk_import"` and `prayer-repository` can create logs, but there's no import UI — users migrating from another app or backfilling history must tap every day by hand. |
+| **Key files** | `packages/shared/src/types/prayer.ts` (`PrayerLogSource`), new `packages/shared/src/utils/import.ts` (parser + validator), `db/repositories/prayer-repository.ts`, new `app/settings/import.tsx`, `app/settings/index` (row), `stores/tracker-store.ts` |
+
+**Flow:**
+
+1. **Format + parser (shared):** define a documented import shape (JSON array of `{ date: YYYY-MM-DD, prayerId, status }`, and/or CSV). Add `parsePrayerImport(text): { rows: PrayerLog[]; errors: ImportError[] }` in `packages/shared/src/utils/import.ts` (pure, unit-tested) — validate date format, known `prayerId`/`status`, no future dates, dedupe per (date, prayerId).
+2. **Input without a new native dep:** the screen accepts **pasted** JSON/CSV in a `TextInput` (works iOS/Android/Web, honors [[no-new-native-deps]]). Optionally, gate a file picker behind `Platform.OS === "web"` using a plain `<input type="file">` (no native module); only add `expo-document-picker` if the user explicitly accepts a rebuild.
+3. **Preview:** parse on submit → show a summary Card ("X valid rows, Y errors, date range …") + the first N errors before committing. Nothing is written until the user confirms.
+4. **Commit:** write rows via `prayer-repository` with `source: "bulk_import"`, then reload the tracker store. Per `docs/TODO.md` P5.2, bulk-import rows must not spawn history audit noise.
+5. **Qaza option:** optionally offer to update qaza counters from the imported misses, behind a **scholar disclaimer** (reuse the calculator's disclaimer string).
+6. i18n `import.*` namespace; add `app/settings/import.tsx` row under Settings.
+7. Tests: `packages/shared/src/utils/import.test.ts` (valid/invalid/dupe/future-date); a feature test for the preview→commit path.
+
+| **AC** | Pasting a valid file previews counts + errors, then commits logs with `source: "bulk_import"`; a malformed file is rejected with a clear per-row error and writes nothing; optional qaza update shows the disclaimer; parser unit-tested; en/ar/ur complete; no forced native rebuild. |
 
 ---
 
@@ -329,7 +427,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 | **Problem** | `FontScopePrefs.family` exists on `fontPrefs.arabic` (`packages/shared/src/types/preferences.ts`) but `settings/fonts.tsx` only exposes **size** presets (S/M/L). Arabic renders via `ThemedText type="arabic"` without a user-chosen typeface. |
 | **Key files** | `app/settings/fonts.tsx`, `components/themed-text.tsx`, `components/content/reading-card.tsx`, `app/quran/[surah].tsx`, `app/hadith/[collection].tsx`, `constants/theme.ts` (`Fonts`), bundled font assets under `apps/app/assets/fonts/` |
 | **Requirements** | 1) Settings screen: picker listing **bundled** Arabic-capable fonts (minimum: system default, Amiri or Scheherazade, Noto Naskh Arabic — all bundled via `expo-font`, no runtime download). 2) Persist selection to `fontPrefs.arabic.family`. 3) Apply globally wherever Arabic script appears: Qur'an ayahs, hadith Arabic, duas/zikr/durood `ReadingCard`, 99 Names, tasbeeh Arabic labels, knowledge flash card Arabic. 4) Live preview on Fonts screen (reuse existing preview card). 5) Sync Arabic family via preferences sync entity when NF-0.4 ships. |
-| **Guide** | Load fonts with `expo-font` in `app/_layout.tsx` before first Arabic render. Map family id → `fontFamily` in a single helper e.g. `lib/reading-typography.ts` consumed by `ThemedText` and reading surfaces — avoid duplicating font resolution per screen. RTL `writingDirection` unchanged. |
+| **Guide** | **`apps/app/assets/fonts/` does not exist yet — create it** and add the licensed OFL font files there. Load them with `expo-font` in `app/_layout.tsx` before the first Arabic render. `settings/fonts.tsx` already uses `SegmentedControl` for sizes — add a family picker the same way. Today `ThemedText type="arabic"` uses the `Fonts.serif` constant and `reading-card.tsx` already reads `fontPrefs.arabic.size`; centralize resolution in one helper `lib/reading-typography.ts` that maps `fontPrefs.arabic.family` → `fontFamily`, consumed by `ThemedText` + reading surfaces (don't resolve per screen). RTL `writingDirection` unchanged. |
 | **AC** | Changing Arabic font in Settings updates Qur'an reader + ReadingCard + hadith list without restart; persists across app relaunch; en/ar/ur strings for font names; web falls back to CSS webfont or system stack. |
 
 ### NF-1.32 — In-context reading font size override
@@ -338,9 +436,9 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P1 |
 | **Scope** | `app`, `shared` |
-| **Status** | `todo` |
+| **Status** | `partial` (`reading-card.tsx` already reads `fontPrefs.arabic.size`/`translation.size`; the Qur'an reader + the in-context control are the gap) |
 | **Depends on** | NF-1.31 (shared typography helper recommended) |
-| **Problem** | Global S/M/L sizes in Settings (`settings/fonts.tsx`) are coarse. Users reading a long surah or hadith need **on-the-spot** text sizing without leaving the screen. Qur'an surah reader (`quran/[surah].tsx`) still uses hardcoded `fontSize: 26` in styles — not wired to `fontPrefs` today. |
+| **Problem** | Global S/M/L sizes in Settings (`settings/fonts.tsx`) are coarse and not on-hand while reading. `reading-card.tsx` already honors `fontPrefs` sizes, but the Qur'an surah reader (`quran/[surah].tsx`) still uses **hardcoded `fontSize: 26` (arabic) / `24` (bismillah)** — not wired to `fontPrefs` at all — and there is no on-screen A−/A+ control anywhere. |
 | **Surfaces (all required)** | **Qur'an:** `app/quran/[surah].tsx` (Arabic, transliteration, translation). **Hadith:** `app/hadith/[collection].tsx`, `app/hadith/bookmarks.tsx`. **Duas:** `app/dua/detail/[id].tsx`, `app/dua/[category].tsx` list previews if Arabic shown. **Zikr:** `app/zikr/detail/[id].tsx`, `app/zikr/[category].tsx`. **Shared:** `components/content/reading-card.tsx` (dua, zikr, durood). **Also:** `app/duroods/index.tsx`, `app/names-of-allah/index.tsx` wherever Arabic + translation render. |
 | **UX** | Compact control in screen header or floating toolbar: **A− / A+** buttons (or single “Text size” sheet with slider). Adjust **Arabic**, **transliteration**, and **translation** together by default; optional expand to adjust scopes independently. Show current step label (e.g. “Large +2”). |
 | **Persistence model** | **Session override** applies immediately on the active screen. **Optional persist:** save delta per content type (`quran` \| `hadith` \| `dua_zikr`) in `fontPrefs.readingOverrides?: Record<ReadingSurface, { arabicDelta?, textDelta? }>` so returning to Qur'an remembers last in-context size without changing global Settings. “Reset to default” clears override for current surface. |
@@ -473,12 +571,14 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 
 ### Extending sync
 
-1. Add entity to OpenAPI sync schema in `apps/api/src/sync/`.
-2. Run `pnpm generate:api`.
-3. Extend `LocalSnapshot` + `buildSyncRecords()` in `sync/records.ts`.
-4. Handle entity in `applyRemoteRecords()` in `sync-engine.ts`.
-5. Add tests to `sync/sync-engine.test.ts`.
-6. Surface sync status per NF-0.3.
+Current entities: `prayer_logs`, `zikr_progress`, `qaza_entries`, `preferences`, `favorites`.
+
+1. Add the entity id to `SYNC_ENTITIES` in `apps/api/src/sync/dto/sync.dto.ts` (payload is opaque JSONB — no new server logic).
+2. Run `pnpm generate:api` (regenerates `packages/api-contract/openapi.json` + `@munib-tracker/api-client`).
+3. Extend `LocalSnapshot` + `buildSyncRecords()` in `sync/records.ts` (mirror the `favorites` record).
+4. Handle the entity in `applyRemoteRecords()` in `sync-engine.ts` with LWW on `updatedAt`; add an `applyRemote*` method + `updatedAt` + tombstone support to its repo/store.
+5. Add round-trip + LWW + tombstone tests to `sync/sync-engine.test.ts`.
+6. Surface sync status per NF-0.3. Gate: also run `pnpm --filter api test`.
 
 ### Extending notifications
 
@@ -587,3 +687,4 @@ When a P1 feature ships, update:
 | 2026-07-04 | Removed NF-1.27, NF-1.28, NF-2.5, NF-2.6, NF-2.16, NF-2.18, NF-2.22, NF-2.25, NF-2.26 |
 | 2026-07-04 | Added NF-1.18 (native widgets), NF-1.30 (app icon quick actions), NF-1.31 (Arabic font family), NF-1.32 (in-context reading font size) with detailed requirements |
 | 2026-07-04 | Added NF-1.33 Salah guide (wudu, step-by-step salah, rakats); noted partial baseline via `PrayerInfoSheet` |
+| 2026-07-05 | Rewrote every P0 item as a numbered end-to-end **Flow** + complete AC; added **Verified codebase facts**; corrected drift against source (sync entity `qaza_entries` not `qaza_counter`; `syncNow` already on the auth context; `juzForAyah` is module-private; `assets/fonts/` does not exist yet; reminders already use real computed `adhan` times; full `NotificationPreferences`/`FontPreferences` shapes); fixed "Zustand" → zero-dep `createStore` wording |

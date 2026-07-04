@@ -8,6 +8,14 @@
 > **Outcome:** the app ships with full Qur'an (reader + translations + transliteration + audio),
 > a Hadith library, complete Hisnul Muslim adhkar/duas, all 99 Names, and audio across every
 > content type — offline-first, cross-platform (iOS/Android/Web), with **zero new native modules**.
+>
+> **Status (2026-07-05): ✅ Implemented.** This plan has been executed. The Qur'an reader
+> (`app/quran/*`), Hadith library (`app/hadith/*`), full Hisnul Muslim duas, 99 Names, and the
+> build-data pipeline (`apps/app/scripts/build-data/`, bundled assets under
+> `apps/app/assets/data/`) all exist. Kept as the record of *why* the architecture is shaped this
+> way. For the shipped architecture see the "Content library" project memory; for the forward
+> backlog (more editions/reciters, tafsir, Juz browser, download manager) see
+> [`NEW_FEATURES_TODO.md`](./NEW_FEATURES_TODO.md).
 
 ---
 

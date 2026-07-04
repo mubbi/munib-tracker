@@ -6,6 +6,11 @@
 > (bundled JSON, seeded local store, or live third-party API).
 >
 > Last researched: **July 2026**. Verify licenses again before shipping — terms change.
+>
+> **Status (2026-07-05):** the integration described here is **implemented** — the app now has a
+> Qur'an reader and Hadith library, and the duas/adhkar/99-Names content has been expanded from
+> the small hand-written sets described in §1.1 below. Treat §1.1's "what the app has now" as the
+> *pre-implementation* snapshot; this document is retained as the sourcing/rationale record.
 
 ---
 

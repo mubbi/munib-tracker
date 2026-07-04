@@ -68,7 +68,9 @@ pnpm --filter api check-types
 - Global prefix: `api/v1`
 - Validation: `ValidationPipe` with `class-validator` DTOs
 - Swagger decorators on all public endpoints
-- In-memory stores for auth/sync until a database layer is added (Phase 8)
+- **Persistence is TypeORM** (`src/database/`) — PostgreSQL in prod, in-memory SQLite for tests (`in-memory-sqlite.options.ts`). Entities: `UserEntity`, `AuthSessionEntity`, `SyncRecordEntity`. Prod runs `synchronize: false`; schema changes go through migrations in `src/database/migrations/` (`pnpm --filter api migration:generate|run|revert`).
+- **Auth:** signed JWT access tokens (`token.service.ts` + `@nestjs/jwt`) with revocable server-side sessions; `POST /auth/refresh` rotates the opaque refresh token. Real OAuth exchange in `oauth-provider.service.ts` (Google/Facebook/Apple) — activates when provider secrets are set; tests stub it. Add JWKS signature verification for Apple before production.
+- Entity datetime columns must use the driver-portable timestamp type (datetime on sqlite/tests, timestamp on postgres) — nullable `Date` reflects as `Object`, so it needs an explicit column type.
 
 ## Related docs
 

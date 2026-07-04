@@ -5,10 +5,11 @@
 // (Hisnul Muslim cites Qur'an/Hadith) and a transliteration. Existing item ids
 // are preserved so user favorites keep resolving.
 
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { fetchJSON, fetchText } from "./fetch.mjs";
-import { datasetEntry, SHARED_CONTENT_DIR, writeFileStable } from "./manifest.mjs";
+import { APP_ROOT, datasetEntry, SHARED_CONTENT_DIR, writeFileStable } from "./manifest.mjs";
 
 // Per-item adhkar recitation audio (D9), matched against the Hisnul Muslim
 // database by normalized Arabic and streamed via jsDelivr, pinned to a commit.
@@ -123,6 +124,24 @@ function hasArabic(text) {
   return /[ء-ي]/.test(text ?? "");
 }
 
+/**
+ * Strip the source's editorial notation from a Hisnul Muslim Arabic field:
+ * `[optional/variant additions]` and `--(1)--` footnote markers. Whatever
+ * remains is verbatim. (Entries still carrying a `…` after this are abbreviated
+ * Qur'an-recitation directives — those are dropped, since the full text ships
+ * complete in the zikr sets / Qur'an reader instead.)
+ */
+// `--(1)--` footnote markers, with ASCII, Arabic-Indic (٠-٩) or Persian (۰-۹) digits.
+const HISN_FOOTNOTE = /--\([0-9٠-٩۰-۹]+\)--/g;
+
+function cleanHisnArabic(text) {
+  return (text ?? "")
+    .replace(/\[[^\]]*\]/g, " ")
+    .replace(HISN_FOOTNOTE, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 /** Fetch + parse the full Hisnul Muslim dua corpus. Returns [] on any failure. */
 async function fetchHisnDuas() {
   try {
@@ -133,12 +152,17 @@ async function fetchHisnDuas() {
       .map((r) => ({
         hisnId: r[0],
         groupId: Number.parseInt(r[1], 10),
-        arabic: r[2].trim(),
-        translation: r[3].trim(),
+        arabic: cleanHisnArabic(r[2]),
+        // Strip the source's `--(1)--` footnote markers from the translation.
+        translation: r[3]
+          .replace(HISN_FOOTNOTE, " ")
+          .replace(/[ \t]+/g, " ")
+          .trim(),
         reference: (r[4] ?? "").trim(),
         title: (r[6] ?? "").trim(),
         audioFile: (r[7] ?? "").trim(),
-      }));
+      }))
+      .filter((d) => hasArabic(d.arabic) && !/…|\.\.\./.test(d.arabic));
   } catch (err) {
     console.warn(`  [adhkar] Hisnul Muslim corpus unavailable (${err.message})`);
     return [];
@@ -212,6 +236,97 @@ function buildDuaCorpus(hisnDuas, translitLookup) {
     merged.push(item);
   }
 
+  return merged;
+}
+
+// ── Completeness helpers (source full verbatim text, never hand-written) ─────
+
+const QURAN_DIR = join(APP_ROOT, "assets", "data", "quran");
+
+/** Read a bundled Qur'an surah file for a given kind, joined into one string. */
+function quranSurahText(kind, surah) {
+  const s = String(surah).padStart(3, "0");
+  const sub =
+    kind === "arabic" ? "arabic" : kind === "translit" ? "translit" : "translation/en-pickthall";
+  const obj = JSON.parse(readFileSync(join(QURAN_DIR, sub, `${s}.json`), "utf8"));
+  return Object.keys(obj)
+    .map(Number)
+    .sort((a, b) => a - b)
+    .map((k) => obj[String(k)])
+    .join(" ")
+    .trim();
+}
+
+/**
+ * Fill the "three Quls" before-sleep item with the complete text of Surahs
+ * 112-114 straight from the bundled mushaf — no hand-transcription, no `…`.
+ */
+function fillThreeQuls(items) {
+  const item = items.find((z) => z.id === "before_sleep-ikhlas");
+  if (!item) return;
+  const suras = [112, 113, 114];
+  item.arabic = suras.map((s) => quranSurahText("arabic", s)).join("\n");
+  item.transliteration = suras.map((s) => quranSurahText("translit", s)).join("\n");
+  item.translation = suras.map((s) => quranSurahText("translation", s)).join("\n");
+}
+
+// Which after-fard prayers an after-salah dhikr is specific to (by a distinctive
+// Arabic phrase). Untagged items are recited after every fard prayer, so they
+// surface under every prayer's filter. Sourced from authentic hadith.
+const AFTER_PRAYER_PRAYER_TAGS = [
+  { marker: "عِلْمًا نَافِعًا", prayers: ["fajr"] }, // Umm Salamah's dua after Fajr
+  { marker: "يُحْيِي وَيُمِيتُ", prayers: ["fajr", "maghrib"] }, // tahlil ×10 after Fajr & Maghrib
+  { marker: "أَجِرْنِي مِنَ النَّارِ", prayers: ["fajr", "maghrib"] }, // ×7 after Fajr & Maghrib
+];
+
+/** Tag prayer-specific after-salah adhkar so the UI can filter by salah. */
+function tagAfterPrayerPrayers(items) {
+  for (const item of items) {
+    if (item.categoryId !== "after_prayer") continue;
+    const norm = normalizeArabic(item.arabic);
+    for (const { marker, prayers } of AFTER_PRAYER_PRAYER_TAGS) {
+      if (norm.includes(normalizeArabic(marker))) {
+        item.prayers = prayers;
+        break;
+      }
+    }
+  }
+}
+
+// Hisnul Muslim chapter 107 = "Excellence of sending prayers upon the Prophet".
+const HISN_DUROOD_GROUP = 107;
+
+/** Extract the ch.107 salawat as DurudItems (transliteration where clean). */
+function buildHisnDuruds(hisnDuas, translitLookup) {
+  const out = [];
+  let n = 1;
+  for (const h of hisnDuas) {
+    if (h.groupId !== HISN_DUROOD_GROUP) continue;
+    const item = {
+      id: `durood-hisn-${h.hisnId}`,
+      title: `Salawat upon the Prophet ﷺ (${n++})`,
+      arabic: h.arabic,
+      translation: h.translation,
+      reference: h.reference || "Hisn al-Muslim",
+    };
+    const translit = findTranslit(h.arabic, translitLookup);
+    if (translit) item.transliteration = translit;
+    if (h.audioFile) item.audioUri = `${HISN_AUDIO_CDN}/${h.audioFile}`;
+    out.push(item);
+  }
+  return out;
+}
+
+/** Append Hisnul salawat that aren't already in the curated durood base. */
+function mergeDuruds(base, extra) {
+  const seenArabic = new Set(base.map((d) => normalizeArabic(d.arabic)));
+  const merged = [...base];
+  for (const item of extra) {
+    const norm = normalizeArabic(item.arabic);
+    if (!norm || seenArabic.has(norm)) continue;
+    seenArabic.add(norm);
+    merged.push(item);
+  }
   return merged;
 }
 
@@ -414,19 +529,9 @@ const ZIKR_ITEMS = [
     reference: "Muslim",
     targetCount: 34,
   },
-  {
-    id: "after_prayer-ayatul-kursi",
-    categoryId: "after_prayer",
-    title: "Ayat al-Kursi",
-    arabic: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ، لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ",
-    transliteration: "Allahu la ilaha illa huwal-Hayyul-Qayyum, la ta'khudhuhu sinatun wa la nawm",
-    translation:
-      "Allah — there is no god but He, the Ever-Living, the Sustainer. Neither drowsiness nor sleep overtakes Him.",
-    virtues:
-      "Whoever recites it after each prayer, nothing stands between him and Paradise but death.",
-    reference: "Quran 2:255 · An-Nasa'i",
-    targetCount: 1,
-  },
+  // Ayat al-Kursi is supplied complete (verbatim, with transliteration) by the
+  // fitrahive dhikr-after-salah dataset — the truncated hand-curated copy was
+  // removed so only the full verse remains.
 
   // ── Morning ──────────────────────────────────────────────
   {
@@ -454,20 +559,9 @@ const ZIKR_ITEMS = [
     reference: "Abu Dawud & Tirmidhi",
     targetCount: 3,
   },
-  {
-    id: "morning-sayyidul-istighfar",
-    categoryId: "morning",
-    title: "Sayyidul Istighfar",
-    arabic: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَىٰ عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ",
-    transliteration:
-      "Allahumma anta Rabbi la ilaha illa anta, khalaqtani wa ana 'abduka, wa ana 'ala 'ahdika wa wa'dika mastata't",
-    translation:
-      "O Allah, You are my Lord, there is no god but You. You created me and I am Your servant, and I abide by Your covenant and promise as best I can.",
-    virtues:
-      "The best manner of seeking forgiveness; whoever says it with certainty enters Paradise.",
-    reference: "Bukhari",
-    targetCount: 1,
-  },
+  // Sayyidul Istighfar is supplied complete (verbatim, with transliteration) by
+  // the fitrahive morning-dhikr dataset — the truncated hand-curated copy was
+  // removed so only the full supplication remains.
   {
     id: "morning-radeetu",
     categoryId: "morning",
@@ -546,11 +640,12 @@ const ZIKR_ITEMS = [
     id: "after_azan-wasila",
     categoryId: "after_azan",
     title: "Dua after the Adhan",
-    arabic: "اللَّهُمَّ رَبَّ هَٰذِهِ الدَّعْوَةِ التَّامَّةِ وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ",
+    arabic:
+      "اللَّهُمَّ رَبَّ هَٰذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ",
     transliteration:
-      "Allahumma Rabba hadhihid-da'watit-tammah, was-salatil-qa'imah, ati Muhammadanil-wasilata wal-fadilah",
+      "Allahumma Rabba hadhihid-da'watit-tammah, was-salatil-qa'imah, ati Muhammadanil-wasilata wal-fadilah, wab'ath-hu maqaman mahmudanil-ladhi wa'adtah",
     translation:
-      "O Allah, Lord of this perfect call and established prayer, grant Muhammad the intercession and favour.",
+      "O Allah, Lord of this perfect call and established prayer, grant Muhammad the intercession (wasilah) and eminence, and raise him to the praiseworthy station that You have promised him.",
     virtues: "Whoever says it after the adhan, intercession is made permissible for him.",
     reference: "Bukhari",
     targetCount: 1,
@@ -622,13 +717,16 @@ const ZIKR_ITEMS = [
     targetCount: 100,
   },
   {
+    // arabic / transliteration / translation are filled at build time with the
+    // complete text of Surahs 112-114 from the bundled Qur'an (see fillThreeQuls).
     id: "before_sleep-ikhlas",
     categoryId: "before_sleep",
-    title: "Recite Al-Ikhlas, Al-Falaq, An-Nas",
-    arabic: "قُلْ هُوَ اللَّهُ أَحَدٌ … قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ … قُلْ أَعُوذُ بِرَبِّ النَّاسِ",
-    transliteration: "Qul huwallahu ahad … Qul a'udhu bi-Rabbil-falaq … Qul a'udhu bi-Rabbin-nas",
-    translation: "Recite the three Quls, blow into the palms, and wipe over the body three times.",
-    reference: "Bukhari",
+    title: "The Three Quls",
+    arabic: "",
+    transliteration: "",
+    translation: "",
+    virtues: "Recite before sleep, blow into the palms, and wipe over the body three times.",
+    reference: "Quran 112-114 · Bukhari",
     targetCount: 3,
   },
 ];
@@ -1073,6 +1171,7 @@ function renderZikr(items, audioById) {
     "virtues",
     "reference",
     "targetCount",
+    "prayers",
     "chapter",
     "orderInChapter",
     "audioUri",
@@ -1083,7 +1182,7 @@ function renderZikr(items, audioById) {
   return `import type { ZikrItem } from "../types/index";
 
 /** Bump when the bundled zikr content changes so clients can re-seed. */
-export const ZIKR_CONTENT_VERSION = 4;
+export const ZIKR_CONTENT_VERSION = 5;
 
 /**
  * Curated adhkar for every part of the day. Generated by
@@ -1161,7 +1260,7 @@ function renderDuroods(items, audioById) {
     .join("\n");
   return `import type { DurudItem } from "../types/index";
 
-export const DUROOD_CONTENT_VERSION = 5;
+export const DUROOD_CONTENT_VERSION = 6;
 
 /**
  * Duroods and salawat upon the Prophet ﷺ. Generated by
@@ -1177,10 +1276,17 @@ export function getDurudById(id: string): DurudItem | undefined {
 `;
 }
 
-function assertContent(zikr, dua) {
-  const all = [...zikr, ...dua, ...DUROOD_ITEMS];
+function assertContent(zikr, dua, durood) {
+  const all = [...zikr, ...dua, ...durood];
   const ids = new Set(all.map((i) => i.id));
   if (ids.size !== all.length) throw new Error("[adhkar] duplicate id across content sets");
+  // No item may ship truncated Arabic — a `…`/`...` means we saved a snippet
+  // instead of the full text. Source the complete verbatim text instead.
+  for (const item of all) {
+    if (/…|\.\.\./.test(item.arabic ?? "")) {
+      throw new Error(`[adhkar] ${item.id} has truncated Arabic (contains "…")`);
+    }
+  }
   for (const item of [...zikr, ...dua]) {
     if (!item.reference?.trim()) {
       throw new Error(`[adhkar] item ${item.id} is missing a reference`);
@@ -1212,17 +1318,22 @@ function assertContent(zikr, dua) {
 }
 
 export async function buildAdhkar() {
+  // Complete the "three Quls" from the bundled mushaf before anything else so
+  // dedup + assertions see the full text.
+  fillThreeQuls(ZIKR_ITEMS);
   // Zikr: merge the open dua/dhikr dataset onto the curated base (dedup by Arabic).
   const dataset = await fetchDuaDhikrDataset();
   const zikrItems = mergeUnique(ZIKR_ITEMS, dataset.zikr);
+  tagAfterPrayerPrayers(zikrItems);
   // Duas: the full Hisnul Muslim corpus merged onto the curated base, with clean
   // transliteration layered from the curated + dataset sources where it exists.
   const hisnDuas = await fetchHisnDuas();
   const translitLookup = buildTranslitLookup([...dataset.dua, ...dataset.zikr]);
   const duaItems = buildDuaCorpus(hisnDuas, translitLookup);
-  const duroodItems = DUROOD_ITEMS;
+  // Duroods: curated base + authentic Hisnul Muslim ch.107 salawat.
+  const duroodItems = mergeDuruds(DUROOD_ITEMS, buildHisnDuruds(hisnDuas, translitLookup));
 
-  assertContent(zikrItems, duaItems);
+  assertContent(zikrItems, duaItems, duroodItems);
 
   // Match each item to a Hisnul Muslim recitation (best-effort).
   const audioDb = await fetchAdhkarAudioDb();
@@ -1255,7 +1366,7 @@ export async function buildAdhkar() {
     await datasetEntry({
       id: "adhkar",
       kind: "content",
-      version: 5,
+      version: 6,
       absFiles: [zikrPath, duasPath, duroodsPath],
       license: "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
       attribution: `Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (${HISN_AUDIO_REPO}); adhkar & transliteration from ${DUADHIKR_REPO} (Arabic, transliteration, translation). Audio streamed from ${HISN_AUDIO_REPO}.`,

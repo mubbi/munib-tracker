@@ -2,6 +2,7 @@ import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, View } from "react-native";
 
+import { ReferenceLine } from "@/components/content/reference-line";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
@@ -177,9 +178,7 @@ export function ReadingCard({
       ) : null}
 
       {item.reference ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.reference}>
-          {t("reading.reference", { ref: item.reference })}
-        </ThemedText>
+        <ReferenceLine reference={item.reference} style={styles.reference} />
       ) : null}
     </Card>
   );

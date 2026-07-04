@@ -77,6 +77,7 @@
     "tasbeeh": "تسبیح",
     "qaza": "قضا",
     "duas": "دعائیں",
+    "duroods": "درود",
     "names": "۹۹ نام",
     "quran": "قرآن",
     "hadith": "حدیث",
@@ -525,6 +526,7 @@
     "categories": "زمرے",
     "categoryEyebrow": "ذکر",
     "adhkarCount": "{{count}} اذکار",
+    "allPrayers": "تمام",
     "emptyTitle": "ابھی کوئی ذکر نہیں",
     "emptyDesc": "اس زمرے کے مزید اندراجات جلد آ رہے ہیں۔",
     "detailEyebrow": "ذکر",
@@ -559,6 +561,7 @@
   },
   "reading": {
     "reference": "حوالہ: {{ref}}",
+    "openReference": "حوالہ کھولیں {{ref}}",
     "share": "شیئر کریں",
     "showMore": "مزید دکھائیں",
     "showLess": "کم دکھائیں",

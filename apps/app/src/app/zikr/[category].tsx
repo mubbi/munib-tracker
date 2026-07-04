@@ -1,15 +1,24 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
-import type { ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
+import type { ObligatoryPrayer, ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
 import { isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
+import {
+  FlatList,
+  type ListRenderItem,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -17,6 +26,9 @@ import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { zikrByCategory } from "@/lib/zikr";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
+
+const OBLIGATORY_PRAYERS: ObligatoryPrayer[] = ["fajr", "dhuhr", "asr", "maghrib", "isha"];
+type PrayerFilter = ObligatoryPrayer | "all";
 
 /** Pre-render a static HTML page for each fixed zikr category at web export time. */
 export function generateStaticParams(): Array<{ category: string }> {
@@ -35,7 +47,16 @@ export default function ZikrCategoryScreen() {
 
   const isKnownCategory = isZikrCategoryId(params.category);
   const categoryId = (isKnownCategory ? params.category : "anytime") as ZikrCategoryId;
-  const items = zikrByCategory(categoryId);
+  const allItems = zikrByCategory(categoryId);
+
+  // After-salah adhkar can be narrowed to a single fard prayer. An item with no
+  // `prayers` tag is recited after every prayer, so it shows under each filter.
+  const showPrayerFilter = categoryId === "after_prayer";
+  const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>("all");
+  const items = useMemo(() => {
+    if (!showPrayerFilter || prayerFilter === "all") return allItems;
+    return allItems.filter((z) => !z.prayers?.length || z.prayers.includes(prayerFilter));
+  }, [allItems, showPrayerFilter, prayerFilter]);
 
   const zikrIndex = useMemo(() => createZikrSearch(items), [items]);
   const indexById = useMemo(
@@ -102,7 +123,7 @@ export default function ZikrCategoryScreen() {
           }),
         ]}
       />
-      {items.length === 0 ? (
+      {allItems.length === 0 ? (
         <EmptyState
           icon={{ ios: "heart", android: "favorite_border", web: "favorite_border" }}
           title={t("zikr.emptyTitle")}
@@ -110,6 +131,38 @@ export default function ZikrCategoryScreen() {
         />
       ) : (
         <Card padding="three" style={styles.listCard}>
+          {showPrayerFilter ? (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.chips}
+              style={styles.chipsRow}
+            >
+              {(["all", ...OBLIGATORY_PRAYERS] as PrayerFilter[]).map((prayer) => {
+                const active = prayerFilter === prayer;
+                return (
+                  <PressableScale
+                    key={prayer}
+                    haptic="selection"
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: active }}
+                    onPress={() => setPrayerFilter(prayer)}
+                    style={[
+                      styles.chip,
+                      { backgroundColor: active ? colors.accent : colors.muted },
+                    ]}
+                  >
+                    <ThemedText
+                      type="small"
+                      style={{ color: active ? colors.accentForeground : colors.foreground }}
+                    >
+                      {prayer === "all" ? t("zikr.allPrayers") : t(`prayers.${prayer}`)}
+                    </ThemedText>
+                  </PressableScale>
+                );
+              })}
+            </ScrollView>
+          ) : null}
           <TextInput
             value={query}
             onChangeText={setQuery}
@@ -150,6 +203,14 @@ function ListSeparator() {
 const styles = StyleSheet.create({
   listCard: { flex: 1 },
   flatList: { flex: 1 },
+  chipsRow: { flexGrow: 0, marginBottom: Spacing.three },
+  chips: { gap: Spacing.two, paddingRight: Spacing.one },
+  chip: {
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+    borderRadius: 999,
+    borderCurve: "continuous",
+  },
   input: {
     borderRadius: Radius.md,
     borderCurve: "continuous",

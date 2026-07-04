@@ -2,9 +2,15 @@
 
 > **Purpose:** Executable roadmap for building Munib Tracker. Each phase has ordered tasks with file paths, types, packages, and acceptance criteria so an AI agent (or developer) can implement without guessing.
 >
-> **Last reviewed:** 2026-07-03  
+> **Last reviewed:** 2026-07-05  
 > **Apps:** `apps/app` (Expo SDK 57) · `apps/marketing-web` (Next.js 16) · `apps/api` (NestJS 11)  
 > **Agent guides:** [`AGENTS.md`](../AGENTS.md), [`apps/app/AGENTS.md`](../apps/app/AGENTS.md), [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md), [`apps/api/AGENTS.md`](../apps/api/AGENTS.md)
+>
+> **Status:** Phases 0–12 below are all `done`. A large **content + platform layer** has since
+> shipped on top of this MVP — Qur'an reader, Hadith library, full Hisnul Muslim duas, weather,
+> location picker, retention surfaces (continue/knowledge/bookmarks), custom tasbeeh, achievements
+> ("Noor"), and universal search. That work and the **active forward roadmap** are tracked in
+> [`NEW_FEATURES_TODO.md`](./NEW_FEATURES_TODO.md); this document is the original phased PRD baseline.
 
 ---
 

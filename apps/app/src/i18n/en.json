@@ -77,6 +77,7 @@
     "tasbeeh": "Tasbeeh",
     "qaza": "Qaza",
     "duas": "Duas",
+    "duroods": "Duroods",
     "names": "99 Names",
     "quran": "Qur'an",
     "hadith": "Hadith",
@@ -525,6 +526,7 @@
     "categories": "Categories",
     "categoryEyebrow": "Zikr",
     "adhkarCount": "{{count}} adhkar",
+    "allPrayers": "All",
     "emptyTitle": "No adhkar yet",
     "emptyDesc": "More entries for this category are on the way.",
     "detailEyebrow": "Zikr",
@@ -559,6 +561,7 @@
   },
   "reading": {
     "reference": "Reference: {{ref}}",
+    "openReference": "Open reference {{ref}}",
     "share": "Share",
     "showMore": "Show more",
     "showLess": "Show less",

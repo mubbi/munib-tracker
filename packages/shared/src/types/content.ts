@@ -56,7 +56,7 @@ export interface DurudItem {
   id: string;
   title: string;
   arabic: string;
-  transliteration: string;
+  transliteration?: string;
   translation: string;
   virtues?: string;
   reference?: string;

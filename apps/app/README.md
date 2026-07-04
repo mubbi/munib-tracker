@@ -1,56 +1,44 @@
-# Welcome to your Expo app 👋
+# Munib Tracker — Product app (`apps/app`)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Universal **Expo SDK 57** app (iOS · Android · Web from one codebase) for salah, dhikr, qadha, and Islamic content. Offline-first, guest-first.
 
-## Get started
+> Part of the [Munib Tracker monorepo](../../README.md). Always run commands from the **repo root** with pnpm workspace filters. Read [`AGENTS.md`](AGENTS.md) before writing code (it mandates the Expo SDK 57 docs + the Fuse.js search rules).
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Develop
 
 ```bash
-npm run reset-project
+pnpm install                   # from repo root (pnpm 9 workspace)
+pnpm --filter app dev          # Expo dev server — pick a platform in the CLI
+pnpm --filter app ios          # iOS simulator (dev build)
+pnpm --filter app android      # Android emulator (dev build)
+pnpm --filter app web          # web (~8081)
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+This uses `expo-dev-client` (not Expo Go) — native modules (`expo-audio`, `expo-notifications`, `expo-location`, `expo-haptics`, …) need a dev build.
 
-### Other setup steps
+## Gates
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+pnpm --filter app check-types
+pnpm --filter app test         # Jest + Testing Library RN
+pnpm format-and-lint:fix       # Biome (repo root)
+```
 
-## Learn more
+## Content data
 
-To learn more about developing your project with Expo, look at the following resources:
+Bundled religious content lives under [`assets/data/`](assets/data) and is **generated** — never hand-edit it (or `src/lib/quran-loader.ts`). Regenerate with:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+pnpm --filter app build:data   # adhkar, duas, 99 Names, Qur'an, hadith highlights + manifest.json
+```
 
-## Join the community
+Content is sourced from open datasets, never hand-written. See [`docs/DATA_INGESTION_TODO.md`](../../docs/DATA_INGESTION_TODO.md) and [`docs/FREE_OPEN_SOURCE_DATA.md`](../../docs/FREE_OPEN_SOURCE_DATA.md).
 
-Join our community of developers creating universal apps.
+## Architecture at a glance
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **Routing:** Expo Router (typed routes), root `Stack` + `(tabs)` group under `src/app/`.
+- **Persistence:** AsyncStorage behind `src/db/` repositories (`KeyedCollection` + `DB_KEYS`), no SQLite.
+- **State:** zero-dep `useSyncExternalStore` stores in `src/stores/` (`tracker-store` is the reactive hub).
+- **Theme/i18n:** `ThemeProvider` (light/dark + preset & custom-hex accents) and `react-i18next` (en/ar/ur, RTL).
+- **Search:** one Fuse.js engine in `src/lib/search.ts` — extend it, don't scatter `new Fuse()` (see [`AGENTS.md`](AGENTS.md)).
+- **Content library / times / sync:** see the project memory + [`docs/`](../../docs).

@@ -4,22 +4,22 @@
     {
       "id": "adhkar",
       "kind": "content",
-      "version": 5,
+      "version": 6,
       "files": [
         {
           "path": "../../packages/shared/src/content/duas.ts",
-          "sha256": "c45f76ae771b7144529e308a0fc0ea2707232f35ca4ca8f4d0a9f830831a5d12",
-          "bytes": 233369
+          "sha256": "3959e6edeadbee4bc5e4a0072ee3d54e5a4bbda8edf39cb4e6ad72b251363feb",
+          "bytes": 220902
         },
         {
           "path": "../../packages/shared/src/content/duroods.ts",
-          "sha256": "0e768e8136d841598918ce103d2996b483554dce17ed2418b804383f68fc09a9",
-          "bytes": 3365
+          "sha256": "8182d94b74786142145dd587cb71b992e21cc0bb45505fb2387f77d845456b3b",
+          "bytes": 6054
         },
         {
           "path": "../../packages/shared/src/content/zikr.ts",
-          "sha256": "23a15fabd97c701cef380b90abb4b904ffc81a3e092fd967ca1480a9d3247def",
-          "bytes": 47449
+          "sha256": "f464e3c0d3197d36d50d501d4064121f47b56f565add28e82cdf150a71181461",
+          "bytes": 47321
         }
       ],
       "license": "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",

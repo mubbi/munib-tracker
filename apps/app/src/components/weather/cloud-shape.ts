@@ -139,32 +139,78 @@ const CLOUD_SLOTS: CloudSlotTemplate[] = [
     offset: 3000,
     drift: 10,
   },
+  // Extra cloudy-only slots — upper mid-gap and lower edges; kept clear of 0/2/3/4 bounds.
+  {
+    id: 81,
+    top: "6%",
+    left: "41%",
+    scale: 0.36,
+    opacityScale: 0.58,
+    archetype: "wisp",
+    duration: 31000,
+    offset: 1800,
+    drift: 9,
+  },
+  {
+    id: 84,
+    top: "23%",
+    left: "33%",
+    scale: 0.38,
+    opacityScale: 0.55,
+    archetype: "wisp",
+    duration: 33000,
+    offset: 2600,
+    drift: 8,
+  },
+  {
+    id: 91,
+    top: "21%",
+    left: "88%",
+    scale: 0.36,
+    opacityScale: 0.52,
+    archetype: "duo",
+    duration: 29000,
+    offset: 1200,
+    drift: 10,
+  },
 ];
+
+/** Cloudy sky extras — indices into CLOUD_SLOTS, non-overlapping with the heavy set. */
+const CLOUDY_EXTRA_SLOT_INDEXES = [4, 5, 6, 7] as const;
 
 export function cloudPlacementsFor(options: {
   partlyCloudy: boolean;
   heavy: boolean;
+  /** Pure overcast — adds mid-gap and edge wisps without overlapping the base clusters. */
+  cloudy: boolean;
   baseOpacity: number;
 }): CloudPlacement[] {
-  const { partlyCloudy, heavy, baseOpacity } = options;
+  const { partlyCloudy, heavy, cloudy, baseOpacity } = options;
 
-  if (partlyCloudy) {
-    return [CLOUD_SLOTS[0], CLOUD_SLOTS[1]].map((slot) => ({
+  const withOpacity = (slots: readonly CloudSlotTemplate[]) =>
+    slots.map((slot) => ({
       ...slot,
       opacity: baseOpacity * slot.opacityScale,
     }));
+
+  if (partlyCloudy) {
+    return withOpacity([CLOUD_SLOTS[0], CLOUD_SLOTS[1]]);
+  }
+
+  if (cloudy) {
+    // Base shoulder clusters + scattered fill — centre stays open for the clock.
+    return withOpacity([
+      CLOUD_SLOTS[0],
+      CLOUD_SLOTS[2],
+      CLOUD_SLOTS[3],
+      ...CLOUDY_EXTRA_SLOT_INDEXES.map((index) => CLOUD_SLOTS[index]),
+    ]);
   }
 
   if (heavy) {
     // Distant left wisp + left/right shoulder clusters — centre stays open.
-    return [CLOUD_SLOTS[0], CLOUD_SLOTS[2], CLOUD_SLOTS[3]].map((slot) => ({
-      ...slot,
-      opacity: baseOpacity * slot.opacityScale,
-    }));
+    return withOpacity([CLOUD_SLOTS[0], CLOUD_SLOTS[2], CLOUD_SLOTS[3]]);
   }
 
-  return [CLOUD_SLOTS[0], CLOUD_SLOTS[2], CLOUD_SLOTS[1]].map((slot) => ({
-    ...slot,
-    opacity: baseOpacity * slot.opacityScale,
-  }));
+  return withOpacity([CLOUD_SLOTS[0], CLOUD_SLOTS[2], CLOUD_SLOTS[1]]);
 }

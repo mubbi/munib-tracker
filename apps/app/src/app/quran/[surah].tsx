@@ -12,6 +12,13 @@ import {
   StyleSheet,
   View,
 } from "react-native";
+import Animated, {
+  cancelAnimation,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
 
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
@@ -23,6 +30,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
+import { Durations } from "@/constants/motion";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteEditionSurah } from "@/hooks/use-quran";
@@ -43,6 +51,10 @@ import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
 const FALLBACK_TRANSLATION = "en-pickthall";
+
+/** Deep-link focus ring: hold briefly so the user sees the target, then fade out. */
+const FOCUS_HIGHLIGHT_HOLD_MS = 2500;
+const FOCUS_HIGHLIGHT_FADE_MS = Durations.slow;
 
 const ALL_TRANSLATIONS = [
   ...getBundledEditions().filter((e) => e.kind === "translation"),
@@ -91,6 +103,22 @@ export default function SurahReaderScreen() {
   const listRef = useRef<FlatList<Ayah>>(null);
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
+  const [focusHighlightAyah, setFocusHighlightAyah] = useState<number | undefined>(focusAyah);
+  const focusTargetKey = focusAyah != null ? `${surahNumber}:${focusAyah}` : null;
+
+  // Flash the deep-linked ayah, then drop the highlight so audio playback can own the border.
+  useEffect(() => {
+    if (!focusTargetKey) {
+      setFocusHighlightAyah(undefined);
+      return;
+    }
+    setFocusHighlightAyah(focusAyah);
+    const timer = setTimeout(
+      () => setFocusHighlightAyah(undefined),
+      FOCUS_HIGHLIGHT_HOLD_MS + FOCUS_HIGHLIGHT_FADE_MS,
+    );
+    return () => clearTimeout(timer);
+  }, [focusAyah, focusTargetKey]);
 
   const ayahs = useMemo(() => (surah ? getSurahAyahs(surahNumber) : []), [surah, surahNumber]);
 
@@ -268,7 +296,7 @@ export default function SurahReaderScreen() {
       translation={prefs.showTranslation ? (translation[String(ayah.ayah)] ?? "") : ""}
       translationDir={translationDir}
       isPlaying={currentAudioId === `${surahNumber}:${ayah.ayah}`}
-      highlighted={ayah.ayah === focusAyah}
+      highlighted={ayah.ayah === focusHighlightAyah}
       isBookmarked={bookmarkedSet.has(`${surahNumber}:${ayah.ayah}`)}
       onPlay={() => playFrom(index)}
       onBookmark={() => toggleBookmark(surahNumber, ayah.ayah)}
@@ -438,79 +466,109 @@ const AyahRow = memo(function AyahRow({
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const focusBorderOpacity = useSharedValue(0);
+
+  useEffect(() => {
+    cancelAnimation(focusBorderOpacity);
+    if (isPlaying || !highlighted) {
+      focusBorderOpacity.value = 0;
+      return;
+    }
+    focusBorderOpacity.value = 1;
+    focusBorderOpacity.value = withDelay(
+      FOCUS_HIGHLIGHT_HOLD_MS,
+      withTiming(0, { duration: FOCUS_HIGHLIGHT_FADE_MS }),
+    );
+  }, [highlighted, isPlaying, focusBorderOpacity]);
+
+  const focusBorderStyle = useAnimatedStyle(() =>
+    focusBorderOpacity.value > 0 ? { opacity: focusBorderOpacity.value } : { opacity: 0 },
+  );
 
   return (
-    <Card
-      padding="four"
-      style={isPlaying || highlighted ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
-    >
-      <View style={styles.ayahHeader}>
-        <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
-          <ThemedText type="caption" style={{ color: colors.accent }}>
-            {ayah.ayah}
+    <View style={styles.ayahRow}>
+      <Card
+        padding="four"
+        style={isPlaying ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
+      >
+        <View style={styles.ayahHeader}>
+          <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
+            <ThemedText type="caption" style={{ color: colors.accent }}>
+              {ayah.ayah}
+            </ThemedText>
+          </View>
+          <View style={styles.ayahActions}>
+            {ayah.sajda ? (
+              <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
+            ) : null}
+            <IconButton
+              name={
+                isPlaying
+                  ? { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" }
+                  : { ios: "play.circle", android: "play_circle", web: "play_circle" }
+              }
+              size={22}
+              tintColor={colors.accent}
+              accessibilityLabel={
+                isPlaying ? t("quran.pauseAyah") : t("quran.playAyah", { n: ayah.ayah })
+              }
+              haptic="light"
+              onPress={onPlay}
+            />
+            <IconButton
+              name={
+                isBookmarked
+                  ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+                  : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
+              }
+              size={20}
+              tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+              accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
+              accessibilityState={{ selected: isBookmarked }}
+              haptic="light"
+              onPress={onBookmark}
+            />
+            <IconButton
+              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+              size={20}
+              tintColor={colors.mutedForeground}
+              accessibilityLabel={t("quran.shareAyah")}
+              haptic="light"
+              onPress={onShare}
+            />
+          </View>
+        </View>
+
+        <ThemedText type="arabic" style={styles.arabic}>
+          {ayah.arabic}
+        </ThemedText>
+
+        {transliteration ? (
+          <ThemedText type="small" style={[styles.translit, { color: colors.accent }]}>
+            {transliteration}
           </ThemedText>
-        </View>
-        <View style={styles.ayahActions}>
-          {ayah.sajda ? (
-            <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
-          ) : null}
-          <IconButton
-            name={
-              isPlaying
-                ? { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" }
-                : { ios: "play.circle", android: "play_circle", web: "play_circle" }
-            }
-            size={22}
-            tintColor={colors.accent}
-            accessibilityLabel={
-              isPlaying ? t("quran.pauseAyah") : t("quran.playAyah", { n: ayah.ayah })
-            }
-            haptic="light"
-            onPress={onPlay}
-          />
-          <IconButton
-            name={
-              isBookmarked
-                ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
-                : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
-            }
-            size={20}
-            tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
-            accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
-            accessibilityState={{ selected: isBookmarked }}
-            haptic="light"
-            onPress={onBookmark}
-          />
-          <IconButton
-            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-            size={20}
-            tintColor={colors.mutedForeground}
-            accessibilityLabel={t("quran.shareAyah")}
-            haptic="light"
-            onPress={onShare}
-          />
-        </View>
-      </View>
+        ) : null}
 
-      <ThemedText type="arabic" style={styles.arabic}>
-        {ayah.arabic}
-      </ThemedText>
-
-      {transliteration ? (
-        <ThemedText type="small" style={[styles.translit, { color: colors.accent }]}>
-          {transliteration}
-        </ThemedText>
+        {translation ? (
+          <ThemedText
+            type="default"
+            style={[styles.translation, translationDir === "rtl" ? styles.rtl : null]}
+          >
+            {translation}
+          </ThemedText>
+        ) : null}
+      </Card>
+      {!isPlaying ? (
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.focusRing,
+            { borderColor: colors.accent, borderRadius: Radius.lg },
+            focusBorderStyle,
+          ]}
+        />
       ) : null}
-
-      {translation ? (
-        <ThemedText
-          type="default"
-          style={[styles.translation, translationDir === "rtl" ? styles.rtl : null]}
-        >
-          {translation}
-        </ThemedText>
-      ) : null}
-    </Card>
+    </View>
   );
 });
 
@@ -553,6 +611,12 @@ const styles = StyleSheet.create({
   },
   bismillah: { textAlign: "center", fontSize: 24, lineHeight: 44, marginBottom: Spacing.two },
   ayahSeparator: { height: Spacing.three },
+  ayahRow: { position: "relative" },
+  focusRing: {
+    ...StyleSheet.absoluteFill,
+    borderWidth: 1,
+    borderCurve: "continuous",
+  },
   ayahHeader: {
     flexDirection: "row",
     alignItems: "center",

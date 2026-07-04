@@ -10,12 +10,15 @@ This is a **pnpm + Turborepo** monorepo:
 |---------------|------|---------|
 | **Product app** | `apps/app` | Expo SDK 57 — iOS, Android, Web (single codebase) |
 | **Marketing site** | `apps/marketing-web` | Next.js 16 landing site (port 3000) |
-| `@munib-tracker/shared` | `packages/shared` | Domain types, constants, validators |
+| **API server** | `apps/api` | NestJS 11 — auth + cloud sync (port 3001) |
+| `@munib-tracker/shared` | `packages/shared` | Domain types, constants, validators, content, achievements |
 | `@munib-tracker/theme` | `packages/theme` | Design tokens, accent palette, `resolveTheme()` |
+| `@munib-tracker/api-contract` | `packages/api-contract` | OpenAPI spec exported from the API |
+| `@munib-tracker/api-client` | `packages/api-client` | Orval-generated fetch + TanStack Query SDK |
 | `@munib-tracker/typescript-config` | `packages/typescript-config` | Shared TS configs |
 | `@munib-tracker/vitest-config` | `packages/vitest-config` | Vitest presets |
 
-**Note:** `apps/marketing-web` (port 3000) and `apps/app web` (Expo, ~8081) are different apps.
+**Note:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), and `apps/app web` (Expo, ~8081) are three different apps.
 
 ## Prerequisites
 
@@ -34,7 +37,7 @@ pnpm dev:marketing-web # Next.js marketing site (:3000)
 
 ## Product app (`apps/app`)
 
-Universal Expo app for salah, dhikr, and qadha tracking.
+Universal Expo app for salah, dhikr, qadha, and Islamic content — offline-first and cross-platform.
 
 | Command | Description |
 |---------|-------------|
@@ -42,12 +45,28 @@ Universal Expo app for salah, dhikr, and qadha tracking.
 | `pnpm --filter app ios` | Build + launch iOS simulator (dev build) |
 | `pnpm --filter app android` | Build + launch Android emulator (dev build) |
 | `pnpm --filter app web` | Product app in browser (~8081) |
+| `pnpm --filter app build:data` | Regenerate bundled content (adhkar, duas, names, Qur'an, hadith highlights) |
 
-**Features:**
+**Platform:**
 - Expo SDK 57 with React Compiler, typed routes, `expo-dev-client`
-- Centralized `ThemeProvider` — light/dark/system + accent colors (persisted via AsyncStorage)
-- Settings screen with appearance and accent pickers
-- Home, Tracker, and Settings tabs using `useTheme()` throughout
+- Offline-first persistence on AsyncStorage (`src/db/` repositories + a zero-dep `useSyncExternalStore` store), no SQLite
+- Centralized `ThemeProvider` — light/dark/system + preset & custom-hex accents (persisted)
+- Full i18n (English/Arabic/Urdu) with RTL; motion + a11y (WCAG AA contrast, ≥44pt targets) design system
+
+**Worship & tracking:**
+- Prayer tracker (5 fard + Witr + sunnah) with statuses, notes, streaks
+- Qaza suite — counters, lifetime calculator, daily planner, and roza (fasting) tracking
+- Dhikr library + favorites, tasbeeh counter (library-driven, free, and custom)
+- Activity calendar (Gregorian + Hijri), day detail, statistics, achievements ("Noor" devotion levels)
+
+**Content library (offline, sourced from open datasets):**
+- Qur'an reader (translations, transliteration, audio, bookmarks, search)
+- Hadith collections, full Hisnul Muslim duas, duroods, and the 99 Names
+- Universal fuzzy search (Fuse.js) across every content source
+
+**Times, location & platform:**
+- On-device prayer times (`adhan`) + live location, Hijri date, sky/moon hero, weather effects
+- Qibla compass, opt-in local notifications/reminders, guest-first auth with optional cloud sync
 
 ## Marketing site (`apps/marketing-web`)
 
@@ -61,6 +80,21 @@ Next.js 16 marketing landing page with Tailwind CSS v4.3.
 **Features:**
 - `cacheComponents: true`, Metadata API, `sitemap.ts`, `robots.ts`
 - Server Components by default; Tailwind v4 `@source` scans monorepo packages
+
+## API server (`apps/api`)
+
+NestJS 11 backend for authentication and cloud sync (port 3001, base path `/api/v1`).
+
+| Command | Description |
+|---------|-------------|
+| `pnpm --filter api dev` | Dev server on port 3001 (Swagger UI at `/docs`) |
+| `pnpm --filter api test` | Unit tests · `test:e2e` for end-to-end |
+| `pnpm generate:api` | Export OpenAPI → regenerate the typed `@munib-tracker/api-client` |
+
+**Features:**
+- TypeORM persistence — PostgreSQL in prod, in-memory SQLite for tests; migrations under `src/database/migrations/`
+- Guest sessions + OAuth (Google/Apple/Facebook), signed JWT access tokens with refresh-token rotation
+- Cloud sync (`/sync/pull`, `/sync/push`) — last-write-wins, guest-blocked
 
 ## Shared packages
 
@@ -94,10 +128,12 @@ Unit + feature tests only — no Playwright or Maestro E2E.
 ## AI agent context
 
 - Root: [`AGENTS.md`](AGENTS.md) — monorepo conventions
-- Product: [`apps/app/AGENTS.md`](apps/app/AGENTS.md)
+- Product: [`apps/app/AGENTS.md`](apps/app/AGENTS.md) — Expo app + Fuse.js search rules
 - Marketing: [`apps/marketing-web/AGENTS.md`](apps/marketing-web/AGENTS.md)
+- API: [`apps/api/AGENTS.md`](apps/api/AGENTS.md) — NestJS backend
+- Planning: [`docs/`](docs) — phased PRD, feature backlog, and content-sourcing plans
 
-Official skills installed: `vercel/turborepo`, `expo/skills`, `vercel/next.js`
+Official skills installed: `vercel/turborepo`, `expo/skills`, `vercel/next.js`, plus `.agents/skills/{nestjs,fuse-js}`.
 
 ## Share with the community
 

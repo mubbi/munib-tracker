@@ -165,6 +165,17 @@ export default function HomeScreen() {
       onPress: () => router.push("/dua"),
     },
     {
+      id: "duroods",
+      label: t("actions.duroods"),
+      icon: {
+        ios: "heart.text.square.fill",
+        android: "favorite",
+        web: "favorite",
+      },
+      tint: tokens.status.danger.color,
+      onPress: () => router.push("/duroods"),
+    },
+    {
       id: "names",
       label: t("actions.names"),
       icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },

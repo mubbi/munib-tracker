@@ -47,7 +47,16 @@ pnpm turbo run lint check-types test
 pnpm --filter app ios     # Expo iOS dev build
 pnpm --filter app android # Expo Android dev build
 pnpm --filter app web     # Expo web
+pnpm --filter app build:data  # regenerate bundled content (adhkar/duas/names/Qur'an/hadith)
 ```
+
+## Content & data
+
+Religious content (Qur'an, hadith, adhkar, duas, 99 Names, audio) is **sourced from open datasets, never hand-written**, and generated into `apps/app/assets/data/` (+ a `manifest.json` credits registry) by the pipeline in `apps/app/scripts/build-data/`. Bundled JSON is offline-first; extra Qur'an editions and full hadith collections are fetched cache-first from CDNs (`apps/app/src/api/{quran,hadith}-remote.ts`). Never edit generated content files (`packages/shared/src/content/*` for adhkar/duas, `apps/app/assets/data/*`, `apps/app/src/lib/quran-loader.ts`) by hand — change the builder and re-run `build:data`.
+
+## Docs
+
+Planning + reference lives in [`docs/`](docs/): [`TODO.md`](docs/TODO.md) (phased PRD baseline), [`NEW_FEATURES_TODO.md`](docs/NEW_FEATURES_TODO.md) (active roadmap / NF-* backlog), [`DATA_INGESTION_TODO.md`](docs/DATA_INGESTION_TODO.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) (content sourcing).
 
 ## AI skills (installed via `pnpm dlx skills add`)
 

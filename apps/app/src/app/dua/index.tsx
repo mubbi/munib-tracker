@@ -186,11 +186,6 @@ export default function DuaHomeScreen() {
                 count={favoriteCount > 0 ? favoriteCount : undefined}
                 onPress={() => router.push("/dua/favorites")}
               />
-              <NavRow
-                icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-                label={t("dua.duroodsLink")}
-                onPress={() => router.push("/duroods")}
-              />
             </View>
           </Card>
         ) : null}

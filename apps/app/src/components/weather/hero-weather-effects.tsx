@@ -68,19 +68,22 @@ function cloudConfigsFor(effects: WeatherEffectKind[]): CloudConfig[] {
     effects.includes("partly_cloudy") && !cloudy && !rain && !storm && !effects.includes("snow");
 
   const heavy = cloudy || rain || storm || effects.includes("snow");
+  const overcast = cloudy && !rain && !storm && !effects.includes("snow");
 
-  return cloudPlacementsFor({ partlyCloudy, heavy, baseOpacity }).map((placement) => ({
-    id: placement.id,
-    top: placement.top,
-    left: placement.left,
-    scale: placement.scale,
-    variant,
-    opacity: placement.opacity,
-    duration: placement.duration,
-    offset: placement.offset,
-    drift: placement.drift,
-    puffs: generateCloudPuffs(placement.id, placement.archetype),
-  }));
+  return cloudPlacementsFor({ partlyCloudy, heavy, cloudy: overcast, baseOpacity }).map(
+    (placement) => ({
+      id: placement.id,
+      top: placement.top,
+      left: placement.left,
+      scale: placement.scale,
+      variant,
+      opacity: placement.opacity,
+      duration: placement.duration,
+      offset: placement.offset,
+      drift: placement.drift,
+      puffs: generateCloudPuffs(placement.id, placement.archetype),
+    }),
+  );
 }
 
 const RAIN_DROPS = Array.from({ length: 42 }, (_, index) => ({

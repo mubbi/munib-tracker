@@ -1,3 +1,5 @@
+import type { ObligatoryPrayer } from "./prayer";
+
 export type ZikrCategoryId =
   | "morning"
   | "evening"
@@ -19,6 +21,11 @@ export interface ZikrItem {
   audioUri?: string;
   /** daily target if applicable */
   targetCount?: number;
+  /**
+   * For after-salah adhkar: the obligatory prayers this dhikr is specific to.
+   * Absent/empty ⇒ recited after every fard prayer (shown under every prayer).
+   */
+  prayers?: ObligatoryPrayer[];
   /** Hisnul Muslim chapter this zikr belongs to, when preserved from source. */
   chapter?: string;
   /** Position within its Hisnul Muslim chapter. */
