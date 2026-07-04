@@ -207,13 +207,29 @@ export const APP_VALUE_PROPS: AppValueProp[] = [
 ];
 
 export const APP_ACHIEVEMENTS = [
-  { name: "First Step", trigger: "Log your first prayer" },
-  { name: "Perfect Day", trigger: "Complete all six obligatory prayers in one day" },
-  { name: "Getting Consistent", trigger: "3-day streak" },
-  { name: "One Week Strong", trigger: "7-day streak" },
-  { name: "A Month of Devotion", trigger: "30-day streak" },
-  { name: "Hundred Prayers", trigger: "100 prayers completed" },
-  { name: "Making Amends", trigger: "10 qaza made up" },
-  { name: "Clearing the Debt", trigger: "100 qaza made up" },
-  { name: "Remembrance", trigger: "50 zikr sessions" },
+  {
+    name: "Devotion Levels",
+    trigger: "Grow Noor from salah, qaza, zikr, and perfect days — levels never cap out",
+  },
+  {
+    name: "Salah Track",
+    trigger: "Reach the next prayer count milestone — from your first salah to thousands",
+  },
+  {
+    name: "Streak Track",
+    trigger: "Build consecutive prayer days — targets grow from 1 day to a full year and beyond",
+  },
+  {
+    name: "Qaza & Roza debt",
+    trigger:
+      "When you track qaza or missed fasts, goals match your current debt — and disappear when cleared",
+  },
+  {
+    name: "Zikr Track",
+    trigger: "Complete remembrance sessions — milestones scale with your dhikr habit",
+  },
+  {
+    name: "Consistency Track",
+    trigger: "Perfect days with all six obligatory prayers — always a next target waiting",
+  },
 ] as const;

@@ -1,4 +1,8 @@
-import { ACHIEVEMENTS, newlyUnlocked } from "@munib-tracker/shared/achievements";
+import {
+  getMilestoneById,
+  migrateLegacyAchievementIds,
+  newlyUnlocked,
+} from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS } from "@munib-tracker/shared/constants";
 import type { PrayerId } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
@@ -7,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
+import { QazaDailyChecklist } from "@/components/qaza-daily-checklist";
 import { ScreenLayout } from "@/components/screen-layout";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
@@ -21,6 +26,7 @@ import { StatCard } from "@/components/ui/stat-card";
 import { Spacing } from "@/constants/theme";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
+import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
@@ -52,6 +58,7 @@ export default function TrackerScreen() {
   const streak = useStreak();
   const stats = useAchievementStats();
   const { status, notes } = useTodayPrayers();
+  const prayerTimes = useDailyPrayerTimes();
   const { setPrayerStatus, setPrayerNotes } = useTrackerActions();
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
 
@@ -88,8 +95,8 @@ export default function TrackerScreen() {
   useEffect(() => {
     let active = true;
     void (async () => {
-      const known = await readJSON<string[]>(DB_KEYS.achievements, []);
-      if (active) knownAchievementsRef.current = known;
+      const known = migrateLegacyAchievementIds(await readJSON<string[]>(DB_KEYS.achievements, []));
+      if (active) knownAchievementsRef.current = migrateLegacyAchievementIds(known);
     })();
     return () => {
       active = false;
@@ -119,7 +126,7 @@ export default function TrackerScreen() {
     knownAchievementsRef.current = merged;
     void writeJSON(DB_KEYS.achievements, merged);
 
-    const first = ACHIEVEMENTS.find((a) => a.id === unlocked[0]);
+    const first = getMilestoneById(unlocked[0], stats);
     showAchievementCelebration(first?.title ?? "", unlocked[0]);
   }, [stats, showAchievementCelebration]);
 
@@ -219,6 +226,7 @@ export default function TrackerScreen() {
                   key={prayerId}
                   prayerId={prayerId}
                   status={current}
+                  time={prayerTimes[prayerId]}
                   hasNotes={!!notes[prayerId]}
                   onPress={() => setActivePrayer(prayerId)}
                   onToggleComplete={() =>
@@ -229,6 +237,8 @@ export default function TrackerScreen() {
             })}
           </View>
         </Card>
+
+        <QazaDailyChecklist />
 
         <Card padding="three">
           <CollapsibleSection
@@ -241,6 +251,7 @@ export default function TrackerScreen() {
                   key={prayerId}
                   prayerId={prayerId}
                   status={status[prayerId] ?? "pending"}
+                  time={prayerTimes[prayerId]}
                   hasNotes={!!notes[prayerId]}
                   onPress={() => setActivePrayer(prayerId)}
                 />

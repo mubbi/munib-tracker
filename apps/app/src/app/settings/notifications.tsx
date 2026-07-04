@@ -1,4 +1,5 @@
-import type { NotificationPreferences } from "@munib-tracker/shared/types";
+import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import type { NotificationPreferences, PrayerId } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -14,6 +15,7 @@ import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { adhanTrack } from "@/lib/adhan-audio";
 import { isWeb } from "@/lib/notifications/platform";
+import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
 import { rescheduleAll } from "@/notifications/scheduler";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -27,7 +29,7 @@ import {
 type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled">;
 
 const GROUPS: { titleKey: string; items: ToggleKey[] }[] = [
-  { titleKey: "groupWorship", items: ["prayer", "qaza", "afterAzan"] },
+  { titleKey: "groupWorship", items: ["prayer", "sunnahPrayer", "qaza", "afterAzan"] },
   {
     titleKey: "groupZikr",
     items: ["morningZikr", "eveningZikr", "beforeSleep", "beforePrayer", "afterPrayer"],
@@ -39,15 +41,15 @@ export default function NotificationsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
-  const { setNotificationPrefs } = usePreferencesActions();
+  const { setNotificationPrefs, setPrayerAlert } = usePreferencesActions();
   const audio = useAudioPlayerContext();
   const toast = useToast();
   const { requestPermission, canEnableLocalReminders } = useNotificationPermissions();
   const master = prefs.notificationPrefs.masterEnabled;
+  const obligatoryEnabled = master && prefs.notificationPrefs.prayer;
+  const sunnahEnabled = master && prefs.notificationPrefs.sunnahPrayer;
 
   const enableMaster = async () => {
-    // Web has no service-worker push backend, so OS reminders can't be delivered
-    // there. Keep the toggle on (in-app inbox still works) but be honest about it.
     if (isWeb) {
       await setNotificationPrefs({ masterEnabled: true });
       toast.info(t("notif.webLimitedTitle"), t("notifCenter.webNote"));
@@ -72,6 +74,11 @@ export default function NotificationsScreen() {
     }
 
     await setNotificationPrefs({ masterEnabled: true });
+    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+  };
+
+  const onPrayerAlertChange = async (prayerId: PrayerId, value: boolean) => {
+    await setPrayerAlert(prayerId, value);
     await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
   };
 
@@ -134,6 +141,44 @@ export default function NotificationsScreen() {
             </View>
           </Card>
         ))}
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("notif.prayerAlertsObligatory")}
+            icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
+          />
+          <View style={styles.rows}>
+            {OBLIGATORY_PRAYERS.map((prayerId) => (
+              <ToggleRow
+                key={prayerId}
+                title={t(`prayers.${prayerId}`)}
+                subtitle={t(`notif.prayerAlertItems.${prayerId}.subtitle`)}
+                value={isPrayerAlertEnabled(prefs, prayerId)}
+                disabled={!obligatoryEnabled}
+                onValueChange={(value) => void onPrayerAlertChange(prayerId, value)}
+              />
+            ))}
+          </View>
+        </Card>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("notif.prayerAlertsSunnah")}
+            icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
+          />
+          <View style={styles.rows}>
+            {SUNNAH_ALERTABLE_PRAYERS.map((prayerId) => (
+              <ToggleRow
+                key={prayerId}
+                title={t(`prayers.${prayerId}`)}
+                subtitle={t(`notif.prayerAlertItems.${prayerId}.subtitle`)}
+                value={isPrayerAlertEnabled(prefs, prayerId)}
+                disabled={!sunnahEnabled}
+                onValueChange={(value) => void onPrayerAlertChange(prayerId, value)}
+              />
+            ))}
+          </View>
+        </Card>
 
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
           {t("notif.footer")}

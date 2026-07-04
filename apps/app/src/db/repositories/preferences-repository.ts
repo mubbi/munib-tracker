@@ -19,6 +19,7 @@ function withDefaults(stored: Partial<UserPreferences>): UserPreferences {
     },
     favoriteZikrIds: stored.favoriteZikrIds ?? [],
     favoriteZikrOrder: stored.favoriteZikrOrder ?? [],
+    prayerAlerts: stored.prayerAlerts ?? {},
   };
 }
 

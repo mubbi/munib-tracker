@@ -1,9 +1,14 @@
+import { getBundledCollection } from "@/lib/hadith";
 import {
+  createFuzzyIndex,
+  createHadithSearch,
   isAyahIndexReady,
   normalize,
+  SEARCH_CATEGORY_ORDER,
   searchAll,
   searchLight,
   searchQuranAyahs,
+  searchSurahList,
   tokenize,
 } from "@/lib/search";
 
@@ -71,9 +76,7 @@ describe("searchLight", () => {
   it("orders groups by the fixed category order", () => {
     const groups = searchLight("allah");
     const order = groups.map((g) => g.category);
-    const expected = ["quran", "hadith", "dua", "zikr", "name", "durood"].filter((c) =>
-      order.includes(c as (typeof order)[number]),
-    );
+    const expected = SEARCH_CATEGORY_ORDER.filter((c) => order.includes(c));
     expect(order).toEqual(expected);
   });
 });
@@ -111,5 +114,41 @@ describe("searchAll", () => {
     const order = groups.map((g) => g.category);
     // Qur'an must lead the group order whenever it is present.
     if (order.includes("quran")) expect(order[0]).toBe("quran");
+  });
+});
+
+describe("searchSurahList", () => {
+  it("finds a surah by name, typo-tolerant", () => {
+    expect(searchSurahList("baqara").some((s) => s.number === 2)).toBe(true);
+    expect(searchSurahList("fatiah").some((s) => s.number === 1)).toBe(true);
+  });
+
+  it("returns nothing for an empty query and respects the limit", () => {
+    expect(searchSurahList("")).toEqual([]);
+    expect(searchSurahList("al", 3).length).toBeLessThanOrEqual(3);
+  });
+});
+
+describe("createHadithSearch", () => {
+  it("fuzzy-searches within one collection's items", () => {
+    const items = getBundledCollection("nawawi40")?.items ?? [];
+    const index = createHadithSearch(items);
+    expect(index.search("messenger").length).toBeGreaterThan(0);
+    // typo-tolerant (missing an 's')
+    expect(index.search("mesenger").length).toBeGreaterThan(0);
+    expect(index.count("messenger")).toBeGreaterThan(0);
+    expect(index.search("")).toEqual([]);
+  });
+});
+
+describe("createFuzzyIndex", () => {
+  it("ranks typo-tolerant matches over an arbitrary list", () => {
+    const index = createFuzzyIndex(
+      [{ name: "Application" }, { name: "Bandana" }, { name: "Category" }],
+      [{ key: "name", weight: 1, get: (x) => x.name }],
+    );
+    expect(index.search("aplication")[0]?.name).toBe("Application");
+    expect(index.count("application")).toBe(1);
+    expect(index.search("x")).toEqual([]);
   });
 });

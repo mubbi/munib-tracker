@@ -23,6 +23,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const ready = usePreferencesReady();
   const { deliver } = useInAppNotifications();
   const notificationPrefs = useStore(preferencesStore, (s) => s.prefs.notificationPrefs);
+  const prayerAlerts = useStore(preferencesStore, (s) => s.prefs.prayerAlerts);
   const bedtime = useStore(preferencesStore, (s) => s.prefs.bedtime);
   const location = useStore(locationStore, (s) => s.location);
   const locationReady = useStore(locationStore, (s) => s.isReady);
@@ -34,17 +35,17 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!ready || !locationReady) return;
     const prefs = preferencesStore.getState().prefs;
-    void rescheduleAll({ ...prefs, notificationPrefs, bedtime }, location);
-  }, [ready, locationReady, notificationPrefs, bedtime, location]);
+    void rescheduleAll({ ...prefs, notificationPrefs, prayerAlerts, bedtime }, location);
+  }, [ready, locationReady, notificationPrefs, prayerAlerts, bedtime, location]);
 
   useEffect(() => {
     const sub = AppState.addEventListener("change", (status) => {
       if (status !== "active" || !ready || !locationReady) return;
       const prefs = preferencesStore.getState().prefs;
-      void rescheduleAll({ ...prefs, notificationPrefs, bedtime }, location);
+      void rescheduleAll({ ...prefs, notificationPrefs, prayerAlerts, bedtime }, location);
     });
     return () => sub.remove();
-  }, [ready, locationReady, notificationPrefs, bedtime, location]);
+  }, [ready, locationReady, notificationPrefs, prayerAlerts, bedtime, location]);
 
   useEffect(() => {
     if (!isNative) return;

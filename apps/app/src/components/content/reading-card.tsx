@@ -7,8 +7,10 @@ import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildDuroodActivity } from "@/lib/continue-activity";
 import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
 
 export type ReadingItem = {
@@ -62,6 +64,9 @@ export function ReadingCard({
       0,
       sourceHref ? { sourceHref } : undefined,
     );
+    if (sourceHref === "/duroods") {
+      recordContinueActivity(buildDuroodActivity(item, { isAudio: true }));
+    }
   };
 
   const onShare = async () => {

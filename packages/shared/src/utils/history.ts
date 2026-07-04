@@ -41,6 +41,18 @@ export function aggregateByDate(logs: PrayerLog[]): Map<string, DayActivity> {
   return map;
 }
 
+/** Counts days where every obligatory prayer was completed. */
+export function countPerfectDays(
+  logs: PrayerLog[],
+  total: number = OBLIGATORY_PRAYERS.length,
+): number {
+  let count = 0;
+  for (const day of aggregateByDate(logs).values()) {
+    if (day.completed >= total) count += 1;
+  }
+  return count;
+}
+
 export interface PrayerTotals {
   completed: number;
   missed: number;

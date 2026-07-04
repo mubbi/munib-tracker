@@ -1,5 +1,9 @@
 import { DEFAULT_USER_PREFERENCES } from "@munib-tracker/shared/constants";
-import type { NotificationPreferences, UserPreferences } from "@munib-tracker/shared/types";
+import type {
+  NotificationPreferences,
+  PrayerId,
+  UserPreferences,
+} from "@munib-tracker/shared/types";
 
 import { initDatabase, PreferencesRepository } from "@/db";
 
@@ -12,6 +16,7 @@ export interface PreferencesState {
   load: () => Promise<void>;
   update: (patch: Partial<UserPreferences>) => Promise<void>;
   setNotificationPrefs: (patch: Partial<NotificationPreferences>) => Promise<void>;
+  setPrayerAlert: (prayerId: PrayerId, enabled: boolean) => Promise<void>;
   toggleFavorite: (zikrId: string) => Promise<void>;
   setFavoriteOrder: (order: string[]) => Promise<void>;
 }
@@ -36,6 +41,13 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
     const prefs = await PreferencesRepository.update({
       notificationPrefs: { ...current.notificationPrefs, ...patch },
     });
+    set({ prefs });
+  },
+
+  async setPrayerAlert(prayerId, enabled) {
+    const current = get().prefs;
+    const prayerAlerts = { ...current.prayerAlerts, [prayerId]: enabled };
+    const prefs = await PreferencesRepository.update({ prayerAlerts });
     set({ prefs });
   },
 
@@ -74,6 +86,8 @@ const preferencesActions = {
     preferencesStore.getState().update(...args),
   setNotificationPrefs: (...args: Parameters<PreferencesState["setNotificationPrefs"]>) =>
     preferencesStore.getState().setNotificationPrefs(...args),
+  setPrayerAlert: (...args: Parameters<PreferencesState["setPrayerAlert"]>) =>
+    preferencesStore.getState().setPrayerAlert(...args),
   toggleFavorite: (...args: Parameters<PreferencesState["toggleFavorite"]>) =>
     preferencesStore.getState().toggleFavorite(...args),
   setFavoriteOrder: (...args: Parameters<PreferencesState["setFavoriteOrder"]>) =>

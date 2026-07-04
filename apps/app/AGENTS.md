@@ -16,8 +16,11 @@ All search bars and content filtering use **[Fuse.js v7](https://github.com/kris
 | `searchQuranAyahs()` | Heavy ayah index — defer off interaction thread |
 | `searchAll()` | Synchronous full search (tests / non-interactive callers) |
 | `normalize()` / `tokenize()` | Diacritic-insensitive, Arabic-aware text folding |
+| `createFuzzyIndex(items, fields)` | Reusable `FuzzyIndex` for a screen-local list (project defaults + `normalize()`) — memoize per list |
+| `createHadithSearch(items)` | `FuzzyIndex<HadithItem>` for an in-collection hadith search bar |
+| `searchSurahList(query, limit?)` | Ranked `Surah[]` for the Qur'an index filter (reuses the cached surah index) |
 
-Search screen: `src/app/search.tsx` — debounced input, `searchLight` first, ayah pass via `InteractionManager`.
+Search bars wired to these: home `src/app/search.tsx` (universal), `quran/index.tsx` (surah filter → `searchSurahList`), `quran/search.tsx` (ayah full-text → `searchQuranAyahs`), `hadith/[collection].tsx` (in-collection → `createHadithSearch`).
 
 ### Rules for agents
 

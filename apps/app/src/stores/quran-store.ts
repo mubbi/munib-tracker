@@ -5,6 +5,8 @@ import {
   type QuranLastRead,
   type QuranPrefs,
 } from "@/db/repositories/quran-repository";
+import { buildQuranActivity } from "@/lib/continue-activity";
+import { recordContinueActivity } from "@/stores/continue-store";
 
 import { createStore, useStore } from "./create-store";
 
@@ -16,7 +18,7 @@ export interface QuranState {
 
   load: () => Promise<void>;
   updatePrefs: (patch: Partial<QuranPrefs>) => Promise<void>;
-  setLastRead: (surah: number, ayah: number) => Promise<void>;
+  setLastRead: (surah: number, ayah: number, options?: { isAudio?: boolean }) => Promise<void>;
   toggleBookmark: (surah: number, ayah: number) => Promise<boolean>;
   recordProgress: (surah: number, ayah: number) => Promise<void>;
 }
@@ -42,9 +44,10 @@ export const quranStore = createStore<QuranState>((set, get) => ({
     set({ prefs });
   },
 
-  async setLastRead(surah, ayah) {
+  async setLastRead(surah, ayah, options) {
     await QuranRepository.setLastRead(surah, ayah);
     set({ lastRead: { surah, ayah, updatedAt: new Date().toISOString() } });
+    recordContinueActivity(buildQuranActivity(surah, ayah, options));
   },
 
   async toggleBookmark(surah, ayah) {

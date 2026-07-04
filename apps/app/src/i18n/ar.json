@@ -59,10 +59,81 @@
     "streakStat": "التتابع",
     "qazaRemaining": "القضاء المتبقّي",
     "qazaMeta": "تم قضاء {{completed}} حتى الآن · اضغط للإدارة",
+    "qazaProgress": "تم قضاء {{pct}}٪",
+    "qazaA11y": "{{remaining}} قضاء متبقٍّ، {{completed}} مُقضى، {{pct}} بالمئة مكتمل",
     "gentleReminder": "تذكير لطيف",
     "gentleReminderBody": "الخطوات الصغيرة الثابتة أهمّ من الكمال. سجّل ما تُتمّه وعُد غداً.",
+    "knowledgeShuffle": "عرض بطاقة أخرى",
+    "knowledgeKind": {
+      "quran": "آية قرآنية",
+      "hadith": "حديث",
+      "name": "من أسماء الله",
+      "friday": "تذكير الجمعة",
+      "motivation": "تذكير يومي"
+    },
+    "knowledgeTopic": {
+      "prayer": "الصلاة",
+      "qaza": "القضاء",
+      "zikr": "الذكر",
+      "fasting": "الصيام",
+      "steadfastness": "الثبات",
+      "general": "تذكير"
+    },
+    "knowledgeAction": {
+      "quran": "اضغط للقراءة في القرآن",
+      "hadith": "اضغط لقراءة الحديث كاملاً",
+      "name": "استكشف الأسماء الحسنى"
+    },
+    "devotionMeta": "المستوى {{level}} · {{noor}} نور",
+    "devotionProgress": "{{current}} / {{next}} نور للمستوى التالي",
+    "devotionA11y": "مستوى التفاني {{level}}، {{noor}} نور إجمالي، {{current}} من {{next}} للمستوى التالي",
     "scheduleTitle": "جدول اليوم",
-    "scheduleNext": "التالية"
+    "scheduleNext": "التالية",
+    "scheduleCurrent": "الحالية",
+    "scheduleNextA11y": "{{name}} الساعة {{time}}، الصلاة التالية {{countdown}}",
+    "scheduleObligatory": "فرض",
+    "scheduleOptional": "نفل",
+    "scheduleAnyTime": "في أي وقت",
+    "scheduleFlexibleHint": "صلِّ في أي وقت خلال اليوم",
+    "scheduleGroupNight": "الليل والفجر",
+    "scheduleGroupMorning": "الصباح",
+    "scheduleGroupDay": "بعد الظهر",
+    "scheduleGroupEvening": "المساء",
+    "scheduleGroupFlexible": "في أي وقت",
+    "continueTitle": "تابع من حيث توقفت",
+    "continueSubtitle": "ارجع إلى ما كنت تقرأه أو تستمع إليه",
+    "continueLastOpened": "آخر فتح {{time}}",
+    "continueDismissA11y": "إخفاء ومسح سجل المتابعة",
+    "continueListening": "صوت",
+    "continueWhen": {
+      "justNow": "الآن",
+      "minutesAgo_one": "منذ {{count}} د",
+      "minutesAgo_other": "منذ {{count}} د",
+      "hoursAgo_one": "منذ {{count}} س",
+      "hoursAgo_other": "منذ {{count}} س",
+      "yesterday": "أمس",
+      "daysAgo_one": "منذ {{count}} يوم",
+      "daysAgo_other": "منذ {{count}} أيام"
+    },
+    "continueKind": {
+      "quran": "القرآن",
+      "hadith": "حديث",
+      "dua": "دعاء",
+      "zikr": "أذكار",
+      "durood": "صلوات",
+      "names": "أسماء الله",
+      "audio": "صوت"
+    },
+    "continueAction": {
+      "quran": "متابعة القراءة",
+      "hadith": "العودة إلى الحديث",
+      "dua": "فتح الدعاء",
+      "zikr": "فتح الذكر",
+      "durood": "العودة إلى الصلوات",
+      "names": "العودة إلى الأسماء",
+      "audio": "العودة إلى الصوت",
+      "listening": "متابعة الاستماع"
+    }
   },
   "tracker": {
     "eyebrow": "سجّل وتابِع",
@@ -78,7 +149,9 @@
     "almostThere": "اقتربت من الإتمام",
     "summaryLogged": "سُجّلت {{completed}} من {{total}} صلوات فرض اليوم.",
     "streakLine": "🔥 تتابع {{count}} يوم",
-    "streakLabel": "تتابع {{count}} يوم"
+    "streakLabel": "تتابع {{count}} يوم",
+    "qazaTargets": "أهداف القضاء",
+    "qazaTargetsProgress": "{{done}} من {{total}} قضاء اليوم"
   },
   "settings": {
     "eyebrow": "خصّص",
@@ -96,6 +169,8 @@
     "fontsSub": "حجم النص العربي والترجمة",
     "language": "اللغة",
     "languageSub": "لغة التطبيق والترجمة",
+    "timeFormat": "تنسيق الوقت",
+    "timeFormatSub": "ساعة 12 أو 24",
     "achievements": "الإنجازات",
     "achievementsSub": "المحطّات والأوسمة",
     "qibla": "القبلة",
@@ -152,7 +227,19 @@
     "min": "دقيقة",
     "increase": "زيادة {{unit}}",
     "decrease": "إنقاص {{unit}}",
-    "hint": "يُحفظ تلقائياً · نظام 24 ساعة"
+    "hint": "يُحفظ تلقائياً · {{preview}}"
+  },
+  "timeFormat": {
+    "title": "تنسيق الوقت",
+    "subtitle": "كيف تظهر الأوقات في التطبيق",
+    "hint": "يُطبَّق على أوقات الصلاة والتذكيرات والجداول ووقت النوم",
+    "option12": "12 ساعة",
+    "option24": "24 ساعة",
+    "example12": "مثال: 2:30 م",
+    "example24": "مثال: 14:30",
+    "am": "ص",
+    "pm": "م",
+    "footer": "يُحفظ اختيارك تلقائياً ويُستخدم في كل الأوقات المعروضة."
   },
   "notif": {
     "eyebrow": "الإعدادات",
@@ -190,6 +277,10 @@
         "title": "تذكيرات الصلاة",
         "subtitle": "تنبيهات حول وقت كل صلاة"
       },
+      "sunnahPrayer": {
+        "title": "السنن والنوافل",
+        "subtitle": "التهجد والإشراق والضحى ونوافذ أخرى"
+      },
       "qaza": {
         "title": "تذكيرات القضاء",
         "subtitle": "حافِظ على وتيرة قضاء الصلوات"
@@ -222,6 +313,19 @@
         "title": "الإنجازات",
         "subtitle": "احتفِ بالتتابع والأوسمة"
       }
+    },
+    "prayerAlertsObligatory": "تنبيهات الصلوات الفرض",
+    "prayerAlertsSunnah": "تنبيهات السنن والنوافل",
+    "prayerAlertItems": {
+      "fajr": { "subtitle": "تنبيه وقت الفجر" },
+      "dhuhr": { "subtitle": "تنبيه وقت الظهر" },
+      "asr": { "subtitle": "تنبيه وقت العصر" },
+      "maghrib": { "subtitle": "تنبيه وقت المغرب" },
+      "isha": { "subtitle": "تنبيه وقت العشاء" },
+      "witr": { "subtitle": "تنبيه وقت الوتر" },
+      "tahajjud": { "subtitle": "تنبيه في الثلث الأخير من الليل" },
+      "ishraq": { "subtitle": "تنبيه عند وقت الإشراق" },
+      "duha": { "subtitle": "تنبيه في وقت الضحى" }
     }
   },
   "fonts": {
@@ -419,12 +523,90 @@
     "tahiyyatul_masjid": "تحية المسجد",
     "hajat_istikhara": "الحاجة والاستخارة"
   },
+  "prayerInfo": {
+    "about": "نبذة",
+    "why": "لماذا نصلّيها",
+    "benefits": "الفوائد",
+    "references": "المراجع",
+    "quranRef": "القرآن",
+    "viewHadith": "عرض الحديث كاملاً",
+    "viewAyah": "عرض في القرآن",
+    "infoA11y": "تعرّف على {{prayer}}",
+    "infoHint": "يفتح التفاصيل والفوائد والمراجع",
+    "learnMore": "اعرف المزيد",
+    "tahajjud": {
+      "summary": "صلاة الليل في الثلث الأخير منه قبل الفجر.",
+      "why": "ينزل الله إلى السماء الدنيا في الثلث الأخير ويسأل من يدعوه. وكان النبي ﷺ يصلّيها ولو كانت نافلةً عنه.",
+      "benefits": "تقرب إلى الله وتلين القلب، وهي سنة الصالحين. وقت يُستجاب فيه الدعاء."
+    },
+    "fajr": {
+      "summary": "صلاة الفجر — أول الصلوات الخمس المفروضة.",
+      "why": "أمر الله بإقام الصلاة طرفي النهار؛ والفجر بداية يوم المسلم ولم يتركه النبي ﷺ في جماعة أو فرادى.",
+      "benefits": "من صلى الفجر فهو في ذمة الله. تشهدها ملائكة الليل والنهار وتجلب نوراً لبقية اليوم."
+    },
+    "sunrise": {
+      "summary": "وقت طلوع الشمس — علامة زمنية وليست صلاة.",
+      "why": "تُمنع الصلاة عند طلوع الشمس (وعند الزوال والغروب) لئلا نشبه عبدة الشمس. معرفة الشروق يُوقّت الإشراق ويُجنّب أوقات الكراهة.",
+      "benefits": "التأمل في آيات الله في السماء يزيد التقوى ويُنظّم صلوات الصباح."
+    },
+    "ishraq": {
+      "summary": "ركعتان سنة بعد ارتفاع الشمس (نحو 15–20 دقيقة بعد الشروق).",
+      "why": "قال النبي ﷺ: من صلى الفجر في جماعة ثم جلس يذكر الله حتى تطلع الشمس ثم صلى ركعتين كتب له أجر حجة وعمرة.",
+      "benefits": "أجر عظيم بجهد يسير مع جماعة الفجر. بداية هادئة لليوم بالذكر والنافلة."
+    },
+    "duha": {
+      "summary": "صلاة الضحى — عادة ركعتان إلى ثمانٍ بين الشروق والظهر.",
+      "why": "في كل مفصل صدقة كل يوم؛ ولو ركعتان من الضحى تكفي صدقة الجوارح بالعبادة.",
+      "benefits": "تُكفّر الذنوب وتُجلب الرزق وتُحيي سنة مهجورة. وقتها مرن يناسب انشغال النهار."
+    },
+    "dhuhr": {
+      "summary": "صلاة الظهر — الثانية من الفرائض عند زوال الشمس.",
+      "why": "فُرضت الصلوات الخمس في الإسراء؛ والظهر يقطع انشغال النهار بذكر الله.",
+      "benefits": "أول ما يُحاسب عليه العبد يوم القيامة الصلاة. حفظ الظهر يحمي سائر الأعمال."
+    },
+    "asr": {
+      "summary": "صلاة العصر — الصلاة الوسطى المؤكّد عليها في القرآن.",
+      "why": "حذّر الله من ضياع الصلاة الوسطى. وقتها كثيراً ما يشتغل فيه الناس أو يُعيّون، فحفظها علامة صدق.",
+      "benefits": "من فاتته العصر فكأنما وُتِر أهله وماله — لعظم شأنها. تقوّي الانضباط في اليوم."
+    },
+    "maghrib": {
+      "summary": "صلاة المغرب — مباشرة بعد غروب الشمس.",
+      "why": "وقتها يفتح عند الغروب؛ التأخير بلا عذر يُخاطر بفوات أفضل الوقت. حذّر النبي ﷺ من إهمال الصلاة حتى تغرب الشمس.",
+      "benefits": "شكر عند ختام النهار، ومن أوّل ما أكّد عليه النبي ﷺ أصحابه."
+    },
+    "isha": {
+      "summary": "صلاة العشاء — آخر الفرائض بعد غياب الشفق.",
+      "why": "تُتمّ دورة العبادة اليومية. قال النبي ﷺ: من صلى العشاء في جماعة كأنما قام نصف الليل.",
+      "benefits": "هدوء قبل النوم وإتمام فرائض اليوم، وتُقرّب من الوتر لمن سنّه."
+    },
+    "witr": {
+      "summary": "صلاة الوتر — ركعة أو ثلاث (عدد فردي) بعد العشاء قبل الفجر.",
+      "why": "قال النبي ﷺ: إن الله وتر يحب الوتر، فأوتروا. ولم يتركه حتى في السفر.",
+      "benefits": "علامة على عبادة الليل. ختام اليوم بعدد فردي يليق باسم الله الوتر وسنة النبي ﷺ."
+    },
+    "tahiyyatul_masjid": {
+      "summary": "ركعتان تحية المسجد عند الدخول قبل الجلوس.",
+      "why": "إذا دخل أحدكم المسجد فلا يجلس حتى يصلّي ركعتين — توجيه مباشر من النبي ﷺ.",
+      "benefits": "تكريم بيت الله، تهيئة القلب للجماعة أو الخلوة، واستبدال الجلوس بخير فوري."
+    },
+    "hajat_istikhara": {
+      "summary": "صلوات نافلة للحاجة والاستخارة عند الحاجة أو اتخاذ قرار.",
+      "why": "الاستخارة سؤال الله أن يختار لك الخير. صلاة الحاجة عرض الحاجة على الله بالصلاة مع الدعاء.",
+      "benefits": "تقوّي التوكل بدل القلق وحده. الاستخارة تُفتح البصيرة، والحاجة تربط العبادة بالسؤال — والله يجيب الداعي."
+    }
+  },
   "stats": {
     "remaining": "المتبقّي",
     "madeUp": "المقضيّة",
     "completed": "المكتملة",
     "missed": "الفائتة",
-    "categories": "الفئات"
+    "categories": "الفئات",
+    "delayed": "مؤجَّلة",
+    "qazaLogged": "قضاء مسجَّل",
+    "perfectDays": "أيام كاملة",
+    "activeDays": "أيام نشطة",
+    "madeUpPeriod": "هذه الفترة",
+    "total": "الإجمالي"
   },
   "qaza": {
     "eyebrow": "قضاء العبادات",
@@ -435,8 +617,45 @@
     "roza": "الصيام",
     "perPrayer": "لكل صلاة",
     "rowMeta": "{{remaining}} متبقّية · {{completed}} مقضيّة",
+    "rowMetaWithDaily": "{{remaining}} متبقّية · {{completed}} مقضيّة · اليوم {{done}}/{{target}}",
+    "dailySchedule": "الجدول اليومي",
+    "dailyScheduleHint": "حدّد عدد كل صلاة تنوي قضاءها يومياً. يُحتسب التقدّم ضمن قائمة مهام اليوم.",
+    "dailyTotal": "{{count}} قضاء / يوم",
+    "dailyProgress": "{{done}} / {{target}} اليوم",
+    "dailyTargetHint": "حدّد هدفاً يومياً",
+    "dailyTargetA11y": "هدف قضاء يومي لصلاة {{prayer}}",
     "markPerformed": "تسجيل قضاء صلاة {{prayer}}",
-    "hint": "اضغط علامة الصح لتسجيل صلاة مقضيّة. تفويت صلاة في المتابعة يزيد هذه الأعداد تلقائياً."
+    "resetPrayer": "إعادة ضبط عداد قضاء {{prayer}}",
+    "resetAll": "إعادة ضبط كل العدادات",
+    "confirmDecrementTitle": "تقليل العدد المتبقّي؟",
+    "confirmDecrementMsg": "خفض عدد قضاء {{prayer}} المتبقّي إلى {{remaining}}؟",
+    "confirmIncrementTitle": "زيادة العدد المتبقّي؟",
+    "confirmIncrementMsg": "رفع عدد قضاء {{prayer}} المتبقّي إلى {{remaining}}؟",
+    "confirmPerformTitle": "تسجيل قضاء مؤدّى؟",
+    "confirmPerformMsg": "تسجيل قضاء واحد لصلاة {{prayer}}؟",
+    "confirmResetPrayerTitle": "إعادة ضبط هذا العداد؟",
+    "confirmResetPrayerMsg": "مسح العدد المتبقّي والمقضيّ لصلاة {{prayer}}؟ لا يمكن التراجع.",
+    "confirmResetAllTitle": "إعادة ضبط كل العدادات؟",
+    "confirmResetAllMsg": "مسح كل أعداد القضاء ({{remaining}} متبقّية، {{completed}} مقضيّة)؟ لا يمكن التراجع.",
+    "hint": "اضغط علامة الصح لتسجيل صلاة مقضيّة. تفويت صلاة في المتابعة يزيد هذه الأعداد تلقائياً.",
+    "witrNote": {
+      "title": "هل قضاء الوتر واجب؟",
+      "intro": "عند جمهور العلماء، قضاء الوتر الفائت جائز، لكن هل هو واجب يعتمد على المذهب الفقهي.",
+      "hanafiTitle": "المذهب الحنفي",
+      "hanafiBody": "الوتر واجب. إن فاتَ يجب قضاؤه. صلّه عند التذكّر في أقرب وقت — ولو بعد أيام أو أسابيع. هذا مذهب كثير من المسلمين في جنوب آسيا وآسيا الوسطى وتركيا.",
+      "othersTitle": "الشافعي والمالكي والحنبلي",
+      "othersBody": "الوتر سنة مؤكّدة وليس فرضاً. قضاؤه مستحب لا واجب. كان النبي ﷺ يقضي صلاة الليل إذا فاتته من نوم أو مرض.",
+      "evidenceTitle": "الدليل",
+      "evidenceBody": "قال النبي ﷺ: «من نام عن الوتر أو نسيَه فليصلّه إذا ذكره.» (الترمذي وابن ماجه — ويختلف العلماء في درجة الحديث.) وفي صحيح مسلم: إذا فاتته صلاة الليل لمرض أو نوم قضاها نهاراً بركعتين زوج.",
+      "tableHeader": "ملخّص حسب المذهب",
+      "rows": {
+        "hanafi": "حنفي — واجب — القضاء مطلوب",
+        "shafii": "شافعي — سنة مؤكّدة — مستحب",
+        "maliki": "مالكي — سنة مؤكّدة — مستحب",
+        "hanbali": "حنبلي — سنة مؤكّدة — مستحب"
+      },
+      "footer": "يُحسب الوتر الفائت ضمن القضاء لجميع المستخدمين. اعتبره واجباً إن كنت حنفياً، وإلا فتتبّعه كقضاء مستحب. استشر عالماً بحسب حالتك."
+    }
   },
   "qazaCalc": {
     "eyebrow": "القضاء",
@@ -462,7 +681,24 @@
     "title": "المخطّط",
     "subtitle": "حدّد وتيرة يومية لإنهاء ما تراكم عليك",
     "prayersPerDay": "صلوات / يوم",
-    "daysToClear": "أيام للإنهاء",
+    "daysToClear": "للإنهاء",
+    "durationYears_one": "سنة واحدة",
+    "durationYears_two": "سنتان",
+    "durationYears_few": "{{count}} سنوات",
+    "durationYears_many": "{{count}} سنة",
+    "durationYears_other": "{{count}} سنة",
+    "durationMonths_one": "شهر واحد",
+    "durationMonths_two": "شهران",
+    "durationMonths_few": "{{count}} أشهر",
+    "durationMonths_many": "{{count}} شهراً",
+    "durationMonths_other": "{{count}} شهر",
+    "durationDays_one": "يوم واحد",
+    "durationDays_two": "يومان",
+    "durationDays_few": "{{count}} أيام",
+    "durationDays_many": "{{count}} يوماً",
+    "durationDays_other": "{{count}} يوم",
+    "durationTwo": "{{first}} و{{second}}",
+    "durationThree": "{{first}} و{{second}} و{{third}}",
     "etaCaption": "بهذه الوتيرة، تُقضى {{count}} صلاة بحلول {{date}}.",
     "etaEmpty": "حدّد هدفاً يومياً بالأسفل لتقدير تاريخ الإنجاز.",
     "dailyTargets": "الأهداف اليومية",
@@ -505,15 +741,40 @@
   "statistics": {
     "eyebrow": "رؤى",
     "title": "الإحصاءات",
-    "subtitle": "اتجاهات الصلاة والقضاء والذكر",
+    "subtitle": "التقدّم مدى الحياة، لمحة اليوم، والاتجاهات عبر الزمن",
+    "overview": "نظرة عامة",
+    "today": "اليوم",
+    "todayHint": "ما سُجِّل حتى الآن اليوم",
+    "trends": "الاتجاهات",
+    "periodWeek": "آخر ٧ أيام",
+    "periodMonth": "آخر ٣٠ يومًا",
+    "periodYear": "هذا العام",
+    "details": "التفاصيل",
+    "detailsHint": "تفصيل عند توفّر بيانات متتبَّعة",
+    "streak": "التتابع الحالي",
+    "totalPrayers": "الصلوات المسجَّلة",
+    "totalZikr": "جلسات الذكر",
+    "perfectDays": "أيام كاملة",
+    "viewAchievements": "عرض الإنجازات",
+    "todayPrayers": "الصلاة",
+    "todayZikr": "الذكر",
+    "todayQaza": "القضاء",
     "week": "أسبوع",
     "month": "شهر",
     "year": "سنة",
     "prayerCompletion": "إتمام الصلاة",
     "prayer": "الصلاة",
+    "consistency": "الانتظام",
     "qaza": "القضاء",
     "roza": "الصيام",
-    "zikr": "الذكر"
+    "zikr": "الذكر",
+    "perPrayer": "لكل صلاة",
+    "zikrBreakdown": "الذكر حسب الفئة",
+    "reading": "القراءة",
+    "quranSurahs": "سور بدأتها",
+    "quranBookmarks": "إشارات مرجعية للقرآن",
+    "hadithBookmarks": "إشارات مرجعية للحديث",
+    "quranProgress": "تقدّم القرآن"
   },
   "prayerStatus": {
     "pending": "معلّقة",
@@ -614,11 +875,29 @@
     }
   },
   "achievements": {
-    "eyebrow": "المحطّات",
-    "subtitle": "{{unlocked}} من {{total}} مفتوحة",
+    "eyebrow": "التقدّم",
+    "subtitleLoading": "جاري تحميل رحلتك…",
+    "subtitleProgress": "مستوى التفاني {{level}} · {{milestones}} محطة مفتوحة",
+    "devotion": "التفاني",
+    "devotionLevel": "المستوى {{level}}",
+    "devotionNoor": "{{current}} / {{next}} نور للمستوى التالي",
+    "devotionHint": "ينمو النور من الصلاة والقضاء والذكر والأيام الكاملة وسلسلة أيامك.",
+    "activeGoals": "الأهداف التالية",
+    "activeGoalsHint": "خمس مسارات — لكل منها هدف جديد دائماً.",
+    "milestonesReached": "المحطات المفتوحة",
+    "milestonesReachedHint": "{{count}} محطة حتى الآن — والعدد يزداد.",
+    "level": "م {{level}}",
+    "tracks": {
+      "salah": "الصلاة",
+      "streak": "السلسلة",
+      "qaza": "القضاء",
+      "roza": "الصيام",
+      "zikr": "الذكر",
+      "consistency": "الانتظام"
+    },
     "share": "مشاركة",
     "shareMessage": "الحمد لله — فتحت \"{{title}}\" في منيب تراكر: {{description}}.",
-    "unlockedToast": "إنجاز مفتوح: {{name}}"
+    "unlockedToast": "محطة جديدة: {{name}}"
   },
   "notifCenter": {
     "eyebrow": "التذكيرات",
@@ -649,6 +928,17 @@
     "compassLabel": "بوصلة القبلة",
     "compassValue": "{{bearing}} درجة نحو الكعبة، على بُعد {{distance}}",
     "aligned": "محاذٍ للقبلة",
+    "alignedHint": "ثبّت الجهاز — أنت مستقبل الكعبة",
+    "turnFineTuneLeft": "حرّك يساراً قليلاً",
+    "turnFineTuneRight": "حرّك يميناً قليلاً",
+    "turnSlightLeft": "يساراً قليلاً",
+    "turnSlightRight": "يميناً قليلاً",
+    "turnLeft": "در يساراً",
+    "turnRight": "در يميناً",
+    "degreesOff": "انحراف {{deg}}°",
+    "rotatePhone": "أمسك الهاتف مستوياً ثم اتبع السهم",
+    "bearingLabel": "زاوية القبلة",
+    "distanceLabel": "المسافة",
     "cardinalN": "شمال",
     "cardinalE": "شرق",
     "cardinalS": "جنوب",

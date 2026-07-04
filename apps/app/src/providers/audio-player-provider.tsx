@@ -10,8 +10,9 @@ import {
   useState,
 } from "react";
 import { Platform } from "react-native";
-
+import { buildAudioActivity } from "@/lib/continue-activity";
 import { triggerHaptic } from "@/lib/haptics";
+import { recordContinueActivity } from "@/stores/continue-store";
 import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
 export type AudioTrack = {
@@ -133,6 +134,13 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       setIndex(startIndex);
       setSourceHref(options?.sourceHref ?? null);
       playIndex(tracks, startIndex);
+
+      const track = tracks[startIndex];
+      const href = options?.sourceHref;
+      if (track && href) {
+        const activity = buildAudioActivity(href, track);
+        if (activity) recordContinueActivity(activity);
+      }
     },
     [playIndex],
   );

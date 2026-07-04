@@ -1,3 +1,4 @@
+import { getLocalDateString } from "@munib-tracker/shared/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { PrayerRepository, PreferencesRepository, QazaRepository } from "@/db";
@@ -36,6 +37,34 @@ describe("QazaRepository", () => {
     const counter = await QazaRepository.getCounter("fajr");
     expect(counter.remaining).toBe(0);
     expect(counter.completed).toBe(1);
+  });
+
+  it("persists a recurring schedule and daily progress", async () => {
+    await QazaRepository.setSchedule({ targets: { fajr: 2, dhuhr: 1 } });
+    const schedule = await QazaRepository.getSchedule();
+    expect(schedule.targets.fajr).toBe(2);
+    expect(schedule.targets.dhuhr).toBe(1);
+
+    await QazaRepository.setCounter("fajr", 5, 0);
+    await QazaRepository.performQaza("fajr");
+    const progress = await QazaRepository.getDailyProgress(getLocalDateString());
+    expect(progress.completed.fajr).toBe(1);
+  });
+
+  it("resets one or all counters", async () => {
+    await QazaRepository.setCounter("fajr", 3, 2);
+    await QazaRepository.setCounter("dhuhr", 1, 4);
+    await QazaRepository.resetCounter("fajr");
+    expect(await QazaRepository.getCounter("fajr")).toMatchObject({
+      remaining: 0,
+      completed: 0,
+    });
+    expect((await QazaRepository.getCounter("dhuhr")).remaining).toBe(1);
+
+    const counters = await QazaRepository.resetAllCounters();
+    expect(counters.every((counter) => counter.remaining === 0 && counter.completed === 0)).toBe(
+      true,
+    );
   });
 });
 

@@ -50,5 +50,5 @@ export async function listScheduled(
   location: StoredLocation = DEFAULT_LOCATION,
 ): Promise<{ id: string; title: string; body: string; time?: string }[]> {
   if (!prefs.notificationPrefs.masterEnabled) return [];
-  return summarizeReminders(buildReminders(prefs, location));
+  return summarizeReminders(buildReminders(prefs, location), prefs.timeFormat);
 }

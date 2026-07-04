@@ -1,6 +1,6 @@
 import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Share, StyleSheet, TextInput, View } from "react-native";
 
@@ -18,8 +18,11 @@ import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useRemoteCollection } from "@/hooks/use-hadith";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getBundledCollection, getBundledCollectionData, searchHadiths } from "@/lib/hadith";
+import { buildHadithActivity, buildHadithCollectionActivity } from "@/lib/continue-activity";
+import { getBundledCollection, getBundledCollectionData } from "@/lib/hadith";
+import { createHadithSearch } from "@/lib/search";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
 
 /** Build the plain-text body shared for a hadith (arabic + english + reference). */
@@ -46,6 +49,10 @@ export default function HadithCollectionScreen() {
   const sections = data?.sections ?? [];
   const allItems = data?.items ?? [];
 
+  // Fuzzy index over this collection's hadith, rebuilt only when the item list
+  // changes (a remote collection can hold thousands — don't rebuild per keystroke).
+  const hadithIndex = useMemo(() => createHadithSearch(allItems), [allItems]);
+
   // Seed the in-collection search from a `q` param (e.g. arriving from universal
   // search) so the matched hadith is already filtered into view.
   const [query, setQuery] = useState(params.q ?? "");
@@ -64,14 +71,22 @@ export default function HadithCollectionScreen() {
     };
   }, []);
 
+  useFocusEffect(
+    useCallback(() => {
+      if (collection) {
+        recordContinueActivity(buildHadithCollectionActivity(collectionId, collection.nameEnglish));
+      }
+    }, [collection, collectionId]),
+  );
+
   // What to show: the section list, or a filtered list of hadith.
   const showSectionList = sections.length > 0 && !sectionId && !searching;
 
   const listItems = useMemo(() => {
-    if (searching) return searchHadiths(allItems, query);
+    if (searching) return hadithIndex.search(query);
     if (sectionId) return allItems.filter((h) => h.chapterId === sectionId);
     return allItems;
-  }, [allItems, query, sectionId, searching]);
+  }, [allItems, hadithIndex, query, sectionId, searching]);
   const shown = listItems.slice(0, visible);
 
   const activeSection = sections.find((s) => s.id === sectionId);
@@ -136,28 +151,33 @@ export default function HadithCollectionScreen() {
             description={t("hadith.offlineDesc")}
           />
         ) : (
-          <>
-            <Card padding="three">
-              <TextInput
-                value={query}
-                onChangeText={(text) => {
-                  setQuery(text);
-                  resetPage();
-                }}
-                placeholder={t("hadith.searchPlaceholder")}
-                placeholderTextColor={colors.mutedForeground}
-                accessibilityLabel={t("hadith.searchPlaceholder")}
-                style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {showSectionList
-                  ? t("hadith.bookCount", { count: sections.length })
-                  : t("hadith.hadithCount", { count: listItems.length })}
-              </ThemedText>
+          <View style={styles.contentStack}>
+            <Card padding="four" style={showSectionList ? undefined : styles.readingColumn}>
+              <View style={styles.searchCard}>
+                <TextInput
+                  value={query}
+                  onChangeText={(text) => {
+                    setQuery(text);
+                    resetPage();
+                  }}
+                  placeholder={t("hadith.searchPlaceholder")}
+                  placeholderTextColor={colors.mutedForeground}
+                  accessibilityLabel={t("hadith.searchPlaceholder")}
+                  style={[
+                    styles.input,
+                    { backgroundColor: colors.muted, color: colors.foreground },
+                  ]}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {showSectionList
+                    ? t("hadith.bookCount", { count: sections.length })
+                    : t("hadith.hadithCount", { count: listItems.length })}
+                </ThemedText>
+              </View>
             </Card>
 
             {showSectionList ? (
-              <Card padding="three">
+              <Card padding="four">
                 <View style={styles.list}>
                   {sections.map((section) => (
                     <SectionRow
@@ -178,11 +198,12 @@ export default function HadithCollectionScreen() {
                 description={t("hadith.emptyDesc")}
               />
             ) : (
-              <View style={styles.list}>
+              <View style={styles.hadithList}>
                 {shown.map((item) => (
                   <HadithCard
                     key={item.id}
                     item={item}
+                    collectionName={collection.nameEnglish}
                     isBookmarked={bookmarked.has(item.id)}
                     onBookmark={() => toggleBookmark(item)}
                   />
@@ -195,10 +216,11 @@ export default function HadithCollectionScreen() {
                 label={t("hadith.loadMore")}
                 variant="secondary"
                 fullWidth
+                style={styles.readingColumn}
                 onPress={() => setVisible((v) => v + PAGE_SIZE)}
               />
             ) : null}
-          </>
+          </View>
         )}
       </Stagger>
     </ScreenLayout>
@@ -218,10 +240,12 @@ function SectionRow({ section, onPress }: { section: HadithSection; onPress: () 
 
 function HadithCard({
   item,
+  collectionName,
   isBookmarked,
   onBookmark,
 }: {
   item: HadithItem;
+  collectionName: string;
   isBookmarked: boolean;
   onBookmark: () => void;
 }) {
@@ -230,9 +254,16 @@ function HadithCard({
   const audio = useAudioPlayerContext();
   const { fontPrefs } = usePreferences();
   const arabicSize = fontPrefs.arabic.size;
+  const textSize = fontPrefs.translation.size;
 
   const onShare = () => {
+    recordContinueActivity(buildHadithActivity(item, collectionName));
     void Share.share({ message: hadithShareMessage(item) });
+  };
+
+  const onBookmarkPress = () => {
+    recordContinueActivity(buildHadithActivity(item, collectionName));
+    onBookmark();
   };
 
   return (
@@ -259,14 +290,20 @@ function HadithCard({
               accessibilityLabel={t("common.play")}
               onPress={() =>
                 item.audioUri &&
-                audio.play([
+                audio.play(
+                  [
+                    {
+                      id: item.id,
+                      title: item.reference,
+                      subtitle: item.narrator,
+                      uri: item.audioUri,
+                    },
+                  ],
+                  0,
                   {
-                    id: item.id,
-                    title: item.reference,
-                    subtitle: item.narrator,
-                    uri: item.audioUri,
+                    sourceHref: `/hadith/${item.collection}?q=${encodeURIComponent(item.reference)}`,
                   },
-                ])
+                )
               }
             />
           ) : null}
@@ -287,21 +324,24 @@ function HadithCard({
             tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
             accessibilityLabel={isBookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd")}
             accessibilityState={{ selected: isBookmarked }}
-            onPress={onBookmark}
+            onPress={onBookmarkPress}
           />
         </View>
       </View>
 
       {item.arabic ? (
-        <ThemedText
-          type="arabic"
-          style={[
-            styles.arabic,
-            arabicSize ? { fontSize: arabicSize, lineHeight: arabicSize * 1.8 } : null,
-          ]}
-        >
-          {item.arabic}
-        </ThemedText>
+        <>
+          <ThemedText
+            type="arabic"
+            style={[
+              styles.arabic,
+              arabicSize ? { fontSize: arabicSize, lineHeight: arabicSize * 1.8 } : null,
+            ]}
+          >
+            {item.arabic}
+          </ThemedText>
+          <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+        </>
       ) : null}
 
       {item.narrator ? (
@@ -310,29 +350,50 @@ function HadithCard({
         </ThemedText>
       ) : null}
 
-      <ThemedText type="default" style={styles.english}>
+      <ThemedText
+        type="default"
+        style={[
+          styles.english,
+          textSize ? { fontSize: textSize, lineHeight: textSize * 1.6 } : null,
+        ]}
+      >
         {item.english}
       </ThemedText>
     </Card>
   );
 }
 
+/** Comfortable line length for long-form hadith reading on wide screens. */
+const HadithReadingMaxWidth = 720;
+
 const styles = StyleSheet.create({
+  contentStack: { gap: Spacing.four, width: "100%" },
+  searchCard: { gap: Spacing.three },
   input: {
     borderRadius: Radius.md,
     borderCurve: "continuous",
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.three,
-    marginBottom: Spacing.two,
     fontSize: 15,
   },
   list: { gap: Spacing.two },
+  hadithList: {
+    gap: Spacing.three,
+    width: "100%",
+    maxWidth: HadithReadingMaxWidth,
+    alignSelf: "center",
+  },
+  readingColumn: {
+    width: "100%",
+    maxWidth: HadithReadingMaxWidth,
+    alignSelf: "center",
+  },
   cardHeader: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    marginBottom: Spacing.three,
-    gap: Spacing.two,
+    marginBottom: Spacing.four,
+    gap: Spacing.three,
   },
   cardRef: {
     flex: 1,
@@ -341,8 +402,13 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     flexWrap: "wrap",
   },
-  cardActions: { flexDirection: "row", alignItems: "center", marginRight: -Spacing.two },
-  arabic: { writingDirection: "rtl", textAlign: "right", fontSize: 22, lineHeight: 42 },
-  narrator: { marginTop: Spacing.three, fontStyle: "italic" },
-  english: { marginTop: Spacing.two },
+  cardActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+  },
+  arabic: { writingDirection: "rtl", textAlign: "right" },
+  divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.four },
+  narrator: { fontStyle: "italic" },
+  english: { marginTop: Spacing.three, lineHeight: 26 },
 });

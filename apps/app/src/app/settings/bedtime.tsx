@@ -7,26 +7,42 @@ import { Pressable, StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { formatHhMm, parseHhMm } from "@/lib/time";
+import { useTimeFormat } from "@/hooks/use-time-format";
+import {
+  type DayPeriod,
+  formatHhMm,
+  formatStoredTime,
+  from12HourParts,
+  parseHhMm,
+  to12HourParts,
+} from "@/lib/time";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 export default function BedtimeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
+  const timeFormat = useTimeFormat();
   const { update } = usePreferencesActions();
   const [{ hour: h, minute: m }, setTime] = useState(() =>
     parseHhMm(prefs.bedtime, { hour: 22, minute: 30 }),
   );
+  const [period, setPeriod] = useState<DayPeriod>(() => to12HourParts(h).period);
 
-  const apply = (nextH: number, nextM: number) => {
-    const wrappedH = (nextH + 24) % 24;
-    const wrappedM = (nextM + 60) % 60;
+  const apply24 = (hour24: number, minute: number) => {
+    const wrappedH = (hour24 + 24) % 24;
+    const wrappedM = (minute + 60) % 60;
     setTime({ hour: wrappedH, minute: wrappedM });
+    setPeriod(to12HourParts(wrappedH).period);
     void update({ bedtime: formatHhMm(wrappedH, wrappedM) });
   };
+
+  const hour12 = to12HourParts(h).hour;
+  const hourDisplay = timeFormat === "12" ? `${hour12}` : `${h}`.padStart(2, "0");
+  const minuteDisplay = `${m}`.padStart(2, "0");
 
   return (
     <ScreenLayout
@@ -38,21 +54,41 @@ export default function BedtimeScreen() {
       <Card style={styles.card}>
         <View style={styles.picker}>
           <TimeColumn
-            value={`${h}`.padStart(2, "0")}
+            value={hourDisplay}
             unitKey="hour"
-            onUp={() => apply(h + 1, m)}
-            onDown={() => apply(h - 1, m)}
+            onUp={() =>
+              timeFormat === "12"
+                ? apply24(from12HourParts(hour12 === 12 ? 1 : hour12 + 1, period), m)
+                : apply24(h + 1, m)
+            }
+            onDown={() =>
+              timeFormat === "12"
+                ? apply24(from12HourParts(hour12 === 1 ? 12 : hour12 - 1, period), m)
+                : apply24(h - 1, m)
+            }
           />
           <ThemedText type="display">:</ThemedText>
           <TimeColumn
-            value={`${m}`.padStart(2, "0")}
+            value={minuteDisplay}
             unitKey="min"
-            onUp={() => apply(h, m + 5)}
-            onDown={() => apply(h, m - 5)}
+            onUp={() => apply24(h, m + 5)}
+            onDown={() => apply24(h, m - 5)}
           />
         </View>
+        {timeFormat === "12" ? (
+          <SegmentedControl
+            options={[
+              { id: "AM" as DayPeriod, label: t("timeFormat.am") },
+              { id: "PM" as DayPeriod, label: t("timeFormat.pm") },
+            ]}
+            value={period}
+            onChange={(next) => apply24(from12HourParts(hour12, next), m)}
+          />
+        ) : null}
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-          {t("bedtime.hint")}
+          {t("bedtime.hint", {
+            preview: formatStoredTime(formatHhMm(h, m), timeFormat),
+          })}
         </ThemedText>
       </Card>
     </ScreenLayout>

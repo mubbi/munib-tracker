@@ -7,7 +7,7 @@ export function AchievementsSection() {
       variant="muted"
       eyebrow="Milestones"
       title="Celebrate progress on the journey"
-      description="Nine badges reward steady worship — gentle encouragement, never guilt."
+      description="Five infinite tracks and devotion levels — gentle encouragement that grows with you, never runs out."
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {APP_ACHIEVEMENTS.map((badge) => (

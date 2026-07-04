@@ -13,6 +13,7 @@ import {
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
 import { isLocalNotificationSupported } from "@/lib/notifications/platform";
+import { formatDisplayHhMm } from "@/lib/time";
 
 const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
@@ -148,7 +149,7 @@ export async function listScheduled(
 ): Promise<{ id: string; title: string; body: string; time?: string }[]> {
   if (!isNative) {
     if (!prefs.notificationPrefs.masterEnabled) return [];
-    return summarizeReminders(buildReminders(prefs, location));
+    return summarizeReminders(buildReminders(prefs, location), prefs.timeFormat);
   }
 
   const scheduled = await Notifications.getAllScheduledNotificationsAsync();
@@ -161,10 +162,10 @@ export async function listScheduled(
       } | null;
       let time: string | undefined;
       if (trigger && typeof trigger.hour === "number") {
-        time = `${`${trigger.hour}`.padStart(2, "0")}:${`${trigger.minute ?? 0}`.padStart(2, "0")}`;
+        time = formatDisplayHhMm(trigger.hour, trigger.minute ?? 0, prefs.timeFormat);
       } else if (trigger?.date != null) {
         const date = new Date(trigger.date);
-        time = `${`${date.getHours()}`.padStart(2, "0")}:${`${date.getMinutes()}`.padStart(2, "0")}`;
+        time = formatDisplayHhMm(date.getHours(), date.getMinutes(), prefs.timeFormat);
       }
       return {
         id: item.identifier,
@@ -176,5 +177,5 @@ export async function listScheduled(
   }
 
   if (!prefs.notificationPrefs.masterEnabled) return [];
-  return summarizeReminders(buildReminders(prefs, location));
+  return summarizeReminders(buildReminders(prefs, location), prefs.timeFormat);
 }

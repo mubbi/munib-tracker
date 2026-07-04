@@ -12,9 +12,8 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getBundledEdition, getSurahAyahs, getSurahMeta, getTransliteration } from "@/lib/quran";
+import { searchQuranAyahs } from "@/lib/search";
 
-const SEARCH_EDITION = "en-pickthall";
 const MAX_RESULTS = 40;
 const DEBOUNCE_MS = 200;
 
@@ -59,30 +58,17 @@ export default function QuranSearchScreen() {
     };
   }, [query, debounced]);
 
+  // Fuzzy, typo-tolerant search over the shared Qur'an ayah index (translation +
+  // transliteration), mapped to this screen's row shape.
   const results = useMemo<SearchHit[]>(() => {
-    const q = debounced.trim().toLowerCase();
-    if (q.length < 2) return [];
-    const hits: SearchHit[] = [];
-    for (const surah of getSurahMeta()) {
-      const translation = getBundledEdition(SEARCH_EDITION, surah.number);
-      const translit = getTransliteration(surah.number);
-      const ayahs = getSurahAyahs(surah.number);
-      for (let a = 1; a <= surah.ayahCount; a++) {
-        const text = translation[String(a)] ?? "";
-        const tr = translit[String(a)] ?? "";
-        if (text.toLowerCase().includes(q) || tr.toLowerCase().includes(q)) {
-          hits.push({
-            surah: surah.number,
-            ayah: a,
-            surahName: surah.nameTransliteration,
-            text,
-            arabic: ayahs[a - 1]?.arabic ?? "",
-          });
-          if (hits.length >= MAX_RESULTS) return hits;
-        }
-      }
-    }
-    return hits;
+    if (debounced.trim().length < 2) return [];
+    return searchQuranAyahs(debounced, MAX_RESULTS).results.map((hit) => ({
+      surah: Number(hit.params?.surah),
+      ayah: Number(hit.params?.ayah),
+      surahName: hit.title,
+      text: hit.subtitle ?? "",
+      arabic: hit.arabic ?? "",
+    }));
   }, [debounced]);
 
   const showEmpty = !pending && debounced.trim().length >= 2 && results.length === 0;

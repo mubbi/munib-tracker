@@ -2,7 +2,7 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
-import Animated, {
+import {
   Easing,
   interpolate,
   useAnimatedStyle,
@@ -15,6 +15,7 @@ import Animated, {
 import { MoonPhaseIcon } from "@/components/moon-phase";
 import { MoonPhaseSheet } from "@/components/moon-phase-sheet";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
+import { SkyGradientLayer } from "@/components/sky-gradient-layer";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
@@ -22,6 +23,8 @@ import { Durations } from "@/constants/motion";
 import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import type { SkyPalette } from "@/lib/sky";
+
+import { heroMotionClasses } from "./prayer-times-hero-motion";
 
 export type PrayerTime = {
   name: string;
@@ -75,10 +78,11 @@ const STARS = [
 
 /**
  * The full-bleed home header and emotional centrepiece. A layered gradient sky
- * (native, no SVG) shifts with the time of day, a soft celestial glow breathes
- * overhead (sun by day, moon by night), and a mosque silhouette rises from the
- * base. The current moon phase sits beside the lunar (Hijri) date; the sky's
- * accent marks the live prayer and location.
+ * (native, no SVG) shifts with the time of day, the layers drift on a very slow
+ * loop for a live-wallpaper feel, a soft celestial glow breathes overhead (sun
+ * by day, moon by night), and a mosque silhouette rises from the base. The
+ * current moon phase sits beside the lunar (Hijri) date; the sky's accent marks
+ * the live prayer and location.
  */
 export function PrayerTimesHero({
   location,
@@ -100,19 +104,39 @@ export function PrayerTimesHero({
   const { t } = useTranslation();
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
+  const drift = useSharedValue(0);
   const [moonOpen, setMoonOpen] = useState(false);
 
   useEffect(() => {
-    if (reducedMotion) return;
-    breath.value = withRepeat(
-      withTiming(1, { duration: Durations.ambient, easing: Easing.inOut(Easing.sin) }),
-      -1,
-      true,
-    );
-  }, [reducedMotion, breath]);
+    if (Platform.OS === "web" || reducedMotion) return;
+    const easing = Easing.inOut(Easing.sin);
+    breath.value = withRepeat(withTiming(1, { duration: Durations.ambient, easing }), -1, true);
+    drift.value = withRepeat(withTiming(1, { duration: Durations.wallpaper, easing }), -1, true);
+  }, [reducedMotion, breath, drift]);
+
+  const baseSkyStyle = useAnimatedStyle(() => ({
+    transform: [
+      { scale: interpolate(drift.value, [0, 1], [1, 1.055]) },
+      { translateX: interpolate(drift.value, [0, 1], [0, 10]) },
+      { translateY: interpolate(drift.value, [0, 1], [0, -12]) },
+    ],
+  }));
+
+  const horizonStyle = useAnimatedStyle(() => ({
+    transform: [
+      { scale: interpolate(drift.value, [0, 1], [1.02, 1.065]) },
+      { translateX: interpolate(drift.value, [0, 1], [-7, 7]) },
+      { translateY: interpolate(drift.value, [0, 1], [7, -7]) },
+    ],
+  }));
 
   const glowStyle = useAnimatedStyle(() => ({
     opacity: interpolate(breath.value, [0, 1], [0.55, 0.95]),
+    transform: [
+      { scale: interpolate(breath.value, [0, 1], [1, 1.08]) },
+      { translateX: interpolate(drift.value, [0, 1], [-5, 5]) },
+      { translateY: interpolate(drift.value, [0, 1], [-4, 4]) },
+    ],
   }));
 
   return (
@@ -120,33 +144,30 @@ export function PrayerTimesHero({
       <View
         style={[styles.hero, { paddingTop: topInset + Spacing.two, backgroundColor: sky.bottom }]}
       >
-        {/* Base vertical gradient sky. */}
-        <View
-          style={[
-            styles.fill,
-            gradientBackground(
-              `linear-gradient(180deg, ${sky.top} 0%, ${sky.mid} 46%, ${sky.bottom} 100%)`,
-            ),
-          ]}
+        {/* Base vertical gradient sky — slow drift for a live-wallpaper feel. */}
+        <SkyGradientLayer
+          webMotionClass={heroMotionClasses.baseDrift}
+          motionStyle={baseSkyStyle}
+          gradient={gradientBackground(
+            `linear-gradient(180deg, ${sky.top} 0%, ${sky.mid} 46%, ${sky.bottom} 100%)`,
+          )}
         />
-        {/* Warm/cool wash along the horizon. */}
-        <View
-          style={[
-            styles.fill,
-            gradientBackground(
-              `linear-gradient(180deg, ${withAlpha(sky.bottom, 0)} 42%, ${sky.horizon} 100%)`,
-            ),
-          ]}
+        {/* Warm/cool wash along the horizon — counter-drifts for depth. */}
+        <SkyGradientLayer
+          webMotionClass={heroMotionClasses.horizonDrift}
+          motionStyle={horizonStyle}
+          gradient={gradientBackground(
+            `linear-gradient(180deg, ${withAlpha(sky.bottom, 0)} 42%, ${sky.horizon} 100%)`,
+          )}
         />
         {/* Breathing celestial glow (sun by day, moon by night). */}
-        <Animated.View
-          style={[
-            styles.fill,
-            glowStyle,
-            gradientBackground(
-              `radial-gradient(circle at ${sky.glowX}% ${sky.glowY}%, ${sky.glow} 0%, ${withAlpha(toHex(sky.glow), 0)} 55%)`,
-            ),
-          ]}
+        <SkyGradientLayer
+          webMotionClass={heroMotionClasses.glowDrift}
+          webMotionClassInner={heroMotionClasses.glowBreath}
+          motionStyle={glowStyle}
+          gradient={gradientBackground(
+            `radial-gradient(circle at ${sky.glowX}% ${sky.glowY}%, ${sky.glow} 0%, ${withAlpha(toHex(sky.glow), 0)} 55%)`,
+          )}
         />
         {/* Faint starfield at night. */}
         {sky.stars

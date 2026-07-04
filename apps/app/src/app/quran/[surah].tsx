@@ -136,7 +136,7 @@ export default function SurahReaderScreen() {
     audio.play(ayahTracks(reciterDir, surah.nameTransliteration, surahNumber, ayahs), index, {
       sourceHref: `/quran/${surahNumber}`,
     });
-    void setLastRead(surahNumber, index + 1);
+    void setLastRead(surahNumber, index + 1, { isAudio: true });
   };
 
   const cycleReciter = () => {

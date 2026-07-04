@@ -14,6 +14,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahMeta } from "@/lib/quran";
+import { searchSurahList } from "@/lib/search";
 import { useLastRead } from "@/stores/quran-store";
 
 export default function QuranHomeScreen() {
@@ -24,17 +25,9 @@ export default function QuranHomeScreen() {
   const lastRead = useLastRead();
   const surahs = getSurahMeta();
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return surahs;
-    return surahs.filter(
-      (s) =>
-        String(s.number) === q ||
-        s.nameEnglish.toLowerCase().includes(q) ||
-        s.nameTransliteration.toLowerCase().includes(q) ||
-        s.nameArabic.includes(query.trim()),
-    );
-  }, [query, surahs]);
+  // Fuzzy, typo-tolerant surah filter (name / English / number / Arabic); the
+  // full list shows when the query is empty.
+  const filtered = useMemo(() => (query.trim() ? searchSurahList(query) : surahs), [query, surahs]);
 
   const openSurah = (n: number) =>
     router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } });

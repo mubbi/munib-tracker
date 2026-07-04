@@ -1,6 +1,6 @@
 import { getDuaById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
@@ -13,7 +13,9 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildDuaActivity } from "@/lib/continue-activity";
 import { formatReadingShare } from "@/lib/share";
+import { recordContinueActivity } from "@/stores/continue-store";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
@@ -30,6 +32,10 @@ export default function DuaDetailScreen() {
   const isFavorite = useIsFavoriteDua(item?.id ?? "");
   const { toggle } = useDuaFavoritesActions();
   const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (item) recordContinueActivity(buildDuaActivity(item));
+  }, [item]);
 
   if (!item) {
     return (

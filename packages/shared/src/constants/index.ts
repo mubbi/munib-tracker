@@ -94,6 +94,7 @@ export const ZIKR_CATEGORY_LABELS: Record<ZikrCategoryId, string> = {
 export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
   masterEnabled: false,
   prayer: true,
+  sunnahPrayer: true,
   qaza: true,
   morningZikr: true,
   eveningZikr: true,
@@ -107,8 +108,10 @@ export const DEFAULT_NOTIFICATION_PREFERENCES: NotificationPreferences = {
 export const DEFAULT_USER_PREFERENCES: UserPreferences = {
   locale: "en",
   translationLocale: "en",
+  timeFormat: "24",
   bedtime: "22:30",
   notificationPrefs: DEFAULT_NOTIFICATION_PREFERENCES,
+  prayerAlerts: {},
   fontPrefs: {
     global: {},
     arabic: {},

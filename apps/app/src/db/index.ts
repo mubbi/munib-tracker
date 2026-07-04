@@ -4,6 +4,7 @@ import { removeKey } from "./store";
 
 export { createId } from "./id";
 export { DB_KEYS } from "./keys";
+export { ContinueRepository } from "./repositories/continue-repository";
 export { HadithRepository } from "./repositories/hadith-repository";
 export { LocationRepository } from "./repositories/location-repository";
 export { PrayerRepository } from "./repositories/prayer-repository";
@@ -31,6 +32,8 @@ export async function resetDatabase(): Promise<void> {
       DB_KEYS.zikrProgress,
       DB_KEYS.qazaCounters,
       DB_KEYS.qazaDailyPlans,
+      DB_KEYS.qazaSchedule,
+      DB_KEYS.qazaDailyProgress,
       DB_KEYS.qazaRoza,
       DB_KEYS.userPreferences,
       DB_KEYS.location,
@@ -43,6 +46,7 @@ export async function resetDatabase(): Promise<void> {
       DB_KEYS.quranEditionCache,
       DB_KEYS.hadithBookmarks,
       DB_KEYS.hadithBookCache,
+      DB_KEYS.continueActivity,
     ].map((key) => removeKey(key)),
   );
 }

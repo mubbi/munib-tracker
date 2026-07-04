@@ -1,8 +1,15 @@
+import type { PrayerId } from "./prayer";
+
 export type AppLocale = "en" | "ar" | "ur";
+
+/** Clock display format for prayer times, reminders, and schedules. */
+export type TimeFormat = "12" | "24";
 
 export interface NotificationPreferences {
   masterEnabled: boolean;
   prayer: boolean;
+  /** Reminders for sunnah & optional prayers with fixed times. */
+  sunnahPrayer: boolean;
   qaza: boolean;
   morningZikr: boolean;
   eveningZikr: boolean;
@@ -30,9 +37,13 @@ export interface FontPreferences {
 export interface UserPreferences {
   locale: AppLocale;
   translationLocale: AppLocale;
+  /** Clock display format (12-hour with AM/PM or 24-hour). */
+  timeFormat: TimeFormat;
   /** HH:mm */
   bedtime?: string;
   notificationPrefs: NotificationPreferences;
+  /** Per-prayer alert overrides; unset entries fall back to category toggles. */
+  prayerAlerts?: Partial<Record<PrayerId, boolean>>;
   fontPrefs: FontPreferences;
   favoriteZikrIds: string[];
   favoriteZikrOrder: string[];

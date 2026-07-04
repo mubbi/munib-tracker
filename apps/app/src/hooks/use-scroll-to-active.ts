@@ -69,3 +69,26 @@ export function useScrollToActive(
 
   return { register, onScroll };
 }
+
+/** Scroll a `ScrollView` so `childRef` is visible (e.g. after a quick-action tap). */
+export function scrollChildIntoView(
+  scrollRef: RefObject<ScrollView | null>,
+  childRef: RefObject<View | null>,
+  scrollY: number,
+  offset = 96,
+) {
+  const node = childRef.current;
+  const scroll = scrollRef.current;
+  const scrollNode = scroll as unknown as View | null;
+  if (!node?.measure || !scroll || !scrollNode?.measure) return;
+  scrollNode.measure(
+    (_sx: number, _sy: number, _sw: number, _sh: number, _spx: number, containerPageY: number) => {
+      node.measure(
+        (_cx: number, _cy: number, _cw: number, _ch: number, _cpx: number, cardPageY: number) => {
+          const target = scrollY + (cardPageY - containerPageY) - offset;
+          scroll.scrollTo({ y: Math.max(0, target), animated: true });
+        },
+      );
+    },
+  );
+}

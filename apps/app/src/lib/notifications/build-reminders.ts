@@ -1,9 +1,9 @@
 import { PRAYER_LABELS } from "@munib-tracker/shared/constants";
-import type { NotificationPreferences, UserPreferences } from "@munib-tracker/shared/types";
-
+import type { PrayerId, TimeFormat, UserPreferences } from "@munib-tracker/shared/types";
 import type { StoredLocation } from "@/lib/location";
-import { computePrayerTimes } from "@/lib/prayer-times";
-import { formatHhMm, parseHhMm } from "@/lib/time";
+import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
+import { computePrayerTimes, prayerReminderTime, witrTime } from "@/lib/prayer-times";
+import { formatDisplayHhMm, formatHhMm, parseHhMm } from "@/lib/time";
 
 export type ReminderChannelId = "prayer" | "zikr" | "qaza";
 
@@ -18,30 +18,34 @@ export type BuiltReminder = {
   repeat: "daily" | "date";
 };
 
-const PRAYER_SLOTS = ["fajr", "dhuhr", "asr", "maghrib", "isha", "witr"] as const;
-type ReminderPrayerSlot = (typeof PRAYER_SLOTS)[number];
+const OBLIGATORY_SLOTS = ["fajr", "dhuhr", "asr", "maghrib", "isha", "witr"] as const;
+const SUNNAH_SLOTS = SUNNAH_ALERTABLE_PRAYERS;
+type ReminderPrayerSlot = (typeof OBLIGATORY_SLOTS)[number] | (typeof SUNNAH_SLOTS)[number];
 const BEFORE_PRAYER_MINUTES = 10;
 const AFTER_PRAYER_MINUTES = 10;
 const AFTER_AZAN_MINUTES = 2;
-const WITR_AFTER_ISHA_MINUTES = 20;
 const SCHEDULE_DAYS_AHEAD = 7;
 
 function addMinutes(date: Date, minutes: number): Date {
   return new Date(date.getTime() + minutes * 60_000);
 }
 
-function witrTime(isha: Date): Date {
-  return addMinutes(isha, WITR_AFTER_ISHA_MINUTES);
-}
-
-function prayerDate(times: ReturnType<typeof computePrayerTimes>, slot: ReminderPrayerSlot): Date {
+function prayerDate(
+  times: ReturnType<typeof computePrayerTimes>,
+  slot: ReminderPrayerSlot,
+  tomorrowFajr: Date,
+  yesterdayMaghrib: Date,
+  now: Date,
+): Date {
+  const at = prayerReminderTime(slot as PrayerId, times, tomorrowFajr, yesterdayMaghrib, now);
+  if (at) return at;
   if (slot === "witr") return witrTime(times.isha);
-  return times.timeForPrayer(slot) ?? times.fajr;
+  return times.timeForPrayer(slot as "fajr" | "dhuhr" | "asr" | "maghrib" | "isha") ?? times.fajr;
 }
 
 function pushPrayerReminders(
   reminders: BuiltReminder[],
-  prefs: NotificationPreferences,
+  prefs: UserPreferences,
   location: StoredLocation,
   dayOffset: number,
 ): void {
@@ -56,25 +60,48 @@ function pushPrayerReminders(
     location.madhab,
   );
 
-  const slots = PRAYER_SLOTS;
+  const tomorrow = new Date(day);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowTimes = computePrayerTimes(
+    { latitude: location.latitude, longitude: location.longitude },
+    tomorrow,
+    location.method,
+    location.madhab,
+  );
+  const yesterday = new Date(day);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayTimes = computePrayerTimes(
+    { latitude: location.latitude, longitude: location.longitude },
+    yesterday,
+    location.method,
+    location.madhab,
+  );
+
+  const slots: ReminderPrayerSlot[] = [...OBLIGATORY_SLOTS, ...SUNNAH_SLOTS];
+  const n = prefs.notificationPrefs;
 
   for (const slot of slots) {
-    const at = prayerDate(times, slot);
-    const label = PRAYER_LABELS[slot];
+    if (!isPrayerAlertEnabled(prefs, slot as PrayerId)) continue;
+
+    const at = prayerDate(times, slot, tomorrowTimes.fajr, yesterdayTimes.maghrib, day);
+    const label = PRAYER_LABELS[slot as PrayerId];
     const dayKey = day.toISOString().slice(0, 10);
+    const isObligatory = OBLIGATORY_SLOTS.includes(slot as (typeof OBLIGATORY_SLOTS)[number]);
 
-    if (prefs.prayer) {
-      reminders.push({
-        id: `prayer:${slot}:${dayKey}`,
-        fireAt: at,
-        title: `${label} time`,
-        body: "It's time to pray. May Allah accept it from you.",
-        channelId: "prayer",
-        repeat: "date",
-      });
-    }
+    reminders.push({
+      id: `prayer:${slot}:${dayKey}`,
+      fireAt: at,
+      title: `${label} time`,
+      body: isObligatory
+        ? "It's time to pray. May Allah accept it from you."
+        : "A sunnah prayer window is here. May Allah accept it from you.",
+      channelId: "prayer",
+      repeat: "date",
+    });
 
-    if (prefs.afterAzan) {
+    if (!isObligatory) continue;
+
+    if (n.afterAzan) {
       const azanAt = addMinutes(at, AFTER_AZAN_MINUTES);
       reminders.push({
         id: `afterAzan:${slot}:${dayKey}`,
@@ -86,7 +113,7 @@ function pushPrayerReminders(
       });
     }
 
-    if (prefs.beforePrayer) {
+    if (n.beforePrayer) {
       const beforeAt = addMinutes(at, -BEFORE_PRAYER_MINUTES);
       reminders.push({
         id: `beforePrayer:${slot}:${dayKey}`,
@@ -98,7 +125,7 @@ function pushPrayerReminders(
       });
     }
 
-    if (prefs.afterPrayer) {
+    if (n.afterPrayer) {
       const afterAt = addMinutes(at, AFTER_PRAYER_MINUTES);
       reminders.push({
         id: `afterPrayer:${slot}:${dayKey}`,
@@ -137,7 +164,7 @@ export function buildReminders(
   const reminders: BuiltReminder[] = [];
 
   for (let offset = 0; offset < SCHEDULE_DAYS_AHEAD; offset += 1) {
-    pushPrayerReminders(reminders, n, location, offset);
+    pushPrayerReminders(reminders, prefs, location, offset);
   }
 
   pushDailyReminder(
@@ -187,6 +214,7 @@ export function buildReminders(
 /** Human-readable schedule rows for the notification centre. */
 export function summarizeReminders(
   reminders: BuiltReminder[],
+  timeFormat: TimeFormat = "24",
 ): { id: string; title: string; body: string; time?: string }[] {
   const seen = new Set<string>();
   const rows: { id: string; title: string; body: string; time?: string }[] = [];
@@ -203,10 +231,7 @@ export function summarizeReminders(
       id: reminder.id,
       title: reminder.title,
       body: reminder.body,
-      time:
-        reminder.repeat === "daily"
-          ? formatHhMm(reminder.fireAt.getHours(), reminder.fireAt.getMinutes())
-          : formatHhMm(reminder.fireAt.getHours(), reminder.fireAt.getMinutes()),
+      time: formatDisplayHhMm(reminder.fireAt.getHours(), reminder.fireAt.getMinutes(), timeFormat),
     });
   }
 

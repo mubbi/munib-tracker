@@ -8,6 +8,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useFormatTime } from "@/hooks/use-time-format";
 import { useAuth } from "@/providers/auth-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -17,6 +18,7 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
+  const { formatStored } = useFormatTime();
   const { isAuthenticated, user } = useAuth();
   // A null/offline session isn't "guest" per the API, but the user still has no
   // linked account — treat them as a guest until they're a real authenticated user.
@@ -62,10 +64,19 @@ export default function SettingsScreen() {
               onPress={() => router.push("/settings/notifications")}
             />
             <SettingsRow
+              icon={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
+              title={t("settings.timeFormat")}
+              subtitle={t("settings.timeFormatSub")}
+              value={
+                prefs.timeFormat === "12" ? t("timeFormat.option12") : t("timeFormat.option24")
+              }
+              onPress={() => router.push("/settings/time-format")}
+            />
+            <SettingsRow
               icon={{ ios: "moon.zzz.fill", android: "bedtime", web: "bedtime" }}
               title={t("settings.bedtime")}
               subtitle={t("settings.bedtimeSub")}
-              value={prefs.bedtime}
+              value={formatStored(prefs.bedtime, { hour: 22, minute: 30 })}
               onPress={() => router.push("/settings/bedtime")}
             />
             <SettingsRow
@@ -86,18 +97,6 @@ export default function SettingsScreen() {
 
         <Card padding="three">
           <View style={styles.group}>
-            <SettingsRow
-              icon={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
-              title={t("settings.achievements")}
-              subtitle={t("settings.achievementsSub")}
-              onPress={() => router.push("/achievements")}
-            />
-            <SettingsRow
-              icon={{ ios: "safari.fill", android: "explore", web: "explore" }}
-              title={t("settings.qibla")}
-              subtitle={t("settings.qiblaSub")}
-              onPress={() => router.push("/qibla")}
-            />
             <SettingsRow
               icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
               title={t("settings.about")}

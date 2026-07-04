@@ -1,27 +1,40 @@
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { SymbolView } from "expo-symbols";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
+import { ContinueCard } from "@/components/continue-card";
+import { KnowledgeFlashCard } from "@/components/knowledge-flash-card";
+import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
+import { QazaSummaryCard } from "@/components/qaza-summary-card";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
-import { SegmentedProgress } from "@/components/ui/progress-bar";
+import { PressableScale } from "@/components/ui/pressable-scale";
+import { ProgressBar, SegmentedProgress } from "@/components/ui/progress-bar";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { Stagger } from "@/components/ui/stagger";
-import { StatCard } from "@/components/ui/stat-card";
-import { BottomTabInset, MaxContentWidth, Radius, Spacing } from "@/constants/theme";
+import { BottomTabInset, MaxContentWidth, Spacing } from "@/constants/theme";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
+import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useLocationActions } from "@/stores/location-store";
 import {
   useDailySummary,
+  useDevotionProgress,
   useQazaSummary,
   useStreak,
   useTrackerActions,
@@ -29,22 +42,38 @@ import {
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const summary = useDailySummary();
   const streak = useStreak();
+  const devotion = useDevotionProgress();
   const qaza = useQazaSummary();
   const { refresh } = useTrackerActions();
   const location = useLocationActions();
   const hero = useHomeHero();
   const notificationCount = useNotificationBadgeCount();
   const [refreshing, setRefreshing] = useState(false);
+  const scrollRef = useRef<ScrollView>(null);
+  const scheduleRef = useRef<View>(null);
+  const scrollY = useRef(0);
+
+  const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrollY.current = event.nativeEvent.contentOffset?.y ?? 0;
+  }, []);
+
+  const scrollToSchedule = useCallback(() => {
+    scrollChildIntoView(scrollRef, scheduleRef, scrollY.current);
+  }, []);
 
   const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
-  const tasksTotal = summary.salahTotal + summary.zikrTotal;
+  const tasksTotal = summary.salahTotal + summary.zikrTotal + summary.qazaTargetToday;
   const progressPct = tasksTotal ? Math.round((tasksDone / tasksTotal) * 100) : 0;
   const isFreshStart = tasksDone === 0 && streak === 0;
+  const locale = i18n.language?.split("-")[0];
+  const formatCount = (value: number) => value.toLocaleString(locale);
+  const devotionLevelProgress = devotion.noor - devotion.noorForCurrentLevel;
+  const devotionLevelSpan = devotion.noorForNextLevel - devotion.noorForCurrentLevel;
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -62,6 +91,13 @@ export default function HomeScreen() {
       icon: { ios: "checklist", android: "checklist", web: "checklist" },
       tint: tokens.status.success.color,
       onPress: () => router.push("/tracker"),
+    },
+    {
+      id: "schedule",
+      label: t("home.scheduleTitle"),
+      icon: { ios: "clock.fill", android: "schedule", web: "schedule" },
+      tint: tokens.status.info.color,
+      onPress: scrollToSchedule,
     },
     {
       id: "zikr",
@@ -131,6 +167,13 @@ export default function HomeScreen() {
       onPress: () => router.push("/calendar"),
     },
     {
+      id: "achievements",
+      label: t("settings.achievements"),
+      icon: { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" },
+      tint: tokens.status.warning.color,
+      onPress: () => router.push("/achievements"),
+    },
+    {
       id: "stats",
       label: t("actions.stats"),
       icon: { ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" },
@@ -143,6 +186,9 @@ export default function HomeScreen() {
     <View style={[styles.root, { backgroundColor: colors.background }]}>
       <StatusBar style="light" />
       <ScrollView
+        ref={scrollRef}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
         contentContainerStyle={[
           styles.scrollContent,
           { paddingBottom: BottomTabInset + Spacing.four },
@@ -175,10 +221,6 @@ export default function HomeScreen() {
             <IosPwaInstallBanner />
 
             <Stagger>
-              <Card padding="three">
-                <QuickActionGrid items={quickActions} columns={4} />
-              </Card>
-
               <Card>
                 <View style={styles.goalHeader}>
                   <View style={styles.goalTitle}>
@@ -201,6 +243,52 @@ export default function HomeScreen() {
                   <SegmentedProgress total={Math.max(tasksTotal, 1)} completed={tasksDone} />
                 </View>
 
+                <PressableScale
+                  onPress={() => router.push("/achievements")}
+                  haptic="light"
+                  scaleTo={0.98}
+                  accessibilityRole="button"
+                  accessibilityLabel={t("home.devotionA11y", {
+                    level: devotion.level,
+                    noor: devotion.noor,
+                    current: devotionLevelProgress,
+                    next: devotionLevelSpan,
+                  })}
+                  style={[styles.devotionBlock, { borderTopColor: colors.border }]}
+                >
+                  <View style={styles.devotionRow}>
+                    <View style={styles.devotionCopy}>
+                      <ThemedText type="smallBold">
+                        {t("achievements.devotion")} ·{" "}
+                        {t("home.devotionMeta", {
+                          level: devotion.level,
+                          noor: formatCount(devotion.noor),
+                        })}
+                      </ThemedText>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("home.devotionProgress", {
+                          current: formatCount(devotionLevelProgress),
+                          next: formatCount(devotionLevelSpan),
+                        })}
+                      </ThemedText>
+                    </View>
+                    <SymbolView
+                      name={{
+                        ios: "chevron.right",
+                        android: "chevron_right",
+                        web: "chevron_right",
+                      }}
+                      size={14}
+                      tintColor={colors.mutedForeground}
+                    />
+                  </View>
+                  <ProgressBar
+                    value={devotion.progress}
+                    height={4}
+                    color={tokens.status.warning.color}
+                  />
+                </PressableScale>
+
                 <Button
                   label={isFreshStart ? t("home.startTracking") : t("home.goToChecklist")}
                   fullWidth
@@ -213,109 +301,27 @@ export default function HomeScreen() {
                 />
               </Card>
 
-              <Card>
-                <ThemedText type="subtitle" style={styles.scheduleTitle}>
-                  {t("home.scheduleTitle")}
-                </ThemedText>
-                <View>
-                  {hero.schedule.map((item) => (
-                    <View
-                      key={item.id}
-                      accessibilityRole="text"
-                      accessibilityLabel={t(
-                        item.active ? "hero.prayerItemActive" : "hero.prayerItem",
-                        { name: item.name, time: item.time },
-                      )}
-                      style={[
-                        styles.scheduleRow,
-                        {
-                          borderLeftColor: item.active ? colors.accent : "transparent",
-                          backgroundColor: item.active ? tokens.accentSoft : "transparent",
-                        },
-                      ]}
-                    >
-                      <ThemedText
-                        type={item.active ? "smallBold" : "small"}
-                        style={item.active ? { color: colors.accentText } : undefined}
-                        themeColor={item.active ? undefined : "mutedForeground"}
-                      >
-                        {item.name}
-                      </ThemedText>
-                      <View style={styles.scheduleRight}>
-                        {item.active ? (
-                          <ThemedText type="caption" style={{ color: colors.accentText }}>
-                            {hero.nextIn}
-                          </ThemedText>
-                        ) : null}
-                        <ThemedText
-                          type={item.active ? "smallBold" : "small"}
-                          style={[
-                            styles.scheduleTime,
-                            item.active ? { color: colors.accentText } : undefined,
-                          ]}
-                          themeColor={item.active ? undefined : "foreground"}
-                        >
-                          {item.time}
-                        </ThemedText>
-                      </View>
-                    </View>
-                  ))}
-                </View>
+              <ContinueCard />
+
+              <KnowledgeFlashCard />
+
+              <Card padding="three">
+                <QuickActionGrid items={quickActions} columns={4} />
               </Card>
 
-              <View style={styles.statsRow}>
-                <StatCard
-                  label={t("home.prayersStat")}
-                  value={`${summary.salahCompleted}/${summary.salahTotal}`}
-                  icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
-                />
-                <StatCard
-                  label={t("home.dhikrStat")}
-                  value={`${summary.zikrCompleted}/${summary.zikrTotal}`}
-                  icon={{ ios: "heart.fill", android: "favorite", web: "favorite" }}
-                  tint={tokens.status.danger.color}
-                />
-                <StatCard
-                  label={t("home.streakStat")}
-                  value={`${streak}`}
-                  icon={{
-                    ios: "flame.fill",
-                    android: "local_fire_department",
-                    web: "local_fire_department",
-                  }}
-                  tint={tokens.status.warning.color}
+              <QazaSummaryCard
+                remaining={qaza.remaining}
+                completed={qaza.completed}
+                onPress={() => router.push("/qaza")}
+              />
+
+              <View ref={scheduleRef}>
+                <PrayerScheduleCard
+                  schedule={hero.schedule}
+                  nextIn={hero.nextIn}
+                  nextScheduleId={hero.nextScheduleId}
                 />
               </View>
-
-              <Card variant="outline" style={styles.qazaCard} onPress={() => router.push("/qaza")}>
-                <View style={[styles.qazaIcon, { backgroundColor: tokens.status.info.soft }]}>
-                  <ThemedText type="subtitle" style={{ color: tokens.status.info.color }}>
-                    {qaza.remaining}
-                  </ThemedText>
-                </View>
-                <View style={styles.qazaText}>
-                  <ThemedText type="smallBold">{t("home.qazaRemaining")}</ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("home.qazaMeta", { completed: qaza.completed })}
-                  </ThemedText>
-                </View>
-              </Card>
-
-              <Card variant="muted" style={styles.reminder}>
-                <View style={[styles.reminderIcon, { backgroundColor: tokens.accentSoft }]}>
-                  <ThemedText type="header" style={{ color: colors.accent }}>
-                    ﷽
-                  </ThemedText>
-                </View>
-                <View style={styles.reminderText}>
-                  <ThemedText type="smallBold" style={{ color: colors.accent }}>
-                    {t("home.gentleReminder")}
-                  </ThemedText>
-                  <ThemedText type="small" themeColor="mutedForeground">
-                    {t("home.gentleReminderBody")}
-                  </ThemedText>
-                </View>
-              </Card>
             </Stagger>
           </View>
         </View>
@@ -337,45 +343,21 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.three,
   },
   goalTitle: { flex: 1, gap: 2 },
-  scheduleTitle: { marginBottom: Spacing.two },
-  scheduleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: Spacing.three,
-    paddingVertical: Spacing.two,
-    paddingRight: Spacing.two,
-    paddingLeft: Spacing.two + 2,
-    borderLeftWidth: 3,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
+  goalProgress: { gap: Spacing.two },
+  devotionBlock: {
+    gap: Spacing.one + 2,
+    marginTop: Spacing.three,
+    marginBottom: Spacing.four,
+    paddingTop: Spacing.three,
+    borderTopWidth: StyleSheet.hairlineWidth,
   },
-  scheduleRight: {
+  devotionRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
   },
-  scheduleTime: { fontVariant: ["tabular-nums"] },
-  goalProgress: { gap: Spacing.two, marginBottom: Spacing.four },
-  statsRow: { flexDirection: "row", gap: Spacing.two },
-  qazaCard: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  qazaIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 14,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
+  devotionCopy: {
+    flex: 1,
+    gap: 2,
   },
-  qazaText: { flex: 1, gap: 2 },
-  reminder: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  reminderIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 14,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  reminderText: { flex: 1, gap: 2 },
 });

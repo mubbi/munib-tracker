@@ -146,13 +146,22 @@ const MIN_TOKEN_LENGTH = 2;
 /** A source item paired with its normalized, searchable fields. */
 type FuseDoc<T> = { item: T } & Record<string, string>;
 
-interface FieldDef<T> {
+/** A searchable field on an item: which text to index, and its relative weight. */
+export interface FuzzyField<T> {
   key: string;
   weight: number;
   get: (item: T) => string | undefined | null;
 }
 
-function makeFuse<T>(items: T[], fields: FieldDef<T>[]): Fuse<FuseDoc<T>> {
+/** A reusable fuzzy index over an arbitrary in-memory list (for screen-local search bars). */
+export interface FuzzyIndex<T> {
+  /** Ranked matches for the query; `[]` for a query below the minimum length. */
+  search(query: string, limit?: number): T[];
+  /** Match count (unbounded) for the query; `0` for a too-short query. */
+  count(query: string): number;
+}
+
+function makeFuse<T>(items: T[], fields: FuzzyField<T>[]): Fuse<FuseDoc<T>> {
   const docs = items.map((item) => {
     const doc = { item } as FuseDoc<T>;
     for (const field of fields) doc[field.key] = normalize(field.get(item) ?? "");
@@ -191,6 +200,29 @@ function fuseSearch<T>(
   return {
     results: matches.slice(0, limit).map((match) => toResult(match.item.item)),
     total: matches.length,
+  };
+}
+
+/**
+ * Build a reusable fuzzy index over an arbitrary list, using the project Fuse
+ * defaults + `normalize()`-ed fields. Screens memoize this (keyed on the list)
+ * for their own search bars instead of scanning with `.includes()`; extend this
+ * module rather than calling `new Fuse()` in a screen (see AGENTS.md).
+ */
+export function createFuzzyIndex<T>(items: T[], fields: FuzzyField<T>[]): FuzzyIndex<T> {
+  const fuse = makeFuse(items, fields);
+  return {
+    search(query, limit) {
+      const pattern = fusePattern(query);
+      if (!pattern) return [];
+      const matches = fuse.search(pattern, limit ? { limit } : undefined);
+      return matches.map((match) => match.item.item);
+    },
+    count(query) {
+      const pattern = fusePattern(query);
+      if (!pattern) return 0;
+      return fuse.search(pattern).length;
+    },
   };
 }
 
@@ -263,6 +295,14 @@ function getSurahFuse(): Fuse<FuseDoc<Surah>> {
   return surahFuse;
 }
 
+/** Shared hadith field weights, used by the global index and per-collection search. */
+const HADITH_FIELDS: FuzzyField<HadithItem>[] = [
+  { key: "english", weight: 3, get: (h) => h.english },
+  { key: "narrator", weight: 2, get: (h) => h.narrator },
+  { key: "reference", weight: 2, get: (h) => h.reference },
+  { key: "arabic", weight: 1, get: (h) => h.arabic },
+];
+
 function getHadithFuse(): Fuse<FuseDoc<HadithItem>> {
   if (!hadithFuse) {
     const items: HadithItem[] = [];
@@ -270,14 +310,30 @@ function getHadithFuse(): Fuse<FuseDoc<HadithItem>> {
       const bundled = getBundledCollection(collection.id);
       if (bundled) items.push(...bundled.items);
     }
-    hadithFuse = makeFuse(items, [
-      { key: "english", weight: 3, get: (h) => h.english },
-      { key: "narrator", weight: 2, get: (h) => h.narrator },
-      { key: "reference", weight: 2, get: (h) => h.reference },
-      { key: "arabic", weight: 1, get: (h) => h.arabic },
-    ]);
+    hadithFuse = makeFuse(items, HADITH_FIELDS);
   }
   return hadithFuse;
+}
+
+/**
+ * A fuzzy index over one hadith collection's items, for the in-collection search
+ * bar. Memoize per collection (its item list is stable once loaded) — a remote
+ * collection can hold thousands of hadith, so don't rebuild on every keystroke.
+ */
+export function createHadithSearch(items: HadithItem[]): FuzzyIndex<HadithItem> {
+  return createFuzzyIndex(items, HADITH_FIELDS);
+}
+
+/**
+ * Fuzzy-ranked surah list for the Qur'an index filter (by name, English, number,
+ * or Arabic). Reuses the cached global surah index. `[]` for a too-short query —
+ * callers show the full list when the query is empty.
+ */
+export function searchSurahList(query: string, limit?: number): Surah[] {
+  const pattern = fusePattern(query);
+  if (!pattern) return [];
+  const matches = getSurahFuse().search(pattern, limit ? { limit } : undefined);
+  return matches.map((match) => match.item.item);
 }
 
 // ── Qur'an ayah index (lazy, heavy — build off the interaction thread) ────────

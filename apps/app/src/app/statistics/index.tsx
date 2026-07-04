@@ -2,11 +2,14 @@ import { getZikrById } from "@munib-tracker/shared/content";
 import type {
   PrayerLog,
   QazaCounter,
+  QazaDailyProgress,
   QazaRozaCounter,
+  ZikrCategoryId,
   ZikrProgress,
 } from "@munib-tracker/shared/types";
 import {
   addDays,
+  aggregateByDate,
   buildDayActivity,
   dailyCompletionSeries,
   getLocalDateString,
@@ -20,49 +23,132 @@ import { StyleSheet, View } from "react-native";
 
 import { BarChart, type BarDatum } from "@/components/charts/bar-chart";
 import { ScreenLayout } from "@/components/screen-layout";
+import {
+  CardDivider,
+  LinkRow,
+  type Metric,
+  MetricGrid,
+  StatLine,
+  StatsGroup,
+} from "@/components/statistics/metrics";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { SectionHeader } from "@/components/ui/section-header";
+import { IconWell } from "@/components/ui/icon-well";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
-import { StatPair } from "@/components/ui/stat-pair";
-import { Spacing } from "@/constants/theme";
-import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
+import { Radius, Spacing } from "@/constants/theme";
+import {
+  HadithRepository,
+  PrayerRepository,
+  QazaRepository,
+  QuranRepository,
+  ZikrRepository,
+} from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import {
+  useAchievementStats,
+  useDailySummary,
+  useDevotionProgress,
+  useStreak,
+  useTrackerActions,
+} from "@/stores/tracker-store";
 
 type Period = "week" | "month" | "year";
 
 const MONTH_INITIALS = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+const QURAN_SURAH_COUNT = 114;
+
+const PERIOD_HINT_KEYS: Record<Period, string> = {
+  week: "statistics.periodWeek",
+  month: "statistics.periodMonth",
+  year: "statistics.periodYear",
+};
+
+function countPerfectDaysInRange(logs: PrayerLog[], from: string, to: string): number {
+  let count = 0;
+  for (const day of aggregateByDate(logs).values()) {
+    if (day.date < from || day.date > to) continue;
+    if (day.completed >= day.total) count += 1;
+  }
+  return count;
+}
+
+function countActiveDaysInRange(logs: PrayerLog[], from: string, to: string): number {
+  let count = 0;
+  for (const day of aggregateByDate(logs).values()) {
+    if (day.date < from || day.date > to) continue;
+    if (day.completed + day.missed + day.qaza + day.delayed > 0) count += 1;
+  }
+  return count;
+}
+
+function sumQazaPerformedInRange(
+  progressMap: Record<string, QazaDailyProgress>,
+  from: string,
+  to: string,
+): number {
+  let sum = 0;
+  for (const [date, progress] of Object.entries(progressMap)) {
+    if (date < from || date > to) continue;
+    for (const count of Object.values(progress.completed)) {
+      sum += count ?? 0;
+    }
+  }
+  return sum;
+}
 
 export default function StatisticsScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
+  const { t, i18n } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const { refresh } = useTrackerActions();
+  const summary = useDailySummary();
+  const streak = useStreak();
+  const devotion = useDevotionProgress();
+  const achievementStats = useAchievementStats();
   const [period, setPeriod] = useState<Period>("week");
   const [logs, setLogs] = useState<PrayerLog[]>([]);
   const [zikr, setZikr] = useState<ZikrProgress[]>([]);
   const [counters, setCounters] = useState<QazaCounter[]>([]);
   const [roza, setRoza] = useState<QazaRozaCounter>({ remaining: 0, completed: 0 });
+  const [qazaDailyMap, setQazaDailyMap] = useState<Record<string, QazaDailyProgress>>({});
+  const [quranSurahsStarted, setQuranSurahsStarted] = useState(0);
+  const [quranBookmarks, setQuranBookmarks] = useState(0);
+  const [hadithBookmarks, setHadithBookmarks] = useState(0);
+
+  const locale = i18n.language?.split("-")[0];
+  const formatCount = (value: number) => value.toLocaleString(locale);
 
   useFocusEffect(
     useCallback(() => {
       let active = true;
       void Promise.all([
+        refresh(),
         PrayerRepository.getAll(),
         ZikrRepository.getAll(),
         QazaRepository.getCounters(),
         QazaRepository.getRoza(),
-      ]).then(([l, z, c, r]) => {
+        QazaRepository.getAllDailyProgress(),
+        QuranRepository.getReadingProgress(),
+        QuranRepository.getBookmarks(),
+        HadithRepository.getBookmarks(),
+      ]).then(([_, l, z, c, r, qazaProgress, quranProgress, qBookmarks, hBookmarks]) => {
         if (!active) return;
         setLogs(l);
         setZikr(z);
         setCounters(c);
         setRoza(r);
+        setQazaDailyMap(qazaProgress);
+        setQuranSurahsStarted(Object.keys(quranProgress).length);
+        setQuranBookmarks(qBookmarks.length);
+        setHadithBookmarks(hBookmarks.length);
       });
       return () => {
         active = false;
       };
-    }, []),
+    }, [refresh]),
   );
 
   const today = getLocalDateString();
@@ -108,17 +194,79 @@ export default function StatisticsScreen() {
   );
 
   const zikrByCategory = useMemo(() => {
-    const map = new Map<string, number>();
+    const map = new Map<ZikrCategoryId, number>();
     for (const entry of zikr) {
       if (!entry.completed || entry.date < from || entry.date > today) continue;
       const category = getZikrById(entry.zikrId)?.categoryId ?? "anytime";
       map.set(category, (map.get(category) ?? 0) + 1);
     }
-    return map;
+    return [...map.entries()].sort((a, b) => b[1] - a[1]);
   }, [zikr, from, today]);
 
   const qazaRemaining = counters.reduce((sum, c) => sum + c.remaining, 0);
   const qazaCompleted = counters.reduce((sum, c) => sum + c.completed, 0);
+  const qazaPerformedInPeriod = useMemo(
+    () => sumQazaPerformedInRange(qazaDailyMap, from, today),
+    [qazaDailyMap, from, today],
+  );
+  const perfectDaysInPeriod = useMemo(
+    () => countPerfectDaysInRange(logs, from, today),
+    [logs, from, today],
+  );
+  const activeDaysInPeriod = useMemo(
+    () => countActiveDaysInRange(logs, from, today),
+    [logs, from, today],
+  );
+
+  const perPrayerQaza = counters.filter((c) => c.remaining > 0 || c.completed > 0);
+  const hasReadingData = quranSurahsStarted > 0 || quranBookmarks > 0 || hadithBookmarks > 0;
+  const hasDetails = perPrayerQaza.length > 0 || zikrByCategory.length > 0 || hasReadingData;
+  const maxZikrCategoryCount = zikrByCategory[0]?.[1] ?? 1;
+  const qazaTodayValue =
+    summary.qazaTargetToday > 0
+      ? `${summary.qazaCompletedToday}/${summary.qazaTargetToday}`
+      : `${summary.qazaCompletedToday}`;
+
+  const lifetimeMetrics: Metric[] = [
+    {
+      value: streak,
+      label: t("statistics.streak"),
+      color: tokens.status.warning.color,
+    },
+    {
+      value: formatCount(achievementStats.prayersCompleted),
+      label: t("statistics.totalPrayers"),
+      color: tokens.status.success.color,
+    },
+    {
+      value: formatCount(achievementStats.zikrCompleted),
+      label: t("statistics.totalZikr"),
+      color: tokens.status.danger.color,
+    },
+    {
+      value: formatCount(achievementStats.perfectDays),
+      label: t("statistics.perfectDays"),
+      color: tokens.status.info.color,
+    },
+  ];
+
+  const todayMetrics: Metric[] = [
+    {
+      value: `${summary.salahCompleted}/${summary.salahTotal}`,
+      label: t("statistics.todayPrayers"),
+      color: tokens.status.success.color,
+    },
+    {
+      value: `${summary.zikrCompleted}/${summary.zikrTotal}`,
+      label: t("statistics.todayZikr"),
+      color: tokens.status.danger.color,
+    },
+    {
+      value: qazaTodayValue,
+      label: t("statistics.todayQaza"),
+      color: tokens.status.info.color,
+    },
+  ];
 
   return (
     <ScreenLayout
@@ -128,118 +276,368 @@ export default function StatisticsScreen() {
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
-        <SegmentedControl<Period>
-          options={[
-            { id: "week", label: t("statistics.week") },
-            { id: "month", label: t("statistics.month") },
-            { id: "year", label: t("statistics.year") },
-          ]}
-          value={period}
-          onChange={setPeriod}
-        />
+        <View style={styles.stack}>
+          <Card padding="four" style={styles.journeyCard}>
+            <View style={styles.heroRow}>
+              <View style={[styles.devotionBadge, { backgroundColor: tokens.status.warning.soft }]}>
+                <ThemedText type="title" style={{ color: tokens.status.warning.color }}>
+                  {devotion.level}
+                </ThemedText>
+              </View>
+              <View style={styles.heroCopy}>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("achievements.devotion")}
+                </ThemedText>
+                <ThemedText type="subtitle">
+                  {t("achievements.devotionLevel", { level: devotion.level })}
+                </ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("achievements.devotionNoor", {
+                    current: devotion.noor - devotion.noorForCurrentLevel,
+                    next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
+                  })}
+                </ThemedText>
+              </View>
+            </View>
+            <ProgressBar value={devotion.progress} color={tokens.status.warning.color} />
+            <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+              <MetricGrid metrics={lifetimeMetrics} columns={2} />
+            </View>
+            <LinkRow
+              label={t("statistics.viewAchievements")}
+              onPress={() => router.push("/achievements")}
+            />
+          </Card>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("statistics.prayerCompletion")}
-            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-          />
-          <View style={styles.chart}>
-            <BarChart data={chart} color={tokens.status.success.color} />
-          </View>
-        </Card>
+          <Card padding="three" style={styles.sectionCard}>
+            <ThemedText type="subtitle">{t("statistics.today")}</ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("statistics.todayHint")}
+            </ThemedText>
+            <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+              <MetricGrid metrics={todayMetrics} columns={3} />
+            </View>
+          </Card>
 
-        <View style={styles.grid}>
-          <TitledStatPair
-            title={t("statistics.prayer")}
-            primary={{
-              value: prayerTotals.completed,
-              label: t("stats.completed"),
-              color: tokens.status.success.color,
-            }}
-            secondary={{
-              value: prayerTotals.missed,
-              label: t("stats.missed"),
-              color: tokens.status.danger.color,
-            }}
-          />
-          <TitledStatPair
-            title={t("statistics.qaza")}
-            primary={{
-              value: qazaRemaining,
-              label: t("stats.remaining"),
-              color: tokens.status.info.color,
-            }}
-            secondary={{
-              value: qazaCompleted,
-              label: t("stats.madeUp"),
-              color: tokens.status.success.color,
-            }}
-          />
-          <TitledStatPair
-            title={t("statistics.roza")}
-            primary={{
-              value: roza.remaining,
-              label: t("stats.remaining"),
-              color: tokens.status.info.color,
-            }}
-            secondary={{
-              value: roza.completed,
-              label: t("stats.completed"),
-              color: tokens.status.success.color,
-            }}
-          />
-          <TitledStatPair
-            title={t("statistics.zikr")}
-            primary={{
-              value: zikrCompleted,
-              label: t("stats.completed"),
-              color: tokens.status.warning.color,
-            }}
-            secondary={{
-              value: zikrByCategory.size,
-              label: t("stats.categories"),
-              color: tokens.status.info.color,
-            }}
-          />
+          <Card padding="three" style={styles.sectionCard}>
+            <View style={styles.trendsHeader}>
+              <View style={styles.trendsCopy}>
+                <ThemedText type="subtitle">{t("statistics.trends")}</ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t(PERIOD_HINT_KEYS[period])}
+                </ThemedText>
+              </View>
+            </View>
+
+            <SegmentedControl<Period>
+              options={[
+                { id: "week", label: t("statistics.week") },
+                { id: "month", label: t("statistics.month") },
+                { id: "year", label: t("statistics.year") },
+              ]}
+              value={period}
+              onChange={setPeriod}
+            />
+
+            <View style={styles.chart}>
+              <BarChart data={chart} color={tokens.status.success.color} />
+            </View>
+
+            <CardDivider />
+
+            <View style={styles.trendGroups}>
+              <StatsGroup
+                title={t("statistics.prayer")}
+                columns={2}
+                metrics={[
+                  {
+                    value: prayerTotals.completed,
+                    label: t("stats.completed"),
+                    color: tokens.status.success.color,
+                  },
+                  {
+                    value: prayerTotals.missed,
+                    label: t("stats.missed"),
+                    color: tokens.status.danger.color,
+                  },
+                  {
+                    value: prayerTotals.delayed,
+                    label: t("stats.delayed"),
+                    color: tokens.status.warning.color,
+                  },
+                  {
+                    value: prayerTotals.qaza,
+                    label: t("stats.qazaLogged"),
+                    color: tokens.status.info.color,
+                  },
+                ]}
+              />
+
+              <StatsGroup
+                title={t("statistics.consistency")}
+                columns={2}
+                metrics={[
+                  {
+                    value: perfectDaysInPeriod,
+                    label: t("stats.perfectDays"),
+                    color: tokens.status.success.color,
+                  },
+                  {
+                    value: activeDaysInPeriod,
+                    label: t("stats.activeDays"),
+                    color: tokens.status.info.color,
+                  },
+                ]}
+              />
+
+              <StatsGroup
+                title={t("statistics.qaza")}
+                columns={3}
+                metrics={[
+                  {
+                    value: qazaPerformedInPeriod,
+                    label: t("stats.madeUpPeriod"),
+                    color: tokens.status.success.color,
+                  },
+                  {
+                    value: qazaRemaining,
+                    label: t("stats.remaining"),
+                    color: tokens.status.info.color,
+                  },
+                  {
+                    value: qazaCompleted,
+                    label: t("stats.madeUp"),
+                    color: tokens.status.success.color,
+                  },
+                ]}
+              />
+
+              <StatsGroup
+                title={t("statistics.roza")}
+                columns={2}
+                metrics={[
+                  {
+                    value: roza.remaining,
+                    label: t("stats.remaining"),
+                    color: tokens.status.info.color,
+                  },
+                  {
+                    value: roza.completed,
+                    label: t("stats.completed"),
+                    color: tokens.status.success.color,
+                  },
+                ]}
+              />
+
+              <StatsGroup
+                title={t("statistics.zikr")}
+                columns={2}
+                metrics={[
+                  {
+                    value: zikrCompleted,
+                    label: t("stats.completed"),
+                    color: tokens.status.warning.color,
+                  },
+                  {
+                    value: zikrByCategory.length,
+                    label: t("stats.categories"),
+                    color: tokens.status.info.color,
+                  },
+                ]}
+              />
+            </View>
+          </Card>
+
+          {hasDetails ? (
+            <Card padding="three" style={styles.sectionCard}>
+              <ThemedText type="subtitle">{t("statistics.details")}</ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("statistics.detailsHint")}
+              </ThemedText>
+
+              {perPrayerQaza.length > 0 ? (
+                <View style={styles.detailBlock}>
+                  <ThemedText
+                    type="smallBold"
+                    themeColor="mutedForeground"
+                    style={styles.detailLabel}
+                  >
+                    {t("statistics.perPrayer")}
+                  </ThemedText>
+                  <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
+                    {perPrayerQaza.map((counter, index) => (
+                      <View key={counter.prayerId}>
+                        {index > 0 ? (
+                          <View
+                            style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                          />
+                        ) : null}
+                        <View style={styles.qazaRow}>
+                          <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
+                          <View style={styles.qazaCopy}>
+                            <ThemedText type="small">{t(`prayers.${counter.prayerId}`)}</ThemedText>
+                            <ThemedText type="caption" themeColor="mutedForeground">
+                              {t("qaza.rowMeta", {
+                                remaining: counter.remaining,
+                                completed: counter.completed,
+                              })}
+                            </ThemedText>
+                          </View>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              ) : null}
+
+              {zikrByCategory.length > 0 ? (
+                <View style={styles.detailBlock}>
+                  <ThemedText
+                    type="smallBold"
+                    themeColor="mutedForeground"
+                    style={styles.detailLabel}
+                  >
+                    {t("statistics.zikrBreakdown")}
+                  </ThemedText>
+                  <View style={[styles.detailList, { backgroundColor: colors.muted }]}>
+                    {zikrByCategory.map(([categoryId, count], index) => (
+                      <View key={categoryId}>
+                        {index > 0 ? (
+                          <View
+                            style={[styles.listDivider, { backgroundColor: tokens.hairline }]}
+                          />
+                        ) : null}
+                        <StatLine
+                          label={t(`zikrCat.${categoryId}`)}
+                          value={formatCount(count)}
+                          color={tokens.status.warning.color}
+                          bar={count / maxZikrCategoryCount}
+                        />
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              ) : null}
+
+              {hasReadingData ? (
+                <View style={styles.detailBlock}>
+                  <ThemedText
+                    type="smallBold"
+                    themeColor="mutedForeground"
+                    style={styles.detailLabel}
+                  >
+                    {t("statistics.reading")}
+                  </ThemedText>
+                  <View style={[styles.metricShell, { backgroundColor: colors.muted }]}>
+                    <MetricGrid
+                      columns={2}
+                      metrics={[
+                        {
+                          value: `${quranSurahsStarted}/${QURAN_SURAH_COUNT}`,
+                          label: t("statistics.quranSurahs"),
+                          color: colors.accent,
+                        },
+                        {
+                          value: quranBookmarks,
+                          label: t("statistics.quranBookmarks"),
+                          color: tokens.status.info.color,
+                        },
+                        {
+                          value: hadithBookmarks,
+                          label: t("statistics.hadithBookmarks"),
+                          color: tokens.status.warning.color,
+                        },
+                        {
+                          value:
+                            quranSurahsStarted > 0
+                              ? `${Math.round((quranSurahsStarted / QURAN_SURAH_COUNT) * 100)}%`
+                              : "0%",
+                          label: t("statistics.quranProgress"),
+                          color: tokens.status.success.color,
+                        },
+                      ]}
+                    />
+                  </View>
+                </View>
+              ) : null}
+            </Card>
+          ) : null}
         </View>
       </Stagger>
     </ScreenLayout>
   );
 }
 
-type StatItem = { value: number; label: string; color: string };
-
-function TitledStatPair({
-  title,
-  primary,
-  secondary,
-}: {
-  title: string;
-  primary: StatItem;
-  secondary: StatItem;
-}) {
-  return (
-    <Card padding="three" style={styles.pair}>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {title}
-      </ThemedText>
-      <StatPair size="header" primary={primary} secondary={secondary} />
-    </Card>
-  );
-}
-
 const styles = StyleSheet.create({
-  chart: {
-    marginTop: Spacing.three,
+  stack: {
+    gap: Spacing.four,
   },
-  grid: {
+  journeyCard: {
+    gap: Spacing.three,
+  },
+  heroRow: {
     flexDirection: "row",
-    flexWrap: "wrap",
+    alignItems: "center",
+    gap: Spacing.three,
+  },
+  devotionBadge: {
+    width: 64,
+    height: 64,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  heroCopy: {
+    flex: 1,
+    gap: Spacing.half,
+  },
+  metricShell: {
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    overflow: "hidden",
+  },
+  sectionCard: {
     gap: Spacing.two,
   },
-  pair: {
-    flexGrow: 1,
-    flexBasis: "47%",
+  trendsHeader: {
+    gap: Spacing.one,
+  },
+  trendsCopy: {
+    gap: Spacing.half,
+  },
+  chart: {
+    marginTop: Spacing.one,
+  },
+  trendGroups: {
+    gap: Spacing.four,
+  },
+  detailBlock: {
     gap: Spacing.two,
+    marginTop: Spacing.one,
+  },
+  detailLabel: {
+    textTransform: "uppercase",
+    letterSpacing: 0.6,
+    fontSize: 11,
+  },
+  detailList: {
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.one,
+  },
+  listDivider: {
+    height: StyleSheet.hairlineWidth,
+  },
+  qazaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+  },
+  qazaCopy: {
+    flex: 1,
+    gap: 2,
   },
 });

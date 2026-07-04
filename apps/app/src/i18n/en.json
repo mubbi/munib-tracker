@@ -80,10 +80,81 @@
     "streakStat": "Streak",
     "qazaRemaining": "Qaza remaining",
     "qazaMeta": "{{completed}} made up so far · tap to manage",
+    "qazaProgress": "{{pct}}% made up",
+    "qazaA11y": "{{remaining}} qaza remaining, {{completed}} made up, {{pct}} percent cleared",
     "gentleReminder": "Gentle reminder",
     "gentleReminderBody": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow.",
+    "knowledgeShuffle": "Show another card",
+    "knowledgeKind": {
+      "quran": "Qur'an verse",
+      "hadith": "Hadith",
+      "name": "Name of Allah",
+      "friday": "Jumu'ah reminder",
+      "motivation": "Daily reminder"
+    },
+    "knowledgeTopic": {
+      "prayer": "Salah",
+      "qaza": "Qaza",
+      "zikr": "Dhikr",
+      "fasting": "Fasting",
+      "steadfastness": "Steadfastness",
+      "general": "Reminder"
+    },
+    "knowledgeAction": {
+      "quran": "Tap to read in Qur'an",
+      "hadith": "Tap to read full hadith",
+      "name": "Explore all 99 names"
+    },
+    "devotionMeta": "Level {{level}} · {{noor}} Noor",
+    "devotionProgress": "{{current}} / {{next}} Noor to next level",
+    "devotionA11y": "Devotion level {{level}}, {{noor}} total noor, {{current}} of {{next}} to next level",
     "scheduleTitle": "Today's schedule",
-    "scheduleNext": "Next"
+    "scheduleNext": "Next",
+    "scheduleCurrent": "Current",
+    "scheduleNextA11y": "{{name}} at {{time}}, next prayer {{countdown}}",
+    "scheduleObligatory": "Obligatory",
+    "scheduleOptional": "Optional",
+    "scheduleAnyTime": "Any time",
+    "scheduleFlexibleHint": "Pray anytime during the day",
+    "scheduleGroupNight": "Night & dawn",
+    "scheduleGroupMorning": "Morning",
+    "scheduleGroupDay": "Afternoon",
+    "scheduleGroupEvening": "Evening",
+    "scheduleGroupFlexible": "Anytime",
+    "continueTitle": "Continue where you left off",
+    "continueSubtitle": "Jump back to what you were reading or listening to",
+    "continueLastOpened": "Last opened {{time}}",
+    "continueDismissA11y": "Dismiss and clear continue history",
+    "continueListening": "Audio",
+    "continueWhen": {
+      "justNow": "Just now",
+      "minutesAgo_one": "{{count}} min ago",
+      "minutesAgo_other": "{{count}} min ago",
+      "hoursAgo_one": "{{count}} hr ago",
+      "hoursAgo_other": "{{count}} hr ago",
+      "yesterday": "Yesterday",
+      "daysAgo_one": "{{count}} day ago",
+      "daysAgo_other": "{{count}} days ago"
+    },
+    "continueKind": {
+      "quran": "Qur'an",
+      "hadith": "Hadith",
+      "dua": "Dua",
+      "zikr": "Adhkar",
+      "durood": "Durood",
+      "names": "99 Names",
+      "audio": "Audio"
+    },
+    "continueAction": {
+      "quran": "Continue reading",
+      "hadith": "Return to hadith",
+      "dua": "Open dua",
+      "zikr": "Open adhkar",
+      "durood": "Return to duroods",
+      "names": "Return to names",
+      "audio": "Return to audio",
+      "listening": "Continue listening"
+    }
   },
   "tracker": {
     "eyebrow": "Track & log",
@@ -99,7 +170,9 @@
     "almostThere": "Almost there",
     "summaryLogged": "{{completed}} of {{total}} obligatory prayers logged today.",
     "streakLine": "🔥 {{count}}-day streak",
-    "streakLabel": "{{count}} day streak"
+    "streakLabel": "{{count}} day streak",
+    "qazaTargets": "Qaza targets",
+    "qazaTargetsProgress": "{{done}} of {{total}} qaza today"
   },
   "settings": {
     "eyebrow": "Personalize",
@@ -117,6 +190,8 @@
     "fontsSub": "Arabic & translation text size",
     "language": "Language",
     "languageSub": "App & translation language",
+    "timeFormat": "Time format",
+    "timeFormatSub": "12-hour or 24-hour clock",
     "achievements": "Achievements",
     "achievementsSub": "Milestones and badges",
     "qibla": "Qibla",
@@ -173,7 +248,19 @@
     "min": "min",
     "increase": "Increase {{unit}}",
     "decrease": "Decrease {{unit}}",
-    "hint": "Saved automatically · 24-hour time"
+    "hint": "Saved automatically · {{preview}}"
+  },
+  "timeFormat": {
+    "title": "Time format",
+    "subtitle": "How clock times appear across the app",
+    "hint": "Applies to prayer times, reminders, schedules, and bedtime",
+    "option12": "12-hour",
+    "option24": "24-hour",
+    "example12": "Example: 2:30 PM",
+    "example24": "Example: 14:30",
+    "am": "AM",
+    "pm": "PM",
+    "footer": "Your choice is saved automatically and used everywhere times are shown."
   },
   "notif": {
     "eyebrow": "Settings",
@@ -211,6 +298,10 @@
         "title": "Prayer reminders",
         "subtitle": "Nudges around each prayer time"
       },
+      "sunnahPrayer": {
+        "title": "Sunnah & optional",
+        "subtitle": "Tahajjud, Ishraq, Duha, and other optional windows"
+      },
       "qaza": {
         "title": "Qaza reminders",
         "subtitle": "Stay on pace with make-up prayers"
@@ -243,6 +334,19 @@
         "title": "Achievements",
         "subtitle": "Celebrate streaks and badges"
       }
+    },
+    "prayerAlertsObligatory": "Obligatory prayer alerts",
+    "prayerAlertsSunnah": "Sunnah & optional alerts",
+    "prayerAlertItems": {
+      "fajr": { "subtitle": "Alert at Fajr time" },
+      "dhuhr": { "subtitle": "Alert at Dhuhr time" },
+      "asr": { "subtitle": "Alert at Asr time" },
+      "maghrib": { "subtitle": "Alert at Maghrib time" },
+      "isha": { "subtitle": "Alert at Isha time" },
+      "witr": { "subtitle": "Alert at Witr time" },
+      "tahajjud": { "subtitle": "Alert at the last third of the night" },
+      "ishraq": { "subtitle": "Alert when Ishraq begins" },
+      "duha": { "subtitle": "Alert during the Duha window" }
     }
   },
   "fonts": {
@@ -440,12 +544,90 @@
     "tahiyyatul_masjid": "Tahiyyatul Masjid",
     "hajat_istikhara": "Hajat & Istikhara"
   },
+  "prayerInfo": {
+    "about": "About",
+    "why": "Why we pray it",
+    "benefits": "Benefits",
+    "references": "References",
+    "quranRef": "Qur'an",
+    "viewHadith": "View full hadith",
+    "viewAyah": "View in Qur'an",
+    "infoA11y": "Learn about {{prayer}}",
+    "infoHint": "Opens details, benefits, and references",
+    "learnMore": "Learn more",
+    "tahajjud": {
+      "summary": "The night prayer offered in the last third of the night, before Fajr.",
+      "why": "Allah descends to the lowest heaven in the last third of the night and asks who will call upon Him. The Prophet ﷺ regularly prayed at night even when optional for him.",
+      "benefits": "Draws one closer to Allah, softens the heart, and was the habit of the righteous before him. A time when du'a is especially answered."
+    },
+    "fajr": {
+      "summary": "The dawn prayer — the first of the five daily obligatory prayers.",
+      "why": "Allah commanded establishing prayer at the edges of the day; Fajr marks the start of the Muslim day and was never abandoned by the Prophet ﷺ in congregation or alone.",
+      "benefits": "Whoever prays Fajr is under Allah's protection. It is witnessed by the angels of the night and day and brings light for the rest of the day."
+    },
+    "sunrise": {
+      "summary": "The moment the sun rises above the horizon — a time marker, not a prayer itself.",
+      "why": "Prayer is forbidden while the sun is rising (and at zenith and setting) so the ummah does not resemble sun-worshippers. Knowing sunrise helps time Ishraq and avoid invalid prayer times.",
+      "benefits": "Observing Allah's signs in the sky increases awe (taqwa) and helps structure the morning sunnah prayers correctly."
+    },
+    "ishraq": {
+      "summary": "A two-rak'ah sunnah prayer after the sun has fully risen (about 15–20 minutes after sunrise).",
+      "why": "The Prophet ﷺ said whoever prays Fajr in congregation then sits remembering Allah until sunrise, then prays two rak'ahs, receives the reward of a complete Hajj and 'Umrah.",
+      "benefits": "Immense reward with minimal effort when combined with Fajr in congregation. A peaceful start to the day in dhikr and optional prayer."
+    },
+    "duha": {
+      "summary": "The forenoon prayer — typically two to eight rak'ahs between sunrise and Dhuhr.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "benefits": "Forgives sins, brings sustenance (rizq), and revives a neglected sunnah. Flexible timing makes it accessible when the day allows."
+    },
+    "dhuhr": {
+      "summary": "The midday prayer — the second obligatory prayer, when the sun passes its zenith.",
+      "why": "The five daily prayers were made obligatory on the Night Journey; Dhuhr breaks the day's busyness with remembrance of Allah.",
+      "benefits": "The Prophet ﷺ said the first deed judged on the Day of Resurrection is prayer. Guarding Dhuhr protects the rest of one's deeds."
+    },
+    "asr": {
+      "summary": "The afternoon prayer — the middle prayer emphasized in the Qur'an.",
+      "why": "Allah specifically warns about guarding the middle prayer (Salat al-Wusta). It falls when many are busy or tired, so preserving it is a sign of sincerity.",
+      "benefits": "Whoever misses Asr, it is as if he lost his family and wealth — highlighting its weight. Keeping it strengthens discipline through the day."
+    },
+    "maghrib": {
+      "summary": "The sunset prayer — prayed immediately after the sun has set.",
+      "why": "The time opens right at sunset; delaying without reason risks missing the preferred window. The Prophet ﷺ warned against neglecting prayer until the sun has set.",
+      "benefits": "Marks gratitude at the day's end and was among the first prayers the Prophet ﷺ emphasized to his companions."
+    },
+    "isha": {
+      "summary": "The night prayer — the last of the five obligatory prayers, after twilight fades.",
+      "why": "Completes the cycle of daily worship. The Prophet ﷺ said if someone prayed Isha in congregation, it is as if he prayed half the night.",
+      "benefits": "Brings tranquility before sleep, completes the day's obligations, and pairs naturally with Witr for those who follow that sunnah."
+    },
+    "witr": {
+      "summary": "An odd-numbered prayer (usually one or three rak'ahs) after Isha before Fajr.",
+      "why": "The Prophet ﷺ said Allah is Witr (One) and loves Witr, so maintain the Witr prayer. He never abandoned it, even when traveling.",
+      "benefits": "A distinctive mark of the believer's night routine. Closing the day with odd-numbered prayer aligns with Allah's names and the Prophet's consistent practice."
+    },
+    "tahiyyatul_masjid": {
+      "summary": "Two rak'ahs greeting the mosque when entering, before sitting.",
+      "why": "When one of you enters the mosque, let him pray two rak'ahs before sitting — a direct instruction of the Prophet ﷺ.",
+      "benefits": "Honors the house of Allah, prepares the heart for congregation or private worship, and replaces idle sitting with immediate good."
+    },
+    "hajat_istikhara": {
+      "summary": "Optional prayers for personal needs (Salat al-Hajah) and seeking Allah's guidance (Salat al-Istikhara).",
+      "why": "Istikhara is to ask Allah to choose good for you when facing a decision. Hajah is to present one's need to Allah through prayer before or alongside du'a.",
+      "benefits": "Builds reliance on Allah (tawakkul) instead of anxiety alone. Istikhara brings clarity; Hajah pairs worship with sincere request — and Allah answers those who call upon Him."
+    }
+  },
   "stats": {
     "remaining": "remaining",
     "madeUp": "made up",
     "completed": "completed",
     "missed": "missed",
-    "categories": "categories"
+    "categories": "categories",
+    "delayed": "delayed",
+    "qazaLogged": "logged qaza",
+    "perfectDays": "perfect days",
+    "activeDays": "active days",
+    "madeUpPeriod": "this period",
+    "total": "total"
   },
   "qaza": {
     "eyebrow": "Make-up worship",
@@ -456,8 +638,45 @@
     "roza": "Roza",
     "perPrayer": "Per prayer",
     "rowMeta": "{{remaining}} left · {{completed}} done",
+    "rowMetaWithDaily": "{{remaining}} left · {{completed}} done · today {{done}}/{{target}}",
+    "dailySchedule": "Daily schedule",
+    "dailyScheduleHint": "Set how many of each prayer you plan to make up every day. Progress counts toward today's checklist.",
+    "dailyTotal": "{{count}} qaza / day",
+    "dailyProgress": "{{done}} / {{target}} today",
+    "dailyTargetHint": "Set a daily target",
+    "dailyTargetA11y": "{{prayer}} daily qaza target",
     "markPerformed": "Mark {{prayer}} qaza performed",
-    "hint": "Tap the check to record a made-up prayer. Missing a prayer in the tracker adds to these counts automatically."
+    "resetPrayer": "Reset {{prayer}} qaza counter",
+    "resetAll": "Reset all counters",
+    "confirmDecrementTitle": "Reduce remaining count?",
+    "confirmDecrementMsg": "Lower the remaining {{prayer}} qaza count to {{remaining}}?",
+    "confirmIncrementTitle": "Increase remaining count?",
+    "confirmIncrementMsg": "Raise the remaining {{prayer}} qaza count to {{remaining}}?",
+    "confirmPerformTitle": "Mark qaza performed?",
+    "confirmPerformMsg": "Record one {{prayer}} qaza as made up?",
+    "confirmResetPrayerTitle": "Reset this counter?",
+    "confirmResetPrayerMsg": "Clear remaining and made-up counts for {{prayer}}? This cannot be undone.",
+    "confirmResetAllTitle": "Reset all counters?",
+    "confirmResetAllMsg": "Clear all qaza counts ({{remaining}} remaining, {{completed}} made up)? This cannot be undone.",
+    "hint": "Tap the check to record a made-up prayer. Missing a prayer in the tracker adds to these counts automatically.",
+    "witrNote": {
+      "title": "Is Witr qaza required?",
+      "intro": "According to the majority of scholars, making up a missed Witr is allowed, but whether it is required depends on your madhhab (school of thought).",
+      "hanafiTitle": "Hanafi madhhab",
+      "hanafiBody": "Witr is wajib (obligatory). If you miss it, you must make it up (qada'). Pray it as soon as you remember — even if days or weeks have passed. This is the view followed by most Muslims in South Asia, Central Asia, and Turkey.",
+      "othersTitle": "Shafi'i, Maliki & Hanbali",
+      "othersBody": "Witr is a strongly emphasized sunnah (sunnah mu'akkadah), not obligatory. Making it up is recommended (mustahabb) but not required. The Prophet ﷺ would make up night prayers missed due to sleep or illness.",
+      "evidenceTitle": "Evidence",
+      "evidenceBody": "The Prophet ﷺ said: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — scholars differ on its grading.) In Sahih Muslim, when he missed night prayer due to illness or sleep, he made it up during the day with an even number of rak'ahs.",
+      "tableHeader": "Summary by madhhab",
+      "rows": {
+        "hanafi": "Hanafi — Wajib — Qada' required",
+        "shafii": "Shafi'i — Sunnah mu'akkadah — Recommended",
+        "maliki": "Maliki — Sunnah mu'akkadah — Recommended",
+        "hanbali": "Hanbali — Sunnah mu'akkadah — Recommended"
+      },
+      "footer": "This app counts missed Witr toward qaza for all users. Treat it as required if you follow the Hanafi view; otherwise track it as a recommended make-up. Consult a scholar for your situation."
+    }
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -483,7 +702,15 @@
     "title": "Planner",
     "subtitle": "Set a daily pace to clear your backlog",
     "prayersPerDay": "prayers / day",
-    "daysToClear": "days to clear",
+    "daysToClear": "to clear",
+    "durationYears_one": "{{count}} year",
+    "durationYears_other": "{{count}} years",
+    "durationMonths_one": "{{count}} month",
+    "durationMonths_other": "{{count}} months",
+    "durationDays_one": "{{count}} day",
+    "durationDays_other": "{{count}} days",
+    "durationTwo": "{{first}} and {{second}}",
+    "durationThree": "{{first}}, {{second}} and {{third}}",
     "etaCaption": "At this pace, {{count}} qaza prayers are cleared by {{date}}.",
     "etaEmpty": "Set a daily target below to estimate a completion date.",
     "dailyTargets": "Daily targets",
@@ -526,15 +753,40 @@
   "statistics": {
     "eyebrow": "Insights",
     "title": "Statistics",
-    "subtitle": "Trends across prayer, qaza, and zikr",
+    "subtitle": "Lifetime progress, today's snapshot, and trends over time",
+    "overview": "Overview",
+    "today": "Today",
+    "todayHint": "Progress logged so far today",
+    "trends": "Trends",
+    "periodWeek": "Last 7 days",
+    "periodMonth": "Last 30 days",
+    "periodYear": "This year",
+    "details": "Details",
+    "detailsHint": "Breakdowns when you have tracked data",
+    "streak": "Current streak",
+    "totalPrayers": "Prayers logged",
+    "totalZikr": "Zikr sessions",
+    "perfectDays": "Perfect days",
+    "viewAchievements": "View achievements",
+    "todayPrayers": "Salah",
+    "todayZikr": "Zikr",
+    "todayQaza": "Qaza",
     "week": "Week",
     "month": "Month",
     "year": "Year",
     "prayerCompletion": "Prayer completion",
-    "prayer": "Prayer",
+    "prayer": "Salah",
+    "consistency": "Consistency",
     "qaza": "Qaza",
     "roza": "Roza",
-    "zikr": "Zikr"
+    "zikr": "Zikr",
+    "perPrayer": "Per prayer",
+    "zikrBreakdown": "Zikr by category",
+    "reading": "Reading",
+    "quranSurahs": "Surahs started",
+    "quranBookmarks": "Qur'an bookmarks",
+    "hadithBookmarks": "Hadith bookmarks",
+    "quranProgress": "Qur'an progress"
   },
   "prayerStatus": {
     "pending": "Pending",
@@ -635,11 +887,29 @@
     }
   },
   "achievements": {
-    "eyebrow": "Milestones",
-    "subtitle": "{{unlocked}} of {{total}} unlocked",
+    "eyebrow": "Progress",
+    "subtitleLoading": "Loading your journey…",
+    "subtitleProgress": "Devotion level {{level}} · {{milestones}} milestones reached",
+    "devotion": "Devotion",
+    "devotionLevel": "Level {{level}}",
+    "devotionNoor": "{{current}} / {{next}} Noor to next level",
+    "devotionHint": "Noor grows from salah, qaza, zikr, perfect days, and your current streak.",
+    "activeGoals": "Next targets",
+    "activeGoalsHint": "Always a next target — plus qaza and roza when you track debt.",
+    "milestonesReached": "Milestones reached",
+    "milestonesReachedHint": "{{count}} unlocked so far — and counting.",
+    "level": "Lv {{level}}",
+    "tracks": {
+      "salah": "Salah",
+      "streak": "Streak",
+      "qaza": "Qaza",
+      "roza": "Roza",
+      "zikr": "Zikr",
+      "consistency": "Consistency"
+    },
     "share": "Share",
     "shareMessage": "Alhamdulillah — I unlocked \"{{title}}\" in Munib Tracker: {{description}}.",
-    "unlockedToast": "Achievement unlocked: {{name}}"
+    "unlockedToast": "Milestone reached: {{name}}"
   },
   "notifCenter": {
     "eyebrow": "Reminders",
@@ -670,6 +940,17 @@
     "compassLabel": "Qibla compass",
     "compassValue": "{{bearing}} degrees to the Kaaba, {{distance}} away",
     "aligned": "Aligned with the Qibla",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
+    "turnFineTuneLeft": "Nudge left",
+    "turnFineTuneRight": "Nudge right",
+    "turnSlightLeft": "Slightly left",
+    "turnSlightRight": "Slightly right",
+    "turnLeft": "Turn left",
+    "turnRight": "Turn right",
+    "degreesOff": "{{deg}}° off",
+    "rotatePhone": "Rotate your phone flat, then follow the arrow",
+    "bearingLabel": "Qibla bearing",
+    "distanceLabel": "Distance",
     "cardinalN": "N",
     "cardinalE": "E",
     "cardinalS": "S",

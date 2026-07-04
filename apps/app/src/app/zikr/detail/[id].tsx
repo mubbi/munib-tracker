@@ -1,6 +1,6 @@
 import { getZikrById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
@@ -14,7 +14,9 @@ import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildZikrActivity } from "@/lib/continue-activity";
 import { formatReadingShare } from "@/lib/share";
+import { recordContinueActivity } from "@/stores/continue-store";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 import { useZikrCount } from "@/stores/tracker-store";
 
@@ -28,6 +30,10 @@ export default function ZikrDetailScreen() {
   const item = params.id ? getZikrById(params.id) : undefined;
   const count = useZikrCount(item?.id ?? "");
   const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (item) recordContinueActivity(buildZikrActivity(item));
+  }, [item]);
 
   if (!item) {
     return (

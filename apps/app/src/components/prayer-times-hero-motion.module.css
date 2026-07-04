@@ -1,0 +1,87 @@
+/**
+ * Web-only hero sky motion. Durations mirror `Durations.ambient` (4s) and
+ * `Durations.wallpaper` (18s) in `@/constants/motion`.
+ *
+ * Reanimated transform styles do not reliably animate elements that carry
+ * `backgroundImage` on react-native-web, so CSS keyframes drive the drift here.
+ */
+
+@keyframes heroBaseDrift {
+  0%,
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  50% {
+    transform: scale(1.055) translate(10px, -12px);
+  }
+}
+
+@keyframes heroHorizonDrift {
+  0%,
+  100% {
+    transform: scale(1.02) translate(-7px, 7px);
+  }
+
+  50% {
+    transform: scale(1.065) translate(7px, -7px);
+  }
+}
+
+@keyframes heroGlowDrift {
+  0%,
+  100% {
+    transform: translate(-5px, -4px);
+  }
+
+  50% {
+    transform: translate(5px, 4px);
+  }
+}
+
+@keyframes heroGlowBreath {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+.baseDrift,
+.horizonDrift,
+.glowDrift,
+.glowBreath {
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.baseDrift {
+  animation: heroBaseDrift 18s ease-in-out infinite;
+}
+
+.horizonDrift {
+  animation: heroHorizonDrift 18s ease-in-out infinite;
+}
+
+.glowDrift {
+  animation: heroGlowDrift 18s ease-in-out infinite;
+}
+
+.glowBreath {
+  will-change: transform, opacity;
+  animation: heroGlowBreath 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baseDrift,
+  .horizonDrift,
+  .glowDrift,
+  .glowBreath {
+    animation: none;
+  }
+}

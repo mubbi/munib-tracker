@@ -59,10 +59,81 @@
     "streakStat": "تسلسل",
     "qazaRemaining": "باقی قضا",
     "qazaMeta": "اب تک {{completed}} ادا · منظم کرنے کے لیے دبائیں",
+    "qazaProgress": "{{pct}}% ادا",
+    "qazaA11y": "{{remaining}} قضا باقی، {{completed}} ادا، {{pct}} فیصد مکمل",
     "gentleReminder": "نرم یاد دہانی",
     "gentleReminderBody": "کمال سے زیادہ چھوٹے اور مستقل قدم اہم ہیں۔ جو مکمل کریں اُسے درج کریں اور کل پھر لوٹ آئیں۔",
+    "knowledgeShuffle": "ایک اور کارڈ دکھائیں",
+    "knowledgeKind": {
+      "quran": "قرآنی آیت",
+      "hadith": "حدیث",
+      "name": "اللہ کا نام",
+      "friday": "جمعہ یاد دہانی",
+      "motivation": "روزانہ یاد دہانی"
+    },
+    "knowledgeTopic": {
+      "prayer": "نماز",
+      "qaza": "قضا",
+      "zikr": "ذکر",
+      "fasting": "روزہ",
+      "steadfastness": "ثابت قدمی",
+      "general": "یاد دہانی"
+    },
+    "knowledgeAction": {
+      "quran": "قرآن میں پڑھنے کے لیے دبائیں",
+      "hadith": "مکمل حدیث پڑھنے کے لیے دبائیں",
+      "name": "99 نام دیکھیں"
+    },
+    "devotionMeta": "لیول {{level}} · {{noor}} نور",
+    "devotionProgress": "اگلے لیول تک {{current}} / {{next}} نور",
+    "devotionA11y": "عقیدت لیول {{level}}، کل {{noor}} نور، اگلے لیول تک {{current}} میں سے {{next}}",
     "scheduleTitle": "آج کا شیڈول",
-    "scheduleNext": "اگلی"
+    "scheduleNext": "اگلی",
+    "scheduleCurrent": "موجودہ",
+    "scheduleNextA11y": "{{name}} {{time}} پر، اگلی نماز {{countdown}}",
+    "scheduleObligatory": "فرض",
+    "scheduleOptional": "نفل",
+    "scheduleAnyTime": "کسی بھی وقت",
+    "scheduleFlexibleHint": "دن میں کسی بھی وقت پڑھیں",
+    "scheduleGroupNight": "رات و سحر",
+    "scheduleGroupMorning": "صبح",
+    "scheduleGroupDay": "دوپہر",
+    "scheduleGroupEvening": "شام",
+    "scheduleGroupFlexible": "کسی بھی وقت",
+    "continueTitle": "جہاں چھوڑا تھا وہیں سے جاری رکھیں",
+    "continueSubtitle": "اپنی آخری پڑھائی یا سننے پر واپس جائیں",
+    "continueLastOpened": "آخری بار کھولا {{time}}",
+    "continueDismissA11y": "بند کریں اور جاری رکھنے کی تاریخ صاف کریں",
+    "continueListening": "آڈیو",
+    "continueWhen": {
+      "justNow": "ابھی",
+      "minutesAgo_one": "{{count}} منٹ پہلے",
+      "minutesAgo_other": "{{count}} منٹ پہلے",
+      "hoursAgo_one": "{{count}} گھنٹے پہلے",
+      "hoursAgo_other": "{{count}} گھنٹے پہلے",
+      "yesterday": "کل",
+      "daysAgo_one": "{{count}} دن پہلے",
+      "daysAgo_other": "{{count}} دن پہلے"
+    },
+    "continueKind": {
+      "quran": "قرآن",
+      "hadith": "حدیث",
+      "dua": "دعا",
+      "zikr": "اذکار",
+      "durood": "درود",
+      "names": "99 نام",
+      "audio": "آڈیو"
+    },
+    "continueAction": {
+      "quran": "پڑھنا جاری رکھیں",
+      "hadith": "حدیث پر واپس جائیں",
+      "dua": "دعا کھولیں",
+      "zikr": "ذکر کھولیں",
+      "durood": "درود پر واپس جائیں",
+      "names": "ناموں پر واپس جائیں",
+      "audio": "آڈیو پر واپس جائیں",
+      "listening": "سننا جاری رکھیں"
+    }
   },
   "tracker": {
     "eyebrow": "ٹریک اور درج کریں",
@@ -78,7 +149,9 @@
     "almostThere": "بس تھوڑا اور",
     "summaryLogged": "آج {{total}} میں سے {{completed}} فرض نمازیں درج ہو چکیں۔",
     "streakLine": "🔥 {{count}} دن کا تسلسل",
-    "streakLabel": "{{count}} دن کا تسلسل"
+    "streakLabel": "{{count}} دن کا تسلسل",
+    "qazaTargets": "قضا کے اہداف",
+    "qazaTargetsProgress": "آج {{total}} میں سے {{done}} قضا"
   },
   "settings": {
     "eyebrow": "اپنی پسند کے مطابق",
@@ -96,6 +169,8 @@
     "fontsSub": "عربی اور ترجمے کے متن کا سائز",
     "language": "زبان",
     "languageSub": "ایپ اور ترجمے کی زبان",
+    "timeFormat": "وقت کی شکل",
+    "timeFormatSub": "۱۲ یا ۲۴ گھنٹے",
     "achievements": "کامیابیاں",
     "achievementsSub": "سنگِ میل اور بیجز",
     "qibla": "قبلہ",
@@ -152,7 +227,19 @@
     "min": "منٹ",
     "increase": "{{unit}} بڑھائیں",
     "decrease": "{{unit}} کم کریں",
-    "hint": "خودکار محفوظ · ۲۴ گھنٹے کا وقت"
+    "hint": "خودکار محفوظ · {{preview}}"
+  },
+  "timeFormat": {
+    "title": "وقت کی شکل",
+    "subtitle": "ایپ میں اوقات کیسے دکھائیں",
+    "hint": "نماز کے اوقات، یاد دہانیاں، شیڈول اور سونے کے وقت پر لاگو ہوتا ہے",
+    "option12": "۱۲ گھنٹے",
+    "option24": "۲۴ گھنٹے",
+    "example12": "مثال: 2:30 PM",
+    "example24": "مثال: 14:30",
+    "am": "AM",
+    "pm": "PM",
+    "footer": "آپ کی پسند خودکار محفوظ ہوتی ہے اور ہر جگہ لاگو ہوتی ہے جہاں وقت دکھایا جاتا ہے۔"
   },
   "notif": {
     "eyebrow": "ترتیبات",
@@ -190,6 +277,10 @@
         "title": "نماز کی یاد دہانیاں",
         "subtitle": "ہر نماز کے وقت کے آس پاس یاد دہانی"
       },
+      "sunnahPrayer": {
+        "title": "سنت و نفل",
+        "subtitle": "تہجد، اشراق، چاشت اور دیگر اختیاری اوقات"
+      },
       "qaza": {
         "title": "قضا کی یاد دہانیاں",
         "subtitle": "قضا نمازوں کی رفتار برقرار رکھیں"
@@ -222,6 +313,19 @@
         "title": "کامیابیاں",
         "subtitle": "تسلسل اور بیجز کا جشن منائیں"
       }
+    },
+    "prayerAlertsObligatory": "فرض نمازوں کی الرٹس",
+    "prayerAlertsSunnah": "سنت و نفل کی الرٹس",
+    "prayerAlertItems": {
+      "fajr": { "subtitle": "فجر کے وقت الرٹ" },
+      "dhuhr": { "subtitle": "ظہر کے وقت الرٹ" },
+      "asr": { "subtitle": "عصر کے وقت الرٹ" },
+      "maghrib": { "subtitle": "مغرب کے وقت الرٹ" },
+      "isha": { "subtitle": "عشاء کے وقت الرٹ" },
+      "witr": { "subtitle": "وتر کے وقت الرٹ" },
+      "tahajjud": { "subtitle": "رات کے آخری تہائی میں الرٹ" },
+      "ishraq": { "subtitle": "اشراق کے وقت الرٹ" },
+      "duha": { "subtitle": "چاشت کے وقت الرٹ" }
     }
   },
   "fonts": {
@@ -419,12 +523,90 @@
     "tahiyyatul_masjid": "تحیۃ المسجد",
     "hajat_istikhara": "حاجت و استخارہ"
   },
+  "prayerInfo": {
+    "about": "تعارف",
+    "why": "کیوں پڑھتے ہیں",
+    "benefits": "فوائد",
+    "references": "حوالہ جات",
+    "quranRef": "قرآن",
+    "viewHadith": "مکمل حدیث دیکھیں",
+    "viewAyah": "قرآن میں دیکھیں",
+    "infoA11y": "{{prayer}} کے بارے میں جانیں",
+    "infoHint": "تفصیل، فوائد اور حوالہ جات کھولتا ہے",
+    "learnMore": "مزید جانیں",
+    "tahajjud": {
+      "summary": "رات کی نماز جو فجر سے پہلے رات کے آخری تہائی میں پڑھی جاتی ہے۔",
+      "why": "اللہ رات کے آخری تہائی میں آسمانِ دنیا پر نزول فرماتا ہے اور پوچھتا ہے کون مجھے پکارے گا۔ نبی ﷺ باقاعدگی سے تہجد پڑھتے تھے۔",
+      "benefits": "اللہ کے قریب کرتی ہے، دل نرم ہوتا ہے، اور دعا خاص طور پر قبول ہوتی ہے۔"
+    },
+    "fajr": {
+      "summary": "فجر — پنج وقتوں میں پہلی فرض نماز۔",
+      "why": "اللہ نے دن کے کناروں پر نماز قائم کرنے کا حکم دیا؛ فجر مسلمان کے دن کی شروعات ہے۔",
+      "benefits": "جو فجر پڑھے وہ اللہ کی ذمہ میں ہے۔ رات و دن کے فرشتے گواہی دیتے ہیں۔"
+    },
+    "sunrise": {
+      "summary": "طلوعِ آفتاب — وقت کی نشانی، نماز نہیں۔",
+      "why": "طلوع، زوال اور غروب کے وقت نماز ممنوع ہے تاکہ سورج کی عبادت نہ کی جائے۔ اشراق کا وقت بھی اس سے طے ہوتا ہے۔",
+      "benefits": "آسمان کی نشانیوں پر غور تقویٰ بڑھاتا ہے اور صبح کی سنت نمازوں میں مدد کرتا ہے۔"
+    },
+    "ishraq": {
+      "summary": "اشراق — طلوع کے 15–20 منٹ بعد دو رکعت سنت۔",
+      "why": "نبی ﷺ نے فرمایا: جو فجر باجماعت پڑھے، پھر طلوع تک ذکر کرے، پھر دو رکعت پڑھے — اسے حج و عمرہ کا ثواب ملے۔",
+      "benefits": "کم محنت میں بڑا اجر؛ دن کی پرسکون شروعات۔"
+    },
+    "duha": {
+      "summary": "چاشت — طلوع اور ظہر کے درمیان عام طور پر دو سے آٹھ رکعت۔",
+      "why": "ہر جوڑ پر روزانہ صدقہ واجب ہے؛ چاشت کی چند رکعتیں اس کی ادائیگی ہیں۔",
+      "benefits": "گناہ معاف، رزق میں برکت، اور فراموش سنت کی زندگی۔"
+    },
+    "dhuhr": {
+      "summary": "ظہر — دوسری فرض نماز، جب سورج زوال پر ہو۔",
+      "why": "معراج میں پنج وقت فرض ہوئے؛ ظہر دن کی مصروفیت میں اللہ کی یاد ہے۔",
+      "benefits": "قیامت میں سب سے پہلے نماز کا حساب؛ ظہر کی حفاظت باقی اعمال بچاتی ہے۔"
+    },
+    "asr": {
+      "summary": "عصر — قرآن میں تاکید شدہ وسطی نماز۔",
+      "why": "اللہ نے وسطی نماز (صلوٰۃ الوسطٰی) کی حفاظت کی تاکید فرمائی؛ یہ وقت اکثر مصروفیت میں گزرتا ہے۔",
+      "benefits": "عصر چھوٹ جائے تو گویا گھر و مال لٹ گیا — اس کی اہمیت ظاہر ہے۔"
+    },
+    "maghrib": {
+      "summary": "مغرب — غروبِ آفتاب کے فوراً بعد۔",
+      "why": "وقت غروب سے شروع؛ بلا عذر تاخیر بہتر وقت سے محرومی کا سبب بن سکتی ہے۔",
+      "benefits": "دن کے اختتام پر شکر؛ نبی ﷺ نے صحابہ کو اس کی تاکید کی۔"
+    },
+    "isha": {
+      "summary": "عشاء — آخری فرض، شفق غائب ہونے کے بعد۔",
+      "why": "روزانہ عبادت مکمل ہوتی ہے۔ نبی ﷺ نے فرمایا: عشاء باجماعت گویا آدھی رات قیام۔",
+      "benefits": "سونے سے پہلے سکون؛ دن کی فرائض مکمل؛ وتر کے ساتھ قدرتی ربط۔"
+    },
+    "witr": {
+      "summary": "وتر — عشاء اور فجر کے درمیان ایک یا تین رکعت (فرد تعداد)۔",
+      "why": "نبی ﷺ نے فرمایا: اللہ وتر ہے اور وتر پسند کرتا ہے، پس وتر پڑھو۔ سفر میں بھی نہیں چھوڑا۔",
+      "benefits": "رات کی عبادت کی علامت؛ دن کا اختتام فرد تعداد میں۔"
+    },
+    "tahiyyatul_masjid": {
+      "summary": "مسجد میں داخل ہو کر بیٹھنے سے پہلے دو رکعت تحیۃ المسجد۔",
+      "why": "نبی ﷺ کا براہِ راست حکم: مسجد میں داخل ہو تو بیٹھنے سے پہلے دو رکعت پڑھو۔",
+      "benefits": "اللہ کے گھر کا ادب؛ دل جماعت یا تنہائی عبادت کے لیے تیار۔"
+    },
+    "hajat_istikhara": {
+      "summary": "حاجت اور استخارہ — ضرورت یا فیصلے کے وقت نفل نمازیں۔",
+      "why": "استخارہ اللہ سے بھلائی کا انتخاب مانگنا ہے؛ حاجت ضرورت کو نماز و دعا کے ساتھ پیش کرنا ہے۔",
+      "benefits": "توکل مضبوط؛ استخارہ وضاحت، حاجت عبادت سے جوڑتی ہے — اللہ دعا سننے والا ہے۔"
+    }
+  },
   "stats": {
     "remaining": "باقی",
     "madeUp": "ادا شدہ",
     "completed": "مکمل",
     "missed": "قضا",
-    "categories": "زمرے"
+    "categories": "زمرے",
+    "delayed": "تاخیر",
+    "qazaLogged": "درج شدہ قضا",
+    "perfectDays": "مکمل دن",
+    "activeDays": "فعال دن",
+    "madeUpPeriod": "اس مدت",
+    "total": "کل"
   },
   "qaza": {
     "eyebrow": "قضا عبادت",
@@ -435,8 +617,45 @@
     "roza": "روزہ",
     "perPrayer": "فی نماز",
     "rowMeta": "{{remaining}} باقی · {{completed}} مکمل",
+    "rowMetaWithDaily": "{{remaining}} باقی · {{completed}} مکمل · آج {{done}}/{{target}}",
+    "dailySchedule": "روزانہ شیڈول",
+    "dailyScheduleHint": "ہر نماز کی روزانہ قضا کی تعداد مقرر کریں۔ پیش رفت آج کی چیک لسٹ میں شمار ہوگی۔",
+    "dailyTotal": "روزانہ {{count}} قضا",
+    "dailyProgress": "آج {{done}} / {{target}}",
+    "dailyTargetHint": "روزانہ ہدف مقرر کریں",
+    "dailyTargetA11y": "{{prayer}} کی روزانہ قضا کی ہدف",
     "markPerformed": "{{prayer}} کی قضا ادا کے طور پر نشان زد کریں",
-    "hint": "مکمل کی گئی نماز درج کرنے کے لیے چیک دبائیں۔ ٹریکر میں کوئی نماز چھوٹنے پر یہ تعداد خودکار بڑھ جاتی ہے۔"
+    "resetPrayer": "{{prayer}} کا قضا کاؤنٹر ری سیٹ کریں",
+    "resetAll": "تمام کاؤنٹرز ری سیٹ کریں",
+    "confirmDecrementTitle": "باقی تعداد کم کریں؟",
+    "confirmDecrementMsg": "{{prayer}} کی باقی قضا تعداد {{remaining}} پر کم کریں؟",
+    "confirmIncrementTitle": "باقی تعداد بڑھائیں؟",
+    "confirmIncrementMsg": "{{prayer}} کی باقی قضا تعداد {{remaining}} پر بڑھائیں؟",
+    "confirmPerformTitle": "قضا ادا درج کریں؟",
+    "confirmPerformMsg": "ایک {{prayer}} کی قضا ادا شدہ کے طور پر درج کریں؟",
+    "confirmResetPrayerTitle": "یہ کاؤنٹر ری سیٹ کریں؟",
+    "confirmResetPrayerMsg": "{{prayer}} کی باقی اور مکمل تعداد صاف کریں؟ یہ واپس نہیں ہو سکتا۔",
+    "confirmResetAllTitle": "تمام کاؤنٹرز ری سیٹ کریں؟",
+    "confirmResetAllMsg": "تمام قضا تعدادیں صاف کریں ({{remaining}} باقی، {{completed}} مکمل)؟ یہ واپس نہیں ہو سکتا۔",
+    "hint": "مکمل کی گئی نماز درج کرنے کے لیے چیک دبائیں۔ ٹریکر میں کوئی نماز چھوٹنے پر یہ تعداد خودکار بڑھ جاتی ہے۔",
+    "witrNote": {
+      "title": "کیا وتر کی قضا واجب ہے؟",
+      "intro": "اکثریت کے علماء کے نزدیک وتر کی قضا جائز ہے، لیکن اس کی واجبیت آپ کے مذہب (فقہی مسلک) پر منحصر ہے۔",
+      "hanafiTitle": "حنفی مسلک",
+      "hanafiBody": "وتر واجب ہے۔ اگر چھوٹ جائے تو قضا کرنا لازم ہے۔ یاد آتے ہی جتنی جلدی ممکن ہو پڑھیں — چاہے کئی دن یا ہفتے گزر چکے ہوں۔ یہ رائے پاکستان، ہند، بنگلہ دیش اور وسطی ایشیا و ترکی میں اکثر مسلمانوں کی پیروی ہے۔",
+      "othersTitle": "شافعی، مالکی اور حنبلی",
+      "othersBody": "وتر سنت مؤکدہ ہے، فرض نہیں۔ قضا مستحب ہے مگر واجب نہیں۔ نبی کریم ﷺ نے نیند یا بیماری کی وجہ سے چھوٹی رات کی نمازیں قضا فرماتے تھے۔",
+      "evidenceTitle": "دلیل",
+      "evidenceBody": "نبی کریم ﷺ نے فرمایا: \"جو سو جائے اور وتر چھوٹ جائے یا بھول جائے، تو یاد آنے پر پڑھ لے۔\" (ترمذی، ابن ماجہ — علماء درجے پر اختلاف کرتے ہیں۔) صحیح مسلم میں ہے کہ بیماری یا نیند سے رات کی نماز چھوٹنے پر آپ ﷺ دن میں جفت رکعتوں سے قضا فرماتے تھے۔",
+      "tableHeader": "مذہب کے لحاظ سے خلاصہ",
+      "rows": {
+        "hanafi": "حنفی — واجب — قضا لازم",
+        "shafii": "شافعی — سنت مؤکدہ — مستحب",
+        "maliki": "مالکی — سنت مؤکدہ — مستحب",
+        "hanbali": "حنبلی — سنت مؤکدہ — مستحب"
+      },
+      "footer": "یہ ایپ سب صارفین کے لیے چھوٹے وتر کو قضا میں شمار کرتی ہے۔ اگر آپ حنفی ہیں تو اسے واجب سمجھیں؛ ورنہ مستحب قضا کے طور پر ٹریک کریں۔ اپنی صورتِ حال کے لیے عالم سے رجوع کریں۔"
+    }
   },
   "qazaCalc": {
     "eyebrow": "قضا",
@@ -462,7 +681,15 @@
     "title": "پلانر",
     "subtitle": "اپنا بیک لاگ ختم کرنے کے لیے روزانہ کی رفتار طے کریں",
     "prayersPerDay": "نمازیں / دن",
-    "daysToClear": "مکمل کرنے کے دن",
+    "daysToClear": "مکمل ہونے میں",
+    "durationYears_one": "{{count}} سال",
+    "durationYears_other": "{{count}} سال",
+    "durationMonths_one": "{{count}} مہینہ",
+    "durationMonths_other": "{{count}} مہینے",
+    "durationDays_one": "{{count}} دن",
+    "durationDays_other": "{{count}} دن",
+    "durationTwo": "{{first}} اور {{second}}",
+    "durationThree": "{{first}}، {{second}} اور {{third}}",
     "etaCaption": "اس رفتار سے، {{count}} قضا نمازیں {{date}} تک مکمل ہو جائیں گی۔",
     "etaEmpty": "مکمل ہونے کی تاریخ کے تخمینے کے لیے نیچے روزانہ ہدف مقرر کریں۔",
     "dailyTargets": "روزانہ کے اہداف",
@@ -505,15 +732,40 @@
   "statistics": {
     "eyebrow": "بصیرت",
     "title": "اعداد و شمار",
-    "subtitle": "نماز، قضا اور ذکر کے رجحانات",
+    "subtitle": "زندگی بھر کی پیش رفت، آج کا خلاصہ، اور وقت کے ساتھ رجحانات",
+    "overview": "جائزہ",
+    "today": "آج",
+    "todayHint": "آج اب تک درج شدہ پیش رفت",
+    "trends": "رجحانات",
+    "periodWeek": "آخری ۷ دن",
+    "periodMonth": "آخری ۳۰ دن",
+    "periodYear": "اس سال",
+    "details": "تفصیلات",
+    "detailsHint": "جب ٹریک شدہ ڈیٹا ہو تو تفصیلی خلاصہ",
+    "streak": "موجودہ تسلسل",
+    "totalPrayers": "درج شدہ نمازیں",
+    "totalZikr": "ذکر کے سیشن",
+    "perfectDays": "مکمل دن",
+    "viewAchievements": "کامیابیاں دیکھیں",
+    "todayPrayers": "نماز",
+    "todayZikr": "ذکر",
+    "todayQaza": "قضا",
     "week": "ہفتہ",
     "month": "مہینہ",
     "year": "سال",
     "prayerCompletion": "نماز کی تکمیل",
     "prayer": "نماز",
+    "consistency": "استقامت",
     "qaza": "قضا",
     "roza": "روزہ",
-    "zikr": "ذکر"
+    "zikr": "ذکر",
+    "perPrayer": "ہر نماز",
+    "zikrBreakdown": "زمرے کے لحاظ سے ذکر",
+    "reading": "مطالعہ",
+    "quranSurahs": "شروع شدہ سورتیں",
+    "quranBookmarks": "قرآن بک مارکس",
+    "hadithBookmarks": "حدیث بک مارکس",
+    "quranProgress": "قرآن کی پیش رفت"
   },
   "prayerStatus": {
     "pending": "باقی",
@@ -614,11 +866,29 @@
     }
   },
   "achievements": {
-    "eyebrow": "سنگِ میل",
-    "subtitle": "{{total}} میں سے {{unlocked}} حاصل",
+    "eyebrow": "ترقی",
+    "subtitleLoading": "آپ کا سفر لوڈ ہو رہا ہے…",
+    "subtitleProgress": "عقیدت لیول {{level}} · {{milestones}} سنگِ میل حاصل",
+    "devotion": "عقیدت",
+    "devotionLevel": "لیول {{level}}",
+    "devotionNoor": "اگلے لیول تک {{current}} / {{next}} نور",
+    "devotionHint": "نور نماز، قضا، ذکر، مکمل دنوں اور موجودہ سلسلے سے بڑھتا ہے۔",
+    "activeGoals": "اگلے اہداف",
+    "activeGoalsHint": "پانچ tracks — ہر ایک میں ہمیشہ نیا ہدف۔",
+    "milestonesReached": "حاصل شدہ سنگِ میل",
+    "milestonesReachedHint": "اب تک {{count}} — اور بڑھتا جائے گا۔",
+    "level": "Lv {{level}}",
+    "tracks": {
+      "salah": "نماز",
+      "streak": "سلسلہ",
+      "qaza": "قضا",
+      "roza": "روزہ",
+      "zikr": "ذکر",
+      "consistency": "استقامت"
+    },
     "share": "شیئر کریں",
     "shareMessage": "الحمدللہ — میں نے منیب ٹریکر میں \"{{title}}\" حاصل کیا: {{description}}۔",
-    "unlockedToast": "کامیابی حاصل ہوئی: {{name}}"
+    "unlockedToast": "نیا سنگِ میل: {{name}}"
   },
   "notifCenter": {
     "eyebrow": "یاد دہانیاں",
@@ -649,6 +919,17 @@
     "compassLabel": "قبلہ کمپاس",
     "compassValue": "کعبہ کی طرف {{bearing}} درجے، {{distance}} کے فاصلے پر",
     "aligned": "قبلہ کے ساتھ ہم رخ",
+    "alignedHint": "سیدھا رکھیں — آپ کعبہ کی طرف رخ کر رہے ہیں",
+    "turnFineTuneLeft": "ذرا بائیں",
+    "turnFineTuneRight": "ذرا دائیں",
+    "turnSlightLeft": "تھوڑا بائیں",
+    "turnSlightRight": "تھوڑا دائیں",
+    "turnLeft": "بائیں مڑیں",
+    "turnRight": "دائیں مڑیں",
+    "degreesOff": "{{deg}}° انحراف",
+    "rotatePhone": "فون سیدھا رکھیں اور تیر کی طرف مڑیں",
+    "bearingLabel": "قبلہ زاویہ",
+    "distanceLabel": "فاصلہ",
     "cardinalN": "شمال",
     "cardinalE": "مشرق",
     "cardinalS": "جنوب",

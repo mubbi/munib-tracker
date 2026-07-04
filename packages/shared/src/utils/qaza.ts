@@ -1,6 +1,24 @@
 import { OBLIGATORY_PRAYERS } from "../constants/index";
-import type { ObligatoryPrayer } from "../types/index";
+import type { ObligatoryPrayer, QazaDailyProgress, QazaSchedule } from "../types/index";
 import { addDays, getLocalDateString } from "./date";
+
+/** Sums all per-prayer targets in a qaza schedule. */
+export function sumQazaScheduleTargets(schedule?: QazaSchedule): number {
+  if (!schedule) return 0;
+  return OBLIGATORY_PRAYERS.reduce(
+    (sum, prayerId) => sum + Math.max(0, schedule.targets[prayerId] ?? 0),
+    0,
+  );
+}
+
+/** Sums all per-prayer completions for a day. */
+export function sumQazaDailyProgress(progress?: QazaDailyProgress): number {
+  if (!progress) return 0;
+  return OBLIGATORY_PRAYERS.reduce(
+    (sum, prayerId) => sum + Math.max(0, progress.completed[prayerId] ?? 0),
+    0,
+  );
+}
 
 export interface QazaCalculatorInput {
   /** Current age in years. */
@@ -58,6 +76,26 @@ export function computeQazaEta(
   if (dailyTarget <= 0 || remainingTotal <= 0) return null;
   const days = Math.ceil(remainingTotal / dailyTarget);
   return { days, date: addDays(today, days) };
+}
+
+export interface DayDurationParts {
+  years: number;
+  months: number;
+  days: number;
+}
+
+/** Splits a day count into years, months, and days for human-readable ETA display. */
+export function breakDownDayDuration(
+  totalDays: number,
+  daysPerYear = 365,
+  daysPerMonth = 30,
+): DayDurationParts {
+  const safe = Math.max(0, Math.floor(totalDays));
+  const years = Math.floor(safe / daysPerYear);
+  const afterYears = safe % daysPerYear;
+  const months = Math.floor(afterYears / daysPerMonth);
+  const days = afterYears % daysPerMonth;
+  return { years, months, days };
 }
 
 /** Estimates missed fasts from whole years, defaulting to ~30 days of Ramadan per year. */

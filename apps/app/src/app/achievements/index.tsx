@@ -1,6 +1,14 @@
-import { type AchievementProgress, evaluateAchievements } from "@munib-tracker/shared/achievements";
+import {
+  evaluateProgression,
+  type MilestoneProgress,
+  migrateLegacyAchievementIds,
+  type ProgressionState,
+  resolveUnlockedMilestones,
+  summarizeQazaDebt,
+  summarizeRozaDebt,
+} from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
-import { aggregateByDate, computeStreak } from "@munib-tracker/shared/utils";
+import { computeStreak, countPerfectDays } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
@@ -20,42 +28,125 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 const OBLIGATORY = new Set<string>(OBLIGATORY_PRAYERS);
 
+const TRACK_LABEL_KEYS: Record<string, string> = {
+  salah: "achievements.tracks.salah",
+  streak: "achievements.tracks.streak",
+  qaza: "achievements.tracks.qaza",
+  roza: "achievements.tracks.roza",
+  zikr: "achievements.tracks.zikr",
+  consistency: "achievements.tracks.consistency",
+};
+
+function MilestoneCard({
+  milestone,
+  variant,
+  onShare,
+}: {
+  milestone: MilestoneProgress;
+  variant: "active" | "unlocked";
+  onShare?: (milestone: MilestoneProgress) => void;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const unlocked = variant === "unlocked";
+
+  return (
+    <Card key={milestone.id} padding="three" style={styles.card}>
+      <View
+        style={[
+          styles.badge,
+          {
+            backgroundColor: unlocked ? tokens.status.warning.soft : colors.muted,
+          },
+        ]}
+      >
+        <SymbolView
+          name={
+            unlocked
+              ? { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }
+              : { ios: "target", android: "track_changes", web: "track_changes" }
+          }
+          size={22}
+          tintColor={unlocked ? tokens.status.warning.color : colors.accent}
+        />
+      </View>
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {milestone.trackId === "devotion"
+          ? t("achievements.devotion")
+          : t(TRACK_LABEL_KEYS[milestone.trackId] ?? milestone.trackId)}
+        {" · "}
+        {t("achievements.level", { level: milestone.level })}
+      </ThemedText>
+      <ThemedText type="smallBold">{milestone.title}</ThemedText>
+      <ThemedText type="caption" themeColor="mutedForeground">
+        {milestone.description}
+      </ThemedText>
+      {unlocked ? (
+        Platform.OS !== "web" && onShare ? (
+          <ThemedText
+            type="caption"
+            style={{ color: colors.accent }}
+            onPress={() => onShare(milestone)}
+          >
+            {t("achievements.share")}
+          </ThemedText>
+        ) : null
+      ) : (
+        <View style={styles.progress}>
+          <ProgressBar value={milestone.progress} />
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {milestone.value}/{milestone.threshold}
+          </ThemedText>
+        </View>
+      )}
+    </Card>
+  );
+}
+
 export default function AchievementsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
-  const [items, setItems] = useState<AchievementProgress[]>([]);
+  const { tokens } = useThemeTokens();
+  const [state, setState] = useState<ProgressionState | null>(null);
+  const [unlocked, setUnlocked] = useState<MilestoneProgress[]>([]);
 
   useFocusEffect(
     useCallback(() => {
       let active = true;
       void (async () => {
-        const [logs, zikr, counters] = await Promise.all([
+        const [logs, zikr, counters, roza] = await Promise.all([
           PrayerRepository.getAll(),
           ZikrRepository.getAll(),
           QazaRepository.getCounters(),
+          QazaRepository.getRoza(),
         ]);
         const prayersCompleted = logs.filter(
           (l) => l.status === "completed" && OBLIGATORY.has(l.prayerId),
         ).length;
-        const bestDay = Math.max(0, ...[...aggregateByDate(logs).values()].map((d) => d.completed));
         const stats = {
           streak: computeStreak(logs, true),
           prayersCompleted,
-          qazaCompleted: counters.reduce((sum, c) => sum + c.completed, 0),
+          qazaDebt: summarizeQazaDebt(counters),
+          rozaDebt: summarizeRozaDebt(roza),
           zikrCompleted: zikr.filter((z) => z.completed).length,
-          bestDay,
+          perfectDays: countPerfectDays(logs),
         };
-        const evaluated = evaluateAchievements(stats);
+        const progression = evaluateProgression(stats);
 
-        // Persist the unlocked set so it survives even if stats later change.
-        const known = await readJSON<string[]>(DB_KEYS.achievements, []);
-        const unlockedIds = evaluated.filter((a) => a.unlocked).map((a) => a.id);
+        const known = migrateLegacyAchievementIds(
+          await readJSON<string[]>(DB_KEYS.achievements, []),
+        );
+        const unlockedIds = progression.unlockedMilestones.map((m) => m.id);
         const merged = Array.from(new Set([...known, ...unlockedIds]));
         await writeJSON(DB_KEYS.achievements, merged);
 
+        const persistedUnlocked = resolveUnlockedMilestones(merged, stats).sort(
+          (a, b) => b.level - a.level,
+        );
+
         if (active) {
-          setItems(evaluated.map((a) => ({ ...a, unlocked: a.unlocked || merged.includes(a.id) })));
+          setState(progression);
+          setUnlocked(persistedUnlocked);
         }
       })();
       return () => {
@@ -64,15 +155,13 @@ export default function AchievementsScreen() {
     }, []),
   );
 
-  const unlockedCount = items.filter((a) => a.unlocked).length;
-
-  const share = async (achievement: AchievementProgress) => {
+  const share = async (milestone: MilestoneProgress) => {
     if (Platform.OS === "web") return;
     try {
       await Share.share({
         message: t("achievements.shareMessage", {
-          title: achievement.title,
-          description: achievement.description,
+          title: milestone.title,
+          description: milestone.description,
         }),
       });
     } catch {
@@ -80,63 +169,87 @@ export default function AchievementsScreen() {
     }
   };
 
+  const devotion = state?.devotion;
+  const milestoneCount = unlocked.length;
+
   return (
     <ScreenLayout
       eyebrow={t("achievements.eyebrow")}
       title={t("settings.achievements")}
-      subtitle={t("achievements.subtitle", { unlocked: unlockedCount, total: items.length })}
+      subtitle={
+        devotion
+          ? t("achievements.subtitleProgress", {
+              level: devotion.level,
+              milestones: milestoneCount,
+            })
+          : t("achievements.subtitleLoading")
+      }
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
-        <View style={styles.grid}>
-          {items.map((achievement) => (
-            <Card key={achievement.id} padding="three" style={styles.card}>
-              <View
-                style={[
-                  styles.badge,
-                  {
-                    backgroundColor: achievement.unlocked
-                      ? tokens.status.warning.soft
-                      : colors.muted,
-                  },
-                ]}
-              >
-                <SymbolView
-                  name={
-                    achievement.unlocked
-                      ? { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }
-                      : { ios: "lock.fill", android: "lock", web: "lock" }
-                  }
-                  size={22}
-                  tintColor={
-                    achievement.unlocked ? tokens.status.warning.color : colors.mutedForeground
-                  }
-                />
-              </View>
-              <ThemedText type="smallBold">{achievement.title}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {achievement.description}
-              </ThemedText>
-              {achievement.unlocked ? (
-                Platform.OS !== "web" ? (
-                  <ThemedText
-                    type="caption"
-                    style={{ color: colors.accent }}
-                    onPress={() => share(achievement)}
-                  >
-                    {t("achievements.share")}
-                  </ThemedText>
-                ) : null
-              ) : (
-                <View style={styles.progress}>
-                  <ProgressBar value={achievement.progress} />
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {achievement.value}/{achievement.threshold}
+        <View style={styles.stack}>
+          {devotion ? (
+            <Card padding="four" style={styles.hero}>
+              <View style={styles.heroRow}>
+                <View
+                  style={[styles.devotionBadge, { backgroundColor: tokens.status.warning.soft }]}
+                >
+                  <ThemedText type="title" style={{ color: tokens.status.warning.color }}>
+                    {devotion.level}
                   </ThemedText>
                 </View>
-              )}
+                <View style={styles.heroCopy}>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("achievements.devotion")}
+                  </ThemedText>
+                  <ThemedText type="subtitle">
+                    {t("achievements.devotionLevel", { level: devotion.level })}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("achievements.devotionNoor", {
+                      current: devotion.noor - devotion.noorForCurrentLevel,
+                      next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
+                    })}
+                  </ThemedText>
+                </View>
+              </View>
+              <ProgressBar value={devotion.progress} />
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("achievements.devotionHint")}
+              </ThemedText>
             </Card>
-          ))}
+          ) : null}
+
+          <View style={styles.section}>
+            <ThemedText type="smallBold">{t("achievements.activeGoals")}</ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("achievements.activeGoalsHint")}
+            </ThemedText>
+            <View style={styles.grid}>
+              {(state?.activeGoals ?? []).map((goal) => (
+                <MilestoneCard key={goal.id} milestone={goal} variant="active" />
+              ))}
+            </View>
+          </View>
+
+          {unlocked.length > 0 ? (
+            <View style={styles.section}>
+              <ThemedText type="smallBold">{t("achievements.milestonesReached")}</ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("achievements.milestonesReachedHint", { count: unlocked.length })}
+              </ThemedText>
+              <View style={styles.grid}>
+                {unlocked.map((milestone) => (
+                  <MilestoneCard
+                    key={milestone.id}
+                    milestone={milestone}
+                    variant="unlocked"
+                    onShare={share}
+                  />
+                ))}
+              </View>
+            </View>
+          ) : null}
         </View>
       </Stagger>
     </ScreenLayout>
@@ -144,10 +257,37 @@ export default function AchievementsScreen() {
 }
 
 const styles = StyleSheet.create({
+  stack: {
+    gap: Spacing.four,
+  },
+  hero: {
+    gap: Spacing.two,
+  },
+  heroRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+  },
+  devotionBadge: {
+    width: 64,
+    height: 64,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  heroCopy: {
+    flex: 1,
+    gap: Spacing.half,
+  },
+  section: {
+    gap: Spacing.one,
+  },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: Spacing.two,
+    marginTop: Spacing.one,
   },
   card: {
     flexGrow: 1,

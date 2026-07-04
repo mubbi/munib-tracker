@@ -14,8 +14,10 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useScrollToActive } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
+import { buildNamesActivity } from "@/lib/continue-activity";
 import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { recordContinueActivity } from "@/stores/continue-store";
 
 const NAMES_HREF = "/names-of-allah";
 
@@ -27,13 +29,19 @@ export default function NamesOfAllahScreen() {
   const scrollRef = useRef<ScrollView>(null);
   const { register: registerCard, onScroll } = useScrollToActive(scrollRef, audio.current?.id);
 
-  const playFrom = (position: number) =>
+  const playFrom = (position: number) => {
     audio.play(allNameTracks(NAMES_OF_ALLAH), position, { sourceHref: NAMES_HREF });
+    const name = NAMES_OF_ALLAH[position];
+    if (name) recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
+  };
 
   /** Play only the single tapped name (no auto-advance through the list). */
   const playName = (name: (typeof NAMES_OF_ALLAH)[number]) => {
     const track = nameAudioTrack(name);
-    if (track) audio.play([track], 0, { sourceHref: NAMES_HREF });
+    if (track) {
+      audio.play([track], 0, { sourceHref: NAMES_HREF });
+      recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
+    }
   };
 
   const shareName = async (name: (typeof NAMES_OF_ALLAH)[number]) => {

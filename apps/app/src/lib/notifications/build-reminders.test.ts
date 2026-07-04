@@ -7,15 +7,18 @@ import { buildReminders } from "@/lib/notifications/build-reminders";
 const basePrefs: UserPreferences = {
   locale: "en",
   translationLocale: "en",
+  timeFormat: "24",
   bedtime: "22:30",
   notificationPrefs: {
     ...DEFAULT_NOTIFICATION_PREFERENCES,
     masterEnabled: true,
     prayer: true,
+    sunnahPrayer: true,
     beforePrayer: true,
     afterPrayer: false,
     afterAzan: true,
   },
+  prayerAlerts: {},
   fontPrefs: {
     global: {},
     arabic: {},
@@ -37,6 +40,7 @@ describe("buildReminders", () => {
     expect(ids).toContain("afterAzan");
     expect(ids).toContain("beforePrayer");
     expect(ids).not.toContain("afterPrayer");
+    expect(reminders.some((item) => item.id.startsWith("prayer:tahajjud:"))).toBe(true);
   });
 
   it("uses computed times instead of static prayer hints", () => {

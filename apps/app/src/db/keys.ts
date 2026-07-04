@@ -7,6 +7,8 @@ export const DB_KEYS = {
   zikrProgress: `${PREFIX}/zikr_progress`,
   qazaCounters: `${PREFIX}/qaza_counters`,
   qazaDailyPlans: `${PREFIX}/qaza_daily_plans`,
+  qazaSchedule: `${PREFIX}/qaza_schedule`,
+  qazaDailyProgress: `${PREFIX}/qaza_daily_progress`,
   qazaRoza: `${PREFIX}/qaza_roza`,
   userPreferences: `${PREFIX}/user_preferences`,
   location: `${PREFIX}/location`,
@@ -19,6 +21,7 @@ export const DB_KEYS = {
   quranEditionCache: `${PREFIX}/quran_edition_cache`,
   hadithBookmarks: `${PREFIX}/hadith_bookmarks`,
   hadithBookCache: `${PREFIX}/hadith_book_cache`,
+  continueActivity: `${PREFIX}/continue_activity`,
 } as const;
 
 /** Composite key for one prayer on one day. */

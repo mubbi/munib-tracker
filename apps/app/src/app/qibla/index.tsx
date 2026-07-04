@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import Animated, {
   Easing,
+  interpolateColor,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -21,15 +22,20 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
+import {
+  getQiblaTurnGuidance,
+  type QiblaTurnKind,
+  qiblaAlignmentProgress,
+  qiblaArrowAngle,
+} from "@/lib/qibla-guidance";
 
 const KAABA = { lat: 21.4225, lng: 39.8262 };
 
-/** Within this many degrees of the qibla we consider the arrow "aligned". */
 const ALIGN_THRESHOLD = 5;
-/** Smoothing factor for the low-pass filter on raw heading samples (0..1). */
 const SMOOTHING = 0.15;
 
 function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
@@ -42,11 +48,6 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
   return Math.round(6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
 }
 
-/**
- * Circular low-pass filter: blends the previous smoothed heading towards the new
- * raw sample along the SHORTEST arc so the 359°→0° seam never causes a spin or a
- * jitter spike. Returns a value normalised to [0, 360).
- */
 function smoothHeading(prev: number, next: number, alpha: number): number {
   const delta = ((next - prev + 540) % 360) - 180;
   return (prev + alpha * delta + 360) % 360;
@@ -58,6 +59,137 @@ const CARDINALS = [
   { key: "cardinalS", angle: 180 },
   { key: "cardinalW", angle: 270 },
 ] as const;
+
+const TURN_I18N: Record<QiblaTurnKind, string> = {
+  aligned: "qibla.aligned",
+  fineTuneLeft: "qibla.turnFineTuneLeft",
+  fineTuneRight: "qibla.turnFineTuneRight",
+  slightLeft: "qibla.turnSlightLeft",
+  slightRight: "qibla.turnSlightRight",
+  left: "qibla.turnLeft",
+  right: "qibla.turnRight",
+};
+
+function turnChevron(kind: QiblaTurnKind): "left" | "right" | "checkmark" | null {
+  if (kind === "aligned") return "checkmark";
+  if (kind.endsWith("Left")) return "left";
+  if (kind.endsWith("Right")) return "right";
+  return null;
+}
+
+type CompassFaceProps = {
+  dialSize: number;
+  bearing: number | null;
+  /** When set, cardinal labels counter-rotate to stay upright while the dial spins. */
+  heading?: number;
+  tokens: ReturnType<typeof useThemeTokens>["tokens"];
+  colors: ReturnType<typeof useThemeTokens>["colors"];
+  t: ReturnType<typeof useTranslation>["t"];
+};
+
+/** Shared tick marks, cardinals, and Kaaba marker — rotators are dial-sized so pivots stay centered. */
+function CompassFace({ dialSize, bearing, heading = 0, tokens, colors, t }: CompassFaceProps) {
+  const labelCounter = heading;
+  const kaabaSize = Math.round(dialSize * 0.15);
+  const kaabaFontSize = Math.round(kaabaSize * 0.58);
+
+  return (
+    <>
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => {
+        const major = angle % 90 === 0;
+        return (
+          <View
+            key={`tick-${angle}`}
+            style={[
+              styles.rotator,
+              {
+                width: dialSize,
+                height: dialSize,
+                transform: [{ rotate: `${angle}deg` }],
+              },
+            ]}
+          >
+            <View
+              style={{
+                marginTop: 8,
+                width: major ? 3 : 2,
+                height: major ? 14 : 8,
+                borderRadius: 2,
+                backgroundColor: major ? tokens.accentBorder : tokens.hairline,
+              }}
+            />
+          </View>
+        );
+      })}
+
+      {CARDINALS.map(({ key, angle }) => (
+        <View
+          key={key}
+          style={[
+            styles.rotator,
+            {
+              width: dialSize,
+              height: dialSize,
+              transform: [{ rotate: `${angle}deg` }],
+            },
+          ]}
+        >
+          <ThemedText
+            type="caption"
+            style={[
+              styles.cardinalLabel,
+              {
+                marginTop: Spacing.two,
+                color: key === "cardinalN" ? colors.accent : colors.mutedForeground,
+                transform: [{ rotate: `${-angle + labelCounter}deg` }],
+              },
+            ]}
+          >
+            {t(`qibla.${key}`)}
+          </ThemedText>
+        </View>
+      ))}
+
+      {bearing != null ? (
+        <View
+          style={[
+            styles.rotator,
+            {
+              width: dialSize,
+              height: dialSize,
+              transform: [{ rotate: `${bearing}deg` }],
+            },
+          ]}
+        >
+          <View
+            style={[
+              styles.qiblaBadge,
+              {
+                marginTop: 2,
+                width: kaabaSize,
+                height: kaabaSize,
+                backgroundColor: tokens.accentSoft,
+                borderColor: tokens.accentBorder,
+                transform: [{ rotate: `${labelCounter - bearing}deg` }],
+              },
+            ]}
+          >
+            <ThemedText
+              type="caption"
+              style={{
+                color: colors.accent,
+                fontSize: kaabaFontSize,
+                lineHeight: kaabaFontSize + 2,
+              }}
+            >
+              🕋
+            </ThemedText>
+          </View>
+        </View>
+      ) : null}
+    </>
+  );
+}
 
 export default function QiblaScreen() {
   const router = useRouter();
@@ -71,23 +203,20 @@ export default function QiblaScreen() {
   const [distance, setDistance] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [hasCompass, setHasCompass] = useState(false);
-  /** True once a heading source that resolves true north (not just magnetic) is live. */
   const [hasTrueNorth, setHasTrueNorth] = useState(false);
   const [, setAligned] = useState(false);
 
-  // Responsive dial: cap at 320 but shrink to fit narrow screens with gutters.
   const dialSize = Math.min(windowWidth - Spacing.four * 2, 320);
-  const needleGlyph = Math.round(dialSize * 0.3);
+  const needleGlyph = Math.round(dialSize * 0.26);
 
-  // Latest smoothed heading, kept in a ref so the sensor callback filters from
-  // the previous value without re-subscribing on every sample.
   const smoothedRef = useRef(0);
-
-  // Continuous (unwrapped) rotation target for the needle. We accumulate deltas
-  // along the shortest arc so withTiming never sweeps the long way round 0/360.
   const rotation = useSharedValue(0);
+  const dialRotation = useSharedValue(0);
   const lastArrowRef = useRef(0);
+  const lastDialRef = useRef(0);
   const pulse = useSharedValue(1);
+  const chevronNudge = useSharedValue(0);
+  const alignGlow = useSharedValue(0);
 
   useEffect(() => {
     let mounted = true;
@@ -119,9 +248,6 @@ export default function QiblaScreen() {
   }, []);
 
   useEffect(() => {
-    // The web has no device compass (expo-location/magnetometer heading APIs are
-    // unsupported and only log warnings), so skip subscribing entirely — the UI
-    // falls back to the static bearing + `qibla.webHint`.
     if (Platform.OS === "web") return;
 
     let headingSub: Location.LocationSubscription | null = null;
@@ -129,9 +255,6 @@ export default function QiblaScreen() {
     let cancelled = false;
 
     void (async () => {
-      // Preferred source: expo-location heading gives us TRUE north directly
-      // (trueHeading), which matches the qibla bearing's frame of reference.
-      // magHeading is magnetic-north only, so we avoid it when trueHeading is set.
       try {
         headingSub = await Location.watchHeadingAsync((data) => {
           if (cancelled) return;
@@ -144,10 +267,9 @@ export default function QiblaScreen() {
         });
         return;
       } catch {
-        // Fall through to the raw magnetometer below.
+        // Fall through to magnetometer.
       }
 
-      // Fallback: raw magnetometer (magnetic north only, no true-north correction).
       const available = await Magnetometer.isAvailableAsync().catch(() => false);
       if (!available || cancelled) return;
       setHasCompass(true);
@@ -168,18 +290,24 @@ export default function QiblaScreen() {
     };
   }, [applyHeading]);
 
-  // Signed angle of the arrow relative to "up" (0 = pointing at qibla), in (-180, 180].
   const arrowAngle = useMemo(() => {
     if (bearing == null) return 0;
-    return ((bearing - heading + 540) % 360) - 180;
+    return qiblaArrowAngle(bearing, heading);
   }, [bearing, heading]);
 
-  const isAligned = hasCompass && bearing != null && Math.abs(arrowAngle) < ALIGN_THRESHOLD;
+  const guidance = useMemo(() => getQiblaTurnGuidance(arrowAngle, ALIGN_THRESHOLD), [arrowAngle]);
+  const alignmentProgress = qiblaAlignmentProgress(guidance.absDeg);
+  const isAligned = hasCompass && bearing != null && guidance.kind === "aligned";
+  const showTurnGuidance = hasCompass && bearing != null;
+  const chevron = turnChevron(guidance.kind);
 
-  // Drive the needle: accumulate the shortest-arc delta onto a continuous value
-  // so the spring/timing never unwinds through the 0/360 seam.
   useEffect(() => {
-    if (bearing == null || !hasCompass) return;
+    if (bearing == null) return;
+    if (!hasCompass) {
+      rotation.value = bearing;
+      lastArrowRef.current = bearing;
+      return;
+    }
     const target = (bearing - heading + 360) % 360;
     const delta = ((target - lastArrowRef.current + 540) % 360) - 180;
     const next = lastArrowRef.current + delta;
@@ -191,7 +319,44 @@ export default function QiblaScreen() {
     }
   }, [bearing, heading, hasCompass, reducedMotion, rotation]);
 
-  // Fire exactly one success haptic on ENTERING alignment; drive the pulse.
+  useEffect(() => {
+    if (!hasCompass) return;
+    const target = -heading;
+    const delta = ((target - lastDialRef.current + 540) % 360) - 180;
+    const next = lastDialRef.current + delta;
+    lastDialRef.current = next;
+    if (reducedMotion) {
+      dialRotation.value = next;
+    } else {
+      dialRotation.value = withTiming(next, { duration: 200, easing: Easing.out(Easing.cubic) });
+    }
+  }, [heading, hasCompass, reducedMotion, dialRotation]);
+
+  useEffect(() => {
+    alignGlow.value = withTiming(isAligned ? 1 : alignmentProgress * 0.55, {
+      duration: reducedMotion ? 0 : 260,
+      easing: Easing.out(Easing.quad),
+    });
+  }, [isAligned, alignmentProgress, reducedMotion, alignGlow]);
+
+  useEffect(() => {
+    if (showTurnGuidance && chevron && chevron !== "checkmark" && !reducedMotion) {
+      chevronNudge.value = withRepeat(
+        withSequence(
+          withTiming(chevron === "left" ? -6 : 6, {
+            duration: 520,
+            easing: Easing.inOut(Easing.quad),
+          }),
+          withTiming(0, { duration: 520, easing: Easing.inOut(Easing.quad) }),
+        ),
+        -1,
+        true,
+      );
+    } else {
+      chevronNudge.value = withTiming(0, { duration: 120 });
+    }
+  }, [showTurnGuidance, chevron, reducedMotion, chevronNudge]);
+
   useEffect(() => {
     setAligned((wasAligned) => {
       if (isAligned && !wasAligned) {
@@ -199,7 +364,7 @@ export default function QiblaScreen() {
         if (!reducedMotion) {
           pulse.value = withRepeat(
             withSequence(
-              withTiming(1.08, { duration: 420, easing: Easing.inOut(Easing.quad) }),
+              withTiming(1.06, { duration: 420, easing: Easing.inOut(Easing.quad) }),
               withTiming(1, { duration: 420, easing: Easing.inOut(Easing.quad) }),
             ),
             -1,
@@ -217,7 +382,27 @@ export default function QiblaScreen() {
     transform: [{ rotate: `${rotation.value}deg` }, { scale: pulse.value }],
   }));
 
-  const needleColor = isAligned ? colors.accent : colors.foreground;
+  const dialStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${dialRotation.value}deg` }],
+  }));
+
+  const chevronStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: chevronNudge.value }],
+  }));
+
+  const hairlineColor = tokens.hairline;
+  const accentColor = colors.accent;
+
+  const ringStyle = useAnimatedStyle(() => ({
+    borderColor: interpolateColor(alignGlow.value, [0, 1], [hairlineColor, accentColor]),
+    shadowOpacity: alignGlow.value * 0.35,
+  }));
+
+  const guidanceA11y = showTurnGuidance
+    ? isAligned
+      ? t("qibla.aligned")
+      : `${t(TURN_I18N[guidance.kind])}, ${t("qibla.degreesOff", { deg: guidance.absDeg })}`
+    : undefined;
 
   const compassA11yLabel = useMemo(() => {
     const base = t("qibla.compassLabel");
@@ -226,8 +411,12 @@ export default function QiblaScreen() {
       bearing: Math.round(bearing),
       distance: distance != null ? t("qibla.distanceKm", { km: distance.toLocaleString() }) : "",
     });
-    return isAligned ? `${base}. ${value}. ${t("qibla.aligned")}` : `${base}. ${value}`;
-  }, [t, bearing, distance, isAligned]);
+    return guidanceA11y ? `${base}. ${value}. ${guidanceA11y}` : `${base}. ${value}`;
+  }, [t, bearing, distance, guidanceA11y]);
+
+  const compassGradient = gradientBackground(
+    `radial-gradient(circle at 50% 42%, ${withAlpha(colors.accent, tokens.isDark ? 0.18 : 0.12)} 0%, ${withAlpha(colors.card, 0)} 68%)`,
+  );
 
   return (
     <ScreenLayout
@@ -237,111 +426,158 @@ export default function QiblaScreen() {
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Stagger>
-        <Card style={styles.compassCard}>
-          <View
-            accessible
-            accessibilityRole="image"
-            accessibilityLabel={compassA11yLabel}
-            accessibilityLiveRegion="polite"
+        {showTurnGuidance ? (
+          <Card
             style={[
-              styles.dial,
+              styles.guidanceCard,
               {
-                width: dialSize,
-                height: dialSize,
-                borderRadius: dialSize / 2,
+                backgroundColor: isAligned ? tokens.accentSoft : tokens.surfaceRaised,
                 borderColor: isAligned ? tokens.accentBorder : tokens.hairline,
               },
             ]}
           >
-            {/* Eight-point geometric tick star for the Islamic theme + subtle ring. */}
-            {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => {
-              const major = angle % 90 === 0;
-              return (
-                <View
-                  key={angle}
-                  style={[
-                    styles.tick,
-                    {
-                      height: dialSize / 2,
-                      transform: [{ rotate: `${angle}deg` }],
-                      pointerEvents: "none",
-                    },
-                  ]}
-                >
-                  <View
-                    style={{
-                      width: major ? 3 : 2,
-                      height: major ? 14 : 8,
-                      borderRadius: 2,
-                      backgroundColor: major ? tokens.accentBorder : tokens.hairline,
-                    }}
+            <View style={styles.guidanceRow}>
+              {chevron ? (
+                <Animated.View style={chevronStyle}>
+                  <SymbolView
+                    name={
+                      chevron === "checkmark"
+                        ? { ios: "checkmark.circle.fill", android: "check", web: "check" }
+                        : chevron === "left"
+                          ? {
+                              ios: "chevron.left.circle.fill",
+                              android: "arrow_back",
+                              web: "arrow_back",
+                            }
+                          : {
+                              ios: "chevron.right.circle.fill",
+                              android: "arrow_forward",
+                              web: "arrow_forward",
+                            }
+                    }
+                    size={36}
+                    tintColor={isAligned ? colors.accent : colors.foreground}
                   />
-                </View>
-              );
-            })}
+                </Animated.View>
+              ) : null}
+              <View style={styles.guidanceCopy}>
+                <ThemedText
+                  type="header"
+                  style={{ color: isAligned ? colors.accentText : colors.foreground }}
+                >
+                  {t(TURN_I18N[guidance.kind])}
+                </ThemedText>
+                {isAligned ? (
+                  <ThemedText type="small" themeColor="mutedForeground">
+                    {t("qibla.alignedHint")}
+                  </ThemedText>
+                ) : (
+                  <ThemedText type="small" themeColor="mutedForeground">
+                    {t("qibla.degreesOff", { deg: guidance.absDeg })}
+                  </ThemedText>
+                )}
+              </View>
+            </View>
+          </Card>
+        ) : null}
 
-            {/* Cardinal marks N/E/S/W. */}
-            {CARDINALS.map(({ key, angle }) => (
+        <Card style={[styles.compassCard, compassGradient]}>
+          <View style={styles.compassStage}>
+            <Animated.View
+              accessible
+              accessibilityRole="image"
+              accessibilityLabel={compassA11yLabel}
+              accessibilityLiveRegion="polite"
+              style={[
+                styles.dialOuter,
+                ringStyle,
+                {
+                  width: dialSize + 24,
+                  height: dialSize + 24,
+                  borderRadius: (dialSize + 24) / 2,
+                  shadowColor: colors.accent,
+                },
+              ]}
+            >
               <View
-                key={key}
                 style={[
-                  styles.cardinal,
+                  styles.dial,
                   {
+                    width: dialSize,
                     height: dialSize,
-                    transform: [{ rotate: `${angle}deg` }],
-                    pointerEvents: "none",
+                    borderRadius: dialSize / 2,
+                    borderColor: tokens.hairline,
+                    backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.55 : 0.72),
                   },
                 ]}
               >
-                <ThemedText
-                  type="caption"
-                  style={[
-                    styles.cardinalLabel,
-                    {
-                      color: key === "cardinalN" ? colors.accent : colors.mutedForeground,
-                      transform: [{ rotate: `${-angle}deg` }],
-                    },
-                  ]}
-                >
-                  {t(`qibla.${key}`)}
-                </ThemedText>
+                {hasCompass ? (
+                  <Animated.View style={[styles.dialInner, dialStyle]}>
+                    <CompassFace
+                      dialSize={dialSize}
+                      bearing={bearing}
+                      heading={heading}
+                      tokens={tokens}
+                      colors={colors}
+                      t={t}
+                    />
+                  </Animated.View>
+                ) : (
+                  <>
+                    <CompassFace
+                      dialSize={dialSize}
+                      bearing={bearing}
+                      tokens={tokens}
+                      colors={colors}
+                      t={t}
+                    />
+
+                    {bearing != null ? (
+                      <Animated.View style={[styles.needle, needleStyle]}>
+                        <SymbolView
+                          name={{
+                            ios: "location.north.fill",
+                            android: "navigation",
+                            web: "navigation",
+                          }}
+                          size={needleGlyph}
+                          tintColor={colors.accent}
+                        />
+                      </Animated.View>
+                    ) : null}
+                  </>
+                )}
               </View>
-            ))}
 
-            <Animated.View style={[styles.needle, needleStyle]}>
-              <SymbolView
-                name={{ ios: "location.north.fill", android: "navigation", web: "navigation" }}
-                size={needleGlyph}
-                tintColor={needleColor}
-              />
+              {hasCompass ? (
+                <View style={[styles.topPointer, { borderBottomColor: colors.accent }]} />
+              ) : null}
             </Animated.View>
-
-            <View style={[styles.kaaba, { backgroundColor: tokens.accentSoft }]}>
-              <ThemedText type="caption" style={{ color: colors.accent }}>
-                🕋
-              </ThemedText>
-            </View>
           </View>
 
-          {bearing != null ? (
-            <ThemedText type="header">{Math.round(bearing)}°</ThemedText>
-          ) : (
-            <ThemedText type="small" themeColor="mutedForeground">
-              {error ? t(error) : t("qibla.locating")}
-            </ThemedText>
-          )}
+          <View style={styles.statsRow}>
+            <View style={[styles.statBlock, { backgroundColor: tokens.surfaceRaised }]}>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("qibla.bearingLabel")}
+              </ThemedText>
+              {bearing != null ? (
+                <ThemedText type="header">{Math.round(bearing)}°</ThemedText>
+              ) : (
+                <ThemedText type="small" themeColor="mutedForeground">
+                  {error ? t(error) : t("qibla.locating")}
+                </ThemedText>
+              )}
+            </View>
 
-          {isAligned ? (
-            <ThemedText type="small" style={{ color: colors.accentText }}>
-              {t("qibla.aligned")}
-            </ThemedText>
-          ) : null}
-
-          {distance != null ? (
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("qibla.distanceKm", { km: distance.toLocaleString() })}
-            </ThemedText>
-          ) : null}
+            {distance != null ? (
+              <View style={[styles.statBlock, { backgroundColor: tokens.surfaceRaised }]}>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("qibla.distanceLabel")}
+                </ThemedText>
+                <ThemedText type="header">{distance.toLocaleString()} km</ThemedText>
+              </View>
+            ) : null}
+          </View>
         </Card>
 
         {!hasCompass && bearing != null ? (
@@ -353,7 +589,11 @@ export default function QiblaScreen() {
         ) : (
           <Card variant="muted" padding="three">
             <ThemedText type="small" themeColor="mutedForeground">
-              {hasCompass && !hasTrueNorth ? t("qibla.noCompassHint") : t("qibla.calibrateHint")}
+              {showTurnGuidance
+                ? t("qibla.rotatePhone")
+                : hasCompass && !hasTrueNorth
+                  ? t("qibla.noCompassHint")
+                  : t("qibla.calibrateHint")}
             </ThemedText>
           </Card>
         )}
@@ -367,30 +607,55 @@ export default function QiblaScreen() {
 }
 
 const styles = StyleSheet.create({
-  compassCard: {
+  guidanceCard: {
+    borderWidth: 1,
+    borderCurve: "continuous",
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.four,
+  },
+  guidanceRow: {
+    flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    paddingVertical: Spacing.five,
   },
-  dial: {
-    borderWidth: 2,
-    borderCurve: "continuous",
+  guidanceCopy: {
+    flex: 1,
+    gap: Spacing.half,
+  },
+  compassCard: {
+    alignItems: "center",
+    gap: Spacing.four,
+    paddingVertical: Spacing.five,
+    overflow: "hidden",
+  },
+  compassStage: {
     alignItems: "center",
     justifyContent: "center",
   },
-  tick: {
-    position: "absolute",
-    top: 0,
+  dialOuter: {
     alignItems: "center",
-    justifyContent: "flex-start",
-    paddingTop: 6,
+    justifyContent: "center",
+    borderWidth: 2,
+    borderCurve: "continuous",
+    shadowOffset: { width: 0, height: 0 },
+    shadowRadius: 18,
   },
-  cardinal: {
-    position: "absolute",
-    top: 0,
+  dial: {
+    borderWidth: 1.5,
+    borderCurve: "continuous",
     alignItems: "center",
-    justifyContent: "flex-start",
-    paddingTop: Spacing.two,
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  dialInner: {
+    ...StyleSheet.absoluteFill,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  rotator: {
+    position: "absolute",
+    alignItems: "center",
+    pointerEvents: "none",
   },
   cardinalLabel: {
     fontWeight: "700",
@@ -400,14 +665,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  kaaba: {
-    position: "absolute",
-    top: 10,
-    width: 30,
-    height: 30,
+  qiblaBadge: {
     borderRadius: Radius.pill,
     borderCurve: "continuous",
+    borderWidth: 1.5,
     alignItems: "center",
     justifyContent: "center",
+  },
+  topPointer: {
+    position: "absolute",
+    top: 2,
+    width: 0,
+    height: 0,
+    borderLeftWidth: 8,
+    borderRightWidth: 8,
+    borderBottomWidth: 12,
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+  },
+  statsRow: {
+    flexDirection: "row",
+    gap: Spacing.three,
+    width: "100%",
+    paddingHorizontal: Spacing.two,
+  },
+  statBlock: {
+    flex: 1,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    gap: Spacing.half,
+    alignItems: "center",
   },
 });

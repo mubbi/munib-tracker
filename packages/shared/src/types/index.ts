@@ -14,6 +14,9 @@ export interface DailySummary {
   zikrCompleted: number;
   zikrTotal: number;
   qazaRemaining: number;
+  /** Sum of today's scheduled qaza targets (0 when no schedule is set). */
+  qazaTargetToday: number;
+  /** Qaza prayers performed today via the qaza manager. */
   qazaCompletedToday: number;
   streakDays: number;
 }

@@ -75,12 +75,15 @@ describe.concurrent("buildDailySummary", () => {
         { prayerId: "fajr", remaining: 10, completed: 2 },
         { prayerId: "dhuhr", remaining: 5, completed: 0 },
       ],
+      qazaSchedule: { targets: { fajr: 2, dhuhr: 1 } },
+      qazaDailyProgress: { date: "2026-07-03", completed: { asr: 1 } },
       streakDays: 4,
     });
 
     expect(summary.salahCompleted).toBe(2);
     expect(summary.salahTotal).toBe(6);
     expect(summary.qazaCompletedToday).toBe(1);
+    expect(summary.qazaTargetToday).toBe(3);
     expect(summary.zikrCompleted).toBe(1);
     expect(summary.zikrTotal).toBe(2);
     expect(summary.qazaRemaining).toBe(15);

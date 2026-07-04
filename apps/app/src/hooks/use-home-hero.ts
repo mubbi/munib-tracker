@@ -7,16 +7,21 @@ import { useNow } from "@/hooks/use-now";
 import { formatHijriDate } from "@/lib/hijri";
 import { moonPhase } from "@/lib/moon";
 import {
+  buildDailySchedule,
   computePrayerTimes,
   formatDuration,
   formatPrayerTime,
   nextPrayer,
+  nextScheduleEntry,
   PRAYER_SLOT_ICONS,
   prayerSlots,
+  type ScheduleKind,
   windowProgress,
 } from "@/lib/prayer-times";
+import { type ScheduleEntryStatus, scheduleEntryStatus } from "@/lib/schedule-ui";
 import { type SkyMarkers, type SkyPalette, skyPalette, skyPhaseForTime } from "@/lib/sky";
 import { useLocation, useLocationStatus } from "@/stores/location-store";
+import { usePreferences } from "@/stores/preferences-store";
 
 export interface HomeHeroData {
   location: string;
@@ -36,7 +41,9 @@ export interface HomeHeroData {
   windowProgress: number;
   /** Pre-localized "in {{time}}" until the next marker, e.g. "in 27m". */
   nextIn: string;
-  /** The six markers with display strings + which one is currently active. */
+  /** Schedule entry id of the next upcoming timed marker. */
+  nextScheduleId: string | null;
+  /** Full daily schedule with obligatory, optional, and marker entries. */
   schedule: ScheduleItem[];
 }
 
@@ -44,8 +51,11 @@ export interface ScheduleItem {
   id: string;
   name: string;
   time: string;
+  kind: ScheduleKind;
   /** Whether this marker's window is the one currently running. */
   active: boolean;
+  /** Visual state for timeline styling. */
+  status: ScheduleEntryStatus;
 }
 
 /**
@@ -58,6 +68,7 @@ export function useHomeHero(): HomeHeroData {
   const location = useLocation();
   const status = useLocationStatus();
   const now = useNow();
+  const timeFormat = usePreferences().timeFormat;
 
   const base = i18n.language?.split("-")[0];
   const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
@@ -67,24 +78,34 @@ export function useHomeHero(): HomeHeroData {
     const times = computePrayerTimes(coords, now, location.method, location.madhab);
     const next = nextPrayer(coords, now, location.method, location.madhab);
     const slots = prayerSlots(times);
+    const flexibleTime = t("home.scheduleAnyTime");
 
     const prayers: PrayerTime[] = slots.map((slot) => ({
       name: t(`prayers.${slot.id}`),
-      time: formatPrayerTime(slot.date),
+      time: formatPrayerTime(slot.date, timeFormat),
       icon: PRAYER_SLOT_ICONS[slot.id],
     }));
 
-    const schedule: ScheduleItem[] = slots.map((slot, index) => ({
-      id: slot.id,
-      name: t(`prayers.${slot.id}`),
-      time: formatPrayerTime(slot.date),
-      active: index === next.currentIndex,
+    const rawSchedule = buildDailySchedule(coords, now, location.method, location.madhab);
+    const nextEntry = nextScheduleEntry(rawSchedule, now);
+    const nextScheduleId = nextEntry?.id ?? null;
+
+    const schedule: ScheduleItem[] = rawSchedule.map((entry) => ({
+      id: entry.id,
+      name: t(`prayers.${entry.id}`),
+      time: entry.at ? formatPrayerTime(entry.at, timeFormat) : flexibleTime,
+      kind: entry.kind,
+      active: entry.active,
+      status: scheduleEntryStatus(entry.kind, entry.active, entry.at, now),
     }));
 
     // Progress through the running window: from the active marker to the next one.
     const windowStart = slots[next.currentIndex]?.date ?? now;
     const progress = windowProgress(windowStart, next.date, now);
-    const nextIn = t("hero.nextIn", { time: formatDuration(next.minutesUntil) });
+    const scheduleMinutesUntil = nextEntry?.at
+      ? Math.max(0, Math.round((nextEntry.at.getTime() - now.getTime()) / 60000))
+      : next.minutesUntil;
+    const nextIn = t("hero.nextIn", { time: formatDuration(scheduleMinutesUntil) });
 
     const markers = Object.fromEntries(slots.map((s) => [s.id, s.date])) as unknown as SkyMarkers;
     const sky = skyPalette(skyPhaseForTime(now, markers));
@@ -106,7 +127,7 @@ export function useHomeHero(): HomeHeroData {
     return {
       location: location.label,
       hijriDate: formatHijriDate(now, locale),
-      currentTime: formatPrayerTime(now),
+      currentTime: formatPrayerTime(now, timeFormat),
       countdown,
       prayers,
       activeIndex: next.currentIndex,
@@ -115,7 +136,8 @@ export function useHomeHero(): HomeHeroData {
       moonLabel,
       windowProgress: progress,
       nextIn,
+      nextScheduleId,
       schedule,
     };
-  }, [location, status, now, locale, t]);
+  }, [location, status, now, locale, timeFormat, t]);
 }

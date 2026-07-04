@@ -1,4 +1,9 @@
-import type { AchievementStats } from "@munib-tracker/shared/achievements";
+import type { AchievementStats, DevotionProgress } from "@munib-tracker/shared/achievements";
+import {
+  computeDevotionProgress,
+  summarizeQazaDebt,
+  summarizeRozaDebt,
+} from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type {
   DailySummary,
@@ -6,12 +11,14 @@ import type {
   PrayerId,
   PrayerStatus,
   QazaCounter,
+  QazaDailyProgress,
   QazaRozaCounter,
+  QazaSchedule,
 } from "@munib-tracker/shared/types";
 import {
-  aggregateByDate,
   buildDailySummary,
   computeStreak,
+  countPerfectDays,
   getLocalDateString,
 } from "@munib-tracker/shared/utils";
 import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
@@ -26,9 +33,10 @@ function emptyStats(): AchievementStats {
   return {
     streak: 0,
     prayersCompleted: 0,
-    qazaCompleted: 0,
     zikrCompleted: 0,
-    bestDay: 0,
+    perfectDays: 0,
+    qazaDebt: null,
+    rozaDebt: null,
   };
 }
 
@@ -40,6 +48,7 @@ function emptySummary(date: string): DailySummary {
     zikrCompleted: 0,
     zikrTotal: 0,
     qazaRemaining: 0,
+    qazaTargetToday: 0,
     qazaCompletedToday: 0,
     streakDays: 0,
   };
@@ -52,10 +61,13 @@ export interface TrackerState {
   prayerNotes: Record<string, string | undefined>;
   zikrCounts: Record<string, number>;
   qazaCounters: QazaCounter[];
+  qazaSchedule: QazaSchedule;
+  qazaDailyProgress: QazaDailyProgress;
   roza: QazaRozaCounter;
   summary: DailySummary;
   streakDays: number;
   achievementStats: AchievementStats;
+  devotionProgress: DevotionProgress;
 
   load: () => Promise<void>;
   refresh: () => Promise<void>;
@@ -65,17 +77,22 @@ export interface TrackerState {
   incrementZikr: (zikrId: string, target: number, by?: number) => Promise<void>;
   adjustQaza: (prayerId: ObligatoryPrayer, remaining: number, completed: number) => Promise<void>;
   performQaza: (prayerId: ObligatoryPrayer, by?: number) => Promise<void>;
+  resetQazaCounter: (prayerId: ObligatoryPrayer) => Promise<void>;
+  resetAllQazaCounters: () => Promise<void>;
+  setQazaSchedule: (schedule: QazaSchedule) => Promise<void>;
   setRoza: (roza: QazaRozaCounter) => Promise<void>;
   performRoza: (by?: number) => Promise<void>;
 }
 
 async function recompute(date: string): Promise<Partial<TrackerState>> {
-  const [allLogs, todayZikr, allZikr, counters, roza] = await Promise.all([
+  const [allLogs, todayZikr, allZikr, counters, roza, schedule, dailyProgress] = await Promise.all([
     PrayerRepository.getAll(),
     ZikrRepository.getByDate(date),
     ZikrRepository.getAll(),
     QazaRepository.getCounters(),
     QazaRepository.getRoza(),
+    QazaRepository.getSchedule(),
+    QazaRepository.getDailyProgress(date),
   ]);
 
   const prayerStatus: Record<string, PrayerStatus> = {};
@@ -95,6 +112,8 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
     prayerLogs: allLogs,
     zikrProgress: todayZikr,
     qazaCounters: counters,
+    qazaSchedule: schedule,
+    qazaDailyProgress: dailyProgress,
     streakDays,
   });
 
@@ -104,13 +123,16 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
   const prayersCompleted = allLogs.filter(
     (l) => l.status === "completed" && OBLIGATORY_SET.has(l.prayerId),
   ).length;
-  const bestDay = Math.max(0, ...[...aggregateByDate(allLogs).values()].map((d) => d.completed));
+  const perfectDays = countPerfectDays(allLogs);
+  const qazaDebt = summarizeQazaDebt(counters);
+  const rozaDebt = summarizeRozaDebt(roza);
   const achievementStats: AchievementStats = {
     streak: streakDays,
     prayersCompleted,
-    qazaCompleted: counters.reduce((sum, c) => sum + c.completed, 0),
+    qazaDebt,
+    rozaDebt,
     zikrCompleted: allZikr.filter((z) => z.completed).length,
-    bestDay,
+    perfectDays,
   };
 
   return {
@@ -118,10 +140,13 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
     prayerNotes,
     zikrCounts,
     qazaCounters: counters,
+    qazaSchedule: schedule,
+    qazaDailyProgress: dailyProgress,
     roza,
     summary,
     streakDays,
     achievementStats,
+    devotionProgress: computeDevotionProgress(achievementStats),
   };
 }
 
@@ -144,10 +169,13 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     prayerNotes: {},
     zikrCounts: {},
     qazaCounters: [],
+    qazaSchedule: { targets: {} },
+    qazaDailyProgress: { date: today, completed: {} },
     roza: { remaining: 0, completed: 0 },
     summary: emptySummary(today),
     streakDays: 0,
     achievementStats: emptyStats(),
+    devotionProgress: computeDevotionProgress(emptyStats()),
 
     async load() {
       await initDatabase();
@@ -228,6 +256,27 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       });
     },
 
+    setQazaSchedule(schedule) {
+      return enqueue(async () => {
+        await QazaRepository.setSchedule(schedule);
+        await get().refresh();
+      });
+    },
+
+    resetQazaCounter(prayerId) {
+      return enqueue(async () => {
+        await QazaRepository.resetCounter(prayerId);
+        await get().refresh();
+      });
+    },
+
+    resetAllQazaCounters() {
+      return enqueue(async () => {
+        await QazaRepository.resetAllCounters();
+        await get().refresh();
+      });
+    },
+
     setRoza(roza) {
       return enqueue(async () => {
         await QazaRepository.setRoza(roza);
@@ -261,6 +310,10 @@ export function useAchievementStats(): AchievementStats {
   return useStore(trackerStore, (s) => s.achievementStats);
 }
 
+export function useDevotionProgress(): DevotionProgress {
+  return useStore(trackerStore, (s) => s.devotionProgress);
+}
+
 export function useTodayPrayers(): {
   status: Record<string, PrayerStatus>;
   notes: Record<string, string | undefined>;
@@ -274,6 +327,14 @@ export function usePrayerStatus(prayerId: PrayerId): PrayerStatus {
 
 export function useQazaCounters(): QazaCounter[] {
   return useStore(trackerStore, (s) => s.qazaCounters);
+}
+
+export function useQazaSchedule(): QazaSchedule {
+  return useStore(trackerStore, (s) => s.qazaSchedule);
+}
+
+export function useQazaDailyProgress(): QazaDailyProgress {
+  return useStore(trackerStore, (s) => s.qazaDailyProgress);
 }
 
 export function useQazaSummary(): { remaining: number; completed: number } {
@@ -309,6 +370,12 @@ const trackerActions = {
     trackerStore.getState().adjustQaza(...args),
   performQaza: (...args: Parameters<TrackerState["performQaza"]>) =>
     trackerStore.getState().performQaza(...args),
+  setQazaSchedule: (...args: Parameters<TrackerState["setQazaSchedule"]>) =>
+    trackerStore.getState().setQazaSchedule(...args),
+  resetQazaCounter: (...args: Parameters<TrackerState["resetQazaCounter"]>) =>
+    trackerStore.getState().resetQazaCounter(...args),
+  resetAllQazaCounters: (...args: Parameters<TrackerState["resetAllQazaCounters"]>) =>
+    trackerStore.getState().resetAllQazaCounters(...args),
   setRoza: (...args: Parameters<TrackerState["setRoza"]>) =>
     trackerStore.getState().setRoza(...args),
   performRoza: (...args: Parameters<TrackerState["performRoza"]>) =>
