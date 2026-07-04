@@ -3,5 +3,10 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit"
-  }
+  },
+  "jest.runMode": "on-demand",
+  "jest.outputConfig": {
+    "revealOn": "none"
+  },
+  "testing.automaticallyOpenTestResults": "neverOpen"
 }
