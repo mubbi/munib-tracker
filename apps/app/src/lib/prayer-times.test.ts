@@ -17,6 +17,15 @@ import {
 
 const MAKKAH: Coords = { latitude: 21.4225, longitude: 39.8262 };
 const NYC: Coords = { latitude: 40.7128, longitude: -74.006 };
+/** Makkah shares Arabia Standard Time with Riyadh — use for timezone-stable tests. */
+const MAKKAH_TZ = "Asia/Riyadh";
+const MAKKAH_TEST_DAY = new Date(Date.UTC(2025, 5, 15));
+
+/** Two hours before Fajr on `day`, as an absolute instant (pass `MAKKAH_TZ` to nextPrayer). */
+function makkahPreDawn(day: Date = MAKKAH_TEST_DAY): Date {
+  const times = computePrayerTimes(MAKKAH, day);
+  return new Date(times.fajr.getTime() - 2 * 60 * 60_000);
+}
 
 describe("nextPrayer with manual location timezone", () => {
   it("uses the selected city's calendar day, not the device day", () => {
@@ -51,8 +60,8 @@ describe("computePrayerTimes / prayerSlots", () => {
 
 describe("nextPrayer", () => {
   it("points at Fajr in the pre-dawn hours", () => {
-    const now = new Date(2025, 5, 15, 2, 0, 0);
-    const next = nextPrayer(MAKKAH, now);
+    const now = makkahPreDawn();
+    const next = nextPrayer(MAKKAH, now, "MuslimWorldLeague", "shafi", MAKKAH_TZ);
     expect(next.id).toBe("fajr");
     expect(next.activeIndex).toBe(0);
     expect(next.minutesUntil).toBeGreaterThan(0);
@@ -95,8 +104,10 @@ describe("nextPrayer currentIndex", () => {
   });
 
   it("treats the pre-dawn hours as the previous night's Isha", () => {
-    const now = new Date(2025, 5, 15, 2, 0, 0);
-    expect(nextPrayer(MAKKAH, now).currentIndex).toBe(PRAYER_SLOT_ORDER.indexOf("isha"));
+    const now = makkahPreDawn();
+    expect(nextPrayer(MAKKAH, now, "MuslimWorldLeague", "shafi", MAKKAH_TZ).currentIndex).toBe(
+      PRAYER_SLOT_ORDER.indexOf("isha"),
+    );
   });
 
   it("stays on Isha through the late night after it begins", () => {

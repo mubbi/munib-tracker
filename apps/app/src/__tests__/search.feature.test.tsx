@@ -4,7 +4,19 @@ import SearchScreen from "@/app/search";
 import * as search from "@/lib/search";
 import { renderWithProviders } from "@/test-support/render";
 
+/** Theme prefs hydrate from AsyncStorage before the screen paints. */
+async function waitForSearchScreen() {
+  await waitFor(
+    () => {
+      expect(screen.getByText("Try searching")).toBeTruthy();
+    },
+    { timeout: 15_000 },
+  );
+}
+
 describe("Universal search screen", () => {
+  jest.setTimeout(20_000);
+
   beforeEach(() => {
     // Skip the heavy Qur'an ayah index build in component tests; surah-name
     // matches (from the un-mocked light search) still exercise the Qur'an group.
@@ -19,14 +31,14 @@ describe("Universal search screen", () => {
 
   it("shows suggestions when the field is empty", async () => {
     renderWithProviders(<SearchScreen />);
-    // The theme provider hydrates async, so wait for the first paint.
-    expect(await screen.findByText("Try searching")).toBeTruthy();
+    await waitForSearchScreen();
     expect(screen.getByText("Forgiveness")).toBeTruthy();
   });
 
   it("groups results by section as the user types", async () => {
     renderWithProviders(<SearchScreen />);
-    const input = await screen.findByPlaceholderText(/Search Qur'an/i);
+    await waitForSearchScreen();
+    const input = screen.getByPlaceholderText(/Search Qur'an/i);
     fireEvent.changeText(input, "rahman");
 
     await waitFor(() => {
@@ -40,7 +52,8 @@ describe("Universal search screen", () => {
 
   it("clears the query and returns to suggestions", async () => {
     renderWithProviders(<SearchScreen />);
-    const input = await screen.findByPlaceholderText(/Search Qur'an/i);
+    await waitForSearchScreen();
+    const input = screen.getByPlaceholderText(/Search Qur'an/i);
     fireEvent.changeText(input, "rahman");
 
     await waitFor(() => {
