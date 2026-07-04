@@ -146,10 +146,7 @@ export default function BookmarksHubScreen() {
 
     return (
       <Card key={section} padding="three">
-        <SectionHeader
-          title={t(isEmpty ? meta.exploreTitleKey : meta.titleKey)}
-          icon={meta.icon}
-        />
+        <SectionHeader title={t(isEmpty ? meta.exploreTitleKey : meta.titleKey)} icon={meta.icon} />
         <View style={styles.list}>
           {items.map((source) =>
             isEmpty ? (

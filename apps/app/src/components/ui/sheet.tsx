@@ -1,5 +1,13 @@
 import type { ReactNode } from "react";
-import { Modal, Pressable, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
+import {
+  Modal,
+  Pressable,
+  type StyleProp,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+  type ViewStyle,
+} from "react-native";
 
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -26,7 +34,9 @@ export function Sheet({
   contentStyle,
 }: SheetProps) {
   const { colors, tokens } = useThemeTokens();
+  const { height: windowHeight } = useWindowDimensions();
   const isBottom = variant === "bottom";
+  const bottomMaxHeight = windowHeight * 0.88;
 
   return (
     <Modal
@@ -53,6 +63,7 @@ export function Sheet({
           style={[
             isBottom ? styles.bottomCard : styles.centerCard,
             { backgroundColor: colors.card, borderColor: colors.border },
+            isBottom ? { maxHeight: bottomMaxHeight } : null,
             contentStyle,
           ]}
           onPress={(event) => event.stopPropagation()}
@@ -87,6 +98,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   bottomCard: {
+    width: "100%",
     borderTopLeftRadius: Radius.xl,
     borderTopRightRadius: Radius.xl,
     borderCurve: "continuous",
@@ -94,6 +106,7 @@ const styles = StyleSheet.create({
     padding: Spacing.four,
     paddingBottom: Spacing.five,
     gap: Spacing.two,
+    overflow: "hidden",
   },
   handle: {
     alignSelf: "center",

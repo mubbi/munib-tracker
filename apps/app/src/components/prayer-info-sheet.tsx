@@ -108,8 +108,9 @@ export function PrayerInfoSheet({ visible, prayerId, onClose }: PrayerInfoSheetP
   return (
     <Sheet visible={visible} onClose={onClose} variant="bottom">
       <ScrollView
+        style={styles.scrollView}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
         bounces={false}
       >
         <View style={styles.header}>
@@ -172,7 +173,11 @@ export function PrayerInfoSheet({ visible, prayerId, onClose }: PrayerInfoSheetP
 }
 
 const styles = StyleSheet.create({
-  scroll: {
+  scrollView: {
+    flexGrow: 0,
+    flexShrink: 1,
+  },
+  scrollContent: {
     paddingBottom: Spacing.four,
     gap: Spacing.three,
   },
