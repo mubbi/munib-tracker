@@ -380,6 +380,8 @@
     "masterSub": "Master switch for every reminder",
     "adhanTitle": "Preview adhan",
     "adhanSub": "Play the bundled call-to-prayer sound",
+    "upcomingTitle": "Upcoming reminders",
+    "upcomingHint": "Your next scheduled alerts, in your location's timezone. Use the toggles below to enable, disable, or edit them.",
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",
     "permissionBannerTitle": "Enable reminders",
     "permissionBannerMessage": "Allow notifications so Munib Tracker can remind you about Salah, Zikr, and Qaza.",
@@ -1131,6 +1133,7 @@
   "notifCenter": {
     "eyebrow": "Reminders",
     "subtitle": "Delivered and upcoming reminders",
+    "inboxSubtitle": "Notifications you've received",
     "webNote": "Scheduled reminders run on iOS and Android. On the web, use the app on your phone to receive Salah, Zikr, and Qaza reminders.",
     "permissionText": "Turn on notifications to receive reminders for Salah, Zikr, and Qaza.",
     "enable": "Enable notifications",

@@ -1,5 +1,5 @@
-import { type Href, useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
+import { useRouter } from "expo-router";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -22,13 +22,11 @@ import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
 import { formatDisplayDateTime } from "@/lib/time";
-import { listScheduled, rescheduleAll } from "@/notifications/scheduler";
+import { rescheduleAll } from "@/notifications/scheduler";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
 import { locationStore, useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
-
-type Scheduled = Awaited<ReturnType<typeof listScheduled>>;
 
 const PAGE_SIZE = 10;
 
@@ -47,18 +45,6 @@ function mapInboxItems(
   }));
 }
 
-function mapScheduledItems(scheduled: Scheduled): NotificationListItem[] {
-  return scheduled.map((item) => ({
-    id: `scheduled:${item.id}`,
-    title: item.title,
-    body: item.body,
-    at: item.fireAt,
-    readAt: null,
-    reminderKey: extractReminderKey(`scheduled:${item.id}`),
-    route: item.route,
-  }));
-}
-
 export default function NotificationCenterScreen() {
   const router = useRouter();
   const { t } = useTranslation();
@@ -67,19 +53,7 @@ export default function NotificationCenterScreen() {
   const toast = useToast();
   const { items, unreadCount, open, markAllRead } = useInAppNotifications();
   const { requestPermission, granted } = useNotificationPermissions();
-  const [scheduled, setScheduled] = useState<Scheduled>([]);
-  const [upcomingVisibleCount, setUpcomingVisibleCount] = useState(PAGE_SIZE);
-
-  const reload = useCallback(async () => {
-    setScheduled(await listScheduled(prefs, locationStore.getState().location));
-    setUpcomingVisibleCount(PAGE_SIZE);
-  }, [prefs]);
-
-  useFocusEffect(
-    useCallback(() => {
-      void reload();
-    }, [reload]),
-  );
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const enable = async () => {
     const webGesture = isWeb ? beginWebNotificationPermissionRequest() : null;
@@ -91,35 +65,18 @@ export default function NotificationCenterScreen() {
       return;
     }
     await rescheduleAll(prefs, locationStore.getState().location);
-    await reload();
   };
 
   const delivered = useMemo(() => mapInboxItems(items), [items]);
-  const upcoming = useMemo(() => mapScheduledItems(scheduled), [scheduled]);
+  const visible = delivered.slice(0, visibleCount);
   const formatWhen = (iso: string) =>
     formatDisplayDateTime(new Date(iso), prefs.timeFormat, prefs.locale, location.timeZone);
-
-  const renderRows = (rows: NotificationListItem[]) =>
-    rows.map((item) => (
-      <NotificationListRow
-        key={item.id}
-        item={item}
-        formattedWhen={formatWhen(item.at)}
-        onPress={
-          item.inboxId
-            ? () => void open(item.inboxId as string)
-            : item.route
-              ? () => router.push(item.route as Href)
-              : undefined
-        }
-      />
-    ));
 
   return (
     <ScreenLayout
       eyebrow={t("notifCenter.eyebrow")}
       title={t("settings.notifications")}
-      subtitle={t("notifCenter.subtitle")}
+      subtitle={t("notifCenter.inboxSubtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
       <Seo path="/notifications" />
@@ -149,39 +106,28 @@ export default function NotificationCenterScreen() {
             onOpenSettings={() => router.push("/settings/notifications")}
           />
 
-          {delivered.length === 0 && upcoming.length === 0 ? (
+          {delivered.length === 0 ? (
             <EmptyState
               icon={{ ios: "bell.slash", android: "notifications_off", web: "notifications_off" }}
-              title={t("notifCenter.emptyTitle")}
-              description={t("notifCenter.emptyDesc")}
+              title={t("notifCenter.inboxEmptyTitle")}
+              description={t("notifCenter.inboxEmptyDesc")}
             />
           ) : (
             <View style={styles.list}>
-              {delivered.length > 0 ? (
-                <>
-                  <ThemedText type="smallBold">{t("notifCenter.delivered")}</ThemedText>
-                  {renderRows(delivered)}
-                </>
-              ) : null}
-
-              {upcoming.length > 0 ? (
-                <>
-                  <ThemedText type="smallBold" style={styles.sectionTitle}>
-                    {t("notifCenter.scheduled")}
-                  </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("notifCenter.scheduledHint")}
-                  </ThemedText>
-                  {renderRows(upcoming.slice(0, upcomingVisibleCount))}
-                </>
-              ) : null}
-
-              {upcomingVisibleCount < upcoming.length ? (
+              {visible.map((item) => (
+                <NotificationListRow
+                  key={item.id}
+                  item={item}
+                  formattedWhen={formatWhen(item.at)}
+                  onPress={item.inboxId ? () => void open(item.inboxId as string) : undefined}
+                />
+              ))}
+              {visibleCount < delivered.length ? (
                 <Button
                   label={t("notifCenter.loadMore")}
                   variant="secondary"
                   fullWidth
-                  onPress={() => setUpcomingVisibleCount((count) => count + PAGE_SIZE)}
+                  onPress={() => setVisibleCount((count) => count + PAGE_SIZE)}
                 />
               ) : null}
             </View>
@@ -202,8 +148,5 @@ const styles = StyleSheet.create({
   },
   list: {
     gap: Spacing.two,
-  },
-  sectionTitle: {
-    marginTop: Spacing.two,
   },
 });

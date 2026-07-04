@@ -1,9 +1,14 @@
 import { OBLIGATORY_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type { NotificationPreferences, PrayerId } from "@munib-tracker/shared/types";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import {
+  type NotificationListItem,
+  NotificationListRow,
+} from "@/components/notifications/notification-list-row";
 import { NotificationPermissionBanner } from "@/components/notifications/permission-banner";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -15,17 +20,23 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { adhanTrack } from "@/lib/adhan-audio";
+import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
-import { rescheduleAll } from "@/notifications/scheduler";
+import { formatDisplayDateTime } from "@/lib/time";
+import { listScheduled, rescheduleAll } from "@/notifications/scheduler";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useToast } from "@/providers/toast-provider";
-import { locationStore } from "@/stores/location-store";
+import { locationStore, useLocation } from "@/stores/location-store";
 import {
   preferencesStore,
   usePreferences,
   usePreferencesActions,
 } from "@/stores/preferences-store";
+
+type Scheduled = Awaited<ReturnType<typeof listScheduled>>;
+
+const UPCOMING_PREVIEW_COUNT = 6;
 
 type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled">;
 
@@ -42,6 +53,7 @@ export default function NotificationsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
+  const location = useLocation();
   const { setNotificationPrefs, setPrayerAlert } = usePreferencesActions();
   const audio = useAudioPlayerContext();
   const toast = useToast();
@@ -49,11 +61,42 @@ export default function NotificationsScreen() {
   const master = prefs.notificationPrefs.masterEnabled;
   const obligatoryEnabled = master && prefs.notificationPrefs.prayer;
   const sunnahEnabled = master && prefs.notificationPrefs.sunnahPrayer;
+  const [scheduled, setScheduled] = useState<Scheduled>([]);
+
+  const reloadScheduled = useCallback(async () => {
+    setScheduled(
+      await listScheduled(preferencesStore.getState().prefs, locationStore.getState().location),
+    );
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      void reloadScheduled();
+    }, [reloadScheduled]),
+  );
+
+  const upcoming = useMemo<NotificationListItem[]>(
+    () =>
+      scheduled.slice(0, UPCOMING_PREVIEW_COUNT).map((item) => ({
+        id: `scheduled:${item.id}`,
+        title: item.title,
+        body: item.body,
+        at: item.fireAt,
+        readAt: null,
+        reminderKey: extractReminderKey(`scheduled:${item.id}`),
+        route: item.route,
+      })),
+    [scheduled],
+  );
+
+  const formatWhen = (iso: string) =>
+    formatDisplayDateTime(new Date(iso), prefs.timeFormat, prefs.locale, location.timeZone);
 
   const enableMaster = async () => {
     if (isWeb) {
       await setNotificationPrefs({ masterEnabled: true });
       await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+      await reloadScheduled();
       return;
     }
 
@@ -76,11 +119,25 @@ export default function NotificationsScreen() {
 
     await setNotificationPrefs({ masterEnabled: true });
     await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    await reloadScheduled();
+  };
+
+  const onNotificationToggle = async (patch: Partial<NotificationPreferences>) => {
+    await setNotificationPrefs(patch);
+    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    await reloadScheduled();
+  };
+
+  const onDisableMaster = async () => {
+    await setNotificationPrefs({ masterEnabled: false });
+    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    await reloadScheduled();
   };
 
   const onPrayerAlertChange = async (prayerId: PrayerId, value: boolean) => {
     await setPrayerAlert(prayerId, value);
     await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    await reloadScheduled();
   };
 
   return (
@@ -105,10 +162,31 @@ export default function NotificationsScreen() {
                 await enableMaster();
                 return;
               }
-              await setNotificationPrefs({ masterEnabled: false });
+              await onDisableMaster();
             }}
           />
         </Card>
+
+        {master && upcoming.length > 0 ? (
+          <Card padding="three">
+            <SectionHeader
+              title={t("notif.upcomingTitle")}
+              icon={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.upcomingHint}>
+              {t("notif.upcomingHint")}
+            </ThemedText>
+            <View style={styles.upcomingList}>
+              {upcoming.map((item) => (
+                <NotificationListRow
+                  key={item.id}
+                  item={item}
+                  formattedWhen={formatWhen(item.at)}
+                />
+              ))}
+            </View>
+          </Card>
+        ) : null}
 
         <Card padding="three">
           <SettingsRow
@@ -137,7 +215,7 @@ export default function NotificationsScreen() {
                   subtitle={t(`notif.items.${key}.subtitle`)}
                   value={prefs.notificationPrefs[key]}
                   disabled={!master}
-                  onValueChange={(value) => setNotificationPrefs({ [key]: value })}
+                  onValueChange={(value) => void onNotificationToggle({ [key]: value })}
                 />
               ))}
             </View>
@@ -192,6 +270,13 @@ export default function NotificationsScreen() {
 
 const styles = StyleSheet.create({
   rows: {
+    gap: Spacing.two,
+    marginTop: Spacing.three,
+  },
+  upcomingHint: {
+    marginTop: Spacing.two,
+  },
+  upcomingList: {
     gap: Spacing.two,
     marginTop: Spacing.three,
   },
