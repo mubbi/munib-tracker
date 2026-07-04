@@ -32,7 +32,9 @@ type Scheduled = Awaited<ReturnType<typeof listScheduled>>;
 
 const PAGE_SIZE = 10;
 
-function mapInboxItems(inbox: ReturnType<typeof useInAppNotifications>["items"]): NotificationListItem[] {
+function mapInboxItems(
+  inbox: ReturnType<typeof useInAppNotifications>["items"],
+): NotificationListItem[] {
   return inbox.map((item) => ({
     id: `inbox:${item.id}`,
     title: item.title,

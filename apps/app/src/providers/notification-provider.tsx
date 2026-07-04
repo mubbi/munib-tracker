@@ -2,14 +2,14 @@ import type { NotificationResponse } from "expo-notifications";
 import { type Href, useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
 import { AppState, Platform } from "react-native";
+import { isWeb } from "@/lib/notifications/platform";
+import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
 import {
   configureNotifications,
   rescheduleAll,
   SNOOZE_ACTION_IDENTIFIER,
   snoozeNotification,
 } from "@/notifications/scheduler";
-import { isWeb } from "@/lib/notifications/platform";
-import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useStore } from "@/stores/create-store";
 import { locationStore } from "@/stores/location-store";

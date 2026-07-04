@@ -6,11 +6,11 @@ import {
   readNotificationPermissionUiState,
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
+import { getWebNotificationBlockingReason } from "@/lib/notifications/web-environment";
 import {
   cancelWebReminderTimers,
   scheduleWebReminderTimers,
 } from "@/lib/notifications/web-reminder-scheduler";
-import { getWebNotificationBlockingReason } from "@/lib/notifications/web-environment";
 
 /**
  * Web build of the notification scheduler. Uses in-app timers + optional browser
@@ -52,7 +52,9 @@ export async function snoozeNotification(_response: unknown): Promise<void> {
 export async function listScheduled(
   prefs: UserPreferences,
   location: StoredLocation = DEFAULT_LOCATION,
-): Promise<{ id: string; title: string; body: string; time?: string; fireAt: string; route?: string }[]> {
+): Promise<
+  { id: string; title: string; body: string; time?: string; fireAt: string; route?: string }[]
+> {
   if (!prefs.notificationPrefs.masterEnabled) return [];
   return summarizeReminders(
     buildReminders(prefs, location),
