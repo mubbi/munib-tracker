@@ -175,3 +175,14 @@ export function hijriMonthLabel(year: number, month: number, locale: AppLocale):
   const suffix = HIJRI_SUFFIX[locale] ?? HIJRI_SUFFIX.en;
   return `${hijriMonthName(month, locale)} ${year} ${suffix}`;
 }
+
+/** Compact Hijri label for tight grids, e.g. "Ram 17" (en) or "17 رمضان" (ar/ur). */
+export function formatHijriDateCompact(date: Date, locale: AppLocale, timeZone?: string): string {
+  const { month, day } = gregorianToHijri(date, timeZone);
+  const name = hijriMonthName(month, locale);
+  if (locale === "en") {
+    const short = name.split(/[\s'-]+/)[0].slice(0, 3);
+    return `${short} ${day}`;
+  }
+  return `${day} ${name}`;
+}

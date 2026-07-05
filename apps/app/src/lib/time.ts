@@ -1,4 +1,6 @@
-import type { TimeFormat } from "@munib-tracker/shared/types";
+import type { CalendarMode, TimeFormat } from "@munib-tracker/shared/types";
+
+import { formatCalendarDate } from "./calendar-format";
 
 /** Parses an "HH:mm" string into hour/minute, with a safe fallback. */
 export function parseHhMm(
@@ -192,13 +194,21 @@ export function formatDisplayDateTime(
   timeFormat: TimeFormat = "24",
   locale = "en",
   timeZone?: string,
+  calendar: CalendarMode = "gregorian",
 ): string {
-  const datePart = date.toLocaleDateString(localeToBcp47(locale), {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+  const base = locale.split("-")[0];
+  const appLocale = base === "ar" || base === "ur" ? base : "en";
+  const datePart = formatCalendarDate(
+    date,
+    calendar,
+    appLocale,
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    },
     timeZone,
-  });
+  );
   const timePart = formatDisplayTime(date, timeFormat, timeZone);
   return `${datePart}, ${timePart}`;
 }

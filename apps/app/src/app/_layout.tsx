@@ -1,3 +1,4 @@
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -11,6 +12,7 @@ import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
+import { ARABIC_FONT_FILES } from "@/lib/arabic-fonts";
 import { AppApiProvider } from "@/providers/api-provider";
 import { AppProviders } from "@/providers/app-providers";
 import { AudioPlayerProvider } from "@/providers/audio-player-provider";
@@ -24,6 +26,12 @@ import { ToastProvider } from "@/providers/toast-provider";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts(ARABIC_FONT_FILES);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <AppApiProvider>
       <MunibThemeProvider>

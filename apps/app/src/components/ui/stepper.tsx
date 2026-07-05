@@ -13,6 +13,10 @@ type StepperProps = {
   onDecrement: () => void;
   /** Label prefix for accessibility, e.g. "Fajr qaza". */
   label: string;
+  /** When set, the center value becomes tappable (e.g. manual qaza edit). */
+  onValuePress?: () => void;
+  /** Accessibility label for the tappable value — required when `onValuePress` is set. */
+  valueAccessibilityLabel?: string;
   min?: number;
   size?: "sm" | "md";
   /** Button background — defaults to the card color. */
@@ -25,6 +29,8 @@ export function Stepper({
   onIncrement,
   onDecrement,
   label,
+  onValuePress,
+  valueAccessibilityLabel,
   min = 0,
   size = "sm",
   buttonBackground,
@@ -48,9 +54,26 @@ export function Stepper({
           onDecrement();
         }}
       />
-      <ThemedText type="smallBold" style={[styles.count, { minWidth: dim - 2 }]}>
-        {value}
-      </ThemedText>
+      {onValuePress ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={valueAccessibilityLabel ?? label}
+          hitSlop={6}
+          onPress={() => {
+            triggerHaptic("light");
+            onValuePress();
+          }}
+          style={[styles.countPressable, { minWidth: dim - 2 }]}
+        >
+          <ThemedText type="smallBold" style={styles.count}>
+            {value}
+          </ThemedText>
+        </Pressable>
+      ) : (
+        <ThemedText type="smallBold" style={[styles.count, { minWidth: dim - 2 }]}>
+          {value}
+        </ThemedText>
+      )}
       <StepButton
         icon={{ ios: "plus", android: "add", web: "add" }}
         label={t("common.increase", { label })}
@@ -112,6 +135,11 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
+  },
+  countPressable: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Spacing.one,
   },
   count: {
     textAlign: "center",

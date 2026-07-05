@@ -12,6 +12,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
+import { arabicReadingLayout } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -80,10 +81,7 @@ export default function ZikrTasbeehScreen() {
       <Card variant="muted" padding="four" style={styles.reading}>
         <ThemedText
           type="arabic"
-          style={[
-            styles.arabic,
-            arabicSize ? { fontSize: arabicSize, lineHeight: arabicSize * 1.8 } : null,
-          ]}
+          style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize, "center") : null]}
         >
           {item.arabic}
         </ThemedText>
@@ -118,7 +116,6 @@ const styles = StyleSheet.create({
   arabic: {
     textAlign: "center",
     writingDirection: "rtl",
-    lineHeight: 52,
   },
   translit: {
     textAlign: "center",

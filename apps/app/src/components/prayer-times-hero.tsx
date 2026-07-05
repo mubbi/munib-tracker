@@ -36,7 +36,7 @@ export type PrayerTime = {
 
 type PrayerTimesHeroProps = {
   location: string;
-  hijriDate: string;
+  displayDate: string;
   currentTime: string;
   /** Pre-localized countdown line, e.g. "Maghrib is 27 min away". */
   countdown: string;
@@ -92,7 +92,7 @@ const STARS = [
  */
 export function PrayerTimesHero({
   location,
-  hijriDate,
+  displayDate,
   currentTime,
   countdown,
   prayers,
@@ -290,7 +290,7 @@ export function PrayerTimesHero({
             >
               <MoonPhaseIcon date={now} size={22} />
               <ThemedText style={[styles.hijri, styles.softShadow, { color: Brand.heroText }]}>
-                {hijriDate}
+                {displayDate}
               </ThemedText>
               <SymbolView name={chevronForward} size={12} tintColor={Brand.heroSubtext} />
             </PressableScale>

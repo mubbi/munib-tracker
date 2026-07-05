@@ -1,0 +1,131 @@
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+
+import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
+import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Stagger } from "@/components/ui/stagger";
+import { Radius, Spacing } from "@/constants/theme";
+import { HadithRepository, QuranCacheRepository } from "@/db";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  type CacheGroupSize,
+  clearCacheKeys,
+  formatBytes,
+  getCacheSummary,
+} from "@/lib/cache-manager";
+import { useToast } from "@/providers/toast-provider";
+
+export default function OfflineDataScreen() {
+  const router = useRouter();
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const toast = useToast();
+  const [groups, setGroups] = useState<CacheGroupSize[]>([]);
+
+  const refresh = useCallback(async () => {
+    setGroups(await getCacheSummary());
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      void refresh();
+    }, [refresh]),
+  );
+
+  const clearGroup = async (group: CacheGroupSize) => {
+    // Reset in-memory caches too so the freed space takes effect immediately.
+    if (group.id === "quran") await QuranCacheRepository.clear();
+    if (group.id === "hadith") await HadithRepository.clearBookCache();
+    await clearCacheKeys(group.keys);
+    await refresh();
+    toast.success(t("offlineData.cleared"));
+  };
+
+  const clearAll = async () => {
+    await QuranCacheRepository.clear();
+    await HadithRepository.clearBookCache();
+    await clearCacheKeys(groups.flatMap((g) => g.keys));
+    await refresh();
+    toast.success(t("offlineData.cleared"));
+  };
+
+  const total = groups.reduce((sum, g) => sum + g.bytes, 0);
+
+  return (
+    <ScreenLayout
+      eyebrow={t("settings.title")}
+      title={t("offlineData.title")}
+      subtitle={t("offlineData.subtitle")}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/settings"))}
+    >
+      <Seo path="/settings/offline-data" />
+      <Stagger>
+        <Card padding="three">
+          <SectionHeader
+            title={t("offlineData.cachesTitle")}
+            icon={{ ios: "internaldrive.fill", android: "storage", web: "storage" }}
+          />
+          <View style={styles.rows}>
+            {groups.map((group) => (
+              <View key={group.id} style={[styles.row, { backgroundColor: colors.muted }]}>
+                <View style={styles.rowBody}>
+                  <ThemedText type="small">{t(group.labelKey)}</ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {formatBytes(group.bytes)}
+                  </ThemedText>
+                </View>
+                <IconButton
+                  name={{ ios: "trash", android: "delete", web: "delete" }}
+                  size={18}
+                  tintColor={tokens.status.danger.color}
+                  accessibilityLabel={t("offlineData.clearOne", { name: t(group.labelKey) })}
+                  disabled={group.bytes === 0}
+                  onPress={() => void clearGroup(group)}
+                />
+              </View>
+            ))}
+          </View>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.total}>
+            {t("offlineData.total", { size: formatBytes(total) })}
+          </ThemedText>
+        </Card>
+
+        <Button
+          label={t("offlineData.clearAll")}
+          variant="ghost"
+          fullWidth
+          disabled={total === 0}
+          icon={{ ios: "trash", android: "delete_sweep", web: "delete_sweep" }}
+          onPress={() => void clearAll()}
+          style={{ borderColor: tokens.status.danger.border }}
+        />
+
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.note}>
+          {t("offlineData.note")}
+        </ThemedText>
+      </Stagger>
+    </ScreenLayout>
+  );
+}
+
+const styles = StyleSheet.create({
+  rows: { gap: Spacing.two, marginTop: Spacing.three },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  rowBody: { flex: 1, gap: 2 },
+  total: { marginTop: Spacing.three, textAlign: "right" },
+  note: { textAlign: "center" },
+});

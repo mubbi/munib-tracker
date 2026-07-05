@@ -1,4 +1,4 @@
-import type { AppLocale } from "@munib-tracker/shared/types";
+import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
 import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -16,6 +16,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { PrayerRepository } from "@/db";
+import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   buildHijriMonthGrid,
@@ -23,17 +24,17 @@ import {
   localizedMonthLabel,
   localizedWeekdayInitials,
 } from "@/lib/calendar";
-import { formatHijriDate, gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
-
-type CalendarMode = "gregorian" | "hijri";
+import { formatCalendarDate } from "@/lib/calendar-format";
+import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
 
 export default function CalendarScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const defaultCalendar = useDefaultCalendar();
   const now = new Date();
   const todayHijri = gregorianToHijri(now);
-  const [mode, setMode] = useState<CalendarMode>("gregorian");
+  const [mode, setMode] = useState<CalendarMode>(defaultCalendar);
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth());
   const [hYear, setHYear] = useState(todayHijri.year);
@@ -43,7 +44,6 @@ export default function CalendarScreen() {
 
   const base = i18n.language?.split("-")[0];
   const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
-  const bcp47 = locale === "ar" ? "ar" : locale === "ur" ? "ur" : "en-US";
 
   useFocusEffect(
     useCallback(() => {
@@ -70,15 +70,7 @@ export default function CalendarScreen() {
   // active calendar plus its worship status (prayed / partial / missed / today).
   const describeDay = (date: string, isToday: boolean) => {
     const parsed = new Date(`${date}T00:00:00`);
-    const dateText =
-      mode === "hijri"
-        ? formatHijriDate(parsed, locale)
-        : parsed.toLocaleDateString(bcp47, {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
+    const dateText = formatCalendarDate(parsed, mode, locale);
     const info = activity.get(date);
     let statusText: string | null;
     if (date > today) statusText = t("calDay.futureSubtitle");
@@ -252,7 +244,9 @@ export default function CalendarScreen() {
             <LegendDot color={tokens.status.danger.color} label={t("calendar.missed")} />
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
-            {t("calendar.legendHint", { date: today })}
+            {t("calendar.legendHint", {
+              date: formatCalendarDate(new Date(`${today}T00:00:00`), mode, locale),
+            })}
           </ThemedText>
         </Card>
       </Stagger>

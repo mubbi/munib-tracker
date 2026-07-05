@@ -16,6 +16,26 @@ function withDefaults(stored: Partial<UserPreferences>): UserPreferences {
     fontPrefs: {
       ...DEFAULT_USER_PREFERENCES.fontPrefs,
       ...stored.fontPrefs,
+      arabic: {
+        ...DEFAULT_USER_PREFERENCES.fontPrefs.arabic,
+        ...stored.fontPrefs?.arabic,
+      },
+      translation: {
+        ...DEFAULT_USER_PREFERENCES.fontPrefs.translation,
+        ...stored.fontPrefs?.translation,
+      },
+      transliteration: {
+        ...DEFAULT_USER_PREFERENCES.fontPrefs.transliteration,
+        ...stored.fontPrefs?.transliteration,
+      },
+      global: {
+        ...DEFAULT_USER_PREFERENCES.fontPrefs.global,
+        ...stored.fontPrefs?.global,
+      },
+      titles: {
+        ...DEFAULT_USER_PREFERENCES.fontPrefs.titles,
+        ...stored.fontPrefs?.titles,
+      },
     },
     weatherPrefs: {
       ...DEFAULT_USER_PREFERENCES.weatherPrefs,

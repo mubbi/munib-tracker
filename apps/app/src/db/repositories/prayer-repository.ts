@@ -35,6 +35,9 @@ export const PrayerRepository = {
       notes: patch?.notes ?? existing?.notes,
       qazaDebtAdded:
         patch?.qazaDebtAdded !== undefined ? patch.qazaDebtAdded : existing?.qazaDebtAdded,
+      isJama: existing?.isJama,
+      isExcused: existing?.isExcused,
+      excusedReason: existing?.excusedReason,
       updatedAt: new Date().toISOString(),
       source: "manual",
     };
@@ -49,6 +52,37 @@ export const PrayerRepository = {
       date,
       status: existing?.status ?? "pending",
       notes,
+      isJama: existing?.isJama,
+      isExcused: existing?.isExcused,
+      excusedReason: existing?.excusedReason,
+      updatedAt: new Date().toISOString(),
+      source: "manual",
+    };
+    return collection.upsert(prayerLogKey(prayerId, date), log);
+  },
+
+  /**
+   * Sets the optional flags (jama' / excused) on a prayer without changing its
+   * status, creating a pending log if none exists yet. Used by the congregation
+   * toggle and the "mark day excused" action.
+   */
+  async setFlags(
+    prayerId: PrayerId,
+    date: string,
+    patch: { isJama?: boolean; isExcused?: boolean; excusedReason?: PrayerLog["excusedReason"] },
+  ): Promise<PrayerLog> {
+    const existing = await collection.get(prayerLogKey(prayerId, date));
+    const log: PrayerLog = {
+      id: existing?.id ?? createId("prayer"),
+      prayerId,
+      date,
+      status: existing?.status ?? "pending",
+      notes: existing?.notes,
+      qazaDebtAdded: existing?.qazaDebtAdded,
+      isJama: patch.isJama ?? existing?.isJama,
+      isExcused: patch.isExcused ?? existing?.isExcused,
+      excusedReason:
+        patch.isExcused === false ? undefined : (patch.excusedReason ?? existing?.excusedReason),
       updatedAt: new Date().toISOString(),
       source: "manual",
     };

@@ -20,6 +20,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { searchQuranAyahs } from "@/lib/search";
 
 const MAX_RESULTS = 40;
@@ -181,6 +182,11 @@ export default function QuranSearchScreen() {
                     onPress={() => shareAyah(hit.arabic, hit.text, hit.surah, hit.ayah)}
                   />
                 </View>
+                {hit.arabic ? (
+                  <ThemedText type="arabic" numberOfLines={2} style={compactArabicTextStyle}>
+                    {hit.arabic}
+                  </ThemedText>
+                ) : null}
                 <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
                   {hit.text}
                 </ThemedText>

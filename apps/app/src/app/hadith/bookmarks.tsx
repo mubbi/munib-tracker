@@ -15,6 +15,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import type { BookmarkedHadith } from "@/db/repositories/hadith-repository";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { arabicReadingLayout } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
 
 /** Plain-text body shared for a hadith (arabic + english + reference). */
@@ -98,12 +99,7 @@ export default function HadithBookmarksScreen() {
                       <ThemedText
                         type="arabic"
                         numberOfLines={2}
-                        style={[
-                          styles.arabic,
-                          arabicSize
-                            ? { fontSize: arabicSize, lineHeight: arabicSize * 1.8 }
-                            : null,
-                        ]}
+                        style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
                       >
                         {entry.item.arabic}
                       </ThemedText>
@@ -153,7 +149,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: Spacing.one,
   },
-  arabic: { writingDirection: "rtl", textAlign: "right" },
+  arabic: {},
   actions: {
     flexDirection: "row",
     alignItems: "center",

@@ -22,6 +22,10 @@ export const RECITERS: Reciter[] = [
   { dir: "Abdul_Basit_Murattal_192kbps", name: "Abdul Basit (Murattal)" },
   { dir: "Husary_128kbps", name: "Mahmoud Khalil Al-Husary" },
   { dir: "Minshawy_Murattal_128kbps", name: "Al-Minshawi (Murattal)" },
+  { dir: "Abdurrahmaan_As-Sudais_192kbps", name: "Abdurrahman As-Sudais" },
+  { dir: "Abu_Bakr_Ash-Shaatree_128kbps", name: "Abu Bakr Ash-Shatri" },
+  { dir: "Saood_ash-Shuraym_128kbps", name: "Saud Ash-Shuraim" },
+  { dir: "Hudhaify_128kbps", name: "Ali Al-Hudhaify" },
 ];
 
 export const DEFAULT_RECITER_DIR = RECITERS[0].dir;

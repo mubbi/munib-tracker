@@ -1,8 +1,17 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
-import { useCallback, useRef } from "react";
+import { SymbolView } from "expo-symbols";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, type ListRenderItemInfo, Platform, Share, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  type ListRenderItemInfo,
+  Platform,
+  Share,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -10,22 +19,31 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
+import { NavRow } from "@/components/ui/nav-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
 import { buildNamesActivity } from "@/lib/continue-activity";
+import { createNameSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
+import {
+  useEnsureNameFavoritesLoaded,
+  useFavoriteNameIds,
+  useNameFavoritesActions,
+} from "@/stores/name-favorites-store";
 
 const NAMES_HREF = "/names-of-allah";
 /** Approximate row height (card + column gap) for scroll recovery in the 2-column grid. */
 const NAME_ROW_HEIGHT = 196;
-/** Play-all header card + bottom margin. */
-const NAMES_LIST_HEADER_HEIGHT = 88;
+/** Play-all header card + search + bottom margin. */
+const NAMES_LIST_HEADER_HEIGHT = 208;
+/** Canonical 1..99 number per name, stable regardless of any search filter. */
+const NUMBER_BY_ID = new Map(NAMES_OF_ALLAH.map((name, index) => [name.id, index + 1]));
 
 type Name = (typeof NAMES_OF_ALLAH)[number];
 
@@ -36,33 +54,41 @@ export default function NamesOfAllahScreen() {
   const contentBottomInset = useContentBottomInset();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Name>>(null);
+  useEnsureNameFavoritesLoaded();
+  const favoriteIds = useFavoriteNameIds();
+  const { toggle } = useNameFavoritesActions();
+  const favoriteSet = new Set(favoriteIds);
+
+  const [query, setQuery] = useState("");
+  const index = useMemo(() => createNameSearch(NAMES_OF_ALLAH), []);
+  const names = query.trim() ? index.search(query) : NAMES_OF_ALLAH;
 
   const activeId =
-    audio.current?.id && NAMES_OF_ALLAH.some((n) => n.id === audio.current?.id)
+    audio.current?.id && names.some((n) => n.id === audio.current?.id)
       ? audio.current.id
       : undefined;
 
-  const indexForKey = useCallback((id: string) => NAMES_OF_ALLAH.findIndex((n) => n.id === id), []);
+  const indexForKey = useCallback((id: string) => names.findIndex((n) => n.id === id), [names]);
   const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, activeId, indexForKey, {
     viewOffset: Spacing.two,
-    itemCount: NAMES_OF_ALLAH.length,
+    itemCount: names.length,
     numColumns: 2,
     listHeaderHeight: NAMES_LIST_HEADER_HEIGHT,
   });
 
-  const getItemLayout = useCallback((_: ArrayLike<Name> | null | undefined, index: number) => {
-    const row = Math.floor(index / 2);
+  const getItemLayout = useCallback((_: ArrayLike<Name> | null | undefined, i: number) => {
+    const row = Math.floor(i / 2);
     return {
       length: NAME_ROW_HEIGHT,
       offset: NAMES_LIST_HEADER_HEIGHT + row * NAME_ROW_HEIGHT,
-      index,
+      index: i,
     };
   }, []);
 
-  const playFrom = (position: number) => {
-    audio.play(allNameTracks(NAMES_OF_ALLAH), position, { sourceHref: NAMES_HREF });
-    const name = NAMES_OF_ALLAH[position];
-    if (name) recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
+  const playFrom = (name: Name) => {
+    const position = NAMES_OF_ALLAH.findIndex((n) => n.id === name.id);
+    audio.play(allNameTracks(NAMES_OF_ALLAH), Math.max(0, position), { sourceHref: NAMES_HREF });
+    recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
   };
 
   /** Play only the single tapped name (no auto-advance through the list). */
@@ -91,27 +117,55 @@ export default function NamesOfAllahScreen() {
   };
 
   const header = (
-    <Card padding="three" style={styles.headerCard}>
-      <View style={styles.playActions}>
-        <Button
-          label={t("names.playAll")}
-          icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
-          onPress={() => playFrom(0)}
-          style={styles.flex}
-        />
-        <Button
-          label={t("names.playContinuous")}
-          variant="secondary"
-          icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
-          onPress={() => audio.play([namesCompleteTrack()], 0, { sourceHref: NAMES_HREF })}
-          style={styles.flex}
-        />
-      </View>
-    </Card>
+    <View style={styles.headerWrap}>
+      <Card padding="three" style={styles.headerCard}>
+        <View style={styles.playActions}>
+          <Button
+            label={t("names.playAll")}
+            icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+            onPress={() => playFrom(NAMES_OF_ALLAH[0])}
+            style={styles.flex}
+          />
+          <Button
+            label={t("names.playContinuous")}
+            variant="secondary"
+            icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+            onPress={() => audio.play([namesCompleteTrack()], 0, { sourceHref: NAMES_HREF })}
+            style={styles.flex}
+          />
+        </View>
+        <View style={[styles.searchBox, { backgroundColor: colors.muted }]}>
+          <SymbolView
+            name={{ ios: "magnifyingglass", android: "search", web: "search" }}
+            size={17}
+            tintColor={colors.mutedForeground}
+          />
+          <TextInput
+            value={query}
+            onChangeText={setQuery}
+            placeholder={t("names.searchPlaceholder")}
+            placeholderTextColor={colors.mutedForeground}
+            accessibilityLabel={t("names.searchPlaceholder")}
+            autoCorrect={false}
+            returnKeyType="search"
+            style={[styles.input, { color: colors.foreground }]}
+          />
+        </View>
+        <View style={styles.favRow}>
+          <NavRow
+            icon={{ ios: "star.fill", android: "star", web: "star" }}
+            label={t("names.favorites")}
+            count={favoriteIds.length}
+            onPress={() => router.push("/names-of-allah/favorites")}
+          />
+        </View>
+      </Card>
+    </View>
   );
 
-  const renderItem = ({ item: name, index }: ListRenderItemInfo<Name>) => {
+  const renderItem = ({ item: name }: ListRenderItemInfo<Name>) => {
     const isPlaying = activeId === name.id;
+    const isFavorite = favoriteSet.has(name.id);
     return (
       <View style={styles.cell}>
         <Card
@@ -126,7 +180,7 @@ export default function NamesOfAllahScreen() {
           <View style={styles.cardHeader}>
             <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
               <ThemedText type="caption" style={{ color: colors.accentText }}>
-                {index + 1}
+                {NUMBER_BY_ID.get(name.id)}
               </ThemedText>
             </View>
             <ThemedText type="arabic" style={styles.arabic}>
@@ -160,17 +214,33 @@ export default function NamesOfAllahScreen() {
             ) : (
               <View />
             )}
-            {Platform.OS !== "web" ? (
+            <View style={styles.footerActions}>
               <IconButton
-                name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                name={
+                  isFavorite
+                    ? { ios: "star.fill", android: "star", web: "star" }
+                    : { ios: "star", android: "star_border", web: "star_border" }
+                }
                 size={16}
-                tintColor={colors.mutedForeground}
+                tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
                 background={tokens.accentSoft}
                 hitTarget={40}
-                accessibilityLabel={t("names.share")}
-                onPress={() => shareName(name)}
+                accessibilityLabel={isFavorite ? t("names.unfavorite") : t("names.favorite")}
+                accessibilityState={{ selected: isFavorite }}
+                onPress={() => toggle(name.id)}
               />
-            ) : null}
+              {Platform.OS !== "web" ? (
+                <IconButton
+                  name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                  size={16}
+                  tintColor={colors.mutedForeground}
+                  background={tokens.accentSoft}
+                  hitTarget={40}
+                  accessibilityLabel={t("names.share")}
+                  onPress={() => shareName(name)}
+                />
+              ) : null}
+            </View>
           </View>
         </Card>
       </View>
@@ -206,7 +276,7 @@ export default function NamesOfAllahScreen() {
       />
       <FlatList
         ref={listRef}
-        data={NAMES_OF_ALLAH}
+        data={names}
         keyExtractor={(name) => name.id}
         renderItem={renderItem}
         numColumns={2}
@@ -230,12 +300,27 @@ const styles = StyleSheet.create({
   listContent: { gap: Spacing.two },
   columnWrapper: { gap: Spacing.two },
   cell: { flex: 1 },
-  headerCard: { marginBottom: Spacing.two },
+  headerWrap: { marginBottom: Spacing.two },
+  headerCard: { gap: Spacing.three },
   playActions: {
     flexDirection: "row",
     gap: Spacing.two,
   },
   flex: { flex: 1 },
+  searchBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  input: {
+    flex: 1,
+    paddingVertical: Spacing.two + 2,
+    fontSize: 15,
+  },
+  favRow: {},
   card: {
     flex: 1,
     gap: Spacing.one,
@@ -256,7 +341,6 @@ const styles = StyleSheet.create({
   },
   arabic: {
     fontSize: 26,
-    lineHeight: 44,
   },
   meaning: {
     marginTop: Spacing.half,
@@ -268,5 +352,10 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginTop: "auto",
     paddingTop: Spacing.two,
+  },
+  footerActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
   },
 });

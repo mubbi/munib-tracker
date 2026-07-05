@@ -18,7 +18,7 @@ import { ThemedText } from "./themed-text";
 
 type TabConfig = {
   name: string;
-  href: "/" | "/tracker" | "/settings";
+  href: "/" | "/tracker" | "/library" | "/settings";
   label: string;
   icon: SymbolViewProps["name"];
 };
@@ -35,6 +35,12 @@ const tabs: TabConfig[] = [
     href: "/tracker",
     label: "Tracker",
     icon: { ios: "list.bullet.clipboard.fill", android: "checklist", web: "checklist" },
+  },
+  {
+    name: "library",
+    href: "/library",
+    label: "Library",
+    icon: { ios: "books.vertical.fill", android: "local_library", web: "local_library" },
   },
   {
     name: "settings",

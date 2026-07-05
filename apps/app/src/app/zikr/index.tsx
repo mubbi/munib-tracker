@@ -158,6 +158,11 @@ export default function ZikrHomeScreen() {
                     }
                   />
                 ))}
+                <NavRow
+                  icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
+                  label={t("customAdhkar.title")}
+                  onPress={() => router.push("/adhkar-builder")}
+                />
               </View>
             </Card>
           </>

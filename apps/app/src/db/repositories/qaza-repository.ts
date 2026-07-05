@@ -181,6 +181,10 @@ export const QazaRepository = {
     });
   },
 
+  async resetRoza(): Promise<QazaRozaCounter> {
+    return this.setRoza({ remaining: 0, completed: 0 });
+  },
+
   /** Applies a pulled roza counter with last-write-wins on `updatedAt`. */
   async applyRemoteRoza(roza: QazaRozaCounter): Promise<void> {
     await withKeyLock(DB_KEYS.qazaRoza, async () => {
@@ -268,6 +272,50 @@ export const QazaRepository = {
       },
     );
     return map[date];
+  },
+
+  async decrementDailyProgress(
+    prayerId: QazaPrayer,
+    date: string,
+    by = 1,
+  ): Promise<QazaDailyProgress> {
+    const step = Math.max(0, Math.round(by));
+    const map = await updateJSON<Record<string, QazaDailyProgress>>(
+      DB_KEYS.qazaDailyProgress,
+      {},
+      (current) => {
+        const day = current[date] ?? emptyProgress(date);
+        current[date] = {
+          date,
+          completed: {
+            ...day.completed,
+            [prayerId]: Math.max(0, (day.completed[prayerId] ?? 0) - step),
+          },
+        };
+        return current;
+      },
+    );
+    return map[date];
+  },
+
+  /** Reverses a performed qaza: remaining increases, completed decreases. */
+  async undoQaza(prayerId: QazaPrayer, by = 1): Promise<QazaCounter> {
+    let step = 0;
+    const map = await mutateCounters((counters) => {
+      const counter = counters[prayerId];
+      step = Math.min(by, counter.completed);
+      if (step <= 0) return;
+      counters[prayerId] = {
+        prayerId,
+        remaining: counter.remaining + step,
+        completed: counter.completed - step,
+        updatedAt: new Date().toISOString(),
+      };
+    });
+    if (step > 0) {
+      await this.decrementDailyProgress(prayerId, getLocalDateString(), step);
+    }
+    return map[prayerId];
   },
 };
 

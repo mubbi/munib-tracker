@@ -15,6 +15,9 @@ export type PrayerStatus = "pending" | "completed" | "missed" | "delayed" | "qaz
 
 export type PrayerLogSource = "manual" | "bulk_import" | "sync";
 
+/** Why a day is excused from obligatory tracking (streak frozen, no qaza prompt). */
+export type ExcusedReason = "hayd" | "sick" | "travel";
+
 export interface PrayerLog {
   id: string;
   prayerId: PrayerId;
@@ -24,6 +27,14 @@ export interface PrayerLog {
   notes?: string;
   /** When true, leaving "missed" decrements the linked qaza debt once. */
   qazaDebtAdded?: boolean;
+  /** Prayed in congregation (jama') — optional flag on a completed salah (NF-1.5). */
+  isJama?: boolean;
+  /**
+   * The day is excused (hayd / illness / travel): obligatory tracking is paused,
+   * the streak is frozen across it, and no qaza is prompted (NF-1.2, NF-1.4).
+   */
+  isExcused?: boolean;
+  excusedReason?: ExcusedReason;
   /** ISO datetime */
   updatedAt: string;
   source: PrayerLogSource;

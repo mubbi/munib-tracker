@@ -16,4 +16,11 @@ export const SyncRecordDtoEntity = {
   qaza_entries: 'qaza_entries',
   preferences: 'preferences',
   favorites: 'favorites',
+  dua_favorites: 'dua_favorites',
+  durood_favorites: 'durood_favorites',
+  name_favorites: 'name_favorites',
+  quran_bookmarks: 'quran_bookmarks',
+  quran_last_read: 'quran_last_read',
+  hadith_bookmarks: 'hadith_bookmarks',
+  custom_tasbeeh: 'custom_tasbeeh',
 } as const;

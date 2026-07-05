@@ -138,4 +138,73 @@ describe("buildReminders", () => {
     expect(reminders.length).toBeGreaterThan(0);
     expect(reminders.every((r) => r.fireAt.getTime() > future.getTime() - 60_000)).toBe(true);
   });
+
+  it("attaches the adhan sound only to obligatory prayers when the option is on", () => {
+    const withAdhan: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: { ...basePrefs.notificationPrefs, playAdhanOnPrayer: true },
+    };
+    const reminders = buildReminders(withAdhan, DEFAULT_LOCATION);
+
+    const fard = reminders.find((r) => r.id.startsWith("prayer:fajr:"));
+    expect(fard?.sound).toBe("adhan.mp3");
+    expect(fard?.channelId).toBe("prayerAdhan");
+
+    // Sunnah/witr and the surrounding zikr nudges stay silent.
+    const witr = reminders.find((r) => r.id.startsWith("prayer:witr:"));
+    expect(witr?.sound).toBeUndefined();
+    expect(reminders.filter((r) => r.id.startsWith("afterAzan:")).every((r) => !r.sound)).toBe(
+      true,
+    );
+  });
+
+  it("keeps obligatory prayers silent when the adhan option is off", () => {
+    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const fard = reminders.find((r) => r.id.startsWith("prayer:fajr:"));
+    expect(fard?.sound).toBeUndefined();
+    expect(fard?.channelId).toBe("prayer");
+  });
+
+  it("shifts the main prayer reminder by the per-prayer offset (NF-1.7)", () => {
+    const withOffset: UserPreferences = {
+      ...basePrefs,
+      prayerReminderOffsets: { fajr: -15 },
+    };
+    const base = buildReminders(basePrefs, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("prayer:fajr:"),
+    );
+    const shifted = buildReminders(withOffset, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("prayer:fajr:"),
+    );
+    expect(base && shifted).toBeTruthy();
+    if (base && shifted) {
+      // Same day's Fajr reminder, moved 15 minutes earlier.
+      expect(base.fireAt.getTime() - shifted.fireAt.getTime()).toBe(15 * 60_000);
+    }
+    // The before-prayer nudge stays anchored to the true prayer time (10 min before it).
+    const before = buildReminders(withOffset, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("beforePrayer:fajr:"),
+    );
+    expect(before).toBeDefined();
+  });
+
+  it("emits daily-content and Friday reminders only when opted in", () => {
+    const off = buildReminders(basePrefs, DEFAULT_LOCATION);
+    expect(off.some((r) => r.id.startsWith("dailyContent:"))).toBe(false);
+    expect(off.some((r) => r.id.startsWith("friday:"))).toBe(false);
+
+    const on: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: { ...basePrefs.notificationPrefs, dailyContent: true, friday: true },
+    };
+    const reminders = buildReminders(on, DEFAULT_LOCATION);
+    expect(reminders.some((r) => r.id.startsWith("dailyContent:"))).toBe(true);
+    const friday = reminders.find((r) => r.id.startsWith("friday:"));
+    expect(friday).toBeDefined();
+    // Deep-links to Surah Al-Kahf, and every emitted Friday reminder is a Friday.
+    expect(friday?.route).toBe("/quran/18");
+    for (const r of reminders.filter((x) => x.id.startsWith("friday:"))) {
+      expect(new Date(`${r.id.split(":")[1]}T00:00:00`).getDay()).toBe(5);
+    }
+  });
 });

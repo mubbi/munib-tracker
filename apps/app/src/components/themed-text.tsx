@@ -2,6 +2,13 @@ import { Platform, StyleSheet, Text, type TextProps, useWindowDimensions } from 
 
 import { Fonts, type ThemeColor } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
+import {
+  DEFAULT_ARABIC_SIZE,
+  resolveArabicFontFamily,
+  resolveArabicLineHeight,
+} from "@/lib/reading-typography";
+import { useStore } from "@/stores/create-store";
+import { preferencesStore } from "@/stores/preferences-store";
 
 export type ThemedTextProps = TextProps & {
   type?:
@@ -53,7 +60,6 @@ const LINE_HEIGHTS: Partial<Record<NonNullable<ThemedTextProps["type"]>, number>
   label: 14,
   link: 30,
   linkPrimary: 30,
-  arabic: 52,
 };
 
 export function ThemedText({
@@ -65,10 +71,25 @@ export function ThemedText({
 }: ThemedTextProps) {
   const { colors } = useTheme();
   const { fontScale } = useWindowDimensions();
+  // The user-chosen Arabic typeface (NF-1.31) applies to every `type="arabic"`
+  // node app-wide. Subscribing to just the family string keeps re-renders to the
+  // rare moment the setting actually changes.
+  const arabicFamily = useStore(preferencesStore, (s) => s.prefs.fontPrefs.arabic.family);
   const resolvedColor = type === "linkPrimary" ? colors.accent : colors[themeColor ?? "foreground"];
   const baseLineHeight = LINE_HEIGHTS[type];
+  const flatStyle = StyleSheet.flatten(style);
+  const arabicFontSize =
+    type === "arabic"
+      ? typeof flatStyle?.fontSize === "number"
+        ? flatStyle.fontSize
+        : DEFAULT_ARABIC_SIZE
+      : undefined;
   const scaledLineHeight =
-    baseLineHeight != null ? { lineHeight: baseLineHeight * fontScale } : null;
+    type !== "arabic" && baseLineHeight != null ? { lineHeight: baseLineHeight * fontScale } : null;
+  const arabicMetrics =
+    type === "arabic" && arabicFontSize != null
+      ? { lineHeight: resolveArabicLineHeight(arabicFontSize, arabicFamily) * fontScale }
+      : null;
 
   return (
     <Text
@@ -88,8 +109,10 @@ export function ThemedText({
         type === "linkPrimary" && styles.linkPrimary,
         type === "code" && styles.code,
         type === "arabic" && styles.arabic,
+        type === "arabic" && { fontFamily: resolveArabicFontFamily(arabicFamily) },
         scaledLineHeight,
         style,
+        arabicMetrics,
       ]}
       {...rest}
     />
@@ -163,8 +186,9 @@ const styles = StyleSheet.create({
   },
   arabic: {
     fontFamily: Fonts.serif,
-    fontSize: 28,
-    lineHeight: 52,
+    fontSize: DEFAULT_ARABIC_SIZE,
     fontWeight: "500",
+    writingDirection: "rtl",
+    textAlign: "right",
   },
 });

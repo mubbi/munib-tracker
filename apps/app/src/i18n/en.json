@@ -63,13 +63,15 @@
       "dua": "Duas",
       "zikr": "Adhkar",
       "name": "99 Names",
-      "durood": "Duroods"
+      "durood": "Duroods",
+      "jannah": "Journey to Jannah"
     }
   },
   "tabs": {
     "home": "Home",
     "tracker": "Tracker",
-    "settings": "Settings"
+    "settings": "Settings",
+    "library": "Library"
   },
   "actions": {
     "checklist": "Checklist",
@@ -84,7 +86,38 @@
     "calendar": "Calendar",
     "stats": "Stats",
     "qibla": "Qibla",
-    "bookmarks": "Bookmarks"
+    "bookmarks": "Bookmarks",
+    "ramadan": "Ramadan",
+    "salahGuide": "Salah guide",
+    "jannah": "Journey to Jannah",
+    "events": "Events",
+    "zakat": "Zakat"
+  },
+  "ramadan": {
+    "eyebrow": "Ramadan",
+    "title": "Ramadan",
+    "subtitle": "Fasting times and your fasting log",
+    "dayOf": "Day {{day}} of {{total}}",
+    "timesTitle": "Today's fasting times",
+    "suhoor": "Suhoor ends",
+    "iftar": "Iftar",
+    "timesHint": "Suhoor ends at Fajr and iftar begins at Maghrib for your location.",
+    "fastingTitle": "Fasting log",
+    "fastedCount": "{{count}} of {{total}} days fasted",
+    "todayTitle": "Today's fast",
+    "countdownSuhoor": "Suhoor ends in {{time}}",
+    "countdownIftar": "Iftar in {{time}}",
+    "afterIftar": "Fast complete for today",
+    "dayCell": "Ramadan day {{day}}",
+    "dayCellStatus": "Ramadan day {{day}}, {{status}}",
+    "dayCellHint": "Tap to cycle between fasted, missed, exempt, and unmarked",
+    "statusNone": "not marked",
+    "gridHint": "Tap a day to log your fasting status",
+    "fastedToday": "Mark today fasted",
+    "statusFasted": "Fasted",
+    "statusMissed": "Missed",
+    "statusExempt": "Exempt",
+    "disclaimer": "Times are calculated estimates — follow your local masjid for the start of Ramadan and the daily times."
   },
   "bookmarks": {
     "eyebrow": "Library",
@@ -97,6 +130,8 @@
     "hadith": "Hadith",
     "duas": "Saved duas",
     "zikr": "Favorite adhkar",
+    "duroods": "Saved duroods",
+    "names": "Saved names",
     "emptyTitle": "Nothing saved yet",
     "emptySubtitle": "Explore below and save as you read",
     "emptyDesc": "Your bookmarked ayahs, hadith, duas, and adhkar will collect here.",
@@ -109,12 +144,19 @@
     "exploreDuas": "Browse Duas",
     "exploreDuasHint": "Tap the star to save a dua",
     "exploreZikr": "Browse Adhkar",
-    "exploreZikrHint": "Tap the heart to favorite adhkar"
+    "exploreZikrHint": "Tap the heart to favorite adhkar",
+    "exploreDuroods": "Browse Duroods",
+    "exploreDuroodsHint": "Tap the star to save a durood",
+    "exploreNames": "Browse 99 Names",
+    "exploreNamesHint": "Tap the star to save a name"
   },
   "home": {
     "todaysGoal": "Today's Goal",
     "freshStartHint": "Log your first act of worship to begin",
     "checklistHint": "Complete the daily activity checklist",
+    "excusedPausedLabel": "Paused",
+    "excusedGoalHint": "Tracking paused for {{reason}} — your streak is held.",
+    "excusedGoalBody": "Obligatory tracking is paused for today. You can still log optional worship.",
     "tasksProgress": "{{done}} of {{total}} tasks",
     "startTracking": "Start tracking",
     "goToChecklist": "Go to Checklist",
@@ -152,6 +194,9 @@
     "devotionProgress": "{{current}} / {{next}} Noor to next level",
     "devotionA11y": "Devotion level {{level}}, {{noor}} total noor, {{current}} of {{next}} to next level",
     "scheduleTitle": "Today's schedule",
+    "explore": "Explore",
+    "manage": "Manage",
+    "manageA11y": "Customize home shortcuts",
     "scheduleNext": "Next",
     "scheduleCurrent": "Current",
     "scheduleNextA11y": "{{name}} at {{time}}, next prayer {{countdown}}",
@@ -209,12 +254,24 @@
       "names": "Return to names",
       "audio": "Return to audio",
       "listening": "Continue listening"
-    }
+    },
+    "rozaRemaining": "Fasts to make up"
   },
   "tracker": {
     "eyebrow": "Track & log",
     "title": "Tracker",
     "subtitle": "Tap a prayer to set its status — saved on this device.",
+    "excusedTitle": "Excused day",
+    "excusedHint": "Hayd, illness, or travel — pause obligatory tracking without breaking your streak.",
+    "excusedActive": "This day is excused — obligatory tracking is paused and your streak is held.",
+    "excusedConfirmTitle": "Mark today as excused?",
+    "excusedConfirmMsg": "Obligatory tracking will pause for today ({{reason}}). Your streak will be held.",
+    "excusedConfirmAction": "Mark excused",
+    "excusedReason": {
+      "hayd": "Hayd",
+      "sick": "Illness",
+      "travel": "Travel"
+    },
     "obligatory": "Obligatory",
     "witr": "Witr",
     "witrSubtitle": "Sunnah mu'akkadah — strongly emphasized, not one of the five fard prayers.",
@@ -253,6 +310,8 @@
     "languageSub": "App & translation language",
     "timeFormat": "Time format",
     "timeFormatSub": "12-hour or 24-hour clock",
+    "defaultCalendar": "Default calendar",
+    "defaultCalendarSub": "Gregorian or Hijri dates",
     "weather": "Weather",
     "weatherSub": "Hero effects and temperature unit",
     "achievements": "Achievements",
@@ -261,7 +320,38 @@
     "qiblaSub": "Find the direction of prayer",
     "about": "About",
     "aboutSub": "Version, credits, and policies",
-    "footer": "{{app}} · built with intention"
+    "import": "Import prayer history",
+    "importSub": "Backfill past days from a JSON or CSV file",
+    "footer": "{{app}} · built with intention",
+    "backup": "Backup & restore",
+    "backupSub": "Export or restore all your data as a file",
+    "travel": "Travelling & prayer",
+    "travelSub": "How to shorten and combine prayers on a journey",
+    "homeCustomize": "Customize home",
+    "homeCustomizeSub": "Reorder shortcuts and hide home cards",
+    "offlineData": "Offline data",
+    "offlineDataSub": "Manage downloaded content and clear caches"
+  },
+  "import": {
+    "title": "Import prayer history",
+    "subtitle": "Backfill logs from another app or a spreadsheet",
+    "pasteTitle": "Paste your data",
+    "formatHint": "Paste JSON (an array of { date, prayerId, status }) or CSV rows date,prayerId,status. Dates are YYYY-MM-DD; prayers are fajr, dhuhr, asr, maghrib, isha, witr; statuses are completed, missed, delayed, qaza.",
+    "placeholder": "[{\"date\":\"2026-06-01\",\"prayerId\":\"fajr\",\"status\":\"completed\"}]",
+    "preview": "Preview",
+    "previewTitle": "Preview",
+    "summaryValid": "{{count}} valid rows",
+    "summaryErrors": "{{count}} errors",
+    "summaryDuplicates": "{{count}} duplicate rows merged",
+    "summaryRange": "Dates {{from}} → {{to}}",
+    "errorLine": "Row {{row}}: {{message}}",
+    "moreErrors": "+{{count}} more errors",
+    "alsoQaza": "Also add missed prayers to Qaza",
+    "alsoQazaHint": "Increase your make-up counters by each imported miss.",
+    "commit": "Import {{count}} logs",
+    "importing": "Importing…",
+    "done": "Imported {{count}} prayer logs",
+    "failed": "Import failed. Please try again."
   },
   "login": {
     "eyebrowGuest": "Save your progress",
@@ -351,6 +441,16 @@
     "pm": "PM",
     "footer": "Your choice is saved automatically and used everywhere times are shown."
   },
+  "defaultCalendar": {
+    "title": "Default calendar",
+    "subtitle": "How dates appear across the app",
+    "hint": "Applies to the home hero, events, journal, calendar tabs, and other date labels",
+    "optionGregorian": "Gregorian",
+    "optionHijri": "Hijri",
+    "exampleGregorian": "Example: Monday, March 23, 2026",
+    "exampleHijri": "Example: Ramadan 1, 1447 AH",
+    "footer": "Your choice is saved automatically. Calendar screens still let you switch temporarily."
+  },
   "weather": {
     "title": "Weather",
     "subtitle": "Live conditions on your home hero",
@@ -380,6 +480,9 @@
     "masterSub": "Master switch for every reminder",
     "adhanTitle": "Preview adhan",
     "adhanSub": "Play the bundled call-to-prayer sound",
+    "playAdhan": "Play adhan at prayer time",
+    "playAdhanHint": "Obligatory-prayer reminders sound the adhan instead of the default tone.",
+    "adhanWebUnavailable": "Available on the mobile app only, not on the web.",
     "upcomingTitle": "Upcoming reminders",
     "upcomingHint": "Your next scheduled alerts, in your location's timezone. Use the toggles below to enable, disable, or edit them.",
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",
@@ -408,6 +511,7 @@
     "groupMilestones": "Milestones",
     "channels": {
       "prayer": "Salah reminders",
+      "prayerAdhan": "Adhan at prayer time",
       "zikr": "Zikr reminders",
       "qaza": "Qaza reminders"
     },
@@ -431,7 +535,11 @@
       "beforeSleepBody": "Recite your before-sleep supplications.",
       "qazaTitle": "Qaza reminder",
       "qazaBody": "Make up a missed Salah or fast today.",
-      "achievementTitle": "Achievement unlocked"
+      "achievementTitle": "Achievement unlocked",
+      "dailyContentTitle": "Today's reflection",
+      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
+      "fridayTitle": "Jumu'ah Mubarak",
+      "fridayBody": "It's Friday — send salawat and read Surah Al-Kahf."
     },
     "items": {
       "prayer": {
@@ -473,6 +581,14 @@
       "achievements": {
         "title": "Achievements",
         "subtitle": "Celebrate streaks and badges"
+      },
+      "dailyContent": {
+        "title": "Daily reflection",
+        "subtitle": "A verse and hadith waiting on your home screen each morning"
+      },
+      "friday": {
+        "title": "Friday reminder",
+        "subtitle": "Jumu'ah and Surah Al-Kahf"
       }
     },
     "prayerAlertsObligatory": "Obligatory Salah alerts",
@@ -505,7 +621,8 @@
       "duha": {
         "subtitle": "Alert during the Duha window"
       }
-    }
+    },
+    "groupContent": "Daily content"
   },
   "fonts": {
     "eyebrow": "Settings",
@@ -517,7 +634,15 @@
     "footer": "Applied across zikr, dua, and tasbeeh reading views.",
     "small": "Small",
     "medium": "Medium",
-    "large": "Large"
+    "large": "Large",
+    "arabicFamilyTitle": "Arabic typeface",
+    "arabicFamilyHint": "Applied to every Arabic script across the app. Extra typefaces render once their font files are bundled; until then they fall back to the system serif.",
+    "arabicFamily": {
+      "system": "System default",
+      "amiri": "Amiri",
+      "scheherazade": "Scheherazade",
+      "notoNaskh": "Noto Naskh Arabic"
+    }
   },
   "zikr": {
     "eyebrow": "Remembrance",
@@ -567,7 +692,12 @@
     "share": "Share",
     "showMore": "Show more",
     "showLess": "Show less",
-    "copied": "Copied to clipboard"
+    "copied": "Copied to clipboard",
+    "textSize": "Text size",
+    "decrease": "Decrease text size",
+    "increase": "Increase text size",
+    "reset": "Reset text size",
+    "sizeDefault": "Default"
   },
   "dua": {
     "eyebrow": "Supplication",
@@ -611,7 +741,13 @@
   "duroods": {
     "eyebrow": "Salawat",
     "title": "Duroods",
-    "subtitle": "Sending blessings upon the Prophet ﷺ"
+    "subtitle": "Sending blessings upon the Prophet ﷺ",
+    "searchPlaceholder": "Search duroods…",
+    "noResults": "No duroods match your search",
+    "favorites": "Favorite duroods",
+    "favSubtitle": "Duroods you've saved",
+    "favEmptyTitle": "No favorite duroods yet",
+    "favEmptyDesc": "Tap the star on any durood to save it here."
   },
   "names": {
     "eyebrow": "Asma-ul-Husna",
@@ -621,7 +757,14 @@
     "playContinuous": "Continuous",
     "share": "Share",
     "play": "Play recitation",
-    "pause": "Pause recitation"
+    "pause": "Pause recitation",
+    "searchPlaceholder": "Search by name or meaning…",
+    "favorite": "Add to favorites",
+    "unfavorite": "Remove from favorites",
+    "favorites": "Favorite names",
+    "favSubtitle": "Names you've saved",
+    "favEmptyTitle": "No favorite names yet",
+    "favEmptyDesc": "Tap the star on any name to save it here."
   },
   "quran": {
     "eyebrow": "The Noble Qur'an",
@@ -635,6 +778,7 @@
     "madani": "Madani",
     "ayahCount": "{{count}} ayahs",
     "surahList": "Surahs",
+    "surahCount": "{{shown}} of {{total}}",
     "reciter": "Reciter",
     "translation": "Translation",
     "showTransliteration": "Show transliteration",
@@ -648,6 +792,10 @@
     "bookmarkEmptyTitle": "No bookmarks yet",
     "bookmarkEmptyDesc": "Tap the bookmark icon on any ayah to save it here.",
     "removeBookmark": "Remove bookmark",
+    "juz": "Juz",
+    "juzSubtitle": "Read the Qur'an in its 30 parts",
+    "juzN": "Juz {{n}}",
+    "browseByJuz": "Browse by Juz",
     "search": "Search",
     "searchTitle": "Search the Qur'an",
     "searchSubtitle": "Find ayahs by translation or transliteration",
@@ -661,10 +809,19 @@
     "offlineTranslation": "Connect to download this translation. Showing a bundled translation instead.",
     "shareAyah": "Share verse",
     "pauseAyah": "Pause verse",
+    "actionPlay": "Play",
+    "actionPause": "Pause",
+    "actionMemorized": "Done",
+    "actionReview": "Review",
+    "actionBookmark": "Save",
+    "actionBookmarked": "Saved",
+    "actionShare": "Share",
     "bookmarkAdd": "Bookmark verse",
     "bookmarkRemove": "Remove bookmark",
     "loadingTranslation": "Loading translation…",
-    "searching": "Searching…"
+    "searching": "Searching…",
+    "secondTranslation": "Second translation",
+    "secondTranslationNone": "None"
   },
   "hadith": {
     "eyebrow": "Prophetic tradition",
@@ -853,8 +1010,17 @@
     "confirmDecrementMsg": "Lower the remaining {{prayer}} qaza count to {{remaining}}?",
     "confirmIncrementTitle": "Increase remaining count?",
     "confirmIncrementMsg": "Raise the remaining {{prayer}} qaza count to {{remaining}}?",
+    "confirmSetRemainingTitle": "Update remaining count?",
+    "confirmSetRemainingMsg": "Set the remaining {{prayer}} qaza count to {{remaining}}?",
+    "editCountTitle": "{{prayer}} remaining",
+    "editCountHint": "Enter how many of this prayer you still need to make up.",
+    "editCountPlaceholder": "Remaining",
+    "editCountA11y": "Edit {{prayer}} remaining qaza count",
     "confirmPerformTitle": "Mark qaza performed?",
     "confirmPerformMsg": "Record one {{prayer}} qaza as made up?",
+    "confirmUndoPerformTitle": "Undo qaza performed?",
+    "confirmUndoPerformMsg": "Remove one {{prayer}} qaza from today and add it back to remaining?",
+    "undoPerformed": "Undo one {{prayer}} qaza performed today",
     "confirmResetPrayerTitle": "Reset this counter?",
     "confirmResetPrayerMsg": "Clear remaining and made-up counts for {{prayer}}? This cannot be undone.",
     "confirmResetAllTitle": "Reset all counters?",
@@ -877,7 +1043,8 @@
         "hanbali": "Hanbali — Sunnah mu'akkadah — Recommended"
       },
       "footer": "This app counts missed Witr toward qaza for all users. Treat it as required if you follow the Hanafi view; otherwise track it as a recommended make-up. Consult a scholar for your situation."
-    }
+    },
+    "history": "History"
   },
   "qazaCalc": {
     "eyebrow": "Qaza",
@@ -901,9 +1068,26 @@
   "qazaPlan": {
     "eyebrow": "Qaza",
     "title": "Planner",
-    "subtitle": "Set a daily pace to clear your backlog",
+    "subtitle": "Choose a pace you can keep for years, not just days",
+    "consistencyTitle": "Consistency over intensity",
+    "consistencyHadith": "The most beloved deeds to Allah are those that are consistent, even if they are small.",
+    "consistencySource": "Hadith — Bukhari & Muslim",
+    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
     "prayersPerDay": "prayers / day",
+    "dailyTimeLabel": "est. time / day",
+    "dailyTimeMinutes": "≈ {{count}} min",
+    "dailyTimeHours_one": "≈ {{count}} hr",
+    "dailyTimeHours_other": "≈ {{count}} hr",
+    "dailyTimeHoursMinutes": "≈ {{hours}} hr {{minutes}} min",
     "daysToClear": "to clear",
+    "sustainabilityLabel": "Sustainability",
+    "sustainability": {
+      "easy": "Easy",
+      "moderate": "Moderate",
+      "challenging": "Challenging",
+      "intensive": "Intensive"
+    },
+    "intensiveWarning": "This pace is very demanding — best suited to short campaigns, not years of daily life.",
     "durationYears_one": "{{count}} year",
     "durationYears_other": "{{count}} years",
     "durationMonths_one": "{{count}} month",
@@ -913,10 +1097,37 @@
     "durationTwo": "{{first}} and {{second}}",
     "durationThree": "{{first}}, {{second}} and {{third}}",
     "etaCaption": "At this pace, {{count}} qaza prayers are cleared by {{date}}.",
-    "etaEmpty": "Set a daily target below to estimate a completion date.",
+    "etaEmpty": "Pick a preset below or set daily targets to estimate a completion date.",
     "dailyTargets": "Daily targets",
     "planSaved": "Plan saved",
-    "savePlan": "Save plan"
+    "savePlan": "Save plan",
+    "presetsTitle": "Choose a plan",
+    "presetsHint": "For most working adults, 3–5 of each prayer daily is a realistic sweet spot. Start gentle if you are unsure.",
+    "recommended": "Recommended",
+    "presetActive": "Active",
+    "presetCustom": "Custom plan",
+    "presetCustomHint": "You adjusted individual prayers — fine-tune below as needed.",
+    "presets": {
+      "gentle": {
+        "title": "🌱 Gentle",
+        "subtitle": "{{perPrayer}} each · {{dailyTotal}} / day"
+      },
+      "balanced": {
+        "title": "⭐ Balanced",
+        "subtitle": "{{perPrayer}} each · {{dailyTotal}} / day"
+      },
+      "committed": {
+        "title": "💪 Committed",
+        "subtitle": "{{perPrayer}} each · {{dailyTotal}} / day"
+      },
+      "intensive": {
+        "title": "🔥 Intensive",
+        "subtitle": "{{perPrayer}} each · {{dailyTotal}} / day · short-term only"
+      }
+    },
+    "attachTitle": "Spread it through the day",
+    "attachHint": "Many people find it easier to pray 2–3 qaza of each prayer right after that prayer's current salah — e.g. after Fajr do qaza Fajr, after Dhuhr do qaza Dhuhr, and so on. It spreads the load naturally.",
+    "fiqhNote": "Scholars differ on how to estimate and organize missed prayers. Consult a scholar you trust for your situation and madhhab."
   },
   "qazaRoza": {
     "eyebrow": "Qaza",
@@ -924,11 +1135,31 @@
     "subtitle": "Track and make up missed fasts",
     "fastsRemaining": "fasts remaining",
     "fastedQaza": "Fasted a qaza",
+    "adjustRemaining": "Adjust remaining",
+    "adjustHint": "Tap the number or use −/+ to adjust",
+    "editCountTitle": "Remaining fasts",
+    "editCountHint": "Enter how many qaza fasts you still need to make up.",
+    "editCountPlaceholder": "Remaining",
+    "editCountA11y": "Edit remaining fast count",
+    "confirmSetRemainingTitle": "Update remaining count?",
+    "confirmSetRemainingMsg": "Set the remaining fast count to {{remaining}}?",
+    "estimateFormula": "× 30 =",
     "estimateTitle": "Estimate missed fasts",
     "estimateHint": "Roughly how many years of Ramadan fasts were missed?",
     "yearsPlaceholder": "years",
     "estimateResult": "≈ {{count}} fasts",
-    "addToRemaining": "Add to remaining"
+    "addToRemaining": "Add to remaining",
+    "resetCounter": "Reset counter",
+    "confirmDecrementTitle": "Reduce remaining count?",
+    "confirmDecrementMsg": "Lower the remaining fast count to {{remaining}}?",
+    "confirmIncrementTitle": "Increase remaining count?",
+    "confirmIncrementMsg": "Raise the remaining fast count to {{remaining}}?",
+    "confirmPerformTitle": "Mark fast performed?",
+    "confirmPerformMsg": "Record one qaza fast as completed?",
+    "confirmAddEstimateTitle": "Add estimated fasts?",
+    "confirmAddEstimateMsg": "Add {{count}} fasts to remaining (new total: {{total}})?",
+    "confirmResetTitle": "Reset counter?",
+    "confirmResetMsg": "Clear all fast counts ({{remaining}} remaining, {{completed}} completed)? This cannot be undone."
   },
   "calendar": {
     "eyebrow": "History",
@@ -1010,7 +1241,8 @@
     "qazaPromptTitle": "Add to qaza count?",
     "qazaPromptMessage": "Add one to your qaza count for {{prayer}}?",
     "qazaPromptConfirm": "Yes, add to qaza",
-    "qazaPromptDecline": "No, skip"
+    "qazaPromptDecline": "No, skip",
+    "jama": "Prayed in congregation"
   },
   "notesModal": {
     "hint": "Optional — a private note for this day.",
@@ -1068,7 +1300,44 @@
     "deviceError": "Couldn't get your current location. Search for your city above instead.",
     "manualBadge": "Set by you",
     "gpsBadge": "From device",
-    "defaultBadge": "Default"
+    "defaultBadge": "Default",
+    "calculationTitle": "Prayer calculation",
+    "method": "Calculation method",
+    "methodHint": "Pick the authority whose method matches your region so salah times line up with your local masjid.",
+    "madhab": "Asr calculation",
+    "madhabShafi": "Standard",
+    "madhabHanafi": "Hanafi",
+    "madhabHint": "Hanafi calculates Asr later; Standard (Shafiʿi, Maliki, Hanbali) uses the earlier time.",
+    "methods": {
+      "MuslimWorldLeague": "Muslim World League",
+      "Egyptian": "Egyptian General Authority",
+      "Karachi": "University of Islamic Sciences, Karachi",
+      "UmmAlQura": "Umm al-Qura, Makkah",
+      "Dubai": "Dubai (UAE)",
+      "MoonsightingCommittee": "Moonsighting Committee",
+      "NorthAmerica": "ISNA (North America)",
+      "Kuwait": "Kuwait",
+      "Qatar": "Qatar",
+      "Singapore": "Singapore",
+      "Tehran": "Institute of Geophysics, Tehran",
+      "Turkey": "Diyanet (Turkey)",
+      "Other": "Custom / Other"
+    },
+    "methodHints": {
+      "MuslimWorldLeague": "Europe, the Far East, and parts of the US",
+      "Egyptian": "Africa, Syria, Lebanon, Malaysia",
+      "Karachi": "Pakistan, India, Bangladesh, Afghanistan",
+      "UmmAlQura": "Saudi Arabia",
+      "Dubai": "United Arab Emirates",
+      "MoonsightingCommittee": "Global, moon-sighting based",
+      "NorthAmerica": "United States and Canada",
+      "Kuwait": "Kuwait",
+      "Qatar": "Qatar",
+      "Singapore": "Singapore and the region",
+      "Tehran": "Iran and Shia communities",
+      "Turkey": "Turkey (Diyanet)",
+      "Other": "Set manually elsewhere"
+    }
   },
   "moon": {
     "aria": "Moon phase: {{phase}}",
@@ -1197,6 +1466,19 @@
     "deleteMsg": "This permanently erases all your local tracking data on this device and signs you out. This cannot be undone.",
     "deleteConfirm": "Delete everything"
   },
+  "sync": {
+    "title": "Cloud sync",
+    "lastSynced": "Last synced",
+    "never": "Not synced yet",
+    "now": "Sync now",
+    "syncing": "Syncing…",
+    "done": "Your data is backed up",
+    "failed": "Couldn't sync. Check your connection and try again.",
+    "mergeNoChanges": "Everything was already up to date",
+    "mergeSummary": "{{received}} received · {{sent}} sent",
+    "conflictsResolved": "{{count}} conflicts auto-resolved — kept the newest edit",
+    "conflictAffected": "Affected: {{list}}"
+  },
   "language": {
     "title": "Language",
     "appLanguage": "App language",
@@ -1267,5 +1549,547 @@
     "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
     "installLinkCopyFailed": "Could not copy the link. Open this page in Safari manually.",
     "installDismiss": "Dismiss"
+  },
+  "qazaHistory": {
+    "title": "Qaza history",
+    "subtitle": "Every make-up prayer you've logged, by day",
+    "emptyTitle": "No qaza logged yet",
+    "emptyDesc": "Perform a make-up prayer from the qaza manager and it will appear here.",
+    "count": "{{count}} made up",
+    "legendHint": "Tap a highlighted day to see which prayers you made up.",
+    "dayA11y": "{{date}}, {{count}} made up"
+  },
+  "weeklyReport": {
+    "title": "Your week in worship",
+    "body": "{{prayers}} prayers completed, {{perfect}} perfect days, {{qaza}} qaza made up, and {{zikr}} zikr sessions. Tap to see your stats."
+  },
+  "backup": {
+    "title": "Backup & restore",
+    "subtitle": "Save all your data, or restore it on a new device — no account needed",
+    "exportTitle": "Export",
+    "exportHint": "Creates a backup of your tracking, bookmarks, and settings. Share it to yourself or save it somewhere safe.",
+    "exportAction": "Create backup",
+    "copied": "Backup copied to clipboard",
+    "importTitle": "Restore",
+    "importHint": "Paste a backup file below to restore it. This replaces the matching data on this device.",
+    "importPlaceholder": "Paste your backup here…",
+    "importAction": "Restore backup",
+    "confirmTitle": "Restore backup?",
+    "confirmMessage": "This overwrites your current tracking, bookmarks, and settings with the backup. This cannot be undone.",
+    "confirmAction": "Restore",
+    "restored": "Backup restored",
+    "error": {
+      "invalid_json": "That doesn't look like a valid backup file.",
+      "wrong_format": "This file isn't a Munib Tracker backup.",
+      "unsupported_version": "This backup was made by a newer version of the app."
+    }
+  },
+  "reminderOffsets": {
+    "title": "Reminder timing",
+    "subtitle": "Shift each prayer's reminder earlier or later",
+    "rowSub": "Ring before or after each prayer time",
+    "hint": "Offset the main reminder for each obligatory prayer (up to 30 minutes before or after the adhan).",
+    "atTime": "At time",
+    "before": "{{count}} min before",
+    "after": "{{count}} min after",
+    "earlier": "Earlier",
+    "later": "Later"
+  },
+  "khatm": {
+    "eyebrow": "The Noble Qur'an",
+    "short": "Khatm",
+    "title": "Khatm plan",
+    "subtitle": "Finish the Qur'an at a steady pace",
+    "startTitle": "Start a plan",
+    "startHint": "Choose how many days to complete the Qur'an. We'll set a daily ayah target.",
+    "dayPlan": "{{count}} days",
+    "preset": {
+      "intensive": "Intensive",
+      "balanced": "Balanced",
+      "steady": "Steady",
+      "custom": "Custom"
+    },
+    "customPlan": "Custom plan",
+    "customDaysPlaceholder": "Number of days",
+    "customDaysA11y": "Plan length in days",
+    "customHint": "Enter {{min}}–{{max}} days",
+    "customInvalid": "Enter between {{min}} and {{max}} days",
+    "customStart": "Start custom plan",
+    "startConfirmTitle": "Start this khatm plan?",
+    "startConfirmMsg": "Finish the Qur'an in {{days}} days — about {{count}} ayahs each day. You can track progress here as you read.",
+    "startConfirmAction": "Start plan",
+    "dayOf": "Day {{day}} of {{total}}",
+    "dailyTarget": "{{count}} ayahs a day",
+    "progress": "{{read}} / {{total}} ayahs",
+    "expected": "on-track: {{ayahs}}",
+    "expectedLabel": "On-track total",
+    "percentComplete": "{{percent}}% complete",
+    "remainingAyahs": "Remaining",
+    "todayTarget": "Daily goal",
+    "catchUp": "{{count}} ayahs behind — read a little extra today to catch up.",
+    "aheadBy": "{{count}} ayahs ahead of schedule — keep the momentum.",
+    "adjustHint": "Adjust by {{count}} ayahs",
+    "logSectionTitle": "Log today's reading",
+    "logSectionHint": "Enter how many ayahs you read today, then add them to your progress.",
+    "logAmountPlaceholder": "Ayahs",
+    "logAmountA11y": "Ayahs to log today",
+    "logQuickDaily": "Daily goal · {{count}}",
+    "logAdd": "Add {{count}} ayahs",
+    "logInvalid": "Enter 1–{{max}} ayahs",
+    "correctTotalTitle": "Correct total",
+    "correctTotalHint": "Set the exact number of ayahs you've read so far.",
+    "correctTotalA11y": "Total ayahs read",
+    "correctTotalApply": "Update total",
+    "correctTotalInvalid": "Enter 0–{{max}} ayahs",
+    "correctTotalToggle": "Wrong total? Set it manually",
+    "logToday": "Log today's reading",
+    "logTodayWithTarget": "Log today's reading (+{{count}})",
+    "less": "Fewer ayahs",
+    "more": "More ayahs",
+    "reset": "Reset plan",
+    "resetConfirmTitle": "Reset khatm plan?",
+    "resetConfirmMsg": "Your progress will be cleared. You can start a new plan anytime.",
+    "completedTitle": "Khatm complete",
+    "startNew": "Start a new plan",
+    "motivationTitle": "Keep going",
+    "motivationShuffle": "Show another reminder",
+    "motivationKind": {
+      "hadith": "Hadith",
+      "quran": "Qur'an",
+      "reminder": "Reminder"
+    },
+    "motivationQuote": {
+      "steady": {
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
+        "source": "Principle of consistency"
+      },
+      "portion": {
+        "text": "You do not have to finish today — only honour today's portion with sincerity.",
+        "source": "Steady progress"
+      },
+      "return": {
+        "text": "If you fall behind, do not abandon the plan. Resume with today's ayahs and move forward.",
+        "source": "Keep returning"
+      }
+    },
+    "pace": {
+      "done": "Completed",
+      "ahead": "Ahead",
+      "onTrack": "On track",
+      "behind": "Behind"
+    }
+  },
+  "hifz": {
+    "short": "Hifz",
+    "title": "Hifz tracker",
+    "subtitle": "Ayahs you've memorized or need to review",
+    "markMemorized": "Mark memorized",
+    "markReview": "Mark needs review",
+    "clear": "Clear memorization",
+    "totals": "Total",
+    "memorizedCount": "{{count}} memorized",
+    "reviewCount": "{{count}} to review",
+    "emptyTitle": "No memorization yet",
+    "emptyDesc": "Tap Hifz on any ayah in the reader to mark it memorized."
+  },
+  "travel": {
+    "eyebrow": "Learn",
+    "title": "Travelling & prayer",
+    "subtitle": "A short guide to Qasr and Jam' on a journey",
+    "qasr": {
+      "title": "Qasr — shortening",
+      "body": "On a journey, the four-rakah prayers (Dhuhr, Asr, Isha) are prayed as two rakahs. Fajr (two) and Maghrib (three) are not shortened."
+    },
+    "jam": {
+      "title": "Jam' — combining",
+      "body": "A traveller may combine Dhuhr with Asr, and Maghrib with Isha — praying them together at the time of either one, to ease the journey."
+    },
+    "when": {
+      "title": "When it applies",
+      "body": "These concessions apply once you leave your town on a journey beyond the customary travel distance, and end when you return or intend to settle. Scholars differ on the details."
+    },
+    "disclaimer": "This is a brief overview, not a ruling. The distance, duration, and conditions vary between schools — consult a qualified scholar for your situation."
+  },
+  "homeCustomize": {
+    "title": "Customize home",
+    "subtitle": "Choose what appears on your home and library screens",
+    "modulesTitle": "Home cards",
+    "actionsTitle": "Quick actions",
+    "actionsHint": "Reorder your shortcuts, or remove ones you don't use.",
+    "libraryMenuTitle": "Library menu",
+    "libraryMenuHint": "Reorder library entries, or remove ones you don't use.",
+    "available": "Available shortcuts",
+    "add": "Add shortcut",
+    "remove": "Remove shortcut",
+    "module": {
+      "continue": "Continue reading",
+      "knowledge": "Daily knowledge card",
+      "quickActions": "Quick actions",
+      "qaza": "Qaza summary",
+      "schedule": "Today's schedule"
+    }
+  },
+  "schedule": {
+    "eyebrow": "Prayer times",
+    "subtitle": "Obligatory prayers, sunnah windows, and flexible acts for today"
+  },
+  "salahGuide": {
+    "eyebrow": "Learn",
+    "title": "Salah guide",
+    "subtitle": "How to make wudu and pray, step by step",
+    "topicsTitle": "Guides",
+    "rakatsTitle": "Rakats at a glance",
+    "prayer": "Prayer",
+    "fard": "Fard",
+    "sunnah": "Sunnah",
+    "travelPointer": "Shortening and combining prayers when travelling",
+    "notFound": "Guide not found",
+    "disclaimer": "A concise guide for learning and revision. For your situation, consult a qualified teacher."
+  },
+  "library": {
+    "eyebrow": "Library",
+    "title": "Library",
+    "subtitle": "Read, supplicate, and learn",
+    "explore": "Explore",
+    "track": "Track",
+    "read": "Read",
+    "supplicate": "Supplicate",
+    "learn": "Learn",
+    "more": "More"
+  },
+  "offlineData": {
+    "title": "Offline data",
+    "subtitle": "Downloaded content stored on this device",
+    "cachesTitle": "Cached content",
+    "quran": "Qur'an translations & tafsir",
+    "hadith": "Hadith collections",
+    "audio": "Audio metadata",
+    "location": "Weather & location lookups",
+    "total": "Total: {{size}}",
+    "clearAll": "Clear all caches",
+    "clearOne": "Clear {{name}}",
+    "cleared": "Cache cleared",
+    "note": "Clearing caches only removes downloaded copies — your logs, bookmarks, and favorites are never affected. Content re-downloads when you next open it online."
+  },
+  "events": {
+    "eyebrow": "Islamic calendar",
+    "title": "Islamic events",
+    "subtitle": "Upcoming dates in the Hijri year",
+    "today": "Today",
+    "inDays": "in {{count}} days",
+    "hijriYear": "{{year}} AH",
+    "disclaimer": "Dates are calculated estimates — the actual day depends on local moon-sighting.",
+    "names": {
+      "newYear": "Islamic New Year",
+      "ashura": "Day of Ashura",
+      "mawlid": "Mawlid an-Nabi",
+      "isra": "Isra & Mi'raj",
+      "ramadan": "First of Ramadan",
+      "laylatQadr": "Laylat al-Qadr (est.)",
+      "eidFitr": "Eid al-Fitr",
+      "arafah": "Day of Arafah",
+      "eidAdha": "Eid al-Adha"
+    }
+  },
+  "zakat": {
+    "eyebrow": "Charity",
+    "title": "Zakat calculator",
+    "subtitle": "Estimate the zakat due on your wealth",
+    "assetsTitle": "Your wealth",
+    "nisabTitle": "Nisab threshold",
+    "nisabHint": "Zakat is due once your net wealth reaches the nisab (value of ~87.5g gold or ~612g silver).",
+    "netWealth": "Net zakatable wealth",
+    "dueLabel": "Zakat due (2.5%)",
+    "belowNisab": "Below nisab — no zakat due",
+    "disclaimer": "An estimate only. Rulings on what counts as zakatable and the nisab vary — consult a qualified scholar.",
+    "field": {
+      "cash": "Cash & savings",
+      "gold": "Gold value",
+      "silver": "Silver value",
+      "business": "Business assets",
+      "otherAssets": "Other assets",
+      "debts": "Debts owed",
+      "nisab": "Nisab value"
+    }
+  },
+  "customAdhkar": {
+    "eyebrow": "Remembrance",
+    "title": "My adhkar",
+    "subtitle": "Your own saved dhikr and supplications",
+    "add": "Add adhkar",
+    "newTitle": "New adhkar",
+    "delete": "Delete",
+    "emptyTitle": "No custom adhkar yet",
+    "emptyDesc": "Add your own dhikr with its Arabic text, transliteration, and meaning.",
+    "field": {
+      "title": "Title",
+      "arabic": "Arabic text",
+      "transliteration": "Transliteration (optional)",
+      "translation": "Meaning (optional)",
+      "reference": "Reference (optional)"
+    }
+  },
+  "tahajjud": {
+    "eyebrow": "Night prayer",
+    "title": "Tahajjud",
+    "subtitle": "Build a lasting habit of the night prayer.",
+    "streakValue": "{{count}}",
+    "streakCaption": "night streak",
+    "bestStreak": "Best: {{count}}",
+    "totalNights": "{{count}} nights total",
+    "markTonight": "I prayed Tahajjud tonight",
+    "markedTonight": "Prayed tonight — mashaAllah",
+    "lastNights": "Last {{count}} nights",
+    "lastNightsHint": "Each dot is one night, labeled by calendar date (most recent on the left).",
+    "virtueTitle": "Virtue of the night prayer",
+    "virtueBody": "The best prayer after the obligatory prayers is the night prayer.",
+    "virtueRef": "Sahih Muslim 1163",
+    "streakRow": "Tahajjud streak"
+  },
+  "seasonalTheme": {
+    "title": "Seasonal themes",
+    "hint": "Dress the app up for the sacred seasons.",
+    "inSeason": "In season now",
+    "suggestion": "It's {{season}} — try the seasonal accent.",
+    "apply": "Apply",
+    "ramadanLabel": "Ramadan",
+    "ramadanDesc": "A festive twilight purple for the month of the Qur'an.",
+    "hajjLabel": "Hajj & Dhul-Hijjah",
+    "hajjDesc": "Golden amber for the ten best days and Eid al-Adha."
+  },
+  "journal": {
+    "eyebrow": "Reflection",
+    "title": "Prayer journal",
+    "subtitle": "Note your presence in each prayer and watch it grow.",
+    "add": "New reflection",
+    "addShort": "Add",
+    "newTitle": "How was your prayer?",
+    "editTitle": "Edit reflection",
+    "navRow": "Reflect on a prayer",
+    "recentTitle": "Recent reflections",
+    "fieldPrayer": "Prayer",
+    "fieldRating": "Khushu (presence)",
+    "fieldNote": "Note (optional)",
+    "notePlaceholder": "What helped or distracted you?",
+    "emptyTitle": "No reflections yet",
+    "emptyDesc": "After a prayer, take a moment to note how present your heart was.",
+    "avgLabel": "Average khushu",
+    "outOf": "/ {{max}}",
+    "totalReflections": "{{count}} reflections",
+    "today": "Today",
+    "noNote": "No note added",
+    "ratingHint": "Tap a star to rate your presence in prayer.",
+    "delete": "Delete reflection",
+    "editA11y": "Edit {{prayer}} reflection",
+    "discard": "Discard",
+    "confirmDeleteTitle": "Delete this reflection?",
+    "confirmDeleteMsg": "Your note for {{prayer}} on {{date}} will be removed permanently.",
+    "confirmDiscardTitle": "Discard changes?",
+    "confirmDiscardMsg": "Anything you wrote will be lost.",
+    "confirmOverwriteTitle": "Replace existing reflection?",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "level1": "Distracted",
+    "level2": "Restless",
+    "level3": "Present enough",
+    "level4": "Focused",
+    "level5": "Deeply present"
+  },
+  "prayerTuning": {
+    "title": "Prayer time tuning",
+    "subtitle": "Fine-tune computed times to match your masjid.",
+    "rowValue": "Offsets & high-latitude",
+    "offsetTitle": "Masjid offsets",
+    "offsetHint": "Nudge each prayer by a few minutes so times match your local masjid's announced schedule.",
+    "onTime": "On time",
+    "earlierMin": "−{{count}} min",
+    "laterMin": "+{{count}} min",
+    "earlier": "Earlier",
+    "later": "Later",
+    "highLatTitle": "High-latitude rule",
+    "highLatHint": "In far-northern or far-southern regions the sun may not reach the twilight angles. Choose how Fajr and Isha are estimated.",
+    "rule": {
+      "recommended": "Automatic (recommended)",
+      "MiddleOfTheNight": "Middle of the night",
+      "SeventhOfTheNight": "One-seventh of the night",
+      "TwilightAngle": "Twilight angle"
+    },
+    "ruleDesc": {
+      "recommended": "Picks a sensible rule for your latitude.",
+      "MiddleOfTheNight": "Fajr and Isha are capped at the midpoint of the night.",
+      "SeventhOfTheNight": "Night is split into sevenths for Fajr and Isha.",
+      "TwilightAngle": "Uses the method's twilight angle as a fraction of the night."
+    }
+  },
+  "hajj": {
+    "eyebrow": "Pilgrimage",
+    "title": "Hajj & Umrah",
+    "subtitle": "A step-by-step checklist for the rites of pilgrimage.",
+    "progress": "{{done}} of {{total}} rites",
+    "reset": "Reset",
+    "resetConfirmTitle": "Reset checklist?",
+    "resetConfirmMsg": "This will uncheck every rite. Your progress cannot be recovered.",
+    "umrahTag": "Umrah",
+    "hajjTag": "Hajj",
+    "disclaimer": "A practical checklist, not a fiqh manual. Follow a qualified guide for rulings and details."
+  },
+  "dailyHadith": {
+    "eyebrow": "Daily series",
+    "title": "Daily hadith",
+    "subtitle": "A hadith from Imam al-Nawawi's Forty, renewed each day.",
+    "cardTitle": "Hadith of the day",
+    "seeArchive": "See the archive",
+    "emptyTitle": "No hadith available",
+    "emptyDesc": "The daily hadith series is unavailable right now."
+  },
+  "seerah": {
+    "eyebrow": "Prophetic biography",
+    "title": "Seerah timeline",
+    "subtitle": "Key milestones in the life of the Prophet Muhammad ﷺ.",
+    "ceBadge": "{{year}} CE",
+    "ahBadge": "{{ah}} AH",
+    "disclaimer": "An overview of major milestones. Dates are the commonly-cited approximations."
+  },
+  "jannah": {
+    "eyebrow": "Learn",
+    "title": "Journey to Jannah",
+    "subtitle": "Paradise, its ranks, and the deeds that elevate a believer.",
+    "intro": "Islam does not give a numbered checklist for Paradise levels. Here you will find what the Qur'an and authentic Sunnah teach — and links to track your daily striving.",
+    "learnTitle": "About Paradise",
+    "quickLinksTitle": "Explore",
+    "continueInApp": "Continue in Munib",
+    "gatesListTitle": "Named in hadith",
+    "duaNumber": "Du'a {{number}}",
+    "pathsTitle": "Paths to higher ranks",
+    "pathsHint": "Deeds that raise rank by Allah's permission — tap any path for evidence and app links.",
+    "gatesTitle": "Gates of Jannah",
+    "gatesSummary": "Gates named in authentic hadith",
+    "gatesSubtitle": "Different gates for different deeds",
+    "gatesLead": "Authentic hadith describe gates of Paradise opened for people distinguished by prayer, charity, fasting, jihad, and Hajj. Some may be called to enter through more than one.",
+    "duasTitle": "Duas for Paradise",
+    "duasSummary": "Supplications from Hisnul Muslim",
+    "duasSubtitle": "Ask Allah for Jannah and refuge from the Fire",
+    "duasLead": "The Prophet ﷺ taught us to ask for Paradise — especially Al-Firdaws — in daily du'a.",
+    "versesTitle": "Qur'an on Paradise",
+    "versesSummary": "Curated ayahs with links to the reader",
+    "versesSubtitle": "Descriptions, ranks, mercy, and du'a",
+    "versesLead": "Tap any verse to open it in the Qur'an reader.",
+    "journeyTitle": "My Journey",
+    "journeySummary": "Today's habits — not your rank with Allah",
+    "journeySubtitle": "Consistency in worship you already track",
+    "journeyBanner": "These habits are among the deeds Allah loves. Your final rank is only with Him.",
+    "journeyToday": "Today's striving",
+    "journeyEmpty": "Start with one prayer or adhkar — small steps build lifelong habits.",
+    "journeyDisclaimer": "This dashboard shows consistency, not a percentage of Paradise. Strive sincerely and trust in Allah's mercy.",
+    "journey": {
+      "salah": "Salah today",
+      "salahHint": "Five daily prayers on your checklist",
+      "dhikr": "Adhkar today",
+      "dhikrHint": "Morning, evening, and daily remembrances",
+      "qaza": "Qaza progress",
+      "qazaHint": "Making up missed worship",
+      "streak": "Active streak",
+      "streakHint": "Days of consistent tracking",
+      "tahajjud": "Tahajjud this week",
+      "tahajjudHint": "Night prayer in the last 7 days",
+      "reflection": "Reflections this week",
+      "reflectionHint": "Khushu journal entries",
+      "quran": "Qur'an",
+      "quranHint": "Continue reading or memorising"
+    },
+    "intentionsTitle": "Today's intentions",
+    "intentionsHint": "Private toggles for your niyyah — not synced, not a score.",
+    "intentions": {
+      "tawbah": "I renewed sincere tawbah today",
+      "tawbahHint": "Turn back to Allah after slipping",
+      "charity": "I gave charity today",
+      "charityHint": "Even a smile or kind word counts",
+      "character": "I guarded my character today",
+      "characterHint": "Patience, honesty, and good manners"
+    },
+    "promisedTitle": "Honoured in the texts",
+    "firdawsCardTitle": "Ask for Al-Firdaws",
+    "firdawsDuaTitle": "Du'a for Al-Firdaws",
+    "quranTitle": "Qur'an",
+    "hadithTitle": "Hadith",
+    "actionsTitle": "Practical steps",
+    "notFound": "Topic not found",
+    "tourCta": "Take the guided tour",
+    "tourCtaHint": "A quick walkthrough of this feature",
+    "tourA11y": "Start Journey to Jannah tour",
+    "disclaimer": "General educational content — not a fatwa. For personal rulings, consult a qualified scholar. Allah knows best.",
+    "importance": {
+      "foundational": "Foundational",
+      "obligatory": "Obligatory",
+      "highly-recommended": "Highly recommended",
+      "recommended": "Recommended"
+    },
+    "grade": {
+      "sahih": "Sahih",
+      "hasan": "Hasan",
+      "daif": "Da'if",
+      "scholarly-opinion": "Scholarly note"
+    },
+    "verseTheme": {
+      "description": "Description",
+      "reward": "Reward",
+      "ranks": "Ranks",
+      "mercy": "Mercy",
+      "supplication": "Supplication"
+    }
+  },
+  "tour": {
+    "eyebrow": "Guided tour",
+    "title": "Explore Munib",
+    "subtitle": "A quick tour of what you can do here.",
+    "next": "Next",
+    "back": "Back",
+    "done": "Done",
+    "goThere": "Open this feature",
+    "stepLabel": "Step {{current}} of {{total}}",
+    "stepCounter": "{{current}} of {{total}}",
+    "navRow": "Take the app tour",
+    "navRowSub": "A quick guided walkthrough of the main features",
+    "steps": {
+      "tracker": {
+        "title": "Track your prayers",
+        "body": "Mark each of the five daily prayers, log qaza, and keep your streak alive."
+      },
+      "prayerTimes": {
+        "title": "Accurate prayer times",
+        "body": "On-device prayer times for your location, with adhan reminders you can fine-tune."
+      },
+      "quran": {
+        "title": "Read the Qur'an",
+        "body": "The full Qur'an with translations, audio recitations, bookmarks, and a khatm planner."
+      },
+      "qibla": {
+        "title": "Find the qibla",
+        "body": "A live compass that points you to the Ka'bah wherever you are."
+      },
+      "adhkar": {
+        "title": "Daily adhkar & duas",
+        "body": "Morning and evening remembrances, a tasbeeh counter, and the full Hisnul Muslim."
+      },
+      "personalize": {
+        "title": "Make it yours",
+        "body": "Themes, fonts, languages, and reminders — tune the app to fit your routine."
+      },
+      "jannah": {
+        "title": "Journey to Jannah",
+        "body": "Learn about Paradise, its ranks, gates, and paths — then track your daily striving."
+      },
+      "about": {
+        "title": "What is Jannah?",
+        "body": "Read scholar-neutral summaries backed by Qur'an and authentic hadith."
+      },
+      "paths": {
+        "title": "Paths that elevate",
+        "body": "Each deed includes evidence, practical steps, and links to Munib trackers."
+      },
+      "journey": {
+        "title": "My Journey",
+        "body": "See today's consistency in salah, adhkar, and reflection — not a rank score."
+      }
+    }
   }
 }

@@ -1,9 +1,13 @@
 export * from "./content";
 export * from "./hadith";
+export * from "./hajj-guide";
+export * from "./jannah";
 export * from "./prayer";
 export * from "./preferences";
 export * from "./qaza";
 export * from "./quran";
+export * from "./salah-guide";
+export * from "./seerah";
 export * from "./weather";
 export * from "./zikr";
 

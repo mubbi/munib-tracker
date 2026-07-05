@@ -1,82 +1,20 @@
-import { useEffect } from "react";
-
 import { DB_KEYS } from "@/db/keys";
-import { readJSON, writeJSON } from "@/db/store";
 
-import { createStore, useStore } from "./create-store";
-
-/**
- * Standalone favorites store for duas. Mirrors the zikr-favorites approach
- * (ordered id list persisted to AsyncStorage) without touching the shared
- * `UserPreferences` schema — keeping the change additive and cross-platform
- * (AsyncStorage already ships on iOS/Android/Web, no native rebuild).
- */
-
-const STORAGE_KEY = DB_KEYS.duaFavorites;
-
-interface DuaFavoritesState {
-  order: string[];
-  isReady: boolean;
-  load: () => Promise<void>;
-  toggle: (id: string) => Promise<void>;
-  setOrder: (order: string[]) => Promise<void>;
-}
-
-export const duaFavoritesStore = createStore<DuaFavoritesState>((set, get) => ({
-  order: [],
-  isReady: false,
-
-  async load() {
-    const order = await readJSON<string[]>(STORAGE_KEY, []);
-    set({ order, isReady: true });
-  },
-
-  async toggle(id) {
-    const current = get().order;
-    const next = current.includes(id)
-      ? current.filter((existing) => existing !== id)
-      : [...current, id];
-    set({ order: next });
-    await writeJSON(STORAGE_KEY, next);
-  },
-
-  async setOrder(order) {
-    set({ order });
-    await writeJSON(STORAGE_KEY, order);
-  },
-}));
+import { createFavoritesStore, type FavoritesBlob } from "./create-favorites-store";
 
 /**
- * Loads persisted dua favorites once on first mount. `app-providers` owns the
- * other stores' startup load; this store is self-contained, so any dua screen
- * calls this to hydrate it lazily (the load is idempotent).
+ * Standalone favorites store for duas — an ordered id list persisted to
+ * AsyncStorage (mirrors the zikr-favorites approach) plus a sync watermark, so
+ * the change stays additive and cross-platform (no native rebuild).
  */
-export function useEnsureDuaFavoritesLoaded(): void {
-  useEffect(() => {
-    if (!duaFavoritesStore.getState().isReady) {
-      void duaFavoritesStore.getState().load();
-    }
-  }, []);
-}
+export type DuaFavoritesBlob = FavoritesBlob;
 
-export function useFavoriteDuaIds(): string[] {
-  return useStore(duaFavoritesStore, (s) => s.order);
-}
+const api = createFavoritesStore(DB_KEYS.duaFavorites, DB_KEYS.duaFavoritesUpdatedAt);
 
-export function useIsFavoriteDua(id: string): boolean {
-  return useStore(duaFavoritesStore, (s) => s.order.includes(id));
-}
-
-// Stable singleton — actions never change reference, so no subscription needed.
-const duaFavoritesActions = {
-  load: (...args: Parameters<DuaFavoritesState["load"]>) =>
-    duaFavoritesStore.getState().load(...args),
-  toggle: (...args: Parameters<DuaFavoritesState["toggle"]>) =>
-    duaFavoritesStore.getState().toggle(...args),
-  setOrder: (...args: Parameters<DuaFavoritesState["setOrder"]>) =>
-    duaFavoritesStore.getState().setOrder(...args),
-} as const;
-
-export function useDuaFavoritesActions() {
-  return duaFavoritesActions;
-}
+export const duaFavoritesStore = api.store;
+export const readDuaFavoritesBlob = api.readBlob;
+export const applyRemoteDuaFavorites = api.applyRemote;
+export const useEnsureDuaFavoritesLoaded = api.useEnsureLoaded;
+export const useFavoriteDuaIds = api.useFavoriteIds;
+export const useIsFavoriteDua = api.useIsFavorite;
+export const useDuaFavoritesActions = api.useActions;

@@ -1,9 +1,14 @@
 import { describe, expect, it } from "vitest";
 import {
   breakDownDayDuration,
+  buildUniformQazaTargets,
+  classifyQazaSustainability,
   computeLifetimeMissedPrayers,
   computeMissedFasts,
   computeQazaEta,
+  estimateQazaDailyMinutes,
+  matchQazaPlanPreset,
+  suggestDailyQazaTargets,
   sumQazaDailyProgress,
   sumQazaScheduleTargets,
 } from "./qaza";
@@ -91,5 +96,68 @@ describe.concurrent("computeMissedFasts", () => {
   it("estimates from whole years", () => {
     expect(computeMissedFasts(3)).toBe(90);
     expect(computeMissedFasts(2, 29)).toBe(58);
+  });
+});
+
+describe.concurrent("suggestDailyQazaTargets", () => {
+  it("spreads each prayer's debt over the horizon and omits zero-debt prayers", () => {
+    const targets = suggestDailyQazaTargets(
+      [
+        { prayerId: "fajr", remaining: 100 },
+        { prayerId: "dhuhr", remaining: 50 },
+        { prayerId: "asr", remaining: 0 },
+      ],
+      30,
+    );
+    expect(targets.fajr).toBe(4); // ceil(100/30)
+    expect(targets.dhuhr).toBe(2); // ceil(50/30)
+    expect(targets.asr).toBeUndefined();
+  });
+
+  it("clamps the horizon to at least one day", () => {
+    expect(suggestDailyQazaTargets([{ prayerId: "isha", remaining: 7 }], 0).isha).toBe(7);
+  });
+});
+
+describe.concurrent("buildUniformQazaTargets", () => {
+  it("applies the same per-prayer target only where debt remains", () => {
+    expect(
+      buildUniformQazaTargets(
+        [
+          { prayerId: "fajr", remaining: 100 },
+          { prayerId: "asr", remaining: 0 },
+        ],
+        3,
+      ),
+    ).toEqual({ fajr: 3 });
+  });
+});
+
+describe.concurrent("classifyQazaSustainability", () => {
+  it("maps daily totals to sustainability tiers", () => {
+    expect(classifyQazaSustainability(0)).toBeNull();
+    expect(classifyQazaSustainability(6)).toBe("easy");
+    expect(classifyQazaSustainability(18)).toBe("moderate");
+    expect(classifyQazaSustainability(36)).toBe("challenging");
+    expect(classifyQazaSustainability(90)).toBe("intensive");
+  });
+});
+
+describe.concurrent("estimateQazaDailyMinutes", () => {
+  it("estimates minutes from the daily total", () => {
+    expect(estimateQazaDailyMinutes(30)).toBe(75);
+    expect(estimateQazaDailyMinutes(0)).toBe(0);
+  });
+});
+
+describe.concurrent("matchQazaPlanPreset", () => {
+  it("matches uniform presets and falls back to custom", () => {
+    const counters = [
+      { prayerId: "fajr" as const, remaining: 10 },
+      { prayerId: "dhuhr" as const, remaining: 5 },
+    ];
+    expect(matchQazaPlanPreset({ fajr: 3, dhuhr: 3 }, counters)).toBe("balanced");
+    expect(matchQazaPlanPreset({ fajr: 3, dhuhr: 5 }, counters)).toBe("custom");
+    expect(matchQazaPlanPreset({}, counters)).toBe("custom");
   });
 });

@@ -16,10 +16,11 @@ import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
-import { adhanTrack } from "@/lib/adhan-audio";
+import { ADHAN_STYLES, adhanTrack, DEFAULT_ADHAN_STYLE } from "@/lib/adhan-audio";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
@@ -46,6 +47,7 @@ const GROUPS: { titleKey: string; items: ToggleKey[] }[] = [
     titleKey: "groupZikr",
     items: ["morningZikr", "eveningZikr", "beforeSleep", "beforePrayer", "afterPrayer"],
   },
+  { titleKey: "groupContent", items: ["dailyContent", "friday"] },
   { titleKey: "groupMilestones", items: ["achievements"] },
 ];
 
@@ -54,7 +56,7 @@ export default function NotificationsScreen() {
   const { t } = useTranslation();
   const prefs = usePreferences();
   const location = useLocation();
-  const { setNotificationPrefs, setPrayerAlert } = usePreferencesActions();
+  const { setNotificationPrefs, setPrayerAlert, update } = usePreferencesActions();
   const audio = useAudioPlayerContext();
   const toast = useToast();
   const { requestPermission, canEnableLocalReminders } = useNotificationPermissions();
@@ -90,7 +92,13 @@ export default function NotificationsScreen() {
   );
 
   const formatWhen = (iso: string) =>
-    formatDisplayDateTime(new Date(iso), prefs.timeFormat, prefs.locale, location.timeZone);
+    formatDisplayDateTime(
+      new Date(iso),
+      prefs.timeFormat,
+      prefs.locale,
+      location.timeZone,
+      prefs.defaultCalendar,
+    );
 
   const enableMaster = async () => {
     if (isWeb) {
@@ -126,6 +134,12 @@ export default function NotificationsScreen() {
     await setNotificationPrefs(patch);
     await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
     await reloadScheduled();
+  };
+
+  const onSelectAdhanStyle = async (adhanStyleId: string) => {
+    await update({ adhanStyleId });
+    // Preview the newly-picked style so the choice is audible immediately.
+    audio.play([adhanTrack(adhanStyleId)], 0, { sourceHref: "/settings/notifications" });
   };
 
   const onDisableMaster = async () => {
@@ -193,8 +207,39 @@ export default function NotificationsScreen() {
             icon={{ ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }}
             title={t("notif.adhanTitle")}
             subtitle={t("notif.adhanSub")}
-            onPress={() => audio.play([adhanTrack()], 0, { sourceHref: "/settings/notifications" })}
+            onPress={() =>
+              audio.play([adhanTrack(prefs.adhanStyleId)], 0, {
+                sourceHref: "/settings/notifications",
+              })
+            }
           />
+          {ADHAN_STYLES.length > 1 ? (
+            <View style={styles.adhanToggle}>
+              <SegmentedControl
+                options={ADHAN_STYLES.map((style) => ({ id: style.id, label: style.name }))}
+                value={prefs.adhanStyleId ?? DEFAULT_ADHAN_STYLE}
+                onChange={(id) => void onSelectAdhanStyle(id)}
+              />
+            </View>
+          ) : null}
+          <View style={styles.adhanToggle}>
+            <ToggleRow
+              icon={{ ios: "megaphone.fill", android: "campaign", web: "campaign" }}
+              title={t("notif.playAdhan")}
+              subtitle={isWeb ? t("notif.adhanWebUnavailable") : t("notif.playAdhanHint")}
+              value={prefs.notificationPrefs.playAdhanOnPrayer}
+              disabled={!obligatoryEnabled || isWeb}
+              onValueChange={(value) => void onNotificationToggle({ playAdhanOnPrayer: value })}
+            />
+          </View>
+          <View style={styles.adhanToggle}>
+            <SettingsRow
+              icon={{ ios: "clock.badge", android: "more_time", web: "more_time" }}
+              title={t("reminderOffsets.title")}
+              subtitle={t("reminderOffsets.rowSub")}
+              onPress={() => router.push("/settings/reminder-offsets")}
+            />
+          </View>
         </Card>
 
         {GROUPS.map((group) => (
@@ -279,6 +324,9 @@ const styles = StyleSheet.create({
   upcomingList: {
     gap: Spacing.two,
     marginTop: Spacing.three,
+  },
+  adhanToggle: {
+    marginTop: Spacing.two,
   },
   footer: {
     textAlign: "center",

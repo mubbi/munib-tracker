@@ -53,7 +53,8 @@
       "dua": "دعائیں",
       "zikr": "اذکار",
       "name": "۹۹ نام",
-      "durood": "درود"
+      "durood": "درود",
+      "jannah": "جنت کا سفر"
     },
     "suggestion": {
       "kursi": "آیت الکرسی",
@@ -69,7 +70,8 @@
   "tabs": {
     "home": "ہوم",
     "tracker": "ٹریکر",
-    "settings": "ترتیبات"
+    "settings": "ترتیبات",
+    "library": "لائبریری"
   },
   "actions": {
     "checklist": "چیک لسٹ",
@@ -84,7 +86,38 @@
     "calendar": "کیلنڈر",
     "stats": "اعداد و شمار",
     "qibla": "قبلہ",
-    "bookmarks": "بک مارکس"
+    "bookmarks": "بک مارکس",
+    "ramadan": "رمضان",
+    "salahGuide": "نماز رہنمائی",
+    "jannah": "جنت کا سفر",
+    "events": "مواقع",
+    "zakat": "زکات"
+  },
+  "ramadan": {
+    "eyebrow": "رمضان",
+    "title": "رمضان",
+    "subtitle": "روزے کے اوقات اور آپ کا روزہ ریکارڈ",
+    "dayOf": "{{total}} میں سے {{day}} واں دن",
+    "timesTitle": "آج کے روزے کے اوقات",
+    "suhoor": "سحری کا اختتام",
+    "iftar": "افطار",
+    "timesHint": "سحری فجر پر ختم ہوتی ہے اور افطار آپ کے مقام پر مغرب سے شروع ہوتا ہے۔",
+    "fastingTitle": "روزہ ریکارڈ",
+    "fastedCount": "{{total}} میں سے {{count}} دن روزے رکھے",
+    "todayTitle": "آج کا روزہ",
+    "countdownSuhoor": "سحری {{time}} میں ختم",
+    "countdownIftar": "افطار {{time}} میں",
+    "afterIftar": "آج کا روزہ مکمل",
+    "dayCell": "رمضان دن {{day}}",
+    "dayCellStatus": "رمضان دن {{day}}، {{status}}",
+    "dayCellHint": "روزہ رکھا، چھوٹ گیا، معذور اور غیر درج کے درمیان بدلنے کے لیے ٹیپ کریں",
+    "statusNone": "درج نہیں",
+    "gridHint": "روزے کی حالت درج کرنے کے لیے دن پر ٹیپ کریں",
+    "fastedToday": "آج کا روزہ درج کریں",
+    "statusFasted": "روزہ رکھا",
+    "statusMissed": "چھوٹ گیا",
+    "statusExempt": "معذور",
+    "disclaimer": "اوقات تخمینی حساب سے ہیں — رمضان کے آغاز اور روزانہ اوقات کے لیے اپنی مقامی مسجد کی پیروی کریں۔"
   },
   "bookmarks": {
     "eyebrow": "لائبریری",
@@ -97,6 +130,8 @@
     "hadith": "احادیث",
     "duas": "محفوظ دعائیں",
     "zikr": "پسندیدہ اذکار",
+    "duroods": "محفوظ درود",
+    "names": "محفوظ نام",
     "emptyTitle": "ابھی کچھ محفوظ نہیں",
     "emptySubtitle": "نیچے سے پڑھیں اور محفوظ کریں",
     "emptyDesc": "آپ کی بک مارک آیات، احادیث، دعائیں اور اذکار یہاں جمع ہوں گے۔",
@@ -109,12 +144,19 @@
     "exploreDuas": "دعائیں دیکھیں",
     "exploreDuasHint": "دعا محفوظ کرنے کے لیے ستارہ دبائیں",
     "exploreZikr": "اذکار دیکھیں",
-    "exploreZikrHint": "ذکر پسندیدہ میں شامل کرنے کے لیے دل دبائیں"
+    "exploreZikrHint": "ذکر پسندیدہ میں شامل کرنے کے لیے دل دبائیں",
+    "exploreDuroods": "درود دیکھیں",
+    "exploreDuroodsHint": "درود محفوظ کرنے کے لیے ستارہ دبائیں",
+    "exploreNames": "۹۹ نام دیکھیں",
+    "exploreNamesHint": "نام محفوظ کرنے کے لیے ستارہ دبائیں"
   },
   "home": {
     "todaysGoal": "آج کا ہدف",
     "freshStartHint": "شروع کرنے کے لیے اپنی پہلی عبادت درج کریں",
     "checklistHint": "آج کی سرگرمیوں کی فہرست مکمل کریں",
+    "excusedPausedLabel": "رُکا ہوا",
+    "excusedGoalHint": "{{reason}} کی وجہ سے ٹریکنگ رُکی ہوئی ہے — آپ کا سلسلہ محفوظ ہے۔",
+    "excusedGoalBody": "آج فرض ٹریکنگ رُکی ہوئی ہے۔ آپ اب بھی اختیاری عبادات درج کر سکتے ہیں۔",
     "tasksProgress": "{{total}} میں سے {{done}} کام",
     "startTracking": "ٹریکنگ شروع کریں",
     "goToChecklist": "چیک لسٹ پر جائیں",
@@ -152,6 +194,9 @@
     "devotionProgress": "اگلے لیول تک {{current}} / {{next}} نور",
     "devotionA11y": "عقیدت لیول {{level}}، کل {{noor}} نور، اگلے لیول تک {{current}} میں سے {{next}}",
     "scheduleTitle": "آج کا شیڈول",
+    "explore": "دریافت کریں",
+    "manage": "منظم کریں",
+    "manageA11y": "ہوم شارٹ کٹس اپنی مرضی سے بنائیں",
     "scheduleNext": "اگلی",
     "scheduleCurrent": "موجودہ",
     "scheduleNextA11y": "{{name}} {{time}} پر، اگلی نماز {{countdown}}",
@@ -209,7 +254,8 @@
       "names": "ناموں پر واپس جائیں",
       "audio": "آڈیو پر واپس جائیں",
       "listening": "سننا جاری رکھیں"
-    }
+    },
+    "rozaRemaining": "قضا روزے"
   },
   "tracker": {
     "eyebrow": "ٹریک اور درج کریں",
@@ -233,7 +279,18 @@
     "qazaTargets": "قضا کے اہداف",
     "qazaTargetsProgress": "آج {{total}} میں سے {{done}} قضا",
     "afterSalahAdhkarReminderTitle": "{{prayer}} کے بعد",
-    "afterSalahAdhkarReminderBody": "تسبیح اور نماز کے بعد کے اذکار کے لیے چند لمحے نکالیں۔"
+    "afterSalahAdhkarReminderBody": "تسبیح اور نماز کے بعد کے اذکار کے لیے چند لمحے نکالیں۔",
+    "excusedTitle": "معذور دن",
+    "excusedHint": "حیض، بیماری یا سفر — سلسلہ توڑے بغیر فرض ٹریکنگ روکیں۔",
+    "excusedActive": "یہ دن معذور ہے — فرض ٹریکنگ رکی ہوئی ہے اور آپ کا سلسلہ محفوظ ہے۔",
+    "excusedConfirmTitle": "آج کو معذور قرار دیں؟",
+    "excusedConfirmMsg": "آج فرض ٹریکنگ رُک جائے گی ({{reason}})۔ آپ کا سلسلہ محفوظ رہے گا۔",
+    "excusedConfirmAction": "معذور قرار دیں",
+    "excusedReason": {
+      "hayd": "حیض",
+      "sick": "بیماری",
+      "travel": "سفر"
+    }
   },
   "settings": {
     "eyebrow": "اپنی پسند کے مطابق",
@@ -253,6 +310,8 @@
     "languageSub": "ایپ اور ترجمے کی زبان",
     "timeFormat": "وقت کی شکل",
     "timeFormatSub": "۱۲ یا ۲۴ گھنٹے",
+    "defaultCalendar": "ڈیفالٹ کیلنڈر",
+    "defaultCalendarSub": "عیسوی یا ہجری تاریخ",
     "weather": "موسم",
     "weatherSub": "ہیرو اثرات اور درجہ حرارت کی اکائی",
     "achievements": "کامیابیاں",
@@ -261,7 +320,38 @@
     "qiblaSub": "نماز کی سمت معلوم کریں",
     "about": "متعلق",
     "aboutSub": "ورژن، کریڈٹس اور پالیسیاں",
-    "footer": "{{app}} · خلوصِ نیت سے بنایا گیا"
+    "import": "نماز کی تاریخ درآمد کریں",
+    "importSub": "JSON یا CSV فائل سے پچھلے دن شامل کریں",
+    "footer": "{{app}} · خلوصِ نیت سے بنایا گیا",
+    "backup": "بیک اپ اور بحالی",
+    "backupSub": "اپنا سارا ڈیٹا فائل کے طور پر برآمد یا بحال کریں",
+    "travel": "سفر اور نماز",
+    "travelSub": "سفر میں نماز قصر اور جمع کرنے کا طریقہ",
+    "homeCustomize": "ہوم اپنی مرضی سے",
+    "homeCustomizeSub": "شارٹ کٹس ترتیب دیں اور ہوم کارڈز چھپائیں",
+    "offlineData": "آف لائن ڈیٹا",
+    "offlineDataSub": "ڈاؤن لوڈ شدہ مواد اور کیش منظم کریں"
+  },
+  "import": {
+    "title": "نماز کی تاریخ درآمد کریں",
+    "subtitle": "کسی اور ایپ یا اسپریڈشیٹ سے ریکارڈ درآمد کریں",
+    "pasteTitle": "اپنا ڈیٹا پیسٹ کریں",
+    "formatHint": "JSON ({ date, prayerId, status } کی صف) یا CSV سطریں date,prayerId,status پیسٹ کریں۔ تاریخیں YYYY-MM-DD؛ نمازیں fajr، dhuhr، asr، maghrib، isha، witr؛ حالتیں completed، missed، delayed، qaza۔",
+    "placeholder": "[{\"date\":\"2026-06-01\",\"prayerId\":\"fajr\",\"status\":\"completed\"}]",
+    "preview": "پیش نظارہ",
+    "previewTitle": "پیش نظارہ",
+    "summaryValid": "{{count}} درست سطریں",
+    "summaryErrors": "{{count}} خامیاں",
+    "summaryDuplicates": "{{count}} مکرر سطریں ضم کر دی گئیں",
+    "summaryRange": "تاریخیں {{from}} → {{to}}",
+    "errorLine": "سطر {{row}}: {{message}}",
+    "moreErrors": "+{{count}} مزید خامیاں",
+    "alsoQaza": "چھوٹی ہوئی نمازیں قضا میں بھی شامل کریں",
+    "alsoQazaHint": "ہر درآمد شدہ چھوٹی نماز سے آپ کے قضا شمار بڑھائیں۔",
+    "commit": "{{count}} ریکارڈ درآمد کریں",
+    "importing": "درآمد ہو رہا ہے…",
+    "done": "{{count}} نماز ریکارڈ درآمد ہو گئے",
+    "failed": "درآمد ناکام۔ دوبارہ کوشش کریں۔"
   },
   "login": {
     "eyebrowGuest": "اپنی پیش رفت محفوظ کریں",
@@ -351,6 +441,16 @@
     "pm": "PM",
     "footer": "آپ کی پسند خودکار محفوظ ہوتی ہے اور ہر جگہ لاگو ہوتی ہے جہاں وقت دکھایا جاتا ہے۔"
   },
+  "defaultCalendar": {
+    "title": "ڈیفالٹ کیلنڈر",
+    "subtitle": "ایپ میں تاریخیں کیسے دکھائیں",
+    "hint": "ہوم ہیرو، تقریبات، جرنل، کیلنڈر ٹیبز اور دیگر تاریخوں پر لاگو ہوتا ہے",
+    "optionGregorian": "عیسوی",
+    "optionHijri": "ہجری",
+    "exampleGregorian": "مثال: پیر، 23 مارچ 2026",
+    "exampleHijri": "مثال: 1 رمضان 1447 ہجری",
+    "footer": "آپ کی پسند خودکار محفوظ ہوتی ہے۔ کیلنڈر اسکرینز پر عارضی طور پر تبدیل کر سکتے ہیں۔"
+  },
   "weather": {
     "title": "موسم",
     "subtitle": "ہوم ہیرو پر موجودہ حالات",
@@ -380,6 +480,9 @@
     "masterSub": "ہر یاد دہانی کے لیے مرکزی سوئچ",
     "adhanTitle": "اذان کا نمونہ",
     "adhanSub": "بنڈل شدہ اذان کی آواز چلائیں",
+    "playAdhan": "نماز کے وقت اذان چلائیں",
+    "playAdhanHint": "فرض نمازوں کی یاد دہانیاں طے شدہ ٹون کے بجائے اذان کی آواز دیتی ہیں۔",
+    "adhanWebUnavailable": "صرف موبائل ایپ پر دستیاب ہے، ویب پر نہیں۔",
     "upcomingTitle": "آنے والی یاد دہانیاں",
     "upcomingHint": "آپ کے مقام کے وقت کے مطابق اگلی شیڈول شدہ اطلاعات۔ انہیں فعال، غیر فعال یا ترمیم کرنے کے لیے نیچے دیے سوئچ استعمال کریں۔",
     "footer": "جیسے ہی آپ کی ڈیوائس پر اطلاعات فعال ہوں گی، یہ یاد دہانیاں شیڈول ہو جائیں گی۔",
@@ -446,6 +549,14 @@
       "achievements": {
         "title": "کامیابیاں",
         "subtitle": "تسلسل اور بیجز کا جشن منائیں"
+      },
+      "dailyContent": {
+        "title": "روزانہ نصیحت",
+        "subtitle": "ہر صبح آپ کی ہوم اسکرین پر ایک آیت اور حدیث"
+      },
+      "friday": {
+        "title": "جمعہ یاد دہانی",
+        "subtitle": "جمعہ اور سورۃ الکہف"
       }
     },
     "prayerAlertsObligatory": "فرض نمازوں کی الرٹس",
@@ -481,6 +592,7 @@
     },
     "channels": {
       "prayer": "نماز کی یاد دہانیاں",
+      "prayerAdhan": "نماز کے وقت اذان",
       "zikr": "ذکر کی یاد دہانیاں",
       "qaza": "قضا کی یاد دہانیاں"
     },
@@ -504,8 +616,13 @@
       "beforeSleepBody": "سونے سے پہلے کی دعائیں پڑھیں۔",
       "qazaTitle": "قضا کی یاد دہانی",
       "qazaBody": "آج کوئی قضا نماز یا روزہ ادا کریں۔",
-      "achievementTitle": "کامیابی حاصل ہوئی"
-    }
+      "achievementTitle": "کامیابی حاصل ہوئی",
+      "dailyContentTitle": "آج کی نصیحت",
+      "dailyContentBody": "ایک نئی آیت، حدیث اور اللہ کا نام آپ کی ہوم اسکرین پر تیار ہے۔",
+      "fridayTitle": "جمعہ مبارک",
+      "fridayBody": "آج جمعہ ہے — درود بھیجیں اور سورۃ الکہف پڑھیں۔"
+    },
+    "groupContent": "روزانہ مواد"
   },
   "fonts": {
     "eyebrow": "ترتیبات",
@@ -517,7 +634,15 @@
     "footer": "ذکر، دعا اور تسبیح کے مطالعے کے صفحات پر لاگو ہوتا ہے۔",
     "small": "چھوٹا",
     "medium": "درمیانہ",
-    "large": "بڑا"
+    "large": "بڑا",
+    "arabicFamilyTitle": "عربی خط",
+    "arabicFamilyHint": "ایپ میں ہر عربی متن پر لاگو ہوتا ہے۔ اضافی خطوط اُن کی فونٹ فائلیں شامل ہونے پر ظاہر ہوتے ہیں؛ تب تک سسٹم کے سیرف پر واپس آ جاتے ہیں۔",
+    "arabicFamily": {
+      "system": "سسٹم طے شدہ",
+      "amiri": "امیری",
+      "scheherazade": "شہرزاد",
+      "notoNaskh": "نوٹو نسخ عربی"
+    }
   },
   "zikr": {
     "eyebrow": "یادِ الٰہی",
@@ -567,7 +692,12 @@
     "share": "شیئر کریں",
     "showMore": "مزید دکھائیں",
     "showLess": "کم دکھائیں",
-    "copied": "کلپ بورڈ پر کاپی ہو گیا"
+    "copied": "کلپ بورڈ پر کاپی ہو گیا",
+    "textSize": "متن کا سائز",
+    "decrease": "متن کا سائز کم کریں",
+    "increase": "متن کا سائز بڑھائیں",
+    "reset": "متن کا سائز ری سیٹ کریں",
+    "sizeDefault": "طے شدہ"
   },
   "dua": {
     "eyebrow": "دعا",
@@ -611,7 +741,13 @@
   "duroods": {
     "eyebrow": "درود",
     "title": "درود",
-    "subtitle": "نبی ﷺ پر درود بھیجنا"
+    "subtitle": "نبی ﷺ پر درود بھیجنا",
+    "searchPlaceholder": "درود تلاش کریں…",
+    "noResults": "آپ کی تلاش سے کوئی درود نہیں ملا",
+    "favorites": "پسندیدہ درود",
+    "favSubtitle": "آپ کے محفوظ کردہ درود",
+    "favEmptyTitle": "ابھی کوئی پسندیدہ درود نہیں",
+    "favEmptyDesc": "کسی بھی درود پر ستارہ دبا کر اسے یہاں محفوظ کریں۔"
   },
   "names": {
     "eyebrow": "اسمائے حُسنیٰ",
@@ -621,7 +757,14 @@
     "playContinuous": "متواتر",
     "share": "شیئر کریں",
     "play": "تلاوت چلائیں",
-    "pause": "تلاوت روکیں"
+    "pause": "تلاوت روکیں",
+    "searchPlaceholder": "نام یا معنیٰ سے تلاش کریں…",
+    "favorite": "پسندیدہ میں شامل کریں",
+    "unfavorite": "پسندیدہ سے ہٹائیں",
+    "favorites": "پسندیدہ نام",
+    "favSubtitle": "آپ کے محفوظ کردہ نام",
+    "favEmptyTitle": "ابھی کوئی پسندیدہ نام نہیں",
+    "favEmptyDesc": "کسی بھی نام پر ستارہ دبا کر اسے یہاں محفوظ کریں۔"
   },
   "quran": {
     "eyebrow": "قرآنِ کریم",
@@ -635,6 +778,7 @@
     "madani": "مدنی",
     "ayahCount": "{{count}} آیات",
     "surahList": "سورتیں",
+    "surahCount": "{{shown}} / {{total}}",
     "reciter": "قاری",
     "translation": "ترجمہ",
     "showTransliteration": "نقل حرفی دکھائیں",
@@ -648,6 +792,10 @@
     "bookmarkEmptyTitle": "ابھی کوئی بک مارک نہیں",
     "bookmarkEmptyDesc": "کسی بھی آیت پر بک مارک آئیکن دبائیں تاکہ یہاں محفوظ ہو۔",
     "removeBookmark": "بک مارک ہٹائیں",
+    "juz": "پارہ",
+    "juzSubtitle": "قرآن اس کے تیس پاروں میں پڑھیں",
+    "juzN": "پارہ {{n}}",
+    "browseByJuz": "پارے کے حساب سے دیکھیں",
     "search": "تلاش",
     "searchTitle": "قرآن میں تلاش کریں",
     "searchSubtitle": "ترجمہ یا نقل حرفی سے آیات تلاش کریں",
@@ -661,10 +809,19 @@
     "offlineTranslation": "یہ ترجمہ ڈاؤن لوڈ کرنے کے لیے انٹرنیٹ سے جُڑیں۔ اس کے بجائے بندل شدہ ترجمہ دکھایا جا رہا ہے۔",
     "shareAyah": "آیت شیئر کریں",
     "pauseAyah": "آیت روکیں",
+    "actionPlay": "چلائیں",
+    "actionPause": "روکیں",
+    "actionMemorized": "حفظ",
+    "actionReview": "دہرائیں",
+    "actionBookmark": "محفوظ",
+    "actionBookmarked": "محفوظ",
+    "actionShare": "شیئر",
     "bookmarkAdd": "آیت بک مارک کریں",
     "bookmarkRemove": "بک مارک ہٹائیں",
     "loadingTranslation": "ترجمہ لوڈ ہو رہا ہے…",
-    "searching": "تلاش ہو رہی ہے…"
+    "searching": "تلاش ہو رہی ہے…",
+    "secondTranslation": "دوسرا ترجمہ",
+    "secondTranslationNone": "کوئی نہیں"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",
@@ -853,8 +1010,17 @@
     "confirmDecrementMsg": "{{prayer}} کی باقی قضا تعداد {{remaining}} پر کم کریں؟",
     "confirmIncrementTitle": "باقی تعداد بڑھائیں؟",
     "confirmIncrementMsg": "{{prayer}} کی باقی قضا تعداد {{remaining}} پر بڑھائیں؟",
+    "confirmSetRemainingTitle": "باقی تعداد اپ ڈیٹ کریں؟",
+    "confirmSetRemainingMsg": "{{prayer}} کی باقی قضا تعداد {{remaining}} پر مقرر کریں؟",
+    "editCountTitle": "{{prayer}} باقی",
+    "editCountHint": "درج کریں کہ اس نماز کی کتنی قضائیں ابھی باقی ہیں۔",
+    "editCountPlaceholder": "باقی",
+    "editCountA11y": "{{prayer}} کی باقی قضا تعداد میں ترمیم کریں",
     "confirmPerformTitle": "قضا ادا درج کریں؟",
     "confirmPerformMsg": "ایک {{prayer}} کی قضا ادا شدہ کے طور پر درج کریں؟",
+    "confirmUndoPerformTitle": "قضا واپس لیں؟",
+    "confirmUndoPerformMsg": "آج کی ایک {{prayer}} قضا ہٹائیں اور باقی تعداد میں واپس شامل کریں؟",
+    "undoPerformed": "آج ادا کی گئی ایک {{prayer}} قضا واپس لیں",
     "confirmResetPrayerTitle": "یہ کاؤنٹر ری سیٹ کریں؟",
     "confirmResetPrayerMsg": "{{prayer}} کی باقی اور مکمل تعداد صاف کریں؟ یہ واپس نہیں ہو سکتا۔",
     "confirmResetAllTitle": "تمام کاؤنٹرز ری سیٹ کریں؟",
@@ -877,7 +1043,8 @@
         "hanbali": "حنبلی — سنت مؤکدہ — مستحب"
       },
       "footer": "یہ ایپ سب صارفین کے لیے چھوٹے وتر کو قضا میں شمار کرتی ہے۔ اگر آپ حنفی ہیں تو اسے واجب سمجھیں؛ ورنہ مستحب قضا کے طور پر ٹریک کریں۔ اپنی صورتِ حال کے لیے عالم سے رجوع کریں۔"
-    }
+    },
+    "history": "تاریخچہ"
   },
   "qazaCalc": {
     "eyebrow": "قضا",
@@ -901,9 +1068,26 @@
   "qazaPlan": {
     "eyebrow": "قضا",
     "title": "پلانر",
-    "subtitle": "اپنا بیک لاگ ختم کرنے کے لیے روزانہ کی رفتار طے کریں",
+    "subtitle": "ایسی رفتار چنیں جو سالوں تک قائم رہ سکے، صرف چند دنوں کے لیے نہیں",
+    "consistencyTitle": "استقامت، شدت سے بہتر",
+    "consistencyHadith": "اللہ کو سب سے محبوب وہ عمل ہے جس پر ثابت قدم رہا جائے، خواہ وہ تھوڑا ہی کیوں نہ ہو۔",
+    "consistencySource": "حدیث — بخاری و مسلم",
+    "consistencyPrinciple": "مستقل روزانہ منصوبہ بڑے قرضے کو جلدبازی سے زیادہ قابلِ اعتماد طریقے سے ختم کرتا ہے۔",
     "prayersPerDay": "نمازیں / دن",
+    "dailyTimeLabel": "تخمینی وقت / دن",
+    "dailyTimeMinutes": "≈ {{count}} منٹ",
+    "dailyTimeHours_one": "≈ {{count}} گھنٹہ",
+    "dailyTimeHours_other": "≈ {{count}} گھنٹے",
+    "dailyTimeHoursMinutes": "≈ {{hours}} گھنٹے {{minutes}} منٹ",
     "daysToClear": "مکمل ہونے میں",
+    "sustainabilityLabel": "استحکام",
+    "sustainability": {
+      "easy": "آسان",
+      "moderate": "درمیانہ",
+      "challenging": "مشکل",
+      "intensive": "سخت"
+    },
+    "intensiveWarning": "یہ رفتار بہت سخت ہے — لمبے عرصے کے بجائے مختصر مہموں کے لیے مناسب۔",
     "durationYears_one": "{{count}} سال",
     "durationYears_other": "{{count}} سال",
     "durationMonths_one": "{{count}} مہینہ",
@@ -913,10 +1097,37 @@
     "durationTwo": "{{first}} اور {{second}}",
     "durationThree": "{{first}}، {{second}} اور {{third}}",
     "etaCaption": "اس رفتار سے، {{count}} قضا نمازیں {{date}} تک مکمل ہو جائیں گی۔",
-    "etaEmpty": "مکمل ہونے کی تاریخ کے تخمینے کے لیے نیچے روزانہ ہدف مقرر کریں۔",
+    "etaEmpty": "نیچے سے منصوبہ چنیں یا روزانہ ہدف مقرر کریں تاکہ مکمل ہونے کی تاریخ کا تخمینہ ملے۔",
     "dailyTargets": "روزانہ کے اہداف",
     "planSaved": "پلان محفوظ ہو گیا",
-    "savePlan": "پلان محفوظ کریں"
+    "savePlan": "پلان محفوظ کریں",
+    "presetsTitle": "منصوبہ منتخب کریں",
+    "presetsHint": "زیادہ تر کام کرنے والے لوگوں کے لیے روزانہ ہر نماز کی 3–5 قضا نمازیں عملی ہیں۔ اگر یقین نہ ہو تو Gentle سے شروع کریں۔",
+    "recommended": "تجویز کردہ",
+    "presetActive": "فعال",
+    "presetCustom": "اپنی مرضی کا منصوبہ",
+    "presetCustomHint": "آپ نے الگ الگ نمازیں ایڈجسٹ کی ہیں — نیچے مزید درست کریں۔",
+    "presets": {
+      "gentle": {
+        "title": "🌱 Gentle",
+        "subtitle": "ہر نماز {{perPrayer}} · {{dailyTotal}} / دن"
+      },
+      "balanced": {
+        "title": "⭐ Balanced",
+        "subtitle": "ہر نماز {{perPrayer}} · {{dailyTotal}} / دن"
+      },
+      "committed": {
+        "title": "💪 Committed",
+        "subtitle": "ہر نماز {{perPrayer}} · {{dailyTotal}} / دن"
+      },
+      "intensive": {
+        "title": "🔥 Intensive",
+        "subtitle": "ہر نماز {{perPrayer}} · {{dailyTotal}} / دن · صرف مختصر مدت"
+      }
+    },
+    "attachTitle": "پورے دن میں تقسیم کریں",
+    "attachHint": "بہت سے لوگ ہر فرض نماز کے فوراً بعد 2–3 قضا آسان پاتے ہیں — مثلاً فجر کے بعد قضا فجر، ظہر کے بعد قضا ظہر۔ بوجھ قدرتی طور پر پورے دن میں بٹ جاتا ہے۔",
+    "fiqhNote": "علماء چھوٹی نمازوں کے تخمینے اور ان کے قضا کے طریقے میں اختلاف کرتے ہیں۔ اپنے حالات اور مذہب کے لیے کسی قابلِ اعتماد عالم سے رجوع کریں۔"
   },
   "qazaRoza": {
     "eyebrow": "قضا",
@@ -924,11 +1135,31 @@
     "subtitle": "چھوٹے ہوئے روزوں کو ٹریک اور مکمل کریں",
     "fastsRemaining": "باقی روزے",
     "fastedQaza": "ایک قضا روزہ رکھا",
+    "adjustRemaining": "باقی ایڈجسٹ کریں",
+    "adjustHint": "نمبر پر ٹیپ کریں یا −/+ سے ایڈجسٹ کریں",
+    "editCountTitle": "باقی روزے",
+    "editCountHint": "درج کریں کہ کتنے قضا روزے ابھی مکمل کرنے ہیں۔",
+    "editCountPlaceholder": "باقی",
+    "editCountA11y": "باقی روزوں کی تعداد میں ترمیم",
+    "confirmSetRemainingTitle": "باقی تعداد اپ ڈیٹ کریں؟",
+    "confirmSetRemainingMsg": "باقی روزوں کی تعداد {{remaining}} پر سیٹ کریں؟",
+    "estimateFormula": "× 30 =",
     "estimateTitle": "چھوٹے روزوں کا تخمینہ",
     "estimateHint": "تقریباً کتنے سال کے رمضان کے روزے چھوٹے؟",
     "yearsPlaceholder": "سال",
     "estimateResult": "≈ {{count}} روزے",
-    "addToRemaining": "باقی میں شامل کریں"
+    "addToRemaining": "باقی میں شامل کریں",
+    "resetCounter": "کاؤنٹر ری سیٹ کریں",
+    "confirmDecrementTitle": "باقی تعداد کم کریں؟",
+    "confirmDecrementMsg": "باقی روزوں کی تعداد {{remaining}} پر لائیں؟",
+    "confirmIncrementTitle": "باقی تعداد بڑھائیں؟",
+    "confirmIncrementMsg": "باقی روزوں کی تعداد {{remaining}} پر لائیں؟",
+    "confirmPerformTitle": "روزہ مکمل کریں؟",
+    "confirmPerformMsg": "ایک قضا روزہ مکمل کے طور پر ریکارڈ کریں؟",
+    "confirmAddEstimateTitle": "تخمینی روزے شامل کریں؟",
+    "confirmAddEstimateMsg": "باقی میں {{count}} روزے شامل کریں (نیا مجموعہ: {{total}})؟",
+    "confirmResetTitle": "کاؤنٹر ری سیٹ کریں؟",
+    "confirmResetMsg": "تمام روزوں کے شمار صاف کریں ({{remaining}} باقی، {{completed}} مکمل)؟ یہ واپس نہیں ہو سکتا۔"
   },
   "calendar": {
     "eyebrow": "تاریخ",
@@ -1010,7 +1241,8 @@
     "qazaPromptTitle": "قضا کی تعداد میں شامل کریں؟",
     "qazaPromptMessage": "{{prayer}} کی قضا میں ایک شامل کریں؟",
     "qazaPromptConfirm": "ہاں، قضا میں شامل کریں",
-    "qazaPromptDecline": "نہیں، چھوڑ دیں"
+    "qazaPromptDecline": "نہیں، چھوڑ دیں",
+    "jama": "باجماعت پڑھی"
   },
   "notesModal": {
     "hint": "اختیاری — اس دن کے لیے ایک نجی نوٹ۔",
@@ -1068,7 +1300,44 @@
     "deviceError": "آپ کا موجودہ مقام معلوم نہیں ہو سکا۔ اس کے بجائے اوپر اپنا شہر تلاش کریں۔",
     "manualBadge": "آپ کا مقرر کردہ",
     "gpsBadge": "ڈیوائس سے",
-    "defaultBadge": "طے شدہ"
+    "defaultBadge": "طے شدہ",
+    "calculationTitle": "نماز کے اوقات کا حساب",
+    "method": "حساب کا طریقہ",
+    "methodHint": "وہ ادارہ منتخب کریں جس کا طریقہ آپ کے علاقے سے مطابقت رکھتا ہو تاکہ اوقاتِ نماز آپ کی مقامی مسجد سے ملیں۔",
+    "madhab": "عصر کا حساب",
+    "madhabShafi": "معیاری",
+    "madhabHanafi": "حنفی",
+    "madhabHint": "حنفی طریقے میں عصر بعد میں آتی ہے؛ معیاری (شافعی، مالکی، حنبلی) میں پہلے کا وقت لیا جاتا ہے۔",
+    "methods": {
+      "MuslimWorldLeague": "رابطہ عالم اسلامی",
+      "Egyptian": "مصری جنرل اتھارٹی",
+      "Karachi": "جامعہ علومِ اسلامیہ، کراچی",
+      "UmmAlQura": "ام القریٰ، مکہ",
+      "Dubai": "دبئی (متحدہ عرب امارات)",
+      "MoonsightingCommittee": "رؤیتِ ہلال کمیٹی",
+      "NorthAmerica": "آئی ایس این اے (شمالی امریکہ)",
+      "Kuwait": "کویت",
+      "Qatar": "قطر",
+      "Singapore": "سنگاپور",
+      "Tehran": "ادارہ جیو فزکس، تہران",
+      "Turkey": "دیانت (ترکی)",
+      "Other": "حسبِ ضرورت / دیگر"
+    },
+    "methodHints": {
+      "MuslimWorldLeague": "یورپ، مشرقِ بعید اور امریکہ کے کچھ حصے",
+      "Egyptian": "افریقہ، شام، لبنان، ملائیشیا",
+      "Karachi": "پاکستان، بھارت، بنگلہ دیش، افغانستان",
+      "UmmAlQura": "سعودی عرب",
+      "Dubai": "متحدہ عرب امارات",
+      "MoonsightingCommittee": "عالمی، رؤیتِ ہلال پر مبنی",
+      "NorthAmerica": "امریکہ اور کینیڈا",
+      "Kuwait": "کویت",
+      "Qatar": "قطر",
+      "Singapore": "سنگاپور اور خطہ",
+      "Tehran": "ایران اور شیعہ برادری",
+      "Turkey": "ترکی (دیانت)",
+      "Other": "کہیں اور دستی طور پر مقرر کریں"
+    }
   },
   "moon": {
     "aria": "چاند کا مرحلہ: {{phase}}",
@@ -1197,6 +1466,19 @@
     "deleteMsg": "یہ اس ڈیوائس پر آپ کا تمام مقامی ٹریکنگ ڈیٹا مستقل طور پر مٹا دے گا اور آپ کو سائن آؤٹ کر دے گا۔ اسے واپس نہیں کیا جا سکتا۔",
     "deleteConfirm": "سب کچھ حذف کریں"
   },
+  "sync": {
+    "title": "کلاؤڈ سِنک",
+    "lastSynced": "آخری سِنک",
+    "never": "ابھی سِنک نہیں ہوا",
+    "now": "ابھی سِنک کریں",
+    "syncing": "سِنک ہو رہا ہے…",
+    "done": "آپ کا ڈیٹا محفوظ ہو گیا",
+    "failed": "سِنک نہیں ہو سکا۔ اپنا کنکشن دیکھ کر دوبارہ کوشش کریں۔",
+    "mergeNoChanges": "سب کچھ پہلے ہی تازہ تھا",
+    "mergeSummary": "{{received}} موصول · {{sent}} ارسال",
+    "conflictsResolved": "{{count}} تنازعات خودکار حل ہوئے — تازہ ترین تبدیلی رکھی گئی",
+    "conflictAffected": "متاثرہ: {{list}}"
+  },
   "language": {
     "title": "زبان",
     "appLanguage": "ایپ کی زبان",
@@ -1267,5 +1549,547 @@
   "notFound": {
     "title": "صفحہ نہیں ملا",
     "action": "ہوم پر جائیں"
+  },
+  "qazaHistory": {
+    "title": "قضا تاریخچہ",
+    "subtitle": "آپ کی درج کردہ ہر قضا نماز، دن کے حساب سے",
+    "emptyTitle": "ابھی کوئی قضا درج نہیں",
+    "emptyDesc": "قضا مینیجر سے کوئی قضا نماز ادا کریں، یہاں ظاہر ہو جائے گی۔",
+    "count": "{{count}} ادا کی گئیں",
+    "legendHint": "نمایاں دن پر ٹیپ کریں تاکہ دیکھ سکیں کہ کون سی نمازیں ادا کی گئیں۔",
+    "dayA11y": "{{date}}، {{count}} ادا کی گئیں"
+  },
+  "weeklyReport": {
+    "title": "عبادت میں آپ کا ہفتہ",
+    "body": "{{prayers}} نمازیں مکمل، {{perfect}} مکمل دن، {{qaza}} قضا ادا، اور {{zikr}} ذکر کے سیشن۔ اعداد و شمار دیکھنے کے لیے دبائیں۔"
+  },
+  "backup": {
+    "title": "بیک اپ اور بحالی",
+    "subtitle": "اپنا سارا ڈیٹا محفوظ کریں، یا نئی ڈیوائس پر بحال کریں — اکاؤنٹ کے بغیر",
+    "exportTitle": "برآمد",
+    "exportHint": "آپ کی ٹریکنگ، بک مارکس اور سیٹنگز کا بیک اپ بناتا ہے۔ اسے خود کو شیئر کریں یا کہیں محفوظ رکھیں۔",
+    "exportAction": "بیک اپ بنائیں",
+    "copied": "بیک اپ کلپ بورڈ پر کاپی ہو گیا",
+    "importTitle": "بحالی",
+    "importHint": "بحال کرنے کے لیے نیچے بیک اپ فائل پیسٹ کریں۔ یہ اس ڈیوائس پر متعلقہ ڈیٹا کو بدل دے گا۔",
+    "importPlaceholder": "اپنا بیک اپ یہاں پیسٹ کریں…",
+    "importAction": "بیک اپ بحال کریں",
+    "confirmTitle": "بیک اپ بحال کریں؟",
+    "confirmMessage": "یہ آپ کی موجودہ ٹریکنگ، بک مارکس اور سیٹنگز کو بیک اپ سے بدل دے گا۔ اسے واپس نہیں کیا جا سکتا۔",
+    "confirmAction": "بحال کریں",
+    "restored": "بیک اپ بحال ہو گیا",
+    "error": {
+      "invalid_json": "یہ درست بیک اپ فائل نہیں لگتی۔",
+      "wrong_format": "یہ فائل منیب ٹریکر کا بیک اپ نہیں ہے۔",
+      "unsupported_version": "یہ بیک اپ ایپ کے نئے ورژن سے بنایا گیا ہے۔"
+    }
+  },
+  "reminderOffsets": {
+    "title": "یاد دہانی کا وقت",
+    "subtitle": "ہر نماز کی یاد دہانی پہلے یا بعد میں کریں",
+    "rowSub": "ہر نماز کے وقت سے پہلے یا بعد میں اطلاع",
+    "hint": "ہر فرض نماز کی مرکزی یاد دہانی کو آگے پیچھے کریں (اذان سے ۳۰ منٹ پہلے یا بعد تک)۔",
+    "atTime": "عین وقت پر",
+    "before": "{{count}} منٹ پہلے",
+    "after": "{{count}} منٹ بعد",
+    "earlier": "پہلے",
+    "later": "بعد میں"
+  },
+  "khatm": {
+    "eyebrow": "قرآنِ کریم",
+    "short": "ختم",
+    "title": "ختمِ قرآن منصوبہ",
+    "subtitle": "مقررہ رفتار سے قرآن مکمل کریں",
+    "startTitle": "منصوبہ شروع کریں",
+    "startHint": "منتخب کریں کہ کتنے دنوں میں قرآن مکمل کرنا ہے۔ ہم روزانہ آیات کا ہدف مقرر کریں گے۔",
+    "dayPlan": "{{count}} دن",
+    "preset": {
+      "intensive": "شدید",
+      "balanced": "متوازن",
+      "steady": "مستقل",
+      "custom": "اپنی مرضی"
+    },
+    "customPlan": "اپنا منصوبہ",
+    "customDaysPlaceholder": "دنوں کی تعداد",
+    "customDaysA11y": "منصوبے کی مدت دنوں میں",
+    "customHint": "{{min}}–{{max}} دن درج کریں",
+    "customInvalid": "{{min}} سے {{max}} دن کے درمیان درج کریں",
+    "customStart": "اپنا منصوبہ شروع کریں",
+    "startConfirmTitle": "یہ ختم منصوبہ شروع کریں؟",
+    "startConfirmMsg": "قرآن {{days}} دنوں میں مکمل کریں — تقریباً روزانہ {{count}} آیات۔ پڑھتے ہوئے اپنی پیش رفت یہاں ٹریک کریں۔",
+    "startConfirmAction": "منصوبہ شروع کریں",
+    "dayOf": "{{total}} میں سے {{day}} واں دن",
+    "dailyTarget": "روزانہ {{count}} آیات",
+    "progress": "{{read}} / {{total}} آیات",
+    "expected": "ہدف: {{ayahs}}",
+    "expectedLabel": "کل ہدف",
+    "percentComplete": "{{percent}}٪ مکمل",
+    "remainingAyahs": "باقی",
+    "todayTarget": "روزانہ ہدف",
+    "catchUp": "{{count}} آیات پیچھے — آج تھوڑا extra پڑھ کر پکڑیں۔",
+    "aheadBy": "شیڈول سے {{count}} آیات آگے — رفتار برقرار رکھیں۔",
+    "adjustHint": "{{count}} آیات سے ایڈجسٹ کریں",
+    "logSectionTitle": "آج کی تلاوت درج کریں",
+    "logSectionHint": "آج پڑھی گئی آیات درج کریں، پھر اپنی پیش رفت میں شامل کریں۔",
+    "logAmountPlaceholder": "آیات",
+    "logAmountA11y": "آج درج کرنے والی آیات",
+    "logQuickDaily": "روزانہ ہدف · {{count}}",
+    "logAdd": "{{count}} آیات شامل کریں",
+    "logInvalid": "1–{{max}} آیات درج کریں",
+    "correctTotalTitle": "کل درست کریں",
+    "correctTotalHint": "اب تک پڑھی گئی آیات کی درست تعداد مقرر کریں۔",
+    "correctTotalA11y": "کل پڑھی گئی آیات",
+    "correctTotalApply": "کل اپ ڈیٹ کریں",
+    "correctTotalInvalid": "0–{{max}} آیات درج کریں",
+    "correctTotalToggle": "غلط کل؟ دستی طور پر مقرر کریں",
+    "logToday": "آج کی تلاوت درج کریں",
+    "logTodayWithTarget": "آج کی تلاوت درج کریں (+{{count}})",
+    "less": "کم آیات",
+    "more": "زیادہ آیات",
+    "reset": "منصوبہ ری سیٹ کریں",
+    "resetConfirmTitle": "ختم منصوبہ ری سیٹ کریں؟",
+    "resetConfirmMsg": "آپ کی پیش رفت مٹ جائے گی۔ آپ کسی بھی وقت نیا منصوبہ شروع کر سکتے ہیں۔",
+    "completedTitle": "ختم مکمل",
+    "startNew": "نیا منصوبہ شروع کریں",
+    "motivationTitle": "جاری رکھیں",
+    "motivationShuffle": "دوسری یاد دہانی دکھائیں",
+    "motivationKind": {
+      "hadith": "حدیث",
+      "quran": "قرآن",
+      "reminder": "یاد دہانی"
+    },
+    "motivationQuote": {
+      "steady": {
+        "text": "مستقل روزانہ تلاوت پر بنایا گیا ختم، تھکن والی دوڑ سے زیادہ دیر چلتا ہے۔",
+        "source": "استقامت کا اصول"
+      },
+      "portion": {
+        "text": "آج سب کچھ ختم کرنا ضروری نہیں — بس آج کا حصہ اخلاص سے پڑھیں۔",
+        "source": "مستقل پیش رفت"
+      },
+      "return": {
+        "text": "اگر پیچھے رہ جائیں تو منصوبہ نہ چھوڑیں۔ آج کا حصہ پڑھ کر آگے بڑھیں۔",
+        "source": "بار بار لوٹنا"
+      }
+    },
+    "pace": {
+      "done": "مکمل",
+      "ahead": "آگے",
+      "onTrack": "درست رفتار",
+      "behind": "پیچھے"
+    }
+  },
+  "hifz": {
+    "short": "حفظ",
+    "title": "حفظ ٹریکر",
+    "subtitle": "وہ آیات جو آپ نے حفظ کیں یا دہرانی ہیں",
+    "markMemorized": "حفظ کے طور پر نشان زد کریں",
+    "markReview": "دہرانے کے لیے نشان زد کریں",
+    "clear": "حفظ ہٹائیں",
+    "totals": "کل",
+    "memorizedCount": "{{count}} حفظ",
+    "reviewCount": "{{count}} دہرانے کے لیے",
+    "emptyTitle": "ابھی کوئی حفظ نہیں",
+    "emptyDesc": "ریڈر میں کسی بھی آیت پر «حفظ» دبا کر اسے حفظ نشان زد کریں۔"
+  },
+  "travel": {
+    "eyebrow": "سیکھیں",
+    "title": "سفر اور نماز",
+    "subtitle": "سفر میں قصر اور جمع کی مختصر رہنمائی",
+    "qasr": {
+      "title": "قصر — کم کرنا",
+      "body": "سفر میں چار رکعت والی نمازیں (ظہر، عصر، عشاء) دو رکعت پڑھی جاتی ہیں۔ فجر (دو) اور مغرب (تین) کم نہیں ہوتیں۔"
+    },
+    "jam": {
+      "title": "جمع — ملانا",
+      "body": "مسافر ظہر کو عصر کے ساتھ اور مغرب کو عشاء کے ساتھ ملا کر کسی ایک کے وقت میں ادا کر سکتا ہے تاکہ سفر میں آسانی ہو۔"
+    },
+    "when": {
+      "title": "کب لاگو ہوتا ہے",
+      "body": "یہ رخصتیں اُس وقت لاگو ہوتی ہیں جب آپ اپنے شہر سے مقررہ مسافتِ سفر سے آگے نکلیں، اور واپسی یا قیام کی نیت پر ختم ہو جاتی ہیں۔ تفصیلات میں علما کا اختلاف ہے۔"
+    },
+    "disclaimer": "یہ مختصر جائزہ ہے، فتویٰ نہیں۔ مسافت، مدت اور شرائط مذاہب کے درمیان مختلف ہیں — اپنی صورتحال کے لیے کسی مستند عالم سے رجوع کریں۔"
+  },
+  "homeCustomize": {
+    "title": "ہوم اپنی مرضی سے",
+    "subtitle": "منتخب کریں کہ ہوم اور لائبریری اسکرین پر کیا ظاہر ہو",
+    "modulesTitle": "ہوم کارڈز",
+    "actionsTitle": "فوری اقدامات",
+    "actionsHint": "اپنے شارٹ کٹس ترتیب دیں، یا جو استعمال نہ ہوں انہیں ہٹا دیں۔",
+    "libraryMenuTitle": "لائبریری مینو",
+    "libraryMenuHint": "لائبریری اندراجات ترتیب دیں، یا جو استعمال نہ ہوں انہیں ہٹا دیں۔",
+    "available": "دستیاب شارٹ کٹس",
+    "add": "شارٹ کٹ شامل کریں",
+    "remove": "شارٹ کٹ ہٹائیں",
+    "module": {
+      "continue": "پڑھنا جاری رکھیں",
+      "knowledge": "روزانہ معلومات کارڈ",
+      "quickActions": "فوری اقدامات",
+      "qaza": "قضا خلاصہ",
+      "schedule": "آج کا شیڈول"
+    }
+  },
+  "schedule": {
+    "eyebrow": "نماز کے اوقات",
+    "subtitle": "آج کی فرض نمازیں، سنت کے اوقات، اور لچکدار عبادات"
+  },
+  "salahGuide": {
+    "eyebrow": "سیکھیں",
+    "title": "نماز رہنمائی",
+    "subtitle": "وضو اور نماز کا طریقہ، قدم بہ قدم",
+    "topicsTitle": "رہنمائیاں",
+    "rakatsTitle": "رکعات ایک نظر میں",
+    "prayer": "نماز",
+    "fard": "فرض",
+    "sunnah": "سنت",
+    "travelPointer": "سفر میں نماز قصر اور جمع کرنا",
+    "notFound": "رہنمائی نہیں ملی",
+    "disclaimer": "سیکھنے اور دہرانے کے لیے مختصر رہنمائی۔ اپنی صورتحال کے لیے کسی مستند استاد سے رجوع کریں۔"
+  },
+  "library": {
+    "eyebrow": "لائبریری",
+    "title": "لائبریری",
+    "subtitle": "پڑھیں، دعا کریں اور سیکھیں",
+    "explore": "دریافت کریں",
+    "track": "ٹریک",
+    "read": "پڑھیں",
+    "supplicate": "دعا",
+    "learn": "سیکھیں",
+    "more": "مزید"
+  },
+  "offlineData": {
+    "title": "آف لائن ڈیٹا",
+    "subtitle": "اس ڈیوائس پر محفوظ ڈاؤن لوڈ شدہ مواد",
+    "cachesTitle": "کیش شدہ مواد",
+    "quran": "قرآن تراجم و تفسیر",
+    "hadith": "احادیث کے مجموعے",
+    "audio": "آڈیو میٹا ڈیٹا",
+    "location": "موسم و مقام تلاش",
+    "total": "کل: {{size}}",
+    "clearAll": "تمام کیش صاف کریں",
+    "clearOne": "{{name}} صاف کریں",
+    "cleared": "کیش صاف ہو گیا",
+    "note": "کیش صاف کرنے سے صرف ڈاؤن لوڈ شدہ کاپیاں ہٹتی ہیں — آپ کے ریکارڈ، بک مارکس اور پسندیدہ متاثر نہیں ہوتے۔ مواد اگلی بار آن لائن کھولنے پر دوبارہ ڈاؤن لوڈ ہو جاتا ہے۔"
+  },
+  "events": {
+    "eyebrow": "اسلامی کیلنڈر",
+    "title": "اسلامی مواقع",
+    "subtitle": "ہجری سال کی آنے والی تاریخیں",
+    "today": "آج",
+    "inDays": "{{count}} دن میں",
+    "hijriYear": "{{year}} ہجری",
+    "disclaimer": "تاریخیں تخمینی حساب سے ہیں — اصل دن مقامی رؤیتِ ہلال پر منحصر ہے۔",
+    "names": {
+      "newYear": "اسلامی نیا سال",
+      "ashura": "یومِ عاشورا",
+      "mawlid": "میلادُ النبی",
+      "isra": "اسرا و معراج",
+      "ramadan": "یکم رمضان",
+      "laylatQadr": "لیلۃ القدر (تخمینی)",
+      "eidFitr": "عید الفطر",
+      "arafah": "یومِ عرفہ",
+      "eidAdha": "عید الاضحیٰ"
+    }
+  },
+  "zakat": {
+    "eyebrow": "صدقہ",
+    "title": "زکات کیلکولیٹر",
+    "subtitle": "اپنے مال پر واجب زکات کا تخمینہ لگائیں",
+    "assetsTitle": "آپ کا مال",
+    "nisabTitle": "نصاب کی حد",
+    "nisabHint": "زکات اُس وقت واجب ہوتی ہے جب آپ کا خالص مال نصاب (~۸۷٫۵ گرام سونا یا ~۶۱۲ گرام چاندی کی قیمت) کو پہنچ جائے۔",
+    "netWealth": "خالص قابلِ زکات مال",
+    "dueLabel": "واجب زکات (۲٫۵٪)",
+    "belowNisab": "نصاب سے کم — زکات نہیں",
+    "disclaimer": "صرف ایک تخمینہ۔ قابلِ زکات اشیا اور نصاب کے احکام مختلف ہیں — کسی مستند عالم سے رجوع کریں۔",
+    "field": {
+      "cash": "نقدی و بچت",
+      "gold": "سونے کی قیمت",
+      "silver": "چاندی کی قیمت",
+      "business": "کاروباری اثاثے",
+      "otherAssets": "دیگر اثاثے",
+      "debts": "واجب الادا قرضے",
+      "nisab": "نصاب کی قیمت"
+    }
+  },
+  "customAdhkar": {
+    "eyebrow": "ذکر",
+    "title": "میرے اذکار",
+    "subtitle": "آپ کے محفوظ کردہ ذکر و دعائیں",
+    "add": "ذکر شامل کریں",
+    "newTitle": "نیا ذکر",
+    "delete": "حذف کریں",
+    "emptyTitle": "ابھی کوئی ذاتی ذکر نہیں",
+    "emptyDesc": "اپنا ذکر عربی متن، نقلِ حرفی اور معنیٰ کے ساتھ شامل کریں۔",
+    "field": {
+      "title": "عنوان",
+      "arabic": "عربی متن",
+      "transliteration": "نقلِ حرفی (اختیاری)",
+      "translation": "معنیٰ (اختیاری)",
+      "reference": "حوالہ (اختیاری)"
+    }
+  },
+  "tahajjud": {
+    "eyebrow": "قیامِ لیل",
+    "title": "تہجد",
+    "subtitle": "رات کی نماز کی مضبوط عادت بنائیں۔",
+    "streakValue": "{{count}}",
+    "streakCaption": "دنوں کا تسلسل",
+    "bestStreak": "بہترین: {{count}}",
+    "totalNights": "کل {{count}} راتیں",
+    "markTonight": "میں نے آج رات تہجد پڑھی",
+    "markedTonight": "آج رات پڑھی — ماشاءاللہ",
+    "lastNights": "پچھلی {{count}} راتیں",
+    "lastNightsHint": "ہر نقطہ ایک رات ہے، تاریخ کے ساتھ (سب سے حالیہ بائیں طرف)۔",
+    "virtueTitle": "رات کی نماز کی فضیلت",
+    "virtueBody": "فرض نمازوں کے بعد سب سے افضل نماز رات کی نماز ہے۔",
+    "virtueRef": "صحیح مسلم ۱۱۶۳",
+    "streakRow": "تہجد کا تسلسل"
+  },
+  "seasonalTheme": {
+    "title": "موسمی تھیمز",
+    "hint": "بابرکت مواسم کے لیے ایپ کو سجائیں۔",
+    "inSeason": "اب موسم جاری ہے",
+    "suggestion": "یہ {{season}} ہے — موسمی رنگ آزمائیں۔",
+    "apply": "لاگو کریں",
+    "ramadanLabel": "رمضان",
+    "ramadanDesc": "قرآن کے مہینے کے لیے تہوار جیسا جامنی رنگ۔",
+    "hajjLabel": "حج و ذوالحجہ",
+    "hajjDesc": "عشرہ ذوالحجہ اور عید الاضحی کے لیے سنہری کہربائی رنگ۔"
+  },
+  "journal": {
+    "eyebrow": "غور و فکر",
+    "title": "نماز ڈائری",
+    "subtitle": "ہر نماز میں اپنے دل کی حاضری نوٹ کریں اور اسے بڑھتا دیکھیں۔",
+    "add": "نیا تاثر",
+    "addShort": "شامل",
+    "newTitle": "آپ کی نماز کیسی رہی؟",
+    "editTitle": "تاثر میں ترمیم",
+    "navRow": "کسی نماز پر غور کریں",
+    "recentTitle": "حالیہ تاثرات",
+    "fieldPrayer": "نماز",
+    "fieldRating": "خشوع (حاضری)",
+    "fieldNote": "نوٹ (اختیاری)",
+    "notePlaceholder": "کس چیز نے مدد دی یا توجہ ہٹائی؟",
+    "emptyTitle": "ابھی کوئی تاثر نہیں",
+    "emptyDesc": "نماز کے بعد ایک لمحہ رک کر لکھیں کہ آپ کا دل کتنا حاضر تھا۔",
+    "avgLabel": "اوسط خشوع",
+    "outOf": "/ {{max}}",
+    "totalReflections": "{{count}} تاثرات",
+    "today": "آج",
+    "noNote": "کوئی نوٹ نہیں",
+    "ratingHint": "نماز میں اپنی حاضری درجے دینے کے لیے ستارہ چھوئیں۔",
+    "delete": "تاثر حذف کریں",
+    "editA11y": "{{prayer}} تاثر میں ترمیم",
+    "discard": "رد کریں",
+    "confirmDeleteTitle": "یہ تاثر حذف کریں؟",
+    "confirmDeleteMsg": "{{date}} کو {{prayer}} کا نوٹ مستقل طور پر ہٹا دیا جائے گا۔",
+    "confirmDiscardTitle": "تبدیلیاں رد کریں؟",
+    "confirmDiscardMsg": "آپ نے جو لکھا ہے وہ ضائع ہو جائے گا۔",
+    "confirmOverwriteTitle": "موجودہ تاثر بدلیں؟",
+    "confirmOverwriteMsg": "آپ نے اس دن {{prayer}} پہلے ہی نوٹ کیا ہے۔ محفوظ کرنے سے وہ بدل جائے گا۔",
+    "level1": "منتشر",
+    "level2": "بے چین",
+    "level3": "کچھ حاضر",
+    "level4": "یکسو",
+    "level5": "پوری طرح حاضر"
+  },
+  "prayerTuning": {
+    "title": "نماز اوقات کی ٹیوننگ",
+    "subtitle": "شمار کردہ اوقات کو اپنی مسجد کے مطابق باریک بنائیں۔",
+    "rowValue": "آفسیٹس اور بلند عرض البلد",
+    "offsetTitle": "مسجد آفسیٹس",
+    "offsetHint": "ہر نماز کو چند منٹ آگے پیچھے کریں تاکہ اوقات آپ کی مقامی مسجد کے اعلان کردہ شیڈول سے ملیں۔",
+    "onTime": "وقت پر",
+    "earlierMin": "− {{count}} منٹ",
+    "laterMin": "+ {{count}} منٹ",
+    "earlier": "پہلے",
+    "later": "بعد میں",
+    "highLatTitle": "بلند عرض البلد قاعدہ",
+    "highLatHint": "دور شمالی یا جنوبی علاقوں میں سورج شفق کے زاویوں تک نہیں پہنچتا۔ منتخب کریں کہ فجر اور عشاء کیسے متعین ہوں۔",
+    "rule": {
+      "recommended": "خودکار (تجویز کردہ)",
+      "MiddleOfTheNight": "نصف شب",
+      "SeventhOfTheNight": "رات کا ساتواں حصہ",
+      "TwilightAngle": "شفق کا زاویہ"
+    },
+    "ruleDesc": {
+      "recommended": "آپ کے عرض البلد کے لیے مناسب قاعدہ منتخب کرتا ہے۔",
+      "MiddleOfTheNight": "فجر اور عشاء نصف شب پر محدود ہو جاتے ہیں۔",
+      "SeventhOfTheNight": "فجر اور عشاء کے لیے رات کو ساتویں حصوں میں بانٹا جاتا ہے۔",
+      "TwilightAngle": "طریقے کے شفق زاویے کو رات کے تناسب کے طور پر استعمال کرتا ہے۔"
+    }
+  },
+  "hajj": {
+    "eyebrow": "مناسک",
+    "title": "حج و عمرہ",
+    "subtitle": "مناسکِ حج و عمرہ کے لیے مرحلہ وار چیک لسٹ۔",
+    "progress": "{{total}} میں سے {{done}} مناسک",
+    "reset": "ری سیٹ",
+    "resetConfirmTitle": "چیک لسٹ ری سیٹ کریں؟",
+    "resetConfirmMsg": "اس سے ہر منسک کا نشان ہٹ جائے گا۔ آپ کی پیش رفت واپس نہیں آ سکے گی۔",
+    "umrahTag": "عمرہ",
+    "hajjTag": "حج",
+    "disclaimer": "یہ عملی چیک لسٹ ہے، فقہی کتاب نہیں۔ احکام و تفصیلات کے لیے مستند رہنما کی پیروی کریں۔"
+  },
+  "dailyHadith": {
+    "eyebrow": "روزانہ سلسلہ",
+    "title": "حدیثِ روز",
+    "subtitle": "امام نووی کی چالیس حدیثوں میں سے ایک حدیث، ہر روز نئی۔",
+    "cardTitle": "آج کی حدیث",
+    "seeArchive": "آرکائیو دیکھیں",
+    "emptyTitle": "کوئی حدیث دستیاب نہیں",
+    "emptyDesc": "روزانہ حدیث سلسلہ اس وقت دستیاب نہیں۔"
+  },
+  "seerah": {
+    "eyebrow": "سیرتِ نبوی",
+    "title": "سیرت کی ٹائم لائن",
+    "subtitle": "نبی کریم محمد ﷺ کی زندگی کے اہم سنگِ میل۔",
+    "ceBadge": "{{year}} عیسوی",
+    "ahBadge": "{{ah}} ہجری",
+    "disclaimer": "اہم سنگِ میل کا ایک جائزہ۔ تاریخیں عام طور پر مذکور تخمینے ہیں۔"
+  },
+  "jannah": {
+    "eyebrow": "سیکھیں",
+    "title": "جنت کا سفر",
+    "subtitle": "جنت، اس کے درجات، اور بلند مرتبہ بنانے والے اعمال۔",
+    "intro": "اسلام جنت کی مرقّم سطحوں کی مکمل فہرست نہیں دیتا۔ یہاں قرآن و صحیح سنت کی تعلیم — اور روزانہ سعی کے لیے روابط۔",
+    "learnTitle": "جنت کے بارے میں",
+    "quickLinksTitle": "دریافت کریں",
+    "continueInApp": "منیب میں جاری رکھیں",
+    "gatesListTitle": "احادیث میں مذکور",
+    "duaNumber": "دعا {{number}}",
+    "pathsTitle": "بلند درجات کے راستے",
+    "pathsHint": "اللہ کے فضل سے درجہ بڑھانے والے اعمال — شواہد اور ایپ روابط کے لیے ٹیپ کریں۔",
+    "gatesTitle": "جنت کے دروازے",
+    "gatesSummary": "احادیث میں مذکور دروازے",
+    "gatesSubtitle": "مختلف اعمال کے مختلف دروازے",
+    "gatesLead": "صحیح احادیث میں نماز، صدقہ، روزہ، جہاد اور حج والوں کے لیے جنت کے دروازے بیان ہوئے — بعض کو ایک سے زیادہ دروازے سے بلایا جا سکتا ہے۔",
+    "duasTitle": "جنت کی دعائیں",
+    "duasSummary": "حصن مسلم سے",
+    "duasSubtitle": "جنت مانگیں اور آگ سے پناہ",
+    "duasLead": "نبی ﷺ نے روزانہ دعا میں جنت — خاص طور پر فردوس — مانگنا سکھایا۔",
+    "versesTitle": "جنت پر قرآنی آیات",
+    "versesSummary": "منتخب آیات قارئ سے منسلک",
+    "versesSubtitle": "وصف، درجات، رحمت اور دعا",
+    "versesLead": "قرآن قارئ میں کھولنے کے لیے کسی آیت پر ٹیپ کریں۔",
+    "journeyTitle": "میرا سفر",
+    "journeySummary": "آج کی عادات — اللہ کے نزدیک درجہ نہیں",
+    "journeySubtitle": "آپ جو عبادت پہلے سے ٹریک کرتے ہیں",
+    "journeyBanner": "یہ وہ اعمال ہیں جن سے اللہ محبت کرتا ہے۔ حتمی درجہ صرف اس کے پاس ہے۔",
+    "journeyToday": "آج کی سعی",
+    "journeyEmpty": "ایک نماز یا ذکر سے شروع کریں — چھوٹے قدم عمر بھر کی عادت بناتے ہیں۔",
+    "journeyDisclaimer": "یہ استقامت دکھاتا ہے، جنت کا فیصد نہیں۔ سچے دل سے کوشش کریں اور اللہ کی رحمت پر بھروسہ رکھیں۔",
+    "journey": {
+      "salah": "آج کی نماز",
+      "salahHint": "پانچ وقت کی چیک لسٹ",
+      "dhikr": "آج کے اذکار",
+      "dhikrHint": "صبح و شام کے اذکار",
+      "qaza": "قضا کی پیش رفت",
+      "qazaHint": "چھوٹی عبادات کی ادائیگی",
+      "streak": "فعال سلسلہ",
+      "streakHint": "مسلسل ٹریکنگ کے دن",
+      "tahajjud": "اس ہفتے تہجد",
+      "tahajjudHint": "آخری ۷ دن میں شب کی نماز",
+      "reflection": "اس ہفتے کی عکاسی",
+      "reflectionHint": "خشوع جرنل میں اندراج",
+      "quran": "قرآن",
+      "quranHint": "پڑھنا یا حفظ جاری رکھیں"
+    },
+    "intentionsTitle": "آج کی نیتیں",
+    "intentionsHint": "ذاتی نیت کے لیے — مطابقت نہیں، اسکور نہیں۔",
+    "intentions": {
+      "tawbah": "آج میں نے سچی توبہ کی",
+      "tawbahHint": "گناہ کے بعد اللہ کی طرف لوٹیں",
+      "charity": "آج میں نے صدقہ کیا",
+      "charityHint": "مسکراہٹ بھی صدقہ ہے",
+      "character": "آج میں نے اپنے اخلاق کی حفاظت کی",
+      "characterHint": "صبر، سچائی اور حسنِ خلق"
+    },
+    "promisedTitle": "متون میں جن کی تعظیم",
+    "firdawsCardTitle": "اللہ سے فردوس مانگیں",
+    "firdawsDuaTitle": "فردوس کی دعا",
+    "quranTitle": "قرآن",
+    "hadithTitle": "حدیث",
+    "actionsTitle": "عملی قدم",
+    "notFound": "موضوع نہیں ملا",
+    "tourCta": "رہنمائی ٹور شروع کریں",
+    "tourCtaHint": "اس فیچر کا مختصر تعارف",
+    "tourA11y": "جنت کے سفر کا ٹور شروع کریں",
+    "disclaimer": "عام تعلیمی مواد — فتویٰ نہیں۔ ذاتی مسائل کے لیے مستند عالم سے رجوع کریں۔ واللہ اعلم۔",
+    "importance": {
+      "foundational": "بنیادی",
+      "obligatory": "فرض",
+      "highly-recommended": "انتہائی مستحب",
+      "recommended": "مستحب"
+    },
+    "grade": {
+      "sahih": "صحیح",
+      "hasan": "حسن",
+      "daif": "ضعیف",
+      "scholarly-opinion": "علمی نوٹ"
+    },
+    "verseTheme": {
+      "description": "وصف",
+      "reward": "اجر",
+      "ranks": "درجات",
+      "mercy": "رحمت",
+      "supplication": "دعا"
+    }
+  },
+  "tour": {
+    "eyebrow": "رہنمائی ٹور",
+    "title": "منیب کو دریافت کریں",
+    "subtitle": "یہاں آپ کیا کر سکتے ہیں، اس کا مختصر ٹور۔",
+    "next": "اگلا",
+    "back": "پیچھے",
+    "done": "مکمل",
+    "goThere": "یہ فیچر کھولیں",
+    "stepLabel": "مرحلہ {{current}} از {{total}}",
+    "stepCounter": "{{total}} میں سے {{current}}",
+    "navRow": "ایپ کا ٹور لیں",
+    "navRowSub": "اہم فیچرز کا مختصر رہنمائی جائزہ",
+    "steps": {
+      "tracker": {
+        "title": "اپنی نمازیں ٹریک کریں",
+        "body": "پانچوں نمازیں نشان زد کریں، قضا درج کریں، اور اپنا تسلسل برقرار رکھیں۔"
+      },
+      "prayerTimes": {
+        "title": "درست اوقاتِ نماز",
+        "body": "آپ کے مقام کے لیے آلے پر شمار کردہ اوقات، اذان یاد دہانیوں کے ساتھ جنہیں آپ ٹھیک کر سکتے ہیں۔"
+      },
+      "quran": {
+        "title": "قرآن پڑھیں",
+        "body": "مکمل قرآن ترجمے، صوتی تلاوت، بک مارکس اور ختم پلانر کے ساتھ۔"
+      },
+      "qibla": {
+        "title": "قبلہ تلاش کریں",
+        "body": "ایک زندہ کمپاس جو آپ جہاں بھی ہوں کعبہ کی طرف اشارہ کرتا ہے۔"
+      },
+      "adhkar": {
+        "title": "روزانہ اذکار و دعائیں",
+        "body": "صبح و شام کے اذکار، تسبیح کاؤنٹر، اور مکمل حصن المسلم۔"
+      },
+      "personalize": {
+        "title": "اسے اپنے مطابق بنائیں",
+        "body": "تھیمز، فونٹس، زبانیں اور یاد دہانیاں — ایپ کو اپنے معمول کے مطابق ترتیب دیں۔"
+      },
+      "jannah": {
+        "title": "جنت کا سفر",
+        "body": "جنت، درجات، دروازے اور راستے سیکھیں — پھر روزانہ سعی ٹریک کریں۔"
+      },
+      "about": {
+        "title": "جنت کیا ہے؟",
+        "body": "قرآن و صحیح حدیث پر مبنی neutral خلاصے۔"
+      },
+      "paths": {
+        "title": "بلند درجات کے راستے",
+        "body": "ہر عمل کے ساتھ شواہد، عملی قدم اور منیب ٹریکر روابط۔"
+      },
+      "journey": {
+        "title": "میرا سفر",
+        "body": "نماز، ذکر اور عکاسی میں آج کی استقامت — درجے کا اسکور نہیں۔"
+      }
+    }
   }
 }

@@ -68,7 +68,7 @@ function pos(surah: number, ayah: number): number {
   return surah * 1000 + ayah;
 }
 
-function juzForAyah(surah: number, ayah: number): number {
+export function juzForAyah(surah: number, ayah: number): number {
   const p = pos(surah, ayah);
   let juz = 1;
   for (let i = 0; i < JUZ_STARTS.length; i++) {
@@ -77,6 +77,31 @@ function juzForAyah(surah: number, ayah: number): number {
     else break;
   }
   return juz;
+}
+
+/** One entry per juz (1..30) with the surah:ayah it begins at + that surah's name. */
+export interface JuzListEntry {
+  juz: number;
+  surah: number;
+  ayah: number;
+  surahNameEnglish: string;
+  surahNameArabic: string;
+  surahNameTransliteration: string;
+}
+
+/** The 30 juz start points, resolved against surah metadata for display. */
+export function getJuzList(): JuzListEntry[] {
+  return JUZ_STARTS.map(([surah, ayah], index) => {
+    const meta = getSurahByNumber(surah);
+    return {
+      juz: index + 1,
+      surah,
+      ayah,
+      surahNameEnglish: meta?.nameEnglish ?? `Surah ${surah}`,
+      surahNameArabic: meta?.nameArabic ?? "",
+      surahNameTransliteration: meta?.nameTransliteration ?? `Surah ${surah}`,
+    };
+  });
 }
 
 // Cumulative ayah counts so we can derive a 1..6236 global number per ayah.

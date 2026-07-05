@@ -1,9 +1,11 @@
 import {
   getBundledEdition,
   getBundledEditions,
+  getJuzList,
   getSurahAyahs,
   getSurahMeta,
   getTransliteration,
+  juzForAyah,
 } from "@/lib/quran";
 
 describe("quran bundled data", () => {
@@ -30,6 +32,18 @@ describe("quran bundled data", () => {
     // 32:15 is a place of prostration.
     expect(getSurahAyahs(32)[14].sajda).toBe(true);
     expect(getSurahAyahs(1)[0].sajda).toBe(false);
+  });
+
+  it("lists all 30 juz with correct start surah:ayah and resolved names", () => {
+    const list = getJuzList();
+    expect(list).toHaveLength(30);
+    expect(list[0]).toMatchObject({ juz: 1, surah: 1, ayah: 1 });
+    // Juz 2 begins at 2:142, Juz 30 at 78:1 — the two canonical anchors.
+    expect(list[1]).toMatchObject({ juz: 2, surah: 2, ayah: 142 });
+    expect(list[29]).toMatchObject({ juz: 30, surah: 78, ayah: 1 });
+    expect(list.every((e) => e.surahNameTransliteration.length > 0)).toBe(true);
+    // Each entry's start ayah must actually fall in that juz.
+    expect(list.every((e) => juzForAyah(e.surah, e.ayah) === e.juz)).toBe(true);
   });
 
   it("aligns every bundled edition 1:1 with its surah's ayahs", () => {

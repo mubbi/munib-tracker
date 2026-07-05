@@ -46,6 +46,9 @@ type PrayerStatusSheetProps = {
   prayerLabel: string;
   currentStatus: PrayerStatus;
   currentNotes?: string;
+  /** Congregation flag for this prayer (NF-1.5); toggle shown only when completed. */
+  isJama?: boolean;
+  onToggleJama?: (next: boolean) => void;
   onSelect: (status: PrayerStatus, options?: PrayerStatusSelectionOptions) => void;
   onSaveNotes: (notes: string) => void;
   onClose: () => void;
@@ -57,6 +60,8 @@ export function PrayerStatusSheet({
   prayerLabel,
   currentStatus,
   currentNotes,
+  isJama,
+  onToggleJama,
   onSelect,
   onSaveNotes,
   onClose,
@@ -138,6 +143,46 @@ export function PrayerStatusSheet({
             );
           })}
         </View>
+
+        {onToggleJama && isObligatoryPrayer(prayerId) && currentStatus === "completed" ? (
+          <PressableScale
+            haptic="selection"
+            accessibilityRole="button"
+            accessibilityLabel={t("statusSheet.jama")}
+            accessibilityState={{ selected: !!isJama }}
+            onPress={() => onToggleJama(!isJama)}
+            style={[
+              styles.jamaRow,
+              {
+                backgroundColor: isJama ? tokens.status.success.soft : colors.muted,
+                borderColor: isJama ? tokens.status.success.color : "transparent",
+              },
+            ]}
+          >
+            <SymbolView
+              name={
+                isJama
+                  ? { ios: "person.3.fill", android: "groups", web: "groups" }
+                  : { ios: "person.3", android: "groups", web: "groups" }
+              }
+              size={20}
+              tintColor={isJama ? tokens.status.success.color : colors.mutedForeground}
+            />
+            <ThemedText
+              type="small"
+              style={{ color: isJama ? tokens.status.success.color : colors.foreground }}
+            >
+              {t("statusSheet.jama")}
+            </ThemedText>
+            {isJama ? (
+              <SymbolView
+                name={{ ios: "checkmark", android: "check", web: "check" }}
+                size={16}
+                tintColor={tokens.status.success.color}
+              />
+            ) : null}
+          </PressableScale>
+        ) : null}
 
         <PressableScale
           haptic="light"
@@ -239,6 +284,17 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
+    marginTop: Spacing.two,
+  },
+  jamaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: 1.5,
     marginTop: Spacing.two,
   },
   adhkarRow: {

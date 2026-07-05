@@ -7,9 +7,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { syncPull, syncPush } from "@/api/endpoints";
 import type { StoredSession } from "@/auth/session-store";
-import { PrayerRepository, PreferencesRepository, QazaRepository, TombstoneRepository } from "@/db";
+import {
+  HadithRepository,
+  PrayerRepository,
+  PreferencesRepository,
+  QazaRepository,
+  QuranRepository,
+  TombstoneRepository,
+} from "@/db";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON } from "@/db/store";
+import { readCustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
+import { applyRemoteDuaFavorites, readDuaFavoritesBlob } from "@/stores/dua-favorites-store";
 
 import { runSync } from "./sync-engine";
 
@@ -209,6 +218,111 @@ describe("runSync", () => {
     const prefs = await PreferencesRepository.get();
     expect(prefs.favoriteZikrIds).toEqual(["z9"]);
     expect(prefs.locale).toBe("ur");
+  });
+
+  it("pushes the expanded blob entities (dua favorites, bookmarks, tasbeeh)", async () => {
+    await runSync(user);
+    const pushed = mockPush.mock.calls[0]?.[1] as SyncRecordDto[];
+    const entities = new Set(pushed.map((r) => r.entity));
+    expect(entities).toContain("dua_favorites");
+    expect(entities).toContain("durood_favorites");
+    expect(entities).toContain("name_favorites");
+    expect(entities).toContain("quran_bookmarks");
+    expect(entities).toContain("hadith_bookmarks");
+    expect(entities).toContain("custom_tasbeeh");
+  });
+
+  it("round-trips pulled dua favorites, bookmarks, last-read and tasbeeh", async () => {
+    mockPull.mockResolvedValue(
+      pullResult({
+        changes: [
+          {
+            entity: "dua_favorites",
+            id: "dua_favorites",
+            data: { order: ["d1", "d2"] },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+          {
+            entity: "quran_bookmarks",
+            id: "quran_bookmarks",
+            data: {
+              bookmarks: [
+                { id: "qbm1", surah: 2, ayah: 255, createdAt: "2026-07-03T00:00:00.000Z" },
+              ],
+            },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+          {
+            entity: "quran_last_read",
+            id: "quran_last_read",
+            data: { surah: 18, ayah: 10, updatedAt: "2026-07-04T00:00:00.000Z" },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+          {
+            entity: "hadith_bookmarks",
+            id: "hadith_bookmarks",
+            data: {
+              bookmarks: [
+                {
+                  id: "hbm1",
+                  hadithId: "bukhari:1",
+                  collection: "bukhari",
+                  number: "1",
+                  createdAt: "2026-07-03T00:00:00.000Z",
+                },
+              ],
+            },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+          {
+            entity: "custom_tasbeeh",
+            id: "custom_tasbeeh",
+            data: {
+              items: [
+                {
+                  id: "t1",
+                  title: "Test",
+                  description: "",
+                  target: 33,
+                  count: 5,
+                  createdAt: "2026-07-03T00:00:00.000Z",
+                  updatedAt: "2026-07-03T00:00:00.000Z",
+                },
+              ],
+            },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+        ],
+      }),
+    );
+
+    await runSync(user);
+
+    expect((await readDuaFavoritesBlob()).order).toEqual(["d1", "d2"]);
+    expect(await QuranRepository.getBookmarks()).toHaveLength(1);
+    expect((await QuranRepository.getLastRead())?.surah).toBe(18);
+    expect(await HadithRepository.getBookmarks()).toHaveLength(1);
+    expect((await readCustomTasbeehBlob()).items).toHaveLength(1);
+  });
+
+  it("keeps newer local dua favorites when the pulled blob is older (last-write-wins)", async () => {
+    await applyRemoteDuaFavorites(["local"], "2026-07-04T12:00:00.000Z");
+    mockPull.mockResolvedValue(
+      pullResult({
+        changes: [
+          {
+            entity: "dua_favorites",
+            id: "dua_favorites",
+            data: { order: ["old"] },
+            updatedAt: "2026-07-04T06:00:00.000Z",
+          },
+        ],
+      }),
+    );
+
+    await runSync(user);
+
+    expect((await readDuaFavoritesBlob()).order).toEqual(["local"]);
   });
 
   it("emits then clears local deletion tombstones after a successful push", async () => {

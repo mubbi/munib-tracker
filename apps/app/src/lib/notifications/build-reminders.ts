@@ -1,7 +1,7 @@
 import { ADHAN_PRAYER_SET } from "@munib-tracker/shared/constants";
 import type { PrayerId, TimeFormat, UserPreferences } from "@munib-tracker/shared/types";
 import i18n from "@/i18n";
-import type { StoredLocation } from "@/lib/location";
+import { locationCalcExtras, type StoredLocation } from "@/lib/location";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
 import { computePrayerTimes, prayerReminderTime, witrTime } from "@/lib/prayer-times";
 import {
@@ -13,7 +13,7 @@ import {
   wallClockInTimeZoneToDate,
 } from "@/lib/time";
 
-export type ReminderChannelId = "prayer" | "zikr" | "qaza";
+export type ReminderChannelId = "prayer" | "prayerAdhan" | "zikr" | "qaza";
 
 export type BuiltReminder = {
   /** Stable id for deduplication across reschedule passes. */
@@ -30,6 +30,12 @@ export type BuiltReminder = {
    * than the generic notification centre.
    */
   route: string;
+  /**
+   * Registered custom notification sound to play (iOS uses the file name; Android
+   * plays it via the reminder's channel). Only set on obligatory-prayer reminders
+   * when the adhan option is on.
+   */
+  sound?: string;
 };
 
 /** Deep-link a zikr category collection screen. */
@@ -46,6 +52,9 @@ const BEFORE_PRAYER_MINUTES = 10;
 const AFTER_PRAYER_MINUTES = 10;
 const AFTER_AZAN_MINUTES = 2;
 const SCHEDULE_DAYS_AHEAD = 7;
+
+/** Registered adhan sound file (see the `sounds` array in `app.json`). */
+export const ADHAN_NOTIFICATION_SOUND = "adhan.mp3";
 
 function addMinutes(date: Date, minutes: number): Date {
   return new Date(date.getTime() + minutes * 60_000);
@@ -71,12 +80,14 @@ function pushPrayerReminders(
   dayOffset: number,
 ): void {
   const day = shiftPrayerDay(prayerDayAnchor(new Date(), location.timeZone), dayOffset);
+  const extras = locationCalcExtras(location);
 
   const times = computePrayerTimes(
     { latitude: location.latitude, longitude: location.longitude },
     day,
     location.method,
     location.madhab,
+    extras,
   );
 
   const tomorrow = shiftPrayerDay(day, 1);
@@ -85,6 +96,7 @@ function pushPrayerReminders(
     tomorrow,
     location.method,
     location.madhab,
+    extras,
   );
   const yesterday = shiftPrayerDay(day, -1);
   const yesterdayTimes = computePrayerTimes(
@@ -92,6 +104,7 @@ function pushPrayerReminders(
     yesterday,
     location.method,
     location.madhab,
+    extras,
   );
 
   const slots: ReminderPrayerSlot[] = [...FARD_SLOTS, ...WITR_SLOTS, ...SUNNAH_SLOTS];
@@ -105,16 +118,26 @@ function pushPrayerReminders(
     const dayKey = day.toISOString().slice(0, 10);
     const isFard = FARD_SLOTS.includes(slot as (typeof FARD_SLOTS)[number]);
 
+    // The adhan plays only for the obligatory prayers, and only when the user
+    // opted in. Sunnah/witr and the surrounding zikr nudges stay silent.
+    const playAdhan = isFard && n.playAdhanOnPrayer;
+
+    // Per-prayer offset shifts only the main reminder; the before/after/azan
+    // nudges stay anchored to the true prayer time.
+    const offset = prefs.prayerReminderOffsets?.[slot as PrayerId] ?? 0;
+    const mainFireAt = offset === 0 ? at : addMinutes(at, offset);
+
     reminders.push({
       id: `prayer:${slot}:${dayKey}`,
-      fireAt: at,
+      fireAt: mainFireAt,
       title: i18n.t("notif.reminders.prayerTitle", { prayer: label }),
       body: isFard
         ? i18n.t("notif.reminders.prayerBodyObligatory")
         : i18n.t("notif.reminders.prayerBodySunnah"),
-      channelId: "prayer",
+      channelId: playAdhan ? "prayerAdhan" : "prayer",
       repeat: "date",
       route: "/tracker",
+      ...(playAdhan ? { sound: ADHAN_NOTIFICATION_SOUND } : {}),
     });
 
     if (!isFard) continue;
@@ -201,6 +224,47 @@ function pushDailyReminders(
   }
 }
 
+/** Pushes a Jumu'ah / Surah Al-Kahf reminder on each Friday in the 7-day window. */
+function pushFridayReminders(
+  reminders: BuiltReminder[],
+  location: StoredLocation,
+  now: Date,
+  enabled: boolean,
+): void {
+  if (!enabled) return;
+  const { hour, minute } = parseHhMm("11:00");
+  const anchor = prayerDayAnchor(now, location.timeZone);
+
+  // Cover a full week inclusive (0..7 days) so a future Friday is always found even
+  // when today is Friday and its reminder time has already passed.
+  for (let offset = 0; offset <= SCHEDULE_DAYS_AHEAD; offset += 1) {
+    const day = shiftPrayerDay(anchor, offset);
+    // 5 = Friday. The anchor sits at local noon so the weekday is the local one.
+    if (day.getDay() !== 5) continue;
+
+    const fireAt = wallClockInTimeZoneToDate(
+      day.getFullYear(),
+      day.getMonth() + 1,
+      day.getDate(),
+      hour,
+      minute,
+      location.timeZone,
+    );
+    if (fireAt.getTime() <= now.getTime() - 60_000) continue;
+
+    const dayKey = `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
+    reminders.push({
+      id: `friday:${dayKey}`,
+      fireAt,
+      title: i18n.t("notif.reminders.fridayTitle"),
+      body: i18n.t("notif.reminders.fridayBody"),
+      channelId: "zikr",
+      repeat: "date",
+      route: "/quran/18",
+    });
+  }
+}
+
 export function buildReminders(
   prefs: UserPreferences,
   location: StoredLocation,
@@ -261,6 +325,22 @@ export function buildReminders(
     location,
     now,
   );
+  pushDailyReminders(
+    reminders,
+    "09:00",
+    "dailyContent",
+    i18n.t("notif.reminders.dailyContentTitle"),
+    i18n.t("notif.reminders.dailyContentBody"),
+    "zikr",
+    // Land the daily-content nudge on the curated daily-hadith archive (NF-2.10).
+    "/hadith/daily",
+    n.dailyContent,
+    location,
+    now,
+  );
+
+  // Jumu'ah nudge — only on Fridays, before midday prayer.
+  pushFridayReminders(reminders, location, now, n.friday);
 
   // Drop reminders whose fire time has already passed.
   return reminders.filter((reminder) => reminder.fireAt.getTime() > now.getTime() - 60_000);

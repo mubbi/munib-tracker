@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -20,6 +20,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { chevronBack, chevronForward } from "@/lib/rtl";
 import {
   SEARCH_CATEGORY_ORDER,
@@ -57,7 +58,7 @@ const SUGGESTIONS: { key: string; query: string }[] = [
 ];
 
 type CategoryVisual = {
-  icon: SymbolViewProps["name"];
+  icon: AppIcon;
   tint: string;
   soft: string;
 };
@@ -105,7 +106,7 @@ export default function SearchScreen() {
         soft: tokens.status.danger.soft,
       },
       name: {
-        icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
+        icon: NAMES_OF_ALLAH_ICON,
         tint: tokens.status.warning.color,
         soft: tokens.status.warning.soft,
       },
@@ -113,6 +114,11 @@ export default function SearchScreen() {
         icon: { ios: "heart.text.square.fill", android: "favorite", web: "favorite" },
         tint: colors.accent,
         soft: tokens.accentSoft,
+      },
+      jannah: {
+        icon: { ios: "leaf.fill", android: "park", web: "park" },
+        tint: tokens.status.success.color,
+        soft: tokens.status.success.soft,
       },
     }),
     [colors.accent, tokens],
@@ -228,6 +234,12 @@ export default function SearchScreen() {
           break;
         case "/zikr/detail/[id]":
           router.push({ pathname: result.href, params: { id: result.params?.id ?? "" } });
+          break;
+        case "/jannah/[topic]":
+          router.push({
+            pathname: result.href,
+            params: { topic: result.params?.topic ?? "about" },
+          });
           break;
         default:
           router.push(result.href);
@@ -766,7 +778,6 @@ const styles = StyleSheet.create({
   },
   rowArabic: {
     fontSize: 15,
-    lineHeight: 26,
     textAlign: "right",
     writingDirection: "rtl",
   },

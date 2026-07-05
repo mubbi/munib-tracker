@@ -2,25 +2,36 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { SettingsRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SectionHeader } from "@/components/ui/section-header";
+import { SegmentedControl } from "@/components/ui/segmented-control";
+import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type LocationSearchResult, searchLocations } from "@/lib/location";
+import {
+  CALCULATION_METHOD_KEYS,
+  type CalculationMethodKey,
+  type MadhabKey,
+} from "@/lib/prayer-times";
 import { chevronForward } from "@/lib/rtl";
+import { rescheduleAll } from "@/notifications/scheduler";
 import {
   locationStore,
   useLocation,
   useLocationActions,
   useLocationStatus,
 } from "@/stores/location-store";
+import { preferencesStore } from "@/stores/preferences-store";
 
 const DEBOUNCE_MS = 300;
 /** Languages the Open-Meteo geocoder understands; anything else falls back to English names. */
@@ -45,6 +56,24 @@ export default function LocationScreen() {
   const [results, setResults] = useState<LocationSearchResult[]>([]);
   const [searching, setSearching] = useState(false);
   const [gpsError, setGpsError] = useState<"denied" | "error" | null>(null);
+  const [methodSheetOpen, setMethodSheetOpen] = useState(false);
+
+  // Changing the method/madhab re-derives every computed prayer time, so the
+  // scheduled reminders must be rebuilt to match (no-op on web).
+  const reschedule = () =>
+    rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+
+  const onSelectMethod = async (key: CalculationMethodKey) => {
+    setMethodSheetOpen(false);
+    await actions.setMethod(key);
+    await reschedule();
+  };
+
+  const onSelectMadhab = async (key: MadhabKey) => {
+    if (key === location.madhab) return;
+    await actions.setMadhab(key);
+    await reschedule();
+  };
 
   const lang = useMemo(() => {
     const base = i18n.language?.split("-")[0] ?? "en";
@@ -231,6 +260,95 @@ export default function LocationScreen() {
           </ThemedText>
         )}
       </Card>
+
+      <Card padding="three">
+        <SectionHeader
+          title={t("location.calculationTitle")}
+          icon={{ ios: "gearshape.fill", android: "tune", web: "tune" }}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
+          {t("location.methodHint")}
+        </ThemedText>
+        <View style={styles.calcRow}>
+          <SettingsRow
+            icon={{ ios: "globe", android: "public", web: "public" }}
+            title={t("location.method")}
+            value={t(`location.methods.${location.method}`)}
+            onPress={() => setMethodSheetOpen(true)}
+          />
+        </View>
+
+        <ThemedText type="smallBold" style={styles.madhabLabel}>
+          {t("location.madhab")}
+        </ThemedText>
+        <SegmentedControl<MadhabKey>
+          options={[
+            { id: "shafi", label: t("location.madhabShafi") },
+            { id: "hanafi", label: t("location.madhabHanafi") },
+          ]}
+          value={location.madhab}
+          onChange={(key) => void onSelectMadhab(key)}
+        />
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
+          {t("location.madhabHint")}
+        </ThemedText>
+
+        <View style={styles.calcRow}>
+          <SettingsRow
+            icon={{ ios: "slider.horizontal.3", android: "tune", web: "tune" }}
+            title={t("prayerTuning.title")}
+            value={t("prayerTuning.rowValue")}
+            onPress={() => router.push("/settings/prayer-tuning")}
+          />
+        </View>
+      </Card>
+
+      <Sheet visible={methodSheetOpen} onClose={() => setMethodSheetOpen(false)} variant="bottom">
+        <ThemedText type="subtitle" style={styles.sheetTitle}>
+          {t("location.method")}
+        </ThemedText>
+        <ScrollView
+          style={styles.sheetScroll}
+          contentContainerStyle={styles.sheetList}
+          showsVerticalScrollIndicator={false}
+        >
+          {CALCULATION_METHOD_KEYS.map((key) => {
+            const selected = key === location.method;
+            return (
+              <PressableScale
+                key={key}
+                haptic="selection"
+                accessibilityRole="button"
+                accessibilityState={{ selected }}
+                accessibilityLabel={t(`location.methods.${key}`)}
+                onPress={() => void onSelectMethod(key)}
+                style={[
+                  styles.methodRow,
+                  { backgroundColor: selected ? tokens.accentSoft : colors.muted },
+                ]}
+              >
+                <View style={styles.methodText}>
+                  <ThemedText type="small">{t(`location.methods.${key}`)}</ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t(`location.methodHints.${key}`)}
+                  </ThemedText>
+                </View>
+                {selected ? (
+                  <SymbolView
+                    name={{
+                      ios: "checkmark.circle.fill",
+                      android: "check_circle",
+                      web: "check_circle",
+                    }}
+                    size={22}
+                    tintColor={colors.accent}
+                  />
+                ) : null}
+              </PressableScale>
+            );
+          })}
+        </ScrollView>
+      </Sheet>
     </ScreenLayout>
   );
 }
@@ -272,6 +390,22 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   hint: { marginTop: Spacing.three },
+  calcHint: { marginTop: Spacing.two },
+  calcRow: { marginTop: Spacing.three },
+  madhabLabel: { marginTop: Spacing.four, marginBottom: Spacing.three },
+  sheetTitle: { marginBottom: Spacing.two },
+  sheetScroll: { alignSelf: "stretch" },
+  sheetList: { gap: Spacing.two, paddingBottom: Spacing.two },
+  methodRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.three,
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  methodText: { flex: 1, gap: 2 },
   list: { gap: Spacing.two, marginTop: Spacing.three },
   row: {
     flexDirection: "row",

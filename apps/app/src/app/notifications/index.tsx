@@ -70,7 +70,13 @@ export default function NotificationCenterScreen() {
   const delivered = useMemo(() => mapInboxItems(items), [items]);
   const visible = delivered.slice(0, visibleCount);
   const formatWhen = (iso: string) =>
-    formatDisplayDateTime(new Date(iso), prefs.timeFormat, prefs.locale, location.timeZone);
+    formatDisplayDateTime(
+      new Date(iso),
+      prefs.timeFormat,
+      prefs.locale,
+      location.timeZone,
+      prefs.defaultCalendar,
+    );
 
   return (
     <ScreenLayout

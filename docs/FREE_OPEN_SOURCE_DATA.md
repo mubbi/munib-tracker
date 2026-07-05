@@ -460,3 +460,14 @@ Implemented per `DATA_INGESTION_TODO.md` — all §13 gates green (types, biome,
 **Deferred (needs a maintainer-supplied binary + prebuild):** the bundled adhan-call MP3 (D11) — see
 `apps/app/assets/audio/adhan/README.md`. Content audio (`audioUri`, D9) infrastructure is wired but
 play controls stay hidden until real per-item audio URLs are supplied (nothing fabricated).
+
+## Extending translations & reciters (NF-1.12)
+
+- **Reciters** (`apps/app/src/lib/quran-audio.ts` `RECITERS`): per-ayah audio from
+  [everyayah.com](https://everyayah.com). Add an entry `{ dir, name }` where `dir` is the reciter's
+  everyayah directory. Expanded to include As-Sudais, Ash-Shatri, Ash-Shuraim, and Al-Hudhaify.
+- **Translations / tafsir** (`apps/app/src/api/quran-remote.ts` `REMOTE_DEFS`): cache-first, no key,
+  from [fawazahmed0/quran-api](https://github.com/fawazahmed0/quran-api). Add `{ id, fawaz, name,
+  language, direction }` where `fawaz` is the edition slug from that API (e.g. another `eng-…`, `urd-…`,
+  `ara-…`). Opened editions are cached to AsyncStorage and work offline afterward; a missing/failed
+  fetch falls back to the bundled translation, so a bad slug degrades gracefully.

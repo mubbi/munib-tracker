@@ -17,7 +17,15 @@ export async function readPersistedAchievementIds(): Promise<string[]> {
   return migrateLegacyAchievementIds(await readJSON<string[]>(DB_KEYS.achievements, []));
 }
 
-/** Persists achievement ids that match current stats; drops lapsed unlocks. */
+/**
+ * Persists achievement ids that match current stats; drops lapsed unlocks.
+ *
+ * Achievements are intentionally NOT a sync entity: they are a pure function of
+ * the tracked stats (prayer logs, qaza, zikr), which already sync. Recomputing
+ * them on each device from the synced stats reproduces the same set, so pushing
+ * a separate achievements blob would be redundant and would be overwritten by
+ * the next local recompute anyway.
+ */
 export async function persistAchievementSync(
   stats: AchievementStats,
   known?: string[],

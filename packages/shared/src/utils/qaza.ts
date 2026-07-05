@@ -78,6 +78,23 @@ export function computeQazaEta(
   return { days, date: addDays(today, days) };
 }
 
+/**
+ * Suggests per-prayer daily qaza targets that clear the whole backlog in about
+ * `days` days (NF-1.16). Each prayer is spread independently so the plan finishes
+ * every prayer's debt within the horizon; prayers with no debt are omitted.
+ */
+export function suggestDailyQazaTargets(
+  counters: { prayerId: QazaPrayer; remaining: number }[],
+  days: number,
+): Partial<Record<QazaPrayer, number>> {
+  const horizon = Math.max(1, Math.floor(days));
+  const targets: Partial<Record<QazaPrayer, number>> = {};
+  for (const counter of counters) {
+    if (counter.remaining > 0) targets[counter.prayerId] = Math.ceil(counter.remaining / horizon);
+  }
+  return targets;
+}
+
 export interface DayDurationParts {
   years: number;
   months: number;
@@ -101,4 +118,78 @@ export function breakDownDayDuration(
 /** Estimates missed fasts from whole years, defaulting to ~30 days of Ramadan per year. */
 export function computeMissedFasts(years: number, daysPerYear = 30): number {
   return Math.max(0, Math.round(years * daysPerYear));
+}
+
+/** Sustainability tiers for daily qaza volume — favors long-term consistency over intensity. */
+export type QazaSustainabilityLevel = "easy" | "moderate" | "challenging" | "intensive";
+
+export type QazaPlanPresetId = "gentle" | "balanced" | "committed" | "intensive" | "custom";
+
+export interface QazaPlanPreset {
+  id: Exclude<QazaPlanPresetId, "custom">;
+  /** Same count applied to each prayer slot that still has debt. */
+  perPrayer: number;
+  recommended?: boolean;
+}
+
+/** Preset daily per-prayer targets — balanced (3 each) is the default recommendation. */
+export const QAZA_PLAN_PRESETS: readonly QazaPlanPreset[] = [
+  { id: "gentle", perPrayer: 1 },
+  { id: "balanced", perPrayer: 3, recommended: true },
+  { id: "committed", perPrayer: 5 },
+  { id: "intensive", perPrayer: 10 },
+] as const;
+
+/** Rough average minutes per make-up prayer (recitation + ruku/sujud). */
+export const QAZA_MINUTES_PER_PRAYER = 2.5;
+
+/** Sets the same daily target on every prayer slot that still has remaining debt. */
+export function buildUniformQazaTargets(
+  counters: { prayerId: QazaPrayer; remaining: number }[],
+  perPrayer: number,
+): Partial<Record<QazaPrayer, number>> {
+  const safePerPrayer = Math.max(0, Math.floor(perPrayer));
+  const targets: Partial<Record<QazaPrayer, number>> = {};
+  for (const counter of counters) {
+    if (counter.remaining > 0 && safePerPrayer > 0) {
+      targets[counter.prayerId] = safePerPrayer;
+    }
+  }
+  return targets;
+}
+
+/** Maps a daily qaza total to a sustainability label for planner guidance. */
+export function classifyQazaSustainability(dailyTotal: number): QazaSustainabilityLevel | null {
+  if (dailyTotal <= 0) return null;
+  if (dailyTotal <= 12) return "easy";
+  if (dailyTotal <= 30) return "moderate";
+  if (dailyTotal <= 60) return "challenging";
+  return "intensive";
+}
+
+/** Estimates how many minutes qaza may take at the current daily pace. */
+export function estimateQazaDailyMinutes(
+  dailyTotal: number,
+  minutesPerPrayer = QAZA_MINUTES_PER_PRAYER,
+): number {
+  if (dailyTotal <= 0) return 0;
+  return Math.round(dailyTotal * minutesPerPrayer);
+}
+
+/** Detects whether the schedule is a uniform preset across prayers with debt. */
+export function matchQazaPlanPreset(
+  targets: Partial<Record<QazaPrayer, number>>,
+  counters: { prayerId: QazaPrayer; remaining: number }[],
+): QazaPlanPresetId {
+  const active = counters.filter((counter) => counter.remaining > 0);
+  if (active.length === 0) return "custom";
+
+  const values = active.map((counter) => targets[counter.prayerId] ?? 0);
+  const perPrayer = values[0] ?? 0;
+  if (perPrayer <= 0 || values.some((value) => value !== perPrayer)) return "custom";
+
+  for (const preset of QAZA_PLAN_PRESETS) {
+    if (preset.perPrayer === perPrayer) return preset.id;
+  }
+  return "custom";
 }

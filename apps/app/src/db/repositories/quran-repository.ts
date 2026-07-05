@@ -21,6 +21,8 @@ export interface QuranPrefs {
   showTransliteration: boolean;
   showTranslation: boolean;
   script?: "uthmani";
+  /** Optional second translation shown side-by-side beneath the first (NF-1.13). */
+  secondaryTranslationId?: string;
 }
 
 /** Furthest ayah reached per surah. */
@@ -55,6 +57,7 @@ export const QuranRepository = {
     const existing = await bookmarks.get(key);
     if (existing) {
       await bookmarks.remove(key);
+      await this.touchBookmarks();
       return false;
     }
     await bookmarks.upsert(key, {
@@ -63,11 +66,33 @@ export const QuranRepository = {
       ayah,
       createdAt: new Date().toISOString(),
     });
+    await this.touchBookmarks();
     return true;
   },
 
   async removeBookmark(surah: number, ayah: number): Promise<void> {
     await bookmarks.remove(bookmarkKey(surah, ayah));
+    await this.touchBookmarks();
+  },
+
+  // ── Bookmark sync (blob last-write-wins) ───────────────
+  /** Stamps the blob-level watermark used for last-write-wins over the set. */
+  async touchBookmarks(): Promise<void> {
+    await writeJSON(DB_KEYS.quranBookmarksUpdatedAt, new Date().toISOString());
+  },
+
+  async getBookmarksUpdatedAt(): Promise<string | undefined> {
+    return readJSON<string | undefined>(DB_KEYS.quranBookmarksUpdatedAt, undefined);
+  },
+
+  /** Replaces the whole bookmark set with a pulled one, newest-wins on the blob. */
+  async applyRemoteBookmarks(incoming: QuranBookmark[], updatedAt?: string): Promise<void> {
+    const local = await this.getBookmarksUpdatedAt();
+    if (local && updatedAt && local >= updatedAt) return;
+    const map: Record<string, QuranBookmark> = {};
+    for (const bm of incoming) map[bookmarkKey(bm.surah, bm.ayah)] = bm;
+    await writeJSON(DB_KEYS.quranBookmarks, map);
+    if (updatedAt) await writeJSON(DB_KEYS.quranBookmarksUpdatedAt, updatedAt);
   },
 
   // ── Last read ──────────────────────────────────────────
@@ -81,6 +106,15 @@ export const QuranRepository = {
       ayah,
       updatedAt: new Date().toISOString(),
     } satisfies QuranLastRead);
+  },
+
+  /** Applies a pulled last-read position, newest-wins on its own `updatedAt`. */
+  async applyRemoteLastRead(incoming: QuranLastRead): Promise<void> {
+    const current = await this.getLastRead();
+    if (current?.updatedAt && incoming.updatedAt && current.updatedAt >= incoming.updatedAt) {
+      return;
+    }
+    await writeJSON(DB_KEYS.quranLastRead, incoming);
   },
 
   // ── Reading progress ───────────────────────────────────
@@ -112,6 +146,7 @@ export const QuranRepository = {
   async clear(): Promise<void> {
     await Promise.all([
       bookmarks.clear(),
+      removeKey(DB_KEYS.quranBookmarksUpdatedAt),
       removeKey(DB_KEYS.quranLastRead),
       removeKey(DB_KEYS.quranReadingProgress),
       removeKey(DB_KEYS.quranPrefs),

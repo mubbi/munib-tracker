@@ -5,7 +5,8 @@ import { useTranslation } from "react-i18next";
 
 import type { PrayerTime } from "@/components/prayer-times-hero";
 import { useNow } from "@/hooks/use-now";
-import { formatHijriDate } from "@/lib/hijri";
+import { formatCalendarDate } from "@/lib/calendar-format";
+import { locationCalcExtras } from "@/lib/location";
 import { moonPhase } from "@/lib/moon";
 import {
   buildDailySchedule,
@@ -31,7 +32,7 @@ import { usePreferences } from "@/stores/preferences-store";
 
 export interface HomeHeroData {
   location: string;
-  hijriDate: string;
+  displayDate: string;
   currentTime: string;
   countdown: string;
   prayers: PrayerTime[];
@@ -118,6 +119,7 @@ export function useHomeHero(): HomeHeroData {
   const status = useLocationStatus();
   const now = useNow();
   const timeFormat = usePreferences().timeFormat;
+  const defaultCalendar = usePreferences().defaultCalendar;
 
   const base = i18n.language?.split("-")[0];
   const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
@@ -130,19 +132,22 @@ export function useHomeHero(): HomeHeroData {
   // biome-ignore lint/correctness/useExhaustiveDependencies: dayKey is the calendar-day proxy for `now`; recompute only when the day (or location) changes, not every tick.
   const day = useMemo(() => {
     const coords = { latitude: location.latitude, longitude: location.longitude };
+    const extras = locationCalcExtras(location);
     const anchor = prayerDayAnchor(now, location.timeZone);
-    const today = computePrayerTimes(coords, anchor, location.method, location.madhab);
+    const today = computePrayerTimes(coords, anchor, location.method, location.madhab, extras);
     const tomorrowTimes = computePrayerTimes(
       coords,
       shiftPrayerDay(anchor, 1),
       location.method,
       location.madhab,
+      extras,
     );
     const yesterdayTimes = computePrayerTimes(
       coords,
       shiftPrayerDay(anchor, -1),
       location.method,
       location.madhab,
+      extras,
     );
     const slots = prayerSlots(today);
     const boundaries = scheduleBoundaries(today, tomorrowTimes, yesterdayTimes, now);
@@ -176,13 +181,22 @@ export function useHomeHero(): HomeHeroData {
     const { coords } = day;
     const tz = location.timeZone;
     const flexibleTime = t("home.scheduleAnyTime");
-    const next = nextPrayer(coords, now, location.method, location.madhab, location.timeZone);
+    const extras = locationCalcExtras(location);
+    const next = nextPrayer(
+      coords,
+      now,
+      location.method,
+      location.madhab,
+      location.timeZone,
+      extras,
+    );
     const rawSchedule = buildDailySchedule(
       coords,
       now,
       location.method,
       location.madhab,
       location.timeZone,
+      extras,
     );
     const nextEntry = nextScheduleEntry(rawSchedule, now);
 
@@ -238,7 +252,7 @@ export function useHomeHero(): HomeHeroData {
 
     return {
       location: location.label,
-      hijriDate: formatHijriDate(now, locale, location.timeZone),
+      displayDate: formatCalendarDate(now, defaultCalendar, locale, undefined, location.timeZone),
       currentTime: formatPrayerTime(now, timeFormat, tz),
       countdown,
       prayers,
@@ -251,5 +265,5 @@ export function useHomeHero(): HomeHeroData {
       nextScheduleId: selection.nextScheduleId,
       schedule: selection.schedule,
     };
-  }, [day, selection, prayers, now, locale, timeFormat, location, status, t]);
+  }, [day, selection, prayers, now, locale, timeFormat, defaultCalendar, location, status, t]);
 }

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { QazaCountEditModal } from "@/components/qaza-count-edit-modal";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -31,7 +32,7 @@ import {
 
 type QazaConfirmAction =
   | {
-      kind: "decrement" | "increment";
+      kind: "decrement" | "increment" | "setRemaining";
       prayerId: QazaPrayer;
       nextRemaining: number;
       completed: number;
@@ -39,6 +40,12 @@ type QazaConfirmAction =
   | { kind: "perform"; prayerId: QazaPrayer }
   | { kind: "resetPrayer"; prayerId: QazaPrayer }
   | { kind: "resetAll" };
+
+type QazaEditTarget = {
+  prayerId: QazaPrayer;
+  remaining: number;
+  completed: number;
+};
 
 export default function QazaHomeScreen() {
   const router = useRouter();
@@ -50,6 +57,7 @@ export default function QazaHomeScreen() {
   const summary = useQazaSummary();
   const { adjustQaza, performQaza, resetQazaCounter, resetAllQazaCounters } = useTrackerActions();
   const [pending, setPending] = useState<QazaConfirmAction | null>(null);
+  const [editTarget, setEditTarget] = useState<QazaEditTarget | null>(null);
 
   const hasAnyCounts = summary.remaining > 0 || summary.completed > 0;
 
@@ -70,6 +78,14 @@ export default function QazaHomeScreen() {
         return {
           title: t("qaza.confirmIncrementTitle"),
           message: t("qaza.confirmIncrementMsg", {
+            prayer: prayerName(pending.prayerId),
+            remaining: pending.nextRemaining,
+          }),
+        };
+      case "setRemaining":
+        return {
+          title: t("qaza.confirmSetRemainingTitle"),
+          message: t("qaza.confirmSetRemainingMsg", {
             prayer: prayerName(pending.prayerId),
             remaining: pending.nextRemaining,
           }),
@@ -102,6 +118,7 @@ export default function QazaHomeScreen() {
     switch (pending.kind) {
       case "decrement":
       case "increment":
+      case "setRemaining":
         void adjustQaza(pending.prayerId, pending.nextRemaining, pending.completed);
         break;
       case "perform":
@@ -205,6 +222,13 @@ export default function QazaHomeScreen() {
             onPress={() => router.push("/qaza/roza")}
             style={styles.tool}
           />
+          <Button
+            label={t("qaza.history")}
+            variant="secondary"
+            icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
+            onPress={() => router.push("/qaza/history")}
+            style={styles.tool}
+          />
         </View>
 
         <WitrQazaInfo />
@@ -267,6 +291,16 @@ export default function QazaHomeScreen() {
                   <Stepper
                     value={counter.remaining}
                     label={t(`prayers.${counter.prayerId}`)}
+                    valueAccessibilityLabel={t("qaza.editCountA11y", {
+                      prayer: t(`prayers.${counter.prayerId}`),
+                    })}
+                    onValuePress={() =>
+                      setEditTarget({
+                        prayerId: counter.prayerId,
+                        remaining: counter.remaining,
+                        completed: counter.completed,
+                      })
+                    }
                     onDecrement={() =>
                       setPending({
                         kind: "decrement",
@@ -324,6 +358,26 @@ export default function QazaHomeScreen() {
           destructive={pending?.kind === "resetPrayer" || pending?.kind === "resetAll"}
           onConfirm={handleConfirm}
           onClose={() => setPending(null)}
+        />
+      ) : null}
+
+      {editTarget ? (
+        <QazaCountEditModal
+          visible={editTarget != null}
+          prayerLabel={t(`prayers.${editTarget.prayerId}`)}
+          initialValue={editTarget.remaining}
+          onSubmit={(nextRemaining) => {
+            const target = editTarget;
+            setEditTarget(null);
+            if (!target || nextRemaining === target.remaining) return;
+            setPending({
+              kind: "setRemaining",
+              prayerId: target.prayerId,
+              nextRemaining,
+              completed: target.completed,
+            });
+          }}
+          onClose={() => setEditTarget(null)}
         />
       ) : null}
     </ScreenLayout>

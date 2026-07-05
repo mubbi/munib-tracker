@@ -16,8 +16,14 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { chevronForward } from "@/lib/rtl";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
+import {
+  useEnsureDuroodFavoritesLoaded,
+  useFavoriteDuroodIds,
+} from "@/stores/durood-favorites-store";
+import { useEnsureNameFavoritesLoaded, useFavoriteNameIds } from "@/stores/name-favorites-store";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
 import { useQuranBookmarks } from "@/stores/quran-store";
 
@@ -26,12 +32,18 @@ type BookmarkSection = "reading" | "saved";
 type BookmarkSource = {
   id: string;
   section: BookmarkSection;
-  icon: SymbolViewProps["name"];
+  icon: AppIcon;
   labelKey: string;
   exploreLabelKey: string;
   hintKey: string;
-  listRoute: "/quran/bookmarks" | "/hadith/bookmarks" | "/dua/favorites" | "/zikr/favorites";
-  exploreRoute: "/quran" | "/hadith" | "/dua" | "/zikr";
+  listRoute:
+    | "/quran/bookmarks"
+    | "/hadith/bookmarks"
+    | "/dua/favorites"
+    | "/zikr/favorites"
+    | "/duroods/favorites"
+    | "/names-of-allah/favorites";
+  exploreRoute: "/quran" | "/hadith" | "/dua" | "/zikr" | "/duroods" | "/names-of-allah";
 };
 
 const BOOKMARK_SOURCES: BookmarkSource[] = [
@@ -79,6 +91,26 @@ const BOOKMARK_SOURCES: BookmarkSource[] = [
     listRoute: "/zikr/favorites",
     exploreRoute: "/zikr",
   },
+  {
+    id: "duroods",
+    section: "saved",
+    icon: { ios: "moon.stars.fill", android: "mosque", web: "mosque" },
+    labelKey: "bookmarks.duroods",
+    exploreLabelKey: "bookmarks.exploreDuroods",
+    hintKey: "bookmarks.exploreDuroodsHint",
+    listRoute: "/duroods/favorites",
+    exploreRoute: "/duroods",
+  },
+  {
+    id: "names",
+    section: "saved",
+    icon: NAMES_OF_ALLAH_ICON,
+    labelKey: "bookmarks.names",
+    exploreLabelKey: "bookmarks.exploreNames",
+    hintKey: "bookmarks.exploreNamesHint",
+    listRoute: "/names-of-allah/favorites",
+    exploreRoute: "/names-of-allah",
+  },
 ];
 
 const SECTION_META: Record<
@@ -101,10 +133,14 @@ export default function BookmarksHubScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   useEnsureDuaFavoritesLoaded();
+  useEnsureDuroodFavoritesLoaded();
+  useEnsureNameFavoritesLoaded();
 
   const quranBookmarks = useQuranBookmarks();
   const duaFavorites = useFavoriteDuaIds();
   const zikrFavorites = useFavoriteZikrIds();
+  const duroodFavorites = useFavoriteDuroodIds();
+  const nameFavorites = useFavoriteNameIds();
 
   const [hadithCount, setHadithCount] = useState(0);
   const [hadithLoaded, setHadithLoaded] = useState(false);
@@ -127,11 +163,21 @@ export default function BookmarksHubScreen() {
       hadith: hadithCount,
       duas: duaFavorites.length,
       zikr: zikrFavorites.length,
+      duroods: duroodFavorites.length,
+      names: nameFavorites.length,
     }),
-    [quranBookmarks.length, hadithCount, duaFavorites.length, zikrFavorites.length],
+    [
+      quranBookmarks.length,
+      hadithCount,
+      duaFavorites.length,
+      zikrFavorites.length,
+      duroodFavorites.length,
+      nameFavorites.length,
+    ],
   );
 
-  const total = counts.quran + counts.hadith + counts.duas + counts.zikr;
+  const total =
+    counts.quran + counts.hadith + counts.duas + counts.zikr + counts.duroods + counts.names;
   const loaded = hadithLoaded;
   const isEmpty = loaded && total === 0;
 
@@ -213,7 +259,7 @@ function ExploreRow({
   hint,
   onPress,
 }: {
-  icon: SymbolViewProps["name"];
+  icon: AppIcon;
   label: string;
   hint: string;
   onPress: () => void;

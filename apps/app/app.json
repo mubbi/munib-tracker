@@ -58,10 +58,11 @@
         {
           "icon": "./assets/images/icon.png",
           "color": "#059669",
-          "sounds": [],
+          "sounds": ["./assets/audio/adhan/adhan.mp3"],
           "mode": "production"
         }
-      ]
+      ],
+      "expo-quick-actions"
     ],
     "experiments": {
       "typedRoutes": true,

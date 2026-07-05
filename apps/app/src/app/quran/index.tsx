@@ -1,5 +1,6 @@
 import type { Surah } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -16,23 +17,39 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
+import { IconButton } from "@/components/ui/icon-button";
+import { IconWell } from "@/components/ui/icon-well";
+import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getSurahMeta } from "@/lib/quran";
+import { getSurahByNumber, getSurahMeta } from "@/lib/quran";
+import { chevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useLastRead } from "@/stores/quran-store";
+
+const TOTAL_SURAHS = 114;
 
 /** All 114 surahs as crawlable ItemList entries (the visual list isn't <a>-based). */
 const SURAH_ITEMS = getSurahMeta().map((s) => ({
   name: `${s.number}. ${s.nameTransliteration} (${s.nameEnglish})`,
   path: `/quran/${s.number}`,
 }));
+
+const REVELATION_FILTERS: SurahRevelationFilter[] = ["all", "makkah", "madinah"];
+
+function revelationTone(
+  place: Surah["revelationPlace"],
+  tokens: ReturnType<typeof useThemeTokens>["tokens"],
+) {
+  return place === "makkah" ? tokens.status.info : tokens.status.warning;
+}
 
 /**
  * Memoized surah row for the virtualized list. Extracted + `memo`'d so scrolling
@@ -47,21 +64,26 @@ const SurahRow = memo(function SurahRow({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const revelation = revelationTone(surah.revelationPlace, tokens);
+  const makki = surah.revelationPlace === "makkah";
+
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={surah.nameEnglish}
+      accessibilityLabel={`${surah.nameEnglish}, ${makki ? t("quran.makki") : t("quran.madani")}`}
       onPress={() => onPress(surah.number)}
-      style={[styles.row, { backgroundColor: colors.muted }]}
+      style={[
+        styles.row,
+        {
+          backgroundColor: colors.card,
+          borderColor: tokens.hairline,
+        },
+      ]}
     >
-      <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
-        <ThemedText type="caption" style={{ color: colors.accent }}>
-          {surah.number}
-        </ThemedText>
-      </View>
+      <ListIndexBadge index={surah.number} />
       <View style={styles.rowBody}>
-        <ThemedText type="small" numberOfLines={1}>
+        <ThemedText type="smallBold" numberOfLines={1}>
           {surah.nameTransliteration}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
@@ -73,16 +95,15 @@ const SurahRow = memo(function SurahRow({
           {surah.nameArabic}
         </ThemedText>
         <Pill
-          label={surah.revelationPlace === "makkah" ? t("quran.makki") : t("quran.madani")}
-          color={colors.mutedForeground}
-          background={colors.card}
+          label={makki ? t("quran.makki") : t("quran.madani")}
+          color={revelation.text}
+          background={revelation.soft}
         />
       </View>
+      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 });
-
-const REVELATION_FILTERS: SurahRevelationFilter[] = ["all", "makkah", "madinah"];
 
 function RevelationFilterChip({
   label,
@@ -93,7 +114,7 @@ function RevelationFilterChip({
   active: boolean;
   onPress: () => void;
 }) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   return (
     <PressableScale
       haptic="light"
@@ -102,7 +123,15 @@ function RevelationFilterChip({
       accessibilityLabel={label}
       onPress={onPress}
       scaleTo={0.95}
-      style={[styles.filterChip, { backgroundColor: active ? colors.accent : colors.card }]}
+      style={[
+        styles.filterChip,
+        active
+          ? { backgroundColor: colors.accent, borderColor: colors.accent }
+          : {
+              backgroundColor: colors.background,
+              borderColor: withAlpha(colors.border, tokens.isDark ? 0.55 : 0.85),
+            },
+      ]}
     >
       <ThemedText
         type="smallBold"
@@ -111,6 +140,77 @@ function RevelationFilterChip({
         {label}
       </ThemedText>
     </PressableScale>
+  );
+}
+
+function ContinueReadingCard({
+  surahNumber,
+  ayah,
+  onPress,
+}: {
+  surahNumber: number;
+  ayah: number;
+  onPress: () => void;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const surah = getSurahByNumber(surahNumber);
+
+  return (
+    <Card
+      padding="three"
+      onPress={onPress}
+      accessibilityLabel={t("quran.continueReading")}
+      style={[
+        styles.continueCard,
+        {
+          backgroundColor: tokens.accentSoft,
+          borderColor: withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28),
+          borderWidth: 1,
+        },
+      ]}
+    >
+      <View style={styles.continueTop}>
+        <View style={[styles.continueBadge, { backgroundColor: colors.background }]}>
+          <ThemedText type="subtitle" style={{ color: colors.accent }}>
+            {surahNumber}
+          </ThemedText>
+        </View>
+        <View style={styles.continueCopy}>
+          <Pill
+            label={t("quran.continueReading")}
+            color={colors.accentText}
+            background={withAlpha(colors.accent, tokens.isDark ? 0.28 : 0.16)}
+          />
+          <ThemedText type="smallBold" numberOfLines={1}>
+            {surah?.nameTransliteration ?? t("quran.continueAt", { surah: surahNumber, ayah })}
+          </ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+            {surah
+              ? `${surah.nameEnglish} · ${t("quran.continueAt", { surah: surahNumber, ayah })}`
+              : t("quran.continueAt", { surah: surahNumber, ayah })}
+          </ThemedText>
+          {surah ? (
+            <ThemedText type="arabic" style={[styles.continueArabic, { color: colors.accentText }]}>
+              {surah.nameArabic}
+            </ThemedText>
+          ) : null}
+        </View>
+        <IconWell
+          icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+          tint={colors.accent}
+          background={withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.12)}
+          well={44}
+          size={20}
+        />
+      </View>
+      <View style={[styles.continueFooter, { borderTopColor: withAlpha(colors.accent, 0.22) }]}>
+        <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+          {t("home.continueAction.quran")}
+        </ThemedText>
+        <SymbolView name={chevronForward} size={14} tintColor={colors.accentText} />
+      </View>
+    </Card>
   );
 }
 
@@ -126,6 +226,49 @@ export default function QuranHomeScreen() {
   const filtered = useMemo(
     () => searchSurahList(query, { revelation: revelationFilter }),
     [query, revelationFilter],
+  );
+
+  const isFiltering = query.trim().length > 0 || revelationFilter !== "all";
+
+  const shortcuts = useMemo<QuickActionItem[]>(
+    () => [
+      {
+        id: "search",
+        label: t("quran.search"),
+        icon: { ios: "magnifyingglass", android: "search", web: "search" },
+        tint: tokens.status.info.color,
+        onPress: () => router.push("/quran/search"),
+      },
+      {
+        id: "bookmarks",
+        label: t("quran.bookmarks"),
+        icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
+        tint: tokens.status.warning.color,
+        onPress: () => router.push("/quran/bookmarks"),
+      },
+      {
+        id: "juz",
+        label: t("quran.juz"),
+        icon: { ios: "square.grid.3x3.fill", android: "grid_view", web: "grid_view" },
+        tint: colors.accent,
+        onPress: () => router.push("/quran/juz"),
+      },
+      {
+        id: "khatm",
+        label: t("khatm.short"),
+        icon: { ios: "chart.line.uptrend.xyaxis", android: "trending_up", web: "trending_up" },
+        tint: tokens.status.success.color,
+        onPress: () => router.push("/quran/khatm"),
+      },
+      {
+        id: "hifz",
+        label: t("hifz.short"),
+        icon: { ios: "brain.head.profile", android: "psychology", web: "psychology" },
+        tint: tokens.status.danger.color,
+        onPress: () => router.push("/quran/hifz"),
+      },
+    ],
+    [t, router, colors.accent, tokens],
   );
 
   const revelationFilterLabel = useCallback(
@@ -149,66 +292,56 @@ export default function QuranHomeScreen() {
     [openSurah],
   );
 
-  // The header (screen actions, continue card, search input + section header)
-  // scrolls with the list as the FlatList's header so the surah list owns
-  // scrolling (ScreenLayout is `scrollable={false}`).
+  // The header (shortcuts, continue card, search + filters) scrolls with the list
+  // as the FlatList's header so the surah list owns scrolling.
   const listHeader = (
     <View style={styles.header}>
       <Stagger>
-        <View style={styles.headerActions}>
-          <PressableScale
-            haptic="light"
-            accessibilityRole="button"
-            accessibilityLabel={t("quran.search")}
-            onPress={() => router.push("/quran/search")}
-            style={[styles.iconButton, { backgroundColor: colors.muted }]}
-          >
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("quran.search")}
-            </ThemedText>
-          </PressableScale>
-          <PressableScale
-            haptic="light"
-            accessibilityRole="button"
-            accessibilityLabel={t("quran.bookmarks")}
-            onPress={() => router.push("/quran/bookmarks")}
-            style={[styles.iconButton, { backgroundColor: colors.muted }]}
-          >
-            <ThemedText type="small" themeColor="mutedForeground">
-              {t("quran.bookmarks")}
-            </ThemedText>
-          </PressableScale>
-        </View>
+        <Card padding="three">
+          <QuickActionGrid items={shortcuts} columns={5} />
+        </Card>
 
         {lastRead ? (
-          <Card
-            variant="muted"
-            style={styles.continueCard}
+          <ContinueReadingCard
+            surahNumber={lastRead.surah}
+            ayah={lastRead.ayah}
             onPress={() => openSurah(lastRead.surah)}
-          >
-            <View style={[styles.continueIcon, { backgroundColor: tokens.accentSoft }]}>
-              <ThemedText type="subtitle" style={{ color: colors.accent }}>
-                {lastRead.surah}
-              </ThemedText>
-            </View>
-            <View style={styles.continueText}>
-              <ThemedText type="smallBold">{t("quran.continueReading")}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("quran.continueAt", { surah: lastRead.surah, ayah: lastRead.ayah })}
-              </ThemedText>
-            </View>
-          </Card>
+          />
         ) : null}
 
         <Card padding="three">
-          <TextInput
-            value={query}
-            onChangeText={setQuery}
-            placeholder={t("quran.searchSurah")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("quran.searchSurah")}
-            style={[styles.input, { backgroundColor: colors.muted, color: colors.foreground }]}
-          />
+          <View
+            style={[
+              styles.searchField,
+              { backgroundColor: colors.muted, borderColor: colors.border },
+            ]}
+          >
+            <SymbolView
+              name={{ ios: "magnifyingglass", android: "search", web: "search" }}
+              size={18}
+              tintColor={colors.mutedForeground}
+            />
+            <TextInput
+              value={query}
+              onChangeText={setQuery}
+              placeholder={t("quran.searchSurah")}
+              placeholderTextColor={colors.mutedForeground}
+              accessibilityLabel={t("quran.searchSurah")}
+              style={[styles.searchInput, { color: colors.foreground }]}
+            />
+            {query.length > 0 ? (
+              <IconButton
+                name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
+                accessibilityLabel={t("search.clear")}
+                onPress={() => setQuery("")}
+                size={18}
+                tintColor={colors.mutedForeground}
+                hitTarget={36}
+                haptic="light"
+              />
+            ) : null}
+          </View>
+
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -224,9 +357,15 @@ export default function QuranHomeScreen() {
               />
             ))}
           </ScrollView>
+
           <SectionHeader
             title={t("quran.surahList")}
             icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+            actionLabel={
+              isFiltering
+                ? t("quran.surahCount", { shown: filtered.length, total: TOTAL_SURAHS })
+                : undefined
+            }
           />
         </Card>
       </Stagger>
@@ -287,42 +426,60 @@ const styles = StyleSheet.create({
   flatList: { flex: 1, width: "100%" },
   listContent: { gap: Spacing.two },
   header: { gap: Spacing.four },
-  headerActions: { flexDirection: "row", gap: Spacing.two },
-  iconButton: {
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: Spacing.three,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
+  continueCard: { gap: 0, overflow: "hidden" },
+  continueTop: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.three,
   },
-  continueCard: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  continueIcon: {
+  continueBadge: {
     width: 48,
     height: 48,
-    borderRadius: 14,
+    borderRadius: Radius.md,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
   },
-  continueText: { flex: 1, gap: 2 },
-  input: {
+  continueCopy: { flex: 1, gap: Spacing.one },
+  continueArabic: {
+    fontSize: 18,
+    writingDirection: "rtl",
+    textAlign: "right",
+  },
+  continueFooter: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: Spacing.three,
+    paddingTop: Spacing.two + 2,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  searchField: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Spacing.three,
+    marginBottom: Spacing.three,
+  },
+  searchInput: {
+    flex: 1,
     paddingVertical: Spacing.three,
-    marginBottom: Spacing.two,
     fontSize: 15,
   },
   filterRow: {
     flexDirection: "row",
     gap: Spacing.two,
-    marginBottom: Spacing.three,
+    marginBottom: Spacing.one,
   },
   filterChip: {
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
+    borderWidth: 1,
   },
   row: {
     flexDirection: "row",
@@ -331,16 +488,9 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
   },
-  number: {
-    width: 34,
-    height: 34,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  rowBody: { flex: 1, gap: 2 },
-  rowMeta: { alignItems: "flex-end", gap: Spacing.one },
-  rowArabic: { fontSize: 20, lineHeight: 32 },
+  rowBody: { flex: 1, gap: 2, minWidth: 0 },
+  rowMeta: { alignItems: "flex-end", gap: Spacing.one, maxWidth: "34%" },
+  rowArabic: { fontSize: 20, writingDirection: "rtl" },
 });

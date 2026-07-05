@@ -1,6 +1,5 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 import type { Href } from "expo-router";
-import type { SymbolViewProps } from "expo-symbols";
 
 import {
   buildKnowledgeCardPool,
@@ -8,12 +7,13 @@ import {
   MOTIVATION_QUOTES,
   type MotivationTopic,
 } from "@/lib/knowledge-card-data";
+import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { hadithCollectionId, hadithExcerpt, resolveHadithItem } from "@/lib/prayer-info";
 import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 
 export type KnowledgeCardKind = "quran" | "hadith" | "name" | "friday" | "motivation";
 
-export type KnowledgeCardIcon = SymbolViewProps["name"];
+export type KnowledgeCardIcon = AppIcon;
 
 export type KnowledgeCardPalette = "accent" | "info" | "success" | "warning" | "danger";
 
@@ -131,7 +131,7 @@ function resolveName(id: string): ResolvedKnowledgeCard | null {
     body: name.meaning ?? name.translation,
     reference: name.transliteration,
     href: "/names-of-allah",
-    icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
+    icon: NAMES_OF_ALLAH_ICON,
     palette: "accent",
     actionKey: "home.knowledgeAction.name",
   };

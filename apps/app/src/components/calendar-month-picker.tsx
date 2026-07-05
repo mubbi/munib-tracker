@@ -1,4 +1,4 @@
-import type { AppLocale } from "@munib-tracker/shared/types";
+import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,8 +15,6 @@ import {
   localizedMonthNames,
 } from "@/lib/calendar";
 import { hijriMonthName } from "@/lib/hijri";
-
-type CalendarMode = "gregorian" | "hijri";
 
 type CalendarMonthPickerProps = {
   visible: boolean;

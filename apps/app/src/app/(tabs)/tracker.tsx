@@ -11,6 +11,7 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
 import { QazaDailyChecklist } from "@/components/qaza-daily-checklist";
@@ -19,7 +20,6 @@ import { Seo } from "@/components/seo/seo";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { CollapsibleSection } from "@/components/ui/collapsible-section";
 import { NavRow } from "@/components/ui/nav-row";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
@@ -47,6 +47,7 @@ import {
   useAchievementStats,
   useDailySummary,
   useDevotionProgress,
+  usePrayerJamaMap,
   useStreak,
   useTodayPrayers,
   useTrackerActions,
@@ -83,8 +84,9 @@ export default function TrackerScreen() {
   const devotion = useDevotionProgress();
   const stats = useAchievementStats();
   const { status, notes } = useTodayPrayers();
+  const jamaMap = usePrayerJamaMap();
   const prayerTimes = useDailyPrayerTimes();
-  const { setPrayerStatus, setPrayerNotes } = useTrackerActions();
+  const { setPrayerStatus, setPrayerNotes, setPrayerJama } = useTrackerActions();
   const remindAfterSalahAdhkar = useAfterSalahAdhkarReminder();
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
 
@@ -253,6 +255,10 @@ export default function TrackerScreen() {
         </View>
 
         <Card padding="three">
+          <ExcusedDayPicker />
+        </Card>
+
+        <Card padding="three">
           <SectionHeader
             title={t("tracker.obligatory")}
             icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
@@ -332,29 +338,68 @@ export default function TrackerScreen() {
         <QazaDailyChecklist />
 
         <Card padding="three">
-          <CollapsibleSection
+          <SectionHeader
+            title={t("jannah.journeyTitle")}
+            icon={{
+              ios: "chart.line.uptrend.xyaxis",
+              android: "trending_up",
+              web: "trending_up",
+            }}
+          />
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.salahAdhkarHint}>
+            {t("jannah.journeySummary")}
+          </ThemedText>
+          <View style={styles.rows}>
+            <NavRow
+              icon={{ ios: "leaf.fill", android: "park", web: "park" }}
+              label={t("jannah.journeySubtitle")}
+              onPress={() => router.push("/jannah/journey")}
+            />
+          </View>
+        </Card>
+
+        <Card padding="three">
+          <SectionHeader
             title={t("tracker.sunnahOptional")}
             icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
-          >
-            <View style={styles.rows}>
-              {SUNNAH_PRAYERS.map((prayerId) => {
-                const current = status[prayerId] ?? "pending";
-                return (
-                  <PrayerTrackerRow
-                    key={prayerId}
-                    prayerId={prayerId}
-                    status={current}
-                    time={prayerTimes[prayerId]}
-                    hasNotes={!!notes[prayerId]}
-                    onPress={() => setActivePrayer(prayerId)}
-                    onToggleComplete={() =>
-                      markPrayerStatus(prayerId, current === "completed" ? "pending" : "completed")
-                    }
-                  />
-                );
-              })}
-            </View>
-          </CollapsibleSection>
+          />
+          <View style={styles.rows}>
+            {SUNNAH_PRAYERS.map((prayerId) => {
+              const current = status[prayerId] ?? "pending";
+              return (
+                <PrayerTrackerRow
+                  key={prayerId}
+                  prayerId={prayerId}
+                  status={current}
+                  time={prayerTimes[prayerId]}
+                  hasNotes={!!notes[prayerId]}
+                  onPress={() => setActivePrayer(prayerId)}
+                  onToggleComplete={() =>
+                    markPrayerStatus(prayerId, current === "completed" ? "pending" : "completed")
+                  }
+                />
+              );
+            })}
+            <NavRow
+              icon={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
+              label={t("tahajjud.streakRow")}
+              onPress={() => router.push("/tahajjud")}
+            />
+          </View>
+        </Card>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("journal.title")}
+            icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
+          />
+          <View style={styles.rows}>
+            <NavRow
+              icon={{ ios: "square.and.pencil", android: "edit", web: "edit" }}
+              label={t("journal.navRow")}
+              onPress={() => router.push("/journal")}
+            />
+          </View>
         </Card>
 
         <Card padding="three">
@@ -415,6 +460,8 @@ export default function TrackerScreen() {
           prayerLabel={t(`prayers.${activePrayer}`)}
           currentStatus={status[activePrayer] ?? "pending"}
           currentNotes={notes[activePrayer]}
+          isJama={jamaMap[activePrayer] ?? false}
+          onToggleJama={(next) => setPrayerJama(activePrayer, next)}
           onSelect={(next, options) => markPrayerStatus(activePrayer, next, options)}
           onSaveNotes={(text) => setPrayerNotes(activePrayer, text)}
           onClose={() => setActivePrayer(null)}

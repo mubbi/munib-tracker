@@ -1,4 +1,4 @@
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { SymbolView } from "expo-symbols";
 import { StyleSheet } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -7,10 +7,11 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { chevronForward } from "@/lib/rtl";
 
 type NavRowProps = {
-  icon: SymbolViewProps["name"];
+  icon: AppIcon;
   label: string;
   /** Optional trailing count pill. */
   count?: number;

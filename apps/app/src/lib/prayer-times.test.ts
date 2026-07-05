@@ -40,6 +40,34 @@ describe("nextPrayer with manual location timezone", () => {
   });
 });
 
+describe("prayer calc extras (NF-2.20 / NF-2.21)", () => {
+  it("shifts a prayer by its manual masjid offset", () => {
+    const base = computePrayerTimes(MAKKAH, MAKKAH_TEST_DAY);
+    const shifted = computePrayerTimes(MAKKAH, MAKKAH_TEST_DAY, "MuslimWorldLeague", "shafi", {
+      adjustments: { fajr: 5, isha: -3 },
+    });
+    expect(Math.round((shifted.fajr.getTime() - base.fajr.getTime()) / 60000)).toBe(5);
+    expect(Math.round((shifted.isha.getTime() - base.isha.getTime()) / 60000)).toBe(-3);
+    // Untouched prayers stay put.
+    expect(shifted.dhuhr.getTime()).toBe(base.dhuhr.getTime());
+  });
+
+  it("applies a high-latitude rule override where the default differs", () => {
+    // At a far-northern latitude in mid-June the twilight rule genuinely changes Isha.
+    const OSLO: Coords = { latitude: 59.9139, longitude: 10.7522 };
+    const midJune = new Date(Date.UTC(2025, 5, 15));
+    const seventh = computePrayerTimes(OSLO, midJune, "MuslimWorldLeague", "shafi", {
+      highLatitudeRule: "SeventhOfTheNight",
+    });
+    const midnight = computePrayerTimes(OSLO, midJune, "MuslimWorldLeague", "shafi", {
+      highLatitudeRule: "MiddleOfTheNight",
+    });
+    expect(Number.isNaN(seventh.isha.getTime())).toBe(false);
+    expect(Number.isNaN(midnight.isha.getTime())).toBe(false);
+    expect(seventh.isha.getTime()).not.toBe(midnight.isha.getTime());
+  });
+});
+
 describe("computePrayerTimes / prayerSlots", () => {
   it("returns the six markers in chronological order", () => {
     const times = computePrayerTimes(MAKKAH, new Date(2025, 5, 15));

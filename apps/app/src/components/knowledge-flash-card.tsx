@@ -13,6 +13,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useKnowledgeCard } from "@/hooks/use-knowledge-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { KnowledgeCardPalette, ResolvedKnowledgeCard } from "@/lib/knowledge-card";
+import { arabicReadingLayout } from "@/lib/reading-typography";
 import { chevronForward } from "@/lib/rtl";
 
 function getPalette(
@@ -86,7 +87,7 @@ function KnowledgeCardBody({
       />
       <View style={styles.copy}>
         {card.arabic ? (
-          <ThemedText type="header" style={[styles.arabic, { color: palette.text }]}>
+          <ThemedText type="arabic" style={[styles.arabic, { color: palette.text }]}>
             {card.arabic}
           </ThemedText>
         ) : null}
@@ -175,9 +176,7 @@ const styles = StyleSheet.create({
     gap: Spacing.one + 2,
   },
   arabic: {
-    writingDirection: "rtl",
-    textAlign: "right",
-    lineHeight: 30,
+    ...arabicReadingLayout(22),
   },
   body: {
     lineHeight: 22,

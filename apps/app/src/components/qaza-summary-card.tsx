@@ -12,6 +12,8 @@ import { chevronForward } from "@/lib/rtl";
 type QazaSummaryCardProps = {
   remaining: number;
   completed: number;
+  /** Remaining make-up fasts (roza), shown as a second debt line (NF-1.17). */
+  rozaRemaining?: number;
   onPress: () => void;
 };
 
@@ -19,14 +21,20 @@ function formatCount(value: number, locale?: string): string {
   return value.toLocaleString(locale);
 }
 
-export function QazaSummaryCard({ remaining, completed, onPress }: QazaSummaryCardProps) {
+export function QazaSummaryCard({
+  remaining,
+  completed,
+  rozaRemaining = 0,
+  onPress,
+}: QazaSummaryCardProps) {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
 
   const total = remaining + completed;
-  if (total === 0) return null;
+  // Unified debt view: render when there is any prayer OR fasting debt.
+  if (total === 0 && rozaRemaining === 0) return null;
 
-  const progress = completed / total;
+  const progress = total > 0 ? completed / total : 0;
   const progressPct = Math.round(progress * 100);
   const locale = i18n.language?.split("-")[0];
   const info = tokens.status.info;
@@ -68,35 +76,60 @@ export function QazaSummaryCard({ remaining, completed, onPress }: QazaSummaryCa
         <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
       </View>
 
-      <View style={styles.statsRow}>
-        <View style={[styles.statBox, { backgroundColor: info.soft, borderColor: info.border }]}>
-          <ThemedText type="header" style={[styles.statValue, { color: info.text }]}>
-            {formatCount(remaining, locale)}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("stats.remaining")}
-          </ThemedText>
-        </View>
-        <View
-          style={[styles.statBox, { backgroundColor: success.soft, borderColor: success.border }]}
-        >
-          <ThemedText type="header" style={[styles.statValue, { color: success.text }]}>
-            {formatCount(completed, locale)}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("stats.madeUp")}
-          </ThemedText>
-        </View>
-      </View>
+      {total > 0 ? (
+        <>
+          <View style={styles.statsRow}>
+            <View
+              style={[styles.statBox, { backgroundColor: info.soft, borderColor: info.border }]}
+            >
+              <ThemedText type="header" style={[styles.statValue, { color: info.text }]}>
+                {formatCount(remaining, locale)}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("stats.remaining")}
+              </ThemedText>
+            </View>
+            <View
+              style={[
+                styles.statBox,
+                { backgroundColor: success.soft, borderColor: success.border },
+              ]}
+            >
+              <ThemedText type="header" style={[styles.statValue, { color: success.text }]}>
+                {formatCount(completed, locale)}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("stats.madeUp")}
+              </ThemedText>
+            </View>
+          </View>
 
-      <View style={styles.progressBlock}>
-        <View style={styles.progressLabels}>
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("home.qazaProgress", { pct: progressPct })}
+          <View style={styles.progressBlock}>
+            <View style={styles.progressLabels}>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("home.qazaProgress", { pct: progressPct })}
+              </ThemedText>
+            </View>
+            <ProgressBar value={progress} height={6} color={success.color} />
+          </View>
+        </>
+      ) : null}
+
+      {rozaRemaining > 0 ? (
+        <View style={[styles.rozaRow, { borderTopColor: warning.border }]}>
+          <SymbolView
+            name={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
+            size={16}
+            tintColor={warning.color}
+          />
+          <ThemedText type="small" style={styles.rozaLabel}>
+            {t("home.rozaRemaining")}
+          </ThemedText>
+          <ThemedText type="smallBold" style={{ color: warning.color }}>
+            {formatCount(rozaRemaining, locale)}
           </ThemedText>
         </View>
-        <ProgressBar value={progress} height={6} color={success.color} />
-      </View>
+      ) : null}
     </Card>
   );
 }
@@ -139,4 +172,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  rozaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingTop: Spacing.three,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  rozaLabel: { flex: 1 },
 });

@@ -1,11 +1,12 @@
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
+import { AppIcon } from "@/components/ui/app-icon";
 import { Radius } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 
 type IconWellProps = {
-  icon: SymbolViewProps["name"];
+  icon: AppIconType;
   /** Symbol point size. */
   size?: number;
   /** Symbol tint (defaults to the accent color). */
@@ -42,7 +43,7 @@ export function IconWell({
         style,
       ]}
     >
-      <SymbolView name={icon} size={size} tintColor={tint ?? colors.accent} />
+      <AppIcon icon={icon} size={size} tintColor={tint ?? colors.accent} />
     </View>
   );
 }

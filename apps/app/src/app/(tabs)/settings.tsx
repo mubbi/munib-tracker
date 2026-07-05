@@ -1,5 +1,5 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -75,6 +75,17 @@ export default function SettingsScreen() {
               onPress={() => router.push("/settings/time-format")}
             />
             <SettingsRow
+              icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
+              title={t("settings.defaultCalendar")}
+              subtitle={t("settings.defaultCalendarSub")}
+              value={
+                prefs.defaultCalendar === "hijri"
+                  ? t("defaultCalendar.optionHijri")
+                  : t("defaultCalendar.optionGregorian")
+              }
+              onPress={() => router.push("/settings/default-calendar")}
+            />
+            <SettingsRow
               icon={{ ios: "moon.zzz.fill", android: "bedtime", web: "bedtime" }}
               title={t("settings.bedtime")}
               subtitle={t("settings.bedtimeSub")}
@@ -86,6 +97,12 @@ export default function SettingsScreen() {
               title={t("settings.fonts")}
               subtitle={t("settings.fontsSub")}
               onPress={() => router.push("/settings/fonts")}
+            />
+            <SettingsRow
+              icon={{ ios: "square.grid.2x2.fill", android: "dashboard", web: "dashboard" }}
+              title={t("settings.homeCustomize")}
+              subtitle={t("settings.homeCustomizeSub")}
+              onPress={() => router.push("/settings/home")}
             />
             <SettingsRow
               icon={{
@@ -116,6 +133,38 @@ export default function SettingsScreen() {
 
         <Card padding="three">
           <View style={styles.group}>
+            <SettingsRow
+              icon={{
+                ios: "square.and.arrow.down",
+                android: "file_upload",
+                web: "file_upload",
+              }}
+              title={t("settings.import")}
+              subtitle={t("settings.importSub")}
+              onPress={() => router.push("/settings/import")}
+            />
+            <SettingsRow
+              icon={{
+                ios: "externaldrive.fill.badge.timemachine",
+                android: "backup",
+                web: "backup",
+              }}
+              title={t("settings.backup")}
+              subtitle={t("settings.backupSub")}
+              onPress={() => router.push("/settings/backup")}
+            />
+            <SettingsRow
+              icon={{ ios: "internaldrive.fill", android: "storage", web: "storage" }}
+              title={t("settings.offlineData")}
+              subtitle={t("settings.offlineDataSub")}
+              onPress={() => router.push("/settings/offline-data")}
+            />
+            <SettingsRow
+              icon={{ ios: "sparkles.tv.fill", android: "tour", web: "tour" }}
+              title={t("tour.navRow")}
+              subtitle={t("tour.navRowSub")}
+              onPress={() => router.push("/tour" as Href)}
+            />
             <SettingsRow
               icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
               title={t("settings.about")}

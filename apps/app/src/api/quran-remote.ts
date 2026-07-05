@@ -1,4 +1,4 @@
-import type { QuranEdition } from "@munib-tracker/shared/types";
+import type { QuranEdition, QuranEditionKind } from "@munib-tracker/shared/types";
 
 import { QuranCacheRepository } from "@/db";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
@@ -18,6 +18,8 @@ interface RemoteEditionDef {
   name: string;
   language: string;
   direction: "ltr" | "rtl";
+  /** Defaults to "translation"; set to "tafsir" for on-demand tafsir editions (NF-1.10). */
+  kind?: QuranEditionKind;
 }
 
 const REMOTE_DEFS: RemoteEditionDef[] = [
@@ -35,11 +37,20 @@ const REMOTE_DEFS: RemoteEditionDef[] = [
     language: "en",
     direction: "ltr",
   },
+  // On-demand tafsir (NF-1.10) — cache-first like translations. Arabic, RTL.
+  {
+    id: "ar-tafsir-muyassar",
+    fawaz: "ara-tafsirmuyassar",
+    name: "Tafsir al-Muyassar (Arabic)",
+    language: "ar",
+    direction: "rtl",
+    kind: "tafsir",
+  },
 ];
 
 export const REMOTE_EDITIONS: QuranEdition[] = REMOTE_DEFS.map((d) => ({
   id: d.id,
-  kind: "translation",
+  kind: d.kind ?? "translation",
   language: d.language,
   name: d.name,
   bundled: false,

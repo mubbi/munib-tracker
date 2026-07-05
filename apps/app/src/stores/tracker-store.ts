@@ -7,6 +7,7 @@ import {
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type {
   DailySummary,
+  ExcusedReason,
   PrayerId,
   PrayerStatus,
   QazaCounter,
@@ -65,6 +66,10 @@ export interface TrackerState {
   isReady: boolean;
   prayerStatus: Record<string, PrayerStatus>;
   prayerNotes: Record<string, string | undefined>;
+  /** Per-prayer congregation flag for the active day (NF-1.5). */
+  prayerJama: Record<string, boolean>;
+  /** The active day's excused reason (hayd / sick / travel), or null (NF-1.2/1.4). */
+  excusedReason: ExcusedReason | null;
   zikrCounts: Record<string, number>;
   qazaCounters: QazaCounter[];
   qazaSchedule: QazaSchedule;
@@ -83,15 +88,19 @@ export interface TrackerState {
     options?: SetPrayerStatusOptions,
   ) => Promise<void>;
   setPrayerNotes: (prayerId: PrayerId, notes: string) => Promise<void>;
+  setPrayerJama: (prayerId: PrayerId, isJama: boolean) => Promise<void>;
+  setDayExcused: (reason: ExcusedReason | null) => Promise<void>;
   setZikrCount: (zikrId: string, count: number, target: number) => Promise<void>;
   incrementZikr: (zikrId: string, target: number, by?: number) => Promise<void>;
   adjustQaza: (prayerId: QazaPrayer, remaining: number, completed: number) => Promise<void>;
   performQaza: (prayerId: QazaPrayer, by?: number) => Promise<void>;
+  undoQaza: (prayerId: QazaPrayer, by?: number) => Promise<void>;
   resetQazaCounter: (prayerId: QazaPrayer) => Promise<void>;
   resetAllQazaCounters: () => Promise<void>;
   setQazaSchedule: (schedule: QazaSchedule) => Promise<void>;
   setRoza: (roza: QazaRozaCounter) => Promise<void>;
   performRoza: (by?: number) => Promise<void>;
+  resetRoza: () => Promise<void>;
 }
 
 async function recompute(date: string): Promise<Partial<TrackerState>> {
@@ -107,10 +116,14 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
 
   const prayerStatus: Record<string, PrayerStatus> = {};
   const prayerNotes: Record<string, string | undefined> = {};
+  const prayerJama: Record<string, boolean> = {};
+  let excusedReason: ExcusedReason | null = null;
   for (const log of allLogs) {
     if (log.date !== date) continue;
     prayerStatus[log.prayerId] = log.status;
     if (log.notes) prayerNotes[log.prayerId] = log.notes;
+    if (log.isJama) prayerJama[log.prayerId] = true;
+    if (log.isExcused) excusedReason = log.excusedReason ?? "sick";
   }
 
   const zikrCounts: Record<string, number> = {};
@@ -148,6 +161,8 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
   return {
     prayerStatus,
     prayerNotes,
+    prayerJama,
+    excusedReason,
     zikrCounts,
     qazaCounters: counters,
     qazaSchedule: schedule,
@@ -177,6 +192,8 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     isReady: false,
     prayerStatus: {},
     prayerNotes: {},
+    prayerJama: {},
+    excusedReason: null,
     zikrCounts: {},
     qazaCounters: [],
     qazaSchedule: { targets: {} },
@@ -231,6 +248,31 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       });
     },
 
+    setPrayerJama(prayerId, isJama) {
+      return enqueue(async () => {
+        const { date, prayerJama } = get();
+        set({ prayerJama: { ...prayerJama, [prayerId]: isJama } });
+        await PrayerRepository.setFlags(prayerId, date, { isJama });
+        await get().refresh();
+      });
+    },
+
+    setDayExcused(reason) {
+      return enqueue(async () => {
+        const { date } = get();
+        // A day-level excuse flags all five fard prayers so streak + qaza logic
+        // (which key off the logs) treat the whole day as excused.
+        const isExcused = reason != null;
+        for (const prayerId of OBLIGATORY_PRAYERS) {
+          await PrayerRepository.setFlags(prayerId, date, {
+            isExcused,
+            excusedReason: reason ?? undefined,
+          });
+        }
+        await get().refresh();
+      });
+    },
+
     setZikrCount(zikrId, count, target) {
       return enqueue(async () => {
         const { date, zikrCounts } = get();
@@ -260,6 +302,13 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     performQaza(prayerId, by = 1) {
       return enqueue(async () => {
         await QazaRepository.performQaza(prayerId, by);
+        await get().refresh();
+      });
+    },
+
+    undoQaza(prayerId, by = 1) {
+      return enqueue(async () => {
+        await QazaRepository.undoQaza(prayerId, by);
         await get().refresh();
       });
     },
@@ -295,6 +344,13 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
     performRoza(by = 1) {
       return enqueue(async () => {
         await QazaRepository.performRoza(by);
+        await get().refresh();
+      });
+    },
+
+    resetRoza() {
+      return enqueue(async () => {
+        await QazaRepository.resetRoza();
         await get().refresh();
       });
     },
@@ -360,6 +416,18 @@ export function useZikrCount(zikrId: string): number {
   return useStore(trackerStore, (s) => s.zikrCounts[zikrId] ?? 0);
 }
 
+export function usePrayerJama(prayerId: PrayerId): boolean {
+  return useStore(trackerStore, (s) => s.prayerJama[prayerId] ?? false);
+}
+
+export function usePrayerJamaMap(): Record<string, boolean> {
+  return useStore(trackerStore, (s) => s.prayerJama);
+}
+
+export function useDayExcused(): ExcusedReason | null {
+  return useStore(trackerStore, (s) => s.excusedReason);
+}
+
 // Actions are defined once and never change reference, so expose them as a
 // stable singleton — components don't need to subscribe to the store for these.
 const trackerActions = {
@@ -370,6 +438,10 @@ const trackerActions = {
     trackerStore.getState().setPrayerStatus(...args),
   setPrayerNotes: (...args: Parameters<TrackerState["setPrayerNotes"]>) =>
     trackerStore.getState().setPrayerNotes(...args),
+  setPrayerJama: (...args: Parameters<TrackerState["setPrayerJama"]>) =>
+    trackerStore.getState().setPrayerJama(...args),
+  setDayExcused: (...args: Parameters<TrackerState["setDayExcused"]>) =>
+    trackerStore.getState().setDayExcused(...args),
   setZikrCount: (...args: Parameters<TrackerState["setZikrCount"]>) =>
     trackerStore.getState().setZikrCount(...args),
   incrementZikr: (...args: Parameters<TrackerState["incrementZikr"]>) =>
@@ -378,6 +450,8 @@ const trackerActions = {
     trackerStore.getState().adjustQaza(...args),
   performQaza: (...args: Parameters<TrackerState["performQaza"]>) =>
     trackerStore.getState().performQaza(...args),
+  undoQaza: (...args: Parameters<TrackerState["undoQaza"]>) =>
+    trackerStore.getState().undoQaza(...args),
   setQazaSchedule: (...args: Parameters<TrackerState["setQazaSchedule"]>) =>
     trackerStore.getState().setQazaSchedule(...args),
   resetQazaCounter: (...args: Parameters<TrackerState["resetQazaCounter"]>) =>
@@ -388,6 +462,8 @@ const trackerActions = {
     trackerStore.getState().setRoza(...args),
   performRoza: (...args: Parameters<TrackerState["performRoza"]>) =>
     trackerStore.getState().performRoza(...args),
+  resetRoza: (...args: Parameters<TrackerState["resetRoza"]>) =>
+    trackerStore.getState().resetRoza(...args),
 } as const;
 
 export function useTrackerActions() {

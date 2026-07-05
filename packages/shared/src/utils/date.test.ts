@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { addDays, diffInDays, getLocalDateString, parseLocalDateString } from "./date";
+import {
+  addDays,
+  diffInDays,
+  formatShortDate,
+  getLocalDateString,
+  parseLocalDateString,
+} from "./date";
 
 describe.concurrent("date utils", () => {
   it("formats a local date as YYYY-MM-DD", () => {
@@ -38,5 +44,9 @@ describe.concurrent("date utils", () => {
     expect(() => parseLocalDateString("2026-02-30")).toThrow();
     expect(() => parseLocalDateString("2026-00-10")).toThrow();
     expect(() => parseLocalDateString("2026-07-32")).toThrow();
+  });
+
+  it("includes the year in formatShortDate", () => {
+    expect(formatShortDate("2046-03-05")).toContain("2046");
   });
 });

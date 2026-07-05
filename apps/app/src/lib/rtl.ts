@@ -37,3 +37,8 @@ export const chevronBack: IconName = rtl
 export const arrowForward: IconName = rtl
   ? { ios: "arrow.left", android: "arrow_back", web: "arrow_back" }
   : { ios: "arrow.right", android: "arrow_forward", web: "arrow_forward" };
+
+/** True when the string contains Arabic script (U+0600–U+06FF). */
+export function containsArabicScript(text: string): boolean {
+  return /[\u0600-\u06FF]/.test(text);
+}

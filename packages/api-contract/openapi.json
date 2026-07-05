@@ -348,7 +348,14 @@
               "zikr_progress",
               "qaza_entries",
               "preferences",
-              "favorites"
+              "favorites",
+              "dua_favorites",
+              "durood_favorites",
+              "name_favorites",
+              "quran_bookmarks",
+              "quran_last_read",
+              "hadith_bookmarks",
+              "custom_tasbeeh"
             ]
           },
           "id": {

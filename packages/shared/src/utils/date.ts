@@ -50,12 +50,13 @@ export function diffInDays(a: string, b: string): number {
   return Math.round((da - db) / msPerDay);
 }
 
-/** Formats a YYYY-MM-DD string as e.g. "Mon, Jul 3". */
+/** Formats a YYYY-MM-DD string as e.g. "Mon, Jul 3, 2026". */
 export function formatShortDate(dateString: string): string {
   const date = parseLocalDateString(dateString);
   return date.toLocaleDateString(undefined, {
     weekday: "short",
     month: "short",
     day: "numeric",
+    year: "numeric",
   });
 }

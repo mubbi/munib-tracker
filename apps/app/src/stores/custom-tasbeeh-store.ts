@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { createId } from "@/db/id";
 import { DB_KEYS } from "@/db/keys";
-import { KeyedCollection } from "@/db/store";
+import { KeyedCollection, readJSON, writeJSON } from "@/db/store";
 
 import { createStore, useStore } from "./create-store";
 
@@ -27,6 +27,42 @@ const collection = new KeyedCollection<CustomTasbeeh>(DB_KEYS.customTasbeeh);
 
 function sortItems(items: CustomTasbeeh[]): CustomTasbeeh[] {
   return [...items].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+}
+
+/** Bumps the blob-level watermark used for last-write-wins over the whole list. */
+async function touchCustomTasbeeh(): Promise<void> {
+  await writeJSON(DB_KEYS.customTasbeehUpdatedAt, nowIso());
+}
+
+/** The custom-tasbeeh payload the sync engine pushes as a single blob record. */
+export interface CustomTasbeehBlob {
+  items: CustomTasbeeh[];
+  updatedAt?: string;
+}
+
+/** Reads the persisted blob directly (used by the sync snapshot builder). */
+export async function readCustomTasbeehBlob(): Promise<CustomTasbeehBlob> {
+  const [items, updatedAt] = await Promise.all([
+    collection.getAll(),
+    readJSON<string | undefined>(DB_KEYS.customTasbeehUpdatedAt, undefined),
+  ]);
+  return { items, updatedAt };
+}
+
+/** Replaces the whole custom-tasbeeh list with a pulled one, newest-wins on the blob. */
+export async function applyRemoteCustomTasbeeh(
+  items: CustomTasbeeh[],
+  updatedAt?: string,
+): Promise<void> {
+  const local = await readJSON<string | undefined>(DB_KEYS.customTasbeehUpdatedAt, undefined);
+  if (local && updatedAt && local >= updatedAt) return;
+  const map: Record<string, CustomTasbeeh> = {};
+  for (const item of items) map[item.id] = item;
+  await writeJSON(DB_KEYS.customTasbeeh, map);
+  if (updatedAt) await writeJSON(DB_KEYS.customTasbeehUpdatedAt, updatedAt);
+  if (customTasbeehStore.getState().isReady) {
+    customTasbeehStore.setState({ items: sortItems(items) });
+  }
 }
 
 function clampCount(count: number, target: number): number {
@@ -69,6 +105,7 @@ export const customTasbeehStore = createStore<CustomTasbeehState>((set, get) => 
       updatedAt: timestamp,
     };
     await collection.upsert(item.id, item);
+    await touchCustomTasbeeh();
     const items = sortItems([item, ...get().items]);
     set({ items });
     return item;
@@ -89,11 +126,13 @@ export const customTasbeehStore = createStore<CustomTasbeehState>((set, get) => 
       updatedAt: nowIso(),
     };
     await collection.upsert(id, next);
+    await touchCustomTasbeeh();
     set({ items: sortItems(get().items.map((item) => (item.id === id ? next : item))) });
   },
 
   async remove(id) {
     await collection.remove(id);
+    await touchCustomTasbeeh();
     set({ items: get().items.filter((item) => item.id !== id) });
   },
 
@@ -107,6 +146,7 @@ export const customTasbeehStore = createStore<CustomTasbeehState>((set, get) => 
       updatedAt: nowIso(),
     };
     await collection.upsert(id, next);
+    await touchCustomTasbeeh();
     set({ items: sortItems(get().items.map((item) => (item.id === id ? next : item))) });
   },
 }));

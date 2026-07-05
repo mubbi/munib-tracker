@@ -1,15 +1,20 @@
+import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { REMOTE_COLLECTIONS } from "@/api/hadith-remote";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { NavRow } from "@/components/ui/nav-row";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { dailyHadith } from "@/lib/daily-hadith";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 
@@ -21,9 +26,11 @@ const HADITH_ITEMS = getBundledCollections().map((collection) => ({
 export default function HadithHomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { tokens } = useThemeTokens();
 
   const bundled = getBundledCollections();
   const remote = REMOTE_COLLECTIONS;
+  const today = dailyHadith(getLocalDateString());
 
   const open = (id: string) =>
     router.push({ pathname: "/hadith/[collection]", params: { collection: id } });
@@ -56,6 +63,36 @@ export default function HadithHomeScreen() {
         ]}
       />
       <Stagger>
+        {today ? (
+          <Card
+            padding="three"
+            onPress={() => router.push("/hadith/daily")}
+            accessibilityLabel={t("dailyHadith.title")}
+            style={{
+              backgroundColor: tokens.status.info.soft,
+              borderColor: tokens.status.info.color,
+              borderWidth: StyleSheet.hairlineWidth,
+            }}
+          >
+            <View style={styles.dailyHead}>
+              <SymbolView
+                name={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
+                size={16}
+                tintColor={tokens.status.info.color}
+              />
+              <ThemedText type="smallBold" style={{ color: tokens.status.info.text }}>
+                {t("dailyHadith.cardTitle")}
+              </ThemedText>
+            </View>
+            <ThemedText type="default" numberOfLines={3} style={styles.dailyBody}>
+              {today.english}
+            </ThemedText>
+            <ThemedText type="caption" style={{ color: tokens.status.info.text }}>
+              {today.reference} · {t("dailyHadith.seeArchive")}
+            </ThemedText>
+          </Card>
+        ) : null}
+
         <Card padding="three">
           <SectionHeader
             title={t("hadith.highlights")}
@@ -111,4 +148,11 @@ export default function HadithHomeScreen() {
 
 const styles = StyleSheet.create({
   list: { gap: Spacing.two, marginTop: Spacing.three },
+  dailyHead: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    marginBottom: Spacing.two,
+  },
+  dailyBody: { marginBottom: Spacing.two },
 });

@@ -13,6 +13,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
+import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { useQuranActions, useQuranBookmarks } from "@/stores/quran-store";
 
 const FALLBACK_TRANSLATION = "en-pickthall";
@@ -65,7 +66,7 @@ export default function QuranBookmarksScreen() {
                       onPress={() =>
                         router.push({
                           pathname: "/quran/[surah]",
-                          params: { surah: String(bm.surah) },
+                          params: { surah: String(bm.surah), ayah: String(bm.ayah) },
                         })
                       }
                       style={styles.rowContent}
@@ -80,10 +81,10 @@ export default function QuranBookmarksScreen() {
                           {surah?.nameTransliteration}
                         </ThemedText>
                         <ThemedText
-                          type="caption"
+                          type="arabic"
                           themeColor="mutedForeground"
                           numberOfLines={1}
-                          style={styles.arabic}
+                          style={compactArabicTextStyle}
                         >
                           {arabic}
                         </ThemedText>
@@ -142,5 +143,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   body: { flex: 1, gap: 2 },
-  arabic: { writingDirection: "rtl", textAlign: "right" },
 });

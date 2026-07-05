@@ -18,6 +18,17 @@ const log: PrayerLog = {
   source: "manual",
 };
 
+/** Empty defaults for the blob entities so each test can focus on what it seeds. */
+const blobFields = {
+  duaFavorites: { order: [] },
+  duroodFavorites: { order: [] },
+  nameFavorites: { order: [] },
+  quranBookmarks: [],
+  quranLastRead: null,
+  hadithBookmarks: [],
+  customTasbeeh: { items: [] },
+} as const;
+
 describe("buildSyncRecords", () => {
   const records = buildSyncRecords({
     nowIso: "2026-07-03T12:00:00.000Z",
@@ -29,12 +40,25 @@ describe("buildSyncRecords", () => {
     roza: { remaining: 2, completed: 0 },
     preferences: prefs,
     tombstones: [],
+    ...blobFields,
   });
 
   it("emits one record per entity type", () => {
     const entities = new Set(records.map((r) => r.entity));
     expect(entities).toEqual(
-      new Set(["prayer_logs", "zikr_progress", "qaza_entries", "preferences", "favorites"]),
+      new Set([
+        "prayer_logs",
+        "zikr_progress",
+        "qaza_entries",
+        "preferences",
+        "favorites",
+        "dua_favorites",
+        "durood_favorites",
+        "name_favorites",
+        "quran_bookmarks",
+        "hadith_bookmarks",
+        "custom_tasbeeh",
+      ]),
     );
   });
 
@@ -70,6 +94,7 @@ describe("buildSyncRecords", () => {
       tombstones: [
         { entity: "prayer_logs", id: "fajr::2026-07-01", deletedAt: "2026-07-03T09:00:00.000Z" },
       ],
+      ...blobFields,
     });
     const deletion = withTombstone.find((r) => r.deletedAt);
     expect(deletion?.entity).toBe("prayer_logs");

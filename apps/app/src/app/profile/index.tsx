@@ -1,9 +1,9 @@
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, TextInput, View } from "react-native";
+import { ActivityIndicator, Image, StyleSheet, TextInput, View } from "react-native";
 
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ConfirmDialog } from "@/components/confirm-dialog";
@@ -14,11 +14,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { resetDatabase } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { formatRelativeWhen } from "@/lib/relative-time";
 import { useAuth } from "@/providers/auth-provider";
+import { useToast } from "@/providers/toast-provider";
 import { continueStore } from "@/stores/continue-store";
 import { duaFavoritesStore } from "@/stores/dua-favorites-store";
 import { locationStore } from "@/stores/location-store";
@@ -29,12 +32,22 @@ import {
 } from "@/stores/preferences-store";
 import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
+import { readSyncMetadata, type SyncMetadata } from "@/sync/sync-engine";
+
+/** Turns a raw sync entity id ("dua_favorites") into a readable label ("Dua Favorites"). */
+function friendlyEntity(entity: string): string {
+  return entity
+    .split("_")
+    .map((word) => (word ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+    .join(" ");
+}
 
 export default function ProfileScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { user, isAuthenticated, signOut } = useAuth();
+  const { user, isAuthenticated, signOut, syncNow } = useAuth();
+  const toast = useToast();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
 
@@ -45,6 +58,29 @@ export default function ProfileScreen() {
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(displayName);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [syncMeta, setSyncMeta] = useState<SyncMetadata | null>(null);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const locale = i18n.language?.split("-")[0];
+
+  const refreshSyncMeta = useCallback(async () => {
+    setSyncMeta(await readSyncMetadata());
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) void refreshSyncMeta();
+  }, [isAuthenticated, refreshSyncMeta]);
+
+  const onSyncNow = async () => {
+    setIsSyncing(true);
+    const outcome = await syncNow();
+    if (outcome === "ok") {
+      toast.success(t("sync.done"));
+      await refreshSyncMeta();
+    } else if (outcome === "error") {
+      toast.error(t("sync.failed"));
+    }
+    setIsSyncing(false);
+  };
 
   const pickAvatar = async () => {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -172,6 +208,79 @@ export default function ProfileScreen() {
           </Card>
         ) : null}
 
+        {isAuthenticated ? (
+          <Card padding="three">
+            <SectionHeader
+              title={t("sync.title")}
+              icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
+            />
+            <View style={styles.syncStatus}>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("sync.lastSynced")}
+              </ThemedText>
+              <ThemedText type="small">
+                {syncMeta?.lastSyncedAt
+                  ? formatRelativeWhen(syncMeta.lastSyncedAt, locale, t, prefs.defaultCalendar)
+                  : t("sync.never")}
+              </ThemedText>
+            </View>
+
+            {syncMeta?.lastOutcomeAt ? (
+              <View style={[styles.mergeBox, { backgroundColor: colors.muted }]}>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {(syncMeta.lastPulled ?? 0) === 0 && (syncMeta.lastPushed ?? 0) === 0
+                    ? t("sync.mergeNoChanges")
+                    : t("sync.mergeSummary", {
+                        received: syncMeta.lastPulled ?? 0,
+                        sent: syncMeta.lastPushed ?? 0,
+                      })}
+                </ThemedText>
+                {(syncMeta.lastConflicts ?? 0) > 0 ? (
+                  <View style={styles.conflictRow}>
+                    <SymbolView
+                      name={{
+                        ios: "arrow.triangle.merge",
+                        android: "merge_type",
+                        web: "merge_type",
+                      }}
+                      size={13}
+                      tintColor={tokens.status.warning.color}
+                    />
+                    <ThemedText
+                      type="caption"
+                      style={{ color: tokens.status.warning.text, flex: 1 }}
+                    >
+                      {t("sync.conflictsResolved", { count: syncMeta.lastConflicts ?? 0 })}
+                    </ThemedText>
+                  </View>
+                ) : null}
+                {syncMeta.lastConflictEntities && syncMeta.lastConflictEntities.length > 0 ? (
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("sync.conflictAffected", {
+                      list: syncMeta.lastConflictEntities.map(friendlyEntity).join(", "),
+                    })}
+                  </ThemedText>
+                ) : null}
+              </View>
+            ) : null}
+
+            <Button
+              label={isSyncing ? t("sync.syncing") : t("sync.now")}
+              icon={{ ios: "arrow.triangle.2.circlepath", android: "sync", web: "sync" }}
+              variant="secondary"
+              fullWidth
+              disabled={isSyncing}
+              onPress={() => void onSyncNow()}
+              style={styles.syncButton}
+            />
+            {isSyncing ? (
+              <View style={styles.syncSpinner}>
+                <ActivityIndicator size="small" color={colors.accent} />
+              </View>
+            ) : null}
+          </Card>
+        ) : null}
+
         <Card padding="three">
           <View style={styles.actions}>
             {isAuthenticated ? (
@@ -264,5 +373,28 @@ const styles = StyleSheet.create({
   },
   signIn: {
     gap: Spacing.three,
+  },
+  syncStatus: {
+    marginTop: Spacing.three,
+    gap: 2,
+  },
+  mergeBox: {
+    marginTop: Spacing.three,
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    gap: Spacing.one,
+  },
+  conflictRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  syncButton: {
+    marginTop: Spacing.three,
+  },
+  syncSpinner: {
+    marginTop: Spacing.two,
+    alignItems: "center",
   },
 });

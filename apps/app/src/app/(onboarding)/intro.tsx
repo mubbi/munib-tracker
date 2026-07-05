@@ -403,7 +403,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Brand.heroText,
     fontSize: 22,
-    lineHeight: 40,
   },
   duaTranslit: {
     textAlign: "center",

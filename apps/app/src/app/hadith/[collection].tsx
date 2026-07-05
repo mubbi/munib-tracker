@@ -25,6 +25,7 @@ import {
   getBundledCollectionData,
   getBundledCollections,
 } from "@/lib/hadith";
+import { arabicReadingLayout } from "@/lib/reading-typography";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
@@ -405,10 +406,7 @@ function HadithCard({
         <>
           <ThemedText
             type="arabic"
-            style={[
-              styles.arabic,
-              arabicSize ? { fontSize: arabicSize, lineHeight: arabicSize * 1.8 } : null,
-            ]}
+            style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
           >
             {item.arabic}
           </ThemedText>
@@ -479,7 +477,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.one,
   },
-  arabic: { writingDirection: "rtl", textAlign: "right" },
+  arabic: {},
   divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.four },
   narrator: { fontStyle: "italic" },
   english: { marginTop: Spacing.three, lineHeight: 26 },

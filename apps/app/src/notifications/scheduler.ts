@@ -5,6 +5,7 @@ import { Platform } from "react-native";
 import i18n from "@/i18n";
 import type { StoredLocation } from "@/lib/location";
 import {
+  ADHAN_NOTIFICATION_SOUND,
   type BuiltReminder,
   buildReminders,
   type ScheduledReminderRow,
@@ -28,9 +29,9 @@ function enqueueReschedule(task: () => Promise<void>): Promise<void> {
   return run;
 }
 
-type ChannelId = "prayer" | "zikr" | "qaza";
+type ChannelId = "prayer" | "prayerAdhan" | "zikr" | "qaza";
 
-const CHANNEL_IDS: ChannelId[] = ["prayer", "zikr", "qaza"];
+const CHANNEL_IDS: ChannelId[] = ["prayer", "prayerAdhan", "zikr", "qaza"];
 
 /** Category + action wiring so reminders can be snoozed from the notification. */
 const REMINDER_CATEGORY = "reminder";
@@ -57,9 +58,16 @@ export async function configureNotifications(): Promise<void> {
   ]);
   if (Platform.OS === "android") {
     for (const id of CHANNEL_IDS) {
+      // The adhan channel carries the custom call-to-prayer sound (Android plays
+      // channel-level sounds) at HIGH importance so it isn't silenced; the rest
+      // keep the default notification tone.
+      const isAdhan = id === "prayerAdhan";
       await Notifications.setNotificationChannelAsync(id, {
         name: i18n.t(`notif.channels.${id}`),
-        importance: Notifications.AndroidImportance.DEFAULT,
+        importance: isAdhan
+          ? Notifications.AndroidImportance.HIGH
+          : Notifications.AndroidImportance.DEFAULT,
+        ...(isAdhan ? { sound: ADHAN_NOTIFICATION_SOUND } : {}),
       });
     }
   }
@@ -81,6 +89,8 @@ async function scheduleReminder(reminder: BuiltReminder): Promise<void> {
     title: reminder.title,
     body: reminder.body,
     categoryIdentifier: REMINDER_CATEGORY,
+    // iOS plays the per-notification sound; Android takes it from the channel.
+    ...(reminder.sound ? { sound: reminder.sound } : {}),
     data: { channelId: reminder.channelId, reminderId: reminder.id, route: reminder.route },
   };
 

@@ -9,10 +9,19 @@ type SectionHeaderProps = {
   title: string;
   icon?: SymbolViewProps["name"];
   actionLabel?: string;
+  actionIcon?: SymbolViewProps["name"];
+  actionAccessibilityLabel?: string;
   onActionPress?: () => void;
 };
 
-export function SectionHeader({ title, icon, actionLabel, onActionPress }: SectionHeaderProps) {
+export function SectionHeader({
+  title,
+  icon,
+  actionLabel,
+  actionIcon,
+  actionAccessibilityLabel,
+  onActionPress,
+}: SectionHeaderProps) {
   const { colors, tokens } = useThemeTokens();
 
   return (
@@ -31,13 +40,19 @@ export function SectionHeader({ title, icon, actionLabel, onActionPress }: Secti
       {actionLabel ? (
         <Pressable
           accessibilityRole="button"
+          accessibilityLabel={actionAccessibilityLabel ?? actionLabel}
           onPress={onActionPress}
           hitSlop={8}
           style={({ pressed }) => [styles.action, pressed && styles.pressed]}
         >
-          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-            {actionLabel}
-          </ThemedText>
+          <View style={styles.actionRow}>
+            {actionIcon ? (
+              <SymbolView name={actionIcon} size={14} tintColor={colors.accentText} />
+            ) : null}
+            <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+              {actionLabel}
+            </ThemedText>
+          </View>
         </Pressable>
       ) : null}
     </View>
@@ -67,6 +82,11 @@ const styles = StyleSheet.create({
   action: {
     minHeight: 44,
     justifyContent: "center",
+  },
+  actionRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
   },
   pressed: {
     opacity: 0.6,

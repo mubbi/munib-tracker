@@ -6,7 +6,12 @@ import {
   resolvePlaceFromCoordinates,
   type StoredLocation,
 } from "@/lib/location";
-import type { CalculationMethodKey, MadhabKey } from "@/lib/prayer-times";
+import type {
+  CalculationMethodKey,
+  HighLatitudeRuleKey,
+  MadhabKey,
+  PrayerSlotId,
+} from "@/lib/prayer-times";
 
 import { createStore, useStore } from "./create-store";
 
@@ -33,6 +38,10 @@ export interface LocationState {
   setManualLocation: (place: LocationSearchResult) => Promise<void>;
   setMethod: (method: CalculationMethodKey) => Promise<void>;
   setMadhab: (madhab: MadhabKey) => Promise<void>;
+  /** High-latitude twilight rule override (NF-2.21). */
+  setHighLatitudeRule: (rule: HighLatitudeRuleKey) => Promise<void>;
+  /** Per-prayer manual minute offset (NF-2.20); 0 clears the offset. */
+  setPrayerAdjustment: (prayerId: PrayerSlotId, minutes: number) => Promise<void>;
 }
 
 export const locationStore = createStore<LocationState>((set, get) => ({
@@ -109,6 +118,20 @@ export const locationStore = createStore<LocationState>((set, get) => ({
     const location = await LocationRepository.update({ madhab });
     set({ location });
   },
+
+  async setHighLatitudeRule(rule) {
+    const location = await LocationRepository.update({ highLatitudeRule: rule });
+    set({ location });
+  },
+
+  async setPrayerAdjustment(prayerId, minutes) {
+    const current = get().location.prayerAdjustments ?? {};
+    const next = { ...current };
+    if (minutes === 0) delete next[prayerId];
+    else next[prayerId] = minutes;
+    const location = await LocationRepository.update({ prayerAdjustments: next });
+    set({ location });
+  },
 }));
 
 export function useLocation(): StoredLocation {
@@ -131,6 +154,10 @@ const locationActions = {
     locationStore.getState().setMethod(...args),
   setMadhab: (...args: Parameters<LocationState["setMadhab"]>) =>
     locationStore.getState().setMadhab(...args),
+  setHighLatitudeRule: (...args: Parameters<LocationState["setHighLatitudeRule"]>) =>
+    locationStore.getState().setHighLatitudeRule(...args),
+  setPrayerAdjustment: (...args: Parameters<LocationState["setPrayerAdjustment"]>) =>
+    locationStore.getState().setPrayerAdjustment(...args),
 } as const;
 
 export function useLocationActions() {

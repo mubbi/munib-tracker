@@ -4,7 +4,7 @@ import { getBundledCollectionData } from "@/lib/hadith";
 
 import { createId } from "../id";
 import { DB_KEYS } from "../keys";
-import { KeyedCollection, readJSON, removeKey, updateJSON } from "../store";
+import { KeyedCollection, readJSON, removeKey, updateJSON, writeJSON } from "../store";
 
 /** A saved hadith resolved back to its full content for display. */
 export interface BookmarkedHadith {
@@ -79,6 +79,7 @@ export const HadithRepository = {
     const existing = await bookmarks.get(item.id);
     if (existing) {
       await bookmarks.remove(item.id);
+      await this.touchBookmarks();
       return false;
     }
     await bookmarks.upsert(item.id, {
@@ -88,7 +89,28 @@ export const HadithRepository = {
       number: item.number,
       createdAt: new Date().toISOString(),
     });
+    await this.touchBookmarks();
     return true;
+  },
+
+  // ── Bookmark sync (blob last-write-wins) ───────────────
+  /** Stamps the blob-level watermark used for last-write-wins over the set. */
+  async touchBookmarks(): Promise<void> {
+    await writeJSON(DB_KEYS.hadithBookmarksUpdatedAt, new Date().toISOString());
+  },
+
+  async getBookmarksUpdatedAt(): Promise<string | undefined> {
+    return readJSON<string | undefined>(DB_KEYS.hadithBookmarksUpdatedAt, undefined);
+  },
+
+  /** Replaces the whole bookmark set with a pulled one, newest-wins on the blob. */
+  async applyRemoteBookmarks(incoming: HadithBookmark[], updatedAt?: string): Promise<void> {
+    const local = await this.getBookmarksUpdatedAt();
+    if (local && updatedAt && local >= updatedAt) return;
+    const map: Record<string, HadithBookmark> = {};
+    for (const bm of incoming) map[bm.hadithId] = bm;
+    await writeJSON(DB_KEYS.hadithBookmarks, map);
+    if (updatedAt) await writeJSON(DB_KEYS.hadithBookmarksUpdatedAt, updatedAt);
   },
 
   // ── Offline cache of fetched books (D6) ────────────────
@@ -116,10 +138,21 @@ export const HadithRepository = {
     }
   },
 
+  /** Clears only the offline collection cache (keeps bookmarks) — for NF-1.14. */
+  async clearBookCache(): Promise<void> {
+    bookMemory.clear();
+    bookStorageLoaded = false;
+    await removeKey(DB_KEYS.hadithBookCache);
+  },
+
   async clear(): Promise<void> {
     bookMemory.clear();
     bookStorageLoaded = false;
-    await Promise.all([bookmarks.clear(), removeKey(DB_KEYS.hadithBookCache)]);
+    await Promise.all([
+      bookmarks.clear(),
+      removeKey(DB_KEYS.hadithBookmarksUpdatedAt),
+      removeKey(DB_KEYS.hadithBookCache),
+    ]);
   },
 };
 

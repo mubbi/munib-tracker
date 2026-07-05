@@ -16,6 +16,13 @@ export const SYNC_ENTITIES = [
   "qaza_entries",
   "preferences",
   "favorites",
+  "dua_favorites",
+  "durood_favorites",
+  "name_favorites",
+  "quran_bookmarks",
+  "quran_last_read",
+  "hadith_bookmarks",
+  "custom_tasbeeh",
 ] as const;
 
 export type SyncEntity = (typeof SYNC_ENTITIES)[number];

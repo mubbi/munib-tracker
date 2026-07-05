@@ -1,15 +1,23 @@
 import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
+import { Fonts, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  ARABIC_FONT_OPTIONS,
+  arabicReadingLayout,
+  DEFAULT_ARABIC_FONT_ID,
+  resolveArabicLineHeight,
+} from "@/lib/reading-typography";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 const ARABIC_SIZES = [
@@ -39,17 +47,23 @@ function idForSize(
 export default function FontsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
   const sizeLabel = (id: SizeId) => t(`fonts.${SIZE_LABEL_KEY[id]}`);
 
   const arabicSize = prefs.fontPrefs.arabic.size ?? 28;
   const translationSize = prefs.fontPrefs.translation.size ?? 16;
+  const arabicFamily = prefs.fontPrefs.arabic.family ?? DEFAULT_ARABIC_FONT_ID;
 
   const setArabic = (id: SizeId) => {
     const size = ARABIC_SIZES.find((s) => s.id === id)?.size ?? 28;
     void update({ fontPrefs: { ...prefs.fontPrefs, arabic: { ...prefs.fontPrefs.arabic, size } } });
+  };
+  const setArabicFamily = (family: string) => {
+    void update({
+      fontPrefs: { ...prefs.fontPrefs, arabic: { ...prefs.fontPrefs.arabic, family } },
+    });
   };
   const setTranslation = (id: SizeId) => {
     const size = TEXT_SIZES.find((s) => s.id === id)?.size ?? 16;
@@ -71,14 +85,67 @@ export default function FontsScreen() {
           <ThemedText type="label" themeColor="mutedForeground">
             {t("fonts.preview")}
           </ThemedText>
-          <ThemedText
-            type="arabic"
-            style={[styles.arabic, { fontSize: arabicSize, lineHeight: arabicSize * 1.8 }]}
-          >
+          <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
             سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
           </ThemedText>
           <ThemedText style={{ fontSize: translationSize, lineHeight: translationSize * 1.5 }}>
             {t("fonts.sampleTranslation")}
+          </ThemedText>
+        </Card>
+
+        <Card padding="three">
+          <ThemedText type="smallBold" style={styles.label}>
+            {t("fonts.arabicFamilyTitle")}
+          </ThemedText>
+          <View style={styles.familyList}>
+            {ARABIC_FONT_OPTIONS.map((option) => {
+              const selected = option.id === arabicFamily;
+              return (
+                <PressableScale
+                  key={option.id}
+                  haptic="selection"
+                  accessibilityRole="button"
+                  accessibilityState={{ selected }}
+                  accessibilityLabel={t(option.labelKey)}
+                  onPress={() => setArabicFamily(option.id)}
+                  style={[
+                    styles.familyRow,
+                    { backgroundColor: selected ? tokens.accentSoft : colors.muted },
+                  ]}
+                >
+                  <View style={styles.familyBody}>
+                    <ThemedText type="small">{t(option.labelKey)}</ThemedText>
+                    <ThemedText
+                      style={[
+                        styles.familySample,
+                        arabicReadingLayout(20),
+                        {
+                          fontFamily: option.fontFamily ?? Fonts.serif,
+                          lineHeight: resolveArabicLineHeight(20, option.id),
+                        },
+                      ]}
+                      numberOfLines={1}
+                    >
+                      بِسْمِ اللَّهِ
+                    </ThemedText>
+                  </View>
+                  {selected ? (
+                    <SymbolView
+                      name={{
+                        ios: "checkmark.circle.fill",
+                        android: "check_circle",
+                        web: "check_circle",
+                      }}
+                      size={20}
+                      tintColor={colors.accent}
+                    />
+                  ) : null}
+                </PressableScale>
+              );
+            })}
+          </View>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.familyHint}>
+            {t("fonts.arabicFamilyHint")}
           </ThemedText>
         </Card>
 
@@ -127,4 +194,16 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: Spacing.three,
   },
+  familyList: { gap: Spacing.two },
+  familyRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  familyBody: { flex: 1, gap: 2 },
+  familySample: { writingDirection: "rtl", textAlign: "right" },
+  familyHint: { marginTop: Spacing.three },
 });

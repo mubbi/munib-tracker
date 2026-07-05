@@ -6,6 +6,9 @@ export type AppLocale = "en" | "ar" | "ur";
 /** Clock display format for prayer times, reminders, and schedules. */
 export type TimeFormat = "12" | "24";
 
+/** Calendar system used for on-screen dates and calendar pickers. */
+export type CalendarMode = "gregorian" | "hijri";
+
 export interface NotificationPreferences {
   masterEnabled: boolean;
   prayer: boolean;
@@ -19,11 +22,32 @@ export interface NotificationPreferences {
   beforeSleep: boolean;
   afterAzan: boolean;
   achievements: boolean;
+  /**
+   * Play the adhan as the notification sound at each obligatory prayer time
+   * (native only — custom notification sounds require a dev/EAS build and do not
+   * work in Expo Go or on the web).
+   */
+  playAdhanOnPrayer: boolean;
+  /** A daily reflection nudge (verse / hadith of the day) — NF-1.24. */
+  dailyContent: boolean;
+  /** Friday reminder for Jumu'ah + Surah Al-Kahf — NF-1.25. */
+  friday: boolean;
 }
 
 export interface FontScopePrefs {
   family?: string;
   size?: number;
+}
+
+/** Reading surfaces that can carry an in-context font-size delta on top of the global sizes. */
+export type ReadingSurface = "quran" | "hadith" | "dua_zikr";
+
+/** A per-surface size adjustment applied on top of the global font sizes. */
+export interface ReadingSizeOverride {
+  /** Points added to the resolved Arabic size (clamped by the resolver). */
+  arabicDelta?: number;
+  /** Points added to the resolved transliteration + translation size. */
+  textDelta?: number;
 }
 
 export interface FontPreferences {
@@ -33,6 +57,8 @@ export interface FontPreferences {
   transliteration: FontScopePrefs;
   titles: FontScopePrefs;
   color?: string;
+  /** In-context A−/A+ deltas per reading surface, applied over the global sizes. */
+  readingOverrides?: Partial<Record<ReadingSurface, ReadingSizeOverride>>;
 }
 
 export interface UserPreferences {
@@ -40,11 +66,19 @@ export interface UserPreferences {
   translationLocale: AppLocale;
   /** Clock display format (12-hour with AM/PM or 24-hour). */
   timeFormat: TimeFormat;
+  /** Default calendar for dates shown across the app and calendar tabs. */
+  defaultCalendar: CalendarMode;
   /** HH:mm */
   bedtime?: string;
   notificationPrefs: NotificationPreferences;
   /** Per-prayer alert overrides; unset entries fall back to category toggles. */
   prayerAlerts?: Partial<Record<PrayerId, boolean>>;
+  /**
+   * Per-prayer reminder offset in minutes applied to the main prayer reminder
+   * (negative = before the adhan, positive = after). Unset ⇒ fires at the time
+   * (NF-1.7).
+   */
+  prayerReminderOffsets?: Partial<Record<PrayerId, number>>;
   fontPrefs: FontPreferences;
   favoriteZikrIds: string[];
   favoriteZikrOrder: string[];
@@ -55,6 +89,14 @@ export interface UserPreferences {
   avatarUri?: string;
   /** Custom accent hex when the user picks their own colour (P7.6). */
   customAccent?: string;
+  /** Selected adhan style id (NF-1.26); resolves against the bundled ADHAN_STYLES. */
+  adhanStyleId?: string;
+  /** Ordered ids of the home quick actions to show (NF-1.23); unset ⇒ show all. */
+  quickActionOrder?: string[];
+  /** Home module ids the user has hidden (NF-1.21); unset ⇒ all visible. */
+  hiddenHomeModules?: string[];
+  /** Ordered ids of library tab entries to show (NF-1.22); unset ⇒ show all. */
+  libraryMenuOrder?: string[];
   /** Preferred audio playback speed for the global player. */
   audioSpeed?: number;
   /** Preferred audio volume for the global player (0–1). */

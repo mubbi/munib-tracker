@@ -26,7 +26,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Fonts, Radius, Shadows, Spacing } from "@/constants/theme";
+import { Radius, Shadows, Spacing } from "@/constants/theme";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWebTabLayout } from "@/hooks/use-web-tab-layout";
@@ -1266,10 +1266,13 @@ function PlaylistRow({
         </ThemedText>
         {secondary ? (
           <ThemedText
-            type="caption"
+            type={secondaryIsArabic ? "arabic" : "caption"}
             numberOfLines={primaryIsArabic ? 2 : 1}
-            themeColor="mutedForeground"
-            style={secondaryIsArabic ? styles.plPreview : undefined}
+            themeColor={secondaryIsArabic ? undefined : "mutedForeground"}
+            style={[
+              secondaryIsArabic ? styles.plPreview : undefined,
+              active && secondaryIsArabic ? { color: colors.accentText } : undefined,
+            ]}
           >
             {secondary}
           </ThemedText>
@@ -1471,12 +1474,11 @@ const styles = StyleSheet.create({
   plBody: { flex: 1, gap: 2 },
   plArabic: {
     fontSize: 22,
-    lineHeight: 36,
     writingDirection: "rtl",
     textAlign: "right",
   },
   plPreview: {
-    fontFamily: Fonts.serif,
+    fontSize: 14,
     writingDirection: "rtl",
     textAlign: "right",
   },

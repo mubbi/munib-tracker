@@ -1,3 +1,4 @@
+import type { ReadingSurface } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, View } from "react-native";
@@ -9,6 +10,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildDuroodActivity } from "@/lib/continue-activity";
+import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
@@ -38,18 +40,20 @@ export function ReadingCard({
   sourceHref,
   isFavorite,
   onToggleFavorite,
+  surface = "dua_zikr",
 }: {
   item: ReadingItem;
   sourceHref?: string;
   isFavorite?: boolean;
   onToggleFavorite?: () => void;
+  /** Reading surface for the in-context size override (NF-1.32). */
+  surface?: ReadingSurface;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
   const audio = useAudioPlayerContext();
-  const arabicSize = fontPrefs.arabic.size;
-  const textSize = fontPrefs.translation.size;
+  const { arabic: arabicSize, translation: textSize } = resolveReadingFontSizes(surface, fontPrefs);
 
   const playAudio = () => {
     if (!item.audioUri) return;
@@ -135,10 +139,7 @@ export function ReadingCard({
 
       <ThemedText
         type="arabic"
-        style={[
-          styles.arabic,
-          arabicSize ? { fontSize: arabicSize, lineHeight: arabicSize * 1.8 } : null,
-        ]}
+        style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
       >
         {item.arabic}
       </ThemedText>
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  arabic: { writingDirection: "rtl", textAlign: "right" },
+  arabic: {},
   divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.three },
   transliteration: { fontStyle: "italic" },
   translation: { marginTop: Spacing.two },

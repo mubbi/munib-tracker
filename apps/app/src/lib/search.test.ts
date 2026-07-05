@@ -1,10 +1,12 @@
-import { duasByCategory } from "@munib-tracker/shared/content";
+import { DUROOD_ITEMS, duasByCategory, NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 
 import { getBundledCollection } from "@/lib/hadith";
 import {
   createDuaSearch,
+  createDuroodSearch,
   createFuzzyIndex,
   createHadithSearch,
+  createNameSearch,
   createZikrSearch,
   isAyahIndexReady,
   normalize,
@@ -78,6 +80,13 @@ describe("searchLight", () => {
 
   it("returns nothing for an empty query", () => {
     expect(searchLight("")).toEqual([]);
+  });
+
+  it("finds Journey to Jannah topics", () => {
+    const groups = searchLight("firdaws");
+    const jannah = groups.find((g) => g.category === "jannah");
+    expect(jannah).toBeDefined();
+    expect(jannah?.results.some((r) => r.params?.topic === "al-firdaws")).toBe(true);
   });
 
   it("orders groups by the fixed category order", () => {
@@ -191,6 +200,24 @@ describe("createZikrSearch", () => {
     const items = zikrByCategory("morning");
     const index = createZikrSearch(items);
     expect(index.search("subhan").length).toBeGreaterThan(0);
+    expect(index.search("")).toEqual([]);
+  });
+});
+
+describe("createDuroodSearch", () => {
+  it("fuzzy-searches the duroods list", () => {
+    const index = createDuroodSearch(DUROOD_ITEMS);
+    expect(index.search("ibrahim").length).toBeGreaterThan(0);
+    expect(index.search("")).toEqual([]);
+  });
+});
+
+describe("createNameSearch", () => {
+  it("fuzzy-searches the 99 names by transliteration and meaning", () => {
+    const index = createNameSearch(NAMES_OF_ALLAH);
+    expect(index.search("rahman").length).toBeGreaterThan(0);
+    // Typo tolerance over the normalized fields.
+    expect(index.search("merciful").length).toBeGreaterThan(0);
     expect(index.search("")).toEqual([]);
   });
 });

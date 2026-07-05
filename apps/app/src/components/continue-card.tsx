@@ -1,7 +1,5 @@
 import { useRouter } from "expo-router";
-import type { SymbolViewProps } from "expo-symbols";
 import { SymbolView } from "expo-symbols";
-import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
@@ -11,17 +9,21 @@ import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   type ContinueActivity,
   type ContinueKind,
   navigateToContinue,
 } from "@/lib/continue-activity";
-import { chevronForward } from "@/lib/rtl";
+import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
+import { arabicReadingLayout } from "@/lib/reading-typography";
+import { formatRelativeWhen } from "@/lib/relative-time";
+import { chevronForward, containsArabicScript } from "@/lib/rtl";
 import { continueStore, useContinueActivity } from "@/stores/continue-store";
 
 type KindVisual = {
-  icon: SymbolViewProps["name"];
+  icon: AppIcon;
   palette: "accent" | "info" | "danger" | "success" | "warning";
   labelKey: string;
   actionKey: string;
@@ -63,7 +65,7 @@ const KIND_VISUALS: Record<ContinueKind, KindVisual> = {
     actionKey: "home.continueAction.durood",
   },
   names: {
-    icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
+    icon: NAMES_OF_ALLAH_ICON,
     palette: "warning",
     labelKey: "home.continueKind.names",
     actionKey: "home.continueAction.names",
@@ -98,25 +100,6 @@ function getPalette(
   };
 }
 
-function formatActivityWhen(iso: string, locale: string | undefined, t: TFunction): string {
-  const then = new Date(iso).getTime();
-  const now = Date.now();
-  const diffMs = Math.max(0, now - then);
-  const diffMin = Math.floor(diffMs / 60_000);
-
-  if (diffMin < 1) return t("home.continueWhen.justNow");
-  if (diffMin < 60) return t("home.continueWhen.minutesAgo", { count: diffMin });
-
-  const diffHours = Math.floor(diffMin / 60);
-  if (diffHours < 24) return t("home.continueWhen.hoursAgo", { count: diffHours });
-
-  const diffDays = Math.floor(diffHours / 24);
-  if (diffDays === 1) return t("home.continueWhen.yesterday");
-  if (diffDays < 7) return t("home.continueWhen.daysAgo", { count: diffDays });
-
-  return new Date(iso).toLocaleDateString(locale, { month: "short", day: "numeric" });
-}
-
 function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
   const { t, i18n } = useTranslation();
   const router = useRouter();
@@ -125,8 +108,9 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
   const visual = KIND_VISUALS[activity.kind];
   const palette = getPalette(colors, tokens, visual.palette);
   const actionKey = activity.isAudio ? "home.continueAction.listening" : visual.actionKey;
+  const defaultCalendar = useDefaultCalendar();
   const locale = i18n.language?.split("-")[0];
-  const when = formatActivityWhen(activity.updatedAt, locale, t);
+  const when = formatRelativeWhen(activity.updatedAt, locale, t, defaultCalendar);
 
   const onPress = () => navigateToContinue(router, activity);
   const onDismiss = () => void continueStore.getState().clear();
@@ -146,6 +130,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
 
   const quranSurahMatch = activity.kind === "quran" ? activity.href.match(/^\/quran\/(\d+)/) : null;
   const quranSurahNumber = quranSurahMatch?.[1];
+  const previewIsArabic = activity.preview ? containsArabicScript(activity.preview) : false;
 
   return (
     <Card
@@ -232,14 +217,13 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
             ) : null}
             {activity.preview ? (
               <ThemedText
-                type={activity.kind === "quran" || activity.kind === "names" ? "header" : "small"}
+                type={previewIsArabic ? "arabic" : "small"}
                 style={[
-                  activity.kind === "quran" ||
-                  activity.kind === "hadith" ||
-                  activity.kind === "names"
-                    ? styles.arabic
-                    : null,
+                  previewIsArabic ? styles.arabic : null,
                   { color: palette.text },
+                  previewIsArabic
+                    ? arabicReadingLayout(activity.kind === "hadith" ? 14 : 22)
+                    : null,
                 ]}
                 numberOfLines={activity.kind === "hadith" ? 2 : 1}
               >
@@ -323,11 +307,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  arabic: {
-    writingDirection: "rtl",
-    textAlign: "right",
-    lineHeight: 28,
-  },
+  arabic: {},
   footer: {
     flexDirection: "row",
     alignItems: "center",

@@ -34,6 +34,15 @@ export type OAuthPayload = {
   redirectUri?: string;
 };
 
+/**
+ * Result of a `syncNow()` call so callers (the manual "Sync now" control) can
+ * give feedback. `syncNow` never rejects — background callers fire-and-forget it
+ * and a rejected promise would surface as an unhandled rejection — so the outcome
+ * is returned instead: `"ok"` on a completed sync, `"error"` when offline or the
+ * server failed, `"skipped"` for a guest/no session or an already-running sync.
+ */
+export type ManualSyncOutcome = "ok" | "error" | "skipped";
+
 interface AuthContextValue {
   session: StoredSession | null;
   user: AuthUserResponseDto | null;
@@ -44,7 +53,7 @@ interface AuthContextValue {
   signInWithProvider: (provider: OAuthProvider, payload?: OAuthPayload) => Promise<void>;
   linkProvider: (provider: OAuthProvider, payload?: OAuthPayload) => Promise<void>;
   signOut: () => Promise<void>;
-  syncNow: () => Promise<void>;
+  syncNow: () => Promise<ManualSyncOutcome>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -92,17 +101,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return run;
   }, []);
 
-  const syncNow = useCallback(async () => {
+  const syncNow = useCallback(async (): Promise<ManualSyncOutcome> => {
     // Claim the guard synchronously, before any await, so two overlapping calls
     // can't both pass the check and interleave (duplicate pushes / double refresh).
-    if (syncing.current) return;
+    if (syncing.current) return "skipped";
     syncing.current = true;
     try {
       const current = await refresh();
-      if (!current || current.accountType === "guest") return;
+      if (!current || current.accountType === "guest") return "skipped";
       await runSync(current);
+      return "ok";
     } catch {
       // Offline or server error — try again on the next foreground.
+      return "error";
     } finally {
       syncing.current = false;
     }

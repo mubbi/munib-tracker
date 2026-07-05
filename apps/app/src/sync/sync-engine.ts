@@ -10,24 +10,54 @@ import { isQazaPrayer } from "@munib-tracker/shared/validators";
 import { syncPull, syncPush } from "@/api/endpoints";
 import type { StoredSession } from "@/auth/session-store";
 import {
+  HadithRepository,
   PrayerRepository,
   PreferencesRepository,
   QazaRepository,
+  QuranRepository,
   TombstoneRepository,
   ZikrRepository,
 } from "@/db";
 import { DB_KEYS } from "@/db/keys";
+import type { HadithBookmark } from "@/db/repositories/hadith-repository";
+import type { QuranBookmark } from "@/db/repositories/quran-repository";
 import { readJSON, writeJSON } from "@/db/store";
+import {
+  applyRemoteCustomTasbeeh,
+  type CustomTasbeeh,
+  customTasbeehStore,
+  readCustomTasbeehBlob,
+} from "@/stores/custom-tasbeeh-store";
+import { applyRemoteDuaFavorites, readDuaFavoritesBlob } from "@/stores/dua-favorites-store";
+import {
+  applyRemoteDuroodFavorites,
+  readDuroodFavoritesBlob,
+} from "@/stores/durood-favorites-store";
+import { applyRemoteNameFavorites, readNameFavoritesBlob } from "@/stores/name-favorites-store";
 import { preferencesStore } from "@/stores/preferences-store";
+import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
 
 import { buildSyncRecords } from "./records";
 
-interface SyncMetadata {
+export interface SyncMetadata {
   /** Server clock at our last successful pull — the `since` cursor for the next pull. */
   lastSyncedAt?: string;
   /** Local clock at our last successful push — the watermark for delta pushes. */
   lastPushedAt?: string;
+  /** Local clock when the last sync outcome below was recorded (NF-2.19). */
+  lastOutcomeAt?: string;
+  /** Records accepted by the server on the last push. */
+  lastPushed?: number;
+  /** Records pulled from other devices on the last sync. */
+  lastPulled?: number;
+  /**
+   * Records where the server had a newer version and its copy was kept — a
+   * last-write-wins conflict that was auto-resolved (NF-2.19).
+   */
+  lastConflicts?: number;
+  /** Distinct entity types that had a conflict on the last sync. */
+  lastConflictEntities?: string[];
 }
 
 export type SyncResult =
@@ -36,6 +66,11 @@ export type SyncResult =
 
 async function readMeta(): Promise<SyncMetadata> {
   return readJSON<SyncMetadata>(DB_KEYS.syncMetadata, {});
+}
+
+/** Public accessor for the last sync/push timestamps (drives the sync-status UI). */
+export async function readSyncMetadata(): Promise<SyncMetadata> {
+  return readMeta();
 }
 
 /**
@@ -96,6 +131,54 @@ async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
         await PreferencesRepository.applyRemoteFavorites(ids, order, record.updatedAt);
         break;
       }
+      case "dua_favorites": {
+        if (record.deletedAt) break;
+        const order = Array.isArray(data.order) ? (data.order as string[]) : [];
+        await applyRemoteDuaFavorites(order, record.updatedAt);
+        break;
+      }
+      case "durood_favorites": {
+        if (record.deletedAt) break;
+        const order = Array.isArray(data.order) ? (data.order as string[]) : [];
+        await applyRemoteDuroodFavorites(order, record.updatedAt);
+        break;
+      }
+      case "name_favorites": {
+        if (record.deletedAt) break;
+        const order = Array.isArray(data.order) ? (data.order as string[]) : [];
+        await applyRemoteNameFavorites(order, record.updatedAt);
+        break;
+      }
+      case "quran_bookmarks": {
+        if (record.deletedAt) break;
+        const list = Array.isArray(data.bookmarks) ? (data.bookmarks as QuranBookmark[]) : [];
+        await QuranRepository.applyRemoteBookmarks(list, record.updatedAt);
+        break;
+      }
+      case "quran_last_read": {
+        if (record.deletedAt) break;
+        const surah = Number(data.surah);
+        const ayah = Number(data.ayah);
+        if (!Number.isFinite(surah) || !Number.isFinite(ayah)) break;
+        await QuranRepository.applyRemoteLastRead({
+          surah,
+          ayah,
+          updatedAt: (data.updatedAt as string | undefined) ?? record.updatedAt,
+        });
+        break;
+      }
+      case "hadith_bookmarks": {
+        if (record.deletedAt) break;
+        const list = Array.isArray(data.bookmarks) ? (data.bookmarks as HadithBookmark[]) : [];
+        await HadithRepository.applyRemoteBookmarks(list, record.updatedAt);
+        break;
+      }
+      case "custom_tasbeeh": {
+        if (record.deletedAt) break;
+        const items = Array.isArray(data.items) ? (data.items as CustomTasbeeh[]) : [];
+        await applyRemoteCustomTasbeeh(items, record.updatedAt);
+        break;
+      }
     }
   }
 }
@@ -109,16 +192,39 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
 
   const meta = await readMeta();
 
-  const [prayerLogs, zikrProgress, qazaCounters, roza, preferences, tombstones] = await Promise.all(
-    [
-      PrayerRepository.getAll(),
-      ZikrRepository.getAll(),
-      QazaRepository.getCounters(),
-      QazaRepository.getRoza(),
-      PreferencesRepository.get(),
-      TombstoneRepository.getAll(),
-    ],
-  );
+  const [
+    prayerLogs,
+    zikrProgress,
+    qazaCounters,
+    roza,
+    preferences,
+    tombstones,
+    duaFavorites,
+    duroodFavorites,
+    nameFavorites,
+    quranBookmarks,
+    quranBookmarksUpdatedAt,
+    quranLastRead,
+    hadithBookmarks,
+    hadithBookmarksUpdatedAt,
+    customTasbeeh,
+  ] = await Promise.all([
+    PrayerRepository.getAll(),
+    ZikrRepository.getAll(),
+    QazaRepository.getCounters(),
+    QazaRepository.getRoza(),
+    PreferencesRepository.get(),
+    TombstoneRepository.getAll(),
+    readDuaFavoritesBlob(),
+    readDuroodFavoritesBlob(),
+    readNameFavoritesBlob(),
+    QuranRepository.getBookmarks(),
+    QuranRepository.getBookmarksUpdatedAt(),
+    QuranRepository.getLastRead(),
+    HadithRepository.getBookmarks(),
+    HadithRepository.getBookmarksUpdatedAt(),
+    readCustomTasbeehBlob(),
+  ]);
 
   const nowIso = new Date().toISOString();
   const allRecords = buildSyncRecords({
@@ -129,6 +235,15 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
     roza,
     preferences,
     tombstones,
+    duaFavorites,
+    duroodFavorites,
+    nameFavorites,
+    quranBookmarks,
+    quranBookmarksUpdatedAt,
+    quranLastRead,
+    hadithBookmarks,
+    hadithBookmarksUpdatedAt,
+    customTasbeeh,
   });
 
   // Delta push: only send records changed since our last successful push, plus
@@ -153,13 +268,30 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   const pullResult = await syncPull(session.accessToken, meta.lastSyncedAt);
   if (pullResult.changes.length) await applyRemoteRecords(pullResult.changes);
 
+  // Record the merge outcome so the sync-status UI can surface auto-resolved
+  // last-write-wins conflicts and cross-device changes (NF-2.19).
+  const conflictEntities = [...new Set(pushResult.conflicts.map((record) => record.entity))];
   await writeJSON<SyncMetadata>(DB_KEYS.syncMetadata, {
     lastSyncedAt: pullResult.serverTime,
     lastPushedAt: nowIso,
+    lastOutcomeAt: nowIso,
+    lastPushed: pushResult.accepted,
+    lastPulled: pullResult.changes.length,
+    lastConflicts: pushResult.conflicts.length,
+    lastConflictEntities: conflictEntities,
   });
 
-  // Refresh in-memory stores so the UI reflects merged data.
-  await Promise.all([trackerStore.getState().refresh(), preferencesStore.getState().load()]);
+  // Refresh in-memory stores so the UI reflects merged data. The dua-favorites
+  // and custom-tasbeeh apply helpers self-update when loaded; the Qur'an store
+  // reads bookmarks/last-read from the repository, so reload it if it is live.
+  await Promise.all([
+    trackerStore.getState().refresh(),
+    preferencesStore.getState().load(),
+    quranStore.getState().isReady ? quranStore.getState().load() : Promise.resolve(),
+    customTasbeehStore.getState().isReady
+      ? customTasbeehStore.getState().load()
+      : Promise.resolve(),
+  ]);
 
   return {
     status: "ok",

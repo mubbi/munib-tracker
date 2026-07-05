@@ -53,7 +53,8 @@
       "dua": "الأدعية",
       "zikr": "الأذكار",
       "name": "أسماء الله الحسنى",
-      "durood": "الصلوات"
+      "durood": "الصلوات",
+      "jannah": "الطريق إلى الجنة"
     },
     "suggestion": {
       "kursi": "آية الكرسي",
@@ -69,7 +70,8 @@
   "tabs": {
     "home": "الرئيسية",
     "tracker": "المتابعة",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "library": "المكتبة"
   },
   "actions": {
     "checklist": "قائمة المهام",
@@ -84,7 +86,38 @@
     "calendar": "التقويم",
     "stats": "الإحصاءات",
     "qibla": "القبلة",
-    "bookmarks": "الإشارات المرجعية"
+    "bookmarks": "الإشارات المرجعية",
+    "ramadan": "رمضان",
+    "salahGuide": "دليل الصلاة",
+    "jannah": "الطريق إلى الجنة",
+    "events": "المناسبات",
+    "zakat": "الزكاة"
+  },
+  "ramadan": {
+    "eyebrow": "رمضان",
+    "title": "رمضان",
+    "subtitle": "أوقات الصيام وسجل صيامك",
+    "dayOf": "اليوم {{day}} من {{total}}",
+    "timesTitle": "أوقات الصيام اليوم",
+    "suhoor": "نهاية السحور",
+    "iftar": "الإفطار",
+    "timesHint": "ينتهي السحور عند الفجر ويبدأ الإفطار عند المغرب لموقعك.",
+    "fastingTitle": "سجل الصيام",
+    "fastedCount": "صمت {{count}} من {{total}} يومًا",
+    "todayTitle": "صيام اليوم",
+    "countdownSuhoor": "ينتهي السحور خلال {{time}}",
+    "countdownIftar": "الإفطار خلال {{time}}",
+    "afterIftar": "اكتمل صيام اليوم",
+    "dayCell": "رمضان يوم {{day}}",
+    "dayCellStatus": "رمضان يوم {{day}}، {{status}}",
+    "dayCellHint": "اضغط للتبديل بين صمت وأفطرت ومعذور وغير مسجّل",
+    "statusNone": "غير مسجّل",
+    "gridHint": "اضغط على يوم لتسجيل حالة الصيام",
+    "fastedToday": "سجّل صيام اليوم",
+    "statusFasted": "صمت",
+    "statusMissed": "أفطرت",
+    "statusExempt": "معذور",
+    "disclaimer": "الأوقات تقديرية محسوبة — اتّبع مسجدك المحلي لبداية رمضان والأوقات اليومية."
   },
   "bookmarks": {
     "eyebrow": "المكتبة",
@@ -97,6 +130,8 @@
     "hadith": "الأحاديث",
     "duas": "الأدعية المحفوظة",
     "zikr": "الأذكار المفضلة",
+    "duroods": "الصلوات المحفوظة",
+    "names": "الأسماء المحفوظة",
     "emptyTitle": "لا شيء محفوظ بعد",
     "emptySubtitle": "استكشف أدناه واحفظ أثناء القراءة",
     "emptyDesc": "ستجمع هنا آياتك وأحاديثك وأدعيتك وأذكارك المحفوظة.",
@@ -109,12 +144,19 @@
     "exploreDuas": "تصفّح الأدعية",
     "exploreDuasHint": "اضغط النجمة لحفظ دعاء",
     "exploreZikr": "تصفّح الأذكار",
-    "exploreZikrHint": "اضغط القلب لإضافة ذكر للمفضلة"
+    "exploreZikrHint": "اضغط القلب لإضافة ذكر للمفضلة",
+    "exploreDuroods": "تصفّح الصلوات",
+    "exploreDuroodsHint": "اضغط النجمة لحفظ صلاة",
+    "exploreNames": "تصفّح الأسماء الحسنى",
+    "exploreNamesHint": "اضغط النجمة لحفظ اسم"
   },
   "home": {
     "todaysGoal": "هدف اليوم",
     "freshStartHint": "سجّل أول عبادة لك لتبدأ",
     "checklistHint": "أكمل قائمة مهام اليوم",
+    "excusedPausedLabel": "متوقف",
+    "excusedGoalHint": "التتبّع متوقف بسبب {{reason}} — تتابعك محفوظ.",
+    "excusedGoalBody": "تتبّع الفرائض متوقف اليوم. ما زال بإمكانك تسجيل العبادات الاختيارية.",
     "tasksProgress": "{{done}} من {{total}} مهمة",
     "startTracking": "ابدأ المتابعة",
     "goToChecklist": "اذهب إلى القائمة",
@@ -152,6 +194,9 @@
     "devotionProgress": "{{current}} / {{next}} نور للمستوى التالي",
     "devotionA11y": "مستوى التفاني {{level}}، {{noor}} نور إجمالي، {{current}} من {{next}} للمستوى التالي",
     "scheduleTitle": "جدول اليوم",
+    "explore": "استكشف",
+    "manage": "إدارة",
+    "manageA11y": "تخصيص اختصارات الرئيسية",
     "scheduleNext": "التالية",
     "scheduleCurrent": "الحالية",
     "scheduleNextA11y": "{{name}} الساعة {{time}}، الصلاة التالية {{countdown}}",
@@ -209,7 +254,8 @@
       "names": "العودة إلى الأسماء",
       "audio": "العودة إلى الصوت",
       "listening": "متابعة الاستماع"
-    }
+    },
+    "rozaRemaining": "صيام للقضاء"
   },
   "tracker": {
     "eyebrow": "سجّل وتابِع",
@@ -233,7 +279,18 @@
     "qazaTargets": "أهداف القضاء",
     "qazaTargetsProgress": "{{done}} من {{total}} قضاء اليوم",
     "afterSalahAdhkarReminderTitle": "بعد {{prayer}}",
-    "afterSalahAdhkarReminderBody": "خذ لحظة للتسبيح وأذكار ما بعد الصلاة."
+    "afterSalahAdhkarReminderBody": "خذ لحظة للتسبيح وأذكار ما بعد الصلاة.",
+    "excusedTitle": "يوم معذور",
+    "excusedHint": "الحيض أو المرض أو السفر — أوقِف تتبّع الفرائض دون كسر تتابعك.",
+    "excusedActive": "هذا اليوم معذور — تتبّع الفرائض متوقف وتتابعك محفوظ.",
+    "excusedConfirmTitle": "تعليم اليوم كمعذور؟",
+    "excusedConfirmMsg": "سيُوقَف تتبّع الفرائض اليوم ({{reason}}). سيبقى تتابعك محفوظاً.",
+    "excusedConfirmAction": "تعليم كمعذور",
+    "excusedReason": {
+      "hayd": "حيض",
+      "sick": "مرض",
+      "travel": "سفر"
+    }
   },
   "settings": {
     "eyebrow": "خصّص",
@@ -253,6 +310,8 @@
     "languageSub": "لغة التطبيق والترجمة",
     "timeFormat": "تنسيق الوقت",
     "timeFormatSub": "ساعة 12 أو 24",
+    "defaultCalendar": "التقويم الافتراضي",
+    "defaultCalendarSub": "تواريخ ميلادية أو هجرية",
     "weather": "الطقس",
     "weatherSub": "تأثيرات البانر ووحدة الحرارة",
     "achievements": "الإنجازات",
@@ -261,7 +320,38 @@
     "qiblaSub": "اعرف اتجاه القبلة",
     "about": "حول التطبيق",
     "aboutSub": "الإصدار والاعتمادات والسياسات",
-    "footer": "{{app}} · صُنع بنيّة صادقة"
+    "import": "استيراد سجل الصلوات",
+    "importSub": "أضِف الأيام السابقة من ملف JSON أو CSV",
+    "footer": "{{app}} · صُنع بنيّة صادقة",
+    "backup": "النسخ الاحتياطي والاستعادة",
+    "backupSub": "صدّر بياناتك أو استعِدها كملف",
+    "travel": "السفر والصلاة",
+    "travelSub": "كيفية قصر الصلاة وجمعها في السفر",
+    "homeCustomize": "تخصيص الرئيسية",
+    "homeCustomizeSub": "أعِد ترتيب الاختصارات وأخفِ بطاقات الصفحة الرئيسية",
+    "offlineData": "البيانات دون اتصال",
+    "offlineDataSub": "إدارة المحتوى المُنزَّل ومسح المخبأ"
+  },
+  "import": {
+    "title": "استيراد سجل الصلوات",
+    "subtitle": "استورد السجلات من تطبيق آخر أو جدول بيانات",
+    "pasteTitle": "الصق بياناتك",
+    "formatHint": "الصق JSON (مصفوفة من { date, prayerId, status }) أو صفوف CSV بصيغة date,prayerId,status. التواريخ بصيغة YYYY-MM-DD؛ الصلوات: fajr، dhuhr، asr، maghrib، isha، witr؛ الحالات: completed، missed، delayed، qaza.",
+    "placeholder": "[{\"date\":\"2026-06-01\",\"prayerId\":\"fajr\",\"status\":\"completed\"}]",
+    "preview": "معاينة",
+    "previewTitle": "معاينة",
+    "summaryValid": "{{count}} صفوف صالحة",
+    "summaryErrors": "{{count}} أخطاء",
+    "summaryDuplicates": "دُمج {{count}} صفوف مكررة",
+    "summaryRange": "التواريخ {{from}} → {{to}}",
+    "errorLine": "الصف {{row}}: {{message}}",
+    "moreErrors": "+{{count}} أخطاء أخرى",
+    "alsoQaza": "أضِف أيضًا الصلوات الفائتة إلى القضاء",
+    "alsoQazaHint": "زِد عدّادات القضاء بكل صلاة فائتة مستوردة.",
+    "commit": "استيراد {{count}} سجلات",
+    "importing": "جارٍ الاستيراد…",
+    "done": "تم استيراد {{count}} سجل صلاة",
+    "failed": "فشل الاستيراد. حاول مرة أخرى."
   },
   "login": {
     "eyebrowGuest": "احفظ تقدّمك",
@@ -351,6 +441,16 @@
     "pm": "م",
     "footer": "يُحفظ اختيارك تلقائياً ويُستخدم في كل الأوقات المعروضة."
   },
+  "defaultCalendar": {
+    "title": "التقويم الافتراضي",
+    "subtitle": "كيف تظهر التواريخ في التطبيق",
+    "hint": "يُطبَّق على الشاشة الرئيسية والمناسبات والمذكرات وتبويبات التقويم وغيرها",
+    "optionGregorian": "ميلادي",
+    "optionHijri": "هجري",
+    "exampleGregorian": "مثال: الاثنين، 23 مارس 2026",
+    "exampleHijri": "مثال: 1 رمضان 1447 هـ",
+    "footer": "يُحفظ اختيارك تلقائياً. يمكنك التبديل مؤقتاً في شاشات التقويم."
+  },
   "weather": {
     "title": "الطقس",
     "subtitle": "الأحوال الحية على البانر الرئيسي",
@@ -380,6 +480,9 @@
     "masterSub": "مفتاح رئيسي لكل التذكيرات",
     "adhanTitle": "معاينة الأذان",
     "adhanSub": "تشغيل صوت الأذان المضمّن",
+    "playAdhan": "تشغيل الأذان في وقت الصلاة",
+    "playAdhanHint": "تذكيرات الصلوات المفروضة تُصدر صوت الأذان بدلاً من النغمة الافتراضية.",
+    "adhanWebUnavailable": "متاح على تطبيق الجوال فقط، وليس على الويب.",
     "upcomingTitle": "التذكيرات القادمة",
     "upcomingHint": "تنبيهاتك المجدولة التالية، بتوقيت موقعك. استخدم المفاتيح أدناه لتفعيلها أو تعطيلها أو تعديلها.",
     "footer": "تُجدوَل هذه التذكيرات بمجرد تفعيل الإشعارات على جهازك.",
@@ -446,6 +549,14 @@
       "achievements": {
         "title": "الإنجازات",
         "subtitle": "احتفِ بالتتابع والأوسمة"
+      },
+      "dailyContent": {
+        "title": "تأمّل يومي",
+        "subtitle": "آية وحديث في انتظارك على الشاشة الرئيسية كل صباح"
+      },
+      "friday": {
+        "title": "تذكير الجمعة",
+        "subtitle": "الجمعة وسورة الكهف"
       }
     },
     "prayerAlertsObligatory": "تنبيهات الصلوات الفرض",
@@ -481,6 +592,7 @@
     },
     "channels": {
       "prayer": "تذكيرات الصلاة",
+      "prayerAdhan": "الأذان في وقت الصلاة",
       "zikr": "تذكيرات الذكر",
       "qaza": "تذكيرات القضاء"
     },
@@ -504,8 +616,13 @@
       "beforeSleepBody": "اقرأ أذكار ما قبل النوم.",
       "qazaTitle": "تذكير القضاء",
       "qazaBody": "اقضِ صلاةً أو صياماً فائتاً اليوم.",
-      "achievementTitle": "تم فتح إنجاز"
-    }
+      "achievementTitle": "تم فتح إنجاز",
+      "dailyContentTitle": "تأمّل اليوم",
+      "dailyContentBody": "آية وحديث واسم من أسماء الله الحسنى بانتظارك على الشاشة الرئيسية.",
+      "fridayTitle": "جمعة مباركة",
+      "fridayBody": "إنه يوم الجمعة — أكثِر من الصلاة على النبي واقرأ سورة الكهف."
+    },
+    "groupContent": "المحتوى اليومي"
   },
   "fonts": {
     "eyebrow": "الإعدادات",
@@ -517,7 +634,15 @@
     "footer": "يُطبَّق في صفحات قراءة الأذكار والأدعية والتسبيح.",
     "small": "صغير",
     "medium": "متوسط",
-    "large": "كبير"
+    "large": "كبير",
+    "arabicFamilyTitle": "الخط العربي",
+    "arabicFamilyHint": "يُطبَّق على كل النص العربي في التطبيق. تظهر الخطوط الإضافية بعد تضمين ملفاتها؛ وإلى حينها تعود إلى خط النظام.",
+    "arabicFamily": {
+      "system": "افتراضي النظام",
+      "amiri": "أميري",
+      "scheherazade": "شهرزاد",
+      "notoNaskh": "نوتو نسخ عربي"
+    }
   },
   "zikr": {
     "eyebrow": "الذكر",
@@ -567,7 +692,12 @@
     "share": "مشاركة",
     "showMore": "عرض المزيد",
     "showLess": "عرض أقل",
-    "copied": "تم النسخ إلى الحافظة"
+    "copied": "تم النسخ إلى الحافظة",
+    "textSize": "حجم النص",
+    "decrease": "تصغير حجم النص",
+    "increase": "تكبير حجم النص",
+    "reset": "إعادة ضبط حجم النص",
+    "sizeDefault": "افتراضي"
   },
   "dua": {
     "eyebrow": "الدعاء",
@@ -611,7 +741,13 @@
   "duroods": {
     "eyebrow": "الصلوات",
     "title": "الصلوات على النبي",
-    "subtitle": "الصلاة على النبي ﷺ"
+    "subtitle": "الصلاة على النبي ﷺ",
+    "searchPlaceholder": "ابحث في الصلوات…",
+    "noResults": "لا توجد صلوات تطابق بحثك",
+    "favorites": "الصلوات المفضلة",
+    "favSubtitle": "الصلوات التي حفظتها",
+    "favEmptyTitle": "لا توجد صلوات مفضلة بعد",
+    "favEmptyDesc": "اضغط النجمة على أي صلاة لحفظها هنا."
   },
   "names": {
     "eyebrow": "الأسماء الحسنى",
@@ -621,7 +757,14 @@
     "playContinuous": "متواصل",
     "share": "مشاركة",
     "play": "تشغيل التلاوة",
-    "pause": "إيقاف التلاوة"
+    "pause": "إيقاف التلاوة",
+    "searchPlaceholder": "ابحث بالاسم أو المعنى…",
+    "favorite": "إضافة إلى المفضلة",
+    "unfavorite": "إزالة من المفضلة",
+    "favorites": "الأسماء المفضلة",
+    "favSubtitle": "الأسماء التي حفظتها",
+    "favEmptyTitle": "لا توجد أسماء مفضلة بعد",
+    "favEmptyDesc": "اضغط النجمة على أي اسم لحفظه هنا."
   },
   "quran": {
     "eyebrow": "القرآن الكريم",
@@ -635,6 +778,7 @@
     "madani": "مدنية",
     "ayahCount": "{{count}} آيات",
     "surahList": "السور",
+    "surahCount": "{{shown}} من {{total}}",
     "reciter": "القارئ",
     "translation": "الترجمة",
     "showTransliteration": "إظهار النقحرة",
@@ -648,6 +792,10 @@
     "bookmarkEmptyTitle": "لا توجد إشارات بعد",
     "bookmarkEmptyDesc": "اضغط على أيقونة الإشارة في أي آية لحفظها هنا.",
     "removeBookmark": "إزالة الإشارة",
+    "juz": "الجزء",
+    "juzSubtitle": "اقرأ القرآن في أجزائه الثلاثين",
+    "juzN": "الجزء {{n}}",
+    "browseByJuz": "تصفّح حسب الجزء",
     "search": "بحث",
     "searchTitle": "ابحث في القرآن",
     "searchSubtitle": "ابحث عن الآيات بالترجمة أو النقحرة",
@@ -661,10 +809,19 @@
     "offlineTranslation": "اتصل بالإنترنت لتنزيل هذه الترجمة. يتم عرض ترجمة مضمنة بدلاً منها.",
     "shareAyah": "مشاركة الآية",
     "pauseAyah": "إيقاف الآية",
+    "actionPlay": "تشغيل",
+    "actionPause": "إيقاف",
+    "actionMemorized": "محفوظة",
+    "actionReview": "مراجعة",
+    "actionBookmark": "حفظ",
+    "actionBookmarked": "محفوظ",
+    "actionShare": "مشاركة",
     "bookmarkAdd": "حفظ الآية",
     "bookmarkRemove": "إزالة الإشارة",
     "loadingTranslation": "جارٍ تحميل الترجمة…",
-    "searching": "جارٍ البحث…"
+    "searching": "جارٍ البحث…",
+    "secondTranslation": "ترجمة ثانية",
+    "secondTranslationNone": "بدون"
   },
   "hadith": {
     "eyebrow": "السنة النبوية",
@@ -853,8 +1010,17 @@
     "confirmDecrementMsg": "خفض عدد قضاء {{prayer}} المتبقّي إلى {{remaining}}؟",
     "confirmIncrementTitle": "زيادة العدد المتبقّي؟",
     "confirmIncrementMsg": "رفع عدد قضاء {{prayer}} المتبقّي إلى {{remaining}}؟",
+    "confirmSetRemainingTitle": "تحديث العدد المتبقّي؟",
+    "confirmSetRemainingMsg": "تعيين عدد قضاء {{prayer}} المتبقّي إلى {{remaining}}؟",
+    "editCountTitle": "متبقّي {{prayer}}",
+    "editCountHint": "أدخل عدد هذه الصلاة التي لا تزال بحاجة إلى قضاء.",
+    "editCountPlaceholder": "المتبقّي",
+    "editCountA11y": "تعديل عدد قضاء {{prayer}} المتبقّي",
     "confirmPerformTitle": "تسجيل قضاء مؤدّى؟",
     "confirmPerformMsg": "تسجيل قضاء واحد لصلاة {{prayer}}؟",
+    "confirmUndoPerformTitle": "تراجع عن قضاء مُؤدّى؟",
+    "confirmUndoPerformMsg": "إزالة قضاء واحد لصلاة {{prayer}} من اليوم وإعادته إلى المتبقّي؟",
+    "undoPerformed": "تراجع عن قضاء واحد لصلاة {{prayer}} أُدّي اليوم",
     "confirmResetPrayerTitle": "إعادة ضبط هذا العداد؟",
     "confirmResetPrayerMsg": "مسح العدد المتبقّي والمقضيّ لصلاة {{prayer}}؟ لا يمكن التراجع.",
     "confirmResetAllTitle": "إعادة ضبط كل العدادات؟",
@@ -877,7 +1043,8 @@
         "hanbali": "حنبلي — سنة مؤكّدة — مستحب"
       },
       "footer": "يُحسب الوتر الفائت ضمن القضاء لجميع المستخدمين. اعتبره واجباً إن كنت حنفياً، وإلا فتتبّعه كقضاء مستحب. استشر عالماً بحسب حالتك."
-    }
+    },
+    "history": "السجل"
   },
   "qazaCalc": {
     "eyebrow": "القضاء",
@@ -901,9 +1068,29 @@
   "qazaPlan": {
     "eyebrow": "القضاء",
     "title": "المخطّط",
-    "subtitle": "حدّد وتيرة يومية لإنهاء ما تراكم عليك",
+    "subtitle": "اختر وتيرة تستطيع الإبقاء عليها لسنوات، لا أياماً فقط",
+    "consistencyTitle": "الاستمرار أهمّ من الشدة",
+    "consistencyHadith": "أَحَبُّ الأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ.",
+    "consistencySource": "حديث — البخاري ومسلم",
+    "consistencyPrinciple": "الخطة اليومية المستقرة تُنهي الدّين الكبير بثبات أكثر من اندفاع قصير يُرهقك.",
     "prayersPerDay": "صلوات / يوم",
+    "dailyTimeLabel": "وقت تقديري / يوم",
+    "dailyTimeMinutes": "≈ {{count}} د",
+    "dailyTimeHours_one": "≈ {{count}} س",
+    "dailyTimeHours_two": "≈ {{count}} س",
+    "dailyTimeHours_few": "≈ {{count}} س",
+    "dailyTimeHours_many": "≈ {{count}} س",
+    "dailyTimeHours_other": "≈ {{count}} س",
+    "dailyTimeHoursMinutes": "≈ {{hours}} س {{minutes}} د",
     "daysToClear": "للإنهاء",
+    "sustainabilityLabel": "الاستدامة",
+    "sustainability": {
+      "easy": "سهل",
+      "moderate": "متوسط",
+      "challenging": "مرهق",
+      "intensive": "مكثّف"
+    },
+    "intensiveWarning": "هذه الوتيرة شاقّة جداً — أنسب لحملات قصيرة، لا لسنوات من الحياة اليومية.",
     "durationYears_one": "سنة واحدة",
     "durationYears_two": "سنتان",
     "durationYears_few": "{{count}} سنوات",
@@ -922,10 +1109,37 @@
     "durationTwo": "{{first}} و{{second}}",
     "durationThree": "{{first}} و{{second}} و{{third}}",
     "etaCaption": "بهذه الوتيرة، تُقضى {{count}} صلاة بحلول {{date}}.",
-    "etaEmpty": "حدّد هدفاً يومياً بالأسفل لتقدير تاريخ الإنجاز.",
+    "etaEmpty": "اختر خطة أدناه أو حدّد أهدافاً يومية لتقدير تاريخ الإنجاز.",
     "dailyTargets": "الأهداف اليومية",
     "planSaved": "تم حفظ الخطة",
-    "savePlan": "حفظ الخطة"
+    "savePlan": "حفظ الخطة",
+    "presetsTitle": "اختر خطة",
+    "presetsHint": "لمعظم العاملين، ٣–٥ من كل صلاة يومياً هي الوتيرة الواقعية. ابدأ بالخطة اللطيفة إن لم تكن متأكداً.",
+    "recommended": "موصى بها",
+    "presetActive": "مفعّلة",
+    "presetCustom": "خطة مخصّصة",
+    "presetCustomHint": "عدّلت صلوات بشكل فردي — يمكنك ضبطها أدناه.",
+    "presets": {
+      "gentle": {
+        "title": "🌱 لطيفة",
+        "subtitle": "{{perPrayer}} لكل صلاة · {{dailyTotal}} / يوم"
+      },
+      "balanced": {
+        "title": "⭐ متوازنة",
+        "subtitle": "{{perPrayer}} لكل صلاة · {{dailyTotal}} / يوم"
+      },
+      "committed": {
+        "title": "💪 ملتزمة",
+        "subtitle": "{{perPrayer}} لكل صلاة · {{dailyTotal}} / يوم"
+      },
+      "intensive": {
+        "title": "🔥 مكثّفة",
+        "subtitle": "{{perPrayer}} لكل صلاة · {{dailyTotal}} / يوم · قصيرة المدى فقط"
+      }
+    },
+    "attachTitle": "وزّعها على اليوم",
+    "attachHint": "كثيرون يجدون أنفسهم ٢–٣ قضاءً بعد كل صلاة حالية أسهل — مثلاً بعد الفجر قضاء الفجر، وبعد الظهر قضاء الظهر، وهكذا. يوزّع العبء طبيعياً.",
+    "fiqhNote": "يختلف العلماء في تقدير الصلوات الفائتة وترتيب قضائها. راجع عالماً تثق به وفق مذهبك."
   },
   "qazaRoza": {
     "eyebrow": "القضاء",
@@ -933,11 +1147,31 @@
     "subtitle": "تابِع الصيام الفائت واقضِه",
     "fastsRemaining": "أيام صيام متبقّية",
     "fastedQaza": "صمت يوماً قضاءً",
+    "adjustRemaining": "تعديل المتبقّي",
+    "adjustHint": "اضغط على العدد أو استخدم −/+ للتعديل",
+    "editCountTitle": "أيام الصيام المتبقّية",
+    "editCountHint": "أدخل عدد أيام صيام القضاء التي لا تزال مطلوبة.",
+    "editCountPlaceholder": "المتبقّي",
+    "editCountA11y": "تعديل عدد أيام الصيام المتبقّية",
+    "confirmSetRemainingTitle": "تحديث العدد المتبقّي؟",
+    "confirmSetRemainingMsg": "تعيين عدد أيام الصيام المتبقّية إلى {{remaining}}؟",
+    "estimateFormula": "× 30 =",
     "estimateTitle": "تقدير الصيام الفائت",
     "estimateHint": "كم سنة تقريباً من صيام رمضان فاتتك؟",
     "yearsPlaceholder": "سنوات",
     "estimateResult": "≈ {{count}} يوم صيام",
-    "addToRemaining": "أضِف إلى المتبقّي"
+    "addToRemaining": "أضِف إلى المتبقّي",
+    "resetCounter": "إعادة ضبط العداد",
+    "confirmDecrementTitle": "تقليل العدد المتبقّي؟",
+    "confirmDecrementMsg": "خفض عدد أيام الصيام المتبقّية إلى {{remaining}}؟",
+    "confirmIncrementTitle": "زيادة العدد المتبقّي؟",
+    "confirmIncrementMsg": "رفع عدد أيام الصيام المتبقّية إلى {{remaining}}؟",
+    "confirmPerformTitle": "تسجيل صيام قضاء؟",
+    "confirmPerformMsg": "تسجيل يوم صيام قضاء واحد كمكتمل؟",
+    "confirmAddEstimateTitle": "إضافة أيام صيام مقدّرة؟",
+    "confirmAddEstimateMsg": "إضافة {{count}} يوم صيام إلى المتبقّي (المجموع الجديد: {{total}})؟",
+    "confirmResetTitle": "إعادة ضبط العداد؟",
+    "confirmResetMsg": "مسح جميع أعداد الصيام ({{remaining}} متبقّية، {{completed}} مكتملة)؟ لا يمكن التراجع عن ذلك."
   },
   "calendar": {
     "eyebrow": "السجل",
@@ -1019,7 +1253,8 @@
     "qazaPromptTitle": "إضافة إلى عدد القضاء؟",
     "qazaPromptMessage": "إضافة واحدة إلى عدد القضاء لصلاة {{prayer}}؟",
     "qazaPromptConfirm": "نعم، أضف إلى القضاء",
-    "qazaPromptDecline": "لا، تخطَّ"
+    "qazaPromptDecline": "لا، تخطَّ",
+    "jama": "صُلّيت في جماعة"
   },
   "notesModal": {
     "hint": "اختياري — ملاحظة خاصة لهذا اليوم.",
@@ -1077,7 +1312,44 @@
     "deviceError": "تعذّر تحديد موقعك الحالي. ابحث عن مدينتك أعلاه بدلاً من ذلك.",
     "manualBadge": "بتحديدك",
     "gpsBadge": "من الجهاز",
-    "defaultBadge": "افتراضي"
+    "defaultBadge": "افتراضي",
+    "calculationTitle": "حساب أوقات الصلاة",
+    "method": "طريقة الحساب",
+    "methodHint": "اختر الجهة التي تتوافق طريقتها مع منطقتك حتى تتطابق أوقات الصلاة مع مسجدك المحلي.",
+    "madhab": "حساب العصر",
+    "madhabShafi": "القياسي",
+    "madhabHanafi": "الحنفي",
+    "madhabHint": "المذهب الحنفي يحسب العصر متأخرًا؛ والقياسي (الشافعي والمالكي والحنبلي) يستخدم الوقت الأبكر.",
+    "methods": {
+      "MuslimWorldLeague": "رابطة العالم الإسلامي",
+      "Egyptian": "الهيئة المصرية العامة للمساحة",
+      "Karachi": "جامعة العلوم الإسلامية، كراتشي",
+      "UmmAlQura": "أم القرى، مكة",
+      "Dubai": "دبي (الإمارات)",
+      "MoonsightingCommittee": "لجنة رؤية الهلال",
+      "NorthAmerica": "الجمعية الإسلامية لأمريكا الشمالية (ISNA)",
+      "Kuwait": "الكويت",
+      "Qatar": "قطر",
+      "Singapore": "سنغافورة",
+      "Tehran": "معهد الجيوفيزياء، طهران",
+      "Turkey": "الديانة (تركيا)",
+      "Other": "مخصص / أخرى"
+    },
+    "methodHints": {
+      "MuslimWorldLeague": "أوروبا والشرق الأقصى وأجزاء من أمريكا",
+      "Egyptian": "إفريقيا وسوريا ولبنان وماليزيا",
+      "Karachi": "باكستان والهند وبنغلاديش وأفغانستان",
+      "UmmAlQura": "المملكة العربية السعودية",
+      "Dubai": "الإمارات العربية المتحدة",
+      "MoonsightingCommittee": "عالميًا، بناءً على رؤية الهلال",
+      "NorthAmerica": "الولايات المتحدة وكندا",
+      "Kuwait": "الكويت",
+      "Qatar": "قطر",
+      "Singapore": "سنغافورة والمنطقة",
+      "Tehran": "إيران والمجتمعات الشيعية",
+      "Turkey": "تركيا (الديانة)",
+      "Other": "يُضبط يدويًا في مكان آخر"
+    }
   },
   "moon": {
     "aria": "طور القمر: {{phase}}",
@@ -1206,6 +1478,19 @@
     "deleteMsg": "سيمحو هذا نهائياً كل بيانات المتابعة المحلية على هذا الجهاز ويسجّل خروجك. لا يمكن التراجع عن ذلك.",
     "deleteConfirm": "حذف كل شيء"
   },
+  "sync": {
+    "title": "المزامنة السحابية",
+    "lastSynced": "آخر مزامنة",
+    "never": "لم تتم المزامنة بعد",
+    "now": "مزامنة الآن",
+    "syncing": "جارٍ المزامنة…",
+    "done": "تم حفظ بياناتك احتياطيًا",
+    "failed": "تعذّرت المزامنة. تحقّق من اتصالك وحاول مرة أخرى.",
+    "mergeNoChanges": "كان كل شيء محدّثًا بالفعل",
+    "mergeSummary": "{{received}} وارد · {{sent}} صادر",
+    "conflictsResolved": "تم حل {{count}} تعارض تلقائيًا — مع الإبقاء على أحدث تعديل",
+    "conflictAffected": "المتأثر: {{list}}"
+  },
   "language": {
     "title": "اللغة",
     "appLanguage": "لغة التطبيق",
@@ -1276,5 +1561,547 @@
   "notFound": {
     "title": "الصفحة غير موجودة",
     "action": "الذهاب إلى الرئيسية"
+  },
+  "qazaHistory": {
+    "title": "سجل القضاء",
+    "subtitle": "كل صلاة قضاء سجّلتها، حسب اليوم",
+    "emptyTitle": "لا قضاء مسجّل بعد",
+    "emptyDesc": "أدِّ صلاة قضاء من مدير القضاء وستظهر هنا.",
+    "count": "{{count}} قُضيت",
+    "legendHint": "اضغط على يوم مميّز لعرض الصلوات التي قضيتها.",
+    "dayA11y": "{{date}}، {{count}} قُضيت"
+  },
+  "weeklyReport": {
+    "title": "أسبوعك في العبادة",
+    "body": "{{prayers}} صلاة مكتملة، و{{perfect}} أيام كاملة، و{{qaza}} قضاء، و{{zikr}} جلسة ذكر. اضغط لعرض إحصاءاتك."
+  },
+  "backup": {
+    "title": "النسخ الاحتياطي والاستعادة",
+    "subtitle": "احفظ كل بياناتك أو استعِدها على جهاز جديد — دون حساب",
+    "exportTitle": "تصدير",
+    "exportHint": "يُنشئ نسخة احتياطية من تتبّعك وإشاراتك وإعداداتك. شاركها مع نفسك أو احفظها في مكان آمن.",
+    "exportAction": "إنشاء نسخة احتياطية",
+    "copied": "تم نسخ النسخة الاحتياطية إلى الحافظة",
+    "importTitle": "استعادة",
+    "importHint": "الصق ملف نسخة احتياطية أدناه لاستعادته. سيستبدل البيانات المطابقة على هذا الجهاز.",
+    "importPlaceholder": "الصق نسختك الاحتياطية هنا…",
+    "importAction": "استعادة النسخة",
+    "confirmTitle": "استعادة النسخة الاحتياطية؟",
+    "confirmMessage": "سيستبدل هذا تتبّعك وإشاراتك وإعداداتك الحالية بالنسخة الاحتياطية. لا يمكن التراجع.",
+    "confirmAction": "استعادة",
+    "restored": "تمت الاستعادة",
+    "error": {
+      "invalid_json": "لا يبدو هذا ملف نسخة احتياطية صالحًا.",
+      "wrong_format": "هذا الملف ليس نسخة احتياطية لتطبيق منيب تراكر.",
+      "unsupported_version": "أُنشئت هذه النسخة بإصدار أحدث من التطبيق."
+    }
+  },
+  "reminderOffsets": {
+    "title": "توقيت التذكير",
+    "subtitle": "قدّم أو أخّر تذكير كل صلاة",
+    "rowSub": "نبّه قبل وقت كل صلاة أو بعده",
+    "hint": "أزِح التذكير الرئيسي لكل صلاة مفروضة (حتى ٣٠ دقيقة قبل الأذان أو بعده).",
+    "atTime": "في الوقت",
+    "before": "قبل {{count}} دقيقة",
+    "after": "بعد {{count}} دقيقة",
+    "earlier": "أبكر",
+    "later": "أأخر"
+  },
+  "khatm": {
+    "eyebrow": "القرآن الكريم",
+    "short": "ختمة",
+    "title": "خطة الختمة",
+    "subtitle": "أنهِ القرآن بوتيرة ثابتة",
+    "startTitle": "ابدأ خطة",
+    "startHint": "اختر عدد الأيام لإتمام القرآن. سنحدّد لك هدفًا يوميًا من الآيات.",
+    "dayPlan": "{{count}} يومًا",
+    "preset": {
+      "intensive": "مكثّف",
+      "balanced": "متوازن",
+      "steady": "ثابت",
+      "custom": "مخصص"
+    },
+    "customPlan": "خطة مخصصة",
+    "customDaysPlaceholder": "عدد الأيام",
+    "customDaysA11y": "مدة الخطة بالأيام",
+    "customHint": "أدخل {{min}}–{{max}} يومًا",
+    "customInvalid": "أدخل بين {{min}} و{{max}} يومًا",
+    "customStart": "ابدأ الخطة المخصصة",
+    "startConfirmTitle": "بدء خطة الختمة؟",
+    "startConfirmMsg": "أنهِ القرآن في {{days}} يومًا — نحو {{count}} آية يوميًا. يمكنك متابعة تقدّمك هنا أثناء القراءة.",
+    "startConfirmAction": "ابدأ الخطة",
+    "dayOf": "اليوم {{day}} من {{total}}",
+    "dailyTarget": "{{count}} آية يوميًا",
+    "progress": "{{read}} / {{total}} آية",
+    "expected": "المطلوب: {{ayahs}}",
+    "expectedLabel": "المجموع المطلوب",
+    "percentComplete": "{{percent}}٪ مكتمل",
+    "remainingAyahs": "المتبقي",
+    "todayTarget": "الهدف اليومي",
+    "catchUp": "متأخر {{count}} آية — اقرأ قليلًا إضافيًا اليوم لللحاق.",
+    "aheadBy": "متقدم {{count}} آية عن الجدول — حافظ على الزخم.",
+    "adjustHint": "عدّل بـ {{count}} آيات",
+    "logSectionTitle": "سجّل قراءة اليوم",
+    "logSectionHint": "أدخل عدد الآيات التي قرأتها اليوم، ثم أضفها إلى تقدّمك.",
+    "logAmountPlaceholder": "آيات",
+    "logAmountA11y": "آيات لتسجيلها اليوم",
+    "logQuickDaily": "الهدف اليومي · {{count}}",
+    "logAdd": "أضف {{count}} آية",
+    "logInvalid": "أدخل 1–{{max}} آية",
+    "correctTotalTitle": "تصحيح المجموع",
+    "correctTotalHint": "حدّد العدد الدقيق للآيات التي قرأتها حتى الآن.",
+    "correctTotalA11y": "إجمالي الآيات المقروءة",
+    "correctTotalApply": "تحديث المجموع",
+    "correctTotalInvalid": "أدخل 0–{{max}} آية",
+    "correctTotalToggle": "مجموع خاطئ؟ عيّنه يدويًا",
+    "logToday": "سجّل قراءة اليوم",
+    "logTodayWithTarget": "سجّل قراءة اليوم (+{{count}})",
+    "less": "آيات أقل",
+    "more": "آيات أكثر",
+    "reset": "إعادة الخطة",
+    "resetConfirmTitle": "إعادة تعيين خطة الختمة؟",
+    "resetConfirmMsg": "سيتم مسح تقدّمك. يمكنك بدء خطة جديدة في أي وقت.",
+    "completedTitle": "اكتملت الختمة",
+    "startNew": "ابدأ خطة جديدة",
+    "motivationTitle": "واصل",
+    "motivationShuffle": "عرض تذكير آخر",
+    "motivationKind": {
+      "hadith": "حديث",
+      "quran": "قرآن",
+      "reminder": "تذكير"
+    },
+    "motivationQuote": {
+      "steady": {
+        "text": "الختمة المبنية على قراءة يومية ثابتة تدوم أطول من اندفاعة تُنهكك.",
+        "source": "مبدأ الثبات"
+      },
+      "portion": {
+        "text": "ليس عليك إنهاء كل شيء اليوم — فقط أدِّ وردك اليوم بإخلاص.",
+        "source": "تقدّم ثابت"
+      },
+      "return": {
+        "text": "إن تأخرت، لا تترك الخطة. عد إلى ورد اليوم وامضِ قدمًا.",
+        "source": "العودة مرارًا"
+      }
+    },
+    "pace": {
+      "done": "اكتملت",
+      "ahead": "متقدم",
+      "onTrack": "في الموعد",
+      "behind": "متأخر"
+    }
+  },
+  "hifz": {
+    "short": "الحفظ",
+    "title": "متتبّع الحفظ",
+    "subtitle": "الآيات التي حفظتها أو تحتاج لمراجعتها",
+    "markMemorized": "وضع علامة محفوظة",
+    "markReview": "وضع علامة للمراجعة",
+    "clear": "مسح الحفظ",
+    "totals": "الإجمالي",
+    "memorizedCount": "{{count}} محفوظة",
+    "reviewCount": "{{count}} للمراجعة",
+    "emptyTitle": "لا حفظ بعد",
+    "emptyDesc": "اضغط «الحفظ» على أي آية في القارئ لتمييزها كمحفوظة."
+  },
+  "travel": {
+    "eyebrow": "تعلّم",
+    "title": "السفر والصلاة",
+    "subtitle": "دليل موجز للقصر والجمع في السفر",
+    "qasr": {
+      "title": "القصر",
+      "body": "في السفر تُصلّى الصلوات الرباعية (الظهر والعصر والعشاء) ركعتين. أما الفجر (ركعتان) والمغرب (ثلاث) فلا تُقصران."
+    },
+    "jam": {
+      "title": "الجمع",
+      "body": "يجوز للمسافر أن يجمع الظهر مع العصر، والمغرب مع العشاء — يصلّيهما معًا في وقت إحداهما تيسيرًا في السفر."
+    },
+    "when": {
+      "title": "متى يُطبَّق",
+      "body": "تسري هذه الرخص عند مغادرة بلدك في سفر يتجاوز مسافة السفر المعتادة، وتنتهي بالعودة أو نية الإقامة. وللعلماء تفصيل في ذلك."
+    },
+    "disclaimer": "هذه نظرة موجزة وليست فتوى. تختلف المسافة والمدة والشروط بين المذاهب — استشر عالمًا مؤهلًا لحالتك."
+  },
+  "homeCustomize": {
+    "title": "تخصيص الرئيسية",
+    "subtitle": "اختر ما يظهر على شاشتي الرئيسية والمكتبة",
+    "modulesTitle": "بطاقات الرئيسية",
+    "actionsTitle": "إجراءات سريعة",
+    "actionsHint": "أعِد ترتيب اختصاراتك أو أزِل ما لا تستخدمه.",
+    "libraryMenuTitle": "قائمة المكتبة",
+    "libraryMenuHint": "أعِد ترتيب عناصر المكتبة، أو أزِل ما لا تستخدمه.",
+    "available": "اختصارات متاحة",
+    "add": "إضافة اختصار",
+    "remove": "إزالة اختصار",
+    "module": {
+      "continue": "متابعة القراءة",
+      "knowledge": "بطاقة المعرفة اليومية",
+      "quickActions": "الإجراءات السريعة",
+      "qaza": "ملخص القضاء",
+      "schedule": "جدول اليوم"
+    }
+  },
+  "schedule": {
+    "eyebrow": "مواقيت الصلاة",
+    "subtitle": "الفرائض ونوافذ السنن والأعمال المرنة لهذا اليوم"
+  },
+  "salahGuide": {
+    "eyebrow": "تعلّم",
+    "title": "دليل الصلاة",
+    "subtitle": "كيفية الوضوء والصلاة خطوة بخطوة",
+    "topicsTitle": "الأدلة",
+    "rakatsTitle": "الركعات باختصار",
+    "prayer": "الصلاة",
+    "fard": "فرض",
+    "sunnah": "سنة",
+    "travelPointer": "قصر الصلاة وجمعها أثناء السفر",
+    "notFound": "الدليل غير موجود",
+    "disclaimer": "دليل موجز للتعلّم والمراجعة. لحالتك الخاصة استشر معلّمًا مؤهلًا."
+  },
+  "library": {
+    "eyebrow": "المكتبة",
+    "title": "المكتبة",
+    "subtitle": "اقرأ وادعُ وتعلّم",
+    "explore": "استكشف",
+    "track": "المتابعة",
+    "read": "القراءة",
+    "supplicate": "الدعاء",
+    "learn": "التعلّم",
+    "more": "المزيد"
+  },
+  "offlineData": {
+    "title": "البيانات دون اتصال",
+    "subtitle": "المحتوى المُنزَّل المخزَّن على هذا الجهاز",
+    "cachesTitle": "المحتوى المخبأ",
+    "quran": "ترجمات القرآن والتفسير",
+    "hadith": "مجموعات الحديث",
+    "audio": "بيانات الصوت",
+    "location": "عمليات الطقس والموقع",
+    "total": "الإجمالي: {{size}}",
+    "clearAll": "مسح كل المخبأ",
+    "clearOne": "مسح {{name}}",
+    "cleared": "تم مسح المخبأ",
+    "note": "مسح المخبأ يزيل النسخ المُنزَّلة فقط — لا تتأثر سجلاتك وإشاراتك ومفضلاتك. يُعاد تنزيل المحتوى عند فتحه لاحقًا عبر الإنترنت."
+  },
+  "events": {
+    "eyebrow": "التقويم الإسلامي",
+    "title": "المناسبات الإسلامية",
+    "subtitle": "التواريخ القادمة في السنة الهجرية",
+    "today": "اليوم",
+    "inDays": "بعد {{count}} يومًا",
+    "hijriYear": "{{year}} هـ",
+    "disclaimer": "التواريخ تقديرية محسوبة — واليوم الفعلي يعتمد على رؤية الهلال محليًا.",
+    "names": {
+      "newYear": "رأس السنة الهجرية",
+      "ashura": "يوم عاشوراء",
+      "mawlid": "المولد النبوي",
+      "isra": "الإسراء والمعراج",
+      "ramadan": "غرة رمضان",
+      "laylatQadr": "ليلة القدر (تقديري)",
+      "eidFitr": "عيد الفطر",
+      "arafah": "يوم عرفة",
+      "eidAdha": "عيد الأضحى"
+    }
+  },
+  "zakat": {
+    "eyebrow": "الصدقة",
+    "title": "حاسبة الزكاة",
+    "subtitle": "قدّر الزكاة الواجبة على مالك",
+    "assetsTitle": "أموالك",
+    "nisabTitle": "حد النصاب",
+    "nisabHint": "تجب الزكاة عندما يبلغ صافي مالك النصاب (قيمة ~٨٧٫٥ غ ذهب أو ~٦١٢ غ فضة).",
+    "netWealth": "صافي المال الخاضع للزكاة",
+    "dueLabel": "الزكاة الواجبة (٢٫٥٪)",
+    "belowNisab": "دون النصاب — لا زكاة",
+    "disclaimer": "تقدير فقط. تختلف أحكام ما تجب فيه الزكاة والنصاب — استشر عالمًا مؤهلًا.",
+    "field": {
+      "cash": "النقد والمدخرات",
+      "gold": "قيمة الذهب",
+      "silver": "قيمة الفضة",
+      "business": "أموال التجارة",
+      "otherAssets": "أصول أخرى",
+      "debts": "الديون المستحقة",
+      "nisab": "قيمة النصاب"
+    }
+  },
+  "customAdhkar": {
+    "eyebrow": "الذكر",
+    "title": "أذكاري",
+    "subtitle": "أذكارك وأدعيتك المحفوظة",
+    "add": "إضافة ذكر",
+    "newTitle": "ذكر جديد",
+    "delete": "حذف",
+    "emptyTitle": "لا أذكار مخصصة بعد",
+    "emptyDesc": "أضف ذكرك الخاص بنصه العربي والنقحرة والمعنى.",
+    "field": {
+      "title": "العنوان",
+      "arabic": "النص العربي",
+      "transliteration": "النقحرة (اختياري)",
+      "translation": "المعنى (اختياري)",
+      "reference": "المرجع (اختياري)"
+    }
+  },
+  "tahajjud": {
+    "eyebrow": "قيام الليل",
+    "title": "التهجّد",
+    "subtitle": "ابنِ عادة راسخة لصلاة الليل.",
+    "streakValue": "{{count}}",
+    "streakCaption": "أيام متتالية",
+    "bestStreak": "الأفضل: {{count}}",
+    "totalNights": "{{count}} ليلة إجمالًا",
+    "markTonight": "صلّيت التهجّد الليلة",
+    "markedTonight": "صلّيت الليلة — ما شاء الله",
+    "lastNights": "آخر {{count}} ليلة",
+    "lastNightsHint": "كل نقطة تمثل ليلة واحدة، مع تاريخها التقويمي (الأحدث على اليسار).",
+    "virtueTitle": "فضل صلاة الليل",
+    "virtueBody": "أفضل الصلاة بعد الفريضة صلاة الليل.",
+    "virtueRef": "صحيح مسلم ١١٦٣",
+    "streakRow": "سلسلة التهجّد"
+  },
+  "seasonalTheme": {
+    "title": "سمات موسمية",
+    "hint": "زيّن التطبيق للمواسم المباركة.",
+    "inSeason": "في موسمها الآن",
+    "suggestion": "إنه {{season}} — جرّب اللون الموسمي.",
+    "apply": "تطبيق",
+    "ramadanLabel": "رمضان",
+    "ramadanDesc": "أرجوانيّ ليليّ احتفاليّ لشهر القرآن.",
+    "hajjLabel": "الحج وذو الحجة",
+    "hajjDesc": "ذهبيّ كهرمانيّ للعشر المباركة وعيد الأضحى."
+  },
+  "journal": {
+    "eyebrow": "تأمل",
+    "title": "مذكرة الصلاة",
+    "subtitle": "سجّل حضور قلبك في كل صلاة وراقب نموّه.",
+    "add": "تأمل جديد",
+    "addShort": "إضافة",
+    "newTitle": "كيف كانت صلاتك؟",
+    "editTitle": "تعديل التأمل",
+    "navRow": "تأمّل في صلاة",
+    "recentTitle": "التأملات الأخيرة",
+    "fieldPrayer": "الصلاة",
+    "fieldRating": "الخشوع (الحضور)",
+    "fieldNote": "ملاحظة (اختياري)",
+    "notePlaceholder": "ما الذي ساعدك أو شغلك؟",
+    "emptyTitle": "لا توجد تأملات بعد",
+    "emptyDesc": "بعد الصلاة، خذ لحظة لتسجّل مدى حضور قلبك.",
+    "avgLabel": "متوسط الخشوع",
+    "outOf": "/ {{max}}",
+    "totalReflections": "{{count}} تأملات",
+    "today": "اليوم",
+    "noNote": "لا توجد ملاحظة",
+    "ratingHint": "اضغط على نجمة لتقييم حضورك في الصلاة.",
+    "delete": "حذف التأمل",
+    "editA11y": "تعديل تأمل {{prayer}}",
+    "discard": "تجاهل",
+    "confirmDeleteTitle": "حذف هذا التأمل؟",
+    "confirmDeleteMsg": "ستُزال ملاحظتك لـ {{prayer}} في {{date}} نهائيًا.",
+    "confirmDiscardTitle": "تجاهل التغييرات؟",
+    "confirmDiscardMsg": "سيُفقد كل ما كتبته.",
+    "confirmOverwriteTitle": "استبدال التأمل الحالي؟",
+    "confirmOverwriteMsg": "لقد سجّلت {{prayer}} لهذا اليوم بالفعل. الحفظ سيستبدله.",
+    "level1": "مشتّت",
+    "level2": "غير مستقر",
+    "level3": "حاضر بما يكفي",
+    "level4": "مركّز",
+    "level5": "حاضر تمامًا"
+  },
+  "prayerTuning": {
+    "title": "ضبط أوقات الصلاة",
+    "subtitle": "اضبط الأوقات المحسوبة لتطابق مسجدك.",
+    "rowValue": "التعديلات وخطوط العرض العالية",
+    "offsetTitle": "تعديلات المسجد",
+    "offsetHint": "عدّل كل صلاة ببضع دقائق لتطابق الأوقات المعلنة في مسجدك المحلي.",
+    "onTime": "في الوقت",
+    "earlierMin": "− {{count}} دقيقة",
+    "laterMin": "+ {{count}} دقيقة",
+    "earlier": "أبكر",
+    "later": "أأخر",
+    "highLatTitle": "قاعدة خطوط العرض العالية",
+    "highLatHint": "في المناطق الشمالية أو الجنوبية البعيدة قد لا تصل الشمس إلى زوايا الشفق. اختر كيفية تقدير الفجر والعشاء.",
+    "rule": {
+      "recommended": "تلقائي (موصى به)",
+      "MiddleOfTheNight": "منتصف الليل",
+      "SeventhOfTheNight": "سُبع الليل",
+      "TwilightAngle": "زاوية الشفق"
+    },
+    "ruleDesc": {
+      "recommended": "يختار قاعدة مناسبة لخط عرضك.",
+      "MiddleOfTheNight": "يُحدَّد الفجر والعشاء عند منتصف الليل.",
+      "SeventhOfTheNight": "يُقسَّم الليل أسباعًا للفجر والعشاء.",
+      "TwilightAngle": "يستخدم زاوية شفق الطريقة كنسبة من الليل."
+    }
+  },
+  "hajj": {
+    "eyebrow": "المناسك",
+    "title": "الحج والعمرة",
+    "subtitle": "قائمة تحقّق خطوة بخطوة لمناسك الحج والعمرة.",
+    "progress": "{{done}} من {{total}} مناسك",
+    "reset": "إعادة تعيين",
+    "resetConfirmTitle": "إعادة تعيين القائمة؟",
+    "resetConfirmMsg": "سيُلغى تحديد جميع المناسك. لا يمكن استرجاع تقدّمك.",
+    "umrahTag": "عمرة",
+    "hajjTag": "حج",
+    "disclaimer": "قائمة عملية وليست كتاب فقه. اتبع مرشدًا مؤهلًا للأحكام والتفاصيل."
+  },
+  "dailyHadith": {
+    "eyebrow": "سلسلة يومية",
+    "title": "حديث اليوم",
+    "subtitle": "حديث من الأربعين النووية، يتجدّد كل يوم.",
+    "cardTitle": "حديث اليوم",
+    "seeArchive": "عرض الأرشيف",
+    "emptyTitle": "لا يوجد حديث",
+    "emptyDesc": "سلسلة الحديث اليومي غير متاحة حاليًا."
+  },
+  "seerah": {
+    "eyebrow": "السيرة النبوية",
+    "title": "الخط الزمني للسيرة",
+    "subtitle": "أبرز محطات حياة النبي محمد ﷺ.",
+    "ceBadge": "{{year}} م",
+    "ahBadge": "{{ah}} هـ",
+    "disclaimer": "نظرة عامة على أبرز المحطات. التواريخ هي التقديرات الشائعة."
+  },
+  "jannah": {
+    "eyebrow": "تعلّم",
+    "title": "الطريق إلى الجنة",
+    "subtitle": "الجنة ودرجاتها والأعمال التي ترفع العبد.",
+    "intro": "الإسلام لا يقدّم قائمة مرقّمة بدرجات الجنة. هنا ما علّمه القرآن والسنة الصحيحة — مع روابط لمتابعة عبادتك اليومية.",
+    "learnTitle": "عن الجنة",
+    "quickLinksTitle": "استكشف",
+    "continueInApp": "تابع في منيب",
+    "gatesListTitle": "وردت في الحديث",
+    "duaNumber": "دعاء {{number}}",
+    "pathsTitle": "سبيل الدرجات العلى",
+    "pathsHint": "أعمال ترفع الدرجة بإذن الله — اضغط لعرض الأدلة وروابط التطبيق.",
+    "gatesTitle": "أبواب الجنة",
+    "gatesSummary": "أبواب وردت في الأحاديث الصحيحة",
+    "gatesSubtitle": "لكل عمل باب",
+    "gatesLead": "ورد في الأحاديث الصحيحة أن لأهل الصلاة والصدقة والصيام والجهاد والحج أبوابًا في الجنة، وقد يُدعى بعضهم من أكثر من باب.",
+    "duasTitle": "أدعية الجنة",
+    "duasSummary": "من حصن المسلم",
+    "duasSubtitle": "اسأل الله الجنة والاستعاذة من النار",
+    "duasLead": "علّمنا النبي ﷺ أن نسأل الله الجنة — وخصوصًا الفردوس — في الدعاء اليومي.",
+    "versesTitle": "آيات عن الجنة",
+    "versesSummary": "آيات مختارة مع روابط للقارئ",
+    "versesSubtitle": "الوصف والدرجات والرحمة والدعاء",
+    "versesLead": "اضغط على أي آية لفتحها في قارئ القرآن.",
+    "journeyTitle": "رحلتي",
+    "journeySummary": "عادات اليوم — لا درجتك عند الله",
+    "journeySubtitle": "استمرار في العبادة التي تتابعها",
+    "journeyBanner": "هذه من الأعمال التي يحبها الله. درجتك النهائية عنده وحده.",
+    "journeyToday": "سعي اليوم",
+    "journeyEmpty": "ابدأ بصلاة أو ذكر — الخطوات الصغيرة تبني عادات العمر.",
+    "journeyDisclaimer": "هذه لوحة للاستمرار لا لنسبة من الجنة. اعمل بصدق وتوكل على رحمة الله.",
+    "journey": {
+      "salah": "الصلاة اليوم",
+      "salahHint": "الصلوات الخمس في قائمتك",
+      "dhikr": "الأذكار اليوم",
+      "dhikrHint": "أذكار الصباح والمساء",
+      "qaza": "تقدّم القضاء",
+      "qazaHint": "قضاء ما فات",
+      "streak": "سلسلة الأيام",
+      "streakHint": "أيام المتابعة المتتالية",
+      "tahajjud": "التهجد هذا الأسبوع",
+      "tahajjudHint": "قيام الليل في آخر ٧ أيام",
+      "reflection": "تأملات هذا الأسبوع",
+      "reflectionHint": "مدخلات يومية الخشوع",
+      "quran": "القرآن",
+      "quranHint": "تابع القراءة أو الحفظ"
+    },
+    "intentionsTitle": "نوايا اليوم",
+    "intentionsHint": "اختيارات خاصة لنيتك — غير متزامنة وليست نقاطًا.",
+    "intentions": {
+      "tawbah": "جدّدت التوبة اليوم",
+      "tawbahHint": "ارجع إلى الله بعد الزلّة",
+      "charity": "تصدّقت اليوم",
+      "charityHint": "حتى الابتسامة صدقة",
+      "character": "حفظت خلقي اليوم",
+      "characterHint": "الصبر والصدق وحسن الخلق"
+    },
+    "promisedTitle": "من شُرِّف في النصوص",
+    "firdawsCardTitle": "اسأل الله الفردوس",
+    "firdawsDuaTitle": "دعاء الفردوس",
+    "quranTitle": "القرآن",
+    "hadithTitle": "الحديث",
+    "actionsTitle": "خطوات عملية",
+    "notFound": "الموضوع غير موجود",
+    "tourCta": "ابدأ الجولة الإرشادية",
+    "tourCtaHint": "جولة سريعة على هذه الميزة",
+    "tourA11y": "بدء جولة الطريق إلى الجنة",
+    "disclaimer": "محتوى تعليمي عام — ليس فتوى. للأحوال الشخصية راجع عالمًا مؤهلًا. والله أعلم.",
+    "importance": {
+      "foundational": "أساسي",
+      "obligatory": "واجب",
+      "highly-recommended": "مستحب جدًا",
+      "recommended": "مستحب"
+    },
+    "grade": {
+      "sahih": "صحيح",
+      "hasan": "حسن",
+      "daif": "ضعيف",
+      "scholarly-opinion": "قول علماء"
+    },
+    "verseTheme": {
+      "description": "الوصف",
+      "reward": "الثواب",
+      "ranks": "الدرجات",
+      "mercy": "الرحمة",
+      "supplication": "الدعاء"
+    }
+  },
+  "tour": {
+    "eyebrow": "جولة إرشادية",
+    "title": "استكشف منيب",
+    "subtitle": "جولة سريعة على ما يمكنك فعله هنا.",
+    "next": "التالي",
+    "back": "السابق",
+    "done": "تم",
+    "goThere": "افتح هذه الميزة",
+    "stepLabel": "الخطوة {{current}} من {{total}}",
+    "stepCounter": "{{current}} من {{total}}",
+    "navRow": "ابدأ جولة التطبيق",
+    "navRowSub": "شرح سريع موجّه للميزات الرئيسية",
+    "steps": {
+      "tracker": {
+        "title": "تتبّع صلواتك",
+        "body": "سجّل الصلوات الخمس، ودوّن القضاء، وحافظ على استمراريتك."
+      },
+      "prayerTimes": {
+        "title": "أوقات صلاة دقيقة",
+        "body": "أوقات صلاة تُحسب على جهازك لموقعك، مع تذكيرات أذان يمكنك ضبطها."
+      },
+      "quran": {
+        "title": "اقرأ القرآن",
+        "body": "القرآن كاملًا مع الترجمات والتلاوات الصوتية والإشارات المرجعية ومخطط الختمة."
+      },
+      "qibla": {
+        "title": "حدّد القبلة",
+        "body": "بوصلة حية تشير إلى الكعبة أينما كنت."
+      },
+      "adhkar": {
+        "title": "الأذكار والأدعية اليومية",
+        "body": "أذكار الصباح والمساء، وعدّاد تسبيح، وحصن المسلم كاملًا."
+      },
+      "personalize": {
+        "title": "اجعله يناسبك",
+        "body": "السمات والخطوط واللغات والتذكيرات — اضبط التطبيق ليلائم روتينك."
+      },
+      "jannah": {
+        "title": "الطريق إلى الجنة",
+        "body": "تعرّف على الجنة ودرجاتها وأبوابها والأعمال — ثم تابع سعيك اليومي."
+      },
+      "about": {
+        "title": "ما هي الجنة؟",
+        "body": "ملخصات محايدة مدعومة بالقرآن والحديث الصحيح."
+      },
+      "paths": {
+        "title": "سبيل الدرجات",
+        "body": "كل عمل مع أدلته وخطوات عملية وروابط متابعة في منيب."
+      },
+      "journey": {
+        "title": "رحلتي",
+        "body": "استمرارك في الصلاة والأذكار والتأمل — لا درجة مئوية للجنة."
+      }
+    }
   }
 }

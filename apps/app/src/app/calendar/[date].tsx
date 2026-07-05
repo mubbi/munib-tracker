@@ -19,7 +19,8 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { PrayerRepository } from "@/db";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
-import { formatHijriDate } from "@/lib/hijri";
+import { useDefaultCalendar } from "@/hooks/use-calendar-format";
+import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -27,26 +28,18 @@ export default function CalendarDayScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const params = useLocalSearchParams<{ date: string; calendar?: string }>();
+  const defaultCalendar = useDefaultCalendar();
   const date = params.date ?? getLocalDateString();
   const today = getLocalDateString();
   const isFuture = date > today;
 
   const base = i18n.language?.split("-")[0];
   const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
-  // Map the app locale to a BCP-47 tag so the Gregorian header follows the
-  // active language rather than the device locale (matches the Hijri path).
-  const bcp47 = locale === "ar" ? "ar" : locale === "ur" ? "ur" : "en-US";
-  // Mirror the calendar view the user came from: show the Hijri date in the
-  // header when they tapped a day in the Hijri calendar.
-  const title =
-    params.calendar === "hijri"
-      ? formatHijriDate(new Date(`${date}T00:00:00`), locale)
-      : new Date(`${date}T00:00:00`).toLocaleDateString(bcp47, {
-          weekday: "long",
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        });
+  const calendarMode =
+    params.calendar === "hijri" || params.calendar === "gregorian"
+      ? params.calendar
+      : defaultCalendar;
+  const title = formatCalendarDateFromIso(date, calendarMode, locale);
 
   const [status, setStatus] = useState<Record<string, PrayerStatus>>({});
   const [notes, setNotes] = useState<Record<string, string | undefined>>({});

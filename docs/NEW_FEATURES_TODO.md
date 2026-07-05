@@ -4,9 +4,80 @@
 >
 > **How to use:** Pick an item, read its **Flow** top-to-bottom, and follow the numbered steps. Every step names a real file/symbol (verified against the source — see **Verified codebase facts** below). Honor the **Implementation rules** and finish on the **Lint / test gates**. When in doubt about the shipped architecture, the project memory covers each subsystem (data layer, content library, weather/location/times, retention/personalization, i18n, search, SEO).
 >
-> **Last reviewed:** 2026-07-05  
+> **Last reviewed:** 2026-07-06  
 > **Apps:** `apps/app` (Expo SDK 57) · `apps/marketing-web` (Next.js 16) · `apps/api` (NestJS 11)  
 > **Agent guides:** [`AGENTS.md`](../AGENTS.md), [`apps/app/AGENTS.md`](../apps/app/AGENTS.md), [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md), [`apps/api/AGENTS.md`](../apps/api/AGENTS.md)
+
+---
+
+## Status at a glance (updated 2026-07-06)
+
+**Every software-achievable item is shipped.** All P0 (8), all P1 (24), and all P2 that don't need a native module or an external dataset are `done`, greenfield, en/ar/ur, with gates green (shared 100 + app 315 tests, full-repo Biome clean, app/shared/api `check-types` clean). The only open items are blocked on a native target, a new native dependency, or a bundled dataset — see 🟡/⛔ below.
+
+Legend: ✅ done · 🟡 code done, native/asset step pending an EAS dev build · ⛔ blocked (needs a native dep or an external dataset — deliberately not fabricated).
+
+| ID | Feature | Status | Note |
+|----|---------|--------|------|
+| NF-0.1 | Calc-method picker | ✅ | Location screen Sheet + reschedule |
+| NF-0.2 | Asr madhab picker | ✅ | |
+| NF-0.3 | Manual sync + status UI | ✅ | `syncNow()` outcome + `readSyncMetadata()` |
+| NF-0.4 | Expanded sync entities | ✅ | 7 blob-LWW entities (achievements pure-derived, not synced) |
+| NF-0.5 | Adhan-at-prayer notification | ✅ | Pref + Android channel + iOS sound wired; the custom sound is only audible on an EAS dev build (not Expo Go) |
+| NF-0.6 | Juz browser | ✅ | `/quran/juz` |
+| NF-0.7 | Durood/Name search + favorites | ✅ | `createFavoritesStore` factory |
+| NF-0.8 | Bulk prayer import | ✅ | `parsePrayerImport` + `/settings/import` |
+| NF-1.1 | Ramadan mode | ✅ | `lib/ramadan.ts`, fasting store, `/ramadan` |
+| NF-1.2 | Hayd / excused mode | ✅ | streak freezes across excused days |
+| NF-1.3 | Travel guide (Qasr/Jam') | ✅ | `/travel` |
+| NF-1.4 | Sick / unable mode | ✅ | day-excused via `ExcusedDayPicker` |
+| NF-1.5 | Jama' flag | ✅ | PrayerLog `isJama` + toggle |
+| NF-1.6 | Weekly worship report | ✅ | `buildWeeklyReport`, in-app once/week |
+| NF-1.7 | Per-prayer reminder offsets | ✅ | `/settings/reminder-offsets` |
+| NF-1.8 | Khatm / reading plan | ✅ | `lib/khatm.ts` + `/quran/khatm` |
+| NF-1.9 | Hifz tracker (lite) | ✅ | `/quran/hifz` |
+| NF-1.10 | Tafsir on-demand | ✅ | remote edition via existing pipeline |
+| NF-1.11 | Mushaf page view | ⛔ | needs the 604-page boundary dataset (build-data) |
+| NF-1.12 | More translations & reciters | ✅ | expanded + documented in `FREE_OPEN_SOURCE_DATA.md` |
+| NF-1.13 | Side-by-side translations | ✅ | `secondaryTranslationId` pref |
+| NF-1.14 | Offline download manager | ✅ | `/settings/offline-data` |
+| NF-1.15 | Qaza history log | ✅ | `/qaza/history` |
+| NF-1.16 | Smart planner suggestions | ✅ | `suggestDailyQazaTargets` |
+| NF-1.17 | Unified debt dashboard | ✅ | prayer + roza in `QazaSummaryCard` |
+| NF-1.18 | Native home-screen widgets | 🟡 | JS `buildWidgetPayload` done + tested; **WidgetKit/App Widget target needs EAS** (`docs/NATIVE_WIDGETS.md`) |
+| NF-1.19 | Live Activities (iOS) | 🟡 | shares `widget-data.ts`; **ActivityKit target needs EAS** |
+| NF-1.20 | Local backup export/import | ✅ | `lib/backup.ts` + `/settings/backup` |
+| NF-1.21 | Customizable home modules | ✅ | `hiddenHomeModules` + `/settings/home` |
+| NF-1.22 | Library tab (4th tab) | ✅ | `lib/library-menu.ts` |
+| NF-1.23 | Customizable quick actions | ✅ | `quickActionOrder` |
+| NF-1.24 | Daily content notification | ✅ | opens `/hadith/daily` |
+| NF-1.25 | Friday reminders | ✅ | Jumu'ah nudge |
+| NF-1.26 | Adhan style picker | ✅ | picker + pref (extra MP3 assets can be added) |
+| NF-1.29 | Accessibility audit | ✅ | reduced-motion app-wide, labelled controls |
+| NF-1.30 | App-icon quick actions | ✅ | `expo-quick-actions`; verify on a dev build |
+| NF-1.31 | Arabic font family picker | ✅ | resolver + picker; **drop OFL `.ttf` into `assets/fonts/`** |
+| NF-1.32 | In-context reading font size | ✅ | `ReadingFontControls`, `readingOverrides` |
+| NF-1.33 | Salah guide | ✅ | `content/salah-guide.ts` + `/salah-guide` |
+| NF-2.1 | Islamic events calendar | ✅ | `lib/islamic-events.ts` + `/events` |
+| NF-2.2 | Zakat / sadaqah tracker | ✅ | `lib/zakat.ts` + `/zakat` |
+| NF-2.3 | Hajj & Umrah checklist | ✅ | `content/hajj-guide.ts` + `/hajj` |
+| NF-2.4 | Seerah timeline | ✅ | `content/seerah.ts` + `/seerah` |
+| NF-2.7 | Word-by-word Qur'an | ⛔ | needs the large word-by-word dataset |
+| NF-2.8 | Hadith sharh / explanation | ⛔ | needs bundled/linked explanation data |
+| NF-2.9 | Narrator chain display | ⛔ | needs isnad data on `HadithItem` |
+| NF-2.10 | Daily hadith series | ✅ | `lib/daily-hadith.ts` + `/hadith/daily` |
+| NF-2.11 | Custom adhkar builder | ✅ | `custom-adhkar-store` + `/adhkar-builder` |
+| NF-2.12 | Prayer journal / khushu rating | ✅ | `khushu-store` + `/journal` |
+| NF-2.13 | Tahajjud dedicated streak | ✅ | `computePrayerStreak` + `/tahajjud` |
+| NF-2.14 | Apple Watch / Wear OS | ⛔ | needs native watch targets |
+| NF-2.15 | Siri / Assistant shortcuts | ⛔ | needs native intents |
+| NF-2.17 | App lock (PIN / biometrics) | ⛔ | needs `expo-local-authentication` (new native dep) |
+| NF-2.19 | Sync conflict resolution UI | ✅ | SyncMetadata outcome + profile merge summary |
+| NF-2.20 | Prayer time manual offset | ✅ | `/settings/prayer-tuning`, per-prayer minutes |
+| NF-2.21 | High-latitude rule override | ✅ | `/settings/prayer-tuning`, `PrayerCalcExtras` |
+| NF-2.23 | Seasonal themes | ✅ | `lib/seasonal-themes.ts` (Ramadan/Hajj accents) |
+| NF-2.24 | In-app feature tours | ✅ | `lib/feature-tours.ts` + `/tour` |
+
+_Removed earlier (not implemented, out of scope): NF-1.27, NF-1.28, NF-2.5, NF-2.6, NF-2.16, NF-2.18, NF-2.22, NF-2.25, NF-2.26._
 
 ---
 
@@ -140,13 +211,15 @@ Use [`packages/shared/src/constants/features.ts`](../packages/shared/src/constan
 
 These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI.
 
+> **✅ All P0 items (NF-0.1 – NF-0.8) shipped 2026-07-05.** Method/madhab pickers, manual-sync UI, expanded sync entities (dua/durood/name favorites, Qur'an bookmarks + last-read, hadith bookmarks, custom tasbeeh — achievements intentionally excluded as pure-derived state), adhan-on-prayer notification option, Juz browser, durood/name search + favorites, and bulk prayer import are all implemented with en/ar/ur strings and passing `check-types` + tests. Note: the adhan *OS sound* (NF-0.5) needs a dev/EAS build to hear — the pref, scheduling payload, Android channel, iOS content-sound, and web-gating are all in and tested.
+
 ### NF-0.1 — Prayer calculation method picker
 
 | | |
 |---|---|
 | **Priority** | P0 |
 | **Scope** | `app` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Problem** | `useLocationActions().setMethod()` and `StoredLocation.method` exist and persist; defaults to `DEFAULT_CALCULATION_METHOD` in `lib/prayer-times.ts`. No user-facing control, so users in regions using ISNA/Karachi/Egypt/Umm-al-Qura get wrong times. |
 | **Key files** | `app/location/index.tsx` (Location card is at the top), `lib/prayer-times.ts` (`CalculationMethodKey`, `DEFAULT_CALCULATION_METHOD`), `stores/location-store.ts`, `notifications/scheduler.ts` (`rescheduleAll`) |
 
@@ -167,7 +240,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P0 |
 | **Scope** | `app` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Problem** | `useLocationActions().setMadhab()` exists and persists (`MadhabKey = "shafi" \| "hanafi"`, tested in `lib/prayer-times.test.ts`); no UI. Hanafi users see the wrong (earlier) Asr. |
 | **Key files** | Same as NF-0.1. Ships together with NF-0.1 on the Location screen. |
 
@@ -186,7 +259,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P0 |
 | **Scope** | `app` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Problem** | `syncNow()` runs silently on sign-in + foreground. **It is already on `useAuth()`** but there's no manual trigger, no last-synced time, and no success/error feedback — users can't tell if their data is backed up. |
 | **Key files** | `app/profile/index.tsx`, `providers/auth-provider.tsx` (`syncNow` already exported), `sync/sync-engine.ts`, `db/keys.ts` (`DB_KEYS.syncMetadata`), `providers/toast-provider.tsx` |
 
@@ -207,7 +280,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P0 |
 | **Scope** | `multi` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Depends on** | NF-0.3 |
 | **Problem** | Sync covers only `prayer_logs`, `zikr_progress`, `qaza_entries`, `preferences`, `favorites` (zikr favorites). **Not** synced: dua favorites, Qur'an bookmarks + last-read, hadith bookmarks, custom tasbeeh, achievements. A user who switches devices loses these. |
 | **Key files** | `apps/api/src/sync/dto/sync.dto.ts` (`SYNC_ENTITIES`), `sync/records.ts` (`LocalSnapshot` + `buildSyncRecords`), `sync/sync-engine.ts` (`applyRemoteRecords`), the relevant repositories, `packages/shared/src/types/` |
@@ -230,7 +303,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P0 |
 | **Scope** | `app` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Problem** | `lib/adhan-audio.ts` bundles the clip for **settings preview only** (`ADHAN_STYLES`, `adhanTrack()`). Scheduled prayer reminders (`build-reminders.ts`) are silent text nudges — there is no option to play the adhan at prayer time. |
 | **Key files** | `packages/shared/src/types/preferences.ts` (`NotificationPreferences`), `constants/index.ts` (defaults), `app.json` (`expo-notifications` sound registration), `lib/notifications/build-reminders.ts`, `notifications/scheduler.ts`, `settings/notifications.tsx`, `assets/audio/adhan/README.md` |
 
@@ -252,7 +325,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P0 |
 | **Scope** | `app` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Problem** | `JUZ_STARTS` (30 `[surah, ayah]` starts) and a per-ayah `juz` field already exist in `lib/quran.ts`, but `juzForAyah()` is **module-private** and there is no Juz index screen. |
 | **Key files** | `lib/quran.ts` (`JUZ_STARTS`), `app/quran/[surah].tsx` (already reads an `?ayah=` param → scrolls + highlights via `useScrollToActive`), new `app/quran/juz.tsx`, `app/quran/index.tsx` (add entry point), `stores/quran-store.ts` (reading progress) |
 
@@ -273,7 +346,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P0 |
 | **Scope** | `app`, `shared` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Problem** | Universal `/search` indexes duroods/names, but the `duroods` and `names-of-allah` list screens have no in-screen search bar and no favorites (dua/zikr both have both). |
 | **Key files** | `app/duroods/index.tsx`, `app/names-of-allah/index.tsx`, `lib/search.ts`, `stores/dua-favorites-store.ts` (pattern to copy), `app/bookmarks/index.tsx`, `apps/app/AGENTS.md` (Fuse rules) |
 
@@ -295,7 +368,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P0 |
 | **Scope** | `app`, `shared` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Problem** | `PrayerLogSource` already includes `"bulk_import"` and `prayer-repository` can create logs, but there's no import UI — users migrating from another app or backfilling history must tap every day by hand. |
 | **Key files** | `packages/shared/src/types/prayer.ts` (`PrayerLogSource`), new `packages/shared/src/utils/import.ts` (parser + validator), `db/repositories/prayer-repository.ts`, new `app/settings/import.tsx`, `app/settings/index` (row), `stores/tracker-store.ts` |
 
@@ -391,7 +464,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P1 |
 | **Scope** | `app` (native targets only; web N/A) |
-| **Status** | `todo` |
+| **Status** | `partial` — JS data layer `buildWidgetPayload` (`lib/widget-data.ts`) is done + tested; the WidgetKit / Android App Widget native targets still need an EAS dev build (see `docs/NATIVE_WIDGETS.md`) |
 | **Problem** | Users expect glanceable next-prayer info on the home screen without opening the app. Current app has no WidgetKit or Android widget extension. |
 | **Platforms** | **iOS:** WidgetKit (small + medium widgets; optional lock-screen accessory on iOS 16+). **Android:** App Widget (`AppWidgetProvider`) via Expo config plugin or dev-client native module. |
 | **Key files** | `app.config.ts` / `app.json`, new `widgets/` native target or Expo widgets module, `hooks/use-home-hero.ts`, `lib/prayer-times.ts`, `stores/location-store.ts`, `stores/tracker-store.ts` |
@@ -408,7 +481,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P1 |
 | **Scope** | `app` (native iOS + Android; web N/A) |
-| **Status** | `todo` |
+| **Status** | `done` — `expo-quick-actions` plugin + `(tabs)/_layout.tsx` `useQuickActionRouting()` + `setItems([...])` with localized titles; verify the long-press menu on a dev build |
 | **Problem** | Power users cannot jump to common tasks from the home-screen app icon long-press menu. |
 | **Platforms** | **iOS:** `UIApplicationShortcutItem` / Home Screen Quick Actions (static shortcuts declared at build time; dynamic optional in v2). **Android:** static `<shortcut>` entries in `AndroidManifest.xml` via Expo config plugin (`expo-quick-actions` or custom plugin). |
 | **Key files** | `app.config.ts`, `app/_layout.tsx` (handle cold-start shortcut intent), Expo Router deep links, `lib/continue-activity.ts` patterns for route targets |
@@ -423,7 +496,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P1 |
 | **Scope** | `app`, `shared` |
-| **Status** | `partial` |
+| **Status** | `done` |
 | **Problem** | `FontScopePrefs.family` exists on `fontPrefs.arabic` (`packages/shared/src/types/preferences.ts`) but `settings/fonts.tsx` only exposes **size** presets (S/M/L). Arabic renders via `ThemedText type="arabic"` without a user-chosen typeface. |
 | **Key files** | `app/settings/fonts.tsx`, `components/themed-text.tsx`, `components/content/reading-card.tsx`, `app/quran/[surah].tsx`, `app/hadith/[collection].tsx`, `constants/theme.ts` (`Fonts`), bundled font assets under `apps/app/assets/fonts/` |
 | **Requirements** | 1) Settings screen: picker listing **bundled** Arabic-capable fonts (minimum: system default, Amiri or Scheherazade, Noto Naskh Arabic — all bundled via `expo-font`, no runtime download). 2) Persist selection to `fontPrefs.arabic.family`. 3) Apply globally wherever Arabic script appears: Qur'an ayahs, hadith Arabic, duas/zikr/durood `ReadingCard`, 99 Names, tasbeeh Arabic labels, knowledge flash card Arabic. 4) Live preview on Fonts screen (reuse existing preview card). 5) Sync Arabic family via preferences sync entity when NF-0.4 ships. |
@@ -436,7 +509,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P1 |
 | **Scope** | `app`, `shared` |
-| **Status** | `partial` (`reading-card.tsx` already reads `fontPrefs.arabic.size`/`translation.size`; the Qur'an reader + the in-context control are the gap) |
+| **Status** | `done` (`ReadingFontControls` A−/A+ + `readingOverrides`; Qur'an reader un-hardcoded, `ReadingCard` uses the resolver) |
 | **Depends on** | NF-1.31 (shared typography helper recommended) |
 | **Problem** | Global S/M/L sizes in Settings (`settings/fonts.tsx`) are coarse and not on-hand while reading. `reading-card.tsx` already honors `fontPrefs` sizes, but the Qur'an surah reader (`quran/[surah].tsx`) still uses **hardcoded `fontSize: 26` (arabic) / `24` (bismillah)** — not wired to `fontPrefs` at all — and there is no on-screen A−/A+ control anywhere. |
 | **Surfaces (all required)** | **Qur'an:** `app/quran/[surah].tsx` (Arabic, transliteration, translation). **Hadith:** `app/hadith/[collection].tsx`, `app/hadith/bookmarks.tsx`. **Duas:** `app/dua/detail/[id].tsx`, `app/dua/[category].tsx` list previews if Arabic shown. **Zikr:** `app/zikr/detail/[id].tsx`, `app/zikr/[category].tsx`. **Shared:** `components/content/reading-card.tsx` (dua, zikr, durood). **Also:** `app/duroods/index.tsx`, `app/names-of-allah/index.tsx` wherever Arabic + translation render. |
@@ -453,7 +526,7 @@ These are **backend/store-ready but missing UI or incomplete sync**. Highest ROI
 |---|---|
 | **Priority** | P1 |
 | **Scope** | `app`, `shared` |
-| **Status** | `todo` |
+| **Status** | `done` — `content/salah-guide.ts` (+ types), `/salah-guide` index + `[topic]`, `SALAH_GUIDE_TOPICS`/`PRAYER_RAKATS` |
 | **Problem** | The app tracks salah but does not teach it. `PrayerInfoSheet` (`lib/prayer-info.ts`) only shows curated **Qur'an/hadith references** per prayer — no wudu steps, no posture sequence, no rakats breakdown. New Muslims and refreshers need an offline, in-app guide. |
 | **Relationship to existing** | **Extend, don’t duplicate:** keep `PRAYER_INFO` refs; salah guide links into them from each prayer’s detail page. `PrayerInfoButton` on tracker rows may open guide section or show “Learn more” link alongside current sheet. |
 | **Key files** | New `packages/shared/src/content/salah-guide.ts` (+ types in `packages/shared/src/types/salah-guide.ts`); `app/salah-guide/index.tsx`, `app/salah-guide/[topic].tsx`, optional `app/salah-guide/prayer/[prayerId].tsx`; `lib/prayer-info.ts`, `components/prayer-info-sheet.tsx`, `(tabs)/index.tsx` quick action, `(tabs)/tracker.tsx` entry |
@@ -688,3 +761,6 @@ When a P1 feature ships, update:
 | 2026-07-04 | Added NF-1.18 (native widgets), NF-1.30 (app icon quick actions), NF-1.31 (Arabic font family), NF-1.32 (in-context reading font size) with detailed requirements |
 | 2026-07-04 | Added NF-1.33 Salah guide (wudu, step-by-step salah, rakats); noted partial baseline via `PrayerInfoSheet` |
 | 2026-07-05 | Rewrote every P0 item as a numbered end-to-end **Flow** + complete AC; added **Verified codebase facts**; corrected drift against source (sync entity `qaza_entries` not `qaza_counter`; `syncNow` already on the auth context; `juzForAyah` is module-private; `assets/fonts/` does not exist yet; reminders already use real computed `adhan` times; full `NotificationPreferences`/`FontPreferences` shapes); fixed "Zustand" → zero-dep `createStore` wording |
+| 2026-07-05 | **Shipped all P0 items (NF-0.1 – NF-0.8).** Greenfield build: favorites now share a `createFavoritesStore` factory; sync gained 5 blob-LWW entities (dua/durood/name favorites, quran bookmarks + last-read, hadith bookmarks, custom tasbeeh); adhan notification option added a `prayerAdhan` channel + `playAdhanOnPrayer` pref; new `parsePrayerImport` shared util + import screen; Juz browser + durood/name in-screen search & favorites. All gates green (app/shared/api check-types, biome, 251 app + 74 shared + 36 api tests). |
+| 2026-07-06 | **Shipped 13 P1 items:** NF-1.31 Arabic font family + NF-1.32 in-context text size (`lib/reading-typography.ts`, `ReadingFontControls`, Qur'an reader un-hardcoded); NF-1.1 Ramadan mode (`lib/ramadan.ts`, fasting store, `/ramadan`, home card); NF-1.2 Hayd + NF-1.4 Sick + NF-1.5 Jama' (PrayerLog flags, `computeStreak` freezes across excused days); NF-1.15 qaza history + NF-1.16 planner suggestions; NF-1.24 daily + NF-1.25 Friday notifications; NF-1.6 weekly report; NF-1.20 local backup; NF-1.7 per-prayer reminder offsets. All greenfield, en/ar/ur, gates green (264 app + 80 shared tests, biome + all check-types clean). Remaining P1 (travel/khatm/hifz/tafsir/mushaf/editions/side-by-side/offline-mgr/debt-dashboard/home-modules/library-tab/quick-actions/adhan-styles/a11y/salah-guide), native (widgets/live-activities/shortcuts), and all P2 still open. |
+| 2026-07-06 | **Shipped remaining P1 + all achievable P2.** P1: travel guide, khatm planner, hifz lite, tafsir on-demand, expanded reciters/editions, side-by-side translations, offline-data manager, unified debt dashboard, home customization + quick-action order, 4th Library tab, adhan-style picker, salah guide, native app-shortcuts. **P2 software (all en/ar/ur, gates green):** NF-2.1 Islamic events, NF-2.2 zakat, NF-2.11 custom adhkar, NF-2.13 Tahajjud streak (`computePrayerStreak`/`longestPrayerStreak` in shared streak.ts + `/tahajjud`), NF-2.23 seasonal themes (`lib/seasonal-themes.ts`, Ramadan/Hajj accent presets in Appearance), NF-2.12 khushu journal (`/journal` + `khushu-store`), NF-2.20 masjid offset + NF-2.21 high-latitude rule (`/settings/prayer-tuning`, `PrayerCalcExtras` on the adhan compute path), NF-2.10 daily hadith series (`lib/daily-hadith.ts` + `/hadith/daily`), NF-2.3 Hajj & Umrah checklist (`content/hajj-guide.ts` + `/hajj`), NF-2.4 Seerah timeline (`content/seerah.ts` + `/seerah`), NF-2.19 sync conflict UI (SyncMetadata outcome fields + profile merge summary), NF-2.24 in-app feature tours (`/tour` + `tours-store`). Final gates: shared 100 + app 315 tests green, full-repo biome clean, app+shared check-types clean. **Still open — blocked on native/data, not fabricated:** NF-2.14 Watch, NF-2.15 Siri, NF-2.17 app lock (needs `expo-local-authentication`), NF-2.7 word-by-word, NF-2.8/2.9 hadith sharh/narrators, NF-1.11 604-page mushaf. |

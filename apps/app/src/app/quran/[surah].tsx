@@ -22,12 +22,13 @@ import Animated, {
 
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
+import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { IconButton } from "@/components/ui/icon-button";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { Durations } from "@/constants/motion";
@@ -46,8 +47,17 @@ import {
   getTransliteration,
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
+import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import {
+  type HifzStatus,
+  hifzKey,
+  useEnsureHifzLoaded,
+  useHifzActions,
+  useHifzMap,
+} from "@/stores/hifz-store";
+import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
 const FALLBACK_TRANSLATION = "en-pickthall";
@@ -97,12 +107,18 @@ export default function SurahReaderScreen() {
   const { colors } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const prefs = useQuranPrefs();
+  const { fontPrefs } = usePreferences();
+  const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
   const { updatePrefs, setLastRead, toggleBookmark } = useQuranActions();
+  useEnsureHifzLoaded();
+  const hifzMap = useHifzMap();
+  const { cycle: cycleHifz } = useHifzActions();
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Ayah>>(null);
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
+  const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
   const [focusHighlightAyah, setFocusHighlightAyah] = useState<number | undefined>(focusAyah);
   const focusTargetKey = focusAyah != null ? `${surahNumber}:${focusAyah}` : null;
 
@@ -171,6 +187,37 @@ export default function SurahReaderScreen() {
   const translationLoading = remoteActive && remoteQuery.isPending;
   const usingFallback = remoteActive && !remoteQuery.data && !translationLoading;
   const translationDir = usingFallback ? "ltr" : editionDirection(knownEdition);
+
+  // ── Second (side-by-side) translation — NF-1.13 ──────────────────────────
+  const secondaryId = prefs.secondaryTranslationId;
+  const secondaryKnown =
+    secondaryId &&
+    secondaryId !== knownEdition &&
+    ALL_TRANSLATIONS.some((e) => e.id === secondaryId)
+      ? secondaryId
+      : undefined;
+  const secondaryRemoteActive = secondaryKnown ? isRemoteEdition(secondaryKnown) : false;
+  const secondaryRemoteQuery = useRemoteEditionSurah(
+    secondaryRemoteActive && surah ? (secondaryKnown ?? null) : null,
+    surahNumber,
+  );
+  const secondaryBundled = useMemo(
+    () =>
+      secondaryKnown && surah
+        ? getBundledEdition(
+            secondaryRemoteActive ? FALLBACK_TRANSLATION : secondaryKnown,
+            surahNumber,
+          )
+        : {},
+    [secondaryKnown, secondaryRemoteActive, surah, surahNumber],
+  );
+  const secondTranslation = secondaryKnown
+    ? secondaryRemoteActive
+      ? (secondaryRemoteQuery.data ?? secondaryBundled)
+      : secondaryBundled
+    : undefined;
+  const secondaryDir = secondaryKnown ? editionDirection(secondaryKnown) : "ltr";
+  const secondaryEdition = ALL_TRANSLATIONS.find((e) => e.id === secondaryId);
 
   const transliteration = useMemo(
     () => (surah ? getTransliteration(surahNumber) : {}),
@@ -254,6 +301,15 @@ export default function SurahReaderScreen() {
             onPress={() => setTranslationPickerOpen(true)}
           />
         </View>
+
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ThemedText type="smallBold">{t("quran.secondTranslation")}</ThemedText>
+          <SelectTrigger
+            label={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+            accessibilityLabel={t("quran.secondTranslation")}
+            onPress={() => setSecondaryPickerOpen(true)}
+          />
+        </View>
         {translationLoading ? (
           <View style={styles.loadingRow}>
             <ActivityIndicator size="small" color={colors.accent} />
@@ -278,11 +334,19 @@ export default function SurahReaderScreen() {
           onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
         />
 
+        <View style={[styles.controlRow, styles.translationRow]}>
+          <ThemedText type="smallBold">{t("reading.textSize")}</ThemedText>
+          <ReadingFontControls surface="quran" />
+        </View>
+
         <PlaySurahButton onPress={() => playFrom(0)} />
       </Card>
 
       {surah.bismillahPre ? (
-        <ThemedText type="arabic" style={styles.bismillah}>
+        <ThemedText
+          type="arabic"
+          style={[styles.bismillah, arabicReadingLayout(readingSizes.arabic - 2, "center")]}
+        >
           بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
         </ThemedText>
       ) : null}
@@ -292,6 +356,17 @@ export default function SurahReaderScreen() {
   const renderItem = ({ item: ayah, index }: ListRenderItemInfo<Ayah>) => (
     <AyahRow
       ayah={ayah}
+      arabicSize={readingSizes.arabic}
+      translitSize={readingSizes.transliteration}
+      translationSize={readingSizes.translation}
+      hifzStatus={hifzMap[hifzKey(surahNumber, ayah.ayah)]}
+      onHifz={() => cycleHifz(surahNumber, ayah.ayah)}
+      secondTranslation={
+        prefs.showTranslation && secondTranslation
+          ? secondTranslation[String(ayah.ayah)]
+          : undefined
+      }
+      secondTranslationDir={secondaryDir}
       transliteration={prefs.showTransliteration ? transliteration[String(ayah.ayah)] : undefined}
       translation={prefs.showTranslation ? (translation[String(ayah.ayah)] ?? "") : ""}
       translationDir={translationDir}
@@ -369,6 +444,14 @@ export default function SurahReaderScreen() {
           selectedId={knownEdition}
           onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
           onClose={() => setTranslationPickerOpen(false)}
+        />
+        <OptionPickerSheet
+          visible={secondaryPickerOpen}
+          title={t("quran.secondTranslation")}
+          options={[{ id: "", label: t("quran.secondTranslationNone") }, ...TRANSLATION_OPTIONS]}
+          selectedId={secondaryId ?? ""}
+          onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
+          onClose={() => setSecondaryPickerOpen(false)}
         />
       </ScreenLayout>
     </>
@@ -449,6 +532,13 @@ const AyahRow = memo(function AyahRow({
   isPlaying,
   highlighted,
   isBookmarked,
+  arabicSize,
+  translitSize,
+  translationSize,
+  hifzStatus,
+  onHifz,
+  secondTranslation,
+  secondTranslationDir,
   onPlay,
   onBookmark,
   onShare,
@@ -460,6 +550,13 @@ const AyahRow = memo(function AyahRow({
   isPlaying: boolean;
   highlighted?: boolean;
   isBookmarked: boolean;
+  arabicSize: number;
+  translitSize: number;
+  translationSize: number;
+  hifzStatus?: HifzStatus;
+  onHifz: () => void;
+  secondTranslation?: string;
+  secondTranslationDir: "ltr" | "rtl";
   onPlay: () => void;
   onBookmark: () => void;
   onShare: () => void;
@@ -501,50 +598,97 @@ const AyahRow = memo(function AyahRow({
             {ayah.sajda ? (
               <Pill label="۩" color={colors.accent} background={tokens.accentSoft} />
             ) : null}
-            <IconButton
+            <LabeledIconButton
               name={
                 isPlaying
                   ? { ios: "pause.circle.fill", android: "pause_circle", web: "pause_circle" }
-                  : { ios: "play.circle", android: "play_circle", web: "play_circle" }
+                  : { ios: "play.circle.fill", android: "play_circle", web: "play_circle" }
               }
-              size={22}
+              label={isPlaying ? t("quran.actionPause") : t("quran.actionPlay")}
               tintColor={colors.accent}
+              labelColor={colors.accent}
+              background={tokens.accentSoft}
               accessibilityLabel={
                 isPlaying ? t("quran.pauseAyah") : t("quran.playAyah", { n: ayah.ayah })
               }
-              haptic="light"
               onPress={onPlay}
             />
-            <IconButton
+            <LabeledIconButton
+              name={
+                hifzStatus === "memorized"
+                  ? { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }
+                  : hifzStatus === "review"
+                    ? {
+                        ios: "arrow.triangle.2.circlepath",
+                        android: "sync",
+                        web: "sync",
+                      }
+                    : { ios: "book.closed", android: "menu_book", web: "menu_book" }
+              }
+              label={
+                hifzStatus === "memorized"
+                  ? t("quran.actionMemorized")
+                  : hifzStatus === "review"
+                    ? t("quran.actionReview")
+                    : t("hifz.short")
+              }
+              tintColor={
+                hifzStatus === "memorized"
+                  ? tokens.status.success.color
+                  : hifzStatus === "review"
+                    ? tokens.status.warning.color
+                    : colors.mutedForeground
+              }
+              labelColor={
+                hifzStatus === "memorized"
+                  ? tokens.status.success.color
+                  : hifzStatus === "review"
+                    ? tokens.status.warning.color
+                    : colors.mutedForeground
+              }
+              accessibilityLabel={
+                hifzStatus === "memorized"
+                  ? t("hifz.markReview")
+                  : hifzStatus === "review"
+                    ? t("hifz.clear")
+                    : t("hifz.markMemorized")
+              }
+              accessibilityState={{ selected: !!hifzStatus }}
+              haptic="selection"
+              onPress={onHifz}
+            />
+            <LabeledIconButton
               name={
                 isBookmarked
                   ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
                   : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
               }
-              size={20}
+              label={isBookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
               tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+              labelColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
               accessibilityLabel={isBookmarked ? t("quran.bookmarkRemove") : t("quran.bookmarkAdd")}
               accessibilityState={{ selected: isBookmarked }}
-              haptic="light"
               onPress={onBookmark}
             />
-            <IconButton
+            <LabeledIconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              size={20}
+              label={t("quran.actionShare")}
               tintColor={colors.mutedForeground}
               accessibilityLabel={t("quran.shareAyah")}
-              haptic="light"
               onPress={onShare}
             />
           </View>
         </View>
 
-        <ThemedText type="arabic" style={styles.arabic}>
+        <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
           {ayah.arabic}
         </ThemedText>
 
         {transliteration ? (
-          <ThemedText type="small" style={[styles.translit, { color: colors.accent }]}>
+          <ThemedText
+            type="small"
+            style={[styles.translit, { color: colors.accent, fontSize: translitSize }]}
+          >
             {transliteration}
           </ThemedText>
         ) : null}
@@ -552,9 +696,27 @@ const AyahRow = memo(function AyahRow({
         {translation ? (
           <ThemedText
             type="default"
-            style={[styles.translation, translationDir === "rtl" ? styles.rtl : null]}
+            style={[
+              styles.translation,
+              { fontSize: translationSize },
+              translationDir === "rtl" ? styles.rtl : null,
+            ]}
           >
             {translation}
+          </ThemedText>
+        ) : null}
+
+        {secondTranslation ? (
+          <ThemedText
+            type="default"
+            themeColor="mutedForeground"
+            style={[
+              styles.secondTranslation,
+              { fontSize: translationSize, borderTopColor: tokens.hairline },
+              secondTranslationDir === "rtl" ? styles.rtl : null,
+            ]}
+          >
+            {secondTranslation}
           </ThemedText>
         ) : null}
       </Card>
@@ -609,7 +771,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     marginTop: Spacing.three,
   },
-  bismillah: { textAlign: "center", fontSize: 24, lineHeight: 44, marginBottom: Spacing.two },
+  bismillah: { marginBottom: Spacing.two },
   ayahSeparator: { height: Spacing.three },
   ayahRow: { position: "relative" },
   focusRing: {
@@ -632,9 +794,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  ayahActions: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
-  arabic: { writingDirection: "rtl", textAlign: "right", fontSize: 26, lineHeight: 48 },
+  ayahActions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    justifyContent: "flex-end",
+    flexShrink: 1,
+    gap: Spacing.half,
+  },
+  arabic: {},
   translit: { fontStyle: "italic", marginTop: Spacing.three },
   translation: { marginTop: Spacing.two },
+  secondTranslation: {
+    marginTop: Spacing.three,
+    paddingTop: Spacing.three,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
   rtl: { writingDirection: "rtl", textAlign: "right" },
 });

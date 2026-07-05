@@ -1,15 +1,16 @@
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 
 export type QuickActionItem = {
   id: string;
   label: string;
-  icon: SymbolViewProps["name"];
+  icon: AppIconType;
   tint?: string;
   onPress?: () => void;
 };
@@ -59,7 +60,7 @@ function QuickAction({ item }: { item: QuickActionItem }) {
       style={styles.tileWrap}
     >
       <View style={[styles.iconWell, { backgroundColor: wellBackground, borderColor: wellBorder }]}>
-        <SymbolView name={item.icon} size={26} tintColor={tint} />
+        <AppIcon icon={item.icon} size={26} tintColor={tint} />
       </View>
       <ThemedText
         type="caption"

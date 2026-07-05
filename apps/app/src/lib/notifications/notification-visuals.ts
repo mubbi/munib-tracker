@@ -25,27 +25,51 @@ const DAILY_REMINDER_ICONS = {
     android: "history",
     web: "history",
   } satisfies SymbolName,
+  friday: {
+    ios: "book.fill",
+    android: "menu_book",
+    web: "menu_book",
+  } satisfies SymbolName,
+  dailyContent: {
+    ios: "sparkles",
+    android: "auto_awesome",
+    web: "auto_awesome",
+  } satisfies SymbolName,
 } as const;
+
+type DailyReminderId = keyof typeof DAILY_REMINDER_ICONS;
 
 type ParsedReminder =
   | { kind: "prayer"; prayerId: PrayerId }
   | { kind: "afterAzan"; prayerId: PrayerId }
   | { kind: "beforePrayer"; prayerId: PrayerId }
   | { kind: "afterPrayer"; prayerId: PrayerId }
-  | { kind: "daily"; id: keyof typeof DAILY_REMINDER_ICONS };
+  | { kind: "daily"; id: DailyReminderId };
+
+const DATE_SUFFIX = /^\d{4}-\d{2}-\d{2}$/;
+
+function parseDailyReminderId(prefix: string): DailyReminderId | null {
+  return prefix in DAILY_REMINDER_ICONS ? (prefix as DailyReminderId) : null;
+}
 
 function parsePrayerSlot(slot: string): PrayerId | null {
   return PRAYER_IDS.has(slot) ? (slot as PrayerId) : null;
 }
 
-/** Parses stable reminder ids such as `prayer:fajr:2026-07-04` or `morningZikr`. */
+/** Parses stable reminder ids such as `prayer:fajr:2026-07-04` or `beforeSleep:2026-07-06`. */
 export function parseReminderKey(key: string): ParsedReminder | null {
-  if (key in DAILY_REMINDER_ICONS) {
-    return { kind: "daily", id: key as keyof typeof DAILY_REMINDER_ICONS };
+  const exactDaily = parseDailyReminderId(key);
+  if (exactDaily) {
+    return { kind: "daily", id: exactDaily };
   }
 
-  const [head, prayerSlot] = key.split(":");
-  const prayerId = prayerSlot ? parsePrayerSlot(prayerSlot) : null;
+  const [head, second, ...rest] = key.split(":");
+  const dailyId = parseDailyReminderId(head);
+  if (dailyId && second && DATE_SUFFIX.test(second) && rest.length === 0) {
+    return { kind: "daily", id: dailyId };
+  }
+
+  const prayerId = second ? parsePrayerSlot(second) : null;
   if (!prayerId) return null;
 
   switch (head) {
@@ -107,6 +131,6 @@ export function resolveNotificationVisual(input: {
 
   return {
     icon: { ios: "bell.fill", android: "notifications", web: "notifications" },
-    category: "salah",
+    category: "system",
   };
 }

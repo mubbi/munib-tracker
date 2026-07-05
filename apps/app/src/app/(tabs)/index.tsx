@@ -1,23 +1,18 @@
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SymbolView } from "expo-symbols";
-import { useCallback, useRef, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  type NativeScrollEvent,
-  type NativeSyntheticEvent,
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ContinueCard } from "@/components/continue-card";
+import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { KnowledgeFlashCard } from "@/components/knowledge-flash-card";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
 import { QazaSummaryCard } from "@/components/qaza-summary-card";
+import { RamadanCard } from "@/components/ramadan-card";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -26,14 +21,17 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar, SegmentedProgress } from "@/components/ui/progress-bar";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
+import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { MaxContentWidth, Spacing } from "@/constants/theme";
+import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
-import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
+import { useWeeklyReport } from "@/hooks/use-weekly-report";
+import { NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
+import { orderQuickActions } from "@/lib/quick-actions";
 import { arrowForward, chevronForward } from "@/lib/rtl";
 import { HOME_FAQ } from "@/lib/seo/faq-content";
 import { faqSchema } from "@/lib/seo/structured-data";
@@ -41,8 +39,10 @@ import { useLocationActions } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 import {
   useDailySummary,
+  useDayExcused,
   useDevotionProgress,
   useQazaSummary,
+  useRoza,
   useStreak,
   useTrackerActions,
 } from "@/stores/tracker-store";
@@ -55,33 +55,27 @@ export default function HomeScreen() {
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const summary = useDailySummary();
+  const excusedReason = useDayExcused();
   const streak = useStreak();
   const devotion = useDevotionProgress();
   const qaza = useQazaSummary();
+  const roza = useRoza();
   const { refresh } = useTrackerActions();
   const location = useLocationActions();
   const hero = useHomeHero();
   const weather = useWeatherDisplay();
+  useWeeklyReport();
   const weatherSnapshot = useWeatherSnapshot();
-  const { weatherPrefs } = usePreferences();
+  const { weatherPrefs, quickActionOrder, hiddenHomeModules } = usePreferences();
+  const hiddenModules = new Set(hiddenHomeModules ?? []);
   const notificationCount = useNotificationBadgeCount();
   const [refreshing, setRefreshing] = useState(false);
-  const scrollRef = useRef<ScrollView>(null);
-  const scheduleRef = useRef<View>(null);
-  const scrollY = useRef(0);
-
-  const onScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    scrollY.current = event.nativeEvent.contentOffset?.y ?? 0;
-  }, []);
-
-  const scrollToSchedule = useCallback(() => {
-    scrollChildIntoView(scrollRef, scheduleRef, scrollY.current);
-  }, []);
 
   const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
   const tasksTotal = summary.salahTotal + summary.zikrTotal + summary.qazaTargetToday;
   const progressPct = tasksTotal ? Math.round((tasksDone / tasksTotal) * 100) : 0;
-  const isFreshStart = tasksDone === 0 && streak === 0;
+  const isExcused = excusedReason != null;
+  const isFreshStart = tasksDone === 0 && streak === 0 && !isExcused;
   const locale = i18n.language?.split("-")[0];
   const formatCount = (value: number) => value.toLocaleString(locale);
   const devotionLevelProgress = devotion.noor - devotion.noorForCurrentLevel;
@@ -109,7 +103,7 @@ export default function HomeScreen() {
       label: t("home.scheduleTitle"),
       icon: { ios: "clock.fill", android: "schedule", web: "schedule" },
       tint: tokens.status.info.color,
-      onPress: scrollToSchedule,
+      onPress: () => router.push("/schedule"),
     },
     {
       id: "zikr",
@@ -124,6 +118,34 @@ export default function HomeScreen() {
       icon: { ios: "hand.tap.fill", android: "touch_app", web: "touch_app" },
       tint: colors.accent,
       onPress: () => router.push("/tasbeeh/free"),
+    },
+    {
+      id: "ramadan",
+      label: t("actions.ramadan"),
+      icon: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
+      tint: tokens.status.info.color,
+      onPress: () => router.push("/ramadan"),
+    },
+    {
+      id: "salahGuide",
+      label: t("actions.salahGuide"),
+      icon: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
+      tint: tokens.status.info.color,
+      onPress: () => router.push("/salah-guide"),
+    },
+    {
+      id: "events",
+      label: t("actions.events"),
+      icon: { ios: "star.circle.fill", android: "event", web: "event" },
+      tint: tokens.status.warning.color,
+      onPress: () => router.push("/events"),
+    },
+    {
+      id: "zakat",
+      label: t("actions.zakat"),
+      icon: { ios: "banknote.fill", android: "payments", web: "payments" },
+      tint: tokens.status.success.color,
+      onPress: () => router.push("/zakat"),
     },
     {
       id: "qaza",
@@ -178,7 +200,7 @@ export default function HomeScreen() {
     {
       id: "names",
       label: t("actions.names"),
-      icon: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
+      icon: NAMES_OF_ALLAH_ICON,
       tint: colors.accent,
       onPress: () => router.push("/names-of-allah"),
     },
@@ -195,6 +217,13 @@ export default function HomeScreen() {
       icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
       tint: tokens.status.warning.color,
       onPress: () => router.push("/calendar"),
+    },
+    {
+      id: "jannah",
+      label: t("actions.jannah"),
+      icon: { ios: "leaf.fill", android: "park", web: "park" },
+      tint: tokens.status.success.color,
+      onPress: () => router.push("/jannah"),
     },
     {
       id: "achievements",
@@ -217,9 +246,6 @@ export default function HomeScreen() {
       <Seo path="/" isHome jsonLd={[faqSchema(HOME_FAQ)]} />
       <StatusBar style="light" />
       <ScrollView
-        ref={scrollRef}
-        onScroll={onScroll}
-        scrollEventThrottle={16}
         contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -233,7 +259,7 @@ export default function HomeScreen() {
           </ThemedText>
           <PrayerTimesHero
             location={hero.location}
-            hijriDate={hero.hijriDate}
+            displayDate={hero.displayDate}
             currentTime={hero.currentTime}
             countdown={hero.countdown}
             prayers={hero.prayers}
@@ -261,22 +287,73 @@ export default function HomeScreen() {
                   <View style={styles.goalTitle}>
                     <ThemedText type="subtitle">{t("home.todaysGoal")}</ThemedText>
                     <ThemedText type="small" themeColor="mutedForeground">
-                      {isFreshStart ? t("home.freshStartHint") : t("home.checklistHint")}
+                      {isExcused
+                        ? t("home.excusedGoalHint", {
+                            reason: t(`tracker.excusedReason.${excusedReason}`),
+                          })
+                        : isFreshStart
+                          ? t("home.freshStartHint")
+                          : t("home.checklistHint")}
                     </ThemedText>
                   </View>
-                  <Pill
-                    label={`${progressPct}%`}
-                    color={colors.accentForeground}
-                    background={colors.accent}
-                  />
+                  {isExcused ? (
+                    <Pill
+                      label={t("home.excusedPausedLabel")}
+                      color={tokens.status.info.color}
+                      background={colors.card}
+                      icon={{
+                        ios: "pause.circle.fill",
+                        android: "pause_circle",
+                        web: "pause_circle",
+                      }}
+                    />
+                  ) : (
+                    <Pill
+                      label={`${progressPct}%`}
+                      color={colors.accentForeground}
+                      background={colors.accent}
+                    />
+                  )}
                 </View>
 
-                <View style={styles.goalProgress}>
-                  <ThemedText type="smallBold" themeColor="mutedForeground">
-                    {t("home.tasksProgress", { done: tasksDone, total: tasksTotal })}
-                  </ThemedText>
-                  <SegmentedProgress total={Math.max(tasksTotal, 1)} completed={tasksDone} />
-                </View>
+                {isExcused ? (
+                  <View
+                    style={[
+                      styles.pausedBanner,
+                      {
+                        backgroundColor: colors.card,
+                        borderColor: tokens.status.info.color,
+                      },
+                    ]}
+                  >
+                    <SymbolView
+                      name={{
+                        ios: "pause.circle.fill",
+                        android: "pause_circle",
+                        web: "pause_circle",
+                      }}
+                      size={22}
+                      tintColor={tokens.status.info.color}
+                    />
+                    <View style={styles.pausedCopy}>
+                      <ThemedText type="smallBold" style={{ color: tokens.status.info.color }}>
+                        {t("home.excusedPausedLabel")}
+                      </ThemedText>
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {t("home.excusedGoalBody")}
+                      </ThemedText>
+                    </View>
+                  </View>
+                ) : (
+                  <View style={styles.goalProgress}>
+                    <ThemedText type="smallBold" themeColor="mutedForeground">
+                      {t("home.tasksProgress", { done: tasksDone, total: tasksTotal })}
+                    </ThemedText>
+                    <SegmentedProgress total={Math.max(tasksTotal, 1)} completed={tasksDone} />
+                  </View>
+                )}
+
+                <ExcusedDayPicker variant="inline" />
 
                 <PressableScale
                   onPress={() => router.push("/achievements")}
@@ -321,34 +398,69 @@ export default function HomeScreen() {
                 </PressableScale>
 
                 <Button
-                  label={isFreshStart ? t("home.startTracking") : t("home.goToChecklist")}
+                  label={
+                    isExcused
+                      ? t("home.goToChecklist")
+                      : isFreshStart
+                        ? t("home.startTracking")
+                        : t("home.goToChecklist")
+                  }
+                  variant={isExcused ? "secondary" : "primary"}
                   fullWidth
                   trailingIcon={arrowForward}
                   onPress={() => router.push("/tracker")}
                 />
               </Card>
 
-              <ContinueCard />
+              <RamadanCard />
 
-              <KnowledgeFlashCard />
+              {!hiddenModules.has("continue") ? <ContinueCard /> : null}
 
-              <Card padding="three">
-                <QuickActionGrid items={quickActions} columns={4} />
-              </Card>
+              {!hiddenModules.has("knowledge") ? <KnowledgeFlashCard /> : null}
 
-              <QazaSummaryCard
-                remaining={qaza.remaining}
-                completed={qaza.completed}
-                onPress={() => router.push("/qaza")}
-              />
+              {!hiddenModules.has("quickActions") ? (
+                <Card padding="three">
+                  <SectionHeader
+                    title={t("home.explore")}
+                    icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+                    actionLabel={t("home.manage")}
+                    actionAccessibilityLabel={t("home.manageA11y")}
+                    actionIcon={{
+                      ios: "slider.horizontal.3",
+                      android: "tune",
+                      web: "tune",
+                    }}
+                    onActionPress={() => router.push("/settings/home")}
+                  />
+                  <View style={styles.quickActions}>
+                    <QuickActionGrid
+                      items={
+                        quickActionOrder?.length
+                          ? orderQuickActions(quickActions, quickActionOrder)
+                          : quickActions
+                      }
+                      columns={4}
+                    />
+                  </View>
+                </Card>
+              ) : null}
 
-              <View ref={scheduleRef}>
+              {!hiddenModules.has("qaza") ? (
+                <QazaSummaryCard
+                  remaining={qaza.remaining}
+                  completed={qaza.completed}
+                  rozaRemaining={roza.remaining}
+                  onPress={() => router.push("/qaza")}
+                />
+              ) : null}
+
+              {!hiddenModules.has("schedule") ? (
                 <PrayerScheduleCard
                   schedule={hero.schedule}
                   nextIn={hero.nextIn}
                   nextScheduleId={hero.nextScheduleId}
                 />
-              </View>
+              ) : null}
             </Stagger>
           </View>
         </View>
@@ -373,6 +485,19 @@ const styles = StyleSheet.create({
   },
   goalTitle: { flex: 1, gap: 2 },
   goalProgress: { gap: Spacing.two },
+  pausedBanner: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: Spacing.three,
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: 1,
+  },
+  pausedCopy: {
+    flex: 1,
+    gap: Spacing.half,
+  },
   devotionBlock: {
     gap: Spacing.one + 2,
     marginTop: Spacing.three,
@@ -389,4 +514,5 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 2,
   },
+  quickActions: { marginTop: Spacing.three },
 });

@@ -10,7 +10,10 @@ import {
   type CalculationMethodKey,
   DEFAULT_CALCULATION_METHOD,
   DEFAULT_MADHAB,
+  type HighLatitudeRuleKey,
   type MadhabKey,
+  type PrayerAdjustments,
+  type PrayerCalcExtras,
 } from "@/lib/prayer-times";
 
 /**
@@ -39,6 +42,10 @@ export interface StoredLocation {
   country?: string;
   method: CalculationMethodKey;
   madhab: MadhabKey;
+  /** High-latitude twilight rule override; unset ⇒ latitude-aware default (NF-2.21). */
+  highLatitudeRule?: HighLatitudeRuleKey;
+  /** Per-prayer manual minute offsets to match the local masjid (NF-2.20). */
+  prayerAdjustments?: PrayerAdjustments;
   /** How these coordinates were obtained; drives whether GPS may replace them. */
   source: LocationSource;
   /** ISO timestamp of the last successful device fix, or null if defaulted. */
@@ -63,6 +70,18 @@ export const DEFAULT_LOCATION: StoredLocation = {
   source: "default",
   updatedAt: null,
 };
+
+/**
+ * Bundles the optional calculation refinements stored on a location (high-latitude
+ * rule + per-prayer offsets) into the shape the prayer-time helpers accept, so
+ * every compute call applies them consistently (NF-2.20, NF-2.21).
+ */
+export function locationCalcExtras(location: StoredLocation): PrayerCalcExtras {
+  return {
+    highLatitudeRule: location.highLatitudeRule,
+    adjustments: location.prayerAdjustments,
+  };
+}
 
 interface Place {
   city?: string;

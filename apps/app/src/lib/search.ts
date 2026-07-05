@@ -1,4 +1,10 @@
-import { DUA_ITEMS, DUROOD_ITEMS, NAMES_OF_ALLAH, ZIKR_ITEMS } from "@munib-tracker/shared/content";
+import {
+  DUA_ITEMS,
+  DUROOD_ITEMS,
+  JANNAH_TOPICS,
+  NAMES_OF_ALLAH,
+  ZIKR_ITEMS,
+} from "@munib-tracker/shared/content";
 import type {
   DuaItem,
   DurudItem,
@@ -32,7 +38,7 @@ import { getBundledEdition, getSurahAyahs, getSurahMeta, getTransliteration } fr
  *   {@link searchQuranAyahs} off the interaction thread to keep typing smooth.
  */
 
-export type SearchCategory = "quran" | "hadith" | "dua" | "zikr" | "durood" | "name";
+export type SearchCategory = "quran" | "hadith" | "dua" | "zikr" | "durood" | "name" | "jannah";
 
 export interface SearchResult {
   /** Stable React key, unique across all categories. */
@@ -60,7 +66,8 @@ export type SearchHref =
   | "/dua/detail/[id]"
   | "/zikr/detail/[id]"
   | "/duroods"
-  | "/names-of-allah";
+  | "/names-of-allah"
+  | "/jannah/[topic]";
 
 export interface SearchGroup {
   category: SearchCategory;
@@ -77,6 +84,7 @@ export const SEARCH_CATEGORY_ORDER: SearchCategory[] = [
   "zikr",
   "name",
   "durood",
+  "jannah",
 ];
 
 /** Translation edition used for Qur'an ayah full-text (matches /quran/search). */
@@ -237,6 +245,7 @@ function capitalize(text: string): string {
 let duaFuse: Fuse<FuseDoc<DuaItem>> | null = null;
 let zikrFuse: Fuse<FuseDoc<ZikrItem>> | null = null;
 let duroodFuse: Fuse<FuseDoc<DurudItem>> | null = null;
+let jannahFuse: Fuse<FuseDoc<(typeof JANNAH_TOPICS)[number]>> | null = null;
 let nameFuse: Fuse<FuseDoc<NameOfAllah>> | null = null;
 let surahFuse: Fuse<FuseDoc<Surah>> | null = null;
 let hadithFuse: Fuse<FuseDoc<HadithItem>> | null = null;
@@ -275,24 +284,60 @@ function getZikrFuse(): Fuse<FuseDoc<ZikrItem>> {
   return zikrFuse;
 }
 
+/** Shared durood field weights, used by the global index and per-screen search. */
+const DUROOD_FIELDS: FuzzyField<DurudItem>[] = [
+  { key: "title", weight: 5, get: (d) => d.title },
+  { key: "translit", weight: 3, get: (d) => d.transliteration },
+  { key: "translation", weight: 2, get: (d) => d.translation },
+  { key: "arabic", weight: 2, get: (d) => d.arabic },
+];
+
+/** Shared 99-names field weights, used by the global index and per-screen search. */
+const NAME_FIELDS: FuzzyField<NameOfAllah>[] = [
+  { key: "translit", weight: 5, get: (n) => n.transliteration },
+  { key: "translation", weight: 3, get: (n) => n.translation },
+  { key: "meaning", weight: 2, get: (n) => n.meaning },
+  { key: "arabic", weight: 2, get: (n) => n.arabic },
+];
+
 function getDuroodFuse(): Fuse<FuseDoc<DurudItem>> {
-  duroodFuse ??= makeFuse(DUROOD_ITEMS, [
-    { key: "title", weight: 5, get: (d) => d.title },
-    { key: "translit", weight: 3, get: (d) => d.transliteration },
-    { key: "translation", weight: 2, get: (d) => d.translation },
-    { key: "arabic", weight: 2, get: (d) => d.arabic },
-  ]);
+  duroodFuse ??= makeFuse(DUROOD_ITEMS, DUROOD_FIELDS);
   return duroodFuse;
 }
 
+const JANNAH_FIELDS: FuzzyField<(typeof JANNAH_TOPICS)[number]>[] = [
+  { key: "title", weight: 5, get: (t) => t.title },
+  { key: "summary", weight: 4, get: (t) => t.summary },
+  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
+  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
+];
+
+function getJannahFuse(): Fuse<FuseDoc<(typeof JANNAH_TOPICS)[number]>> {
+  jannahFuse ??= makeFuse(JANNAH_TOPICS, JANNAH_FIELDS);
+  return jannahFuse;
+}
+
+/** Fuzzy-ranked Journey to Jannah topics for screen-local filters. */
+export function searchJannahList(query: string, limit?: number) {
+  const pattern = fusePattern(query);
+  if (!pattern) return [];
+  const matches = getJannahFuse().search(pattern, limit ? { limit } : undefined);
+  return matches.map((match) => match.item.item);
+}
+
 function getNameFuse(): Fuse<FuseDoc<NameOfAllah>> {
-  nameFuse ??= makeFuse(NAMES_OF_ALLAH, [
-    { key: "translit", weight: 5, get: (n) => n.transliteration },
-    { key: "translation", weight: 3, get: (n) => n.translation },
-    { key: "meaning", weight: 2, get: (n) => n.meaning },
-    { key: "arabic", weight: 2, get: (n) => n.arabic },
-  ]);
+  nameFuse ??= makeFuse(NAMES_OF_ALLAH, NAME_FIELDS);
   return nameFuse;
+}
+
+/** A fuzzy index over the duroods list, for the in-screen search bar. */
+export function createDuroodSearch(items: DurudItem[]): FuzzyIndex<DurudItem> {
+  return createFuzzyIndex(items, DUROOD_FIELDS);
+}
+
+/** A fuzzy index over the 99 names, for the in-screen search bar. */
+export function createNameSearch(items: NameOfAllah[]): FuzzyIndex<NameOfAllah> {
+  return createFuzzyIndex(items, NAME_FIELDS);
 }
 
 function surahRevelationLabel(place: RevelationPlace): string {
@@ -563,6 +608,18 @@ function searchDuroods(query: string, limit: number) {
   }));
 }
 
+function searchJannah(query: string, limit: number) {
+  return fuseSearch(getJannahFuse(), query, limit, (item) => ({
+    key: `jannah:${item.id}`,
+    category: "jannah",
+    title: item.title,
+    subtitle: item.summary,
+    badge: item.hub,
+    href: "/jannah/[topic]",
+    params: { topic: item.id },
+  }));
+}
+
 /**
  * Search the Qur'an ayah full-text index. Heavy on the very first call (builds
  * the Fuse index); callers should defer it so lighter results paint first.
@@ -596,6 +653,7 @@ export function searchLight(query: string, perGroupLimit = DEFAULT_GROUP_LIMIT):
     zikr: searchZikr(query, perGroupLimit),
     name: searchNames(query, perGroupLimit),
     durood: searchDuroods(query, perGroupLimit),
+    jannah: searchJannah(query, perGroupLimit),
   };
 
   return SEARCH_CATEGORY_ORDER.map((category) => ({ category, ...byCategory[category] })).filter(

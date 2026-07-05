@@ -19,6 +19,39 @@ export type CalculationMethodKey = keyof typeof CalculationMethod;
 /** Asr shadow-length madhab. */
 export type MadhabKey = "shafi" | "hanafi";
 
+/**
+ * High-latitude twilight rule (NF-2.21). Beyond ~48° the sun may never reach the
+ * Fajr/Isha angles, so a substitution rule is needed. `recommended` picks per
+ * latitude automatically; the others let the user match a local convention.
+ */
+export type HighLatitudeRuleKey =
+  | "recommended"
+  | "MiddleOfTheNight"
+  | "SeventhOfTheNight"
+  | "TwilightAngle";
+
+export const HIGH_LATITUDE_RULE_KEYS: HighLatitudeRuleKey[] = [
+  "recommended",
+  "MiddleOfTheNight",
+  "SeventhOfTheNight",
+  "TwilightAngle",
+];
+
+export const DEFAULT_HIGH_LATITUDE_RULE: HighLatitudeRuleKey = "recommended";
+
+/** Per-marker manual minute offset applied on top of the calculation (NF-2.20). */
+export type PrayerAdjustments = Partial<Record<PrayerSlotId, number>>;
+
+/**
+ * Optional calculation refinements layered onto the method + madhab: a
+ * high-latitude rule override (NF-2.21) and per-prayer minute offsets so times
+ * match the local masjid's announced schedule (NF-2.20).
+ */
+export interface PrayerCalcExtras {
+  highLatitudeRule?: HighLatitudeRuleKey;
+  adjustments?: PrayerAdjustments;
+}
+
 export interface Coords {
   latitude: number;
   longitude: number;
@@ -69,18 +102,61 @@ export const PRAYER_SLOT_ICONS: Record<PrayerSlotId, SymbolViewProps["name"]> = 
 export const DEFAULT_CALCULATION_METHOD: CalculationMethodKey = "MuslimWorldLeague";
 export const DEFAULT_MADHAB: MadhabKey = "shafi";
 
+/**
+ * `adhan`'s built-in calculation methods in a sensible display order (most
+ * globally used first). Labels + regional hints live in i18n under
+ * `location.methods.*` / `location.methodHints.*` so they translate; this array
+ * is the canonical enumeration the picker iterates over.
+ */
+export const CALCULATION_METHOD_KEYS: CalculationMethodKey[] = [
+  "MuslimWorldLeague",
+  "Egyptian",
+  "Karachi",
+  "UmmAlQura",
+  "Dubai",
+  "MoonsightingCommittee",
+  "NorthAmerica",
+  "Kuwait",
+  "Qatar",
+  "Singapore",
+  "Tehran",
+  "Turkey",
+  "Other",
+];
+
+/** The two asr madhab options, in display order. */
+export const MADHAB_KEYS: MadhabKey[] = ["shafi", "hanafi"];
+
+/** Resolves a high-latitude rule key into the `adhan` rule (NF-2.21). */
+function resolveHighLatitudeRule(coordinates: Coordinates, key?: HighLatitudeRuleKey) {
+  switch (key) {
+    case "MiddleOfTheNight":
+      return HighLatitudeRule.MiddleOfTheNight;
+    case "SeventhOfTheNight":
+      return HighLatitudeRule.SeventhOfTheNight;
+    case "TwilightAngle":
+      return HighLatitudeRule.TwilightAngle;
+    default:
+      // `recommended` (and unset) is latitude-aware; it substitutes a sane
+      // fallback so Fajr/Isha stay computable in polar regions.
+      return HighLatitudeRule.recommended(coordinates);
+  }
+}
+
 function buildParameters(
   coordinates: Coordinates,
   method: CalculationMethodKey,
   madhab: MadhabKey,
+  extras?: PrayerCalcExtras,
 ) {
   const factory = CalculationMethod[method] ?? CalculationMethod[DEFAULT_CALCULATION_METHOD];
   const params = factory();
   params.madhab = madhab === "hanafi" ? Madhab.Hanafi : Madhab.Shafi;
-  // At high (polar) latitudes the sun may not cross the twilight angles, leaving
-  // Fajr/Isha undefined and producing "Invalid Date"/NaN. The latitude-aware
-  // recommended rule substitutes a sane fallback so times stay computable.
-  params.highLatitudeRule = HighLatitudeRule.recommended(coordinates);
+  params.highLatitudeRule = resolveHighLatitudeRule(coordinates, extras?.highLatitudeRule);
+  // Per-prayer manual offsets so computed times match the local masjid (NF-2.20).
+  if (extras?.adjustments) {
+    params.adjustments = { ...params.adjustments, ...extras.adjustments };
+  }
   return params;
 }
 
@@ -90,9 +166,10 @@ export function computePrayerTimes(
   date: Date,
   method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
   madhab: MadhabKey = DEFAULT_MADHAB,
+  extras?: PrayerCalcExtras,
 ): PrayerTimes {
   const coordinates = new Coordinates(coords.latitude, coords.longitude);
-  return new PrayerTimes(coordinates, date, buildParameters(coordinates, method, madhab));
+  return new PrayerTimes(coordinates, date, buildParameters(coordinates, method, madhab, extras));
 }
 
 /**
@@ -126,9 +203,10 @@ export function nextPrayer(
   method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
   madhab: MadhabKey = DEFAULT_MADHAB,
   timeZone?: string,
+  extras?: PrayerCalcExtras,
 ): NextPrayer {
   const anchor = prayerDayAnchor(now, timeZone);
-  const today = computePrayerTimes(coords, anchor, method, madhab);
+  const today = computePrayerTimes(coords, anchor, method, madhab, extras);
   const upcoming = today.nextPrayer(now);
 
   // The currently running window: the latest marker that has already begun.
@@ -147,7 +225,7 @@ export function nextPrayer(
 
   if (upcoming === "none") {
     const tomorrow = shiftPrayerDay(anchor, 1);
-    const next = computePrayerTimes(coords, tomorrow, method, madhab);
+    const next = computePrayerTimes(coords, tomorrow, method, madhab, extras);
     id = "fajr";
     date = next.fajr;
     activeIndex = -1;
@@ -269,11 +347,24 @@ export function buildPrayerTimeMap(
   flexibleLabel = "Any time",
   timeFormat: TimeFormat = "24",
   timeZone?: string,
+  extras?: PrayerCalcExtras,
 ): Record<PrayerId, string> {
   const anchor = prayerDayAnchor(now, timeZone);
-  const today = computePrayerTimes(coords, anchor, method, madhab);
-  const tomorrowTimes = computePrayerTimes(coords, shiftPrayerDay(anchor, 1), method, madhab);
-  const yesterdayTimes = computePrayerTimes(coords, shiftPrayerDay(anchor, -1), method, madhab);
+  const today = computePrayerTimes(coords, anchor, method, madhab, extras);
+  const tomorrowTimes = computePrayerTimes(
+    coords,
+    shiftPrayerDay(anchor, 1),
+    method,
+    madhab,
+    extras,
+  );
+  const yesterdayTimes = computePrayerTimes(
+    coords,
+    shiftPrayerDay(anchor, -1),
+    method,
+    madhab,
+    extras,
+  );
 
   const duha = duhaWindow(today.sunrise, today.dhuhr);
 
@@ -306,11 +397,24 @@ export function buildDailySchedule(
   method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
   madhab: MadhabKey = DEFAULT_MADHAB,
   timeZone?: string,
+  extras?: PrayerCalcExtras,
 ): DailyScheduleEntry[] {
   const anchor = prayerDayAnchor(now, timeZone);
-  const today = computePrayerTimes(coords, anchor, method, madhab);
-  const tomorrowTimes = computePrayerTimes(coords, shiftPrayerDay(anchor, 1), method, madhab);
-  const yesterdayTimes = computePrayerTimes(coords, shiftPrayerDay(anchor, -1), method, madhab);
+  const today = computePrayerTimes(coords, anchor, method, madhab, extras);
+  const tomorrowTimes = computePrayerTimes(
+    coords,
+    shiftPrayerDay(anchor, 1),
+    method,
+    madhab,
+    extras,
+  );
+  const yesterdayTimes = computePrayerTimes(
+    coords,
+    shiftPrayerDay(anchor, -1),
+    method,
+    madhab,
+    extras,
+  );
 
   const tahajjudAt = tahajjudTime(now, today, tomorrowTimes.fajr, yesterdayTimes.maghrib);
   const ishraqAt = ishraqTime(today.sunrise);
@@ -357,7 +461,7 @@ export function buildDailySchedule(
   ];
 
   // Highlight the obligatory/marker window that is currently running.
-  const next = nextPrayer(coords, now, method, madhab, timeZone);
+  const next = nextPrayer(coords, now, method, madhab, timeZone, extras);
   const slotActive = new Set<PrayerSlotId>();
   if (next.currentIndex >= 0) slotActive.add(PRAYER_SLOT_ORDER[next.currentIndex]);
 
