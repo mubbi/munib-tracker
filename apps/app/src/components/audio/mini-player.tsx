@@ -832,7 +832,7 @@ function VolumePopover({
   };
 
   return (
-    <View
+    <Pressable
       style={styles.volumePopoverAnchor}
       onHoverIn={onAnchorHoverIn}
       onHoverOut={onAnchorHoverOut}
@@ -862,7 +862,7 @@ function VolumePopover({
         onPress={onIconPress}
         hitTarget={34}
       />
-    </View>
+    </Pressable>
   );
 }
 
