@@ -11,6 +11,7 @@ import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
+import { SIDE_RAIL_BREAKPOINT, SIDE_RAIL_WIDTH } from "@/hooks/use-web-tab-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { ThemedText } from "./themed-text";
@@ -43,13 +44,9 @@ const tabs: TabConfig[] = [
   },
 ];
 
-/** Width at/above which we switch the bottom tab bar for a persistent side rail. */
-const SideRailBreakpoint = 768;
-const SideRailWidth = 232;
-
 export default function AppTabs() {
   const { width } = useWindowDimensions();
-  const isWide = width >= SideRailBreakpoint;
+  const isWide = width >= SIDE_RAIL_BREAKPOINT;
 
   const triggers = (variant: TabVariant) =>
     tabs.map((tab) => (
@@ -208,7 +205,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   railContainer: {
-    width: SideRailWidth,
+    width: SIDE_RAIL_WIDTH,
     height: "100%",
     borderRightWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Spacing.three,

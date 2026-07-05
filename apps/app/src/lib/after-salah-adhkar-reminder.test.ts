@@ -1,4 +1,8 @@
-import { shouldRemindAfterSalahAdhkar } from "./after-salah-adhkar-reminder";
+import {
+  AFTER_SALAH_ADHKAR_ROUTE,
+  afterSalahAdhkarRoute,
+  shouldRemindAfterSalahAdhkar,
+} from "./after-salah-adhkar-reminder";
 
 describe("shouldRemindAfterSalahAdhkar", () => {
   it("reminds when an obligatory prayer is newly completed", () => {
@@ -11,5 +15,22 @@ describe("shouldRemindAfterSalahAdhkar", () => {
     expect(shouldRemindAfterSalahAdhkar("fajr", "completed", "completed")).toBe(false);
     expect(shouldRemindAfterSalahAdhkar("witr", "pending", "completed")).toBe(false);
     expect(shouldRemindAfterSalahAdhkar("tahajjud", "pending", "completed")).toBe(false);
+  });
+});
+
+describe("afterSalahAdhkarRoute", () => {
+  it("defaults to the after_prayer category without a prayer filter", () => {
+    expect(afterSalahAdhkarRoute()).toEqual({
+      pathname: "/zikr/[category]",
+      params: { category: "after_prayer" },
+    });
+    expect(AFTER_SALAH_ADHKAR_ROUTE).toEqual(afterSalahAdhkarRoute());
+  });
+
+  it("includes the prayer param when opened from a specific salah", () => {
+    expect(afterSalahAdhkarRoute("fajr")).toEqual({
+      pathname: "/zikr/[category]",
+      params: { category: "after_prayer", prayer: "fajr" },
+    });
   });
 });

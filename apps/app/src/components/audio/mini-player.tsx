@@ -8,6 +8,7 @@ import {
   FlatList,
   type LayoutChangeEvent,
   PanResponder,
+  Platform,
   Pressable,
   StyleSheet,
   View,
@@ -27,6 +28,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Fonts, Radius, Shadows, Spacing } from "@/constants/theme";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
+import { useWebTabLayout } from "@/hooks/use-web-tab-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   queuePosition as computeQueuePosition,
@@ -65,6 +67,19 @@ const SEEK_STEP = 10;
 
 /** Volume slider step for keyboard/AT adjustments (0–1). */
 const VOLUME_STEP = 0.1;
+
+/** Vertical popover slider height (compact mini-player). */
+const VERTICAL_VOLUME_HEIGHT = 88;
+
+function volumeIconForLevel(volume: number): SymbolViewProps["name"] {
+  if (volume <= 0) {
+    return { ios: "speaker.slash.fill", android: "volume_off", web: "volume_off" };
+  }
+  if (volume < 0.5) {
+    return { ios: "speaker.fill", android: "volume_down", web: "volume_down" };
+  }
+  return { ios: "speaker.wave.3.fill", android: "volume_up", web: "volume_up" };
+}
 
 function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
@@ -246,6 +261,7 @@ export function MiniPlayer() {
 
 function CompactPlayer({ onExpand }: { onExpand: () => void }) {
   const tabBarOffset = useTabBarOffset();
+  const { sideRailWidth } = useWebTabLayout();
   const setMiniPlayerInset = useSetMiniPlayerInset();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -270,6 +286,8 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
     trackDurations,
     rate,
     setRate,
+    volume,
+    setVolume,
     readPlaybackSeconds,
   } = useAudioPlayerContext();
 
@@ -314,6 +332,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
         styles.container,
         {
           bottom: tabBarOffset,
+          left: sideRailWidth,
           backgroundColor: colors.card,
           borderColor: colors.border,
         },
@@ -410,6 +429,18 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               tintColor={colors.foreground}
               accessibilityLabel={t("player.next")}
               onPress={next}
+            />
+          ) : null}
+          {supportsProgrammaticVolume() ? (
+            <VolumePopover
+              volume={volume}
+              onChange={setVolume}
+              trackColor={tokens.track}
+              fillColor={colors.accent}
+              thumbColor={colors.accent}
+              iconColor={colors.foreground}
+              popupBackground={colors.card}
+              popupBorder={colors.border}
             />
           ) : null}
           <PressableScale
@@ -633,6 +664,201 @@ function VolumeBar({
           />
         </View>
       </View>
+    </View>
+  );
+}
+
+// ── Vertical volume popover (compact bar) ────────────────────────────────────
+
+function VerticalVolumeBar({
+  volume,
+  onChange,
+  trackColor,
+  fillColor,
+  thumbColor,
+}: {
+  volume: number;
+  onChange: (volume: number) => void;
+  trackColor: string;
+  fillColor: string;
+  thumbColor: string;
+}) {
+  const { t } = useTranslation();
+  const [barHeight, setBarHeight] = useState(0);
+  const [scrub, setScrub] = useState<number | null>(null);
+
+  const heightRef = useRef(0);
+  heightRef.current = barHeight;
+
+  const responder = useMemo(() => {
+    const ratioFromY = (y: number) => {
+      const h = heightRef.current;
+      if (h <= 0) return 0;
+      return Math.max(0, Math.min(1, 1 - y / h));
+    };
+    return PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderGrant: (e) => {
+        triggerHaptic("selection");
+        setScrub(ratioFromY(e.nativeEvent.locationY));
+      },
+      onPanResponderMove: (e) => {
+        setScrub(ratioFromY(e.nativeEvent.locationY));
+      },
+      onPanResponderRelease: (e) => {
+        onChange(ratioFromY(e.nativeEvent.locationY));
+        setScrub(null);
+      },
+      onPanResponderTerminate: () => setScrub(null),
+    });
+  }, [onChange]);
+
+  const shown = scrub ?? volume;
+  const progress = Math.min(Math.max(shown, 0), 1);
+  const percent = Math.round(progress * 100);
+
+  const onLayout = (e: LayoutChangeEvent) => setBarHeight(e.nativeEvent.layout.height);
+
+  const onAccessibilityAction = (event: AccessibilityActionEvent) => {
+    const delta =
+      event.nativeEvent.actionName === "increment"
+        ? VOLUME_STEP
+        : event.nativeEvent.actionName === "decrement"
+          ? -VOLUME_STEP
+          : 0;
+    if (delta === 0) return;
+    onChange(Math.max(0, Math.min(1, volume + delta)));
+  };
+
+  return (
+    <View
+      style={styles.verticalVolumeBar}
+      accessibilityRole="adjustable"
+      accessibilityLabel={t("player.volume")}
+      accessibilityValue={{
+        min: 0,
+        max: 100,
+        now: percent,
+        text: t("player.volumeValue", { value: percent }),
+      }}
+      accessibilityActions={[{ name: "increment" }, { name: "decrement" }]}
+      onAccessibilityAction={onAccessibilityAction}
+      {...responder.panHandlers}
+    >
+      <View
+        onLayout={onLayout}
+        style={[styles.verticalVolumeTrack, { height: VERTICAL_VOLUME_HEIGHT, backgroundColor: trackColor }]}
+      >
+        <View
+          style={[
+            styles.verticalVolumeFill,
+            { height: `${progress * 100}%`, backgroundColor: fillColor },
+          ]}
+        >
+          <View
+            style={[
+              styles.verticalVolumeThumb,
+              { backgroundColor: thumbColor, transform: [{ scale: scrub != null ? 1.25 : 1 }] },
+            ]}
+          />
+        </View>
+      </View>
+    </View>
+  );
+}
+
+function VolumePopover({
+  volume,
+  onChange,
+  trackColor,
+  fillColor,
+  thumbColor,
+  iconColor,
+  popupBackground,
+  popupBorder,
+}: {
+  volume: number;
+  onChange: (volume: number) => void;
+  trackColor: string;
+  fillColor: string;
+  thumbColor: string;
+  iconColor: string;
+  popupBackground: string;
+  popupBorder: string;
+}) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const hoverInsideRef = useRef(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isWeb = Platform.OS === "web";
+
+  useEffect(
+    () => () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    },
+    [],
+  );
+
+  const openPopup = useCallback(() => setOpen(true), []);
+  const closePopup = useCallback(() => setOpen(false), []);
+
+  const scheduleClose = useCallback(() => {
+    if (!isWeb) return;
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = setTimeout(() => {
+      if (!hoverInsideRef.current) closePopup();
+    }, 180);
+  }, [closePopup, isWeb]);
+
+  const onAnchorHoverIn = () => {
+    if (!isWeb) return;
+    hoverInsideRef.current = true;
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    openPopup();
+  };
+
+  const onAnchorHoverOut = () => {
+    if (!isWeb) return;
+    hoverInsideRef.current = false;
+    scheduleClose();
+  };
+
+  const onIconPress = () => {
+    setOpen((value) => !value);
+  };
+
+  return (
+    <View
+      style={styles.volumePopoverAnchor}
+      onHoverIn={onAnchorHoverIn}
+      onHoverOut={onAnchorHoverOut}
+    >
+      {open ? (
+        <View
+          style={[
+            styles.volumePopup,
+            { backgroundColor: popupBackground, borderColor: popupBorder },
+          ]}
+        >
+          <VerticalVolumeBar
+            volume={volume}
+            onChange={onChange}
+            trackColor={trackColor}
+            fillColor={fillColor}
+            thumbColor={thumbColor}
+          />
+        </View>
+      ) : null}
+      <IconButton
+        name={volumeIconForLevel(volume)}
+        size={18}
+        tintColor={iconColor}
+        accessibilityLabel={t("player.volume")}
+        accessibilityState={{ selected: open }}
+        onPress={onIconPress}
+        hitTarget={34}
+      />
     </View>
   );
 }
@@ -1057,7 +1283,7 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 40,
     borderTopWidth: StyleSheet.hairlineWidth,
-    overflow: "hidden",
+    overflow: "visible",
   },
   progress: { height: 3, width: "100%", overflow: "hidden" },
   progressFill: { height: "100%" },
@@ -1088,6 +1314,49 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
+  },
+  volumePopoverAnchor: {
+    position: "relative",
+    zIndex: 2,
+  },
+  volumePopup: {
+    position: "absolute",
+    bottom: "100%",
+    left: "50%",
+    marginBottom: Spacing.one,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.two,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+    transform: [{ translateX: -18 }],
+    ...Shadows.sm,
+    zIndex: 10,
+  },
+  verticalVolumeBar: {
+    width: 36,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Spacing.one,
+  },
+  verticalVolumeTrack: {
+    width: 4,
+    borderRadius: 2,
+    justifyContent: "flex-end",
+  },
+  verticalVolumeFill: {
+    width: "100%",
+    borderRadius: 2,
+    position: "relative",
+  },
+  verticalVolumeThumb: {
+    position: "absolute",
+    top: -4,
+    left: -4,
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    ...Shadows.sm,
   },
 
   // Expanded sheet

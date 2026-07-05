@@ -1,4 +1,4 @@
-import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import type { ObligatoryPrayer, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { isObligatoryPrayer } from "@munib-tracker/shared/validators";
 
 /** True when an obligatory prayer was just marked completed (not toggled off). */
@@ -10,7 +10,13 @@ export function shouldRemindAfterSalahAdhkar(
   return isObligatoryPrayer(prayerId) && previous !== "completed" && next === "completed";
 }
 
-export const AFTER_SALAH_ADHKAR_ROUTE = {
-  pathname: "/zikr/[category]",
-  params: { category: "after_prayer" },
-} as const;
+export function afterSalahAdhkarRoute(prayerId?: ObligatoryPrayer) {
+  return {
+    pathname: "/zikr/[category]" as const,
+    params: prayerId
+      ? { category: "after_prayer" as const, prayer: prayerId }
+      : { category: "after_prayer" as const },
+  };
+}
+
+export const AFTER_SALAH_ADHKAR_ROUTE = afterSalahAdhkarRoute();

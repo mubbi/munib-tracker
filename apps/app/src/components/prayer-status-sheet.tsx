@@ -14,6 +14,7 @@ import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
+import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import {
   PRAYER_STATUS_META,
   PRAYER_STATUS_ORDER,
@@ -165,10 +166,7 @@ export function PrayerStatusSheet({
             accessibilityRole="button"
             onPress={() => {
               onClose();
-              router.push({
-                pathname: "/zikr/[category]",
-                params: { category: "after_prayer" },
-              });
+              router.push(afterSalahAdhkarRoute(prayerId));
             }}
             style={[styles.adhkarRow, { backgroundColor: tokens.accentSoft }]}
           >

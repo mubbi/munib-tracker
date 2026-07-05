@@ -1,6 +1,6 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import type { ObligatoryPrayer, ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
-import { isZikrCategoryId } from "@munib-tracker/shared/validators";
+import { isObligatoryPrayer, isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -39,7 +39,7 @@ export default function ZikrCategoryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
-  const params = useLocalSearchParams<{ category: string }>();
+  const params = useLocalSearchParams<{ category: string; prayer?: string }>();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
   const [query, setQuery] = useState("");
@@ -52,7 +52,10 @@ export default function ZikrCategoryScreen() {
   // After-salah adhkar can be narrowed to a single fard prayer. An item with no
   // `prayers` tag is recited after every prayer, so it shows under each filter.
   const showPrayerFilter = categoryId === "after_prayer";
-  const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>("all");
+  const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>(() => {
+    const raw = params.prayer;
+    return raw && isObligatoryPrayer(raw) ? raw : "all";
+  });
   const items = useMemo(() => {
     if (!showPrayerFilter || prayerFilter === "all") return allItems;
     return allItems.filter((z) => !z.prayers?.length || z.prayers.includes(prayerFilter));
