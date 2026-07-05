@@ -11,8 +11,8 @@ import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
-import { SIDE_RAIL_BREAKPOINT, SIDE_RAIL_WIDTH } from "@/hooks/use-web-tab-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { SIDE_RAIL_BREAKPOINT, SIDE_RAIL_WIDTH } from "@/hooks/use-web-tab-layout";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { ThemedText } from "./themed-text";
 

@@ -28,8 +28,8 @@ import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Fonts, Radius, Shadows, Spacing } from "@/constants/theme";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
-import { useWebTabLayout } from "@/hooks/use-web-tab-layout";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useWebTabLayout } from "@/hooks/use-web-tab-layout";
 import {
   queuePosition as computeQueuePosition,
   queueDurationForProgress,
@@ -748,7 +748,10 @@ function VerticalVolumeBar({
     >
       <View
         onLayout={onLayout}
-        style={[styles.verticalVolumeTrack, { height: VERTICAL_VOLUME_HEIGHT, backgroundColor: trackColor }]}
+        style={[
+          styles.verticalVolumeTrack,
+          { height: VERTICAL_VOLUME_HEIGHT, backgroundColor: trackColor },
+        ]}
       >
         <View
           style={[

@@ -13,8 +13,8 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
+import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 import {
   PRAYER_STATUS_META,
   PRAYER_STATUS_ORDER,
