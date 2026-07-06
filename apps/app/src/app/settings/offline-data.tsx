@@ -18,6 +18,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   type CacheGroupSize,
   clearCacheKeys,
+  clearDownloadedAudio,
   formatBytes,
   getCacheSummary,
 } from "@/lib/cache-manager";
@@ -47,6 +48,7 @@ export default function OfflineDataScreen() {
     // Reset in-memory caches too so the freed space takes effect immediately.
     if (group.id === "quran") await QuranCacheRepository.clear();
     if (group.id === "hadith") await HadithRepository.clearBookCache();
+    if (group.id === "audio") await clearDownloadedAudio();
     await clearCacheKeys(group.keys);
     await refresh();
     toast.success(t("offlineData.cleared"));
@@ -55,6 +57,7 @@ export default function OfflineDataScreen() {
   const clearAll = async () => {
     await QuranCacheRepository.clear();
     await HadithRepository.clearBookCache();
+    await clearDownloadedAudio();
     await clearCacheKeys(groups.flatMap((g) => g.keys));
     await refresh();
     toast.success(t("offlineData.cleared"));
@@ -66,6 +69,9 @@ export default function OfflineDataScreen() {
   };
 
   const total = groups.reduce((sum, g) => sum + g.bytes, 0);
+  // Web audio clips can be cached with an unknown (opaque) size — count them so
+  // "Clear all" stays enabled even when readable bytes total zero.
+  const hasAnyCached = total > 0 || groups.some((g) => (g.count ?? 0) > 0);
   const pendingGroupName = pending?.kind === "group" ? t(pending.group.labelKey) : undefined;
 
   return (
@@ -96,7 +102,7 @@ export default function OfflineDataScreen() {
                   size={18}
                   tintColor={tokens.status.danger.color}
                   accessibilityLabel={t("offlineData.clearOne", { name: t(group.labelKey) })}
-                  disabled={group.bytes === 0}
+                  disabled={group.bytes === 0 && !(group.count ?? 0)}
                   onPress={() => setPending({ kind: "group", group })}
                 />
               </View>
@@ -111,7 +117,7 @@ export default function OfflineDataScreen() {
           label={t("offlineData.clearAll")}
           variant="ghost"
           fullWidth
-          disabled={total === 0}
+          disabled={!hasAnyCached}
           icon={{ ios: "trash", android: "delete_sweep", web: "delete_sweep" }}
           onPress={() => setPending({ kind: "all" })}
           style={{ borderColor: tokens.status.danger.border }}

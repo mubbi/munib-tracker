@@ -19,6 +19,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { resetDatabase } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { clearDownloadedAudio } from "@/lib/cache-manager";
 import { formatRelativeWhen } from "@/lib/relative-time";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -99,6 +100,9 @@ export default function ProfileScreen() {
       return;
     }
     await resetDatabase();
+    // Downloaded audio lives outside AsyncStorage (native files / SW cache), so
+    // wipe it explicitly alongside the reset.
+    await clearDownloadedAudio();
     // Reload every store that reads a key resetDatabase clears, so no screen is
     // left holding stale in-memory data after the wipe.
     await reloadAllStores();

@@ -2670,7 +2670,7 @@
     "cachesTitle": "Cached content",
     "quran": "Qur'an translations & tafsir",
     "hadith": "Hadith collections",
-    "audio": "Audio metadata",
+    "audio": "Audio recitations",
     "location": "Weather & location lookups",
     "total": "Total: {{size}}",
     "clearAll": "Clear all caches",

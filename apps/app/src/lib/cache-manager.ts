@@ -1,12 +1,19 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
 
 import { DB_KEYS } from "@/db/keys";
+import { clearAudioCache, getAudioCacheSize } from "@/lib/audio-cache";
+import { clearWebAudioCache, getWebAudioCacheSize } from "@/lib/pwa/audio-sw-cache";
 
 /**
  * Offline download / cache manager (NF-1.14). Lists the rebuildable caches
  * (fetched Qur'an editions, hadith collections, audio + location lookups) with
  * their on-device size and lets the user clear them. User data (logs, bookmarks,
  * favorites) is never touched here — only caches that refetch on demand.
+ *
+ * The "audio" group spans both AsyncStorage (HEAD-estimated durations) and the
+ * downloaded MP3s themselves — native files via {@link getAudioCacheSize}, or the
+ * service-worker cache on web ({@link getWebAudioCacheSize}).
  */
 
 export interface CacheGroup {
@@ -17,6 +24,8 @@ export interface CacheGroup {
 
 export interface CacheGroupSize extends CacheGroup {
   bytes: number;
+  /** Cached file count — set for audio, where opaque web clips have no readable size. */
+  count?: number;
 }
 
 export const CACHE_GROUPS: CacheGroup[] = [
@@ -39,9 +48,33 @@ export async function getCacheSummary(): Promise<CacheGroupSize[]> {
       const raw = await AsyncStorage.getItem(key);
       bytes += raw?.length ?? 0;
     }
-    summary.push({ ...group, bytes });
+    let count = 0;
+    if (group.id === "audio") {
+      const downloaded = await getDownloadedAudio();
+      bytes += downloaded.bytes;
+      count = downloaded.count;
+    }
+    summary.push({ ...group, bytes, count });
   }
   return summary;
+}
+
+/** On-device size + file count of downloaded audio (native files or web SW cache). */
+async function getDownloadedAudio(): Promise<{ bytes: number; count: number }> {
+  if (Platform.OS === "web") {
+    const info = await getWebAudioCacheSize();
+    return { bytes: info.bytes, count: info.count };
+  }
+  return { bytes: await getAudioCacheSize(), count: 0 };
+}
+
+/** Deletes every downloaded audio clip (native files or web SW cache). */
+export async function clearDownloadedAudio(): Promise<void> {
+  if (Platform.OS === "web") {
+    await clearWebAudioCache();
+    return;
+  }
+  await clearAudioCache();
 }
 
 /** Removes the given cache keys (safe — they refetch on demand). */

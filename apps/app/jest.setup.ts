@@ -83,6 +83,18 @@ jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock"),
 );
 
+// Default: an empty on-device audio store. Tests that exercise the store
+// (audio-cache.test.ts) provide their own functional mock, which overrides this.
+jest.mock("expo-file-system/legacy", () => ({
+  documentDirectory: "file:///document/",
+  cacheDirectory: "file:///cache/",
+  downloadAsync: jest.fn(async (_remote: string, local: string) => ({ uri: local })),
+  getInfoAsync: jest.fn(async (uri: string) => ({ exists: false, uri })),
+  makeDirectoryAsync: jest.fn(async () => undefined),
+  readDirectoryAsync: jest.fn(async () => [] as string[]),
+  deleteAsync: jest.fn(async () => undefined),
+}));
+
 jest.mock("expo-splash-screen", () => ({
   preventAutoHideAsync: jest.fn(),
   hideAsync: jest.fn().mockResolvedValue(undefined),
