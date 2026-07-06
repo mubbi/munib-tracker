@@ -1,6 +1,12 @@
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import {
+  clampPrayerReminderOffset,
+  OBLIGATORY_PRAYERS,
+  PRAYER_REMINDER_OFFSET_MAX,
+  PRAYER_REMINDER_OFFSET_MIN,
+} from "@munib-tracker/shared/constants";
 import type { PrayerId } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -13,8 +19,11 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { locationCalcExtras } from "@/lib/location";
+import { computePrayerTimes, formatPrayerTime } from "@/lib/prayer-times";
+import { prayerDayAnchor } from "@/lib/time";
 import { rescheduleAll } from "@/notifications/scheduler";
-import { locationStore } from "@/stores/location-store";
+import { locationStore, useLocation } from "@/stores/location-store";
 import {
   preferencesStore,
   usePreferences,
@@ -22,18 +31,33 @@ import {
 } from "@/stores/preferences-store";
 
 const STEP = 5;
-const MIN = -30;
-const MAX = 30;
 
 export default function ReminderOffsetsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const prefs = usePreferences();
+  const location = useLocation();
   const { update } = usePreferencesActions();
 
+  const prayerTimes = useMemo(() => {
+    const anchor = prayerDayAnchor(new Date(), location.timeZone);
+    const times = computePrayerTimes(
+      { latitude: location.latitude, longitude: location.longitude },
+      anchor,
+      location.method,
+      location.madhab,
+      locationCalcExtras(location),
+    );
+    const at: Partial<Record<PrayerId, Date>> = {};
+    for (const prayerId of OBLIGATORY_PRAYERS) {
+      at[prayerId] = times.timeForPrayer(prayerId) ?? times.fajr;
+    }
+    return at;
+  }, [location]);
+
   const setOffset = async (prayerId: PrayerId, next: number) => {
-    const clamped = Math.max(MIN, Math.min(MAX, next));
+    const clamped = clampPrayerReminderOffset(next);
     const offsets = { ...prefs.prayerReminderOffsets };
     if (clamped === 0) delete offsets[prayerId];
     else offsets[prayerId] = clamped;
@@ -46,6 +70,14 @@ export default function ReminderOffsetsScreen() {
     return value < 0
       ? t("reminderOffsets.before", { count: Math.abs(value) })
       : t("reminderOffsets.after", { count: value });
+  };
+
+  const formatNotifyTime = (prayerId: PrayerId, offsetMinutes: number) => {
+    const base = prayerTimes[prayerId];
+    if (!base) return null;
+    const offset = clampPrayerReminderOffset(offsetMinutes);
+    const fireAt = new Date(base.getTime() + offset * 60_000);
+    return formatPrayerTime(fireAt, prefs.timeFormat, location.timeZone);
   };
 
   return (
@@ -65,7 +97,7 @@ export default function ReminderOffsetsScreen() {
             icon={{ ios: "clock.badge", android: "more_time", web: "more_time" }}
           />
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("reminderOffsets.hint")}
+            {t("reminderOffsets.hint", { max: PRAYER_REMINDER_OFFSET_MAX })}
           </ThemedText>
           <View style={styles.rows}>
             {OBLIGATORY_PRAYERS.map((prayerId) => {
@@ -80,18 +112,27 @@ export default function ReminderOffsetsScreen() {
                     size={18}
                     tintColor={colors.foreground}
                     accessibilityLabel={t("reminderOffsets.earlier")}
-                    disabled={value <= MIN}
+                    disabled={value <= PRAYER_REMINDER_OFFSET_MIN}
                     onPress={() => void setOffset(prayerId, value - STEP)}
                   />
-                  <ThemedText type="smallBold" style={styles.value}>
-                    {formatOffset(value)}
-                  </ThemedText>
+                  <View style={styles.valueCol}>
+                    <ThemedText type="smallBold" style={styles.value}>
+                      {formatOffset(value)}
+                    </ThemedText>
+                    <ThemedText
+                      type="caption"
+                      themeColor="mutedForeground"
+                      style={styles.notifyTime}
+                    >
+                      {formatNotifyTime(prayerId, value)}
+                    </ThemedText>
+                  </View>
                   <IconButton
                     name={{ ios: "plus", android: "add", web: "add" }}
                     size={18}
                     tintColor={colors.foreground}
                     accessibilityLabel={t("reminderOffsets.later")}
-                    disabled={value >= MAX}
+                    disabled={value >= PRAYER_REMINDER_OFFSET_MAX}
                     onPress={() => void setOffset(prayerId, value + STEP)}
                   />
                 </View>
@@ -116,5 +157,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   prayer: { flex: 1 },
-  value: { minWidth: 92, textAlign: "center" },
+  valueCol: { minWidth: 120, alignItems: "center", gap: 2 },
+  value: { textAlign: "center" },
+  notifyTime: { textAlign: "center" },
 });

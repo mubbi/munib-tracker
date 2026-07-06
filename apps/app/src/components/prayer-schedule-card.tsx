@@ -565,7 +565,7 @@ const styles = StyleSheet.create({
   groupLabel: {
     letterSpacing: 0.8,
     marginBottom: Spacing.one,
-    paddingLeft: Spacing.one,
+    paddingStart: Spacing.one,
     marginTop: Spacing.one,
   },
   collapseBar: {

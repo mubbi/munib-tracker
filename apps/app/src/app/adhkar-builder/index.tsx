@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   addButton: { marginBottom: Spacing.three },
   item: { gap: Spacing.two },
   itemHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  itemTitle: { flex: 1, marginLeft: Spacing.one },
+  itemTitle: { flex: 1, marginStart: Spacing.one },
   sheetTitle: { marginBottom: Spacing.two },
   form: { alignSelf: "stretch", maxHeight: 380 },
   field: { gap: Spacing.one, marginBottom: Spacing.three },

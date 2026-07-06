@@ -4,10 +4,12 @@ import { useTranslation } from "react-i18next";
 
 import { JannahDisclaimer, JannahDuaBlock } from "@/components/jannah/primitives";
 import { JannahTopicContent } from "@/components/jannah/topic-content";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { getJannahTopic } from "@/lib/jannah";
 
 export default function JannahTopicScreen() {
@@ -15,6 +17,7 @@ export default function JannahTopicScreen() {
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
   const topic = getJannahTopic(topicId);
+  const reportRef = useGuideContentReportRef("jannah", topic, "/jannah");
 
   return (
     <ScreenLayout
@@ -33,19 +36,21 @@ export default function JannahTopicScreen() {
         />
       ) : (
         <Stagger>
-          <JannahTopicContent topic={topic} />
+          <LearnReadingChrome surface="jannah">
+            <JannahTopicContent topic={topic} />
 
-          {topic.id === "al-firdaws" ? (
-            <JannahDuaBlock
-              title={t("jannah.firdawsDuaTitle")}
-              arabic={JANNAH_FIRDAWS_DUA.arabic}
-              transliteration={JANNAH_FIRDAWS_DUA.transliteration}
-              translation={JANNAH_FIRDAWS_DUA.translation}
-              reference={JANNAH_FIRDAWS_DUA.reference}
-            />
-          ) : null}
+            {topic.id === "al-firdaws" ? (
+              <JannahDuaBlock
+                title={t("jannah.firdawsDuaTitle")}
+                arabic={JANNAH_FIRDAWS_DUA.arabic}
+                transliteration={JANNAH_FIRDAWS_DUA.transliteration}
+                translation={JANNAH_FIRDAWS_DUA.translation}
+                reference={JANNAH_FIRDAWS_DUA.reference}
+              />
+            ) : null}
+          </LearnReadingChrome>
 
-          <JannahDisclaimer />
+          <JannahDisclaimer contentRef={reportRef} />
         </Stagger>
       )}
     </ScreenLayout>

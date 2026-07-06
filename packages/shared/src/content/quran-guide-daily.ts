@@ -1,0 +1,86 @@
+import type { QuranGuideDailyLesson } from "../types/quran-guide";
+
+/** Curated daily lessons — index rotates by day of year. */
+export const QURAN_GUIDE_DAILY_LESSONS: QuranGuideDailyLesson[] = [
+  {
+    id: "day-patience",
+    surah: 2,
+    ayahFrom: 153,
+    label: "Qur'an 2:153",
+    excerpt: "يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ",
+    translation:
+      "O you who believe, seek help through patience and prayer. Indeed, Allah is with the patient.",
+    context: "Revealed in Madinah — comfort after setbacks including Uhud.",
+    reflection: "What trial am I facing where I need sabr more than a quick fix?",
+    action: "Pray one salah today asking Allah specifically for patience in your current test.",
+  },
+  {
+    id: "day-mercy",
+    surah: 7,
+    ayahFrom: 156,
+    label: "Qur'an 7:156",
+    excerpt: "وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ",
+    translation: "My mercy encompasses all things.",
+    context:
+      "After Musa's people demanded to see Allah — a lesson in divine transcendence and mercy.",
+    reflection: "Whose mistake am I unwilling to forgive though I hope in Allah's vast mercy?",
+    action: "Forgive someone in your heart today and make du'a for them.",
+  },
+  {
+    id: "day-gratitude",
+    surah: 14,
+    ayahFrom: 7,
+    label: "Qur'an 14:7",
+    excerpt: "لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ",
+    translation: "If you are grateful, I will surely increase you.",
+    context: "Spoken to Musa and Bani Isra'il — gratitude is action, not only words.",
+    reflection: "What blessing have I treated as ordinary this week?",
+    action: "Say 'Alhamdulillah' aloud for three specific blessings before sleep.",
+  },
+  {
+    id: "day-speech",
+    surah: 17,
+    ayahFrom: 53,
+    label: "Qur'an 17:53",
+    excerpt: "وَقُولُوا لِلنَّاسِ حُسْنًا",
+    translation: "And speak to people good words.",
+    context: "General guidance on social conduct — kindness in speech is worship.",
+    reflection: "Did my words today build someone up or tear them down?",
+    action: "Compliment or encourage one person sincerely — no backhanded praise.",
+  },
+  {
+    id: "day-trust",
+    surah: 65,
+    ayahFrom: 3,
+    label: "Qur'an 65:3",
+    excerpt: "وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ",
+    translation: "Whoever relies upon Allah — then He is sufficient for him.",
+    context: "Laws of divorce and provision — Allah's decree includes rizq after difficulty.",
+    reflection: "Where am I planning without tawakkul — or relying on people without du'a?",
+    action: "Make istikhara or du'a for one decision you are anxious about.",
+  },
+  {
+    id: "day-knowledge",
+    surah: 20,
+    ayahFrom: 114,
+    label: "Qur'an 20:114",
+    excerpt: "رَّبِّ زِدْنِي عِلْمًا",
+    translation: "My Lord, increase me in knowledge.",
+    context:
+      "Closing advice in Surah Ta-Ha — even the Prophet ﷺ was told to ask for more knowledge.",
+    reflection: "What one ayah or hadith will I learn today instead of scrolling?",
+    action: "Memorise this du'a and say it after Fajr.",
+  },
+  {
+    id: "day-charity",
+    surah: 2,
+    ayahFrom: 261,
+    label: "Qur'an 2:261",
+    excerpt: "مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ",
+    translation:
+      "The example of those who spend their wealth in the way of Allah is like a seed that grows seven spikes…",
+    context: "Early Madinan legislation — charity multiplies in reward.",
+    reflection: "Is my charity hidden where possible, or performed for recognition?",
+    action: "Give a small sadaqah today — even secretly.",
+  },
+];

@@ -147,6 +147,6 @@ const styles = StyleSheet.create({
   rowBody: {
     flex: 1,
     gap: 2,
-    paddingRight: Spacing.two,
+    paddingEnd: Spacing.two,
   },
 });

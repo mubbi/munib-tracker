@@ -1,7 +1,7 @@
 import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
 
 import { formatHijriDate, formatHijriDateCompact } from "./hijri";
-import { localeToBcp47 } from "./time";
+import { localeToBcp47 } from "./locale-bcp47";
 
 const COMPACT_GRID_DATE: Intl.DateTimeFormatOptions = {
   month: "short",

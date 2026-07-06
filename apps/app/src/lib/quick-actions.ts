@@ -123,10 +123,62 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     tone: "success",
   },
   {
+    id: "lastDay",
+    labelKey: "actions.lastDay",
+    icon: { ios: "scalemass.fill", android: "balance", web: "balance" },
+    tone: "info",
+  },
+  {
+    id: "jahannam",
+    labelKey: "actions.jahannam",
+    icon: { ios: "flame.fill", android: "local_fire_department", web: "local_fire_department" },
+    tone: "danger",
+  },
+  {
     id: "jannah",
     labelKey: "actions.jannah",
     icon: { ios: "leaf.fill", android: "park", web: "park" },
     tone: "success",
+  },
+  {
+    id: "battles",
+    labelKey: "actions.battles",
+    icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
+    tone: "info",
+  },
+  {
+    id: "learnQuran",
+    labelKey: "actions.learnQuran",
+    icon: { ios: "book.closed.fill", android: "auto_stories", web: "auto_stories" },
+    tone: "accent",
+  },
+  {
+    id: "taharah",
+    labelKey: "actions.taharah",
+    icon: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
+    tone: "info",
+  },
+  {
+    id: "prophets",
+    labelKey: "actions.prophets",
+    icon: { ios: "person.3.fill", android: "groups", web: "groups" },
+    tone: "accent",
+  },
+  {
+    id: "aqeedah",
+    labelKey: "actions.aqeedah",
+    icon: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
+    tone: "success",
+  },
+  {
+    id: "learnDua",
+    labelKey: "actions.learnDua",
+    icon: {
+      ios: "hands.and.sparkles.fill",
+      android: "volunteer_activism",
+      web: "volunteer_activism",
+    },
+    tone: "danger",
   },
   {
     id: "achievements",

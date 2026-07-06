@@ -1,5 +1,5 @@
 import { JANNAH_FIRDAWS_DUA } from "@munib-tracker/shared/content";
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -216,6 +216,18 @@ export default function JannahScreen() {
         </Card>
 
         <JannahNavRow
+          icon={{
+            ios: "flame.fill",
+            android: "local_fire_department",
+            web: "local_fire_department",
+          }}
+          title={t("jannah.jahannamPointerTitle")}
+          subtitle={t("jannah.jahannamPointerHint")}
+          tint={tokens.status.warning.color}
+          onPress={() => router.push("/jahannam" as Href)}
+        />
+
+        <JannahNavRow
           icon={{ ios: "map.fill", android: "map", web: "map" }}
           title={t("jannah.tourCta")}
           subtitle={t("jannah.tourCtaHint")}
@@ -250,7 +262,7 @@ const styles = StyleSheet.create({
   promised: { gap: Spacing.three, marginTop: Spacing.three },
   promisedItem: {
     borderLeftWidth: 3,
-    paddingLeft: Spacing.three,
+    paddingStart: Spacing.three,
     gap: Spacing.half,
   },
   promisedSummary: { lineHeight: 18 },

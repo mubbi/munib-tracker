@@ -40,7 +40,20 @@ export interface FontScopePrefs {
 }
 
 /** Reading surfaces that can carry an in-context font-size delta on top of the global sizes. */
-export type ReadingSurface = "quran" | "hadith" | "dua_zikr";
+export type ReadingSurface =
+  | "quran"
+  | "hadith"
+  | "dua_zikr"
+  | "salah_guide"
+  | "jannah"
+  | "jahannam"
+  | "battles"
+  | "taharah"
+  | "prophets"
+  | "aqeedah"
+  | "last_day"
+  | "learn_dua"
+  | "learn_quran";
 
 /** A per-surface size adjustment applied on top of the global font sizes. */
 export interface ReadingSizeOverride {
@@ -74,9 +87,9 @@ export interface UserPreferences {
   /** Per-prayer alert overrides; unset entries fall back to category toggles. */
   prayerAlerts?: Partial<Record<PrayerId, boolean>>;
   /**
-   * Per-prayer reminder offset in minutes applied to the main prayer reminder
-   * (negative = before the adhan, positive = after). Unset ⇒ fires at the time
-   * (NF-1.7).
+   * Per-prayer reminder offset in minutes applied to the main obligatory-prayer
+   * reminder (negative = before the adhan, positive = after, ±120). Unset ⇒
+   * fires at adhan time (NF-1.7).
    */
   prayerReminderOffsets?: Partial<Record<PrayerId, number>>;
   fontPrefs: FontPreferences;

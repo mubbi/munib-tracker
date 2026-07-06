@@ -6,6 +6,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ReadingCard } from "@/components/content/reading-card";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -63,6 +64,7 @@ function JannahDuaEntryBlock({
           audioUri: dua.audioUri,
         }}
         sourceHref="/jannah/duas"
+        surface="jannah"
         isFavorite={isFavorite}
         onToggleFavorite={() => toggle(dua.id)}
       />
@@ -86,13 +88,15 @@ export default function JannahDuasScreen() {
     >
       <Seo path="/jannah/duas" />
       <Stagger>
-        <JannahCallout tone="success">{t("jannah.duasLead")}</JannahCallout>
+        <LearnReadingChrome surface="jannah">
+          <JannahCallout tone="success">{t("jannah.duasLead")}</JannahCallout>
 
-        {entries.map((entry, index) => {
-          const dua = byId.get(entry.duaId);
-          if (!dua) return null;
-          return <JannahDuaEntryBlock key={entry.id} entry={entry} dua={dua} index={index} />;
-        })}
+          {entries.map((entry, index) => {
+            const dua = byId.get(entry.duaId);
+            if (!dua) return null;
+            return <JannahDuaEntryBlock key={entry.id} entry={entry} dua={dua} index={index} />;
+          })}
+        </LearnReadingChrome>
 
         <JannahDisclaimer />
       </Stagger>

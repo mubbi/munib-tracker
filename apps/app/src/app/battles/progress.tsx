@@ -1,0 +1,118 @@
+import { type Href, useRouter } from "expo-router";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+
+import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
+import { ThemedText } from "@/components/themed-text";
+import { Card } from "@/components/ui/card";
+import { ProgressBar } from "@/components/ui/progress-bar";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Stagger } from "@/components/ui/stagger";
+import { Spacing } from "@/constants/theme";
+import { getBattlesLessonCount } from "@/lib/battles";
+import { buildBattlesProgress } from "@/lib/battles-progress";
+import {
+  useBattlesCompletedCount,
+  useEnsureBattlesProgressLoaded,
+} from "@/stores/battles-progress-store";
+
+export default function BattlesProgressScreen() {
+  const router = useRouter();
+  const { t } = useTranslation();
+  useEnsureBattlesProgressLoaded();
+  const completedCount = useBattlesCompletedCount();
+
+  const snapshot = useMemo(
+    () =>
+      buildBattlesProgress({
+        lessonsCompleted: completedCount,
+        lessonsTotal: getBattlesLessonCount(),
+      }),
+    [completedCount],
+  );
+
+  return (
+    <ScreenLayout
+      eyebrow={t("battles.eyebrow")}
+      title={t("battles.progressTitle")}
+      subtitle={t("battles.progressSubtitle")}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/battles" as Href))}
+    >
+      <Seo path="/battles/progress" />
+      <Stagger>
+        <JannahCallout tone="warning">{t("battles.progressIntro")}</JannahCallout>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("battles.lessonsTitle")}
+            icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
+          />
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+            {t("battles.lessonsHint")}
+          </ThemedText>
+          <View style={styles.lessonRow}>
+            <ThemedText type="title">
+              {t("battles.lessonsCount", {
+                completed: snapshot.lessonsCompleted,
+                total: snapshot.lessonsTotal,
+              })}
+            </ThemedText>
+            <ProgressBar value={snapshot.lessonProgress} />
+          </View>
+        </Card>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("battles.exploreTitle")}
+            icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+          />
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+            {t("battles.progressExploreHint")}
+          </ThemedText>
+          <View style={styles.links}>
+            <ThemedText
+              type="small"
+              style={styles.link}
+              onPress={() => router.push("/battles/timeline" as Href)}
+            >
+              {t("battles.timelineTitle")}
+            </ThemedText>
+            <ThemedText
+              type="small"
+              style={styles.link}
+              onPress={() => router.push("/battles/lessons" as Href)}
+            >
+              {t("battles.lessonsTitle")}
+            </ThemedText>
+            <ThemedText
+              type="small"
+              style={styles.link}
+              onPress={() => router.push("/battles/verses" as Href)}
+            >
+              {t("battles.versesTitle")}
+            </ThemedText>
+            <ThemedText
+              type="small"
+              style={styles.link}
+              onPress={() => router.push("/battles/glossary" as Href)}
+            >
+              {t("battles.glossaryTitle")}
+            </ThemedText>
+          </View>
+        </Card>
+
+        <JannahDisclaimer textKey="battles.disclaimer" />
+      </Stagger>
+    </ScreenLayout>
+  );
+}
+
+const styles = StyleSheet.create({
+  hint: { marginTop: Spacing.one, lineHeight: 20 },
+  lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
+  links: { marginTop: Spacing.three, gap: Spacing.two },
+  link: { textDecorationLine: "underline" },
+});

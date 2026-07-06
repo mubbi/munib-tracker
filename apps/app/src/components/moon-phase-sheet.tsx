@@ -1,6 +1,6 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { I18nManager, StyleSheet, View } from "react-native";
 
 import { MoonPhaseIcon } from "@/components/moon-phase";
 import { ThemedText } from "@/components/themed-text";
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   },
   rowValue: {
     flexShrink: 1,
-    textAlign: "right",
+    textAlign: I18nManager.isRTL ? "left" : "right",
   },
   divider: {
     height: StyleSheet.hairlineWidth,

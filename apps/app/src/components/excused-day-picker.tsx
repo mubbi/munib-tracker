@@ -1,8 +1,8 @@
+import { EXCUSED_GUIDE_ROUTES } from "@munib-tracker/shared/content";
 import type { ExcusedReason } from "@munib-tracker/shared/types";
-import { useState } from "react";
+import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
@@ -19,17 +19,17 @@ type ExcusedDayPickerProps = {
 
 export function ExcusedDayPicker({ variant = "section" }: ExcusedDayPickerProps) {
   const { t } = useTranslation();
+  const router = useRouter();
   const { colors, tokens } = useThemeTokens();
   const excusedReason = useDayExcused();
   const { setDayExcused } = useTrackerActions();
-  const [pendingReason, setPendingReason] = useState<ExcusedReason | null>(null);
 
   const handleChipPress = (reason: ExcusedReason, active: boolean) => {
     if (active) {
       void setDayExcused(null);
       return;
     }
-    setPendingReason(reason);
+    router.push(EXCUSED_GUIDE_ROUTES[reason] as Href);
   };
 
   const chips = (
@@ -74,35 +74,13 @@ export function ExcusedDayPicker({ variant = "section" }: ExcusedDayPickerProps)
     </ThemedText>
   );
 
-  const confirmDialog = (
-    <ConfirmDialog
-      visible={pendingReason != null}
-      title={t("tracker.excusedConfirmTitle")}
-      message={
-        pendingReason
-          ? t("tracker.excusedConfirmMsg", {
-              reason: t(`tracker.excusedReason.${pendingReason}`),
-            })
-          : undefined
-      }
-      confirmLabel={t("tracker.excusedConfirmAction")}
-      onConfirm={() => {
-        if (pendingReason) void setDayExcused(pendingReason);
-      }}
-      onClose={() => setPendingReason(null)}
-    />
-  );
-
   if (variant === "inline") {
     return (
-      <>
-        <View style={[styles.inline, { borderTopColor: colors.border }]}>
-          <ThemedText type="smallBold">{t("tracker.excusedTitle")}</ThemedText>
-          {hint}
-          {chips}
-        </View>
-        {confirmDialog}
-      </>
+      <View style={[styles.inline, { borderTopColor: colors.border }]}>
+        <ThemedText type="smallBold">{t("tracker.excusedTitle")}</ThemedText>
+        {hint}
+        {chips}
+      </View>
     );
   }
 
@@ -114,7 +92,6 @@ export function ExcusedDayPicker({ variant = "section" }: ExcusedDayPickerProps)
       />
       {hint}
       {chips}
-      {confirmDialog}
     </>
   );
 }

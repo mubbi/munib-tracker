@@ -188,6 +188,58 @@ describe("buildReminders", () => {
     expect(before).toBeDefined();
   });
 
+  it("supports offsets up to ±120 minutes and clamps out-of-range values", () => {
+    const late: UserPreferences = {
+      ...basePrefs,
+      prayerReminderOffsets: { maghrib: 120 },
+    };
+    const early: UserPreferences = {
+      ...basePrefs,
+      prayerReminderOffsets: { isha: -120 },
+    };
+    const clamped: UserPreferences = {
+      ...basePrefs,
+      prayerReminderOffsets: { dhuhr: 999 },
+    };
+
+    const baseMaghrib = buildReminders(basePrefs, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("prayer:maghrib:"),
+    );
+    const lateMaghrib = buildReminders(late, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("prayer:maghrib:"),
+    );
+    expect(baseMaghrib && lateMaghrib).toBeTruthy();
+    if (baseMaghrib && lateMaghrib) {
+      expect(lateMaghrib.fireAt.getTime() - baseMaghrib.fireAt.getTime()).toBe(120 * 60_000);
+    }
+
+    const baseIsha = buildReminders(basePrefs, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("prayer:isha:"),
+    );
+    const earlyIsha = buildReminders(early, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("prayer:isha:"),
+    );
+    expect(baseIsha && earlyIsha).toBeTruthy();
+    if (baseIsha && earlyIsha) {
+      expect(baseIsha.fireAt.getTime() - earlyIsha.fireAt.getTime()).toBe(120 * 60_000);
+    }
+
+    const baseDhuhr = buildReminders(basePrefs, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("prayer:dhuhr:"),
+    );
+    const clampedDhuhr = buildReminders(clamped, DEFAULT_LOCATION).find((r) =>
+      r.id.startsWith("prayer:dhuhr:"),
+    );
+    const maxDhuhr = buildReminders(
+      { ...basePrefs, prayerReminderOffsets: { dhuhr: 120 } },
+      DEFAULT_LOCATION,
+    ).find((r) => r.id.startsWith("prayer:dhuhr:"));
+    expect(baseDhuhr && clampedDhuhr && maxDhuhr).toBeTruthy();
+    if (baseDhuhr && clampedDhuhr && maxDhuhr) {
+      expect(clampedDhuhr.fireAt.getTime()).toBe(maxDhuhr.fireAt.getTime());
+    }
+  });
+
   it("emits daily-content and Friday reminders only when opted in", () => {
     const off = buildReminders(basePrefs, DEFAULT_LOCATION);
     expect(off.some((r) => r.id.startsWith("dailyContent:"))).toBe(false);

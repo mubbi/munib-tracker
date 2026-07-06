@@ -4,7 +4,7 @@ import { SEERAH_CONTENT_VERSION, SEERAH_EVENTS } from "./seerah";
 describe("seerah timeline content (NF-2.4)", () => {
   it("ships a versioned, non-empty timeline", () => {
     expect(SEERAH_CONTENT_VERSION).toBeGreaterThan(0);
-    expect(SEERAH_EVENTS.length).toBeGreaterThan(5);
+    expect(SEERAH_EVENTS.length).toBeGreaterThanOrEqual(20);
   });
 
   it("gives every event a unique id, title, and body", () => {

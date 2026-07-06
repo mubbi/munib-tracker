@@ -15,6 +15,7 @@ import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildZikrActivity } from "@/lib/continue-activity";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
@@ -29,7 +30,7 @@ export function generateStaticParams(): Array<{ id: string }> {
 
 export default function ZikrDetailScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const params = useLocalSearchParams<{ id: string }>();
   const { colors } = useThemeTokens();
   const favoriteIds = useFavoriteZikrIds();
@@ -128,7 +129,25 @@ export default function ZikrDetailScreen() {
         ]}
       />
       <Stagger>
-        <ReadingCard item={item} sourceHref={`/zikr/detail/${item.id}`} />
+        <ReadingCard
+          item={item}
+          sourceHref={`/zikr/detail/${item.id}`}
+          contentRef={buildContentReportRef(
+            "zikr",
+            item.id,
+            `/zikr/detail/${item.id}`,
+            i18n.language?.split("-")[0] ?? "en",
+            {
+              snapshot: {
+                title: item.title,
+                arabic: item.arabic,
+                transliteration: item.transliteration,
+                translation: item.translation,
+                reference: item.reference,
+              },
+            },
+          )}
+        />
 
         {target > 0 ? (
           <Card padding="three">

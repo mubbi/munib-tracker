@@ -11,10 +11,11 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { NavRow } from "@/components/ui/nav-row";
+import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildContentReportRef } from "@/lib/content-report-ref";
 import { createDuroodSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import {
@@ -25,7 +26,8 @@ import {
 
 export default function DuroodsScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language?.split("-")[0] ?? "en";
   const { colors } = useThemeTokens();
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
@@ -64,6 +66,15 @@ export default function DuroodsScreen() {
         ]}
       />
       <Stagger>
+        <SavedNavCard
+          title={t("duroods.favorites")}
+          viewLabel={t("duroods.favorites")}
+          count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
+          headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          onPress={() => router.push("/duroods/favorites")}
+        />
+
         <Card padding="three">
           <View style={[styles.searchBox, { backgroundColor: colors.muted }]}>
             <SymbolView
@@ -80,14 +91,6 @@ export default function DuroodsScreen() {
               autoCorrect={false}
               returnKeyType="search"
               style={[styles.input, { color: colors.foreground }]}
-            />
-          </View>
-          <View style={styles.favRow}>
-            <NavRow
-              icon={{ ios: "star.fill", android: "star", web: "star" }}
-              label={t("duroods.favorites")}
-              count={favoriteIds.length}
-              onPress={() => router.push("/duroods/favorites")}
             />
           </View>
         </Card>
@@ -108,6 +111,15 @@ export default function DuroodsScreen() {
                 sourceHref="/duroods"
                 isFavorite={favoriteSet.has(item.id)}
                 onToggleFavorite={() => toggle(item.id)}
+                contentRef={buildContentReportRef("durood", item.id, "/duroods", locale, {
+                  snapshot: {
+                    title: item.title,
+                    arabic: item.arabic,
+                    transliteration: item.transliteration,
+                    translation: item.translation,
+                    reference: item.reference,
+                  },
+                })}
               />
             </View>
           ))
@@ -122,7 +134,7 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   title: {
-    marginLeft: Spacing.one,
+    marginStart: Spacing.one,
   },
   searchBox: {
     flexDirection: "row",
@@ -136,8 +148,5 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: Spacing.three,
     fontSize: 15,
-  },
-  favRow: {
-    marginTop: Spacing.two,
   },
 });

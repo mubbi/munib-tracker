@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   listCard: { flex: 1 },
   flatList: { flex: 1 },
   chipsRow: { flexGrow: 0, marginBottom: Spacing.three },
-  chips: { gap: Spacing.two, paddingRight: Spacing.one },
+  chips: { gap: Spacing.two, paddingEnd: Spacing.one },
   chip: {
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,

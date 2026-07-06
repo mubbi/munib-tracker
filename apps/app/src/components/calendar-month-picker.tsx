@@ -3,7 +3,6 @@ import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
-
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
@@ -15,6 +14,7 @@ import {
   localizedMonthNames,
 } from "@/lib/calendar";
 import { hijriMonthName } from "@/lib/hijri";
+import { chevronBackward, chevronForward } from "@/lib/rtl";
 
 type CalendarMonthPickerProps = {
   visible: boolean;
@@ -96,7 +96,7 @@ export function CalendarMonthPicker({
           <ThemedText type="subtitle">{t("calendar.pickMonthYear")}</ThemedText>
           <View style={styles.yearNav}>
             <NavIconButton
-              icon={{ ios: "chevron.left", android: "chevron_left", web: "chevron_left" }}
+              icon={chevronBackward}
               label={t("calendar.prevYear")}
               disabled={pickerYear <= minYear}
               onPress={() => shiftYear(-1)}
@@ -120,7 +120,7 @@ export function CalendarMonthPicker({
               />
             </PressableScale>
             <NavIconButton
-              icon={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
+              icon={chevronForward}
               label={t("calendar.nextYear")}
               disabled={pickerYear >= maxYear}
               onPress={() => shiftYear(1)}
@@ -173,11 +173,7 @@ export function CalendarMonthPicker({
               onPress={() => setView("months")}
               style={[styles.backButton, { backgroundColor: tokens.accentSoft }]}
             >
-              <SymbolView
-                name={{ ios: "chevron.left", android: "chevron_left", web: "chevron_left" }}
-                size={16}
-                tintColor={colors.accent}
-              />
+              <SymbolView name={chevronBackward} size={16} tintColor={colors.accent} />
             </PressableScale>
             <ThemedText type="subtitle" style={styles.yearTitle}>
               {t("calendar.selectYear")}

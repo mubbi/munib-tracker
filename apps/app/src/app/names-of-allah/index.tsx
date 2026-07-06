@@ -19,7 +19,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
-import { NavRow } from "@/components/ui/nav-row";
+import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
@@ -41,7 +41,7 @@ const NAMES_HREF = "/names-of-allah";
 /** Approximate row height (card + column gap) for scroll recovery in the 2-column grid. */
 const NAME_ROW_HEIGHT = 196;
 /** Play-all header card + search + bottom margin. */
-const NAMES_LIST_HEADER_HEIGHT = 208;
+const NAMES_LIST_HEADER_HEIGHT = 272;
 /** Canonical 1..99 number per name, stable regardless of any search filter. */
 const NUMBER_BY_ID = new Map(NAMES_OF_ALLAH.map((name, index) => [name.id, index + 1]));
 
@@ -118,6 +118,15 @@ export default function NamesOfAllahScreen() {
 
   const header = (
     <View style={styles.headerWrap}>
+      <SavedNavCard
+        title={t("names.favorites")}
+        viewLabel={t("names.favorites")}
+        count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
+        headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
+        rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+        onPress={() => router.push("/names-of-allah/favorites")}
+      />
+
       <Card padding="three" style={styles.headerCard}>
         <View style={styles.playActions}>
           <Button
@@ -149,14 +158,6 @@ export default function NamesOfAllahScreen() {
             autoCorrect={false}
             returnKeyType="search"
             style={[styles.input, { color: colors.foreground }]}
-          />
-        </View>
-        <View style={styles.favRow}>
-          <NavRow
-            icon={{ ios: "star.fill", android: "star", web: "star" }}
-            label={t("names.favorites")}
-            count={favoriteIds.length}
-            onPress={() => router.push("/names-of-allah/favorites")}
           />
         </View>
       </Card>
@@ -300,7 +301,7 @@ const styles = StyleSheet.create({
   listContent: { gap: Spacing.two },
   columnWrapper: { gap: Spacing.two },
   cell: { flex: 1 },
-  headerWrap: { marginBottom: Spacing.two },
+  headerWrap: { marginBottom: Spacing.two, gap: Spacing.two },
   headerCard: { gap: Spacing.three },
   playActions: {
     flexDirection: "row",
@@ -320,7 +321,6 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two + 2,
     fontSize: 15,
   },
-  favRow: {},
   card: {
     flex: 1,
     gap: Spacing.one,

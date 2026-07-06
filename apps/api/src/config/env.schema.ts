@@ -140,4 +140,14 @@ export class EnvironmentVariables {
   @IsString()
   @IsOptional()
   FACEBOOK_APP_SECRET?: string;
+
+  /** Directory for content-report attachment files (default: ./uploads/reports). */
+  @IsString()
+  @IsOptional()
+  REPORT_ATTACHMENTS_DIR = "./uploads/reports";
+
+  /** Admin API key for triaging content reports via PATCH /content-reports/:id. */
+  @IsString()
+  @IsOptional()
+  REPORT_ADMIN_KEY?: string;
 }

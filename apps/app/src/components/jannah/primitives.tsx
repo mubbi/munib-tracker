@@ -1,13 +1,17 @@
 import type { JannahHadithRef, JannahQuranRef } from "@munib-tracker/shared/types";
+import type { ContentReportReference } from "@munib-tracker/shared/types/content-report";
 import { SymbolView } from "expo-symbols";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
+import { ReligiousTextStack } from "@/components/content/religious-text-stack";
+import { ContentReportFooterLink } from "@/components/content-report/content-report-footer-link";
 import {
   HadithCitationBookmarkButton,
   QuranAyahBookmarkButton,
 } from "@/components/jannah/bookmark-button";
+import { useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
@@ -68,14 +72,23 @@ export function JannahCallout({
 }
 
 /** Centered scholar disclaimer used at the bottom of Jannah screens. */
-export function JannahDisclaimer({ textKey = "jannah.disclaimer" }: { textKey?: string }) {
+export function JannahDisclaimer({
+  textKey = "jannah.disclaimer",
+  contentRef,
+}: {
+  textKey?: string;
+  contentRef?: ContentReportReference;
+}) {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
   return (
-    <View style={[styles.disclaimerWrap, { borderColor: tokens.hairline }]}>
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
-        {t(textKey)}
-      </ThemedText>
+    <View>
+      <View style={[styles.disclaimerWrap, { borderColor: tokens.hairline }]}>
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
+          {t(textKey)}
+        </ThemedText>
+      </View>
+      {contentRef ? <ContentReportFooterLink contentRef={contentRef} /> : null}
     </View>
   );
 }
@@ -173,6 +186,8 @@ export function JannahQuickLinkGrid({
 /** Summary highlight at the top of a topic page. */
 export function JannahTakeaway({ text }: { text: string }) {
   const { colors, tokens } = useThemeTokens();
+  const { sizes } = useReadingTypography();
+
   return (
     <View
       style={[
@@ -180,7 +195,14 @@ export function JannahTakeaway({ text }: { text: string }) {
         { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
       ]}
     >
-      <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+      <ThemedText
+        type="smallBold"
+        style={{
+          color: colors.accentText,
+          fontSize: sizes.translation,
+          lineHeight: sizes.translation * 1.45,
+        }}
+      >
         {text}
       </ThemedText>
     </View>
@@ -189,6 +211,8 @@ export function JannahTakeaway({ text }: { text: string }) {
 
 /** Readable body copy block. */
 export function JannahBody({ paragraphs }: { paragraphs: string[] }) {
+  const { sizes } = useReadingTypography();
+
   return (
     <View style={styles.bodyBlock}>
       {paragraphs.map((paragraph, index) => (
@@ -196,7 +220,10 @@ export function JannahBody({ paragraphs }: { paragraphs: string[] }) {
           key={paragraph.slice(0, 48)}
           type={index === 0 ? "default" : "small"}
           themeColor={index === 0 ? "foreground" : "mutedForeground"}
-          style={styles.bodyParagraph}
+          style={[
+            styles.bodyParagraph,
+            { fontSize: sizes.translation, lineHeight: sizes.translation * 1.5 },
+          ]}
         >
           {paragraph}
         </ThemedText>
@@ -208,6 +235,7 @@ export function JannahBody({ paragraphs }: { paragraphs: string[] }) {
 export function JannahQuranEvidence({ refs }: { refs: JannahQuranRef[] }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { sizes } = useReadingTypography();
 
   return (
     <Card padding="three">
@@ -231,7 +259,17 @@ export function JannahQuranEvidence({ refs }: { refs: JannahQuranRef[] }) {
               <QuranAyahBookmarkButton surah={ref.surah} ayah={ref.ayahFrom} />
             </View>
             {ref.excerpt ? (
-              <ThemedText type="small" style={[styles.quoteText, { color: colors.foreground }]}>
+              <ThemedText
+                type="small"
+                style={[
+                  styles.quoteText,
+                  {
+                    color: colors.foreground,
+                    fontSize: sizes.translation,
+                    lineHeight: sizes.translation * 1.45,
+                  },
+                ]}
+              >
                 {ref.excerpt}
               </ThemedText>
             ) : null}
@@ -245,6 +283,7 @@ export function JannahQuranEvidence({ refs }: { refs: JannahQuranRef[] }) {
 export function JannahHadithEvidence({ refs }: { refs: JannahHadithRef[] }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { sizes } = useReadingTypography();
 
   return (
     <Card padding="three">
@@ -274,7 +313,14 @@ export function JannahHadithEvidence({ refs }: { refs: JannahHadithRef[] }) {
                 <HadithCitationBookmarkButton collection={ref.collection} citation={ref.citation} />
               </View>
             </View>
-            <ThemedText type="small" themeColor="mutedForeground" style={styles.quoteText}>
+            <ThemedText
+              type="small"
+              themeColor="mutedForeground"
+              style={[
+                styles.quoteText,
+                { fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 },
+              ]}
+            >
               “{ref.excerpt}”
             </ThemedText>
           </View>
@@ -288,6 +334,7 @@ export function JannahHadithEvidence({ refs }: { refs: JannahHadithRef[] }) {
 export function JannahActionSteps({ steps }: { steps: string[] }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { sizes } = useReadingTypography();
 
   return (
     <Card padding="three">
@@ -303,7 +350,14 @@ export function JannahActionSteps({ steps }: { steps: string[] }) {
                 {index + 1}
               </ThemedText>
             </View>
-            <ThemedText type="small" themeColor="mutedForeground" style={styles.stepText}>
+            <ThemedText
+              type="small"
+              themeColor="mutedForeground"
+              style={[
+                styles.stepText,
+                { fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 },
+              ]}
+            >
               {step}
             </ThemedText>
           </View>
@@ -327,7 +381,8 @@ export function JannahDuaBlock({
   translation: string;
   reference?: string;
 }) {
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
+  const { sizes } = useReadingTypography();
 
   return (
     <Card padding="three">
@@ -342,20 +397,19 @@ export function JannahDuaBlock({
           { backgroundColor: tokens.accentSoft, borderColor: tokens.accentBorder },
         ]}
       >
-        <ThemedText type="arabic" style={[styles.duaArabic, { color: colors.foreground }]}>
-          {arabic}
-        </ThemedText>
-        {transliteration ? (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.duaTranslit}>
-            {transliteration}
-          </ThemedText>
-        ) : null}
-        <ThemedText type="small" style={[styles.duaTranslation, { color: colors.foreground }]}>
-          {translation}
-        </ThemedText>
+        <ReligiousTextStack
+          arabic={arabic}
+          transliteration={transliteration}
+          translation={translation}
+          compact
+        />
       </View>
       {reference ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.duaRef}>
+        <ThemedText
+          type="caption"
+          themeColor="mutedForeground"
+          style={[styles.duaRef, { fontSize: sizes.transliteration }]}
+        >
           {reference}
         </ThemedText>
       ) : null}
@@ -416,7 +470,7 @@ const styles = StyleSheet.create({
   evidenceList: { gap: Spacing.three, marginTop: Spacing.three },
   quranQuote: {
     borderLeftWidth: 3,
-    paddingLeft: Spacing.three,
+    paddingStart: Spacing.three,
     paddingVertical: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",

@@ -50,6 +50,17 @@ export const DB_KEYS = {
   toursSeen: `${PREFIX}/tours_seen`,
   // Private daily intention toggles on Journey to Jannah (not synced).
   jannahIntentions: `${PREFIX}/jannah_intentions`,
+  jahannamIntentions: `${PREFIX}/jahannam_intentions`,
+  // Completed Learn Salah lesson ids (not synced).
+  salahGuideProgress: `${PREFIX}/salah_guide_progress`,
+  // Completed Battles in Islam topic ids (not synced).
+  battlesProgress: `${PREFIX}/battles_progress`,
+  quranGuideProgress: `${PREFIX}/quran_guide_progress`,
+  taharahProgress: `${PREFIX}/taharah_progress`,
+  prophetsProgress: `${PREFIX}/prophets_progress`,
+  aqeedahProgress: `${PREFIX}/aqeedah_progress`,
+  lastDayProgress: `${PREFIX}/last_day_progress`,
+  learnDuaProgress: `${PREFIX}/learn_dua_progress`,
   weatherCache: `${PREFIX}/weather_cache`,
   audioDurationCache: `${PREFIX}/audio_duration_cache`,
   reverseGeocodeCache: `${PREFIX}/reverse_geocode_cache`,
@@ -61,6 +72,8 @@ export const DB_KEYS = {
   quranBookmarksUpdatedAt: `${PREFIX}/quran_bookmarks_updated_at`,
   hadithBookmarksUpdatedAt: `${PREFIX}/hadith_bookmarks_updated_at`,
   customTasbeehUpdatedAt: `${PREFIX}/custom_tasbeeh_updated_at`,
+  // Queued content reports awaiting upload when back online.
+  contentReportQueue: `${PREFIX}/content_report_queue`,
 } as const;
 
 /** Composite key for one prayer on one day. */

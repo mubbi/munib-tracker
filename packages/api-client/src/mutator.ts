@@ -39,6 +39,11 @@ export function setTokenRefresher(refresher: TokenRefresher | null): void {
   tokenRefresher = refresher;
 }
 
+/** Returns the auth-layer refresher registered via {@link setTokenRefresher}. */
+export function getRegisteredTokenRefresher(): TokenRefresher | null {
+  return tokenRefresher;
+}
+
 export function getApiBaseUrl(): string {
   if (typeof process !== "undefined") {
     if (process.env.NEXT_PUBLIC_API_URL) {

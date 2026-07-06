@@ -1,6 +1,7 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -10,9 +11,11 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { NavRow } from "@/components/ui/nav-row";
+import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { HadithRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { dailyHadith } from "@/lib/daily-hadith";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
@@ -31,6 +34,17 @@ export default function HadithHomeScreen() {
   const bundled = getBundledCollections();
   const remote = REMOTE_COLLECTIONS;
   const today = dailyHadith(getLocalDateString());
+  const [bookmarkCount, setBookmarkCount] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+    void HadithRepository.getBookmarks().then((list) => {
+      if (active) setBookmarkCount(list.length);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const open = (id: string) =>
     router.push({ pathname: "/hadith/[collection]", params: { collection: id } });
@@ -63,6 +77,15 @@ export default function HadithHomeScreen() {
         ]}
       />
       <Stagger>
+        <SavedNavCard
+          title={t("hadith.bookmarks")}
+          viewLabel={t("hadith.viewBookmarks")}
+          count={bookmarkCount > 0 ? bookmarkCount : undefined}
+          headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+          rowIcon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
+          onPress={() => router.push("/hadith/bookmarks")}
+        />
+
         {today ? (
           <Card
             padding="three"
@@ -125,20 +148,6 @@ export default function HadithHomeScreen() {
                 onPress={() => open(collection.id)}
               />
             ))}
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("hadith.bookmarks")}
-            icon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-          />
-          <View style={styles.list}>
-            <NavRow
-              icon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
-              label={t("hadith.viewBookmarks")}
-              onPress={() => router.push("/hadith/bookmarks")}
-            />
           </View>
         </Card>
       </Stagger>

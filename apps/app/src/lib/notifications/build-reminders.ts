@@ -1,4 +1,4 @@
-import { ADHAN_PRAYER_SET } from "@munib-tracker/shared/constants";
+import { ADHAN_PRAYER_SET, clampPrayerReminderOffset } from "@munib-tracker/shared/constants";
 import type { PrayerId, TimeFormat, UserPreferences } from "@munib-tracker/shared/types";
 import i18n from "@/i18n";
 import { locationCalcExtras, type StoredLocation } from "@/lib/location";
@@ -122,10 +122,12 @@ function pushPrayerReminders(
     // opted in. Sunnah/witr and the surrounding zikr nudges stay silent.
     const playAdhan = isFard && n.playAdhanOnPrayer;
 
-    // Per-prayer offset shifts only the main reminder; the before/after/azan
-    // nudges stay anchored to the true prayer time.
-    const offset = prefs.prayerReminderOffsets?.[slot as PrayerId] ?? 0;
-    const mainFireAt = offset === 0 ? at : addMinutes(at, offset);
+    // Per-prayer offset shifts only the main obligatory reminder; the
+    // before/after/azan nudges stay anchored to the true prayer time.
+    const offset = isFard
+      ? clampPrayerReminderOffset(prefs.prayerReminderOffsets?.[slot as PrayerId] ?? 0)
+      : 0;
+    const mainFireAt = addMinutes(at, offset);
 
     reminders.push({
       id: `prayer:${slot}:${dayKey}`,

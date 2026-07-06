@@ -7,7 +7,9 @@ import "@/global.css";
 import "@/styles/focus-visible";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { MiniPlayer } from "@/components/audio/mini-player";
+import { ContentReportProvider } from "@/components/content-report/content-report-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { WebReminderAdhanBridge } from "@/components/notifications/web-reminder-adhan-bridge";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
@@ -42,27 +44,33 @@ export default function RootLayout() {
             <I18nProvider>
               <AuthProvider>
                 <ToastProvider>
-                  <InAppNotificationsProvider>
-                    <NotificationProvider>
-                      <AudioPlayerProvider>
-                        <MiniPlayerInsetProvider>
-                          <Stack screenOptions={{ headerShown: false }}>
-                            <Stack.Screen name="(tabs)" />
-                            <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
-                            <Stack.Screen
-                              name="(onboarding)/intro"
-                              options={{ gestureEnabled: false }}
-                            />
-                          </Stack>
-                          <WebNavigationFocusManager />
-                          <WebPwaBootstrap />
-                          <OnboardingGate />
-                          <MiniPlayer />
-                          <AnimatedSplashOverlay />
-                        </MiniPlayerInsetProvider>
-                      </AudioPlayerProvider>
-                    </NotificationProvider>
-                  </InAppNotificationsProvider>
+                  <ContentReportProvider>
+                    <InAppNotificationsProvider>
+                      <NotificationProvider>
+                        <AudioPlayerProvider>
+                          <WebReminderAdhanBridge />
+                          <MiniPlayerInsetProvider>
+                            <Stack screenOptions={{ headerShown: false }}>
+                              <Stack.Screen name="(tabs)" />
+                              <Stack.Screen
+                                name="(auth)/login"
+                                options={{ presentation: "modal" }}
+                              />
+                              <Stack.Screen
+                                name="(onboarding)/intro"
+                                options={{ gestureEnabled: false }}
+                              />
+                            </Stack>
+                            <WebNavigationFocusManager />
+                            <WebPwaBootstrap />
+                            <OnboardingGate />
+                            <MiniPlayer />
+                            <AnimatedSplashOverlay />
+                          </MiniPlayerInsetProvider>
+                        </AudioPlayerProvider>
+                      </NotificationProvider>
+                    </InAppNotificationsProvider>
+                  </ContentReportProvider>
                 </ToastProvider>
               </AuthProvider>
             </I18nProvider>

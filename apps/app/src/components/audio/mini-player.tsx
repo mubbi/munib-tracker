@@ -288,6 +288,8 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
     setRate,
     volume,
     setVolume,
+    loopMode,
+    cycleLoopMode,
     readPlaybackSeconds,
   } = useAudioPlayerContext();
 
@@ -319,6 +321,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
   if (!current) return null;
 
   const showSpinner = isBuffering && !isPlaying && !isTransitioning;
+  const loopActive = loopMode !== "off";
   const cycleRate = () => setRate(nextPlaybackRate(rate));
 
   const onLayout = (event: LayoutChangeEvent) => {
@@ -333,6 +336,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
         {
           bottom: tabBarOffset,
           left: sideRailWidth,
+          right: 0,
           backgroundColor: colors.card,
           borderColor: colors.border,
         },
@@ -383,6 +387,14 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
         </PressableScale>
 
         <View style={styles.compactControls}>
+          <IconButton
+            name={LOOP_ICON[loopMode]}
+            size={18}
+            tintColor={loopActive ? colors.accent : colors.mutedForeground}
+            accessibilityLabel={t(LOOP_LABEL_KEY[loopMode])}
+            accessibilityState={{ selected: loopActive }}
+            onPress={cycleLoopMode}
+          />
           {hasQueue ? (
             <IconButton
               name={{ ios: "backward.fill", android: "skip_previous", web: "skip_previous" }}

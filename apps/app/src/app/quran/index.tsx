@@ -23,6 +23,7 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
+import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
@@ -32,7 +33,7 @@ import { getSurahByNumber, getSurahMeta } from "@/lib/quran";
 import { chevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import { useLastRead } from "@/stores/quran-store";
+import { useLastRead, useQuranBookmarks } from "@/stores/quran-store";
 
 const TOTAL_SURAHS = 114;
 
@@ -222,6 +223,7 @@ export default function QuranHomeScreen() {
   const [query, setQuery] = useState("");
   const [revelationFilter, setRevelationFilter] = useState<SurahRevelationFilter>("all");
   const lastRead = useLastRead();
+  const quranBookmarks = useQuranBookmarks();
 
   const filtered = useMemo(
     () => searchSurahList(query, { revelation: revelationFilter }),
@@ -238,13 +240,6 @@ export default function QuranHomeScreen() {
         icon: { ios: "magnifyingglass", android: "search", web: "search" },
         tint: tokens.status.info.color,
         onPress: () => router.push("/quran/search"),
-      },
-      {
-        id: "bookmarks",
-        label: t("quran.bookmarks"),
-        icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
-        tint: tokens.status.warning.color,
-        onPress: () => router.push("/quran/bookmarks"),
       },
       {
         id: "juz",
@@ -297,8 +292,17 @@ export default function QuranHomeScreen() {
   const listHeader = (
     <View style={styles.header}>
       <Stagger>
+        <SavedNavCard
+          title={t("quran.bookmarks")}
+          viewLabel={t("quran.viewBookmarks")}
+          count={quranBookmarks.length > 0 ? quranBookmarks.length : undefined}
+          headerIcon={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
+          rowIcon={{ ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }}
+          onPress={() => router.push("/quran/bookmarks")}
+        />
+
         <Card padding="three">
-          <QuickActionGrid items={shortcuts} columns={5} />
+          <QuickActionGrid items={shortcuts} />
         </Card>
 
         {lastRead ? (

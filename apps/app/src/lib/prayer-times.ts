@@ -275,8 +275,22 @@ export function windowProgress(windowStart: Date, windowEnd: Date, now: Date): n
 
 /** Minutes after sunrise when Ishraq begins (sun at a spear's length). */
 export const ISHRAQ_AFTER_SUNRISE_MINUTES = 20;
-/** Minutes before Dhuhr when the Duha window closes. */
+/** Minutes before Dhuhr when zawal ends and the Duha window closes. */
 export const DUHA_END_BEFORE_ZUHR_MINUTES = 15;
+
+/** Zawal — the sun at its zenith, just before Dhuhr. */
+export function zawalTime(dhuhr: Date): Date {
+  return addMinutes(dhuhr, -DUHA_END_BEFORE_ZUHR_MINUTES);
+}
+
+/**
+ * Mid-morning: halfway between sunrise and zawal. Hanafi scholars use this as the
+ * boundary between Salah al-Ishraq (early forenoon) and Salah ad-Duha (later forenoon).
+ */
+export function midMorningTime(sunrise: Date, dhuhr: Date): Date {
+  const zawal = zawalTime(dhuhr);
+  return new Date(sunrise.getTime() + (zawal.getTime() - sunrise.getTime()) / 2);
+}
 /** Minutes after Isha when Witr is commonly prayed. */
 export const WITR_AFTER_ISHA_MINUTES = 20;
 
@@ -307,12 +321,21 @@ export function ishraqTime(sunrise: Date): Date {
   return addMinutes(sunrise, ISHRAQ_AFTER_SUNRISE_MINUTES);
 }
 
+/** Ishraq is prayed at the beginning of the forenoon, until mid-morning. */
+export function ishraqWindow(sunrise: Date, dhuhr: Date): { start: Date; end: Date } {
+  return { start: ishraqTime(sunrise), end: midMorningTime(sunrise, dhuhr) };
+}
+
+/**
+ * Duha runs from mid-morning until zawal. The recommended time is the midpoint of
+ * that window — when the sun's heat has intensified (the virtuous forenoon moment).
+ */
 export function duhaWindow(
   sunrise: Date,
   dhuhr: Date,
 ): { start: Date; end: Date; recommended: Date } {
-  const start = ishraqTime(sunrise);
-  const end = addMinutes(dhuhr, -DUHA_END_BEFORE_ZUHR_MINUTES);
+  const start = midMorningTime(sunrise, dhuhr);
+  const end = zawalTime(dhuhr);
   const midpoint = start.getTime() + (end.getTime() - start.getTime()) / 2;
   return { start, end, recommended: new Date(midpoint) };
 }
@@ -417,10 +440,11 @@ export function buildDailySchedule(
   );
 
   const tahajjudAt = tahajjudTime(now, today, tomorrowTimes.fajr, yesterdayTimes.maghrib);
-  const ishraqAt = ishraqTime(today.sunrise);
+  const ishraq = ishraqWindow(today.sunrise, today.dhuhr);
   const duha = duhaWindow(today.sunrise, today.dhuhr);
   const witrAt = witrTime(today.isha);
   const fajrEnd = today.fajr.getTime();
+  const ishraqEnd = ishraq.end.getTime();
   const duhaEnd = duha.end.getTime();
   const witrEnd = tomorrowTimes.fajr.getTime();
   const nowMs = now.getTime();
@@ -437,8 +461,8 @@ export function buildDailySchedule(
     {
       id: "ishraq",
       kind: "optional",
-      at: ishraqAt,
-      active: nowMs >= ishraqAt.getTime() && nowMs < duhaEnd,
+      at: ishraq.start,
+      active: nowMs >= ishraq.start.getTime() && nowMs < ishraqEnd,
     },
     {
       id: "duha",
@@ -460,7 +484,7 @@ export function buildDailySchedule(
     { id: "hajat_istikhara", kind: "optional", active: false },
   ];
 
-  // Highlight the obligatory/marker window that is currently running.
+  // Highlight the obligatory prayer window that is currently running.
   const next = nextPrayer(coords, now, method, madhab, timeZone, extras);
   const slotActive = new Set<PrayerSlotId>();
   if (next.currentIndex >= 0) slotActive.add(PRAYER_SLOT_ORDER[next.currentIndex]);
@@ -470,7 +494,7 @@ export function buildDailySchedule(
       return { ...entry, active: nowMs >= witrAt.getTime() && nowMs < witrEnd };
     }
     if (entry.kind === "optional" && entry.at) return entry;
-    if (entry.kind === "obligatory" || entry.kind === "marker") {
+    if (entry.kind === "obligatory") {
       const slotId = entry.id as PrayerSlotId;
       if (PRAYER_SLOT_ORDER.includes(slotId)) {
         return { ...entry, active: slotActive.has(slotId) };

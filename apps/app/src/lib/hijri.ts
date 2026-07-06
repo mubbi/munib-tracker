@@ -1,6 +1,6 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
 
-import { prayerDayAnchor } from "@/lib/time";
+import { prayerDayAnchor } from "@/lib/timezone-anchor";
 
 /**
  * Offline Gregorian → Hijri (Islamic) date conversion.

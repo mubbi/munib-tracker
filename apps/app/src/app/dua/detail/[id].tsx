@@ -14,6 +14,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
@@ -31,7 +32,7 @@ export function generateStaticParams(): Array<{ id: string }> {
 
 export default function DuaDetailScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors } = useThemeTokens();
   const params = useLocalSearchParams<{ id: string }>();
   const item = params.id ? getDuaById(params.id) : undefined;
@@ -103,6 +104,16 @@ export default function DuaDetailScreen() {
     { name: t("dua.title"), path: "/dua" },
     { name: duaTitle, path: `/dua/detail/${item.id}` },
   ];
+  const locale = i18n.language?.split("-")[0] ?? "en";
+  const contentRef = buildContentReportRef("dua", item.id, `/dua/detail/${item.id}`, locale, {
+    snapshot: {
+      title: item.title,
+      arabic: item.arabic,
+      transliteration: item.transliteration,
+      translation: item.translation,
+      reference: item.reference,
+    },
+  });
 
   return (
     <ScreenLayout
@@ -133,6 +144,7 @@ export default function DuaDetailScreen() {
           sourceHref={`/dua/detail/${item.id}`}
           isFavorite={isFavorite}
           onToggleFavorite={() => toggle(item.id)}
+          contentRef={contentRef}
         />
         <Button
           label={t("dua.share")}

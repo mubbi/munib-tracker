@@ -1,6 +1,12 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { AuthSessionEntity, SyncRecordEntity, UserEntity } from "./entities";
+import {
+  AuthSessionEntity,
+  ContentReportAttachmentEntity,
+  ContentReportEntity,
+  SyncRecordEntity,
+  UserEntity,
+} from "./entities";
 
 /**
  * Standalone DataSource for the TypeORM CLI (migration generate/run/revert).
@@ -19,7 +25,13 @@ export default new DataSource({
   password: process.env.DATABASE_PASSWORD ?? "postgres",
   database: process.env.DATABASE_NAME ?? "munib_tracker",
   ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: false } : false,
-  entities: [UserEntity, AuthSessionEntity, SyncRecordEntity],
+  entities: [
+    UserEntity,
+    AuthSessionEntity,
+    SyncRecordEntity,
+    ContentReportEntity,
+    ContentReportAttachmentEntity,
+  ],
   migrations: ["src/database/migrations/*.ts"],
   synchronize: false,
 });

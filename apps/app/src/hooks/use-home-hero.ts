@@ -14,7 +14,7 @@ import {
   duhaWindow,
   formatDuration,
   formatPrayerTime,
-  ishraqTime,
+  ishraqWindow,
   nextPrayer,
   nextScheduleEntry,
   PRAYER_SLOT_ICONS,
@@ -82,12 +82,14 @@ function scheduleBoundaries(
   now: Date,
 ): number[] {
   const slots = prayerSlots(today);
+  const ishraq = ishraqWindow(today.sunrise, today.dhuhr);
   const duha = duhaWindow(today.sunrise, today.dhuhr);
   const tahajjud = tahajjudTime(now, today, tomorrow.fajr, yesterday.maghrib);
   const boundaries = slots.map((slot) => slot.date.getTime());
   boundaries.push(
     tahajjud.getTime(),
-    ishraqTime(today.sunrise).getTime(),
+    ishraq.start.getTime(),
+    ishraq.end.getTime(),
     duha.start.getTime(),
     duha.end.getTime(),
     witrTime(today.isha).getTime(),

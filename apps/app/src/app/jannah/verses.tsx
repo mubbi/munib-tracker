@@ -6,6 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -33,10 +34,11 @@ const THEME_ICONS: Record<(typeof THEME_ORDER)[number], SymbolViewProps["name"]>
   },
 };
 
-export default function JannahVersesScreen() {
+function JannahVersesList() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { sizes } = useReadingTypography();
   const verses = getJannahVerses();
 
   const grouped = useMemo(() => {
@@ -51,6 +53,72 @@ export default function JannahVersesScreen() {
   }, [verses]);
 
   return (
+    <>
+      <JannahCallout tone="info">{t("jannah.versesLead")}</JannahCallout>
+
+      {THEME_ORDER.map((theme) => {
+        const items = grouped.get(theme) ?? [];
+        if (items.length === 0) return null;
+        return (
+          <Card key={theme} padding="three">
+            <SectionHeader title={t(`jannah.verseTheme.${theme}`)} icon={THEME_ICONS[theme]} />
+            <View style={styles.list}>
+              {items.map((verse, index) => (
+                <PressableScale
+                  key={verse.id}
+                  haptic="light"
+                  accessibilityRole="link"
+                  accessibilityLabel={`${verse.label}. ${verse.excerpt}`}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/quran/[surah]",
+                      params: { surah: String(verse.surah), ayah: String(verse.ayahFrom) },
+                    })
+                  }
+                  style={[
+                    styles.row,
+                    index > 0 && {
+                      borderTopColor: tokens.hairline,
+                      borderTopWidth: StyleSheet.hairlineWidth,
+                    },
+                  ]}
+                >
+                  <IconWell
+                    icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                    tint={colors.accent}
+                    well={36}
+                    size={16}
+                  />
+                  <View style={styles.rowCopy}>
+                    <ReferenceLine reference={verse.label} />
+                    <ThemedText
+                      type="small"
+                      themeColor="mutedForeground"
+                      style={[
+                        styles.excerpt,
+                        { fontSize: sizes.translation, lineHeight: sizes.translation * 1.45 },
+                      ]}
+                    >
+                      {verse.excerpt}
+                    </ThemedText>
+                  </View>
+                  <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
+                  <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+                </PressableScale>
+              ))}
+            </View>
+          </Card>
+        );
+      })}
+    </>
+  );
+}
+
+export default function JannahVersesScreen() {
+  const router = useRouter();
+  const { t } = useTranslation();
+
+  return (
     <ScreenLayout
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.versesTitle")}
@@ -59,59 +127,9 @@ export default function JannahVersesScreen() {
     >
       <Seo path="/jannah/verses" />
       <Stagger>
-        <JannahCallout tone="info">{t("jannah.versesLead")}</JannahCallout>
-
-        {THEME_ORDER.map((theme) => {
-          const items = grouped.get(theme) ?? [];
-          if (items.length === 0) return null;
-          return (
-            <Card key={theme} padding="three">
-              <SectionHeader title={t(`jannah.verseTheme.${theme}`)} icon={THEME_ICONS[theme]} />
-              <View style={styles.list}>
-                {items.map((verse, index) => (
-                  <PressableScale
-                    key={verse.id}
-                    haptic="light"
-                    accessibilityRole="link"
-                    accessibilityLabel={`${verse.label}. ${verse.excerpt}`}
-                    onPress={() =>
-                      router.push({
-                        pathname: "/quran/[surah]",
-                        params: { surah: String(verse.surah), ayah: String(verse.ayahFrom) },
-                      })
-                    }
-                    style={[
-                      styles.row,
-                      index > 0 && {
-                        borderTopColor: tokens.hairline,
-                        borderTopWidth: StyleSheet.hairlineWidth,
-                      },
-                    ]}
-                  >
-                    <IconWell
-                      icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                      tint={colors.accent}
-                      well={36}
-                      size={16}
-                    />
-                    <View style={styles.rowCopy}>
-                      <ReferenceLine reference={verse.label} />
-                      <ThemedText type="small" themeColor="mutedForeground" style={styles.excerpt}>
-                        {verse.excerpt}
-                      </ThemedText>
-                    </View>
-                    <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
-                    <SymbolView
-                      name={chevronForward}
-                      size={14}
-                      tintColor={colors.mutedForeground}
-                    />
-                  </PressableScale>
-                ))}
-              </View>
-            </Card>
-          );
-        })}
+        <LearnReadingChrome surface="jannah">
+          <JannahVersesList />
+        </LearnReadingChrome>
 
         <JannahDisclaimer />
       </Stagger>

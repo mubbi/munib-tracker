@@ -226,9 +226,9 @@ export default function NotificationsScreen() {
             <ToggleRow
               icon={{ ios: "megaphone.fill", android: "campaign", web: "campaign" }}
               title={t("notif.playAdhan")}
-              subtitle={isWeb ? t("notif.adhanWebUnavailable") : t("notif.playAdhanHint")}
+              subtitle={t("notif.playAdhanHint")}
               value={prefs.notificationPrefs.playAdhanOnPrayer}
-              disabled={!obligatoryEnabled || isWeb}
+              disabled={!obligatoryEnabled}
               onValueChange={(value) => void onNotificationToggle({ playAdhanOnPrayer: value })}
             />
           </View>

@@ -1,9 +1,10 @@
 import type { ReadingSurface } from "@munib-tracker/shared/types";
+import type { ContentReportReference } from "@munib-tracker/shared/types/content-report";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, View } from "react-native";
-
 import { ReferenceLine } from "@/components/content/reference-line";
+import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
@@ -41,6 +42,7 @@ export function ReadingCard({
   isFavorite,
   onToggleFavorite,
   surface = "dua_zikr",
+  contentRef,
 }: {
   item: ReadingItem;
   sourceHref?: string;
@@ -48,6 +50,8 @@ export function ReadingCard({
   onToggleFavorite?: () => void;
   /** Reading surface for the in-context size override (NF-1.32). */
   surface?: ReadingSurface;
+  /** When set, shows a report button for this content item. */
+  contentRef?: ContentReportReference;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -134,6 +138,7 @@ export function ReadingCard({
             accessibilityLabel={t("reading.share")}
             onPress={onShare}
           />
+          {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
         </View>
       </View>
 

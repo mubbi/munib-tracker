@@ -134,6 +134,12 @@ export default function SettingsScreen() {
         <Card padding="three">
           <View style={styles.group}>
             <SettingsRow
+              icon={{ ios: "flag.fill", android: "flag", web: "flag" }}
+              title={t("contentReport.myReportsTitle")}
+              subtitle={t("contentReport.myReportsNavSub")}
+              onPress={() => router.push("/settings/my-reports")}
+            />
+            <SettingsRow
               icon={{
                 ios: "square.and.arrow.down",
                 android: "file_upload",

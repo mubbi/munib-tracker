@@ -42,6 +42,18 @@ pnpm generate:api
 | `health` | Liveness probe at `GET /api/v1/health` |
 | `auth` | Guest sessions, OAuth callbacks, account linking |
 | `sync` | Pull/push cloud sync (last-write-wins) |
+| `content-reports` | User content issue reports with attachments and admin triage |
+
+## Content reports admin triage
+
+Set `REPORT_ADMIN_KEY` in `.env`, then:
+
+```bash
+curl -X PATCH "http://localhost:3001/api/v1/content-reports/$REPORT_ID" \
+  -H "X-Admin-Key: $REPORT_ADMIN_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"completed","adminNotes":"Fixed in content pipeline."}'
+```
 
 ## Environment
 

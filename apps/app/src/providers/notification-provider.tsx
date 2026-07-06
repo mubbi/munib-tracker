@@ -3,6 +3,7 @@ import { type Href, useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
 import { AppState, Platform } from "react-native";
 import { isWeb } from "@/lib/notifications/platform";
+import { tryPlayWebAdhanForReminder } from "@/lib/notifications/web-adhan-playback";
 import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
 import {
   configureNotifications,
@@ -27,6 +28,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const { deliver } = useInAppNotifications();
   const notificationPrefs = useStore(preferencesStore, (s) => s.prefs.notificationPrefs);
   const prayerAlerts = useStore(preferencesStore, (s) => s.prefs.prayerAlerts);
+  const prayerReminderOffsets = useStore(preferencesStore, (s) => s.prefs.prayerReminderOffsets);
   const bedtime = useStore(preferencesStore, (s) => s.prefs.bedtime);
   const location = useStore(locationStore, (s) => s.location);
   const locationReady = useStore(locationStore, (s) => s.isReady);
@@ -38,6 +40,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isWeb) return;
     setWebReminderFireHandler((reminder) => {
+      tryPlayWebAdhanForReminder(reminder);
       void deliver({
         kind: "reminder",
         title: reminder.title,
@@ -63,17 +66,39 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!ready || !locationReady) return;
     const prefs = preferencesStore.getState().prefs;
-    void rescheduleAll({ ...prefs, notificationPrefs, prayerAlerts, bedtime }, location);
-  }, [ready, locationReady, notificationPrefs, prayerAlerts, bedtime, location]);
+    void rescheduleAll(
+      { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime },
+      location,
+    );
+  }, [
+    ready,
+    locationReady,
+    notificationPrefs,
+    prayerAlerts,
+    prayerReminderOffsets,
+    bedtime,
+    location,
+  ]);
 
   useEffect(() => {
     const sub = AppState.addEventListener("change", (status) => {
       if (status !== "active" || !ready || !locationReady) return;
       const prefs = preferencesStore.getState().prefs;
-      void rescheduleAll({ ...prefs, notificationPrefs, prayerAlerts, bedtime }, location);
+      void rescheduleAll(
+        { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime },
+        location,
+      );
     });
     return () => sub.remove();
-  }, [ready, locationReady, notificationPrefs, prayerAlerts, bedtime, location]);
+  }, [
+    ready,
+    locationReady,
+    notificationPrefs,
+    prayerAlerts,
+    prayerReminderOffsets,
+    bedtime,
+    location,
+  ]);
 
   useEffect(() => {
     if (!isNative) return;

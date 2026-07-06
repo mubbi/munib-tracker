@@ -2,7 +2,13 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule, type TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DatabaseType, EnvironmentVariables } from "../config/env.schema";
-import { AuthSessionEntity, SyncRecordEntity, UserEntity } from "./entities";
+import {
+  AuthSessionEntity,
+  ContentReportAttachmentEntity,
+  ContentReportEntity,
+  SyncRecordEntity,
+  UserEntity,
+} from "./entities";
 import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
 
 @Module({
@@ -33,7 +39,13 @@ import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
           ssl: configService.get("DATABASE_SSL", { infer: true })
             ? { rejectUnauthorized: false }
             : false,
-          entities: [UserEntity, AuthSessionEntity, SyncRecordEntity],
+          entities: [
+            UserEntity,
+            AuthSessionEntity,
+            SyncRecordEntity,
+            ContentReportEntity,
+            ContentReportAttachmentEntity,
+          ],
           synchronize: false,
           autoLoadEntities: true,
         };

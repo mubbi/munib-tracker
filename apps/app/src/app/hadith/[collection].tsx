@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { InteractionManager, Share, StyleSheet, TextInput, View } from "react-native";
 
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
+import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -19,6 +20,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useRemoteCollection } from "@/hooks/use-hadith";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildHadithActivity, buildHadithCollectionActivity } from "@/lib/continue-activity";
 import {
   getBundledCollection,
@@ -323,8 +325,9 @@ function HadithCard({
   onBookmark: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const audio = useAudioPlayerContext();
+  const locale = i18n.language?.split("-")[0] ?? "en";
   const { fontPrefs } = usePreferences();
   const arabicSize = fontPrefs.arabic.size;
   const textSize = fontPrefs.translation.size;
@@ -398,6 +401,23 @@ function HadithCard({
             accessibilityLabel={isBookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd")}
             accessibilityState={{ selected: isBookmarked }}
             onPress={onBookmarkPress}
+          />
+          <ContentReportButton
+            contentRef={buildContentReportRef(
+              "hadith",
+              item.id,
+              `/hadith/${item.collection}`,
+              locale,
+              {
+                parentId: item.collection,
+                snapshot: {
+                  title: item.reference,
+                  arabic: item.arabic,
+                  translation: item.english,
+                  reference: item.reference,
+                },
+              },
+            )}
           />
         </View>
       </View>

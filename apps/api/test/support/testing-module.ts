@@ -7,11 +7,23 @@ import { AuthService } from "../../src/auth/auth.service";
 import { OAuthProviderService } from "../../src/auth/oauth-provider.service";
 import { TokenService } from "../../src/auth/token.service";
 import { validateEnvironment } from "../../src/config/env.validation";
-import { AuthSessionEntity, SyncRecordEntity, UserEntity } from "../../src/database/entities";
+import {
+  AuthSessionEntity,
+  ContentReportAttachmentEntity,
+  ContentReportEntity,
+  SyncRecordEntity,
+  UserEntity,
+} from "../../src/database/entities";
 import { createInMemorySqliteOptions } from "../../src/database/in-memory-sqlite.options";
 import { StubOAuthProviderService } from "./oauth-stub";
 
-const ENTITIES = [UserEntity, AuthSessionEntity, SyncRecordEntity];
+const ENTITIES = [
+  UserEntity,
+  AuthSessionEntity,
+  SyncRecordEntity,
+  ContentReportEntity,
+  ContentReportAttachmentEntity,
+];
 
 /**
  * Compiles a Nest testing module wired to a fresh in-memory SQLite database with

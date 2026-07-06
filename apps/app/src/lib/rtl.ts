@@ -38,6 +38,16 @@ export const arrowForward: IconName = rtl
   ? { ios: "arrow.left", android: "arrow_back", web: "arrow_back" }
   : { ios: "arrow.right", android: "arrow_forward", web: "arrow_forward" };
 
+/**
+ * "Previous" chevron for paginators (e.g. month steppers) — points backward in
+ * reading order (left in LTR, right in RTL) but stays a chevron on every
+ * platform, unlike {@link chevronBack} which uses platform back-arrows. Pair
+ * with {@link chevronForward} for the "next" control.
+ */
+export const chevronBackward: IconName = rtl
+  ? { ios: "chevron.right", android: "chevron_right", web: "chevron_right" }
+  : { ios: "chevron.left", android: "chevron_left", web: "chevron_left" };
+
 /** True when the string contains Arabic script (U+0600–U+06FF). */
 export function containsArabicScript(text: string): boolean {
   return /[\u0600-\u06FF]/.test(text);

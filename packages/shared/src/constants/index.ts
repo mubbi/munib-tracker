@@ -30,6 +30,15 @@ export {
   type AppValueProp,
 } from "./features";
 
+/** Minutes before/after adhan the main obligatory-prayer reminder may be shifted (NF-1.7). */
+export const PRAYER_REMINDER_OFFSET_MIN = -120;
+export const PRAYER_REMINDER_OFFSET_MAX = 120;
+
+/** Clamps a per-prayer reminder offset to the allowed range. */
+export function clampPrayerReminderOffset(minutes: number): number {
+  return Math.max(PRAYER_REMINDER_OFFSET_MIN, Math.min(PRAYER_REMINDER_OFFSET_MAX, minutes));
+}
+
 /** The five daily fard prayers. */
 export const OBLIGATORY_PRAYERS = [
   "fajr",

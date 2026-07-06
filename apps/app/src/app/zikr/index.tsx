@@ -1,5 +1,4 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
-import { getZikrById } from "@munib-tracker/shared/content";
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
@@ -11,6 +10,7 @@ import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { NavRow } from "@/components/ui/nav-row";
+import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { ZikrRow } from "@/components/zikr/zikr-row";
@@ -29,11 +29,6 @@ export default function ZikrHomeScreen() {
   const categories = zikrCategories();
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
-
-  const favorites = favoriteIds
-    .map(getZikrById)
-    .filter((item) => item != null)
-    .slice(0, 3);
 
   const results = useMemo(() => (searching ? searchZikrList(query) : []), [query, searching]);
 
@@ -79,6 +74,15 @@ export default function ZikrHomeScreen() {
         ]}
       />
       <Stagger>
+        <SavedNavCard
+          title={t("zikr.favorites")}
+          viewLabel={t("zikr.seeAll")}
+          count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
+          headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          onPress={() => router.push("/zikr/favorites")}
+        />
+
         <Card padding="three">
           <TextInput
             value={query}
@@ -115,57 +119,33 @@ export default function ZikrHomeScreen() {
             </Card>
           )
         ) : (
-          <>
-            {favorites.length > 0 ? (
-              <Card padding="three">
-                <SectionHeader
-                  title={t("zikr.favorites")}
-                  icon={{ ios: "star.fill", android: "star", web: "star" }}
-                  actionLabel={t("zikr.seeAll")}
-                  onActionPress={() => router.push("/zikr/favorites")}
-                />
-                <View style={styles.list}>
-                  {favorites.map((item) => (
-                    <ZikrRow
-                      key={item.id}
-                      item={item}
-                      onPress={() =>
-                        router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
-                      }
-                    />
-                  ))}
-                </View>
-              </Card>
-            ) : null}
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("zikr.categories")}
-                icon={{ ios: "square.grid.2x2.fill", android: "grid_view", web: "grid_view" }}
-              />
-              <View style={styles.list}>
-                {categories.map((category) => (
-                  <NavRow
-                    key={category.id}
-                    icon={category.icon}
-                    label={t(`zikrCat.${category.id}`)}
-                    count={category.count}
-                    onPress={() =>
-                      router.push({
-                        pathname: "/zikr/[category]",
-                        params: { category: category.id },
-                      })
-                    }
-                  />
-                ))}
+          <Card padding="three">
+            <SectionHeader
+              title={t("zikr.categories")}
+              icon={{ ios: "square.grid.2x2.fill", android: "grid_view", web: "grid_view" }}
+            />
+            <View style={styles.list}>
+              {categories.map((category) => (
                 <NavRow
-                  icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
-                  label={t("customAdhkar.title")}
-                  onPress={() => router.push("/adhkar-builder")}
+                  key={category.id}
+                  icon={category.icon}
+                  label={t(`zikrCat.${category.id}`)}
+                  count={category.count}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/zikr/[category]",
+                      params: { category: category.id },
+                    })
+                  }
                 />
-              </View>
-            </Card>
-          </>
+              ))}
+              <NavRow
+                icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
+                label={t("customAdhkar.title")}
+                onPress={() => router.push("/adhkar-builder")}
+              />
+            </View>
+          </Card>
         )}
       </Stagger>
     </ScreenLayout>

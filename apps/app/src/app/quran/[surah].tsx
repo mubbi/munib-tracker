@@ -19,8 +19,8 @@ import Animated, {
   withDelay,
   withTiming,
 } from "react-native-reanimated";
-
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
+import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -37,6 +37,7 @@ import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteEditionSurah } from "@/hooks/use-quran";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { buildContentReportRef } from "@/lib/content-report-ref";
 import {
   getBundledEdition,
   getBundledEditions,
@@ -97,7 +98,7 @@ export function shareAyah(arabic: string, translation: string, surah: number, ay
 
 export default function SurahReaderScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const params = useLocalSearchParams<{ surah: string; ayah?: string }>();
   const surahNumber = Number(params.surah);
   const surah = getSurahByNumber(surahNumber);
@@ -353,9 +354,13 @@ export default function SurahReaderScreen() {
     </Stagger>
   );
 
+  const locale = i18n.language?.split("-")[0] ?? "en";
+
   const renderItem = ({ item: ayah, index }: ListRenderItemInfo<Ayah>) => (
     <AyahRow
       ayah={ayah}
+      surahNumber={surahNumber}
+      locale={locale}
       arabicSize={readingSizes.arabic}
       translitSize={readingSizes.transliteration}
       translationSize={readingSizes.translation}
@@ -526,6 +531,8 @@ function PlaySurahButton({ onPress }: { onPress: () => void }) {
  */
 const AyahRow = memo(function AyahRow({
   ayah,
+  surahNumber,
+  locale,
   transliteration,
   translation,
   translationDir,
@@ -544,6 +551,8 @@ const AyahRow = memo(function AyahRow({
   onShare,
 }: {
   ayah: Ayah;
+  surahNumber: number;
+  locale: string;
   transliteration?: string;
   translation: string;
   translationDir: "ltr" | "rtl";
@@ -580,6 +589,25 @@ const AyahRow = memo(function AyahRow({
 
   const focusBorderStyle = useAnimatedStyle(() =>
     focusBorderOpacity.value > 0 ? { opacity: focusBorderOpacity.value } : { opacity: 0 },
+  );
+
+  const reportRef = useMemo(
+    () =>
+      buildContentReportRef(
+        "quran_ayah",
+        String(ayah.ayah),
+        `/quran/${surahNumber}?ayah=${ayah.ayah}`,
+        locale,
+        {
+          parentId: String(surahNumber),
+          snapshot: {
+            arabic: ayah.arabic,
+            translation,
+            reference: `${surahNumber}:${ayah.ayah}`,
+          },
+        },
+      ),
+    [ayah.arabic, ayah.ayah, locale, surahNumber, translation],
   );
 
   return (
@@ -677,6 +705,7 @@ const AyahRow = memo(function AyahRow({
               accessibilityLabel={t("quran.shareAyah")}
               onPress={onShare}
             />
+            <ContentReportButton contentRef={reportRef} />
           </View>
         </View>
 

@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
@@ -224,6 +224,13 @@ export default function HomeScreen() {
       icon: { ios: "leaf.fill", android: "park", web: "park" },
       tint: tokens.status.success.color,
       onPress: () => router.push("/jannah"),
+    },
+    {
+      id: "battles",
+      label: t("actions.battles"),
+      icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
+      tint: tokens.status.info.color,
+      onPress: () => router.push("/battles" as Href),
     },
     {
       id: "achievements",

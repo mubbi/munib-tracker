@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.one,
     padding: Spacing.two + 2,
-    paddingLeft: Spacing.three,
+    paddingStart: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },

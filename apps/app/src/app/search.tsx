@@ -120,6 +120,55 @@ export default function SearchScreen() {
         tint: tokens.status.success.color,
         soft: tokens.status.success.soft,
       },
+      jahannam: {
+        icon: { ios: "flame.fill", android: "local_fire_department", web: "local_fire_department" },
+        tint: tokens.status.danger.color,
+        soft: tokens.status.danger.soft,
+      },
+      lastDay: {
+        icon: { ios: "scalemass.fill", android: "balance", web: "balance" },
+        tint: tokens.status.info.color,
+        soft: tokens.status.info.soft,
+      },
+      salahGuide: {
+        icon: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
+        tint: tokens.status.info.color,
+        soft: tokens.status.info.soft,
+      },
+      battles: {
+        icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
+        tint: tokens.status.warning.color,
+        soft: tokens.status.warning.soft,
+      },
+      learnQuran: {
+        icon: { ios: "book.closed.fill", android: "auto_stories", web: "auto_stories" },
+        tint: colors.accent,
+        soft: tokens.accentSoft,
+      },
+      taharah: {
+        icon: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
+        tint: tokens.status.info.color,
+        soft: tokens.status.info.soft,
+      },
+      prophets: {
+        icon: { ios: "person.3.fill", android: "groups", web: "groups" },
+        tint: colors.accent,
+        soft: tokens.accentSoft,
+      },
+      aqeedah: {
+        icon: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
+        tint: tokens.status.success.color,
+        soft: tokens.status.success.soft,
+      },
+      learnDua: {
+        icon: {
+          ios: "hands.and.sparkles.fill",
+          android: "volunteer_activism",
+          web: "volunteer_activism",
+        },
+        tint: tokens.status.danger.color,
+        soft: tokens.status.danger.soft,
+      },
     }),
     [colors.accent, tokens],
   );
@@ -239,6 +288,25 @@ export default function SearchScreen() {
           router.push({
             pathname: result.href,
             params: { topic: result.params?.topic ?? "about" },
+          });
+          break;
+        case "/jahannam/[topic]":
+          router.push({
+            pathname: result.href,
+            params: { topic: result.params?.topic ?? "introduction" },
+          });
+          break;
+        case "/salah-guide/[topic]":
+        case "/battles/[topic]":
+        case "/last-day/[topic]":
+        case "/taharah/[topic]":
+        case "/prophets/[topic]":
+        case "/aqeedah/[topic]":
+        case "/learn-dua/[topic]":
+        case "/learn-quran/[topic]":
+          router.push({
+            pathname: result.href,
+            params: { topic: result.params?.topic ?? "" },
           });
           break;
         default:
@@ -725,8 +793,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    paddingLeft: Spacing.three,
-    paddingRight: Spacing.two,
+    paddingStart: Spacing.three,
+    paddingEnd: Spacing.two,
     paddingVertical: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",

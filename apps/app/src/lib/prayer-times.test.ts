@@ -6,13 +6,16 @@ import {
   duhaWindow,
   formatPrayerTime,
   ishraqTime,
+  ishraqWindow,
   lastThirdOfNight,
+  midMorningTime,
   nextPrayer,
   nextScheduleEntry,
   PRAYER_SLOT_ORDER,
   prayerSlots,
   tahajjudTime,
   witrTime,
+  zawalTime,
 } from "@/lib/prayer-times";
 
 const MAKKAH: Coords = { latitude: 21.4225, longitude: 39.8262 };
@@ -162,6 +165,20 @@ describe("sunnah prayer times", () => {
     expect(ishraqTime(times.sunrise).getTime()).toBeGreaterThan(times.sunrise.getTime());
   });
 
+  it("ends Ishraq at mid-morning and starts Duha there until zawal", () => {
+    const ishraq = ishraqWindow(times.sunrise, times.dhuhr);
+    const duha = duhaWindow(times.sunrise, times.dhuhr);
+    const midMorning = midMorningTime(times.sunrise, times.dhuhr);
+    const zawal = zawalTime(times.dhuhr);
+
+    expect(ishraq.start.getTime()).toBe(ishraqTime(times.sunrise).getTime());
+    expect(ishraq.end.getTime()).toBe(midMorning.getTime());
+    expect(duha.start.getTime()).toBe(midMorning.getTime());
+    expect(duha.end.getTime()).toBe(zawal.getTime());
+    expect(duha.recommended.getTime()).toBeGreaterThan(duha.start.getTime());
+    expect(duha.recommended.getTime()).toBeLessThan(duha.end.getTime());
+  });
+
   it("places Duha between Ishraq and Dhuhr", () => {
     const duha = duhaWindow(times.sunrise, times.dhuhr);
     expect(duha.start.getTime()).toBeGreaterThan(times.sunrise.getTime());
@@ -180,6 +197,36 @@ describe("sunnah prayer times", () => {
     const tahajjud = tahajjudTime(now, times, tomorrowTimes.fajr, times.maghrib);
     const lastThird = lastThirdOfNight(times.maghrib, tomorrowTimes.fajr);
     expect(tahajjud.getTime()).toBe(lastThird.getTime());
+  });
+});
+
+describe("buildDailySchedule ishraq/duha active windows", () => {
+  const day = new Date(2025, 5, 15);
+  const times = computePrayerTimes(MAKKAH, day);
+  const ishraq = ishraqWindow(times.sunrise, times.dhuhr);
+  const duha = duhaWindow(times.sunrise, times.dhuhr);
+
+  function activeAt(now: Date, id: "ishraq" | "duha"): boolean {
+    const entry = buildDailySchedule(MAKKAH, now).find((item) => item.id === id);
+    return entry?.active ?? false;
+  }
+
+  it("marks Ishraq current only during the early forenoon window", () => {
+    const duringIshraq = new Date(ishraq.start.getTime() + 5 * 60_000);
+    const afterIshraq = new Date(ishraq.end.getTime() + 5 * 60_000);
+
+    expect(activeAt(duringIshraq, "ishraq")).toBe(true);
+    expect(activeAt(afterIshraq, "ishraq")).toBe(false);
+  });
+
+  it("marks Duha current from mid-morning until zawal, not during Ishraq", () => {
+    const duringIshraq = new Date(ishraq.start.getTime() + 5 * 60_000);
+    const duringDuha = new Date(duha.start.getTime() + 30 * 60_000);
+    const afterDuha = new Date(duha.end.getTime() + 5 * 60_000);
+
+    expect(activeAt(duringIshraq, "duha")).toBe(false);
+    expect(activeAt(duringDuha, "duha")).toBe(true);
+    expect(activeAt(afterDuha, "duha")).toBe(false);
   });
 });
 

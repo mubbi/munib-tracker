@@ -3,72 +3,117 @@ import type { SeerahEvent } from "../types/seerah";
 /**
  * Seerah timeline (NF-2.4) — a concise chronology of the major, widely-agreed
  * milestones in the life of the Prophet Muhammad ﷺ. It is an overview for
- * orientation, not a detailed biography; dates are the commonly-cited
- * approximations. Bump the version when the content changes.
+ * orientation, not a detailed biography; dates follow the commonly-cited
+ * approximations in Ibn Ishaq, Ibn Hisham, and Ibn Kathir (with CE/AH
+ * conversions rounded). Bump the version when the content changes.
  */
-export const SEERAH_CONTENT_VERSION = 1;
+export const SEERAH_CONTENT_VERSION = 2;
 
 export const SEERAH_EVENTS: SeerahEvent[] = [
   {
     id: "birth",
     year: 570,
     title: "Birth in Makkah",
-    body: "Born in the Year of the Elephant into the clan of Banu Hashim. His father Abdullah had already passed away.",
+    body: "Born in the Year of the Elephant (Am al-Fil) into Quraysh and the noble clan of Banu Hashim. His father Abdullah had already passed away; his mother was Aminah bint Wahb.",
     location: "Makkah",
   },
   {
     id: "mother-death",
     year: 576,
     title: "Passing of his mother",
-    body: "His mother Aminah died when he was about six; he was then raised by his grandfather Abd al-Muttalib and later his uncle Abu Talib.",
+    body: "Aminah died on the return journey from Yathrib (later Madinah) when he was about six. He had been nursed among Banu Sa'd before being raised first by his grandfather, then his uncle.",
+    location: "Abwa'",
+  },
+  {
+    id: "grandfather-death",
+    year: 578,
+    title: "Guardianship of Abu Talib",
+    body: "After Abd al-Muttalib died, his uncle Abu Talib took him into his household and shielded him for decades — even through the later years of persecution in Makkah.",
+    location: "Makkah",
   },
   {
     id: "marriage-khadijah",
     year: 595,
     title: "Marriage to Khadijah",
-    body: "Married Khadijah bint Khuwaylid (may Allah be pleased with her), a trader known for his honesty as 'al-Amin', the trustworthy.",
+    body: "Khadijah bint Khuwaylid (may Allah be pleased with her), a respected merchant, entrusted him with her trade and later proposed marriage through Khawlah bint Hakim. He was already known among Quraysh as al-Sadiq, the truthful, and al-Amin, the trustworthy.",
+    location: "Makkah",
+  },
+  {
+    id: "hilf-fudul",
+    year: 605,
+    title: "Hilf al-Fudul and the Black Stone",
+    body: "He took part in Hilf al-Fudul, a pact to defend the wronged. When Quraysh rebuilt the Ka'bah and quarrelled over placing the Black Stone, they accepted his judgement and placed it with his own hands.",
     location: "Makkah",
   },
   {
     id: "first-revelation",
     year: 610,
     title: "The first revelation",
-    body: "At about forty, in the Cave of Hira, the angel Jibril brought the first verses of Surah al-'Alaq — 'Read in the name of your Lord'.",
+    body: "At about forty, during Ramadan, in the Cave of Hira on Jabal an-Nur, the angel Jibril brought the first verses of Surah al-'Alaq. Khadijah consoled him, and Waraqah ibn Nawfal affirmed that this was the prophetic message foretold in earlier scripture.",
     location: "Cave of Hira",
+  },
+  {
+    id: "private-dawah",
+    year: 611,
+    title: "Years of private preaching",
+    body: "For roughly three years he invited close family and trusted companions in secret. Among the earliest believers were Khadijah, Ali ibn Abi Talib, Zayd ibn Harithah, and Abu Bakr (may Allah be pleased with them).",
+    location: "Makkah",
   },
   {
     id: "public-call",
     year: 613,
     title: "The public call to Islam",
-    body: "After years of private preaching, he was commanded to proclaim the message openly, facing growing opposition from the Quraysh.",
-    location: "Makkah",
+    body: "Allah commanded: 'Warn your nearest kin.' He stood on Mount Safa and called the tribes openly; monotheism challenged the idols of Quraysh and their social order, and persecution intensified.",
+    location: "Mount Safa",
   },
   {
     id: "abyssinia",
     year: 615,
     title: "Migration to Abyssinia",
-    body: "Persecuted companions migrated to the just Christian king (Negus) of Abyssinia, who gave them refuge.",
+    body: "Persecuted companions migrated twice to the Christian king of Abyssinia (the Negus), who granted them just refuge. Jafar ibn Abi Talib recited Surah Maryam before the court.",
     location: "Abyssinia",
+  },
+  {
+    id: "boycott",
+    year: 616,
+    title: "The boycott of Banu Hashim",
+    body: "Quraysh enforced a harsh boycott and confinement in Shi'b Abi Talib for the clan of Hashim, cutting trade and marriage ties until the boycott was lifted a few years later.",
+    location: "Shi'b Abi Talib",
   },
   {
     id: "year-of-sorrow",
     year: 619,
     title: "The Year of Sorrow",
-    body: "Within a short time both his wife Khadijah and his uncle Abu Talib passed away, deepening the hardship in Makkah.",
+    body: "Within a short span both Khadijah and Abu Talib passed away — the year is known as Am al-Huzn. With his two strongest supporters gone, the hardship in Makkah deepened.",
     location: "Makkah",
   },
   {
     id: "isra-miraj",
-    year: 620,
+    year: 621,
     title: "Al-Isra wal-Mi'raj",
-    body: "The night journey to Jerusalem and ascension through the heavens, during which the five daily prayers were ordained.",
+    body: "The night journey from Masjid al-Haram to Masjid al-Aqsa, then ascension through the heavens. The five daily prayers were ordained; scholars differ on its exact date, but most place it in the years just before the Hijra.",
+    location: "Jerusalem",
+  },
+  {
+    id: "first-pledge-aqabah",
+    year: 621,
+    title: "The First Pledge of al-Aqabah",
+    body: "During the Hajj season, twelve men from Yathrib pledged to worship Allah alone and abstain from major sins — the first formal step toward a base outside Makkah.",
+    location: "Mina",
+  },
+  {
+    id: "second-pledge-aqabah",
+    year: 622,
+    title: "The Second Pledge of al-Aqabah",
+    body: "Seventy-three men and two women from Yathrib pledged to protect the Prophet ﷺ as they would their own families. Mus'ab ibn Umayr was sent to teach them Islam before the Hijra.",
+    location: "Mina",
   },
   {
     id: "hijra",
     year: 622,
     ah: 1,
     title: "The Hijra to Madinah",
-    body: "Emigration to Madinah, marking the start of the Islamic calendar and the founding of the first Muslim community.",
+    body: "He emigrated with Abu Bakr (may Allah be pleased with him), arriving in Quba and then Yathrib — renamed al-Madinah al-Munawwarah. The Hijra marks year 1 AH; the first masjid was built and bonds of brotherhood were established between the Muhajirun and Ansar.",
     location: "Madinah",
   },
   {
@@ -76,7 +121,7 @@ export const SEERAH_EVENTS: SeerahEvent[] = [
     year: 624,
     ah: 2,
     title: "The Battle of Badr",
-    body: "A decisive early victory for the outnumbered Muslims against the Quraysh of Makkah.",
+    body: "On 17 Ramadan, about 313 Muslims faced a much larger Quraysh army. The victory at Badr was the first major battle of Islam and a turning point for the young community in Madinah.",
     location: "Badr",
   },
   {
@@ -84,7 +129,7 @@ export const SEERAH_EVENTS: SeerahEvent[] = [
     year: 625,
     ah: 3,
     title: "The Battle of Uhud",
-    body: "A hard-fought battle in which the Muslims suffered losses, including the martyrdom of Hamzah (may Allah be pleased with him).",
+    body: "A hard-fought battle in which archers leaving their post led to heavy Muslim losses, including the martyrdom of Hamzah (may Allah be pleased with him). The Qur'an later addressed the lessons of that day.",
     location: "Mount Uhud",
   },
   {
@@ -92,7 +137,7 @@ export const SEERAH_EVENTS: SeerahEvent[] = [
     year: 627,
     ah: 5,
     title: "The Battle of the Trench",
-    body: "Madinah was defended by digging a trench, and a large confederate siege failed without a full battle.",
+    body: "A confederate army besieged Madinah; Salman al-Farisi's advice to dig a trench broke the siege without a pitched battle. The campaign is also known as Ghazwat al-Ahzab, the Battle of the Confederates.",
     location: "Madinah",
   },
   {
@@ -100,23 +145,39 @@ export const SEERAH_EVENTS: SeerahEvent[] = [
     year: 628,
     ah: 6,
     title: "Treaty of Hudaybiyyah",
-    body: "A ten-year truce with the Quraysh that opened a period of peace and rapid spread of Islam.",
+    body: "A ten-year truce with Quraysh that appeared difficult at first but opened the door to peace. Surah al-Fath was revealed calling it a clear victory; conversions spread rapidly afterward.",
     location: "Hudaybiyyah",
+  },
+  {
+    id: "khaybar",
+    year: 628,
+    ah: 7,
+    title: "The expedition to Khaybar",
+    body: "After Hudaybiyyah, the Muslim army marched on the fortified Jewish settlements of Khaybar. The victory secured food supplies and strengthened Madinah's position in Arabia.",
+    location: "Khaybar",
   },
   {
     id: "conquest-makkah",
     year: 630,
     ah: 8,
     title: "The Conquest of Makkah",
-    body: "Makkah was entered peacefully; the Ka'bah was cleansed of idols and a general amnesty was granted.",
+    body: "He entered Makkah peacefully with ten thousand companions in Ramadan. Idols were removed from the Ka'bah, and he granted a general amnesty to the people who had fought him for years.",
     location: "Makkah",
+  },
+  {
+    id: "tabuk",
+    year: 631,
+    ah: 9,
+    title: "The expedition to Tabuk",
+    body: "In the heat of Rajab, the largest Muslim force yet marched north toward the Roman frontier. Though no battle took place, the expedition tested sincerity and marked the end of major idol-worship in Arabia.",
+    location: "Tabuk",
   },
   {
     id: "farewell",
     year: 632,
     ah: 10,
     title: "The Farewell Pilgrimage",
-    body: "He performed Hajj and delivered the Farewell Sermon before the largest gathering of companions.",
+    body: "He performed Hajj with tens of thousands of companions and delivered the Farewell Sermon at Arafah — affirming the sanctity of life and property, the rights of women, and the completion of the religion.",
     location: "Arafah",
   },
   {
@@ -124,7 +185,7 @@ export const SEERAH_EVENTS: SeerahEvent[] = [
     year: 632,
     ah: 11,
     title: "His passing",
-    body: "The Prophet ﷺ passed away in Madinah after completing the message, leaving the Qur'an and his Sunnah as guidance.",
+    body: "On Monday 12 Rabi al-Awwal 11 AH he passed away in the house of Aisha (may Allah be pleased with her) in Madinah, after the message was complete. Abu Bakr reminded the community: 'Whoever worshipped Muhammad, Muhammad has died; but whoever worships Allah, Allah is Ever-Living.'",
     location: "Madinah",
   },
 ];

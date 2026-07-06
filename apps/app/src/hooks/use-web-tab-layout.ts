@@ -1,3 +1,4 @@
+import { useSegments } from "expo-router";
 import { Platform, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -25,12 +26,15 @@ export function getWebBottomTabBarHeight(bottomInset: number): number {
 export function useWebTabLayout() {
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
+  const segments = useSegments();
+  const inTabs = segments[0] === "(tabs)";
   const isWideWeb = Platform.OS === "web" && width >= SIDE_RAIL_BREAKPOINT;
   const bottomTabBarHeight = getWebBottomTabBarHeight(insets.bottom);
 
   return {
     isWideWeb,
-    sideRailWidth: isWideWeb ? SIDE_RAIL_WIDTH : 0,
+    /** Side rail only exists inside the `(tabs)` layout — stack screens are full width. */
+    sideRailWidth: isWideWeb && inTabs ? SIDE_RAIL_WIDTH : 0,
     /** Bottom offset for docked chrome (0 when the side rail replaces the tab bar). */
     bottomTabBarOffset: isWideWeb ? 0 : bottomTabBarHeight,
   };

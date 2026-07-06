@@ -230,6 +230,179 @@
         ]
       }
     },
+    "/api/v1/content-reports": {
+      "post": {
+        "operationId": "ContentReportsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "payload"
+                ],
+                "properties": {
+                  "payload": {
+                    "type": "string",
+                    "description": "JSON string matching CreateContentReportDto"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "maxItems": 3
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentReportDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Submit a content issue report with optional proof attachments",
+        "tags": [
+          "content-reports"
+        ]
+      },
+      "get": {
+        "operationId": "ContentReportsController_list",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": 20,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentReportListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List the current user's content reports",
+        "tags": [
+          "content-reports"
+        ]
+      }
+    },
+    "/api/v1/content-reports/{id}": {
+      "get": {
+        "operationId": "ContentReportsController_getById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentReportDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a single content report owned by the current user",
+        "tags": [
+          "content-reports"
+        ]
+      },
+      "patch": {
+        "operationId": "ContentReportsController_adminUpdate",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminUpdateContentReportDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminContentReportDetailDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Admin: update report status and notes (X-Admin-Key required)",
+        "tags": [
+          "content-reports"
+        ]
+      }
+    },
     "/api/v1/health": {
       "get": {
         "operationId": "HealthController_getHealth",
@@ -432,6 +605,344 @@
           "accepted",
           "conflicts",
           "serverTime"
+        ]
+      },
+      "ContentReportSnapshotDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "arabic": {
+            "type": "string"
+          },
+          "transliteration": {
+            "type": "string"
+          },
+          "translation": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          }
+        }
+      },
+      "ContentReportReferenceDto": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "quran_ayah",
+              "hadith",
+              "dua",
+              "zikr",
+              "durood",
+              "name",
+              "salah_guide",
+              "jannah",
+              "battles",
+              "learn_quran",
+              "learn_dua",
+              "taharah",
+              "prophets",
+              "aqeedah",
+              "zakat",
+              "seerah",
+              "hajj",
+              "travel",
+              "excused",
+              "screen"
+            ]
+          },
+          "contentId": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "route": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/ContentReportSnapshotDto"
+          }
+        },
+        "required": [
+          "kind",
+          "contentId",
+          "route",
+          "locale"
+        ]
+      },
+      "ContentReportDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_review",
+              "in_progress",
+              "completed",
+              "cancelled",
+              "spam"
+            ]
+          },
+          "issueType": {
+            "type": "string",
+            "enum": [
+              "incorrect_arabic",
+              "incorrect_translation",
+              "incorrect_transliteration",
+              "wrong_reference",
+              "missing_content",
+              "audio_issue",
+              "typo",
+              "other"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "content": {
+            "$ref": "#/components/schemas/ContentReportReferenceDto"
+          },
+          "attachmentCount": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "resolvedAt": {
+            "type": "object",
+            "nullable": true
+          },
+          "suggestedCorrection": {
+            "type": "object",
+            "nullable": true
+          },
+          "userReference": {
+            "type": "object",
+            "nullable": true
+          },
+          "appVersion": {
+            "type": "object",
+            "nullable": true
+          },
+          "platform": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "issueType",
+          "description",
+          "content",
+          "attachmentCount",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ContentReportSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_review",
+              "in_progress",
+              "completed",
+              "cancelled",
+              "spam"
+            ]
+          },
+          "issueType": {
+            "type": "string",
+            "enum": [
+              "incorrect_arabic",
+              "incorrect_translation",
+              "incorrect_transliteration",
+              "wrong_reference",
+              "missing_content",
+              "audio_issue",
+              "typo",
+              "other"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "content": {
+            "$ref": "#/components/schemas/ContentReportReferenceDto"
+          },
+          "attachmentCount": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "resolvedAt": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "issueType",
+          "description",
+          "content",
+          "attachmentCount",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "ContentReportListResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentReportSummaryDto"
+            }
+          },
+          "total": {
+            "type": "number"
+          },
+          "page": {
+            "type": "number"
+          },
+          "limit": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "page",
+          "limit"
+        ]
+      },
+      "AdminUpdateContentReportDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_review",
+              "in_progress",
+              "completed",
+              "cancelled",
+              "spam"
+            ]
+          },
+          "adminNotes": {
+            "type": "string"
+          },
+          "resolvedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "AdminContentReportDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "in_review",
+              "in_progress",
+              "completed",
+              "cancelled",
+              "spam"
+            ]
+          },
+          "issueType": {
+            "type": "string",
+            "enum": [
+              "incorrect_arabic",
+              "incorrect_translation",
+              "incorrect_transliteration",
+              "wrong_reference",
+              "missing_content",
+              "audio_issue",
+              "typo",
+              "other"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "content": {
+            "$ref": "#/components/schemas/ContentReportReferenceDto"
+          },
+          "attachmentCount": {
+            "type": "number"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "resolvedAt": {
+            "type": "object",
+            "nullable": true
+          },
+          "suggestedCorrection": {
+            "type": "object",
+            "nullable": true
+          },
+          "userReference": {
+            "type": "object",
+            "nullable": true
+          },
+          "appVersion": {
+            "type": "object",
+            "nullable": true
+          },
+          "platform": {
+            "type": "object",
+            "nullable": true
+          },
+          "adminNotes": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "issueType",
+          "description",
+          "content",
+          "attachmentCount",
+          "createdAt",
+          "updatedAt"
         ]
       }
     }

@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
   },
   title: {
-    marginLeft: Spacing.one,
+    marginStart: Spacing.one,
   },
 });

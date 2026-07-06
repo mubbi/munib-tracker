@@ -15,6 +15,7 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -122,6 +123,15 @@ export default function DuaHomeScreen() {
         ]}
       />
       <Stagger>
+        <SavedNavCard
+          title={t("dua.favorites")}
+          viewLabel={t("dua.viewFavorites")}
+          count={favoriteCount > 0 ? favoriteCount : undefined}
+          headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          onPress={() => router.push("/dua/favorites")}
+        />
+
         <Card padding="three">
           <TextInput
             value={query}
@@ -173,19 +183,6 @@ export default function DuaHomeScreen() {
                   }
                 />
               ))}
-            </View>
-          </Card>
-        ) : null}
-
-        {!searching ? (
-          <Card padding="three">
-            <View style={styles.list}>
-              <NavRow
-                icon={{ ios: "star.fill", android: "star", web: "star" }}
-                label={t("dua.favorites")}
-                count={favoriteCount > 0 ? favoriteCount : undefined}
-                onPress={() => router.push("/dua/favorites")}
-              />
             </View>
           </Card>
         ) : null}

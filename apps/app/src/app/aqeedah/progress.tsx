@@ -1,0 +1,121 @@
+import { type Href, useRouter } from "expo-router";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { StyleSheet, View } from "react-native";
+
+import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { ScreenLayout } from "@/components/screen-layout";
+import { Seo } from "@/components/seo/seo";
+import { ThemedText } from "@/components/themed-text";
+import { Card } from "@/components/ui/card";
+import { ProgressBar } from "@/components/ui/progress-bar";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Stagger } from "@/components/ui/stagger";
+import { Spacing } from "@/constants/theme";
+import { getAqeedahLessonCount } from "@/lib/aqeedah";
+import { buildAqeedahProgress } from "@/lib/aqeedah-progress";
+import {
+  useAqeedahCompletedCount,
+  useEnsureAqeedahProgressLoaded,
+} from "@/stores/aqeedah-progress-store";
+
+export default function AqeedahProgressScreen() {
+  const router = useRouter();
+  const { t } = useTranslation();
+  useEnsureAqeedahProgressLoaded();
+  const completedCount = useAqeedahCompletedCount();
+
+  const snapshot = useMemo(
+    () =>
+      buildAqeedahProgress({
+        lessonsCompleted: completedCount,
+        lessonsTotal: getAqeedahLessonCount(),
+      }),
+    [completedCount],
+  );
+
+  return (
+    <ScreenLayout
+      eyebrow={t("aqeedah.eyebrow")}
+      title={t("aqeedah.progressTitle")}
+      subtitle={t("aqeedah.progressSubtitle")}
+      onBack={() => (router.canGoBack() ? router.back() : router.replace("/aqeedah" as Href))}
+    >
+      <Seo path="/aqeedah/progress" />
+      <Stagger>
+        <JannahCallout tone="warning">{t("aqeedah.progressIntro")}</JannahCallout>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("aqeedah.lessonsTitle")}
+            icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
+          />
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+            {t("aqeedah.lessonsHint")}
+          </ThemedText>
+          <View style={styles.lessonRow}>
+            <ThemedText type="title">
+              {t("aqeedah.lessonsCount", {
+                completed: snapshot.lessonsCompleted,
+                total: snapshot.lessonsTotal,
+              })}
+            </ThemedText>
+            <ProgressBar value={snapshot.lessonProgress} />
+          </View>
+        </Card>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("aqeedah.exploreTitle")}
+            icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+          />
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+            {t("aqeedah.progressExploreHint")}
+          </ThemedText>
+          <View style={styles.links}>
+            <ThemedText
+              type="small"
+              style={styles.link}
+              onPress={() =>
+                router.push({
+                  pathname: "/aqeedah/[topic]",
+                  params: { topic: "six-articles" },
+                })
+              }
+            >
+              {t("aqeedah.sixArticlesTitle")}
+            </ThemedText>
+            <ThemedText
+              type="small"
+              style={styles.link}
+              onPress={() =>
+                router.push({
+                  pathname: "/aqeedah/[topic]",
+                  params: { topic: "tawheed-explained" },
+                })
+              }
+            >
+              {t("aqeedah.tawheedTitle")}
+            </ThemedText>
+            <ThemedText
+              type="small"
+              style={styles.link}
+              onPress={() => router.push("/aqeedah/glossary" as Href)}
+            >
+              {t("aqeedah.glossaryTitle")}
+            </ThemedText>
+          </View>
+        </Card>
+
+        <JannahDisclaimer textKey="aqeedah.disclaimer" />
+      </Stagger>
+    </ScreenLayout>
+  );
+}
+
+const styles = StyleSheet.create({
+  hint: { marginTop: Spacing.one, lineHeight: 20 },
+  lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
+  links: { marginTop: Spacing.three, gap: Spacing.two },
+  link: { textDecorationLine: "underline" },
+});

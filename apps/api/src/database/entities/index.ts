@@ -106,3 +106,81 @@ export class SyncRecordEntity {
   @Column({ type: TIMESTAMP_TYPE, nullable: true })
   deletedAt?: Date | null;
 }
+
+@Entity("content_reports")
+@Index(["userId", "createdAt"])
+export class ContentReportEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column("uuid")
+  userId!: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user!: UserEntity;
+
+  @Column({ type: "varchar", length: 32 })
+  status!: string;
+
+  @Column({ type: "varchar", length: 64 })
+  issueType!: string;
+
+  @Column({ type: "text" })
+  description!: string;
+
+  @Column({ type: "text", nullable: true })
+  suggestedCorrection?: string | null;
+
+  @Column({ type: "text", nullable: true })
+  userReference?: string | null;
+
+  @Column({ type: "simple-json" })
+  content!: Record<string, unknown>;
+
+  @Column({ type: "varchar", length: 32, nullable: true })
+  appVersion?: string | null;
+
+  @Column({ type: "varchar", length: 16, nullable: true })
+  platform?: string | null;
+
+  @Column({ type: "text", nullable: true })
+  adminNotes?: string | null;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  resolvedAt?: Date | null;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
+}
+
+@Entity("content_report_attachments")
+export class ContentReportAttachmentEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column("uuid")
+  reportId!: string;
+
+  @ManyToOne(() => ContentReportEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "reportId" })
+  report!: ContentReportEntity;
+
+  @Column({ type: "varchar", length: 128 })
+  mimeType!: string;
+
+  @Column({ type: "varchar", length: 255 })
+  filename!: string;
+
+  @Column({ type: "int" })
+  sizeBytes!: number;
+
+  @Column({ type: "varchar", length: 512 })
+  storagePath!: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+}

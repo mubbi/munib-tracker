@@ -5,7 +5,6 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, View } from "react-native";
-
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -29,6 +28,7 @@ import {
 } from "@/lib/calendar";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
+import { chevronBackward, chevronForward } from "@/lib/rtl";
 
 type HistoryEntry = { date: string; total: number; progress: QazaDailyProgress };
 
@@ -160,7 +160,7 @@ export default function QazaHistoryScreen() {
           <Card padding="three">
             <View style={styles.header}>
               <NavButton
-                icon={{ ios: "chevron.left", android: "chevron_left", web: "chevron_left" }}
+                icon={chevronBackward}
                 label={t("calendar.prevMonth")}
                 onPress={() => shift(-1)}
               />
@@ -183,7 +183,7 @@ export default function QazaHistoryScreen() {
                 />
               </PressableScale>
               <NavButton
-                icon={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
+                icon={chevronForward}
                 label={t("calendar.nextMonth")}
                 onPress={() => shift(1)}
               />

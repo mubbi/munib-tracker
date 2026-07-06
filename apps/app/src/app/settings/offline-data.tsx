@@ -1,8 +1,9 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { I18nManager, StyleSheet, View } from "react-native";
 
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -22,12 +23,15 @@ import {
 } from "@/lib/cache-manager";
 import { useToast } from "@/providers/toast-provider";
 
+type PendingClear = { kind: "group"; group: CacheGroupSize } | { kind: "all" } | null;
+
 export default function OfflineDataScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const toast = useToast();
   const [groups, setGroups] = useState<CacheGroupSize[]>([]);
+  const [pending, setPending] = useState<PendingClear>(null);
 
   const refresh = useCallback(async () => {
     setGroups(await getCacheSummary());
@@ -56,7 +60,13 @@ export default function OfflineDataScreen() {
     toast.success(t("offlineData.cleared"));
   };
 
+  const handleConfirm = () => {
+    if (pending?.kind === "group") void clearGroup(pending.group);
+    if (pending?.kind === "all") void clearAll();
+  };
+
   const total = groups.reduce((sum, g) => sum + g.bytes, 0);
+  const pendingGroupName = pending?.kind === "group" ? t(pending.group.labelKey) : undefined;
 
   return (
     <ScreenLayout
@@ -87,7 +97,7 @@ export default function OfflineDataScreen() {
                   tintColor={tokens.status.danger.color}
                   accessibilityLabel={t("offlineData.clearOne", { name: t(group.labelKey) })}
                   disabled={group.bytes === 0}
-                  onPress={() => void clearGroup(group)}
+                  onPress={() => setPending({ kind: "group", group })}
                 />
               </View>
             ))}
@@ -103,7 +113,7 @@ export default function OfflineDataScreen() {
           fullWidth
           disabled={total === 0}
           icon={{ ios: "trash", android: "delete_sweep", web: "delete_sweep" }}
-          onPress={() => void clearAll()}
+          onPress={() => setPending({ kind: "all" })}
           style={{ borderColor: tokens.status.danger.border }}
         />
 
@@ -111,6 +121,24 @@ export default function OfflineDataScreen() {
           {t("offlineData.note")}
         </ThemedText>
       </Stagger>
+
+      <ConfirmDialog
+        visible={pending != null}
+        title={
+          pending?.kind === "all"
+            ? t("offlineData.confirmClearAllTitle")
+            : t("offlineData.confirmClearOneTitle", { name: pendingGroupName ?? "" })
+        }
+        message={
+          pending?.kind === "all"
+            ? t("offlineData.confirmClearAllMessage")
+            : t("offlineData.confirmClearOneMessage", { name: pendingGroupName ?? "" })
+        }
+        confirmLabel={t("offlineData.confirmClearAction")}
+        destructive
+        onConfirm={handleConfirm}
+        onClose={() => setPending(null)}
+      />
     </ScreenLayout>
   );
 }
@@ -126,6 +154,6 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   rowBody: { flex: 1, gap: 2 },
-  total: { marginTop: Spacing.three, textAlign: "right" },
+  total: { marginTop: Spacing.three, textAlign: I18nManager.isRTL ? "left" : "right" },
   note: { textAlign: "center" },
 });
