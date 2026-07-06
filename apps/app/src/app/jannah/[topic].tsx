@@ -10,7 +10,12 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { getJannahTopic } from "@/lib/jannah";
+import { getJannahTopic, getJannahTopics } from "@/lib/jannah";
+import { articleSchema } from "@/lib/seo/structured-data";
+
+export function generateStaticParams(): Array<{ topic: string }> {
+  return getJannahTopics().map((tpc) => ({ topic: tpc.id }));
+}
 
 export default function JannahTopicScreen() {
   const router = useRouter();
@@ -19,6 +24,15 @@ export default function JannahTopicScreen() {
   const topic = getJannahTopic(topicId);
   const reportRef = useGuideContentReportRef("jannah", topic, "/jannah");
 
+  const detailPath = topic ? `/jannah/${topic.id}` : "/jannah";
+  const crumbs = topic
+    ? [
+        { name: t("tabs.home"), path: "/" },
+        { name: t("jannah.title"), path: "/jannah" },
+        { name: topic.title, path: detailPath },
+      ]
+    : undefined;
+
   return (
     <ScreenLayout
       eyebrow={t("jannah.eyebrow")}
@@ -26,7 +40,26 @@ export default function JannahTopicScreen() {
       subtitle={topic?.summary ?? ""}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/jannah"))}
     >
-      <Seo path="/jannah" />
+      <Seo
+        path={detailPath}
+        title={topic?.title}
+        description={topic?.summary}
+        type={topic ? "article" : undefined}
+        index={!!topic}
+        breadcrumbs={crumbs}
+        jsonLd={
+          topic
+            ? [
+                articleSchema({
+                  path: detailPath,
+                  headline: topic.title,
+                  description: topic.summary ?? "",
+                  breadcrumbs: crumbs,
+                }),
+              ]
+            : undefined
+        }
+      />
       {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}

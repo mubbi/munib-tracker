@@ -42,10 +42,14 @@ function MilestoneCard({
   milestone,
   variant,
   onShare,
+  shareLoading,
+  gesturePending,
 }: {
   milestone: MilestoneProgress;
   variant: "active" | "unlocked";
   onShare?: (milestone: MilestoneProgress) => void;
+  shareLoading?: boolean;
+  gesturePending?: boolean;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -86,10 +90,14 @@ function MilestoneCard({
         onShare ? (
           <ThemedText
             type="caption"
-            style={{ color: colors.accent }}
-            onPress={() => onShare(milestone)}
+            style={{ color: colors.accent, opacity: shareLoading ? 0.6 : 1 }}
+            onPress={shareLoading ? undefined : () => onShare(milestone)}
           >
-            {t("achievements.share")}
+            {shareLoading
+              ? t("share.preparing")
+              : gesturePending
+                ? t("share.tapToShare")
+                : t("achievements.share")}
           </ThemedText>
         ) : null
       ) : (
@@ -108,7 +116,7 @@ export default function AchievementsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
-  const { share, SnapshotHost } = useShareContentCard();
+  const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const [state, setState] = useState<ProgressionState | null>(null);
   const [unlocked, setUnlocked] = useState<MilestoneProgress[]>([]);
 
@@ -166,6 +174,7 @@ export default function AchievementsScreen() {
       sectionTitle: t("share.sectionAchievement"),
       contentLabel: `${trackLabel} · L${milestone.level}`,
       filenameSlug: "achievement",
+      shareKey: milestone.id,
       content: {
         kind: "achievement",
         title: milestone.title,
@@ -254,6 +263,8 @@ export default function AchievementsScreen() {
                     milestone={milestone}
                     variant="unlocked"
                     onShare={shareMilestone}
+                    shareLoading={isSharing(milestone.id)}
+                    gesturePending={isGesturePending(milestone.id)}
                   />
                 ))}
               </View>

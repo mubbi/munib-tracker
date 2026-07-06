@@ -9,8 +9,13 @@ import { TaharahTopicContent } from "@/components/taharah/topic-content";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { getTaharahTopic } from "@/lib/taharah";
+import { articleSchema } from "@/lib/seo/structured-data";
+import { getTaharahTopic, getTaharahTopics } from "@/lib/taharah";
 import { useEnsureTaharahProgressLoaded } from "@/stores/taharah-progress-store";
+
+export function generateStaticParams(): Array<{ topic: string }> {
+  return getTaharahTopics().map((tpc) => ({ topic: tpc.id }));
+}
 
 export default function TaharahTopicScreen() {
   const router = useRouter();
@@ -20,6 +25,15 @@ export default function TaharahTopicScreen() {
   const reportRef = useGuideContentReportRef("taharah", topic, "/taharah");
   useEnsureTaharahProgressLoaded();
 
+  const detailPath = topic ? `/taharah/${topic.id}` : "/taharah";
+  const crumbs = topic
+    ? [
+        { name: t("tabs.home"), path: "/" },
+        { name: t("taharah.title"), path: "/taharah" },
+        { name: topic.title, path: detailPath },
+      ]
+    : undefined;
+
   return (
     <ScreenLayout
       eyebrow={t("taharah.eyebrow")}
@@ -27,7 +41,26 @@ export default function TaharahTopicScreen() {
       subtitle={topic?.summary ?? ""}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/taharah" as Href))}
     >
-      <Seo path="/taharah" />
+      <Seo
+        path={detailPath}
+        title={topic?.title}
+        description={topic?.summary}
+        type={topic ? "article" : undefined}
+        index={!!topic}
+        breadcrumbs={crumbs}
+        jsonLd={
+          topic
+            ? [
+                articleSchema({
+                  path: detailPath,
+                  headline: topic.title,
+                  description: topic.summary ?? "",
+                  breadcrumbs: crumbs,
+                }),
+              ]
+            : undefined
+        }
+      />
       {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}

@@ -1,5 +1,5 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
+import { ActivityIndicator, type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius } from "@/constants/theme";
@@ -21,6 +21,8 @@ type IconButtonProps = {
   /** Optional filled/tinted background well behind the glyph. */
   background?: string;
   disabled?: boolean;
+  /** Swaps the glyph for a spinner and blocks presses (e.g. while a share image renders). */
+  loading?: boolean;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -42,16 +44,18 @@ export function IconButton({
   hitTarget = 44,
   background,
   disabled,
+  loading = false,
   style,
 }: IconButtonProps) {
+  const isDisabled = disabled || loading;
   return (
     <PressableScale
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
-      accessibilityState={{ disabled: !!disabled, ...accessibilityState }}
-      disabled={disabled}
-      onPress={onPress}
+      accessibilityState={{ disabled: isDisabled, busy: loading, ...accessibilityState }}
+      disabled={isDisabled}
+      onPress={loading ? undefined : onPress}
       haptic={haptic}
       hitSlop={8}
       // A bare glyph reads best with a circular (borderless) Android ripple; a
@@ -65,7 +69,11 @@ export function IconButton({
       ]}
     >
       <View style={styles.glyph}>
-        <SymbolView name={name} size={size} tintColor={tintColor} />
+        {loading ? (
+          <ActivityIndicator size="small" color={tintColor} />
+        ) : (
+          <SymbolView name={name} size={size} tintColor={tintColor} />
+        )}
       </View>
     </PressableScale>
   );

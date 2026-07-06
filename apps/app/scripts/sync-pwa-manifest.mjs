@@ -23,6 +23,9 @@ const manifest = {
   description:
     web.description ??
     "Track salah, dhikr, and qadha with prayer times, reminders, and a beautiful Islamic companion app.",
+  lang: "en",
+  dir: "ltr",
+  categories: ["lifestyle", "education", "utilities"],
   start_url: "/",
   scope: "/",
   display: "standalone",

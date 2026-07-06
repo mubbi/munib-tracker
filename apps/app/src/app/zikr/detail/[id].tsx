@@ -72,6 +72,7 @@ export default function ZikrDetailScreen() {
       sectionTitle: t("share.sectionReading"),
       contentLabel: item.title ?? item.reference,
       filenameSlug: "zikr",
+      shareKey: item.id,
       content: { kind: "reading", item },
     });
   };
@@ -166,9 +167,16 @@ export default function ZikrDetailScreen() {
               style={styles.flex}
             />
             <Button
-              label={t("zikr.share")}
+              label={
+                shareCard.isSharing(item.id)
+                  ? t("share.preparing")
+                  : shareCard.isGesturePending(item.id)
+                    ? t("share.tapToShare")
+                    : t("zikr.share")
+              }
               variant="ghost"
               icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+              disabled={shareCard.isSharing(item.id)}
               onPress={onShare}
               style={styles.flex}
             />

@@ -18,13 +18,27 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getQuranGuideStory } from "@/lib/quran-guide";
+import { getQuranGuideStories, getQuranGuideStory } from "@/lib/quran-guide";
+import { articleSchema } from "@/lib/seo/structured-data";
+
+export function generateStaticParams(): Array<{ id: string }> {
+  return getQuranGuideStories().map((item) => ({ id: item.id }));
+}
 
 export default function LearnQuranStoryDetailScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const story = getQuranGuideStory(id);
+
+  const detailPath = story ? `/learn-quran/story/${story.id}` : "/learn-quran/stories";
+  const crumbs = story
+    ? [
+        { name: t("tabs.home"), path: "/" },
+        { name: t("learnQuran.title"), path: "/learn-quran" },
+        { name: story.title, path: detailPath },
+      ]
+    : undefined;
 
   return (
     <ScreenLayout
@@ -35,7 +49,26 @@ export default function LearnQuranStoryDetailScreen() {
         router.canGoBack() ? router.back() : router.replace("/learn-quran/stories" as Href)
       }
     >
-      <Seo path="/learn-quran/stories" />
+      <Seo
+        path={detailPath}
+        title={story?.title}
+        description={story?.summary}
+        type={story ? "article" : undefined}
+        index={!!story}
+        breadcrumbs={crumbs}
+        jsonLd={
+          story
+            ? [
+                articleSchema({
+                  path: detailPath,
+                  headline: story.title,
+                  description: story.summary ?? "",
+                  breadcrumbs: crumbs,
+                }),
+              ]
+            : undefined
+        }
+      />
       {!story ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}

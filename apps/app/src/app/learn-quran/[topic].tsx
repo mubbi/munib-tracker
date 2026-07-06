@@ -9,8 +9,13 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { getQuranGuideTopic } from "@/lib/quran-guide";
+import { getQuranGuideTopic, getQuranGuideTopics } from "@/lib/quran-guide";
+import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureQuranGuideProgressLoaded } from "@/stores/quran-guide-progress-store";
+
+export function generateStaticParams(): Array<{ topic: string }> {
+  return getQuranGuideTopics().map((tpc) => ({ topic: tpc.id }));
+}
 
 export default function LearnQuranTopicScreen() {
   const router = useRouter();
@@ -20,6 +25,15 @@ export default function LearnQuranTopicScreen() {
   const reportRef = useGuideContentReportRef("learn_quran", topic, "/learn-quran");
   useEnsureQuranGuideProgressLoaded();
 
+  const detailPath = topic ? `/learn-quran/${topic.id}` : "/learn-quran";
+  const crumbs = topic
+    ? [
+        { name: t("tabs.home"), path: "/" },
+        { name: t("learnQuran.title"), path: "/learn-quran" },
+        { name: topic.title, path: detailPath },
+      ]
+    : undefined;
+
   return (
     <ScreenLayout
       eyebrow={t("learnQuran.eyebrow")}
@@ -27,7 +41,26 @@ export default function LearnQuranTopicScreen() {
       subtitle={topic?.summary ?? ""}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/learn-quran" as Href))}
     >
-      <Seo path="/learn-quran" />
+      <Seo
+        path={detailPath}
+        title={topic?.title}
+        description={topic?.summary}
+        type={topic ? "article" : undefined}
+        index={!!topic}
+        breadcrumbs={crumbs}
+        jsonLd={
+          topic
+            ? [
+                articleSchema({
+                  path: detailPath,
+                  headline: topic.title,
+                  description: topic.summary ?? "",
+                  breadcrumbs: crumbs,
+                }),
+              ]
+            : undefined
+        }
+      />
       {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}

@@ -35,15 +35,16 @@ export default function QuranSearchScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { share, SnapshotHost } = useShareContentCard();
+  const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const shareAyah = useCallback(
     (arabic: string, translation: string, surah: number, ayah: number, surahName?: string) => {
-      void share(
-        buildAyahSharePayload(arabic, translation, surah, ayah, {
+      void share({
+        ...buildAyahSharePayload(arabic, translation, surah, ayah, {
           surahName,
           sectionTitle: t("share.sectionQuran"),
         }),
-      );
+        shareKey: `${surah}:${ayah}`,
+      });
     },
     [share, t],
   );
@@ -180,8 +181,13 @@ export default function QuranSearchScreen() {
                     name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
                     size={18}
                     tintColor={colors.mutedForeground}
-                    accessibilityLabel={t("quran.shareAyah")}
                     haptic="light"
+                    loading={isSharing(`${hit.surah}:${hit.ayah}`)}
+                    accessibilityLabel={
+                      isGesturePending(`${hit.surah}:${hit.ayah}`)
+                        ? t("share.tapToShare")
+                        : t("quran.shareAyah")
+                    }
                     onPress={() =>
                       shareAyah(hit.arabic, hit.text, hit.surah, hit.ayah, hit.surahName)
                     }

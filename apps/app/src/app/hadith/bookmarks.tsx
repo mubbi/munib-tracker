@@ -26,7 +26,7 @@ export default function HadithBookmarksScreen() {
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
   const arabicSize = fontPrefs.arabic.size;
-  const { share, SnapshotHost } = useShareContentCard();
+  const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const [entries, setEntries] = useState<BookmarkedHadith[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -51,12 +51,13 @@ export default function HadithBookmarksScreen() {
   const shareEntry = useCallback(
     (entry: BookmarkedHadith) => {
       const { arabic, english, reference } = entry.item;
-      void share(
-        buildHadithSharePayload(arabic, english, reference, {
+      void share({
+        ...buildHadithSharePayload(arabic, english, reference, {
           sectionTitle: t("share.sectionHadith"),
           contentLabel: reference,
         }),
-      );
+        shareKey: entry.item.id,
+      });
     },
     [share, t],
   );
@@ -118,10 +119,14 @@ export default function HadithBookmarksScreen() {
                   <View style={styles.actions}>
                     <LabeledIconButton
                       name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                      label={t("common.share")}
+                      label={
+                        isGesturePending(entry.item.id) ? t("share.tapToShare") : t("common.share")
+                      }
                       iconSize={18}
                       tintColor={colors.mutedForeground}
                       accessibilityLabel={t("hadith.share")}
+                      loading={isSharing(entry.item.id)}
+                      loadingLabel={t("share.preparing")}
                       onPress={() => shareEntry(entry)}
                     />
                     <LabeledIconButton

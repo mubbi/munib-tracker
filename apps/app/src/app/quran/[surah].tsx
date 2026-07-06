@@ -110,7 +110,7 @@ export default function SurahReaderScreen() {
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Ayah>>(null);
-  const { share, SnapshotHost } = useShareContentCard();
+  const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
   const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
@@ -260,13 +260,14 @@ export default function SurahReaderScreen() {
       ayahNum: number,
       transliteration?: string,
     ) => {
-      void share(
-        buildAyahSharePayload(arabic, translation, surahNum, ayahNum, {
+      void share({
+        ...buildAyahSharePayload(arabic, translation, surahNum, ayahNum, {
           surahName: surah?.nameTransliteration,
           transliteration,
           sectionTitle: t("share.sectionQuran"),
         }),
-      );
+        shareKey: `${surahNum}:${ayahNum}`,
+      });
     },
     [share, surah?.nameTransliteration, t],
   );
@@ -444,10 +445,20 @@ export default function SurahReaderScreen() {
           onPlayAtIndex={playFrom}
           onBookmarkAyah={handleBookmarkAyah}
           onShareAyah={shareAyah}
+          isSharing={isSharing}
+          isGesturePending={isGesturePending}
         />
       );
     },
-    [handleBookmarkAyah, handleHifzAyah, playFrom, shareAyah, surahNumber],
+    [
+      handleBookmarkAyah,
+      handleHifzAyah,
+      isGesturePending,
+      isSharing,
+      playFrom,
+      shareAyah,
+      surahNumber,
+    ],
   );
 
   if (!surah) {
@@ -658,6 +669,8 @@ type AyahRowProps = {
     ayah: number,
     transliteration?: string,
   ) => void;
+  isSharing: (shareKey: string) => boolean;
+  isGesturePending: (shareKey: string) => boolean;
 };
 
 function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): boolean {
@@ -681,7 +694,9 @@ function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): boolean {
     prev.onHifzAyah === next.onHifzAyah &&
     prev.onPlayAtIndex === next.onPlayAtIndex &&
     prev.onBookmarkAyah === next.onBookmarkAyah &&
-    prev.onShareAyah === next.onShareAyah
+    prev.onShareAyah === next.onShareAyah &&
+    prev.isSharing === next.isSharing &&
+    prev.isGesturePending === next.isGesturePending
   );
 }
 
@@ -706,10 +721,13 @@ const AyahRow = memo(function AyahRow({
   onPlayAtIndex,
   onBookmarkAyah,
   onShareAyah,
+  isSharing,
+  isGesturePending,
 }: AyahRowProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const focusBorderOpacity = useSharedValue(0);
+  const ayahShareKey = `${surahNumber}:${ayah.ayah}`;
 
   const handlePlay = useCallback(() => onPlayAtIndex(index), [index, onPlayAtIndex]);
   const handleBookmark = useCallback(
@@ -851,9 +869,13 @@ const AyahRow = memo(function AyahRow({
             />
             <LabeledIconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              label={t("quran.actionShare")}
+              label={
+                isGesturePending(ayahShareKey) ? t("share.tapToShare") : t("quran.actionShare")
+              }
               tintColor={colors.mutedForeground}
               accessibilityLabel={t("quran.shareAyah")}
+              loading={isSharing(ayahShareKey)}
+              loadingLabel={t("share.preparing")}
               onPress={handleShare}
             />
             <ContentReportButton contentRef={reportRef} />

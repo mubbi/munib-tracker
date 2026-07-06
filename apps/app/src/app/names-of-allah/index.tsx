@@ -58,7 +58,7 @@ export default function NamesOfAllahScreen() {
   const favoriteIds = useFavoriteNameIds();
   const { toggle } = useNameFavoritesActions();
   const favoriteSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
-  const { share, SnapshotHost } = useShareContentCard();
+  const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const [query, setQuery] = useState("");
   const index = useMemo(() => createNameSearch(NAMES_OF_ALLAH), []);
@@ -119,6 +119,7 @@ export default function NamesOfAllahScreen() {
         sectionTitle: t("share.sectionNames"),
         contentLabel: name.transliteration,
         filenameSlug: "names",
+        shareKey: name.id,
         content: {
           kind: "reading",
           item: {
@@ -217,11 +218,13 @@ export default function NamesOfAllahScreen() {
           onPlayName={playName}
           onToggleFavorite={toggle}
           onShareName={shareName}
+          isSharing={isSharing}
+          isGesturePending={isGesturePending}
           onTogglePlayback={audio.toggle}
         />
       );
     },
-    [audio.toggle, playName, shareName, toggle],
+    [audio.toggle, isGesturePending, isSharing, playName, shareName, toggle],
   );
 
   return (
@@ -284,6 +287,8 @@ const NameRow = memo(function NameRow({
   onPlayName,
   onToggleFavorite,
   onShareName,
+  isSharing,
+  isGesturePending,
   onTogglePlayback,
 }: {
   name: Name;
@@ -293,6 +298,8 @@ const NameRow = memo(function NameRow({
   onPlayName: (name: Name) => void;
   onToggleFavorite: (id: string) => void;
   onShareName: (name: Name) => void;
+  isSharing: (shareKey: string) => boolean;
+  isGesturePending: (shareKey: string) => boolean;
   onTogglePlayback: () => void;
 }) {
   const { t } = useTranslation();
@@ -377,7 +384,10 @@ const NameRow = memo(function NameRow({
               tintColor={colors.mutedForeground}
               background={tokens.accentSoft}
               hitTarget={40}
-              accessibilityLabel={t("names.share")}
+              accessibilityLabel={
+                isGesturePending(name.id) ? t("share.tapToShare") : t("names.share")
+              }
+              loading={isSharing(name.id)}
               onPress={handleShare}
             />
           </View>

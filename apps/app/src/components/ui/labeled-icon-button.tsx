@@ -1,5 +1,5 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -21,6 +21,10 @@ type LabeledIconButtonProps = {
   /** Optional filled well behind the icon + label. */
   background?: string;
   disabled?: boolean;
+  /** Swaps the glyph for a spinner and blocks presses (e.g. while a share image renders). */
+  loading?: boolean;
+  /** Label shown while `loading` (defaults to `label`). */
+  loadingLabel?: string;
 };
 
 /** Icon with a short text label beneath — for actions where glyphs alone are unclear. */
@@ -37,31 +41,38 @@ export function LabeledIconButton({
   haptic = "light",
   background,
   disabled,
+  loading = false,
+  loadingLabel,
 }: LabeledIconButtonProps) {
+  const isDisabled = disabled || loading;
   return (
     <PressableScale
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
-      accessibilityState={{ disabled: !!disabled, ...accessibilityState }}
-      disabled={disabled}
-      onPress={onPress}
+      accessibilityState={{ disabled: isDisabled, busy: loading, ...accessibilityState }}
+      disabled={isDisabled}
+      onPress={loading ? undefined : onPress}
       haptic={haptic}
       hitSlop={4}
       style={[
         styles.base,
         background ? { backgroundColor: background, borderRadius: Radius.sm } : null,
-        disabled ? styles.disabled : null,
+        isDisabled ? styles.disabled : null,
       ]}
     >
-      <SymbolView name={name} size={iconSize} tintColor={tintColor} />
+      {loading ? (
+        <ActivityIndicator size="small" color={tintColor} style={styles.spinner} />
+      ) : (
+        <SymbolView name={name} size={iconSize} tintColor={tintColor} />
+      )}
       <ThemedText
         type="caption"
         numberOfLines={1}
         style={[styles.label, labelColor ? { color: labelColor } : undefined]}
         themeColor={labelColor ? undefined : "mutedForeground"}
       >
-        {label}
+        {loading ? (loadingLabel ?? label) : label}
       </ThemedText>
     </PressableScale>
   );
@@ -81,6 +92,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 12,
     textAlign: "center",
+  },
+  spinner: {
+    // Match the glyph footprint so the label doesn't shift when toggling.
+    transform: [{ scale: 0.8 }],
   },
   disabled: {
     opacity: 0.4,

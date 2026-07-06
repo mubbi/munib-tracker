@@ -1,14 +1,22 @@
 import { Directory, File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import type { RefObject } from "react";
-import { InteractionManager, Platform, Share, type View } from "react-native";
+import { InteractionManager, Platform, Share, type View, type ViewStyle } from "react-native";
 import { captureRef } from "react-native-view-shot";
 
 import { resolveViewHostElement } from "@/lib/share/resolveViewHostElement";
+import type { WebShareSnapshotResult } from "@/lib/share/shareViewSnapshotWeb";
 import { shareSnapshotOnWeb } from "@/lib/share/shareViewSnapshotWeb";
 
 /** Web-only: park the host far left so html2canvas can capture without flashing on screen. */
 export const SHARE_SNAPSHOT_OFFSCREEN_LEFT = -12_000;
+
+/** Web: fixed off-screen host so html2canvas can capture without flashing on screen. */
+export const SHARE_SNAPSHOT_WEB_HOST_STYLE = {
+  position: "fixed",
+  left: SHARE_SNAPSHOT_OFFSCREEN_LEFT,
+  zIndex: -1,
+} as ViewStyle;
 
 /** Native: park capture host off-screen on Android; iOS keeps opacity 0 in-tree for QR layout. */
 export const SHARE_SNAPSHOT_NATIVE_HOST_STYLE =
@@ -112,12 +120,18 @@ function resolveCaptureTarget(target: View): View | HTMLElement {
   return target;
 }
 
+export type ShareViewSnapshotResult = {
+  web?: WebShareSnapshotResult;
+};
+
 /** Capture a mounted view and open the system share sheet with image (+ optional text). */
 export async function shareViewSnapshot(
   viewRef: RefObject<View | null>,
   options: ShareViewSnapshotOptions,
-): Promise<void> {
-  await waitForInteractions();
+): Promise<ShareViewSnapshotResult> {
+  if (Platform.OS !== "web") {
+    await waitForInteractions();
+  }
   await options.beforeCapture?.();
   await waitForPaint();
 
@@ -137,8 +151,8 @@ export async function shareViewSnapshot(
   await options.afterCapture?.();
 
   if (Platform.OS === "web") {
-    await shareSnapshotOnWeb(capturedUri, options);
-    return;
+    const web = await shareSnapshotOnWeb(capturedUri, options);
+    return { web };
   }
 
   const shareUri = persistNamedSnapshot(capturedUri, options.filename);
@@ -155,7 +169,7 @@ export async function shareViewSnapshot(
           title: options.dialogTitle,
         });
       }
-      return;
+      return {};
     }
 
     if (await Sharing.isAvailableAsync()) {
@@ -164,11 +178,13 @@ export async function shareViewSnapshot(
         dialogTitle: options.dialogTitle,
         UTI: "public.png",
       });
-      return;
+      return {};
     }
 
     await Share.share({ url: shareUri, title: options.dialogTitle });
   } finally {
     deleteCachedSnapshot(shareUri);
   }
+
+  return {};
 }

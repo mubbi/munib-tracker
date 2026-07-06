@@ -7,8 +7,13 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { getLastDayTopic } from "@/lib/last-day";
+import { getLastDayTopic, getLastDayTopics } from "@/lib/last-day";
+import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLastDayProgressLoaded } from "@/stores/last-day-progress-store";
+
+export function generateStaticParams(): Array<{ topic: string }> {
+  return getLastDayTopics().map((tpc) => ({ topic: tpc.id }));
+}
 
 export default function LastDayTopicScreen() {
   const router = useRouter();
@@ -17,6 +22,15 @@ export default function LastDayTopicScreen() {
   const topic = getLastDayTopic(topicId);
   useEnsureLastDayProgressLoaded();
 
+  const detailPath = topic ? `/last-day/${topic.id}` : "/last-day";
+  const crumbs = topic
+    ? [
+        { name: t("tabs.home"), path: "/" },
+        { name: t("lastDay.title"), path: "/last-day" },
+        { name: topic.title, path: detailPath },
+      ]
+    : undefined;
+
   return (
     <ScreenLayout
       eyebrow={t("lastDay.eyebrow")}
@@ -24,7 +38,26 @@ export default function LastDayTopicScreen() {
       subtitle={topic?.summary ?? ""}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/last-day" as Href))}
     >
-      <Seo path="/last-day" />
+      <Seo
+        path={detailPath}
+        title={topic?.title}
+        description={topic?.summary}
+        type={topic ? "article" : undefined}
+        index={!!topic}
+        breadcrumbs={crumbs}
+        jsonLd={
+          topic
+            ? [
+                articleSchema({
+                  path: detailPath,
+                  headline: topic.title,
+                  description: topic.summary ?? "",
+                  breadcrumbs: crumbs,
+                }),
+              ]
+            : undefined
+        }
+      />
       {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}

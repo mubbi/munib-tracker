@@ -67,6 +67,7 @@ export default function DuaDetailScreen() {
       sectionTitle: t("share.sectionReading"),
       contentLabel: item.title ?? item.reference,
       filenameSlug: "dua",
+      shareKey: item.id,
       content: { kind: "reading", item },
     });
   };
@@ -126,10 +127,17 @@ export default function DuaDetailScreen() {
           contentRef={contentRef}
         />
         <Button
-          label={t("dua.share")}
+          label={
+            shareCard.isSharing(item.id)
+              ? t("share.preparing")
+              : shareCard.isGesturePending(item.id)
+                ? t("share.tapToShare")
+                : t("dua.share")
+          }
           variant="secondary"
           icon={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
           fullWidth
+          disabled={shareCard.isSharing(item.id)}
           onPress={onShare}
         />
       </Stagger>

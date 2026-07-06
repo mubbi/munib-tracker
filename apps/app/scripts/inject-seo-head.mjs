@@ -71,6 +71,39 @@ const DEFAULT_KEYWORDS = [
 const surahMeta = readJson("assets/data/quran/meta.json");
 const surahs = new Map(surahMeta.surahs.map((s) => [String(s.number), s]));
 
+// FAQ + index ItemLists shared with the client `<Seo>` (same JSON / same data)
+// so AI answer engines get them from the raw HTML too.
+const FAQ_BY_ROUTE = readJson("src/config/seo-faq.data.json");
+const SURAH_ITEMS = surahMeta.surahs.map((s) => ({
+  name: `${s.number}. ${s.nameTransliteration} (${s.nameEnglish})`,
+  path: `/quran/${s.number}`,
+}));
+const catItems = (labels, base) =>
+  Object.entries(labels ?? {}).map(([id, name]) => ({ name, path: `${base}/${id}` }));
+const ITEMS_BY_ROUTE = {
+  "/quran": SURAH_ITEMS,
+  "/dua": catItems(en.duaCat, "/dua"),
+  "/zikr": catItems(en.zikrCat, "/zikr"),
+};
+
+// Learn/knowledge sections whose dynamic topic pages (pre-rendered via
+// `generateStaticParams`) are indexable content. Maps the URL segment → the
+// i18n namespace that holds the section's display title. Any route under these
+// that isn't an explicit registry entry is treated as a content article.
+const CONTENT_SECTION_NS = {
+  aqeedah: "aqeedah",
+  prophets: "prophets",
+  zakat: "zakat",
+  jannah: "jannah",
+  jahannam: "jahannam",
+  "last-day": "lastDay",
+  battles: "battles",
+  "salah-guide": "salahGuide",
+  taharah: "taharah",
+  "learn-dua": "learnDua",
+  "learn-quran": "learnQuran",
+};
+
 const escapeHtml = (s) =>
   String(s)
     .replace(/&/g, "&amp;")
@@ -209,6 +242,30 @@ function resolveMeta(route) {
     };
   }
 
+  // Dynamic learn/knowledge topic pages (e.g. `/aqeedah/tawheed`,
+  // `/prophets/musa`, `/learn-quran/story/adam`) that aren't explicit registry
+  // entries. The per-topic title lives in TS content the client `<Seo>` resolves;
+  // here we bake a readable slug title + Article JSON-LD so non-JS crawlers still
+  // get an indexable, described page.
+  const contentMatch = key.match(/^\/([a-z-]+)\/(.+)$/);
+  const lastSeg = contentMatch?.[2].split("/").pop() ?? "";
+  // Safety net: personal/interactive sub-pages stay out of the index even if a
+  // registry entry is missing (they are normally registered as index:false).
+  const isUtilitySeg = /^(progress|quiz|journal)$/.test(lastSeg);
+  if (contentMatch && CONTENT_SECTION_NS[contentMatch[1]] && !isUtilitySeg) {
+    const section = contentMatch[1];
+    const sectionTitle = en[CONTENT_SECTION_NS[section]]?.title ?? humanizeSlug(section);
+    const title = humanizeSlug(lastSeg || contentMatch[2]);
+    return {
+      title,
+      description: `${title} — part of ${sectionTitle} on ${APP_NAME}, with evidence from the Qur'an and authentic Sunnah.`,
+      keywords: [title, sectionTitle],
+      index: true,
+      type: "article",
+      breadcrumbs: [home, { name: sectionTitle, path: `/${section}` }, { name: title, path: key }],
+    };
+  }
+
   // Fallback (unknown route) — app defaults, noindex to avoid thin pages.
   return {
     title: `${APP_NAME} — ${APP_TAGLINE}`,
@@ -219,23 +276,38 @@ function resolveMeta(route) {
   };
 }
 
-/** Build the JSON-LD blocks for a route (WebPage + BreadcrumbList [+ CreativeWork]). */
+/** Build the JSON-LD blocks for a route (WebPage/CollectionPage + Breadcrumb [+ FAQ/ItemList]). */
 function buildJsonLd(route, meta) {
+  const key = normalizePath(route);
   const url = absolute(route);
-  const blocks = [
-    {
-      "@context": "https://schema.org",
-      "@type": meta.type === "article" ? "Article" : "WebPage",
-      "@id": `${url}#webpage`,
-      url,
-      name: meta.title,
-      headline: meta.title,
-      description: meta.description,
-      isPartOf: { "@id": `${ORIGIN}/#website` },
-      inLanguage: "en",
-      isAccessibleForFree: true,
-    },
-  ];
+  const items = ITEMS_BY_ROUTE[key];
+  const primaryType = meta.type === "article" ? "Article" : items ? "CollectionPage" : "WebPage";
+  const primary = {
+    "@context": "https://schema.org",
+    "@type": primaryType,
+    "@id": `${url}#webpage`,
+    url,
+    name: meta.title,
+    headline: meta.title,
+    description: meta.description,
+    isPartOf: { "@id": `${ORIGIN}/#website` },
+    inLanguage: "en",
+    isAccessibleForFree: true,
+  };
+  if (items?.length) {
+    primary.mainEntity = {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((it, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: it.name,
+        url: absolute(it.path),
+      })),
+    };
+  }
+  const blocks = [primary];
+
   if (meta.breadcrumbs?.length) {
     blocks.push({
       "@context": "https://schema.org",
@@ -245,6 +317,19 @@ function buildJsonLd(route, meta) {
         position: i + 1,
         name: b.name,
         item: absolute(b.path),
+      })),
+    });
+  }
+
+  const faq = FAQ_BY_ROUTE[key];
+  if (faq?.length) {
+    blocks.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
       })),
     });
   }
@@ -276,6 +361,9 @@ function buildHeadTags(route, meta) {
     `<meta data-rh="true" property="og:image" content="${OG_IMAGE}"/>`,
     `<meta data-rh="true" property="og:image:alt" content="${escapeHtml(OG_IMAGE_ALT)}"/>`,
     `<meta data-rh="true" property="og:locale" content="en_US"/>`,
+    // Content is also available in Arabic and Urdu via the in-app language switcher.
+    `<meta data-rh="true" property="og:locale:alternate" content="ar_AR"/>`,
+    `<meta data-rh="true" property="og:locale:alternate" content="ur_PK"/>`,
     `<meta data-rh="true" name="twitter:card" content="summary_large_image"/>`,
     `<meta data-rh="true" name="twitter:title" content="${rawTitle}"/>`,
     `<meta data-rh="true" name="twitter:description" content="${d}"/>`,

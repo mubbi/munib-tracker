@@ -768,7 +768,9 @@
     "sectionQuran": "القرآن",
     "sectionHadith": "حديث",
     "sectionNames": "أسماء الله الحسنى",
-    "sectionAchievement": "إنجاز"
+    "sectionAchievement": "إنجاز",
+    "preparing": "جارٍ المشاركة…",
+    "tapToShare": "اضغط للمشاركة"
   },
   "dua": {
     "eyebrow": "الدعاء",

@@ -22,6 +22,7 @@ import { WitrQazaInfo } from "@/components/witr-qaza-info";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { getRouteFaq } from "@/lib/seo/faq-content";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   useQazaCounters,
@@ -191,23 +192,7 @@ export default function QazaHomeScreen() {
               { name: t("qaza.title"), path: "/qaza" },
             ],
           }),
-          faqSchema([
-            {
-              question: "What is qaza (qadha) namaz?",
-              answer:
-                "Qaza (qadha) namaz is a prayer performed after its prescribed time has passed. The majority of scholars hold that missed obligatory prayers must be made up.",
-            },
-            {
-              question: "How do I make up missed prayers?",
-              answer:
-                "Track how many prayers you owe per type, then pray extra make-up prayers alongside your daily prayers at a steady pace until the backlog is cleared.",
-            },
-            {
-              question: "Is missed Witr counted as qaza?",
-              answer:
-                "It depends on your madhhab: the Hanafi school treats Witr as wajib and requires making it up, while the Shafi'i, Maliki, and Hanbali schools treat it as a strongly emphasized sunnah for which make-up is recommended.",
-            },
-          ]),
+          faqSchema(getRouteFaq("/qaza") ?? []),
         ]}
       />
       <Stagger>

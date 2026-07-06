@@ -63,7 +63,8 @@ export function ReadingCard({
   const { fontPrefs } = usePreferences();
   const audio = useAudioPlayerContext();
   const internalShare = useShareContentCard();
-  const { share, SnapshotHost } = shareCardProp ?? internalShare;
+  const { share, isSharing, isGesturePending, SnapshotHost } = shareCardProp ?? internalShare;
+  const shareKey = item.id ?? item.reference ?? sourceHref ?? "reading";
   const { arabic: arabicSize, translation: textSize } = resolveReadingFontSizes(surface, fontPrefs);
 
   const playAudio = () => {
@@ -92,6 +93,7 @@ export function ReadingCard({
       sectionTitle: t("share.sectionReading"),
       contentLabel: item.title ?? item.reference,
       filenameSlug: "reading",
+      shareKey,
       content: { kind: "reading", item },
     });
   };
@@ -158,10 +160,12 @@ export function ReadingCard({
               ) : null}
               <LabeledIconButton
                 name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                label={t("common.share")}
+                label={isGesturePending(shareKey) ? t("share.tapToShare") : t("common.share")}
                 iconSize={16}
                 tintColor={colors.mutedForeground}
                 accessibilityLabel={t("reading.share")}
+                loading={isSharing(shareKey)}
+                loadingLabel={t("share.preparing")}
                 onPress={onShare}
               />
               {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}

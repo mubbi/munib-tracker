@@ -16,6 +16,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
+import { getRouteFaq } from "@/lib/seo/faq-content";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   useCustomTasbeehActions,
@@ -68,18 +69,7 @@ export default function FreeTasbeehScreen() {
               { name: t("actions.tasbeeh"), path: "/tasbeeh/free" },
             ],
           }),
-          faqSchema([
-            {
-              question: "What is a digital tasbeeh counter?",
-              answer:
-                "A digital tasbeeh is an on-screen tap counter that replaces prayer beads (misbaha) for counting dhikr such as SubhanAllah, Alhamdulillah, and Allahu Akbar.",
-            },
-            {
-              question: "Can I set a custom target count?",
-              answer:
-                "Yes. You can count freely or set a target such as 33, 100, or 313, and the counter tracks your progress toward it.",
-            },
-          ]),
+          faqSchema(getRouteFaq("/tasbeeh/free") ?? []),
         ]}
       />
       <Stagger>

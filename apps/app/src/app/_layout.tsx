@@ -12,6 +12,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { WebReminderAdhanBridge } from "@/components/notifications/web-reminder-adhan-bridge";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
+import { ShareQrWarmup } from "@/components/share/share-qr-warmup";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { ARABIC_FONT_FILES } from "@/lib/arabic-fonts";
@@ -50,6 +51,7 @@ export default function RootLayout() {
                       <NotificationProvider>
                         <AudioPlayerProvider>
                           <WebReminderAdhanBridge />
+                          <ShareQrWarmup />
                           <MiniPlayerInsetProvider>
                             <BlurTargetProvider
                               overlays={

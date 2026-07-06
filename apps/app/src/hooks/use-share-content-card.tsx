@@ -14,13 +14,19 @@ import { contentShareFilename } from "@/lib/share/shareFilename";
 import { formatShareExportStamp, SHARE_PROOF_QR_COUNT } from "@/lib/share/shareProofLayout";
 import {
   SHARE_SNAPSHOT_NATIVE_HOST_STYLE,
-  SHARE_SNAPSHOT_OFFSCREEN_LEFT,
+  SHARE_SNAPSHOT_WEB_HOST_STYLE,
   shareViewSnapshot,
   waitForViewRef,
 } from "@/lib/share/shareViewSnapshot";
+import { sharePreparedWebFile } from "@/lib/share/shareViewSnapshotWeb";
 import { useShareProofQrReadyGate } from "@/lib/share/useShareProofQrReadyGate";
 
 const MARKETING_URL = process.env.EXPO_PUBLIC_SITE_URL ?? "https://munibtracker.app";
+
+type PendingWebShare = {
+  shareKey: string;
+  payloads: ShareData[];
+};
 
 export type ShareContentBody =
   | { kind: "reading"; item: ShareableReading & { virtues?: string } }
@@ -39,6 +45,8 @@ export type ShareContentPayload = {
   sectionTitle: string;
   contentLabel?: string;
   filenameSlug?: string;
+  /** Unique id for the tapped share button so only that button shows loading. */
+  shareKey?: string;
   content: ShareContentBody;
 };
 
@@ -166,18 +174,51 @@ export function useShareContentCard() {
   const [payload, setPayload] = useState<ShareContentPayload | null>(null);
   const [generation, setGeneration] = useState(0);
   const [exportStamp, setExportStamp] = useState(() => formatShareExportStamp());
-  const [sharing, setSharing] = useState(false);
+  // Track which specific button is sharing so sibling buttons stay idle. The ref
+  // guards against concurrent taps; the state drives the per-button spinner.
+  const activeShareKeyRef = useRef<string | null>(null);
+  const [activeShareKey, setActiveShareKey] = useState<string | null>(null);
+  const pendingWebShareRef = useRef<PendingWebShare | null>(null);
+  const [gesturePendingKey, setGesturePendingKey] = useState<string | null>(null);
 
   const share = useCallback(
     async (next: ShareContentPayload) => {
-      if (sharing) return;
-      setSharing(true);
+      const shareKey = next.shareKey ?? "default";
+
+      // Web: image is already prepared — re-tap shares instantly inside a fresh gesture.
+      if (Platform.OS === "web" && pendingWebShareRef.current?.shareKey === shareKey) {
+        const pending = pendingWebShareRef.current;
+        pendingWebShareRef.current = null;
+        setGesturePendingKey(null);
+        activeShareKeyRef.current = shareKey;
+        setActiveShareKey(shareKey);
+
+        try {
+          const retry = await sharePreparedWebFile(pending.payloads);
+          if (retry.status === "needsUserGesture") {
+            pendingWebShareRef.current = pending;
+            setGesturePendingKey(shareKey);
+          }
+        } catch (error) {
+          if (__DEV__) console.warn("Share failed", error);
+        } finally {
+          activeShareKeyRef.current = null;
+          setActiveShareKey(null);
+        }
+        return;
+      }
+
+      if (activeShareKeyRef.current != null) return;
+
+      activeShareKeyRef.current = shareKey;
+      setActiveShareKey(shareKey);
+      setGesturePendingKey(null);
       setExportStamp(formatShareExportStamp());
       setPayload(next);
       setGeneration((g) => g + 1);
 
       try {
-        await shareViewSnapshot(captureRef, {
+        const result = await shareViewSnapshot(captureRef, {
           filename: contentShareFilename(next.filenameSlug ?? "content"),
           dialogTitle: t("share.dialogTitle", { defaultValue: "Share" }),
           message: next.message,
@@ -191,14 +232,33 @@ export function useShareContentCard() {
             setPayload(null);
           },
         });
+
+        if (Platform.OS === "web" && result.web?.status === "needsUserGesture") {
+          pendingWebShareRef.current = {
+            shareKey,
+            payloads: result.web.payloads,
+          };
+          setGesturePendingKey(shareKey);
+        }
       } catch (error) {
         setPayload(null);
         if (__DEV__) console.warn("Share failed", error);
       } finally {
-        setSharing(false);
+        activeShareKeyRef.current = null;
+        setActiveShareKey(null);
       }
     },
-    [resetQrReadyGate, sharing, t, waitForQrCodes],
+    [resetQrReadyGate, t, waitForQrCodes],
+  );
+
+  const isSharing = useCallback(
+    (shareKey: string) => activeShareKey === shareKey,
+    [activeShareKey],
+  );
+
+  const isGesturePending = useCallback(
+    (shareKey: string) => gesturePendingKey === shareKey,
+    [gesturePendingKey],
   );
 
   const SnapshotHost =
@@ -206,9 +266,7 @@ export function useShareContentCard() {
       <View
         style={[
           styles.snapshotHost,
-          Platform.OS === "web"
-            ? { position: "fixed" as const, left: SHARE_SNAPSHOT_OFFSCREEN_LEFT, zIndex: -1 }
-            : SHARE_SNAPSHOT_NATIVE_HOST_STYLE,
+          Platform.OS === "web" ? SHARE_SNAPSHOT_WEB_HOST_STYLE : SHARE_SNAPSHOT_NATIVE_HOST_STYLE,
         ]}
         pointerEvents="none"
       >
@@ -226,7 +284,7 @@ export function useShareContentCard() {
       </View>
     ) : null;
 
-  return { share, sharing, SnapshotHost };
+  return { share, isSharing, isGesturePending, activeShareKey, SnapshotHost };
 }
 
 const styles = StyleSheet.create({

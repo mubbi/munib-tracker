@@ -14,7 +14,7 @@ import {
   brandQrLogoOptions,
   brandQrOuterEyesOptions,
 } from "@/lib/share/brandQrConfig";
-import { brandQrDataUri } from "@/lib/share/brandQrDataUri";
+import { brandQrDataUri, getCachedBrandQrDataUri } from "@/lib/share/brandQrDataUri";
 
 export type BrandQrCodeProps = {
   data: string;
@@ -35,20 +35,22 @@ type WebQrProps = Pick<
 function BrandQrCodeWeb({ data, size, accessibilityLabel, style, padding, onReady }: WebQrProps) {
   const qrSize = size ?? BRAND_QR_DEFAULT_SIZE;
   const marginModules = Math.max(1, Math.round((padding ?? BRAND_QR_PADDING) / 2));
-  const [dataUri, setDataUri] = useState<string | null>(null);
+  const [dataUri, setDataUri] = useState<string | null>(() =>
+    getCachedBrandQrDataUri(data, qrSize, marginModules),
+  );
   const readySentRef = useRef(false);
 
   useEffect(() => {
+    if (dataUri != null) return;
     let cancelled = false;
     readySentRef.current = false;
-    setDataUri(null);
     void brandQrDataUri(data, qrSize, marginModules).then((uri) => {
       if (!cancelled) setDataUri(uri);
     });
     return () => {
       cancelled = true;
     };
-  }, [data, qrSize, marginModules]);
+  }, [data, dataUri, qrSize, marginModules]);
 
   const notifyReady = () => {
     if (readySentRef.current) return;

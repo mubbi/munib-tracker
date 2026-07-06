@@ -47,13 +47,7 @@ export function PrayerTrackerRow({
   const rowA11y = t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel });
 
   return (
-    <PressableScale
-      haptic="light"
-      onPress={onPress}
-      accessibilityRole="button"
-      accessibilityLabel={rowA11y}
-      style={[styles.row, { backgroundColor: colors.muted }]}
-    >
+    <View style={[styles.row, { backgroundColor: colors.muted }]}>
       {onToggleComplete ? (
         <PressableScale
           haptic={false}
@@ -83,7 +77,13 @@ export function PrayerTrackerRow({
         </PressableScale>
       ) : null}
 
-      <View style={styles.body}>
+      <PressableScale
+        haptic="light"
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={rowA11y}
+        style={styles.body}
+      >
         <IconWell
           icon={PRAYER_ICONS[prayerId]}
           size={16}
@@ -118,18 +118,19 @@ export function PrayerTrackerRow({
           ) : null}
         </View>
 
-        <View style={styles.actions}>
-          <Pill
-            label={statusLabel}
-            color={toneColor}
-            background={toneSoft}
-            icon={status === "pending" ? undefined : meta.icon}
-            compact
-          />
-          <PrayerInfoButton prayerId={prayerId} hitTarget={32} showLabel />
-        </View>
+        <Pill
+          label={statusLabel}
+          color={toneColor}
+          background={toneSoft}
+          icon={status === "pending" ? undefined : meta.icon}
+          compact
+        />
+      </PressableScale>
+
+      <View style={styles.actions}>
+        <PrayerInfoButton prayerId={prayerId} hitTarget={32} showLabel />
       </View>
-    </PressableScale>
+    </View>
   );
 }
 

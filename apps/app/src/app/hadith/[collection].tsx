@@ -64,18 +64,19 @@ export default function HadithCollectionScreen() {
   const data = remote ? remoteQuery.data : bundledData;
   const sections = data?.sections ?? [];
   const allItems = data?.items ?? [];
-  const { share, SnapshotHost } = useShareContentCard();
+  const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const shareHadith = useCallback(
     (item: HadithItem) => {
-      void share(
-        buildHadithSharePayload(item.arabic, item.english, item.reference, {
+      void share({
+        ...buildHadithSharePayload(item.arabic, item.english, item.reference, {
           sectionTitle: t("share.sectionHadith"),
           contentLabel: collection
             ? `${collection.nameEnglish} · ${item.reference}`
             : item.reference,
         }),
-      );
+        shareKey: item.id,
+      });
     },
     [collection, share, t],
   );
@@ -297,6 +298,8 @@ export default function HadithCollectionScreen() {
                     isBookmarked={bookmarked.has(item.id)}
                     onBookmark={() => toggleBookmark(item)}
                     onShare={shareHadith}
+                    isSharing={isSharing}
+                    isGesturePending={isGesturePending}
                   />
                 ))}
               </View>
@@ -335,12 +338,16 @@ function HadithCard({
   isBookmarked,
   onBookmark,
   onShare: onShareHadith,
+  isSharing,
+  isGesturePending,
 }: {
   item: HadithItem;
   collectionName: string;
   isBookmarked: boolean;
   onBookmark: () => void;
   onShare: (item: HadithItem) => void;
+  isSharing: (shareKey: string) => boolean;
+  isGesturePending: (shareKey: string) => boolean;
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t, i18n } = useTranslation();
@@ -415,10 +422,12 @@ function HadithCard({
             ) : null}
             <LabeledIconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              label={t("common.share")}
+              label={isGesturePending(item.id) ? t("share.tapToShare") : t("common.share")}
               iconSize={18}
               tintColor={colors.mutedForeground}
               accessibilityLabel={t("hadith.share")}
+              loading={isSharing(item.id)}
+              loadingLabel={t("share.preparing")}
               onPress={onShare}
             />
             <LabeledIconButton

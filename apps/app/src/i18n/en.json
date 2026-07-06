@@ -768,7 +768,9 @@
     "sectionQuran": "Qur'an",
     "sectionHadith": "Hadith",
     "sectionNames": "99 Names of Allah",
-    "sectionAchievement": "Achievement"
+    "sectionAchievement": "Achievement",
+    "preparing": "Sharing…",
+    "tapToShare": "Tap to share"
   },
   "dua": {
     "eyebrow": "Supplication",

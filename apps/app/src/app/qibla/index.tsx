@@ -34,6 +34,7 @@ import {
   qiblaAlignmentProgress,
   qiblaArrowAngle,
 } from "@/lib/qibla-guidance";
+import { getRouteFaq } from "@/lib/seo/faq-content";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   locationStore,
@@ -462,18 +463,7 @@ export default function QiblaScreen() {
               { name: t("actions.qibla"), path: "/qibla" },
             ],
           }),
-          faqSchema([
-            {
-              question: "What is the qibla?",
-              answer:
-                "The qibla is the direction Muslims face during prayer — toward the Kaaba in the Sacred Mosque (Masjid al-Haram) in Makkah.",
-            },
-            {
-              question: "How does the qibla finder work?",
-              answer:
-                "It calculates the great-circle bearing from your current location to the Kaaba in Makkah and shows it on a compass, along with the distance.",
-            },
-          ]),
+          faqSchema(getRouteFaq("/qibla") ?? []),
         ]}
       />
       <Stagger>

@@ -9,8 +9,13 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { getLearnDuaTopic } from "@/lib/learn-dua";
+import { getLearnDuaTopic, getLearnDuaTopics } from "@/lib/learn-dua";
+import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLearnDuaProgressLoaded } from "@/stores/learn-dua-progress-store";
+
+export function generateStaticParams(): Array<{ topic: string }> {
+  return getLearnDuaTopics().map((tpc) => ({ topic: tpc.id }));
+}
 
 export default function LearnDuaTopicScreen() {
   const router = useRouter();
@@ -20,6 +25,15 @@ export default function LearnDuaTopicScreen() {
   const reportRef = useGuideContentReportRef("learn_dua", topic, "/learn-dua");
   useEnsureLearnDuaProgressLoaded();
 
+  const detailPath = topic ? `/learn-dua/${topic.id}` : "/learn-dua";
+  const crumbs = topic
+    ? [
+        { name: t("tabs.home"), path: "/" },
+        { name: t("learnDua.title"), path: "/learn-dua" },
+        { name: topic.title, path: detailPath },
+      ]
+    : undefined;
+
   return (
     <ScreenLayout
       eyebrow={t("learnDua.eyebrow")}
@@ -27,7 +41,26 @@ export default function LearnDuaTopicScreen() {
       subtitle={topic?.summary ?? ""}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/learn-dua" as Href))}
     >
-      <Seo path="/learn-dua" />
+      <Seo
+        path={detailPath}
+        title={topic?.title}
+        description={topic?.summary}
+        type={topic ? "article" : undefined}
+        index={!!topic}
+        breadcrumbs={crumbs}
+        jsonLd={
+          topic
+            ? [
+                articleSchema({
+                  path: detailPath,
+                  headline: topic.title,
+                  description: topic.summary ?? "",
+                  breadcrumbs: crumbs,
+                }),
+              ]
+            : undefined
+        }
+      />
       {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}

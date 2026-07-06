@@ -16,6 +16,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { getRouteFaq } from "@/lib/seo/faq-content";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import { useQazaCounters, useTrackerActions } from "@/stores/tracker-store";
 
@@ -83,18 +84,7 @@ export default function QazaCalculatorScreen() {
               { name: t("qazaCalc.title"), path: "/qaza/calculator" },
             ],
           }),
-          faqSchema([
-            {
-              question: "How does the qaza prayer calculator work?",
-              answer:
-                "It estimates your missed prayers from the years between puberty and when you began praying consistently, minus any exempt days, giving one make-up of each daily prayer per missed day.",
-            },
-            {
-              question: "Is the estimate exact?",
-              answer:
-                "No. It is an approximation to help you plan. Rulings on making up missed prayers vary — consult a knowledgeable scholar for your situation.",
-            },
-          ]),
+          faqSchema(getRouteFaq("/qaza/calculator") ?? []),
         ]}
       />
       <Stagger>

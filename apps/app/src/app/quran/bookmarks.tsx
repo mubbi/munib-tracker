@@ -27,17 +27,18 @@ export default function QuranBookmarksScreen() {
   const { colors, tokens } = useThemeTokens();
   const bookmarks = useQuranBookmarks();
   const { toggleBookmark } = useQuranActions();
-  const { share, SnapshotHost } = useShareContentCard();
+  const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const shareAyah = useCallback(
     (arabic: string, translation: string, surah: number, ayah: number) => {
       const surahMeta = getSurahByNumber(surah);
-      void share(
-        buildAyahSharePayload(arabic, translation, surah, ayah, {
+      void share({
+        ...buildAyahSharePayload(arabic, translation, surah, ayah, {
           surahName: surahMeta?.nameTransliteration,
           sectionTitle: t("share.sectionQuran"),
         }),
-      );
+        shareKey: `${surah}:${ayah}`,
+      });
     },
     [share, t],
   );
@@ -103,11 +104,17 @@ export default function QuranBookmarksScreen() {
                     </PressableScale>
                     <LabeledIconButton
                       name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                      label={t("common.share")}
+                      label={
+                        isGesturePending(`${bm.surah}:${bm.ayah}`)
+                          ? t("share.tapToShare")
+                          : t("common.share")
+                      }
                       iconSize={18}
                       tintColor={colors.mutedForeground}
                       accessibilityLabel={t("quran.shareAyah")}
                       haptic="light"
+                      loading={isSharing(`${bm.surah}:${bm.ayah}`)}
+                      loadingLabel={t("share.preparing")}
                       onPress={() => shareAyah(arabic, translation, bm.surah, bm.ayah)}
                     />
                     <LabeledIconButton

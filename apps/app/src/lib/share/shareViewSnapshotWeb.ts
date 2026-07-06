@@ -4,10 +4,24 @@ export type WebShareSnapshotOptions = {
   message?: string;
 };
 
+export type WebShareSnapshotResult =
+  | { status: "shared" | "aborted" }
+  | { status: "needsUserGesture"; file: File; payloads: ShareData[] }
+  | { status: "unavailable" };
+
 export function isNavigatorShareAbortError(error: unknown): boolean {
   return (
     (error instanceof DOMException && error.name === "AbortError") ||
     (error instanceof Error && error.name === "AbortError")
+  );
+}
+
+export function isNavigatorShareNotAllowedError(error: unknown): boolean {
+  return (
+    (error instanceof DOMException && error.name === "NotAllowedError") ||
+    (error instanceof Error &&
+      (error.name === "NotAllowedError" ||
+        /not allowed|user gesture|activation/i.test(error.message)))
   );
 }
 
@@ -56,31 +70,96 @@ export function downloadSnapshotOnWeb(dataUri: string, filename: string): void {
   document.body.removeChild(a);
 }
 
-/** Web Share API when available (mobile browsers); otherwise download the PNG. */
+function canSharePayload(payload: ShareData): boolean {
+  if (typeof navigator.canShare !== "function") return true;
+  try {
+    return navigator.canShare(payload);
+  } catch {
+    return false;
+  }
+}
+
+type ShareAttempt = "shared" | "aborted" | "failed" | "notAllowed";
+
+async function attemptNavigatorShare(payload: ShareData): Promise<ShareAttempt> {
+  try {
+    await navigator.share(payload);
+    return "shared";
+  } catch (error) {
+    if (isNavigatorShareAbortError(error)) return "aborted";
+    if (isNavigatorShareNotAllowedError(error)) return "notAllowed";
+    return "failed";
+  }
+}
+
+function buildSharePayloads(file: File, options: WebShareSnapshotOptions): ShareData[] {
+  const fileOnly: ShareData = { files: [file], title: options.dialogTitle };
+  if (!options.message) return [fileOnly];
+  return [fileOnly, { files: [file], title: options.dialogTitle, text: options.message }];
+}
+
+async function tryAllSharePayloads(payloads: ShareData[]): Promise<ShareAttempt> {
+  let sawNotAllowed = false;
+
+  for (const payload of payloads) {
+    if (!canSharePayload(payload)) continue;
+    const result = await attemptNavigatorShare(payload);
+    if (result === "shared" || result === "aborted") return result;
+    if (result === "notAllowed") sawNotAllowed = true;
+  }
+
+  for (const payload of payloads) {
+    const result = await attemptNavigatorShare(payload);
+    if (result === "shared" || result === "aborted") return result;
+    if (result === "notAllowed") sawNotAllowed = true;
+  }
+
+  return sawNotAllowed ? "notAllowed" : "failed";
+}
+
+/** Share a file that was already prepared (second tap after gesture timeout). */
+export async function sharePreparedWebFile(payloads: ShareData[]): Promise<WebShareSnapshotResult> {
+  if (typeof navigator === "undefined" || typeof navigator.share !== "function") {
+    return { status: "unavailable" };
+  }
+
+  const result = await tryAllSharePayloads(payloads);
+  if (result === "shared") return { status: "shared" };
+  if (result === "aborted") return { status: "aborted" };
+  if (result === "notAllowed") {
+    return { status: "needsUserGesture", file: payloads[0]?.files?.[0] as File, payloads };
+  }
+  return { status: "unavailable" };
+}
+
+/**
+ * Open the Web Share sheet with the branded image. File-only first — combining
+ * files + text makes canShare() return false on many mobile browsers.
+ *
+ * When the browser rejects share because the user-gesture window expired (common
+ * on the first cold capture), we return `needsUserGesture` instead of downloading
+ * so the caller can prompt a quick re-tap with the already-prepared file.
+ */
 export async function shareSnapshotOnWeb(
   dataUri: string,
   options: WebShareSnapshotOptions,
-): Promise<void> {
+): Promise<WebShareSnapshotResult> {
+  if (typeof navigator === "undefined" || typeof navigator.share !== "function") {
+    downloadSnapshotOnWeb(dataUri, options.filename);
+    return { status: "unavailable" };
+  }
+
   const blob = dataUriToBlob(dataUri);
   const file = new globalThis.File([blob], options.filename, { type: blob.type || "image/png" });
-  const sharePayload: ShareData = {
-    files: [file],
-    title: options.dialogTitle,
-    ...(options.message ? { text: options.message } : {}),
-  };
+  const payloads = buildSharePayloads(file, options);
 
-  if (
-    typeof navigator !== "undefined" &&
-    typeof navigator.share === "function" &&
-    (typeof navigator.canShare !== "function" || navigator.canShare(sharePayload))
-  ) {
-    try {
-      await navigator.share(sharePayload);
-      return;
-    } catch (error) {
-      if (isNavigatorShareAbortError(error)) return;
-    }
+  const result = await tryAllSharePayloads(payloads);
+  if (result === "shared") return { status: "shared" };
+  if (result === "aborted") return { status: "aborted" };
+  if (result === "notAllowed") {
+    return { status: "needsUserGesture", file, payloads };
   }
 
   downloadSnapshotOnWeb(dataUri, options.filename);
+  return { status: "unavailable" };
 }
