@@ -1,19 +1,15 @@
 import { DUA_ITEMS, getDuaById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Share, StyleSheet } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
 
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
 import { articleSchema } from "@/lib/seo/structured-data";
@@ -33,13 +29,12 @@ export function generateStaticParams(): Array<{ id: string }> {
 export default function DuaDetailScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { colors } = useThemeTokens();
   const params = useLocalSearchParams<{ id: string }>();
   const item = params.id ? getDuaById(params.id) : undefined;
   useEnsureDuaFavoritesLoaded();
   const isFavorite = useIsFavoriteDua(item?.id ?? "");
   const { toggle } = useDuaFavoritesActions();
-  const [toast, setToast] = useState<string | null>(null);
+  const shareCard = useShareContentCard();
 
   useEffect(() => {
     if (item) recordContinueActivity(buildDuaActivity(item));
@@ -66,32 +61,14 @@ export default function DuaDetailScreen() {
     );
   }
 
-  const showToast = (message: string) => {
-    setToast(message);
-    setTimeout(() => setToast(null), 2000);
-  };
-
   const onShare = async () => {
-    const message = formatReadingShare(item);
-    if (Platform.OS === "web") {
-      const nav = typeof navigator !== "undefined" ? navigator : undefined;
-      try {
-        if (nav?.share) {
-          await nav.share({ text: message });
-        } else if (nav?.clipboard?.writeText) {
-          await nav.clipboard.writeText(message);
-          showToast(t("reading.copied"));
-        }
-      } catch {
-        // user cancelled or share/clipboard unavailable
-      }
-      return;
-    }
-    try {
-      await Share.share({ message });
-    } catch {
-      // user cancelled or share unavailable
-    }
+    await shareCard.share({
+      message: formatReadingShare(item),
+      sectionTitle: t("share.sectionReading"),
+      contentLabel: item.title ?? item.reference,
+      filenameSlug: "dua",
+      content: { kind: "reading", item },
+    });
   };
 
   const duaTitle = item.title;
@@ -121,6 +98,7 @@ export default function DuaDetailScreen() {
       title={item.title}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      {shareCard.SnapshotHost}
       <Seo
         path={`/dua/detail/${item.id}`}
         title={duaTitle}
@@ -141,6 +119,7 @@ export default function DuaDetailScreen() {
       <Stagger>
         <ReadingCard
           item={item}
+          shareCard={shareCard}
           sourceHref={`/dua/detail/${item.id}`}
           isFavorite={isFavorite}
           onToggleFavorite={() => toggle(item.id)}
@@ -153,27 +132,7 @@ export default function DuaDetailScreen() {
           fullWidth
           onPress={onShare}
         />
-        {toast ? (
-          <Animated.View
-            entering={FadeIn.duration(160)}
-            style={[styles.toast, { backgroundColor: colors.foreground }]}
-          >
-            <ThemedText type="small" style={{ color: colors.background }}>
-              {toast}
-            </ThemedText>
-          </Animated.View>
-        ) : null}
       </Stagger>
     </ScreenLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  toast: {
-    alignSelf: "center",
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.four,
-    borderRadius: 999,
-    borderCurve: "continuous",
-  },
-});

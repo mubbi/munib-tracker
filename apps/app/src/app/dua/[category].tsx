@@ -149,6 +149,10 @@ export default function DuaCategoryScreen() {
           ItemSeparatorComponent={ListSeparator}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+          initialNumToRender={12}
+          maxToRenderPerBatch={8}
+          windowSize={7}
+          removeClippedSubviews
           ListEmptyComponent={
             searching ? (
               <EmptyState

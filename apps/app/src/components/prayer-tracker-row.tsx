@@ -47,7 +47,13 @@ export function PrayerTrackerRow({
   const rowA11y = t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel });
 
   return (
-    <View style={[styles.row, { backgroundColor: colors.muted }]}>
+    <PressableScale
+      haptic="light"
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={rowA11y}
+      style={[styles.row, { backgroundColor: colors.muted }]}
+    >
       {onToggleComplete ? (
         <PressableScale
           haptic={false}
@@ -78,47 +84,39 @@ export function PrayerTrackerRow({
       ) : null}
 
       <View style={styles.body}>
-        <PressableScale
-          haptic="light"
-          onPress={onPress}
-          accessibilityRole="button"
-          accessibilityLabel={rowA11y}
-          style={styles.mainPress}
-        >
-          <IconWell
-            icon={PRAYER_ICONS[prayerId]}
-            size={16}
-            well={ICON_WELL}
-            tint={toneColor}
-            background={toneSoft}
-          />
-          <View style={styles.copy}>
-            <ThemedText type="smallBold" numberOfLines={1}>
-              {prayerName}
-            </ThemedText>
-            {time || hasNotes ? (
-              <View style={styles.metaLine}>
-                {time ? (
-                  <ThemedText
-                    type="caption"
-                    themeColor="mutedForeground"
-                    numberOfLines={1}
-                    style={styles.time}
-                  >
-                    {time}
-                  </ThemedText>
-                ) : null}
-                {hasNotes ? (
-                  <SymbolView
-                    name={{ ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" }}
-                    size={12}
-                    tintColor={colors.mutedForeground}
-                  />
-                ) : null}
-              </View>
-            ) : null}
-          </View>
-        </PressableScale>
+        <IconWell
+          icon={PRAYER_ICONS[prayerId]}
+          size={16}
+          well={ICON_WELL}
+          tint={toneColor}
+          background={toneSoft}
+        />
+        <View style={styles.copy}>
+          <ThemedText type="smallBold" numberOfLines={1}>
+            {prayerName}
+          </ThemedText>
+          {time || hasNotes ? (
+            <View style={styles.metaLine}>
+              {time ? (
+                <ThemedText
+                  type="caption"
+                  themeColor="mutedForeground"
+                  numberOfLines={1}
+                  style={styles.time}
+                >
+                  {time}
+                </ThemedText>
+              ) : null}
+              {hasNotes ? (
+                <SymbolView
+                  name={{ ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" }}
+                  size={12}
+                  tintColor={colors.mutedForeground}
+                />
+              ) : null}
+            </View>
+          ) : null}
+        </View>
 
         <View style={styles.actions}>
           <Pill
@@ -131,7 +129,7 @@ export function PrayerTrackerRow({
           <PrayerInfoButton prayerId={prayerId} hitTarget={32} showLabel />
         </View>
       </View>
-    </View>
+    </PressableScale>
   );
 }
 
@@ -156,13 +154,6 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   body: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    minWidth: 0,
-  },
-  mainPress: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",

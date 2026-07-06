@@ -1,28 +1,24 @@
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Share, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { IconButton } from "@/components/ui/icon-button";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import type { BookmarkedHadith } from "@/db/repositories/hadith-repository";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { arabicReadingLayout } from "@/lib/reading-typography";
+import { buildHadithSharePayload } from "@/lib/share";
 import { usePreferences } from "@/stores/preferences-store";
-
-/** Plain-text body shared for a hadith (arabic + english + reference). */
-function hadithShareMessage(entry: BookmarkedHadith): string {
-  const { arabic, english, reference } = entry.item;
-  return [arabic, english, reference].filter(Boolean).join("\n\n");
-}
 
 export default function HadithBookmarksScreen() {
   const router = useRouter();
@@ -30,6 +26,7 @@ export default function HadithBookmarksScreen() {
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
   const arabicSize = fontPrefs.arabic.size;
+  const { share, SnapshotHost } = useShareContentCard();
 
   const [entries, setEntries] = useState<BookmarkedHadith[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -51,9 +48,18 @@ export default function HadithBookmarksScreen() {
     setEntries((prev) => prev.filter((e) => e.bookmark.hadithId !== entry.bookmark.hadithId));
   };
 
-  const share = (entry: BookmarkedHadith) => {
-    void Share.share({ message: hadithShareMessage(entry) });
-  };
+  const shareEntry = useCallback(
+    (entry: BookmarkedHadith) => {
+      const { arabic, english, reference } = entry.item;
+      void share(
+        buildHadithSharePayload(arabic, english, reference, {
+          sectionTitle: t("share.sectionHadith"),
+          contentLabel: reference,
+        }),
+      );
+    },
+    [share, t],
+  );
 
   const open = (entry: BookmarkedHadith) =>
     router.push({
@@ -68,6 +74,7 @@ export default function HadithBookmarksScreen() {
       subtitle={t("hadith.bookmarksSubtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      {SnapshotHost}
       <Seo path="/hadith/bookmarks" />
       {loaded && entries.length === 0 ? (
         <EmptyState
@@ -109,17 +116,20 @@ export default function HadithBookmarksScreen() {
                     </ThemedText>
                   </PressableScale>
                   <View style={styles.actions}>
-                    <IconButton
+                    <LabeledIconButton
                       name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                      size={20}
+                      label={t("common.share")}
+                      iconSize={18}
                       tintColor={colors.mutedForeground}
                       accessibilityLabel={t("hadith.share")}
-                      onPress={() => share(entry)}
+                      onPress={() => shareEntry(entry)}
                     />
-                    <IconButton
+                    <LabeledIconButton
                       name={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-                      size={20}
+                      label={t("quran.actionBookmarked")}
+                      iconSize={18}
                       tintColor={tokens.status.warning.color}
+                      labelColor={tokens.status.warning.color}
                       accessibilityLabel={t("hadith.bookmarkRemove")}
                       accessibilityState={{ selected: true }}
                       onPress={() => remove(entry)}

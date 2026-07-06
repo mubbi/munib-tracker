@@ -29,6 +29,8 @@
     "minus": "ناقص",
     "set": "تعيين",
     "play": "تشغيل",
+    "share": "مشاركة",
+    "saved": "محفوظ",
     "increase": "زيادة {{label}}",
     "decrease": "إنقاص {{label}}",
     "appName": "Munib Tracker",
@@ -373,7 +375,15 @@
     "homeCustomize": "تخصيص الرئيسية",
     "homeCustomizeSub": "أعِد ترتيب الاختصارات وأخفِ بطاقات الصفحة الرئيسية",
     "offlineData": "البيانات دون اتصال",
-    "offlineDataSub": "إدارة المحتوى المُنزَّل ومسح المخبأ"
+    "offlineDataSub": "إدارة المحتوى المُنزَّل ومسح المخبأ",
+    "downloadNativeApps": "حمّل التطبيق",
+    "downloadNativeAppsDesc": "ثبّت Munib Tracker على هاتفك للصلاة والأذكار والقرآن دون اتصال — نفس الحساب ونفس التقدّم.",
+    "downloadIosTopLine": "حمّل من",
+    "downloadIosBottomLine": "App Store",
+    "downloadAndroidTopLine": "احصل عليه من",
+    "downloadAndroidBottomLine": "Google Play",
+    "downloadIosA11y": "حمّل Munib Tracker من App Store",
+    "downloadAndroidA11y": "احصل على Munib Tracker من Google Play"
   },
   "import": {
     "title": "استيراد سجل الصلوات",
@@ -740,6 +750,25 @@
     "increase": "تكبير حجم النص",
     "reset": "إعادة ضبط حجم النص",
     "sizeDefault": "افتراضي"
+  },
+  "share": {
+    "dialogTitle": "مشاركة",
+    "proofTagline": "تتبّع رحلتك إلى الله — مجاناً على iOS وAndroid والويب",
+    "proofGetApp": "احصل على Munib Tracker مجاناً",
+    "proofIosLabel": "App Store",
+    "proofAndroidLabel": "Google Play",
+    "proofWebLabel": "تطبيق الويب",
+    "proofQrIosA11y": "رمز QR — التحميل من App Store",
+    "proofQrAndroidA11y": "رمز QR — التحميل من Google Play",
+    "proofQrWebA11y": "رمز QR — فتح تطبيق الويب",
+    "proofExportedAt": "تمت المشاركة · {{exportedAt}}",
+    "proofOrVisit": "أو زُر: {{url}}",
+    "proofNotice": "شارك للنفع — يُرجى التحقق من المحتوى الديني عند عالم موثوق.",
+    "sectionReading": "قراءة",
+    "sectionQuran": "القرآن",
+    "sectionHadith": "حديث",
+    "sectionNames": "أسماء الله الحسنى",
+    "sectionAchievement": "إنجاز"
   },
   "dua": {
     "eyebrow": "الدعاء",
@@ -3363,6 +3392,7 @@
     }
   },
   "contentReport": {
+    "short": "إبلاغ",
     "reportIssue": "الإبلاغ عن مشكلة",
     "sheetTitle": "الإبلاغ عن مشكلة في المحتوى",
     "issueTypeLabel": "ما نوع المشكلة؟",

@@ -19,6 +19,7 @@ import { AppApiProvider } from "@/providers/api-provider";
 import { AppProviders } from "@/providers/app-providers";
 import { AudioPlayerProvider } from "@/providers/audio-player-provider";
 import { AuthProvider } from "@/providers/auth-provider";
+import { BlurTargetProvider } from "@/providers/blur-target-provider";
 import { I18nProvider } from "@/providers/i18n-provider";
 import { InAppNotificationsProvider } from "@/providers/in-app-notifications-provider";
 import { NotificationProvider } from "@/providers/notification-provider";
@@ -50,22 +51,29 @@ export default function RootLayout() {
                         <AudioPlayerProvider>
                           <WebReminderAdhanBridge />
                           <MiniPlayerInsetProvider>
-                            <Stack screenOptions={{ headerShown: false }}>
-                              <Stack.Screen name="(tabs)" />
-                              <Stack.Screen
-                                name="(auth)/login"
-                                options={{ presentation: "modal" }}
-                              />
-                              <Stack.Screen
-                                name="(onboarding)/intro"
-                                options={{ gestureEnabled: false }}
-                              />
-                            </Stack>
-                            <WebNavigationFocusManager />
-                            <WebPwaBootstrap />
-                            <OnboardingGate />
-                            <MiniPlayer />
-                            <AnimatedSplashOverlay />
+                            <BlurTargetProvider
+                              overlays={
+                                <>
+                                  <WebNavigationFocusManager />
+                                  <WebPwaBootstrap />
+                                  <OnboardingGate />
+                                  <MiniPlayer />
+                                  <AnimatedSplashOverlay />
+                                </>
+                              }
+                            >
+                              <Stack screenOptions={{ headerShown: false }}>
+                                <Stack.Screen name="(tabs)" />
+                                <Stack.Screen
+                                  name="(auth)/login"
+                                  options={{ presentation: "modal" }}
+                                />
+                                <Stack.Screen
+                                  name="(onboarding)/intro"
+                                  options={{ gestureEnabled: false }}
+                                />
+                              </Stack>
+                            </BlurTargetProvider>
                           </MiniPlayerInsetProvider>
                         </AudioPlayerProvider>
                       </NotificationProvider>

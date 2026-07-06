@@ -19,7 +19,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Brand, Radius, Spacing } from "@/constants/theme";
+import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { arrowForward } from "@/lib/rtl";
@@ -193,7 +193,12 @@ export default function OnboardingIntroScreen() {
               label={t("common.continueAsGuest")}
               variant="ghost"
               fullWidth
+              labelColor={Brand.heroText}
               onPress={() => finish("/")}
+              style={{
+                backgroundColor: Brand.onHeroStrongSurface,
+                borderColor: withAlpha(Brand.heroText, 0.32),
+              }}
             />
           </View>
         ) : (

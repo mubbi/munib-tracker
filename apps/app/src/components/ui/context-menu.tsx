@@ -27,12 +27,16 @@ type ContextMenuProps = {
 /**
  * Long-press context menu around any content — a native SwiftUI `ContextMenu` on
  * iOS and a Jetpack Compose dropdown on Android (via `@expo/ui`). Because it opens
- * on long-press, the wrapped child keeps its own tap/press behaviour, so this is
- * purely additive over an existing card/row. On web there is no long-press menu
- * analogue, so we render `children` only and the child's normal tap still works.
+ * on long-press, the wrapped child keeps its own tap/press behaviour on iOS.
+ *
+ * On Android, `@expo/ui`'s `MenuView` wraps children in a parent `Pressable` that
+ * swallows nested touchables (close buttons, row actions, etc.), so we render
+ * `children` only there. On web there is no long-press menu analogue either.
  */
 export function ContextMenu({ actions, onAction, children, title, style }: ContextMenuProps) {
-  if (actions.length === 0 || Platform.OS === "web") return <>{children}</>;
+  if (actions.length === 0 || Platform.OS === "web" || Platform.OS === "android") {
+    return <>{children}</>;
+  }
 
   return (
     <MenuView

@@ -12,7 +12,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Share, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -22,8 +22,10 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
+import { formatAchievementShare } from "@/lib/share";
 
 const OBLIGATORY = new Set<string>(OBLIGATORY_PRAYERS);
 
@@ -81,7 +83,7 @@ function MilestoneCard({
         {milestone.description}
       </ThemedText>
       {unlocked ? (
-        Platform.OS !== "web" && onShare ? (
+        onShare ? (
           <ThemedText
             type="caption"
             style={{ color: colors.accent }}
@@ -106,6 +108,7 @@ export default function AchievementsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
+  const { share, SnapshotHost } = useShareContentCard();
   const [state, setState] = useState<ProgressionState | null>(null);
   const [unlocked, setUnlocked] = useState<MilestoneProgress[]>([]);
 
@@ -153,18 +156,24 @@ export default function AchievementsScreen() {
     }, []),
   );
 
-  const share = async (milestone: MilestoneProgress) => {
-    if (Platform.OS === "web") return;
-    try {
-      await Share.share({
-        message: t("achievements.shareMessage", {
-          title: milestone.title,
-          description: milestone.description,
-        }),
-      });
-    } catch {
-      // cancelled
-    }
+  const shareMilestone = async (milestone: MilestoneProgress) => {
+    const trackLabel =
+      milestone.trackId === "devotion"
+        ? t("achievements.devotion")
+        : t(TRACK_LABEL_KEYS[milestone.trackId] ?? milestone.trackId);
+    await share({
+      message: formatAchievementShare(milestone.title, milestone.description),
+      sectionTitle: t("share.sectionAchievement"),
+      contentLabel: `${trackLabel} · L${milestone.level}`,
+      filenameSlug: "achievement",
+      content: {
+        kind: "achievement",
+        title: milestone.title,
+        description: milestone.description,
+        trackLabel,
+        level: milestone.level,
+      },
+    });
   };
 
   const devotion = state?.devotion;
@@ -184,6 +193,7 @@ export default function AchievementsScreen() {
       }
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      {SnapshotHost}
       <Seo path="/achievements" />
       <Stagger>
         <View style={styles.stack}>
@@ -243,7 +253,7 @@ export default function AchievementsScreen() {
                     key={milestone.id}
                     milestone={milestone}
                     variant="unlocked"
-                    onShare={share}
+                    onShare={shareMilestone}
                   />
                 ))}
               </View>

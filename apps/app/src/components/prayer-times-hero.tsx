@@ -339,8 +339,8 @@ export function PrayerTimesHero({
                   style={[
                     styles.prayerItem,
                     active && {
-                      backgroundColor: Brand.onHeroStrongSurface,
-                      borderColor: withAlpha(toHex(sky.accent), 0.5),
+                      backgroundColor: withAlpha(toHex(sky.accent), 0.22),
+                      borderColor: withAlpha(toHex(sky.accent), 0.55),
                     },
                   ]}
                 >

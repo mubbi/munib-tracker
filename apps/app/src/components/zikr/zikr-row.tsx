@@ -1,5 +1,6 @@
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
+import { memo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
@@ -20,13 +21,14 @@ type ZikrRowProps = {
   /** 1-based position in the source list (category, favorites order, etc.). */
   index?: number;
   isFavorite?: boolean;
-  onPress: () => void;
-  onToggleFavorite?: () => void;
+  /** Stable id-taking handlers so memoized rows keep their prop identity. */
+  onPress: (id: string) => void;
+  onToggleFavorite?: (id: string) => void;
   /** Optional category pill shown in cross-category search results. */
   categoryLabel?: string;
 };
 
-export function ZikrRow({
+export const ZikrRow = memo(function ZikrRow({
   item,
   index,
   isFavorite,
@@ -37,6 +39,12 @@ export function ZikrRow({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
 
+  const handlePress = useCallback(() => onPress(item.id), [item.id, onPress]);
+  const handleToggleFavorite = useCallback(
+    () => onToggleFavorite?.(item.id),
+    [item.id, onToggleFavorite],
+  );
+
   return (
     // The favorite toggle is rendered as a sibling overlay rather than nested
     // inside the row's Pressable — on web, nesting a <button> inside another
@@ -44,7 +52,7 @@ export function ZikrRow({
     <View style={styles.wrapper}>
       <PressableScale
         haptic="light"
-        onPress={onPress}
+        onPress={handlePress}
         accessibilityRole="button"
         accessibilityLabel={index != null ? `${index}. ${item.title}` : item.title}
         style={[styles.row, { backgroundColor: colors.muted }]}
@@ -89,13 +97,13 @@ export function ZikrRow({
           accessibilityLabel={isFavorite ? t("zikr.removeFavorite") : t("zikr.favorite")}
           accessibilityState={{ selected: isFavorite }}
           haptic="selection"
-          onPress={onToggleFavorite}
+          onPress={handleToggleFavorite}
           style={styles.favoriteButton}
         />
       ) : null}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   wrapper: {

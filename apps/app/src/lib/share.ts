@@ -6,13 +6,13 @@ export type ShareableReading = {
   reference?: string;
 };
 
-/** Formats a piece of religious text for the native share sheet. */
-export function formatReadingShare(item: ShareableReading): string {
-  const lines: string[] = [];
-  if (item.title) lines.push(item.title, "");
-  lines.push(item.arabic, "");
-  if (item.transliteration) lines.push(item.transliteration, "");
-  lines.push(item.translation);
-  if (item.reference) lines.push("", `— ${item.reference}`);
-  return lines.join("\n");
-}
+export type { ShareContentBody, ShareContentPayload } from "@/hooks/use-share-content-card";
+export {
+  appendShareBranding,
+  buildAyahSharePayload,
+  buildHadithSharePayload,
+  formatAchievementShare,
+  formatAyahShare,
+  formatHadithShare,
+  formatReadingShare,
+} from "@/hooks/use-share-content-card";

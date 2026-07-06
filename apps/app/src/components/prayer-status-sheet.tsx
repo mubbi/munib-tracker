@@ -11,7 +11,7 @@ import { PrayerNotesModal } from "@/components/prayer-notes-modal";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
@@ -106,7 +106,7 @@ export function PrayerStatusSheet({
 
   return (
     <>
-      <Sheet visible={visible && !qazaPromptOpen} onClose={onClose} variant="bottom">
+      <Sheet visible={visible && !qazaPromptOpen} onClose={onClose} variant="bottom" solid>
         <ThemedText type="subtitle">{prayerLabel}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("statusSheet.prompt")}
@@ -187,7 +187,7 @@ export function PrayerStatusSheet({
         <PressableScale
           haptic="light"
           onPress={() => setNotesOpen(true)}
-          style={[styles.notesRow, { borderColor: colors.border }]}
+          style={[styles.notesRow, { backgroundColor: colors.muted, borderColor: colors.border }]}
         >
           <SymbolView
             name={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
@@ -213,7 +213,14 @@ export function PrayerStatusSheet({
               onClose();
               router.push(afterSalahAdhkarRoute(prayerId));
             }}
-            style={[styles.adhkarRow, { backgroundColor: tokens.accentSoft }]}
+            style={[
+              styles.adhkarRow,
+              {
+                backgroundColor: colors.muted,
+                borderColor: withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.3),
+                borderWidth: StyleSheet.hairlineWidth,
+              },
+            ]}
           >
             <SymbolView
               name={{

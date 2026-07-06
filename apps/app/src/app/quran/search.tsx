@@ -1,14 +1,7 @@
 import { useRouter } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ActivityIndicator,
-  InteractionManager,
-  Share,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -19,9 +12,12 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
+import { runWhenIdle } from "@/lib/run-when-idle";
 import { searchQuranAyahs } from "@/lib/search";
+import { buildAyahSharePayload } from "@/lib/share";
 
 const MAX_RESULTS = 40;
 const DEBOUNCE_MS = 200;
@@ -35,16 +31,22 @@ interface SearchHit {
 }
 
 /** Compose Arabic + translation + "Surah:Ayah" reference for the share sheet. */
-function shareAyah(arabic: string, translation: string, surah: number, ayah: number) {
-  const parts = [arabic, translation].filter(Boolean);
-  parts.push(`— ${surah}:${ayah}`);
-  void Share.share({ message: parts.join("\n\n") });
-}
-
 export default function QuranSearchScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { share, SnapshotHost } = useShareContentCard();
+  const shareAyah = useCallback(
+    (arabic: string, translation: string, surah: number, ayah: number, surahName?: string) => {
+      void share(
+        buildAyahSharePayload(arabic, translation, surah, ayah, {
+          surahName,
+          sectionTitle: t("share.sectionQuran"),
+        }),
+      );
+    },
+    [share, t],
+  );
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
   const [pending, setPending] = useState(false);
@@ -72,7 +74,7 @@ export default function QuranSearchScreen() {
 
   // Fuzzy, typo-tolerant search over the shared Qur'an ayah index (translation +
   // transliteration), mapped to this screen's row shape. Building/scanning the
-  // 6,236-ayah Fuse index is heavy, so run it off the interaction thread — the
+  // 6,236-ayah Fuse index is heavy, so defer it until idle — the
   // spinner stays up until it resolves and typing stays smooth. Every setState is
   // guarded by `cancelled` so nothing lands after a new query or unmount.
   useEffect(() => {
@@ -83,7 +85,7 @@ export default function QuranSearchScreen() {
     }
     setSearching(true);
     let cancelled = false;
-    const handle = InteractionManager.runAfterInteractions(() => {
+    const handle = runWhenIdle(() => {
       if (cancelled) return;
       const hits = searchQuranAyahs(debounced, MAX_RESULTS).results.map((hit) => ({
         surah: Number(hit.params?.surah),
@@ -113,6 +115,7 @@ export default function QuranSearchScreen() {
       subtitle={t("quran.searchSubtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      {SnapshotHost}
       <Seo path="/quran/search" />
       <Card padding="three">
         <TextInput
@@ -179,7 +182,9 @@ export default function QuranSearchScreen() {
                     tintColor={colors.mutedForeground}
                     accessibilityLabel={t("quran.shareAyah")}
                     haptic="light"
-                    onPress={() => shareAyah(hit.arabic, hit.text, hit.surah, hit.ayah)}
+                    onPress={() =>
+                      shareAyah(hit.arabic, hit.text, hit.surah, hit.ayah, hit.surahName)
+                    }
                   />
                 </View>
                 {hit.arabic ? (

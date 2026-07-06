@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo } from "react";
+import { forwardRef, type ReactNode, useCallback, useMemo } from "react";
 import {
   type GestureResponderEvent,
   Platform,
@@ -6,6 +6,7 @@ import {
   type PressableAndroidRippleConfig,
   type PressableProps,
   type StyleProp,
+  StyleSheet,
   type View,
   type ViewStyle,
 } from "react-native";
@@ -18,7 +19,8 @@ import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-type PressableScaleProps = Omit<PressableProps, "style"> & {
+type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
+  children?: ReactNode;
   /** Target scale while pressed. Lower = more pronounced. */
   scaleTo?: number;
   /** Fade slightly on press in addition to scaling. */
@@ -110,6 +112,51 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     pressed.value = 0;
     onPressOut?.(event);
   };
+
+  const flatStyle = StyleSheet.flatten(style);
+  // Reanimated transforms on the same view as `android_ripple` prevent the ripple
+  // from clipping to rounded corners on Android. Host the ripple on a plain
+  // Pressable and animate an inner wrapper instead.
+  const useRippleHost = Platform.OS === "android" && androidRipple != null;
+  const rippleClipStyle =
+    useRippleHost && !androidRipple?.borderless ? ({ overflow: "hidden" } as const) : undefined;
+
+  if (useRippleHost) {
+    return (
+      <Pressable
+        ref={ref}
+        disabled={disabled}
+        android_ripple={androidRipple}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        onPress={handlePress}
+        style={[style, rippleClipStyle]}
+        {...rest}
+      >
+        <Animated.View
+          style={[
+            {
+              flexDirection: flatStyle?.flexDirection,
+              alignItems: flatStyle?.alignItems,
+              justifyContent: flatStyle?.justifyContent,
+              gap: flatStyle?.gap,
+              flex: flatStyle?.flex,
+              flexGrow: flatStyle?.flexGrow,
+              flexShrink: flatStyle?.flexShrink,
+              alignSelf: flatStyle?.alignSelf,
+              width: flatStyle?.width,
+              height: flatStyle?.height,
+              minWidth: flatStyle?.minWidth,
+              minHeight: flatStyle?.minHeight,
+            },
+            animatedStyle,
+          ]}
+        >
+          {children}
+        </Animated.View>
+      </Pressable>
+    );
+  }
 
   return (
     <AnimatedPressable

@@ -8,6 +8,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { DownloadNativeAppsSection } from "@/components/settings/download-native-apps-section";
 import { SettingsRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -87,6 +88,14 @@ export default function AboutScreen() {
           <ThemedText type="small" themeColor="mutedForeground" style={styles.authenticity}>
             {t("about.authenticityBody")}
           </ThemedText>
+        </Card>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("settings.downloadNativeApps")}
+            icon={{ ios: "arrow.down.app.fill", android: "download", web: "download" }}
+          />
+          <DownloadNativeAppsSection />
         </Card>
 
         <Card padding="three">

@@ -29,6 +29,8 @@
     "minus": "منفی",
     "set": "مقرر کریں",
     "play": "چلائیں",
+    "share": "شیئر",
+    "saved": "محفوظ",
     "increase": "{{label}} بڑھائیں",
     "decrease": "{{label}} کم کریں",
     "appName": "Munib Tracker",
@@ -373,7 +375,15 @@
     "homeCustomize": "ہوم اپنی مرضی سے",
     "homeCustomizeSub": "شارٹ کٹس ترتیب دیں اور ہوم کارڈز چھپائیں",
     "offlineData": "آف لائن ڈیٹا",
-    "offlineDataSub": "ڈاؤن لوڈ شدہ مواد اور کیش منظم کریں"
+    "offlineDataSub": "ڈاؤن لوڈ شدہ مواد اور کیش منظم کریں",
+    "downloadNativeApps": "نیٹیو ایپ حاصل کریں",
+    "downloadNativeAppsDesc": "آف لائن نماز، ذکر اور قرآن کے لیے Munib Tracker اپنے فون پر انسٹال کریں — وہی اکاؤنٹ، وہی پیش رفت۔",
+    "downloadIosTopLine": "ڈاؤن لوڈ کریں",
+    "downloadIosBottomLine": "App Store",
+    "downloadAndroidTopLine": "حاصل کریں",
+    "downloadAndroidBottomLine": "Google Play",
+    "downloadIosA11y": "App Store سے Munib Tracker ڈاؤن لوڈ کریں",
+    "downloadAndroidA11y": "Google Play سے Munib Tracker حاصل کریں"
   },
   "import": {
     "title": "نماز کی تاریخ درآمد کریں",
@@ -740,6 +750,25 @@
     "increase": "متن کا سائز بڑھائیں",
     "reset": "متن کا سائز ری سیٹ کریں",
     "sizeDefault": "طے شدہ"
+  },
+  "share": {
+    "dialogTitle": "شیئر",
+    "proofTagline": "اللہ کی طرف سفر ٹریک کریں — iOS، Android اور ویب پر مفت",
+    "proofGetApp": "Munib Tracker مفت حاصل کریں",
+    "proofIosLabel": "App Store",
+    "proofAndroidLabel": "Google Play",
+    "proofWebLabel": "ویب ایپ",
+    "proofQrIosA11y": "QR کوڈ — App Store سے ڈاؤن لوڈ",
+    "proofQrAndroidA11y": "QR کوڈ — Google Play سے حاصل کریں",
+    "proofQrWebA11y": "QR کوڈ — ویب ایپ کھولیں",
+    "proofExportedAt": "شیئر · {{exportedAt}}",
+    "proofOrVisit": "یا ملاحظہ کریں: {{url}}",
+    "proofNotice": "فائدے کے لیے شیئر — براہ کرم دینی مواد کسی قابلِ اعتماد عالم سے تصدیق کریں۔",
+    "sectionReading": "پڑھنا",
+    "sectionQuran": "قرآن",
+    "sectionHadith": "حدیث",
+    "sectionNames": "اللہ کے 99 نام",
+    "sectionAchievement": "کامیابی"
   },
   "dua": {
     "eyebrow": "دعا",
@@ -3351,6 +3380,7 @@
     }
   },
   "contentReport": {
+    "short": "رپورٹ",
     "reportIssue": "مسئلے کی اطلاع دیں",
     "sheetTitle": "مواد کے مسئلے کی اطلاع",
     "issueTypeLabel": "مسئلے کی قسم کیا ہے؟",

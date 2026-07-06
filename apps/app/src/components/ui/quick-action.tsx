@@ -51,17 +51,17 @@ function QuickAction({ item }: { item: QuickActionItem }) {
   const wellBorder = withAlpha(tint, tokens.isDark ? 0.34 : 0.22);
 
   return (
-    <PressableScale
-      accessibilityRole="button"
-      accessibilityLabel={item.label}
-      onPress={item.onPress}
-      scaleTo={0.92}
-      haptic="light"
-      style={styles.tileWrap}
-    >
-      <View style={[styles.iconWell, { backgroundColor: wellBackground, borderColor: wellBorder }]}>
+    <View style={styles.tileWrap}>
+      <PressableScale
+        accessibilityRole="button"
+        accessibilityLabel={item.label}
+        onPress={item.onPress}
+        scaleTo={0.92}
+        haptic="light"
+        style={[styles.iconWell, { backgroundColor: wellBackground, borderColor: wellBorder }]}
+      >
         <AppIcon icon={item.icon} size={26} tintColor={tint} />
-      </View>
+      </PressableScale>
       <ThemedText
         type="caption"
         style={[styles.label, { color: colors.foreground }]}
@@ -69,7 +69,7 @@ function QuickAction({ item }: { item: QuickActionItem }) {
       >
         {item.label}
       </ThemedText>
-    </PressableScale>
+    </View>
   );
 }
 

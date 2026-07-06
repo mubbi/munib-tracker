@@ -43,11 +43,25 @@ Import via workspace package names:
 pnpm install              # always from repo root
 pnpm generate:api         # export OpenAPI + generate typed client (Orval)
 pnpm dev                  # all dev servers (turbo)
+pnpm check:ci             # CI profile: typecheck + lint + test + build
+pnpm check:quick          # fast pre-commit: lint + typecheck
 pnpm turbo run lint check-types test
 pnpm --filter app ios     # Expo iOS dev build
 pnpm --filter app android # Expo Android dev build
 pnpm --filter app web     # Expo web
 pnpm --filter app build:data  # regenerate bundled content (adhkar/duas/names/Qur'an/hadith)
+
+# Native (Expo prebuild / local release — requires apps/app/.env)
+pnpm prebuild:app:android   # expo prebuild + version sync
+pnpm prebuild:app:ios
+pnpm cleanbuild:app:android # prebuild --clean + version sync
+pnpm cleanbuild:app:ios
+pnpm doctor:app             # expo doctor
+pnpm dev:app:android:doctor # adb/emulator connectivity repair
+pnpm dev:app:android:signs  # Gradle signingReport
+pnpm dev:app:ios:signs      # Xcode signing settings (macOS)
+pnpm release:app:android    # local signed AAB (Gradle)
+pnpm release:app:ios        # local signed IPA (xcodebuild, macOS)
 ```
 
 ## Content & data

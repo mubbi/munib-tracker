@@ -1,29 +1,25 @@
 import { useRouter } from "expo-router";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Share, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
-import { IconButton } from "@/components/ui/icon-button";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
+import { buildAyahSharePayload } from "@/lib/share";
 import { useQuranActions, useQuranBookmarks } from "@/stores/quran-store";
 
 const FALLBACK_TRANSLATION = "en-pickthall";
-
-/** Compose Arabic + translation + "Surah:Ayah" reference for the share sheet. */
-function shareAyah(arabic: string, translation: string, surah: number, ayah: number) {
-  const parts = [arabic, translation].filter(Boolean);
-  parts.push(`— ${surah}:${ayah}`);
-  void Share.share({ message: parts.join("\n\n") });
-}
 
 export default function QuranBookmarksScreen() {
   const router = useRouter();
@@ -31,6 +27,20 @@ export default function QuranBookmarksScreen() {
   const { colors, tokens } = useThemeTokens();
   const bookmarks = useQuranBookmarks();
   const { toggleBookmark } = useQuranActions();
+  const { share, SnapshotHost } = useShareContentCard();
+
+  const shareAyah = useCallback(
+    (arabic: string, translation: string, surah: number, ayah: number) => {
+      const surahMeta = getSurahByNumber(surah);
+      void share(
+        buildAyahSharePayload(arabic, translation, surah, ayah, {
+          surahName: surahMeta?.nameTransliteration,
+          sectionTitle: t("share.sectionQuran"),
+        }),
+      );
+    },
+    [share, t],
+  );
 
   return (
     <ScreenLayout
@@ -39,6 +49,7 @@ export default function QuranBookmarksScreen() {
       subtitle={t("quran.bookmarksSubtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      {SnapshotHost}
       <Seo path="/quran/bookmarks" />
       {bookmarks.length === 0 ? (
         <EmptyState
@@ -90,18 +101,21 @@ export default function QuranBookmarksScreen() {
                         </ThemedText>
                       </View>
                     </PressableScale>
-                    <IconButton
+                    <LabeledIconButton
                       name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                      size={20}
+                      label={t("common.share")}
+                      iconSize={18}
                       tintColor={colors.mutedForeground}
                       accessibilityLabel={t("quran.shareAyah")}
                       haptic="light"
                       onPress={() => shareAyah(arabic, translation, bm.surah, bm.ayah)}
                     />
-                    <IconButton
+                    <LabeledIconButton
                       name={{ ios: "bookmark.fill", android: "bookmark", web: "bookmark" }}
-                      size={20}
+                      label={t("quran.actionBookmarked")}
+                      iconSize={18}
                       tintColor={tokens.status.warning.color}
+                      labelColor={tokens.status.warning.color}
                       accessibilityLabel={t("quran.bookmarkRemove")}
                       accessibilityState={{ selected: true }}
                       haptic="light"

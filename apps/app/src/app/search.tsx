@@ -2,14 +2,7 @@ import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ActivityIndicator,
-  InteractionManager,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Seo } from "@/components/seo/seo";
@@ -22,6 +15,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { chevronBack, chevronForward } from "@/lib/rtl";
+import { runWhenIdle } from "@/lib/run-when-idle";
 import {
   SEARCH_CATEGORY_ORDER,
   type SearchCategory,
@@ -197,7 +191,7 @@ export default function SearchScreen() {
   const lightGroups = useMemo(() => searchLight(debounced, LIGHT_FETCH_LIMIT), [debounced]);
   const hasQuery = tokenize(debounced).length > 0;
 
-  // Qur'an ayah full-text is heavy — build/scan it off the interaction thread so
+  // Qur'an ayah full-text is heavy — defer build/scan until idle so
   // the lighter results paint first and typing stays smooth.
   useEffect(() => {
     if ((filter !== "all" && filter !== "quran") || tokenize(debounced).length === 0) {
@@ -207,7 +201,7 @@ export default function SearchScreen() {
     }
     setAyahLoading(true);
     let cancelled = false;
-    const handle = InteractionManager.runAfterInteractions(() => {
+    const handle = runWhenIdle(() => {
       if (cancelled) return;
       const group = searchQuranAyahs(debounced, AYAH_FETCH_LIMIT);
       if (cancelled) return;

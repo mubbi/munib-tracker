@@ -2,6 +2,39 @@
 
 Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
 
+## Internationalization & Islamic terminology (READ BEFORE ADDING ANY SCREEN, COMPONENT, OR CONTENT)
+
+The app ships in **English, Urdu, and Arabic**. Every new feature or content update MUST follow these rules. They are enforced by `src/i18n/i18n-guard.test.ts` (runs in `pnpm test` / CI) — if you break them the build fails. Run it locally after any UI or catalog change:
+
+```
+pnpm --filter app test -- i18n-guard parity
+```
+
+**1. No hardcoded user-facing strings.** Every visible string — `<Text>` children, titles/eyebrows/subtitles, button labels, placeholders, `accessibilityLabel`/`accessibilityHint`, `Alert`/toast/notification text, empty states, validation messages — comes from `t("namespace.key")`. The single source of truth is `src/i18n/{en,ur,ar}.json`, organized by feature namespace. Author **English first**, then add the Urdu and Arabic values for the *same keys* (the guard's parity check fails otherwise). Do NOT hardcode English as a fallback in `t(key, "English default", …)` and skip the key — a wrong/missing key then silently ships English to every locale (the guard's key-coverage check catches this).
+
+**2. Standardized Islamic terminology — use ONLY the left-hand spelling in English source copy** (never the alternatives). The guard rejects the banned spellings:
+
+| Use (canonical) | Never write |
+|---|---|
+| **Salah** (the ritual prayer, in labels/stats/reminders) | Prayer/Prayers *as a bare label*, Namaz, Salat* |
+| **Zikr** (singular); **Adhkar** (plural) | Dhikr |
+| **Adhan** | Azan |
+| **Qaza** | Qada, Qadha |
+| **Fasting** (English); روزہ / الصيام in ur/ar | Roza (in English) |
+| **Tasbeeh** | Tasbih |
+| **Dua** | Du'a |
+| **Masjid** | Mosque |
+
+*Also: Fajr, Dhuhr, Asr, Maghrib, Isha, Witr, Tahajjud, Sunnah, Nafl, Wudu, Ghusl, Ramadan, Jumu'ah — spelled consistently.* The one nuance: **"Salah"** is for discrete labels; natural "prayer(s)" is allowed *only* mid-sentence in long educational prose under `prayerInfo.*` (and proper compounds like "Salat al-Wusta"). Everywhere else a bare "Prayer" label must be "Salah".
+
+**3. Translation quality.** Urdu/Arabic values must be fully translated — no English words left inside (the guard flags any 4+-letter Latin run except allowlisted proper nouns like JSON/iOS/Open-Meteo). Keep the exact same `{{interpolation}}` variables as the English (a `_one`/`_zero` plural form may naturally drop `{{count}}`). Never leave a value empty. **When you rewrite an existing English value, re-translate its ur/ar too** — pipelines that only fill *missing* keys leave the old translation stale.
+
+**4. RTL.** Both `ar` AND `ur` are right-to-left (`RTL_LOCALES` in `src/providers/i18n-provider.tsx`). Layout is flexbox and auto-flips, so: use **logical** style props (`marginStart`/`paddingEnd`/`borderStartWidth`) never physical (`marginLeft`/`left`); for direction-encoding glyphs use the helpers in **`src/lib/rtl.ts`** (`chevronForward`, `chevronBack`, `chevronBackward`, `arrowForward`) — never hardcode `chevron.right`/`arrow.left`. Concept icons (clock, calendar, mosque, moon, qibla turn-arrows) must NOT mirror. `textAlign:"right"` is correct only when paired with `writingDirection:"rtl"` (Arabic content); UI-chrome that must flip uses `I18nManager.isRTL ? "left" : "right"`.
+
+**5. Non-component code** (notifications, widgets, lib) uses the global singleton `import i18n from "@/i18n"` → `i18n.t(...)`, not the `useTranslation` hook.
+
+If a check's allowlist needs a genuinely new proper noun or Latin-legit key, extend the `LATIN_OK_*` / `BANNED_TERMS` constants at the top of `i18n-guard.test.ts` (with a comment) — don't weaken the check.
+
 ## Fuzzy search (Fuse.js)
 
 All search bars and content filtering use **[Fuse.js v7](https://github.com/krisk/Fuse/tree/main/docs)** (`fuse.js@^7.4.2`, full build). Read `.agents/skills/fuse-js/SKILL.md` before implementing or changing search.

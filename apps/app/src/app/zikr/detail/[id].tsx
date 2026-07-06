@@ -1,9 +1,8 @@
 import { getZikrById, ZIKR_ITEMS } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Share, StyleSheet, View } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
+import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -14,7 +13,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SegmentedProgress } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildZikrActivity } from "@/lib/continue-activity";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
@@ -33,12 +32,11 @@ export default function ZikrDetailScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const params = useLocalSearchParams<{ id: string }>();
-  const { colors } = useThemeTokens();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
   const item = params.id ? getZikrById(params.id) : undefined;
   const count = useZikrCount(item?.id ?? "");
-  const [toast, setToast] = useState<string | null>(null);
+  const shareCard = useShareContentCard();
 
   useEffect(() => {
     if (item) recordContinueActivity(buildZikrActivity(item));
@@ -68,32 +66,14 @@ export default function ZikrDetailScreen() {
   const isFavorite = favoriteIds.includes(item.id);
   const target = item.targetCount ?? 0;
 
-  const showToast = (message: string) => {
-    setToast(message);
-    setTimeout(() => setToast(null), 2000);
-  };
-
   const onShare = async () => {
-    const message = formatReadingShare(item);
-    if (Platform.OS === "web") {
-      const nav = typeof navigator !== "undefined" ? navigator : undefined;
-      try {
-        if (nav?.share) {
-          await nav.share({ text: message });
-        } else if (nav?.clipboard?.writeText) {
-          await nav.clipboard.writeText(message);
-          showToast(t("reading.copied"));
-        }
-      } catch {
-        // user cancelled or share/clipboard unavailable
-      }
-      return;
-    }
-    try {
-      await Share.share({ message });
-    } catch {
-      // user cancelled or share unavailable
-    }
+    await shareCard.share({
+      message: formatReadingShare(item),
+      sectionTitle: t("share.sectionReading"),
+      contentLabel: item.title ?? item.reference,
+      filenameSlug: "zikr",
+      content: { kind: "reading", item },
+    });
   };
 
   const zikrTitle = item.title;
@@ -112,6 +92,7 @@ export default function ZikrDetailScreen() {
       title={item.title}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      {shareCard.SnapshotHost}
       <Seo
         path={`/zikr/detail/${item.id}`}
         title={zikrTitle}
@@ -132,6 +113,7 @@ export default function ZikrDetailScreen() {
       <Stagger>
         <ReadingCard
           item={item}
+          shareCard={shareCard}
           sourceHref={`/zikr/detail/${item.id}`}
           contentRef={buildContentReportRef(
             "zikr",
@@ -192,17 +174,6 @@ export default function ZikrDetailScreen() {
             />
           </View>
         </View>
-
-        {toast ? (
-          <Animated.View
-            entering={FadeIn.duration(160)}
-            style={[styles.toast, { backgroundColor: colors.foreground }]}
-          >
-            <ThemedText type="small" style={{ color: colors.background }}>
-              {toast}
-            </ThemedText>
-          </Animated.View>
-        ) : null}
       </Stagger>
     </ScreenLayout>
   );
@@ -224,12 +195,5 @@ const styles = StyleSheet.create({
   },
   flex: {
     flex: 1,
-  },
-  toast: {
-    alignSelf: "center",
-    paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.four,
-    borderRadius: 999,
-    borderCurve: "continuous",
   },
 });

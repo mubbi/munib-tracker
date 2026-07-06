@@ -236,6 +236,22 @@ function puffColor(
   return { backgroundColor: tone.fill, opacity: 1 };
 }
 
+/** Expand the host box so round puffs are not clipped on Android (default overflow: hidden). */
+function cloudFrame(baseWidth: number, puffs: CloudPuffSpec[]): { width: number; height: number } {
+  const baseHeight = baseWidth * (52 / 132);
+  let maxBottom = baseHeight;
+  let maxRight = baseWidth;
+  for (const puff of puffs) {
+    const diameter = baseWidth * puff.size;
+    maxRight = Math.max(maxRight, baseWidth * puff.x + diameter);
+    maxBottom = Math.max(maxBottom, baseHeight * puff.y + diameter);
+  }
+  return {
+    width: maxRight + baseWidth * 0.02,
+    height: maxBottom + baseWidth * 0.04,
+  };
+}
+
 function DriftingCloud({
   top,
   left,
@@ -265,7 +281,8 @@ function DriftingCloud({
   }));
 
   const baseWidth = 132 * scale;
-  const baseHeight = 52 * scale;
+  const baseHeight = baseWidth * (52 / 132);
+  const frame = cloudFrame(baseWidth, puffs);
 
   return (
     <Animated.View
@@ -275,8 +292,8 @@ function DriftingCloud({
         {
           top: top as ViewStyle["top"],
           left: left as ViewStyle["left"],
-          width: baseWidth,
-          height: baseHeight,
+          width: frame.width,
+          height: frame.height,
           opacity,
         },
       ]}
@@ -545,6 +562,7 @@ const styles = StyleSheet.create({
   },
   cloudHost: {
     position: "absolute",
+    overflow: "visible",
   },
   cloudPuff: {
     position: "absolute",

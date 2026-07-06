@@ -1,13 +1,12 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FlatList,
+  type ListRenderItem,
   type ListRenderItemInfo,
-  Platform,
-  Share,
   StyleSheet,
   TextInput,
   View,
@@ -23,6 +22,7 @@ import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
 import { buildNamesActivity } from "@/lib/continue-activity";
@@ -50,14 +50,15 @@ type Name = (typeof NAMES_OF_ALLAH)[number];
 export default function NamesOfAllahScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Name>>(null);
   useEnsureNameFavoritesLoaded();
   const favoriteIds = useFavoriteNameIds();
   const { toggle } = useNameFavoritesActions();
-  const favoriteSet = new Set(favoriteIds);
+  const favoriteSet = useMemo(() => new Set(favoriteIds), [favoriteIds]);
+  const { share, SnapshotHost } = useShareContentCard();
 
   const [query, setQuery] = useState("");
   const index = useMemo(() => createNameSearch(NAMES_OF_ALLAH), []);
@@ -85,168 +86,143 @@ export default function NamesOfAllahScreen() {
     };
   }, []);
 
-  const playFrom = (name: Name) => {
-    const position = NAMES_OF_ALLAH.findIndex((n) => n.id === name.id);
-    audio.play(allNameTracks(NAMES_OF_ALLAH), Math.max(0, position), { sourceHref: NAMES_HREF });
-    recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
-  };
+  const playFrom = useCallback(
+    (name: Name) => {
+      const position = NAMES_OF_ALLAH.findIndex((n) => n.id === name.id);
+      audio.play(allNameTracks(NAMES_OF_ALLAH), Math.max(0, position), { sourceHref: NAMES_HREF });
+      recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
+    },
+    [audio],
+  );
 
   /** Play only the single tapped name (no auto-advance through the list). */
-  const playName = (name: Name) => {
-    const track = nameAudioTrack(name);
-    if (track) {
-      audio.play([track], 0, { sourceHref: NAMES_HREF });
-      recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
-    }
-  };
+  const playName = useCallback(
+    (name: Name) => {
+      const track = nameAudioTrack(name);
+      if (track) {
+        audio.play([track], 0, { sourceHref: NAMES_HREF });
+        recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
+      }
+    },
+    [audio],
+  );
 
-  const shareName = async (name: Name) => {
-    if (Platform.OS === "web") return;
-    try {
-      await Share.share({
+  const shareName = useCallback(
+    async (name: Name) => {
+      await share({
         message: formatReadingShare({
           title: name.transliteration,
           arabic: name.arabic,
           transliteration: name.transliteration,
           translation: name.meaning ?? name.translation,
         }),
+        sectionTitle: t("share.sectionNames"),
+        contentLabel: name.transliteration,
+        filenameSlug: "names",
+        content: {
+          kind: "reading",
+          item: {
+            title: name.transliteration,
+            arabic: name.arabic,
+            transliteration: name.transliteration,
+            translation: name.meaning ?? name.translation,
+          },
+        },
       });
-    } catch {
-      // cancelled
-    }
-  };
-
-  const header = (
-    <View style={styles.headerWrap}>
-      <SavedNavCard
-        title={t("names.favorites")}
-        viewLabel={t("names.favorites")}
-        count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
-        headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
-        rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
-        onPress={() => router.push("/names-of-allah/favorites")}
-      />
-
-      <Card padding="three" style={styles.headerCard}>
-        <View style={styles.playActions}>
-          <Button
-            label={t("names.playAll")}
-            icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
-            onPress={() => playFrom(NAMES_OF_ALLAH[0])}
-            style={styles.flex}
-          />
-          <Button
-            label={t("names.playContinuous")}
-            variant="secondary"
-            icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
-            onPress={() => audio.play([namesCompleteTrack()], 0, { sourceHref: NAMES_HREF })}
-            style={styles.flex}
-          />
-        </View>
-        <View style={[styles.searchBox, { backgroundColor: colors.muted }]}>
-          <SymbolView
-            name={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            size={17}
-            tintColor={colors.mutedForeground}
-          />
-          <TextInput
-            value={query}
-            onChangeText={setQuery}
-            placeholder={t("names.searchPlaceholder")}
-            placeholderTextColor={colors.mutedForeground}
-            accessibilityLabel={t("names.searchPlaceholder")}
-            autoCorrect={false}
-            returnKeyType="search"
-            style={[styles.input, { color: colors.foreground }]}
-          />
-        </View>
-      </Card>
-    </View>
+    },
+    [share, t],
   );
 
-  const renderItem = ({ item: name }: ListRenderItemInfo<Name>) => {
-    const isPlaying = activeId === name.id;
-    const isFavorite = favoriteSet.has(name.id);
-    return (
-      <View style={styles.cell}>
-        <Card
-          padding="three"
-          style={[
-            styles.card,
-            isPlaying
-              ? { borderColor: colors.accent, borderWidth: 1 }
-              : { borderColor: tokens.hairline, borderWidth: 1 },
-          ]}
-        >
-          <View style={styles.cardHeader}>
-            <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
-              <ThemedText type="caption" style={{ color: colors.accentText }}>
-                {NUMBER_BY_ID.get(name.id)}
-              </ThemedText>
-            </View>
-            <ThemedText type="arabic" style={styles.arabic}>
-              {name.arabic}
-            </ThemedText>
+  const header = useMemo(
+    () => (
+      <View style={styles.headerWrap}>
+        <SavedNavCard
+          title={t("names.favorites")}
+          viewLabel={t("names.favorites")}
+          count={favoriteIds.length > 0 ? favoriteIds.length : undefined}
+          headerIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          rowIcon={{ ios: "star.fill", android: "star", web: "star" }}
+          onPress={() => router.push("/names-of-allah/favorites")}
+        />
+
+        <Card padding="three" style={styles.headerCard}>
+          <View style={styles.playActions}>
+            <Button
+              label={t("names.playAll")}
+              icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+              onPress={() => playFrom(NAMES_OF_ALLAH[0])}
+              style={styles.flex}
+            />
+            <Button
+              label={t("names.playContinuous")}
+              variant="secondary"
+              icon={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+              onPress={() => audio.play([namesCompleteTrack()], 0, { sourceHref: NAMES_HREF })}
+              style={styles.flex}
+            />
           </View>
-          <ThemedText type="smallBold" numberOfLines={1} style={{ color: colors.accentText }}>
-            {name.transliteration}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.meaning}>
-            {name.meaning ?? name.translation}
-          </ThemedText>
-          <View style={styles.footer}>
-            {name.audioUri ? (
-              <IconButton
-                name={
-                  isPlaying && audio.isPlaying
-                    ? { ios: "pause.fill", android: "pause", web: "pause" }
-                    : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-                }
-                size={18}
-                tintColor={colors.accentForeground}
-                background={colors.accent}
-                hitTarget={40}
-                accessibilityLabel={
-                  isPlaying && audio.isPlaying ? t("names.pause") : t("names.play")
-                }
-                accessibilityState={{ selected: isPlaying }}
-                onPress={() => (isPlaying ? audio.toggle() : playName(name))}
-              />
-            ) : (
-              <View />
-            )}
-            <View style={styles.footerActions}>
-              <IconButton
-                name={
-                  isFavorite
-                    ? { ios: "star.fill", android: "star", web: "star" }
-                    : { ios: "star", android: "star_border", web: "star_border" }
-                }
-                size={16}
-                tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
-                background={tokens.accentSoft}
-                hitTarget={40}
-                accessibilityLabel={isFavorite ? t("names.unfavorite") : t("names.favorite")}
-                accessibilityState={{ selected: isFavorite }}
-                onPress={() => toggle(name.id)}
-              />
-              {Platform.OS !== "web" ? (
-                <IconButton
-                  name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                  size={16}
-                  tintColor={colors.mutedForeground}
-                  background={tokens.accentSoft}
-                  hitTarget={40}
-                  accessibilityLabel={t("names.share")}
-                  onPress={() => shareName(name)}
-                />
-              ) : null}
-            </View>
+          <View style={[styles.searchBox, { backgroundColor: colors.muted }]}>
+            <SymbolView
+              name={{ ios: "magnifyingglass", android: "search", web: "search" }}
+              size={17}
+              tintColor={colors.mutedForeground}
+            />
+            <TextInput
+              value={query}
+              onChangeText={setQuery}
+              placeholder={t("names.searchPlaceholder")}
+              placeholderTextColor={colors.mutedForeground}
+              accessibilityLabel={t("names.searchPlaceholder")}
+              autoCorrect={false}
+              returnKeyType="search"
+              style={[styles.input, { color: colors.foreground }]}
+            />
           </View>
         </Card>
       </View>
-    );
-  };
+    ),
+    [
+      audio,
+      colors.foreground,
+      colors.muted,
+      colors.mutedForeground,
+      favoriteIds.length,
+      playFrom,
+      query,
+      router,
+      t,
+    ],
+  );
+
+  const keyExtractor = useCallback((name: Name) => name.id, []);
+
+  const rowExtras = useMemo(
+    () => ({ activeId, isAudioPlaying: audio.isPlaying, favoriteSet }),
+    [activeId, audio.isPlaying, favoriteSet],
+  );
+
+  const rowExtrasRef = useRef(rowExtras);
+  rowExtrasRef.current = rowExtras;
+
+  const renderItem = useCallback<ListRenderItem<Name>>(
+    ({ item: name }: ListRenderItemInfo<Name>) => {
+      const extras = rowExtrasRef.current;
+      const rowIsPlaying = extras.activeId === name.id;
+      return (
+        <NameRow
+          name={name}
+          isPlaying={rowIsPlaying}
+          isAudioPlaying={rowIsPlaying ? extras.isAudioPlaying : false}
+          isFavorite={extras.favoriteSet.has(name.id)}
+          onPlayName={playName}
+          onToggleFavorite={toggle}
+          onShareName={shareName}
+          onTogglePlayback={audio.toggle}
+        />
+      );
+    },
+    [audio.toggle, playName, shareName, toggle],
+  );
 
   return (
     <ScreenLayout
@@ -256,6 +232,7 @@ export default function NamesOfAllahScreen() {
       subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
     >
+      {SnapshotHost}
       <Seo
         path="/names-of-allah"
         breadcrumbs={[
@@ -278,7 +255,8 @@ export default function NamesOfAllahScreen() {
       <FlatList
         ref={listRef}
         data={names}
-        keyExtractor={(name) => name.id}
+        extraData={rowExtras}
+        keyExtractor={keyExtractor}
         renderItem={renderItem}
         numColumns={2}
         columnWrapperStyle={styles.columnWrapper}
@@ -288,13 +266,126 @@ export default function NamesOfAllahScreen() {
         style={styles.list}
         contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
         showsVerticalScrollIndicator={false}
-        initialNumToRender={8}
-        windowSize={7}
+        initialNumToRender={6}
+        maxToRenderPerBatch={4}
+        windowSize={5}
+        updateCellsBatchingPeriod={100}
         removeClippedSubviews
       />
     </ScreenLayout>
   );
 }
+
+const NameRow = memo(function NameRow({
+  name,
+  isPlaying,
+  isAudioPlaying,
+  isFavorite,
+  onPlayName,
+  onToggleFavorite,
+  onShareName,
+  onTogglePlayback,
+}: {
+  name: Name;
+  isPlaying: boolean;
+  isAudioPlaying: boolean;
+  isFavorite: boolean;
+  onPlayName: (name: Name) => void;
+  onToggleFavorite: (id: string) => void;
+  onShareName: (name: Name) => void;
+  onTogglePlayback: () => void;
+}) {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+
+  const handlePlay = useCallback(() => {
+    if (isPlaying) onTogglePlayback();
+    else onPlayName(name);
+  }, [isPlaying, name, onPlayName, onTogglePlayback]);
+
+  const handleToggleFavorite = useCallback(
+    () => onToggleFavorite(name.id),
+    [name.id, onToggleFavorite],
+  );
+
+  const handleShare = useCallback(() => onShareName(name), [name, onShareName]);
+
+  return (
+    <View style={styles.cell}>
+      <Card
+        padding="three"
+        style={[
+          styles.card,
+          isPlaying
+            ? { borderColor: colors.accent, borderWidth: 1 }
+            : { borderColor: tokens.hairline, borderWidth: 1 },
+        ]}
+      >
+        <View style={styles.cardHeader}>
+          <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
+            <ThemedText type="caption" style={{ color: colors.accentText }}>
+              {NUMBER_BY_ID.get(name.id)}
+            </ThemedText>
+          </View>
+          <ThemedText type="arabic" style={styles.arabic}>
+            {name.arabic}
+          </ThemedText>
+        </View>
+        <ThemedText type="smallBold" numberOfLines={1} style={{ color: colors.accentText }}>
+          {name.transliteration}
+        </ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.meaning}>
+          {name.meaning ?? name.translation}
+        </ThemedText>
+        <View style={styles.footer}>
+          {name.audioUri ? (
+            <IconButton
+              name={
+                isPlaying && isAudioPlaying
+                  ? { ios: "pause.fill", android: "pause", web: "pause" }
+                  : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
+              }
+              size={18}
+              tintColor={colors.accentForeground}
+              background={colors.accent}
+              hitTarget={40}
+              accessibilityLabel={isPlaying && isAudioPlaying ? t("names.pause") : t("names.play")}
+              accessibilityState={{ selected: isPlaying }}
+              onPress={handlePlay}
+            />
+          ) : (
+            <View />
+          )}
+          <View style={styles.footerActions}>
+            <IconButton
+              name={
+                isFavorite
+                  ? { ios: "star.fill", android: "star", web: "star" }
+                  : { ios: "star", android: "star_border", web: "star_border" }
+              }
+              size={16}
+              tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+              background={tokens.accentSoft}
+              hitTarget={40}
+              accessibilityLabel={isFavorite ? t("names.unfavorite") : t("names.favorite")}
+              accessibilityState={{ selected: isFavorite }}
+              onPress={handleToggleFavorite}
+            />
+            <IconButton
+              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+              size={16}
+              tintColor={colors.mutedForeground}
+              background={tokens.accentSoft}
+              hitTarget={40}
+              accessibilityLabel={t("names.share")}
+              onPress={handleShare}
+            />
+          </View>
+        </View>
+      </Card>
+    </View>
+  );
+});
 
 const styles = StyleSheet.create({
   list: { flex: 1, width: "100%" },

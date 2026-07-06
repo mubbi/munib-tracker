@@ -1,9 +1,10 @@
 import { type BlurTint, BlurView } from "expo-blur";
 import { GlassView, isLiquidGlassAvailable } from "expo-glass-effect";
 import type { ReactNode } from "react";
-import type { StyleProp, ViewStyle } from "react-native";
+import { Platform, type StyleProp, type ViewStyle } from "react-native";
 
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useBlurTarget } from "@/providers/blur-target-provider";
 
 /**
  * True on iOS 26+, where the real Liquid Glass material is available. Elsewhere
@@ -44,6 +45,7 @@ export function GlassSurface({
   tint,
 }: GlassSurfaceProps) {
   const { scheme } = useThemeTokens();
+  const blurTarget = useBlurTarget();
 
   if (hasLiquidGlass) {
     return (
@@ -61,13 +63,18 @@ export function GlassSurface({
   const resolvedTint: BlurTint =
     tint ?? (scheme === "dark" ? "systemChromeMaterialDark" : "systemChromeMaterialLight");
 
+  const androidBlurMethod =
+    Platform.OS === "android" && blurTarget ? "dimezisBlurViewSdk31Plus" : undefined;
+
   return (
     <BlurView
       tint={resolvedTint}
       intensity={intensity}
-      // Real blur on Android 12+ (falls back to a translucent material below that);
-      // iOS/web ignore this. Without it, Android renders no blur at all.
-      blurMethod="dimezisBlurViewSdk31Plus"
+      // Real blur on Android 12+ when a root `BlurTargetView` is configured; iOS/web
+      // ignore `blurMethod` / `blurTarget`. Without a target, Android falls back to
+      // a translucent tint (no blur) to avoid native warnings.
+      blurMethod={androidBlurMethod}
+      blurTarget={Platform.OS === "android" ? (blurTarget ?? undefined) : undefined}
       style={style}
     >
       {children}

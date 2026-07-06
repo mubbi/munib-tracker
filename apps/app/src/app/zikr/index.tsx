@@ -1,7 +1,7 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 
@@ -41,6 +41,11 @@ export default function ZikrHomeScreen() {
     }
     return map;
   }, [categories]);
+
+  const onOpenDetail = useCallback(
+    (id: string) => router.push({ pathname: "/zikr/detail/[id]", params: { id } }),
+    [router],
+  );
 
   return (
     <ScreenLayout
@@ -110,9 +115,7 @@ export default function ZikrHomeScreen() {
                     item={item}
                     index={indexById.get(item.id)}
                     categoryLabel={t(`zikrCat.${item.categoryId}`)}
-                    onPress={() =>
-                      router.push({ pathname: "/zikr/detail/[id]", params: { id: item.id } })
-                    }
+                    onPress={onOpenDetail}
                   />
                 ))}
               </View>
@@ -161,7 +164,7 @@ function ZikrSearchRow({
   item: ZikrItem;
   index?: number;
   categoryLabel: string;
-  onPress: () => void;
+  onPress: (id: string) => void;
 }) {
   return <ZikrRow item={item} index={index} categoryLabel={categoryLabel} onPress={onPress} />;
 }

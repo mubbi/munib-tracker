@@ -31,6 +31,8 @@
     "minus": "Minus",
     "set": "Set",
     "play": "Play",
+    "share": "Share",
+    "saved": "Saved",
     "increase": "Increase {{label}}",
     "decrease": "Decrease {{label}}",
     "appName": "Munib Tracker",
@@ -373,7 +375,15 @@
     "homeCustomize": "Customize home",
     "homeCustomizeSub": "Reorder shortcuts and hide home cards",
     "offlineData": "Offline data",
-    "offlineDataSub": "Manage downloaded content and clear caches"
+    "offlineDataSub": "Manage downloaded content and clear caches",
+    "downloadNativeApps": "Get the native app",
+    "downloadNativeAppsDesc": "Install Munib Tracker on your phone for offline salah, zikr, and Qur'an — same account, same progress.",
+    "downloadIosTopLine": "Download on the",
+    "downloadIosBottomLine": "App Store",
+    "downloadAndroidTopLine": "GET IT ON",
+    "downloadAndroidBottomLine": "Google Play",
+    "downloadIosA11y": "Download Munib Tracker on the App Store",
+    "downloadAndroidA11y": "Get Munib Tracker on Google Play"
   },
   "import": {
     "title": "Import prayer history",
@@ -740,6 +750,25 @@
     "increase": "Increase text size",
     "reset": "Reset text size",
     "sizeDefault": "Default"
+  },
+  "share": {
+    "dialogTitle": "Share",
+    "proofTagline": "Track Your Journey Back to Allah — free on iOS, Android & web",
+    "proofGetApp": "Get Munib Tracker free",
+    "proofIosLabel": "App Store",
+    "proofAndroidLabel": "Google Play",
+    "proofWebLabel": "Web app",
+    "proofQrIosA11y": "QR code — download on the App Store",
+    "proofQrAndroidA11y": "QR code — get it on Google Play",
+    "proofQrWebA11y": "QR code — open the web app",
+    "proofExportedAt": "Shared · {{exportedAt}}",
+    "proofOrVisit": "OR visit: {{url}}",
+    "proofNotice": "Shared for benefit — please verify religious content with a trusted scholar.",
+    "sectionReading": "Reading",
+    "sectionQuran": "Qur'an",
+    "sectionHadith": "Hadith",
+    "sectionNames": "99 Names of Allah",
+    "sectionAchievement": "Achievement"
   },
   "dua": {
     "eyebrow": "Supplication",
@@ -3351,6 +3380,7 @@
     }
   },
   "contentReport": {
+    "short": "Report",
     "reportIssue": "Report an issue",
     "sheetTitle": "Report content issue",
     "issueTypeLabel": "What type of issue is this?",

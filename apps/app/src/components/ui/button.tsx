@@ -20,6 +20,8 @@ type ButtonProps = {
   trailingIcon?: SymbolViewProps["name"];
   fullWidth?: boolean;
   disabled?: boolean;
+  /** Override the label (and icon) color — useful on branded hero surfaces. */
+  labelColor?: string;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -32,6 +34,7 @@ export function Button({
   trailingIcon,
   fullWidth,
   disabled,
+  labelColor,
   style,
 }: ButtonProps) {
   const { colors, tokens } = useThemeTokens();
@@ -44,14 +47,19 @@ export function Button({
         : "transparent";
 
   const fg =
-    variant === "primary"
+    labelColor ??
+    (variant === "primary"
       ? colors.accentForeground
       : variant === "ghost"
         ? colors.mutedForeground
-        : colors.accentText;
+        : colors.accentText);
 
-  const paddingVertical = size === "sm" ? Spacing.two : Spacing.three - 2;
-  const paddingHorizontal = size === "sm" ? Spacing.three : Spacing.four;
+  const isSm = size === "sm";
+  const paddingVertical = isSm ? Spacing.one + 2 : Spacing.two;
+  const paddingHorizontal = isSm ? Spacing.two + 2 : Spacing.three;
+  const minHeight = isSm ? 36 : 40;
+  const iconSize = isSm ? 14 : 16;
+  const labelType = isSm ? "caption" : ("smallBold" as const);
 
   return (
     <PressableScale
@@ -62,11 +70,12 @@ export function Button({
       scaleTo={0.97}
       dimOnPress
       haptic="light"
+      hitSlop={minHeight < 44 ? { top: 4, bottom: 4 } : undefined}
       style={[
         styles.base,
         {
           backgroundColor: bg,
-          minHeight: size === "sm" ? 44 : 48,
+          minHeight,
           paddingVertical,
           paddingHorizontal,
           opacity: disabled ? 0.5 : 1,
@@ -78,13 +87,11 @@ export function Button({
       ]}
     >
       <View style={styles.content}>
-        {icon ? <AppIcon icon={icon} size={size === "sm" ? 15 : 17} tintColor={fg} /> : null}
-        <ThemedText type={size === "sm" ? "smallBold" : "default"} style={{ color: fg }}>
+        {icon ? <AppIcon icon={icon} size={iconSize} tintColor={fg} /> : null}
+        <ThemedText type={labelType} style={{ color: fg }}>
           {label}
         </ThemedText>
-        {trailingIcon ? (
-          <SymbolView name={trailingIcon} size={size === "sm" ? 15 : 17} tintColor={fg} />
-        ) : null}
+        {trailingIcon ? <SymbolView name={trailingIcon} size={iconSize} tintColor={fg} /> : null}
       </View>
     </PressableScale>
   );
@@ -92,7 +99,7 @@ export function Button({
 
 const styles = StyleSheet.create({
   base: {
-    borderRadius: Radius.pill,
+    borderRadius: Radius.md,
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",

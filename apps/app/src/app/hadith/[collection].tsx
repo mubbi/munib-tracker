@@ -2,8 +2,7 @@ import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { InteractionManager, Share, StyleSheet, TextInput, View } from "react-native";
-
+import { StyleSheet, TextInput, View } from "react-native";
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,13 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
 import { EmptyState } from "@/components/ui/empty-state";
-import { IconButton } from "@/components/ui/icon-button";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { NavRow } from "@/components/ui/nav-row";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useRemoteCollection } from "@/hooks/use-hadith";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildHadithActivity, buildHadithCollectionActivity } from "@/lib/continue-activity";
@@ -29,17 +29,15 @@ import {
   getBundledCollections,
 } from "@/lib/hadith";
 import { arabicReadingLayout } from "@/lib/reading-typography";
+import { runWhenIdle } from "@/lib/run-when-idle";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
+import { buildHadithSharePayload } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
 
 /** Build the plain-text body shared for a hadith (arabic + english + reference). */
-function hadithShareMessage(item: HadithItem): string {
-  return [item.arabic, item.english, item.reference].filter(Boolean).join("\n\n");
-}
-
 const PAGE_SIZE = 20;
 
 /**
@@ -66,6 +64,21 @@ export default function HadithCollectionScreen() {
   const data = remote ? remoteQuery.data : bundledData;
   const sections = data?.sections ?? [];
   const allItems = data?.items ?? [];
+  const { share, SnapshotHost } = useShareContentCard();
+
+  const shareHadith = useCallback(
+    (item: HadithItem) => {
+      void share(
+        buildHadithSharePayload(item.arabic, item.english, item.reference, {
+          sectionTitle: t("share.sectionHadith"),
+          contentLabel: collection
+            ? `${collection.nameEnglish} · ${item.reference}`
+            : item.reference,
+        }),
+      );
+    },
+    [collection, share, t],
+  );
 
   // Seed the in-collection search from a `q` param (e.g. arriving from universal
   // search) so the matched hadith is already filtered into view.
@@ -77,7 +90,7 @@ export default function HadithCollectionScreen() {
   // Fuzzy index over this collection's hadith. Building it is O(n) over every
   // item (a remote collection can hold thousands), so we never do it in a
   // render-blocking useMemo. Instead we keep it in state and build it lazily:
-  // deferred off the interaction thread once data has loaded, or immediately
+  // deferred until idle once data has loaded, or immediately
   // (synchronously) the moment the user starts searching if that deferred build
   // hasn't landed yet. Keyed to the item list so it rebuilds only when the data
   // changes — never per keystroke.
@@ -101,7 +114,7 @@ export default function HadithCollectionScreen() {
       return;
     }
     // Idle: defer the build so it doesn't compete with mount/nav animations.
-    const handle = InteractionManager.runAfterInteractions(build);
+    const handle = runWhenIdle(build);
     return () => handle.cancel();
   }, [allItems, searching, hadithIndex]);
 
@@ -199,6 +212,7 @@ export default function HadithCollectionScreen() {
           : () => (router.canGoBack() ? router.back() : router.replace("/"))
       }
     >
+      {SnapshotHost}
       <Seo
         path={`/hadith/${collectionId}`}
         title={collectionName}
@@ -282,6 +296,7 @@ export default function HadithCollectionScreen() {
                     collectionName={collection.nameEnglish}
                     isBookmarked={bookmarked.has(item.id)}
                     onBookmark={() => toggleBookmark(item)}
+                    onShare={shareHadith}
                   />
                 ))}
               </View>
@@ -319,11 +334,13 @@ function HadithCard({
   collectionName,
   isBookmarked,
   onBookmark,
+  onShare: onShareHadith,
 }: {
   item: HadithItem;
   collectionName: string;
   isBookmarked: boolean;
   onBookmark: () => void;
+  onShare: (item: HadithItem) => void;
 }) {
   const { colors, tokens } = useThemeTokens();
   const { t, i18n } = useTranslation();
@@ -335,7 +352,7 @@ function HadithCard({
 
   const onShare = () => {
     recordContinueActivity(buildHadithActivity(item, collectionName));
-    void Share.share({ message: hadithShareMessage(item) });
+    onShareHadith(item);
   };
 
   const onBookmarkPress = () => {
@@ -387,33 +404,38 @@ function HadithCard({
           </View>
           <View style={styles.cardActions}>
             {item.audioUri ? (
-              <IconButton
+              <LabeledIconButton
                 name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
-                size={22}
+                label={t("common.play")}
+                iconSize={20}
                 tintColor={colors.accent}
                 accessibilityLabel={t("common.play")}
                 onPress={onPlay}
               />
             ) : null}
-            <IconButton
+            <LabeledIconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              size={20}
+              label={t("common.share")}
+              iconSize={18}
               tintColor={colors.mutedForeground}
               accessibilityLabel={t("hadith.share")}
               onPress={onShare}
             />
-            <IconButton
+            <LabeledIconButton
               name={
                 isBookmarked
                   ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
                   : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
               }
-              size={20}
+              label={isBookmarked ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
+              iconSize={18}
               tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+              labelColor={isBookmarked ? tokens.status.warning.color : undefined}
               accessibilityLabel={
                 isBookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd")
               }
               accessibilityState={{ selected: isBookmarked }}
+              haptic="selection"
               onPress={onBookmarkPress}
             />
             <ContentReportButton
@@ -509,8 +531,11 @@ const styles = StyleSheet.create({
   },
   cardActions: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
+    flexWrap: "wrap",
+    justifyContent: "flex-end",
     gap: Spacing.one,
+    maxWidth: "58%",
   },
   arabic: {},
   divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.four },

@@ -90,8 +90,8 @@ export default function ZikrCategoryScreen() {
         item={item}
         index={indexById.get(item.id)}
         isFavorite={favoriteIds.includes(item.id)}
-        onToggleFavorite={() => toggleFavorite(item.id)}
-        onPress={() => onOpen(item.id)}
+        onToggleFavorite={toggleFavorite}
+        onPress={onOpen}
       />
     ),
     [favoriteIds, indexById, toggleFavorite, onOpen],
@@ -188,6 +188,10 @@ export default function ZikrCategoryScreen() {
             ItemSeparatorComponent={ListSeparator}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
+            initialNumToRender={12}
+            maxToRenderPerBatch={8}
+            windowSize={7}
+            removeClippedSubviews
             ListEmptyComponent={
               searching ? (
                 <EmptyState

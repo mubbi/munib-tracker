@@ -18,6 +18,8 @@ type SheetProps = {
   onClose: () => void;
   /** "center" for dialogs, "bottom" for action sheets. */
   variant?: "center" | "bottom";
+  /** Skip frosted glass — use a solid card (better for content-heavy sheets). */
+  solid?: boolean;
   children: ReactNode;
   contentStyle?: StyleProp<ViewStyle>;
 };
@@ -31,6 +33,7 @@ export function Sheet({
   visible,
   onClose,
   variant = "center",
+  solid = false,
   children,
   contentStyle,
 }: SheetProps) {
@@ -67,13 +70,19 @@ export function Sheet({
             // card stays transparent so the GlassSurface behind it shows. Centre
             // dialogs keep a solid card for crisp text.
             isBottom
-              ? { maxHeight: bottomMaxHeight, borderColor: colors.border }
+              ? solid
+                ? {
+                    maxHeight: bottomMaxHeight,
+                    backgroundColor: colors.card,
+                    borderColor: colors.border,
+                  }
+                : { maxHeight: bottomMaxHeight, borderColor: colors.border }
               : { backgroundColor: colors.card, borderColor: colors.border },
             contentStyle,
           ]}
           onPress={(event) => event.stopPropagation()}
         >
-          {isBottom ? (
+          {isBottom && !solid ? (
             <>
               <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
               <View
@@ -87,6 +96,9 @@ export function Sheet({
               />
               <View style={[styles.handle, { backgroundColor: tokens.track }]} />
             </>
+          ) : null}
+          {isBottom && solid ? (
+            <View style={[styles.handle, { backgroundColor: tokens.track }]} />
           ) : null}
           {children}
         </Pressable>

@@ -82,10 +82,22 @@ function volumeIconForLevel(volume: number): SymbolViewProps["name"] {
   return { ios: "speaker.wave.3.fill", android: "volume_up", web: "volume_up" };
 }
 
-function formatTime(seconds: number): string {
-  if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
+const ONE_HOUR_SECONDS = 60 * 60;
+
+/** Formats playback seconds as M:SS, or H:MM:SS when reference duration exceeds 60 minutes. */
+function formatTime(seconds: number, referenceDuration = seconds): string {
+  if (!Number.isFinite(seconds) || seconds < 0) {
+    return referenceDuration >= ONE_HOUR_SECONDS ? "0:00:00" : "0:00";
+  }
+  const total = Math.floor(seconds);
+  if (referenceDuration >= ONE_HOUR_SECONDS) {
+    const h = Math.floor(total / ONE_HOUR_SECONDS);
+    const m = Math.floor((total % ONE_HOUR_SECONDS) / 60);
+    const s = total % 60;
+    return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  }
+  const m = Math.floor(total / 60);
+  const s = total % 60;
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
@@ -369,38 +381,50 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
       </View>
 
       <View style={styles.compactBody}>
-        <PressableScale
-          haptic="light"
-          accessibilityRole="button"
-          accessibilityLabel={current.title}
-          accessibilityHint={t("player.expand")}
-          onPress={onExpand}
-          style={styles.infoRow}
-        >
-          <View style={[styles.icon, { backgroundColor: tokens.accentSoft }]}>
+        <View style={styles.compactTopRow}>
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={current.title}
+            accessibilityHint={t("player.expand")}
+            onPress={onExpand}
+            style={styles.infoRow}
+          >
+            <View style={[styles.icon, { backgroundColor: tokens.accentSoft }]}>
+              <SymbolView
+                name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
+                size={18}
+                tintColor={colors.accent}
+              />
+            </View>
+            <View style={styles.meta}>
+              <ThemedText type="smallBold" numberOfLines={1}>
+                {current.title}
+              </ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                {current.subtitle ? `${current.subtitle} · ` : ""}
+                {showSpinner
+                  ? t("player.buffering")
+                  : `${formatTime(livePosition, shownDuration)} / ${formatTime(shownDuration, shownDuration)}`}
+              </ThemedText>
+            </View>
             <SymbolView
-              name={{ ios: "waveform", android: "graphic_eq", web: "graphic_eq" }}
-              size={18}
-              tintColor={colors.accent}
+              name={{ ios: "chevron.up", android: "keyboard_arrow_up", web: "keyboard_arrow_up" }}
+              size={16}
+              tintColor={colors.mutedForeground}
             />
-          </View>
-          <View style={styles.meta}>
-            <ThemedText type="smallBold" numberOfLines={1}>
-              {current.title}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-              {current.subtitle ? `${current.subtitle} · ` : ""}
-              {showSpinner
-                ? t("player.buffering")
-                : `${formatTime(livePosition)} / ${formatTime(shownDuration)}`}
-            </ThemedText>
-          </View>
-          <SymbolView
-            name={{ ios: "chevron.up", android: "keyboard_arrow_up", web: "keyboard_arrow_up" }}
-            size={16}
-            tintColor={colors.mutedForeground}
+          </PressableScale>
+          <IconButton
+            name={{ ios: "xmark", android: "close", web: "close" }}
+            size={14}
+            tintColor="#FFFFFF"
+            background={tokens.status.danger.color}
+            hitTarget={36}
+            accessibilityLabel={t("player.close")}
+            haptic="medium"
+            onPress={stop}
           />
-        </PressableScale>
+        </View>
 
         <View style={styles.compactControlsRow}>
           <IconButton
@@ -482,13 +506,6 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               {rate}×
             </ThemedText>
           </PressableScale>
-          <IconButton
-            name={{ ios: "xmark", android: "close", web: "close" }}
-            size={16}
-            tintColor={colors.mutedForeground}
-            accessibilityLabel={t("player.close")}
-            onPress={stop}
-          />
         </View>
       </View>
     </View>
@@ -978,7 +995,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
     (info: { index: number; averageItemLength: number }) => {
       const centerInset = Math.max(0, playlistHeightRef.current / 2 - info.averageItemLength / 2);
       playlistRef.current?.scrollToOffset({
-        offset: Math.max(0, info.index * info.averageItemLength - centerInset),
+        offset: Math.max(0, centerInset + info.index * info.averageItemLength - centerInset),
         animated: false,
       });
       setTimeout(() => scrollActiveToCenter(info.index), 80);
@@ -1040,11 +1057,17 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
     }
   };
 
+  const sheetBottomInset = Math.max(insets.bottom, Spacing.two) + Spacing.two;
+
   return (
     <View
       style={[
         styles.sheet,
-        { backgroundColor: colors.background, paddingTop: insets.top + Spacing.two },
+        {
+          backgroundColor: colors.background,
+          paddingTop: insets.top + Spacing.two,
+          paddingBottom: sheetBottomInset,
+        },
       ]}
     >
       <View style={styles.sheetHeader}>
@@ -1113,10 +1136,10 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
       />
       <View style={styles.times}>
         <ThemedText type="caption" themeColor="mutedForeground">
-          {formatTime(livePosition)}
+          {formatTime(livePosition, shownDuration)}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
-          -{formatTime(Math.max(0, shownDuration - livePosition))}
+          -{formatTime(Math.max(0, shownDuration - livePosition), shownDuration)}
         </ThemedText>
       </View>
 
@@ -1240,13 +1263,13 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             onLayout={onPlaylistLayout}
             contentContainerStyle={{
               paddingTop: listCenterInset,
-              paddingBottom: listCenterInset + insets.bottom + Spacing.four,
+              paddingBottom: listCenterInset + Spacing.three,
             }}
             showsVerticalScrollIndicator={false}
             onScrollToIndexFailed={onScrollToIndexFailed}
             getItemLayout={(_, i) => ({
               length: PLAYLIST_ROW_HEIGHT,
-              offset: PLAYLIST_ROW_HEIGHT * i,
+              offset: listCenterInset + PLAYLIST_ROW_HEIGHT * i,
               index: i,
             })}
             renderItem={({ item: track, index: i }) => (
@@ -1289,7 +1312,16 @@ function PlaylistRow({
       haptic="light"
       scaleTo={0.98}
       onPress={onPress}
-      style={[styles.plRow, active ? { backgroundColor: tokens.accentSoft } : null]}
+      style={[
+        styles.plRow,
+        active
+          ? {
+              backgroundColor: tokens.accentSoft,
+              borderColor: tokens.accentBorder,
+              borderLeftColor: colors.accent,
+            }
+          : null,
+      ]}
     >
       <View style={styles.plIndex}>
         {active ? (
@@ -1351,7 +1383,13 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.two,
     paddingBottom: Spacing.two + 2,
   },
+  compactTopRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
   infoRow: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two + 2,
@@ -1543,9 +1581,12 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     minHeight: PLAYLIST_ROW_HEIGHT,
     paddingVertical: Spacing.two + 2,
-    paddingHorizontal: Spacing.two,
-    borderRadius: Radius.sm,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
     borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "transparent",
+    borderLeftWidth: 3,
   },
   plIndex: { width: 24, alignItems: "center" },
   plBody: { flex: 1, gap: 2 },

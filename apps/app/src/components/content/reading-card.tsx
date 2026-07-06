@@ -2,14 +2,15 @@ import type { ReadingSurface } from "@munib-tracker/shared/types";
 import type { ContentReportReference } from "@munib-tracker/shared/types/content-report";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { Platform, Share, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
-import { IconButton } from "@/components/ui/icon-button";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Spacing } from "@/constants/theme";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildDuroodActivity } from "@/lib/continue-activity";
 import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
@@ -43,6 +44,8 @@ export function ReadingCard({
   isFavorite,
   onToggleFavorite,
   surface = "dua_zikr",
+  /** When set, reuses a parent screen's share snapshot host (e.g. duplicate share buttons). */
+  shareCard: shareCardProp,
   contentRef,
 }: {
   item: ReadingItem;
@@ -51,6 +54,7 @@ export function ReadingCard({
   onToggleFavorite?: () => void;
   /** Reading surface for the in-context size override (NF-1.32). */
   surface?: ReadingSurface;
+  shareCard?: ReturnType<typeof useShareContentCard>;
   /** When set, shows a report button for this content item. */
   contentRef?: ContentReportReference;
 }) {
@@ -58,6 +62,8 @@ export function ReadingCard({
   const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
   const audio = useAudioPlayerContext();
+  const internalShare = useShareContentCard();
+  const { share, SnapshotHost } = shareCardProp ?? internalShare;
   const { arabic: arabicSize, translation: textSize } = resolveReadingFontSizes(surface, fontPrefs);
 
   const playAudio = () => {
@@ -81,24 +87,13 @@ export function ReadingCard({
 
   const onShare = async () => {
     const message = formatReadingShare(item);
-    if (Platform.OS === "web") {
-      const nav = typeof navigator !== "undefined" ? navigator : undefined;
-      try {
-        if (nav?.share) {
-          await nav.share({ text: message });
-        } else if (nav?.clipboard?.writeText) {
-          await nav.clipboard.writeText(message);
-        }
-      } catch {
-        // user cancelled or share/clipboard unavailable
-      }
-      return;
-    }
-    try {
-      await Share.share({ message });
-    } catch {
-      // user cancelled or share unavailable
-    }
+    await share({
+      message,
+      sectionTitle: t("share.sectionReading"),
+      contentLabel: item.title ?? item.reference,
+      filenameSlug: "reading",
+      content: { kind: "reading", item },
+    });
   };
 
   const menuActions: ContextMenuAction[] = [];
@@ -125,107 +120,118 @@ export function ReadingCard({
   };
 
   return (
-    <ContextMenu actions={menuActions} onAction={onMenuAction}>
-      <Card padding="four">
-        <View style={styles.header}>
-          {item.audioUri ? (
-            <IconButton
-              name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
-              size={16}
-              tintColor={colors.accent}
-              background={tokens.accentSoft}
-              accessibilityLabel={t("common.play")}
-              onPress={playAudio}
-            />
-          ) : (
-            <View />
-          )}
-          <View style={styles.headerActions}>
-            {onToggleFavorite ? (
-              <IconButton
-                name={
-                  isFavorite
-                    ? { ios: "star.fill", android: "star", web: "star" }
-                    : { ios: "star", android: "star_border", web: "star_border" }
-                }
-                size={18}
-                tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
-                accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
-                accessibilityState={{ selected: !!isFavorite }}
-                haptic="selection"
-                onPress={onToggleFavorite}
+    <>
+      {shareCardProp ? null : SnapshotHost}
+      <ContextMenu actions={menuActions} onAction={onMenuAction}>
+        <Card padding="four">
+          <View style={styles.header}>
+            {item.audioUri ? (
+              <LabeledIconButton
+                name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+                label={t("common.play")}
+                iconSize={16}
+                tintColor={colors.accent}
+                background={tokens.accentSoft}
+                accessibilityLabel={t("common.play")}
+                onPress={playAudio}
               />
-            ) : null}
-            <IconButton
-              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-              size={18}
-              tintColor={colors.mutedForeground}
-              accessibilityLabel={t("reading.share")}
-              onPress={onShare}
-            />
-            {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
+            ) : (
+              <View />
+            )}
+            <View style={styles.headerActions}>
+              {onToggleFavorite ? (
+                <LabeledIconButton
+                  name={
+                    isFavorite
+                      ? { ios: "star.fill", android: "star", web: "star" }
+                      : { ios: "star", android: "star_border", web: "star_border" }
+                  }
+                  label={isFavorite ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
+                  iconSize={16}
+                  tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+                  labelColor={isFavorite ? tokens.status.warning.color : undefined}
+                  accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
+                  accessibilityState={{ selected: !!isFavorite }}
+                  haptic="selection"
+                  onPress={onToggleFavorite}
+                />
+              ) : null}
+              <LabeledIconButton
+                name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                label={t("common.share")}
+                iconSize={16}
+                tintColor={colors.mutedForeground}
+                accessibilityLabel={t("reading.share")}
+                onPress={onShare}
+              />
+              {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
+            </View>
           </View>
-        </View>
 
-        <ThemedText
-          type="arabic"
-          style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
-        >
-          {item.arabic}
-        </ThemedText>
-
-        <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-
-        {item.transliteration ? (
           <ThemedText
-            type="small"
-            style={[
-              styles.transliteration,
-              { color: colors.accentText },
-              textSize ? { fontSize: textSize } : null,
-            ]}
+            type="arabic"
+            style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
           >
-            {item.transliteration}
+            {item.arabic}
           </ThemedText>
-        ) : null}
-        <ThemedText
-          type="default"
-          style={[styles.translation, textSize ? { fontSize: textSize } : null]}
-        >
-          {item.translation}
-        </ThemedText>
 
-        {item.virtues ? (
-          <View style={[styles.note, { backgroundColor: tokens.status.success.soft }]}>
-            <SymbolView
-              name={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-              size={16}
-              tintColor={tokens.status.success.color}
-            />
-            <ThemedText type="small" themeColor="mutedForeground" style={styles.noteText}>
-              {item.virtues}
+          <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+
+          {item.transliteration ? (
+            <ThemedText
+              type="small"
+              style={[
+                styles.transliteration,
+                { color: colors.accentText },
+                textSize ? { fontSize: textSize } : null,
+              ]}
+            >
+              {item.transliteration}
             </ThemedText>
-          </View>
-        ) : null}
+          ) : null}
+          <ThemedText
+            type="default"
+            style={[styles.translation, textSize ? { fontSize: textSize } : null]}
+          >
+            {item.translation}
+          </ThemedText>
 
-        {item.reference ? (
-          <ReferenceLine reference={item.reference} style={styles.reference} />
-        ) : null}
-      </Card>
-    </ContextMenu>
+          {item.virtues ? (
+            <View style={[styles.note, { backgroundColor: tokens.status.success.soft }]}>
+              <SymbolView
+                name={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+                size={16}
+                tintColor={tokens.status.success.color}
+              />
+              <ThemedText type="small" themeColor="mutedForeground" style={styles.noteText}>
+                {item.virtues}
+              </ThemedText>
+            </View>
+          ) : null}
+
+          {item.reference ? (
+            <ReferenceLine reference={item.reference} style={styles.reference} />
+          ) : null}
+        </Card>
+      </ContextMenu>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
     marginBottom: Spacing.two,
+    gap: Spacing.two,
   },
   headerActions: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
+    flexWrap: "wrap",
+    justifyContent: "flex-end",
+    gap: Spacing.one,
   },
   arabic: {},
   divider: { height: StyleSheet.hairlineWidth, marginVertical: Spacing.three },
