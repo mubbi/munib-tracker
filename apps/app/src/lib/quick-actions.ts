@@ -1,5 +1,12 @@
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "./names-of-allah-ui";
 
+/** Branded sentinel — use wherever the tasbeeh counter needs an icon. */
+export const TASBEEH_ICON: AppIcon = {
+  ios: "hand.tap.fill",
+  android: "touch_app",
+  web: "touch_app",
+};
+
 /** Semantic tone → theme token, resolved by consumers against `tokens.status` / accent. */
 export type QuickActionTone = "success" | "info" | "danger" | "warning" | "accent";
 
@@ -43,7 +50,7 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
   {
     id: "tasbeeh",
     labelKey: "actions.tasbeeh",
-    icon: { ios: "hand.tap.fill", android: "touch_app", web: "touch_app" },
+    icon: TASBEEH_ICON,
     tone: "accent",
   },
   {

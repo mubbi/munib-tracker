@@ -227,7 +227,10 @@ function BufferingBand({ color, active }: { color: string; active: boolean }) {
   };
 
   return (
-    <Reanimated.View pointerEvents="none" style={StyleSheet.absoluteFill} onLayout={onLayout}>
+    <Reanimated.View
+      style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}
+      onLayout={onLayout}
+    >
       <Reanimated.View style={band1Style} />
       <Reanimated.View style={band2Style} />
     </Reanimated.View>

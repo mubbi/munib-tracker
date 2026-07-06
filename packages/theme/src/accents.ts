@@ -101,6 +101,8 @@ export const defaultAccentColorId: AccentColorId = "forest";
 const legacyAccentColorMap: Record<string, AccentColorId> = {
   gold: "amber",
   emerald: "forest",
+  ramadan: "indigo",
+  hajj: "amber",
 };
 
 export function resolveAccentColorId(stored: string | null): AccentColorId | null {

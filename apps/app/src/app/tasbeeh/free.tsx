@@ -15,6 +15,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import {
   useCustomTasbeehActions,
@@ -82,10 +83,7 @@ export default function FreeTasbeehScreen() {
         ]}
       />
       <Stagger>
-        <SectionHeader
-          title={t("tasbeeh.quickCounter")}
-          icon={{ ios: "hand.tap.fill", android: "touch_app", web: "touch_app" }}
-        />
+        <SectionHeader title={t("tasbeeh.quickCounter")} icon={TASBEEH_ICON} />
 
         <Card variant="plain" padding="five" style={styles.card}>
           <TasbeehCounter

@@ -13,6 +13,7 @@ import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { IosPwaInstallBanner } from "@/components/pwa/ios-pwa-install-banner";
 import { QazaSummaryCard } from "@/components/qaza-summary-card";
 import { RamadanCard } from "@/components/ramadan-card";
+import { SeasonalThemeBanner } from "@/components/seasonal-theme-banner";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -31,7 +32,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { useWeeklyReport } from "@/hooks/use-weekly-report";
 import { NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
-import { orderQuickActions } from "@/lib/quick-actions";
+import { orderQuickActions, TASBEEH_ICON } from "@/lib/quick-actions";
 import { arrowForward, chevronForward } from "@/lib/rtl";
 import { HOME_FAQ } from "@/lib/seo/faq-content";
 import { faqSchema } from "@/lib/seo/structured-data";
@@ -115,7 +116,7 @@ export default function HomeScreen() {
     {
       id: "tasbeeh",
       label: t("actions.tasbeeh"),
-      icon: { ios: "hand.tap.fill", android: "touch_app", web: "touch_app" },
+      icon: TASBEEH_ICON,
       tint: colors.accent,
       onPress: () => router.push("/tasbeeh/free"),
     },
@@ -275,6 +276,7 @@ export default function HomeScreen() {
             sky={hero.sky}
             now={hero.now}
             moonLabel={hero.moonLabel}
+            southernHemisphere={hero.southernHemisphere}
             windowProgress={hero.windowProgress}
             notificationCount={notificationCount}
             weatherSummary={weather?.summary ?? null}
@@ -289,6 +291,8 @@ export default function HomeScreen() {
             <IosPwaInstallBanner />
 
             <Stagger>
+              <SeasonalThemeBanner />
+
               <Card>
                 <View style={styles.goalHeader}>
                   <View style={styles.goalTitle}>

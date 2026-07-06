@@ -76,7 +76,7 @@ export function ArcProgressRing({
   const strokeDashoffset = circumference * (1 - clamped);
 
   return (
-    <View style={[StyleSheet.absoluteFill, style]} pointerEvents="none">
+    <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }, style]}>
       <Svg width={size} height={size}>
         <Circle cx={cx} cy={cx} r={radius} stroke={trackColor} strokeWidth={stroke} fill="none" />
         {clamped > 0 ? (

@@ -44,6 +44,8 @@ export interface HomeHeroData {
   sky: SkyPalette;
   /** Localized accessibility label for the moon phase glyph. */
   moonLabel: string;
+  /** Mirror moon lit side for observers south of the equator. */
+  southernHemisphere: boolean;
   /** Fraction (0..1) of the current prayer window that has elapsed. */
   windowProgress: number;
   /** Pre-localized "in {{time}}" until the next marker, e.g. "in 27m". */
@@ -262,6 +264,7 @@ export function useHomeHero(): HomeHeroData {
       now,
       sky,
       moonLabel,
+      southernHemisphere: location.latitude < 0,
       windowProgress: progress,
       nextIn,
       nextScheduleId: selection.nextScheduleId,

@@ -10,6 +10,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
 import { formatHijriDate, gregorianToHijri, hijriMonthName } from "@/lib/hijri";
 import { daysUntilNewMoon, moonAgeDays, moonPhase } from "@/lib/moon";
+import { useLocation } from "@/stores/location-store";
 
 type MoonPhaseSheetProps = {
   visible: boolean;
@@ -28,6 +29,7 @@ type MoonPhaseSheetProps = {
 export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const location = useLocation();
 
   const base = i18n.language?.split("-")[0];
   const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
@@ -55,7 +57,13 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
             gradientBackground("radial-gradient(circle at 50% 42%, #1D2A48, #0D1424)"),
           ]}
         >
-          <MoonPhaseIcon date={date} size={72} litColor="#F5EBCB" shadowColor="#37527E" />
+          <MoonPhaseIcon
+            date={date}
+            size={72}
+            litColor="#F5EBCB"
+            shadowColor="#37527E"
+            southernHemisphere={location.latitude < 0}
+          />
         </View>
         <ThemedText type="title" style={styles.phaseName}>
           {t(`moon.${name}`)}

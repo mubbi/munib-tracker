@@ -1,6 +1,6 @@
 import { type MenuAction, MenuView } from "@expo/ui/community/menu";
 import type { ReactNode } from "react";
-import type { StyleProp, ViewStyle } from "react-native";
+import { Platform, type StyleProp, type ViewStyle } from "react-native";
 
 import { triggerHaptic } from "@/lib/haptics";
 
@@ -28,12 +28,11 @@ type ContextMenuProps = {
  * Long-press context menu around any content — a native SwiftUI `ContextMenu` on
  * iOS and a Jetpack Compose dropdown on Android (via `@expo/ui`). Because it opens
  * on long-press, the wrapped child keeps its own tap/press behaviour, so this is
- * purely additive over an existing card/row. On web the menu has no touch
- * analogue, so `@expo/ui` simply renders `children` (a one-time dev warning aside)
- * and the child's normal tap still works.
+ * purely additive over an existing card/row. On web there is no long-press menu
+ * analogue, so we render `children` only and the child's normal tap still works.
  */
 export function ContextMenu({ actions, onAction, children, title, style }: ContextMenuProps) {
-  if (actions.length === 0) return <>{children}</>;
+  if (actions.length === 0 || Platform.OS === "web") return <>{children}</>;
 
   return (
     <MenuView

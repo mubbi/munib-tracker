@@ -2,13 +2,15 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { AppIcon as AppIconName } from "@/lib/names-of-allah-ui";
 
 type SectionHeaderProps = {
   title: string;
-  icon?: SymbolViewProps["name"];
+  icon?: AppIconName;
   actionLabel?: string;
   actionIcon?: SymbolViewProps["name"];
   actionAccessibilityLabel?: string;
@@ -30,7 +32,7 @@ export function SectionHeader({
       <View style={styles.titleRow}>
         {icon ? (
           <View style={[styles.iconWell, { backgroundColor: tokens.accentSoft }]}>
-            <SymbolView name={icon} size={14} tintColor={colors.accent} />
+            <AppIcon icon={icon} size={14} tintColor={colors.accent} />
           </View>
         ) : null}
         <ThemedText type="subtitle" heading={2} style={{ textTransform: "capitalize" }}>

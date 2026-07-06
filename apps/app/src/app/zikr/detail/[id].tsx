@@ -17,6 +17,7 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildZikrActivity } from "@/lib/continue-activity";
+import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { recordContinueActivity } from "@/stores/continue-store";
@@ -164,7 +165,7 @@ export default function ZikrDetailScreen() {
         <View style={styles.actions}>
           <Button
             label={t("zikr.openInTasbeeh")}
-            icon={{ ios: "circle.hexagongrid.fill", android: "hive", web: "hive" }}
+            icon={TASBEEH_ICON}
             fullWidth
             onPress={() =>
               router.push({ pathname: "/tasbeeh/[zikrId]", params: { zikrId: item.id } })

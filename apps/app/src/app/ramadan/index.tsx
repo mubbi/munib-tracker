@@ -9,6 +9,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { FocusHighlight } from "@/components/ui/focus-highlight";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -16,6 +17,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { hijriToGregorian } from "@/lib/hijri";
 import { formatDuration, formatPrayerTime } from "@/lib/prayer-times";
@@ -58,6 +60,7 @@ export default function RamadanScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { scrollRef, register, onScroll, isFocused } = useScreenFocus();
   const location = useLocation();
   const prefs = usePreferences();
   const now = useMinuteClock();
@@ -75,14 +78,14 @@ export default function RamadanScreen() {
 
   const ramadanDays = useMemo(
     () =>
-      Array.from({ length: info.totalDays }, (_, i) => {
+      Array.from({ length: info.fastingLogTotalDays }, (_, i) => {
         const day = i + 1;
         return {
           day,
-          date: getLocalDateString(hijriToGregorian(info.hijriYear, RAMADAN_MONTH, day)),
+          date: getLocalDateString(hijriToGregorian(info.fastingLogHijriYear, RAMADAN_MONTH, day)),
         };
       }),
-    [info.totalDays, info.hijriYear],
+    [info.fastingLogTotalDays, info.fastingLogHijriYear],
   );
 
   type RamadanDayCell = (typeof ramadanDays)[number];
@@ -104,8 +107,13 @@ export default function RamadanScreen() {
   const fastedCount = ramadanDays.filter((d) => days[d.date] === "fasted").length;
   const missedCount = ramadanDays.filter((d) => days[d.date] === "missed").length;
   const exemptCount = ramadanDays.filter((d) => days[d.date] === "exempt").length;
-  const progress = info.totalDays > 0 ? fastedCount / info.totalDays : 0;
+  const progress = info.fastingLogTotalDays > 0 ? fastedCount / info.fastingLogTotalDays : 0;
   const progressPct = Math.round(progress * 100);
+  const hasFutureLogDays = ramadanDays.some((d) => d.date > today);
+  const showBackfillNote = !info.isRamadan;
+  const showFutureDaysNote = info.isRamadan && hasFutureLogDays;
+  const showLastTenCard = info.isRamadan && (info.day >= 21 || isFocused("ramadan-lastTen"));
+  const showLaylatCard = info.isRamadan && (info.day >= 21 || isFocused("ramadan-laylatQadr"));
 
   const countdown = useMemo(() => {
     const suhoorMs = info.suhoorEnds.getTime();
@@ -153,6 +161,8 @@ export default function RamadanScreen() {
           : t("ramadan.subtitle")
       }
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      scrollRef={scrollRef}
+      onScroll={onScroll}
     >
       <Seo path="/ramadan" />
       <Stagger>
@@ -199,93 +209,148 @@ export default function RamadanScreen() {
           </Card>
         ) : null}
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("ramadan.timesTitle")}
-            icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
-          />
-          <View
-            style={[
-              styles.countdownBanner,
-              {
-                backgroundColor:
-                  countdown.tone === "iftar"
-                    ? tokens.status.warning.soft
-                    : countdown.tone === "suhoor"
-                      ? tokens.accentSoft
-                      : success.soft,
-              },
-            ]}
-          >
-            <ThemedText
-              type="smallBold"
-              style={{
-                color:
-                  countdown.tone === "iftar"
-                    ? tokens.status.warning.color
-                    : countdown.tone === "suhoor"
-                      ? colors.accent
-                      : success.color,
-              }}
-            >
-              {countdown.label}
-            </ThemedText>
-          </View>
-          <View style={styles.times}>
+        <FocusHighlight ref={register("ramadan-times")} active={isFocused("ramadan-times")}>
+          <Card padding="three">
+            <SectionHeader
+              title={t("ramadan.timesTitle")}
+              icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
+            />
             <View
               style={[
-                styles.timeBox,
-                { backgroundColor: tokens.accentSoft, borderColor: withAlpha(colors.accent, 0.2) },
-              ]}
-            >
-              <IconWell
-                icon={{ ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" }}
-                tint={colors.accent}
-                background={withAlpha(colors.accent, 0.14)}
-                well={36}
-                size={16}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("ramadan.suhoor")}
-              </ThemedText>
-              <ThemedText type="header" style={{ color: colors.accent }}>
-                {formatPrayerTime(info.suhoorEnds, prefs.timeFormat, location.timeZone)}
-              </ThemedText>
-            </View>
-            <View
-              style={[
-                styles.timeBox,
+                styles.countdownBanner,
                 {
-                  backgroundColor: tokens.status.warning.soft,
-                  borderColor: tokens.status.warning.border,
+                  backgroundColor:
+                    countdown.tone === "iftar"
+                      ? tokens.status.warning.soft
+                      : countdown.tone === "suhoor"
+                        ? tokens.accentSoft
+                        : success.soft,
                 },
               ]}
             >
-              <IconWell
-                icon={{ ios: "sunset.fill", android: "wb_sunny", web: "wb_sunny" }}
-                tint={tokens.status.warning.color}
-                background={withAlpha(tokens.status.warning.color, 0.14)}
-                well={36}
-                size={16}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("ramadan.iftar")}
-              </ThemedText>
-              <ThemedText type="header" style={{ color: tokens.status.warning.color }}>
-                {formatPrayerTime(info.iftar, prefs.timeFormat, location.timeZone)}
+              <ThemedText
+                type="smallBold"
+                style={{
+                  color:
+                    countdown.tone === "iftar"
+                      ? tokens.status.warning.color
+                      : countdown.tone === "suhoor"
+                        ? colors.accent
+                        : success.color,
+                }}
+              >
+                {countdown.label}
               </ThemedText>
             </View>
-          </View>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("ramadan.timesHint")}
-          </ThemedText>
-        </Card>
+            <View style={styles.times}>
+              <View
+                style={[
+                  styles.timeBox,
+                  {
+                    backgroundColor: tokens.accentSoft,
+                    borderColor: withAlpha(colors.accent, 0.2),
+                  },
+                ]}
+              >
+                <IconWell
+                  icon={{ ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" }}
+                  tint={colors.accent}
+                  background={withAlpha(colors.accent, 0.14)}
+                  well={36}
+                  size={16}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("ramadan.suhoor")}
+                </ThemedText>
+                <ThemedText type="header" style={{ color: colors.accent }}>
+                  {formatPrayerTime(info.suhoorEnds, prefs.timeFormat, location.timeZone)}
+                </ThemedText>
+              </View>
+              <View
+                style={[
+                  styles.timeBox,
+                  {
+                    backgroundColor: tokens.status.warning.soft,
+                    borderColor: tokens.status.warning.border,
+                  },
+                ]}
+              >
+                <IconWell
+                  icon={{ ios: "sunset.fill", android: "wb_sunny", web: "wb_sunny" }}
+                  tint={tokens.status.warning.color}
+                  background={withAlpha(tokens.status.warning.color, 0.14)}
+                  well={36}
+                  size={16}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("ramadan.iftar")}
+                </ThemedText>
+                <ThemedText type="header" style={{ color: tokens.status.warning.color }}>
+                  {formatPrayerTime(info.iftar, prefs.timeFormat, location.timeZone)}
+                </ThemedText>
+              </View>
+            </View>
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+              {t("ramadan.timesHint")}
+            </ThemedText>
+          </Card>
+        </FocusHighlight>
+
+        {showLastTenCard ? (
+          <FocusHighlight ref={register("ramadan-lastTen")} active={isFocused("ramadan-lastTen")}>
+            <Card padding="three">
+              <SectionHeader
+                title={t("ramadan.lastTenTitle")}
+                icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.seasonBody}>
+                {t("ramadan.lastTenBody")}
+              </ThemedText>
+            </Card>
+          </FocusHighlight>
+        ) : null}
+
+        {showLaylatCard ? (
+          <FocusHighlight
+            ref={register("ramadan-laylatQadr")}
+            active={isFocused("ramadan-laylatQadr")}
+          >
+            <Card padding="three">
+              <SectionHeader
+                title={t("ramadan.laylatQadrTitle")}
+                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.seasonBody}>
+                {t("ramadan.laylatQadrBody")}
+              </ThemedText>
+            </Card>
+          </FocusHighlight>
+        ) : null}
 
         <Card padding="three">
           <SectionHeader
             title={t("ramadan.fastingTitle")}
             icon={{ ios: "checkmark.seal.fill", android: "verified", web: "verified" }}
           />
+
+          {showBackfillNote ? (
+            <View
+              style={[
+                styles.logNote,
+                { backgroundColor: tokens.accentSoft, borderColor: withAlpha(colors.accent, 0.2) },
+              ]}
+            >
+              <ThemedText type="caption" style={{ color: colors.accent }}>
+                {t("ramadan.fastingLogBackfillNote", { year: info.fastingLogHijriYear })}
+              </ThemedText>
+            </View>
+          ) : null}
+
+          {showFutureDaysNote ? (
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.logNoteInline}>
+              {t("ramadan.gridFutureDaysNote")}
+            </ThemedText>
+          ) : null}
 
           <View style={styles.statsRow}>
             <View
@@ -328,7 +393,7 @@ export default function RamadanScreen() {
 
           <View style={styles.progressBlock}>
             <ThemedText type="caption" themeColor="mutedForeground">
-              {t("ramadan.fastedCount", { count: fastedCount, total: info.totalDays })}
+              {t("ramadan.fastedCount", { count: fastedCount, total: info.fastingLogTotalDays })}
               {progressPct > 0 ? ` · ${progressPct}%` : ""}
             </ThemedText>
             <ProgressBar value={progress} height={6} color={success.color} />
@@ -450,6 +515,16 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   hint: { marginTop: Spacing.three },
+  seasonBody: { marginTop: Spacing.two, lineHeight: 20 },
+  logNote: {
+    marginTop: Spacing.three,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: 1,
+  },
+  logNoteInline: { marginTop: Spacing.three },
   statsRow: { flexDirection: "row", gap: Spacing.two, marginTop: Spacing.three },
   statBox: {
     flex: 1,

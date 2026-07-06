@@ -1,4 +1,11 @@
-import { daysUntilFullMoon, daysUntilNewMoon, moonAgeDays, moonPhase } from "@/lib/moon";
+import {
+  daysUntilFullMoon,
+  daysUntilNewMoon,
+  moonAgeDays,
+  moonIconGeometry,
+  moonPhase,
+  moonPhaseName,
+} from "@/lib/moon";
 
 const SYNODIC = 29.530588853;
 
@@ -25,6 +32,14 @@ describe("moonPhase", () => {
     expect(moonPhase(new Date("2024-01-29T12:00:00Z")).waxing).toBe(false);
   });
 
+  it("does not label waning gibbous as last quarter before the quarter point", () => {
+    // Jul 6 2026 is waning gibbous (~57% lit); last quarter is Jul 7.
+    const phase = moonPhase(new Date("2026-07-06T15:39:00Z"));
+    expect(phase.name).toBe("waningGibbous");
+    expect(phase.illumination).toBeGreaterThan(0.5);
+    expect(phase.illumination).toBeLessThan(0.97);
+  });
+
   it("keeps fraction within [0, 1) and illumination within [0, 1]", () => {
     const cursor = new Date("2024-01-01T00:00:00Z");
     for (let i = 0; i < 60; i += 1) {
@@ -35,6 +50,53 @@ describe("moonPhase", () => {
       expect(illumination).toBeLessThanOrEqual(1);
       cursor.setDate(cursor.getDate() + 1);
     }
+  });
+});
+
+describe("moonPhaseName", () => {
+  it.each([
+    [0, 0, true, "new"],
+    [0.125, 0.146, true, "waxingCrescent"],
+    [0.25, 0.5, true, "firstQuarter"],
+    [0.375, 0.854, true, "waxingGibbous"],
+    [0.5, 1, false, "full"],
+    [0.625, 0.854, false, "waningGibbous"],
+    [0.75, 0.5, false, "lastQuarter"],
+    [0.875, 0.146, false, "waningCrescent"],
+  ])("classifies fraction %s as %s", (fraction, illumination, waxing, expected) => {
+    expect(moonPhaseName(fraction, illumination, waxing)).toBe(expected);
+  });
+});
+
+describe("moonIconGeometry", () => {
+  const north = (fraction: number, waxing: boolean) => moonIconGeometry(fraction, waxing, false);
+  const south = (fraction: number, waxing: boolean) => moonIconGeometry(fraction, waxing, true);
+
+  it.each([
+    ["waxingCrescent", 0.125, true, true, true, false],
+    ["firstQuarter", 0.25, true, true, false, false],
+    ["waxingGibbous", 0.375, true, true, false, false],
+    ["waningGibbous", 0.625, false, false, false, false],
+    ["lastQuarter", 0.75, false, false, false, false],
+    ["waningCrescent", 0.875, false, false, true, false],
+  ] as const)("northern hemisphere %s lights the correct side", (_label, fraction, waxing, litOnRight, isCrescent, _) => {
+    const g = north(fraction, waxing);
+    expect(g.litOnRight).toBe(litOnRight);
+    expect(g.isCrescent).toBe(isCrescent);
+  });
+
+  it("mirrors the lit side in the southern hemisphere", () => {
+    expect(north(0.25, true).litOnRight).toBe(true);
+    expect(south(0.25, true).litOnRight).toBe(false);
+    expect(north(0.75, false).litOnRight).toBe(false);
+    expect(south(0.75, false).litOnRight).toBe(true);
+  });
+
+  it("collapses the terminator at quarter moons and expands it at new/full", () => {
+    expect(north(0.25, true).terminatorScaleX).toBeCloseTo(0, 5);
+    expect(north(0.75, false).terminatorScaleX).toBeCloseTo(0, 5);
+    expect(north(0, true).terminatorScaleX).toBeCloseTo(1, 5);
+    expect(north(0.5, false).terminatorScaleX).toBeCloseTo(1, 5);
   });
 });
 

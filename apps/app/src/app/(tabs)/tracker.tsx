@@ -37,6 +37,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/content";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
+import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { chevronForward } from "@/lib/rtl";
 import { zikrCategories } from "@/lib/zikr";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
@@ -181,7 +182,7 @@ export default function TrackerScreen() {
     {
       id: "tasbeeh",
       label: t("actions.tasbeeh"),
-      icon: { ios: "hand.tap.fill", android: "touch_app", web: "touch_app" },
+      icon: TASBEEH_ICON,
       tint: colors.accent,
       onPress: () => router.push("/tasbeeh/free"),
     },

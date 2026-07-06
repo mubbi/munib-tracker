@@ -79,6 +79,9 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
         if (storedCustom && normalizeHex(storedCustom)) {
           setCustomAccentState(normalizeHex(storedCustom));
         }
+
+        // Drop legacy seasonal-theme preference (banners are now automatic).
+        void AsyncStorage.removeItem("@munib-tracker/seasonal-theme");
       } finally {
         if (mounted) {
           setIsReady(true);
@@ -109,10 +112,6 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     );
     if (customAccent) {
       const textSurface = scheme === "dark" ? base.card : base.background;
-      // Presets ship hand-tuned light/dark pairs; a custom hex is a single
-      // colour, so give it the same adaptation — rescue near-white accents in
-      // light mode and near-black accents in dark mode so `accent` stays visible
-      // wherever it's used as a fill/icon on the page background.
       const accent = ensureContrastAgainst(customAccent, base.background, 3);
       return {
         ...base,
@@ -135,7 +134,6 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
   const setAccentColor = useCallback((accentId: AccentColorId) => {
     setAccentColorIdState(accentId);
-    // Choosing a preset clears any custom accent.
     setCustomAccentState(null);
     void AsyncStorage.setItem(STORAGE_KEYS.accent, accentId);
     void AsyncStorage.removeItem(CUSTOM_ACCENT_KEY);

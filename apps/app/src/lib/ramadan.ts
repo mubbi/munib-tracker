@@ -1,4 +1,4 @@
-import { gregorianToHijri, hijriMonthLength } from "./hijri";
+import { gregorianToHijri, type HijriDate, hijriMonthLength } from "./hijri";
 import { locationCalcExtras, type StoredLocation } from "./location";
 import { computePrayerTimes } from "./prayer-times";
 import { prayerDayAnchor } from "./time";
@@ -13,10 +13,23 @@ export interface RamadanInfo {
   /** Days in this Ramadan (29 or 30). */
   totalDays: number;
   hijriYear: number;
+  /** Hijri year whose Ramadan days appear in the fasting log grid. */
+  fastingLogHijriYear: number;
+  /** Length of that Ramadan (29 or 30 days). */
+  fastingLogTotalDays: number;
   /** Suhoor ends at Fajr. */
   suhoorEnds: Date;
   /** Iftar begins at Maghrib. */
   iftar: Date;
+}
+
+/**
+ * Which Hijri year's Ramadan the fasting log should show. During or after
+ * Ramadan in year Y → Y; before Ramadan in year Y → Y − 1 (the last completed
+ * Ramadan) so the log stays editable after the Hijri year rolls.
+ */
+export function getFastingLogHijriYear(hijri: Pick<HijriDate, "year" | "month">): number {
+  return hijri.month >= RAMADAN_MONTH ? hijri.year : hijri.year - 1;
 }
 
 /**
@@ -37,11 +50,15 @@ export function getRamadanInfo(location: StoredLocation, now: Date = new Date())
     locationCalcExtras(location),
   );
 
+  const fastingLogHijriYear = getFastingLogHijriYear(hijri);
+
   return {
     isRamadan,
     day: isRamadan ? hijri.day : 0,
     totalDays: hijriMonthLength(hijri.year, RAMADAN_MONTH),
     hijriYear: hijri.year,
+    fastingLogHijriYear,
+    fastingLogTotalDays: hijriMonthLength(fastingLogHijriYear, RAMADAN_MONTH),
     suhoorEnds: times.fajr,
     iftar: times.maghrib,
   };

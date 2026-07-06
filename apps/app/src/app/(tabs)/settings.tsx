@@ -90,6 +90,12 @@ export default function SettingsScreen() {
               onPress={() => router.push("/settings/time-format")}
             />
             <SettingsRow
+              icon={{ ios: "slider.horizontal.3", android: "tune", web: "tune" }}
+              title={t("prayerTuning.title")}
+              subtitle={t("prayerTuning.settingsSub")}
+              onPress={() => router.push("/settings/prayer-tuning")}
+            />
+            <SettingsRow
               icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
               title={t("settings.defaultCalendar")}
               subtitle={t("settings.defaultCalendarSub")}

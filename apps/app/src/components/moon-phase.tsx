@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 
-import { moonPhase } from "@/lib/moon";
+import { moonIconGeometry, moonPhase } from "@/lib/moon";
 
 type MoonPhaseIconProps = {
   /** Instant to render the moon for. */
@@ -11,6 +11,8 @@ type MoonPhaseIconProps = {
   litColor?: string;
   /** Shadowed surface colour (also the "new moon" disc). */
   shadowColor?: string;
+  /** Mirror the lit side for observers south of the equator. */
+  southernHemisphere?: boolean;
   accessibilityLabel?: string;
 };
 
@@ -25,15 +27,15 @@ export function MoonPhaseIcon({
   size = 18,
   litColor = "#F4E9C8",
   shadowColor = "#324C74",
+  southernHemisphere = false,
   accessibilityLabel,
 }: MoonPhaseIconProps) {
   const { fraction, waxing } = moonPhase(date);
-
-  // cos runs +1 (new) → 0 (quarter) → -1 (full). Its sign says whether the disc
-  // is a crescent (lit < 50%) or gibbous; its magnitude is the terminator width.
-  const cos = Math.cos(2 * Math.PI * fraction);
-  const isCrescent = cos > 0;
-  const terminatorScaleX = Math.abs(cos);
+  const { litOnRight, isCrescent, terminatorScaleX } = moonIconGeometry(
+    fraction,
+    waxing,
+    southernHemisphere,
+  );
 
   return (
     <View
@@ -45,12 +47,12 @@ export function MoonPhaseIcon({
         { width: size, height: size, borderRadius: size / 2, backgroundColor: shadowColor },
       ]}
     >
-      {/* The base lit hemisphere: right when waxing, left when waning. */}
+      {/* The base lit hemisphere: right when waxing (north), left when waning. */}
       <View
         style={[
           styles.half,
           { width: size / 2, backgroundColor: litColor },
-          waxing ? styles.right : styles.left,
+          litOnRight ? styles.right : styles.left,
         ]}
       />
       {/* Elliptical terminator: dark carves a crescent, lit fills a gibbous. */}

@@ -2,9 +2,11 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { AppIcon as AppIconName } from "@/lib/names-of-allah-ui";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 type ButtonSize = "sm" | "md";
@@ -14,7 +16,7 @@ type ButtonProps = {
   onPress?: () => void;
   variant?: ButtonVariant;
   size?: ButtonSize;
-  icon?: SymbolViewProps["name"];
+  icon?: AppIconName;
   trailingIcon?: SymbolViewProps["name"];
   fullWidth?: boolean;
   disabled?: boolean;
@@ -76,7 +78,7 @@ export function Button({
       ]}
     >
       <View style={styles.content}>
-        {icon ? <SymbolView name={icon} size={size === "sm" ? 15 : 17} tintColor={fg} /> : null}
+        {icon ? <AppIcon icon={icon} size={size === "sm" ? 15 : 17} tintColor={fg} /> : null}
         <ThemedText type={size === "sm" ? "smallBold" : "default"} style={{ color: fg }}>
           {label}
         </ThemedText>

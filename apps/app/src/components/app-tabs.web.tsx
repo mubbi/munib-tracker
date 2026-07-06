@@ -7,7 +7,7 @@ import {
   type TabTriggerSlotProps,
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions, View, type ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
@@ -53,6 +53,7 @@ const tabs: TabConfig[] = [
 
 export default function AppTabs() {
   const { width } = useWindowDimensions();
+  const { colors } = useThemeTokens();
   const isWide = width >= SIDE_RAIL_BREAKPOINT;
 
   const triggers = (variant: TabVariant) =>
@@ -63,12 +64,11 @@ export default function AppTabs() {
     ));
 
   // Wide viewports (tablet / desktop web): rail beside the content column.
-  // `style` is spread onto the Tabs root View (overriding its default), so we
-  // switch it to a row and keep TabList/TabSlot as DIRECT children of Tabs —
-  // required for expo-router to discover the triggers.
+  // TabList/TabSlot stay DIRECT children of Tabs — required for expo-router
+  // to discover the triggers.
   if (isWide) {
     return (
-      <Tabs style={styles.wideRoot}>
+      <Tabs style={[styles.wideRoot, { backgroundColor: colors.background }]}>
         <TabList asChild>
           <SideRail>{triggers("rail")}</SideRail>
         </TabList>
@@ -147,13 +147,42 @@ export function TabButton({
 }
 
 /**
+ * Frosted chrome for the side rail. The bottom tab bar floats over scrollable
+ * content so `BlurView` can backdrop-blur it; the rail sits beside the column
+ * with nothing behind it, and `expo-blur`'s system-chrome tint reads as flat
+ * gray. Use a themed translucent wash + CSS blur instead.
+ */
+function SideRailChrome() {
+  const { colors, tokens } = useThemeTokens();
+  const washAlpha = tokens.isDark ? 0.22 : 0.32;
+
+  return (
+    <View
+      style={[
+        StyleSheet.absoluteFill,
+        {
+          pointerEvents: "none",
+          backgroundColor: withAlpha(colors.background, tokens.isDark ? 0.78 : 0.86),
+          // RN Web maps this to backdrop-filter for a subtle frosted edge.
+          backdropFilter: "blur(20px) saturate(160%)",
+        } as ViewStyle,
+      ]}
+    >
+      <View
+        style={[StyleSheet.absoluteFill, { backgroundColor: withAlpha(colors.card, washAlpha) }]}
+      />
+    </View>
+  );
+}
+
+/**
  * Persistent left navigation rail shown on wide web / tablet. Receives the same
  * `TabTrigger` children as the bottom bar (via `TabList asChild`), so routing
  * behaviour is identical — only the presentation differs.
  */
 export function SideRail(props: TabListProps) {
   const insets = useSafeAreaInsets();
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
 
   return (
     <View
@@ -169,16 +198,7 @@ export function SideRail(props: TabListProps) {
         },
       ]}
     >
-      <GlassSurface style={StyleSheet.absoluteFill} intensity={60} />
-      <View
-        style={[
-          StyleSheet.absoluteFill,
-          {
-            backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.24 : 0.34),
-            pointerEvents: "none",
-          },
-        ]}
-      />
+      <SideRailChrome />
       <View style={styles.railList}>{props.children}</View>
     </View>
   );
@@ -234,6 +254,7 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRightWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Spacing.three,
+    overflow: "hidden",
   },
   railList: {
     flexDirection: "column",

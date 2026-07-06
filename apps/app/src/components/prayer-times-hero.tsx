@@ -51,6 +51,8 @@ type PrayerTimesHeroProps = {
   now: Date;
   /** Localized accessibility label for the moon phase glyph. */
   moonLabel: string;
+  /** Mirror moon lit side for observers south of the equator. */
+  southernHemisphere?: boolean;
   /** Fraction (0..1) of the current prayer window that has elapsed. */
   windowProgress: number;
   notificationCount?: number;
@@ -101,6 +103,7 @@ export function PrayerTimesHero({
   sky,
   now,
   moonLabel,
+  southernHemisphere = false,
   windowProgress,
   notificationCount = 0,
   weatherSummary = null,
@@ -288,7 +291,7 @@ export function PrayerTimesHero({
               accessibilityLabel={t("moonSheet.open", { phase: moonLabel })}
               style={styles.dateRow}
             >
-              <MoonPhaseIcon date={now} size={22} />
+              <MoonPhaseIcon date={now} size={22} southernHemisphere={southernHemisphere} />
               <ThemedText style={[styles.hijri, styles.softShadow, { color: Brand.heroText }]}>
                 {displayDate}
               </ThemedText>

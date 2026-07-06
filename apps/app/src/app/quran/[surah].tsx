@@ -753,10 +753,9 @@ const AyahRow = memo(function AyahRow({
       </Card>
       {!isPlaying ? (
         <Animated.View
-          pointerEvents="none"
           style={[
             styles.focusRing,
-            { borderColor: colors.accent, borderRadius: Radius.lg },
+            { borderColor: colors.accent, borderRadius: Radius.lg, pointerEvents: "none" },
             focusBorderStyle,
           ]}
         />

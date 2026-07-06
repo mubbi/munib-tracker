@@ -12,10 +12,12 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { FocusHighlight } from "@/components/ui/focus-highlight";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Spacing } from "@/constants/theme";
+import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   useEnsureHajjChecklistLoaded,
@@ -80,6 +82,7 @@ export default function HajjScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { scrollRef, register, onScroll, isFocused } = useScreenFocus();
   useEnsureHajjChecklistLoaded();
   const done = useHajjChecklist();
   const { toggle, reset } = useHajjChecklistActions();
@@ -94,6 +97,8 @@ export default function HajjScreen() {
       title={t("hajj.title")}
       subtitle={t("hajj.subtitle")}
       onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      scrollRef={scrollRef}
+      onScroll={onScroll}
     >
       <Seo path="/hajj" />
 
@@ -115,33 +120,35 @@ export default function HajjScreen() {
       </Card>
 
       {HAJJ_GUIDE_SECTIONS.map((section) => (
-        <Card key={section.id} padding="three" style={styles.sectionCard}>
-          <View style={styles.sectionHead}>
-            <View style={styles.sectionTitleWrap}>
-              <ThemedText type="subtitle">{section.title}</ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {section.summary}
-              </ThemedText>
-            </View>
-            <Pill
-              label={
-                section.day ?? (section.kind === "umrah" ? t("hajj.umrahTag") : t("hajj.hajjTag"))
-              }
-              color={colors.accentText}
-              background={tokens.accentSoft}
-            />
-          </View>
-          <View style={styles.steps}>
-            {section.steps.map((step) => (
-              <CheckStep
-                key={step.id}
-                step={step}
-                done={!!done[step.id]}
-                onToggle={() => void toggle(step.id)}
+        <FocusHighlight key={section.id} ref={register(section.id)} active={isFocused(section.id)}>
+          <Card padding="three" style={styles.sectionCard}>
+            <View style={styles.sectionHead}>
+              <View style={styles.sectionTitleWrap}>
+                <ThemedText type="subtitle">{section.title}</ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {section.summary}
+                </ThemedText>
+              </View>
+              <Pill
+                label={
+                  section.day ?? (section.kind === "umrah" ? t("hajj.umrahTag") : t("hajj.hajjTag"))
+                }
+                color={colors.accentText}
+                background={tokens.accentSoft}
               />
-            ))}
-          </View>
-        </Card>
+            </View>
+            <View style={styles.steps}>
+              {section.steps.map((step) => (
+                <CheckStep
+                  key={step.id}
+                  step={step}
+                  done={!!done[step.id]}
+                  onToggle={() => void toggle(step.id)}
+                />
+              ))}
+            </View>
+          </Card>
+        </FocusHighlight>
       ))}
 
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
@@ -167,33 +174,29 @@ export default function HajjScreen() {
 }
 
 const styles = StyleSheet.create({
-  progressCard: { marginBottom: Spacing.three, gap: Spacing.two },
+  progressCard: { gap: Spacing.two },
   progressHead: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    gap: Spacing.two,
   },
-  sectionCard: { marginBottom: Spacing.three },
+  sectionCard: { gap: Spacing.three },
   sectionHead: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    gap: Spacing.two,
-    marginBottom: Spacing.three,
+    gap: Spacing.three,
   },
-  sectionTitleWrap: { flex: 1, gap: 2 },
+  sectionTitleWrap: { flex: 1, gap: Spacing.one },
   steps: { gap: Spacing.three },
   step: { flexDirection: "row", alignItems: "flex-start", gap: Spacing.three },
-  stepCopy: { flex: 1, gap: 2 },
+  stepCopy: { flex: 1, gap: Spacing.one },
   stepHead: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two,
     flexWrap: "wrap",
+    gap: Spacing.two,
   },
-  disclaimer: {
-    marginTop: Spacing.one,
-    marginBottom: Spacing.three,
-    textAlign: "center",
-  },
+  disclaimer: { textAlign: "center", marginTop: Spacing.two },
 });
