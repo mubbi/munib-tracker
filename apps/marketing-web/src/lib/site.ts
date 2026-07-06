@@ -18,6 +18,7 @@ export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? nu
 export const SITE_PATHS = {
   home: "/",
   features: "/features",
+  learn: "/learn",
   download: "/download",
   contact: "/contact",
   press: "/press",
@@ -32,10 +33,48 @@ export type SitePath = (typeof SITE_PATHS)[keyof typeof SITE_PATHS];
 
 export const NAV_LINKS = [
   { href: SITE_PATHS.features, label: "Features" },
+  { href: SITE_PATHS.learn, label: "Learn" },
   { href: SITE_PATHS.download, label: "Download" },
   { href: SITE_PATHS.about, label: "About" },
   { href: SITE_PATHS.faq, label: "FAQ" },
   { href: SITE_PATHS.contact, label: "Contact" },
 ] as const;
 
+/** Grouped links for the multi-column footer. */
+export const FOOTER_GROUPS = [
+  {
+    heading: "Product",
+    links: [
+      { href: SITE_PATHS.features, label: "Features" },
+      { href: SITE_PATHS.download, label: "Download" },
+      { href: PRODUCT_APP_URL, label: "Open web app", external: true },
+    ],
+  },
+  {
+    heading: "Learn",
+    links: [
+      { href: SITE_PATHS.learn, label: "Learning library" },
+      { href: SITE_PATHS.faq, label: "FAQ" },
+      { href: SITE_PATHS.credits, label: "Content sources" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { href: SITE_PATHS.about, label: "About" },
+      { href: SITE_PATHS.contact, label: "Contact" },
+      { href: SITE_PATHS.press, label: "Press kit" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { href: SITE_PATHS.privacy, label: "Privacy" },
+      { href: SITE_PATHS.terms, label: "Terms" },
+      { href: SITE_PATHS.credits, label: "Credits" },
+    ],
+  },
+] as const;
+
+/** Backwards-compatible flat link list. */
 export const FOOTER_LINKS = [...NAV_LINKS, { href: SITE_PATHS.press, label: "Press kit" }] as const;

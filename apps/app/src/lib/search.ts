@@ -705,9 +705,10 @@ export function isAyahIndexReady(): boolean {
 
 /**
  * Build (once) the Fuse index over all 6,236 ayahs by pairing the bundled
- * translation and transliteration per surah. Normalizing ~12k strings on first
- * call is the heavy part, so callers run it via `InteractionManager`; afterwards
- * it is a cached in-memory fuzzy search.
+ * translation, transliteration, and Arabic text per surah — so an Arabic-script
+ * query finds the ayah, not just its surah name. Normalizing ~18k strings on
+ * first call is the heavy part, so callers run it via `InteractionManager`;
+ * afterwards it is a cached in-memory fuzzy search.
  */
 function getAyahFuse(): Fuse<FuseDoc<AyahRef>> {
   if (ayahFuse) return ayahFuse;
@@ -730,6 +731,7 @@ function getAyahFuse(): Fuse<FuseDoc<AyahRef>> {
   ayahFuse = makeFuse(refs, [
     { key: "translation", weight: 2, get: (r) => r.translation },
     { key: "translit", weight: 2, get: (r) => r.transliteration },
+    { key: "arabic", weight: 2, get: (r) => r.arabic },
   ]);
   return ayahFuse;
 }

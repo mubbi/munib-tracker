@@ -54,6 +54,9 @@ export function IconButton({
       onPress={onPress}
       haptic={haptic}
       hitSlop={8}
+      // A bare glyph reads best with a circular (borderless) Android ripple; a
+      // filled well clips a bounded ripple to its rounded square.
+      rippleBorderless={!background}
       style={[
         styles.base,
         { minWidth: hitTarget, minHeight: hitTarget, opacity: disabled ? 0.4 : 1 },

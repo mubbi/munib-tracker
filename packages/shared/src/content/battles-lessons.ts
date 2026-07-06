@@ -1,5 +1,8 @@
 import type { BattlesLessonCard } from "../types/battles";
 
+/** Bump when lesson cards change. */
+export const BATTLES_LESSON_CARDS_VERSION = 2;
+
 export const BATTLES_LESSON_CARDS: BattlesLessonCard[] = [
   {
     id: "badr-trust",
@@ -7,7 +10,7 @@ export const BATTLES_LESSON_CARDS: BattlesLessonCard[] = [
     battleTitle: "Battle of Badr",
     lesson: "Trust Allah while preparing fully.",
     detail:
-      "The Muslims were outnumbered roughly three to one, yet they arranged ranks, made du'a, and fought with discipline. Victory came through both effort and reliance on Allah.",
+      "Outnumbered roughly three to one, the Muslims still chose their ground at the wells, arranged their ranks, and made du'a — the Prophet ﷺ imploring Allah through the night until his cloak fell. Effort and reliance together, and the victory was credited to Allah.",
   },
   {
     id: "uhud-obedience",
@@ -29,9 +32,17 @@ export const BATTLES_LESSON_CARDS: BattlesLessonCard[] = [
     id: "hudaybiyyah-patience",
     battleId: "hudaybiyyah",
     battleTitle: "Treaty of Hudaybiyyah",
-    lesson: "Patience can lead to greater victory.",
+    lesson: "Patience can be the truest victory.",
     detail:
-      "Companions saw the treaty as a setback; Surah al-Fath called it a clear victory. Within two years the balance of power shifted dramatically.",
+      "The companions felt the truce as a humiliation, and Umar questioned it openly; Surah al-Fath answered by calling it a manifest victory. The ten-year peace opened the roads, Islam spread faster than ever, and within two years the way to Makkah lay open.",
+  },
+  {
+    id: "qurayzah-covenant",
+    battleId: "banu-qurayzah",
+    battleTitle: "Banu Qurayzah",
+    lesson: "Breaking a covenant of protection is among the gravest betrayals.",
+    detail:
+      "Banu Qurayzah tore up the covenant of Madinah at the very moment the Confederates besieged the city. Even so, the Prophet ﷺ let them be judged by an arbiter they themselves chose — justice through an agreed judge, not unchecked vengeance.",
   },
   {
     id: "makkah-mercy",
@@ -39,7 +50,7 @@ export const BATTLES_LESSON_CARDS: BattlesLessonCard[] = [
     battleTitle: "Conquest of Makkah",
     lesson: "Mercy after victory elevates a conqueror.",
     detail:
-      "The Prophet ﷺ asked the people of Makkah, 'What do you think I will do with you?' and declared: 'Go — you are free.' Revenge was replaced by amnesty.",
+      "With the city that had tortured and expelled him now at his mercy, the Prophet ﷺ echoed the words of Prophet Yusuf: 'No blame upon you today — go, you are free.' A general amnesty replaced revenge, and hearts were won that no punishment could have won.",
   },
   {
     id: "hunayn-humility",

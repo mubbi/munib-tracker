@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -72,39 +73,31 @@ export default function TaharahProgressScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
             {t("taharah.progressExploreHint")}
           </ThemedText>
-          <View style={styles.links}>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/taharah/checklist" as Href)}
-            >
-              {t("taharah.checklistTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() =>
-                router.push({
-                  pathname: "/taharah/[topic]",
-                  params: { topic: "wudu-steps" },
-                })
-              }
-            >
-              {t("taharah.wuduTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() =>
-                router.push({
-                  pathname: "/taharah/[topic]",
-                  params: { topic: "ghusl-steps" },
-                })
-              }
-            >
-              {t("taharah.ghuslTitle")}
-            </ThemedText>
-          </View>
+          <ContentLinkList
+            style={styles.links}
+            links={[
+              {
+                label: t("taharah.checklistTitle"),
+                onPress: () => router.push("/taharah/checklist" as Href),
+              },
+              {
+                label: t("taharah.wuduTitle"),
+                onPress: () =>
+                  router.push({
+                    pathname: "/taharah/[topic]",
+                    params: { topic: "wudu-steps" },
+                  }),
+              },
+              {
+                label: t("taharah.ghuslTitle"),
+                onPress: () =>
+                  router.push({
+                    pathname: "/taharah/[topic]",
+                    params: { topic: "ghusl-steps" },
+                  }),
+              },
+            ]}
+          />
         </Card>
 
         <JannahDisclaimer textKey="taharah.disclaimer" />
@@ -116,6 +109,5 @@ export default function TaharahProgressScreen() {
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.one, lineHeight: 20 },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
-  links: { marginTop: Spacing.three, gap: Spacing.two },
-  link: { textDecorationLine: "underline" },
+  links: { marginTop: Spacing.three },
 });

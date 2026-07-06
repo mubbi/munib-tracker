@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Headers,
   HttpCode,
@@ -12,6 +13,7 @@ import {
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
+  ApiNoContentResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -88,6 +90,15 @@ export class AuthController {
   @ApiOperation({ summary: "Revoke the current session" })
   logout(@Headers("authorization") authorization: string | undefined): Promise<void> {
     return this.authService.revokeSession(this.extractBearerToken(authorization));
+  }
+
+  @Delete("me")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: "Permanently delete the current account and all its data" })
+  @ApiNoContentResponse({ description: "Account, sessions, and all synced data were deleted" })
+  deleteAccount(@Headers("authorization") authorization: string | undefined): Promise<void> {
+    return this.authService.deleteAccount(this.extractBearerToken(authorization));
   }
 
   private extractBearerToken(authorization?: string): string {

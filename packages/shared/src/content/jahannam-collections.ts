@@ -300,60 +300,60 @@ export const JAHANNAM_VERSES: JahannamVerseEntry[] = [
 
 export const JAHANNAM_HADITH: JahannamHadithEntry[] = [
   {
-    id: "h-6318",
+    id: "h-tirmidhi-2572",
     theme: "protection",
     hadith: {
-      collection: "Sahih al-Bukhari",
-      citation: "6318",
+      collection: "Jami' at-Tirmidhi",
+      citation: "2572",
       grade: "sahih",
       excerpt:
-        "Whoever asks Allah for Paradise three times, Paradise requests his admission. Whoever seeks refuge from the Fire three times, the Fire requests his protection.",
+        "Whoever asks Allah for Paradise three times, Paradise says: O Allah, admit him into Paradise. Whoever seeks refuge from the Fire three times, the Fire says: O Allah, protect him from the Fire.",
     },
     context: "Encouragement to make regular du'a for Jannah and refuge from Jahannam.",
   },
   {
-    id: "h-6307",
+    id: "h-6309",
     theme: "mercy",
     hadith: {
       collection: "Sahih al-Bukhari",
-      citation: "6307",
+      citation: "6309",
       grade: "sahih",
       excerpt:
-        "Allah is more joyful with the repentance of His servant than one who finds his lost mount in a barren land.",
+        "Allah is more pleased with the repentance of His servant than one of you who finds his lost mount in a barren land.",
     },
   },
   {
-    id: "h-2766",
+    id: "h-6467",
     theme: "mercy",
     hadith: {
-      collection: "Sahih Muslim",
-      citation: "2766",
+      collection: "Sahih al-Bukhari",
+      citation: "6467",
       grade: "sahih",
       excerpt:
-        "None of you will enter Paradise by deeds alone — not even me, unless Allah covers me with His mercy.",
+        "None of you will enter Paradise by his deeds alone — not even me, unless Allah covers me with His mercy.",
     },
     context: "Balance: strive in deeds but rely on mercy.",
   },
   {
-    id: "h-6562",
+    id: "h-3265",
     theme: "warning",
     hadith: {
       collection: "Sahih al-Bukhari",
-      citation: "6562",
+      citation: "3265",
       grade: "sahih",
       excerpt:
-        "The Fire was kindled for one thousand years until it reddened, then one thousand until it whitened — and it is black and dark.",
+        "Your fire is one part of seventy parts of the fire of Hell, each part being like its heat.",
     },
   },
   {
-    id: "h-6443",
+    id: "h-tirmidhi-2621",
     theme: "warning",
     hadith: {
-      collection: "Sahih al-Bukhari",
-      citation: "6443",
+      collection: "Jami' at-Tirmidhi",
+      citation: "2621",
       grade: "sahih",
       excerpt:
-        "The covenant between us and them is prayer; whoever abandons it has committed kufr.",
+        "The covenant between us and them is prayer; whoever abandons it has committed disbelief.",
     },
     context: "Severity of neglecting salah — among the gravest warnings.",
   },
@@ -370,22 +370,22 @@ export const JAHANNAM_HADITH: JahannamHadithEntry[] = [
     context: "Rights of people may be settled before deeds on Judgment Day.",
   },
   {
-    id: "h-2747",
+    id: "h-2759",
     theme: "repentance",
     hadith: {
       collection: "Sahih Muslim",
-      citation: "2747",
+      citation: "2759",
       grade: "sahih",
       excerpt:
-        "Allah extends His hand at night for the repentant by day, and during the day for the repentant by night.",
+        "Allah extends His hand by night to accept the repentance of the sinner of the day, and extends His hand by day to accept the repentance of the sinner of the night.",
     },
   },
   {
-    id: "h-6477",
+    id: "h-6018",
     theme: "warning",
     hadith: {
       collection: "Sahih al-Bukhari",
-      citation: "6477",
+      citation: "6018",
       grade: "sahih",
       excerpt: "Whoever believes in Allah and the Last Day, let him speak good or remain silent.",
     },

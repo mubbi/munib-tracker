@@ -1,17 +1,17 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { SettingsRow } from "@/components/settings/settings-rows";
+import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useFormatTime } from "@/hooks/use-time-format";
 import { useAuth } from "@/providers/auth-provider";
-import { usePreferences } from "@/stores/preferences-store";
+import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 const LOCALE_LABELS: Record<string, string> = { en: "English", ar: "العربية", ur: "اردو" };
 
@@ -19,7 +19,9 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
+  const { update } = usePreferencesActions();
   const { formatStored } = useFormatTime();
+  const isNative = Platform.OS === "ios" || Platform.OS === "android";
   const { isAuthenticated, user } = useAuth();
   // A null/offline session isn't "guest" per the API, but the user still has no
   // linked account — treat them as a guest until they're a real authenticated user.
@@ -58,6 +60,19 @@ export default function SettingsScreen() {
               subtitle={t("settings.appearanceSub")}
               onPress={() => router.push("/settings/appearance")}
             />
+            {isNative ? (
+              <ToggleRow
+                icon={{
+                  ios: "iphone.radiowaves.left.and.right",
+                  android: "vibration",
+                  web: "vibration",
+                }}
+                title={t("settings.haptics")}
+                subtitle={t("settings.hapticsSub")}
+                value={prefs.hapticsEnabled}
+                onValueChange={(enabled) => void update({ hapticsEnabled: enabled })}
+              />
+            ) : null}
             <SettingsRow
               icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
               title={t("settings.notifications")}

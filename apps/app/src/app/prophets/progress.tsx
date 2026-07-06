@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -72,39 +73,31 @@ export default function ProphetsProgressScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
             {t("prophets.progressExploreHint")}
           </ThemedText>
-          <View style={styles.links}>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/prophets/timeline" as Href)}
-            >
-              {t("prophets.timelineTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() =>
-                router.push({
-                  pathname: "/prophets/[topic]",
-                  params: { topic: "muhammad" },
-                })
-              }
-            >
-              {t("prophets.muhammadTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() =>
-                router.push({
-                  pathname: "/prophets/[topic]",
-                  params: { topic: "prophets-lessons" },
-                })
-              }
-            >
-              {t("prophets.lessonsTopicTitle")}
-            </ThemedText>
-          </View>
+          <ContentLinkList
+            style={styles.links}
+            links={[
+              {
+                label: t("prophets.timelineTitle"),
+                onPress: () => router.push("/prophets/timeline" as Href),
+              },
+              {
+                label: t("prophets.muhammadTitle"),
+                onPress: () =>
+                  router.push({
+                    pathname: "/prophets/[topic]",
+                    params: { topic: "muhammad" },
+                  }),
+              },
+              {
+                label: t("prophets.lessonsTopicTitle"),
+                onPress: () =>
+                  router.push({
+                    pathname: "/prophets/[topic]",
+                    params: { topic: "prophets-lessons" },
+                  }),
+              },
+            ]}
+          />
         </Card>
 
         <JannahDisclaimer textKey="prophets.disclaimer" />
@@ -116,6 +109,5 @@ export default function ProphetsProgressScreen() {
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.one, lineHeight: 20 },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
-  links: { marginTop: Spacing.three, gap: Spacing.two },
-  link: { textDecorationLine: "underline" },
+  links: { marginTop: Spacing.three },
 });

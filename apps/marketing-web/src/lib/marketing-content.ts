@@ -23,4 +23,22 @@ export const TESTIMONIALS: Testimonial[] = [
     author: "Fatima R.",
     role: "Qaza planner user",
   },
+  {
+    quote:
+      "I came for the tracker and stayed for the learning library. The aqeedah and seerah lessons are clear, cited, and genuinely beautiful.",
+    author: "Yusuf A.",
+    role: "Student of knowledge",
+  },
+  {
+    quote:
+      "Teaching my kids to pray got so much easier with the salah guide and tajweed lessons. Everything in one calm, ad-free place.",
+    author: "Khadija M.",
+    role: "Parent, Toronto",
+  },
+  {
+    quote:
+      "The streaks and Noor levels keep me motivated without the guilt. It finally feels like the app is on my side.",
+    author: "Bilal S.",
+    role: "Rebuilding consistency",
+  },
 ];

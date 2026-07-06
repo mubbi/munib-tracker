@@ -4,7 +4,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { AdhanStylePicker } from "@/components/adhan/adhan-style-picker";
 import {
   type NotificationListItem,
   NotificationListRow,
@@ -16,7 +16,6 @@ import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
-import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
@@ -66,9 +65,13 @@ export default function NotificationsScreen() {
   const [scheduled, setScheduled] = useState<Scheduled>([]);
 
   const reloadScheduled = useCallback(async () => {
-    setScheduled(
-      await listScheduled(preferencesStore.getState().prefs, locationStore.getState().location),
-    );
+    try {
+      setScheduled(
+        await listScheduled(preferencesStore.getState().prefs, locationStore.getState().location),
+      );
+    } catch {
+      setScheduled([]);
+    }
   }, []);
 
   useFocusEffect(
@@ -214,9 +217,8 @@ export default function NotificationsScreen() {
             }
           />
           {ADHAN_STYLES.length > 1 ? (
-            <View style={styles.adhanToggle}>
-              <SegmentedControl
-                options={ADHAN_STYLES.map((style) => ({ id: style.id, label: style.name }))}
+            <View style={styles.adhanPicker}>
+              <AdhanStylePicker
                 value={prefs.adhanStyleId ?? DEFAULT_ADHAN_STYLE}
                 onChange={(id) => void onSelectAdhanStyle(id)}
               />
@@ -327,6 +329,9 @@ const styles = StyleSheet.create({
   },
   adhanToggle: {
     marginTop: Spacing.two,
+  },
+  adhanPicker: {
+    marginTop: Spacing.three,
   },
   footer: {
     textAlign: "center",

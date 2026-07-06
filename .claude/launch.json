@@ -12,6 +12,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "app", "exec", "expo", "start", "--web", "--port", "8124"],
       "port": 8124
+    },
+    {
+      "name": "marketing-web-3100",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "marketing-web", "exec", "next", "dev", "--port", "3100"],
+      "port": 3100
     }
   ]
 }

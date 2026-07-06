@@ -73,6 +73,31 @@ export function buildMonthGrid(
   return weeks;
 }
 
+/** Sunday-first week row containing the given ISO date (Gregorian-keyed cells). */
+export function buildWeekContainingDate(
+  anchorDate: string,
+  today: string = getLocalDateString(),
+): CalendarDay[] {
+  const anchor = new Date(`${anchorDate}T00:00:00`);
+  const cursor = new Date(anchor);
+  cursor.setDate(cursor.getDate() - anchor.getDay());
+
+  const days: CalendarDay[] = [];
+  for (let i = 0; i < 7; i += 1) {
+    const date = toDateString(cursor.getFullYear(), cursor.getMonth(), cursor.getDate());
+    days.push({
+      date,
+      day: cursor.getDate(),
+      inMonth: true,
+      isToday: date === today,
+      isFuture: date > today,
+    });
+    cursor.setDate(cursor.getDate() + 1);
+  }
+
+  return days;
+}
+
 export function monthLabel(year: number, month: number): string {
   return `${MONTH_NAMES[month]} ${year}`;
 }

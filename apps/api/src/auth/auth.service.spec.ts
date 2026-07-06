@@ -2,7 +2,7 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import type { Repository } from "typeorm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createAuthTestingModule } from "../../test/support/testing-module";
-import { AuthSessionEntity } from "../database/entities";
+import { AuthSessionEntity, SyncRecordEntity } from "../database/entities";
 import { AuthService } from "./auth.service";
 import { AuthProvider } from "./dto/auth.dto";
 
@@ -146,5 +146,48 @@ describe("AuthService", () => {
     await expect(service.getCurrentUser("not-a-jwt")).rejects.toThrow(
       "Invalid or expired access token",
     );
+  });
+
+  it("permanently deletes the account, its sessions across devices, and all synced records", async () => {
+    const session = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
+    const user = await service.getCurrentUser(session.accessToken);
+
+    // A second device session for the same account, plus a synced record.
+    const secondDevice = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
+    const syncRepo = module.get<Repository<SyncRecordEntity>>(getRepositoryToken(SyncRecordEntity));
+    await syncRepo.save(
+      syncRepo.create({
+        userId: user.userId,
+        entity: "prayer_logs",
+        recordId: "fajr-2026-01-01",
+        data: { status: "completed" },
+        updatedAt: new Date(),
+      }),
+    );
+
+    const sessionsRepo = module.get<Repository<AuthSessionEntity>>(
+      getRepositoryToken(AuthSessionEntity),
+    );
+    await expect(sessionsRepo.count({ where: { userId: user.userId } })).resolves.toBe(2);
+
+    await service.deleteAccount(session.accessToken);
+
+    // Synced data and every session for the user are gone.
+    await expect(syncRepo.count({ where: { userId: user.userId } })).resolves.toBe(0);
+    await expect(sessionsRepo.count({ where: { userId: user.userId } })).resolves.toBe(0);
+
+    // Both the deleting token and the other device's token stop resolving.
+    await expect(service.getCurrentUser(session.accessToken)).rejects.toThrow(
+      "Invalid or expired session",
+    );
+    await expect(service.getCurrentUser(secondDevice.accessToken)).rejects.toThrow(
+      "Invalid or expired session",
+    );
+
+    // Signing in again with the same identity yields a brand-new, empty account.
+    const fresh = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
+    const freshUser = await service.getCurrentUser(fresh.accessToken);
+    expect(freshUser.userId).not.toBe(user.userId);
+    await expect(syncRepo.count({ where: { userId: freshUser.userId } })).resolves.toBe(0);
   });
 });

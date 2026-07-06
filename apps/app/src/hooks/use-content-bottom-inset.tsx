@@ -1,9 +1,9 @@
-import { useSegments } from "expo-router";
 import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { BottomTabInset, Spacing } from "@/constants/theme";
+import { Spacing } from "@/constants/theme";
+import { getNativeTabBarOffset, useIsTabScreen } from "@/hooks/use-tab-screen";
 import { useWebTabLayout } from "@/hooks/use-web-tab-layout";
 
 const MiniPlayerInsetContext = createContext<{
@@ -36,13 +36,12 @@ export function useSetMiniPlayerInset(): (height: number) => void {
 /** Space reserved for the tab bar, or the home indicator on stack screens. */
 export function useTabBarOffset(): number {
   const insets = useSafeAreaInsets();
-  const segments = useSegments();
-  const inTabs = segments[0] === "(tabs)";
+  const inTabs = useIsTabScreen();
   const { bottomTabBarOffset } = useWebTabLayout();
 
   if (!inTabs) return insets.bottom;
   if (Platform.OS === "web") return bottomTabBarOffset;
-  return BottomTabInset;
+  return getNativeTabBarOffset(insets.bottom);
 }
 
 /** Scroll/list bottom padding: tab bar + mini-player + breathing room. */

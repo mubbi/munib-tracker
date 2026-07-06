@@ -11,7 +11,7 @@
       "bundleIdentifier": "com.munibtracker.app",
       "buildNumber": "1",
       "supportsTablet": true,
-      "icon": "./assets/expo.icon",
+      "icon": "./assets/images/icon.png",
       "infoPlist": {
         "UIBackgroundModes": ["remote-notification", "audio"]
       }
@@ -20,7 +20,7 @@
       "package": "com.munibtracker.app",
       "versionCode": 1,
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#152921",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
@@ -34,17 +34,17 @@
       "name": "Munib Tracker",
       "shortName": "Munib Tracker",
       "description": "Track Your Journey Back to Allah. A free, offline-first companion for salah, dhikr, qadha, Qur'an, hadith, and daily worship.",
-      "themeColor": "#059669",
-      "backgroundColor": "#059669"
+      "themeColor": "#152921",
+      "backgroundColor": "#152921"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#059669",
+          "backgroundColor": "#152921",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 200
         }
       ],
       [
@@ -62,7 +62,15 @@
           "mode": "production"
         }
       ],
-      "expo-quick-actions"
+      "./plugins/with-android-build-hygiene.js",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "ndkVersion": "27.1.12297006"
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

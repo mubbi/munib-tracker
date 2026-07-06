@@ -1,7 +1,8 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
@@ -38,12 +39,14 @@ export function SectionHeader({
       </View>
 
       {actionLabel ? (
-        <Pressable
+        <PressableScale
           accessibilityRole="button"
           accessibilityLabel={actionAccessibilityLabel ?? actionLabel}
           onPress={onActionPress}
+          haptic="light"
+          dimOnPress
           hitSlop={8}
-          style={({ pressed }) => [styles.action, pressed && styles.pressed]}
+          style={styles.action}
         >
           <View style={styles.actionRow}>
             {actionIcon ? (
@@ -53,7 +56,7 @@ export function SectionHeader({
               {actionLabel}
             </ThemedText>
           </View>
-        </Pressable>
+        </PressableScale>
       ) : null}
     </View>
   );
@@ -87,8 +90,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
-  },
-  pressed: {
-    opacity: 0.6,
   },
 });

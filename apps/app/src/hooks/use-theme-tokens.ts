@@ -57,6 +57,9 @@ export function useThemeTokens() {
       surfaceRaised: isDark ? colors.muted : colors.card,
       /** Track color for progress bars / rings. */
       track: withAlpha(colors.foreground, isDark ? 0.14 : 0.1),
+      /** Native Android Material ripple tint — a soft on-surface wash that reads
+       * on both accent fills and neutral cards. Used by PressableScale. */
+      ripple: withAlpha(colors.foreground, isDark ? 0.16 : 0.1),
       /** Full-bleed scrim for overlays. */
       scrim: withAlpha("#000000", 0.4),
       hero: Brand,

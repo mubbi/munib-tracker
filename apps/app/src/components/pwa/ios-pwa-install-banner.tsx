@@ -1,11 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, Pressable, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getIosPwaInstallNeedsSafari, shouldShowIosPwaInstallBanner } from "@/lib/pwa/ios-install";
@@ -75,7 +76,7 @@ export function IosPwaInstallBanner() {
         <ThemedText type="smallBold" style={styles.title}>
           {t("notif.iosPwaTitle")}
         </ThemedText>
-        <Pressable
+        <PressableScale
           onPress={dismiss}
           accessibilityRole="button"
           accessibilityLabel={t("pwa.installDismiss")}
@@ -85,7 +86,7 @@ export function IosPwaInstallBanner() {
           <ThemedText type="caption" themeColor="mutedForeground">
             ✕
           </ThemedText>
-        </Pressable>
+        </PressableScale>
       </View>
       <ThemedText type="small" themeColor="mutedForeground">
         {t("pwa.installBannerMessage")}

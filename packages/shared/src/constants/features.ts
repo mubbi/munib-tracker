@@ -1,4 +1,13 @@
-export type AppFeatureIcon = "quran" | "hadith" | "dhikr" | "tracker" | "audio" | "reminders";
+export type AppFeatureIcon =
+  | "quran"
+  | "hadith"
+  | "dhikr"
+  | "tracker"
+  | "audio"
+  | "reminders"
+  | "learn"
+  | "guides"
+  | "times";
 
 export type AppFeaturePillar = {
   id: string;
@@ -70,6 +79,42 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     ],
   },
   {
+    id: "learn",
+    title: "Learn your deen",
+    summary:
+      "Study creed, the prophets, the seerah, and the Hereafter — structured lessons with progress, quizzes, and citations, not just a feed.",
+    highlights: [
+      "Aqeedah, the 25 prophets, the seerah timeline, and the major battles",
+      "Jannah, Jahannam, and the Last Day with an interactive quiz",
+      "Per-topic progress tracking and a glossary of key terms",
+      "Every lesson referenced to Qur'an and graded hadith",
+    ],
+  },
+  {
+    id: "quran-learning",
+    title: "Understand the Qur'an",
+    summary:
+      "Go from the Arabic letters to tajweed, memorization, and reflection — a guided path to read, understand, and live the Qur'an.",
+    highlights: [
+      "Letter-by-letter alphabet, pronunciation drills, and tajweed rules",
+      "Memorization plans, themes, prophet stories, and vocabulary",
+      "Daily tadabbur reflections and apply-it challenges",
+      "One tap into the full mushaf reader to keep going",
+    ],
+  },
+  {
+    id: "guides",
+    title: "Step-by-step worship guides",
+    summary:
+      "Learn how to pray, purify, fast, and give — practical fiqh guides with checklists, calculators, and clear evidence.",
+    highlights: [
+      "Salah guide plus wudu and taharah with a daily checklist",
+      "Zakat calculator with nisab and an interactive hajj step tracker",
+      "Rulings for travel, illness, and hayd — worship at your capacity",
+      "Ramadan fasting tracker and a tahajjud night log",
+    ],
+  },
+  {
     id: "times",
     title: "Prayer times & qibla",
     summary:
@@ -88,8 +133,8 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Statistics, achievements, and reminders that encourage the journey — never shame you for where you are.",
     highlights: [
       "Week, month, and year charts for prayers and zikr",
-      "Nine milestone badges from first prayer to clearing qaza",
-      "Today's goal combining salah and dhikr progress",
+      "Infinite Salah, Streak, Zikr, and Consistency tracks that never cap out",
+      "Growing Noor devotion levels and today's combined salah + dhikr goal",
       "Optional prayer, zikr, and qaza reminders",
     ],
   },
@@ -169,6 +214,27 @@ export const APP_HOME_FEATURES: AppHomeFeature[] = [
     description:
       "Bundled highlights plus six major collections on demand — searchable with grades and narrators.",
     icon: "hadith",
+  },
+  {
+    id: "learn",
+    title: "Learn your deen",
+    description:
+      "Creed, the prophets, seerah, and the Hereafter — structured lessons with progress, quizzes, and citations.",
+    icon: "learn",
+  },
+  {
+    id: "guides",
+    title: "Worship guides",
+    description:
+      "How to pray, make wudu, calculate zakat, and perform hajj — practical fiqh, step by step.",
+    icon: "guides",
+  },
+  {
+    id: "times",
+    title: "Prayer times & qibla",
+    description:
+      "Accurate times for your location, the Hijri calendar with events, and a qibla compass.",
+    icon: "times",
   },
   {
     id: "audio",

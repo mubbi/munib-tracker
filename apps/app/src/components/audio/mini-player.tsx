@@ -24,9 +24,10 @@ import Reanimated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/themed-text";
+import { GlassSurface } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Shadows, Spacing } from "@/constants/theme";
+import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWebTabLayout } from "@/hooks/use-web-tab-layout";
@@ -337,11 +338,23 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
           bottom: tabBarOffset,
           left: sideRailWidth,
           right: 0,
-          backgroundColor: colors.card,
           borderColor: colors.border,
         },
       ]}
     >
+      {/* Frosted glass chrome: real Liquid Glass on iOS 26, a native blur
+          elsewhere, backdrop-filter on web. A light card wash keeps the small
+          metadata text legible over busy content behind the bar. */}
+      <GlassSurface style={StyleSheet.absoluteFill} intensity={64} />
+      <View
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.22 : 0.32),
+            pointerEvents: "none",
+          },
+        ]}
+      />
       <View style={[styles.progress, { backgroundColor: tokens.track }]}>
         <View
           style={[
@@ -352,14 +365,14 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
         <BufferingBand color={colors.accent} active={showBufferingBar} />
       </View>
 
-      <View style={styles.row}>
+      <View style={styles.compactBody}>
         <PressableScale
           haptic="light"
           accessibilityRole="button"
           accessibilityLabel={current.title}
           accessibilityHint={t("player.expand")}
           onPress={onExpand}
-          style={styles.info}
+          style={styles.infoRow}
         >
           <View style={[styles.icon, { backgroundColor: tokens.accentSoft }]}>
             <SymbolView
@@ -386,7 +399,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
           />
         </PressableScale>
 
-        <View style={styles.compactControls}>
+        <View style={styles.compactControlsRow}>
           <IconButton
             name={LOOP_ICON[loopMode]}
             size={18}
@@ -617,15 +630,19 @@ function VolumeBar({
     return PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
+      onPanResponderTerminationRequest: () => false,
       onPanResponderGrant: (e) => {
         triggerHaptic("selection");
-        setScrub(ratioFromX(e.nativeEvent.locationX));
+        const next = ratioFromX(e.nativeEvent.locationX);
+        setScrub(next);
+        onChange(next);
       },
       onPanResponderMove: (e) => {
-        setScrub(ratioFromX(e.nativeEvent.locationX));
+        const next = ratioFromX(e.nativeEvent.locationX);
+        setScrub(next);
+        onChange(next);
       },
-      onPanResponderRelease: (e) => {
-        onChange(ratioFromX(e.nativeEvent.locationX));
+      onPanResponderRelease: () => {
         setScrub(null);
       },
       onPanResponderTerminate: () => setScrub(null),
@@ -696,30 +713,33 @@ function VerticalVolumeBar({
   thumbColor: string;
 }) {
   const { t } = useTranslation();
-  const [barHeight, setBarHeight] = useState(0);
+  const [barHeight, setBarHeight] = useState(VERTICAL_VOLUME_HEIGHT);
   const [scrub, setScrub] = useState<number | null>(null);
 
-  const heightRef = useRef(0);
+  const heightRef = useRef(VERTICAL_VOLUME_HEIGHT);
   heightRef.current = barHeight;
 
   const responder = useMemo(() => {
     const ratioFromY = (y: number) => {
-      const h = heightRef.current;
-      if (h <= 0) return 0;
+      const h = heightRef.current || VERTICAL_VOLUME_HEIGHT;
       return Math.max(0, Math.min(1, 1 - y / h));
     };
     return PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
+      onPanResponderTerminationRequest: () => false,
       onPanResponderGrant: (e) => {
         triggerHaptic("selection");
-        setScrub(ratioFromY(e.nativeEvent.locationY));
+        const next = ratioFromY(e.nativeEvent.locationY);
+        setScrub(next);
+        onChange(next);
       },
       onPanResponderMove: (e) => {
-        setScrub(ratioFromY(e.nativeEvent.locationY));
+        const next = ratioFromY(e.nativeEvent.locationY);
+        setScrub(next);
+        onChange(next);
       },
-      onPanResponderRelease: (e) => {
-        onChange(ratioFromY(e.nativeEvent.locationY));
+      onPanResponderRelease: () => {
         setScrub(null);
       },
       onPanResponderTerminate: () => setScrub(null),
@@ -730,7 +750,10 @@ function VerticalVolumeBar({
   const progress = Math.min(Math.max(shown, 0), 1);
   const percent = Math.round(progress * 100);
 
-  const onLayout = (e: LayoutChangeEvent) => setBarHeight(e.nativeEvent.layout.height);
+  const onLayout = (e: LayoutChangeEvent) => {
+    const nextHeight = e.nativeEvent.layout.height;
+    if (nextHeight > 0) setBarHeight(nextHeight);
+  };
 
   const onAccessibilityAction = (event: AccessibilityActionEvent) => {
     const delta =
@@ -756,7 +779,6 @@ function VerticalVolumeBar({
       }}
       accessibilityActions={[{ name: "increment" }, { name: "decrement" }]}
       onAccessibilityAction={onAccessibilityAction}
-      {...responder.panHandlers}
     >
       <View
         onLayout={onLayout}
@@ -764,6 +786,7 @@ function VerticalVolumeBar({
           styles.verticalVolumeTrack,
           { height: VERTICAL_VOLUME_HEIGHT, backgroundColor: trackColor },
         ]}
+        {...responder.panHandlers}
       >
         <View
           style={[
@@ -843,16 +866,13 @@ function VolumePopover({
     setOpen((value) => !value);
   };
 
-  return (
-    <Pressable
-      style={styles.volumePopoverAnchor}
-      onHoverIn={onAnchorHoverIn}
-      onHoverOut={onAnchorHoverOut}
-    >
+  const body = (
+    <>
       {open ? (
         <View
           style={[
             styles.volumePopup,
+            isWeb ? styles.volumePopupFloating : styles.volumePopupNative,
             { backgroundColor: popupBackground, borderColor: popupBorder },
           ]}
         >
@@ -874,8 +894,22 @@ function VolumePopover({
         onPress={onIconPress}
         hitTarget={34}
       />
-    </Pressable>
+    </>
   );
+
+  if (isWeb) {
+    return (
+      <Pressable
+        style={styles.volumePopoverAnchor}
+        onHoverIn={onAnchorHoverIn}
+        onHoverOut={onAnchorHoverOut}
+      >
+        {body}
+      </Pressable>
+    );
+  }
+
+  return <View style={[styles.volumePopoverAnchor, styles.volumePopoverAnchorNative]}>{body}</View>;
 }
 
 // ── Expanded full player ─────────────────────────────────────────────────────
@@ -1171,9 +1205,10 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
       </View>
 
       {sourceHref ? (
-        <Pressable
+        <PressableScale
           accessibilityRole="button"
           accessibilityLabel={t("player.goToScreen")}
+          haptic="light"
           onPress={openSource}
           style={[styles.sourceLink, { borderColor: tokens.hairline }]}
         >
@@ -1185,7 +1220,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           <ThemedText type="smallBold" style={{ color: colors.accentText }}>
             {t("player.goToScreen")}
           </ThemedText>
-        </Pressable>
+        </PressableScale>
       ) : null}
 
       {/* Playlist */}
@@ -1244,10 +1279,12 @@ function PlaylistRow({
   const secondaryIsArabic = track.playlistSecondary == null && Boolean(track.preview);
 
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityState={{ selected: active }}
       accessibilityLabel={secondary ? `${primary}. ${secondary}` : primary}
+      haptic="light"
+      scaleTo={0.98}
       onPress={onPress}
       style={[styles.plRow, active ? { backgroundColor: tokens.accentSoft } : null]}
     >
@@ -1290,7 +1327,7 @@ function PlaylistRow({
           </ThemedText>
         ) : null}
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -1305,8 +1342,18 @@ const styles = StyleSheet.create({
   },
   progress: { height: 3, width: "100%", overflow: "hidden" },
   progressFill: { height: "100%" },
-  row: { flexDirection: "row", alignItems: "center", gap: Spacing.two, padding: Spacing.two + 2 },
-  info: { flex: 1, flexDirection: "row", alignItems: "center", gap: Spacing.two + 2 },
+  compactBody: {
+    gap: Spacing.two,
+    paddingHorizontal: Spacing.two + 2,
+    paddingTop: Spacing.two,
+    paddingBottom: Spacing.two + 2,
+  },
+  infoRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two + 2,
+    minWidth: 0,
+  },
   icon: {
     width: 40,
     height: 40,
@@ -1314,9 +1361,15 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
+    flexShrink: 0,
   },
-  meta: { flex: 1, gap: 2 },
-  compactControls: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
+  meta: { flex: 1, gap: 2, minWidth: 0 },
+  compactControlsRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.one + 2,
+  },
   playButton: {
     width: 38,
     height: 38,
@@ -1337,22 +1390,31 @@ const styles = StyleSheet.create({
     position: "relative",
     zIndex: 2,
   },
+  volumePopoverAnchorNative: {
+    alignItems: "center",
+  },
   volumePopup: {
-    position: "absolute",
-    bottom: "100%",
-    left: "50%",
-    marginBottom: Spacing.one,
     paddingHorizontal: Spacing.two,
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
-    transform: [{ translateX: -18 }],
     ...Shadows.sm,
     zIndex: 10,
   },
+  volumePopupFloating: {
+    position: "absolute",
+    bottom: "100%",
+    left: "50%",
+    marginBottom: Spacing.one,
+    transform: [{ translateX: -18 }],
+  },
+  volumePopupNative: {
+    marginBottom: Spacing.one,
+  },
   verticalVolumeBar: {
-    width: 36,
+    minWidth: 44,
+    minHeight: 44,
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: Spacing.one,

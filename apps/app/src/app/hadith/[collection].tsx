@@ -11,6 +11,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { NavRow } from "@/components/ui/nav-row";
@@ -342,114 +343,128 @@ function HadithCard({
     onBookmark();
   };
 
+  const onPlay = () => {
+    if (!item.audioUri) return;
+    audio.play(
+      [{ id: item.id, title: item.reference, subtitle: item.narrator, uri: item.audioUri }],
+      0,
+      { sourceHref: `/hadith/${item.collection}?q=${encodeURIComponent(item.reference)}` },
+    );
+  };
+
+  const menuActions: ContextMenuAction[] = [];
+  if (item.audioUri) {
+    menuActions.push({ id: "play", title: t("common.play"), systemIcon: "play.fill" });
+  }
+  menuActions.push({ id: "share", title: t("hadith.share"), systemIcon: "square.and.arrow.up" });
+  menuActions.push({
+    id: "bookmark",
+    title: isBookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd"),
+    systemIcon: isBookmarked ? "bookmark.slash" : "bookmark",
+  });
+
+  const onMenuAction = (id: string) => {
+    if (id === "play") onPlay();
+    else if (id === "share") onShare();
+    else if (id === "bookmark") onBookmarkPress();
+  };
+
   return (
-    <Card padding="four">
-      <View style={styles.cardHeader}>
-        <View style={styles.cardRef}>
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
-            {item.reference}
-          </ThemedText>
-          {item.grade ? (
-            <Pill
-              label={item.grade}
-              color={tokens.status.success.color}
-              background={tokens.status.success.soft}
-            />
-          ) : null}
-        </View>
-        <View style={styles.cardActions}>
-          {item.audioUri ? (
+    <ContextMenu actions={menuActions} onAction={onMenuAction}>
+      <Card padding="four">
+        <View style={styles.cardHeader}>
+          <View style={styles.cardRef}>
+            <ThemedText type="smallBold" style={{ color: colors.accent }}>
+              {item.reference}
+            </ThemedText>
+            {item.grade ? (
+              <Pill
+                label={item.grade}
+                color={tokens.status.success.color}
+                background={tokens.status.success.soft}
+              />
+            ) : null}
+          </View>
+          <View style={styles.cardActions}>
+            {item.audioUri ? (
+              <IconButton
+                name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
+                size={22}
+                tintColor={colors.accent}
+                accessibilityLabel={t("common.play")}
+                onPress={onPlay}
+              />
+            ) : null}
             <IconButton
-              name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
-              size={22}
-              tintColor={colors.accent}
-              accessibilityLabel={t("common.play")}
-              onPress={() =>
-                item.audioUri &&
-                audio.play(
-                  [
-                    {
-                      id: item.id,
-                      title: item.reference,
-                      subtitle: item.narrator,
-                      uri: item.audioUri,
-                    },
-                  ],
-                  0,
-                  {
-                    sourceHref: `/hadith/${item.collection}?q=${encodeURIComponent(item.reference)}`,
-                  },
-                )
-              }
+              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+              size={20}
+              tintColor={colors.mutedForeground}
+              accessibilityLabel={t("hadith.share")}
+              onPress={onShare}
             />
-          ) : null}
-          <IconButton
-            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-            size={20}
-            tintColor={colors.mutedForeground}
-            accessibilityLabel={t("hadith.share")}
-            onPress={onShare}
-          />
-          <IconButton
-            name={
-              isBookmarked
-                ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
-                : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
-            }
-            size={20}
-            tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
-            accessibilityLabel={isBookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd")}
-            accessibilityState={{ selected: isBookmarked }}
-            onPress={onBookmarkPress}
-          />
-          <ContentReportButton
-            contentRef={buildContentReportRef(
-              "hadith",
-              item.id,
-              `/hadith/${item.collection}`,
-              locale,
-              {
-                parentId: item.collection,
-                snapshot: {
-                  title: item.reference,
-                  arabic: item.arabic,
-                  translation: item.english,
-                  reference: item.reference,
+            <IconButton
+              name={
+                isBookmarked
+                  ? { ios: "bookmark.fill", android: "bookmark", web: "bookmark" }
+                  : { ios: "bookmark", android: "bookmark_border", web: "bookmark_border" }
+              }
+              size={20}
+              tintColor={isBookmarked ? tokens.status.warning.color : colors.mutedForeground}
+              accessibilityLabel={
+                isBookmarked ? t("hadith.bookmarkRemove") : t("hadith.bookmarkAdd")
+              }
+              accessibilityState={{ selected: isBookmarked }}
+              onPress={onBookmarkPress}
+            />
+            <ContentReportButton
+              contentRef={buildContentReportRef(
+                "hadith",
+                item.id,
+                `/hadith/${item.collection}`,
+                locale,
+                {
+                  parentId: item.collection,
+                  snapshot: {
+                    title: item.reference,
+                    arabic: item.arabic,
+                    translation: item.english,
+                    reference: item.reference,
+                  },
                 },
-              },
-            )}
-          />
+              )}
+            />
+          </View>
         </View>
-      </View>
 
-      {item.arabic ? (
-        <>
-          <ThemedText
-            type="arabic"
-            style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
-          >
-            {item.arabic}
+        {item.arabic ? (
+          <>
+            <ThemedText
+              type="arabic"
+              style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
+            >
+              {item.arabic}
+            </ThemedText>
+            <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+          </>
+        ) : null}
+
+        {item.narrator ? (
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.narrator}>
+            {item.narrator}
           </ThemedText>
-          <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-        </>
-      ) : null}
+        ) : null}
 
-      {item.narrator ? (
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.narrator}>
-          {item.narrator}
+        <ThemedText
+          type="default"
+          style={[
+            styles.english,
+            textSize ? { fontSize: textSize, lineHeight: textSize * 1.6 } : null,
+          ]}
+        >
+          {item.english}
         </ThemedText>
-      ) : null}
-
-      <ThemedText
-        type="default"
-        style={[
-          styles.english,
-          textSize ? { fontSize: textSize, lineHeight: textSize * 1.6 } : null,
-        ]}
-      >
-        {item.english}
-      </ThemedText>
-    </Card>
+      </Card>
+    </ContextMenu>
   );
 }
 

@@ -1,4 +1,4 @@
-import { DB_KEYS } from "./keys";
+import { RESET_KEYS } from "./keys";
 import { runMigrations } from "./migrations";
 import { removeKey } from "./store";
 
@@ -32,50 +32,11 @@ export function initDatabase(): Promise<void> {
   return initPromise;
 }
 
-/** Wipes all locally stored tracking data (used when deleting an account). */
+/**
+ * Wipes all locally stored data (used when deleting an account). Derives the key
+ * list from {@link RESET_KEYS} so every persisted key except the schema marker is
+ * cleared automatically as new features are added — no key can be forgotten here.
+ */
 export async function resetDatabase(): Promise<void> {
-  await Promise.all(
-    [
-      DB_KEYS.prayerLogs,
-      DB_KEYS.zikrProgress,
-      DB_KEYS.qazaCounters,
-      DB_KEYS.qazaDailyPlans,
-      DB_KEYS.qazaSchedule,
-      DB_KEYS.qazaDailyProgress,
-      DB_KEYS.qazaRoza,
-      DB_KEYS.userPreferences,
-      DB_KEYS.location,
-      DB_KEYS.syncMetadata,
-      DB_KEYS.achievements,
-      DB_KEYS.quranBookmarks,
-      DB_KEYS.quranLastRead,
-      DB_KEYS.quranReadingProgress,
-      DB_KEYS.quranPrefs,
-      DB_KEYS.quranEditionCache,
-      DB_KEYS.hadithBookmarks,
-      DB_KEYS.hadithBookCache,
-      DB_KEYS.continueActivity,
-      DB_KEYS.duaFavorites,
-      DB_KEYS.duroodFavorites,
-      DB_KEYS.nameFavorites,
-      DB_KEYS.tombstones,
-      DB_KEYS.weatherCache,
-      DB_KEYS.audioDurationCache,
-      DB_KEYS.reverseGeocodeCache,
-      DB_KEYS.duaFavoritesUpdatedAt,
-      DB_KEYS.duroodFavoritesUpdatedAt,
-      DB_KEYS.nameFavoritesUpdatedAt,
-      DB_KEYS.quranBookmarksUpdatedAt,
-      DB_KEYS.hadithBookmarksUpdatedAt,
-      DB_KEYS.customTasbeehUpdatedAt,
-      DB_KEYS.fasting,
-      DB_KEYS.weeklyReportAt,
-      DB_KEYS.khatm,
-      DB_KEYS.hifz,
-      DB_KEYS.customAdhkar,
-      DB_KEYS.khushuJournal,
-      DB_KEYS.hajjChecklist,
-      DB_KEYS.toursSeen,
-    ].map((key) => removeKey(key)),
-  );
+  await Promise.all(RESET_KEYS.map((key) => removeKey(key)));
 }

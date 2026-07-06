@@ -8,7 +8,7 @@ import type { ProphetsSection, ProphetsTopic } from "../types/prophets";
  * Learn the Prophets hub content.
  * Bump this when topics are edited in a meaningful way.
  */
-export const PROPHETS_CONTENT_VERSION = 1;
+export const PROPHETS_CONTENT_VERSION = 2;
 
 export const PROPHETS_SECTION_ORDER: ProphetsSection[] = [
   "context",

@@ -45,7 +45,9 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="apple-touch-icon" sizes="180x180" href={PWA_APPLE_TOUCH_ICON} />
         <link rel="apple-touch-icon" href={PWA_ICON_PATHS.appleTouchRoot} />
+        <link rel="icon" type="image/png" sizes="48x48" href={PWA_ICON_PATHS.favicon} />
         <link rel="icon" type="image/png" sizes="192x192" href={PWA_ICON_PATHS.any192} />
+        <link rel="icon" type="image/png" sizes="512x512" href={PWA_ICON_PATHS.any512} />
 
         {/* Resource hints — speed up first content/audio/weather fetches (LCP/FCP). */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />

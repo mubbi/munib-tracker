@@ -6,8 +6,8 @@ import { Hero } from "./hero";
 describe("Hero", () => {
   it("renders Munib Tracker branding and CTAs", () => {
     render(<Hero />);
-    expect(screen.getByRole("heading", { name: APP_NAME })).toBeInTheDocument();
-    expect(screen.getByText(APP_TAGLINE)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: APP_TAGLINE, level: 1 })).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(APP_NAME, "i"))).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /View iOS download options/i })).toHaveAttribute(
       "href",
       "/download",

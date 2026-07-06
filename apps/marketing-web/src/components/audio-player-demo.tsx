@@ -1,14 +1,26 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Loader2, Pause, Play } from "lucide-react";
+import { type SyntheticEvent, useRef, useState } from "react";
 
-/** Accessible demo player — uses a short public-domain tone clip pattern via Web Audio is heavy; use native audio with sample. */
+/** Full Surah Al-Fatiha, Mishary Alafasy — Al-Quran Cloud CDN. */
+const AUDIO_SRC = "https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/1.mp3";
+
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds)) return "0:00";
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
 export function AudioPlayerDemo() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [duration, setDuration] = useState(0);
 
-  // Short silent-compatible demo: user sees controls; actual app streams from everyayah.com
-  const toggle = async () => {
+  async function toggle() {
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -19,47 +31,83 @@ export function AudioPlayerDemo() {
     }
 
     try {
+      setLoading(true);
       await audio.play();
       setPlaying(true);
     } catch {
       setPlaying(false);
+    } finally {
+      setLoading(false);
     }
-  };
+  }
+
+  function onTimeUpdate(e: SyntheticEvent<HTMLAudioElement>) {
+    setCurrent(e.currentTarget.currentTime);
+  }
+
+  function onLoadedMetadata(e: SyntheticEvent<HTMLAudioElement>) {
+    setDuration(e.currentTarget.duration);
+  }
+
+  const progress = duration > 0 ? (current / duration) * 100 : 0;
 
   return (
     <div className="rounded-[var(--radius-card)] border border-border/60 bg-card p-6">
-      <h3 className="text-lg font-semibold">Audio recitation preview</h3>
+      <h3 className="font-display text-lg font-semibold text-foreground">
+        Audio recitation preview
+      </h3>
       <p className="mt-1 text-sm text-muted">
-        Surah Al-Fatiha — demo controls mirror the in-app mini player.
+        Surah Al-Fatiha, recited by Mishary Alafasy — tap play to listen.
       </p>
 
-      <div className="mt-6 flex items-center gap-4 rounded-xl bg-muted-surface/50 p-4">
+      <div className="mt-6 flex items-center gap-4 rounded-2xl border border-border/50 bg-muted-surface/40 p-4">
         <button
           type="button"
           onClick={toggle}
           aria-label={playing ? "Pause recitation" : "Play recitation"}
-          className="inline-flex size-12 items-center justify-center rounded-full bg-accent text-accent-foreground transition-transform active:scale-95"
+          className="inline-flex size-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-brand to-brand-strong text-white shadow-[0_8px_20px_-6px_color-mix(in_srgb,var(--color-brand)_70%,transparent)] transition-transform active:scale-95"
         >
-          {playing ? "❚❚" : "▶"}
+          {loading ? (
+            <Loader2 className="size-5 animate-spin" />
+          ) : playing ? (
+            <Pause className="size-5 fill-current" />
+          ) : (
+            <Play className="size-5 translate-x-0.5 fill-current" />
+          )}
         </button>
-        <div className="flex-1">
-          <p className="text-sm font-semibold">Al-Fatiha</p>
-          <p className="text-xs text-muted">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-sm font-semibold text-foreground">Al-Fatiha</p>
+            <p className="font-mono text-xs text-muted">
+              {formatTime(current)} / {formatTime(duration)}
+            </p>
+          </div>
+          <p dir="rtl" lang="ar" className="mt-0.5 truncate font-serif text-sm text-muted">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </p>
+          <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-border/70">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-brand to-gold transition-[width] duration-200"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
         </div>
       </div>
 
-      {/* Minimal demo audio — 1s silent WAV data URI for control demo without external deps */}
       <audio
         ref={audioRef}
-        onEnded={() => setPlaying(false)}
+        src={AUDIO_SRC}
         preload="none"
-        aria-label="Al-Fatiha recitation demo"
+        onTimeUpdate={onTimeUpdate}
+        onLoadedMetadata={onLoadedMetadata}
+        onPlaying={() => setLoading(false)}
+        onEnded={() => {
+          setPlaying(false);
+          setCurrent(0);
+        }}
       >
-        <source
-          src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA"
-          type="audio/wav"
-        />
-        <track kind="captions" label="Transliteration" srcLang="en" default />
+        <track kind="captions" label="Recitation" srcLang="ar" default />
       </audio>
 
       <p className="mt-4 text-xs text-muted">

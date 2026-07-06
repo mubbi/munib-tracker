@@ -10,11 +10,12 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
+import { MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { SIDE_RAIL_BREAKPOINT, SIDE_RAIL_WIDTH } from "@/hooks/use-web-tab-layout";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { ThemedText } from "./themed-text";
+import { GlassSurface } from "./ui/glass-surface";
 
 type TabConfig = {
   name: string;
@@ -164,11 +165,20 @@ export function SideRail(props: TabListProps) {
         {
           paddingTop: Math.max(insets.top, Spacing.four),
           paddingBottom: Math.max(insets.bottom, Spacing.four),
-          backgroundColor: colors.card,
           borderRightColor: tokens.hairline,
         },
       ]}
     >
+      <GlassSurface style={StyleSheet.absoluteFill} intensity={60} />
+      <View
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.24 : 0.34),
+            pointerEvents: "none",
+          },
+        ]}
+      />
       <View style={styles.railList}>{props.children}</View>
     </View>
   );
@@ -185,12 +195,21 @@ export function BottomTabBar(props: TabListProps) {
         styles.tabBarContainer,
         {
           paddingBottom: Math.max(insets.bottom, Spacing.two),
-          backgroundColor: colors.card,
           borderTopColor: tokens.hairline,
           ...Shadows.lg,
         },
       ]}
     >
+      <GlassSurface style={StyleSheet.absoluteFill} intensity={64} />
+      <View
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.22 : 0.32),
+            pointerEvents: "none",
+          },
+        ]}
+      />
       <View style={styles.tabBarInner}>{props.children}</View>
     </View>
   );

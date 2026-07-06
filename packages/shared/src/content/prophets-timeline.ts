@@ -13,14 +13,14 @@ export const PROPHETS_TIMELINE: ProphetsTimelineEvent[] = [
     id: "early-prophets",
     era: "Antiquity",
     title: "Idris, Nuh, and early nations",
-    body: "Prophets called their people to tawheed; Nuh's ark survives as a sign.",
+    body: "Early prophets called their people back to tawheed. Nuh preached for centuries; when rejection persisted, the flood came and the ark saved the believers as a sign.",
     prophetId: "nuh",
   },
   {
     id: "ibrahim-era",
     era: "Mesopotamia / Levant",
     title: "Ibrahim and his family",
-    body: "The friend of Allah, builder of the Ka'bah, father of Ismail and Ishaq.",
+    body: "Khalilullah, the friend of Allah: he shattered the idols, was saved from the fire, built the Ka'bah with Ismail, and fathered a line of prophets through Ismail and Ishaq.",
     prophetId: "ibrahim",
   },
   {

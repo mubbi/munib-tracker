@@ -7,6 +7,7 @@ import { ReferenceLine } from "@/components/content/reference-line";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
 import { IconButton } from "@/components/ui/icon-button";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -100,93 +101,118 @@ export function ReadingCard({
     }
   };
 
+  const menuActions: ContextMenuAction[] = [];
+  if (onToggleFavorite) {
+    menuActions.push({
+      id: "favorite",
+      title: isFavorite ? t("dua.unfavorite") : t("dua.favorite"),
+      systemIcon: isFavorite ? "star.slash" : "star",
+    });
+  }
+  if (item.audioUri) {
+    menuActions.push({
+      id: "play",
+      title: t("common.play"),
+      systemIcon: "play.fill",
+    });
+  }
+  menuActions.push({ id: "share", title: t("reading.share"), systemIcon: "square.and.arrow.up" });
+
+  const onMenuAction = (id: string) => {
+    if (id === "favorite") onToggleFavorite?.();
+    else if (id === "play") playAudio();
+    else if (id === "share") void onShare();
+  };
+
   return (
-    <Card padding="four">
-      <View style={styles.header}>
-        {item.audioUri ? (
-          <IconButton
-            name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
-            size={16}
-            tintColor={colors.accent}
-            background={tokens.accentSoft}
-            accessibilityLabel={t("common.play")}
-            onPress={playAudio}
-          />
-        ) : (
-          <View />
-        )}
-        <View style={styles.headerActions}>
-          {onToggleFavorite ? (
+    <ContextMenu actions={menuActions} onAction={onMenuAction}>
+      <Card padding="four">
+        <View style={styles.header}>
+          {item.audioUri ? (
             <IconButton
-              name={
-                isFavorite
-                  ? { ios: "star.fill", android: "star", web: "star" }
-                  : { ios: "star", android: "star_border", web: "star_border" }
-              }
-              size={18}
-              tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
-              accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
-              accessibilityState={{ selected: !!isFavorite }}
-              haptic="selection"
-              onPress={onToggleFavorite}
+              name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+              size={16}
+              tintColor={colors.accent}
+              background={tokens.accentSoft}
+              accessibilityLabel={t("common.play")}
+              onPress={playAudio}
             />
-          ) : null}
-          <IconButton
-            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-            size={18}
-            tintColor={colors.mutedForeground}
-            accessibilityLabel={t("reading.share")}
-            onPress={onShare}
-          />
-          {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
+          ) : (
+            <View />
+          )}
+          <View style={styles.headerActions}>
+            {onToggleFavorite ? (
+              <IconButton
+                name={
+                  isFavorite
+                    ? { ios: "star.fill", android: "star", web: "star" }
+                    : { ios: "star", android: "star_border", web: "star_border" }
+                }
+                size={18}
+                tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+                accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
+                accessibilityState={{ selected: !!isFavorite }}
+                haptic="selection"
+                onPress={onToggleFavorite}
+              />
+            ) : null}
+            <IconButton
+              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+              size={18}
+              tintColor={colors.mutedForeground}
+              accessibilityLabel={t("reading.share")}
+              onPress={onShare}
+            />
+            {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
+          </View>
         </View>
-      </View>
 
-      <ThemedText
-        type="arabic"
-        style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
-      >
-        {item.arabic}
-      </ThemedText>
-
-      <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-
-      {item.transliteration ? (
         <ThemedText
-          type="small"
-          style={[
-            styles.transliteration,
-            { color: colors.accentText },
-            textSize ? { fontSize: textSize } : null,
-          ]}
+          type="arabic"
+          style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
         >
-          {item.transliteration}
+          {item.arabic}
         </ThemedText>
-      ) : null}
-      <ThemedText
-        type="default"
-        style={[styles.translation, textSize ? { fontSize: textSize } : null]}
-      >
-        {item.translation}
-      </ThemedText>
 
-      {item.virtues ? (
-        <View style={[styles.note, { backgroundColor: tokens.status.success.soft }]}>
-          <SymbolView
-            name={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-            size={16}
-            tintColor={tokens.status.success.color}
-          />
-          <ThemedText type="small" themeColor="mutedForeground" style={styles.noteText}>
-            {item.virtues}
+        <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
+
+        {item.transliteration ? (
+          <ThemedText
+            type="small"
+            style={[
+              styles.transliteration,
+              { color: colors.accentText },
+              textSize ? { fontSize: textSize } : null,
+            ]}
+          >
+            {item.transliteration}
           </ThemedText>
-        </View>
-      ) : null}
+        ) : null}
+        <ThemedText
+          type="default"
+          style={[styles.translation, textSize ? { fontSize: textSize } : null]}
+        >
+          {item.translation}
+        </ThemedText>
 
-      {item.reference ? (
-        <ReferenceLine reference={item.reference} style={styles.reference} />
-      ) : null}
-    </Card>
+        {item.virtues ? (
+          <View style={[styles.note, { backgroundColor: tokens.status.success.soft }]}>
+            <SymbolView
+              name={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+              size={16}
+              tintColor={tokens.status.success.color}
+            />
+            <ThemedText type="small" themeColor="mutedForeground" style={styles.noteText}>
+              {item.virtues}
+            </ThemedText>
+          </View>
+        ) : null}
+
+        {item.reference ? (
+          <ReferenceLine reference={item.reference} style={styles.reference} />
+        ) : null}
+      </Card>
+    </ContextMenu>
   );
 }
 

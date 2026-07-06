@@ -1,5 +1,8 @@
 import type { BattlesVerse } from "../types/battles";
 
+/** Bump when curated battle verses change. */
+export const BATTLES_VERSES_VERSION = 2;
+
 export const BATTLES_VERSES: BattlesVerse[] = [
   {
     id: "permission-fight",
@@ -65,15 +68,51 @@ export const BATTLES_VERSES: BattlesVerse[] = [
     context: "Surah al-Ahzab on the Confederate siege and divine assistance.",
   },
   {
+    id: "qurayzah-fortresses",
+    battleId: "banu-qurayzah",
+    surah: 33,
+    ayahFrom: 26,
+    ayahTo: 27,
+    label: "Qur'an 33:26–27",
+    excerpt:
+      "And He brought down those of the People of the Scripture who supported them from their fortresses and cast terror into their hearts — a party you killed, and a party you took captive. And He caused you to inherit their land and their homes.",
+    context:
+      "Surah al-Ahzab on Banu Qurayzah, who broke the covenant during the siege — a bounded episode of wartime treason, not a ruling against a faith.",
+  },
+  {
     id: "hudaybiyyah-fath",
     battleId: "hudaybiyyah",
     surah: 48,
     ayahFrom: 1,
     ayahTo: 3,
     label: "Qur'an 48:1–3",
-    excerpt: "Indeed, We have given you a clear victory, that Allah may forgive you your sins…",
+    excerpt:
+      "Indeed, We have given you a manifest victory, that Allah may forgive you what preceded of your sin and what will follow, complete His favour upon you, and guide you to a straight path.",
     context:
-      "Revealed about the Treaty of Hudaybiyyah — naming as victory what companions first saw as compromise.",
+      "Revealed on the return from Hudaybiyyah — naming as a manifest victory what the companions had first felt as a bitter compromise.",
+  },
+  {
+    id: "hudaybiyyah-ridwan",
+    battleId: "hudaybiyyah",
+    surah: 48,
+    ayahFrom: 18,
+    label: "Qur'an 48:18",
+    excerpt:
+      "Certainly was Allah pleased with the believers when they pledged allegiance to you under the tree, and He knew what was in their hearts, so He sent down tranquillity upon them and rewarded them with an imminent conquest.",
+    context:
+      "The Pledge of Ridwan — about 1,400 companions pledged under an acacia tree not to flee, and Allah declared His pleasure with them.",
+  },
+  {
+    id: "makkah-nasr",
+    battleId: "conquest-makkah",
+    surah: 110,
+    ayahFrom: 1,
+    ayahTo: 3,
+    label: "Qur'an 110:1–3",
+    excerpt:
+      "When the victory of Allah has come and the conquest, and you see the people entering the religion of Allah in multitudes, then exalt with praise of your Lord and ask His forgiveness. Indeed, He is ever Accepting of repentance.",
+    context:
+      "Surah an-Nasr on the opening of Makkah — a conquest crowned not with triumph but with praise, seeking forgiveness, and multitudes entering the faith.",
   },
   {
     id: "hunayn-pride",

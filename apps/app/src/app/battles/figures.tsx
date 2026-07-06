@@ -1,14 +1,16 @@
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import {
+  ContentInlineLink,
+  ContentInlineLinkGroup,
+} from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
@@ -51,29 +53,24 @@ export default function BattlesFiguresScreen() {
 
               <View style={styles.battles}>
                 <ThemedText type="smallBold">{t("battles.figureBattles")}</ThemedText>
-                <View style={styles.battleLinks}>
+                <ContentInlineLinkGroup>
                   {figure.battles.map((battleId) => {
                     const battle = getBattlesTopic(battleId);
                     if (!battle) return null;
                     return (
-                      <PressableScale
+                      <ContentInlineLink
                         key={battleId}
-                        haptic="light"
-                        accessibilityRole="button"
+                        label={battle.title}
                         onPress={() =>
                           router.push({
                             pathname: "/battles/[topic]",
                             params: { topic: battleId },
                           })
                         }
-                      >
-                        <ThemedText type="caption" style={styles.battleLink}>
-                          {battle.title}
-                        </ThemedText>
-                      </PressableScale>
+                      />
                     );
                   })}
-                </View>
+                </ContentInlineLinkGroup>
               </View>
 
               <View style={styles.lesson}>
@@ -96,7 +93,5 @@ const styles = StyleSheet.create({
   card: { marginBottom: Spacing.three },
   summary: { marginTop: Spacing.two, lineHeight: 22 },
   battles: { marginTop: Spacing.three, gap: Spacing.one },
-  battleLinks: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
-  battleLink: { textDecorationLine: "underline" },
   lesson: { marginTop: Spacing.three, gap: Spacing.one },
 });

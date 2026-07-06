@@ -76,6 +76,97 @@ export const DB_KEYS = {
   contentReportQueue: `${PREFIX}/content_report_queue`,
 } as const;
 
+/**
+ * How each key is persisted. Classifying every key here — with a
+ * `Record<keyof typeof DB_KEYS, …>` that fails to compile when a key is left out
+ * — is what keeps {@link RESET_KEYS} and {@link BACKUP_KEYS} exhaustive as new
+ * features add keys, replacing the two hand-maintained lists that used to drift.
+ *
+ * - `userData`    personal tracking/content — backed up, and wiped on reset.
+ * - `watermark`   blob-level last-write-wins timestamp — travels with its userData.
+ * - `cache`       rebuildable network cache — wiped on reset, never backed up.
+ * - `deviceLocal` sync cursors, tombstones, upload queues, one-off UI flags —
+ *                 wiped on reset, never backed up (device-specific, not portable).
+ * - `schema`      storage schema version — survives reset, never backed up.
+ */
+export type KeyPersistence = "userData" | "watermark" | "cache" | "deviceLocal" | "schema";
+
+const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
+  version: "schema",
+  prayerLogs: "userData",
+  zikrProgress: "userData",
+  qazaCounters: "userData",
+  qazaDailyPlans: "userData",
+  qazaSchedule: "userData",
+  qazaDailyProgress: "userData",
+  qazaRoza: "userData",
+  userPreferences: "userData",
+  location: "userData",
+  syncMetadata: "deviceLocal",
+  achievements: "userData",
+  quranBookmarks: "userData",
+  quranLastRead: "userData",
+  quranReadingProgress: "userData",
+  quranPrefs: "userData",
+  quranEditionCache: "cache",
+  hadithBookmarks: "userData",
+  hadithBookCache: "cache",
+  continueActivity: "userData",
+  duaFavorites: "userData",
+  duroodFavorites: "userData",
+  nameFavorites: "userData",
+  tombstones: "deviceLocal",
+  customTasbeeh: "userData",
+  fasting: "userData",
+  weeklyReportAt: "deviceLocal",
+  khatm: "userData",
+  hifz: "userData",
+  customAdhkar: "userData",
+  khushuJournal: "userData",
+  hajjChecklist: "userData",
+  toursSeen: "deviceLocal",
+  jannahIntentions: "userData",
+  jahannamIntentions: "userData",
+  salahGuideProgress: "userData",
+  battlesProgress: "userData",
+  quranGuideProgress: "userData",
+  taharahProgress: "userData",
+  prophetsProgress: "userData",
+  aqeedahProgress: "userData",
+  lastDayProgress: "userData",
+  learnDuaProgress: "userData",
+  weatherCache: "cache",
+  audioDurationCache: "cache",
+  reverseGeocodeCache: "cache",
+  duaFavoritesUpdatedAt: "watermark",
+  duroodFavoritesUpdatedAt: "watermark",
+  nameFavoritesUpdatedAt: "watermark",
+  quranBookmarksUpdatedAt: "watermark",
+  hadithBookmarksUpdatedAt: "watermark",
+  customTasbeehUpdatedAt: "watermark",
+  contentReportQueue: "deviceLocal",
+};
+
+function keysMatching(classes: readonly KeyPersistence[]): string[] {
+  return (Object.keys(KEY_PERSISTENCE) as (keyof typeof DB_KEYS)[])
+    .filter((key) => classes.includes(KEY_PERSISTENCE[key]))
+    .map((key) => DB_KEYS[key]);
+}
+
+/**
+ * Keys serialized into a portable backup: the user's own data plus the LWW
+ * watermarks that guard it. Caches, sync cursors and the schema marker are
+ * excluded — they rebuild themselves or are device-specific.
+ */
+export const BACKUP_KEYS: string[] = keysMatching(["userData", "watermark"]);
+
+/**
+ * Keys wiped when a user resets/deletes their account: everything we persist
+ * except the schema-version marker (kept so migrations don't needlessly re-run
+ * against an already-current, now-empty store).
+ */
+export const RESET_KEYS: string[] = keysMatching(["userData", "watermark", "cache", "deviceLocal"]);
+
 /** Composite key for one prayer on one day. */
 export function prayerLogKey(prayerId: string, date: string): string {
   return `${prayerId}::${date}`;

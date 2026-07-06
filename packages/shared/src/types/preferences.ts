@@ -116,6 +116,8 @@ export interface UserPreferences {
   audioVolume?: number;
   /** Hero weather display and animated overlays. */
   weatherPrefs: WeatherPreferences;
+  /** Vibration feedback on taps and meaningful actions (native only). */
+  hapticsEnabled: boolean;
   /** ISO datetime the preferences blob was last edited (sync last-write-wins). */
   updatedAt?: string;
   /** ISO datetime the favorite-zikr list was last edited (sync last-write-wins). */

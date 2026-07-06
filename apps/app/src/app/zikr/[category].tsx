@@ -2,7 +2,7 @@ import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import type { ObligatoryPrayer, ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
 import { isObligatoryPrayer, isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FlatList,
@@ -56,6 +56,12 @@ export default function ZikrCategoryScreen() {
     const raw = params.prayer;
     return raw && isObligatoryPrayer(raw) ? raw : "all";
   });
+  // Notification deep-links can land on this screen while it is already mounted.
+  useEffect(() => {
+    if (!showPrayerFilter) return;
+    const raw = params.prayer;
+    if (raw && isObligatoryPrayer(raw)) setPrayerFilter(raw);
+  }, [showPrayerFilter, params.prayer]);
   const items = useMemo(() => {
     if (!showPrayerFilter || prayerFilter === "all") return allItems;
     return allItems.filter((z) => !z.prayers?.length || z.prayers.includes(prayerFilter));

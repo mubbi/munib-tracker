@@ -18,7 +18,12 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Does it work offline?",
     answer:
-      "Yes. Prayer tracking, qaza, adhkar, tasbeeh, bundled Qur'an and hadith highlights, duas, and search all work without an internet connection. Full hadith collections and extra Qur'an translations download on demand and are cached.",
+      "Yes. Prayer tracking, qaza, adhkar, tasbeeh, bundled Qur'an and hadith highlights, duas, the learning library, and worship guides all work without an internet connection. Full hadith collections and extra Qur'an translations download on demand and are cached.",
+  },
+  {
+    question: "Is it just a prayer tracker, or does it teach too?",
+    answer:
+      "Both. Alongside tracking, there's a full learning library — structured lessons on aqeedah, the prophets, the seerah, and the Hereafter; a guided path to read and understand the Qur'an (letters, tajweed, memorization, themes); and step-by-step worship guides for salah, wudu, zakat, and hajj. Lessons include progress tracking, quizzes, and Qur'an and hadith citations.",
   },
   {
     question: "Which platforms are supported?",

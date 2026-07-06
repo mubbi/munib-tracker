@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -72,36 +73,27 @@ export default function BattlesProgressScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
             {t("battles.progressExploreHint")}
           </ThemedText>
-          <View style={styles.links}>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/battles/timeline" as Href)}
-            >
-              {t("battles.timelineTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/battles/lessons" as Href)}
-            >
-              {t("battles.lessonsTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/battles/verses" as Href)}
-            >
-              {t("battles.versesTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/battles/glossary" as Href)}
-            >
-              {t("battles.glossaryTitle")}
-            </ThemedText>
-          </View>
+          <ContentLinkList
+            style={styles.links}
+            links={[
+              {
+                label: t("battles.timelineTitle"),
+                onPress: () => router.push("/battles/timeline" as Href),
+              },
+              {
+                label: t("battles.lessonsTitle"),
+                onPress: () => router.push("/battles/lessons" as Href),
+              },
+              {
+                label: t("battles.versesTitle"),
+                onPress: () => router.push("/battles/verses" as Href),
+              },
+              {
+                label: t("battles.glossaryTitle"),
+                onPress: () => router.push("/battles/glossary" as Href),
+              },
+            ]}
+          />
         </Card>
 
         <JannahDisclaimer textKey="battles.disclaimer" />
@@ -113,6 +105,5 @@ export default function BattlesProgressScreen() {
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.one, lineHeight: 20 },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
-  links: { marginTop: Spacing.three, gap: Spacing.two },
-  link: { textDecorationLine: "underline" },
+  links: { marginTop: Spacing.three },
 });

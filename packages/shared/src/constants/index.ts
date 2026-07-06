@@ -160,4 +160,5 @@ export const DEFAULT_USER_PREFERENCES: UserPreferences = {
   hasCompletedOnboarding: false,
   audioVolume: 1,
   weatherPrefs: DEFAULT_WEATHER_PREFERENCES,
+  hapticsEnabled: true,
 };

@@ -1,47 +1,65 @@
 # Native widgets & Live Activities (NF-1.18 / NF-1.19)
 
-The **data layer is done and unit-tested** in JS: `apps/app/src/lib/widget-data.ts`
-(`buildWidgetPayload`) computes the next-prayer / countdown / Hijri / progress
-payload entirely on-device from the `adhan` engine + stored location — the same
-source the in-app hero uses, so the widget can never disagree with the app.
+Native home-screen widgets and app-icon quick actions are implemented following the
+[`smart-expense-tracker`](../../smart-expense-tracker) `appSurfaces` architecture.
 
-The **native rendering targets require an EAS dev/production build** (they do not
-work in Expo Go or on the web) and native code that must be compiled + iterated on
-a device. They are intentionally not committed here — writing uncompilable
-Swift/Kotlin blind would be worse than a clear hand-off. Steps:
+## Architecture
 
-## 1. Bridge the payload to a shared container
+| Layer | Path | Role |
+|-------|------|------|
+| Quick actions registry | `src/lib/appSurfaces/quickActions/` | Declarative shortcut list + `syncAppQuickActions()` |
+| Widget snapshot | `src/lib/appSurfaces/widgets/buildWidgetSnapshot.ts` | Builds JSON from `buildWidgetPayload()` + tracker/schedule |
+| Shared storage | `src/lib/appSurfaces/widgets/snapshotStorage.ts` | AsyncStorage + iOS App Group via `@bacons/apple-targets` |
+| Android renderers | `src/lib/appSurfaces/widgets/renderers/` | `react-native-android-widget` JSX (HIG-sized cells) |
+| iOS WidgetKit | `targets/munib-tracker-widgets/` | SwiftUI widgets reading the same JSON |
+| Config plugin | `plugins/homeScreenSurfaces.cjs` | Widget cell sizes, preview images, Android shortcut icons |
+| Hooks | `src/hooks/use-app-quick-actions.ts`, `use-widget-snapshot-sync.ts` | Registered from `(tabs)/_layout.tsx` |
 
-JS can't write to a widget's storage directly. Add (or use) a small native module /
-`expo-apple-targets` config that exposes an App Group (iOS) and
-`SharedPreferences`/`DataStore` (Android). On app launch, foreground, location
-change, prayer boundary, and tracker update, call `buildWidgetPayload(...)` and
-write the JSON to that shared container. Reuse the day-crossing logic in
-`hooks/use-home-hero.ts` for the refresh triggers.
+## Widgets
 
-## 2. iOS — WidgetKit
+| Widget | iOS families | Android cell | Shows |
+|--------|-------------|--------------|-------|
+| **Next prayer** | small, medium, lock-screen accessory | 4×2 (250×110 dp) | Next prayer name, time, countdown, Hijri date |
+| **Schedule** | small, medium, large, lock-screen | 4×4 (250×250 dp) | Today's five obligatory prayer times |
+| **Progress** | small, lock-screen circular/rectangular | 2×2 (110×110 dp) | Today's fard progress (e.g. 3/5) |
 
-- Add a Widget Extension target (e.g. via `@bacons/apple-targets` /
-  `expo-apple-targets`) sharing the App Group.
-- Small + medium widgets: next prayer name + time, countdown; medium adds today's
-  schedule or `progress`.
-- Timeline: reload at each prayer boundary (read `nextPrayerTime`).
-- Deep link on tap: `munib-tracker://` → Expo Router path (`/`, `/tracker`).
-- Optional iOS 16+ lock-screen accessory + **Live Activity** (ActivityKit) for the
-  next-prayer countdown — start/stop from JS via the same native module.
+Timeline reload: iOS reloads at the next prayer boundary (from `minutesUntil`); Android
+refreshes when the app syncs the snapshot (foreground, tracker update, location change).
 
-## 3. Android — App Widget
+## Quick actions
 
-- `AppWidgetProvider` + `RemoteViews`, reading the same JSON from
-  `SharedPreferences`. Match the iOS data schema.
+iOS shows the first **4** shortcuts (Apple limit); Android shows all **5**:
 
-## 4. Empty / permission states
+1. Checklist → `/tracker`
+2. Qibla → `/qibla`
+3. Tasbeeh → `/tasbeeh/free`
+4. Qaza → `/qaza`
+5. Qur'an → `/quran` (Android only)
 
-- Location denied → "Set location" CTA deep-linking to `/location`.
-- No network is required (on-device `adhan` + cached location).
+Android adaptive shortcut icons live in `assets/images/quick-actions/` (108×108 px
+foreground PNGs). Regenerate with:
 
-## Verification (manual, on a build)
+```bash
+python apps/app/scripts/generate-android-surface-assets.py
+```
 
-- iOS simulator + Android emulator with a manual location.
-- Widget shows the correct next prayer; updates within ~1 min of a prayer boundary.
-- Tapping the widget opens the app to the right screen from a killed state.
+## Build requirements
+
+Widgets and icon shortcuts require an **EAS dev/production build** — they do not work
+in Expo Go or on web.
+
+```bash
+pnpm install
+pnpm --filter app prebuild
+pnpm --filter app ios   # or android
+```
+
+Set `EXPO_APPLE_TEAM_ID` for iOS widget extensions. App Group:
+`group.com.munibtracker.widgets`.
+
+## Verification (manual, on device)
+
+- Add each widget on iOS simulator + Android emulator with a manual location.
+- Widget shows the correct next prayer; updates after a prayer boundary or app foreground.
+- Long-press app icon → shortcuts open the correct screen from a killed state.
+- Location denied → widget shows “Set location” CTA deep-linking to `/location`.

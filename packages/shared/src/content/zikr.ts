@@ -117,6 +117,114 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     targetCount: 34,
   },
   {
+    id: "after_prayer-tahlil-hundred",
+    categoryId: "after_prayer",
+    title: "La ilaha illallah (completing the hundred)",
+    arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+    transliteration:
+      "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir",
+    translation:
+      "There is no god but Allah, alone, without partner. His is the dominion and His is the praise, and He is over all things capable.",
+    virtues:
+      "Whoever, after every prayer, glorifies Allah 33 times, praises Him 33 times, and magnifies Him 33 times — that is 99 — then completes the hundred with this, his sins are forgiven though they be like the foam of the sea.",
+    reference: "Muslim 597",
+    targetCount: 1,
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/237hm.mp3",
+  },
+  {
+    id: "after_prayer-tahlil-ten",
+    categoryId: "after_prayer",
+    title: "La ilaha illallah (x10 after Fajr & Maghrib)",
+    arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+    transliteration:
+      "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamd, yuhyi wa yumit, wa huwa 'ala kulli shay'in qadir",
+    translation:
+      "There is no god but Allah, alone, without partner. His is the dominion and His is the praise. He gives life and causes death, and He is over all things capable.",
+    virtues:
+      "Whoever says it ten times after Maghrib and after Fajr: Allah records for him ten good deeds, erases ten sins, raises him ten degrees, and it is a protection for him that day from every disliked thing and a guard from Shaytan.",
+    reference: "Tirmidhi 3474",
+    targetCount: 10,
+    prayers: ["fajr", "maghrib"],
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/72hm.mp3",
+  },
+  {
+    id: "after_prayer-ajirni-min-an-nar",
+    categoryId: "after_prayer",
+    title: "Allahumma ajirni min an-nar (x7 after Fajr & Maghrib)",
+    arabic: "اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ",
+    transliteration: "Allahumma ajirni minan-nar",
+    translation: "O Allah, save me from the Fire.",
+    virtues:
+      "Whoever says it seven times after the Maghrib prayer before speaking, then dies that night, is protected from the Fire; and whoever says it after Fajr before speaking, then dies that day, is protected from the Fire.",
+    reference: "Abu Dawud 5079",
+    targetCount: 7,
+    prayers: ["fajr", "maghrib"],
+  },
+  {
+    id: "after_prayer-muadh-dhikr-shukr",
+    categoryId: "after_prayer",
+    title: "Help me to remember and thank You",
+    arabic: "اللَّهُمَّ أَعِنِّي عَلَىٰ ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ",
+    transliteration: "Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatik",
+    translation:
+      "O Allah, help me to remember You, to thank You, and to worship You in the best manner.",
+    virtues:
+      "The Prophet ﷺ took Mu'adh by the hand and said, 'By Allah, I love you,' then advised him never to leave saying this after every prayer.",
+    reference: "Abu Dawud 1522 & An-Nasa'i",
+    targetCount: 1,
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/59hm.mp3",
+  },
+  {
+    id: "after_prayer-nur",
+    categoryId: "after_prayer",
+    title: "Supplication for Light (after Fajr)",
+    arabic:
+      "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا، وَفِي لِسَانِي نُورًا، وَفِي سَمْعِي نُورًا، وَفِي بَصَرِي نُورًا، وَمِنْ فَوْقِي نُورًا، وَمِنْ تَحْتِي نُورًا، وَعَنْ يَمِينِي نُورًا، وَعَنْ شِمَالِي نُورًا، وَمِنْ أَمَامِي نُورًا، وَمِنْ خَلْفِي نُورًا، وَاجْعَلْ فِي نَفْسِي نُورًا، وَأَعْظِمْ لِي نُورًا",
+    transliteration:
+      "Allahumma-j'al fi qalbi nuran, wa fi lisani nuran, wa fi sam'i nuran, wa fi basari nuran, wa min fawqi nuran, wa min tahti nuran, wa 'an yamini nuran, wa 'an shimali nuran, wa min amami nuran, wa min khalfi nuran, waj'al fi nafsi nuran, wa a'zim li nuran",
+    translation:
+      "O Allah, place light in my heart, light in my tongue, light in my hearing, light in my sight, light above me, light below me, light on my right, light on my left, light before me, light behind me; place light in my soul, and make light abundant for me.",
+    virtues:
+      "A supplication of the Prophet ﷺ, reported among the adhkar said after the Fajr prayer.",
+    reference: "Muslim 763",
+    targetCount: 1,
+    prayers: ["fajr"],
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/19hm.mp3",
+  },
+  {
+    id: "after_prayer-kaffarat-al-majlis",
+    categoryId: "after_prayer",
+    title: "Expiation of the sitting",
+    arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
+    transliteration:
+      "Subhanaka-llahumma wa bihamdik, ashhadu an la ilaha illa anta, astaghfiruka wa atubu ilayk",
+    translation:
+      "Glory is to You, O Allah, and praise; I bear witness that there is no god but You; I seek Your forgiveness and repent to You.",
+    virtues:
+      "'A'ishah reported that the Prophet ﷺ would say this at the end of a sitting. Whoever says it, what occurred in that gathering is forgiven for him.",
+    reference: "Tirmidhi 3433 & An-Nasa'i",
+    targetCount: 1,
+    audioUri:
+      "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/15hm.mp3",
+  },
+  {
+    id: "after_prayer-malik-quddus",
+    categoryId: "after_prayer",
+    title: "Subhanal Malikil Quddus (x3 after Witr)",
+    arabic: "سُبْحَانَ الْمَلِكِ الْقُدُّوسِ",
+    transliteration: "Subhanal-Malikil-Quddus",
+    translation: "Glory be to the King, the Most Holy.",
+    virtues:
+      "After the salam of the Witr prayer the Prophet ﷺ would say it three times, raising and prolonging his voice on the third, adding: 'Rabbil-mala'ikati war-ruh' (Lord of the angels and the Spirit). Witr is prayed after the Isha prayer.",
+    reference: "An-Nasa'i 1699",
+    targetCount: 3,
+    prayers: ["isha"],
+  },
+  {
     id: "morning-tasbih-hundred",
     categoryId: "morning",
     title: "SubhanAllahi wa bihamdihi (x100)",

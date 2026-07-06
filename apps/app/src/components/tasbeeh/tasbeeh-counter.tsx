@@ -12,11 +12,11 @@ import Animated, {
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
+import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 
 export type TasbeehMode = { label: string; target: number };
@@ -323,7 +323,6 @@ function CounterRing({
     };
   }, [progressTarget, reducedMotion]);
 
-  const deg = displayProgress * 360;
   const angle = displayProgress * 2 * Math.PI;
   const orbit = (RING_SIZE - RING_STROKE) / 2;
   const knob = RING_STROKE + 2;
@@ -349,36 +348,16 @@ function CounterRing({
         ]}
       />
 
-      <View
-        style={[
-          StyleSheet.absoluteFill,
-          { borderRadius: RING_SIZE / 2, borderWidth: RING_STROKE, borderColor: tokens.track },
-        ]}
-      />
-
       {target > 0 ? (
-        <View
-          style={[
-            StyleSheet.absoluteFill,
-            { borderRadius: RING_SIZE / 2 },
-            gradientBackground(
-              `conic-gradient(${fill} 0deg ${deg}deg, transparent ${deg}deg 360deg)`,
-            ),
-          ]}
-        >
-          <View
-            style={{
-              position: "absolute",
-              top: inset,
-              left: inset,
-              right: inset,
-              bottom: inset,
-              borderRadius: RING_SIZE / 2,
-              backgroundColor: colors.card,
-              ...Shadows.sm,
-            }}
-          />
-        </View>
+        <ArcProgressRing
+          size={RING_SIZE}
+          stroke={RING_STROKE}
+          progress={displayProgress}
+          fillColor={fill}
+          trackColor={tokens.track}
+          surfaceColor={colors.card}
+          surfaceShadow
+        />
       ) : (
         <View
           style={[

@@ -1,5 +1,8 @@
 import type { BattlesFigure } from "../types/battles";
 
+/** Bump when figure profiles change. */
+export const BATTLES_FIGURES_VERSION = 2;
+
 export const BATTLES_FIGURES: BattlesFigure[] = [
   {
     id: "abu-bakr",
@@ -49,10 +52,10 @@ export const BATTLES_FIGURES: BattlesFigure[] = [
     epithet: "May Allah be pleased with him",
     summary:
       "A brilliant Quraysh general who accepted Islam after Hudaybiyyah and became Saifullah (Sword of Allah).",
-    role: "Commander at Mu'tah and decisive leader in later campaigns under the Caliphs.",
+    role: "Led the flanking cavalry against the Muslims at Uhud before his Islam; later took command at Mu'tah and was decisive in the caliphal campaigns.",
     battles: ["mutah", "hunayn", "conquest-makkah"],
     lesson:
-      "Past opposition does not bar sincere repentance — his skill was redirected entirely to Allah's cause after faith entered his heart.",
+      "Past opposition is no bar to sincere repentance — the very skill that struck the Muslims at Uhud was, once faith entered his heart, redirected entirely to the cause of Allah.",
   },
   {
     id: "saad",
@@ -79,10 +82,21 @@ export const BATTLES_FIGURES: BattlesFigure[] = [
     id: "zayd",
     name: "Zayd ibn Harithah",
     epithet: "May Allah be pleased with him",
-    summary: "The Prophet's adopted son and the first commander appointed over a Muslim army.",
-    role: "Led the expedition to Mu'tah; martyred there.",
-    battles: ["mutah", "trench"],
+    summary:
+      "The Prophet's freed man and beloved companion, and the first commander appointed over a Muslim army.",
+    role: "Led the expedition to Mu'tah; martyred there as the first of the three named commanders to fall.",
+    battles: ["mutah", "badr", "trench"],
     lesson:
-      "Merit over lineage — he was chosen to lead when others of higher tribal rank were present.",
+      "Merit over lineage — he was chosen to lead when men of higher tribal rank were present.",
+  },
+  {
+    id: "saad-ibn-muadh",
+    name: "Sa'd ibn Mu'adh",
+    epithet: "May Allah be pleased with him",
+    summary: "Chief of the Aws of Madinah, one of the earliest and most respected of the Ansar.",
+    role: "Wounded at the Trench; chosen by Banu Qurayzah as the arbiter of their fate.",
+    battles: ["badr", "uhud", "trench", "banu-qurayzah"],
+    lesson:
+      "Justice through an agreed judge — even a defeated enemy was allowed an impartial arbiter rather than unchecked vengeance; he died of his wound soon after.",
   },
 ];

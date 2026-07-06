@@ -72,6 +72,11 @@ export function logout(accessToken: string): Promise<void> {
   return apiFetch<void>({ url: "/auth/logout", method: "POST" }, { accessToken });
 }
 
+/** Permanently deletes the current account and all its synced data on the server. */
+export function deleteAccount(accessToken: string): Promise<void> {
+  return apiFetch<void>({ url: "/auth/me", method: "DELETE" }, { accessToken });
+}
+
 export function syncPull(accessToken: string, since?: string): Promise<SyncPullResponseDto> {
   const query = since ? `?since=${encodeURIComponent(since)}` : "";
   return apiFetch<SyncPullResponseDto>(

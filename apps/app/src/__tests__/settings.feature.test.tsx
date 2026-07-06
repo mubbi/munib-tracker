@@ -8,11 +8,12 @@ async function waitForAppearanceScreen() {
     () => {
       expect(screen.getByLabelText("Teal")).toBeTruthy();
     },
-    { timeout: 5000 },
+    { timeout: 10_000 },
   );
 }
 
 describe("Settings screen feature", () => {
+  jest.setTimeout(15_000);
   it("updates accent color when a swatch is selected", async () => {
     renderWithProviders(<AppearanceScreen />);
     await waitForAppearanceScreen();

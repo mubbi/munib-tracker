@@ -4,7 +4,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -168,8 +168,9 @@ export default function CalendarScreen() {
                 const disabled = !day.inMonth || day.isFuture;
 
                 return (
-                  <Pressable
+                  <PressableScale
                     key={day.date}
+                    haptic="light"
                     disabled={disabled}
                     accessibilityRole="button"
                     accessibilityLabel={describeDay(day.date, day.isToday)}
@@ -204,7 +205,7 @@ export default function CalendarScreen() {
                     ) : (
                       <View style={styles.dot} />
                     )}
-                  </Pressable>
+                  </PressableScale>
                 );
               })}
             </View>

@@ -1,5 +1,6 @@
 import {
   AFTER_SALAH_ADHKAR_ROUTE,
+  afterSalahAdhkarHref,
   afterSalahAdhkarRoute,
   shouldRemindAfterSalahAdhkar,
 } from "./after-salah-adhkar-reminder";
@@ -32,5 +33,6 @@ describe("afterSalahAdhkarRoute", () => {
       pathname: "/zikr/[category]",
       params: { category: "after_prayer", prayer: "fajr" },
     });
+    expect(afterSalahAdhkarHref("fajr")).toBe("/zikr/after_prayer?prayer=fajr");
   });
 });

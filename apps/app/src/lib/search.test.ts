@@ -1,6 +1,7 @@
 import { DUROOD_ITEMS, duasByCategory, NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 
 import { getBundledCollection } from "@/lib/hadith";
+import { getSurahAyahs } from "@/lib/quran";
 import {
   createDuaSearch,
   createDuroodSearch,
@@ -113,6 +114,19 @@ describe("searchQuranAyahs", () => {
   it("respects the result limit", () => {
     const group = searchQuranAyahs("the", 3);
     expect(group.results.length).toBeLessThanOrEqual(3);
+  });
+
+  it("finds an ayah by its Arabic text", () => {
+    // Al-Ikhlas 112:2 ("Allāhu-ṣ-Ṣamad") — the word الصمد occurs in only this
+    // ayah in the whole Qur'an, so it is an unambiguous match. Derive the query
+    // from the bundled data (harakat and all) instead of hardcoding a string, so
+    // the test tracks the real content and fails if the Arabic field is ever
+    // dropped from the ayah index (an Arabic query hits no Latin field).
+    const query = getSurahAyahs(112)[1].arabic;
+    const group = searchQuranAyahs(query);
+    expect(group.results.some((r) => r.params?.surah === "112" && r.params?.ayah === "2")).toBe(
+      true,
+    );
   });
 });
 

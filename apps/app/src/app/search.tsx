@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   InteractionManager,
-  Pressable,
   ScrollView,
   StyleSheet,
   TextInput,
@@ -16,6 +15,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { EmptyState } from "@/components/ui/empty-state";
+import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
@@ -334,17 +334,15 @@ export default function SearchScreen() {
       <Seo path="/search" />
       {/* Search bar */}
       <View style={[styles.header, { paddingTop: insets.top + Spacing.two }]}>
-        <Pressable
-          accessibilityRole="button"
+        <IconButton
           accessibilityLabel={t("common.goBack")}
           onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))}
-          style={({ pressed }) => [
-            styles.backButton,
-            { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.7 : 1 },
-          ]}
-        >
-          <SymbolView name={chevronBack} size={19} tintColor={colors.accent} />
-        </Pressable>
+          name={chevronBack}
+          size={19}
+          tintColor={colors.accent}
+          background={tokens.accentSoft}
+          style={styles.backButton}
+        />
 
         <View style={[styles.field, { backgroundColor: colors.muted }]}>
           <SymbolView
@@ -365,18 +363,13 @@ export default function SearchScreen() {
             style={[styles.input, { color: colors.foreground }]}
           />
           {query.length > 0 ? (
-            <Pressable
-              accessibilityRole="button"
+            <IconButton
               accessibilityLabel={t("search.clear")}
-              hitSlop={8}
               onPress={() => setQuery("")}
-            >
-              <SymbolView
-                name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
-                size={18}
-                tintColor={colors.mutedForeground}
-              />
-            </Pressable>
+              name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
+              size={18}
+              tintColor={colors.mutedForeground}
+            />
           ) : null}
         </View>
       </View>
@@ -470,16 +463,17 @@ export default function SearchScreen() {
                   </View>
 
                   {canSeeAll ? (
-                    <Pressable
+                    <PressableScale
+                      haptic="light"
                       accessibilityRole="button"
                       onPress={() => setFilter(group.category)}
-                      style={({ pressed }) => [styles.seeAll, pressed && styles.pressed]}
+                      style={styles.seeAll}
                     >
                       <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                         {t("search.seeAllCount", { count: group.total })}
                       </ThemedText>
                       <SymbolView name={chevronForward} size={13} tintColor={colors.accentText} />
-                    </Pressable>
+                    </PressableScale>
                   ) : null}
                 </View>
               );
@@ -631,16 +625,11 @@ function IdleState({
             <ThemedText type="smallBold" themeColor="mutedForeground">
               {t("search.recent")}
             </ThemedText>
-            <Pressable
-              accessibilityRole="button"
-              onPress={onClearRecent}
-              hitSlop={8}
-              style={({ pressed }) => pressed && styles.pressed}
-            >
+            <PressableScale accessibilityRole="button" onPress={onClearRecent} hitSlop={8}>
               <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                 {t("search.clearRecent")}
               </ThemedText>
-            </Pressable>
+            </PressableScale>
           </View>
           <View style={styles.tagRow}>
             {recent.map((term) => (
@@ -857,7 +846,6 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.one,
   },
-  pressed: { opacity: 0.6 },
   searchingRow: {
     flexDirection: "row",
     alignItems: "center",

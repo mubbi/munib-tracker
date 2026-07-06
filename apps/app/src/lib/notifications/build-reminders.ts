@@ -1,6 +1,12 @@
 import { ADHAN_PRAYER_SET, clampPrayerReminderOffset } from "@munib-tracker/shared/constants";
-import type { PrayerId, TimeFormat, UserPreferences } from "@munib-tracker/shared/types";
+import type {
+  ObligatoryPrayer,
+  PrayerId,
+  TimeFormat,
+  UserPreferences,
+} from "@munib-tracker/shared/types";
 import i18n from "@/i18n";
+import { afterSalahAdhkarHref } from "@/lib/after-salah-adhkar-reminder";
 import { locationCalcExtras, type StoredLocation } from "@/lib/location";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
 import { computePrayerTimes, prayerReminderTime, witrTime } from "@/lib/prayer-times";
@@ -179,7 +185,7 @@ function pushPrayerReminders(
         body: i18n.t("notif.reminders.afterPrayerBody"),
         channelId: "zikr",
         repeat: "date",
-        route: zikrRoute("after_prayer"),
+        route: afterSalahAdhkarHref(slot as ObligatoryPrayer),
       });
     }
   }

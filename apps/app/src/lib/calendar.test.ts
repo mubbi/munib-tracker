@@ -1,4 +1,4 @@
-import { buildHijriMonthGrid } from "@/lib/calendar";
+import { buildHijriMonthGrid, buildWeekContainingDate } from "@/lib/calendar";
 import { gregorianToHijri, hijriMonthLength } from "@/lib/hijri";
 
 describe("buildHijriMonthGrid", () => {
@@ -34,5 +34,17 @@ describe("buildHijriMonthGrid", () => {
     const todays = weeks.flat().filter((d) => d.isToday);
     expect(todays).toHaveLength(1);
     expect(todays[0].date).toBe(today);
+  });
+});
+
+describe("buildWeekContainingDate", () => {
+  it("returns seven Sunday-first days containing the anchor", () => {
+    const week = buildWeekContainingDate("2026-07-08", "2026-07-06"); // Wed in week Sun Jul 5 – Sat Jul 11
+    expect(week).toHaveLength(7);
+    expect(week[0].date).toBe("2026-07-05");
+    expect(week[3].date).toBe("2026-07-08");
+    expect(week[6].date).toBe("2026-07-11");
+    expect(week[3].isToday).toBe(false);
+    expect(week[1].isToday).toBe(true);
   });
 });

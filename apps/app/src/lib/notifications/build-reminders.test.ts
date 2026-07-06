@@ -16,7 +16,7 @@ const basePrefs: UserPreferences = {
     prayer: true,
     sunnahPrayer: true,
     beforePrayer: true,
-    afterPrayer: false,
+    afterPrayer: true,
     afterAzan: true,
   },
   prayerAlerts: {},
@@ -56,7 +56,7 @@ describe("buildReminders", () => {
     expect(ids).toContain("prayer");
     expect(ids).toContain("afterAzan");
     expect(ids).toContain("beforePrayer");
-    expect(ids).not.toContain("afterPrayer");
+    expect(ids).toContain("afterPrayer");
     expect(reminders.some((item) => item.id.startsWith("prayer:tahajjud:"))).toBe(true);
   });
 
@@ -74,6 +74,8 @@ describe("buildReminders", () => {
     expect(routeFor("prayer:")).toBe("/tracker");
     expect(routeFor("afterAzan:")).toBe("/zikr/after_azan");
     expect(routeFor("beforePrayer:")).toBe("/zikr/before_prayer");
+    expect(routeFor("afterPrayer:fajr:")).toBe("/zikr/after_prayer?prayer=fajr");
+    expect(routeFor("afterPrayer:dhuhr:")).toBe("/zikr/after_prayer?prayer=dhuhr");
   });
 
   it("carries the reminder route through to summary rows", () => {

@@ -1,6 +1,11 @@
 import type { QuranGuideLetter } from "../types/quran-guide";
 
-/** Arabic alphabet — 28 letters with names and examples. */
+/**
+ * Arabic alphabet — 28 letters with names and examples. Bump
+ * QURAN_GUIDE_LETTERS_VERSION on content change.
+ */
+export const QURAN_GUIDE_LETTERS_VERSION = 2;
+
 export const QURAN_GUIDE_LETTERS: QuranGuideLetter[] = [
   {
     id: "alif",
@@ -143,7 +148,8 @@ export const QURAN_GUIDE_LETTERS: QuranGuideLetter[] = [
     letter: "ع",
     name: "Ayn",
     transliteration: "'",
-    pronunciation: "Constriction in the throat — no English equivalent",
+    pronunciation:
+      "A voiced constriction from the middle of the throat — no English equivalent; learn it by imitating a reciter",
     examples: ["عَلِيم", "سَمِيع"],
   },
   {

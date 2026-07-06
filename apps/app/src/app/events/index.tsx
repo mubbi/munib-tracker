@@ -64,6 +64,9 @@ export default function IslamicEventsScreen() {
                 background={tokens.accentSoft}
               />
             </View>
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.description}>
+              {t(`events.descriptions.${event.id}`)}
+            </ThemedText>
           </Card>
         ))}
 
@@ -87,5 +90,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   body: { flex: 1, gap: 2 },
+  description: { marginTop: Spacing.two, lineHeight: 20 },
   disclaimer: { textAlign: "center", marginTop: Spacing.two },
 });

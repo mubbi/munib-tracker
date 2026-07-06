@@ -19,7 +19,7 @@ export { QURAN_GUIDE_VOCABULARY } from "./quran-guide-vocabulary";
  * Memorize → Practice → Live. Scholar-neutral; cites Qur'an, graded hadith,
  * and named tafsir. Bump version on content change.
  */
-export const QURAN_GUIDE_CONTENT_VERSION = 1;
+export const QURAN_GUIDE_CONTENT_VERSION = 2;
 
 export const QURAN_GUIDE_JOURNEY_ORDER = [
   "read",
@@ -39,10 +39,10 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "What is the Qur'an, why it was revealed, and virtues of recitation.",
     importance: "foundational",
     body: [
-      "The Qur'an (literally 'recitation') is the speech of Allah revealed to Muhammad ﷺ through the angel Jibreel over approximately 23 years. It is the final scripture, confirming what came before and abrogating previous laws where Allah willed.",
-      "It was revealed to guide humanity from darkness to light — calling to tawheed, moral excellence, and preparation for the Hereafter. Every prophet brought the same core message; Muhammad ﷺ brought its completion.",
-      "Reciting the Qur'an is an act of worship. Each letter can carry reward — the believer is raised in rank. The Qur'an intercedes for its companion on the Day of Judgment.",
-      "The Qur'an is not the same as hadith: the Qur'an is Allah's verbatim speech in Arabic; hadith are the Prophet's ﷺ words, actions, and approvals, preserved through chains of narration and graded by scholars.",
+      "The word Qur'an comes from the Arabic root qara'a, meaning to recite or to read aloud — so the Book carries its purpose in its very name: it is meant to be recited, again and again, on the tongue and in the heart. In mainstream Sunni belief the Qur'an is the literal, uncreated speech of Allah, revealed in clear Arabic to the Prophet Muhammad ﷺ through the angel Jibreel over roughly 23 years, from the first words in Cave Hira until shortly before the Prophet's ﷺ passing.",
+      "It is the final scripture sent to humanity, confirming the truth in the earlier revelations given to Musa, Dawud, and Isa (peace be upon them) and completing the message they carried. Allah describes its purpose plainly: it was sent down 'as guidance for mankind' — to bring people out of the darkness of confusion and idolatry into the light of tawheed, sincere worship of Allah alone, upright character, and serious preparation for the life to come. Every prophet called to that same core; the Qur'an is its final, protected form.",
+      "Reciting the Qur'an is itself an act of worship, not merely reading information. The Prophet ﷺ taught that every single letter recited earns a good deed, and each good deed is multiplied at least tenfold — so even a beginner sounding out one line is already accumulating reward. On the Day of Resurrection the Qur'an will come as an intercessor, pleading on behalf of those who kept its company in this life. The one who recites it fluently is in the company of the noble angel-scribes, and the one who stumbles over it, struggling to learn, earns a double reward for the effort.",
+      "It helps to be clear on what the Qur'an is not. The Qur'an is Allah's own verbatim words in Arabic, unchanged since revelation. The hadith — the Prophet's ﷺ sayings, actions, and silent approvals — are separate: they explain and demonstrate the Qur'an but are the Prophet's ﷺ expression, preserved through named chains of narrators and graded by scholars as sahih (authentic), hasan (good), or da'if (weak). Both are revelation and both are binding, but only the Qur'an is recited as worship in prayer, and only the Qur'an is the miraculous, inimitable speech of Allah.",
     ],
     quran: [
       {
@@ -69,15 +69,23 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
       },
       {
         collection: "Sahih Muslim",
-        citation: "Hadith 804",
+        citation: "Hadith 804a",
         grade: "sahih",
         excerpt:
           "Read the Qur'an, for it will come as an intercessor for its companions on the Day of Resurrection.",
       },
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "Hadith 4937",
+        grade: "sahih",
+        excerpt:
+          "The one who is proficient in the Qur'an is with the noble, righteous scribes, and the one who recites it with difficulty, stammering over it, has a double reward.",
+      },
     ],
     actions: [
-      "Set a daily time for Qur'an — even five minutes builds barakah.",
-      "Open Munib's Qur'an reader and continue where you left off.",
+      "Set a fixed daily time for Qur'an — even five focused minutes builds barakah and consistency.",
+      "Read at least one line with meaning: recite the Arabic, then read the translation slowly.",
+      "Open Munib's Qur'an reader and continue exactly where you left off.",
     ],
     appLinks: [
       { label: "Read Qur'an", route: "/quran" },
@@ -91,11 +99,12 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Cave of Hira, Jibreel, Makkan and Madinan periods, compilation, preservation.",
     importance: "foundational",
     body: [
-      "Revelation began in Ramadan in Cave Hira when Jibreel brought the first verses of Surah al-Alaq. The Prophet ﷺ was distressed; Khadijah and Waraqah comforted him. Revelation paused briefly, then resumed with Surahs of comfort and warning.",
-      "Makkan revelations (roughly 13 years) emphasise tawheed, resurrection, stories of prophets, and moral reform. Verses are often powerful and concise.",
-      "After the Hijra (622 CE), the Muslim community in Madinah needed law and social order. Revelations grew longer — salah, zakat, fasting, family, war, and treaties.",
-      "The Qur'an was memorised by companions, written on materials during the Prophet's ﷺ life, compiled into a single mushaf under Abu Bakr after Yamama, and standardised under Uthman to preserve one recitation text.",
-      "Allah promised preservation: memorisation, writing, and unbroken qira'at chains protect the text. This is both a historical fact and a theological sign.",
+      "Revelation began in the month of Ramadan, when the Prophet ﷺ was forty years old and had withdrawn to the Cave of Hira on a mountain outside Makkah for solitude and reflection. There the angel Jibreel came to him and commanded, 'Read!' The Prophet ﷺ, who did not read or write, answered that he could not — until the angel embraced him and conveyed the first five verses of Surah al-Alaq: 'Read in the name of your Lord who created.' Shaken, he returned home to his wife Khadijah, who reassured him and took him to her relative Waraqah ibn Nawfal, a learned man who recognised the angel of revelation and confirmed this was the same messenger who had come to Musa.",
+      "There followed a brief pause in revelation (the fatrah), a period of quiet that made the Prophet ﷺ long for more; then it resumed and continued in stages for the rest of his life. Revelation did not descend all at once but was sent down in response to events, questions, and the growing needs of the community — a gradual method Allah describes as strengthening the Prophet's ﷺ heart and easing the Book into people's lives.",
+      "The Makkan period lasted roughly thirteen years. Its surahs are often short, rhythmic, and powerful; they hammer home the foundations — the oneness of Allah, the certainty of resurrection and accountability, the stories of earlier prophets who were rejected then vindicated, and a sweeping call to moral reform in a society steeped in idolatry and injustice.",
+      "After the Hijra to Madinah in 622 CE, the Muslims were no longer a persecuted few but a community building a society. The Madinan revelations are generally longer and more detailed, laying down the law and social order the new ummah needed: the specifics of salah, zakat, fasting, inheritance, marriage and divorce, contracts, warfare, and treaties, alongside firm words for the hypocrites who undermined the community from within.",
+      "Preservation of the text began in the Prophet's ﷺ own lifetime. The companions memorised the revelation as it came, and scribes wrote it down on parchment, palm-stalks, bone, and stone under the Prophet's ﷺ direct supervision. After many memorisers were martyred at the Battle of Yamama, Abu Bakr ordered Zayd ibn Thabit to gather the written Qur'an into a single collection (the suhuf). Later, as the empire spread and dialects varied, Uthman had authoritative copies made in the dialect of the Quraysh and sent to the major cities, standardising one written text for the whole ummah.",
+      "Allah Himself guaranteed the Qur'an's protection: 'Indeed, We sent down the Reminder, and indeed We will preserve it.' That promise has been fulfilled through three interlocking safeguards — mass memorisation in every generation, careful written transmission, and unbroken teacher-to-student chains of recitation (qira'at) reaching back to the Prophet ﷺ. For the believer this is a theological sign; for the historian it is a documented fact: the Qur'an recited today is the same text revealed fourteen centuries ago.",
     ],
     quran: [
       {
@@ -124,10 +133,10 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "114 surahs, 30 juz, ayahs, Makki/Madani, order vs revelation.",
     importance: "foundational",
     body: [
-      "The mus'haf contains 114 surahs arranged largely by length (with exceptions like Al-Baqarah and Al-Fatiha). This order is tawqifi — divinely taught to the Prophet ﷺ — not chronological.",
-      "Scholars classify surahs as Makki (before Hijra) or Madani (after), with some containing both. Makki surahs often stress belief; Madani surahs add legislation.",
-      "The Qur'an is also divided into 30 juz for monthly reading and 60 hizb for smaller portions. Ayah numbering helps reference — slight scholarly variation exists at surah ends.",
-      "Knowing structure helps planning: khatm in Ramadan, hifz of Juz Amma, or thematic study across surahs.",
+      "The mus'haf — the physical copy of the Qur'an — contains 114 surahs (chapters), each with its own name, usually taken from a striking word within it. They are arranged mostly from longest to shortest, though not strictly: Al-Fatiha, the short opening chapter, comes first as the gateway to the Book, and the long Al-Baqarah follows. This arrangement is tawqifi — the order was taught to the Prophet ﷺ by Jibreel and is not the order in which the verses were revealed. So the sequence you read in the mus'haf is deliberate and divinely fixed, not chronological.",
+      "Every surah is classified as Makki (revealed before the Hijra) or Madani (revealed after it), and a few contain verses of both. As a rule of thumb, Makki surahs concentrate on belief — tawhid, the resurrection, and stories of the prophets — in shorter, more urgent passages, while Madani surahs add the detailed legislation and community guidance a settled society needs. Knowing which is which helps you read a surah in its proper light.",
+      "For manageable reading, the Qur'an is also divided into 30 equal parts called juz (plural ajza'), and each juz into two halves called hizb, giving 60 hizb in total. This is what makes a Ramadan khatm — completing the whole Qur'an in a month — so natural: one juz a day finishes the Book in thirty days, and a half-juz twice daily is gentler still. Within each surah the ayahs (verses) are numbered so any passage can be cited precisely as surah:ayah; the standard Madinah count is 6,236 ayahs, with only tiny, well-documented differences in how a few verse-boundaries are numbered — the text itself is identical.",
+      "Understanding this structure turns vague intentions into a concrete plan. You can commit to a fixed daily portion, target Juz Amma (the last, thirtieth part, full of short surahs) for memorisation, follow a single theme such as patience across several surahs, or schedule a complete reading around Ramadan. Structure is the scaffolding that makes a lifelong relationship with the Qur'an achievable.",
     ],
     quran: [
       {
@@ -149,14 +158,15 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Seven levels from alphabet to fluent recitation — for absolute beginners.",
     importance: "foundational",
     body: [
-      "Most Muslims desire to read the Qur'an in Arabic even if they understand translation. This path moves from letters to fluent recitation with a teacher.",
-      "Level 1–2: recognise letters and their shapes in words. Level 3: harakat. Level 4–5: join letters and read words. Level 6–7: verses and fluency with tajweed.",
-      "Audio from qualified reciters is essential — mimic rhythm and pronunciation. Letter tracing (on paper or screen) builds muscle memory.",
-      "A local teacher or online tajweed programme is strongly recommended; apps supplement but do not replace correction.",
+      "Almost every Muslim longs to read the Qur'an in its original Arabic, and it is a goal fully within reach at any age — countless adults with no prior Arabic learn to recite fluently. Understanding a translation is valuable, but reciting the actual Arabic words is itself worship, and it is worth the effort. This path takes you step by step from not recognising a single letter to reading verses with correct pronunciation.",
+      "The journey moves through seven natural stages. Levels 1 and 2 build letter recognition — first the 28 letters in their isolated form, then how their shapes change at the start, middle, and end of a word. Level 3 introduces the harakat, the small marks (fatha, kasra, damma, sukun, shaddah, tanween) that tell you which vowel each letter carries. Levels 4 and 5 are where it clicks: you join letters into syllables and sound out whole words, including the sun and moon letter rules for the definite article 'al-'. Levels 6 and 7 move to short verses and then smooth, fluent recitation with the basic rules of tajweed applied.",
+      "Two habits accelerate everything. First, listen constantly to a qualified reciter and imitate exactly — the Qur'an was passed down by ear, from mouth to mouth, so your ear is your best teacher; copy the rhythm, the length of vowels, and the shape of each sound. Second, trace and write the letters, on paper or screen, because the hand reinforces what the eye and tongue are learning.",
+      "One caution: apps and recordings are excellent support, but they cannot correct you the way a person can. The Prophet ﷺ learned the Qur'an directly from Jibreel and taught it face to face to the companions, and that living chain of correction is how accurate recitation has always been preserved. Find a local teacher or a structured online tajweed programme to listen to you and fix mistakes you cannot hear yourself.",
     ],
     actions: [
-      "Study the Arabic letters section daily — one letter at a time.",
-      "Listen to Al-Fatiha repeated, following in a mushaf.",
+      "Study one letter a day in the Arabic letters section — see it, hear it, say it, write it.",
+      "Listen to Surah al-Fatiha on repeat while following the words in a mushaf.",
+      "Arrange a teacher — local or online — to hear you recite and correct you weekly.",
     ],
     appLinks: [
       { label: "Reading levels", route: "/learn-quran/learn-to-read" },
@@ -171,17 +181,24 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Rules of beautiful and correct recitation — noon sakin, madd, waqf, and more.",
     importance: "highly-recommended",
     body: [
-      "Tajweed means to make better — giving each letter its right and due in pronunciation, timing, and stopping.",
-      "The Qur'an was revealed with tajweed; Jibreel recited to the Prophet ﷺ who recited to companions. Errors can change meanings — hence the science.",
-      "Core topics: noon sakinah/tanween rules, meem sakinah, madd, qalqalah, ghunnah, and waqf. Each has definition, examples, and practice.",
-      "V2 adds audio drills and quizzes; always pair with a teacher for ijazah-level accuracy.",
+      "Tajweed comes from a root meaning to make something excellent or beautiful. As a science it means giving every letter its due — its correct point of articulation in the mouth or throat (makhraj), its inherent qualities (sifat), and the proper timing of vowels and pauses. In short, tajweed is the art of reciting the Qur'an exactly as it was revealed.",
+      "This matters because the Qur'an is not just any text to be read casually. It came down with tajweed already built in: Jibreel recited it to the Prophet ﷺ with precise pronunciation, the Prophet ﷺ recited it the same way to the companions, and they passed it on unbroken to us. Getting a letter wrong is not a small thing — mispronouncing a letter can change a word entirely (for example confusing the emphatic ص with a plain س, or the throat letters ع and ح), and in some places that alters the meaning of Allah's words. The science of tajweed exists to guard against exactly that.",
+      "You do not need to master everything at once. The core rules are learned in order: the rulings of noon sakinah and tanween (izhar, idgham, iqlab, ikhfa), the rulings of meem sakinah, the different kinds of madd (elongation), qalqalah (the light bounce on certain letters), ghunnah (nasal resonance), and waqf (where and how to stop). Each has a clear definition, everyday examples, and something to practise, and this hub walks through them one at a time.",
+      "A firm rule of thumb: learn tajweed by ear from a qualified teacher, not from books or apps alone. Recite to someone who can hear your mistakes and correct them — this is how tajweed has always been taught, and it is the only reliable path to real accuracy and, eventually, an ijazah (a certified chain of recitation).",
     ],
     hadith: [
       {
         collection: "Sahih al-Bukhari",
-        citation: "Hadith 4990",
+        citation: "Hadith 5027",
         grade: "sahih",
-        excerpt: "The Prophet ﷺ taught recitation to companions — recite as you were taught.",
+        excerpt: "The best of you are those who learn the Qur'an and teach it.",
+      },
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "Hadith 4937",
+        grade: "sahih",
+        excerpt:
+          "The one who is proficient in the Qur'an is with the noble, righteous scribes, and the one who recites it with difficulty, stammering over it, has a double reward.",
       },
     ],
     appLinks: [{ label: "Tajweed lessons", route: "/learn-quran/tajweed" }],
@@ -193,9 +210,10 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Interactive alphabet — name, sound, examples for each of 28 letters.",
     importance: "foundational",
     body: [
-      "Arabic has 28 letters. Qur'anic Arabic adds rules for hamza, madd letters, and sun/moon letters at word boundaries.",
-      "Each letter card shows isolated form, name, transliteration, pronunciation tip, and Qur'anic examples.",
-      "Practice daily: see, hear, say, write. Connect letters to words you already know (Allah, Rabb, Rahman).",
+      "The Arabic alphabet has 28 letters, written and read from right to left. Unlike English, most letters connect to the ones beside them, so a single letter can take a slightly different shape depending on whether it stands alone or sits at the start, middle, or end of a word. Learning to spot the same letter in its different forms is one of the first real breakthroughs.",
+      "Qur'anic Arabic layers a few extra features on top of the basic letters: the hamza (a glottal stop), the long-vowel letters alif, waw, and ya that stretch a sound, and the sun and moon letter rule that decides whether the 'l' of the definite article 'al-' is pronounced or silently merged into the next letter. These are simple once you meet them in real words.",
+      "Each letter card in this section gives you the isolated form of the letter, its name, a transliteration, a practical pronunciation tip, and real Qur'anic examples so you learn the sound in context rather than in the abstract. The most effective routine is a four-step loop for every letter: see it, hear it recited, say it aloud yourself, then write it.",
+      "Anchor each new letter to words you may already recognise — Allah, Rabb (Lord), ar-Rahman (the Most Merciful), Bismillah. Connecting unfamiliar shapes to familiar meaning makes them stick far faster than drilling letters in isolation.",
     ],
     appLinks: [
       { label: "Letter browser", route: "/learn-quran/letters" },
@@ -209,9 +227,10 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Master difficult letters — ayn, ha, sad, dad, qaf, and emphatics.",
     importance: "recommended",
     body: [
-      "Non-Arabic speakers often confuse similar letters. Emphatics (ṣ, ḍ, ṭ, ẓ) require tongue position Arabs learn from childhood.",
-      "Ayn and ha are throat letters with no English equivalent — practise with a native or qualified teacher.",
-      "Compare pairs side by side: س/ص, د/ض, ك/ق. Record yourself and compare to a slow murattal reciter.",
+      "Arabic contains several sounds that have no exact equivalent in English, and this is where non-native speakers most often slip. The commonest confusions are between letters that sound alike to an untrained ear but are pronounced from different places in the mouth or throat — and mixing them up can change the meaning of a word, which is why they deserve dedicated practice.",
+      "The emphatic letters — ṣ (ص), ḍ (ض), ṭ (ط), and ẓ (ظ) — are 'heavy' versions of lighter letters. To produce them you raise the back of the tongue and fill the mouth with a fuller, deeper sound, something native speakers absorb in childhood but learners must build consciously. Compare each emphatic directly with its light counterpart: س against ص, د against ض, ت against ط, ذ against ظ.",
+      "The throat letters are the other big hurdle. Ayn (ع) is a voiced constriction from the middle of the throat, and ha (ح) is a strong, breathy friction — neither exists in English, and no written description fully substitutes for hearing them. Qaf (ق) is a deep 'k' from the very back of the tongue, distinct from the forward kaf (ك).",
+      "The reliable method is to compare pairs side by side, then check yourself against a slow, clear murattal recitation. Record your own voice reciting a short word, play it against the reciter, and adjust. Even better, have a qualified teacher listen — some errors are almost impossible to catch in your own recording.",
     ],
     appLinks: [{ label: "Letter comparisons", route: "/learn-quran/pronunciation" }],
   },
@@ -222,9 +241,9 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "High-frequency words — understand more every time you recite.",
     importance: "highly-recommended",
     body: [
-      "Roughly 300 words cover a large percentage of Qur'anic text. Learning them transforms recitation from sound to meaning.",
-      "Start with Allah, Rabb, Rahmah, Iman, Sabr, Taqwa, Dunya, Akhirah — then expand.",
-      "Use spaced repetition: five new words per week reviewed daily beats cramming.",
+      "Here is an encouraging fact: a relatively small set of high-frequency words — on the order of a few hundred — accounts for a very large share of the running text of the Qur'an, because the same key words recur again and again. Learning that core vocabulary is the single highest-leverage step you can take, because it transforms recitation from a stream of sound into words whose meaning you actually catch as you read.",
+      "You do not translate the Qur'an word for word this way — that is the work of tafsir and translation — but you begin to recognise Allah's names, the commands, the promises, and the warnings live, in the moment of reciting. Start with the words that appear most and carry the most weight: Allah, Rabb (Lord), rahmah (mercy), iman (faith), sabr (patience), taqwa (God-consciousness), dunya (this world), and akhirah (the Hereafter). From that anchor set, expand outward a little at a time.",
+      "Use spaced repetition rather than cramming. Learning five new words a week and reviewing all of them daily will take you far further in a year than memorising fifty in one sitting and forgetting them. Allah promises that the Qur'an has been made easy to take to heart — approach its vocabulary steadily and you will feel that ease firsthand.",
     ],
     quran: [
       {
@@ -244,10 +263,10 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Understanding revelation — overview, context, and recognised scholarly sources.",
     importance: "foundational",
     body: [
-      "Tafsir is explanation of the Qur'an by the Qur'an, by the Sunnah, by companions, and by language — in that hierarchy of authority.",
-      "Each surah has historical context (asbab al-nuzul where established), themes, key verses, and practical lessons. Avoid unqualified personal opinion.",
-      "Recognised references include Tafsir Ibn Kathir (comprehensive, cites hadith), Tafsir al-Sa'di (clear contemporary Arabic), and al-Tabari (classical). Always note the source.",
-      "Munib links to bundled and remote tafsir in the Qur'an reader. Use this hub for methodology; use the reader for verse-by-verse study.",
+      "Tafsir means the explanation and interpretation of the Qur'an — clarifying what a verse means, why it was revealed, and how it applies. Because these are Allah's words, the scholars established a strict order of authority for how the Qur'an should be explained, and staying within it protects you from error.",
+      "The soundest tafsir is the Qur'an explaining itself: a verse that is brief in one place is often expanded elsewhere, so the Qur'an is its own best commentary. Next comes explanation by the Sunnah, since the Prophet ﷺ was sent precisely to make the revelation clear and his words and practice show us how it was lived. After that comes the understanding of the companions, who witnessed the revelation and knew its context directly, followed by the great scholars who came after them. Last and lowest is interpretation by the Arabic language itself. What has no place at all is unqualified personal opinion — reading your own ideas into the text.",
+      "A key tool in tafsir is asbab al-nuzul, the occasions of revelation: knowing the event or question that prompted a verse often unlocks its meaning. But these reports must themselves be authenticated, since not every narrated 'occasion' is reliable. For each surah, good tafsir gives you its historical setting where established, its major themes, its pivotal verses, and the practical lessons to carry away.",
+      "Among the most recognised and trustworthy references are Tafsir Ibn Kathir (comprehensive and careful to cite hadith and the sayings of the early generations), Tafsir as-Sa'di (clear, contemporary, and focused on practical guidance), and the classical Tafsir al-Tabari (encyclopaedic, preserving the earliest interpretations). Whenever you learn a meaning, note which source it came from. This hub teaches the methodology; use Munib's Qur'an reader, which links bundled and remote tafsir, for verse-by-verse study.",
     ],
     sources: [
       "Tafsir Ibn Kathir — abridged English widely available",
@@ -265,9 +284,9 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Faith, prayer, patience, charity, prophets — verses grouped by topic.",
     importance: "recommended",
     body: [
-      "The Qur'an is not a linear history book — themes repeat, deepen, and cross-reference. Studying by theme reveals unity.",
-      "Each theme entry includes verses, supporting hadith where relevant, lessons, reflection prompts, and action items.",
-      "Connect themes to your life: parents, business ethics, marriage, and justice are not abstract chapters but daily choices.",
+      "The Qur'an is not laid out like a textbook, one subject per chapter. Instead its great themes — the oneness of Allah, prayer, patience, charity, the prophets, the Hereafter, justice, family — are woven throughout, appearing and reappearing across many surahs, each time from a fresh angle. What looks at first like repetition is actually reinforcement: a theme is introduced, then deepened, then connected to another, until the whole message stands as one coherent call.",
+      "Studying the Qur'an by theme reveals that unity. When you gather what the Qur'an says about, say, gratitude or trust in Allah from across its surahs, the separate verses illuminate each other and the lesson becomes vivid and complete. Each theme entry in this hub pulls together the relevant verses, supporting authentic hadith where they add clarity, the core lessons, and concrete actions so the knowledge does not stay theoretical.",
+      "Above all, connect the themes to your own life. Kindness to parents, honesty in business, fairness in marriage, standing for justice even against your own interest — these are not abstract chapters to admire but daily decisions the Qur'an is asking you to make. Read each theme as a question directed personally at you: how does this change what I do today?",
     ],
     appLinks: [{ label: "Browse themes", route: "/learn-quran/themes" }],
   },
@@ -278,9 +297,9 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Prophets from Adam to Muhammad ﷺ — lessons, locations, related verses.",
     importance: "recommended",
     body: [
-      "The Qur'an says of its narratives: 'In their stories is a lesson for those of understanding.' Stories are not entertainment — they are instruction.",
-      "Prophets faced rejection, loss, and triumph by Allah's will. Compare your trials to theirs without equating your rank — learn their patience and tawakkul.",
-      "Surah Yusuf is called the best of stories — read it as one continuous narrative.",
+      "The Qur'an tells the stories of the prophets — Adam, Nuh, Ibrahim, Yusuf, Musa, Isa, and many others — and it tells us plainly why: 'In their stories is a lesson for those of understanding.' These accounts are not folklore or entertainment. They are instruction, chosen and told by Allah to teach faith, patience, and how to face the same trials that recur in every age.",
+      "Notice the pattern that runs through them. Prophets called their people to the worship of Allah alone; they were mocked, opposed, and often driven out; they endured with patience and complete reliance on Allah (tawakkul); and in the end Allah's promise came true. When you read of their hardships, draw strength from how they responded — without ever imagining your rank equals theirs. The point is to absorb their steadfastness and trust, not to compare status.",
+      "The Qur'an itself singles out one narrative: Surah Yusuf, which Allah calls 'the best of stories'. Unusually, it is told from beginning to end in a single surah, so read it in one sitting as a continuous journey — betrayal, patience through slavery and prison, and finally forgiveness and reunion — and watch how Allah's plan unfolds behind years of apparent misfortune.",
     ],
     quran: [
       {
@@ -299,10 +318,10 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Linguistic inimitability, preservation, prophecies — with scholarly caution.",
     importance: "recommended",
     body: [
-      "The Qur'an challenges opponents to produce a surah like it — a challenge unmet for fourteen centuries. Its Arabic rhetoric, structure, and legal coherence are studied in ilm al-balagha.",
-      "Preservation is both textual (memorisation and writing) and oral (qira'at through chains). This is established history, not speculation.",
-      "Scientific signs (anatomy, cosmology) appear in verses — classical tafsir often read them differently from modern apologists. Distinguish established interpretation from contemporary hypotheses.",
-      "Prophecies (e.g. Romans' victory, opening of Makkah) are cited by scholars — study them through tafsir, not viral clips.",
+      "The central miracle of the Qur'an is the Qur'an itself. Revealed to an unlettered man in the most eloquent age of Arabic poetry, it issued an open challenge to its fiercest opponents — masters of the language — to produce even a single surah like it. Fourteen centuries later that challenge stands unmet. Its rhetorical power, its structure, the way its themes interlock, and the coherence of its guidance and law are studied in the classical science of eloquence (ilm al-balagha), and they remain, by the Qur'an's own claim, inimitable.",
+      "Its preservation is a second, verifiable sign. The text has been protected both in writing, through carefully transmitted manuscripts, and orally, through the qira'at — unbroken chains of reciters memorising and teaching it exactly, generation after generation. This is documented history, not pious speculation, and it fulfils Allah's own promise to guard the Reminder.",
+      "You will also hear about 'scientific miracles' — verses touching on the stages of the embryo, the expansion of the cosmos, and the like. Handle these with care. Classical tafsir often understood such verses in ways quite different from modern apologists, and forcing the Qur'an to match every shifting scientific hypothesis can backfire when theories change. Distinguish firmly between established interpretation and contemporary conjecture.",
+      "Historical prophecies are likewise cited by scholars — the foretold victory of the Romans, the peaceful opening of Makkah — and they are worth studying, but through sober tafsir and seerah, not sensational video clips. The strongest case for the Qur'an has always been its tawhid, its moral transformation of a people, and its unmatched language and preservation.",
     ],
     quran: [
       {
@@ -322,17 +341,25 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Plans from Juz Amma to full hifz — revision, audio, daily goals.",
     importance: "highly-recommended",
     body: [
-      "Hifz is a noble goal — the hafiz carries light and intercession. Start small: Al-Fatiha, then short surahs from the end.",
-      "Revision (muraja'ah) is more important than new memorisation. The Prophet ﷺ compared forgetting Qur'an to a escaped camel.",
-      "Use spaced repetition, listen to the same reciter, and track mistakes with a teacher. Munib's hifz tracker supports ayah-level progress.",
-      "Plans: Beginner (Juz Amma), Intermediate (ten core surahs), Advanced (one juz), Hafiz journey (full Qur'an with sanad).",
+      "Memorising the Qur'an (hifz) is one of the noblest pursuits in a believer's life, and it is not reserved for scholars or children — adults complete it too. The Prophet ﷺ taught that on the Day of Resurrection the one who carried the Qur'an will be told, 'Recite and ascend,' rising in rank with each verse. Begin where everyone begins: Surah al-Fatiha, which you already recite in every prayer, then the short surahs at the very end of the mus'haf, working backwards.",
+      "The most important lesson in hifz is counter-intuitive: revision (muraja'ah) matters more than adding new material. The Prophet ﷺ warned that the memorised Qur'an slips away faster than a tied camel breaks loose — leave it unrevised and it is gone. So the rule is simple and strict: never add a new portion until you have firmly revised what you already hold. A little memorised solidly beats a lot memorised loosely.",
+      "Practical method: use spaced repetition, stick to a single reciter so the melody itself cues your memory, recite from memory daily rather than only reading, and have a teacher listen and mark your mistakes — errors you cannot hear yourself. Munib's hifz tracker records progress down to the individual ayah so you always know what is due for revision.",
+      "Choose a plan that fits your stage. Beginner: memorise Juz Amma, the last part, full of short surahs. Intermediate: add ten frequently recited surahs such as al-Mulk, Ya-Sin, and al-Kahf. Advanced: complete a full juz with strong revision of everything before it. And the Hafiz journey: the entire mus'haf, memorised with a qualified teacher and, ideally, a sanad — a certified chain of transmission back to the Prophet ﷺ.",
     ],
     hadith: [
+      {
+        collection: "Jami' at-Tirmidhi",
+        citation: "Hadith 2914",
+        grade: "hasan",
+        excerpt:
+          "It will be said to the companion of the Qur'an: Recite and ascend as you used to recite in the world, for your rank will be at the last verse you recite.",
+      },
       {
         collection: "Sahih al-Bukhari",
         citation: "Hadith 5031",
         grade: "sahih",
-        excerpt: "It will be said to the companion of the Qur'an: Recite and ascend…",
+        excerpt:
+          "The parable of the companion of the Qur'an is that of the owner of a tethered camel: if he tends to it he keeps it, and if he lets it go he loses it.",
       },
     ],
     appLinks: [
@@ -347,9 +374,9 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "One verse, context, reflection, and action — each day.",
     importance: "recommended",
     body: [
-      "Small daily doses build lifelong attachment. Each lesson includes Arabic, translation, historical context, a reflection question, and one action for today.",
-      "Bookmark verses that strike your heart. Share with family to multiply reward.",
-      "Consistency beats intensity — five minutes daily outweighs a rare hour.",
+      "A lifelong attachment to the Qur'an is built the same way any deep habit is built — a little, every day, without fail. The Prophet ﷺ taught that the deeds most beloved to Allah are those done consistently, even if small, and that principle is the whole idea behind a daily lesson. Each one gives you a single verse in Arabic, its translation, a note on its historical context, a reflection question to sit with, and one concrete action to carry into your day.",
+      "Treat these verses as living guidance, not passing reading. Bookmark the ones that strike your heart, return to them, and share what moved you with your family — when someone else acts on a good you passed along, its reward reaches you too, so teaching multiplies the benefit.",
+      "Do not let the small size fool you. Consistency beats intensity every time: five honest minutes with the Qur'an every single day will transform you far more than a rare, heroic hour once a month. Show up daily, and let the days accumulate.",
     ],
     appLinks: [{ label: "Today's lesson", route: "/learn-quran/daily" }],
   },
@@ -360,9 +387,9 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Guided questions — what does Allah teach, and how will you live it?",
     importance: "foundational",
     body: [
-      "Allah commands: 'Do they not reflect upon the Qur'an, or are there locks upon their hearts?' Tadabbur is not the same as tafsir — it is personal application with reverence.",
-      "Ask: What does Allah teach here? How does this change my today? What habit must I improve?",
-      "Keep private notes — Munib journal can store reflections. Do not invent meanings; let tafsir bound your understanding.",
+      "Tadabbur means to ponder the Qur'an deeply, turning a verse over in the heart until it moves you to change. It is a direct command, not an optional extra: Allah asks, 'Do they not reflect upon the Qur'an, or are there locks upon their hearts?' The purpose of reciting was never mere sound — it was to reach the heart and reshape a life.",
+      "Tadabbur is not the same as tafsir. Tafsir is the scholarly explanation of what a verse means; tadabbur is your personal, reverent response to that meaning once you understand it. The two work together: you first learn the sound meaning from tafsir, then you sit with it and ask how it speaks to you. A helpful frame is three questions — What is Allah teaching me here? How does this change what I do today? What one habit must I build or break because of it?",
+      "One firm boundary keeps tadabbur safe: reflect on what a verse asks of you, but never invent new meanings for the text itself. Let authentic tafsir set the limits of interpretation, and keep your personal reflections in their own place — a private journal, such as Munib's, is ideal for capturing what a verse stirred in you and returning to it later.",
     ],
     quran: [
       {
@@ -391,9 +418,9 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "Today's challenge from a verse — track completion, live the ayah.",
     importance: "highly-recommended",
     body: [
-      "Reading without application was criticised even among Bani Isra'il. The Qur'an is a covenant — each ayah asks something of you.",
-      "Each challenge links a verse to one behaviour: kind speech, charity, lowering gaze, forgiving a grudge.",
-      "Mark completion honestly — not for show, but to build accountability with Allah.",
+      "Knowledge of the Qur'an is meant to become action. Allah sharply criticised those before us who recited the Book yet lived against it: 'Do you order righteousness of others and forget yourselves while you recite the Scripture?' The Qur'an is a covenant between you and your Lord, and every ayah is quietly asking something of you — the question is whether you answer.",
+      "That is what these challenges are for. Each one links a specific verse to a single, doable behaviour for today: guarding your tongue with kind speech, giving a quiet charity, lowering your gaze from what is forbidden, letting go of a grudge you have carried. One verse, one action — small enough to actually do, real enough to change you.",
+      "Mark a challenge complete only when you have truly done it. The point of tracking is not display — that would defeat the purpose — but honest accountability with Allah, who sees what others do not. Over time, verse by verse, this is how recitation turns into character.",
     ],
     quran: [
       {
@@ -414,9 +441,9 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     importance: "recommended",
     comingSoon: true,
     body: [
-      "Quizzes reinforce memory: surah names, verse completions, prophet stories, tajweed rules, and vocabulary.",
-      "Gamification is a tool — not competition for spiritual rank. Use quizzes to find gaps, then study those topics.",
-      "Coming in V2: categories, streaks, and integration with your learning progress dashboard.",
+      "Testing yourself is one of the most effective ways to make knowledge stick — recalling an answer strengthens memory far more than simply re-reading. The quiz section will draw on everything in this hub: surah names and order, completing a verse from its opening, matching prophets to their stories, identifying tajweed rules, and recalling high-frequency vocabulary.",
+      "Keep the intention right. Gamification — points, streaks, categories — is a helpful nudge for consistency, not a contest over spiritual rank, which belongs to Allah alone. Use each quiz to expose your weak spots, then go back and study exactly those topics rather than chasing a score.",
+      "Coming in a future version: themed categories, daily streaks, and integration with your learning-progress dashboard so your review targets the areas you most need.",
     ],
     appLinks: [{ label: "Quiz (preview)", route: "/learn-quran/quiz" }],
   },
@@ -427,10 +454,10 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     summary: "How we cite Qur'an, hadith, tafsir, and scholarly differences.",
     importance: "foundational",
     body: [
-      "Every lesson should display: Qur'an references (surah:ayah), authentic hadith with collection and grade, tafsir source when explaining meaning, and notes when scholars differ.",
-      "Established facts (five prayers, Qur'an preservation, major events in seerah) are stated clearly. Interpretive matters (eschatology details, scientific readings) are labelled as such.",
-      "Recommended references: Qur'an translations (Pickthall, Sahih International), hadith collections (Bukhari, Muslim), tafsir (Ibn Kathir, Sa'di), and seerah (Ibn Hisham, ar-Raheeq al-Makhtum).",
-      "For fiqh of recitation or tajweed ijazah, consult a local scholar — Munib educates but does not issue rulings.",
+      "Sound Islamic learning is built on transparent evidence, so every lesson in this hub aims to show its working. A claim about the Qur'an is backed by a reference in the form surah:ayah; a claim from the Sunnah names the collection (Bukhari, Muslim, Tirmidhi, and so on), the hadith number, and its grade (sahih, hasan, or weaker); a claim about a verse's meaning names the tafsir it comes from; and where the scholars genuinely differ, the difference is noted rather than hidden.",
+      "It also matters to distinguish what is certain from what is interpretive. Established facts — the five daily prayers, the preservation of the Qur'an, the major events of the seerah — are stated plainly. Matters where sincere scholars have long differed, such as the fine details of eschatology or the reading of scientific allusions, are presented as interpretation, not as settled certainty. Confidence should match the strength of the evidence.",
+      "For deeper study, lean on established references: reliable Qur'an translations (such as Sahih International or Pickthall), the primary hadith collections (Sahih al-Bukhari and Sahih Muslim foremost), respected tafsir (Ibn Kathir and as-Sa'di), and trustworthy seerah (Ibn Hisham's classic, and ar-Raheeq al-Makhtum, 'The Sealed Nectar,' for a modern narrative).",
+      "Finally, know the limits of an app. Munib educates and points you to sources, but it does not issue religious rulings. For the fiqh of recitation, for a tajweed ijazah, or for any question that affects your worship or life decisions, consult a qualified scholar in your own school and locale.",
     ],
     sources: [
       "Qur'an — King Fahd Complex print / authenticated digital mushaf",

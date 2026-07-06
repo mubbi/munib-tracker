@@ -12,7 +12,7 @@ const appJson = JSON.parse(fs.readFileSync(path.join(projectRoot, "app.json"), "
 
 const expo = appJson.expo ?? {};
 const web = expo.web ?? {};
-const themeColor = web.themeColor ?? "#059669";
+const themeColor = web.themeColor ?? "#152921";
 const backgroundColor = web.backgroundColor ?? themeColor;
 const shortName = web.shortName ?? expo.name ?? "Munib Tracker";
 
@@ -60,7 +60,7 @@ const manifest = {
 
 const assetsImages = path.join(projectRoot, "assets", "images");
 const publicImages = path.join(projectRoot, "public", "assets", "images");
-const iconNames = ["icon-180.png", "icon-192.png", "icon-512.png"];
+const iconNames = ["icon-180.png", "icon-192.png", "icon-512.png", "favicon.png"];
 
 for (const name of iconNames) {
   const src = path.join(assetsImages, name);

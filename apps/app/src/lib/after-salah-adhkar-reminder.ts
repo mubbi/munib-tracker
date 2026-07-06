@@ -19,4 +19,9 @@ export function afterSalahAdhkarRoute(prayerId?: ObligatoryPrayer) {
   };
 }
 
+/** String href for notification deep-links and other string-based navigators. */
+export function afterSalahAdhkarHref(prayerId: ObligatoryPrayer): string {
+  return `/zikr/after_prayer?prayer=${prayerId}`;
+}
+
 export const AFTER_SALAH_ADHKAR_ROUTE = afterSalahAdhkarRoute();

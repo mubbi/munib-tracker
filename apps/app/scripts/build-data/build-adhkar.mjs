@@ -532,6 +532,104 @@ const ZIKR_ITEMS = [
   // Ayat al-Kursi is supplied complete (verbatim, with transliteration) by the
   // fitrahive dhikr-after-salah dataset — the truncated hand-curated copy was
   // removed so only the full verse remains.
+  {
+    id: "after_prayer-tahlil-hundred",
+    categoryId: "after_prayer",
+    title: "La ilaha illallah (completing the hundred)",
+    arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+    transliteration:
+      "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir",
+    translation:
+      "There is no god but Allah, alone, without partner. His is the dominion and His is the praise, and He is over all things capable.",
+    virtues:
+      "Whoever, after every prayer, glorifies Allah 33 times, praises Him 33 times, and magnifies Him 33 times — that is 99 — then completes the hundred with this, his sins are forgiven though they be like the foam of the sea.",
+    reference: "Muslim 597",
+    targetCount: 1,
+  },
+  {
+    id: "after_prayer-tahlil-ten",
+    categoryId: "after_prayer",
+    title: "La ilaha illallah (x10 after Fajr & Maghrib)",
+    arabic: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، يُحْيِي وَيُمِيتُ، وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ",
+    transliteration:
+      "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamd, yuhyi wa yumit, wa huwa 'ala kulli shay'in qadir",
+    translation:
+      "There is no god but Allah, alone, without partner. His is the dominion and His is the praise. He gives life and causes death, and He is over all things capable.",
+    virtues:
+      "Whoever says it ten times after Maghrib and after Fajr: Allah records for him ten good deeds, erases ten sins, raises him ten degrees, and it is a protection for him that day from every disliked thing and a guard from Shaytan.",
+    reference: "Tirmidhi 3474",
+    targetCount: 10,
+    prayers: ["fajr", "maghrib"],
+  },
+  {
+    id: "after_prayer-ajirni-min-an-nar",
+    categoryId: "after_prayer",
+    title: "Allahumma ajirni min an-nar (x7 after Fajr & Maghrib)",
+    arabic: "اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ",
+    transliteration: "Allahumma ajirni minan-nar",
+    translation: "O Allah, save me from the Fire.",
+    virtues:
+      "Whoever says it seven times after the Maghrib prayer before speaking, then dies that night, is protected from the Fire; and whoever says it after Fajr before speaking, then dies that day, is protected from the Fire.",
+    reference: "Abu Dawud 5079",
+    targetCount: 7,
+    prayers: ["fajr", "maghrib"],
+  },
+  {
+    id: "after_prayer-muadh-dhikr-shukr",
+    categoryId: "after_prayer",
+    title: "Help me to remember and thank You",
+    arabic: "اللَّهُمَّ أَعِنِّي عَلَىٰ ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ",
+    transliteration: "Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatik",
+    translation:
+      "O Allah, help me to remember You, to thank You, and to worship You in the best manner.",
+    virtues:
+      "The Prophet ﷺ took Mu'adh by the hand and said, 'By Allah, I love you,' then advised him never to leave saying this after every prayer.",
+    reference: "Abu Dawud 1522 & An-Nasa'i",
+    targetCount: 1,
+  },
+  {
+    id: "after_prayer-nur",
+    categoryId: "after_prayer",
+    title: "Supplication for Light (after Fajr)",
+    arabic:
+      "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا، وَفِي لِسَانِي نُورًا، وَفِي سَمْعِي نُورًا، وَفِي بَصَرِي نُورًا، وَمِنْ فَوْقِي نُورًا، وَمِنْ تَحْتِي نُورًا، وَعَنْ يَمِينِي نُورًا، وَعَنْ شِمَالِي نُورًا، وَمِنْ أَمَامِي نُورًا، وَمِنْ خَلْفِي نُورًا، وَاجْعَلْ فِي نَفْسِي نُورًا، وَأَعْظِمْ لِي نُورًا",
+    transliteration:
+      "Allahumma-j'al fi qalbi nuran, wa fi lisani nuran, wa fi sam'i nuran, wa fi basari nuran, wa min fawqi nuran, wa min tahti nuran, wa 'an yamini nuran, wa 'an shimali nuran, wa min amami nuran, wa min khalfi nuran, waj'al fi nafsi nuran, wa a'zim li nuran",
+    translation:
+      "O Allah, place light in my heart, light in my tongue, light in my hearing, light in my sight, light above me, light below me, light on my right, light on my left, light before me, light behind me; place light in my soul, and make light abundant for me.",
+    virtues:
+      "A supplication of the Prophet ﷺ, reported among the adhkar said after the Fajr prayer.",
+    reference: "Muslim 763",
+    targetCount: 1,
+    prayers: ["fajr"],
+  },
+  {
+    id: "after_prayer-kaffarat-al-majlis",
+    categoryId: "after_prayer",
+    title: "Expiation of the sitting",
+    arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا أَنْتَ، أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
+    transliteration:
+      "Subhanaka-llahumma wa bihamdik, ashhadu an la ilaha illa anta, astaghfiruka wa atubu ilayk",
+    translation:
+      "Glory is to You, O Allah, and praise; I bear witness that there is no god but You; I seek Your forgiveness and repent to You.",
+    virtues:
+      "'A'ishah reported that the Prophet ﷺ would say this at the end of a sitting. Whoever says it, what occurred in that gathering is forgiven for him.",
+    reference: "Tirmidhi 3433 & An-Nasa'i",
+    targetCount: 1,
+  },
+  {
+    id: "after_prayer-malik-quddus",
+    categoryId: "after_prayer",
+    title: "Subhanal Malikil Quddus (x3 after Witr)",
+    arabic: "سُبْحَانَ الْمَلِكِ الْقُدُّوسِ",
+    transliteration: "Subhanal-Malikil-Quddus",
+    translation: "Glory be to the King, the Most Holy.",
+    virtues:
+      "After the salam of the Witr prayer the Prophet ﷺ would say it three times, raising and prolonging his voice on the third, adding: 'Rabbil-mala'ikati war-ruh' (Lord of the angels and the Spirit). Witr is prayed after the Isha prayer.",
+    reference: "An-Nasa'i 1699",
+    targetCount: 3,
+    prayers: ["isha"],
+  },
 
   // ── Morning ──────────────────────────────────────────────
   {
@@ -1089,6 +1187,184 @@ const DUA_ITEMS = [
       "There is no god but Allah, the Magnificent, the Forbearing; there is no god but Allah, Lord of the Magnificent Throne.",
     virtues: "The Prophet ﷺ would say it in times of distress.",
     reference: "Bukhari & Muslim",
+  },
+
+  // ── Added from the docs/zikr-duas collection ─────────────
+  {
+    id: "quranic-yusuf-ending",
+    categoryId: "quranic",
+    title: "Yusuf's dua for a good ending",
+    arabic: "فَاطِرَ السَّمَاوَاتِ وَالْأَرْضِ أَنْتَ وَلِيِّي فِي الدُّنْيَا وَالْآخِرَةِ، تَوَفَّنِي مُسْلِمًا وَأَلْحِقْنِي بِالصَّالِحِينَ",
+    transliteration:
+      "Fatiras-samawati wal-ard, anta waliyyi fid-dunya wal-akhirah, tawaffani musliman wa alhiqni bis-salihin",
+    translation:
+      "Creator of the heavens and the earth, You are my Protector in this world and the Hereafter. Cause me to die a Muslim and join me with the righteous.",
+    reference: "Quran 12:101",
+  },
+  {
+    id: "quranic-parents",
+    categoryId: "quranic",
+    title: "Mercy for one's parents",
+    arabic: "رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+    transliteration: "Rabbi-rhamhuma kama rabbayani saghira",
+    translation: "My Lord, have mercy upon them as they raised me when I was small.",
+    reference: "Quran 17:24",
+  },
+  {
+    id: "quranic-gratitude",
+    categoryId: "quranic",
+    title: "Gratitude for Allah's favour",
+    arabic:
+      "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَىٰ وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَصْلِحْ لِي فِي ذُرِّيَّتِي، إِنِّي تُبْتُ إِلَيْكَ وَإِنِّي مِنَ الْمُسْلِمِينَ",
+    transliteration:
+      "Rabbi awzi'ni an ashkura ni'matakal-lati an'amta 'alayya wa 'ala walidayya wa an a'mala salihan tardah, wa aslih li fi dhurriyyati, inni tubtu ilayka wa inni minal-muslimin",
+    translation:
+      "My Lord, enable me to be grateful for Your favour which You have bestowed upon me and upon my parents, and to do righteousness of which You approve, and make my offspring righteous. Indeed, I have repented to You, and I am of the Muslims.",
+    reference: "Quran 46:15",
+  },
+  {
+    id: "quranic-zalamna",
+    categoryId: "quranic",
+    title: "We have wronged ourselves",
+    arabic: "رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ",
+    transliteration:
+      "Rabbana zalamna anfusana wa il-lam taghfir lana wa tarhamna lanakunanna minal-khasirin",
+    translation:
+      "Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers.",
+    reference: "Quran 7:23",
+  },
+  {
+    id: "quranic-waliyyuna",
+    categoryId: "quranic",
+    title: "You are our Protector",
+    arabic: "أَنْتَ وَلِيُّنَا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنْتَ خَيْرُ الْغَافِرِينَ",
+    transliteration: "Anta waliyyuna faghfir lana warhamna wa anta khayrul-ghafirin",
+    translation:
+      "You are our Protector, so forgive us and have mercy upon us; and You are the best of forgivers.",
+    reference: "Quran 7:155",
+  },
+  {
+    id: "quranic-nuh-refuge",
+    categoryId: "quranic",
+    title: "Refuge from asking without knowledge",
+    arabic: "رَبِّ إِنِّي أَعُوذُ بِكَ أَنْ أَسْأَلَكَ مَا لَيْسَ لِي بِهِ عِلْمٌ، وَإِلَّا تَغْفِرْ لِي وَتَرْحَمْنِي أَكُنْ مِنَ الْخَاسِرِينَ",
+    transliteration:
+      "Rabbi inni a'udhu bika an as'alaka ma laysa li bihi 'ilm, wa il-la taghfir li wa tarhamni akum-minal-khasirin",
+    translation:
+      "My Lord, I seek refuge in You from asking You that of which I have no knowledge. And unless You forgive me and have mercy upon me, I will be among the losers.",
+    reference: "Quran 11:47",
+  },
+  {
+    id: "quranic-taqabbal",
+    categoryId: "quranic",
+    title: "Accept from us",
+    arabic: "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ",
+    transliteration: "Rabbana taqabbal minna innaka antas-Sami'ul-'Alim",
+    translation:
+      "Our Lord, accept [this] from us. Indeed, You are the All-Hearing, the All-Knowing.",
+    reference: "Quran 2:127",
+  },
+  {
+    id: "forgiveness-istighfar-hayyul-qayyum",
+    categoryId: "forgiveness",
+    title: "The istighfar that erases even great sins",
+    arabic: "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+    transliteration: "Astaghfirullahal-ladhi la ilaha illa huwal-Hayyul-Qayyumu wa atubu ilayh",
+    translation:
+      "I seek forgiveness from Allah, besides whom there is no deity, the Ever-Living, the Sustainer, and I turn to Him in repentance.",
+    virtues: "Whoever says it, his sins are forgiven even if he had fled from the battlefield.",
+    reference: "Abu Dawud & Tirmidhi",
+  },
+  {
+    id: "protection-purify-soul",
+    categoryId: "protection",
+    title: "Purification of the soul",
+    arabic:
+      "اللَّهُمَّ آتِ نَفْسِي تَقْوَاهَا، وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا، أَنْتَ وَلِيُّهَا وَمَوْلَاهَا، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عِلْمٍ لَا يَنْفَعُ، وَمِنْ قَلْبٍ لَا يَخْشَعُ، وَمِنْ نَفْسٍ لَا تَشْبَعُ، وَمِنْ دَعْوَةٍ لَا يُسْتَجَابُ لَهَا",
+    transliteration:
+      "Allahumma ati nafsi taqwaha, wa zakkiha anta khayru man zakkaha, anta waliyyuha wa mawlaha. Allahumma inni a'udhu bika min 'ilmin la yanfa', wa min qalbin la yakhsha', wa min nafsin la tashba', wa min da'watin la yustajabu laha",
+    translation:
+      "O Allah, grant my soul its piety and purify it, for You are the best to purify it; You are its Guardian and Master. O Allah, I seek refuge in You from knowledge that does not benefit, from a heart that does not fear, from a soul that is never satisfied, and from a supplication that is not answered.",
+    reference: "Muslim",
+  },
+  {
+    id: "protection-evil-of-faculties",
+    categoryId: "protection",
+    title: "Refuge from the evil of one's own faculties",
+    arabic: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ سَمْعِي، وَمِنْ شَرِّ بَصَرِي، وَمِنْ شَرِّ لِسَانِي، وَمِنْ شَرِّ قَلْبِي، وَمِنْ شَرِّ مَنِيِّي",
+    transliteration:
+      "Allahumma inni a'udhu bika min sharri sam'i, wa min sharri basari, wa min sharri lisani, wa min sharri qalbi, wa min sharri maniyyi",
+    translation:
+      "O Allah, I seek refuge in You from the evil of my hearing, the evil of my sight, the evil of my tongue, the evil of my heart, and the evil of my desire.",
+    reference: "Abu Dawud & Tirmidhi",
+  },
+  {
+    id: "illness-martyrdom",
+    categoryId: "illness",
+    title: "Asking for martyrdom in Allah's path",
+    arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ شَهَادَةً فِي سَبِيلِكَ",
+    transliteration: "Allahumma inni as'aluka shahadatan fi sabilik",
+    translation: "O Allah, I ask You for martyrdom in Your path.",
+    virtues:
+      "Whoever sincerely asks Allah for martyrdom, Allah raises him to the rank of the martyrs even if he dies in his bed.",
+    reference: "Muslim",
+  },
+  {
+    id: "prayer-qunut-witr",
+    categoryId: "prayer",
+    title: "Dua al-Qunut (recited in Witr)",
+    arabic:
+      "اللَّهُمَّ إِنَّا نَسْتَعِينُكَ وَنَسْتَغْفِرُكَ وَنُؤْمِنُ بِكَ وَنَتَوَكَّلُ عَلَيْكَ وَنُثْنِي عَلَيْكَ الْخَيْرَ، وَنَشْكُرُكَ وَلَا نَكْفُرُكَ، وَنَخْلَعُ وَنَتْرُكُ مَنْ يَفْجُرُكَ، اللَّهُمَّ إِيَّاكَ نَعْبُدُ وَلَكَ نُصَلِّي وَنَسْجُدُ، وَإِلَيْكَ نَسْعَىٰ وَنَحْفِدُ، نَرْجُو رَحْمَتَكَ وَنَخْشَىٰ عَذَابَكَ، إِنَّ عَذَابَكَ بِالْكُفَّارِ مُلْحِقٌ",
+    transliteration:
+      "Allahumma inna nasta'inuka wa nastaghfiruka wa nu'minu bika wa natawakkalu 'alayka wa nuthni 'alaykal-khayr, wa nashkuruka wa la nakfuruk, wa nakhla'u wa natruku man yafjuruk. Allahumma iyyaka na'budu wa laka nusalli wa nasjud, wa ilayka nas'a wa nahfid, narju rahmataka wa nakhsha 'adhabak, inna 'adhabaka bil-kuffari mulhiq",
+    translation:
+      "O Allah, we seek Your help and Your forgiveness, we believe in You and rely upon You, and we praise You for all good. We thank You and are not ungrateful to You, and we forsake and turn away from whoever disobeys You. O Allah, You alone we worship, and to You we pray and prostrate; to You we strive and hasten. We hope for Your mercy and fear Your punishment; indeed, Your punishment will overtake the disbelievers.",
+    virtues: "Recited standing in the Witr prayer (qunut).",
+    reference: "Reported from 'Umar ibn al-Khattab · al-Bayhaqi",
+  },
+  {
+    id: "home-spacious-rizq",
+    categoryId: "home",
+    title: "A spacious home and blessed provision",
+    arabic: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي، وَوَسِّعْ لِي فِي دَارِي، وَبَارِكْ لِي فِي رِزْقِي",
+    transliteration: "Allahumma-ghfir li dhanbi, wa wassi' li fi dari, wa barik li fi rizqi",
+    translation:
+      "O Allah, forgive my sin, make my home spacious for me, and bless me in my provision.",
+    virtues: "A supplication taught by the Prophet ﷺ, reported by Abu Musa al-Ash'ari.",
+    reference: "Tirmidhi & Ahmad",
+  },
+  {
+    id: "protection-bad-neighbour",
+    categoryId: "protection",
+    title: "Refuge from a bad neighbour",
+    arabic: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ جَارِ السُّوءِ فِي دَارِ الْمُقَامَةِ، فَإِنَّ جَارَ الْبَادِيَةِ يَتَحَوَّلُ",
+    transliteration:
+      "Allahumma inni a'udhu bika min jaris-su'i fi daril-muqamah, fa inna jaral-badiyati yatahawwal",
+    translation:
+      "O Allah, I seek refuge in You from a bad neighbour in my permanent home, for the neighbour of the desert moves on.",
+    reference: "An-Nasa'i",
+  },
+  {
+    id: "protection-chastity",
+    categoryId: "protection",
+    title: "Purity of heart and chastity",
+    arabic: "اللَّهُمَّ اغْفِرْ ذَنْبِي، وَطَهِّرْ قَلْبِي، وَحَصِّنْ فَرْجِي",
+    transliteration: "Allahumma-ghfir dhanbi, wa tahhir qalbi, wa hassin farji",
+    translation: "O Allah, forgive my sin, purify my heart, and guard my chastity.",
+    virtues:
+      "From the Prophet's ﷺ supplication for a young man seeking to be freed from unlawful desire.",
+    reference: "Ahmad",
+  },
+  {
+    id: "protection-good-outcome",
+    categoryId: "protection",
+    title: "A good outcome and refuge from disgrace",
+    arabic: "اللَّهُمَّ أَحْسِنْ عَاقِبَتَنَا فِي الْأُمُورِ كُلِّهَا، وَأَجِرْنَا مِنْ خِزْيِ الدُّنْيَا وَعَذَابِ الْآخِرَةِ",
+    transliteration:
+      "Allahumma ahsin 'aqibatana fil-umuri kulliha, wa ajirna min khizyid-dunya wa 'adhabil-akhirah",
+    translation:
+      "O Allah, grant us a good outcome in all our affairs, and protect us from disgrace in this world and the punishment of the Hereafter.",
+    reference: "Ibn Hibban & Ahmad",
   },
 ];
 

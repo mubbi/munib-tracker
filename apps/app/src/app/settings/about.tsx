@@ -1,15 +1,17 @@
 import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import Constants from "expo-constants";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { SettingsRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
@@ -22,7 +24,7 @@ const TERMS_URL = `${SITE_URL}/terms`;
 export default function AboutScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const version = Constants.expoConfig?.version ?? "1.0.0";
 
   const openLink = (url: string) => {
@@ -39,11 +41,11 @@ export default function AboutScreen() {
       <Seo path="/settings/about" />
       <Stagger>
         <Card style={styles.hero}>
-          <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
-            <ThemedText type="header" style={{ color: colors.accent }}>
-              ﷽
-            </ThemedText>
-          </View>
+          <Image
+            style={styles.logo}
+            source={require("@/assets/images/munib-logo.png")}
+            accessibilityLabel={APP_NAME}
+          />
           <ThemedText type="subtitle">{APP_NAME}</ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.tagline}>
             {APP_TAGLINE}
@@ -129,9 +131,9 @@ function Credit({
         {label}
       </ThemedText>
       {onPress ? (
-        <Pressable accessibilityRole="link" onPress={onPress}>
+        <PressableScale accessibilityRole="link" onPress={onPress}>
           {valueNode}
-        </Pressable>
+        </PressableScale>
       ) : (
         valueNode
       )}
@@ -145,13 +147,10 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     paddingVertical: Spacing.four,
   },
-  badge: {
-    width: 64,
-    height: 64,
-    borderRadius: 20,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
+  logo: {
+    width: 96,
+    height: 96,
+    borderRadius: 22,
     marginBottom: Spacing.one,
   },
   tagline: {

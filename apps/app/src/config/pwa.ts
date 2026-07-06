@@ -9,6 +9,7 @@ export const PWA_ICON_PATHS = {
   any512: "/assets/images/icon-512.png",
   /** Maskable safe zone — 192px asset avoids cropping a full-bleed 512 icon on Android. */
   maskable: "/assets/images/icon-192.png",
+  favicon: "/assets/images/favicon.png",
   /** Default path iOS probes when adding to home screen. */
   appleTouchRoot: "/apple-touch-icon.png",
   notification: "/assets/images/icon-192.png",
@@ -25,7 +26,7 @@ type ExpoWebConfig = {
 const expo = appJson.expo;
 const web = (expo.web ?? {}) as ExpoWebConfig;
 
-const themeColor = web.themeColor ?? "#059669";
+const themeColor = web.themeColor ?? "#152921";
 const backgroundColor = web.backgroundColor ?? themeColor;
 const shortName = web.shortName ?? expo.name ?? APP_NAME;
 

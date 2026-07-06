@@ -1,13 +1,14 @@
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import type { SymbolViewProps } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -137,21 +138,19 @@ function ArrowButton({
   label,
   onPress,
 }: {
-  icon: Parameters<typeof SymbolView>[0]["name"];
+  icon: SymbolViewProps["name"];
   label: string;
   onPress: () => void;
 }) {
   const { colors } = useThemeTokens();
   return (
-    <Pressable
-      accessibilityRole="button"
+    <IconButton
       accessibilityLabel={label}
-      hitSlop={8}
       onPress={onPress}
-      style={styles.arrow}
-    >
-      <SymbolView name={icon} size={24} tintColor={colors.foreground} />
-    </Pressable>
+      name={icon}
+      size={24}
+      tintColor={colors.foreground}
+    />
   );
 }
 
@@ -176,9 +175,6 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     borderCurve: "continuous",
     alignItems: "center",
-  },
-  arrow: {
-    padding: Spacing.one,
   },
   hint: {
     textAlign: "center",

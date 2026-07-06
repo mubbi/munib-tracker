@@ -1,5 +1,6 @@
 import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { SITE_URL } from "@/lib/site";
 
@@ -30,8 +31,10 @@ export default function PressPage() {
         <p className="text-muted">
           <strong>{APP_NAME}</strong> — {APP_TAGLINE} Available on iOS, Android, and web. Free for
           personal and educational use with no ads. Features include prayer tracking, qaza
-          calculator and planner, adhkar and tasbeeh, offline Qur'an and hadith, qibla, Hijri
-          calendar, and optional cloud sync.
+          calculator and planner, adhkar and tasbeeh, offline Qur'an and hadith, qibla, and Hijri
+          calendar — plus a full learning library (aqeedah, prophets, seerah, the Hereafter, and
+          Qur'an study) and step-by-step worship guides for salah, wudu, zakat, and hajj, with
+          optional cloud sync.
         </p>
       </ContentSection>
 
@@ -65,17 +68,35 @@ export default function PressPage() {
       </ContentSection>
 
       <ContentSection heading="Logo">
-        <div className="flex flex-wrap gap-4">
-          <div className="flex size-24 items-center justify-center rounded-2xl bg-gradient-to-br from-hero-from to-hero-to text-3xl text-hero-gold shadow-md">
-            ﷽
-          </div>
-          <div className="flex size-24 items-center justify-center rounded-2xl border border-border bg-card text-3xl">
-            ﷽
-          </div>
+        <div className="flex flex-wrap items-end gap-6">
+          <figure className="flex flex-col items-center gap-2">
+            <Image
+              src="/munib-logo.png"
+              alt={`${APP_NAME} app icon`}
+              width={128}
+              height={128}
+              className="size-32 rounded-[28px] shadow-md"
+            />
+            <figcaption className="text-xs text-muted">App icon (PNG)</figcaption>
+          </figure>
+          <figure className="flex flex-col items-center gap-2">
+            <Image
+              src="/icon-512.png"
+              alt={`${APP_NAME} icon 512px`}
+              width={128}
+              height={128}
+              className="size-32 rounded-[28px] border border-border/60 shadow-sm"
+            />
+            <figcaption className="text-xs text-muted">
+              <a href="/icon-512.png" className="font-medium text-brand hover:underline">
+                Download 512×512
+              </a>
+            </figcaption>
+          </figure>
         </div>
-        <p className="mt-3 text-sm text-muted">
-          Use the Bismillah mark or wordmark &ldquo;{APP_NAME}&rdquo; with sufficient contrast. Do
-          not stretch or recolor the hero gradient arbitrarily.
+        <p className="mt-4 text-sm text-muted">
+          Use the official Munib app icon with sufficient contrast. Do not stretch, rotate, or
+          recolor the mark. Minimum clear space: one-quarter of the icon width on all sides.
         </p>
       </ContentSection>
 

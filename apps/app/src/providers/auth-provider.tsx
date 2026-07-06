@@ -14,6 +14,7 @@ import { AppState, type AppStateStatus } from "react-native";
 
 import {
   completeOAuth,
+  deleteAccount as deleteAccountRequest,
   getCurrentUser,
   linkAccount,
   logout as logoutRequest,
@@ -54,6 +55,14 @@ interface AuthContextValue {
   linkProvider: (provider: OAuthProvider, payload?: OAuthPayload) => Promise<void>;
   signOut: () => Promise<void>;
   syncNow: () => Promise<ManualSyncOutcome>;
+  /**
+   * Permanently deletes the account. For a signed-in user this erases the server
+   * account and all synced data first, then returns to a fresh guest session.
+   * Returns `"error"` (having changed nothing) if the server can't be reached, so
+   * the caller knows not to wipe local data — a still-existing account would just
+   * repopulate on the next sync. `"ok"` for guests (nothing to delete server-side).
+   */
+  deleteAccount: () => Promise<"ok" | "error">;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -197,6 +206,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [signInAsGuest]);
 
+  const deleteAccount = useCallback(async (): Promise<"ok" | "error"> => {
+    const current = await SessionStore.get();
+    if (current?.accountType === "user") {
+      // Use the freshest access token so the request isn't rejected as expired.
+      const fresh = (await refresh()) ?? current;
+      try {
+        await deleteAccountRequest(fresh.accessToken);
+      } catch {
+        // Server unreachable or errored — leave everything intact so the caller
+        // aborts the local wipe. The account still exists and must not appear gone.
+        return "error";
+      }
+      // Server account and all its sessions are gone; drop the dead local session
+      // and return to a fresh guest so local tracking keeps working.
+      await SessionStore.clear();
+      setSession(null);
+      setUser(null);
+      try {
+        await signInAsGuest();
+      } catch {
+        // offline — a guest session initializes on next launch
+      }
+    }
+    return "ok";
+  }, [refresh, signInAsGuest]);
+
   // Boot: resume a stored session, or create a guest one (best-effort offline).
   useEffect(() => {
     let mounted = true;
@@ -248,8 +283,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       linkProvider,
       signOut,
       syncNow,
+      deleteAccount,
     }),
-    [session, user, isReady, signInAsGuest, signInWithProvider, linkProvider, signOut, syncNow],
+    [
+      session,
+      user,
+      isReady,
+      signInAsGuest,
+      signInWithProvider,
+      linkProvider,
+      signOut,
+      syncNow,
+      deleteAccount,
+    ],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

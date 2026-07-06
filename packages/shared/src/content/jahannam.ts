@@ -4,7 +4,7 @@ import { JAHANNAM_MAJOR_SIN_IDS, JAHANNAM_MAJOR_SIN_TOPICS } from "./jahannam-ma
 export * from "./jahannam-collections";
 export { JAHANNAM_MAJOR_SIN_IDS, JAHANNAM_MAJOR_SIN_TOPICS };
 
-export const JAHANNAM_CONTENT_VERSION = 1;
+export const JAHANNAM_CONTENT_VERSION = 2;
 
 export const JAHANNAM_SECTION_ORDER = [
   "intro",
@@ -29,10 +29,12 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     summary: "Allah informs us about Jahannam for guidance — not despair.",
     importance: "foundational",
     body: [
-      "Allah describes Jahannam in the Qur'an and through His Messenger ﷺ so that hearts may awaken, turn back, and choose the path of mercy before it is too late.",
-      "Warnings of the Fire are paired throughout revelation with calls to repentance, forgiveness, and hope in Allah's vast mercy. The purpose is accountability that leads to righteousness — not hopelessness.",
-      "Belief in Jahannam is part of believing the unseen (ghayb), divine justice, and the reality of the Hereafter. It balances hope in Paradise with seriousness about sin.",
-      "This module presents what the texts clearly state, notes where scholars have differed, and consistently directs you toward tawbah, good deeds, and trust in Allah.",
+      "Jahannam — often translated as Hell or the Fire — is the abode of punishment in the Hereafter that Allah describes in the Qur'an and through His Messenger ﷺ. He tells us of it not to crush the heart with dread, but so that hearts may awaken, turn back, and choose the path of mercy while the door is still open.",
+      "It helps to understand why a merciful Lord speaks of the Fire at all. A warning is itself a mercy: a person who is told of a cliff ahead in the dark has been given a gift, not a threat. Every verse about Jahannam is Allah, in His kindness, calling His servants back before the time for return has passed.",
+      "This is why the warnings are paired throughout revelation with calls to repentance, forgiveness, and hope in Allah's vast mercy. The Qur'an rarely mentions the Fire without, nearby, mentioning the Garden, the open door of tawbah, and Allah's love of those who return. The aim is accountability that leads to righteousness — never despair.",
+      "Believing in Jahannam is part of believing in the unseen (al-ghayb), in divine justice, and in the reality of the Last Day. It gives weight to our choices and balances hope in Paradise with seriousness about sin, so that a believer walks between hope and fear — hopeful of Allah's mercy, watchful of his own shortcomings.",
+      "A point of comfort central to Sunni belief runs through this whole module: those who die believing in Allah alone, even if burdened by sin, will not remain in the Fire forever. By Allah's mercy and the intercession He permits, sinful believers are ultimately brought out; only those who die rejecting faith remain. So the study of Jahannam is, for the believer, ultimately a study of how to reach mercy.",
+      "This module presents what the texts clearly state, notes honestly where scholars have differed, cites only authentic evidence, and consistently directs you toward tawbah, good deeds, and trust in Allah.",
     ],
     quran: [
       {
@@ -71,23 +73,24 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     summary: "Divine justice, accountability, and the consequences of free choice.",
     importance: "foundational",
     body: [
-      "Jahannam exists as a manifestation of Allah's perfect justice. He does not wrong anyone — every soul receives what it earned, and no one is punished beyond what is just.",
-      "Human beings were given free will and clear guidance. Choosing persistent rejection of truth, oppression, or major sin without repentance has consequences in the Hereafter.",
-      "Reward and punishment are not arbitrary. They follow from Allah's wisdom: He warns so that people may return, and He punishes only those who deserve it by their own choices.",
-      "Understanding why Jahannam exists should increase taqwa (God-consciousness) and gratitude for every chance to repent — not paralyse the heart with despair.",
+      "Jahannam exists as a manifestation of Allah's perfect justice ('adl). A universe in which the oppressor and the oppressed, the sincere and the treacherous, all met the same end would not be just. Because Allah is the perfectly Just, there must be a final reckoning where every wrong is answered and every good is honoured.",
+      "Central to this is that Allah wrongs no one. Every soul that enters the Fire enters it by its own settled, unrepented choices — never by an arbitrary decree. The Qur'an is emphatic: 'Allah does not wrong the people at all, but the people wrong themselves' (4:40). No one is punished for what they did not do, nor beyond what is deserved.",
+      "Human beings were not left in the dark. Allah gave them intellect, sent messengers, and revealed clear guidance, then honoured them with real freedom to accept or reject it: 'Whoever wills — let him believe; and whoever wills — let him disbelieve' (18:29). Persisting in the rejection of truth, in oppression, or in major sin without repentance carries consequences in the Hereafter precisely because the choice was genuinely one's own.",
+      "Yet even here mercy frames justice. Allah warns before He judges, delays the reckoning to give room for return, forgives readily when asked, and rewards a single good deed many times over while recording a single sin as one. His justice is never separate from His mercy.",
+      "Reflecting on why Jahannam exists should therefore increase taqwa (God-consciousness) and deepen gratitude for every day of life that is still a chance to repent. It is meant to make the heart serious and hopeful at once — never to paralyse it with despair.",
     ],
     quran: [
-      {
-        surah: 21,
-        ayahFrom: 23,
-        label: "Qur'an 21:23",
-        excerpt: "He is not questioned about what He does, but they will be questioned.",
-      },
       {
         surah: 4,
         ayahFrom: 40,
         label: "Qur'an 4:40",
         excerpt: "Indeed, Allah does not wrong the people at all, but the people wrong themselves.",
+      },
+      {
+        surah: 21,
+        ayahFrom: 23,
+        label: "Qur'an 21:23",
+        excerpt: "He is not questioned about what He does, but they will be questioned.",
       },
       {
         surah: 18,
@@ -99,11 +102,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     ],
     hadith: [
       {
-        collection: "Sahih Muslim",
-        citation: "2766",
+        collection: "Sahih al-Bukhari",
+        citation: "6467",
         grade: "sahih",
         excerpt:
-          "None of you will enter Paradise by his deeds alone — not even me, unless Allah covers me with His mercy.",
+          "None of you will enter Paradise by his deeds alone. They said: Not even you, O Messenger of Allah? He said: Not even I, unless Allah covers me with His mercy.",
       },
     ],
     appLinks: [{ label: "Learn Aqeedah — divine justice", route: "/aqeedah/belief-qadr" }],
@@ -114,9 +117,10 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Reality of the Hereafter",
     summary: "From death to judgment — every stage is real and linked to aqeedah.",
     body: [
-      "Islam teaches a clear sequence after death: the soul departs, barzakh (the interval grave-life) begins, then resurrection, gathering, judgment, the scale of deeds, the bridge (as-Sirat), and finally Paradise or Hell — by Allah's decree and mercy.",
-      "Each stage is affirmed in Sunni aqeedah. This timeline is not symbolic; it is part of believing the Last Day.",
-      "Knowing this sequence helps a believer prepare: live with remembrance of death, repair wrongs, and strive in worship before the door of action closes.",
+      "To understand Jahannam rightly, it helps to see where it sits in the larger journey. Islam teaches a clear sequence after death: the soul departs the body, then barzakh (the interval life of the grave) begins, then the Resurrection when bodies are raised, the Gathering of all creation, the Judgment where deeds are examined, the weighing of deeds on the Scale (al-Mizan), the crossing of the Bridge (as-Sirat), and finally the settling of each soul in Paradise or the Fire — all by Allah's decree, justice, and mercy.",
+      "Each of these stages is affirmed in mainstream Sunni aqeedah on the basis of the Qur'an and authentic Sunnah. This timeline is not a symbol or a story; it is a reality to be believed as part of believing in the Last Day, and denying it knowingly is a matter of creed, not merely of practice.",
+      "Seeing the whole road also reframes the Fire. It is one possible destination at the end of a journey every soul is already travelling — which means the choices of today are not abstract. They are steps along that road, and they are still ours to direct.",
+      "Knowing this sequence helps a believer prepare rather than fear: to live with a healthy remembrance of death (dhikr al-mawt), to repair wrongs before they are carried into the Gathering, and to fill the account of good deeds while the door of action is still open. Death closes that door; nothing can be added after it.",
     ],
     quran: [
       {
@@ -157,10 +161,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Names of Hell",
     summary: "Qur'anic names with meanings — scholars differ on whether each is a separate level.",
     body: [
-      "The Qur'an uses several names for Hell: Jahannam, Jaheem, Saqar, Sa'ir, Hutamah, Hawiyah, and Lazaa, among others. Each name carries a meaning that deepens our understanding of its severity.",
-      "Classical tafsir explains these names from the Arabic roots — crushing, blazing, depth, and consuming fire. Ibn Kathir, al-Tabari, and others discuss their contexts verse by verse.",
-      "Some later writers list each name as a distinct level of Hell. This is a scholarly interpretation, not an explicit Qur'anic checklist. The safer approach: learn the meanings the texts give, and avoid presenting speculative diagrams as certainty.",
-      "Browse the full names collection for each name's Qur'anic occurrence, context, and tafsir summary.",
+      "The Qur'an refers to Hell by several names, and this is not mere repetition. In Arabic, a name often carries a vivid description within it, so each name teaches something about the reality it points to. Among them are Jahannam, Jaheem, Saqar, Sa'ir, al-Hutamah, al-Hawiyah, and Lazaa.",
+      "Each name opens a window onto a different aspect of severity. Jaheem and Sa'ir evoke a fiercely blazing, kindled fire; Saqar, that which scorches and leaves nothing; al-Hutamah, the crusher that breaks whatever is cast into it; al-Hawiyah, a deep abyss into which one falls; and Lazaa, a pure, stripping flame. Reading the names together builds a sober picture the heart cannot easily ignore.",
+      "Classical scholars of tafsir — such as Ibn Kathir and al-Tabari — explain these names from their Arabic roots and discuss each in the context of the verse where it appears, rather than treating them as a fixed technical list.",
+      "It is worth a word of caution here. Some later writers present each name as a distinct, ranked 'level' of Hell, sometimes with detailed diagrams. That is a scholarly interpretation, not an explicit checklist stated in the Qur'an or in agreed-upon hadith. The balanced approach is to learn the meanings the texts actually give and to avoid presenting speculative maps as certainty.",
+      "The purpose of learning the names is not to satisfy curiosity but to soften the heart and move it toward the very mercy this module keeps pointing to. Browse the full names collection for each name's Qur'anic occurrence, context, and tafsir summary.",
     ],
     quran: [
       {
@@ -186,10 +191,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     summary:
       "Different degrees of punishment — the exact structure is not fully detailed in texts.",
     body: [
-      "The Qur'an clearly teaches that people will have different degrees of punishment according to their deeds: 'For all there will be degrees according to what they did' (6:132).",
-      "Scholars have discussed levels, depths, and categories of punishment in Jahannam based on verses and hadith. However, revelation does not provide a complete numbered map that believers must memorise.",
-      "What is certain: oppression, shirk, and persistent major sin without repentance carry severe warning. What is also certain: Allah's mercy and forgiveness remain open until death for those who return sincerely.",
-      "Avoid treating unverified lists of seven or nineteen levels as definitive doctrine unless citing them explicitly as scholarly opinion.",
+      "A principle the Qur'an states plainly is that punishment is proportionate: not everyone in the Fire experiences it in the same measure. 'For all there will be degrees according to what they did' (6:132). This is itself an expression of justice — the one who wronged little is not treated like the one who wronged much.",
+      "The authentic Sunnah illustrates the same principle. The Prophet ﷺ described the least punished person of the Fire as one under whose feet two embers are placed, from which his brain boils — and yet he is the lightest in torment of all its people (Sahih al-Bukhari 6562). If that is the least, the mind grasps how grave the greater degrees must be, and how much reason there is to turn back today.",
+      "At the same time, revelation does not hand believers a complete, numbered map of Hell's structure that they are obliged to memorise. Scholars have discussed levels, depths, and categories drawn from various verses and reports, but much of this remains interpretation rather than agreed, explicit text.",
+      "Two things, however, are certain. First, that oppression (dhulm), shirk, and persistent major sin without repentance carry severe warning. Second — and never to be forgotten — that Allah's mercy and forgiveness remain open until the moment of death for anyone who returns to Him sincerely. The point of learning about degrees is to choose the lighter path while choice remains.",
+      "Practically, this means treating detailed lists of 'seven levels' or similar schemes as scholarly opinion rather than settled doctrine, and keeping attention on what actually protects: faith, repentance, and righteous deeds.",
     ],
     quran: [
       {
@@ -203,7 +209,16 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
         ayahFrom: 145,
         label: "Qur'an 4:145",
         excerpt:
-          "Whoever allies with them among you — they will be in the lowest depth of the Fire.",
+          "Indeed, the hypocrites will be in the lowest depths of the Fire, and never will you find for them a helper.",
+      },
+    ],
+    hadith: [
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "6562",
+        grade: "sahih",
+        excerpt:
+          "The least punished of the people of the Fire will be a man under whose feet two embers are placed, from which his brain boils.",
       },
     ],
     disclaimer:
@@ -215,9 +230,10 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Gates of Hell",
     summary: "Seven gates — what the Qur'an states and where interpretation differs.",
     body: [
-      "Allah says: 'Indeed, Hell has seven gates; for every gate is a designated portion of them' (15:44). This is explicit in the Qur'an.",
-      "The verse affirms seven gates and that sinners will be divided among them. Classical tafsir discusses whether this means categories of people, degrees of punishment, or both.",
-      "Later works sometimes assign each gate to a specific sin. These assignments are not uniformly agreed upon in the earliest sources. Present them as scholarly views, not as prophetic specification.",
+      "One detail about Jahannam is stated explicitly and unambiguously in the Qur'an: 'Indeed, Hell has seven gates; for every gate is a designated portion of them' (15:44). Belief in the seven gates therefore rests on clear revelation, not on speculation.",
+      "The verse affirms two things: that there are seven gates, and that those who enter are apportioned among them. Classical scholars of tafsir discuss what the apportioning signifies — whether it points to categories of people, to degrees of punishment matched to deeds, or to both. The wisdom behind the division belongs to Allah, whose justice places each soul precisely where it belongs.",
+      "It is important to note where certainty ends. Some later works assign each specific gate to a specific sin or group. These particular assignments are not uniformly established in the earliest sources, so they are best presented as the views of individual scholars rather than as prophetic specification.",
+      "As with the levels, the lesson of the gates is not architectural but moral: there are many doors that lead toward the Fire, and the way to be safe from all of them is the same — sincere faith, avoidance of major sin, and quick repentance when one slips.",
     ],
     quran: [
       {
@@ -237,10 +253,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Descriptions of Jahannam",
     summary: "Fire, heat, chains, regret — presented with reverence, not sensationalism.",
     body: [
-      "The Qur'an and authentic Sunnah describe Jahannam with vivid language so hearts may take heed: intense fire, unbearable heat, restricted food and drink, chains, darkness, and crushing regret.",
-      "Descriptions include boiling water, zaqqum (a bitter tree), garments of fire, and separation from every worldly comfort. These are real warnings — not metaphors that negate accountability.",
-      "The believer reads these descriptions with adab: fear of Allah, humility, and immediate turning to repentance — not morbid curiosity or despair.",
-      "Regret in the Hereafter is among the severest themes: 'If only I had…' will be said when the door of action has closed.",
+      "The Qur'an and authentic Sunnah describe Jahannam with vivid, concrete language, and they do so for a reason: the human heart is moved more by images it can picture than by abstract ideas. The descriptions — intense fire, unbearable heat, restricted food and drink, chains, darkness, and deep regret — are meant to make the danger real enough to steer us away from it.",
+      "Among the descriptions are boiling water given to drink, the bitter tree of zaqqum as food, garments cut from fire, and separation from every comfort a person once relied upon. The Prophet ﷺ conveyed how far this heat surpasses anything we know, saying that the fire we kindle in this world is but one part of seventy parts of the Fire of the Hereafter (Sahih al-Bukhari 3265).",
+      "These descriptions are real warnings, not mere metaphors that empty the Hereafter of consequence. Sunni scholars affirm their reality while leaving the exact modality of the unseen to Allah's knowledge; the believer's task is to take the warning to heart, not to dissect it.",
+      "There is an etiquette (adab) to reading such passages. They are approached with humility, awe of Allah, and an immediate impulse to repent and seek refuge — not with morbid fascination, and never with despair, since the whole purpose of the warning is that we still have time to avoid it.",
+      "Perhaps the heaviest theme in these descriptions is regret. 'If only I had…' will be said when the time for action has already closed. The mercy in hearing about that regret now is that we can act on the 'if only' today, while it can still change our end.",
     ],
     quran: [
       {
@@ -271,10 +288,10 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     hadith: [
       {
         collection: "Sahih al-Bukhari",
-        citation: "6562",
+        citation: "3265",
         grade: "sahih",
         excerpt:
-          "The Fire was kindled for one thousand years until it reddened, then for one thousand until it whitened — and it is black and dark.",
+          "Your fire is one part of seventy parts of the fire of Hell. It was said: O Messenger of Allah, this fire would have been enough. He said: It has been given the strength of sixty-nine parts more than it, each part being like its heat.",
       },
     ],
     appLinks: [{ label: "Protection from Hell", route: "/jahannam/protection" }],
@@ -287,9 +304,10 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Who Is Warned?",
     summary: "Categories in the Qur'an and Sunnah — not judgments on individuals.",
     body: [
-      "Revelation warns groups and behaviours: those who persist in disbelief after clear truth, hypocrites who outwardly profess faith while inwardly rejecting it, oppressors, the arrogant, and those who die upon major unrepented sin.",
-      "Islam does not permit declaring the fate of a specific person except where Allah or His Messenger ﷺ explicitly stated it in authentic revelation.",
-      "Warnings are meant to awaken the living — whoever you are, return to Allah today. Tomorrow is not guaranteed.",
+      "A careful reader of the Qur'an notices that its warnings are aimed at behaviours and attitudes, not at named individuals. It warns those who persist in disbelief after the truth has become clear to them, hypocrites who profess faith outwardly while rejecting it inwardly, oppressors who trample the rights of others, the arrogant who are too proud to submit, and those who die upon major sin without ever repenting.",
+      "This focus on categories rather than persons is deliberate and merciful. A door of return stays open for every living person, whatever their past, because no one's file is closed until death. The warning describes the road, so that anyone still walking it can step off.",
+      "For this reason, Islam does not permit us to declare the final fate of any specific individual — to say 'this person is in the Fire' — except in the rare cases where Allah or His Messenger ﷺ explicitly stated it in authentic revelation. Judging hearts and endings belongs to Allah alone; our task is our own reckoning.",
+      "So the right way to read every warning is to turn it inward: not 'who does this describe?' but 'does any of this describe me, and what will I change today?' Whoever you are, the invitation to return to Allah is open right now — and tomorrow is not promised to anyone.",
     ],
     quran: [
       {
@@ -321,9 +339,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Major Sins",
     summary: "Kabair — grave sins that require sincere tawbah.",
     body: [
-      "Major sins (kabair) are those Allah and His Messenger ﷺ warned against with severe language. Scholars compile lists from Qur'an and hadith; the exact count varies, but the principle is clear: these sins destroy souls if persisted in without repentance.",
-      "Each major sin topic in this module includes Qur'anic evidence, hadith where available, why it is serious, how to repent, and links to related lessons.",
-      "Minor sins also require istighfar. The difference is severity and the urgency of turning back. Never delay tawbah.",
+      "Scholars divide sins into two categories, and understanding the difference brings both seriousness and relief. Major sins (al-kaba'ir) are those Allah or His Messenger ﷺ attached a specific severe consequence to — a threat of the Fire, a curse, Allah's anger, or a prescribed penalty — such as shirk, murder, and consuming interest. Minor sins (al-sagha'ir) are the smaller slips that fall short of that threshold.",
+      "The relief lies in how the two relate. Allah promises that if a believer avoids the major sins, the minor ones are wiped away by ordinary acts of worship: 'If you avoid the major sins you are forbidden, We will remove from you your lesser sins' (4:31). Prayer to prayer, Jumu'ah to Jumu'ah, and Ramadan to Ramadan expiate what lies between them, so long as the great sins are shunned.",
+      "This is why the major sins deserve focused attention: they are the ones that are not simply washed away in the flow of daily worship but call for deliberate, sincere repentance (tawbah). Persisted in without turning back, they endanger the soul; abandoned and repented from, they are forgiven.",
+      "And here is the horizon over all of it: with the single exception of dying upon shirk, every sin — major or minor — falls under Allah's forgiveness if He wills. 'Indeed, Allah does not forgive association with Him, but He forgives what is less than that for whom He wills' (4:48). No believer should ever conclude that their major sins place them beyond mercy.",
+      "Each major sin topic in this module gives its definition, its evidence, why it is grave, and the concrete path of repentance and avoidance — always ending at that same open door.",
     ],
     quran: [
       {
@@ -331,23 +351,30 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
         ayahFrom: 31,
         label: "Qur'an 4:31",
         excerpt:
-          "If you avoid the major sins you are forbidden, We will remove from you your lesser sins.",
+          "If you avoid the major sins which you are forbidden, We will remove from you your lesser sins and admit you to a noble entrance.",
+      },
+      {
+        surah: 4,
+        ayahFrom: 48,
+        label: "Qur'an 4:48",
+        excerpt:
+          "Indeed, Allah does not forgive association with Him, but He forgives what is less than that for whom He wills.",
       },
       {
         surah: 53,
         ayahFrom: 32,
         label: "Qur'an 53:32",
         excerpt:
-          "Those who avoid major sins and immoralities — only slight ones; indeed your Lord is vast in forgiveness.",
+          "Those who avoid major sins and immoralities, only [committing] slight ones — indeed, your Lord is vast in forgiveness.",
       },
     ],
     hadith: [
       {
         collection: "Sahih al-Bukhari",
-        citation: "5570",
+        citation: "6871",
         grade: "sahih",
         excerpt:
-          "The major sins are associating partners with Allah, disobedience to parents, killing a soul, and false testimony.",
+          "The greatest of the major sins are: associating partners with Allah, killing a soul, disobedience to parents, and giving false testimony.",
       },
     ],
     appLinks: [
@@ -361,9 +388,10 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Sins of the Tongue",
     summary: "Backbiting, lying, mockery — sins that are easy to commit and hard to undo.",
     body: [
-      "The tongue can build or destroy. Backbiting (ghibah), slander, gossip, lying, mockery, and false oaths are warned against repeatedly in the Qur'an and Sunnah.",
-      "Backbiting is mentioned as eating the flesh of one's dead brother (49:12). Many people fall into it without realising — daily reflection on speech is essential.",
-      "Repentance requires stopping the sin, regretting it, resolving not to return, and restoring the rights of others where applicable — including asking forgiveness or clearing someone's name.",
+      "The tongue is small but its consequences are vast; with a few words a person can build trust or destroy a reputation, comfort a heart or wound it deeply. This is why the Qur'an and Sunnah return so often to the sins of speech: backbiting (ghibah), slander (buhtan), tale-carrying (namimah), lying, mockery, and false oaths.",
+      "Backbiting means mentioning about your brother or sister something they would dislike, even if it is true — for if it were false, it would be the worse sin of slander. The Qur'an gives it one of its most striking images: it likens it to eating the flesh of one's dead sibling (49:12). Framed that way, the sin loses its casualness.",
+      "What makes these sins so dangerous is precisely how easy and habitual they are. People slip into them in ordinary conversation without a second thought, which is why the Prophet ﷺ tied faith itself to guarding speech: 'Whoever believes in Allah and the Last Day, let him speak good or remain silent.' A simple pause before speaking is a genuine act of worship.",
+      "Repentance from a sin of the tongue follows the usual conditions — stop, regret, resolve not to return — with an added dimension when another person's right is involved. Where clearing their name or seeking their pardon can be done without causing greater harm, that is part of the repentance; where informing them would only deepen the injury, scholars advise instead to speak well of them, defend them in their absence, and pray for their forgiveness.",
     ],
     quran: [
       {
@@ -383,7 +411,7 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     hadith: [
       {
         collection: "Sahih al-Bukhari",
-        citation: "6477",
+        citation: "6018",
         grade: "sahih",
         excerpt: "Whoever believes in Allah and the Last Day, let him speak good or remain silent.",
       },
@@ -404,9 +432,10 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Sins Against Others",
     summary: "Rights of people require restitution — not only repentance to Allah.",
     body: [
-      "Oppression (dhulm), injustice, breaking trusts, cheating, unpaid debts, and severing family ties are among the sins that endanger the Hereafter.",
-      "On the Day of Judgment, rights owed to people may be settled before deeds — even good deeds can be taken as compensation for wrongs done to others.",
-      "Tawbah to Allah is necessary but not always sufficient when human rights are involved. Return stolen property, fulfil debts, restore reputations, and reconcile with estranged kin where possible.",
+      "Islam divides the rights we owe into two kinds: the rights of Allah (huquq Allah) and the rights of people (huquq al-'ibad). Oppression (dhulm), injustice, breaking trusts, cheating in trade, withholding wages, unpaid debts, and severing family ties all fall under the rights of people — and these carry a particular seriousness in the Hereafter.",
+      "The reason is shown in a sobering hadith. The Prophet ﷺ described the truly bankrupt person as one who arrives on the Day of Judgment with prayers, fasting, and charity — yet had insulted, slandered, wrongfully taken wealth, and shed blood. His victims are paid from his good deeds until they run out, and then their sins are loaded onto him and he is cast into the Fire (Sahih Muslim 2581). A person can be rich in worship and still be ruined by how he treated others.",
+      "This teaches a crucial lesson about repentance: turning to Allah is necessary, but when a human right has been violated, it is not by itself sufficient. The claim of the wronged person remains until it is settled or forgiven. So repentance here has a fourth condition beyond stopping, regretting, and resolving — returning what is owed.",
+      "In practice that means giving back what was taken or its value, paying off debts even gradually, restoring reputations one has damaged, and reaching out to reconcile with relatives one has cut off. And there is mercy in this too: every step of restitution is itself a good deed, and Allah eases the sincere heart that sets out to repair what it broke.",
     ],
     quran: [
       {
@@ -447,9 +476,10 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Hypocrisy",
     summary: "Major hypocrisy in belief — and traits of hypocrisy in behaviour.",
     body: [
-      "Major hypocrisy (nifaq i'tiqadi) is outward Islam with inward disbelief. It is among the severest warnings in the Qur'an regarding the Hereafter.",
-      "The Prophet ﷺ also described traits of hypocrisy in behaviour: when he speaks he lies, when he promises he breaks it, when entrusted he betrays, when he disputes he is foul.",
-      "These behavioural signs are a warning for every believer to purify the heart — not a license to label others as hypocrites. Only Allah knows what is hidden.",
+      "Scholars distinguish two kinds of hypocrisy, and keeping them apart prevents both false comfort and false panic. The first is major hypocrisy of belief (nifaq i'tiqadi): to display Islam outwardly while inwardly rejecting faith. This is the hypocrisy the Qur'an warns of most gravely, placing such people 'in the lowest depths of the Fire' (4:145), for in reality they died as disbelievers behind a mask.",
+      "The second is lesser, behavioural hypocrisy (nifaq 'amali): traits that resemble the conduct of hypocrites even in a person whose faith is real. The Prophet ﷺ named the well-known signs — 'when he speaks he lies, when he promises he breaks it, and when he is entrusted he betrays' — and in another narration added foulness in dispute. A believer can fall into these and still be a believer, but they are a serious warning to guard against.",
+      "This distinction matters greatly for how we use the topic. The behavioural signs are given as a mirror for oneself, not as a label to pin on others. The Prophet ﷺ and his Companions feared hypocrisy in themselves precisely because the heart is hidden and can change.",
+      "So the healthy response is inward: to check one's own honesty, faithfulness to promises, and trustworthiness, and to ask Allah for sincerity (ikhlas). Only Allah knows what lies within a person, and accusing specific individuals of hypocrisy is itself a grave transgression against them.",
     ],
     quran: [
       {
@@ -484,9 +514,10 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     title: "Punishments Mentioned",
     summary: "What the texts describe — read with fear of Allah and hope in His mercy.",
     body: [
-      "The Qur'an and Sunnah mention specific punishments and categories of wrongdoers: those who consume riba, slander chaste women, hoard wealth, abandon prayer, and persist in major sin.",
-      "Some punishments are described for the grave ( adab al-qabr) as well as Jahannam. Belief in both is part of Sunni aqeedah.",
-      "The believer does not obsess over graphic detail. Take the warning, repent, and increase in deeds that bring protection — which this module emphasises even more than punishment.",
+      "The Qur'an and Sunnah do name specific consequences for specific wrongs — for those who devour riba, who slander chaste women, who hoard wealth and withhold its due, who neglect prayer, and who persist in major sin. The specificity is a form of clarity: it leaves no one able to say they were not warned about the very thing they were doing.",
+      "Some of these consequences are described in the grave (adhab al-qabr) and others in Jahannam itself. Mainstream Sunni aqeedah affirms the reality of both, while entrusting the exact 'how' of these unseen matters to Allah's knowledge rather than to human imagination.",
+      "How a believer engages with all this is what matters. The aim is never to dwell on graphic detail or to let the heart sink; it is to receive the warning, repent from whatever applies, and then turn energy toward the deeds that actually protect. That is why this module deliberately gives more space to protection, repentance, and mercy than to punishment.",
+      "In short, the right takeaway from any punishment mentioned is a question, not a fear: 'Am I doing this — and if so, how do I stop and make it right?' Answered honestly today, the warning has already done its merciful work.",
     ],
     quran: [
       {
@@ -519,10 +550,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     summary: "Tawheed, salah, tawbah, charity, Qur'an, and du'a — the heart of this module.",
     importance: "foundational",
     body: [
-      "The greatest protection is correct tawheed — worshipping Allah alone without partners. Every accepted deed rests on this foundation.",
-      "Establishing the five daily prayers, sincere repentance, charity, fasting, reciting and acting on the Qur'an, good character, mercy to others, dhikr, and seeking forgiveness are among the means Allah loves.",
-      "The Prophet ﷺ taught specific du'as seeking refuge from Jahannam — especially in salah and morning/evening adhkar. Learn them and live them.",
-      "This section is intentionally larger than the punishment section: Islam balances warning with hope and action.",
+      "After all the warnings, this is the heart of the matter: Jahannam is something a person is meant to be protected from, and Islam is full of the means of that protection. The greatest of them is sound tawheed — worshipping Allah alone, with nothing beside Him. Every other deed is accepted and weighed only upon this foundation, which is why guarding one's belief comes before everything else.",
+      "Upon that foundation, the practical shields are many and within reach: establishing the five daily prayers, sincere repentance, giving charity — which the Prophet ﷺ said extinguishes sin as water extinguishes fire — fasting, reciting the Qur'an and acting on it, good character, mercy toward others, regular remembrance (dhikr), and constant seeking of forgiveness. None of these requires great wealth or knowledge; they are open to everyone.",
+      "The Prophet ﷺ also taught direct supplications for refuge from the Fire, and encouraged us to ask often. He said that whoever asks Allah for Paradise three times, Paradise itself prays for his admission, and whoever seeks refuge from the Fire three times, the Fire itself prays that he be spared it (Jami' at-Tirmidhi 2572). These du'as have a special place before the salam in prayer and in the morning and evening adhkar.",
+      "Notice the balance the Sharia strikes. The means of protection are more numerous, more emphasised, and more attainable than the causes of ruin — and this itself is a sign of Allah's mercy. It is far easier to be saved than to be lost.",
+      "This section is intentionally the largest in the module, because that is how Islam itself weighs the matter: warning always paired with hope, and never separated from concrete action a person can begin today.",
     ],
     quran: [
       {
@@ -542,11 +574,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     ],
     hadith: [
       {
-        collection: "Sahih al-Bukhari",
-        citation: "6318",
+        collection: "Jami' at-Tirmidhi",
+        citation: "2572",
         grade: "sahih",
         excerpt:
-          "Whoever asks Allah for Paradise three times, Paradise says: O Allah, admit him. Whoever seeks refuge from the Fire three times, the Fire says: O Allah, protect him.",
+          "Whoever asks Allah for Paradise three times, Paradise says: O Allah, admit him into Paradise. Whoever seeks refuge from the Fire three times, the Fire says: O Allah, protect him from the Fire.",
       },
     ],
     actions: [
@@ -568,10 +600,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     summary: "Allah accepts sincere repentance — no sin is too great before death.",
     importance: "foundational",
     body: [
-      "Tawbah is turning back to Allah with regret for the sin, abandoning it immediately, and resolving not to return. If the sin involved rights of others, restitution is required.",
-      "Allah's mercy encompasses all things. He accepts repentance even after repeated falls — as long as the heart is sincere and death has not arrived.",
-      "The door of tawbah remains open until the soul reaches the throat. Do not postpone returning to Allah.",
-      "Conditions of valid tawbah: stop the sin, regret it, intend not to repeat, and restore rights where due. For shirk, repentance must occur before death.",
+      "Tawbah — repentance — is the mechanism Allah has built into the religion so that no sin need be permanent. At its core it is a turning of the heart back toward Allah, and the scholars derive its conditions from the Qur'an and Sunnah: sincerely stop the sin, feel genuine regret for it, and firmly resolve never to return. When the sin involved a right of another person, a fourth condition is added — restoring that right or seeking their pardon.",
+      "What makes tawbah so hopeful is the way Allah receives it. He does not merely tolerate the returning servant; He rejoices. The Prophet ﷺ said Allah is more joyful at His servant's repentance than a man who, having lost his mount with all his provisions in a barren desert and given up hope, suddenly finds it standing before him (Sahih al-Bukhari 6309). That is the welcome awaiting anyone who turns back.",
+      "His door, moreover, never closes during a lifetime. The Prophet ﷺ said Allah stretches out His hand by night to accept the repentance of the sinner of the day, and stretches out His hand by day to accept the repentance of the sinner of the night (Sahih Muslim 2759). Repentance is accepted for the individual until the soul reaches the throat at death, and for humanity until the sun rises from the west — so there is never a reason to delay it.",
+      "This is true even for one who has fallen and repented many times over. As long as the return is sincere each time, Allah keeps accepting; despair is from Shaytan, not from the religion. The one thing that must be settled before death is shirk, since a person who dies upon it dies without the faith that repentance requires — which is exactly why turning fully to Allah alone is the most urgent return of all.",
+      "The practical takeaway is simple: repent now, repent often, and never let the size of a sin, or the number of past falls, argue you out of coming back. The invitation is always open.",
     ],
     quran: [
       {
@@ -592,17 +625,17 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     hadith: [
       {
         collection: "Sahih al-Bukhari",
-        citation: "6307",
+        citation: "6309",
         grade: "sahih",
         excerpt:
-          "Allah is more joyful with the repentance of His servant than one who finds his lost mount in a barren land.",
+          "Allah is more pleased with the repentance of His servant than one of you who finds his lost mount in a barren land.",
       },
       {
         collection: "Sahih Muslim",
-        citation: "2747",
+        citation: "2759",
         grade: "sahih",
         excerpt:
-          "Allah extends His hand at night for the repentant by day, and during the day for the repentant by night.",
+          "Allah extends His hand by night to accept the repentance of the sinner of the day, and extends His hand by day to accept the repentance of the sinner of the night, until the sun rises from its west.",
       },
     ],
     actions: [
@@ -623,10 +656,11 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
     summary: "Never despair — good deeds erase sins; consistency matters.",
     importance: "foundational",
     body: [
-      "Allah is ar-Rahman ar-Raheem — His mercy precedes His wrath. The believer lives between hope and fear: fear of sin, hope in forgiveness.",
-      "Never despair of Allah's mercy, no matter how far you feel you have strayed. Shaytan wants you to give up; Allah wants you to return.",
-      "Good deeds erase bad deeds. Consistent small worship — one prayer on time, one act of charity, one moment of patience — builds a life of nearness to Allah.",
-      "Let this be the conclusion of your study: know the warning, choose the path of mercy, and walk it every day until you meet Allah.",
+      "Everything in this module points here. Allah is ar-Rahman ar-Raheem — the Most Merciful — and He has told us that His mercy outweighs His wrath and 'encompasses all things' (7:156). The believer is meant to live between hope and fear, like the two wings of a bird: fearful enough of sin to stay alert, hopeful enough in forgiveness never to give up.",
+      "Because of this, despair is itself out of place. However far a person feels they have strayed, the door back is open, and it is Shaytan — not Allah — who whispers that it is too late. To despair of mercy is to think too little of the Most Merciful; the sincere heart's job is simply to return.",
+      "Here lies the great comfort of Sunni belief about the Fire. For those who die upon disbelief, Jahannam is a lasting abode. But a believer who dies affirming Allah alone, even if weighed down by major sins, will not remain in it forever. The Prophet ﷺ taught that people will be brought out of the Fire through intercession and then through Allah's own mercy — cast into the River of Life at the edge of Paradise, where they are restored and enter it (Sahih al-Bukhari 7439). He said none will remain in the Fire who has even a mustard-seed's weight of faith in the heart (Sahih Muslim 183). For the monotheist, therefore, the Fire — if it is entered at all — is never the end of the story.",
+      "In the meantime, mercy is built into daily life: good deeds wipe away bad ones (11:114), and small, consistent worship — one prayer prayed on time, one quiet act of charity, one moment of patience held for Allah's sake — steadily draws a person nearer to Him and further from harm. Consistency matters more than intensity.",
+      "So let this be the conclusion of your study: take the warning seriously, but let hope be louder than fear. Know the danger, choose the path of mercy, and walk it — a step at a time — every day until you meet Allah.",
     ],
     quran: [
       {
@@ -636,26 +670,33 @@ export const JAHANNAM_CORE_TOPICS: JahannamTopic[] = [
         excerpt: "My mercy encompasses all things.",
       },
       {
+        surah: 39,
+        ayahFrom: 53,
+        label: "Qur'an 39:53",
+        excerpt:
+          "Say: O My servants who have transgressed against themselves, do not despair of the mercy of Allah. Indeed, Allah forgives all sins.",
+      },
+      {
         surah: 11,
         ayahFrom: 114,
         label: "Qur'an 11:114",
         excerpt: "Indeed, good deeds remove evil deeds. That is a reminder for those who remember.",
       },
-      {
-        surah: 65,
-        ayahFrom: 2,
-        label: "Qur'an 65:2",
-        excerpt:
-          "Whoever fears Allah — He will make for him a way out and provide from where he does not expect.",
-      },
     ],
     hadith: [
       {
-        collection: "Sahih Muslim",
-        citation: "2751",
+        collection: "Sahih al-Bukhari",
+        citation: "7439",
         grade: "sahih",
         excerpt:
-          "By the One in whose hand is my soul, if you did not sin, Allah would replace you with people who sin and seek forgiveness.",
+          "Allah will say: The angels have interceded, the prophets have interceded, and the believers have interceded, and none remains but the Most Merciful of the merciful. He will take a handful from the Fire and bring out people who never did any good.",
+      },
+      {
+        collection: "Sahih Muslim",
+        citation: "183",
+        grade: "sahih",
+        excerpt:
+          "Whoever has in his heart faith the weight of a mustard seed will be taken out of the Fire.",
       },
     ],
     actions: [

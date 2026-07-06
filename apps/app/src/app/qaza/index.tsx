@@ -1,9 +1,8 @@
 import type { QazaPrayer } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QazaCountEditModal } from "@/components/qaza-count-edit-modal";
@@ -12,7 +11,9 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
+import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { StatPair } from "@/components/ui/stat-pair";
@@ -133,6 +134,40 @@ export default function QazaHomeScreen() {
     }
   }, [adjustQaza, pending, performQaza, resetAllQazaCounters, resetQazaCounter]);
 
+  const toolActions = useMemo<QuickActionItem[]>(
+    () => [
+      {
+        id: "calculator",
+        label: t("qaza.calculator"),
+        icon: { ios: "function", android: "calculate", web: "calculate" },
+        tint: colors.accent,
+        onPress: () => router.push("/qaza/calculator"),
+      },
+      {
+        id: "planner",
+        label: t("qaza.planner"),
+        icon: { ios: "calendar.badge.clock", android: "event", web: "event" },
+        tint: tokens.status.info.color,
+        onPress: () => router.push("/qaza/planner"),
+      },
+      {
+        id: "roza",
+        label: t("qaza.roza"),
+        icon: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
+        tint: tokens.status.warning.color,
+        onPress: () => router.push("/qaza/roza"),
+      },
+      {
+        id: "history",
+        label: t("qaza.history"),
+        icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
+        tint: tokens.status.success.color,
+        onPress: () => router.push("/qaza/history"),
+      },
+    ],
+    [colors.accent, router, t, tokens],
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("qaza.eyebrow")}
@@ -200,36 +235,7 @@ export default function QazaHomeScreen() {
           />
         </Card>
 
-        <View style={styles.tools}>
-          <Button
-            label={t("qaza.calculator")}
-            variant="secondary"
-            icon={{ ios: "function", android: "calculate", web: "calculate" }}
-            onPress={() => router.push("/qaza/calculator")}
-            style={styles.tool}
-          />
-          <Button
-            label={t("qaza.planner")}
-            variant="secondary"
-            icon={{ ios: "calendar.badge.clock", android: "event", web: "event" }}
-            onPress={() => router.push("/qaza/planner")}
-            style={styles.tool}
-          />
-          <Button
-            label={t("qaza.roza")}
-            variant="secondary"
-            icon={{ ios: "moon.stars.fill", android: "nightlight", web: "nightlight" }}
-            onPress={() => router.push("/qaza/roza")}
-            style={styles.tool}
-          />
-          <Button
-            label={t("qaza.history")}
-            variant="secondary"
-            icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
-            onPress={() => router.push("/qaza/history")}
-            style={styles.tool}
-          />
-        </View>
+        <QuickActionGrid items={toolActions} columns={4} />
 
         <WitrQazaInfo />
 
@@ -267,26 +273,20 @@ export default function QazaHomeScreen() {
                     </ThemedText>
                   </View>
 
-                  <Pressable
-                    accessibilityRole="button"
+                  <IconButton
                     accessibilityLabel={t("qaza.resetPrayer", {
                       prayer: t(`prayers.${counter.prayerId}`),
                     })}
                     disabled={!hasCounts}
-                    hitSlop={6}
                     onPress={() => setPending({ kind: "resetPrayer", prayerId: counter.prayerId })}
-                    style={{ opacity: hasCounts ? 1 : 0.3 }}
-                  >
-                    <SymbolView
-                      name={{
-                        ios: "arrow.counterclockwise",
-                        android: "restart_alt",
-                        web: "restart_alt",
-                      }}
-                      size={20}
-                      tintColor={colors.mutedForeground}
-                    />
-                  </Pressable>
+                    name={{
+                      ios: "arrow.counterclockwise",
+                      android: "restart_alt",
+                      web: "restart_alt",
+                    }}
+                    size={20}
+                    tintColor={colors.mutedForeground}
+                  />
 
                   <Stepper
                     value={counter.remaining}
@@ -319,26 +319,20 @@ export default function QazaHomeScreen() {
                     }
                   />
 
-                  <Pressable
-                    accessibilityRole="button"
+                  <IconButton
                     accessibilityLabel={t("qaza.markPerformed", {
                       prayer: t(`prayers.${counter.prayerId}`),
                     })}
                     disabled={counter.remaining === 0}
-                    hitSlop={6}
                     onPress={() => setPending({ kind: "perform", prayerId: counter.prayerId })}
-                    style={{ opacity: counter.remaining === 0 ? 0.3 : 1 }}
-                  >
-                    <SymbolView
-                      name={{
-                        ios: "checkmark.circle.fill",
-                        android: "check_circle",
-                        web: "check_circle",
-                      }}
-                      size={26}
-                      tintColor={tokens.status.success.color}
-                    />
-                  </Pressable>
+                    name={{
+                      ios: "checkmark.circle.fill",
+                      android: "check_circle",
+                      web: "check_circle",
+                    }}
+                    size={26}
+                    tintColor={tokens.status.success.color}
+                  />
                 </View>
               );
             })}
@@ -388,13 +382,6 @@ const styles = StyleSheet.create({
   resetAll: {
     marginTop: Spacing.three,
     alignSelf: "center",
-  },
-  tools: {
-    flexDirection: "row",
-    gap: Spacing.two,
-  },
-  tool: {
-    flex: 1,
   },
   rows: {
     gap: Spacing.two,

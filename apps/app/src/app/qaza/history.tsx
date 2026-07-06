@@ -4,7 +4,7 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { CalendarMonthPicker } from "@/components/calendar-month-picker";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -207,8 +207,9 @@ export default function QazaHistoryScreen() {
                   const disabled = !day.inMonth || !hasData;
 
                   return (
-                    <Pressable
+                    <PressableScale
                       key={day.date}
+                      haptic="light"
                       disabled={disabled}
                       accessibilityRole="button"
                       accessibilityLabel={
@@ -253,7 +254,7 @@ export default function QazaHistoryScreen() {
                           </ThemedText>
                         ) : null}
                       </View>
-                    </Pressable>
+                    </PressableScale>
                   );
                 })}
               </View>

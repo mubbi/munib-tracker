@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   FlatList,
   type ListRenderItemInfo,
-  Pressable,
   Share,
   StyleSheet,
   View,
@@ -30,6 +29,7 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing } from "@/constants/theme";
@@ -483,7 +483,8 @@ function PrefToggle({
 }) {
   const { colors, tokens } = useThemeTokens();
   return (
-    <Pressable
+    <PressableScale
+      haptic="light"
       accessibilityRole="switch"
       accessibilityState={{ checked: enabled }}
       onPress={onToggle}
@@ -498,7 +499,7 @@ function PrefToggle({
           ]}
         />
       </View>
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -506,7 +507,8 @@ function PlaySurahButton({ onPress }: { onPress: () => void }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   return (
-    <Pressable
+    <PressableScale
+      haptic="light"
       accessibilityRole="button"
       accessibilityLabel={t("quran.playSurah")}
       onPress={onPress}
@@ -520,7 +522,7 @@ function PlaySurahButton({ onPress }: { onPress: () => void }) {
       <ThemedText type="smallBold" style={{ color: colors.accent }}>
         {t("quran.playSurah")}
       </ThemedText>
-    </Pressable>
+    </PressableScale>
   );
 }
 

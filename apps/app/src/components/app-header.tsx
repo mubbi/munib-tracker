@@ -1,9 +1,11 @@
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { Platform, Pressable, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { IconButton } from "@/components/ui/icon-button";
 import { NotificationBadge } from "@/components/ui/notification-badge";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
@@ -47,17 +49,15 @@ export function AppHeader({
       ]}
     >
       {onBack ? (
-        <Pressable
+        <IconButton
+          name={chevronBack}
+          size={19}
+          tintColor={colors.accent}
           accessibilityLabel={t("common.goBack")}
-          accessibilityRole="button"
           onPress={withNavigationBlur(onBack)}
-          style={({ pressed }) => [
-            styles.backButton,
-            { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.7 : 1 },
-          ]}
-        >
-          <SymbolView name={chevronBack} size={19} tintColor={colors.accent} />
-        </Pressable>
+          background={tokens.accentSoft}
+          hitTarget={44}
+        />
       ) : null}
 
       <View style={styles.textBlock}>
@@ -77,14 +77,12 @@ export function AppHeader({
       </View>
 
       {onNotificationsPress ? (
-        <Pressable
+        <PressableScale
           accessibilityLabel={t("common.notifications")}
           accessibilityRole="button"
+          haptic="light"
           onPress={withNavigationBlur(onNotificationsPress)}
-          style={({ pressed }) => [
-            styles.notificationButton,
-            { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.7 : 1 },
-          ]}
+          style={[styles.notificationButton, { backgroundColor: tokens.accentSoft }]}
         >
           <SymbolView
             name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
@@ -92,7 +90,7 @@ export function AppHeader({
             tintColor={colors.accent}
           />
           <NotificationBadge count={notificationCount} />
-        </Pressable>
+        </PressableScale>
       ) : null}
     </View>
   );
@@ -112,14 +110,6 @@ const styles = StyleSheet.create({
     gap: Spacing.half,
   },
   notificationButton: {
-    width: 44,
-    height: 44,
-    borderRadius: Radius.md,
-    alignItems: "center",
-    justifyContent: "center",
-    borderCurve: "continuous",
-  },
-  backButton: {
     width: 44,
     height: 44,
     borderRadius: Radius.md,

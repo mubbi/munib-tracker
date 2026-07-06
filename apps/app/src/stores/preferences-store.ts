@@ -7,6 +7,7 @@ import type {
 } from "@munib-tracker/shared/types";
 
 import { initDatabase, PreferencesRepository } from "@/db";
+import { syncHapticsEnabled } from "@/lib/haptics";
 
 import { createStore, useStore } from "./create-store";
 
@@ -109,3 +110,10 @@ const preferencesActions = {
 export function usePreferencesActions() {
   return preferencesActions;
 }
+
+// `Listener` is a zero-arg notification (see create-store.ts); read the current
+// state via getState() rather than a listener argument that is never passed.
+preferencesStore.subscribe(() => {
+  syncHapticsEnabled(preferencesStore.getState().prefs.hapticsEnabled);
+});
+syncHapticsEnabled(preferencesStore.getState().prefs.hapticsEnabled);

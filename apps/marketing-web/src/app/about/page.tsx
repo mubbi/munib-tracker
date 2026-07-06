@@ -50,7 +50,10 @@ export default function AboutPage() {
           </Link>{" "}
           page — prayer tracking, qaza calculator and planner, adhkar and tasbeeh, offline Qur'an
           and hadith, qibla, Hijri calendar, universal search, statistics, achievements, and
-          optional cloud sync.
+          optional cloud sync. Beyond tracking, {APP_NAME} is a place to learn: structured lessons
+          on aqeedah, the prophets, the seerah, and the Hereafter; a guided path to read and
+          understand the Qur'an; and practical worship guides for salah, wudu, zakat, and hajj —
+          every lesson referenced to Qur'an and authenticated hadith.
         </p>
       </ContentSection>
 

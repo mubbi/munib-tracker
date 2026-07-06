@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  Pressable,
   ScrollView,
   StyleSheet,
   View,
@@ -16,6 +15,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -90,21 +90,19 @@ export default function TourScreen() {
       <StatusBar style={scheme === "dark" ? "light" : "dark"} />
 
       <View style={styles.toolbar}>
-        <Pressable
-          accessibilityRole="button"
+        <IconButton
           accessibilityLabel={t("common.goBack")}
-          hitSlop={8}
           onPress={() => {
             triggerHaptic("light");
             void finish();
           }}
-          style={({ pressed }) => [
-            styles.iconButton,
-            { backgroundColor: tokens.accentSoft, opacity: pressed ? 0.75 : 1 },
-          ]}
-        >
-          <SymbolView name={chevronBack} size={18} tintColor={colors.accent} />
-        </Pressable>
+          haptic={false}
+          name={chevronBack}
+          size={18}
+          tintColor={colors.accent}
+          background={tokens.accentSoft}
+          style={styles.iconButton}
+        />
 
         <View style={styles.toolbarCenter}>
           <ThemedText type="smallBold">{t(tourTitleKey)}</ThemedText>
@@ -114,7 +112,7 @@ export default function TourScreen() {
           />
         </View>
 
-        <Pressable
+        <PressableScale
           accessibilityRole="button"
           accessibilityLabel={t("common.skip")}
           hitSlop={8}
@@ -122,12 +120,12 @@ export default function TourScreen() {
             triggerHaptic("light");
             void finish();
           }}
-          style={({ pressed }) => [styles.skipButton, { opacity: pressed ? 0.65 : 1 }]}
+          style={styles.skipButton}
         >
           <ThemedText type="smallBold" style={{ color: colors.accentText }}>
             {t("common.skip")}
           </ThemedText>
-        </Pressable>
+        </PressableScale>
       </View>
 
       <ProgressBar value={progress} height={3} style={styles.progressTrack} />
@@ -179,18 +177,16 @@ export default function TourScreen() {
 
         <View style={styles.footerActions}>
           {index > 0 ? (
-            <Pressable
-              accessibilityRole="button"
+            <IconButton
               accessibilityLabel={t("tour.back")}
-              hitSlop={8}
               onPress={() => goToStep(index - 1)}
-              style={({ pressed }) => [
-                styles.iconButton,
-                { backgroundColor: colors.muted, opacity: pressed ? 0.75 : 1 },
-              ]}
-            >
-              <SymbolView name={chevronBack} size={18} tintColor={colors.foreground} />
-            </Pressable>
+              haptic={false}
+              name={chevronBack}
+              size={18}
+              tintColor={colors.foreground}
+              background={colors.muted}
+              style={styles.iconButton}
+            />
           ) : (
             <View style={styles.iconButtonSpacer} />
           )}

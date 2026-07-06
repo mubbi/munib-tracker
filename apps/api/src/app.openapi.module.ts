@@ -15,6 +15,7 @@ const openApiServiceMocks = {
     linkGuestAccount: async () => ({}),
     getCurrentUser: async () => ({}),
     revokeSession: async () => undefined,
+    deleteAccount: async () => undefined,
   },
   sync: {
     pull: async () => ({ changes: [], serverTime: new Date().toISOString() }),

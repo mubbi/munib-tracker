@@ -15,31 +15,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { applyBackup, type BackupFile, exportBackup, parseBackup } from "@/lib/backup";
 import { useToast } from "@/providers/toast-provider";
-import { continueStore } from "@/stores/continue-store";
-import { customTasbeehStore } from "@/stores/custom-tasbeeh-store";
-import { duaFavoritesStore } from "@/stores/dua-favorites-store";
-import { duroodFavoritesStore } from "@/stores/durood-favorites-store";
-import { fastingStore } from "@/stores/fasting-store";
-import { locationStore } from "@/stores/location-store";
-import { nameFavoritesStore } from "@/stores/name-favorites-store";
-import { preferencesStore } from "@/stores/preferences-store";
-import { quranStore } from "@/stores/quran-store";
-import { trackerStore } from "@/stores/tracker-store";
-
-async function reloadAllStores(): Promise<void> {
-  await Promise.all([
-    preferencesStore.getState().load(),
-    trackerStore.getState().load(),
-    locationStore.getState().load(),
-    quranStore.getState().load(),
-    continueStore.getState().load(),
-    duaFavoritesStore.getState().load(),
-    duroodFavoritesStore.getState().load(),
-    nameFavoritesStore.getState().load(),
-    customTasbeehStore.getState().load(),
-    fastingStore.getState().load(),
-  ]);
-}
+import { reloadAllStores } from "@/stores/reload-all-stores";
 
 export default function BackupScreen() {
   const router = useRouter();

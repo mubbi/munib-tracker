@@ -1,5 +1,8 @@
 import type { BattlesTimelineEvent } from "../types/battles";
 
+/** Bump when timeline milestones change. */
+export const BATTLES_TIMELINE_VERSION = 2;
+
 /** Chronological milestones from revelation through the Farewell Pilgrimage. */
 export const BATTLES_TIMELINE: BattlesTimelineEvent[] = [
   {
@@ -52,12 +55,22 @@ export const BATTLES_TIMELINE: BattlesTimelineEvent[] = [
     topicId: "trench",
   },
   {
+    id: "banu-qurayzah",
+    year: 627,
+    ah: 5,
+    title: "Banu Qurayzah",
+    body: "Having broken the covenant of Madinah during the siege, Banu Qurayzah surrender and ask to be judged by an arbiter of their own choosing, Sa'd ibn Mu'adh.",
+    location: "Madinah",
+    topicId: "banu-qurayzah",
+  },
+  {
     id: "hudaybiyyah",
     year: 628,
     ah: 6,
     title: "Treaty of Hudaybiyyah",
-    body: "A ten-year truce that seemed a concession became, in the Qur'an's words, a clear victory — conversions spread and the path to Makkah opened.",
+    body: "A ten-year truce that seemed a concession became, in the Qur'an's words, a manifest victory — the Pledge of Ridwan was given under the tree, conversions spread, and the path to Makkah opened.",
     location: "Hudaybiyyah",
+    topicId: "hudaybiyyah",
   },
   {
     id: "mutah",

@@ -140,4 +140,42 @@ describe("API (e2e)", () => {
     expect(conflict.body.conflicts).toHaveLength(1);
     expect(conflict.body.conflicts[0].data.status).toBe("completed");
   });
+
+  it("permanently deletes the account and all its synced data", async () => {
+    // A distinct identity (apple) so this test's deletion never disturbs the
+    // google account the round-trip test above relies on.
+    const signIn = await http().post("/api/v1/auth/oauth/apple").send({ code: "e2e-delete" });
+    const bearer = { Authorization: `Bearer ${signIn.body.accessToken}` };
+
+    await http()
+      .post("/api/v1/sync/push")
+      .set(bearer)
+      .send({
+        changes: [
+          {
+            entity: "prayer_logs",
+            id: "isha-2026-02-02",
+            data: { status: "completed" },
+            updatedAt: "2026-02-02T20:00:00.000Z",
+          },
+        ],
+      })
+      .expect(({ body }) => {
+        expect(body.accepted).toBe(1);
+      });
+
+    await http().delete("/api/v1/auth/me").set(bearer).expect(204);
+
+    // The session is revoked — the same token no longer authenticates.
+    await http().get("/api/v1/sync/pull").set(bearer).expect(401);
+
+    // Signing back in with the same identity starts from a fresh, empty account —
+    // the deleted data does not repopulate.
+    const again = await http().post("/api/v1/auth/oauth/apple").send({ code: "e2e-delete-2" });
+    const pulled = await http()
+      .get("/api/v1/sync/pull")
+      .set({ Authorization: `Bearer ${again.body.accessToken}` })
+      .expect(200);
+    expect(pulled.body.changes).toHaveLength(0);
+  });
 });

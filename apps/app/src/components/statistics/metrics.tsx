@@ -1,6 +1,7 @@
 import { SymbolView } from "expo-symbols";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -128,16 +129,17 @@ type LinkRowProps = {
 export function LinkRow({ label, onPress }: LinkRowProps) {
   const { colors } = useThemeTokens();
   return (
-    <Pressable
+    <PressableScale
+      haptic="light"
       accessibilityRole="button"
       onPress={onPress}
-      style={({ pressed }) => [styles.linkRow, pressed && styles.linkPressed]}
+      style={styles.linkRow}
     >
       <ThemedText type="smallBold" style={{ color: colors.accent }}>
         {label}
       </ThemedText>
       <SymbolView name={chevronForward} size={14} tintColor={colors.accent} />
-    </Pressable>
+    </PressableScale>
   );
 }
 
@@ -210,8 +212,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     minHeight: 44,
     paddingTop: Spacing.one,
-  },
-  linkPressed: {
-    opacity: 0.65,
   },
 });

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -72,32 +73,24 @@ export default function LearnQuranProgressScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
             {t("learnQuran.progressExploreHint")}
           </ThemedText>
-          <View style={styles.links}>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/learn-quran/daily" as Href)}
-            >
-              {t("learnQuran.dailyTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/learn-quran/vocabulary" as Href)}
-            >
-              {t("learnQuran.vocabTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/learn-quran/themes" as Href)}
-            >
-              {t("learnQuran.themesTitle")}
-            </ThemedText>
-            <ThemedText type="small" style={styles.link} onPress={() => router.push("/quran")}>
-              {t("actions.quran")}
-            </ThemedText>
-          </View>
+          <ContentLinkList
+            style={styles.links}
+            links={[
+              {
+                label: t("learnQuran.dailyTitle"),
+                onPress: () => router.push("/learn-quran/daily" as Href),
+              },
+              {
+                label: t("learnQuran.vocabTitle"),
+                onPress: () => router.push("/learn-quran/vocabulary" as Href),
+              },
+              {
+                label: t("learnQuran.themesTitle"),
+                onPress: () => router.push("/learn-quran/themes" as Href),
+              },
+              { label: t("actions.quran"), onPress: () => router.push("/quran") },
+            ]}
+          />
         </Card>
 
         <JannahDisclaimer textKey="learnQuran.disclaimer" />
@@ -109,6 +102,5 @@ export default function LearnQuranProgressScreen() {
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.one, lineHeight: 20 },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
-  links: { marginTop: Spacing.three, gap: Spacing.two },
-  link: { textDecorationLine: "underline" },
+  links: { marginTop: Spacing.three },
 });

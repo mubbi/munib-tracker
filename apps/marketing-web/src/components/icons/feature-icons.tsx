@@ -104,6 +104,55 @@ export function IconReminders(props: IconProps) {
   );
 }
 
+export function IconLearn(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M12 3 2 8l10 5 10-5-10-5z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6 10.5V15c0 1.66 2.69 3 6 3s6-1.34 6-3v-4.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M22 8v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function IconGuides(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M8 6h12M8 12h12M8 18h12"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M3.5 6h.01M3.5 12h.01M3.5 18h.01"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function IconTimes(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M12 7v5l3 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export const FEATURE_ICONS = {
   quran: IconQuran,
   hadith: IconHadith,
@@ -111,4 +160,7 @@ export const FEATURE_ICONS = {
   tracker: IconTracker,
   audio: IconAudio,
   reminders: IconReminders,
+  learn: IconLearn,
+  guides: IconGuides,
+  times: IconTimes,
 } as const;

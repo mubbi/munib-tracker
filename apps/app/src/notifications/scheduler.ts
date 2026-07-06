@@ -12,6 +12,11 @@ import {
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
 import {
+  parseScheduledTriggerAtMs,
+  type RawScheduledTrigger,
+  scheduledFireAtIso,
+} from "@/lib/notifications/parse-scheduled-trigger";
+import {
   readNotificationPermissionUiState,
   requestNotificationPermission,
 } from "@/lib/notifications/permissions";
@@ -190,27 +195,19 @@ export async function listScheduled(
       time?: string;
       atMs: number;
       route?: string;
+      fireAt: string;
     }[] = [];
 
     for (const item of scheduled) {
-      const trigger = item.trigger as {
-        hour?: number;
-        minute?: number;
-        date?: number | string;
-      } | null;
-      let time: string | undefined;
-      let atMs = Number.MAX_SAFE_INTEGER;
-      if (trigger && typeof trigger.hour === "number") {
-        const next = new Date();
-        next.setHours(trigger.hour, trigger.minute ?? 0, 0, 0);
-        if (next.getTime() <= now) next.setDate(next.getDate() + 1);
-        atMs = next.getTime();
-        time = formatDisplayHhMm(trigger.hour, trigger.minute ?? 0, prefs.timeFormat);
-      } else if (trigger?.date != null) {
-        const date = new Date(trigger.date);
-        atMs = date.getTime();
-        time = formatDisplayHhMm(date.getHours(), date.getMinutes(), prefs.timeFormat);
-      }
+      const trigger = item.trigger as RawScheduledTrigger;
+      const atMs = parseScheduledTriggerAtMs(trigger, now);
+      if (atMs == null) continue;
+
+      const fireAt = scheduledFireAtIso(atMs);
+      if (!fireAt) continue;
+
+      const date = new Date(atMs);
+      const time = formatDisplayHhMm(date.getHours(), date.getMinutes(), prefs.timeFormat);
 
       const title = item.content.title ?? i18n.t("notif.defaultTitle");
       const body = item.content.body ?? "";
@@ -222,7 +219,18 @@ export async function listScheduled(
         time,
         atMs,
         route,
+        fireAt,
       });
+    }
+
+    if (parsed.length === 0) {
+      if (!prefs.notificationPrefs.masterEnabled) return [];
+      return summarizeReminders(
+        buildReminders(prefs, location),
+        prefs.timeFormat,
+        new Date(),
+        location.timeZone,
+      );
     }
 
     parsed.sort((a, b) => a.atMs - b.atMs);
@@ -237,7 +245,7 @@ export async function listScheduled(
         id: item.id,
         title: item.title,
         body: item.body,
-        fireAt: new Date(item.atMs).toISOString(),
+        fireAt: item.fireAt,
         time: item.time,
         route: item.route,
       });

@@ -111,6 +111,23 @@
     "events": "Events",
     "zakat": "Zakat"
   },
+  "quickActions": {
+    "checklistSubtitle": "Log today's prayers",
+    "qiblaSubtitle": "Find qibla direction",
+    "tasbeehSubtitle": "Open tasbeeh counter",
+    "qazaSubtitle": "Manage missed prayers",
+    "quranSubtitle": "Read Qur'an"
+  },
+  "widgets": {
+    "updatedJustNow": "Updated just now",
+    "updatedMinutesAgo": "Updated {{count}}m ago",
+    "updatedHoursAgo": "Updated {{count}}h ago",
+    "nextPrayer": "Next prayer",
+    "schedule": "Today's schedule",
+    "progress": "Today's progress",
+    "setLocation": "Set location",
+    "setLocationHint": "Open the app to set your location"
+  },
   "ramadan": {
     "eyebrow": "Ramadan",
     "title": "Ramadan",
@@ -318,6 +335,8 @@
     "accountGuest": "Guest — sign in to sync",
     "appearance": "Appearance",
     "appearanceSub": "Theme & accent color",
+    "haptics": "Haptic feedback",
+    "hapticsSub": "Vibration on taps and actions",
     "notifications": "Notifications",
     "notificationsSub": "Reminders for Salah, Qaza, and Zikr",
     "bedtime": "Bedtime",
@@ -811,6 +830,7 @@
     "bookmarkEmptyDesc": "Tap the bookmark icon on any ayah to save it here.",
     "removeBookmark": "Remove bookmark",
     "juz": "Juz",
+    "learn": "Learn",
     "juzSubtitle": "Read the Qur'an in its 30 parts",
     "juzN": "Juz {{n}}",
     "browseByJuz": "Browse by Juz",
@@ -1202,7 +1222,11 @@
     "futureSubtitle": "This day hasn't happened yet",
     "summary": "{{completed}} of {{total}} obligatory prayers",
     "emptyTitle": "Nothing to log yet",
-    "emptyDesc": "You can only record worship for today and past days."
+    "emptyDesc": "You can only record worship for today and past days.",
+    "prevWeek": "Previous week",
+    "nextWeek": "Next week",
+    "weekOf": "Week of {{date}}",
+    "selected": "Selected"
   },
   "statistics": {
     "eyebrow": "Insights",
@@ -1470,7 +1494,9 @@
     "cardinalN": "N",
     "cardinalE": "E",
     "cardinalS": "S",
-    "cardinalW": "W"
+    "cardinalW": "W",
+    "defaultLocationHint": "Using the default location (Makkah). Set your city for an accurate qibla bearing where you are.",
+    "setLocation": "Set location"
   },
   "profile": {
     "eyebrow": "Account",
@@ -1481,7 +1507,9 @@
     "signInToSync": "Sign in to sync",
     "deleteAccount": "Delete account & data",
     "deleteTitle": "Delete account & data?",
-    "deleteMsg": "This permanently erases all your local tracking data on this device and signs you out. This cannot be undone.",
+    "deleteMsg": "This permanently erases all your tracking data on this device. This cannot be undone.",
+    "deleteMsgAccount": "This permanently deletes your account and all your synced data from our servers, and wipes this device. This cannot be undone.",
+    "deleteFailed": "Couldn't delete your account. Check your connection and try again.",
     "deleteConfirm": "Delete everything"
   },
   "sync": {
@@ -2636,6 +2664,17 @@
       "eidFitr": "Eid al-Fitr",
       "arafah": "Day of Arafah",
       "eidAdha": "Eid al-Adha"
+    },
+    "descriptions": {
+      "newYear": "The first of Muharram opens the Hijri (lunar) year, whose count begins from the Prophet's migration (Hijrah) from Makkah to Madinah. Muharram is one of the four sacred months and the Prophet ﷺ called it \"the month of Allah,\" naming its voluntary fasting the best after Ramadan (Sahih Muslim 1163). It is a time to reflect on the year past and renew good intentions. There is no specific mandated ritual for the day itself, so beware of unfounded \"New Year\" practices; increasing voluntary fasting across the month is the established Sunnah.",
+      "ashura": "The 10th of Muharram. The Prophet ﷺ found the Jews of Madinah fasting it in gratitude for Allah saving Musa and the Children of Israel from Pharaoh, and said, \"We have more right to Musa than you,\" then fasted it and told the Muslims to fast (Sahih al-Bukhari 2004). Fasting Ashura expiates the minor sins of the previous year (Sahih Muslim 1162). To differ from other communities, it is recommended to also fast the 9th (Tasu'a): the Prophet ﷺ intended to do so the following year (Sahih Muslim 1134). Fasting the 9th and 10th together is the preferred practice.",
+      "mawlid": "The 12th of Rabi al-Awwal is widely associated with the birth of the Prophet Muhammad ﷺ (the exact date is debated among historians). Muslims universally love and honour him and are commanded to send blessings upon him (Qur'an 33:56). Whether to hold a dedicated annual celebration (Mawlid) is a point on which mainstream scholars differ: many, especially in the Sufi and traditional traditions, permit or encourage gatherings of remembrance and sending salawat, while others (notably in the Salafi tradition) hold that a fixed yearly observance was not practised by the early generations and so should be avoided. This app presents the day neutrally; increasing salawat and following the Prophet's Sunnah are agreed goods.",
+      "isra": "Al-Isra wa al-Mi'raj commemorates the Prophet's ﷺ miraculous Night Journey from Makkah to Jerusalem (al-Aqsa) and his ascension through the heavens, referenced in Qur'an 17:1 and 53. On this night the five daily prayers were prescribed — originally fifty, then reduced to five by Allah's mercy while their reward remained fifty (Sahih al-Bukhari 349). The night affirms the sanctity of al-Aqsa and the centrality of Salah. Its precise date (commonly placed on 27 Rajab) is not firmly established, and no specific worship is authentically tied to the night itself; guarding the five daily prayers is its lasting lesson.",
+      "ramadan": "The ninth month and the fourth pillar of Islam. Fasting from dawn to sunset is obligatory on every capable adult Muslim (Qur'an 2:183–185). It is the month in which the Qur'an was first revealed (Qur'an 2:185). The Prophet ﷺ said, \"Whoever fasts Ramadan out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 38). Nights are enlivened with Taraweeh prayer, and the last ten days carry Laylat al-Qadr. It is a month of fasting, Qur'an, charity, and drawing near to Allah.",
+      "laylatQadr": "The Night of Decree — \"better than a thousand months\" (Qur'an 97:3), the night the Qur'an began to descend. Worship on it outweighs a lifetime of over eighty-three years. The Prophet ﷺ said, \"Whoever stands (in prayer) on Laylat al-Qadr out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 1901). Its exact night is hidden; seek it in the odd nights of the last ten of Ramadan — the 21st, 23rd, 25th, 27th, and 29th (Sahih al-Bukhari 2017), with the 27th especially hoped for. Spend these nights in prayer, Qur'an, and the du'a: \"Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.\"",
+      "eidFitr": "The Festival of Breaking the Fast, on the 1st of Shawwal, marks the end of Ramadan. The day begins with the Eid prayer and is preceded by Zakat al-Fitr, a charity given before the prayer so the poor may also rejoice. Muslims recite the takbir, wear their best, exchange greetings, and strengthen family and community ties. Fasting is forbidden on this day (Sahih al-Bukhari 1991) — it is a day of gratitude and permitted celebration for the worship completed in Ramadan.",
+      "arafah": "The 9th of Dhul-Hijjah, the greatest day of Hajj, when pilgrims stand in worship on the plain of Arafah — \"Hajj is Arafah.\" It falls within the blessed first ten days of Dhul-Hijjah, days in which righteous deeds are more beloved to Allah than any others (Sahih al-Bukhari 969). For those not on Hajj, fasting this day is highly recommended: it expiates the sins of the previous year and the coming year (Sahih Muslim 1162). Pilgrims themselves do not fast, so as to have strength for the standing and supplication.",
+      "eidAdha": "The Festival of Sacrifice, on the 10th of Dhul-Hijjah, is the greater of the two Eids and coincides with the culmination of Hajj. It commemorates Prophet Ibrahim's willingness to sacrifice his son in obedience to Allah, who ransomed him with a ram (Qur'an 37:100–107). Those able offer a sacrifice (Udhiyah/Qurbani), sharing the meat with family, neighbours, and the poor. The day begins with the Eid prayer and takbir and continues through the three days of Tashriq. Fasting is forbidden on this day and the days of Tashriq (Sahih al-Bukhari 1991)."
     }
   },
   "zakat": {
@@ -2695,42 +2734,52 @@
       "basics": {
         "title": "What is zakat?",
         "summary": "The third pillar — 2.5% on qualifying wealth",
-        "body": "Zakat is the third pillar of Islam — an obligatory annual charity on qualifying wealth. The standard rate on monetary assets is one-fortieth (2.5%). It purifies wealth, restrains greed, and circulates resources to those in need. Sadaqah is voluntary charity; zakat is a fixed duty when conditions are met."
+        "body": "Zakat is the third pillar of Islam, sitting between the prayer (salah) and the fast of Ramadan. In the Qur'an the command to establish prayer and give zakat is repeated many times as a single pairing — showing that worship of Allah and care for His creation are woven together. It is not an optional gift but a fixed, compulsory right that the poor hold over the wealth of the rich.\n\nThe word zakat means both purification and growth. Giving a small, fixed portion of your surplus purifies the rest of your wealth and your heart from greed, and — by Allah's promise — causes what remains to grow in blessing rather than shrink.\n\nThe standard rate on monetary wealth is one-fortieth, that is 2.5%. So for every 1,000 of qualifying wealth that has completed its lunar year above the threshold, 25 is due. This is a modest share by design: enough to circulate resources to those in need without straining the giver.\n\nZakat is not the same as sadaqah. Sadaqah is any voluntary charity, given in any amount, at any time, to almost anyone. Zakat is a defined obligation — a set rate, on set categories of wealth, once set conditions are met, paid to set categories of people. Neglecting it deliberately is a serious sin; both the Qur'an and Sunnah warn sternly against hoarding wealth while withholding its due."
+      },
+      "purpose": {
+        "title": "Why zakat — purpose & wisdom",
+        "summary": "It purifies wealth and the soul, and lifts the poor",
+        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
       },
       "hawl": {
         "title": "The lunar year (hawl)",
         "summary": "Wealth must stay above nisab for one Hijri year",
-        "body": "Zakat on cash, gold, silver, and trade wealth is generally due after the wealth has remained at or above nisab for one complete Hijri (lunar) year. Track the date your wealth first reached nisab — that becomes your zakat anniversary. If wealth drops below nisab during the year, the hawl often resets according to many scholars. Agricultural produce and livestock follow different timing rules."
+        "body": "Zakat on cash, gold, silver, and trade wealth is generally due only after that wealth has remained at or above the nisab threshold for one complete Hijri (lunar) year, known as the hawl. The Prophet ﷺ taught that there is no zakat on wealth until a year has passed over it.\n\nIn practice, note the date your zakatable wealth first reached nisab. That date becomes your annual zakat anniversary — each year, on that same Hijri date, you value everything you own and pay 2.5% of the total.\n\nYou do not need to track each coin separately. Most scholars hold that as long as your total stays at or above nisab across the year, small dips and rises in between do not matter — you simply assess the whole sum on your anniversary. If your wealth falls entirely below nisab during the year, many scholars consider the hawl to reset, restarting only when you next reach nisab.\n\nRemember that the Hijri (lunar) year is about eleven days shorter than the solar year. If you prefer to pay on a fixed Gregorian date for convenience, some scholars permit it provided you slightly increase the rate to account for the shorter lunar cycle. Agricultural produce and livestock follow their own timing rules and are not tied to the hawl in the same way."
       },
       "nisab": {
         "title": "Nisab — the minimum threshold",
-        "summary": "Measured against ~87.5 g gold or ~612 g silver",
-        "body": "Nisab is the minimum amount of wealth that makes zakat obligatory. It is measured against ~87.5 g of gold or ~612 g of silver. Because gold and silver prices differ, the two thresholds produce different monetary values. Many contemporary scholars advise using whichever threshold is lower so more needy people are supported — but schools differ, so follow your scholar's guidance."
+        "summary": "Measured against ~87.5 g gold or ~595–612 g silver",
+        "body": "Nisab is the minimum amount of wealth a person must own before zakat becomes obligatory. Someone whose net wealth stays below nisab all year owes no zakat — the obligation is only on those who have a genuine surplus.\n\nThe Prophet ﷺ fixed the thresholds in the currency of his time: 20 dinars of gold or 200 dirhams of silver. In weight this works out to roughly 85–87.5 g of gold, and roughly 595–612 g of silver (the small variation reflects different scholarly conversions of the dirham). This calculator uses widely cited figures of about 87.48 g gold and 612.36 g silver.\n\nBecause gold and silver no longer trade at the ratio they did in the Prophet's era, the two thresholds now give very different monetary values — the silver nisab is far lower. Many contemporary scholars therefore advise measuring cash and mixed wealth against the silver nisab: it makes more people liable, but that means more of the poor are helped, which is the spirit of the obligation. Others follow the gold nisab. Both positions are respected — follow your own scholar's guidance."
       },
       "zakatable": {
         "title": "What is generally zakatable",
         "summary": "Cash, metals, investments, trade goods, receivables",
-        "body": "Commonly zakatable: cash and bank savings; gold and silver (including bullion and stored jewellery not worn regularly); stocks, mutual funds, and similar investments at market value; business merchandise and trade goods; strong receivables you expect to collect; accumulated rental or business income you still possess; and other liquid or growth assets held as wealth."
+        "body": "Zakat is due on wealth that has the potential to grow — money and things held as money — rather than on items you simply use. The main categories agreed upon across the schools are cash, gold and silver, trade goods, and (with their own rules) crops and livestock.\n\nCommonly zakatable today: cash in hand and in bank accounts; gold and silver, including bullion, coins, and stored jewellery not in regular use; stocks, shares, and mutual funds valued at their current market price; the merchandise and inventory of a business (trade goods), valued at resale price; strong receivables — loans and invoices you reasonably expect to collect; and rental or business income you have saved rather than spent.\n\nMany scholars also include accessible retirement savings and cryptocurrencies held as an asset, treating them like cash or investments. When in doubt, the guiding question is simple: is this wealth a store of value or a means of growth that I could liquidate? If so, it is likely zakatable. Value everything at today's market price on your zakat date — not at what you originally paid."
       },
       "exempt": {
         "title": "What is usually not zakatable",
         "summary": "Personal use items, worn jewellery, locked pensions",
-        "body": "Personal items for daily use — your home, car, clothing, furniture, and tools of your trade — are generally exempt. Gold jewellery worn regularly is disputed: some scholars exempt it, others include it if it exceeds customary adornment. Pension funds you cannot access yet, and debts owed to you that are unlikely to be repaid, are often excluded — but details vary by school."
+        "body": "Wealth tied up in your ordinary daily life is generally not zakatable, because zakat targets growing wealth, not the things you live with and use. Your home, your car, your clothing, furniture, appliances, and the tools and equipment of your trade are all exempt — however valuable they are.\n\nGold and silver jewellery that a woman wears regularly is a well-known point of difference. The Hanafi school holds that all gold and silver is zakatable even if worn; the majority — Maliki, Shafi'i, and Hanbali — exempt jewellery kept for normal personal use but include it if it is hoarded as a store of wealth or exceeds customary adornment. Follow the ruling of the school you follow.\n\nPension or provident funds you cannot yet access are often excluded until the money actually comes into your hands, though some scholars require zakat on the accessible portion. Debts owed to you that are unlikely ever to be repaid are usually not counted until recovered. As always, the finer details vary between schools — when a case is unclear, ask a qualified scholar rather than guess."
       },
       "debts": {
         "title": "Debts & deductions",
         "summary": "Immediate debts may be deducted before calculating 2.5%",
-        "body": "Many scholars allow deducting immediate debts due now — personal loans, credit cards, bills already owed — from your gross zakatable wealth before calculating 2.5%. Long-term mortgages and instalment plans are treated differently between schools; some deduct only the current year's payments, others handle them separately. Do not deduct zakat you owe from last year as if it were a normal debt without scholarly guidance."
+        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
       },
       "recipients": {
         "title": "Who may receive zakat",
         "summary": "Eight categories named in Qur'an 9:60",
-        "body": "Allah named eight categories in Surah at-Tawbah (9:60): the poor (fuqara), the needy (masakin), zakat administrators, those whose hearts are to be reconciled, freeing captives, those in debt, in the cause of Allah, and the wayfarer. Zakat must reach eligible recipients — it is not paid to parents, children, or a spouse you already support, nor to the wealthy or for masjid building in the classical view (though schools differ on some institutions)."
+        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
       },
       "otherRates": {
-        "title": "Other types of zakat",
-        "summary": "Crops, livestock, and zakat al-fitr differ",
-        "body": "This calculator covers monetary wealth (zakat al-mal). Other categories have different rules: zakat on crops is typically 5–10% at harvest depending on irrigation; zakat on grazing livestock uses nisab counts by species; zakat al-fitr is a fixed amount per person before Eid al-Fitr. Each has its own scholars and calculations — consult guidance specific to those assets."
+        "title": "Other types of zakat & zakat al-fitr",
+        "summary": "Crops, livestock, and the pre-Eid zakat al-fitr differ",
+        "body": "The 2.5% rate applies to money and trade wealth — zakat al-mal, which this calculator covers. Several other categories have entirely different rules and rates.\n\nCrops and fruit have zakat due at harvest, not after a year: the rate is 10% (ushr) for land watered naturally by rain or springs, and 5% for land irrigated by artificial effort or cost. Grazing livestock — camels, cattle, sheep, and goats that graze freely for most of the year — have their own species-by-species nisab counts and sliding scales, drawn directly from the Sunnah.\n\nZakat al-fitr is different again, and every Muslim should know it. It is a small, fixed charity — about one sa' (roughly 2.5–3 kg) of a staple food such as dates, barley, wheat, or rice, or its cash value in many rulings — due at the end of Ramadan on behalf of every member of the household, young and old. Its purpose is to purify the fasting person from any shortfall and to ensure the poor also have food to celebrate Eid. The Prophet ﷺ commanded that it be paid before the Eid al-Fitr prayer; paid afterwards it counts only as ordinary charity. Each of these categories has its own detailed rulings — seek guidance specific to the asset."
+      },
+      "mistakes": {
+        "title": "Common mistakes to avoid",
+        "summary": "Errors that make zakat invalid or miscalculated",
+        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
       }
     },
     "recipientsListTitle": "The eight categories",
@@ -2777,6 +2826,9 @@
         "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
+        "excerpt": "Take from their wealth a charity by which you purify them and cause them to grow, and invoke blessings upon them. Indeed, your invocation is reassurance for them. And Allah is Hearing and Knowing."
+      },
+      {
         "excerpt": "O you who believe, spend from the good things which you have earned and from that which We have produced for you from the earth."
       },
       {
@@ -2785,13 +2837,16 @@
     ],
     "hadith": [
       {
-        "excerpt": "Islam is built upon five: testimony that none has the right to be worshipped but Allah, establishing prayer, paying zakat, fasting Ramadan, and pilgrimage to the House for whoever is able."
+        "excerpt": "Islam is built upon five: the testimony that none has the right to be worshipped but Allah and that Muhammad is the Messenger of Allah, establishing prayer, paying zakat, pilgrimage to the House, and fasting Ramadan."
       },
       {
-        "excerpt": "There is no owner of gold or silver who does not pay what is due on it without it being heated in the Fire of Hell and made into plates for his sides, forehead, and back — let him fear Allah and pay what is due."
+        "excerpt": "The Prophet ﷺ sent Mu'adh to Yemen and said: Teach them that Allah has made charity (zakat) obligatory upon them — taken from their rich and returned to their poor."
       },
       {
-        "excerpt": "When you possess two hundred dirhams and a year passes over them, five dirhams are due as zakat — and zakat is only on wealth that reaches nisab."
+        "excerpt": "There is no owner of gold or silver who does not pay what is due on it except that on the Day of Resurrection plates of fire will be made for him, heated in the Fire of Hell, and his side, forehead, and back will be seared with them."
+      },
+      {
+        "excerpt": "When you own two hundred dirhams and a year has passed over them, five dirhams are due. And no zakat is due on wealth until a year has passed over it."
       }
     ],
     "assetsTitle": "Your wealth",

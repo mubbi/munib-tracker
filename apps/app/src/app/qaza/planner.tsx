@@ -15,7 +15,7 @@ import {
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { QazaDailyTargets } from "@/components/qaza-daily-targets";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -23,6 +23,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
@@ -285,17 +286,17 @@ function PresetRow({
   const { colors, tokens } = useThemeTokens();
 
   return (
-    <Pressable
+    <PressableScale
+      haptic="light"
       accessibilityRole="button"
       accessibilityState={{ selected }}
       onPress={onPress}
-      style={({ pressed }) => [
+      style={[
         styles.presetRow,
         {
           backgroundColor: selected ? tokens.accentSoft : colors.muted,
           borderColor: selected ? colors.accent : "transparent",
           borderWidth: selected ? StyleSheet.hairlineWidth * 2 : 0,
-          opacity: pressed ? 0.85 : 1,
         },
       ]}
     >
@@ -322,7 +323,7 @@ function PresetRow({
           background={tokens.accentSoft}
         />
       ) : null}
-    </Pressable>
+    </PressableScale>
   );
 }
 

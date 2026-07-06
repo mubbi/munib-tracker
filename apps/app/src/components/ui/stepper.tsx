@@ -1,8 +1,9 @@
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
@@ -55,10 +56,11 @@ export function Stepper({
         }}
       />
       {onValuePress ? (
-        <Pressable
+        <PressableScale
           accessibilityRole="button"
           accessibilityLabel={valueAccessibilityLabel ?? label}
           hitSlop={6}
+          scaleTo={0.92}
           onPress={() => {
             triggerHaptic("light");
             onValuePress();
@@ -68,7 +70,7 @@ export function Stepper({
           <ThemedText type="smallBold" style={styles.count}>
             {value}
           </ThemedText>
-        </Pressable>
+        </PressableScale>
       ) : (
         <ThemedText type="smallBold" style={[styles.count, { minWidth: dim - 2 }]}>
           {value}
@@ -108,10 +110,11 @@ function StepButton({
 }) {
   const { colors } = useThemeTokens();
   return (
-    <Pressable
+    <PressableScale
       accessibilityRole="button"
       accessibilityLabel={label}
       disabled={disabled}
+      scaleTo={0.9}
       hitSlop={Math.max(6, Math.ceil((44 - dim) / 2))}
       onPress={onPress}
       style={[
@@ -120,7 +123,7 @@ function StepButton({
       ]}
     >
       <SymbolView name={icon} size={iconSize} tintColor={colors.foreground} />
-    </Pressable>
+    </PressableScale>
   );
 }
 

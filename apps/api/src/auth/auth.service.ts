@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { rm } from "node:fs/promises";
 import {
   BadRequestException,
   ConflictException,
@@ -7,9 +8,15 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { DataSource, In, Repository } from "typeorm";
 import type { EnvironmentVariables } from "../config/env.schema";
-import { AuthSessionEntity, UserEntity } from "../database/entities";
+import {
+  AuthSessionEntity,
+  ContentReportAttachmentEntity,
+  ContentReportEntity,
+  SyncRecordEntity,
+  UserEntity,
+} from "../database/entities";
 import type {
   AuthProvider,
   AuthSessionResponseDto,
@@ -31,6 +38,7 @@ export class AuthService {
     private readonly configService: ConfigService<EnvironmentVariables, true>,
     private readonly tokenService: TokenService,
     private readonly oauthProvider: OAuthProviderService,
+    private readonly dataSource: DataSource,
   ) {}
 
   async createGuestSession(dto: GuestSessionDto): Promise<AuthSessionResponseDto> {
@@ -143,6 +151,48 @@ export class AuthService {
   async revokeSession(accessToken: string): Promise<void> {
     const { session } = await this.getSessionByAccessToken(accessToken);
     await this.sessionsRepository.delete({ id: session.id });
+  }
+
+  /**
+   * Permanently deletes the authenticated user's account and every trace of their
+   * data: synced records, sessions across all devices, and content reports. Each
+   * table is cleared explicitly inside one transaction rather than relying on
+   * `ON DELETE CASCADE` — `sync_records` has only a plain `userId` column (no FK),
+   * and the SQLite test driver doesn't enforce foreign keys, so a cascade would
+   * leave orphans there. Attachment files are unlinked from disk afterwards, off
+   * the transaction's hot path, so a missing file can't reverse a committed wipe.
+   */
+  async deleteAccount(accessToken: string): Promise<void> {
+    const { user } = await this.getSessionByAccessToken(accessToken);
+    const userId = user.id;
+
+    const reportIds = (
+      await this.dataSource
+        .getRepository(ContentReportEntity)
+        .find({ where: { userId }, select: { id: true } })
+    ).map((report) => report.id);
+
+    const attachmentPaths = reportIds.length
+      ? (
+          await this.dataSource
+            .getRepository(ContentReportAttachmentEntity)
+            .find({ where: { reportId: In(reportIds) }, select: { storagePath: true } })
+        ).map((attachment) => attachment.storagePath)
+      : [];
+
+    await this.dataSource.transaction(async (manager) => {
+      if (reportIds.length) {
+        await manager.delete(ContentReportAttachmentEntity, { reportId: In(reportIds) });
+      }
+      await manager.delete(ContentReportEntity, { userId });
+      await manager.delete(SyncRecordEntity, { userId });
+      await manager.delete(AuthSessionEntity, { userId });
+      await manager.delete(UserEntity, { id: userId });
+    });
+
+    await Promise.all(
+      attachmentPaths.map((path) => rm(path, { force: true }).catch(() => undefined)),
+    );
   }
 
   private async upsertProviderUser(

@@ -133,6 +133,24 @@
         "tags": [
           "auth"
         ]
+      },
+      "delete": {
+        "operationId": "AuthController_deleteAccount",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Account, sessions, and all synced data were deleted"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Permanently delete the current account and all its data",
+        "tags": [
+          "auth"
+        ]
       }
     },
     "/api/v1/auth/logout": {

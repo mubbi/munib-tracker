@@ -22,16 +22,8 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatRelativeWhen } from "@/lib/relative-time";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
-import { continueStore } from "@/stores/continue-store";
-import { duaFavoritesStore } from "@/stores/dua-favorites-store";
-import { locationStore } from "@/stores/location-store";
-import {
-  preferencesStore,
-  usePreferences,
-  usePreferencesActions,
-} from "@/stores/preferences-store";
-import { quranStore } from "@/stores/quran-store";
-import { trackerStore } from "@/stores/tracker-store";
+import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
+import { reloadAllStores } from "@/stores/reload-all-stores";
 import { readSyncMetadata, type SyncMetadata } from "@/sync/sync-engine";
 
 /** Turns a raw sync entity id ("dua_favorites") into a readable label ("Dua Favorites"). */
@@ -46,7 +38,7 @@ export default function ProfileScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { user, isAuthenticated, signOut, syncNow } = useAuth();
+  const { user, isAuthenticated, signOut, syncNow, deleteAccount: deleteServerAccount } = useAuth();
   const toast = useToast();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
@@ -97,18 +89,19 @@ export default function ProfileScreen() {
   };
 
   const deleteAccount = async () => {
+    // Signed-in users: delete the server account + all synced data FIRST. If the
+    // server can't be reached, abort without wiping locally — otherwise the still
+    // existing account would repopulate this device on the next login/sync, and
+    // the user would wrongly believe their data was gone. (Guests return "ok".)
+    const outcome = await deleteServerAccount();
+    if (outcome === "error") {
+      toast.error(t("profile.deleteFailed"));
+      return;
+    }
     await resetDatabase();
     // Reload every store that reads a key resetDatabase clears, so no screen is
     // left holding stale in-memory data after the wipe.
-    await Promise.all([
-      preferencesStore.getState().load(),
-      trackerStore.getState().load(),
-      locationStore.getState().load(),
-      quranStore.getState().load(),
-      continueStore.getState().load(),
-      duaFavoritesStore.getState().load(),
-    ]);
-    await signOut();
+    await reloadAllStores();
     router.replace("/");
   };
 
@@ -311,7 +304,7 @@ export default function ProfileScreen() {
       <ConfirmDialog
         visible={confirmDelete}
         title={t("profile.deleteTitle")}
-        message={t("profile.deleteMsg")}
+        message={isAuthenticated ? t("profile.deleteMsgAccount") : t("profile.deleteMsg")}
         confirmLabel={t("profile.deleteConfirm")}
         destructive
         onConfirm={() => void deleteAccount()}

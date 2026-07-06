@@ -249,6 +249,13 @@ export default function QuranHomeScreen() {
         onPress: () => router.push("/quran/juz"),
       },
       {
+        id: "learn",
+        label: t("quran.learn"),
+        icon: { ios: "book.closed.fill", android: "auto_stories", web: "auto_stories" },
+        tint: tokens.status.warning.color,
+        onPress: () => router.push("/learn-quran"),
+      },
+      {
         id: "khatm",
         label: t("khatm.short"),
         icon: { ios: "chart.line.uptrend.xyaxis", android: "trending_up", web: "trending_up" },
@@ -302,7 +309,7 @@ export default function QuranHomeScreen() {
         />
 
         <Card padding="three">
-          <QuickActionGrid items={shortcuts} />
+          <QuickActionGrid items={shortcuts} columns={5} />
         </Card>
 
         {lastRead ? (

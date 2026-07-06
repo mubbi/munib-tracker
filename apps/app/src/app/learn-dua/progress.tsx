@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -72,39 +73,31 @@ export default function LearnDuaProgressScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
             {t("learnDua.progressExploreHint")}
           </ThemedText>
-          <View style={styles.links}>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() =>
-                router.push({
-                  pathname: "/learn-dua/[topic]",
-                  params: { topic: "morning-evening" },
-                })
-              }
-            >
-              {t("learnDua.morningEveningTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() =>
-                router.push({
-                  pathname: "/learn-dua/[topic]",
-                  params: { topic: "dua-etiquette" },
-                })
-              }
-            >
-              {t("learnDua.duaEtiquetteTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/learn-dua/occasions" as Href)}
-            >
-              {t("learnDua.occasionsTitle")}
-            </ThemedText>
-          </View>
+          <ContentLinkList
+            style={styles.links}
+            links={[
+              {
+                label: t("learnDua.morningEveningTitle"),
+                onPress: () =>
+                  router.push({
+                    pathname: "/learn-dua/[topic]",
+                    params: { topic: "morning-evening" },
+                  }),
+              },
+              {
+                label: t("learnDua.duaEtiquetteTitle"),
+                onPress: () =>
+                  router.push({
+                    pathname: "/learn-dua/[topic]",
+                    params: { topic: "dua-etiquette" },
+                  }),
+              },
+              {
+                label: t("learnDua.occasionsTitle"),
+                onPress: () => router.push("/learn-dua/occasions" as Href),
+              },
+            ]}
+          />
         </Card>
 
         <JannahDisclaimer textKey="learnDua.disclaimer" />
@@ -116,6 +109,5 @@ export default function LearnDuaProgressScreen() {
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.one, lineHeight: 20 },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
-  links: { marginTop: Spacing.three, gap: Spacing.two },
-  link: { textDecorationLine: "underline" },
+  links: { marginTop: Spacing.three },
 });

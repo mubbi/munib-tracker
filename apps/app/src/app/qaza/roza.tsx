@@ -2,7 +2,7 @@ import { computeMissedFasts } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QazaCountEditModal } from "@/components/qaza-count-edit-modal";
@@ -11,6 +11,7 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -146,15 +147,12 @@ export default function QazaRozaScreen() {
       <Stagger>
         <Card padding="three" style={styles.progressCard}>
           <View style={styles.statsRow}>
-            <Pressable
+            <PressableScale
+              haptic="light"
               accessibilityRole="button"
               accessibilityLabel={t("qazaRoza.editCountA11y")}
               onPress={() => setEditOpen(true)}
-              style={({ pressed }) => [
-                styles.statBox,
-                { backgroundColor: info.soft, borderColor: info.border },
-                pressed && styles.statBoxPressed,
-              ]}
+              style={[styles.statBox, { backgroundColor: info.soft, borderColor: info.border }]}
             >
               <ThemedText type="display" style={[styles.statValue, { color: info.text }]}>
                 {formatCount(roza.remaining)}
@@ -162,7 +160,7 @@ export default function QazaRozaScreen() {
               <ThemedText type="caption" themeColor="mutedForeground">
                 {t("stats.remaining")}
               </ThemedText>
-            </Pressable>
+            </PressableScale>
             <View
               style={[
                 styles.statBox,
@@ -333,9 +331,6 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontVariant: ["tabular-nums"],
-  },
-  statBoxPressed: {
-    opacity: 0.85,
   },
   progressBlock: {
     gap: Spacing.one + 2,

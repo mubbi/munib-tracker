@@ -5,6 +5,7 @@ import { usePathname } from "expo-router";
 // `useIsFocused()` gate returns false during static export and drops all tags.
 import { Helmet } from "expo-router/vendor/react-helmet-async/lib";
 import { useMemo } from "react";
+import { Platform } from "react-native";
 
 import {
   absoluteUrl,
@@ -63,8 +64,15 @@ export type SeoProps = {
  * Site-wide invariants (charset, viewport, icons, theme-color, the Organization
  * / WebSite / SoftwareApplication graph) live in `app/+html.tsx` and are
  * intentionally NOT repeated here to avoid duplicate tags.
+ *
+ * No-ops on native — there is no document `<head>` to target.
  */
 export function Seo(props: SeoProps) {
+  if (Platform.OS !== "web") return null;
+  return <SeoWeb {...props} />;
+}
+
+function SeoWeb(props: SeoProps) {
   const pathname = usePathname();
   const resolvedPath = normalizePath(props.path ?? pathname ?? "/");
   const registry = getRouteSeo(resolvedPath);

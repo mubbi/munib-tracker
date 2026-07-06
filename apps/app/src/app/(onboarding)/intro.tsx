@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  Pressable,
   ScrollView,
   StyleSheet,
   useWindowDimensions,
@@ -19,6 +18,7 @@ import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Brand, Radius, Spacing } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
@@ -121,7 +121,7 @@ export default function OnboardingIntroScreen() {
 
       <View style={styles.skipRow}>
         {!isBrand ? (
-          <Pressable
+          <PressableScale
             accessibilityRole="button"
             accessibilityLabel={t("common.skip")}
             hitSlop={12}
@@ -134,7 +134,7 @@ export default function OnboardingIntroScreen() {
             <ThemedText type="smallBold" style={{ color: Brand.heroSubtext }}>
               {t("common.skip")}
             </ThemedText>
-          </Pressable>
+          </PressableScale>
         ) : (
           <View style={styles.skipButton} />
         )}
@@ -220,14 +220,7 @@ function BrandSlide() {
 
       <View style={styles.logoWrap}>
         <Image style={styles.logoGlow} source={require("@/assets/images/logo-glow.png")} />
-        <View
-          style={[
-            styles.logoFrame,
-            gradientBackground("linear-gradient(180deg, #2A453C, #152921)"),
-          ]}
-        >
-          <Image style={styles.logo} source={require("@/assets/images/munib-logo.png")} />
-        </View>
+        <Image style={styles.logo} source={require("@/assets/images/munib-logo.png")} />
       </View>
 
       <ThemedText type="display" style={[styles.brandTitle, { color: Brand.heroText }]}>
@@ -353,30 +346,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   logoWrap: {
-    width: 128,
-    height: 128,
+    width: 160,
+    height: 160,
     alignItems: "center",
     justifyContent: "center",
     marginVertical: Spacing.two,
   },
   logoGlow: {
     position: "absolute",
-    width: 160,
-    height: 160,
+    width: 200,
+    height: 200,
     opacity: 0.85,
   },
-  logoFrame: {
-    width: 112,
-    height: 112,
-    borderRadius: Radius.xl,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   logo: {
-    width: 80,
-    height: 80,
-    borderRadius: Radius.lg,
+    width: 128,
+    height: 128,
+    borderRadius: 28,
   },
   brandTitle: {
     textAlign: "center",

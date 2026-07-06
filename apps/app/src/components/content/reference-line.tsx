@@ -3,9 +3,8 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import type { StyleProp, TextStyle } from "react-native";
 
+import { ContentInlineLink } from "@/components/content/content-inline-link";
 import { ThemedText } from "@/components/themed-text";
-import { PressableScale } from "@/components/ui/pressable-scale";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { parseReference, referenceHref } from "@/lib/reference-link";
 
 /**
@@ -21,7 +20,6 @@ export function ReferenceLine({
   style?: StyleProp<TextStyle>;
 }) {
   const { t } = useTranslation();
-  const { colors } = useThemeTokens();
   const router = useRouter();
   const target = useMemo(() => parseReference(reference), [reference]);
   const label = t("reading.reference", { ref: reference });
@@ -35,17 +33,10 @@ export function ReferenceLine({
   }
 
   return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="link"
-      accessibilityLabel={t("reading.openReference", { ref: reference })}
+    <ContentInlineLink
+      label={label}
       onPress={() => router.push(referenceHref(target))}
-    >
-      <ThemedText type="caption" style={[{ color: colors.accent }, styles.link, style]}>
-        {label}
-      </ThemedText>
-    </PressableScale>
+      accessibilityLabel={t("reading.openReference", { ref: reference })}
+    />
   );
 }
-
-const styles = { link: { textDecorationLine: "underline" as const } };

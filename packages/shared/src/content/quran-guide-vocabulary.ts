@@ -1,6 +1,11 @@
 import type { QuranGuideVocabEntry } from "../types/quran-guide";
 
-/** High-frequency Qur'anic vocabulary — foundation for understanding recitation. */
+/**
+ * High-frequency Qur'anic vocabulary — foundation for understanding recitation.
+ * Bump QURAN_GUIDE_VOCABULARY_VERSION on content change.
+ */
+export const QURAN_GUIDE_VOCABULARY_VERSION = 2;
+
 export const QURAN_GUIDE_VOCABULARY: QuranGuideVocabEntry[] = [
   {
     id: "allah",
@@ -112,28 +117,36 @@ export const QURAN_GUIDE_VOCABULARY: QuranGuideVocabEntry[] = [
     id: "dunya",
     arabic: "دُنْيَا",
     transliteration: "Dunya",
-    meaning: "This worldly life — temporary, a test, not the home of the believer.",
+    meaning:
+      "This worldly life — literally 'the lower/nearer' life. In the Qur'an it is temporary and a test, contrasted with the lasting akhirah, and never the believer's true home.",
     frequency: "Frequent",
+    example: "The life of this world (al-hayat ad-dunya) is but amusement and diversion",
   },
   {
     id: "akhira",
     arabic: "آخِرَة",
     transliteration: "Akhirah",
-    meaning: "The Hereafter — eternal life after death.",
+    meaning:
+      "The Hereafter — the eternal life after death, including resurrection, judgment, Paradise, and Hell. It is the real and lasting life the Qur'an urges believers to work for.",
     frequency: "Frequent",
+    example: "And the Hereafter (al-akhirah) is better and more lasting",
   },
   {
     id: "salat",
     arabic: "صَلَاة",
     transliteration: "Salah",
-    meaning: "Prayer — the ritual worship performed five times daily.",
+    meaning:
+      "The ritual prayer, second pillar of Islam, performed five times daily. The word also carries the sense of connection and supplication to Allah.",
     frequency: "Very frequent",
+    example: "Establish prayer (aqim as-salah) for My remembrance",
   },
   {
     id: "kitab",
     arabic: "كِتَاب",
     transliteration: "Kitab",
-    meaning: "Book, scripture — often the Qur'an itself.",
+    meaning:
+      "Book or scripture — most often the Qur'an itself ('that is the Book'), but also the earlier revealed scriptures and the record of deeds. Rooted in k-t-b, to write.",
     frequency: "Very frequent",
+    example: "This is the Book (dhalika al-kitab) about which there is no doubt",
   },
 ];

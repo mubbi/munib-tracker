@@ -1,5 +1,5 @@
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
@@ -46,13 +46,11 @@ export default function LoginScreen() {
         >
           {/* Branded splash header so the highest-intent screen matches the intro. */}
           <MosqueSilhouette color={Brand.heroBottom} opacity={0.4} scale={1.15} />
-          <View style={[styles.badge, { backgroundColor: Brand.onHeroStrongSurface }]}>
-            <SymbolView
-              name={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
-              size={30}
-              tintColor={Brand.heroAccent}
-            />
-          </View>
+          <Image
+            style={styles.logo}
+            source={require("@/assets/images/munib-logo.png")}
+            accessibilityLabel={t("common.appName")}
+          />
           <ThemedText type="title" style={[styles.wordmark, { color: Brand.heroText }]}>
             {t("common.appName")}
           </ThemedText>
@@ -87,13 +85,10 @@ const styles = StyleSheet.create({
   wordmark: {
     textAlign: "center",
   },
-  badge: {
-    width: 64,
-    height: 64,
-    borderRadius: 20,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
+  logo: {
+    width: 80,
+    height: 80,
+    borderRadius: 18,
   },
   heroText: {
     textAlign: "center",

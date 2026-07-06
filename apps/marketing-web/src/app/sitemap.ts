@@ -4,6 +4,7 @@ import { SITE_PATHS, SITE_URL } from "@/lib/site";
 const PRIORITIES: Partial<Record<string, number>> = {
   "/": 1,
   "/features": 0.9,
+  "/learn": 0.9,
   "/download": 0.9,
   "/contact": 0.6,
   "/press": 0.5,

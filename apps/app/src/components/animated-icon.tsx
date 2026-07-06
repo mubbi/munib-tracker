@@ -1,13 +1,10 @@
 import { Image } from "expo-image";
 import * as SplashScreen from "expo-splash-screen";
 import { useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, { Easing, Keyframe } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 
-import { gradientBackground } from "@/lib/gradient";
-
-const INITIAL_SCALE_FACTOR = Dimensions.get("screen").height / 90;
 const DURATION = 600;
 
 export function AnimatedSplashOverlay() {
@@ -35,7 +32,9 @@ export function AnimatedSplashOverlay() {
     },
   });
 
-  const image = <Image style={styles.image} source={require("@/assets/images/munib-logo.png")} />;
+  const image = (
+    <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
+  );
 
   return animate ? (
     <Animated.View
@@ -62,16 +61,6 @@ export function AnimatedSplashOverlay() {
     </View>
   );
 }
-
-const keyframe = new Keyframe({
-  0: {
-    transform: [{ scale: INITIAL_SCALE_FACTOR }],
-  },
-  100: {
-    transform: [{ scale: 1 }],
-    easing: Easing.elastic(0.7),
-  },
-});
 
 const logoKeyframe = new Keyframe({
   0: {
@@ -106,7 +95,6 @@ export function AnimatedIcon() {
         <Image style={styles.glow} source={require("@/assets/images/logo-glow.png")} />
       </Animated.View>
 
-      <Animated.View entering={keyframe.duration(DURATION)} style={styles.background} />
       <Animated.View style={styles.imageContainer} entering={logoKeyframe.duration(DURATION)}>
         <Image style={styles.image} source={require("@/assets/images/munib-logo.png")} />
       </Animated.View>
@@ -132,16 +120,9 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   image: {
-    width: 96,
-    height: 96,
-    borderRadius: 20,
-  },
-  background: {
-    borderRadius: 40,
-    ...gradientBackground("linear-gradient(180deg, #2A453C, #152921)"),
     width: 128,
     height: 128,
-    position: "absolute",
+    borderRadius: 28,
   },
   splashOverlay: {
     ...StyleSheet.absoluteFill,
@@ -149,5 +130,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,
+  },
+  splashImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 44,
   },
 });

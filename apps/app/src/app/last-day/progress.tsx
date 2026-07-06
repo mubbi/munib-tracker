@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
+import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -72,36 +73,27 @@ export default function LastDayProgressScreen() {
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
             {t("lastDay.progressExploreHint")}
           </ThemedText>
-          <View style={styles.links}>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/last-day/timeline" as Href)}
-            >
-              {t("lastDay.timelineTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/last-day/preparation" as Href)}
-            >
-              {t("lastDay.preparationTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/last-day/verses" as Href)}
-            >
-              {t("lastDay.versesTitle")}
-            </ThemedText>
-            <ThemedText
-              type="small"
-              style={styles.link}
-              onPress={() => router.push("/last-day/quiz" as Href)}
-            >
-              {t("lastDay.quizTitle")}
-            </ThemedText>
-          </View>
+          <ContentLinkList
+            style={styles.links}
+            links={[
+              {
+                label: t("lastDay.timelineTitle"),
+                onPress: () => router.push("/last-day/timeline" as Href),
+              },
+              {
+                label: t("lastDay.preparationTitle"),
+                onPress: () => router.push("/last-day/preparation" as Href),
+              },
+              {
+                label: t("lastDay.versesTitle"),
+                onPress: () => router.push("/last-day/verses" as Href),
+              },
+              {
+                label: t("lastDay.quizTitle"),
+                onPress: () => router.push("/last-day/quiz" as Href),
+              },
+            ]}
+          />
         </Card>
 
         <JannahDisclaimer textKey="lastDay.disclaimer" />
@@ -113,6 +105,5 @@ export default function LastDayProgressScreen() {
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.one, lineHeight: 20 },
   lessonRow: { marginTop: Spacing.three, gap: Spacing.two },
-  links: { marginTop: Spacing.three, gap: Spacing.two },
-  link: { textDecorationLine: "underline" },
+  links: { marginTop: Spacing.three },
 });

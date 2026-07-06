@@ -9,7 +9,8 @@ import {
   type ViewStyle,
 } from "react-native";
 
-import { Radius, Spacing } from "@/constants/theme";
+import { GlassSurface } from "@/components/ui/glass-surface";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 type SheetProps = {
@@ -62,13 +63,31 @@ export function Sheet({
           accessibilityViewIsModal
           style={[
             isBottom ? styles.bottomCard : styles.centerCard,
-            { backgroundColor: colors.card, borderColor: colors.border },
-            isBottom ? { maxHeight: bottomMaxHeight } : null,
+            // Bottom action sheets are frosted glass (native iOS pattern); the
+            // card stays transparent so the GlassSurface behind it shows. Centre
+            // dialogs keep a solid card for crisp text.
+            isBottom
+              ? { maxHeight: bottomMaxHeight, borderColor: colors.border }
+              : { backgroundColor: colors.card, borderColor: colors.border },
             contentStyle,
           ]}
           onPress={(event) => event.stopPropagation()}
         >
-          {isBottom ? <View style={[styles.handle, { backgroundColor: tokens.track }]} /> : null}
+          {isBottom ? (
+            <>
+              <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+              <View
+                style={[
+                  StyleSheet.absoluteFill,
+                  {
+                    backgroundColor: withAlpha(colors.card, tokens.isDark ? 0.5 : 0.62),
+                    pointerEvents: "none",
+                  },
+                ]}
+              />
+              <View style={[styles.handle, { backgroundColor: tokens.track }]} />
+            </>
+          ) : null}
           {children}
         </Pressable>
       </Pressable>

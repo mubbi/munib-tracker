@@ -6,6 +6,11 @@ import { Platform } from "react-native";
  * feedback; `selection` for moving between discrete options; and the
  * success/warning/error notifications for meaningful outcomes (e.g. completing
  * an act of worship).
+ *
+ * **All app haptics must go through {@link triggerHaptic}** — do not import
+ * `expo-haptics` elsewhere. PressableScale, IconButton, Button, and direct
+ * call sites all funnel here so the Settings → Haptic feedback toggle applies
+ * app-wide.
  */
 export type HapticFeedback =
   | "light"
@@ -20,12 +25,24 @@ export type HapticFeedback =
 // simply no-ops instead of throwing.
 const supported = Platform.OS === "ios" || Platform.OS === "android";
 
+/** Synced from user preferences — see preferences-store subscription. */
+let hapticsEnabled = true;
+
+/** Keeps the module flag aligned with persisted preferences. */
+export function syncHapticsEnabled(enabled: boolean): void {
+  hapticsEnabled = enabled;
+}
+
+export function isHapticsEnabled(): boolean {
+  return supported && hapticsEnabled;
+}
+
 /**
  * Fire a haptic. Fire-and-forget and fully guarded — a haptic must never delay
  * or crash the interaction that triggered it.
  */
 export function triggerHaptic(type: HapticFeedback = "light"): void {
-  if (!supported) return;
+  if (!isHapticsEnabled()) return;
   try {
     switch (type) {
       case "light":

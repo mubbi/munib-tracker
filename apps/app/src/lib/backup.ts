@@ -1,45 +1,16 @@
-import { DB_KEYS } from "@/db/keys";
+import { BACKUP_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 
 /**
  * Local backup export/import (NF-1.20). Serializes the user's tracking + content
  * data (not caches) to a portable JSON string they can save anywhere, and
- * restores it — no account required. Caches (weather, remote editions, hadith
- * books, geocode) are intentionally excluded; they rebuild themselves.
+ * restores it — no account required. The exact key set is {@link BACKUP_KEYS},
+ * derived centrally from the key classification in `db/keys.ts`, so every
+ * user-data key is captured and rebuildable caches (weather, remote editions,
+ * hadith books, geocode) and device-local bookkeeping are excluded automatically.
  */
 
 const BACKUP_VERSION = 1;
-
-/** The DB keys included in a backup — user data only, never rebuildable caches. */
-const BACKUP_KEYS: string[] = [
-  DB_KEYS.prayerLogs,
-  DB_KEYS.zikrProgress,
-  DB_KEYS.qazaCounters,
-  DB_KEYS.qazaDailyPlans,
-  DB_KEYS.qazaSchedule,
-  DB_KEYS.qazaDailyProgress,
-  DB_KEYS.qazaRoza,
-  DB_KEYS.userPreferences,
-  DB_KEYS.location,
-  DB_KEYS.achievements,
-  DB_KEYS.quranBookmarks,
-  DB_KEYS.quranLastRead,
-  DB_KEYS.quranReadingProgress,
-  DB_KEYS.quranPrefs,
-  DB_KEYS.hadithBookmarks,
-  DB_KEYS.continueActivity,
-  DB_KEYS.duaFavorites,
-  DB_KEYS.duroodFavorites,
-  DB_KEYS.nameFavorites,
-  DB_KEYS.customTasbeeh,
-  DB_KEYS.fasting,
-  DB_KEYS.duaFavoritesUpdatedAt,
-  DB_KEYS.duroodFavoritesUpdatedAt,
-  DB_KEYS.nameFavoritesUpdatedAt,
-  DB_KEYS.quranBookmarksUpdatedAt,
-  DB_KEYS.hadithBookmarksUpdatedAt,
-  DB_KEYS.customTasbeehUpdatedAt,
-];
 
 export interface BackupFile {
   app: "munib-tracker";

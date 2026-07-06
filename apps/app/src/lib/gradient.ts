@@ -8,7 +8,8 @@ import { Platform, type ViewStyle } from "react-native";
  * honours the plain CSS `backgroundImage`. Passing the native key on web leaves
  * the layer transparent (the hero would collapse to a flat colour), so we branch
  * by platform here. Accepts any `linear-gradient()` / `radial-gradient()` /
- * `conic-gradient()` string.
+ * `conic-gradient()` string. Conic gradients only render on web — use
+ * `ArcProgressRing` for circular progress on native.
  */
 export function gradientBackground(image: string): ViewStyle {
   if (Platform.OS === "web") {
