@@ -33,8 +33,8 @@ async function buildRangeResponse(fullResponse, rangeHeader) {
   const buffer = await fullResponse.arrayBuffer();
   const size = buffer.byteLength;
   const match = /bytes=(\d*)-(\d*)/.exec(rangeHeader || "");
-  let start = match && match[1] ? Number.parseInt(match[1], 10) : 0;
-  let end = match && match[2] ? Number.parseInt(match[2], 10) : size - 1;
+  let start = match?.[1] ? Number.parseInt(match[1], 10) : 0;
+  let end = match?.[2] ? Number.parseInt(match[2], 10) : size - 1;
   if (Number.isNaN(start)) start = 0;
   if (Number.isNaN(end) || end >= size) end = size - 1;
   if (start > end || start >= size) {
@@ -161,7 +161,7 @@ self.addEventListener("fetch", (event) => {
 
 self.addEventListener("message", (event) => {
   const data = event.data || {};
-  const port = event.ports && event.ports[0];
+  const port = event.ports?.[0];
   if (data.type === "CLEAR_AUDIO_CACHE") {
     event.waitUntil(
       caches.delete(AUDIO_CACHE).then((ok) => {

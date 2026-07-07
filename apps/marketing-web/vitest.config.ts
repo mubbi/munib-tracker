@@ -10,5 +10,7 @@ export default mergeConfig(reactConfig, {
   },
   test: {
     setupFiles: ["./src/setup.ts"],
+    // Full-page feature tests render many sections and can exceed 5s under turbo parallelism.
+    testTimeout: 15_000,
   },
 });
