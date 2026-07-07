@@ -35,7 +35,7 @@ export function SectionHeader({
             <AppIcon icon={icon} size={14} tintColor={colors.accent} />
           </View>
         ) : null}
-        <ThemedText type="subtitle" heading={2} style={{ textTransform: "capitalize" }}>
+        <ThemedText type="subtitle" heading={2} style={styles.title}>
           {title}
         </ThemedText>
       </View>
@@ -67,16 +67,26 @@ export function SectionHeader({
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
+    gap: Spacing.two,
+    width: "100%",
     marginTop: Spacing.two,
   },
   titleRow: {
+    flex: 1,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: Spacing.two,
+    minWidth: 0,
+  },
+  title: {
+    flex: 1,
+    flexShrink: 1,
+    textTransform: "capitalize",
   },
   iconWell: {
+    flexShrink: 0,
     width: 28,
     height: 28,
     borderRadius: Radius.sm,
@@ -85,6 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   action: {
+    flexShrink: 0,
     minHeight: 44,
     justifyContent: "center",
   },

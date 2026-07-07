@@ -1,7 +1,7 @@
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
@@ -107,12 +107,10 @@ export function PrayerInfoSheet({ visible, prayerId, onClose }: PrayerInfoSheetP
 
   return (
     <Sheet visible={visible} onClose={onClose} variant="bottom">
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-        bounces={false}
-      >
+      {/* The Sheet supplies its own scroll view, drag handle, and backdrop for the
+          bottom variant — don't nest another ScrollView here or the two same-axis
+          scrollers deadlock (content gets clipped and the drag gesture is eaten). */}
+      <View style={styles.container}>
         <View style={styles.header}>
           <IconWell
             icon={icon}
@@ -167,18 +165,13 @@ export function PrayerInfoSheet({ visible, prayerId, onClose }: PrayerInfoSheetP
             </View>
           </View>
         ) : null}
-      </ScrollView>
+      </View>
     </Sheet>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flexGrow: 0,
-    flexShrink: 1,
-  },
-  scrollContent: {
-    paddingBottom: Spacing.four,
+  container: {
     gap: Spacing.three,
   },
   header: {

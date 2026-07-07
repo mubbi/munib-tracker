@@ -214,7 +214,7 @@ export function TravelGuideContent() {
 }
 
 const styles = StyleSheet.create({
-  body: { marginTop: Spacing.two, lineHeight: 22 },
+  body: { marginTop: Spacing.two, lineHeight: 22, flexShrink: 1, alignSelf: "stretch" },
   tableHead: {
     flexDirection: "row",
     marginTop: Spacing.three,

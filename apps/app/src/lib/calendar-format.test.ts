@@ -5,6 +5,7 @@ import {
   formatCalendarDate,
   formatCalendarDateFromIso,
   formatCompactGridDateFromIso,
+  formatDualCalendarDate,
 } from "./calendar-format";
 
 describe("formatCalendarDate", () => {
@@ -23,6 +24,24 @@ describe("formatCalendarDate", () => {
     expect(value).toContain("2023");
     expect(value).toContain("March");
     expect(value).toContain("23");
+  });
+});
+
+describe("formatDualCalendarDate", () => {
+  const date = new Date(2023, 2, 23);
+
+  it("puts Hijri first when it is the preferred calendar", () => {
+    const value = formatDualCalendarDate(date, "hijri", "en");
+    expect(value.primary).toBe("Ramadan 1, 1444 AH");
+    expect(value.secondary).toContain("2023");
+    expect(value.secondary).toContain("March");
+  });
+
+  it("puts Gregorian first when it is the preferred calendar", () => {
+    const value = formatDualCalendarDate(date, "gregorian", "en");
+    expect(value.primary).toContain("2023");
+    expect(value.primary).toContain("March");
+    expect(value.secondary).toBe("Ramadan 1, 1444 AH");
   });
 });
 

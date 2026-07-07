@@ -210,7 +210,14 @@ export function JannahTakeaway({ text }: { text: string }) {
 }
 
 /** Readable body copy block. */
-export function JannahBody({ paragraphs }: { paragraphs: string[] }) {
+export function JannahBody({
+  paragraphs,
+  uniform = false,
+}: {
+  paragraphs: string[];
+  /** When true, every paragraph uses the same secondary body style. */
+  uniform?: boolean;
+}) {
   const { sizes } = useReadingTypography();
 
   return (
@@ -218,8 +225,8 @@ export function JannahBody({ paragraphs }: { paragraphs: string[] }) {
       {paragraphs.map((paragraph, index) => (
         <ThemedText
           key={paragraph.slice(0, 48)}
-          type={index === 0 ? "default" : "small"}
-          themeColor={index === 0 ? "foreground" : "mutedForeground"}
+          type={uniform || index > 0 ? "small" : "default"}
+          themeColor={uniform || index > 0 ? "mutedForeground" : "foreground"}
           style={[
             styles.bodyParagraph,
             { fontSize: sizes.translation, lineHeight: sizes.translation * 1.5 },
@@ -465,8 +472,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: 1,
   },
-  bodyBlock: { gap: Spacing.three },
-  bodyParagraph: { lineHeight: 24 },
+  bodyBlock: { gap: Spacing.three, width: "100%", alignSelf: "stretch" },
+  bodyParagraph: { lineHeight: 24, flexShrink: 1, alignSelf: "stretch" },
   evidenceList: { gap: Spacing.three, marginTop: Spacing.three },
   quranQuote: {
     borderLeftWidth: 3,

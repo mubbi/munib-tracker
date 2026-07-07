@@ -17,11 +17,13 @@ import { MoonPhaseSheet } from "@/components/moon-phase-sheet";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { SkyGradientLayer } from "@/components/sky-gradient-layer";
 import { ThemedText } from "@/components/themed-text";
+import { GlassControl, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { HeroWeatherEffects } from "@/components/weather/hero-weather-effects";
 import { Durations } from "@/constants/motion";
 import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
+import type { DualCalendarDates } from "@/lib/calendar-format";
 import { gradientBackground } from "@/lib/gradient";
 import { chevronForward } from "@/lib/rtl";
 import type { SkyPalette } from "@/lib/sky";
@@ -36,7 +38,9 @@ export type PrayerTime = {
 
 type PrayerTimesHeroProps = {
   location: string;
-  displayDate: string;
+  displayDates?: DualCalendarDates;
+  /** @deprecated Legacy single-line prop — kept for hot-reload safety. */
+  displayDate?: string;
   currentTime: string;
   /** Pre-localized countdown line, e.g. "Maghrib is 27 min away". */
   countdown: string;
@@ -73,6 +77,29 @@ type PrayerTimesHeroProps = {
  */
 const INACTIVE_PRAYER_TEXT = withAlpha(Brand.heroText, 0.82);
 
+/** Matches `softShadow` text lift for small SF Symbol chevrons on the sky. */
+function HeroSoftShadowSymbol({
+  name,
+  size,
+  tintColor = Brand.heroText,
+}: {
+  name: SymbolViewProps["name"];
+  size: number;
+  tintColor?: string;
+}) {
+  return (
+    <View style={[styles.softShadowIcon, { width: size, height: size }]}>
+      <SymbolView
+        name={name}
+        size={size}
+        tintColor="rgba(0, 0, 0, 0.45)"
+        style={styles.softShadowIconLayer}
+      />
+      <SymbolView name={name} size={size} tintColor={tintColor} />
+    </View>
+  );
+}
+
 /** Fixed positions for the faint night starfield (left %, top px, size, opacity). */
 const STARS = [
   { left: "14%", top: 40, size: 2, opacity: 0.7 },
@@ -94,6 +121,7 @@ const STARS = [
  */
 export function PrayerTimesHero({
   location,
+  displayDates: displayDatesProp,
   displayDate,
   currentTime,
   countdown,
@@ -114,6 +142,11 @@ export function PrayerTimesHero({
   onLocationPress,
 }: PrayerTimesHeroProps) {
   const { t } = useTranslation();
+  const displayDates = displayDatesProp ?? {
+    primary: displayDate ?? "",
+    secondary: "",
+  };
+  const { primary: primaryDate, secondary: secondaryDate } = displayDates;
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
   const drift = useSharedValue(0);
@@ -288,14 +321,30 @@ export function PrayerTimesHero({
               scaleTo={0.94}
               hitSlop={10}
               accessibilityRole="button"
-              accessibilityLabel={t("moonSheet.open", { phase: moonLabel })}
+              accessibilityLabel={t("hero.dateRowA11y", {
+                phase: moonLabel,
+                dates: secondaryDate ? `${primaryDate}. ${secondaryDate}` : primaryDate,
+              })}
               style={styles.dateRow}
             >
               <MoonPhaseIcon date={now} size={22} southernHemisphere={southernHemisphere} />
-              <ThemedText style={[styles.hijri, styles.softShadow, { color: Brand.heroText }]}>
-                {displayDate}
-              </ThemedText>
-              <SymbolView name={chevronForward} size={12} tintColor={Brand.heroSubtext} />
+              <View style={styles.dateLines}>
+                <ThemedText
+                  style={[styles.dateTextPrimary, styles.softShadow, { color: Brand.heroText }]}
+                  numberOfLines={1}
+                >
+                  {primaryDate}
+                </ThemedText>
+                {secondaryDate ? (
+                  <ThemedText
+                    style={[styles.dateTextSecondary, styles.softShadow, { color: Brand.heroText }]}
+                    numberOfLines={1}
+                  >
+                    {secondaryDate}
+                  </ThemedText>
+                ) : null}
+              </View>
+              <HeroSoftShadowSymbol name={chevronForward} size={12} />
             </PressableScale>
             <View
               accessible
@@ -381,23 +430,32 @@ function HeroIconButton({
   badgeCount?: number;
 }) {
   return (
-    <PressableScale
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      onPress={onPress}
-      haptic="light"
-      scaleTo={0.9}
-      style={[styles.iconButton, { backgroundColor: Brand.onHeroMutedSurface }]}
-    >
-      <SymbolView name={icon} size={18} tintColor={Brand.heroText} />
-      {badgeCount > 0 ? (
-        <View style={styles.badge}>
-          <ThemedText type="caption" style={styles.badgeText}>
-            {badgeCount > 9 ? "9+" : String(badgeCount)}
-          </ThemedText>
-        </View>
-      ) : null}
-    </PressableScale>
+    // Floating chrome over the hero art — a natural home for Liquid Glass on
+    // iOS 26+; elsewhere it keeps the translucent on-hero surface.
+    // Dark glass over the gradient sky so cream hero glyphs stay legible in
+    // light mode (light glass + heroText was nearly invisible).
+    <GlassControl radius={Radius.md} colorScheme="dark">
+      <PressableScale
+        accessibilityRole="button"
+        accessibilityLabel={label}
+        onPress={onPress}
+        haptic="light"
+        scaleTo={0.9}
+        style={[
+          styles.iconButton,
+          !hasLiquidGlass && { backgroundColor: Brand.onHeroMutedSurface },
+        ]}
+      >
+        <SymbolView name={icon} size={18} tintColor={Brand.heroText} />
+        {badgeCount > 0 ? (
+          <View style={styles.badge}>
+            <ThemedText type="caption" style={styles.badgeText}>
+              {badgeCount > 9 ? "9+" : String(badgeCount)}
+            </ThemedText>
+          </View>
+        ) : null}
+      </PressableScale>
+    </GlassControl>
   );
 }
 
@@ -500,12 +558,27 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one + 3,
+    maxWidth: "100%",
+    paddingHorizontal: Spacing.two,
   },
-  hijri: {
+  dateLines: {
+    flexShrink: 1,
+    alignItems: "center",
+    gap: 2,
+  },
+  dateTextPrimary: {
+    textAlign: "center",
     fontSize: 15,
     lineHeight: 20,
     fontWeight: "600",
     letterSpacing: 0.2,
+  },
+  dateTextSecondary: {
+    textAlign: "center",
+    fontSize: 13,
+    lineHeight: 17,
+    fontWeight: "500",
+    letterSpacing: 0.15,
   },
   clock: {
     fontVariant: ["tabular-nums"],
@@ -524,6 +597,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "600",
+  },
+  softShadowIcon: {
+    position: "relative",
+  },
+  softShadowIconLayer: {
+    position: "absolute",
+    top: 1,
+    left: 0,
   },
   /** Soft dark shadow that lifts light text off any sky. */
   softShadow: {

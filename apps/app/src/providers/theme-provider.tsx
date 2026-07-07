@@ -15,7 +15,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useColorScheme } from "react-native";
+import { Appearance, useColorScheme } from "react-native";
 
 import { normalizeHex } from "@/lib/color";
 
@@ -126,6 +126,18 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     void SystemUI.setBackgroundColorAsync(colors.background);
   }, [colors.background]);
+
+  // Override the app-wide native interface style so system chrome — the iOS
+  // native tab bar material, native stack transition backgrounds, blur, and
+  // system controls — matches the in-app theme. Without this the OS keeps its
+  // own appearance ("automatic" in app.json), so the tab bar renders in the
+  // wrong scheme and screen pushes flash the default background in dark mode.
+  // In "system" mode we clear the override so it tracks the OS again.
+  useEffect(() => {
+    // `setColorScheme` is native-only; it's absent on react-native-web.
+    // "unspecified" clears the override so the app tracks the OS again.
+    Appearance.setColorScheme?.(colorMode === "system" ? "unspecified" : colorMode);
+  }, [colorMode]);
 
   const setColorMode = useCallback((mode: ColorMode) => {
     setColorModeState(mode);

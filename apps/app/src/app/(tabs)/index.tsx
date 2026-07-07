@@ -267,7 +267,7 @@ export default function HomeScreen() {
           </ThemedText>
           <PrayerTimesHero
             location={hero.location}
-            displayDate={hero.displayDate}
+            displayDates={hero.displayDates}
             currentTime={hero.currentTime}
             countdown={hero.countdown}
             prayers={hero.prayers}

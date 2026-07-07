@@ -7,6 +7,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
+import { JannahBody } from "@/components/jannah/primitives";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -89,7 +90,10 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
                 style={[styles.hadithQuote, { backgroundColor: colors.muted }]}
               >
                 <View style={styles.hadithMeta}>
-                  <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
+                  <ThemedText
+                    type="caption"
+                    style={{ color: colors.accent, flex: 1, flexShrink: 1, minWidth: 0 }}
+                  >
                     {t(`${ns}.hadith.${index}.reference`)}
                   </ThemedText>
                   <View style={styles.hadithMetaActions}>
@@ -152,20 +156,11 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
                 }
               }
             />
-            <View style={styles.bodyGroup}>
-              {t(`${ns}.${sectionKey}.body`)
-                .split("\n\n")
-                .filter(Boolean)
-                .map((paragraph) => (
-                  <ThemedText
-                    key={paragraph}
-                    type="small"
-                    themeColor="mutedForeground"
-                    style={styles.body}
-                  >
-                    {paragraph}
-                  </ThemedText>
-                ))}
+            <View style={styles.sectionBody}>
+              <JannahBody
+                uniform
+                paragraphs={t(`${ns}.${sectionKey}.body`).split("\n\n").filter(Boolean)}
+              />
             </View>
           </Card>
         ))}
@@ -203,6 +198,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     gap: Spacing.two,
+    alignSelf: "stretch",
   },
   hadithMeta: {
     flexDirection: "row",
@@ -214,7 +210,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
   },
-  quoteText: { lineHeight: 22 },
+  quoteText: { lineHeight: 22, flexShrink: 1, alignSelf: "stretch" },
   steps: { gap: Spacing.three, marginTop: Spacing.three },
   stepRow: { flexDirection: "row", gap: Spacing.three, alignItems: "flex-start" },
   stepBadge: {
@@ -224,9 +220,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  stepText: { flex: 1, lineHeight: 22 },
-  bodyGroup: { gap: Spacing.three, marginTop: Spacing.two },
-  body: { lineHeight: 22 },
+  stepText: { flex: 1, minWidth: 0, lineHeight: 22 },
+  sectionBody: { marginTop: Spacing.two, width: "100%", alignSelf: "stretch" },
   disclaimer: {
     flexDirection: "row",
     gap: Spacing.two,

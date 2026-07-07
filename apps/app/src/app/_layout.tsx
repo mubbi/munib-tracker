@@ -1,11 +1,11 @@
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import "@/global.css";
 // Web-only focus-visible ring (WCAG 2.4.7). Resolves to a no-op on native.
 import "@/styles/focus-visible";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
+import { AppStack } from "@/components/app-stack";
 import { MiniPlayer } from "@/components/audio/mini-player";
 import { ContentReportProvider } from "@/components/content-report/content-report-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -64,17 +64,7 @@ export default function RootLayout() {
                                 </>
                               }
                             >
-                              <Stack screenOptions={{ headerShown: false }}>
-                                <Stack.Screen name="(tabs)" />
-                                <Stack.Screen
-                                  name="(auth)/login"
-                                  options={{ presentation: "modal" }}
-                                />
-                                <Stack.Screen
-                                  name="(onboarding)/intro"
-                                  options={{ gestureEnabled: false }}
-                                />
-                              </Stack>
+                              <AppStack />
                             </BlurTargetProvider>
                           </MiniPlayerInsetProvider>
                         </AudioPlayerProvider>

@@ -24,7 +24,7 @@ import Reanimated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/themed-text";
-import { GlassSurface } from "@/components/ui/glass-surface";
+import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
@@ -434,6 +434,8 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
             accessibilityLabel={t(LOOP_LABEL_KEY[loopMode])}
             accessibilityState={{ selected: loopActive }}
             onPress={cycleLoopMode}
+            glass
+            wellRadius={20}
           />
           {hasQueue ? (
             <IconButton
@@ -442,38 +444,42 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               tintColor={colors.foreground}
               accessibilityLabel={t("player.previous")}
               onPress={previous}
+              glass
+              wellRadius={20}
             />
           ) : null}
-          <PressableScale
-            haptic="medium"
-            accessibilityRole="button"
-            accessibilityLabel={
-              isQueueFinished
-                ? t("player.replay")
-                : isPlaying
-                  ? t("player.pause")
-                  : t("player.play")
-            }
-            accessibilityState={{ busy: showSpinner }}
-            onPress={isQueueFinished ? replay : toggle}
-            style={[styles.playButton, { backgroundColor: colors.accent }]}
-          >
-            {showSpinner ? (
-              <ActivityIndicator size="small" color={colors.accentForeground} />
-            ) : (
-              <SymbolView
-                name={
-                  isQueueFinished
-                    ? REPLAY_ICON
-                    : isPlaying
-                      ? { ios: "pause.fill", android: "pause", web: "pause" }
-                      : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-                }
-                size={20}
-                tintColor={colors.accentForeground}
-              />
-            )}
-          </PressableScale>
+          <GlassControl radius={19} tintColor={colors.accent}>
+            <PressableScale
+              haptic="medium"
+              accessibilityRole="button"
+              accessibilityLabel={
+                isQueueFinished
+                  ? t("player.replay")
+                  : isPlaying
+                    ? t("player.pause")
+                    : t("player.play")
+              }
+              accessibilityState={{ busy: showSpinner }}
+              onPress={isQueueFinished ? replay : toggle}
+              style={[styles.playButton, !hasLiquidGlass && { backgroundColor: colors.accent }]}
+            >
+              {showSpinner ? (
+                <ActivityIndicator size="small" color={colors.accentForeground} />
+              ) : (
+                <SymbolView
+                  name={
+                    isQueueFinished
+                      ? REPLAY_ICON
+                      : isPlaying
+                        ? { ios: "pause.fill", android: "pause", web: "pause" }
+                        : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
+                  }
+                  size={20}
+                  tintColor={colors.accentForeground}
+                />
+              )}
+            </PressableScale>
+          </GlassControl>
           {hasQueue ? (
             <IconButton
               name={{ ios: "forward.fill", android: "skip_next", web: "skip_next" }}
@@ -481,6 +487,8 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               tintColor={colors.foreground}
               accessibilityLabel={t("player.next")}
               onPress={next}
+              glass
+              wellRadius={20}
             />
           ) : null}
           {supportsProgrammaticVolume() ? (
@@ -495,17 +503,19 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               popupBorder={colors.border}
             />
           ) : null}
-          <PressableScale
-            haptic="light"
-            accessibilityRole="button"
-            accessibilityLabel={t("player.speedValue", { value: rate })}
-            onPress={cycleRate}
-            style={[styles.compactSpeed, { backgroundColor: colors.muted }]}
-          >
-            <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "700" }}>
-              {rate}×
-            </ThemedText>
-          </PressableScale>
+          <GlassControl radius={Radius.sm}>
+            <PressableScale
+              haptic="light"
+              accessibilityRole="button"
+              accessibilityLabel={t("player.speedValue", { value: rate })}
+              onPress={cycleRate}
+              style={[styles.compactSpeed, !hasLiquidGlass && { backgroundColor: colors.muted }]}
+            >
+              <ThemedText type="caption" style={{ color: colors.accentText, fontWeight: "700" }}>
+                {rate}×
+              </ThemedText>
+            </PressableScale>
+          </GlassControl>
         </View>
       </View>
     </View>
@@ -886,24 +896,44 @@ function VolumePopover({
     setOpen((value) => !value);
   };
 
+  const positionStyle = isWeb ? styles.volumePopupFloating : styles.volumePopupNative;
+  const sliderBar = (
+    <VerticalVolumeBar
+      volume={volume}
+      onChange={onChange}
+      trackColor={trackColor}
+      fillColor={fillColor}
+      thumbColor={thumbColor}
+    />
+  );
+
   const body = (
     <>
       {open ? (
-        <View
-          style={[
-            styles.volumePopup,
-            isWeb ? styles.volumePopupFloating : styles.volumePopupNative,
-            { backgroundColor: popupBackground, borderColor: popupBorder },
-          ]}
-        >
-          <VerticalVolumeBar
-            volume={volume}
-            onChange={onChange}
-            trackColor={trackColor}
-            fillColor={fillColor}
-            thumbColor={thumbColor}
-          />
-        </View>
+        hasLiquidGlass ? (
+          // Floating Liquid Glass popover on iOS 26 — absolutely positioned so it
+          // hovers above the control instead of reflowing the player bar.
+          <GlassSurface
+            style={[
+              styles.volumePopup,
+              positionStyle,
+              styles.volumePopupGlass,
+              { borderColor: popupBorder },
+            ]}
+          >
+            {sliderBar}
+          </GlassSurface>
+        ) : (
+          <View
+            style={[
+              styles.volumePopup,
+              positionStyle,
+              { backgroundColor: popupBackground, borderColor: popupBorder },
+            ]}
+          >
+            {sliderBar}
+          </View>
+        )
       ) : null}
       <IconButton
         name={volumeIconForLevel(volume)}
@@ -913,6 +943,8 @@ function VolumePopover({
         accessibilityState={{ selected: open }}
         onPress={onIconPress}
         hitTarget={34}
+        glass
+        wellRadius={17}
       />
     </>
   );
@@ -1165,7 +1197,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
         </View>
       ) : null}
 
-      {/* Controls */}
+      {/* Controls — interactive Liquid Glass wells on iOS 26, tinted solids elsewhere. */}
       <View style={styles.controls}>
         <IconButton
           name={LOOP_ICON[loopMode]}
@@ -1174,6 +1206,8 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           accessibilityLabel={t(LOOP_LABEL_KEY[loopMode])}
           accessibilityState={{ selected: loopActive }}
           onPress={cycleLoopMode}
+          glass
+          wellRadius={24}
         />
         <IconButton
           name={{ ios: "backward.fill", android: "skip_previous", web: "skip_previous" }}
@@ -1182,33 +1216,41 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           accessibilityLabel={t("player.previous")}
           accessibilityState={{ disabled: !hasQueue }}
           onPress={previous}
+          glass
+          wellRadius={24}
         />
-        <PressableScale
-          haptic="medium"
-          accessibilityRole="button"
-          accessibilityLabel={
-            isQueueFinished ? t("player.replay") : isPlaying ? t("player.pause") : t("player.play")
-          }
-          accessibilityState={{ busy: showSpinner }}
-          onPress={isQueueFinished ? replay : toggle}
-          style={[styles.bigPlay, { backgroundColor: colors.accent }]}
-        >
-          {showSpinner ? (
-            <ActivityIndicator size="small" color={colors.accentForeground} />
-          ) : (
-            <SymbolView
-              name={
-                isQueueFinished
-                  ? REPLAY_ICON
-                  : isPlaying
-                    ? { ios: "pause.fill", android: "pause", web: "pause" }
-                    : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
-              }
-              size={28}
-              tintColor={colors.accentForeground}
-            />
-          )}
-        </PressableScale>
+        <GlassControl radius={32} tintColor={colors.accent}>
+          <PressableScale
+            haptic="medium"
+            accessibilityRole="button"
+            accessibilityLabel={
+              isQueueFinished
+                ? t("player.replay")
+                : isPlaying
+                  ? t("player.pause")
+                  : t("player.play")
+            }
+            accessibilityState={{ busy: showSpinner }}
+            onPress={isQueueFinished ? replay : toggle}
+            style={[styles.bigPlay, !hasLiquidGlass && { backgroundColor: colors.accent }]}
+          >
+            {showSpinner ? (
+              <ActivityIndicator size="small" color={colors.accentForeground} />
+            ) : (
+              <SymbolView
+                name={
+                  isQueueFinished
+                    ? REPLAY_ICON
+                    : isPlaying
+                      ? { ios: "pause.fill", android: "pause", web: "pause" }
+                      : { ios: "play.fill", android: "play_arrow", web: "play_arrow" }
+                }
+                size={28}
+                tintColor={colors.accentForeground}
+              />
+            )}
+          </PressableScale>
+        </GlassControl>
         <IconButton
           name={{ ios: "forward.fill", android: "skip_next", web: "skip_next" }}
           size={26}
@@ -1216,18 +1258,22 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           accessibilityLabel={t("player.next")}
           accessibilityState={{ disabled: !hasQueue }}
           onPress={next}
+          glass
+          wellRadius={24}
         />
-        <PressableScale
-          haptic="light"
-          accessibilityRole="button"
-          accessibilityLabel={t("player.speedValue", { value: rate })}
-          onPress={cycleRate}
-          style={[styles.speed, { backgroundColor: colors.muted }]}
-        >
-          <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-            {rate}×
-          </ThemedText>
-        </PressableScale>
+        <GlassControl radius={Radius.sm}>
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={t("player.speedValue", { value: rate })}
+            onPress={cycleRate}
+            style={[styles.speed, !hasLiquidGlass && { backgroundColor: colors.muted }]}
+          >
+            <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+              {rate}×
+            </ThemedText>
+          </PressableScale>
+        </GlassControl>
       </View>
 
       {sourceHref ? (
@@ -1450,8 +1496,19 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.one,
     transform: [{ translateX: -18 }],
   },
+  // Float above the volume icon (absolute) so opening it doesn't push the
+  // surrounding transport controls around inside the bar.
   volumePopupNative: {
+    position: "absolute",
+    bottom: "100%",
+    left: "50%",
+    width: 64,
     marginBottom: Spacing.one,
+    transform: [{ translateX: -32 }],
+    alignItems: "center",
+  },
+  volumePopupGlass: {
+    overflow: "hidden",
   },
   verticalVolumeBar: {
     minWidth: 44,

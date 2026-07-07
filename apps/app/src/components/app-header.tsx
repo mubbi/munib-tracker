@@ -1,8 +1,9 @@
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
+import { type LayoutChangeEvent, Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
 import { NotificationBadge } from "@/components/ui/notification-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -19,6 +20,8 @@ type AppHeaderProps = {
   notificationCount?: number;
   onNotificationsPress?: () => void;
   onBack?: () => void;
+  /** Reports the rendered header height so the layout can inset content beneath it. */
+  onLayout?: (event: LayoutChangeEvent) => void;
 };
 
 export function AppHeader({
@@ -28,6 +31,7 @@ export function AppHeader({
   notificationCount = 0,
   onNotificationsPress,
   onBack,
+  onLayout,
 }: AppHeaderProps) {
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
@@ -39,12 +43,13 @@ export function AppHeader({
   };
 
   return (
-    <View
+    <GlassSurface
+      onLayout={onLayout}
       style={[
         styles.container,
         {
           paddingTop: insets.top + Spacing.two,
-          backgroundColor: colors.background,
+          borderBottomColor: tokens.hairline,
         },
       ]}
     >
@@ -56,6 +61,7 @@ export function AppHeader({
           accessibilityLabel={t("common.goBack")}
           onPress={withNavigationBlur(onBack)}
           background={tokens.accentSoft}
+          glass
           hitTarget={44}
         />
       ) : null}
@@ -77,22 +83,27 @@ export function AppHeader({
       </View>
 
       {onNotificationsPress ? (
-        <PressableScale
-          accessibilityLabel={t("common.notifications")}
-          accessibilityRole="button"
-          haptic="light"
-          onPress={withNavigationBlur(onNotificationsPress)}
-          style={[styles.notificationButton, { backgroundColor: tokens.accentSoft }]}
-        >
-          <SymbolView
-            name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
-            size={19}
-            tintColor={colors.accent}
-          />
-          <NotificationBadge count={notificationCount} />
-        </PressableScale>
+        <GlassControl radius={Radius.md}>
+          <PressableScale
+            accessibilityLabel={t("common.notifications")}
+            accessibilityRole="button"
+            haptic="light"
+            onPress={withNavigationBlur(onNotificationsPress)}
+            style={[
+              styles.notificationButton,
+              !hasLiquidGlass && { backgroundColor: tokens.accentSoft },
+            ]}
+          >
+            <SymbolView
+              name={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
+              size={19}
+              tintColor={colors.accent}
+            />
+            <NotificationBadge count={notificationCount} />
+          </PressableScale>
+        </GlassControl>
       ) : null}
-    </View>
+    </GlassSurface>
   );
 }
 
@@ -104,6 +115,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingBottom: Spacing.three,
     gap: Spacing.three,
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   textBlock: {
     flex: 1,

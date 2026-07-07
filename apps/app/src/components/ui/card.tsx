@@ -31,6 +31,8 @@ export function Card({
   const paddingValue = padding === 0 ? 0 : Spacing[padding];
 
   const baseStyle: ViewStyle = {
+    width: "100%",
+    alignSelf: "stretch",
     padding: paddingValue,
     borderRadius: Radius[radius],
     borderCurve: "continuous",

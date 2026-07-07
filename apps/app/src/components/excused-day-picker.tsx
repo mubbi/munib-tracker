@@ -1,6 +1,7 @@
 import { EXCUSED_GUIDE_ROUTES } from "@munib-tracker/shared/content";
 import type { ExcusedReason } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
@@ -11,6 +12,12 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
 
 const EXCUSED_REASONS = ["hayd", "sick", "travel"] as const satisfies readonly ExcusedReason[];
+
+const EXCUSED_REASON_ICONS: Record<ExcusedReason, SymbolViewProps["name"]> = {
+  hayd: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
+  sick: { ios: "cross.case.fill", android: "medical_services", web: "medical_services" },
+  travel: { ios: "airplane", android: "flight", web: "flight" },
+};
 
 type ExcusedDayPickerProps = {
   /** Inline sits inside another card; section renders its own title row. */
@@ -36,6 +43,7 @@ export function ExcusedDayPicker({ variant = "section" }: ExcusedDayPickerProps)
     <View style={styles.row}>
       {EXCUSED_REASONS.map((reason) => {
         const active = excusedReason === reason;
+        const tint = active ? tokens.status.info.color : colors.mutedForeground;
         return (
           <PressableScale
             key={reason}
@@ -52,12 +60,12 @@ export function ExcusedDayPicker({ variant = "section" }: ExcusedDayPickerProps)
               },
             ]}
           >
-            <ThemedText
-              type="smallBold"
-              style={{ color: active ? tokens.status.info.color : colors.mutedForeground }}
-            >
-              {t(`tracker.excusedReason.${reason}`)}
-            </ThemedText>
+            <View style={styles.chipContent}>
+              <SymbolView name={EXCUSED_REASON_ICONS[reason]} size={16} tintColor={tint} />
+              <ThemedText type="smallBold" style={{ color: tint }}>
+                {t(`tracker.excusedReason.${reason}`)}
+              </ThemedText>
+            </View>
           </PressableScale>
         );
       })}
@@ -118,5 +126,9 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: 1.5,
+  },
+  chipContent: {
+    alignItems: "center",
+    gap: Spacing.half,
   },
 });

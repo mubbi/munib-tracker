@@ -497,7 +497,7 @@
   "defaultCalendar": {
     "title": "التقويم الافتراضي",
     "subtitle": "كيف تظهر التواريخ في التطبيق",
-    "hint": "يُطبَّق على الشاشة الرئيسية والمناسبات والمذكرات وتبويبات التقويم وغيرها",
+    "hint": "یُطبَّق على المناسبات والمذكرات وتبويبات التقويم وغيرها. الشاشة الرئيسية تعرض التقويمين معاً دائماً.",
     "optionGregorian": "ميلادي",
     "optionHijri": "هجري",
     "exampleGregorian": "مثال: الاثنين، 23 مارس 2026",
@@ -1373,7 +1373,8 @@
     "prayerItem": "{{name}} عند {{time}}",
     "prayerItemActive": "{{name}} عند {{time}}، الصلاة الحالية",
     "weatherA11y": "{{temp}}، {{condition}}",
-    "locationWeatherA11y": "{{location}}، {{weather}}. تغيير الموقع"
+    "locationWeatherA11y": "{{location}}، {{weather}}. تغيير الموقع",
+    "dateRowA11y": "{{phase}}. {{dates}}. اضغط لتفاصيل القمر"
   },
   "location": {
     "eyebrow": "الموقع",

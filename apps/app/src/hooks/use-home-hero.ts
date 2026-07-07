@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import type { PrayerTime } from "@/components/prayer-times-hero";
 import { useNow } from "@/hooks/use-now";
-import { formatCalendarDate } from "@/lib/calendar-format";
+import { type DualCalendarDates, formatDualCalendarDate } from "@/lib/calendar-format";
 import { locationCalcExtras } from "@/lib/location";
 import { moonPhase } from "@/lib/moon";
 import {
@@ -32,7 +32,7 @@ import { usePreferences } from "@/stores/preferences-store";
 
 export interface HomeHeroData {
   location: string;
-  displayDate: string;
+  displayDates: DualCalendarDates;
   currentTime: string;
   countdown: string;
   prayers: PrayerTime[];
@@ -256,7 +256,7 @@ export function useHomeHero(): HomeHeroData {
 
     return {
       location: location.label,
-      displayDate: formatCalendarDate(now, defaultCalendar, locale, undefined, location.timeZone),
+      displayDates: formatDualCalendarDate(now, defaultCalendar, locale, location.timeZone),
       currentTime: formatPrayerTime(now, timeFormat, tz),
       countdown,
       prayers,

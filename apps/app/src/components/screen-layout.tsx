@@ -1,6 +1,6 @@
 import { useFocusEffect } from "expo-router";
 import type { ReactNode, RefObject } from "react";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
@@ -11,6 +11,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { AppHeader } from "@/components/app-header";
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -53,8 +54,15 @@ export function ScreenLayout({
 }: ScreenLayoutProps) {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const contentBottomInset = useContentBottomInset();
   const rootRef = useRef<View>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  // Content sits beneath the floating glass header. Fall back to an estimated
+  // bar height for the first frame (before onLayout measures the real height)
+  // so content isn't briefly hidden under the header.
+  const headerInset = headerHeight || insets.top + 60;
 
   // On web, move focus into the incoming screen so it isn't left on a button in
   // the outgoing screen when React Navigation marks that layer aria-hidden.
@@ -74,7 +82,10 @@ export function ScreenLayout({
     <View
       // Web-only landmark: exposes the screen body as <main> for crawlers/AT.
       {...(Platform.OS === "web" ? { role: "main" as const } : {})}
-      style={[styles.content, contentStyle]}
+      // When the screen owns its own scroller (scrollable={false}), it isn't
+      // wrapped in the ScrollView that carries the header inset, so pad it here
+      // to clear the floating glass header.
+      style={[styles.content, !scrollable && { paddingTop: headerInset }, contentStyle]}
     >
       {/* When the screen owns its own scroller (scrollable={false}, e.g. a screen
           hosting a FlatList), the inner wrapper must fill the available height so
@@ -93,21 +104,18 @@ export function ScreenLayout({
       {...(Platform.OS === "web" ? { tabIndex: -1 as const } : {})}
       style={[styles.root, { backgroundColor: colors.background }]}
     >
-      <AppHeader
-        title={title}
-        subtitle={subtitle}
-        eyebrow={eyebrow}
-        notificationCount={notificationCount}
-        onNotificationsPress={onNotificationsPress}
-        onBack={onBack}
-      />
       {scrollable ? (
         <ScrollView
           ref={scrollRef}
           onScroll={onScroll}
           scrollEventThrottle={16}
-          contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
-          contentInsetAdjustmentBehavior="automatic"
+          contentContainerStyle={[
+            styles.scrollContent,
+            { paddingTop: headerInset, paddingBottom: contentBottomInset },
+          ]}
+          // The floating glass header already accounts for the top inset; opting
+          // out keeps the OS from adding it again and double-padding the content.
+          contentInsetAdjustmentBehavior="never"
           showsVerticalScrollIndicator={false}
         >
           {content}
@@ -115,6 +123,21 @@ export function ScreenLayout({
       ) : (
         content
       )}
+      {/* Rendered last so it stacks above scrolling content on Android; content
+          scrolls beneath the translucent material for the glass effect. */}
+      <View
+        style={styles.headerFloat}
+        onLayout={(event) => setHeaderHeight(event.nativeEvent.layout.height)}
+      >
+        <AppHeader
+          title={title}
+          subtitle={subtitle}
+          eyebrow={eyebrow}
+          notificationCount={notificationCount}
+          onNotificationsPress={onNotificationsPress}
+          onBack={onBack}
+        />
+      </View>
     </View>
   );
 }
@@ -122,6 +145,13 @@ export function ScreenLayout({
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+  },
+  headerFloat: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
   },
   scrollContent: {
     flexGrow: 1,

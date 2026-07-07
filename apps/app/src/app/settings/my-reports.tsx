@@ -11,6 +11,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { listContentReports } from "@/lib/content-report-api";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -21,6 +22,7 @@ export default function MyReportsScreen() {
   const { t } = useTranslation();
   const { session, isGuest } = useAuth();
   const { tokens } = useThemeTokens();
+  const { formatDate } = useFormatCalendarDate();
   const [items, setItems] = useState<ContentReportSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -100,7 +102,11 @@ export default function MyReportsScreen() {
                   }
                 />
                 <ThemedText type="caption" themeColor="mutedForeground">
-                  {new Date(report.createdAt).toLocaleDateString()}
+                  {formatDate(new Date(report.createdAt), {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
                 </ThemedText>
               </View>
               <ThemedText type="smallBold">

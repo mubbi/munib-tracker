@@ -497,7 +497,7 @@
   "defaultCalendar": {
     "title": "Default calendar",
     "subtitle": "How dates appear across the app",
-    "hint": "Applies to the home hero, events, journal, calendar tabs, and other date labels",
+    "hint": "Applies to events, journal, calendar tabs, and other date labels. The home hero always shows both calendars.",
     "optionGregorian": "Gregorian",
     "optionHijri": "Hijri",
     "exampleGregorian": "Example: Monday, March 23, 2026",
@@ -1361,7 +1361,8 @@
     "prayerItem": "{{name}} at {{time}}",
     "prayerItemActive": "{{name}} at {{time}}, current prayer",
     "weatherA11y": "{{temp}}, {{condition}}",
-    "locationWeatherA11y": "{{location}}, {{weather}}. Change location"
+    "locationWeatherA11y": "{{location}}, {{weather}}. Change location",
+    "dateRowA11y": "{{phase}}. {{dates}}. Tap for moon details"
   },
   "location": {
     "eyebrow": "Location",

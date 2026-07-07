@@ -497,7 +497,7 @@
   "defaultCalendar": {
     "title": "ڈیفالٹ کیلنڈر",
     "subtitle": "ایپ میں تاریخیں کیسے دکھائیں",
-    "hint": "ہوم ہیرو، تقریبات، جرنل، کیلنڈر ٹیبز اور دیگر تاریخوں پر لاگو ہوتا ہے",
+    "hint": "تقریبات، جرنل، کیلنڈر ٹیبز اور دیگر تاریخوں پر لاگو ہوتا ہے۔ ہوم ہیرو ہمیشہ دونوں کیلنڈر دکھاتا ہے۔",
     "optionGregorian": "عیسوی",
     "optionHijri": "ہجری",
     "exampleGregorian": "مثال: پیر، 23 مارچ 2026",
@@ -1361,7 +1361,8 @@
     "prayerItem": "{{name}} {{time}} پر",
     "prayerItemActive": "{{name}} {{time}} پر، موجودہ نماز",
     "weatherA11y": "{{temp}}، {{condition}}",
-    "locationWeatherA11y": "{{location}}، {{weather}}۔ مقام تبدیل کریں"
+    "locationWeatherA11y": "{{location}}، {{weather}}۔ مقام تبدیل کریں",
+    "dateRowA11y": "{{phase}}۔ {{dates}}۔ چاند کی تفصیل کے لیے دبائیں"
   },
   "location": {
     "eyebrow": "مقام",

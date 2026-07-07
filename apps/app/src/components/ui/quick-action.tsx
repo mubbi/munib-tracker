@@ -52,6 +52,9 @@ function QuickAction({ item }: { item: QuickActionItem }) {
 
   return (
     <View style={styles.tileWrap}>
+      {/* Tinted wells on opaque cards — not Liquid Glass. GlassView on a solid
+          card + inside Stagger's opacity animation intermittently drops tint and
+          symbols until the tile remounts (tab switch / scroll back). */}
       <PressableScale
         accessibilityRole="button"
         accessibilityLabel={item.label}
