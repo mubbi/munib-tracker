@@ -1,3 +1,5 @@
+import type { QuranReaderLayout } from "@munib-tracker/shared/types";
+
 import { createId } from "../id";
 import { DB_KEYS } from "../keys";
 import { KeyedCollection, readJSON, removeKey, writeJSON } from "../store";
@@ -12,6 +14,7 @@ export interface QuranBookmark {
 export interface QuranLastRead {
   surah: number;
   ayah: number;
+  page?: number;
   updatedAt: string;
 }
 
@@ -23,6 +26,8 @@ export interface QuranPrefs {
   script?: "uthmani";
   /** Optional second translation shown side-by-side beneath the first (NF-1.13). */
   secondaryTranslationId?: string;
+  /** Reader layout: ayah cards, page view, or mushaf lines (NF-1.11). */
+  readerLayout?: QuranReaderLayout;
 }
 
 /** Furthest ayah reached per surah. */
@@ -34,6 +39,7 @@ export const DEFAULT_QURAN_PREFS: QuranPrefs = {
   showTransliteration: true,
   showTranslation: true,
   script: "uthmani",
+  readerLayout: "ayah",
 };
 
 const bookmarks = new KeyedCollection<QuranBookmark>(DB_KEYS.quranBookmarks);
@@ -100,10 +106,11 @@ export const QuranRepository = {
     return readJSON<QuranLastRead | null>(DB_KEYS.quranLastRead, null);
   },
 
-  async setLastRead(surah: number, ayah: number): Promise<void> {
+  async setLastRead(surah: number, ayah: number, page?: number): Promise<void> {
     await writeJSON(DB_KEYS.quranLastRead, {
       surah,
       ayah,
+      page,
       updatedAt: new Date().toISOString(),
     } satisfies QuranLastRead);
   },

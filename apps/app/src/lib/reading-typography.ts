@@ -31,8 +31,8 @@ export interface ArabicFontOption {
 export const DEFAULT_ARABIC_FONT_ID = "system";
 
 /**
- * Bundled Arabic-capable typefaces. `system` always renders; the rest are loaded
- * at startup from `@expo-google-fonts/*` (see `src/lib/arabic-fonts.ts`).
+ * Bundled Arabic-capable typefaces. `system` always renders; the rest are bundled
+ * OFL `.ttf` files loaded at startup (see `src/lib/arabic-fonts.ts`).
  */
 export const ARABIC_FONT_OPTIONS: ArabicFontOption[] = [
   {
@@ -53,6 +53,12 @@ export const ARABIC_FONT_OPTIONS: ArabicFontOption[] = [
     labelKey: "fonts.arabicFamily.notoNaskh",
     fontFamily: "NotoNaskhArabic",
     lineHeightRatio: 2,
+  },
+  {
+    id: "qpc-hafs",
+    labelKey: "fonts.arabicFamily.qpcHafs",
+    fontFamily: "QPC_Hafs",
+    lineHeightRatio: 2.15,
   },
 ];
 

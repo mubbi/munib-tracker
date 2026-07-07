@@ -8,6 +8,7 @@ export * from "./jahannam";
 export * from "./jannah";
 export * from "./last-day";
 export * from "./learn-dua";
+export * from "./mushaf-layout";
 export * from "./prayer";
 export * from "./preferences";
 export * from "./prophets";

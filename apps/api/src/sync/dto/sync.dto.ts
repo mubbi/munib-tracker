@@ -2,6 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import {
   IsArray,
+  IsIn,
   IsISO8601,
   IsNotEmpty,
   IsObject,
@@ -23,6 +24,30 @@ export const SYNC_ENTITIES = [
   "quran_last_read",
   "hadith_bookmarks",
   "custom_tasbeeh",
+  // Blob-synced userData (see apps/app/src/sync/blob-sync.ts). The server stores
+  // every entity generically keyed by (userId, entity, recordId); this list is
+  // the authoritative whitelist enforced by `@IsIn` below.
+  "fasting",
+  "khatm",
+  "hifz",
+  "custom_adhkar",
+  "khushu_journal",
+  "hajj_checklist",
+  "jannah_intentions",
+  "jahannam_intentions",
+  "salah_guide_progress",
+  "battles_progress",
+  "quran_guide_progress",
+  "taharah_progress",
+  "prophets_progress",
+  "aqeedah_progress",
+  "last_day_progress",
+  "learn_dua_progress",
+  "quran_prefs",
+  "quran_reading_progress",
+  "qaza_schedule",
+  "qaza_daily_progress",
+  "qaza_daily_plans",
 ] as const;
 
 export type SyncEntity = (typeof SYNC_ENTITIES)[number];
@@ -41,6 +66,7 @@ export class SyncRecordDto {
   @ApiProperty({ enum: SYNC_ENTITIES })
   @IsString()
   @IsNotEmpty()
+  @IsIn(SYNC_ENTITIES)
   entity!: SyncEntity;
 
   @ApiProperty()

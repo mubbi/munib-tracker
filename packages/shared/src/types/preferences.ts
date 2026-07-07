@@ -136,6 +136,12 @@ export interface UserPreferences {
   weatherPrefs: WeatherPreferences;
   /** Vibration feedback on taps and meaningful actions (native only). */
   hapticsEnabled: boolean;
+  /**
+   * Show a live next-prayer countdown on the iOS lock screen and Dynamic Island
+   * (NF-1.19). iOS-only (ActivityKit); requires a dev/EAS build. Defaults off —
+   * the user must opt in, and it no-ops on Android, web, and Expo Go.
+   */
+  liveActivityEnabled?: boolean;
   /** ISO datetime the preferences blob was last edited (sync last-write-wins). */
   updatedAt?: string;
   /** ISO datetime the favorite-zikr list was last edited (sync last-write-wins). */

@@ -3,7 +3,7 @@ import type { NotificationPreferences, PrayerId } from "@munib-tracker/shared/ty
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { AdhanStylePicker } from "@/components/adhan/adhan-style-picker";
 import {
   type NotificationListItem,
@@ -20,6 +20,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { ADHAN_STYLES, adhanTrack, DEFAULT_ADHAN_STYLE } from "@/lib/adhan-audio";
+import { isLiveActivitySupported } from "@/lib/live-activity";
 import { goBackOrReplace } from "@/lib/navigation";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
@@ -64,6 +65,8 @@ export default function NotificationsScreen() {
   const obligatoryEnabled = master && prefs.notificationPrefs.prayer;
   const sunnahEnabled = master && prefs.notificationPrefs.sunnahPrayer;
   const [scheduled, setScheduled] = useState<Scheduled>([]);
+  const isIOS = Platform.OS === "ios";
+  const liveActivitySupported = useMemo(() => isIOS && isLiveActivitySupported(), [isIOS]);
 
   const reloadScheduled = useCallback(async () => {
     try {
@@ -244,6 +247,27 @@ export default function NotificationsScreen() {
             />
           </View>
         </Card>
+
+        {isIOS ? (
+          <Card padding="three">
+            <ToggleRow
+              icon={{
+                ios: "platter.filled.top.iphone",
+                android: "widgets",
+                web: "widgets",
+              }}
+              title={t("notif.liveActivity")}
+              subtitle={
+                liveActivitySupported
+                  ? t("notif.liveActivityHint")
+                  : t("notif.liveActivityUnavailable")
+              }
+              value={prefs.liveActivityEnabled === true}
+              disabled={!liveActivitySupported}
+              onValueChange={(value) => void update({ liveActivityEnabled: value })}
+            />
+          </Card>
+        ) : null}
 
         {GROUPS.map((group) => (
           <Card key={group.titleKey} padding="three">

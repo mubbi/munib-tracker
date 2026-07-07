@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["MunibExternalCommandsModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.munibexternalcommands.MunibExternalCommandsModule"]
+  }
+}

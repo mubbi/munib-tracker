@@ -16,7 +16,7 @@ import {
   TombstoneRepository,
 } from "@/db";
 import { DB_KEYS } from "@/db/keys";
-import { readJSON } from "@/db/store";
+import { readJSON, writeJSON } from "@/db/store";
 import { readCustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
 import { applyRemoteDuaFavorites, readDuaFavoritesBlob } from "@/stores/dua-favorites-store";
 
@@ -323,6 +323,71 @@ describe("runSync", () => {
     await runSync(user);
 
     expect((await readDuaFavoritesBlob()).order).toEqual(["local"]);
+  });
+
+  it("pushes newly-synced blob entities (fasting, learning progress, qaza schedule)", async () => {
+    await writeJSON(DB_KEYS.fasting, { "2026-03-01": "fasted" });
+    await writeJSON(DB_KEYS.salahGuideProgress, ["intro"]);
+    await writeJSON(DB_KEYS.qazaSchedule, { targets: { fajr: 3 } });
+
+    await runSync(user);
+
+    const pushed = mockPush.mock.calls[0]?.[1] as SyncRecordDto[];
+    const entities = new Set(pushed.map((r) => r.entity));
+    expect(entities).toContain("fasting");
+    expect(entities).toContain("salah_guide_progress");
+    expect(entities).toContain("qaza_schedule");
+    // An untouched blob entity must not be pushed (can't clobber another device).
+    expect(entities).not.toContain("hifz");
+  });
+
+  it("round-trips a pulled blob entity into local storage", async () => {
+    mockPull.mockResolvedValue(
+      pullResult({
+        changes: [
+          {
+            entity: "fasting",
+            id: "fasting",
+            data: { value: { "2026-03-10": "exempt" } },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+          {
+            entity: "learn_dua_progress",
+            id: "learn_dua_progress",
+            data: { value: ["morning"] },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+        ],
+      }),
+    );
+
+    await runSync(user);
+
+    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({ "2026-03-10": "exempt" });
+    expect(await readJSON(DB_KEYS.learnDuaProgress, null)).toEqual(["morning"]);
+  });
+
+  it("keeps newer local blob data when the pulled blob is older (last-write-wins)", async () => {
+    // Establish local fasting content stamped at a late time via a first sync.
+    await writeJSON(DB_KEYS.fasting, { local: "fasted" });
+    await runSync(user);
+    mockPush.mockResolvedValue(pushResult());
+    mockPull.mockResolvedValue(
+      pullResult({
+        changes: [
+          {
+            entity: "fasting",
+            id: "fasting",
+            data: { value: { old: "missed" } },
+            updatedAt: "2000-01-01T00:00:00.000Z",
+          },
+        ],
+      }),
+    );
+
+    await runSync(user);
+
+    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({ local: "fasted" });
   });
 
   it("emits then clears local deletion tombstones after a successful push", async () => {

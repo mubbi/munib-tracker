@@ -17,6 +17,15 @@ describe("parseReference", () => {
     expect(parseReference("QS. Al-Baqarah: 255")).toEqual({ kind: "quran", surah: 2, ayah: 255 });
   });
 
+  it("parses a mushaf page reference", () => {
+    expect(parseReference("page:42")).toEqual({ kind: "page", page: 42 });
+    expect(parseReference("Quran page 255")).toEqual({ kind: "page", page: 255 });
+  });
+
+  it("rejects an out-of-range page", () => {
+    expect(parseReference("page:9999")).toBeNull();
+  });
+
   it("rejects an out-of-range ayah", () => {
     expect(parseReference("Quran 2:9999")).toBeNull();
   });
@@ -47,5 +56,9 @@ describe("referenceHref", () => {
       pathname: "/quran/[surah]",
       params: { surah: "2", ayah: "255" },
     });
+  });
+
+  it("builds a page deep link", () => {
+    expect(referenceHref({ kind: "page", page: 42 })).toBe("/quran/page/42");
   });
 });

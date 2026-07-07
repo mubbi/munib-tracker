@@ -12,7 +12,13 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { applyBackup, type BackupFile, exportBackup, parseBackup } from "@/lib/backup";
+import {
+  applyBackup,
+  type BackupFile,
+  exportBackup,
+  invalidateSyncStateAfterRestore,
+  parseBackup,
+} from "@/lib/backup";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useToast } from "@/providers/toast-provider";
 import { reloadAllStores } from "@/stores/reload-all-stores";
@@ -61,6 +67,9 @@ export default function BackupScreen() {
   const onRestore = async () => {
     if (!pending) return;
     await applyBackup(pending);
+    // Restored data replaced everything on disk — invalidate the sync cursors so
+    // the next cloud sync re-uploads it instead of the delta filter skipping it.
+    await invalidateSyncStateAfterRestore();
     await reloadAllStores();
     setConfirmOpen(false);
     setPending(null);

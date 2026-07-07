@@ -12,6 +12,9 @@ Native home-screen widgets and app-icon quick actions are implemented following 
 | Shared storage | `src/lib/appSurfaces/widgets/snapshotStorage.ts` | AsyncStorage + iOS App Group via `@bacons/apple-targets` |
 | Android renderers | `src/lib/appSurfaces/widgets/renderers/` | `react-native-android-widget` JSX (HIG-sized cells) |
 | iOS WidgetKit | `targets/munib-tracker-widgets/` | SwiftUI widgets reading the same JSON |
+| iOS Live Activity | `targets/munib-tracker-widgets/PrayerLiveActivity.swift` | Lock-screen + Dynamic Island next-prayer countdown (NF-1.19) |
+| Live Activity control | `modules/munib-live-activity/` | Local Expo module (ActivityKit) — start/update/end from JS |
+| Live Activity JS bridge | `src/lib/live-activity/` | `syncLiveActivity()`, snapshot → `LiveActivityState` |
 | Config plugin | `plugins/homeScreenSurfaces.cjs` | Widget cell sizes, preview images, Android shortcut icons |
 | Hooks | `src/hooks/use-app-quick-actions.ts`, `use-widget-snapshot-sync.ts` | Registered from `(tabs)/_layout.tsx` |
 
@@ -43,10 +46,41 @@ foreground PNGs). Regenerate with:
 python apps/app/scripts/generate-android-surface-assets.py
 ```
 
+## Live Activities (NF-1.19)
+
+An opt-in iOS **Live Activity** shows a self-updating next-prayer countdown on the
+lock screen and in the Dynamic Island. It reuses the same on-device prayer math as
+the widgets — no network, no second source of truth.
+
+| Layer | Path |
+|-------|------|
+| Shared attributes | `modules/munib-live-activity/ios/PrayerActivityAttributes.swift` **and** `targets/munib-tracker-widgets/PrayerActivityAttributes.swift` (kept byte-for-byte identical) |
+| Native control module | `modules/munib-live-activity/ios/MunibLiveActivityModule.swift` (`Name("MunibLiveActivity")`) |
+| SwiftUI presentation | `targets/munib-tracker-widgets/PrayerLiveActivity.swift`, registered in `index.swift` |
+| JS bridge | `src/lib/live-activity/{native,state,index}.ts` |
+| Wiring | `use-widget-snapshot-sync.ts` calls `syncLiveActivity()` after each snapshot write |
+| Preference | `UserPreferences.liveActivityEnabled` (default off); toggle in `settings/notifications.tsx` |
+
+**How it flows:** the user enables it in **Settings → Notifications → Live Activity**
+(iOS only, shown when `ActivityAuthorizationInfo().areActivitiesEnabled`). On every
+snapshot refresh, `syncLiveActivity()` starts the activity if enabled and absent,
+updates it if running, and ends it when the toggle is off. The activity's `staleDate`
+is the next-prayer instant, and the lock-screen/Dynamic-Island views use
+`Text(timerInterval:)` so the countdown ticks without app involvement.
+
+**Attributes duplication:** ActivityKit matches a running activity to the widget
+extension's `ActivityConfiguration` by the attributes type name + Codable shape.
+The struct is therefore defined **identically in both** the control module (main app
+binary) and the widget extension. If you change one, change the other.
+
+**Requirements:** iOS **16.2+**; `NSSupportsLiveActivities: true` in the main app
+`Info.plist` (set via `app.json` → `ios.infoPlist`); an EAS dev/production build
+(no Expo Go, no web, no Android).
+
 ## Build requirements
 
-Widgets and icon shortcuts require an **EAS dev/production build** — they do not work
-in Expo Go or on web.
+Widgets, Live Activities, and icon shortcuts require an **EAS dev/production build** —
+they do not work in Expo Go or on web.
 
 ```bash
 pnpm install

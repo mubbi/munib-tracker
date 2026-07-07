@@ -38,6 +38,7 @@ import { preferencesStore } from "@/stores/preferences-store";
 import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
 
+import { applyRemoteBlob, buildBlobRecords, isBlobEntity, reloadBlobStores } from "./blob-sync";
 import { buildSyncRecords } from "./records";
 
 export interface SyncMetadata {
@@ -80,8 +81,17 @@ export async function readSyncMetadata(): Promise<SyncMetadata> {
  * applied records don't get re-stamped (which would cause sync ping-pong).
  */
 async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
+  const reloadBlobEntities = new Set<string>();
   for (const record of records) {
     const data = record.data as Record<string, unknown>;
+    // Generic blob entities (fasting, learning progress, qaza schedule, …) are
+    // applied through the content-hash path and their stores reloaded in bulk.
+    if (isBlobEntity(record.entity)) {
+      if (await applyRemoteBlob(record.entity, data, record.updatedAt)) {
+        reloadBlobEntities.add(record.entity);
+      }
+      continue;
+    }
     switch (record.entity) {
       case "prayer_logs": {
         if (record.deletedAt) {
@@ -181,6 +191,7 @@ async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
       }
     }
   }
+  await reloadBlobStores(reloadBlobEntities);
 }
 
 /**
@@ -227,7 +238,7 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   ]);
 
   const nowIso = new Date().toISOString();
-  const allRecords = buildSyncRecords({
+  const typedRecords = buildSyncRecords({
     nowIso,
     prayerLogs,
     zikrProgress,
@@ -245,6 +256,11 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
     hadithBookmarksUpdatedAt,
     customTasbeeh,
   });
+  // Blob entities (fasting, khatm, learning progress, qaza schedule, …) detect
+  // their own changes/deletions via a content-hash tracker; merge them in so the
+  // same delta filter and last-write-wins push apply uniformly.
+  const blobRecords = await buildBlobRecords(nowIso);
+  const allRecords = [...typedRecords, ...blobRecords];
 
   // Delta push: only send records changed since our last successful push, plus
   // every tombstone (until the server acknowledges the deletion). The first sync

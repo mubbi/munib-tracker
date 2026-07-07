@@ -1,0 +1,73 @@
+import { requireOptionalNativeModule } from "expo";
+import { Platform } from "react-native";
+
+import type { LiveActivityState } from "@/lib/live-activity/state";
+
+/**
+ * Optional native interface backed by the local Expo module in
+ * `modules/munib-live-activity` (iOS ActivityKit). It is `null` on Android, web,
+ * and Expo Go — every caller must tolerate that and no-op. See
+ * `docs/NATIVE_WIDGETS.md`.
+ */
+interface LiveActivityNativeModule {
+  /** iOS 16.1+ AND the user has Live Activities enabled for the app. */
+  isSupported(): boolean;
+  /** Whether a prayer Live Activity is currently running. */
+  isRunning(): boolean;
+  /** Starts (or replaces) the prayer Live Activity; resolves to its id or null. */
+  start(state: LiveActivityState): Promise<string | null>;
+  /** Pushes a new content state to the running activity. */
+  update(state: LiveActivityState): Promise<void>;
+  /** Ends the running prayer Live Activity, if any. */
+  end(): Promise<void>;
+}
+
+const nativeModule =
+  Platform.OS === "ios"
+    ? requireOptionalNativeModule<LiveActivityNativeModule>("MunibLiveActivity")
+    : null;
+
+/** True when the device can actually present a prayer Live Activity. */
+export function isLiveActivitySupported(): boolean {
+  try {
+    return nativeModule?.isSupported() ?? false;
+  } catch {
+    return false;
+  }
+}
+
+/** True when a prayer Live Activity is currently on screen. */
+export function isLiveActivityRunning(): boolean {
+  try {
+    return nativeModule?.isRunning() ?? false;
+  } catch {
+    return false;
+  }
+}
+
+export async function startLiveActivity(state: LiveActivityState): Promise<void> {
+  if (!nativeModule) return;
+  try {
+    await nativeModule.start(state);
+  } catch {
+    /* Activity could not start (permissions, OS limit) — silently ignore. */
+  }
+}
+
+export async function updateLiveActivity(state: LiveActivityState): Promise<void> {
+  if (!nativeModule) return;
+  try {
+    await nativeModule.update(state);
+  } catch {
+    /* Ignore transient update failures; the next sync will retry. */
+  }
+}
+
+export async function endLiveActivity(): Promise<void> {
+  if (!nativeModule) return;
+  try {
+    await nativeModule.end();
+  } catch {
+    /* Ignore — activity may already be gone. */
+  }
+}

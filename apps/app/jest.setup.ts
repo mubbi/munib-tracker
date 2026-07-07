@@ -2,6 +2,37 @@ import type { ReactNode } from "react";
 
 process.env.RNTL_SKIP_DEPS_CHECK = "1";
 
+// Expo installs `fetch` as a lazy global getter backed by its "winter" runtime.
+// Once Jest tears down a suite's module registry, touching that getter throws
+// ("Cannot read properties of undefined (reading 'get')" from
+// ExpoModulesCoreJSLogger). Background store work started during a test
+// (weather sync, location refresh) can outlive the test and trip it, surfacing
+// as "Cannot log after tests are done" and flipping the run's exit code even
+// though every test passed. Install a benign default so that never happens;
+// tests that assert on the network still override `global.fetch` themselves.
+Object.defineProperty(globalThis, "fetch", {
+  configurable: true,
+  writable: true,
+  value: jest.fn(async () => ({
+    ok: false,
+    status: 503,
+    json: async () => ({}),
+    text: async () => "",
+  })),
+});
+
+// `runWhenIdle` polyfills `requestIdleCallback` with `setTimeout`, which defers
+// work off the current tick. In tests that lets deferred state updates (e.g. the
+// Qur'an ayah search in the search screen) fire after the test has finished,
+// producing "not wrapped in act(...)" warnings and leaking timers past teardown.
+// Run idle tasks synchronously so they settle within the test's act() scope.
+jest.mock("@/lib/run-when-idle", () => ({
+  runWhenIdle: (task: () => void) => {
+    task();
+    return { cancel: () => {} };
+  },
+}));
+
 // Reanimated 4's bundled mock pulls in the native worklets runtime, which isn't
 // available under Jest. This self-contained stub renders animated components as
 // plain views, no-ops worklets/animations, and makes layout-animation builders

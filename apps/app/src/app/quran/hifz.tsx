@@ -14,7 +14,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getSurahAyahs, getSurahByNumber } from "@/lib/quran";
+import { getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { chevronForward } from "@/lib/rtl";
 import { listHifzEntries, useEnsureHifzLoaded, useHifzMap } from "@/stores/hifz-store";
@@ -78,6 +78,7 @@ export default function HifzScreen() {
                 {entries.map((entry) => {
                   const meta = getSurahByNumber(entry.surah);
                   const arabic = getSurahAyahs(entry.surah)[entry.ayah - 1]?.arabic ?? "";
+                  const page = getPageForAyah(entry.surah, entry.ayah);
                   const statusPill =
                     entry.status === "review"
                       ? {
@@ -102,7 +103,7 @@ export default function HifzScreen() {
                     >
                       <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
                         <ThemedText type="caption" style={{ color: colors.accent }}>
-                          {entry.surah}:{entry.ayah}
+                          {entry.surah}:{entry.ayah} · {t("quran.pageN", { n: page })}
                         </ThemedText>
                       </View>
                       <View style={styles.rowBody}>

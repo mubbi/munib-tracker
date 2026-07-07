@@ -40,15 +40,25 @@ export function isContinueContentHref(href: string | null | undefined): boolean 
 export function buildQuranActivity(
   surah: number,
   ayah: number,
-  options?: { isAudio?: boolean },
+  options?: { isAudio?: boolean; page?: number; layout?: "ayah" | "page" | "mushaf" },
 ): ContinueActivityInput {
   const meta = getSurahByNumber(surah);
+  const usePage = options?.page && (options.layout === "page" || options.layout === "mushaf");
+  const href = usePage
+    ? `/quran/page/${options.page}?surah=${surah}&ayah=${ayah}`
+    : ayah > 1
+      ? `/quran/${surah}?ayah=${ayah}`
+      : `/quran/${surah}`;
 
   return {
     kind: "quran",
-    href: ayah > 1 ? `/quran/${surah}?ayah=${ayah}` : `/quran/${surah}`,
+    href,
     title: meta?.nameTransliteration ?? `Surah ${surah}`,
-    subtitle: meta ? `${meta.nameEnglish} · ${surah}:${ayah}` : `Ayah ${ayah}`,
+    subtitle: usePage
+      ? `Page ${options.page} · ${surah}:${ayah}`
+      : meta
+        ? `${meta.nameEnglish} · ${surah}:${ayah}`
+        : `Ayah ${ayah}`,
     preview: meta?.nameArabic,
     isAudio: options?.isAudio,
   };

@@ -1,11 +1,39 @@
-import type { Ayah, QuranEdition, Surah } from "@munib-tracker/shared/types";
+import { QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
+import type { Ayah, MushafPageLayout, Surah } from "@munib-tracker/shared/types";
 
 import metaJson from "../../assets/data/quran/meta.json";
-import { arabicLoaders, translationLoaders, transliterationLoaders } from "./quran-loader";
+import pagesIndexJson from "../../assets/data/quran/pages/index.json";
+import {
+  arabicLoaders,
+  ayahMetaLoaders,
+  mushafPageLoaders,
+  translationLoaders,
+  transliterationLoaders,
+} from "./quran-loader";
 
-type SurahMeta = { surahs: Surah[]; editions: QuranEdition[] };
+type SurahMeta = {
+  surahs: Surah[];
+  editions: import("@munib-tracker/shared/types").QuranEdition[];
+};
 
 const META = metaJson as SurahMeta;
+const PAGES_INDEX = pagesIndexJson as {
+  pageCount: number;
+  starts: Array<{ page: number; surah: number; ayah: number }>;
+};
+
+export interface PageStart {
+  page: number;
+  surah: number;
+  ayah: number;
+}
+
+export interface PageListEntry extends PageStart {
+  surahNameEnglish: string;
+  surahNameArabic: string;
+  surahNameTransliteration: string;
+  juz: number;
+}
 
 // ── Canonical reference tables (computed at runtime, nothing fabricated) ──────
 
@@ -120,6 +148,8 @@ const GLOBAL_OFFSETS = (() => {
 const arabicCache = new Map<number, Record<string, string>>();
 const translitCache = new Map<number, Record<string, string>>();
 const translationCache = new Map<string, Record<string, string>>();
+const ayahMetaCache = new Map<number, Record<string, { page: number; hizb: number }>>();
+const mushafPageCache = new Map<number, MushafPageLayout>();
 
 function loadArabic(surah: number): Record<string, string> {
   let data = arabicCache.get(surah);
@@ -139,6 +169,15 @@ function loadTranslit(surah: number): Record<string, string> {
   return data;
 }
 
+function loadAyahMeta(surah: number): Record<string, { page: number; hizb: number }> {
+  let data = ayahMetaCache.get(surah);
+  if (!data) {
+    data = ayahMetaLoaders[surah]();
+    ayahMetaCache.set(surah, data);
+  }
+  return data;
+}
+
 // ── Public selectors ─────────────────────────────────────────────────────────
 
 export function getSurahMeta(): Surah[] {
@@ -149,23 +188,25 @@ export function getSurahByNumber(n: number): Surah | undefined {
   return META.surahs.find((s) => s.number === n);
 }
 
-export function getBundledEditions(): QuranEdition[] {
+export function getBundledEditions() {
   return META.editions;
 }
 
-export function getEditionById(id: string): QuranEdition | undefined {
+export function getEditionById(id: string) {
   return META.editions.find((e) => e.id === id);
 }
 
-/** Full ayah list for a surah (Arabic + computed juz/sajda/global), memoized. */
+/** Full ayah list for a surah (Arabic + page/hizb/juz/sajda/global), memoized. */
 export function getSurahAyahs(surah: number): Ayah[] {
   const arabic = loadArabic(surah);
+  const metaMap = loadAyahMeta(surah);
   const offset = GLOBAL_OFFSETS[surah] ?? 0;
   const meta = getSurahByNumber(surah);
   const count = meta?.ayahCount ?? Object.keys(arabic).length;
 
   const ayahs: Ayah[] = [];
   for (let a = 1; a <= count; a++) {
+    const pageMeta = metaMap[String(a)] ?? { page: 1, hizb: 1 };
     ayahs.push({
       surah,
       ayah: a,
@@ -173,9 +214,74 @@ export function getSurahAyahs(surah: number): Ayah[] {
       arabic: arabic[String(a)] ?? "",
       juz: juzForAyah(surah, a),
       sajda: SAJDA_AYAHS.has(pos(surah, a)),
+      page: pageMeta.page,
+      hizb: pageMeta.hizb,
     });
   }
   return ayahs;
+}
+
+export function getPageStarts(): PageStart[] {
+  return PAGES_INDEX.starts;
+}
+
+export function getPageList(): PageListEntry[] {
+  return PAGES_INDEX.starts.map((entry) => {
+    const meta = getSurahByNumber(entry.surah);
+    return {
+      ...entry,
+      surahNameEnglish: meta?.nameEnglish ?? `Surah ${entry.surah}`,
+      surahNameArabic: meta?.nameArabic ?? "",
+      surahNameTransliteration: meta?.nameTransliteration ?? `Surah ${entry.surah}`,
+      juz: juzForAyah(entry.surah, entry.ayah),
+    };
+  });
+}
+
+export function getPageForAyah(surah: number, ayah: number): number {
+  return loadAyahMeta(surah)[String(ayah)]?.page ?? 1;
+}
+
+export function pageToStartAyah(page: number): PageStart | undefined {
+  return PAGES_INDEX.starts.find((s) => s.page === page);
+}
+
+/** All ayahs appearing on a mushaf page (may span multiple surahs). */
+export function getAyahsOnPage(page: number): Ayah[] {
+  const start = pageToStartAyah(page);
+  if (!start) return [];
+  const nextStart = pageToStartAyah(page + 1);
+  const ayahs: Ayah[] = [];
+
+  outer: for (let surahNum = start.surah; surahNum <= 114; surahNum++) {
+    const surahAyahs = getSurahAyahs(surahNum);
+    for (const ayah of surahAyahs) {
+      if (surahNum === start.surah && ayah.ayah < start.ayah) continue;
+      if (nextStart) {
+        const p = pos(ayah.surah, ayah.ayah);
+        const nextP = pos(nextStart.surah, nextStart.ayah);
+        if (p >= nextP) break outer;
+      }
+      if (ayah.page === page) ayahs.push(ayah);
+      else if (ayah.page > page) break outer;
+    }
+  }
+  return ayahs;
+}
+
+export function getPageLayout(page: number): MushafPageLayout {
+  let layout = mushafPageCache.get(page);
+  if (!layout) {
+    const loader = mushafPageLoaders[page];
+    if (!loader) throw new Error(`missing mushaf layout for page ${page}`);
+    layout = loader();
+    mushafPageCache.set(page, layout);
+  }
+  return layout;
+}
+
+export function getPageCount(): number {
+  return PAGES_INDEX.pageCount ?? QURAN_TOTAL_PAGES;
 }
 
 /** Transliteration text keyed by ayah number for a surah. */
@@ -199,4 +305,26 @@ export function getBundledEdition(editionId: string, surah: number): Record<stri
 
 export function isBundledEdition(editionId: string): boolean {
   return editionId === "en-transliteration" || editionId in translationLoaders;
+}
+
+/** Parse verseRange like "2:1-2:2" into surah/ayah pairs on a mushaf line. */
+export function parseVerseRange(
+  verseRange: string | undefined,
+): Array<{ surah: number; ayah: number }> {
+  if (!verseRange) return [];
+  const [startRaw, endRaw] = verseRange.split("-");
+  const parseRef = (ref: string) => {
+    const [s, a] = ref.split(":").map(Number);
+    return { surah: s, ayah: a };
+  };
+  const start = parseRef(startRaw);
+  const end = parseRef(endRaw ?? startRaw);
+  const refs: Array<{ surah: number; ayah: number }> = [];
+  for (let surah = start.surah; surah <= end.surah; surah++) {
+    const surahMeta = getSurahByNumber(surah);
+    const first = surah === start.surah ? start.ayah : 1;
+    const last = surah === end.surah ? end.ayah : (surahMeta?.ayahCount ?? first);
+    for (let ayah = first; ayah <= last; ayah++) refs.push({ surah, ayah });
+  }
+  return refs;
 }

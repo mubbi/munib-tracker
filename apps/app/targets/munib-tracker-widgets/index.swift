@@ -7,5 +7,8 @@ struct MunibTrackerWidgetsBundle: WidgetBundle {
     NextPrayerWidget()
     PrayerScheduleWidget()
     PrayerProgressWidget()
+    if #available(iOS 16.2, *) {
+      PrayerLiveActivity()
+    }
   }
 }

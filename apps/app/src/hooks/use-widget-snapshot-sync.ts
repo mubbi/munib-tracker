@@ -7,6 +7,8 @@ import {
   buildWidgetSnapshot,
   writeWidgetSnapshot,
 } from "@/lib/appSurfaces/widgets/snapshotStorage";
+import { nativePushWearSnapshot } from "@/lib/external-commands/native-bridge";
+import { syncLiveActivity } from "@/lib/live-activity";
 import { useTheme } from "@/providers/theme-provider";
 import { useLocation, useLocationStatus } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
@@ -20,7 +22,7 @@ export function useWidgetSnapshotSync(): void {
   const { scheme, colors } = useTheme();
   const location = useLocation();
   const locationStatus = useLocationStatus();
-  const { timeFormat, defaultCalendar } = usePreferences();
+  const { timeFormat, defaultCalendar, liveActivityEnabled } = usePreferences();
   const summary = useDailySummary();
   const { status: prayerStatus } = useTodayPrayers();
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -44,10 +46,14 @@ export function useWidgetSnapshotSync(): void {
       t,
     });
     await writeWidgetSnapshot(snapshot);
+    const snapshotJson = JSON.stringify(snapshot);
+    await nativePushWearSnapshot(snapshotJson);
     await refreshRegisteredAndroidWidgets();
+    await syncLiveActivity({ snapshot, enabled: liveActivityEnabled === true });
   }, [
     colors.accent,
     defaultCalendar,
+    liveActivityEnabled,
     locale,
     location,
     locationStatus,

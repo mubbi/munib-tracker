@@ -33,7 +33,7 @@ import { getSurahByNumber, getSurahMeta } from "@/lib/quran";
 import { chevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import { useLastRead, useQuranBookmarks } from "@/stores/quran-store";
+import { useLastRead, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
 const TOTAL_SURAHS = 114;
 
@@ -147,10 +147,12 @@ function RevelationFilterChip({
 function ContinueReadingCard({
   surahNumber,
   ayah,
+  page,
   onPress,
 }: {
   surahNumber: number;
   ayah: number;
+  page?: number;
   onPress: () => void;
 }) {
   const { t } = useTranslation();
@@ -187,9 +189,11 @@ function ContinueReadingCard({
             {surah?.nameTransliteration ?? t("quran.continueAt", { surah: surahNumber, ayah })}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-            {surah
-              ? `${surah.nameEnglish} · ${t("quran.continueAt", { surah: surahNumber, ayah })}`
-              : t("quran.continueAt", { surah: surahNumber, ayah })}
+            {page
+              ? t("quran.continueAtPage", { page, surah: surahNumber, ayah })
+              : surah
+                ? `${surah.nameEnglish} · ${t("quran.continueAt", { surah: surahNumber, ayah })}`
+                : t("quran.continueAt", { surah: surahNumber, ayah })}
           </ThemedText>
           {surah ? (
             <ThemedText type="arabic" style={[styles.continueArabic, { color: colors.accentText }]}>
@@ -223,6 +227,7 @@ export default function QuranHomeScreen() {
   const [query, setQuery] = useState("");
   const [revelationFilter, setRevelationFilter] = useState<SurahRevelationFilter>("all");
   const lastRead = useLastRead();
+  const quranPrefs = useQuranPrefs();
   const quranBookmarks = useQuranBookmarks();
 
   const filtered = useMemo(
@@ -240,6 +245,13 @@ export default function QuranHomeScreen() {
         icon: { ios: "magnifyingglass", android: "search", web: "search" },
         tint: tokens.status.info.color,
         onPress: () => router.push("/quran/search"),
+      },
+      {
+        id: "pages",
+        label: t("quran.pages"),
+        icon: { ios: "book.pages.fill", android: "menu_book", web: "menu_book" },
+        tint: tokens.status.info.color,
+        onPress: () => router.push("/quran/pages"),
       },
       {
         id: "juz",
@@ -326,7 +338,17 @@ export default function QuranHomeScreen() {
           <ContinueReadingCard
             surahNumber={lastRead.surah}
             ayah={lastRead.ayah}
-            onPress={() => openSurahAt(lastRead.surah, lastRead.ayah)}
+            page={lastRead.page}
+            onPress={() => {
+              const usePage =
+                quranPrefs.readerLayout === "page" || quranPrefs.readerLayout === "mushaf";
+              const page = lastRead.page ?? undefined;
+              if (usePage && page) {
+                router.push(`/quran/page/${page}?surah=${lastRead.surah}&ayah=${lastRead.ayah}`);
+              } else {
+                openSurahAt(lastRead.surah, lastRead.ayah);
+              }
+            }}
           />
         ) : null}
 

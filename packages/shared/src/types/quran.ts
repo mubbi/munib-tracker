@@ -1,5 +1,8 @@
 export type RevelationPlace = "makkah" | "madinah";
 
+/** Reader layout mode for the Qur'an screen. */
+export type QuranReaderLayout = "ayah" | "page" | "mushaf";
+
 export interface Surah {
   number: number; // 1..114
   nameArabic: string; // ٱلْفَاتِحَة
@@ -17,9 +20,9 @@ export interface Ayah {
   arabic: string; // Uthmani, verbatim
   juz: number; // 1..30
   sajda: boolean;
-  /** Optional Madinah-mushaf references (only populated when a trusted source provides them). */
-  hizb?: number;
-  page?: number;
+  /** Madinah-mushaf page (1..604) and hizb (1..60). */
+  hizb: number;
+  page: number;
 }
 
 export type QuranEditionKind = "translation" | "transliteration" | "tafsir";

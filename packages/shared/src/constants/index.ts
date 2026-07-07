@@ -29,6 +29,11 @@ export {
   type AppValueProp,
 } from "./features";
 export {
+  QURAN_TOTAL_AYAHS,
+  QURAN_TOTAL_HIZBS,
+  QURAN_TOTAL_PAGES,
+} from "./quran";
+export {
   buildLocalizedAndroidPlayStoreUrl,
   buildLocalizedIosAppStoreUrl,
   buildMarketingSiteUrl,

@@ -5,7 +5,7 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
-  FlatList,
+  type FlatList,
   type LayoutChangeEvent,
   type ListRenderItemInfo,
   type NativeScrollEvent,
@@ -24,6 +24,7 @@ import Animated, {
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
+import { AyahSeparator, ayahKeyExtractor, SurahAyahList } from "@/components/quran/ayah-reader";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
 import { ReadingFontControls } from "@/components/reading-font-controls";
@@ -48,6 +49,7 @@ import {
   getBundledEdition,
   getBundledEditions,
   getEditionById,
+  getPageForAyah,
   getSurahAyahs,
   getSurahByNumber,
   getSurahMeta,
@@ -114,7 +116,7 @@ export default function SurahReaderScreen() {
   // Optional deep-link target (e.g. from universal search) — scroll to & mark it.
   const focusAyah = params.ayah ? Number(params.ayah) : undefined;
 
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const prefs = useQuranPrefs();
   const { fontPrefs } = usePreferences();
@@ -482,6 +484,26 @@ export default function SurahReaderScreen() {
           </View>
 
           <PlaySurahButton onPress={() => playFrom(0)} />
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={t("quran.openPageView")}
+            onPress={() =>
+              router.push(
+                `/quran/page/${getPageForAyah(surahNumber, focusAyah ?? 1)}?surah=${surahNumber}${focusAyah ? `&ayah=${focusAyah}` : ""}`,
+              )
+            }
+            style={[styles.openPageView, { backgroundColor: tokens.accentSoft }]}
+          >
+            <SymbolView
+              name={{ ios: "book.pages.fill", android: "menu_book", web: "menu_book" }}
+              size={18}
+              tintColor={colors.accent}
+            />
+            <ThemedText type="smallBold" style={{ color: colors.accent }}>
+              {t("quran.openPageView")}
+            </ThemedText>
+          </PressableScale>
         </Card>
 
         {surah.bismillahPre ? (
@@ -496,16 +518,20 @@ export default function SurahReaderScreen() {
     );
   }, [
     colors.accent,
+    focusAyah,
     onHeaderCardLayout,
     playFrom,
     prefs.showTransliteration,
     prefs.showTranslation,
     readingSizes.arabic,
     reciter.name,
+    router,
     secondaryEdition?.name,
     selectedEdition.name,
     surah,
+    surahNumber,
     t,
+    tokens.accentSoft,
     translationLoading,
     updatePrefs,
     usingFallback,
@@ -683,8 +709,8 @@ export default function SurahReaderScreen() {
           />
         }
       >
-        <FlatList
-          ref={listRef}
+        <SurahAyahList
+          listRef={listRef}
           data={ayahs}
           extraData={ayahRowExtras}
           keyExtractor={ayahKeyExtractor}
@@ -692,19 +718,10 @@ export default function SurahReaderScreen() {
           ListHeaderComponent={listHeader}
           ItemSeparatorComponent={AyahSeparator}
           onScroll={onListScroll}
-          scrollEventThrottle={16}
           onViewableItemsChanged={onViewableItemsChanged}
           viewabilityConfig={viewabilityConfig}
           onScrollToIndexFailed={onScrollToIndexFailed}
-          style={styles.list}
-          contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          initialNumToRender={6}
-          maxToRenderPerBatch={4}
-          windowSize={5}
-          updateCellsBatchingPeriod={100}
-          removeClippedSubviews
+          contentContainerStyle={{ paddingBottom: contentBottomInset }}
         />
         <OptionPickerSheet
           visible={reciterPickerOpen}
@@ -758,15 +775,6 @@ export default function SurahReaderScreen() {
       </ScreenLayout>
     </>
   );
-}
-
-/** Stable FlatList key for an ayah row (ayah numbers are unique within a surah). */
-function ayahKeyExtractor(ayah: Ayah) {
-  return String(ayah.ayah);
-}
-
-function AyahSeparator() {
-  return <View style={styles.ayahSeparator} />;
 }
 
 /** Icon glyphs for each reading-control row (SF Symbols → Material fallbacks). */
@@ -1145,10 +1153,6 @@ const AyahRow = memo(function AyahRow({
 }, ayahRowPropsAreEqual);
 
 const styles = StyleSheet.create({
-  // The FlatList owns scrolling (ScreenLayout is scrollable={false}); fill the
-  // available height and clear the bottom tab bar the way ScreenLayout normally does.
-  list: { flex: 1 },
-  listContent: { paddingBottom: 0 },
   listHeader: { gap: Spacing.four, marginBottom: Spacing.two },
   controlRow: {
     flexDirection: "row",
@@ -1188,8 +1192,17 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     marginTop: Spacing.three,
   },
+  openPageView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    marginTop: Spacing.two,
+  },
   bismillah: { marginBottom: Spacing.two },
-  ayahSeparator: { height: Spacing.three },
   ayahRow: { position: "relative" },
   focusRing: {
     ...StyleSheet.absoluteFill,

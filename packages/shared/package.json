@@ -7,6 +7,7 @@
     "./types": "./src/types/index.ts",
     "./types/content-report": "./src/types/content-report.ts",
     "./constants": "./src/constants/index.ts",
+    "./constants/quran": "./src/constants/quran.ts",
     "./constants/branding": "./src/constants/branding.ts",
     "./validators": "./src/validators/index.ts",
     "./utils": "./src/utils/index.ts",

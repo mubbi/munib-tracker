@@ -74,6 +74,11 @@ export const DB_KEYS = {
   customTasbeehUpdatedAt: `${PREFIX}/custom_tasbeeh_updated_at`,
   // Queued content reports awaiting upload when back online.
   contentReportQueue: `${PREFIX}/content_report_queue`,
+  // Per-entity content-hash + last-synced timestamp for blob-synced userData
+  // (fasting, khatm, learning progress, …). Drives change/deletion detection for
+  // the generic cloud-sync path in `sync/blob-sync.ts`. Device-local: rebuilds on
+  // the next sync, so it's never backed up and is cleared on reset.
+  blobSyncState: `${PREFIX}/blob_sync_state`,
 } as const;
 
 /**
@@ -145,6 +150,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   hadithBookmarksUpdatedAt: "watermark",
   customTasbeehUpdatedAt: "watermark",
   contentReportQueue: "deviceLocal",
+  blobSyncState: "deviceLocal",
 };
 
 function keysMatching(classes: readonly KeyPersistence[]): string[] {

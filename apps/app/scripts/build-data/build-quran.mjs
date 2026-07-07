@@ -3,15 +3,18 @@
 //   assets/data/quran/arabic/{001..114}.json          (Uthmani, verbatim)
 //   assets/data/quran/translit/{001..114}.json
 //   assets/data/quran/translation/{editionId}/{001..114}.json
+//   assets/data/quran/ayah-meta/{001..114}.json       (page + hizb per ayah)
+//   assets/data/quran/pages/index.json                (604 page start points)
 // plus the generated require-map src/lib/quran-loader.ts.
 //
 // Arabic + transliteration + surah metadata come from risan/quran-json
 // (Tanzil-derived, CC BY-SA). The public-domain translations come from
-// fawazahmed0/quran-api. Per-ayah juz/sajda are computed at runtime from
-// canonical tables, so only text is stored here.
+// fawazahmed0/quran-api. Per-ayah page/hizb from Quran.com API v4 (Madani
+// mushaf). Juz/sajda are computed at runtime from canonical tables.
 
 import { join } from "node:path";
 
+import { buildMushafLayout } from "./build-mushaf-layout.mjs";
 import { fetchJSON } from "./fetch.mjs";
 import {
   APP_ROOT,
@@ -21,10 +24,11 @@ import {
   writeFileStable,
   writeJSON,
 } from "./manifest.mjs";
-import { assert, validateQuran } from "./schemas.mjs";
+import { assert, TOTAL_PAGES, validateQuran, validateQuranPageMeta } from "./schemas.mjs";
 
 const QURAN_JSON = "https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist";
 const FAWAZ = "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions";
+const QURAN_COM = "https://api.quran.com/api/v4";
 
 const QURAN_DIR = join(ASSETS_DATA_DIR, "quran");
 
@@ -75,6 +79,50 @@ function groupEdition(quran) {
   return bySurah;
 }
 
+/** Fetch per-ayah page + hizb for one surah from Quran.com API v4. */
+async function fetchSurahPageMeta(surahNumber, ayahCount) {
+  const metaByAyah = {};
+  let page = 1;
+  const perPage = 300;
+  while (true) {
+    const data = await fetchJSON(
+      `${QURAN_COM}/verses/by_chapter/${surahNumber}?words=false&per_page=${perPage}&page=${page}`,
+    );
+    for (const verse of data.verses ?? []) {
+      metaByAyah[verse.verse_number] = {
+        page: verse.page_number,
+        hizb: verse.hizb_number,
+      };
+    }
+    if (!data.pagination?.next_page) break;
+    page = data.pagination.next_page;
+  }
+  assert(
+    Object.keys(metaByAyah).length === ayahCount,
+    `surah ${surahNumber}: expected ${ayahCount} page meta rows, got ${Object.keys(metaByAyah).length}`,
+  );
+  return metaByAyah;
+}
+
+/** Derive 604 page start points from per-ayah page metadata. */
+function buildPageStarts(pageMetaBySurah, surahs) {
+  const starts = [];
+  let expectedPage = 1;
+  for (const surah of surahs) {
+    const metaMap = pageMetaBySurah.get(surah.number);
+    for (let ayah = 1; ayah <= surah.ayahCount; ayah++) {
+      const page = metaMap[ayah].page;
+      if (page === expectedPage) {
+        starts.push({ page, surah: surah.number, ayah });
+        expectedPage++;
+        if (expectedPage > TOTAL_PAGES) break;
+      }
+    }
+    if (expectedPage > TOTAL_PAGES) break;
+  }
+  return starts;
+}
+
 export async function buildQuran() {
   console.log("  fetching surah index…");
   const index = await fetchJSON(`${QURAN_JSON}/chapters/en/index.json`);
@@ -101,6 +149,18 @@ export async function buildQuran() {
     translitBySurah.set(surah.number, translit);
   }
   console.log("  fetched arabic + transliteration");
+
+  // Per-ayah page + hizb metadata (Madani mushaf) from Quran.com.
+  console.log("  fetching page + hizb metadata…");
+  const pageMetaBySurah = new Map();
+  for (const surah of surahs) {
+    const metaMap = await fetchSurahPageMeta(surah.number, surah.ayahCount);
+    pageMetaBySurah.set(surah.number, metaMap);
+    if (surah.number % 20 === 0) console.log(`    … surah ${surah.number}/114`);
+  }
+  const pageStarts = buildPageStarts(pageMetaBySurah, surahs);
+  validateQuranPageMeta({ surahs, pageMetaBySurah, pageStarts });
+  console.log("  ✓ validated page + hizb metadata (604 pages)");
 
   // Public-domain translations from fawazahmed0.
   const editionMaps = {};
@@ -133,13 +193,23 @@ export async function buildQuran() {
     return out;
   }
 
+  function toAyahMetaMap(metaMap) {
+    const out = {};
+    for (const [ayah, meta] of Object.entries(metaMap)) {
+      out[ayah] = { page: meta.page, hizb: meta.hizb };
+    }
+    return out;
+  }
+
   for (const surah of surahs) {
     const n = pad3(surah.number);
     const arabicPath = join(QURAN_DIR, "arabic", `${n}.json`);
     const translitPath = join(QURAN_DIR, "translit", `${n}.json`);
+    const ayahMetaPath = join(QURAN_DIR, "ayah-meta", `${n}.json`);
     await writeCompactJSON(arabicPath, toMap(arabicBySurah.get(surah.number)));
     await writeCompactJSON(translitPath, toMap(translitBySurah.get(surah.number)));
-    writtenFiles.push(arabicPath, translitPath);
+    await writeCompactJSON(ayahMetaPath, toAyahMetaMap(pageMetaBySurah.get(surah.number)));
+    writtenFiles.push(arabicPath, translitPath, ayahMetaPath);
 
     for (const ed of BUNDLED_TRANSLATIONS) {
       const path = join(QURAN_DIR, "translation", ed.id, `${n}.json`);
@@ -147,6 +217,10 @@ export async function buildQuran() {
       writtenFiles.push(path);
     }
   }
+
+  const pagesIndexPath = join(QURAN_DIR, "pages", "index.json");
+  await writeJSON(pagesIndexPath, { pageCount: TOTAL_PAGES, starts: pageStarts });
+  writtenFiles.push(pagesIndexPath);
 
   // Edition catalogue for meta.json.
   const editions = [
@@ -169,26 +243,31 @@ export async function buildQuran() {
   ];
 
   const metaPath = join(QURAN_DIR, "meta.json");
-  await writeJSON(metaPath, { surahs, editions });
+  await writeJSON(metaPath, { surahs, editions, pageCount: TOTAL_PAGES });
   writtenFiles.push(metaPath);
+
+  // Mushaf line layout (604 pages).
+  const mushaf = await buildMushafLayout({ pageStarts });
 
   // Generate the static require-map loader (literal requires — Metro cannot
   // resolve variable require paths).
   const loaderPath = join(APP_ROOT, "src", "lib", "quran-loader.ts");
   await writeFileStable(loaderPath, renderLoader(surahs, BUNDLED_TRANSLATIONS));
   console.log("  wrote src/lib/quran-loader.ts");
+  writtenFiles.push(loaderPath);
 
   return [
     await datasetEntry({
       id: "quran-core",
       kind: "quran",
-      version: 1,
-      absFiles: [...writtenFiles, loaderPath],
+      version: 2,
+      absFiles: writtenFiles.filter((f) => !f.includes("layout/madinah-15")),
       license: "CC BY-SA 4.0 (Arabic & transliteration) / Public domain (translations)",
       attribution:
-        "Arabic & transliteration: Tanzil.net via risan/quran-json. Translations: Pickthall, Yusuf Ali, Fateh Muhammad Jalandhry via fawazahmed0/quran-api.",
+        "Arabic & transliteration: Tanzil.net via risan/quran-json. Translations: Pickthall, Yusuf Ali, Fateh Muhammad Jalandhry via fawazahmed0/quran-api. Page metadata: Quran.com API v4 (Madani mushaf).",
       sourceUrl: "https://tanzil.net/",
     }),
+    mushaf.dataset,
   ];
 }
 
@@ -200,6 +279,13 @@ function renderLoader(surahs, translations) {
   const translit = surahs
     .map((s) => `  ${s.number}: () => require("${rel}/translit/${pad3(s.number)}.json"),`)
     .join("\n");
+  const ayahMeta = surahs
+    .map((s) => `  ${s.number}: () => require("${rel}/ayah-meta/${pad3(s.number)}.json"),`)
+    .join("\n");
+  const pageLayout = Array.from({ length: TOTAL_PAGES }, (_, i) => {
+    const page = i + 1;
+    return `  ${page}: () => require("${rel}/layout/madinah-15/${pad3(page)}.json"),`;
+  }).join("\n");
   const translationBlocks = translations
     .map((ed) => {
       const rows = surahs
@@ -217,12 +303,24 @@ function renderLoader(surahs, translations) {
 
 export type SurahJsonLoader = () => Record<string, string>;
 
+export type AyahMetaLoader = () => Record<string, { page: number; hizb: number }>;
+
+export type MushafPageLoader = () => import("@munib-tracker/shared/types").MushafPageLayout;
+
 export const arabicLoaders: Record<number, SurahJsonLoader> = {
 ${arabic}
 };
 
 export const transliterationLoaders: Record<number, SurahJsonLoader> = {
 ${translit}
+};
+
+export const ayahMetaLoaders: Record<number, AyahMetaLoader> = {
+${ayahMeta}
+};
+
+export const mushafPageLoaders: Record<number, MushafPageLoader> = {
+${pageLayout}
 };
 
 export const translationLoaders: Record<string, Record<number, SurahJsonLoader>> = {

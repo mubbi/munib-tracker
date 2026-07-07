@@ -2,7 +2,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { BACKUP_KEYS, DB_KEYS, RESET_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
-import { applyBackup, exportBackup, parseBackup } from "@/lib/backup";
+import {
+  applyBackup,
+  exportBackup,
+  invalidateSyncStateAfterRestore,
+  parseBackup,
+} from "@/lib/backup";
 
 beforeEach(async () => {
   await AsyncStorage.clear();
@@ -35,6 +40,19 @@ describe("backup export/import", () => {
     expect(await readJSON(DB_KEYS.learnDuaProgress, null)).toEqual(["dua-1"]);
   });
 
+  it("clears device-local sync cursors after a restore so restored data re-syncs", async () => {
+    await writeJSON(DB_KEYS.syncMetadata, { lastPushedAt: "2026-07-01T00:00:00.000Z" });
+    await writeJSON(DB_KEYS.blobSyncState, { fasting: { hash: "abc", updatedAt: "x" } });
+    // A user-data key must survive — only the sync bookkeeping is invalidated.
+    await writeJSON(DB_KEYS.fasting, { "2026-03-01": "fasted" });
+
+    await invalidateSyncStateAfterRestore();
+
+    expect(await readJSON(DB_KEYS.syncMetadata, null)).toBeNull();
+    expect(await readJSON(DB_KEYS.blobSyncState, null)).toBeNull();
+    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({ "2026-03-01": "fasted" });
+  });
+
   it("rejects malformed and foreign files", () => {
     expect(parseBackup("{not json").ok).toBe(false);
     expect(parseBackup(JSON.stringify({ app: "other", data: {} })).ok).toBe(false);
@@ -63,7 +81,12 @@ describe("key coverage", () => {
     // Backup is a strict subset of what a reset would clear.
     expect(RESET_KEYS).toEqual(expect.arrayContaining(BACKUP_KEYS));
     for (const cache of CACHE_KEYS) expect(BACKUP_KEYS).not.toContain(cache);
-    for (const local of [DB_KEYS.syncMetadata, DB_KEYS.tombstones, DB_KEYS.contentReportQueue]) {
+    for (const local of [
+      DB_KEYS.syncMetadata,
+      DB_KEYS.tombstones,
+      DB_KEYS.contentReportQueue,
+      DB_KEYS.blobSyncState,
+    ]) {
       expect(BACKUP_KEYS).not.toContain(local);
     }
     // Personal stores that were historically missed must now be captured.

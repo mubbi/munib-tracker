@@ -9,11 +9,13 @@ import { AppStack } from "@/components/app-stack";
 import { MiniPlayer } from "@/components/audio/mini-player";
 import { ContentReportProvider } from "@/components/content-report/content-report-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { ExternalCommandProcessor } from "@/components/external-command-processor";
 import { WebReminderAdhanBridge } from "@/components/notifications/web-reminder-adhan-bridge";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { ShareQrWarmup } from "@/components/share/share-qr-warmup";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
+import { PinLockGate, PinLockProvider } from "@/features/pin-lock";
 import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { ARABIC_FONT_FILES } from "@/lib/arabic-fonts";
 import { AppApiProvider } from "@/providers/api-provider";
@@ -45,33 +47,37 @@ export default function RootLayout() {
           <AppProviders>
             <I18nProvider>
               <AuthProvider>
-                <ToastProvider>
-                  <ContentReportProvider>
-                    <InAppNotificationsProvider>
-                      <NotificationProvider>
-                        <AudioPlayerProvider>
-                          <WebReminderAdhanBridge />
-                          <ShareQrWarmup />
-                          <MiniPlayerInsetProvider>
-                            <BlurTargetProvider
-                              overlays={
-                                <>
-                                  <WebNavigationFocusManager />
-                                  <WebPwaBootstrap />
-                                  <OnboardingGate />
-                                  <MiniPlayer />
-                                  <AnimatedSplashOverlay />
-                                </>
-                              }
-                            >
-                              <AppStack />
-                            </BlurTargetProvider>
-                          </MiniPlayerInsetProvider>
-                        </AudioPlayerProvider>
-                      </NotificationProvider>
-                    </InAppNotificationsProvider>
-                  </ContentReportProvider>
-                </ToastProvider>
+                <PinLockProvider>
+                  <ExternalCommandProcessor />
+                  <ToastProvider>
+                    <ContentReportProvider>
+                      <InAppNotificationsProvider>
+                        <NotificationProvider>
+                          <AudioPlayerProvider>
+                            <WebReminderAdhanBridge />
+                            <ShareQrWarmup />
+                            <MiniPlayerInsetProvider>
+                              <BlurTargetProvider
+                                overlays={
+                                  <>
+                                    <WebNavigationFocusManager />
+                                    <WebPwaBootstrap />
+                                    <OnboardingGate />
+                                    <PinLockGate />
+                                    <MiniPlayer />
+                                    <AnimatedSplashOverlay />
+                                  </>
+                                }
+                              >
+                                <AppStack />
+                              </BlurTargetProvider>
+                            </MiniPlayerInsetProvider>
+                          </AudioPlayerProvider>
+                        </NotificationProvider>
+                      </InAppNotificationsProvider>
+                    </ContentReportProvider>
+                  </ToastProvider>
+                </PinLockProvider>
               </AuthProvider>
             </I18nProvider>
           </AppProviders>

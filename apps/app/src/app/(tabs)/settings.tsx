@@ -9,6 +9,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { usePinLock } from "@/features/pin-lock";
 import { useFormatTime } from "@/hooks/use-time-format";
 import { useAuth } from "@/providers/auth-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
@@ -23,6 +24,7 @@ export default function SettingsScreen() {
   const { formatStored } = useFormatTime();
   const isNative = Platform.OS === "ios" || Platform.OS === "android";
   const { isAuthenticated, user } = useAuth();
+  const { isPinEnabled } = usePinLock();
   // A null/offline session isn't "guest" per the API, but the user still has no
   // linked account — treat them as a guest until they're a real authenticated user.
   const isGuest = !isAuthenticated;
@@ -170,6 +172,23 @@ export default function SettingsScreen() {
               value={LOCALE_LABELS[prefs.locale]}
               onPress={() => router.push("/settings/language")}
             />
+            {isNative ? (
+              <SettingsRow
+                icon={{ ios: "lock.fill", android: "lock", web: "lock" }}
+                title={t("settings.appLock")}
+                subtitle={t("settings.appLockSub")}
+                value={isPinEnabled ? t("common.on") : t("common.off")}
+                onPress={() => router.push("/settings/app-lock" as Href)}
+              />
+            ) : null}
+            {isNative ? (
+              <SettingsRow
+                icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
+                title={t("externalCommands.title")}
+                subtitle={t("externalCommands.settingsSubtitle")}
+                onPress={() => router.push("/settings/voice-shortcuts" as Href)}
+              />
+            ) : null}
           </View>
         </Card>
 

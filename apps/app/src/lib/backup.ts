@@ -1,5 +1,5 @@
-import { BACKUP_KEYS } from "@/db/keys";
-import { readJSON, writeJSON } from "@/db/store";
+import { BACKUP_KEYS, DB_KEYS } from "@/db/keys";
+import { readJSON, removeKey, writeJSON } from "@/db/store";
 
 /**
  * Local backup export/import (NF-1.20). Serializes the user's tracking + content
@@ -72,4 +72,18 @@ export async function applyBackup(file: BackupFile): Promise<void> {
       await writeJSON(key, file.data[key]);
     }
   }
+}
+
+/**
+ * After restoring a backup the local dataset is replaced wholesale, so the
+ * device-local sync cursors are stale and would silently drop the restored data
+ * from the next cloud sync: the delta-push watermark (`syncMetadata.lastPushedAt`)
+ * skips records whose own `updatedAt` predates it, and the blob content
+ * fingerprints (`blobSyncState`) no longer describe what's on disk. Clearing both
+ * forces the next sync to re-offer the restored data to the server and re-pull,
+ * reconciling everything by last-write-wins. A no-op for guests (who never sync)
+ * — the keys are simply absent.
+ */
+export async function invalidateSyncStateAfterRestore(): Promise<void> {
+  await Promise.all([removeKey(DB_KEYS.syncMetadata), removeKey(DB_KEYS.blobSyncState)]);
 }

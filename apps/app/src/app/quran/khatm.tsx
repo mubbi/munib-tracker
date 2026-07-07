@@ -22,6 +22,8 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   ayahsRemaining,
   dailyAyahTarget,
+  dailyPageTarget,
+  dailyTargetForPlan,
   daysElapsed,
   expectedAyahsByToday,
   KHATM_MAX_PLAN_DAYS,
@@ -30,14 +32,19 @@ import {
   type KhatmPlan,
   khatmPace,
   khatmPercentComplete,
+  khatmTotalForUnit,
+  pagesRemaining,
   parseKhatmLogAmount,
+  parseKhatmLogPages,
   parseKhatmPlanDays,
   parseKhatmTotalAyahs,
-  QURAN_TOTAL_AYAHS,
+  parseKhatmTotalPages,
+  QURAN_TOTAL_PAGES,
   scheduleGap,
 } from "@/lib/khatm";
 import { dayMotivationSeed, pickKhatmMotivation } from "@/lib/khatm-motivation";
 import { goBackOrReplace } from "@/lib/navigation";
+import { pageToStartAyah } from "@/lib/quran";
 import { chevronForward } from "@/lib/rtl";
 import { useEnsureKhatmLoaded, useKhatm, useKhatmActions } from "@/stores/khatm-store";
 
@@ -134,15 +141,21 @@ function KhatmMotivationCard({ seed, onShuffle }: { seed: number; onShuffle: () 
 function PlanPresetCard({
   days,
   tone,
+  unit,
   onPress,
 }: {
   days: number;
   tone: "intensive" | "balanced" | "steady";
+  unit: "ayah" | "page";
   onPress: () => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const target = dailyAyahTarget(days);
+  const target = unit === "page" ? dailyPageTarget(days) : dailyAyahTarget(days);
+  const targetLabel =
+    unit === "page"
+      ? t("khatm.dailyTargetPages", { count: target })
+      : t("khatm.dailyTarget", { count: target });
 
   return (
     <PressableCard onPress={onPress} accessibilityLabel={t("khatm.dayPlan", { count: days })}>
@@ -157,7 +170,7 @@ function PlanPresetCard({
         <View style={styles.presetCopy}>
           <ThemedText type="smallBold">{t("khatm.dayPlan", { count: days })}</ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
-            {t("khatm.dailyTarget", { count: target })}
+            {targetLabel}
           </ThemedText>
         </View>
         <Pill
@@ -171,13 +184,29 @@ function PlanPresetCard({
   );
 }
 
-function CustomPlanCard({ onStart }: { onStart: (days: number) => void }) {
+function CustomPlanCard({
+  unit,
+  onStart,
+}: {
+  unit: "ayah" | "page";
+  onStart: (days: number) => void;
+}) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [daysInput, setDaysInput] = useState("");
   const customDays = parseKhatmPlanDays(daysInput);
   const showInvalid = daysInput.trim().length > 0 && customDays == null;
-  const dailyTarget = customDays ? dailyAyahTarget(customDays) : null;
+  const dailyTarget = customDays
+    ? unit === "page"
+      ? dailyPageTarget(customDays)
+      : dailyAyahTarget(customDays)
+    : null;
+  const dailyTargetLabel =
+    dailyTarget != null
+      ? unit === "page"
+        ? t("khatm.dailyTargetPages", { count: dailyTarget })
+        : t("khatm.dailyTarget", { count: dailyTarget })
+      : null;
 
   return (
     <Card
@@ -217,9 +246,9 @@ function CustomPlanCard({ onStart }: { onStart: (days: number) => void }) {
               },
             ]}
           />
-          {customDays && dailyTarget ? (
+          {customDays && dailyTargetLabel ? (
             <ThemedText type="caption" themeColor="mutedForeground">
-              {t("khatm.dailyTarget", { count: dailyTarget })}
+              {dailyTargetLabel}
             </ThemedText>
           ) : showInvalid ? (
             <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
@@ -291,8 +320,52 @@ function LogAmountChip({
   );
 }
 
+function UnitToggle({
+  unit,
+  onChange,
+}: {
+  unit: "ayah" | "page";
+  onChange: (unit: "ayah" | "page") => void;
+}) {
+  const { t } = useTranslation();
+  const { colors } = useThemeTokens();
+
+  return (
+    <View style={styles.unitToggle}>
+      {(["ayah", "page"] as const).map((value) => {
+        const active = unit === value;
+        return (
+          <PressableScale
+            key={value}
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityState={{ selected: active }}
+            accessibilityLabel={value === "page" ? t("khatm.unitPage") : t("khatm.unitAyah")}
+            onPress={() => onChange(value)}
+            style={[
+              styles.unitChip,
+              {
+                backgroundColor: active ? colors.accent : colors.background,
+                borderColor: active ? colors.accent : colors.border,
+              },
+            ]}
+          >
+            <ThemedText
+              type="smallBold"
+              style={{ color: active ? colors.accentForeground : colors.mutedForeground }}
+            >
+              {value === "page" ? t("khatm.unitPage") : t("khatm.unitAyah")}
+            </ThemedText>
+          </PressableScale>
+        );
+      })}
+    </View>
+  );
+}
+
 function KhatmActivePlanCard({
   plan,
+  unit,
   ayahsRead,
   target,
   pace,
@@ -307,8 +380,10 @@ function KhatmActivePlanCard({
   onLog,
   onSetTotal,
   onReset,
+  onContinue,
 }: {
   plan: KhatmPlan;
+  unit: "ayah" | "page";
   ayahsRead: number;
   target: number;
   pace: KhatmPace;
@@ -323,12 +398,15 @@ function KhatmActivePlanCard({
   onLog: (amount: number) => void;
   onSetTotal: (total: number) => void;
   onReset: () => void;
+  onContinue?: () => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const [logAmountInput, setLogAmountInput] = useState(String(target));
   const [totalInput, setTotalInput] = useState(String(ayahsRead));
   const [showCorrectTotal, setShowCorrectTotal] = useState(false);
+  const totalUnits = khatmTotalForUnit(unit);
+  const isPageUnit = unit === "page";
 
   useEffect(() => {
     setLogAmountInput(String(target));
@@ -338,14 +416,59 @@ function KhatmActivePlanCard({
     setTotalInput(String(ayahsRead));
   }, [ayahsRead]);
 
-  const logAmount = parseKhatmLogAmount(logAmountInput, ayahsRead);
-  const totalAmount = parseKhatmTotalAyahs(totalInput);
+  const logAmount = isPageUnit
+    ? parseKhatmLogPages(logAmountInput, ayahsRead)
+    : parseKhatmLogAmount(logAmountInput, ayahsRead);
+  const totalAmount = isPageUnit
+    ? parseKhatmTotalPages(totalInput)
+    : parseKhatmTotalAyahs(totalInput);
   const logInvalid = logAmountInput.trim().length > 0 && logAmount == null;
   const totalInvalid = totalInput.trim().length > 0 && totalAmount == null;
-  const maxLog = ayahsRemaining(ayahsRead);
+  const maxLog = isPageUnit ? pagesRemaining(ayahsRead) : ayahsRemaining(ayahsRead);
+  const dailyTargetLabel = isPageUnit
+    ? t("khatm.dailyTargetPages", { count: target })
+    : t("khatm.dailyTarget", { count: target });
+  const progressLabel = isPageUnit
+    ? t("khatm.progressPages", { read: format(ayahsRead), total: format(totalUnits) })
+    : t("khatm.progress", { read: format(ayahsRead), total: format(totalUnits) });
+  const remainingLabel = isPageUnit ? t("khatm.remainingPages") : t("khatm.remainingAyahs");
+  const logPlaceholder = isPageUnit
+    ? t("khatm.logAmountPlaceholderPages")
+    : t("khatm.logAmountPlaceholder");
+  const logA11y = isPageUnit ? t("khatm.logAmountA11yPages") : t("khatm.logAmountA11y");
+  const logInvalidMsg = isPageUnit
+    ? t("khatm.logInvalidPages", { max: format(maxLog) })
+    : t("khatm.logInvalid", { max: format(maxLog) });
+  const logAddLabel =
+    logAmount != null
+      ? isPageUnit
+        ? t("khatm.logAddPages", { count: logAmount })
+        : t("khatm.logAdd", { count: logAmount })
+      : t("khatm.logToday");
+  const catchUpLabel = isPageUnit
+    ? t("khatm.catchUpPages", { count: Math.abs(gap) })
+    : t("khatm.catchUp", { count: Math.abs(gap) });
+  const aheadLabel = isPageUnit
+    ? t("khatm.aheadByPages", { count: gap })
+    : t("khatm.aheadBy", { count: gap });
+  const logSectionHint = isPageUnit ? t("khatm.logSectionHintPages") : t("khatm.logSectionHint");
+  const correctTotalHint = isPageUnit
+    ? t("khatm.correctTotalHintPages")
+    : t("khatm.correctTotalHint");
+  const correctTotalA11y = isPageUnit
+    ? t("khatm.correctTotalA11yPages")
+    : t("khatm.correctTotalA11y");
+  const correctTotalInvalidMsg = isPageUnit
+    ? t("khatm.correctTotalInvalidPages", { max: format(totalUnits) })
+    : t("khatm.correctTotalInvalid", { max: format(totalUnits) });
+  const lessA11y = isPageUnit ? t("khatm.lessPages") : t("khatm.less");
+  const moreA11y = isPageUnit ? t("khatm.morePages") : t("khatm.more");
 
   const bumpLogAmount = (delta: number) => {
-    const current = parseKhatmLogAmount(logAmountInput, ayahsRead) ?? 0;
+    const current =
+      (isPageUnit
+        ? parseKhatmLogPages(logAmountInput, ayahsRead)
+        : parseKhatmLogAmount(logAmountInput, ayahsRead)) ?? 0;
     const next = Math.max(1, Math.min(maxLog, current + delta));
     setLogAmountInput(String(next));
   };
@@ -378,7 +501,7 @@ function KhatmActivePlanCard({
               : t("khatm.dayOf", { day: dayNumber, total: plan.days })}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
-            {t("khatm.dailyTarget", { count: target })}
+            {dailyTargetLabel}
           </ThemedText>
         </View>
         <View style={styles.paceBadge}>
@@ -392,7 +515,7 @@ function KhatmActivePlanCard({
           {pace === "done" ? t("khatm.pace.done") : t("khatm.percentComplete", { percent })}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
-          {t("khatm.progress", { read: format(ayahsRead), total: format(QURAN_TOTAL_AYAHS) })}
+          {progressLabel}
         </ThemedText>
       </View>
 
@@ -402,7 +525,7 @@ function KhatmActivePlanCard({
         <View style={styles.stat}>
           <ThemedText type="smallBold">{format(remaining)}</ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
-            {t("khatm.remainingAyahs")}
+            {remainingLabel}
           </ThemedText>
         </View>
         <View style={[styles.statDivider, { backgroundColor: tokens.hairline }]} />
@@ -429,7 +552,7 @@ function KhatmActivePlanCard({
             tintColor={tokens.status.warning.color}
           />
           <ThemedText type="caption" style={{ color: tokens.status.warning.text, flex: 1 }}>
-            {t("khatm.catchUp", { count: Math.abs(gap) })}
+            {catchUpLabel}
           </ThemedText>
         </View>
       ) : pace === "ahead" ? (
@@ -440,9 +563,18 @@ function KhatmActivePlanCard({
             tintColor={tokens.status.success.color}
           />
           <ThemedText type="caption" style={{ color: tokens.status.success.text, flex: 1 }}>
-            {t("khatm.aheadBy", { count: gap })}
+            {aheadLabel}
           </ThemedText>
         </View>
+      ) : null}
+
+      {isPageUnit && pace !== "done" && onContinue ? (
+        <Button
+          label={t("khatm.continueReading")}
+          onPress={onContinue}
+          icon={{ ios: "book.pages.fill", android: "menu_book", web: "menu_book" }}
+          fullWidth
+        />
       ) : null}
 
       {pace !== "done" ? (
@@ -452,7 +584,7 @@ function KhatmActivePlanCard({
             icon={{ ios: "plus.circle.fill", android: "add_circle", web: "add_circle" }}
           />
           <ThemedText type="caption" themeColor="mutedForeground">
-            {t("khatm.logSectionHint")}
+            {logSectionHint}
           </ThemedText>
 
           <View style={[styles.logInputRow, { backgroundColor: colors.background }]}>
@@ -461,8 +593,8 @@ function KhatmActivePlanCard({
               size={18}
               tintColor={colors.foreground}
               background={colors.muted}
-              accessibilityLabel={t("khatm.less")}
-              onPress={() => bumpLogAmount(-10)}
+              accessibilityLabel={lessA11y}
+              onPress={() => bumpLogAmount(isPageUnit ? -1 : -10)}
               hitTarget={44}
               haptic="light"
             />
@@ -472,9 +604,9 @@ function KhatmActivePlanCard({
                 setLogAmountInput(text.replace(/[^0-9]/g, "").slice(0, String(maxLog).length))
               }
               keyboardType="number-pad"
-              placeholder={t("khatm.logAmountPlaceholder")}
+              placeholder={logPlaceholder}
               placeholderTextColor={colors.mutedForeground}
-              accessibilityLabel={t("khatm.logAmountA11y")}
+              accessibilityLabel={logA11y}
               style={[
                 styles.logInput,
                 {
@@ -488,8 +620,8 @@ function KhatmActivePlanCard({
               size={18}
               tintColor={colors.foreground}
               background={colors.muted}
-              accessibilityLabel={t("khatm.more")}
-              onPress={() => bumpLogAmount(10)}
+              accessibilityLabel={moreA11y}
+              onPress={() => bumpLogAmount(isPageUnit ? 1 : 10)}
               hitTarget={44}
               haptic="light"
             />
@@ -497,7 +629,7 @@ function KhatmActivePlanCard({
 
           {logInvalid ? (
             <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-              {t("khatm.logInvalid", { max: format(maxLog) })}
+              {logInvalidMsg}
             </ThemedText>
           ) : null}
 
@@ -523,9 +655,7 @@ function KhatmActivePlanCard({
           </ScrollView>
 
           <Button
-            label={
-              logAmount != null ? t("khatm.logAdd", { count: logAmount }) : t("khatm.logToday")
-            }
+            label={logAddLabel}
             disabled={logAmount == null}
             onPress={() => {
               if (logAmount != null) {
@@ -541,20 +671,18 @@ function KhatmActivePlanCard({
             <View style={styles.correctSection}>
               <ThemedText type="smallBold">{t("khatm.correctTotalTitle")}</ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground">
-                {t("khatm.correctTotalHint")}
+                {correctTotalHint}
               </ThemedText>
               <View style={styles.correctRow}>
                 <TextInput
                   value={totalInput}
                   onChangeText={(text) =>
-                    setTotalInput(
-                      text.replace(/[^0-9]/g, "").slice(0, String(QURAN_TOTAL_AYAHS).length),
-                    )
+                    setTotalInput(text.replace(/[^0-9]/g, "").slice(0, String(totalUnits).length))
                   }
                   keyboardType="number-pad"
-                  placeholder={t("khatm.correctTotalA11y")}
+                  placeholder={correctTotalA11y}
                   placeholderTextColor={colors.mutedForeground}
-                  accessibilityLabel={t("khatm.correctTotalA11y")}
+                  accessibilityLabel={correctTotalA11y}
                   style={[
                     styles.correctInput,
                     {
@@ -579,7 +707,7 @@ function KhatmActivePlanCard({
               </View>
               {totalInvalid ? (
                 <ThemedText type="caption" style={{ color: tokens.status.warning.text }}>
-                  {t("khatm.correctTotalInvalid", { max: format(QURAN_TOTAL_AYAHS) })}
+                  {correctTotalInvalidMsg}
                 </ThemedText>
               ) : null}
             </View>
@@ -667,27 +795,49 @@ export default function KhatmScreen() {
   const { t, i18n } = useTranslation();
   const { tokens } = useThemeTokens();
   useEnsureKhatmLoaded();
-  const { plan, ayahsRead } = useKhatm();
+  const { plan, ayahsRead, unit: storedUnit } = useKhatm();
   const { start, setAyahsRead, clear } = useKhatmActions();
   const locale = i18n.language?.split("-")[0];
   const today = getLocalDateString();
   const [motivationSeed, setMotivationSeed] = useState(() => dayMotivationSeed(today));
   const [resetOpen, setResetOpen] = useState(false);
   const [pendingStartDays, setPendingStartDays] = useState<number | null>(null);
+  const [startUnit, setStartUnit] = useState<"ayah" | "page">("ayah");
 
-  const pendingStartTarget = pendingStartDays != null ? dailyAyahTarget(pendingStartDays) : 0;
+  const activeUnit = plan?.unit ?? storedUnit ?? "ayah";
+  const pendingStartTarget =
+    pendingStartDays != null
+      ? startUnit === "page"
+        ? dailyPageTarget(pendingStartDays)
+        : dailyAyahTarget(pendingStartDays)
+      : 0;
 
-  const target = plan ? dailyAyahTarget(plan.days) : 0;
+  const target = plan ? dailyTargetForPlan(plan) : 0;
+  const totalUnits = khatmTotalForUnit(activeUnit);
   const pace = plan ? khatmPace(plan, ayahsRead, today) : "onTrack";
   const tone = paceTone(pace, tokens);
-  const progress = ayahsRead / QURAN_TOTAL_AYAHS;
-  const percent = khatmPercentComplete(ayahsRead);
+  const progress = ayahsRead / totalUnits;
+  const percent = khatmPercentComplete(ayahsRead, activeUnit);
   const dayNumber = plan ? Math.min(plan.days, daysElapsed(plan, today) + 1) : 0;
   const expected = plan ? expectedAyahsByToday(plan, today) : 0;
-  const remaining = ayahsRemaining(ayahsRead);
+  const remaining = activeUnit === "page" ? pagesRemaining(ayahsRead) : ayahsRemaining(ayahsRead);
   const gap = plan ? scheduleGap(plan, ayahsRead, today) : 0;
+  const continuePage = Math.min(QURAN_TOTAL_PAGES, Math.max(1, ayahsRead + 1));
+  const continueStart = pageToStartAyah(continuePage);
 
   const format = (n: number) => n.toLocaleString(locale);
+  const pendingConfirmMsg =
+    pendingStartDays != null
+      ? startUnit === "page"
+        ? t("khatm.startConfirmMsgPages", {
+            days: pendingStartDays,
+            count: pendingStartTarget,
+          })
+        : t("khatm.startConfirmMsg", {
+            days: pendingStartDays,
+            count: pendingStartTarget,
+          })
+      : undefined;
 
   return (
     <ScreenLayout
@@ -710,23 +860,26 @@ export default function KhatmScreen() {
               icon={{ ios: "flag.checkered", android: "flag", web: "flag" }}
             />
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-              {t("khatm.startHint")}
+              {startUnit === "page" ? t("khatm.startHintPages") : t("khatm.startHint")}
             </ThemedText>
+            <UnitToggle unit={startUnit} onChange={setStartUnit} />
             <View style={styles.presetList}>
               {PLAN_PRESETS.map((preset) => (
                 <PlanPresetCard
                   key={preset.days}
                   days={preset.days}
                   tone={preset.tone}
+                  unit={startUnit}
                   onPress={() => setPendingStartDays(preset.days)}
                 />
               ))}
-              <CustomPlanCard onStart={setPendingStartDays} />
+              <CustomPlanCard unit={startUnit} onStart={setPendingStartDays} />
             </View>
           </Card>
         ) : plan ? (
           <KhatmActivePlanCard
             plan={plan}
+            unit={activeUnit}
             ayahsRead={ayahsRead}
             target={target}
             pace={pace}
@@ -741,6 +894,16 @@ export default function KhatmScreen() {
             onLog={(amount) => void setAyahsRead(ayahsRead + amount)}
             onSetTotal={(total) => void setAyahsRead(total)}
             onReset={() => setResetOpen(true)}
+            onContinue={
+              activeUnit === "page"
+                ? () =>
+                    router.push(
+                      continueStart
+                        ? `/quran/page/${continuePage}?surah=${continueStart.surah}&ayah=${continueStart.ayah}`
+                        : `/quran/page/${continuePage}`,
+                    )
+                : undefined
+            }
           />
         ) : null}
       </Stagger>
@@ -748,18 +911,11 @@ export default function KhatmScreen() {
       <ConfirmDialog
         visible={pendingStartDays != null}
         title={t("khatm.startConfirmTitle")}
-        message={
-          pendingStartDays != null
-            ? t("khatm.startConfirmMsg", {
-                days: pendingStartDays,
-                count: pendingStartTarget,
-              })
-            : undefined
-        }
+        message={pendingConfirmMsg}
         confirmLabel={t("khatm.startConfirmAction")}
         cancelLabel={t("common.cancel")}
         onConfirm={() => {
-          if (pendingStartDays != null) void start(pendingStartDays);
+          if (pendingStartDays != null) void start(pendingStartDays, startUnit);
           setPendingStartDays(null);
         }}
         onCancel={() => setPendingStartDays(null)}
@@ -787,6 +943,16 @@ export default function KhatmScreen() {
 const styles = StyleSheet.create({
   hint: { marginTop: Spacing.two, marginBottom: Spacing.three },
   presetList: { gap: Spacing.two },
+  unitToggle: { flexDirection: "row", gap: Spacing.two, marginBottom: Spacing.three },
+  unitChip: {
+    flex: 1,
+    alignItems: "center",
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.three,
+  },
   presetRow: {
     flexDirection: "row",
     alignItems: "center",

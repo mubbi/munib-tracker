@@ -38,6 +38,8 @@ type ReadingToolbarProps = {
   secondTranslationName: string;
   showTransliteration: boolean;
   showTranslation: boolean;
+  layoutLabel?: string;
+  onOpenLayout?: () => void;
   onBackToTop: () => void;
   onOpenReciter: () => void;
   onOpenTranslation: () => void;
@@ -60,6 +62,8 @@ export function QuranReadingToolbar({
   secondTranslationName,
   showTransliteration,
   showTranslation,
+  layoutLabel,
+  onOpenLayout,
   onBackToTop,
   onOpenReciter,
   onOpenTranslation,
@@ -134,6 +138,14 @@ export function QuranReadingToolbar({
             />
             <ReadingFontControls surface="quran" />
           </View>
+          {layoutLabel && onOpenLayout ? (
+            <SelectChip
+              icon={{ ios: "book.pages", android: "menu_book", web: "menu_book" }}
+              value={layoutLabel}
+              accessibilityLabel={t("quran.readerLayout")}
+              onPress={onOpenLayout}
+            />
+          ) : null}
           <SelectChip
             icon={TOOLBAR_ICONS.reciter}
             value={reciterName}

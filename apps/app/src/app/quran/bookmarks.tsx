@@ -14,7 +14,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
+import { getBundledEdition, getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { buildAyahSharePayload } from "@/lib/share";
 import { useQuranActions, useQuranBookmarks } from "@/stores/quran-store";
@@ -69,6 +69,7 @@ export default function QuranBookmarksScreen() {
                 const arabic = getSurahAyahs(bm.surah)[bm.ayah - 1]?.arabic ?? "";
                 const translation =
                   getBundledEdition(FALLBACK_TRANSLATION, bm.surah)[String(bm.ayah)] ?? "";
+                const page = getPageForAyah(bm.surah, bm.ayah);
                 return (
                   <View key={bm.id} style={[styles.row, { backgroundColor: colors.muted }]}>
                     <PressableScale
@@ -85,7 +86,7 @@ export default function QuranBookmarksScreen() {
                     >
                       <View style={[styles.badge, { backgroundColor: tokens.accentSoft }]}>
                         <ThemedText type="caption" style={{ color: colors.accent }}>
-                          {bm.surah}:{bm.ayah}
+                          {bm.surah}:{bm.ayah} · {t("quran.pageN", { n: page })}
                         </ThemedText>
                       </View>
                       <View style={styles.body}>

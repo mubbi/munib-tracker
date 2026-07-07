@@ -3,6 +3,8 @@
 
 export const TOTAL_SURAHS = 114;
 export const TOTAL_AYAHS = 6236;
+export const TOTAL_PAGES = 604;
+export const TOTAL_HIZBS = 60;
 
 /**
  * Canonical starting ayah of each of the 30 juz (surah:ayah). Standard Hafs
@@ -122,5 +124,110 @@ export function validateQuran({ surahs, ayahsBySurah, editions }) {
         `edition ${editionId} surah ${surah.number}: ${lines.length} lines !== ${surah.ayahCount} ayahs`,
       );
     }
+  }
+}
+
+/**
+ * Validate per-ayah page/hizb metadata and the 604-page start index.
+ * @param {{ surahs: any[], pageMetaBySurah: Map<number, Record<number, { page: number, hizb: number }>>, pageStarts: { page: number, surah: number, ayah: number }[] }} data
+ */
+export function validateQuranPageMeta({ surahs, pageMetaBySurah, pageStarts }) {
+  assert(
+    pageStarts.length === TOTAL_PAGES,
+    `expected ${TOTAL_PAGES} page starts, got ${pageStarts.length}`,
+  );
+  assert(
+    pageStarts[0].page === 1 && pageStarts[0].surah === 1 && pageStarts[0].ayah === 1,
+    "page 1 must start at 1:1",
+  );
+
+  let prevPage = 0;
+  let prevPos = 0;
+  for (const start of pageStarts) {
+    assert(start.page === prevPage + 1, `page starts not sequential at page ${start.page}`);
+    prevPage = start.page;
+    const p = pos(start.surah, start.ayah);
+    assert(p >= prevPos, `page ${start.page} start ${start.surah}:${start.ayah} not monotonic`);
+    prevPos = p;
+    const meta = pageMetaBySurah.get(start.surah)?.[start.ayah];
+    assert(meta?.page === start.page, `page ${start.page} start meta mismatch`);
+  }
+
+  let total = 0;
+  let lastPage = 0;
+  for (const surah of surahs) {
+    const metaMap = pageMetaBySurah.get(surah.number);
+    assert(metaMap, `missing page meta for surah ${surah.number}`);
+    for (let ayah = 1; ayah <= surah.ayahCount; ayah++) {
+      const meta = metaMap[ayah];
+      assert(meta, `missing page meta for ${surah.number}:${ayah}`);
+      assert(
+        meta.page >= 1 && meta.page <= TOTAL_PAGES,
+        `${surah.number}:${ayah} page ${meta.page} out of range`,
+      );
+      assert(
+        meta.hizb >= 1 && meta.hizb <= TOTAL_HIZBS,
+        `${surah.number}:${ayah} hizb ${meta.hizb} out of range`,
+      );
+      assert(meta.page >= lastPage, `${surah.number}:${ayah} page regresses`);
+      lastPage = meta.page;
+      assert(juzForAyah(surah.number, ayah) >= 1, `juz check failed for ${surah.number}:${ayah}`);
+      total++;
+    }
+  }
+  assert(total === TOTAL_AYAHS, `expected ${TOTAL_AYAHS} ayah meta rows, got ${total}`);
+
+  const last = pageStarts[TOTAL_PAGES - 1];
+  assert(last.surah === 112 && last.ayah === 1, "page 604 must start at 112:1");
+}
+
+/**
+ * Validate normalized mushaf layout pages (604 files).
+ * @param {{ layouts: { page: number, lines: any[] }[], pageStarts: { page: number, surah: number, ayah: number }[] }} data
+ */
+export function validateMushafLayout({ layouts, pageStarts }) {
+  assert(
+    layouts.length === TOTAL_PAGES,
+    `expected ${TOTAL_PAGES} layout pages, got ${layouts.length}`,
+  );
+  for (const layout of layouts) {
+    assert(layout.page >= 1 && layout.page <= TOTAL_PAGES, `invalid layout page ${layout.page}`);
+    assert(
+      Array.isArray(layout.lines) && layout.lines.length > 0,
+      `page ${layout.page}: empty lines`,
+    );
+    for (const line of layout.lines) {
+      assert(typeof line.type === "string", `page ${layout.page}: line missing type`);
+      if (line.type === "surah_name") {
+        assert(
+          line.surah >= 1 && line.surah <= TOTAL_SURAHS,
+          `page ${layout.page}: bad surah_name`,
+        );
+        assert(
+          typeof line.text === "string" && line.text.length > 0,
+          `page ${layout.page}: empty surah_name`,
+        );
+      } else if (line.type === "basmala") {
+        assert(
+          typeof line.glyphs === "string" && line.glyphs.length > 0,
+          `page ${layout.page}: empty basmala`,
+        );
+      } else if (line.type === "text") {
+        assert(
+          typeof line.glyphs === "string" && line.glyphs.length > 0,
+          `page ${layout.page}: empty text line`,
+        );
+        assert(
+          line.alignment === "centered" || line.alignment === "justified",
+          `page ${layout.page}: bad alignment`,
+        );
+      } else {
+        assert(false, `page ${layout.page}: unknown line type ${line.type}`);
+      }
+    }
+  }
+  const startByPage = new Map(pageStarts.map((s) => [s.page, s]));
+  for (const layout of layouts) {
+    assert(startByPage.has(layout.page), `layout page ${layout.page} missing from page starts`);
   }
 }

@@ -1,7 +1,8 @@
+import { QURAN_TOTAL_AYAHS, QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 
-/** Total ayahs in the Qur'an — the finish line for any khatm plan. */
-export const QURAN_TOTAL_AYAHS = 6236;
+/** Total ayahs in the Qur'an — the finish line for any ayah-based khatm plan. */
+export { QURAN_TOTAL_AYAHS, QURAN_TOTAL_PAGES };
 
 /** Inclusive bounds for a user-entered khatm plan length. */
 export const KHATM_MIN_PLAN_DAYS = 1;
@@ -43,11 +44,49 @@ export interface KhatmPlan {
   days: number;
   /** ISO date the plan started (YYYY-MM-DD). */
   startDate: string;
+  /** Track progress by ayah count or mushaf pages. */
+  unit?: "ayah" | "page";
 }
 
 /** Ayahs to read per day to finish on schedule. */
 export function dailyAyahTarget(days: number): number {
   return Math.ceil(QURAN_TOTAL_AYAHS / Math.max(1, days));
+}
+
+/** Mushaf pages to read per day to finish on schedule. */
+export function dailyPageTarget(days: number): number {
+  return Math.ceil(QURAN_TOTAL_PAGES / Math.max(1, days));
+}
+
+export function khatmTotalForUnit(unit: "ayah" | "page" = "ayah"): number {
+  return unit === "page" ? QURAN_TOTAL_PAGES : QURAN_TOTAL_AYAHS;
+}
+
+export function dailyTargetForPlan(plan: KhatmPlan): number {
+  return plan.unit === "page" ? dailyPageTarget(plan.days) : dailyAyahTarget(plan.days);
+}
+
+/** Parses pages to log in one session (1 … remaining). */
+export function parseKhatmLogPages(raw: string, pagesRead: number): number | null {
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const amount = Number.parseInt(trimmed, 10);
+  const max = pagesRemaining(pagesRead);
+  if (!Number.isFinite(amount) || amount < 1 || amount > max) return null;
+  return amount;
+}
+
+/** Parses an absolute total-page count for manual correction. */
+export function parseKhatmTotalPages(raw: string): number | null {
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const total = Number.parseInt(trimmed, 10);
+  if (!Number.isFinite(total) || total < 0 || total > QURAN_TOTAL_PAGES) return null;
+  return total;
+}
+
+export function pagesRemaining(pagesRead: number): number {
+  return Math.max(0, QURAN_TOTAL_PAGES - pagesRead);
 }
 
 /** Whole days elapsed since the plan started (0 on the start day). */
@@ -64,7 +103,9 @@ export function expectedAyahsByToday(
   today: string = getLocalDateString(),
 ): number {
   const dayNumber = Math.min(plan.days, daysElapsed(plan, today) + 1);
-  return Math.min(QURAN_TOTAL_AYAHS, dailyAyahTarget(plan.days) * dayNumber);
+  const total = khatmTotalForUnit(plan.unit ?? "ayah");
+  const daily = dailyTargetForPlan(plan);
+  return Math.min(total, daily * dayNumber);
 }
 
 export type KhatmPace = "ahead" | "onTrack" | "behind" | "done";
@@ -72,18 +113,20 @@ export type KhatmPace = "ahead" | "onTrack" | "behind" | "done";
 /** Compares actual reading against the expected pace for a status pill. */
 export function khatmPace(
   plan: KhatmPlan,
-  ayahsRead: number,
+  read: number,
   today: string = getLocalDateString(),
 ): KhatmPace {
-  if (ayahsRead >= QURAN_TOTAL_AYAHS) return "done";
+  const total = khatmTotalForUnit(plan.unit ?? "ayah");
+  if (read >= total) return "done";
   const expected = expectedAyahsByToday(plan, today);
-  if (ayahsRead >= expected) return ayahsRead > expected ? "ahead" : "onTrack";
+  if (read >= expected) return read > expected ? "ahead" : "onTrack";
   return "behind";
 }
 
 /** Whole-percent completion toward finishing the Qur'an. */
-export function khatmPercentComplete(ayahsRead: number): number {
-  return Math.min(100, Math.round((ayahsRead / QURAN_TOTAL_AYAHS) * 100));
+export function khatmPercentComplete(read: number, unit: "ayah" | "page" = "ayah"): number {
+  const total = khatmTotalForUnit(unit);
+  return Math.min(100, Math.round((read / total) * 100));
 }
 
 /** Ayahs still to read before the plan is complete. */
