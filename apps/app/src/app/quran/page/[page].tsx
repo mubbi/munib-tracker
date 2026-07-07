@@ -5,7 +5,6 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
-import PagerView from "react-native-pager-view";
 import { useSharedValue } from "react-native-reanimated";
 
 import { isRemoteEdition } from "@/api/quran-remote";
@@ -14,6 +13,7 @@ import { MushafLineRenderer } from "@/components/quran/mushaf-line-renderer";
 import { OptionPickerSheet } from "@/components/quran/option-picker-sheet";
 import { PageLayoutRenderer } from "@/components/quran/page-layout-renderer";
 import { PagePickerSheet } from "@/components/quran/page-picker-sheet";
+import PagerView, { type PagerViewHandle } from "@/components/quran/pager-view";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -78,7 +78,7 @@ export default function QuranPageReaderScreen() {
   const { updatePrefs, setLastRead, toggleBookmark, recordProgress } = useQuranActions();
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
-  const pagerRef = useRef<PagerView>(null);
+  const pagerRef = useRef<PagerViewHandle>(null);
   const readingProgress = useSharedValue((initialPage - 1) / (getPageCount() - 1));
 
   const [currentPage, setCurrentPage] = useState(initialPage);

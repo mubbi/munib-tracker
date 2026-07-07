@@ -2,8 +2,6 @@ const { withDangerousMod, withSettingsGradle } = require("@expo/config-plugins")
 const fs = require("node:fs");
 const path = require("node:path");
 
-const WEAR_TILE_SERVICE = "expo.modules.munibwear.MunibWearTileService";
-
 function withWearOs(config) {
   config = withSettingsGradle(config, (config) => {
     const contents = config.modResults.contents;

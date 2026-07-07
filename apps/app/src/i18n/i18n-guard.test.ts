@@ -126,10 +126,10 @@ describe("i18n key coverage", () => {
 // ---------------------------------------------------------------------------
 // Key paths whose values legitimately contain Latin script (formats, brand/URL).
 const LATIN_OK_KEYS =
-  /appName|authorValue|placeholder|[Tt]ransliteration|brandDua|\.email|\.url|version|formatHint|importSub|sourceNote|methods\.|footer$|iosPwa|webUseAllow|permissionDismissed|expoGoMessage|webGrantedMobileNote|webLimited|installBannerMessage|installStepsViaSafari|installLinkCopied|installCopyLink|downloadIos|downloadAndroid|proofIos|proofAndroid|proofQr/;
+  /appName|authorValue|placeholder|[Tt]ransliteration|brandDua|\.email|\.url|version|formatHint|importSub|sourceNote|methods\.|footer$|iosPwa|webUseAllow|permissionDismissed|expoGoMessage|webGrantedMobileNote|webLimited|installBannerMessage|installStepsViaSafari|installLinkCopied|installCopyLink|downloadIos|downloadAndroid|proofIos|proofAndroid|proofQr|externalCommands\.(siriHint|assistantHint)/;
 // Proper nouns / acronyms that stay in Latin even in Urdu/Arabic. Extend as needed.
 const LATIN_OK_WORDS = new Set(
-  "Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet".split(
+  "Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS".split(
     " ",
   ),
 );

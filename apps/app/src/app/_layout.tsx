@@ -48,8 +48,8 @@ export default function RootLayout() {
             <I18nProvider>
               <AuthProvider>
                 <PinLockProvider>
-                  <ExternalCommandProcessor />
                   <ToastProvider>
+                    <ExternalCommandProcessor />
                     <ContentReportProvider>
                       <InAppNotificationsProvider>
                         <NotificationProvider>
