@@ -2,7 +2,7 @@ import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/
 import type { AppLocale, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { CalendarWeekStrip } from "@/components/calendar-week-strip";
@@ -43,8 +43,14 @@ export default function CalendarDayScreen() {
 
   const [status, setStatus] = useState<Record<string, PrayerStatus>>({});
   const [notes, setNotes] = useState<Record<string, string | undefined>>({});
+  const [jama, setJama] = useState<Record<string, boolean>>({});
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
+  // Retain a valid prayer id after first open so the sheet stays mounted and can
+  // animate closed with stable content rather than unmounting instantly.
+  const lastActivePrayer = useRef<PrayerId | null>(activePrayer);
+  if (activePrayer) lastActivePrayer.current = activePrayer;
+  const sheetPrayer = activePrayer ?? lastActivePrayer.current;
   const remindAfterSalahAdhkar = useAfterSalahAdhkarReminder();
 
   useFocusEffect(
@@ -76,12 +82,15 @@ export default function CalendarDayScreen() {
     ]);
     const nextStatus: Record<string, PrayerStatus> = {};
     const nextNotes: Record<string, string | undefined> = {};
+    const nextJama: Record<string, boolean> = {};
     for (const log of logs) {
       nextStatus[log.prayerId] = log.status;
       if (log.notes) nextNotes[log.prayerId] = log.notes;
+      if (log.isJama) nextJama[log.prayerId] = true;
     }
     setStatus(nextStatus);
     setNotes(nextNotes);
+    setJama(nextJama);
     setActivity(aggregateByDate(allLogs));
   }, [date]);
 
@@ -114,6 +123,12 @@ export default function CalendarDayScreen() {
 
   const applyNotes = async (prayerId: PrayerId, text: string) => {
     await PrayerRepository.setNotes(prayerId, date, text);
+    await reload();
+    await trackerStore.getState().refresh();
+  };
+
+  const applyJama = async (prayerId: PrayerId, next: boolean) => {
+    await PrayerRepository.setFlags(prayerId, date, { isJama: next });
     await reload();
     await trackerStore.getState().refresh();
   };
@@ -166,6 +181,7 @@ export default function CalendarDayScreen() {
                     prayerId={prayerId}
                     status={status[prayerId] ?? "pending"}
                     hasNotes={!!notes[prayerId]}
+                    isJama={jama[prayerId] ?? false}
                     onPress={() => setActivePrayer(prayerId)}
                   />
                 ))}
@@ -211,15 +227,17 @@ export default function CalendarDayScreen() {
         )}
       </Stagger>
 
-      {activePrayer ? (
+      {sheetPrayer ? (
         <PrayerStatusSheet
-          visible
-          prayerId={activePrayer}
-          prayerLabel={t(`prayers.${activePrayer}`)}
-          currentStatus={status[activePrayer] ?? "pending"}
-          currentNotes={notes[activePrayer]}
-          onSelect={(next, options) => applyStatus(activePrayer, next, options)}
-          onSaveNotes={(text) => applyNotes(activePrayer, text)}
+          visible={activePrayer != null}
+          prayerId={sheetPrayer}
+          prayerLabel={t(`prayers.${sheetPrayer}`)}
+          currentStatus={status[sheetPrayer] ?? "pending"}
+          currentNotes={notes[sheetPrayer]}
+          isJama={jama[sheetPrayer] ?? false}
+          onToggleJama={(next) => applyJama(sheetPrayer, next)}
+          onSelect={(next, options) => applyStatus(sheetPrayer, next, options)}
+          onSaveNotes={(text) => applyNotes(sheetPrayer, text)}
           onClose={() => setActivePrayer(null)}
         />
       ) : null}

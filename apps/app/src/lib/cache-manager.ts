@@ -1,9 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform } from "react-native";
 
 import { DB_KEYS } from "@/db/keys";
-import { clearAudioCache, getAudioCacheSize } from "@/lib/audio-cache";
-import { clearWebAudioCache, getWebAudioCacheSize } from "@/lib/pwa/audio-sw-cache";
+import { clearAudioCache, getAudioCacheInfo } from "@/lib/audio-cache";
 
 /**
  * Offline download / cache manager (NF-1.14). Lists the rebuildable caches
@@ -12,8 +10,8 @@ import { clearWebAudioCache, getWebAudioCacheSize } from "@/lib/pwa/audio-sw-cac
  * favorites) is never touched here — only caches that refetch on demand.
  *
  * The "audio" group spans both AsyncStorage (HEAD-estimated durations) and the
- * downloaded MP3s themselves — native files via {@link getAudioCacheSize}, or the
- * service-worker cache on web ({@link getWebAudioCacheSize}).
+ * downloaded MP3s themselves — native files or the web Cache Storage bucket, both
+ * read via {@link getAudioCacheInfo}.
  */
 
 export interface CacheGroup {
@@ -59,21 +57,13 @@ export async function getCacheSummary(): Promise<CacheGroupSize[]> {
   return summary;
 }
 
-/** On-device size + file count of downloaded audio (native files or web SW cache). */
+/** On-device size + file count of downloaded audio (native files or web cache). */
 async function getDownloadedAudio(): Promise<{ bytes: number; count: number }> {
-  if (Platform.OS === "web") {
-    const info = await getWebAudioCacheSize();
-    return { bytes: info.bytes, count: info.count };
-  }
-  return { bytes: await getAudioCacheSize(), count: 0 };
+  return getAudioCacheInfo();
 }
 
-/** Deletes every downloaded audio clip (native files or web SW cache). */
+/** Deletes every downloaded audio clip (native files or web cache). */
 export async function clearDownloadedAudio(): Promise<void> {
-  if (Platform.OS === "web") {
-    await clearWebAudioCache();
-    return;
-  }
   await clearAudioCache();
 }
 

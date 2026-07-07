@@ -20,6 +20,8 @@ export default function LearnQuranPronunciationScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.pronunciationTitle")}
       subtitle={t("learnQuran.pronunciationSubtitle")}
@@ -64,7 +66,7 @@ export default function LearnQuranPronunciationScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { marginBottom: Spacing.three, gap: Spacing.two },
+  card: { gap: Spacing.two },
   lettersRow: { flexDirection: "row", gap: Spacing.four, justifyContent: "center" },
   letter: { fontSize: 40, lineHeight: 56 },
   tip: { lineHeight: 22 },

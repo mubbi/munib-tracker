@@ -36,6 +36,7 @@ export default function LearnQuranTopicScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
       eyebrow={t("learnQuran.eyebrow")}
       title={topic?.title ?? t("learnQuran.title")}
       subtitle={topic?.summary ?? ""}

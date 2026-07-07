@@ -46,8 +46,11 @@ export function ArcProgressRing({
           style={[
             StyleSheet.absoluteFill,
             { borderRadius: size / 2 },
+            // The unfilled arc uses the track color (not transparent) so the full
+            // ring reads as a light "disabled" circle behind the progress sweep,
+            // matching the native SVG track below.
             gradientBackground(
-              `conic-gradient(${fillColor} 0deg ${deg}deg, transparent ${deg}deg 360deg)`,
+              `conic-gradient(${fillColor} 0deg ${deg}deg, ${trackColor} ${deg}deg 360deg)`,
             ),
           ]}
         >

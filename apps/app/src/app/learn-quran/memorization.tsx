@@ -23,6 +23,8 @@ export default function LearnQuranMemorizationScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.hifzTitle")}
       subtitle={t("learnQuran.hifzSubtitle")}
@@ -77,7 +79,7 @@ export default function LearnQuranMemorizationScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { marginBottom: Spacing.three, gap: Spacing.two },
+  card: { gap: Spacing.two },
   surahs: { gap: Spacing.one, marginTop: Spacing.two },
   tipBox: {
     marginTop: Spacing.two,

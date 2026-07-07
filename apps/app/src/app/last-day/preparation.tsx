@@ -118,7 +118,7 @@ function PreparationRow({
         </ThemedText>
         {row.progress != null && row.progress > 0 ? <ProgressBar value={row.progress} /> : null}
       </View>
-      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

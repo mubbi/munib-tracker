@@ -152,17 +152,15 @@ export function QazaDailyChecklist() {
         </View>
       </Card>
 
-      {confirmCopy ? (
-        <ConfirmDialog
-          visible={pending != null}
-          title={confirmCopy.title}
-          message={confirmCopy.message}
-          confirmLabel={t("common.confirm")}
-          destructive={pending?.kind === "undo"}
-          onConfirm={handleConfirm}
-          onClose={() => setPending(null)}
-        />
-      ) : null}
+      <ConfirmDialog
+        visible={pending != null}
+        title={confirmCopy?.title ?? ""}
+        message={confirmCopy?.message}
+        confirmLabel={t("common.confirm")}
+        destructive={pending?.kind === "undo"}
+        onConfirm={handleConfirm}
+        onClose={() => setPending(null)}
+      />
     </>
   );
 }

@@ -38,9 +38,22 @@ export const QuranCacheRepository = {
     return memory.get(key) ?? null;
   },
 
-  async set(editionId: string, surah: number, ayahText: Record<string, string>): Promise<void> {
+  /**
+   * Cache a fetched edition surah. Always kept in the in-memory session cache so
+   * re-reads don't refetch; only persisted to on-device storage when `persist`
+   * is true (the user's "save Qur'an editions locally" preference). When false
+   * the data lives for the session only and nothing is written to disk.
+   */
+  async set(
+    editionId: string,
+    surah: number,
+    ayahText: Record<string, string>,
+    persist = true,
+  ): Promise<void> {
     const key = cacheKey(editionId, surah);
     memory.set(key, ayahText);
+
+    if (!persist) return;
 
     // Best-effort: never let a cache-write failure (e.g. storage quota) break
     // the fetch that produced this data.

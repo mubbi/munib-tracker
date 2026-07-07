@@ -82,7 +82,7 @@ export function SeasonalThemeBanner() {
             {t("seasonalTheme.dateDisclaimer")}
           </ThemedText>
         </View>
-        <SymbolView name={chevronForward} size={16} tintColor={withAlpha("#FFFFFF", 0.7)} />
+        <SymbolView name={chevronForward()} size={16} tintColor={withAlpha("#FFFFFF", 0.7)} />
       </View>
     </PressableScale>
   );

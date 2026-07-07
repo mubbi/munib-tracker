@@ -1,11 +1,12 @@
-import { type Href, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { SymbolView } from "expo-symbols";
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ContinueCard } from "@/components/continue-card";
+import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { KnowledgeFlashCard } from "@/components/knowledge-flash-card";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
@@ -20,20 +21,24 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { ProgressBar, SegmentedProgress } from "@/components/ui/progress-bar";
-import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-action";
+import { SegmentedProgress } from "@/components/ui/progress-bar";
+import { QuickActionGrid } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { MaxContentWidth, Radius, Spacing } from "@/constants/theme";
+import { MaxContentWidth, Radius, Spacing, type StatusKey } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
 import { useWeeklyReport } from "@/hooks/use-weekly-report";
-import { NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
-import { orderQuickActions, TASBEEH_ICON } from "@/lib/quick-actions";
-import { arrowForward, chevronForward } from "@/lib/rtl";
+import {
+  buildQuickActionItems,
+  DEFAULT_QUICK_ACTION_ORDER,
+  orderQuickActions,
+  QUICK_ACTION_META,
+} from "@/lib/quick-actions";
+import { arrowForward } from "@/lib/rtl";
 import { HOME_FAQ } from "@/lib/seo/faq-content";
 import { faqSchema } from "@/lib/seo/structured-data";
 import { useLocationActions } from "@/stores/location-store";
@@ -48,6 +53,39 @@ import {
   useTrackerActions,
 } from "@/stores/tracker-store";
 import { resolveWeatherEffects, useWeatherSnapshot, weatherActions } from "@/stores/weather-store";
+
+type SymbolName = SymbolViewProps["name"];
+
+/**
+ * Maps a category's completion ratio to a status tone + icon for the goal
+ * summary chips: not-started reads as danger, early progress as info, over
+ * halfway as warning, and fully complete as success.
+ */
+function resolveGoalTier(done: number, total: number): { tone: StatusKey; icon: SymbolName } {
+  const ratio = total > 0 ? done / total : 0;
+  if (ratio >= 1) {
+    return {
+      tone: "success",
+      icon: { ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" },
+    };
+  }
+  if (ratio >= 0.5) {
+    return {
+      tone: "warning",
+      icon: { ios: "chart.pie.fill", android: "pie_chart", web: "pie_chart" },
+    };
+  }
+  if (ratio > 0) {
+    return {
+      tone: "info",
+      icon: { ios: "hourglass", android: "hourglass_top", web: "hourglass_top" },
+    };
+  }
+  return {
+    tone: "danger",
+    icon: { ios: "exclamationmark.circle.fill", android: "error", web: "error" },
+  };
+}
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -75,6 +113,26 @@ export default function HomeScreen() {
   const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
   const tasksTotal = summary.salahTotal + summary.zikrTotal + summary.qazaTargetToday;
   const progressPct = tasksTotal ? Math.round((tasksDone / tasksTotal) * 100) : 0;
+  const goalBreakdown = [
+    {
+      key: "salah",
+      label: t("home.prayersStat"),
+      done: summary.salahCompleted,
+      total: summary.salahTotal,
+    },
+    {
+      key: "zikr",
+      label: t("home.dhikrStat"),
+      done: summary.zikrCompleted,
+      total: summary.zikrTotal,
+    },
+    {
+      key: "qaza",
+      label: t("home.qazaStat"),
+      done: summary.qazaCompletedToday,
+      total: summary.qazaTargetToday,
+    },
+  ].filter((item) => item.total > 0);
   const isExcused = excusedReason != null;
   const isFreshStart = tasksDone === 0 && streak === 0 && !isExcused;
   const locale = i18n.language?.split("-")[0];
@@ -91,163 +149,11 @@ export default function HomeScreen() {
     }
   };
 
-  const quickActions: QuickActionItem[] = [
-    {
-      id: "checklist",
-      label: t("actions.checklist"),
-      icon: { ios: "checklist", android: "checklist", web: "checklist" },
-      tint: tokens.status.success.color,
-      onPress: () => router.push("/tracker"),
-    },
-    {
-      id: "schedule",
-      label: t("home.scheduleTitle"),
-      icon: { ios: "clock.fill", android: "schedule", web: "schedule" },
-      tint: tokens.status.info.color,
-      onPress: () => router.push("/schedule"),
-    },
-    {
-      id: "zikr",
-      label: t("actions.zikr"),
-      icon: { ios: "heart.fill", android: "favorite", web: "favorite" },
-      tint: tokens.status.danger.color,
-      onPress: () => router.push("/zikr"),
-    },
-    {
-      id: "tasbeeh",
-      label: t("actions.tasbeeh"),
-      icon: TASBEEH_ICON,
-      tint: colors.accent,
-      onPress: () => router.push("/tasbeeh/free"),
-    },
-    {
-      id: "ramadan",
-      label: t("actions.ramadan"),
-      icon: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
-      tint: tokens.status.info.color,
-      onPress: () => router.push("/ramadan"),
-    },
-    {
-      id: "salahGuide",
-      label: t("actions.salahGuide"),
-      icon: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
-      tint: tokens.status.info.color,
-      onPress: () => router.push("/salah-guide"),
-    },
-    {
-      id: "events",
-      label: t("actions.events"),
-      icon: { ios: "star.circle.fill", android: "event", web: "event" },
-      tint: tokens.status.warning.color,
-      onPress: () => router.push("/events"),
-    },
-    {
-      id: "zakat",
-      label: t("actions.zakat"),
-      icon: { ios: "banknote.fill", android: "payments", web: "payments" },
-      tint: tokens.status.success.color,
-      onPress: () => router.push("/zakat"),
-    },
-    {
-      id: "qaza",
-      label: t("actions.qaza"),
-      icon: { ios: "clock.arrow.circlepath", android: "history", web: "history" },
-      tint: tokens.status.warning.color,
-      onPress: () => router.push("/qaza"),
-    },
-    {
-      id: "quran",
-      label: t("actions.quran"),
-      icon: { ios: "book.fill", android: "menu_book", web: "menu_book" },
-      tint: colors.accent,
-      onPress: () => router.push("/quran"),
-    },
-    {
-      id: "hadith",
-      label: t("actions.hadith"),
-      icon: { ios: "text.book.closed.fill", android: "auto_stories", web: "auto_stories" },
-      tint: tokens.status.info.color,
-      onPress: () => router.push("/hadith"),
-    },
-    {
-      id: "bookmarks",
-      label: t("actions.bookmarks"),
-      icon: { ios: "bookmark.fill", android: "bookmark", web: "bookmark" },
-      tint: tokens.status.warning.color,
-      onPress: () => router.push("/bookmarks"),
-    },
-    {
-      id: "duas",
-      label: t("actions.duas"),
-      icon: {
-        ios: "hands.and.sparkles.fill",
-        android: "volunteer_activism",
-        web: "volunteer_activism",
-      },
-      tint: tokens.status.danger.color,
-      onPress: () => router.push("/dua"),
-    },
-    {
-      id: "duroods",
-      label: t("actions.duroods"),
-      icon: {
-        ios: "heart.text.square.fill",
-        android: "favorite",
-        web: "favorite",
-      },
-      tint: tokens.status.danger.color,
-      onPress: () => router.push("/duroods"),
-    },
-    {
-      id: "names",
-      label: t("actions.names"),
-      icon: NAMES_OF_ALLAH_ICON,
-      tint: colors.accent,
-      onPress: () => router.push("/names-of-allah"),
-    },
-    {
-      id: "qibla",
-      label: t("actions.qibla"),
-      icon: { ios: "location.north.line.fill", android: "explore", web: "explore" },
-      tint: tokens.status.info.color,
-      onPress: () => router.push("/qibla"),
-    },
-    {
-      id: "calendar",
-      label: t("actions.calendar"),
-      icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
-      tint: tokens.status.warning.color,
-      onPress: () => router.push("/calendar"),
-    },
-    {
-      id: "jannah",
-      label: t("actions.jannah"),
-      icon: { ios: "leaf.fill", android: "park", web: "park" },
-      tint: tokens.status.success.color,
-      onPress: () => router.push("/jannah"),
-    },
-    {
-      id: "battles",
-      label: t("actions.battles"),
-      icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
-      tint: tokens.status.info.color,
-      onPress: () => router.push("/battles" as Href),
-    },
-    {
-      id: "achievements",
-      label: t("settings.achievements"),
-      icon: { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" },
-      tint: tokens.status.warning.color,
-      onPress: () => router.push("/achievements"),
-    },
-    {
-      id: "stats",
-      label: t("actions.stats"),
-      icon: { ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" },
-      tint: tokens.status.success.color,
-      onPress: () => router.push("/statistics"),
-    },
-  ];
+  const allQuickActions = buildQuickActionItems(t, router.push, { colors, tokens });
+  const visibleQuickActions = orderQuickActions(
+    allQuickActions,
+    quickActionOrder?.length ? quickActionOrder : DEFAULT_QUICK_ACTION_ORDER,
+  );
 
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
@@ -361,6 +267,40 @@ export default function HomeScreen() {
                       {t("home.tasksProgress", { done: tasksDone, total: tasksTotal })}
                     </ThemedText>
                     <SegmentedProgress total={Math.max(tasksTotal, 1)} completed={tasksDone} />
+                    {goalBreakdown.length > 0 ? (
+                      <View style={styles.goalBreakdown}>
+                        {goalBreakdown.map((item) => {
+                          const tier = resolveGoalTier(item.done, item.total);
+                          const status = tokens.status[tier.tone];
+                          return (
+                            <View
+                              key={item.key}
+                              style={[
+                                styles.breakdownChip,
+                                {
+                                  backgroundColor: status.soft,
+                                  borderColor: status.color,
+                                },
+                              ]}
+                            >
+                              <SymbolView name={tier.icon} size={13} tintColor={status.color} />
+                              <ThemedText type="caption" style={{ color: status.text }}>
+                                {item.label}
+                              </ThemedText>
+                              <ThemedText
+                                type="caption"
+                                style={{ color: status.text, fontWeight: "700" }}
+                              >
+                                {t("home.tasksFraction", {
+                                  done: formatCount(item.done),
+                                  total: formatCount(item.total),
+                                })}
+                              </ThemedText>
+                            </View>
+                          );
+                        })}
+                      </View>
+                    ) : null}
                   </View>
                 )}
 
@@ -377,35 +317,15 @@ export default function HomeScreen() {
                     current: devotionLevelProgress,
                     next: devotionLevelSpan,
                   })}
-                  style={[styles.devotionBlock, { borderTopColor: colors.border }]}
+                  style={[
+                    styles.achievementBlock,
+                    {
+                      backgroundColor: colors.muted,
+                      borderColor: tokens.hairline,
+                    },
+                  ]}
                 >
-                  <View style={styles.devotionRow}>
-                    <View style={styles.devotionCopy}>
-                      <ThemedText type="smallBold">
-                        {t("achievements.devotion")} ·{" "}
-                        {t("home.devotionMeta", {
-                          level: devotion.level,
-                          noor: formatCount(devotion.noor),
-                        })}
-                      </ThemedText>
-                      <ThemedText type="caption" themeColor="mutedForeground">
-                        {t("home.devotionProgress", {
-                          current: formatCount(devotionLevelProgress),
-                          next: formatCount(devotionLevelSpan),
-                        })}
-                      </ThemedText>
-                    </View>
-                    <SymbolView
-                      name={chevronForward}
-                      size={14}
-                      tintColor={colors.mutedForeground}
-                    />
-                  </View>
-                  <ProgressBar
-                    value={devotion.progress}
-                    height={4}
-                    color={tokens.status.warning.color}
-                  />
+                  <DevotionAchievementSummary compact milestonePillBackground={colors.card} />
                 </PressableScale>
 
                 <Button
@@ -418,7 +338,7 @@ export default function HomeScreen() {
                   }
                   variant={isExcused ? "secondary" : "primary"}
                   fullWidth
-                  trailingIcon={arrowForward}
+                  trailingIcon={arrowForward()}
                   onPress={() => router.push("/tracker")}
                 />
               </Card>
@@ -443,15 +363,18 @@ export default function HomeScreen() {
                     }}
                     onActionPress={() => router.push("/settings/home")}
                   />
+                  <ThemedText
+                    type="caption"
+                    themeColor="mutedForeground"
+                    style={styles.exploreHint}
+                  >
+                    {t("home.exploreHint", {
+                      shown: visibleQuickActions.length,
+                      total: QUICK_ACTION_META.length,
+                    })}
+                  </ThemedText>
                   <View style={styles.quickActions}>
-                    <QuickActionGrid
-                      items={
-                        quickActionOrder?.length
-                          ? orderQuickActions(quickActions, quickActionOrder)
-                          : quickActions
-                      }
-                      columns={4}
-                    />
+                    <QuickActionGrid items={visibleQuickActions} columns={4} />
                   </View>
                 </Card>
               ) : null}
@@ -496,6 +419,22 @@ const styles = StyleSheet.create({
   },
   goalTitle: { flex: 1, gap: 2 },
   goalProgress: { gap: Spacing.two },
+  goalBreakdown: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.two,
+    marginTop: Spacing.half,
+  },
+  breakdownChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.half,
+    paddingVertical: Spacing.one,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+  },
   pausedBanner: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -509,21 +448,15 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: Spacing.half,
   },
-  devotionBlock: {
-    gap: Spacing.one + 2,
+  achievementBlock: {
+    gap: Spacing.three,
     marginTop: Spacing.three,
     marginBottom: Spacing.four,
-    paddingTop: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
   },
-  devotionRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-  },
-  devotionCopy: {
-    flex: 1,
-    gap: 2,
-  },
-  quickActions: { marginTop: Spacing.three },
+  quickActions: { marginTop: Spacing.two },
+  exploreHint: { marginTop: Spacing.half },
 });

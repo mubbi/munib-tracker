@@ -172,7 +172,7 @@ export function prayerLogKey(prayerId: string, date: string): string {
   return `${prayerId}::${date}`;
 }
 
-/** Composite key for one zikr on one day. */
-export function zikrProgressKey(zikrId: string, date: string): string {
-  return `${zikrId}::${date}`;
+/** Composite key for one zikr on one day, optionally scoped to a fard prayer. */
+export function zikrProgressKey(zikrId: string, date: string, prayerId?: string): string {
+  return prayerId ? `${zikrId}::${date}::${prayerId}` : `${zikrId}::${date}`;
 }

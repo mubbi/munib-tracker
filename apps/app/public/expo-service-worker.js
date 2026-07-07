@@ -64,7 +64,8 @@ async function handleAudio(request) {
   // Range-less key so every range of a clip shares one cached full body.
   const cacheKey = new Request(request.url, { method: "GET" });
 
-  const cached = await cache.match(cacheKey);
+  // ignoreVary so a `Vary: Accept-Encoding` (some CDNs) can't cause a false miss.
+  const cached = await cache.match(cacheKey, { ignoreVary: true });
   if (cached) {
     if (rangeHeader && cached.type !== "opaque" && cached.status === 200) {
       try {

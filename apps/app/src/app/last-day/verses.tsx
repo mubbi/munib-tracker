@@ -54,7 +54,7 @@ export default function LastDayVersesScreen() {
           {themes.map((theme) => {
             const items = grouped.get(theme) ?? [];
             return (
-              <Card key={theme} padding="three" style={styles.card}>
+              <Card key={theme} padding="three">
                 <SectionHeader
                   title={t(`lastDay.verseTheme.${theme}`)}
                   icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
@@ -124,7 +124,6 @@ export default function LastDayVersesScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { marginBottom: Spacing.three },
   list: { marginTop: Spacing.three },
   row: {
     flexDirection: "row",

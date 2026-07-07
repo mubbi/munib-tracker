@@ -168,6 +168,9 @@ export const DEFAULT_USER_PREFERENCES: UserPreferences = {
   favoriteZikrOrder: [],
   hasCompletedOnboarding: false,
   audioVolume: 1,
+  cacheAudioLocally: true,
+  cacheQuranEditionsLocally: true,
+  cacheHadithLocally: true,
   weatherPrefs: DEFAULT_WEATHER_PREFERENCES,
   hapticsEnabled: true,
 };

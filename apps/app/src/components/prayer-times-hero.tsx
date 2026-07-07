@@ -296,7 +296,7 @@ export function PrayerTimesHero({
                   </ThemedText>
                 </>
               ) : null}
-              <SymbolView name={chevronForward} size={11} tintColor={Brand.heroText} />
+              <SymbolView name={chevronForward()} size={11} tintColor={Brand.heroText} />
             </PressableScale>
             <View style={styles.actions}>
               <HeroIconButton
@@ -344,7 +344,7 @@ export function PrayerTimesHero({
                   </ThemedText>
                 ) : null}
               </View>
-              <HeroSoftShadowSymbol name={chevronForward} size={12} />
+              <HeroSoftShadowSymbol name={chevronForward()} size={12} />
             </PressableScale>
             <View
               accessible

@@ -5,14 +5,20 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import { QUICK_ACTION_META } from "@/lib/quick-actions";
+import {
+  DEFAULT_QUICK_ACTION_ORDER,
+  QUICK_ACTION_META,
+  resolveQuickActionTint,
+} from "@/lib/quick-actions";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 /** Home modules the user can hide (NF-1.21). */
@@ -20,16 +26,35 @@ const HOME_MODULES = ["continue", "knowledge", "quickActions", "qaza", "schedule
 
 const ALL_ACTION_IDS = QUICK_ACTION_META.map((a) => a.id);
 
+function RowIcon({ tint, icon }: { tint: string; icon: AppIconType }) {
+  const { tokens } = useThemeTokens();
+  return (
+    <View
+      style={[
+        styles.iconWell,
+        {
+          backgroundColor: withAlpha(tint, tokens.isDark ? 0.2 : 0.12),
+          borderColor: withAlpha(tint, tokens.isDark ? 0.34 : 0.22),
+        },
+      ]}
+    >
+      <AppIcon icon={icon} size={18} tintColor={tint} />
+    </View>
+  );
+}
+
 function CustomizeList({
   order,
   allIds,
   labelFor,
+  iconFor,
   onMove,
   onToggle,
 }: {
   order: string[];
   allIds: string[];
   labelFor: (id: string) => string;
+  iconFor: (id: string) => { icon: AppIconType; tint: string } | undefined;
   onMove: (index: number, direction: -1 | 1) => void;
   onToggle: (id: string, on: boolean) => void;
 }) {
@@ -40,48 +65,52 @@ function CustomizeList({
   return (
     <>
       <View style={styles.rows}>
-        {order.map((id, index) => (
-          <View key={id} style={[styles.row, { backgroundColor: colors.muted }]}>
-            <ThemedText type="small" style={styles.rowLabel} numberOfLines={1}>
-              {labelFor(id)}
-            </ThemedText>
-            <IconButton
-              name={{
-                ios: "chevron.up",
-                android: "keyboard_arrow_up",
-                web: "keyboard_arrow_up",
-              }}
-              size={18}
-              tintColor={colors.foreground}
-              accessibilityLabel={t("zikr.moveUp")}
-              disabled={index === 0}
-              onPress={() => onMove(index, -1)}
-            />
-            <IconButton
-              name={{
-                ios: "chevron.down",
-                android: "keyboard_arrow_down",
-                web: "keyboard_arrow_down",
-              }}
-              size={18}
-              tintColor={colors.foreground}
-              accessibilityLabel={t("zikr.moveDown")}
-              disabled={index === order.length - 1}
-              onPress={() => onMove(index, 1)}
-            />
-            <IconButton
-              name={{
-                ios: "minus.circle.fill",
-                android: "remove_circle",
-                web: "remove_circle",
-              }}
-              size={18}
-              tintColor={tokens.status.danger.color}
-              accessibilityLabel={t("homeCustomize.remove")}
-              onPress={() => onToggle(id, false)}
-            />
-          </View>
-        ))}
+        {order.map((id, index) => {
+          const iconMeta = iconFor(id);
+          return (
+            <View key={id} style={[styles.row, { backgroundColor: colors.muted }]}>
+              {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
+              <ThemedText type="small" style={styles.rowLabel} numberOfLines={1}>
+                {labelFor(id)}
+              </ThemedText>
+              <IconButton
+                name={{
+                  ios: "chevron.up",
+                  android: "keyboard_arrow_up",
+                  web: "keyboard_arrow_up",
+                }}
+                size={18}
+                tintColor={colors.foreground}
+                accessibilityLabel={t("zikr.moveUp")}
+                disabled={index === 0}
+                onPress={() => onMove(index, -1)}
+              />
+              <IconButton
+                name={{
+                  ios: "chevron.down",
+                  android: "keyboard_arrow_down",
+                  web: "keyboard_arrow_down",
+                }}
+                size={18}
+                tintColor={colors.foreground}
+                accessibilityLabel={t("zikr.moveDown")}
+                disabled={index === order.length - 1}
+                onPress={() => onMove(index, 1)}
+              />
+              <IconButton
+                name={{
+                  ios: "minus.circle.fill",
+                  android: "remove_circle",
+                  web: "remove_circle",
+                }}
+                size={18}
+                tintColor={tokens.status.danger.color}
+                accessibilityLabel={t("homeCustomize.remove")}
+                onPress={() => onToggle(id, false)}
+              />
+            </View>
+          );
+        })}
       </View>
 
       {hiddenItems.length > 0 ? (
@@ -90,25 +119,29 @@ function CustomizeList({
             {t("homeCustomize.available")}
           </ThemedText>
           <View style={styles.rows}>
-            {hiddenItems.map((id) => (
-              <View key={id} style={[styles.row, { backgroundColor: colors.muted }]}>
-                <ThemedText
-                  type="small"
-                  themeColor="mutedForeground"
-                  style={styles.rowLabel}
-                  numberOfLines={1}
-                >
-                  {labelFor(id)}
-                </ThemedText>
-                <IconButton
-                  name={{ ios: "plus.circle.fill", android: "add_circle", web: "add_circle" }}
-                  size={18}
-                  tintColor={colors.accent}
-                  accessibilityLabel={t("homeCustomize.add")}
-                  onPress={() => onToggle(id, true)}
-                />
-              </View>
-            ))}
+            {hiddenItems.map((id) => {
+              const iconMeta = iconFor(id);
+              return (
+                <View key={id} style={[styles.row, { backgroundColor: colors.muted }]}>
+                  {iconMeta ? <RowIcon icon={iconMeta.icon} tint={iconMeta.tint} /> : null}
+                  <ThemedText
+                    type="small"
+                    themeColor="mutedForeground"
+                    style={styles.rowLabel}
+                    numberOfLines={1}
+                  >
+                    {labelFor(id)}
+                  </ThemedText>
+                  <IconButton
+                    name={{ ios: "plus.circle.fill", android: "add_circle", web: "add_circle" }}
+                    size={18}
+                    tintColor={colors.accent}
+                    accessibilityLabel={t("homeCustomize.add")}
+                    onPress={() => onToggle(id, true)}
+                  />
+                </View>
+              );
+            })}
           </View>
         </>
       ) : null}
@@ -119,11 +152,12 @@ function CustomizeList({
 export default function HomeCustomizeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
 
   const hidden = new Set(prefs.hiddenHomeModules ?? []);
-  const actionOrder = prefs.quickActionOrder ?? ALL_ACTION_IDS;
+  const actionOrder = prefs.quickActionOrder ?? DEFAULT_QUICK_ACTION_ORDER;
 
   const toggleModule = (id: string, visible: boolean) => {
     const next = new Set(hidden);
@@ -148,6 +182,12 @@ export default function HomeCustomizeScreen() {
   const labelForAction = (id: string) => {
     const meta = QUICK_ACTION_META.find((a) => a.id === id);
     return meta ? t(meta.labelKey) : id;
+  };
+
+  const iconForAction = (id: string) => {
+    const meta = QUICK_ACTION_META.find((a) => a.id === id);
+    if (!meta) return undefined;
+    return { icon: meta.icon, tint: resolveQuickActionTint(meta.tone, { colors, tokens }) };
   };
 
   return (
@@ -188,6 +228,7 @@ export default function HomeCustomizeScreen() {
             order={actionOrder}
             allIds={ALL_ACTION_IDS}
             labelFor={labelForAction}
+            iconFor={iconForAction}
             onMove={moveAction}
             onToggle={toggleAction}
           />
@@ -211,4 +252,13 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   rowLabel: { flex: 1 },
+  iconWell: {
+    width: 32,
+    height: 32,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

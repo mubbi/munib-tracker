@@ -22,6 +22,8 @@ export default function LearnQuranLearnToReadScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.readingTitle")}
       subtitle={t("learnQuran.readingSubtitle")}
@@ -73,7 +75,7 @@ export default function LearnQuranLearnToReadScreen() {
 const styles = StyleSheet.create({
   levelRow: { alignItems: "center" },
   arrow: { marginVertical: Spacing.one },
-  card: { width: "100%", gap: Spacing.two, marginBottom: Spacing.two },
+  card: { width: "100%", gap: Spacing.two },
   levelTitle: { lineHeight: 28 },
   topics: { gap: Spacing.one, marginTop: Spacing.two },
 });

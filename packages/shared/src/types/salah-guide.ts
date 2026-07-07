@@ -10,12 +10,24 @@ export type SalahGuideJourney =
   | "perfect"
   | "consistency";
 
+/**
+ * Fiqh ruling of a salah action:
+ * - `fard` — a pillar (rukn); the prayer is invalid without it.
+ * - `wajib` — required; a forgotten one is mended by sujud as-sahw (some schools count it a sunnah).
+ * - `sunnah` — recommended and rewarded; the prayer is valid without it.
+ */
+export type SalahStepRuling = "fard" | "wajib" | "sunnah";
+
 /** One ordered step within a procedural topic (wudu, salah postures, etc.). */
 export interface SalahGuideStep {
   title: string;
   body: string;
   arabic?: string;
   transliteration?: string;
+  /** Translation of the Arabic phrase recited in this step. */
+  translation?: string;
+  /** Fiqh ruling of this action — pillar (fard), required (wajib), or recommended (sunnah). */
+  ruling?: SalahStepRuling;
   /** Optional tip — common mistake or practical note. */
   tip?: string;
 }

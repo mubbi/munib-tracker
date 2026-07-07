@@ -73,7 +73,7 @@ export function QazaSummaryCard({
             {t("home.qazaMeta", { completed })}
           </ThemedText>
         </View>
-        <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
       </View>
 
       {total > 0 ? (

@@ -117,7 +117,7 @@ export default function CalendarScreen() {
         <Card padding="three">
           <View style={styles.header}>
             <NavButton
-              icon={chevronBackward}
+              icon={chevronBackward()}
               label={t("calendar.prevMonth")}
               onPress={() => shift(-1)}
             />
@@ -140,7 +140,7 @@ export default function CalendarScreen() {
               />
             </PressableScale>
             <NavButton
-              icon={chevronForward}
+              icon={chevronForward()}
               label={t("calendar.nextMonth")}
               onPress={() => shift(1)}
             />

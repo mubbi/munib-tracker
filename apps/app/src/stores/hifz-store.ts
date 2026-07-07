@@ -16,22 +16,27 @@ type HifzMap = Record<string, HifzStatus>;
 
 const STORAGE_KEY = DB_KEYS.hifz;
 
-/** The tap-cycle for an ayah's hifz status: none → memorized → review → none. */
+/** The tap-cycle for an ayah's hifz status: none → review → memorized → none. */
 const CYCLE: Record<string, HifzStatus | null> = {
-  none: "memorized",
-  memorized: "review",
-  review: null,
+  none: "review",
+  review: "memorized",
+  memorized: null,
 };
 
 export function hifzKey(surah: number, ayah: number): string {
   return `${surah}:${ayah}`;
 }
 
+/** The status an ayah moves to on the next Hifz tap (`null` = cleared). */
+export function nextHifzStatus(current: HifzStatus | undefined): HifzStatus | null {
+  return CYCLE[current ?? "none"];
+}
+
 interface HifzState {
   statuses: HifzMap;
   isReady: boolean;
   load: () => Promise<void>;
-  cycle: (surah: number, ayah: number) => Promise<void>;
+  cycle: (surah: number, ayah: number) => Promise<HifzStatus | null>;
 }
 
 export const hifzStore = createStore<HifzState>((set, get) => ({
@@ -46,11 +51,12 @@ export const hifzStore = createStore<HifzState>((set, get) => ({
   async cycle(surah, ayah) {
     const key = hifzKey(surah, ayah);
     const next = { ...get().statuses };
-    const nextStatus = CYCLE[next[key] ?? "none"];
+    const nextStatus = nextHifzStatus(next[key]);
     if (nextStatus == null) delete next[key];
     else next[key] = nextStatus;
     set({ statuses: next });
     await writeJSON(STORAGE_KEY, next);
+    return nextStatus;
   },
 }));
 

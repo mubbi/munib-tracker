@@ -328,37 +328,33 @@ export default function QazaHomeScreen() {
         </Card>
       </Stagger>
 
-      {confirmCopy ? (
-        <ConfirmDialog
-          visible={pending != null}
-          title={confirmCopy.title}
-          message={confirmCopy.message}
-          confirmLabel={t("common.confirm")}
-          destructive={pending?.kind === "resetPrayer" || pending?.kind === "resetAll"}
-          onConfirm={handleConfirm}
-          onClose={() => setPending(null)}
-        />
-      ) : null}
+      <ConfirmDialog
+        visible={pending != null}
+        title={confirmCopy?.title ?? ""}
+        message={confirmCopy?.message}
+        confirmLabel={t("common.confirm")}
+        destructive={pending?.kind === "resetPrayer" || pending?.kind === "resetAll"}
+        onConfirm={handleConfirm}
+        onClose={() => setPending(null)}
+      />
 
-      {editTarget ? (
-        <QazaCountEditModal
-          visible={editTarget != null}
-          prayerLabel={t(`prayers.${editTarget.prayerId}`)}
-          initialValue={editTarget.remaining}
-          onSubmit={(nextRemaining) => {
-            const target = editTarget;
-            setEditTarget(null);
-            if (!target || nextRemaining === target.remaining) return;
-            setPending({
-              kind: "setRemaining",
-              prayerId: target.prayerId,
-              nextRemaining,
-              completed: target.completed,
-            });
-          }}
-          onClose={() => setEditTarget(null)}
-        />
-      ) : null}
+      <QazaCountEditModal
+        visible={editTarget != null}
+        prayerLabel={editTarget ? t(`prayers.${editTarget.prayerId}`) : ""}
+        initialValue={editTarget?.remaining ?? 0}
+        onSubmit={(nextRemaining) => {
+          const target = editTarget;
+          setEditTarget(null);
+          if (!target || nextRemaining === target.remaining) return;
+          setPending({
+            kind: "setRemaining",
+            prayerId: target.prayerId,
+            nextRemaining,
+            completed: target.completed,
+          });
+        }}
+        onClose={() => setEditTarget(null)}
+      />
     </ScreenLayout>
   );
 }

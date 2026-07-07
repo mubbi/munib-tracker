@@ -6,6 +6,7 @@ import {
 } from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
 import type {
+  AfterSalahPrayer,
   DailySummary,
   ExcusedReason,
   PrayerId,
@@ -25,6 +26,7 @@ import {
 
 import { initDatabase, PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
+import { zikrCountKey } from "@/lib/after-salah-adhkar-progress";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 
 import { createStore, useStore } from "./create-store";
@@ -61,6 +63,11 @@ export type SetPrayerStatusOptions = {
   addToQaza?: boolean;
 };
 
+export type ZikrProgressOptions = {
+  /** Scope after-salah adhkar to one prayer (fard or Witr) for the day. */
+  prayerId?: AfterSalahPrayer;
+};
+
 export interface TrackerState {
   date: string;
   isReady: boolean;
@@ -90,8 +97,18 @@ export interface TrackerState {
   setPrayerNotes: (prayerId: PrayerId, notes: string) => Promise<void>;
   setPrayerJama: (prayerId: PrayerId, isJama: boolean) => Promise<void>;
   setDayExcused: (reason: ExcusedReason | null) => Promise<void>;
-  setZikrCount: (zikrId: string, count: number, target: number) => Promise<void>;
-  incrementZikr: (zikrId: string, target: number, by?: number) => Promise<void>;
+  setZikrCount: (
+    zikrId: string,
+    count: number,
+    target: number,
+    options?: ZikrProgressOptions,
+  ) => Promise<void>;
+  incrementZikr: (
+    zikrId: string,
+    target: number,
+    by?: number,
+    options?: ZikrProgressOptions,
+  ) => Promise<void>;
   adjustQaza: (prayerId: QazaPrayer, remaining: number, completed: number) => Promise<void>;
   performQaza: (prayerId: QazaPrayer, by?: number) => Promise<void>;
   undoQaza: (prayerId: QazaPrayer, by?: number) => Promise<void>;
@@ -127,7 +144,9 @@ async function recompute(date: string): Promise<Partial<TrackerState>> {
   }
 
   const zikrCounts: Record<string, number> = {};
-  for (const entry of todayZikr) zikrCounts[entry.zikrId] = entry.count;
+  for (const entry of todayZikr) {
+    zikrCounts[zikrCountKey(entry.zikrId, entry.prayerId)] = entry.count;
+  }
 
   const streakDays = computeStreak(allLogs, true, date);
   const summary = buildDailySummary({
@@ -273,21 +292,23 @@ export const trackerStore = createStore<TrackerState>((set, get) => {
       });
     },
 
-    setZikrCount(zikrId, count, target) {
+    setZikrCount(zikrId, count, target, options) {
       return enqueue(async () => {
         const { date, zikrCounts } = get();
-        set({ zikrCounts: { ...zikrCounts, [zikrId]: Math.max(0, count) } });
-        await ZikrRepository.setCount(zikrId, date, count, target);
+        const key = zikrCountKey(zikrId, options?.prayerId);
+        set({ zikrCounts: { ...zikrCounts, [key]: Math.max(0, count) } });
+        await ZikrRepository.setCount(zikrId, date, count, target, options?.prayerId);
         await get().refresh();
       });
     },
 
-    incrementZikr(zikrId, target, by = 1) {
+    incrementZikr(zikrId, target, by = 1, options) {
       return enqueue(async () => {
         const { date, zikrCounts } = get();
-        const next = Math.max(0, (zikrCounts[zikrId] ?? 0) + by);
-        set({ zikrCounts: { ...zikrCounts, [zikrId]: next } });
-        await ZikrRepository.increment(zikrId, date, target, by);
+        const key = zikrCountKey(zikrId, options?.prayerId);
+        const next = Math.max(0, (zikrCounts[key] ?? 0) + by);
+        set({ zikrCounts: { ...zikrCounts, [key]: next } });
+        await ZikrRepository.increment(zikrId, date, target, by, options?.prayerId);
         await get().refresh();
       });
     },
@@ -412,8 +433,14 @@ export function useRoza(): QazaRozaCounter {
   return useStore(trackerStore, (s) => s.roza);
 }
 
-export function useZikrCount(zikrId: string): number {
-  return useStore(trackerStore, (s) => s.zikrCounts[zikrId] ?? 0);
+export function useZikrCount(zikrId: string, prayerId?: AfterSalahPrayer): number {
+  const key = zikrCountKey(zikrId, prayerId);
+  return useStore(trackerStore, (s) => s.zikrCounts[key] ?? 0);
+}
+
+/** Today's raw zikr counts keyed by zikrId — used to derive per-category progress. */
+export function useZikrCounts(): Record<string, number> {
+  return useStore(trackerStore, (s) => s.zikrCounts);
 }
 
 export function usePrayerJama(prayerId: PrayerId): boolean {

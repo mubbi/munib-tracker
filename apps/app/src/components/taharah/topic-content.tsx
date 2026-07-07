@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
+import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
   JannahBody,
@@ -136,11 +137,12 @@ export function TaharahTopicContent({ topic }: { topic: TaharahTopic }) {
         </Card>
       ) : null}
 
-      <Button
-        label={completed ? t("taharah.markIncomplete") : t("taharah.markComplete")}
-        variant={completed ? "secondary" : "primary"}
-        fullWidth
-        onPress={() => void toggleTopic(topic.id)}
+      <GuideTopicFooter
+        ns="taharah"
+        topic={topic}
+        sectionTitle={t("taharah.title")}
+        completed={completed}
+        onToggleComplete={() => void toggleTopic(topic.id)}
       />
 
       {topic.disclaimer ? (

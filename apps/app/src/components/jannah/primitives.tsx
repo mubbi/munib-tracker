@@ -134,7 +134,7 @@ export function JannahNavRow({
       {badge ? (
         <Pill label={badge} compact color={colors.mutedForeground} background={colors.card} />
       ) : null}
-      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

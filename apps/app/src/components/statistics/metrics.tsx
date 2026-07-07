@@ -138,7 +138,7 @@ export function LinkRow({ label, onPress }: LinkRowProps) {
       <ThemedText type="smallBold" style={{ color: colors.accent }}>
         {label}
       </ThemedText>
-      <SymbolView name={chevronForward} size={14} tintColor={colors.accent} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.accent} />
     </PressableScale>
   );
 }

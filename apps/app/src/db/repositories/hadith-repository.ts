@@ -122,8 +122,16 @@ export const HadithRepository = {
     return bookMemory.get(cacheKey) ?? null;
   },
 
-  async setCachedBook(cacheKey: string, data: HadithCollectionData): Promise<void> {
+  /**
+   * Cache a fetched collection. Always kept in the in-memory session cache so
+   * re-opening it doesn't refetch; only persisted to on-device storage when
+   * `persist` is true (the user's "save hadith locally" preference). When false
+   * it lives for the session only and nothing is written to disk.
+   */
+  async setCachedBook(cacheKey: string, data: HadithCollectionData, persist = true): Promise<void> {
     bookMemory.set(cacheKey, data);
+
+    if (!persist) return;
 
     // Best-effort: a full collection can exceed the storage quota (notably
     // localStorage on web). Never let a cache-write failure break the fetch —

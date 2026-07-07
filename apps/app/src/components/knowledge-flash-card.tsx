@@ -104,7 +104,7 @@ function KnowledgeCardBody({
             <ThemedText type="caption" style={{ color: palette.text }}>
               {t(card.actionKey)}
             </ThemedText>
-            <SymbolView name={chevronForward} size={12} tintColor={palette.color} />
+            <SymbolView name={chevronForward()} size={12} tintColor={palette.color} />
           </View>
         ) : null}
       </View>

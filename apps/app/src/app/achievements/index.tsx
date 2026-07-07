@@ -17,6 +17,8 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { Pill } from "@/components/ui/pill";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
@@ -55,30 +57,73 @@ function MilestoneCard({
   const { colors, tokens } = useThemeTokens();
   const unlocked = variant === "unlocked";
 
+  const trackLabel =
+    milestone.trackId === "devotion"
+      ? t("achievements.devotion")
+      : t(TRACK_LABEL_KEYS[milestone.trackId] ?? milestone.trackId);
+
+  if (unlocked) {
+    return (
+      <Card key={milestone.id} padding="three" style={styles.unlockedCard}>
+        <View style={styles.unlockedHeader}>
+          <View style={[styles.badgeSmall, { backgroundColor: tokens.status.warning.soft }]}>
+            <SymbolView
+              name={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
+              size={16}
+              tintColor={tokens.status.warning.color}
+            />
+          </View>
+          {onShare ? (
+            <PressableScale
+              onPress={shareLoading ? undefined : () => onShare(milestone)}
+              haptic="light"
+              hitSlop={8}
+              scaleTo={0.9}
+              accessibilityRole="button"
+              accessibilityLabel={
+                shareLoading
+                  ? t("share.preparing")
+                  : gesturePending
+                    ? t("share.tapToShare")
+                    : t("achievements.share")
+              }
+              style={[
+                styles.shareButton,
+                {
+                  backgroundColor: gesturePending ? tokens.accentSoft : colors.muted,
+                  opacity: shareLoading ? 0.5 : 1,
+                },
+              ]}
+            >
+              <SymbolView
+                name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+                size={14}
+                tintColor={colors.accent}
+              />
+            </PressableScale>
+          ) : null}
+        </View>
+        <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+          {trackLabel} · {t("achievements.level", { level: milestone.level })}
+        </ThemedText>
+        <ThemedText type="smallBold" numberOfLines={1}>
+          {milestone.title}
+        </ThemedText>
+      </Card>
+    );
+  }
+
   return (
     <Card key={milestone.id} padding="three" style={styles.card}>
-      <View
-        style={[
-          styles.badge,
-          {
-            backgroundColor: unlocked ? tokens.status.warning.soft : colors.muted,
-          },
-        ]}
-      >
+      <View style={[styles.badge, { backgroundColor: colors.muted }]}>
         <SymbolView
-          name={
-            unlocked
-              ? { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }
-              : { ios: "target", android: "track_changes", web: "track_changes" }
-          }
+          name={{ ios: "target", android: "track_changes", web: "track_changes" }}
           size={22}
-          tintColor={unlocked ? tokens.status.warning.color : colors.accent}
+          tintColor={colors.accent}
         />
       </View>
       <ThemedText type="caption" themeColor="mutedForeground">
-        {milestone.trackId === "devotion"
-          ? t("achievements.devotion")
-          : t(TRACK_LABEL_KEYS[milestone.trackId] ?? milestone.trackId)}
+        {trackLabel}
         {" · "}
         {t("achievements.level", { level: milestone.level })}
       </ThemedText>
@@ -86,28 +131,12 @@ function MilestoneCard({
       <ThemedText type="caption" themeColor="mutedForeground">
         {milestone.description}
       </ThemedText>
-      {unlocked ? (
-        onShare ? (
-          <ThemedText
-            type="caption"
-            style={{ color: colors.accent, opacity: shareLoading ? 0.6 : 1 }}
-            onPress={shareLoading ? undefined : () => onShare(milestone)}
-          >
-            {shareLoading
-              ? t("share.preparing")
-              : gesturePending
-                ? t("share.tapToShare")
-                : t("achievements.share")}
-          </ThemedText>
-        ) : null
-      ) : (
-        <View style={styles.progress}>
-          <ProgressBar value={milestone.progress} />
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {milestone.value}/{milestone.threshold}
-          </ThemedText>
-        </View>
-      )}
+      <View style={styles.progress}>
+        <ProgressBar value={milestone.progress} />
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {milestone.value}/{milestone.threshold}
+        </ThemedText>
+      </View>
     </Card>
   );
 }
@@ -115,7 +144,7 @@ function MilestoneCard({
 export default function AchievementsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const [state, setState] = useState<ProgressionState | null>(null);
   const [unlocked, setUnlocked] = useState<MilestoneProgress[]>([]);
@@ -212,26 +241,63 @@ export default function AchievementsScreen() {
                 <View
                   style={[styles.devotionBadge, { backgroundColor: tokens.status.warning.soft }]}
                 >
+                  <ThemedText
+                    type="caption"
+                    style={[styles.devotionBadgeLabel, { color: tokens.status.warning.text }]}
+                  >
+                    {t("achievements.levelShort")}
+                  </ThemedText>
                   <ThemedText type="title" style={{ color: tokens.status.warning.color }}>
                     {devotion.level}
                   </ThemedText>
                 </View>
                 <View style={styles.heroCopy}>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("achievements.devotion")}
-                  </ThemedText>
+                  <View style={styles.heroTitleRow}>
+                    <SymbolView
+                      name={{ ios: "trophy.fill", android: "emoji_events", web: "emoji_events" }}
+                      size={16}
+                      tintColor={tokens.status.warning.color}
+                    />
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("achievements.devotion")}
+                    </ThemedText>
+                  </View>
                   <ThemedText type="subtitle">
                     {t("achievements.devotionLevel", { level: devotion.level })}
                   </ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {t("achievements.devotionNoor", {
-                      current: devotion.noor - devotion.noorForCurrentLevel,
-                      next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
-                    })}
-                  </ThemedText>
+                  <View style={styles.heroPills}>
+                    <Pill
+                      icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+                      label={t("achievements.noorPill", { noor: devotion.noor })}
+                      color={tokens.status.warning.text}
+                      background={tokens.status.warning.soft}
+                    />
+                    <Pill
+                      icon={{
+                        ios: "rosette",
+                        android: "workspace_premium",
+                        web: "workspace_premium",
+                      }}
+                      label={t("achievements.milestonePill", { count: milestoneCount })}
+                      color={colors.mutedForeground}
+                      background={colors.muted}
+                    />
+                  </View>
                 </View>
               </View>
-              <ProgressBar value={devotion.progress} />
+              <View style={styles.heroProgress}>
+                <ProgressBar
+                  value={devotion.progress}
+                  height={6}
+                  color={tokens.status.warning.color}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("achievements.devotionNoor", {
+                    current: devotion.noor - devotion.noorForCurrentLevel,
+                    next: devotion.noorForNextLevel - devotion.noorForCurrentLevel,
+                  })}
+                </ThemedText>
+              </View>
               <ThemedText type="caption" themeColor="mutedForeground">
                 {t("achievements.devotionHint")}
               </ThemedText>
@@ -281,7 +347,7 @@ const styles = StyleSheet.create({
     gap: Spacing.four,
   },
   hero: {
-    gap: Spacing.two,
+    gap: Spacing.three,
   },
   heroRow: {
     flexDirection: "row",
@@ -296,9 +362,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  devotionBadgeLabel: {
+    fontSize: 9,
+    letterSpacing: 0.8,
+    lineHeight: 12,
+    textTransform: "uppercase",
+  },
   heroCopy: {
     flex: 1,
-    gap: Spacing.half,
+    gap: Spacing.one,
+  },
+  heroTitleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one + 2,
+  },
+  heroPills: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: Spacing.one + 2,
+    marginTop: Spacing.half,
+  },
+  heroProgress: {
+    gap: Spacing.one + 2,
   },
   section: {
     gap: Spacing.one,
@@ -314,6 +400,17 @@ const styles = StyleSheet.create({
     flexBasis: "47%",
     gap: Spacing.one,
   },
+  unlockedCard: {
+    flexGrow: 1,
+    flexBasis: "47%",
+    gap: Spacing.half,
+  },
+  unlockedHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: Spacing.one,
+  },
   badge: {
     width: 44,
     height: 44,
@@ -322,6 +419,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: Spacing.one,
+  },
+  badgeSmall: {
+    width: 34,
+    height: 34,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  shareButton: {
+    width: 30,
+    height: 30,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
   },
   progress: {
     gap: Spacing.one,

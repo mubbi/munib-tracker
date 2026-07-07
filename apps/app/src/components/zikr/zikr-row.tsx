@@ -26,6 +26,10 @@ type ZikrRowProps = {
   onToggleFavorite?: (id: string) => void;
   /** Optional category pill shown in cross-category search results. */
   categoryLabel?: string;
+  /** Today's completion for the active prayer scope. */
+  completed?: boolean;
+  /** e.g. "3/5" when tracking across multiple salah slots. */
+  progressLabel?: string;
 };
 
 export const ZikrRow = memo(function ZikrRow({
@@ -35,6 +39,8 @@ export const ZikrRow = memo(function ZikrRow({
   onPress,
   onToggleFavorite,
   categoryLabel,
+  completed,
+  progressLabel,
 }: ZikrRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -68,7 +74,16 @@ export const ZikrRow = memo(function ZikrRow({
           </ThemedText>
         </View>
 
-        {item.targetCount ? (
+        {completed ? (
+          <Pill
+            label={progressLabel ?? t("zikr.done")}
+            color={tokens.status.success.color}
+            background={tokens.status.success.soft}
+            icon={{ ios: "checkmark", android: "check", web: "check" }}
+          />
+        ) : progressLabel ? (
+          <Pill label={progressLabel} color={colors.mutedForeground} background={colors.card} />
+        ) : item.targetCount ? (
           <Pill
             label={`×${item.targetCount}`}
             color={colors.accent}
@@ -82,7 +97,11 @@ export const ZikrRow = memo(function ZikrRow({
 
         {onToggleFavorite ? <View style={styles.favoriteSlot} /> : null}
 
-        <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
+        <SymbolView
+          name={chevronForward()}
+          size={CHEVRON_SIZE}
+          tintColor={colors.mutedForeground}
+        />
       </PressableScale>
 
       {onToggleFavorite ? (

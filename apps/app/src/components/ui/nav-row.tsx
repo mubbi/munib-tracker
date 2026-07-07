@@ -36,7 +36,7 @@ export function NavRow({ icon, label, count, onPress }: NavRowProps) {
       {count != null ? (
         <Pill label={`${count}`} color={colors.mutedForeground} background={colors.card} />
       ) : null}
-      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

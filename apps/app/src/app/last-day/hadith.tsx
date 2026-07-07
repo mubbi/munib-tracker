@@ -50,7 +50,7 @@ export default function LastDayHadithScreen() {
           {themes.map((theme) => {
             const items = grouped.get(theme) ?? [];
             return (
-              <Card key={theme} padding="three" style={styles.card}>
+              <Card key={theme} padding="three">
                 <SectionHeader
                   title={t(`lastDay.hadithTheme.${theme}`)}
                   icon={{
@@ -83,7 +83,6 @@ export default function LastDayHadithScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { marginBottom: Spacing.three },
   list: { marginTop: Spacing.three, gap: Spacing.four },
   entry: { gap: Spacing.two },
 });

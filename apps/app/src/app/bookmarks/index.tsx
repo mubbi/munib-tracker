@@ -282,7 +282,7 @@ function ExploreRow({
           {hint}
         </ThemedText>
       </View>
-      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

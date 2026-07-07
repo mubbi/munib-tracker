@@ -68,7 +68,7 @@ export default function JuzBrowserScreen() {
                 <ThemedText type="arabic" style={styles.rowArabic} numberOfLines={1}>
                   {entry.surahNameArabic}
                 </ThemedText>
-                <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+                <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
               </PressableScale>
             ))}
           </View>

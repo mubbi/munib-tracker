@@ -55,8 +55,8 @@ export function useThemeTokens() {
       hairline: withAlpha(colors.foreground, isDark ? 0.1 : 0.08),
       /** Elevated surface tint for nested cards. */
       surfaceRaised: isDark ? colors.muted : colors.card,
-      /** Track color for progress bars / rings. */
-      track: withAlpha(colors.foreground, isDark ? 0.14 : 0.1),
+      /** Track color for progress bars / rings — a light "disabled" wash behind fills. */
+      track: withAlpha(colors.foreground, isDark ? 0.18 : 0.12),
       /** Native Android Material ripple tint — a soft on-surface wash that reads
        * on both accent fills and neutral cards. Used by PressableScale. */
       ripple: withAlpha(colors.foreground, isDark ? 0.16 : 0.1),

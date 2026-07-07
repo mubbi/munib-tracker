@@ -84,7 +84,7 @@ export default function LastDayTimelineScreen() {
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("lastDay.readTopic")}
                     </ThemedText>
-                    <SymbolView name={chevronForward} size={12} tintColor={colors.accent} />
+                    <SymbolView name={chevronForward()} size={12} tintColor={colors.accent} />
                   </View>
                 ) : null}
               </Card>

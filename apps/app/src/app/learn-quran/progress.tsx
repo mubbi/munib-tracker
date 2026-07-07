@@ -37,6 +37,8 @@ export default function LearnQuranProgressScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.progressTitle")}
       subtitle={t("learnQuran.progressSubtitle")}

@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import {
   type NotificationListItem,
   NotificationListRow,
@@ -51,9 +52,16 @@ export default function NotificationCenterScreen() {
   const prefs = usePreferences();
   const location = useLocation();
   const toast = useToast();
-  const { items, unreadCount, open, markAllRead } = useInAppNotifications();
+  const { items, unreadCount, open, markAllRead, clearAll } = useInAppNotifications();
   const { requestPermission, granted } = useNotificationPermissions();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [confirmClear, setConfirmClear] = useState(false);
+
+  const handleClearAll = async () => {
+    await clearAll();
+    setVisibleCount(PAGE_SIZE);
+    toast.success(t("notifCenter.cleared"));
+  };
 
   const enable = async () => {
     const webGesture = isWeb ? beginWebNotificationPermissionRequest() : null;
@@ -109,6 +117,7 @@ export default function NotificationCenterScreen() {
           <NotificationToolbar
             unreadCount={unreadCount}
             onMarkAllRead={unreadCount > 0 ? () => void markAllRead() : undefined}
+            onClearAll={delivered.length > 0 ? () => setConfirmClear(true) : undefined}
             onOpenSettings={() => router.push("/settings/notifications")}
           />
 
@@ -140,6 +149,16 @@ export default function NotificationCenterScreen() {
           )}
         </Card>
       </Stagger>
+
+      <ConfirmDialog
+        visible={confirmClear}
+        title={t("notifCenter.confirmClearAllTitle")}
+        message={t("notifCenter.confirmClearAllMessage")}
+        confirmLabel={t("notifCenter.clearAll")}
+        destructive
+        onConfirm={() => void handleClearAll()}
+        onClose={() => setConfirmClear(false)}
+      />
     </ScreenLayout>
   );
 }

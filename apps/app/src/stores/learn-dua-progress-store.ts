@@ -1,3 +1,5 @@
+import { LEARN_DUA_TOPICS } from "@munib-tracker/shared/content";
+
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 
@@ -16,7 +18,9 @@ export const learnDuaProgressStore = createStore<LearnDuaProgressState>((set, ge
   isReady: false,
 
   async load() {
-    const completedTopicIds = await readJSON<string[]>(DB_KEYS.learnDuaProgress, []);
+    const stored = await readJSON<string[]>(DB_KEYS.learnDuaProgress, []);
+    const valid = new Set(LEARN_DUA_TOPICS.map((topic) => topic.id));
+    const completedTopicIds = stored.filter((id) => valid.has(id));
     set({ completedTopicIds, isReady: true });
   },
 

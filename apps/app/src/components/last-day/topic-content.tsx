@@ -2,7 +2,7 @@ import type { LastDayTopic } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
   JannahBody,
@@ -113,11 +113,12 @@ export function LastDayTopicContent({ topic }: { topic: LastDayTopic }) {
         </Card>
       ) : null}
 
-      <Button
-        label={completed ? t("lastDay.markIncomplete") : t("lastDay.markComplete")}
-        variant={completed ? "secondary" : "primary"}
-        fullWidth
-        onPress={() => void toggleTopic(topic.id)}
+      <GuideTopicFooter
+        ns="lastDay"
+        topic={topic}
+        sectionTitle={t("lastDay.title")}
+        completed={completed}
+        onToggleComplete={() => void toggleTopic(topic.id)}
       />
 
       {topic.disclaimer ? (

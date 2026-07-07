@@ -2,12 +2,13 @@ import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
-
 import { ShareAchievementContent } from "@/components/share/share-achievement-content";
 import { ShareAyahContent } from "@/components/share/share-ayah-content";
 import { ShareContentSnapshot } from "@/components/share/share-content-snapshot";
+import { ShareGuideContent } from "@/components/share/share-guide-content";
 import { ShareHadithContent } from "@/components/share/share-hadith-content";
 import { ShareReadingContent } from "@/components/share/share-reading-content";
+import { absoluteUrl } from "@/config/seo";
 import { useShareSnapshotWidth } from "@/hooks/use-share-snapshot-width";
 import type { ShareableReading } from "@/lib/share";
 import { contentShareFilename } from "@/lib/share/shareFilename";
@@ -38,7 +39,8 @@ export type ShareContentBody =
       transliteration?: string;
     }
   | { kind: "hadith"; arabic: string; english: string; reference: string }
-  | { kind: "achievement"; title: string; description: string; trackLabel: string; level: number };
+  | { kind: "achievement"; title: string; description: string; trackLabel: string; level: number }
+  | { kind: "guide"; title: string; summary: string; excerpt?: string; url: string };
 
 export type ShareContentPayload = {
   message: string;
@@ -128,6 +130,28 @@ export function formatAchievementShare(title: string, description: string): stri
   );
 }
 
+/** Formats a learn-section guide page for the native share sheet. */
+export function formatGuideShare({
+  title,
+  summary,
+  path,
+  bodyExcerpt,
+  readAtLabel,
+}: {
+  title: string;
+  summary?: string;
+  path: string;
+  bodyExcerpt?: string;
+  readAtLabel: string;
+}): string {
+  const url = absoluteUrl(path);
+  const lines = [title, ""];
+  if (summary) lines.push(summary, "");
+  if (bodyExcerpt) lines.push(bodyExcerpt, "");
+  lines.push(readAtLabel, url);
+  return appendShareBranding(lines.join("\n"));
+}
+
 function renderShareBody(content: ShareContentBody) {
   switch (content.kind) {
     case "reading":
@@ -156,6 +180,15 @@ function renderShareBody(content: ShareContentBody) {
           description={content.description}
           trackLabel={content.trackLabel}
           level={content.level}
+        />
+      );
+    case "guide":
+      return (
+        <ShareGuideContent
+          title={content.title}
+          summary={content.summary}
+          excerpt={content.excerpt}
+          url={content.url}
         />
       );
   }

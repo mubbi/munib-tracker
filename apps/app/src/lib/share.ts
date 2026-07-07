@@ -13,6 +13,7 @@ export {
   buildHadithSharePayload,
   formatAchievementShare,
   formatAyahShare,
+  formatGuideShare,
   formatHadithShare,
   formatReadingShare,
 } from "@/hooks/use-share-content-card";

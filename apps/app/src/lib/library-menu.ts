@@ -1,7 +1,7 @@
 import type { Href } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
 import type { AppIcon } from "./names-of-allah-ui";
-import { QUICK_ACTION_META } from "./quick-actions";
+import { assertLibraryMenuParity, QUICK_ACTION_META, QUICK_ACTION_ROUTES } from "./quick-actions";
 
 export type LibrarySectionId = "track" | "read" | "supplicate" | "learn" | "more";
 
@@ -13,61 +13,35 @@ export interface LibraryMenuDef {
   route: Href;
 }
 
-const QUICK_ACTION_ROUTES: Record<string, Href> = {
-  checklist: "/tracker",
-  schedule: "/schedule" as Href,
-  zikr: "/zikr",
-  tasbeeh: "/tasbeeh/free",
-  ramadan: "/ramadan",
-  salahGuide: "/salah-guide",
-  jannah: "/jannah" as Href,
-  jahannam: "/jahannam" as Href,
-  lastDay: "/last-day" as Href,
-  battles: "/battles" as Href,
-  learnQuran: "/learn-quran" as Href,
-  taharah: "/taharah" as Href,
-  prophets: "/prophets" as Href,
-  aqeedah: "/aqeedah" as Href,
-  learnDua: "/learn-dua" as Href,
-  events: "/events" as Href,
-  zakat: "/zakat" as Href,
-  qaza: "/qaza",
-  quran: "/quran",
-  hadith: "/hadith",
-  bookmarks: "/bookmarks",
-  duas: "/dua",
-  duroods: "/duroods",
-  names: "/names-of-allah",
-  qibla: "/qibla",
-  calendar: "/calendar",
-  achievements: "/achievements",
-  stats: "/statistics",
-};
-
 function fromQuickAction(id: string, section: LibrarySectionId): LibraryMenuDef {
   const meta = QUICK_ACTION_META.find((entry) => entry.id === id);
   if (!meta) throw new Error(`Missing quick action meta for ${id}`);
+  const route = QUICK_ACTION_ROUTES[id];
+  if (!route) throw new Error(`Missing quick action route for ${id}`);
   return {
     id,
     section,
     labelKey: meta.labelKey,
     icon: meta.icon,
-    route: QUICK_ACTION_ROUTES[id],
+    route,
   };
 }
 
-/** Every entry on the Library tab — mirrors home explore shortcuts plus Hajj. */
+/** Every entry on the Library tab — same destinations as home Explore shortcuts. */
 export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("checklist", "track"),
   fromQuickAction("schedule", "track"),
   fromQuickAction("qaza", "track"),
   fromQuickAction("tasbeeh", "track"),
   fromQuickAction("ramadan", "track"),
+  fromQuickAction("tahajjud", "track"),
+  fromQuickAction("journal", "track"),
   fromQuickAction("quran", "read"),
   fromQuickAction("hadith", "read"),
   fromQuickAction("bookmarks", "read"),
   fromQuickAction("duas", "supplicate"),
   fromQuickAction("zikr", "supplicate"),
+  fromQuickAction("adhkarBuilder", "supplicate"),
   fromQuickAction("duroods", "supplicate"),
   fromQuickAction("names", "supplicate"),
   fromQuickAction("salahGuide", "learn"),
@@ -77,30 +51,14 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("battles", "learn"),
   fromQuickAction("learnQuran", "learn"),
   fromQuickAction("taharah", "learn"),
+  fromQuickAction("hayd", "learn"),
+  fromQuickAction("sick", "learn"),
   fromQuickAction("prophets", "learn"),
   fromQuickAction("aqeedah", "learn"),
   fromQuickAction("learnDua", "learn"),
-  {
-    id: "travel",
-    section: "learn",
-    labelKey: "travel.title",
-    icon: { ios: "airplane", android: "flight", web: "flight" },
-    route: "/travel" as Href,
-  },
-  {
-    id: "hajj",
-    section: "learn",
-    labelKey: "hajj.title",
-    icon: { ios: "building.2.fill", android: "mosque", web: "mosque" },
-    route: "/hajj" as Href,
-  },
-  {
-    id: "seerah",
-    section: "learn",
-    labelKey: "seerah.title",
-    icon: { ios: "book.pages.fill", android: "history_edu", web: "history_edu" },
-    route: "/seerah" as Href,
-  },
+  fromQuickAction("travel", "learn"),
+  fromQuickAction("hajj", "learn"),
+  fromQuickAction("seerah", "learn"),
   fromQuickAction("events", "learn"),
   fromQuickAction("calendar", "more"),
   fromQuickAction("qibla", "more"),
@@ -108,6 +66,18 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("achievements", "more"),
   fromQuickAction("stats", "more"),
 ];
+
+assertLibraryMenuParity(LIBRARY_MENU_META.map((entry) => entry.id));
+
+/**
+ * Route prefixes for the "learn" section — long-form educational content where a
+ * reading-progress indicator is useful. Derived from the canonical menu so it
+ * stays in sync as sections change. `ScreenLayout` uses this to auto-enable the
+ * reading-progress bar on these routes (and their sub-routes).
+ */
+export const LEARN_SECTION_ROUTES: string[] = LIBRARY_MENU_META.filter(
+  (entry) => entry.section === "learn",
+).map((entry) => String(entry.route));
 
 export const LIBRARY_SECTIONS: {
   id: LibrarySectionId;

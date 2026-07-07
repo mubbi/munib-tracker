@@ -169,7 +169,7 @@ export function NotificationListRow({ item, formattedWhen, onPress }: Notificati
       </View>
 
       {isPressable ? (
-        <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
       ) : null}
     </>
   );

@@ -1,4 +1,4 @@
-import type { ObligatoryPrayer } from "./prayer";
+import type { AfterSalahPrayer } from "./prayer";
 
 export type ZikrCategoryId =
   | "morning"
@@ -22,10 +22,11 @@ export interface ZikrItem {
   /** daily target if applicable */
   targetCount?: number;
   /**
-   * For after-salah adhkar: the obligatory prayers this dhikr is specific to.
-   * Absent/empty ⇒ recited after every fard prayer (shown under every prayer).
+   * For after-salah adhkar: the prayers this dhikr is specific to (fard or Witr).
+   * Absent/empty ⇒ recited after every fard prayer (shown under every fard tab,
+   * but not the Witr tab, which only holds Witr-specific adhkar).
    */
-  prayers?: ObligatoryPrayer[];
+  prayers?: AfterSalahPrayer[];
   /** Hisnul Muslim chapter this zikr belongs to, when preserved from source. */
   chapter?: string;
   /** Position within its Hisnul Muslim chapter. */
@@ -40,6 +41,12 @@ export interface ZikrProgress {
   count: number;
   target: number;
   completed: boolean;
+  /**
+   * When set, this progress is scoped to after-salah adhkar for one prayer
+   * (a fard prayer or Witr). Absent ⇒ a single daily count (morning/evening,
+   * or legacy after-salah).
+   */
+  prayerId?: AfterSalahPrayer;
   /** ISO datetime of the last change (used for sync last-write-wins). */
   updatedAt?: string;
 }

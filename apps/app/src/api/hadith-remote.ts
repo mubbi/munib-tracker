@@ -7,6 +7,7 @@ import type {
 
 import { HadithRepository } from "@/db";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
+import { preferencesStore } from "@/stores/preferences-store";
 
 /**
  * D6 — full hadith collections fetched on demand from fawazahmed0/hadith-api
@@ -129,7 +130,10 @@ export async function fetchRemoteCollection(id: string): Promise<HadithCollectio
     .map((s) => ({ id: s.id, name: s.name, count: counts.get(s.id) ?? 0 }))
     .filter((s) => s.count > 0);
 
+  // Persist to disk only when the user allows saving hadith locally; otherwise
+  // it stays in the session cache and refetches next launch.
+  const persist = preferencesStore.getState().prefs.cacheHadithLocally !== false;
   const data: HadithCollectionData = { sections, items };
-  await HadithRepository.setCachedBook(id, data);
+  await HadithRepository.setCachedBook(id, data, persist);
   return data;
 }

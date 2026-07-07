@@ -20,6 +20,8 @@ export default function LearnQuranVocabularyScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.vocabTitle")}
       subtitle={t("learnQuran.vocabSubtitle")}

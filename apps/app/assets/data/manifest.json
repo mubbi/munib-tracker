@@ -8,8 +8,8 @@
       "files": [
         {
           "path": "../../packages/shared/src/content/duas.ts",
-          "sha256": "3959e6edeadbee4bc5e4a0072ee3d54e5a4bbda8edf39cb4e6ad72b251363feb",
-          "bytes": 220902
+          "sha256": "ac74528012ddf795cad8ba47864bb10d6fb09165e0365c64b6d150ec06e9d7d9",
+          "bytes": 232757
         },
         {
           "path": "../../packages/shared/src/content/duroods.ts",
@@ -18,8 +18,8 @@
         },
         {
           "path": "../../packages/shared/src/content/zikr.ts",
-          "sha256": "f464e3c0d3197d36d50d501d4064121f47b56f565add28e82cdf150a71181461",
-          "bytes": 47321
+          "sha256": "bbb56ae578cbbfc95fc856d42e8bbd00da8f1addbc75439d64ed66537ada0bcd",
+          "bytes": 54252
         }
       ],
       "license": "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",

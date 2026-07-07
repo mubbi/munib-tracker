@@ -4,6 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { FastStatusSheet } from "@/components/fast-status-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -31,14 +32,6 @@ import {
 } from "@/stores/fasting-store";
 import { useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
-
-/** Tap-cycle order for a Ramadan day's fasting status. */
-const CYCLE: Record<string, FastStatus | null> = {
-  none: "fasted",
-  fasted: "missed",
-  missed: "exempt",
-  exempt: null,
-};
 
 /** Six columns × five rows keeps all 29–30 days evenly spaced on any screen width. */
 const GRID_COLUMNS = 6;
@@ -69,6 +62,7 @@ export default function RamadanScreen() {
   const { setStatus } = useFastingActions();
   const today = getLocalDateString();
   const todayStatus = useFastStatus(today);
+  const [sheetDay, setSheetDay] = useState<{ day: number; date: string } | null>(null);
 
   const info = useMemo(() => getRamadanInfo(location, now), [location, now]);
   const locale = i18n.language?.split("-")[0];
@@ -425,7 +419,7 @@ export default function RamadanScreen() {
                         })}
                         accessibilityHint={isFuture ? undefined : t("ramadan.dayCellHint")}
                         accessibilityState={{ disabled: isFuture }}
-                        onPress={() => setStatus(date, CYCLE[status ?? "none"])}
+                        onPress={() => setSheetDay({ day, date })}
                         style={styles.dayPressable}
                       >
                         <View
@@ -477,6 +471,16 @@ export default function RamadanScreen() {
           </ThemedText>
         </View>
       </Stagger>
+
+      <FastStatusSheet
+        visible={sheetDay != null}
+        dayLabel={sheetDay ? t("ramadan.dayCell", { day: sheetDay.day }) : ""}
+        currentStatus={sheetDay ? days[sheetDay.date] : undefined}
+        onSelect={(status) => {
+          if (sheetDay) setStatus(sheetDay.date, status);
+        }}
+        onClose={() => setSheetDay(null)}
+      />
     </ScreenLayout>
   );
 }

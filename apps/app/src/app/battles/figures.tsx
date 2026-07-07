@@ -35,7 +35,7 @@ export default function BattlesFiguresScreen() {
 
         <LearnReadingChrome surface="battles">
           {figures.map((figure) => (
-            <Card key={figure.id} padding="three" style={styles.card}>
+            <Card key={figure.id} padding="three">
               <SectionHeader
                 title={figure.name}
                 icon={{ ios: "person.fill", android: "person", web: "person" }}
@@ -91,7 +91,6 @@ export default function BattlesFiguresScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { marginBottom: Spacing.three },
   summary: { marginTop: Spacing.two, lineHeight: 22 },
   battles: { marginTop: Spacing.three, gap: Spacing.one },
   lesson: { marginTop: Spacing.three, gap: Spacing.one },

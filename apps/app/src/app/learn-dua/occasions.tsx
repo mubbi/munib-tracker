@@ -20,6 +20,8 @@ export default function LearnDuaOccasionsScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_dua"
       eyebrow={t("learnDua.eyebrow")}
       title={t("learnDua.occasionsTitle")}
       subtitle={t("learnDua.occasionsSubtitle")}

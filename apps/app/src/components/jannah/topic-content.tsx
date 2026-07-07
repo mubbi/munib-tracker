@@ -2,7 +2,7 @@ import type { JannahTopic } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
   JannahBody,
@@ -70,6 +70,13 @@ export function JannahTopicContent({ topic }: { topic: JannahTopic }) {
           </View>
         </Card>
       ) : null}
+
+      <GuideTopicFooter
+        ns="jannah"
+        topic={topic}
+        sectionTitle={t("jannah.title")}
+        showComplete={false}
+      />
 
       {topic.disclaimer ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>

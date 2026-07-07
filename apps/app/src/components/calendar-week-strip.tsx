@@ -60,7 +60,7 @@ export function CalendarWeekStrip({
     <Card padding="three">
       <View style={styles.header}>
         <NavButton
-          icon={chevronBackward}
+          icon={chevronBackward()}
           label={t("calDay.prevWeek")}
           onPress={() => shiftWeek(-1)}
         />
@@ -73,7 +73,7 @@ export function CalendarWeekStrip({
           })}
         </ThemedText>
         <NavButton
-          icon={chevronForward}
+          icon={chevronForward()}
           label={t("calDay.nextWeek")}
           onPress={() => shiftWeek(1)}
         />

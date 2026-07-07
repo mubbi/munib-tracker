@@ -60,7 +60,7 @@ export function CustomTasbeehRow({ item, onPress }: CustomTasbeehRowProps) {
         }
       />
 
-      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

@@ -37,6 +37,8 @@ export default function LearnDuaProgressScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_dua"
       eyebrow={t("learnDua.eyebrow")}
       title={t("learnDua.progressTitle")}
       subtitle={t("learnDua.progressSubtitle")}

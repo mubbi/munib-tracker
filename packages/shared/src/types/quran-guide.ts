@@ -159,3 +159,16 @@ export interface QuranGuideTadabburPrompt {
   question: string;
   hint: string;
 }
+
+/** Quiz question — educational review across the hub, not spiritual ranking. */
+export interface QuranGuideQuizQuestion {
+  id: string;
+  /** Topic area the question reviews — shown as a category chip. */
+  category: "structure" | "revelation" | "recitation" | "tajweed" | "vocabulary" | "stories";
+  type: "multiple-choice" | "true-false" | "reflection";
+  prompt: string;
+  options?: string[];
+  /** Index into options for scored types; omitted for reflection. */
+  correctIndex?: number;
+  explanation: string;
+}

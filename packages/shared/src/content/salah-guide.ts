@@ -10,7 +10,7 @@ export { SALAH_GUIDE_PHRASES } from "./salah-guide-phrases";
  * difference is noted respectfully rather than presented as one ruling.
  * Bump the version whenever content changes so caches refresh.
  */
-export const SALAH_GUIDE_CONTENT_VERSION = 3;
+export const SALAH_GUIDE_CONTENT_VERSION = 4;
 
 /** Ordered journey phases shown on the hub. */
 export const SALAH_GUIDE_JOURNEY_ORDER = [
@@ -593,68 +593,167 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
     id: "how-to-pray",
     journey: "learn",
     title: "Step-by-step salah",
-    summary: "The full sequence of a rak'ah — the heart of this whole guide.",
+    summary: "The full sequence of a rak'ah — every recited phrase, with its ruling.",
     importance: "obligatory",
     body: [
-      "Every prayer is built from the same core movements: standing and reciting, bowing, rising, prostrating twice, and — at the end — sitting for the tashahhud and giving the salam. Learn one rak'ah well and you can pray any prayer, since the longer prayers simply repeat these units.",
-      "A two-rak'ah prayer (like Fajr) sits for the final tashahhud after the second rak'ah and closes with the salam. A three- or four-rak'ah prayer sits for a first, shorter tashahhud after the second rak'ah, stands again for the remaining rak'ah(s) — reciting only Al-Fatihah in them — then sits for the final tashahhud and salam.",
-      "The single most important quality throughout is tuma'ninah — stillness, settling completely into each posture before moving to the next. The Prophet ﷺ once told a man who had prayed hastily, three times over, 'Go back and pray, for you have not prayed,' then taught him to be still in each position. Rushing through the postures can invalidate the prayer.",
-      "Recite Al-Fatihah in every rak'ah: 'There is no prayer for the one who does not recite the Opening of the Book.' In the first two rak'ahs of every prayer, add a short surah or a few verses after it. Move from posture to posture with the takbir 'Allahu Akbar', keeping your gaze on the place of prostration.",
+      "Every prayer is built from one repeating unit — the rak'ah: you stand and recite, bow, rise, prostrate twice, and (at the end of the prayer) sit for the tashahhud and give the salam. Learn one rak'ah well and you can pray any prayer, because the longer prayers simply repeat this unit. The steps below give each action in order, the exact words to say in Arabic with their meaning, and a small tag showing whether the action is a pillar, a required act, or a recommended one.",
+      "Scholars sort the actions of salah into three levels. A fard (pillar / rukn) is essential: leave it out — even by mistake — and the prayer, or that rak'ah, is invalid until it is performed. A wajib (required act) is obligatory, but if you forget one you mend the prayer with the prostration of forgetfulness (sujud as-sahw) rather than repeating it. A sunnah is recommended and rewarded, and the prayer is complete and valid without it. Where the schools of fiqh place an action in a different category, the tips note it — this three-fold boundary is itself one of the classic areas of scholarly difference.",
+      "Throughout, the one quality that must never be lost is tuma'ninah — stillness: settling fully into each posture, with the limbs at rest, before moving on. The Prophet ﷺ sent a man who had prayed hastily back to pray again three times, saying, 'Go back and pray, for you have not prayed,' then taught him to be calm in each position. Move between the postures with the takbir 'Allahu Akbar', and keep your gaze on the place of prostration.",
+      "How many rak'ahs, and where you sit: a two-rak'ah prayer (Fajr, and Jumu'ah) has a single sitting — the final tashahhud after the second rak'ah — then the salam. A three-rak'ah prayer (Maghrib) and a four-rak'ah prayer (Dhuhr, Asr, Isha) sit for a first, shorter tashahhud after the second rak'ah, then stand for the remaining rak'ah(s) — reciting only Al-Fatihah in them, with no added surah — and sit again for the final tashahhud and salam.",
+      "Aloud or silent: Al-Fatihah and the surah are recited aloud (jahri) in Fajr, Jumu'ah, and the first two rak'ahs of Maghrib and Isha; they are recited silently (sirri) in Dhuhr and Asr, in the third rak'ah of Maghrib, and in the third and fourth rak'ahs of Isha. Every other phrase of the prayer — the tasbih of ruku and sujud, the tashahhud, and so on — is said quietly. Someone praying alone may recite aloud in the aloud prayers or keep it low; a follower behind the imam simply listens while the imam recites aloud.",
+      "Some additions belong to particular prayers or moments. In the Witr prayer many recite the Qunut in the last rak'ah — raising the hands to supplicate for guidance and protection (a well-known wording begins 'Allahumma-hdini fiman hadayt…'). In times of hardship the Qunut an-Nazilah may be added to the obligatory prayers, and the schools differ over a standing Qunut in Fajr. If you join the congregation late (masbuq), whatever you catch with the imam counts, and you make up the rak'ahs you missed after his salam. And if you add or drop something by mistake, see the guide to sujud as-sahw.",
     ],
     steps: [
       {
-        title: "1. Stand & intend (qiyam & niyyah)",
-        body: "Face the qiblah, stand upright, and settle your intention in the heart for this specific prayer.",
-        tip: "Fix your eyes on the place of sujud and keep them there — do not look around.",
+        title: "1. Intention & standing (niyyah & qiyam)",
+        body: "Face the qiblah and stand upright — standing is a pillar of every obligatory prayer for whoever is able. Settle in the heart which specific prayer you are about to pray; the intention is an inward resolve, not a sentence spoken aloud.",
+        ruling: "fard",
+        tip: "Fix your eyes on the place of sujud and keep them there. Anyone who genuinely cannot stand prays sitting, then lying — the prayer itself is never dropped.",
       },
       {
         title: "2. Opening takbir (Takbirat al-Ihram)",
-        body: "Raise your hands to the shoulders or earlobes and say 'Allahu Akbar', then place the right hand over the left on the chest. This takbir is a pillar; the prayer has now begun.",
+        body: "Raise your hands to the shoulders or earlobes and say the takbir, then place the right hand over the left on the chest. With this the prayer begins, and ordinary speech and movement are now forbidden until the salam.",
         arabic: "اللَّهُ أَكْبَرُ",
         transliteration: "Allahu Akbar",
+        translation: "Allah is the Greatest.",
+        ruling: "fard",
+        tip: "Raising the hands (raf' al-yadayn) with the takbir is a confirmed sunnah, not a pillar.",
       },
       {
-        title: "3. Opening du'a & Al-Fatihah",
-        body: "Silently say an opening supplication, seek refuge in Allah, then recite Surah Al-Fatihah. In the first two rak'ahs, follow it with a short surah or verses.",
-        tip: "Al-Fatihah is a pillar — the rak'ah is invalid without it.",
+        title: "3. Opening supplication (Du'a al-Istiftah)",
+        body: "Recite quietly a short opening supplication to settle the heart before Allah's words. Several authentic wordings are reported; this is one of the most common.",
+        arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَىٰ جَدُّكَ، وَلَا إِلَٰهَ غَيْرُكَ",
+        transliteration:
+          "Subhanaka Allahumma wa bihamdika, wa tabarakasmuka, wa ta'ala jadduka, wa la ilaha ghayruk",
+        translation:
+          "Glory is to You, O Allah, and praise. Blessed is Your name and exalted is Your majesty. There is no god other than You.",
+        ruling: "sunnah",
       },
       {
-        title: "4. Bowing (ruku)",
-        body: "Say 'Allahu Akbar' and bow with a flat back, hands gripping the knees, saying 'Subhana Rabbiyal-'Adheem' three or more times.",
+        title: "4. Ta'awwudh & Basmalah",
+        body: "Seek refuge in Allah from Satan, then begin with the Basmalah, before Al-Fatihah. Both are said quietly, even in the aloud prayers.",
+        arabic: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ، بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+        transliteration: "A'udhu billahi minash-shaytanir-rajim. Bismillahir-Rahmanir-Rahim.",
+        translation:
+          "I seek refuge in Allah from Satan, the accursed. In the name of Allah, the Entirely Merciful, the Especially Merciful.",
+        ruling: "sunnah",
+      },
+      {
+        title: "5. Recite Al-Fatihah",
+        body: "Recite the Opening of the Book in every rak'ah — 'There is no prayer for the one who does not recite the Opening of the Book.' The imam and the lone worshipper recite it aloud in the aloud prayers; otherwise it is recited quietly.",
+        arabic:
+          "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+        transliteration:
+          "Bismillahir-Rahmanir-Rahim. Al-hamdu lillahi Rabbil-'alamin. Ar-Rahmanir-Rahim. Maliki yawmid-din. Iyyaka na'budu wa iyyaka nasta'in. Ihdinas-siratal-mustaqim. Siratal-ladhina an'amta 'alayhim ghayril-maghdubi 'alayhim wa lad-dallin.",
+        translation:
+          "In the name of Allah, the Entirely Merciful, the Especially Merciful. All praise is due to Allah, Lord of the worlds — the Entirely Merciful, the Especially Merciful, Sovereign of the Day of Recompense. It is You we worship and You we ask for help. Guide us to the straight path — the path of those upon whom You have bestowed favour, not of those who have earned anger or of those who are astray.",
+        ruling: "fard",
+        tip: "Say 'Ameen' after it (aloud in the aloud prayers). Hanafis class reciting some Qur'an as the pillar and Al-Fatihah specifically as wajib; the majority hold Al-Fatihah itself is the pillar in every rak'ah.",
+      },
+      {
+        title: "6. Recite a surah or some verses",
+        body: "In the first two rak'ahs only, follow Al-Fatihah with a short surah or a few verses — for example Surah Al-Ikhlas ('Qul huwa Allahu ahad…'). In the third and fourth rak'ahs recite Al-Fatihah alone.",
+        ruling: "sunnah",
+        tip: "Recommended for the lone worshipper and the imam; a follower listens. Hanafis hold that adding a surah in the first two rak'ahs is wajib.",
+      },
+      {
+        title: "7. Bowing (ruku)",
+        body: "Say 'Allahu Akbar' and bow with a flat, level back, hands gripping the knees, and glorify your Lord three times or more, without haste.",
         arabic: "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
         transliteration: "Subhana Rabbiyal-'Adheem",
+        translation: "Glory is to my Lord, the Magnificent.",
+        ruling: "fard",
+        tip: "The bow itself, held with stillness, is the pillar; the tasbih recited in it is a sunnah (wajib in some schools).",
       },
       {
-        title: "5. Rising from ruku (i'tidal)",
-        body: "Rise fully upright saying 'Sami'Allahu liman hamidah', then 'Rabbana wa lakal-hamd'. Stand completely still before descending.",
+        title: "8. Rising from ruku (i'tidal)",
+        body: "Rise fully upright — the imam and lone worshipper saying the tasmi', and everyone saying the tahmid — and stand completely still before descending.",
+        arabic: "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ، رَبَّنَا وَلَكَ الْحَمْدُ",
         transliteration: "Sami'Allahu liman hamidah — Rabbana wa lakal-hamd",
+        translation: "Allah hears whoever praises Him. Our Lord, to You belongs all praise.",
+        ruling: "fard",
+        tip: "Standing back up straight and at ease is a pillar — do not sink into sujud until you have settled here.",
       },
       {
-        title: "6. Prostration (sujud)",
-        body: "Say 'Allahu Akbar' and prostrate on seven points — forehead with the nose, both palms, both knees, and the toes of both feet — saying 'Subhana Rabbiyal-A'la' three or more times. This is the posture nearest to Allah, so supplicate.",
+        title: "9. Prostration (sujud)",
+        body: "Say 'Allahu Akbar' and prostrate on seven bones — the forehead together with the nose, both palms, both knees, and the toes of both feet — glorifying the Most High three times or more. This is the posture nearest to Allah, so pour out supplication after the tasbih.",
         arabic: "سُبْحَانَ رَبِّيَ الْأَعْلَىٰ",
         transliteration: "Subhana Rabbiyal-A'la",
-        tip: "Keep the elbows raised off the ground and away from the sides, and the belly off the thighs.",
+        translation: "Glory is to my Lord, the Most High.",
+        ruling: "fard",
+        tip: "Keep the forearms raised off the ground and away from the sides, and the belly off the thighs.",
       },
       {
-        title: "7. Sitting between the two sujud (jalsah)",
-        body: "Rise saying 'Allahu Akbar', sit calmly upright saying 'Rabbi ighfir li' (my Lord, forgive me), then prostrate a second time as before.",
+        title: "10. Sitting between the two prostrations (jalsah)",
+        body: "Rise from the first sujud saying 'Allahu Akbar', sit calmly and upright, and ask your Lord for forgiveness before prostrating again.",
+        arabic: "رَبِّ اغْفِرْ لِي",
         transliteration: "Rabbi ighfir li",
+        translation: "My Lord, forgive me.",
+        ruling: "fard",
+        tip: "Sit until you are at ease — this brief sitting, with stillness, is a pillar in its own right.",
       },
       {
-        title: "8. Stand for the next rak'ah",
-        body: "Say 'Allahu Akbar' and rise. Repeat from Al-Fatihah. That completes one rak'ah.",
+        title: "11. Second prostration",
+        body: "Say 'Allahu Akbar' and prostrate a second time exactly as the first, with the same tasbih and the same stillness. This completes one full rak'ah.",
+        arabic: "سُبْحَانَ رَبِّيَ الْأَعْلَىٰ",
+        transliteration: "Subhana Rabbiyal-A'la",
+        translation: "Glory is to my Lord, the Most High.",
+        ruling: "fard",
       },
       {
-        title: "9. Tashahhud",
-        body: "After the last rak'ah of a sitting, recite At-Tahiyyat, then the salawat upon the Prophet ﷺ (and, in the final sitting, a du'a before the salam).",
-        tip: "Raise the right index finger during the tashahhud — a confirmed sunnah of witness and focus.",
+        title: "12. Stand for the next rak'ah",
+        body: "Say 'Allahu Akbar' and rise to stand, then repeat from Al-Fatihah. In the third and fourth rak'ahs recite Al-Fatihah only, without an added surah.",
+        ruling: "fard",
+        tip: "In a two-rak'ah prayer you do not stand again after the second rak'ah — you stay seated for the final tashahhud.",
       },
       {
-        title: "10. Salam",
-        body: "Turn the face to the right saying 'As-salamu 'alaykum wa rahmatullah', then to the left with the same words. The prayer is complete.",
+        title: "13. First tashahhud (in 3- and 4-rak'ah prayers)",
+        body: "After the second rak'ah of Maghrib, Dhuhr, Asr, or Isha, sit and recite At-Tahiyyat, then stand for the remaining rak'ah(s). A two-rak'ah prayer has no first tashahhud.",
+        arabic:
+          "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ، السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ، السَّلَامُ عَلَيْنَا وَعَلَىٰ عِبَادِ اللَّهِ الصَّالِحِينَ، أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+        transliteration:
+          "At-tahiyyatu lillahi was-salawatu wat-tayyibat, as-salamu 'alayka ayyuhan-nabiyyu wa rahmatullahi wa barakatuh, as-salamu 'alayna wa 'ala 'ibadillahis-salihin, ashhadu an la ilaha illallah, wa ashhadu anna Muhammadan 'abduhu wa rasuluh",
+        translation:
+          "All greetings, prayers, and pure words are for Allah. Peace be upon you, O Prophet, and the mercy of Allah and His blessings. Peace be upon us and upon the righteous servants of Allah. I bear witness that there is no god except Allah, and I bear witness that Muhammad is His slave and Messenger.",
+        ruling: "wajib",
+        tip: "Raise the right index finger in the sitting. If you forget the first tashahhud and have started to stand, continue and perform sujud as-sahw before the salam — do not sit back down.",
+      },
+      {
+        title: "14. Final tashahhud",
+        body: "In the last sitting of every prayer, recite the same At-Tahiyyat shown above. Sitting for the final tashahhud, and reciting it, is a pillar of the prayer.",
+        ruling: "fard",
+      },
+      {
+        title: "15. Send blessings on the Prophet ﷺ (Salawat)",
+        body: "After the final At-Tahiyyat, send salawat upon the Prophet ﷺ with the words he himself taught his Companions.",
+        arabic:
+          "اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَىٰ مُحَمَّدٍ وَعَلَىٰ آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَىٰ إِبْرَاهِيمَ وَعَلَىٰ آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        transliteration:
+          "Allahumma salli 'ala Muhammad wa 'ala ali Muhammad, kama sallayta 'ala Ibrahim wa 'ala ali Ibrahim, innaka Hamidun Majid. Allahumma barik 'ala Muhammad wa 'ala ali Muhammad, kama barakta 'ala Ibrahim wa 'ala ali Ibrahim, innaka Hamidun Majid.",
+        translation:
+          "O Allah, send blessings upon Muhammad and the family of Muhammad, as You blessed Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious. O Allah, bestow favour upon Muhammad and the family of Muhammad, as You favoured Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious.",
+        ruling: "sunnah",
+        tip: "The Shafi'i and Hanbali schools consider the salawat in the final sitting obligatory.",
+      },
+      {
+        title: "16. Supplicate before the salam",
+        body: "Before ending, seek refuge in Allah from four trials — then make any du'a you wish, for this life and the next, in Arabic or your own language.",
+        arabic:
+          "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، وَمِنْ عَذَابِ جَهَنَّمَ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ",
+        transliteration:
+          "Allahumma inni a'udhu bika min 'adhabil-qabri, wa min 'adhabi jahannam, wa min fitnatil-mahya wal-mamat, wa min sharri fitnatil-masihid-dajjal",
+        translation:
+          "O Allah, I seek refuge in You from the punishment of the grave, from the punishment of Hell, from the trial of life and death, and from the evil of the trial of the False Messiah (the Dajjal).",
+        ruling: "sunnah",
+      },
+      {
+        title: "17. Closing salam (Taslim)",
+        body: "End the prayer by turning the face to the right, then to the left, giving the greeting of peace each time. With the salam the prayer is complete.",
         arabic: "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
         transliteration: "As-salamu 'alaykum wa rahmatullah",
+        translation: "Peace and the mercy of Allah be upon you.",
+        ruling: "fard",
+        tip: "The first taslim (to the right) is the pillar; the second (to the left) is a sunnah in some schools.",
       },
     ],
     hadith: [
@@ -681,6 +780,8 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
     ],
     appLinks: [
       { label: "Words & meanings", route: "/salah-guide/phrases" },
+      { label: "Every position", route: "/salah-guide/positions" },
+      { label: "If you make a mistake (sujud as-sahw)", route: "/salah-guide/sujud-al-sahw" },
       { label: "Practice tracker", route: "/tracker" },
     ],
   },

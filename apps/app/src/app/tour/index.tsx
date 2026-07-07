@@ -97,7 +97,7 @@ export default function TourScreen() {
             void finish();
           }}
           haptic={false}
-          name={chevronBack}
+          name={chevronBack()}
           size={18}
           tintColor={colors.accent}
           background={tokens.accentSoft}
@@ -171,7 +171,7 @@ export default function TourScreen() {
             style={styles.openLink}
           >
             <ThemedText type="linkPrimary">{t("tour.goThere")}</ThemedText>
-            <SymbolView name={chevronForward} size={14} tintColor={colors.accent} />
+            <SymbolView name={chevronForward()} size={14} tintColor={colors.accent} />
           </PressableScale>
         ) : null}
 
@@ -181,7 +181,7 @@ export default function TourScreen() {
               accessibilityLabel={t("tour.back")}
               onPress={() => goToStep(index - 1)}
               haptic={false}
-              name={chevronBack}
+              name={chevronBack()}
               size={18}
               tintColor={colors.foreground}
               background={colors.muted}
@@ -193,7 +193,7 @@ export default function TourScreen() {
 
           <Button
             label={isLast ? t("tour.done") : t("tour.next")}
-            trailingIcon={isLast ? undefined : arrowForward}
+            trailingIcon={isLast ? undefined : arrowForward()}
             onPress={() => (isLast ? void finish() : goToStep(index + 1))}
             style={styles.primaryAction}
           />

@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
+import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
   JannahBody,
@@ -33,6 +34,15 @@ const IMPORTANCE_TONE: Record<
   recommended: "warning",
 };
 
+const RULING_TONE: Record<
+  NonNullable<SalahGuideTopic["steps"]>[number]["ruling"] & string,
+  "success" | "warning" | "info" | "danger"
+> = {
+  fard: "danger",
+  wajib: "warning",
+  sunnah: "info",
+};
+
 function SalahGuideSteps({ steps }: { steps: NonNullable<SalahGuideTopic["steps"]> }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -53,7 +63,19 @@ function SalahGuideSteps({ steps }: { steps: NonNullable<SalahGuideTopic["steps"
               </ThemedText>
             </View>
             <View style={styles.stepCopy}>
-              <ThemedText type="smallBold">{step.title}</ThemedText>
+              <View style={styles.stepHeader}>
+                <ThemedText type="smallBold" style={styles.stepTitle}>
+                  {step.title}
+                </ThemedText>
+                {step.ruling ? (
+                  <Pill
+                    label={t(`salahGuide.ruling.${step.ruling}`)}
+                    compact
+                    color={tokens.status[RULING_TONE[step.ruling]].color}
+                    background={tokens.status[RULING_TONE[step.ruling]].soft}
+                  />
+                ) : null}
+              </View>
               <ThemedText
                 type="small"
                 themeColor="mutedForeground"
@@ -64,10 +86,11 @@ function SalahGuideSteps({ steps }: { steps: NonNullable<SalahGuideTopic["steps"
               >
                 {step.body}
               </ThemedText>
-              {step.arabic || step.transliteration ? (
+              {step.arabic || step.transliteration || step.translation ? (
                 <ReligiousTextStack
                   arabic={step.arabic}
                   transliteration={step.transliteration}
+                  translation={step.translation}
                   compact
                 />
               ) : null}
@@ -139,11 +162,12 @@ export function SalahGuideTopicContent({ topic }: { topic: SalahGuideTopic }) {
         </Card>
       ) : null}
 
-      <Button
-        label={completed ? t("salahGuide.markIncomplete") : t("salahGuide.markComplete")}
-        variant={completed ? "secondary" : "primary"}
-        fullWidth
-        onPress={() => void toggleTopic(topic.id)}
+      <GuideTopicFooter
+        ns="salahGuide"
+        topic={topic}
+        sectionTitle={t("salahGuide.title")}
+        completed={completed}
+        onToggleComplete={() => void toggleTopic(topic.id)}
       />
 
       {topic.disclaimer ? (
@@ -168,6 +192,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   stepCopy: { flex: 1, gap: Spacing.one },
+  stepHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: Spacing.two,
+  },
+  stepTitle: { flexShrink: 1 },
   stepBody: {},
   tip: {
     marginTop: Spacing.one,

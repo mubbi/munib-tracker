@@ -1,3 +1,5 @@
+import { QURAN_GUIDE_TOPICS } from "@munib-tracker/shared/content";
+
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 
@@ -31,8 +33,9 @@ export const quranGuideProgressStore = createStore<QuranGuideProgressState>((set
 
   async load() {
     const data = await readJSON<QuranGuideProgressPersisted>(DB_KEYS.quranGuideProgress, EMPTY);
+    const valid = new Set(QURAN_GUIDE_TOPICS.map((topic) => topic.id));
     set({
-      completedTopicIds: data.completedTopicIds,
+      completedTopicIds: data.completedTopicIds.filter((id) => valid.has(id)),
       completedApplyChallengeIds: data.completedApplyChallengeIds,
       isReady: true,
     });

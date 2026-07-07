@@ -18,6 +18,8 @@ type ProgressRingProps = {
   surfaceColor?: string;
   /** Small caption rendered under the value. */
   caption?: string;
+  /** Font size of the centre percentage — scale down for compact rings. */
+  valueFontSize?: number;
 };
 
 const COUNT_UP_MS = 900;
@@ -37,6 +39,7 @@ export function ProgressRing({
   trackColor,
   surfaceColor,
   caption,
+  valueFontSize,
 }: ProgressRingProps) {
   const { colors, tokens } = useThemeTokens();
   const reducedMotion = useReducedMotion();
@@ -124,7 +127,17 @@ export function ProgressRing({
 
       {/* Centre value. */}
       <View style={styles.center}>
-        <ThemedText style={[styles.value, { color: colors.foreground }]}>{pct}%</ThemedText>
+        <ThemedText
+          style={[
+            styles.value,
+            { color: colors.foreground },
+            valueFontSize != null
+              ? { fontSize: valueFontSize, lineHeight: valueFontSize + 4 }
+              : null,
+          ]}
+        >
+          {pct}%
+        </ThemedText>
         {caption ? (
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.caption}>
             {caption}

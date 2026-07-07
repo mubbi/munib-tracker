@@ -2,6 +2,7 @@ import type { QuranEdition, QuranEditionKind } from "@munib-tracker/shared/types
 
 import { QuranCacheRepository } from "@/db";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
+import { preferencesStore } from "@/stores/preferences-store";
 
 /**
  * D2 — extra Qur'an translations fetched on demand from fawazahmed0/quran-api
@@ -87,6 +88,9 @@ export async function fetchRemoteEditionSurah(
   const map: Record<string, string> = {};
   for (const row of json.chapter) map[String(row.verse)] = row.text;
 
-  await QuranCacheRepository.set(editionId, surah, map);
+  // Persist to disk only when the user allows saving Qur'an editions locally;
+  // otherwise it stays in the session cache and refetches next launch.
+  const persist = preferencesStore.getState().prefs.cacheQuranEditionsLocally !== false;
+  await QuranCacheRepository.set(editionId, surah, map, persist);
   return map;
 }

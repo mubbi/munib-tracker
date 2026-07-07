@@ -221,7 +221,11 @@ const DuaRow = memo(function DuaRow({
           </ThemedText>
         </View>
         <View style={styles.favoriteSlot} />
-        <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
+        <SymbolView
+          name={chevronForward()}
+          size={CHEVRON_SIZE}
+          tintColor={colors.mutedForeground}
+        />
       </PressableScale>
 
       <IconButton

@@ -36,6 +36,8 @@ export default function LearnQuranTajweedDetailScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={lesson?.title ?? t("learnQuran.tajweedTitle")}
       subtitle={lesson?.summary ?? ""}

@@ -5,6 +5,7 @@ import {
   QURAN_GUIDE_LETTERS,
   QURAN_GUIDE_MEMORIZATION_PLANS,
   QURAN_GUIDE_PRONUNCIATION,
+  QURAN_GUIDE_QUIZ,
   QURAN_GUIDE_READING_LEVELS,
   QURAN_GUIDE_STORIES,
   QURAN_GUIDE_STRUCTURE_LEVELS,
@@ -120,6 +121,10 @@ export function getQuranGuideApplyChallengeForDate(date = new Date()) {
 
 export function getQuranGuideTadabburPrompts() {
   return QURAN_GUIDE_TADABBUR_PROMPTS;
+}
+
+export function getQuranGuideQuiz() {
+  return QURAN_GUIDE_QUIZ;
 }
 
 /** Hub route for a topic id — dedicated screens vs generic article. */

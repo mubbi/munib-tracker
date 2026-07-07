@@ -71,7 +71,7 @@ export default function BattlesLessonsScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { marginBottom: Spacing.three, gap: Spacing.two },
+  card: { gap: Spacing.two },
   lesson: { lineHeight: 28 },
   detail: { lineHeight: 22 },
   chip: {

@@ -76,7 +76,7 @@ export default function ProphetsTimelineScreen() {
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("prophets.readTopic")}
                     </ThemedText>
-                    <SymbolView name={chevronForward} size={12} tintColor={colors.accent} />
+                    <SymbolView name={chevronForward()} size={12} tintColor={colors.accent} />
                   </View>
                 ) : null}
               </Card>

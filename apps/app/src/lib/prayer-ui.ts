@@ -57,6 +57,13 @@ export const PRAYER_STATUS_META: Record<PrayerStatus, { icon: SymbolName; tone: 
   },
 };
 
+/** Congregation (jama') indicator shown on completed fard rows (NF-1.5). */
+export const PRAYER_JAMA_ICON: SymbolName = {
+  ios: "person.3.fill",
+  android: "groups",
+  web: "groups",
+};
+
 export const PRAYER_ICONS: Record<PrayerId, SymbolName> = {
   fajr: { ios: "sunrise.fill", android: "wb_twilight", web: "wb_twilight" },
   dhuhr: { ios: "sun.max.fill", android: "light_mode", web: "light_mode" },

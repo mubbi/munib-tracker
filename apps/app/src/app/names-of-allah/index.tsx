@@ -7,16 +7,20 @@ import {
   FlatList,
   type ListRenderItem,
   type ListRenderItemInfo,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
   StyleSheet,
   TextInput,
   View,
 } from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
+import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
@@ -63,6 +67,19 @@ export default function NamesOfAllahScreen() {
   const [query, setQuery] = useState("");
   const index = useMemo(() => createNameSearch(NAMES_OF_ALLAH), []);
   const names = query.trim() ? index.search(query) : NAMES_OF_ALLAH;
+
+  // Reading progress from scroll position. `getItemLayout` gives the list an
+  // exact content size, so pixel offset over the scrollable range is accurate
+  // and maps directly to how far the reader has scrolled.
+  const readingProgress = useSharedValue(0);
+  const onScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+      const range = contentSize.height - layoutMeasurement.height;
+      readingProgress.value = range > 0 ? Math.min(1, Math.max(0, contentOffset.y / range)) : 0;
+    },
+    [readingProgress],
+  );
 
   const activeId =
     audio.current?.id && names.some((n) => n.id === audio.current?.id)
@@ -234,6 +251,12 @@ export default function NamesOfAllahScreen() {
       title={t("names.title")}
       subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
       onBack={() => goBackOrReplace(router, "/")}
+      headerAccessory={
+        <ReadingProgressBar
+          progress={readingProgress}
+          accessibilityLabel={t("common.readingProgress")}
+        />
+      }
     >
       {SnapshotHost}
       <Seo
@@ -265,6 +288,8 @@ export default function NamesOfAllahScreen() {
         columnWrapperStyle={styles.columnWrapper}
         ListHeaderComponent={header}
         getItemLayout={getItemLayout}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
         onScrollToIndexFailed={onScrollToIndexFailed}
         style={styles.list}
         contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}

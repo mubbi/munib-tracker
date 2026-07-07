@@ -24,6 +24,8 @@ export default function LearnQuranRevelationScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.revelationTitle")}
       subtitle={t("learnQuran.revelationSubtitle")}
@@ -92,7 +94,7 @@ export default function LearnQuranRevelationScreen() {
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("learnQuran.readArticle")}
                     </ThemedText>
-                    <SymbolView name={chevronForward} size={12} tintColor={colors.accent} />
+                    <SymbolView name={chevronForward()} size={12} tintColor={colors.accent} />
                   </View>
                 ) : null}
               </Card>

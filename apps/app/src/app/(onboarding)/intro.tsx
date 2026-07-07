@@ -205,7 +205,7 @@ export default function OnboardingIntroScreen() {
           <Button
             label={isBrand ? t("onboarding.begin") : t("common.next")}
             fullWidth
-            trailingIcon={arrowForward}
+            trailingIcon={arrowForward()}
             onPress={goNext}
           />
         )}

@@ -11,6 +11,7 @@ import {
 
 import {
   appendInAppNotification,
+  clearAllInAppNotifications,
   countUnreadInAppNotifications,
   type InAppNotification,
   type InAppNotificationKind,
@@ -32,6 +33,7 @@ type InAppNotificationsContextValue = {
   }) => Promise<InAppNotification>;
   markRead: (id: string) => Promise<void>;
   markAllRead: () => Promise<void>;
+  clearAll: () => Promise<void>;
   open: (id: string) => Promise<void>;
 };
 
@@ -77,6 +79,11 @@ export function InAppNotificationsProvider({ children }: { children: ReactNode }
     await refresh();
   }, [refresh]);
 
+  const clearAll = useCallback(async () => {
+    await clearAllInAppNotifications();
+    await refresh();
+  }, [refresh]);
+
   const open = useCallback(
     async (id: string) => {
       const item = items.find((entry) => entry.id === id);
@@ -94,9 +101,10 @@ export function InAppNotificationsProvider({ children }: { children: ReactNode }
       deliver,
       markRead,
       markAllRead,
+      clearAll,
       open,
     }),
-    [items, refresh, deliver, markRead, markAllRead, open],
+    [items, refresh, deliver, markRead, markAllRead, clearAll, open],
   );
 
   return (

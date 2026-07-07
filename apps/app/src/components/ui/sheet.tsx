@@ -1,4 +1,5 @@
 import { type ReactNode, useEffect, useMemo, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Modal,
   PanResponder,
@@ -47,6 +48,7 @@ export function Sheet({
   children,
   contentStyle,
 }: SheetProps) {
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const insets = useSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
@@ -57,6 +59,18 @@ export function Sheet({
   const bottomScrollMaxHeight = bottomMaxHeight - bottomSheetChrome;
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
+
+  // Freeze the content shown during the close animation. React Native's Modal
+  // keeps rendering its children while it animates out; callers commonly clear
+  // the backing state (selected item, confirm copy, …) in the same tick they
+  // call onClose, which would blank the card mid-animation. Caching the last
+  // children rendered while visible keeps the text/content stable until the
+  // sheet has fully dismissed.
+  const lastVisibleChildren = useRef<ReactNode>(children);
+  if (visible) {
+    lastVisibleChildren.current = children;
+  }
+  const renderedChildren = visible ? children : lastVisibleChildren.current;
 
   const dragY = useSharedValue(0);
 
@@ -110,10 +124,10 @@ export function Sheet({
         { paddingBottom: Spacing.two + insets.bottom },
       ]}
     >
-      {children}
+      {renderedChildren}
     </ScrollView>
   ) : (
-    children
+    renderedChildren
   );
 
   const bottomCardStyle = [
@@ -128,7 +142,7 @@ export function Sheet({
       style={styles.handleZone}
       {...(isBottom ? panResponder.panHandlers : undefined)}
       accessibilityRole="adjustable"
-      accessibilityLabel="Drag down to close"
+      accessibilityLabel={t("common.dragToClose")}
     >
       <View style={[styles.handle, { backgroundColor: tokens.track }]} />
     </View>
@@ -138,37 +152,43 @@ export function Sheet({
     <Pressable
       style={isBottom ? styles.backdropBottom : StyleSheet.absoluteFill}
       onPress={onClose}
-      accessibilityLabel="Close"
+      accessibilityLabel={t("common.close")}
       // react-native-web renders a real <button> for role="button"; the backdrop
       // is a sibling of the dialog card so nested-button DOM errors do not apply.
       accessibilityRole={Platform.OS === "web" ? undefined : "button"}
     />
   );
 
+  /**
+   * Frosted-glass fill (blur + a translucent card wash for text legibility).
+   * Shared by both variants so every sheet reads the same. On iOS 26 keep the
+   * wash light so the real Liquid Glass material reads through; the blur
+   * fallback needs more opacity to stay legible over busy content.
+   */
+  // A negative zIndex keeps the blur + wash behind the card content. On
+  // react-native-web absolutely-positioned siblings otherwise paint *after*
+  // in-flow content, so without this the glass would cover (and visibly blur)
+  // text inputs and other controls inside the sheet.
+  const glassFill = (
+    <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.glassFill]}>
+      <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+      <View
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: withAlpha(
+              colors.card,
+              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
+            ),
+          },
+        ]}
+      />
+    </View>
+  );
+
   const bottomCard = (
     <Animated.View accessibilityViewIsModal style={[bottomCardStyle, bottomCardDragStyle]}>
-      {!solid ? (
-        <>
-          <View pointerEvents="none" style={StyleSheet.absoluteFill}>
-            <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
-          </View>
-          {/* A card wash for text legibility. On iOS 26 keep it light so the real
-              Liquid Glass material reads through; the blur fallback needs more
-              opacity to stay legible over busy content. */}
-          <View
-            style={[
-              StyleSheet.absoluteFill,
-              {
-                backgroundColor: withAlpha(
-                  colors.card,
-                  hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
-                ),
-                pointerEvents: "none",
-              },
-            ]}
-          />
-        </>
-      ) : null}
+      {!solid ? glassFill : null}
       {dragHandle}
       {cardBody}
     </Animated.View>
@@ -179,10 +199,12 @@ export function Sheet({
       accessibilityViewIsModal
       style={[
         styles.centerCard,
-        { backgroundColor: colors.card, borderColor: colors.border, zIndex: 1 },
+        { borderColor: colors.border, zIndex: 1 },
+        solid ? { backgroundColor: colors.card } : null,
         contentStyle,
       ]}
     >
+      {!solid ? glassFill : null}
       {cardBody}
     </View>
   );
@@ -239,6 +261,7 @@ const styles = StyleSheet.create({
     maxWidth: 520,
     width: "100%",
     alignSelf: "center",
+    overflow: "hidden",
   },
   bottomCard: {
     width: "100%",
@@ -271,5 +294,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
+  },
+  /** Sits behind the card content so the blur/wash never covers inputs on web. */
+  glassFill: {
+    zIndex: -1,
   },
 });

@@ -1,4 +1,5 @@
 import { getZikrById, ZIKR_ITEMS } from "@munib-tracker/shared/content";
+import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -32,11 +33,15 @@ export function generateStaticParams(): Array<{ id: string }> {
 export default function ZikrDetailScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const params = useLocalSearchParams<{ id: string }>();
+  const params = useLocalSearchParams<{ id: string; prayer?: string }>();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
   const item = params.id ? getZikrById(params.id) : undefined;
-  const count = useZikrCount(item?.id ?? "");
+  const afterSalahPrayer =
+    item?.categoryId === "after_prayer" && params.prayer && isAfterSalahPrayer(params.prayer)
+      ? params.prayer
+      : undefined;
+  const count = useZikrCount(item?.id ?? "", afterSalahPrayer);
   const shareCard = useShareContentCard();
 
   useEffect(() => {
@@ -149,7 +154,12 @@ export default function ZikrDetailScreen() {
             icon={TASBEEH_ICON}
             fullWidth
             onPress={() =>
-              router.push({ pathname: "/tasbeeh/[zikrId]", params: { zikrId: item.id } })
+              router.push({
+                pathname: "/tasbeeh/[zikrId]",
+                params: afterSalahPrayer
+                  ? { zikrId: item.id, prayer: afterSalahPrayer }
+                  : { zikrId: item.id },
+              })
             }
           />
           <View style={styles.actionRow}>

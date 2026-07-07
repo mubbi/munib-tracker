@@ -114,6 +114,24 @@ export interface UserPreferences {
   audioSpeed?: number;
   /** Preferred audio volume for the global player (0–1). */
   audioVolume?: number;
+  /**
+   * When true (default), streamed audio (Qur'an recitation, duas, adhan, etc.) is
+   * downloaded to on-device storage for offline replay and smoother queue playback.
+   * When false, audio is streamed only and nothing new is written to local cache.
+   */
+  cacheAudioLocally?: boolean;
+  /**
+   * When true (default), on-demand Qur'an translations & tafsir are saved to
+   * on-device storage so opened editions work offline. When false they are
+   * fetched for the current session only and never written to local storage.
+   */
+  cacheQuranEditionsLocally?: boolean;
+  /**
+   * When true (default), fetched hadith collections are saved to on-device
+   * storage for offline reading. When false they are fetched for the current
+   * session only and never written to local storage.
+   */
+  cacheHadithLocally?: boolean;
   /** Hero weather display and animated overlays. */
   weatherPrefs: WeatherPreferences;
   /** Vibration feedback on taps and meaningful actions (native only). */

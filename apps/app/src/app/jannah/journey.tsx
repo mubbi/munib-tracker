@@ -121,7 +121,7 @@ function MetricRow({ row, onPress }: { row: JannahJourneyRow; onPress: () => voi
           <ProgressBar value={row.progress} height={4} color={colors.accent} />
         ) : null}
       </View>
-      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

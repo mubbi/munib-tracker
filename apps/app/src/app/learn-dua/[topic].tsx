@@ -36,6 +36,7 @@ export default function LearnDuaTopicScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
       eyebrow={t("learnDua.eyebrow")}
       title={topic?.title ?? t("learnDua.title")}
       subtitle={topic?.summary ?? ""}

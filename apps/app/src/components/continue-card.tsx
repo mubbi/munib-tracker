@@ -256,7 +256,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
             <ThemedText type="smallBold" style={{ color: palette.text }}>
               {t(actionKey)}
             </ThemedText>
-            <SymbolView name={chevronForward} size={14} tintColor={palette.color} />
+            <SymbolView name={chevronForward()} size={14} tintColor={palette.color} />
           </View>
         </PressableScale>
       </Card>

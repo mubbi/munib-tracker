@@ -50,7 +50,7 @@ function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
         ) : null}
       </View>
       {entry.appLink ? (
-        <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
       ) : null}
     </PressableScale>
   );

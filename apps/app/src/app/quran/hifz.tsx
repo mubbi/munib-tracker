@@ -126,7 +126,7 @@ export default function HifzScreen() {
                         </ThemedText>
                       </View>
                       <SymbolView
-                        name={chevronForward}
+                        name={chevronForward()}
                         size={14}
                         tintColor={colors.mutedForeground}
                       />

@@ -73,6 +73,27 @@ export default function SettingsScreen() {
                 onValueChange={(enabled) => void update({ hapticsEnabled: enabled })}
               />
             ) : null}
+            <ToggleRow
+              icon={{ ios: "arrow.down.circle.fill", android: "download", web: "download" }}
+              title={t("settings.cacheAudioLocally")}
+              subtitle={t("settings.cacheAudioLocallySub")}
+              value={prefs.cacheAudioLocally !== false}
+              onValueChange={(enabled) => void update({ cacheAudioLocally: enabled })}
+            />
+            <ToggleRow
+              icon={{ ios: "text.book.closed.fill", android: "menu_book", web: "menu_book" }}
+              title={t("settings.cacheQuranEditionsLocally")}
+              subtitle={t("settings.cacheQuranEditionsLocallySub")}
+              value={prefs.cacheQuranEditionsLocally !== false}
+              onValueChange={(enabled) => void update({ cacheQuranEditionsLocally: enabled })}
+            />
+            <ToggleRow
+              icon={{ ios: "books.vertical.fill", android: "library_books", web: "library_books" }}
+              title={t("settings.cacheHadithLocally")}
+              subtitle={t("settings.cacheHadithLocallySub")}
+              value={prefs.cacheHadithLocally !== false}
+              onValueChange={(enabled) => void update({ cacheHadithLocally: enabled })}
+            />
             <SettingsRow
               icon={{ ios: "bell.fill", android: "notifications", web: "notifications" }}
               title={t("settings.notifications")}

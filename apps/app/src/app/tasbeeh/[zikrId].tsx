@@ -1,4 +1,5 @@
 import { getZikrById } from "@munib-tracker/shared/content";
+import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -11,6 +12,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
+import { zikrCountKey } from "@/lib/after-salah-adhkar-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
@@ -19,27 +21,40 @@ import { trackerStore } from "@/stores/tracker-store";
 export default function ZikrTasbeehScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const params = useLocalSearchParams<{ zikrId: string }>();
+  const params = useLocalSearchParams<{ zikrId: string; prayer?: string }>();
   const { fontPrefs } = usePreferences();
   const arabicSize = fontPrefs.arabic.size;
   const item = params.zikrId ? getZikrById(params.zikrId) : undefined;
+  const afterSalahPrayer =
+    item?.categoryId === "after_prayer" && params.prayer && isAfterSalahPrayer(params.prayer)
+      ? params.prayer
+      : undefined;
   const target = item?.targetCount && item.targetCount > 0 ? item.targetCount : 33;
 
   // Local, responsive count seeded once from today's stored progress; every
   // change is persisted so the dashboard and zikr detail stay in sync.
   const [count, setCount] = useState(() => {
     if (!item) return 0;
-    const stored = trackerStore.getState().zikrCounts[item.id] ?? 0;
+    const key = zikrCountKey(item.id, afterSalahPrayer);
+    const stored = trackerStore.getState().zikrCounts[key] ?? 0;
     return Math.max(0, Math.min(stored, target));
   });
 
   useEffect(() => {
     if (!item) return;
-    const stored = trackerStore.getState().zikrCounts[item.id] ?? 0;
+    const key = zikrCountKey(item.id, afterSalahPrayer);
+    const stored = trackerStore.getState().zikrCounts[key] ?? 0;
     if (stored > target) {
-      void trackerStore.getState().setZikrCount(item.id, target, target);
+      void trackerStore
+        .getState()
+        .setZikrCount(
+          item.id,
+          target,
+          target,
+          afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
+        );
     }
-  }, [item, target]);
+  }, [afterSalahPrayer, item, target]);
 
   if (!item) {
     return (
@@ -61,7 +76,14 @@ export default function ZikrTasbeehScreen() {
   const persist = (next: number) => {
     const safe = Math.max(0, target > 0 ? Math.min(next, target) : next);
     setCount(safe);
-    void trackerStore.getState().setZikrCount(item.id, safe, target);
+    void trackerStore
+      .getState()
+      .setZikrCount(
+        item.id,
+        safe,
+        target,
+        afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
+      );
   };
 
   return (

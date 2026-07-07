@@ -1,6 +1,6 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
-import type { ObligatoryPrayer, ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
-import { isObligatoryPrayer, isZikrCategoryId } from "@munib-tracker/shared/validators";
+import type { AfterSalahPrayer, ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
+import { isAfterSalahPrayer, isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -18,17 +18,27 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  afterSalahItemProgress,
+  afterSalahItemsForPrayer,
+  afterSalahProgressForPrayer,
+  getZikrCountFromMap,
+  isZikrItemDone,
+} from "@/lib/after-salah-adhkar-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { zikrByCategory } from "@/lib/zikr";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
+import { useZikrCounts } from "@/stores/tracker-store";
 
-const OBLIGATORY_PRAYERS: ObligatoryPrayer[] = ["fajr", "dhuhr", "asr", "maghrib", "isha"];
-type PrayerFilter = ObligatoryPrayer | "all";
+// After-salah adhkar tabs: the five fard prayers plus Witr (its own adhkar).
+const AFTER_SALAH_PRAYERS: AfterSalahPrayer[] = ["fajr", "dhuhr", "asr", "maghrib", "isha", "witr"];
+type PrayerFilter = AfterSalahPrayer | "all";
 
 /** Pre-render a static HTML page for each fixed zikr category at web export time. */
 export function generateStaticParams(): Array<{ category: string }> {
@@ -42,6 +52,7 @@ export default function ZikrCategoryScreen() {
   const params = useLocalSearchParams<{ category: string; prayer?: string }>();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
+  const zikrCounts = useZikrCounts();
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
 
@@ -54,17 +65,19 @@ export default function ZikrCategoryScreen() {
   const showPrayerFilter = categoryId === "after_prayer";
   const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>(() => {
     const raw = params.prayer;
-    return raw && isObligatoryPrayer(raw) ? raw : "all";
+    return raw && isAfterSalahPrayer(raw) ? raw : "all";
   });
   // Notification deep-links can land on this screen while it is already mounted.
   useEffect(() => {
     if (!showPrayerFilter) return;
     const raw = params.prayer;
-    if (raw && isObligatoryPrayer(raw)) setPrayerFilter(raw);
+    if (raw && isAfterSalahPrayer(raw)) setPrayerFilter(raw);
   }, [showPrayerFilter, params.prayer]);
   const items = useMemo(() => {
     if (!showPrayerFilter || prayerFilter === "all") return allItems;
-    return allItems.filter((z) => !z.prayers?.length || z.prayers.includes(prayerFilter));
+    // Universal after-salah adhkar surface under every fard prayer but not Witr,
+    // whose tab holds only its own adhkar — mirror afterSalahApplicablePrayers.
+    return afterSalahItemsForPrayer(prayerFilter);
   }, [allItems, showPrayerFilter, prayerFilter]);
 
   const zikrIndex = useMemo(() => createZikrSearch(items), [items]);
@@ -77,24 +90,56 @@ export default function ZikrCategoryScreen() {
     [items, query, searching, zikrIndex],
   );
 
+  const prayerProgress = useMemo(() => {
+    if (!showPrayerFilter || prayerFilter === "all") return null;
+    return afterSalahProgressForPrayer(prayerFilter, zikrCounts);
+  }, [showPrayerFilter, prayerFilter, zikrCounts]);
+
   const onOpen = useCallback(
-    (id: string) => router.push({ pathname: "/zikr/detail/[id]", params: { id } }),
-    [router],
+    (id: string) =>
+      router.push({
+        pathname: "/zikr/detail/[id]",
+        params: showPrayerFilter && prayerFilter !== "all" ? { id, prayer: prayerFilter } : { id },
+      }),
+    [router, showPrayerFilter, prayerFilter],
   );
 
   const keyExtractor = useCallback((item: ZikrItem) => item.id, []);
 
   const renderItem = useCallback<ListRenderItem<ZikrItem>>(
-    ({ item }) => (
-      <ZikrRow
-        item={item}
-        index={indexById.get(item.id)}
-        isFavorite={favoriteIds.includes(item.id)}
-        onToggleFavorite={toggleFavorite}
-        onPress={onOpen}
-      />
-    ),
-    [favoriteIds, indexById, toggleFavorite, onOpen],
+    ({ item }) => {
+      let completed = false;
+      let progressLabel: string | undefined;
+
+      if (showPrayerFilter) {
+        if (prayerFilter === "all") {
+          const slot = afterSalahItemProgress(item, zikrCounts);
+          completed = slot.completed >= slot.total;
+          progressLabel = `${slot.completed}/${slot.total}`;
+        } else {
+          const count = getZikrCountFromMap(zikrCounts, item.id, prayerFilter);
+          completed = isZikrItemDone(count, item.targetCount);
+          progressLabel = completed
+            ? undefined
+            : item.targetCount
+              ? `${count}/${item.targetCount}`
+              : undefined;
+        }
+      }
+
+      return (
+        <ZikrRow
+          item={item}
+          index={indexById.get(item.id)}
+          isFavorite={favoriteIds.includes(item.id)}
+          onToggleFavorite={toggleFavorite}
+          onPress={onOpen}
+          completed={showPrayerFilter ? completed : undefined}
+          progressLabel={showPrayerFilter ? progressLabel : undefined}
+        />
+      );
+    },
+    [favoriteIds, indexById, onOpen, prayerFilter, showPrayerFilter, toggleFavorite, zikrCounts],
   );
 
   const categoryName = t(`zikrCat.${categoryId}`);
@@ -147,7 +192,7 @@ export default function ZikrCategoryScreen() {
               contentContainerStyle={styles.chips}
               style={styles.chipsRow}
             >
-              {(["all", ...OBLIGATORY_PRAYERS] as PrayerFilter[]).map((prayer) => {
+              {(["all", ...AFTER_SALAH_PRAYERS] as PrayerFilter[]).map((prayer) => {
                 const active = prayerFilter === prayer;
                 return (
                   <PressableScale
@@ -171,6 +216,27 @@ export default function ZikrCategoryScreen() {
                 );
               })}
             </ScrollView>
+          ) : null}
+          {prayerProgress ? (
+            <View style={styles.progressBlock}>
+              <View style={styles.progressHeader}>
+                <ThemedText type="smallBold">
+                  {t("zikr.afterSalahTodayForPrayer", { prayer: t(`prayers.${prayerFilter}`) })}
+                </ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("zikr.afterSalahProgress", {
+                    completed: prayerProgress.completed,
+                    total: prayerProgress.total,
+                  })}
+                </ThemedText>
+              </View>
+              <ProgressBar
+                value={
+                  prayerProgress.total > 0 ? prayerProgress.completed / prayerProgress.total : 0
+                }
+                height={4}
+              />
+            </View>
           ) : null}
           <TextInput
             value={query}
@@ -218,6 +284,16 @@ const styles = StyleSheet.create({
   flatList: { flex: 1 },
   chipsRow: { flexGrow: 0, marginBottom: Spacing.three },
   chips: { gap: Spacing.two, paddingEnd: Spacing.one },
+  progressBlock: {
+    marginBottom: Spacing.three,
+    gap: Spacing.two,
+  },
+  progressHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
   chip: {
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,

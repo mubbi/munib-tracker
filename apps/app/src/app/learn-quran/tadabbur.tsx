@@ -20,6 +20,8 @@ export default function LearnQuranTadabburScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.tadabburTitle")}
       subtitle={t("learnQuran.tadabburSubtitle")}
@@ -54,6 +56,6 @@ export default function LearnQuranTadabburScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { marginBottom: Spacing.three, gap: Spacing.two },
+  card: { gap: Spacing.two },
   hint: { lineHeight: 18 },
 });

@@ -47,7 +47,7 @@ export function SettingsRow({
           {value}
         </ThemedText>
       ) : null}
-      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

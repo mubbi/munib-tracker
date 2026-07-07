@@ -83,7 +83,7 @@ export function LearnReadingChrome({
   return (
     <ReadingTypographyProvider surface={surface}>
       <ReadingTypographyBar surface={surface} />
-      {children}
+      <View style={styles.content}>{children}</View>
     </ReadingTypographyProvider>
   );
 }
@@ -95,5 +95,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: Spacing.three,
     marginBottom: Spacing.two,
+  },
+  content: {
+    gap: Spacing.four,
   },
 });

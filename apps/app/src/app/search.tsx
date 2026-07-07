@@ -12,6 +12,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -73,6 +74,7 @@ export default function SearchScreen() {
   const [ayah, setAyah] = useState<SearchGroup | null>(null);
   const [ayahLoading, setAyahLoading] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const filterScrollRef = useHorizontalWheelScroll();
 
   const categoryVisual = useMemo<Record<SearchCategory, CategoryVisual>>(
     () => ({
@@ -332,7 +334,7 @@ export default function SearchScreen() {
         <IconButton
           accessibilityLabel={t("common.goBack")}
           onPress={() => goBackOrReplace(router, "/")}
-          name={chevronBack}
+          name={chevronBack()}
           size={19}
           tintColor={colors.accent}
           background={tokens.accentSoft}
@@ -373,6 +375,7 @@ export default function SearchScreen() {
       {hasQuery && presentCategories.length > 0 ? (
         <View style={styles.filterWrap}>
           <ScrollView
+            ref={filterScrollRef}
             horizontal
             showsHorizontalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
@@ -467,7 +470,7 @@ export default function SearchScreen() {
                       <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                         {t("search.seeAllCount", { count: group.total })}
                       </ThemedText>
-                      <SymbolView name={chevronForward} size={13} tintColor={colors.accentText} />
+                      <SymbolView name={chevronForward()} size={13} tintColor={colors.accentText} />
                     </PressableScale>
                   ) : null}
                 </View>

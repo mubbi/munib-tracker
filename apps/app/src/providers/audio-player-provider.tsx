@@ -1,4 +1,10 @@
-import { setAudioModeAsync, useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
+import {
+  type AudioPlayer,
+  preload as preloadExpoAudio,
+  setAudioModeAsync,
+  useAudioPlayer,
+  useAudioPlayerStatus,
+} from "expo-audio";
 import {
   createContext,
   type ReactNode,
@@ -11,7 +17,12 @@ import {
   useState,
 } from "react";
 import { Platform } from "react-native";
-import { prefetchAudioUri, resolveCachedAudioUri } from "@/lib/audio-cache";
+import {
+  isAudioLocalCacheEnabled,
+  peekCachedAudioUri,
+  prefetchAudioUri,
+  resolveCachedAudioUri,
+} from "@/lib/audio-cache";
 import { applyPlaybackRate } from "@/lib/audio-playback-rate";
 import {
   queuePosition as computeQueuePosition,
@@ -95,14 +106,100 @@ interface AudioContextValue {
 
 export const AUDIO_SPEEDS = [0.5, 1, 1.5, 2];
 
+/**
+ * How many upcoming tracks to warm into the byte cache alongside the current
+ * one. The very next track is fully staged into the idle player (see
+ * double-buffering below); the rest are only fetched into the cache so their
+ * bytes are local by the time they are staged.
+ */
+const PREFETCH_AHEAD = 3;
+
 /** Cycle order: off → repeat all → repeat once → off. */
 const LOOP_CYCLE: LoopMode[] = ["off", "all", "one"];
+
+/**
+ * Resolve a track to a playable source, preferring a fully-local copy so the
+ * staged player can start instantly with no network round-trip. On web this
+ * returns a `blob:` object URL (downloading the bytes first if needed); on
+ * native a cached `file://` path. Falls back to the remote URL on any failure.
+ */
+async function resolveTrackSource(track: AudioTrack): Promise<number | { uri: string }> {
+  if (track.source != null) return track.source;
+  if (Platform.OS === "web") {
+    const local = peekCachedAudioUri(track.uri);
+    if (local) return { uri: local };
+  }
+  try {
+    const uri = await resolveCachedAudioUri(track.uri);
+    return { uri };
+  } catch {
+    return { uri: track.uri };
+  }
+}
+
+/**
+ * Kick off expo-audio's own preload for a remote clip. The web build of
+ * `preload()` returns `void` (fire-and-forget) while native returns a Promise,
+ * so we can't blindly `.catch()` the result — normalize both here.
+ */
+function preloadTrackUri(uri: string): Promise<void> {
+  try {
+    const result = preloadExpoAudio({ uri }) as Promise<void> | void;
+    return result && typeof result.then === "function" ? result.catch(() => {}) : Promise.resolve();
+  } catch {
+    return Promise.resolve();
+  }
+}
+
+/** Warm the byte cache (and expo-audio's web preload cache) for upcoming clips. */
+function warmUpcomingTrackUris(tracks: AudioTrack[], fromIndex: number): void {
+  if (!isAudioLocalCacheEnabled()) return;
+  const end = Math.min(fromIndex + PREFETCH_AHEAD + 1, tracks.length);
+  for (let i = fromIndex; i < end; i++) {
+    const track = tracks[i];
+    if (track.source != null) continue;
+    prefetchAudioUri(track.uri);
+    void preloadTrackUri(track.uri);
+  }
+}
+
+/** Poll until the player's media element has fired `loadeddata` (or timeout). */
+async function waitForPlayerReady(player: AudioPlayer, timeoutMs = 12000): Promise<boolean> {
+  try {
+    if (player.isLoaded) return true;
+  } catch {
+    // player not ready
+  }
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, 25));
+    try {
+      if (player.isLoaded) return true;
+    } catch {
+      // player not ready
+    }
+  }
+  try {
+    return player.isLoaded;
+  } catch {
+    return false;
+  }
+}
 
 const AudioContext = createContext<AudioContextValue | null>(null);
 
 export function AudioPlayerProvider({ children }: { children: ReactNode }) {
-  const player = useAudioPlayer();
-  const status = useAudioPlayerStatus(player);
+  // Double-buffered players: one plays the current track while the other is
+  // preloaded with the next one, so auto-advance is a near-instant hand-off
+  // instead of a `replace()` teardown + reload (which caused the audible gap).
+  const playerA = useAudioPlayer();
+  const playerB = useAudioPlayer();
+  const statusA = useAudioPlayerStatus(playerA);
+  const statusB = useAudioPlayerStatus(playerB);
+
+  const [activeSlot, setActiveSlot] = useState<0 | 1>(0);
+  const player = activeSlot === 0 ? playerA : playerB;
+  const status = activeSlot === 0 ? statusA : statusB;
 
   const [queue, setQueue] = useState<AudioTrack[]>([]);
   const [index, setIndex] = useState(0);
@@ -125,6 +222,10 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   queueRef.current = queue;
   const trackDurationsRef = useRef<Record<string, number>>(trackDurations);
   trackDurationsRef.current = trackDurations;
+  const rateRef = useRef(1);
+  rateRef.current = rate;
+  const volumeRef = useRef(1);
+  volumeRef.current = volume;
   const pendingSeekRef = useRef<number | null>(null);
   const transitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const transitionRef = useRef(false);
@@ -135,6 +236,32 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   // source's clock has genuinely reset (vs. still reporting the outgoing track).
   const transitionFromTimeRef = useRef(0);
   const lastEngineTimeRef = useRef(0);
+
+  // Which physical player is active, and what track id (if any) each player
+  // currently holds — kept in refs so the async preloader and the finish
+  // handler read live values without stale closures.
+  const playersRef = useRef<[AudioPlayer, AudioPlayer]>([playerA, playerB]);
+  playersRef.current = [playerA, playerB];
+  const activeSlotRef = useRef<0 | 1>(0);
+  activeSlotRef.current = activeSlot;
+  const stagedTrackIdRef = useRef<[string | null, string | null]>([null, null]);
+  const preloadTokenRef = useRef(0);
+
+  const getActive = useCallback((): AudioPlayer => playersRef.current[activeSlotRef.current], []);
+  const getIdleSlot = useCallback((): 0 | 1 => (activeSlotRef.current === 0 ? 1 : 0), []);
+
+  const applyRateVolume = useCallback((p: AudioPlayer) => {
+    try {
+      applyPlaybackRate(p, rateRef.current);
+    } catch {
+      // player not ready
+    }
+    try {
+      applyVolume(p, volumeRef.current);
+    } catch {
+      // player not ready
+    }
+  }, []);
 
   const clearTransition = useCallback(() => {
     transitionRef.current = false;
@@ -189,20 +316,20 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("unhandledrejection", onRejection);
   }, []);
 
-  // Apply the saved playback speed once preferences have loaded, and re-apply if
-  // the underlying player instance changes.
+  // Apply the saved playback speed once preferences have loaded, to both players.
   useEffect(() => {
     if (!prefsReady) return;
     const saved = preferencesStore.getState().prefs.audioSpeed;
     if (saved) {
       setRateState(saved);
       try {
-        applyPlaybackRate(player, saved);
+        applyPlaybackRate(playerA, saved);
+        applyPlaybackRate(playerB, saved);
       } catch {
         // player not ready
       }
     }
-  }, [prefsReady, player]);
+  }, [prefsReady, playerA, playerB]);
 
   useEffect(() => {
     if (!prefsReady) return;
@@ -210,12 +337,67 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     if (saved != null) {
       setVolumeState(saved);
       try {
-        applyVolume(player, saved);
+        applyVolume(playerA, saved);
+        applyVolume(playerB, saved);
       } catch {
         // player not ready
       }
     }
-  }, [prefsReady, player]);
+  }, [prefsReady, playerA, playerB]);
+
+  // Stage the next track into the idle (inactive) player and warm the clips
+  // after it into the byte cache. Staging = load the source but stay paused, so
+  // the finish handler can swap to an already-decoded player with no gap.
+  const stageNext = useCallback(
+    (tracks: AudioTrack[], nextIndex: number) => {
+      const idle = getIdleSlot();
+      const track = tracks[nextIndex];
+
+      // Warm this clip plus the next few so their bytes are local before staging.
+      warmUpcomingTrackUris(tracks, nextIndex);
+
+      if (!track) {
+        stagedTrackIdRef.current[idle] = null;
+        return;
+      }
+      if (stagedTrackIdRef.current[idle] === track.id) return; // already staged & ready
+
+      const token = ++preloadTokenRef.current;
+      stagedTrackIdRef.current[idle] = null; // stale until loaded
+      void (async () => {
+        let playbackSource: number | { uri: string };
+        if (track.source != null) {
+          playbackSource = track.source;
+        } else if (!isAudioLocalCacheEnabled()) {
+          playbackSource = { uri: track.uri };
+        } else if (Platform.OS === "web") {
+          await resolveCachedAudioUri(track.uri).catch(() => track.uri);
+          await preloadTrackUri(track.uri);
+          playbackSource = { uri: track.uri };
+        } else {
+          playbackSource = await resolveTrackSource(track);
+        }
+        if (token !== preloadTokenRef.current) return;
+        const slot = getIdleSlot();
+        const p = playersRef.current[slot];
+        try {
+          p.replace(playbackSource);
+          p.pause();
+          applyRateVolume(p);
+          const ready = await waitForPlayerReady(p);
+          if (token !== preloadTokenRef.current) return;
+          if (!ready) {
+            stagedTrackIdRef.current[slot] = null;
+            return;
+          }
+          stagedTrackIdRef.current[slot] = track.id;
+        } catch {
+          stagedTrackIdRef.current[slot] = null;
+        }
+      })();
+    },
+    [getIdleSlot, applyRateVolume],
+  );
 
   const playIndex = useCallback(
     (tracks: AudioTrack[], startIndex: number, seamless = false) => {
@@ -224,19 +406,19 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       if (seamless) beginTransition();
       else clearTransition();
 
+      // A fresh load on the active player invalidates any in-flight stage.
+      preloadTokenRef.current++;
+
+      const active = getActive();
       const startPlayback = (resolved: number | { uri: string }) => {
         try {
-          if (typeof resolved === "number") {
-            player.replace(resolved);
-          } else {
-            player.replace(resolved);
-          }
-          applyPlaybackRate(player, rate);
-          applyVolume(player, volume);
-          player.play();
-
-          const nextTrack = tracks[startIndex + 1];
-          if (nextTrack && nextTrack.source == null) prefetchAudioUri(nextTrack.uri);
+          active.replace(resolved);
+          applyRateVolume(active);
+          active.play();
+          stagedTrackIdRef.current[activeSlotRef.current] = track.id;
+          // Stage the immediate next track into the idle player for a gapless
+          // hand-off, and warm the ones after it.
+          stageNext(tracks, startIndex + 1);
         } catch {
           // unsupported source / platform
         }
@@ -247,8 +429,26 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      // Web resolves immediately; avoid a microtask gap before replace().
+      // Web: replays reuse an already-resolved local `blob:` URL synchronously
+      // (no network, no buffering). On the first play we stream the remote URL
+      // so the user's tap isn't blocked, then resolve a local blob in the
+      // background so every subsequent replay is served entirely from cache.
       if (Platform.OS === "web") {
+        if (isAudioLocalCacheEnabled()) {
+          const localUri = peekCachedAudioUri(track.uri);
+          if (localUri) {
+            startPlayback({ uri: localUri });
+            return;
+          }
+        }
+        startPlayback({ uri: track.uri });
+        if (isAudioLocalCacheEnabled()) {
+          void resolveCachedAudioUri(track.uri).catch(() => {});
+        }
+        return;
+      }
+
+      if (!isAudioLocalCacheEnabled()) {
         startPlayback({ uri: track.uri });
         return;
       }
@@ -262,7 +462,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
         }
       })();
     },
-    [player, rate, volume, beginTransition, clearTransition],
+    [getActive, applyRateVolume, stageNext, beginTransition, clearTransition],
   );
 
   const cacheTrackDuration = useCallback((id: string, seconds: number) => {
@@ -282,6 +482,16 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
         if (cached != null) initialDurations[track.id] = cached;
       }
 
+      // Reset the double-buffer to slot 0 for a fresh queue.
+      try {
+        playersRef.current[getIdleSlot()].pause();
+      } catch {
+        // ignore
+      }
+      activeSlotRef.current = 0;
+      setActiveSlot(0);
+      stagedTrackIdRef.current = [null, null];
+
       setQueue(tracks);
       setIndex(startIndex);
       setTrackDurations(initialDurations);
@@ -290,6 +500,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       setSourceHref(options?.sourceHref ?? null);
       stableQueuePositionRef.current = 0;
       stableQueueDurationRef.current = 0;
+      warmUpcomingTrackUris(tracks, startIndex);
       playIndex(tracks, startIndex);
 
       void prefetchTrackDurations(tracks, cacheTrackDuration);
@@ -301,7 +512,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
         if (activity) recordContinueActivity(activity);
       }
     },
-    [playIndex, cacheTrackDuration],
+    [playIndex, cacheTrackDuration, getIdleSlot],
   );
 
   const toggle = useCallback(() => {
@@ -310,24 +521,26 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     triggerHaptic("light");
     try {
       if (status.playing) {
-        player.pause();
+        getActive().pause();
         setUserPaused(true);
       } else {
-        player.play();
+        getActive().play();
         setUserPaused(false);
       }
     } catch {
       // ignore
     }
-  }, [player, status.playing]);
+  }, [getActive, status.playing]);
 
   const seekTo = useCallback(
     (seconds: number) => {
       setQueueFinished(false);
       stableQueuePositionRef.current = seconds;
-      void player.seekTo(seconds).catch(() => {});
+      void getActive()
+        .seekTo(seconds)
+        .catch(() => {});
     },
-    [player],
+    [getActive],
   );
 
   const seekToQueuePosition = useCallback(
@@ -424,32 +637,30 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     });
   }, [playIndex, anchorQueueTimeline]);
 
-  const setRate = useCallback(
-    (nextRate: number) => {
-      setRateState(nextRate);
-      try {
-        applyPlaybackRate(player, nextRate);
-      } catch {
-        // ignore
-      }
-      void preferencesStore.getState().update({ audioSpeed: nextRate });
-    },
-    [player],
-  );
+  const setRate = useCallback((nextRate: number) => {
+    setRateState(nextRate);
+    rateRef.current = nextRate;
+    try {
+      applyPlaybackRate(playersRef.current[0], nextRate);
+      applyPlaybackRate(playersRef.current[1], nextRate);
+    } catch {
+      // ignore
+    }
+    void preferencesStore.getState().update({ audioSpeed: nextRate });
+  }, []);
 
-  const setVolume = useCallback(
-    (nextVolume: number) => {
-      const clamped = Math.max(0, Math.min(1, nextVolume));
-      setVolumeState(clamped);
-      try {
-        applyVolume(player, clamped);
-      } catch {
-        // ignore
-      }
-      void preferencesStore.getState().update({ audioVolume: clamped });
-    },
-    [player],
-  );
+  const setVolume = useCallback((nextVolume: number) => {
+    const clamped = Math.max(0, Math.min(1, nextVolume));
+    setVolumeState(clamped);
+    volumeRef.current = clamped;
+    try {
+      applyVolume(playersRef.current[0], clamped);
+      applyVolume(playersRef.current[1], clamped);
+    } catch {
+      // ignore
+    }
+    void preferencesStore.getState().update({ audioVolume: clamped });
+  }, []);
 
   const cycleLoopMode = useCallback(() => {
     setLoopMode((prev) => LOOP_CYCLE[(LOOP_CYCLE.indexOf(prev) + 1) % LOOP_CYCLE.length]);
@@ -457,7 +668,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 
   const stop = useCallback(() => {
     try {
-      player.pause();
+      playersRef.current[0].pause();
+      playersRef.current[1].pause();
     } catch {
       // ignore
     }
@@ -467,19 +679,20 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     setSourceHref(null);
     setQueueFinished(false);
     pendingSeekRef.current = null;
+    stagedTrackIdRef.current = [null, null];
     setUserPaused(false);
     clearTransition();
     stableQueueDurationRef.current = 0;
     stableQueuePositionRef.current = 0;
-  }, [player, clearTransition]);
+  }, [clearTransition]);
 
   const readPlaybackSeconds = useCallback(() => {
     try {
-      return player.currentTime;
+      return getActive().currentTime;
     } catch {
       return status.currentTime ?? 0;
     }
-  }, [player, status.currentTime]);
+  }, [getActive, status.currentTime]);
 
   const isLoaded = status.isLoaded ?? false;
 
@@ -489,12 +702,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     const loadedDuration = status.duration ?? 0;
     if (loadedDuration > 0) cacheTrackDuration(current.id, loadedDuration);
     // Re-apply after the native/web source loads so pitch correction sticks.
-    try {
-      applyPlaybackRate(player, rate);
-      applyVolume(player, volume);
-    } catch {
-      // player not ready
-    }
+    applyRateVolume(player);
   }, [
     current,
     isLoaded,
@@ -502,8 +710,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     status.duration,
     cacheTrackDuration,
     player,
-    rate,
-    volume,
+    applyRateVolume,
   ]);
 
   // Apply a pending queue-wide seek once the target track has loaded.
@@ -515,11 +722,11 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   }, [isLoaded, seekTo]);
 
   // End the seamless transition only once the new source's clock has genuinely
-  // reset. After `player.replace()` the engine can keep reporting the outgoing
-  // track's near-end time for a frame or two; lifting the hold then would make
-  // the queue bar jump to the end of the incoming track and snap back. We wait
-  // until `currentTime` has clearly dropped below where the previous track left
-  // off (or there was no meaningful prior time to begin with).
+  // reset. After a swap/replace the engine can briefly report the outgoing
+  // track's near-end time; lifting the hold then would make the queue bar jump
+  // to the end of the incoming track and snap back. We wait until `currentTime`
+  // has clearly dropped below where the previous track left off (or there was
+  // no meaningful prior time to begin with).
   useEffect(() => {
     if (!isTransitioning || !isLoaded) return;
     const elapsed = Date.now() - transitionStartedAtRef.current;
@@ -538,7 +745,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   );
 
   // Auto-advance when a track finishes. "one" replays the current track a single
-  // time and then clears itself (play again once, not forever); otherwise advance.
+  // time and then clears itself (play again once, not forever); otherwise advance
+  // — swapping to the preloaded idle player for a gapless hand-off when possible.
   // useLayoutEffect so isTransitioning flips before paint — avoids play/progress flicker.
   useLayoutEffect(() => {
     if (!status.didJustFinish) return;
@@ -564,15 +772,62 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       playIndex(q, idx, true);
       return;
     }
+
     const atLast = q.length > 0 && idx >= q.length - 1;
     if (atLast && loopRef.current !== "all") {
       setQueueFinished(true);
       return;
     }
+
+    const nextIndex = idx + 1 < q.length ? idx + 1 : 0;
+    const nextTrack = q[nextIndex];
     setQueueFinished(false);
+
+    // Gapless hand-off: if the idle player already holds the next track *and* its
+    // media element is decoded, start it immediately — no replace(), no buffer UI.
+    const idleSlot = getIdleSlot();
+    const incoming = playersRef.current[idleSlot];
+    const canSwap =
+      nextTrack && stagedTrackIdRef.current[idleSlot] === nextTrack.id && incoming.isLoaded;
+    if (canSwap) {
+      const outgoing = playersRef.current[activeSlotRef.current];
+      try {
+        applyRateVolume(incoming);
+        incoming.play();
+      } catch {
+        // ignore
+      }
+      try {
+        outgoing.pause();
+      } catch {
+        // ignore
+      }
+      activeSlotRef.current = idleSlot;
+      setActiveSlot(idleSlot);
+      setIndex(nextIndex);
+      anchorQueueTimeline(nextIndex);
+      // Stage the track after this one into the now-idle player.
+      const followIndex =
+        nextIndex + 1 < q.length ? nextIndex + 1 : loopRef.current === "all" ? 0 : nextIndex + 1;
+      stageNext(q, followIndex);
+      return;
+    }
+
+    // Fallback: next track wasn't staged/decoded in time — reload on the active player.
     beginTransition();
     next();
-  }, [status.didJustFinish, status.duration, next, playIndex, beginTransition, cacheTrackDuration]);
+  }, [
+    status.didJustFinish,
+    status.duration,
+    next,
+    playIndex,
+    beginTransition,
+    cacheTrackDuration,
+    anchorQueueTimeline,
+    getIdleSlot,
+    applyRateVolume,
+    stageNext,
+  ]);
 
   // Treat an unloaded source with a live track as "buffering" too, so the play
   // button spins immediately after a tap while the engine spins up, not just

@@ -51,6 +51,19 @@ describe("ZikrRepository", () => {
     expect(await ZikrRepository.getByDate("2026-07-03")).toHaveLength(1);
     expect(await ZikrRepository.getAll()).toHaveLength(2);
   });
+
+  it("isolates after-salah progress per fard prayer on the same day", async () => {
+    await ZikrRepository.setCount("after_prayer-tasbih", "2026-07-03", 33, 33, "fajr");
+    await ZikrRepository.setCount("after_prayer-tasbih", "2026-07-03", 10, 33, "dhuhr");
+
+    expect(
+      (await ZikrRepository.getProgress("after_prayer-tasbih", "2026-07-03", "fajr"))?.count,
+    ).toBe(33);
+    expect(
+      (await ZikrRepository.getProgress("after_prayer-tasbih", "2026-07-03", "dhuhr"))?.count,
+    ).toBe(10);
+    expect(await ZikrRepository.getByDate("2026-07-03")).toHaveLength(2);
+  });
 });
 
 describe("PrayerRepository", () => {

@@ -55,7 +55,7 @@ export function AppHeader({
     >
       {onBack ? (
         <IconButton
-          name={chevronBack}
+          name={chevronBack()}
           size={19}
           tintColor={colors.accent}
           accessibilityLabel={t("common.goBack")}

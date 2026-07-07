@@ -61,6 +61,17 @@ describe("trackerStore", () => {
     expect(trackerStore.getState().summary.zikrCompleted).toBe(1);
   });
 
+  it("tracks after-salah adhkar separately per fard prayer", async () => {
+    await trackerStore.getState().setZikrCount("after_prayer-tasbih", 33, 33, { prayerId: "fajr" });
+    await trackerStore
+      .getState()
+      .setZikrCount("after_prayer-tasbih", 10, 33, { prayerId: "dhuhr" });
+
+    expect(trackerStore.getState().zikrCounts["after_prayer-tasbih::fajr"]).toBe(33);
+    expect(trackerStore.getState().zikrCounts["after_prayer-tasbih::dhuhr"]).toBe(10);
+    expect(trackerStore.getState().summary.zikrCompleted).toBe(1);
+  });
+
   it("reverses achievement stats when a completed prayer is undone", async () => {
     await trackerStore.getState().setPrayerStatus("fajr", "completed");
     expect(trackerStore.getState().achievementStats.prayersCompleted).toBe(1);

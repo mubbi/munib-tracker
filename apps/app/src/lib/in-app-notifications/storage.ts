@@ -69,6 +69,10 @@ export async function markAllInAppNotificationsRead(): Promise<void> {
   await saveInAppNotifications(items.map((item) => ({ ...item, readAt: item.readAt ?? now })));
 }
 
+export async function clearAllInAppNotifications(): Promise<void> {
+  await AsyncStorage.removeItem(STORAGE_KEY);
+}
+
 export function countUnreadInAppNotifications(items: InAppNotification[]): number {
   return items.filter((item) => item.readAt == null).length;
 }

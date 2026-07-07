@@ -165,7 +165,7 @@ function PlanPresetCard({
           color={colors.accentText}
           background={tokens.accentSoft}
         />
-        <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
       </View>
     </PressableCard>
   );

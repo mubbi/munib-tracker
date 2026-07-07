@@ -161,7 +161,7 @@ export default function QazaHistoryScreen() {
           <Card padding="three">
             <View style={styles.header}>
               <NavButton
-                icon={chevronBackward}
+                icon={chevronBackward()}
                 label={t("calendar.prevMonth")}
                 onPress={() => shift(-1)}
               />
@@ -184,7 +184,7 @@ export default function QazaHistoryScreen() {
                 />
               </PressableScale>
               <NavButton
-                icon={chevronForward}
+                icon={chevronForward()}
                 label={t("calendar.nextMonth")}
                 onPress={() => shift(1)}
               />

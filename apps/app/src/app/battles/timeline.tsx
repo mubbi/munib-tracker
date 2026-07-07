@@ -96,7 +96,7 @@ export default function BattlesTimelineScreen() {
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("battles.readBattle")}
                     </ThemedText>
-                    <SymbolView name={chevronForward} size={12} tintColor={colors.accent} />
+                    <SymbolView name={chevronForward()} size={12} tintColor={colors.accent} />
                   </View>
                 ) : null}
               </Card>

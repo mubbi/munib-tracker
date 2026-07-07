@@ -1,14 +1,18 @@
 import type { Ayah } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   FlatList,
+  type LayoutChangeEvent,
   type ListRenderItemInfo,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
   StyleSheet,
   View,
+  type ViewToken,
 } from "react-native";
 import Animated, {
   cancelAnimation,
@@ -18,8 +22,10 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
+import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -52,9 +58,11 @@ import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typo
 import { articleSchema } from "@/lib/seo/structured-data";
 import { buildAyahSharePayload } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
+import { useToast } from "@/providers/toast-provider";
 import {
   type HifzStatus,
   hifzKey,
+  nextHifzStatus,
   useEnsureHifzLoaded,
   useHifzActions,
   useHifzMap,
@@ -67,6 +75,13 @@ const FALLBACK_TRANSLATION = "en-pickthall";
 /** Deep-link focus ring: hold briefly so the user sees the target, then fade out. */
 const FOCUS_HIGHLIGHT_HOLD_MS = 2500;
 const FOCUS_HIGHLIGHT_FADE_MS = Durations.slow;
+
+/**
+ * Debounce persisting the reading position while the list scrolls — we only save
+ * once the user pauses, so "continue reading" resumes from the exact ayah on
+ * screen without hammering storage on every viewability change.
+ */
+const LAST_READ_FLUSH_MS = 600;
 
 const ALL_TRANSLATIONS = [
   ...getBundledEditions().filter((e) => e.kind === "translation"),
@@ -104,10 +119,11 @@ export default function SurahReaderScreen() {
   const prefs = useQuranPrefs();
   const { fontPrefs } = usePreferences();
   const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
-  const { updatePrefs, setLastRead, toggleBookmark } = useQuranActions();
+  const { updatePrefs, setLastRead, toggleBookmark, recordProgress } = useQuranActions();
   useEnsureHifzLoaded();
   const hifzMap = useHifzMap();
   const { cycle: cycleHifz } = useHifzActions();
+  const toast = useToast();
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
   const listRef = useRef<FlatList<Ayah>>(null);
@@ -117,6 +133,63 @@ export default function SurahReaderScreen() {
   const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
   const [focusHighlightAyah, setFocusHighlightAyah] = useState<number | undefined>(focusAyah);
   const focusTargetKey = focusAyah != null ? `${surahNumber}:${focusAyah}` : null;
+
+  // Reveal the compact reading toolbar once the header card scrolls out of view.
+  const [toolbarVisible, setToolbarVisible] = useState(false);
+  const headerCardHeightRef = useRef(0);
+  // 0→1 fraction of the surah scrolled through, driving the toolbar progress line.
+  const readingProgress = useSharedValue(0);
+
+  const onHeaderCardLayout = useCallback((event: LayoutChangeEvent) => {
+    headerCardHeightRef.current = event.nativeEvent.layout.height;
+  }, []);
+
+  const onListScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const y = event.nativeEvent.contentOffset.y;
+    const threshold = Math.max(0, headerCardHeightRef.current - Spacing.four);
+    const next = y > threshold;
+    setToolbarVisible((prev) => (prev === next ? prev : next));
+  }, []);
+
+  // Index-based progress: with a virtualized list, pixel offsets over an
+  // estimated `contentSize` are unreliable (variable row heights, recycling), so
+  // derive progress from the furthest ayah on screen instead — always accurate.
+  const ayahCountRef = useRef(0);
+  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 0 }).current;
+
+  // Exact resume position: the top-most ayah currently rendered on screen. We
+  // persist it (debounced) so "continue reading" drops the user back precisely
+  // where they left off — critical for long surahs.
+  const topVisibleAyahRef = useRef<number | null>(null);
+  const lastRecordedAyahRef = useRef(0);
+  const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Reassigned every render so the debounced flush always sees the latest surah,
+  // audio state, and store actions without recreating the stable handler below.
+  const flushReadingPositionRef = useRef<() => void>(() => {});
+
+  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    const total = ayahCountRef.current;
+    if (total <= 1) {
+      readingProgress.value = total === 1 ? 1 : 0;
+      topVisibleAyahRef.current = total === 1 ? 1 : null;
+    } else {
+      let maxIndex = -1;
+      let minIndex = Number.POSITIVE_INFINITY;
+      for (const token of viewableItems) {
+        if (token.index == null) continue;
+        if (token.index > maxIndex) maxIndex = token.index;
+        if (token.index < minIndex) minIndex = token.index;
+      }
+      if (maxIndex >= 0) {
+        const target = Math.min(1, Math.max(0, maxIndex / (total - 1)));
+        readingProgress.value = withTiming(target, { duration: Durations.fast });
+      }
+      // Ayahs are contiguous from 1, so the row index maps to `ayah = index + 1`.
+      if (Number.isFinite(minIndex)) topVisibleAyahRef.current = minIndex + 1;
+    }
+    if (flushTimerRef.current) clearTimeout(flushTimerRef.current);
+    flushTimerRef.current = setTimeout(() => flushReadingPositionRef.current(), LAST_READ_FLUSH_MS);
+  }).current;
 
   // Flash the deep-linked ayah, then drop the highlight so audio playback can own the border.
   useEffect(() => {
@@ -133,6 +206,7 @@ export default function SurahReaderScreen() {
   }, [focusAyah, focusTargetKey]);
 
   const ayahs = useMemo(() => (surah ? getSurahAyahs(surahNumber) : []), [surah, surahNumber]);
+  ayahCountRef.current = ayahs.length;
 
   // Resolve a `surah:ayah` key to its row index. Ayahs are contiguous starting at
   // 1, so the ayah number maps directly to `index = ayah - 1` — but guard against
@@ -152,6 +226,31 @@ export default function SurahReaderScreen() {
 
   const audioActiveKey =
     audio.current?.id.startsWith(`${surahNumber}:`) === true ? audio.current.id : undefined;
+
+  // Persist the top-most rendered ayah as the resume point. Skipped while audio
+  // plays this surah — the player already records its own (isAudio) position and
+  // auto-scroll would otherwise clobber it. Reassigned each render for fresh deps.
+  flushReadingPositionRef.current = () => {
+    flushTimerRef.current = null;
+    const ayah = topVisibleAyahRef.current;
+    if (ayah == null || ayah === lastRecordedAyahRef.current) return;
+    if (audioActiveKey != null) return;
+    lastRecordedAyahRef.current = ayah;
+    void recordProgress(surahNumber, ayah);
+  };
+
+  // Flush any pending position when leaving the screen so a mid-scroll exit still
+  // saves the exact ayah on screen.
+  useEffect(() => {
+    return () => {
+      if (flushTimerRef.current) {
+        clearTimeout(flushTimerRef.current);
+        flushTimerRef.current = null;
+      }
+      flushReadingPositionRef.current();
+    };
+  }, []);
+
   // Follow the currently-playing card (or a deep-linked ayah) via scrollToIndex.
   const activeKey = audioActiveKey ?? (focusAyah ? `${surahNumber}:${focusAyah}` : undefined);
   const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, activeKey, indexForKey, {
@@ -222,7 +321,13 @@ export default function SurahReaderScreen() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: record entry once per surah open.
   useEffect(() => {
-    if (surah) void setLastRead(surahNumber, focusAyah ?? 1);
+    if (!surah) return;
+    const startAyah = focusAyah ?? 1;
+    // Seed the resume anchor so scroll-tracking only overwrites it once the user
+    // actually moves past the entry point.
+    lastRecordedAyahRef.current = startAyah;
+    topVisibleAyahRef.current = startAyah;
+    void setLastRead(surahNumber, startAyah);
   }, [surahNumber]);
 
   const reciterDir = prefs.preferredReciterDir;
@@ -248,10 +353,39 @@ export default function SurahReaderScreen() {
     [toggleBookmark],
   );
 
-  const handleHifzAyah = useCallback(
-    (surahNum: number, ayahNum: number) => cycleHifz(surahNum, ayahNum),
-    [cycleHifz],
-  );
+  const [hifzPending, setHifzPending] = useState<{ surah: number; ayah: number } | null>(null);
+
+  const handleHifzAyah = useCallback((surahNum: number, ayahNum: number) => {
+    setHifzPending({ surah: surahNum, ayah: ayahNum });
+  }, []);
+
+  const confirmHifz = useCallback(async () => {
+    if (!hifzPending) return;
+    const { surah: surahNum, ayah: ayahNum } = hifzPending;
+    setHifzPending(null);
+    const nextStatus = await cycleHifz(surahNum, ayahNum);
+    const ref = t("hifz.toastRef", {
+      surah: surah?.nameTransliteration ?? String(surahNum),
+      ayah: ayahNum,
+    });
+    if (nextStatus === "memorized") {
+      toast.success(t("hifz.toastMemorizedTitle"), t("hifz.toastMemorizedBody", { ref }));
+    } else if (nextStatus === "review") {
+      toast.info(t("hifz.toastReviewTitle"), t("hifz.toastReviewBody", { ref }));
+    } else {
+      toast.info(t("hifz.toastClearedTitle"), t("hifz.toastClearedBody", { ref }));
+    }
+  }, [cycleHifz, hifzPending, surah, t, toast]);
+
+  const hifzPendingNext = hifzPending
+    ? nextHifzStatus(hifzMap[hifzKey(hifzPending.surah, hifzPending.ayah)])
+    : null;
+  const hifzPendingRef = hifzPending
+    ? t("hifz.toastRef", {
+        surah: surah?.nameTransliteration ?? String(hifzPending.surah),
+        ayah: hifzPending.ayah,
+      })
+    : "";
 
   const shareAyah = useCallback(
     (
@@ -285,10 +419,10 @@ export default function SurahReaderScreen() {
   const listHeader = useMemo(() => {
     if (!surah) return null;
     return (
-      <View style={styles.listHeader}>
+      <View style={styles.listHeader} onLayout={onHeaderCardLayout}>
         <Card padding="three">
           <View style={styles.controlRow}>
-            <ThemedText type="smallBold">{t("quran.reciter")}</ThemedText>
+            <ControlLabel icon={CONTROL_ICONS.reciter} label={t("quran.reciter")} />
             <SelectTrigger
               label={reciter.name}
               accessibilityLabel={t("quran.reciter")}
@@ -297,7 +431,7 @@ export default function SurahReaderScreen() {
           </View>
 
           <View style={[styles.controlRow, styles.translationRow]}>
-            <ThemedText type="smallBold">{t("quran.translation")}</ThemedText>
+            <ControlLabel icon={CONTROL_ICONS.translation} label={t("quran.translation")} />
             <SelectTrigger
               label={selectedEdition.name}
               accessibilityLabel={t("quran.translation")}
@@ -306,7 +440,10 @@ export default function SurahReaderScreen() {
           </View>
 
           <View style={[styles.controlRow, styles.translationRow]}>
-            <ThemedText type="smallBold">{t("quran.secondTranslation")}</ThemedText>
+            <ControlLabel
+              icon={CONTROL_ICONS.secondTranslation}
+              label={t("quran.secondTranslation")}
+            />
             <SelectTrigger
               label={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
               accessibilityLabel={t("quran.secondTranslation")}
@@ -327,18 +464,20 @@ export default function SurahReaderScreen() {
           ) : null}
 
           <PrefToggle
+            icon={CONTROL_ICONS.showTransliteration}
             label={t("quran.showTransliteration")}
             enabled={prefs.showTransliteration}
             onToggle={() => updatePrefs({ showTransliteration: !prefs.showTransliteration })}
           />
           <PrefToggle
+            icon={CONTROL_ICONS.showTranslation}
             label={t("quran.showTranslation")}
             enabled={prefs.showTranslation}
             onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
           />
 
           <View style={[styles.controlRow, styles.translationRow]}>
-            <ThemedText type="smallBold">{t("reading.textSize")}</ThemedText>
+            <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
             <ReadingFontControls surface="quran" />
           </View>
 
@@ -357,6 +496,7 @@ export default function SurahReaderScreen() {
     );
   }, [
     colors.accent,
+    onHeaderCardLayout,
     playFrom,
     prefs.showTransliteration,
     prefs.showTranslation,
@@ -523,6 +663,25 @@ export default function SurahReaderScreen() {
         title={surah.nameTransliteration}
         subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
         onBack={() => goBackOrReplace(router, "/")}
+        headerAccessory={
+          <QuranReadingToolbar
+            visible={toolbarVisible}
+            progress={readingProgress}
+            onBackToTop={() => listRef.current?.scrollToOffset({ offset: 0, animated: true })}
+            reciterName={reciter.name}
+            translationName={selectedEdition.name}
+            secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+            showTransliteration={prefs.showTransliteration}
+            showTranslation={prefs.showTranslation}
+            onOpenReciter={() => setReciterPickerOpen(true)}
+            onOpenTranslation={() => setTranslationPickerOpen(true)}
+            onOpenSecondary={() => setSecondaryPickerOpen(true)}
+            onToggleTransliteration={() =>
+              updatePrefs({ showTransliteration: !prefs.showTransliteration })
+            }
+            onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+          />
+        }
       >
         <FlatList
           ref={listRef}
@@ -532,6 +691,10 @@ export default function SurahReaderScreen() {
           renderItem={renderItem}
           ListHeaderComponent={listHeader}
           ItemSeparatorComponent={AyahSeparator}
+          onScroll={onListScroll}
+          scrollEventThrottle={16}
+          onViewableItemsChanged={onViewableItemsChanged}
+          viewabilityConfig={viewabilityConfig}
           onScrollToIndexFailed={onScrollToIndexFailed}
           style={styles.list}
           contentContainerStyle={[styles.listContent, { paddingBottom: contentBottomInset }]}
@@ -567,6 +730,31 @@ export default function SurahReaderScreen() {
           onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
           onClose={() => setSecondaryPickerOpen(false)}
         />
+        <ConfirmDialog
+          visible={hifzPending != null}
+          title={t("hifz.confirmTitle")}
+          message={
+            hifzPending != null
+              ? hifzPendingNext === "review"
+                ? t("hifz.confirmReviewBody", { ref: hifzPendingRef })
+                : hifzPendingNext === "memorized"
+                  ? t("hifz.confirmMemorizedBody", { ref: hifzPendingRef })
+                  : t("hifz.confirmClearBody", { ref: hifzPendingRef })
+              : undefined
+          }
+          confirmLabel={
+            hifzPendingNext === "review"
+              ? t("hifz.markReview")
+              : hifzPendingNext === "memorized"
+                ? t("hifz.markMemorized")
+                : t("hifz.clear")
+          }
+          cancelLabel={t("common.cancel")}
+          destructive={hifzPendingNext == null}
+          onConfirm={() => void confirmHifz()}
+          onCancel={() => setHifzPending(null)}
+          onClose={() => setHifzPending(null)}
+        />
       </ScreenLayout>
     </>
   );
@@ -581,11 +769,34 @@ function AyahSeparator() {
   return <View style={styles.ayahSeparator} />;
 }
 
+/** Icon glyphs for each reading-control row (SF Symbols → Material fallbacks). */
+const CONTROL_ICONS = {
+  reciter: { ios: "person.wave.2.fill", android: "record_voice_over", web: "record_voice_over" },
+  translation: { ios: "translate", android: "translate", web: "translate" },
+  secondTranslation: { ios: "globe", android: "language", web: "language" },
+  showTransliteration: { ios: "textformat.abc", android: "abc", web: "abc" },
+  showTranslation: { ios: "text.alignleft", android: "notes", web: "notes" },
+  textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
+} as const satisfies Record<string, SymbolViewProps["name"]>;
+
+/** Leading icon + label used by every reading-control row for quick scanning. */
+function ControlLabel({ icon, label }: { icon: SymbolViewProps["name"]; label: string }) {
+  const { colors } = useThemeTokens();
+  return (
+    <View style={styles.controlLabel}>
+      <SymbolView name={icon} size={18} tintColor={colors.mutedForeground} />
+      <ThemedText type="smallBold">{label}</ThemedText>
+    </View>
+  );
+}
+
 function PrefToggle({
+  icon,
   label,
   enabled,
   onToggle,
 }: {
+  icon: SymbolViewProps["name"];
   label: string;
   enabled: boolean;
   onToggle: () => void;
@@ -599,7 +810,7 @@ function PrefToggle({
       onPress={onToggle}
       style={[styles.controlRow, styles.toggleRow]}
     >
-      <ThemedText type="smallBold">{label}</ThemedText>
+      <ControlLabel icon={icon} label={label} />
       <View style={[styles.toggle, { backgroundColor: enabled ? colors.accent : tokens.hairline }]}>
         <View
           style={[
@@ -843,10 +1054,10 @@ const AyahRow = memo(function AyahRow({
               }
               accessibilityLabel={
                 hifzStatus === "memorized"
-                  ? t("hifz.markReview")
+                  ? t("hifz.clear")
                   : hifzStatus === "review"
-                    ? t("hifz.clear")
-                    : t("hifz.markMemorized")
+                    ? t("hifz.markMemorized")
+                    : t("hifz.markReview")
               }
               accessibilityState={{ selected: !!hifzStatus }}
               haptic="selection"
@@ -943,6 +1154,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  controlLabel: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    flexShrink: 1,
   },
   toggleRow: { marginTop: Spacing.three },
   translationRow: { marginTop: Spacing.three },

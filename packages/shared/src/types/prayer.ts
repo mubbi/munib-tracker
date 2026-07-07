@@ -7,6 +7,9 @@ export type WitrPrayer = "witr";
 /** Prayers that can accrue qaza counters (five fard plus Witr for optional make-up tracking). */
 export type QazaPrayer = ObligatoryPrayer | WitrPrayer;
 
+/** Prayers that can scope after-salah adhkar: the five fard plus Witr (its own tab). */
+export type AfterSalahPrayer = ObligatoryPrayer | WitrPrayer;
+
 export type SunnahPrayer = "tahajjud" | "ishraq" | "duha" | "tahiyyatul_masjid" | "hajat_istikhara";
 
 export type PrayerId = ObligatoryPrayer | WitrPrayer | SunnahPrayer;

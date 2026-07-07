@@ -2,7 +2,7 @@ import type { QuranGuideTopic } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
   JannahBody,
@@ -102,14 +102,14 @@ export function QuranGuideTopicContent({ topic }: { topic: QuranGuideTopic }) {
         </Card>
       ) : null}
 
-      {!topic.comingSoon ? (
-        <Button
-          label={completed ? t("learnQuran.markIncomplete") : t("learnQuran.markComplete")}
-          variant={completed ? "secondary" : "primary"}
-          fullWidth
-          onPress={() => void toggleTopic(topic.id)}
-        />
-      ) : null}
+      <GuideTopicFooter
+        ns="learnQuran"
+        topic={topic}
+        sectionTitle={t("learnQuran.title")}
+        completed={completed}
+        onToggleComplete={() => void toggleTopic(topic.id)}
+        showComplete={!topic.comingSoon}
+      />
 
       {topic.disclaimer ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.topicDisclaimer}>

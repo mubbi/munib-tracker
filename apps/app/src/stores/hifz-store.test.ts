@@ -8,11 +8,11 @@ beforeEach(async () => {
 });
 
 describe("hifz store", () => {
-  it("cycles an ayah none → memorized → review → none and persists", async () => {
-    await hifzStore.getState().cycle(2, 255);
-    expect(hifzStore.getState().statuses["2:255"]).toBe("memorized");
+  it("cycles an ayah none → review → memorized → none and persists", async () => {
     await hifzStore.getState().cycle(2, 255);
     expect(hifzStore.getState().statuses["2:255"]).toBe("review");
+    await hifzStore.getState().cycle(2, 255);
+    expect(hifzStore.getState().statuses["2:255"]).toBe("memorized");
     await hifzStore.getState().cycle(2, 255);
     expect(hifzStore.getState().statuses["2:255"]).toBeUndefined();
   });

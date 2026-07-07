@@ -6,6 +6,7 @@ export { QURAN_GUIDE_READING_LEVELS } from "./quran-guide-learn-to-read";
 export { QURAN_GUIDE_LETTERS } from "./quran-guide-letters";
 export { QURAN_GUIDE_MEMORIZATION_PLANS } from "./quran-guide-memorization";
 export { QURAN_GUIDE_PRONUNCIATION } from "./quran-guide-pronunciation";
+export { QURAN_GUIDE_QUIZ } from "./quran-guide-quiz";
 export { QURAN_GUIDE_STORIES } from "./quran-guide-stories";
 export { QURAN_GUIDE_STRUCTURE_LEVELS } from "./quran-guide-structure";
 export { QURAN_GUIDE_TADABBUR_PROMPTS } from "./quran-guide-tadabbur";
@@ -19,7 +20,7 @@ export { QURAN_GUIDE_VOCABULARY } from "./quran-guide-vocabulary";
  * Memorize → Practice → Live. Scholar-neutral; cites Qur'an, graded hadith,
  * and named tafsir. Bump version on content change.
  */
-export const QURAN_GUIDE_CONTENT_VERSION = 2;
+export const QURAN_GUIDE_CONTENT_VERSION = 3;
 
 export const QURAN_GUIDE_JOURNEY_ORDER = [
   "read",
@@ -437,15 +438,14 @@ export const QURAN_GUIDE_TOPICS: QuranGuideTopic[] = [
     id: "quiz",
     journey: "practice",
     title: "Qur'an quiz",
-    summary: "MCQs, guess the surah, vocabulary — gamified review (V2).",
+    summary: "Review surah names, structure, tajweed, vocabulary, and stories.",
     importance: "recommended",
-    comingSoon: true,
     body: [
-      "Testing yourself is one of the most effective ways to make knowledge stick — recalling an answer strengthens memory far more than simply re-reading. The quiz section will draw on everything in this hub: surah names and order, completing a verse from its opening, matching prophets to their stories, identifying tajweed rules, and recalling high-frequency vocabulary.",
-      "Keep the intention right. Gamification — points, streaks, categories — is a helpful nudge for consistency, not a contest over spiritual rank, which belongs to Allah alone. Use each quiz to expose your weak spots, then go back and study exactly those topics rather than chasing a score.",
-      "Coming in a future version: themed categories, daily streaks, and integration with your learning-progress dashboard so your review targets the areas you most need.",
+      "Testing yourself is one of the most effective ways to make knowledge stick — recalling an answer strengthens memory far more than simply re-reading. This quiz draws on everything in the hub: the number of surahs and juz, the first revelation and how the Qur'an was preserved, tajweed rules such as madd and qalqalah, high-frequency vocabulary, and the prophets whose stories the Qur'an tells.",
+      "Keep the intention right. A score is only a mirror for your learning — it is never a measure of your rank with Allah, which belongs to Him alone. Use each question to expose a weak spot, then return to the matching lesson and study exactly that topic rather than chasing a number.",
+      "The final prompt is a reflection, not a graded question: choose one surah or passage to understand and memorize next, so your review always ends by pointing you back to the Book itself.",
     ],
-    appLinks: [{ label: "Quiz (preview)", route: "/learn-quran/quiz" }],
+    appLinks: [{ label: "Start the quiz", route: "/learn-quran/quiz" }],
   },
   {
     id: "references",

@@ -101,7 +101,7 @@ const SurahRow = memo(function SurahRow({
           background={revelation.soft}
         />
       </View>
-      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 });
@@ -209,7 +209,7 @@ function ContinueReadingCard({
         <ThemedText type="smallBold" style={{ color: colors.accentText }}>
           {t("home.continueAction.quran")}
         </ThemedText>
-        <SymbolView name={chevronForward} size={14} tintColor={colors.accentText} />
+        <SymbolView name={chevronForward()} size={14} tintColor={colors.accentText} />
       </View>
     </Card>
   );
@@ -287,6 +287,16 @@ export default function QuranHomeScreen() {
     [router],
   );
 
+  // Resume at the exact ayah the reader last left off on (ayah 1 needs no param).
+  const openSurahAt = useCallback(
+    (n: number, ayah: number) =>
+      router.push({
+        pathname: "/quran/[surah]",
+        params: { surah: String(n), ...(ayah > 1 ? { ayah: String(ayah) } : {}) },
+      }),
+    [router],
+  );
+
   const keyExtractor = useCallback((surah: Surah) => String(surah.number), []);
 
   const renderItem = useCallback<ListRenderItem<Surah>>(
@@ -316,7 +326,7 @@ export default function QuranHomeScreen() {
           <ContinueReadingCard
             surahNumber={lastRead.surah}
             ayah={lastRead.ayah}
-            onPress={() => openSurah(lastRead.surah)}
+            onPress={() => openSurahAt(lastRead.surah, lastRead.ayah)}
           />
         ) : null}
 

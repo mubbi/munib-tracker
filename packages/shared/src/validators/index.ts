@@ -6,6 +6,7 @@ import {
   ZIKR_CATEGORY_SET,
 } from "../constants/index";
 import type {
+  AfterSalahPrayer,
   ObligatoryPrayer,
   PrayerId,
   PrayerStatus,
@@ -29,6 +30,11 @@ export function isObligatoryPrayer(value: string): value is ObligatoryPrayer {
 
 export function isWitrPrayer(value: string): value is WitrPrayer {
   return value === WITR_PRAYER;
+}
+
+/** True for a prayer that can scope after-salah adhkar (the five fard plus Witr). */
+export function isAfterSalahPrayer(value: string): value is AfterSalahPrayer {
+  return isObligatoryPrayer(value) || isWitrPrayer(value);
 }
 
 export function isQazaPrayer(value: string): value is QazaPrayer {

@@ -628,7 +628,7 @@ const ZIKR_ITEMS = [
       "After the salam of the Witr prayer the Prophet ﷺ would say it three times, raising and prolonging his voice on the third, adding: 'Rabbil-mala'ikati war-ruh' (Lord of the angels and the Spirit). Witr is prayed after the Isha prayer.",
     reference: "An-Nasa'i 1699",
     targetCount: 3,
-    prayers: ["isha"],
+    prayers: ["witr"],
   },
 
   // ── Morning ──────────────────────────────────────────────

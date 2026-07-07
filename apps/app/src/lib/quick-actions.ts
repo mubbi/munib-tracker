@@ -1,3 +1,8 @@
+import type { Href } from "expo-router";
+import type { TFunction } from "i18next";
+
+import type { QuickActionItem } from "@/components/ui/quick-action";
+
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "./names-of-allah-ui";
 
 /** Branded sentinel — use wherever the tasbeeh counter needs an icon. */
@@ -13,7 +18,9 @@ export type QuickActionTone = "success" | "info" | "danger" | "warning" | "accen
 /**
  * Metadata for every home quick action (NF-1.23). Kept separate from the home
  * screen's behavioral array (which owns `onPress`) so the customization screen
- * can list, toggle, and reorder actions by id. The two stay aligned on ids.
+ * can list, toggle, and reorder actions by id. Library menu entries reuse the
+ * same ids, icons, and routes — keep `LIBRARY_MENU_META` aligned via
+ * `assertLibraryMenuParity`.
  */
 export interface QuickActionDef {
   id: string;
@@ -22,18 +29,51 @@ export interface QuickActionDef {
   tone: QuickActionTone;
 }
 
+export const QUICK_ACTION_ROUTES: Record<string, Href> = {
+  checklist: "/tracker",
+  schedule: "/schedule" as Href,
+  zikr: "/zikr",
+  tasbeeh: "/tasbeeh/free",
+  ramadan: "/ramadan",
+  salahGuide: "/salah-guide",
+  jannah: "/jannah" as Href,
+  jahannam: "/jahannam" as Href,
+  lastDay: "/last-day" as Href,
+  battles: "/battles" as Href,
+  learnQuran: "/learn-quran" as Href,
+  taharah: "/taharah" as Href,
+  prophets: "/prophets" as Href,
+  aqeedah: "/aqeedah" as Href,
+  learnDua: "/learn-dua" as Href,
+  travel: "/travel" as Href,
+  hajj: "/hajj" as Href,
+  seerah: "/seerah" as Href,
+  events: "/events" as Href,
+  zakat: "/zakat" as Href,
+  qaza: "/qaza",
+  quran: "/quran",
+  hadith: "/hadith",
+  bookmarks: "/bookmarks",
+  duas: "/dua",
+  duroods: "/duroods",
+  names: "/names-of-allah",
+  qibla: "/qibla",
+  calendar: "/calendar",
+  achievements: "/achievements",
+  stats: "/statistics",
+  journal: "/journal",
+  tahajjud: "/tahajjud",
+  hayd: "/hayd",
+  sick: "/sick",
+  adhkarBuilder: "/adhkar-builder",
+};
+
 export const QUICK_ACTION_META: QuickActionDef[] = [
   {
     id: "checklist",
     labelKey: "actions.checklist",
     icon: { ios: "checklist", android: "checklist", web: "checklist" },
     tone: "success",
-  },
-  {
-    id: "salahGuide",
-    labelKey: "actions.salahGuide",
-    icon: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
-    tone: "info",
   },
   {
     id: "schedule",
@@ -48,6 +88,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     tone: "danger",
   },
   {
+    id: "adhkarBuilder",
+    labelKey: "actions.adhkarBuilder",
+    icon: { ios: "square.and.pencil", android: "edit_note", web: "edit_note" },
+    tone: "accent",
+  },
+  {
     id: "tasbeeh",
     labelKey: "actions.tasbeeh",
     icon: TASBEEH_ICON,
@@ -58,6 +104,36 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     labelKey: "actions.ramadan",
     icon: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
     tone: "info",
+  },
+  {
+    id: "tahajjud",
+    labelKey: "actions.tahajjud",
+    icon: { ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" },
+    tone: "info",
+  },
+  {
+    id: "journal",
+    labelKey: "actions.journal",
+    icon: { ios: "square.and.pencil", android: "edit", web: "edit" },
+    tone: "accent",
+  },
+  {
+    id: "salahGuide",
+    labelKey: "actions.salahGuide",
+    icon: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
+    tone: "info",
+  },
+  {
+    id: "events",
+    labelKey: "actions.events",
+    icon: { ios: "star.circle.fill", android: "event", web: "event" },
+    tone: "warning",
+  },
+  {
+    id: "zakat",
+    labelKey: "actions.zakat",
+    icon: { ios: "banknote.fill", android: "payments", web: "payments" },
+    tone: "success",
   },
   {
     id: "qaza",
@@ -118,16 +194,16 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     tone: "warning",
   },
   {
-    id: "events",
-    labelKey: "actions.events",
-    icon: { ios: "star.circle.fill", android: "event", web: "event" },
-    tone: "warning",
+    id: "jannah",
+    labelKey: "actions.jannah",
+    icon: { ios: "leaf.fill", android: "park", web: "park" },
+    tone: "success",
   },
   {
-    id: "zakat",
-    labelKey: "actions.zakat",
-    icon: { ios: "banknote.fill", android: "payments", web: "payments" },
-    tone: "success",
+    id: "battles",
+    labelKey: "actions.battles",
+    icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
+    tone: "info",
   },
   {
     id: "lastDay",
@@ -142,18 +218,6 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     tone: "danger",
   },
   {
-    id: "jannah",
-    labelKey: "actions.jannah",
-    icon: { ios: "leaf.fill", android: "park", web: "park" },
-    tone: "success",
-  },
-  {
-    id: "battles",
-    labelKey: "actions.battles",
-    icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
-    tone: "info",
-  },
-  {
     id: "learnQuran",
     labelKey: "actions.learnQuran",
     icon: { ios: "book.closed.fill", android: "auto_stories", web: "auto_stories" },
@@ -164,6 +228,18 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     labelKey: "actions.taharah",
     icon: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
     tone: "info",
+  },
+  {
+    id: "hayd",
+    labelKey: "actions.hayd",
+    icon: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
+    tone: "info",
+  },
+  {
+    id: "sick",
+    labelKey: "actions.sick",
+    icon: { ios: "cross.case.fill", android: "medical_services", web: "medical_services" },
+    tone: "warning",
   },
   {
     id: "prophets",
@@ -188,6 +264,24 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     tone: "danger",
   },
   {
+    id: "travel",
+    labelKey: "travel.title",
+    icon: { ios: "airplane", android: "flight", web: "flight" },
+    tone: "info",
+  },
+  {
+    id: "hajj",
+    labelKey: "hajj.title",
+    icon: { ios: "building.2.fill", android: "mosque", web: "mosque" },
+    tone: "accent",
+  },
+  {
+    id: "seerah",
+    labelKey: "seerah.title",
+    icon: { ios: "book.pages.fill", android: "history_edu", web: "history_edu" },
+    tone: "info",
+  },
+  {
     id: "achievements",
     labelKey: "settings.achievements",
     icon: { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" },
@@ -201,6 +295,60 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
   },
 ];
 
+/**
+ * Curated set shown on the home Explore grid by default (daily-driver worship +
+ * core reading tools). Every other action stays discoverable and can be added
+ * back from Settings → Customize home. Order here is the on-screen order.
+ */
+export const DEFAULT_QUICK_ACTION_ORDER: string[] = [
+  "checklist",
+  "schedule",
+  "qaza",
+  "tasbeeh",
+  "zikr",
+  "duas",
+  "quran",
+  "hadith",
+  "qibla",
+  "names",
+  "bookmarks",
+  "calendar",
+];
+
+type QuickActionTheme = {
+  colors: { accent: string };
+  tokens: {
+    status: Record<Exclude<QuickActionTone, "accent">, { color: string }>;
+  };
+};
+
+export function resolveQuickActionTint(
+  tone: QuickActionTone,
+  { colors, tokens }: QuickActionTheme,
+): string {
+  if (tone === "accent") return colors.accent;
+  return tokens.status[tone].color;
+}
+
+/** Builds the home Explore grid from shared quick-action metadata. */
+export function buildQuickActionItems(
+  t: TFunction,
+  push: (href: Href) => void,
+  theme: QuickActionTheme,
+): QuickActionItem[] {
+  return QUICK_ACTION_META.map((meta) => {
+    const route = QUICK_ACTION_ROUTES[meta.id];
+    if (!route) throw new Error(`Missing quick action route for ${meta.id}`);
+    return {
+      id: meta.id,
+      label: t(meta.labelKey),
+      icon: meta.icon,
+      tint: resolveQuickActionTint(meta.tone, theme),
+      onPress: () => push(route),
+    };
+  });
+}
+
 /** Orders a behavioral action list by a saved id order, dropping unknown/removed ids. */
 export function orderQuickActions<T extends { id: string }>(all: T[], order: string[]): T[] {
   const byId = new Map(all.map((item) => [item.id, item]));
@@ -210,4 +358,16 @@ export function orderQuickActions<T extends { id: string }>(all: T[], order: str
     if (item) result.push(item);
   }
   return result;
+}
+
+/** Throws when library menu ids diverge from quick-action metadata. */
+export function assertLibraryMenuParity(libraryIds: string[]): void {
+  const metaIds = QUICK_ACTION_META.map((entry) => entry.id);
+  const missingFromLibrary = metaIds.filter((id) => !libraryIds.includes(id));
+  const extraInLibrary = libraryIds.filter((id) => !metaIds.includes(id));
+  if (missingFromLibrary.length || extraInLibrary.length) {
+    throw new Error(
+      `Library/quick-action parity broken. Missing from library: ${missingFromLibrary.join(", ") || "none"}. Extra in library: ${extraInLibrary.join(", ") || "none"}.`,
+    );
+  }
 }

@@ -49,7 +49,7 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
       : t(`moonSheet.note.${note}Body`);
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom" solid>
+    <Sheet visible={visible} onClose={onClose} variant="bottom">
       <View style={styles.header}>
         <View
           style={[

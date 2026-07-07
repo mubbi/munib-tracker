@@ -246,7 +246,7 @@ export default function LocationScreen() {
                             android: "check_circle",
                             web: "check_circle",
                           }
-                        : chevronForward
+                        : chevronForward()
                     }
                     size={selected ? 20 : 15}
                     tintColor={selected ? colors.accent : colors.mutedForeground}

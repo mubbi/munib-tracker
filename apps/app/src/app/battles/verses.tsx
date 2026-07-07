@@ -55,7 +55,7 @@ export default function BattlesVersesScreen() {
             const battle = getBattlesTopic(battleId);
             const title = battle?.title ?? battleId;
             return (
-              <Card key={battleId} padding="three" style={styles.card}>
+              <Card key={battleId} padding="three">
                 <SectionHeader
                   title={title}
                   icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
@@ -117,7 +117,6 @@ export default function BattlesVersesScreen() {
 }
 
 const styles = StyleSheet.create({
-  card: { marginBottom: Spacing.three },
   list: { marginTop: Spacing.three },
   row: {
     flexDirection: "row",

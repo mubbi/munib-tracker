@@ -46,7 +46,7 @@ type PrayerStatusSheetProps = {
   prayerLabel: string;
   currentStatus: PrayerStatus;
   currentNotes?: string;
-  /** Congregation flag for this prayer (NF-1.5); toggle shown only when completed. */
+  /** Congregation flag for this prayer (NF-1.5); toggle shown for all obligatory prayers. */
   isJama?: boolean;
   onToggleJama?: (next: boolean) => void;
   onSelect: (status: PrayerStatus, options?: PrayerStatusSelectionOptions) => void;
@@ -107,12 +107,7 @@ export function PrayerStatusSheet({
 
   return (
     <>
-      <Sheet
-        visible={visible && !qazaPromptOpen && !notesOpen}
-        onClose={onClose}
-        variant="bottom"
-        solid
-      >
+      <Sheet visible={visible && !qazaPromptOpen && !notesOpen} onClose={onClose} variant="bottom">
         <ThemedText type="subtitle">{prayerLabel}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("statusSheet.prompt")}
@@ -150,7 +145,7 @@ export function PrayerStatusSheet({
           })}
         </View>
 
-        {onToggleJama && isObligatoryPrayer(prayerId) && currentStatus === "completed" ? (
+        {onToggleJama && isObligatoryPrayer(prayerId) ? (
           <PressableScale
             haptic="selection"
             accessibilityRole="button"

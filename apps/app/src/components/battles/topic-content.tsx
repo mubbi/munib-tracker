@@ -2,7 +2,7 @@ import type { BattlesTopic } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
+import { GuideTopicFooter } from "@/components/guide-topic-footer";
 import {
   JannahActionSteps,
   JannahBody,
@@ -177,11 +177,12 @@ export function BattlesTopicContent({ topic }: { topic: BattlesTopic }) {
         </Card>
       ) : null}
 
-      <Button
-        label={completed ? t("battles.markIncomplete") : t("battles.markComplete")}
-        variant={completed ? "secondary" : "primary"}
-        fullWidth
-        onPress={() => void toggleTopic(topic.id)}
+      <GuideTopicFooter
+        ns="battles"
+        topic={topic}
+        sectionTitle={t("battles.title")}
+        completed={completed}
+        onToggleComplete={() => void toggleTopic(topic.id)}
       />
 
       {topic.disclaimer ? (

@@ -10,12 +10,14 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 type NotificationToolbarProps = {
   unreadCount: number;
   onMarkAllRead?: () => void;
+  onClearAll?: () => void;
   onOpenSettings: () => void;
 };
 
 export function NotificationToolbar({
   unreadCount,
   onMarkAllRead,
+  onClearAll,
   onOpenSettings,
 }: NotificationToolbarProps) {
   const { t } = useTranslation();
@@ -49,22 +51,43 @@ export function NotificationToolbar({
         <View />
       )}
 
-      <PressableScale
-        haptic="light"
-        accessibilityRole="button"
-        accessibilityLabel={t("notifCenter.settings")}
-        onPress={onOpenSettings}
-        style={[styles.chip, { backgroundColor: colors.muted }]}
-      >
-        <SymbolView
-          name={{ ios: "gearshape.fill", android: "settings", web: "settings" }}
-          size={16}
-          tintColor={colors.mutedForeground}
-        />
-        <ThemedText type="smallBold" themeColor="mutedForeground">
-          {t("notifCenter.settings")}
-        </ThemedText>
-      </PressableScale>
+      <View style={styles.actions}>
+        {onClearAll ? (
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={t("notifCenter.clearAll")}
+            onPress={onClearAll}
+            style={[styles.chip, { backgroundColor: tokens.status.danger.soft }]}
+          >
+            <SymbolView
+              name={{ ios: "trash", android: "delete_sweep", web: "delete_sweep" }}
+              size={16}
+              tintColor={tokens.status.danger.text}
+            />
+            <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
+              {t("notifCenter.clearAll")}
+            </ThemedText>
+          </PressableScale>
+        ) : null}
+
+        <PressableScale
+          haptic="light"
+          accessibilityRole="button"
+          accessibilityLabel={t("notifCenter.settings")}
+          onPress={onOpenSettings}
+          style={[styles.chip, { backgroundColor: colors.muted }]}
+        >
+          <SymbolView
+            name={{ ios: "gearshape.fill", android: "settings", web: "settings" }}
+            size={16}
+            tintColor={colors.mutedForeground}
+          />
+          <ThemedText type="smallBold" themeColor="mutedForeground">
+            {t("notifCenter.settings")}
+          </ThemedText>
+        </PressableScale>
+      </View>
     </View>
   );
 }
@@ -76,6 +99,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: Spacing.two,
     marginBottom: Spacing.three,
+  },
+  actions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
   },
   chip: {
     flexDirection: "row",

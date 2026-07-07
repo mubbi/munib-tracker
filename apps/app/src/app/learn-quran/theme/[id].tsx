@@ -43,6 +43,8 @@ export default function LearnQuranThemeDetailScreen() {
 
   return (
     <ScreenLayout
+      readingProgress
+      reportKind="learn_quran"
       eyebrow={t("learnQuran.eyebrow")}
       title={theme?.title ?? t("learnQuran.themesTitle")}
       subtitle={theme?.summary ?? ""}

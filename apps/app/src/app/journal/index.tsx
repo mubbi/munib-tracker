@@ -1,4 +1,4 @@
-import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type { PrayerId } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
@@ -10,6 +10,7 @@ import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -26,11 +27,21 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { averageRating, groupByDate, KHUSHU_MAX, KHUSHU_MIN, type KhushuEntry } from "@/lib/khushu";
 import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { useToast } from "@/providers/toast-provider";
 import { useEnsureKhushuLoaded, useKhushuActions, useKhushuEntries } from "@/stores/khushu-store";
+import { useTodayPrayers } from "@/stores/tracker-store";
 
 const RATINGS = [1, 2, 3, 4, 5] as const;
 
-const PRAYER_ORDER = new Map<string, number>(OBLIGATORY_PRAYERS.map((id, index) => [id, index]));
+// Every salah the tracker can log, in a stable display order (fard → witr →
+// sunnah/nafl), so the reflection picker and history list share one ordering.
+const ALL_TRACKED_PRAYERS: readonly PrayerId[] = [
+  ...OBLIGATORY_PRAYERS,
+  WITR_PRAYER,
+  ...SUNNAH_PRAYERS,
+];
+
+const PRAYER_ORDER = new Map<string, number>(ALL_TRACKED_PRAYERS.map((id, index) => [id, index]));
 
 type FormDraft = {
   mode: "new" | "edit";
@@ -119,9 +130,11 @@ export default function JournalScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { formatIso } = useFormatCalendarDate();
+  const toast = useToast();
   useEnsureKhushuLoaded();
   const entries = useKhushuEntries();
   const { save, remove } = useKhushuActions();
+  const { status: todayStatus } = useTodayPrayers();
 
   const [formOpen, setFormOpen] = useState(false);
   const [draft, setDraft] = useState<FormDraft>(defaultDraft);
@@ -131,6 +144,23 @@ export default function JournalScreen() {
   const groups = useMemo(() => sortedGroups(entries), [entries]);
   const avg = averageRating(entries);
   const today = getLocalDateString();
+
+  // A reflection can only be recorded for a salah actually prayed today —
+  // obligatory, witr, or sunnah/nafl — so the picker mirrors what the tracker
+  // has marked completed for the current day.
+  const completedToday = useMemo(
+    () => ALL_TRACKED_PRAYERS.filter((id) => (todayStatus[id] ?? "pending") === "completed"),
+    [todayStatus],
+  );
+
+  // In edit mode the entry's own salah stays selectable even if it isn't among
+  // today's completed prayers (e.g. editing yesterday's reflection).
+  const pickerPrayers = useMemo(() => {
+    if (draft.mode === "edit" && !completedToday.includes(draft.prayerId)) {
+      return [draft.prayerId, ...completedToday];
+    }
+    return completedToday;
+  }, [completedToday, draft.mode, draft.prayerId]);
 
   const isDirty = useMemo(
     () =>
@@ -153,7 +183,12 @@ export default function JournalScreen() {
   );
 
   const openNewForm = () => {
-    const next = defaultDraft();
+    const firstPrayer = completedToday[0];
+    if (!firstPrayer) {
+      toast.info(t("journal.noCompletedTitle"), t("journal.noCompletedDesc"));
+      return;
+    }
+    const next = { ...defaultDraft(), prayerId: firstPrayer };
     setDraft(next);
     setSavedDraft(next);
     setFormOpen(true);
@@ -289,9 +324,29 @@ export default function JournalScreen() {
           <Card variant="muted" padding="three">
             <View style={styles.summary}>
               <View style={styles.summaryMain}>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("journal.avgLabel")}
-                </ThemedText>
+                <View style={styles.avgLabelRow}>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("journal.avgLabel")}
+                  </ThemedText>
+                  <PressableScale
+                    accessibilityRole="button"
+                    accessibilityLabel={t("journal.khushuInfoA11y")}
+                    accessibilityHint={t("journal.khushuInfoHint")}
+                    onPress={() => router.push("/salah-guide/khushu")}
+                    haptic="light"
+                    hitSlop={6}
+                    style={styles.khushuLearnMore}
+                  >
+                    <SymbolView
+                      name={{ ios: "info.circle", android: "info", web: "info" }}
+                      size={13}
+                      tintColor={colors.mutedForeground}
+                    />
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {t("prayerInfo.learnMore")}
+                    </ThemedText>
+                  </PressableScale>
+                </View>
                 <View style={styles.summaryValueRow}>
                   <ThemedText type="title" style={styles.summaryNumber}>
                     {avg != null ? formatAverage(avg) : "—"}
@@ -410,8 +465,9 @@ export default function JournalScreen() {
           {t("journal.fieldPrayer")}
         </ThemedText>
         <View style={styles.prayerChips}>
-          {OBLIGATORY_PRAYERS.map((id) => {
+          {pickerPrayers.map((id) => {
             const active = draft.prayerId === id;
+            const contentColor = active ? colors.accentForeground : colors.foreground;
             return (
               <PressableScale
                 key={id}
@@ -428,10 +484,8 @@ export default function JournalScreen() {
                   },
                 ]}
               >
-                <ThemedText
-                  type="caption"
-                  style={{ color: active ? colors.accentForeground : colors.foreground }}
-                >
+                <AppIcon icon={PRAYER_ICONS[id]} size={15} tintColor={contentColor} />
+                <ThemedText type="caption" style={{ color: contentColor }}>
                   {t(`prayers.${id}`)}
                 </ThemedText>
               </PressableScale>
@@ -487,17 +541,15 @@ export default function JournalScreen() {
         </View>
       </Sheet>
 
-      {confirmCopy ? (
-        <ConfirmDialog
-          visible={pending != null}
-          title={confirmCopy.title}
-          message={confirmCopy.message}
-          confirmLabel={confirmCopy.confirmLabel}
-          destructive={confirmCopy.destructive}
-          onConfirm={handleConfirm}
-          onClose={handleConfirmClose}
-        />
-      ) : null}
+      <ConfirmDialog
+        visible={pending != null}
+        title={confirmCopy?.title ?? ""}
+        message={confirmCopy?.message}
+        confirmLabel={confirmCopy?.confirmLabel}
+        destructive={confirmCopy?.destructive}
+        onConfirm={handleConfirm}
+        onClose={handleConfirmClose}
+      />
     </ScreenLayout>
   );
 }
@@ -511,6 +563,18 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
   },
   summaryMain: { flex: 1, gap: Spacing.half },
+  avgLabelRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
+  khushuLearnMore: {
+    flexDirection: "row",
+    alignItems: "center",
+    flexShrink: 0,
+    gap: Spacing.half + 2,
+  },
   summaryValueRow: { flexDirection: "row", alignItems: "baseline", gap: Spacing.one },
   summaryNumber: { lineHeight: 34 },
   levelHint: { marginTop: Spacing.half },
@@ -547,6 +611,9 @@ const styles = StyleSheet.create({
   fieldLabel: { marginTop: Spacing.three, marginBottom: Spacing.one },
   prayerChips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.two },
   chip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.one + 2,
     borderRadius: Radius.pill,

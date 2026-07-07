@@ -9,13 +9,22 @@ import {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
-import Animated, { FadeInDown, FadeOut } from "react-native-reanimated";
+import { PanResponder, Platform, StyleSheet, View } from "react-native";
+import Animated, {
+  FadeInDown,
+  FadeOut,
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/themed-text";
+import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 
@@ -39,6 +48,10 @@ export interface ToastContextValue {
 const ToastContext = createContext<ToastContextValue | null>(null);
 const TOAST_DURATION_MS = 3500;
 const TOAST_TOP_WEB = 72;
+/** Upward drag distance (px) before a toast dismisses. */
+const SWIPE_DISMISS_PX = 40;
+/** Upward flick velocity that dismisses even below {@link SWIPE_DISMISS_PX}. */
+const SWIPE_DISMISS_VELOCITY = 0.5;
 
 let counter = 0;
 function uid() {
@@ -113,19 +126,88 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
   const statusKey = item.type === "error" ? "danger" : item.type;
   const palette = tokens.status[statusKey];
 
+  const onDismissRef = useRef(onDismiss);
+  onDismissRef.current = onDismiss;
+  const translateY = useSharedValue(0);
+  const opacity = useSharedValue(1);
+  const dismissing = useRef(false);
+  // When the user swipes it away we run our own slide-up + fade, so the
+  // reanimated FadeOut exit must be turned off — otherwise its snapshot
+  // renders at the original position and the toast appears to snap back.
+  const [swipedAway, setSwipedAway] = useState(false);
+
+  useEffect(() => {
+    if (swipedAway) onDismissRef.current();
+  }, [swipedAway]);
+
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        // Let taps (e.g. the ✕ button) through; only claim the gesture on an
+        // upward drag so pressing dismiss still works.
+        onStartShouldSetPanResponder: () => false,
+        onMoveShouldSetPanResponder: (_, gesture) =>
+          gesture.dy < -1 && Math.abs(gesture.dy) >= Math.abs(gesture.dx),
+        onPanResponderTerminationRequest: () => false,
+        onPanResponderMove: (_, gesture) => {
+          // Track upward drags 1:1; add light resistance if dragged downward.
+          translateY.value = gesture.dy < 0 ? gesture.dy : gesture.dy * 0.2;
+        },
+        onPanResponderRelease: (_, gesture) => {
+          if (gesture.dy < -SWIPE_DISMISS_PX || gesture.vy < -SWIPE_DISMISS_VELOCITY) {
+            dismissing.current = true;
+            opacity.value = withTiming(0, { duration: 140 });
+            translateY.value = withTiming(-160, { duration: 160 }, (finished) => {
+              if (finished) runOnJS(setSwipedAway)(true);
+            });
+            return;
+          }
+          translateY.value = withSpring(0, { damping: 20, stiffness: 300 });
+        },
+        onPanResponderTerminate: () => {
+          if (dismissing.current) return;
+          translateY.value = withSpring(0, { damping: 20, stiffness: 300 });
+        },
+      }),
+    [translateY, opacity],
+  );
+
+  const dragStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+    opacity: opacity.value,
+  }));
+
   return (
     <Animated.View
       entering={FadeInDown.duration(220)}
-      exiting={FadeOut.duration(160)}
+      exiting={swipedAway ? undefined : FadeOut.duration(160)}
       style={[
         styles.toast,
         {
-          backgroundColor: colors.card,
           borderColor: tokens.hairline,
           borderStartColor: palette.color,
         },
+        dragStyle,
       ]}
+      {...panResponder.panHandlers}
     >
+      {/* Frosted glass to match the sheets and player chrome: real Liquid Glass
+          on iOS 26, a native blur elsewhere. The wash keeps the banner legible
+          over whatever content sits behind it. */}
+      <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+        <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: withAlpha(
+                colors.card,
+                hasLiquidGlass ? (tokens.isDark ? 0.4 : 0.5) : tokens.isDark ? 0.62 : 0.72,
+              ),
+            },
+          ]}
+        />
+      </View>
       <View style={styles.textWrap}>
         <ThemedText type="smallBold">{item.title}</ThemedText>
         {item.subtitle ? (
@@ -169,6 +251,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.three,
     borderWidth: StyleSheet.hairlineWidth,
     borderStartWidth: 4,
+    overflow: "hidden",
   },
   textWrap: {
     flex: 1,

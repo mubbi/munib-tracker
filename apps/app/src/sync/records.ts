@@ -65,7 +65,7 @@ export function buildSyncRecords(snapshot: LocalSnapshot): SyncRecordDto[] {
   for (const entry of snapshot.zikrProgress) {
     records.push({
       entity: "zikr_progress",
-      id: zikrProgressKey(entry.zikrId, entry.date),
+      id: zikrProgressKey(entry.zikrId, entry.date, entry.prayerId),
       data: { ...entry },
       updatedAt: entry.updatedAt ?? snapshot.nowIso,
     });
