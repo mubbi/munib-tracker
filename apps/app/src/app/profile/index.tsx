@@ -1,11 +1,9 @@
 import * as ImagePicker from "expo-image-picker";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Image, StyleSheet, TextInput, View } from "react-native";
-
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -21,6 +19,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { resetDatabase } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { clearDownloadedAudio } from "@/lib/cache-manager";
+import { goBackOrReplace } from "@/lib/navigation";
 import { formatRelativeWhen } from "@/lib/relative-time";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -115,7 +114,7 @@ export default function ProfileScreen() {
       eyebrow={t("profile.eyebrow")}
       title={t("profile.title")}
       subtitle={t("profile.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/profile" />
       <Stagger>

@@ -1,10 +1,8 @@
 import { JANNAH_FIRDAWS_DUA } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -24,6 +22,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJannahHubTopics, getJannahPathTopics, getJannahPromised } from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 
 const HUB_ICONS: Record<string, AppIcon> = {
   about: { ios: "leaf.fill", android: "park", web: "park" },
@@ -92,7 +91,7 @@ export default function JannahScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.title")}
       subtitle={t("jannah.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/jannah" />
       <Stagger>

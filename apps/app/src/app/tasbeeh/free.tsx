@@ -1,9 +1,7 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { CustomTargetModal } from "@/components/tasbeeh/custom-target-modal";
@@ -16,6 +14,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { goBackOrReplace } from "@/lib/navigation";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { getRouteFaq } from "@/lib/seo/faq-content";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
@@ -51,7 +50,7 @@ export default function FreeTasbeehScreen() {
       eyebrow={t("tasbeeh.eyebrow")}
       title={t("tasbeeh.freeTitle")}
       subtitle={t("tasbeeh.freeSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
       scrollable
     >
       <Seo

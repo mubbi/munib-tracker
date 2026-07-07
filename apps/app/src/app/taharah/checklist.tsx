@@ -1,8 +1,6 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +11,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getTaharahChecklist } from "@/lib/taharah";
 
 export default function TaharahChecklistScreen() {
@@ -26,7 +25,7 @@ export default function TaharahChecklistScreen() {
       eyebrow={t("taharah.eyebrow")}
       title={t("taharah.checklistTitle")}
       subtitle={t("taharah.checklistSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/taharah" as Href))}
+      onBack={() => goBackOrReplace(router, "/taharah" as Href)}
     >
       <Seo path="/taharah/checklist" />
       <Stagger>

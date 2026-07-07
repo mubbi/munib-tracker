@@ -1,10 +1,8 @@
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -15,6 +13,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   DEFAULT_HIGH_LATITUDE_RULE,
   HIGH_LATITUDE_RULE_KEYS,
@@ -66,7 +65,7 @@ export default function PrayerTuningScreen() {
       eyebrow={t("settings.title")}
       title={t("prayerTuning.title")}
       subtitle={t("prayerTuning.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/location"))}
+      onBack={() => goBackOrReplace(router, "/location")}
     >
       <Seo path="/settings/prayer-tuning" />
       <Stagger>

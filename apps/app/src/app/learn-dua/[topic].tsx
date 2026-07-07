@@ -1,7 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnDuaTopicContent } from "@/components/learn-dua/topic-content";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -11,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { getLearnDuaTopic, getLearnDuaTopics } from "@/lib/learn-dua";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLearnDuaProgressLoaded } from "@/stores/learn-dua-progress-store";
 
@@ -40,7 +39,7 @@ export default function LearnDuaTopicScreen() {
       eyebrow={t("learnDua.eyebrow")}
       title={topic?.title ?? t("learnDua.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/learn-dua" as Href))}
+      onBack={() => goBackOrReplace(router, "/learn-dua" as Href)}
     >
       <Seo
         path={detailPath}

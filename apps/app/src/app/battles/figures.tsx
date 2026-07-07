@@ -1,5 +1,4 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
@@ -16,6 +15,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getBattlesFigures, getBattlesTopic } from "@/lib/battles";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesFiguresScreen() {
   const router = useRouter();
@@ -27,7 +27,7 @@ export default function BattlesFiguresScreen() {
       eyebrow={t("battles.eyebrow")}
       title={t("battles.figuresTitle")}
       subtitle={t("battles.figuresSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/battles" as Href))}
+      onBack={() => goBackOrReplace(router, "/battles" as Href)}
     >
       <Seo path="/battles/figures" />
       <Stagger>

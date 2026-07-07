@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { SymbolViewProps } from "expo-symbols";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
@@ -18,6 +17,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
 import {
@@ -225,7 +225,7 @@ export default function BookmarksHubScreen() {
       eyebrow={t("bookmarks.eyebrow")}
       title={t("bookmarks.title")}
       subtitle={subtitle}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/bookmarks" />
       <Stagger>

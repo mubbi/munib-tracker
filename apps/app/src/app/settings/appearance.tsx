@@ -1,12 +1,10 @@
 import { accentColorIds, accentColors } from "@munib-tracker/theme/accents";
-import { goBackOrReplace } from "@/lib/navigation";
 import { bestForeground } from "@munib-tracker/theme/color";
 import type { AccentColorId, ColorMode } from "@munib-tracker/theme/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -20,6 +18,7 @@ import { COLOR_PALETTE } from "@/constants/color-palette";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { normalizeHex, readableForeground } from "@/lib/color";
+import { goBackOrReplace } from "@/lib/navigation";
 
 const colorModeIds: ColorMode[] = ["light", "dark", "system"];
 
@@ -50,7 +49,7 @@ export default function AppearanceScreen() {
       eyebrow={t("appearance.eyebrow")}
       title={t("settings.appearance")}
       subtitle={t("settings.appearanceSub")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/settings/appearance" />
       <Stagger>

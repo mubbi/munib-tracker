@@ -1,7 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { BattlesTopicContent } from "@/components/battles/topic-content";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -11,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { getBattlesTopic, getBattlesTopics } from "@/lib/battles";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureBattlesProgressLoaded } from "@/stores/battles-progress-store";
 
@@ -40,7 +39,7 @@ export default function BattlesTopicScreen() {
       eyebrow={t("battles.eyebrow")}
       title={topic?.title ?? t("battles.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/battles" as Href))}
+      onBack={() => goBackOrReplace(router, "/battles" as Href)}
     >
       <Seo
         path={detailPath}

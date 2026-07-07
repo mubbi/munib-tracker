@@ -1,10 +1,8 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
@@ -20,6 +18,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ADHAN_LEARN_STYLES, adhanTrack } from "@/lib/adhan-audio";
 import { prefetchAudioUri } from "@/lib/audio-cache";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getSalahGuideTopic } from "@/lib/salah-guide";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
@@ -113,7 +112,7 @@ export default function SalahGuideAdhanScreen() {
       eyebrow={t("salahGuide.eyebrow")}
       title={TOPIC.title}
       subtitle={TOPIC.summary}
-      onBack={() => (goBackOrReplace(router, "/salah-guide"))}
+      onBack={() => goBackOrReplace(router, "/salah-guide")}
     >
       <Seo path="/salah-guide/adhan" />
       <Stagger>

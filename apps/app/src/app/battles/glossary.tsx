@@ -1,8 +1,6 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +11,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getBattlesGlossary } from "@/lib/battles";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesGlossaryScreen() {
   const router = useRouter();
@@ -24,7 +23,7 @@ export default function BattlesGlossaryScreen() {
       eyebrow={t("battles.eyebrow")}
       title={t("battles.glossaryTitle")}
       subtitle={t("battles.glossarySubtitle")}
-      onBack={() => (goBackOrReplace(router, "/battles" as Href))}
+      onBack={() => goBackOrReplace(router, "/battles" as Href)}
     >
       <Seo path="/battles/glossary" />
       <Stagger>

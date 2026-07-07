@@ -1,12 +1,10 @@
 import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import { computeLifetimeMissedPrayers } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +15,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getRouteFaq } from "@/lib/seo/faq-content";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
 import { useQazaCounters, useTrackerActions } from "@/stores/tracker-store";
@@ -64,7 +63,7 @@ export default function QazaCalculatorScreen() {
       eyebrow={t("qazaCalc.eyebrow")}
       title={t("qazaCalc.title")}
       subtitle={t("qazaCalc.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/qaza/calculator"

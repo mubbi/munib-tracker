@@ -1,10 +1,8 @@
 import type { QazaPrayer } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QazaCountEditModal } from "@/components/qaza-count-edit-modal";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -22,6 +20,7 @@ import { Stepper } from "@/components/ui/stepper";
 import { WitrQazaInfo } from "@/components/witr-qaza-info";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { getRouteFaq } from "@/lib/seo/faq-content";
 import { faqSchema, webPageSchema } from "@/lib/seo/structured-data";
@@ -175,7 +174,7 @@ export default function QazaHomeScreen() {
       eyebrow={t("qaza.eyebrow")}
       title={t("qaza.title")}
       subtitle={t("qaza.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/qaza"

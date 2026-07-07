@@ -1,5 +1,4 @@
 import { OBLIGATORY_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { NotificationPreferences, PrayerId } from "@munib-tracker/shared/types";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
@@ -21,6 +20,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
 import { ADHAN_STYLES, adhanTrack, DEFAULT_ADHAN_STYLE } from "@/lib/adhan-audio";
+import { goBackOrReplace } from "@/lib/navigation";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
 import { isPrayerAlertEnabled, SUNNAH_ALERTABLE_PRAYERS } from "@/lib/prayer-alerts";
@@ -163,7 +163,7 @@ export default function NotificationsScreen() {
       eyebrow={t("notif.eyebrow")}
       title={t("settings.notifications")}
       subtitle={t("notif.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/settings/notifications" />
       <Stagger>

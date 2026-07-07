@@ -5,12 +5,10 @@ import {
   PRAYER_REMINDER_OFFSET_MIN,
 } from "@munib-tracker/shared/constants";
 import type { PrayerId } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -21,6 +19,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { locationCalcExtras } from "@/lib/location";
+import { goBackOrReplace } from "@/lib/navigation";
 import { computePrayerTimes, formatPrayerTime } from "@/lib/prayer-times";
 import { prayerDayAnchor } from "@/lib/time";
 import { rescheduleAll } from "@/notifications/scheduler";
@@ -86,9 +85,7 @@ export default function ReminderOffsetsScreen() {
       eyebrow={t("settings.title")}
       title={t("reminderOffsets.title")}
       subtitle={t("reminderOffsets.subtitle")}
-      onBack={() =>
-        goBackOrReplace(router, "/settings/notifications")
-      }
+      onBack={() => goBackOrReplace(router, "/settings/notifications")}
     >
       <Seo path="/settings/reminder-offsets" />
       <Stagger>

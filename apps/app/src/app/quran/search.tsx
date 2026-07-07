@@ -1,9 +1,7 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -15,6 +13,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { searchQuranAyahs } from "@/lib/search";
@@ -115,7 +114,7 @@ export default function QuranSearchScreen() {
       eyebrow={t("quran.title")}
       title={t("quran.searchTitle")}
       subtitle={t("quran.searchSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       {SnapshotHost}
       <Seo path="/quran/search" />

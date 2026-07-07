@@ -1,9 +1,7 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   type NotificationListItem,
   NotificationListRow,
@@ -19,6 +17,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useNotificationPermissions } from "@/hooks/use-notification-permissions";
+import { goBackOrReplace } from "@/lib/navigation";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
@@ -84,7 +83,7 @@ export default function NotificationCenterScreen() {
       eyebrow={t("notifCenter.eyebrow")}
       title={t("settings.notifications")}
       subtitle={t("notifCenter.inboxSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/notifications" />
       <Stagger>

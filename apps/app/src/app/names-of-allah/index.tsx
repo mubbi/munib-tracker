@@ -1,5 +1,4 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useMemo, useRef, useState } from "react";
@@ -12,7 +11,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -27,6 +25,7 @@ import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
 import { buildNamesActivity } from "@/lib/continue-activity";
+import { goBackOrReplace } from "@/lib/navigation";
 import { createNameSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
@@ -234,7 +233,7 @@ export default function NamesOfAllahScreen() {
       eyebrow={t("names.eyebrow")}
       title={t("names.title")}
       subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       {SnapshotHost}
       <Seo

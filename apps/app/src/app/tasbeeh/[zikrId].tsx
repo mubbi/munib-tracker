@@ -1,10 +1,8 @@
 import { getZikrById } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
-
 import { ReferenceLine } from "@/components/content/reference-line";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -13,6 +11,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
+import { goBackOrReplace } from "@/lib/navigation";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
 import { trackerStore } from "@/stores/tracker-store";
@@ -44,10 +43,7 @@ export default function ZikrTasbeehScreen() {
 
   if (!item) {
     return (
-      <ScreenLayout
-        title={t("tasbeeh.eyebrow")}
-        onBack={() => (goBackOrReplace(router, "/"))}
-      >
+      <ScreenLayout title={t("tasbeeh.eyebrow")} onBack={() => goBackOrReplace(router, "/")}>
         <Seo
           title={t("tasbeeh.eyebrow")}
           description="Count this dhikr with a tactile tasbeeh counter."
@@ -72,7 +68,7 @@ export default function ZikrTasbeehScreen() {
     <ScreenLayout
       eyebrow={t("tasbeeh.eyebrow")}
       title={item.title}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         title={t("tasbeeh.eyebrow")}

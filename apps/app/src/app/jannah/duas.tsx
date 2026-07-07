@@ -1,10 +1,8 @@
 import { DUA_ITEMS } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { DuaItem, JannahDuaEntry } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ReadingCard } from "@/components/content/reading-card";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -17,6 +15,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJannahDuas } from "@/lib/jannah";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
@@ -85,7 +84,7 @@ export default function JannahDuasScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.duasTitle")}
       subtitle={t("jannah.duasSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jannah"))}
+      onBack={() => goBackOrReplace(router, "/jannah")}
     >
       <Seo path="/jannah/duas" />
       <Stagger>

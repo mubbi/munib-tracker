@@ -1,9 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -14,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useCustomTasbeeh,
   useCustomTasbeehActions,
@@ -30,7 +29,7 @@ export default function CustomTasbeehScreen() {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const goBack = () => (goBackOrReplace(router, "/tasbeeh/free"));
+  const goBack = () => goBackOrReplace(router, "/tasbeeh/free");
 
   if (!item) {
     return (

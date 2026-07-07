@@ -1,7 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
@@ -10,6 +8,7 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getSalahGuideTopic, getSalahGuideTopics } from "@/lib/salah-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
@@ -40,7 +39,7 @@ export default function SalahGuideTopicScreen() {
       eyebrow={t("salahGuide.eyebrow")}
       title={topic?.title ?? t("salahGuide.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/salah-guide"))}
+      onBack={() => goBackOrReplace(router, "/salah-guide")}
     >
       <Seo
         path={detailPath}

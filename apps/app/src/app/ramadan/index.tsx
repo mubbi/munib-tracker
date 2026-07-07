@@ -1,11 +1,9 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -21,6 +19,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { hijriToGregorian } from "@/lib/hijri";
+import { goBackOrReplace } from "@/lib/navigation";
 import { formatDuration, formatPrayerTime } from "@/lib/prayer-times";
 import { getRamadanInfo, RAMADAN_MONTH } from "@/lib/ramadan";
 import {
@@ -161,7 +160,7 @@ export default function RamadanScreen() {
           ? t("ramadan.dayOf", { day: info.day, total: info.totalDays })
           : t("ramadan.subtitle")
       }
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
       scrollRef={scrollRef}
       onScroll={onScroll}
     >

@@ -1,5 +1,4 @@
 import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -26,6 +25,7 @@ import {
 } from "@/lib/calendar";
 import { formatCalendarDate } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronBackward, chevronForward } from "@/lib/rtl";
 
 export default function CalendarScreen() {
@@ -101,7 +101,7 @@ export default function CalendarScreen() {
       eyebrow={t("calendar.eyebrow")}
       title={t("calendar.title")}
       subtitle={t("calendar.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/calendar" />
       <Stagger>

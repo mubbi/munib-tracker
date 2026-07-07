@@ -1,10 +1,8 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { SymbolViewProps } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -14,6 +12,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useTimeFormat } from "@/hooks/use-time-format";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   type DayPeriod,
   formatHhMm,
@@ -52,7 +51,7 @@ export default function BedtimeScreen() {
       eyebrow={t("bedtime.eyebrow")}
       title={t("settings.bedtime")}
       subtitle={t("bedtime.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/settings/bedtime" />
       <Card style={styles.card}>

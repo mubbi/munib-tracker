@@ -1,10 +1,8 @@
 import { JAHANNAM_REFUGE_DUA } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -24,6 +22,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamMajorSinTopics, getJahannamTopicsBySection } from "@/lib/jahannam";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 
 const TOPICS_BY_SECTION = getJahannamTopicsBySection();
 const SECTION_ORDER = Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>;
@@ -127,7 +126,7 @@ export default function JahannamScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.title")}
       subtitle={t("jahannam.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/jahannam" />
       <Stagger>

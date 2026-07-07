@@ -1,12 +1,10 @@
 import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import Constants from "expo-constants";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { DownloadNativeAppsSection } from "@/components/settings/download-native-apps-section";
@@ -18,6 +16,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 
 const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? "https://munibtracker.app";
 const PRIVACY_URL = `${SITE_URL}/privacy`;
@@ -38,7 +37,7 @@ export default function AboutScreen() {
       eyebrow={t("about.eyebrow")}
       title={t("about.title")}
       subtitle={t("about.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/settings/about" />
       <Stagger>

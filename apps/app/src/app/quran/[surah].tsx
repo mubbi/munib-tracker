@@ -1,5 +1,4 @@
 import type { Ayah } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -38,6 +37,7 @@ import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   getBundledEdition,
   getBundledEditions,
@@ -471,10 +471,7 @@ export default function SurahReaderScreen() {
           description={t("quran.notFoundDesc")}
           index={false}
         />
-        <ScreenLayout
-          title={t("quran.title")}
-          onBack={() => (goBackOrReplace(router, "/"))}
-        >
+        <ScreenLayout title={t("quran.title")} onBack={() => goBackOrReplace(router, "/")}>
           <EmptyState
             icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
             title={t("quran.notFoundTitle")}
@@ -525,7 +522,7 @@ export default function SurahReaderScreen() {
         eyebrow={t("quran.title")}
         title={surah.nameTransliteration}
         subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
-        onBack={() => (goBackOrReplace(router, "/"))}
+        onBack={() => goBackOrReplace(router, "/")}
       >
         <FlatList
           ref={listRef}

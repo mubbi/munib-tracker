@@ -1,11 +1,9 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, TextInput, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -39,6 +37,7 @@ import {
   scheduleGap,
 } from "@/lib/khatm";
 import { dayMotivationSeed, pickKhatmMotivation } from "@/lib/khatm-motivation";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 import { useEnsureKhatmLoaded, useKhatm, useKhatmActions } from "@/stores/khatm-store";
 
@@ -695,7 +694,7 @@ export default function KhatmScreen() {
       eyebrow={t("khatm.eyebrow")}
       title={t("khatm.title")}
       subtitle={t("khatm.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/quran"))}
+      onBack={() => goBackOrReplace(router, "/quran")}
     >
       <Seo path="/quran/khatm" />
       <Stagger>

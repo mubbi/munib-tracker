@@ -1,9 +1,7 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -17,6 +15,7 @@ import { HadithRepository } from "@/db";
 import type { BookmarkedHadith } from "@/db/repositories/hadith-repository";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { buildHadithSharePayload } from "@/lib/share";
 import { usePreferences } from "@/stores/preferences-store";
@@ -74,7 +73,7 @@ export default function HadithBookmarksScreen() {
       eyebrow={t("hadith.title")}
       title={t("hadith.bookmarks")}
       subtitle={t("hadith.bookmarksSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       {SnapshotHost}
       <Seo path="/hadith/bookmarks" />

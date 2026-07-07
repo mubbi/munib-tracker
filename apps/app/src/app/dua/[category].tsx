@@ -1,5 +1,4 @@
 import { duasByCategory } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -16,6 +15,7 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 import { createDuaSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
@@ -112,7 +112,7 @@ export default function DuaCategoryScreen() {
           ? t("dua.searchResultCount", { count: filtered.length })
           : t("dua.supplicationsCount", { count: items.length })
       }
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
       scrollable={false}
     >
       <Seo

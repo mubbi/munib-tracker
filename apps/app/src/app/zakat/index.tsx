@@ -1,10 +1,8 @@
 import { ZAKAT_GUIDE_SECTIONS } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -24,6 +22,7 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useZakatCalculator } from "@/hooks/use-zakat-calculator";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function ZakatScreen() {
   const router = useRouter();
@@ -74,7 +73,7 @@ export default function ZakatScreen() {
       eyebrow={t("zakat.eyebrow")}
       title={t("zakat.title")}
       subtitle={t("zakat.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/zakat" />
       <Stagger>

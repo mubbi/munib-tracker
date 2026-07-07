@@ -1,9 +1,7 @@
 import { getDuaById } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -14,6 +12,7 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
   useEnsureDuaFavoritesLoaded,
@@ -46,7 +45,7 @@ export default function DuaFavoritesScreen() {
       eyebrow={t("dua.detailEyebrow")}
       title={t("dua.favorites")}
       subtitle={t("zikr.favSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/dua/favorites" />
       {items.length === 0 ? (

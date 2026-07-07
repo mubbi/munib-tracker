@@ -1,5 +1,4 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LastDayTopicContent } from "@/components/last-day/topic-content";
@@ -9,6 +8,7 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { getLastDayTopic, getLastDayTopics } from "@/lib/last-day";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLastDayProgressLoaded } from "@/stores/last-day-progress-store";
 
@@ -37,7 +37,7 @@ export default function LastDayTopicScreen() {
       eyebrow={t("lastDay.eyebrow")}
       title={topic?.title ?? t("lastDay.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/last-day" as Href))}
+      onBack={() => goBackOrReplace(router, "/last-day" as Href)}
     >
       <Seo
         path={detailPath}

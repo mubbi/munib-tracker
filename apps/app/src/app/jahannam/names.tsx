@@ -1,9 +1,7 @@
 import type { JahannamNameEntry } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
@@ -18,6 +16,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamNames } from "@/lib/jahannam";
+import { goBackOrReplace } from "@/lib/navigation";
 
 function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean }) {
   const { t } = useTranslation();
@@ -92,7 +91,7 @@ export default function JahannamNamesScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.namesTitle")}
       subtitle={t("jahannam.namesSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
+      onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/names" />
       <Stagger>

@@ -1,10 +1,8 @@
 import type { ContentReportSummary } from "@munib-tracker/shared/types/content-report";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -15,6 +13,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { listContentReports } from "@/lib/content-report-api";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useAuth } from "@/providers/auth-provider";
 
 export default function MyReportsScreen() {
@@ -52,7 +51,7 @@ export default function MyReportsScreen() {
       eyebrow={t("settings.eyebrow")}
       title={t("contentReport.myReportsTitle")}
       subtitle={t("contentReport.myReportsSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/settings"))}
+      onBack={() => goBackOrReplace(router, "/settings")}
     >
       <Seo path="/settings/my-reports" title={t("contentReport.myReportsTitle")} />
       {isGuest ? (

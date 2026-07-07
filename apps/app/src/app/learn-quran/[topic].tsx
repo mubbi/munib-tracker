@@ -1,7 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { QuranGuideTopicContent } from "@/components/quran-guide/topic-content";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -10,6 +8,7 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getQuranGuideTopic, getQuranGuideTopics } from "@/lib/quran-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureQuranGuideProgressLoaded } from "@/stores/quran-guide-progress-store";
@@ -40,7 +39,7 @@ export default function LearnQuranTopicScreen() {
       eyebrow={t("learnQuran.eyebrow")}
       title={topic?.title ?? t("learnQuran.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/learn-quran" as Href))}
+      onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo
         path={detailPath}

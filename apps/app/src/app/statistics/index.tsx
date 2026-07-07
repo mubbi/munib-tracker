@@ -1,5 +1,4 @@
 import { getZikrById } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import type {
   PrayerLog,
   QazaCounter,
@@ -21,7 +20,6 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { BarChart, type BarDatum } from "@/components/charts/bar-chart";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -48,6 +46,7 @@ import {
   ZikrRepository,
 } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import {
   useAchievementStats,
@@ -275,7 +274,7 @@ export default function StatisticsScreen() {
       eyebrow={t("statistics.eyebrow")}
       title={t("statistics.title")}
       subtitle={t("statistics.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/statistics" />
       <Stagger>

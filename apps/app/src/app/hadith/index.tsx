@@ -1,11 +1,9 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { REMOTE_COLLECTIONS } from "@/api/hadith-remote";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -20,6 +18,7 @@ import { HadithRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { dailyHadith } from "@/lib/daily-hadith";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
+import { goBackOrReplace } from "@/lib/navigation";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 
 const HADITH_ITEMS = getBundledCollections().map((collection) => ({
@@ -55,7 +54,7 @@ export default function HadithHomeScreen() {
       eyebrow={t("hadith.eyebrow")}
       title={t("hadith.title")}
       subtitle={t("hadith.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/hadith"

@@ -1,10 +1,8 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
@@ -20,6 +18,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamVerses } from "@/lib/jahannam";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 
 const THEME_ORDER = [
@@ -138,7 +137,7 @@ export default function JahannamVersesScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.versesTitle")}
       subtitle={t("jahannam.versesSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
+      onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/verses" />
       <Stagger>

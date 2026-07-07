@@ -1,8 +1,6 @@
 import { JANNAH_FIRDAWS_DUA } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-
 import { JannahDisclaimer, JannahDuaBlock } from "@/components/jannah/primitives";
 import { JannahTopicContent } from "@/components/jannah/topic-content";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -12,6 +10,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { getJannahTopic, getJannahTopics } from "@/lib/jannah";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export function generateStaticParams(): Array<{ topic: string }> {
@@ -39,7 +38,7 @@ export default function JannahTopicScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={topic?.title ?? t("jannah.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/jannah"))}
+      onBack={() => goBackOrReplace(router, "/jannah")}
     >
       <Seo
         path={detailPath}

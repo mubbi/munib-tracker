@@ -1,8 +1,6 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -15,6 +13,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamReferences } from "@/lib/jahannam";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function JahannamReferencesScreen() {
   const router = useRouter();
@@ -27,7 +26,7 @@ export default function JahannamReferencesScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.referencesTitle")}
       subtitle={t("jahannam.referencesSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
+      onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/references" />
       <Stagger>

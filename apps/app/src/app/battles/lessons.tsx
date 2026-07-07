@@ -1,8 +1,6 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,6 +12,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getBattlesLessonCards } from "@/lib/battles";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesLessonsScreen() {
   const router = useRouter();
@@ -26,7 +25,7 @@ export default function BattlesLessonsScreen() {
       eyebrow={t("battles.eyebrow")}
       title={t("battles.lessonsTitle")}
       subtitle={t("battles.lessonsSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/battles" as Href))}
+      onBack={() => goBackOrReplace(router, "/battles" as Href)}
     >
       <Seo path="/battles/lessons" />
       <Stagger>

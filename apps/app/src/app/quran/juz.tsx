@@ -1,9 +1,7 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -12,6 +10,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getJuzList } from "@/lib/quran";
 import { chevronForward } from "@/lib/rtl";
 
@@ -38,7 +37,7 @@ export default function JuzBrowserScreen() {
       eyebrow={t("quran.eyebrow")}
       title={t("quran.juz")}
       subtitle={t("quran.juzSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/quran"))}
+      onBack={() => goBackOrReplace(router, "/quran")}
     >
       <Seo path="/quran/juz" />
       <Stagger>

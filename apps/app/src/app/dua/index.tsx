@@ -1,12 +1,10 @@
 import { duasByCategory } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -20,6 +18,7 @@ import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { searchDuaList } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
@@ -98,7 +97,7 @@ export default function DuaHomeScreen() {
       subtitle={
         searching ? t("dua.searchResultCount", { count: results.length }) : t("dua.subtitle")
       }
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/dua"

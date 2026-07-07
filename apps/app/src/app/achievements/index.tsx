@@ -7,14 +7,12 @@ import {
   summarizeRozaDebt,
 } from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import { computeStreak, countPerfectDays } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -26,6 +24,7 @@ import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
+import { goBackOrReplace } from "@/lib/navigation";
 import { formatAchievementShare } from "@/lib/share";
 
 const OBLIGATORY = new Set<string>(OBLIGATORY_PRAYERS);
@@ -201,7 +200,7 @@ export default function AchievementsScreen() {
             })
           : t("achievements.subtitleLoading")
       }
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       {SnapshotHost}
       <Seo path="/achievements" />

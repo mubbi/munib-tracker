@@ -1,10 +1,8 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -19,6 +17,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildJahannamJourney, type JahannamJourneyRow } from "@/lib/jahannam-journey";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 import {
   JAHANNAM_INTENTION_IDS,
@@ -158,7 +157,7 @@ export default function JahannamJourneyScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.journeyTitle")}
       subtitle={t("jahannam.journeySubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
+      onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/journey" />
       <Stagger>

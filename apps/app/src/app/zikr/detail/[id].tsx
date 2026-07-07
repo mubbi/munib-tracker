@@ -1,5 +1,4 @@
 import { getZikrById, ZIKR_ITEMS } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -17,6 +16,7 @@ import { Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildZikrActivity } from "@/lib/continue-activity";
+import { goBackOrReplace } from "@/lib/navigation";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
@@ -45,10 +45,7 @@ export default function ZikrDetailScreen() {
 
   if (!item) {
     return (
-      <ScreenLayout
-        title={t("zikr.title")}
-        onBack={() => (goBackOrReplace(router, "/"))}
-      >
+      <ScreenLayout title={t("zikr.title")} onBack={() => goBackOrReplace(router, "/")}>
         <Seo
           path={`/zikr/detail/${params.id ?? ""}`}
           title={t("zikr.notFoundTitle")}
@@ -92,7 +89,7 @@ export default function ZikrDetailScreen() {
     <ScreenLayout
       eyebrow={t("zikr.detailEyebrow")}
       title={item.title}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       {shareCard.SnapshotHost}
       <Seo

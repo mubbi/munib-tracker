@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,6 +12,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getTaharahLessonCount } from "@/lib/taharah";
 import { buildTaharahProgress } from "@/lib/taharah-progress";
 import {
@@ -41,7 +40,7 @@ export default function TaharahProgressScreen() {
       eyebrow={t("taharah.eyebrow")}
       title={t("taharah.progressTitle")}
       subtitle={t("taharah.progressSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/taharah" as Href))}
+      onBack={() => goBackOrReplace(router, "/taharah" as Href)}
     >
       <Seo path="/taharah/progress" />
       <Stagger>

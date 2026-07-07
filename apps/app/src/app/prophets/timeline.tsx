@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -14,6 +12,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getProphetsTimeline } from "@/lib/prophets";
 import { chevronForward } from "@/lib/rtl";
 
@@ -28,7 +27,7 @@ export default function ProphetsTimelineScreen() {
       eyebrow={t("prophets.eyebrow")}
       title={t("prophets.timelineTitle")}
       subtitle={t("prophets.timelineSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/prophets" as Href))}
+      onBack={() => goBackOrReplace(router, "/prophets" as Href)}
     >
       <Seo path="/prophets/timeline" />
       <Stagger>

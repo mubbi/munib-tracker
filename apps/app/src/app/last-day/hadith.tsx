@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -18,6 +16,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getLastDayHadith } from "@/lib/last-day";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function LastDayHadithScreen() {
   const router = useRouter();
@@ -41,7 +40,7 @@ export default function LastDayHadithScreen() {
       eyebrow={t("lastDay.eyebrow")}
       title={t("lastDay.hadithTitle")}
       subtitle={t("lastDay.hadithSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/last-day" as Href))}
+      onBack={() => goBackOrReplace(router, "/last-day" as Href)}
     >
       <Seo path="/last-day/hadith" />
       <Stagger>

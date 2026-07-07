@@ -1,10 +1,8 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import * as WebBrowser from "expo-web-browser";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import manifest from "@/assets/data/manifest.json";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -14,6 +12,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { webPageSchema } from "@/lib/seo/structured-data";
 
 interface CreditRow {
@@ -111,7 +110,7 @@ export default function CreditsScreen() {
       eyebrow={t("credits.eyebrow")}
       title={t("credits.title")}
       subtitle={t("credits.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/credits"

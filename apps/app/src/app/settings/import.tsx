@@ -1,11 +1,9 @@
 import type { ParsedPrayerImport } from "@munib-tracker/shared/utils";
-import { goBackOrReplace } from "@/lib/navigation";
 import { getLocalDateString, parsePrayerImport } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ToggleRow } from "@/components/settings/settings-rows";
@@ -17,6 +15,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { createId, PrayerRepository, QazaRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useToast } from "@/providers/toast-provider";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -77,7 +76,7 @@ export default function ImportScreen() {
       eyebrow={t("settings.title")}
       title={t("import.title")}
       subtitle={t("import.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/settings"))}
+      onBack={() => goBackOrReplace(router, "/settings")}
     >
       <Seo path="/settings/import" />
       <Stagger>

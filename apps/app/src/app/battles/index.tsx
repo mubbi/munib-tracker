@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -21,6 +19,7 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getBattlesLessonCount, getBattlesTopicsBySection } from "@/lib/battles";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useBattlesCompletedCount,
   useEnsureBattlesProgressLoaded,
@@ -111,7 +110,7 @@ export default function BattlesScreen() {
       eyebrow={t("battles.eyebrow")}
       title={t("battles.title")}
       subtitle={t("battles.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/battles" />
       <Stagger>

@@ -1,9 +1,7 @@
 import type { JahannamGateEntry } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -16,6 +14,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamGates } from "@/lib/jahannam";
+import { goBackOrReplace } from "@/lib/navigation";
 
 function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean }) {
   const { tokens } = useThemeTokens();
@@ -63,7 +62,7 @@ export default function JahannamGatesScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.gatesTitle")}
       subtitle={t("jahannam.gatesSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
+      onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/gates" />
       <Stagger>

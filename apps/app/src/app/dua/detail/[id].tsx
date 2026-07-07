@@ -1,9 +1,7 @@
 import { DUA_ITEMS, getDuaById } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -13,6 +11,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
 import { recordContinueActivity } from "@/stores/continue-store";
@@ -43,10 +42,7 @@ export default function DuaDetailScreen() {
 
   if (!item) {
     return (
-      <ScreenLayout
-        title={t("dua.detailEyebrow")}
-        onBack={() => (goBackOrReplace(router, "/"))}
-      >
+      <ScreenLayout title={t("dua.detailEyebrow")} onBack={() => goBackOrReplace(router, "/")}>
         <Seo
           path={`/dua/detail/${params.id ?? ""}`}
           title={t("dua.notFoundTitle")}
@@ -98,7 +94,7 @@ export default function DuaDetailScreen() {
     <ScreenLayout
       eyebrow={t("dua.detailEyebrow")}
       title={item.title}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       {shareCard.SnapshotHost}
       <Seo

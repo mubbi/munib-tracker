@@ -1,5 +1,4 @@
 import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -29,6 +28,7 @@ import {
   getBundledCollectionData,
   getBundledCollections,
 } from "@/lib/hadith";
+import { goBackOrReplace } from "@/lib/navigation";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
@@ -167,10 +167,7 @@ export default function HadithCollectionScreen() {
 
   if (!collection) {
     return (
-      <ScreenLayout
-        title={t("hadith.title")}
-        onBack={() => (goBackOrReplace(router, "/"))}
-      >
+      <ScreenLayout title={t("hadith.title")} onBack={() => goBackOrReplace(router, "/")}>
         <Seo
           path={`/hadith/${collectionId}`}
           title={t("hadith.notFoundTitle")}
@@ -208,11 +205,7 @@ export default function HadithCollectionScreen() {
       eyebrow={t("hadith.title")}
       title={activeSection ? activeSection.name : collection.nameEnglish}
       subtitle={activeSection ? collection.nameEnglish : collection.nameArabic}
-      onBack={
-        activeSection
-          ? goBackToBooks
-          : () => (goBackOrReplace(router, "/"))
-      }
+      onBack={activeSection ? goBackToBooks : () => goBackOrReplace(router, "/")}
     >
       {SnapshotHost}
       <Seo

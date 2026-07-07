@@ -1,5 +1,4 @@
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { PrayerId } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
@@ -7,7 +6,6 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -26,6 +24,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { averageRating, groupByDate, KHUSHU_MAX, KHUSHU_MIN, type KhushuEntry } from "@/lib/khushu";
+import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import { useEnsureKhushuLoaded, useKhushuActions, useKhushuEntries } from "@/stores/khushu-store";
 
@@ -273,7 +272,7 @@ export default function JournalScreen() {
       eyebrow={t("journal.eyebrow")}
       title={t("journal.title")}
       subtitle={t("journal.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/tracker"))}
+      onBack={() => goBackOrReplace(router, "/tracker")}
     >
       <Seo path="/journal" />
 

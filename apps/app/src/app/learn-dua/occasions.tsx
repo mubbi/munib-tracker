@@ -1,8 +1,6 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -11,6 +9,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getLearnDuaOccasions } from "@/lib/learn-dua";
+import { goBackOrReplace } from "@/lib/navigation";
 
 const CATEGORY_ORDER = ["daily", "situational", "quranic"] as const;
 
@@ -24,7 +23,7 @@ export default function LearnDuaOccasionsScreen() {
       eyebrow={t("learnDua.eyebrow")}
       title={t("learnDua.occasionsTitle")}
       subtitle={t("learnDua.occasionsSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/learn-dua" as Href))}
+      onBack={() => goBackOrReplace(router, "/learn-dua" as Href)}
     >
       <Seo path="/learn-dua/occasions" />
       <Stagger>

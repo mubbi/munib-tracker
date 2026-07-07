@@ -1,11 +1,9 @@
 import { addDays, getLocalDateString, prayerCompletionDates } from "@munib-tracker/shared/utils";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -21,6 +19,7 @@ import { PrayerRepository } from "@/db/repositories/prayer-repository";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildJannahJourney, type JannahJourneyRow } from "@/lib/jannah-journey";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 import {
   type JannahIntentionId,
@@ -177,7 +176,7 @@ export default function JannahJourneyScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.journeyTitle")}
       subtitle={t("jannah.journeySubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jannah"))}
+      onBack={() => goBackOrReplace(router, "/jannah")}
     >
       <Seo path="/jannah/journey" />
       <Stagger>

@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,6 +12,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getQuranGuideLessonCount } from "@/lib/quran-guide";
 import { buildQuranGuideProgress } from "@/lib/quran-guide-progress";
 import {
@@ -41,7 +40,7 @@ export default function LearnQuranProgressScreen() {
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.progressTitle")}
       subtitle={t("learnQuran.progressSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/learn-quran" as Href))}
+      onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/progress" />
       <Stagger>

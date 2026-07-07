@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -21,6 +19,7 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getAqeedahLessonCount, getAqeedahTopicsBySection } from "@/lib/aqeedah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useAqeedahCompletedCount,
   useEnsureAqeedahProgressLoaded,
@@ -103,7 +102,7 @@ export default function AqeedahScreen() {
       eyebrow={t("aqeedah.eyebrow")}
       title={t("aqeedah.title")}
       subtitle={t("aqeedah.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/aqeedah" />
       <Stagger>

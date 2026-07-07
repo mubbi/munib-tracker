@@ -1,12 +1,10 @@
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { AppLocale, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { CalendarWeekStrip } from "@/components/calendar-week-strip";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
@@ -22,6 +20,7 @@ import { PrayerRepository } from "@/db";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
+import { goBackOrReplace } from "@/lib/navigation";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { trackerStore } from "@/stores/tracker-store";
 
@@ -130,7 +129,7 @@ export default function CalendarDayScreen() {
           ? t("calDay.futureSubtitle")
           : t("calDay.summary", { completed, total: OBLIGATORY_PRAYERS.length })
       }
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path={`/calendar/${date}`}

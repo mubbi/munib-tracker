@@ -1,10 +1,8 @@
 import type { JahannamReflectionEntry } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -18,6 +16,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamReflections } from "@/lib/jahannam";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 
 function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
@@ -67,7 +66,7 @@ export default function JahannamReflectionScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.reflectionTitle")}
       subtitle={t("jahannam.reflectionSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
+      onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/reflection" />
       <Stagger>

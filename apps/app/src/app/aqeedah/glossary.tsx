@@ -1,8 +1,6 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +11,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getAqeedahGlossary } from "@/lib/aqeedah";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function AqeedahGlossaryScreen() {
   const router = useRouter();
@@ -24,7 +23,7 @@ export default function AqeedahGlossaryScreen() {
       eyebrow={t("aqeedah.eyebrow")}
       title={t("aqeedah.glossaryTitle")}
       subtitle={t("aqeedah.glossarySubtitle")}
-      onBack={() => (goBackOrReplace(router, "/aqeedah" as Href))}
+      onBack={() => goBackOrReplace(router, "/aqeedah" as Href)}
     >
       <Seo path="/aqeedah/glossary" />
       <Stagger>

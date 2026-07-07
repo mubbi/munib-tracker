@@ -1,8 +1,6 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
@@ -14,6 +12,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getSalahGuidePhrases } from "@/lib/salah-guide";
 
 const PHRASES = getSalahGuidePhrases();
@@ -97,7 +96,7 @@ export default function SalahGuidePhrasesScreen() {
       eyebrow={t("salahGuide.eyebrow")}
       title={t("salahGuide.phrasesTitle")}
       subtitle={t("salahGuide.phrasesSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/salah-guide"))}
+      onBack={() => goBackOrReplace(router, "/salah-guide")}
     >
       <Seo path="/salah-guide/phrases" />
       <Stagger>

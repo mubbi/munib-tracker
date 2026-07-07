@@ -1,11 +1,9 @@
 import { DUROOD_ITEMS } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
-
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +15,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
+import { goBackOrReplace } from "@/lib/navigation";
 import { createDuroodSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import {
@@ -44,7 +43,7 @@ export default function DuroodsScreen() {
       eyebrow={t("duroods.eyebrow")}
       title={t("duroods.title")}
       subtitle={t("duroods.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/duroods"

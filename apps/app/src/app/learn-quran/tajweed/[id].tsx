@@ -1,8 +1,6 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahBody, JannahDisclaimer, JannahTakeaway } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +11,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getQuranGuideTajweedLesson, getQuranGuideTajweedLessons } from "@/lib/quran-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 
@@ -40,9 +39,7 @@ export default function LearnQuranTajweedDetailScreen() {
       eyebrow={t("learnQuran.eyebrow")}
       title={lesson?.title ?? t("learnQuran.tajweedTitle")}
       subtitle={lesson?.summary ?? ""}
-      onBack={() =>
-        goBackOrReplace(router, "/learn-quran/tajweed" as Href)
-      }
+      onBack={() => goBackOrReplace(router, "/learn-quran/tajweed" as Href)}
     >
       <Seo
         path={detailPath}

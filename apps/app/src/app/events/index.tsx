@@ -1,10 +1,8 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -16,6 +14,7 @@ import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getUpcomingEvents } from "@/lib/islamic-events";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function IslamicEventsScreen() {
   const router = useRouter();
@@ -42,7 +41,7 @@ export default function IslamicEventsScreen() {
       eyebrow={t("events.eyebrow")}
       title={t("events.title")}
       subtitle={t("events.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
       scrollRef={scrollRef}
       onScroll={onScroll}
     >

@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -26,6 +24,7 @@ import {
   getLearnDuaTopicsBySection,
 } from "@/lib/learn-dua";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureLearnDuaProgressLoaded,
   useLearnDuaCompletedCount,
@@ -115,7 +114,7 @@ export default function LearnDuaScreen() {
       eyebrow={t("learnDua.eyebrow")}
       title={t("learnDua.title")}
       subtitle={t("learnDua.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/learn-dua" />
       <Stagger>

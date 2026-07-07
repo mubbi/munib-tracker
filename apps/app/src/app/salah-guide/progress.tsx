@@ -1,10 +1,8 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -18,6 +16,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 import { getSalahGuideLessonCount } from "@/lib/salah-guide";
 import { buildSalahGuideProgress } from "@/lib/salah-guide-progress";
@@ -60,7 +59,7 @@ export default function SalahGuideProgressScreen() {
       eyebrow={t("salahGuide.eyebrow")}
       title={t("salahGuide.progressTitle")}
       subtitle={t("salahGuide.progressSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/salah-guide"))}
+      onBack={() => goBackOrReplace(router, "/salah-guide")}
     >
       <Seo path="/salah-guide/progress" />
       <Stagger>

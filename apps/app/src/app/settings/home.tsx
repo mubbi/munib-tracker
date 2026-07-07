@@ -1,8 +1,6 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ToggleRow } from "@/components/settings/settings-rows";
@@ -13,6 +11,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { QUICK_ACTION_META } from "@/lib/quick-actions";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
@@ -156,7 +155,7 @@ export default function HomeCustomizeScreen() {
       eyebrow={t("settings.title")}
       title={t("homeCustomize.title")}
       subtitle={t("homeCustomize.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/settings"))}
+      onBack={() => goBackOrReplace(router, "/settings")}
     >
       <Seo path="/settings/home" />
       <Stagger>

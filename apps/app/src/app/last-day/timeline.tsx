@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -15,6 +13,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getLastDayTimeline } from "@/lib/last-day";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 
 export default function LastDayTimelineScreen() {
@@ -28,7 +27,7 @@ export default function LastDayTimelineScreen() {
       eyebrow={t("lastDay.eyebrow")}
       title={t("lastDay.timelineTitle")}
       subtitle={t("lastDay.timelineSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/last-day" as Href))}
+      onBack={() => goBackOrReplace(router, "/last-day" as Href)}
     >
       <Seo path="/last-day/timeline" />
       <Stagger>

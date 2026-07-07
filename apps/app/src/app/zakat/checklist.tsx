@@ -1,13 +1,12 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
 import { ZakatChecklistContent } from "@/components/zakat/zakat-checklist-content";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function ZakatChecklistScreen() {
   const router = useRouter();
@@ -18,7 +17,7 @@ export default function ZakatChecklistScreen() {
       eyebrow={t("zakat.eyebrow")}
       title={t("zakat.checklistTitle")}
       subtitle={t("zakat.checklistSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/zakat"))}
+      onBack={() => goBackOrReplace(router, "/zakat")}
     >
       <Seo path="/zakat/checklist" />
       <Stagger>

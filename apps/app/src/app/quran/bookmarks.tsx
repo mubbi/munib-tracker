@@ -1,9 +1,7 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -15,6 +13,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { buildAyahSharePayload } from "@/lib/share";
@@ -49,7 +48,7 @@ export default function QuranBookmarksScreen() {
       eyebrow={t("quran.title")}
       title={t("quran.bookmarksTitle")}
       subtitle={t("quran.bookmarksSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       {SnapshotHost}
       <Seo path="/quran/bookmarks" />

@@ -1,10 +1,8 @@
 import { computeMissedFasts } from "@munib-tracker/shared/utils";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QazaCountEditModal } from "@/components/qaza-count-edit-modal";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -19,6 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Stepper } from "@/components/ui/stepper";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import { useRoza, useTrackerActions } from "@/stores/tracker-store";
 
@@ -122,7 +121,7 @@ export default function QazaRozaScreen() {
       eyebrow={t("qazaRoza.eyebrow")}
       title={t("qazaRoza.title")}
       subtitle={t("qazaRoza.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/qaza/roza"

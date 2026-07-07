@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,6 +18,7 @@ import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type LocationSearchResult, searchLocations } from "@/lib/location";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   CALCULATION_METHOD_KEYS,
   type CalculationMethodKey,
@@ -137,7 +137,7 @@ export default function LocationScreen() {
       eyebrow={t("location.eyebrow")}
       title={t("location.title")}
       subtitle={t("location.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/location" />
       <Card>

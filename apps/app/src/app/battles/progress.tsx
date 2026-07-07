@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -16,6 +14,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getBattlesLessonCount } from "@/lib/battles";
 import { buildBattlesProgress } from "@/lib/battles-progress";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useBattlesCompletedCount,
   useEnsureBattlesProgressLoaded,
@@ -41,7 +40,7 @@ export default function BattlesProgressScreen() {
       eyebrow={t("battles.eyebrow")}
       title={t("battles.progressTitle")}
       subtitle={t("battles.progressSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/battles" as Href))}
+      onBack={() => goBackOrReplace(router, "/battles" as Href)}
     >
       <Seo path="/battles/progress" />
       <Stagger>

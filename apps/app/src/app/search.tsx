@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,6 +14,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronBack, chevronForward } from "@/lib/rtl";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import {
@@ -331,7 +331,7 @@ export default function SearchScreen() {
       <View style={[styles.header, { paddingTop: insets.top + Spacing.two }]}>
         <IconButton
           accessibilityLabel={t("common.goBack")}
-          onPress={() => (goBackOrReplace(router, "/"))}
+          onPress={() => goBackOrReplace(router, "/")}
           name={chevronBack}
           size={19}
           tintColor={colors.accent}

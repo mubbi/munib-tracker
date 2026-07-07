@@ -1,9 +1,7 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, TextInput } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -15,6 +13,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { applyBackup, type BackupFile, exportBackup, parseBackup } from "@/lib/backup";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useToast } from "@/providers/toast-provider";
 import { reloadAllStores } from "@/stores/reload-all-stores";
 
@@ -75,7 +74,7 @@ export default function BackupScreen() {
       eyebrow={t("settings.title")}
       title={t("backup.title")}
       subtitle={t("backup.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/settings"))}
+      onBack={() => goBackOrReplace(router, "/settings")}
     >
       <Seo path="/settings/backup" />
       <Stagger>

@@ -1,9 +1,7 @@
 import type { JannahGate } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
@@ -19,6 +17,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJannahGates } from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 
 const GATE_ICONS: Record<string, AppIcon> = {
   salah: { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
@@ -105,7 +104,7 @@ export default function JannahGatesScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.gatesTitle")}
       subtitle={t("jannah.gatesSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jannah"))}
+      onBack={() => goBackOrReplace(router, "/jannah")}
     >
       <Seo path="/jannah/gates" />
       <Stagger>

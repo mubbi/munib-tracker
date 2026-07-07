@@ -1,11 +1,10 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Stagger } from "@/components/ui/stagger";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function LearnQuranQuizScreen() {
   const router = useRouter();
@@ -16,7 +15,7 @@ export default function LearnQuranQuizScreen() {
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.quizTitle")}
       subtitle={t("learnQuran.quizSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/learn-quran" as Href))}
+      onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/quiz" />
       <Stagger>

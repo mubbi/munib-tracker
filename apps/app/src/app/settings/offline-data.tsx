@@ -1,9 +1,7 @@
 import { useFocusEffect, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { I18nManager, StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -23,6 +21,7 @@ import {
   formatBytes,
   getCacheSummary,
 } from "@/lib/cache-manager";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useToast } from "@/providers/toast-provider";
 
 type PendingClear = { kind: "group"; group: CacheGroupSize } | { kind: "all" } | null;
@@ -80,7 +79,7 @@ export default function OfflineDataScreen() {
       eyebrow={t("settings.title")}
       title={t("offlineData.title")}
       subtitle={t("offlineData.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/settings"))}
+      onBack={() => goBackOrReplace(router, "/settings")}
     >
       <Seo path="/settings/offline-data" />
       <Stagger>

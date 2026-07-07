@@ -1,11 +1,9 @@
 import type { HadithItem } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -16,6 +14,7 @@ import { Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { recentDailyHadith } from "@/lib/daily-hadith";
+import { goBackOrReplace } from "@/lib/navigation";
 
 const ARCHIVE_DAYS = 21;
 
@@ -101,7 +100,7 @@ export default function DailyHadithScreen() {
       eyebrow={t("dailyHadith.eyebrow")}
       title={t("dailyHadith.title")}
       subtitle={t("dailyHadith.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/hadith"))}
+      onBack={() => goBackOrReplace(router, "/hadith")}
     >
       <Seo path="/hadith/daily" />
       {feed.length === 0 ? (

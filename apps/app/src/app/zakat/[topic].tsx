@@ -1,8 +1,6 @@
 import { ZAKAT_GUIDE_SECTIONS, type ZakatGuideSectionKey } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { ZakatTopicContent } from "@/components/zakat/zakat-topic-content";
 import { buildContentReportRef } from "@/lib/content-report-ref";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 function isZakatTopic(value: string | undefined): value is ZakatGuideSectionKey {
@@ -52,7 +51,7 @@ export default function ZakatTopicScreen() {
       eyebrow={t("zakat.eyebrow")}
       title={valid ? t(`zakat.guide.${topicId}.title`) : t("zakat.title")}
       subtitle={valid ? t(`zakat.guide.${topicId}.summary`) : ""}
-      onBack={() => (goBackOrReplace(router, "/zakat"))}
+      onBack={() => goBackOrReplace(router, "/zakat")}
     >
       <Seo
         path={detailPath}

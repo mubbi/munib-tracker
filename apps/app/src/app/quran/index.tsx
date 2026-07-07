@@ -1,5 +1,4 @@
 import type { Surah } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useMemo, useState } from "react";
@@ -12,7 +11,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -30,6 +28,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getSurahByNumber, getSurahMeta } from "@/lib/quran";
 import { chevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
@@ -411,7 +410,7 @@ export default function QuranHomeScreen() {
         eyebrow={t("quran.eyebrow")}
         title={t("quran.title")}
         subtitle={t("quran.subtitle")}
-        onBack={() => (goBackOrReplace(router, "/"))}
+        onBack={() => goBackOrReplace(router, "/")}
       >
         <FlatList
           data={filtered}

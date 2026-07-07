@@ -1,10 +1,8 @@
 import { PRAYER_RAKATS } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -22,6 +20,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   getSalahGuideLessonCount,
   getSalahGuidePhrases,
@@ -131,7 +130,7 @@ export default function SalahGuideScreen() {
       eyebrow={t("salahGuide.eyebrow")}
       title={t("salahGuide.title")}
       subtitle={t("salahGuide.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/salah-guide" />
       <Stagger>

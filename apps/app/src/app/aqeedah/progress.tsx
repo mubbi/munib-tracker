@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -16,6 +14,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getAqeedahLessonCount } from "@/lib/aqeedah";
 import { buildAqeedahProgress } from "@/lib/aqeedah-progress";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useAqeedahCompletedCount,
   useEnsureAqeedahProgressLoaded,
@@ -41,7 +40,7 @@ export default function AqeedahProgressScreen() {
       eyebrow={t("aqeedah.eyebrow")}
       title={t("aqeedah.progressTitle")}
       subtitle={t("aqeedah.progressSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/aqeedah" as Href))}
+      onBack={() => goBackOrReplace(router, "/aqeedah" as Href)}
     >
       <Seo path="/aqeedah/progress" />
       <Stagger>

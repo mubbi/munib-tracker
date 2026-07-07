@@ -1,11 +1,10 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { useHomeHero } from "@/hooks/use-home-hero";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function ScheduleScreen() {
   const router = useRouter();
@@ -17,7 +16,7 @@ export default function ScheduleScreen() {
       eyebrow={t("schedule.eyebrow")}
       title={t("home.scheduleTitle")}
       subtitle={t("schedule.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/schedule" />
       <PrayerScheduleCard

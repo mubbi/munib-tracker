@@ -1,11 +1,9 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
-import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -22,6 +20,7 @@ import { getLastDayLessonCount } from "@/lib/last-day";
 import type { LastDayPreparationRowId } from "@/lib/last-day-preparation";
 import { buildLastDayPreparation } from "@/lib/last-day-preparation";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 import {
   useEnsureLastDayProgressLoaded,
@@ -163,7 +162,7 @@ export default function LastDayPreparationScreen() {
       eyebrow={t("lastDay.eyebrow")}
       title={t("lastDay.preparationTitle")}
       subtitle={t("lastDay.preparationSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/last-day" as Href))}
+      onBack={() => goBackOrReplace(router, "/last-day" as Href)}
     >
       <Seo path="/last-day/preparation" />
       <Stagger>

@@ -1,9 +1,7 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -12,6 +10,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureNameFavoritesLoaded,
   useFavoriteNameIds,
@@ -36,7 +35,7 @@ export default function NameFavoritesScreen() {
       eyebrow={t("names.eyebrow")}
       title={t("names.favorites")}
       subtitle={t("names.favSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/names-of-allah"))}
+      onBack={() => goBackOrReplace(router, "/names-of-allah")}
     >
       <Seo path="/names-of-allah/favorites" />
       {items.length === 0 ? (

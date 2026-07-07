@@ -1,5 +1,4 @@
 import { Coordinates, Qibla } from "adhan";
-import { goBackOrReplace } from "@/lib/navigation";
 import * as Location from "expo-location";
 import { type Href, useRouter } from "expo-router";
 import { Magnetometer } from "expo-sensors";
@@ -16,7 +15,6 @@ import Animated, {
   withSequence,
   withTiming,
 } from "react-native-reanimated";
-
 import { QiblaNeedle } from "@/components/qibla/qibla-needle";
 import { QiblaTurnIcon } from "@/components/qibla/qibla-turn-icon";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -29,6 +27,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   getQiblaTurnGuidance,
   type QiblaTurnKind,
@@ -446,7 +445,7 @@ export default function QiblaScreen() {
       eyebrow={t("qibla.eyebrow")}
       title={t("settings.qibla")}
       subtitle={t("qibla.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/qibla"

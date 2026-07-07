@@ -1,5 +1,4 @@
 import { useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,6 +18,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJannahVerses } from "@/lib/jannah";
+import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 
 const THEME_ORDER = ["description", "reward", "ranks", "mercy", "supplication"] as const;
@@ -124,7 +124,7 @@ export default function JannahVersesScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.versesTitle")}
       subtitle={t("jannah.versesSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jannah"))}
+      onBack={() => goBackOrReplace(router, "/jannah")}
     >
       <Seo path="/jannah/verses" />
       <Stagger>

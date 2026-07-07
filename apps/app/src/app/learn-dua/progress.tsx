@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -16,6 +14,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { getLearnDuaLessonCount } from "@/lib/learn-dua";
 import { buildLearnDuaProgress } from "@/lib/learn-dua-progress";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureLearnDuaProgressLoaded,
   useLearnDuaCompletedCount,
@@ -41,7 +40,7 @@ export default function LearnDuaProgressScreen() {
       eyebrow={t("learnDua.eyebrow")}
       title={t("learnDua.progressTitle")}
       subtitle={t("learnDua.progressSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/learn-dua" as Href))}
+      onBack={() => goBackOrReplace(router, "/learn-dua" as Href)}
     >
       <Seo path="/learn-dua/progress" />
       <Stagger>

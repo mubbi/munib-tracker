@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -20,6 +18,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getProphetsLessonCount, getProphetsTopicsBySection } from "@/lib/prophets";
 import {
   useEnsureProphetsProgressLoaded,
@@ -101,7 +100,7 @@ export default function ProphetsScreen() {
       eyebrow={t("prophets.eyebrow")}
       title={t("prophets.title")}
       subtitle={t("prophets.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/prophets" />
       <Stagger>

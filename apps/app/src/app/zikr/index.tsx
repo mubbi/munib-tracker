@@ -1,11 +1,9 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
@@ -17,6 +15,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { searchZikrList } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { zikrByCategory, zikrCategories } from "@/lib/zikr";
@@ -55,7 +54,7 @@ export default function ZikrHomeScreen() {
       subtitle={
         searching ? t("zikr.searchResultCount", { count: results.length }) : t("zikr.subtitle")
       }
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/zikr"

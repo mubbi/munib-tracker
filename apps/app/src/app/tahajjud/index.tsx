@@ -1,5 +1,4 @@
 import type { AppLocale, PrayerLog } from "@munib-tracker/shared/types";
-import { goBackOrReplace } from "@/lib/navigation";
 import {
   addDays,
   computePrayerStreak,
@@ -12,7 +11,6 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -24,6 +22,7 @@ import { PrayerRepository } from "@/db/repositories/prayer-repository";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatCalendarDateFromIso, formatCompactGridDateFromIso } from "@/lib/calendar-format";
+import { goBackOrReplace } from "@/lib/navigation";
 import { usePreferences } from "@/stores/preferences-store";
 import { usePrayerStatus, useTrackerActions } from "@/stores/tracker-store";
 
@@ -81,7 +80,7 @@ export default function TahajjudScreen() {
       eyebrow={t("tahajjud.eyebrow")}
       title={t("tahajjud.title")}
       subtitle={t("tahajjud.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/tracker"))}
+      onBack={() => goBackOrReplace(router, "/tracker")}
     >
       <Seo path="/tahajjud" />
 

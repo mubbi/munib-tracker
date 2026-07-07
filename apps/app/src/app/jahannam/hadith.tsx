@@ -1,10 +1,8 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { SymbolViewProps } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
@@ -18,6 +16,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamHadith } from "@/lib/jahannam";
+import { goBackOrReplace } from "@/lib/navigation";
 
 const THEME_ORDER = ["warning", "mercy", "repentance", "accountability", "protection"] as const;
 
@@ -52,7 +51,7 @@ export default function JahannamHadithScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.hadithTitle")}
       subtitle={t("jahannam.hadithSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
+      onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/hadith" />
       <Stagger>

@@ -1,7 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { AqeedahTopicContent } from "@/components/aqeedah/topic-content";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -11,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { getAqeedahTopic, getAqeedahTopics } from "@/lib/aqeedah";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureAqeedahProgressLoaded } from "@/stores/aqeedah-progress-store";
 
@@ -40,7 +39,7 @@ export default function AqeedahTopicScreen() {
       eyebrow={t("aqeedah.eyebrow")}
       title={topic?.title ?? t("aqeedah.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/aqeedah" as Href))}
+      onBack={() => goBackOrReplace(router, "/aqeedah" as Href)}
     >
       <Seo
         path={detailPath}

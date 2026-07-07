@@ -1,5 +1,4 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
-import { goBackOrReplace } from "@/lib/navigation";
 import type { ObligatoryPrayer, ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
 import { isObligatoryPrayer, isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -13,7 +12,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -23,6 +21,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { zikrByCategory } from "@/lib/zikr";
@@ -115,7 +114,7 @@ export default function ZikrCategoryScreen() {
           ? t("zikr.searchResultCount", { count: filtered.length })
           : t("zikr.adhkarCount", { count: items.length })
       }
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
       scrollable={false}
     >
       <Seo

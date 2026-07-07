@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
@@ -20,6 +18,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getLastDayVerses } from "@/lib/last-day";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function LastDayVersesScreen() {
   const router = useRouter();
@@ -45,7 +44,7 @@ export default function LastDayVersesScreen() {
       eyebrow={t("lastDay.eyebrow")}
       title={t("lastDay.versesTitle")}
       subtitle={t("lastDay.versesSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/last-day" as Href))}
+      onBack={() => goBackOrReplace(router, "/last-day" as Href)}
     >
       <Seo path="/last-day/verses" />
       <Stagger>

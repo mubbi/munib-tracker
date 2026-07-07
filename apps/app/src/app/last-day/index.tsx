@@ -1,9 +1,7 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import {
   JannahCallout,
   JannahDisclaimer,
@@ -21,6 +19,7 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getLastDayLessonCount, getLastDayTopicsBySection } from "@/lib/last-day";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureLastDayProgressLoaded,
   useLastDayCompletedCount,
@@ -111,7 +110,7 @@ export default function LastDayScreen() {
       eyebrow={t("lastDay.eyebrow")}
       title={t("lastDay.title")}
       subtitle={t("lastDay.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/last-day" />
       <Stagger>

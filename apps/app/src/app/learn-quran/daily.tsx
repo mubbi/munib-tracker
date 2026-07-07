@@ -1,8 +1,6 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
-
 import {
   JannahActionSteps,
   JannahCallout,
@@ -18,6 +16,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getQuranGuideDailyLessonForDate } from "@/lib/quran-guide";
 
 export default function LearnQuranDailyScreen() {
@@ -30,7 +29,7 @@ export default function LearnQuranDailyScreen() {
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.dailyTitle")}
       subtitle={t("learnQuran.dailySubtitle")}
-      onBack={() => (goBackOrReplace(router, "/learn-quran" as Href))}
+      onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/daily" />
       <Stagger>

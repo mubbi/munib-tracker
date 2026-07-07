@@ -1,8 +1,6 @@
 import { type Href, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -12,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getQuranGuideLetters } from "@/lib/quran-guide";
 
 export default function LearnQuranLettersScreen() {
@@ -25,7 +24,7 @@ export default function LearnQuranLettersScreen() {
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.lettersTitle")}
       subtitle={t("learnQuran.lettersSubtitle")}
-      onBack={() => (goBackOrReplace(router, "/learn-quran" as Href))}
+      onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/letters" />
       <Stagger>

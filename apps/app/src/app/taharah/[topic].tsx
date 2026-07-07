@@ -1,7 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -10,6 +8,7 @@ import { TaharahTopicContent } from "@/components/taharah/topic-content";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { getTaharahTopic, getTaharahTopics } from "@/lib/taharah";
 import { useEnsureTaharahProgressLoaded } from "@/stores/taharah-progress-store";
@@ -40,7 +39,7 @@ export default function TaharahTopicScreen() {
       eyebrow={t("taharah.eyebrow")}
       title={topic?.title ?? t("taharah.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/taharah" as Href))}
+      onBack={() => goBackOrReplace(router, "/taharah" as Href)}
     >
       <Seo
         path={detailPath}

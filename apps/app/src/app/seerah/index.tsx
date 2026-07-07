@@ -1,10 +1,8 @@
 import { SEERAH_EVENTS } from "@munib-tracker/shared/content";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -13,6 +11,7 @@ import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { goBackOrReplace } from "@/lib/navigation";
 
 export default function SeerahScreen() {
   const router = useRouter();
@@ -24,7 +23,7 @@ export default function SeerahScreen() {
       eyebrow={t("seerah.eyebrow")}
       title={t("seerah.title")}
       subtitle={t("seerah.subtitle")}
-      onBack={() => (goBackOrReplace(router, "/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/seerah" />
       <Stagger>

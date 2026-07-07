@@ -1,7 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
-
 import { JahannamTopicContent } from "@/components/jahannam/topic-content";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -10,6 +8,7 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { getJahannamTopic, getJahannamTopics } from "@/lib/jahannam";
+import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export function generateStaticParams(): Array<{ topic: string }> {
@@ -36,7 +35,7 @@ export default function JahannamTopicScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={topic?.title ?? t("jahannam.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
+      onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo
         path={detailPath}
