@@ -320,6 +320,7 @@ export default function QuranPageReaderScreen() {
                 ) : (
                   <PageLayoutRenderer
                     ayahs={ayahs}
+                    page={page}
                     arabicSize={readingSizes.arabic}
                     transliteration={transliteration}
                     translation={translationText}

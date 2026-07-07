@@ -89,20 +89,23 @@ export function QuranReadingToolbar({
 
   return (
     <Animated.View
-      pointerEvents={visible ? "auto" : "none"}
-      style={[styles.bar, { borderBottomColor: tokens.hairline }, animatedStyle]}
+      style={[
+        styles.bar,
+        { borderBottomColor: tokens.hairline, pointerEvents: visible ? "auto" : "none" },
+        animatedStyle,
+      ]}
     >
       {/* Frosted glass chrome to match the toasts and bottom sheets: a blur layer
           beneath a translucent card wash that keeps the chips legible. Real
           Liquid Glass on iOS 26, a native blur elsewhere, backdrop-filter on web. */}
-      <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
         <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
       </View>
       <View
-        pointerEvents="none"
         style={[
           StyleSheet.absoluteFill,
           {
+            pointerEvents: "none",
             backgroundColor: withAlpha(
               colors.card,
               hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,

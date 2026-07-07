@@ -25,10 +25,9 @@ export function ReadingProgressBar({ progress, accessibilityLabel }: ReadingProg
 
   return (
     <View
-      pointerEvents="none"
       accessibilityRole="progressbar"
       accessibilityLabel={accessibilityLabel}
-      style={[styles.track, { backgroundColor: tokens.track }]}
+      style={[styles.track, { backgroundColor: tokens.track, pointerEvents: "none" }]}
     >
       <Animated.View
         style={[

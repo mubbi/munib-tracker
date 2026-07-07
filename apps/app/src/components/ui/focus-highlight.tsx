@@ -53,8 +53,11 @@ export const FocusHighlight = forwardRef<View, FocusHighlightProps>(function Foc
     <View ref={ref} style={[styles.wrap, { borderRadius }, style]}>
       {children}
       <Animated.View
-        pointerEvents="none"
-        style={[styles.ring, { borderRadius, borderColor: resolvedBorder }, ringStyle]}
+        style={[
+          styles.ring,
+          { borderRadius, borderColor: resolvedBorder, pointerEvents: "none" },
+          ringStyle,
+        ]}
       />
     </View>
   );

@@ -300,8 +300,8 @@ export function useShareContentCard() {
         style={[
           styles.snapshotHost,
           Platform.OS === "web" ? SHARE_SNAPSHOT_WEB_HOST_STYLE : SHARE_SNAPSHOT_NATIVE_HOST_STYLE,
+          { pointerEvents: "none" },
         ]}
-        pointerEvents="none"
       >
         <ShareContentSnapshot
           key={generation}

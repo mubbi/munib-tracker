@@ -2,8 +2,9 @@ import type { MushafLine, MushafPageLayout } from "@munib-tracker/shared/types";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
+import { MushafPageFrame } from "@/components/quran/mushaf-page-frame";
+import { SurahBanner } from "@/components/quran/surah-banner";
 import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
 import { useQcfPageFont } from "@/hooks/use-qcf-page-font";
@@ -40,28 +41,24 @@ export function MushafLineRenderer({
   const { ready, fontFamily } = useQcfPageFont(page);
 
   return (
-    <Card padding="four" style={styles.card}>
-      {!ready ? (
-        <View style={styles.loading}>
-          <ActivityIndicator color={colors.accent} />
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {t("quran.loadingMushafFont")}
-          </ThemedText>
-        </View>
-      ) : null}
+    <MushafPageFrame
+      page={page}
+      overlay={
+        !ready ? (
+          <View style={styles.loading}>
+            <ActivityIndicator color={colors.accent} />
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("quran.loadingMushafFont")}
+            </ThemedText>
+          </View>
+        ) : null
+      }
+    >
       <View style={styles.lines}>
         {layout.lines.map((line) => {
           const lineKey = mushafLineKey(page, line);
           if (line.type === "surah_name") {
-            return (
-              <ThemedText
-                key={lineKey}
-                type="arabic"
-                style={[styles.surahName, { fontFamily, color: colors.accent }]}
-              >
-                {line.text}
-              </ThemedText>
-            );
+            return <SurahBanner key={lineKey} nameArabic={line.text} fontFamily={fontFamily} />;
           }
           if (line.type === "basmala") {
             return (
@@ -111,24 +108,23 @@ export function MushafLineRenderer({
           );
         })}
       </View>
-    </Card>
+    </MushafPageFrame>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { flex: 1, minHeight: 420 },
   loading: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1,
     alignItems: "center",
+    justifyContent: "center",
     gap: Spacing.two,
-    marginBottom: Spacing.three,
   },
   lines: { gap: Spacing.two },
-  surahName: {
-    fontSize: 22,
-    lineHeight: 36,
-    textAlign: "center",
-    marginVertical: Spacing.two,
-  },
   basmala: {
     fontSize: 20,
     lineHeight: 34,

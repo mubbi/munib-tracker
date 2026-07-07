@@ -194,7 +194,7 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
       {/* Frosted glass to match the sheets and player chrome: real Liquid Glass
           on iOS 26, a native blur elsewhere. The wash keeps the banner legible
           over whatever content sits behind it. */}
-      <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
         <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
         <View
           style={[

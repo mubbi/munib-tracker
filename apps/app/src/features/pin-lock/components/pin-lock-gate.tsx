@@ -32,7 +32,7 @@ function PinLockGateOverlay() {
       : undefined;
 
   return (
-    <View style={styles.overlay} pointerEvents="box-none">
+    <View style={[styles.overlay, { pointerEvents: "box-none" }]}>
       <PinLockScreen
         onUnlock={unlock}
         onBiometricUnlock={unlockWithBiometrics}

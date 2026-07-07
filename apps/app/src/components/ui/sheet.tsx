@@ -170,7 +170,7 @@ export function Sheet({
   // in-flow content, so without this the glass would cover (and visibly blur)
   // text inputs and other controls inside the sheet.
   const glassFill = (
-    <View pointerEvents="none" style={[StyleSheet.absoluteFill, styles.glassFill]}>
+    <View style={[StyleSheet.absoluteFill, styles.glassFill, { pointerEvents: "none" }]}>
       <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
       <View
         style={[
@@ -217,11 +217,10 @@ export function Sheet({
       onRequestClose={onClose}
     >
       <View
-        pointerEvents="box-none"
         style={[
           styles.scrim,
           isBottom ? styles.scrimBottom : styles.scrimCenter,
-          { backgroundColor: tokens.scrim },
+          { backgroundColor: tokens.scrim, pointerEvents: "box-none" },
         ]}
       >
         {/*

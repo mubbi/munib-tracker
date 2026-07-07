@@ -865,10 +865,12 @@ function VolumePopover({
         >
           {!hasLiquidGlass ? (
             <View
-              pointerEvents="none"
               style={[
                 StyleSheet.absoluteFill,
-                { backgroundColor: withAlpha(popupBackground, tokens.isDark ? 0.5 : 0.62) },
+                {
+                  pointerEvents: "none",
+                  backgroundColor: withAlpha(popupBackground, tokens.isDark ? 0.5 : 0.62),
+                },
               ]}
             />
           ) : null}
@@ -1047,7 +1049,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
         {/* Frosted glass chrome to match the sheets and compact bar: real Liquid
           Glass on iOS 26, a native blur elsewhere, backdrop-filter on web. The
           wash keeps the full-screen player legible over busy content behind. */}
-        <View pointerEvents="none" style={StyleSheet.absoluteFill}>
+        <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
           <GlassSurface style={StyleSheet.absoluteFill} intensity={64} />
           <View
             style={[
