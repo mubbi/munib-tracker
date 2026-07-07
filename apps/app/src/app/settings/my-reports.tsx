@@ -1,4 +1,5 @@
 import type { ContentReportSummary } from "@munib-tracker/shared/types/content-report";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -51,7 +52,7 @@ export default function MyReportsScreen() {
       eyebrow={t("settings.eyebrow")}
       title={t("contentReport.myReportsTitle")}
       subtitle={t("contentReport.myReportsSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/settings"))}
+      onBack={() => (goBackOrReplace(router, "/settings"))}
     >
       <Seo path="/settings/my-reports" title={t("contentReport.myReportsTitle")} />
       {isGuest ? (

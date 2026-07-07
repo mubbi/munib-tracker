@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -157,7 +158,7 @@ export default function JahannamJourneyScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.journeyTitle")}
       subtitle={t("jahannam.journeySubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jahannam" as Href))}
+      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
     >
       <Seo path="/jahannam/journey" />
       <Stagger>

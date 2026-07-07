@@ -1,4 +1,5 @@
 import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import Constants from "expo-constants";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -37,7 +38,7 @@ export default function AboutScreen() {
       eyebrow={t("about.eyebrow")}
       title={t("about.title")}
       subtitle={t("about.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/settings/about" />
       <Stagger>

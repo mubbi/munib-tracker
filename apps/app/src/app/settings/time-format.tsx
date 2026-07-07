@@ -1,4 +1,5 @@
 import type { TimeFormat } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
@@ -35,7 +36,7 @@ export default function TimeFormatScreen() {
       eyebrow={t("settings.title")}
       title={t("timeFormat.title")}
       subtitle={t("timeFormat.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/settings/time-format" />
       <Stagger>

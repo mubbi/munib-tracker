@@ -1,4 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 
 import { AqeedahTopicContent } from "@/components/aqeedah/topic-content";
@@ -39,7 +40,7 @@ export default function AqeedahTopicScreen() {
       eyebrow={t("aqeedah.eyebrow")}
       title={topic?.title ?? t("aqeedah.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/aqeedah" as Href))}
+      onBack={() => (goBackOrReplace(router, "/aqeedah" as Href))}
     >
       <Seo
         path={detailPath}

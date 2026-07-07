@@ -1,4 +1,5 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
@@ -694,7 +695,7 @@ export default function KhatmScreen() {
       eyebrow={t("khatm.eyebrow")}
       title={t("khatm.title")}
       subtitle={t("khatm.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/quran"))}
+      onBack={() => (goBackOrReplace(router, "/quran"))}
     >
       <Seo path="/quran/khatm" />
       <Stagger>

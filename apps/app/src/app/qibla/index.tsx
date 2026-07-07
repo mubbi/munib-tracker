@@ -1,4 +1,5 @@
 import { Coordinates, Qibla } from "adhan";
+import { goBackOrReplace } from "@/lib/navigation";
 import * as Location from "expo-location";
 import { type Href, useRouter } from "expo-router";
 import { Magnetometer } from "expo-sensors";
@@ -445,7 +446,7 @@ export default function QiblaScreen() {
       eyebrow={t("qibla.eyebrow")}
       title={t("settings.qibla")}
       subtitle={t("qibla.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/qibla"

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -41,7 +42,7 @@ export default function IslamicEventsScreen() {
       eyebrow={t("events.eyebrow")}
       title={t("events.title")}
       subtitle={t("events.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
       scrollRef={scrollRef}
       onScroll={onScroll}
     >

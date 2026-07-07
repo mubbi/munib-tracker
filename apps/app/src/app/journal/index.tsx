@@ -1,4 +1,5 @@
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { PrayerId } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
@@ -272,7 +273,7 @@ export default function JournalScreen() {
       eyebrow={t("journal.eyebrow")}
       title={t("journal.title")}
       subtitle={t("journal.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/tracker"))}
+      onBack={() => (goBackOrReplace(router, "/tracker"))}
     >
       <Seo path="/journal" />
 

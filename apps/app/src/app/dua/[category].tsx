@@ -1,4 +1,5 @@
 import { duasByCategory } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -111,7 +112,7 @@ export default function DuaCategoryScreen() {
           ? t("dua.searchResultCount", { count: filtered.length })
           : t("dua.supplicationsCount", { count: items.length })
       }
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
       scrollable={false}
     >
       <Seo

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 
 import { ExcusedGuideContent } from "@/components/excused/excused-guide-content";
@@ -14,7 +15,7 @@ export default function SickGuideScreen() {
       eyebrow={t("sick.eyebrow")}
       title={t("sick.title")}
       subtitle={t("sick.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/sick" />
       <ExcusedGuideContent reason="sick" />

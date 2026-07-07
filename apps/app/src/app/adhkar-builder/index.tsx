@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, TextInput, View } from "react-native";
@@ -82,7 +83,7 @@ export default function AdhkarBuilderScreen() {
       eyebrow={t("customAdhkar.eyebrow")}
       title={t("customAdhkar.title")}
       subtitle={t("customAdhkar.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/zikr"))}
+      onBack={() => (goBackOrReplace(router, "/zikr"))}
     >
       <Seo path="/adhkar-builder" />
       <Button

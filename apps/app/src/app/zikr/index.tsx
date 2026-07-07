@@ -1,4 +1,5 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
@@ -54,7 +55,7 @@ export default function ZikrHomeScreen() {
       subtitle={
         searching ? t("zikr.searchResultCount", { count: results.length }) : t("zikr.subtitle")
       }
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/zikr"

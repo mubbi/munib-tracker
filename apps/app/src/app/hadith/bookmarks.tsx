@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -73,7 +74,7 @@ export default function HadithBookmarksScreen() {
       eyebrow={t("hadith.title")}
       title={t("hadith.bookmarks")}
       subtitle={t("hadith.bookmarksSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       {SnapshotHost}
       <Seo path="/hadith/bookmarks" />

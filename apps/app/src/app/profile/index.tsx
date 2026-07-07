@@ -1,4 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useState } from "react";
@@ -114,7 +115,7 @@ export default function ProfileScreen() {
       eyebrow={t("profile.eyebrow")}
       title={t("profile.title")}
       subtitle={t("profile.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/profile" />
       <Stagger>

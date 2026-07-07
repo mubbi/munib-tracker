@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -103,7 +104,7 @@ export default function TaharahScreen() {
       eyebrow={t("taharah.eyebrow")}
       title={t("taharah.title")}
       subtitle={t("taharah.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/taharah" />
       <Stagger>

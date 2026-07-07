@@ -1,4 +1,5 @@
 import { HAJJ_GUIDE_SECTIONS } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { HajjGuideStep } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -96,7 +97,7 @@ export default function HajjScreen() {
       eyebrow={t("hajj.eyebrow")}
       title={t("hajj.title")}
       subtitle={t("hajj.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
       scrollRef={scrollRef}
       onScroll={onScroll}
     >

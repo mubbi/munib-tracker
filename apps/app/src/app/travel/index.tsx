@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,7 +15,7 @@ export default function TravelGuideScreen() {
       eyebrow={t("travel.eyebrow")}
       title={t("travel.title")}
       subtitle={t("travel.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/travel" />
       <LearnReadingChrome surface="jannah">

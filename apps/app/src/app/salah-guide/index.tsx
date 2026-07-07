@@ -1,4 +1,5 @@
 import { PRAYER_RAKATS } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -130,7 +131,7 @@ export default function SalahGuideScreen() {
       eyebrow={t("salahGuide.eyebrow")}
       title={t("salahGuide.title")}
       subtitle={t("salahGuide.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/salah-guide" />
       <Stagger>

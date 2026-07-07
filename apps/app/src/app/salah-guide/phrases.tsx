@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -96,7 +97,7 @@ export default function SalahGuidePhrasesScreen() {
       eyebrow={t("salahGuide.eyebrow")}
       title={t("salahGuide.phrasesTitle")}
       subtitle={t("salahGuide.phrasesSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/salah-guide"))}
+      onBack={() => (goBackOrReplace(router, "/salah-guide"))}
     >
       <Seo path="/salah-guide/phrases" />
       <Stagger>

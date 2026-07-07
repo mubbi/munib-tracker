@@ -1,4 +1,5 @@
 import { addDays, getLocalDateString, prayerCompletionDates } from "@munib-tracker/shared/utils";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -176,7 +177,7 @@ export default function JannahJourneyScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.journeyTitle")}
       subtitle={t("jannah.journeySubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jannah"))}
+      onBack={() => (goBackOrReplace(router, "/jannah"))}
     >
       <Seo path="/jannah/journey" />
       <Stagger>

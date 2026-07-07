@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -110,7 +111,7 @@ export default function LocationScreen() {
     await actions.requestDeviceLocation();
     const next = locationStore.getState();
     if (next.status === "ready" && next.location.source === "device") {
-      router.back();
+      goBackOrReplace(router, "/");
     } else if (next.status === "denied") {
       setGpsError("denied");
     } else if (next.status === "error") {
@@ -120,7 +121,7 @@ export default function LocationScreen() {
 
   const onSelect = async (place: LocationSearchResult) => {
     await actions.setManualLocation(place);
-    router.back();
+    goBackOrReplace(router, "/");
   };
 
   const showEmpty = !searching && trimmed.length >= 2 && results.length === 0;
@@ -136,7 +137,7 @@ export default function LocationScreen() {
       eyebrow={t("location.eyebrow")}
       title={t("location.title")}
       subtitle={t("location.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/location" />
       <Card>

@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -40,7 +41,7 @@ export default function LearnDuaProgressScreen() {
       eyebrow={t("learnDua.eyebrow")}
       title={t("learnDua.progressTitle")}
       subtitle={t("learnDua.progressSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/learn-dua" as Href))}
+      onBack={() => (goBackOrReplace(router, "/learn-dua" as Href))}
     >
       <Seo path="/learn-dua/progress" />
       <Stagger>

@@ -1,4 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 
 import { JahannamTopicContent } from "@/components/jahannam/topic-content";
@@ -35,7 +36,7 @@ export default function JahannamTopicScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={topic?.title ?? t("jahannam.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jahannam" as Href))}
+      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
     >
       <Seo
         path={detailPath}

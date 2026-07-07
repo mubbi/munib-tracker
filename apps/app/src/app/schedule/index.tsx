@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
@@ -16,7 +17,7 @@ export default function ScheduleScreen() {
       eyebrow={t("schedule.eyebrow")}
       title={t("home.scheduleTitle")}
       subtitle={t("schedule.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/schedule" />
       <PrayerScheduleCard

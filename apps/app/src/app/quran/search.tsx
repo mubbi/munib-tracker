@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, TextInput, View } from "react-native";
@@ -114,7 +115,7 @@ export default function QuranSearchScreen() {
       eyebrow={t("quran.title")}
       title={t("quran.searchTitle")}
       subtitle={t("quran.searchSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       {SnapshotHost}
       <Seo path="/quran/search" />

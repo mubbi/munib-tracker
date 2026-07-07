@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -330,7 +331,7 @@ export default function SearchScreen() {
       <View style={[styles.header, { paddingTop: insets.top + Spacing.two }]}>
         <IconButton
           accessibilityLabel={t("common.goBack")}
-          onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+          onPress={() => (goBackOrReplace(router, "/"))}
           name={chevronBack}
           size={19}
           tintColor={colors.accent}

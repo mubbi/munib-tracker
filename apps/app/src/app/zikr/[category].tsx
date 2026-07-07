@@ -1,4 +1,5 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { ObligatoryPrayer, ZikrCategoryId, ZikrItem } from "@munib-tracker/shared/types";
 import { isObligatoryPrayer, isZikrCategoryId } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -114,7 +115,7 @@ export default function ZikrCategoryScreen() {
           ? t("zikr.searchResultCount", { count: filtered.length })
           : t("zikr.adhkarCount", { count: items.length })
       }
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
       scrollable={false}
     >
       <Seo

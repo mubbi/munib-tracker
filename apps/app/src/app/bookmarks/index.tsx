@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { SymbolViewProps } from "expo-symbols";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
@@ -224,7 +225,7 @@ export default function BookmarksHubScreen() {
       eyebrow={t("bookmarks.eyebrow")}
       title={t("bookmarks.title")}
       subtitle={subtitle}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/bookmarks" />
       <Stagger>

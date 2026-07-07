@@ -1,4 +1,5 @@
 import { duasByCategory } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
@@ -97,7 +98,7 @@ export default function DuaHomeScreen() {
       subtitle={
         searching ? t("dua.searchResultCount", { count: results.length }) : t("dua.subtitle")
       }
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/dua"

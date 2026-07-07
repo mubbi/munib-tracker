@@ -1,4 +1,5 @@
 import { DUA_ITEMS } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { DuaItem, JannahDuaEntry } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -84,7 +85,7 @@ export default function JannahDuasScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.duasTitle")}
       subtitle={t("jannah.duasSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jannah"))}
+      onBack={() => (goBackOrReplace(router, "/jannah"))}
     >
       <Seo path="/jannah/duas" />
       <Stagger>

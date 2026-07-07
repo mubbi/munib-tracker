@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -41,7 +42,7 @@ export default function HifzScreen() {
       eyebrow={t("quran.eyebrow")}
       title={t("hifz.title")}
       subtitle={t("hifz.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/quran"))}
+      onBack={() => (goBackOrReplace(router, "/quran"))}
     >
       <Seo path="/quran/hifz" />
       {entries.length === 0 ? (

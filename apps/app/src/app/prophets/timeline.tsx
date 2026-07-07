@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -27,7 +28,7 @@ export default function ProphetsTimelineScreen() {
       eyebrow={t("prophets.eyebrow")}
       title={t("prophets.timelineTitle")}
       subtitle={t("prophets.timelineSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/prophets" as Href))}
+      onBack={() => (goBackOrReplace(router, "/prophets" as Href))}
     >
       <Seo path="/prophets/timeline" />
       <Stagger>

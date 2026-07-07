@@ -1,4 +1,5 @@
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
@@ -65,7 +66,7 @@ export default function PrayerTuningScreen() {
       eyebrow={t("settings.title")}
       title={t("prayerTuning.title")}
       subtitle={t("prayerTuning.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/location"))}
+      onBack={() => (goBackOrReplace(router, "/location"))}
     >
       <Seo path="/settings/prayer-tuning" />
       <Stagger>

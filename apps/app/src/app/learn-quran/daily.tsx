@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
@@ -29,7 +30,7 @@ export default function LearnQuranDailyScreen() {
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.dailyTitle")}
       subtitle={t("learnQuran.dailySubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/learn-quran" as Href))}
+      onBack={() => (goBackOrReplace(router, "/learn-quran" as Href))}
     >
       <Seo path="/learn-quran/daily" />
       <Stagger>

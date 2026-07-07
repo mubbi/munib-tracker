@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -83,7 +84,7 @@ export default function NotificationCenterScreen() {
       eyebrow={t("notifCenter.eyebrow")}
       title={t("settings.notifications")}
       subtitle={t("notifCenter.inboxSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/notifications" />
       <Stagger>

@@ -1,4 +1,5 @@
 import { DUA_ITEMS, getDuaById } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -44,7 +45,7 @@ export default function DuaDetailScreen() {
     return (
       <ScreenLayout
         title={t("dua.detailEyebrow")}
-        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+        onBack={() => (goBackOrReplace(router, "/"))}
       >
         <Seo
           path={`/dua/detail/${params.id ?? ""}`}
@@ -97,7 +98,7 @@ export default function DuaDetailScreen() {
     <ScreenLayout
       eyebrow={t("dua.detailEyebrow")}
       title={item.title}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       {shareCard.SnapshotHost}
       <Seo

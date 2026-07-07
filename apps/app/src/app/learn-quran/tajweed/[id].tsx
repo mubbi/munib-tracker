@@ -1,4 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -40,7 +41,7 @@ export default function LearnQuranTajweedDetailScreen() {
       title={lesson?.title ?? t("learnQuran.tajweedTitle")}
       subtitle={lesson?.summary ?? ""}
       onBack={() =>
-        router.canGoBack() ? router.back() : router.replace("/learn-quran/tajweed" as Href)
+        goBackOrReplace(router, "/learn-quran/tajweed" as Href)
       }
     >
       <Seo

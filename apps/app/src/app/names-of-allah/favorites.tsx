@@ -1,4 +1,5 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -35,7 +36,7 @@ export default function NameFavoritesScreen() {
       eyebrow={t("names.eyebrow")}
       title={t("names.favorites")}
       subtitle={t("names.favSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/names-of-allah"))}
+      onBack={() => (goBackOrReplace(router, "/names-of-allah"))}
     >
       <Seo path="/names-of-allah/favorites" />
       {items.length === 0 ? (

@@ -1,4 +1,5 @@
 import { JANNAH_FIRDAWS_DUA } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -91,7 +92,7 @@ export default function JannahScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.title")}
       subtitle={t("jannah.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/jannah" />
       <Stagger>

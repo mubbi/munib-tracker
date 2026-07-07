@@ -1,4 +1,5 @@
 import { accentColorIds, accentColors } from "@munib-tracker/theme/accents";
+import { goBackOrReplace } from "@/lib/navigation";
 import { bestForeground } from "@munib-tracker/theme/color";
 import type { AccentColorId, ColorMode } from "@munib-tracker/theme/types";
 import { useRouter } from "expo-router";
@@ -49,7 +50,7 @@ export default function AppearanceScreen() {
       eyebrow={t("appearance.eyebrow")}
       title={t("settings.appearance")}
       subtitle={t("settings.appearanceSub")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/settings/appearance" />
       <Stagger>

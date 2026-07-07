@@ -1,4 +1,5 @@
 import { DUROOD_ITEMS } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo, useState } from "react";
@@ -43,7 +44,7 @@ export default function DuroodsScreen() {
       eyebrow={t("duroods.eyebrow")}
       title={t("duroods.title")}
       subtitle={t("duroods.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/duroods"

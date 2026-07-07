@@ -1,4 +1,5 @@
 import type { TemperatureUnit } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -31,7 +32,7 @@ export default function WeatherSettingsScreen() {
       eyebrow={t("settings.title")}
       title={t("weather.title")}
       subtitle={t("weather.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/settings/weather" />
       <Stagger>

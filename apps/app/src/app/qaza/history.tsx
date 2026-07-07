@@ -1,4 +1,5 @@
 import type { AppLocale, CalendarMode, QazaDailyProgress } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -137,7 +138,7 @@ export default function QazaHistoryScreen() {
       eyebrow={t("qaza.eyebrow")}
       title={t("qazaHistory.title")}
       subtitle={t("qazaHistory.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/qaza"))}
+      onBack={() => (goBackOrReplace(router, "/qaza"))}
     >
       <Seo path="/qaza/history" />
       {loaded && !hasEntries ? (

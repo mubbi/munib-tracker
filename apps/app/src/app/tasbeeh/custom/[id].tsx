@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -29,7 +30,7 @@ export default function CustomTasbeehScreen() {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
-  const goBack = () => (router.canGoBack() ? router.back() : router.replace("/tasbeeh/free"));
+  const goBack = () => (goBackOrReplace(router, "/tasbeeh/free"));
 
   if (!item) {
     return (

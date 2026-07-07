@@ -1,4 +1,5 @@
 import { useFocusEffect, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { I18nManager, StyleSheet, View } from "react-native";
@@ -79,7 +80,7 @@ export default function OfflineDataScreen() {
       eyebrow={t("settings.title")}
       title={t("offlineData.title")}
       subtitle={t("offlineData.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/settings"))}
+      onBack={() => (goBackOrReplace(router, "/settings"))}
     >
       <Seo path="/settings/offline-data" />
       <Stagger>

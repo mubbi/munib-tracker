@@ -1,4 +1,5 @@
 import { SEERAH_EVENTS } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
@@ -23,7 +24,7 @@ export default function SeerahScreen() {
       eyebrow={t("seerah.eyebrow")}
       title={t("seerah.title")}
       subtitle={t("seerah.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/seerah" />
       <Stagger>

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 
 import { JannahDisclaimer } from "@/components/jannah/primitives";
@@ -17,7 +18,7 @@ export default function ZakatEvidenceScreen() {
       eyebrow={t("zakat.eyebrow")}
       title={t("zakat.evidenceTitle")}
       subtitle={t("zakat.evidenceSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/zakat"))}
+      onBack={() => (goBackOrReplace(router, "/zakat"))}
     >
       <Seo path="/zakat/evidence" />
       <Stagger>

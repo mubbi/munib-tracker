@@ -1,4 +1,5 @@
 import { getZikrById } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -37,7 +38,7 @@ export default function ZikrFavoritesScreen() {
       eyebrow={t("zikr.detailEyebrow")}
       title={t("zikr.favTitle")}
       subtitle={t("zikr.favSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/zikr/favorites" />
       {items.length === 0 ? (

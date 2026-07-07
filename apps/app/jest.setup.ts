@@ -117,6 +117,7 @@ jest.mock("expo-router", () => ({
     back: jest.fn(),
     replace: jest.fn(),
     canGoBack: () => false,
+    canDismiss: () => false,
   }),
   useFocusEffect: jest.fn(),
   usePathname: () => "/",

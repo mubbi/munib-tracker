@@ -1,4 +1,5 @@
 import { OBLIGATORY_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { NotificationPreferences, PrayerId } from "@munib-tracker/shared/types";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
@@ -162,7 +163,7 @@ export default function NotificationsScreen() {
       eyebrow={t("notif.eyebrow")}
       title={t("settings.notifications")}
       subtitle={t("notif.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/settings/notifications" />
       <Stagger>

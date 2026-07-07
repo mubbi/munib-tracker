@@ -1,4 +1,5 @@
 import type { HadithItem } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
@@ -100,7 +101,7 @@ export default function DailyHadithScreen() {
       eyebrow={t("dailyHadith.eyebrow")}
       title={t("dailyHadith.title")}
       subtitle={t("dailyHadith.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/hadith"))}
+      onBack={() => (goBackOrReplace(router, "/hadith"))}
     >
       <Seo path="/hadith/daily" />
       {feed.length === 0 ? (

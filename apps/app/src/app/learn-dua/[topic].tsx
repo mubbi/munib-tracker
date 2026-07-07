@@ -1,4 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 
 import { JannahDisclaimer } from "@/components/jannah/primitives";
@@ -39,7 +40,7 @@ export default function LearnDuaTopicScreen() {
       eyebrow={t("learnDua.eyebrow")}
       title={topic?.title ?? t("learnDua.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/learn-dua" as Href))}
+      onBack={() => (goBackOrReplace(router, "/learn-dua" as Href))}
     >
       <Seo
         path={detailPath}

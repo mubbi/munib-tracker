@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -25,7 +26,7 @@ export default function BattlesLessonsScreen() {
       eyebrow={t("battles.eyebrow")}
       title={t("battles.lessonsTitle")}
       subtitle={t("battles.lessonsSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/battles" as Href))}
+      onBack={() => (goBackOrReplace(router, "/battles" as Href))}
     >
       <Seo path="/battles/lessons" />
       <Stagger>

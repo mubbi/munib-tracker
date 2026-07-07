@@ -1,4 +1,5 @@
 import { JAHANNAM_REFUGE_DUA } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -126,7 +127,7 @@ export default function JahannamScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.title")}
       subtitle={t("jahannam.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/jahannam" />
       <Stagger>

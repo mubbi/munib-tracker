@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { SymbolViewProps } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -51,7 +52,7 @@ export default function BedtimeScreen() {
       eyebrow={t("bedtime.eyebrow")}
       title={t("settings.bedtime")}
       subtitle={t("bedtime.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/settings/bedtime" />
       <Card style={styles.card}>

@@ -7,6 +7,7 @@ import {
   summarizeRozaDebt,
 } from "@munib-tracker/shared/achievements";
 import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import { computeStreak, countPerfectDays } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -200,7 +201,7 @@ export default function AchievementsScreen() {
             })
           : t("achievements.subtitleLoading")
       }
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       {SnapshotHost}
       <Seo path="/achievements" />

@@ -1,4 +1,5 @@
 import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { QazaPrayer } from "@munib-tracker/shared/types";
 import type { QazaPlanPresetId, QazaSustainabilityLevel } from "@munib-tracker/shared/utils";
 import {
@@ -90,7 +91,7 @@ export default function QazaPlannerScreen() {
       eyebrow={t("qazaPlan.eyebrow")}
       title={t("qazaPlan.title")}
       subtitle={t("qazaPlan.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/qaza/planner"

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -50,7 +51,7 @@ export default function FreeTasbeehScreen() {
       eyebrow={t("tasbeeh.eyebrow")}
       title={t("tasbeeh.freeTitle")}
       subtitle={t("tasbeeh.freeSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
       scrollable
     >
       <Seo

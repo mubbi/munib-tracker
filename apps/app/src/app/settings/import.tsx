@@ -1,4 +1,5 @@
 import type { ParsedPrayerImport } from "@munib-tracker/shared/utils";
+import { goBackOrReplace } from "@/lib/navigation";
 import { getLocalDateString, parsePrayerImport } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -60,7 +61,7 @@ export default function ImportScreen() {
       toast.success(t("import.done", { count: preview.rows.length }));
       setText("");
       setPreview(null);
-      router.back();
+      goBackOrReplace(router, "/settings");
     } catch {
       toast.error(t("import.failed"));
     } finally {
@@ -76,7 +77,7 @@ export default function ImportScreen() {
       eyebrow={t("settings.title")}
       title={t("import.title")}
       subtitle={t("import.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/settings"))}
+      onBack={() => (goBackOrReplace(router, "/settings"))}
     >
       <Seo path="/settings/import" />
       <Stagger>

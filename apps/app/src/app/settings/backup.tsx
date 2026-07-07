@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Share, StyleSheet, TextInput } from "react-native";
@@ -66,7 +67,7 @@ export default function BackupScreen() {
     setPending(null);
     setImportText("");
     toast.success(t("backup.restored"));
-    router.back();
+    goBackOrReplace(router, "/settings");
   };
 
   return (
@@ -74,7 +75,7 @@ export default function BackupScreen() {
       eyebrow={t("settings.title")}
       title={t("backup.title")}
       subtitle={t("backup.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/settings"))}
+      onBack={() => (goBackOrReplace(router, "/settings"))}
     >
       <Seo path="/settings/backup" />
       <Stagger>

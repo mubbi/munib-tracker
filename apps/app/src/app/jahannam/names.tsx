@@ -1,4 +1,5 @@
 import type { JahannamNameEntry } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -91,7 +92,7 @@ export default function JahannamNamesScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.namesTitle")}
       subtitle={t("jahannam.namesSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jahannam" as Href))}
+      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
     >
       <Seo path="/jahannam/names" />
       <Stagger>

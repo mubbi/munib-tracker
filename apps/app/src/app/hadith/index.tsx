@@ -1,4 +1,5 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
@@ -54,7 +55,7 @@ export default function HadithHomeScreen() {
       eyebrow={t("hadith.eyebrow")}
       title={t("hadith.title")}
       subtitle={t("hadith.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/hadith"

@@ -1,4 +1,5 @@
 import { DUA_ITEMS, JAHANNAM_REFUGE_DUA } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { DuaItem, JahannamDuaEntry } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -84,7 +85,7 @@ export default function JahannamDuasScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.duasTitle")}
       subtitle={t("jahannam.duasSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jahannam" as Href))}
+      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
     >
       <Seo path="/jahannam/duas" />
       <Stagger>

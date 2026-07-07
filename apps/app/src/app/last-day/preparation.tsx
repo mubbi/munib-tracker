@@ -1,4 +1,5 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
+import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
@@ -162,7 +163,7 @@ export default function LastDayPreparationScreen() {
       eyebrow={t("lastDay.eyebrow")}
       title={t("lastDay.preparationTitle")}
       subtitle={t("lastDay.preparationSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/last-day" as Href))}
+      onBack={() => (goBackOrReplace(router, "/last-day" as Href))}
     >
       <Seo path="/last-day/preparation" />
       <Stagger>

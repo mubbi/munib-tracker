@@ -2,12 +2,14 @@ import type { ReactNode } from "react";
 import {
   Modal,
   Pressable,
+  ScrollView,
   type StyleProp,
   StyleSheet,
   useWindowDimensions,
   View,
   type ViewStyle,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GlassSurface } from "@/components/ui/glass-surface";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
@@ -38,9 +40,23 @@ export function Sheet({
   contentStyle,
 }: SheetProps) {
   const { colors, tokens } = useThemeTokens();
+  const insets = useSafeAreaInsets();
   const { height: windowHeight } = useWindowDimensions();
   const isBottom = variant === "bottom";
   const bottomMaxHeight = windowHeight * 0.88;
+
+  const cardBody = isBottom ? (
+    <ScrollView
+      bounces={false}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={styles.bottomScrollContent}
+    >
+      {children}
+    </ScrollView>
+  ) : (
+    children
+  );
 
   return (
     <Modal
@@ -49,20 +65,23 @@ export function Sheet({
       animationType={isBottom ? "slide" : "fade"}
       onRequestClose={onClose}
     >
-      <Pressable
-        // Intentionally NOT accessibilityRole="button": on react-native-web a
-        // button role renders a real <button>, which would wrap the dialog's
-        // own buttons and trigger a nested-<button> DOM error. This is just a
-        // tap-to-dismiss backdrop; keyboard users close via Escape (handled by
-        // Modal's onRequestClose).
+      <View
         style={[
           styles.scrim,
           isBottom ? styles.scrimBottom : styles.scrimCenter,
           { backgroundColor: tokens.scrim },
         ]}
-        onPress={onClose}
       >
+        {/* Full-screen dismiss target sits behind the card so nested buttons
+            inside the sheet receive touches on iOS (a wrapping Pressable card
+            competes with child pressables; stopPropagation is web-only). */}
         <Pressable
+          style={StyleSheet.absoluteFill}
+          onPress={onClose}
+          accessibilityLabel="Close"
+          accessibilityRole="button"
+        />
+        <View
           accessibilityViewIsModal
           style={[
             isBottom ? styles.bottomCard : styles.centerCard,
@@ -75,12 +94,16 @@ export function Sheet({
                     maxHeight: bottomMaxHeight,
                     backgroundColor: colors.card,
                     borderColor: colors.border,
+                    paddingBottom: Spacing.five + insets.bottom,
                   }
-                : { maxHeight: bottomMaxHeight, borderColor: colors.border }
+                : {
+                    maxHeight: bottomMaxHeight,
+                    borderColor: colors.border,
+                    paddingBottom: Spacing.five + insets.bottom,
+                  }
               : { backgroundColor: colors.card, borderColor: colors.border },
             contentStyle,
           ]}
-          onPress={(event) => event.stopPropagation()}
         >
           {isBottom && !solid ? (
             <>
@@ -100,9 +123,9 @@ export function Sheet({
           {isBottom && solid ? (
             <View style={[styles.handle, { backgroundColor: tokens.track }]} />
           ) : null}
-          {children}
-        </Pressable>
-      </Pressable>
+          {cardBody}
+        </View>
+      </View>
     </Modal>
   );
 }
@@ -135,9 +158,11 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
     padding: Spacing.four,
-    paddingBottom: Spacing.five,
     gap: Spacing.two,
     overflow: "hidden",
+  },
+  bottomScrollContent: {
+    gap: Spacing.two,
   },
   handle: {
     alignSelf: "center",

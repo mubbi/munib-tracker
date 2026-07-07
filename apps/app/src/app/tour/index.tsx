@@ -25,6 +25,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { EXPLORE_TOUR, type FeatureTourStep, getFeatureTour } from "@/lib/feature-tours";
 import { triggerHaptic } from "@/lib/haptics";
+import { goBackOrReplace } from "@/lib/navigation";
 import { arrowForward, chevronBack, chevronForward } from "@/lib/rtl";
 import { useToursActions } from "@/stores/tours-store";
 
@@ -49,8 +50,7 @@ export default function TourScreen() {
 
   const finish = useCallback(async () => {
     await markSeen(tour.id);
-    if (router.canGoBack()) router.back();
-    else router.replace("/");
+    goBackOrReplace(router, "/");
   }, [markSeen, router, tour.id]);
 
   const goThere = useCallback(async () => {

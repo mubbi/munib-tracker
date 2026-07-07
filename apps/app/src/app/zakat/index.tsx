@@ -1,4 +1,5 @@
 import { ZAKAT_GUIDE_SECTIONS } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -73,7 +74,7 @@ export default function ZakatScreen() {
       eyebrow={t("zakat.eyebrow")}
       title={t("zakat.title")}
       subtitle={t("zakat.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/zakat" />
       <Stagger>

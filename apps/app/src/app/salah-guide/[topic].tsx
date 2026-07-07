@@ -1,4 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 
 import { JannahDisclaimer } from "@/components/jannah/primitives";
@@ -39,7 +40,7 @@ export default function SalahGuideTopicScreen() {
       eyebrow={t("salahGuide.eyebrow")}
       title={topic?.title ?? t("salahGuide.title")}
       subtitle={topic?.summary ?? ""}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/salah-guide"))}
+      onBack={() => (goBackOrReplace(router, "/salah-guide"))}
     >
       <Seo
         path={detailPath}

@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -26,7 +27,7 @@ export default function JahannamReferencesScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.referencesTitle")}
       subtitle={t("jahannam.referencesSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jahannam" as Href))}
+      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
     >
       <Seo path="/jahannam/references" />
       <Stagger>

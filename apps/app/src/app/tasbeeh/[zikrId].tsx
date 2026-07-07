@@ -1,4 +1,5 @@
 import { getZikrById } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -45,7 +46,7 @@ export default function ZikrTasbeehScreen() {
     return (
       <ScreenLayout
         title={t("tasbeeh.eyebrow")}
-        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+        onBack={() => (goBackOrReplace(router, "/"))}
       >
         <Seo
           title={t("tasbeeh.eyebrow")}
@@ -71,7 +72,7 @@ export default function ZikrTasbeehScreen() {
     <ScreenLayout
       eyebrow={t("tasbeeh.eyebrow")}
       title={item.title}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         title={t("tasbeeh.eyebrow")}

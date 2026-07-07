@@ -1,4 +1,5 @@
 import type { QazaPrayer } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -174,7 +175,7 @@ export default function QazaHomeScreen() {
       eyebrow={t("qaza.eyebrow")}
       title={t("qaza.title")}
       subtitle={t("qaza.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/qaza"

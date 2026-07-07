@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -23,7 +24,7 @@ export default function AqeedahGlossaryScreen() {
       eyebrow={t("aqeedah.eyebrow")}
       title={t("aqeedah.glossaryTitle")}
       subtitle={t("aqeedah.glossarySubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/aqeedah" as Href))}
+      onBack={() => (goBackOrReplace(router, "/aqeedah" as Href))}
     >
       <Seo path="/aqeedah/glossary" />
       <Stagger>

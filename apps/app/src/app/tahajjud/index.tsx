@@ -1,4 +1,5 @@
 import type { AppLocale, PrayerLog } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import {
   addDays,
   computePrayerStreak,
@@ -80,7 +81,7 @@ export default function TahajjudScreen() {
       eyebrow={t("tahajjud.eyebrow")}
       title={t("tahajjud.title")}
       subtitle={t("tahajjud.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/tracker"))}
+      onBack={() => (goBackOrReplace(router, "/tracker"))}
     >
       <Seo path="/tahajjud" />
 

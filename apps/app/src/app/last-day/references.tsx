@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -22,7 +23,7 @@ export default function LastDayReferencesScreen() {
       eyebrow={t("lastDay.eyebrow")}
       title={t("lastDay.referencesTitle")}
       subtitle={t("lastDay.referencesSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/last-day" as Href))}
+      onBack={() => (goBackOrReplace(router, "/last-day" as Href))}
     >
       <Seo path="/last-day/references" />
       <Stagger>

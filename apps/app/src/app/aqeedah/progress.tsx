@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -40,7 +41,7 @@ export default function AqeedahProgressScreen() {
       eyebrow={t("aqeedah.eyebrow")}
       title={t("aqeedah.progressTitle")}
       subtitle={t("aqeedah.progressSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/aqeedah" as Href))}
+      onBack={() => (goBackOrReplace(router, "/aqeedah" as Href))}
     >
       <Seo path="/aqeedah/progress" />
       <Stagger>

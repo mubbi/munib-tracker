@@ -1,4 +1,5 @@
 import { getZikrById, ZIKR_ITEMS } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -46,7 +47,7 @@ export default function ZikrDetailScreen() {
     return (
       <ScreenLayout
         title={t("zikr.title")}
-        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+        onBack={() => (goBackOrReplace(router, "/"))}
       >
         <Seo
           path={`/zikr/detail/${params.id ?? ""}`}
@@ -91,7 +92,7 @@ export default function ZikrDetailScreen() {
     <ScreenLayout
       eyebrow={t("zikr.detailEyebrow")}
       title={item.title}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       {shareCard.SnapshotHost}
       <Seo

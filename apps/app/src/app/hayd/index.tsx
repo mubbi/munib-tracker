@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 
 import { ExcusedGuideContent } from "@/components/excused/excused-guide-content";
@@ -14,7 +15,7 @@ export default function HaydGuideScreen() {
       eyebrow={t("hayd.eyebrow")}
       title={t("hayd.title")}
       subtitle={t("hayd.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/hayd" />
       <ExcusedGuideContent reason="hayd" />

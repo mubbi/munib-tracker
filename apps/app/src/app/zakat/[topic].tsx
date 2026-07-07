@@ -1,4 +1,5 @@
 import { ZAKAT_GUIDE_SECTIONS, type ZakatGuideSectionKey } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 
@@ -51,7 +52,7 @@ export default function ZakatTopicScreen() {
       eyebrow={t("zakat.eyebrow")}
       title={valid ? t(`zakat.guide.${topicId}.title`) : t("zakat.title")}
       subtitle={valid ? t(`zakat.guide.${topicId}.summary`) : ""}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/zakat"))}
+      onBack={() => (goBackOrReplace(router, "/zakat"))}
     >
       <Seo
         path={detailPath}

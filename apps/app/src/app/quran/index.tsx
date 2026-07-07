@@ -1,4 +1,5 @@
 import type { Surah } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useMemo, useState } from "react";
@@ -410,7 +411,7 @@ export default function QuranHomeScreen() {
         eyebrow={t("quran.eyebrow")}
         title={t("quran.title")}
         subtitle={t("quran.subtitle")}
-        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+        onBack={() => (goBackOrReplace(router, "/"))}
       >
         <FlatList
           data={filtered}

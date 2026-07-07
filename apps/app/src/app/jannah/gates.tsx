@@ -1,4 +1,5 @@
 import type { JannahGate } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -104,7 +105,7 @@ export default function JannahGatesScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.gatesTitle")}
       subtitle={t("jannah.gatesSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jannah"))}
+      onBack={() => (goBackOrReplace(router, "/jannah"))}
     >
       <Seo path="/jannah/gates" />
       <Stagger>

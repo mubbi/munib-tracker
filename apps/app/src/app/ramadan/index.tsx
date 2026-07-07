@@ -1,4 +1,5 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
@@ -160,7 +161,7 @@ export default function RamadanScreen() {
           ? t("ramadan.dayOf", { day: info.day, total: info.totalDays })
           : t("ramadan.subtitle")
       }
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
       scrollRef={scrollRef}
       onScroll={onScroll}
     >

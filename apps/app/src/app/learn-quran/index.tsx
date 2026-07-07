@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -116,7 +117,7 @@ export default function LearnQuranScreen() {
       eyebrow={t("learnQuran.eyebrow")}
       title={t("learnQuran.title")}
       subtitle={t("learnQuran.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/learn-quran" />
       <Stagger>

@@ -5,6 +5,7 @@ import {
   PRAYER_REMINDER_OFFSET_MIN,
 } from "@munib-tracker/shared/constants";
 import type { PrayerId } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -86,7 +87,7 @@ export default function ReminderOffsetsScreen() {
       title={t("reminderOffsets.title")}
       subtitle={t("reminderOffsets.subtitle")}
       onBack={() =>
-        router.canGoBack() ? router.back() : router.replace("/settings/notifications")
+        goBackOrReplace(router, "/settings/notifications")
       }
     >
       <Seo path="/settings/reminder-offsets" />

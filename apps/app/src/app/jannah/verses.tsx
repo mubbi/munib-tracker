@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -123,7 +124,7 @@ export default function JannahVersesScreen() {
       eyebrow={t("jannah.eyebrow")}
       title={t("jannah.versesTitle")}
       subtitle={t("jannah.versesSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jannah"))}
+      onBack={() => (goBackOrReplace(router, "/jannah"))}
     >
       <Seo path="/jannah/verses" />
       <Stagger>

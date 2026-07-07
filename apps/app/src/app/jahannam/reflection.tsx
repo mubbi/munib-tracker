@@ -1,4 +1,5 @@
 import type { JahannamReflectionEntry } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
@@ -66,7 +67,7 @@ export default function JahannamReflectionScreen() {
       eyebrow={t("jahannam.eyebrow")}
       title={t("jahannam.reflectionTitle")}
       subtitle={t("jahannam.reflectionSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/jahannam" as Href))}
+      onBack={() => (goBackOrReplace(router, "/jahannam" as Href))}
     >
       <Seo path="/jahannam/reflection" />
       <Stagger>

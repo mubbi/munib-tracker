@@ -1,4 +1,5 @@
 import { computeMissedFasts } from "@munib-tracker/shared/utils";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -121,7 +122,7 @@ export default function QazaRozaScreen() {
       eyebrow={t("qazaRoza.eyebrow")}
       title={t("qazaRoza.title")}
       subtitle={t("qazaRoza.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/qaza/roza"

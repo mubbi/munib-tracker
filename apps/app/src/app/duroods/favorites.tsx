@@ -1,4 +1,5 @@
 import { DUROOD_ITEMS } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -32,7 +33,7 @@ export default function DuroodFavoritesScreen() {
       eyebrow={t("duroods.eyebrow")}
       title={t("duroods.favorites")}
       subtitle={t("duroods.favSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/duroods"))}
+      onBack={() => (goBackOrReplace(router, "/duroods"))}
     >
       <Seo path="/duroods/favorites" />
       {items.length === 0 ? (

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -155,7 +156,7 @@ export default function HomeCustomizeScreen() {
       eyebrow={t("settings.title")}
       title={t("homeCustomize.title")}
       subtitle={t("homeCustomize.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/settings"))}
+      onBack={() => (goBackOrReplace(router, "/settings"))}
     >
       <Seo path="/settings/home" />
       <Stagger>

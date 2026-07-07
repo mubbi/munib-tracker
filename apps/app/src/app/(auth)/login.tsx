@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Stagger } from "@/components/ui/stagger";
 import { Brand, Radius, Spacing } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useAuth } from "@/providers/auth-provider";
 
 export default function LoginScreen() {
@@ -19,7 +20,7 @@ export default function LoginScreen() {
   const { isGuest } = useAuth();
 
   const onSignedIn = () => {
-    if (router.canGoBack()) router.back();
+    goBackOrReplace(router, "/");
   };
 
   return (
@@ -27,7 +28,7 @@ export default function LoginScreen() {
       eyebrow={isGuest ? t("login.eyebrowGuest") : t("login.eyebrowWelcome")}
       title={t("login.title")}
       subtitle={t("login.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo
         path="/login"
@@ -65,7 +66,7 @@ export default function LoginScreen() {
           label={t("common.continueAsGuest")}
           variant="ghost"
           fullWidth
-          onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+          onPress={() => goBackOrReplace(router, "/")}
         />
       </Stagger>
     </ScreenLayout>

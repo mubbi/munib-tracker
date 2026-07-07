@@ -1,4 +1,5 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useMemo, useRef, useState } from "react";
@@ -233,7 +234,7 @@ export default function NamesOfAllahScreen() {
       eyebrow={t("names.eyebrow")}
       title={t("names.title")}
       subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       {SnapshotHost}
       <Seo

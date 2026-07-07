@@ -1,4 +1,5 @@
 import { getZikrById } from "@munib-tracker/shared/content";
+import { goBackOrReplace } from "@/lib/navigation";
 import type {
   PrayerLog,
   QazaCounter,
@@ -274,7 +275,7 @@ export default function StatisticsScreen() {
       eyebrow={t("statistics.eyebrow")}
       title={t("statistics.title")}
       subtitle={t("statistics.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo path="/statistics" />
       <Stagger>

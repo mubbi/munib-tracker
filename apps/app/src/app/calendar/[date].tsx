@@ -1,4 +1,5 @@
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import type { AppLocale, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
@@ -129,7 +130,7 @@ export default function CalendarDayScreen() {
           ? t("calDay.futureSubtitle")
           : t("calDay.summary", { completed, total: OBLIGATORY_PRAYERS.length })
       }
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path={`/calendar/${date}`}

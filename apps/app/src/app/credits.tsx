@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { SymbolView } from "expo-symbols";
 import * as WebBrowser from "expo-web-browser";
 import { useTranslation } from "react-i18next";
@@ -110,7 +111,7 @@ export default function CreditsScreen() {
       eyebrow={t("credits.eyebrow")}
       title={t("credits.title")}
       subtitle={t("credits.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/credits"

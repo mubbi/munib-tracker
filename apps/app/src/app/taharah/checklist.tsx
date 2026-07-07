@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -25,7 +26,7 @@ export default function TaharahChecklistScreen() {
       eyebrow={t("taharah.eyebrow")}
       title={t("taharah.checklistTitle")}
       subtitle={t("taharah.checklistSubtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/taharah" as Href))}
+      onBack={() => (goBackOrReplace(router, "/taharah" as Href))}
     >
       <Seo path="/taharah/checklist" />
       <Stagger>

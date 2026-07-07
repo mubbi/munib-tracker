@@ -1,4 +1,5 @@
 import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
+import { goBackOrReplace } from "@/lib/navigation";
 import { computeLifetimeMissedPrayers } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -55,7 +56,7 @@ export default function QazaCalculatorScreen() {
       const existing = counters.find((c) => c.prayerId === prayerId);
       void adjustQaza(prayerId, result.byPrayer[prayerId], existing?.completed ?? 0);
     }
-    router.back();
+    goBackOrReplace(router, "/");
   };
 
   return (
@@ -63,7 +64,7 @@ export default function QazaCalculatorScreen() {
       eyebrow={t("qazaCalc.eyebrow")}
       title={t("qazaCalc.title")}
       subtitle={t("qazaCalc.subtitle")}
-      onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+      onBack={() => (goBackOrReplace(router, "/"))}
     >
       <Seo
         path="/qaza/calculator"

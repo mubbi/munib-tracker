@@ -1,4 +1,5 @@
 import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -168,7 +169,7 @@ export default function HadithCollectionScreen() {
     return (
       <ScreenLayout
         title={t("hadith.title")}
-        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+        onBack={() => (goBackOrReplace(router, "/"))}
       >
         <Seo
           path={`/hadith/${collectionId}`}
@@ -210,7 +211,7 @@ export default function HadithCollectionScreen() {
       onBack={
         activeSection
           ? goBackToBooks
-          : () => (router.canGoBack() ? router.back() : router.replace("/"))
+          : () => (goBackOrReplace(router, "/"))
       }
     >
       {SnapshotHost}

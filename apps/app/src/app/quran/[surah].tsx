@@ -1,4 +1,5 @@
 import type { Ayah } from "@munib-tracker/shared/types";
+import { goBackOrReplace } from "@/lib/navigation";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -472,7 +473,7 @@ export default function SurahReaderScreen() {
         />
         <ScreenLayout
           title={t("quran.title")}
-          onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+          onBack={() => (goBackOrReplace(router, "/"))}
         >
           <EmptyState
             icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
@@ -524,7 +525,7 @@ export default function SurahReaderScreen() {
         eyebrow={t("quran.title")}
         title={surah.nameTransliteration}
         subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
-        onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))}
+        onBack={() => (goBackOrReplace(router, "/"))}
       >
         <FlatList
           ref={listRef}

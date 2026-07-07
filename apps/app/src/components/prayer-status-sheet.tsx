@@ -77,6 +77,7 @@ export function PrayerStatusSheet({
     if (!visible) {
       setQazaPromptOpen(false);
       setPendingStatus(null);
+      setNotesOpen(false);
     }
   }, [visible]);
 
@@ -106,7 +107,12 @@ export function PrayerStatusSheet({
 
   return (
     <>
-      <Sheet visible={visible && !qazaPromptOpen} onClose={onClose} variant="bottom" solid>
+      <Sheet
+        visible={visible && !qazaPromptOpen && !notesOpen}
+        onClose={onClose}
+        variant="bottom"
+        solid
+      >
         <ThemedText type="subtitle">{prayerLabel}</ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground">
           {t("statusSheet.prompt")}
@@ -186,6 +192,7 @@ export function PrayerStatusSheet({
 
         <PressableScale
           haptic="light"
+          accessibilityRole="button"
           onPress={() => setNotesOpen(true)}
           style={[styles.notesRow, { backgroundColor: colors.muted, borderColor: colors.border }]}
         >
@@ -210,8 +217,8 @@ export function PrayerStatusSheet({
             haptic="light"
             accessibilityRole="button"
             onPress={() => {
-              onClose();
               router.push(afterSalahAdhkarRoute(prayerId));
+              onClose();
             }}
             style={[
               styles.adhkarRow,
