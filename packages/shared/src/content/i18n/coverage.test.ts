@@ -25,6 +25,7 @@ const OMITTED_KEYS = new Set([
   "battles", // BattlesFigure.battles is a list of battle ids (links), not prose
   "type", // enum discriminator (e.g. quiz question type)
   "verseLabel", // Qur'an verse-ref label, kept from English
+  "examples", // Arabic example word-pairs (e.g. "عَلِيم vs حَلِيم"), kept from English
 ]);
 
 // A source string that is pure Arabic script (an ayah excerpt, a bare Arabic term,
@@ -72,6 +73,7 @@ function countTranslatedStrings(base: unknown, overlay: unknown): { total: numbe
   let done = 0;
   const walk = (b: unknown, o: unknown) => {
     if (typeof b === "string") {
+      if (isKeptArabic(b)) return; // Arabic-script source is kept identical across locales
       total += 1;
       if (typeof o === "string" && o.trim().length > 0) done += 1;
       return;
