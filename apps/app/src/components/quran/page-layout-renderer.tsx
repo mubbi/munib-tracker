@@ -15,6 +15,8 @@ import { arabicReadingLayout } from "@/lib/reading-typography";
 type PageLayoutRendererProps = {
   ayahs: Ayah[];
   arabicSize: number;
+  transliterationSize?: number;
+  translationSize?: number;
   page?: number;
   transliteration?: Record<string, string>;
   translation?: Record<string, string>;
@@ -23,7 +25,7 @@ type PageLayoutRendererProps = {
   showTranslation: boolean;
   translationDir: "ltr" | "rtl";
   secondTranslationDir: "ltr" | "rtl";
-  highlightAyah?: number;
+  highlightAyah?: { surah: number; ayah: number };
   onAyahPress?: (surah: number, ayah: number) => void;
 };
 
@@ -46,16 +48,25 @@ function groupBySurah(ayahs: Ayah[]): Array<{ surah: number; ayahs: Ayah[] }> {
   return groups;
 }
 
+function ayahMatchesHighlight(
+  ayah: Ayah,
+  highlightAyah?: { surah: number; ayah: number },
+): boolean {
+  return highlightAyah?.surah === ayah.surah && highlightAyah?.ayah === ayah.ayah;
+}
+
 /**
- * Level A — flowing Uthmani Arabic for a mushaf page. Ayahs run continuously as
- * one justified RTL paragraph per surah (mirroring a printed page) with an ornate
- * end-of-ayah marker after each verse, so the text always wraps inside the page
- * frame instead of overflowing. Optional study lines (transliteration /
- * translation) follow beneath.
+ * Level A — a mushaf page. With translations/transliteration off it renders as
+ * one continuous justified RTL paragraph per surah (a printed page, verses joined
+ * by a gilt end-of-ayah rosette). With either on, it switches to the familiar
+ * translated-mushaf layout: each ayah is a stacked block — Arabic, then
+ * transliteration, then translation(s) — read top to bottom, verse by verse.
  */
 export function PageLayoutRenderer({
   ayahs,
   arabicSize,
+  transliterationSize,
+  translationSize,
   page,
   transliteration,
   translation,
@@ -69,7 +80,17 @@ export function PageLayoutRenderer({
 }: PageLayoutRendererProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { mushaf } = tokens;
   const groups = useMemo(() => groupBySurah(ayahs), [ayahs]);
+  const interleaved = showTransliteration || showTranslation;
+
+  // The gilt end-of-ayah rosette (۝) carrying the verse number, sized to the
+  // running Arabic so it sits on the baseline like a printed mushaf.
+  const renderMarker = (ayah: Ayah) => (
+    <ThemedText type="arabic" style={{ fontSize: arabicSize * 0.92, color: mushaf.ink }}>
+      {` ۝${toArabicDigits(ayah.ayah)} `}
+    </ThemedText>
+  );
 
   return (
     <MushafPageFrame page={page}>
@@ -79,7 +100,12 @@ export function PageLayoutRenderer({
         return (
           <View key={`surah-${group.surah}`} style={styles.surahGroup}>
             {startsSurah && meta ? (
-              <SurahBanner nameArabic={meta.nameArabic} nameEnglish={meta.nameEnglish} />
+              <SurahBanner
+                nameArabic={meta.nameArabic}
+                nameEnglish={meta.nameEnglish}
+                revelationPlace={meta.revelationPlace}
+                ayahCount={meta.ayahCount}
+              />
             ) : null}
             {startsSurah && meta?.bismillahPre ? (
               <ThemedText
@@ -89,85 +115,108 @@ export function PageLayoutRenderer({
                 {BISMILLAH}
               </ThemedText>
             ) : null}
-            <ThemedText type="arabic" style={[styles.flow, { fontSize: arabicSize }]}>
-              {group.ayahs.map((ayah) => {
-                const highlighted = highlightAyah === ayah.ayah && ayahs.length !== 1;
+
+            {interleaved ? (
+              group.ayahs.map((ayah) => {
+                const key = String(ayah.ayah);
+                const translit = showTransliteration ? transliteration?.[key] : undefined;
+                const trans = showTranslation ? translation?.[key] : undefined;
+                const second = showTranslation ? secondTranslation?.[key] : undefined;
+                const highlighted = ayahMatchesHighlight(ayah, highlightAyah);
                 return (
-                  <ThemedText
+                  <PressableScale
                     key={`${ayah.surah}:${ayah.ayah}`}
-                    type="arabic"
+                    haptic="light"
+                    scaleTo={0.995}
                     accessibilityRole="button"
                     accessibilityLabel={t("quran.ayahRef", { surah: ayah.surah, ayah: ayah.ayah })}
                     onPress={() => onAyahPress?.(ayah.surah, ayah.ayah)}
                     style={[
-                      { fontSize: arabicSize },
-                      highlighted ? { backgroundColor: tokens.accentSoft } : null,
+                      styles.ayahBlock,
+                      { borderBottomColor: mushaf.bandBorder },
+                      highlighted
+                        ? { backgroundColor: mushaf.highlight, borderRadius: Radius.sm }
+                        : null,
                     ]}
                   >
-                    {ayah.arabic}
                     <ThemedText
                       type="arabic"
-                      style={{ fontSize: arabicSize, color: colors.accent }}
+                      style={[styles.blockArabic, { fontSize: arabicSize }]}
                     >
-                      {` \u06DD${toArabicDigits(ayah.ayah)} `}
+                      {ayah.arabic}
+                      {renderMarker(ayah)}
                     </ThemedText>
-                  </ThemedText>
+                    {translit ? (
+                      <ThemedText
+                        type="small"
+                        style={[
+                          styles.translit,
+                          { color: colors.accent },
+                          transliterationSize ? { fontSize: transliterationSize } : null,
+                        ]}
+                      >
+                        {translit}
+                      </ThemedText>
+                    ) : null}
+                    {trans ? (
+                      <ThemedText
+                        type="small"
+                        style={[
+                          translationSize
+                            ? { fontSize: translationSize, lineHeight: translationSize * 1.5 }
+                            : null,
+                          translationDir === "rtl" ? styles.rtl : null,
+                        ]}
+                      >
+                        {trans}
+                      </ThemedText>
+                    ) : null}
+                    {second ? (
+                      <ThemedText
+                        type="small"
+                        themeColor="mutedForeground"
+                        style={[
+                          translationSize
+                            ? { fontSize: translationSize, lineHeight: translationSize * 1.5 }
+                            : null,
+                          secondTranslationDir === "rtl" ? styles.rtl : null,
+                        ]}
+                      >
+                        {second}
+                      </ThemedText>
+                    ) : null}
+                  </PressableScale>
                 );
-              })}
-            </ThemedText>
+              })
+            ) : (
+              <ThemedText type="arabic" style={[styles.flow, { fontSize: arabicSize }]}>
+                {group.ayahs.map((ayah) => {
+                  const highlighted = ayahMatchesHighlight(ayah, highlightAyah);
+                  return (
+                    <ThemedText
+                      key={`${ayah.surah}:${ayah.ayah}`}
+                      type="arabic"
+                      accessibilityRole="button"
+                      accessibilityLabel={t("quran.ayahRef", {
+                        surah: ayah.surah,
+                        ayah: ayah.ayah,
+                      })}
+                      onPress={() => onAyahPress?.(ayah.surah, ayah.ayah)}
+                      style={[
+                        { fontSize: arabicSize },
+                        highlighted ? { backgroundColor: mushaf.highlight } : null,
+                      ]}
+                    >
+                      {ayah.arabic}
+                      {renderMarker(ayah)}
+                    </ThemedText>
+                  );
+                })}
+              </ThemedText>
+            )}
           </View>
         );
       })}
-
-      {showTransliteration || showTranslation ? (
-        <View style={[styles.studyBlock, { borderTopColor: tokens.hairline }]}>
-          {ayahs.map((ayah) => {
-            const key = String(ayah.ayah);
-            const translit = showTransliteration ? transliteration?.[key] : undefined;
-            const trans = showTranslation ? translation?.[key] : undefined;
-            const second = showTranslation ? secondTranslation?.[key] : undefined;
-            if (!translit && !trans && !second) return null;
-            return (
-              <PressableScale
-                key={`study-${ayah.surah}:${ayah.ayah}`}
-                haptic="light"
-                accessibilityRole="button"
-                accessibilityLabel={t("quran.ayahRef", { surah: ayah.surah, ayah: ayah.ayah })}
-                onPress={() => onAyahPress?.(ayah.surah, ayah.ayah)}
-                style={styles.studyRow}
-              >
-                <View style={[styles.studyBadge, { backgroundColor: tokens.accentSoft }]}>
-                  <ThemedText type="caption" style={{ color: colors.accent }}>
-                    {ayah.ayah}
-                  </ThemedText>
-                </View>
-                {translit ? (
-                  <ThemedText type="small" style={{ color: colors.accent }}>
-                    {translit}
-                  </ThemedText>
-                ) : null}
-                {trans ? (
-                  <ThemedText
-                    type="small"
-                    style={translationDir === "rtl" ? styles.rtl : undefined}
-                  >
-                    {trans}
-                  </ThemedText>
-                ) : null}
-                {second ? (
-                  <ThemedText
-                    type="small"
-                    themeColor="mutedForeground"
-                    style={secondTranslationDir === "rtl" ? styles.rtl : undefined}
-                  >
-                    {second}
-                  </ThemedText>
-                ) : null}
-              </PressableScale>
-            );
-          })}
-        </View>
-      ) : null}
     </MushafPageFrame>
   );
 }
@@ -175,30 +224,26 @@ export function PageLayoutRenderer({
 const styles = StyleSheet.create({
   surahGroup: {
     gap: Spacing.three,
-    marginBottom: Spacing.three,
+    marginBottom: Spacing.two,
   },
   bismillah: {
     marginTop: Spacing.one,
+    marginBottom: Spacing.one,
   },
   flow: {
     textAlign: "justify",
     writingDirection: "rtl",
   },
-  studyBlock: {
-    marginTop: Spacing.four,
-    gap: Spacing.three,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    paddingTop: Spacing.three,
-  },
-  studyRow: { gap: Spacing.one, alignItems: "flex-start" },
-  studyBadge: {
-    minWidth: 26,
-    height: 22,
+  ayahBlock: {
+    gap: Spacing.two,
+    paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.two,
-    borderRadius: Radius.sm,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  blockArabic: {
+    textAlign: "right",
+    writingDirection: "rtl",
+  },
+  translit: { fontStyle: "italic" },
   rtl: { writingDirection: "rtl", textAlign: "right" },
 });

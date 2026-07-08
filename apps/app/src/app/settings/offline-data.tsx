@@ -18,6 +18,7 @@ import {
   type CacheGroupSize,
   clearCacheKeys,
   clearDownloadedAudio,
+  clearDownloadedQcfFonts,
   formatBytes,
   getCacheSummary,
 } from "@/lib/cache-manager";
@@ -47,6 +48,7 @@ export default function OfflineDataScreen() {
   const clearGroup = async (group: CacheGroupSize) => {
     // Reset in-memory caches too so the freed space takes effect immediately.
     if (group.id === "quran") await QuranCacheRepository.clear();
+    if (group.id === "mushafFonts") await clearDownloadedQcfFonts();
     if (group.id === "hadith") await HadithRepository.clearBookCache();
     if (group.id === "audio") await clearDownloadedAudio();
     await clearCacheKeys(group.keys);
@@ -58,6 +60,7 @@ export default function OfflineDataScreen() {
     await QuranCacheRepository.clear();
     await HadithRepository.clearBookCache();
     await clearDownloadedAudio();
+    await clearDownloadedQcfFonts();
     await clearCacheKeys(groups.flatMap((g) => g.keys));
     await refresh();
     toast.success(t("offlineData.cleared"));

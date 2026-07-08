@@ -19,6 +19,14 @@ works; the others are the bundled files below, registered at startup.
 All four ship under the SIL Open Font License (OFL 1.1); the `*-OFL.txt` files in
 this folder are the required license copies.
 
+## QCF V2 per-page mushaf fonts (not bundled)
+
+Mushaf layout mode uses **604 page-specific** QCF V2 fonts (~350 KB each) plus one
+shared **QCF2BSML** basmala font (~300 KB). They are **not** shipped in the app
+binary. Each font is downloaded on first view and cached locally via
+`src/lib/qcf-font-cache.ts` (cleared from Settings → Offline data → Mushaf page
+fonts). Source: [nuqayah/qpc-fonts](https://github.com/nuqayah/qpc-fonts).
+
 ## Registering the fonts
 
 Fonts are registered once in `src/app/_layout.tsx` via `expo-font` `useFonts`

@@ -1,43 +1,42 @@
-import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 
-import { qcfPageFontFamily, qcfPageFontUrl } from "@/lib/arabic-fonts";
+import { QCF_BSML_FONT_FAMILY, qcfPageFontFamily } from "@/lib/arabic-fonts";
+import {
+  isQcfBsmlFontLoaded,
+  isQcfPageFontLoaded,
+  loadQcfBsmlFont,
+  loadQcfPageFont,
+} from "@/lib/qcf-font-cache";
 
-const loadedPages = new Set<number>();
-const loadingPages = new Map<number, Promise<void>>();
+type QcfPageFontState = {
+  ready: boolean;
+  fontFamily: string;
+  basmalaFontFamily: string;
+};
 
-async function loadQcfPageFont(page: number): Promise<void> {
-  if (loadedPages.has(page)) return;
-  const pending = loadingPages.get(page);
-  if (pending) return pending;
-
-  const family = qcfPageFontFamily(page);
-  const promise = Font.loadAsync({ [family]: qcfPageFontUrl(page) }).then(() => {
-    loadedPages.add(page);
-    loadingPages.delete(page);
-  });
-  loadingPages.set(page, promise);
-  return promise;
-}
-
-/** Lazy-load the QCF V2 glyph font for a mushaf page (cached in-memory). */
-export function useQcfPageFont(page: number): { ready: boolean; fontFamily: string } {
-  const [ready, setReady] = useState(loadedPages.has(page));
+/** Lazy-load the QCF V2 page font + shared basmala font for mushaf rendering. */
+export function useQcfPageFont(page: number, needsBsml = false): QcfPageFontState {
+  const [ready, setReady] = useState(
+    isQcfPageFontLoaded(page) && (!needsBsml || isQcfBsmlFontLoaded()),
+  );
   const fontFamily = qcfPageFontFamily(page);
+  const basmalaFontFamily = QCF_BSML_FONT_FAMILY;
 
   useEffect(() => {
-    if (loadedPages.has(page)) {
+    if (isQcfPageFontLoaded(page) && (!needsBsml || isQcfBsmlFontLoaded())) {
       setReady(true);
       return;
     }
     let cancelled = false;
-    void loadQcfPageFont(page).then(() => {
+    const loads = [loadQcfPageFont(page)];
+    if (needsBsml) loads.push(loadQcfBsmlFont());
+    void Promise.all(loads).then(() => {
       if (!cancelled) setReady(true);
     });
     return () => {
       cancelled = true;
     };
-  }, [page]);
+  }, [needsBsml, page]);
 
-  return { ready, fontFamily };
+  return { ready, fontFamily, basmalaFontFamily };
 }

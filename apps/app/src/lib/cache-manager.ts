@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DB_KEYS } from "@/db/keys";
 import { clearAudioCache, getAudioCacheInfo } from "@/lib/audio-cache";
+import { clearQcfFontCache, getQcfFontCacheInfo } from "@/lib/qcf-font-cache";
 
 /**
  * Offline download / cache manager (NF-1.14). Lists the rebuildable caches
@@ -28,6 +29,11 @@ export interface CacheGroupSize extends CacheGroup {
 
 export const CACHE_GROUPS: CacheGroup[] = [
   { id: "quran", labelKey: "offlineData.quran", keys: [DB_KEYS.quranEditionCache] },
+  {
+    id: "mushafFonts",
+    labelKey: "offlineData.mushafFonts",
+    keys: [],
+  },
   { id: "hadith", labelKey: "offlineData.hadith", keys: [DB_KEYS.hadithBookCache] },
   { id: "audio", labelKey: "offlineData.audio", keys: [DB_KEYS.audioDurationCache] },
   {
@@ -52,6 +58,11 @@ export async function getCacheSummary(): Promise<CacheGroupSize[]> {
       bytes += downloaded.bytes;
       count = downloaded.count;
     }
+    if (group.id === "mushafFonts") {
+      const mushafFonts = await getQcfFontCacheInfo();
+      bytes += mushafFonts.bytes;
+      count = mushafFonts.count;
+    }
     summary.push({ ...group, bytes, count });
   }
   return summary;
@@ -70,6 +81,11 @@ export async function clearDownloadedAudio(): Promise<void> {
 /** Removes the given cache keys (safe — they refetch on demand). */
 export async function clearCacheKeys(keys: string[]): Promise<void> {
   await Promise.all(keys.map((key) => AsyncStorage.removeItem(key)));
+}
+
+/** Deletes cached mushaf page fonts (native files or web cache). */
+export async function clearDownloadedQcfFonts(): Promise<void> {
+  await clearQcfFontCache();
 }
 
 /** Human-readable size, e.g. 1536 → "1.5 KB". */

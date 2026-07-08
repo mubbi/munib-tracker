@@ -1,31 +1,26 @@
 import { QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
 import type { QuranReaderLayout } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
-import { isRemoteEdition } from "@/api/quran-remote";
+import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
 import { MushafLineRenderer } from "@/components/quran/mushaf-line-renderer";
 import { OptionPickerSheet } from "@/components/quran/option-picker-sheet";
 import { PageLayoutRenderer } from "@/components/quran/page-layout-renderer";
 import { PagePickerSheet } from "@/components/quran/page-picker-sheet";
+import { PageReaderFooter } from "@/components/quran/page-reader-footer";
 import PagerView, { type PagerViewHandle } from "@/components/quran/pager-view";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { IconButton } from "@/components/ui/icon-button";
-import { Pill } from "@/components/ui/pill";
-import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteEditionSurah } from "@/hooks/use-quran";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   getAyahsOnPage,
@@ -33,6 +28,7 @@ import {
   getBundledEditions,
   getEditionById,
   getPageCount,
+  getPageForAyah,
   getPageLayout,
   getPageList,
   getSurahAyahs,
@@ -53,6 +49,13 @@ const LAYOUT_OPTIONS: Array<{ id: QuranReaderLayout; labelKey: string }> = [
   { id: "ayah", labelKey: "quran.layoutAyah" },
 ];
 
+const ALL_TRANSLATIONS = [
+  ...getBundledEditions().filter((e) => e.kind === "translation"),
+  ...REMOTE_EDITIONS,
+];
+const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
+const TRANSLATION_OPTIONS = ALL_TRANSLATIONS.map((e) => ({ id: e.id, label: e.name }));
+
 const LAST_READ_FLUSH_MS = 600;
 
 export function generateStaticParams(): Array<{ page: string }> {
@@ -70,7 +73,6 @@ export default function QuranPageReaderScreen() {
   const focusSurah = params.surah ? Number(params.surah) : undefined;
   const focusAyah = params.ayah ? Number(params.ayah) : undefined;
 
-  const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const prefs = useQuranPrefs();
   const { fontPrefs } = usePreferences();
@@ -82,9 +84,11 @@ export default function QuranPageReaderScreen() {
   const readingProgress = useSharedValue((initialPage - 1) / (getPageCount() - 1));
 
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const [toolbarVisible, setToolbarVisible] = useState(false);
   const [pagePickerOpen, setPagePickerOpen] = useState(false);
   const [layoutPickerOpen, setLayoutPickerOpen] = useState(false);
+  const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
+  const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
+  const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
   const [actionAyah, setActionAyah] = useState<{ surah: number; ayah: number } | null>(null);
   const flushRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -174,7 +178,6 @@ export default function QuranPageReaderScreen() {
 
   const jumpToPage = useCallback((page: number) => {
     pagerRef.current?.setPage(page - 1);
-    setCurrentPage(page);
   }, []);
 
   const openAyahReader = useCallback(() => {
@@ -217,6 +220,41 @@ export default function QuranPageReaderScreen() {
   const actionPlaying =
     actionAyah != null && audio.current?.id === `${actionAyah.surah}:${actionAyah.ayah}`;
 
+  const playingAyah = useMemo(() => {
+    const id = audio.current?.id;
+    if (!id?.includes(":")) return undefined;
+    const [surah, ayah] = id.split(":").map(Number);
+    if (!Number.isFinite(surah) || !Number.isFinite(ayah)) return undefined;
+    return { surah, ayah };
+  }, [audio.current?.id]);
+
+  const resolvePageHighlight = useCallback(
+    (pageAyahsList: ReturnType<typeof getAyahsOnPage>) => {
+      if (playingAyah) {
+        const playingOnPage = pageAyahsList.some(
+          (a) => a.surah === playingAyah.surah && a.ayah === playingAyah.ayah,
+        );
+        if (playingOnPage) return playingAyah;
+      }
+      if (focusSurah != null && focusAyah != null) {
+        const focusOnPage = pageAyahsList.some(
+          (a) => a.surah === focusSurah && a.ayah === focusAyah,
+        );
+        if (focusOnPage) return { surah: focusSurah, ayah: focusAyah };
+      }
+      return undefined;
+    },
+    [focusAyah, focusSurah, playingAyah],
+  );
+
+  // Follow the playing ayah across pages when audio was started from this reader.
+  useEffect(() => {
+    const href = audio.sourceHref;
+    if (!href?.startsWith("/quran/page/") || !playingAyah) return;
+    const page = getPageForAyah(playingAyah.surah, playingAyah.ayah);
+    if (page !== currentPage) jumpToPage(page);
+  }, [audio.sourceHref, currentPage, jumpToPage, playingAyah]);
+
   return (
     <>
       {SnapshotHost}
@@ -235,60 +273,28 @@ export default function QuranPageReaderScreen() {
             : undefined
         }
         onBack={() => goBackOrReplace(router, "/quran")}
-        headerAccessory={
-          <QuranReadingToolbar
-            visible={toolbarVisible}
-            progress={readingProgress}
-            onBackToTop={() => jumpToPage(1)}
-            reciterName={RECITERS.find((r) => r.dir === prefs.preferredReciterDir)?.name ?? ""}
-            translationName={selectedEdition.name}
-            secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
-            showTransliteration={prefs.showTransliteration}
-            showTranslation={layout === "page" && prefs.showTranslation}
-            layoutLabel={t(layout === "mushaf" ? "quran.layoutMushaf" : "quran.layoutPage")}
-            onOpenLayout={() => setLayoutPickerOpen(true)}
-            onOpenReciter={() => {}}
-            onOpenTranslation={() => {}}
-            onOpenSecondary={() => {}}
-            onToggleTransliteration={() =>
-              updatePrefs({ showTransliteration: !prefs.showTransliteration })
-            }
-            onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
-          />
-        }
       >
-        <View style={styles.toolbarRow}>
-          <PressableScale
-            haptic="light"
-            onPress={() => setPagePickerOpen(true)}
-            style={[styles.pageChip, { backgroundColor: colors.muted }]}
-          >
-            <SymbolView
-              name={{ ios: "book.pages", android: "menu_book", web: "menu_book" }}
-              size={16}
-              tintColor={colors.accent}
-            />
-            <ThemedText type="smallBold">
-              {t("quran.pageOf", { page: currentPage, total: QURAN_TOTAL_PAGES })}
-            </ThemedText>
-          </PressableScale>
-          <PressableScale
-            haptic="light"
-            onPress={() => setLayoutPickerOpen(true)}
-            style={[styles.pageChip, { backgroundColor: tokens.accentSoft }]}
-          >
-            <ThemedText type="smallBold" style={{ color: colors.accent }}>
-              {t(layout === "mushaf" ? "quran.layoutMushaf" : "quran.layoutPage")}
-            </ThemedText>
-          </PressableScale>
-          {layout === "mushaf" ? (
-            <Pill
-              label={t("quran.mushafOnlyHint")}
-              color={colors.mutedForeground}
-              background={colors.muted}
-            />
-          ) : null}
-        </View>
+        <QuranReadingToolbar
+          visible
+          progress={readingProgress}
+          showBackToTop={layout === "mushaf"}
+          onBackToTop={() => jumpToPage(1)}
+          reciterName={RECITERS.find((r) => r.dir === prefs.preferredReciterDir)?.name ?? ""}
+          translationName={selectedEdition.name}
+          secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+          showTransliteration={prefs.showTransliteration}
+          showTranslation={layout === "page" && prefs.showTranslation}
+          showTranslationControls={layout === "page"}
+          layoutLabel={t(layout === "mushaf" ? "quran.layoutMushaf" : "quran.layoutPage")}
+          onOpenLayout={() => setLayoutPickerOpen(true)}
+          onOpenReciter={() => setReciterPickerOpen(true)}
+          onOpenTranslation={() => setTranslationPickerOpen(true)}
+          onOpenSecondary={() => setSecondaryPickerOpen(true)}
+          onToggleTransliteration={() =>
+            updatePrefs({ showTransliteration: !prefs.showTransliteration })
+          }
+          onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+        />
 
         <PagerView
           ref={pagerRef}
@@ -300,21 +306,19 @@ export default function QuranPageReaderScreen() {
             const page = index + 1;
             const ayahs = page === currentPage ? pageAyahs : getAyahsOnPage(page);
             const mushaf = page === currentPage ? mushafLayout : getPageLayout(page);
+            const pageHighlight = resolvePageHighlight(ayahs);
             return (
               <ScrollView
                 key={page}
                 contentContainerStyle={[styles.pageContent, { paddingBottom: contentBottomInset }]}
-                onScroll={(e) => setToolbarVisible(e.nativeEvent.contentOffset.y > 80)}
-                scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}
               >
                 {layout === "mushaf" ? (
                   <MushafLineRenderer
                     layout={mushaf}
                     page={page}
-                    highlightAyah={
-                      focusSurah && focusAyah ? { surah: focusSurah, ayah: focusAyah } : undefined
-                    }
+                    arabicSize={readingSizes.arabic}
+                    highlightAyah={pageHighlight}
                     onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
                   />
                 ) : (
@@ -322,6 +326,8 @@ export default function QuranPageReaderScreen() {
                     ayahs={ayahs}
                     page={page}
                     arabicSize={readingSizes.arabic}
+                    transliterationSize={readingSizes.transliteration}
+                    translationSize={readingSizes.translation}
                     transliteration={transliteration}
                     translation={translationText}
                     secondTranslation={secondTranslationText}
@@ -329,7 +335,7 @@ export default function QuranPageReaderScreen() {
                     showTranslation={prefs.showTranslation && !translationLoading}
                     translationDir={translationDir}
                     secondTranslationDir={secondaryDir}
-                    highlightAyah={focusAyah}
+                    highlightAyah={pageHighlight}
                     onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
                   />
                 )}
@@ -338,29 +344,16 @@ export default function QuranPageReaderScreen() {
           })}
         </PagerView>
 
-        <View
-          style={[styles.footer, { borderTopColor: tokens.hairline, paddingBottom: Spacing.two }]}
-        >
-          <IconButton
-            name={{ ios: "chevron.left", android: "chevron_left", web: "chevron_left" }}
-            accessibilityLabel={t("quran.prevPage")}
-            disabled={currentPage <= 1}
-            onPress={() => jumpToPage(currentPage - 1)}
-          />
-          <PressableScale haptic="light" onPress={playFromPage} style={styles.playBtn}>
-            <SymbolView
-              name={{ ios: "play.circle.fill", android: "play_circle", web: "play_circle" }}
-              size={28}
-              tintColor={colors.accent}
-            />
-          </PressableScale>
-          <IconButton
-            name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-            accessibilityLabel={t("quran.nextPage")}
-            disabled={currentPage >= getPageCount()}
-            onPress={() => jumpToPage(currentPage + 1)}
-          />
-        </View>
+        <PageReaderFooter
+          currentPage={currentPage}
+          totalPages={getPageCount()}
+          canGoPrev={currentPage > 1}
+          canGoNext={currentPage < getPageCount()}
+          onPrev={() => jumpToPage(currentPage - 1)}
+          onNext={() => jumpToPage(currentPage + 1)}
+          onPlay={playFromPage}
+          onOpenPage={() => setPagePickerOpen(true)}
+        />
 
         <PagePickerSheet
           visible={pagePickerOpen}
@@ -375,6 +368,30 @@ export default function QuranPageReaderScreen() {
           selectedId={layout}
           onSelect={handleLayoutSelect}
           onClose={() => setLayoutPickerOpen(false)}
+        />
+        <OptionPickerSheet
+          visible={reciterPickerOpen}
+          title={t("quran.reciter")}
+          options={RECITER_OPTIONS}
+          selectedId={prefs.preferredReciterDir}
+          onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
+          onClose={() => setReciterPickerOpen(false)}
+        />
+        <OptionPickerSheet
+          visible={translationPickerOpen}
+          title={t("quran.translation")}
+          options={TRANSLATION_OPTIONS}
+          selectedId={primaryEditionId}
+          onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
+          onClose={() => setTranslationPickerOpen(false)}
+        />
+        <OptionPickerSheet
+          visible={secondaryPickerOpen}
+          title={t("quran.secondTranslation")}
+          options={[{ id: "", label: t("quran.secondTranslationNone") }, ...TRANSLATION_OPTIONS]}
+          selectedId={secondaryId ?? ""}
+          onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
+          onClose={() => setSecondaryPickerOpen(false)}
         />
         <AyahActionSheet
           visible={actionAyah != null}
@@ -431,29 +448,4 @@ export default function QuranPageReaderScreen() {
 const styles = StyleSheet.create({
   pager: { flex: 1 },
   pageContent: { padding: Spacing.three, flexGrow: 1 },
-  toolbarRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    paddingBottom: Spacing.two,
-  },
-  pageChip: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: 999,
-  },
-  footer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: Spacing.four,
-    paddingTop: Spacing.two,
-    borderTopWidth: StyleSheet.hairlineWidth,
-  },
-  playBtn: { padding: Spacing.two },
 });

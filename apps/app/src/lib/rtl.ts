@@ -72,6 +72,16 @@ export function chevronBackward(): IconName {
     : { ios: "chevron.left", android: "chevron_left", web: "chevron_left" };
 }
 
+/** Page turn "next" in Arabic mushaf order (higher page) — always points left. */
+export function mushafPageForward(): IconName {
+  return { ios: "chevron.left", android: "chevron_left", web: "chevron_left" };
+}
+
+/** Page turn "previous" in Arabic mushaf order (lower page) — always points right. */
+export function mushafPageBackward(): IconName {
+  return { ios: "chevron.right", android: "chevron_right", web: "chevron_right" };
+}
+
 /** True when the string contains Arabic script (U+0600–U+06FF). */
 export function containsArabicScript(text: string): boolean {
   return /[\u0600-\u06FF]/.test(text);

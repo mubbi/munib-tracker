@@ -1,7 +1,7 @@
 import { accentOnSurface } from "@munib-tracker/theme/color";
 import { useMemo } from "react";
 
-import { Brand, type StatusKey, StatusPalette, withAlpha } from "@/constants/theme";
+import { Brand, Mushaf, type StatusKey, StatusPalette, withAlpha } from "@/constants/theme";
 import { useTheme } from "@/providers/theme-provider";
 
 export type StatusToken = {
@@ -63,6 +63,27 @@ export function useThemeTokens() {
       /** Full-bleed scrim for overlays. */
       scrim: withAlpha("#000000", 0.4),
       hero: Brand,
+      /**
+       * Illuminated-mushaf tokens (see `Mushaf` palette). A printed Qur'an leaf:
+       * warm parchment page, gilt double frame, and gold ink for ornaments,
+       * ayah markers, and surah titles — constant across UI accents.
+       */
+      mushaf: {
+        /** Page surface — warm cream in light, the deep-green night page in dark. */
+        paper: isDark ? colors.card : Mushaf.paperLight,
+        /** Bold outer illumination rule + corner ornaments. */
+        frame: isDark ? Mushaf.goldDark : Mushaf.goldLight,
+        /** Thin inner rule a hair inside the outer frame. */
+        frameSoft: isDark ? Mushaf.goldSoftDark : Mushaf.goldSoftLight,
+        /** Gilt ink: ayah rosettes, surah name, decorative flourishes. */
+        ink: isDark ? Mushaf.inkDark : Mushaf.inkLight,
+        /** Soft gold wash behind the surah cartouche + page medallion. */
+        bandFill: withAlpha(isDark ? Mushaf.goldDark : Mushaf.goldLight, isDark ? 0.16 : 0.1),
+        /** Hairline gold border for the cartouche / medallion. */
+        bandBorder: withAlpha(isDark ? Mushaf.goldDark : Mushaf.goldLight, isDark ? 0.5 : 0.36),
+        /** Gentle gilt wash marking the actively-navigated ayah line. */
+        highlight: withAlpha(isDark ? Mushaf.inkDark : Mushaf.goldLight, isDark ? 0.24 : 0.18),
+      },
       status,
     };
   }, [colors.accent, colors.background, colors.card, colors.foreground, colors.muted, scheme]);

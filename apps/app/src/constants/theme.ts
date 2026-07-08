@@ -71,6 +71,27 @@ export const Brand = {
   onHeroStrongSurface: "rgba(255, 255, 255, 0.14)",
 } as const;
 
+/**
+ * Illuminated-mushaf palette — the warm gold inks and parchment of a printed
+ * Qur'an leaf. Deliberately CONSTANT across the app's themeable accents: a real
+ * mushaf frame is always gold on cream (or gold on night), never the UI accent
+ * hue. Consumed via `useThemeTokens().mushaf`, which picks the light/dark set.
+ */
+export const Mushaf = {
+  /** Warm cream page ("paper") for the light reading surface. */
+  paperLight: "#FBF5E6",
+  /** Antique-gold outer rule + ornaments (light). */
+  goldLight: "#AE8A34",
+  /** Soft-gold thin inner rule (light). */
+  goldSoftLight: "#D8C287",
+  /** Gilt ink for ayah markers, ornaments, surah name (light). */
+  inkLight: "#977A26",
+  /** Brighter gilt that reads on the deep-green night page (dark). */
+  goldDark: "#C9AC61",
+  goldSoftDark: "#8C7538",
+  inkDark: "#DAC079",
+} as const;
+
 /** Semantic status colors for tracking states. Tuned to read on both themes. */
 export const StatusPalette = {
   success: "#2E9E6B",

@@ -1,7 +1,7 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import Animated, {
   type SharedValue,
   useAnimatedStyle,
@@ -16,6 +16,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 /** SF Symbols → Material fallbacks for each toolbar chip. */
@@ -26,6 +27,8 @@ const TOOLBAR_ICONS = {
   transliteration: { ios: "textformat.abc", android: "abc", web: "abc" },
   showTranslation: { ios: "text.alignleft", android: "notes", web: "notes" },
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
+  page: { ios: "list.number", android: "format_list_numbered", web: "format_list_numbered" },
+  layout: { ios: "book.pages", android: "menu_book", web: "menu_book" },
 } as const satisfies Record<string, SymbolViewProps["name"]>;
 
 type ReadingToolbarProps = {
@@ -40,7 +43,14 @@ type ReadingToolbarProps = {
   showTranslation: boolean;
   layoutLabel?: string;
   onOpenLayout?: () => void;
-  onBackToTop: () => void;
+  /** Optional page indicator (e.g. "Page 12 of 604") that opens the page picker. */
+  pageLabel?: string;
+  onOpenPage?: () => void;
+  /** Hide the back-to-top affordance (e.g. page reader where page nav lives in the footer). */
+  showBackToTop?: boolean;
+  onBackToTop?: () => void;
+  /** Hide translation / transliteration controls (e.g. mushaf is Arabic-only). */
+  showTranslationControls?: boolean;
   onOpenReciter: () => void;
   onOpenTranslation: () => void;
   onOpenSecondary: () => void;
@@ -64,7 +74,11 @@ export function QuranReadingToolbar({
   showTranslation,
   layoutLabel,
   onOpenLayout,
+  pageLabel,
+  onOpenPage,
+  showBackToTop = true,
   onBackToTop,
+  showTranslationControls = true,
   onOpenReciter,
   onOpenTranslation,
   onOpenSecondary,
@@ -73,6 +87,7 @@ export function QuranReadingToolbar({
 }: ReadingToolbarProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const scrollRef = useHorizontalWheelScroll();
   const reveal = useSharedValue(visible ? 1 : 0);
 
   useEffect(() => {
@@ -114,25 +129,37 @@ export function QuranReadingToolbar({
         ]}
       />
       <View style={styles.row}>
-        <PressableScale
-          haptic="light"
-          accessibilityRole="button"
-          accessibilityLabel={t("quran.backToTop")}
-          onPress={onBackToTop}
-          style={[styles.backToTop, { backgroundColor: tokens.accentSoft }]}
-        >
-          <SymbolView
-            name={{ ios: "arrow.up", android: "arrow_upward", web: "arrow_upward" }}
-            size={18}
-            tintColor={colors.accent}
-          />
-        </PressableScale>
+        {showBackToTop && onBackToTop ? (
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={t("quran.backToTop")}
+            onPress={onBackToTop}
+            style={[styles.backToTop, { backgroundColor: tokens.accentSoft }]}
+          >
+            <SymbolView
+              name={{ ios: "arrow.up", android: "arrow_upward", web: "arrow_upward" }}
+              size={18}
+              tintColor={colors.accent}
+            />
+          </PressableScale>
+        ) : null}
         <ScrollView
+          ref={scrollRef}
           horizontal
-          showsHorizontalScrollIndicator={false}
+          style={styles.scroll}
+          showsHorizontalScrollIndicator={Platform.OS === "web"}
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={styles.content}
         >
+          {pageLabel && onOpenPage ? (
+            <SelectChip
+              icon={TOOLBAR_ICONS.page}
+              value={pageLabel}
+              accessibilityLabel={t("quran.pagePickerTitle")}
+              onPress={onOpenPage}
+            />
+          ) : null}
           <View style={[styles.fontChip, { backgroundColor: colors.muted }]}>
             <SymbolView
               name={TOOLBAR_ICONS.textSize}
@@ -143,7 +170,7 @@ export function QuranReadingToolbar({
           </View>
           {layoutLabel && onOpenLayout ? (
             <SelectChip
-              icon={{ ios: "book.pages", android: "menu_book", web: "menu_book" }}
+              icon={TOOLBAR_ICONS.layout}
               value={layoutLabel}
               accessibilityLabel={t("quran.readerLayout")}
               onPress={onOpenLayout}
@@ -155,32 +182,36 @@ export function QuranReadingToolbar({
             accessibilityLabel={t("quran.reciter")}
             onPress={onOpenReciter}
           />
-          <SelectChip
-            icon={TOOLBAR_ICONS.translation}
-            value={translationName}
-            accessibilityLabel={t("quran.translation")}
-            onPress={onOpenTranslation}
-          />
-          <SelectChip
-            icon={TOOLBAR_ICONS.secondTranslation}
-            value={secondTranslationName}
-            accessibilityLabel={t("quran.secondTranslation")}
-            onPress={onOpenSecondary}
-          />
-          <ToggleChip
-            icon={TOOLBAR_ICONS.transliteration}
-            label={t("quran.transliteration")}
-            enabled={showTransliteration}
-            accessibilityLabel={t("quran.showTransliteration")}
-            onPress={onToggleTransliteration}
-          />
-          <ToggleChip
-            icon={TOOLBAR_ICONS.showTranslation}
-            label={t("quran.translation")}
-            enabled={showTranslation}
-            accessibilityLabel={t("quran.showTranslation")}
-            onPress={onToggleTranslation}
-          />
+          {showTranslationControls ? (
+            <>
+              <SelectChip
+                icon={TOOLBAR_ICONS.translation}
+                value={translationName}
+                accessibilityLabel={t("quran.translation")}
+                onPress={onOpenTranslation}
+              />
+              <SelectChip
+                icon={TOOLBAR_ICONS.secondTranslation}
+                value={secondTranslationName}
+                accessibilityLabel={t("quran.secondTranslation")}
+                onPress={onOpenSecondary}
+              />
+              <ToggleChip
+                icon={TOOLBAR_ICONS.transliteration}
+                label={t("quran.transliteration")}
+                enabled={showTransliteration}
+                accessibilityLabel={t("quran.showTransliteration")}
+                onPress={onToggleTransliteration}
+              />
+              <ToggleChip
+                icon={TOOLBAR_ICONS.showTranslation}
+                label={t("quran.translation")}
+                enabled={showTranslation}
+                accessibilityLabel={t("quran.showTranslation")}
+                onPress={onToggleTranslation}
+              />
+            </>
+          ) : null}
         </ScrollView>
       </View>
       <ReadingProgressBar progress={progress} accessibilityLabel={t("quran.readingProgress")} />
@@ -270,6 +301,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingStart: Spacing.three,
     gap: Spacing.two,
+    width: "100%",
+  },
+  scroll: {
+    flex: 1,
+    minWidth: 0,
   },
   backToTop: {
     width: 36,
@@ -281,10 +317,8 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   content: {
-    flexGrow: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
     gap: Spacing.two,
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
