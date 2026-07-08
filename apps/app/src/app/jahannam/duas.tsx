@@ -1,4 +1,4 @@
-import { DUA_ITEMS, JAHANNAM_REFUGE_DUA } from "@munib-tracker/shared/content";
+import { DUA_ITEMS } from "@munib-tracker/shared/content";
 import type { DuaItem, JahannamDuaEntry } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJahannamDuas } from "@/lib/jahannam";
+import { getJahannamDuas, getJahannamRefugeDua } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
@@ -76,6 +76,7 @@ export default function JahannamDuasScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const entries = getJahannamDuas();
+  const refugeDua = getJahannamRefugeDua();
   const byId = new Map(DUA_ITEMS.map((item) => [item.id, item]));
   useEnsureDuaFavoritesLoaded();
 
@@ -93,10 +94,10 @@ export default function JahannamDuasScreen() {
 
           <JannahDuaBlock
             title={t("jahannam.refugeDuaTitle")}
-            arabic={JAHANNAM_REFUGE_DUA.arabic}
-            transliteration={JAHANNAM_REFUGE_DUA.transliteration}
-            translation={JAHANNAM_REFUGE_DUA.translation}
-            reference={JAHANNAM_REFUGE_DUA.reference}
+            arabic={refugeDua.arabic}
+            transliteration={refugeDua.transliteration}
+            translation={refugeDua.translation}
+            reference={refugeDua.reference}
           />
 
           {entries.map((entry, index) => {

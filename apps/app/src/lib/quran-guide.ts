@@ -16,14 +16,50 @@ import {
   QURAN_GUIDE_TOPICS,
   QURAN_GUIDE_VOCABULARY,
 } from "@munib-tracker/shared/content";
+import {
+  QURAN_GUIDE_APPLY_CHALLENGES_AR,
+  QURAN_GUIDE_APPLY_CHALLENGES_UR,
+  QURAN_GUIDE_DAILY_LESSONS_AR,
+  QURAN_GUIDE_DAILY_LESSONS_UR,
+  QURAN_GUIDE_LETTERS_AR,
+  QURAN_GUIDE_LETTERS_UR,
+  QURAN_GUIDE_MEMORIZATION_PLANS_AR,
+  QURAN_GUIDE_MEMORIZATION_PLANS_UR,
+  QURAN_GUIDE_PRONUNCIATION_AR,
+  QURAN_GUIDE_PRONUNCIATION_UR,
+  QURAN_GUIDE_QUIZ_AR,
+  QURAN_GUIDE_QUIZ_UR,
+  QURAN_GUIDE_READING_LEVELS_AR,
+  QURAN_GUIDE_READING_LEVELS_UR,
+  QURAN_GUIDE_STORIES_AR,
+  QURAN_GUIDE_STORIES_UR,
+  QURAN_GUIDE_STRUCTURE_LEVELS_AR,
+  QURAN_GUIDE_STRUCTURE_LEVELS_UR,
+  QURAN_GUIDE_TADABBUR_PROMPTS_AR,
+  QURAN_GUIDE_TADABBUR_PROMPTS_UR,
+  QURAN_GUIDE_TAJWEED_AR,
+  QURAN_GUIDE_TAJWEED_UR,
+  QURAN_GUIDE_THEMES_AR,
+  QURAN_GUIDE_THEMES_UR,
+  QURAN_GUIDE_TIMELINE_AR,
+  QURAN_GUIDE_TIMELINE_UR,
+  QURAN_GUIDE_TOPICS_AR,
+  QURAN_GUIDE_TOPICS_UR,
+  QURAN_GUIDE_VOCABULARY_AR,
+  QURAN_GUIDE_VOCABULARY_UR,
+} from "@munib-tracker/shared/content-i18n";
 import type { QuranGuideJourney, QuranGuideTopic } from "@munib-tracker/shared/types";
+import { localizeList } from "@/lib/content-i18n";
 
 export function getQuranGuideTopics(): QuranGuideTopic[] {
-  return QURAN_GUIDE_TOPICS;
+  return localizeList(QURAN_GUIDE_TOPICS, {
+    ur: QURAN_GUIDE_TOPICS_UR,
+    ar: QURAN_GUIDE_TOPICS_AR,
+  });
 }
 
 export function getQuranGuideTopic(id: string | undefined): QuranGuideTopic | undefined {
-  return QURAN_GUIDE_TOPICS.find((topic) => topic.id === id);
+  return getQuranGuideTopics().find((topic) => topic.id === id);
 }
 
 export function getQuranGuideTopicsByJourney(): Record<QuranGuideJourney, QuranGuideTopic[]> {
@@ -31,7 +67,7 @@ export function getQuranGuideTopicsByJourney(): Record<QuranGuideJourney, QuranG
     QURAN_GUIDE_JOURNEY_ORDER.map((phase) => [phase, [] as QuranGuideTopic[]]),
   ) as Record<QuranGuideJourney, QuranGuideTopic[]>;
 
-  for (const topic of QURAN_GUIDE_TOPICS) {
+  for (const topic of getQuranGuideTopics()) {
     grouped[topic.journey].push(topic);
   }
   return grouped;
@@ -42,59 +78,92 @@ export function getQuranGuideLessonCount(): number {
 }
 
 export function getQuranGuideTimeline() {
-  return QURAN_GUIDE_TIMELINE;
+  return localizeList(QURAN_GUIDE_TIMELINE, {
+    ur: QURAN_GUIDE_TIMELINE_UR,
+    ar: QURAN_GUIDE_TIMELINE_AR,
+  });
 }
 
 export function getQuranGuideStructureLevels() {
-  return QURAN_GUIDE_STRUCTURE_LEVELS;
+  return localizeList(QURAN_GUIDE_STRUCTURE_LEVELS, {
+    ur: QURAN_GUIDE_STRUCTURE_LEVELS_UR,
+    ar: QURAN_GUIDE_STRUCTURE_LEVELS_AR,
+  });
 }
 
 export function getQuranGuideThemes() {
-  return QURAN_GUIDE_THEMES;
+  return localizeList(QURAN_GUIDE_THEMES, {
+    ur: QURAN_GUIDE_THEMES_UR,
+    ar: QURAN_GUIDE_THEMES_AR,
+  });
 }
 
 export function getQuranGuideTheme(id: string | undefined) {
-  return QURAN_GUIDE_THEMES.find((theme) => theme.id === id);
+  return getQuranGuideThemes().find((theme) => theme.id === id);
 }
 
 export function getQuranGuideVocabulary() {
-  return QURAN_GUIDE_VOCABULARY;
+  return localizeList(QURAN_GUIDE_VOCABULARY, {
+    ur: QURAN_GUIDE_VOCABULARY_UR,
+    ar: QURAN_GUIDE_VOCABULARY_AR,
+  });
 }
 
 export function getQuranGuideStories() {
-  return QURAN_GUIDE_STORIES;
+  return localizeList(QURAN_GUIDE_STORIES, {
+    ur: QURAN_GUIDE_STORIES_UR,
+    ar: QURAN_GUIDE_STORIES_AR,
+  });
 }
 
 export function getQuranGuideStory(id: string | undefined) {
-  return QURAN_GUIDE_STORIES.find((story) => story.id === id);
+  return getQuranGuideStories().find((story) => story.id === id);
 }
 
 export function getQuranGuideTajweedLessons() {
-  return QURAN_GUIDE_TAJWEED;
+  return localizeList(QURAN_GUIDE_TAJWEED, {
+    ur: QURAN_GUIDE_TAJWEED_UR,
+    ar: QURAN_GUIDE_TAJWEED_AR,
+  });
 }
 
 export function getQuranGuideTajweedLesson(id: string | undefined) {
-  return QURAN_GUIDE_TAJWEED.find((lesson) => lesson.id === id);
+  return getQuranGuideTajweedLessons().find((lesson) => lesson.id === id);
 }
 
 export function getQuranGuideLetters() {
-  return QURAN_GUIDE_LETTERS;
+  return localizeList(QURAN_GUIDE_LETTERS, {
+    ur: QURAN_GUIDE_LETTERS_UR,
+    ar: QURAN_GUIDE_LETTERS_AR,
+  });
 }
 
 export function getQuranGuidePronunciationPairs() {
-  return QURAN_GUIDE_PRONUNCIATION;
+  return localizeList(QURAN_GUIDE_PRONUNCIATION, {
+    ur: QURAN_GUIDE_PRONUNCIATION_UR,
+    ar: QURAN_GUIDE_PRONUNCIATION_AR,
+  });
 }
 
 export function getQuranGuideReadingLevels() {
-  return QURAN_GUIDE_READING_LEVELS;
+  return localizeList(QURAN_GUIDE_READING_LEVELS, {
+    ur: QURAN_GUIDE_READING_LEVELS_UR,
+    ar: QURAN_GUIDE_READING_LEVELS_AR,
+  });
 }
 
 export function getQuranGuideMemorizationPlans() {
-  return QURAN_GUIDE_MEMORIZATION_PLANS;
+  return localizeList(QURAN_GUIDE_MEMORIZATION_PLANS, {
+    ur: QURAN_GUIDE_MEMORIZATION_PLANS_UR,
+    ar: QURAN_GUIDE_MEMORIZATION_PLANS_AR,
+  });
 }
 
 export function getQuranGuideDailyLessons() {
-  return QURAN_GUIDE_DAILY_LESSONS;
+  return localizeList(QURAN_GUIDE_DAILY_LESSONS, {
+    ur: QURAN_GUIDE_DAILY_LESSONS_UR,
+    ar: QURAN_GUIDE_DAILY_LESSONS_AR,
+  });
 }
 
 /** Deterministic daily lesson from day-of-year. */
@@ -102,12 +171,15 @@ export function getQuranGuideDailyLessonForDate(date = new Date()) {
   const start = new Date(date.getFullYear(), 0, 0);
   const diff = date.getTime() - start.getTime();
   const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const lessons = QURAN_GUIDE_DAILY_LESSONS;
+  const lessons = getQuranGuideDailyLessons();
   return lessons[dayOfYear % lessons.length] ?? lessons[0];
 }
 
 export function getQuranGuideApplyChallenges() {
-  return QURAN_GUIDE_APPLY_CHALLENGES;
+  return localizeList(QURAN_GUIDE_APPLY_CHALLENGES, {
+    ur: QURAN_GUIDE_APPLY_CHALLENGES_UR,
+    ar: QURAN_GUIDE_APPLY_CHALLENGES_AR,
+  });
 }
 
 /** Deterministic daily challenge from day-of-year. */
@@ -115,16 +187,22 @@ export function getQuranGuideApplyChallengeForDate(date = new Date()) {
   const start = new Date(date.getFullYear(), 0, 0);
   const diff = date.getTime() - start.getTime();
   const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const challenges = QURAN_GUIDE_APPLY_CHALLENGES;
+  const challenges = getQuranGuideApplyChallenges();
   return challenges[dayOfYear % challenges.length] ?? challenges[0];
 }
 
 export function getQuranGuideTadabburPrompts() {
-  return QURAN_GUIDE_TADABBUR_PROMPTS;
+  return localizeList(QURAN_GUIDE_TADABBUR_PROMPTS, {
+    ur: QURAN_GUIDE_TADABBUR_PROMPTS_UR,
+    ar: QURAN_GUIDE_TADABBUR_PROMPTS_AR,
+  });
 }
 
 export function getQuranGuideQuiz() {
-  return QURAN_GUIDE_QUIZ;
+  return localizeList(QURAN_GUIDE_QUIZ, {
+    ur: QURAN_GUIDE_QUIZ_UR,
+    ar: QURAN_GUIDE_QUIZ_AR,
+  });
 }
 
 /** Hub route for a topic id — dedicated screens vs generic article. */

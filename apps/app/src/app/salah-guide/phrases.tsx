@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
@@ -14,8 +15,6 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getSalahGuidePhrases } from "@/lib/salah-guide";
-
-const PHRASES = getSalahGuidePhrases();
 
 function PhraseCard({
   title,
@@ -89,7 +88,10 @@ function PhraseCard({
 
 export default function SalahGuidePhrasesScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // Recompute per locale so translated phrases render on language switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const phrases = useMemo(() => getSalahGuidePhrases(), [i18n.language]);
 
   return (
     <ScreenLayout
@@ -103,7 +105,7 @@ export default function SalahGuidePhrasesScreen() {
         <LearnReadingChrome surface="salah_guide">
           <JannahCallout tone="accent">{t("salahGuide.phrasesIntro")}</JannahCallout>
 
-          {PHRASES.map((phrase) => (
+          {phrases.map((phrase) => (
             <PhraseCard key={phrase.id} {...phrase} />
           ))}
         </LearnReadingChrome>

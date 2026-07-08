@@ -7,6 +7,30 @@
     "back": "Back",
     "next": "Next",
     "previous": "Previous",
+    "quiz": {
+      "progress": "Question {{current}} of {{total}}",
+      "answeredCount": "{{count}} answered",
+      "answerHint": "Choose an answer to see the explanation.",
+      "reflectHint": "Take a moment, then continue when you are ready.",
+      "reflectMark": "I have reflected",
+      "reflectionNoted": "Intention noted",
+      "correctTitle": "Correct — well done",
+      "incorrectTitle": "Not quite — here's why",
+      "statusCorrect": "Correct",
+      "statusIncorrect": "Incorrect",
+      "statusSkipped": "Skipped",
+      "statusReflection": "Reflection",
+      "seeResults": "See results",
+      "complete": "Quiz complete",
+      "scoreCaption": "Score",
+      "scoreDetail": "{{score}} of {{total}} scored questions correct",
+      "retry": "Try again",
+      "reviewTitle": "Review your answers",
+      "encouragementPerfect": "Beautiful review — may Allah increase you in beneficial knowledge.",
+      "encouragementStrong": "Strong understanding. Revisit any misses to lock them in.",
+      "encouragementSteady": "Good progress. Use the misses as your next study targets.",
+      "encouragementKeepGoing": "Every miss is a lesson. Review the notes, then try again."
+    },
     "skip": "Skip",
     "apply": "Apply",
     "delete": "Delete",
@@ -1657,6 +1681,12 @@
     "en": "English",
     "ar": "Arabic",
     "ur": "Urdu"
+  },
+  "languagePicker": {
+    "selectLanguage": "Choose a language",
+    "selectLanguageWithCount": "Choose a language ({{filtered}} of {{total}})",
+    "searchLanguages": "Search languages…",
+    "noResults": "No languages match your search."
   },
   "about": {
     "eyebrow": "Settings",

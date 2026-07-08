@@ -29,7 +29,6 @@ import {
   useQuranGuideCompletedCount,
 } from "@/stores/quran-guide-progress-store";
 
-const TOPICS_BY_JOURNEY = getQuranGuideTopicsByJourney();
 const JOURNEY_ORDER = [
   "read",
   "understand",
@@ -63,11 +62,14 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
 
 export default function LearnQuranScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureQuranGuideProgressLoaded();
   const completedCount = useQuranGuideCompletedCount();
   const lessonTotal = getQuranGuideLessonCount();
+  // Recompute per locale so translated topic titles/summaries render on switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const TOPICS_BY_JOURNEY = useMemo(() => getQuranGuideTopicsByJourney(), [i18n.language]);
 
   const quickLinks = useMemo(
     () => [

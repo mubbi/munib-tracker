@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useKnowledgeCard } from "@/hooks/use-knowledge-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -111,12 +112,7 @@ function KnowledgeCardBody({
   );
 
   return (
-    <Card
-      padding="three"
-      style={cardStyle}
-      onPress={onPress}
-      accessibilityLabel={onPress ? a11y : undefined}
-    >
+    <Card padding="three" style={cardStyle}>
       <View style={styles.topRow}>
         <Pill
           label={t(card.titleKey)}
@@ -133,7 +129,19 @@ function KnowledgeCardBody({
           hitTarget={36}
         />
       </View>
-      {content}
+      {onPress ? (
+        <PressableScale
+          onPress={onPress}
+          accessibilityRole="button"
+          accessibilityLabel={a11y}
+          scaleTo={0.985}
+          haptic="light"
+        >
+          {content}
+        </PressableScale>
+      ) : (
+        content
+      )}
     </Card>
   );
 }

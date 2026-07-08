@@ -7,6 +7,30 @@
     "back": "واپس",
     "next": "آگے",
     "previous": "پچھلا",
+    "quiz": {
+      "progress": "سوال {{current}} از {{total}}",
+      "answeredCount": "{{count}} جواب دیے",
+      "answerHint": "وضاحت دیکھنے کے لیے ایک جواب چنیں۔",
+      "reflectHint": "ذرا ٹھہریں، پھر جب تیار ہوں آگے بڑھیں۔",
+      "reflectMark": "میں نے غور کر لیا",
+      "reflectionNoted": "ارادہ محفوظ ہو گیا",
+      "correctTitle": "درست — خوب کیا",
+      "incorrectTitle": "درست نہیں — وجہ یہ ہے",
+      "statusCorrect": "درست",
+      "statusIncorrect": "غلط",
+      "statusSkipped": "چھوڑا گیا",
+      "statusReflection": "غور و فکر",
+      "seeResults": "نتائج دیکھیں",
+      "complete": "کوئز مکمل",
+      "scoreCaption": "نتیجہ",
+      "scoreDetail": "{{total}} میں سے {{score}} درست",
+      "retry": "دوبارہ کوشش",
+      "reviewTitle": "اپنے جوابات کا جائزہ",
+      "encouragementPerfect": "خوبصورت جائزہ — اللہ آپ کو نفع بخش علم میں اضافہ عطا فرمائے۔",
+      "encouragementStrong": "سمجھ مضبوط ہے۔ غلطیوں پر دوبارہ غور کریں تاکہ یاد رہیں۔",
+      "encouragementSteady": "اچھی پیش رفت۔ غلط جواب اگلے مطالعے کا نشانہ بنائیں۔",
+      "encouragementKeepGoing": "ہر غلطی ایک سبق ہے۔ نوٹس دیکھیں، پھر دوبارہ کوشش کریں۔"
+    },
     "skip": "چھوڑ دیں",
     "apply": "لاگو کریں",
     "delete": "حذف کریں",
@@ -1657,6 +1681,12 @@
     "en": "انگریزی",
     "ar": "عربی",
     "ur": "اردو"
+  },
+  "languagePicker": {
+    "selectLanguage": "زبان منتخب کریں",
+    "selectLanguageWithCount": "زبان منتخب کریں ({{filtered}} میں سے {{total}})",
+    "searchLanguages": "زبانیں تلاش کریں…",
+    "noResults": "آپ کی تلاش سے کوئی زبان نہیں ملی۔"
   },
   "about": {
     "eyebrow": "ترتیبات",

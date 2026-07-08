@@ -72,57 +72,71 @@ export function PrayerTrackerRow({
   const adhkarBg = adhkarDone ? tokens.status.success.soft : tokens.accentSoft;
 
   return (
-    <PressableScale
-      haptic="light"
-      onPress={onPress}
-      accessibilityRole="button"
-      accessibilityLabel={rowA11y}
-      style={[styles.container, { backgroundColor: colors.muted }]}
-    >
+    <View style={[styles.container, { backgroundColor: colors.muted }]}>
       <View style={styles.mainLine}>
-        <IconWell
-          icon={PRAYER_ICONS[prayerId]}
-          size={16}
-          well={ICON_WELL}
-          tint={toneColor}
-          background={toneSoft}
-        />
+        <View style={styles.leadingBlock}>
+          <PressableScale
+            haptic="light"
+            onPress={onPress}
+            accessibilityRole="button"
+            accessibilityLabel={rowA11y}
+            style={styles.primaryPress}
+          >
+            <View style={styles.primaryInner}>
+              <IconWell
+                icon={PRAYER_ICONS[prayerId]}
+                size={16}
+                well={ICON_WELL}
+                tint={toneColor}
+                background={toneSoft}
+              />
 
-        <View style={styles.content}>
-          <View style={styles.nameRow}>
-            <View style={styles.copy}>
-              <ThemedText type="smallBold" numberOfLines={1} style={styles.name}>
-                {prayerName}
-              </ThemedText>
-              {time || hasNotes || showJama ? (
-                <View style={styles.metaLine}>
-                  {time ? (
-                    <ThemedText
-                      type="caption"
-                      themeColor="mutedForeground"
-                      numberOfLines={1}
-                      style={styles.time}
-                    >
-                      {time}
+              <View style={styles.content}>
+                <View style={styles.nameRow}>
+                  <View style={styles.copy}>
+                    <ThemedText type="smallBold" numberOfLines={1} style={styles.name}>
+                      {prayerName}
                     </ThemedText>
-                  ) : null}
-                  {showJama ? (
-                    <SymbolView name={PRAYER_JAMA_ICON} size={12} tintColor={successColor} />
-                  ) : null}
-                  {hasNotes ? (
+                    {time || hasNotes || showJama ? (
+                      <View style={styles.metaLine}>
+                        {time ? (
+                          <ThemedText
+                            type="caption"
+                            themeColor="mutedForeground"
+                            numberOfLines={1}
+                            style={styles.time}
+                          >
+                            {time}
+                          </ThemedText>
+                        ) : null}
+                        {showJama ? (
+                          <SymbolView name={PRAYER_JAMA_ICON} size={12} tintColor={successColor} />
+                        ) : null}
+                        {hasNotes ? (
+                          <SymbolView
+                            name={{
+                              ios: "note.text",
+                              android: "sticky_note_2",
+                              web: "sticky_note_2",
+                            }}
+                            size={12}
+                            tintColor={colors.mutedForeground}
+                          />
+                        ) : null}
+                      </View>
+                    ) : null}
+                  </View>
+                  <View style={styles.rowChevron}>
                     <SymbolView
-                      name={{ ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" }}
-                      size={12}
+                      name={chevronForward()}
+                      size={14}
                       tintColor={colors.mutedForeground}
                     />
-                  ) : null}
+                  </View>
                 </View>
-              ) : null}
+              </View>
             </View>
-            <View style={styles.rowChevron}>
-              <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
-            </View>
-          </View>
+          </PressableScale>
 
           {showAdhkar ? (
             adhkarPressable ? (
@@ -211,7 +225,7 @@ export function PrayerTrackerRow({
           <PrayerInfoButton prayerId={prayerId} hitTarget={32} showLabel />
         </View>
       </View>
-    </PressableScale>
+    </View>
   );
 }
 
@@ -227,10 +241,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.two,
   },
-  content: {
+  leadingBlock: {
     flex: 1,
     minWidth: 0,
     gap: Spacing.one + 2,
+  },
+  primaryPress: {
+    alignSelf: "stretch",
+  },
+  primaryInner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  content: {
+    flex: 1,
+    minWidth: 0,
     justifyContent: "center",
   },
   nameRow: {
@@ -266,6 +292,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.one + 2,
     minWidth: 0,
+    marginStart: ICON_WELL + Spacing.two,
   },
   adhkarBadge: {
     flexDirection: "row",

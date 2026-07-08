@@ -1,4 +1,5 @@
 import { HAJJ_GUIDE_SECTIONS } from "@munib-tracker/shared/content";
+import { HAJJ_GUIDE_SECTIONS_AR, HAJJ_GUIDE_SECTIONS_UR } from "@munib-tracker/shared/content-i18n";
 import type { HajjGuideStep } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -18,6 +19,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { Spacing } from "@/constants/theme";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { localizeList } from "@/lib/content-i18n";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureHajjChecklistLoaded,
@@ -80,13 +82,24 @@ function CheckStep({
 
 export default function HajjScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { scrollRef, register, onScroll, isFocused } = useScreenFocus();
   useEnsureHajjChecklistLoaded();
   const done = useHajjChecklist();
   const { toggle, reset } = useHajjChecklistActions();
   const [resetOpen, setResetOpen] = useState(false);
+
+  // Recompute per locale so translated section titles/summaries/steps render on switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const sections = useMemo(
+    () =>
+      localizeList(HAJJ_GUIDE_SECTIONS, {
+        ur: HAJJ_GUIDE_SECTIONS_UR,
+        ar: HAJJ_GUIDE_SECTIONS_AR,
+      }),
+    [i18n.language],
+  );
 
   const doneCount = useMemo(() => Object.values(done).filter(Boolean).length, [done]);
   const progress = TOTAL_STEPS > 0 ? doneCount / TOTAL_STEPS : 0;
@@ -119,7 +132,7 @@ export default function HajjScreen() {
         <ProgressBar value={progress} height={6} color={tokens.status.success.color} />
       </Card>
 
-      {HAJJ_GUIDE_SECTIONS.map((section) => (
+      {sections.map((section) => (
         <FocusHighlight key={section.id} ref={register(section.id)} active={isFocused(section.id)}>
           <Card padding="three" style={styles.sectionCard}>
             <View style={styles.sectionHead}>

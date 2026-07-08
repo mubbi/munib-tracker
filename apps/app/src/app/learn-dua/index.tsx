@@ -30,11 +30,6 @@ import {
   useLearnDuaCompletedCount,
 } from "@/stores/learn-dua-progress-store";
 
-const TOPICS_BY_SECTION = getLearnDuaTopicsBySection();
-const SECTION_ORDER = Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>;
-const FEATURED_TOPIC = getLearnDuaTopics().find((topic) => topic.phrases?.length);
-const FEATURED_PHRASE = FEATURED_TOPIC?.phrases?.[0];
-
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
   "morning-evening": { ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" },
@@ -49,11 +44,25 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
 
 export default function LearnDuaScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureLearnDuaProgressLoaded();
   const completedCount = useLearnDuaCompletedCount();
   const lessonTotal = getLearnDuaLessonCount();
+
+  // Recompute per locale so translated topic titles/summaries render on switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const TOPICS_BY_SECTION = useMemo(() => getLearnDuaTopicsBySection(), [i18n.language]);
+  const SECTION_ORDER = useMemo(
+    () => Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>,
+    [TOPICS_BY_SECTION],
+  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const FEATURED_TOPIC = useMemo(
+    () => getLearnDuaTopics().find((topic) => topic.phrases?.length),
+    [i18n.language],
+  );
+  const FEATURED_PHRASE = FEATURED_TOPIC?.phrases?.[0];
 
   const quickLinks = useMemo(
     () => [

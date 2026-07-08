@@ -1,5 +1,5 @@
-import { JANNAH_FIRDAWS_DUA } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer, JannahDuaBlock } from "@/components/jannah/primitives";
 import { JannahTopicContent } from "@/components/jannah/topic-content";
@@ -9,7 +9,7 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { getJannahTopic, getJannahTopics } from "@/lib/jannah";
+import { getJannahFirdawsDua, getJannahTopic, getJannahTopics } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
@@ -19,10 +19,13 @@ export function generateStaticParams(): Array<{ topic: string }> {
 
 export default function JannahTopicScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
   const topic = getJannahTopic(topicId);
   const reportRef = useGuideContentReportRef("jannah", topic, "/jannah");
+  // Recompute per locale so the localized du'a text renders on language switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const firdawsDua = useMemo(() => getJannahFirdawsDua(), [i18n.language]);
 
   const detailPath = topic ? `/jannah/${topic.id}` : "/jannah";
   const crumbs = topic
@@ -75,10 +78,10 @@ export default function JannahTopicScreen() {
             {topic.id === "al-firdaws" ? (
               <JannahDuaBlock
                 title={t("jannah.firdawsDuaTitle")}
-                arabic={JANNAH_FIRDAWS_DUA.arabic}
-                transliteration={JANNAH_FIRDAWS_DUA.transliteration}
-                translation={JANNAH_FIRDAWS_DUA.translation}
-                reference={JANNAH_FIRDAWS_DUA.reference}
+                arabic={firdawsDua.arabic}
+                transliteration={firdawsDua.transliteration}
+                translation={firdawsDua.translation}
+                reference={firdawsDua.reference}
               />
             ) : null}
           </LearnReadingChrome>

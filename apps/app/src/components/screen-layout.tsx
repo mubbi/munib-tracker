@@ -233,7 +233,7 @@ export function ScreenLayout({
           scrolls beneath the translucent material for the glass effect. Only the
           header bar itself is measured for the content inset — the accessory
           floats over content below it. */}
-      <View style={styles.headerFloat} pointerEvents="box-none">
+      <View style={styles.headerFloat}>
         <AppHeader
           title={title}
           subtitle={subtitle}
@@ -266,6 +266,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 10,
+    pointerEvents: "box-none",
   },
   scrollContent: {
     flexGrow: 1,

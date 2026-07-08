@@ -143,8 +143,10 @@ export function OverlayGlassFill({ cardWashAlpha, intensity = 72 }: OverlayGlass
 
   const cardWash = (
     <View
-      pointerEvents="none"
-      style={[StyleSheet.absoluteFill, { backgroundColor: withAlpha(colors.card, cardWashAlpha) }]}
+      style={[
+        StyleSheet.absoluteFill,
+        { backgroundColor: withAlpha(colors.card, cardWashAlpha), pointerEvents: "none" },
+      ]}
     />
   );
 
@@ -152,12 +154,12 @@ export function OverlayGlassFill({ cardWashAlpha, intensity = 72 }: OverlayGlass
     return (
       <>
         <View
-          pointerEvents="none"
           style={[
             StyleSheet.absoluteFill,
             {
               backgroundColor: withAlpha(scheme === "dark" ? "#000000" : "#ffffff", 0.08),
               backdropFilter: "blur(20px) saturate(160%)",
+              pointerEvents: "none",
             } as ViewStyle,
           ]}
         />
@@ -177,8 +179,7 @@ export function OverlayGlassFill({ cardWashAlpha, intensity = 72 }: OverlayGlass
         intensity={intensity}
         blurMethod={androidCapture ? "dimezisBlurViewSdk31Plus" : undefined}
         blurTarget={androidCapture ? blurTarget : undefined}
-        pointerEvents="none"
-        style={StyleSheet.absoluteFill}
+        style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}
       />
       {cardWash}
     </>

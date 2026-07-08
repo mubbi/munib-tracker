@@ -31,9 +31,7 @@ import {
   useSalahGuideCompletedCount,
 } from "@/stores/salah-guide-progress-store";
 
-const TOPICS_BY_JOURNEY = getSalahGuideTopicsByJourney();
 const JOURNEY_ORDER = ["why", "prepare", "learn", "practice", "perfect", "consistency"] as const;
-const FEATURED_PHRASE = getSalahGuidePhrases()[0];
 
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
@@ -69,11 +67,16 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
 
 export default function SalahGuideScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureSalahGuideProgressLoaded();
   const completedCount = useSalahGuideCompletedCount();
   const lessonTotal = getSalahGuideLessonCount();
+  // Recompute per locale so translated topic titles/summaries render on switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const TOPICS_BY_JOURNEY = useMemo(() => getSalahGuideTopicsByJourney(), [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const FEATURED_PHRASE = useMemo(() => getSalahGuidePhrases()[0], [i18n.language]);
 
   const quickLinks = useMemo(
     () => [

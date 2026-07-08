@@ -25,9 +25,6 @@ import {
   useTaharahCompletedCount,
 } from "@/stores/taharah-progress-store";
 
-const TOPICS_BY_SECTION = getTaharahTopicsBySection();
-const SECTION_ORDER = Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>;
-
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
   "wudu-steps": { ios: "drop.fill", android: "water_drop", web: "water_drop" },
@@ -38,11 +35,18 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
 
 export default function TaharahScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureTaharahProgressLoaded();
   const completedCount = useTaharahCompletedCount();
   const lessonTotal = getTaharahLessonCount();
+  // Recompute per locale so translated topic titles/summaries render on switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const TOPICS_BY_SECTION = useMemo(() => getTaharahTopicsBySection(), [i18n.language]);
+  const SECTION_ORDER = useMemo(
+    () => Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>,
+    [TOPICS_BY_SECTION],
+  );
 
   const quickLinks = useMemo(
     () => [

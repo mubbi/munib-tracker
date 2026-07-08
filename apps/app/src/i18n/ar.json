@@ -7,6 +7,30 @@
     "back": "رجوع",
     "next": "التالي",
     "previous": "السابق",
+    "quiz": {
+      "progress": "السؤال {{current}} من {{total}}",
+      "answeredCount": "{{count}} مجاب عنها",
+      "answerHint": "اختر إجابة لتظهر لك التوضيح.",
+      "reflectHint": "خذ لحظة، ثم تابع متى كنت مستعدًا.",
+      "reflectMark": "تأمّلت الأمر",
+      "reflectionNoted": "نُوِيت النية",
+      "correctTitle": "صحيح — أحسنت",
+      "incorrectTitle": "ليس تمامًا — إليك السبب",
+      "statusCorrect": "صحيح",
+      "statusIncorrect": "غير صحيح",
+      "statusSkipped": "متجاوَز",
+      "statusReflection": "تأمّل",
+      "seeResults": "عرض النتائج",
+      "complete": "اكتمل الاختبار",
+      "scoreCaption": "النتيجة",
+      "scoreDetail": "{{score}} من {{total}} إجابات صحيحة",
+      "retry": "أعد المحاولة",
+      "reviewTitle": "راجع إجاباتك",
+      "encouragementPerfect": "مراجعة رائعة — زادك الله علمًا نافعًا.",
+      "encouragementStrong": "فهم قوي. راجع ما أخطأت فيه ليثبت لديك.",
+      "encouragementSteady": "تقدم حسن. اجعل الأخطاء أهداف دراستك القادمة.",
+      "encouragementKeepGoing": "كل خطأ درس. راجع الملاحظات ثم حاول مجددًا."
+    },
     "skip": "تخطّي",
     "apply": "تطبيق",
     "delete": "حذف",
@@ -1669,6 +1693,12 @@
     "en": "الإنجليزية",
     "ar": "العربية",
     "ur": "الأردية"
+  },
+  "languagePicker": {
+    "selectLanguage": "اختر لغة",
+    "selectLanguageWithCount": "اختر لغة ({{filtered}} من {{total}})",
+    "searchLanguages": "ابحث عن لغة…",
+    "noResults": "لا توجد لغات تطابق بحثك."
   },
   "about": {
     "eyebrow": "الإعدادات",

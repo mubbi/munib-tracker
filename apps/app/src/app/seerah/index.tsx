@@ -1,6 +1,8 @@
 import { SEERAH_EVENTS } from "@munib-tracker/shared/content";
+import { SEERAH_EVENTS_AR, SEERAH_EVENTS_UR } from "@munib-tracker/shared/content-i18n";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,12 +13,19 @@ import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { localizeList } from "@/lib/content-i18n";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function SeerahScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  // Recompute per locale so translated titles/bodies render on language switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const events = useMemo(
+    () => localizeList(SEERAH_EVENTS, { ur: SEERAH_EVENTS_UR, ar: SEERAH_EVENTS_AR }),
+    [i18n.language],
+  );
 
   return (
     <ScreenLayout
@@ -27,11 +36,11 @@ export default function SeerahScreen() {
     >
       <Seo path="/seerah" />
       <Stagger>
-        {SEERAH_EVENTS.map((event, index) => (
+        {events.map((event, index) => (
           <View key={event.id} style={styles.row}>
             <View style={styles.railColumn}>
               <View style={[styles.dot, { backgroundColor: colors.accent }]} />
-              {index < SEERAH_EVENTS.length - 1 ? (
+              {index < events.length - 1 ? (
                 <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
               ) : null}
             </View>

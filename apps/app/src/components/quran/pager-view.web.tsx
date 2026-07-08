@@ -98,7 +98,7 @@ const PagerView = forwardRef<PagerViewHandle, PagerViewProps>(
       <View style={[styles.container, style]} onLayout={onLayout}>
         {transition ? (
           <>
-            <Animated.View style={[styles.page, outgoingStyle]} pointerEvents="none">
+            <Animated.View style={[styles.page, outgoingStyle, { pointerEvents: "none" }]}>
               {pages[transition.from] ?? null}
             </Animated.View>
             <Animated.View style={[styles.page, incomingStyle]}>

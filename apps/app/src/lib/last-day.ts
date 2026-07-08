@@ -7,14 +7,29 @@ import {
   LAST_DAY_TOPICS,
   LAST_DAY_VERSES,
 } from "@munib-tracker/shared/content";
+import {
+  LAST_DAY_HADITH_AR,
+  LAST_DAY_HADITH_UR,
+  LAST_DAY_QUIZ_AR,
+  LAST_DAY_QUIZ_UR,
+  LAST_DAY_REFERENCES_AR,
+  LAST_DAY_REFERENCES_UR,
+  LAST_DAY_TIMELINE_AR,
+  LAST_DAY_TIMELINE_UR,
+  LAST_DAY_TOPICS_AR,
+  LAST_DAY_TOPICS_UR,
+  LAST_DAY_VERSES_AR,
+  LAST_DAY_VERSES_UR,
+} from "@munib-tracker/shared/content-i18n";
 import type { LastDaySection, LastDayTopic } from "@munib-tracker/shared/types";
+import { localizeList } from "@/lib/content-i18n";
 
 export function getLastDayTopics(): LastDayTopic[] {
-  return LAST_DAY_TOPICS;
+  return localizeList(LAST_DAY_TOPICS, { ur: LAST_DAY_TOPICS_UR, ar: LAST_DAY_TOPICS_AR });
 }
 
 export function getLastDayTopic(id: string | undefined): LastDayTopic | undefined {
-  return LAST_DAY_TOPICS.find((topic) => topic.id === id);
+  return getLastDayTopics().find((topic) => topic.id === id);
 }
 
 export function getLastDayTopicsBySection(): Record<LastDaySection, LastDayTopic[]> {
@@ -22,7 +37,7 @@ export function getLastDayTopicsBySection(): Record<LastDaySection, LastDayTopic
     LAST_DAY_SECTION_ORDER.map((section) => [section, [] as LastDayTopic[]]),
   ) as Record<LastDaySection, LastDayTopic[]>;
 
-  for (const topic of LAST_DAY_TOPICS) {
+  for (const topic of getLastDayTopics()) {
     grouped[topic.section].push(topic);
   }
   return grouped;
@@ -33,21 +48,27 @@ export function getLastDayLessonCount(): number {
 }
 
 export function getLastDayTimeline() {
-  return [...LAST_DAY_TIMELINE].sort((a, b) => a.order - b.order);
+  return localizeList(LAST_DAY_TIMELINE, {
+    ur: LAST_DAY_TIMELINE_UR,
+    ar: LAST_DAY_TIMELINE_AR,
+  }).sort((a, b) => a.order - b.order);
 }
 
 export function getLastDayVerses() {
-  return LAST_DAY_VERSES;
+  return localizeList(LAST_DAY_VERSES, { ur: LAST_DAY_VERSES_UR, ar: LAST_DAY_VERSES_AR });
 }
 
 export function getLastDayHadith() {
-  return LAST_DAY_HADITH;
+  return localizeList(LAST_DAY_HADITH, { ur: LAST_DAY_HADITH_UR, ar: LAST_DAY_HADITH_AR });
 }
 
 export function getLastDayQuiz() {
-  return LAST_DAY_QUIZ;
+  return localizeList(LAST_DAY_QUIZ, { ur: LAST_DAY_QUIZ_UR, ar: LAST_DAY_QUIZ_AR });
 }
 
 export function getLastDayReferences() {
-  return LAST_DAY_REFERENCES;
+  return localizeList(LAST_DAY_REFERENCES, {
+    ur: LAST_DAY_REFERENCES_UR,
+    ar: LAST_DAY_REFERENCES_AR,
+  });
 }

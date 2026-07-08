@@ -48,7 +48,7 @@ export function BarChart({ data, color, height = 112, emptyLabel }: BarChartProp
         ]}
       >
         {allEmpty && emptyLabel ? (
-          <View style={styles.emptyOverlay} pointerEvents="none">
+          <View style={styles.emptyOverlay}>
             <ThemedText type="caption" themeColor="mutedForeground" style={styles.emptyText}>
               {emptyLabel}
             </ThemedText>
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: Spacing.three,
     zIndex: 1,
+    pointerEvents: "none",
   },
   emptyText: {
     textAlign: "center",

@@ -25,9 +25,6 @@ import {
   useEnsureAqeedahProgressLoaded,
 } from "@/stores/aqeedah-progress-store";
 
-const TOPICS_BY_SECTION = getAqeedahTopicsBySection();
-const SECTION_ORDER = Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>;
-
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
   "six-articles": { ios: "star.circle.fill", android: "stars", web: "stars" },
@@ -41,11 +38,18 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
 
 export default function AqeedahScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureAqeedahProgressLoaded();
   const completedCount = useAqeedahCompletedCount();
   const lessonTotal = getAqeedahLessonCount();
+  // Recompute per locale so translated topic titles/summaries render on switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const TOPICS_BY_SECTION = useMemo(() => getAqeedahTopicsBySection(), [i18n.language]);
+  const SECTION_ORDER = useMemo(
+    () => Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>,
+    [TOPICS_BY_SECTION],
+  );
 
   const quickLinks = useMemo(
     () => [

@@ -455,8 +455,10 @@ export default function QuranPageReaderScreen() {
 
           {showMushafLoading ? (
             <View
-              style={[styles.loadingShield, { backgroundColor: colors.background }]}
-              pointerEvents="auto"
+              style={[
+                styles.loadingShield,
+                { backgroundColor: colors.background, pointerEvents: "auto" },
+              ]}
             >
               <MushafFontLoading />
             </View>

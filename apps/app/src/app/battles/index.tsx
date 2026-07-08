@@ -25,7 +25,6 @@ import {
   useEnsureBattlesProgressLoaded,
 } from "@/stores/battles-progress-store";
 
-const TOPICS_BY_SECTION = getBattlesTopicsBySection();
 const SECTION_ORDER = ["context", "battles", "expeditions", "later", "wisdom", "evidence"] as const;
 
 const TOPIC_ICONS: Record<string, AppIcon> = {
@@ -57,11 +56,14 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
 
 export default function BattlesScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureBattlesProgressLoaded();
   const completedCount = useBattlesCompletedCount();
   const lessonTotal = getBattlesLessonCount();
+  // Recompute per locale so translated topic titles/summaries render on switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const TOPICS_BY_SECTION = useMemo(() => getBattlesTopicsBySection(), [i18n.language]);
 
   const quickLinks = useMemo(
     () => [

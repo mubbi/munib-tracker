@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
@@ -23,7 +23,6 @@ import { getSalahGuideTopic } from "@/lib/salah-guide";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
 
-const TOPIC = getSalahGuideTopic("adhan");
 const SOURCE_HREF = "/salah-guide/adhan";
 
 function AdhanStyleRow({
@@ -99,9 +98,12 @@ function AdhanStyleRow({
 
 export default function SalahGuideAdhanScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { tokens } = useThemeTokens();
   useEnsureSalahGuideProgressLoaded();
+  // Recompute per locale so the translated topic renders on language switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const TOPIC = useMemo(() => getSalahGuideTopic("adhan"), [i18n.language]);
 
   if (!TOPIC) {
     return null;

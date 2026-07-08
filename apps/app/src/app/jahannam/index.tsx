@@ -1,4 +1,3 @@
-import { JAHANNAM_REFUGE_DUA } from "@munib-tracker/shared/content";
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -20,18 +19,29 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJahannamMajorSinTopics, getJahannamTopicsBySection } from "@/lib/jahannam";
+import {
+  getJahannamMajorSinTopics,
+  getJahannamRefugeDua,
+  getJahannamTopicsBySection,
+} from "@/lib/jahannam";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 
-const TOPICS_BY_SECTION = getJahannamTopicsBySection();
-const SECTION_ORDER = Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>;
-
 export default function JahannamScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const majorSins = getJahannamMajorSinTopics();
+  // Recompute per locale so translated topic titles/summaries render on switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const TOPICS_BY_SECTION = useMemo(() => getJahannamTopicsBySection(), [i18n.language]);
+  const SECTION_ORDER = useMemo(
+    () => Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>,
+    [TOPICS_BY_SECTION],
+  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const majorSins = useMemo(() => getJahannamMajorSinTopics(), [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const refugeDua = useMemo(() => getJahannamRefugeDua(), [i18n.language]);
 
   const quickLinks = useMemo(
     () => [
@@ -250,10 +260,10 @@ export default function JahannamScreen() {
 
         <JannahDuaBlock
           title={t("jahannam.refugeDuaTitle")}
-          arabic={JAHANNAM_REFUGE_DUA.arabic}
-          transliteration={JAHANNAM_REFUGE_DUA.transliteration}
-          translation={JAHANNAM_REFUGE_DUA.translation}
-          reference={JAHANNAM_REFUGE_DUA.reference}
+          arabic={refugeDua.arabic}
+          transliteration={refugeDua.transliteration}
+          translation={refugeDua.translation}
+          reference={refugeDua.reference}
         />
 
         <JannahDisclaimer textKey="jahannam.disclaimer" />

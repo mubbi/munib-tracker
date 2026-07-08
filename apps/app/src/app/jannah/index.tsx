@@ -1,4 +1,3 @@
-import { JANNAH_FIRDAWS_DUA } from "@munib-tracker/shared/content";
 import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -20,7 +19,12 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJannahHubTopics, getJannahPathTopics, getJannahPromised } from "@/lib/jannah";
+import {
+  getJannahFirdawsDua,
+  getJannahHubTopics,
+  getJannahPathTopics,
+  getJannahPromised,
+} from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 
@@ -34,11 +38,14 @@ const HUB_ICONS: Record<string, AppIcon> = {
 
 export default function JannahScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const hubTopics = getJannahHubTopics();
   const pathTopics = getJannahPathTopics();
   const promised = getJannahPromised();
+  // Recompute per locale so the localized du'a text renders on language switch.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
+  const firdawsDua = useMemo(() => getJannahFirdawsDua(), [i18n.language]);
 
   const quickLinks = useMemo(
     () => [
@@ -133,10 +140,10 @@ export default function JannahScreen() {
 
         <JannahDuaBlock
           title={t("jannah.firdawsCardTitle")}
-          arabic={JANNAH_FIRDAWS_DUA.arabic}
-          transliteration={JANNAH_FIRDAWS_DUA.transliteration}
-          translation={JANNAH_FIRDAWS_DUA.translation}
-          reference={JANNAH_FIRDAWS_DUA.reference}
+          arabic={firdawsDua.arabic}
+          transliteration={firdawsDua.transliteration}
+          translation={firdawsDua.translation}
+          reference={firdawsDua.reference}
         />
 
         <Card padding="three">
