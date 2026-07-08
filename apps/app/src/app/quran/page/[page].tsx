@@ -3,11 +3,12 @@ import type { QuranReaderLayout } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
 import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
+import { MushafFontLoading } from "@/components/quran/mushaf-font-loading";
 import { MushafLineRenderer } from "@/components/quran/mushaf-line-renderer";
 import { OptionPickerSheet } from "@/components/quran/option-picker-sheet";
 import { PageLayoutRenderer } from "@/components/quran/page-layout-renderer";
@@ -21,7 +22,14 @@ import { Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteEditionSurah } from "@/hooks/use-quran";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import {
+  ensureMushafPageFonts,
+  isMushafPageFontReady,
+  prefetchQcfFont,
+  warmQcfFontsAround,
+} from "@/lib/qcf-font-cache";
 import {
   getAyahsOnPage,
   getBundledEdition,
@@ -58,6 +66,10 @@ const TRANSLATION_OPTIONS = ALL_TRANSLATIONS.map((e) => ({ id: e.id, label: e.na
 
 const LAST_READ_FLUSH_MS = 600;
 
+function pageNeedsBasmala(page: number): boolean {
+  return getPageLayout(page).lines.some((line) => line.type === "basmala");
+}
+
 export function generateStaticParams(): Array<{ page: string }> {
   return Array.from({ length: getPageCount() }, (_, i) => ({ page: String(i + 1) }));
 }
@@ -74,6 +86,7 @@ export default function QuranPageReaderScreen() {
   const focusAyah = params.ayah ? Number(params.ayah) : undefined;
 
   const contentBottomInset = useContentBottomInset();
+  const { colors } = useThemeTokens();
   const prefs = useQuranPrefs();
   const { fontPrefs } = usePreferences();
   const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
@@ -90,12 +103,19 @@ export default function QuranPageReaderScreen() {
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
   const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
   const [actionAyah, setActionAyah] = useState<{ surah: number; ayah: number } | null>(null);
+  const [mushafFontLoading, setMushafFontLoading] = useState(false);
+  const navigatingRef = useRef(false);
   const flushRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const layout = prefs.readerLayout === "mushaf" ? "mushaf" : "page";
   const pageStart = pageToStartAyah(currentPage);
   const pageAyahs = useMemo(() => getAyahsOnPage(currentPage), [currentPage]);
   const mushafLayout = useMemo(() => getPageLayout(currentPage), [currentPage]);
+  const currentPageHasBasmala = useMemo(
+    () => mushafLayout.lines.some((line) => line.type === "basmala"),
+    [mushafLayout],
+  );
+  const showMushafLoading = layout === "mushaf" && mushafFontLoading;
   const pageListEntry = useMemo(
     () => getPageList().find((p) => p.page === currentPage),
     [currentPage],
@@ -162,6 +182,30 @@ export default function QuranPageReaderScreen() {
   );
 
   useEffect(() => {
+    if (layout !== "mushaf") return;
+    warmQcfFontsAround(currentPage);
+  }, [currentPage, layout]);
+
+  // First paint / layout switch / native swipe — ensure the visible page font before showing glyphs.
+  useEffect(() => {
+    if (layout !== "mushaf") return;
+    if (navigatingRef.current) return;
+    if (isMushafPageFontReady(currentPage, currentPageHasBasmala)) return;
+
+    let cancelled = false;
+    setMushafFontLoading(true);
+    void ensureMushafPageFonts(currentPage, currentPageHasBasmala)
+      .catch(() => undefined)
+      .finally(() => {
+        if (!cancelled) setMushafFontLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [currentPage, currentPageHasBasmala, layout]);
+
+  useEffect(() => {
     persistPage(currentPage);
     readingProgress.value = (currentPage - 1) / Math.max(1, getPageCount() - 1);
   }, [currentPage, persistPage, readingProgress]);
@@ -179,6 +223,47 @@ export default function QuranPageReaderScreen() {
   const jumpToPage = useCallback((page: number) => {
     pagerRef.current?.setPage(page - 1);
   }, []);
+
+  const navigateToPage = useCallback(
+    async (page: number) => {
+      const clamped = Math.min(getPageCount(), Math.max(1, page));
+      if (layout !== "mushaf") {
+        jumpToPage(clamped);
+        return;
+      }
+
+      prefetchQcfFont(clamped);
+      prefetchQcfFont(clamped + 1);
+      prefetchQcfFont(clamped - 1);
+
+      const needsBsml = pageNeedsBasmala(clamped);
+      const ready = isMushafPageFontReady(clamped, needsBsml);
+
+      navigatingRef.current = true;
+      try {
+        if (!ready) {
+          setMushafFontLoading(true);
+          await new Promise<void>((resolve) => {
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+          });
+        }
+
+        try {
+          await ensureMushafPageFonts(clamped, needsBsml);
+        } catch {
+          // Fall through — show the page even if the font failed.
+        }
+
+        jumpToPage(clamped);
+      } finally {
+        navigatingRef.current = false;
+        if (!ready) {
+          setMushafFontLoading(false);
+        }
+      }
+    },
+    [jumpToPage, layout],
+  );
 
   const openAyahReader = useCallback(() => {
     const start = pageToStartAyah(currentPage);
@@ -252,8 +337,8 @@ export default function QuranPageReaderScreen() {
     const href = audio.sourceHref;
     if (!href?.startsWith("/quran/page/") || !playingAyah) return;
     const page = getPageForAyah(playingAyah.surah, playingAyah.ayah);
-    if (page !== currentPage) jumpToPage(page);
-  }, [audio.sourceHref, currentPage, jumpToPage, playingAyah]);
+    if (page !== currentPage) void navigateToPage(page);
+  }, [audio.sourceHref, currentPage, navigateToPage, playingAyah]);
 
   return (
     <>
@@ -274,91 +359,105 @@ export default function QuranPageReaderScreen() {
         }
         onBack={() => goBackOrReplace(router, "/quran")}
       >
-        <QuranReadingToolbar
-          visible
-          progress={readingProgress}
-          showBackToTop={layout === "mushaf"}
-          onBackToTop={() => jumpToPage(1)}
-          reciterName={RECITERS.find((r) => r.dir === prefs.preferredReciterDir)?.name ?? ""}
-          translationName={selectedEdition.name}
-          secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
-          showTransliteration={prefs.showTransliteration}
-          showTranslation={layout === "page" && prefs.showTranslation}
-          showTranslationControls={layout === "page"}
-          layoutLabel={t(layout === "mushaf" ? "quran.layoutMushaf" : "quran.layoutPage")}
-          onOpenLayout={() => setLayoutPickerOpen(true)}
-          onOpenReciter={() => setReciterPickerOpen(true)}
-          onOpenTranslation={() => setTranslationPickerOpen(true)}
-          onOpenSecondary={() => setSecondaryPickerOpen(true)}
-          onToggleTransliteration={() =>
-            updatePrefs({ showTransliteration: !prefs.showTransliteration })
-          }
-          onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
-        />
+        <View style={styles.readerBody}>
+          <QuranReadingToolbar
+            visible
+            progress={readingProgress}
+            showBackToTop={layout === "mushaf"}
+            onBackToTop={() => void navigateToPage(1)}
+            reciterName={RECITERS.find((r) => r.dir === prefs.preferredReciterDir)?.name ?? ""}
+            translationName={selectedEdition.name}
+            secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+            showTransliteration={prefs.showTransliteration}
+            showTranslation={layout === "page" && prefs.showTranslation}
+            showTranslationControls={layout === "page"}
+            layoutLabel={t(layout === "mushaf" ? "quran.layoutMushaf" : "quran.layoutPage")}
+            onOpenLayout={() => setLayoutPickerOpen(true)}
+            onOpenReciter={() => setReciterPickerOpen(true)}
+            onOpenTranslation={() => setTranslationPickerOpen(true)}
+            onOpenSecondary={() => setSecondaryPickerOpen(true)}
+            onToggleTransliteration={() =>
+              updatePrefs({ showTransliteration: !prefs.showTransliteration })
+            }
+            onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+          />
 
-        <PagerView
-          ref={pagerRef}
-          style={styles.pager}
-          initialPage={initialPage - 1}
-          onPageSelected={(e) => onPageSelected(e.nativeEvent.position)}
-        >
-          {Array.from({ length: getPageCount() }, (_, index) => {
-            const page = index + 1;
-            const ayahs = page === currentPage ? pageAyahs : getAyahsOnPage(page);
-            const mushaf = page === currentPage ? mushafLayout : getPageLayout(page);
-            const pageHighlight = resolvePageHighlight(ayahs);
-            return (
-              <ScrollView
-                key={page}
-                contentContainerStyle={[styles.pageContent, { paddingBottom: contentBottomInset }]}
-                showsVerticalScrollIndicator={false}
-              >
-                {layout === "mushaf" ? (
-                  <MushafLineRenderer
-                    layout={mushaf}
-                    page={page}
-                    arabicSize={readingSizes.arabic}
-                    highlightAyah={pageHighlight}
-                    onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
-                  />
-                ) : (
-                  <PageLayoutRenderer
-                    ayahs={ayahs}
-                    page={page}
-                    arabicSize={readingSizes.arabic}
-                    transliterationSize={readingSizes.transliteration}
-                    translationSize={readingSizes.translation}
-                    transliteration={transliteration}
-                    translation={translationText}
-                    secondTranslation={secondTranslationText}
-                    showTransliteration={prefs.showTransliteration}
-                    showTranslation={prefs.showTranslation && !translationLoading}
-                    translationDir={translationDir}
-                    secondTranslationDir={secondaryDir}
-                    highlightAyah={pageHighlight}
-                    onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
-                  />
-                )}
-              </ScrollView>
-            );
-          })}
-        </PagerView>
+          <PagerView
+            ref={pagerRef}
+            style={styles.pager}
+            initialPage={initialPage - 1}
+            onPageSelected={(e) => onPageSelected(e.nativeEvent.position)}
+          >
+            {Array.from({ length: getPageCount() }, (_, index) => {
+              const page = index + 1;
+              const ayahs = page === currentPage ? pageAyahs : getAyahsOnPage(page);
+              const mushaf = page === currentPage ? mushafLayout : getPageLayout(page);
+              const pageHighlight = resolvePageHighlight(ayahs);
+              return (
+                <ScrollView
+                  key={page}
+                  contentContainerStyle={[
+                    styles.pageContent,
+                    { paddingBottom: contentBottomInset },
+                  ]}
+                  showsVerticalScrollIndicator={false}
+                >
+                  {layout === "mushaf" ? (
+                    <MushafLineRenderer
+                      layout={mushaf}
+                      page={page}
+                      arabicSize={readingSizes.arabic}
+                      highlightAyah={pageHighlight}
+                      onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
+                    />
+                  ) : (
+                    <PageLayoutRenderer
+                      ayahs={ayahs}
+                      page={page}
+                      arabicSize={readingSizes.arabic}
+                      transliterationSize={readingSizes.transliteration}
+                      translationSize={readingSizes.translation}
+                      transliteration={transliteration}
+                      translation={translationText}
+                      secondTranslation={secondTranslationText}
+                      showTransliteration={prefs.showTransliteration}
+                      showTranslation={prefs.showTranslation && !translationLoading}
+                      translationDir={translationDir}
+                      secondTranslationDir={secondaryDir}
+                      highlightAyah={pageHighlight}
+                      onAyahPress={(surah, ayah) => setActionAyah({ surah, ayah })}
+                    />
+                  )}
+                </ScrollView>
+              );
+            })}
+          </PagerView>
 
-        <PageReaderFooter
-          currentPage={currentPage}
-          totalPages={getPageCount()}
-          canGoPrev={currentPage > 1}
-          canGoNext={currentPage < getPageCount()}
-          onPrev={() => jumpToPage(currentPage - 1)}
-          onNext={() => jumpToPage(currentPage + 1)}
-          onPlay={playFromPage}
-          onOpenPage={() => setPagePickerOpen(true)}
-        />
+          <PageReaderFooter
+            currentPage={currentPage}
+            totalPages={getPageCount()}
+            canGoPrev={currentPage > 1}
+            canGoNext={currentPage < getPageCount()}
+            onPrev={() => void navigateToPage(currentPage - 1)}
+            onNext={() => void navigateToPage(currentPage + 1)}
+            onPlay={playFromPage}
+            onOpenPage={() => setPagePickerOpen(true)}
+          />
+
+          {showMushafLoading ? (
+            <View
+              style={[styles.loadingShield, { backgroundColor: colors.background }]}
+              pointerEvents="auto"
+            >
+              <MushafFontLoading />
+            </View>
+          ) : null}
+        </View>
 
         <PagePickerSheet
           visible={pagePickerOpen}
           selectedPage={currentPage}
-          onSelect={jumpToPage}
+          onSelect={(page) => void navigateToPage(page)}
           onClose={() => setPagePickerOpen(false)}
         />
         <OptionPickerSheet
@@ -446,6 +545,11 @@ export default function QuranPageReaderScreen() {
 }
 
 const styles = StyleSheet.create({
+  readerBody: { flex: 1, position: "relative" },
+  loadingShield: {
+    ...StyleSheet.absoluteFill,
+    zIndex: 10,
+  },
   pager: { flex: 1 },
   pageContent: { padding: Spacing.three, flexGrow: 1 },
 });

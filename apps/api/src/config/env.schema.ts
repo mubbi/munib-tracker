@@ -67,6 +67,26 @@ export class EnvironmentVariables {
   @IsBoolean()
   DATABASE_SSL = false;
 
+  /**
+   * Whether to verify the database server's TLS certificate chain when
+   * `DATABASE_SSL=true`. Defaults to `true` (secure): an unverified TLS
+   * connection offers no protection against an active MITM. Only set this to
+   * `false` for a managed provider that presents a self-signed certificate, and
+   * prefer supplying that provider's CA via `DATABASE_CA_CERT` instead.
+   */
+  @Transform(({ value }) => !(value === false || value === "false"))
+  @IsBoolean()
+  DATABASE_SSL_REJECT_UNAUTHORIZED = true;
+
+  /**
+   * Optional PEM-encoded CA certificate used to verify the database server's TLS
+   * certificate. Keep it on one line with literal `\n` between PEM lines (they are
+   * expanded before use), the same convention as `APPLE_PRIVATE_KEY`.
+   */
+  @IsString()
+  @IsOptional()
+  DATABASE_CA_CERT?: string;
+
   @IsString()
   JWT_SECRET = DEV_JWT_SECRET;
 

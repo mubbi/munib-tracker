@@ -614,6 +614,7 @@
         "type": "object",
         "properties": {
           "changes": {
+            "maxItems": 500,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/SyncRecordDto"

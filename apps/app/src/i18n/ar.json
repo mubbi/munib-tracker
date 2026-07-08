@@ -961,7 +961,7 @@
     "layoutPage": "عرض الصفحات",
     "layoutMushaf": "مصحف",
     "mushafOnlyHint": "عربي فقط",
-    "loadingMushafFont": "جاري تحميل خط المصحف…",
+    "loadingMushafFont": "جاري التحميل…",
     "pageReaderTitle": "صفحة القرآن {{page}} من {{total}}",
     "pageReaderDesc": "اقرأ القرآن الكريم — صفحة {{page}} من المصحف المدني، دون اتصال.",
     "prevPage": "الصفحة السابقة",

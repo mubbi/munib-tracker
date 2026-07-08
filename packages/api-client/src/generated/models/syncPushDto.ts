@@ -8,5 +8,6 @@
 import type { SyncRecordDto } from './syncRecordDto';
 
 export interface SyncPushDto {
+  /** @maxItems 500 */
   changes: SyncRecordDto[];
 }

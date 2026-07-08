@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Crypto from "expo-crypto";
-import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
+import { deleteSecureItem, getSecureItem, setSecureItem } from "@/lib/storage/safe-secure-store";
 
 /** Persisted auth session. Tokens live in the OS keychain on native, AsyncStorage on web. */
 export interface StoredSession {
@@ -17,9 +17,13 @@ const DEVICE_ID_KEY = "munib.deviceId";
 
 const isWeb = Platform.OS === "web";
 
+// Native reads/writes go through safeSecureStore, which pins the keychain items
+// to WHEN_UNLOCKED_THIS_DEVICE_ONLY so bearer tokens are never synced to iCloud
+// Keychain or included in an encrypted device backup (from where they could be
+// exfiltrated), and transparently migrates any legacy WHEN_UNLOCKED items.
 async function getItem(key: string): Promise<string | null> {
   if (isWeb) return AsyncStorage.getItem(key);
-  return SecureStore.getItemAsync(key);
+  return getSecureItem(key);
 }
 
 async function setItem(key: string, value: string): Promise<void> {
@@ -27,7 +31,7 @@ async function setItem(key: string, value: string): Promise<void> {
     await AsyncStorage.setItem(key, value);
     return;
   }
-  await SecureStore.setItemAsync(key, value);
+  await setSecureItem(key, value);
 }
 
 async function deleteItem(key: string): Promise<void> {
@@ -35,7 +39,7 @@ async function deleteItem(key: string): Promise<void> {
     await AsyncStorage.removeItem(key);
     return;
   }
-  await SecureStore.deleteItemAsync(key);
+  await deleteSecureItem(key);
 }
 
 export const SessionStore = {

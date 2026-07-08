@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
 
 export enum AuthProvider {
   Google = "google",
@@ -14,6 +14,11 @@ export class GuestSessionDto {
   })
   @IsOptional()
   @IsString()
+  // Bounded to the storage column (varchar(128)) so oversized input is a clean
+  // 400 rather than a DB write error. The device id is a bearer credential for
+  // the guest account, so the client must generate it as a high-entropy random
+  // value (the app uses `dev_<uuid>`); the server never mints a weak one.
+  @MaxLength(128)
   deviceId?: string;
 }
 

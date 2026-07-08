@@ -28,11 +28,20 @@ import {
 const QCF_FONT_CACHE_DIR = `${documentDirectory ?? ""}munib-qcf-fonts/`;
 const WEB_QCF_FONT_CACHE = "munib-qcf-fonts-v1";
 
+/** How many mushaf page fonts to register ahead of the current page (mirrors audio prefetch). */
+const QCF_FONT_PREFETCH_AHEAD = 2;
+/** One page behind for Previous / RTL back navigation. */
+const QCF_FONT_PREFETCH_BEHIND = 1;
+const QCF_PAGE_COUNT = 604;
+
 const inflight = new Map<number, Promise<string>>();
 const webInflight = new Map<number, Promise<string>>();
 const webObjectUrls = new Map<number, string>();
 const loadedPages = new Set<number>();
 const fontLoadInflight = new Map<number, Promise<void>>();
+/** Last reader page we prefetched bytes for — skips duplicate warm calls. */
+let warmedAnchorPage: number | null = null;
+const webRegisteredFamilies = new Set<string>();
 let bsmlLoaded = false;
 let bsmlLoadInflight: Promise<void> | null = null;
 let bsmlUriInflight: Promise<string> | null = null;
@@ -44,6 +53,11 @@ export function isQcfPageFontLoaded(page: number): boolean {
 
 export function isQcfBsmlFontLoaded(): boolean {
   return bsmlLoaded;
+}
+
+/** True when the page font (and optional basmala font) is registered for rendering. */
+export function isMushafPageFontReady(page: number, needsBsml: boolean): boolean {
+  return isQcfPageFontLoaded(page) && (!needsBsml || isQcfBsmlFontLoaded());
 }
 
 function nativeStoreAvailable(): boolean {
@@ -201,13 +215,38 @@ async function resolveCachedQcfBsmlFontUri(): Promise<string> {
   return bsmlUriInflight;
 }
 
+/**
+ * Register a QCF family with the runtime. On web uses the CSS FontFace API so
+ * icon fonts are not torn down by expo-font's global loader (avoids toolbar FOUT).
+ */
+async function registerQcfFontFamily(family: string, uri: string): Promise<void> {
+  if (
+    Platform.OS === "web" &&
+    typeof FontFace !== "undefined" &&
+    typeof document !== "undefined" &&
+    !webRegisteredFamilies.has(family)
+  ) {
+    try {
+      const face = new FontFace(family, `url("${uri}")`);
+      const loaded = await face.load();
+      document.fonts.add(loaded);
+      webRegisteredFamilies.add(family);
+      return;
+    } catch (error) {
+      console.warn("[mushaf] FontFace registration failed, falling back to expo-font", error);
+    }
+  }
+  await Font.loadAsync({ [family]: uri });
+  if (Platform.OS === "web") webRegisteredFamilies.add(family);
+}
+
 /** Download (if needed), register with expo-font, and mark the basmala font ready. */
 export async function loadQcfBsmlFont(): Promise<void> {
   if (bsmlLoaded) return;
   if (bsmlLoadInflight) return bsmlLoadInflight;
 
   bsmlLoadInflight = resolveCachedQcfBsmlFontUri()
-    .then((uri) => Font.loadAsync({ [QCF_BSML_FONT_FAMILY]: uri }))
+    .then((uri) => registerQcfFontFamily(QCF_BSML_FONT_FAMILY, uri))
     .then(() => {
       bsmlLoaded = true;
       bsmlLoadInflight = null;
@@ -220,10 +259,36 @@ export async function loadQcfBsmlFont(): Promise<void> {
   return bsmlLoadInflight;
 }
 
-/** Warm the next mushaf page font while the reader is on the current page. */
+/** Warm the byte cache for a mushaf page font (no expo-font registration). */
 export function prefetchQcfFont(page: number): void {
-  if (page < 1 || page > 604) return;
+  if (page < 1 || page > QCF_PAGE_COUNT) return;
   void resolveCachedQcfFontUri(page).catch(() => {});
+}
+
+function isValidQcfPage(page: number): boolean {
+  return page >= 1 && page <= QCF_PAGE_COUNT;
+}
+
+/**
+ * Byte-cache mushaf fonts around the reader anchor (no expo-font registration).
+ * Registration happens in {@link ensureMushafPageFonts} before a page turn so
+ * `Font.loadAsync` never runs over visible chrome mid-read.
+ */
+export function warmQcfFontsAround(anchorPage: number): void {
+  if (!isValidQcfPage(anchorPage)) return;
+  if (warmedAnchorPage === anchorPage) return;
+  warmedAnchorPage = anchorPage;
+
+  for (let offset = -QCF_FONT_PREFETCH_BEHIND; offset <= QCF_FONT_PREFETCH_AHEAD; offset++) {
+    prefetchQcfFont(anchorPage + offset);
+  }
+}
+
+/** Register the page font (+ basmala when needed). Resolves immediately if already loaded. */
+export async function ensureMushafPageFonts(page: number, needsBsml: boolean): Promise<void> {
+  const loads: Promise<void>[] = [loadQcfPageFont(page)];
+  if (needsBsml) loads.push(loadQcfBsmlFont());
+  await Promise.all(loads);
 }
 
 /** Download (if needed), register with expo-font, and mark a page font ready for rendering. */
@@ -234,12 +299,11 @@ export async function loadQcfPageFont(page: number): Promise<void> {
 
   const family = qcfPageFontFamily(page);
   const task = resolveCachedQcfFontUri(page)
-    .then((uri) => Font.loadAsync({ [family]: uri }))
+    .then((uri) => registerQcfFontFamily(family, uri))
     .then(() => {
       loadedPages.add(page);
       fontLoadInflight.delete(page);
-      prefetchQcfFont(page + 1);
-      prefetchQcfFont(page - 1);
+      prefetchQcfFont(page + QCF_FONT_PREFETCH_AHEAD + 1);
     })
     .catch((error: unknown) => {
       fontLoadInflight.delete(page);
@@ -257,6 +321,8 @@ export async function resetQcfFontRuntime(): Promise<void> {
   const hadBsml = bsmlLoaded;
   loadedPages.clear();
   fontLoadInflight.clear();
+  warmedAnchorPage = null;
+  webRegisteredFamilies.clear();
   bsmlLoaded = false;
   bsmlLoadInflight = null;
   const unloads = pages.map((p) => Font.unloadAsync(qcfPageFontFamily(p)).catch(() => undefined));

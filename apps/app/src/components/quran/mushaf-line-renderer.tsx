@@ -1,10 +1,10 @@
 import type { MushafLine, MushafPageLayout } from "@munib-tracker/shared/types";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
+import { MushafFontLoading } from "@/components/quran/mushaf-font-loading";
 import { MushafPageFrame } from "@/components/quran/mushaf-page-frame";
 import { SurahBanner } from "@/components/quran/surah-banner";
-import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
 import { useQcfPageFont } from "@/hooks/use-qcf-page-font";
@@ -166,27 +166,13 @@ export function MushafLineRenderer({
             </PressableScale>
           );
         })}
-        {!ready && hasGlyphLines ? (
-          <View style={styles.fontLoading}>
-            <ActivityIndicator color={tokens.mushaf.ink} />
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("quran.loadingMushafFont")}
-            </ThemedText>
-          </View>
-        ) : null}
+        {!ready && hasGlyphLines ? <MushafFontLoading /> : null}
       </View>
     </MushafPageFrame>
   );
 }
 
 const styles = StyleSheet.create({
-  fontLoading: {
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.five,
-  },
   lines: { flexGrow: 1 },
   // Full page → spread lines edge-to-edge; sparse page → center the block.
   linesDense: { justifyContent: "space-between" },

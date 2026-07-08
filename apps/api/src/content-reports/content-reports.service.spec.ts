@@ -96,4 +96,26 @@ describe("ContentReportsService", () => {
     expect(updated.resolvedAt).toBeTruthy();
     delete process.env.REPORT_ADMIN_KEY;
   });
+
+  it("rejects admin updates with a wrong or missing admin key", async () => {
+    process.env.REPORT_ADMIN_KEY = "test-admin-key";
+    const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
+    const report = await contentReportsService.create(session.accessToken, samplePayload);
+
+    await expect(
+      contentReportsService.adminUpdate("wrong-key", report.id, { status: "completed" }),
+    ).rejects.toThrow("Invalid admin key");
+
+    // A near-miss of a different length must also be rejected (guards the
+    // constant-time comparison against length-mismatch throws).
+    await expect(
+      contentReportsService.adminUpdate("test-admin-key-longer", report.id, { status: "spam" }),
+    ).rejects.toThrow("Invalid admin key");
+
+    await expect(
+      contentReportsService.adminUpdate(undefined, report.id, { status: "completed" }),
+    ).rejects.toThrow("Invalid admin key");
+
+    delete process.env.REPORT_ADMIN_KEY;
+  });
 });

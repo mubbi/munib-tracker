@@ -331,7 +331,7 @@ export default function QuranHomeScreen() {
         />
 
         <Card padding="three">
-          <QuickActionGrid items={shortcuts} columns={5} />
+          <QuickActionGrid items={shortcuts} singleRow />
         </Card>
 
         {lastRead ? (

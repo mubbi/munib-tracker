@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import {
+  ArrayMaxSize,
   IsArray,
   IsIn,
   IsISO8601,
@@ -10,6 +11,14 @@ import {
   IsString,
   ValidateNested,
 } from "class-validator";
+
+/**
+ * Upper bound on records accepted in a single push. Each change is processed in
+ * a sequential read-then-write loop, so an unbounded array lets one request pin
+ * the event loop and issue thousands of queries (CWE-770). The client already
+ * batches in chunks well under this ceiling.
+ */
+export const MAX_SYNC_PUSH_CHANGES = 500;
 
 export const SYNC_ENTITIES = [
   "prayer_logs",
@@ -89,8 +98,9 @@ export class SyncRecordDto {
 }
 
 export class SyncPushDto {
-  @ApiProperty({ type: [SyncRecordDto] })
+  @ApiProperty({ type: [SyncRecordDto], maxItems: MAX_SYNC_PUSH_CHANGES })
   @IsArray()
+  @ArrayMaxSize(MAX_SYNC_PUSH_CHANGES)
   @ValidateNested({ each: true })
   @Type(() => SyncRecordDto)
   changes!: SyncRecordDto[];

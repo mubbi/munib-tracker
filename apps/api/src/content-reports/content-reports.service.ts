@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import type {
@@ -183,7 +183,7 @@ export class ContentReportsService {
 
   private requireAdminKey(adminKey: string | undefined): void {
     const expected = this.configService.get("REPORT_ADMIN_KEY", { infer: true });
-    if (!expected || !adminKey || adminKey !== expected) {
+    if (!expected || !adminKey || !timingSafeStringEqual(adminKey, expected)) {
       throw new UnauthorizedException("Invalid admin key");
     }
   }
@@ -270,6 +270,18 @@ export class ContentReportsService {
       platform: report.platform ?? null,
     };
   }
+}
+
+/**
+ * Constant-time secret comparison. Hashing both sides to a fixed 32-byte digest
+ * lets `timingSafeEqual` run without leaking length (it throws on unequal-length
+ * buffers) and keeps the comparison independent of how many leading characters
+ * match, closing the timing side-channel on the admin key (CWE-208).
+ */
+function timingSafeStringEqual(a: string, b: string): boolean {
+  const aHash = createHash("sha256").update(a).digest();
+  const bHash = createHash("sha256").update(b).digest();
+  return timingSafeEqual(aHash, bHash);
 }
 
 function extensionForMime(mime: string): string {

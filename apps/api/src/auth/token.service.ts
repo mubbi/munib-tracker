@@ -29,6 +29,10 @@ export class TokenService {
       { sub: userId, sid: sessionId } satisfies AccessTokenClaims,
       {
         expiresIn,
+        // Pin the symmetric algorithm on both sign and verify. Without it a
+        // forged `alg: none` (or an RS/ES confusion) token could bypass HMAC
+        // verification (CWE-347).
+        algorithm: "HS256",
       } as JwtSignOptions,
     );
     const decoded = this.jwtService.decode(token) as { exp?: number; iat?: number } | null;
@@ -39,7 +43,9 @@ export class TokenService {
 
   verifyAccessToken(token: string): AccessTokenClaims {
     try {
-      const payload = this.jwtService.verify<AccessTokenClaims>(token);
+      const payload = this.jwtService.verify<AccessTokenClaims>(token, {
+        algorithms: ["HS256"],
+      });
       if (!payload.sub || !payload.sid) {
         throw new Error("missing claims");
       }

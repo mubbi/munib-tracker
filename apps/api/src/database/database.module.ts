@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule, type TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DatabaseType, EnvironmentVariables } from "../config/env.schema";
+import { resolveDatabaseSsl } from "./database-ssl";
 import {
   AuthSessionEntity,
   ContentReportAttachmentEntity,
@@ -36,9 +37,13 @@ import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
           username: configService.get("DATABASE_USER", { infer: true }) ?? "postgres",
           password: configService.get("DATABASE_PASSWORD", { infer: true }) ?? "postgres",
           database: configService.get("DATABASE_NAME", { infer: true }) ?? "munib_tracker",
-          ssl: configService.get("DATABASE_SSL", { infer: true })
-            ? { rejectUnauthorized: false }
-            : false,
+          ssl: resolveDatabaseSsl({
+            enabled: configService.get("DATABASE_SSL", { infer: true }),
+            rejectUnauthorized: configService.get("DATABASE_SSL_REJECT_UNAUTHORIZED", {
+              infer: true,
+            }),
+            ca: configService.get("DATABASE_CA_CERT", { infer: true }),
+          }),
           entities: [
             UserEntity,
             AuthSessionEntity,

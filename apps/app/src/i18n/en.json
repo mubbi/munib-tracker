@@ -961,7 +961,7 @@
     "layoutPage": "Page view",
     "layoutMushaf": "Mushaf",
     "mushafOnlyHint": "Arabic only",
-    "loadingMushafFont": "Loading mushaf font…",
+    "loadingMushafFont": "Loading…",
     "pageReaderTitle": "Qur'an page {{page}} of {{total}}",
     "pageReaderDesc": "Read the Noble Qur'an — Madani mushaf page {{page}}, offline with audio and bookmarks.",
     "prevPage": "Previous page",

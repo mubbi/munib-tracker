@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { resolveDatabaseSsl } from "./database-ssl";
 import {
   AuthSessionEntity,
   ContentReportAttachmentEntity,
@@ -24,7 +25,11 @@ export default new DataSource({
   username: process.env.DATABASE_USER ?? "postgres",
   password: process.env.DATABASE_PASSWORD ?? "postgres",
   database: process.env.DATABASE_NAME ?? "munib_tracker",
-  ssl: process.env.DATABASE_SSL === "true" ? { rejectUnauthorized: false } : false,
+  ssl: resolveDatabaseSsl({
+    enabled: process.env.DATABASE_SSL === "true",
+    rejectUnauthorized: process.env.DATABASE_SSL_REJECT_UNAUTHORIZED !== "false",
+    ca: process.env.DATABASE_CA_CERT,
+  }),
   entities: [
     UserEntity,
     AuthSessionEntity,
