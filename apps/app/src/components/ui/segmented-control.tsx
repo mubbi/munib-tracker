@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
-import { I18nManager, type LayoutChangeEvent, Pressable, StyleSheet, View } from "react-native";
+import { type LayoutChangeEvent, Pressable, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  chartCoordinateStyle,
+  segmentedThumbAnchor,
+  segmentedThumbOffset,
+  segmentedTrackDirection,
+} from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
+import { isRTL } from "@/lib/rtl";
 
 type SegmentOption<T extends string> = {
   id: T;
@@ -37,28 +44,37 @@ export function SegmentedControl<T extends string>({
   );
   const segmentWidth = trackWidth > 0 ? (trackWidth - PAD * 2 - GAP * (count - 1)) / count : 0;
 
-  // In RTL the row of segments is mirrored, so the thumb must travel from the
-  // opposite edge. We anchor it to the end (see thumb style) and flip the sign.
-  const rtlSign = I18nManager.isRTL ? -1 : 1;
+  // Native RTL mirrors absolute `left`/`translateX` while flex also reverses
+  // segment order — the same double-flip that breaks chart knobs. Lock an LTR
+  // coordinate plane, mirror segment order explicitly, and anchor the thumb to
+  // the reading-direction start (right in RTL, left in LTR).
+  const rtl = isRTL();
+  const thumbTravel = segmentedThumbOffset(selectedIndex, segmentWidth, GAP, rtl);
 
   const translateX = useSharedValue(0);
   useEffect(() => {
-    translateX.value = withSpring(rtlSign * selectedIndex * (segmentWidth + GAP), Springs.gentle);
-  }, [selectedIndex, segmentWidth, translateX, rtlSign]);
+    translateX.value = withSpring(thumbTravel, Springs.gentle);
+  }, [thumbTravel, translateX]);
 
   const thumbStyle = useAnimatedStyle(() => ({ transform: [{ translateX: translateX.value }] }));
 
   const onLayout = (event: LayoutChangeEvent) => setTrackWidth(event.nativeEvent.layout.width);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.muted }]} onLayout={onLayout}>
+    <View
+      style={[
+        styles.container,
+        chartCoordinateStyle,
+        { flexDirection: segmentedTrackDirection() },
+        { backgroundColor: colors.muted },
+      ]}
+      onLayout={onLayout}
+    >
       {segmentWidth > 0 ? (
         <Animated.View
           style={[
             styles.thumb,
-            // Anchor to the leading edge for the writing direction so the
-            // mirrored translateX lands the thumb under the selected segment.
-            I18nManager.isRTL ? { right: PAD } : { left: PAD },
+            segmentedThumbAnchor(PAD, rtl),
             { width: segmentWidth, backgroundColor: colors.card, pointerEvents: "none" },
             thumbStyle,
           ]}
@@ -80,7 +96,7 @@ export function SegmentedControl<T extends string>({
           >
             <ThemedText
               type="smallBold"
-              style={{ color: selected ? colors.accent : colors.mutedForeground }}
+              style={{ color: selected ? colors.foreground : colors.mutedForeground }}
             >
               {option.label}
             </ThemedText>
@@ -93,7 +109,8 @@ export function SegmentedControl<T extends string>({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    width: "100%",
+    alignSelf: "stretch",
     padding: PAD,
     borderRadius: Radius.md,
     borderCurve: "continuous",

@@ -1,5 +1,4 @@
 import type { ZakatGuideSectionKey } from "@munib-tracker/shared/content";
-import type { SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -11,19 +10,12 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { ZAKAT_TOPIC_ICONS } from "@/components/zakat/zakat-guide-icons";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import type { AppIcon } from "@/lib/names-of-allah-ui";
 
 type ZakatTopicContentProps = {
   topicId: ZakatGuideSectionKey;
 };
 
 const ZAKAT_RECIPIENT_IDS = ["0", "1", "2", "3", "4", "5", "6", "7"] as const;
-
-function sectionHeaderIcon(icon: AppIcon): SymbolViewProps["name"] | undefined {
-  if (typeof icon === "string") return icon;
-  if ("ios" in icon) return icon.ios;
-  return undefined;
-}
 
 export function ZakatTopicContent({ topicId }: ZakatTopicContentProps) {
   const { t } = useTranslation();
@@ -39,7 +31,7 @@ export function ZakatTopicContent({ topicId }: ZakatTopicContentProps) {
         <View style={styles.headerBlock}>
           <SectionHeader
             title={t(`zakat.guide.${topicId}.title`)}
-            icon={sectionHeaderIcon(ZAKAT_TOPIC_ICONS[topicId])}
+            icon={ZAKAT_TOPIC_ICONS[topicId]}
           />
           {topicId === "basics" ? (
             <Pill

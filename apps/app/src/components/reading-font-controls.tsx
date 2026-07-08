@@ -11,6 +11,7 @@ import {
   nextReadingDelta,
   resolveReadingFontSizes,
 } from "@/lib/reading-typography";
+import { ltrControlStyle } from "@/lib/rtl";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 /**
@@ -56,7 +57,7 @@ export function ReadingFontControls({ surface }: { surface: ReadingSurface }) {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.muted }]}>
+    <View style={[styles.container, ltrControlStyle, { backgroundColor: colors.muted }]}>
       <PressableScale
         haptic="selection"
         accessibilityRole="button"

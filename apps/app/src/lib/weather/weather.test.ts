@@ -1,18 +1,28 @@
 import { describe, expect, it } from "@jest/globals";
-import { generateCloudPuffs } from "@/components/weather/cloud-shape";
+import { generateCloudPuffs, generateCumulusCloud } from "@/components/weather/cloud-shape";
 import { conditionFromMetNoSymbol, conditionFromWmoCode, isWindy } from "./conditions";
 import { isWeatherCacheStale, weatherCacheKey } from "./fetch-weather";
 import { formatTemperature } from "./format";
 
-describe("generateCloudPuffs", () => {
-  it("returns stable round-bump shapes per seed and archetype", () => {
-    const a = generateCloudPuffs(11, "triplet");
-    const b = generateCloudPuffs(11, "triplet");
-    const c = generateCloudPuffs(23, "wisp");
+describe("generateCumulusCloud", () => {
+  it("returns stable cumulus silhouettes per seed and size", () => {
+    const a = generateCumulusCloud(11, "large");
+    const b = generateCumulusCloud(11, "large");
+    const c = generateCumulusCloud(23, "small");
     expect(a).toEqual(b);
-    expect(a.length).toBeGreaterThanOrEqual(3);
-    expect(c.length).toBe(2);
-    expect(a.every((puff) => puff.size > 0.1)).toBe(true);
+    expect(a.length).toBeGreaterThanOrEqual(4);
+    expect(c.length).toBeGreaterThanOrEqual(4);
+    expect(a.some((part) => part.kind === "ellipse")).toBe(true);
+    expect(a.every((part) => part.r > 0.1)).toBe(true);
+  });
+});
+
+describe("generateCloudPuffs", () => {
+  it("maps legacy archetypes to cumulus sizes", () => {
+    const triplet = generateCloudPuffs(11, "triplet");
+    const wisp = generateCloudPuffs(23, "wisp");
+    expect(triplet.length).toBeGreaterThanOrEqual(4);
+    expect(wisp.length).toBeGreaterThanOrEqual(4);
   });
 });
 

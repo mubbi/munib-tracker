@@ -3,7 +3,6 @@ import { type ReactNode, useEffect } from "react";
 import { AppState, type AppStateStatus } from "react-native";
 import { continueStore } from "@/stores/continue-store";
 import { locationStore } from "@/stores/location-store";
-import { preferencesStore } from "@/stores/preferences-store";
 import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
 import { weatherStore } from "@/stores/weather-store";
@@ -16,7 +15,7 @@ import { weatherStore } from "@/stores/weather-store";
 export function AppProviders({ children }: { children: ReactNode }) {
   useEffect(() => {
     let mounted = true;
-    void preferencesStore.getState().load();
+    // Locale hydrates in MunibThemeProvider before the first paint.
     void trackerStore.getState().load();
     void quranStore.getState().load();
     void continueStore.getState().load();

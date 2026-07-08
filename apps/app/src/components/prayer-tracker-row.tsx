@@ -63,8 +63,8 @@ export function PrayerTrackerRow({
     ? t("statusSheet.rowA11yJama", { prayer: prayerName, status: statusLabel })
     : t("statusSheet.rowA11y", { prayer: prayerName, status: statusLabel });
 
-  const showAdhkar =
-    afterSalahProgress != null && afterSalahProgress.total > 0 && onPressAfterSalah != null;
+  const showAdhkar = afterSalahProgress != null && afterSalahProgress.total > 0;
+  const adhkarPressable = showAdhkar && onPressAfterSalah != null;
   const adhkarTint = adhkarDone ? successColor : colors.accent;
   // Cache narrowed values so JSX below stays type-safe and readable.
   const adhkarCompleted = afterSalahProgress?.completed ?? 0;
@@ -72,55 +72,135 @@ export function PrayerTrackerRow({
   const adhkarBg = adhkarDone ? tokens.status.success.soft : tokens.accentSoft;
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.muted }]}>
+    <PressableScale
+      haptic="light"
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={rowA11y}
+      style={[styles.container, { backgroundColor: colors.muted }]}
+    >
       <View style={styles.mainLine}>
-        <PressableScale
-          haptic="light"
-          onPress={onPress}
-          accessibilityRole="button"
-          accessibilityLabel={rowA11y}
-          style={styles.body}
-        >
-          <IconWell
-            icon={PRAYER_ICONS[prayerId]}
-            size={16}
-            well={ICON_WELL}
-            tint={toneColor}
-            background={toneSoft}
-          />
-          <View style={styles.copy}>
-            <View style={styles.nameRow}>
+        <IconWell
+          icon={PRAYER_ICONS[prayerId]}
+          size={16}
+          well={ICON_WELL}
+          tint={toneColor}
+          background={toneSoft}
+        />
+
+        <View style={styles.content}>
+          <View style={styles.nameRow}>
+            <View style={styles.copy}>
               <ThemedText type="smallBold" numberOfLines={1} style={styles.name}>
                 {prayerName}
               </ThemedText>
-              <SymbolView name={chevronForward()} size={12} tintColor={colors.mutedForeground} />
+              {time || hasNotes || showJama ? (
+                <View style={styles.metaLine}>
+                  {time ? (
+                    <ThemedText
+                      type="caption"
+                      themeColor="mutedForeground"
+                      numberOfLines={1}
+                      style={styles.time}
+                    >
+                      {time}
+                    </ThemedText>
+                  ) : null}
+                  {showJama ? (
+                    <SymbolView name={PRAYER_JAMA_ICON} size={12} tintColor={successColor} />
+                  ) : null}
+                  {hasNotes ? (
+                    <SymbolView
+                      name={{ ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" }}
+                      size={12}
+                      tintColor={colors.mutedForeground}
+                    />
+                  ) : null}
+                </View>
+              ) : null}
             </View>
-            {time || hasNotes || showJama ? (
-              <View style={styles.metaLine}>
-                {time ? (
-                  <ThemedText
-                    type="caption"
-                    themeColor="mutedForeground"
-                    numberOfLines={1}
-                    style={styles.time}
-                  >
-                    {time}
-                  </ThemedText>
-                ) : null}
-                {showJama ? (
-                  <SymbolView name={PRAYER_JAMA_ICON} size={12} tintColor={successColor} />
-                ) : null}
-                {hasNotes ? (
-                  <SymbolView
-                    name={{ ios: "note.text", android: "sticky_note_2", web: "sticky_note_2" }}
-                    size={12}
-                    tintColor={colors.mutedForeground}
-                  />
-                ) : null}
-              </View>
-            ) : null}
+            <View style={styles.rowChevron}>
+              <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+            </View>
           </View>
 
+          {showAdhkar ? (
+            adhkarPressable ? (
+              <PressableScale
+                haptic="light"
+                onPress={onPressAfterSalah}
+                accessibilityRole="button"
+                accessibilityLabel={t("tracker.afterSalahProgressA11y", {
+                  prayer: prayerName,
+                  completed: adhkarCompleted,
+                  total: adhkarTotal,
+                })}
+                style={styles.adhkarRow}
+              >
+                <View style={[styles.adhkarBadge, { backgroundColor: adhkarBg }]}>
+                  <SymbolView
+                    name={
+                      adhkarDone
+                        ? { ios: "checkmark.seal.fill", android: "verified", web: "verified" }
+                        : {
+                            ios: "hands.and.sparkles.fill",
+                            android: "volunteer_activism",
+                            web: "volunteer_activism",
+                          }
+                    }
+                    size={12}
+                    tintColor={adhkarTint}
+                  />
+                  <ThemedText type="caption" numberOfLines={1} style={{ color: adhkarTint }}>
+                    {t("tracker.afterSalahProgress", {
+                      completed: adhkarCompleted,
+                      total: adhkarTotal,
+                    })}
+                  </ThemedText>
+                  <SymbolView
+                    name={chevronForward()}
+                    size={14}
+                    tintColor={colors.mutedForeground}
+                  />
+                </View>
+              </PressableScale>
+            ) : (
+              <View
+                accessible
+                accessibilityLabel={t("tracker.afterSalahProgressA11y", {
+                  prayer: prayerName,
+                  completed: adhkarCompleted,
+                  total: adhkarTotal,
+                })}
+                style={styles.adhkarRow}
+              >
+                <View style={[styles.adhkarBadge, { backgroundColor: adhkarBg }]}>
+                  <SymbolView
+                    name={
+                      adhkarDone
+                        ? { ios: "checkmark.seal.fill", android: "verified", web: "verified" }
+                        : {
+                            ios: "hands.and.sparkles.fill",
+                            android: "volunteer_activism",
+                            web: "volunteer_activism",
+                          }
+                    }
+                    size={12}
+                    tintColor={adhkarTint}
+                  />
+                  <ThemedText type="caption" numberOfLines={1} style={{ color: adhkarTint }}>
+                    {t("tracker.afterSalahProgress", {
+                      completed: adhkarCompleted,
+                      total: adhkarTotal,
+                    })}
+                  </ThemedText>
+                </View>
+              </View>
+            )
+          ) : null}
+        </View>
+
+        <View style={styles.trailing}>
           <Pill
             label={statusLabel}
             color={toneColor}
@@ -128,83 +208,45 @@ export function PrayerTrackerRow({
             icon={status === "pending" ? undefined : meta.icon}
             compact
           />
-        </PressableScale>
-
-        <View style={styles.actions}>
           <PrayerInfoButton prayerId={prayerId} hitTarget={32} showLabel />
         </View>
       </View>
-
-      {showAdhkar ? (
-        <PressableScale
-          haptic="light"
-          onPress={onPressAfterSalah}
-          accessibilityRole="button"
-          accessibilityLabel={t("tracker.afterSalahProgressA11y", {
-            prayer: prayerName,
-            completed: adhkarCompleted,
-            total: adhkarTotal,
-          })}
-          style={styles.adhkarRow}
-        >
-          <View style={[styles.adhkarBadge, { backgroundColor: adhkarBg }]}>
-            <SymbolView
-              name={
-                adhkarDone
-                  ? { ios: "checkmark.seal.fill", android: "verified", web: "verified" }
-                  : {
-                      ios: "hands.and.sparkles.fill",
-                      android: "volunteer_activism",
-                      web: "volunteer_activism",
-                    }
-              }
-              size={12}
-              tintColor={adhkarTint}
-            />
-            <ThemedText type="caption" numberOfLines={1} style={{ color: adhkarTint }}>
-              {t("tracker.afterSalahProgress", {
-                completed: adhkarCompleted,
-                total: adhkarTotal,
-              })}
-            </ThemedText>
-          </View>
-          <SymbolView name={chevronForward()} size={11} tintColor={colors.mutedForeground} />
-        </PressableScale>
-      ) : null}
-    </View>
+    </PressableScale>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: Spacing.two,
+    paddingVertical: Spacing.two + 2,
     paddingHorizontal: Spacing.two + 2,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    gap: Spacing.one + 2,
   },
   mainLine: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
   },
-  body: {
+  content: {
     flex: 1,
+    minWidth: 0,
+    gap: Spacing.one + 2,
+    justifyContent: "center",
+  },
+  nameRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two,
     minWidth: 0,
   },
   copy: {
     flex: 1,
     minWidth: 0,
     gap: 0,
+    justifyContent: "center",
   },
-  nameRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.half + 2,
-    minWidth: 0,
+  rowChevron: {
+    flexShrink: 0,
+    marginStart: Spacing.one,
   },
   name: {
     flexShrink: 1,
@@ -222,9 +264,8 @@ const styles = StyleSheet.create({
   adhkarRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one,
-    // Align the badge with the prayer name: icon well + body gap.
-    marginStart: ICON_WELL + Spacing.two,
+    gap: Spacing.one + 2,
+    minWidth: 0,
   },
   adhkarBadge: {
     flexDirection: "row",
@@ -234,10 +275,13 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.half + 1,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
+    flexShrink: 1,
   },
-  actions: {
+  trailing: {
     flexShrink: 0,
+    flexDirection: "column",
     alignItems: "flex-end",
-    gap: Spacing.half + 2,
+    justifyContent: "center",
+    gap: Spacing.one,
   },
 });

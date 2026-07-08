@@ -1,6 +1,6 @@
 import type { WeatherEffectKind } from "@munib-tracker/shared/types";
 import { useEffect, useMemo } from "react";
-import { StyleSheet, View, type ViewStyle } from "react-native";
+import { Platform, StyleSheet, View, type ViewStyle } from "react-native";
 import Animated, {
   Easing,
   interpolate,
@@ -12,22 +12,24 @@ import Animated, {
   withSequence,
   withTiming,
 } from "react-native-reanimated";
+import { CloudGraphic } from "@/components/weather/cloud-graphic";
 import {
-  type CloudPuffSpec,
+  type CloudPartSpec,
+  type CloudSize,
+  type CloudVariant,
+  cloudFrame,
   cloudPlacementsFor,
-  generateCloudPuffs,
+  generateCumulusCloud,
 } from "@/components/weather/cloud-shape";
 import { createShadow } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 
 /** Global scale — keeps location, clock, and prayer row legible over the hero. */
-const EFFECTS_MASTER_OPACITY = 0.48;
+const EFFECTS_MASTER_OPACITY = 0.62;
 
 type HeroWeatherEffectsProps = {
   effects: WeatherEffectKind[];
 };
-
-type CloudVariant = "light" | "medium" | "storm";
 
 type CloudConfig = {
   id: number;
@@ -39,7 +41,8 @@ type CloudConfig = {
   duration: number;
   offset: number;
   drift: number;
-  puffs: CloudPuffSpec[];
+  size: CloudSize;
+  parts: CloudPartSpec[];
 };
 
 /** Deterministic pseudo-random in [0, 1) for stable particle placement. */
@@ -48,21 +51,12 @@ function seed(index: number, salt: number): number {
   return x - Math.floor(x);
 }
 
-const CLOUD_TONES: Record<
-  CloudVariant,
-  { fill: string; highlight: string; belly: string; shadow: string }
-> = {
-  light: { fill: "#F8FBFF", highlight: "#FFFFFF", belly: "#C8D4E0", shadow: "#9EB0C2" },
-  medium: { fill: "#EEF3F8", highlight: "#F8FAFC", belly: "#B8C6D4", shadow: "#7F94A8" },
-  storm: { fill: "#D8E0EA", highlight: "#E8EDF3", belly: "#98A8B8", shadow: "#5C6F82" },
-};
-
 function cloudConfigsFor(effects: WeatherEffectKind[]): CloudConfig[] {
   const storm = effects.includes("thunderstorm");
   const rain = effects.includes("rain");
   const cloudy = effects.includes("cloudy");
   const variant: CloudVariant = storm || rain ? "storm" : cloudy ? "medium" : "light";
-  const baseOpacity = storm ? 0.46 : cloudy ? 0.4 : 0.36;
+  const baseOpacity = storm ? 0.72 : cloudy ? 0.68 : 0.58;
 
   const partlyCloudy =
     effects.includes("partly_cloudy") && !cloudy && !rain && !storm && !effects.includes("snow");
@@ -81,7 +75,8 @@ function cloudConfigsFor(effects: WeatherEffectKind[]): CloudConfig[] {
       duration: placement.duration,
       offset: placement.offset,
       drift: placement.drift,
-      puffs: generateCloudPuffs(placement.id, placement.archetype),
+      size: placement.size,
+      parts: generateCumulusCloud(placement.id, placement.size),
     }),
   );
 }
@@ -222,36 +217,6 @@ function CloudLayer({ configs }: { configs: CloudConfig[] }) {
   );
 }
 
-function puffColor(
-  variant: CloudVariant,
-  shade: CloudPuffSpec["shade"],
-): { backgroundColor: string; opacity: number } {
-  const tone = CLOUD_TONES[variant];
-  if (shade === "belly") {
-    return { backgroundColor: tone.belly, opacity: 0.55 };
-  }
-  if (shade === "highlight") {
-    return { backgroundColor: tone.highlight, opacity: 0.72 };
-  }
-  return { backgroundColor: tone.fill, opacity: 1 };
-}
-
-/** Expand the host box so round puffs are not clipped on Android (default overflow: hidden). */
-function cloudFrame(baseWidth: number, puffs: CloudPuffSpec[]): { width: number; height: number } {
-  const baseHeight = baseWidth * (52 / 132);
-  let maxBottom = baseHeight;
-  let maxRight = baseWidth;
-  for (const puff of puffs) {
-    const diameter = baseWidth * puff.size;
-    maxRight = Math.max(maxRight, baseWidth * puff.x + diameter);
-    maxBottom = Math.max(maxBottom, baseHeight * puff.y + diameter);
-  }
-  return {
-    width: maxRight + baseWidth * 0.02,
-    height: maxBottom + baseWidth * 0.04,
-  };
-}
-
 function DriftingCloud({
   top,
   left,
@@ -261,10 +226,9 @@ function DriftingCloud({
   duration,
   offset,
   drift,
-  puffs,
+  parts,
 }: CloudConfig) {
   const motion = useSharedValue(0);
-  const tone = CLOUD_TONES[variant];
 
   useEffect(() => {
     motion.value = withDelay(
@@ -280,9 +244,8 @@ function DriftingCloud({
     ],
   }));
 
-  const baseWidth = 132 * scale;
-  const baseHeight = baseWidth * (52 / 132);
-  const frame = cloudFrame(baseWidth, puffs);
+  const baseWidth = 148 * scale;
+  const frame = cloudFrame(baseWidth, parts);
 
   return (
     <Animated.View
@@ -298,36 +261,15 @@ function DriftingCloud({
         },
       ]}
     >
-      {puffs.map((puff, index) => {
-        const diameter = baseWidth * puff.size;
-        const color = puffColor(variant, puff.shade);
-        const isBody = puff.shade === "body";
-
-        return (
-          <View
-            key={`puff-${index}`}
-            style={[
-              styles.cloudPuff,
-              {
-                width: diameter,
-                height: diameter,
-                left: baseWidth * puff.x,
-                top: baseHeight * puff.y,
-                backgroundColor: color.backgroundColor,
-                opacity: color.opacity,
-                ...(isBody
-                  ? createShadow(tone.shadow, {
-                      offsetY: 2,
-                      blur: 6,
-                      opacity: 0.1,
-                      elevation: 2,
-                    })
-                  : null),
-              },
-            ]}
-          />
-        );
-      })}
+      <CloudGraphic
+        width={frame.width}
+        height={frame.height}
+        baseWidth={baseWidth}
+        parts={parts}
+        variant={variant}
+        offsetX={frame.offsetX}
+        offsetY={frame.offsetY}
+      />
     </Animated.View>
   );
 }
@@ -562,11 +504,6 @@ const styles = StyleSheet.create({
   },
   cloudHost: {
     position: "absolute",
-    overflow: "visible",
-  },
-  cloudPuff: {
-    position: "absolute",
-    borderRadius: 999,
   },
   fogBank: {
     position: "absolute",
@@ -608,7 +545,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -20,
     backgroundColor: "rgba(255, 255, 255, 0.55)",
-    ...createShadow("#FFFFFF", { blur: 3, opacity: 0.35, elevation: 2 }),
+    ...createShadow("#FFFFFF", {
+      blur: 3,
+      opacity: 0.35,
+      elevation: Platform.OS === "android" ? 0 : 2,
+    }),
   },
   thunderFlash: {
     backgroundColor: "#FFFFFF",

@@ -1,4 +1,5 @@
 import { Stack, ThemeProvider } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useMemo } from "react";
 
 import { createNavigationTheme } from "@/lib/navigation-theme";
@@ -24,6 +25,9 @@ export function AppStack() {
 
   return (
     <ThemeProvider value={navigationTheme}>
+      {/* Follows resolved scheme so icon contrast updates on every light/dark toggle,
+          including screens that leave StatusBar unmanaged or hard-code light icons. */}
+      <StatusBar style={scheme === "dark" ? "light" : "dark"} />
       <Stack screenOptions={screenOptions}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />

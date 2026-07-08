@@ -6,64 +6,163 @@ export function cloudSeedRandom(cloudSeed: number, salt: number): number {
 
 export type CloudPuffShade = "body" | "highlight" | "belly";
 
-/** `size` is the puff diameter as a fraction of cloud width. Positions are 0..1. */
-export type CloudPuffSpec = {
-  size: number;
-  x: number;
-  y: number;
+export type CloudVariant = "light" | "medium" | "storm";
+
+export type CloudSize = "small" | "medium" | "large";
+
+/** One bump in a cumulus silhouette — positions are normalized to cloud width/height. */
+export type CloudPartSpec = {
+  kind: "circle" | "ellipse";
+  /** Center x as a fraction of cloud width. */
+  cx: number;
+  /** Center y as a fraction of cloud height. */
+  cy: number;
+  /** Radius as a fraction of cloud width (ellipse ry uses the same scale). */
+  r: number;
+  /** Ellipse horizontal stretch — rx = r × rxScale × baseWidth. */
+  rxScale?: number;
   layer: number;
   shade: CloudPuffShade;
 };
 
-export type CloudArchetype = "triplet" | "duo" | "wisp";
+/** Height relative to width for the cloud artboard. */
+export const CLOUD_HEIGHT_RATIO = 0.36;
+
+export const CLOUD_TONES: Record<
+  CloudVariant,
+  { fill: string; highlight: string; belly: string; shadow: string }
+> = {
+  light: { fill: "#F8FBFF", highlight: "#FFFFFF", belly: "#D8E2EC", shadow: "#9EB0C2" },
+  medium: { fill: "#EEF3F8", highlight: "#F8FAFC", belly: "#C4D0DC", shadow: "#7F94A8" },
+  storm: { fill: "#D8E0EA", highlight: "#E8EDF3", belly: "#A0B0BE", shadow: "#5C6F82" },
+};
+
+export function cloudPartColor(
+  variant: CloudVariant,
+  shade: CloudPuffShade,
+): { fill: string; opacity: number } {
+  const tone = CLOUD_TONES[variant];
+  if (shade === "belly") {
+    return { fill: tone.belly, opacity: 0.92 };
+  }
+  if (shade === "highlight") {
+    return { fill: tone.highlight, opacity: 0.85 };
+  }
+  return { fill: tone.fill, opacity: 1 };
+}
 
 /**
- * Compact cumulus built from round bumps only — no flat horizontal pills.
- * Each seed picks an archetype and slightly perturbs bump sizes/places.
+ * Classic cumulus: wide flat base + overlapping domes.
+ * Rendered as one SVG group so bumps merge into a single cloud on native.
  */
-export function generateCloudPuffs(cloudSeed: number, archetype: CloudArchetype): CloudPuffSpec[] {
-  const rand = (salt: number) => cloudSeedRandom(cloudSeed, salt);
+export function generateCumulusCloud(seed: number, size: CloudSize): CloudPartSpec[] {
+  const rand = (salt: number) => cloudSeedRandom(seed, salt);
+  const scale = size === "small" ? 0.82 : size === "medium" ? 1 : 1.12;
 
-  const bump = (
-    x: number,
-    y: number,
-    size: number,
-    layer: number,
-    shade: CloudPuffShade = "body",
-  ): CloudPuffSpec => ({ x, y, size, layer, shade });
+  const centerR = (0.24 + rand(1) * 0.035) * scale;
+  const leftR = (0.19 + rand(2) * 0.03) * scale;
+  const rightR = (0.17 + rand(3) * 0.03) * scale;
 
-  if (archetype === "wisp") {
-    const primary = 0.34 + rand(1) * 0.1;
-    const secondary = primary * (0.62 + rand(2) * 0.12);
-    return [bump(0.12, 0.38, primary, 1), bump(0.12 + primary * 0.62, 0.44, secondary, 2)];
-  }
-
-  if (archetype === "duo") {
-    const left = 0.36 + rand(1) * 0.1;
-    const right = 0.28 + rand(2) * 0.1;
-    const puffs = [bump(0.04, 0.4, left, 1), bump(0.04 + left * 0.58, 0.32, right, 2)];
-    if (rand(3) > 0.45) {
-      puffs.push(bump(0.08, 0.52, left * 0.45, 0, "belly"));
-    }
-    return puffs.sort((a, b) => a.layer - b.layer);
-  }
-
-  // triplet — classic 3-bump cloud; only these bumps overlap each other.
-  const center = 0.4 + rand(1) * 0.12;
-  const left = 0.28 + rand(2) * 0.1;
-  const right = 0.24 + rand(3) * 0.08;
-  const puffs = [
-    bump(0, 0.44, left, 1),
-    bump(left * 0.48, 0.24, center, 3),
-    bump(left * 0.48 + center * 0.42, 0.42, right, 2),
+  const parts: CloudPartSpec[] = [
+    {
+      kind: "ellipse",
+      cx: 0.5,
+      cy: 0.78,
+      r: 0.14 * scale,
+      rxScale: 2.55,
+      layer: 0,
+      shade: "belly",
+    },
+    {
+      kind: "circle",
+      cx: 0.27 + rand(4) * 0.03,
+      cy: 0.56,
+      r: leftR,
+      layer: 1,
+      shade: "body",
+    },
+    {
+      kind: "circle",
+      cx: 0.51,
+      cy: 0.4,
+      r: centerR,
+      layer: 2,
+      shade: "body",
+    },
+    {
+      kind: "circle",
+      cx: 0.73 - rand(5) * 0.03,
+      cy: 0.54,
+      r: rightR,
+      layer: 3,
+      shade: "body",
+    },
   ];
-  if (rand(4) > 0.35) {
-    puffs.push(bump(left * 0.2, 0.56, left * 0.38, 0, "belly"));
+
+  if (size !== "small") {
+    parts.push({
+      kind: "circle",
+      cx: 0.51,
+      cy: 0.26,
+      r: centerR * 0.42,
+      layer: 4,
+      shade: "highlight",
+    });
   }
-  if (rand(5) > 0.4) {
-    puffs.push(bump(left * 0.55, 0.16, 0.1 + rand(6) * 0.06, 4, "highlight"));
+
+  if (size === "large") {
+    parts.push({
+      kind: "circle",
+      cx: 0.14,
+      cy: 0.58,
+      r: leftR * 0.72,
+      layer: 1,
+      shade: "body",
+    });
+    if (rand(6) > 0.45) {
+      parts.push({
+        kind: "circle",
+        cx: 0.84,
+        cy: 0.56,
+        r: rightR * 0.68,
+        layer: 3,
+        shade: "body",
+      });
+    }
   }
-  return puffs.sort((a, b) => a.layer - b.layer);
+
+  return parts.sort((a, b) => a.layer - b.layer);
+}
+
+/** Bounding box for an SVG cloud group — includes padding so domes are not clipped. */
+export function cloudFrame(
+  baseWidth: number,
+  parts: CloudPartSpec[],
+): { width: number; height: number; offsetX: number; offsetY: number } {
+  const baseHeight = baseWidth * CLOUD_HEIGHT_RATIO;
+  const pad = baseWidth * 0.04;
+  let minX = Number.POSITIVE_INFINITY;
+  let minY = Number.POSITIVE_INFINITY;
+  let maxX = 0;
+  let maxY = 0;
+
+  for (const part of parts) {
+    const ry = baseWidth * part.r;
+    const rx = part.kind === "ellipse" ? ry * (part.rxScale ?? 1.5) : ry;
+    const cx = baseWidth * part.cx;
+    const cy = baseHeight * part.cy;
+    minX = Math.min(minX, cx - rx);
+    minY = Math.min(minY, cy - ry);
+    maxX = Math.max(maxX, cx + rx);
+    maxY = Math.max(maxY, cy + ry);
+  }
+
+  return {
+    width: maxX - minX + pad * 2,
+    height: maxY - minY + pad * 2,
+    offsetX: pad - minX,
+    offsetY: pad - minY,
+  };
 }
 
 export type CloudPlacement = {
@@ -72,7 +171,7 @@ export type CloudPlacement = {
   left: string;
   scale: number;
   opacity: number;
-  archetype: CloudArchetype;
+  size: CloudSize;
   duration: number;
   offset: number;
   drift: number;
@@ -82,106 +181,57 @@ type CloudSlotTemplate = Omit<CloudPlacement, "opacity"> & {
   opacityScale: number;
 };
 
-/** Fixed sky slots — clouds stay at edges; centre stays clear for text. */
+/** Fixed sky slots — large cumulus at the shoulders; centre stays clear for text. */
 const CLOUD_SLOTS: CloudSlotTemplate[] = [
   {
     id: 11,
-    top: "2%",
-    left: "-6%",
-    scale: 0.58,
-    opacityScale: 0.82,
-    archetype: "wisp",
+    top: "1%",
+    left: "-10%",
+    scale: 0.92,
+    opacityScale: 0.88,
+    size: "medium",
     duration: 28000,
     offset: 0,
     drift: 14,
   },
   {
     id: 23,
-    top: "4%",
-    left: "72%",
-    scale: 0.54,
-    opacityScale: 0.78,
-    archetype: "wisp",
+    top: "2%",
+    left: "68%",
+    scale: 0.88,
+    opacityScale: 0.84,
+    size: "medium",
     duration: 32000,
     offset: 1400,
     drift: 12,
   },
   {
     id: 37,
-    top: "9%",
-    left: "4%",
-    scale: 0.82,
+    top: "6%",
+    left: "-2%",
+    scale: 1.05,
     opacityScale: 1,
-    archetype: "triplet",
+    size: "large",
     duration: 26000,
     offset: 800,
     drift: 18,
   },
   {
     id: 52,
-    top: "11%",
-    left: "66%",
-    scale: 0.72,
-    opacityScale: 0.88,
-    archetype: "duo",
+    top: "8%",
+    left: "62%",
+    scale: 0.98,
+    opacityScale: 0.94,
+    size: "large",
     duration: 30000,
     offset: 2200,
     drift: 16,
   },
-  {
-    id: 68,
-    top: "16%",
-    left: "38%",
-    scale: 0.48,
-    opacityScale: 0.62,
-    archetype: "wisp",
-    duration: 34000,
-    offset: 3000,
-    drift: 10,
-  },
-  // Extra cloudy-only slots — upper mid-gap and lower edges; kept clear of 0/2/3/4 bounds.
-  {
-    id: 81,
-    top: "6%",
-    left: "41%",
-    scale: 0.36,
-    opacityScale: 0.58,
-    archetype: "wisp",
-    duration: 31000,
-    offset: 1800,
-    drift: 9,
-  },
-  {
-    id: 84,
-    top: "23%",
-    left: "33%",
-    scale: 0.38,
-    opacityScale: 0.55,
-    archetype: "wisp",
-    duration: 33000,
-    offset: 2600,
-    drift: 8,
-  },
-  {
-    id: 91,
-    top: "21%",
-    left: "88%",
-    scale: 0.36,
-    opacityScale: 0.52,
-    archetype: "duo",
-    duration: 29000,
-    offset: 1200,
-    drift: 10,
-  },
 ];
-
-/** Cloudy sky extras — indices into CLOUD_SLOTS, non-overlapping with the heavy set. */
-const CLOUDY_EXTRA_SLOT_INDEXES = [4, 5, 6, 7] as const;
 
 export function cloudPlacementsFor(options: {
   partlyCloudy: boolean;
   heavy: boolean;
-  /** Pure overcast — adds mid-gap and edge wisps without overlapping the base clusters. */
   cloudy: boolean;
   baseOpacity: number;
 }): CloudPlacement[] {
@@ -198,19 +248,18 @@ export function cloudPlacementsFor(options: {
   }
 
   if (cloudy) {
-    // Base shoulder clusters + scattered fill — centre stays open for the clock.
-    return withOpacity([
-      CLOUD_SLOTS[0],
-      CLOUD_SLOTS[2],
-      CLOUD_SLOTS[3],
-      ...CLOUDY_EXTRA_SLOT_INDEXES.map((index) => CLOUD_SLOTS[index]),
-    ]);
-  }
-
-  if (heavy) {
-    // Distant left wisp + left/right shoulder clusters — centre stays open.
     return withOpacity([CLOUD_SLOTS[0], CLOUD_SLOTS[2], CLOUD_SLOTS[3]]);
   }
 
-  return withOpacity([CLOUD_SLOTS[0], CLOUD_SLOTS[2], CLOUD_SLOTS[1]]);
+  if (heavy) {
+    return withOpacity([CLOUD_SLOTS[2], CLOUD_SLOTS[3]]);
+  }
+
+  return withOpacity([CLOUD_SLOTS[0], CLOUD_SLOTS[1]]);
+}
+
+/** @deprecated Use generateCumulusCloud — kept for tests during transition. */
+export function generateCloudPuffs(seed: number, archetype: "triplet" | "duo" | "wisp") {
+  const size = archetype === "triplet" ? "large" : archetype === "duo" ? "medium" : "small";
+  return generateCumulusCloud(seed, size);
 }

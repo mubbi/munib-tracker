@@ -27,7 +27,7 @@ export default function LanguageScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
-  const { update } = usePreferencesActions();
+  const { setLocale, update } = usePreferencesActions();
 
   return (
     <ScreenLayout
@@ -43,7 +43,7 @@ export default function LanguageScreen() {
             title={t("language.appLanguage")}
             icon={{ ios: "globe", android: "language", web: "language" }}
           />
-          <Choices value={prefs.locale} onChange={(id) => update({ locale: id })} />
+          <Choices value={prefs.locale} onChange={(id) => void setLocale(id)} />
         </Card>
 
         <Card padding="three">

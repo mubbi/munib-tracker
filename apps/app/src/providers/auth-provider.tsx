@@ -23,6 +23,7 @@ import {
   requestGuestSession,
 } from "@/api/endpoints";
 import { SessionStore, type StoredSession } from "@/auth/session-store";
+import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
 import { runSync } from "@/sync/sync-engine";
 
 export type OAuthPayload = {
@@ -114,6 +115,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Claim the guard synchronously, before any await, so two overlapping calls
     // can't both pass the check and interleave (duplicate pushes / double refresh).
     if (syncing.current) return "skipped";
+    if (isAppReloadInProgress()) return "skipped";
     syncing.current = true;
     try {
       const current = await refresh();

@@ -13,17 +13,17 @@ import { goBackOrReplace } from "@/lib/navigation";
 export default function VoiceShortcutsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const isAndroid = Platform.OS === "android";
+  const title = t(isAndroid ? "externalCommands.titleAndroid" : "externalCommands.titleIos");
+  const intro = t(isAndroid ? "externalCommands.introAndroid" : "externalCommands.introIos");
 
   return (
-    <ScreenLayout
-      title={t("externalCommands.title")}
-      onBack={() => goBackOrReplace(router, "/settings")}
-    >
-      <Seo title={t("externalCommands.title")} />
+    <ScreenLayout title={title} onBack={() => goBackOrReplace(router, "/settings")}>
+      <Seo title={title} />
       <Stagger>
-        <ThemedText type="title">{t("externalCommands.title")}</ThemedText>
+        <ThemedText type="title">{title}</ThemedText>
         <ThemedText type="default" style={{ opacity: 0.85 }}>
-          {t("externalCommands.intro")}
+          {intro}
         </ThemedText>
 
         {Platform.OS === "ios" ? (

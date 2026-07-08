@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   rowBody: {
+    flex: 1,
     gap: 2,
   },
   hint: {

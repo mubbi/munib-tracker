@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, StyleSheet, TextInput } from "react-native";
+import { FlatList, StyleSheet, TextInput, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -41,24 +41,33 @@ export function PagePickerSheet({
   }, [query]);
 
   return (
-    <Sheet visible={visible} onClose={onClose} variant="bottom">
-      <ThemedText type="subtitle">{t("quran.pagePickerTitle")}</ThemedText>
-      <TextInput
-        value={query}
-        onChangeText={setQuery}
-        placeholder={t("quran.pagePickerSearch")}
-        placeholderTextColor={colors.mutedForeground}
-        keyboardType="number-pad"
-        style={[
-          styles.input,
-          { backgroundColor: colors.muted, color: colors.foreground, borderColor: tokens.hairline },
-        ]}
-      />
+    <Sheet visible={visible} onClose={onClose} variant="bottom" scrollable={false}>
       <FlatList
         data={filtered}
         keyExtractor={(item) => String(item.page)}
         style={styles.list}
         keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <View style={styles.header}>
+            <ThemedText type="subtitle">{t("quran.pagePickerTitle")}</ThemedText>
+            <TextInput
+              value={query}
+              onChangeText={setQuery}
+              placeholder={t("quran.pagePickerSearch")}
+              placeholderTextColor={colors.mutedForeground}
+              keyboardType="number-pad"
+              style={[
+                styles.input,
+                {
+                  backgroundColor: colors.muted,
+                  color: colors.foreground,
+                  borderColor: tokens.hairline,
+                },
+              ]}
+            />
+          </View>
+        }
         renderItem={({ item }) => {
           const selected = item.page === selectedPage;
           return (
@@ -96,14 +105,22 @@ export function PagePickerSheet({
 }
 
 const styles = StyleSheet.create({
+  list: {
+    flexGrow: 0,
+    flexShrink: 1,
+    minHeight: 0,
+  },
+  header: {
+    gap: Spacing.two,
+    marginBottom: Spacing.one,
+  },
   input: {
-    marginTop: Spacing.three,
+    marginTop: Spacing.one,
     borderRadius: Radius.md,
     borderWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
   },
-  list: { marginTop: Spacing.three, maxHeight: 360 },
   row: {
     borderRadius: Radius.md,
     paddingHorizontal: Spacing.three,

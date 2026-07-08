@@ -1,8 +1,15 @@
 import { type BlurTint, BlurView } from "expo-blur";
 import { GlassView, isLiquidGlassAvailable } from "expo-glass-effect";
-import type { ReactNode } from "react";
-import { type LayoutChangeEvent, Platform, type StyleProp, type ViewStyle } from "react-native";
+import type { ReactNode, RefObject } from "react";
+import {
+  type LayoutChangeEvent,
+  Platform,
+  type StyleProp,
+  type View,
+  type ViewStyle,
+} from "react-native";
 
+import { withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useBlurTarget } from "@/providers/blur-target-provider";
 
@@ -25,6 +32,18 @@ type GlassSurfaceProps = {
   interactive?: boolean;
   /** Override the fallback blur tint; defaults to a scheme-appropriate chrome material. */
   tint?: BlurTint;
+  /**
+   * Android-only: capture the root {@link BlurTargetView} for a real backdrop blur.
+   * Use for overlay chrome outside the provider target (mini-player, toasts, modals).
+   */
+  backdropCapture?: boolean;
+  /**
+   * Android-only: capture a screen-local {@link BlurTargetView} (e.g. scroll
+   * content beneath a floating header). The BlurView must be a sibling of that
+   * target, never a descendant — blurring an ancestor that contains the BlurView
+   * overflows the RenderThread view tree.
+   */
+  blurTargetRef?: RefObject<View | null>;
   /** Fired with the rendered size — used to inset content beneath floating chrome. */
   onLayout?: (event: LayoutChangeEvent) => void;
 };
@@ -45,18 +64,28 @@ export function GlassSurface({
   intensity = 40,
   interactive,
   tint,
+  backdropCapture = false,
+  blurTargetRef,
   onLayout,
 }: GlassSurfaceProps) {
-  const { scheme } = useThemeTokens();
+  const { colors, scheme } = useThemeTokens();
   const blurTarget = useBlurTarget();
+
+  // Native blur / liquid-glass materials often keep the first tint until remount.
+  // Key on scheme so light↔dark toggles recreate the chrome instead of sticking
+  // on the previous material until an app refresh.
+  const schemeKey = `glass-${scheme}`;
+  // Soft scheme wash so chrome stays readable even if the native blur lags one frame.
+  const wash = withAlpha(colors.background, scheme === "dark" ? 0.72 : 0.78);
 
   if (hasLiquidGlass) {
     return (
       <GlassView
+        key={schemeKey}
         glassEffectStyle="regular"
         isInteractive={interactive}
         colorScheme={scheme}
-        style={style}
+        style={[style, { backgroundColor: wash }]}
         onLayout={onLayout}
       >
         {children}
@@ -67,19 +96,18 @@ export function GlassSurface({
   const resolvedTint: BlurTint =
     tint ?? (scheme === "dark" ? "systemChromeMaterialDark" : "systemChromeMaterialLight");
 
+  const resolvedBlurTarget = blurTargetRef ?? (backdropCapture ? blurTarget : undefined);
   const androidBlurMethod =
-    Platform.OS === "android" && blurTarget ? "dimezisBlurViewSdk31Plus" : undefined;
+    Platform.OS === "android" && resolvedBlurTarget ? "dimezisBlurViewSdk31Plus" : undefined;
 
   return (
     <BlurView
+      key={schemeKey}
       tint={resolvedTint}
       intensity={intensity}
-      // Real blur on Android 12+ when a root `BlurTargetView` is configured; iOS/web
-      // ignore `blurMethod` / `blurTarget`. Without a target, Android falls back to
-      // a translucent tint (no blur) to avoid native warnings.
       blurMethod={androidBlurMethod}
-      blurTarget={Platform.OS === "android" ? (blurTarget ?? undefined) : undefined}
-      style={style}
+      blurTarget={Platform.OS === "android" ? (resolvedBlurTarget ?? undefined) : undefined}
+      style={[style, { backgroundColor: wash }]}
       onLayout={onLayout}
     >
       {children}

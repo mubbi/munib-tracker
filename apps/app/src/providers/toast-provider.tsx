@@ -45,7 +45,14 @@ export interface ToastContextValue {
   warning: (title: string, subtitle?: string) => void;
 }
 
+type ToastController = {
+  toasts: ToastItem[];
+  dismiss: (id: string) => void;
+};
+
 const ToastContext = createContext<ToastContextValue | null>(null);
+const ToastControllerContext = createContext<ToastController | null>(null);
+
 const TOAST_DURATION_MS = 3500;
 const TOAST_TOP_WEB = 72;
 /** Upward drag distance (px) before a toast dismisses. */
@@ -58,9 +65,13 @@ function uid() {
   return `toast-${++counter}`;
 }
 
+/**
+ * Holds toast state/API. The visible banners render from {@link ToastHost},
+ * which must sit in {@link BlurTargetProvider} overlays so Android can capture
+ * a real backdrop blur (same as mini-player / sheets).
+ */
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
-  const insets = useSafeAreaInsets();
   const timers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
 
   const dismiss = useCallback((id: string) => {
@@ -104,19 +115,35 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     [show],
   );
 
-  const topOffset = Platform.OS === "web" ? TOAST_TOP_WEB : insets.top + 8;
+  const controller = useMemo<ToastController>(() => ({ toasts, dismiss }), [toasts, dismiss]);
 
   return (
     <ToastContext.Provider value={value}>
-      {children}
-      {toasts.length > 0 ? (
-        <View style={[styles.container, { top: topOffset, pointerEvents: "box-none" }]}>
-          {toasts.map((item) => (
-            <ToastCard key={item.id} item={item} onDismiss={() => dismiss(item.id)} />
-          ))}
-        </View>
-      ) : null}
+      <ToastControllerContext.Provider value={controller}>
+        {children}
+      </ToastControllerContext.Provider>
     </ToastContext.Provider>
+  );
+}
+
+/** Frosted toast banners — mount inside BlurTargetProvider overlays. */
+export function ToastHost() {
+  const controller = useContext(ToastControllerContext);
+  const insets = useSafeAreaInsets();
+
+  if (!controller) return null;
+
+  const { toasts, dismiss } = controller;
+  if (toasts.length === 0) return null;
+
+  const topOffset = Platform.OS === "web" ? TOAST_TOP_WEB : insets.top + 8;
+
+  return (
+    <View style={[styles.container, { top: topOffset, pointerEvents: "box-none" }]}>
+      {toasts.map((item) => (
+        <ToastCard key={item.id} item={item} onDismiss={() => dismiss(item.id)} />
+      ))}
+    </View>
   );
 }
 
@@ -177,50 +204,68 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
     opacity: opacity.value,
   }));
 
+  // Match Sheet / mini-player: light wash over real blur so frost reads through.
+  const androidBackdropBlur = Platform.OS === "android";
+  const washAlpha = hasLiquidGlass
+    ? tokens.isDark
+      ? 0.28
+      : 0.4
+    : androidBackdropBlur
+      ? tokens.isDark
+        ? 0.3
+        : 0.42
+      : tokens.isDark
+        ? 0.5
+        : 0.62;
+
   return (
     <Animated.View
       entering={FadeInDown.duration(220)}
       exiting={swipedAway ? undefined : FadeOut.duration(160)}
-      style={[
-        styles.toast,
-        {
-          borderColor: tokens.hairline,
-          borderStartColor: palette.color,
-        },
-        dragStyle,
-      ]}
-      {...panResponder.panHandlers}
     >
-      {/* Frosted glass to match the sheets and player chrome: real Liquid Glass
-          on iOS 26, a native blur elsewhere. The wash keeps the banner legible
-          over whatever content sits behind it. */}
-      <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-        <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
-        <View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: withAlpha(
-                colors.card,
-                hasLiquidGlass ? (tokens.isDark ? 0.4 : 0.5) : tokens.isDark ? 0.62 : 0.72,
-              ),
-            },
-          ]}
-        />
-      </View>
-      <View style={styles.textWrap}>
-        <ThemedText type="smallBold">{item.title}</ThemedText>
-        {item.subtitle ? (
-          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
-            {item.subtitle}
+      <Animated.View
+        style={[
+          styles.toast,
+          {
+            borderColor: tokens.hairline,
+            borderStartColor: palette.color,
+          },
+          dragStyle,
+        ]}
+        {...panResponder.panHandlers}
+      >
+        {/* Frosted glass to match the sheets and player chrome: real Liquid Glass
+            on iOS 26, a native blur elsewhere. The wash keeps the banner legible
+            over whatever content sits behind it. */}
+        <View style={[StyleSheet.absoluteFill, styles.glassFill, { pointerEvents: "none" }]}>
+          <GlassSurface
+            backdropCapture={androidBackdropBlur}
+            style={StyleSheet.absoluteFill}
+            intensity={50}
+          />
+          <View
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                backgroundColor: withAlpha(colors.card, washAlpha),
+              },
+            ]}
+          />
+        </View>
+        <View style={styles.textWrap}>
+          <ThemedText type="smallBold">{item.title}</ThemedText>
+          {item.subtitle ? (
+            <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
+              {item.subtitle}
+            </ThemedText>
+          ) : null}
+        </View>
+        <PressableScale onPress={onDismiss} accessibilityLabel={t("common.dismiss")}>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            ✕
           </ThemedText>
-        ) : null}
-      </View>
-      <PressableScale onPress={onDismiss} accessibilityLabel={t("common.dismiss")}>
-        <ThemedText type="caption" themeColor="mutedForeground">
-          ✕
-        </ThemedText>
-      </PressableScale>
+        </PressableScale>
+      </Animated.View>
     </Animated.View>
   );
 }
@@ -256,5 +301,9 @@ const styles = StyleSheet.create({
   textWrap: {
     flex: 1,
     gap: 2,
+  },
+  /** Sits behind toast content so the blur/wash never covers the dismiss control. */
+  glassFill: {
+    zIndex: -1,
   },
 });

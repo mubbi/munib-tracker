@@ -1,4 +1,5 @@
 import type { SymbolViewProps } from "expo-symbols";
+import type { TextStyle, ViewStyle } from "react-native";
 import { I18nManager, Platform } from "react-native";
 
 type IconName = SymbolViewProps["name"];
@@ -8,11 +9,11 @@ type IconName = SymbolViewProps["name"];
  *
  * Native and web resolve RTL through different mechanisms:
  * - **Native:** `I18nManager.isRTL` is the source of truth. A layout flip only
- *   takes effect after an app reload (see `i18n-provider.tsx`), so the value is
- *   stable for the session.
+ *   takes effect after preferences hydration calls `changeAppLocale` (see
+ *   `preferences-store.ts`), so the value is stable for the session.
  * - **Web:** `react-native-web` hard-codes `I18nManager.isRTL` to `false` and
  *   makes `forceRTL()` a no-op. The real direction lives on
- *   `document.documentElement.dir`, which the i18n provider toggles for Arabic
+ *   `document.documentElement.dir`, which `changeAppLocale` toggles for Arabic
  *   and Urdu. We must read that instead, otherwise glyphs point the wrong way
  *   while the CSS flex layout is already flipped.
  *
@@ -85,4 +86,24 @@ export function mushafPageBackward(): IconName {
 /** True when the string contains Arabic script (U+0600–U+06FF). */
 export function containsArabicScript(text: string): boolean {
   return /[\u0600-\u06FF]/.test(text);
+}
+
+/**
+ * Keeps symbol/numeric micro-controls (A−/A+, steppers) in a stable visual order
+ * inside RTL screens — without this, flex row mirrors and swaps increase/decrease.
+ */
+export const ltrControlStyle = { direction: "ltr" } satisfies ViewStyle;
+
+/**
+ * Text style for compact filter/value fields opposite a row label (select triggers,
+ * toolbar chips). Truncation ellipses stay on the outer edge; script direction
+ * follows the value (Latin reciter names stay LTR in Urdu/Arabic UI).
+ */
+export function filterValueTextStyle(value: string): TextStyle {
+  const rtl = isRTL();
+  const scriptRtl = containsArabicScript(value);
+  return {
+    writingDirection: scriptRtl ? "rtl" : "ltr",
+    textAlign: rtl ? "right" : "left",
+  };
 }

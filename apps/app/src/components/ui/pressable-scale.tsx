@@ -17,7 +17,66 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+const RIPPLE_INNER_LAYOUT_KEYS = [
+  "flexDirection",
+  "alignItems",
+  "justifyContent",
+  "alignContent",
+  "flexWrap",
+  "gap",
+  "rowGap",
+  "columnGap",
+  "flex",
+  "flexGrow",
+  "flexShrink",
+  "flexBasis",
+  "alignSelf",
+  "width",
+  "height",
+  "minWidth",
+  "minHeight",
+  "maxWidth",
+  "maxHeight",
+] as const satisfies readonly (keyof ViewStyle)[];
+
+/** Flex participation on the ripple host so row/column children still expand. */
+const RIPPLE_HOST_LAYOUT_KEYS = [
+  "flex",
+  "flexGrow",
+  "flexShrink",
+  "flexBasis",
+  "alignSelf",
+  "minWidth",
+  "minHeight",
+  "maxWidth",
+  "maxHeight",
+] as const satisfies readonly (keyof ViewStyle)[];
+
+/** Keeps box model on the ripple host; flex layout lives on the inner wrapper. */
+function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
+  hostStyle: ViewStyle;
+  innerStyle: ViewStyle;
+} {
+  if (!flatStyle) return { hostStyle: {}, innerStyle: {} };
+
+  const hostStyle: Record<string, ViewStyle[keyof ViewStyle]> = {};
+  const innerStyle: Record<string, ViewStyle[keyof ViewStyle]> = {};
+  for (const [key, value] of Object.entries(flatStyle) as [
+    keyof ViewStyle,
+    ViewStyle[keyof ViewStyle],
+  ][]) {
+    if (value == null) continue;
+    if ((RIPPLE_INNER_LAYOUT_KEYS as readonly string[]).includes(key)) {
+      innerStyle[key] = value;
+      if ((RIPPLE_HOST_LAYOUT_KEYS as readonly string[]).includes(key)) {
+        hostStyle[key] = value;
+      }
+    } else {
+      hostStyle[key] = value;
+    }
+  }
+  return { hostStyle: hostStyle as ViewStyle, innerStyle: innerStyle as ViewStyle };
+}
 
 type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
   children?: ReactNode;
@@ -114,62 +173,28 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
   };
 
   const flatStyle = StyleSheet.flatten(style);
+  const { hostStyle, innerStyle } = splitRippleHostStyles(flatStyle);
   // Reanimated transforms on the same view as `android_ripple` prevent the ripple
-  // from clipping to rounded corners on Android. Host the ripple on a plain
-  // Pressable and animate an inner wrapper instead.
-  const useRippleHost = Platform.OS === "android" && androidRipple != null;
+  // from clipping to rounded corners on Android. Keep press scale on an inner
+  // animated wrapper on every platform so layout/entrance animations on ancestors
+  // never compete with the spring transform on this view.
   const rippleClipStyle =
-    useRippleHost && !androidRipple?.borderless ? ({ overflow: "hidden" } as const) : undefined;
-
-  if (useRippleHost) {
-    return (
-      <Pressable
-        ref={ref}
-        disabled={disabled}
-        android_ripple={androidRipple}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        onPress={handlePress}
-        style={[style, rippleClipStyle]}
-        {...rest}
-      >
-        <Animated.View
-          style={[
-            {
-              flexDirection: flatStyle?.flexDirection,
-              alignItems: flatStyle?.alignItems,
-              justifyContent: flatStyle?.justifyContent,
-              gap: flatStyle?.gap,
-              flex: flatStyle?.flex,
-              flexGrow: flatStyle?.flexGrow,
-              flexShrink: flatStyle?.flexShrink,
-              alignSelf: flatStyle?.alignSelf,
-              width: flatStyle?.width,
-              height: flatStyle?.height,
-              minWidth: flatStyle?.minWidth,
-              minHeight: flatStyle?.minHeight,
-            },
-            animatedStyle,
-          ]}
-        >
-          {children}
-        </Animated.View>
-      </Pressable>
-    );
-  }
+    Platform.OS === "android" && androidRipple != null && !androidRipple.borderless
+      ? ({ overflow: "hidden" } as const)
+      : undefined;
 
   return (
-    <AnimatedPressable
+    <Pressable
       ref={ref}
       disabled={disabled}
       android_ripple={androidRipple}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       onPress={handlePress}
-      style={[style, animatedStyle]}
+      style={[hostStyle, rippleClipStyle]}
       {...rest}
     >
-      {children}
-    </AnimatedPressable>
+      <Animated.View style={[innerStyle, animatedStyle]}>{children}</Animated.View>
+    </Pressable>
   );
 });

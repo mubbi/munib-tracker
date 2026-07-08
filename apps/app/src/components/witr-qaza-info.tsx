@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -14,10 +15,15 @@ export function WitrQazaInfo() {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
   const info = tokens.status.info;
+  const [open, setOpen] = useState(false);
+  const title = t("qaza.witrNote.title");
 
   return (
     <Card
       padding="three"
+      onPress={() => setOpen((value) => !value)}
+      accessibilityLabel={title}
+      accessibilityState={{ expanded: open }}
       style={{
         backgroundColor: info.soft,
         borderColor: info.border,
@@ -25,7 +31,9 @@ export function WitrQazaInfo() {
       }}
     >
       <CollapsibleSection
-        title={t("qaza.witrNote.title")}
+        pressableArea="none"
+        open={open}
+        title={title}
         icon={{ ios: "info.circle.fill", android: "info", web: "info" }}
       >
         <View style={styles.body}>

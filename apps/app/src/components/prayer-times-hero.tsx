@@ -77,29 +77,6 @@ type PrayerTimesHeroProps = {
  */
 const INACTIVE_PRAYER_TEXT = withAlpha(Brand.heroText, 0.82);
 
-/** Matches `softShadow` text lift for small SF Symbol chevrons on the sky. */
-function HeroSoftShadowSymbol({
-  name,
-  size,
-  tintColor = Brand.heroText,
-}: {
-  name: SymbolViewProps["name"];
-  size: number;
-  tintColor?: string;
-}) {
-  return (
-    <View style={[styles.softShadowIcon, { width: size, height: size }]}>
-      <SymbolView
-        name={name}
-        size={size}
-        tintColor="rgba(0, 0, 0, 0.45)"
-        style={styles.softShadowIconLayer}
-      />
-      <SymbolView name={name} size={size} tintColor={tintColor} />
-    </View>
-  );
-}
-
 /** Fixed positions for the faint night starfield (left %, top px, size, opacity). */
 const STARS = [
   { left: "14%", top: 40, size: 2, opacity: 0.7 },
@@ -344,7 +321,9 @@ export function PrayerTimesHero({
                   </ThemedText>
                 ) : null}
               </View>
-              <HeroSoftShadowSymbol name={chevronForward()} size={12} />
+              <View style={styles.dateChevron}>
+                <SymbolView name={chevronForward()} size={12} tintColor={Brand.heroText} />
+              </View>
             </PressableScale>
             <View
               accessible
@@ -499,6 +478,7 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
   },
   locationRow: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one + 2,
@@ -566,6 +546,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 2,
   },
+  dateChevron: {
+    alignSelf: "stretch",
+    justifyContent: "center",
+  },
   dateTextPrimary: {
     textAlign: "center",
     fontSize: 15,
@@ -597,14 +581,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     fontWeight: "600",
-  },
-  softShadowIcon: {
-    position: "relative",
-  },
-  softShadowIconLayer: {
-    position: "absolute",
-    top: 1,
-    left: 0,
   },
   /** Soft dark shadow that lifts light text off any sky. */
   softShadow: {

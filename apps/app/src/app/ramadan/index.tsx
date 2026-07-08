@@ -420,28 +420,26 @@ export default function RamadanScreen() {
                         accessibilityHint={isFuture ? undefined : t("ramadan.dayCellHint")}
                         accessibilityState={{ disabled: isFuture }}
                         onPress={() => setSheetDay({ day, date })}
-                        style={styles.dayPressable}
+                        // borderRadius must live on PressableScale so Android's
+                        // Material ripple clips to the circle (not a square).
+                        style={[
+                          styles.dayCircle,
+                          {
+                            backgroundColor: palette ? palette.soft : colors.muted,
+                            borderColor: isToday
+                              ? colors.accent
+                              : (palette?.border ?? "transparent"),
+                            borderWidth: isToday ? 2 : palette ? 1 : 0,
+                            opacity: isFuture ? 0.35 : 1,
+                          },
+                        ]}
                       >
-                        <View
-                          style={[
-                            styles.dayCircle,
-                            {
-                              backgroundColor: palette ? palette.soft : colors.muted,
-                              borderColor: isToday
-                                ? colors.accent
-                                : (palette?.border ?? "transparent"),
-                              borderWidth: isToday ? 2 : palette ? 1 : 0,
-                              opacity: isFuture ? 0.35 : 1,
-                            },
-                          ]}
+                        <ThemedText
+                          type="smallBold"
+                          style={{ color: palette ? palette.color : colors.mutedForeground }}
                         >
-                          <ThemedText
-                            type="smallBold"
-                            style={{ color: palette ? palette.color : colors.mutedForeground }}
-                          >
-                            {day}
-                          </ThemedText>
-                        </View>
+                          {day}
+                        </ThemedText>
                       </PressableScale>
                     </View>
                   );
@@ -545,7 +543,6 @@ const styles = StyleSheet.create({
   grid: { gap: Spacing.one },
   gridRow: { flexDirection: "row" },
   gridCell: { flex: 1, alignItems: "center" },
-  dayPressable: { alignItems: "center" },
   dayCircle: {
     width: 44,
     height: 44,

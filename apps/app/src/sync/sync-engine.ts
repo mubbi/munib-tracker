@@ -22,6 +22,12 @@ import { DB_KEYS } from "@/db/keys";
 import type { HadithBookmark } from "@/db/repositories/hadith-repository";
 import type { QuranBookmark } from "@/db/repositories/quran-repository";
 import { readJSON, writeJSON } from "@/db/store";
+import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
+import {
+  clearPreferencesDirty,
+  filterRemotePreferencesPatch,
+  hasPendingPreferenceChanges,
+} from "@/lib/sync/preferences-cloud-sync";
 import {
   applyRemoteCustomTasbeeh,
   type CustomTasbeeh,
@@ -62,7 +68,7 @@ export interface SyncMetadata {
 }
 
 export type SyncResult =
-  | { status: "skipped"; reason: "guest" | "offline" }
+  | { status: "skipped"; reason: "guest" | "offline" | "reload" }
   | { status: "ok"; pushed: number; pulled: number; conflicts: number };
 
 async function readMeta(): Promise<SyncMetadata> {
@@ -129,8 +135,12 @@ async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
         break;
       }
       case "preferences": {
+        const patch = filterRemotePreferencesPatch(
+          data as Partial<UserPreferences>,
+          hasPendingPreferenceChanges(),
+        );
         await PreferencesRepository.applyRemotePreferences({
-          ...(data as Partial<UserPreferences>),
+          ...patch,
           updatedAt: record.updatedAt,
         });
         break;
@@ -200,6 +210,7 @@ async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
  */
 export async function runSync(session: StoredSession): Promise<SyncResult> {
   if (session.accountType === "guest") return { status: "skipped", reason: "guest" };
+  if (isAppReloadInProgress()) return { status: "skipped", reason: "reload" };
 
   const meta = await readMeta();
 
@@ -302,12 +313,14 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   // reads bookmarks/last-read from the repository, so reload it if it is live.
   await Promise.all([
     trackerStore.getState().refresh(),
-    preferencesStore.getState().load(),
+    preferencesStore.getState().refreshFromDb(),
     quranStore.getState().isReady ? quranStore.getState().load() : Promise.resolve(),
     customTasbeehStore.getState().isReady
       ? customTasbeehStore.getState().load()
       : Promise.resolve(),
   ]);
+
+  clearPreferencesDirty();
 
   return {
     status: "ok",

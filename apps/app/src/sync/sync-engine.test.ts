@@ -4,7 +4,6 @@ import type {
   SyncRecordDto,
 } from "@munib-tracker/api-client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { syncPull, syncPush } from "@/api/endpoints";
 import type { StoredSession } from "@/auth/session-store";
 import {
@@ -17,6 +16,12 @@ import {
 } from "@/db";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
+import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
+import {
+  clearPreferencesDirty,
+  hasPendingPreferenceChanges,
+  markPreferencesDirty,
+} from "@/lib/sync/preferences-cloud-sync";
 import { readCustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
 import { applyRemoteDuaFavorites, readDuaFavoritesBlob } from "@/stores/dua-favorites-store";
 
@@ -29,8 +34,15 @@ jest.mock("@/api/endpoints", () => ({
   syncPush: jest.fn(),
 }));
 
+jest.mock("@/lib/cloud-api-reload-gate", () => ({
+  isAppReloadInProgress: jest.fn(() => false),
+}));
+
 const mockPush = syncPush as jest.MockedFunction<typeof syncPush>;
 const mockPull = syncPull as jest.MockedFunction<typeof syncPull>;
+const mockReloadInProgress = isAppReloadInProgress as jest.MockedFunction<
+  typeof isAppReloadInProgress
+>;
 
 const user: StoredSession = {
   accessToken: "access",
@@ -48,6 +60,8 @@ function pullResult(over: Partial<SyncPullResponseDto> = {}): SyncPullResponseDt
 
 beforeEach(async () => {
   await AsyncStorage.clear();
+  mockReloadInProgress.mockReturnValue(false);
+  clearPreferencesDirty();
   mockPush.mockReset();
   mockPull.mockReset();
   mockPush.mockResolvedValue(pushResult());
@@ -60,6 +74,13 @@ describe("runSync", () => {
     expect(res).toEqual({ status: "skipped", reason: "guest" });
     expect(mockPush).not.toHaveBeenCalled();
     expect(mockPull).not.toHaveBeenCalled();
+  });
+
+  it("skips sync while a native reload is in progress", async () => {
+    mockReloadInProgress.mockReturnValue(true);
+    const res = await runSync(user);
+    expect(res).toEqual({ status: "skipped", reason: "reload" });
+    expect(mockPush).not.toHaveBeenCalled();
   });
 
   it("pushes local records and stores the server time as the next pull cursor", async () => {
@@ -218,6 +239,30 @@ describe("runSync", () => {
     const prefs = await PreferencesRepository.get();
     expect(prefs.favoriteZikrIds).toEqual(["z9"]);
     expect(prefs.locale).toBe("ur");
+  });
+
+  it("does not overwrite a pending local locale from a pulled preferences record", async () => {
+    await PreferencesRepository.update({ locale: "en" });
+    markPreferencesDirty();
+
+    mockPull.mockResolvedValue(
+      pullResult({
+        changes: [
+          {
+            entity: "preferences",
+            id: "preferences",
+            data: { locale: "ur" },
+            updatedAt: "2026-07-04T00:00:00.000Z",
+          },
+        ],
+      }),
+    );
+
+    await runSync(user);
+
+    const prefs = await PreferencesRepository.get();
+    expect(prefs.locale).toBe("en");
+    expect(hasPendingPreferenceChanges()).toBe(false);
   });
 
   it("pushes the expanded blob entities (dua favorites, bookmarks, tasbeeh)", async () => {

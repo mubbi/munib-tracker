@@ -1,11 +1,12 @@
 import { SymbolView } from "expo-symbols";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { filterValueTextStyle } from "@/lib/rtl";
 
 export type OptionPickerItem = {
   id: string;
@@ -31,9 +32,15 @@ export function SelectTrigger({ label, accessibilityLabel, onPress }: SelectTrig
       onPress={onPress}
       style={[styles.trigger, { backgroundColor: colors.muted }]}
     >
-      <ThemedText type="small" numberOfLines={1} style={styles.triggerLabel}>
-        {label}
-      </ThemedText>
+      <View style={styles.triggerLabelWrap}>
+        <ThemedText
+          type="small"
+          numberOfLines={1}
+          style={[styles.triggerLabel, filterValueTextStyle(label)]}
+        >
+          {label}
+        </ThemedText>
+      </View>
       <SymbolView
         name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
         size={14}
@@ -70,12 +77,7 @@ export function OptionPickerSheet({
   return (
     <Sheet visible={visible} onClose={onClose} variant="bottom">
       <ThemedText type="subtitle">{title}</ThemedText>
-      <ScrollView
-        style={styles.list}
-        contentContainerStyle={styles.listContent}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
+      <View style={styles.list}>
         {options.map((option) => {
           const selected = option.id === selectedId;
           return (
@@ -110,29 +112,31 @@ export function OptionPickerSheet({
             </PressableScale>
           );
         })}
-      </ScrollView>
+      </View>
     </Sheet>
   );
 }
 
 const styles = StyleSheet.create({
   trigger: {
+    flex: 1,
+    minWidth: 0,
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    maxWidth: "62%",
     paddingHorizontal: Spacing.three,
     paddingVertical: Spacing.two,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
+  triggerLabelWrap: {
+    flex: 1,
+    minWidth: 0,
+  },
   triggerLabel: {
-    flexShrink: 1,
+    width: "100%",
   },
   list: {
-    maxHeight: 360,
-  },
-  listContent: {
     gap: Spacing.two,
     paddingTop: Spacing.two,
   },

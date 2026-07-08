@@ -1,7 +1,13 @@
 import { Platform, StyleSheet, View, type ViewStyle } from "react-native";
-import Svg, { Circle } from "react-native-svg";
+import Svg, { Circle, Path } from "react-native-svg";
 
 import { Shadows } from "@/constants/theme";
+import {
+  chartCoordinateStyle,
+  progressRingArcPath,
+  progressRingConicGradient,
+  progressSweepRtl,
+} from "@/lib/chart-rtl";
 import { gradientBackground } from "@/lib/gradient";
 
 type ArcProgressRingProps = {
@@ -34,84 +40,63 @@ export function ArcProgressRing({
   style,
 }: ArcProgressRingProps) {
   const clamped = Math.min(1, Math.max(0, progress));
-  const deg = clamped * 360;
   const inset = stroke;
   const innerSize = size - inset * 2;
   const innerRadius = innerSize / 2;
+  const rtl = progressSweepRtl();
+  const innerDisc = (
+    <View
+      style={[
+        {
+          position: "absolute",
+          top: inset,
+          left: inset,
+          width: innerSize,
+          height: innerSize,
+          borderRadius: innerRadius,
+          backgroundColor: surfaceColor,
+        },
+        surfaceShadow ? Shadows.sm : null,
+      ]}
+    />
+  );
 
   if (Platform.OS === "web") {
     return (
-      <View style={[StyleSheet.absoluteFill, { borderRadius: size / 2 }, style]}>
+      <View
+        style={[StyleSheet.absoluteFill, chartCoordinateStyle, { borderRadius: size / 2 }, style]}
+      >
         <View
           style={[
             StyleSheet.absoluteFill,
             { borderRadius: size / 2 },
-            // The unfilled arc uses the track color (not transparent) so the full
-            // ring reads as a light "disabled" circle behind the progress sweep,
-            // matching the native SVG track below.
-            gradientBackground(
-              `conic-gradient(${fillColor} 0deg ${deg}deg, ${trackColor} ${deg}deg 360deg)`,
-            ),
+            gradientBackground(progressRingConicGradient(fillColor, trackColor, clamped, rtl)),
           ]}
-        >
-          <View
-            style={[
-              {
-                position: "absolute",
-                top: inset,
-                left: inset,
-                width: innerSize,
-                height: innerSize,
-                borderRadius: innerRadius,
-                backgroundColor: surfaceColor,
-              },
-              surfaceShadow ? Shadows.sm : null,
-            ]}
-          />
-        </View>
+        />
+        {innerDisc}
       </View>
     );
   }
 
   const radius = (size - stroke) / 2;
   const cx = size / 2;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference * (1 - clamped);
+  const arcPath = progressRingArcPath(cx, cx, radius, clamped, rtl);
 
   return (
-    <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }, style]}>
+    <View style={[StyleSheet.absoluteFill, chartCoordinateStyle, { pointerEvents: "none" }, style]}>
       <Svg width={size} height={size}>
         <Circle cx={cx} cy={cx} r={radius} stroke={trackColor} strokeWidth={stroke} fill="none" />
-        {clamped > 0 ? (
-          <Circle
-            cx={cx}
-            cy={cx}
-            r={radius}
+        {arcPath ? (
+          <Path
+            d={arcPath}
             stroke={fillColor}
             strokeWidth={stroke}
             fill="none"
-            strokeDasharray={`${circumference} ${circumference}`}
-            strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
-            rotation={-90}
-            origin={`${cx}, ${cx}`}
           />
         ) : null}
       </Svg>
-      <View
-        style={[
-          {
-            position: "absolute",
-            top: inset,
-            left: inset,
-            width: innerSize,
-            height: innerSize,
-            borderRadius: innerRadius,
-            backgroundColor: surfaceColor,
-          },
-          surfaceShadow ? Shadows.sm : null,
-        ]}
-      />
+      {innerDisc}
     </View>
   );
 }

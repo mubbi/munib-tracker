@@ -65,6 +65,8 @@ const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
 const TRANSLATION_OPTIONS = ALL_TRANSLATIONS.map((e) => ({ id: e.id, label: e.name }));
 
 const LAST_READ_FLUSH_MS = 600;
+/** Pager siblings kept mounted around the visible page (current ± this window). */
+const PAGE_MOUNT_WINDOW = 1;
 
 function pageNeedsBasmala(page: number): boolean {
   return getPageLayout(page).lines.some((line) => line.type === "basmala");
@@ -227,6 +229,7 @@ export default function QuranPageReaderScreen() {
   const navigateToPage = useCallback(
     async (page: number) => {
       const clamped = Math.min(getPageCount(), Math.max(1, page));
+      setCurrentPage(clamped);
       if (layout !== "mushaf") {
         jumpToPage(clamped);
         return;
@@ -386,10 +389,16 @@ export default function QuranPageReaderScreen() {
             ref={pagerRef}
             style={styles.pager}
             initialPage={initialPage - 1}
+            offscreenPageLimit={1}
             onPageSelected={(e) => onPageSelected(e.nativeEvent.position)}
           >
             {Array.from({ length: getPageCount() }, (_, index) => {
               const page = index + 1;
+              const mounted = Math.abs(page - currentPage) <= PAGE_MOUNT_WINDOW;
+              if (!mounted) {
+                return <View key={page} style={styles.pagePlaceholder} />;
+              }
+
               const ayahs = page === currentPage ? pageAyahs : getAyahsOnPage(page);
               const mushaf = page === currentPage ? mushafLayout : getPageLayout(page);
               const pageHighlight = resolvePageHighlight(ayahs);
@@ -551,5 +560,6 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   pager: { flex: 1 },
+  pagePlaceholder: { flex: 1 },
   pageContent: { padding: Spacing.three, flexGrow: 1 },
 });

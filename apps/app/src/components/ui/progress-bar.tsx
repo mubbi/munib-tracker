@@ -1,11 +1,5 @@
 import { useEffect } from "react";
-import {
-  type LayoutChangeEvent,
-  type StyleProp,
-  StyleSheet,
-  View,
-  type ViewStyle,
-} from "react-native";
+import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import Animated, {
   FadeIn,
   useAnimatedStyle,
@@ -16,6 +10,12 @@ import Animated, {
 import { Springs } from "@/constants/motion";
 import { Radius } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import {
+  chartCoordinateStyle,
+  progressFillTransformOrigin,
+  progressSweepRtl,
+  segmentProgressFilled,
+} from "@/lib/chart-rtl";
 
 type ProgressBarProps = {
   /** Progress from 0 to 1. */
@@ -30,26 +30,21 @@ export function ProgressBar({ value, height = 8, color, trackColor, style }: Pro
   const { colors, tokens } = useThemeTokens();
   const clamped = Math.min(1, Math.max(0, value));
 
-  const trackWidth = useSharedValue(0);
   const progress = useSharedValue(0);
+  const fillOrigin = progressFillTransformOrigin();
 
   useEffect(() => {
     progress.value = withSpring(clamped, Springs.gentle);
   }, [clamped, progress]);
 
   const fillStyle = useAnimatedStyle(() => ({
-    width: trackWidth.value * progress.value,
+    transform: [{ scaleX: progress.value }],
   }));
-
-  const onLayout = (event: LayoutChangeEvent) => {
-    trackWidth.value = event.nativeEvent.layout.width;
-  };
 
   return (
     <View
       accessibilityRole="progressbar"
       accessibilityValue={{ now: Math.round(clamped * 100), min: 0, max: 100 }}
-      onLayout={onLayout}
       style={[
         styles.track,
         { height, borderRadius: height, backgroundColor: trackColor ?? tokens.track },
@@ -59,7 +54,15 @@ export function ProgressBar({ value, height = 8, color, trackColor, style }: Pro
       <Animated.View
         style={[
           styles.fill,
-          { height, borderRadius: height, backgroundColor: color ?? colors.accent },
+          {
+            height,
+            backgroundColor: color ?? colors.accent,
+            transformOrigin: fillOrigin,
+            borderTopStartRadius: height / 2,
+            borderBottomStartRadius: height / 2,
+            borderTopEndRadius: height / 2,
+            borderBottomEndRadius: height / 2,
+          },
           fillStyle,
         ]}
       />
@@ -81,16 +84,19 @@ type SegmentedProgressProps = {
 
 export function SegmentedProgress({ total, completed, color, trackColor }: SegmentedProgressProps) {
   const { colors, tokens } = useThemeTokens();
+  const rtl = progressSweepRtl();
+  const clamped = Math.min(Math.max(0, completed), Math.max(0, total));
   const segments = Array.from({ length: Math.max(0, total) });
 
   return (
     <View
       accessibilityRole="progressbar"
-      accessibilityValue={{ min: 0, max: Math.max(0, total), now: completed }}
-      style={styles.segments}
+      accessibilityValue={{ min: 0, max: Math.max(0, total), now: clamped }}
+      style={[styles.segments, chartCoordinateStyle]}
     >
       {segments.map((_, index) => {
-        const filled = index < completed;
+        const filled = segmentProgressFilled(index, total, clamped, rtl);
+        const animIndex = rtl ? total - 1 - index : index;
         return (
           <View
             // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length static bar
@@ -99,8 +105,12 @@ export function SegmentedProgress({ total, completed, color, trackColor }: Segme
           >
             {filled ? (
               <Animated.View
-                entering={FadeIn.duration(240).delay(index * 45)}
-                style={[styles.segmentFill, { backgroundColor: color ?? colors.accent }]}
+                entering={FadeIn.duration(240).delay(animIndex * 45)}
+                style={[
+                  StyleSheet.absoluteFill,
+                  styles.segmentFill,
+                  { backgroundColor: color ?? colors.accent },
+                ]}
               />
             ) : null}
           </View>
@@ -116,6 +126,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   fill: {
+    width: "100%",
     borderCurve: "continuous",
   },
   segments: {
@@ -130,11 +141,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   segmentFill: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
     borderRadius: Radius.sm,
   },
 });

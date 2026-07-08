@@ -7,6 +7,8 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
+const CHIP_HIT_SLOP = { top: 6, bottom: 6, left: 4, right: 4 } as const;
+
 type NotificationToolbarProps = {
   unreadCount: number;
   onMarkAllRead?: () => void;
@@ -31,18 +33,19 @@ export function NotificationToolbar({
           accessibilityRole="button"
           accessibilityLabel={t("notifCenter.markAllRead")}
           onPress={onMarkAllRead}
+          hitSlop={CHIP_HIT_SLOP}
           style={[styles.chip, { backgroundColor: tokens.accentSoft }]}
         >
           <SymbolView
             name={{ ios: "checkmark.circle.fill", android: "check_circle", web: "check_circle" }}
-            size={16}
+            size={14}
             tintColor={colors.accent}
           />
-          <ThemedText type="smallBold" style={{ color: colors.accent }}>
+          <ThemedText type="caption" style={{ color: colors.accent }}>
             {t("notifCenter.markAllRead")}
           </ThemedText>
           <View style={[styles.badge, { backgroundColor: colors.accent }]}>
-            <ThemedText type="caption" style={{ color: colors.accentForeground }}>
+            <ThemedText type="caption" style={{ color: colors.accentForeground, fontSize: 11 }}>
               {unreadCount > 99 ? "99+" : unreadCount}
             </ThemedText>
           </View>
@@ -58,14 +61,15 @@ export function NotificationToolbar({
             accessibilityRole="button"
             accessibilityLabel={t("notifCenter.clearAll")}
             onPress={onClearAll}
+            hitSlop={CHIP_HIT_SLOP}
             style={[styles.chip, { backgroundColor: tokens.status.danger.soft }]}
           >
             <SymbolView
               name={{ ios: "trash", android: "delete_sweep", web: "delete_sweep" }}
-              size={16}
+              size={14}
               tintColor={tokens.status.danger.text}
             />
-            <ThemedText type="smallBold" style={{ color: tokens.status.danger.text }}>
+            <ThemedText type="caption" style={{ color: tokens.status.danger.text }}>
               {t("notifCenter.clearAll")}
             </ThemedText>
           </PressableScale>
@@ -76,14 +80,15 @@ export function NotificationToolbar({
           accessibilityRole="button"
           accessibilityLabel={t("notifCenter.settings")}
           onPress={onOpenSettings}
+          hitSlop={CHIP_HIT_SLOP}
           style={[styles.chip, { backgroundColor: colors.muted }]}
         >
           <SymbolView
             name={{ ios: "gearshape.fill", android: "settings", web: "settings" }}
-            size={16}
+            size={14}
             tintColor={colors.mutedForeground}
           />
-          <ThemedText type="smallBold" themeColor="mutedForeground">
+          <ThemedText type="caption" themeColor="mutedForeground">
             {t("notifCenter.settings")}
           </ThemedText>
         </PressableScale>
@@ -108,16 +113,15 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.one + 2,
-    paddingHorizontal: Spacing.two + 2,
-    paddingVertical: Spacing.two,
+    gap: Spacing.one,
+    paddingHorizontal: Spacing.two,
+    paddingVertical: Spacing.one,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
-    minHeight: 36,
   },
   badge: {
-    minWidth: 20,
-    height: 20,
+    minWidth: 18,
+    height: 18,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     alignItems: "center",

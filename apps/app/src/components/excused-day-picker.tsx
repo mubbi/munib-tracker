@@ -22,18 +22,35 @@ const EXCUSED_REASON_ICONS: Record<ExcusedReason, SymbolViewProps["name"]> = {
 type ExcusedDayPickerProps = {
   /** Inline sits inside another card; section renders its own title row. */
   variant?: "inline" | "section";
+  /** Controlled excused state (e.g. calendar day view for a specific date). */
+  excusedReason?: ExcusedReason | null;
+  onExcusedChange?: (reason: ExcusedReason | null) => void;
 };
 
-export function ExcusedDayPicker({ variant = "section" }: ExcusedDayPickerProps) {
+export function ExcusedDayPicker({
+  variant = "section",
+  excusedReason: excusedReasonProp,
+  onExcusedChange,
+}: ExcusedDayPickerProps) {
   const { t } = useTranslation();
   const router = useRouter();
   const { colors, tokens } = useThemeTokens();
-  const excusedReason = useDayExcused();
+  const storeExcusedReason = useDayExcused();
   const { setDayExcused } = useTrackerActions();
+  const controlled = onExcusedChange != null;
+  const excusedReason = controlled ? (excusedReasonProp ?? null) : storeExcusedReason;
 
   const handleChipPress = (reason: ExcusedReason, active: boolean) => {
     if (active) {
-      void setDayExcused(null);
+      if (controlled) {
+        onExcusedChange(null);
+      } else {
+        void setDayExcused(null);
+      }
+      return;
+    }
+    if (controlled) {
+      onExcusedChange(reason);
       return;
     }
     router.push(EXCUSED_GUIDE_ROUTES[reason] as Href);
@@ -60,9 +77,26 @@ export function ExcusedDayPicker({ variant = "section" }: ExcusedDayPickerProps)
               },
             ]}
           >
+            {active ? (
+              <View style={styles.chipCheck}>
+                <SymbolView
+                  name={{
+                    ios: "checkmark.circle.fill",
+                    android: "check_circle",
+                    web: "check_circle",
+                  }}
+                  size={16}
+                  tintColor={tokens.status.info.color}
+                />
+              </View>
+            ) : null}
             <View style={styles.chipContent}>
-              <SymbolView name={EXCUSED_REASON_ICONS[reason]} size={16} tintColor={tint} />
-              <ThemedText type="smallBold" style={{ color: tint }}>
+              <SymbolView name={EXCUSED_REASON_ICONS[reason]} size={18} tintColor={tint} />
+              <ThemedText
+                type="caption"
+                style={[styles.chipLabel, { color: tint }]}
+                numberOfLines={1}
+              >
                 {t(`tracker.excusedReason.${reason}`)}
               </ThemedText>
             </View>
@@ -118,17 +152,33 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     gap: Spacing.two,
+    width: "100%",
   },
   chip: {
     flex: 1,
+    minWidth: 0,
     alignItems: "center",
+    justifyContent: "center",
     paddingVertical: Spacing.two + 2,
+    paddingHorizontal: Spacing.one,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     borderWidth: 1.5,
+    minHeight: 64,
+  },
+  chipCheck: {
+    position: "absolute",
+    top: Spacing.one,
+    end: Spacing.one,
   },
   chipContent: {
     alignItems: "center",
-    gap: Spacing.half,
+    justifyContent: "center",
+    gap: Spacing.one,
+    width: "100%",
+  },
+  chipLabel: {
+    fontWeight: "700",
+    textAlign: "center",
   },
 });

@@ -124,27 +124,29 @@ export default function ProfileScreen() {
             onPress={pickAvatar}
             accessibilityLabel={t("profile.changeAvatar")}
           >
-            {prefs.avatarUri ? (
-              <Image source={{ uri: prefs.avatarUri }} style={styles.avatar} />
-            ) : (
-              <View
-                style={[
-                  styles.avatar,
-                  styles.avatarPlaceholder,
-                  { backgroundColor: tokens.accentSoft },
-                ]}
-              >
-                <ThemedText type="header" style={{ color: colors.accent }}>
-                  {displayName.slice(0, 1).toUpperCase()}
-                </ThemedText>
+            <View style={styles.avatarWrap}>
+              {prefs.avatarUri ? (
+                <Image source={{ uri: prefs.avatarUri }} style={styles.avatar} />
+              ) : (
+                <View
+                  style={[
+                    styles.avatar,
+                    styles.avatarPlaceholder,
+                    { backgroundColor: tokens.accentSoft },
+                  ]}
+                >
+                  <ThemedText type="header" style={{ color: colors.accent }}>
+                    {displayName.slice(0, 1).toUpperCase()}
+                  </ThemedText>
+                </View>
+              )}
+              <View style={[styles.cameraBadge, { backgroundColor: colors.accent }]}>
+                <SymbolView
+                  name={{ ios: "camera.fill", android: "photo_camera", web: "photo_camera" }}
+                  size={12}
+                  tintColor={colors.accentForeground}
+                />
               </View>
-            )}
-            <View style={[styles.cameraBadge, { backgroundColor: colors.accent }]}>
-              <SymbolView
-                name={{ ios: "camera.fill", android: "photo_camera", web: "photo_camera" }}
-                size={12}
-                tintColor={colors.accentForeground}
-              />
             </View>
           </PressableScale>
 
@@ -328,6 +330,10 @@ const styles = StyleSheet.create({
     width: 96,
     height: 96,
     borderRadius: 48,
+  },
+  avatarWrap: {
+    width: 96,
+    height: 96,
   },
   avatarPlaceholder: {
     alignItems: "center",

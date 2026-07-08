@@ -11,6 +11,7 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   StyleSheet,
+  Switch,
   View,
   type ViewToken,
 } from "react-native";
@@ -480,7 +481,9 @@ export default function SurahReaderScreen() {
 
           <View style={[styles.controlRow, styles.translationRow]}>
             <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
-            <ReadingFontControls surface="quran" />
+            <View style={styles.controlValue}>
+              <ReadingFontControls surface="quran" />
+            </View>
           </View>
 
           <PlaySurahButton onPress={() => playFrom(0)} />
@@ -811,23 +814,18 @@ function PrefToggle({
 }) {
   const { colors, tokens } = useThemeTokens();
   return (
-    <PressableScale
-      haptic="light"
-      accessibilityRole="switch"
-      accessibilityState={{ checked: enabled }}
-      onPress={onToggle}
-      style={[styles.controlRow, styles.toggleRow]}
-    >
+    <View style={[styles.controlRow, styles.toggleRow]}>
       <ControlLabel icon={icon} label={label} />
-      <View style={[styles.toggle, { backgroundColor: enabled ? colors.accent : tokens.hairline }]}>
-        <View
-          style={[
-            styles.toggleKnob,
-            { backgroundColor: colors.card, alignSelf: enabled ? "flex-end" : "flex-start" },
-          ]}
+      <View style={styles.controlValue}>
+        <Switch
+          value={enabled}
+          onValueChange={onToggle}
+          trackColor={{ true: colors.accent, false: tokens.track }}
+          thumbColor={colors.card}
+          accessibilityLabel={label}
         />
       </View>
-    </PressableScale>
+    </View>
   );
 }
 
@@ -1157,13 +1155,21 @@ const styles = StyleSheet.create({
   controlRow: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    gap: Spacing.three,
   },
   controlLabel: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    flexShrink: 1,
+    flexShrink: 0,
+  },
+  /** Pushes switches / font controls to the outer edge opposite the label. */
+  controlValue: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    minWidth: 0,
   },
   toggleRow: { marginTop: Spacing.three },
   translationRow: { marginTop: Spacing.three },
@@ -1174,14 +1180,6 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     marginTop: Spacing.two,
   },
-  toggle: {
-    width: 44,
-    height: 26,
-    borderRadius: 13,
-    padding: 3,
-    justifyContent: "center",
-  },
-  toggleKnob: { width: 20, height: 20, borderRadius: 10 },
   playSurah: {
     flexDirection: "row",
     alignItems: "center",

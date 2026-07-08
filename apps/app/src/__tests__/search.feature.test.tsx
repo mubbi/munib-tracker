@@ -1,8 +1,10 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react-native";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 
 import SearchScreen from "@/app/search";
 import * as search from "@/lib/search";
 import { renderWithProviders } from "@/test-support/render";
+
+const SEARCH_DEBOUNCE_MS = 180;
 
 /** Theme prefs hydrate from AsyncStorage before the screen paints. */
 async function waitForSearchScreen() {
@@ -11,6 +13,19 @@ async function waitForSearchScreen() {
       expect(screen.getByText("Try searching")).toBeTruthy();
     },
     { timeout: 15_000 },
+  );
+}
+
+/** Waits for the debounced query to run through light + ayah search. */
+async function waitForSearchResults() {
+  await act(async () => {
+    await new Promise((resolve) => setTimeout(resolve, SEARCH_DEBOUNCE_MS + 80));
+  });
+  await waitFor(
+    () => {
+      expect(screen.getAllByText("99 Names").length).toBeGreaterThan(0);
+    },
+    { timeout: 5_000 },
   );
 }
 
@@ -40,10 +55,7 @@ describe("Universal search screen", () => {
     await waitForSearchScreen();
     const input = screen.getByPlaceholderText(/Search Qur'an/i);
     fireEvent.changeText(input, "rahman");
-
-    await waitFor(() => {
-      expect(screen.getAllByText("99 Names").length).toBeGreaterThan(0);
-    });
+    await waitForSearchResults();
     // A matching name row is present, labelled by its title (Ar-Rahman).
     expect(screen.getAllByLabelText(/Ar-Rahman/i).length).toBeGreaterThan(0);
     // The Qur'an group is present too (surah Ar-Rahman comes from light search).
@@ -55,10 +67,7 @@ describe("Universal search screen", () => {
     await waitForSearchScreen();
     const input = screen.getByPlaceholderText(/Search Qur'an/i);
     fireEvent.changeText(input, "rahman");
-
-    await waitFor(() => {
-      expect(screen.getAllByText("99 Names").length).toBeGreaterThan(0);
-    });
+    await waitForSearchResults();
 
     fireEvent.press(screen.getByLabelText("Clear search"));
 

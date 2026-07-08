@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, type ViewStyle } from "react-native";
 import { useReducedMotion } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
 import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { Shadows } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chartCoordinateStyle, progressRingKnobStyle } from "@/lib/chart-rtl";
 
 type ProgressRingProps = {
   /** Progress from 0 to 1. */
@@ -20,6 +21,7 @@ type ProgressRingProps = {
   caption?: string;
   /** Font size of the centre percentage — scale down for compact rings. */
   valueFontSize?: number;
+  style?: ViewStyle;
 };
 
 const COUNT_UP_MS = 900;
@@ -40,6 +42,7 @@ export function ProgressRing({
   surfaceColor,
   caption,
   valueFontSize,
+  style,
 }: ProgressRingProps) {
   const { colors, tokens } = useThemeTokens();
   const reducedMotion = useReducedMotion();
@@ -83,11 +86,7 @@ export function ProgressRing({
     };
   }, [target, reducedMotion]);
 
-  const angle = display * 2 * Math.PI;
-  const orbit = (size - stroke) / 2;
   const knob = stroke + 4;
-  const knobX = size / 2 + orbit * Math.sin(angle) - knob / 2;
-  const knobY = size / 2 - orbit * Math.cos(angle) - knob / 2;
   const pct = Math.round(display * 100);
 
   return (
@@ -95,7 +94,7 @@ export function ProgressRing({
       accessibilityRole="progressbar"
       accessibilityValue={{ now: Math.round(target * 100), min: 0, max: 100 }}
       accessibilityLabel={caption ? `${Math.round(target * 100)}% ${caption}` : undefined}
-      style={[styles.root, { width: size, height: size }]}
+      style={[styles.root, chartCoordinateStyle, { width: size, height: size }, style]}
     >
       <ArcProgressRing
         size={size}
@@ -110,13 +109,10 @@ export function ProgressRing({
       {target > 0 ? (
         <View
           style={[
+            progressRingKnobStyle(size, stroke, display, knob),
             styles.knob,
             {
-              width: knob,
-              height: knob,
               borderRadius: knob / 2,
-              left: knobX,
-              top: knobY,
               backgroundColor: fill,
               borderColor: surface,
               ...Shadows.sm,
@@ -154,7 +150,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   knob: {
-    position: "absolute",
     borderWidth: 2,
   },
   center: {

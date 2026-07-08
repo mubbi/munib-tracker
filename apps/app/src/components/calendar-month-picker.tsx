@@ -2,7 +2,7 @@ import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
@@ -65,6 +65,27 @@ export function CalendarMonthPicker({
       ? Array.from({ length: 12 }, (_, index) => hijriMonthName(index + 1, locale))
       : localizedMonthNames(language);
 
+  const monthRows = useMemo(() => {
+    const rows: { label: string; index: number }[][] = [];
+    for (let rowStart = 0; rowStart < monthLabels.length; rowStart += 3) {
+      rows.push(
+        monthLabels.slice(rowStart, rowStart + 3).map((label, offset) => ({
+          label,
+          index: rowStart + offset,
+        })),
+      );
+    }
+    return rows;
+  }, [monthLabels]);
+
+  const yearRows = useMemo(() => {
+    const rows: number[][] = [];
+    for (let rowStart = 0; rowStart < years.length; rowStart += 4) {
+      rows.push(years.slice(rowStart, rowStart + 4));
+    }
+    return rows;
+  }, [years]);
+
   useEffect(() => {
     if (visible) {
       setView("months");
@@ -108,7 +129,9 @@ export function CalendarMonthPicker({
               onPress={() => setView("years")}
               style={[styles.yearButton, { backgroundColor: tokens.accentSoft }]}
             >
-              <ThemedText type="subtitle">{pickerYear}</ThemedText>
+              <ThemedText type="subtitle" numberOfLines={1}>
+                {pickerYear}
+              </ThemedText>
               <SymbolView
                 name={{
                   ios: "chevron.down",
@@ -128,39 +151,45 @@ export function CalendarMonthPicker({
           </View>
 
           <View style={styles.monthGrid}>
-            {monthLabels.map((label, index) => {
-              const selected = isSelectedMonth(index);
-              const monthKey = monthValue(index);
-              return (
-                <PressableScale
-                  key={monthKey}
-                  haptic="selection"
-                  accessibilityRole="button"
-                  accessibilityState={{ selected }}
-                  accessibilityLabel={label}
-                  onPress={() => handleMonthPress(index)}
-                  style={[
-                    styles.monthCell,
-                    {
-                      backgroundColor: selected ? withAlpha(colors.accent, 0.18) : colors.muted,
-                      borderColor: selected ? colors.accent : "transparent",
-                      borderWidth: selected ? 1.5 : 0,
-                    },
-                  ]}
-                >
-                  <ThemedText
-                    type="smallBold"
-                    numberOfLines={2}
-                    style={{
-                      color: selected ? colors.accent : colors.foreground,
-                      textAlign: "center",
-                    }}
-                  >
-                    {label}
-                  </ThemedText>
-                </PressableScale>
-              );
-            })}
+            {monthRows.map((row) => (
+              <View key={row[0]?.index} style={styles.monthRow}>
+                {row.map(({ label, index }) => {
+                  const selected = isSelectedMonth(index);
+                  const monthKey = monthValue(index);
+                  return (
+                    <PressableScale
+                      key={monthKey}
+                      haptic="selection"
+                      accessibilityRole="button"
+                      accessibilityState={{ selected }}
+                      accessibilityLabel={label}
+                      onPress={() => handleMonthPress(index)}
+                      style={[
+                        styles.monthCell,
+                        {
+                          backgroundColor: selected ? withAlpha(colors.accent, 0.18) : colors.muted,
+                          borderColor: selected ? colors.accent : "transparent",
+                          borderWidth: selected ? 1.5 : 0,
+                        },
+                      ]}
+                    >
+                      <ThemedText
+                        type="smallBold"
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.75}
+                        style={{
+                          color: selected ? colors.accent : colors.foreground,
+                          textAlign: "center",
+                        }}
+                      >
+                        {label}
+                      </ThemedText>
+                    </PressableScale>
+                  );
+                })}
+              </View>
+            ))}
           </View>
         </>
       ) : (
@@ -181,40 +210,41 @@ export function CalendarMonthPicker({
             <View style={styles.backButtonSpacer} />
           </View>
 
-          <ScrollView
-            contentContainerStyle={styles.yearGrid}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
-            {years.map((itemYear) => {
-              const selected = itemYear === pickerYear;
-              return (
-                <PressableScale
-                  key={itemYear}
-                  haptic="selection"
-                  accessibilityRole="button"
-                  accessibilityState={{ selected }}
-                  accessibilityLabel={`${itemYear}`}
-                  onPress={() => handleYearPress(itemYear)}
-                  style={[
-                    styles.yearCell,
-                    {
-                      backgroundColor: selected ? withAlpha(colors.accent, 0.18) : colors.muted,
-                      borderColor: selected ? colors.accent : "transparent",
-                      borderWidth: selected ? 1.5 : 0,
-                    },
-                  ]}
-                >
-                  <ThemedText
-                    type="smallBold"
-                    style={{ color: selected ? colors.accent : colors.foreground }}
-                  >
-                    {itemYear}
-                  </ThemedText>
-                </PressableScale>
-              );
-            })}
-          </ScrollView>
+          <View style={styles.yearGrid}>
+            {yearRows.map((row) => (
+              <View key={row[0]} style={styles.yearRow}>
+                {row.map((itemYear) => {
+                  const selected = itemYear === pickerYear;
+                  return (
+                    <PressableScale
+                      key={itemYear}
+                      haptic="selection"
+                      accessibilityRole="button"
+                      accessibilityState={{ selected }}
+                      accessibilityLabel={`${itemYear}`}
+                      onPress={() => handleYearPress(itemYear)}
+                      style={[
+                        styles.yearCell,
+                        {
+                          backgroundColor: selected ? withAlpha(colors.accent, 0.18) : colors.muted,
+                          borderColor: selected ? colors.accent : "transparent",
+                          borderWidth: selected ? 1.5 : 0,
+                        },
+                      ]}
+                    >
+                      <ThemedText
+                        type="smallBold"
+                        numberOfLines={1}
+                        style={{ color: selected ? colors.accent : colors.foreground }}
+                      >
+                        {itemYear}
+                      </ThemedText>
+                    </PressableScale>
+                  );
+                })}
+              </View>
+            ))}
+          </View>
         </>
       )}
     </Sheet>
@@ -252,18 +282,21 @@ const styles = StyleSheet.create({
   yearNav: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    gap: Spacing.two,
     marginTop: Spacing.one,
   },
   yearButton: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     gap: Spacing.one,
-    paddingHorizontal: Spacing.three,
+    paddingHorizontal: Spacing.two,
     paddingVertical: Spacing.two,
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     minHeight: 44,
+    minWidth: 0,
   },
   navIcon: {
     width: 36,
@@ -274,15 +307,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   monthGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
     gap: Spacing.two,
     marginTop: Spacing.three,
   },
+  monthRow: {
+    flexDirection: "row",
+    gap: Spacing.two,
+  },
   monthCell: {
-    width: "30%",
-    flexGrow: 1,
-    minHeight: 52,
+    flex: 1,
+    minHeight: 48,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: Spacing.one,
@@ -311,16 +345,16 @@ const styles = StyleSheet.create({
     width: 36,
   },
   yearGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
     gap: Spacing.two,
     paddingTop: Spacing.three,
     paddingBottom: Spacing.two,
-    maxHeight: 320,
+  },
+  yearRow: {
+    flexDirection: "row",
+    gap: Spacing.two,
   },
   yearCell: {
-    width: "22%",
-    flexGrow: 1,
+    flex: 1,
     minHeight: 44,
     alignItems: "center",
     justifyContent: "center",

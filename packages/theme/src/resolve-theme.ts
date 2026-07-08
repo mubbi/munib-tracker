@@ -22,14 +22,7 @@ const darkBase = {
   cardForeground: "#E8DCC8",
 };
 
-export function resolveTheme(
-  colorMode: ColorMode,
-  systemScheme: "light" | "dark" | null | undefined,
-  accentColorId: AccentColorId = defaultAccentColorId,
-): ThemeColors {
-  const resolvedScheme =
-    colorMode === "system" ? (systemScheme === "dark" ? "dark" : "light") : colorMode;
-
+function buildTheme(resolvedScheme: "light" | "dark", accentColorId: AccentColorId): ThemeColors {
   const base = resolvedScheme === "dark" ? darkBase : lightBase;
   const accent = accentColors[accentColorId] ?? accentColors[defaultAccentColorId];
   const resolvedAccent = resolvedScheme === "dark" ? accent.dark : accent.light;
@@ -43,4 +36,31 @@ export function resolveTheme(
     accentForeground: bestForeground(resolvedAccent),
     accentText: accentOnSurface(resolvedAccent, textSurface),
   };
+}
+
+/** Stable references for preset accent × scheme pairs — avoids re-allocating on every theme toggle. */
+const presetThemeCache = new Map<string, ThemeColors>();
+
+function getPresetTheme(
+  resolvedScheme: "light" | "dark",
+  accentColorId: AccentColorId,
+): ThemeColors {
+  const key = `${resolvedScheme}:${accentColorId}`;
+  let cached = presetThemeCache.get(key);
+  if (!cached) {
+    cached = buildTheme(resolvedScheme, accentColorId);
+    presetThemeCache.set(key, cached);
+  }
+  return cached;
+}
+
+export function resolveTheme(
+  colorMode: ColorMode,
+  systemScheme: "light" | "dark" | null | undefined,
+  accentColorId: AccentColorId = defaultAccentColorId,
+): ThemeColors {
+  const resolvedScheme =
+    colorMode === "system" ? (systemScheme === "dark" ? "dark" : "light") : colorMode;
+
+  return getPresetTheme(resolvedScheme, accentColorId);
 }

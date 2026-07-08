@@ -1,4 +1,5 @@
 import { SymbolView } from "expo-symbols";
+import type { RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { type LayoutChangeEvent, Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -20,6 +21,8 @@ type AppHeaderProps = {
   notificationCount?: number;
   onNotificationsPress?: () => void;
   onBack?: () => void;
+  /** Android: scroll content captured beneath this floating header. */
+  blurTargetRef?: RefObject<View | null>;
   /** Reports the rendered header height so the layout can inset content beneath it. */
   onLayout?: (event: LayoutChangeEvent) => void;
 };
@@ -31,6 +34,7 @@ export function AppHeader({
   notificationCount = 0,
   onNotificationsPress,
   onBack,
+  blurTargetRef,
   onLayout,
 }: AppHeaderProps) {
   const insets = useSafeAreaInsets();
@@ -44,6 +48,8 @@ export function AppHeader({
 
   return (
     <GlassSurface
+      blurTargetRef={blurTargetRef}
+      intensity={Platform.OS === "android" ? 50 : 40}
       onLayout={onLayout}
       style={[
         styles.container,

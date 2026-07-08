@@ -7,7 +7,6 @@ import { Seo } from "@/components/seo/seo";
 import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { usePinLock } from "@/features/pin-lock";
 import { useFormatTime } from "@/hooks/use-time-format";
@@ -36,7 +35,7 @@ export default function SettingsScreen() {
       subtitle={t("settings.subtitle")}
     >
       <Seo path="/settings" />
-      <Stagger>
+      <View style={styles.stack}>
         <Card padding="three">
           <View style={styles.group}>
             <SettingsRow
@@ -184,8 +183,16 @@ export default function SettingsScreen() {
             {isNative ? (
               <SettingsRow
                 icon={{ ios: "mic.fill", android: "mic", web: "mic" }}
-                title={t("externalCommands.title")}
-                subtitle={t("externalCommands.settingsSubtitle")}
+                title={t(
+                  Platform.OS === "android"
+                    ? "externalCommands.titleAndroid"
+                    : "externalCommands.titleIos",
+                )}
+                subtitle={t(
+                  Platform.OS === "android"
+                    ? "externalCommands.settingsSubtitleAndroid"
+                    : "externalCommands.settingsSubtitleIos",
+                )}
                 onPress={() => router.push("/settings/voice-shortcuts" as Href)}
               />
             ) : null}
@@ -250,12 +257,15 @@ export default function SettingsScreen() {
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>
           {t("settings.footer", { app: APP_NAME })}
         </ThemedText>
-      </Stagger>
+      </View>
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  stack: {
+    gap: Spacing.four,
+  },
   group: {
     gap: Spacing.two,
   },

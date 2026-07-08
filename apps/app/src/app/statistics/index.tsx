@@ -154,7 +154,7 @@ export default function StatisticsScreen() {
 
   const today = getLocalDateString();
 
-  const { chart, from } = useMemo(() => {
+  const { chart, from, averageLevel } = useMemo(() => {
     if (period === "year") {
       const year = new Date().getFullYear();
       const currentMonth = new Date().getMonth();
@@ -169,23 +169,38 @@ export default function StatisticsScreen() {
         }
         return { label, value: lastDay ? sum / lastDay : 0 };
       });
-      return { chart: bars, from: `${year}-01-01` };
+      const elapsed = bars.filter((_, month) => month <= currentMonth);
+      const avg =
+        elapsed.length > 0 ? elapsed.reduce((sum, bar) => sum + bar.value, 0) / elapsed.length : 0;
+      return { chart: bars, from: `${year}-01-01`, averageLevel: avg };
     }
 
     const days = period === "week" ? 7 : 30;
     const series = dailyCompletionSeries(logs, days, today);
+    const monthTickIndexes =
+      period === "month"
+        ? new Set(
+            [0, Math.floor((series.length - 1) / 2), series.length - 1].filter(
+              (i) => i >= 0 && i < series.length,
+            ),
+          )
+        : null;
     const bars: BarDatum[] = series.map((activity, index) => {
       const d = parseLocalDateString(activity.date);
-      const label =
-        period === "week"
-          ? d.toLocaleDateString(undefined, { weekday: "narrow" })
-          : index % 5 === 0
-            ? `${d.getDate()}`
-            : "";
+      let label = "";
+      if (period === "week") {
+        label = d.toLocaleDateString(locale, { weekday: "short" });
+      } else if (monthTickIndexes?.has(index)) {
+        label = d.toLocaleDateString(locale, { month: "short", day: "numeric" });
+      }
       return { label, value: activity.level };
     });
-    return { chart: bars, from: addDays(today, -(days - 1)) };
-  }, [period, logs, today]);
+    const avg =
+      series.length > 0
+        ? series.reduce((sum, activity) => sum + activity.level, 0) / series.length
+        : 0;
+    return { chart: bars, from: addDays(today, -(days - 1)), averageLevel: avg };
+  }, [period, logs, today, locale]);
 
   const prayerTotals = useMemo(() => sumPrayerTotals(logs, from, today), [logs, from, today]);
 
@@ -321,28 +336,40 @@ export default function StatisticsScreen() {
             </View>
           </Card>
 
-          <Card padding="three" style={styles.sectionCard}>
+          <Card padding="three" style={styles.trendsCard}>
             <View style={styles.trendsHeader}>
-              <View style={styles.trendsCopy}>
-                <ThemedText type="subtitle">{t("statistics.trends")}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t(PERIOD_HINT_KEYS[period])}
-                </ThemedText>
+              <View style={styles.trendsTitleRow}>
+                <View style={styles.trendsCopy}>
+                  <ThemedText type="subtitle">{t("statistics.trends")}</ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t(PERIOD_HINT_KEYS[period])}
+                  </ThemedText>
+                </View>
+                <View style={[styles.avgPill, { backgroundColor: tokens.status.success.soft }]}>
+                  <ThemedText type="smallBold" style={{ color: tokens.status.success.text }}>
+                    {t("statistics.avgCompletion", {
+                      percent: Math.round(averageLevel * 100),
+                    })}
+                  </ThemedText>
+                </View>
               </View>
-            </View>
 
-            <SegmentedControl<Period>
-              options={[
-                { id: "week", label: t("statistics.week") },
-                { id: "month", label: t("statistics.month") },
-                { id: "year", label: t("statistics.year") },
-              ]}
-              value={period}
-              onChange={setPeriod}
-            />
+              <SegmentedControl<Period>
+                options={[
+                  { id: "week", label: t("statistics.week") },
+                  { id: "month", label: t("statistics.month") },
+                  { id: "year", label: t("statistics.year") },
+                ]}
+                value={period}
+                onChange={setPeriod}
+              />
 
-            <View style={styles.chart}>
-              <BarChart data={chart} color={tokens.status.success.color} />
+              <BarChart
+                data={chart}
+                color={tokens.status.success.color}
+                height={period === "month" ? 120 : 112}
+                emptyLabel={t("statistics.chartEmpty")}
+              />
             </View>
 
             <CardDivider />
@@ -602,17 +629,30 @@ const styles = StyleSheet.create({
   sectionCard: {
     gap: Spacing.two,
   },
+  trendsCard: {
+    gap: Spacing.three,
+  },
   trendsHeader: {
-    gap: Spacing.one,
+    gap: Spacing.two,
+  },
+  trendsTitleRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: Spacing.two,
   },
   trendsCopy: {
-    gap: Spacing.half,
+    flex: 1,
+    gap: 2,
   },
-  chart: {
-    marginTop: Spacing.one,
+  avgPill: {
+    paddingHorizontal: Spacing.two + 2,
+    paddingVertical: Spacing.one + 2,
+    borderRadius: Radius.pill,
+    marginTop: 2,
   },
   trendGroups: {
-    gap: Spacing.four,
+    gap: Spacing.three,
   },
   detailBlock: {
     gap: Spacing.two,

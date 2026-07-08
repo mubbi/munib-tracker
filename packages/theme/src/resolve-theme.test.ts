@@ -19,4 +19,10 @@ describe.concurrent("resolveTheme", () => {
     expect(dark.background).toBe("#152921");
     expect(dark.accent).toBe("#2DD4BF");
   });
+
+  it("returns stable object references for repeated calls", () => {
+    const first = resolveTheme("light", "light", "forest");
+    const second = resolveTheme("light", "light", "forest");
+    expect(first).toBe(second);
+  });
 });

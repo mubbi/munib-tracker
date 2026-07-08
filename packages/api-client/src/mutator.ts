@@ -1,3 +1,10 @@
+import {
+  ApiBlockedError,
+  beginApiRequest,
+  endApiRequest,
+  isAppReloadInProgress,
+} from "./cloud-api-gate";
+
 export type ApiFetchOptions = RequestInit & {
   accessToken?: string;
 };
@@ -62,6 +69,10 @@ export async function apiFetch<T>(
   config: OrvalRequestConfig,
   options: ApiFetchOptions = {},
 ): Promise<T> {
+  if (isAppReloadInProgress()) {
+    throw new ApiBlockedError(config.method, config.url);
+  }
+
   const { accessToken, headers, ...requestInit } = options;
   let targetUrl = config.url.startsWith("http") ? config.url : `${getApiBaseUrl()}${config.url}`;
 
@@ -93,33 +104,38 @@ export async function apiFetch<T>(
       },
     });
 
-  let response = await send(accessToken);
+  beginApiRequest();
+  try {
+    let response = await send(accessToken);
 
-  // Transparently recover from an expired access token: refresh once and retry.
-  // Only attempts a retry when the caller supplied a token and a refresher is
-  // registered, so unauthenticated 401s still surface immediately.
-  if (response.status === 401 && accessToken && tokenRefresher) {
-    const refreshed = await tokenRefresher();
-    if (refreshed && refreshed !== accessToken) {
-      response = await send(refreshed);
+    // Transparently recover from an expired access token: refresh once and retry.
+    // Only attempts a retry when the caller supplied a token and a refresher is
+    // registered, so unauthenticated 401s still surface immediately.
+    if (response.status === 401 && accessToken && tokenRefresher && !isAppReloadInProgress()) {
+      const refreshed = await tokenRefresher();
+      if (refreshed && refreshed !== accessToken) {
+        response = await send(refreshed);
+      }
     }
+
+    if (response.status === 204) {
+      return undefined as T;
+    }
+
+    const body = await response.json().catch(() => undefined);
+
+    if (!response.ok) {
+      throw new ApiError(
+        typeof body === "object" && body && "message" in body
+          ? String((body as { message: string }).message)
+          : `Request failed with status ${response.status}`,
+        response.status,
+        body,
+      );
+    }
+
+    return body as T;
+  } finally {
+    endApiRequest();
   }
-
-  if (response.status === 204) {
-    return undefined as T;
-  }
-
-  const body = await response.json().catch(() => undefined);
-
-  if (!response.ok) {
-    throw new ApiError(
-      typeof body === "object" && body && "message" in body
-        ? String((body as { message: string }).message)
-        : `Request failed with status ${response.status}`,
-      response.status,
-      body,
-    );
-  }
-
-  return body as T;
 }

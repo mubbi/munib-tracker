@@ -1,4 +1,5 @@
 import type { ContentReportKind } from "@munib-tracker/shared/types/content-report";
+import { BlurTargetView } from "expo-blur";
 import { useFocusEffect, usePathname } from "expo-router";
 import type { ReactNode, RefObject } from "react";
 import { useCallback, useMemo, useRef, useState } from "react";
@@ -90,6 +91,7 @@ export function ScreenLayout({
   const insets = useSafeAreaInsets();
   const contentBottomInset = useContentBottomInset();
   const rootRef = useRef<View>(null);
+  const contentBlurTargetRef = useRef<View>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
 
   // Reading-progress line: driven by the built-in scroller. A plain ScrollView
@@ -182,6 +184,43 @@ export function ScreenLayout({
     </View>
   );
 
+  const scrollBody = scrollable ? (
+    <ScrollView
+      ref={scrollRef}
+      onScroll={handleScroll}
+      onContentSizeChange={onContentSizeChange}
+      onLayout={
+        trackProgress
+          ? (event) => {
+              viewportHeightRef.current = event.nativeEvent.layout.height;
+            }
+          : undefined
+      }
+      scrollEventThrottle={16}
+      contentContainerStyle={[
+        styles.scrollContent,
+        { paddingTop: headerInset, paddingBottom: contentBottomInset },
+      ]}
+      // The floating glass header already accounts for the top inset; opting
+      // out keeps the OS from adding it again and double-padding the content.
+      contentInsetAdjustmentBehavior="never"
+      showsVerticalScrollIndicator={false}
+    >
+      {content}
+    </ScrollView>
+  ) : (
+    content
+  );
+
+  const screenBody =
+    Platform.OS === "android" ? (
+      <BlurTargetView ref={contentBlurTargetRef} style={styles.root}>
+        {scrollBody}
+      </BlurTargetView>
+    ) : (
+      scrollBody
+    );
+
   return (
     <View
       ref={rootRef}
@@ -189,38 +228,12 @@ export function ScreenLayout({
       {...(Platform.OS === "web" ? { tabIndex: -1 as const } : {})}
       style={[styles.root, { backgroundColor: colors.background }]}
     >
-      {scrollable ? (
-        <ScrollView
-          ref={scrollRef}
-          onScroll={handleScroll}
-          onContentSizeChange={onContentSizeChange}
-          onLayout={
-            trackProgress
-              ? (event) => {
-                  viewportHeightRef.current = event.nativeEvent.layout.height;
-                }
-              : undefined
-          }
-          scrollEventThrottle={16}
-          contentContainerStyle={[
-            styles.scrollContent,
-            { paddingTop: headerInset, paddingBottom: contentBottomInset },
-          ]}
-          // The floating glass header already accounts for the top inset; opting
-          // out keeps the OS from adding it again and double-padding the content.
-          contentInsetAdjustmentBehavior="never"
-          showsVerticalScrollIndicator={false}
-        >
-          {content}
-        </ScrollView>
-      ) : (
-        content
-      )}
+      {screenBody}
       {/* Rendered last so it stacks above scrolling content on Android; content
           scrolls beneath the translucent material for the glass effect. Only the
           header bar itself is measured for the content inset — the accessory
           floats over content below it. */}
-      <View style={styles.headerFloat}>
+      <View style={styles.headerFloat} pointerEvents="box-none">
         <AppHeader
           title={title}
           subtitle={subtitle}
@@ -228,6 +241,7 @@ export function ScreenLayout({
           notificationCount={notificationCount}
           onNotificationsPress={onNotificationsPress}
           onBack={onBack}
+          blurTargetRef={Platform.OS === "android" ? contentBlurTargetRef : undefined}
           onLayout={(event) => setHeaderHeight(event.nativeEvent.layout.height)}
         />
         {headerAccessory}

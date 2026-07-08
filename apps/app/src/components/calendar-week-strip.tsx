@@ -103,17 +103,14 @@ export function CalendarWeekStrip({
               : day.day;
 
           return (
-            <PressableScale
-              key={day.date}
-              haptic="light"
-              accessibilityRole="button"
-              accessibilityLabel={describeDay(day.date, day.isToday, isSelected)}
-              accessibilityState={{ selected: isSelected, disabled: day.isFuture }}
-              disabled={day.isFuture}
-              onPress={() => onSelectDate(day.date)}
-              style={styles.cell}
-            >
-              <View
+            <View key={day.date} style={styles.cell}>
+              <PressableScale
+                haptic="light"
+                accessibilityRole="button"
+                accessibilityLabel={describeDay(day.date, day.isToday, isSelected)}
+                accessibilityState={{ selected: isSelected, disabled: day.isFuture }}
+                disabled={day.isFuture}
+                onPress={() => onSelectDate(day.date)}
                 style={[
                   styles.dayCircle,
                   { backgroundColor: fill },
@@ -136,13 +133,13 @@ export function CalendarWeekStrip({
                 >
                   {displayDay}
                 </ThemedText>
-              </View>
+              </PressableScale>
               {hasMiss ? (
                 <View style={[styles.dot, { backgroundColor: tokens.status.danger.color }]} />
               ) : (
                 <View style={styles.dot} />
               )}
-            </PressableScale>
+            </View>
           );
         })}
       </View>

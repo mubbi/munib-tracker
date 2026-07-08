@@ -1,9 +1,10 @@
 import { Directory, File, Paths } from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import type { RefObject } from "react";
-import { InteractionManager, Platform, Share, type View, type ViewStyle } from "react-native";
+import { Platform, Share, type View, type ViewStyle } from "react-native";
 import { captureRef } from "react-native-view-shot";
 
+import { runWhenIdle } from "@/lib/run-when-idle";
 import { resolveViewHostElement } from "@/lib/share/resolveViewHostElement";
 import type { WebShareSnapshotResult } from "@/lib/share/shareViewSnapshotWeb";
 import { shareSnapshotOnWeb } from "@/lib/share/shareViewSnapshotWeb";
@@ -62,9 +63,9 @@ export type ShareViewSnapshotOptions = {
 
 const SHARE_SNAPSHOTS_DIR = "share-snapshots";
 
-function waitForInteractions(): Promise<void> {
+function waitForIdle(): Promise<void> {
   return new Promise((resolve) => {
-    InteractionManager.runAfterInteractions(() => {
+    runWhenIdle(() => {
       setTimeout(resolve, 150);
     });
   });
@@ -130,7 +131,7 @@ export async function shareViewSnapshot(
   options: ShareViewSnapshotOptions,
 ): Promise<ShareViewSnapshotResult> {
   if (Platform.OS !== "web") {
-    await waitForInteractions();
+    await waitForIdle();
   }
   await options.beforeCapture?.();
   await waitForPaint();
@@ -156,7 +157,7 @@ export async function shareViewSnapshot(
   }
 
   const shareUri = persistNamedSnapshot(capturedUri, options.filename);
-  await waitForInteractions();
+  await waitForIdle();
 
   try {
     if (options.message) {

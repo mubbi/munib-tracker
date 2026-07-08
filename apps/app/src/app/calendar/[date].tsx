@@ -1,24 +1,21 @@
-import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
-import type { AppLocale, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import { OBLIGATORY_PRAYERS } from "@munib-tracker/shared/constants";
+import type { AppLocale, ExcusedReason, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
 import { CalendarWeekStrip } from "@/components/calendar-week-strip";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
-import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
-import { ThemedText } from "@/components/themed-text";
-import { Card } from "@/components/ui/card";
+import { TrackerDayChecklist } from "@/components/tracker-day-checklist";
 import { EmptyState } from "@/components/ui/empty-state";
-import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
-import { Spacing } from "@/constants/theme";
-import { PrayerRepository } from "@/db";
+import { PrayerRepository, ZikrRepository } from "@/db";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
+import { usePrayerTimesForDate } from "@/hooks/use-prayer-times-for-date";
+import { zikrCountKey } from "@/lib/after-salah-adhkar-progress";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { goBackOrReplace } from "@/lib/navigation";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
@@ -31,6 +28,7 @@ export default function CalendarDayScreen() {
   const defaultCalendar = useDefaultCalendar();
   const date = params.date ?? getLocalDateString();
   const today = getLocalDateString();
+  const isToday = date === today;
   const isFuture = date > today;
 
   const base = i18n.language?.split("-")[0];
@@ -40,14 +38,15 @@ export default function CalendarDayScreen() {
       ? params.calendar
       : defaultCalendar;
   const title = formatCalendarDateFromIso(date, calendarMode, locale);
+  const prayerTimes = usePrayerTimesForDate(date);
 
   const [status, setStatus] = useState<Record<string, PrayerStatus>>({});
   const [notes, setNotes] = useState<Record<string, string | undefined>>({});
   const [jama, setJama] = useState<Record<string, boolean>>({});
+  const [excusedReason, setExcusedReason] = useState<ExcusedReason | null>(null);
+  const [zikrCounts, setZikrCounts] = useState<Record<string, number>>({});
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
-  // Retain a valid prayer id after first open so the sheet stays mounted and can
-  // animate closed with stable content rather than unmounting instantly.
   const lastActivePrayer = useRef<PrayerId | null>(activePrayer);
   if (activePrayer) lastActivePrayer.current = activePrayer;
   const sheetPrayer = activePrayer ?? lastActivePrayer.current;
@@ -76,21 +75,30 @@ export default function CalendarDayScreen() {
   );
 
   const reload = useCallback(async () => {
-    const [logs, allLogs] = await Promise.all([
+    const [logs, allLogs, zikrEntries] = await Promise.all([
       PrayerRepository.getByDate(date),
       PrayerRepository.getAll(),
+      ZikrRepository.getByDate(date),
     ]);
     const nextStatus: Record<string, PrayerStatus> = {};
     const nextNotes: Record<string, string | undefined> = {};
     const nextJama: Record<string, boolean> = {};
+    let nextExcused: ExcusedReason | null = null;
     for (const log of logs) {
       nextStatus[log.prayerId] = log.status;
       if (log.notes) nextNotes[log.prayerId] = log.notes;
       if (log.isJama) nextJama[log.prayerId] = true;
+      if (log.isExcused) nextExcused = log.excusedReason ?? "sick";
+    }
+    const nextZikrCounts: Record<string, number> = {};
+    for (const entry of zikrEntries) {
+      nextZikrCounts[zikrCountKey(entry.zikrId, entry.prayerId)] = entry.count;
     }
     setStatus(nextStatus);
     setNotes(nextNotes);
     setJama(nextJama);
+    setExcusedReason(nextExcused);
+    setZikrCounts(nextZikrCounts);
     setActivity(aggregateByDate(allLogs));
   }, [date]);
 
@@ -116,7 +124,6 @@ export default function CalendarDayScreen() {
 
     await PrayerRepository.setStatus(prayerId, date, next, { qazaDebtAdded });
     await reload();
-    // Lifetime stats (prayers, streak, perfect days) must refresh for any date edit.
     await trackerStore.getState().refresh();
     remindAfterSalahAdhkar(prayerId, previous, next);
   };
@@ -129,6 +136,18 @@ export default function CalendarDayScreen() {
 
   const applyJama = async (prayerId: PrayerId, next: boolean) => {
     await PrayerRepository.setFlags(prayerId, date, { isJama: next });
+    await reload();
+    await trackerStore.getState().refresh();
+  };
+
+  const applyExcused = async (reason: ExcusedReason | null) => {
+    const isExcused = reason != null;
+    for (const prayerId of OBLIGATORY_PRAYERS) {
+      await PrayerRepository.setFlags(prayerId, date, {
+        isExcused,
+        excusedReason: reason ?? undefined,
+      });
+    }
     await reload();
     await trackerStore.getState().refresh();
   };
@@ -168,62 +187,18 @@ export default function CalendarDayScreen() {
             description={t("calDay.emptyDesc")}
           />
         ) : (
-          <>
-            <Card padding="three">
-              <SectionHeader
-                title={t("tracker.obligatory")}
-                icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
-              />
-              <View style={styles.rows}>
-                {OBLIGATORY_PRAYERS.map((prayerId) => (
-                  <PrayerTrackerRow
-                    key={prayerId}
-                    prayerId={prayerId}
-                    status={status[prayerId] ?? "pending"}
-                    hasNotes={!!notes[prayerId]}
-                    isJama={jama[prayerId] ?? false}
-                    onPress={() => setActivePrayer(prayerId)}
-                  />
-                ))}
-              </View>
-            </Card>
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("tracker.witr")}
-                icon={{ ios: "moon.fill", android: "dark_mode", web: "dark_mode" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.witrHint}>
-                {t("tracker.witrSubtitle")}
-              </ThemedText>
-              <View style={styles.rows}>
-                <PrayerTrackerRow
-                  prayerId={WITR_PRAYER}
-                  status={status[WITR_PRAYER] ?? "pending"}
-                  hasNotes={!!notes[WITR_PRAYER]}
-                  onPress={() => setActivePrayer(WITR_PRAYER)}
-                />
-              </View>
-            </Card>
-
-            <Card padding="three">
-              <SectionHeader
-                title={t("tracker.sunnahOptional")}
-                icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
-              />
-              <View style={styles.rows}>
-                {SUNNAH_PRAYERS.map((prayerId) => (
-                  <PrayerTrackerRow
-                    key={prayerId}
-                    prayerId={prayerId}
-                    status={status[prayerId] ?? "pending"}
-                    hasNotes={!!notes[prayerId]}
-                    onPress={() => setActivePrayer(prayerId)}
-                  />
-                ))}
-              </View>
-            </Card>
-          </>
+          <TrackerDayChecklist
+            date={date}
+            isToday={isToday}
+            status={status}
+            notes={notes}
+            jama={jama}
+            zikrCounts={zikrCounts}
+            excusedReason={excusedReason}
+            prayerTimes={prayerTimes}
+            onPrayerPress={setActivePrayer}
+            onExcusedChange={(reason) => void applyExcused(reason)}
+          />
         )}
       </Stagger>
 
@@ -244,13 +219,3 @@ export default function CalendarDayScreen() {
     </ScreenLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  rows: {
-    gap: Spacing.two,
-    marginTop: Spacing.three,
-  },
-  witrHint: {
-    marginTop: Spacing.one,
-  },
-});

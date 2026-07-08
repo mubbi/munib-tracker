@@ -18,6 +18,7 @@ import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { filterValueTextStyle, ltrControlStyle } from "@/lib/rtl";
 
 /** SF Symbols → Material fallbacks for each toolbar chip. */
 const TOOLBAR_ICONS = {
@@ -160,7 +161,7 @@ export function QuranReadingToolbar({
               onPress={onOpenPage}
             />
           ) : null}
-          <View style={[styles.fontChip, { backgroundColor: colors.muted }]}>
+          <View style={[styles.fontChip, ltrControlStyle, { backgroundColor: colors.muted }]}>
             <SymbolView
               name={TOOLBAR_ICONS.textSize}
               size={16}
@@ -241,9 +242,15 @@ function SelectChip({
       style={[styles.chip, { backgroundColor: colors.muted }]}
     >
       <SymbolView name={icon} size={16} tintColor={colors.accent} />
-      <ThemedText type="smallBold" numberOfLines={1} style={styles.chipValue}>
-        {value}
-      </ThemedText>
+      <View style={styles.chipValueWrap}>
+        <ThemedText
+          type="smallBold"
+          numberOfLines={1}
+          style={[styles.chipValue, filterValueTextStyle(value)]}
+        >
+          {value}
+        </ThemedText>
+      </View>
       <SymbolView
         name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
         size={12}
@@ -335,8 +342,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "transparent",
   },
+  chipValueWrap: {
+    flex: 1,
+    minWidth: 0,
+  },
   chipValue: {
-    flexShrink: 1,
+    width: "100%",
   },
   fontChip: {
     flexDirection: "row",

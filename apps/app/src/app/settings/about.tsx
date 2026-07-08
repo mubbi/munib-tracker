@@ -4,7 +4,7 @@ import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { DownloadNativeAppsSection } from "@/components/settings/download-native-apps-section";
@@ -27,6 +27,7 @@ export default function AboutScreen() {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const version = Constants.expoConfig?.version ?? "1.0.0";
+  const isWeb = Platform.OS === "web";
 
   const openLink = (url: string) => {
     void openBrowserAsync(url);
@@ -90,13 +91,15 @@ export default function AboutScreen() {
           </ThemedText>
         </Card>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("settings.downloadNativeApps")}
-            icon={{ ios: "arrow.down.app.fill", android: "download", web: "download" }}
-          />
-          <DownloadNativeAppsSection />
-        </Card>
+        {isWeb ? (
+          <Card padding="three">
+            <SectionHeader
+              title={t("settings.downloadNativeApps")}
+              icon={{ ios: "arrow.down.app.fill", android: "download", web: "download" }}
+            />
+            <DownloadNativeAppsSection />
+          </Card>
+        ) : null}
 
         <Card padding="three">
           <View style={styles.links}>

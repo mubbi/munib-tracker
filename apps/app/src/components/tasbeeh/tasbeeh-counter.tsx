@@ -17,6 +17,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { chartCoordinateStyle, progressRingKnobStyle } from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
 
 export type TasbeehMode = { label: string; target: number };
@@ -31,6 +32,7 @@ export const TASBEEH_MODES: TasbeehMode[] = [
 const RING_SIZE = 272;
 const RING_STROKE = 14;
 const TAP_SIZE = RING_SIZE + 48;
+const TAP_HIT_SLOP = (TAP_SIZE - RING_SIZE) / 2;
 
 type TasbeehCounterProps = {
   count: number;
@@ -149,6 +151,7 @@ export function TasbeehCounter({
           haptic={false}
           onPress={handleTap}
           scaleTo={0.96}
+          hitSlop={TAP_HIT_SLOP}
           accessibilityRole="button"
           accessibilityLabel={t("common.count")}
           accessibilityValue={{ now: displayCount, min: 0, max: target > 0 ? target : undefined }}
@@ -323,11 +326,7 @@ function CounterRing({
     };
   }, [progressTarget, reducedMotion]);
 
-  const angle = displayProgress * 2 * Math.PI;
-  const orbit = (RING_SIZE - RING_STROKE) / 2;
   const knob = RING_STROKE + 2;
-  const knobX = RING_SIZE / 2 + orbit * Math.sin(angle) - knob / 2;
-  const knobY = RING_SIZE / 2 - orbit * Math.cos(angle) - knob / 2;
   const inset = RING_STROKE;
 
   const countAnimStyle = useAnimatedStyle(() => ({
@@ -335,7 +334,7 @@ function CounterRing({
   }));
 
   return (
-    <View style={[styles.ring, { width: RING_SIZE, height: RING_SIZE }]}>
+    <View style={[styles.ring, chartCoordinateStyle, { width: RING_SIZE, height: RING_SIZE }]}>
       <View
         style={[
           styles.ringGlow,
@@ -387,13 +386,10 @@ function CounterRing({
       {target > 0 && displayProgress > 0 ? (
         <View
           style={[
+            progressRingKnobStyle(RING_SIZE, RING_STROKE, displayProgress, knob),
             styles.knob,
             {
-              width: knob,
-              height: knob,
               borderRadius: knob / 2,
-              left: knobX,
-              top: knobY,
               backgroundColor: fill,
               borderColor: colors.card,
             },
@@ -570,8 +566,10 @@ const styles = StyleSheet.create({
     minHeight: TAP_SIZE,
   },
   tapZone: {
-    width: TAP_SIZE,
-    height: TAP_SIZE,
+    width: RING_SIZE,
+    height: RING_SIZE,
+    borderRadius: RING_SIZE / 2,
+    borderCurve: "continuous",
     alignItems: "center",
     justifyContent: "center",
   },

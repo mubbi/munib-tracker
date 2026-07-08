@@ -1,5 +1,11 @@
 import type { ReactNode } from "react";
-import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
+import {
+  type AccessibilityState,
+  type StyleProp,
+  StyleSheet,
+  View,
+  type ViewStyle,
+} from "react-native";
 
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Shadows, Spacing } from "@/constants/theme";
@@ -15,6 +21,7 @@ type CardProps = {
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
   accessibilityLabel?: string;
+  accessibilityState?: AccessibilityState;
 };
 
 export function Card({
@@ -25,6 +32,7 @@ export function Card({
   style,
   onPress,
   accessibilityLabel,
+  accessibilityState,
 }: CardProps) {
   const { colors, tokens } = useThemeTokens();
 
@@ -57,6 +65,7 @@ export function Card({
       <PressableScale
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel}
+        accessibilityState={accessibilityState}
         onPress={onPress}
         scaleTo={0.985}
         haptic="light"

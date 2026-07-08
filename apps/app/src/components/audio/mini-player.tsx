@@ -38,6 +38,7 @@ import {
 } from "@/lib/audio-queue-timing";
 import { supportsProgrammaticVolume } from "@/lib/audio-volume";
 import { triggerHaptic } from "@/lib/haptics";
+import { ltrControlStyle } from "@/lib/rtl";
 import {
   AUDIO_SPEEDS,
   type AudioTrack,
@@ -366,7 +367,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
         {/* Frosted glass chrome: real Liquid Glass on iOS 26, a native blur
           elsewhere, backdrop-filter on web. A light card wash keeps the small
           metadata text legible over busy content behind the bar. */}
-        <GlassSurface style={StyleSheet.absoluteFill} intensity={64} />
+        <GlassSurface backdropCapture style={StyleSheet.absoluteFill} intensity={64} />
         <View
           style={[
             StyleSheet.absoluteFill,
@@ -683,29 +684,39 @@ function VerticalVolumeBar({
   thumbColor: string;
 }) {
   const { t } = useTranslation();
-  const [barHeight, setBarHeight] = useState(VERTICAL_VOLUME_HEIGHT);
   const [scrub, setScrub] = useState<number | null>(null);
+  const trackRef = useRef<View>(null);
+  const trackWindowRef = useRef({ y: 0, height: VERTICAL_VOLUME_HEIGHT });
 
-  const heightRef = useRef(VERTICAL_VOLUME_HEIGHT);
-  heightRef.current = barHeight;
+  const measureTrack = useCallback(() => {
+    trackRef.current?.measureInWindow((_x, y, _w, h) => {
+      if (h > 0) trackWindowRef.current = { y, height: h };
+    });
+  }, []);
+
+  const ratioFromPageY = useCallback((pageY: number) => {
+    const { y, height } = trackWindowRef.current;
+    const h = height || VERTICAL_VOLUME_HEIGHT;
+    return Math.max(0, Math.min(1, 1 - (pageY - y) / h));
+  }, []);
 
   const responder = useMemo(() => {
-    const ratioFromY = (y: number) => {
-      const h = heightRef.current || VERTICAL_VOLUME_HEIGHT;
-      return Math.max(0, Math.min(1, 1 - y / h));
-    };
     return PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponderCapture: () => true,
       onPanResponderTerminationRequest: () => false,
+      onShouldBlockNativeResponder: () => true,
       onPanResponderGrant: (e) => {
+        measureTrack();
         triggerHaptic("selection");
-        const next = ratioFromY(e.nativeEvent.locationY);
+        const next = ratioFromPageY(e.nativeEvent.pageY);
         setScrub(next);
         onChange(next);
       },
       onPanResponderMove: (e) => {
-        const next = ratioFromY(e.nativeEvent.locationY);
+        const next = ratioFromPageY(e.nativeEvent.pageY);
         setScrub(next);
         onChange(next);
       },
@@ -714,16 +725,11 @@ function VerticalVolumeBar({
       },
       onPanResponderTerminate: () => setScrub(null),
     });
-  }, [onChange]);
+  }, [measureTrack, onChange, ratioFromPageY]);
 
   const shown = scrub ?? volume;
   const progress = Math.min(Math.max(shown, 0), 1);
   const percent = Math.round(progress * 100);
-
-  const onLayout = (e: LayoutChangeEvent) => {
-    const nextHeight = e.nativeEvent.layout.height;
-    if (nextHeight > 0) setBarHeight(nextHeight);
-  };
 
   const onAccessibilityAction = (event: AccessibilityActionEvent) => {
     const delta =
@@ -738,7 +744,10 @@ function VerticalVolumeBar({
 
   return (
     <View
-      style={styles.verticalVolumeBar}
+      style={[
+        styles.verticalVolumeBar,
+        Platform.OS === "web" ? ({ touchAction: "none", userSelect: "none" } as const) : null,
+      ]}
       accessibilityRole="adjustable"
       accessibilityLabel={t("player.volume")}
       accessibilityValue={{
@@ -749,14 +758,16 @@ function VerticalVolumeBar({
       }}
       accessibilityActions={[{ name: "increment" }, { name: "decrement" }]}
       onAccessibilityAction={onAccessibilityAction}
+      onLayout={measureTrack}
+      {...responder.panHandlers}
     >
       <View
-        onLayout={onLayout}
+        ref={trackRef}
+        collapsable={false}
         style={[
           styles.verticalVolumeTrack,
           { height: VERTICAL_VOLUME_HEIGHT, backgroundColor: trackColor },
         ]}
-        {...responder.panHandlers}
       >
         <View
           style={[
@@ -856,6 +867,7 @@ function VolumePopover({
         // instead of reflowing the player bar. The wash keeps the blur fallback
         // legible; iOS 26's real material reads through without it.
         <GlassSurface
+          backdropCapture
           style={[
             styles.volumePopup,
             positionStyle,
@@ -894,7 +906,7 @@ function VolumePopover({
   if (isWeb) {
     return (
       <Pressable
-        style={styles.volumePopoverAnchor}
+        style={[styles.volumePopoverAnchor, ltrControlStyle]}
         onHoverIn={onAnchorHoverIn}
         onHoverOut={onAnchorHoverOut}
       >
@@ -903,7 +915,11 @@ function VolumePopover({
     );
   }
 
-  return <View style={[styles.volumePopoverAnchor, styles.volumePopoverAnchorNative]}>{body}</View>;
+  return (
+    <View style={[styles.volumePopoverAnchor, styles.volumePopoverAnchorNative, ltrControlStyle]}>
+      {body}
+    </View>
+  );
 }
 
 // ── Expanded full player ─────────────────────────────────────────────────────
@@ -1050,7 +1066,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           Glass on iOS 26, a native blur elsewhere, backdrop-filter on web. The
           wash keeps the full-screen player legible over busy content behind. */}
         <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-          <GlassSurface style={StyleSheet.absoluteFill} intensity={64} />
+          <GlassSurface backdropCapture style={StyleSheet.absoluteFill} intensity={64} />
           <View
             style={[
               StyleSheet.absoluteFill,
@@ -1514,30 +1530,31 @@ const styles = StyleSheet.create({
   volumePopupFloating: {
     position: "absolute",
     bottom: "100%",
-    left: "50%",
+    left: 0,
+    right: 0,
     marginBottom: Spacing.one,
-    transform: [{ translateX: -18 }],
+    alignItems: "center",
   },
   // Float above the volume icon (absolute) so opening it doesn't push the
   // surrounding transport controls around inside the bar.
   volumePopupNative: {
     position: "absolute",
     bottom: "100%",
-    left: "50%",
-    width: 64,
+    left: 0,
+    right: 0,
     marginBottom: Spacing.one,
-    transform: [{ translateX: -32 }],
     alignItems: "center",
   },
   volumePopupGlass: {
     overflow: "hidden",
   },
   verticalVolumeBar: {
-    minWidth: 44,
-    minHeight: 44,
+    minWidth: 52,
+    minHeight: VERTICAL_VOLUME_HEIGHT + Spacing.two * 2,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: Spacing.one,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.two,
   },
   verticalVolumeTrack: {
     width: 4,

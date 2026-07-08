@@ -128,7 +128,15 @@ export default function CalendarScreen() {
               onPress={() => setPickerOpen(true)}
               style={styles.monthLabelButton}
             >
-              <ThemedText type="subtitle">{label}</ThemedText>
+              <ThemedText
+                type="subtitle"
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.85}
+                style={styles.monthLabelText}
+              >
+                {label}
+              </ThemedText>
               <SymbolView
                 name={{
                   ios: "chevron.down",
@@ -169,22 +177,19 @@ export default function CalendarScreen() {
                 const disabled = !day.inMonth || day.isFuture;
 
                 return (
-                  <PressableScale
-                    key={day.date}
-                    haptic="light"
-                    disabled={disabled}
-                    accessibilityRole="button"
-                    accessibilityLabel={describeDay(day.date, day.isToday)}
-                    accessibilityState={{ disabled }}
-                    onPress={() =>
-                      router.push({
-                        pathname: "/calendar/[date]",
-                        params: { date: day.date, calendar: mode },
-                      })
-                    }
-                    style={styles.cell}
-                  >
-                    <View
+                  <View key={day.date} style={styles.cell}>
+                    <PressableScale
+                      haptic="light"
+                      disabled={disabled}
+                      accessibilityRole="button"
+                      accessibilityLabel={describeDay(day.date, day.isToday)}
+                      accessibilityState={{ disabled }}
+                      onPress={() =>
+                        router.push({
+                          pathname: "/calendar/[date]",
+                          params: { date: day.date, calendar: mode },
+                        })
+                      }
                       style={[
                         styles.dayCircle,
                         { backgroundColor: fill },
@@ -200,13 +205,13 @@ export default function CalendarScreen() {
                       >
                         {day.day}
                       </ThemedText>
-                    </View>
+                    </PressableScale>
                     {hasMiss ? (
                       <View style={[styles.dot, { backgroundColor: tokens.status.danger.color }]} />
                     ) : (
                       <View style={styles.dot} />
                     )}
-                  </PressableScale>
+                  </View>
                 );
               })}
             </View>
@@ -305,16 +310,22 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    gap: Spacing.two,
     marginBottom: Spacing.three,
   },
   monthLabelButton: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     gap: Spacing.one,
-    paddingHorizontal: Spacing.two,
+    paddingHorizontal: Spacing.one,
     paddingVertical: Spacing.one,
-    maxWidth: "52%",
+    minWidth: 0,
+  },
+  monthLabelText: {
+    flexShrink: 1,
+    textAlign: "center",
   },
   navButton: {
     width: 36,
@@ -347,7 +358,8 @@ const styles = StyleSheet.create({
   },
   legend: {
     flexDirection: "row",
-    gap: Spacing.four,
+    flexWrap: "wrap",
+    gap: Spacing.three,
     justifyContent: "center",
   },
   legendItem: {

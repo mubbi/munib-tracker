@@ -1,7 +1,7 @@
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -93,6 +93,15 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
+  // NativeTabs may keep this screen mounted; only override StatusBar while focused
+  // so light icons don't stick onto light screens after navigating away.
+  const [isFocused, setIsFocused] = useState(true);
+  useFocusEffect(
+    useCallback(() => {
+      setIsFocused(true);
+      return () => setIsFocused(false);
+    }, []),
+  );
   const summary = useDailySummary();
   const excusedReason = useDayExcused();
   const streak = useStreak();
@@ -158,9 +167,12 @@ export default function HomeScreen() {
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
       <Seo path="/" isHome jsonLd={[faqSchema(HOME_FAQ)]} />
-      <StatusBar style="light" />
+      {/* Hero art is dark; only override StatusBar while this tab is focused so
+          NativeTabs-retained mounts don't force light icons onto light screens. */}
+      {isFocused ? <StatusBar style="light" /> : null}
       <ScrollView
         contentContainerStyle={[styles.scrollContent, { paddingBottom: contentBottomInset }]}
+        contentInsetAdjustmentBehavior="never"
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
@@ -196,7 +208,7 @@ export default function HomeScreen() {
           <View style={styles.body}>
             <IosPwaInstallBanner />
 
-            <Stagger>
+            <Stagger entranceKey="home">
               <SeasonalThemeBanner />
 
               <Card>

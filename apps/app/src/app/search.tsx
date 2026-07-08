@@ -69,8 +69,11 @@ export default function SearchScreen() {
 
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
+  const [pending, setPending] = useState(false);
   const [filter, setFilter] = useState<FilterKey>("all");
   const [recent, setRecent] = useState<string[]>([]);
+  const [lightGroups, setLightGroups] = useState<SearchGroup[]>([]);
+  const [lightSearching, setLightSearching] = useState(false);
   const [ayah, setAyah] = useState<SearchGroup | null>(null);
   const [ayahLoading, setAyahLoading] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -183,16 +186,48 @@ export default function SearchScreen() {
 
   // Debounce the raw query before searching.
   useEffect(() => {
+    const trimmed = query.trim();
+    if (trimmed === debounced) {
+      setPending(false);
+      return;
+    }
+    setPending(true);
     if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => setDebounced(query.trim()), DEBOUNCE_MS);
+    timer.current = setTimeout(() => {
+      setDebounced(trimmed);
+      setPending(false);
+    }, DEBOUNCE_MS);
     return () => {
       if (timer.current) clearTimeout(timer.current);
     };
-  }, [query]);
+  }, [query, debounced]);
 
-  // Light (instant) search over everything except Qur'an ayah full-text.
-  const lightGroups = useMemo(() => searchLight(debounced, LIGHT_FETCH_LIMIT), [debounced]);
+  const rawHasQuery = tokenize(query.trim()).length > 0;
   const hasQuery = tokenize(debounced).length > 0;
+
+  // Light search over everything except Qur'an ayah full-text — deferred so the
+  // loading state can paint before the first (potentially heavy) index build.
+  useEffect(() => {
+    if (!hasQuery) {
+      setLightGroups([]);
+      setLightSearching(false);
+      return;
+    }
+    setLightGroups([]);
+    setLightSearching(true);
+    let cancelled = false;
+    const handle = runWhenIdle(() => {
+      if (cancelled) return;
+      const groups = searchLight(debounced, LIGHT_FETCH_LIMIT);
+      if (cancelled) return;
+      setLightGroups(groups);
+      setLightSearching(false);
+    });
+    return () => {
+      cancelled = true;
+      handle.cancel();
+    };
+  }, [debounced, hasQuery]);
 
   // Qur'an ayah full-text is heavy — defer build/scan until idle so
   // the lighter results paint first and typing stays smooth.
@@ -202,6 +237,7 @@ export default function SearchScreen() {
       setAyahLoading(false);
       return;
     }
+    setAyah(null);
     setAyahLoading(true);
     let cancelled = false;
     const handle = runWhenIdle(() => {
@@ -323,8 +359,10 @@ export default function SearchScreen() {
     setRecent([]);
   };
 
-  const showIdle = !hasQuery;
-  const showEmpty = hasQuery && visibleGroups.length === 0 && !ayahLoading;
+  const busy = pending || lightSearching || ayahLoading;
+  const showIdle = !rawHasQuery;
+  const showLoading = rawHasQuery && busy && visibleGroups.length === 0;
+  const showEmpty = hasQuery && !busy && visibleGroups.length === 0;
 
   return (
     <View style={[styles.root, { backgroundColor: colors.background }]}>
@@ -417,6 +455,8 @@ export default function SearchScreen() {
             onPick={runSuggestion}
             onClearRecent={clearRecent}
           />
+        ) : showLoading ? (
+          <SearchLoading />
         ) : showEmpty ? (
           <EmptyState
             icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
@@ -488,6 +528,19 @@ export default function SearchScreen() {
           </Animated.View>
         )}
       </ScrollView>
+    </View>
+  );
+}
+
+function SearchLoading() {
+  const { t } = useTranslation();
+  const { colors } = useThemeTokens();
+  return (
+    <View style={styles.loading}>
+      <ActivityIndicator size="small" color={colors.accent} />
+      <ThemedText type="small" themeColor="mutedForeground">
+        {t("search.searching")}
+      </ThemedText>
     </View>
   );
 }
@@ -843,6 +896,13 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     paddingVertical: Spacing.two,
     paddingHorizontal: Spacing.one,
+  },
+  loading: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: Spacing.two,
+    paddingTop: Spacing.six,
   },
   searchingRow: {
     flexDirection: "row",

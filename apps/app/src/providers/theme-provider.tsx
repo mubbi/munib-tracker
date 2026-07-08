@@ -18,9 +18,12 @@ import {
 import { Appearance, useColorScheme } from "react-native";
 
 import { normalizeHex } from "@/lib/color";
+import { computeThemeTokens, type ThemeTokens } from "@/lib/theme-tokens";
+import { preferencesStore } from "@/stores/preferences-store";
 
 interface ThemeContextValue {
   colors: ThemeColors;
+  tokens: ThemeTokens;
   colorMode: ColorMode;
   /** The resolved scheme after applying `colorMode` + system preference. */
   scheme: "light" | "dark";
@@ -38,8 +41,39 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 const defaultColorMode: ColorMode = "dark";
 const CUSTOM_ACCENT_KEY = "@munib-tracker/custom-accent";
 
+/** Cache custom-accent overrides so light/dark toggles reuse stable object references. */
+const customAccentThemeCache = new Map<string, ThemeColors>();
+
+function resolveCustomAccentTheme(
+  base: ThemeColors,
+  scheme: "light" | "dark",
+  customAccent: string,
+): ThemeColors {
+  const key = `${scheme}:${customAccent}`;
+  let cached = customAccentThemeCache.get(key);
+  if (!cached) {
+    const textSurface = scheme === "dark" ? base.card : base.background;
+    const accent = ensureContrastAgainst(customAccent, base.background, 3);
+    cached = {
+      ...base,
+      accent,
+      accentForeground: bestForeground(accent),
+      accentText: accentOnSurface(accent, textSurface),
+    };
+    customAccentThemeCache.set(key, cached);
+  }
+  return cached;
+}
+
 function isColorMode(value: string | null): value is ColorMode {
   return value === "light" || value === "dark" || value === "system";
+}
+
+/** Keep native Appearance in lockstep with the in-app color mode (tab bar, blur, StatusBar). */
+function syncNativeColorScheme(mode: ColorMode) {
+  // `setColorScheme` is native-only; it's absent on react-native-web.
+  // "unspecified" clears the override so the app tracks the OS again.
+  Appearance.setColorScheme?.(mode === "system" ? "unspecified" : mode);
 }
 
 export function MunibThemeProvider({ children }: { children: ReactNode }) {
@@ -66,6 +100,9 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
         if (isColorMode(storedMode)) {
           setColorModeState(storedMode);
+          syncNativeColorScheme(storedMode);
+        } else {
+          syncNativeColorScheme(defaultColorMode);
         }
 
         const resolvedAccent = resolveAccentColorId(storedAccent);
@@ -82,8 +119,12 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
         // Drop legacy seasonal-theme preference (banners are now automatic).
         void AsyncStorage.removeItem("@munib-tracker/seasonal-theme");
+
+        // Hydrate saved locale + RTL before the first screen paints so users
+        // never see English strings in an RTL shell (or vice versa).
+        await preferencesStore.getState().load();
       } finally {
-        if (mounted) {
+        if (mounted && preferencesStore.getState().isReady) {
           setIsReady(true);
           await SplashScreen.hideAsync();
         }
@@ -111,36 +152,23 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
       accentColorId,
     );
     if (customAccent) {
-      const textSurface = scheme === "dark" ? base.card : base.background;
-      const accent = ensureContrastAgainst(customAccent, base.background, 3);
-      return {
-        ...base,
-        accent,
-        accentForeground: bestForeground(accent),
-        accentText: accentOnSurface(accent, textSurface),
-      };
+      return resolveCustomAccentTheme(base, scheme, customAccent);
     }
     return base;
   }, [accentColorId, colorMode, systemScheme, customAccent, scheme]);
 
+  const tokens = useMemo(() => computeThemeTokens(colors, scheme), [colors, scheme]);
+
+  // Root window / activity background — safe to keep in an effect (async native API).
+  // Appearance must stay synchronous in setColorMode; deferring it left BlurView /
+  // NativeTabs / StatusBar on the previous scheme until an idle flush or app refresh.
   useEffect(() => {
     void SystemUI.setBackgroundColorAsync(colors.background);
   }, [colors.background]);
 
-  // Override the app-wide native interface style so system chrome — the iOS
-  // native tab bar material, native stack transition backgrounds, blur, and
-  // system controls — matches the in-app theme. Without this the OS keeps its
-  // own appearance ("automatic" in app.json), so the tab bar renders in the
-  // wrong scheme and screen pushes flash the default background in dark mode.
-  // In "system" mode we clear the override so it tracks the OS again.
-  useEffect(() => {
-    // `setColorScheme` is native-only; it's absent on react-native-web.
-    // "unspecified" clears the override so the app tracks the OS again.
-    Appearance.setColorScheme?.(colorMode === "system" ? "unspecified" : colorMode);
-  }, [colorMode]);
-
   const setColorMode = useCallback((mode: ColorMode) => {
     setColorModeState(mode);
+    syncNativeColorScheme(mode);
     void AsyncStorage.setItem(STORAGE_KEYS.colorMode, mode);
   }, []);
 
@@ -161,6 +189,7 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
   const value = useMemo(
     () => ({
       colors,
+      tokens,
       colorMode,
       scheme,
       accentColorId,
@@ -180,6 +209,7 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
       setAccentColor,
       setColorMode,
       setCustomAccent,
+      tokens,
     ],
   );
 

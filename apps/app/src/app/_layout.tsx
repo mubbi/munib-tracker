@@ -1,5 +1,6 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "@/global.css";
 // Web-only focus-visible ring (WCAG 2.4.7). Resolves to a no-op on native.
@@ -23,11 +24,10 @@ import { AppProviders } from "@/providers/app-providers";
 import { AudioPlayerProvider } from "@/providers/audio-player-provider";
 import { AuthProvider } from "@/providers/auth-provider";
 import { BlurTargetProvider } from "@/providers/blur-target-provider";
-import { I18nProvider } from "@/providers/i18n-provider";
 import { InAppNotificationsProvider } from "@/providers/in-app-notifications-provider";
 import { NotificationProvider } from "@/providers/notification-provider";
 import { MunibThemeProvider } from "@/providers/theme-provider";
-import { ToastProvider } from "@/providers/toast-provider";
+import { ToastHost, ToastProvider } from "@/providers/toast-provider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -39,13 +39,13 @@ export default function RootLayout() {
   }
 
   return (
-    <AppApiProvider>
-      <MunibThemeProvider>
-        {/* Catches any render error below the theme provider so a thrown screen
+    <SafeAreaProvider>
+      <AppApiProvider>
+        <MunibThemeProvider>
+          {/* Catches any render error below the theme provider so a thrown screen
             shows a recoverable fallback instead of white-screening the app. */}
-        <ErrorBoundary>
-          <AppProviders>
-            <I18nProvider>
+          <ErrorBoundary>
+            <AppProviders>
               <AuthProvider>
                 <PinLockProvider>
                   <ToastProvider>
@@ -65,6 +65,10 @@ export default function RootLayout() {
                                     <OnboardingGate />
                                     <PinLockGate />
                                     <MiniPlayer />
+                                    {/* Outside BlurTargetView so Android can
+                                        capture a real backdrop blur (same as
+                                        mini-player / sheets). */}
+                                    <ToastHost />
                                     <AnimatedSplashOverlay />
                                   </>
                                 }
@@ -79,10 +83,10 @@ export default function RootLayout() {
                   </ToastProvider>
                 </PinLockProvider>
               </AuthProvider>
-            </I18nProvider>
-          </AppProviders>
-        </ErrorBoundary>
-      </MunibThemeProvider>
-    </AppApiProvider>
+            </AppProviders>
+          </ErrorBoundary>
+        </MunibThemeProvider>
+      </AppApiProvider>
+    </SafeAreaProvider>
   );
 }

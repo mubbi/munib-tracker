@@ -102,16 +102,32 @@ function magnetometerHeading(x: number, y: number): number {
   return (primary * (180 / Math.PI) + 360) % 360;
 }
 
+function angleDelta(a: number, b: number): number {
+  return Math.abs(((a - b + 180) % 360) - 180);
+}
+
 /** Shared tick marks, cardinals, and Kaaba marker — rotators are dial-sized so pivots stay centered. */
 function CompassFace({ dialSize, bearing, heading = 0, tokens, colors, t }: CompassFaceProps) {
   const labelCounter = heading;
-  const kaabaSize = Math.round(dialSize * 0.15);
-  const kaabaFontSize = Math.round(kaabaSize * 0.58);
+  const rimInset = Math.max(Spacing.one, Math.round(dialSize * 0.035));
+  const majorTickHeight = Math.round(dialSize * 0.042);
+  const minorTickHeight = Math.round(dialSize * 0.024);
+  const labelTop = rimInset + majorTickHeight + Spacing.two;
+  const labelLineHeight = 16;
+  const kaabaSize = Math.round(dialSize * 0.12);
+  const kaabaFontSize = Math.round(kaabaSize * 0.55);
+  const kaabaTop = labelTop + labelLineHeight / 2 - kaabaSize / 2;
+  const labelBackdrop = withAlpha(colors.card, tokens.isDark ? 0.92 : 0.96);
+  const hideWestLabel = angleDelta(bearing, 270) < 22;
 
   return (
     <>
       {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => {
         const major = angle % 90 === 0;
+        if (major) return null;
+
+        const ordinal = angle % 45 === 0;
+
         return (
           <View
             key={`tick-${angle}`}
@@ -126,48 +142,62 @@ function CompassFace({ dialSize, bearing, heading = 0, tokens, colors, t }: Comp
           >
             <View
               style={{
-                marginTop: 8,
-                width: major ? 3 : 2,
-                height: major ? 14 : 8,
+                marginTop: rimInset,
+                width: ordinal ? 2.5 : 2,
+                height: ordinal ? majorTickHeight : minorTickHeight,
                 borderRadius: 2,
-                backgroundColor: major ? tokens.accentBorder : tokens.hairline,
+                backgroundColor: ordinal ? tokens.accentBorder : tokens.hairline,
               }}
             />
           </View>
         );
       })}
 
-      {CARDINALS.map(({ key, angle }) => (
-        <View
-          key={key}
-          style={[
-            styles.rotator,
-            {
-              width: dialSize,
-              height: dialSize,
-              transform: [{ rotate: `${angle}deg` }],
-            },
-          ]}
-        >
-          <ThemedText
-            type="caption"
+      {CARDINALS.map(({ key, angle }) => {
+        if (key === "cardinalW" && hideWestLabel) return null;
+
+        return (
+          <View
+            key={key}
             style={[
-              styles.cardinalLabel,
+              styles.rotator,
               {
-                marginTop: Spacing.two,
-                color: key === "cardinalN" ? colors.accent : colors.mutedForeground,
-                transform: [{ rotate: `${-angle + labelCounter}deg` }],
+                width: dialSize,
+                height: dialSize,
+                transform: [{ rotate: `${angle}deg` }],
               },
             ]}
           >
-            {t(`qibla.${key}`)}
-          </ThemedText>
-        </View>
-      ))}
+            <View
+              style={[
+                styles.cardinalLabelWrap,
+                {
+                  marginTop: labelTop,
+                  backgroundColor: labelBackdrop,
+                  transform: [{ rotate: `${-angle + labelCounter}deg` }],
+                },
+              ]}
+            >
+              <ThemedText
+                type="caption"
+                style={[
+                  styles.cardinalLabel,
+                  {
+                    color: key === "cardinalN" ? colors.accent : colors.mutedForeground,
+                  },
+                ]}
+              >
+                {t(`qibla.${key}`)}
+              </ThemedText>
+            </View>
+          </View>
+        );
+      })}
 
       <View
         style={[
           styles.rotator,
+          styles.qiblaBadgeRotator,
           {
             width: dialSize,
             height: dialSize,
@@ -179,10 +209,10 @@ function CompassFace({ dialSize, bearing, heading = 0, tokens, colors, t }: Comp
           style={[
             styles.qiblaBadge,
             {
-              marginTop: 2,
+              marginTop: kaabaTop,
               width: kaabaSize,
               height: kaabaSize,
-              backgroundColor: tokens.accentSoft,
+              backgroundColor: labelBackdrop,
               borderColor: tokens.accentBorder,
               transform: [{ rotate: `${labelCounter - bearing}deg` }],
             },
@@ -687,9 +717,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     pointerEvents: "none",
   },
+  cardinalLabelWrap: {
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    paddingHorizontal: Spacing.one,
+    paddingVertical: Spacing.half,
+  },
   cardinalLabel: {
     fontWeight: "700",
     letterSpacing: 0.5,
+  },
+  qiblaBadgeRotator: {
+    zIndex: 2,
   },
   needle: {
     alignItems: "center",

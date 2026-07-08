@@ -1,5 +1,6 @@
 import type { TemperatureUnit } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -102,7 +103,20 @@ function UnitChoices({
             onPress={() => onChange(unit.id)}
             style={[styles.row, { backgroundColor: selected ? tokens.accentSoft : colors.muted }]}
           >
-            <ThemedText type="small">{t(`weather.${unit.labelKey}`)}</ThemedText>
+            <ThemedText type="small" style={styles.rowLabel}>
+              {t(`weather.${unit.labelKey}`)}
+            </ThemedText>
+            {selected ? (
+              <SymbolView
+                name={{
+                  ios: "checkmark.circle.fill",
+                  android: "check_circle",
+                  web: "check_circle",
+                }}
+                size={22}
+                tintColor={colors.accent}
+              />
+            ) : null}
           </PressableScale>
         );
       })}
@@ -122,9 +136,16 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
   },
   row: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.three,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+  },
+  rowLabel: {
+    flex: 1,
   },
   footer: {
     textAlign: "center",

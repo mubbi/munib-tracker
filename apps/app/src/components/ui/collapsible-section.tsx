@@ -13,6 +13,15 @@ type CollapsibleSectionProps = {
   title: string;
   icon?: SymbolViewProps["name"];
   defaultOpen?: boolean;
+  /** Controlled open state — when set, parent owns expand/collapse. */
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  /**
+   * Where the press target lives:
+   * - `header` (default) — title row only
+   * - `none` — no pressable; parent (e.g. Card `onPress`) handles taps so ripple can cover the full card
+   */
+  pressableArea?: "header" | "none";
   children: ReactNode;
 };
 
@@ -24,10 +33,52 @@ export function CollapsibleSection({
   title,
   icon,
   defaultOpen = false,
+  open: openProp,
+  onOpenChange,
+  pressableArea = "header",
   children,
 }: CollapsibleSectionProps) {
   const { colors } = useThemeTokens();
-  const [open, setOpen] = useState(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
+  const controlled = openProp !== undefined;
+  const open = controlled ? openProp : uncontrolledOpen;
+
+  const setOpen = (next: boolean) => {
+    if (!controlled) setUncontrolledOpen(next);
+    onOpenChange?.(next);
+  };
+
+  const toggle = () => setOpen(!open);
+
+  const headerRow = (
+    <>
+      <View style={styles.left}>
+        {icon ? <IconWell icon={icon} well={28} radius={9} size={14} /> : null}
+        <ThemedText type="subtitle" style={styles.title}>
+          {title}
+        </ThemedText>
+      </View>
+      <SymbolView
+        name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
+        size={16}
+        tintColor={colors.mutedForeground}
+        style={{ transform: [{ rotate: open ? "180deg" : "0deg" }] }}
+      />
+    </>
+  );
+
+  const body = open ? (
+    <Animated.View entering={FadeIn.duration(180)}>{children}</Animated.View>
+  ) : null;
+
+  if (pressableArea === "none") {
+    return (
+      <View>
+        <View style={styles.header}>{headerRow}</View>
+        {body}
+      </View>
+    );
+  }
 
   return (
     <View>
@@ -37,24 +88,12 @@ export function CollapsibleSection({
         accessibilityLabel={title}
         accessibilityState={{ expanded: open }}
         scaleTo={0.995}
-        onPress={() => setOpen((value) => !value)}
+        onPress={toggle}
         style={styles.header}
       >
-        <View style={styles.left}>
-          {icon ? <IconWell icon={icon} well={28} radius={9} size={14} /> : null}
-          <ThemedText type="subtitle" style={styles.title}>
-            {title}
-          </ThemedText>
-        </View>
-        <SymbolView
-          name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
-          size={16}
-          tintColor={colors.mutedForeground}
-          style={{ transform: [{ rotate: open ? "180deg" : "0deg" }] }}
-        />
+        {headerRow}
       </PressableScale>
-
-      {open ? <Animated.View entering={FadeIn.duration(180)}>{children}</Animated.View> : null}
+      {body}
     </View>
   );
 }

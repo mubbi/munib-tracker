@@ -139,6 +139,14 @@ jest.mock("expo-localization", () => ({
   getLocales: () => [{ languageCode: "en" }],
 }));
 
+jest.mock("expo", () => {
+  const actual = jest.requireActual("expo") as Record<string, unknown>;
+  return {
+    ...actual,
+    reloadAppAsync: jest.fn(async () => undefined),
+  };
+});
+
 // Navigation and safe-area are ambient concerns for every screen under test:
 // stub the router with no-op navigation and collapse insets to zero so component
 // tests render without a real navigator or device frame.

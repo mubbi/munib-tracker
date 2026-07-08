@@ -1,8 +1,9 @@
-import { I18nManager, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, { type SharedValue, useAnimatedStyle } from "react-native-reanimated";
 
 import { Radius } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { progressFillTransformOrigin } from "@/lib/chart-rtl";
 
 type ReadingProgressBarProps = {
   /** 0→1 reading progress driving the fill. */
@@ -18,6 +19,7 @@ type ReadingProgressBarProps = {
  */
 export function ReadingProgressBar({ progress, accessibilityLabel }: ReadingProgressBarProps) {
   const { colors, tokens } = useThemeTokens();
+  const fillOrigin = progressFillTransformOrigin();
 
   const fillStyle = useAnimatedStyle(() => ({
     transform: [{ scaleX: Math.min(1, Math.max(0, progress.value)) }],
@@ -34,7 +36,7 @@ export function ReadingProgressBar({ progress, accessibilityLabel }: ReadingProg
           styles.fill,
           {
             backgroundColor: colors.accent,
-            transformOrigin: I18nManager.isRTL ? "100% 50%" : "0% 50%",
+            transformOrigin: fillOrigin,
           },
           fillStyle,
         ]}

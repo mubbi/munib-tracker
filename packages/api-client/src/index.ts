@@ -1,3 +1,11 @@
+export {
+  ApiBlockedError,
+  beginApiRequest,
+  endApiRequest,
+  getApiInFlightCount,
+  isAppReloadInProgress,
+  setAppReloadInProgress,
+} from "./cloud-api-gate";
 export { formatApiDateTime, fromApiDateTime, toApiDateTime } from "./datetime";
 export * from "./generated/endpoints/auth/auth";
 export * from "./generated/endpoints/health/health";
@@ -10,4 +18,4 @@ export {
   getRegisteredTokenRefresher,
   setTokenRefresher,
 } from "./mutator";
-export { ApiQueryProvider } from "./provider";
+export { ApiQueryProvider, appQueryClient } from "./provider";

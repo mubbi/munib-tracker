@@ -31,6 +31,11 @@ type SheetProps = {
   variant?: "center" | "bottom";
   /** Skip frosted glass — use a solid card (better for content-heavy sheets). */
   solid?: boolean;
+  /**
+   * Bottom sheets scroll their body by default. Pass `false` when children bring
+   * their own scroller (e.g. FlatList) so VirtualizedLists are not nested.
+   */
+  scrollable?: boolean;
   children: ReactNode;
   contentStyle?: StyleProp<ViewStyle>;
 };
@@ -45,6 +50,7 @@ export function Sheet({
   onClose,
   variant = "center",
   solid = false,
+  scrollable = true,
   children,
   contentStyle,
 }: SheetProps) {
@@ -112,20 +118,32 @@ export function Sheet({
   }));
 
   const cardBody = isBottom ? (
-    // minHeight: 0 is required so flex can shrink the scroll view inside a
-    // maxHeight-bounded card; without it tall content overflows and is clipped.
-    <ScrollView
-      style={[styles.bottomScroll, { maxHeight: bottomScrollMaxHeight }]}
-      bounces={false}
-      showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={[
-        styles.bottomScrollContent,
-        { paddingBottom: Spacing.two + insets.bottom },
-      ]}
-    >
-      {renderedChildren}
-    </ScrollView>
+    scrollable ? (
+      // minHeight: 0 is required so flex can shrink the scroll view inside a
+      // maxHeight-bounded card; without it tall content overflows and is clipped.
+      <ScrollView
+        style={[styles.bottomScroll, { maxHeight: bottomScrollMaxHeight }]}
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={[
+          styles.bottomScrollContent,
+          { paddingBottom: Spacing.two + insets.bottom },
+        ]}
+      >
+        {renderedChildren}
+      </ScrollView>
+    ) : (
+      <View
+        style={[
+          styles.bottomScroll,
+          styles.bottomScrollContent,
+          { maxHeight: bottomScrollMaxHeight, paddingBottom: Spacing.two + insets.bottom },
+        ]}
+      >
+        {renderedChildren}
+      </View>
+    )
   ) : (
     renderedChildren
   );
@@ -163,22 +181,34 @@ export function Sheet({
    * Frosted-glass fill (blur + a translucent card wash for text legibility).
    * Shared by both variants so every sheet reads the same. On iOS 26 keep the
    * wash light so the real Liquid Glass material reads through; the blur
-   * fallback needs more opacity to stay legible over busy content.
+   * fallback needs more opacity to stay legible over busy content unless Android
+   * backdrop capture is active (real blur under the wash).
    */
-  // A negative zIndex keeps the blur + wash behind the card content. On
-  // react-native-web absolutely-positioned siblings otherwise paint *after*
-  // in-flow content, so without this the glass would cover (and visibly blur)
-  // text inputs and other controls inside the sheet.
+  const androidBackdropBlur = Platform.OS === "android";
   const glassFill = (
     <View style={[StyleSheet.absoluteFill, styles.glassFill, { pointerEvents: "none" }]}>
-      <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
+      <GlassSurface
+        backdropCapture={androidBackdropBlur}
+        style={StyleSheet.absoluteFill}
+        intensity={50}
+      />
       <View
         style={[
           StyleSheet.absoluteFill,
           {
             backgroundColor: withAlpha(
               colors.card,
-              hasLiquidGlass ? (tokens.isDark ? 0.28 : 0.4) : tokens.isDark ? 0.5 : 0.62,
+              hasLiquidGlass
+                ? tokens.isDark
+                  ? 0.28
+                  : 0.4
+                : androidBackdropBlur
+                  ? tokens.isDark
+                    ? 0.3
+                    : 0.42
+                  : tokens.isDark
+                    ? 0.5
+                    : 0.62,
             ),
           },
         ]}

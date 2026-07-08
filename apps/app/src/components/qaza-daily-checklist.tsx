@@ -1,7 +1,7 @@
 import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
 import type { QazaPrayer } from "@munib-tracker/shared/types";
-import { sumQazaScheduleTargets } from "@munib-tracker/shared/utils";
-import { useCallback, useMemo, useState } from "react";
+import { getLocalDateString, sumQazaScheduleTargets } from "@munib-tracker/shared/utils";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -13,6 +13,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing } from "@/constants/theme";
+import { QazaRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import {
@@ -24,14 +25,36 @@ import {
 
 type PendingQazaAction = { kind: "perform" | "undo"; prayerId: QazaPrayer };
 
-export function QazaDailyChecklist() {
+type QazaDailyChecklistProps = {
+  /** Defaults to today. Past dates render read-only when progress exists. */
+  date?: string;
+};
+
+export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps = {}) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const today = getLocalDateString();
+  const date = dateProp ?? today;
+  const isToday = date === today;
   const schedule = useQazaSchedule();
-  const progress = useQazaDailyProgress();
+  const storeProgress = useQazaDailyProgress();
   const counters = useQazaCounters();
   const { performQaza, undoQaza } = useTrackerActions();
   const [pending, setPending] = useState<PendingQazaAction | null>(null);
+  const [historicalProgress, setHistoricalProgress] = useState(storeProgress);
+
+  useEffect(() => {
+    if (isToday) return;
+    let active = true;
+    void QazaRepository.getDailyProgress(date).then((next) => {
+      if (active) setHistoricalProgress(next);
+    });
+    return () => {
+      active = false;
+    };
+  }, [date, isToday]);
+
+  const progress = isToday ? storeProgress : historicalProgress;
 
   const dailyTotal = sumQazaScheduleTargets(schedule);
 
@@ -76,9 +99,12 @@ export function QazaDailyChecklist() {
   }, [pending, performQaza, undoQaza]);
 
   if (dailyTotal <= 0) return null;
+  if (!isToday && dailyDone <= 0) return null;
 
+  // Single wrapper so parent stacks with `gap` treat this as one child (fragment
+  // would flatten the Modal and open an extra gap before the next card).
   return (
-    <>
+    <View style={styles.root}>
       <Card padding="three">
         <SectionHeader
           title={t("tracker.qazaTargets")}
@@ -102,8 +128,8 @@ export function QazaDailyChecklist() {
             const remaining = counter?.remaining ?? 0;
             const completed = counter?.completed ?? 0;
             const complete = done >= target;
-            const canPerform = !complete && remaining > 0;
-            const canUndo = done > 0 && completed > 0;
+            const canPerform = isToday && !complete && remaining > 0;
+            const canUndo = isToday && done > 0 && completed > 0;
             const prayerName = t(`prayers.${prayerId}`);
 
             return (
@@ -161,11 +187,14 @@ export function QazaDailyChecklist() {
         onConfirm={handleConfirm}
         onClose={() => setPending(null)}
       />
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: {
+    width: "100%",
+  },
   summary: {
     gap: Spacing.two,
     marginTop: Spacing.three,

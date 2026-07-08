@@ -1,24 +1,22 @@
 import {
   getMilestoneById,
   type MilestoneProgress,
-  migrateLegacyAchievementIds,
   syncAchievementIds,
 } from "@munib-tracker/shared/achievements";
-import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
+import { SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
+import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
-import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
-import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
-import { QazaDailyChecklist } from "@/components/qaza-daily-checklist";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { PartyPopper } from "@/components/tasbeeh/party-popper";
 import { ThemedText } from "@/components/themed-text";
+import { TrackerDayChecklist } from "@/components/tracker-day-checklist";
 import {
   type TrackerProgressRingItem,
   TrackerProgressRings,
@@ -32,21 +30,20 @@ import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-act
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { DB_KEYS } from "@/db/keys";
-import { readJSON } from "@/db/store";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { readPersistedAchievementIds } from "@/lib/achievements-persistence";
 import {
   afterSalahProgressForPrayer,
   isZikrItemDone,
   totalAfterSalahProgress,
 } from "@/lib/after-salah-adhkar-progress";
-import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
 import { triggerHaptic } from "@/lib/haptics";
 import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/content";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
+import { isRTL } from "@/lib/rtl";
 import { zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -60,6 +57,7 @@ import {
   useStreak,
   useTodayPrayers,
   useTrackerActions,
+  useTrackerReady,
   useZikrCounts,
 } from "@/stores/tracker-store";
 
@@ -105,6 +103,7 @@ export default function TrackerScreen() {
   const streak = useStreak();
   const devotion = useDevotionProgress();
   const stats = useAchievementStats();
+  const trackerReady = useTrackerReady();
   const { status, notes } = useTodayPrayers();
   const zikrCounts = useZikrCounts();
   const jamaMap = usePrayerJamaMap();
@@ -206,7 +205,8 @@ export default function TrackerScreen() {
   const { deliver } = useInAppNotifications();
   // Guards so we only fire on the pending -> complete *edge*, not every render.
   const prevCompleteRef = useRef<boolean | null>(null);
-  const knownAchievementsRef = useRef<string[] | null>(null);
+  const knownAchievementsRef = useRef<string[]>([]);
+  const [achievementsSeeded, setAchievementsSeeded] = useState(false);
 
   const showAchievementCelebration = useCallback(
     (milestone: MilestoneProgress, achievementId: string) => {
@@ -226,18 +226,20 @@ export default function TrackerScreen() {
     [deliver, t, toast],
   );
 
-  // Load the persisted unlocked set once so the first refresh doesn't
-  // re-announce badges the user already earned.
+  // Seed the unlocked set only after tracker hydration (which also persists
+  // achievements from stats) so a reload never re-announces "First Step".
   useEffect(() => {
+    if (!trackerReady) return;
     let active = true;
-    void (async () => {
-      const known = migrateLegacyAchievementIds(await readJSON<string[]>(DB_KEYS.achievements, []));
-      if (active) knownAchievementsRef.current = migrateLegacyAchievementIds(known);
-    })();
+    void readPersistedAchievementIds().then((known) => {
+      if (!active) return;
+      knownAchievementsRef.current = known;
+      setAchievementsSeeded(true);
+    });
     return () => {
       active = false;
     };
-  }, []);
+  }, [trackerReady]);
 
   // Daily obligatory ring crossing to 100% — fire confetti + success haptic
   // only on the pending -> complete edge (bump the celebrationKey once).
@@ -252,8 +254,8 @@ export default function TrackerScreen() {
 
   // Sync achievements with live stats (including reversals), celebrate new unlocks.
   useEffect(() => {
+    if (!achievementsSeeded) return;
     const known = knownAchievementsRef.current;
-    if (known == null) return; // wait until the persisted set has loaded
     const { synced, newlyUnlocked: unlocked } = syncAchievementIds(stats, known);
     knownAchievementsRef.current = synced;
 
@@ -262,7 +264,7 @@ export default function TrackerScreen() {
       const milestone = getMilestoneById(first, stats);
       if (milestone) showAchievementCelebration(milestone, first);
     }
-  }, [stats, showAchievementCelebration]);
+  }, [achievementsSeeded, stats, showAchievementCelebration]);
 
   const shortcuts: QuickActionItem[] = [
     {
@@ -295,6 +297,44 @@ export default function TrackerScreen() {
     },
   ];
 
+  const summaryRing = (
+    <ProgressRing
+      progress={progress}
+      size={100}
+      stroke={11}
+      color={isComplete ? tokens.status.success.color : undefined}
+      caption={t("tracker.salahCaption")}
+    />
+  );
+
+  const summaryCopy = (
+    <View style={styles.summaryCopy}>
+      <ThemedText type="subtitle">{t(encouragementKey(progress))}</ThemedText>
+      <ThemedText type="small" themeColor="mutedForeground">
+        {t("tracker.summaryLogged", {
+          completed: summary.salahCompleted,
+          total: summary.salahTotal,
+        })}
+      </ThemedText>
+      <View
+        accessible
+        accessibilityLabel={t("tracker.streakLabel", { count: streak })}
+        style={styles.streakChip}
+      >
+        <Pill
+          icon={{
+            ios: "flame.fill",
+            android: "local_fire_department",
+            web: "local_fire_department",
+          }}
+          label={t("tracker.streakLabel", { count: streak })}
+          color={tokens.status.warning.text}
+          background={tokens.status.warning.soft}
+        />
+      </View>
+    </View>
+  );
+
   return (
     <ScreenLayout
       eyebrow={t("tracker.eyebrow")}
@@ -306,38 +346,17 @@ export default function TrackerScreen() {
         <View>
           <Card>
             <View style={styles.summaryRow}>
-              <ProgressRing
-                progress={progress}
-                size={100}
-                stroke={11}
-                color={isComplete ? tokens.status.success.color : undefined}
-                caption={t("tracker.salahCaption")}
-              />
-              <View style={styles.summaryCopy}>
-                <ThemedText type="subtitle">{t(encouragementKey(progress))}</ThemedText>
-                <ThemedText type="small" themeColor="mutedForeground">
-                  {t("tracker.summaryLogged", {
-                    completed: summary.salahCompleted,
-                    total: summary.salahTotal,
-                  })}
-                </ThemedText>
-                <View
-                  accessible
-                  accessibilityLabel={t("tracker.streakLabel", { count: streak })}
-                  style={styles.streakChip}
-                >
-                  <Pill
-                    icon={{
-                      ios: "flame.fill",
-                      android: "local_fire_department",
-                      web: "local_fire_department",
-                    }}
-                    label={t("tracker.streakLabel", { count: streak })}
-                    color={tokens.status.warning.text}
-                    background={tokens.status.warning.soft}
-                  />
-                </View>
-              </View>
+              {isRTL() ? (
+                <>
+                  {summaryCopy}
+                  {summaryRing}
+                </>
+              ) : (
+                <>
+                  {summaryRing}
+                  {summaryCopy}
+                </>
+              )}
             </View>
 
             {glanceItems.length > 0 ? (
@@ -372,85 +391,16 @@ export default function TrackerScreen() {
           </Card>
         </PressableScale>
 
-        <Card padding="three">
-          <ExcusedDayPicker />
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("tracker.obligatory")}
-            icon={{ ios: "moon.stars.fill", android: "mosque", web: "mosque" }}
-          />
-          <View style={styles.rows}>
-            {OBLIGATORY_PRAYERS.map((prayerId) => {
-              const current = status[prayerId] ?? "pending";
-              const afterSalahProgress = afterSalahProgressForPrayer(prayerId, zikrCounts);
-              return (
-                <PrayerTrackerRow
-                  key={prayerId}
-                  prayerId={prayerId}
-                  status={current}
-                  time={prayerTimes[prayerId]}
-                  hasNotes={!!notes[prayerId]}
-                  isJama={jamaMap[prayerId] ?? false}
-                  afterSalahProgress={afterSalahProgress}
-                  onPressAfterSalah={() => router.push(afterSalahAdhkarRoute(prayerId))}
-                  onPress={() => setActivePrayer(prayerId)}
-                />
-              );
-            })}
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("tracker.witr")}
-            icon={{ ios: "moon.fill", android: "dark_mode", web: "dark_mode" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.salahAdhkarHint}>
-            {t("tracker.witrSubtitle")}
-          </ThemedText>
-          <View style={styles.rows}>
-            <PrayerTrackerRow
-              prayerId={WITR_PRAYER}
-              status={status[WITR_PRAYER] ?? "pending"}
-              time={prayerTimes[WITR_PRAYER]}
-              hasNotes={!!notes[WITR_PRAYER]}
-              afterSalahProgress={afterSalahProgressForPrayer(WITR_PRAYER, zikrCounts)}
-              onPressAfterSalah={() => router.push(afterSalahAdhkarRoute(WITR_PRAYER))}
-              onPress={() => setActivePrayer(WITR_PRAYER)}
-            />
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("tracker.salahAdhkar")}
-            icon={{
-              ios: "hands.and.sparkles.fill",
-              android: "volunteer_activism",
-              web: "volunteer_activism",
-            }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.salahAdhkarHint}>
-            {t("tracker.salahAdhkarSubtitle")}
-          </ThemedText>
-          <View style={styles.rows}>
-            {SALAH_ADHKAR.map((category) => (
-              <NavRow
-                key={category.id}
-                icon={category.icon}
-                label={t(`zikrCat.${category.id}`)}
-                count={category.count}
-                onPress={() =>
-                  router.push({ pathname: "/zikr/[category]", params: { category: category.id } })
-                }
-              />
-            ))}
-          </View>
-        </Card>
-
-        <QazaDailyChecklist />
+        <TrackerDayChecklist
+          date={getLocalDateString()}
+          isToday
+          status={status}
+          notes={notes}
+          jama={jamaMap}
+          zikrCounts={zikrCounts}
+          prayerTimes={prayerTimes}
+          onPrayerPress={setActivePrayer}
+        />
 
         <Card padding="three">
           <SectionHeader
@@ -469,47 +419,6 @@ export default function TrackerScreen() {
               icon={{ ios: "leaf.fill", android: "park", web: "park" }}
               label={t("jannah.journeySubtitle")}
               onPress={() => router.push("/jannah/journey")}
-            />
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("tracker.sunnahOptional")}
-            icon={{ ios: "moon.stars", android: "nights_stay", web: "nights_stay" }}
-          />
-          <View style={styles.rows}>
-            {SUNNAH_PRAYERS.map((prayerId) => {
-              const current = status[prayerId] ?? "pending";
-              return (
-                <PrayerTrackerRow
-                  key={prayerId}
-                  prayerId={prayerId}
-                  status={current}
-                  time={prayerTimes[prayerId]}
-                  hasNotes={!!notes[prayerId]}
-                  onPress={() => setActivePrayer(prayerId)}
-                />
-              );
-            })}
-            <NavRow
-              icon={{ ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" }}
-              label={t("tahajjud.streakRow")}
-              onPress={() => router.push("/tahajjud")}
-            />
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("journal.title")}
-            icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-          />
-          <View style={styles.rows}>
-            <NavRow
-              icon={{ ios: "square.and.pencil", android: "edit", web: "edit" }}
-              label={t("journal.navRow")}
-              onPress={() => router.push("/journal")}
             />
           </View>
         </Card>
