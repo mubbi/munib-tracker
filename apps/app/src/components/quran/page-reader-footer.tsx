@@ -76,7 +76,11 @@ export function PageReaderFooter({
       accessibilityRole="button"
       accessibilityLabel={t("quran.pagePickerTitle")}
       onPress={onOpenPage}
-      style={[styles.pageChip, { backgroundColor: colors.muted }, compact && styles.pageChipCompact]}
+      style={[
+        styles.pageChip,
+        { backgroundColor: colors.muted },
+        compact && styles.pageChipCompact,
+      ]}
     >
       <SymbolView
         name={{ ios: "book.pages", android: "menu_book", web: "menu_book" }}
