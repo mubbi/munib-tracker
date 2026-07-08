@@ -5,7 +5,8 @@ import {
   type LayoutChangeEvent,
   Platform,
   type StyleProp,
-  type View,
+  StyleSheet,
+  View,
   type ViewStyle,
 } from "react-native";
 
@@ -32,6 +33,8 @@ type GlassSurfaceProps = {
   interactive?: boolean;
   /** Override the fallback blur tint; defaults to a scheme-appropriate chrome material. */
   tint?: BlurTint;
+  /** Override the scheme wash opacity blended into the glass (0–1). Omit for default chrome. */
+  washOpacity?: number;
   /**
    * Android-only: capture the root {@link BlurTargetView} for a real backdrop blur.
    * Use for overlay chrome outside the provider target (mini-player, toasts, modals).
@@ -66,6 +69,7 @@ export function GlassSurface({
   tint,
   backdropCapture = false,
   blurTargetRef,
+  washOpacity,
   onLayout,
 }: GlassSurfaceProps) {
   const { colors, scheme } = useThemeTokens();
@@ -76,7 +80,10 @@ export function GlassSurface({
   // on the previous material until an app refresh.
   const schemeKey = `glass-${scheme}`;
   // Soft scheme wash so chrome stays readable even if the native blur lags one frame.
-  const wash = withAlpha(colors.background, scheme === "dark" ? 0.72 : 0.78);
+  const defaultWashOpacity = scheme === "dark" ? 0.72 : 0.78;
+  const resolvedWashOpacity = washOpacity ?? defaultWashOpacity;
+  const wash =
+    resolvedWashOpacity > 0 ? withAlpha(colors.background, resolvedWashOpacity) : undefined;
 
   if (hasLiquidGlass) {
     return (
@@ -85,7 +92,7 @@ export function GlassSurface({
         glassEffectStyle="regular"
         isInteractive={interactive}
         colorScheme={scheme}
-        style={[style, { backgroundColor: wash }]}
+        style={[style, wash != null ? { backgroundColor: wash } : null]}
         onLayout={onLayout}
       >
         {children}
@@ -107,11 +114,74 @@ export function GlassSurface({
       intensity={intensity}
       blurMethod={androidBlurMethod}
       blurTarget={Platform.OS === "android" ? (resolvedBlurTarget ?? undefined) : undefined}
-      style={[style, { backgroundColor: wash }]}
+      style={[style, wash != null ? { backgroundColor: wash } : null]}
       onLayout={onLayout}
     >
       {children}
     </BlurView>
+  );
+}
+
+type OverlayGlassFillProps = {
+  /** Translucent card wash for text legibility over the blur (0–1). */
+  cardWashAlpha: number;
+  /** Blur strength for native `BlurView` and web `backdrop-filter`. */
+  intensity?: number;
+};
+
+/**
+ * Frosted fill for floating overlays (toasts, etc.) that sit above scrollable
+ * content as siblings. Unlike {@link GlassSurface}, this always uses an explicit
+ * backdrop blur — `BlurView` on native (even on iOS 26, where `GlassView` does
+ * not blur RN siblings) and CSS `backdrop-filter` on web — plus Android
+ * `BlurTargetView` capture when available.
+ */
+export function OverlayGlassFill({ cardWashAlpha, intensity = 72 }: OverlayGlassFillProps) {
+  const { colors, scheme } = useThemeTokens();
+  const blurTarget = useBlurTarget();
+  const schemeKey = `overlay-glass-${scheme}`;
+
+  const cardWash = (
+    <View
+      pointerEvents="none"
+      style={[StyleSheet.absoluteFill, { backgroundColor: withAlpha(colors.card, cardWashAlpha) }]}
+    />
+  );
+
+  if (Platform.OS === "web") {
+    return (
+      <>
+        <View
+          pointerEvents="none"
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: withAlpha(scheme === "dark" ? "#000000" : "#ffffff", 0.08),
+              backdropFilter: "blur(20px) saturate(160%)",
+            } as ViewStyle,
+          ]}
+        />
+        {cardWash}
+      </>
+    );
+  }
+
+  const androidCapture = Platform.OS === "android" && blurTarget != null;
+  const tint: BlurTint = scheme === "dark" ? "systemThinMaterialDark" : "systemThinMaterialLight";
+
+  return (
+    <>
+      <BlurView
+        key={schemeKey}
+        tint={tint}
+        intensity={intensity}
+        blurMethod={androidCapture ? "dimezisBlurViewSdk31Plus" : undefined}
+        blurTarget={androidCapture ? blurTarget : undefined}
+        pointerEvents="none"
+        style={StyleSheet.absoluteFill}
+      />
+      {cardWash}
+    </>
   );
 }
 

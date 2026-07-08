@@ -140,7 +140,11 @@ export default function QazaHomeScreen() {
       {
         id: "calculator",
         label: t("qaza.calculator"),
-        icon: { ios: "function", android: "calculate", web: "calculate" },
+        icon: {
+          ios: "plus.forwardslash.minus",
+          android: "calculate",
+          web: "calculate",
+        },
         tint: colors.accent,
         onPress: () => router.push("/qaza/calculator"),
       },

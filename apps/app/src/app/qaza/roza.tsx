@@ -236,7 +236,11 @@ export default function QazaRozaScreen() {
         <Card padding="three">
           <SectionHeader
             title={t("qazaRoza.estimateTitle")}
-            icon={{ ios: "function", android: "calculate", web: "calculate" }}
+            icon={{
+              ios: "plus.forwardslash.minus",
+              android: "calculate",
+              web: "calculate",
+            }}
           />
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.calcHint}>
             {t("qazaRoza.estimateHint")}

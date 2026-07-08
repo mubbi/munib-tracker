@@ -3,7 +3,6 @@ import { SymbolView } from "expo-symbols";
 import { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, ScrollView, StyleSheet, TextInput, View } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -455,16 +454,8 @@ export default function SearchScreen() {
             onPick={runSuggestion}
             onClearRecent={clearRecent}
           />
-        ) : showLoading ? (
-          <SearchLoading />
-        ) : showEmpty ? (
-          <EmptyState
-            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
-            title={t("search.noResultsTitle")}
-            description={t("search.noResultsDesc")}
-          />
-        ) : (
-          <Animated.View entering={FadeIn.duration(160)} style={styles.results}>
+        ) : visibleGroups.length > 0 ? (
+          <View style={styles.results}>
             {visibleGroups.map((group) => {
               const preview =
                 filter === "all" ? group.results.slice(0, PREVIEW_LIMIT) : group.results;
@@ -525,8 +516,16 @@ export default function SearchScreen() {
                 </ThemedText>
               </View>
             ) : null}
-          </Animated.View>
-        )}
+          </View>
+        ) : showLoading ? (
+          <SearchLoading />
+        ) : showEmpty ? (
+          <EmptyState
+            icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+            title={t("search.noResultsTitle")}
+            description={t("search.noResultsDesc")}
+          />
+        ) : null}
       </ScrollView>
     </View>
   );

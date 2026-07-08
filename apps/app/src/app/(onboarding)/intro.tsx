@@ -148,16 +148,24 @@ export default function OnboardingIntroScreen() {
         scrollEventThrottle={16}
         onScroll={onScroll}
         onMomentumScrollEnd={onScroll}
+        style={styles.slidePager}
       >
         {SLIDES.map((item) => (
           <View key={item.key} style={[styles.slidePage, { width }]}>
-            {item.kind === "brand" ? (
-              <BrandSlide />
-            ) : item.kind === "cta" ? (
-              <CtaSlide icon={item.icon} />
-            ) : (
-              <FeatureSlide slide={item} />
-            )}
+            <ScrollView
+              style={styles.slideScroll}
+              contentContainerStyle={styles.slideScrollContent}
+              showsVerticalScrollIndicator={false}
+              bounces={false}
+            >
+              {item.kind === "brand" ? (
+                <BrandSlide />
+              ) : item.kind === "cta" ? (
+                <CtaSlide icon={item.icon} />
+              ) : (
+                <FeatureSlide slide={item} />
+              )}
+            </ScrollView>
           </View>
         ))}
       </ScrollView>
@@ -228,7 +236,7 @@ function BrandSlide() {
         <Image style={styles.logo} source={require("@/assets/images/munib-logo.png")} />
       </View>
 
-      <ThemedText type="display" style={[styles.brandTitle, { color: Brand.heroText }]}>
+      <ThemedText type="header" style={[styles.brandTitle, { color: Brand.heroText }]}>
         {APP_NAME}
       </ThemedText>
       <ThemedText type="subtitle" style={[styles.brandTagline, { color: Brand.heroSubtext }]}>
@@ -337,36 +345,46 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: Spacing.two,
   },
+  slidePager: {
+    flex: 1,
+  },
   slidePage: {
     flex: 1,
-    justifyContent: "center",
     paddingHorizontal: Spacing.four,
+  },
+  slideScroll: {
+    flex: 1,
+  },
+  slideScrollContent: {
+    flexGrow: 1,
+    justifyContent: "center",
+    paddingVertical: Spacing.two,
   },
   brandSlide: {
     alignItems: "center",
-    gap: Spacing.three,
+    gap: Spacing.two,
     paddingBottom: Spacing.two,
   },
   bismillah: {
     textAlign: "center",
   },
   logoWrap: {
-    width: 160,
-    height: 160,
+    width: 132,
+    height: 132,
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: Spacing.two,
+    marginVertical: Spacing.one,
   },
   logoGlow: {
     position: "absolute",
-    width: 200,
-    height: 200,
+    width: 168,
+    height: 168,
     opacity: 0.85,
   },
   logo: {
-    width: 128,
-    height: 128,
-    borderRadius: 28,
+    width: 108,
+    height: 108,
+    borderRadius: 24,
   },
   brandTitle: {
     textAlign: "center",
@@ -380,9 +398,11 @@ const styles = StyleSheet.create({
     maxWidth: 360,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    padding: Spacing.three,
-    gap: Spacing.two,
-    marginTop: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    paddingTop: Spacing.three,
+    paddingBottom: Spacing.three + 2,
+    gap: Spacing.one + 2,
+    marginTop: Spacing.one,
   },
   duaLabel: {
     textAlign: "center",
@@ -392,14 +412,17 @@ const styles = StyleSheet.create({
   duaArabic: {
     textAlign: "center",
     color: Brand.heroText,
-    fontSize: 22,
+    fontSize: 20,
+    lineHeight: 32,
   },
   duaTranslit: {
     textAlign: "center",
     fontStyle: "italic",
+    lineHeight: 18,
   },
   duaTranslation: {
     textAlign: "center",
+    lineHeight: 20,
   },
   featureSlide: {
     alignItems: "center",

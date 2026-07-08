@@ -50,7 +50,7 @@ export function DevotionAchievementSummary({
             {t("achievements.levelShort")}
           </ThemedText>
           <ThemedText
-            type="title"
+            type="subtitle"
             style={[styles.achievementBadgeLevel, { color: tokens.status.warning.color }]}
           >
             {formatCount(devotion.level)}
@@ -121,7 +121,9 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
   achievementBadgeLevel: {
-    lineHeight: 26,
+    fontSize: 22,
+    lineHeight: 24,
+    letterSpacing: -0.4,
   },
   achievementCopy: {
     flex: 1,

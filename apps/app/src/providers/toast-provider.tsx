@@ -22,9 +22,9 @@ import Animated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/themed-text";
-import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
+import { OverlayGlassFill } from "@/components/ui/glass-surface";
 import { PressableScale } from "@/components/ui/pressable-scale";
-import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 
@@ -148,7 +148,7 @@ export function ToastHost() {
 }
 
 function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void }) {
-  const { colors, tokens } = useThemeTokens();
+  const { tokens } = useThemeTokens();
   const { t } = useTranslation();
   const statusKey = item.type === "error" ? "danger" : item.type;
   const palette = tokens.status[statusKey];
@@ -204,19 +204,9 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
     opacity: opacity.value,
   }));
 
-  // Match Sheet / mini-player: light wash over real blur so frost reads through.
-  const androidBackdropBlur = Platform.OS === "android";
-  const washAlpha = hasLiquidGlass
-    ? tokens.isDark
-      ? 0.28
-      : 0.4
-    : androidBackdropBlur
-      ? tokens.isDark
-        ? 0.3
-        : 0.42
-      : tokens.isDark
-        ? 0.5
-        : 0.62;
+  // Explicit backdrop blur per platform (see OverlayGlassFill).
+  const toastCardWash =
+    Platform.OS === "android" ? (tokens.isDark ? 0.3 : 0.42) : tokens.isDark ? 0.22 : 0.32;
 
   return (
     <Animated.View
@@ -234,24 +224,8 @@ function ToastCard({ item, onDismiss }: { item: ToastItem; onDismiss: () => void
         ]}
         {...panResponder.panHandlers}
       >
-        {/* Frosted glass to match the sheets and player chrome: real Liquid Glass
-            on iOS 26, a native blur elsewhere. The wash keeps the banner legible
-            over whatever content sits behind it. */}
-        <View style={[StyleSheet.absoluteFill, styles.glassFill, { pointerEvents: "none" }]}>
-          <GlassSurface
-            backdropCapture={androidBackdropBlur}
-            style={StyleSheet.absoluteFill}
-            intensity={50}
-          />
-          <View
-            style={[
-              StyleSheet.absoluteFill,
-              {
-                backgroundColor: withAlpha(colors.card, washAlpha),
-              },
-            ]}
-          />
-        </View>
+        {/* Frosted glass: explicit backdrop blur on every platform (see OverlayGlassFill). */}
+        <OverlayGlassFill cardWashAlpha={toastCardWash} intensity={72} />
         <View style={styles.textWrap}>
           <ThemedText type="smallBold">{item.title}</ThemedText>
           {item.subtitle ? (
@@ -301,9 +275,6 @@ const styles = StyleSheet.create({
   textWrap: {
     flex: 1,
     gap: 2,
-  },
-  /** Sits behind toast content so the blur/wash never covers the dismiss control. */
-  glassFill: {
-    zIndex: -1,
+    zIndex: 1,
   },
 });

@@ -247,7 +247,10 @@ export default function AchievementsScreen() {
                   >
                     {t("achievements.levelShort")}
                   </ThemedText>
-                  <ThemedText type="title" style={{ color: tokens.status.warning.color }}>
+                  <ThemedText
+                    type="header"
+                    style={[styles.devotionBadgeLevel, { color: tokens.status.warning.color }]}
+                  >
                     {devotion.level}
                   </ThemedText>
                 </View>
@@ -367,6 +370,11 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     lineHeight: 12,
     textTransform: "uppercase",
+  },
+  devotionBadgeLevel: {
+    fontSize: 28,
+    lineHeight: 30,
+    letterSpacing: -0.4,
   },
   heroCopy: {
     flex: 1,

@@ -6,8 +6,11 @@ enum ExternalCommandQueue {
   static let key = "pending_commands_v1"
 
   static func appendCommandJson(_ json: String) {
-    guard let data = readRaw().data(using: .utf8),
-          var array = (try? JSONSerialization.jsonObject(with: data) as? [String]) ?? [] else {
+    guard let data = readRaw().data(using: .utf8) else {
+      writeRaw("[\(json)]")
+      return
+    }
+    guard var array = try? JSONSerialization.jsonObject(with: data) as? [String] else {
       writeRaw("[\(json)]")
       return
     }
