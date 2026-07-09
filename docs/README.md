@@ -25,6 +25,10 @@ Central map of project docs. **Active backlog** lives in [`BACKLOG.md`](./BACKLO
 | **Device & platform support** | [`DEVICES.md`](./DEVICES.md) |
 | **Performance profiling & optimization** | [`PROFILING.md`](./PROFILING.md) |
 | **App Store / Play screenshots** | [`STORE_ASSETS.md`](./STORE_ASSETS.md) |
+| **iOS App Store listing copy** (23 app locales + 7 ASO) | [`IOS_APP_COPY.md`](./IOS_APP_COPY.md) |
+| **Google Play short description** (23 app locales + 7 ASO) | [`ANDROID_APP_COPY.md`](./ANDROID_APP_COPY.md) |
+| **Deep links & App Links** (scheme, widgets, OAuth) | [`DEEP_LINKS.md`](./DEEP_LINKS.md) |
+| **OAuth setup** (Google & Apple sign-in) | [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) |
 
 Per-app agent guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md) · [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md)
 

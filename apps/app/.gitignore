@@ -36,6 +36,9 @@ yarn-error.*
 # local env files
 .env*.local
 
+# Android signing keys & Play Console PEPK artifacts (never commit)
+android-keys/
+
 # typescript
 *.tsbuildinfo
 
