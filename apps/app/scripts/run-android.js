@@ -15,7 +15,10 @@ const {
 
 const rawArgs = process.argv.slice(2);
 const clearMetro = rawArgs.includes("--clear-metro") || rawArgs.includes("--clear");
-const expoArgs = ["run:android", ...rawArgs.filter((arg) => arg !== "--clear-metro" && arg !== "--clear")];
+const expoArgs = [
+  "run:android",
+  ...rawArgs.filter((arg) => arg !== "--clear-metro" && arg !== "--clear"),
+];
 
 prepareWindowsAndroidBuild();
 ensureAndroidDeviceReady();
