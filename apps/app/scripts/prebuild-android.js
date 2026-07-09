@@ -17,7 +17,7 @@ const {
   syncAndroidVersionName,
   syncAndroidVersionCode,
 } = require("./lib/sync-android-versions.cjs");
-const { DEFAULT_APP_ROOT, runStep } = require("./lib/native-script-utils.cjs");
+const { DEFAULT_APP_ROOT, runStep, prepareWindowsAndroidBuild } = require("./lib/native-script-utils.cjs");
 
 const appRoot = DEFAULT_APP_ROOT;
 const androidDir = path.join(appRoot, "android");
@@ -38,5 +38,6 @@ const { marketingVersion } = preparePlatformRelease("android", appRoot);
 syncAndroidVersionName(androidDir, marketingVersion, { strict: false });
 syncAndroidVersionCode(androidDir, { strict: false });
 logReleaseVersionSummary(appRoot, { activePlatform: "android" });
+prepareWindowsAndroidBuild(appRoot);
 
 console.log("\nDone. Android native project synced from apps/app/.env.");

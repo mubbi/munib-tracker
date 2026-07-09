@@ -44,6 +44,21 @@ function withAndroidBuildHygiene(config) {
       key: "org.gradle.warning.mode",
       value: "none",
     });
+
+    if (process.platform === "win32") {
+      const { WINDOWS_GRADLE_PROPERTIES } = require("../scripts/lib/native-script-utils.cjs");
+      for (const [key, value] of Object.entries(WINDOWS_GRADLE_PROPERTIES)) {
+        const existing = config.modResults.find(
+          (entry) => entry.type === "property" && entry.key === key,
+        );
+        if (existing) {
+          existing.value = value;
+        } else {
+          config.modResults.push({ type: "property", key, value });
+        }
+      }
+    }
+
     return config;
   });
 
