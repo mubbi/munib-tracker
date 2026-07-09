@@ -6,11 +6,7 @@ const {
   assertVersionEnv,
   logReleaseVersionSummary,
 } = require("./lib/release-app-env.cjs");
-const {
-  applyIosCredentialsEnv,
-  requireIosKey,
-  logIosKeysSummary,
-} = require("./lib/ios-keys.cjs");
+const { applyIosCredentialsEnv, requireIosKey, logIosKeysSummary } = require("./lib/ios-keys.cjs");
 
 const appRoot = path.join(__dirname, "..");
 const iosEas = process.argv.includes("--ios-eas");

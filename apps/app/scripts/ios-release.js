@@ -39,10 +39,7 @@ const {
   logReleaseVersionSummary,
   buildNativeReleaseProcessEnv,
 } = require("./lib/release-app-env.cjs");
-const {
-  applyIosCredentialsEnv,
-  logIosKeysSummary,
-} = require("./lib/ios-keys.cjs");
+const { applyIosCredentialsEnv, logIosKeysSummary } = require("./lib/ios-keys.cjs");
 
 const archiveOnly = process.argv.includes("--archive-only");
 const appRoot = path.join(__dirname, "..");
