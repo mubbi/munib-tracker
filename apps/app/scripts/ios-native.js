@@ -32,6 +32,8 @@ const ARCHIVE_NAME = `${SCHEME}.xcarchive`;
 
 function loadProjectEnv() {
   const result = loadAppEnv(projectRoot);
+  const { loadIosKeysDotEnv } = require("./lib/ios-keys.cjs");
+  loadIosKeysDotEnv(projectRoot);
   loadDotEnv(teamEnvPath);
   return result;
 }

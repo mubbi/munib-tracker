@@ -2,6 +2,7 @@
 /**
  * Print iOS code signing settings (parity with Gradle signingReport).
  */
+const path = require("node:path");
 const {
   ensureIosProject,
   ensurePodsInstalled,
@@ -11,6 +12,9 @@ const {
   loadProjectEnv,
   readTeamId,
 } = require("./ios-native");
+const { logIosKeysSummary } = require("./lib/ios-keys.cjs");
+
+const appRoot = path.join(__dirname, "..");
 
 function main() {
   ensureIosProject();
@@ -64,6 +68,7 @@ function main() {
       "\nNo EXPO_APPLE_TEAM_ID in .env or ios-keys/team.env — set EXPO_APPLE_TEAM_ID in apps/app/.env",
     );
   }
+  logIosKeysSummary(appRoot);
   console.log("");
 }
 

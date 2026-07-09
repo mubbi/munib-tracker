@@ -39,6 +39,10 @@ const {
   logReleaseVersionSummary,
   buildNativeReleaseProcessEnv,
 } = require("./lib/release-app-env.cjs");
+const {
+  applyIosCredentialsEnv,
+  logIosKeysSummary,
+} = require("./lib/ios-keys.cjs");
 
 const archiveOnly = process.argv.includes("--archive-only");
 const appRoot = path.join(__dirname, "..");
@@ -94,6 +98,13 @@ function main() {
   logReleaseVersionSummary(appRoot, { activePlatform: "ios" });
   syncIosMarketingVersion(marketingVersion);
   syncIosBuildNumber(buildNumber);
+  try {
+    applyIosCredentialsEnv(appRoot, { buildApi: true, signIn: true, apn: true });
+  } catch (err) {
+    console.error(err instanceof Error ? `\n${err.message}\n` : err);
+    process.exit(1);
+  }
+  logIosKeysSummary(appRoot);
   ensureTeamConfigured();
   cleanXcodeArchiveCaches();
   ensureIosReactCodegen();

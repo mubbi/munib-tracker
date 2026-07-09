@@ -1,3 +1,4 @@
+#if !os(watchOS)
 import SwiftUI
 import WidgetKit
 
@@ -245,3 +246,4 @@ struct BasicWidgetProvider: TimelineProvider {
     completion(WidgetTimeline.timeline())
   }
 }
+#endif
