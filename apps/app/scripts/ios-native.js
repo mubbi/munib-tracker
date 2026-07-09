@@ -12,6 +12,8 @@ const teamEnvPath = path.join(keysDir, "team.env");
 const exportOptionsPath = path.join(keysDir, "ExportOptions.plist");
 const exportOptionsTemplatePath = path.join(keysDir, "ExportOptions.plist.template");
 const exportDir = path.join(iosDir, "app-store-export");
+const appStoreConnectEnvPath = path.join(keysDir, "app-store-connect.env");
+const appStoreConnectEnvExamplePath = path.join(keysDir, "app-store-connect.env.example");
 
 const { loadAppEnv, loadDotEnv } = require("./lib/release-app-env.cjs");
 
@@ -29,6 +31,8 @@ function resolveSchemeName() {
 const SCHEME = resolveSchemeName();
 const WORKSPACE_NAME = `${SCHEME}.xcworkspace`;
 const ARCHIVE_NAME = `${SCHEME}.xcarchive`;
+const IPA_NAME = `${SCHEME}.ipa`;
+const exportIpaPath = path.join(exportDir, IPA_NAME);
 
 function loadProjectEnv() {
   const result = loadAppEnv(projectRoot);
@@ -36,6 +40,134 @@ function loadProjectEnv() {
   loadIosKeysDotEnv(projectRoot);
   loadDotEnv(teamEnvPath);
   return result;
+}
+
+function loadAppStoreConnectEnv() {
+  loadDotEnv(appStoreConnectEnvPath);
+  const { applyIosCredentialsEnv } = require("./lib/ios-keys.cjs");
+  applyIosCredentialsEnv(projectRoot, { buildApi: true });
+}
+
+function resolveReleaseIpaPath(explicitPath) {
+  if (explicitPath) {
+    const resolved = path.isAbsolute(explicitPath)
+      ? explicitPath
+      : path.resolve(projectRoot, explicitPath);
+    if (!fs.existsSync(resolved)) {
+      console.error(`\nIPA not found: ${resolved}\n`);
+      process.exit(1);
+    }
+    return resolved;
+  }
+
+  if (fs.existsSync(exportIpaPath)) {
+    return exportIpaPath;
+  }
+  if (fs.existsSync(exportDir)) {
+    const alt = fs.readdirSync(exportDir).find((name) => name.endsWith(".ipa"));
+    if (alt) {
+      return path.join(exportDir, alt);
+    }
+  }
+
+  console.error(
+    `\nNo App Store IPA found.\n` +
+      `  Run: pnpm release:app:ios\n` +
+      `  Expected: ${exportIpaPath}\n` +
+      `  Or pass: --ipa /path/to/${IPA_NAME}\n`,
+  );
+  process.exit(1);
+}
+
+function findBuildApiKeyP8(apiKeyId, explicitPath) {
+  if (explicitPath) {
+    const resolved = path.isAbsolute(explicitPath)
+      ? explicitPath
+      : path.join(projectRoot, explicitPath);
+    if (fs.existsSync(resolved)) {
+      return resolved;
+    }
+    console.error(`\nAPI key file not found: ${resolved}\n`);
+    process.exit(1);
+  }
+
+  const { resolveIosKeys } = require("./lib/ios-keys.cjs");
+  const buildApi = resolveIosKeys(projectRoot).buildApi;
+  if (buildApi && (!apiKeyId || buildApi.keyId === apiKeyId)) {
+    return path.resolve(buildApi.path);
+  }
+
+  if (apiKeyId) {
+    const candidates = [
+      path.join(keysDir, `munib_build_api_AuthKey_${apiKeyId}.p8`),
+      path.join(keysDir, `AuthKey_${apiKeyId}.p8`),
+      path.join(projectRoot, "private_keys", `AuthKey_${apiKeyId}.p8`),
+      path.join(process.env.HOME || "", "private_keys", `AuthKey_${apiKeyId}.p8`),
+      path.join(process.env.HOME || "", ".private_keys", `AuthKey_${apiKeyId}.p8`),
+      path.join(process.env.HOME || "", ".appstoreconnect", "private_keys", `AuthKey_${apiKeyId}.p8`),
+    ];
+    for (const candidate of candidates) {
+      if (fs.existsSync(candidate)) {
+        return candidate;
+      }
+    }
+  }
+
+  return null;
+}
+
+function buildAltoolAuthArgs() {
+  const { resolveIosKeys } = require("./lib/ios-keys.cjs");
+  const discovered = resolveIosKeys(projectRoot).buildApi;
+
+  const apiKeyId =
+    process.env.APP_STORE_CONNECT_API_KEY_ID?.trim() ||
+    process.env.EXPO_ASC_API_KEY_ID?.trim() ||
+    process.env.EXPO_ASC_KEY_ID?.trim() ||
+    discovered?.keyId ||
+    "";
+  const apiIssuer =
+    process.env.APP_STORE_CONNECT_API_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_ISSUER_ID?.trim() ||
+    "";
+
+  if (apiKeyId && apiIssuer) {
+    const args = ["--api-key", apiKeyId, "--api-issuer", apiIssuer];
+    const keyPath =
+      process.env.APP_STORE_CONNECT_API_KEY_PATH?.trim() ||
+      process.env.EXPO_ASC_API_KEY_PATH?.trim() ||
+      process.env.IOS_BUILD_API_KEY?.trim();
+    const p8 = findBuildApiKeyP8(apiKeyId, keyPath);
+    if (p8) {
+      args.push("--p8-file-path", p8);
+    }
+    return { method: "api-key", args, p8Path: p8, apiKeyId, apiIssuer };
+  }
+
+  const appleId = process.env.APP_STORE_CONNECT_APPLE_ID?.trim();
+  const password = process.env.APP_STORE_CONNECT_APP_PASSWORD?.trim();
+  if (appleId && password) {
+    return {
+      method: "apple-id",
+      args: ["-u", appleId, "-p", password],
+    };
+  }
+
+  return null;
+}
+
+function printAppStoreConnectAuthHelp() {
+  console.error(
+    "\nMissing App Store Connect upload credentials.\n\n" +
+      "  1. App Store Connect → Users and Access → Integrations → App Store Connect API → +\n" +
+      "  2. Download the .p8 once; save as ios-keys/munib_build_api_AuthKey_<KEY_ID>.p8\n" +
+      "  3. Run: pnpm ios:setup-app-store-connect\n" +
+      "     Fill apps/app/ios-keys/app-store-connect.env (issuer ID; key ID from filename)\n\n" +
+      "  Or set APP_STORE_CONNECT_APPLE_ID + APP_STORE_CONNECT_APP_PASSWORD\n" +
+      "  (app-specific password; keychain: @keychain:ITEM_NAME)\n\n" +
+      `  Template: ${appStoreConnectEnvExamplePath}\n`,
+  );
 }
 
 function run(cmd, args, opts = {}) {
@@ -288,16 +420,35 @@ function cleanXcodeArchiveCaches() {
   }
 }
 
+function resolveExportIpaPath() {
+  if (fs.existsSync(exportIpaPath)) {
+    return exportIpaPath;
+  }
+  if (!fs.existsSync(exportDir)) {
+    return null;
+  }
+  const ipaName = fs.readdirSync(exportDir).find((name) => name.endsWith(".ipa"));
+  return ipaName ? path.join(exportDir, ipaName) : null;
+}
+
 module.exports = {
   projectRoot,
   iosDir,
   keysDir,
   exportOptionsPath,
   exportDir,
+  exportIpaPath,
+  appStoreConnectEnvPath,
+  appStoreConnectEnvExamplePath,
   SCHEME,
   WORKSPACE_NAME,
   ARCHIVE_NAME,
+  IPA_NAME,
   loadProjectEnv,
+  loadAppStoreConnectEnv,
+  resolveReleaseIpaPath,
+  buildAltoolAuthArgs,
+  printAppStoreConnectAuthHelp,
   run,
   runCapture,
   ensureIosProject,
@@ -313,4 +464,5 @@ module.exports = {
   ensureJsBundleDeps,
   ensureIosReactCodegen,
   cleanXcodeArchiveCaches,
+  resolveExportIpaPath,
 };

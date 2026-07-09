@@ -7,6 +7,7 @@
  *   munib_apn_AuthKey_<KEY_ID>.p8        — APNs push (EAS credentials)
  */
 const fs = require("node:fs");
+const os = require("node:os");
 const path = require("node:path");
 const { loadDotEnv } = require("./release-app-env.cjs");
 
@@ -76,6 +77,7 @@ function resolveKeyByRole(keysDir, role) {
 
 function loadIosKeysDotEnv(projectRoot) {
   const keysDir = iosKeysDir(projectRoot);
+  loadDotEnv(path.join(keysDir, "app-store-connect.env"));
   loadDotEnv(path.join(keysDir, "keys.env"));
   loadDotEnv(path.join(keysDir, "team.env"));
 }
@@ -112,10 +114,15 @@ function applyBuildApiKeyEnv(projectRoot) {
   setEnvIfUnset("EXPO_ASC_API_KEY_PATH", absPath);
   setEnvIfUnset("EXPO_ASC_API_KEY_ID", key.keyId);
   setEnvIfUnset("EXPO_ASC_KEY_ID", key.keyId);
+  setEnvIfUnset("APP_STORE_CONNECT_API_KEY_ID", key.keyId);
+  setEnvIfUnset("APP_STORE_CONNECT_API_KEY_PATH", absPath);
 
   const issuer =
-    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() || process.env.EXPO_ASC_ISSUER_ID?.trim();
+    process.env.APP_STORE_CONNECT_API_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_ISSUER_ID?.trim();
   if (issuer) {
+    setEnvIfUnset("APP_STORE_CONNECT_API_ISSUER_ID", issuer);
     setEnvIfUnset("EXPO_ASC_API_KEY_ISSUER_ID", issuer);
     setEnvIfUnset("EXPO_ASC_ISSUER_ID", issuer);
   }
@@ -167,6 +174,41 @@ function applyIosCredentialsEnv(
   return applied;
 }
 
+function requireAscApiCredentials(projectRoot) {
+  loadIosKeysDotEnv(projectRoot);
+  applyBuildApiKeyEnv(projectRoot);
+  const key = requireIosKey(projectRoot, "buildApi");
+  const issuerId =
+    process.env.APP_STORE_CONNECT_API_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_ISSUER_ID?.trim();
+  if (!issuerId) {
+    console.error(
+      "\nMissing App Store Connect Issuer ID.\n" +
+        "  Run: pnpm ios:setup-app-store-connect\n" +
+        "  Set APP_STORE_CONNECT_API_ISSUER_ID in apps/app/ios-keys/app-store-connect.env\n",
+    );
+    process.exit(1);
+  }
+  return {
+    key,
+    keyId: key.keyId,
+    issuerId,
+    keyPath: path.resolve(key.path),
+  };
+}
+
+/**
+ * altool / iTMSTransporter expect AuthKey_<KEY_ID>.p8 under ~/.appstoreconnect/private_keys/.
+ */
+function stageBuildApiKeyForAppleUpload({ keyPath, keyId }) {
+  const dir = path.join(os.homedir(), ".appstoreconnect", "private_keys");
+  fs.mkdirSync(dir, { recursive: true });
+  const dest = path.join(dir, `AuthKey_${keyId}.p8`);
+  fs.copyFileSync(keyPath, dest);
+  return dest;
+}
+
 function requireIosKey(projectRoot, role) {
   const keys = resolveIosKeys(projectRoot);
   const key = keys[role];
@@ -194,11 +236,13 @@ function logIosKeysSummary(projectRoot) {
   }
 
   const issuer =
-    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() || process.env.EXPO_ASC_ISSUER_ID?.trim();
+    process.env.APP_STORE_CONNECT_API_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_ISSUER_ID?.trim();
   console.log(
     issuer
       ? `  ASC Issuer ID: ${issuer}`
-      : "  ASC Issuer ID: (set EXPO_ASC_API_KEY_ISSUER_ID in ios-keys/keys.env)",
+      : "  ASC Issuer ID: (set APP_STORE_CONNECT_API_ISSUER_ID in ios-keys/app-store-connect.env)",
   );
   console.log("");
 }
@@ -210,6 +254,8 @@ module.exports = {
   resolveIosKeys,
   applyIosCredentialsEnv,
   requireIosKey,
+  requireAscApiCredentials,
+  stageBuildApiKeyForAppleUpload,
   logIosKeysSummary,
   readP8AsOneLinePem,
 };

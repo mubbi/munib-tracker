@@ -5,6 +5,7 @@ module.exports = (config) => ({
   bundleIdentifier: ".munibtrackerintents",
   displayName: "Munib Tracker Intents",
   deploymentTarget: "17.0",
+  frameworks: ["AppIntents", "WidgetKit"],
   entitlements: {
     "com.apple.security.application-groups": [
       config.ios?.entitlements?.["com.apple.security.application-groups"]?.[0] ??

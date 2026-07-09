@@ -31,12 +31,14 @@ if (iosEas) {
   requireIosKey(appRoot, "apn");
 
   const issuer =
-    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() || process.env.EXPO_ASC_ISSUER_ID?.trim();
+    process.env.APP_STORE_CONNECT_API_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_API_KEY_ISSUER_ID?.trim() ||
+    process.env.EXPO_ASC_ISSUER_ID?.trim();
   if (!issuer) {
     console.error(
       "\nMissing App Store Connect Issuer ID for EAS builds.\n" +
-        "  Copy apps/app/ios-keys/keys.env.example → apps/app/ios-keys/keys.env\n" +
-        "  and set EXPO_ASC_API_KEY_ISSUER_ID.\n",
+        "  Run: pnpm ios:setup-app-store-connect\n" +
+        "  Set APP_STORE_CONNECT_API_ISSUER_ID in apps/app/ios-keys/app-store-connect.env\n",
     );
     process.exit(1);
   }

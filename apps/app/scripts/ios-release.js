@@ -31,6 +31,7 @@ const {
   ensureJsBundleDeps,
   ensureIosReactCodegen,
   cleanXcodeArchiveCaches,
+  resolveExportIpaPath,
 } = require("./ios-native");
 const { preparePlatformRelease } = require("./lib/platform-versions.cjs");
 const {
@@ -63,14 +64,6 @@ function ensureTeamConfigured() {
     process.exit(1);
   }
   return teamId;
-}
-
-function resolveExportIpaPath() {
-  if (!fs.existsSync(exportDir)) {
-    return null;
-  }
-  const alt = fs.readdirSync(exportDir).find((name) => name.endsWith(".ipa"));
-  return alt ? path.join(exportDir, alt) : null;
 }
 
 function main() {
@@ -164,7 +157,11 @@ function main() {
     process.exit(1);
   }
 
-  console.log(`\nIPA ready:\n  ${ipaPath}\n`);
+  console.log(
+    `\nIPA ready:\n  ${ipaPath}\n\n` +
+      `Upload: pnpm release:app:ios:upload\n` +
+      `  (setup: pnpm ios:setup-app-store-connect)\n`,
+  );
 }
 
 main();
