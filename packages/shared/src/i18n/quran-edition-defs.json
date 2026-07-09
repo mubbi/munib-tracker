@@ -27,13 +27,14 @@
     "bundled": true
   },
   {
-    "id": "ar-tafsir-muyassar",
-    "fawaz": "ara-tafsirmuyassar",
-    "name": "Tafsir al-Muyassar (Arabic)",
+    "id": "ar-tafsir-siraj",
+    "fawaz": "ara-sirajtafseer",
+    "name": "Tafsir al-Siraj (Arabic)",
     "language": "ar",
     "direction": "rtl",
     "kind": "tafsir",
-    "bundled": false
+    "bundled": true,
+    "perSurah": true
   },
   {
     "id": "id-indonesianislam",

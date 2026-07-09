@@ -23,13 +23,13 @@
       "seeResults": "Lihat Keputusan",
       "complete": "Kuiz selesai",
       "scoreCaption": "Markah",
-      "scoreDetail": "{{score}} daripada {{total}} menjawab soalan dengan betul",
+      "scoreDetail": "{{score}} daripada {{total}} soalan betul",
       "retry": "Cuba lagi",
       "reviewTitle": "Semak jawapan anda",
       "encouragementPerfect": "Ulasan yang indah — semoga Allah menambah ilmu yang bermanfaat kepada anda.",
       "encouragementStrong": "Pemahaman yang kuat. Tinjau kembali yang terlewat untuk menguatkannya.",
       "encouragementSteady": "Kemajuan yang baik. Gunakan yang terlewat sebagai target belajar berikutnya.",
-      "encouragementKeepGoing": "Her eksik bir derstir. Notları gözden geçirin, sonra tekrar deneyin."
+      "encouragementKeepGoing": "Setiap kesilapan ialah pelajaran. Semak nota, kemudian cuba lagi."
     },
     "skip": "Langkau",
     "apply": "Guna",
@@ -44,7 +44,7 @@
     "show": "Tampilkan",
     "dismiss": "Tutup",
     "tryAgain": "Cuba lagi",
-    "continueAsGuest": "Teruskan sebagai tetetamu",
+    "continueAsGuest": "Teruskan sebagai tetamu",
     "signIn": "Log masuk",
     "signOut": "Log keluar",
     "on": "Hidup",
@@ -315,17 +315,17 @@
     "scheduleGroupDay": "Petang",
     "scheduleGroupEvening": "Petang",
     "scheduleGroupFlexible": "bila-bila masa",
-    "scheduleShowPast_one": "{{count}} solat tadi disembunyikan",
-    "scheduleShowPast_other": "{{count}} solat tadi disembunyikan",
+    "scheduleShowPast_one": "{{count}} solat awal disembunyikan",
+    "scheduleShowPast_other": "{{count}} solat awal disembunyikan",
     "scheduleShowPastHint": "Ketik untuk menunjukkan jadual penuh",
     "scheduleHidePast": "Sembunyikan solat awal",
-    "scheduleShowPastA11y": "Tunjukkan {{count}} doa terdahulu yang tersembunyi dalam jadual hari ini",
+    "scheduleShowPastA11y": "Tunjukkan {{count}} solat awal yang disembunyikan dalam jadual hari ini",
     "scheduleHidePastA11y": "Sembunyikan solat awal dalam jadual hari ini",
-    "scheduleShowLater_one": "{{count}} nanti doa tersembunyi",
-    "scheduleShowLater_other": "{{count}} nanti solat tersembunyi",
+    "scheduleShowLater_one": "{{count}} solat kemudian disembunyikan",
+    "scheduleShowLater_other": "{{count}} solat kemudian disembunyikan",
     "scheduleShowLaterHint": "Ketik untuk menunjukkan baki hari ini",
     "scheduleHideLater": "Sembunyi solat nanti",
-    "scheduleShowLaterA11y": "Tunjukkan {{count}} doa kemudian yang tersembunyi dalam jadual hari ini",
+    "scheduleShowLaterA11y": "Tunjukkan {{count}} solat kemudian yang disembunyikan dalam jadual hari ini",
     "scheduleHideLaterA11y": "Sembunyikan solat kemudian dalam jadual hari ini",
     "continueTitle": "Teruskan dari tempat anda berhenti",
     "continueSubtitle": "Lompat kembali ke apa yang anda baca atau dengar",
@@ -334,13 +334,13 @@
     "continueListening": "Audio",
     "continueWhen": {
       "justNow": "tadi",
-      "minutesAgo_one": "{{count}} min yang lalu",
-      "minutesAgo_other": "{{count}} min yang lalu",
-      "hoursAgo_one": "{{count}} jam yang lalu",
-      "hoursAgo_other": "{{count}} jam yang lalu",
+      "minutesAgo_one": "{{count}} min lalu",
+      "minutesAgo_other": "{{count}} min lalu",
+      "hoursAgo_one": "{{count}} jam lalu",
+      "hoursAgo_other": "{{count}} jam lalu",
       "yesterday": "Semalam",
-      "daysAgo_one": "{{count}} hari yang lalu",
-      "daysAgo_other": "{{count}} hari yang lalu"
+      "daysAgo_one": "{{count}} hari lalu",
+      "daysAgo_other": "{{count}} hari lalu"
     },
     "continueKind": {
       "quran": "Al-Quran",
@@ -349,7 +349,7 @@
       "zikr": "Adhkar",
       "durood": "Durood",
       "names": "99 Nama",
-      "audio": "Audio"
+      "audio": "Sauti"
     },
     "continueAction": {
       "quran": "Teruskan membaca",
@@ -368,7 +368,7 @@
         "topic": "keteguhan hati"
       },
       "prayer-light": {
-        "text": "Anggap setiap solat sebagai set semula — lima pulangan singkat kepada Allah yang melabuhkan hari anda.",
+        "text": "Anggap setiap salah sebagai set semula — lima pulangan ringkas kepada Allah yang menambatkan hari anda.",
         "topic": "solat"
       },
       "qaza-hope": {
@@ -453,7 +453,7 @@
     "rings": {
       "sunnah": "Solah Sunnah",
       "witr": "Witir",
-      "adhkar": "Zikrler",
+      "adhkar": "Adhkar",
       "qaza": "Qadha",
       "a11y": "{{label}}: {{percent}}% selesai, {{completed}} daripada {{total}}"
     },
@@ -462,13 +462,13 @@
     "keepGoingShort": "Teruskan",
     "almostThere": "Hampir selesai",
     "summaryLogged": "{{completed}} daripada {{total}} solat wajib tercatat hari ini.",
-    "streakLine": "🔥 streak {{count}} hari",
-    "streakLabel": "Streak {{count}} hari",
+    "streakLine": "🔥 coretan {{count}} hari",
+    "streakLabel": "coretan {{count}} hari",
     "qazaTargets": "Target qadha",
     "qazaTargetsProgress": "{{done}} daripada {{total}} qadha hari ini",
     "afterSalahAdhkarReminderTitle": "Setelah {{prayer}}",
     "afterSalahAdhkarReminderBody": "Luangkan waktu untuk tasbih dan adhkar setelah solat.",
-    "afterSalahProgress": "Zikrler {{completed}}/{{total}}",
+    "afterSalahProgress": "Adhkar {{completed}}/{{total}}",
     "afterSalahProgressA11y": "Adhkar setelah {{prayer}}: {{completed}} daripada {{total}} selesai hari ini"
   },
   "settings": {
@@ -480,7 +480,7 @@
     "appearance": "Penampilan",
     "appearanceSub": "Tema & warna loghat",
     "haptics": "Maklum balas haptik",
-    "hapticsSub": "Getaran pada paip dan tindakan",
+    "hapticsSub": "Getaran pada ketikan dan tindakan",
     "notifications": "Pemberitahuan",
     "notificationsSub": "Peringatan untuk Solat, Qaza, dan Zikir",
     "bedtime": "Waktu tidur",
@@ -512,7 +512,7 @@
     "homeCustomizeSub": "Susun semula pintasan dan sembunyikan kad rumah",
     "offlineData": "Data luar talian",
     "offlineDataSub": "Urus kandungan yang dimuat turun dan kosongkan cache",
-    "cacheAudioLocally": "Simpan audio secara setempat",
+    "cacheAudioLocally": "Simpan audio secara tempatan",
     "cacheAudioLocallySub": "Muat turun bacaan untuk ulang tayang luar talian dan main balik yang lebih lancar",
     "cacheQuranEditionsLocally": "Simpan terjemahan al-Quran secara tempatan",
     "cacheQuranEditionsLocallySub": "Simpan terjemahan & tafsir yang dibuka untuk bacaan luar talian",
@@ -615,11 +615,11 @@
     "slide4Highlight2": "Hadis, dua, shalawat, dan 99 Nama",
     "slide4Highlight3": "Waktu solat, kompas kiblat, dan nudge opsional",
     "ctaEyebrow": "Anda sudah bersedia",
-    "ctaTitle": "Mula perjalanan Anda",
-    "ctaBody": "Semua berfungsi luar talian di perangkat Anda. Log masuk kapan saja untuk sinkronisasi di ponsel dan tablet.",
-    "ctaPrivacyTitle": "Privat secara default",
-    "ctaPrivacyBody": "Tidak perlu akun. Data ibadah Anda tetap di perangkat hingga Anda memilih cadangkan dan sinkronisasi.",
-    "signInToSync": "Log masuk untuk sinkronisasi",
+    "ctaTitle": "Mulakan perjalanan anda",
+    "ctaBody": "Semuanya berfungsi secara luar talian pada peranti anda. Log masuk bila-bila masa untuk segerak merentas telefon dan tablet.",
+    "ctaPrivacyTitle": "Peribadi secara lalai",
+    "ctaPrivacyBody": "Tiada akaun diperlukan. Data ibadah anda kekal pada peranti sehingga anda memilih sandaran dan segerak.",
+    "signInToSync": "Log masuk untuk segerak",
     "pageOf": "Halaman {{page}} daripada {{total}}"
   },
   "appearance": {
@@ -698,7 +698,7 @@
     "subtitle": "Pilih perkara yang anda ingin diingatkan",
     "master": "Semua pemberitahuan",
     "masterSub": "Suis induk untuk setiap peringatan",
-    "adhanTitle": "Pratonton azan",
+    "adhanTitle": "Pratonton adhan",
     "adhanSub": "Mainkan bunyi azan yang digabungkan",
     "playAdhan": "Memainkan adzan pada waktu solat",
     "playAdhanHint": "Peringatan solat fardhu mengumandangkan azan apabila mereka menyalakan api.",
@@ -729,7 +729,7 @@
     "webGrantedMobileNote": "Pemberitahuan penyemak imbas dihidupkan. Untuk peringatan waktu Solat yang boleh dipercayai, pasang apl iOS atau Android.",
     "webLimitedTitle": "Peringatan dijalankan pada apl mudah alih",
     "groupWorship": "Ibadah",
-    "groupZikr": "Zikir",
+    "groupZikr": "Zikr",
     "groupMilestones": "Pencapaian",
     "channels": {
       "prayer": "Peringatan Solat",
@@ -1906,10 +1906,10 @@
     "title": "Bahasa",
     "appLanguage": "Bahasa aplikasi",
     "translationLanguage": "Bahasa terjemahan",
-    "translationHint": "Digunakan untuk makna teks agama berbahasa Carib.",
-    "footer": "Lebih banyak antarmuka sedang diterjemahkan seiring waktu. Carib dan Urdu mengalihkan aplikasi ke tata letak kanan-ke-kiri.",
-    "scriptureAvailable": "Terjemahan Al-Quran, dua, dan zikr tersedia",
-    "scriptureUnavailable": "Hanya UI — teks kitab suci kembali ke Bahasa Inggris",
+    "translationHint": "Digunakan untuk makna teks agama Arab.",
+    "footer": "Lebih banyak antara muka sedang diterjemahkan dari semasa ke semasa. Arab dan Urdu menukar aplikasi kepada susun atur kanan-ke-kiri.",
+    "scriptureAvailable": "Terjemahan Al-Qur'an tersedia",
+    "scriptureUnavailable": "Hanya antaramuka — teks kitab suci kekal dalam bahasa Inggeris",
     "eyebrow": "Tetapan",
     "subtitle": "Bahasa aplikasi dan terjemahan",
     "en": "Bahasa Inggris",
@@ -1982,22 +1982,22 @@
   "seo": {
     "intro": {
       "title": "Selamat datang",
-      "description": "Mula dengan pendamping Islam luar talian-first Anda."
+      "description": "Mulakan dengan teman Islam luar talian anda."
     },
     "login": {
-      "description": "Log masuk untuk menyinkronkan data ibadah Anda di semua perangkat."
+      "description": "Log masuk untuk menyegerakkan data ibadah merentas peranti."
     },
     "notFound": {
-      "description": "Halaman yang Anda cari tidak ditemukan."
+      "description": "Halaman yang anda cari tidak ditemui."
     },
     "calendarDay": {
-      "description": "Tinjau dan sesuaikan ibadah yang Anda catat untuk hari ini."
+      "description": "Semak dan laraskan ibadah yang direkod untuk hari ini."
     },
     "tasbeehZikr": {
-      "description": "Kira zikr ini dengan penghitung tasbih taktil."
+      "description": "Kira zikr ini dengan kaunter tasbih sentuh."
     },
     "tasbeehCustom": {
-      "description": "Penghitung tasbih kustom Anda."
+      "description": "Kaunter tasbih tersuai anda."
     }
   },
   "pwa": {
@@ -3987,7 +3987,7 @@
   },
   "pinLock": {
     "title": "Kunci aplikasi",
-    "backspace": "Hapus",
+    "backspace": "Padam",
     "settingsSubtitle": "Require  PIN ke buka  app",
     "webUnavailable": "App kunci adalah tersedia pada iOS dan Android only.",
     "expoGoTitle": "App kunci tidak tersedia di Expo Go",
@@ -4000,7 +4000,7 @@
     "unlockWithFingerprint": "Gunakan sidik jari",
     "biometricUnlockPrompt": "Buka Munib Tracker",
     "setPin": "Atur PIN",
-    "setPinSubtitle": "Pilih a 6-digit PIN to lock the app",
+    "setPinSubtitle": "Masukkan PIN 4 digit",
     "confirmPin": "Sahkan PIN",
     "confirmPinSubtitle": "Enter  same PIN again ke konfirmasi",
     "pinMismatch": "PIN tidak sepadan — cuba lagi.",
@@ -4008,9 +4008,9 @@
     "pinSaved": "PIN tersimpan",
     "verifyingPin": "Memverifikasi…",
     "unlockingApp": "Membuka kunci…",
-    "setPinFailed": "Could tidak simpan Anda PIN. Please try again.",
+    "setPinFailed": "Tidak dapat menyimpan PIN anda. Sila cuba lagi.",
     "wrongPin": "PIN salah — cuba lagi.",
-    "wrongPinAttemptsRemaining": "Wrong PIN. {{count}} attempt(s) tersisa before lockout.",
+    "wrongPinAttemptsRemaining": "PIN salah. {{count}} percubaan lagi sebelum dikunci.",
     "lockedOut": "Too many wrong attempts. Wait  moment before trying again.",
     "usePinToUnlock": "Enter Anda PIN ke buka  app.",
     "tryAgainIn": "Try again di {{time}}",

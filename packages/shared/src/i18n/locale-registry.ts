@@ -66,7 +66,7 @@ export const LOCALE_REGISTRY: readonly LocaleDefinition[] = [
     hreflang: "ar",
     sortOrder: 2,
     phase: 1,
-    quranEditionId: "ar-tafsir-muyassar",
+    quranEditionId: "ar-tafsir-siraj",
     scriptureSupported: true,
   },
   {
@@ -82,7 +82,7 @@ export const LOCALE_REGISTRY: readonly LocaleDefinition[] = [
     sortOrder: 3,
     phase: 1,
     quranEditionId: "ur-jalandhry",
-    scriptureSupported: false,
+    scriptureSupported: true,
   },
   {
     code: "id",
@@ -172,7 +172,7 @@ export const LOCALE_REGISTRY: readonly LocaleDefinition[] = [
     sortOrder: 9,
     phase: 3,
     quranEditionId: "fr-hamidullah",
-    scriptureSupported: false,
+    scriptureSupported: true,
   },
   {
     code: "ha",

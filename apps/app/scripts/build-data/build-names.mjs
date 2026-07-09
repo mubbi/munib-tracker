@@ -14,9 +14,12 @@ const AUDIO_REPO = "ProgrammerHasan/99-names-of-allah-audios";
 const AUDIO_SHA = "03c526366d460c3acb163c89fadb0201fd057b96";
 const AUDIO_CDN = `https://cdn.jsdelivr.net/gh/${AUDIO_REPO}@${AUDIO_SHA}`;
 
-// Approved multilingual name meanings (matched by normalized Arabic, never AI-generated).
+// Approved multilingual name meanings (matched by normalized Arabic or number, never AI-generated).
 const NAMES_ID_JSON =
   "https://gist.githubusercontent.com/olipiskandar/0f03d827c8229902d6e93f4d29bb0e72/raw/asmaul-husna.json";
+const NAMES_FR_JSON =
+  "https://raw.githubusercontent.com/KabDeveloper/99-Names-Of-Allah/main/99_Names_Of_Allah.json";
+const NAMES_CORAL = "https://asmaul-husna-api-coral.vercel.app/api/asmaul-husna";
 
 /** Strip tashkeel and unify Arabic letter forms for cross-source matching. */
 function normalizeArabic(text) {
@@ -29,7 +32,8 @@ function normalizeArabic(text) {
 }
 
 async function fetchNameTranslationMaps() {
-  const maps = { id: new Map(), ms: new Map() };
+  const maps = { id: new Map(), ms: new Map(), fr: new Map(), ur: new Map(), bn: new Map() };
+
   try {
     const idPayload = await fetchJSON(NAMES_ID_JSON);
     for (const row of idPayload.data ?? []) {
@@ -40,6 +44,7 @@ async function fetchNameTranslationMaps() {
   } catch (err) {
     console.warn(`  [names] Indonesian translations unavailable (${err.message})`);
   }
+
   try {
     const msRows = await fetchJSON(
       "https://cdn.jsdelivr.net/gh/adiman-dev/islamic-json@main/asma.json",
@@ -52,6 +57,34 @@ async function fetchNameTranslationMaps() {
   } catch (err) {
     console.warn(`  [names] Malay translations unavailable (${err.message})`);
   }
+
+  try {
+    const frPayload = await fetchJSON(NAMES_FR_JSON);
+    for (const row of frPayload.data ?? []) {
+      const n = normalizeArabic(row.name);
+      const text = row.fr?.meaning?.trim();
+      if (n && text) maps.fr.set(n, text);
+    }
+  } catch (err) {
+    console.warn(`  [names] French translations unavailable (${err.message})`);
+  }
+
+  for (const [locale, lang] of [
+    ["ur", "urdu"],
+    ["bn", "bangla"],
+  ]) {
+    try {
+      const payload = await fetchJSON(`${NAMES_CORAL}?lang=${lang}`);
+      for (const row of payload.results ?? []) {
+        const n = normalizeArabic(row.name?.arabic);
+        const text = (row.name?.translated ?? row.meaning ?? "").trim();
+        if (n && text) maps[locale].set(n, text);
+      }
+    } catch (err) {
+      console.warn(`  [names] ${locale} translations unavailable (${err.message})`);
+    }
+  }
+
   return maps;
 }
 
@@ -661,7 +694,7 @@ function render(audioMap, translationMaps) {
 
   return `import type { NameOfAllah } from "../types/index";
 
-export const NAMES_CONTENT_VERSION = 4;
+export const NAMES_CONTENT_VERSION = 5;
 
 /**
  * The 99 names of Allah (Asma-ul-Husna), following the standard Tirmidhi
@@ -690,21 +723,31 @@ export async function buildNames() {
   const withMs = NAMES.filter(([_, arabic]) =>
     translationMaps.ms.has(normalizeArabic(arabic)),
   ).length;
+  const withFr = NAMES.filter(([_, arabic]) =>
+    translationMaps.fr.has(normalizeArabic(arabic)),
+  ).length;
+  const withUr = NAMES.filter(([_, arabic]) =>
+    translationMaps.ur.has(normalizeArabic(arabic)),
+  ).length;
+  const withBn = NAMES.filter(([_, arabic]) =>
+    translationMaps.bn.has(normalizeArabic(arabic)),
+  ).length;
 
   const outPath = join(SHARED_CONTENT_DIR, "names.ts");
   await writeFileStable(outPath, render(audioMap, translationMaps));
   console.log(
-    `  names.ts → ${NAMES.length} names (${withAudio} with audio, ${withId} id, ${withMs} ms translations)`,
+    `  names.ts → ${NAMES.length} names (${withAudio} with audio; id:${withId} ms:${withMs} fr:${withFr} ur:${withUr} bn:${withBn})`,
   );
 
   return [
     await datasetEntry({
       id: "names-99",
       kind: "content",
-      version: 4,
+      version: 5,
       absFiles: [outPath],
       license: "Text: public domain (classical). Audio: streamed, © reciter.",
-      attribution: `Asma-ul-Husna — standard Tirmidhi enumeration. Audio via ${AUDIO_REPO}.`,
+      attribution:
+        "Asma-ul-Husna — standard Tirmidhi enumeration. Audio via ProgrammerHasan. id: olipiskandar gist; ms: adiman-dev/islamic-json; fr: KabDeveloper/99-Names-Of-Allah; ur/bn: asmaul-husna-api-coral.",
       sourceUrl: "https://sunnah.com/tirmidhi:3507",
     }),
   ];

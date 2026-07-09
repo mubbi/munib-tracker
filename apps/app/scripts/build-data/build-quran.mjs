@@ -67,6 +67,26 @@ function groupEdition(quran) {
   return bySurah;
 }
 
+/** Fetch one bundled edition — full-file or per-surah when `perSurah` is set. */
+async function fetchBundledEdition(ed, surahs) {
+  if (ed.perSurah) {
+    const rows = [];
+    for (const surah of surahs) {
+      const data = await fetchJSON(`${FAWAZ}/${ed.fawaz}/${surah.number}.json`);
+      const verses = data.quran ?? data.chapter ?? [];
+      for (const row of verses) {
+        rows.push({ chapter: row.chapter, verse: row.verse, text: row.text });
+      }
+      if (surah.number % 20 === 0) console.log(`    … ${ed.id} surah ${surah.number}/114`);
+    }
+    assert(rows.length === 6236, `${ed.id}: expected 6236 verses, got ${rows.length}`);
+    return groupEdition(rows);
+  }
+  const full = await fetchJSON(`${FAWAZ}/${ed.fawaz}.json`);
+  assert(full.quran.length === 6236, `${ed.id}: expected 6236 verses, got ${full.quran.length}`);
+  return groupEdition(full.quran);
+}
+
 /** Fetch per-ayah page + hizb for one surah from Quran.com API v4. */
 async function fetchSurahPageMeta(surahNumber, ayahCount) {
   const metaByAyah = {};
@@ -153,9 +173,7 @@ export async function buildQuran() {
   // Public-domain translations from fawazahmed0.
   const editionMaps = {};
   for (const ed of BUNDLED_TRANSLATIONS) {
-    const full = await fetchJSON(`${FAWAZ}/${ed.fawaz}.json`);
-    assert(full.quran.length === 6236, `${ed.id}: expected 6236 verses, got ${full.quran.length}`);
-    editionMaps[ed.id] = groupEdition(full.quran);
+    editionMaps[ed.id] = await fetchBundledEdition(ed, surahs);
     console.log(`  fetched translation ${ed.id}`);
   }
 

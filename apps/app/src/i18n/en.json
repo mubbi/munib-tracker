@@ -1909,7 +1909,7 @@
     "translationHint": "Used for the meaning of Arabic religious text.",
     "footer": "More of the interface is being translated over time. Arabic and Urdu switch the app to a right-to-left layout.",
     "scriptureAvailable": "Qur'an translation available",
-    "scriptureUnavailable": "UI only — scripture text falls back to English",
+    "scriptureUnavailable": "UI only — dua/zikr text falls back to English (Qur'an edition still available)",
     "eyebrow": "Settings",
     "subtitle": "App and translation language",
     "en": "English",

@@ -1061,6 +1061,14 @@
       "direction": "rtl"
     },
     {
+      "id": "ar-tafsir-siraj",
+      "kind": "tafsir",
+      "language": "ar",
+      "name": "Tafsir al-Siraj (Arabic)",
+      "bundled": true,
+      "direction": "rtl"
+    },
+    {
       "id": "id-indonesianislam",
       "kind": "translation",
       "language": "id",

@@ -11,7 +11,7 @@ Last updated: 2026-07-09. **23 app locales** (`en` + 22 translations) — UI cat
 | 3 | `fr`, `ha`, `sw`, `ru`, `az`, `ps` | Complete | Native overlays | **Shipped** |
 | 4 | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Complete | Native overlays | **Shipped** |
 
-**CI:** App i18n 149/149 · Shared overlay coverage 2432/2432 · SEO locale JSON 22×114 routes.
+**CI:** App i18n 149/149 · Shared overlay coverage 2400+/2400 · SEO locale JSON 22×114 routes.
 
 ## Architecture
 
@@ -26,13 +26,23 @@ Last updated: 2026-07-09. **23 app locales** (`en` + 22 translations) — UI cat
 |-------|-------|
 | `en.json` | Source of truth (~97 namespaces) |
 | `ar.json`, `ur.json` | Phase 1 — human-reviewed Arabic/Urdu |
-| `id.json` … `tk.json` (20 files) | Phase 2–4 — Composer-translated; key parity with `en.json` |
+| `id.json` … `tk.json` (20 files) | Phase 2–4 — key parity with `en.json`; ~1,200 English-identical strings remain (loanwords, brands, placeholders) |
 
-New `en.json` keys: run `merge-missing-keys.mjs` (copies English fallback), then translate manually.
+New `en.json` keys: run `merge-missing-keys.mjs` (copies English fallback), then translate manually or add to `ui-polish-patches.json`.
 
 ## Learn content overlays
 
 See overlay files under `packages/shared/src/content/i18n/` — all 22 non-English locales have 12 modules each; `coverage.test.ts` enforces ≥90% non-English string fill vs the English base (not native-language QA).
+
+## Scripture / build-data
+
+| Content | Locales with bundled translations | Source |
+|---------|-----------------------------------|--------|
+| **Qur'an** | All 23 locales (22 translations + `tk` → `tr-diyanet`) | `quran-edition-defs.json` → fawazahmed0 (23 bundled editions incl. `ar-tafsir-siraj`) |
+| **Dua/zikr** | `en`, `bn` (Hisnul CSV — **bn column empty upstream**), `id` (fitrahive subset), + Qur'anic duas for 20 locales via bundled mushaf | `build-adhkar.mjs` |
+| **99 Names** | `id`, `ms`, `fr`, `ur`, `bn` | gist, islamic-json, KabDeveloper, asmaul-husna-api-coral |
+
+`scriptureSupported: true` in locale registry: **`en`, `ar`, `ur`, `bn`, `id`, `ms`, `fr`**.
 
 ## Maintenance scripts
 
@@ -48,6 +58,7 @@ node apps/app/scripts/i18n/generate-seo-locale-files.mjs  # scaffold seo-routes-
 node apps/app/scripts/i18n/apply-seo-translations.mjs all # merge seo-translations/*.mjs → locale JSON
 pnpm --filter app test -- i18n                          # parity + guard + duplicate-key
 pnpm --filter @munib-tracker/shared test                # overlay coverage
+pnpm --filter app build:data                              # regenerate scripture assets
 ```
 
 **Learn overlays (`packages/shared/scripts/`):**
@@ -57,16 +68,13 @@ node packages/shared/scripts/clone-overlay-seed.mjs --restore-all  # rebuild ove
 node packages/shared/scripts/fix-overlay-quotes.mjs <file.ts>      # escape quotes in overlay TS
 ```
 
-## Remaining backlog (optional / dataset-dependent)
-
-Nothing blocks shipping. What is left is polish and content sourcing:
+## Remaining backlog (optional)
 
 | Area | Status | What's left |
 |------|--------|-------------|
-| **UI catalogs** | Key parity ✓, CI green | ~1,305 strings still English-identical repo-wide (Islamic loanwords, brands, `{{placeholders}}`, place names). Worst: `ha` (141), `ku` (124), `bs` (115). Expand `ui-polish-patches.json` if you want more native labels. |
-| **Learn overlays** | 12 modules × 22 locales, coverage ✓ | Literary review only — no structural gaps. |
-| **Qur'an** | **22 locale-default editions bundled offline** (`quran-edition-defs.json` → `build-quran.mjs`) | `tk` uses Turkish Diyanet (`tr-diyanet`) — no Turkmen edition in fawazahmed0. `ar-tafsir-muyassar` stays remote (full-edition slug unavailable on CDN). |
-| **Dua / zikr / names** | **`bn`** (Hisnul CSV), **`id`** (fitrahive + names gist), **`ms`** (names: islamic-json); Qur'anic duas get per-locale ayah text from bundled mushaf | Full Hisnul corpus for locales beyond `bn`/`id` needs new approved dataset columns — cannot AI-generate. `scriptureSupported: true` only for `en`, `ar`, `bn`, `id`, `ms`. |
-| **Static web SEO** | Done | `inject-seo-head.mjs` + `hreflang` sitemap. Optional: run web export with `SEO_LOCALE=ar` etc. for locale-primary HTML shells. |
-| **Bengali font** | **Done** — `NotoSansBengali-Regular.ttf` in `assets/fonts/`, registered in `_layout.tsx` | — |
-| **QA / docs** | — | Per-locale device pass; translator style guide not written. |
+| **UI catalogs** | ~1,200 English-identical strings (down from ~1,340) | Mostly loanwords (`Salah`, `Qaza`, `Ramadan`), brands, `{{placeholders}}`, mosque/reciter names. Expand `ui-polish-patches.json` for more native labels. |
+| **Learn overlays** | Coverage ✓ | Literary review only. |
+| **Full Hisnul duas** | Only `en` + partial `id` + Qur'anic ayah backfill | No open OSS corpus with `ur`/`tr`/`fr`/etc. columns — needs contributor datasets; cannot AI-generate. |
+| **Hisnul Bengali column** | CSV column exists but **empty upstream** | Find a Bengali Hisnul source or contributor PR to sheikhhanif repo. |
+| **Bundle size** | 23 Qur'an editions bundled | Profile APK/IPA; consider phased download if size is a concern. |
+| **QA** | — | Per-locale device pass; translator style guide optional. |
