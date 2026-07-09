@@ -15,8 +15,8 @@ import { ExternalCommandProcessor } from "@/components/external-command-processo
 import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
 import { WebReminderAdhanBridge } from "@/components/notifications/web-reminder-adhan-bridge";
 import { OnboardingGate } from "@/components/onboarding-gate";
-import { RtlLayoutBootstrap } from "@/components/rtl-layout-bootstrap";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
+import { RtlLayoutBootstrap } from "@/components/rtl-layout-bootstrap";
 import { ShareQrWarmup } from "@/components/share/share-qr-warmup";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { PinLockGate, PinLockProvider } from "@/features/pin-lock";

@@ -1,5 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { I18nManager } from "react-native";
 
 import {
