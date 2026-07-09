@@ -6,8 +6,8 @@ export const APP_ROOT = path.resolve(SCRIPT_ROOT, "../..");
 export const REPO_ROOT = path.resolve(APP_ROOT, "../..");
 
 export const APP_ID = {
-  android: "com.munibtracker.app",
-  ios: "com.munibtracker.app",
+  android: "app.munibtracker",
+  ios: "app.munibtracker",
 };
 
 export const URL_SCHEME = "munib-tracker";

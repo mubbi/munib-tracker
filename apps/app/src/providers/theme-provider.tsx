@@ -40,6 +40,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const defaultColorMode: ColorMode = "dark";
 const CUSTOM_ACCENT_KEY = "@munib-tracker/custom-accent";
+const STARTUP_HYDRATION_TIMEOUT_MS = 5000;
 
 /** Cache custom-accent overrides so light/dark toggles reuse stable object references. */
 const customAccentThemeCache = new Map<string, ThemeColors>();
@@ -85,6 +86,11 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let mounted = true;
+    const hydrationTimeout = setTimeout(() => {
+      if (!mounted) return;
+      setIsReady(true);
+      void SplashScreen.hideAsync();
+    }, STARTUP_HYDRATION_TIMEOUT_MS);
 
     async function loadPreferences() {
       try {
@@ -124,7 +130,8 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
         // never see English strings in an RTL shell (or vice versa).
         await preferencesStore.getState().load();
       } finally {
-        if (mounted && preferencesStore.getState().isReady) {
+        clearTimeout(hydrationTimeout);
+        if (mounted) {
           setIsReady(true);
           await SplashScreen.hideAsync();
         }
@@ -135,6 +142,7 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
 
     return () => {
       mounted = false;
+      clearTimeout(hydrationTimeout);
     };
   }, []);
 

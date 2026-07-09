@@ -136,7 +136,7 @@ describe("OAuthProviderService", () => {
 
   it("accepts an id_token whose audience matches one of several configured ids", async () => {
     const { service, privateKey } = makeAppleService({
-      APPLE_CLIENT_ID: "com.munibtracker.app, com.munibtracker.web",
+      APPLE_CLIENT_ID: "app.munibtracker, com.munibtracker.web",
     });
     const idToken = signAppleToken(privateKey, {
       aud: "com.munibtracker.web",

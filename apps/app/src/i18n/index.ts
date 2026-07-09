@@ -35,6 +35,9 @@ const SUPPORTED = APP_LOCALE_CODES;
 /** Stashed before a native RTL reload so the next boot applies strings + layout together. */
 export const PENDING_APP_LOCALE_KEY = "@munib-tracker/pending-app-locale";
 
+/** Set when a JS reload was already attempted for RTL layout but direction still mismatches. */
+export const RTL_LAYOUT_RETRY_KEY = "@munib-tracker/rtl-layout-retry";
+
 const CATALOG_BY_LOCALE: Record<AppLocale, object> = {
   en,
   ar,
@@ -95,13 +98,52 @@ if (!i18n.isInitialized) {
   void ensureI18nInit("en");
 }
 
-export async function changeAppLocale(code: AppLocale): Promise<boolean> {
+/** Locale queued for a post-paint native RTL reload (startup must not block on reload). */
+let pendingRtlReloadLocale: AppLocale | null = null;
+
+export function consumePendingRtlReloadLocale(): AppLocale | null {
+  const locale = pendingRtlReloadLocale;
+  pendingRtlReloadLocale = null;
+  return locale;
+}
+
+export async function changeAppLocale(
+  code: AppLocale,
+  options?: { deferReload?: boolean },
+): Promise<boolean> {
   if (willRequireNativeReloadForLocale(code)) {
+    const retryLocale = await AsyncStorage.getItem(RTL_LAYOUT_RETRY_KEY);
+    if (retryLocale === code) {
+      // reloadAppAsync already ran once and native layout direction is still
+      // wrong — proceed with strings so startup cannot brick on the splash screen.
+      await AsyncStorage.multiRemove([PENDING_APP_LOCALE_KEY, RTL_LAYOUT_RETRY_KEY]);
+      await ensureI18nInit(code);
+      if (i18n.language !== code) {
+        await i18n.changeLanguage(code);
+        completeAllStaggerEntrances();
+      }
+      return false;
+    }
+
     await AsyncStorage.setItem(PENDING_APP_LOCALE_KEY, code);
+    await AsyncStorage.setItem(RTL_LAYOUT_RETRY_KEY, code);
+
+    // Apply UI strings before any native reload so splash dismissal is not blocked.
+    await ensureI18nInit(code);
+    if (i18n.language !== code) {
+      await i18n.changeLanguage(code);
+      completeAllStaggerEntrances();
+    }
+
+    if (options?.deferReload) {
+      pendingRtlReloadLocale = code;
+      return true;
+    }
+
     return applyRtlForLocale(code);
   }
 
-  await AsyncStorage.removeItem(PENDING_APP_LOCALE_KEY);
+  await AsyncStorage.multiRemove([PENDING_APP_LOCALE_KEY, RTL_LAYOUT_RETRY_KEY]);
   await ensureI18nInit(code);
   // Apply `document.dir` before `changeLanguage` so any i18n-driven re-render
   // and `isRTL()` (which reads the saved locale) agree on direction.
@@ -116,7 +158,7 @@ export async function changeAppLocale(code: AppLocale): Promise<boolean> {
 export async function bootstrapAppLocale(code: AppLocale): Promise<boolean> {
   const pending = await AsyncStorage.getItem(PENDING_APP_LOCALE_KEY);
   const effective = isSupportedLocale(pending) ? pending : code;
-  return changeAppLocale(effective);
+  return changeAppLocale(effective, { deferReload: true });
 }
 
 export default i18n;

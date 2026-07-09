@@ -37,6 +37,8 @@ export async function applyRtlForLocale(code: AppLocale): Promise<boolean> {
 
   I18nManager.forceRTL(shouldRtl);
   await prepareForNativeAppReload();
+  // Never await — reloadAppAsync can hang for the remainder of the JS session
+  // when invoked during startup hydration, which bricks the splash screen.
   void reloadAppAsync("Locale layout direction changed");
   return true;
 }

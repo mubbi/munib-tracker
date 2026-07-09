@@ -8,7 +8,7 @@ module.exports = (config) => ({
   entitlements: {
     "com.apple.security.application-groups": [
       config.ios?.entitlements?.["com.apple.security.application-groups"]?.[0] ??
-        "group.com.munibtracker.widgets",
+        "group.app.munibtracker.widgets",
     ],
   },
 });

@@ -81,24 +81,27 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
   async load() {
     if (get().isReady) return;
 
-    await initDatabase();
-    let prefs = await PreferencesRepository.get();
+    try {
+      await initDatabase();
+      let prefs = await PreferencesRepository.get();
 
-    if (!prefs.hasCompletedOnboarding && prefs.locale === "en") {
-      const deviceTags = Localization.getLocales().map((l) => l.languageTag);
-      const matched = matchDeviceLocale(deviceTags);
-      if (matched && matched !== "en") {
-        prefs = await PreferencesRepository.update({
-          locale: matched,
-          translationLocale: matched,
-        });
+      if (!prefs.hasCompletedOnboarding && prefs.locale === "en") {
+        const deviceTags = Localization.getLocales().map((l) => l.languageTag);
+        const matched = matchDeviceLocale(deviceTags);
+        if (matched && matched !== "en") {
+          prefs = await PreferencesRepository.update({
+            locale: matched,
+            translationLocale: matched,
+          });
+        }
       }
-    }
 
-    set({ prefs });
-
-    const reloaded = await bootstrapAppLocale(prefs.locale);
-    if (!reloaded) {
+      set({ prefs });
+      await bootstrapAppLocale(prefs.locale);
+    } finally {
+      // Always unblock startup. When a native RTL reload succeeds, JS remounts
+      // before the user sees UI; when reloadAppAsync fails, we must not leave
+      // the app stuck on the splash screen forever.
       set({ isReady: true });
     }
   },

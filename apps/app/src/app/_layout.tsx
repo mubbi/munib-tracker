@@ -1,5 +1,6 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "@/global.css";
@@ -14,6 +15,7 @@ import { ExternalCommandProcessor } from "@/components/external-command-processo
 import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
 import { WebReminderAdhanBridge } from "@/components/notifications/web-reminder-adhan-bridge";
 import { OnboardingGate } from "@/components/onboarding-gate";
+import { RtlLayoutBootstrap } from "@/components/rtl-layout-bootstrap";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { ShareQrWarmup } from "@/components/share/share-qr-warmup";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
@@ -35,9 +37,16 @@ import { WebLayoutDirectionBridge } from "@/providers/web-layout-direction";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({ ...ARABIC_FONT_FILES, ...BENGALI_FONT_FILES });
+  const [fontsLoaded, fontError] = useFonts({ ...ARABIC_FONT_FILES, ...BENGALI_FONT_FILES });
 
-  if (!fontsLoaded) {
+  useEffect(() => {
+    if (fontError) {
+      console.error("[RootLayout] Font load failed — continuing without bundled fonts", fontError);
+      void SplashScreen.hideAsync();
+    }
+  }, [fontError]);
+
+  if (!fontsLoaded && !fontError) {
     return null;
   }
 
@@ -66,6 +75,7 @@ export default function RootLayout() {
                                     <>
                                       <WebNavigationFocusManager />
                                       <LocalePathBootstrap />
+                                      <RtlLayoutBootstrap />
                                       <WebPwaBootstrap />
                                       <OnboardingGate />
                                       <PinLockGate />

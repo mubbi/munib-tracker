@@ -5,7 +5,10 @@ export const OFFICIAL_SITE_ORIGIN = "https://munibtracker.app" as const;
 export const OFFICIAL_APP_WEB_ORIGIN = "https://my.munibtracker.app" as const;
 
 /** Android application ID (Google Play package name). */
-export const OFFICIAL_ANDROID_PACKAGE = "com.munibtracker.app" as const;
+export const OFFICIAL_ANDROID_PACKAGE = "app.munibtracker" as const;
+
+/** iOS bundle identifier (App Store / TestFlight). */
+export const OFFICIAL_IOS_BUNDLE_IDENTIFIER = "app.munibtracker" as const;
 
 /**
  * iOS download / App Store URL. Points to the marketing download page until a

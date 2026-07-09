@@ -29,7 +29,7 @@ const WIDGET_CELL_SMALL = {
   updatePeriodMillis: 1_800_000,
 };
 
-const WIDGET_APP_GROUP = "group.com.munibtracker.widgets";
+const WIDGET_APP_GROUP = "group.app.munibtracker.widgets";
 
 /** Short labels — Android widget picker already shows the app name. */
 const WIDGET_META = {

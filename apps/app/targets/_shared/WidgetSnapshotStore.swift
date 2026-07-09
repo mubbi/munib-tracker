@@ -80,7 +80,7 @@ struct WidgetSnapshotPayload: Decodable {
 }
 
 enum WidgetSnapshotStore {
-  static let appGroup = "group.com.munibtracker.widgets"
+  static let appGroup = "group.app.munibtracker.widgets"
   static let key = "widget_snapshot_v1"
 
   static func load() -> WidgetSnapshotPayload? {

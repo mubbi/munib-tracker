@@ -32,7 +32,7 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.munibtracker.app.wear"
+        applicationId "app.munibtracker.wear"
         minSdk 30
         targetSdk 35
         versionCode 1

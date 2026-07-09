@@ -1,64 +1,36 @@
 import { Image } from "expo-image";
 import * as SplashScreen from "expo-splash-screen";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import Animated, { Easing, Keyframe } from "react-native-reanimated";
-import { scheduleOnRN } from "react-native-worklets";
+import Animated, { Easing, FadeOut, Keyframe } from "react-native-reanimated";
 
-const DURATION = 600;
+const SPLASH_FAILSAFE_MS = 2500;
 
 export function AnimatedSplashOverlay() {
-  const [animate, setAnimate] = useState(false);
   const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    void SplashScreen.hideAsync();
+
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, SPLASH_FAILSAFE_MS);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!visible) return null;
 
-  const splashKeyframe = new Keyframe({
-    0: {
-      transform: [{ scale: 1 }],
-      opacity: 1,
-    },
-    20: {
-      opacity: 1,
-    },
-    70: {
-      opacity: 0,
-      easing: Easing.elastic(0.7),
-    },
-    100: {
-      opacity: 0,
-      transform: [{ scale: 1 }],
-      easing: Easing.elastic(0.7),
-    },
-  });
-
-  const image = (
-    <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
-  );
-
-  return animate ? (
+  return (
     <Animated.View
-      entering={splashKeyframe.duration(DURATION).withCallback((finished) => {
-        "worklet";
-        if (finished) {
-          scheduleOnRN(setVisible, false);
-        }
-      })}
-      style={styles.splashOverlay}
-    >
-      {image}
-    </Animated.View>
-  ) : (
-    <View
+      exiting={FadeOut.duration(450).easing(Easing.out(Easing.cubic))}
       onLayout={() => {
-        SplashScreen.hideAsync().finally(() => {
-          setAnimate(true);
-        });
+        setTimeout(() => setVisible(false), 500);
       }}
       style={styles.splashOverlay}
     >
-      {image}
-    </View>
+      <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
+    </Animated.View>
   );
 }
 
@@ -95,7 +67,7 @@ export function AnimatedIcon() {
         <Image style={styles.glow} source={require("@/assets/images/logo-glow.png")} />
       </Animated.View>
 
-      <Animated.View style={styles.imageContainer} entering={logoKeyframe.duration(DURATION)}>
+      <Animated.View style={styles.imageContainer} entering={logoKeyframe.duration(600)}>
         <Image style={styles.image} source={require("@/assets/images/munib-logo.png")} />
       </Animated.View>
     </View>

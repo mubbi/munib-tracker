@@ -28,8 +28,8 @@ function withExternalCommandsAndroid(config) {
         "intent-filter": [
           {
             action: [
-              { $: { "android:name": "com.munibtracker.app.action.MARK_CURRENT" } },
-              { $: { "android:name": "com.munibtracker.app.action.MARK_PRAYER" } },
+              { $: { "android:name": "app.munibtracker.action.MARK_CURRENT" } },
+              { $: { "android:name": "app.munibtracker.action.MARK_PRAYER" } },
             ],
           },
         ],
@@ -69,8 +69,8 @@ function withExternalCommandsAndroid(config) {
   <action intentName="custom.mark_salah">
     <fulfillment>
       <intent
-        action="com.munibtracker.app.action.MARK_CURRENT"
-        package="com.munibtracker.app"/>
+        action="app.munibtracker.action.MARK_CURRENT"
+        package="app.munibtracker"/>
     </fulfillment>
   </action>
 </actions>
@@ -87,8 +87,8 @@ function withExternalCommandsAndroid(config) {
     android:icon="@mipmap/ic_launcher"
     android:shortcutShortLabel="@string/app_name">
     <intent
-      android:action="com.munibtracker.app.action.MARK_CURRENT"
-      android:targetPackage="com.munibtracker.app"/>
+      android:action="app.munibtracker.action.MARK_CURRENT"
+      android:targetPackage="app.munibtracker"/>
   </shortcut>
 </shortcuts>
 `,

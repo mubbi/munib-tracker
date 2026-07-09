@@ -2,7 +2,7 @@ import Foundation
 
 /// App Group queue for external commands (Siri intents, watch, assistant).
 enum ExternalCommandQueue {
-  static let appGroup = "group.com.munibtracker.widgets"
+  static let appGroup = "group.app.munibtracker.widgets"
   static let key = "pending_commands_v1"
 
   static func appendCommandJson(_ json: String) {

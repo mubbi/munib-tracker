@@ -51,7 +51,7 @@ These ship with **EAS dev or production builds** — not Expo Go, not web.
 
 Watch and Wear are **companions tied to the phone app** — they read the shared widget snapshot and enqueue mark commands; they are not standalone full clients.
 
-**App Group (iOS):** `group.com.munibtracker.widgets`
+**App Group (iOS):** `group.app.munibtracker.widgets`
 
 Build wiring lives in `apps/app/app.config.js` (`@bacons/apple-targets`, `withWearOs.cjs`, `withExternalCommands.cjs`, etc.).
 

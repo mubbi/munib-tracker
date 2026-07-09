@@ -22,7 +22,7 @@ originally in this file for widgets (NF-1.18 / NF-1.19).
 | Config plugins | `plugins/homeScreenSurfaces.cjs`, `withExternalCommands.cjs`, `withWearOs.cjs` | Native project wiring |
 | Hooks | `use-app-quick-actions.ts`, `use-widget-snapshot-sync.ts`, `use-external-command-processor.ts` | Sync + drain loops |
 
-**App Group:** `group.com.munibtracker.widgets`
+**App Group:** `group.app.munibtracker.widgets`
 
 | Key | Purpose |
 |-----|---------|
@@ -93,7 +93,7 @@ pnpm --filter app prebuild
 pnpm --filter app ios   # or android
 ```
 
-Set `EXPO_APPLE_TEAM_ID` for iOS extensions. App Group: `group.com.munibtracker.widgets`.
+Set `EXPO_APPLE_TEAM_ID` for iOS extensions. App Group: `group.app.munibtracker.widgets`.
 
 ## Manual QA matrix
 

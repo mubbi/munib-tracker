@@ -8,7 +8,7 @@
     "scheme": "munib-tracker",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "bundleIdentifier": "com.munibtracker.app",
+      "bundleIdentifier": "app.munibtracker",
       "buildNumber": "1",
       "supportsTablet": true,
       "icon": "./assets/images/icon.png",
@@ -18,7 +18,7 @@
       }
     },
     "android": {
-      "package": "com.munibtracker.app",
+      "package": "app.munibtracker",
       "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#152921",
