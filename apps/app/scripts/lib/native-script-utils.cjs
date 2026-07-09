@@ -102,15 +102,11 @@ function listAdbDevices() {
  * @param {string} serial
  */
 function isAndroidDeviceResponsive(serial) {
-  const result = spawnSync(
-    "adb",
-    ["-s", serial, "shell", "getprop", "sys.boot_completed"],
-    {
-      encoding: "utf8",
-      shell: process.platform === "win32",
-      timeout: 8000,
-    },
-  );
+  const result = spawnSync("adb", ["-s", serial, "shell", "getprop", "sys.boot_completed"], {
+    encoding: "utf8",
+    shell: process.platform === "win32",
+    timeout: 8000,
+  });
   return result.status === 0 && result.stdout?.trim() === "1";
 }
 
