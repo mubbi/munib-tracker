@@ -17,7 +17,10 @@ const {
   logReleaseVersionSummary,
   buildNativeReleaseProcessEnv,
 } = require("./lib/release-app-env.cjs");
-const { withAndroidNativeBuildEnv, prepareWindowsAndroidBuild } = require("./lib/native-script-utils.cjs");
+const {
+  withAndroidNativeBuildEnv,
+  prepareWindowsAndroidBuild,
+} = require("./lib/native-script-utils.cjs");
 const { preparePlatformRelease } = require("./lib/platform-versions.cjs");
 const {
   syncAndroidVersionName,

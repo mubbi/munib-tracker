@@ -17,7 +17,11 @@ const {
   syncAndroidVersionName,
   syncAndroidVersionCode,
 } = require("./lib/sync-android-versions.cjs");
-const { DEFAULT_APP_ROOT, runStep, prepareWindowsAndroidBuild } = require("./lib/native-script-utils.cjs");
+const {
+  DEFAULT_APP_ROOT,
+  runStep,
+  prepareWindowsAndroidBuild,
+} = require("./lib/native-script-utils.cjs");
 
 const appRoot = DEFAULT_APP_ROOT;
 const androidDir = path.join(appRoot, "android");
