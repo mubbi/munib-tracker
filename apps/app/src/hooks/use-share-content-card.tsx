@@ -1,4 +1,3 @@
-import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
@@ -10,6 +9,7 @@ import { ShareHadithContent } from "@/components/share/share-hadith-content";
 import { ShareReadingContent } from "@/components/share/share-reading-content";
 import { absoluteUrl } from "@/config/seo";
 import { useShareSnapshotWidth } from "@/hooks/use-share-snapshot-width";
+import i18n from "@/i18n";
 import type { ShareableReading } from "@/lib/share";
 import { contentShareFilename } from "@/lib/share/shareFilename";
 import { formatShareExportStamp, SHARE_PROOF_QR_COUNT } from "@/lib/share/shareProofLayout";
@@ -92,7 +92,13 @@ export function buildHadithSharePayload(
 
 /** Appends Munib branding footer to a plain-text share message. */
 export function appendShareBranding(message: string): string {
-  return [message, "", `— ${APP_NAME}`, APP_TAGLINE, MARKETING_URL].join("\n");
+  return [
+    message,
+    "",
+    i18n.t("share.brandingFooterName", { appName: i18n.t("common.appName") }),
+    i18n.t("common.appTagline"),
+    MARKETING_URL,
+  ].join("\n");
 }
 
 /** Formats a piece of religious text for the native share sheet. */
@@ -125,9 +131,7 @@ export function formatHadithShare(arabic: string, english: string, reference: st
 }
 
 export function formatAchievementShare(title: string, description: string): string {
-  return appendShareBranding(
-    [`Alhamdulillah — I unlocked "${title}" in ${APP_NAME}:`, description].join("\n"),
-  );
+  return appendShareBranding(i18n.t("achievements.shareMessage", { title, description }));
 }
 
 /** Formats a learn-section guide page for the native share sheet. */

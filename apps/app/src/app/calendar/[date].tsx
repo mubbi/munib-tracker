@@ -17,6 +17,7 @@ import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { usePrayerTimesForDate } from "@/hooks/use-prayer-times-for-date";
 import { zikrCountKey } from "@/lib/after-salah-adhkar-progress";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
+import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
 import { trackerStore } from "@/stores/tracker-store";
@@ -31,8 +32,7 @@ export default function CalendarDayScreen() {
   const isToday = date === today;
   const isFuture = date > today;
 
-  const base = i18n.language?.split("-")[0];
-  const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
+  const locale: AppLocale = toAppLocale(i18n.language ?? "en");
   const calendarMode =
     params.calendar === "hijri" || params.calendar === "gregorian"
       ? params.calendar
@@ -168,7 +168,7 @@ export default function CalendarDayScreen() {
       <Seo
         path={`/calendar/${date}`}
         title={t("calDay.history")}
-        description="Review and adjust your logged worship for this day."
+        description={t("seo.calendarDay.description")}
         index={false}
       />
       <Stagger>

@@ -9,6 +9,7 @@ import {
 } from "@/lib/appSurfaces/widgets/snapshotStorage";
 import { nativePushWearSnapshot } from "@/lib/external-commands/native-bridge";
 import { syncLiveActivity } from "@/lib/live-activity";
+import { toAppLocale } from "@/lib/locale-bcp47";
 import { useTheme } from "@/providers/theme-provider";
 import { useLocation, useLocationStatus } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
@@ -27,8 +28,7 @@ export function useWidgetSnapshotSync(): void {
   const { status: prayerStatus } = useTodayPrayers();
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const base = i18n.language?.split("-")[0];
-  const locale = base === "ar" || base === "ur" ? base : "en";
+  const locale = toAppLocale(i18n.language ?? "en");
 
   const sync = useCallback(async () => {
     if (Platform.OS === "web") return;

@@ -7,20 +7,6 @@ import {
   JANNAH_TOPICS,
   JANNAH_VERSES,
 } from "@munib-tracker/shared/content";
-import {
-  JANNAH_DUAS_AR,
-  JANNAH_DUAS_UR,
-  JANNAH_FIRDAWS_DUA_AR,
-  JANNAH_FIRDAWS_DUA_UR,
-  JANNAH_GATES_AR,
-  JANNAH_GATES_UR,
-  JANNAH_PROMISED_AR,
-  JANNAH_PROMISED_UR,
-  JANNAH_TOPICS_AR,
-  JANNAH_TOPICS_UR,
-  JANNAH_VERSES_AR,
-  JANNAH_VERSES_UR,
-} from "@munib-tracker/shared/content-i18n";
 import type {
   JannahDuaEntry,
   JannahGate,
@@ -30,10 +16,11 @@ import type {
   JannahVerseEntry,
 } from "@munib-tracker/shared/types";
 import { localizeList, localizeObject } from "@/lib/content-i18n";
+import { overlayList, overlayObject } from "@/lib/content-overlay-registry";
 
 /** All Journey to Jannah topics, localized to the active app locale. */
 export function getJannahTopics(): JannahTopic[] {
-  return localizeList(JANNAH_TOPICS, { ur: JANNAH_TOPICS_UR, ar: JANNAH_TOPICS_AR });
+  return localizeList(JANNAH_TOPICS, overlayList("JANNAH_TOPICS"));
 }
 
 /** One topic by id. */
@@ -62,27 +49,24 @@ export function getJannahTopicsByHub(hub: JannahHub): JannahTopic[] {
 }
 
 export function getJannahGates(): JannahGate[] {
-  return localizeList(JANNAH_GATES, { ur: JANNAH_GATES_UR, ar: JANNAH_GATES_AR });
+  return localizeList(JANNAH_GATES, overlayList("JANNAH_GATES"));
 }
 
 export function getJannahVerses(): JannahVerseEntry[] {
-  return localizeList(JANNAH_VERSES, { ur: JANNAH_VERSES_UR, ar: JANNAH_VERSES_AR });
+  return localizeList(JANNAH_VERSES, overlayList("JANNAH_VERSES"));
 }
 
 export function getJannahDuas(): JannahDuaEntry[] {
-  return localizeList(JANNAH_DUAS, { ur: JANNAH_DUAS_UR, ar: JANNAH_DUAS_AR });
+  return localizeList(JANNAH_DUAS, overlayList("JANNAH_DUAS"));
 }
 
 export function getJannahPromised(): JannahPromisedEntry[] {
-  return localizeList(JANNAH_PROMISED, { ur: JANNAH_PROMISED_UR, ar: JANNAH_PROMISED_AR });
+  return localizeList(JANNAH_PROMISED, overlayList("JANNAH_PROMISED"));
 }
 
 /** The Al-Firdaws du'a text, localized to the active app locale. */
 export function getJannahFirdawsDua(): typeof JANNAH_FIRDAWS_DUA {
-  return localizeObject(JANNAH_FIRDAWS_DUA, {
-    ur: JANNAH_FIRDAWS_DUA_UR,
-    ar: JANNAH_FIRDAWS_DUA_AR,
-  });
+  return localizeObject(JANNAH_FIRDAWS_DUA, overlayObject("JANNAH_FIRDAWS_DUA"));
 }
 
 /** Importance label key suffix under `jannah.importance.*`. */

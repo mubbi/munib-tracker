@@ -49,3 +49,7 @@ Thumbs.db
 
 # Misc
 .vercel
+.tmp/
+.tmp-gaps-*.json
+packages/shared/scripts/.overlay-translate-cache/
+apps/app/scripts/i18n/.translation-cache/

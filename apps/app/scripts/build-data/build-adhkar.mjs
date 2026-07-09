@@ -158,6 +158,14 @@ async function fetchHisnDuas() {
           .replace(HISN_FOOTNOTE, " ")
           .replace(/[ \t]+/g, " ")
           .trim(),
+        translations: r[5]?.trim()
+          ? {
+              bn: r[5]
+                .replace(HISN_FOOTNOTE, " ")
+                .replace(/[ \t]+/g, " ")
+                .trim(),
+            }
+          : undefined,
         reference: (r[4] ?? "").trim(),
         title: (r[6] ?? "").trim(),
         audioFile: (r[7] ?? "").trim(),
@@ -228,6 +236,7 @@ function buildDuaCorpus(hisnDuas, translitLookup) {
       title: h.title || `Supplication ${h.hisnId}`,
       arabic: h.arabic,
       translation: h.translation,
+      ...(h.translations ? { translations: h.translations } : {}),
       reference: h.reference || "Hisn al-Muslim",
     };
     const translit = findTranslit(h.arabic, translitLookup);
@@ -246,8 +255,11 @@ const QURAN_DIR = join(APP_ROOT, "assets", "data", "quran");
 /** Read a bundled Qur'an surah file for a given kind, joined into one string. */
 function quranSurahText(kind, surah) {
   const s = String(surah).padStart(3, "0");
-  const sub =
-    kind === "arabic" ? "arabic" : kind === "translit" ? "translit" : "translation/en-pickthall";
+  let sub;
+  if (kind === "arabic") sub = "arabic";
+  else if (kind === "translit") sub = "translit";
+  else if (kind.startsWith("translation/")) sub = kind;
+  else sub = "translation/en-pickthall";
   const obj = JSON.parse(readFileSync(join(QURAN_DIR, sub, `${s}.json`), "utf8"));
   return Object.keys(obj)
     .map(Number)
@@ -258,8 +270,125 @@ function quranSurahText(kind, surah) {
 }
 
 /**
+ * App locales → bundled Qur'an edition ids (mirrors locale-registry `quranEditionId`).
+ * Used to layer dataset-backed dua/zikr translations from the offline mushaf.
+ */
+const LOCALE_QURAN_EDITIONS = [
+  ["ur", "ur-jalandhry"],
+  ["id", "id-indonesianislam"],
+  ["tr", "tr-diyanet"],
+  ["tk", "tr-diyanet"],
+  ["bn", "bn-muhiuddinkhan"],
+  ["ms", "ms-basmeih"],
+  ["fa", "fa-makarem"],
+  ["fr", "fr-hamidullah"],
+  ["ha", "ha-gumi"],
+  ["sw", "sw-basmeih"],
+  ["ru", "ru-kuliev"],
+  ["az", "az-mammadaliyev"],
+  ["ps", "ps-khan"],
+  ["so", "so-hassan"],
+  ["uz", "uz-mansour"],
+  ["kk", "kk-altai"],
+  ["ku", "ku-tanzil"],
+  ["bs", "bs-korkut"],
+  ["sq", "sq-ahmeti"],
+  ["ky", "ky-hakim"],
+  ["tg", "tg-ayati"],
+];
+
+/** Parse a single-ayah `Quran S:A` reference from a Hisnul Muslim cite string. */
+function parseQuranRef(reference) {
+  if (!reference) return null;
+  const m = reference.match(/Quran\s+(\d+)\s*:\s*(\d+)/i);
+  if (!m) return null;
+  return { surah: Number.parseInt(m[1], 10), ayah: Number.parseInt(m[2], 10) };
+}
+
+const bundledAyahCache = new Map();
+
+/** Read one ayah from a bundled translation edition (requires `build:quran` first). */
+function loadBundledAyahTranslation(editionId, surah, ayah) {
+  const key = `${editionId}:${surah}:${ayah}`;
+  if (bundledAyahCache.has(key)) return bundledAyahCache.get(key);
+  const surahPad = String(surah).padStart(3, "0");
+  let text = "";
+  try {
+    const obj = JSON.parse(
+      readFileSync(join(QURAN_DIR, "translation", editionId, `${surahPad}.json`), "utf8"),
+    );
+    text = obj[String(ayah)] ?? "";
+  } catch {
+    text = "";
+  }
+  bundledAyahCache.set(key, text);
+  return text;
+}
+
+/** Layer bundled Qur'an ayah translations onto items with a `Quran S:A` reference. */
+function applyQuranLocaleTranslations(items) {
+  for (const item of items) {
+    const ref = parseQuranRef(item.reference);
+    if (!ref) continue;
+    const translations = { ...(item.translations ?? {}) };
+    for (const [locale, editionId] of LOCALE_QURAN_EDITIONS) {
+      const text = loadBundledAyahTranslation(editionId, ref.surah, ref.ayah)?.trim();
+      if (text) translations[locale] = text;
+    }
+    if (Object.keys(translations).length) item.translations = translations;
+  }
+}
+
+/** Build normalized-Arabic → Bengali map from the Hisnul Muslim CSV. */
+function buildBnTranslationMap(hisnDuas) {
+  const map = new Map();
+  for (const h of hisnDuas) {
+    const bn = h.translations?.bn?.trim();
+    if (!bn) continue;
+    const n = normalizeArabic(h.arabic);
+    if (n) map.set(n, bn);
+  }
+  return map;
+}
+
+/** Fetch fitrahive Indonesian translations keyed by normalized Arabic. */
+async function buildIdTranslationMap() {
+  const map = new Map();
+  for (const cat of DUADHIKR_CATEGORIES) {
+    let rows;
+    try {
+      rows = await fetchJSON(`${DUADHIKR_BASE}/${cat.slug}/id.json`);
+    } catch {
+      continue;
+    }
+    for (const row of rows ?? []) {
+      const arabic = (row.arabic ?? "").trim();
+      const translation = (row.translation ?? "").trim();
+      const n = normalizeArabic(arabic);
+      if (n && translation && !map.has(n)) map.set(n, translation);
+    }
+  }
+  return map;
+}
+
+/** Merge locale translation maps onto items by normalized Arabic (never overwrites English). */
+function mergeTranslationMaps(items, localeMaps) {
+  for (const item of items) {
+    const n = normalizeArabic(item.arabic);
+    if (!n) continue;
+    const translations = { ...(item.translations ?? {}) };
+    for (const [locale, map] of Object.entries(localeMaps)) {
+      const text = map.get(n)?.trim();
+      if (text) translations[locale] = text;
+    }
+    if (Object.keys(translations).length) item.translations = translations;
+  }
+}
+
+/**
  * Fill the "three Quls" before-sleep item with the complete text of Surahs
  * 112-114 straight from the bundled mushaf — no hand-transcription, no `…`.
+ * Also layers bundled per-locale Qur'an translations when available.
  */
 function fillThreeQuls(items) {
   const item = items.find((z) => z.id === "before_sleep-ikhlas");
@@ -268,6 +397,15 @@ function fillThreeQuls(items) {
   item.arabic = suras.map((s) => quranSurahText("arabic", s)).join("\n");
   item.transliteration = suras.map((s) => quranSurahText("translit", s)).join("\n");
   item.translation = suras.map((s) => quranSurahText("translation", s)).join("\n");
+  const translations = { ...(item.translations ?? {}) };
+  for (const [locale, editionId] of LOCALE_QURAN_EDITIONS) {
+    const text = suras
+      .map((s) => quranSurahText(`translation/${editionId}`, s))
+      .join("\n")
+      .trim();
+    if (text) translations[locale] = text;
+  }
+  if (Object.keys(translations).length) item.translations = translations;
 }
 
 // Which after-fard prayers an after-salah dhikr is specific to (by a distinctive
@@ -307,6 +445,7 @@ function buildHisnDuruds(hisnDuas, translitLookup) {
       title: `Salawat upon the Prophet ﷺ (${n++})`,
       arabic: h.arabic,
       translation: h.translation,
+      ...(h.translations ? { translations: h.translations } : {}),
       reference: h.reference || "Hisn al-Muslim",
     };
     const translit = findTranslit(h.arabic, translitLookup);
@@ -371,11 +510,23 @@ async function fetchDuaDhikrDataset() {
   const out = { zikr: [], dua: [] };
   for (const cat of DUADHIKR_CATEGORIES) {
     let rows;
+    let idRows = [];
     try {
       rows = await fetchJSON(`${DUADHIKR_BASE}/${cat.slug}/en.json`);
     } catch (err) {
       console.warn(`  [adhkar] dataset ${cat.slug} unavailable (${err.message})`);
       continue;
+    }
+    try {
+      idRows = await fetchJSON(`${DUADHIKR_BASE}/${cat.slug}/id.json`);
+    } catch {
+      // Indonesian locale file is optional per category.
+    }
+    const idByArabic = new Map();
+    for (const row of idRows) {
+      const n = normalizeArabic(row.arabic ?? "");
+      const tr = (row.translation ?? "").trim();
+      if (n && tr) idByArabic.set(n, tr);
     }
     rows.forEach((row, i) => {
       const arabic = (row.arabic ?? "").trim();
@@ -391,6 +542,8 @@ async function fetchDuaDhikrDataset() {
         translation,
         reference: (row.source ?? "").trim() || "Hisn al-Muslim",
       };
+      const idTranslation = idByArabic.get(normalizeArabic(arabic));
+      if (idTranslation) item.translations = { id: idTranslation };
       const virtues = (row.benefits ?? row.notes ?? "").trim();
       if (virtues) item.virtues = virtues;
       const count = parseRepeatCount(row.notes);
@@ -412,7 +565,14 @@ function mergeUnique(baseItems, datasetItems) {
   const merged = [...baseItems];
   for (const item of datasetItems) {
     const norm = normalizeArabic(item.arabic);
-    if (!norm || seenArabic.has(norm)) continue;
+    if (!norm) continue;
+    if (seenArabic.has(norm)) {
+      const existing = merged.find((it) => normalizeArabic(it.arabic) === norm);
+      if (existing?.translations && item.translations) {
+        existing.translations = { ...existing.translations, ...item.translations };
+      }
+      continue;
+    }
     seenArabic.add(norm);
     let id = item.id;
     let n = 2;
@@ -1444,6 +1604,7 @@ function renderZikr(items, audioById) {
     "arabic",
     "transliteration",
     "translation",
+    "translations",
     "virtues",
     "reference",
     "targetCount",
@@ -1482,6 +1643,7 @@ function renderDuas(items, audioById) {
     "arabic",
     "transliteration",
     "translation",
+    "translations",
     "virtues",
     "reference",
     "chapter",
@@ -1527,6 +1689,7 @@ function renderDuroods(items, audioById) {
     "arabic",
     "transliteration",
     "translation",
+    "translations",
     "virtues",
     "reference",
     "audioUri",
@@ -1608,6 +1771,13 @@ export async function buildAdhkar() {
   const duaItems = buildDuaCorpus(hisnDuas, translitLookup);
   // Duroods: curated base + authentic Hisnul Muslim ch.107 salawat.
   const duroodItems = mergeDuruds(DUROOD_ITEMS, buildHisnDuruds(hisnDuas, translitLookup));
+
+  const bnMap = buildBnTranslationMap(hisnDuas);
+  const idMap = await buildIdTranslationMap();
+  for (const list of [zikrItems, duaItems, duroodItems]) {
+    mergeTranslationMaps(list, { bn: bnMap, id: idMap });
+    applyQuranLocaleTranslations(list);
+  }
 
   assertContent(zikrItems, duaItems, duroodItems);
 

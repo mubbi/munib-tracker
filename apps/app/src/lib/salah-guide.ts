@@ -3,22 +3,17 @@ import {
   SALAH_GUIDE_PHRASES,
   SALAH_GUIDE_TOPICS,
 } from "@munib-tracker/shared/content";
-import {
-  SALAH_GUIDE_PHRASES_AR,
-  SALAH_GUIDE_PHRASES_UR,
-  SALAH_GUIDE_TOPICS_AR,
-  SALAH_GUIDE_TOPICS_UR,
-} from "@munib-tracker/shared/content-i18n";
 import type {
   SalahGuideJourney,
   SalahGuidePhrase,
   SalahGuideTopic,
 } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
+import { overlayList } from "@/lib/content-overlay-registry";
 
 /** All Learn Salah topics, localized for the active app locale. */
 export function getSalahGuideTopics(): SalahGuideTopic[] {
-  return localizeList(SALAH_GUIDE_TOPICS, { ur: SALAH_GUIDE_TOPICS_UR, ar: SALAH_GUIDE_TOPICS_AR });
+  return localizeList(SALAH_GUIDE_TOPICS, overlayList("SALAH_GUIDE_TOPICS"));
 }
 
 /** One topic by id, or undefined. */
@@ -38,15 +33,10 @@ export function getSalahGuideTopicsByJourney(): Record<SalahGuideJourney, SalahG
   return grouped;
 }
 
-/** Phrases recited in salah with meanings, localized for the active app locale. */
 export function getSalahGuidePhrases(): SalahGuidePhrase[] {
-  return localizeList(SALAH_GUIDE_PHRASES, {
-    ur: SALAH_GUIDE_PHRASES_UR,
-    ar: SALAH_GUIDE_PHRASES_AR,
-  });
+  return localizeList(SALAH_GUIDE_PHRASES, overlayList("SALAH_GUIDE_PHRASES"));
 }
 
-/** Total lesson count for progress tracking. */
 export function getSalahGuideLessonCount(): number {
   return SALAH_GUIDE_TOPICS.length;
 }

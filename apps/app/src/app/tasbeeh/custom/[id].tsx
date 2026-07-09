@@ -36,7 +36,7 @@ export default function CustomTasbeehScreen() {
       <ScreenLayout title={t("tasbeeh.eyebrow")} onBack={goBack}>
         <Seo
           title={t("tasbeeh.customSection")}
-          description="Your custom tasbeeh counter."
+          description={t("seo.tasbeehCustom.description")}
           index={false}
         />
         <EmptyState
@@ -61,7 +61,7 @@ export default function CustomTasbeehScreen() {
     <ScreenLayout eyebrow={t("tasbeeh.eyebrow")} title={item.title} onBack={goBack} scrollable>
       <Seo
         title={t("tasbeeh.customSection")}
-        description="Your custom tasbeeh counter."
+        description={t("seo.tasbeehCustom.description")}
         index={false}
       />
       {item.description ? (

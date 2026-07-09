@@ -21,6 +21,10 @@ const ORIGIN = (process.env.EXPO_PUBLIC_APP_URL ?? "https://my.munibtracker.app"
   "",
 );
 
+const LOCALE_META = JSON.parse(
+  fs.readFileSync(path.join(projectRoot, "src/config/locale-seo-meta.json"), "utf8"),
+);
+
 /** Recursively collect every `.html` file under `dir`. */
 function collectHtmlFiles(dir) {
   const out = [];
@@ -79,9 +83,14 @@ function main() {
     .map((route) => {
       const loc = `${ORIGIN}${route === "/" ? "" : route}`;
       const priority = route === "/" ? "1.0" : route.split("/").length <= 2 ? "0.8" : "0.6";
+      const hreflangLinks = LOCALE_META.map(
+        (entry) => `    <xhtml:link rel="alternate" hreflang="${entry.hreflang}" href="${loc}"/>`,
+      ).join("\n");
       return [
         "  <url>",
         `    <loc>${loc}</loc>`,
+        hreflangLinks,
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${loc}"/>`,
         `    <lastmod>${lastmod}</lastmod>`,
         "    <changefreq>weekly</changefreq>",
         `    <priority>${priority}</priority>`,
@@ -90,7 +99,7 @@ function main() {
     })
     .join("\n");
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlset}\n</urlset>\n`;
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urlset}\n</urlset>\n`;
   fs.writeFileSync(path.join(distDir, "sitemap.xml"), sitemap, "utf8");
 
   // Open to all crawlers; AI answer-engine bots named explicitly to signal intent.

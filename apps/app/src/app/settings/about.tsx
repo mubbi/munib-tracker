@@ -1,4 +1,4 @@
-import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME } from "@munib-tracker/shared/constants";
 import Constants from "expo-constants";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
@@ -50,7 +50,7 @@ export default function AboutScreen() {
           />
           <ThemedText type="subtitle">{APP_NAME}</ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.tagline}>
-            {APP_TAGLINE}
+            {t("common.appTagline")}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground">
             {t("about.version", { version })}

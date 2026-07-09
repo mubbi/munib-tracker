@@ -2,70 +2,57 @@ import { describe, expect, it } from "vitest";
 import * as content from "../index";
 import * as overlays from "./index";
 import { PROTECTED_CONTENT_KEYS } from "./localize";
+import { parseOverlayExportName } from "./overlay-locale";
 
-// Keys that carry non-translatable identifiers even though they are strings, so
-// overlays legitimately omit them. Excluded from the coverage denominator.
 const OMITTED_KEYS = new Set([
   ...PROTECTED_CONTENT_KEYS,
-  "label", // Qur'an verse-ref labels stay in "Qur'an S:A" form (kept from English)
-  "transliteration", // Latin transliteration, kept as-is
-  "arabic", // Arabic script (dua/ayah text) is kept from English
-  "reference", // citation strings, kept from English
-  "topicId", // identifier
-  "topicIds", // identifiers
-  "icon", // icon name / AppIcon token
+  "label",
+  "transliteration",
+  "arabic",
+  "reference",
+  "topicId",
+  "topicIds",
+  "icon",
   "iconName",
   "color",
   "tone",
   "image",
   "audio",
   "emoji",
-  "prophetId", // identifier
-  "battleId", // identifier
-  "battles", // BattlesFigure.battles is a list of battle ids (links), not prose
-  "type", // enum discriminator (e.g. quiz question type)
-  "verseLabel", // Qur'an verse-ref label, kept from English
-  "examples", // Arabic example word-pairs (e.g. "عَلِيم vs حَلِيم"), kept from English
+  "prophetId",
+  "battleId",
+  "battles",
+  "type",
+  "verseLabel",
+  "examples",
 ]);
 
-// A source string that is pure Arabic script (an ayah excerpt, a bare Arabic term,
-// a letter glyph) is kept identical across locales by design, so it is excluded
-// from the coverage denominator regardless of which key holds it.
 const hasLatin = (s: string) => /[A-Za-z]/.test(s);
 const hasArabic = (s: string) => /[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿]/.test(s);
 const isKeptArabic = (s: string) => hasArabic(s) && !hasLatin(s);
 
-// Bases whose overlay is not a naive 1:1 array pairing and is verified elsewhere.
-// PROPHETS_TOPICS is the composed English array [context, ...bios, themes, evidence];
-// its overlay is only the 7 non-bio items (bios live in PROPHETS_BIO_TOPICS_* and are
-// recomposed in apps/app/src/lib/prophets.ts), so a direct compare understates coverage.
 const EXCLUDED_BASES = new Set(["PROPHETS_TOPICS"]);
-
-/**
- * Structural coverage guard for the Learn-content translation overlays.
- *
- * For every English content export `FOO` that has a translation overlay
- * `FOO_UR` / `FOO_AR`, this verifies the overlay is structurally compatible
- * (arrays never exceed the English length; objects only carry known keys) and
- * reports how much of the content is actually translated. It keeps the three
- * locales in structural lock-step and flags any area that regresses.
- */
 
 const contentBag = content as Record<string, unknown>;
 const overlayBag = overlays as Record<string, unknown>;
 
-/** Every base export that has at least one overlay counterpart. */
-const pairs = Object.keys(overlayBag)
-  .filter((key) => key.endsWith("_UR"))
-  .map((urKey) => {
-    const baseKey = urKey.slice(0, -3);
-    return {
-      baseKey,
-      base: contentBag[baseKey],
-      ur: overlayBag[urKey],
-      ar: overlayBag[`${baseKey}_AR`],
-    };
-  })
+/** Group overlay exports by base key → locale → value. */
+const grouped = new Map<string, Map<string, unknown>>();
+
+for (const exportName of Object.keys(overlayBag)) {
+  const parsed = parseOverlayExportName(exportName);
+  if (!parsed) continue;
+  const { baseKey, locale } = parsed;
+  if (!grouped.has(baseKey)) grouped.set(baseKey, new Map());
+  grouped.get(baseKey)?.set(locale, overlayBag[exportName]);
+}
+
+const pairs = [...grouped.entries()]
+  .map(([baseKey, byLocale]) => ({
+    baseKey,
+    base: contentBag[baseKey],
+    byLocale,
+  }))
   .filter((p) => p.base !== undefined && !EXCLUDED_BASES.has(p.baseKey));
 
 function countTranslatedStrings(base: unknown, overlay: unknown): { total: number; done: number } {
@@ -73,7 +60,7 @@ function countTranslatedStrings(base: unknown, overlay: unknown): { total: numbe
   let done = 0;
   const walk = (b: unknown, o: unknown) => {
     if (typeof b === "string") {
-      if (isKeptArabic(b)) return; // Arabic-script source is kept identical across locales
+      if (isKeptArabic(b)) return;
       total += 1;
       if (typeof o === "string" && o.trim().length > 0) done += 1;
       return;
@@ -101,31 +88,31 @@ describe("Learn content translation overlays", () => {
     expect(pairs.length).toBeGreaterThan(10);
   });
 
-  for (const { baseKey, base, ur, ar } of pairs) {
+  for (const { baseKey, base, byLocale } of pairs) {
     describe(baseKey, () => {
-      it("has both ur and ar overlays", () => {
-        expect(ur, `${baseKey}_UR missing`).toBeDefined();
-        expect(ar, `${baseKey}_AR missing`).toBeDefined();
+      it("has ur and ar overlays", () => {
+        expect(byLocale.get("ur"), `${baseKey}_UR missing`).toBeDefined();
+        expect(byLocale.get("ar"), `${baseKey}_AR missing`).toBeDefined();
       });
 
       if (Array.isArray(base)) {
-        it("overlays do not exceed the English array length", () => {
-          expect((ur as unknown[]).length).toBeLessThanOrEqual(base.length);
-          expect((ar as unknown[]).length).toBeLessThanOrEqual(base.length);
-        });
+        for (const [locale, overlay] of byLocale) {
+          it(`overlay ${locale} does not exceed English array length`, () => {
+            expect((overlay as unknown[]).length).toBeLessThanOrEqual(base.length);
+          });
+        }
       }
 
-      it("is fully (or nearly) translated in Urdu", () => {
-        const { total, done } = countTranslatedStrings(base, ur);
-        const ratio = total === 0 ? 1 : done / total;
-        expect(ratio, `${baseKey} ur coverage ${done}/${total}`).toBeGreaterThanOrEqual(0.9);
-      });
-
-      it("is fully (or nearly) translated in Arabic", () => {
-        const { total, done } = countTranslatedStrings(base, ar);
-        const ratio = total === 0 ? 1 : done / total;
-        expect(ratio, `${baseKey} ar coverage ${done}/${total}`).toBeGreaterThanOrEqual(0.9);
-      });
+      for (const [locale, overlay] of byLocale) {
+        if (locale === "en") continue;
+        it(`is ≥90% translated in ${locale}`, () => {
+          const { total, done } = countTranslatedStrings(base, overlay);
+          const ratio = total === 0 ? 1 : done / total;
+          expect(ratio, `${baseKey} ${locale} coverage ${done}/${total}`).toBeGreaterThanOrEqual(
+            0.9,
+          );
+        });
+      }
     });
   }
 });

@@ -3,21 +3,16 @@ import {
   TAHARAH_SECTION_ORDER,
   TAHARAH_TOPICS,
 } from "@munib-tracker/shared/content";
-import {
-  TAHARAH_CHECKLIST_AR,
-  TAHARAH_CHECKLIST_UR,
-  TAHARAH_TOPICS_AR,
-  TAHARAH_TOPICS_UR,
-} from "@munib-tracker/shared/content-i18n";
 import type {
   TaharahChecklistItem,
   TaharahSection,
   TaharahTopic,
 } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
+import { overlayList } from "@/lib/content-overlay-registry";
 
 export function getTaharahTopics(): TaharahTopic[] {
-  return localizeList(TAHARAH_TOPICS, { ur: TAHARAH_TOPICS_UR, ar: TAHARAH_TOPICS_AR });
+  return localizeList(TAHARAH_TOPICS, overlayList("TAHARAH_TOPICS"));
 }
 
 export function getTaharahTopic(id: string | undefined): TaharahTopic | undefined {
@@ -37,7 +32,7 @@ export function getTaharahTopicsBySection(): Record<TaharahSection, TaharahTopic
 }
 
 export function getTaharahChecklist(): TaharahChecklistItem[] {
-  return localizeList(TAHARAH_CHECKLIST, { ur: TAHARAH_CHECKLIST_UR, ar: TAHARAH_CHECKLIST_AR });
+  return localizeList(TAHARAH_CHECKLIST, overlayList("TAHARAH_CHECKLIST"));
 }
 
 export function getTaharahLessonCount(): number {

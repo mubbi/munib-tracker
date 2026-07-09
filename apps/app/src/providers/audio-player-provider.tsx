@@ -23,6 +23,12 @@ import {
   prefetchAudioUri,
   resolveCachedAudioUri,
 } from "@/lib/audio-cache";
+import {
+  activateLockScreenControls,
+  deactivateLockScreenControls,
+  ensureAndroidMediaNotificationPermission,
+  updateLockScreenControls,
+} from "@/lib/audio-lock-screen";
 import { applyPlaybackRate } from "@/lib/audio-playback-rate";
 import {
   queuePosition as computeQueuePosition,
@@ -290,6 +296,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   // Native only — the web audio element ignores these.
   useEffect(() => {
     if (Platform.OS === "web") return;
+    void ensureAndroidMediaNotificationPermission();
     setAudioModeAsync({
       playsInSilentMode: true,
       shouldPlayInBackground: true,
@@ -298,6 +305,38 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       // Non-fatal: playback still works, just without the preferred session mode.
     });
   }, []);
+
+  // Keep in-app play/pause UI in sync when the user controls playback from the
+  // lock screen or Android media notification (expo-audio drives the player directly).
+  useEffect(() => {
+    if (Platform.OS === "web") return;
+
+    const onStatus = (slot: 0 | 1) => {
+      return (event: { playing?: boolean; isLoaded?: boolean; didJustFinish?: boolean }) => {
+        if (slot !== activeSlotRef.current) return;
+        if (transitionRef.current) return;
+        if (event.playing) {
+          setUserPaused(false);
+        } else if (event.isLoaded && !event.didJustFinish && queueRef.current.length > 0) {
+          setUserPaused(true);
+        }
+      };
+    };
+
+    const subA = playerA.addListener("playbackStatusUpdate", onStatus(0));
+    const subB = playerB.addListener("playbackStatusUpdate", onStatus(1));
+    return () => {
+      subA.remove();
+      subB.remove();
+    };
+  }, [playerA, playerB]);
+
+  const syncLockScreenForTrack = useCallback(
+    (targetPlayer: AudioPlayer, track: AudioTrack, trackIndex: number, tracks: AudioTrack[]) => {
+      activateLockScreenControls(targetPlayer, track, trackIndex, tracks.length);
+    },
+    [],
+  );
 
   // On web, expo-audio's fire-and-forget `play()` calls `HTMLMediaElement.play()`
   // without awaiting the promise it returns. When playback is interrupted by a
@@ -449,6 +488,7 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
           applyRateVolume(active);
           active.play();
           stagedTrackIdRef.current[activeSlotRef.current] = track.id;
+          syncLockScreenForTrack(active, track, startIndex, tracks);
           // Stage the immediate next track into the idle player for a gapless
           // hand-off, and warm the ones after it.
           stageNext(tracks, startIndex + 1);
@@ -495,7 +535,14 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
         }
       })();
     },
-    [getActive, applyRateVolume, stageNext, beginTransition, clearTransition],
+    [
+      getActive,
+      applyRateVolume,
+      stageNext,
+      beginTransition,
+      clearTransition,
+      syncLockScreenForTrack,
+    ],
   );
 
   const cacheTrackDuration = useCallback((id: string, seconds: number) => {
@@ -706,6 +753,8 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     } catch {
       // ignore
     }
+    deactivateLockScreenControls(playersRef.current[0]);
+    deactivateLockScreenControls(playersRef.current[1]);
     setQueue([]);
     setIndex(0);
     setTrackDurations({});
@@ -839,6 +888,9 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
       setActiveSlot(idleSlot);
       setIndex(nextIndex);
       anchorQueueTimeline(nextIndex);
+      if (nextTrack) {
+        syncLockScreenForTrack(incoming, nextTrack, nextIndex, q);
+      }
       // Stage the track after this one into the now-idle player.
       const followIndex =
         nextIndex + 1 < q.length ? nextIndex + 1 : loopRef.current === "all" ? 0 : nextIndex + 1;
@@ -860,7 +912,14 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     getIdleSlot,
     applyRateVolume,
     stageNext,
+    syncLockScreenForTrack,
   ]);
+
+  // Refresh lock-screen metadata when the active track changes on the same player.
+  useEffect(() => {
+    if (Platform.OS === "web" || !current) return;
+    updateLockScreenControls(getActive(), current, index, queue.length);
+  }, [current, index, queue.length, getActive]);
 
   // Treat an unloaded source with a live track as "buffering" too, so the play
   // button spins immediately after a tap while the engine spins up, not just

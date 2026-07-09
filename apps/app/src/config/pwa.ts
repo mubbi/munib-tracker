@@ -1,4 +1,5 @@
 import { APP_DESCRIPTION, APP_NAME } from "@munib-tracker/shared/constants";
+import { type AppLocale, getLocaleDefinition } from "@munib-tracker/shared/i18n";
 import appJson from "../../app.json";
 
 /** Static paths under `public/assets/images/` (synced from `assets/images/` before web export). */
@@ -78,3 +79,13 @@ export const PWA_THEME_COLOR = pwaWebManifest.theme_color;
 export const PWA_SHORT_NAME = pwaWebManifest.short_name;
 export const PWA_DESCRIPTION = pwaWebManifest.description;
 export const PWA_APPLE_TOUCH_ICON = PWA_ICON_PATHS.appleTouch180;
+
+/** Locale-aware manifest fields for runtime web shell (defaults to English LTR). */
+export function resolvePwaManifestForLocale(locale: AppLocale = "en") {
+  const entry = getLocaleDefinition(locale);
+  return {
+    ...pwaWebManifest,
+    lang: entry.hreflang,
+    dir: entry.direction,
+  };
+}

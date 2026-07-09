@@ -1,8 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import ar from "./ar.json";
+import { LOCALE_REGISTRY } from "@munib-tracker/shared/i18n";
 import en from "./en.json";
-import ur from "./ur.json";
 
 /**
  * i18n guard rails. These tests fail the build whenever new features or content
@@ -126,28 +125,40 @@ describe("i18n key coverage", () => {
 // ---------------------------------------------------------------------------
 // Key paths whose values legitimately contain Latin script (formats, brand/URL).
 const LATIN_OK_KEYS =
-  /appName|authorValue|placeholder|[Tt]ransliteration|brandDua|\.email|\.url|version|formatHint|importSub|sourceNote|methods\.|footer$|iosPwa|webUseAllow|permissionDismissed|expoGoMessage|webGrantedMobileNote|webLimited|installBannerMessage|installStepsViaSafari|installLinkCopied|installCopyLink|downloadIos|downloadAndroid|proofIos|proofAndroid|proofQr|externalCommands\.(siriHint|assistantHint|titleIos|titleAndroid|settingsSubtitleIos|settingsSubtitleAndroid|introIos|introAndroid)/;
+  /appName|authorValue|placeholder|[Tt]ransliteration|brandDua|\.email|\.url|version|formatHint|importSub|sourceNote|methods\.|footer$|iosPwa|webUseAllow|permissionDismissed|expoGoMessage|webGrantedMobileNote|webLimited|installBannerMessage|installStepsViaSafari|installLinkCopied|installCopyLink|downloadIos|downloadAndroid|proofIos|proofAndroid|proofQr|knowledgeMotivation|externalCommands\.(siriHint|assistantHint|titleIos|titleAndroid|settingsSubtitleIos|settingsSubtitleAndroid|introIos|introAndroid)/;
 // Proper nouns / acronyms that stay in Latin even in Urdu/Arabic. Extend as needed.
 const LATIN_OK_WORDS = new Set(
-  "Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS".split(
+  "Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS Qur'an Jumu'ah Bukhari Muslim Pickthall".split(
     " ",
   ),
 );
 
-describe.each([
-  ["ur", ur],
-  ["ar", ar],
-])("i18n translation quality (%s)", (name, catalog) => {
-  it("has no leaked English words", () => {
-    const offenders: string[] = [];
-    for (const [path, value] of walk(catalog)) {
-      if (LATIN_OK_KEYS.test(path)) continue;
-      const stripped = value.replace(/\{\{[^}]+\}\}/g, "");
-      const words = (stripped.match(/[A-Za-z]{4,}/g) ?? []).filter((w) => !LATIN_OK_WORDS.has(w));
-      if (words.length) offenders.push(`${path}: ${words.join(", ")} — "${value.slice(0, 60)}"`);
-    }
-    expect(offenders).toEqual([]);
+const localeCatalogs: Array<[string, Json, "latin" | "arabic" | "bengali" | "cyrillic", number]> =
+  LOCALE_REGISTRY.filter((entry) => entry.code !== "en").map((entry) => {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const catalog = require(`./${entry.code}.json`) as Json;
+    return [entry.code, catalog, entry.script, entry.phase];
   });
+
+function leakedLatinWords(value: string): string[] {
+  const stripped = value.replace(/\{\{[^}]+\}\}/g, "");
+  return (stripped.match(/[A-Za-z]{4,}/g) ?? []).filter((w) => !LATIN_OK_WORDS.has(w));
+}
+
+describe.each(localeCatalogs)("i18n translation quality (%s)", (name, catalog, script, phase) => {
+  if (phase === 1 && script !== "latin") {
+    it("has no leaked Latin script words", () => {
+      const offenders: string[] = [];
+      for (const [path, value] of walk(catalog)) {
+        if (LATIN_OK_KEYS.test(path)) continue;
+        const enValue = get(en, path);
+        if (typeof enValue === "string" && enValue === value) continue;
+        const words = leakedLatinWords(value);
+        if (words.length) offenders.push(`${path}: ${words.join(", ")} — "${value.slice(0, 60)}"`);
+      }
+      expect(offenders).toEqual([]);
+    });
+  }
 
   it("matches the interpolation {{variables}} of the English source", () => {
     const offenders: string[] = [];

@@ -164,7 +164,24 @@
     "schedule": "آج کا شیڈول",
     "progress": "آج کی پیش رفت",
     "setLocation": "مقام سیٹ کریں",
-    "setLocationHint": "اپنا مقام سیٹ کرنے کے لیے ایپ کھولیں"
+    "setLocationHint": "اپنا مقام سیٹ کرنے کے لیے ایپ کھولیں",
+    "openAppToSync": "سنک کے لیے ایپ کھولیں",
+    "done": "مکمل",
+    "total": "کل",
+    "gallery": {
+      "nextPrayer": {
+        "label": "منیب ٹریکر · اگلی نماز",
+        "description": "ہوم یا لاک اسکرین پر اگلی نماز کا نام، وقت اور الٹی گنتی"
+      },
+      "schedule": {
+        "label": "منیب ٹریکر · شیڈول",
+        "description": "آج کے فرض نمازوں کے اوقات ایک نظر میں"
+      },
+      "progress": {
+        "label": "منیب ٹریکر · پیش رفت",
+        "description": "آج کی فرض نمازوں کی پیش رفت"
+      }
+    }
   },
   "ramadan": {
     "eyebrow": "رمضان",
@@ -298,13 +315,13 @@
     "scheduleGroupDay": "دوپہر",
     "scheduleGroupEvening": "شام",
     "scheduleGroupFlexible": "کسی بھی وقت",
-    "scheduleShowPast_one": "۱ پہلے کی نماز چھپی ہے",
+    "scheduleShowPast_one": "{{count}} ۱ پہلے کی نماز چھپی ہے",
     "scheduleShowPast_other": "{{count}} پہلے کی نمازیں چھپی ہیں",
     "scheduleShowPastHint": "مکمل شیڈول دیکھنے کے لیے ٹیپ کریں",
     "scheduleHidePast": "پہلے کی نمازیں چھپائیں",
     "scheduleShowPastA11y": "آج کے شیڈول میں {{count}} پہلے کی چھپی نمازیں دکھائیں",
     "scheduleHidePastA11y": "آج کے شیڈول میں پہلے کی نمازیں چھپائیں",
-    "scheduleShowLater_one": "۱ بعد کی نماز چھپی ہے",
+    "scheduleShowLater_one": "{{count}} ۱ بعد کی نماز چھپی ہے",
     "scheduleShowLater_other": "{{count}} بعد کی نمازیں چھپی ہیں",
     "scheduleShowLaterHint": "آج کا باقی حصہ دیکھنے کے لیے ٹیپ کریں",
     "scheduleHideLater": "بعد کی نمازیں چھپائیں",
@@ -344,7 +361,70 @@
       "audio": "آڈیو پر واپس جائیں",
       "listening": "سننا جاری رکھیں"
     },
-    "rozaRemaining": "قضا روزے"
+    "rozaRemaining": "قضا روزے",
+    "knowledgeMotivation": {
+      "steady-steps": {
+        "text": "معمولی مگر مستقل قدم کمال سے زیادہ اہم ہیں۔ جو مکمل کریں درج کریں اور کل پھر آئیں۔",
+        "topic": "استقامت"
+      },
+      "prayer-light": {
+        "text": "ہر نماز کو ایک نیا آغاز سمجھیں — اللہ کی طرف پانچ مختصر واپسیاں جو دن کو سہارا دیتی ہیں۔",
+        "topic": "نماز"
+      },
+      "qaza-hope": {
+        "text": "چھوٹی نمازیں ادا کی جا سکتی ہیں۔ قضا کے لیے نرم روزانہ رفتار مقرر کریں، بوجھِ گناہ نہ اٹھائیں۔",
+        "topic": "قضا"
+      },
+      "qaza-one": {
+        "text": "آج ایک قضا ادا کرنا کل کامل سلسلے کا انتظار کرنے سے بہتر ہے۔",
+        "topic": "قضا"
+      },
+      "zikr-heart": {
+        "text": "نماز کے بعد چند لمحے ذکر دل نرم اور زبان ثابت رکھتے ہیں۔",
+        "topic": "ذکر"
+      },
+      "zikr-walking": {
+        "text": "انتظار، چلتے یا آرام کرتے ہوئے اللہ کو یاد کریں — ذکر مصروف دن کے خالی لمحوں میں بھی سما جاتا ہے۔",
+        "topic": "ذکر"
+      },
+      "fasting-patience": {
+        "text": "روزہ جسم میں صبر کی تربیت کرتا ہے تاکہ روزمرہ زندگی میں بھی صبر آسان ہو۔",
+        "topic": "روزہ"
+      },
+      "ramadan-intention": {
+        "text": "ہر روزے سے پہلے نیت تازہ کریں — اجر نیت کی سچائی سے ملتا ہے، کمال سے نہیں۔",
+        "topic": "روزہ"
+      },
+      "consistency": {
+        "text": "اللہ مستقل اعمال سے محبت کرتا ہے خواہ وہ چھوٹے ہی کیوں نہ ہوں۔ آتے رہیں۔",
+        "topic": "استقامت",
+        "source": "a"
+      },
+      "tracker-honest": {
+        "text": "ایماندار ٹریکر آپ کو خود پر فیصلہ نہیں، بلکہ انداز دکھاتا ہے۔ پیش رفت آگاہی سے شروع ہوتی ہے۔",
+        "topic": "عمومی"
+      },
+      "morning-fajr": {
+        "text": "صبح فجر بروقت جیت لیں — باقی دن پرسکون تال میں چلتا ہے۔",
+        "topic": "نماز"
+      },
+      "witr-closure": {
+        "text": "جب ممکن ہو رات وتر سے بند کریں — دن کی عبادت پر نرم مہر۔",
+        "topic": "نماز"
+      },
+      "gratitude-salah": {
+        "text": "ہر نماز کے بعد دنیا میں واپس جانے سے پہلے ایک سانس شکر کے لیے رکیں۔",
+        "topic": "عمومی"
+      },
+      "return-tomorrow": {
+        "text": "اگر آج مشکل رہا تو مغرب کے بعد پھر شروع کریں۔ رحمت ایک مشکل دن سے بڑی ہے۔",
+        "topic": "استقامت"
+      },
+      "tasbeeh-count": {
+        "text": "مختصر تسبیح بھی شمار ہوتی ہے۔ ذکر صرف لمبی بیٹھکوں کے لیے نہیں — دس سے شروع کریں۔",
+        "topic": "ذکر"
+      }
+    }
   },
   "tracker": {
     "eyebrow": "ٹریک اور درج کریں",
@@ -447,7 +527,29 @@
     "downloadAndroidTopLine": "حاصل کریں",
     "downloadAndroidBottomLine": "Google Play",
     "downloadIosA11y": "App Store سے Munib Tracker ڈاؤن لوڈ کریں",
-    "downloadAndroidA11y": "Google Play سے Munib Tracker حاصل کریں"
+    "downloadAndroidA11y": "Google Play سے Munib Tracker حاصل کریں",
+    "adhanStyles": {
+      "default": {
+        "name": "کلاسیک اذان",
+        "location": "بلٹ اِن پیش نظارہ"
+      },
+      "mecca-fajr": {
+        "name": "مکہ — فجر",
+        "location": "المسجد الحرام"
+      },
+      "medina": {
+        "name": "مدینہ",
+        "location": "المسجد النبوی"
+      },
+      "mishary": {
+        "name": "مشاری العفاسی",
+        "location": "کویت"
+      },
+      "makkah-muezzin": {
+        "name": "علی ابن احمد ملا",
+        "location": "المسجد الحرام"
+      }
+    }
   },
   "import": {
     "title": "نماز کی تاریخ درآمد کریں",
@@ -486,7 +588,7 @@
     "begin": "شروع کریں",
     "brandDuaLabel": "آسانی کے لیے دعا",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
-    "brandDuaTransliteration": "Allahumma la sahla illa ma ja'altahu sahla, wa anta taj'alul-hazna idha shi'ta sahla",
+    "brandDuaTransliteration": "اللّٰہمَّ لا سہلَ الا ما جعلتَہُ سہلاً وَ اَنْتَ تَجْعَلُ الحُزْنَ اِذَا شِئْتَ سہلاً",
     "brandDuaTranslation": "اے اللہ! کوئی آسانی نہیں مگر وہ جو تو نے آسان کر دی، اور تو چاہے تو مشکل کو بھی آسان کر دیتا ہے۔",
     "slide1Eyebrow": "نماز",
     "slide1Title": "اپنی نمازیں ٹریک کریں",
@@ -555,15 +657,15 @@
     "option24": "۲۴ گھنٹے",
     "example12": "مثال: 2:30 PM",
     "example24": "مثال: 14:30",
-    "am": "AM",
-    "pm": "PM",
+    "am": "صبح",
+    "pm": "شام",
     "footer": "آپ کی پسند خودکار محفوظ ہوتی ہے اور ہر جگہ لاگو ہوتی ہے جہاں وقت دکھایا جاتا ہے۔"
   },
   "defaultCalendar": {
     "title": "ڈیفالٹ کیلنڈر",
     "subtitle": "ایپ میں تاریخیں کیسے دکھائیں",
     "hint": "تقریبات، جرنل، کیلنڈر ٹیبز اور دیگر تاریخوں پر لاگو ہوتا ہے۔ ہوم ہیرو ہمیشہ دونوں کیلنڈر دکھاتا ہے۔",
-    "optionGregorian": "عیسوی",
+    "optionGregorian": "گریگورین",
     "optionHijri": "ہجری",
     "exampleGregorian": "مثال: پیر، 23 مارچ 2026",
     "exampleHijri": "مثال: 1 رمضان 1447 ہجری",
@@ -579,7 +681,7 @@
     "unitTitle": "درجہ حرارت کی اکائی",
     "unitHint": "ہوم اسکرین پر مقام کے بعد دکھایا جاتا ہے",
     "unitCelsius": "سیلسیس (°C)",
-    "unitFahrenheit": "فارن ہائٹ (°F)",
+    "unitFahrenheit": "فارن ہائیٹ (°F)",
     "footer": "موسم ہر 3 گھنٹے بعد Open-Meteo اور MET Norway سے مفت اپ ڈیٹ ہوتا ہے۔",
     "condition": {
       "clear": "صاف",
@@ -600,7 +702,7 @@
     "adhanSub": "بنڈل شدہ اذان کی آواز چلائیں",
     "playAdhan": "نماز کے وقت اذان چلائیں",
     "playAdhanHint": "فرض نمازوں کی یاد دہانیاں وقت پر اذان چلاتی ہیں۔",
-    "liveActivity": "لائیو ایکٹیویٹی",
+    "liveActivity": "لائیو سرگرمی",
     "liveActivityHint": "لاک اسکرین اور ڈائنامک آئی لینڈ پر اگلی نماز کی لائیو گنتی دکھائیں۔",
     "liveActivityUnavailable": "آئی فون (iOS 16.1 یا بعد) پر ڈیو یا پروڈکشن بلڈ کے ساتھ دستیاب۔",
     "upcomingTitle": "آنے والی یاد دہانیاں",
@@ -827,8 +929,8 @@
     "dialogTitle": "شیئر",
     "proofTagline": "اللہ کی طرف سفر ٹریک کریں — iOS، Android اور ویب پر مفت",
     "proofGetApp": "Munib Tracker مفت حاصل کریں",
-    "proofIosLabel": "App Store",
-    "proofAndroidLabel": "Google Play",
+    "proofIosLabel": "ایپ اسٹور",
+    "proofAndroidLabel": "گوگل پلے",
     "proofWebLabel": "ویب ایپ",
     "proofQrIosA11y": "QR کوڈ — App Store سے ڈاؤن لوڈ",
     "proofQrAndroidA11y": "QR کوڈ — Google Play سے حاصل کریں",
@@ -844,7 +946,8 @@
     "sectionGuide": "سیکھیں",
     "guideReadAt": "Munib Tracker میں پڑھیں:",
     "preparing": "شیئر ہو رہا ہے…",
-    "tapToShare": "شیئر کے لیے ٹیپ کریں"
+    "tapToShare": "شیئر کے لیے ٹیپ کریں",
+    "brandingFooterName": "— {{appName}}"
   },
   "dua": {
     "eyebrow": "دعا",
@@ -993,7 +1096,15 @@
     "prevPage": "پچھلا صفحہ",
     "nextPage": "اگلا صفحہ",
     "openPageView": "صفحہ منظر کھولیں",
-    "continueAtPage": "صفحہ {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "صفحہ {{page}} · {{surah}}:{{ayah}}",
+    "selectTranslator": "مترجم اختریں — {{language}}",
+    "translationCount_one": "{{count}} ترجمہ",
+    "translationCount_other": "{{count}} تراجم",
+    "translationBundled": "آف لائن دستیاب",
+    "translationRemote": "ضرورت پڑنے پر ڈاؤن لوڈ ہوگا",
+    "backToLanguages": "تمام زبانیں",
+    "searchTranslationLanguages": "زبانیں تلاش کریں…",
+    "searchTranslators": "مترجمین تلاش کریں…"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",
@@ -1164,7 +1275,7 @@
     "title": "قضا",
     "subtitle": "چھوٹی ہوئی نمازوں کو ٹریک اور مکمل کریں",
     "calculator": "کیلکولیٹر",
-    "planner": "پلانر",
+    "planner": "منصوبہ بند",
     "roza": "روزہ",
     "perPrayer": "فی نماز",
     "rowMeta": "{{remaining}} باقی · {{completed}} مکمل",
@@ -1228,8 +1339,8 @@
     "exemptDays": "مستثنیٰ دن / سال (اختیاری)",
     "exemptHint": "مثلاً حیض کے دن جن میں نماز واجب نہیں",
     "yearLength": "سال کی لمبائی",
-    "lunar": "قمری (۳۵۴)",
-    "solar": "شمسی (۳۶۵)",
+    "lunar": "قمری (354)",
+    "solar": "شمسی (365)",
     "estimatedDays": "تخمینی چھوٹے ہوئے دن",
     "resultYears": "{{years}} سال · ہر دن کی ہر نماز میں سے ایک",
     "apply": "میرے کاؤنٹرز پر لاگو کریں",
@@ -1239,7 +1350,7 @@
   },
   "qazaPlan": {
     "eyebrow": "قضا",
-    "title": "پلانر",
+    "title": "منصوبہ بند",
     "subtitle": "ایسی رفتار چنیں جو سالوں تک قائم رہ سکے، صرف چند دنوں کے لیے نہیں",
     "consistencyTitle": "استقامت، شدت سے بہتر",
     "consistencyHadith": "اللہ کو سب سے محبوب وہ عمل ہے جس پر ثابت قدم رہا جائے، خواہ وہ تھوڑا ہی کیوں نہ ہو۔",
@@ -1568,7 +1679,7 @@
     "activeGoalsHint": "ہمیشہ ایک اگلا ہدف — اور جب آپ قرض ٹریک کریں تو قضا اور روزہ بھی۔",
     "milestonesReached": "حاصل شدہ سنگِ میل",
     "milestonesReachedHint": "اب تک {{count}} — اور بڑھتا جائے گا۔",
-    "level": "Lv {{level}}",
+    "level": "لیول {{level}}",
     "tracks": {
       "salah": "نماز",
       "streak": "سلسلہ",
@@ -1580,7 +1691,114 @@
     "share": "شیئر کریں",
     "shareMessage": "الحمدللہ — میں نے منیب ٹریکر میں \"{{title}}\" حاصل کیا: {{description}}۔",
     "unlockedToast": "نیا سنگِ میل: {{name}}",
-    "inAppBody": "{{name}} · {{description}}"
+    "inAppBody": "{{name}} · {{description}}",
+    "milestones": {
+      "salah": {
+        "titleFallback": "نماز {{level}}",
+        "description": "{{count}} فرض نمازیں مکمل کریں",
+        "description_one": "{{count}} فرض نماز مکمل کریں",
+        "titles": {
+          "0": "پہلا قدم",
+          "1": "مستقل آغاز",
+          "2": "روزانہ عابد",
+          "3": "وفادار بندہ",
+          "4": "مخلص",
+          "5": "سو نمازیں",
+          "6": "دو سو پچاس",
+          "7": "پانچ سو",
+          "8": "ہزار روشنیاں",
+          "9": "دو ہزار",
+          "10": "زندگی بھر نماز"
+        }
+      },
+      "streak": {
+        "titleFallback": "سلسلہ {{level}}",
+        "description": "{{count}} دن کا نمازی سلسلہ برقرار رکھیں",
+        "description_one": "{{count}} دن کا نمازی سلسلہ برقرار رکھیں",
+        "titles": {
+          "0": "پہلا دن",
+          "1": "استقامت کی طرف",
+          "2": "ایک ہفتہ مضبوط",
+          "3": "دو ہفتے مستقل",
+          "4": "تین ہفتے کی عادت",
+          "5": "ایک ماہ عبادت",
+          "6": "چھ ہفتے ثابت قدم",
+          "7": "دو ماہ مستقل",
+          "8": "استقامت کا موسم",
+          "9": "چار ماہ مضبوط",
+          "10": "آدھا سال روشنی",
+          "11": "استقامت کا سال"
+        }
+      },
+      "zikr": {
+        "titleFallback": "ذکر {{level}}",
+        "description": "{{count}} ذکر سیشن مکمل کریں",
+        "description_one": "{{count}} ذکر سیشن مکمل کریں",
+        "titles": {
+          "0": "پہلا ذکر",
+          "1": "بیدار دل",
+          "2": "مستقل ذکر",
+          "3": "دائمی یاد",
+          "4": "یاد",
+          "5": "سو سیشن",
+          "6": "گہرا غور",
+          "7": "پانچ سو دل",
+          "8": "ہزار یادیں"
+        }
+      },
+      "consistency": {
+        "titleFallback": "استقامت {{level}}",
+        "description": "{{count}} دن تمام فرض نمازیں مکمل کریں",
+        "description_one": "{{count}} دن تمام فرض نمازیں مکمل کریں",
+        "titles": {
+          "0": "کامل دن",
+          "1": "تین کامل دن",
+          "2": "فضیلت کا ہفتہ",
+          "3": "دو ہفتے مکمل",
+          "4": "فضیلت کا ماہ",
+          "5": "دو ماہ مکمل",
+          "6": "سو کامل دن",
+          "7": "دو سو دن",
+          "8": "کامل دنوں کا سال"
+        }
+      }
+    },
+    "devotionRank": {
+      "startingOut": "آغاز",
+      "beginJourney": "اپنا سفر شروع کریں",
+      "titleFallback": "عبادت {{level}}",
+      "description": "عبادت کی سطح {{level}} تک پہنچیں ({{noor}} نور)",
+      "titles": {
+        "0": "طالب",
+        "1": "مبتدی کی روشنی",
+        "2": "مستقل روح",
+        "3": "مخلص دل",
+        "4": "وفادار مسافر",
+        "5": "ہدایت یافتہ راستہ",
+        "6": "منور",
+        "7": "ثابت قدم",
+        "8": "پالش یافتہ",
+        "9": "عبادت کے ماہر"
+      }
+    },
+    "debt": {
+      "qaza": {
+        "activeTitle": "قضا کا قرض ادا کریں",
+        "clearedTitle": "قضا کا قرض ادا ہو گیا",
+        "activeDescription": "{{count}} قضا نمازیں ادا کریں",
+        "activeDescription_one": "{{count}} قضا نماز ادا کریں",
+        "clearedDescription": "تمام {{count}} ریکارڈ شدہ قضا نمازیں ادا کر دیں",
+        "clearedDescription_one": "تمام {{count}} ریکارڈ شدہ قضا نماز ادا کر دی"
+      },
+      "roza": {
+        "activeTitle": "روزے کا قرض ادا کریں",
+        "clearedTitle": "روزے کا قرض ادا ہو گیا",
+        "activeDescription": "{{count}} فوتہ روزے ادا کریں",
+        "activeDescription_one": "{{count}} فوتہ روزہ ادا کریں",
+        "clearedDescription": "تمام {{count}} ریکارڈ شدہ فوتہ روزے ادا کر دیے",
+        "clearedDescription_one": "تمام {{count}} ریکارڈ شدہ فوتہ روزہ ادا کر دیا"
+      }
+    }
   },
   "notifCenter": {
     "eyebrow": "یاد دہانیاں",
@@ -1668,7 +1886,21 @@
     "mergeNoChanges": "سب کچھ پہلے ہی تازہ تھا",
     "mergeSummary": "{{received}} موصول · {{sent}} ارسال",
     "conflictsResolved": "{{count}} تنازعات خودکار حل ہوئے — تازہ ترین تبدیلی رکھی گئی",
-    "conflictAffected": "متاثرہ: {{list}}"
+    "conflictAffected": "متاثرہ: {{list}}",
+    "entities": {
+      "prayer_logs": "نماز لاگ",
+      "zikr_progress": "ذکر کی پیش رفت",
+      "qaza_entries": "قضا اندراجات",
+      "preferences": "ترجیحات",
+      "favorites": "ذکر پسندیدہ",
+      "dua_favorites": "دعا پسندیدہ",
+      "durood_favorites": "درود پسندیدہ",
+      "name_favorites": "نام پسندیدہ",
+      "quran_bookmarks": "قرآن بک مارکس",
+      "quran_last_read": "قرآن آخری مطالعہ",
+      "hadith_bookmarks": "حدیث بک مارکس",
+      "custom_tasbeeh": "اپنی تسبیح"
+    }
   },
   "language": {
     "title": "زبان",
@@ -1680,7 +1912,9 @@
     "subtitle": "ایپ اور ترجمے کی زبان",
     "en": "انگریزی",
     "ar": "عربی",
-    "ur": "اردو"
+    "ur": "اردو",
+    "scriptureAvailable": "قرآن کا ترجمہ دستیاب ہے",
+    "scriptureUnavailable": "صرف انٹرفیس — مذہبی متن انگریزی میں رہے گا"
   },
   "languagePicker": {
     "selectLanguage": "زبان منتخب کریں",
@@ -3619,11 +3853,11 @@
     "introAndroid": "چیک لسٹ کھولے بغیر Google Assistant یا Wear OS سے نماز درج کریں۔ EAS ترقیاتی یا حتمی بلڈ درکار — Expo Go میں دستیاب نہیں۔",
     "siriTitle": "Siri اور Shortcuts",
     "siriHint": "TestFlight یا App Store سے انسٹال کے بعد Shortcuts ایپ کھولیں یا کہیں “Hey Siri, mark my Salah in Munib Tracker”. اگر ایپ مکمل بند تھی تو اگلی بار کھولنے پر درج شدہ نماز ہم آہنگ ہوگی۔",
-    "assistantTitle": "Google Assistant",
+    "assistantTitle": "گوگل اسسٹنٹ",
     "assistantHint": "انسٹال شدہ فون پر “Hey Google, mark my Salah in Munib Tracker” کہیں۔",
-    "watchTitle": "Apple Watch",
+    "watchTitle": "ایپل واچ",
     "watchHint": "آج کا شیڈول دیکھنے اور نماز درج کرنے کے لیے Munib Tracker گھڑی ایپ کھولیں۔ ڈیٹا iPhone سے ہم آہنگ ہوتا ہے۔",
-    "wearTitle": "Wear OS",
+    "wearTitle": "وئیر OS",
     "wearHint": "فون سے منسلک کرنے کے بعد گھڑی پر Munib Tracker ٹائل شامل کریں۔",
     "marked": "نماز درج ہو گئی",
     "alreadyDone": "پہلے سے درج",
@@ -3678,6 +3912,28 @@
     "immediately": "فوری",
     "after1Min": "1 منٹ بعد",
     "after5Min": "5 منٹ بعد",
-    "footer": "آپ کا PIN اس ڈیوائس پر محفوظ ہے اور کبھی اس سے باہر نہیں جاتا۔"
+    "footer": "آپ کا PIN اس ڈیوائس پر محفوظ ہے اور کبھی اس سے باہر نہیں جاتا۔",
+    "backspace": "پیچھے مٹائیں"
+  },
+  "seo": {
+    "intro": {
+      "title": "خوش آمدید",
+      "description": "اپنے آف لائن اسلامی ساتھی کے ساتھ آغاز کریں۔"
+    },
+    "login": {
+      "description": "اپنے عبادت کا ڈیٹا ڈیوائسز پر سنک کرنے کے لیے سائن اِن کریں۔"
+    },
+    "notFound": {
+      "description": "جس صفحے کی آپ تلاش کر رہے ہیں وہ نہیں ملا۔"
+    },
+    "calendarDay": {
+      "description": "اس دن کی درج شدہ عبادت کا جائزہ لیں اور درست کریں۔"
+    },
+    "tasbeehZikr": {
+      "description": "اس ذکر کو ٹچ تسبیح کاؤنٹر سے گنیں۔"
+    },
+    "tasbeehCustom": {
+      "description": "آپ کا اپنی تسبیح کاؤنٹر۔"
+    }
   }
 }

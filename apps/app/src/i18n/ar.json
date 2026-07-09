@@ -164,7 +164,24 @@
     "schedule": "جدول اليوم",
     "progress": "تقدّم اليوم",
     "setLocation": "حدّد الموقع",
-    "setLocationHint": "افتح التطبيق لتحديد موقعك"
+    "setLocationHint": "افتح التطبيق لتحديد موقعك",
+    "openAppToSync": "افتح التطبيق للمزامنة",
+    "done": "منتهي",
+    "total": "المجموع",
+    "gallery": {
+      "nextPrayer": {
+        "label": "منيب المقتفي · الصلاة القادمة",
+        "description": "اسم الصلاة التالية، والوقت، والعد التنازلي على الشاشة الرئيسية أو شاشة القفل"
+      },
+      "schedule": {
+        "label": "منيب المقتفي · الجدول الزمني",
+        "description": "أوقات الصلاة الإلزامية اليوم في لمحة"
+      },
+      "progress": {
+        "label": "منيب المقتفي · التقدم",
+        "description": "تقدم الصلاة المفروضة اليوم"
+      }
+    }
   },
   "ramadan": {
     "eyebrow": "رمضان",
@@ -298,13 +315,13 @@
     "scheduleGroupDay": "بعد الظهر",
     "scheduleGroupEvening": "المساء",
     "scheduleGroupFlexible": "في أي وقت",
-    "scheduleShowPast_one": "صلاة سابقة مخفية",
+    "scheduleShowPast_one": "{{count}} صلاة سابقة مخفية",
     "scheduleShowPast_other": "{{count}} صلوات سابقة مخفية",
     "scheduleShowPastHint": "اضغط لعرض الجدول كاملًا",
     "scheduleHidePast": "إخفاء الصلوات السابقة",
     "scheduleShowPastA11y": "عرض {{count}} صلاة سابقة مخفية في جدول اليوم",
     "scheduleHidePastA11y": "إخفاء الصلوات السابقة في جدول اليوم",
-    "scheduleShowLater_one": "صلاة لاحقة مخفية",
+    "scheduleShowLater_one": "{{count}} صلاة لاحقة مخفية",
     "scheduleShowLater_other": "{{count}} صلوات لاحقة مخفية",
     "scheduleShowLaterHint": "اضغط لعرض باقي اليوم",
     "scheduleHideLater": "إخفاء الصلوات اللاحقة",
@@ -344,7 +361,70 @@
       "audio": "العودة إلى الصوت",
       "listening": "متابعة الاستماع"
     },
-    "rozaRemaining": "صيام للقضاء"
+    "rozaRemaining": "صيام للقضاء",
+    "knowledgeMotivation": {
+      "steady-steps": {
+        "text": "الخطوات الصغيرة والثابتة أكثر أهمية من الكمال. قم بتسجيل ما أكملته والعودة غدا.",
+        "topic": "الصمود"
+      },
+      "prayer-light": {
+        "text": "تعامل مع كل صلاة على أنها إعادة ضبط – خمس عودات مختصرة إلى الله تثبت يومك.",
+        "topic": "الصلاة"
+      },
+      "qaza-hope": {
+        "text": "يجوز قضاء الصلوات الفائتة. حدد وتيرة يومية لطيفة للقفص بدلاً من تحمل الذنب.",
+        "topic": "قضاء"
+      },
+      "qaza-one": {
+        "text": "قضاء واحد تم تطهيره اليوم أفضل من انتظار خط مثالي غدًا.",
+        "topic": "قضاء"
+      },
+      "zikr-heart": {
+        "text": "ولو أن الذكر بعد الصلاة بلحظات يلين القلب ويثبت اللسان.",
+        "topic": "ذكر"
+      },
+      "zikr-walking": {
+        "text": "اذكر الله أثناء الانتظار أو المشي أو الراحة - فالذكر يناسب فراغات يوم حافل.",
+        "topic": "ذكر"
+      },
+      "fasting-patience": {
+        "text": "الصوم يدرّب الصبر في الجسد فيصبح الصبر أسهل في الحياة اليومية.",
+        "topic": "صيام"
+      },
+      "ramadan-intention": {
+        "text": "جدد النية قبل كل صيام، فالأجر يتبع الإخلاص وليس الكمال.",
+        "topic": "صيام"
+      },
+      "consistency": {
+        "text": "إن الله يحب العمل الدائم ولو كان صغيرا. استمر في الظهور.",
+        "topic": "الصمود",
+        "source": "a"
+      },
+      "tracker-honest": {
+        "text": "يساعدك المتتبع الصادق على رؤية الأنماط، وليس الحكم على نفسك. التقدم يبدأ بالوعي.",
+        "topic": "عام"
+      },
+      "morning-fajr": {
+        "text": "استمتع بالصباح مع الفجر في موعده، أما باقي اليوم فيتبع إيقاعًا أكثر هدوءًا.",
+        "topic": "الصلاة"
+      },
+      "witr-closure": {
+        "text": "اختتم ليلتك بالوتر عندما تستطيع ذلك، وهو ختم لطيف على عبادة النهار.",
+        "topic": "الصلاة"
+      },
+      "gratitude-salah": {
+        "text": "بعد كل صلاة، توقف لتأخذ نفسًا واحدًا من الشكر قبل أن تعود مسرعًا إلى الدنيا.",
+        "topic": "عام"
+      },
+      "return-tomorrow": {
+        "text": "إذا كان اليوم صعبا، فابدأ من جديد بعد المغرب. الرحمة أوسع من يوم عصيب.",
+        "topic": "الصمود"
+      },
+      "tasbeeh-count": {
+        "text": "جلسة تسبيح قصيرة مهمة. الذكر ليس فقط للجلسات الطويلة – ابدأ بالعشرة.",
+        "topic": "ذكر"
+      }
+    }
   },
   "tracker": {
     "eyebrow": "سجّل وتابِع",
@@ -443,18 +523,40 @@
     "downloadNativeApps": "حمّل التطبيق",
     "downloadNativeAppsDesc": "ثبّت Munib Tracker على هاتفك للصلاة والأذكار والقرآن دون اتصال — نفس الحساب ونفس التقدّم.",
     "downloadIosTopLine": "حمّل من",
-    "downloadIosBottomLine": "App Store",
+    "downloadIosBottomLine": "متجر التطبيقات",
     "downloadAndroidTopLine": "احصل عليه من",
-    "downloadAndroidBottomLine": "Google Play",
+    "downloadAndroidBottomLine": "جوجل بلاي",
     "downloadIosA11y": "حمّل Munib Tracker من App Store",
-    "downloadAndroidA11y": "احصل على Munib Tracker من Google Play"
+    "downloadAndroidA11y": "احصل على Munib Tracker من Google Play",
+    "adhanStyles": {
+      "default": {
+        "name": "الأذان الكلاسيكي",
+        "location": "المعاينة المجمعة"
+      },
+      "mecca-fajr": {
+        "name": "مكة — الفجر",
+        "location": "المسجد الحرام"
+      },
+      "medina": {
+        "name": "المدينة المنورة",
+        "location": "المسجد النبوي"
+      },
+      "mishary": {
+        "name": "مشاري العفاسي",
+        "location": "الكويت"
+      },
+      "makkah-muezzin": {
+        "name": "علي بن أحمد ملا",
+        "location": "المسجد الحرام"
+      }
+    }
   },
   "import": {
     "title": "استيراد سجل الصلوات",
     "subtitle": "استورد السجلات من تطبيق آخر أو جدول بيانات",
     "pasteTitle": "الصق بياناتك",
     "formatHint": "الصق JSON (مصفوفة من { date, prayerId, status }) أو صفوف CSV بصيغة date,prayerId,status. التواريخ بصيغة YYYY-MM-DD؛ الصلوات: fajr، dhuhr، asr، maghrib، isha، witr؛ الحالات: completed، missed، delayed، qaza.",
-    "placeholder": "[{\"date\":\"2026-06-01\",\"prayerId\":\"fajr\",\"status\":\"completed\"}]",
+    "placeholder": "[{\"التاريخ\": \"01-06-2026\"، \"معرف الصلاة\": \"الفجر\"، \"الحالة\": \"مكتمل\"}]",
     "preview": "معاينة",
     "previewTitle": "معاينة",
     "summaryValid": "{{count}} صفوف صالحة",
@@ -486,7 +588,7 @@
     "begin": "ابدأ",
     "brandDuaLabel": "دعاء للتيسير",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
-    "brandDuaTransliteration": "Allahumma la sahla illa ma ja'altahu sahla, wa anta taj'alul-hazna idha shi'ta sahla",
+    "brandDuaTransliteration": "اللهمّ لا سهلا إلا ما جالتاهو سهلا، وأنت تجالول-هازنا إذا شئت سهلا",
     "brandDuaTranslation": "اللهم لا سهل إلا ما جعلته سهلاً، وأنت تجعل الحزن إذا شئت سهلاً.",
     "slide1Eyebrow": "الصلاة",
     "slide1Title": "تابِع صلواتك",
@@ -827,8 +929,8 @@
     "dialogTitle": "مشاركة",
     "proofTagline": "تتبّع رحلتك إلى الله — مجاناً على iOS وAndroid والويب",
     "proofGetApp": "احصل على Munib Tracker مجاناً",
-    "proofIosLabel": "App Store",
-    "proofAndroidLabel": "Google Play",
+    "proofIosLabel": "متجر التطبيقات",
+    "proofAndroidLabel": "جوجل بلاي",
     "proofWebLabel": "تطبيق الويب",
     "proofQrIosA11y": "رمز QR — التحميل من App Store",
     "proofQrAndroidA11y": "رمز QR — التحميل من Google Play",
@@ -844,7 +946,8 @@
     "sectionGuide": "تعلّم",
     "guideReadAt": "اقرأ في Munib Tracker:",
     "preparing": "جارٍ المشاركة…",
-    "tapToShare": "اضغط للمشاركة"
+    "tapToShare": "اضغط للمشاركة",
+    "brandingFooterName": "— {{appName}}"
   },
   "dua": {
     "eyebrow": "الدعاء",
@@ -993,7 +1096,15 @@
     "prevPage": "الصفحة السابقة",
     "nextPage": "الصفحة التالية",
     "openPageView": "فتح عرض الصفحات",
-    "continueAtPage": "صفحة {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "صفحة {{page}} · {{surah}}:{{ayah}}",
+    "selectTranslator": "اختر المترجم — {{language}}",
+    "translationCount_one": "{{count}} ترجمة واحدة",
+    "translationCount_other": "{{count}} ترجمات",
+    "translationBundled": "متاح دون اتصال",
+    "translationRemote": "يُنزَّل عند الحاجة",
+    "backToLanguages": "كل اللغات",
+    "searchTranslationLanguages": "ابحث عن اللغات…",
+    "searchTranslators": "ابحث عن المترجمين…"
   },
   "hadith": {
     "eyebrow": "السنة النبوية",
@@ -1263,17 +1374,17 @@
       "intensive": "مكثّف"
     },
     "intensiveWarning": "هذه الوتيرة شاقّة جداً — أنسب لحملات قصيرة، لا لسنوات من الحياة اليومية.",
-    "durationYears_one": "سنة واحدة",
+    "durationYears_one": "{{count}} سنة واحدة",
     "durationYears_two": "سنتان",
     "durationYears_few": "{{count}} سنوات",
     "durationYears_many": "{{count}} سنة",
     "durationYears_other": "{{count}} سنة",
-    "durationMonths_one": "شهر واحد",
+    "durationMonths_one": "{{count}} شهر واحد",
     "durationMonths_two": "شهران",
     "durationMonths_few": "{{count}} أشهر",
     "durationMonths_many": "{{count}} شهراً",
     "durationMonths_other": "{{count}} شهر",
-    "durationDays_one": "يوم واحد",
+    "durationDays_one": "{{count}} يوم واحد",
     "durationDays_two": "يومان",
     "durationDays_few": "{{count}} أيام",
     "durationDays_many": "{{count}} يوماً",
@@ -1592,7 +1703,114 @@
     "share": "مشاركة",
     "shareMessage": "الحمد لله — فتحت \"{{title}}\" في منيب تراكر: {{description}}.",
     "unlockedToast": "محطة جديدة: {{name}}",
-    "inAppBody": "{{name}} · {{description}}"
+    "inAppBody": "{{name}} · {{description}}",
+    "milestones": {
+      "salah": {
+        "titleFallback": "صلاح {{level}}",
+        "description": "أكمل {{count}} الصلوات المفروضة",
+        "description_one": "أكمل {{count}} الصلاة المفروضة",
+        "titles": {
+          "0": "الخطوة الأولى",
+          "1": "بداية ثابتة",
+          "2": "العابد اليومي",
+          "3": "خادم مخلص",
+          "4": "مخلص",
+          "5": "مائة صلاة",
+          "6": "ربع الف",
+          "7": "نصف ألف",
+          "8": "ألف أضواء",
+          "9": "ألفين",
+          "10": "صلاح مدى الحياة"
+        }
+      },
+      "streak": {
+        "titleFallback": "خط {{level}}",
+        "description": "حافظ على سلسلة صلاة مدتها {{count}} يومًا",
+        "description_one": "حافظ على سلسلة صلاة مدتها {{count}} يومًا",
+        "titles": {
+          "0": "اليوم الأول",
+          "1": "الحصول على متسقة",
+          "2": "أسبوع واحد قوي",
+          "3": "أسبوعين ثابتين",
+          "4": "عادة ثلاثة أسابيع",
+          "5": "شهر الإخلاص",
+          "6": "شركة ستة أسابيع",
+          "7": "شهرين ثابتين",
+          "8": "موسم الصمود",
+          "9": "أربعة أشهر قوية",
+          "10": "نصف عام من النور",
+          "11": "سنة الاتساق"
+        }
+      },
+      "zikr": {
+        "titleFallback": "الذكر {{level}}",
+        "description": "أكمل جلسات الذكر {{count}}",
+        "description_one": "أكمل جلسة الذكر {{count}}",
+        "titles": {
+          "0": "الاذكار الاولى",
+          "1": "استيقظ القلب",
+          "2": "زكر ثابت",
+          "3": "التذكير الدائم",
+          "4": "ذكرى",
+          "5": "مائة جلسة",
+          "6": "انعكاس عميق",
+          "7": "خمسمائة قلب",
+          "8": "ألف ذكرى"
+        }
+      },
+      "consistency": {
+        "titleFallback": "الاتساق {{level}}",
+        "description": "أكمل جميع الصلوات المفروضة في {{count}} أيام",
+        "description_one": "أكمل جميع الصلوات المفروضة في يوم {{count}}",
+        "titles": {
+          "0": "يوم مثالي",
+          "1": "ثلاثة أيام مثالية",
+          "2": "أسبوع التميز",
+          "3": "اسبوعين كاملين",
+          "4": "شهر التميز",
+          "5": "شهرين كاملة",
+          "6": "مائة يوم مثالي",
+          "7": "مائتي يوم",
+          "8": "سنة الأيام المثالية"
+        }
+      }
+    },
+    "devotionRank": {
+      "startingOut": "البدء",
+      "beginJourney": "ابدأ رحلتك",
+      "titleFallback": "إخلاص {{level}}",
+      "description": "بلغ مستوى الإخلاص {{level}} ({{noor}} نور)",
+      "titles": {
+        "0": "باحث",
+        "1": "نور المبتدئ",
+        "2": "نفس ثابتة",
+        "3": "قلب مخلص",
+        "4": "مسافر وفّي",
+        "5": "طريق مُهتدى",
+        "6": "مُستنير",
+        "7": "صابر",
+        "8": "مُصقَّل",
+        "9": "سيد الإخلاص"
+      }
+    },
+    "debt": {
+      "qaza": {
+        "activeTitle": "سدّاد دين القضاء",
+        "clearedTitle": "تم سداد دين القضاء",
+        "activeDescription": "قضِ {{count}} صلوات",
+        "activeDescription_one": "قضِ {{count}} صلاة",
+        "clearedDescription": "قُضيت كل {{count}} صلاة مسجّلة",
+        "clearedDescription_one": "قُضيت كل {{count}} صلاة مسجّلة"
+      },
+      "roza": {
+        "activeTitle": "سدّاد دين الصيام",
+        "clearedTitle": "تم سداد دين الصيام",
+        "activeDescription": "قضِ {{count}} أيام صيام فائتة",
+        "activeDescription_one": "قضِ {{count}} يوم صيام فائت",
+        "clearedDescription": "قُضيت كل {{count}} يوم صيام مسجّل",
+        "clearedDescription_one": "قُضِيَ كل {{count}} يوم صيام مسجّل"
+      }
+    }
   },
   "notifCenter": {
     "eyebrow": "التذكيرات",
@@ -1680,7 +1898,21 @@
     "mergeNoChanges": "كان كل شيء محدّثًا بالفعل",
     "mergeSummary": "{{received}} وارد · {{sent}} صادر",
     "conflictsResolved": "تم حل {{count}} تعارض تلقائيًا — مع الإبقاء على أحدث تعديل",
-    "conflictAffected": "المتأثر: {{list}}"
+    "conflictAffected": "المتأثر: {{list}}",
+    "entities": {
+      "prayer_logs": "سجل الصلاة",
+      "zikr_progress": "تقدم الذكر",
+      "qaza_entries": "سجلات القضاء",
+      "preferences": "التفضيلات",
+      "favorites": "مفضلات الذكر",
+      "dua_favorites": "مفضلات الدعاء",
+      "durood_favorites": "مفضلات الصلاة على النبي",
+      "name_favorites": "مفضلات الأسماء",
+      "quran_bookmarks": "علامات القرآن",
+      "quran_last_read": "آخر قراءة للقرآن",
+      "hadith_bookmarks": "علامات الحديث",
+      "custom_tasbeeh": "تسبيح مخصص"
+    }
   },
   "language": {
     "title": "اللغة",
@@ -1692,7 +1924,9 @@
     "subtitle": "لغة التطبيق والترجمة",
     "en": "الإنجليزية",
     "ar": "العربية",
-    "ur": "الأردية"
+    "ur": "الأردية",
+    "scriptureAvailable": "ترجمات القرآن والدعاء والذكر متاحة",
+    "scriptureUnavailable": "واجهة فقط — نصوص الشرع تعود للإنجليزية"
   },
   "languagePicker": {
     "selectLanguage": "اختر لغة",
@@ -3690,6 +3924,28 @@
     "immediately": "فوراً",
     "after1Min": "بعد دقيقة",
     "after5Min": "بعد 5 دقائق",
-    "footer": "يُخزَّن PIN بأمان على هذا الجهاز ولا يغادره أبداً."
+    "footer": "يُخزَّن PIN بأمان على هذا الجهاز ولا يغادره أبداً.",
+    "backspace": "مسح"
+  },
+  "seo": {
+    "intro": {
+      "title": "مرحبًا",
+      "description": "ابدأ مع رفيقك الإسلامي الذي يعمل دون اتصال."
+    },
+    "login": {
+      "description": "سجّل الدخول لمزامنة عبادتك عبر الأجهزة."
+    },
+    "notFound": {
+      "description": "تعذر العثور على الصفحة التي تبحث عنها."
+    },
+    "calendarDay": {
+      "description": "راجع وعدّل عبادتك المسجّلة لهذا اليوم."
+    },
+    "tasbeehZikr": {
+      "description": "عدّ هذا الذكر بعداد تسبيح ملموس."
+    },
+    "tasbeehCustom": {
+      "description": "عداد التسبيح المخصص لك."
+    }
   }
 }

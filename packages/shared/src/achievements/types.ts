@@ -22,8 +22,10 @@ export interface MilestoneProgress {
   id: string;
   trackId: MilestoneTrackId;
   level: number;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
+  titleParams?: Record<string, string | number>;
+  descriptionParams?: Record<string, string | number>;
   threshold: number;
   value: number;
   unlocked: boolean;

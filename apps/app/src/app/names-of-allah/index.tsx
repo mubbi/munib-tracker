@@ -24,11 +24,13 @@ import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
 import { buildNamesActivity } from "@/lib/continue-activity";
+import { cueStartSec, isNamesCompleteTrack, nameIdAtCueTime } from "@/lib/names-complete-cues";
 import { goBackOrReplace } from "@/lib/navigation";
 import { createNameSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
@@ -81,10 +83,17 @@ export default function NamesOfAllahScreen() {
     [readingProgress],
   );
 
-  const activeId =
-    audio.current?.id && names.some((n) => n.id === audio.current?.id)
-      ? audio.current.id
-      : undefined;
+  const cuePositionSec = Math.floor(audio.position);
+
+  const activeId = useMemo(() => {
+    const trackId = audio.current?.id;
+    if (!trackId) return undefined;
+
+    const resolvedId = isNamesCompleteTrack(trackId) ? nameIdAtCueTime(cuePositionSec) : trackId;
+
+    if (!resolvedId || !names.some((n) => n.id === resolvedId)) return undefined;
+    return resolvedId;
+  }, [audio.current?.id, cuePositionSec, names]);
 
   const indexForKey = useCallback((id: string) => names.findIndex((n) => n.id === id), [names]);
   const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, activeId, indexForKey, {
@@ -112,9 +121,18 @@ export default function NamesOfAllahScreen() {
     [audio],
   );
 
-  /** Play only the single tapped name (no auto-advance through the list). */
+  /** Play one name, or seek within the continuous recitation when it is active. */
   const playName = useCallback(
     (name: Name) => {
+      if (isNamesCompleteTrack(audio.current?.id)) {
+        const start = cueStartSec(name.id);
+        if (start == null) return;
+        audio.seekTo(start);
+        if (!audio.isPlaying) audio.toggle();
+        recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
+        return;
+      }
+
       const track = nameAudioTrack(name);
       if (track) {
         audio.play([track], 0, { sourceHref: NAMES_HREF });
@@ -329,6 +347,8 @@ const NameRow = memo(function NameRow({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const translatedMeaning = useScriptureTranslation(name);
+  const displayMeaning = name.meaning ?? translatedMeaning;
 
   const handlePlay = useCallback(() => {
     if (isPlaying) onTogglePlayback();
@@ -367,7 +387,7 @@ const NameRow = memo(function NameRow({
           {name.transliteration}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.meaning}>
-          {name.meaning ?? name.translation}
+          {displayMeaning}
         </ThemedText>
         <View style={styles.footer}>
           {name.audioUri ? (

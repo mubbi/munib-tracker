@@ -38,7 +38,7 @@ import {
 } from "@/lib/audio-queue-timing";
 import { supportsProgrammaticVolume } from "@/lib/audio-volume";
 import { triggerHaptic } from "@/lib/haptics";
-import { ltrControlStyle } from "@/lib/rtl";
+import { ltrControlViewProps } from "@/lib/rtl";
 import {
   AUDIO_SPEEDS,
   type AudioTrack,
@@ -904,9 +904,11 @@ function VolumePopover({
   );
 
   if (isWeb) {
+    const ltrShell = ltrControlViewProps();
     return (
       <Pressable
-        style={[styles.volumePopoverAnchor, ltrControlStyle]}
+        dir={ltrShell.dir}
+        style={[styles.volumePopoverAnchor, ltrShell.style]}
         onHoverIn={onAnchorHoverIn}
         onHoverOut={onAnchorHoverOut}
       >
@@ -916,7 +918,13 @@ function VolumePopover({
   }
 
   return (
-    <View style={[styles.volumePopoverAnchor, styles.volumePopoverAnchorNative, ltrControlStyle]}>
+    <View
+      style={[
+        styles.volumePopoverAnchor,
+        styles.volumePopoverAnchorNative,
+        ltrControlViewProps().style,
+      ]}
+    >
       {body}
     </View>
   );

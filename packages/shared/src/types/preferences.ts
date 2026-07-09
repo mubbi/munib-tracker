@@ -1,7 +1,8 @@
+import type { AppLocale } from "../i18n/app-locale";
 import type { PrayerId } from "./prayer";
 import type { WeatherPreferences } from "./weather";
 
-export type AppLocale = "en" | "ar" | "ur";
+export type { AppLocale };
 
 /** Clock display format for prayer times, reminders, and schedules. */
 export type TimeFormat = "12" | "24";

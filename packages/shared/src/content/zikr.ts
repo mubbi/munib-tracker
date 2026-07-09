@@ -15,6 +15,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
     transliteration: "Subhan-Allahi wa bihamdihi",
     translation: "Glory is to Allah and praise is to Him.",
+    translations: { id: "Maha Suci Allah, aku memuji-Nya." },
     virtues:
       "Whoever says it 100 times a day has his sins wiped away, though they be like the foam of the sea.",
     reference: "Bukhari & Muslim",
@@ -31,6 +32,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir",
     translation:
       "There is no god but Allah, alone, without partner. His is the dominion and His is the praise, and He is over all things capable.",
+    translations: {
+      id: "Tidak ada Rabb (yang berhak disembah) kecuali Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan. Bagi-Nya pujaan. Dia-lah Yang Mahakuasa atas segala sesuatu.",
+    },
     virtues: "Whoever says it 100 times has a reward equal to freeing ten slaves.",
     reference: "Bukhari & Muslim",
     targetCount: 100,
@@ -44,6 +48,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "أَسْتَغْفِرُ اللَّهَ",
     transliteration: "Astaghfirullah",
     translation: "I seek the forgiveness of Allah.",
+    translations: { id: "Aku minta ampun kepada Allah." },
     virtues: "The Prophet ﷺ would seek forgiveness more than seventy times a day.",
     reference: "Bukhari",
     targetCount: 100,
@@ -91,6 +96,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ",
     transliteration: "Subhan-Allah",
     translation: "Glory is to Allah.",
+    translations: { id: "Maha Suci Allah" },
     reference: "Muslim",
     targetCount: 33,
   },
@@ -101,6 +107,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "الْحَمْدُ لِلَّهِ",
     transliteration: "Alhamdulillah",
     translation: "All praise is for Allah.",
+    translations: { id: "Segala puji bagi Allah" },
     reference: "Muslim",
     targetCount: 33,
   },
@@ -111,6 +118,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "اللَّهُ أَكْبَرُ",
     transliteration: "Allahu Akbar",
     translation: "Allah is the Greatest.",
+    translations: { id: "Allah Maha Besar" },
     virtues:
       "Completing the tasbih after each prayer wipes away sins though they be like the foam of the sea.",
     reference: "Muslim",
@@ -125,6 +133,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir",
     translation:
       "There is no god but Allah, alone, without partner. His is the dominion and His is the praise, and He is over all things capable.",
+    translations: {
+      id: "Tidak ada Rabb (yang berhak disembah) kecuali Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan. Bagi-Nya pujaan. Dia-lah Yang Mahakuasa atas segala sesuatu.",
+    },
     virtues:
       "Whoever, after every prayer, glorifies Allah 33 times, praises Him 33 times, and magnifies Him 33 times — that is 99 — then completes the hundred with this, his sins are forgiven though they be like the foam of the sea.",
     reference: "Muslim 597",
@@ -231,6 +242,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
     transliteration: "Subhan-Allahi wa bihamdihi",
     translation: "Glory is to Allah and praise is to Him.",
+    translations: { id: "Maha Suci Allah, aku memuji-Nya." },
     virtues:
       "None will come on the Day of Judgement with better than this, except one who did the same or more.",
     reference: "Muslim",
@@ -261,6 +273,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     transliteration: "Radeetu billahi Rabban, wa bil-Islami dinan, wa bi-Muhammadin ﷺ nabiyya",
     translation:
       "I am pleased with Allah as my Lord, with Islam as my religion, and with Muhammad ﷺ as my Prophet.",
+    translations: {
+      id: "Aku ridha Allah sebagai Rabb, Islam sebagai agama dan Muhammad shallallahu 'alaihi wa sallam sebagai nabi.",
+    },
     virtues:
       "Whoever says it three times, it is a right upon Allah to please him on Judgement Day.",
     reference: "Abu Dawud & Tirmidhi",
@@ -273,6 +288,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
     transliteration: "Subhan-Allahi wa bihamdihi",
     translation: "Glory is to Allah and praise is to Him.",
+    translations: { id: "Maha Suci Allah, aku memuji-Nya." },
     reference: "Muslim",
     targetCount: 100,
     audioUri:
@@ -300,6 +316,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     transliteration: "A'udhu bikalimatillahit-tammati min sharri ma khalaq",
     translation:
       "I seek refuge in the perfect words of Allah from the evil of what He has created.",
+    translations: {
+      id: "Aku berlindung dengan kalimat-kalimat Allah yang sempurna, dari kejahatan sesuatu yang diciptakan-Nya.",
+    },
     virtues: "Whoever says it three times in the evening, no venom will harm him that night.",
     reference: "Muslim",
     targetCount: 3,
@@ -339,6 +358,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "Allahumma Rabba hadhihid-da'watit-tammah, was-salatil-qa'imah, ati Muhammadanil-wasilata wal-fadilah, wab'ath-hu maqaman mahmudanil-ladhi wa'adtah",
     translation:
       "O Allah, Lord of this perfect call and established prayer, grant Muhammad the intercession (wasilah) and eminence, and raise him to the praiseworthy station that You have promised him.",
+    translations: {
+      id: "Ya Allah, pemilik seruan yang sempurna ini dan sholat yang ditegakkan, anugerahkanlah kepada Nabi Muhammad; wasilah (kedudukan yang tinggi di surga) dan keutamaan (melebihi seluruh makhluk), dan bangkitkanlah beliau dalam kedudukan terpuji (memberi syafa'at) yang telah Engkau janjikan.",
+    },
     virtues: "Whoever says it after the adhan, intercession is made permissible for him.",
     reference: "Bukhari",
     targetCount: 1,
@@ -361,6 +383,29 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا",
     transliteration: "Innas-salata kanat 'alal-mu'minina kitaban mawquta",
     translation: "Indeed, prayer has been decreed upon the believers a decree of specified times.",
+    translations: {
+      ur: "پھر جب تم نماز تمام کرچکو تو کھڑے اور بیٹھے اور لیٹے (ہر حالت میں) خدا کو یاد کرو پھر جب خوف جاتا رہے تو (اس طرح سے) نماز پڑھو (جس طرح امن کی حالت میں پڑھتے ہو) بےشک نماز کا مومنوں پر اوقات (مقررہ) میں ادا کرنا فرض ہے",
+      id: "Selanjutnya, apabila kamu telah menyelesaikan salat(mu), ingatlah Allah ketika kamu berdiri, pada waktu duduk dan ketika berbaring. Kemudian, apabila kamu telah merasa aman, maka laksanakanlah salat itu (sebagaimana biasa). Sungguh, salat itu adalah kewajiban yang ditentukan waktunya bagi orang-orang yang beriman",
+      tr: "Namazı kıldıktan başka, Allah'ı ayakta iken, otururken, yan yatarken de anın. Emniyete kavuştuğunuzda, namazı gereğince kılın. Namaz şüphesiz, inananlara belirli vakitlerde farz kılınmıştır",
+      tk: "Namazı kıldıktan başka, Allah'ı ayakta iken, otururken, yan yatarken de anın. Emniyete kavuştuğunuzda, namazı gereğince kılın. Namaz şüphesiz, inananlara belirli vakitlerde farz kılınmıştır",
+      bn: "অতঃপর যখন তোমরা নামায সম্পন্ন কর, তখন দন্ডায়মান, উপবিষ্ট ও শায়িত অবস্থায় আল্লাহকে স্মরণ কর। অতঃপর যখন বিপদমুক্ত হয়ে যাও, তখন নামায ঠিক করে পড়। নিশ্চয় নামায মুসলমানদের উপর ফরয নির্দিষ্ট সময়ের মধ্যে।",
+      ms: "Kemudian apabila kamu telah selesai mengerjakan sembahyang, maka hendaklah kamu menyebut dan mengingati Allah semasa kamu berdiri atau duduk, dan semasa kamu berbaring. Kemudian apabila kamu telah merasa tenteram (berada dalam keadaan aman) maka dirikanlah sembahyang itu (dengan sempurna sebagaimana biasa). Sesungguhnya sembahyang itu adalah satu ketetapan yang diwajibkan atas orang-orang yang beriman, yang tertentu waktunya",
+      fa: "و هنگامی که نماز را به پایان رساندید، خدا را یاد کنید؛ ایستاده، و نشسته، و در حالی که به پهلو خوابیده‌اید! و هرگاه آرامش یافتید (و حالت ترس زایل گشت)، نماز را (به طور معمول) انجام دهید، زیرا نماز، وظیفه ثابت و معیّنی برای مؤمنان است",
+      fr: "Quand vous avez accompli la Salât, invoquez le nom d'Allah, debout, assis ou couchés sur vos côtés. Puis lorsque vous êtes en sécurité, accomplissez la Salât (normalement), car la Salât demeure, pour les croyants, une prescription, à des temps déterminés",
+      ha: "Sa'an nan idan kun ƙãre salla, to ku ambaci Allah tsaye da zaune da a kan sãsanninku. Sa'an nan idan kun natsu, to, ku tsayar da Salla. Lalle ne salla tã kasance a kan mũminai, farilla mai ƙayyadaddun lõkuta",
+      sw: "Mtakapomaliza Swala, endeleeni kumtaja Mwenyezi Mungu katika hali zenu zote. Na hali ya kicho iondokapo, itekelezeni Swala kikamilifu, wala msiifanyie dharau, kwani Swala ni faradhi katika nyakati zijulikanazo katika Sheria",
+      ru: "Когда вы завершите намаз, то поминайте Аллаха стоя, сидя или лежа на боках. Когда же вы окажетесь в безопасности, то совершайте намаз. Воистину, намаз предписан верующим в определенное время",
+      az: "Namazınızı qıldıqdan sonra ayaq üstə olanda da, uzananda da Allahı zikr edin, arxayınlığa çixdıqda isə, namazı (öz qaydasınca) qılın! Çünki namaz mö’minlərə bəlli vaxtlarda fərz (vacib) edilmişdir",
+      ps: "بیا چې كله تاسو لمونځ ادا كړئ، نو الله یادوئ، په ولاړه او ناسته او په خپلو اړخونو باندې (چې پراته يئ)، بیا چې كله تاسو مطمئن (ډاډمن) شئ، نو لمونځ قايموئ (د اطمينان د حالت لمونځ) بېشكه لمونځ له شروع نه په مومنانو باندې په (معلومو) وختونو كې فرض كړى شوى دى",
+      so: "OO marka aad bogtaan salaadda, xusa Allaah joog iyo fadhi iyo idinkoo u jiifaba dhinacyadiinna, Markase aad nabad degtaan, u ooga salaadda si wanaagsan. Hubaal, salaadda waxay ku tahay mu’miniinta waajib leh waqtiyo go’an",
+      uz: "Намозни адо қилиб бўлганингиздан кейин ҳам турган, ўтирган ва ёнбошлаган пайтларингизда доим Аллоҳни ёд этингиз! Бас, қачон хотиржам бўлгач, намозни тўкис адо этингиз! Албатта, намоз мўминларга (вақти) тайинланган фарз бўлди",
+      kk: "Қашан намаз өтеп болсаңдар, Алланы; тұрып, отырып және жатқан бойда еске алыңдар. Қашан тынышталсаңдар, онда намазды толық орындаңдар. Өйткені, намаз мүміндерге белгілі уақытта парыз қылынды",
+      ku: "جا کاتێک له نوێژ بوونه‌وه ئه‌وه یادی خوا بکه‌ن به‌پێوه‌بن یان به‌دانیشتنه‌وه یان به ڕاکشانه‌وه (به‌هه‌رجۆرێک بۆتان گونجا) کاتێکیش ئارامی باڵی کێشا به‌سه‌رتانداو نیشته‌جێ بوون، ئه‌وه نوێژ به‌چاکی و ته‌واوی ئه‌نجام بده‌ن، چونکه به‌ڕاستی نوێژ له‌سه‌ر ئیمانداران فه‌رزه له‌کاتی دیاریکراودا ده‌بێ ئه‌نجام بدرێت",
+      bs: "A kada molitvu završite, Allaha spominjite, i stojeći, i sjedeći, i ležeći. A u sigurnosti obavljajte molitvu u potpunosti, jer vjernicima je propisano da u određeno vrijeme molitvu obavljaju",
+      sq: "Kur të kryeni namazin (e frikës) përmendeni All-llahun, kur jeni në këmbë, ulur, të mbështetur. E kur të qetësoheni (nga lufta), atëherë faleni namazin në mënyrë të rregullt, pse namazi është obligim (për kohë) i caktuar për besimtarët",
+      ky: "Ал эми, намазды окуп бүткөнүңөрдөн кийин, турган, отурган жана жамбаштап жаткан (бардык) убактыңарда Аллаһты зикир кылгыла. Эгер (согуштан) тынч болгонуңарда намазды толук окугула. Албетте, намаз момун адамдар үчүн өз убактысында окулуучу парыз болду",
+      tg: "Ва чун намозро ба поён бурдед, Худоро истода ё нишаста ва ё ба паҳлӯ хобида ёд кунед. Ва чуч аз душман эмин гаштед, намозро тамом адо кунед, ки намоз бар мӯъминон дар вақтҳои муайян воҷиб гашта аст",
+    },
     reference: "Quran 4:103",
     targetCount: 1,
   },
@@ -371,6 +416,29 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ",
     transliteration: "A'udhu billahi minash-shaytanir-rajim",
     translation: "I seek refuge in Allah from the accursed Shaytan.",
+    translations: {
+      ur: "اور جب تم قرآن پڑھنے لگو تو شیطان مردود سے پناہ مانگ لیا کرو",
+      id: "Maka apabila engkau (Muhammad) hendak membaca Alquran, mohonlah perlindungan kepada Allah dari setan yang terkutuk",
+      tr: "Kuran okuyacağın zaman, kovulmuş şeytandan Allah'a sığın",
+      tk: "Kuran okuyacağın zaman, kovulmuş şeytandan Allah'a sığın",
+      bn: "অতএব, যখন আপনি কোরআন পাঠ করেন তখন বিতাড়িত শয়তান থেকে আল্লাহর আশ্রয় গ্রহণ করুন।",
+      ms: "(Oleh itu, apabila engkau membaca Al-Quran, maka hendaklah engkau terlebih dahulu) memohon perlindungan kepada Allah dari hasutan Syaitan yang kena rejam",
+      fa: "هنگامی که قرآن می‌خوانی، از شرّ شیطان مطرود، به خدا پناه بر",
+      fr: "Lorsque tu lis le Coran, demande la protection d'Allah contre le Diable banni",
+      ha: "Sa'an nan idan ka karantã Alƙur'ãni, sai ka nẽmi tsari ga Allah daga shaiɗan jẽfaffe",
+      sw: "Na pindi ukitaka, ewe Muumini, kusoma chochote katika Qur’ani, basi jilinde kwa Mwenyezi Mungu na Shari la Shetani aliyefukuzwa kwenye rehema ya Mwenyezi Mungu kwa kusema, «A'ūdhu bi- Llāhi min ash-Shayttān ar-Rajīm»(Najilinda kwa Mwenyezi Mungu na Shetani Aliyefukuzwa kwenye rehema ya Mwenyezi Mungu)",
+      ru: "Когда ты читаешь Коран, то ищи у Аллаха защиты от дьявола изгнанного, побиваемого",
+      az: "(Ya Rəsulum!) Qur’an oxumaq istədiyin zaman məl’un Şeytandan Allaha sığın! (“Əuzu billahi minəş-şeytanır-rəcim” sözlərini de)",
+      ps: "نو كله چې ته قرآن لولې، نو د الله پناه وغواړه د رټل شوي شیطان نه (له شر)",
+      so: "Ee marka aad akhriyeyso Qur’aanka, (hor iyo baataba) ka magan gal Allaah shaydaanka la fogeeyey",
+      uz: "(Эй мўмин бандам), ҳар қачон Қуръон қироат қилсанг, албатта, қувилган — малъун шайтон (васвасаси)дан Аллоҳ паноҳ беришини сўрагин",
+      kk: "Қашан Құран оқысаң, қуылған шайтаннан Аллаға сиын",
+      ku: "ئینجا کاتێك قورئانت خوێندو ده‌ورت کرده‌وه‌، ئه‌وه په‌نا بگره به خوا له شه‌یتانی نه‌فرین لێکراو",
+      bs: "Kada hoćeš da učiš Kur'an, zatraži od Allaha zaštitu od šejtana prokletog",
+      sq: "Kur të lexosh Kur’anin kërko mbrojtjen e All-llahut prej djallit të mallkuar",
+      ky: "Качан сен Кураан окусаң (Аллаһтын ырайымынан) куулган шайтандан коргоо тилеп Аллаһка сыйын",
+      tg: "Ва чун Қуръон бихонӣ, аз шайтони раҷим ба Худо паноҳ бубар",
+    },
     reference: "Quran 16:98",
     targetCount: 1,
     audioUri:
@@ -393,6 +461,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
     transliteration: "Bismika Allahumma amutu wa ahya",
     translation: "In Your name, O Allah, I die and I live.",
+    translations: { id: "Dengan menyebut nama-Mu, ya Allah! Aku mati dan dan hidup." },
     reference: "Bukhari",
     targetCount: 1,
     audioUri:
@@ -421,6 +490,29 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "Qul huwa Allahu ahadun Allahu alssamadu Lam yalid walam yooladu Walam yakun lahu kufuwan ahadun\nQul aAAoothu birabbi alfalaqi Min sharri ma khalaqa Wamin sharri ghasiqin itha waqaba Wamin sharri alnnaffathati fee alAAuqadi Wamin sharri hasidin itha hasada\nQul aAAoothu birabbi alnnasi Maliki alnnasi Ilahi alnnasi Min sharri alwaswasi alkhannasi Allathee yuwaswisu fee sudoori alnnasi Mina aljinnati wa alnnasm",
     translation:
       "Say: He is Allah, the One Allah, the eternally Besought of all He begetteth not nor was begotten And there is none comparable unto Him\nSay: I seek refuge in the Lord of the Daybreak From the evil of that which He created From the evil of the darkness when it is intense And from the evil of malignant witchcraft And from the evil of the envier when he envieth\nSay: I seek refuge in the Lord of mankind The King of mankind The god of mankind From the evil of the sneaking whisperer Who whispereth in the hearts of mankind Of the jinn and of mankind",
+    translations: {
+      ur: "کہو کہ وہ (ذات پاک جس کا نام) الله (ہے) ایک ہے معبود برحق جو بےنیاز ہے نہ کسی کا باپ ہے اور نہ کسی کا بیٹا اور کوئی اس کا ہمسر نہیں\nکہو کہ میں صبح کے پروردگار کی پناہ مانگتا ہوں ہر چیز کی بدی سے جو اس نے پیدا کی اور شب تاریکی کی برائی سے جب اس کااندھیرا چھا جائے اور گنڈوں پر (پڑھ پڑھ کر) پھونکنے والیوں کی برائی سے اور حسد کرنے والے کی برائی سے جب حسد کرنے لگے\nکہو کہ میں لوگوں کے پروردگار کی پناہ مانگتا ہوں (یعنی) لوگوں کے حقیقی بادشاہ کی لوگوں کے معبود برحق کی (شیطان) وسوسہ انداز کی برائی سے جو (خدا کا نام سن کر) پیچھے ہٹ جاتا ہے جو لوگوں کے دلوں میں وسوسے ڈالتا ہے وہ جنّات میں سے (ہو) یا انسانوں میں سے",
+      id: 'Katakanlah (Muhammad), "Dialah Allah, Yang Maha Esa Allah tempat meminta segala sesuatu (Allah) tidak beranak dan tidak pula diperanakkan Dan tidak ada sesuatu yang setara dengan Dia\nKatakanlah, "Aku berlindung kepada Tuhan yang menguasai subuh (fajar) dari kejahatan (makhluk yang) Dia ciptakan dan dari kejahatan malam apabila telah gelap gulita dan dari kejahatan (perempuan-perempuan) penyihir yang meniup pada buhul-buhul (talinya) dan dari kejahatan orang yang dengki apabila dia dengki\nKatakanlah, "Aku berlindung kepada Tuhannya manusia Raja manusia sembahan manusia dari kejahatan (bisikan) setan yang bersembunyi yang membisikkan (kejahatan) ke dalam dada manusia dari (golongan) jin dan manusia',
+      tr: 'De ki: O Allah bir tektir Allah her şeyden müstağni ve her şey O\'na muhtaçtır O doğurmamış ve doğmamıştır Hiçbir şey O\'na denk değildir\nDe ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım De ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım De ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım De ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım De ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım\nDe ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım',
+      tk: 'De ki: O Allah bir tektir Allah her şeyden müstağni ve her şey O\'na muhtaçtır O doğurmamış ve doğmamıştır Hiçbir şey O\'na denk değildir\nDe ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım De ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım De ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım De ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım De ki: "Yaratıkların şerrinden, bastırdığı zaman karanlığın şerrinden, düğümlere nefes eden büyücülerin şerrinden, hased ettiği zaman hasedcilerin şerrinden, tan yerini ağartan Rabbe sığınırım\nDe ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım De ki: "İnsanlardan ve cinlerden ve insanların gönüllerine vesvese veren o sinsi vesvesecinin şerrinden, insanların Tanrısı, insanların Hükümranı ve insanların Rabbi olan Allah\'a sığınırım',
+      bn: "বলুন, তিনি আল্লাহ, এক আল্লাহ অমুখাপেক্ষী তিনি কাউকে জন্ম দেননি এবং কেউ তাকে জন্ম দেয়নি এবং তার সমতুল্য কেউ নেই।\nবলুন, আমি আশ্রয় গ্রহণ করছি প্রভাতের পালনকর্তার তিনি যা সৃষ্টি করেছেন, তার অনিষ্ট থেকে অন্ধকার রাত্রির অনিষ্ট থেকে, যখন তা সমাগত হয় গ্রন্থিতে ফুঁৎকার দিয়ে জাদুকারিনীদের অনিষ্ট থেকে এবং হিংসুকের অনিষ্ট থেকে যখন সে হিংসা করে।\nবলুন, আমি আশ্রয় গ্রহণ করিতেছি মানুষের পালনকর্তার মানুষের অধিপতির মানুষের মা’বুদের তার অনিষ্ট থেকে, যে কুমন্ত্রণা দেয় ও আত্নগোপন করে যে কুমন্ত্রণা দেয় মানুষের অন্তরে জ্বিনের মধ্য থেকে অথবা মানুষের মধ্য থেকে।",
+      ms: 'Katakanlah (wahai Muhammad): "(Tuhanku) ialah Allah Yang Maha Esa Allah Yang menjadi tumpuan sekalian makhluk untuk memohon sebarang hajat Ia tiada beranak, dan Ia pula tidak diperanakkan Dan tidak ada sesiapapun yang serupa denganNya\nKatakanlah (wahai Muhammad); "Aku berlindung kepada (Allah) Tuhan yang menciptakan sekalian makhluk Dari bencana makhluk-makhluk yang Ia ciptakan Dan dari bahaya gelap apabila ia masuk Dan dari kejahatan makhluk-makhluk yang menghembus-hembus pada simpulan-simpulan (dan ikatan-ikatan) Dan dari kejahatan orang yang dengki apabila ia melakukan dengkinya\nKatakanlah (wahai Muhammad): "Aku berlindung kepada (Allah) Pemulihara sekalian manusia Yang Menguasai sekalian manusia Tuhan yang berhak disembah oleh sekalian manusia Dari kejahatan pembisik penghasut yang timbul tenggelam Yang melemparkan bisikan dan hasutannya ke dalam hati manusia (Iaitu pembisik dan penghasut) dari kalangan jin dan manusia',
+      fa: "بگو: خداوند، یکتا و یگانه است؛ خداوندی است که همه نیازمندان قصد او می‌کنند؛ (هرگز) نزاد، و زاده نشد، و برای او هیچگاه شبیه و مانندی نبوده است\nبگو: پناه می‌برم به پروردگار سپیده صبح، از شرّ تمام آنچه آفریده است؛ و از شرّ هر موجود شرور هنگامی که شبانه وارد می‌شود؛ و از شرّ آنها که با افسون در گره‌ها می‌دمند (و هر تصمیمی را سست می‌کنند)؛ و از شرّ هر حسودی هنگامی که حسد می‌ورزد\nبگو: پناه می‌برم به پروردگار مردم، به مالک و حاکم مردم، به (خدا و) معبود مردم، از شرّ وسوسه‌گر پنهانکار، که در درون سینه انسانها وسوسه می‌کند، خواه از جنّ باشد یا از انسان",
+      fr: "Dis: «Il est Allah, Unique Allah, Le Seul à être imploré pour ce que nous désirons Il n'a jamais engendré, n'a pas été engendré non plus Et nul n'est égal à Lui»\nDis: «Je cherche protection auprès du Seigneur de l'aube naissante contre le mal des êtres qu'Il a créés contre le mal de l'obscurité quand elle s'approfondit contre le mal de celles qui soufflent [les sorcières] sur les nœuds et contre le mal de l'envieux quand il envie»\nDis: «Je cherche protection auprès du Seigneur des hommes Le Souverain des hommes Dieu des hommes contre le mal du mauvais conseiller, furtif qui souffle le mal dans les poitrines des hommes qu'il (le conseiller) soit un djinn, ou un être humain»",
+      ha: 'Ka ce: "Shi ne Allah Makaɗaĩci Allah wanda ake nufin Sa da buƙata Bai haifa ba, kuma ba a haife Shi ba Kuma babu ɗaya da ya kasance tamka a gare Shi\nKa ce "ina neman tsari ga Ubangijin safiya Daga sharrin abin da Ya halitta Da sharrin dare, idan ya yi duhu Da sharrin mãtã mãsu tõfi a cikin ƙulle-ƙulle Da sharrin mai hãsada idan ya yi hasada\nKa ce "Ina nẽman tsari ga Ubangijin mutãne Mamallakin mutane Abin bautãwar mutãne Daga sharrin mai sanya wasuwãsi, mai ɓoyewa Wanda ke sanya wasuwãsi a cikin ƙirãzan mutane Daga aljannu da mutane',
+      sw: "Sema, ewe Mtume, «Yeye Ndiye Mwenyezi Mungu Aliyepwekeka kwa ustahiki wa kuabudiwa, uumbaji na utakatifu wa Majina na Sifa, Asiye na mshirika katika hayo «Mwenyezi Mungu Ambaye Peke Yake Ndiye Mwenye kukusudiwa kwa kukidhi haja na matakwa «Hana mwana wala mzazi wala mke «Wala hakuna yoyote katika viumbe Vyake mwenye kufanana wala kushabihiyana na Yeye katika Majina Yake, Sifa Zake wala vitendo Vyake.»\nSema, ewe Mtume, «Najilinda na kutaka hifadhi kwa Bwana wa asubuhi «Kutokana na shari la viumbe na udhia wao «Na shari la usiku wenye giza lingi ungiapo na ujikitapo na mashari na maudhi mbalimbali yaliyomo ndani yake «Na shari la wchawi wenye kupuliza kwenye mafundo wanayoyafunga kwa lengo la kuroga «Na shari la hasidi mwenye kutukia watu, anapowahusudu na kuwadhuru, kwa kutaka neema za Mwenyezi Mungu Aliyewaneemesha ziwaondokee.»\nSema, ewe Mtume, «Ninajilinda na kutaka hifadhi kwa Bwana wa watu, Mwenye uweza, Peke Yake, wa kulirudisha shari lao «Mfalme wa watu, Mwenye kupeleka mambo yao yote Anavyotaka, Aliye Mkwasi kutowahitajia «Mola wa watu, Ambaye hapana mwenye kuabudiwa kwa haki isipokuwa Yeye «Kutokana na udhia wa shetani ambaye hutia watu wasiwasi wanapoghafilika na hujificha atajwapo Mwenyezi Mungu «Mwenye kupenyeza shari na shaka kwenye vifua vya watu «Miongoni mwa mashetani wa kijini na kibinadamu.»",
+      ru: "Скажи: «Он - Аллах Единый Аллах Самодостаточный Он не родил и не был рожден и нет никого равного Ему»\nСкажи: «Прибегаю к защите Господа рассвета от зла того, что Он сотворил от зла мрака, когда он наступает от зла колдуний, поплевывающих на узлы от зла завистника, когда он завидует»\nСкажи: «Прибегаю к защите Господа людей Царя людей Бога людей от зла искусителя отступающего (или сжимающегося) при поминании Аллаха который наущает в груди людей и бывает из джиннов и людей»",
+      az: "(Ya Peyğəmbər! Allahın zatı və sifətləri haqqında səndən soruşan müşriklərə) de: “(Mənim Rəbbim olan) O Allah birdir (heç bir şəriki yoxdur) Allah (heç kəsə, heç nəyə) möhtac deyildir! (Hamı Ona möhtacdır; O, əzəlidir, əbədidir) O, nə doğmuş, nə də doğulmuşdur! (Allah Özünə heç bir övlad götürməmişdir) Onun heç bir tayı-bərabəri (bənzəri) də yoxdur!”\n(Ya Peyğəmbər!) De: “Pənah aparıram sübhün Rəbbinə Yaratdıqlarının (insanların, cinlərin, vəhşi heyvanların) şərindən Zülmətə bürünməkdə olan gecənin (və ya: batan ayın, ziyası sönən ulduzların) şərindən (Ovsun oxuyub) düyünlərə üfürən (yaxud: cadu edib iplərə düyün vuran) qadınların şərindən Və bir də paxıllığı tutanda paxılın şərindən!”\n(Ya Peyğəmbər!) De: “Pənah aparıram insanların Rəbbinə İnsanların ixtiyar sahibinə İnsanların tanrısına Vəsvəsə verən, (Allahın adı çəkiləndə isə qorxusundan) qaçıb gizlənən Şeytanın şərindən O Şeytan ki, insanların ürəklərinə vəsvəsə salır (O Şeytan ki) cinlərdən də olur, insanlardan da! (Və ya: (o Şeytan) istər cinlərdən olsun, istər insanlardan!)”",
+      ps: "(اى نبي!) ته (دوى ته) ووایه: شان دا دى چی الله یو دى هم دا الله بې نیاز (بې حاجته) دى نه يې (څوك) زېږولى دى او نه دى (له چا) زېږول شوى دى او د ده هیڅوك سیال (او) برابر نشته\n(اى نبي) ته ووایه: زه په رب د سبا پورې پناه نيسم د هر هغه شي له شر نه چې ده پیدا كړى دى او د تیارې شپې له شر نه كله چې تكه توره (او خوره) شي او له شره د هغو (جادوګرو) ښځو چې په غوټو كې پوكي وهونكې دي او د حسد كوونكي له شر نه كله چی دى حسد (شروع او ښكاره) كړي\n(اى نبي) ته ووایه: زه د خلقو په رب پورې پناه نیسم چې د خلقو بادشاه دى د خلقو (حقیقي) معبود دى له شره د وسوسې اچوونكي، تښتېدونكي هغه چې د خلقو په سینو كې وسوسې اچوي چی (دغه وسوسې اچوونكي) له پېریانو او انسانانو ځنې دي",
+      so: "Dheh: Isagu, Allaah waa Mid Keliya Allaah waa ma baahdaha loo baahdo Ma dhalin, lamana dhalin Oo ma jiro axad u dhigma\nDheh: Waxaan ka magan galay Rabbiga oogga (dillaacsha) Sharka waxa uu abuuray Iyo sharka habeenka mugdiga badan marka uu mugdigiisa wax ku daboolo Iyo sharka kuwa wax ku tufa guntimaha (naagaha saaxirooyinka ah) Iyo sharka xaasidka marka uu wax xasdo\nDheh: Waxaan ka magan galay Rabbiga dadka Boqorka dadka Ilaaha dadka Sharka waswaasyada (sheydaanka) soo noqnoqodka badan Kaasoo waswaasiya laabaha dadka (Shaydaankaa) oo jin iyo dadba leh",
+      uz: "(Эй Муҳаммад алайҳис-салоту вас-салом), айтинг: «У — Аллоҳ Бирдир. (Яъни, Унинг ҳеч қандай шериги йўқдир. У яккаю ёлғиздир) Аллоҳ (барча ҳожатлар билан) кўзлангувчидир (яъни, барча ҳожатлар Ундан сўралади, аммо У ҳеч кимга муҳтож эмасдир) У туғмаган ва туғилмагандир (яъни, Аллоҳнинг ўғил-қизи ҳам, ота-онаси ҳам йўқдир. У азалий ва абадий Зотдир) Ва ҳеч ким У зотга тенг эмасдир»\n(Эй Муҳаммад алайҳис-салоту вас-салом), айтинг: «Мен тонг Парвардигоридан (менга) паноҳ беришини сўраб илтижо қилурман — Ўзи яратган нарсаларнинг ёмонлигидан — Зулматга чўмган кечанинг ёмонлигидан — Тугунларга дам солгувчи (жодугар)ларнинг ёмонлигидан — Ва ҳасад қилаётган ҳасадгўйнинг ёмонлигидан (паноҳ беришини сўраб илтижо қилурман»)\n(Эй Муҳаммад алайҳис-салоту вас-салом), айтинг: «Мен барча инсонларнинг Парвардигоридан Барча инсонларнинг Подшоҳидан Барча инсонларнинг Илоҳидан (менга) Ўзи (Қачон Аллоҳнинг номи зикр қилинганида) яшириниб оладиган васвасачи (шайтон)нинг ёмонлигидан паноҳ беришини сўраб илтижо қилурманки У инсонларнинг дилларига васваса соладиган Жин ва инсонлардан бўлган (шайтондир. Ўшанинг ёмонлигидан паноҳ беришини сўраб илтижо қилурман)",
+      kk: "(Мұхаммед Ғ.С оларға) айт: Ол Алла,біреу-ақ Алла мұңсыз. (Әр нәрсе Оған мұхтаз) Ол,тумады да туылмады Әрі оған ешкім тең емес\n(Мұхаммед Ғ.С): «Таңның Раббыға сиынамын,» «Жаратқан нәрселерінің кесірінен,» «Қараңғылық басқан сәтте,түннің кесірінен,» «Түйіншектерге дем салушылардың кесірінен,» «Күншілдердің кесірінен,ол күндеген сәтте (сиынамын)» де\n(Мұхаммед Ғ.С): «Адамдардың Раббына,» «Адамдардың иесіне,» «Адамдардың иесіне,» «Сыбырлап азғырушының кесірінен,» «Сондай адамдардың көкейлеріне салатын;» «Мейлі жыннан,мейлі адамдардан болсын, (бүкіл азғырушылардың кесірінен Аллаға) сиынамын» де",
+      ku: "ئه‌ی محمد (صلی الله علیه وسلم) ئه‌ی ئیماندار) بڵێ: ئه‌و خوای که ناوی _ الله‌_ خوایه‌کی تاک و ته‌نهایه (بێ هاوه‌ڵ و هاوتایه‌) خوا زاتێکی پایه‌دار و ده‌سه‌ڵاتداره‌، نیازی به که‌س نییه‌و هه‌موویان ئاتاجی ئه‌ون، هه‌ر ئه‌و ده‌توانێ به‌ڵاو و ناخۆشی لابه‌رێت و پێویستی و داخوازیه‌کانمان جێ به جێ بکات هیچ که‌سی لێ نه‌بووه و خۆشی له که‌س نه‌بووه‌ هه‌رگیز هاوتاو هاوشێوه و ده‌سه‌ڵاتدارێکی تر نییه که له‌به‌رامبه‌ریه‌وه به‌وه‌ستێت و هاوشانی بێت\nئه‌ی محمد (صلی الله علیه وسلم) ئه‌ی ئیماندار) بڵێ: په‌نا ده‌گرم به‌و په‌روه‌ردگاره‌ی که به‌ره‌به‌یان پێش ده‌هێنێت له شه‌ڕ و خراپه‌ی هه‌رچی که دروستی کردووه (له په‌ری و ئاده‌میزاد و مار و مێرو) له شه‌ڕ و خراپه‌ی شه‌و کاتێ که دادێت و دنیا تارک ده‌بێت و ده‌بێته شه‌وه‌زه‌نگ له شه‌ڕ و خراپه‌ی ئه‌و که‌سانه‌ی که جادو ده‌که‌ن و په‌ت و ده‌‌زو گرێ ده‌ده‌ن و فوی پیاده‌که‌ن (به‌فێڵ و جادو نێوانی خه‌ڵکی تێک ده‌ده‌ن) له شه‌ڕ و خراپه‌ی حه‌سود و به‌خیل، کاتێ که حه‌سودی و به‌خیلی ده‌بات\nئه‌ی محمد (صلی الله علیه وسلم) ئه‌ی ئیماندار) بڵێ: په‌نا ده‌گرم به په‌روه‌ردگاری خه‌ڵکی پادشای خه‌ڵکی به خوای خه‌ڵکی له شه‌ڕ و خراپه‌ی ئه‌وه‌ی که وه‌سوه‌سه و خه‌ته‌ره و خه‌یاڵ ده‌خاته دڵه‌وه که (خه‌ناسه‌). بریتیه له‌وه‌ی که وه‌سوه‌سه فڕێ ده‌داته سینه و دڵ و ده‌رونی خه‌ڵکییه‌وه‌ له په‌ری و خه‌ڵکی، له جنۆکه و ئاده‌میزاد (ئه‌وانه‌ی که شه‌یتان سیفه‌تن) له په‌ری و خه‌ڵكی (له جنۆكه و ئینسان ئه‌وانه‌ی شه‌یتان سیفه‌تن)",
+      bs: 'Reci: "On je Allah – Jedan Allah je Utočište svakom Nije rodio i rođen nije i niko Mu ravan nije\nReci: "Utječem se Gospodaru svitanja od zla onoga što On stvara i od zla mrkle noći kada razastre tmine i od zla smutljivca kad smutnje sije i od zla zavidljivca kad zavist ne krije\nReci: "Tražim zaštitu Gospodara ljudi Vladara ljudi Boga ljudi od zla šejtana-napasnika koji zle misli unosi u srca ljudi – od džina i od ljudi',
+      sq: "Thuaj: Ai, All-llahu është Një All-llahu është mbështetja (Atij i mbështetet çdo krijesë) As s’ka lindur kë, as nuk është i lindur Dhe Atij askush nuk i është i barabartë\nThuaj: I mbështetem Zotit të agimit Prej dëmit të çdo krijese, që Ai e krijoi Dhe prej errësirës së natës kur ngryset plotësisht Dhe prej dëmit të atyre që lidhin dhe fryejnë nyja Edhe prej dëmit të smirëkeqit kur sipas smirës vepron\nThuaj: “Mbështetem në Zotin e njerëzve Sunduesin e njerëzve Të adhuruarin e njerëzve Prej të keqes së cytësit që fshihet I cili hedh dyshime në zemrat e njerëzve Qoftë ai nga xhinët ose nga njerëzit”",
+      ky: "Айт (оо, Мухаммад:) Ал — Аллаһ жалгыз Аллаһ- Сомад (Беймуктаж) Ал туубаган жана да туулбаган Жана эч ким Ага тең эмес\nАйт (о, Мухаммад): «Таңдын Раббисинен коргоо тилеймин (Өзү) жараткан (зыяндуу) нерселердин жамандыгынан Каптап кирген учурдагы (караңгы) түндүн жамандыгынан..,” Түйүндөргө дем салган сайкырчылардын жамандыгынан Сугун арткан учурда, көрө албаган кишинин жамандыгынан\nАйткын (о, Мухаммад) «Мен инсандардын Раббисинен Инсандардын падышасынан Инсандардын (сыйынууга татыктуу болгон) Кудайынан коргоо тилеймин — (Анын ысымы айтылганда) жашынып калуучунун? жамандыгынан Ал (шайтан) адамдардын көкүрөгүнө азгырык салат Алар (азгыруучу шайтандар) жиндерден жана адамдардан болот",
+      tg: "Бигӯ: «Ӯст Худои якто Худое, ки дар ҳоҷат ба Ӯ рӯ кунанд на зоида аст ва на зоида шуда ва на ҳеҷ кас ҳамтои Ӯст!»\nБигӯ: «Ба Парвардигори субҳгоҳ паноҳ мебарам аз шарри он чӣ биёфаридааст ва аз шарри шаб чун дарояд ва аз шарри ҷодугароне, ки дар гиреҳҳо афсун медаманд ва аз шарри ҳасуд чун ҳасад мекунад!»\nБигӯ: «Ба Парвардигори мардум паноҳ мебарам фармонравои мардум Худои мардум аз шарру васвасагари пинҳоншаванда он кӣ дар дилҳои мардум васваса мекунад хоҳ аз ҷинниён бошад ё аз одамиён!»",
+    },
     virtues: "Recite before sleep, blow into the palms, and wipe over the body three times.",
     reference: "Quran 112-114 · Bukhari",
     targetCount: 3,
@@ -433,6 +525,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     transliteration: "allahumma antas-salam wa minkas-salam tabarakta ya dhal-jalali wal-ikram",
     translation:
       "O Allah, You are Peace, and from You is peace. Blessed are You, O Possessor of majesty and honor.",
+    translations: {
+      id: "Ya Allah, Engkau pemberi keselamatan, dan dari-Mu keselaatan, Maha Suci Engkau, wahai tuhan yang pemilik keagungan dan kemuliaan.",
+    },
     virtues:
       "When the Messenger of Allah, sallallahu 'alayhi wa sallam, finished his prayer, he would seek forgiveness three times and recite the dhikr above. Al-Auza'i stated that the recitation of istighfar is 'Astaghfirullah, Astaghfirullah.'",
     reference: "HR. Muslim No. 591",
@@ -447,6 +542,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "la ilaha illa allah wahdahu la sharika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. allahumma la mani'a lima a'tayta wa la mu'tiya lima mana'ta wa la yanfa'u dhal-jaddi minkal-jaddu",
     translation:
       "There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs dominion and praise, and He is over all things competent. O Allah, there is no preventer of what You give, and no giver of what You withhold, and wealth and honor do not benefit their possessor (except faith and righteous deeds that save from punishment). Only from You is wealth and honor.",
+    translations: {
+      id: "Tiada Rabb yang berhak disembah selain Allah yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya puji dan bagi-Nya kerajaan. Dia Maha Kuasa atas segala sesuatu. Ya Allah, tidak ada yang mencegah apa yang Engkau berikan dan tidak ada yang memberi apa yang Engkau cegah. Tidak berguna kekayaan dan kemuliaan itu bagi pemiliknya (selain iman dan amal shalihnya yang menyelamatkan dari siksaan). Hanya dari-Mu kekayaan dan kemuliaan.",
+    },
     virtues: "Read 1x",
     reference: "HR. Bukhari No. 844 and Muslim No. 593",
     audioUri:
@@ -462,6 +560,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "la ilaha illa allah wahdahu la sharika lah. lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadir. la hawla wa la quwwata illa billah. la ilaha illa allah wa la na'budu illa iyyah. lahun-ni'mah wa lahul-fadl wa lahuth-thana'ul-hasan. la ilaha illa allah mukhlisina lahud-dina wa law karihal-kafirun",
     translation:
       "There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs dominion and praise, and He is over all things competent. There is no power and no strength except by Allah. There is no deity worthy of worship except Allah, and we do not worship except Him. To Him belongs all favor, grace, and good praise. There is no deity worthy of worship except Allah, making our religion sincerely for Him, even if the disbelievers dislike it.",
+    translations: {
+      id: "Tiada Rabb (yang berhak disembah) kecuali Allah, Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan dan pujaan. Dia Mahakuasa atas segala sesuatu. Tidak ada daya dan kekuatan kecuali (dengan pertolongan) Allah. Tiada Rabb (yang hak disembah) kecuali Allah. Kami tidak menyembah kecuali kepada-Nya. Bagi-Nya nikmat, anugerah dan pujaan yang baik. Tiada Rabb (yang hak disembah) kecuali Allah, dengan memurnikan ibadah kepada-Nya, sekalipun orang-orang kafir sama benci.",
+    },
     virtues:
       "'Abdullah bin Zubair said, \"The Prophet, sallallahu 'alayhi wa sallam, used to recite the tahlil (laa ilaha illallah) at the end of the prayer.\"",
     reference: "HR. Muslim No. 594",
@@ -478,6 +579,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "allahu la ilaha illa huwa, al-hayyul-qayyum. la ta'khudhuhu sinatun wa la nawm. lahu ma fis-samawati wa ma fil-ard. man dhal-ladhi yashfa'u 'indahu illa bi-idhnihi. ya'lamu ma bayna aydihim wa ma khalfahum. wa la yuhituna bishay'in min 'ilmihi illa bima sha'. wa si'a kursiyyuhu as-samawati wal-ard. wa la ya'udu-hu hifdhuhuma. wa huwa al-'aliyyul-'azim",
     translation:
       "Allah - there is no deity except Him, the Ever-Living, the Sustainer of [all] existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is [presently] before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
+    translations: {
+      id: "Allah, tidak ada Tuhan (yang berhak disembah) melainkan Dia Yang Hidup kekal lagi terus menerus mengurus (makhluk-Nya); tidak mengantuk dan tidak tidur. Kepunyaan-Nya apa yang di langit dan di bumi. Tiada yang dapat memberi syafa'at di sisi Allah tanpa izin-Nya? Allah mengetahui apa-apa yang di hadapan mereka dan di belakang mereka, dan mereka tidak mengetahui apa-apa dari ilmu Allah melainkan apa yang dikehendaki-Nya. Kursi Allah meliputi langit dan bumi. Dan Allah tidak merasa berat memelihara keduanya, dan Allah Maha Tinggi lagi Maha Besar.",
+    },
     virtues:
       "Whoever recites Ayat al-Kursi after finishing the prayer, nothing will prevent him from entering Paradise except death.",
     reference:
@@ -492,6 +596,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "qul huwa allahu ahad (1) allahu samad (2) lam yalid wa lam yulad (3) wa lam yakun lahu kufuwan ahad (4)",
     translation:
       'Say, "He is Allah , [who is] One, (1) Allah , the Eternal Refuge. (2) He neither begets nor is born, (3) Nor is there to Him any equivalent." (4)',
+    translations: {
+      id: 'Katakanlah: "Dialah Allah, Yang Maha Esa. Allah adalah Tuhan yang bergantung kepada-Nya segala sesuatu. Dia tiada beranak dan tidak pula diperanakkan, dan tidak ada seorangpun yang setara dengan Dia".',
+    },
     virtues:
       "The Messenger of Allah, sallallahu 'alayhi wa sallam, said: Recite Qul huwallahu ahad, and Al-Mu'awwidhatayn (Al-Falaq and An-Nas) in the evening and morning three times, and it will suffice you (protect you) from everything.",
     reference:
@@ -508,6 +615,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "qul a'udhu birabbil-falaq (1) min sharri ma khalaq (2) wa min sharri ghasiqin idha waqab (3) wa min sharri naffathati fil-'uqad (4) wa min sharri hasidin idha hasad (5)",
     translation:
       'Say, "I seek refuge in the Lord of daybreak (1) From the evil of that which He created (2) And from the evil of darkness when it settles (3) And from the evil of the blowers in knots (4) And from the evil of an envier when he envies." (5)',
+    translations: {
+      id: 'Katakanlah: "Aku berlindung kepada Tuhan Yang Menguasai subuh, dari kejahatan makhluk-Nya, dan dari kejahatan malam apabila telah gelap gulita, dan dari kejahatan wanita-wanita tukang sihir yang menghembus pada buhul-buhul, dan dari kejahatan pendengki bila ia dengki".',
+    },
     virtues:
       "The Messenger of Allah, sallallahu 'alayhi wa sallam, said: Recite Qul huwallahu ahad, and Al-Mu'awwidhatayn (Al-Falaq and An-Nas) in the evening and morning three times, and it will suffice you (protect you) from everything.",
     reference:
@@ -524,6 +634,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "qul a'udhu birabbin-nas (1) malikin-nas (2) ilahin-nas (3) min sharri al-waswasi al-khannas (4) alladhi yuwaswisu fi sudurin-nas (5) mina al-jinnati wan-nas (6)",
     translation:
       'Say, "I seek refuge in the Lord of mankind, (1) The King of mankind. (2) The God of mankind, (3) From the evil of the whisperer who withdraws, (4) Who whispers in the breasts of mankind, (5) Of the jinn and mankind." (6)',
+    translations: {
+      id: "Katakanlah: “Aku berlindung kepada Tuhan (yang memelihara dan menguasai) manusia. (1) Raja manusia. (2) Sembahan manusia. (3) Dari kejahatan (bisikan) syaitan yang biasa bersembunyi, (4) yang membisikkan (kejahatan) ke dalam dada manusia, (5) dari (golongan) jin dan manusia. (6)",
+    },
     virtues:
       "The Messenger of Allah, sallallahu 'alayhi wa sallam, said: Recite Qul huwallahu ahad, and Al-Mu'awwidhatayn (Al-Falaq and An-Nas) in the evening and morning three times, and it will suffice you (protect you) from everything.",
     reference:
@@ -538,6 +651,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     transliteration:
       "allahumma inni as'aluka 'ilman nafi'an, wa rizqan tayyiban, wa 'amalan mutaqabbalan",
     translation: "O Allah, I ask You for beneficial knowledge, good provision, and accepted deeds.",
+    translations: {
+      id: "Ya Allah, sungguh aku memohon kepada-Mu ilmu yang bermanfaat (bagi diriku dan orang lain), rizki yang halal dan amal yang diterima (di sisi-Mu dan mendapatkan ganjaran yang baik).",
+    },
     virtues:
       "Beneficial knowledge is a provision that makes life easier, obtaining good provision is a person's goal in working, and accepted deeds are the hope of every person who performs good deeds. Therefore, a servant should always ask for these 3 things every morning before starting their various activities.",
     reference:
@@ -554,6 +670,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "asbahna wa asbahal-mulku lillahi, wal-hamdu lillahi, la ilaha illa allah wahdahu la sharika lahu, lahu al-mulku wa lahu al-hamdu wa huwa 'ala kulli shay'in qadir. rabbi as'aluka khayra ma fi hadha al-yawm wa khayra ma ba'dahu, wa a'udhu bika min sharri ma fi hadha al-yawm wa sharri ma ba'dahu. rabbi a'udhu bika mina al-kasali wa su'il-kibar. rabbi a'udhu bika min 'adhabin fin-nar wa 'adhabin fil-qabr",
     translation:
       "We have entered the morning and the dominion belongs to Allah, and all praise is for Allah. There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs the dominion and to Him is praise, and He is over all things competent. My Lord, I ask You for the good of this day and the good of what follows it, and I seek refuge in You from the evil of this day and the evil of what follows it. My Lord, I seek refuge in You from laziness and the evil of old age. My Lord, I seek refuge in You from the punishment of the Fire and the punishment of the grave.",
+    translations: {
+      id: "Kami telah memasuki waktu pagi dan kerajaan hanya milik Allah, segala puji bagi Allah. Tidak ada ilah (yang berhak disembah) kecuali Allah semata, tiada sekutu bagi-Nya. Milik Allah kerajaan dan bagi-Nya pujian. Dia-lah Yang Mahakuasa atas segala sesuatu. Wahai Rabbku, aku mohon kepada-Mu kebaikan di hari ini dan kebaikan sesudahnya. Aku berlindung kepada-Mu dari kejahatan hari ini dan kejahatan sesudahnya. Wahai Rabbku, aku berlindung kepada-Mu dari kemalasan dan kejelekan di hari tua. Wahai Rabbku, aku berlindung kepada-Mu dari siksaan di neraka dan siksaan di alam kubur.",
+    },
     virtues: "Recite 1x",
     reference:
       "HR. Muslim No. 2723 (75), Abu Dawud No. 5071, and at-Tirmidzi 3390, sahih from Abdullah Ibn Mas'ud",
@@ -569,6 +688,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "allahumma bika asbahna, wa bika amsayna, wa bika nahya, wa bika namutu wa ilaykan-nushur",
     translation:
       "O Allah, with Your grace and help we enter the morning, and with Your grace and help we enter the evening. By Your grace and will we live and by Your grace and will we die. And to You is the resurrection (for all creatures).",
+    translations: {
+      id: "Ya Allah, dengan rahmat dan pertolongan-Mu kami memasuki waktu pagi, dan dengan rahmat dan pertolongan-Mu kami memasuki waktu petang. Dengan rahmat dan pertolongan-Mu kami hidup dan dengan kehendak-Mu kami mati. Dan kepada-Mu kebangkitan (bagi semua makhluk).",
+    },
     virtues: "Recite 1x",
     reference:
       "HR. al-Bukhari in al-Adab al-Mufrad No. 1199, this wording is the wording of al-Bukhari, at-Tirmidzi No. 3391, Abu Dawud No. 5068, Ahmad 11/354, Ibn Majah No. 3868",
@@ -585,6 +707,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "allahumma anta rabbi, la ilaha illa anta, khalaqtani wa ana 'abduka, wa ana 'ala 'ahdika wa wa'dika mastata'tu. a'udhu bika min sharri ma sana'tu, abu'u laka bini'matika 'alayya, wa abu'u bidhanbi faghfir li, fa innahu la yaghfirudh-dhunuba illa anta",
     translation:
       "O Allah, You are my Lord. There is no deity worthy of worship except You. You created me and I am Your servant. I will be true to my covenant and promise to You as much as I can. I seek refuge in You from the evil of what I have done. I acknowledge Your favor upon me and I acknowledge my sin, therefore, forgive me. Indeed, there is no one who can forgive sins except You.",
+    translations: {
+      id: "Ya Allah, Engkau adalah Rabb-ku, tidak ada Ilah (yang berhak diibadahi dengan benar) kecuali Engkau, Engkau-lah yang menciptakanku. Aku adalah hamba-Mu. Aku akan setia pada perjanjianku dengan-Mu semampuku. Aku berlindung kepada-Mu dari kejelekan (apa) yang kuperbuat. Aku mengakui nikmat-Mu (yang diberikan) kepadaku dan aku mengakui dosaku, oleh karena itu, ampunilah aku. Sesungguhnya tidak ada yang dapat mengampuni dosa kecuali Engkau.",
+    },
     virtues: "Recite 1x",
     reference: "HR. al-Bukhari No. 6306, 6323, Ahmad IV/122-125, an-Nasa'i VIII/279-280",
     audioUri:
@@ -600,6 +725,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "allahumma 'afini fi badani, allahumma 'afini fi sam'i, allahumma 'afini fi basari, la ilaha illa anta. allahumma inni a'udhu bika minal-kufri wal-faqr, wa a'udhu bika min 'adhabil-qabr, la ilaha illa anta",
     translation:
       "O Allah, protect my body (from illness and from what I do not want). O Allah, protect my hearing (from illness and disobedience or from what I do not want). O Allah, protect my sight, there is no deity worthy of worship except You. O Allah, indeed I seek refuge in You from disbelief and poverty. I seek refuge in You from the punishment of the grave, there is no deity worthy of worship except You.",
+    translations: {
+      id: "Ya Allah, selamatkanlah tubuhku (dari penyakit dan dari apa yang tidak aku inginkan). Ya Allah, selamatkanlah pendengaranku (dari penyakit dan maksiat atau dari apa yang tidak aku inginkan). Ya Allah, selamatkanlah penglihatanku, tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau. Ya Allah, sesungguhnya aku berlindung kepada-Mu dari kekufuran dan kefakiran. Aku berlindung kepada-Mu dari siksa kubur, tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau.",
+    },
     virtues: "Recite 1x",
     reference:
       "HR. al-Bukhari in Sahih al-Adab al-Mufrad No. 701, Abu Dawud No. 5090, Ahmad V/42, hasan",
@@ -616,6 +744,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "allahumma inni as'alukal-'afwa wal-'afiyah fid-dunya wal-akhirah. allahumma inni as'alukal-'afwa wal-'afiyah fi dini wa dunyaya wa ahli wa mali. allahummastur 'awrati wa amin raw'ati. allahummahfadhni min bayni yadayya, wa min khalfi, wa 'an yamini wa 'an shimali, wa min fawqi. wa a'udhu bi 'adhamatika an ughtala min tahti",
     translation:
       "O Allah, indeed I ask You for well-being and safety in this world and the Hereafter. O Allah, indeed I ask You for well-being and safety in my religion, my world, my family and my wealth. O Allah, cover my flaws (faults and things that are not appropriate for others to see) and calm me from fear. O Allah, protect me from the front, behind, right, left and above me. I seek refuge in Your greatness, so that I am not snatched from below me (by snakes or swallowed by the earth, etc., which would cause me to fall).",
+    translations: {
+      id: "Ya Allah, sesungguhnya aku memohon kebajikan dan keselamatan di dunia dan akhirat. Ya Allah, sesungguhnya aku memohon kebajikan dan keselamatan dalam agama, dunia, keluarga dan hartaku. Ya Allah, tutupilah auratku (aib dan sesuatu yang tidak layak dilihat orang) dan tenteramkanlah aku dari rasa takut. Ya Allah, peliharalah aku dari muka, belakang, kanan, kiri dan atasku. Aku berlindung dengan kebesaran-Mu, agar aku tidak disambar dari bawahku (oleh ular atau tenggelam dalam bumi dan lain-lain yang membuat aku jatuh).",
+    },
     virtues: "Recite 1x",
     reference:
       "HR. al-Bukhari in al-Adab al-Mufrad No. 1200, Abu Dawud No. 5074, an-Nasa'i VII/282, Ibn Majah No. 3871, al-Hakim 1/517-518, and others from Ibn Umar radhiyallahu 'anhuma",
@@ -630,6 +761,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "allahumma 'alimal-ghaybi wash-shahadati, fatiras-samawati wal-ard, rabbakulli shayin wa malikahu. ashhadu alla ilaha illa anta, a'udhu bika min sharri nafsi, wa min sharri ash-shaytani wa shirkih. wa an aqtarifa 'ala nafsi su'an aw ajurrahu ila muslim",
     translation:
       "O Allah, Knower of the unseen and the seen, Creator of the heavens and the earth, Lord of all things and their Sovereign. I bear witness that there is no deity worthy of worship except You. I seek refuge in You from the evil of myself, Satan and his soldiers (temptations to commit shirk against Allah), and I (seek refuge in You) from committing evil against myself or dragging it to a Muslim.",
+    translations: {
+      id: "Ya Allah, Yang Maha Mengetahui yang ghaib dan yang nyata, wahai Rabb pencipta langit dan bumi, Rabb segala sesuatu dan yang merajainya. Aku bersaksi bahwa tidak ada ilah yang berhak disembah kecuali Engkau. Aku berlindung kepada-Mu dari kejahatan diriku, setan dan balatentaranya (godaan untuk berbuat syirik pada Allah), dan aku (berlindung kepada-Mu) dari berbuat kejelekan terhadap diriku atau menyeretnya kepada seorang muslim.",
+    },
     virtues: "Recite 1x",
     reference:
       "HR. al-Bukhari in al-Adab al-Mufrad No. 1202, at-Tirmidzi No. 3392 and Abu Dawud No. 5067",
@@ -645,6 +779,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "bismillahi alladhi la yadurru ma'asmihi shay'un fi'l-ard wa la fi's-sama'i, wa huwa as-sami'u al-'aleem",
     translation:
       "In the name of Allah with Whose name nothing can harm on earth or in heaven, and He is the All-Hearing, All-Knowing.",
+    translations: {
+      id: "Dengan nama Allah yang bila disebut, segala sesuatu di bumi dan langit tidak akan berbahaya, Dia-lah Yang Maha Mendengar lagi Maha Mengetahui.",
+    },
     virtues: "Recite 3x",
     reference:
       "HR. at-Tirmidzi No. 3388, Abu Dawud No. 5088, Ibn Majah No. 3869, al-Hakim 1/514, and Ahmad No. 446 and 474",
@@ -659,6 +796,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "ya hayyu ya qayyum, bi rahmatika astaghith. wa aslih li sha'ni kullahu wa la takilni ila nafsi tarfata 'aynin abada",
     translation:
       "O Ever-Living, O Self-Sustaining, by Your mercy I seek help, rectify all my affairs and do not leave me to myself even for the blink of an eye.",
+    translations: {
+      id: "Wahai Rabb Yang Maha Hidup, wahai Rabb Yang Berdiri Sendiri (tidak butuh segala sesuatu), dengan rahmat-Mu aku minta pertolongan, perbaikilah segala urusanku dan jangan diserahkan kepadaku sekali pun sekejap mata (tanpa mendapat pertolongan dari-Mu).",
+    },
     virtues: "Recite 1x",
     reference:
       "HR. an-Nasa'i in 'Amalul Yaum wal Lailah No. 575, and al-Hakim 1/545, Sahih at-Targhib wat Tarhib 1/417 No. 661, As-Sahihah No. 227, hasan",
@@ -673,6 +813,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "asbahna 'ala fitratil-islam wa 'ala kalimatil-ikhlas, wa 'ala dini nabiyyina muhammadin sallallahu 'alayhi wa sallam, wa 'ala millati abina ibrahima hanifan musliman wa ma kana minal-mushrikin",
     translation:
       "In the morning we are upon the fitrah of Islam, the word of sincerity (the testimony of faith), the religion of our Prophet Muhammad, sallallahu 'alayhi wa sallam, and the religion of our father Abraham, who stood upon the straight path, a Muslim, and was not among the polytheists.",
+    translations: {
+      id: "Di waktu pagi kami memegang agama Islam, kalimat ikhlas (kalimat syahadat), agama Nabi kami Muhammad shallallahu 'alaihi wa sallam, dan agama bapak kami Ibrahim, yang berdiri di atas jalan yang lurus, muslim dan tidak tergolong orang-orang musyrik.",
+    },
     virtues: "Recite 1x",
     reference:
       "HR. Ahmad III/406, 407, ad-Darimi II/292 and Ibnus Sunni in Amalul Yaum wal Lailah No. 34, Mishkat al-Masabih No. 2415, Sahih al-Jami' as-Saghir No. 4674, sahih",
@@ -688,6 +831,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "subhanallahi wa bihamdihi 'adada khalqihi wa rida nafsihi wa zinata 'arshihi wa midada kalimatihi",
     translation:
       "Glory to Allah, I praise Him as many as the number of His creatures, Glory to Allah according to His pleasure, as pure as the weight of His Throne, and as pure as the ink (which writes) His words.",
+    translations: {
+      id: "Maha Suci Allah, sebanyak makhluk-Nya, Maha Suci Allah sejauh kerelaan-Nya, Maha Suci Allah seberat timbangan 'Arsy-Nya, dan sebanyak tinta tulisan kalimat-Nya.",
+    },
     virtues: "Recite 3x",
     reference:
       "HR. Muslim No. 2726. Sharh Muslim XVII/44. From Juwairiyah binti al-Harits radhiyallahu 'anhuma",
@@ -700,6 +846,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "أَسْتَغْفِرُ الله وَأَتُوْبُ إِلَيْهِ",
     transliteration: "astaghfirullah wa atubu ilayh",
     translation: "I seek forgiveness from Allah and repent to Him.",
+    translations: { id: "Aku memohon ampunan kepada Allah dan bertaubat kepada-Nya." },
     virtues: "Recite 100x a day",
     reference: "HR. al-Bukhari/Fat-hul Baari XI/101 and Muslim No. 2702",
     targetCount: 100,
@@ -716,6 +863,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "amsayna wa amsal-mulku lillahi wal-hamdu lillahi, la ilaha illa allah wahdahu la sharika lahu, lahu al-mulku wa lahu al-hamdu wa huwa 'ala kulli shay'in qadir. rabbi as'aluka khayra ma fi hadhihil-laylah wa khayra ma ba'daha, wa a'udhu bika min sharri ma fi hadhihil-laylah wa sharri ma ba'daha. rabbi a'udhu bika mina al-kasali wa su'il-kibar. rabbi a'udhu bika min 'adhabin fin-nar wa 'adhabin fil-qabr",
     translation:
       "We have entered the evening and the dominion belongs to Allah, and all praise is for Allah. There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs the dominion and to Him is praise, and He is over all things competent. My Lord, I ask You for the good of this night and the good of what follows it, and I seek refuge in You from the evil of this night and the evil of what follows it. My Lord, I seek refuge in You from laziness and the evil of old age. My Lord, I seek refuge in You from the punishment of the Fire and the punishment of the grave.",
+    translations: {
+      id: "Kami telah memasuki waktu petang dan kerajaan hanya milik Allah, segala puji bagi Allah. Tidak ada ilah (yang berhak disembah) kecuali Allah semata, tiada sekutu bagi-Nya. Milik Allah kerajaan dan bagi-Nya pujian. Dia-lah Yang Mahakuasa atas segala sesuatu. Wahai Rabbku, aku mohon kepada-Mu kebaikan di malam ini dan kebaikan sesudahnya. Aku berlindung kepada-Mu dari kejahatan malam ini dan kejahatan sesudahnya. Wahai Rabbku, aku berlindung kepada-Mu dari kemalasan dan kejelekan di hari tua. Wahai Rabbku, aku berlindung kepada-Mu dari siksaan di neraka dan siksaan di kubur.",
+    },
     virtues:
       'Seeking protection from evil is prioritized, the principle that shows the importance of this is: "Preventing harm is more important and prioritized than bringing about good."',
     reference:
@@ -730,6 +880,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "allahumma bika amsayna, wa bika asbahna, wa bika nahya, wa bika namutu wa ilayka al-masir",
     translation:
       "O Allah, by Your grace and help we have entered the evening, and by Your grace and help we enter the morning. By Your grace and help we live and by Your will we die. And to You is the final return (of all creatures).",
+    translations: {
+      id: "Ya Allah, dengan rahmat dan pertolongan-Mu kami memasuki waktu petang, dan dengan rahmat dan pertolongan-Mu kami memasuki waktu pagi. Dengan rahmat dan pertolongan-Mu kami hidup dan dengan kehendak-Mu kami mati. Dan kepada-Mu tempat kembali (bagi semua makhluk).",
+    },
     virtues:
       "Everything we do from morning to evening, from the beginning of our lives until we die, is all under Allah's control and to Him we return.",
     reference:
@@ -745,6 +898,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "amsayna 'ala fitratil-islam wa 'ala kalimatil-ikhlas, wa 'ala dini nabiyyina muhammadin sallallahu 'alayhi wa sallam, wa 'ala millati abina ibrahima hanifan musliman wa ma kana minal-mushrikin",
     translation:
       "In the evening we are upon the fitrah of Islam, the word of sincerity (the testimony of faith), the religion of our Prophet Muhammad, sallallahu 'alayhi wa sallam, and the religion of our father Abraham, who stood upon the straight path, a Muslim, and was not among the polytheists.",
+    translations: {
+      id: "Di waktu sore kami di atas fithrah agama Islam, kalimat ikhlas (kalimat syahadat), agama Nabi kami Muhammad shallallahu 'alaihi wa sallam, dan agama bapak kami Ibrahim, yang berdiri di atas jalan yang lurus, muslim dan tidak tergolong orang-orang musyrik.",
+    },
     virtues:
       "'Fitratil Islam' means upon the Sunnah, 'kalimatil ikhlas' means the testimony of faith, and 'hanifan' means a heart inclined towards the straight path and goodness.",
     reference:

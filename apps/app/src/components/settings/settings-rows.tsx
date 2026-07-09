@@ -1,12 +1,13 @@
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { memo, useMemo } from "react";
-import { StyleSheet, Switch, View } from "react-native";
+import { memo } from "react";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { chevronForward } from "@/lib/rtl";
+import { forwardChevronIcon, useIsRTL } from "@/lib/rtl";
 
 type SymbolName = SymbolViewProps["name"];
 
@@ -24,6 +25,7 @@ export function SettingsRow({
   onPress: () => void;
 }) {
   const { colors, tokens } = useThemeTokens();
+  const rtl = useIsRTL();
   return (
     <PressableScale
       haptic="light"
@@ -48,7 +50,12 @@ export function SettingsRow({
           {value}
         </ThemedText>
       ) : null}
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView
+        key={rtl ? "chevron-rtl" : "chevron-ltr"}
+        name={forwardChevronIcon(rtl)}
+        size={14}
+        tintColor={colors.mutedForeground}
+      />
     </PressableScale>
   );
 }
@@ -70,10 +77,6 @@ export const ToggleRow = memo(
     onValueChange: (value: boolean) => void;
   }) {
     const { colors, tokens } = useThemeTokens();
-    const trackColor = useMemo(
-      () => ({ true: colors.accent, false: tokens.track }),
-      [colors.accent, tokens.track],
-    );
 
     return (
       <View style={[styles.row, { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 }]}>
@@ -90,12 +93,10 @@ export const ToggleRow = memo(
             </ThemedText>
           ) : null}
         </View>
-        <Switch
+        <ThemedSwitch
           value={value}
           disabled={disabled}
           onValueChange={onValueChange}
-          trackColor={trackColor}
-          thumbColor={colors.card}
           accessibilityLabel={title}
         />
       </View>

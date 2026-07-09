@@ -27,6 +27,8 @@ import Fuse from "fuse.js";
 
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { getBundledEdition, getSurahAyahs, getSurahMeta, getTransliteration } from "@/lib/quran";
+import { resolveTranslationField } from "@/lib/translation-locale";
+import { preferencesStore } from "@/stores/preferences-store";
 
 /**
  * Universal, offline search across every bundled content source (Qur'an, hadith,
@@ -46,6 +48,12 @@ import { getBundledEdition, getSurahAyahs, getSurahMeta, getTransliteration } fr
  *   larger, so its Fuse index is built lazily and cached — the caller runs
  *   {@link searchQuranAyahs} off the interaction thread to keep typing smooth.
  */
+
+function scriptureSubtitle<T extends { translation: string; translations?: unknown }>(
+  item: T,
+): string {
+  return resolveTranslationField(item, preferencesStore.getState().prefs);
+}
 
 export type SearchCategory =
   | "quran"
@@ -769,7 +777,7 @@ function searchDuas(query: string, limit: number) {
     key: `dua:${item.id}`,
     category: "dua",
     title: item.title,
-    subtitle: item.translation,
+    subtitle: scriptureSubtitle(item),
     arabic: item.arabic,
     reference: item.reference,
     badge: item.reference,
@@ -783,7 +791,7 @@ function searchZikr(query: string, limit: number) {
     key: `zikr:${item.id}`,
     category: "zikr",
     title: item.title,
-    subtitle: item.translation,
+    subtitle: scriptureSubtitle(item),
     arabic: item.arabic,
     reference: item.reference,
     badge: item.reference,
@@ -797,7 +805,7 @@ function searchNames(query: string, limit: number) {
     key: `name:${item.id}`,
     category: "name",
     title: item.transliteration,
-    subtitle: item.meaning ?? item.translation,
+    subtitle: item.meaning ?? scriptureSubtitle(item),
     arabic: item.arabic,
     badge: `${NAME_POSITION.get(item.id) ?? ""}/99`,
     href: "/names-of-allah",
@@ -809,7 +817,7 @@ function searchDuroods(query: string, limit: number) {
     key: `durood:${item.id}`,
     category: "durood",
     title: item.title,
-    subtitle: item.translation,
+    subtitle: scriptureSubtitle(item),
     arabic: item.arabic,
     reference: item.reference,
     badge: item.reference,

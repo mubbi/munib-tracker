@@ -1,6 +1,6 @@
 import type { ViewStyle } from "react-native";
 
-import { isRTL } from "@/lib/rtl";
+import { isRTL, ltrControlStyle } from "@/lib/rtl";
 
 /**
  * Charts use a fixed LTR coordinate plane so SVG arcs and absolutely-positioned
@@ -8,7 +8,7 @@ import { isRTL } from "@/lib/rtl";
  * while react-native-svg keeps its own non-flipped axis — the knob lands on the
  * opposite side of the ring from the arc head.
  */
-export const chartCoordinateStyle = { direction: "ltr" } satisfies ViewStyle;
+export const chartCoordinateStyle = ltrControlStyle;
 
 /**
  * Circular progress sweeps counter-clockwise in RTL so the fill travels with

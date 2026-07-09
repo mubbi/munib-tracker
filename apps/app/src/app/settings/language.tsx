@@ -73,6 +73,7 @@ export default function LanguageScreen() {
         value={prefs.translationLocale}
         onSelect={(locale) => update({ translationLocale: locale })}
         onClose={() => setTranslationPickerOpen(false)}
+        showScriptureStatus
       />
     </ScreenLayout>
   );

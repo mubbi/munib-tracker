@@ -57,6 +57,18 @@ export default function Root({ children }: PropsWithChildren) {
         <link rel="dns-prefetch" href="https://api.open-meteo.com" />
         <link rel="dns-prefetch" href="https://geocoding-api.open-meteo.com" />
 
+        {/* Bengali UI script — used by reading surfaces when locale script is bengali. */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600&display=swap"
+        />
+        <style
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: document-level CSS variable for Bengali script
+          dangerouslySetInnerHTML={{
+            __html: `:root { --font-bengali: 'Noto Sans Bengali', system-ui, sans-serif; }`,
+          }}
+        />
+
         {/* Site-wide structured data (Organization + WebSite + SoftwareApplication). */}
         <script
           type="application/ld+json"

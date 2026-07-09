@@ -22,7 +22,8 @@
       "!**/packages/api-client/src/generated",
       "!**/packages/api-contract/openapi.json",
       "!**/apps/app/assets/data",
-      "!**/apps/app/scripts/build-data/.cache"
+      "!**/apps/app/scripts/build-data/.cache",
+      "!**/.tmp"
     ]
   },
   "formatter": {
@@ -90,6 +91,27 @@
         "rules": {
           "style": {
             "useImportType": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["tools/screenshot-studio/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noUnknownAtRules": "off"
+          },
+          "performance": {
+            "noImgElement": "off"
+          },
+          "a11y": {
+            "noStaticElementInteractions": "off",
+            "useSemanticElements": "off",
+            "useFocusableInteractive": "off"
+          },
+          "correctness": {
+            "useExhaustiveDependencies": "off"
           }
         }
       }

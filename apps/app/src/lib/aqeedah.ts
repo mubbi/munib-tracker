@@ -3,21 +3,16 @@ import {
   AQEDAH_SECTION_ORDER,
   AQEDAH_TOPICS,
 } from "@munib-tracker/shared/content";
-import {
-  AQEDAH_GLOSSARY_AR,
-  AQEDAH_GLOSSARY_UR,
-  AQEDAH_TOPICS_AR,
-  AQEDAH_TOPICS_UR,
-} from "@munib-tracker/shared/content-i18n";
 import type {
   AqeedahGlossaryTerm,
   AqeedahSection,
   AqeedahTopic,
 } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
+import { overlayList } from "@/lib/content-overlay-registry";
 
 export function getAqeedahTopics(): AqeedahTopic[] {
-  return localizeList(AQEDAH_TOPICS, { ur: AQEDAH_TOPICS_UR, ar: AQEDAH_TOPICS_AR });
+  return localizeList(AQEDAH_TOPICS, overlayList("AQEDAH_TOPICS"));
 }
 
 export function getAqeedahTopic(id: string | undefined): AqeedahTopic | undefined {
@@ -37,7 +32,7 @@ export function getAqeedahTopicsBySection(): Record<AqeedahSection, AqeedahTopic
 }
 
 export function getAqeedahGlossary(): AqeedahGlossaryTerm[] {
-  return localizeList(AQEDAH_GLOSSARY, { ur: AQEDAH_GLOSSARY_UR, ar: AQEDAH_GLOSSARY_AR });
+  return localizeList(AQEDAH_GLOSSARY, overlayList("AQEDAH_GLOSSARY"));
 }
 
 export function getAqeedahLessonCount(): number {

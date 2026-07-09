@@ -7,6 +7,7 @@ import {
   type TabTriggerSlotProps,
 } from "expo-router/ui";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, useWindowDimensions, View, type ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -20,7 +21,7 @@ import { GlassSurface } from "./ui/glass-surface";
 type TabConfig = {
   name: string;
   href: "/" | "/tracker" | "/library" | "/settings";
-  label: string;
+  labelKey: string;
   icon: SymbolViewProps["name"];
 };
 
@@ -28,25 +29,25 @@ const tabs: TabConfig[] = [
   {
     name: "home",
     href: "/",
-    label: "Home",
+    labelKey: "tabs.home",
     icon: { ios: "house.fill", android: "home", web: "home" },
   },
   {
     name: "tracker",
     href: "/tracker",
-    label: "Tracker",
+    labelKey: "tabs.tracker",
     icon: { ios: "list.bullet.clipboard.fill", android: "checklist", web: "checklist" },
   },
   {
     name: "library",
     href: "/library",
-    label: "Library",
+    labelKey: "tabs.library",
     icon: { ios: "books.vertical.fill", android: "local_library", web: "local_library" },
   },
   {
     name: "settings",
     href: "/settings",
-    label: "Settings",
+    labelKey: "tabs.settings",
     icon: { ios: "gearshape.fill", android: "settings", web: "settings" },
   },
 ];
@@ -54,12 +55,13 @@ const tabs: TabConfig[] = [
 export default function AppTabs() {
   const { width } = useWindowDimensions();
   const { colors } = useThemeTokens();
+  const { t } = useTranslation();
   const isWide = width >= SIDE_RAIL_BREAKPOINT;
 
   const triggers = (variant: TabVariant) =>
     tabs.map((tab) => (
       <TabTrigger key={tab.name} name={tab.name} href={tab.href} asChild>
-        <TabButton icon={tab.icon} label={tab.label} variant={variant} />
+        <TabButton icon={tab.icon} label={t(tab.labelKey)} variant={variant} />
       </TabTrigger>
     ));
 

@@ -34,13 +34,16 @@ export function nameAudioTrack(name: NameOfAllah): AudioTrack | null {
   };
 }
 
+/** Track id for the single-file continuous Asma recitation. */
+export const NAMES_COMPLETE_TRACK_ID = "names:complete";
+
 /** A single continuous recitation of all 99 names. */
 const ALL_NAMES_COMPLETE_URI =
   "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/all_names_audio_2.mp3";
 
 export function namesCompleteTrack(): AudioTrack {
   return {
-    id: "names:complete",
+    id: NAMES_COMPLETE_TRACK_ID,
     title: "Asma-ul-Husna",
     subtitle: "All 99 names",
     uri: ALL_NAMES_COMPLETE_URI,

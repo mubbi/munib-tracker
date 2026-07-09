@@ -19,6 +19,8 @@ export interface ZikrItem {
   virtues?: string;
   reference?: string;
   audioUri?: string;
+  /** Dataset-sourced translations keyed by app locale (never AI-generated). */
+  translations?: Partial<Record<string, string>>;
   /** daily target if applicable */
   targetCount?: number;
   /**

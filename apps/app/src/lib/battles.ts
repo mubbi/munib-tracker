@@ -8,24 +8,9 @@ import {
   BATTLES_TOPICS,
   BATTLES_VERSES,
 } from "@munib-tracker/shared/content";
-import {
-  BATTLES_AFTER_PROPHET_AR,
-  BATTLES_AFTER_PROPHET_UR,
-  BATTLES_FIGURES_AR,
-  BATTLES_FIGURES_UR,
-  BATTLES_GLOSSARY_AR,
-  BATTLES_GLOSSARY_UR,
-  BATTLES_LESSON_CARDS_AR,
-  BATTLES_LESSON_CARDS_UR,
-  BATTLES_TIMELINE_AR,
-  BATTLES_TIMELINE_UR,
-  BATTLES_TOPICS_AR,
-  BATTLES_TOPICS_UR,
-  BATTLES_VERSES_AR,
-  BATTLES_VERSES_UR,
-} from "@munib-tracker/shared/content-i18n";
 import type { BattlesSection, BattlesTopic } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
+import { overlayList } from "@/lib/content-overlay-registry";
 
 /** Widened shape of a post-prophetic battle entry (the source array is `as const`). */
 export interface BattlesAfterProphetItem {
@@ -40,7 +25,7 @@ export interface BattlesAfterProphetItem {
 const BATTLES_AFTER_PROPHET_BASE: BattlesAfterProphetItem[] = [...BATTLES_AFTER_PROPHET];
 
 export function getBattlesTopics(): BattlesTopic[] {
-  return localizeList(BATTLES_TOPICS, { ur: BATTLES_TOPICS_UR, ar: BATTLES_TOPICS_AR });
+  return localizeList(BATTLES_TOPICS, overlayList("BATTLES_TOPICS"));
 }
 
 export function getBattlesTopic(id: string | undefined): BattlesTopic | undefined {
@@ -64,31 +49,25 @@ export function getBattlesLessonCount(): number {
 }
 
 export function getBattlesTimeline() {
-  return localizeList(BATTLES_TIMELINE, { ur: BATTLES_TIMELINE_UR, ar: BATTLES_TIMELINE_AR });
+  return localizeList(BATTLES_TIMELINE, overlayList("BATTLES_TIMELINE"));
 }
 
 export function getBattlesGlossary() {
-  return localizeList(BATTLES_GLOSSARY, { ur: BATTLES_GLOSSARY_UR, ar: BATTLES_GLOSSARY_AR });
+  return localizeList(BATTLES_GLOSSARY, overlayList("BATTLES_GLOSSARY"));
 }
 
 export function getBattlesFigures() {
-  return localizeList(BATTLES_FIGURES, { ur: BATTLES_FIGURES_UR, ar: BATTLES_FIGURES_AR });
+  return localizeList(BATTLES_FIGURES, overlayList("BATTLES_FIGURES"));
 }
 
 export function getBattlesLessonCards() {
-  return localizeList(BATTLES_LESSON_CARDS, {
-    ur: BATTLES_LESSON_CARDS_UR,
-    ar: BATTLES_LESSON_CARDS_AR,
-  });
+  return localizeList(BATTLES_LESSON_CARDS, overlayList("BATTLES_LESSON_CARDS"));
 }
 
 export function getBattlesVerses() {
-  return localizeList(BATTLES_VERSES, { ur: BATTLES_VERSES_UR, ar: BATTLES_VERSES_AR });
+  return localizeList(BATTLES_VERSES, overlayList("BATTLES_VERSES"));
 }
 
 export function getBattlesAfterProphet(): BattlesAfterProphetItem[] {
-  return localizeList(BATTLES_AFTER_PROPHET_BASE, {
-    ur: BATTLES_AFTER_PROPHET_UR,
-    ar: BATTLES_AFTER_PROPHET_AR,
-  });
+  return localizeList(BATTLES_AFTER_PROPHET_BASE, overlayList("BATTLES_AFTER_PROPHET"));
 }

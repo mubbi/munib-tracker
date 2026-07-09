@@ -25,6 +25,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { milestoneDescription, milestoneTitle } from "@/lib/achievements-i18n";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
 import { goBackOrReplace } from "@/lib/navigation";
 import { formatAchievementShare } from "@/lib/share";
@@ -107,7 +108,7 @@ function MilestoneCard({
           {trackLabel} · {t("achievements.level", { level: milestone.level })}
         </ThemedText>
         <ThemedText type="smallBold" numberOfLines={1}>
-          {milestone.title}
+          {milestoneTitle(milestone)}
         </ThemedText>
       </Card>
     );
@@ -127,9 +128,9 @@ function MilestoneCard({
         {" · "}
         {t("achievements.level", { level: milestone.level })}
       </ThemedText>
-      <ThemedText type="smallBold">{milestone.title}</ThemedText>
+      <ThemedText type="smallBold">{milestoneTitle(milestone)}</ThemedText>
       <ThemedText type="caption" themeColor="mutedForeground">
-        {milestone.description}
+        {milestoneDescription(milestone)}
       </ThemedText>
       <View style={styles.progress}>
         <ProgressBar value={milestone.progress} />
@@ -198,16 +199,18 @@ export default function AchievementsScreen() {
       milestone.trackId === "devotion"
         ? t("achievements.devotion")
         : t(TRACK_LABEL_KEYS[milestone.trackId] ?? milestone.trackId);
+    const title = milestoneTitle(milestone);
+    const description = milestoneDescription(milestone);
     await share({
-      message: formatAchievementShare(milestone.title, milestone.description),
+      message: formatAchievementShare(title, description),
       sectionTitle: t("share.sectionAchievement"),
       contentLabel: `${trackLabel} · L${milestone.level}`,
       filenameSlug: "achievement",
       shareKey: milestone.id,
       content: {
         kind: "achievement",
-        title: milestone.title,
-        description: milestone.description,
+        title,
+        description,
         trackLabel,
         level: milestone.level,
       },

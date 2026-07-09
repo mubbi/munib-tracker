@@ -2,12 +2,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 
 import { WIDGET_APP_GROUP, WIDGET_SNAPSHOT_KEY } from "@/lib/appSurfaces/config";
-import { EMPTY_WIDGET_SNAPSHOT, type WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
+import { emptyWidgetSnapshot, type WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 
 export type { BuildWidgetSnapshotInput } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 export { buildWidgetSnapshot } from "@/lib/appSurfaces/widgets/buildWidgetSnapshot";
 export type { WidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
-export { EMPTY_WIDGET_SNAPSHOT } from "@/lib/appSurfaces/widgets/types";
+export { emptyWidgetSnapshot } from "@/lib/appSurfaces/widgets/types";
 
 async function writeIosSnapshot(json: string): Promise<void> {
   if (Platform.OS !== "ios") return;
@@ -24,29 +24,30 @@ async function writeIosSnapshot(json: string): Promise<void> {
 function normalizeWidgetSnapshot(
   parsed: Partial<WidgetSnapshot> | null | undefined,
 ): WidgetSnapshot {
-  if (parsed?.version !== 1) return EMPTY_WIDGET_SNAPSHOT;
+  const empty = emptyWidgetSnapshot();
+  if (parsed?.version !== 1) return empty;
   return {
-    ...EMPTY_WIDGET_SNAPSHOT,
+    ...empty,
     ...parsed,
     version: 1,
-    theme: { ...EMPTY_WIDGET_SNAPSHOT.theme, ...parsed.theme },
-    nextPrayer: { ...EMPTY_WIDGET_SNAPSHOT.nextPrayer, ...parsed.nextPrayer },
+    theme: { ...empty.theme, ...parsed.theme },
+    nextPrayer: { ...empty.nextPrayer, ...parsed.nextPrayer },
     schedule: {
-      ...EMPTY_WIDGET_SNAPSHOT.schedule,
+      ...empty.schedule,
       ...parsed.schedule,
       rows: parsed.schedule?.rows ?? [],
     },
-    progress: { ...EMPTY_WIDGET_SNAPSHOT.progress, ...parsed.progress },
+    progress: { ...empty.progress, ...parsed.progress },
   };
 }
 
 export async function readWidgetSnapshot(): Promise<WidgetSnapshot> {
   try {
     const raw = await AsyncStorage.getItem(WIDGET_SNAPSHOT_KEY);
-    if (!raw) return EMPTY_WIDGET_SNAPSHOT;
+    if (!raw) return emptyWidgetSnapshot();
     return normalizeWidgetSnapshot(JSON.parse(raw) as Partial<WidgetSnapshot>);
   } catch {
-    return EMPTY_WIDGET_SNAPSHOT;
+    return emptyWidgetSnapshot();
   }
 }
 

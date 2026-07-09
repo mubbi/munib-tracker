@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
-import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
+import { isRemoteEdition } from "@/api/quran-remote";
 import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
 import { MushafFontLoading } from "@/components/quran/mushaf-font-loading";
 import { MushafLineRenderer } from "@/components/quran/mushaf-line-renderer";
@@ -16,6 +16,7 @@ import { PagePickerSheet } from "@/components/quran/page-picker-sheet";
 import { PageReaderFooter } from "@/components/quran/page-reader-footer";
 import PagerView, { type PagerViewHandle } from "@/components/quran/pager-view";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
+import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Spacing } from "@/constants/theme";
@@ -47,6 +48,7 @@ import {
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
 import { resolveReadingFontSizes } from "@/lib/reading-typography";
 import { buildAyahSharePayload } from "@/lib/share";
+import { resolveQuranEditionId } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
@@ -57,12 +59,7 @@ const LAYOUT_OPTIONS: Array<{ id: QuranReaderLayout; labelKey: string }> = [
   { id: "ayah", labelKey: "quran.layoutAyah" },
 ];
 
-const ALL_TRANSLATIONS = [
-  ...getBundledEditions().filter((e) => e.kind === "translation"),
-  ...REMOTE_EDITIONS,
-];
 const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
-const TRANSLATION_OPTIONS = ALL_TRANSLATIONS.map((e) => ({ id: e.id, label: e.name }));
 
 const LAST_READ_FLUSH_MS = 600;
 /** Pager siblings kept mounted around the visible page (current ± this window). */
@@ -90,8 +87,9 @@ export default function QuranPageReaderScreen() {
   const contentBottomInset = useContentBottomInset();
   const { colors } = useThemeTokens();
   const prefs = useQuranPrefs();
-  const { fontPrefs } = usePreferences();
+  const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
   const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
+  const defaultEditionId = resolveQuranEditionId({ translationLocale, locale: appLocale });
   const { updatePrefs, setLastRead, toggleBookmark, recordProgress } = useQuranActions();
   const bookmarks = useQuranBookmarks();
   const audio = useAudioPlayerContext();
@@ -123,7 +121,7 @@ export default function QuranPageReaderScreen() {
     [currentPage],
   );
 
-  const primaryEditionId = prefs.preferredTranslationIds[0] ?? "en-pickthall";
+  const primaryEditionId = prefs.preferredTranslationIds[0] ?? defaultEditionId;
   const fallbackEdition =
     getBundledEditions().find((e) => e.kind === "translation") ?? getBundledEditions()[0];
   const selectedEdition = getEditionById(primaryEditionId) ?? fallbackEdition;
@@ -487,19 +485,20 @@ export default function QuranPageReaderScreen() {
           onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
           onClose={() => setReciterPickerOpen(false)}
         />
-        <OptionPickerSheet
+        <TranslationPickerSheet
           visible={translationPickerOpen}
           title={t("quran.translation")}
-          options={TRANSLATION_OPTIONS}
           selectedId={primaryEditionId}
+          preferredLanguages={[translationLocale, appLocale]}
           onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
           onClose={() => setTranslationPickerOpen(false)}
         />
-        <OptionPickerSheet
+        <TranslationPickerSheet
           visible={secondaryPickerOpen}
           title={t("quran.secondTranslation")}
-          options={[{ id: "", label: t("quran.secondTranslationNone") }, ...TRANSLATION_OPTIONS]}
+          allowNone
           selectedId={secondaryId ?? ""}
+          preferredLanguages={[translationLocale, appLocale]}
           onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
           onClose={() => setSecondaryPickerOpen(false)}
         />

@@ -15,8 +15,9 @@ works; the others are the bundled files below, registered at startup.
 | Scheherazade      | `ScheherazadeNew` | `ScheherazadeNew-Regular.ttf` | `ScheherazadeNew-OFL.txt`     | `ofl/scheherazadenew`        |
 | Noto Naskh Arabic | `NotoNaskhArabic` | `NotoNaskhArabic-Regular.ttf` | `NotoNaskhArabic-OFL.txt`     | `ofl/notonaskharabic`        |
 | QPC Hafs (mushaf) | `QPC_Hafs`        | `qpc-hafs.ttf`                | King Fahd Complex             | Uthmanic Hafs                |
+| Noto Sans Bengali | `NotoSansBengali` | `NotoSansBengali-Regular.ttf` | `NotoSansBengali-OFL.txt`     | `ofl/notosansbengali`        |
 
-All four ship under the SIL Open Font License (OFL 1.1); the `*-OFL.txt` files in
+All four Arabic families ship under the SIL Open Font License (OFL 1.1); the `*-OFL.txt` files in
 this folder are the required license copies.
 
 ## QCF V2 per-page mushaf fonts (not bundled)
@@ -30,9 +31,10 @@ fonts). Source: [nuqayah/qpc-fonts](https://github.com/nuqayah/qpc-fonts).
 ## Registering the fonts
 
 Fonts are registered once in `src/app/_layout.tsx` via `expo-font` `useFonts`
-and the `ARABIC_FONT_FILES` map exported from `src/lib/arabic-fonts.ts`, which
-`require()`s each `.ttf` in this folder. The map's keys are the `fontFamily`
-values consumed by `ARABIC_FONT_OPTIONS`.
+and the `ARABIC_FONT_FILES` map exported from `src/lib/arabic-fonts.ts` plus
+`BENGALI_FONT_FILES` from `src/lib/bengali-fonts.ts`, which `require()` each
+`.ttf` in this folder. Bengali uses `resolveTranslationFontFamily()` in
+`src/lib/reading-typography.ts` when the user's locale script is Bengali.
 
 ## Adding / updating a font
 

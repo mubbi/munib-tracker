@@ -13,6 +13,7 @@
     "./utils": "./src/utils/index.ts",
     "./content": "./src/content/index.ts",
     "./content-i18n": "./src/content/i18n/index.ts",
+    "./i18n": "./src/i18n/index.ts",
     "./achievements": "./src/achievements/index.ts"
   },
   "scripts": {
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@munib-tracker/typescript-config": "workspace:*",
+    "tsx": "^4.20.3",
     "typescript": "^6.0.0",
     "vitest": "^3.2.0"
   }

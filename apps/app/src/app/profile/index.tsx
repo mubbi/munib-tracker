@@ -27,12 +27,19 @@ import { usePreferences, usePreferencesActions } from "@/stores/preferences-stor
 import { reloadAllStores } from "@/stores/reload-all-stores";
 import { readSyncMetadata, type SyncMetadata } from "@/sync/sync-engine";
 
-/** Turns a raw sync entity id ("dua_favorites") into a readable label ("Dua Favorites"). */
-function friendlyEntity(entity: string): string {
+/** Title-cases a raw sync entity id ("dua_favorites" -> "Dua Favorites") as a last-resort fallback. */
+function titleCaseEntity(entity: string): string {
   return entity
     .split("_")
     .map((word) => (word ? word.charAt(0).toUpperCase() + word.slice(1) : word))
     .join(" ");
+}
+
+/** Turns a raw sync entity id ("dua_favorites") into a translated, readable label. */
+function friendlyEntity(entity: string, t: (key: string) => string): string {
+  const key = `sync.entities.${entity}`;
+  const translated = t(key);
+  return translated === key ? titleCaseEntity(entity) : translated;
 }
 
 export default function ProfileScreen() {
@@ -256,7 +263,9 @@ export default function ProfileScreen() {
                 {syncMeta.lastConflictEntities && syncMeta.lastConflictEntities.length > 0 ? (
                   <ThemedText type="caption" themeColor="mutedForeground">
                     {t("sync.conflictAffected", {
-                      list: syncMeta.lastConflictEntities.map(friendlyEntity).join(", "),
+                      list: syncMeta.lastConflictEntities
+                        .map((entity) => friendlyEntity(entity, t))
+                        .join(", "),
                     })}
                   </ThemedText>
                 ) : null}

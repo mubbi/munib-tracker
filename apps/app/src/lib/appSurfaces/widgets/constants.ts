@@ -1,3 +1,5 @@
+import i18n from "@/i18n";
+
 /** Max schedule rows stored in snapshot (large widgets show all; compact shows fewer). */
 export const WIDGET_MAX_SCHEDULE_ROWS = 5;
 
@@ -24,17 +26,33 @@ export function isAppWidgetName(value: string): value is AppWidgetName {
   return (APP_WIDGET_NAMES as readonly string[]).includes(value);
 }
 
-export const WIDGET_DISPLAY_NAMES: Record<AppWidgetName, { label: string; description: string }> = {
+const WIDGET_DISPLAY_NAME_KEYS: Record<
+  AppWidgetName,
+  { labelKey: string; descriptionKey: string }
+> = {
   NextPrayerWidget: {
-    label: "Munib Tracker · Next prayer",
-    description: "Next prayer name, time, and countdown on home or lock screen",
+    labelKey: "widgets.gallery.nextPrayer.label",
+    descriptionKey: "widgets.gallery.nextPrayer.description",
   },
   PrayerScheduleWidget: {
-    label: "Munib Tracker · Schedule",
-    description: "Today's obligatory prayer times at a glance",
+    labelKey: "widgets.gallery.schedule.label",
+    descriptionKey: "widgets.gallery.schedule.description",
   },
   PrayerProgressWidget: {
-    label: "Munib Tracker · Progress",
-    description: "Today's obligatory prayer progress",
+    labelKey: "widgets.gallery.progress.label",
+    descriptionKey: "widgets.gallery.progress.description",
   },
 };
+
+/**
+ * Resolves a widget's gallery label/description in the active app locale.
+ * A function (not a module-scope constant) because it must call `i18n.t()`
+ * at invocation time, after i18n has initialized.
+ */
+export function widgetDisplayName(id: AppWidgetName): { label: string; description: string } {
+  const { labelKey, descriptionKey } = WIDGET_DISPLAY_NAME_KEYS[id];
+  return {
+    label: i18n.t(labelKey),
+    description: i18n.t(descriptionKey),
+  };
+}

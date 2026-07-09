@@ -1,5 +1,4 @@
 import { HAJJ_GUIDE_SECTIONS } from "@munib-tracker/shared/content";
-import { HAJJ_GUIDE_SECTIONS_AR, HAJJ_GUIDE_SECTIONS_UR } from "@munib-tracker/shared/content-i18n";
 import type { HajjGuideStep } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -20,6 +19,7 @@ import { Spacing } from "@/constants/theme";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { localizeList } from "@/lib/content-i18n";
+import { overlayList } from "@/lib/content-overlay-registry";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureHajjChecklistLoaded,
@@ -93,11 +93,7 @@ export default function HajjScreen() {
   // Recompute per locale so translated section titles/summaries/steps render on switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
   const sections = useMemo(
-    () =>
-      localizeList(HAJJ_GUIDE_SECTIONS, {
-        ur: HAJJ_GUIDE_SECTIONS_UR,
-        ar: HAJJ_GUIDE_SECTIONS_AR,
-      }),
+    () => localizeList(HAJJ_GUIDE_SECTIONS, overlayList("HAJJ_GUIDE_SECTIONS")),
     [i18n.language],
   );
 

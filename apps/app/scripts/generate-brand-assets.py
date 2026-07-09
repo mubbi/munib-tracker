@@ -143,6 +143,17 @@ def main() -> None:
 
     _save_png(logo, MARKETING_PUBLIC / "munib-logo.png")
 
+    # Screenshot studio (tools/screenshot-studio/public)
+    studio_public = REPO_ROOT / "tools" / "screenshot-studio" / "public"
+    studio_app = REPO_ROOT / "tools" / "screenshot-studio" / "src" / "app"
+    studio_public.mkdir(parents=True, exist_ok=True)
+    studio_app.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(APP_IMAGES / "icon.png", studio_public / "app-icon.png")
+    shutil.copy2(APP_IMAGES / "munib-logo.png", studio_public / "munib-logo.png")
+    shutil.copy2(APP_IMAGES / "favicon.png", studio_app / "icon.png")
+    shutil.copy2(APP_IMAGES / "icon-180.png", studio_app / "apple-icon.png")
+    print("  synced screenshot-studio brand assets")
+
     print("Done.")
 
 

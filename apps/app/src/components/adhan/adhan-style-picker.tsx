@@ -1,4 +1,5 @@
 import { SymbolView } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -15,18 +16,21 @@ type AdhanStylePickerProps = {
 /** Vertical adhan style list — avoids cramming long muezzin names into a segmented row. */
 export function AdhanStylePicker({ value, onChange }: AdhanStylePickerProps) {
   const { colors, tokens } = useThemeTokens();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.list}>
       {ADHAN_STYLES.map((style) => {
         const selected = style.id === value;
+        const name = t(`settings.adhanStyles.${style.id}.name`);
+        const location = t(`settings.adhanStyles.${style.id}.location`);
         return (
           <PressableScale
             key={style.id}
             haptic="selection"
             accessibilityRole="button"
             accessibilityState={{ selected }}
-            accessibilityLabel={style.name}
+            accessibilityLabel={name}
             onPress={() => {
               if (!selected) onChange(style.id);
             }}
@@ -41,10 +45,10 @@ export function AdhanStylePicker({ value, onChange }: AdhanStylePickerProps) {
           >
             <View style={styles.copy}>
               <ThemedText type="smallBold" numberOfLines={2}>
-                {style.name}
+                {name}
               </ThemedText>
               <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                {style.location}
+                {location}
               </ThemedText>
             </View>
             {selected ? (

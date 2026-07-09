@@ -1,7 +1,7 @@
 import type { CalendarMode, TimeFormat } from "@munib-tracker/shared/types";
 
 import { formatCalendarDate } from "./calendar-format";
-import { localeToBcp47 } from "./locale-bcp47";
+import { localeToBcp47, toAppLocale } from "./locale-bcp47";
 import { prayerDayAnchor, shiftPrayerDay } from "./timezone-anchor";
 
 export { localeToBcp47 } from "./locale-bcp47";
@@ -164,8 +164,7 @@ export function formatDisplayDateTime(
   timeZone?: string,
   calendar: CalendarMode = "gregorian",
 ): string {
-  const base = locale.split("-")[0];
-  const appLocale = base === "ar" || base === "ur" ? base : "en";
+  const appLocale = toAppLocale(locale);
   const datePart = formatCalendarDate(
     date,
     calendar,

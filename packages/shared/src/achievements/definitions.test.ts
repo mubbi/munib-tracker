@@ -189,7 +189,9 @@ describe.concurrent("getMilestoneById", () => {
       ...base,
       qazaDebt: { total: 100, completed: 100, remaining: 0 },
     };
-    expect(getMilestoneById("qaza:debt:100:cleared", stats)?.title).toBe("Qaza Debt Cleared");
+    expect(getMilestoneById("qaza:debt:100:cleared", stats)?.titleKey).toBe(
+      "achievements.debt.qaza.clearedTitle",
+    );
   });
 
   it("uses the total embedded in cleared debt ids", () => {
@@ -199,7 +201,7 @@ describe.concurrent("getMilestoneById", () => {
     };
     const historical = getMilestoneById("qaza:debt:10:cleared", stats);
     expect(historical?.id).toBe("qaza:debt:10:cleared");
-    expect(historical?.description).toContain("10");
+    expect(historical?.descriptionParams?.count).toBe(10);
   });
 });
 

@@ -1,6 +1,7 @@
 import { BlurView } from "expo-blur";
 import { SymbolView } from "expo-symbols";
 import { type ReactNode, useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -56,6 +57,7 @@ export function PinShell({
   contentStyle,
   presentation = "modal",
 }: Props) {
+  const { t } = useTranslation();
   const { colors, scheme, tokens } = useThemeTokens();
   const insets = useSafeAreaInsets();
   const shakeX = useSharedValue(0);
@@ -112,7 +114,7 @@ export function PinShell({
                 haptic="selection"
                 scaleTo={0.9}
                 style={[styles.closeBtn, { opacity: closeDisabled ? 0.4 : 1 }]}
-                accessibilityLabel="Close"
+                accessibilityLabel={t("common.close")}
               >
                 <SymbolView
                   name={{ ios: "xmark", android: "close", web: "close" }}

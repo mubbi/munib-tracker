@@ -112,8 +112,8 @@ export default function OnboardingIntroScreen() {
     >
       <Seo
         path="/intro"
-        title="Welcome"
-        description="Get started with your offline-first Islamic companion."
+        title={t("seo.intro.title")}
+        description={t("seo.intro.description")}
         index={false}
       />
       <StatusBar style="light" />

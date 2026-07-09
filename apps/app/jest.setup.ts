@@ -136,7 +136,7 @@ jest.mock("expo-system-ui", () => ({
 }));
 
 jest.mock("expo-localization", () => ({
-  getLocales: () => [{ languageCode: "en" }],
+  getLocales: () => [{ languageCode: "en", languageTag: "en-US" }],
 }));
 
 jest.mock("expo", () => {

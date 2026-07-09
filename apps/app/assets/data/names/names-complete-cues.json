@@ -1,0 +1,503 @@
+{
+  "version": 1,
+  "audioUri": "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/all_names_audio_2.mp3",
+  "audioRepoSha": "03c526366d460c3acb163c89fadb0201fd057b96",
+  "totalDurationSec": 109.9,
+  "cues": [
+    {
+      "id": "ar-rahman",
+      "start": 0.0,
+      "end": 1.2
+    },
+    {
+      "id": "ar-rahim",
+      "start": 1.2,
+      "end": 2.2
+    },
+    {
+      "id": "al-malik",
+      "start": 2.2,
+      "end": 3.3
+    },
+    {
+      "id": "al-quddus",
+      "start": 3.3,
+      "end": 4.4
+    },
+    {
+      "id": "as-salam",
+      "start": 4.4,
+      "end": 5.4
+    },
+    {
+      "id": "al-mumin",
+      "start": 5.4,
+      "end": 6.5
+    },
+    {
+      "id": "al-muhaymin",
+      "start": 6.5,
+      "end": 7.6
+    },
+    {
+      "id": "al-aziz",
+      "start": 7.6,
+      "end": 8.7
+    },
+    {
+      "id": "al-jabbar",
+      "start": 8.7,
+      "end": 9.8
+    },
+    {
+      "id": "al-mutakabbir",
+      "start": 9.8,
+      "end": 10.9
+    },
+    {
+      "id": "al-khaliq",
+      "start": 10.9,
+      "end": 12.0
+    },
+    {
+      "id": "al-bari",
+      "start": 12.0,
+      "end": 13.0
+    },
+    {
+      "id": "al-musawwir",
+      "start": 13.0,
+      "end": 14.1
+    },
+    {
+      "id": "al-ghaffar",
+      "start": 14.1,
+      "end": 15.2
+    },
+    {
+      "id": "al-qahhar",
+      "start": 15.2,
+      "end": 16.5
+    },
+    {
+      "id": "al-wahhab",
+      "start": 16.5,
+      "end": 17.6
+    },
+    {
+      "id": "ar-razzaq",
+      "start": 17.6,
+      "end": 18.7
+    },
+    {
+      "id": "al-fattah",
+      "start": 18.7,
+      "end": 19.8
+    },
+    {
+      "id": "al-alim",
+      "start": 19.8,
+      "end": 21.0
+    },
+    {
+      "id": "al-qabid",
+      "start": 21.0,
+      "end": 22.1
+    },
+    {
+      "id": "al-basit",
+      "start": 22.1,
+      "end": 23.2
+    },
+    {
+      "id": "al-khafid",
+      "start": 23.2,
+      "end": 24.3
+    },
+    {
+      "id": "ar-rafi",
+      "start": 24.3,
+      "end": 25.4
+    },
+    {
+      "id": "al-muizz",
+      "start": 25.4,
+      "end": 26.5
+    },
+    {
+      "id": "al-mudhill",
+      "start": 26.5,
+      "end": 27.6
+    },
+    {
+      "id": "as-sami",
+      "start": 27.6,
+      "end": 28.7
+    },
+    {
+      "id": "al-basir",
+      "start": 28.7,
+      "end": 29.8
+    },
+    {
+      "id": "al-hakam",
+      "start": 29.8,
+      "end": 30.9
+    },
+    {
+      "id": "al-adl",
+      "start": 30.9,
+      "end": 32.0
+    },
+    {
+      "id": "al-latif",
+      "start": 32.0,
+      "end": 33.1
+    },
+    {
+      "id": "al-khabir",
+      "start": 33.1,
+      "end": 34.2
+    },
+    {
+      "id": "al-halim",
+      "start": 34.2,
+      "end": 35.3
+    },
+    {
+      "id": "al-azim",
+      "start": 35.3,
+      "end": 36.4
+    },
+    {
+      "id": "al-ghafur",
+      "start": 36.4,
+      "end": 37.5
+    },
+    {
+      "id": "ash-shakur",
+      "start": 37.5,
+      "end": 38.6
+    },
+    {
+      "id": "al-aliyy",
+      "start": 38.6,
+      "end": 39.7
+    },
+    {
+      "id": "al-kabir",
+      "start": 39.7,
+      "end": 40.8
+    },
+    {
+      "id": "al-hafiz",
+      "start": 40.8,
+      "end": 41.9
+    },
+    {
+      "id": "al-muqit",
+      "start": 41.9,
+      "end": 43.0
+    },
+    {
+      "id": "al-hasib",
+      "start": 43.0,
+      "end": 44.1
+    },
+    {
+      "id": "al-jalil",
+      "start": 44.1,
+      "end": 45.2
+    },
+    {
+      "id": "al-karim",
+      "start": 45.2,
+      "end": 46.3
+    },
+    {
+      "id": "ar-raqib",
+      "start": 46.3,
+      "end": 47.4
+    },
+    {
+      "id": "al-mujib",
+      "start": 47.4,
+      "end": 48.5
+    },
+    {
+      "id": "al-wasi",
+      "start": 48.5,
+      "end": 49.6
+    },
+    {
+      "id": "al-hakim",
+      "start": 49.6,
+      "end": 50.7
+    },
+    {
+      "id": "al-wadud",
+      "start": 50.7,
+      "end": 51.8
+    },
+    {
+      "id": "al-majid",
+      "start": 51.8,
+      "end": 52.9
+    },
+    {
+      "id": "al-baith",
+      "start": 52.9,
+      "end": 54.0
+    },
+    {
+      "id": "ash-shahid",
+      "start": 54.0,
+      "end": 55.1
+    },
+    {
+      "id": "al-haqq",
+      "start": 55.1,
+      "end": 56.1
+    },
+    {
+      "id": "al-wakil",
+      "start": 56.1,
+      "end": 57.2
+    },
+    {
+      "id": "al-qawiyy",
+      "start": 57.2,
+      "end": 58.3
+    },
+    {
+      "id": "al-matin",
+      "start": 58.3,
+      "end": 59.4
+    },
+    {
+      "id": "al-waliyy",
+      "start": 59.4,
+      "end": 60.5
+    },
+    {
+      "id": "al-hamid",
+      "start": 60.5,
+      "end": 61.6
+    },
+    {
+      "id": "al-muhsi",
+      "start": 61.6,
+      "end": 62.7
+    },
+    {
+      "id": "al-mubdi",
+      "start": 62.7,
+      "end": 63.8
+    },
+    {
+      "id": "al-muid",
+      "start": 63.8,
+      "end": 64.9
+    },
+    {
+      "id": "al-muhyi",
+      "start": 64.9,
+      "end": 66.0
+    },
+    {
+      "id": "al-mumit",
+      "start": 66.0,
+      "end": 67.2
+    },
+    {
+      "id": "al-hayy",
+      "start": 67.2,
+      "end": 68.3
+    },
+    {
+      "id": "al-qayyum",
+      "start": 68.3,
+      "end": 69.5
+    },
+    {
+      "id": "al-wajid",
+      "start": 69.5,
+      "end": 70.7
+    },
+    {
+      "id": "al-maajid",
+      "start": 70.7,
+      "end": 71.9
+    },
+    {
+      "id": "al-wahid",
+      "start": 71.9,
+      "end": 73.1
+    },
+    {
+      "id": "al-ahad",
+      "start": 73.1,
+      "end": 74.2
+    },
+    {
+      "id": "as-samad",
+      "start": 74.2,
+      "end": 75.3
+    },
+    {
+      "id": "al-qadir",
+      "start": 75.3,
+      "end": 76.4
+    },
+    {
+      "id": "al-muqtadir",
+      "start": 76.4,
+      "end": 77.6
+    },
+    {
+      "id": "al-muqaddim",
+      "start": 77.6,
+      "end": 78.8
+    },
+    {
+      "id": "al-muakhkhir",
+      "start": 78.8,
+      "end": 80.0
+    },
+    {
+      "id": "al-awwal",
+      "start": 80.0,
+      "end": 81.1
+    },
+    {
+      "id": "al-akhir",
+      "start": 81.1,
+      "end": 82.3
+    },
+    {
+      "id": "az-zahir",
+      "start": 82.3,
+      "end": 83.5
+    },
+    {
+      "id": "al-batin",
+      "start": 83.5,
+      "end": 84.6
+    },
+    {
+      "id": "al-wali",
+      "start": 84.6,
+      "end": 85.7
+    },
+    {
+      "id": "al-mutaali",
+      "start": 85.7,
+      "end": 86.9
+    },
+    {
+      "id": "al-barr",
+      "start": 86.9,
+      "end": 88.0
+    },
+    {
+      "id": "at-tawwab",
+      "start": 88.0,
+      "end": 89.2
+    },
+    {
+      "id": "al-muntaqim",
+      "start": 89.2,
+      "end": 90.4
+    },
+    {
+      "id": "al-afuww",
+      "start": 90.4,
+      "end": 91.5
+    },
+    {
+      "id": "ar-rauf",
+      "start": 91.5,
+      "end": 92.7
+    },
+    {
+      "id": "malik-ul-mulk",
+      "start": 92.7,
+      "end": 94.2
+    },
+    {
+      "id": "dhul-jalali-wal-ikram",
+      "start": 94.2,
+      "end": 96.0
+    },
+    {
+      "id": "al-muqsit",
+      "start": 96.0,
+      "end": 97.1
+    },
+    {
+      "id": "al-jami",
+      "start": 97.1,
+      "end": 98.2
+    },
+    {
+      "id": "al-ghaniyy",
+      "start": 98.2,
+      "end": 99.3
+    },
+    {
+      "id": "al-mughni",
+      "start": 99.3,
+      "end": 100.4
+    },
+    {
+      "id": "al-mani",
+      "start": 100.4,
+      "end": 101.5
+    },
+    {
+      "id": "ad-darr",
+      "start": 101.5,
+      "end": 103.1
+    },
+    {
+      "id": "an-nafi",
+      "start": 103.1,
+      "end": 104.4
+    },
+    {
+      "id": "an-nur",
+      "start": 104.4,
+      "end": 105.5
+    },
+    {
+      "id": "al-hadi",
+      "start": 105.5,
+      "end": 106.6
+    },
+    {
+      "id": "al-badi",
+      "start": 106.6,
+      "end": 107.6
+    },
+    {
+      "id": "al-baqi",
+      "start": 107.6,
+      "end": 108.6
+    },
+    {
+      "id": "al-warith",
+      "start": 108.6,
+      "end": 109.6
+    },
+    {
+      "id": "ar-rashid",
+      "start": 109.6,
+      "end": 110.6
+    },
+    {
+      "id": "as-sabur",
+      "start": 110.6,
+      "end": 112.5
+    }
+  ]
+}

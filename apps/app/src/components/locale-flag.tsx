@@ -3,6 +3,9 @@ import { Image } from "expo-image";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { FLAG_ASSETS } from "@/assets/flags";
 import { Radius } from "@/constants/theme";
+import { LOCALE_FLAG_DISPLAY } from "@/lib/locale-flag-display";
+
+export { LOCALE_FLAG_DISPLAY } from "@/lib/locale-flag-display";
 
 type LocaleFlagSize = "sm" | "md";
 
@@ -18,14 +21,7 @@ type Props = {
 };
 
 /** Locale → ISO region for flag assets + emoji fallback (web uses SVG; native uses emoji). */
-export const LOCALE_FLAG_DISPLAY: Record<
-  AppLocale,
-  { regionCode: string; flag: string; english: string; native: string }
-> = {
-  en: { regionCode: "US", flag: "🇺🇸", english: "English", native: "English" },
-  ar: { regionCode: "SA", flag: "🇸🇦", english: "Arabic", native: "العربية" },
-  ur: { regionCode: "PK", flag: "🇵🇰", english: "Urdu", native: "اردو" },
-};
+// LOCALE_FLAG_DISPLAY is built from the central locale registry — see locale-flag-display.ts.
 
 const SIZES: Record<
   LocaleFlagSize,

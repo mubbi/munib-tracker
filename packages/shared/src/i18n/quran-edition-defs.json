@@ -1,0 +1,227 @@
+[
+  {
+    "id": "en-pickthall",
+    "fawaz": "eng-mohammedmarmadu",
+    "name": "Pickthall",
+    "language": "en",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "en-yusufali",
+    "fawaz": "eng-abdullahyusufal",
+    "name": "Yusuf Ali",
+    "language": "en",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "ur-jalandhry",
+    "fawaz": "urd-fatehmuhammadja",
+    "name": "Jalandhry",
+    "language": "ur",
+    "direction": "rtl",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "ar-tafsir-muyassar",
+    "fawaz": "ara-tafsirmuyassar",
+    "name": "Tafsir al-Muyassar (Arabic)",
+    "language": "ar",
+    "direction": "rtl",
+    "kind": "tafsir",
+    "bundled": false
+  },
+  {
+    "id": "id-indonesianislam",
+    "fawaz": "ind-indonesianislam",
+    "name": "Indonesian Islamic Affairs",
+    "language": "id",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "tr-diyanet",
+    "fawaz": "tur-diyanetisleri",
+    "name": "Diyanet İşleri",
+    "language": "tr",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "bn-muhiuddinkhan",
+    "fawaz": "ben-muhiuddinkhan",
+    "name": "Muhiuddin Khan",
+    "language": "bn",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "ms-basmeih",
+    "fawaz": "msa-abdullahmuhamma",
+    "name": "Abdullah Basmeih",
+    "language": "ms",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "fa-makarem",
+    "fawaz": "fas-nasermakaremshi",
+    "name": "Naser Makarem Shirazi",
+    "language": "fa",
+    "direction": "rtl",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "fr-hamidullah",
+    "fawaz": "fra-muhammadhamidul",
+    "name": "Muhammad Hamidullah",
+    "language": "fr",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "ha-gumi",
+    "fawaz": "hau-abubakarmahmoud",
+    "name": "Abubakar Mahmoud Gumi",
+    "language": "ha",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "sw-basmeih",
+    "fawaz": "swa-abdullahmuhamma",
+    "name": "Abdullah Muhammad Abu Bakr",
+    "language": "sw",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "ru-kuliev",
+    "fawaz": "rus-elmirkuliev",
+    "name": "Elmir Kuliev",
+    "language": "ru",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "az-mammadaliyev",
+    "fawaz": "aze-vasimmammadaliy",
+    "name": "Vasim Mammadaliyev & Ziya Bunyadov",
+    "language": "az",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "ps-khan",
+    "fawaz": "pus-abdulwalikhan",
+    "name": "Abdulwali Khan",
+    "language": "ps",
+    "direction": "rtl",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "so-hassan",
+    "fawaz": "som-abdullahhasanja",
+    "name": "Abdullah Hasan Jacob",
+    "language": "so",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "uz-mansour",
+    "fawaz": "uzb-alauddinmansour",
+    "name": "Alauddin Mansour",
+    "language": "uz",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "kk-altai",
+    "fawaz": "kaz-khalifahaltai",
+    "name": "Khalifah Altai",
+    "language": "kk",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "ku-tanzil",
+    "fawaz": "kur-burhanmuhammada",
+    "name": "Burhan Muhammad-Amin",
+    "language": "ku",
+    "direction": "rtl",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "bs-korkut",
+    "fawaz": "bos-besimkorkut",
+    "name": "Besim Korkut",
+    "language": "bs",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "sq-ahmeti",
+    "fawaz": "sqi-sherifahmeti",
+    "name": "Sherif Ahmeti",
+    "language": "sq",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "ky-hakim",
+    "fawaz": "kir-shamsaldinhakim",
+    "name": "Shams al-Din Hakim",
+    "language": "ky",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "tg-ayati",
+    "fawaz": "tgk-abdolmohammaday",
+    "name": "Abdol Mohammad Ayati",
+    "language": "tg",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": true
+  },
+  {
+    "id": "en-saheehintl",
+    "fawaz": "eng-ummmuhammad",
+    "name": "Saheeh International",
+    "language": "en",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": false
+  },
+  {
+    "id": "en-clearquran",
+    "fawaz": "eng-mustafakhattaba",
+    "name": "Clear Qur'an (Khattab)",
+    "language": "en",
+    "direction": "ltr",
+    "kind": "translation",
+    "bundled": false
+  }
+]

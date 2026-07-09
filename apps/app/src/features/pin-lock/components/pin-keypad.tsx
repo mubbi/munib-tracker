@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, useWindowDimensions, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
@@ -51,6 +52,7 @@ export function PinKeypad({
   loading = false,
 }: PinKeypadProps) {
   const { colors } = useThemeTokens();
+  const { t } = useTranslation();
   const { keySize, rowWidth, gap } = useKeypadMetrics();
 
   const keyStyle = {
@@ -85,7 +87,7 @@ export function PinKeypad({
                   onPress={onBackspace}
                   disabled={disabled}
                   haptic="selection"
-                  accessibilityLabel="Backspace"
+                  accessibilityLabel={t("pinLock.backspace")}
                   style={[styles.key, keyStyle, { backgroundColor: colors.muted }]}
                 >
                   <ThemedText type="title">⌫</ThemedText>

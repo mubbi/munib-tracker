@@ -10,10 +10,9 @@ import { Card } from "@/components/ui/card";
 import { Spacing } from "@/constants/theme";
 import { usePinLock } from "@/features/pin-lock";
 import { useFormatTime } from "@/hooks/use-time-format";
+import { APP_LOCALES } from "@/lib/locale-display";
 import { useAuth } from "@/providers/auth-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
-
-const LOCALE_LABELS: Record<string, string> = { en: "English", ar: "العربية", ur: "اردو" };
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -168,7 +167,7 @@ export default function SettingsScreen() {
               icon={{ ios: "globe", android: "language", web: "language" }}
               title={t("settings.language")}
               subtitle={t("settings.languageSub")}
-              value={LOCALE_LABELS[prefs.locale]}
+              value={APP_LOCALES.find((l) => l.code === prefs.locale)?.name ?? prefs.locale}
               onPress={() => router.push("/settings/language")}
             />
             {isNative ? (

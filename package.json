@@ -52,7 +52,12 @@
     "generate:api": "turbo run generate",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:screenshot-studio": "npm --prefix tools/screenshot-studio run dev",
+    "seed:screenshot-studio": "node tools/screenshot-studio/scripts/seed-project.mjs",
+    "sync:screenshot-brand-assets": "node tools/screenshot-studio/scripts/sync-brand-assets.mjs",
+    "sync:screenshot-captures": "node tools/screenshot-studio/scripts/sync-app-screenshots.mjs",
+    "distribute:screenshot-exports": "node tools/screenshot-studio/scripts/distribute-exports.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",

@@ -63,6 +63,14 @@
           "mode": "production"
         }
       ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": true
+        }
+      ],
       "./plugins/with-android-build-hygiene.js",
       [
         "expo-build-properties",

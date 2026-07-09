@@ -4,7 +4,7 @@
 
 import type { WidgetInfo, WidgetRepresentation } from "react-native-android-widget";
 import { FlexWidget } from "react-native-android-widget";
-
+import i18n from "@/i18n";
 import {
   AndroidSurfaceCard,
   scheduleRowColor,
@@ -130,12 +130,16 @@ export async function renderPrayerProgressWidget(info: WidgetInfo): Promise<Widg
             />
             <FlexWidget style={{ flexDirection: "row", flexGap: 8 }}>
               <WidgetStatPill
-                label="Done"
+                label={i18n.t("widgets.done")}
                 value={String(progress.completed)}
                 theme={cardTheme}
                 valueColor={cardTheme.success}
               />
-              <WidgetStatPill label="Total" value={String(progress.total)} theme={cardTheme} />
+              <WidgetStatPill
+                label={i18n.t("widgets.total")}
+                value={String(progress.total)}
+                theme={cardTheme}
+              />
             </FlexWidget>
           </>
         )}

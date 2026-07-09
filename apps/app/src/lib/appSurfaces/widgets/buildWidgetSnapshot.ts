@@ -4,7 +4,7 @@ import type { AppLocale } from "@munib-tracker/shared/types";
 import { buildAppUrl } from "@/lib/app-links";
 import { WIDGET_MAX_SCHEDULE_ROWS } from "@/lib/appSurfaces/widgets/constants";
 import {
-  EMPTY_WIDGET_SNAPSHOT,
+  emptyWidgetSnapshot,
   type WidgetHexColor,
   type WidgetScheduleRow,
   type WidgetSnapshot,
@@ -113,14 +113,15 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
     const theme = buildThemeSnapshot(input);
     const setLocation = input.t("widgets.setLocation", "Set location");
     const hint = input.t("widgets.setLocationHint", "Open the app to set your location");
+    const empty = emptyWidgetSnapshot();
     return {
-      ...EMPTY_WIDGET_SNAPSHOT,
+      ...empty,
       updatedAt,
       updatedAgoLabel: formatUpdatedAgo(updatedAt, input.t),
       locationDenied: true,
       theme,
       nextPrayer: {
-        ...EMPTY_WIDGET_SNAPSHOT.nextPrayer,
+        ...empty.nextPrayer,
         title: input.t("widgets.nextPrayer", "Next prayer"),
         summary: hint,
         lockScreenLine: setLocation,
@@ -132,7 +133,7 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
         location: "",
       },
       schedule: {
-        ...EMPTY_WIDGET_SNAPSHOT.schedule,
+        ...empty.schedule,
         title: input.t("widgets.schedule", "Today's schedule"),
         summary: hint,
         lockScreenLine: setLocation,
@@ -140,7 +141,7 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
         deepLink: buildAppUrl("/location"),
       },
       progress: {
-        ...EMPTY_WIDGET_SNAPSHOT.progress,
+        ...empty.progress,
         title: input.t("widgets.progress", "Today's progress"),
         summary: hint,
         lockScreenLine: setLocation,

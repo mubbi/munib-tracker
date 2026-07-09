@@ -132,8 +132,8 @@ export default function SalahGuideAdhanScreen() {
                 <AdhanStyleRow
                   key={style.id}
                   styleId={style.id}
-                  name={style.name}
-                  location={style.location}
+                  name={t(`settings.adhanStyles.${style.id}.name`)}
+                  location={t(`settings.adhanStyles.${style.id}.location`)}
                   credit={style.credit}
                   uri={style.uri}
                 />

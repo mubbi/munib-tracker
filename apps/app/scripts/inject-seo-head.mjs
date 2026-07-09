@@ -1,25 +1,16 @@
 /**
- * Post-export SEO head injection.
+ * Post-export SEO head injection (locale-aware).
  *
- * The app is a client-rendered SPA: Expo's static export emits an HTML shell per
- * route with an empty body (the React tree renders on the client). JS-executing
- * crawlers (Googlebot, Bingbot) run the app and pick up the client-side `<Seo>`
- * head. Non-JS AI crawlers (GPTBot, ClaudeBot, PerplexityBot, …) read raw HTML,
- * so this script bakes each route's real `<head>` — title, description,
- * canonical, robots, Open Graph, Twitter, and JSON-LD — into the exported files.
+ * Resolves metadata from the same JSON sources as the app's `<Seo>` component:
+ *   • static routes  → `src/config/seo-routes.data.json`
+ *   • locale overlays → `src/config/seo-routes-locale/{locale}.json`
+ *   • UI labels      → `src/i18n/{locale}.json`
+ *   • locale meta    → `src/config/locale-seo-meta.json`
  *
- * Metadata is resolved DRY from the SAME plain-JSON sources the app uses (no
- * duplicated route lists, Node-20 safe — no TS/loader needed):
- *   • static routes  → `src/config/seo-routes.data.json` (also imported by the app)
- *   • surahs         → `assets/data/quran/meta.json`
- *   • categories/labels → `src/i18n/en.json`
- *   • branding       → `app.json` + `src/i18n/en.json`
+ * Set `SEO_LOCALE` (default `en`) for the primary injected title/description.
+ * All 23 locales get `hreflang` + `og:locale:alternate` tags (SPA — same URL).
  *
- * Injected tags carry `data-rh="true"` so react-helmet-async cleanly reconciles
- * them on the client (mirroring what an SSR Helmet pass would have produced).
- *
- * Run after `expo export --platform web`, before `generate-seo-files.mjs`
- * (which reads the injected robots meta to decide sitemap inclusion).
+ * Run after `expo export --platform web`, before `generate-seo-files.mjs`.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -30,17 +21,45 @@ const distDir = path.join(projectRoot, "dist");
 
 const readJson = (p) => JSON.parse(fs.readFileSync(path.join(projectRoot, p), "utf8"));
 
-// Registry shared verbatim with the app (`src/config/seo-routes.ts` imports the
-// same JSON) — no duplication. Branding is sourced from the app's own config.
 const SEO_ROUTES = readJson("src/config/seo-routes.data.json");
+const LOCALE_META = readJson("src/config/locale-seo-meta.json");
 const appJson = readJson("app.json");
 const en = readJson("src/i18n/en.json");
+
+const SEO_LOCALE = process.env.SEO_LOCALE ?? "en";
+const localeMetaByCode = new Map(LOCALE_META.map((e) => [e.code, e]));
+
+/** @type {Record<string, object>} */
+const I18N_BY_LOCALE = { en };
+for (const entry of LOCALE_META) {
+  if (entry.code === "en") continue;
+  const file = path.join(projectRoot, "src/i18n", `${entry.code}.json`);
+  if (fs.existsSync(file)) I18N_BY_LOCALE[entry.code] = readJson(`src/i18n/${entry.code}.json`);
+}
+
+/** @type {Record<string, Record<string, object>>} */
+const SEO_LOCALE_ROUTES = {};
+const seoLocaleDir = path.join(projectRoot, "src/config/seo-routes-locale");
+for (const entry of LOCALE_META) {
+  if (entry.code === "en") continue;
+  const file = path.join(seoLocaleDir, `${entry.code}.json`);
+  if (fs.existsSync(file)) {
+    SEO_LOCALE_ROUTES[entry.code] = readJson(`src/config/seo-routes-locale/${entry.code}.json`);
+  }
+}
+
+function i18n(locale) {
+  return I18N_BY_LOCALE[locale] ?? en;
+}
+
 const APP_NAME = appJson.expo?.web?.name ?? "Munib Tracker";
-const APP_TAGLINE = en.common?.appTagline ?? "Track Your Journey Back to Allah.";
+const APP_TAGLINE =
+  i18n(SEO_LOCALE).common?.appTagline ??
+  en.common?.appTagline ??
+  "Track Your Journey Back to Allah.";
 const APP_DESCRIPTION = appJson.expo?.web?.description ?? `${APP_TAGLINE}`;
 const APP_AUTHOR = en.about?.authorValue ?? "Mubbasher Ahmed Qureshi";
 
-/** Normalize a pathname to a canonical registry key (mirrors seo-routes.ts). */
 function normalizePath(p) {
   if (!p) return "/";
   const trimmed = p.split(/[?#]/)[0].replace(/\/+$/, "");
@@ -67,29 +86,29 @@ const DEFAULT_KEYWORDS = [
   "Muslim prayer app",
 ];
 
-// ── Content data (read directly — plain JSON) ──────────────────────────────────
 const surahMeta = readJson("assets/data/quran/meta.json");
 const surahs = new Map(surahMeta.surahs.map((s) => [String(s.number), s]));
-
-// FAQ + index ItemLists shared with the client `<Seo>` (same JSON / same data)
-// so AI answer engines get them from the raw HTML too.
 const FAQ_BY_ROUTE = readJson("src/config/seo-faq.data.json");
-const SURAH_ITEMS = surahMeta.surahs.map((s) => ({
-  name: `${s.number}. ${s.nameTransliteration} (${s.nameEnglish})`,
-  path: `/quran/${s.number}`,
-}));
-const catItems = (labels, base) =>
-  Object.entries(labels ?? {}).map(([id, name]) => ({ name, path: `${base}/${id}` }));
-const ITEMS_BY_ROUTE = {
-  "/quran": SURAH_ITEMS,
-  "/dua": catItems(en.duaCat, "/dua"),
-  "/zikr": catItems(en.zikrCat, "/zikr"),
-};
 
-// Learn/knowledge sections whose dynamic topic pages (pre-rendered via
-// `generateStaticParams`) are indexable content. Maps the URL segment → the
-// i18n namespace that holds the section's display title. Any route under these
-// that isn't an explicit registry entry is treated as a content article.
+function surahItems(_L) {
+  return surahMeta.surahs.map((s) => ({
+    name: `${s.number}. ${s.nameTransliteration} (${s.nameEnglish})`,
+    path: `/quran/${s.number}`,
+  }));
+}
+
+function catItems(labels, base) {
+  return Object.entries(labels ?? {}).map(([id, name]) => ({ name, path: `${base}/${id}` }));
+}
+
+function itemsByRoute(L) {
+  return {
+    "/quran": surahItems(L),
+    "/dua": catItems(L.duaCat, "/dua"),
+    "/zikr": catItems(L.zikrCat, "/zikr"),
+  };
+}
+
 const CONTENT_SECTION_NS = {
   aqeedah: "aqeedah",
   prophets: "prophets",
@@ -113,7 +132,6 @@ const escapeHtml = (s) =>
 
 const absolute = (routePath) => `${ORIGIN}${routePath === "/" ? "" : routePath}`;
 
-/** Title-case a slug segment ("daily-after-eating" → "After Eating"). */
 function humanizeSlug(slug, stripPrefixes = []) {
   let s = decodeURIComponent(slug);
   for (const p of stripPrefixes) if (s.startsWith(`${p}-`)) s = s.slice(p.length + 1);
@@ -124,15 +142,24 @@ function humanizeSlug(slug, stripPrefixes = []) {
     .join(" ");
 }
 
-/**
- * Resolve SEO metadata for a route. Returns { title, description, keywords[],
- * index, breadcrumbs[], extra[] } where breadcrumbs/extra feed JSON-LD.
- */
-function resolveMeta(route) {
-  const key = normalizePath(route);
+function mergeRegistryRoute(key, locale) {
+  const base = SEO_ROUTES[key];
+  if (!base) return undefined;
+  if (locale === "en") return base;
+  const overlay = SEO_LOCALE_ROUTES[locale]?.[key];
+  if (!overlay) return base;
+  return {
+    ...base,
+    ...(overlay.title ? { title: overlay.title } : null),
+    ...(overlay.description ? { description: overlay.description } : null),
+    ...(overlay.imageAlt ? { imageAlt: overlay.imageAlt } : null),
+  };
+}
 
-  // Un-parameterized dynamic template files (e.g. `/dua/detail/[id]`) are build
-  // artifacts, not real pages — keep them out of the index.
+function resolveMeta(route, locale = SEO_LOCALE) {
+  const key = normalizePath(route);
+  const L = i18n(locale);
+
   if (/[[\]]/.test(key)) {
     return {
       title: `${APP_NAME} — ${APP_TAGLINE}`,
@@ -140,11 +167,12 @@ function resolveMeta(route) {
       keywords: [],
       index: false,
       breadcrumbs: [],
+      locale,
     };
   }
 
-  const registry = SEO_ROUTES[key];
-  const home = { name: en.tabs?.home ?? "Home", path: "/" };
+  const registry = mergeRegistryRoute(key, locale);
+  const home = { name: L.tabs?.home ?? "Home", path: "/" };
 
   if (registry) {
     return {
@@ -154,10 +182,10 @@ function resolveMeta(route) {
       keywords: registry.keywords ?? [],
       index: registry.index ?? true,
       breadcrumbs: key === "/" ? [] : [home, { name: registry.title ?? key, path: key }],
+      locale,
     };
   }
 
-  // Dynamic: /quran/<n>
   let m = key.match(/^\/quran\/(\d+)$/);
   if (m && surahs.has(m[1])) {
     const s = surahs.get(m[1]);
@@ -171,31 +199,31 @@ function resolveMeta(route) {
       type: "article",
       breadcrumbs: [
         home,
-        { name: en.quran?.title ?? "Qur'an", path: "/quran" },
+        { name: L.quran?.title ?? "Qur'an", path: "/quran" },
         { name: s.nameTransliteration, path: key },
       ],
+      locale,
     };
   }
 
-  // Dynamic: /dua/<cat> or /zikr/<cat>
   m = key.match(/^\/(dua|zikr)\/([a-z_]+)$/);
-  if (m && (m[1] === "dua" ? en.duaCat : en.zikrCat)?.[m[2]]) {
+  if (m && (m[1] === "dua" ? L.duaCat : L.zikrCat)?.[m[2]]) {
     const kind = m[1];
-    const label = (kind === "dua" ? en.duaCat : en.zikrCat)[m[2]];
+    const label = (kind === "dua" ? L.duaCat : L.zikrCat)[m[2]];
     const root =
       kind === "dua"
-        ? { name: en.dua?.title ?? "Duas", path: "/dua" }
-        : { name: en.zikr?.title ?? "Zikr", path: "/zikr" };
+        ? { name: L.dua?.title ?? "Duas", path: "/dua" }
+        : { name: L.zikr?.title ?? "Zikr", path: "/zikr" };
     return {
       title: label,
       description: `${label} — authentic ${kind === "dua" ? "supplications" : "adhkar"} with Arabic, transliteration, and meaning, available offline.`,
       keywords: [label, kind === "dua" ? "islamic duas" : "daily adhkar"],
       index: true,
       breadcrumbs: [home, root, { name: label, path: key }],
+      locale,
     };
   }
 
-  // Dynamic: detail / collection pages → readable title from the slug
   m = key.match(/^\/(dua|zikr)\/detail\/(.+)$/);
   if (m) {
     const kind = m[1];
@@ -213,8 +241,8 @@ function resolveMeta(route) {
     ]);
     const root =
       kind === "dua"
-        ? { name: en.dua?.title ?? "Duas", path: "/dua" }
-        : { name: en.zikr?.title ?? "Zikr", path: "/zikr" };
+        ? { name: L.dua?.title ?? "Duas", path: "/dua" }
+        : { name: L.zikr?.title ?? "Zikr", path: "/zikr" };
     return {
       title,
       description: `${title} — read the Arabic, transliteration, and meaning of this ${kind === "dua" ? "dua" : "zikr"} on ${APP_NAME}.`,
@@ -222,6 +250,7 @@ function resolveMeta(route) {
       index: true,
       type: "article",
       breadcrumbs: [home, root, { name: title, path: key }],
+      locale,
     };
   }
 
@@ -236,25 +265,19 @@ function resolveMeta(route) {
       type: "article",
       breadcrumbs: [
         home,
-        { name: en.hadith?.title ?? "Hadith", path: "/hadith" },
+        { name: L.hadith?.title ?? "Hadith", path: "/hadith" },
         { name: title, path: key },
       ],
+      locale,
     };
   }
 
-  // Dynamic learn/knowledge topic pages (e.g. `/aqeedah/tawheed`,
-  // `/prophets/musa`, `/learn-quran/story/adam`) that aren't explicit registry
-  // entries. The per-topic title lives in TS content the client `<Seo>` resolves;
-  // here we bake a readable slug title + Article JSON-LD so non-JS crawlers still
-  // get an indexable, described page.
   const contentMatch = key.match(/^\/([a-z-]+)\/(.+)$/);
   const lastSeg = contentMatch?.[2].split("/").pop() ?? "";
-  // Safety net: personal/interactive sub-pages stay out of the index even if a
-  // registry entry is missing (they are normally registered as index:false).
   const isUtilitySeg = /^(progress|quiz|journal)$/.test(lastSeg);
   if (contentMatch && CONTENT_SECTION_NS[contentMatch[1]] && !isUtilitySeg) {
     const section = contentMatch[1];
-    const sectionTitle = en[CONTENT_SECTION_NS[section]]?.title ?? humanizeSlug(section);
+    const sectionTitle = L[CONTENT_SECTION_NS[section]]?.title ?? humanizeSlug(section);
     const title = humanizeSlug(lastSeg || contentMatch[2]);
     return {
       title,
@@ -263,24 +286,26 @@ function resolveMeta(route) {
       index: true,
       type: "article",
       breadcrumbs: [home, { name: sectionTitle, path: `/${section}` }, { name: title, path: key }],
+      locale,
     };
   }
 
-  // Fallback (unknown route) — app defaults, noindex to avoid thin pages.
   return {
     title: `${APP_NAME} — ${APP_TAGLINE}`,
     description: APP_DESCRIPTION,
     keywords: [],
     index: false,
     breadcrumbs: [],
+    locale,
   };
 }
 
-/** Build the JSON-LD blocks for a route (WebPage/CollectionPage + Breadcrumb [+ FAQ/ItemList]). */
 function buildJsonLd(route, meta) {
   const key = normalizePath(route);
   const url = absolute(route);
-  const items = ITEMS_BY_ROUTE[key];
+  const L = i18n(meta.locale ?? SEO_LOCALE);
+  const items = itemsByRoute(L)[key];
+  const hreflang = localeMetaByCode.get(meta.locale ?? SEO_LOCALE)?.hreflang ?? "en";
   const primaryType = meta.type === "article" ? "Article" : items ? "CollectionPage" : "WebPage";
   const primary = {
     "@context": "https://schema.org",
@@ -291,7 +316,7 @@ function buildJsonLd(route, meta) {
     headline: meta.title,
     description: meta.description,
     isPartOf: { "@id": `${ORIGIN}/#website` },
-    inLanguage: "en",
+    inLanguage: hreflang,
     isAccessibleForFree: true,
   };
   if (items?.length) {
@@ -336,7 +361,6 @@ function buildJsonLd(route, meta) {
   return blocks;
 }
 
-/** Compose the `<head>` tag string injected per route (all data-rh managed). */
 function buildHeadTags(route, meta) {
   const url = absolute(route);
   const fullTitle = meta.isHome ? meta.title : `${meta.title} · ${APP_NAME}`;
@@ -346,6 +370,8 @@ function buildHeadTags(route, meta) {
   const keywords = [...new Set([...(meta.keywords ?? []), ...DEFAULT_KEYWORDS])].join(", ");
   const d = escapeHtml(meta.description);
   const rawTitle = escapeHtml(meta.title);
+  const primaryOg = localeMetaByCode.get(meta.locale ?? SEO_LOCALE)?.ogLocale ?? "en_US";
+
   const tags = [
     `<meta data-rh="true" name="description" content="${d}"/>`,
     `<meta data-rh="true" name="keywords" content="${escapeHtml(keywords)}"/>`,
@@ -360,15 +386,20 @@ function buildHeadTags(route, meta) {
     `<meta data-rh="true" property="og:url" content="${url}"/>`,
     `<meta data-rh="true" property="og:image" content="${OG_IMAGE}"/>`,
     `<meta data-rh="true" property="og:image:alt" content="${escapeHtml(OG_IMAGE_ALT)}"/>`,
-    `<meta data-rh="true" property="og:locale" content="en_US"/>`,
-    // Content is also available in Arabic and Urdu via the in-app language switcher.
-    `<meta data-rh="true" property="og:locale:alternate" content="ar_AR"/>`,
-    `<meta data-rh="true" property="og:locale:alternate" content="ur_PK"/>`,
+    `<meta data-rh="true" property="og:locale" content="${primaryOg}"/>`,
     `<meta data-rh="true" name="twitter:card" content="summary_large_image"/>`,
     `<meta data-rh="true" name="twitter:title" content="${rawTitle}"/>`,
     `<meta data-rh="true" name="twitter:description" content="${d}"/>`,
     `<meta data-rh="true" name="twitter:image" content="${OG_IMAGE}"/>`,
   ];
+
+  for (const entry of LOCALE_META) {
+    if (entry.code === (meta.locale ?? SEO_LOCALE)) continue;
+    tags.push(`<meta data-rh="true" property="og:locale:alternate" content="${entry.ogLocale}"/>`);
+    tags.push(`<link data-rh="true" rel="alternate" hreflang="${entry.hreflang}" href="${url}"/>`);
+  }
+  tags.push(`<link data-rh="true" rel="alternate" hreflang="x-default" href="${url}"/>`);
+
   for (const block of buildJsonLd(route, meta)) {
     tags.push(
       `<script data-rh="true" type="application/ld+json">${JSON.stringify(block)}</script>`,
@@ -405,27 +436,26 @@ function main() {
   }
   let injected = 0;
   for (const file of collectHtmlFiles(distDir)) {
-    const base = path.basename(file);
-    if (base.startsWith("_") || base === "+not-found.html") {
-      // Framework/util shells still get a noindex title so they aren't blank.
-    }
     let route = routeForFile(file);
-    // Strip a leading route-group segment so "(tabs)/settings" resolves like "/settings".
     route = route.replace(/\/\([^)]*\)/g, "") || "/";
-    const meta = resolveMeta(route);
+    const meta = resolveMeta(route, SEO_LOCALE);
     const { fullTitle, tags } = buildHeadTags(route, meta);
 
     let html = fs.readFileSync(file, "utf8");
-    // Replace the empty helmet title with the real one.
     html = html.replace(/<title[^>]*>.*?<\/title>/i, `<title data-rh="true">${fullTitle}</title>`);
-    // Insert the metadata block right before </head>.
+    html = html.replace(
+      /<html([^>]*)lang="[^"]*"/i,
+      `<html$1 lang="${localeMetaByCode.get(SEO_LOCALE)?.hreflang ?? "en"}"`,
+    );
     if (!html.includes('rel="canonical"')) {
       html = html.replace("</head>", `${tags}</head>`);
       injected += 1;
     }
     fs.writeFileSync(file, html, "utf8");
   }
-  console.log(`[seo] Injected per-route head into ${injected} HTML files.`);
+  console.log(
+    `[seo] Injected per-route head into ${injected} HTML files (locale=${SEO_LOCALE}, hreflang×${LOCALE_META.length}).`,
+  );
 }
 
 main();

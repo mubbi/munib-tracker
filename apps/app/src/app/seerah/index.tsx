@@ -1,5 +1,4 @@
 import { SEERAH_EVENTS } from "@munib-tracker/shared/content";
-import { SEERAH_EVENTS_AR, SEERAH_EVENTS_UR } from "@munib-tracker/shared/content-i18n";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
@@ -14,6 +13,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { localizeList } from "@/lib/content-i18n";
+import { overlayList } from "@/lib/content-overlay-registry";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function SeerahScreen() {
@@ -23,7 +23,7 @@ export default function SeerahScreen() {
   // Recompute per locale so translated titles/bodies render on language switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
   const events = useMemo(
-    () => localizeList(SEERAH_EVENTS, { ur: SEERAH_EVENTS_UR, ar: SEERAH_EVENTS_AR }),
+    () => localizeList(SEERAH_EVENTS, overlayList("SEERAH_EVENTS")),
     [i18n.language],
   );
 

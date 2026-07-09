@@ -18,7 +18,7 @@ import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { filterValueTextStyle, ltrControlStyle } from "@/lib/rtl";
+import { filterValueTextStyle, ltrControlViewProps } from "@/lib/rtl";
 
 /** SF Symbols → Material fallbacks for each toolbar chip. */
 const TOOLBAR_ICONS = {
@@ -161,7 +161,10 @@ export function QuranReadingToolbar({
               onPress={onOpenPage}
             />
           ) : null}
-          <View style={[styles.fontChip, ltrControlStyle, { backgroundColor: colors.muted }]}>
+          <View
+            {...ltrControlViewProps()}
+            style={[styles.fontChip, { backgroundColor: colors.muted }]}
+          >
             <SymbolView
               name={TOOLBAR_ICONS.textSize}
               size={16}

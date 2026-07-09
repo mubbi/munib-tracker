@@ -164,7 +164,24 @@
     "schedule": "Today's schedule",
     "progress": "Today's progress",
     "setLocation": "Set location",
-    "setLocationHint": "Open the app to set your location"
+    "setLocationHint": "Open the app to set your location",
+    "openAppToSync": "Open the app to sync",
+    "done": "Done",
+    "total": "Total",
+    "gallery": {
+      "nextPrayer": {
+        "label": "Munib Tracker · Next prayer",
+        "description": "Next prayer name, time, and countdown on home or lock screen"
+      },
+      "schedule": {
+        "label": "Munib Tracker · Schedule",
+        "description": "Today's obligatory prayer times at a glance"
+      },
+      "progress": {
+        "label": "Munib Tracker · Progress",
+        "description": "Today's obligatory prayer progress"
+      }
+    }
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -344,7 +361,70 @@
       "audio": "Return to audio",
       "listening": "Continue listening"
     },
-    "rozaRemaining": "Fasts to make up"
+    "rozaRemaining": "Fasts to make up",
+    "knowledgeMotivation": {
+      "steady-steps": {
+        "text": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow.",
+        "topic": "steadfastness"
+      },
+      "prayer-light": {
+        "text": "Treat each salah as a reset — five brief returns to Allah that anchor your day.",
+        "topic": "prayer"
+      },
+      "qaza-hope": {
+        "text": "Missed prayers can be made up. Set a gentle daily pace for qaza rather than carrying guilt.",
+        "topic": "qaza"
+      },
+      "qaza-one": {
+        "text": "One qaza cleared today is better than waiting for a perfect streak tomorrow.",
+        "topic": "qaza"
+      },
+      "zikr-heart": {
+        "text": "Even a few moments of zikr after salah softens the heart and steadies the tongue.",
+        "topic": "zikr"
+      },
+      "zikr-walking": {
+        "text": "Remember Allah while waiting, walking, or resting — zikr fits into the gaps of a busy day.",
+        "topic": "zikr"
+      },
+      "fasting-patience": {
+        "text": "Fasting trains patience in the body so sabr becomes easier in everyday life.",
+        "topic": "fasting"
+      },
+      "ramadan-intention": {
+        "text": "Renew your intention before each fast — the reward follows sincerity, not perfection.",
+        "topic": "fasting"
+      },
+      "consistency": {
+        "text": "Allah loves consistent deeds, even if they are small. Keep showing up.",
+        "topic": "steadfastness",
+        "source": "a"
+      },
+      "tracker-honest": {
+        "text": "An honest tracker helps you see patterns, not judge yourself. Progress begins with awareness.",
+        "topic": "general"
+      },
+      "morning-fajr": {
+        "text": "Win the morning with Fajr on time — the rest of the day follows a calmer rhythm.",
+        "topic": "prayer"
+      },
+      "witr-closure": {
+        "text": "Close your night with witr when you can — a gentle seal on the day's worship.",
+        "topic": "prayer"
+      },
+      "gratitude-salah": {
+        "text": "After each prayer, pause for one breath of shukr before rushing back to the world.",
+        "topic": "general"
+      },
+      "return-tomorrow": {
+        "text": "If today was hard, begin again after maghrib. Mercy is wider than one difficult day.",
+        "topic": "steadfastness"
+      },
+      "tasbeeh-count": {
+        "text": "A short tasbeeh session counts. Zikr is not only for long sittings — start with ten.",
+        "topic": "zikr"
+      }
+    }
   },
   "tracker": {
     "eyebrow": "Track & log",
@@ -447,7 +527,29 @@
     "downloadAndroidTopLine": "GET IT ON",
     "downloadAndroidBottomLine": "Google Play",
     "downloadIosA11y": "Download Munib Tracker on the App Store",
-    "downloadAndroidA11y": "Get Munib Tracker on Google Play"
+    "downloadAndroidA11y": "Get Munib Tracker on Google Play",
+    "adhanStyles": {
+      "default": {
+        "name": "Classic adhan",
+        "location": "Bundled preview"
+      },
+      "mecca-fajr": {
+        "name": "Mecca — Fajr",
+        "location": "Al-Masjid al-Haram"
+      },
+      "medina": {
+        "name": "Medina",
+        "location": "Al-Masjid an-Nabawi"
+      },
+      "mishary": {
+        "name": "Mishary Alafasy",
+        "location": "Kuwait"
+      },
+      "makkah-muezzin": {
+        "name": "Ali Ibn Ahmad Mala",
+        "location": "Al-Masjid al-Haram"
+      }
+    }
   },
   "import": {
     "title": "Import prayer history",
@@ -825,6 +927,7 @@
   },
   "share": {
     "dialogTitle": "Share",
+    "brandingFooterName": "— {{appName}}",
     "proofTagline": "Track Your Journey Back to Allah — free on iOS, Android & web",
     "proofGetApp": "Get Munib Tracker free",
     "proofIosLabel": "App Store",
@@ -975,6 +1078,14 @@
     "searching": "Searching…",
     "secondTranslation": "Second translation",
     "secondTranslationNone": "None",
+    "selectTranslator": "Choose translator — {{language}}",
+    "translationCount_one": "{{count}} translation",
+    "translationCount_other": "{{count}} translations",
+    "translationBundled": "Available offline",
+    "translationRemote": "Downloads when needed",
+    "backToLanguages": "All languages",
+    "searchTranslationLanguages": "Search languages…",
+    "searchTranslators": "Search translators…",
     "pages": "Pages",
     "pagesSubtitle": "Browse the Madani mushaf by page",
     "pageN": "Page {{n}}",
@@ -1577,6 +1688,113 @@
       "zikr": "Zikr",
       "consistency": "Consistency"
     },
+    "milestones": {
+      "salah": {
+        "titleFallback": "Salah {{level}}",
+        "description": "Complete {{count}} obligatory prayers",
+        "description_one": "Complete {{count}} obligatory prayer",
+        "titles": {
+          "0": "First Step",
+          "1": "Steady Start",
+          "2": "Daily Worshipper",
+          "3": "Faithful Servant",
+          "4": "Dedicated",
+          "5": "Hundred Prayers",
+          "6": "Quarter Thousand",
+          "7": "Half Thousand",
+          "8": "Thousand Lights",
+          "9": "Two Thousand",
+          "10": "Lifelong Salah"
+        }
+      },
+      "streak": {
+        "titleFallback": "Streak {{level}}",
+        "description": "Keep a {{count}}-day prayer streak",
+        "description_one": "Keep a {{count}}-day prayer streak",
+        "titles": {
+          "0": "Day One",
+          "1": "Getting Consistent",
+          "2": "One Week Strong",
+          "3": "Two Weeks Steady",
+          "4": "Three Week Habit",
+          "5": "A Month of Devotion",
+          "6": "Six Weeks Firm",
+          "7": "Two Months Steadfast",
+          "8": "Season of Steadfastness",
+          "9": "Four Months Strong",
+          "10": "Half Year of Light",
+          "11": "Year of Consistency"
+        }
+      },
+      "zikr": {
+        "titleFallback": "Zikr {{level}}",
+        "description": "Complete {{count}} zikr sessions",
+        "description_one": "Complete {{count}} zikr session",
+        "titles": {
+          "0": "First Remembrance",
+          "1": "Heart Awakened",
+          "2": "Steady Zikr",
+          "3": "Constant Remembrance",
+          "4": "Remembrance",
+          "5": "Hundred Sessions",
+          "6": "Deep Reflection",
+          "7": "Five Hundred Hearts",
+          "8": "Thousand Remembrances"
+        }
+      },
+      "consistency": {
+        "titleFallback": "Consistency {{level}}",
+        "description": "Complete all obligatory prayers on {{count}} days",
+        "description_one": "Complete all obligatory prayers on {{count}} day",
+        "titles": {
+          "0": "Perfect Day",
+          "1": "Three Perfect Days",
+          "2": "Week of Excellence",
+          "3": "Two Weeks Complete",
+          "4": "Month of Excellence",
+          "5": "Two Months Complete",
+          "6": "Hundred Perfect Days",
+          "7": "Two Hundred Days",
+          "8": "Year of Perfect Days"
+        }
+      }
+    },
+    "devotionRank": {
+      "startingOut": "Starting Out",
+      "beginJourney": "Begin your journey",
+      "titleFallback": "Devotion {{level}}",
+      "description": "Reach devotion level {{level}} ({{noor}} Noor)",
+      "titles": {
+        "0": "Seeker",
+        "1": "Beginner's Light",
+        "2": "Steady Soul",
+        "3": "Devoted Heart",
+        "4": "Faithful Traveler",
+        "5": "Guided Path",
+        "6": "Illuminated",
+        "7": "Steadfast",
+        "8": "Refined",
+        "9": "Master of Devotion"
+      }
+    },
+    "debt": {
+      "qaza": {
+        "activeTitle": "Clear Qaza Debt",
+        "clearedTitle": "Qaza Debt Cleared",
+        "activeDescription": "Make up {{count}} qaza prayers",
+        "activeDescription_one": "Make up {{count}} qaza prayer",
+        "clearedDescription": "Cleared all {{count}} tracked qaza prayers",
+        "clearedDescription_one": "Cleared all {{count}} tracked qaza prayer"
+      },
+      "roza": {
+        "activeTitle": "Clear Fasting Debt",
+        "clearedTitle": "Fasting Debt Cleared",
+        "activeDescription": "Make up {{count}} missed fasts",
+        "activeDescription_one": "Make up {{count}} missed fast",
+        "clearedDescription": "Cleared all {{count}} tracked missed fasts",
+        "clearedDescription_one": "Cleared all {{count}} tracked missed fast"
+      }
+    },
     "share": "Share",
     "shareMessage": "Alhamdulillah — I unlocked \"{{title}}\" in Munib Tracker: {{description}}.",
     "unlockedToast": "Milestone reached: {{name}}",
@@ -1668,7 +1886,21 @@
     "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} received · {{sent}} sent",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept the newest edit",
-    "conflictAffected": "Affected: {{list}}"
+    "conflictAffected": "Affected: {{list}}",
+    "entities": {
+      "prayer_logs": "Salah log",
+      "zikr_progress": "Zikr progress",
+      "qaza_entries": "Qaza entries",
+      "preferences": "Preferences",
+      "favorites": "Zikr favorites",
+      "dua_favorites": "Dua favorites",
+      "durood_favorites": "Durood favorites",
+      "name_favorites": "Names favorites",
+      "quran_bookmarks": "Qur'an bookmarks",
+      "quran_last_read": "Qur'an last read",
+      "hadith_bookmarks": "Hadith bookmarks",
+      "custom_tasbeeh": "Custom tasbeeh"
+    }
   },
   "language": {
     "title": "Language",
@@ -1676,6 +1908,8 @@
     "translationLanguage": "Translation language",
     "translationHint": "Used for the meaning of Arabic religious text.",
     "footer": "More of the interface is being translated over time. Arabic and Urdu switch the app to a right-to-left layout.",
+    "scriptureAvailable": "Qur'an translation available",
+    "scriptureUnavailable": "UI only — scripture text falls back to English",
     "eyebrow": "Settings",
     "subtitle": "App and translation language",
     "en": "English",
@@ -1744,6 +1978,27 @@
   "notFound": {
     "title": "Page not found",
     "action": "Go home"
+  },
+  "seo": {
+    "intro": {
+      "title": "Welcome",
+      "description": "Get started with your offline-first Islamic companion."
+    },
+    "login": {
+      "description": "Sign in to sync your worship data across devices."
+    },
+    "notFound": {
+      "description": "The page you're looking for could not be found."
+    },
+    "calendarDay": {
+      "description": "Review and adjust your logged worship for this day."
+    },
+    "tasbeehZikr": {
+      "description": "Count this zikr with a tactile tasbeeh counter."
+    },
+    "tasbeehCustom": {
+      "description": "Your custom tasbeeh counter."
+    }
   },
   "pwa": {
     "installBannerMessage": "Install Munib Tracker on your Home Screen for an app-like experience and browser notifications on iPhone.",
@@ -3640,6 +3895,7 @@
   },
   "pinLock": {
     "title": "App lock",
+    "backspace": "Backspace",
     "settingsSubtitle": "Require a PIN to open the app",
     "webUnavailable": "App lock is available on iOS and Android only.",
     "expoGoTitle": "App lock unavailable in Expo Go",

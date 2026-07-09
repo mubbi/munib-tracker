@@ -13,7 +13,7 @@ import {
   segmentedTrackDirection,
 } from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
-import { isRTL } from "@/lib/rtl";
+import { isRTL, ltrControlViewProps } from "@/lib/rtl";
 
 type SegmentOption<T extends string> = {
   id: T;
@@ -62,6 +62,7 @@ export function SegmentedControl<T extends string>({
 
   return (
     <View
+      {...ltrControlViewProps()}
       style={[
         styles.container,
         chartCoordinateStyle,

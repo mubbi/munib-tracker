@@ -1,8 +1,32 @@
+import type { AppLocale } from "@munib-tracker/shared/types";
 import type { SymbolViewProps } from "expo-symbols";
+import { useTranslation } from "react-i18next";
 import type { TextStyle, ViewStyle } from "react-native";
 import { I18nManager, Platform } from "react-native";
 
+import i18n from "@/i18n";
+import { isRtlLocale } from "@/lib/i18n/rtl-locale";
+import { useStore } from "@/stores/create-store";
+import { preferencesStore } from "@/stores/preferences-store";
+
 type IconName = SymbolViewProps["name"];
+
+function resolveLocaleCode(raw: string | undefined): AppLocale | null {
+  if (!raw) return null;
+  const base = raw.split("-")[0] as AppLocale;
+  if (isRtlLocale(base)) return base;
+  if (isRtlLocale(raw as AppLocale)) return raw as AppLocale;
+  return null;
+}
+
+function webIsRtlFromI18n(): boolean | null {
+  if (!i18n.isInitialized) return null;
+  const code = resolveLocaleCode(i18n.resolvedLanguage ?? i18n.language);
+  if (code) return true;
+  const raw = i18n.resolvedLanguage ?? i18n.language;
+  if (!raw) return null;
+  return false;
+}
 
 /**
  * True when the UI is currently laid out right-to-left.
@@ -12,20 +36,56 @@ type IconName = SymbolViewProps["name"];
  *   takes effect after preferences hydration calls `changeAppLocale` (see
  *   `preferences-store.ts`), so the value is stable for the session.
  * - **Web:** `react-native-web` hard-codes `I18nManager.isRTL` to `false` and
- *   makes `forceRTL()` a no-op. The real direction lives on
- *   `document.documentElement.dir`, which `changeAppLocale` toggles for Arabic
- *   and Urdu. We must read that instead, otherwise glyphs point the wrong way
- *   while the CSS flex layout is already flipped.
+ *   makes `forceRTL()` a no-op. Layout direction is applied on
+ *   `document.documentElement.dir`, but that DOM write does not re-render React.
+ *   `changeAppLocale` also fires `i18n.changeLanguage`, which *does* re-render
+ *   subscribed trees — often before `dir` is updated. Reading `document.dir`
+ *   alone therefore leaves chevrons on the wrong glyph until a full refresh.
+ *   Prefer the saved locale and i18n language instead (see {@link useIsRTL} for
+ *   components that must react to direction changes).
  *
- * Read this per render (never cache at module load) — on web the direction is
- * applied in an effect after the first paint, and a freshly navigated screen
- * must reflect the current `dir`.
+ * Read this per render (never cache at module load).
  */
 export function isRTL(): boolean {
-  if (Platform.OS === "web" && typeof document !== "undefined") {
-    return document.documentElement.dir === "rtl";
+  if (Platform.OS === "web") {
+    const prefsLocale = preferencesStore.getState().prefs.locale;
+    if (isRtlLocale(prefsLocale)) return true;
+
+    const fromI18n = webIsRtlFromI18n();
+    if (fromI18n !== null) return fromI18n;
+
+    if (typeof document !== "undefined") {
+      return document.documentElement.dir === "rtl";
+    }
+    return false;
   }
   return I18nManager.isRTL;
+}
+
+/**
+ * Reactive RTL flag for direction-encoding glyphs. Subscribes to the saved
+ * locale and i18n so tab screens that stay mounted (e.g. Settings) re-render
+ * when layout direction changes without a full page reload.
+ */
+export function useIsRTL(): boolean {
+  const locale = useStore(preferencesStore, (s) => s.prefs.locale);
+  const { i18n: i18nInstance } = useTranslation();
+
+  if (Platform.OS !== "web") {
+    return I18nManager.isRTL;
+  }
+
+  if (isRtlLocale(locale)) return true;
+
+  const code = resolveLocaleCode(i18nInstance.resolvedLanguage ?? i18nInstance.language);
+  return code != null;
+}
+
+/** Disclosure chevron for the current layout direction. */
+export function forwardChevronIcon(rtl: boolean): IconName {
+  return rtl
+    ? { ios: "chevron.left", android: "chevron_left", web: "chevron_left" }
+    : { ios: "chevron.right", android: "chevron_right", web: "chevron_right" };
 }
 
 /**
@@ -37,9 +97,7 @@ export function isRTL(): boolean {
  * belong in this module.
  */
 export function chevronForward(): IconName {
-  return isRTL()
-    ? { ios: "chevron.left", android: "chevron_left", web: "chevron_left" }
-    : { ios: "chevron.right", android: "chevron_right", web: "chevron_right" };
+  return forwardChevronIcon(isRTL());
 }
 
 /**
@@ -91,8 +149,24 @@ export function containsArabicScript(text: string): boolean {
 /**
  * Keeps symbol/numeric micro-controls (A−/A+, steppers) in a stable visual order
  * inside RTL screens — without this, flex row mirrors and swaps increase/decrease.
+ * Also wrap {@link ThemedSwitch} / native `Switch` controls so the thumb stays on
+ * the track (RTL flex + Switch mirroring would otherwise double-flip the knob).
+ *
+ * Use {@link ltrControlViewProps} on web so react-native-web also receives `dir="ltr"`
+ * for its locale context — `writingDirection` alone only sets CSS `direction`.
  */
-export const ltrControlStyle = { direction: "ltr" } satisfies ViewStyle;
+export const ltrControlStyle = { writingDirection: "ltr" as const } satisfies ViewStyle;
+
+/** View props that lock a micro-control to an LTR coordinate plane. */
+export function ltrControlViewProps(): {
+  style: typeof ltrControlStyle;
+  dir?: "ltr";
+} {
+  if (Platform.OS === "web") {
+    return { style: ltrControlStyle, dir: "ltr" };
+  }
+  return { style: ltrControlStyle };
+}
 
 /**
  * Text style for compact filter/value fields opposite a row label (select triggers,

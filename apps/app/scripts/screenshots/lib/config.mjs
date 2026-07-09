@@ -1,0 +1,89 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const SCRIPT_ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+export const APP_ROOT = path.resolve(SCRIPT_ROOT, "../..");
+export const REPO_ROOT = path.resolve(APP_ROOT, "../..");
+
+export const APP_ID = {
+  android: "com.munibtracker.app",
+  ios: "com.munibtracker.app",
+};
+
+export const URL_SCHEME = "munib-tracker";
+
+/** Product locales — matches AppLocale in @munib-tracker/shared. */
+export const LOCALES = ["en", "ar", "ur"];
+
+export const THEMES = ["light", "dark"];
+
+export const DEFAULT_LOCALE = "en";
+export const DEFAULT_THEME = "dark";
+
+/** Native PNG output (full matrix). */
+export const OUTPUT_ROOT = path.join(APP_ROOT, "store-assets", "captures-native");
+
+/** Flat JPEG aliases for screenshot-studio (dark locale set). */
+export const STUDIO_CAPTURE_ROOT = path.join(APP_ROOT, "store-assets", "captures");
+
+/** Maestro + temp flow workspace (gitignored). */
+export const WORK_DIR = path.join(APP_ROOT, ".screenshots-work");
+
+export const TIMING = {
+  /** After cold launch before first interaction. */
+  appBootMs: 12_000,
+  /** Default settle after navigation / tab switch. */
+  settleMs: 900,
+  /** Extra wait for Reanimated / Stagger entrance animations. */
+  animationMs: 1_400,
+  /** Heavy screens (Qur'an mushaf, hadith lists). */
+  heavyScreenMs: 2_800,
+  /** Modal / bottom sheet open animation. */
+  modalMs: 1_100,
+  /** Locale switch may trigger native reload (ar / ur). */
+  localeReloadMs: 14_000,
+  /** Poll interval for ready-marker checks. */
+  pollMs: 400,
+  /** Max wait for ready markers before failing the scene. */
+  readyTimeoutMs: 45_000,
+  /** Metro bundler warm-up when starting dev client. */
+  metroWarmMs: 8_000,
+};
+
+export const ANDROID = {
+  avdEnv: "ANDROID_AVD",
+  emulatorGpuEnv: "ANDROID_EMULATOR_GPU",
+  defaultDeviceName: "Pixel_7_Pro_API_34",
+};
+
+export const IOS = {
+  deviceNameEnv: "IOS_SIMULATOR_DEVICE",
+  defaultDeviceName: "iPhone 16 Pro",
+  /** Portrait phone — store marketing frames crop from this. */
+  screenshotScale: 3,
+};
+
+/** Map capture scene ids → screenshot-studio JPEG filenames (dark captures). */
+export const STUDIO_ALIASES = {
+  home: "home.jpg",
+  tracker: "tracker.jpg",
+  "tracker-status-sheet": "tracker.jpg",
+  qaza: "qaza.jpg",
+  zikr: "zikr.jpg",
+  quran: "quran.jpg",
+  "settings-offline-data": "settings-privacy.jpg",
+  "settings-backup": "settings-sync.jpg",
+};
+
+export function deepLink(route) {
+  const normalized = route.startsWith("/") ? route : `/${route}`;
+  return `${URL_SCHEME}://${normalized.replace(/^\//, "")}`;
+}
+
+export function outputPath(platform, locale, theme, sceneId, ext = "png") {
+  return path.join(OUTPUT_ROOT, platform, locale, theme, `${sceneId}.${ext}`);
+}
+
+export function studioAliasPath(locale, aliasFile) {
+  return path.join(STUDIO_CAPTURE_ROOT, locale, aliasFile);
+}

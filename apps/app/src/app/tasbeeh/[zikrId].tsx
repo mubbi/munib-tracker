@@ -61,7 +61,7 @@ export default function ZikrTasbeehScreen() {
       <ScreenLayout title={t("tasbeeh.eyebrow")} onBack={() => goBackOrReplace(router, "/")}>
         <Seo
           title={t("tasbeeh.eyebrow")}
-          description="Count this dhikr with a tactile tasbeeh counter."
+          description={t("seo.tasbeehZikr.description")}
           index={false}
         />
         <EmptyState
@@ -94,7 +94,7 @@ export default function ZikrTasbeehScreen() {
     >
       <Seo
         title={t("tasbeeh.eyebrow")}
-        description="Count this dhikr with a tactile tasbeeh counter."
+        description={t("seo.tasbeehZikr.description")}
         index={false}
       />
       <Card variant="muted" padding="four" style={styles.reading}>

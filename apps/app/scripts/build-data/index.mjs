@@ -14,9 +14,9 @@ import { buildQuran } from "./build-quran.mjs";
 import { writeManifest } from "./manifest.mjs";
 
 const BUILDERS = {
+  quran: buildQuran,
   adhkar: buildAdhkar,
   names: buildNames,
-  quran: buildQuran,
   hadith: buildHadithHighlights,
 };
 

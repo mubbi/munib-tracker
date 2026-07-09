@@ -1,6 +1,6 @@
 import type { NameOfAllah } from "../types/index";
 
-export const NAMES_CONTENT_VERSION = 3;
+export const NAMES_CONTENT_VERSION = 4;
 
 /**
  * The 99 names of Allah (Asma-ul-Husna), following the standard Tirmidhi
@@ -16,6 +16,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ar-Rahman",
     translation: "The Most Gracious",
     meaning: "The One whose mercy embraces all creation.",
+    translations: { id: "Yang Maha Pengasih", ms: "Yang Maha Pemurah" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/01_ar_rahman.mp3",
   },
@@ -25,6 +26,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ar-Rahim",
     translation: "The Most Merciful",
     meaning: "The One who is especially merciful to the believers.",
+    translations: { id: "Yang Maha Penyayang", ms: "Yang Maha Penyayang" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/02_ar_rahim.mp3",
   },
@@ -34,6 +36,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Malik",
     translation: "The King",
     meaning: "The Sovereign owner of all dominion.",
+    translations: { id: "Yang Maha Merajai / Memerintah", ms: "Yang Maha Memiliki" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/03_al_malik.mp3",
   },
@@ -43,6 +46,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Quddus",
     translation: "The Most Holy",
     meaning: "The One pure and free from every imperfection.",
+    translations: { id: "Yang Maha Suci", ms: "Yang Maha Suci" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/04_al_quddus.mp3",
   },
@@ -52,6 +56,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "As-Salam",
     translation: "The Source of Peace",
     meaning: "The One free of all flaws, the giver of peace.",
+    translations: { id: "Yang Maha Memberi Kesejahteraan", ms: "Yang Maha Sejahtera" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/05_as_salam.mp3",
   },
@@ -61,6 +66,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mu'min",
     translation: "The Guardian of Faith",
     meaning: "The One who grants security and confirms His signs.",
+    translations: { id: "Yang Maha Memberi Keamanan", ms: "Yang Maha Memberi Keamanan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/06_al_mumin.mp3",
   },
@@ -70,6 +76,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muhaymin",
     translation: "The Protector",
     meaning: "The Guardian who watches over and preserves all things.",
+    translations: { id: "Yang Maha Pemelihara", ms: "Yang Maha Memelihara" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/07_al_muhaymin.mp3",
   },
@@ -79,6 +86,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Aziz",
     translation: "The Almighty",
     meaning: "The Mighty, invincible and ever-dominant.",
+    translations: { id: "Yang Maha PerkasaYang Maha Perkasa", ms: "Yang Maha Perkasa" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/08_al_aziz.mp3",
   },
@@ -88,6 +96,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Jabbar",
     translation: "The Compeller",
     meaning: "The One who mends and whose will always prevails.",
+    translations: { id: "Yang Memiliki Mutlak Kegagahan", ms: "Yang Maha Menundukkan Segalanya" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/09_al_jabbar.mp3",
   },
@@ -97,6 +106,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mutakabbir",
     translation: "The Supreme",
     meaning: "The One who is justly proud of His greatness.",
+    translations: { id: "Yang Maha Megah", ms: "Yang Maha Memiliki Kebesaran" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/10_al_mutakabbir.mp3",
   },
@@ -106,6 +116,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Khaliq",
     translation: "The Creator",
     meaning: "The One who brings all things into existence from nothing.",
+    translations: { id: "Yang Maha Pencipta", ms: "Yang Maha Pencipta" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/11_al_khaliq.mp3",
   },
@@ -115,6 +126,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Bari'",
     translation: "The Maker",
     meaning: "The Originator who fashions creation free of fault.",
+    translations: { id: "Yang Maha Melepaskan (Membuat", ms: "Yang Maha Perancang" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/12_al_bari.mp3",
   },
@@ -124,6 +136,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Musawwir",
     translation: "The Fashioner",
     meaning: "The One who gives everything its distinct form.",
+    translations: { id: "Yang Maha Membentuk Rupa (makhluknya)", ms: "Yang Maha Pembentuk" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/13_al_musawwir.mp3",
   },
@@ -133,6 +146,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Ghaffar",
     translation: "The Ever-Forgiving",
     meaning: "The One who forgives again and again.",
+    translations: { id: "Yang Maha Pengampun", ms: "Yang Maha Pengampun" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/14_al_ghaffar.mp3",
   },
@@ -142,6 +156,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Qahhar",
     translation: "The Subduer",
     meaning: "The Dominant One who prevails over all.",
+    translations: { id: "Yang Maha Menundukan", ms: "Yang Maha Pemaksa" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/15_al_qahhar.mp3",
   },
@@ -151,6 +166,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Wahhab",
     translation: "The Bestower",
     meaning: "The One who gives freely without expecting return.",
+    translations: { id: "Yang Maha Pemberi Karunia", ms: "Yang Maha Menganugerah" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/16_al_wahhab.mp3",
   },
@@ -160,6 +176,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ar-Razzaq",
     translation: "The Provider",
     meaning: "The Sustainer who provides for all creation.",
+    translations: { id: "Yang Maha Pemberi Rezeki", ms: "Yang Maha Pemberi Rezeki" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/17_ar_razzaq.mp3",
   },
@@ -169,6 +186,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Fattah",
     translation: "The Opener",
     meaning: "The One who opens what is closed and grants victory.",
+    translations: { id: "Yang Maha Pembuka Rahmat", ms: "Yang Maha Pembuka" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/18_al_fattah.mp3",
   },
@@ -178,6 +196,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-'Alim",
     translation: "The All-Knowing",
     meaning: "The One whose knowledge encompasses everything.",
+    translations: { id: "Yang Maha Mengetahui (Memiliki Ilmu)", ms: "Yang Maha Mengetahui" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/19_al_alim.mp3",
   },
@@ -187,6 +206,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Qabid",
     translation: "The Withholder",
     meaning: "The One who withholds provision by His wisdom.",
+    translations: { id: "Yang Maha Menyempitkan (makhluknya)", ms: "Yang Maha Menyempitkan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/20_al_qabid.mp3",
   },
@@ -196,6 +216,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Basit",
     translation: "The Extender",
     meaning: "The One who extends provision and mercy generously.",
+    translations: { id: "Yang Maha Melapangkan (makhluknya)", ms: "Yang Maha Meluaskan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/21_al_basit.mp3",
   },
@@ -205,6 +226,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Khafid",
     translation: "The Abaser",
     meaning: "The One who lowers the arrogant and disbelieving.",
+    translations: { id: "Yang Maha Merendahkan (makhluknya)", ms: "Yang Maha Merendahkan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/22_al_khafid.mp3",
   },
@@ -214,6 +236,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ar-Rafi'",
     translation: "The Exalter",
     meaning: "The One who raises the humble and faithful.",
+    translations: { id: "Yang Maha Meninggikan (makhluknya)", ms: "Yang Maha Meninggikan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/23_ar_rafi.mp3",
   },
@@ -223,6 +246,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mu'izz",
     translation: "The Bestower of Honour",
     meaning: "The One who honours and strengthens whom He wills.",
+    translations: { id: "Yang Maha Memuliakan (makhluknya)", ms: "Yang Maha Memuliakan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio24_24_al_muizz.mp3",
   },
@@ -232,6 +256,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mudhill",
     translation: "The Humiliator",
     meaning: "The One who abases whom He wills by His justice.",
+    translations: { id: "Yang Maha Menghinakan (makhluknya)", ms: "Yang Maha Menghinakan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio25_25_al_mudhill.mp3",
   },
@@ -241,6 +266,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "As-Sami'",
     translation: "The All-Hearing",
     meaning: "The One who hears all, secret and manifest.",
+    translations: { id: "Yang Maha Mendengar", ms: "Yang Maha Mendengar" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio26_26_as_sami.mp3",
   },
@@ -250,6 +276,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Basir",
     translation: "The All-Seeing",
     meaning: "The One who sees all things without limit.",
+    translations: { id: "Yang Maha Melihat", ms: "Yang Maha Melihat" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio27_27_al_basir.mp3",
   },
@@ -259,6 +286,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Hakam",
     translation: "The Judge",
     meaning: "The Arbitrator whose judgement none can overturn.",
+    translations: { id: "Maha Menetapkan", ms: "Yang Maha Menghukum" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio28_28_al_hakam.mp3",
   },
@@ -268,6 +296,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-'Adl",
     translation: "The Utterly Just",
     meaning: "The One who is perfectly just in all He does.",
+    translations: { id: "Yang Maha Adil", ms: "Yang Maha Adil" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio29_29_al_adl.mp3",
   },
@@ -277,6 +306,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Latif",
     translation: "The Subtle",
     meaning: "The Gentle One, kind and aware of the finest matters.",
+    translations: { id: "Yang Maha Lembut", ms: "Yang Maha Lembut" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio30_30_al_latif.mp3",
   },
@@ -286,6 +316,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Khabir",
     translation: "The All-Aware",
     meaning: "The One acquainted with the reality of everything.",
+    translations: { id: "Yang Maha Mengenal", ms: "Yang Maha Waspada" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio31_31_al_khabir.mp3",
   },
@@ -295,6 +326,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Halim",
     translation: "The Forbearing",
     meaning: "The One who is patient and does not hasten to punish.",
+    translations: { id: "Yang Maha Penyantun", ms: "Yang Maha Penyantun" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio32_32_al_halim.mp3",
   },
@@ -304,6 +336,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-'Azim",
     translation: "The Magnificent",
     meaning: "The One of absolute greatness and majesty.",
+    translations: { id: "Allah Yang Maha Agung", ms: "Yang Maha Agong" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio33_33_al_azim.mp3",
   },
@@ -313,6 +346,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Ghafur",
     translation: "The Forgiving",
     meaning: "The One who forgives abundantly.",
+    translations: { id: "Allah Yang Maha Memberi Pengampunan", ms: "Yang Maha Pengampun" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio34_34_al_ghafur.mp3",
   },
@@ -322,6 +356,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ash-Shakur",
     translation: "The Appreciative",
     meaning: "The One who rewards small good deeds greatly.",
+    translations: { id: "Allah Yang Maha Pembalas Budi (Menghargai)", ms: "Yang Maha Mensyukuri" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio35_35_ash_shakur.mp3",
   },
@@ -331,6 +366,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-'Aliyy",
     translation: "The Most High",
     meaning: "The One exalted above all creation.",
+    translations: { ms: "Yang Maha Tinggi" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio36_36_al_ali.mp3",
   },
@@ -340,6 +376,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Kabir",
     translation: "The Most Great",
     meaning: "The One greater than everything in majesty.",
+    translations: { id: "Yang Maha Besar", ms: "Yang Maha Besar" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio37_37_al_kabir.mp3",
   },
@@ -349,6 +386,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Hafiz",
     translation: "The Preserver",
     meaning: "The One who protects and preserves all things.",
+    translations: { id: "Allah Yang Maha Memelihara", ms: "Yang Maha Memelihara" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio38_38_al_hafiz.mp3",
   },
@@ -358,6 +396,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muqit",
     translation: "The Sustainer",
     meaning: "The One who nourishes and maintains all creatures.",
+    translations: { id: "Allah Yang Maha Pemberi Kecukupan", ms: "Yang Maha Memberi Kekuatan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio39_39_al_muqit.mp3",
   },
@@ -367,6 +406,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Hasib",
     translation: "The Reckoner",
     meaning: "The One who is sufficient and takes account of all.",
+    translations: { id: "Allah Yang Maha Membuat Perhitungan", ms: "Yang Maha Menghisab" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio40_40_al_hasib.mp3",
   },
@@ -376,6 +416,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Jalil",
     translation: "The Majestic",
     meaning: "The One of true majesty and greatness.",
+    translations: { id: "Allah Yang Maha Luhur", ms: "Yang Maha Mempunyai Kesempurnaan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio41_41_al_jalil.mp3",
   },
@@ -385,6 +426,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Karim",
     translation: "The Most Generous",
     meaning: "The One of endless generosity and nobility.",
+    translations: { id: "Allah Yang Maha Pemurah", ms: "Yang Maha Pemurah" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio42_42_al_karim.mp3",
   },
@@ -394,6 +436,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ar-Raqib",
     translation: "The Watchful",
     meaning: "The One who watches over and observes all.",
+    translations: { id: "Allah Yang Maha Mengawasi", ms: "Yang Maha Mengawasi" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio43_43_ar_raqib.mp3",
   },
@@ -403,6 +446,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mujib",
     translation: "The Responsive",
     meaning: "The One who answers the call of those who ask.",
+    translations: { id: "Allah Yang Maha Mengabulkan", ms: "Yang Maha Mengabulkan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio44_44_al_mujib.mp3",
   },
@@ -412,6 +456,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Wasi'",
     translation: "The All-Encompassing",
     meaning: "The Vast One whose knowledge and mercy have no bounds.",
+    translations: { id: "Allah Yang Maha Luas", ms: "Yang Maha Luas" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio45_45_al_wasi.mp3",
   },
@@ -421,6 +466,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Hakim",
     translation: "The All-Wise",
     meaning: "The One perfect in wisdom in all He decrees.",
+    translations: { id: "Allah Yang Maha Bijaksana", ms: "Yang Maha Bijaksana" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio46_46_al_hakim.mp3",
   },
@@ -430,6 +476,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Wadud",
     translation: "The Loving",
     meaning: "The One loving to His servants and beloved to the righteous.",
+    translations: { id: "Allah Yang Maha Mengasihi", ms: "Yang Maha Pecinta" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio47_47_al_wadud.mp3",
   },
@@ -439,6 +486,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Majid",
     translation: "The Most Glorious",
     meaning: "The One of perfect glory and honour.",
+    translations: { id: "Allah Yang Maha Mulia", ms: "Yang Maha Mulia" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio48_48_al_majid.mp3",
   },
@@ -448,6 +496,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Ba'ith",
     translation: "The Resurrector",
     meaning: "The One who raises the dead to life on Judgement Day.",
+    translations: { id: "Allah Yang Maha Membangkitkan", ms: "Yang Maha Membangkitkan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio49_49_al_bayes.mp3",
   },
@@ -457,6 +506,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ash-Shahid",
     translation: "The Witness",
     meaning: "The One who witnesses all that happens.",
+    translations: { id: "Allah Yang Maha Menyaksikan", ms: "Yang Maha Menyaksikan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio50_50_ash_shahid.mp3",
   },
@@ -466,6 +516,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Haqq",
     translation: "The Truth",
     meaning: "The One whose being and reality are absolute truth.",
+    translations: { id: "Allah Yang Maha Benar", ms: "Yang Maha Benar" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio51_51_al_haqq.mp3",
   },
@@ -475,6 +526,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Wakil",
     translation: "The Trustee",
     meaning: "The One entrusted with the affairs of all creation.",
+    translations: { id: "Allah Yang Maha Memelihara", ms: "Yang Maha Menguruskan Amanah" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio52_52_al_wakil.mp3",
   },
@@ -484,6 +536,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Qawiyy",
     translation: "The Most Strong",
     meaning: "The One of complete and perfect strength.",
+    translations: { ms: "Yang Maha Kuat" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio53_53_al_qawi.mp3",
   },
@@ -493,6 +546,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Matin",
     translation: "The Firm",
     meaning: "The Steadfast One whose strength never wavers.",
+    translations: { id: "Allah Yang Maha Kokoh", ms: "Yang Maha Teguh" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio54_54_al_matin.mp3",
   },
@@ -502,6 +556,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Waliyy",
     translation: "The Protecting Friend",
     meaning: "The Ally and guardian of the believers.",
+    translations: { ms: "Yang Maha Melindungi lagi Maha Mengurus" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio55_55_al_wali.mp3",
   },
@@ -511,6 +566,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Hamid",
     translation: "The Praiseworthy",
     meaning: "The One deserving of all praise.",
+    translations: { id: "Allah Yang Maha Terpuji", ms: "Yang Maha Terpuji" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio56_56_al_hamid.mp3",
   },
@@ -520,6 +576,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muhsi",
     translation: "The Enumerator",
     meaning: "The One who records and counts all things.",
+    translations: { ms: "Yang Maha Menghitung" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio57_57_al_muhsi.mp3",
   },
@@ -529,6 +586,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mubdi'",
     translation: "The Originator",
     meaning: "The One who begins creation without precedent.",
+    translations: { id: "Allah Yang Maha Memulai", ms: "Yang Maha Memulai" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio58_58_al_mubdi.mp3",
   },
@@ -538,6 +596,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mu'id",
     translation: "The Restorer",
     meaning: "The One who brings creation back after its end.",
+    translations: { id: "Allah Yang Maha Mengembalikan Kehidupan", ms: "Yang Maha Mengembalikan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio59_59_al_muid.mp3",
   },
@@ -547,6 +606,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muhyi",
     translation: "The Giver of Life",
     meaning: "The One who grants life to all living things.",
+    translations: { ms: "Yang Maha Menghidupkan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio60_60_al_muhyi.mp3",
   },
@@ -556,6 +616,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mumit",
     translation: "The Bringer of Death",
     meaning: "The One who ordains death for the living.",
+    translations: { id: "Allah Yang Maha Mematikan", ms: "Yang Maha Mematikan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio61_61_al_mumit.mp3",
   },
@@ -565,6 +626,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Hayy",
     translation: "The Ever-Living",
     meaning: "The One who lives eternally without end.",
+    translations: { id: "Allah Yang Maha Hidup", ms: "Yang Maha Hidup" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio62_62_al_hayy.mp3",
   },
@@ -574,6 +636,10 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Qayyum",
     translation: "The Self-Subsisting",
     meaning: "The One who sustains all while needing none.",
+    translations: {
+      id: "Allah Yang Maha Mandiri",
+      ms: "Yang Maha Berdiri Sendiri lagi Maha Tegak",
+    },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio63_63_al_qayyum.mp3",
   },
@@ -583,6 +649,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Wajid",
     translation: "The Perceiver",
     meaning: "The One who lacks nothing and finds whatever He wills.",
+    translations: { id: "Allah Yang Maha Penemu", ms: "Yang Maha Menemukan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio64_64_al_wajid.mp3",
   },
@@ -592,6 +659,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Majid",
     translation: "The Noble",
     meaning: "The Illustrious One, abundant in glory and generosity.",
+    translations: { id: "Allah Yang Maha Mulia", ms: "Yang Maha Maha Mulia" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio65_65_al_majid.mp3",
   },
@@ -601,6 +669,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Wahid",
     translation: "The One",
     meaning: "The One without partner or equal.",
+    translations: { id: "Allah Yang Maha Tunggal", ms: "Yang Maha Esa" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio66_66_al_wahid.mp3",
   },
@@ -610,6 +679,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Ahad",
     translation: "The Indivisible",
     meaning: "The Unique One, single in His essence.",
+    translations: { id: "Allah Yang Maha Esa", ms: "Yang Maha Tunggal" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio67_67_al_ahad.mp3",
   },
@@ -619,6 +689,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "As-Samad",
     translation: "The Eternal",
     meaning: "The Self-Sufficient One whom all creation needs.",
+    translations: { id: "Allah Yang Maha Dibutuhkan", ms: "Yang Maha Diperlukan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio68_68_as_samad.mp3",
   },
@@ -628,6 +699,10 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Qadir",
     translation: "The Able",
     meaning: "The One with full power over all things.",
+    translations: {
+      id: "Allah Yang Maha Menentukan",
+      ms: "Yang Maha Menentukan lagi Maha Berkuasa",
+    },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio69_69_al_qadir.mp3",
   },
@@ -637,6 +712,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muqtadir",
     translation: "The Powerful",
     meaning: "The One who prevails and determines all.",
+    translations: { id: "Allah Yang Maha Berkuasa", ms: "Yang Maha Berkuasa dan Maha Menentukan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio70_70_al_muqtadir.mp3",
   },
@@ -646,6 +722,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muqaddim",
     translation: "The Expediter",
     meaning: "The One who brings forward whom He wills.",
+    translations: { id: "Allah Yang Maha Mendahulukan", ms: "Yang Maha Mendahulukan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio71_71_al_muqaddim.mp3",
   },
@@ -655,6 +732,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mu'akhkhir",
     translation: "The Delayer",
     meaning: "The One who postpones whom He wills by His wisdom.",
+    translations: { id: "Allah Yang Maha Mengakhirkan", ms: "Yang Maha Mengakhirkan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio72_72_al_muakhkhir.mp3",
   },
@@ -664,6 +742,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Awwal",
     translation: "The First",
     meaning: "The One before all things, without beginning.",
+    translations: { id: "Allah Yang Maha Awal", ms: "Yang Maha Memulakan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio73_73_al_awwal.mp3",
   },
@@ -673,6 +752,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Akhir",
     translation: "The Last",
     meaning: "The One after all things, without end.",
+    translations: { id: "Allah Yang Maha Akhir", ms: "Yang Maha Akhir" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio74_74_al_akhir.mp3",
   },
@@ -682,6 +762,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Az-Zahir",
     translation: "The Manifest",
     meaning: "The One evident above all through His signs.",
+    translations: { id: "Allah Yang Maha Nyata", ms: "Yang Maha Nyata" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio75_75_az_zahir.mp3",
   },
@@ -691,6 +772,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Batin",
     translation: "The Hidden",
     meaning: "The One nearer than all yet beyond perception.",
+    translations: { id: "Allah Yang Maha Ghaib", ms: "Yang Maha Ghaib" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio76_76_al_batin.mp3",
   },
@@ -700,6 +782,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Wali",
     translation: "The Governor",
     meaning: "The One who owns and manages all affairs.",
+    translations: { id: "Allah Yang Maha Memerintah", ms: "Yang Maha Memerintah dan Maha Memberi" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio77_77_al_wali.mp3",
   },
@@ -709,6 +792,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muta'ali",
     translation: "The Most Exalted",
     meaning: "The One far above every limitation.",
+    translations: { id: "Allah Yang Maha Tinggi", ms: "Yang Maha Tinggi" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio78_78_al_mutaali.mp3",
   },
@@ -718,6 +802,10 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Barr",
     translation: "The Source of Goodness",
     meaning: "The Kind One, ever gentle and beneficent.",
+    translations: {
+      id: "Allah Yang Maha Penderma (Maha Pemberi Kebajikan)",
+      ms: "Yang Maha Baik dan Dermawan",
+    },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio79_79_al_barr.mp3",
   },
@@ -727,6 +815,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "At-Tawwab",
     translation: "The Ever-Relenting",
     meaning: "The One who accepts repentance again and again.",
+    translations: { id: "Allah Yang Maha Penerima Tobat", ms: "Yang Maha Penerima Taubat" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio80_80_at_tawwab.mp3",
   },
@@ -736,6 +825,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muntaqim",
     translation: "The Avenger",
     meaning: "The One who justly requites the persistent wrongdoer.",
+    translations: { id: "Allah Yang Maha Pemberi Balasan", ms: "Yang Maha Penyiksa" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio81_81_al_muntaqim.mp3",
   },
@@ -745,6 +835,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-'Afuww",
     translation: "The Pardoner",
     meaning: "The One who effaces sins and pardons freely.",
+    translations: { id: "Allah Yang Maha Pemaaf", ms: "Yang Maha Pemaaf" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio82_82_al_afuw.mp3",
   },
@@ -763,6 +854,10 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Malik-ul-Mulk",
     translation: "Owner of All Sovereignty",
     meaning: "The Owner of all dominion who bestows it as He wills.",
+    translations: {
+      id: "Allah Yang Maha Penguasa Kerajaan (Semesta)",
+      ms: "Yang Maha Memiliki Kerajaan",
+    },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio84_84_malik_ul_mulk.mp3",
   },
@@ -772,6 +867,10 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Dhul-Jalali wal-Ikram",
     translation: "Lord of Majesty and Bounty",
     meaning: "The Possessor of majesty, honour, and generosity.",
+    translations: {
+      id: "Allah Yang Maha Pemilik Kebesaran dan Kemuliaan",
+      ms: "Yang Maha Memiliki Kebesaran dan Kemuliaan",
+    },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio85_85_dhul_jalaal_wal_ikraam.mp3",
   },
@@ -781,6 +880,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Muqsit",
     translation: "The Equitable",
     meaning: "The One who acts with perfect fairness.",
+    translations: { id: "Allah Yang Maha Pemberi Keadilan", ms: "Yang Maha Menyeimbangkan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio86_86_al_muqsit.mp3",
   },
@@ -790,6 +890,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Jami'",
     translation: "The Gatherer",
     meaning: "The One who assembles all creation on Judgement Day.",
+    translations: { id: "Allah Yang Maha Mengumpulkan", ms: "Yang Maha Menghimpun" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio87_87_al_jame.mp3",
   },
@@ -799,6 +900,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Ghaniyy",
     translation: "The Self-Sufficient",
     meaning: "The Rich One in need of nothing.",
+    translations: { ms: "Yang Maha Kaya" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio88_88_al_ghani.mp3",
   },
@@ -808,6 +910,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mughni",
     translation: "The Enricher",
     meaning: "The One who enriches and satisfies His servants.",
+    translations: { ms: "Yang Maha  Pemberi Kekayaan" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio89_89_al_mughni.mp3",
   },
@@ -817,6 +920,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Mani'",
     translation: "The Preventer",
     meaning: "The One who withholds by His wisdom to protect.",
+    translations: { id: "Allah Yang Maha Mencegah", ms: "Yang Maha Mencegah" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio90_90_al_mani.mp3",
   },
@@ -826,6 +930,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ad-Darr",
     translation: "The Distresser",
     meaning: "The One who can allow harm by His decree.",
+    translations: { id: "Allah Yang Maha Penimpa Kemudharatan", ms: "Yang Maha Pemberi Derita" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio91_91_ad_darr.mp3",
   },
@@ -835,6 +940,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "An-Nafi'",
     translation: "The Benefactor",
     meaning: "The One who is the source of all benefit.",
+    translations: { id: "Allah Yang Maha Memberi Manfaat", ms: "Yang Maha Pemberi Manfaat" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio92_92_an_nafi.mp3",
   },
@@ -844,6 +950,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "An-Nur",
     translation: "The Light",
     meaning: "The One who illuminates the heavens and the earth.",
+    translations: { id: "Allah Yang Maha Bercahaya (Menerangi", ms: "Yang Maha Bercahaya" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio93_93_an_nur.mp3",
   },
@@ -853,6 +960,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Hadi",
     translation: "The Guide",
     meaning: "The One who guides His servants to the truth.",
+    translations: { id: "Allah Yang Maha Pemberi Petunjuk", ms: "Yang Maha Petunjuk" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio94_94_al_hadi.mp3",
   },
@@ -862,6 +970,10 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Badi'",
     translation: "The Incomparable Originator",
     meaning: "The One who creates in unprecedented ways.",
+    translations: {
+      id: "Allah Yang Maha Pencipta Yang Tiada Bandingannya",
+      ms: "Yang Maha Pencipta Keindahan",
+    },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio95_95_al_badi.mp3",
   },
@@ -871,6 +983,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Baqi",
     translation: "The Everlasting",
     meaning: "The One who remains after all else perishes.",
+    translations: { id: "Allah Yang Maha Kekal", ms: "Yang Maha Kekal" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio96_96_al_baqi.mp3",
   },
@@ -880,6 +993,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Al-Warith",
     translation: "The Inheritor",
     meaning: "The One to whom all returns after creation ends.",
+    translations: { id: "Allah Yang Maha Pewaris", ms: "Yang Maha Mewarisi" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio97_97_al_warith.mp3",
   },
@@ -889,6 +1003,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "Ar-Rashid",
     translation: "The Guide to the Right Path",
     meaning: "The One who directs all to their right course.",
+    translations: { id: "Allah Yang Maha Pandai", ms: "Yang Maha Pintar dan Maha Cerdas" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio98_98_ar_rashid.mp3",
   },
@@ -898,6 +1013,7 @@ export const NAMES_OF_ALLAH: NameOfAllah[] = [
     transliteration: "As-Sabur",
     translation: "The Patient",
     meaning: "The One who is patient and never acts in haste.",
+    translations: { id: "Allah Yang Maha Sabar", ms: "Yang Maha Sabar" },
     audioUri:
       "https://cdn.jsdelivr.net/gh/ProgrammerHasan/99-names-of-allah-audios@03c526366d460c3acb163c89fadb0201fd057b96/audio99_99_as_sabur.mp3",
   },

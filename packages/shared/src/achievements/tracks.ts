@@ -4,20 +4,41 @@ export type { ProgressionTrackId } from "./types";
 
 export interface ProgressionTrackConfig {
   id: ProgressionTrackId;
-  label: string;
+  /** i18n key for the track label (`achievements.tracks.*`). */
+  labelKey: string;
   metric: AchievementMetric;
-  /** Explicit thresholds for early levels; later levels extend via `incrementAfter`. */
   thresholds: number[];
   incrementAfter: number;
-  /** Named titles for early levels; later levels use `titleForLevel`. */
-  titles: string[];
-  description: (threshold: number) => string;
+  /** Number of named title keys (`achievements.milestones.{id}.titles.{i}`). */
+  titlesCount: number;
 }
 
-export function titleForTrackLevel(track: ProgressionTrackConfig, level: number): string {
+export function titleKeyForTrackLevel(track: ProgressionTrackConfig, level: number): string {
   const idx = level - 1;
-  if (idx >= 0 && idx < track.titles.length) return track.titles[idx] ?? `${track.label} ${level}`;
-  return `${track.label} ${level}`;
+  if (idx >= 0 && idx < track.titlesCount) {
+    return `achievements.milestones.${track.id}.titles.${idx}`;
+  }
+  return `achievements.milestones.${track.id}.titleFallback`;
+}
+
+export function titleParamsForTrackLevel(
+  track: ProgressionTrackConfig,
+  level: number,
+): Record<string, string | number> {
+  const idx = level - 1;
+  if (idx >= 0 && idx < track.titlesCount) return {};
+  return { level };
+}
+
+export function descriptionKeyForTrack(track: ProgressionTrackConfig): string {
+  return `achievements.milestones.${track.id}.description`;
+}
+
+export function descriptionParamsForTrack(
+  _track: ProgressionTrackConfig,
+  threshold: number,
+): Record<string, number> {
+  return { count: threshold };
 }
 
 export function thresholdForTrackLevel(track: ProgressionTrackConfig, level: number): number {
@@ -28,7 +49,6 @@ export function thresholdForTrackLevel(track: ProgressionTrackConfig, level: num
   return last + overflow * track.incrementAfter;
 }
 
-/** Highest level whose threshold the current value has reached. */
 export function completedLevelForValue(track: ProgressionTrackConfig, value: number): number {
   let level = 0;
   while (thresholdForTrackLevel(track, level + 1) <= value) level++;
@@ -38,84 +58,35 @@ export function completedLevelForValue(track: ProgressionTrackConfig, value: num
 export const PROGRESSION_TRACKS: ProgressionTrackConfig[] = [
   {
     id: "salah",
-    label: "Salah",
+    labelKey: "achievements.tracks.salah",
     metric: "prayersCompleted",
     thresholds: [1, 5, 10, 25, 50, 100, 250, 500, 1000, 2000, 3500],
     incrementAfter: 500,
-    titles: [
-      "First Step",
-      "Steady Start",
-      "Daily Worshipper",
-      "Faithful Servant",
-      "Dedicated",
-      "Hundred Prayers",
-      "Quarter Thousand",
-      "Half Thousand",
-      "Thousand Lights",
-      "Two Thousand",
-      "Lifelong Salah",
-    ],
-    description: (n) => `Complete ${n} obligatory ${n === 1 ? "prayer" : "prayers"}`,
+    titlesCount: 11,
   },
   {
     id: "streak",
-    label: "Streak",
+    labelKey: "achievements.tracks.streak",
     metric: "streak",
     thresholds: [1, 3, 7, 14, 21, 30, 45, 60, 90, 120, 180, 365],
     incrementAfter: 30,
-    titles: [
-      "Day One",
-      "Getting Consistent",
-      "One Week Strong",
-      "Two Weeks Steady",
-      "Three Week Habit",
-      "A Month of Devotion",
-      "Six Weeks Firm",
-      "Two Months Steadfast",
-      "Season of Steadfastness",
-      "Four Months Strong",
-      "Half Year of Light",
-      "Year of Consistency",
-    ],
-    description: (n) => `Keep a ${n}-day prayer streak`,
+    titlesCount: 12,
   },
   {
     id: "zikr",
-    label: "Zikr",
+    labelKey: "achievements.tracks.zikr",
     metric: "zikrCompleted",
     thresholds: [1, 5, 10, 25, 50, 100, 250, 500, 1000],
     incrementAfter: 250,
-    titles: [
-      "First Remembrance",
-      "Heart Awakened",
-      "Steady Dhikr",
-      "Constant Remembrance",
-      "Remembrance",
-      "Hundred Sessions",
-      "Deep Reflection",
-      "Five Hundred Hearts",
-      "Thousand Remembrances",
-    ],
-    description: (n) => `Complete ${n} zikr ${n === 1 ? "session" : "sessions"}`,
+    titlesCount: 9,
   },
   {
     id: "consistency",
-    label: "Consistency",
+    labelKey: "achievements.tracks.consistency",
     metric: "perfectDays",
     thresholds: [1, 3, 7, 14, 30, 60, 100, 200, 365],
     incrementAfter: 50,
-    titles: [
-      "Perfect Day",
-      "Three Perfect Days",
-      "Week of Excellence",
-      "Two Weeks Complete",
-      "Month of Excellence",
-      "Two Months Complete",
-      "Hundred Perfect Days",
-      "Two Hundred Days",
-      "Year of Perfect Days",
-    ],
-    description: (n) => `Complete all obligatory prayers on ${n} ${n === 1 ? "day" : "days"}`,
+    titlesCount: 9,
   },
 ];
 

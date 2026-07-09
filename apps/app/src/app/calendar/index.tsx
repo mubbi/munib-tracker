@@ -25,6 +25,7 @@ import {
 } from "@/lib/calendar";
 import { formatCalendarDate } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
+import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { chevronBackward, chevronForward } from "@/lib/rtl";
 
@@ -43,8 +44,7 @@ export default function CalendarScreen() {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
 
-  const base = i18n.language?.split("-")[0];
-  const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
+  const locale: AppLocale = toAppLocale(i18n.language ?? "en");
 
   useFocusEffect(
     useCallback(() => {

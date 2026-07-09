@@ -11,7 +11,6 @@ import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   StyleSheet,
-  Switch,
   View,
   type ViewToken,
 } from "react-native";
@@ -28,6 +27,7 @@ import { ContentReportButton } from "@/components/content-report/content-report-
 import { AyahSeparator, ayahKeyExtractor, SurahAyahList } from "@/components/quran/ayah-reader";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
+import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -37,6 +37,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
+import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
@@ -48,7 +49,6 @@ import { buildContentReportRef } from "@/lib/content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   getBundledEdition,
-  getBundledEditions,
   getEditionById,
   getPageForAyah,
   getSurahAyahs,
@@ -57,9 +57,11 @@ import {
   getTransliteration,
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
+import { ALL_QURAN_TRANSLATIONS } from "@/lib/quran-translation-options";
 import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { buildAyahSharePayload } from "@/lib/share";
+import { resolveQuranEditionId } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useToast } from "@/providers/toast-provider";
 import {
@@ -73,7 +75,7 @@ import {
 import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
 
-const FALLBACK_TRANSLATION = "en-pickthall";
+const BUNDLED_EN_FALLBACK = "en-pickthall";
 
 /** Deep-link focus ring: hold briefly so the user sees the target, then fade out. */
 const FOCUS_HIGHLIGHT_HOLD_MS = 2500;
@@ -86,13 +88,7 @@ const FOCUS_HIGHLIGHT_FADE_MS = Durations.slow;
  */
 const LAST_READ_FLUSH_MS = 600;
 
-const ALL_TRANSLATIONS = [
-  ...getBundledEditions().filter((e) => e.kind === "translation"),
-  ...REMOTE_EDITIONS,
-];
-
 const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
-const TRANSLATION_OPTIONS = ALL_TRANSLATIONS.map((e) => ({ id: e.id, label: e.name }));
 
 function editionDirection(id: string): "ltr" | "rtl" {
   return (
@@ -120,7 +116,8 @@ export default function SurahReaderScreen() {
   const { colors, tokens } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const prefs = useQuranPrefs();
-  const { fontPrefs } = usePreferences();
+  const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
+  const defaultEditionId = resolveQuranEditionId({ translationLocale, locale: appLocale });
   const readingSizes = resolveReadingFontSizes("quran", fontPrefs);
   const { updatePrefs, setLastRead, toggleBookmark, recordProgress } = useQuranActions();
   useEnsureHifzLoaded();
@@ -261,10 +258,10 @@ export default function SurahReaderScreen() {
     itemCount: ayahs.length,
   });
 
-  const requestedEdition = prefs.preferredTranslationIds[0] ?? FALLBACK_TRANSLATION;
-  const knownEdition = ALL_TRANSLATIONS.some((e) => e.id === requestedEdition)
+  const requestedEdition = prefs.preferredTranslationIds[0] ?? defaultEditionId;
+  const knownEdition = ALL_QURAN_TRANSLATIONS.some((e) => e.id === requestedEdition)
     ? requestedEdition
-    : FALLBACK_TRANSLATION;
+    : defaultEditionId;
   const remoteActive = isRemoteEdition(knownEdition);
 
   // Remote editions are fetched cache-first; call the hook unconditionally.
@@ -276,7 +273,7 @@ export default function SurahReaderScreen() {
   const bundledTranslation = useMemo(
     () =>
       surah
-        ? getBundledEdition(remoteActive ? FALLBACK_TRANSLATION : knownEdition, surahNumber)
+        ? getBundledEdition(remoteActive ? BUNDLED_EN_FALLBACK : knownEdition, surahNumber)
         : {},
     [surah, surahNumber, knownEdition, remoteActive],
   );
@@ -291,7 +288,7 @@ export default function SurahReaderScreen() {
   const secondaryKnown =
     secondaryId &&
     secondaryId !== knownEdition &&
-    ALL_TRANSLATIONS.some((e) => e.id === secondaryId)
+    ALL_QURAN_TRANSLATIONS.some((e) => e.id === secondaryId)
       ? secondaryId
       : undefined;
   const secondaryRemoteActive = secondaryKnown ? isRemoteEdition(secondaryKnown) : false;
@@ -303,7 +300,7 @@ export default function SurahReaderScreen() {
     () =>
       secondaryKnown && surah
         ? getBundledEdition(
-            secondaryRemoteActive ? FALLBACK_TRANSLATION : secondaryKnown,
+            secondaryRemoteActive ? BUNDLED_EN_FALLBACK : secondaryKnown,
             surahNumber,
           )
         : {},
@@ -315,7 +312,7 @@ export default function SurahReaderScreen() {
       : secondaryBundled
     : undefined;
   const secondaryDir = secondaryKnown ? editionDirection(secondaryKnown) : "ltr";
-  const secondaryEdition = ALL_TRANSLATIONS.find((e) => e.id === secondaryId);
+  const secondaryEdition = ALL_QURAN_TRANSLATIONS.find((e) => e.id === secondaryId);
 
   const transliteration = useMemo(
     () => (surah ? getTransliteration(surahNumber) : {}),
@@ -336,9 +333,9 @@ export default function SurahReaderScreen() {
   const reciterDir = prefs.preferredReciterDir;
   const reciter = RECITERS.find((r) => r.dir === reciterDir) ?? RECITERS[0];
   const selectedEdition =
-    ALL_TRANSLATIONS.find((e) => e.id === knownEdition) ??
-    ALL_TRANSLATIONS.find((e) => e.id === FALLBACK_TRANSLATION) ??
-    ALL_TRANSLATIONS[0];
+    ALL_QURAN_TRANSLATIONS.find((e) => e.id === knownEdition) ??
+    ALL_QURAN_TRANSLATIONS.find((e) => e.id === BUNDLED_EN_FALLBACK) ??
+    ALL_QURAN_TRANSLATIONS[0];
 
   const playFrom = useCallback(
     (index: number) => {
@@ -734,19 +731,20 @@ export default function SurahReaderScreen() {
           onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
           onClose={() => setReciterPickerOpen(false)}
         />
-        <OptionPickerSheet
+        <TranslationPickerSheet
           visible={translationPickerOpen}
           title={t("quran.translation")}
-          options={TRANSLATION_OPTIONS}
           selectedId={knownEdition}
+          preferredLanguages={[translationLocale, appLocale]}
           onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
           onClose={() => setTranslationPickerOpen(false)}
         />
-        <OptionPickerSheet
+        <TranslationPickerSheet
           visible={secondaryPickerOpen}
           title={t("quran.secondTranslation")}
-          options={[{ id: "", label: t("quran.secondTranslationNone") }, ...TRANSLATION_OPTIONS]}
+          allowNone
           selectedId={secondaryId ?? ""}
+          preferredLanguages={[translationLocale, appLocale]}
           onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
           onClose={() => setSecondaryPickerOpen(false)}
         />
@@ -812,18 +810,11 @@ function PrefToggle({
   enabled: boolean;
   onToggle: () => void;
 }) {
-  const { colors, tokens } = useThemeTokens();
   return (
     <View style={[styles.controlRow, styles.toggleRow]}>
       <ControlLabel icon={icon} label={label} />
       <View style={styles.controlValue}>
-        <Switch
-          value={enabled}
-          onValueChange={onToggle}
-          trackColor={{ true: colors.accent, false: tokens.track }}
-          thumbColor={colors.card}
-          accessibilityLabel={label}
-        />
+        <ThemedSwitch value={enabled} onValueChange={onToggle} accessibilityLabel={label} />
       </View>
     </View>
   );

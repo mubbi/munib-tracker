@@ -5,6 +5,8 @@ import {
   APP_NAME,
   APP_TAGLINE,
 } from "@munib-tracker/shared/constants";
+import { SORTED_LOCALE_REGISTRY } from "@munib-tracker/shared/i18n";
+import type { AppLocale } from "@munib-tracker/shared/types";
 
 import { PWA_THEME_COLOR } from "@/config/pwa";
 
@@ -42,23 +44,21 @@ export const MARKETING_ORIGIN = trimTrailingSlash(
 );
 
 /** Locales the content is available in (via the in-app language switcher). */
-export const SEO_LOCALES = ["en", "ar", "ur"] as const;
-export type SeoLocale = (typeof SEO_LOCALES)[number];
+export const SEO_LOCALES = SORTED_LOCALE_REGISTRY.map(
+  (entry) => entry.code,
+) as readonly AppLocale[];
+export type SeoLocale = AppLocale;
 export const SEO_DEFAULT_LOCALE: SeoLocale = "en";
 
 /** Maps our short locale codes to the region-qualified codes Open Graph expects. */
-export const OG_LOCALE_BY_LOCALE: Record<SeoLocale, string> = {
-  en: "en_US",
-  ar: "ar_AR",
-  ur: "ur_PK",
-};
+export const OG_LOCALE_BY_LOCALE = Object.fromEntries(
+  SORTED_LOCALE_REGISTRY.map((entry) => [entry.code, entry.ogLocale]),
+) as Record<SeoLocale, string>;
 
 /** BCP-47 tags for `hreflang` alternates and `<html lang>`. */
-export const HREFLANG_BY_LOCALE: Record<SeoLocale, string> = {
-  en: "en",
-  ar: "ar",
-  ur: "ur",
-};
+export const HREFLANG_BY_LOCALE = Object.fromEntries(
+  SORTED_LOCALE_REGISTRY.map((entry) => [entry.code, entry.hreflang]),
+) as Record<SeoLocale, string>;
 
 /** Default social share image (Open Graph / Twitter). Lives under `public/`. */
 export const SEO_OG_IMAGE = {

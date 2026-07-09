@@ -1,4 +1,5 @@
 import { DEFAULT_USER_PREFERENCES } from "@munib-tracker/shared/constants";
+import { matchDeviceLocale } from "@munib-tracker/shared/i18n";
 import type {
   AppLocale,
   NotificationPreferences,
@@ -6,6 +7,7 @@ import type {
   UserPreferences,
   WeatherPreferences,
 } from "@munib-tracker/shared/types";
+import * as Localization from "expo-localization";
 
 import { initDatabase, PreferencesRepository } from "@/db";
 import { bootstrapAppLocale, changeAppLocale } from "@/i18n";
@@ -80,7 +82,19 @@ export const preferencesStore = createStore<PreferencesState>((set, get) => ({
     if (get().isReady) return;
 
     await initDatabase();
-    const prefs = await PreferencesRepository.get();
+    let prefs = await PreferencesRepository.get();
+
+    if (!prefs.hasCompletedOnboarding && prefs.locale === "en") {
+      const deviceTags = Localization.getLocales().map((l) => l.languageTag);
+      const matched = matchDeviceLocale(deviceTags);
+      if (matched && matched !== "en") {
+        prefs = await PreferencesRepository.update({
+          locale: matched,
+          translationLocale: matched,
+        });
+      }
+    }
+
     set({ prefs });
 
     const reloaded = await bootstrapAppLocale(prefs.locale);

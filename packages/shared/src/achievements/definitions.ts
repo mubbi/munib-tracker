@@ -5,11 +5,14 @@ import {
 } from "./debt-goals";
 import {
   completedLevelForValue,
+  descriptionKeyForTrack,
+  descriptionParamsForTrack,
   LEGACY_ACHIEVEMENT_MAP,
   PROGRESSION_TRACKS,
   type ProgressionTrackConfig,
   thresholdForTrackLevel,
-  titleForTrackLevel,
+  titleKeyForTrackLevel,
+  titleParamsForTrackLevel,
 } from "./tracks";
 import type {
   AchievementMetric,
@@ -36,13 +39,11 @@ export type {
 /** @deprecated Use MilestoneProgress — kept for gradual UI migration. */
 export interface AchievementProgress extends MilestoneProgress {}
 
-/** Total noor required to reach devotion level `level` (level 0 = 0 noor). */
 export function totalNoorForDevotionLevel(level: number): number {
   if (level <= 0) return 0;
   return (100 * level * (level + 1)) / 2;
 }
 
-/** Noor earned from worship activity — qaza/roza only count while debt is tracked. */
 export function computeDevotionNoor(stats: AchievementStats): number {
   const qazaNoor = stats.qazaDebt ? stats.qazaDebt.completed * 15 : 0;
   const rozaNoor = stats.rozaDebt ? stats.rozaDebt.completed * 15 : 0;
@@ -110,8 +111,10 @@ function buildTrackMilestone(
     id: milestoneId(track.id, level),
     trackId: track.id,
     level,
-    title: titleForTrackLevel(track, level),
-    description: track.description(threshold),
+    titleKey: titleKeyForTrackLevel(track, level),
+    titleParams: titleParamsForTrackLevel(track, level),
+    descriptionKey: descriptionKeyForTrack(track),
+    descriptionParams: descriptionParamsForTrack(track, threshold),
     threshold,
     value,
     unlocked,
@@ -131,8 +134,10 @@ function buildDevotionMilestone(
     id: milestoneId("devotion", level),
     trackId: "devotion",
     level,
-    title: devotionTitleForLevel(level),
-    description: devotionDescriptionForLevel(level),
+    titleKey: devotionTitleKeyForLevel(level),
+    titleParams: devotionTitleParamsForLevel(level),
+    descriptionKey: devotionDescriptionKeyForLevel(level),
+    descriptionParams: devotionDescriptionParamsForLevel(level),
     threshold,
     value: devotion.noor,
     unlocked,
@@ -145,31 +150,26 @@ function buildDevotionMilestone(
   };
 }
 
-function devotionTitleForLevel(level: number): string {
-  const titles = [
-    "Seeker",
-    "Beginner's Light",
-    "Steady Soul",
-    "Devoted Heart",
-    "Faithful Traveler",
-    "Guided Path",
-    "Illuminated",
-    "Steadfast",
-    "Refined",
-    "Master of Devotion",
-  ];
-  if (level <= 0) return "Starting Out";
-  if (level <= titles.length) return titles[level - 1] ?? `Devotion ${level}`;
-  return `Devotion ${level}`;
+function devotionTitleKeyForLevel(level: number): string {
+  if (level <= 0) return "achievements.devotionRank.startingOut";
+  if (level <= 10) return `achievements.devotionRank.titles.${level - 1}`;
+  return "achievements.devotionRank.titleFallback";
 }
 
-function devotionDescriptionForLevel(level: number): string {
-  if (level <= 0) return "Begin your journey";
-  const noor = totalNoorForDevotionLevel(level);
-  return `Reach devotion level ${level} (${noor.toLocaleString()} Noor)`;
+function devotionTitleParamsForLevel(level: number): Record<string, number> | undefined {
+  return level > 10 ? { level } : undefined;
 }
 
-/** Evaluates infinite progression — active goals, devotion level, and unlocks. */
+function devotionDescriptionKeyForLevel(level: number): string {
+  if (level <= 0) return "achievements.devotionRank.beginJourney";
+  return "achievements.devotionRank.description";
+}
+
+function devotionDescriptionParamsForLevel(level: number): Record<string, number> | undefined {
+  if (level <= 0) return undefined;
+  return { level, noor: totalNoorForDevotionLevel(level) };
+}
+
 export function evaluateProgression(stats: AchievementStats): ProgressionState {
   const devotion = computeDevotionProgress(stats);
   const knownLevels = new Map<ProgressionTrackId, number>();
@@ -212,7 +212,6 @@ export function evaluateProgression(stats: AchievementStats): ProgressionState {
   return { devotion, activeGoals, unlockedMilestones, stats };
 }
 
-/** @deprecated Alias for evaluateProgression — returns active goals + unlocked milestones. */
 export function evaluateAchievements(stats: AchievementStats): MilestoneProgress[] {
   const state = evaluateProgression(stats);
   return [...state.activeGoals, ...state.unlockedMilestones];
@@ -224,12 +223,10 @@ function normalizeAchievementId(id: string): string {
   return LEGACY_ACHIEVEMENT_MAP[id] ?? id;
 }
 
-/** Maps legacy fixed-badge ids to the new level-based ids. */
 export function migrateLegacyAchievementIds(known: string[]): string[] {
   return Array.from(new Set(known.map(normalizeAchievementId)));
 }
 
-/** Resolves persisted achievement ids to unique milestones (last id wins per milestone). */
 export function resolveUnlockedMilestones(
   ids: string[],
   stats: AchievementStats,
@@ -242,14 +239,12 @@ export function resolveUnlockedMilestones(
   return [...byId.values()];
 }
 
-/** Milestone ids currently earned from live stats (not historical persistence). */
 export function earnedAchievementIds(stats: AchievementStats): string[] {
   return evaluateProgression(stats)
     .unlockedMilestones.filter((m) => m.unlocked)
     .map((m) => m.id);
 }
 
-/** Reconciles persisted ids with current stats — prunes lapsed unlocks. */
 export function syncAchievementIds(
   stats: AchievementStats,
   known: string[],
@@ -260,12 +255,10 @@ export function syncAchievementIds(
   return { synced, newlyUnlocked };
 }
 
-/** Returns milestone ids newly unlocked (not in `known`). */
 export function newlyUnlocked(stats: AchievementStats, known: string[]): string[] {
   return syncAchievementIds(stats, known).newlyUnlocked;
 }
 
-/** Looks up a milestone title for celebrations and sharing. */
 export function getMilestoneById(
   id: string,
   stats?: AchievementStats,

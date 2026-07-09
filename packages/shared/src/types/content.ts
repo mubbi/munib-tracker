@@ -5,6 +5,8 @@ export interface NameOfAllah {
   translation: string;
   /** Longer explanation of the name's meaning, when available. */
   meaning?: string;
+  /** Dataset-sourced translations keyed by app locale (never AI-generated). */
+  translations?: Partial<Record<string, string>>;
   audioUri?: string;
 }
 
@@ -46,6 +48,8 @@ export interface DuaItem {
   virtues?: string;
   reference?: string;
   audioUri?: string;
+  /** Dataset-sourced translations keyed by app locale (never AI-generated). */
+  translations?: Partial<Record<string, string>>;
   /** Hisnul Muslim chapter this dua belongs to, when preserved from source. */
   chapter?: string;
   /** Position within its Hisnul Muslim chapter. */
@@ -61,4 +65,6 @@ export interface DurudItem {
   virtues?: string;
   reference?: string;
   audioUri?: string;
+  /** Dataset-sourced translations keyed by app locale (never AI-generated). */
+  translations?: Partial<Record<string, string>>;
 }

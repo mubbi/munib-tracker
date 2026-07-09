@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppState } from "react-native";
 
 import { pickKnowledgeCard, type ResolvedKnowledgeCard } from "@/lib/knowledge-card";
+import { usePreferences } from "@/stores/preferences-store";
 
 function nextSeed(): number {
   return Date.now() ^ (Math.random() * 0x7fffffff);
@@ -37,7 +38,8 @@ export function useKnowledgeCard(): {
     return () => sub.remove();
   }, [refresh]);
 
-  const card = useMemo(() => pickKnowledgeCard(seed), [seed]);
+  const prefs = usePreferences();
+  const card = useMemo(() => pickKnowledgeCard(seed, new Date(), prefs), [seed, prefs]);
 
   return { card, refresh };
 }

@@ -9,11 +9,7 @@ export default function NotFoundScreen() {
   const { t } = useTranslation();
   return (
     <ThemedView style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: 16 }}>
-      <Seo
-        title={t("notFound.title")}
-        description="The page you're looking for could not be found."
-        index={false}
-      />
+      <Seo title={t("notFound.title")} description={t("seo.notFound.description")} index={false} />
       <ThemedText type="subtitle">{t("notFound.title")}</ThemedText>
       <Link href="/">
         <ThemedText type="linkPrimary">{t("notFound.action")}</ThemedText>

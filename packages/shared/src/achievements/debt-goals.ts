@@ -37,32 +37,21 @@ function buildDebtMilestone(
   const cleared = debt.remaining === 0;
   const isClearedMilestone = kind === "cleared";
 
-  const titles =
-    trackId === "qaza"
-      ? { active: "Clear Qaza Debt", cleared: "Qaza Debt Cleared" }
-      : { active: "Clear Roza Debt", cleared: "Roza Debt Cleared" };
+  const titleKey = isClearedMilestone
+    ? `achievements.debt.${trackId}.clearedTitle`
+    : `achievements.debt.${trackId}.activeTitle`;
 
-  const descriptions =
-    trackId === "qaza"
-      ? {
-          active: (total: number) => `Make up ${total} qaza ${total === 1 ? "prayer" : "prayers"}`,
-          cleared: (total: number) =>
-            `Cleared all ${total} tracked qaza ${total === 1 ? "prayer" : "prayers"}`,
-        }
-      : {
-          active: (total: number) => `Make up ${total} missed ${total === 1 ? "fast" : "fasts"}`,
-          cleared: (total: number) =>
-            `Cleared all ${total} tracked missed ${total === 1 ? "fast" : "fasts"}`,
-        };
+  const descriptionKey = isClearedMilestone
+    ? `achievements.debt.${trackId}.clearedDescription`
+    : `achievements.debt.${trackId}.activeDescription`;
 
   return {
     id: debtMilestoneId(trackId, debt, kind),
     trackId,
     level: 1,
-    title: isClearedMilestone ? titles.cleared : titles.active,
-    description: isClearedMilestone
-      ? descriptions.cleared(debt.total)
-      : descriptions.active(debt.total),
+    titleKey,
+    descriptionKey,
+    descriptionParams: { count: debt.total },
     threshold: debt.total,
     value: debt.completed,
     unlocked: isClearedMilestone ? cleared : false,
@@ -70,7 +59,6 @@ function buildDebtMilestone(
   };
 }
 
-/** Active debt goal when the user has qaza or roza configured; omitted when total is 0. */
 export function buildActiveDebtGoals(debt: {
   qaza: DebtProgress | null;
   roza: DebtProgress | null;
@@ -85,7 +73,6 @@ export function buildActiveDebtGoals(debt: {
   return goals;
 }
 
-/** Milestones earned when a debt cycle is fully cleared. */
 export function buildClearedDebtMilestones(debt: {
   qaza: DebtProgress | null;
   roza: DebtProgress | null;

@@ -1,7 +1,10 @@
-import type { FontPreferences, ReadingSurface } from "@munib-tracker/shared/types";
+import { getLocaleDefinition } from "@munib-tracker/shared/i18n";
+import type { AppLocale, FontPreferences, ReadingSurface } from "@munib-tracker/shared/types";
 import type { TextStyle } from "react-native";
+import { Platform } from "react-native";
 
 import { Fonts } from "@/constants/theme";
+import { BENGALI_FONT_FAMILY } from "@/lib/bengali-fonts";
 
 /**
  * Central reading-typography resolver (NF-1.31 + NF-1.32). One place maps the
@@ -85,7 +88,26 @@ export function resolveArabicLineHeight(fontSize: number, familyId?: string): nu
   return Math.round(fontSize * ratio);
 }
 
-/** RTL layout + optional size. Pair with `ThemedText type="arabic"` — line height is applied automatically. */
+/** Optional translation font for non-Latin scripts (Bengali UI text in reading surfaces). */
+export function resolveTranslationFontFamily(locale: AppLocale): string | undefined {
+  const script = getLocaleDefinition(locale).script;
+  if (script === "bengali") {
+    return Platform.select({
+      web: "var(--font-bengali, 'Noto Sans Bengali', system-ui, sans-serif)",
+      ios: BENGALI_FONT_FAMILY,
+      android: BENGALI_FONT_FAMILY,
+      default: BENGALI_FONT_FAMILY,
+    });
+  }
+  return undefined;
+}
+
+/** Font family + size for a scripture translation line in the user's locale. */
+export function translationReadingStyle(locale: AppLocale, fontSize: number): TextStyle {
+  const fontFamily = resolveTranslationFontFamily(locale);
+  return fontFamily ? { fontSize, fontFamily } : { fontSize };
+}
+
 export function arabicReadingLayout(
   fontSize?: number,
   textAlign: TextStyle["textAlign"] = "right",

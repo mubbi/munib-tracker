@@ -1,15 +1,22 @@
+import { SORTED_LOCALE_REGISTRY } from "@munib-tracker/shared/i18n";
 import type { AppLocale } from "@munib-tracker/shared/types";
-import { LOCALE_FLAG_DISPLAY } from "@/components/locale-flag";
+import { LOCALE_FLAG_DISPLAY } from "@/lib/locale-flag-display";
 
 export type LocaleEntry = {
   code: AppLocale;
   name: string;
   english: string;
+  scriptureSupported: boolean;
 };
 
-export const APP_LOCALES: LocaleEntry[] = (["en", "ar", "ur"] as const).map((code) => {
-  const { native, english } = LOCALE_FLAG_DISPLAY[code];
-  return { code, name: native, english };
+export const APP_LOCALES: LocaleEntry[] = SORTED_LOCALE_REGISTRY.map((entry) => {
+  const { native, english } = LOCALE_FLAG_DISPLAY[entry.code];
+  return {
+    code: entry.code,
+    name: native,
+    english,
+    scriptureSupported: entry.scriptureSupported === true,
+  };
 });
 
 /** Secondary line under the native language name — mirrors expense-tracker LanguagePicker. */

@@ -10,10 +10,15 @@ import { Card } from "@/components/ui/card";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
 import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Spacing } from "@/constants/theme";
+import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildDuroodActivity } from "@/lib/continue-activity";
-import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
+import {
+  arabicReadingLayout,
+  resolveReadingFontSizes,
+  translationReadingStyle,
+} from "@/lib/reading-typography";
 import { formatReadingShare } from "@/lib/share";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
@@ -25,6 +30,7 @@ export type ReadingItem = {
   arabic: string;
   transliteration?: string;
   translation: string;
+  translations?: Partial<Record<string, string>>;
   virtues?: string;
   reference?: string;
   audioUri?: string;
@@ -60,7 +66,8 @@ export function ReadingCard({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { fontPrefs } = usePreferences();
+  const { fontPrefs, translationLocale } = usePreferences();
+  const displayTranslation = useScriptureTranslation(item);
   const audio = useAudioPlayerContext();
   const internalShare = useShareContentCard();
   const { share, isSharing, isGesturePending, SnapshotHost } = shareCardProp ?? internalShare;
@@ -195,9 +202,12 @@ export function ReadingCard({
           ) : null}
           <ThemedText
             type="default"
-            style={[styles.translation, textSize ? { fontSize: textSize } : null]}
+            style={[
+              styles.translation,
+              textSize ? translationReadingStyle(translationLocale, textSize) : null,
+            ]}
           >
-            {item.translation}
+            {displayTranslation}
           </ThemedText>
 
           {item.virtues ? (

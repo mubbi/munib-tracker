@@ -3,20 +3,14 @@ import {
   PROPHETS_TIMELINE,
   PROPHETS_TOPICS,
 } from "@munib-tracker/shared/content";
-import {
-  PROPHETS_BIO_TOPICS_AR,
-  PROPHETS_BIO_TOPICS_UR,
-  PROPHETS_TIMELINE_AR,
-  PROPHETS_TIMELINE_UR,
-  PROPHETS_TOPICS_AR,
-  PROPHETS_TOPICS_UR,
-} from "@munib-tracker/shared/content-i18n";
+import type { ContentOverlays, OverlayLocale } from "@munib-tracker/shared/content-i18n";
 import type {
   ProphetsSection,
   ProphetsTimelineEvent,
   ProphetsTopic,
 } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
+import { overlayList } from "@/lib/content-overlay-registry";
 
 // The English PROPHETS_TOPICS is composed as
 // [...contextTopics(3), ...PROPHETS_BIO_TOPICS(25), ...themeTopics(2), ...evidenceTopics(2)].
@@ -30,20 +24,23 @@ function composeProphetsOverlay<T>(nonBio: readonly T[], bio: readonly T[]): T[]
   return [...context, ...bio, ...themes, ...evidence];
 }
 
-const PROPHETS_TOPICS_OVERLAY_UR = composeProphetsOverlay(
-  PROPHETS_TOPICS_UR,
-  PROPHETS_BIO_TOPICS_UR,
-);
-const PROPHETS_TOPICS_OVERLAY_AR = composeProphetsOverlay(
-  PROPHETS_TOPICS_AR,
-  PROPHETS_BIO_TOPICS_AR,
-);
+function prophetsTopicsOverlays(): ContentOverlays<ProphetsTopic> {
+  const partial = overlayList<ProphetsTopic>("PROPHETS_TOPICS");
+  const bio = overlayList<ProphetsTopic>("PROPHETS_BIO_TOPICS");
+  const locales = new Set([...Object.keys(partial), ...Object.keys(bio)] as OverlayLocale[]);
+  const result: ContentOverlays<ProphetsTopic> = {};
+  for (const locale of locales) {
+    const nonBio = partial[locale];
+    const bios = bio[locale];
+    if (nonBio && bios) {
+      result[locale] = composeProphetsOverlay(nonBio, bios);
+    }
+  }
+  return result;
+}
 
 export function getProphetsTopics(): ProphetsTopic[] {
-  return localizeList(PROPHETS_TOPICS, {
-    ur: PROPHETS_TOPICS_OVERLAY_UR,
-    ar: PROPHETS_TOPICS_OVERLAY_AR,
-  });
+  return localizeList(PROPHETS_TOPICS, prophetsTopicsOverlays());
 }
 
 export function getProphetsTopic(id: string | undefined): ProphetsTopic | undefined {
@@ -63,10 +60,7 @@ export function getProphetsTopicsBySection(): Record<ProphetsSection, ProphetsTo
 }
 
 export function getProphetsTimeline(): ProphetsTimelineEvent[] {
-  return localizeList(PROPHETS_TIMELINE, {
-    ur: PROPHETS_TIMELINE_UR,
-    ar: PROPHETS_TIMELINE_AR,
-  });
+  return localizeList(PROPHETS_TIMELINE, overlayList("PROPHETS_TIMELINE"));
 }
 
 export function getProphetsLessonCount(): number {

@@ -12,7 +12,9 @@
 // fawazahmed0/quran-api. Per-ayah page/hizb from Quran.com API v4 (Madani
 // mushaf). Juz/sajda are computed at runtime from canonical tables.
 
-import { join } from "node:path";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { buildMushafLayout } from "./build-mushaf-layout.mjs";
 import { fetchJSON } from "./fetch.mjs";
@@ -26,36 +28,22 @@ import {
 } from "./manifest.mjs";
 import { assert, TOTAL_PAGES, validateQuran, validateQuranPageMeta } from "./schemas.mjs";
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const EDITION_DEFS = JSON.parse(
+  readFileSync(
+    join(__dirname, "../../../../packages/shared/src/i18n/quran-edition-defs.json"),
+    "utf8",
+  ),
+);
+
 const QURAN_JSON = "https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist";
 const FAWAZ = "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions";
 const QURAN_COM = "https://api.quran.com/api/v4";
 
 const QURAN_DIR = join(ASSETS_DATA_DIR, "quran");
 
-/** Bundled public-domain translation editions (fawazahmed0 full-edition files). */
-const BUNDLED_TRANSLATIONS = [
-  {
-    id: "en-pickthall",
-    fawaz: "eng-mohammedmarmadu",
-    language: "en",
-    name: "Pickthall",
-    direction: "ltr",
-  },
-  {
-    id: "en-yusufali",
-    fawaz: "eng-abdullahyusufal",
-    language: "en",
-    name: "Yusuf Ali",
-    direction: "ltr",
-  },
-  {
-    id: "ur-jalandhry",
-    fawaz: "urd-fatehmuhammadja",
-    language: "ur",
-    name: "Jalandhry",
-    direction: "rtl",
-  },
-];
+/** Bundled public-domain translation editions (single source: quran-edition-defs.json). */
+const BUNDLED_TRANSLATIONS = EDITION_DEFS.filter((ed) => ed.bundled);
 
 function pad3(n) {
   return String(n).padStart(3, "0");
@@ -234,7 +222,7 @@ export async function buildQuran() {
     },
     ...BUNDLED_TRANSLATIONS.map((ed) => ({
       id: ed.id,
-      kind: "translation",
+      kind: ed.kind ?? "translation",
       language: ed.language,
       name: ed.name,
       bundled: true,

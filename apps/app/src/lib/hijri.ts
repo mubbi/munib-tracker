@@ -20,21 +20,23 @@ export interface HijriDate {
   day: number;
 }
 
-const HIJRI_MONTHS: Record<AppLocale, string[]> = {
-  en: [
-    "Muharram",
-    "Safar",
-    "Rabi al-Awwal",
-    "Rabi al-Thani",
-    "Jumada al-Ula",
-    "Jumada al-Akhira",
-    "Rajab",
-    "Sha'ban",
-    "Ramadan",
-    "Shawwal",
-    "Dhul-Qa'dah",
-    "Dhul-Hijjah",
-  ],
+const HIJRI_MONTHS_EN = [
+  "Muharram",
+  "Safar",
+  "Rabi al-Awwal",
+  "Rabi al-Thani",
+  "Jumada al-Ula",
+  "Jumada al-Akhira",
+  "Rajab",
+  "Sha'ban",
+  "Ramadan",
+  "Shawwal",
+  "Dhul-Qa'dah",
+  "Dhul-Hijjah",
+] as const;
+
+const HIJRI_MONTHS: Partial<Record<AppLocale, readonly string[]>> = {
+  en: HIJRI_MONTHS_EN,
   ar: [
     "محرم",
     "صفر",
@@ -63,13 +65,316 @@ const HIJRI_MONTHS: Record<AppLocale, string[]> = {
     "ذوالقعدہ",
     "ذوالحجہ",
   ],
+  fa: [
+    "محرم",
+    "صفر",
+    "ربیع‌الاول",
+    "ربیع‌الثانی",
+    "جمادی‌الاول",
+    "جمادی‌الثانی",
+    "رجب",
+    "شعبان",
+    "رمضان",
+    "شوال",
+    "ذی‌القعده",
+    "ذی‌الحجه",
+  ],
+  ps: [
+    "محرم",
+    "صفر",
+    "ربيع الاول",
+    "ربيع الثاني",
+    "جمادي الاول",
+    "جمادي الثاني",
+    "رجب",
+    "شعبان",
+    "رمضان",
+    "شوال",
+    "ذوالقعده",
+    "ذوالحجه",
+  ],
+  ku: [
+    "مُحَرَّم",
+    "صَفَر",
+    "رَبیع الأَوَّل",
+    "رَبیع الآخِر",
+    "جُمادى الأُولى",
+    "جُمادى الآخِرَة",
+    "رَجَب",
+    "شَعْبان",
+    "رَمَضان",
+    "شَوّال",
+    "ذُوالقَعْدَة",
+    "ذُوالحِجَّة",
+  ],
+  id: [
+    "Muharram",
+    "Safar",
+    "Rabiul Awal",
+    "Rabiul Akhir",
+    "Jumadil Awal",
+    "Jumadil Akhir",
+    "Rajab",
+    "Sya'ban",
+    "Ramadhan",
+    "Syawwal",
+    "Dzulqa'dah",
+    "Dzulhijjah",
+  ],
+  ms: [
+    "Muharram",
+    "Safar",
+    "Rabiul Awal",
+    "Rabiul Akhir",
+    "Jumadil Awal",
+    "Jumadil Akhir",
+    "Rejab",
+    "Syaaban",
+    "Ramadan",
+    "Syawal",
+    "Zulkaedah",
+    "Zulhijjah",
+  ],
+  tr: [
+    "Muharrem",
+    "Safer",
+    "Rebiülevvel",
+    "Rebiülahir",
+    "Cemaziyelevvel",
+    "Cemaziyelahir",
+    "Recep",
+    "Şaban",
+    "Ramazan",
+    "Şevval",
+    "Zilkade",
+    "Zilhicce",
+  ],
+  az: [
+    "Məhərrəm",
+    "Səfər",
+    "Rabiül-əvvəl",
+    "Rabiül-axir",
+    "Cəmadiül-əvvəl",
+    "Cəmadiül-axir",
+    "Rəcəb",
+    "Şaban",
+    "Ramazan",
+    "Şəvval",
+    "Zülqədə",
+    "Zülhiccə",
+  ],
+  uz: [
+    "Muharram",
+    "Safar",
+    "Rabiul avval",
+    "Rabiul oxir",
+    "Jumadul avval",
+    "Jumadul oxir",
+    "Rajab",
+    "Sha'bon",
+    "Ramazon",
+    "Shavvol",
+    "Zul-qa'da",
+    "Zul-hijja",
+  ],
+  kk: [
+    "Мұхаррам",
+    "Сафар",
+    "Рабиул-аввал",
+    "Рабиул-ахир",
+    "Жумадул-аввал",
+    "Жумадул-ахир",
+    "Раджаб",
+    "Шаабан",
+    "Рамазан",
+    "Шаввал",
+    "Зул-қада",
+    "Зул-хиджа",
+  ],
+  ky: [
+    "Мухаррам",
+    "Сафар",
+    "Рабиул-аввал",
+    "Рабиул-ахир",
+    "Жумадул-аввал",
+    "Жумадул-ахир",
+    "Ражаб",
+    "Шаабан",
+    "Рамазан",
+    "Шаввал",
+    "Зул-када",
+    "Зул-хиджа",
+  ],
+  tg: [
+    "Муҳаррам",
+    "Сафар",
+    "Рабиул-аввал",
+    "Рабиул-охир",
+    "Ҷумодул-аввал",
+    "Ҷумодул-охир",
+    "Раҷаб",
+    "Шаъбон",
+    "Рамазон",
+    "Шаввол",
+    "Зул-қаъда",
+    "Зул-ҳиҷҷа",
+  ],
+  tk: [
+    "Muharram",
+    "Safar",
+    "Rabiul awwal",
+    "Rabiul ahir",
+    "Jumadul awwal",
+    "Jumadul ahir",
+    "Rajab",
+    "Sha'ban",
+    "Ramazan",
+    "Shawwal",
+    "Zul-qa'da",
+    "Zul-hijja",
+  ],
+  bn: [
+    "মুহাররম",
+    "সফর",
+    "রবিউল আউয়াল",
+    "রবিউল আখির",
+    "জুমাদাল আউয়াল",
+    "জুমাদাল আখির",
+    "রজব",
+    "শাবান",
+    "রমজান",
+    "শাওয়াল",
+    "জিলকদ",
+    "জিলহজ",
+  ],
+  ru: [
+    "Мухаррам",
+    "Сафар",
+    "Раби аль-аввал",
+    "Раби аль-ахир",
+    "Джумада аль-ула",
+    "Джумада аль-ахира",
+    "Раджаб",
+    "Шаабан",
+    "Рамадан",
+    "Шавваль",
+    "Зуль-када",
+    "Зуль-хиджа",
+  ],
+  bs: [
+    "Muharram",
+    "Safar",
+    "Rabiul-evvel",
+    "Rabiul-ahir",
+    "Džumadel-evvel",
+    "Džumadel-ahir",
+    "Redžeb",
+    "Ša'ban",
+    "Ramazan",
+    "Ševval",
+    "Zul-ka'de",
+    "Zul-hidždže",
+  ],
+  sq: [
+    "Muharrem",
+    "Safer",
+    "Rabiul-evl",
+    "Rabiul-ahir",
+    "Xhumadeul-evl",
+    "Xhumadeul-ahir",
+    "Redheb",
+    "Sha'ban",
+    "Ramazani",
+    "Sheval",
+    "Dhul-Kade",
+    "Dhul-Hixhje",
+  ],
+  fr: [
+    "Mouharram",
+    "Safar",
+    "Rabi al-Awwal",
+    "Rabi al-Thani",
+    "Joumada al-Oula",
+    "Joumada al-Akhira",
+    "Rajab",
+    "Cha'ban",
+    "Ramadan",
+    "Chawwal",
+    "Dhoul-Qi'dah",
+    "Dhoul-Hijjah",
+  ],
+  ha: [
+    "Muharram",
+    "Safar",
+    "Rabi'ul Awwal",
+    "Rabi'ul Akhir",
+    "Jumada al-Ula",
+    "Jumada al-Akhira",
+    "Rajab",
+    "Sha'ban",
+    "Ramadan",
+    "Shawwal",
+    "Dhu al-Qi'dah",
+    "Dhu al-Hijjah",
+  ],
+  sw: [
+    "Muharram",
+    "Safar",
+    "Rabi al-Awwal",
+    "Rabi al-Thani",
+    "Jumada al-Ula",
+    "Jumada al-Akhira",
+    "Rajab",
+    "Sha'ban",
+    "Ramadan",
+    "Shawwal",
+    "Dhul-Qi'dah",
+    "Dhul-Hijjah",
+  ],
+  so: [
+    "Muharram",
+    "Safar",
+    "Rabi al-Awwal",
+    "Rabi al-Thani",
+    "Jumada al-Ula",
+    "Jumada al-Akhira",
+    "Rajab",
+    "Sha'ban",
+    "Ramadan",
+    "Shawwal",
+    "Dhul-Qi'dah",
+    "Dhul-Hijjah",
+  ],
 };
 
-/** Era suffix ("AH") per locale. */
-const HIJRI_SUFFIX: Record<AppLocale, string> = {
+/** Locales that format Hijri dates day-first (like ar/ur). */
+const HIJRI_DAY_FIRST = new Set<AppLocale>(["ar", "ur", "fa", "ps", "ku"]);
+
+/** Era suffix ("AH") per locale — falls back to English. */
+const HIJRI_SUFFIX: Partial<Record<AppLocale, string>> = {
   en: "AH",
   ar: "هـ",
   ur: "ھ",
+  fa: "ه‍.ق",
+  ps: "ه‍.ق",
+  ku: "ک‍.ه",
+  id: "H",
+  ms: "H",
+  tr: "H",
+  az: "h.",
+  uz: "h.",
+  kk: "ж.",
+  ky: "ж.",
+  tg: "ҷ.",
+  tk: "h.",
+  bn: "হি.",
+  ru: "г.х.",
+  bs: "AH",
+  sq: "v.e.",
+  fr: "AH",
+  ha: "AH",
+  sw: "AH",
+  so: "AH",
 };
 
 /** Gregorian (proleptic) calendar day → integer Julian Day Number. */
@@ -152,8 +457,8 @@ export function hijriMonthLength(year: number, month: number): number {
 
 /** Localized Hijri month name (1-based month). */
 export function hijriMonthName(month: number, locale: AppLocale): string {
-  const names = HIJRI_MONTHS[locale] ?? HIJRI_MONTHS.en;
-  return names[Math.min(Math.max(month, 1), 12) - 1];
+  const names = HIJRI_MONTHS[locale] ?? HIJRI_MONTHS.en ?? [];
+  return names[Math.min(Math.max(month, 1), 12) - 1] ?? "";
 }
 
 /**
@@ -167,7 +472,10 @@ export function formatHijriDate(date: Date, locale: AppLocale, timeZone?: string
   if (locale === "en") {
     return `${name} ${day}, ${year} ${suffix}`;
   }
-  return `${day} ${name} ${year} ${suffix}`;
+  if (HIJRI_DAY_FIRST.has(locale)) {
+    return `${day} ${name} ${year} ${suffix}`;
+  }
+  return `${name} ${day}, ${year} ${suffix}`;
 }
 
 /** Localized month-and-year label for a Hijri month, e.g. "Ramadan 1448 AH". */
@@ -184,5 +492,9 @@ export function formatHijriDateCompact(date: Date, locale: AppLocale, timeZone?:
     const short = name.split(/[\s'-]+/)[0].slice(0, 3);
     return `${short} ${day}`;
   }
-  return `${day} ${name}`;
+  if (HIJRI_DAY_FIRST.has(locale)) {
+    return `${day} ${name}`;
+  }
+  const short = name.split(/[\s'-]+/)[0].slice(0, 3);
+  return `${short} ${day}`;
 }

@@ -33,6 +33,7 @@ import { Spacing } from "@/constants/theme";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { milestoneTitle } from "@/lib/achievements-i18n";
 import { readPersistedAchievementIds } from "@/lib/achievements-persistence";
 import {
   afterSalahProgressForPrayer,
@@ -212,7 +213,7 @@ export default function TrackerScreen() {
     (milestone: MilestoneProgress, achievementId: string) => {
       triggerHaptic("success");
       setCelebrationKey((k) => k + 1);
-      toast.success(t("notif.reminders.achievementTitle"), milestone.title);
+      toast.success(t("notif.reminders.achievementTitle"), milestoneTitle(milestone));
       const notification = buildAchievementInAppNotification(milestone);
       void deliver({
         kind: "achievement",
@@ -221,7 +222,7 @@ export default function TrackerScreen() {
         body: notification.body,
         route: "/achievements",
       });
-      void notifyAchievementUnlocked(milestone.title, preferencesStore.getState().prefs);
+      void notifyAchievementUnlocked(milestoneTitle(milestone), preferencesStore.getState().prefs);
     },
     [deliver, t, toast],
   );

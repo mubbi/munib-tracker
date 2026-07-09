@@ -133,7 +133,7 @@ export const MOTIVATION_QUOTES: MotivationQuote[] = [
   },
   {
     id: "zikr-heart",
-    text: "Even a few moments of dhikr after salah softens the heart and steadies the tongue.",
+    text: "Even a few moments of zikr after salah softens the heart and steadies the tongue.",
     topic: "zikr",
   },
   {
@@ -184,7 +184,7 @@ export const MOTIVATION_QUOTES: MotivationQuote[] = [
   },
   {
     id: "tasbeeh-count",
-    text: "A short tasbeeh session counts. Dhikr is not only for long sittings — start with ten.",
+    text: "A short tasbeeh session counts. Zikr is not only for long sittings — start with ten.",
     topic: "zikr",
   },
 ];

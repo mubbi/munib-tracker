@@ -1,3 +1,4 @@
+import { getLocaleDefinition } from "@munib-tracker/shared/i18n";
 import type { AppLocale } from "@munib-tracker/shared/types";
 import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
@@ -18,6 +19,8 @@ type LanguagePickerSheetProps = {
   value: AppLocale;
   onSelect: (locale: AppLocale) => void;
   onClose: () => void;
+  /** When true, annotate rows with bundled scripture availability (translation picker). */
+  showScriptureStatus?: boolean;
 };
 
 type LanguageSelectRowProps = {
@@ -60,6 +63,7 @@ export function LanguagePickerSheet({
   value,
   onSelect,
   onClose,
+  showScriptureStatus = false,
 }: LanguagePickerSheetProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -149,6 +153,11 @@ export function LanguagePickerSheet({
           const { code, name, english } = item;
           const selected = value === code;
           const secondary = localeSecondaryLabel(code, english, name);
+          const scriptureNote = showScriptureStatus
+            ? getLocaleDefinition(code).scriptureSupported
+              ? t("language.scriptureAvailable")
+              : t("language.scriptureUnavailable")
+            : null;
 
           return (
             <PressableScale
@@ -184,6 +193,11 @@ export function LanguagePickerSheet({
                 <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
                   {secondary}
                 </ThemedText>
+                {scriptureNote ? (
+                  <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
+                    {scriptureNote}
+                  </ThemedText>
+                ) : null}
               </View>
               {selected ? (
                 <SymbolView

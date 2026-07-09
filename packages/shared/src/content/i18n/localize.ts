@@ -21,7 +21,7 @@
  * citations/ids simply cannot drift across languages.
  */
 
-export type ContentLocale = "en" | "ur" | "ar";
+import type { AppLocale } from "../../i18n/app-locale";
 
 /** Recursive partial — the shape an overlay is authored against. */
 export type DeepPartial<T> = T extends readonly (infer U)[]
@@ -30,17 +30,7 @@ export type DeepPartial<T> = T extends readonly (infer U)[]
     ? { [K in keyof T]?: DeepPartial<T[K]> }
     : T;
 
-/** A per-locale overlay pair for a list of content items. */
-export interface ContentOverlays<T> {
-  ur?: readonly DeepPartial<T>[];
-  ar?: readonly DeepPartial<T>[];
-}
-
-/** A per-locale overlay pair for a single content object. */
-export interface ContentOverlay<T> {
-  ur?: DeepPartial<T>;
-  ar?: DeepPartial<T>;
-}
+export type ContentLocale = AppLocale;
 
 /**
  * Keys that are structural identifiers or already-translated enum tokens
@@ -63,6 +53,8 @@ export const PROTECTED_CONTENT_KEYS: ReadonlySet<string> = new Set([
   "prayerId",
   "grade",
   "importance",
+  "ruling",
+  "signType",
   "collection",
   "citation",
   "surah",
@@ -115,3 +107,6 @@ export function localizeContentList<T>(
   if (!overlay || overlay.length === 0) return base as T[];
   return base.map((item, index) => localizeContent(item, overlay[index]));
 }
+
+export type { ContentOverlay, ContentOverlays, OverlayLocale } from "./overlay-locale";
+export { overlayExportSuffix, parseOverlayExportName } from "./overlay-locale";

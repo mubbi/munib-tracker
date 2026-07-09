@@ -1,7 +1,8 @@
-import type { CalendarMode } from "@munib-tracker/shared/types";
+import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
 import type { TFunction } from "i18next";
 
 import { formatCalendarDateFromIso } from "./calendar-format";
+import { toAppLocale } from "./locale-bcp47";
 
 /**
  * Human "x minutes ago" relative time for a stored ISO timestamp, falling back
@@ -37,7 +38,6 @@ export function formatRelativeWhen(
   });
 }
 
-function appLocaleFrom(locale: string | undefined): "en" | "ar" | "ur" {
-  const base = locale?.split("-")[0];
-  return base === "ar" || base === "ur" ? base : "en";
+function appLocaleFrom(locale: string | undefined): AppLocale {
+  return toAppLocale(locale ?? "en");
 }

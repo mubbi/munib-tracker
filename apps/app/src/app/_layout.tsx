@@ -19,6 +19,7 @@ import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { PinLockGate, PinLockProvider } from "@/features/pin-lock";
 import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { ARABIC_FONT_FILES } from "@/lib/arabic-fonts";
+import { BENGALI_FONT_FILES } from "@/lib/bengali-fonts";
 import { AppApiProvider } from "@/providers/api-provider";
 import { AppProviders } from "@/providers/app-providers";
 import { AudioPlayerProvider } from "@/providers/audio-player-provider";
@@ -28,11 +29,12 @@ import { InAppNotificationsProvider } from "@/providers/in-app-notifications-pro
 import { NotificationProvider } from "@/providers/notification-provider";
 import { MunibThemeProvider } from "@/providers/theme-provider";
 import { ToastHost, ToastProvider } from "@/providers/toast-provider";
+import { WebLayoutDirectionBridge } from "@/providers/web-layout-direction";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts(ARABIC_FONT_FILES);
+  const [fontsLoaded] = useFonts({ ...ARABIC_FONT_FILES, ...BENGALI_FONT_FILES });
 
   if (!fontsLoaded) {
     return null;
@@ -42,49 +44,51 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <AppApiProvider>
         <MunibThemeProvider>
-          {/* Catches any render error below the theme provider so a thrown screen
+          <WebLayoutDirectionBridge>
+            {/* Catches any render error below the theme provider so a thrown screen
             shows a recoverable fallback instead of white-screening the app. */}
-          <ErrorBoundary>
-            <AppProviders>
-              <AuthProvider>
-                <PinLockProvider>
-                  <ToastProvider>
-                    <ExternalCommandProcessor />
-                    <ContentReportProvider>
-                      <InAppNotificationsProvider>
-                        <NotificationProvider>
-                          <AudioPlayerProvider>
-                            <WebReminderAdhanBridge />
-                            <ShareQrWarmup />
-                            <MiniPlayerInsetProvider>
-                              <BlurTargetProvider
-                                overlays={
-                                  <>
-                                    <WebNavigationFocusManager />
-                                    <WebPwaBootstrap />
-                                    <OnboardingGate />
-                                    <PinLockGate />
-                                    <MiniPlayer />
-                                    {/* Outside BlurTargetView so Android can
+            <ErrorBoundary>
+              <AppProviders>
+                <AuthProvider>
+                  <PinLockProvider>
+                    <ToastProvider>
+                      <ExternalCommandProcessor />
+                      <ContentReportProvider>
+                        <InAppNotificationsProvider>
+                          <NotificationProvider>
+                            <AudioPlayerProvider>
+                              <WebReminderAdhanBridge />
+                              <ShareQrWarmup />
+                              <MiniPlayerInsetProvider>
+                                <BlurTargetProvider
+                                  overlays={
+                                    <>
+                                      <WebNavigationFocusManager />
+                                      <WebPwaBootstrap />
+                                      <OnboardingGate />
+                                      <PinLockGate />
+                                      <MiniPlayer />
+                                      {/* Outside BlurTargetView so Android can
                                         capture a real backdrop blur (same as
                                         mini-player / sheets). */}
-                                    <ToastHost />
-                                    <AnimatedSplashOverlay />
-                                  </>
-                                }
-                              >
-                                <AppStack />
-                              </BlurTargetProvider>
-                            </MiniPlayerInsetProvider>
-                          </AudioPlayerProvider>
-                        </NotificationProvider>
-                      </InAppNotificationsProvider>
-                    </ContentReportProvider>
-                  </ToastProvider>
-                </PinLockProvider>
-              </AuthProvider>
-            </AppProviders>
-          </ErrorBoundary>
+                                      <ToastHost />
+                                      <AnimatedSplashOverlay />
+                                    </>
+                                  }
+                                >
+                                  <AppStack />
+                                </BlurTargetProvider>
+                              </MiniPlayerInsetProvider>
+                            </AudioPlayerProvider>
+                          </NotificationProvider>
+                        </InAppNotificationsProvider>
+                      </ContentReportProvider>
+                    </ToastProvider>
+                  </PinLockProvider>
+                </AuthProvider>
+              </AppProviders>
+            </ErrorBoundary>
+          </WebLayoutDirectionBridge>
         </MunibThemeProvider>
       </AppApiProvider>
     </SafeAreaProvider>

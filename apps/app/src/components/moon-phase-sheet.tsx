@@ -9,6 +9,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
 import { formatHijriDate, gregorianToHijri, hijriMonthName } from "@/lib/hijri";
+import { toAppLocale } from "@/lib/locale-bcp47";
 import { daysUntilNewMoon, moonAgeDays, moonPhase } from "@/lib/moon";
 import { useLocation } from "@/stores/location-store";
 
@@ -31,8 +32,7 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
   const { colors, tokens } = useThemeTokens();
   const location = useLocation();
 
-  const base = i18n.language?.split("-")[0];
-  const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
+  const locale: AppLocale = toAppLocale(i18n.language ?? "en");
 
   const { fraction, illumination, waxing, name } = moonPhase(date);
   const hijri = gregorianToHijri(date);

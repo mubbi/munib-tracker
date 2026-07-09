@@ -22,8 +22,10 @@ import {
   SEO_TWITTER,
   type SeoLocale,
 } from "@/config/seo";
-import { getRouteSeo, normalizePath } from "@/config/seo-routes";
+import { normalizePath } from "@/config/seo-routes";
+import { getRouteSeoForLocale } from "@/config/seo-routes-locale";
 import { type BreadcrumbEntry, breadcrumbSchema } from "@/lib/seo/structured-data";
+import { usePreferences } from "@/stores/preferences-store";
 
 export type SeoProps = {
   /** Canonical route path (e.g. `/quran`). Falls back to the current pathname. */
@@ -74,8 +76,9 @@ export function Seo(props: SeoProps) {
 
 function SeoWeb(props: SeoProps) {
   const pathname = usePathname();
+  const { locale: appLocale } = usePreferences();
   const resolvedPath = normalizePath(props.path ?? pathname ?? "/");
-  const registry = getRouteSeo(resolvedPath);
+  const registry = getRouteSeoForLocale(resolvedPath, props.locale ?? appLocale);
 
   // Emit head tags only for the screen whose canonical path matches the URL
   // being rendered. This replaces `Head`'s focus gate with a deterministic

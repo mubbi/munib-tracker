@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import type { PrayerTime } from "@/components/prayer-times-hero";
 import { useNow } from "@/hooks/use-now";
 import { type DualCalendarDates, formatDualCalendarDate } from "@/lib/calendar-format";
+import { toAppLocale } from "@/lib/locale-bcp47";
 import { locationCalcExtras } from "@/lib/location";
 import { moonPhase } from "@/lib/moon";
 import {
@@ -125,8 +126,7 @@ export function useHomeHero(): HomeHeroData {
   const timeFormat = usePreferences().timeFormat;
   const defaultCalendar = usePreferences().defaultCalendar;
 
-  const base = i18n.language?.split("-")[0];
-  const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
+  const locale: AppLocale = toAppLocale(i18n.language ?? "en");
 
   const dayKey = dayKeyOf(now, location.timeZone);
 

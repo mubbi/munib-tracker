@@ -1,6 +1,7 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 
 import { gregorianToHijri, hijriMonthLength, hijriToGregorian } from "@/lib/hijri";
+import { localeToBcp47 } from "@/lib/locale-bcp47";
 
 export interface CalendarDay {
   date: string;
@@ -100,14 +101,6 @@ export function buildWeekContainingDate(
 
 export function monthLabel(year: number, month: number): string {
   return `${MONTH_NAMES[month]} ${year}`;
-}
-
-/** Maps an app locale ("en"|"ar"|"ur") to a BCP-47 tag for Intl formatting. */
-function localeToBcp47(locale: string): string {
-  const base = locale.split("-")[0];
-  if (base === "ar") return "ar";
-  if (base === "ur") return "ur";
-  return "en-US";
 }
 
 /**

@@ -1,6 +1,8 @@
 import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
+import type { UserPreferences } from "@munib-tracker/shared/types";
 import type { Href } from "expo-router";
 
+import i18n from "@/i18n";
 import {
   buildKnowledgeCardPool,
   type KnowledgeCardEntry,
@@ -10,6 +12,7 @@ import {
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { hadithCollectionId, hadithExcerpt, resolveHadithItem } from "@/lib/prayer-info";
 import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
+import { resolveQuranEditionId } from "@/lib/translation-locale";
 
 export type KnowledgeCardKind = "quran" | "hadith" | "name" | "friday" | "motivation";
 
@@ -33,6 +36,11 @@ export type ResolvedKnowledgeCard = {
 
 const MAX_HADITH_EXCERPT = 180;
 const MAX_QURAN_TRANSLATION = 220;
+
+const DEFAULT_PREFS: Pick<UserPreferences, "locale" | "translationLocale"> = {
+  locale: "en",
+  translationLocale: "en",
+};
 
 function mulberry32(seed: number): () => number {
   let t = seed >>> 0;
@@ -60,13 +68,16 @@ function resolveQuran(
   surah: number,
   ayah: number,
   kind: "quran" | "friday",
+  prefs: Pick<UserPreferences, "locale" | "translationLocale">,
 ): ResolvedKnowledgeCard | null {
   const meta = getSurahByNumber(surah);
   const ayahs = getSurahAyahs(surah);
   const item = ayahs[ayah - 1];
   if (!meta || !item) return null;
 
+  const editionId = resolveQuranEditionId(prefs);
   const translation =
+    getBundledEdition(editionId, surah)[String(ayah)] ??
     getBundledEdition("en-pickthall", surah)[String(ayah)] ??
     getBundledEdition("en-transliteration", surah)[String(ayah)] ??
     "";
@@ -150,24 +161,32 @@ function resolveMotivation(id: string): ResolvedKnowledgeCard | null {
     general: "success",
   };
 
+  const body = i18n.t(`home.knowledgeMotivation.${id}.text`, { defaultValue: quote.text });
+  const source = i18n.t(`home.knowledgeMotivation.${id}.source`, {
+    defaultValue: quote.source ?? "",
+  });
+
   return {
     key: `motivation:${id}`,
     kind: "motivation",
     topic: quote.topic,
     titleKey: `home.knowledgeTopic.${quote.topic}`,
-    body: quote.text,
-    reference: quote.source,
+    body,
+    reference: source || undefined,
     icon: { ios: "heart.text.square.fill", android: "favorite", web: "favorite" },
     palette: paletteByTopic[quote.topic],
   };
 }
 
-export function resolveKnowledgeCardEntry(entry: KnowledgeCardEntry): ResolvedKnowledgeCard | null {
+export function resolveKnowledgeCardEntry(
+  entry: KnowledgeCardEntry,
+  prefs: Pick<UserPreferences, "locale" | "translationLocale"> = DEFAULT_PREFS,
+): ResolvedKnowledgeCard | null {
   switch (entry.kind) {
     case "quran":
-      return resolveQuran(entry.surah, entry.ayah, "quran");
+      return resolveQuran(entry.surah, entry.ayah, "quran", prefs);
     case "friday-quran":
-      return resolveQuran(entry.surah, entry.ayah, "friday");
+      return resolveQuran(entry.surah, entry.ayah, "friday", prefs);
     case "hadith":
       return resolveHadith(entry.id, "hadith");
     case "friday-hadith":
@@ -182,13 +201,17 @@ export function resolveKnowledgeCardEntry(entry: KnowledgeCardEntry): ResolvedKn
 }
 
 /** Pick a random resolved card; retries if a pool entry fails to resolve. */
-export function pickKnowledgeCard(seed: number, date = new Date()): ResolvedKnowledgeCard {
+export function pickKnowledgeCard(
+  seed: number,
+  date = new Date(),
+  prefs: Pick<UserPreferences, "locale" | "translationLocale"> = DEFAULT_PREFS,
+): ResolvedKnowledgeCard {
   const pool = buildKnowledgeCardPool(date);
   const start = pickIndex(pool, seed);
 
   for (let offset = 0; offset < pool.length; offset += 1) {
     const entry = pool[(start + offset) % pool.length];
-    const resolved = resolveKnowledgeCardEntry(entry);
+    const resolved = resolveKnowledgeCardEntry(entry, prefs);
     if (resolved) return resolved;
   }
 
@@ -197,7 +220,7 @@ export function pickKnowledgeCard(seed: number, date = new Date()): ResolvedKnow
     kind: "motivation",
     topic: "steadfastness",
     titleKey: "home.knowledgeKind.motivation",
-    body: MOTIVATION_QUOTES[0]?.text ?? "",
+    body: i18n.t("home.knowledgeMotivation.steady-steps.text"),
     icon: { ios: "heart.text.square.fill", android: "favorite", web: "favorite" },
     palette: "accent",
   };

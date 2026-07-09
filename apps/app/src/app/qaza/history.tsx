@@ -28,6 +28,7 @@ import {
 } from "@/lib/calendar";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
+import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { chevronBackward, chevronForward } from "@/lib/rtl";
 
@@ -99,8 +100,7 @@ export default function QazaHistoryScreen() {
     }, []),
   );
 
-  const base = i18n.language?.split("-")[0];
-  const locale: AppLocale = base === "ar" || base === "ur" ? base : "en";
+  const locale: AppLocale = toAppLocale(i18n.language ?? "en");
   const formatDate = useCallback(
     (iso: string, calendar: CalendarMode = mode) =>
       formatCalendarDateFromIso(iso, calendar, locale),

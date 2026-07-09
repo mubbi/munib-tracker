@@ -1,3 +1,4 @@
+import i18n from "@/i18n";
 import { buildAppUrl } from "@/lib/app-links";
 
 export type WidgetHexColor = `#${string}`;
@@ -81,37 +82,57 @@ function emptySection(
   };
 }
 
-export const EMPTY_WIDGET_SNAPSHOT: WidgetSnapshot = {
-  version: 1,
-  updatedAt: new Date(0).toISOString(),
-  updatedAgoLabel: "",
-  locationDenied: false,
-  theme: DEFAULT_THEME,
-  nextPrayer: {
-    ...emptySection({ title: "Next prayer", deepLink: buildAppUrl("/") }),
-    summary: "Open the app to sync",
-    lockScreenDetail: "Open the app to sync",
-    prayerId: "",
-    prayerName: "—",
-    prayerTime: "—",
-    countdownLabel: "—",
-    minutesUntil: 15,
-    displayDate: "",
-    location: "",
-  },
-  schedule: {
-    ...emptySection({ title: "Today's schedule", deepLink: buildAppUrl("/tracker") }),
-    summary: "Open the app to sync",
-    lockScreenDetail: "Open the app to sync",
-    rows: [],
-  },
-  progress: {
-    ...emptySection({ title: "Today's progress", deepLink: buildAppUrl("/tracker") }),
-    summary: "0/5",
-    lockScreenDetail: "0/5",
-    progressLabel: "0/5",
-    progressPercent: 0,
-    completed: 0,
-    total: 5,
-  },
-};
+/**
+ * Fallback snapshot shown before the app has ever synced a real snapshot to
+ * the native widget/lock-screen surfaces. Built as a function (not a module-
+ * scope constant) because it resolves user-facing strings via the `i18n`
+ * singleton — a top-level constant would call `t()` before i18n finishes
+ * initializing and could freeze in the wrong/default locale.
+ */
+export function emptyWidgetSnapshot(): WidgetSnapshot {
+  const openAppToSync = i18n.t("widgets.openAppToSync", "Open the app to sync");
+  const placeholderProgress = "0/5";
+  return {
+    version: 1,
+    updatedAt: new Date(0).toISOString(),
+    updatedAgoLabel: "",
+    locationDenied: false,
+    theme: DEFAULT_THEME,
+    nextPrayer: {
+      ...emptySection({
+        title: i18n.t("widgets.nextPrayer", "Next prayer"),
+        deepLink: buildAppUrl("/"),
+      }),
+      summary: openAppToSync,
+      lockScreenDetail: openAppToSync,
+      prayerId: "",
+      prayerName: "—",
+      prayerTime: "—",
+      countdownLabel: "—",
+      minutesUntil: 15,
+      displayDate: "",
+      location: "",
+    },
+    schedule: {
+      ...emptySection({
+        title: i18n.t("widgets.schedule", "Today's schedule"),
+        deepLink: buildAppUrl("/tracker"),
+      }),
+      summary: openAppToSync,
+      lockScreenDetail: openAppToSync,
+      rows: [],
+    },
+    progress: {
+      ...emptySection({
+        title: i18n.t("widgets.progress", "Today's progress"),
+        deepLink: buildAppUrl("/tracker"),
+      }),
+      summary: placeholderProgress,
+      lockScreenDetail: placeholderProgress,
+      progressLabel: placeholderProgress,
+      progressPercent: 0,
+      completed: 0,
+      total: 5,
+    },
+  };
+}

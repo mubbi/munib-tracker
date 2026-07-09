@@ -3,17 +3,12 @@ import {
   LEARN_DUA_SECTION_ORDER,
   LEARN_DUA_TOPICS,
 } from "@munib-tracker/shared/content";
-import {
-  LEARN_DUA_OCCASIONS_AR,
-  LEARN_DUA_OCCASIONS_UR,
-  LEARN_DUA_TOPICS_AR,
-  LEARN_DUA_TOPICS_UR,
-} from "@munib-tracker/shared/content-i18n";
 import type { LearnDuaOccasion, LearnDuaSection, LearnDuaTopic } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
+import { overlayList } from "@/lib/content-overlay-registry";
 
 export function getLearnDuaTopics(): LearnDuaTopic[] {
-  return localizeList(LEARN_DUA_TOPICS, { ur: LEARN_DUA_TOPICS_UR, ar: LEARN_DUA_TOPICS_AR });
+  return localizeList(LEARN_DUA_TOPICS, overlayList("LEARN_DUA_TOPICS"));
 }
 
 export function getLearnDuaTopic(id: string | undefined): LearnDuaTopic | undefined {
@@ -33,10 +28,7 @@ export function getLearnDuaTopicsBySection(): Record<LearnDuaSection, LearnDuaTo
 }
 
 export function getLearnDuaOccasions(): LearnDuaOccasion[] {
-  return localizeList(LEARN_DUA_OCCASIONS, {
-    ur: LEARN_DUA_OCCASIONS_UR,
-    ar: LEARN_DUA_OCCASIONS_AR,
-  });
+  return localizeList(LEARN_DUA_OCCASIONS, overlayList("LEARN_DUA_OCCASIONS"));
 }
 
 export function getLearnDuaLessonCount(): number {

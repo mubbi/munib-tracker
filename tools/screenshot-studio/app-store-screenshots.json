@@ -1,0 +1,647 @@
+{
+  "schemaVersion": 2,
+  "appName": "Munib Tracker",
+  "themeId": "munib-tracker",
+  "connectedCanvas": false,
+  "locales": ["en", "ar", "ur"],
+  "locale": "en",
+  "device": "iphone",
+  "orientation": "portrait",
+  "appIcon": "/app-icon.png",
+  "slidesByDevice": {
+    "iphone": [
+      {
+        "id": "mt-iphone-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/{locale}/home.jpg",
+        "textElements": [
+          {
+            "id": "hero-badge",
+            "text": {
+              "en": "Offline-first · Private · Free, no ads",
+              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
+              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+            },
+            "transform": {
+              "x": 132,
+              "y": 640,
+              "width": 1056,
+              "height": 130,
+              "zIndex": 5
+            },
+            "fontSize": 46,
+            "fontWeight": 600,
+            "color": "#93a79d",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "mt-iphone-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH",
+          "ar": "الصلاة",
+          "ur": "نماز"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** consistency",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-iphone-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-iphone-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Zikr, Qur'an,\n**hadith** — offline",
+          "ar": "أذكار وقرآن\n**وحديث** — بدون إنترنت",
+          "ur": "ذکر، قرآن،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-iphone-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "PRIVACY FIRST",
+          "ar": "الخصوصية أولاً",
+          "ur": "رازداری اوّل"
+        },
+        "headline": {
+          "en": "Private by\n**default**",
+          "ar": "خصوصية\n**افتراضية**",
+          "ur": "بنیادی طور\n**نجی**"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-privacy.jpg"
+      },
+      {
+        "id": "mt-iphone-06",
+        "layout": "hero",
+        "label": {
+          "en": "OFFLINE & SYNC",
+          "ar": "بدون إنترنت والمزامنة",
+          "ur": "آف لائن اور ہم آہنگی"
+        },
+        "headline": {
+          "en": "Works **offline**.\nSync optional.",
+          "ar": "يعمل **بدون إنترنت**.\nالمزامنة اختيارية.",
+          "ur": "**آف لائن** چلتا ہے۔\nہم آہنگی اختیاری۔"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-sync.jpg"
+      },
+      {
+        "id": "mt-iphone-07",
+        "layout": "no-device",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Prayer times hero\nQibla & reminders\nPIN lock\nWidgets\n**3 languages**",
+          "ar": "مواقيت الصلاة\nالقبلة والتذكيرات\nقفل PIN\nودجات\n**3 لغات**",
+          "ur": "نماز کے اوقات\nقبلہ و یاد دہانیاں\nPIN لاک\nوجٹس\n**3 زبانیں**"
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "android": [
+      {
+        "id": "mt-android-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/{locale}/home.jpg",
+        "textElements": [
+          {
+            "id": "hero-badge",
+            "text": {
+              "en": "Offline-first · Private · Free, no ads",
+              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
+              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+            },
+            "transform": {
+              "x": 108,
+              "y": 450,
+              "width": 864,
+              "height": 96,
+              "zIndex": 5
+            },
+            "fontSize": 34,
+            "fontWeight": 600,
+            "color": "#93a79d",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "mt-android-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH",
+          "ar": "الصلاة",
+          "ur": "نماز"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** consistency",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-android-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Zikr, Qur'an,\n**hadith** — offline",
+          "ar": "أذكار وقرآن\n**وحديث** — بدون إنترنت",
+          "ur": "ذکر، قرآن،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-android-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "PRIVACY FIRST",
+          "ar": "الخصوصية أولاً",
+          "ur": "رازداری اوّل"
+        },
+        "headline": {
+          "en": "Private by\n**default**",
+          "ar": "خصوصية\n**افتراضية**",
+          "ur": "بنیادی طور\n**نجی**"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-privacy.jpg"
+      },
+      {
+        "id": "mt-android-06",
+        "layout": "hero",
+        "label": {
+          "en": "OFFLINE & SYNC",
+          "ar": "بدون إنترنت والمزامنة",
+          "ur": "آف لائن اور ہم آہنگی"
+        },
+        "headline": {
+          "en": "Works **offline**.\nSync optional.",
+          "ar": "يعمل **بدون إنترنت**.\nالمزامنة اختيارية.",
+          "ur": "**آف لائن** چلتا ہے۔\nہم آہنگی اختیاری۔"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-sync.jpg"
+      },
+      {
+        "id": "mt-android-07",
+        "layout": "no-device",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Prayer times hero\nQibla & reminders\nPIN lock\nWidgets\n**3 languages**",
+          "ar": "مواقيت الصلاة\nالقبلة والتذكيرات\nقفل PIN\nودجات\n**3 لغات**",
+          "ur": "نماز کے اوقات\nقبلہ و یاد دہانیاں\nPIN لاک\nوجٹس\n**3 زبانیں**"
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "ipad": [
+      {
+        "id": "mt-ipad-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/{locale}/home.jpg",
+        "textElements": [
+          {
+            "id": "hero-badge",
+            "text": {
+              "en": "Offline-first · Private · Free, no ads",
+              "ar": "بدون إنترنت · خصوصية · مجاني بلا إعلانات",
+              "ur": "آف لائن · نجی · مفت، بغیر اشتہارات"
+            },
+            "transform": {
+              "x": 232,
+              "y": 820,
+              "width": 1600,
+              "height": 120,
+              "zIndex": 5
+            },
+            "fontSize": 54,
+            "fontWeight": 600,
+            "color": "#93a79d",
+            "align": "center"
+          }
+        ]
+      },
+      {
+        "id": "mt-ipad-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH",
+          "ar": "الصلاة",
+          "ur": "نماز"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** consistency",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-ipad-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-ipad-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Zikr, Qur'an,\n**hadith** — offline",
+          "ar": "أذكار وقرآن\n**وحديث** — بدون إنترنت",
+          "ur": "ذکر، قرآن،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-ipad-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "PRIVACY FIRST",
+          "ar": "الخصوصية أولاً",
+          "ur": "رازداری اوّل"
+        },
+        "headline": {
+          "en": "Private by\n**default**",
+          "ar": "خصوصية\n**افتراضية**",
+          "ur": "بنیادی طور\n**نجی**"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-privacy.jpg"
+      },
+      {
+        "id": "mt-ipad-06",
+        "layout": "hero",
+        "label": {
+          "en": "OFFLINE & SYNC",
+          "ar": "بدون إنترنت والمزامنة",
+          "ur": "آف لائن اور ہم آہنگی"
+        },
+        "headline": {
+          "en": "Works **offline**.\nSync optional.",
+          "ar": "يعمل **بدون إنترنت**.\nالمزامنة اختيارية.",
+          "ur": "**آف لائن** چلتا ہے۔\nہم آہنگی اختیاری۔"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-sync.jpg"
+      },
+      {
+        "id": "mt-ipad-07",
+        "layout": "no-device",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Prayer times hero\nQibla & reminders\nPIN lock\nWidgets\n**3 languages**",
+          "ar": "مواقيت الصلاة\nالقبلة والتذكيرات\nقفل PIN\nودجات\n**3 لغات**",
+          "ur": "نماز کے اوقات\nقبلہ و یاد دہانیاں\nPIN لاک\nوجٹس\n**3 زبانیں**"
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "android-7": [
+      {
+        "id": "mt-android-7-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/{locale}/home.jpg"
+      },
+      {
+        "id": "mt-android-7-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH",
+          "ar": "الصلاة",
+          "ur": "نماز"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** consistency",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-android-7-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-7-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Zikr, Qur'an,\n**hadith** — offline",
+          "ar": "أذكار وقرآن\n**وحديث** — بدون إنترنت",
+          "ur": "ذکر، قرآن،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-android-7-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "PRIVACY FIRST",
+          "ar": "الخصوصية أولاً",
+          "ur": "رازداری اوّل"
+        },
+        "headline": {
+          "en": "Private by\n**default**",
+          "ar": "خصوصية\n**افتراضية**",
+          "ur": "بنیادی طور\n**نجی**"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-privacy.jpg"
+      },
+      {
+        "id": "mt-android-7-06",
+        "layout": "hero",
+        "label": {
+          "en": "OFFLINE & SYNC",
+          "ar": "بدون إنترنت والمزامنة",
+          "ur": "آف لائن اور ہم آہنگی"
+        },
+        "headline": {
+          "en": "Works **offline**.\nSync optional.",
+          "ar": "يعمل **بدون إنترنت**.\nالمزامنة اختيارية.",
+          "ur": "**آف لائن** چلتا ہے۔\nہم آہنگی اختیاری۔"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-sync.jpg"
+      },
+      {
+        "id": "mt-android-7-07",
+        "layout": "no-device",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Prayer times hero\nQibla & reminders\nPIN lock\nWidgets\n**3 languages**",
+          "ar": "مواقيت الصلاة\nالقبلة والتذكيرات\nقفل PIN\nودجات\n**3 لغات**",
+          "ur": "نماز کے اوقات\nقبلہ و یاد دہانیاں\nPIN لاک\nوجٹس\n**3 زبانیں**"
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "android-10": [
+      {
+        "id": "mt-android-10-01",
+        "layout": "hero",
+        "label": {
+          "en": "MUNIB TRACKER",
+          "ar": "MUNIB TRACKER",
+          "ur": "MUNIB TRACKER"
+        },
+        "headline": {
+          "en": "Track your journey\n**back to Allah**",
+          "ar": "تتبّع رحلتك\n**إلى الله**",
+          "ur": "اپنا سفر\n**اللہ کی طرف**"
+        },
+        "screenshot": "/screenshots/app/{locale}/home.jpg"
+      },
+      {
+        "id": "mt-android-10-02",
+        "layout": "device-bottom",
+        "label": {
+          "en": "SALAH",
+          "ar": "الصلاة",
+          "ur": "نماز"
+        },
+        "headline": {
+          "en": "Build unshakeable\n**salah** consistency",
+          "ar": "ثبّت **الصلاة**\nفي يومك",
+          "ur": "**نماز** میں\nاستقامت پائیں"
+        },
+        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+      },
+      {
+        "id": "mt-android-10-03",
+        "layout": "device-top",
+        "label": {
+          "en": "QAZA",
+          "ar": "القضاء",
+          "ur": "قضا"
+        },
+        "headline": {
+          "en": "Clear your **qaza**\nwith clarity",
+          "ar": "أنجِ **القضاء**\nبوضوح",
+          "ur": "**قضا** واضح\nطریقے سے"
+        },
+        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "inverted": true
+      },
+      {
+        "id": "mt-android-10-04",
+        "layout": "two-devices",
+        "label": {
+          "en": "LEARNING LIBRARY",
+          "ar": "مكتبة التعلّم",
+          "ur": "لرننگ لائبریری"
+        },
+        "headline": {
+          "en": "Zikr, Qur'an,\n**hadith** — offline",
+          "ar": "أذكار وقرآن\n**وحديث** — بدون إنترنت",
+          "ur": "ذکر، قرآن،\n**حدیث** — آف لائن"
+        },
+        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+      },
+      {
+        "id": "mt-android-10-05",
+        "layout": "device-bottom",
+        "label": {
+          "en": "PRIVACY FIRST",
+          "ar": "الخصوصية أولاً",
+          "ur": "رازداری اوّل"
+        },
+        "headline": {
+          "en": "Private by\n**default**",
+          "ar": "خصوصية\n**افتراضية**",
+          "ur": "بنیادی طور\n**نجی**"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-privacy.jpg"
+      },
+      {
+        "id": "mt-android-10-06",
+        "layout": "hero",
+        "label": {
+          "en": "OFFLINE & SYNC",
+          "ar": "بدون إنترنت والمزامنة",
+          "ur": "آف لائن اور ہم آہنگی"
+        },
+        "headline": {
+          "en": "Works **offline**.\nSync optional.",
+          "ar": "يعمل **بدون إنترنت**.\nالمزامنة اختيارية.",
+          "ur": "**آف لائن** چلتا ہے۔\nہم آہنگی اختیاری۔"
+        },
+        "screenshot": "/screenshots/app/{locale}/settings-sync.jpg"
+      },
+      {
+        "id": "mt-android-10-07",
+        "layout": "no-device",
+        "label": {
+          "en": "AND MORE",
+          "ar": "والمزيد",
+          "ur": "اور مزید"
+        },
+        "headline": {
+          "en": "Prayer times hero\nQibla & reminders\nPIN lock\nWidgets\n**3 languages**",
+          "ar": "مواقيت الصلاة\nالقبلة والتذكيرات\nقفل PIN\nودجات\n**3 لغات**",
+          "ur": "نماز کے اوقات\nقبلہ و یاد دہانیاں\nPIN لاک\nوجٹس\n**3 زبانیں**"
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "feature-graphic": [
+      {
+        "id": "mt-feature-graphic-01",
+        "layout": "feature-graphic",
+        "label": {},
+        "headline": {
+          "en": "Salah, dhikr, qaza & learning.\nOffline-first. Private by design.",
+          "ar": "صلاة وذكر وقضاء وتعلّم.\nبدون إنترنت. خصوصية بالتصميم.",
+          "ur": "نماز، ذکر، قضا اور تعلیم۔\nآف لائن۔ رازداری بنیادی اصول۔"
+        },
+        "screenshot": ""
+      }
+    ]
+  },
+  "crossScreenMockupsByDevice": {
+    "iphone": [],
+    "ipad": [],
+    "android": [],
+    "android-7": [],
+    "android-10": [],
+    "feature-graphic": []
+  }
+}

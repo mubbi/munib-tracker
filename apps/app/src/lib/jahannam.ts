@@ -12,43 +12,16 @@ import {
   JAHANNAM_TOPICS,
   JAHANNAM_VERSES,
 } from "@munib-tracker/shared/content";
-import {
-  JAHANNAM_CORE_TOPICS_AR,
-  JAHANNAM_CORE_TOPICS_UR,
-  JAHANNAM_DUAS_AR,
-  JAHANNAM_DUAS_UR,
-  JAHANNAM_GATES_AR,
-  JAHANNAM_GATES_UR,
-  JAHANNAM_HADITH_AR,
-  JAHANNAM_HADITH_UR,
-  JAHANNAM_MAJOR_SIN_TOPICS_AR,
-  JAHANNAM_MAJOR_SIN_TOPICS_UR,
-  JAHANNAM_NAMES_AR,
-  JAHANNAM_NAMES_UR,
-  JAHANNAM_REFERENCES_AR,
-  JAHANNAM_REFERENCES_UR,
-  JAHANNAM_REFLECTIONS_AR,
-  JAHANNAM_REFLECTIONS_UR,
-  JAHANNAM_REFUGE_DUA_AR,
-  JAHANNAM_REFUGE_DUA_UR,
-  JAHANNAM_VERSES_AR,
-  JAHANNAM_VERSES_UR,
-} from "@munib-tracker/shared/content-i18n";
 import type { JahannamSection, JahannamTopic } from "@munib-tracker/shared/types";
 import { localizeList, localizeObject } from "@/lib/content-i18n";
+import { overlayList, overlayObject } from "@/lib/content-overlay-registry";
 
 function getJahannamCoreTopics(): JahannamTopic[] {
-  return localizeList(JAHANNAM_CORE_TOPICS, {
-    ur: JAHANNAM_CORE_TOPICS_UR,
-    ar: JAHANNAM_CORE_TOPICS_AR,
-  });
+  return localizeList(JAHANNAM_CORE_TOPICS, overlayList("JAHANNAM_CORE_TOPICS"));
 }
 
 export function getJahannamMajorSinTopics(): JahannamTopic[] {
-  return localizeList(JAHANNAM_MAJOR_SIN_TOPICS, {
-    ur: JAHANNAM_MAJOR_SIN_TOPICS_UR,
-    ar: JAHANNAM_MAJOR_SIN_TOPICS_AR,
-  });
+  return localizeList(JAHANNAM_MAJOR_SIN_TOPICS, overlayList("JAHANNAM_MAJOR_SIN_TOPICS"));
 }
 
 export function getJahannamTopics(): JahannamTopic[] {
@@ -75,42 +48,33 @@ export function getJahannamLessonCount(): number {
 }
 
 export function getJahannamNames() {
-  return localizeList(JAHANNAM_NAMES, { ur: JAHANNAM_NAMES_UR, ar: JAHANNAM_NAMES_AR });
+  return localizeList(JAHANNAM_NAMES, overlayList("JAHANNAM_NAMES"));
 }
 
 export function getJahannamGates() {
-  return localizeList(JAHANNAM_GATES, { ur: JAHANNAM_GATES_UR, ar: JAHANNAM_GATES_AR });
+  return localizeList(JAHANNAM_GATES, overlayList("JAHANNAM_GATES"));
 }
 
 export function getJahannamVerses() {
-  return localizeList(JAHANNAM_VERSES, { ur: JAHANNAM_VERSES_UR, ar: JAHANNAM_VERSES_AR });
+  return localizeList(JAHANNAM_VERSES, overlayList("JAHANNAM_VERSES"));
 }
 
 export function getJahannamHadith() {
-  return localizeList(JAHANNAM_HADITH, { ur: JAHANNAM_HADITH_UR, ar: JAHANNAM_HADITH_AR });
+  return localizeList(JAHANNAM_HADITH, overlayList("JAHANNAM_HADITH"));
 }
 
 export function getJahannamDuas() {
-  return localizeList(JAHANNAM_DUAS, { ur: JAHANNAM_DUAS_UR, ar: JAHANNAM_DUAS_AR });
+  return localizeList(JAHANNAM_DUAS, overlayList("JAHANNAM_DUAS"));
 }
 
 export function getJahannamReflections() {
-  return localizeList(JAHANNAM_REFLECTIONS, {
-    ur: JAHANNAM_REFLECTIONS_UR,
-    ar: JAHANNAM_REFLECTIONS_AR,
-  });
+  return localizeList(JAHANNAM_REFLECTIONS, overlayList("JAHANNAM_REFLECTIONS"));
 }
 
 export function getJahannamReferences() {
-  return localizeList(JAHANNAM_REFERENCES, {
-    ur: JAHANNAM_REFERENCES_UR,
-    ar: JAHANNAM_REFERENCES_AR,
-  });
+  return localizeList(JAHANNAM_REFERENCES, overlayList("JAHANNAM_REFERENCES"));
 }
 
 export function getJahannamRefugeDua() {
-  return localizeObject(JAHANNAM_REFUGE_DUA, {
-    ur: JAHANNAM_REFUGE_DUA_UR,
-    ar: JAHANNAM_REFUGE_DUA_AR,
-  });
+  return localizeObject(JAHANNAM_REFUGE_DUA, overlayObject("JAHANNAM_REFUGE_DUA"));
 }

@@ -33,7 +33,7 @@ export default function LoginScreen() {
       <Seo
         path="/login"
         title={t("login.title")}
-        description="Sign in to sync your worship data across devices."
+        description={t("seo.login.description")}
         index={false}
       />
       <Stagger>
