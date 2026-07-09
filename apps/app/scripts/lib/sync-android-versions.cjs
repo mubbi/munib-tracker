@@ -1,5 +1,5 @@
 /**
- * Sync APP_VERSION / ANDROID_VERSION_CODE into android/app/build.gradle.
+ * Sync EXPO_ANDROID_APP_VERSION / EXPO_ANDROID_VERSION_CODE into android/app/build.gradle.
  */
 const fs = require("node:fs");
 const path = require("node:path");
@@ -35,7 +35,7 @@ function syncAndroidVersionName(androidDir, versionName, { strict = true } = {})
   }
   const contents = gradle.contents.replace(/versionName\s+"[^"]*"/, `versionName "${versionName}"`);
   fs.writeFileSync(gradle.filePath, contents, "utf8");
-  console.log(`Android versionName ${versionName} (APP_VERSION)\n`);
+  console.log(`Android versionName ${versionName} (EXPO_ANDROID_APP_VERSION)\n`);
   return true;
 }
 
@@ -50,7 +50,7 @@ function syncAndroidVersionCode(androidDir, { strict = true } = {}) {
   }
   const contents = gradle.contents.replace(/versionCode\s+\d+/, `versionCode ${code}`);
   fs.writeFileSync(gradle.filePath, contents, "utf8");
-  console.log(`Android versionCode ${code} (ANDROID_VERSION_CODE)\n`);
+  console.log(`Android versionCode ${code} (EXPO_ANDROID_VERSION_CODE)\n`);
   return true;
 }
 

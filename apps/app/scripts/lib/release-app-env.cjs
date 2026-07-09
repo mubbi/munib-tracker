@@ -1,8 +1,8 @@
 /**
  * Load apps/app/.env into process.env (without overwriting existing shell vars).
  */
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const ENV_FILE_NAME = ".env";
 
@@ -33,11 +33,16 @@ function loadDotEnv(filePath) {
 
 function loadAppEnv(projectRoot) {
   const envPath = path.join(projectRoot, ENV_FILE_NAME);
-  return loadDotEnv(envPath);
+  const result = loadDotEnv(envPath);
+  if (result.loaded) {
+    const { captureWebVersionFromDotEnv } = require("./platform-versions.cjs");
+    captureWebVersionFromDotEnv();
+  }
+  return result;
 }
 
 function assertVersionEnv() {
-  const required = ["APP_VERSION", "ANDROID_VERSION_CODE", "IOS_BUILD_NUMBER"];
+  const required = ["EXPO_IOS_APP_BUILD_NUMBER", "EXPO_ANDROID_VERSION_CODE"];
   const missing = required.filter((key) => !process.env[key]?.trim());
   if (missing.length > 0) {
     console.error(
@@ -47,27 +52,34 @@ function assertVersionEnv() {
     process.exit(1);
   }
 
-  const androidVersionCode = Number.parseInt(process.env.ANDROID_VERSION_CODE, 10);
+  const androidVersionCode = Number.parseInt(process.env.EXPO_ANDROID_VERSION_CODE, 10);
   if (!Number.isFinite(androidVersionCode) || androidVersionCode < 1) {
-    console.error("ANDROID_VERSION_CODE must be a positive integer.");
+    console.error("EXPO_ANDROID_VERSION_CODE must be a positive integer.");
     process.exit(1);
   }
 
-  if (!/^\d+$/.test(process.env.IOS_BUILD_NUMBER)) {
-    console.error("IOS_BUILD_NUMBER must be a positive integer string.");
+  if (!/^\d+$/.test(process.env.EXPO_IOS_APP_BUILD_NUMBER)) {
+    console.error("EXPO_IOS_APP_BUILD_NUMBER must be a positive integer string.");
     process.exit(1);
   }
 }
 
 function logReleaseVersionSummary(projectRoot, { activePlatform } = {}) {
   const { getVersionEnvSummary } = require("./platform-versions.cjs");
-  const summary = getVersionEnvSummary(projectRoot, { activePlatform });
+  const v = getVersionEnvSummary(projectRoot, { activePlatform });
   console.log("\n--- Release versions ---");
-  console.log(`  APP_VERSION           = ${summary.marketingVersion}`);
-  console.log(`  ANDROID_VERSION_CODE  = ${summary.androidVersionCode}`);
-  console.log(`  IOS_BUILD_NUMBER      = ${summary.iosBuildNumber}`);
-  if (summary.activePlatform) {
-    console.log(`  active platform       = ${summary.activePlatform}`);
+  console.log(`  EXPO_IOS_APP_VERSION       → ${v.iosMarketing}`);
+  console.log(`  EXPO_IOS_APP_BUILD_NUMBER  → ${v.iosBuildNumber}`);
+  console.log(`  EXPO_ANDROID_APP_VERSION   → ${v.androidMarketing}`);
+  console.log(`  EXPO_ANDROID_VERSION_CODE  → ${v.androidVersionCode}`);
+  console.log(`  EXPO_PUBLIC_APP_VERSION    → ${v.webMarketing} (web .env)`);
+  if (v.bundleVersion) {
+    const bakeNote = v.bundleOverridden
+      ? `baked for ${v.activePlatform} prebuild/release — uses platform marketing semver, not web .env`
+      : "used for Metro / X-App-Version";
+    console.log(`  JS bundle X-App-Version    → ${v.bundleVersion} (${bakeNote})`);
+  } else {
+    console.log("  JS bundle X-App-Version    → (not set)");
   }
   console.log("");
 }
@@ -76,6 +88,7 @@ function buildNativeReleaseProcessEnv() {
   return {
     ...process.env,
     NODE_ENV: "production",
+    EXPO_PUBLIC_APP_VERSION: process.env.EXPO_PUBLIC_APP_VERSION,
   };
 }
 

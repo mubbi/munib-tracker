@@ -2,7 +2,7 @@
 /**
  * Android prebuild with Munib Tracker version sync from apps/app/.env.
  *
- * 1. Load .env and set EXPO_PREBUILD_PLATFORM=android
+ * 1. Load .env and set EXPO_PREBUILD_PLATFORM=android (app.config.js picks EXPO_ANDROID_APP_VERSION)
  * 2. expo prebuild --platform android
  * 3. Sync marketing version + versionCode into android/app/build.gradle
  */
@@ -44,4 +44,4 @@ syncAndroidVersionCode(androidDir, { strict: false });
 logReleaseVersionSummary(appRoot, { activePlatform: "android" });
 prepareWindowsAndroidBuild(appRoot);
 
-console.log("\nDone. Android native project synced from apps/app/.env.");
+console.log("\nDone. Android native project uses semver from EXPO_ANDROID_APP_VERSION.");

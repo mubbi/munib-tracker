@@ -1,17 +1,26 @@
+const { loadAppEnv } = require("./scripts/lib/release-app-env.cjs");
+const {
+  resolvePlatformVersion,
+  resolveIosBuildNumber,
+  resolveAndroidVersionCode,
+} = require("./scripts/lib/platform-versions.cjs");
 const {
   WIDGET_APP_GROUP,
   ANDROID_HOME_SCREEN_WIDGETS,
   QUICK_ACTION_ANDROID_ICONS,
 } = require("./plugins/homeScreenSurfaces.cjs");
 
+loadAppEnv(__dirname);
+
 /** @type {import('expo/config').ConfigContext} */
 module.exports = ({ config }) => {
-  const version = process.env.APP_VERSION ?? config.version ?? "1.0.0";
-  const androidVersionCode = Number.parseInt(
-    process.env.ANDROID_VERSION_CODE ?? String(config.android?.versionCode ?? 1),
-    10,
-  );
-  const iosBuildNumber = process.env.IOS_BUILD_NUMBER ?? config.ios?.buildNumber ?? "1";
+  const prebuildPlatform = process.env.EXPO_PREBUILD_PLATFORM?.trim();
+  const appVersion =
+    prebuildPlatform === "ios" || prebuildPlatform === "android"
+      ? resolvePlatformVersion(prebuildPlatform, __dirname)
+      : resolvePlatformVersion("web", __dirname);
+  const androidVersionCode = resolveAndroidVersionCode();
+  const iosBuildNumber = resolveIosBuildNumber();
   const vapidPublicKey = (process.env.EXPO_PUBLIC_VAPID_PUBLIC_KEY ?? "").trim();
   const appleTeamId = process.env.EXPO_APPLE_TEAM_ID?.trim() || undefined;
 
@@ -24,7 +33,7 @@ module.exports = ({ config }) => {
 
   return {
     ...config,
-    version,
+    version: appVersion,
     ios: {
       ...config.ios,
       buildNumber: iosBuildNumber,
@@ -54,6 +63,10 @@ module.exports = ({ config }) => {
     ],
     extra: {
       ...config.extra,
+      /** Per-platform marketing semver from .env — used by runtime version helpers on native. */
+      iosAppVersion: resolvePlatformVersion("ios", __dirname),
+      androidAppVersion: resolvePlatformVersion("android", __dirname),
+      webAppVersion: resolvePlatformVersion("web", __dirname),
       /** Web Push VAPID public key for expo-constants on web. */
       vapidPublicKey: vapidPublicKey || undefined,
       /** Service worker path for web push registration. */

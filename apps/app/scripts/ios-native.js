@@ -147,7 +147,9 @@ function syncIosMarketingVersion(marketingVersion, { strict = true } = {}) {
     fs.writeFileSync(plist, plistContents, "utf8");
   }
 
-  console.log(`iOS marketing version ${version} (APP_VERSION → CFBundleShortVersionString)\n`);
+  console.log(
+    `iOS marketing version ${version} (EXPO_IOS_APP_VERSION → CFBundleShortVersionString)\n`,
+  );
   return true;
 }
 
@@ -179,7 +181,7 @@ function syncIosBuildNumber(buildNumber, { strict = true } = {}) {
     fs.writeFileSync(plist, plistContents, "utf8");
   }
 
-  console.log(`iOS build number ${code} (IOS_BUILD_NUMBER → CFBundleVersion)\n`);
+  console.log(`iOS build number ${code} (EXPO_IOS_APP_BUILD_NUMBER → CFBundleVersion)\n`);
   return true;
 }
 

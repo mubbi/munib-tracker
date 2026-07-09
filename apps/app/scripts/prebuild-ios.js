@@ -2,7 +2,7 @@
 /**
  * iOS prebuild with Munib Tracker version sync from apps/app/.env.
  *
- * 1. Load .env and set EXPO_PREBUILD_PLATFORM=ios
+ * 1. Load .env and set EXPO_PREBUILD_PLATFORM=ios (app.config.js picks EXPO_IOS_APP_VERSION)
  * 2. expo prebuild --platform ios
  * 3. pod install when --clean regenerated ios/ (macOS only)
  * 4. Sync marketing version + build number into the Xcode project
@@ -45,4 +45,4 @@ syncIosMarketingVersion(marketingVersion, { strict: false });
 syncIosBuildNumber(buildNumber, { strict: false });
 logReleaseVersionSummary(appRoot, { activePlatform: "ios" });
 
-console.log("\nDone. iOS native project synced from apps/app/.env.");
+console.log("\nDone. iOS native project uses semver from EXPO_IOS_APP_VERSION.");
