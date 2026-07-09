@@ -17,6 +17,7 @@ const {
   logReleaseVersionSummary,
   buildNativeReleaseProcessEnv,
 } = require("./lib/release-app-env.cjs");
+const { withAndroidNativeBuildEnv } = require("./lib/native-script-utils.cjs");
 const { preparePlatformRelease } = require("./lib/platform-versions.cjs");
 const {
   syncAndroidVersionName,
@@ -79,7 +80,7 @@ logReleaseVersionSummary(projectRoot, { activePlatform: "android" });
 syncAndroidVersionName(androidDir, marketingVersion);
 syncAndroidVersionCode(androidDir);
 
-const env = buildNativeReleaseProcessEnv();
+const env = withAndroidNativeBuildEnv(buildNativeReleaseProcessEnv());
 
 console.log(`Gradle ${task} (NODE_ENV=production)…\n`);
 

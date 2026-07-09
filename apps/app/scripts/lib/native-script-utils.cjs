@@ -31,7 +31,23 @@ function runStep(label, command, args, options = {}) {
   }
 }
 
+/**
+ * @param {NodeJS.ProcessEnv} [env]
+ * @returns {NodeJS.ProcessEnv}
+ */
+function withAndroidNativeBuildEnv(env = process.env) {
+  if (process.platform !== "win32") {
+    return env;
+  }
+
+  return {
+    ...env,
+    CMAKE_BUILD_PARALLEL_LEVEL: env.CMAKE_BUILD_PARALLEL_LEVEL ?? "1",
+  };
+}
+
 module.exports = {
   DEFAULT_APP_ROOT,
   runStep,
+  withAndroidNativeBuildEnv,
 };

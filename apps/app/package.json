@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "expo start",
     "dev:clear": "expo start --clear",
-    "android": "expo run:android",
+    "android": "node scripts/run-android.js",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "dev:web:clear": "expo start --web --clear",
@@ -30,7 +30,7 @@
     "prebuild:clean:ios": "node scripts/prebuild-ios.js --clean",
     "cleanbuild:android": "node scripts/prebuild-android.js --clean",
     "cleanbuild:ios": "node scripts/prebuild-ios.js --clean",
-    "rebuild:android": "node scripts/prebuild-android.js --clean && expo run:android",
+    "rebuild:android": "node scripts/prebuild-android.js --clean && node scripts/run-android.js",
     "rebuild:ios": "node scripts/prebuild-ios.js --clean && expo run:ios",
     "doctor": "pnpm exec expo doctor",
     "emulator": "node scripts/android-emulator.js",
