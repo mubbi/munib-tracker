@@ -5,10 +5,7 @@
  * NDK clang can crash when Ninja compiles many C++ units in parallel (OOM/signal).
  * Limiting CMAKE_BUILD_PARALLEL_LEVEL avoids react-native-reanimated build failures.
  */
-const {
-  runStep,
-  withAndroidNativeBuildEnv,
-} = require("./lib/native-script-utils.cjs");
+const { runStep, withAndroidNativeBuildEnv } = require("./lib/native-script-utils.cjs");
 
 runStep("Expo run:android", "expo", ["run:android", ...process.argv.slice(2)], {
   env: withAndroidNativeBuildEnv(),
