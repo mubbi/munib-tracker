@@ -30,7 +30,7 @@
     "prebuild:clean:ios": "node scripts/prebuild-ios.js --clean",
     "cleanbuild:android": "node scripts/prebuild-android.js --clean",
     "cleanbuild:ios": "node scripts/prebuild-ios.js --clean",
-    "rebuild:android": "node scripts/prebuild-android.js --clean && node scripts/run-android.js",
+    "rebuild:android": "node scripts/prebuild-android.js --clean && node scripts/run-android.js --clear-metro",
     "rebuild:ios": "node scripts/prebuild-ios.js --clean && expo run:ios",
     "doctor": "pnpm exec expo doctor",
     "emulator": "node scripts/android-emulator.js",
@@ -59,6 +59,7 @@
     "refresh:brand-assets": "python scripts/generate-brand-assets.py && node scripts/sync-pwa-manifest.mjs",
     "sync:pwa-manifest": "node scripts/sync-pwa-manifest.mjs",
     "clear:web-cache": "node -e \"require('node:fs').rmSync('.expo/web/cache',{recursive:true,force:true})\"",
+    "clear:metro-cache": "node -e \"console.log('Cleared', require('./scripts/lib/native-script-utils.cjs').clearMetroDiskCache(), 'Metro cache entries')\"",
     "build:web": "node scripts/sync-pwa-manifest.mjs && node scripts/metro-node-heap.cjs export --platform web && node scripts/inject-seo-head.mjs && node scripts/generate-seo-files.mjs",
     "transit": "echo transit"
   },

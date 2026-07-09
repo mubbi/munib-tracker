@@ -2,6 +2,7 @@
  * Shared helpers for native prebuild / release orchestration scripts.
  */
 const fs = require("node:fs");
+const os = require("node:os");
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
 
@@ -12,6 +13,38 @@ const WINDOWS_GRADLE_PROPERTIES = {
   "org.gradle.parallel": "false",
   "org.gradle.workers.max": "2",
 };
+
+/**
+ * Remove stale Metro file-map caches (v8 serialized blobs in the OS temp dir).
+ * Corrupted entries cause "Unable to deserialize cloned data" on startup.
+ *
+ * @returns {number} removed entry count
+ */
+function clearMetroDiskCache() {
+  const tmpDir = os.tmpdir();
+  let removed = 0;
+
+  let entries;
+  try {
+    entries = fs.readdirSync(tmpDir);
+  } catch {
+    return removed;
+  }
+
+  for (const name of entries) {
+    if (!name.startsWith("metro-file-map-expo-") && name !== "metro-cache") {
+      continue;
+    }
+    try {
+      fs.rmSync(path.join(tmpDir, name), { recursive: true, force: true });
+      removed += 1;
+    } catch {
+      // ignore busy files
+    }
+  }
+
+  return removed;
+}
 
 /**
  * @param {string} label
@@ -192,6 +225,7 @@ module.exports = {
   DEFAULT_APP_ROOT,
   WINDOWS_GRADLE_PROPERTIES,
   runStep,
+  clearMetroDiskCache,
   prepareWindowsAndroidBuild,
   ensureAndroidDeviceReady,
   withAndroidNativeBuildEnv,
