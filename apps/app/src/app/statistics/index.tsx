@@ -45,6 +45,7 @@ import {
   QuranRepository,
   ZikrRepository,
 } from "@/db";
+import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
@@ -121,6 +122,12 @@ export default function StatisticsScreen() {
 
   const locale = i18n.language?.split("-")[0];
   const formatCount = (value: number) => value.toLocaleString(locale);
+
+  useFocusEffect(
+    useCallback(() => {
+      trackReviewInteraction("view_statistics");
+    }, []),
+  );
 
   useFocusEffect(
     useCallback(() => {

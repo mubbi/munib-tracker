@@ -549,7 +549,19 @@
         "name": "Ali İbn Ahmed Mala",
         "location": "Mescid-i Haram"
       }
-    }
+    },
+    "rateApp": "Munib Tracker'ı değerlendir",
+    "rateAppDesc": "Uygulama mağazasında deneyiminizi paylaşın",
+    "reviewReactivationEnabled": "Uygulama geri bildirim hatırlatıcıları",
+    "reviewReactivationEnabledDesc": "Ara sıra uygulama içinde geri bildirim paylaşmak için nazik hatırlatmalar — doğrudan mağaza değerlendirmesi değil.",
+    "appUpdate": "Uygulama güncellemesi",
+    "updateAvailableTitle": "Güncelleme mevcut",
+    "updateRequiredTitle": "Güncelleme gerekli",
+    "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
+    "updateRequiredDesc": "Uygulamayı kullanmaya devam etmek için {{latest}} sürümüne güncelleyin.",
+    "updateNow": "Şimdi güncelle",
+    "viewUpdateDetails": "Ayrıntıları gör",
+    "remindInSettings": "Ayarlar'da hatırlat"
   },
   "import": {
     "title": "Namaz geçmişini içe aktar",
@@ -3935,5 +3947,45 @@
     "after1Min": "1 dakika sonra",
     "after5Min": "5 dakika sonra",
     "footer": "Sizin PIN dir stored securely  bu cihaz ve never leaves it."
+  },
+  "update": {
+    "title": "Güncelleme mevcut",
+    "hardTitle": "Güncelleme gerekli",
+    "availableBadge": "Yeni sürüm",
+    "requiredBadge": "Gerekli",
+    "yourVersion": "Sürümünüz",
+    "latestVersion": "En son",
+    "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
+    "hardBody": "Uygulamayı kullanmaya devam etmek için {{version}} sürümüne güncelleyin.",
+    "hardNote": "Devam etmek için bu güncelleme gereklidir.",
+    "updateButton": "Şimdi güncelle",
+    "webReloadButton": "Yeniden yükle",
+    "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
+    "webHardRefreshHint": "Yukarıdaki Yeniden yükle'ye dokunun. Bu mesaj sürekli görünüyorsa sayfayı zorla yenileyin: Windows/Linux'ta Ctrl+Shift+R veya macOS'ta Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker'ı beğeniyor musunuz?",
+    "rateSubtitle": "Geri bildiriminiz diğer Müslümanların uygulamayı keşfetmesine yardımcı olur.",
+    "starLabel": "{{count}} yıldız",
+    "starLabel_other": "{{count}} yıldız",
+    "storeTitle": "Teşekkürler!",
+    "storeBody": "Munib Tracker'ı uygulama mağazasında değerlendirir misiniz? Sadece bir an sürer.",
+    "storeCta": "Uygulama mağazasında değerlendir",
+    "maybeLater": "Belki sonra",
+    "feedbackTitle": "Gelişmemize yardım edin",
+    "feedbackBody": "Munib Tracker beklentilerinizi karşılamadıysa üzgünüz. Neyi daha iyi yapabiliriz?",
+    "feedbackPlaceholder": "Neyin yanlış gittiğini veya neyin eksik olduğunu yazın…",
+    "feedbackCta": "Geri bildirim gönder",
+    "feedbackOffline": "Geri bildirim göndermek için internete bağlanın.",
+    "feedbackError": "Geri bildirim gönderilemedi. Tekrar deneyin.",
+    "skip": "Atla",
+    "thanksTitle": "Teşekkürler!",
+    "thanksBody": "Desteğiniz bizim için çok değerli.",
+    "feedbackThanksTitle": "Geri bildirim alındı",
+    "feedbackThanksBody": "Notlarınızı Munib Tracker'ı geliştirmek için kullanacağız."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Harika gidiyorsunuz",
+    "reviewReactivationBody": "Munib Tracker deneyiminizi paylaşmak ister misiniz?"
   }
 }

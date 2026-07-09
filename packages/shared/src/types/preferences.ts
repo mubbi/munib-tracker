@@ -33,6 +33,11 @@ export interface NotificationPreferences {
   dailyContent: boolean;
   /** Friday reminder for Jumu'ah + Surah Al-Kahf — NF-1.25. */
   friday: boolean;
+  /**
+   * Gentle OS push reminders to share app feedback via the in-app review funnel
+   * (default true). Never a direct store rating request.
+   */
+  reviewReactivationEnabled?: boolean;
 }
 
 export interface FontScopePrefs {

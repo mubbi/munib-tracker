@@ -549,7 +549,19 @@
         "name": "li Ibn hmd Ml",
         "location": "l-Msjid l-Hrm"
       }
-    }
+    },
+    "rateApp": "Munib Tracker-ga baho bering",
+    "rateAppDesc": "Tajribangizni ilova do'konida baham ko'ring",
+    "reviewReactivationEnabled": "Ilova fikri eslatmalari",
+    "reviewReactivationEnabledDesc": "Vaqt-vaqti bilan yumshoq eslatmalar ilovada fikr baham ko'rish uchun — do'konda to'g'ridan-to'g'ri baho so'rovi emas.",
+    "appUpdate": "Ilova yangilanishi",
+    "updateAvailableTitle": "Yangilanish mavjud",
+    "updateRequiredTitle": "Yangilanish talab qilinadi",
+    "updateAvailableDesc": "{{latest}} versiyasi mavjud. Siz {{current}} da ekansiz.",
+    "updateRequiredDesc": "Ilovadan foydalanishni davom ettirish uchun {{latest}} ga yangilang.",
+    "updateNow": "Hozir yangilash",
+    "viewUpdateDetails": "Tafsilotlarni ko'rish",
+    "remindInSettings": "Sozlamalarda eslat"
   },
   "import": {
     "title": "Import prayer history",
@@ -3935,5 +3947,45 @@
     "after1Min": "fter 1 michidute",
     "after5Min": "fter 5 michidutes",
     "footer": "siznichidg Pichid bu styokied securely d bu device v never leves it."
+  },
+  "update": {
+    "title": "Yangilanish mavjud",
+    "hardTitle": "Yangilanish talab qilinadi",
+    "availableBadge": "Yangi versiya",
+    "requiredBadge": "Majburiy",
+    "yourVersion": "Sizning versiyangiz",
+    "latestVersion": "So'nggi",
+    "body": "{{version}} versiyasi so'nggi yaxshilanish va tuzatishlar bilan tayyor.",
+    "hardBody": "Ilovadan foydalanishni davom ettirish uchun {{version}} versiyasiga yangilang.",
+    "hardNote": "Davom etish uchun bu yangilanish talab qilinadi.",
+    "updateButton": "Hozir yangilash",
+    "webReloadButton": "Qayta yuklash",
+    "webSoftRefreshHint": "So'nggi versiya uchun qayta yuklang. Ma'lumotlaringiz shu qurilmada qoladi.",
+    "webHardRefreshHint": "Yuqoridagi Qayta yuklash tugmasini bosing. Xabar takrorlansa, sahifani majburan yangilang: Windows/Linux da Ctrl+Shift+R yoki macOS da Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker yoqayaptimi?",
+    "rateSubtitle": "Fikringiz boshqa musulmonlarga ilovani topishga yordam beradi.",
+    "starLabel": "{{count}} yulduz",
+    "starLabel_other": "{{count}} yulduz",
+    "storeTitle": "Rahmat!",
+    "storeBody": "Munib Tracker-ga ilova do'konida baho berasizmi? Bir lahza vaqt oladi.",
+    "storeCta": "Ilova do'konida baholash",
+    "maybeLater": "Balki keyinroq",
+    "feedbackTitle": "Yaxshilanishimizga yordam bering",
+    "feedbackBody": "Afsuski, Munib Tracker kutganlaringizga javob bermadi. Nimani yaxshilashimiz mumkin?",
+    "feedbackPlaceholder": "Nima noto'g'ri ketgani yoki nima yetishmasligini yozing…",
+    "feedbackCta": "Fikr yuborish",
+    "feedbackOffline": "Fikr yuborish uchun internetga ulaning.",
+    "feedbackError": "Fikr yuborilmadi. Qayta urinib ko'ring.",
+    "skip": "O'tkazib yuborish",
+    "thanksTitle": "Rahmat!",
+    "thanksBody": "Qo'llab-quvvatlashingiz biz uchun juda muhim.",
+    "feedbackThanksTitle": "Fikr qabul qilindi",
+    "feedbackThanksBody": "Eslatmalaringizdan Munib Tracker-ni yaxshilash uchun foydalanamiz."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Juda yaxshi ketayapsiz",
+    "reviewReactivationBody": "Munib Tracker tajribangizni baham ko'rmoqchimisiz?"
   }
 }

@@ -23,6 +23,7 @@ import {
   requestGuestSession,
 } from "@/api/endpoints";
 import { SessionStore, type StoredSession } from "@/auth/session-store";
+import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
 import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
 import { runSync } from "@/sync/sync-engine";
 
@@ -56,6 +57,8 @@ interface AuthContextValue {
   linkProvider: (provider: OAuthProvider, payload?: OAuthPayload) => Promise<void>;
   signOut: () => Promise<void>;
   syncNow: () => Promise<ManualSyncOutcome>;
+  /** True while a cloud sync round-trip is in progress. */
+  isSyncing: boolean;
   /**
    * Permanently deletes the account. For a signed-in user this erases the server
    * account and all synced data first, then returns to a fresh guest session.
@@ -82,6 +85,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<StoredSession | null>(null);
   const [user, setUser] = useState<AuthUserResponseDto | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   const syncing = useRef(false);
   const refreshInFlight = useRef<Promise<StoredSession | null> | null>(null);
 
@@ -117,6 +121,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (syncing.current) return "skipped";
     if (isAppReloadInProgress()) return "skipped";
     syncing.current = true;
+    setIsSyncing(true);
     try {
       const current = await refresh();
       if (!current || current.accountType === "guest") return "skipped";
@@ -124,9 +129,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return "ok";
     } catch {
       // Offline or server error — try again on the next foreground.
+      recordReviewErrorMarker();
       return "error";
     } finally {
       syncing.current = false;
+      setIsSyncing(false);
     }
   }, [refresh]);
 
@@ -286,6 +293,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut,
       syncNow,
       deleteAccount,
+      isSyncing,
     }),
     [
       session,
@@ -297,6 +305,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signOut,
       syncNow,
       deleteAccount,
+      isSyncing,
     ],
   );
 

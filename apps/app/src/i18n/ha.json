@@ -549,7 +549,19 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "rateApp": "Ba da ƙima ga Munib Tracker",
+    "rateAppDesc": "Raba ƙwarewar ku a shagon manhaja",
+    "reviewReactivationEnabled": "Tunatarwar ra'ayi game da manhaja",
+    "reviewReactivationEnabledDesc": "Tunatarwa mai laushi lokaci-lokaci don raba ra'ayi a cikin manhajar — ba buƙatar ƙima kai tsaye a shago ba.",
+    "appUpdate": "Sabunta manhaja",
+    "updateAvailableTitle": "Sabunta tana samuwa",
+    "updateRequiredTitle": "Ana buƙatar sabuntawa",
+    "updateAvailableDesc": "Siga {{latest}} tana samuwa. Kuna kan {{current}}.",
+    "updateRequiredDesc": "Sabunta zuwa {{latest}} don ci gaba da amfani da manhajar.",
+    "updateNow": "Sabunta yanzu",
+    "viewUpdateDetails": "Duba cikakkun bayanai",
+    "remindInSettings": "Tuna mini a Saituna"
   },
   "import": {
     "title": "Sallah geçmişini içe aktar",
@@ -3935,5 +3947,45 @@
     "after1Min": "After 1 mintiute",
     "after5Min": "After 5 mintiutes",
     "footer": "Ana adana PIN ɗinku amintacce akan wannan na'urar kuma baya barinsa."
+  },
+  "update": {
+    "title": "Sabunta tana samuwa",
+    "hardTitle": "Ana buƙatar sabuntawa",
+    "availableBadge": "Sabon siga",
+    "requiredBadge": "Ana buƙata",
+    "yourVersion": "Sigar ku",
+    "latestVersion": "Mafi sabo",
+    "body": "Siga {{version}} tana shirye tare da sabbin gyare-gyare.",
+    "hardBody": "Sabunta zuwa siga {{version}} don ci gaba da amfani da manhajar.",
+    "hardNote": "Ana buƙatar wannan sabuntawa don ci gaba.",
+    "updateButton": "Sabunta yanzu",
+    "webReloadButton": "Sake lodawa",
+    "webSoftRefreshHint": "Sake lodawa don samun sabuwar siga. Bayananku suna kan wannan na'urar.",
+    "webHardRefreshHint": "Danna Sake lodawa a sama. Idan wannan saƙo ya ci gaba, yi force-refresh: Ctrl+Shift+R a Windows/Linux, ko Cmd+Shift+R a macOS."
+  },
+  "reviews": {
+    "rateTitle": "Kuna jin daɗin Munib Tracker?",
+    "rateSubtitle": "Ra'ayinku yana taimaka wa wasu Musulmi su gano manhajar.",
+    "starLabel": "Tauraro {{count}}",
+    "starLabel_other": "Tauraro {{count}}",
+    "storeTitle": "Na gode!",
+    "storeBody": "Za ku iya ba da ƙima ga Munib Tracker a shagon manhaja? Yana ɗaukar ɗan lokaci kaɗan.",
+    "storeCta": "Ba da ƙima a shagon manhaja",
+    "maybeLater": "Wataƙila daga baya",
+    "feedbackTitle": "Taimaka mana mu inganta",
+    "feedbackBody": "Yi haƙuri Munib Tracker bai cika tsammaninku ba. Me za mu inganta?",
+    "feedbackPlaceholder": "Faɗa mana abin da ya faru ko abin da ya ɓace…",
+    "feedbackCta": "Aika ra'ayi",
+    "feedbackOffline": "Haɗa da intanet don aika ra'ayi.",
+    "feedbackError": "Ba a iya aika ra'ayi ba. Sake gwadawa.",
+    "skip": "Tsallake",
+    "thanksTitle": "Na gode!",
+    "thanksBody": "Taimakonku yana da muhimmanci.",
+    "feedbackThanksTitle": "An karɓi ra'ayi",
+    "feedbackThanksBody": "Za mu yi amfani da bayananku don inganta Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Kuna yi kyau",
+    "reviewReactivationBody": "Kuna son raba ƙwarewar ku da Munib Tracker?"
   }
 }

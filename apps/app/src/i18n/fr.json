@@ -549,7 +549,19 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Masjid al-Haram"
       }
-    }
+    },
+    "rateApp": "Noter Munib Tracker",
+    "rateAppDesc": "Partagez votre expérience sur l'App Store",
+    "reviewReactivationEnabled": "Rappels de retour d'expérience",
+    "reviewReactivationEnabledDesc": "De légers rappels occasionnels pour partager un retour dans l'app — jamais une demande directe de note en magasin.",
+    "appUpdate": "Mise à jour de l'app",
+    "updateAvailableTitle": "Mise à jour disponible",
+    "updateRequiredTitle": "Mise à jour requise",
+    "updateAvailableDesc": "La version {{latest}} est disponible. Vous êtes sur {{current}}.",
+    "updateRequiredDesc": "Mettez à jour vers {{latest}} pour continuer à utiliser l'application.",
+    "updateNow": "Mettre à jour",
+    "viewUpdateDetails": "Voir les détails",
+    "remindInSettings": "Me rappeler dans Réglages"
   },
   "import": {
     "title": "Salah geçmişini içe aktar",
@@ -4027,5 +4039,45 @@
     "after1Min": "Après 1 minute",
     "after5Min": "Après 5 minutes",
     "footer": "Votre code PIN est stocké en toute sécurité sur cet appareil et ne le quitte jamais."
+  },
+  "update": {
+    "title": "Mise à jour disponible",
+    "hardTitle": "Mise à jour requise",
+    "availableBadge": "Nouvelle version",
+    "requiredBadge": "Requis",
+    "yourVersion": "Votre version",
+    "latestVersion": "Dernière",
+    "body": "La version {{version}} est prête avec les dernières améliorations et corrections.",
+    "hardBody": "Mettez à jour vers la version {{version}} pour continuer à utiliser l'application.",
+    "hardNote": "Cette mise à jour est requise pour continuer.",
+    "updateButton": "Mettre à jour",
+    "webReloadButton": "Recharger",
+    "webSoftRefreshHint": "Rechargez pour obtenir la dernière version. Vos données restent sur cet appareil.",
+    "webHardRefreshHint": "Appuyez sur Recharger ci-dessus. Si ce message persiste, forcez l'actualisation : Ctrl+Shift+R sur Windows/Linux, ou Cmd+Shift+R sur macOS."
+  },
+  "reviews": {
+    "rateTitle": "Vous appréciez Munib Tracker ?",
+    "rateSubtitle": "Vos retours aident d'autres musulmans à découvrir l'application.",
+    "starLabel": "{{count}} étoile",
+    "starLabel_other": "{{count}} étoiles",
+    "storeTitle": "Merci !",
+    "storeBody": "Pourriez-vous noter Munib Tracker sur l'App Store ? Cela ne prend qu'un instant.",
+    "storeCta": "Noter sur l'App Store",
+    "maybeLater": "Peut-être plus tard",
+    "feedbackTitle": "Aidez-nous à nous améliorer",
+    "feedbackBody": "Nous sommes désolés que Munib Tracker n'ait pas répondu à vos attentes. Que pourrions-nous faire mieux ?",
+    "feedbackPlaceholder": "Dites-nous ce qui n'a pas fonctionné ou ce qui manque…",
+    "feedbackCta": "Envoyer un retour",
+    "feedbackOffline": "Connectez-vous à Internet pour envoyer votre retour.",
+    "feedbackError": "Impossible d'envoyer le retour. Réessayez.",
+    "skip": "Passer",
+    "thanksTitle": "Merci !",
+    "thanksBody": "Votre soutien compte beaucoup.",
+    "feedbackThanksTitle": "Retour reçu",
+    "feedbackThanksBody": "Nous utiliserons vos notes pour améliorer Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Vous vous en sortez bien",
+    "reviewReactivationBody": "Envie de partager votre expérience avec Munib Tracker ?"
   }
 }

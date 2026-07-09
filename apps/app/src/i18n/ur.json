@@ -549,7 +549,19 @@
         "name": "علی ابن احمد ملا",
         "location": "المسجد الحرام"
       }
-    }
+    },
+    "rateApp": "Munib Tracker کو درجہ دیں",
+    "rateAppDesc": "ایپ اسٹور پر اپنی رائے شیئر کریں",
+    "reviewReactivationEnabled": "ایپ رائے کی یاد دہانیاں",
+    "reviewReactivationEnabledDesc": "وقتاً فوقتاً نرم یاد دہانیاں ایپ میں رائے شیئر کرنے کے لیے — کبھی براہِ راست اسٹور پر درجہ دینے کی درخواست نہیں۔",
+    "appUpdate": "ایپ اپ ڈیٹ",
+    "updateAvailableTitle": "اپ ڈیٹ دستیاب ہے",
+    "updateRequiredTitle": "اپ ڈیٹ ضروری ہے",
+    "updateAvailableDesc": "ورژن {{latest}} دستیاب ہے۔ آپ {{current}} پر ہیں۔",
+    "updateRequiredDesc": "ایپ استعمال جاری رکھنے کے لیے ورژن {{latest}} پر اپ ڈیٹ کریں۔",
+    "updateNow": "ابھی اپ ڈیٹ کریں",
+    "viewUpdateDetails": "تفصیل دیکھیں",
+    "remindInSettings": "ترتیبات میں یاد دلائیں"
   },
   "import": {
     "title": "نماز کی تاریخ درآمد کریں",
@@ -3935,5 +3947,45 @@
     "tasbeehCustom": {
       "description": "آپ کا اپنی تسبیح کاؤنٹر۔"
     }
+  },
+  "update": {
+    "title": "اپ ڈیٹ دستیاب ہے",
+    "hardTitle": "اپ ڈیٹ ضروری ہے",
+    "availableBadge": "نیا ورژن",
+    "requiredBadge": "ضروری",
+    "yourVersion": "آپ کا ورژن",
+    "latestVersion": "تازہ ترین",
+    "body": "ورژن {{version}} تازہ ترین بہتریوں اور اصلاحات کے ساتھ تیار ہے۔",
+    "hardBody": "ایپ استعمال جاری رکھنے کے لیے ورژن {{version}} پر اپ ڈیٹ کریں۔",
+    "hardNote": "جاری رکھنے کے لیے یہ اپ ڈیٹ ضروری ہے۔",
+    "updateButton": "ابھی اپ ڈیٹ کریں",
+    "webReloadButton": "دوبارہ لوڈ کریں",
+    "webSoftRefreshHint": "تازہ ترین ورژن کے لیے دوبارہ لوڈ کریں۔ آپ کا ڈیٹا اسی ڈیوائس پر رہے گا۔",
+    "webHardRefreshHint": "اوپر «دوبارہ لوڈ کریں» دبائیں۔ اگر یہ پیغام بار بار آئے تو صفحہ زبردستی ریفریش کریں: Windows/Linux پر Ctrl+Shift+R، یا macOS پر Cmd+Shift+R۔"
+  },
+  "reviews": {
+    "rateTitle": "کیا آپ Munib Tracker سے لطف اندوز ہیں؟",
+    "rateSubtitle": "آپ کی رائے دوسرے مسلمانوں کو یہ ایپ دریافت کرنے میں مدد دیتی ہے۔",
+    "starLabel": "{{count}} ستارہ",
+    "starLabel_other": "{{count}} ستارے",
+    "storeTitle": "شکریہ!",
+    "storeBody": "کیا آپ Munib Tracker کو ایپ اسٹور پر درجہ دیں گے؟ صرف ایک لمحہ لگے گا۔",
+    "storeCta": "ایپ اسٹور پر درجہ دیں",
+    "maybeLater": "شاید بعد میں",
+    "feedbackTitle": "بہتر بنانے میں مدد کریں",
+    "feedbackBody": "معذرت، Munib Tracker آپ کی توقع پر پورا نہیں اترا۔ ہم کیا بہتر کر سکتے ہیں؟",
+    "feedbackPlaceholder": "بتائیں کیا غلط ہوا یا کیا کمی ہے…",
+    "feedbackCta": "رائے بھیجیں",
+    "feedbackOffline": "رائے بھیجنے کے لیے انٹرنیٹ سے جڑیں۔",
+    "feedbackError": "رائے نہیں بھیجی جا سکی۔ دوبارہ کوشش کریں۔",
+    "skip": "چھوڑیں",
+    "thanksTitle": "شکریہ!",
+    "thanksBody": "آپ کا ساتھ ہمارے لیے بہت اہم ہے۔",
+    "feedbackThanksTitle": "رائے موصول ہوئی",
+    "feedbackThanksBody": "ہم آپ کی رائے سے Munib Tracker کو بہتر بنائیں گے۔"
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "آپ بہت اچھا کر رہے ہیں",
+    "reviewReactivationBody": "کیا آپ Munib Tracker کے بارے میں اپنی رائے شیئر کرنا چاہیں گے؟"
   }
 }

@@ -1,3 +1,5 @@
+import { getApiBaseUrl } from "./api-base-url";
+import { getAppVersionHeaders, notifyVersionMetaFromResponse } from "./app-version-store";
 import {
   ApiBlockedError,
   beginApiRequest,
@@ -51,19 +53,7 @@ export function getRegisteredTokenRefresher(): TokenRefresher | null {
   return tokenRefresher;
 }
 
-export function getApiBaseUrl(): string {
-  if (typeof process !== "undefined") {
-    if (process.env.NEXT_PUBLIC_API_URL) {
-      return process.env.NEXT_PUBLIC_API_URL;
-    }
-
-    if (process.env.EXPO_PUBLIC_API_URL) {
-      return process.env.EXPO_PUBLIC_API_URL;
-    }
-  }
-
-  return "http://localhost:3001/api/v1";
-}
+export { getApiBaseUrl } from "./api-base-url";
 
 export async function apiFetch<T>(
   config: OrvalRequestConfig,
@@ -98,6 +88,7 @@ export async function apiFetch<T>(
       signal: config.signal,
       headers: {
         "Content-Type": "application/json",
+        ...getAppVersionHeaders(),
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...config.headers,
         ...headers,
@@ -117,6 +108,8 @@ export async function apiFetch<T>(
         response = await send(refreshed);
       }
     }
+
+    notifyVersionMetaFromResponse(response);
 
     if (response.status === 204) {
       return undefined as T;

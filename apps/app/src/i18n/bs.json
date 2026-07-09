@@ -549,7 +549,19 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "rateApp": "Ocijeni Munib Tracker",
+    "rateAppDesc": "Podijelite iskustvo u trgovini aplikacija",
+    "reviewReactivationEnabled": "Podsjetnici za povratne informacije",
+    "reviewReactivationEnabledDesc": "Povremeni nježni podsjetnici za dijeljenje povratne informacije u aplikaciji — nikad izravni zahtjev za ocjenu u trgovini.",
+    "appUpdate": "Ažuriranje aplikacije",
+    "updateAvailableTitle": "Ažuriranje dostupno",
+    "updateRequiredTitle": "Ažuriranje obavezno",
+    "updateAvailableDesc": "Verzija {{latest}} je dostupna. Vi ste na {{current}}.",
+    "updateRequiredDesc": "Ažurirajte na {{latest}} da nastavite koristiti aplikaciju.",
+    "updateNow": "Ažuriraj sada",
+    "viewUpdateDetails": "Pogledaj detalje",
+    "remindInSettings": "Podsjeti me u Postavkama"
   },
   "import": {
     "title": "Import salah historija",
@@ -4027,5 +4039,45 @@
     "after1Min": "1 dakika sonra",
     "after5Min": "5 dakika sonra",
     "footer": "Vaš PIN je stored securely na ovo uređaj i never leaves it."
+  },
+  "update": {
+    "title": "Ažuriranje dostupno",
+    "hardTitle": "Ažuriranje obavezno",
+    "availableBadge": "Nova verzija",
+    "requiredBadge": "Obavezno",
+    "yourVersion": "Vaša verzija",
+    "latestVersion": "Najnovija",
+    "body": "Verzija {{version}} je spremna s najnovijim poboljšanjima i ispravkama.",
+    "hardBody": "Ažurirajte na verziju {{version}} da nastavite koristiti aplikaciju.",
+    "hardNote": "Ovo ažuriranje je obavezno za nastavak.",
+    "updateButton": "Ažuriraj sada",
+    "webReloadButton": "Ponovo učitaj",
+    "webSoftRefreshHint": "Ponovo učitajte za najnoviju verziju. Vaši podaci ostaju na ovom uređaju.",
+    "webHardRefreshHint": "Dodirnite Ponovo učitaj iznad. Ako se poruka ponavlja, prisilno osvježite stranicu: Ctrl+Shift+R na Windows/Linux, ili Cmd+Shift+R na macOS."
+  },
+  "reviews": {
+    "rateTitle": "Uživate li u Munib Trackeru?",
+    "rateSubtitle": "Vaše mišljenje pomaže drugim muslimanima da otkriju aplikaciju.",
+    "starLabel": "{{count}} zvijezda",
+    "starLabel_other": "{{count}} zvijezda",
+    "storeTitle": "Hvala!",
+    "storeBody": "Možete li ocijeniti Munib Tracker u trgovini aplikacija? Traje samo trenutak.",
+    "storeCta": "Ocijeni u trgovini aplikacija",
+    "maybeLater": "Možda kasnije",
+    "feedbackTitle": "Pomozite nam da se poboljšamo",
+    "feedbackBody": "Žao nam je što Munib Tracker nije ispunio vaša očekivanja. Šta možemo poboljšati?",
+    "feedbackPlaceholder": "Recite nam šta nije u redu ili šta nedostaje…",
+    "feedbackCta": "Pošalji povratnu informaciju",
+    "feedbackOffline": "Povežite se na internet da pošaljete povratnu informaciju.",
+    "feedbackError": "Povratna informacija nije poslana. Pokušajte ponovo.",
+    "skip": "Preskoči",
+    "thanksTitle": "Hvala!",
+    "thanksBody": "Vaša podrška nam mnogo znači.",
+    "feedbackThanksTitle": "Povratna informacija primljena",
+    "feedbackThanksBody": "Koristit ćemo vaše bilješke da poboljšamo Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Odlično vam ide",
+    "reviewReactivationBody": "Želite podijeliti svoje iskustvo s Munib Trackerom?"
   }
 }

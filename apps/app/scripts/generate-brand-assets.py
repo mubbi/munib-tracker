@@ -110,7 +110,7 @@ def main() -> None:
         ("icon-192.png", 192),
         ("icon-512.png", 512),
         ("favicon.png", 48),
-        ("splash-icon.png", 200),
+        ("splash-icon.png", 280),
     ]:
         _save_png(_flatten_on_bg(logo, size), APP_IMAGES / name)
 

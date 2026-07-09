@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { resolveDatabaseSsl } from "./database-ssl";
 import {
+  AppVersionEntity,
   AuthSessionEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
@@ -36,6 +37,7 @@ export default new DataSource({
     SyncRecordEntity,
     ContentReportEntity,
     ContentReportAttachmentEntity,
+    AppVersionEntity,
   ],
   migrations: ["src/database/migrations/*.ts"],
   synchronize: false,

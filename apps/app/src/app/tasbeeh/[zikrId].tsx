@@ -12,6 +12,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
+import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { zikrCountKey } from "@/lib/after-salah-adhkar-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import { arabicReadingLayout } from "@/lib/reading-typography";
@@ -75,6 +76,7 @@ export default function ZikrTasbeehScreen() {
 
   const persist = (next: number) => {
     const safe = Math.max(0, target > 0 ? Math.min(next, target) : next);
+    const reachedTarget = target > 0 && safe >= target && count < target;
     setCount(safe);
     void trackerStore
       .getState()
@@ -84,6 +86,9 @@ export default function ZikrTasbeehScreen() {
         target,
         afterSalahPrayer ? { prayerId: afterSalahPrayer } : undefined,
       );
+    if (reachedTarget) {
+      trackReviewInteraction("mark_zikr");
+    }
   };
 
   return (

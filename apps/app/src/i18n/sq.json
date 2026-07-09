@@ -549,7 +549,19 @@
         "name": "Ali Ibn Ahmed Mala",
         "location": "El-Mesxhid el-Haram"
       }
-    }
+    },
+    "rateApp": "Vlerëso Munib Tracker",
+    "rateAppDesc": "Ndani përvojën tuaj në dyqanin e aplikacioneve",
+    "reviewReactivationEnabled": "Kujtesa për komente aplikacioni",
+    "reviewReactivationEnabledDesc": "Herë pas here kujtesa të buta për të ndarë koment në aplikacion — jo kërkesë direkte për vlerësim në dyqan.",
+    "appUpdate": "Përditësim aplikacioni",
+    "updateAvailableTitle": "Përditësim i disponueshëm",
+    "updateRequiredTitle": "Përditësim i kërkuar",
+    "updateAvailableDesc": "Versioni {{latest}} është i disponueshëm. Jeni në {{current}}.",
+    "updateRequiredDesc": "Përditësoni në {{latest}} për të vazhduar përdorimin e aplikacionit.",
+    "updateNow": "Përditëso tani",
+    "viewUpdateDetails": "Shiko detajet",
+    "remindInSettings": "Më kujto te Cilësimet"
   },
   "import": {
     "title": "Import salah historia",
@@ -4027,5 +4039,45 @@
     "after1Min": "Pas 1 minute",
     "after5Min": "Pas 5 minutash",
     "footer": "Juaj PIN është stored securely në kjo pajisja dhe never leaves it."
+  },
+  "update": {
+    "title": "Përditësim i disponueshëm",
+    "hardTitle": "Përditësim i kërkuar",
+    "availableBadge": "Version i ri",
+    "requiredBadge": "I detyrueshëm",
+    "yourVersion": "Versioni juaj",
+    "latestVersion": "Më i ri",
+    "body": "Versioni {{version}} është gati me përmirësimet dhe korrigjimet më të fundit.",
+    "hardBody": "Përditësoni në versionin {{version}} për të vazhduar përdorimin e aplikacionit.",
+    "hardNote": "Ky përditësim kërkohet për të vazhduar.",
+    "updateButton": "Përditëso tani",
+    "webReloadButton": "Ringarko",
+    "webSoftRefreshHint": "Ringarkoni për versionin më të fundit. Të dhënat tuaja mbeten në këtë pajisje.",
+    "webHardRefreshHint": "Prekni Ringarko më sipër. Nëse mesazhi vazhdon, rifreskoni me forcë faqen: Ctrl+Shift+R në Windows/Linux, ose Cmd+Shift+R në macOS."
+  },
+  "reviews": {
+    "rateTitle": "Po ju pëlqen Munib Tracker?",
+    "rateSubtitle": "Komentet tuaja ndihmojnë muslimanët e tjerë ta zbulojnë aplikacionin.",
+    "starLabel": "{{count}} yll",
+    "starLabel_other": "{{count}} yje",
+    "storeTitle": "Faleminderit!",
+    "storeBody": "Do të vlerësonit Munib Tracker në dyqanin e aplikacioneve? Zgjat vetëm një moment.",
+    "storeCta": "Vlerëso në dyqanin e aplikacioneve",
+    "maybeLater": "Ndoshta më vonë",
+    "feedbackTitle": "Na ndihmoni të përmirësohemi",
+    "feedbackBody": "Na vjen keq që Munib Tracker nuk plotësoi pritshmëritë tuaja. Çfarë mund të përmirësojmë?",
+    "feedbackPlaceholder": "Na tregoni çfarë shkoi keq ose çfarë mungon…",
+    "feedbackCta": "Dërgo koment",
+    "feedbackOffline": "Lidhu me internetin për të dërguar koment.",
+    "feedbackError": "Komenti nuk u dërgua. Provo përsëri.",
+    "skip": "Anashkalo",
+    "thanksTitle": "Faleminderit!",
+    "thanksBody": "Mbështetja juaj ka shumë rëndësi për ne.",
+    "feedbackThanksTitle": "Komenti u mor",
+    "feedbackThanksBody": "Do t'i përdorim shënimet tuaja për të përmirësuar Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Po shkoni shumë mirë",
+    "reviewReactivationBody": "Dëshironi të ndani përvojën tuaj me Munib Tracker?"
   }
 }

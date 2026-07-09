@@ -549,7 +549,19 @@
         "name": "Али ибн Ахмад Мала",
         "location": "Әл-Мәсжид әл-Харам"
       }
-    }
+    },
+    "rateApp": "Munib Tracker-ге баға беру",
+    "rateAppDesc": "Тәжірибеңізді қолданба дүкенінде бөлісіңіз",
+    "reviewReactivationEnabled": "Қолданба пікірі еске салулары",
+    "reviewReactivationEnabledDesc": "Кейде жұмсақ еске салулар қолданбада пікір бөлісу үшін — дүкендегі тікелей баға сұрауы емес.",
+    "appUpdate": "Қолданба жаңартуы",
+    "updateAvailableTitle": "Жаңарту қолжетімді",
+    "updateRequiredTitle": "Жаңарту қажет",
+    "updateAvailableDesc": "{{latest}} нұсқасы қолжетімді. Сіз {{current}} нұсқасындасыз.",
+    "updateRequiredDesc": "Қолданбаны пайдалануды жалғастыру үшін {{latest}} нұсқасына жаңартыңыз.",
+    "updateNow": "Қазір жаңарту",
+    "viewUpdateDetails": "Толығырақ",
+    "remindInSettings": "Баптауларда еске сал"
   },
   "import": {
     "title": "Import salah тарих",
@@ -4027,5 +4039,45 @@
     "after1Min": "1 минуттан кейін",
     "after5Min": "5 минуттан кейін",
     "footer": "Сіздің PIN  stored securely үстінде бұл құрылғы және never leaves it."
+  },
+  "update": {
+    "title": "Жаңарту қолжетімді",
+    "hardTitle": "Жаңарту қажет",
+    "availableBadge": "Жаңа нұсқа",
+    "requiredBadge": "Міндетті",
+    "yourVersion": "Сіздің нұсқаңыз",
+    "latestVersion": "Соңғы",
+    "body": "{{version}} нұсқасы соңғы жақсартулар мен түзетулермен дайын.",
+    "hardBody": "Қолданбаны пайдалануды жалғастыру үшін {{version}} нұсқасына жаңартыңыз.",
+    "hardNote": "Жалғастыру үшін бұл жаңарту міндетті.",
+    "updateButton": "Қазір жаңарту",
+    "webReloadButton": "Қайта жүктеу",
+    "webSoftRefreshHint": "Соңғы нұсқа үшін қайта жүктеңіз. Деректеріңіз осы құрылғыда қалады.",
+    "webHardRefreshHint": "Жоғарыдағы Қайта жүктеу түймесін басыңыз. Хабарлама қайталанса, бетті мәжбүрлеп жаңартыңыз: Windows/Linux-та Ctrl+Shift+R немесе macOS-та Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker ұнай ма?",
+    "rateSubtitle": "Пікіріңіз басқа мұсылмандарға қолданбаны табуға көмектеседі.",
+    "starLabel": "{{count}} жұлдыз",
+    "starLabel_other": "{{count}} жұлдыз",
+    "storeTitle": "Рақмет!",
+    "storeBody": "Munib Tracker-ге қолданба дүкенінде баға бересіз бе? Бір сәт уақыт алады.",
+    "storeCta": "Қолданба дүкенінде бағалау",
+    "maybeLater": "Кейінірек болуы мүмкін",
+    "feedbackTitle": "Жақсартуымызға көмектесіңіз",
+    "feedbackBody": "Кешіріңіз, Munib Tracker сіздің күткеніңізге жауап бермеді. Нені жақсарта аламыз?",
+    "feedbackPlaceholder": "Не дұрыс емес немесе не жетіспейтінін жазыңыз…",
+    "feedbackCta": "Пікір жіберу",
+    "feedbackOffline": "Пікір жіберу үшін интернетке қосылыңыз.",
+    "feedbackError": "Пікір жіберілмеді. Қайта көріңіз.",
+    "skip": "Өткізу",
+    "thanksTitle": "Рақмет!",
+    "thanksBody": "Қолдауыңыз біз үшін көп маңызды.",
+    "feedbackThanksTitle": "Пікір қабылданды",
+    "feedbackThanksBody": "Жазбаларыңызды Munib Tracker-ді жақсарту үшін пайдаланамыз."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Керемет жетіп жатырсыз",
+    "reviewReactivationBody": "Munib Tracker тәжірибеңізбен бөліскіңіз келе ме?"
   }
 }

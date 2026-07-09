@@ -40,7 +40,7 @@ type Scheduled = Awaited<ReturnType<typeof listScheduled>>;
 
 const UPCOMING_PREVIEW_COUNT = 6;
 
-type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled">;
+type ToggleKey = keyof Omit<NotificationPreferences, "masterEnabled" | "reviewReactivationEnabled">;
 
 const GROUPS: { titleKey: string; items: ToggleKey[] }[] = [
   { titleKey: "groupWorship", items: ["prayer", "sunnahPrayer", "qaza", "afterAzan"] },
@@ -330,6 +330,22 @@ export default function NotificationsScreen() {
               />
             ))}
           </View>
+        </Card>
+
+        <Card padding="three">
+          <SectionHeader
+            title={t("settings.reviewReactivationEnabled")}
+            icon={{ ios: "star.bubble.fill", android: "rate_review", web: "rate_review" }}
+          />
+          <ToggleRow
+            title={t("settings.reviewReactivationEnabled")}
+            subtitle={t("settings.reviewReactivationEnabledDesc")}
+            value={prefs.notificationPrefs.reviewReactivationEnabled !== false}
+            disabled={!master}
+            onValueChange={(value) =>
+              void setNotificationPrefs({ reviewReactivationEnabled: value })
+            }
+          />
         </Card>
 
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.footer}>

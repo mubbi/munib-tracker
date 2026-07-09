@@ -559,7 +559,19 @@
         "name": "li Ibn hmd Ml",
         "location": "l-Msjid l-Hrm"
       }
-    }
+    },
+    "rateApp": "Оценить Munib Tracker",
+    "rateAppDesc": "Поделитесь опытом в магазине приложений",
+    "reviewReactivationEnabled": "Напоминания об отзывах",
+    "reviewReactivationEnabledDesc": "Иногда мягкие напоминания поделиться отзывом в приложении — не прямая просьба оценить в магазине.",
+    "appUpdate": "Обновление приложения",
+    "updateAvailableTitle": "Доступно обновление",
+    "updateRequiredTitle": "Требуется обновление",
+    "updateAvailableDesc": "Доступна версия {{latest}}. У вас {{current}}.",
+    "updateRequiredDesc": "Обновитесь до {{latest}}, чтобы продолжить пользоваться приложением.",
+    "updateNow": "Обновить сейчас",
+    "viewUpdateDetails": "Подробнее",
+    "remindInSettings": "Напомнить в настройках"
   },
   "import": {
     "title": "Импорт истории намазов",
@@ -3971,5 +3983,48 @@
     "after1Min": "fter 1 mвute",
     "after5Min": "fter 5 mвutes",
     "footer": "Your PIN is stored securely on this device and never leaves it."
+  },
+  "update": {
+    "title": "Доступно обновление",
+    "hardTitle": "Требуется обновление",
+    "availableBadge": "Новая версия",
+    "requiredBadge": "Обязательно",
+    "yourVersion": "Ваша версия",
+    "latestVersion": "Последняя",
+    "body": "Версия {{version}} готова с последними улучшениями и исправлениями.",
+    "hardBody": "Обновитесь до версии {{version}}, чтобы продолжить пользоваться приложением.",
+    "hardNote": "Это обновление необходимо для продолжения работы.",
+    "updateButton": "Обновить сейчас",
+    "webReloadButton": "Перезагрузить",
+    "webSoftRefreshHint": "Перезагрузите страницу для последней версии. Ваши данные останутся на этом устройстве.",
+    "webHardRefreshHint": "Нажмите «Перезагрузить» выше. Если сообщение повторяется, принудительно обновите страницу: Ctrl+Shift+R на Windows/Linux или Cmd+Shift+R на macOS."
+  },
+  "reviews": {
+    "rateTitle": "Вам нравится Munib Tracker?",
+    "rateSubtitle": "Ваш отзыв помогает другим мусульманам узнать о приложении.",
+    "starLabel": "{{count}} звезда",
+    "starLabel_one": "{{count}} звезда",
+    "starLabel_few": "{{count}} звезды",
+    "starLabel_many": "{{count}} звёзд",
+    "starLabel_other": "{{count}} звёзд",
+    "storeTitle": "Спасибо!",
+    "storeBody": "Не могли бы вы оценить Munib Tracker в магазине приложений? Это займёт минуту.",
+    "storeCta": "Оценить в магазине",
+    "maybeLater": "Может быть, позже",
+    "feedbackTitle": "Помогите нам стать лучше",
+    "feedbackBody": "Жаль, что Munib Tracker не оправдал ваших ожиданий. Что мы можем улучшить?",
+    "feedbackPlaceholder": "Расскажите, что пошло не так или чего не хватает…",
+    "feedbackCta": "Отправить отзыв",
+    "feedbackOffline": "Подключитесь к интернету, чтобы отправить отзыв.",
+    "feedbackError": "Не удалось отправить отзыв. Попробуйте снова.",
+    "skip": "Пропустить",
+    "thanksTitle": "Спасибо!",
+    "thanksBody": "Ваша поддержка очень важна для нас.",
+    "feedbackThanksTitle": "Отзыв получен",
+    "feedbackThanksBody": "Мы используем ваши заметки, чтобы улучшить Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "У вас отлично получается",
+    "reviewReactivationBody": "Хотите поделиться опытом использования Munib Tracker?"
   }
 }

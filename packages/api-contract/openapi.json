@@ -421,6 +421,91 @@
         ]
       }
     },
+    "/api/v1/app-feedback": {
+      "post": {
+        "operationId": "AppFeedbackController_submit",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitAppFeedbackDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Feedback accepted"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Submit low-star in-app review feedback (1–3 stars)",
+        "tags": [
+          "app-feedback"
+        ]
+      }
+    },
+    "/api/v1/version/meta": {
+      "get": {
+        "operationId": "AppVersionController_getVersionMeta",
+        "parameters": [
+          {
+            "name": "version",
+            "required": true,
+            "in": "query",
+            "description": "Client semver (major.minor.patch)",
+            "schema": {
+              "example": "1.0.0",
+              "type": "string"
+            }
+          },
+          {
+            "name": "platform",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "web",
+                "ios",
+                "android"
+              ]
+            }
+          },
+          {
+            "name": "refresh",
+            "required": false,
+            "in": "query",
+            "description": "Pass 1 or true to invalidate cached platform config",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionMetaResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Compare client semver with platform update policy",
+        "tags": [
+          "version"
+        ]
+      }
+    },
     "/api/v1/health": {
       "get": {
         "operationId": "HealthController_getHealth",
@@ -983,6 +1068,49 @@
           "attachmentCount",
           "createdAt",
           "updatedAt"
+        ]
+      },
+      "SubmitAppFeedbackDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "VersionMetaResponseDto": {
+        "type": "object",
+        "properties": {
+          "updateRequired": {
+            "type": "string",
+            "enum": [
+              "none",
+              "soft",
+              "hard"
+            ]
+          },
+          "latestVersion": {
+            "type": "string",
+            "example": "1.2.0"
+          },
+          "minSoftVersion": {
+            "type": "string",
+            "example": "1.1.0"
+          },
+          "minHardVersion": {
+            "type": "string",
+            "example": "1.0.0"
+          },
+          "message": {
+            "type": "object",
+            "nullable": true
+          },
+          "storeUrl": {
+            "type": "object",
+            "nullable": true
+          }
+        },
+        "required": [
+          "updateRequired",
+          "latestVersion",
+          "minSoftVersion",
+          "minHardVersion"
         ]
       }
     }

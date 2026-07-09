@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 
+import { maybeOpenReviewFunnelFromInAppNotification } from "@/features/reviews/lib/reviewNotificationTap";
 import {
   appendInAppNotification,
   clearAllInAppNotifications,
@@ -88,6 +89,9 @@ export function InAppNotificationsProvider({ children }: { children: ReactNode }
     async (id: string) => {
       const item = items.find((entry) => entry.id === id);
       await markRead(id);
+      if (item && maybeOpenReviewFunnelFromInAppNotification(item.kind, item.id, item.createdAt)) {
+        return;
+      }
       if (item?.route) router.push(item.route as never);
     },
     [items, markRead, router],

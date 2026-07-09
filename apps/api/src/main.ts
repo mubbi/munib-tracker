@@ -11,6 +11,8 @@ import { AppOpenApiModule } from "./app.openapi.module";
 import type { EnvironmentVariables } from "./config/env.schema";
 import { parseCorsOrigins } from "./config/env.validation";
 
+import { APP_VERSION_CORS_EXPOSED_HEADERS } from "./version/lib/app-version-response-headers";
+
 async function bootstrap() {
   const rootModule = process.env.EXPORT_OPENAPI === "true" ? AppOpenApiModule : AppModule;
   const app = await NestFactory.create(rootModule);
@@ -26,6 +28,7 @@ async function bootstrap() {
   app.enableCors({
     origin: corsOrigins,
     credentials: corsOrigins !== false,
+    exposedHeaders: APP_VERSION_CORS_EXPOSED_HEADERS,
   });
 
   app.setGlobalPrefix("api/v1");

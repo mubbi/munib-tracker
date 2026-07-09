@@ -549,7 +549,19 @@
         "name": "li Ibn hmd Ml",
         "location": "l-Msjid l-Hrm"
       }
-    }
+    },
+    "rateApp": "Munib Tracker-ə qiymət verin",
+    "rateAppDesc": "Təcrübənizi tətbiq mağazasında paylaşın",
+    "reviewReactivationEnabled": "Tətbiq rəyi xatırlatmaları",
+    "reviewReactivationEnabledDesc": "Vaxtaşır yumşaq xatırlatmalar tətbiqdə rəy paylaşmaq üçün — mağazada birbaşa qiymətləndirmə istəyi deyil.",
+    "appUpdate": "Tətbiq yeniləməsi",
+    "updateAvailableTitle": "Yeniləmə mövcuddur",
+    "updateRequiredTitle": "Yeniləmə tələb olunur",
+    "updateAvailableDesc": "{{latest}} versiyası mövcuddur. Siz {{current}} versiyasındasınız.",
+    "updateRequiredDesc": "Tətbiqdən istifadəni davam etdirmək üçün {{latest}} versiyasına yeniləyin.",
+    "updateNow": "İndi yenilə",
+    "viewUpdateDetails": "Təfərrüatları gör",
+    "remindInSettings": "Parametrlərdə xatırlat"
   },
   "import": {
     "title": "Import prayer history",
@@ -3935,5 +3947,45 @@
     "after1Min": "fter 1 miçindəute",
     "after5Min": "fter 5 miçindəutes",
     "footer": "siziçində Piçində dir stvə yed securely üzərində bu device və never leves it."
+  },
+  "update": {
+    "title": "Yeniləmə mövcuddur",
+    "hardTitle": "Yeniləmə tələb olunur",
+    "availableBadge": "Yeni versiya",
+    "requiredBadge": "Məcburi",
+    "yourVersion": "Sizin versiya",
+    "latestVersion": "Ən son",
+    "body": "{{version}} versiyası ən son təkmilləşdirmə və düzəlişlərlə hazırdır.",
+    "hardBody": "Tətbiqdən istifadəni davam etdirmək üçün {{version}} versiyasına yeniləyin.",
+    "hardNote": "Davam etmək üçün bu yeniləmə tələb olunur.",
+    "updateButton": "İndi yenilə",
+    "webReloadButton": "Yenidən yüklə",
+    "webSoftRefreshHint": "Ən son versiya üçün yenidən yükləyin. Məlumatlarınız bu cihazda qalır.",
+    "webHardRefreshHint": "Yuxarıdakı Yenidən yüklə düyməsinə toxunun. Mesaj davam edirsə, səhifəni məcburi yeniləyin: Windows/Linux-da Ctrl+Shift+R və ya macOS-da Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker xoşunuza gəlir?",
+    "rateSubtitle": "Rəyiniz digər müsəlmanların tətbiqi kəşf etməsinə kömək edir.",
+    "starLabel": "{{count}} ulduz",
+    "starLabel_other": "{{count}} ulduz",
+    "storeTitle": "Təşəkkürlər!",
+    "storeBody": "Munib Tracker-ə tətbiq mağazasında qiymət vermək istərdinizmi? Cəmi bir an çəkir.",
+    "storeCta": "Tətbiq mağazasında qiymətləndir",
+    "maybeLater": "Bəlkə sonra",
+    "feedbackTitle": "Təkmilləşməyimizə kömək edin",
+    "feedbackBody": "Təəssüf ki, Munib Tracker gözləntilərinizi qarşılamadı. Nəyi daha yaxşı edə bilərik?",
+    "feedbackPlaceholder": "Nəyin səhv getdiyini və ya nəyin çatışmadığını yazın…",
+    "feedbackCta": "Rəy göndər",
+    "feedbackOffline": "Rəy göndərmək üçün internetə qoşulun.",
+    "feedbackError": "Rəy göndərilmədi. Yenidən cəhd edin.",
+    "skip": "Keç",
+    "thanksTitle": "Təşəkkürlər!",
+    "thanksBody": "Dəstəyiniz bizim üçün çox önəmlidir.",
+    "feedbackThanksTitle": "Rəy qəbul edildi",
+    "feedbackThanksBody": "Qeydlərinizi Munib Tracker-i təkmilləşdirmək üçün istifadə edəcəyik."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Əla gedirsiniz",
+    "reviewReactivationBody": "Munib Tracker təcrübənizi paylaşmaq istəyirsiniz?"
   }
 }

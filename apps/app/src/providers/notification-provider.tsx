@@ -2,6 +2,7 @@ import type { NotificationResponse } from "expo-notifications";
 import { type Href, useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
 import { AppState, Platform } from "react-native";
+import { maybeOpenReviewFunnelFromNotificationData } from "@/features/reviews/lib/reviewNotificationTap";
 import { isWeb } from "@/lib/notifications/platform";
 import { tryPlayWebAdhanForReminder } from "@/lib/notifications/web-adhan-playback";
 import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
@@ -117,7 +118,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
         const id = response.notification.request.identifier;
         if (handledResponses.has(id)) return;
         handledResponses.add(id);
-        const data = response.notification.request.content.data as { route?: string } | undefined;
+        const data = response.notification.request.content.data as
+          | { route?: string; type?: string; triggerId?: string }
+          | undefined;
+        if (maybeOpenReviewFunnelFromNotificationData(data ?? undefined)) return;
         router.push((data?.route ?? "/notifications") as Href);
       };
 

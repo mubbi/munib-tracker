@@ -549,7 +549,19 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "rateApp": "Nilai Munib Tracker",
+    "rateAppDesc": "Kongsi pengalaman anda di kedai aplikasi",
+    "reviewReactivationEnabled": "Peringatan maklum balas aplikasi",
+    "reviewReactivationEnabledDesc": "Sesekali peringatan lembut untuk kongsi maklum balas dalam aplikasi — bukan permintaan penilaian terus di kedai.",
+    "appUpdate": "Kemas kini aplikasi",
+    "updateAvailableTitle": "Kemas kini tersedia",
+    "updateRequiredTitle": "Kemas kini diperlukan",
+    "updateAvailableDesc": "Versi {{latest}} tersedia. Anda pada {{current}}.",
+    "updateRequiredDesc": "Kemas kini ke versi {{latest}} untuk terus menggunakan aplikasi.",
+    "updateNow": "Kemas kini sekarang",
+    "viewUpdateDetails": "Lihat butiran",
+    "remindInSettings": "Ingatkan saya dalam Tetapan"
   },
   "import": {
     "title": "Impor prayer history",
@@ -4027,5 +4039,45 @@
     "after1Min": "Setelah 1 menit",
     "after5Min": "Setelah 5 menit",
     "footer": "Anda PIN adalah stored securely pada ini perangkat dan never leaves it."
+  },
+  "update": {
+    "title": "Kemas kini tersedia",
+    "hardTitle": "Kemas kini diperlukan",
+    "availableBadge": "Versi baharu",
+    "requiredBadge": "Diperlukan",
+    "yourVersion": "Versi anda",
+    "latestVersion": "Terkini",
+    "body": "Versi {{version}} sedia dengan penambahbaikan dan pembetulan terkini.",
+    "hardBody": "Kemas kini ke versi {{version}} untuk terus menggunakan aplikasi.",
+    "hardNote": "Kemas kini ini diperlukan untuk meneruskan.",
+    "updateButton": "Kemas kini sekarang",
+    "webReloadButton": "Muat semula",
+    "webSoftRefreshHint": "Muat semula untuk versi terkini. Data anda kekal pada peranti ini.",
+    "webHardRefreshHint": "Ketik Muat semula di atas. Jika mesej ini terus muncul, segar semula paksa halaman: Ctrl+Shift+R pada Windows/Linux, atau Cmd+Shift+R pada macOS."
+  },
+  "reviews": {
+    "rateTitle": "Seronok dengan Munib Tracker?",
+    "rateSubtitle": "Maklum balas anda membantu Muslim lain menemui aplikasi ini.",
+    "starLabel": "{{count}} bintang",
+    "starLabel_other": "{{count}} bintang",
+    "storeTitle": "Terima kasih!",
+    "storeBody": "Sudik beri penilaian Munib Tracker di kedai aplikasi? Hanya seketika.",
+    "storeCta": "Nilai di kedai aplikasi",
+    "maybeLater": "Mungkin kemudian",
+    "feedbackTitle": "Bantu kami bertambah baik",
+    "feedbackBody": "Maaf Munib Tracker belum memenuhi jangkaan anda. Apa yang boleh kami perbaiki?",
+    "feedbackPlaceholder": "Beritahu apa yang salah atau kurang…",
+    "feedbackCta": "Hantar maklum balas",
+    "feedbackOffline": "Sambung internet untuk menghantar maklum balas.",
+    "feedbackError": "Maklum balas tidak dihantar. Cuba lagi.",
+    "skip": "Langkau",
+    "thanksTitle": "Terima kasih!",
+    "thanksBody": "Sokongan anda amat bermakna.",
+    "feedbackThanksTitle": "Maklum balas diterima",
+    "feedbackThanksBody": "Kami akan gunakan nota anda untuk menambah baik Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Anda hebat",
+    "reviewReactivationBody": "Mahu kongsi pengalaman anda dengan Munib Tracker?"
   }
 }

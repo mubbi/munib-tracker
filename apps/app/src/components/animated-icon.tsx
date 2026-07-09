@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   splashImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 44,
+    width: 280,
+    height: 280,
+    borderRadius: 62,
   },
 });

@@ -4,6 +4,7 @@ import {
   syncAchievementIds,
 } from "@munib-tracker/shared/achievements";
 import { SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
+import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import type { PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
@@ -30,6 +31,13 @@ import { QuickActionGrid, type QuickActionItem } from "@/components/ui/quick-act
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useReviewPrompt } from "@/features/reviews/context/ReviewPromptContext";
+import { useReviewDailyTrackingInteraction } from "@/features/reviews/hooks/useReviewDailyTrackingInteraction";
+import { useReviewPerfectDayTrigger } from "@/features/reviews/hooks/useReviewPerfectDayTrigger";
+import { useReviewQazaClearedTrigger } from "@/features/reviews/hooks/useReviewQazaClearedTrigger";
+import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTrigger";
+import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
+import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -122,6 +130,9 @@ export default function TrackerScreen() {
     async (prayerId: PrayerId, next: PrayerStatus, options?: SetPrayerStatusOptions) => {
       const previous = status[prayerId] ?? "pending";
       await setPrayerStatus(prayerId, next, options);
+      if (next !== "pending" && next !== previous) {
+        trackReviewInteraction("mark_prayer");
+      }
       remindAfterSalahAdhkar(prayerId, previous, next);
     },
     [remindAfterSalahAdhkar, setPrayerStatus, status],
@@ -129,6 +140,13 @@ export default function TrackerScreen() {
 
   const progress = summary.salahTotal ? summary.salahCompleted / summary.salahTotal : 0;
   const isComplete = progress >= 1;
+
+  const { emitReviewTrigger } = useReviewPrompt();
+  useReviewRouteTrigger("tracker");
+  useReviewPerfectDayTrigger(isComplete);
+  useReviewQazaClearedTrigger(summary.qazaCompletedToday, summary.qazaTargetToday);
+  useReviewDailyTrackingInteraction(summary.salahCompleted);
+
   const locale = i18n.language?.split("-")[0];
   const formatCount = (value: number) => value.toLocaleString(locale);
   const devotionLevelProgress = devotion.noor - devotion.noorForCurrentLevel;
@@ -263,9 +281,13 @@ export default function TrackerScreen() {
     const first = unlocked[0];
     if (first) {
       const milestone = getMilestoneById(first, stats);
-      if (milestone) showAchievementCelebration(milestone, first);
+      if (milestone) {
+        showAchievementCelebration(milestone, first);
+        emitReviewTrigger(APP_FEEDBACK_TRIGGER_IDS.achievement_unlock, { deferRoute: "tracker" });
+        void maybeDeliverReviewReactivation(APP_FEEDBACK_TRIGGER_IDS.achievement_unlock);
+      }
     }
-  }, [achievementsSeeded, stats, showAchievementCelebration]);
+  }, [achievementsSeeded, stats, showAchievementCelebration, emitReviewTrigger]);
 
   const shortcuts: QuickActionItem[] = [
     {

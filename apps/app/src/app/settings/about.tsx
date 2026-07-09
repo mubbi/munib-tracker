@@ -1,5 +1,4 @@
 import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME } from "@munib-tracker/shared/constants";
-import Constants from "expo-constants";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { openBrowserAsync } from "expo-web-browser";
@@ -15,7 +14,9 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useReviewPrompt } from "@/features/reviews/context/ReviewPromptContext";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { resolveAppVersion } from "@/lib/app/resolve-app-version";
 import { goBackOrReplace } from "@/lib/navigation";
 
 const SITE_URL = process.env.EXPO_PUBLIC_SITE_URL ?? "https://munibtracker.app";
@@ -26,7 +27,8 @@ export default function AboutScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
-  const version = Constants.expoConfig?.version ?? "1.0.0";
+  const { maybePromptReview, canRateApp } = useReviewPrompt();
+  const version = resolveAppVersion();
   const isWeb = Platform.OS === "web";
 
   const openLink = (url: string) => {
@@ -103,6 +105,14 @@ export default function AboutScreen() {
 
         <Card padding="three">
           <View style={styles.links}>
+            {!isWeb && canRateApp ? (
+              <SettingsRow
+                icon={{ ios: "star.fill", android: "star", web: "star" }}
+                title={t("settings.rateApp")}
+                subtitle={t("settings.rateAppDesc")}
+                onPress={maybePromptReview}
+              />
+            ) : null}
             <SettingsRow
               icon={{ ios: "hand.raised.fill", android: "privacy_tip", web: "privacy_tip" }}
               title={t("about.privacyPolicy")}

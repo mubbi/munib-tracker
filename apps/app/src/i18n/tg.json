@@ -549,7 +549,19 @@
         "name": "li Ibn hmd Ml",
         "location": "l-Msjid l-Hrm"
       }
-    }
+    },
+    "rateApp": "Munib Tracker-ро баҳо диҳед",
+    "rateAppDesc": "Таҷрибаи худро дар мағозаи барномаҳо мубодила кунед",
+    "reviewReactivationEnabled": "Ёдрасҳои фикри барнома",
+    "reviewReactivationEnabledDesc": "Гоҳ-гоҳ ёдрасҳои нарм барои мубодилаи фикр дар барнома — на дархости мустақими баҳо дар мағоза.",
+    "appUpdate": "Навсозии барнома",
+    "updateAvailableTitle": "Навсозӣ дастрас аст",
+    "updateRequiredTitle": "Навсозӣ зарур аст",
+    "updateAvailableDesc": "Версияи {{latest}} дастрас аст. Шумо дар {{current}} ҳастед.",
+    "updateRequiredDesc": "Барои идома ба {{latest}} навсозӣ кунед.",
+    "updateNow": "Ҳозир навсозӣ кунед",
+    "viewUpdateDetails": "Тафсилотро бинед",
+    "remindInSettings": "Дар танзимот ёдрас кунед"
   },
   "import": {
     "title": "Import prayer history",
@@ -3935,5 +3947,45 @@
     "after1Min": "fter 1 mвute",
     "after5Min": "fter 5 mвutes",
     "footer": "Your PIN is stored securely on this device and never leaves it."
+  },
+  "update": {
+    "title": "Навсозӣ дастрас аст",
+    "hardTitle": "Навсозӣ зарур аст",
+    "availableBadge": "Версияи нав",
+    "requiredBadge": "Ҳатмӣ",
+    "yourVersion": "Версияи шумо",
+    "latestVersion": "Охирин",
+    "body": "Версияи {{version}} бо беҳбудиҳо ва ислоҳоти охирин омода аст.",
+    "hardBody": "Барои идомаи истифода ба версияи {{version}} навсозӣ кунед.",
+    "hardNote": "Барои идома ин навсозӣ зарур аст.",
+    "updateButton": "Ҳозир навсозӣ кунед",
+    "webReloadButton": "Боз бор кардан",
+    "webSoftRefreshHint": "Барои версияи охирин боз бор кунед. Маълумоти шумо дар ин дастгоҳ мемонад.",
+    "webHardRefreshHint": "Дар боло «Боз бор кардан»-ро пахш кунед. Агар ин паём такрор шавад, саҳифаро маҷбуран нав кунед: Ctrl+Shift+R дар Windows/Linux ё Cmd+Shift+R дар macOS."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker ба шумо писанд меояд?",
+    "rateSubtitle": "Фикри шумо ба мусулмонони дигар кӯмак мекунад, ки барномаро пайдо кунанд.",
+    "starLabel": "{{count}} ситора",
+    "starLabel_other": "{{count}} ситора",
+    "storeTitle": "Ташаккур!",
+    "storeBody": "Оё Munib Tracker-ро дар мағозаи барномаҳо баҳо медиҳед? Танҳо як лаҳза вақт мегирад.",
+    "storeCta": "Дар мағозаи барномаҳо баҳо диҳед",
+    "maybeLater": "Шояд баъдтар",
+    "feedbackTitle": "Ба беҳтар шудани мо кӯмак кунед",
+    "feedbackBody": "Мутаассифона, Munib Tracker интизориҳои шуморо иҷро накард. Чӣ метавонем беҳтар кунем?",
+    "feedbackPlaceholder": "Бигӯед чӣ нодуруст буд ё чӣ кам аст…",
+    "feedbackCta": "Фикр фиристед",
+    "feedbackOffline": "Барои фиристодани фикр ба интернет пайваст шавед.",
+    "feedbackError": "Фикр фиристода нашуд. Боз кӯшиш кунед.",
+    "skip": "Гузаронидан",
+    "thanksTitle": "Ташаккур!",
+    "thanksBody": "Дастгирии шумо барои мо хеле муҳим аст.",
+    "feedbackThanksTitle": "Фикр қабул шуд",
+    "feedbackThanksBody": "Ёддоштҳои шуморо барои беҳтар кардани Munib Tracker истифода мебарем."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Хеле хуб пеш меравед",
+    "reviewReactivationBody": "Мехоҳед таҷрибаи худро бо Munib Tracker мубодила кунед?"
   }
 }

@@ -549,7 +549,19 @@
         "name": "Elî Îbn Ehmed Mela",
         "location": "Mescid el-Haram"
       }
-    }
+    },
+    "rateApp": "Munib Tracker binirxîne",
+    "rateAppDesc": "Ezmûna xwe li firotgeha sepanan parve bike",
+    "reviewReactivationEnabled": "Bîranînên bersiva sepanê",
+    "reviewReactivationEnabledDesc": "Carinan bîranînên nerm ji bo parvekirina bersivê di sepanê de — ne daxwaza rasterast a nirxandinê li firotgehê.",
+    "appUpdate": "Nûkirina sepanê",
+    "updateAvailableTitle": "Nûkirin heye",
+    "updateRequiredTitle": "Nûkirin pêwîst e",
+    "updateAvailableDesc": "Guhertoya {{latest}} heye. Hûn li ser {{current}} ne.",
+    "updateRequiredDesc": "Ji bo domandina sepanê biguherînin {{latest}}.",
+    "updateNow": "Niha nûve bike",
+    "viewUpdateDetails": "Hûragahiyan bibîne",
+    "remindInSettings": "Di Mîhengan de bîra min bike"
   },
   "import": {
     "title": "Import salah dîrok",
@@ -4027,5 +4039,45 @@
     "after1Min": "Piştî 1 deqîqe",
     "after5Min": "Piştî 5 deqîqeyan",
     "footer": "We PIN e stored securely li ev cîhaz û never leaves it."
+  },
+  "update": {
+    "title": "Nûkirin heye",
+    "hardTitle": "Nûkirin pêwîst e",
+    "availableBadge": "Guhertoya nû",
+    "requiredBadge": "Pêwîst",
+    "yourVersion": "Guhertoya we",
+    "latestVersion": "Herî nû",
+    "body": "Guhertoya {{version}} bi başkirin û rastkirinên herî nû amade ye.",
+    "hardBody": "Ji bo domandina sepanê biguherînin guhertoya {{version}}.",
+    "hardNote": "Ev nûkirin ji bo domandinê pêwîst e.",
+    "updateButton": "Niha nûve bike",
+    "webReloadButton": "Ji nû ve bar bike",
+    "webSoftRefreshHint": "Ji bo guhertoya herî nû ji nû ve bar bike. Daneyên we li ser vê cîhazê dimînin.",
+    "webHardRefreshHint": "Li jor «Ji nû ve bar bike» bitikîne. Ger ev peyam berdewam be, rûpelê bi zor nûve bike: Ctrl+Shift+R li Windows/Linux, an Cmd+Shift+R li macOS."
+  },
+  "reviews": {
+    "rateTitle": "Ji Munib Tracker kêfxweş in?",
+    "rateSubtitle": "Bersiva we alîkariya Mislimên din dike ku sepanê bibînin.",
+    "starLabel": "{{count}} stêrk",
+    "starLabel_other": "{{count}} stêrk",
+    "storeTitle": "Spas!",
+    "storeBody": "Dixwazin Munib Tracker li firotgeha sepanan binirxînin? Tenê çend saniyeyan digire.",
+    "storeCta": "Li firotgeha sepanan binirxîne",
+    "maybeLater": "Dibe paşê",
+    "feedbackTitle": "Alîkariya me bikin ku baştir bibin",
+    "feedbackBody": "Bibore Munib Tracker hêviyên we bi cih neanî. Em çi dikarin baştir bikin?",
+    "feedbackPlaceholder": "Bêje çi xelet bû an çi kêm e…",
+    "feedbackCta": "Bersiv bişîne",
+    "feedbackOffline": "Ji bo şandina bersivê bi înternetê ve girê bide.",
+    "feedbackError": "Bersiv nehat şandin. Dîsa biceribîne.",
+    "skip": "Derbas bibe",
+    "thanksTitle": "Spas!",
+    "thanksBody": "Piştgiriya we ji bo me gelek giring e.",
+    "feedbackThanksTitle": "Bersiv hate wergirtin",
+    "feedbackThanksBody": "Em ê notên we bikar bînin da ku Munib Tracker baştir bikin."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Heta baş diçin",
+    "reviewReactivationBody": "Dixwazin ezmûna xwe ya Munib Tracker parve bikin?"
   }
 }

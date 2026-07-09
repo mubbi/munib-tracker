@@ -549,7 +549,19 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    }
+    },
+    "rateApp": "Kadiria Munib Tracker",
+    "rateAppDesc": "Shiriki uzoefu wako kwenye duka la programu",
+    "reviewReactivationEnabled": "Vikumbusho vya maoni ya programu",
+    "reviewReactivationEnabledDesc": "Vikumbusho vya upole mara kwa mara kushiriki maoni ndani ya programu — si ombi la moja kwa moja la ukadiriaji dukani.",
+    "appUpdate": "Sasisho la programu",
+    "updateAvailableTitle": "Sasisho linapatikana",
+    "updateRequiredTitle": "Sasisho linahitajika",
+    "updateAvailableDesc": "Toleo {{latest}} linapatikana. Uko kwenye {{current}}.",
+    "updateRequiredDesc": "Sasisha hadi {{latest}} ili uendelee kutumia programu.",
+    "updateNow": "Sasisha sasa",
+    "viewUpdateDetails": "Angalia maelezo",
+    "remindInSettings": "Nikumbushe katika Mipangilio"
   },
   "import": {
     "title": "Swala geçmişini içe aktar",
@@ -4027,5 +4039,45 @@
     "after1Min": "After 1 dakute",
     "after5Min": "After 5 dakutes",
     "footer": "PIN yako imehifadhiwa kwa usalama kwenye kifaa hiki na kamwe huiachi."
+  },
+  "update": {
+    "title": "Sasisho linapatikana",
+    "hardTitle": "Sasisho linahitajika",
+    "availableBadge": "Toleo jipya",
+    "requiredBadge": "Lazima",
+    "yourVersion": "Toleo lako",
+    "latestVersion": "Hivi karibuni",
+    "body": "Toleo {{version}} liko tayari na maboresho na marekebisho mapya.",
+    "hardBody": "Sasisha hadi toleo {{version}} ili uendelee kutumia programu.",
+    "hardNote": "Sasisho hili linahitajika ili kuendelea.",
+    "updateButton": "Sasisha sasa",
+    "webReloadButton": "Pakia upya",
+    "webSoftRefreshHint": "Pakia upya kupata toleo jipya. Data yako inabaki kwenye kifaa hiki.",
+    "webHardRefreshHint": "Gusa Pakia upya hapo juu. Ikiendelea kuonekana, onyesha upya kwa nguvu: Ctrl+Shift+R kwenye Windows/Linux, au Cmd+Shift+R kwenye macOS."
+  },
+  "reviews": {
+    "rateTitle": "Unafurahia Munib Tracker?",
+    "rateSubtitle": "Maoni yako huwasaidia Waislamu wengine kugundua programu.",
+    "starLabel": "Nyota {{count}}",
+    "starLabel_other": "Nyota {{count}}",
+    "storeTitle": "Asante!",
+    "storeBody": "Unaweza kukadiria Munib Tracker kwenye duka la programu? Inachukua muda mfupi tu.",
+    "storeCta": "Kadiria kwenye duka la programu",
+    "maybeLater": "Labda baadaye",
+    "feedbackTitle": "Tusaidie kuboresha",
+    "feedbackBody": "Samahani Munib Tracker haijakidhi matarajio yako. Tunaweza kuboresha nini?",
+    "feedbackPlaceholder": "Tuambie kilichokosea au kinachokosekana…",
+    "feedbackCta": "Tuma maoni",
+    "feedbackOffline": "Unganisha intaneti ili kutuma maoni.",
+    "feedbackError": "Haikuwezekana kutuma maoni. Jaribu tena.",
+    "skip": "Ruka",
+    "thanksTitle": "Asante!",
+    "thanksBody": "Msaada wako unamaanisha sana.",
+    "feedbackThanksTitle": "Maoni yamepokelewa",
+    "feedbackThanksBody": "Tutatumia maelezo yako kuboresha Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Unafanya vizuri",
+    "reviewReactivationBody": "Ungependa kushiriki uzoefu wako na Munib Tracker?"
   }
 }

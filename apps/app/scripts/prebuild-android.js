@@ -20,6 +20,7 @@ const {
 const {
   DEFAULT_APP_ROOT,
   runStep,
+  stopGradleDaemon,
   prepareWindowsAndroidBuild,
 } = require("./lib/native-script-utils.cjs");
 
@@ -28,6 +29,7 @@ const androidDir = path.join(appRoot, "android");
 
 loadAppEnv(appRoot);
 assertVersionEnv();
+stopGradleDaemon(appRoot);
 
 const prebuildArgs = process.argv.slice(2);
 const expoArgs = ["exec", "expo", "prebuild", "--platform", "android", ...prebuildArgs];

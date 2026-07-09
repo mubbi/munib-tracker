@@ -4,6 +4,9 @@
  */
 import "./src/lib/request-idle-callback-polyfill";
 import { registerAndroidWidgetTaskHandler } from "./src/lib/appSurfaces/widgets/androidTaskHandler";
+import { initSentry } from "./src/lib/sentry";
+
+initSentry();
 
 registerAndroidWidgetTaskHandler();
 

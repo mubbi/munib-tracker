@@ -8,6 +8,7 @@ import { OAuthProviderService } from "../../src/auth/oauth-provider.service";
 import { TokenService } from "../../src/auth/token.service";
 import { validateEnvironment } from "../../src/config/env.validation";
 import {
+  AppFeedbackEntity,
   AuthSessionEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
@@ -23,6 +24,7 @@ const ENTITIES = [
   SyncRecordEntity,
   ContentReportEntity,
   ContentReportAttachmentEntity,
+  AppFeedbackEntity,
 ];
 
 /**

@@ -4,6 +4,7 @@ import { TypeOrmModule, type TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DatabaseType, EnvironmentVariables } from "../config/env.schema";
 import { resolveDatabaseSsl } from "./database-ssl";
 import {
+  AppVersionEntity,
   AuthSessionEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
@@ -50,6 +51,7 @@ import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
             SyncRecordEntity,
             ContentReportEntity,
             ContentReportAttachmentEntity,
+            AppVersionEntity,
           ],
           synchronize: false,
           autoLoadEntities: true,

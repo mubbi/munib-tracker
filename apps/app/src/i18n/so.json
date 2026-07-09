@@ -549,7 +549,19 @@
         "name": "li Ibn hmd Ml",
         "location": "l-Msjid l-Hrm"
       }
-    }
+    },
+    "rateApp": "Qiimee Munib Tracker",
+    "rateAppDesc": "La wadaag khibradaada dukaanka app-ka",
+    "reviewReactivationEnabled": "Xusuusin ra'yi app",
+    "reviewReactivationEnabledDesc": "Mararka qaar xusuusin jilicsan si aad ra'yi ugu wadaagto app-ka — ma aha codsi toos ah oo qiimeyn dukaan.",
+    "appUpdate": "Cusbooneysi app",
+    "updateAvailableTitle": "Cusbooneysi waa diyaar",
+    "updateRequiredTitle": "Cusbooneysi waa lagama maarmaan",
+    "updateAvailableDesc": "Nooca {{latest}} waa diyaar. Waxaad ku jirtaa {{current}}.",
+    "updateRequiredDesc": "U cusbooneysii {{latest}} si aad u sii wadato isticmaalka app-ka.",
+    "updateNow": "Hadda cusbooneysii",
+    "viewUpdateDetails": "Eeg faahfaahinta",
+    "remindInSettings": "I xasuusi Goobaha"
   },
   "import": {
     "title": "Import prayer history",
@@ -3935,5 +3947,45 @@
     "after1Min": "fter 1 mgudhute",
     "after5Min": "fter 5 mgudhutes",
     "footer": "kg Pgudh w stmed securely ku kn device iyo never leves it."
+  },
+  "update": {
+    "title": "Cusbooneysi waa diyaar",
+    "hardTitle": "Cusbooneysi waa lagama maarmaan",
+    "availableBadge": "Nooc cusub",
+    "requiredBadge": "Loo baahan yahay",
+    "yourVersion": "Noocaaga",
+    "latestVersion": "Ugu dambeeya",
+    "body": "Nooca {{version}} wuxuu diyaar u yahay hagaajinta iyo sixitaannada ugu dambeeyay.",
+    "hardBody": "U cusbooneysii nooca {{version}} si aad u sii wadato isticmaalka app-ka.",
+    "hardNote": "Cusbooneysigan waa lagama maarmaan si aad u sii wadato.",
+    "updateButton": "Hadda cusbooneysii",
+    "webReloadButton": "Dib u soo rar",
+    "webSoftRefreshHint": "Dib u soo rar si aad u hesho nooca ugu dambeeyay. Xogtaadu waxay ku jirtaa qalabkan.",
+    "webHardRefreshHint": "Taabo Dib u soo rar kore. Haddii fariintan sii muuqato, si xoog leh u cusbooneysii bogga: Ctrl+Shift+R Windows/Linux, ama Cmd+Shift+R macOS."
+  },
+  "reviews": {
+    "rateTitle": "Ma ku raaxaysaa Munib Tracker?",
+    "rateSubtitle": "Ra'yigaagu wuxuu ka caawiyaa Muslimiinta kale inay helaan app-ka.",
+    "starLabel": "{{count}} xiddig",
+    "starLabel_other": "{{count}} xiddig",
+    "storeTitle": "Mahadsanid!",
+    "storeBody": "Ma qiimeyn kartaa Munib Tracker dukaanka app-ka? Waxay qaadataa daqiiqad.",
+    "storeCta": "Qiimee dukaanka app-ka",
+    "maybeLater": "Laga yaabee hadhow",
+    "feedbackTitle": "Naga caawi inaan hagaajino",
+    "feedbackBody": "Waan ka xunnahay Munib Tracker ma buuxin rajadaada. Maxaan hagaajin karnaa?",
+    "feedbackPlaceholder": "Noo sheeg waxa khaldan ama waxa maqan…",
+    "feedbackCta": "Dir ra'yi",
+    "feedbackOffline": "Ku xir internetka si aad u dirto ra'yi.",
+    "feedbackError": "Ra'yi lama diri karin. Isku day mar kale.",
+    "skip": "Ka bood",
+    "thanksTitle": "Mahadsanid!",
+    "thanksBody": "Taageeradaadu wax badan bay naga dhigan tahay.",
+    "feedbackThanksTitle": "Ra'yi waa la helay",
+    "feedbackThanksBody": "Waxaan u isticmaali doonnaa qoraalladaada si aan u hagaajino Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Si fiican ayaad u socotaa",
+    "reviewReactivationBody": "Ma rabtaa inaad la wadaagto khibradaada Munib Tracker?"
   }
 }

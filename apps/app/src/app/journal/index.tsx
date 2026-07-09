@@ -22,6 +22,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { averageRating, groupByDate, KHUSHU_MAX, KHUSHU_MIN, type KhushuEntry } from "@/lib/khushu";
@@ -228,6 +229,7 @@ export default function JournalScreen() {
       rating: draft.rating,
       note: draft.note,
     });
+    trackReviewInteraction("save_khushu");
     closeForm();
   };
 

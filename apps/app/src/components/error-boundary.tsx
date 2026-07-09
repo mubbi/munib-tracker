@@ -3,10 +3,12 @@ import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { Radius, Spacing } from "@/constants/theme";
+import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useTheme } from "@/hooks/use-theme";
+import { captureAppException } from "@/lib/sentry";
 
 /** Themed, calm fallback shown when a subtree throws during render. */
-function ErrorFallback({ onReset }: { onReset: () => void }) {
+export function ErrorFallback({ onReset }: { onReset: () => void }) {
   const { colors } = useTheme();
   const { t } = useTranslation();
   return (
@@ -53,6 +55,14 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
+    recordReviewErrorMarker();
+    captureAppException(error, {
+      contexts: {
+        react: {
+          componentStack: info.componentStack ?? "",
+        },
+      },
+    });
     if (__DEV__) {
       console.error("ErrorBoundary caught an error:", error, info.componentStack);
     }

@@ -74,6 +74,10 @@ export const DB_KEYS = {
   customTasbeehUpdatedAt: `${PREFIX}/custom_tasbeeh_updated_at`,
   // Queued content reports awaiting upload when back online.
   contentReportQueue: `${PREFIX}/content_report_queue`,
+  // In-app review funnel gating state (device-local).
+  reviewGating: `${PREFIX}/review_gating_v1`,
+  reviewPendingTrigger: `${PREFIX}/review_pending_trigger_v1`,
+  reviewReactivationDedupe: `${PREFIX}/review_reactivation_dedupe_v1`,
   // Per-entity content-hash + last-synced timestamp for blob-synced userData
   // (fasting, khatm, learning progress, …). Drives change/deletion detection for
   // the generic cloud-sync path in `sync/blob-sync.ts`. Device-local: rebuilds on
@@ -150,6 +154,9 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   hadithBookmarksUpdatedAt: "watermark",
   customTasbeehUpdatedAt: "watermark",
   contentReportQueue: "deviceLocal",
+  reviewGating: "deviceLocal",
+  reviewPendingTrigger: "deviceLocal",
+  reviewReactivationDedupe: "deviceLocal",
   blobSyncState: "deviceLocal",
 };
 

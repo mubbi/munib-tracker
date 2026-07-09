@@ -4,7 +4,6 @@ import { getLocalDateString, sumQazaScheduleTargets } from "@munib-tracker/share
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
-
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -14,6 +13,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing } from "@/constants/theme";
 import { QazaRepository } from "@/db";
+import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
 import {
@@ -92,6 +92,7 @@ export function QazaDailyChecklist({ date: dateProp }: QazaDailyChecklistProps =
     if (!pending) return;
     if (pending.kind === "perform") {
       void performQaza(pending.prayerId);
+      trackReviewInteraction("mark_qaza");
     } else {
       void undoQaza(pending.prayerId);
     }

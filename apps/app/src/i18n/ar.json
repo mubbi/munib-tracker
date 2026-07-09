@@ -569,7 +569,19 @@
         "name": "علي بن أحمد ملا",
         "location": "المسجد الحرام"
       }
-    }
+    },
+    "rateApp": "قيّم Munib Tracker",
+    "rateAppDesc": "شارك تجربتك في متجر التطبيقات",
+    "reviewReactivationEnabled": "تذكيرات ملاحظات التطبيق",
+    "reviewReactivationEnabledDesc": "تنبيهات لطيفة أحياناً لمشاركة ملاحظاتك داخل التطبيق — وليست طلب تقييم مباشر في المتجر.",
+    "appUpdate": "تحديث التطبيق",
+    "updateAvailableTitle": "يتوفر تحديث",
+    "updateRequiredTitle": "التحديث مطلوب",
+    "updateAvailableDesc": "الإصدار {{latest}} متوفر. أنت على {{current}}.",
+    "updateRequiredDesc": "حدّث إلى الإصدار {{latest}} لمواصلة استخدام التطبيق.",
+    "updateNow": "حدّث الآن",
+    "viewUpdateDetails": "عرض التفاصيل",
+    "remindInSettings": "ذكّرني في الإعدادات"
   },
   "import": {
     "title": "استيراد سجل الصلوات",
@@ -4015,5 +4027,50 @@
     "tasbeehCustom": {
       "description": "عداد التسبيح المخصص لك."
     }
+  },
+  "update": {
+    "title": "يتوفر تحديث",
+    "hardTitle": "التحديث مطلوب",
+    "availableBadge": "إصدار جديد",
+    "requiredBadge": "مطلوب",
+    "yourVersion": "إصدارك",
+    "latestVersion": "الأحدث",
+    "body": "الإصدار {{version}} جاهز بأحدث التحسينات والإصلاحات.",
+    "hardBody": "حدّث إلى الإصدار {{version}} لمواصلة استخدام التطبيق.",
+    "hardNote": "هذا التحديث مطلوب للمتابعة.",
+    "updateButton": "حدّث الآن",
+    "webReloadButton": "إعادة التحميل",
+    "webSoftRefreshHint": "أعد التحميل للحصول على أحدث إصدار. بياناتك تبقى على هذا الجهاز.",
+    "webHardRefreshHint": "اضغط «إعادة التحميل» أعلاه. إذا استمر ظهور هذه الرسالة، حدّث الصفحة بالقوة: Ctrl+Shift+R على Windows/Linux، أو Cmd+Shift+R على macOS."
+  },
+  "reviews": {
+    "rateTitle": "هل تستمتع بـ Munib Tracker؟",
+    "rateSubtitle": "ملاحظاتك تساعد مسلمين آخرين على اكتشاف التطبيق.",
+    "starLabel": "{{count}} نجمة",
+    "starLabel_zero": "لا نجوم",
+    "starLabel_one": "نجمة واحدة",
+    "starLabel_two": "نجمتان",
+    "starLabel_few": "{{count}} نجوم",
+    "starLabel_many": "{{count}} نجمة",
+    "starLabel_other": "{{count}} نجوم",
+    "storeTitle": "شكراً لك!",
+    "storeBody": "هل تود تقييم Munib Tracker في متجر التطبيقات؟ لن يستغرق سوى لحظة.",
+    "storeCta": "قيّم في متجر التطبيقات",
+    "maybeLater": "ربما لاحقاً",
+    "feedbackTitle": "ساعدنا على التحسين",
+    "feedbackBody": "نأسف لأن Munib Tracker لم يلبِّ توقعاتك. كيف يمكننا أن نكون أفضل؟",
+    "feedbackPlaceholder": "أخبرنا ما الخطأ أو ما الناقص…",
+    "feedbackCta": "إرسال الملاحظات",
+    "feedbackOffline": "اتصل بالإنترنت لإرسال ملاحظاتك.",
+    "feedbackError": "تعذّر إرسال الملاحظات. حاول مرة أخرى.",
+    "skip": "تخطّي",
+    "thanksTitle": "شكراً لك!",
+    "thanksBody": "دعمك يعني لنا الكثير.",
+    "feedbackThanksTitle": "وُلِّفت ملاحظاتك",
+    "feedbackThanksBody": "سنستخدم ملاحظاتك لتحسين Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "أنت على نحوٍ ممتاز",
+    "reviewReactivationBody": "هل تود مشاركة تجربتك مع Munib Tracker؟"
   }
 }

@@ -48,6 +48,10 @@ export class UserEntity {
   @Column({ type: "varchar", length: 128, nullable: true })
   deviceId?: string | null;
 
+  /** Dedupe bucket for server-side review-reactivation push (60-day windows). */
+  @Column({ type: "varchar", length: 32, nullable: true })
+  reviewReactivationLastWindowKey?: string | null;
+
   @CreateDateColumn()
   createdAt!: Date;
 
@@ -155,6 +159,72 @@ export class ContentReportEntity {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+}
+
+/** Per-platform semver thresholds for soft/hard update prompts. */
+@Entity("app_versions")
+export class AppVersionEntity {
+  @PrimaryColumn({ type: "varchar", length: 16 })
+  platform!: "web" | "android" | "ios";
+
+  @Column({ type: "varchar", length: 32 })
+  latestVersion!: string;
+
+  @Column({ type: "varchar", length: 32 })
+  minSoftVersion!: string;
+
+  @Column({ type: "varchar", length: 32 })
+  minHardVersion!: string;
+
+  @Column({ type: "text", nullable: true })
+  message?: string | null;
+
+  @Column({ type: "varchar", length: 512, nullable: true })
+  storeUrl?: string | null;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
+}
+
+@Entity("app_feedback")
+@Index(["userId", "createdAt"])
+export class AppFeedbackEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column("uuid")
+  userId!: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user!: UserEntity;
+
+  @Column({ type: "varchar", length: 128 })
+  deviceId!: string;
+
+  @Column({ type: "int" })
+  rating!: number;
+
+  @Column({ type: "text", nullable: true })
+  message?: string | null;
+
+  @Column({ type: "varchar", length: 64 })
+  source!: string;
+
+  @Column({ type: "varchar", length: 64, nullable: true })
+  triggerId?: string | null;
+
+  @Column({ type: "varchar", length: 32 })
+  appVersion!: string;
+
+  @Column({ type: "varchar", length: 16 })
+  platform!: string;
+
+  @Column({ type: "varchar", length: 16, nullable: true })
+  locale?: string | null;
+
+  @CreateDateColumn()
+  createdAt!: Date;
 }
 
 @Entity("content_report_attachments")

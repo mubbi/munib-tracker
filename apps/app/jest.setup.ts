@@ -173,5 +173,64 @@ jest.mock("react-native-safe-area-context", () => ({
   useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
 }));
 
+jest.mock("@/providers/auth-provider", () => ({
+  AuthProvider: ({ children }: { children: ReactNode }) => children,
+  useAuth: () => ({
+    session: null,
+    user: null,
+    isReady: true,
+    isGuest: true,
+    isAuthenticated: false,
+    isSyncing: false,
+    signInAsGuest: jest.fn(),
+    signInWithProvider: jest.fn(),
+    linkProvider: jest.fn(),
+    signOut: jest.fn(),
+    syncNow: jest.fn(async () => "skipped"),
+    deleteAccount: jest.fn(async () => "ok"),
+  }),
+}));
+
+jest.mock("@/features/reviews/context/ReviewEngagementProvider", () => ({
+  ReviewEngagementProvider: ({ children }: { children: ReactNode }) => children,
+  useReviewEngagement: () => ({
+    trackInteraction: jest.fn(),
+    recordError: jest.fn(),
+  }),
+}));
+
+jest.mock("@/features/reviews/context/ReviewPromptContext", () => ({
+  ReviewPromptProvider: ({ children }: { children: ReactNode }) => children,
+  useReviewPrompt: () => ({
+    emitReviewTrigger: jest.fn(),
+    maybePromptReview: jest.fn(),
+    canRateApp: false,
+  }),
+}));
+
+jest.mock("@/features/reviews/hooks/useReviewPromptBlocked", () => ({
+  useReviewPromptBlocked: () => false,
+}));
+
+jest.mock("@sentry/react-native", () => {
+  const noop = jest.fn();
+  return {
+    __esModule: true,
+    init: noop,
+    captureException: noop,
+    expoRouterIntegration: jest.fn(() => ({})),
+    GlobalErrorBoundary: ({ children }: { children?: ReactNode }) => children ?? null,
+  };
+});
+
+jest.mock("expo-notifications", () => ({
+  scheduleNotificationAsync: jest.fn(async () => "notification-id"),
+  setNotificationHandler: jest.fn(),
+  addNotificationReceivedListener: jest.fn(() => ({ remove: jest.fn() })),
+  addNotificationResponseReceivedListener: jest.fn(() => ({ remove: jest.fn() })),
+  getPermissionsAsync: jest.fn(async () => ({ status: "granted" })),
+  requestPermissionsAsync: jest.fn(async () => ({ status: "granted" })),
+}));
+
 // Initialise i18n (English) so `t()` returns real strings in component tests.
 require("./src/i18n");

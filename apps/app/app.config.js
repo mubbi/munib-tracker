@@ -60,6 +60,14 @@ module.exports = ({ config }) => {
       "./plugins/withExternalCommands.cjs",
       "./plugins/withWearOs.cjs",
       ["react-native-android-widget", { widgets: ANDROID_HOME_SCREEN_WIDGETS }],
+      [
+        "@sentry/react-native/expo",
+        {
+          url: "https://sentry.io/",
+          organization: process.env.SENTRY_ORG?.trim() || undefined,
+          project: process.env.SENTRY_PROJECT?.trim() || undefined,
+        },
+      ],
     ],
     extra: {
       ...config.extra,

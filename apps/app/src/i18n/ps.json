@@ -549,7 +549,19 @@
         "name": "li Ibn hmd Ml",
         "location": "l-Msjid l-Hrm"
       }
-    }
+    },
+    "rateApp": "Munib Tracker درجه ورکړئ",
+    "rateAppDesc": "خپله تجربه په اپ پلورنځي کې شریکه کړئ",
+    "reviewReactivationEnabled": "د اپ نظر یادونې",
+    "reviewReactivationEnabledDesc": "کله ناکله نرم یادونې چې په اپ کې نظر شریک کړئ — هیڅکله مستقیم د پلورنځي درجه غوښتنه نه.",
+    "appUpdate": "د اپ تازه کول",
+    "updateAvailableTitle": "تازه کول شتون لري",
+    "updateRequiredTitle": "تازه کول اړین دي",
+    "updateAvailableDesc": "نسخه {{latest}} شتون لري. تاسو په {{current}} یاست.",
+    "updateRequiredDesc": "د اپ کارولو دوام لپاره نسخه {{latest}} ته تازه کړئ.",
+    "updateNow": "اوس تازه کړئ",
+    "viewUpdateDetails": "جزئیات وګورئ",
+    "remindInSettings": "په تنظیماتو کې یادونه راکړئ"
   },
   "import": {
     "title": "Import prayer history",
@@ -3935,5 +3947,45 @@
     "after1Min": "fter 1 mپهute",
     "after5Min": "fter 5 mپهutes",
     "footer": "ستاسو Pپه دی stیاed securely په دا device او never leves it."
+  },
+  "update": {
+    "title": "تازه کول شتون لري",
+    "hardTitle": "تازه کول اړین دي",
+    "availableBadge": "نوی نسخه",
+    "requiredBadge": "اړین",
+    "yourVersion": "ستاسو نسخه",
+    "latestVersion": "وروستی",
+    "body": "نسخه {{version}} د وروستیو ښه والیو او سمونونو سره چمتو ده.",
+    "hardBody": "د اپ کارولو دوام لپاره نسخه {{version}} ته تازه کړئ.",
+    "hardNote": "د دوام لپاره دا تازه کول اړین دي.",
+    "updateButton": "اوس تازه کړئ",
+    "webReloadButton": "بیا پورته کول",
+    "webSoftRefreshHint": "د وروستي نسخې لپاره بیا پورته کړئ. ستاسو معلومات په دې وسیله کې پاتې کیږي.",
+    "webHardRefreshHint": "پورته «بیا پورته کول» ووهئ. که دا پیغام دوام ولري، پاڼه په زور تازه کړئ: په Windows/Linux کې Ctrl+Shift+R، یا په macOS کې Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "ایا تاسو له Munib Tracker خوند اخلئ؟",
+    "rateSubtitle": "ستاسو نظر نورو مسلمانانو سره مرسته کوي چې دا اپ پیدا کړي.",
+    "starLabel": "{{count}} ستوری",
+    "starLabel_other": "{{count}} ستوري",
+    "storeTitle": "مننه!",
+    "storeBody": "ایا تاسو Munib Tracker په اپ پلورنځي کې درجه ورکوئ؟ یوازې یو شیبه وخت نیسي.",
+    "storeCta": "په اپ پلورنځي کې درجه ورکړئ",
+    "maybeLater": "شاید وروسته",
+    "feedbackTitle": "موږ سره د ښه والي کې مرسته وکړئ",
+    "feedbackBody": "بخښنه غواړو Munib Tracker ستاسو توقعات پوره نه کړې. موږ څه ښه کولی شو؟",
+    "feedbackPlaceholder": "وایاست څه غلط شو یا څه کم دی…",
+    "feedbackCta": "نظر واستوئ",
+    "feedbackOffline": "د نظر لېږلو لپاره انټرنېټ وصل کړئ.",
+    "feedbackError": "نظر ونه لېږل شو. بیا هڅه وکړئ.",
+    "skip": "پریږدئ",
+    "thanksTitle": "مننه!",
+    "thanksBody": "ستاسو ملاتړ موږ ته ډېر ارزښت لري.",
+    "feedbackThanksTitle": "نظر ترلاسه شو",
+    "feedbackThanksBody": "موږ به ستاسو یادښتونه د Munib Tracker د ښه کولو لپاره وکاروو."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "تاسو ښه کار کوئ",
+    "reviewReactivationBody": "ایا غواړئ خپله تجربه له Munib Tracker سره شریکه کړئ؟"
   }
 }

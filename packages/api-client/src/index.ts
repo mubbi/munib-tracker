@@ -1,3 +1,18 @@
+export { type AppPlatform, normalizeAppPlatform } from "./app-version-platform";
+export { APP_VERSION_RESPONSE_HEADERS } from "./app-version-response-headers";
+export {
+  APP_VERSION_BACKGROUND_POLL_MS,
+  type AppVersionMeta,
+  fetchAppVersionMeta,
+  getAppVersionHeaders,
+  getAppVersionInfo,
+  mergeAppVersionMeta,
+  notifyVersionMetaFromResponse,
+  parseVersionMetaFromResponse,
+  setAppVersionInfo,
+  setVersionMetaCallback,
+  type UpdateRequired,
+} from "./app-version-store";
 export {
   ApiBlockedError,
   beginApiRequest,
@@ -7,6 +22,7 @@ export {
   setAppReloadInProgress,
 } from "./cloud-api-gate";
 export { formatApiDateTime, fromApiDateTime, toApiDateTime } from "./datetime";
+export * from "./generated/endpoints/app-feedback/app-feedback";
 export * from "./generated/endpoints/auth/auth";
 export * from "./generated/endpoints/health/health";
 export * from "./generated/endpoints/sync/sync";

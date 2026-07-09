@@ -549,7 +549,19 @@
         "name": "Ali Ybn Ahmed Mala",
         "location": "Mescid-i Haram"
       }
-    }
+    },
+    "rateApp": "Munib Tracker-e baha beriň",
+    "rateAppDesc": "Tejribäňizi programma dükanynda paýlaşyň",
+    "reviewReactivationEnabled": "Programma pikir ýatlatmalary",
+    "reviewReactivationEnabledDesc": "Käwagt ýumşak ýatlatmalar programmada pikir paýlaşmak üçin — dükandaky göni baha soragy däl.",
+    "appUpdate": "Programma täzelenmesi",
+    "updateAvailableTitle": "Täzelenme elýeterli",
+    "updateRequiredTitle": "Täzelenme zerur",
+    "updateAvailableDesc": "{{latest}} wersiýasy elýeterli. Siz {{current}}-da.",
+    "updateRequiredDesc": "Programmany ulanmagy dowam etdirmek üçin {{latest}}-a täzeläň.",
+    "updateNow": "Häzir täzele",
+    "viewUpdateDetails": "Jikme-jikleri gör",
+    "remindInSettings": "Sazlamalarda ýatlat"
   },
   "import": {
     "title": "Namaz geçmişini içe aktar",
@@ -3935,5 +3947,45 @@
     "after1Min": "1 dakika sonra",
     "after5Min": "5 dakika sonra",
     "footer": "Sizin PIN dir stored securely  bu cihaz ve never leaves it."
+  },
+  "update": {
+    "title": "Täzelenme elýeterli",
+    "hardTitle": "Täzelenme zerur",
+    "availableBadge": "Täze wersiýa",
+    "requiredBadge": "Zerur",
+    "yourVersion": "Siziň wersiýaňyz",
+    "latestVersion": "Iň soňky",
+    "body": "{{version}} wersiýasy iň soňky gowulaşdyrmalar we düzedişler bilen taýýar.",
+    "hardBody": "Programmany ulanmagy dowam etdirmek üçin {{version}} wersiýasyna täzeläň.",
+    "hardNote": "Dowam etmek üçin bu täzelenme zerur.",
+    "updateButton": "Häzir täzele",
+    "webReloadButton": "Täzeden ýükle",
+    "webSoftRefreshHint": "Iň soňky wersiýa üçin täzeden ýükläň. Maglumatlaryňyz şu enjamda galýar.",
+    "webHardRefreshHint": "Ýokardaky Täzeden ýükle düwmesine basyň. Habar dowam etse, sahypany güýç bilen täzeläň: Windows/Linux-da Ctrl+Shift+R ýa-da macOS-da Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker hoşuna gelýärmi?",
+    "rateSubtitle": "Pikiriňiz beýleki musulmanlara programmany tapmaga kömek edýär.",
+    "starLabel": "{{count}} ýyldyz",
+    "starLabel_other": "{{count}} ýyldyz",
+    "storeTitle": "Sag boluň!",
+    "storeBody": "Munib Tracker-e programma dükanynda baha berersiňizmi? Diňe bir pursat alýar.",
+    "storeCta": "Programma dükanynda baha ber",
+    "maybeLater": "Belki soňra",
+    "feedbackTitle": "Gowulaşmagymyza kömek ediň",
+    "feedbackBody": "Gynansagam Munib Tracker garaşyklaryňyzy kanagatlandyrmady. Näme gowulap bileris?",
+    "feedbackPlaceholder": "Näme ýalňyşdyr ýa-da näme ýetmezçiligini ýazyň…",
+    "feedbackCta": "Pikir iber",
+    "feedbackOffline": "Pikir ibermek üçin internete birigiň.",
+    "feedbackError": "Pikir iberilmedi. Täzeden synanyşyň.",
+    "skip": "Geç",
+    "thanksTitle": "Sag boluň!",
+    "thanksBody": "Goldawyňyz biziň üçin örän möhümdir.",
+    "feedbackThanksTitle": "Pikir kabul edildi",
+    "feedbackThanksBody": "Bellikleriňizi Munib Tracker-i gowulamak üçin ulanyarys."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Gowy gidýärsiňiz",
+    "reviewReactivationBody": "Munib Tracker tejribäňizi paýlaşmak isleýärsiňizmi?"
   }
 }

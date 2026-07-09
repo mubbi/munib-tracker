@@ -549,7 +549,19 @@
         "name": "علی بن احمد ملا",
         "location": "مسجدالحرام"
       }
-    }
+    },
+    "rateApp": "امتیاز به Munib Tracker",
+    "rateAppDesc": "تجربه‌تان را در فروشگاه برنامه به اشتراک بگذارید",
+    "reviewReactivationEnabled": "یادآور بازخورد برنامه",
+    "reviewReactivationEnabledDesc": "گاهی یادآورهای ملایم برای به‌اشتراک‌گذاری بازخورد در برنامه — نه درخواست مستقیم امتیاز در فروشگاه.",
+    "appUpdate": "به‌روزرسانی برنامه",
+    "updateAvailableTitle": "به‌روزرسانی موجود است",
+    "updateRequiredTitle": "به‌روزرسانی لازم است",
+    "updateAvailableDesc": "نسخه {{latest}} موجود است. شما روی {{current}} هستید.",
+    "updateRequiredDesc": "برای ادامه استفاده به نسخه {{latest}} به‌روزرسانی کنید.",
+    "updateNow": "هم‌اکنون به‌روزرسانی",
+    "viewUpdateDetails": "مشاهده جزئیات",
+    "remindInSettings": "در تنظیمات یادآوری کن"
   },
   "import": {
     "title": "نماز geçmişini içe aktar",
@@ -4027,5 +4039,45 @@
     "after1Min": "After 1 دقیقهute",
     "after5Min": "After 5 دقیقهutes",
     "footer": "آپ کا PIN اس ڈیوائس پر محفوظ ہے اور کبھی اس سے باہر نہیں جاتا۔"
+  },
+  "update": {
+    "title": "به‌روزرسانی موجود است",
+    "hardTitle": "به‌روزرسانی لازم است",
+    "availableBadge": "نسخه جدید",
+    "requiredBadge": "الزامی",
+    "yourVersion": "نسخه شما",
+    "latestVersion": "جدیدترین",
+    "body": "نسخه {{version}} با آخرین بهبودها و اصلاحات آماده است.",
+    "hardBody": "برای ادامه استفاده از برنامه به نسخه {{version}} به‌روزرسانی کنید.",
+    "hardNote": "برای ادامه، این به‌روزرسانی الزامی است.",
+    "updateButton": "هم‌اکنون به‌روزرسانی",
+    "webReloadButton": "بارگذاری مجدد",
+    "webSoftRefreshHint": "برای دریافت آخرین نسخه بارگذاری مجدد کنید. داده‌های شما روی همین دستگاه می‌ماند.",
+    "webHardRefreshHint": "«بارگذاری مجدد» بالا را بزنید. اگر این پیام ادامه داشت، صفحه را اجباری تازه کنید: Ctrl+Shift+R در Windows/Linux یا Cmd+Shift+R در macOS."
+  },
+  "reviews": {
+    "rateTitle": "از Munib Tracker لذت می‌برید؟",
+    "rateSubtitle": "بازخورد شما به مسلمانان دیگر کمک می‌کند این برنامه را بیابند.",
+    "starLabel": "{{count}} ستاره",
+    "starLabel_other": "{{count}} ستاره",
+    "storeTitle": "متشکریم!",
+    "storeBody": "مایلید Munib Tracker را در فروشگاه برنامه امتیاز دهید؟ فقط یک لحظه طول می‌کشد.",
+    "storeCta": "امتیاز در فروشگاه برنامه",
+    "maybeLater": "شاید بعداً",
+    "feedbackTitle": "به بهبود ما کمک کنید",
+    "feedbackBody": "متأسفیم Munib Tracker انتظارات شما را برآورده نکرد. چه کاری بهتر می‌توانیم انجام دهیم؟",
+    "feedbackPlaceholder": "بگویید چه اشتباهی بود یا چه چیزی کم است…",
+    "feedbackCta": "ارسال بازخورد",
+    "feedbackOffline": "برای ارسال بازخورد به اینترنت وصل شوید.",
+    "feedbackError": "بازخورد ارسال نشد. دوباره تلاش کنید.",
+    "skip": "رد کردن",
+    "thanksTitle": "متشکریم!",
+    "thanksBody": "حمایت شما برای ما ارزشمند است.",
+    "feedbackThanksTitle": "بازخورد دریافت شد",
+    "feedbackThanksBody": "از یادداشت‌های شما برای بهبود Munib Tracker استفاده می‌کنیم."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "عالی پیش می‌روید",
+    "reviewReactivationBody": "می‌خواهید تجربه‌تان با Munib Tracker را به اشتراک بگذارید؟"
   }
 }

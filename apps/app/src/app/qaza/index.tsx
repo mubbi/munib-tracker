@@ -19,6 +19,7 @@ import { StatPair } from "@/components/ui/stat-pair";
 import { Stepper } from "@/components/ui/stepper";
 import { WitrQazaInfo } from "@/components/witr-qaza-info";
 import { Radius, Spacing } from "@/constants/theme";
+import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
@@ -125,6 +126,7 @@ export default function QazaHomeScreen() {
         break;
       case "perform":
         void performQaza(pending.prayerId);
+        trackReviewInteraction("mark_qaza");
         break;
       case "resetPrayer":
         void resetQazaCounter(pending.prayerId);

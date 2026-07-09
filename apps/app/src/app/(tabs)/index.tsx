@@ -26,6 +26,8 @@ import { QuickActionGrid } from "@/components/ui/quick-action";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { MaxContentWidth, Radius, Spacing, type StatusKey } from "@/constants/theme";
+import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTrigger";
+import { useReviewStreakTrigger } from "@/features/reviews/hooks/useReviewStreakTrigger";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
@@ -113,6 +115,8 @@ export default function HomeScreen() {
   const hero = useHomeHero();
   const weather = useWeatherDisplay();
   useWeeklyReport();
+  useReviewRouteTrigger("home");
+  useReviewStreakTrigger(streak);
   const weatherSnapshot = useWeatherSnapshot();
   const { weatherPrefs, quickActionOrder, hiddenHomeModules } = usePreferences();
   const hiddenModules = new Set(hiddenHomeModules ?? []);

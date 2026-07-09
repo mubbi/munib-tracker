@@ -1,6 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { getDefaultConfig } = require("expo/metro-config");
+const { withSentryConfig } = require("@sentry/react-native/metro");
 
 const projectRoot = __dirname;
 const config = getDefaultConfig(projectRoot);
@@ -89,4 +90,6 @@ config.server.enhanceMiddleware = (middleware) => {
   };
 };
 
-module.exports = config;
+module.exports = withSentryConfig(config, {
+  autoWrapExpoRouterErrorBoundary: true,
+});

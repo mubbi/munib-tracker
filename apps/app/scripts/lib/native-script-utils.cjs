@@ -72,6 +72,30 @@ function runStep(label, command, args, options = {}) {
 }
 
 /**
+ * Stop Gradle daemons before deleting or regenerating apps/app/android.
+ * A running release build leaves the folder locked (EBUSY on Windows).
+ *
+ * @param {string} [appRoot]
+ */
+function stopGradleDaemon(appRoot = DEFAULT_APP_ROOT) {
+  if (process.platform !== "win32") {
+    return;
+  }
+
+  const gradlew = path.join(appRoot, "android", "gradlew.bat");
+  if (!fs.existsSync(gradlew)) {
+    return;
+  }
+
+  spawnSync(gradlew, ["--stop"], {
+    cwd: path.join(appRoot, "android"),
+    stdio: "ignore",
+    shell: true,
+    timeout: 30_000,
+  });
+}
+
+/**
  * Gradle daemon + parallel workers can OOM on Windows when many native C++ modules
  * compile alongside Kotlin/Java tasks. Lower heap/worker limits and stop stale daemons.
  *
@@ -98,14 +122,7 @@ function prepareWindowsAndroidBuild(appRoot = DEFAULT_APP_ROOT) {
   }
   fs.writeFileSync(gradlePropsPath, contents);
 
-  const gradlew = path.join(androidDir, "gradlew.bat");
-  if (fs.existsSync(gradlew)) {
-    spawnSync(gradlew, ["--stop"], {
-      cwd: androidDir,
-      stdio: "ignore",
-      shell: true,
-    });
-  }
+  stopGradleDaemon(appRoot);
 }
 
 /**
@@ -226,6 +243,7 @@ module.exports = {
   WINDOWS_GRADLE_PROPERTIES,
   runStep,
   clearMetroDiskCache,
+  stopGradleDaemon,
   prepareWindowsAndroidBuild,
   ensureAndroidDeviceReady,
   withAndroidNativeBuildEnv,

@@ -2,6 +2,7 @@ import { APP_NAME } from "@munib-tracker/shared/constants";
 import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
+import { AppUpdateSection } from "@/components/app-update/app-update-section";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
@@ -35,6 +36,8 @@ export default function SettingsScreen() {
     >
       <Seo path="/settings" />
       <View style={styles.stack}>
+        <AppUpdateSection />
+
         <Card padding="three">
           <View style={styles.group}>
             <SettingsRow

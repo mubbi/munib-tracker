@@ -1,5 +1,6 @@
 import type { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import {
+  AppVersionEntity,
   AuthSessionEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
@@ -13,6 +14,7 @@ const testEntities = [
   SyncRecordEntity,
   ContentReportEntity,
   ContentReportAttachmentEntity,
+  AppVersionEntity,
 ];
 
 /** Shared in-memory SQLite options for unit, e2e, and OpenAPI export runs. */

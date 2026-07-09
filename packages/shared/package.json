@@ -14,7 +14,9 @@
     "./content": "./src/content/index.ts",
     "./content-i18n": "./src/content/i18n/index.ts",
     "./i18n": "./src/i18n/index.ts",
-    "./achievements": "./src/achievements/index.ts"
+    "./achievements": "./src/achievements/index.ts",
+    "./reviews": "./src/reviews/index.ts",
+    "./reviews/dedupe.js": "./src/reviews/dedupe.ts"
   },
   "scripts": {
     "lint": "biome check .",

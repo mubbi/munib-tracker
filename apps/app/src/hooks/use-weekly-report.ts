@@ -1,3 +1,4 @@
+import { APP_FEEDBACK_TRIGGER_IDS } from "@munib-tracker/shared/reviews";
 import {
   buildWeeklyReport,
   getLocalDateString,
@@ -9,6 +10,8 @@ import { useTranslation } from "react-i18next";
 import { PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
+import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeliverReviewReactivation";
+import { scheduleReviewTriggerFromWake } from "@/features/reviews/lib/reviewPendingTrigger";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 
 /**
@@ -52,6 +55,8 @@ export function useWeeklyReport(): void {
         }),
         route: "/statistics",
       });
+      void scheduleReviewTriggerFromWake(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
+      void maybeDeliverReviewReactivation(APP_FEEDBACK_TRIGGER_IDS.weekly_report);
     })();
     return () => {
       active = false;

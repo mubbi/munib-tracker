@@ -549,7 +549,19 @@
         "name": "আলী ইবনে আহমাদ মালা",
         "location": "আল-মসজিদুল হারাম"
       }
-    }
+    },
+    "rateApp": "Munib Tracker রেটিং দিন",
+    "rateAppDesc": "অ্যাপ স্টোরে আপনার অভিজ্ঞতা শেয়ার করুন",
+    "reviewReactivationEnabled": "অ্যাপ মতামতের অনুস্মারক",
+    "reviewReactivationEnabledDesc": "মাঝে মাঝে নরম অনুস্মারক অ্যাপে মতামত শেয়ার করতে — সরাসরি স্টোর রেটিংয়ের অনুরোধ নয়।",
+    "appUpdate": "অ্যাপ আপডেট",
+    "updateAvailableTitle": "আপডেট উপলব্ধ",
+    "updateRequiredTitle": "আপডেট প্রয়োজন",
+    "updateAvailableDesc": "সংস্করণ {{latest}} উপলব্ধ। আপনি {{current}}-এ আছেন।",
+    "updateRequiredDesc": "অ্যাপ ব্যবহার চালিয়ে যেতে সংস্করণ {{latest}}-এ আপডেট করুন।",
+    "updateNow": "এখনই আপডেট করুন",
+    "viewUpdateDetails": "বিবরণ দেখুন",
+    "remindInSettings": "সেটিংসে আমাকে মনে করিয়ে দিন"
   },
   "import": {
     "title": "prayer history আমদানি",
@@ -3943,5 +3955,46 @@
     "after1Min": "১ মিনিট পর",
     "after5Min": "৫ মিনিট পর",
     "footer": "আপনার PIN হয় stored securely এ এই ডিভাইস এবং never leaves it."
+  },
+  "update": {
+    "title": "আপডেট উপলব্ধ",
+    "hardTitle": "আপডেট প্রয়োজন",
+    "availableBadge": "নতুন সংস্করণ",
+    "requiredBadge": "প্রয়োজন",
+    "yourVersion": "আপনার সংস্করণ",
+    "latestVersion": "সর্বশেষ",
+    "body": "সংস্করণ {{version}} সর্বশেষ উন্নতি ও সংশোধন নিয়ে প্রস্তুত।",
+    "hardBody": "অ্যাপ ব্যবহার চালিয়ে যেতে সংস্করণ {{version}}-এ আপডেট করুন।",
+    "hardNote": "চালিয়ে যেতে এই আপডেট প্রয়োজন।",
+    "updateButton": "এখনই আপডেট করুন",
+    "webReloadButton": "পুনরায় লোড",
+    "webSoftRefreshHint": "সর্বশেষ সংস্করণ পেতে পুনরায় লোড করুন। আপনার ডেটা এই ডিভাইসেই থাকবে।",
+    "webHardRefreshHint": "উপরে «পুনরায় লোড» ট্যাপ করুন। এই বার্তা বারবার দেখালে জোর করে রিফ্রেশ করুন: Windows/Linux-এ Ctrl+Shift+R, অথবা macOS-এ Cmd+Shift+R।"
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker পছন্দ করছেন?",
+    "rateSubtitle": "আপনার মতামত অন্য মুসলমানদের এই অ্যাপ খুঁজে পেতে সাহায্য করে।",
+    "starLabel": "{{count}}টি তারা",
+    "starLabel_one": "১টি তারা",
+    "starLabel_other": "{{count}}টি তারা",
+    "storeTitle": "ধন্যবাদ!",
+    "storeBody": "অ্যাপ স্টোরে Munib Tracker-কে রেটিং দেবেন? মাত্র এক মুহূর্ত লাগবে।",
+    "storeCta": "অ্যাপ স্টোরে রেটিং দিন",
+    "maybeLater": "পরে হয়তো",
+    "feedbackTitle": "আমাদের উন্নতিতে সাহায্য করুন",
+    "feedbackBody": "দুঃখিত, Munib Tracker আপনার প্রত্যাশা পূরণ করতে পারেনি। আমরা কীভাবে ভালো করতে পারি?",
+    "feedbackPlaceholder": "কী ভুল হয়েছে বা কী কম আছে জানান…",
+    "feedbackCta": "মতামত পাঠান",
+    "feedbackOffline": "মতামত পাঠাতে ইন্টারনেটে সংযুক্ত হন।",
+    "feedbackError": "মতামত পাঠানো যায়নি। আবার চেষ্টা করুন।",
+    "skip": "এড়িয়ে যান",
+    "thanksTitle": "ধন্যবাদ!",
+    "thanksBody": "আপনার সমর্থন আমাদের কাছে অনেক মূল্যবান।",
+    "feedbackThanksTitle": "মতামত গ্রহণ হয়েছে",
+    "feedbackThanksBody": "আমরা আপনার মতামত দিয়ে Munib Tracker উন্নত করব।"
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "আপনি দারুণ করছেন",
+    "reviewReactivationBody": "Munib Tracker নিয়ে আপনার অভিজ্ঞতা শেয়ার করতে চান?"
   }
 }
