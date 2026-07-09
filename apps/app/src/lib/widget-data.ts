@@ -8,7 +8,7 @@ import { formatPrayerTime, nextPrayer, PRAYER_SLOT_ORDER } from "./prayer-times"
  * Home-screen widget + Live Activity data (NF-1.18 / NF-1.19). Computed entirely
  * on-device from the `adhan` engine + stored location — no network. The native
  * WidgetKit / App Widget / ActivityKit targets read this precomputed JSON from
- * the shared app group (see `docs/NATIVE_WIDGETS.md`); this module is the single
+ * the shared app group (see `docs/NATIVE_SURFACES.md`); this module is the single
  * source of truth for what they show, so the widget and the in-app hero never
  * disagree.
  */

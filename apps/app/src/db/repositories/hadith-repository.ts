@@ -1,6 +1,6 @@
 import type { HadithCollectionData, HadithItem } from "@munib-tracker/shared/types";
 
-import { getBundledCollectionData } from "@/lib/hadith";
+import { getBundledCollectionData } from "@/lib/hadith-bundled";
 
 import { createId } from "../id";
 import { DB_KEYS } from "../keys";

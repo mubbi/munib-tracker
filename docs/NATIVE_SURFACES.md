@@ -40,7 +40,20 @@ originally in this file for widgets (NF-1.18 / NF-1.19).
 ## Live Activities (NF-1.19)
 
 Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Notifications → Live Activity**.
-See `src/lib/live-activity/` and `PrayerLiveActivity.swift`.
+
+| Layer | Path |
+|-------|------|
+| Shared attributes | `modules/munib-live-activity/ios/PrayerActivityAttributes.swift` **and** `targets/munib-tracker-widgets/PrayerActivityAttributes.swift` (byte-for-byte identical) |
+| Native control | `modules/munib-live-activity/ios/MunibLiveActivityModule.swift` |
+| SwiftUI UI | `targets/munib-tracker-widgets/PrayerLiveActivity.swift` |
+| JS bridge | `src/lib/live-activity/` — `syncLiveActivity()` after each widget snapshot write |
+| Preference | `UserPreferences.liveActivityEnabled` (default off) |
+
+**Flow:** snapshot refresh → `syncLiveActivity()` starts/updates/ends activity. `staleDate` = next prayer; views use `Text(timerInterval:)` for ticking countdown.
+
+**Requirements:** iOS **16.2+**; `NSSupportsLiveActivities: true`; EAS dev/production build (not Expo Go).
+
+**Attributes duplication:** ActivityKit matches by attributes type + Codable shape in both main app and widget extension — change both files together.
 
 ## Siri & Assistant (NF-2.15)
 
@@ -96,5 +109,6 @@ Set `EXPO_APPLE_TEAM_ID` for iOS extensions. App Group: `group.com.munibtracker.
 
 ## Related
 
-- Widget-only historical notes: [`NATIVE_WIDGETS.md`](./NATIVE_WIDGETS.md) (superseded by this doc for new work)
-- Roadmap: [`NEW_FEATURES_TODO.md`](./NEW_FEATURES_TODO.md) NF-2.14 / NF-2.15
+- Shipped features: [`FEATURES.md`](./FEATURES.md) NF-1.18 / NF-1.19 / NF-2.14 / NF-2.15
+- Device support: [`DEVICES.md`](./DEVICES.md)
+- Doc index: [`README.md`](./README.md)

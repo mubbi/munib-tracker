@@ -4,7 +4,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 
 ## Internationalization & Islamic terminology (READ BEFORE ADDING ANY SCREEN, COMPONENT, OR CONTENT)
 
-The app ships **23 locales** (`en` + 22 translations). Phase 1 (`en`, `ar`, `ur`) is human-reviewed; Phase 2–4 have key parity with English. Full workflows: [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md) · status: [`docs/TRANSLATIONS_STATUS.md`](../../docs/TRANSLATIONS_STATUS.md).
+The app ships **23 locales** (`en` + 22 translations). Phase 1 (`en`, `ar`, `ur`) is human-reviewed; Phase 2–4 have key parity with English. Full guide: [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md) · backlog: [`docs/BACKLOG.md`](../../docs/BACKLOG.md).
 
 Every new feature or content update MUST follow these rules. They are enforced by `src/i18n/i18n-guard.test.ts` and `plural-audit.test.ts` (runs in `pnpm test` / CI). Run locally after any UI or catalog change:
 

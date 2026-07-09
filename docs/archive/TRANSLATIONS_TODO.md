@@ -1,6 +1,6 @@
 # Claude Code Prompt — Internationalize Munib Tracker for Global Muslim Audience
 
-> **Status (2026-07-09):** All four phases **shipped** — 23 locales live with UI key parity. Phase 1 (`en`/`ar`/`ur`) is human-reviewed; Phase 2–4 vary in native quality. **Do not re-run bulk machine translation.** For day-to-day work use [`I18N_GUIDE.md`](I18N_GUIDE.md) and [`TRANSLATIONS_STATUS.md`](TRANSLATIONS_STATUS.md). The spec below remains the quality bar for future polish and new locales.
+> **Status (2026-07-09):** All four phases **shipped**. For current ops see [`../I18N_GUIDE.md`](../I18N_GUIDE.md). Archived spec below.
 
 You are a Staff Software Engineer, Senior React Native/Expo Engineer, Senior i18n Engineer, Senior UX Localization Specialist, and an Islamic content localization expert.
 

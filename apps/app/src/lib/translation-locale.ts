@@ -33,7 +33,7 @@ export function isBundledQuranEdition(editionId: string): boolean {
  * Resolves the display translation for a dua/zikr/durud/name item against the
  * user's `translationLocale`. Falls back to the item's English `translation`
  * when no dataset-sourced translation exists for that locale — never
- * generates or paraphrases (see the Critical Rule in docs/TRANSLATIONS_TODO.md).
+ * generates or paraphrases (see the Critical Rule in docs/I18N_GUIDE.md).
  */
 export function resolveTranslationField<T extends { translation: string; translations?: unknown }>(
   item: T,

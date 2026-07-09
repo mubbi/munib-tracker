@@ -1,6 +1,6 @@
 # Device & platform support
 
-Reference for which devices Munib Tracker supports today, which are out of scope, and what work is needed to expand coverage.
+Reference for supported devices, out-of-scope platforms, and expansion roadmap. **Open tasks:** [`BACKLOG.md`](./BACKLOG.md#device-platforms).
 
 Related docs:
 
@@ -112,7 +112,7 @@ Action items if expanding device support. Check off as shipped.
 - [ ] Manual QA matrix from [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) (schedule sync, mark on phone, location-denied state)
 - [ ] Store listing copy mentions watch/tile support where relevant
 
-**Already shipped:** NF-2.14 (`targets/munib-tracker-watch`, `withWearOs.cjs`). See [`NEW_FEATURES_TODO.md`](./NEW_FEATURES_TODO.md).
+**Already shipped:** NF-2.14 — see [`FEATURES.md`](./FEATURES.md) and [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md).
 
 ---
 

@@ -70,7 +70,18 @@ Religious content (Qur'an, hadith, adhkar, duas, 99 Names, audio) is **sourced f
 
 ## Docs
 
-Planning + reference lives in [`docs/`](docs/): [`TODO.md`](docs/TODO.md) (phased PRD baseline), [`NEW_FEATURES_TODO.md`](docs/NEW_FEATURES_TODO.md) (active roadmap / NF-* backlog), [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) + [`TRANSLATIONS_STATUS.md`](docs/TRANSLATIONS_STATUS.md) (23-locale i18n ops & coverage), [`DATA_INGESTION_TODO.md`](docs/DATA_INGESTION_TODO.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) (content sourcing), [`PROFILING_TODO.md`](docs/PROFILING_TODO.md) (bundle / startup profiling + optimization backlog).
+Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](docs/README.md):
+
+| Doc | Role |
+|-----|------|
+| [`BACKLOG.md`](docs/BACKLOG.md) | Active open work (product, i18n, perf, devices) |
+| [`FEATURES.md`](docs/FEATURES.md) | Shipped NF-* feature catalog |
+| [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) | 23-locale i18n ops, status, scripture rules |
+| [`DATA_INGESTION.md`](docs/DATA_INGESTION.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) | Content pipeline & OSS sources |
+| [`PROFILING.md`](docs/PROFILING.md) | Bundle / startup optimization backlog |
+| [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md) | Widgets, Live Activities, Siri, Watch, Wear |
+
+Historical PRD and NF flows: [`docs/archive/`](docs/archive/).
 
 ## AI skills (installed via `pnpm dlx skills add`)
 

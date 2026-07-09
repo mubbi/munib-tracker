@@ -86,6 +86,6 @@ pnpm --filter api check-types
 
 ## Related docs
 
-- [docs/TODO.md](../../docs/TODO.md) — Phase 8 (auth + cloud sync)
+- [docs/TODO.md](../../docs/archive/TODO.md) — Phase 8 (auth + cloud sync) — historical
 - [.agents/skills/nestjs/SKILL.md](../../.agents/skills/nestjs/SKILL.md) — official NestJS guides (read before implementing API features)
 - [NestJS docs online](https://docs.nestjs.com/first-steps)

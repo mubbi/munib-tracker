@@ -32,7 +32,7 @@ Bundled religious content lives under [`assets/data/`](assets/data) and is **gen
 pnpm --filter app build:data   # adhkar, duas, 99 Names, Qur'an, hadith highlights + manifest.json
 ```
 
-Content is sourced from open datasets, never hand-written. See [`docs/DATA_INGESTION_TODO.md`](../../docs/DATA_INGESTION_TODO.md) and [`docs/FREE_OPEN_SOURCE_DATA.md`](../../docs/FREE_OPEN_SOURCE_DATA.md).
+Content is sourced from open datasets, never hand-written. See [`docs/DATA_INGESTION.md`](../../docs/DATA_INGESTION.md) and [`docs/FREE_OPEN_SOURCE_DATA.md`](../../docs/FREE_OPEN_SOURCE_DATA.md).
 
 ## Architecture at a glance
 

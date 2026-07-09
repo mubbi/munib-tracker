@@ -1,6 +1,37 @@
 # Internationalization guide (Munib Tracker)
 
-Operational reference for **23 app locales** (`en` + 22 translations). For coverage tables and backlog, see [`TRANSLATIONS_STATUS.md`](TRANSLATIONS_STATUS.md). For the original quality bar and religious-text rules, see [`TRANSLATIONS_TODO.md`](TRANSLATIONS_TODO.md).
+**Single reference** for **23 app locales** (`en` + 22 translations): architecture, status, workflows, scripture rules, and backlog.
+
+**Last updated:** 2026-07-09 · **Backlog:** [`BACKLOG.md`](./BACKLOG.md#internationalization)
+
+---
+
+## Status summary
+
+| Phase | Locales | UI catalog | Learn overlays | Scripture | Status |
+|-------|---------|------------|----------------|-----------|--------|
+| 1 | `en`, `ar`, `ur` | Human-reviewed | Complete | Full | **Shipped** |
+| 2 | `id`, `tr`, `bn`, `ms`, `fa` | Key parity + polish | 12 modules each | `bn`/`id`/`ms` partial+ | **Shipped** |
+| 3 | `fr`, `ha`, `sw`, `ru`, `az`, `ps` | Key parity + polish | Native overlays | `fr`/`ru` hadith remote | **Shipped** |
+| 4 | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Key parity + polish | Native overlays | English fallback | **Shipped** |
+
+**CI:** App i18n **152/152** tests · Shared overlay coverage ≥90% · SEO **22×114** routes · ICU plural audit for `ar`/`ru`/`bn`.
+
+### Recent work (2026-07)
+
+| Area | Done |
+|------|------|
+| **Bengali Hisnul** | ThelightHub `dua-api` (~128/270 duas) in `build-adhkar.mjs` |
+| **Hadith OSS** | Remote editions for `ur`, `id`, `tr`, `bn`, `fr`, `ru`; `resolveHadithTranslation()` |
+| **ICU plurals** | `plural-audit.test.ts`; `_few`/`_many` for `ru` |
+| **Web hreflang** | Locale-prefixed URLs, static HTML copies, router bootstrap |
+| **Russian UI** | Runglish removed via `catalog-overrides/ru.json` |
+| **UI polish** | **731** curated patches in `ui-polish-patches.json` (19 locales) |
+| **Garbled locales** | `az`, `ps`, `so`, `uz`, `tg` reset to clean English — native polish backlog |
+
+**RTL:** `ar`, `ur`, `fa`, `ps`, `ku` — `apps/app/src/lib/i18n/rtl-locale.ts`.
+
+**Scripture bundled (`scriptureSupported: true`):** `en`, `ar`, `ur`, `bn`, `id`, `ms`, `fr`.
 
 ---
 
@@ -23,21 +54,6 @@ Operational reference for **23 app locales** (`en` + 22 translations). For cover
 
 ---
 
-## Locales (phases)
-
-| Phase | Locales | UI quality expectation |
-|-------|---------|------------------------|
-| 1 | `en`, `ar`, `ur` | Human-reviewed; `i18n-guard` enforces no Latin leakage in `ar`/`ur` |
-| 2 | `id`, `tr`, `bn`, `ms`, `fa` | Key parity; native polish for high-traffic screens |
-| 3 | `fr`, `ha`, `sw`, `ru`, `az`, `ps` | Key parity; `ru` Runglish cleaned (2026-07-09) |
-| 4 | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Key parity; some catalogs use clean English fallback where auto-translate was garbled |
-
-**RTL:** `ar`, `ur`, `fa`, `ps`, `ku` — see `apps/app/src/lib/i18n/rtl-locale.ts`.
-
-**Scripture bundled (`scriptureSupported: true`):** `en`, `ar`, `ur`, `bn`, `id`, `ms`, `fr`.
-
----
-
 ## Adding or changing UI strings
 
 ### 1. Author English first
@@ -50,8 +66,6 @@ Add keys to `apps/app/src/i18n/en.json` under the correct namespace. Follow Isla
 node apps/app/scripts/i18n/merge-missing-keys.mjs
 ```
 
-Copies missing keys from `en.json` into every other locale (English fallback until translated).
-
 ### 3. Translate
 
 **Phase 1 (`ar`, `ur`):** Edit `{locale}.json` directly — must pass Latin-leakage guard.
@@ -62,15 +76,11 @@ Copies missing keys from `en.json` into every other locale (English fallback unt
 node apps/app/scripts/i18n/apply-ui-polish.mjs [locale...]
 ```
 
-For bulk native labels, add `{ "locale.key": "Native text" }` entries to `ui-polish-patches.json` (preserve `{{variables}}` exactly).
-
 ### 4. Verify
 
 ```bash
 pnpm --filter app test -- i18n
 ```
-
-Tests: key parity, duplicate keys, terminology in English source, interpolation match, Phase-1 Latin leakage, ICU plurals (`ar`, `ru`, `bn`).
 
 ### 5. Audit English-identical strings (optional)
 
@@ -78,7 +88,7 @@ Tests: key parity, duplicate keys, terminology in English source, interpolation 
 node apps/app/scripts/i18n/audit-en-identical.mjs [locale...]
 ```
 
-Many identical values are intentional (brands, `Munib Tracker`, `App Store`, Arabic dua text, loanwords like Salah/Ramadan).
+Intentional English-identical values: brands, store names, Arabic brand dua, Islamic loanwords (`Salah`, `Qaza`, `Ramadan`).
 
 ---
 
@@ -92,24 +102,17 @@ English uses `_one` / `_other`. Locales with richer CLDR categories need extra s
 | `ru` | `_few`, `_many` |
 | `bn` | `_one`, `_other` (audit ensures coverage) |
 
-Enforced by `apps/app/src/i18n/plural-audit.test.ts`. When adding a new plural stem in `en.json`, add all required suffixes for `ar`, `ru`, and `bn`.
+Enforced by `apps/app/src/i18n/plural-audit.test.ts`.
 
 ---
 
 ## Fixing bad auto-translations
 
-Two repair paths:
-
 | Script | When to use |
 |--------|-------------|
-| `sanitize-corrupted-catalog.mjs <loc>` | Values contain `MYMEMORY WARNING` — resets to English |
-| `fix-runglish-catalog.mjs <loc>` | Mixed-script / Runglish corruption (`pryer`, `Trcker`, etc.) — uses `catalog-overrides/{loc}.json` if present, else English |
-
-```bash
-node apps/app/scripts/i18n/fix-placeholders.mjs      # broken {{interpolation}}
-node apps/app/scripts/i18n/sanitize-corrupted-catalog.mjs az
-node apps/app/scripts/i18n/fix-runglish-catalog.mjs ru   # uses catalog-overrides/ru.json
-```
+| `sanitize-corrupted-catalog.mjs <loc>` | Values contain `MYMEMORY WARNING` |
+| `fix-runglish-catalog.mjs <loc>` | Mixed-script / Runglish — uses `catalog-overrides/{loc}.json` |
+| `fix-placeholders.mjs` | Broken `{{interpolation}}` |
 
 **Do not** hand-translate Qur'an, hadith, or dua *body text* in JSON catalogs — only UI chrome.
 
@@ -117,34 +120,28 @@ node apps/app/scripts/i18n/fix-runglish-catalog.mjs ru   # uses catalog-override
 
 ## Scripture & build-data
 
-Regenerate bundled content after changing `apps/app/scripts/build-data/`:
-
 ```bash
 pnpm --filter app build:data
-# or partial: node apps/app/scripts/build-data/index.mjs adhkar
 ```
 
-| Content | Bundled translations | Source |
-|---------|---------------------|--------|
+| Content | Bundled / remote | Source |
+|---------|------------------|--------|
 | **Qur'an** | All 23 locales | `quran-edition-defs.json` → fawazahmed0 |
-| **Dua/zikr/durood** | `bn` (~128/270 via API match), `id` (fitrahive subset), Qur'anic duas for 20 locales | `build-adhkar.mjs` |
-| **Hadith (remote)** | `ur`, `id`, `tr`, `bn`, `fr`, `ru` | `hadith-remote.ts` + fawazahmed0 editions |
-| **99 Names** | `id`, `ms`, `fr`, `ur`, `bn` | Multiple OSS APIs (see `FREE_OPEN_SOURCE_DATA.md`) |
+| **Dua/zikr** | `bn`, `id`, Qur'anic backfill for 20 locales | `build-adhkar.mjs` |
+| **Hadith (remote)** | `ur`, `id`, `tr`, `bn`, `fr`, `ru` | `hadith-remote.ts` |
+| **99 Names** | `id`, `ms`, `fr`, `ur`, `bn` | Multiple OSS APIs — see [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |
 
-**Runtime resolution:** `resolveTranslationField()` for dua/zikr; `useHadithTranslation()` / `resolveHadithTranslation()` for hadith; cache key includes `translationLocale`.
-
-**Blocked without new OSS data:** Full Hisnul for `ur`, `tr`, `fr`, `ms`, `fa`, etc. — English fallback at runtime. Do not AI-generate scripture.
+**Blocked without new OSS:** Full Hisnul for `ur`, `tr`, `fr`, etc. — English fallback at runtime.
 
 ---
 
 ## Learn module overlays
 
-English base: `packages/shared/src/content/*.ts`. Per-locale overlays: `packages/shared/src/content/i18n/*.{locale}.ts`.
+English base: `packages/shared/src/content/*.ts`. Per-locale: `packages/shared/src/content/i18n/*.{locale}.ts`.
 
 ```bash
 node packages/shared/scripts/clone-overlay-seed.mjs --restore-all
-node packages/shared/scripts/fix-overlay-quotes.mjs <file.ts>
-pnpm --filter @munib-tracker/shared test   # coverage.test.ts ≥90% non-English fill
+pnpm --filter @munib-tracker/shared test   # coverage.test.ts ≥90%
 ```
 
 Literary QA is manual; coverage test only checks string presence vs English.
@@ -155,13 +152,10 @@ Literary QA is manual; coverage test only checks string presence vs English.
 
 | Piece | Path |
 |-------|------|
-| Route metadata (English base) | `apps/app/src/config/seo-routes.data.json` |
+| Route metadata (English) | `apps/app/src/config/seo-routes.data.json` |
 | Per-locale SEO copy | `apps/app/scripts/i18n/seo-translations/{locale}.mjs` |
 | Generated locale JSON | `apps/app/src/config/seo-routes-locale/*.json` |
-| hreflang + canonical | `apps/app/src/components/seo/seo.tsx`, `src/config/seo.ts` |
-| Locale-prefixed paths | `apps/app/src/lib/locale-path.ts` |
-| Static export copies | `apps/app/scripts/inject-seo-head.mjs` |
-| Client boot (strip prefix) | `apps/app/src/app/+html.tsx`, `locale-path-bootstrap.tsx` |
+| hreflang + canonical | `apps/app/src/components/seo/seo.tsx` |
 
 ```bash
 node apps/app/scripts/i18n/generate-seo-locale-files.mjs
@@ -175,10 +169,10 @@ node apps/app/scripts/i18n/apply-seo-translations.mjs all
 1. Add entry to `packages/shared/src/i18n/locale-registry.ts` and `app-locale.ts`.
 2. Create `apps/app/src/i18n/{code}.json` via `merge-missing-keys.mjs`.
 3. Add flag SVG under `apps/app/assets/flags/` (`generate-flags.mjs`).
-4. Add SEO overlay `seo-translations/{code}.mjs` + run apply-seo-translations.
-5. Add learn overlays for all 12 modules (or seed + translate).
+4. Add SEO overlay + run apply-seo-translations.
+5. Add learn overlays for all 12 modules.
 6. Wire Qur'an edition in registry if fawazahmed0 has one.
-7. If hadith translation exists on fawazahmed0, add to `hadith-editions.ts`.
+7. If hadith translation exists, add to `hadith-editions.ts`.
 8. Run full i18n + shared tests; device QA for script/font/RTL.
 
 ---
@@ -190,32 +184,53 @@ node apps/app/scripts/i18n/apply-seo-translations.mjs all
 | `merge-missing-keys.mjs` | Sync new `en.json` keys → all locales |
 | `fix-placeholders.mjs` | Repair corrupted `{{…}}` tokens |
 | `sanitize-corrupted-catalog.mjs` | Strip MyMemory rate-limit strings |
-| `fix-runglish-catalog.mjs` | Repair garbled auto-translate (optional `catalog-overrides/`) |
+| `fix-runglish-catalog.mjs` | Repair garbled auto-translate |
 | `apply-ui-polish.mjs` | Apply `ui-polish-patches.json` |
 | `audit-en-identical.mjs` | Count English-identical values per locale |
 | `generate-flags.mjs` | Scaffold missing flag assets |
-| `generate-seo-locale-files.mjs` | Scaffold SEO locale JSON from English |
+| `generate-seo-locale-files.mjs` | Scaffold SEO locale JSON |
 | `apply-seo-translations.mjs` | Merge SEO marketing copy |
 
 ---
 
-## Recommended next work
+## Islamic terminology (UI copy)
 
-| Priority | Task | How |
-|----------|------|-----|
-| P1 | Native UI for `az`, `ps`, `so`, `uz`, `tg` high-traffic screens | Expand `ui-polish-patches.json`; avoid re-running bad auto-translate |
-| P2 | Full Hisnul for `ur`/`tr`/`fr` | Source OSS corpus first; extend `build-adhkar.mjs` — no AI |
-| P3 | Bengali dua coverage (~128/270 → higher) | Improve Arabic prefix matching in `build-adhkar.mjs` |
-| P4 | Literary review of learn overlays | Human pass on `packages/shared/src/content/i18n/` |
-| P5 | Bundle size | Profile 23 Qur'an editions; consider phased download |
-| P6 | Per-locale device QA | Language picker, RTL, fonts, notifications, widgets |
+Do **not** over-translate core terms. Use wording natural to Muslims in each language. Canonical English spellings: **Salah**, **Zikr** / **Adhkar**, **Adhan**, **Qaza**, **Dua**, **Tasbeeh**, prayer names (Fajr, Dhuhr, …), **Ramadan**, **Jumu'ah**, etc. See [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) banned-term list.
+
+Tone: respectful, warm, concise — never robotic or literal word-for-word where an established Islamic term exists.
+
+Preserve every `{{placeholder}}` and ICU plural suffix exactly across locales.
+
+---
+
+## Critical rule — scripture translations
+
+Religious texts **must never** be translated manually, paraphrased, rewritten, or generated by AI.
+
+**Always reuse** open-source datasets integrated via `build-data` and `translation-locale.ts`:
+
+- Qur'an translations · Hadith translations · Dua/zikr/adhkar · Prophetic supplications
+
+**Never:** create new verse/hadith/dua translations · paraphrase · simplify · use LLM output for scripture.
+
+**If a locale has no OSS translation:** do not fabricate — leave English fallback and report the gap in [`BACKLOG.md`](./BACKLOG.md).
+
+**UI chrome** (buttons, settings, notifications, tracker labels) may be translated normally.
+
+Enforced in code comments (`translation-locale.ts`) and `i18n-guard.test.ts` for English source terminology.
 
 ---
 
 ## CI commands
 
 ```bash
-pnpm --filter app test -- i18n              # parity, guard, plurals, duplicates
-pnpm --filter @munib-tracker/shared test    # overlay coverage
-pnpm check:quick                            # lint + typecheck (repo root)
+pnpm --filter app test -- i18n
+pnpm --filter @munib-tracker/shared test
+pnpm check:quick
 ```
+
+---
+
+## Historical note
+
+Global i18n expansion (Phases 2–4) shipped 2026-07. Original agent spec archived at [`archive/TRANSLATIONS_TODO.md`](./archive/TRANSLATIONS_TODO.md).

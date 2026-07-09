@@ -1,35 +1,20 @@
-# Data Ingestion & Feature Completion TODO — Munib Tracker
+# Data ingestion guide — Munib Tracker
 
-> **Audience:** an AI coding agent (Claude Code) tasked with implementing this **end-to-end in one
-> pass**. This document contains **final, locked decisions** — do **not** re-open trade-offs.
-> Companion research/rationale lives in [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md);
-> read it only if you need the "why".
+> **Audience:** Developers and agents working on the **build-data pipeline** and bundled religious content.
 >
-> **Outcome:** the app ships with full Qur'an (reader + translations + transliteration + audio),
-> a Hadith library, complete Hisnul Muslim adhkar/duas, all 99 Names, and audio across every
-> content type — offline-first, cross-platform (iOS/Android/Web), with **zero new native modules**.
+> **Status (2026-07-05): ✅ Implemented.** Qur'an reader, Hadith library, full Hisnul Muslim duas, 99 Names, and `apps/app/scripts/build-data/` all ship. This doc records **architecture and operations** — not an active task list.
 >
-> **Status (2026-07-05): ✅ Implemented.** This plan has been executed. The Qur'an reader
-> (`app/quran/*`), Hadith library (`app/hadith/*`), full Hisnul Muslim duas, 99 Names, and the
-> build-data pipeline (`apps/app/scripts/build-data/`, bundled assets under
-> `apps/app/assets/data/`) all exist. Kept as the record of *why* the architecture is shaped this
-> way. For the shipped architecture see the "Content library" project memory; for the forward
-> backlog (more editions/reciters, tafsir, Juz browser, download manager) see
-> [`NEW_FEATURES_TODO.md`](./NEW_FEATURES_TODO.md).
+> **Companion docs:** [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) (sources & licenses) · [`FEATURES.md`](./FEATURES.md) (shipped content features) · [`BACKLOG.md`](./BACKLOG.md) (open data work)
 
 ---
 
-## 0. How to execute this doc
+## 0. How to extend the pipeline
 
-1. **Read the Expo 57 docs first.** `apps/app/AGENTS.md` mandates it. Before writing any runtime
-   code, read the exact versioned docs at **https://docs.expo.dev/versions/v57.0.0/** — especially
-   **`expo-audio`** (SDK 57 replaced `expo-av`; the API is `createAudioPlayer` / `useAudioPlayer`).
-2. Work **top-to-bottom through §14 (Ordered task list)**. Each task has an acceptance check.
-3. After every phase, run the gates in **§13 (Definition of Done)**: `pnpm --filter app check-types`,
-   `pnpm --filter app lint` (biome), `pnpm --filter app test` (jest). Do not proceed on red.
-4. **Do not add native dependencies.** Everything here is achievable with what's already in
-   `apps/app/package.json`. See §2. If you believe a native dep is unavoidable, STOP and surface it.
-5. **Never alter Arabic text.** Preserve every diacritic byte-for-byte. See §2.
+1. **Read Expo SDK 57 docs** before runtime changes — especially `expo-audio`.
+2. **Regenerate bundled data** after script changes: `pnpm --filter app build:data`.
+3. Run gates: `pnpm --filter app check-types`, `pnpm format-and-lint:fix`, `pnpm --filter app test`.
+4. **Do not add native dependencies** for content ingestion.
+5. **Never alter Arabic text** byte-for-byte in source datasets.
 
 ### 0.1 Verified codebase facts (audited — build on these, don't re-discover)
 
@@ -520,37 +505,25 @@ Run from repo root (pnpm workspace):
 
 ## 14. Ordered task list (execute in this order)
 
-- [ ] **T0.** Read Expo v57 docs (esp. `expo-audio`). Confirm pnpm workspace commands.
-- [ ] **T1.** Add types: `packages/shared/src/types/{quran,hadith}.ts`; extend content types
+- [x] **T0.** Read Expo v57 docs (esp. `expo-audio`). Confirm pnpm workspace commands.
+- [x] **T1.** Add types: `packages/shared/src/types/{quran,hadith}.ts`; extend content types
       (optional fields); export from `types/index.ts`. `check-types` green.
-- [ ] **T2.** Scaffold `scripts/build-data/` (fetch+cache, schemas, manifest). Add npm script
+- [x] **T2.** Scaffold `scripts/build-data/` (fetch+cache, schemas, manifest). Add npm script
       `build:data`. `.cache/` gitignored.
-- [ ] **T3.** **Phase 1 content (D7/D8):** `build-adhkar.mjs` + `build-names.mjs` → regenerate
+- [x] **T3.** **Phase 1 content (D7/D8):** `build-adhkar.mjs` + `build-names.mjs` → regenerate
       `content/{duas,zikr,duroods,names}.ts`, bump versions. Extend content tests. Gates green.
-      *(App's existing screens now show full sets — verify.)*
-- [ ] **T4.** `build-quran.mjs` (D1) → `apps/app/assets/data/quran/*` + generated `src/lib/quran-loader.ts`
+- [x] **T4.** `build-quran.mjs` (D1) → `apps/app/assets/data/quran/*` + generated `src/lib/quran-loader.ts`
       (literal relative `require()`s). Validate 114/6236. Manifest updated.
-- [ ] **T5.** `src/lib/quran.ts` selectors + `src/db/repositories/{quran-repository,quran-cache-repository}.ts` +
-      `stores/quran-store.ts` + `DB_KEYS` additions + `resetDatabase()` registration + load store in
-      `AppProviders`. Unit tests for loader/selectors.
-- [ ] **T6.** Qur'an screens `src/app/quran/*` (list, reader, bookmarks) using
-      `ScreenLayout`/`Card`/`EmptyState`; i18n keys in `{en,ar,ur}.json`; RTL verified. Offline render works.
-- [ ] **T7.** Qur'an audio (D3/D4): `src/lib/quran-audio.ts` builds `AudioTrack[]`; wire the reader's
-      play buttons to **`useAudioPlayerContext().play(...)`** (NO new hook); highlight current ayah via
-      `context.current?.id`. `audioSpeed` already handled.
-- [ ] **T8.** Qur'an remote enrichment (D2): `api/quran-remote.ts` + `use-quran.ts` (`useQuery`,
-      `offlineFirst`, cache-first via `quran-cache-repository`); translation picker in reader + Settings.
-- [ ] **T9.** **Hadith (D5/D6):** `build-hadith-highlights.mjs` → `apps/app/assets/data/hadith/*`;
-      `lib/hadith.ts`, `api/hadith-remote.ts`, `use-hadith.ts` (cache-first), repo + screens
-      `src/app/hadith/*`; reference + grade always shown. Offline highlights work.
-- [ ] **T10.** Audio for adhkar/names/adhan (D9/D11): `src/lib/audio-tracks.ts` builders, wire play
-      buttons to `useAudioPlayerContext()`, bundle adhan MP3(s) under `apps/app/assets/audio/adhan/`.
-- [ ] **T11.** Credits screen (§11) + Settings link + manifest-driven list.
-- [ ] **T12.** Navigation: add `quran` + `hadith` `QuickActionItem`s to the `quickActions` array in
-      `src/app/(tabs)/index.tsx`; add `actions.quran`/`actions.hadith` + all new namespaces in
-      `{en,ar,ur}.json`.
-- [ ] **T13.** Full DoD sweep (§13): types, lint, tests, offline smoke, native-dep guard. Fix reds.
-- [ ] **T14.** Commit generated data + code. Update `README`/`FREE_OPEN_SOURCE_DATA.md` "status" note.
+- [x] **T5.** `src/lib/quran.ts` selectors + repositories + `quran-store.ts` + `DB_KEYS` + tests.
+- [x] **T6.** Qur'an screens `src/app/quran/*` — list, reader, bookmarks, mushaf pages.
+- [x] **T7.** Qur'an audio via `useAudioPlayerContext().play(...)`.
+- [x] **T8.** Qur'an remote enrichment + cache-first editions.
+- [x] **T9.** Hadith highlights + remote collections + screens.
+- [x] **T10.** Audio for adhkar/names/adhan builders.
+- [x] **T11.** Credits screen + manifest-driven list.
+- [x] **T12.** Navigation quick actions + i18n namespaces.
+- [x] **T13.** Full DoD sweep — types, lint, tests, offline smoke.
+- [x] **T14.** Generated data committed; sourcing doc updated.
 
 ---
 

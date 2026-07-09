@@ -441,7 +441,7 @@ translation/reciter, and add the Credits screen.
 
 ## Implementation status (data ingestion)
 
-Implemented per `DATA_INGESTION_TODO.md` — all §13 gates green (types, biome, jest+vitest):
+Implemented per `DATA_INGESTION.md` — all §13 gates green (types, biome, jest+vitest):
 
 - **Qur'an core (bundled, offline):** Arabic (Uthmani) + English transliteration + Pickthall +
   Yusuf Ali + Jalandhry (Urdu), validated at 114 surahs / 6236 ayahs. Assets under

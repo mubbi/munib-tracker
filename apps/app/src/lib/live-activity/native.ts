@@ -7,7 +7,7 @@ import type { LiveActivityState } from "@/lib/live-activity/state";
  * Optional native interface backed by the local Expo module in
  * `modules/munib-live-activity` (iOS ActivityKit). It is `null` on Android, web,
  * and Expo Go — every caller must tolerate that and no-op. See
- * `docs/NATIVE_WIDGETS.md`.
+ * `docs/NATIVE_SURFACES.md`.
  */
 interface LiveActivityNativeModule {
   /** iOS 16.1+ AND the user has Live Activities enabled for the app. */

@@ -1,6 +1,6 @@
-# Munib Tracker — Profiling Results & Optimization TODO
+# Munib Tracker — Profiling & optimization
 
-> **Purpose:** Record the **2026-07-08** local profile of `apps/app` (Expo SDK 57) and turn it into an actionable backlog. Use this when deciding whether to add route/component lazy loading, shrink download / parse cost, or leave the single-bundle shell alone.
+> **Purpose:** 2026-07-08 profile of `apps/app` + actionable performance backlog. **Active tasks:** [`BACKLOG.md`](./BACKLOG.md#performance).
 >
 > **Apps covered:** `apps/app` (iOS / Android / Web). Marketing site and API are out of scope.
 >
@@ -289,8 +289,9 @@ These are **goals**, not CI gates yet — set hard budgets once P2.1–P2.3 base
 ## 8. Related docs
 
 - [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) — bundle vs CDN policy for religious data  
-- [`DATA_INGESTION_TODO.md`](./DATA_INGESTION_TODO.md) — content pipeline  
-- [`TODO.md`](./TODO.md) / [`NEW_FEATURES_TODO.md`](./NEW_FEATURES_TODO.md) — product roadmap (orthogonal; this file is performance-only)  
+- [`DATA_INGESTION.md`](./DATA_INGESTION.md) — content pipeline  
+- [`FEATURES.md`](./FEATURES.md) / [`BACKLOG.md`](./BACKLOG.md) — product scope (this file is performance-only)  
+- [`README.md`](./README.md) — doc index
 - Expo: [Async routes](https://docs.expo.dev/router/web/async-routes/), [Metro bundle splitting](https://docs.expo.dev/versions/v57.0.0/config/metro/#bundle-splitting), [EAS Observe](https://docs.expo.dev/eas/observe/get-started/)
 
 ---
