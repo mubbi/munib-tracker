@@ -4,27 +4,27 @@
     {
       "id": "adhkar",
       "kind": "content",
-      "version": 6,
+      "version": 7,
       "files": [
         {
           "path": "../../packages/shared/src/content/duas.ts",
-          "sha256": "86b9eb4cd0dfa313443ed5c3eecc44ea07045c24b51c9c835f8a6cf132c914bb",
-          "bytes": 355103
+          "sha256": "434f53c04bb2c65dd45074ab2c4abb172e62d056cf4785e9087e53e18a1d4af9",
+          "bytes": 423199
         },
         {
           "path": "../../packages/shared/src/content/duroods.ts",
-          "sha256": "8182d94b74786142145dd587cb71b992e21cc0bb45505fb2387f77d845456b3b",
-          "bytes": 6054
+          "sha256": "cca1a307c249a05dd05edfeb84fb346e4045e3155b4c0839f94ee7d2fe4938ad",
+          "bytes": 7353
         },
         {
           "path": "../../packages/shared/src/content/zikr.ts",
-          "sha256": "9a6c1b18ec865cc5a936c11e7666903bc42f44a7fc1b09a9036bb24bdabacd04",
-          "bytes": 99413
+          "sha256": "1ccd483ce3c2d54b47b060f9af1ce3fed304cbd39f4903cb140a49b68b8aff57",
+          "bytes": 116775
         }
       ],
       "license": "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
-      "attribution": "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
-      "sourceUrl": "https://github.com/fitrahive/dua-dhikr"
+      "attribution": "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Bengali Hisnul translations from ThelightHub/dua-api (MIT, https://dua-api.hisnul.workers.dev). Indonesian subset from fitrahive/dua-dhikr. Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
+      "sourceUrl": "https://github.com/ThelightHub/dua-api"
     },
     {
       "id": "hadith-highlights",
@@ -55,16 +55,16 @@
     {
       "id": "names-99",
       "kind": "content",
-      "version": 4,
+      "version": 5,
       "files": [
         {
           "path": "../../packages/shared/src/content/names.ts",
-          "sha256": "20f6d95a9cb31acb9524ad29b19b6f3470bc07b281ad2edb0477720e5927528e",
-          "bytes": 42553
+          "sha256": "d33e56f51e37748f192687ebd2f5b931cd2f4f1de54b696fd55fdce6523db082",
+          "bytes": 50981
         }
       ],
       "license": "Text: public domain (classical). Audio: streamed, © reciter.",
-      "attribution": "Asma-ul-Husna — standard Tirmidhi enumeration. Audio via ProgrammerHasan/99-names-of-allah-audios.",
+      "attribution": "Asma-ul-Husna — standard Tirmidhi enumeration. Audio via ProgrammerHasan. id: olipiskandar gist; ms: adiman-dev/islamic-json; fr: KabDeveloper/99-Names-Of-Allah; ur/bn: asmaul-husna-api-coral.",
       "sourceUrl": "https://sunnah.com/tirmidhi:3507"
     },
     {
@@ -1214,13 +1214,583 @@
         },
         {
           "path": "assets/data/quran/meta.json",
-          "sha256": "a3180414cc8c90d8d982b189073eb82cb27da9cecfdeae23bab2b2dcedf87d37",
-          "bytes": 30636
+          "sha256": "a257b152fb3563ef2953d011e2942a48ebc2dac167be3f36026c5fe792db89b8",
+          "bytes": 30818
         },
         {
           "path": "assets/data/quran/pages/index.json",
           "sha256": "fab9378806f300ce727262f2d8dc0d3928a889b7feaa7b6bbce2c628f6ece014",
           "bytes": 40816
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/001.json",
+          "sha256": "598795255b9ec1573923cf940c7f00dda6b1fef54a9b68e839beaceb2031318d",
+          "bytes": 1574
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/002.json",
+          "sha256": "38a925be9cb25e504d060a69a186b63b854f2952f1b4e9823ce956b99199f369",
+          "bytes": 126685
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/003.json",
+          "sha256": "d8428e7bdd3fc69c06f0389e9600a636d588731a5d7713ba503d7cede27ce821",
+          "bytes": 69759
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/004.json",
+          "sha256": "76fb45a4bc56a6b772cccc50785b7bd2b46fbfada9331a21420c073854176443",
+          "bytes": 78375
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/005.json",
+          "sha256": "1ff011581f66427c19f951c76e0fe244c72712f7d512a4e1865110fa02b7e5db",
+          "bytes": 62699
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/006.json",
+          "sha256": "daaeea0cebf3ce8532a284da2d68f169931746131c61e12109c670f839a1ba84",
+          "bytes": 63877
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/007.json",
+          "sha256": "6c8e9acd92ae4c05b0c8864c6f0a1bbedcd107f96c34906dd781faf875ac9039",
+          "bytes": 76476
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/008.json",
+          "sha256": "255370f81dd861c1339c3b4fc9f99bb2af14df35706a34898579210aae318ea1",
+          "bytes": 28552
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/009.json",
+          "sha256": "a0a6315a327ae8b810f08f21ae6ea12531b6479a86917e066c846a602552ab4f",
+          "bytes": 56751
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/010.json",
+          "sha256": "e18b7ceb4eb44c8c8975aea80658417e7cb7d44ded289c16f008ef3ad0fadde1",
+          "bytes": 38064
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/011.json",
+          "sha256": "8b841edbe2077225f7ec31caac1ecc2052d0657880bb4813071f2ba66ddbf6a7",
+          "bytes": 44795
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/012.json",
+          "sha256": "3561ba34c281b0843fad2e200751bd383a130a4b40a04f9740058f99cd8a580f",
+          "bytes": 39531
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/013.json",
+          "sha256": "e3051820261f6d51c42d3822510867c8a00a8d35a20478b46367a175e616a4ef",
+          "bytes": 18310
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/014.json",
+          "sha256": "d0864d99949a8fc3a3df8fee833e9eef043b5826a65d06abae38fffadc7c653f",
+          "bytes": 18526
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/015.json",
+          "sha256": "3d5ae1c44bd2a05bf47e000db66ef6627990d763c179cf0d4612c1b720c98e93",
+          "bytes": 17278
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/016.json",
+          "sha256": "694623745fafad4f6df62c656240e8d2cbf65c9ba5519971e13b234ca02e49a0",
+          "bytes": 41847
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/017.json",
+          "sha256": "0cf8d5fb14cdab39ce40cb90fcb715ac6431c9e6d4141765deb002656c6bc29b",
+          "bytes": 39180
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/018.json",
+          "sha256": "462c4c5c55baefbd6fa030d360b70fde5b6eeb7c1afe570e55b7035d00ed93f5",
+          "bytes": 38854
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/019.json",
+          "sha256": "93832d63fe3bd72258e95a64d0a12680034283fb2c48ac7a38daaa6cea41fe23",
+          "bytes": 22642
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/020.json",
+          "sha256": "d7338f5f23d4012e8c280d72ca4db55806ddce3900193cf573c6ab118482c88d",
+          "bytes": 33033
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/021.json",
+          "sha256": "0e6300b84a35418de088c73a0778da3674934a96a1fc225dabd78e28012183ec",
+          "bytes": 30717
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/022.json",
+          "sha256": "42d2e1d47cb0ec13d67af61b20a1f5b2730c3a3b04eec6e36dd235ef9621c172",
+          "bytes": 32353
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/023.json",
+          "sha256": "44a449617c0581e7ef5c1601ac10ba738890e4508692e87fc1e3fa02ad696f32",
+          "bytes": 25998
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/024.json",
+          "sha256": "82356f01aa34fd50b01d995b6cf606ed345cee5f8d5e334a830ba7b76b68ed52",
+          "bytes": 31892
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/025.json",
+          "sha256": "55a16df9a931dfd94616a392a92154edec1e81c0d02ce5e8086b04d35e746d80",
+          "bytes": 22994
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/026.json",
+          "sha256": "1f44dda09da49fc58afc45e34084438361685e84f3b858ab6d09b051070998fd",
+          "bytes": 31395
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/027.json",
+          "sha256": "fe2eda8f9bb4597cacb6a77f2bde114df41103725343841f2f8c334e9cfd434e",
+          "bytes": 29156
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/028.json",
+          "sha256": "531414feb423b9303f3d008cece401da95fe8965b63206fdebf7360c88684c56",
+          "bytes": 33871
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/029.json",
+          "sha256": "c72345c50397786a8b7efbeb454720db9ff06c712eade9e8a12958f70ce64aec",
+          "bytes": 23371
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/030.json",
+          "sha256": "6851bee05283b14f3b11b31db2e43aafba6c56163502d6846b817721124dfd6f",
+          "bytes": 20075
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/031.json",
+          "sha256": "a6bbc8d243becc6c5d71985c66b723357ec72ae75a8e15b913fcbba54fe7cfc0",
+          "bytes": 12425
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/032.json",
+          "sha256": "fad630eafc2d764cc545caeb4911673ccf6a6e86f0516c0d9177358827d5a6f3",
+          "bytes": 8765
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/033.json",
+          "sha256": "cec77ffc2bf6aaf3ee168da3287be1b20e7bb933c476761986e68d9563690476",
+          "bytes": 35576
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/034.json",
+          "sha256": "b7ac3d67ca8f6d8a9fd127791c9f5c7e4a7aef566d0f8d5ef27bf3ca84fa7db6",
+          "bytes": 22876
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/035.json",
+          "sha256": "41bec85af5adf8053922ec967548515ab244a2923d299554c1a93d84fbd0f236",
+          "bytes": 18389
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/036.json",
+          "sha256": "b3548fd9776d1d33e37daf7f0b9a44ca1d266973ddbe6ed3fc40b62946b58358",
+          "bytes": 18080
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/037.json",
+          "sha256": "e91aba69f395956fb6fab465e30e4889ad70f458b626bf031295574117c0008b",
+          "bytes": 26725
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/038.json",
+          "sha256": "938f3021245affa2aea9e6f3db355a7ddf1baa3d0542136cf23b6acf5696ec0f",
+          "bytes": 23046
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/039.json",
+          "sha256": "4a626743f63f51a175b4a28c2b6530305e64d8c7a5d338fcb9fbf68393e28779",
+          "bytes": 28960
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/040.json",
+          "sha256": "a5933e83f4e43a44dceb88bc6ef1ae8d7ac948ae9b4bb492af009047254cecbc",
+          "bytes": 30446
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/041.json",
+          "sha256": "af8e31e3036a313ea67c935728294d63319e1aff25b1bae1313c503e3ff7836c",
+          "bytes": 21798
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/042.json",
+          "sha256": "85a927825c3f039013d369c18286c9f5c2167982b4b72ecc7fe4c25f49e4f6a0",
+          "bytes": 21063
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/043.json",
+          "sha256": "109244c01b97847763c97527bb2321b82441b2d3d0c9345bcda4cba6672180c4",
+          "bytes": 23029
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/044.json",
+          "sha256": "ee5b4892ef2dda8dc2e12d8a2b9dbcdda076ae4969d80b9031f344b568573f9c",
+          "bytes": 10577
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/045.json",
+          "sha256": "659e7b813f2e6aef5c85daa0ec011f3100256285ba86bd9d6ba7ce4283c67c3e",
+          "bytes": 10980
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/046.json",
+          "sha256": "5b60f743c6bdde6a22943a3b8084c3156ba268b5cee9cb5b4762b4007d3d58de",
+          "bytes": 16161
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/047.json",
+          "sha256": "099dc80134a84de77fca7a55003fd6d83c20b833626f0398a79bc76bdd8f2bf5",
+          "bytes": 15316
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/048.json",
+          "sha256": "66a72ac6ee09c81b549649767cd39d2e4912f02665652fbac5353b28c52574d0",
+          "bytes": 15510
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/049.json",
+          "sha256": "8faa04025dfc09fcbf41f02c3afd275c7c5339708ff486c92ca10efcb46ab18f",
+          "bytes": 9122
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/050.json",
+          "sha256": "33e82913e35a76d0138c052a037e050c52625c73ada63b5c348316aa24a0d3e7",
+          "bytes": 12768
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/051.json",
+          "sha256": "f3d30481a26e9dca2f32657523af767ef276eaf0129d4c65e891f76df5732279",
+          "bytes": 11666
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/052.json",
+          "sha256": "a715ab3a29c41cdb420b71bcbfd10a35f043ec40a2bf713cf163b602267f65cd",
+          "bytes": 10797
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/053.json",
+          "sha256": "a7e33005ca08895fbd5389cd64f0466ec561932430ab21caf049e5315c5f4b66",
+          "bytes": 11676
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/054.json",
+          "sha256": "083e9b848cc586f58c77283446e40e95d0df2246a63391b483c3bb59e3439a7f",
+          "bytes": 13615
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/055.json",
+          "sha256": "d5adcf5cf221be9ca864cf76dfac0f9c1770350f056fa88cd1dddce0736ffb0e",
+          "bytes": 13194
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/056.json",
+          "sha256": "b8ada0aa0c253aee408aacf51377c53141b6b759d0e04a0ef297675e8afbf696",
+          "bytes": 15940
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/057.json",
+          "sha256": "1016d01d3cab3fcfc726a1f664533709bc3a79c241ce0475c326dfbe21af4082",
+          "bytes": 15229
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/058.json",
+          "sha256": "81635569c1327c7407599ff1d46600bc8d42de3e54bfa9f4e1b9684a55f3a923",
+          "bytes": 11191
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/059.json",
+          "sha256": "42a612b1437ac3c8798d8ecf51e8e0a7df337270c087ac3c4098da4ee1e22d49",
+          "bytes": 13210
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/060.json",
+          "sha256": "0b1cd9f133e5594f88cd320af08d04450fa3681f789cce2954107663834bfdf8",
+          "bytes": 9773
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/061.json",
+          "sha256": "6ba872a005cf0dba50b33608c87ef95015427949e48ffbb04fbe410dc0fed492",
+          "bytes": 5851
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/062.json",
+          "sha256": "0f5c415569f2f6e41a8416ec214bc0c019b71265f1a6368cedd1bc42556df59e",
+          "bytes": 4874
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/063.json",
+          "sha256": "dc266ade30b86f7e97d4b6863814118a5e19ae33cefc156a34957d01084e4a47",
+          "bytes": 5505
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/064.json",
+          "sha256": "832d8dde1aad90a7aa1cc71fd5820006b8afe1fb336e788f8eccd20a38eb9436",
+          "bytes": 6338
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/065.json",
+          "sha256": "6f3b5739cd46a2b4cad5a4649e6df263f827c20fe6f87a28332577b9d3b28db2",
+          "bytes": 7545
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/066.json",
+          "sha256": "5685606a84458650aa887f0a2e46125972b15da7f67c191fc8b172e465a6990c",
+          "bytes": 6942
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/067.json",
+          "sha256": "86424a423f0c16c4747893c23e7dada29841b95556be4355f19543a2ef106615",
+          "bytes": 9800
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/068.json",
+          "sha256": "b8c7a2005f7fb155cdbacfbe11fd91a84cf1edf32956fbf2773fb0f681de1b32",
+          "bytes": 11193
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/069.json",
+          "sha256": "45ef0014c865b532aab5a6f81dfa4fcdb24c90d6b70186cb78f9f4bb9e504f13",
+          "bytes": 9568
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/070.json",
+          "sha256": "d504097ddd935a165486f818dd1f6aa4dedcca5e7e809ef71f80b4f726684577",
+          "bytes": 7963
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/071.json",
+          "sha256": "65f125514f1715bfd7c5ae398f69dd33e64f45da6b962ca1a27e5a5651fc2f23",
+          "bytes": 6268
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/072.json",
+          "sha256": "199776adb0204b694e55693666ceb2cbca9930bab020c626f414773c19dc6e30",
+          "bytes": 8349
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/073.json",
+          "sha256": "57e3400cc244d546c117b7d8ffd0ce07911c6d0d99b9f88274eba6b324dd8027",
+          "bytes": 6281
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/074.json",
+          "sha256": "c9bfc1b0f4c0b874c3c70cf5214cea88690ae91a44e484b4384cf25ac77451ca",
+          "bytes": 7867
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/075.json",
+          "sha256": "888a0122c80303bf14af473dde1d279daebdfe01869affb30ef719aaaa58fceb",
+          "bytes": 6495
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/076.json",
+          "sha256": "d0a55f9880137aab039f8db8db31d45a62eeee554f761d79759188bb3b52bba9",
+          "bytes": 8702
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/077.json",
+          "sha256": "fb5010fc3bfb95ec84360597d55e3c46513e6223e3672ed47106c114d825313e",
+          "bytes": 7291
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/078.json",
+          "sha256": "59f90e900cd5bce7d3d128830bc7ee40e5f37b2ae82340c1f0e73684a8182fb8",
+          "bytes": 6871
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/079.json",
+          "sha256": "059d117cddf0958ed36b6803852bf55a74c6484a4e562ada114c37564cfeff9f",
+          "bytes": 7399
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/080.json",
+          "sha256": "5689c9eb79ef9b2e9c88bcafbc05a4509065dfe9ae0787928e3e1124aa13c3fb",
+          "bytes": 5092
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/081.json",
+          "sha256": "f4ce9087c087c629a031947c635fc9eccd8658a191fc79ef302425b3254f647c",
+          "bytes": 4819
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/082.json",
+          "sha256": "b729208b1f3ba272d98e3ee2b068c4fbbd54b99cf504425a6cfcf6d62e2266f7",
+          "bytes": 2534
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/083.json",
+          "sha256": "f83bf9c9937ceb26c0545e0e1ae46901b90c93abaf395d29e41bee2c69e44ef6",
+          "bytes": 5310
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/084.json",
+          "sha256": "e08a2fb143b69a30cad72917f99f1bc20267aaeb73e920eaebdb9b4f66f57dfe",
+          "bytes": 3766
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/085.json",
+          "sha256": "d659912c2c7254872b755942ba46e8daac957de3868beae84c6da79a33939d93",
+          "bytes": 3291
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/086.json",
+          "sha256": "8687faccb86892b5bd3ecc0149dcb031ea3610fc966fb2a3704644fe85ea4eae",
+          "bytes": 2166
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/087.json",
+          "sha256": "a5c624aa8fc29ff2bb76aded37d6e7b12556ffe9771c8359cab4c507aec353f5",
+          "bytes": 2694
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/088.json",
+          "sha256": "3410e198199eff92a7c9493542d399c13d5d94c627e37ba19087a3d0f319f7ba",
+          "bytes": 3154
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/089.json",
+          "sha256": "cab8b28ab768ca18eb4b232cb4ee028c86df7b1701a18100b761d587faca8da4",
+          "bytes": 5124
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/090.json",
+          "sha256": "90c8c21df09e95a6db233c46fcd5db953b95db580d334e7470468a8dd72b88e2",
+          "bytes": 3256
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/091.json",
+          "sha256": "54cc8d0b60327282a7d317aec4d6f88d62627e1672ae82c7b01c8dd099d6634c",
+          "bytes": 2976
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/092.json",
+          "sha256": "cc7b61ca022582428c3ef35fac871bff0cc06589d2cb391d941793765c44740f",
+          "bytes": 2597
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/093.json",
+          "sha256": "2428802286dc4457b1c5ee95e7ac756e273f26c1452f854d1e2d0973aac06043",
+          "bytes": 1596
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/094.json",
+          "sha256": "243bcf2bd830bc146fc060d3114618dd62a8662bb9b4b5aed2bac5741a6a8b9d",
+          "bytes": 986
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/095.json",
+          "sha256": "674a45c6a2b32f0313ed0868c290b19c3c61b1c40b9af445a8f20a931733f86d",
+          "bytes": 1209
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/096.json",
+          "sha256": "e5c9ed8a0ee0b6f192045b1cdfec66fab13aaea2dedc2a753ed7dcabc3b71aae",
+          "bytes": 2522
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/097.json",
+          "sha256": "23880cf4210657004a24cafa1d841cd3b49438622b3b038a890ece22a17e36c3",
+          "bytes": 1187
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/098.json",
+          "sha256": "7b183483f682d79f95cf0ff642bb0a966589438de4f35ebab5f569ed66ef0d6f",
+          "bytes": 3078
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/099.json",
+          "sha256": "29512ba9f8c1e5e51da97078799dd12467e97522822f2e5cc52335e948f3b72d",
+          "bytes": 1712
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/100.json",
+          "sha256": "036b8d2f1bcd8329376a818f7650294378f751e311585500439e182e3a642c1d",
+          "bytes": 1817
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/101.json",
+          "sha256": "c9f8accda3a3b15366c377a5aea6a1aa1301144144e1128b61ba8592a57fc59a",
+          "bytes": 1443
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/102.json",
+          "sha256": "b31ae7be93ea81dfba36b4b1e500e45fc7097ef603f96e951ce02b8104059700",
+          "bytes": 1235
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/103.json",
+          "sha256": "6ad3ed4f2f48c42238b5dab6ca38648ccc5345b41d03bd1466413662e7943194",
+          "bytes": 767
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/104.json",
+          "sha256": "0db70e289562532c275f00572598e39a97fd7dd0c2959c0df85333b34fbc03e8",
+          "bytes": 1741
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/105.json",
+          "sha256": "096ad462d3ae9f6e8cfc66d87f6d11e5ada7d923e4342bdfe0a4744a887d2c77",
+          "bytes": 1243
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/106.json",
+          "sha256": "0c84ede785a2e8a75a2a7077edf4ee58ccc738d5d40765bac3ca80c9b52d72e6",
+          "bytes": 880
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/107.json",
+          "sha256": "8bf5384104ba54964d2152ebcfd30c9993aa26f3adc41d1450b7eb89b66f00fb",
+          "bytes": 1342
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/108.json",
+          "sha256": "61ec834c7d56dcf53b7a84512ca8329b4e9ee5c5dfe2b7c8dd1de009a9fd176a",
+          "bytes": 595
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/109.json",
+          "sha256": "0d8f386b199deb7f242267f38acb4a40b1e563bc3facc533759f9aa74c4246ee",
+          "bytes": 865
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/110.json",
+          "sha256": "95afa3cc6cebdd50623056f0e766c78895a940725398fc909f1aba46b5bcee25",
+          "bytes": 915
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/111.json",
+          "sha256": "27a8eaccf0e02253b5793b629ab4ba1c0df21744483223305ccabd441981d87a",
+          "bytes": 1343
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/112.json",
+          "sha256": "6dd1013dcc0692b8438c9dafc6a6212e60f0f6fea2b54eb0d1df10b6f0fdea17",
+          "bytes": 513
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/113.json",
+          "sha256": "93e47ea1f2895febf7e5131e14ecc0a75e2e3366fab1d670cbde873ed3d9f608",
+          "bytes": 1028
+        },
+        {
+          "path": "assets/data/quran/translation/ar-tafsir-siraj/114.json",
+          "sha256": "9e7752e0c02f9245dd40c1125abc22b5b2022fdf8df8cd738e1195a5a1c13a53",
+          "bytes": 1175
         },
         {
           "path": "assets/data/quran/translation/az-mammadaliyev/001.json",
@@ -14334,8 +14904,8 @@
         },
         {
           "path": "src/lib/quran-loader.ts",
-          "sha256": "2454196c15988e48a2541d22e29084bc1fb6be44a2855145faa2092a1cb840da",
-          "bytes": 276488
+          "sha256": "27dd708c3b2cfaee67a7f007ecc2d9703438292cf0f90b891b0f6201a1940994",
+          "bytes": 286440
         }
       ],
       "license": "CC BY-SA 4.0 (Arabic & transliteration) / Public domain (translations)",

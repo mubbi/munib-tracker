@@ -365,9 +365,6 @@ importers:
       '@types/react':
         specifier: ~19.2.2
         version: 19.2.17
-      '@vitalets/google-translate-api':
-        specifier: ^9.2.1
-        version: 9.2.1(encoding@0.1.13)
       eas-cli:
         specifier: ^16.28.0
         version: 16.32.0(@swc/core@1.15.43)(@types/node@20.19.43)(encoding@0.1.13)(typescript@6.0.3)
@@ -400,7 +397,7 @@ importers:
         version: 1.23.0(react@19.1.0)
       next:
         specifier: 16.2.10
-        version: 16.2.10(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 16.2.10(@babel/core@7.29.7)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -486,6 +483,9 @@ importers:
       '@munib-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      tsx:
+        specifier: ^4.20.3
+        version: 4.22.5
       typescript:
         specifier: ^6.0.0
         version: 6.0.3
@@ -3430,9 +3430,6 @@ packages:
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
 
-  '@types/http-errors@1.8.2':
-    resolution: {integrity: sha512-EqX+YQxINb+MeXaIqYDASb6U6FCHbWjkj4a1CKDBks3d/QiB2+PqBLyO72vLDgAO1wUI4O+9gweRcQK11bTL/w==}
-
   '@types/http-errors@2.0.5':
     resolution: {integrity: sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg==}
 
@@ -3530,10 +3527,6 @@ packages:
 
   '@urql/exchange-retry@1.2.0':
     resolution: {integrity: sha512-1O/biKiVhhn0EtvDF4UOvz325K4RrLupfL8rHcmqD2TBLv4qVDWQuzx4JGa1FfqjjRb+C9TNZ6w19f32Mq85Ug==}
-
-  '@vitalets/google-translate-api@9.2.1':
-    resolution: {integrity: sha512-zlwQWSjXUZhbZQ6qwtIQ7GdYXFQmJ4wYqzcrYJUxtvzQQwUP+uKUb/SRJaBOQuBntjBjzcdcJoLFrpCKUbIkOg==}
-    engines: {node: '>=14'}
 
   '@vitejs/plugin-react@4.7.0':
     resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
@@ -11935,7 +11928,9 @@ snapshots:
       metro-runtime: 0.84.4
     transitivePeerDependencies:
       - '@babel/core'
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@react-native/normalize-colors@0.74.89': {}
 
@@ -12572,8 +12567,6 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  '@types/http-errors@1.8.2': {}
-
   '@types/http-errors@2.0.5': {}
 
   '@types/istanbul-lib-coverage@2.0.6': {}
@@ -12688,14 +12681,6 @@ snapshots:
       wonka: 6.3.6
     transitivePeerDependencies:
       - graphql
-
-  '@vitalets/google-translate-api@9.2.1(encoding@0.1.13)':
-    dependencies:
-      '@types/http-errors': 1.8.2
-      http-errors: 2.0.1
-      node-fetch: 2.7.0(encoding@0.1.13)
-    transitivePeerDependencies:
-      - encoding
 
   '@vitejs/plugin-react@4.7.0(vite@7.3.6(@types/node@20.19.43)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(tsx@4.22.5)(yaml@2.9.0))':
     dependencies:
@@ -16714,7 +16699,7 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  next@16.2.10(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next@16.2.10(@babel/core@7.29.7)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@next/env': 16.2.10
       '@swc/helpers': 0.5.15
@@ -16723,7 +16708,7 @@ snapshots:
       postcss: 8.5.16
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-      styled-jsx: 5.1.6(react@19.1.0)
+      styled-jsx: 5.1.6(@babel/core@7.29.7)(react@19.1.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.2.10
       '@next/swc-darwin-x64': 16.2.10
@@ -18264,10 +18249,12 @@ snapshots:
 
   structured-headers@0.4.1: {}
 
-  styled-jsx@5.1.6(react@19.1.0):
+  styled-jsx@5.1.6(@babel/core@7.29.7)(react@19.1.0):
     dependencies:
       client-only: 0.0.1
       react: 19.1.0
+    optionalDependencies:
+      '@babel/core': 7.29.7
 
   styleq@0.1.3: {}
 

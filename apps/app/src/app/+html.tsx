@@ -8,6 +8,7 @@ import {
   PWA_THEME_COLOR,
 } from "@/config/pwa";
 import { SEO_AUTHOR } from "@/config/seo";
+import { LOCALE_PATH_BOOT_SCRIPT } from "@/lib/locale-path";
 import { siteGraphSchema } from "@/lib/seo/structured-data";
 
 /**
@@ -67,6 +68,12 @@ export default function Root({ children }: PropsWithChildren) {
           dangerouslySetInnerHTML={{
             __html: `:root { --font-bengali: 'Noto Sans Bengali', system-ui, sans-serif; }`,
           }}
+        />
+
+        {/* Locale-prefixed entry URLs: strip prefix for expo-router, persist locale. */}
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: must run before the app bundle
+          dangerouslySetInnerHTML={{ __html: LOCALE_PATH_BOOT_SCRIPT }}
         />
 
         {/* Site-wide structured data (Organization + WebSite + SoftwareApplication). */}

@@ -66,7 +66,7 @@
     "increase": "{{label}} oshirish",
     "decrease": "{{label}} kamaytirish",
     "appName": "Munib Tracker",
-    "appTagline": "Allohga qaytish yoʻlingizni kuzating."
+    "appTagline": "Allohga qaytish yo'lingizni kuzating."
   },
   "search": {
     "placeholder": "Qur'on, hadis, duo, adhkar qidirish…",
@@ -160,7 +160,7 @@
     "updatedJustNow": "Updted just now",
     "updatedMinutesAgo": "Updted {{count}}m go",
     "updatedHoursAgo": "Updted {{count}}h go",
-    "nextPrayer": "Next pryer",
+    "nextPrayer": "Next prayer",
     "schedule": "bugun's schedule",
     "progress": "bugun's jryd",
     "setLocation": "Set joylshuv",
@@ -170,50 +170,50 @@
     "total": "-gtl",
     "gallery": {
       "nextPrayer": {
-        "label": "Munib Trcker · Next pryer",
-        "description": "Next pryer nme, time, v countdown d home yoki lock screen"
+        "label": "Munib Tracker · Next prayer",
+        "description": "Next prayer name, time, and countdown on home or lock screen"
       },
       "schedule": {
-        "label": "Munib Trcker · Schedule",
-        "description": "bugun's obligtyokiy pryer times t  glnce"
+        "label": "Munib Tracker · Schedule",
+        "description": "Today's obligatory prayer times at a glance"
       },
       "progress": {
-        "label": "Munib Trcker · jryd",
-        "description": "bugun's obligtyokiy pryer jryd"
+        "label": "Munib Tracker · Progress",
+        "description": "Today's obligatory prayer progress"
       }
     }
   },
   "ramadan": {
-    "eyebrow": "Rmdn",
-    "title": "Rmdn",
+    "eyebrow": "Ramadan",
+    "title": "Ramadan",
     "subtitle": "Ro'z times v siznichidg Ro'z log",
-    "dayOf": "Dy {{day}} -nichidg {{total}}",
+    "dayOf": "Day {{day}} of {{total}}",
     "timesTitle": "bugun's Ro'z times",
     "suhoor": "Suhoyoki ends",
-    "iftar": "Iftr",
-    "timesHint": "Suhoyoki ends t Fjr v iftr begichids t Mghrib uchun siznichidg joylshuv.",
+    "iftar": "Iftar",
+    "timesHint": "Suhoor ends at Fajr and iftar begins at Maghrib for your location.",
     "fastingTitle": "Ro'z log",
-    "fastedCount": "{{count}} -nichidg {{total}} dys fsted",
+    "fastedCount": "{{count}} of {{total}} days fasted",
     "todayTitle": "bugun's fst",
     "countdownSuhoor": "Suhoyoki ends ichid {{time}}",
-    "countdownIftar": "Iftr ichid {{time}}",
-    "afterIftar": "Fst complete uchun bugun",
-    "dayCell": "Rmdn dy {{day}}",
-    "dayCellStatus": "Rmdn dy {{day}}, {{status}}",
-    "dayCellHint": "bosichidg -g choose siznichidg Ro'z sttus",
+    "countdownIftar": "Iftar in {{time}}",
+    "afterIftar": "Fast complete for today",
+    "dayCell": "Ramadan day {{day}}",
+    "dayCellStatus": "Ramadan day {{day}}, {{status}}",
+    "dayCellHint": "Tap to choose your fasting status",
     "statusNone": "ems mrked",
-    "gridHint": "bosichidg  dy -g log siznichidg Ro'z sttus",
+    "gridHint": "Tap a day to log your fasting status",
     "gridFutureDaysNote": "Future dys unlock d ir dte — siz cn dly log through bugun.",
-    "fastingLogBackfillNote": "ko'rstbuhichidg Rmdn {{year}} H so siz cn bckfill siznichidg log. bosichidg ny dy -g updte siznichidg Ro'z sttus.",
+    "fastingLogBackfillNote": "Showing Ramadan {{year}} AH so you can backfill your log. Tap any day to update your fasting status.",
     "fastedToday": "Mrk bugun fsted",
     "statusFasted": "Fsted",
     "statusMissed": "o'tkzib yubyokiildi",
     "statusExempt": "Ozod",
-    "disclaimer": "Times bu clculted estimtes — follow siznichidg locl msjid uchun  strt -nichidg Rmdn v  kunlik times.",
+    "disclaimer": "Times are calculated estimates — follow your local masjid for the start of Ramadan and the daily times.",
     "lastTenTitle": " lst ten tuns",
-    "lastTenBody": "Seek Lylt l-Qdr ichid  odd tuns — stv ichid pryer, recite Qur'n, v mke du.  Prophet ﷺ strove hrdest ichid wyokbuhip durichidg se tuns.",
-    "laylatQadrTitle": "Lylt l-Qdr",
-    "laylatQadrBody": "Better thn  thousv mdths — wyokbuhip d bu tun outweighs decdes -nichidg Sdoqt. Recite Qur'n, pry Thjjud, v sy: brchhumm ichidnk 'fuwwun tuhibbu l-'fw f'fu 'nni."
+    "lastTenBody": "Seek Laylat al-Qadr in the odd nights — stand in prayer, recite Qur'an, and make dua. The Prophet ﷺ strove hardest in worship during these nights.",
+    "laylatQadrTitle": "Laylat al-Qadr",
+    "laylatQadrBody": "Better than a thousand months — worship on this night outweighs decades of devotion. Recite Qur'an, pray Tahajjud, and say: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
   },
   "fastStatusSheet": {
     "prompt": "Roʻza holatingizni tanlang",
@@ -257,14 +257,14 @@
     "todaysGoal": "bugun's Gol",
     "freshStartHint": "Log siznichidg first ct -nichidg wyokbuhip -g begichid",
     "checklistHint": "Complete  kunlik ctivity tekshiruv ro'yxti",
-    "excusedPausedLabel": "Pused",
-    "excusedGoalHint": "Trckichidg pused uchun {{reason}} — siznichidg Ketm-ketlik bu held.",
-    "excusedGoalBody": "Obligtyokiy trckichidg bu pused uchun bugun. siz cn still log ixtiyyokiiy wyokbuhip.",
+    "excusedPausedLabel": "Paused",
+    "excusedGoalHint": "Tracking paused for {{reason}} — your streak is held.",
+    "excusedGoalBody": "Obligatory tracking is paused for today. You can still log optional worship.",
     "tasksProgress": "{{done}} -nichidg {{total}} tsks",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Strt trckichidg",
     "goToChecklist": "Go -g tekshiruv ro'yxti",
-    "prayersStat": "Slh",
+    "prayersStat": "Salah",
     "dhikrStat": "Zikrlar",
     "qazaStat": "Qz",
     "streakStat": "Ketm-ketlik",
@@ -273,7 +273,7 @@
     "qazaProgress": "{{pct}}% mde up",
     "qazaA11y": "{{remaining}} qz remichidichidg, {{completed}} mde up, {{pct}} percent clebud",
     "gentleReminder": "Gentle esltm",
-    "gentleReminderBody": "Smbrch, stedy steps mtter myokie thn perfectid. Log wht siz complete v return -gmyokirow.",
+    "gentleReminderBody": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow.",
     "knowledgeShuffle": "ko'rstbuh nyoki crd",
     "knowledgeKind": {
       "quran": "Qur'n verse",
@@ -283,7 +283,7 @@
       "motivation": "kunlik esltm"
     },
     "knowledgeTopic": {
-      "prayer": "Slh",
+      "prayer": "Salah",
       "qaza": "Qz",
       "zikr": "Zikrlar",
       "fasting": "Ro'z",
@@ -305,7 +305,7 @@
     "exploreHint": "{{shown}} -nichidg {{total}} shyokitcuts ko'rstbuhn — bosichidg Mnge -g qo'shbuh yoki reyokider.",
     "scheduleNext": "Oldinga",
     "scheduleCurrent": "Joriy",
-    "scheduleNextA11y": "{{name}} t {{time}}, next pryer {{countdown}}",
+    "scheduleNextA11y": "{{name}} at {{time}}, next prayer {{countdown}}",
     "scheduleObligatory": "Obligtyokiy",
     "scheduleOptional": "ixtiyyokiiy",
     "scheduleAnyTime": "ny time",
@@ -315,18 +315,18 @@
     "scheduleGroupDay": "fternod",
     "scheduleGroupEvening": "kechqurun",
     "scheduleGroupFlexible": "nytime",
-    "scheduleShowPast_one": "{{count}} erlier pryer hidden",
-    "scheduleShowPast_other": "{{count}} erlier pryers hidden",
+    "scheduleShowPast_one": "{{count}} earlier prayer hidden",
+    "scheduleShowPast_other": "{{count}} earlier prayers hidden",
     "scheduleShowPastHint": "bosichidg -g ko'rstbuh full schedule",
-    "scheduleHidePast": "yshirbuh erlier pryers",
-    "scheduleShowPastA11y": "ko'rstbuh {{count}} erlier pryers hidden ichid bugun's schedule",
-    "scheduleHidePastA11y": "yshirbuh erlier pryers ichid bugun's schedule",
-    "scheduleShowLater_one": "{{count}} lter pryer hidden",
-    "scheduleShowLater_other": "{{count}} lter pryers hidden",
+    "scheduleHidePast": "Hide earlier prayers",
+    "scheduleShowPastA11y": "Show {{count}} earlier prayers hidden in today's schedule",
+    "scheduleHidePastA11y": "Hide earlier prayers in today's schedule",
+    "scheduleShowLater_one": "{{count}} later prayer hidden",
+    "scheduleShowLater_other": "{{count}} later prayers hidden",
     "scheduleShowLaterHint": "bosichidg -g ko'rstbuh rest -nichidg bugun",
-    "scheduleHideLater": "yshirbuh lter pryers",
-    "scheduleShowLaterA11y": "ko'rstbuh {{count}} lter pryers hidden ichid bugun's schedule",
-    "scheduleHideLaterA11y": "yshirbuh lter pryers ichid bugun's schedule",
+    "scheduleHideLater": "Hide later prayers",
+    "scheduleShowLaterA11y": "Show {{count}} later prayers hidden in today's schedule",
+    "scheduleHideLaterA11y": "Hide later prayers in today's schedule",
     "continueTitle": "dvom etbuh where siz left -nichidgf",
     "continueSubtitle": "Jump bck -g wht siz were o'qbuh yoki lbutenichidg -g",
     "continueLastOpened": "Lst ochichidged {{time}}",
@@ -339,7 +339,7 @@
       "hoursAgo_one": "{{count}} hr go",
       "hoursAgo_other": "{{count}} hr go",
       "yesterday": "Yesterdy",
-      "daysAgo_one": "{{count}} dy go",
+      "daysAgo_one": "{{count}} day ago",
       "daysAgo_other": "{{count}} dys go"
     },
     "continueKind": {
@@ -364,15 +364,15 @@
     "rozaRemaining": "Fsts -g mke up",
     "knowledgeMotivation": {
       "steady-steps": {
-        "text": "Smbrch, stedy steps mtter myokie thn perfectid. Log wht siz complete v return -gmyokirow.",
+        "text": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow.",
         "topic": "stedfstness"
       },
       "prayer-light": {
-        "text": "Tret ech slh s  qyt tiklsh — five brief returns -g brchh o'sh nchyoki siznichidg dy.",
-        "topic": "pryer"
+        "text": "Treat each salah as a reset — five brief returns to Allah that anchor your day.",
+        "topic": "prayer"
       },
       "qaza-hope": {
-        "text": "o'tkzib yubyokiildi pryers cn be mde up. Set  gentle kunlik pce uchun qz rr thn crryichidg guilt.",
+        "text": "Missed prayers can be made up. Set a gentle daily pace for qaza rather than carrying guilt.",
         "topic": "qz"
       },
       "qaza-one": {
@@ -380,7 +380,7 @@
         "topic": "qz"
       },
       "zikr-heart": {
-        "text": "Even  few moments -nichidg zikr fter slh s-nichidgtens  hert v stedies  -gngue.",
+        "text": "Even a few moments of zikr after salah softens the heart and steadies the tongue.",
         "topic": "zikr"
       },
       "zikr-walking": {
@@ -388,11 +388,11 @@
         "topic": "zikr"
       },
       "fasting-patience": {
-        "text": "Ro'z trichids ptience ichid  body so sbr becomes esier ichid everydy life.",
+        "text": "Fasting trains patience in the body so sabr becomes easier in everyday life.",
         "topic": "Ro'z"
       },
       "ramadan-intention": {
-        "text": "Renew siznichidg ichidtentid beuchune ech fst —  rewrd follows sichidcerity, ems perfectid.",
+        "text": "Renew your intention before each fast — the reward follows sincerity, not perfection.",
         "topic": "Ro'z"
       },
       "consistency": {
@@ -401,19 +401,19 @@
         "source": "a"
       },
       "tracker-honest": {
-        "text": "n hdest trcker helps siz see ptterns, ems judge siznichidgself. jryd begichids with wbuness.",
+        "text": "An honest tracker helps you see patterns, not judge yourself. Progress begins with awareness.",
         "topic": "generl"
       },
       "morning-fajr": {
-        "text": "Wichid  ertlb with Fjr d time —  rest -nichidg  dy follows  clmer rhythm.",
-        "topic": "pryer"
+        "text": "Win the morning with Fajr on time — the rest of the day follows a calmer rhythm.",
+        "topic": "prayer"
       },
       "witr-closure": {
         "text": "yopbuh siznichidg tun with witr when siz cn —  gentle sel d  dy's wyokbuhip.",
-        "topic": "pryer"
+        "topic": "prayer"
       },
       "gratitude-salah": {
-        "text": "fter ech pryer, puse uchun de breth -nichidg shukr beuchune rushichidg bck -g  wyokild.",
+        "text": "After each prayer, pause for one breath of shukr before rushing back to the world.",
         "topic": "generl"
       },
       "return-tomorrow": {
@@ -428,11 +428,11 @@
   },
   "tracker": {
     "eyebrow": "Trck & log",
-    "title": "Trcker",
-    "subtitle": "bosichidg  pryer -g set its sttus — sqlshd d bu device.",
+    "title": "Tracker",
+    "subtitle": "Tap a prayer to set its status — saved on this device.",
     "excusedTitle": "Excused dy",
     "excusedHint": "Hyd, illness, yoki trvel — puse obligtyokiy trckichidg without brekichidg siznichidg Ketm-ketlik.",
-    "excusedActive": "bu dy bu excused — obligtyokiy trckichidg bu pused v siznichidg Ketm-ketlik bu held.",
+    "excusedActive": "This day is excused — obligatory tracking is paused and your streak is held.",
     "excusedConfirmTitle": "Mrk bugun s excused?",
     "excusedConfirmMsg": "Obligtyokiy trckichidg will puse uchun bugun ({{reason}}). siznichidg Ketm-ketlik will be held.",
     "excusedConfirmAction": "Mrk excused",
@@ -443,15 +443,15 @@
     },
     "obligatory": "Obligtyokiy",
     "witr": "Vitr",
-    "witrSubtitle": "Sunnh mu'kkdh — strdgly emphsized, ems de -nichidg  five frd pryers.",
-    "sunnahOptional": "Sunnh & ixtiyyokiiy",
+    "witrSubtitle": "Sunnah mu'akkadah — strongly emphasized, not one of the five fard prayers.",
+    "sunnahOptional": "Sunnah & optional",
     "keepGoing": "Keep goichidg",
-    "salahAdhkar": "Slh dhkr",
-    "salahAdhkarSubtitle": "Sunnh dhkr -g recite round every pryer.",
-    "salahCaption": "slh",
+    "salahAdhkar": "Salah adhkar",
+    "salahAdhkarSubtitle": "Sunnah adhkar to recite around every prayer.",
+    "salahCaption": "salah",
     "glanceTitle": "bugun's jryd",
     "rings": {
-      "sunnah": "ixtiyyokiiy Slh",
+      "sunnah": "Optional Salah",
       "witr": "Vitr",
       "adhkar": "dhkr",
       "qaza": "Qz",
@@ -461,15 +461,15 @@
     "freshStart": " fresh strt",
     "keepGoingShort": "Keep goichidg",
     "almostThere": "lmost re",
-    "summaryLogged": "{{completed}} -nichidg {{total}} obligtyokiy pryers logged bugun.",
-    "streakLine": "🔥 {{count}}-dy Ketm-ketlik",
-    "streakLabel": "{{count}} dy Ketm-ketlik",
+    "summaryLogged": "{{completed}} of {{total}} obligatory prayers logged today.",
+    "streakLine": "🔥 {{count}}-day streak",
+    "streakLabel": "{{count}} day streak",
     "qazaTargets": "Qz trgets",
     "qazaTargetsProgress": "{{done}} -nichidg {{total}} qz bugun",
     "afterSalahAdhkarReminderTitle": "fter {{prayer}}",
-    "afterSalahAdhkarReminderBody": "Tke  moment uchun tsbeeh v fter-slh dhkr.",
+    "afterSalahAdhkarReminderBody": "Take a moment for tasbeeh and after-salah adhkar.",
     "afterSalahProgress": "dhkr {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} fter-slh dhkr: {{completed}} -nichidg {{total}} bjrildi bugun"
+    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} of {{total}} completed today"
   },
   "settings": {
     "eyebrow": "Persdlize",
@@ -479,10 +479,10 @@
     "accountGuest": "Guest — kirbuh -g sync",
     "appearance": "Tshqi ko'richidbuh",
     "appearanceSub": "mvzu & Urg'u rngi",
-    "haptics": "Hptic feedbck",
+    "haptics": "Taktil javob",
     "hapticsSub": "Vibrtid d bosichidgs v ctids",
     "notifications": "bildirbuhnoms",
-    "notificationsSub": "esltms uchun Slh, Qz, v Zikr",
+    "notificationsSub": "Reminders for Salah, Qaza, and Zikr",
     "bedtime": "Uxlash vaqti",
     "bedtimeSub": "Used uchun beuchune-sleep dhkr",
     "fonts": "shrifts",
@@ -492,28 +492,28 @@
     "timeFormat": "Time uchunmt",
     "timeFormatSub": "12-hour yoki 24-hour clock",
     "defaultCalendar": "Defult tqvim",
-    "defaultCalendarSub": "Gregyokiin yoki Hijri dtes",
+    "defaultCalendarSub": "Gregorian or Hijri dates",
     "weather": "ob-hvo",
     "weatherSub": "Hero effects v temperture unit",
     "achievements": "chievements",
     "achievementsSub": "Miles-gnes v bdges",
     "qibla": "Qibl",
-    "qiblaSub": "Fichidd  directid -nichidg pryer",
+    "qiblaSub": "Find the direction of prayer",
     "about": "Ilova haqida",
     "aboutSub": "versiy, Michidntdyokilik, v policies",
-    "import": "Impyokit pryer hbutyokiy",
+    "import": "Import prayer history",
     "importSub": "Bckfill pst dys -dn  JSd yoki CSV file",
     "footer": "{{app}} · built with ichidtentid",
     "backup": "Zxir v tiklsh",
     "backupSub": "ekspyokit yoki tiklsh brch siznichidg dt s  file",
-    "travel": "Trvellichidg & pryer",
-    "travelSub": "How -g shyokiten v combichide pryers d  journey",
+    "travel": "Travelling & prayer",
+    "travelSub": "How to shorten and combine prayers on a journey",
     "homeCustomize": "Cus-gmize home",
     "homeCustomizeSub": "Reyokider shyokitcuts v yshirbuh home crds",
     "offlineData": "-nichidglyn dt",
-    "offlineDataSub": "Mnge downloded cdtent v cler cches",
+    "offlineDataSub": "Manage downloaded content and clear caches",
     "cacheAudioLocally": "sqlsh udio locbrchy",
-    "cacheAudioLocallySub": "Downlod recittid uchun -nichidglyn reply v smoyoki plybck",
+    "cacheAudioLocallySub": "Download recitation for offline replay and smoother playback",
     "cacheQuranEditionsLocally": "sqlsh Qur'n trjims locbrchy",
     "cacheQuranEditionsLocallySub": "Keep ochichidged trjims & tfsir uchun -nichidglyn o'qbuh",
     "cacheHadithLocally": "sqlsh hdith locbrchy",
@@ -521,13 +521,13 @@
     "appLock": "pp lock",
     "appLockSub": "Protect  pp with  Pichid",
     "downloadNativeApps": "Get  ntive pp",
-    "downloadNativeAppsDesc": "ichidstbrch Munib Trcker d siznichidg phde uchun -nichidglyn slh, zikr, v Qur'n — sme hbuob, sme jryd.",
-    "downloadIosTopLine": "Downlod d ",
+    "downloadNativeAppsDesc": "Install Munib Tracker on your phone for offline salah, zikr, and Qur'an — same account, same progress.",
+    "downloadIosTopLine": "Download on the",
     "downloadIosBottomLine": "pp Styokie",
     "downloadAndroidTopLine": "GET IT d",
     "downloadAndroidBottomLine": "Google Ply",
-    "downloadIosA11y": "Downlod Munib Trcker d  pp Styokie",
-    "downloadAndroidA11y": "Get Munib Trcker d Google Ply",
+    "downloadIosA11y": "Download Munib Tracker on the App Store",
+    "downloadAndroidA11y": "Get Munib Tracker on Google Play",
     "adhanStyles": {
       "default": {
         "name": "Clssic dhn",
@@ -552,24 +552,24 @@
     }
   },
   "import": {
-    "title": "Impyokit pryer hbutyokiy",
+    "title": "Import prayer history",
     "subtitle": "Bckfill logs -dn nyoki pp yoki  spredsheet",
     "pasteTitle": "Pste siznichidg dt",
-    "formatHint": "Pste JSd (n rry -nichidg { dte, pryerId, sttus }) yoki CSV rows dte,pryerId,sttus. Dtes bu YYYY-MM-DD; pryers bu fjr, dhuhr, sr, mghrib, buh, witr; sttuses bu bjrildi, o'tkzib yubyokiildi, delyed, qz.",
-    "placeholder": "[{\"dte\":\"2026-06-01\",\"pryerId\":\"fjr\",\"sttus\":\"bjrildi\"}]",
+    "formatHint": "Paste JSON (an array of { date, prayerId, status }) or CSV rows date,prayerId,status. Dates are YYYY-MM-DD; prayers are fajr, dhuhr, asr, maghrib, isha, witr; statuses are completed, missed, delayed, qaza.",
+    "placeholder": "[{\"date\":\"2026-06-01\",\"prayerId\":\"fajr\",\"status\":\"completed\"}]",
     "preview": "Oldichiddn ko'rbuh",
     "previewTitle": "Oldichiddn ko'rbuh",
     "summaryValid": "{{count}} vlid rows",
     "summaryErrors": "{{count}} x-gs",
     "summaryDuplicates": "{{count}} duplicte rows merged",
-    "summaryRange": "Dtes {{from}} → {{to}}",
+    "summaryRange": "Dates {{from}} → {{to}}",
     "errorLine": "Qator {{row}}: {{message}}",
     "moreErrors": "+{{count}} myokie x-gs",
-    "alsoQaza": "lso qo'shbuh o'tkzib yubyokiildi pryers -g Qz",
+    "alsoQaza": "Also add missed prayers to Qaza",
     "alsoQazaHint": "ichidcrese siznichidg mke-up counters by ech impyokited mbus.",
     "commit": "Impyokit {{count}} logs",
     "importing": "Impyokitichidg…",
-    "done": "Impyokited {{count}} pryer logs",
+    "done": "Imported {{count}} prayer logs",
     "failed": "Impyokit filed. Plese try gichid."
   },
   "login": {
@@ -581,7 +581,7 @@
     "apple": "dvom etbuh with pple",
     "facebook": "dvom etbuh with Fcebook",
     "heroGuest": "siz're usichidg  guest hbuob. Lichidk  provider -g bck up v sync siznichidg dt — emshichidg bu lost.",
-    "heroUser": "kirbuh -g keep siznichidg pryers, qz, v zikr sfe ichid  cloud.",
+    "heroUser": "Sign in to keep your prayers, qaza, and zikr safe in the cloud.",
     "error": "Couldn't kirbuh. Mke sure  PI server bu runnichidg v bu provider bu cdfigured."
   },
   "onboarding": {
@@ -590,16 +590,16 @@
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
     "brandDuaTransliteration": "brchhumm l shl ill m j'lthu shl, w nt tj'lul-hzn idh shi't shl",
     "brandDuaTranslation": "O brchh, re bu no ese except ichid o'sh which siz mke esy, v siz mke  difficult esy if siz wbuh.",
-    "slide1Eyebrow": "Slh",
-    "slide1Title": "Trck siznichidg pryers",
-    "slide1Body": "Mrk ech pryer d siznichidg journey bck -g brchh — bjrildi, o'tkzib yubyokiildi, delyed, yoki qz.",
-    "slide1Highlight1": "Five frd pryers plus Vitr (sunnh mu'kkdh) v sunnh",
+    "slide1Eyebrow": "Salah",
+    "slide1Title": "Track your prayers",
+    "slide1Body": "Mark each prayer on your journey back to Allah — completed, missed, delayed, or qaza.",
+    "slide1Highlight1": "Five fard prayers plus Witr (sunnah mu'akkadah) and sunnah",
     "slide1Highlight2": "Ketm-ketliks, jryd richidg, v tqvim",
-    "slide1Highlight3": "Pryer times hero with Hijri dte v countdown",
+    "slide1Highlight3": "Prayer times hero with Hijri date and countdown",
     "slide2Eyebrow": "Qz",
     "slide2Title": "Mke up wht ws o'tkzib yubyokiildi",
     "slide2Body": "Turn qz -dn overwhelmichidg -g doble — estimte, pln  pce, v trck Ro'z.",
-    "slide2Highlight1": "Per-pryer counters synced -dn siznichidg trcker",
+    "slide2Highlight1": "Per-prayer counters synced from your tracker",
     "slide2Highlight2": "Lifetime klkulytyoki with scholr-wbu guidnce",
     "slide2Highlight3": "kunlik pce plnner with ET -g cler siznichidg bcklog",
     "slide3Eyebrow": "Zikrlar",
@@ -613,14 +613,14 @@
     "slide4Body": "Red, qidiruv, v lbuten — bundled uchun  rod with ixtiyyokiiy gentle esltms.",
     "slide4Highlight1": "Full Qur'n with recittid v yh qidiruv",
     "slide4Highlight2": "Hdith, dus, duroods, v  99 Nmes",
-    "slide4Highlight3": "Pryer times, qibl compss, v ixtiyyokiiy nudges",
+    "slide4Highlight3": "Prayer times, qibla compass, and optional nudges",
     "ctaEyebrow": "siz're redy",
     "ctaTitle": "Begichid siznichidg journey",
     "ctaBody": "Everythichidg wyokiks -nichidglyn d siznichidg device. kirbuh nytime -g sync cross phdes v tblets.",
     "ctaPrivacyTitle": "Privte by defult",
     "ctaPrivacyBody": "No hbuob mjburiy. siznichidg wyokbuhip dt stys d siznichidg device until siz choose -g bck up v sync.",
     "signInToSync": "kirbuh -g sync",
-    "pageOf": "Pge {{page}} -nichidg {{total}}"
+    "pageOf": "{{total}} dan {{page}}-bet"
   },
   "appearance": {
     "eyebrow": "Sozlamalar",
@@ -652,7 +652,7 @@
   "timeFormat": {
     "title": "Time uchunmt",
     "subtitle": "How clock times pper cross  pp",
-    "hint": "pplies -g pryer times, esltms, schedules, v bedtime",
+    "hint": "Applies to prayer times, reminders, schedules, and bedtime",
     "option12": "12 soatlik",
     "option24": "24 soatlik",
     "example12": "Exmple: 2:30 PM",
@@ -663,12 +663,12 @@
   },
   "defaultCalendar": {
     "title": "Defult tqvim",
-    "subtitle": "How dtes pper cross  pp",
+    "subtitle": "How dates appear across the app",
     "hint": "pplies -g events, jurnl, tqvim tbs, v yoki dte lbels.  home hero lwys ko'rstbuhs both tqvims.",
     "optionGregorian": "Gregoriy",
     "optionHijri": "Hijriy",
     "exampleGregorian": "Exmple: Mddy, Mrch 23, 2026",
-    "exampleHijri": "Exmple: Rmdn 1, 1447 H",
+    "exampleHijri": "Example: Ramadan 1, 1447 AH",
     "footer": "siznichidg choice bu sqlshd u-gmticbrchy. tqvim screens still let siz switch tempyokirily."
   },
   "weather": {
@@ -699,82 +699,82 @@
     "master": "brch bildirbuhnoms",
     "masterSub": "Mster switch uchun every esltm",
     "adhanTitle": "Oldichiddn ko'rbuh dhn",
-    "adhanSub": "Ply  bundled cbrch--g-pryer sound",
-    "playAdhan": "Ply dhn t pryer time",
-    "playAdhanHint": "Obligtyokiy-pryer esltms ply  dhn when y fire.",
+    "adhanSub": "Play the bundled call-to-prayer sound",
+    "playAdhan": "Play adhan at prayer time",
+    "playAdhanHint": "Obligatory-prayer reminders play the adhan when they fire.",
     "liveActivity": "Jonli faollik",
-    "liveActivityHint": "ko'rstbuh  live next-pryer countdown d  lock screen v Dynmic bulv.",
+    "liveActivityHint": "Show a live next-prayer countdown on the lock screen and Dynamic Island.",
     "liveActivityUnavailable": "vilble d iPhde (iOS 16.1+) with  dev yoki productid build.",
     "upcomingTitle": "Upcomichidg esltms",
     "upcomingHint": "siznichidg next scheduled lerts, ichid siznichidg joylshuv's timezde. Use  -gggles below -g enble, dbuble, yoki thrirlsh m.",
     "footer": "Delivery -nichidg se esltms bu scheduled dce bildirbuhnoms bu enbled d siznichidg device.",
     "permissionBannerTitle": "Enble esltms",
-    "permissionBannerMessage": "brchow bildirbuhnoms so Munib Trcker cn remichidd siz Ilov hqid Slh, Zikr, v Qz.",
+    "permissionBannerMessage": "Allow notifications so Munib Tracker can remind you about Salah, Zikr, and Qaza.",
     "permissionGrantedTitle": "bildirbuhnoms enbled",
     "permissionGrantedMessage": "esltms bu scheduled d bu device. Mnge ctegyokiies below.",
     "permissionDenied": "bildirbuhnoms blocked",
     "permissionDeniedSub": "Turn bildirbuhnoms d ichid siznichidg browser yoki device Sozlmlr.",
     "permissionDismissed": "Permbusid request dbuo'tkzib yubyokiildi. bosichidg brchow when siz're redy.",
-    "openSettingsHint": "ochichidg Sozlmlr v turn d bildirbuhnoms uchun Munib Trcker.",
+    "openSettingsHint": "Open Settings and turn on notifications for Munib Tracker.",
     "openSettings": "ochichidg Sozlmlr",
     "webUseAllowButton": "bosichidg  brchow but-gn below -g enble browser bildirbuhnoms.",
     "unsupportedTitle": "esltms need  mobile pp",
     "expoGoTitle": "Development build mjburiy",
     "expoGoMessage": "Locl esltms need  dev yoki productid build. Expo Go cnems schedule OS bildirbuhnoms.",
     "iosPwaTitle": "ichidstbrch  web pp first",
-    "iosPwaMessage": "d iPhde, browser bildirbuhnoms dly wyokik when Munib Trcker bu qo'shbuhed -g siznichidg Home Screen.",
+    "iosPwaMessage": "On iPhone, browser notifications only work when Munib Tracker is added to your Home Screen.",
     "iosPwaSteps": "ichid Sfri: ulshbuh → qo'shbuh -g Home Screen, n ochichidg  pp -dn siznichidg home screen v brchow bildirbuhnoms.",
     "iosPwaStepsSafari": "ochichidg bu pge ichid Sfri, n ulshbuh → qo'shbuh -g Home Screen. bildirbuhnoms bun't vilble ichid bu browser d iPhde.",
-    "webAllowMessage": "brchow browser bildirbuhnoms -g get Slh, Zikr, v Qz lerts d bu device.",
-    "webGrantedMobileNote": "Browser bildirbuhnoms bu d. uchun relible Slh-time esltms, ichidstbrch  iOS yoki vroid pp.",
+    "webAllowMessage": "Allow browser notifications to get Salah, Zikr, and Qaza alerts on this device.",
+    "webGrantedMobileNote": "Browser notifications are on. For reliable Salah-time reminders, install the iOS or Android app.",
     "webLimitedTitle": "esltms run d  mobile pp",
     "groupWorship": "Wyokbuhip",
     "groupZikr": "Zikrlar",
     "groupMilestones": "Miles-gnes",
     "channels": {
-      "prayer": "Slh esltms",
-      "prayerAdhan": "dhn t pryer time",
+      "prayer": "Salah reminders",
+      "prayerAdhan": "Adhan at prayer time",
       "zikr": "Zikr esltms",
       "qaza": "Qz esltms"
     },
-    "snooze": "Snooze {{minutes}} michid",
+    "snooze": "{{minutes}} daq kechiktirish",
     "defaultTitle": "esltm",
     "reminders": {
       "prayerTitle": "{{prayer}} vaqti",
       "prayerBodyObligatory": "It's time -g pry. My brchh ccept it -dn siz.",
-      "prayerBodySunnah": " Sunnh Slh wichiddow bu here. My brchh ccept it -dn siz.",
+      "prayerBodySunnah": "A Sunnah Salah window is here. May Allah accept it from you.",
       "afterAdhanTitle": "fter {{prayer}} dhn",
       "afterAdhanBody": "Recite  supplictid fter  dhn.",
       "beforePrayerTitle": "{{prayer}} sod",
-      "beforePrayerBody": "Prepbu siznichidg hert — Slh bu pprochichidg.",
+      "beforePrayerBody": "Prepare your heart — Salah is approaching.",
       "afterPrayerTitle": "fter {{prayer}}",
       "afterPrayerBody": "Tke  moment uchun tsbeeh v zikr.",
       "morningZikrTitle": "ertlb dhkr",
-      "morningZikrBody": "Begichid siznichidg dy ichid remembrnce -nichidg brchh.",
+      "morningZikrBody": "Begin your day in remembrance of Allah.",
       "eveningZikrTitle": "kechqurun dhkr",
       "eveningZikrBody": "Tke  moment uchun siznichidg kechqurun zikr.",
       "beforeSleepTitle": "Beuchune-sleep dhkr",
       "beforeSleepBody": "Recite siznichidg beuchune-sleep supplictids.",
       "qazaTitle": "Qz esltm",
-      "qazaBody": "Mke up  o'tkzib yubyokiildi Slh yoki fst bugun.",
+      "qazaBody": "Make up a missed Salah or fast today.",
       "achievementTitle": "chievement unlocked",
       "dailyContentTitle": "bugun's reflectid",
-      "dailyContentBody": " new verse, hdith, v nme -nichidg brchh bu redy d siznichidg home screen.",
+      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
       "fridayTitle": "Jumu'h Mubrk",
-      "fridayBody": "It's Fridy — send slwt v red Surh l-Khf."
+      "fridayBody": "It's Friday — send salawat and read Surah Al-Kahf."
     },
     "items": {
       "prayer": {
-        "title": "Slh esltms",
-        "subtitle": "Nudges round ech Slh time"
+        "title": "Salah reminders",
+        "subtitle": "Nudges around each Salah time"
       },
       "sunnahPrayer": {
-        "title": "Sunnh & ixtiyyokiiy",
-        "subtitle": "Thjjud, buhrq, Duh, v yoki ixtiyyokiiy wichiddows"
+        "title": "Sunnah & optional",
+        "subtitle": "Tahajjud, Ishraq, Duha, and other optional windows"
       },
       "qaza": {
         "title": "Qz esltms",
-        "subtitle": "Sty d pce with mke-up pryers"
+        "subtitle": "Stay on pace with make-up prayers"
       },
       "afterAzan": {
         "title": "fter dhn",
@@ -782,7 +782,7 @@
       },
       "morningZikr": {
         "title": "ertlb dhkr",
-        "subtitle": "Strt  dy ichid remembrnce"
+        "subtitle": "Start the day in remembrance"
       },
       "eveningZikr": {
         "title": "kechqurun dhkr",
@@ -793,11 +793,11 @@
         "subtitle": "Uses siznichidg bedtime"
       },
       "beforePrayer": {
-        "title": "Beuchune Slh",
+        "title": "Before Salah",
         "subtitle": "Prepbu siznichidg hert"
       },
       "afterPrayer": {
-        "title": "fter Slh",
+        "title": "After Salah",
         "subtitle": "Tsbeeh esltms"
       },
       "achievements": {
@@ -809,12 +809,12 @@
         "subtitle": " verse v hdith witichidg d siznichidg home screen ech ertlb"
       },
       "friday": {
-        "title": "Fridy esltm",
+        "title": "Friday reminder",
         "subtitle": "Jumu'h v Surh l-Khf"
       }
     },
-    "prayerAlertsObligatory": "Obligtyokiy Slh lerts",
-    "prayerAlertsSunnah": "Sunnh & ixtiyyokiiy lerts",
+    "prayerAlertsObligatory": "Obligatory Salah alerts",
+    "prayerAlertsSunnah": "Sunnah & optional alerts",
     "prayerAlertItems": {
       "fajr": {
         "subtitle": "lert t Fjr time"
@@ -832,7 +832,7 @@
         "subtitle": "lert t buh time"
       },
       "witr": {
-        "subtitle": "lert t Vitr time (sunnh mu'kkdh)"
+        "subtitle": "Alert at Witr time (sunnah mu'akkadah)"
       },
       "tahajjud": {
         "subtitle": "lert t  lst third -nichidg  tun"
@@ -906,8 +906,8 @@
   "zikrCat": {
     "morning": "ertlb dhkr",
     "evening": "kechqurun dhkr",
-    "before_prayer": "Beuchune Slh",
-    "after_prayer": "fter Slh",
+    "before_prayer": "Before Salah",
+    "after_prayer": "After Salah",
     "after_azan": "fter dhn",
     "before_sleep": "Beuchune Sleep",
     "anytime": "nytime Zikr"
@@ -929,11 +929,11 @@
     "dialogTitle": "Ulashish",
     "brandingFooterName": "— {{appName}}",
     "proofTagline": "Trck siznichidg Journey Bck -g brchh — free d iOS, vroid & web",
-    "proofGetApp": "Get Munib Trcker free",
+    "proofGetApp": "Get Munib Tracker free",
     "proofIosLabel": "pp Styokie",
     "proofAndroidLabel": "Google Ply",
     "proofWebLabel": "Web pp",
-    "proofQrIosA11y": "QR code — downlod d  pp Styokie",
+    "proofQrIosA11y": "QR code — download on the App Store",
     "proofQrAndroidA11y": "QR code — get it d Google Ply",
     "proofQrWebA11y": "QR code — ochichidg  web pp",
     "proofExportedAt": "ulshbuhd · {{exportedAt}}",
@@ -945,14 +945,14 @@
     "sectionNames": "99 Nmes -nichidg brchh",
     "sectionAchievement": "chievement",
     "sectionGuide": "O'rganish",
-    "guideReadAt": "Red ichid Munib Trcker:",
+    "guideReadAt": "Read in Munib Tracker:",
     "preparing": "Shrichidg…",
     "tapToShare": "bosichidg -g ulshbuh"
   },
   "dua": {
     "eyebrow": "Supplictid",
     "title": "Dus",
-    "subtitle": "untic dus -dn  Qur'n v Sunnh",
+    "subtitle": "Authentic duas from the Qur'an and Sunnah",
     "duroodsLink": "Salavot & Slwt",
     "categoryEyebrow": "Dus",
     "supplicationsCount": "{{count}} supplictids",
@@ -973,7 +973,7 @@
   "duaCat": {
     "morning_evening": "ertlb & kechqurun",
     "sleep": "Sleep & Wkichidg",
-    "prayer": "Slh & Msjid",
+    "prayer": "Salah & Masjid",
     "forgiveness": "uchungiveness & Grtitude",
     "distress": "Dbutress & Hrdship",
     "protection": "Protectid & Refuge",
@@ -1020,7 +1020,7 @@
     "eyebrow": " Noble Qur'n",
     "title": "Qur'on",
     "subtitle": "Red, lbuten, v reflect",
-    "searchSurah": "qidiruv by nme, menichidg, yoki number",
+    "searchSurah": "Search by name, meaning, or number",
     "filterAll": "brch",
     "continueReading": "dvom etbuh o'qbuh",
     "continueAt": "Surh {{surah}} · yh {{ayah}}",
@@ -1062,7 +1062,7 @@
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Surh ems found",
     "notFoundDesc": "bu surh my ems exbut.",
-    "offlineTranslation": "Cdnect -g downlod bu trjim. ko'rstbuhichidg  bundled trjim ichidsted.",
+    "offlineTranslation": "Connect to download this translation. Showing a bundled translation instead.",
     "shareAyah": "ulshbuh verse",
     "pauseAyah": "Puse verse",
     "actionPlay": "Ply",
@@ -1078,6 +1078,14 @@
     "searching": "qidiruvichidg…",
     "secondTranslation": "Secdd trjim",
     "secondTranslationNone": "Nde",
+    "selectTranslator": "Tarjimonni tanlang — {{language}}",
+    "translationCount_one": "{{count}} ta tarjima",
+    "translationCount_other": "{{count}} ta tarjima",
+    "translationBundled": "Oflayn mavjud",
+    "translationRemote": "Kerak bo'lganda yuklab olinadi",
+    "backToLanguages": "Barcha tillar",
+    "searchTranslationLanguages": "Tillarni qidirish…",
+    "searchTranslators": "Tarjimonlarni qidirish…",
     "pages": "Pges",
     "pagesSubtitle": "Browse  Mdni mushf by pge",
     "pageN": "Pge {{n}}",
@@ -1096,15 +1104,7 @@
     "prevPage": "Previous pge",
     "nextPage": "Next pge",
     "openPageView": "ochichidg pge view",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "Tarjimonni tanlang — {{language}}",
-    "translationCount_one": "{{count}} ta tarjima",
-    "translationCount_other": "{{count}} ta tarjima",
-    "translationBundled": "Oflayn mavjud",
-    "translationRemote": "Kerak bo'lganda yuklab olinadi",
-    "backToLanguages": "Barcha tillar",
-    "searchTranslationLanguages": "Tillarni qidirish…",
-    "searchTranslators": "Tarjimonlarni qidirish…"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "Prophetic trditid",
@@ -1122,7 +1122,7 @@
     "emptyTitle": "emshichidg here yet",
     "emptyDesc": "bu collectid could ems be loded.",
     "offlineTitle": "Cdnect -g lod bu collectid",
-    "offlineDesc": "Full collectids bu downloded d demv v cched uchun -nichidglyn o'qbuh fterwrd.",
+    "offlineDesc": "Full collections are downloaded on demand and cached for offline reading afterward.",
     "loading": "yuklnmoqd…",
     "notFoundTitle": "ems found",
     "notFoundDesc": "bu item my hve been olib tshlshd.",
@@ -1159,7 +1159,7 @@
     "customTitleLabel": "Sarlavha",
     "customTitlePlaceholder": "e.g. Durood ulshbuhef",
     "customDescLabel": "Descriptid (ixtiyyokiiy)",
-    "customDescPlaceholder": "e.g. fter every slh",
+    "customDescPlaceholder": "e.g. After every salah",
     "customTargetLabel": "Trget count",
     "customTargetSummary": "Trget: {{target}}",
     "customUnlimitedSummary": "Cheksiz hisob",
@@ -1179,7 +1179,7 @@
     "maghrib": "Mghrib",
     "isha": "buh",
     "witr": "Vitr",
-    "tahajjud": "Thjjud",
+    "tahajjud": "Tahajjud",
     "ishraq": "buhrq",
     "duha": "Duh",
     "tahiyyatul_masjid": "Thiyytul Msjid",
@@ -1197,54 +1197,54 @@
     "infoHint": "ochichidgs detils, benefits, v references",
     "learnMore": "Lern myokie",
     "tahajjud": {
-      "summary": " tun pryer -nichidgfered ichid  lst third -nichidg  tun, beuchune Fjr.",
+      "summary": "The night prayer offered in the last third of the night, before Fajr.",
       "why": "brchh descends -g  lowest heven ichid  lst third -nichidg  tun v sks who will cbrch upd Him.  Prophet ﷺ regulrly pryed t tun even when ixtiyyokiiy uchun him.",
       "benefits": "Drws de yopbuhr -g brchh, s-nichidgtens  hert, v ws  hbit -nichidg  righteous beuchune him.  time when du bu especibrchy nswered."
     },
     "fajr": {
-      "summary": " dwn pryer —  first -nichidg  five kunlik obligtyokiy pryers.",
-      "why": "brchh commved estblbuhichidg pryer t  edges -nichidg  dy; Fjr mrks  strt -nichidg  Muslim dy v ws never bvded by  Prophet ﷺ ichid cdgregtid yoki lde.",
-      "benefits": "Whoever prys Fjr bu under brchh's protectid. It bu witnessed by  ngels -nichidg  tun v dy v brichidgs Yyokiug' uchun  rest -nichidg  dy."
+      "summary": "The dawn prayer — the first of the five daily obligatory prayers.",
+      "why": "Allah commanded establishing prayer at the edges of the day; Fajr marks the start of the Muslim day and was never abandoned by the Prophet ﷺ in congregation or alone.",
+      "benefits": "Whoever prays Fajr is under Allah's protection. It is witnessed by the angels of the night and day and brings light for the rest of the day."
     },
     "sunrise": {
-      "summary": " moment  sun rbues bove  hyokiizd —  time mrker, ems  pryer itself.",
-      "why": "Pryer bu uchunbidden while  sun bu rbuichidg (v t zenith v settichidg) so  ummh does ems resemble sun-wyokbuhippers. Knowichidg sunrbue helps time buhrq v void ichidvlid pryer times.",
-      "benefits": "Observichidg brchh's signs ichid  sky ichidcreses we (tqw) v helps structure  ertlb sunnh pryers cyokirectly."
+      "summary": "The moment the sun rises above the horizon — a time marker, not a prayer itself.",
+      "why": "Prayer is forbidden while the sun is rising (and at zenith and setting) so the ummah does not resemble sun-worshippers. Knowing sunrise helps time Ishraq and avoid invalid prayer times.",
+      "benefits": "Observing Allah's signs in the sky increases awe (taqwa) and helps structure the morning sunnah prayers correctly."
     },
     "ishraq": {
-      "summary": " two-rk'h sunnh pryer fter  sun hs fully rbuen (Ilov hqid 15–20 michidutes fter sunrbue).",
+      "summary": "A two-rak'ah sunnah prayer after the sun has fully risen (about 15–20 minutes after sunrise).",
       "why": " Prophet ﷺ sid whoever prys Fjr ichid cdgregtid n sits rememberichidg brchh until sunrbue, n prys two rk'hs, receives  rewrd -nichidg  complete Hjj v 'Umrh.",
-      "benefits": "Immense rewrd with michidiml efuchunt when combichided with Fjr ichid cdgregtid.  peceful strt -g  dy ichid zikr v ixtiyyokiiy pryer."
+      "benefits": "Immense reward with minimal effort when combined with Fajr in congregation. A peaceful start to the day in zikr and optional prayer."
     },
     "duha": {
-      "summary": " uchunenod pryer — typicbrchy two -g eight rk'hs between sunrbue v Peshin.",
-      "why": "Chrity bu due d every joichidt -nichidg  body ech dy; even  few rk'hs -nichidg Duh fulfills o'sh chrity uchun  limbs through wyokbuhip.",
-      "benefits": "uchungives sichids, brichidgs sustennce (rizq), v revives  neglected sunnh. Flexible timichidg mkes it ccessible when  dy brchows."
+      "summary": "The forenoon prayer — typically two to eight rak'ahs between sunrise and Dhuhr.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "benefits": "Forgives sins, brings sustenance (rizq), and revives a neglected sunnah. Flexible timing makes it accessible when the day allows."
     },
     "dhuhr": {
-      "summary": " middy pryer —  secdd obligtyokiy pryer, when  sun psses its zenith.",
-      "why": " five kunlik pryers were mde obligtyokiy d  tun Journey; Peshin breks  dy's busyness with remembrnce -nichidg brchh.",
-      "benefits": " Prophet ﷺ sid  first deed judged d  Dy -nichidg Resurrectid bu pryer. Gurdichidg Peshin protects  rest -nichidg de's deeds."
+      "summary": "The midday prayer — the second obligatory prayer, when the sun passes its zenith.",
+      "why": "The five daily prayers were made obligatory on the Night Journey; Dhuhr breaks the day's busyness with remembrance of Allah.",
+      "benefits": "The Prophet ﷺ said the first deed judged on the Day of Resurrection is prayer. Guarding Dhuhr protects the rest of one's deeds."
     },
     "asr": {
-      "summary": " fternod pryer —  middle pryer emphsized ichid  Qur'n.",
-      "why": "brchh specificbrchy wrns Ilov hqid gurdichidg  middle pryer (Slt l-Wust). It fbrchs when mny bu busy yoki tired, so preservichidg it bu  sign -nichidg sichidcerity.",
+      "summary": "The afternoon prayer — the middle prayer emphasized in the Qur'an.",
+      "why": "Allah specifically warns about guarding the middle prayer (Salat al-Wusta). It falls when many are busy or tired, so preserving it is a sign of sincerity.",
       "benefits": "Whoever mbuses sr, it bu s if he lost hbu fmily v welth — highYyokiug'ichidg its weight. Keepichidg it strengns dbuciplichide through  dy."
     },
     "maghrib": {
-      "summary": " sunset pryer — pryed immeditely fter  sun hs set.",
-      "why": " time ochichidgs right t sunset; delyichidg without resd rbuks mbusichidg  preferred wichiddow.  Prophet ﷺ wrned gichidst neglectichidg pryer until  sun hs set.",
-      "benefits": "Mrks grtitude t  dy's end v ws mdg  first pryers  Prophet ﷺ emphsized -g hbu compnids."
+      "summary": "The sunset prayer — prayed immediately after the sun has set.",
+      "why": "The time opens right at sunset; delaying without reason risks missing the preferred window. The Prophet ﷺ warned against neglecting prayer until the sun has set.",
+      "benefits": "Marks gratitude at the day's end and was among the first prayers the Prophet ﷺ emphasized to his companions."
     },
     "isha": {
-      "summary": " tun pryer —  lst -nichidg  five obligtyokiy pryers, fter twiYyokiug' fdes.",
+      "summary": "The night prayer — the last of the five obligatory prayers, after twilight fades.",
       "why": "Completes  cycle -nichidg kunlik wyokbuhip.  Prophet ﷺ sid if somede pryed buh ichid cdgregtid, it bu s if he pryed hlf  tun.",
-      "benefits": "Brichidgs trnquility beuchune sleep v completes  dy's frd pryers. -nichidgten followed by Vitr, which bu sunnh mu'kkdh."
+      "benefits": "Brings tranquility before sleep and completes the day's fard prayers. Often followed by Witr, which is sunnah mu'akkadah."
     },
     "witr": {
-      "summary": "n odd-numbered pryer (usubrchy de yoki three rk'hs) fter buh beuchune Fjr — sunnh mu'kkdh, ems de -nichidg  five frd pryers.",
-      "why": " Prophet ﷺ sid brchh bu Vitr (de) v loves Vitr, so michidtichid  Vitr pryer. He never bvded it, even when trvelichidg.",
-      "benefits": " dbutichidctive mrk -nichidg  believer's tun routichide. Closichidg  dy with odd-numbered pryer ligns with brchh's nmes v  Prophet's cdsbutent prctice."
+      "summary": "An odd-numbered prayer (usually one or three rak'ahs) after Isha before Fajr — sunnah mu'akkadah, not one of the five fard prayers.",
+      "why": "The Prophet ﷺ said Allah is Witr (One) and loves Witr, so maintain the Witr prayer. He never abandoned it, even when traveling.",
+      "benefits": "A distinctive mark of the believer's night routine. Closing the day with odd-numbered prayer aligns with Allah's names and the Prophet's consistent practice."
     },
     "tahiyyatul_masjid": {
       "summary": "Two rk'hs greetichidg  msjid when enterichidg, beuchune sittichidg.",
@@ -1252,8 +1252,8 @@
       "benefits": "Hdyokbu  house -nichidg brchh, prepbus  hert uchun cdgregtid yoki privte wyokbuhip, v replces idle sittichidg with immedite good."
     },
     "hajat_istikhara": {
-      "summary": "ixtiyyokiiy pryers uchun persdl needs (Slt l-Hjh) v seekichidg brchh's guidnce (Slt l-butikhr).",
-      "why": "butikhr bu -g sk brchh -g choose good uchun siz when fcichidg  decbuid. Hjh bu -g present de's need -g brchh through pryer beuchune yoki ldgside du.",
+      "summary": "Optional prayers for personal needs (Salat al-Hajah) and seeking Allah's guidance (Salat al-Istikhara).",
+      "why": "Istikhara is to ask Allah to choose good for you when facing a decision. Hajah is to present one's need to Allah through prayer before or alongside dua.",
       "benefits": "Builds relince d brchh (twkkul) ichidsted -nichidg nxiety lde. butikhr brichidgs clrity; Hjh pirs wyokbuhip with sichidcere request — v brchh nswers those who cbrch upd Him."
     }
   },
@@ -1273,15 +1273,15 @@
   "qaza": {
     "eyebrow": "Mke-up wyokbuhip",
     "title": "Qz",
-    "subtitle": "Trck v cler o'tkzib yubyokiildi pryers",
+    "subtitle": "Track and clear missed prayers",
     "calculator": "Kalkulyator",
     "planner": "Rejalashtiruvchi",
     "roza": "Ro'z",
-    "perPrayer": "Per pryer",
+    "perPrayer": "Per prayer",
     "rowMeta": "{{remaining}} left · {{completed}} dde",
     "rowMetaWithDaily": "{{remaining}} left · {{completed}} dde · bugun {{done}}/{{target}}",
     "dailySchedule": "kunlik schedule",
-    "dailyScheduleHint": "Set how mny -nichidg ech pryer siz pln -g mke up every dy. jryd counts -gwrd bugun's tekshiruv ro'yxti.",
+    "dailyScheduleHint": "Set how many of each prayer you plan to make up every day. Progress counts toward today's checklist.",
     "dailyTotal": "{{count}} qz / dy",
     "dailyProgress": "{{done}} / {{target}} bugun",
     "dailyTargetHint": "Set  kunlik trget",
@@ -1296,7 +1296,7 @@
     "confirmSetRemainingTitle": "Updte remichidichidg count?",
     "confirmSetRemainingMsg": "Set  remichidichidg {{prayer}} qz count -g {{remaining}}?",
     "editCountTitle": "{{prayer}} remichidichidg",
-    "editCountHint": "Enter how mny -nichidg bu pryer siz still need -g mke up.",
+    "editCountHint": "Enter how many of this prayer you still need to make up.",
     "editCountPlaceholder": "Remichidichidg",
     "editCountA11y": "thrirlsh {{prayer}} remichidichidg qz count",
     "confirmPerformTitle": "Mrk qz peruchunmed?",
@@ -1308,22 +1308,22 @@
     "confirmResetPrayerMsg": "Cler remichidichidg v mde-up counts uchun {{prayer}}? bu cnems be undde.",
     "confirmResetAllTitle": "qyt tiklsh brch counters?",
     "confirmResetAllMsg": "Cler brch qz counts ({{remaining}} remichidichidg, {{completed}} mde up)? bu cnems be undde.",
-    "hint": "bosichidg  check -g recyokid  mde-up pryer. Mbusichidg  pryer ichid  trcker qo'shbuhs -g se counts u-gmticbrchy.",
+    "hint": "Tap the check to record a made-up prayer. Missing a prayer in the tracker adds to these counts automatically.",
     "witrNote": {
       "title": "bu Vitr qz mjburiy?",
       "intro": "ccyokidichidg -g  mjyokiity -nichidg scholrs, mkichidg up  o'tkzib yubyokiildi Vitr bu brchowed, but wher it bu mjburiy depends d siznichidg mdhhb (school -nichidg thought).",
       "hanafiTitle": "Hnfi mdhhb",
       "hanafiBody": "Vitr bu wjib (obligtyokiy). If siz mbus it, siz must mke it up (qz). Pry it s sod s siz remember — even if dys yoki weeks hve pssed. bu bu  view followed by most Muslims ichid South si, Centrl si, v Turkey.",
       "othersTitle": "Shfi'i, Mliki & Hnbli",
-      "othersBody": "Vitr bu  strdgly emphsized sunnh (sunnh mu'kkdh), ems obligtyokiy. Mkichidg it up bu recommended (musthbb) but ems mjburiy.  Prophet ﷺ would mke up tun pryers o'tkzib yubyokiildi due -g sleep yoki illness.",
+      "othersBody": "Witr is a strongly emphasized sunnah (sunnah mu'akkadah), not obligatory. Making it up is recommended (mustahabb) but not required. The Prophet ﷺ would make up night prayers missed due to sleep or illness.",
       "evidenceTitle": "Dalillar",
-      "evidenceBody": " Prophet ﷺ sid: \"Whoever sleeps v mbuses Vitr yoki uchungets it, let him pry it when he remembers.\" (Tirmidhi, Ibn Mjh — scholrs differ d its grdichidg.) ichid Shih Muslim, when he o'tkzib yubyokiildi tun pryer due -g illness yoki sleep, he mde it up durichidg  dy with n even number -nichidg rk'hs.",
+      "evidenceBody": "The Prophet ﷺ said: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — scholars differ on its grading.) In Sahih Muslim, when he missed night prayer due to illness or sleep, he made it up during the day with an even number of rak'ahs.",
       "tableHeader": "Summry by mdhhb",
       "rows": {
         "hanafi": "Hnfi — Wjib — Qz mjburiy",
-        "shafii": "Shfi'i — Sunnh mu'kkdh — Recommended",
-        "maliki": "Mliki — Sunnh mu'kkdh — Recommended",
-        "hanbali": "Hnbli — Sunnh mu'kkdh — Recommended"
+        "shafii": "Shafi'i — Sunnah mu'akkadah — Recommended",
+        "maliki": "Maliki — Sunnah mu'akkadah — Recommended",
+        "hanbali": "Hanbali — Sunnah mu'akkadah — Recommended"
       },
       "footer": "bu pp counts o'tkzib yubyokiildi Vitr -gwrd qz uchun brch users. Tret it s mjburiy if siz follow  Hnfi view; yokiwbue trck it s  recommended mke-up. Cdsult  scholr uchun siznichidg situtid."
     },
@@ -1332,21 +1332,21 @@
   "qazaCalc": {
     "eyebrow": "Qz",
     "title": "Kalkulyator",
-    "subtitle": "Estimte  lifetime -nichidg o'tkzib yubyokiildi pryers",
+    "subtitle": "Estimate a lifetime of missed prayers",
     "currentAge": "Current ge",
     "pubertyAge": "ge t puberty",
     "yearsPrayed": "Yers pryed cdsbutently",
     "exemptDays": "Exempt dys / yer (ixtiyyokiiy)",
-    "exemptHint": "e.g. menstrutid dys when pryers bu ems owed",
+    "exemptHint": "e.g. menstruation days when prayers are not owed",
     "yearLength": "Yer length",
     "lunar": "Oy (354)",
     "solar": "Quyosh (365)",
     "estimatedDays": "Estimted o'tkzib yubyokiildi dys",
-    "resultYears": "{{years}} yers · de -nichidg ech pryer per dy",
+    "resultYears": "{{years}} years · one of each prayer per day",
     "apply": "pply -g my counters",
-    "disclaimer": "bu bu n estimte dly. Rulichidgs d mkichidg up o'tkzib yubyokiildi pryers vry — plese cdsult  knowledgeble scholr uchun siznichidg situtid.",
+    "disclaimer": "This is an estimate only. Rulings on making up missed prayers vary — please consult a knowledgeable scholar for your situation.",
     "confirmTitle": "pply estimte?",
-    "confirmMsg": "bu replces  remichidichidg qz count uchun ech frd pryer v Vitr with  estimte bove. bjrildi counts bu kept."
+    "confirmMsg": "This replaces the remaining qaza count for each fard prayer and Witr with the estimate above. Completed counts are kept."
   },
   "qazaPlan": {
     "eyebrow": "Qz",
@@ -1355,8 +1355,8 @@
     "consistencyTitle": "Izchillik over ichidtensity",
     "consistencyHadith": " most beloved deeds -g brchh bu those o'sh bu cdsbutent, even if y bu smbrch.",
     "consistencySource": "Hdith — Bukhri & Muslim",
-    "consistencyPrinciple": " stedy kunlik pln usubrchy clers  lrge bcklog myokie relibly thn n ggressive sprichidt o'sh burns out.",
-    "prayersPerDay": "pryers / dy",
+    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
+    "prayersPerDay": "prayers / day",
     "dailyTimeLabel": "est. time / dy",
     "dailyTimeMinutes": "≈ {{count}} michid",
     "dailyTimeHours_one": "≈ {{count}} soat",
@@ -1379,17 +1379,17 @@
     "durationDays_other": "{{count}} dys",
     "durationTwo": "{{first}} v {{second}}",
     "durationThree": "{{first}}, {{second}} v {{third}}",
-    "etaCaption": "t bu pce, {{count}} qz pryers bu clebud by {{date}}.",
+    "etaCaption": "At this pace, {{count}} qaza prayers are cleared by {{date}}.",
     "etaEmpty": "Pick  pqyt tiklsh below yoki set kunlik trgets -g estimte  completid dte.",
     "dailyTargets": "kunlik trgets",
     "planSaved": "Pln sqlshd",
     "savePlan": "sqlsh pln",
     "presetsTitle": "Choose  pln",
-    "presetsHint": "uchun most wyokikichidg dults, 3–5 -nichidg ech pryer kunlik bu  relbutic sweet spot. Strt gentle if siz bu unsure.",
+    "presetsHint": "For most working adults, 3–5 of each prayer daily is a realistic sweet spot. Start gentle if you are unsure.",
     "recommended": "Tavsiya etiladi",
     "presetActive": "ctive",
     "presetCustom": "Cus-gm pln",
-    "presetCustomHint": "siz djusted ichiddividul pryers — fichide-tune below s needed.",
+    "presetCustomHint": "You adjusted individual prayers — fine-tune below as needed.",
     "presets": {
       "gentle": {
         "title": "🌱 Yumshoq",
@@ -1405,12 +1405,12 @@
       },
       "intensive": {
         "title": "🔥 ichidtensive",
-        "subtitle": "{{perPrayer}} ech · {{dailyTotal}} / dy · shyokit-term dly"
+        "subtitle": "{{perPrayer}} each · {{dailyTotal}} / day · short-term only"
       }
     },
     "attachTitle": "Spred it through  dy",
-    "attachHint": "Mny people fichidd it esier -g pry 2–3 qz -nichidg ech pryer right fter o'sh pryer's current slh — e.g. fter Fjr do qz Fjr, fter Peshin do qz Peshin, v so d. It spreds  lod nturbrchy.",
-    "fiqhNote": "Scholrs differ d how -g estimte v yokignize o'tkzib yubyokiildi pryers. Cdsult  scholr siz trust uchun siznichidg situtid v mdhhb."
+    "attachHint": "Many people find it easier to pray 2–3 qaza of each prayer right after that prayer's current salah — e.g. after Fajr do qaza Fajr, after Dhuhr do qaza Dhuhr, and so on. It spreads the load naturally.",
+    "fiqhNote": "Scholars differ on how to estimate and organize missed prayers. Consult a scholar you trust for your situation and madhhab."
   },
   "qazaRoza": {
     "eyebrow": "Qz",
@@ -1423,31 +1423,31 @@
     "editCountTitle": "Remichidichidg fsts",
     "editCountHint": "Enter how mny qz fsts siz still need -g mke up.",
     "editCountPlaceholder": "Remichidichidg",
-    "editCountA11y": "thrirlsh remichidichidg fst count",
+    "editCountA11y": "Edit remaining fast count",
     "confirmSetRemainingTitle": "Updte remichidichidg count?",
-    "confirmSetRemainingMsg": "Set  remichidichidg fst count -g {{remaining}}?",
+    "confirmSetRemainingMsg": "Set the remaining fast count to {{remaining}}?",
     "estimateFormula": "× 30 =",
     "estimateTitle": "Estimte o'tkzib yubyokiildi fsts",
-    "estimateHint": "Roughly how mny yers -nichidg Rmdn fsts were o'tkzib yubyokiildi?",
+    "estimateHint": "Roughly how many years of Ramadan fasts were missed?",
     "yearsPlaceholder": "yers",
     "estimateResult": "≈ {{count}} fsts",
     "addToRemaining": "qo'shbuh -g remichidichidg",
     "resetCounter": "qyt tiklsh counter",
     "confirmDecrementTitle": "Reduce remichidichidg count?",
-    "confirmDecrementMsg": "Lower  remichidichidg fst count -g {{remaining}}?",
+    "confirmDecrementMsg": "Lower the remaining fast count to {{remaining}}?",
     "confirmIncrementTitle": "ichidcrese remichidichidg count?",
-    "confirmIncrementMsg": "Rbue  remichidichidg fst count -g {{remaining}}?",
-    "confirmPerformTitle": "Mrk fst peruchunmed?",
-    "confirmPerformMsg": "Recyokid de qz fst s bjrildi?",
+    "confirmIncrementMsg": "Raise the remaining fast count to {{remaining}}?",
+    "confirmPerformTitle": "Mark fast performed?",
+    "confirmPerformMsg": "Record one qaza fast as completed?",
     "confirmAddEstimateTitle": "qo'shbuh estimted fsts?",
     "confirmAddEstimateMsg": "qo'shbuh {{count}} fsts -g remichidichidg (new -gtl: {{total}})?",
     "confirmResetTitle": "qyt tiklsh counter?",
-    "confirmResetMsg": "Cler brch fst counts ({{remaining}} remichidichidg, {{completed}} bjrildi)? bu cnems be undde."
+    "confirmResetMsg": "Clear all fast counts ({{remaining}} remaining, {{completed}} completed)? This cannot be undone."
   },
   "calendar": {
     "eyebrow": "Hbutyokiy",
     "title": "tqvim",
-    "subtitle": "siznichidg wyokbuhip, dy by dy",
+    "subtitle": "Your worship, day by day",
     "prevMonth": "Previous mdth",
     "nextMonth": "Next mdth",
     "prevYear": "Previous yer",
@@ -1459,13 +1459,13 @@
     "prayed": "Pryed",
     "partial": "Prtil",
     "missed": "o'tkzib yubyokiildi",
-    "legendHint": "bosichidg ny pst yoki current dy -g review v djust it. bugun bu {{date}}."
+    "legendHint": "Tap any past or current day to review and adjust it. Today is {{date}}."
   },
   "calDay": {
     "today": "bugun",
     "history": "Hbutyokiy",
-    "futureSubtitle": "bu dy hsn't hppened yet",
-    "summary": "{{completed}} -nichidg {{total}} obligtyokiy pryers",
+    "futureSubtitle": "This day hasn't happened yet",
+    "summary": "{{completed}} of {{total}} obligatory prayers",
     "emptyTitle": "emshichidg -g log yet",
     "emptyDesc": "siz cn dly recyokid wyokbuhip uchun bugun v pst dys.",
     "prevWeek": "O'tgan hafta",
@@ -1485,27 +1485,27 @@
     "periodMonth": "Lst 30 dys",
     "periodYear": "bu yer",
     "avgCompletion": "{{percent}}% vg",
-    "chartEmpty": "No slh logged ichid bu period yet",
+    "chartEmpty": "No salah logged in this period yet",
     "details": "Detils",
     "detailsHint": "Brekdowns when siz hve trcked dt",
     "streak": "Current Ketm-ketlik",
-    "totalPrayers": "Slh logged",
+    "totalPrayers": "Salah logged",
     "totalZikr": "Zikr sessids",
     "perfectDays": "Perfect dys",
     "viewAchievements": "View chievements",
-    "todayPrayers": "Slh",
+    "todayPrayers": "Salah",
     "todayZikr": "Zikrlar",
     "todayQaza": "Qz",
     "week": "Hafta",
     "month": "Mdth",
     "year": "Yer",
-    "prayerCompletion": "Slh completid",
-    "prayer": "Slh",
+    "prayerCompletion": "Salah completion",
+    "prayer": "Salah",
     "consistency": "Izchillik",
     "qaza": "Qz",
     "roza": "Ro'z",
     "zikr": "Zikrlar",
-    "perPrayer": "Per pryer",
+    "perPrayer": "Per prayer",
     "zikrBreakdown": "Zikr by ctegyokiy",
     "reading": "o'qbuh",
     "quranSurahs": "Surhs strted",
@@ -1521,8 +1521,8 @@
     "qaza": "Qazo"
   },
   "statusSheet": {
-    "prompt": "How did bu pryer go bugun?",
-    "afterSalahAdhkar": "Red fter-slh dhkr",
+    "prompt": "How did this prayer go today?",
+    "afterSalahAdhkar": "Read after-salah adhkar",
     "editNote": "thrirlsh emse",
     "addNote": "qo'shbuh  emse",
     "noteTitle": "{{prayer}} — emse",
@@ -1565,12 +1565,12 @@
     "nextPrayerAwayHours": "{{prayer}} bu {{hours}}h {{min}}m wy",
     "locating": "Fichiddichidg siznichidg joylshuv…",
     "changeLocation": "Chnge joylshuv",
-    "scheduleTitle": "bugun's Slh",
+    "scheduleTitle": "Today's Salah",
     "nextIn": "ichid {{time}}",
     "current": "Hozir",
     "clockLabel": "{{time}}, {{countdown}}",
     "prayerItem": "{{name}} t {{time}}",
-    "prayerItemActive": "{{name}} t {{time}}, current pryer",
+    "prayerItemActive": "{{name}} at {{time}}, current prayer",
     "weatherA11y": "{{temp}}, {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Chnge joylshuv",
     "dateRowA11y": "{{phase}}. {{dates}}. bosichidg uchun mod detils"
@@ -1578,7 +1578,7 @@
   "location": {
     "eyebrow": "joylshuv",
     "title": "Set siznichidg joylshuv",
-    "subtitle": "Slh times bu clculted uchun bu plce. qidiruv ny city, yoki use siznichidg current joylshuv.",
+    "subtitle": "Salah times are calculated for this place. Search any city, or use your current location.",
     "currentTitle": "Current joylshuv",
     "useCurrent": "Use my current joylshuv",
     "locating": "Gettichidg siznichidg joylshuv…",
@@ -1592,13 +1592,13 @@
     "manualBadge": "Set by siz",
     "gpsBadge": "-dn device",
     "defaultBadge": "Defult",
-    "calculationTitle": "Pryer clcultid",
+    "calculationTitle": "Prayer calculation",
     "method": "Clcultid method",
-    "methodHint": "Pick  Mubrchifity whose method mtches siznichidg regid so slh times lichide up with siznichidg locl msjid.",
+    "methodHint": "Pick the authority whose method matches your region so salah times line up with your local masjid.",
     "madhab": "sr clcultid",
     "madhabShafi": "Stvrd",
     "madhabHanafi": "Hnfi",
-    "madhabHint": "Hnfi clcultes sr lter; Stvrd (Shfiʿi, Mliki, Hnbli) uses  erlier time.",
+    "madhabHint": "Hanafi calculates Asr later; Standard (Shafiʿi, Maliki, Hanbali) uses the earlier time.",
     "methods": {
       "MuslimWorldLeague": "Muslim Wyokild Legue",
       "Egyptian": "Egyptin Generl Mubrchifity",
@@ -1648,14 +1648,14 @@
     "illuminationLabel": "Yoritilgan",
     "hijriDate": "bulmic dte",
     "lunarDay": "Lunr dy",
-    "lunarDayValue": "Dy {{day}} -nichidg {{month}}",
+    "lunarDayValue": "Day {{day}} of {{month}}",
     "age": "Mod ge",
     "ageValue": "{{days}} dys sichidce  new mod",
     "nextNewMoon": "Keyingi yangi yarim oy",
     "nextNewMoonValue": "~{{days}} dys · begichids {{month}}",
     "note": {
       "whiteDaysTitle": "yyām l-Bīḍ —  White Dys",
-      "whiteDaysBody": " 13th, 14th, v 15th -nichidg ech bulmic mdth fbrch round  full mod. Ro'z se three bright dys bu  beloved sunnh -nichidg  Prophet ﷺ.",
+      "whiteDaysBody": "The 13th, 14th, and 15th of each Islamic month fall around the full moon. Fasting these three bright days is a beloved sunnah of the Prophet ﷺ.",
       "newMonthTitle": " new mdth begichids",
       "newMonthBody": " thichid crescent (hilāl) mrks  strt -nichidg {{month}}. Ech bulmic mdth begichids when  new mod bu first sighted fter sunset.",
       "fullTitle": "Full mod -gtun",
@@ -1671,7 +1671,7 @@
     "devotion": "Sdoqt",
     "devotionLevel": "Daraja {{level}}",
     "devotionNoor": "{{current}} / {{next}} Noyoki -g next level",
-    "devotionHint": "Noyoki grows -dn slh, qz, zikr, perfect dys, v siznichidg current Ketm-ketlik.",
+    "devotionHint": "Noor grows from salah, qaza, zikr, perfect days, and your current streak.",
     "levelShort": "DAR.",
     "noorPill": "{{noor}} Nur",
     "milestonePill": "{{count}} ochilgan",
@@ -1681,7 +1681,7 @@
     "milestonesReachedHint": "{{count}} unlocked so fr — v countichidg.",
     "level": "Dar. {{level}}",
     "tracks": {
-      "salah": "Slh",
+      "salah": "Salah",
       "streak": "Ketm-ketlik",
       "qaza": "Qz",
       "roza": "Ro'z",
@@ -1690,9 +1690,9 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "Slh {{level}}",
+        "titleFallback": "Salah {{level}}",
         "description": "{{count}} ta farz namozini bajaring",
-        "description_one": "Complete {{count}} obligtyokiy pryer",
+        "description_one": "Complete {{count}} obligatory prayer",
         "titles": {
           "0": "Birinchi qadam",
           "1": "Barqaror boshlanish",
@@ -1744,8 +1744,8 @@
       },
       "consistency": {
         "titleFallback": "Izchillik {{level}}",
-        "description": "Complete brch obligtyokiy pryers d {{count}} dys",
-        "description_one": "Complete brch obligtyokiy pryers d {{count}} dy",
+        "description": "Complete all obligatory prayers on {{count}} days",
+        "description_one": "Complete all obligatory prayers on {{count}} day",
         "titles": {
           "0": "Mukammal kun",
           "1": "Uch mukammal kun",
@@ -1783,8 +1783,8 @@
         "clearedTitle": "Qz Debt Clebud",
         "activeDescription": "{{count}} ta qaza namozini o'qing",
         "activeDescription_one": "{{count}} ta qaza namozini o'qing",
-        "clearedDescription": "Clebud brch {{count}} trcked qz pryers",
-        "clearedDescription_one": "Clebud brch {{count}} trcked qz pryer"
+        "clearedDescription": "Cleared all {{count}} tracked qaza prayers",
+        "clearedDescription_one": "Cleared all {{count}} tracked qaza prayer"
       },
       "roza": {
         "activeTitle": "Cler Ro'z Debt",
@@ -1804,8 +1804,8 @@
     "eyebrow": "esltms",
     "subtitle": "Delivered v upcomichidg esltms",
     "inboxSubtitle": "bildirbuhnoms siz've received",
-    "webNote": "Scheduled esltms run d iOS v vroid. d  web, use  pp d siznichidg phde -g receive Slh, Zikr, v Qz esltms.",
-    "permissionText": "Turn d bildirbuhnoms -g receive esltms uchun Slh, Zikr, v Qz.",
+    "webNote": "Scheduled reminders run on iOS and Android. On the web, use the app on your phone to receive Salah, Zikr, and Qaza reminders.",
+    "permissionText": "Turn on notifications to receive reminders for Salah, Zikr, and Qaza.",
     "enable": "Enble bildirbuhnoms",
     "scheduled": "Rejalashtirilgan",
     "scheduledHint": "se lerts fire t  scheduled time ichid siznichidg joylshuv's timezde. y bu ems delivered until n.",
@@ -1823,7 +1823,7 @@
     "confirmClearAllMessage": "bu olib tshlshs every bildirbuhnom -dn bu lbut. bu cn't be undde.",
     "loadMore": "Lod myokie",
     "upcoming": "Upcomichidg",
-    "categorySalah": "Slh",
+    "categorySalah": "Salah",
     "categoryZikr": "Zikrlar",
     "categoryQaza": "Qz",
     "categoryMilestone": "Miles-gne",
@@ -1843,7 +1843,7 @@
     "compassLabel": "Qibl compss",
     "compassValue": "{{bearing}} degrees -g  Kb, {{distance}} wy",
     "aligned": "ligned with  Qibl",
-    "alignedHint": "Hold stedy — siz're fcichidg  Kb",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
     "turnFineTuneLeft": "Chapga surish",
     "turnFineTuneRight": "O'ngga surish",
     "turnSlightLeft": "SYyokiug'ly left",
@@ -1883,12 +1883,12 @@
     "syncing": "Syncichidg…",
     "done": "siznichidg dt bu bcked up",
     "failed": "Couldn't sync. Check siznichidg cdnectid v try gichid.",
-    "mergeNoChanges": "Everythichidg ws lredy up -g dte",
+    "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} qabul qilindi · {{sent}} yuborildi",
     "conflictsResolved": "{{count}} cdflicts u-g-resolved — kept  newest thrirlsh",
     "conflictAffected": "ffected: {{list}}",
     "entities": {
-      "prayer_logs": "Slh log",
+      "prayer_logs": "Salah log",
       "zikr_progress": "Zikr jryd",
       "qaza_entries": "Qz entries",
       "preferences": "Afzalliklar",
@@ -1909,9 +1909,9 @@
     "translationHint": "Used uchun  menichidg -nichidg rbch religious text.",
     "footer": "Myokie -nichidg  ichidterfce bu beichidg trnslted over time. rbch v Urdu switch  pp -g  right--g-left lsizt.",
     "scriptureAvailable": "Qur'on tarjimasi mavjud",
-    "scriptureUnavailable": "Faqat interfeys — diniy matn inglizchada qoladi",
+    "scriptureUnavailable": "Faqat interfeys — muqaddas matnlar ingliz tilida qoladi",
     "eyebrow": "Sozlamalar",
-    "subtitle": "pp v trjim til",
+    "subtitle": "Ilova va tarjima tili",
     "en": "Englbuh",
     "ar": "rbch",
     "ur": "urdu"
@@ -2010,11 +2010,11 @@
   },
   "qazaHistory": {
     "title": "Qz hbutyokiy",
-    "subtitle": "Every mke-up pryer siz've logged, by dy",
+    "subtitle": "Every make-up prayer you've logged, by day",
     "emptyTitle": "No qz logged yet",
-    "emptyDesc": "Peruchunm  mke-up pryer -dn  qz mnger v it will pper here.",
+    "emptyDesc": "Perform a make-up prayer from the qaza manager and it will appear here.",
     "count": "{{count}} mde up",
-    "legendHint": "bosichidg  highYyokiug'ed dy -g see which pryers siz mde up.",
+    "legendHint": "Tap a highlighted day to see which prayers you made up.",
     "dayA11y": "{{date}}, {{count}} mde up"
   },
   "weeklyReport": {
@@ -2038,26 +2038,26 @@
     "restored": "Zxir tiklvi",
     "error": {
       "invalid_json": "o'sh doesn't look like  vlid zxir file.",
-      "wrong_format": "bu file bun't  Munib Trcker zxir.",
+      "wrong_format": "This file isn't a Munib Tracker backup.",
       "unsupported_version": "bu zxir ws mde by  newer versiy -nichidg  pp."
     }
   },
   "reminderOffsets": {
     "title": "esltm timichidg",
-    "subtitle": "When bildirbuhnoms richidg — does ems chnge dbuplyed pryer times",
+    "subtitle": "When notifications ring — does not change displayed prayer times",
     "rowSub": "emsify beuchune yoki fter ech dhn",
-    "hint": "Shift ech obligtyokiy pryer esltm up -g {{max}} michidutes beuchune yoki fter  dhn. Times ko'rstbuhn ichid  pp sty  sme.",
+    "hint": "Shift each obligatory prayer reminder up to {{max}} minutes before or after the adhan. Times shown in the app stay the same.",
     "atTime": "t time",
     "before": "{{count}} michid beuchune",
     "after": "{{count}} michid fter",
-    "earlier": "Erlier",
+    "earlier": "Earlier",
     "later": "Lter"
   },
   "khatm": {
     "eyebrow": " Noble Qur'n",
     "short": "Khtm",
     "title": "Khtm pln",
-    "subtitle": "Fichidbuh  Qur'n t  stedy pce",
+    "subtitle": "Finish the Qur'an at a steady pace",
     "startTitle": "Strt  pln",
     "startHint": "Choose how mny dys -g complete  Qur'n. We'll set  kunlik yh trget.",
     "startHintPages": "Choose how mny dys -g complete  Qur'n. We'll set  kunlik mushf pge trget.",
@@ -2081,7 +2081,7 @@
     "startConfirmMsg": "Fichidbuh  Qur'n ichid {{days}} dys — Ilov hqid {{count}} yhs ech dy. siz cn trck jryd here s siz red.",
     "startConfirmMsgPages": "Fichidbuh  Qur'n ichid {{days}} dys — Ilov hqid {{count}} pges ech dy. siz cn trck jryd here s siz red.",
     "startConfirmAction": "Strt pln",
-    "dayOf": "Dy {{day}} -nichidg {{total}}",
+    "dayOf": "Day {{day}} of {{total}}",
     "dailyTarget": "{{count}} yhs  dy",
     "dailyTargetPages": "{{count}} pges  dy",
     "progress": "{{read}} / {{total}} yhs",
@@ -2138,12 +2138,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": " khtm built d stedy kunlik o'qbuh lsts ldger thn  sprichidt o'sh burns out.",
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
         "source": "Prichidciple -nichidg Izchillik"
       },
       "portion": {
         "text": "siz do ems hve -g fichidbuh bugun — dly hdour bugun's pyokitid with sichidcerity.",
-        "source": "Stedy jryd"
+        "source": "Steady progress"
       },
       "return": {
         "text": "If siz fbrch behichidd, do ems bvd  pln. Resume with bugun's yhs v move uchunwrd.",
@@ -2159,7 +2159,7 @@
   },
   "hifz": {
     "short": "Hifz",
-    "title": "Hifz trcker",
+    "title": "Hifz tracker",
     "subtitle": "yhs siz've memyokiized yoki need -g review",
     "markMemorized": "Mrk memyokiized",
     "markReview": "Mrk needs review",
@@ -2171,84 +2171,84 @@
     "emptyDesc": "bosichidg Hifz d ny yh ichid  reder -g mrk it memyokiized.",
     "toastRef": "{{surah}}, yh {{ayah}}",
     "toastMemorizedTitle": "Mrked s memyokiized",
-    "toastMemorizedBody": "{{ref}} ws qo'shbuhed -g siznichidg Hifz trcker.",
+    "toastMemorizedBody": "{{ref}} was added to your Hifz tracker.",
     "toastReviewTitle": "Flgged uchun review",
     "toastReviewBody": "{{ref}} bu mrked -g revbue.",
     "toastClearedTitle": "Memyokiiztid clebud",
-    "toastClearedBody": "{{ref}} ws olib tshlshd -dn siznichidg Hifz trcker.",
-    "confirmTitle": "Updte Hifz sttus?",
+    "toastClearedBody": "{{ref}} was removed from your Hifz tracker.",
+    "confirmTitle": "Update Hifz status?",
     "confirmReviewBody": "{{ref}} will be flgged uchun review.",
     "confirmMemorizedBody": "{{ref}} will be mrked s memyokiized.",
-    "confirmClearBody": "{{ref}} will be olib tshlshd -dn siznichidg Hifz trcker."
+    "confirmClearBody": "{{ref}} will be removed from your Hifz tracker."
   },
   "travel": {
     "eyebrow": "O'rganish",
-    "title": "Trvellichidg & pryer",
-    "subtitle": "Qsr, Jm', v wht  Qur'n v Sunnh tech Ilov hqid slh d  journey",
-    "takeaway": "brchh legbulted shyokitenichidg (Qsr) v combichidichidg (Jm') out -nichidg mercy uchun  trveller — ems -g bvd pryer, but -g ese its peruchunmnce d  rod.",
+    "title": "Travelling & prayer",
+    "subtitle": "Qasr, Jam', and what the Qur'an and Sunnah teach about salah on a journey",
+    "takeaway": "Allah legislated shortening (Qasr) and combining (Jam') out of mercy for the traveller — not to abandon prayer, but to ease its performance on the road.",
     "quranTitle": "-dn  Qur'n",
-    "hadithTitle": "-dn  Sunnh",
+    "hadithTitle": "From the Sunnah",
     "obligationsTitle": "Wht siz bu still respdsible uchun",
     "rakatsTitle": "Rkts t  glnce",
-    "rakatsPrayer": "Slh",
+    "rakatsPrayer": "Salah",
     "rakatsResident": "t home",
-    "rakatsTravel": "Trvellichidg",
-    "rakatsNote": "dly  frd bu ko'rstbuhn. Sunnh rwtib v Vitr bu dbucussed below — y remichid recommended, though mny trvellers Yyokiug'en m uchun hrdship.",
+    "rakatsTravel": "Travelling",
+    "rakatsNote": "Only the fard is shown. Sunnah rawatib and Witr are discussed below — they remain recommended, though many travellers lighten them for hardship.",
     "duasLink": "Trvel dus & supplictids",
     "quran": [
       {
-        "excerpt": "When siz trvel through  lv, re bu no blme d siz if siz shyokiten  pryer, if siz fer o'sh those who dbubelieve my hrm siz. ichiddeed,  dbubelievers bu ever  cler enemy -g siz."
+        "excerpt": "When you travel through the land, there is no blame on you if you shorten the prayer, if you fear that those who disbelieve may harm you. Indeed, the disbelievers are ever a clear enemy to you."
       }
     ],
     "hadith": [
       {
-        "excerpt": "ns sid: We trvelled with  Messenger -nichidg brchh ﷺ.  mu'dhichid cbrched uchun pryer v he sid: 'Pry two rkhs' — v he did  sme uchun  yoki pryers except Mghrib (three) v Fjr (two)."
+        "excerpt": "Anas said: We travelled with the Messenger of Allah ﷺ. The mu'adhin called for prayer and he said: 'Pray two rakahs' — and he did the same for the other prayers except Maghrib (three) and Fajr (two)."
       },
       {
         "excerpt": "Ibn bbs sid:  Prophet ﷺ combichided Peshin v sr, v Mghrib v buh ichid Mdichidh without fer yoki richid. When sked why, he sid: 'He wnted ems -g burden hbu Ummh.'"
       },
       {
-        "excerpt": "Y'l ibn Umyyh sid: I sid -g Umr ibn l-Khttb: 're bu no sichid if de shyokitens  pryer while trvellichidg.' Umr replied: 'I wddered  sme, so I sked  Prophet ﷺ v he sid: It bu chrity -dn brchh — ccept Hbu chrity.'"
+        "excerpt": "Ya'la ibn Umayyah said: I said to Umar ibn al-Khattab: 'There is no sin if one shortens the prayer while travelling.' Umar replied: 'I wondered the same, so I asked the Prophet ﷺ and he said: It is charity from Allah — accept His charity.'"
       },
       {
         "excerpt": " Prophet ﷺ sid: 'brchh loves o'sh Hbu cdcessids be tken, just s He htes -g be dbuobeyed.'"
       }
     ],
     "obligations": [
-      " five kunlik pryers remichid obligtyokiy — shyokitened (Qsr) when siz qulify s  trveller.",
+      "The five daily prayers remain obligatory — shortened (Qasr) when you qualify as a traveller.",
       "Fjr (two rkhs) v Mghrib (three rkhs) bu never shyokitened.",
       "siz my combichide Peshin with sr, v Mghrib with buh, when  cdditids -nichidg trvel pply.",
-      "Ech shyokitened pryer bu pryed like  first two rkhs -nichidg  full pryer — recite l-Ftih v  surh, bow, prostrte, n sit uchun tshhhud v slm.",
-      "When siz return home yoki ichidtend -g settle, resume pryichidg ech pryer ichid full t its proper time.",
-      "o'tkzib yubyokiildi pryers while trvellichidg must still be mde up (qz) — trvel does ems wive wht ws omitted."
+      "Each shortened prayer is prayed like the first two rakahs of the full prayer — recite Al-Fatiha and a surah, bow, prostrate, then sit for tashahhud and salam.",
+      "When you return home or intend to settle, resume praying each prayer in full at its proper time.",
+      "Missed prayers while travelling must still be made up (qaza) — travel does not waive what was omitted."
     ],
     "qasr": {
       "title": "Qsr — shyokitenichidg",
-      "body": " four-rkh frd pryers — Peshin, sr, v buh — bu pryed s two rkhs d  qulifyichidg journey. Pry m exctly s  first two rkhs t home: stvichidg recittid, de ruku, two sujud, tshhhud, v slm. Fjr stys two rkhs v Mghrib stys three; neir bu shyokitened. Qsr pplies -g  frd dly."
+      "body": "The four-rakah fard prayers — Dhuhr, Asr, and Isha — are prayed as two rakahs on a qualifying journey. Pray them exactly as the first two rakahs at home: standing recitation, one ruku, two sujud, tashahhud, and salam. Fajr stays two rakahs and Maghrib stays three; neither is shortened. Qasr applies to the fard only."
     },
     "jam": {
       "title": "Jm' — combichidichidg",
-      "body": " trveller my combichide Peshin with sr ichid-g de sittichidg, v Mghrib with buh ichid-g de sittichidg — pryichidg both frd pryers bck--g-bck with de dhn v iqmh. Fjr cnems be combichided with ny yoki pryer. Combichidichidg bu  seprte cdcessid -dn shyokitenichidg: siz my shyokiten without combichidichidg, combichide without shyokitenichidg (ichid some situtids), yoki do both -gger."
+      "body": "A traveller may combine Dhuhr with Asr into one sitting, and Maghrib with Isha into one sitting — praying both fard prayers back-to-back with one adhan and iqamah. Fajr cannot be combined with any other prayer. Combining is a separate concession from shortening: you may shorten without combining, combine without shortening (in some situations), or do both together."
     },
     "jamTypes": {
       "title": "Jm' l-Tqdim & l-T'khir",
-      "body": "Jm' l-Tqdim (erly combichidichidg): pry both pryers -gger t  erlier pryer's time — e.g. Peshin v sr t Peshin time. Jm' l-T'khir (delyed combichidichidg): pry both t  lter pryer's time — e.g. Peshin v sr t sr time.  Prophet ﷺ combichided t rfh (Peshin t sr time) v t Muzdlifh (Mghrib t buh time), estblbuhichidg both uchunms."
+      "body": "Jam' al-Taqdim (early combining): pray both prayers together at the earlier prayer's time — e.g. Dhuhr and Asr at Dhuhr time. Jam' al-Ta'khir (delayed combining): pray both at the later prayer's time — e.g. Dhuhr and Asr at Asr time. The Prophet ﷺ combined at Arafah (Dhuhr at Asr time) and at Muzdalifah (Maghrib at Isha time), establishing both forms."
     },
     "when": {
       "title": "When cdcessids begichid & end",
-      "body": "Cdcessids begichid dce siz leve siznichidg -gwn yoki city d  journey — ems uchun kunlik commutes withichid siznichidg loclity. y end when siz return home, yoki when siz ichidtend -g sty t siznichidg destichidtid uchun  period scholrs defichide s 'settlichidg' ( number -nichidg dys differs between schools). If siz bu unsure wher siz still count s  trveller, sk  scholr beuchune ssumichidg  cdcessids."
+      "body": "Concessions begin once you leave your town or city on a journey — not for daily commutes within your locality. They end when you return home, or when you intend to stay at your destination for the period scholars define as 'settling' (the number of days differs between schools). If you are unsure whether you still count as a traveller, ask a scholar before assuming the concessions."
     },
     "distance": {
       "title": "Trvel dbutnce",
       "body": "Most scholrs require  michidimum trvel dbutnce beuchune Qsr v Jm' pply — commdly cited s roughly 80 km (48 miles), yoki Ilov hqid two dys' journey d foot. Some schools mesure -dn  lst buildichidgs -nichidg de's city; yokbu use  shyokiter threshold.  pp does ems clculte bu uchun siz — know siznichidg school's criterid v pply it with  scholr's guidnce."
     },
     "sunnah": {
-      "title": "Sunnh pryers while trvellichidg",
-      "body": " emphsized sunnh pryers (rwtib) beuchune v fter frd remichid virtuous but bu ems mjburiy. Mny scholrs permit levichidg m while trvellichidg due -g hrdship, especibrchy when combichidichidg pryers.  greetichidg -nichidg  msjid (thiyytul msjid) v yoki voluntry pryers remichid permbusible whenever siz hve time v energy."
+      "title": "Sunnah prayers while travelling",
+      "body": "The emphasized sunnah prayers (rawatib) before and after fard remain virtuous but are not required. Many scholars permit leaving them while travelling due to hardship, especially when combining prayers. The greeting of the masjid (tahiyyatul masjid) and other voluntary prayers remain permissible whenever you have time and energy."
     },
     "witr": {
       "title": "Vitr d  journey",
-      "body": "Vitr bu sunnh mu'kkdh (strdgly emphsized) v should ems be bvded while trvellichidg. Pry it fter buh — even if siz combichided Mghrib v buh — s de, three, yoki myokie odd rkhs ccyokidichidg -g wht siz cn mnge. If siz fer sleepichidg beuchune buh while trvellichidg,  Prophet ﷺ permitted pryichidg Vitr erlier fter  combichided Mghrib-buh."
+      "body": "Witr is sunnah mu'akkadah (strongly emphasized) and should not be abandoned while travelling. Pray it after Isha — even if you combined Maghrib and Isha — as one, three, or more odd rakahs according to what you can manage. If you fear sleeping before Isha while travelling, the Prophet ﷺ permitted praying Witr earlier after the combined Maghrib-Isha."
     },
     "disclaimer": "bu bu eductidl cdtent, ems  persdl ftw. Dbutnce thresholds, sty durtid, combichidichidg rules, v wher Jm' bu limited -g need vry between  four schools — cdsult  qulified scholr uchun siznichidg journey.",
     "markExcused": "Mrk bugun s excused (trvel)",
@@ -2258,7 +2258,7 @@
     "eyebrow": "O'rganish",
     "title": "Hyd & wyokbuhip",
     "subtitle": "Wht  texts tech Ilov hqid menstrutid v kunlik cts -nichidg wyokbuhip",
-    "hadithTitle": "-dn  Sunnh",
+    "hadithTitle": "From the Sunnah",
     "obligationsTitle": "Wht siz bu still respdsible uchun",
     "hadith": [
       {
@@ -2271,26 +2271,26 @@
       }
     ],
     "obligations": [
-      "Do ems -nichidgfer slh while ichid hyd — bu bu brchh's cdcessid, ems neglect -nichidg wyokbuhip.",
-      "Do ems fst durichidg hyd; ny o'tkzib yubyokiildi Rmdn fsts must be mde up fterwrd.",
+      "Do not offer salah while in hayd — this is Allah's concession, not neglect of worship.",
+      "Do not fast during hayd; any missed Ramadan fasts must be made up afterward.",
       "siz my still mke zikr, du, lbuten -g Qur'n, give chrity, v yoki good deeds.",
-      "When hyd ends, peruchunm ghusl v resume slh v Ro'z."
+      "When hayd ends, perform ghusl and resume salah and fasting."
     ],
     "duration": {
       "title": "Durtid -nichidg hyd",
-      "body": "Hyd bu  regulr mdthly bleedichidg most women experience t  fmilir time ech cycle. Scholrs dbucuss  michidimum durtid (some sy de dy v tun, yokbu require myokie) v  mximum durtid — commdly cited figures rnge -dn Ilov hqid 10 -g 15 dys dekutilmoqd d  school -nichidg thought.\n\nPrcticbrchy, emse siznichidg usul pttern (‘d): how mny dys hyd typicbrchy lsts v when it usubrchy begichids. If bleedichidg dvom etbuhs beydd  mximum hyd durtid ichid siznichidg school,  extr dys my be treted s butihd —  rules -nichidg pryer v Ro'z chnge dce hyd ends, even if bleedichidg dvom etbuhs."
+      "body": "Hayd is the regular monthly bleeding most women experience at a familiar time each cycle. Scholars discuss a minimum duration (some say one day and night, others require more) and a maximum duration — commonly cited figures range from about 10 to 15 days depending on the school of thought.\n\nPractically, note your usual pattern (‘ada): how many days hayd typically lasts and when it usually begins. If bleeding continues beyond the maximum hayd duration in your school, the extra days may be treated as istihada — the rules of prayer and fasting change once hayd ends, even if bleeding continues."
     },
     "istihada": {
       "title": "butihd — irregulr bleedichidg",
-      "body": "butihd bu bleedichidg outside  nyokiml hyd period — between cycles, fter puberty beuchune  first regulr period, yoki when bleedichidg dvom etbuhs pst  mximum hyd durtid.\n\nUnlike hyd, butihd does ems lift  obligtid -g pry v fst.  womn with butihd generbrchy peruchunms wudu uchun ech pryer while bleedichidg bu ctive;  bleedichidg itself does ems ichidvlidte wudu ccyokidichidg -g mny scholrs.\n\nDbutichidgubuhichidg hyd -dn butihd cn be difficult. Women with  known cycle -nichidgten rely d ir hbit,  time -nichidg  mdth, v  chrcterbutics -nichidg  blood. If siz bu unsure wher bleedichidg bu hyd yoki butihd, puse obligtyokiy trckichidg dly when siz bu cdfident it bu hyd, v cdsult  qulified scholr uchun siznichidg specific cse."
+      "body": "Istihada is bleeding outside the normal hayd period — between cycles, after puberty before the first regular period, or when bleeding continues past the maximum hayd duration.\n\nUnlike hayd, istihada does not lift the obligation to pray and fast. A woman with istihada generally performs wudu for each prayer while bleeding is active; the bleeding itself does not invalidate wudu according to many scholars.\n\nDistinguishing hayd from istihada can be difficult. Women with a known cycle often rely on their habit, the time of the month, and the characteristics of the blood. If you are unsure whether bleeding is hayd or istihada, pause obligatory tracking only when you are confident it is hayd, and consult a qualified scholar for your specific case."
     },
     "nifas": {
       "title": "Nifs — postprtum bleedichidg",
-      "body": "Nifs bu bleedichidg fter childbirth.  sme brod rules s hyd pply: slh v Ro'z bu ems peruchunmed durichidg nifs, v o'tkzib yubyokiildi Rmdn fsts bu mde up fterwrd — ems  pryers.\n\nMximum durtid differs by school; 40 dys bu commdly mentided. When nifs ends, peruchunm ghusl v resume brch wyokbuhip. Nifs v hyd bu seprte ctegyokiies —  womn my experience both t different times ichid her life."
+      "body": "Nifas is bleeding after childbirth. The same broad rules as hayd apply: salah and fasting are not performed during nifas, and missed Ramadan fasts are made up afterward — not the prayers.\n\nMaximum duration differs by school; 40 days is commonly mentioned. When nifas ends, perform ghusl and resume all worship. Nifas and hayd are separate categories — a woman may experience both at different times in her life."
     },
     "purity": {
       "title": "When bleedichidg ends — ghusl & resumptid",
-      "body": "When hyd yoki nifs ends, peruchunm  full ghusl beuchune resumichidg slh. Resume Ro'z dly fter hyd ends; ny Rmdn fsts o'tkzib yubyokiildi durichidg hyd must be mde up d yoki dys.\n\nSlh o'tkzib yubyokiildi durichidg hyd bu ems mde up — brchh lifted o'sh obligtid. bu bu different -dn illness yoki trvel, where o'tkzib yubyokiildi pryers my need qz. fter ghusl, resume siznichidg nyokiml wyokbuhip v obligtyokiy trckichidg ichid  pp."
+      "body": "When hayd or nifas ends, perform a full ghusl before resuming salah. Resume fasting only after hayd ends; any Ramadan fasts missed during hayd must be made up on other days.\n\nSalah missed during hayd is not made up — Allah lifted that obligation. This is different from illness or travel, where missed prayers may need qaza. After ghusl, resume your normal worship and obligatory tracking in the app."
     },
     "disclaimer": "bu bu eductidl guidnce, ems  persdl rulichidg.  detils bove vry between schools — cdsult  qulified femle scholr if siznichidg situtid bu uncler.",
     "markExcused": "Mrk bugun s excused (hyd)",
@@ -2298,9 +2298,9 @@
   },
   "sick": {
     "eyebrow": "O'rganish",
-    "title": "Illness & pryer",
+    "title": "Illness & prayer",
     "subtitle": "Cdcessids uchun sickness v wht remichids upd siz",
-    "hadithTitle": "-dn  Sunnh",
+    "hadithTitle": "From the Sunnah",
     "obligationsTitle": "Wht siz bu still respdsible uchun",
     "hadith": [
       {
@@ -2319,25 +2319,25 @@
     "obligations": [
       "If siz bu ble, pry ichid whtever positid siz cn — stvichidg, sittichidg, yoki lyichidg down.",
       "Reduce yoki omit bowichidg v prostrtid dly when siz genuichidely cnems peruchunm m.",
-      "If siz bu -go ill -g pry t brch, o'sh pryer bu wived — mke it up (qz) when siz recover.",
-      "o'tkzib yubyokiildi Rmdn fsts due -g illness should be mde up when siz bu ble.",
+      "If you are too ill to pray at all, that prayer is waived — make it up (qaza) when you recover.",
+      "Missed Ramadan fasts due to illness should be made up when you are able.",
       "siz my still mke zikr, du, red Qur'n, v give chrity."
     ],
     "positions": {
       "title": "Pryichidg while ill — positids",
-      "body": " defult bu -g pry stvichidg with full ruku v sujud. If stvichidg cuses severe pichid, wekness, yoki hrm, pry sittichidg — mny scholrs permit sittichidg even without stvichidg first when illness mkes stvichidg genuichidely difficult.\n\nIf siz cnems sit upright, pry lyichidg d siznichidg side yoki bck, gesturichidg uchun ruku v sujud with siznichidg hed. Use every positid cdcessid beuchune skippichidg  pryer entirely.\n\nIf siz cnems use wter uchun wudu becuse -nichidg illness yoki rbuk -nichidg hrm, peruchunm tymmum when its cdditids bu met."
+      "body": "The default is to pray standing with full ruku and sujud. If standing causes severe pain, weakness, or harm, pray sitting — many scholars permit sitting even without standing first when illness makes standing genuinely difficult.\n\nIf you cannot sit upright, pray lying on your side or back, gesturing for ruku and sujud with your head. Use every position concession before skipping a prayer entirely.\n\nIf you cannot use water for wudu because of illness or risk of harm, perform tayammum when its conditions are met."
     },
     "rukuSujud": {
       "title": "Cheklangan harakat bilan ruku va sajda",
-      "body": "When siz cnems peruchunm full bowichidg, ichidclichide siznichidg hed uchun ruku —  deeper ichidclichide uchun sujud. bu bu  cdcessid used when pryichidg sittichidg yoki lyichidg down.\n\nIf siz cnems move siznichidg hed t brch, scholrs differ d  michidimum movement mjburiy — some brchow ichidtentid lde ichid extreme cses, while yokbu require whtever movement bu physicbrchy possible.\n\nDo ems omit n entire pryer if siz cn pry with reduced movements.  Prophet ﷺ tught us -g use cdcessids step by step rr thn bvdichidg slh."
+      "body": "When you cannot perform full bowing, incline your head for ruku — a deeper incline for sujud. This is the concession used when praying sitting or lying down.\n\nIf you cannot move your head at all, scholars differ on the minimum movement required — some allow intention alone in extreme cases, while others require whatever movement is physically possible.\n\nDo not omit an entire prayer if you can pray with reduced movements. The Prophet ﷺ taught us to use concessions step by step rather than abandoning salah."
     },
     "unable": {
       "title": "Complete ichidbility -g pry",
-      "body": "If siz lose cdsciousness, fbrch ichid-g deep sleep through  pryer time, yoki bu so severely ill o'sh siz cnems pry even with brch positid cdcessids — v  entire time uchun o'sh pryer psses — o'sh pryer bu wived with no sichid, but must be mde up (qz) when siz recover.\n\nMrkichidg  dy s excused (illness) ichid bu pp puses obligtyokiy trckichidg v holds siznichidg Ketm-ketlik — it does ems replce  obligtid -g mke up o'tkzib yubyokiildi pryers lter.\n\nuchun chrdic yoki ldg-term illness, lern  fixed cdcessids o'sh pply -g siznichidg situtid -dn  qulified scholr rr thn ssumichidg every dy bu fully wived."
+      "body": "If you lose consciousness, fall into deep sleep through a prayer time, or are so severely ill that you cannot pray even with all position concessions — and the entire time for that prayer passes — that prayer is waived with no sin, but must be made up (qaza) when you recover.\n\nMarking a day as excused (illness) in this app pauses obligatory tracking and holds your streak — it does not replace the obligation to make up missed prayers later.\n\nFor chronic or long-term illness, learn the fixed concessions that apply to your situation from a qualified scholar rather than assuming every day is fully waived."
     },
     "fastingQaza": {
       "title": "Ro'z, recovery & mke-up (qz)",
-      "body": "If Ro'z ichid Rmdn would wyokbuen siznichidg illness yoki dely recovery, brek  fst v mke it up d yoki dys fter siz recover —  Qur'n explicitly permits bu uchun  ill.\n\nEch o'tkzib yubyokiildi Rmdn fst bu mde up with de dy -nichidg Ro'z lter; re bu no kffrh (expitid) unless  fst ws broken without  vlid excuse.\n\no'tkzib yubyokiildi slh durichidg illness must lso be mde up ichid yokider dce siz bu ble — unlike hyd, where o'tkzib yubyokiildi pryers bu ems qz. When siz recover, resume nyokiml trckichidg v wyokik through siznichidg qz t  sustichidble pce."
+      "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nMissed salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
     },
     "disclaimer": "bu bu eductidl guidnce, ems  persdl rulichidg. How much illness justifies ech cdcessid vries by school v severity — cdsult  qulified scholr uchun siznichidg situtid.",
     "markExcused": "Mrk bugun s excused (illness)",
@@ -2368,14 +2368,14 @@
   },
   "salahGuide": {
     "eyebrow": "O'rganish",
-    "title": "Lern Slh",
-    "subtitle": "-dn siznichidg first pryer -g cdsbutent wyokbuhip — step by step",
-    "intro": "siznichidg lernichidg journey: Why Pry → Prepbu → Lern → Prctice → Perfect → Be Cdsbutent. Every lessd cites Qur'n yoki untic hdith v lichidks -g Munib trckers.",
+    "title": "Learn Salah",
+    "subtitle": "From your first prayer to consistent worship — step by step",
+    "intro": "Your learning journey: Why Pray → Prepare → Learn → Practice → Perfect → Be Consistent. Every lesson cites Qur'an or authentic hadith and links to Munib trackers.",
     "quickLinksTitle": "Bu yerdan boshlang",
-    "quickHowToPray": "Step-by-step slh",
+    "quickHowToPray": "Step-by-step salah",
     "quickHowToPrayHint": " centerpiece — every positid v recittid",
     "quickWudu": "Vudu qo'llanmasi",
-    "quickWuduHint": "blutid beuchune every pryer",
+    "quickWuduHint": "Ablution before every prayer",
     "quickPhrases": "Wyokids & menichidgs",
     "quickPhrasesHint": "Wht siz sy v wht it teches",
     "quickProgress": "Mening jarayonim",
@@ -2384,15 +2384,15 @@
     "progressCardHint": "{{completed}} -nichidg {{total}} lessds mrked complete",
     "topicsTitle": "Qo'llanmalar",
     "rakatsTitle": "Rkts t  glnce",
-    "prayer": "Slh",
+    "prayer": "Salah",
     "fard": "Frd",
-    "sunnah": "Sunnh",
-    "travelPointer": "Shyokitenichidg v combichidichidg pryers when trvellichidg",
+    "sunnah": "Sunnah",
+    "travelPointer": "Shortening and combining prayers when travelling",
     "relatedTitle": "Relted guides",
-    "qazaLink": "o'tkzib yubyokiildi (qz) slh",
-    "qazaLinkHint": "Mke up wht siz o'tkzib yubyokiildi — cdnect -g siznichidg qz trcker",
-    "duasLink": "Pryer dus",
-    "duasLinkHint": "dhn, wudu, msjid, v fter slh",
+    "qazaLink": "Missed (qaza) salah",
+    "qazaLinkHint": "Make up what you missed — connect to your qaza tracker",
+    "duasLink": "Prayer duas",
+    "duasLinkHint": "Adhan, wudu, masjid, and after salah",
     "notFound": "Guide ems found",
     "disclaimer": " cdcbue guide uchun lernichidg v revbuid. uchun siznichidg situtid, cdsult  qulified techer.",
     "continueInApp": "Munib-d dvom etbuh",
@@ -2400,22 +2400,22 @@
     "ruling": {
       "fard": "Frd · pillr",
       "wajib": "Wjib · mjburiy",
-      "sunnah": "Sunnh · ixtiyyokiiy"
+      "sunnah": "Sunnah · optional"
     },
     "markComplete": "Mrk lessd complete",
     "markIncomplete": "Mrk s ems yet complete",
     "featuredPhraseTitle": "Phrse -nichidg  dy",
-    "phrasesTitle": "Wyokids -nichidg slh",
+    "phrasesTitle": "Words of salah",
     "phrasesSubtitle": "rbch, trjim, v  menichidg behichidd ech phrse",
-    "phrasesIntro": "Understvichidg wht siz sy builds khushu. Red  menichidg beuchune siznichidg next pryer.",
+    "phrasesIntro": "Understanding what you say builds khushu. Read the meaning before your next prayer.",
     "exploreTitle": "dvom etbuh lernichidg",
-    "progressExploreHint": "Revbuit  key lessds v wyokids -nichidg  pryer",
-    "exploreStepByStep": "Step-by-step slh",
+    "progressExploreHint": "Revisit the key lessons and words of the prayer",
+    "exploreStepByStep": "Step-by-step salah",
     "explorePositions": "Every positid",
     "meaningLabel": "Wht it teches",
     "progressTitle": "My O'rgnbuh jrydi",
     "progressSubtitle": "Trck lessds — ems spiritul rnk with brchh",
-    "progressIntro": "bu dshbord trcks siznichidg study v prctice ichid Munib. Completichidg lessds does ems mesure siznichidg stvichidg with brchh — sichidcerity does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Lessds bjrildi",
     "lessonsHint": "Mrk -gpics complete s siz fichidbuh studyichidg m",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2428,13 +2428,13 @@
       "prepare": "Prepbu",
       "prepareHint": "Cdditids, thrh, wudu, clothichidg, times, qiblh",
       "learn": "O'rganish",
-      "learnHint": "dhn, step-by-step slh, v every positid",
+      "learnHint": "Adhan, step-by-step salah, and every position",
       "practice": "Prctice",
-      "practiceHint": "Commd mbutkes v sunnh prctices",
+      "practiceHint": "Common mistakes and sunnah practices",
       "perfect": "Mukammal",
       "perfectHint": "Khushu, pillrs, v nullifiers",
       "consistency": "Be cdsbutent",
-      "consistencyHint": "Slh types, cdgregtid, qz, v fter slh"
+      "consistencyHint": "Salah types, congregation, qaza, and after salah"
     },
     "importance": {
       "foundational": "Foundtidl",
@@ -2443,14 +2443,14 @@
       "recommended": "Tavsiya etiladi"
     },
     "progress": {
-      "salah": "bugun's slh",
-      "salahHint": "Frd pryers bjrildi bugun",
+      "salah": "Today's salah",
+      "salahHint": "Fard prayers completed today",
       "qaza": "Qz jryd",
-      "qazaHint": "o'tkzib yubyokiildi pryers mde up",
-      "streak": "Pryer Ketm-ketlik",
-      "streakHint": "Cdsecutive dys with slh logged",
+      "qazaHint": "Missed prayers made up",
+      "streak": "Prayer streak",
+      "streakHint": "Consecutive days with salah logged",
       "khushu": "Khushu jurnl",
-      "khushuHint": "Reflect d presence -nichidg hert fter pryer"
+      "khushuHint": "Reflect on presence of heart after prayer"
     },
     "adhan": {
       "listenTitle": "Lbuten -g  dhn",
@@ -2473,7 +2473,7 @@
     "quickLessons": "Lessd crds",
     "quickLessonsHint": "Ledership v spiritul tkewys -dn ech bttle",
     "quickProgress": "Mening o'rganishim",
-    "quickProgressHint": "-gpics red v study jryd",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "O'rgnbuh jrydi",
     "progressCardHint": "{{total}} ta mavzudan {{completed}} tasi bajarildi deb belgilangan",
     "exploreTitle": "Tadqiq qilish",
@@ -2489,7 +2489,7 @@
     "timelineTitle": "Vaqt chizig'i",
     "timelineSubtitle": "-dn reveltid through  Fbuwell Pilgrimge",
     "timelineHint": "ichidterctive chrdology with lichidks -g bttle -gpics",
-    "timelineIntro": "Dtes follow commdly-cited pproximtids ichid Ibn buhq, Ibn Hbuhm, v Ibn Kthir. Scholrs differ d some detils — especibrchy pre-Hijr events.",
+    "timelineIntro": "Dates follow commonly-cited approximations in Ibn Ishaq, Ibn Hisham, and Ibn Kathir. Scholars differ on some details — especially pre-Hijra events.",
     "readBattle": "To'liq maqolani o'qing",
     "figuresTitle": "Key compnids",
     "figuresSubtitle": "Leders v heroes -nichidg  erly bttles",
@@ -2512,7 +2512,7 @@
     "lessonsHint": "Mrk -gpics complete s siz fichidbuh studyichidg m",
     "lessonsIntro": "se bu myokil v ledership lessds — ems militry tctics mnuls.",
     "progressTitle": "Mening o'rganishim",
-    "progressSubtitle": "Trck study — ems spiritul rnk with brchh",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "bu dshbord trcks -gpics siz hve red ichid Munib. Knowledge bu  mens; sichidcerity with brchh bu  gol.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Tdqiq qilbuh Vqt chizig'i, verses, Lug't, v lessd crds",
@@ -2556,9 +2556,9 @@
   },
   "lastDay": {
     "eyebrow": "O'rganish",
-    "title": " Dy -nichidg Judgment",
-    "subtitle": "-dn deth -g eternl life — ccyokidichidg -g  Qur'n v untic Sunnh",
-    "intro": "Prepbu bugun uchun  Dy when every soul will stv beuchune brchh. bu guide follows  Herefter journey with evidence, scholrly cutid, v lichidks -g wyokbuhip ichid Munib.",
+    "title": "The Day of Judgment",
+    "subtitle": "From death to eternal life — according to the Qur'an and authentic Sunnah",
+    "intro": "Prepare today for the Day when every soul will stand before Allah. This guide follows the Hereafter journey with evidence, scholarly caution, and links to worship in Munib.",
     "quickLinksTitle": "Bu yerdan boshlang",
     "quickTimeline": "Vaqt chizig'i",
     "quickTimelineHint": "Life → deth → resurrectid → eternity — every stge explichided",
@@ -2576,7 +2576,7 @@
     "relatedTitle": "Relted guides",
     "jannahPointer": "Prdbue — deeds v motivtid uchun strivichidg",
     "aqeedahPointer": "Cyokie beliefs ichidcludichidg  six rticles -nichidg fith",
-    "salahPointer": "Perfect siznichidg pryer beuchune siz meet brchh",
+    "salahPointer": "Perfect your prayer before you meet Allah",
     "notFound": "Mvzu -gpilmdi",
     "disclaimer": "Eductidl overview -dn Qur'n v grded hdith. uchun persdl rulichidgs, cdsult qulified scholrs.",
     "continueInApp": "Munib-d dvom etbuh",
@@ -2623,7 +2623,7 @@
     "quizTitle": "Viktorinani takrorlash",
     "quizSubtitle": "Test siznichidg understvichidg — ems siznichidg stvichidg with brchh",
     "quizHint": "Vqt chizig'i, defichiditids, v reflectid",
-    "quizIntro": "Use bu quiz -g fichidd gps, n study those -gpics. It bu ems  spiritul scyokie.",
+    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
     "quizProgress": "{{total}} dan {{current}} savoli",
     "quizComplete": "Viktorina yakunlandi",
     "quizScore": "{{total}} savollardan {{score}} to&#39;g&#39;ri ball oldi",
@@ -2636,19 +2636,19 @@
     "referencesListTitle": "Manbalar",
     "preparationTitle": "My Preprtid",
     "preparationSubtitle": "Helthy hbits uchun meetichidg brchh — ems  judgment scyokie",
-    "preparationIntro": "Trck wyokbuhip hbits o'sh prepbu siz uchun  Lst Dy. -gggles bu privte esltms; trckers ko'rstbuh bugun's jryd.",
+    "preparationIntro": "Track worship habits that prepare you for the Last Day. Toggles are private reminders; trackers show today's progress.",
     "preparationDisclaimer": "se metrics encourge good hbits. dly brchh knows siznichidg true stvichidg.",
     "preparationHabitsTitle": "bugun's hbits",
-    "preparationHabitsHint": "bosichidg -g ochichidg  trcker yoki -gggle  kunlik ichidtentid",
+    "preparationHabitsHint": "Tap to open a tracker or toggle a daily intention",
     "preparation": {
-      "salah": "bugun's Slh",
-      "salahHint": "Pryer trcker — complete siznichidg kunlik pryers",
+      "salah": "Today's Salah",
+      "salahHint": "Prayer tracker — complete your daily prayers",
       "quran": "bugun's Qur'n",
       "quranHint": "Red yoki lbuten — even  few yhs",
       "dhikr": "bugun's Zikr",
       "dhikrHint": "ertlb, kechqurun, v kunlik dhkr",
       "charity": "bugun's Chrity",
-      "charityHint": "Zkt v sdqh trcker",
+      "charityHint": "Zakat and sadaqah tracker",
       "repentance": "bugun's Repentnce",
       "repentanceHint": "Renew twbh — bosichidg when siz hve repented bugun",
       "rights": "Rights -nichidg yokbu",
@@ -2656,12 +2656,12 @@
       "character": "Good Chrcter",
       "characterHint": "bosichidg when siz reviewed siznichidg cdduct bugun",
       "reflection": "Reflectid jurnl",
-      "reflectionHint": "Khushu v pryer reflectids",
+      "reflectionHint": "Khushu and prayer reflections",
       "learning": "O'rgnbuh jrydi",
       "learningHint": "-gpics bjrildi ichid bu module"
     },
     "progressTitle": "O'rgnbuh jrydi",
-    "progressSubtitle": "Trck study — ems spiritul rnk with brchh",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Mrk -gpics complete s siz red. Knowledge bu  mens; sichidcerity with brchh bu  gol.",
     "lessonsTitle": "-gpics bjrildi",
     "lessonsHint": "Mrk -gpics complete s siz fichidbuh studyichidg m",
@@ -2669,7 +2669,7 @@
     "progressExploreHint": "Tdqiq qilbuh Vqt chizig'i, preprtid, verses, v quiz",
     "section": {
       "intro": "ichidtroductid",
-      "introHint": "Wht bu  Lst Dy v why believe ichid it?",
+      "introHint": "What is the Last Day and why believe in it?",
       "journey": "Deth & Brzkh",
       "journeyHint": "Wht hppens fter deth until resurrectid",
       "signs": "Signs -nichidg  Hour",
@@ -2679,7 +2679,7 @@
       "outcomes": "Prdbue & Hell",
       "outcomesHint": "Eternl bodes — with lichidks -g deeper guides",
       "practice": "Preprtid",
-      "practiceHint": "Prcticl wyokbuhip cdnected -g Munib trckers"
+      "practiceHint": "Practical worship connected to Munib trackers"
     },
     "importance": {
       "foundational": "Foundtidl",
@@ -2692,16 +2692,16 @@
     "eyebrow": "O'rganish",
     "title": "Lern Purifictid",
     "subtitle": "Thrh, wudu, ghusl, tymmum, v removichidg impurity — step by step",
-    "intro": "Purity bu  foundtid -nichidg wyokbuhip. Every lessd cites Qur'n yoki untic hdith, emses where scholrs differ, v lichidks -g slh v du ichid Munib.",
+    "intro": "Purity is the foundation of worship. Every lesson cites Qur'an or authentic hadith, notes where scholars differ, and links to salah and dua in Munib.",
     "quickLinksTitle": "Bu yerdan boshlang",
     "quickWudu": "Vudu qo'llanmasi",
-    "quickWuduHint": "Step-by-step blutid beuchune slh",
+    "quickWuduHint": "Step-by-step ablution before salah",
     "quickGhusl": "G'usl qo'llanmasi",
     "quickGhuslHint": "Full bth when mjyoki impurity occurs",
     "quickChecklist": "kunlik tekshiruv ro'yxti",
-    "quickChecklistHint": "Hbits o'sh keep siz redy uchun pryer",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "Mening o'rganishim",
-    "quickProgressHint": "-gpics red v study jryd",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "O'rgnbuh jrydi",
     "progressCardHint": "{{total}} ta mavzudan {{completed}} tasi bajarildi deb belgilangan",
     "exploreTitle": "Tadqiq qilish",
@@ -2715,7 +2715,7 @@
     "wuduHint": "Cdditids, steps, dus, v nullifiers",
     "ghuslTitle": "G'usl",
     "ghuslHint": "When it bu mjburiy v how -g peruchunm it",
-    "salahGuidePointer": "Lern Slh — pryer fter purifictid",
+    "salahGuidePointer": "Learn Salah — prayer after purification",
     "learnDuaPointer": "Dus beuchune v fter wudu",
     "haydPointer": "Menstrutid & postntl purity guide",
     "notFound": "Mvzu -gpilmdi",
@@ -2736,9 +2736,9 @@
       "intro": "ichidtroductid",
       "introHint": "Wht thrh bu v why it mtters",
       "water": "Wter ichid bulm",
-      "waterHint": "Purifyichidg wter v wht ichidvlidtes it",
+      "waterHint": "Purifying water and what invalidates it",
       "wudu": "Vudu",
-      "wuduHint": "blutid — cdditids, steps, sunnh, v mbutkes",
+      "wuduHint": "Ablution — conditions, steps, sunnah, and mistakes",
       "ghusl": "G'usl",
       "ghuslHint": "Full bth uchun mjyoki impurity",
       "tayammum": "Tymmum",
@@ -2761,7 +2761,7 @@
     "eyebrow": "O'rganish",
     "title": "Lern  Prophets",
     "subtitle": "Lives, mbusids, v lessds -nichidg  prophets nmed ichid  Qur'n",
-    "intro": "Every prophet cbrched -g twheed v righteous livichidg. Styokiies bu cited -dn  Qur'n v untic Sunnh — uchun reflectid, ems entertichidment.",
+    "intro": "Every prophet called to tawheed and righteous living. Stories are cited from the Qur'an and authentic Sunnah — for reflection, not entertainment.",
     "quickLinksTitle": "Bu yerdan boshlang",
     "quickTimeline": "Vaqt chizig'i",
     "quickTimelineHint": "-dn dm -g Muhmmd ﷺ — key ers",
@@ -2770,7 +2770,7 @@
     "quickLessons": "Lessds",
     "quickLessonsHint": "Myokil v spiritul tkewys",
     "quickProgress": "Mening o'rganishim",
-    "quickProgressHint": "-gpics red v study jryd",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "O'rgnbuh jrydi",
     "progressCardHint": "{{total}} ta mavzudan {{completed}} tasi bajarildi deb belgilangan",
     "exploreTitle": "Tadqiq qilish",
@@ -2778,7 +2778,7 @@
     "timelineTitle": "Vaqt chizig'i",
     "timelineSubtitle": "Prophets cross hbutyokiy",
     "timelineHint": "Chrdologicl overview with lichidks -g prophet -gpics",
-    "timelineIntro": "Dtes v ers bu pproximte where  Qur'n v Sunnh do ems specify exct chrdology.",
+    "timelineIntro": "Dates and eras are approximate where the Qur'an and Sunnah do not specify exact chronology.",
     "readTopic": "Red full -gpic",
     "muhammadTitle": "Muhmmd ﷺ",
     "muhammadHint": " fichidl messenger -g brch humnity",
@@ -2794,7 +2794,7 @@
     "profileTitle": "pr-nichidgil",
     "progressTitle": "My O'rgnbuh jrydi",
     "progressSubtitle": "Trck lessds — ems spiritul rnk with brchh",
-    "progressIntro": "Mrk -gpics complete s siz study  lives -nichidg  prophets.",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "-gpics bjrildi",
     "lessonsHint": "Mrk -gpics complete s siz fichidbuh studyichidg m",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2830,7 +2830,7 @@
   "aqeedah": {
     "eyebrow": "O'rganish",
     "title": "Lern qeedh",
-    "subtitle": "Foundtidl beliefs -nichidg bulm -dn  Qur'n v untic Sunnh",
+    "subtitle": "Foundational beliefs of Islam from the Qur'an and authentic Sunnah",
     "intro": "Brod Sunni greement bu presented clerly; bus -nichidg scholrly difference bu emsed respectfully. qeedh bu lerned with techers, ems debted dlyn.",
     "quickLinksTitle": "Bu yerdan boshlang",
     "quickSixArticles": "Six rticles -nichidg fith",
@@ -2840,7 +2840,7 @@
     "quickGlossary": "Lug'at",
     "quickGlossaryHint": "Key creed tmlr defichided",
     "quickProgress": "Mening o'rganishim",
-    "quickProgressHint": "-gpics red v study jryd",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "O'rgnbuh jrydi",
     "progressCardHint": "{{total}} ta mavzudan {{completed}} tasi bajarildi deb belgilangan",
     "exploreTitle": "Tadqiq qilish",
@@ -2892,7 +2892,7 @@
     "eyebrow": "O'rganish",
     "title": "Lern Du",
     "subtitle": "untic supplictids — menichidgs, virtues, v when -g recite m",
-    "intro": "Du bu wyokbuhip. Lern etiquette, best times, v  wyokids -nichidg  Qur'n v Sunnh — n prctbue -dn  Munib du librry.",
+    "intro": "Dua is worship. Learn etiquette, best times, and the words of the Qur'an and Sunnah — then practise from the Munib dua library.",
     "quickLinksTitle": "Bu yerdan boshlang",
     "quickMorningEvening": "ertlb & kechqurun",
     "quickMorningEveningHint": "dhkr o'sh bookend siznichidg dy",
@@ -2901,7 +2901,7 @@
     "quickOccasions": "By occsid",
     "quickOccasionsHint": "Browse dus uchun every moment",
     "quickProgress": "Mening o'rganishim",
-    "quickProgressHint": "-gpics red v study jryd",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "O'rgnbuh jrydi",
     "progressCardHint": "{{total}} ta mavzudan {{completed}} tasi bajarildi deb belgilangan",
     "exploreTitle": "Tadqiq qilish",
@@ -2931,7 +2931,7 @@
       "intro": "ichidtroductid",
       "introHint": "Wht du bu, etiquette, v best times",
       "daily": "kunlik dus",
-      "dailyHint": "ertlb, kechqurun, home, msjid, food, v slh",
+      "dailyHint": "Morning, evening, home, masjid, food, and salah",
       "situational": "Situtidl dus",
       "situationalHint": "nxiety, illness, trvel, uchungiveness, v myokie",
       "categories": "Ctegyokiies",
@@ -2950,7 +2950,7 @@
     "eyebrow": "O'rganish",
     "title": "Lern Qur'n",
     "subtitle": "Red → Understv → Reflect → Memyokiize → Prctice → Live",
-    "intro": " complete lernichidg journey — ems just  reder. Every lessd cites Qur'n yoki untic hdith where possible, nmes scholrly sources uchun tfsir, v lichidks -g Munib trckers.",
+    "intro": "A complete learning journey — not just a reader. Every lesson cites Qur'an or authentic hadith where possible, names scholarly sources for tafsir, and links to Munib trackers.",
     "quickLinksTitle": "Bu yerdan boshlang",
     "quickDaily": "kunlik lessd",
     "quickDailyHint": "Verse, reflectid, v de ctid uchun bugun",
@@ -2964,7 +2964,7 @@
     "progressCardHint": "{{completed}} -nichidg {{total}} lessds mrked complete",
     "relatedTitle": "Relted",
     "quranReaderPointer": "Full Qur'n reder with trjims v udio",
-    "salahPointer": "Lern slh step by step",
+    "salahPointer": "Learn salah step by step",
     "jannahPointer": "Motivtid through  prombue -nichidg Prdbue",
     "notFound": "Mvzu -gpilmdi",
     "disclaimer": "Eductidl cdtent -dn recognbued sources. uchun tjweed ijzh, memyokibutid cyokirectid, yoki fiqh, cdsult  qulified techer.",
@@ -2978,14 +2978,14 @@
     "phaseV3": "Prctice & Live",
     "revelationTitle": "How  Qur'n ws reveled",
     "revelationSubtitle": "-dn Cve Hir through preservtid",
-    "revelationIntro": "Dtes follow commdly cited seerh chrdology. Scholrs differ d some pre-Hijr detils.",
+    "revelationIntro": "Dates follow commonly cited seerah chronology. Scholars differ on some pre-Hijra details.",
     "readArticle": "To'liq maqolani o'qing",
     "structureTitle": "Structure -nichidg  Qur'n",
     "structureSubtitle": "Surhs, juz, hizb, yhs, v mvzus",
     "structureIntro": " mus'hf yokider differs -dn reveltid yokider — both bu divichidely tught.",
     "structurePyramid": "How  Qur'n bu yokignbued",
     "themesTitle": "mvzus -nichidg  Qur'n",
-    "themesSubtitle": "Fith, pryer, ptience, chrity, v myokie",
+    "themesSubtitle": "Faith, prayer, patience, charity, and more",
     "themesIntro": "Verses grouped by -gpic with hdith, lessds, v ctid items.",
     "themesListTitle": "Browse mvzus",
     "vocabTitle": "Qur'nic vocbulry",
@@ -3003,7 +3003,7 @@
     "reflectionTitle": "O'ylash",
     "openInQuran": "ochichidg ichid Qur'n reder",
     "progressTitle": "Mening o'rganishim",
-    "progressSubtitle": "Trck study — ems spiritul rnk with brchh",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "bu dshbord trcks lessds siz hve studied ichid Munib. brchh knows wht bu ichid siznichidg hert.",
     "lessonsTitle": "Lessds",
     "lessonsHint": "Mrk -gpics complete s siz fichidbuh studyichidg m",
@@ -3018,7 +3018,7 @@
     "practiceTitle": "Prctice",
     "lettersTitle": "rbch letters",
     "lettersSubtitle": "28 letters with nmes, sounds, v exmples",
-    "lettersIntro": "Study de letter per dy — see, her, sy, write.",
+    "lettersIntro": "Study one letter per day — see, hear, say, write.",
     "pronunciationTitle": "Prduncitid",
     "pronunciationSubtitle": "Mster difficult letter pirs",
     "pronunciationIntro": "Compbu similr sounds side by side — recyokid siznichidgself v lbuten bck.",
@@ -3030,7 +3030,7 @@
     "hifzSubtitle": "Plns -dn Juz mm -g full hifz",
     "hifzIntro": "Revbuid bu  secret — never qo'shbuh new yhs without reviewichidg old des.",
     "hifzSurahs": "Surhs ichid bu pln",
-    "openQuranHifz": "ochichidg Qur'n & hifz trcker",
+    "openQuranHifz": "Open Qur'an & hifz tracker",
     "tadabburTitle": "Reflectid (Tdbbur)",
     "tadabburSubtitle": "Guided questids uchun persdl pplictid",
     "tadabburIntro": "ems tfsir — sk wht brchh teches siz v how siz will live it bugun.",
@@ -3044,7 +3044,7 @@
     "challengeDone": "Chbrchenge bjrildi — my brchh ccept",
     "quizTitle": "Qur'n quiz",
     "quizSubtitle": "Test siznichidg understvichidg — ems siznichidg stvichidg with brchh",
-    "quizIntro": "Use ech questid -g fichidd  gp, n study o'sh -gpic. bu bu review, ems  spiritul scyokie.",
+    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
     "quizProgress": "{{total}} dan {{current}} savoli",
     "quizComplete": "Viktorina yakunlandi",
     "quizScore": "{{total}} savollardan {{score}} to&#39;g&#39;ri ball oldi",
@@ -3094,7 +3094,7 @@
   },
   "offlineData": {
     "title": "-nichidglyn dt",
-    "subtitle": "Downloded cdtent styokied d bu device",
+    "subtitle": "Downloaded content stored on this device",
     "cachesTitle": "Cched cdtent",
     "quran": "Qur'n trjims & tfsir",
     "mushafFonts": "Mushf pge shrifts (QCF)",
@@ -3105,42 +3105,42 @@
     "clearAll": "Cler brch cches",
     "clearOne": "Cler {{name}}",
     "confirmClearOneTitle": "Cler {{name}}?",
-    "confirmClearOneMessage": "bu olib tshlshs downloded {{name}} -dn bu device. Cdtent re-downlods when siz next ochichidg it dlyn.",
+    "confirmClearOneMessage": "This removes downloaded {{name}} from this device. Content re-downloads when you next open it online.",
     "confirmClearAllTitle": "Cler brch cches?",
-    "confirmClearAllMessage": "bu olib tshlshs brch downloded cdtent copies -dn bu device. siznichidg logs, xtcho'plr, v fvyokiites bu ems ffected.",
+    "confirmClearAllMessage": "This removes all downloaded content copies from this device. Your logs, bookmarks, and favorites are not affected.",
     "confirmClearAction": "Cler",
     "cleared": "Cche clebud",
-    "note": "Clerichidg cches dly olib tshlshs downloded copies — siznichidg logs, xtcho'plr, v fvyokiites bu never ffected. Cdtent re-downlods when siz next ochichidg it dlyn."
+    "note": "Clearing caches only removes downloaded copies — your logs, bookmarks, and favorites are never affected. Content re-downloads when you next open it online."
   },
   "events": {
     "eyebrow": "bulmic tqvim",
     "title": "bulmic events",
-    "subtitle": "Upcomichidg dtes ichid  Hijri yer",
+    "subtitle": "Upcoming dates in the Hijri year",
     "today": "bugun",
     "inDays": "ichid {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Dtes bu clculted estimtes —  ctul dy depends d locl mod-sightichidg.",
+    "disclaimer": "Dates are calculated estimates — the actual day depends on local moon-sighting.",
     "names": {
       "newYear": "bulmic New Yer",
-      "ashura": "Dy -nichidg shur",
+      "ashura": "Day of Ashura",
       "mawlid": "Mwlid n-Nbi",
       "isra": "bur & Mi'rj",
-      "ramadan": "First -nichidg Rmdn",
-      "laylatQadr": "Lylt l-Qdr (est.)",
+      "ramadan": "First of Ramadan",
+      "laylatQadr": "Laylat al-Qadr (est.)",
       "eidFitr": "Eid l-Fitr",
-      "arafah": "Dy -nichidg rfh",
+      "arafah": "Day of Arafah",
       "eidAdha": "Eid l-dh"
     },
     "descriptions": {
-      "newYear": " first -nichidg Muhrrm ochichidgs  Hijri (lunr) yer, whose count begichids -dn  Prophet's migrtid (Hijrh) -dn Mkkh -g Mdichidh. Muhrrm bu de -nichidg  four scred mdths v  Prophet ﷺ cbrched it \" mdth -nichidg brchh,\" nmichidg its voluntry Ro'z  best fter Rmdn (Shih Muslim 1163). It bu  time -g reflect d  yer pst v renew good ichidtentids. re bu no specific mvted ritul uchun  dy itself, so bewbu -nichidg unfounded \"New Yer\" prctices; ichidcresichidg voluntry Ro'z cross  mdth bu  estblbuhed Sunnh.",
-      "ashura": " 10th -nichidg Muhrrm.  Prophet ﷺ found  Jews -nichidg Mdichidh Ro'z it ichid grtitude uchun brchh svichidg Mus v  Children -nichidg burel -dn Phroh, v sid, \"We hve myokie right -g Mus thn siz,\" n fsted it v -gld  Muslims -g fst (Shih l-Bukhri 2004). Ro'z shur expites  michidyoki sichids -nichidg  previous yer (Shih Muslim 1162). -g differ -dn yoki communities, it bu recommended -g lso fst  9th (Tsu'):  Prophet ﷺ ichidtended -g do so  followichidg yer (Shih Muslim 1134). Ro'z  9th v 10th -gger bu  preferred prctice.",
-      "mawlid": " 12th -nichidg Rbi l-wwl bu widely ssocited with  birth -nichidg  Prophet Muhmmd ﷺ ( exct dte bu debted mdg hbutyokiins). Muslims universbrchy love v hdour him v bu commved -g send blessichidgs upd him (Qur'n 33:56). Wher -g hold  dedicted nnul celebrtid (Mwlid) bu  poichidt d which michidstrem scholrs differ: mny, especibrchy ichid  Sufi v trditidl trditids, permit yoki encourge grichidgs -nichidg remembrnce v sendichidg slwt, while yokbu (emsbly ichid  Slfi trditid) hold o'sh  fixed yerly observnce ws ems prctbued by  erly genertids v so should be voided. bu pp presents  dy neutrbrchy; ichidcresichidg slwt v followichidg  Prophet's Sunnh bu greed goods.",
-      "isra": "l-bur w l-Mi'rj commemyokites  Prophet's ﷺ mirculous tun Journey -dn Mkkh -g Jeruslem (l-qs) v hbu scensid through  hevens, referenced ichid Qur'n 17:1 v 53. d bu tun  five kunlik pryers were prescribed — yokiigichidbrchy fifty, n reduced -g five by brchh's mercy while ir rewrd remichided fifty (Shih l-Bukhri 349).  tun ffirms  snctity -nichidg l-qs v  centrlity -nichidg Slh. Its precbue dte (commdly plced d 27 Rjb) bu ems firmly estblbuhed, v no specific wyokbuhip bu unticbrchy tied -g  tun itself; gurdichidg  five kunlik pryers bu its lstichidg lessd.",
-      "ramadan": " nichidth mdth v  fourth pillr -nichidg bulm. Ro'z -dn dwn -g sunset bu obligtyokiy d every cpble dult Muslim (Qur'n 2:183–185). It bu  mdth ichid which  Qur'n ws first reveled (Qur'n 2:185).  Prophet ﷺ sid, \"Whoever fsts Rmdn out -nichidg fith v seekichidg rewrd will hve hbu pst sichids uchungiven\" (Shih l-Bukhri 38). tuns bu enlivened with Trweeh pryer, v  lst ten dys crry Lylt l-Qdr. It bu  mdth -nichidg Ro'z, Qur'n, chrity, v drwichidg ner -g brchh.",
-      "laylatQadr": " tun -nichidg Decree — \"better thn  thousv mdths\" (Qur'n 97:3),  tun  Qur'n begn -g descend. Wyokbuhip d it outweighs  lifetime -nichidg over eighty-three yers.  Prophet ﷺ sid, \"Whoever stvs (ichid pryer) d Lylt l-Qdr out -nichidg fith v seekichidg rewrd will hve hbu pst sichids uchungiven\" (Shih l-Bukhri 1901). Its exct tun bu hidden; seek it ichid  odd tuns -nichidg  lst ten -nichidg Rmdn —  21st, 23rd, 25th, 27th, v 29th (Shih l-Bukhri 2017), with  27th especibrchy hoped uchun. Spend se tuns ichid pryer, Qur'n, v  du: \"brchhumm ichidnk 'fuwwun tuhibbu l-'fw f'fu 'nni.\"",
-      "eidFitr": " Festivl -nichidg Brekichidg  Fst, d  1st -nichidg Shwwl, mrks  end -nichidg Rmdn.  dy begichids with  Eid pryer v bu preceded by Zkt l-Fitr,  chrity given beuchune  pryer so  poyoki my lso rejoice. Muslims recite  tkbir, wer ir best, exchnge greetichidgs, v strengn fmily v community ties. Ro'z bu uchunbidden d bu dy (Shih l-Bukhri 1991) — it bu  dy -nichidg grtitude v permitted celebrtid uchun  wyokbuhip bjrildi ichid Rmdn.",
-      "arafah": " 9th -nichidg Dhul-Hijjh,  gretest dy -nichidg Hjj, when pilgrims stv ichid wyokbuhip d  plichid -nichidg rfh — \"Hjj bu rfh.\" It fbrchs withichid  blessed first ten dys -nichidg Dhul-Hijjh, dys ichid which righteous deeds bu myokie beloved -g brchh thn ny yokbu (Shih l-Bukhri 969). uchun those ems d Hjj, Ro'z bu dy bu highly recommended: it expites  sichids -nichidg  previous yer v  comichidg yer (Shih Muslim 1162). Pilgrims mselves do ems fst, so s -g hve strength uchun  stvichidg v supplictid.",
-      "eidAdha": " Festivl -nichidg Scrifice, d  10th -nichidg Dhul-Hijjh, bu  greter -nichidg  two Eids v coichidcides with  culmichidtid -nichidg Hjj. It commemyokites Prophet Ibrhim's willichidgness -g scrifice hbu sd ichid obedience -g brchh, who rnsomed him with  rm (Qur'n 37:100–107). Those ble -nichidgfer  scrifice (Udhiyh/Qurbni), shrichidg  met with fmily, neighbours, v  poyoki.  dy begichids with  Eid pryer v tkbir v dvom etbuhs through  three dys -nichidg Tshriq. Ro'z bu uchunbidden d bu dy v  dys -nichidg Tshriq (Shih l-Bukhri 1991)."
+      "newYear": "The first of Muharram opens the Hijri (lunar) year, whose count begins from the Prophet's migration (Hijrah) from Makkah to Madinah. Muharram is one of the four sacred months and the Prophet ﷺ called it \"the month of Allah,\" naming its voluntary fasting the best after Ramadan (Sahih Muslim 1163). It is a time to reflect on the year past and renew good intentions. There is no specific mandated ritual for the day itself, so beware of unfounded \"New Year\" practices; increasing voluntary fasting across the month is the established Sunnah.",
+      "ashura": "The 10th of Muharram. The Prophet ﷺ found the Jews of Madinah fasting it in gratitude for Allah saving Musa and the Children of Israel from Pharaoh, and said, \"We have more right to Musa than you,\" then fasted it and told the Muslims to fast (Sahih al-Bukhari 2004). Fasting Ashura expiates the minor sins of the previous year (Sahih Muslim 1162). To differ from other communities, it is recommended to also fast the 9th (Tasu'a): the Prophet ﷺ intended to do so the following year (Sahih Muslim 1134). Fasting the 9th and 10th together is the preferred practice.",
+      "mawlid": "The 12th of Rabi al-Awwal is widely associated with the birth of the Prophet Muhammad ﷺ (the exact date is debated among historians). Muslims universally love and honour him and are commanded to send blessings upon him (Qur'an 33:56). Whether to hold a dedicated annual celebration (Mawlid) is a point on which mainstream scholars differ: many, especially in the Sufi and traditional traditions, permit or encourage gatherings of remembrance and sending salawat, while others (notably in the Salafi tradition) hold that a fixed yearly observance was not practised by the early generations and so should be avoided. This app presents the day neutrally; increasing salawat and following the Prophet's Sunnah are agreed goods.",
+      "isra": "Al-Isra wa al-Mi'raj commemorates the Prophet's ﷺ miraculous Night Journey from Makkah to Jerusalem (al-Aqsa) and his ascension through the heavens, referenced in Qur'an 17:1 and 53. On this night the five daily prayers were prescribed — originally fifty, then reduced to five by Allah's mercy while their reward remained fifty (Sahih al-Bukhari 349). The night affirms the sanctity of al-Aqsa and the centrality of Salah. Its precise date (commonly placed on 27 Rajab) is not firmly established, and no specific worship is authentically tied to the night itself; guarding the five daily prayers is its lasting lesson.",
+      "ramadan": "The ninth month and the fourth pillar of Islam. Fasting from dawn to sunset is obligatory on every capable adult Muslim (Qur'an 2:183–185). It is the month in which the Qur'an was first revealed (Qur'an 2:185). The Prophet ﷺ said, \"Whoever fasts Ramadan out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 38). Nights are enlivened with Taraweeh prayer, and the last ten days carry Laylat al-Qadr. It is a month of fasting, Qur'an, charity, and drawing near to Allah.",
+      "laylatQadr": "The Night of Decree — \"better than a thousand months\" (Qur'an 97:3), the night the Qur'an began to descend. Worship on it outweighs a lifetime of over eighty-three years. The Prophet ﷺ said, \"Whoever stands (in prayer) on Laylat al-Qadr out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 1901). Its exact night is hidden; seek it in the odd nights of the last ten of Ramadan — the 21st, 23rd, 25th, 27th, and 29th (Sahih al-Bukhari 2017), with the 27th especially hoped for. Spend these nights in prayer, Qur'an, and the dua: \"Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.\"",
+      "eidFitr": "The Festival of Breaking the Fast, on the 1st of Shawwal, marks the end of Ramadan. The day begins with the Eid prayer and is preceded by Zakat al-Fitr, a charity given before the prayer so the poor may also rejoice. Muslims recite the takbir, wear their best, exchange greetings, and strengthen family and community ties. Fasting is forbidden on this day (Sahih al-Bukhari 1991) — it is a day of gratitude and permitted celebration for the worship completed in Ramadan.",
+      "arafah": "The 9th of Dhul-Hijjah, the greatest day of Hajj, when pilgrims stand in worship on the plain of Arafah — \"Hajj is Arafah.\" It falls within the blessed first ten days of Dhul-Hijjah, days in which righteous deeds are more beloved to Allah than any others (Sahih al-Bukhari 969). For those not on Hajj, fasting this day is highly recommended: it expiates the sins of the previous year and the coming year (Sahih Muslim 1162). Pilgrims themselves do not fast, so as to have strength for the standing and supplication.",
+      "eidAdha": "The Festival of Sacrifice, on the 10th of Dhul-Hijjah, is the greater of the two Eids and coincides with the culmination of Hajj. It commemorates Prophet Ibrahim's willingness to sacrifice his son in obedience to Allah, who ransomed him with a ram (Qur'an 37:100–107). Those able offer a sacrifice (Udhiyah/Qurbani), sharing the meat with family, neighbours, and the poor. The day begins with the Eid prayer and takbir and continues through the three days of Tashriq. Fasting is forbidden on this day and the days of Tashriq (Sahih al-Bukhari 1991)."
     }
   },
   "zakat": {
@@ -3158,7 +3158,7 @@
     "quickBasicsHint": " pillr, rte, v purpose",
     "quickChecklist": "Pre-pyment tekshiruv ro'yxti",
     "quickChecklistHint": "Six steps beuchune siz py",
-    "quickEvidence": "Qur'n & Sunnh",
+    "quickEvidence": "Qur'an & Sunnah",
     "quickEvidenceHint": "Primry texts d zkt",
     "learnTitle": "Lern zkt",
     "learnHint": "bosichidg  -gpic uchun  focused guide — rulichidgs vry between schools.",
@@ -3167,9 +3167,9 @@
     "checklistTitle": "Beuchune siz py",
     "checklistSubtitle": " step-by-step review beuchune pyichidg zkt",
     "checklistIntro": "bu tekshiruv ro'yxti helps siz review commd cdditids — it bu ems  substitute uchun  scholr's rulichidg d siznichidg specific welth.",
-    "evidenceTitle": "Qur'n & Sunnh d zkt",
+    "evidenceTitle": "Qur'an & Sunnah on zakat",
     "evidenceSubtitle": "Primry texts estblbuhichidg zkt s n obligtid",
-    "evidenceIntro": "Zkt bu estblbuhed ichid  Qur'n v Sunnh s  fixed duty d qulifyichidg welth — ems voluntry chrity.",
+    "evidenceIntro": "Zakat is established in the Qur'an and Sunnah as a fixed duty on qualifying wealth — not voluntary charity.",
     "checklist": [
       {
         "title": "tsdiqlsh  hwl (lunr yer)",
@@ -3200,12 +3200,12 @@
       "basics": {
         "title": "Wht bu zkt?",
         "summary": " third pillr — 2.5% d qulifyichidg welth",
-        "body": "Zkt bu  third pillr -nichidg bulm, sittichidg between  pryer (slh) v  fst -nichidg Rmdn. ichid  Qur'n  commv -g estblbuh pryer v give zkt bu repeted mny times s  sichidgle pirichidg — ko'rstbuhichidg o'sh wyokbuhip -nichidg brchh v cbu uchun Hbu cretid bu woven -gger. It bu ems n ixtiyyokiiy gift but  fixed, compulsyokiy right o'sh  poyoki hold over  welth -nichidg  rich.\n\n wyokid zkt mens both purifictid v growth. Givichidg  smbrch, fixed pyokitid -nichidg siznichidg surplus purifies  rest -nichidg siznichidg welth v siznichidg hert -dn greed, v — by brchh's prombue — cuses wht remichids -g grow ichid blessichidg rr thn shrichidk.\n\n stvrd rte d mdetry welth bu de-uchuntieth, o'sh bu 2.5%. So uchun every 1,000 -nichidg qulifyichidg welth o'sh hs bjrildi its lunr yer bove  threshold, 25 bu due. bu bu  modest ulshbuh by design: enough -g circulte resources -g those ichid need without strichidichidg  giver.\n\nZkt bu ems  sme s sdqh. Sdqh bu ny voluntry chrity, given ichid ny mount, t ny time, -g lmost nyde. Zkt bu  defichided obligtid —  set rte, d set ctegyokiies -nichidg welth, dce set cdditids bu met, pid -g set ctegyokiies -nichidg people. Neglectichidg it delibertely bu  serious sichid; both  Qur'n v Sunnh wrn sternly gichidst hordichidg welth while withholdichidg its due."
+        "body": "Zakat is the third pillar of Islam, sitting between the prayer (salah) and the fast of Ramadan. In the Qur'an the command to establish prayer and give zakat is repeated many times as a single pairing — showing that worship of Allah and care for His creation are woven together. It is not an optional gift but a fixed, compulsory right that the poor hold over the wealth of the rich.\n\nThe word zakat means both purification and growth. Giving a small, fixed portion of your surplus purifies the rest of your wealth and your heart from greed, and — by Allah's promise — causes what remains to grow in blessing rather than shrink.\n\nThe standard rate on monetary wealth is one-fortieth, that is 2.5%. So for every 1,000 of qualifying wealth that has completed its lunar year above the threshold, 25 is due. This is a modest share by design: enough to circulate resources to those in need without straining the giver.\n\nZakat is not the same as sadaqah. Sadaqah is any voluntary charity, given in any amount, at any time, to almost anyone. Zakat is a defined obligation — a set rate, on set categories of wealth, once set conditions are met, paid to set categories of people. Neglecting it deliberately is a serious sin; both the Qur'an and Sunnah warn sternly against hoarding wealth while withholding its due."
       },
       "purpose": {
         "title": "Why zkt — purpose & wbudom",
         "summary": "It purifies welth v  soul, v lifts  poyoki",
-        "body": "brchh sys -nichidg zkt: \"Tke -dn ir welth  chrity by which siz purify m v cuse m -g grow\" (Qur'n 9:103).  obligtid wyokiks d two levels t dce — it purifies  giver's soul -dn stichidgichidess v love -nichidg  wyokild, v it purifies  welth itself so o'sh wht stys ichid siznichidg hv bu wholesome v blessed.\n\nSocibrchy, zkt bu  divichidely yokidered Tizim -nichidg circultid. When  Prophet ﷺ sent Mu'dh -g Yemen he ichidstructed o'sh zkt be tken -dn ir rich v given -g ir poyoki. Welth bu ems ment -g pile up mdg  few; zkt pulls it bck ichid-g motid so  needy bu fed, debtyokbu bu freed, v  community's bdds bu strengned.\n\nSpiritubrchy, givichidg zkt bu n ct -nichidg grtitude v trust. It nswers  humn urge -g hord with  certichidty o'sh provbuid comes -dn brchh, v it trichids  believer -g love givichidg.  de who pys zkt willichidgly fichidds ir welth protected, ir hert Yyokiug'ened, v ir rewrd styokied with ir Lyokid — \"re will be no fer cdcernichidg m, nyoki will y grieve\" (Qur'n 2:277)."
+        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
       },
       "hawl": {
         "title": " lunr yer (hwl)",
@@ -3220,32 +3220,32 @@
       "zakatable": {
         "title": "Wht bu generbrchy zktble",
         "summary": "Csh, metls, ichidvestments, trde goods, receivbles",
-        "body": "Zkt bu due d welth o'sh hs  potentil -g grow — mdey v thichidgs held s mdey — rr thn d items siz simply use.  michid ctegyokiies greed upd cross  schools bu csh, gold v silver, trde goods, v (with ir own rules) crops v lives-gck.\n\nCommdly zktble bugun: csh ichid hv v ichid bnk hbuobs; gold v silver, ichidcludichidg bullid, coichids, v styokied jewellery ems ichid regulr use; s-gcks, ulshbuhs, v mutul funds vlued t ir current mrket price;  merchvbue v ichidventyokiy -nichidg  busichidess (trde goods), vlued t resle price; strdg receivbles — lons v ichidvoices siz resdbly expect -g collect; v rentl yoki busichidess ichidcome siz hve sqlshd rr thn spent.\n\nMny scholrs lso ichidclude ccessible retirement svichidgs v cryp-gcurrencies held s n sset, tretichidg m like csh yoki ichidvestments. When ichid doubt,  guidichidg questid bu simple: bu bu welth  styokie -nichidg vlue yoki  mens -nichidg growth o'sh I could liquidte? If so, it bu likely zktble. Vlue everythichidg t bugun's mrket price d siznichidg zkt dte — ems t wht siz yokiigichidbrchy pid."
+        "body": "Zakat is due on wealth that has the potential to grow — money and things held as money — rather than on items you simply use. The main categories agreed upon across the schools are cash, gold and silver, trade goods, and (with their own rules) crops and livestock.\n\nCommonly zakatable today: cash in hand and in bank accounts; gold and silver, including bullion, coins, and stored jewellery not in regular use; stocks, shares, and mutual funds valued at their current market price; the merchandise and inventory of a business (trade goods), valued at resale price; strong receivables — loans and invoices you reasonably expect to collect; and rental or business income you have saved rather than spent.\n\nMany scholars also include accessible retirement savings and cryptocurrencies held as an asset, treating them like cash or investments. When in doubt, the guiding question is simple: is this wealth a store of value or a means of growth that I could liquidate? If so, it is likely zakatable. Value everything at today's market price on your zakat date — not at what you originally paid."
       },
       "exempt": {
         "title": "Wht bu usubrchy ems zktble",
         "summary": "Persdl use items, wyokichid jewellery, locked pensids",
-        "body": "Welth tied up ichid siznichidg yokidichidry kunlik life bu generbrchy ems zktble, becuse zkt trgets growichidg welth, ems  thichidgs siz live with v use. siznichidg home, siznichidg cr, siznichidg clothichidg, furniture, pplinces, v  -gols v equipment -nichidg siznichidg trde bu brch exempt — however vluble y bu.\n\nGold v silver jewellery o'sh  womn wers regulrly bu  well-known poichidt -nichidg difference.  Hnfi school holds o'sh brch gold v silver bu zktble even if wyokichid;  mjyokiity — Mliki, Shfi'i, v Hnbli — exempt jewellery kept uchun nyokiml persdl use but ichidclude it if it bu horded s  styokie -nichidg welth yoki exceeds cus-gmry dyokichidment. Follow  rulichidg -nichidg  school siz follow.\n\nPensid yoki provident funds siz cnems yet ccess bu -nichidgten excluded until  mdey ctubrchy comes ichid-g siznichidg hvs, though some scholrs require zkt d  ccessible pyokitid. Debts owed -g siz o'sh bu unlikely ever -g be repid bu usubrchy ems counted until recovered. s lwys,  fichider detils vry between schools — when  cse bu uncler, sk  qulified scholr rr thn guess."
+        "body": "Wealth tied up in your ordinary daily life is generally not zakatable, because zakat targets growing wealth, not the things you live with and use. Your home, your car, your clothing, furniture, appliances, and the tools and equipment of your trade are all exempt — however valuable they are.\n\nGold and silver jewellery that a woman wears regularly is a well-known point of difference. The Hanafi school holds that all gold and silver is zakatable even if worn; the majority — Maliki, Shafi'i, and Hanbali — exempt jewellery kept for normal personal use but include it if it is hoarded as a store of wealth or exceeds customary adornment. Follow the ruling of the school you follow.\n\nPension or provident funds you cannot yet access are often excluded until the money actually comes into your hands, though some scholars require zakat on the accessible portion. Debts owed to you that are unlikely ever to be repaid are usually not counted until recovered. As always, the finer details vary between schools — when a case is unclear, ask a qualified scholar rather than guess."
       },
       "debts": {
         "title": "Debts & deductids",
         "summary": "Immedite debts my be deducted beuchune clcultichidg 2.5%",
-        "body": "Zkt bu clculted d siznichidg net zktble welth, so genuichide debts siz owe cn reduce  mount d which siz py.  clebust cse bu debts due now — n unpid persdl lon, n outstvichidg crthrirlsh-crd blnce, rent yoki bills lredy owed. Most scholrs brchow se -g be subtrcted -dn siznichidg gross welth beuchune siz pply  2.5%.\n\nLdg-term debts such s  myokitgge yoki  multi-yer ichidstlment pln bu hvled with myokie cbu, becuse deductichidg  entire blnce would wipe out  zkt -nichidg lmost nyde with  home lon.  commd cdtempyokiry pproch bu -g deduct dly  pyments due withichid  comichidg yer, ems  whole outstvichidg sum. Schools v scholrs differ here, so pick  cdsbutent method under guidnce.\n\nTwo cutids. First, do ems tret future yoki hypoticl expenses s deductible debts — dly wht siz ctubrchy owe counts. Secdd, do ems subtrct lst yer's unpid zkt s if it were n yokidichidry debt; unpid zkt remichids  due obligtid v should simply be pid. When siznichidg debt situtid bu complex,  scholr's rulichidg bu wyokith myokie thn  rough guess."
+        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
       },
       "recipients": {
         "title": "Who my receive zkt",
         "summary": "Eight ctegyokiies nmed ichid Qur'n 9:60",
-        "body": "Zkt my dly be given -g  ctegyokiies -nichidg people brchh Himself nmed ichid Surh t-Twbh (9:60). bu bu de -nichidg  few cts -nichidg wyokbuhip where  recipients bu fixed by reveltid, ems left -g  giver's preference.  eight ctegyokiies bu:  poyoki (l-fuqr);  needy (l-mskichid); those employed -g collect v dmichidbuter zkt; those whose herts bu -g be recdciled (l-mu'brchfh);  freeichidg -nichidg cptives v those ichid bddge (fi'r-riqb);  debt-burdened (l-ghrimichid); ichid  cuse -nichidg brchh (fi sbil brchh); v  strved trveller (ibn s-sbil).\n\nIt bu ems mjburiy -g give -g brch eight; givichidg siznichidg zkt -g even de eligible ctegyokiy fulfils  obligtid, v directichidg it -g  poyoki v needy bu  most commd prctice.\n\nEqubrchy impyokitnt bu who my ems receive it. Zkt cnems be given -g  welthy, nyoki -g those siz bu lredy obliged -g suppyokit — siznichidg pbunts, siznichidg children, yoki siznichidg spouse — sichidce suppyokitichidg m bu  duty siz owe nywy. ichid  clssicl view it bu  persdl trnsfer -nichidg ownership -g n eligible ichiddividul, ems  generl ddtid; scholrs differ d wher ichidstitutids such s msjids yoki brod public projects qulify under  cuse -nichidg brchh. It lso cnems be given -g  fmily -nichidg  Prophet ﷺ,  Bnu Hshim, s zkt. im it delibertely t people who mtch  Qur'nic ctegyokiies."
+        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
       },
       "otherRates": {
         "title": "yoki types -nichidg zkt & zkt l-fitr",
         "summary": "Crops, lives-gck, v  pre-Eid zkt l-fitr differ",
-        "body": " 2.5% rte pplies -g mdey v trde welth — zkt l-ml, which bu klkulytyoki covers. Severl yoki ctegyokiies hve entirely different rules v rtes.\n\nCrops v fruit hve zkt due t hrvest, ems fter  yer:  rte bu 10% (ushr) uchun lv wtered nturbrchy by richid yoki sprichidgs, v 5% uchun lv irrigted by rtificil efuchunt yoki cost. Grzichidg lives-gck — cmels, cttle, sheep, v gots o'sh grze freely uchun most -nichidg  yer — hve ir own species-by-species nbub counts v slidichidg scles, drwn directly -dn  Sunnh.\n\nZkt l-fitr bu different gichid, v every Muslim should know it. It bu  smbrch, fixed chrity — Ilov hqid de s' (roughly 2.5–3 kg) -nichidg  sbosichidgle food such s dtes, brley, whet, yoki rice, yoki its csh vlue ichid mny rulichidgs — due t  end -nichidg Rmdn d behlf -nichidg every member -nichidg  household, sizng v old. Its purpose bu -g purify  Ro'z persd -dn ny shyokitfbrch v -g ensure  poyoki lso hve food -g celebrte Eid.  Prophet ﷺ commved o'sh it be pid beuchune  Eid l-Fitr pryer; pid fterwrds it counts dly s yokidichidry chrity. Ech -nichidg se ctegyokiies hs its own detiled rulichidgs — seek guidnce specific -g  sset."
+        "body": "The 2.5% rate applies to money and trade wealth — zakat al-mal, which this calculator covers. Several other categories have entirely different rules and rates.\n\nCrops and fruit have zakat due at harvest, not after a year: the rate is 10% (ushr) for land watered naturally by rain or springs, and 5% for land irrigated by artificial effort or cost. Grazing livestock — camels, cattle, sheep, and goats that graze freely for most of the year — have their own species-by-species nisab counts and sliding scales, drawn directly from the Sunnah.\n\nZakat al-fitr is different again, and every Muslim should know it. It is a small, fixed charity — about one sa' (roughly 2.5–3 kg) of a staple food such as dates, barley, wheat, or rice, or its cash value in many rulings — due at the end of Ramadan on behalf of every member of the household, young and old. Its purpose is to purify the fasting person from any shortfall and to ensure the poor also have food to celebrate Eid. The Prophet ﷺ commanded that it be paid before the Eid al-Fitr prayer; paid afterwards it counts only as ordinary charity. Each of these categories has its own detailed rulings — seek guidance specific to the asset."
       },
       "mistakes": {
         "title": "Commd mbutkes -g void",
         "summary": "x-gs o'sh mke zkt ichidvlid yoki mbuclculted",
-        "body": "Even sichidcere Muslims -nichidgten slip d  prcticl detils -nichidg zkt. Knowichidg  commd x-gs helps siz py cyokirectly v with pece -nichidg michidd.\n\nuchungettichidg  hwl yoki  nniversry: pyichidg t  rvom time, yoki skippichidg yers, leves n outstvichidg obligtid. Fix de Hijri dte ech yer v ssess siznichidg welth d it.\n\nMbucountichidg welth: vluichidg gold yoki ulshbuhs t ir purchse price ichidsted -nichidg bugun's mrket vlue, uchungettichidg csh held ichid multiple hbuobs yoki currencies, yoki overlookichidg busichidess ichidventyokiy v mdey owed -g siz. Zkt bu d everythichidg zktble o'sh siz own d siznichidg dte.\n\nGivichidg -g  wrdg people: hvichidg zkt -g pbunts, children, yoki  spouse siz lredy suppyokit, yoki tretichidg it s  generic ddtid -g ny good cuse. It must rech de -nichidg  eight Qur'nic ctegyokiies.\n\nichidtentid x-gs: givichidg generously brch yer but never ichidtendichidg ny -nichidg it s zkt. Zkt bu n ct -nichidg wyokbuhip v needs  ichidtentid (niyyh) o'sh bu prticulr pyment bu siznichidg obligtyokiy zkt.\n\nOver-deductichidg debts: subtrctichidg  whole ldg-term myokitgge, yoki future expenses o'sh bu ems yet owed, -g shrichidk  bill. dly rel, current libilities reduce siznichidg zktble welth. When ny -nichidg se bu uncler uchun siznichidg situtid, sk  qulified scholr rr thn ssume."
+        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
       }
     },
     "recipientsListTitle": " eight ctegyokiies",
@@ -3280,7 +3280,7 @@
       },
       {
         "title": "Ibn s-sbil ( wyfbur)",
-        "body": " trveller strved without resources."
+        "body": "A traveller stranded without resources."
       }
     ],
     "nisabWeightsTitle": "Stvrd nbub weights",
@@ -3289,7 +3289,7 @@
     "nisabWeightNote": "Exct weights v which metl -g prefer vry sYyokiug'ly between schools.  klkulytyoki uses se widely cited Hnfi figures.",
     "quran": [
       {
-        "excerpt": "Zkt expenditures bu dly uchun  poyoki v uchun  needy v uchun those employed -g collect it v uchun brichidgichidg herts -gger v uchun freeichidg cptives v uchun those ichid debt v uchun  cuse -nichidg brchh v uchun  wyfbur — n obligtid -dn brchh. v brchh bu Knowichidg v Wbue."
+        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
         "excerpt": "Tke -dn ir welth  chrity by which siz purify m v cuse m -g grow, v ichidvoke blessichidgs upd m. ichiddeed, siznichidg ichidvoctid bu ressurnce uchun m. v brchh bu Herichidg v Knowichidg."
@@ -3298,18 +3298,18 @@
         "excerpt": "O siz who believe, spend -dn  good thichidgs which siz hve erned v -dn o'sh which We hve produced uchun siz -dn  erth."
       },
       {
-        "excerpt": "Those who believe v do righteous deeds v estblbuh pryer v give zkt will hve ir rewrd with ir Lyokid, v re will be no fer cdcernichidg m, nyoki will y grieve."
+        "excerpt": "Those who believe and do righteous deeds and establish prayer and give zakat will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve."
       }
     ],
     "hadith": [
       {
-        "excerpt": "bulm bu built upd five:  testimdy o'sh nde hs  right -g be wyokbuhipped but brchh v o'sh Muhmmd bu  Messenger -nichidg brchh, estblbuhichidg pryer, pyichidg zkt, pilgrimge -g  House, v Ro'z Rmdn."
+        "excerpt": "Islam is built upon five: the testimony that none has the right to be worshipped but Allah and that Muhammad is the Messenger of Allah, establishing prayer, paying zakat, pilgrimage to the House, and fasting Ramadan."
       },
       {
         "excerpt": " Prophet ﷺ sent Mu'dh -g Yemen v sid: Tech m o'sh brchh hs mde chrity (zkt) obligtyokiy upd m — tken -dn ir rich v returned -g ir poyoki."
       },
       {
-        "excerpt": "re bu no owner -nichidg gold yoki silver who does ems py wht bu due d it except o'sh d  Dy -nichidg Resurrectid pltes -nichidg fire will be mde uchun him, heted ichid  Fire -nichidg Hell, v hbu side, uchunehed, v bck will be sebud with m."
+        "excerpt": "There is no owner of gold or silver who does not pay what is due on it except that on the Day of Resurrection plates of fire will be made for him, heated in the Fire of Hell, and his side, forehead, and back will be seared with them."
       },
       {
         "excerpt": "When siz own two hundred dirhms v  yer hs pssed over m, five dirhms bu due. v no zkt bu due d welth until  yer hs pssed over it."
@@ -3370,7 +3370,7 @@
       "stocks": "Current mrket vlue -nichidg ulshbuhs, funds, v similr ichidvestments.",
       "business": "Vlue -nichidg merchvbue, ichidventyokiy, v goods held uchun sle.",
       "receivables": "Lons v ichidvoices siz resdbly expect -g collect.",
-      "rentalIncome": "Rentl yoki busichidess pr-nichidgits siz still hold — ems lredy spent.",
+      "rentalIncome": "Rental or business profits you still hold — not already spent.",
       "otherAssets": "Cryp-gcurrency, ccessible retirement funds, yoki yoki zktble welth per siznichidg scholr.",
       "debts": "Persdl lons, crthrirlsh crds, v bills due now — ems ldg-term myokitgge -gtls unless siznichidg scholr brchows.",
       "nisab": "Leve blnk -g use  computed threshold, yoki enter  cus-gm nbub."
@@ -3394,78 +3394,78 @@
     }
   },
   "tahajjud": {
-    "eyebrow": "tun pryer",
-    "title": "Thjjud",
-    "subtitle": "Build  lstichidg hbit -nichidg  tun pryer.",
+    "eyebrow": "Night prayer",
+    "title": "Tahajjud",
+    "subtitle": "Build a lasting habit of the night prayer.",
     "streakValue": "{{count}}",
     "streakCaption": "tun Ketm-ketlik",
     "bestStreak": "Eng yaxshi: {{count}}",
     "totalNights": "{{count}} tuns -gtl",
-    "markTonight": "I pryed Thjjud -gtun",
+    "markTonight": "I prayed Tahajjud tonight",
     "markedTonight": "Pryed -gtun — mshbrchh",
     "lastNights": "Lst {{count}} tuns",
     "lastNightsHint": "Ech dot bu de tun, lbeled by tqvim dte (most recent d  left).",
-    "virtueTitle": "Virtue -nichidg  tun pryer",
-    "virtueBody": " best pryer fter  obligtyokiy pryers bu  tun pryer.",
+    "virtueTitle": "Virtue of the night prayer",
+    "virtueBody": "The best prayer after the obligatory prayers is the night prayer.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Thjjud Ketm-ketlik"
+    "streakRow": "Tahajjud streak"
   },
   "seasonalTheme": {
-    "dateDisclaimer": "Dtes bu clculted estimtes — locl mod-sightichidg my differ.",
+    "dateDisclaimer": "Dates are calculated estimates — local moon-sighting may differ.",
     "newYearEyebrow": "New yer",
     "newYearBannerTitle": "bulmic New Yer",
     "newYearBannerDesc": "Muhrrm ochichidgs  Hijri yer —  time -g reflect v renew siznichidg ichidtentids.",
     "ashuraEyebrow": "Scred dys",
     "ashuraBannerTitle": "Dys -nichidg shur",
-    "ashuraBannerDesc": "Fst  9th v 10th -nichidg Muhrrm —  beloved sunnh o'sh expites michidyoki sichids.",
-    "ramadanEyebrow": "Rmdn",
-    "ramadanBannerTitle": "Rmdn Mubrk",
+    "ashuraBannerDesc": "Fast the 9th and 10th of Muharram — a beloved sunnah that expiates minor sins.",
+    "ramadanEyebrow": "Ramadan",
+    "ramadanBannerTitle": "Ramadan Mubarak",
     "ramadanBannerDesc": " mdth -nichidg  Qur'n — fst, pry, v drw nebur -g brchh.",
     "lastTenEyebrow": "Lst ten tuns",
     "lastTenBannerTitle": " lst ten tuns",
-    "lastTenBannerDesc": "Seek Lylt l-Qdr ichid  odd tuns — wyokbuhip wyokith myokie thn  thousv mdths.",
+    "lastTenBannerDesc": "Seek Laylat al-Qadr in the odd nights — worship worth more than a thousand months.",
     "laylatQadrEyebrow": "tun -nichidg Decree",
-    "laylatQadrBannerTitle": "Lylt l-Qdr",
-    "laylatQadrBannerDesc": "Better thn  thousv mdths — stv ichid pryer, recite Qur'n, v mke du -gtun.",
+    "laylatQadrBannerTitle": "Laylat al-Qadr",
+    "laylatQadrBannerDesc": "Better than a thousand months — stand in prayer, recite Qur'an, and make dua tonight.",
     "eidFitrEyebrow": "Hayit",
     "eidFitrBannerTitle": "Eid Mubrk",
-    "eidFitrBannerDesc": "Celebrte  end -nichidg Rmdn with pryer, grtitude, v joy with fmily v community.",
+    "eidFitrBannerDesc": "Celebrate the end of Ramadan with prayer, gratitude, and joy with family and community.",
     "hajjEyebrow": "Dhul-Hijjh",
     "hajjBannerTitle": " ten best dys",
     "hajjBannerDesc": "Righteous deeds bu most beloved -g brchh ichid se dys — ichidcrese zikr, chrity, v good.",
-    "arafahEyebrow": "Dy -nichidg rfh",
+    "arafahEyebrow": "Day of Arafah",
     "arafahBannerTitle": "Stv t rfh",
-    "arafahBannerDesc": " hert -nichidg Hjj — if siz bu ems d Hjj, Ro'z bu dy expites two yers -nichidg sichids.",
+    "arafahBannerDesc": "The heart of Hajj — if you are not on Hajj, fasting this day expiates two years of sins.",
     "eidAdhaEyebrow": "Hayit",
     "eidAdhaBannerTitle": "Eid l-dh Mubrk",
-    "eidAdhaBannerDesc": " Festivl -nichidg Scrifice — pryer, tkbir, v shrichidg with those ichid need."
+    "eidAdhaBannerDesc": "The Festival of Sacrifice — prayer, takbir, and sharing with those in need."
   },
   "journal": {
     "eyebrow": "Aks ettirish",
-    "title": "Pryer jurnl",
-    "subtitle": "emse siznichidg presence ichid ech pryer v wtch it grow.",
+    "title": "Prayer journal",
+    "subtitle": "Note your presence in each prayer and watch it grow.",
     "add": "New reflectid",
     "addShort": "qo'shbuh",
-    "noCompletedTitle": "Complete  slh first",
-    "noCompletedDesc": "Mrk  slh s bjrildi bugun, n reflect d it here.",
-    "newTitle": "How ws siznichidg pryer?",
+    "noCompletedTitle": "Complete a salah first",
+    "noCompletedDesc": "Mark a salah as completed today, then reflect on it here.",
+    "newTitle": "How was your prayer?",
     "editTitle": "thrirlsh reflectid",
-    "navRow": "Reflect d  pryer",
+    "navRow": "Reflect on a prayer",
     "recentTitle": "Recent reflectids",
-    "fieldPrayer": "Slh",
+    "fieldPrayer": "Salah",
     "fieldRating": "Xushu (hozirlik)",
     "fieldNote": "emse (ixtiyyokiiy)",
     "notePlaceholder": "Wht helped yoki dbutrcted siz?",
     "emptyTitle": "No reflectids yet",
-    "emptyDesc": "fter  pryer, tke  moment -g emse how present siznichidg hert ws.",
+    "emptyDesc": "After a prayer, take a moment to note how present your heart was.",
     "avgLabel": "verge khushu",
     "khushuInfoA11y": "Lern Ilov hqid khushu",
-    "khushuInfoHint": "ochichidgs  Slh guide lessd d khushu",
+    "khushuInfoHint": "Opens the Salah guide lesson on khushu",
     "outOf": "/ {{max}}",
     "totalReflections": "{{count}} reflectids",
     "today": "bugun",
     "noNote": "No emse qo'shbuhed",
-    "ratingHint": "bosichidg  str -g rte siznichidg presence ichid pryer.",
+    "ratingHint": "Tap a star to rate your presence in prayer.",
     "delete": "o'chirbuh reflectid",
     "editA11y": "thrirlsh {{prayer}} reflectid",
     "discard": "Dbucrd",
@@ -3474,7 +3474,7 @@
     "confirmDiscardTitle": "Dbucrd chnges?",
     "confirmDiscardMsg": "nythichidg siz wrote will be lost.",
     "confirmOverwriteTitle": "Replce exbutichidg reflectid?",
-    "confirmOverwriteMsg": "siz lredy emsed {{prayer}} uchun bu dy. Svichidg will replce it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "Dbutrcted",
     "level2": "Beqaror",
     "level3": "Yetarlicha hozir",
@@ -3482,16 +3482,16 @@
     "level5": "Chuqur hozir"
   },
   "prayerTuning": {
-    "title": "Pryer time tunichidg",
+    "title": "Prayer time tuning",
     "subtitle": "djust dbuplyed dhn times -g mtch siznichidg msjid",
     "settingsSub": "Dbuplyed times & high-ltitude rule",
     "rowValue": "Dbuply times",
     "offsetTitle": "Msjid -nichidgfsets",
-    "offsetHint": "Chnges when ech pryer time bu ko'rstbuhn cross  pp. Seprte -dn bildirbuhnom esltms (Sozlmlr → bildirbuhnoms).",
+    "offsetHint": "Changes when each prayer time is shown across the app. Separate from notification reminders (Settings → Notifications).",
     "onTime": "d time",
     "earlierMin": "−{{count}} michid",
     "laterMin": "+{{count}} michid",
-    "earlier": "Erlier",
+    "earlier": "Earlier",
     "later": "Lter",
     "highLatTitle": "High-ltitude rule",
     "highLatHint": "ichid fr-nyokirn yoki fr-sourn regids  sun my ems rech  twiYyokiug' ngles. Choose how Fjr v buh bu estimted.",
@@ -3535,13 +3535,13 @@
     "subtitle": "Key miles-gnes ichid  life -nichidg  Prophet Muhmmd ﷺ.",
     "ceBadge": "{{year}} milodiy",
     "ahBadge": "{{ah}} H",
-    "disclaimer": "n overview -nichidg mjyoki miles-gnes drwn -dn clssicl seerh sources. CE v H dtes bu commdly-cited pproximtids; scholrs differ d some events, especibrchy l-bur wl-Mi'rj."
+    "disclaimer": "An overview of major milestones drawn from classical seerah sources. CE and AH dates are commonly-cited approximations; scholars differ on some events, especially al-Isra wal-Mi'raj."
   },
   "jannah": {
     "eyebrow": "O'rganish",
     "title": "Journey -g Jnnh",
     "subtitle": "Prdbue, its rnks, v  deeds o'sh elevte  believer.",
-    "intro": "bulm does ems give  numbered tekshiruv ro'yxti uchun Prdbue levels. Here siz will fichidd wht  Qur'n v untic Sunnh tech — v lichidks -g trck siznichidg kunlik strivichidg.",
+    "intro": "Islam does not give a numbered checklist for Paradise levels. Here you will find what the Qur'an and authentic Sunnah teach — and links to track your daily striving.",
     "learnTitle": "Ilov hqid Prdbue",
     "quickLinksTitle": "Tadqiq qilish",
     "continueInApp": "Munib-d dvom etbuh",
@@ -3552,7 +3552,7 @@
     "gatesTitle": "Gtes -nichidg Jnnh",
     "gatesSummary": "Gtes nmed ichid untic hdith",
     "gatesSubtitle": "Different gtes uchun different deeds",
-    "gatesLead": "untic hdith describe gtes -nichidg Prdbue ochichidged uchun people dbutichidgubuhed by pryer, chrity, Ro'z, jihd, v Hjj. Some my be cbrched -g enter through myokie thn de.",
+    "gatesLead": "Authentic hadith describe gates of Paradise opened for people distinguished by prayer, charity, fasting, jihad, and Hajj. Some may be called to enter through more than one.",
     "duasTitle": "Dus uchun Prdbue",
     "duasSummary": "Supplictids -dn Hbunul Muslim",
     "duasSubtitle": "sk brchh uchun Jnnh v refuge -dn  Fire",
@@ -3563,22 +3563,22 @@
     "versesLead": "bosichidg ny verse -g ochichidg it ichid  Qur'n reder.",
     "journeyTitle": "Mening safarim",
     "journeySummary": "bugun's hbits — ems siznichidg rnk with brchh",
-    "journeySubtitle": "Izchillik ichid wyokbuhip siz lredy trck",
+    "journeySubtitle": "Consistency in worship you already track",
     "journeyBanner": "se hbits bu mdg  deeds brchh loves. siznichidg fichidl rnk bu dly with Him.",
     "journeyToday": "bugun's strivichidg",
-    "journeyEmpty": "Strt with de pryer yoki dhkr — smbrch steps build lifeldg hbits.",
+    "journeyEmpty": "Start with one prayer or adhkar — small steps build lifelong habits.",
     "journeyDisclaimer": "bu dshbord ko'rstbuhs Izchillik, ems  percentge -nichidg Prdbue. Strive sichidcerely v trust ichid brchh's mercy.",
     "journey": {
-      "salah": "Slh bugun",
-      "salahHint": "Five kunlik pryers d siznichidg tekshiruv ro'yxti",
+      "salah": "Salah today",
+      "salahHint": "Five daily prayers on your checklist",
       "dhikr": "dhkr bugun",
       "dhikrHint": "ertlb, kechqurun, v kunlik remembrnces",
       "qaza": "Qz jryd",
       "qazaHint": "Mkichidg up o'tkzib yubyokiildi wyokbuhip",
       "streak": "ctive Ketm-ketlik",
       "streakHint": "Dys -nichidg cdsbutent trckichidg",
-      "tahajjud": "Thjjud bu week",
-      "tahajjudHint": "tun pryer ichid  lst 7 dys",
+      "tahajjud": "Tahajjud this week",
+      "tahajjudHint": "Night prayer in the last 7 days",
       "reflection": "Reflectids bu week",
       "reflectionHint": "Khushu jurnl entries",
       "quran": "Qur'on",
@@ -3658,14 +3658,14 @@
     "hadithLead": "Hdith bu presented with collectid, cittid, v grde where known.",
     "duasTitle": "Dus uchun protectid",
     "duasSummary": "Seek refuge -dn  Fire",
-    "duasSubtitle": "-dn slh, Hbunul Muslim, v  Qur'n",
-    "duasLead": " Prophet ﷺ tught us -g sk brchh uchun protectid -dn Jhnnm — especibrchy ichid pryer v kunlik dhkr.",
+    "duasSubtitle": "From salah, Hisnul Muslim, and the Qur'an",
+    "duasLead": "The Prophet ﷺ taught us to ask Allah for protection from Jahannam — especially in prayer and daily adhkar.",
     "duaNumber": "Du {{number}}",
-    "refugeDuaTitle": "Refuge -dn Jhnnm ichid slh",
+    "refugeDuaTitle": "Refuge from Jahannam in salah",
     "reflectionTitle": "kunlik reflectid",
     "reflectionSummary": "Self-hbuobbility questids",
     "reflectionSubtitle": "Cdnect wyokbuhip -g wbuness",
-    "reflectionLead": "Puse v sk siznichidgself se questids. bosichidg  row -g ochichidg  relted trcker yoki lessd.",
+    "reflectionLead": "Pause and ask yourself these questions. Tap a row to open the related tracker or lesson.",
     "reflectionListTitle": "bugun's questids",
     "referencesTitle": "Manbalar",
     "referencesSummary": "Sources v scholrly emses",
@@ -3676,14 +3676,14 @@
     "majorSinsHint": "Ech ichidcludes Qur'n, hdith, why it bu serious, v how -g repent.",
     "journeyTitle": "Mening safarim",
     "journeySummary": "Hbits o'sh help siz grow — ems  scyokie -nichidg fte",
-    "journeySubtitle": "Slh, butighfr, Qur'n, v kunlik ichidtentids",
-    "journeyBanner": "se hbits protect  soul v drw siz ner -g brchh. y bu ems  clcultid -nichidg siznichidg destichidy — dly brchh judges.",
+    "journeySubtitle": "Salah, istighfar, Qur'an, and daily intentions",
+    "journeyBanner": "These habits protect the soul and draw you near to Allah. They are not a calculation of your destiny — only Allah judges.",
     "journeyToday": "bugun's hbits",
-    "journeyEmpty": "Begichid with de pryer yoki  moment -nichidg butighfr — smbrch steps mtter.",
+    "journeyEmpty": "Begin with one prayer or a moment of istighfar — small steps matter.",
     "journeyDisclaimer": "bu dshbord trcks Izchillik ichid wyokbuhip v reflectid — never  'chnce -nichidg Hell.' Strive v trust brchh's mercy.",
     "journey": {
-      "salah": "Slh bugun",
-      "salahHint": "Five kunlik pryers d siznichidg tekshiruv ro'yxti",
+      "salah": "Salah today",
+      "salahHint": "Five daily prayers on your checklist",
       "istighfar": "dhkr & butighfr",
       "istighfarHint": "ertlb, kechqurun, v kunlik remembrnces",
       "quran": "Qur'on",
@@ -3716,7 +3716,7 @@
       "reconcileHint": "With fmily yoki somede I wrdged"
     },
     "notFound": "Mvzu -gpilmdi",
-    "disclaimer": "Eductidl cdtent rooted ichid Qur'n v untic Sunnh — ems  ftw. uchun persdl rulichidgs, cdsult  qulified scholr. brchh knows best.",
+    "disclaimer": "Educational content rooted in Qur'an and authentic Sunnah — not a fatwa. For personal rulings, consult a qualified scholar. Allah knows best.",
     "importance": {
       "foundational": "Foundtidl",
       "obligatory": "Obligtyokiy",
@@ -3773,12 +3773,12 @@
     "navRowSub": " quick guided wlkthrough -nichidg  michid fetures",
     "steps": {
       "tracker": {
-        "title": "Trck siznichidg pryers",
-        "body": "Mrk ech -nichidg  five kunlik pryers, log qz, v keep siznichidg Ketm-ketlik live."
+        "title": "Track your prayers",
+        "body": "Mark each of the five daily prayers, log qaza, and keep your streak alive."
       },
       "prayerTimes": {
-        "title": "ccurte pryer times",
-        "body": "d-device pryer times uchun siznichidg joylshuv, with dhn esltms siz cn fichide-tune."
+        "title": "Accurate prayer times",
+        "body": "On-device prayer times for your location, with adhan reminders you can fine-tune."
       },
       "quran": {
         "title": "Red  Qur'n",
@@ -3806,11 +3806,11 @@
       },
       "paths": {
         "title": "Pths o'sh elevte",
-        "body": "Ech deed ichidcludes evidence, prcticl steps, v lichidks -g Munib trckers."
+        "body": "Each deed includes evidence, practical steps, and links to Munib trackers."
       },
       "journey": {
         "title": "Mening safarim",
-        "body": "See bugun's Izchillik ichid slh, dhkr, v reflectid — ems  rnk scyokie."
+        "body": "See today's consistency in salah, adhkar, and reflection — not a rank score."
       }
     }
   },
@@ -3839,8 +3839,8 @@
     "signInRequiredBody": "Lichidk siznichidg hbuob so we cn follow up d siznichidg repyokit v emsify siz when it's resolved.",
     "signInCta": "Go -g hbuob",
     "myReportsTitle": "My cdtent repyokits",
-    "myReportsSubtitle": "Trck busues siz've repyokited v ir review sttus.",
-    "myReportsNavSub": "View submitted repyokits v sttus",
+    "myReportsSubtitle": "Track issues you've reported and their review status.",
+    "myReportsNavSub": "View submitted reports and status",
     "myReportsGuest": "kirbuh -g view repyokits siz've submitted.",
     "loadFailed": "Could ems lod siznichidg repyokits",
     "emptyTitle": "No repyokits yet",
@@ -3868,29 +3868,29 @@
   "externalCommands": {
     "titleIos": "Siri & voice shyokitcuts",
     "titleAndroid": "Google ssbutnt & voice shyokitcuts",
-    "settingsSubtitleIos": "Mrk Slh with Siri yoki pple Wtch",
-    "settingsSubtitleAndroid": "Mrk Slh with Google ssbutnt yoki Wer OS",
-    "introIos": "Use Siri, Shyokitcuts, yoki pple Wtch -g mrk Slh without ochichidgichidg  tekshiruv ro'yxti. Requires n ES dev yoki productid build — ems vilble ichid Expo Go.",
-    "introAndroid": "Use Google ssbutnt yoki Wer OS -g mrk Slh without ochichidgichidg  tekshiruv ro'yxti. Requires n ES dev yoki productid build — ems vilble ichid Expo Go.",
+    "settingsSubtitleIos": "Mark Salah with Siri or Apple Watch",
+    "settingsSubtitleAndroid": "Mark Salah with Google Assistant or Wear OS",
+    "introIos": "Use Siri, Shortcuts, or Apple Watch to mark Salah without opening the checklist. Requires an EAS dev or production build — not available in Expo Go.",
+    "introAndroid": "Use Google Assistant or Wear OS to mark Salah without opening the checklist. Requires an EAS dev or production build — not available in Expo Go.",
     "siriTitle": "Siri & Shyokitcuts",
-    "siriHint": "fter ichidstbrchichidg -dn TestFYyokiug' yoki  pp Styokie, ochichidg  Shyokitcuts pp yoki sy “Hey Siri, mrk my Slh ichid Munib Trcker”. If  pp ws uchunce-quit,  mrk syncs  next time siz ochichidg Munib Trcker.",
+    "siriHint": "After installing from TestFlight or the App Store, open the Shortcuts app or say “Hey Siri, mark my Salah in Munib Tracker”. If the app was force-quit, the mark syncs the next time you open Munib Tracker.",
     "assistantTitle": "Google ssbutnt",
-    "assistantHint": "Sy “Hey Google, mrk my Slh ichid Munib Trcker” d  device with  pp ichidstbrched.",
+    "assistantHint": "Say “Hey Google, mark my Salah in Munib Tracker” on a device with the app installed.",
     "watchTitle": "pple Wtch",
-    "watchHint": "ochichidg  Munib Trcker wtch pp -g see bugun’s schedule v mrk Slh. Dt syncs -dn siznichidg iPhde.",
+    "watchHint": "Open the Munib Tracker watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Wer OS",
-    "wearHint": "qo'shbuh  Munib Trcker tile d siznichidg wtch fter pirichidg with siznichidg phde.",
-    "marked": "Slh mrked",
-    "alreadyDone": "lredy mrked",
-    "allDone": "brch obligtyokiy Slh mrked uchun bugun",
-    "excused": "Trckichidg bu pused uchun bugun",
-    "locked": "Unlock  pp -g mrk Slh",
-    "failed": "Could ems mrk Slh",
+    "wearHint": "Add the Munib Tracker tile on your watch after pairing with your phone.",
+    "marked": "Salah marked",
+    "alreadyDone": "Already marked",
+    "allDone": "All obligatory Salah marked for today",
+    "excused": "Tracking is paused for today",
+    "locked": "Unlock the app to mark Salah",
+    "failed": "Could not mark Salah",
     "intents": {
       "openTracker": "ochichidg tekshiruv ro'yxti",
       "openQibla": "ochichidg Qibl",
       "openTasbeeh": "ochichidg Tsbeeh",
-      "markCurrent": "Mrk my Slh"
+      "markCurrent": "Mark my Salah"
     }
   },
   "pinLock": {
@@ -3906,7 +3906,7 @@
     "unlockWithFaceId": "Use Fce ID",
     "unlockWithTouchId": "Use -guch ID",
     "unlockWithFingerprint": "Use fichidgerprichidt",
-    "biometricUnlockPrompt": "Unlock Munib Trcker",
+    "biometricUnlockPrompt": "Unlock Munib Tracker",
     "setPin": "Set Pichid",
     "setPinSubtitle": "Choose  6-digit Pichid -g lock  pp",
     "confirmPin": "tsdiqlsh Pichid",

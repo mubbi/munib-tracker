@@ -70,7 +70,7 @@ Religious content (Qur'an, hadith, adhkar, duas, 99 Names, audio) is **sourced f
 
 ## Docs
 
-Planning + reference lives in [`docs/`](docs/): [`TODO.md`](docs/TODO.md) (phased PRD baseline), [`NEW_FEATURES_TODO.md`](docs/NEW_FEATURES_TODO.md) (active roadmap / NF-* backlog), [`DATA_INGESTION_TODO.md`](docs/DATA_INGESTION_TODO.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) (content sourcing), [`PROFILING_TODO.md`](docs/PROFILING_TODO.md) (bundle / startup profiling + optimization backlog).
+Planning + reference lives in [`docs/`](docs/): [`TODO.md`](docs/TODO.md) (phased PRD baseline), [`NEW_FEATURES_TODO.md`](docs/NEW_FEATURES_TODO.md) (active roadmap / NF-* backlog), [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) + [`TRANSLATIONS_STATUS.md`](docs/TRANSLATIONS_STATUS.md) (23-locale i18n ops & coverage), [`DATA_INGESTION_TODO.md`](docs/DATA_INGESTION_TODO.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) (content sourcing), [`PROFILING_TODO.md`](docs/PROFILING_TODO.md) (bundle / startup profiling + optimization backlog).
 
 ## AI skills (installed via `pnpm dlx skills add`)
 

@@ -1,3 +1,4 @@
+import { hadithEditionSlug, hasHadithTranslationEdition } from "@munib-tracker/shared/i18n";
 import type {
   HadithCollection,
   HadithCollectionData,
@@ -14,6 +15,10 @@ import { preferencesStore } from "@/stores/preferences-store";
  * (no key). Cache-first over AsyncStorage. Each collection is grouped into its
  * "books" (sections) so users browse a limited set at a time rather than the
  * whole corpus at once. Empty numbering placeholders are dropped.
+ *
+ * Translations: `eng-*` + `ara-*` always; an extra edition is fetched when the
+ * user's `translationLocale` maps to a fawazahmed0 prefix (ur, id, tr, bn, fr,
+ * ru). Other locales fall back to English at display time.
  */
 
 const HADITH_CDN = "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions";
@@ -71,23 +76,36 @@ async function fetchEdition(name: string): Promise<RemoteEdition> {
   return fetchStaticJson<RemoteEdition>(`${HADITH_CDN}/${name}.min.json`);
 }
 
+function cacheKeyFor(collectionId: string, translationLocale: string): string {
+  return `${collectionId}:${translationLocale}`;
+}
+
 /**
  * Cache-first fetch of a full collection, grouped into sections. On a cache miss
- * both language editions are fetched, paired by number, assigned to a section,
- * empty entries dropped, then cached.
+ * English + Arabic editions are always fetched; a locale translation edition is
+ * added when available for the user's `translationLocale`.
  */
 export async function fetchRemoteCollection(id: string): Promise<HadithCollectionData> {
-  const cached = (await HadithRepository.getCachedBook(id)) as HadithCollectionData | null;
+  const translationLocale = preferencesStore.getState().prefs.translationLocale;
+  const cacheKey = cacheKeyFor(id, translationLocale);
+  const cached = (await HadithRepository.getCachedBook(cacheKey)) as HadithCollectionData | null;
   if (cached?.items) return cached;
 
   const def = REMOTE_DEFS.find((d) => d.id === id);
   if (!def) throw new Error(`Unknown collection: ${id}`);
 
-  const [english, arabic] = await Promise.all([
-    fetchEdition(`eng-${id}`),
-    fetchEdition(`ara-${id}`),
-  ]);
+  const localeEdition = hasHadithTranslationEdition(translationLocale)
+    ? hadithEditionSlug(translationLocale, id)
+    : null;
+
+  const fetches: Promise<RemoteEdition>[] = [fetchEdition(`eng-${id}`), fetchEdition(`ara-${id}`)];
+  if (localeEdition) fetches.push(fetchEdition(localeEdition));
+
+  const [english, arabic, localized] = await Promise.all(fetches);
   const arabicByNumber = new Map(arabic.hadiths.map((h) => [h.hadithnumber, h.text]));
+  const localizedByNumber = localized
+    ? new Map(localized.hadiths.map((h) => [h.hadithnumber, h.text]))
+    : null;
 
   // Section lookup by hadith number range.
   const sectionNames = english.metadata?.sections ?? {};
@@ -105,6 +123,7 @@ export async function fetchRemoteCollection(id: string): Promise<HadithCollectio
     if (!text) continue; // drop empty numbering placeholders
     const section = sectionFor(h.hadithnumber);
     const grade = h.grades?.find((g) => g.grade);
+    const localizedText = localizedByNumber?.get(h.hadithnumber)?.trim();
     const item: HadithItem = {
       id: `${id}:${h.hadithnumber}`,
       collection: id,
@@ -113,6 +132,9 @@ export async function fetchRemoteCollection(id: string): Promise<HadithCollectio
       english: text,
       reference: `${def.nameEnglish} ${h.hadithnumber}`,
     };
+    if (localizedText) {
+      item.translations = { [translationLocale]: localizedText };
+    }
     if (section) {
       item.book = section.name;
       item.chapterId = section.id;
@@ -134,6 +156,6 @@ export async function fetchRemoteCollection(id: string): Promise<HadithCollectio
   // it stays in the session cache and refetches next launch.
   const persist = preferencesStore.getState().prefs.cacheHadithLocally !== false;
   const data: HadithCollectionData = { sections, items };
-  await HadithRepository.setCachedBook(id, data, persist);
+  await HadithRepository.setCachedBook(cacheKey, data, persist);
   return data;
 }

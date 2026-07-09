@@ -191,6 +191,7 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
 | **mhashim6/Open-Hadith-Data** | 9 books incl. Six + Arabic diacritics | Partial | Open | ◻︎ Good Arabic corpus. |
 | **HadithAPI.com** | Bukhari, Muslim etc. with `status` (Sahih/Hasan/Daif) | Yes ✅ | Free w/ key | ✅ Handy API that **carries grades** — good for the grade requirement. |
 | **QUL / Tarteel** | Hadith resources alongside Qur'an | Varies | Per-resource | ◻︎ Check availability. |
+| **fawazahmed0/hadith-api** (jsDelivr CDN) | Kutub al-Sittah + more; **multi-language editions** (`urd-*`, `ind-*`, `tur-*`, `ben-*`, `fra-*`, `rus-*`, …) | Varies | **Unlicense** | ✅ **Shipped** for remote hadith translation in app locales `ur`, `id`, `tr`, `bn`, `fr`, `ru` — see `packages/shared/src/i18n/hadith-editions.ts` and `apps/app/src/api/hadith-remote.ts`. Arabic uses bundled `arabic` field; others cache per `collection:translationLocale`. |
 
 **Recommendation:**
 - **Authoritative path:** integrate the **official sunnah.com API** (request a key). Present
@@ -213,6 +214,8 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
 | **fitrahive/dua-dhikr** (GitHub) | "Authentic Sunnah Dua & Dhikr" REST API, categorized, Arabic + translit + translation + source | Open | ✅ Clean structure that maps directly to your `DuaItem`/`ZikrItem`. |
 | **Seen-Arabic/Morning-And-Evening-Adhkar-DB** | Morning/evening adhkar, Arabic + English, **JSON/CSV/SQL/SQLite** | Open | ✅ Great for the morning/evening categories you already have. |
 | **wafaaelmaandy/Hisn-Muslim-Json** | Full Hisnul Muslim, Arabic + English JSON | Open | ✅ Full Fortress-of-the-Muslim corpus. |
+| **ThelightHub/dua-api** | Hisnul Muslim book 1, Arabic + Bengali segments (~133 chapters) | Open API | ✅ **Shipped** in `build-adhkar.mjs` for `bn` (~128/270 duas matched by Arabic prefix). |
+| **fitrahive/dua-dhikr** | Subset of duas, Indonesian | Open | ✅ Partial `id` translations in adhkar pipeline. |
 | **BetimShala/mburoja-api** | Hisnul Muslim chapters + invocations API | Open | ◻︎ Alternative API form. |
 | **ahegazy/muslimKit azkar JSON** | Azkar with `zekr`, `repeat`, `bless`(source) | Open | ✅ Includes repeat-count → maps to your `targetCount`. |
 

@@ -4,13 +4,15 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 
 ## Internationalization & Islamic terminology (READ BEFORE ADDING ANY SCREEN, COMPONENT, OR CONTENT)
 
-The app ships in **English, Urdu, and Arabic**. Every new feature or content update MUST follow these rules. They are enforced by `src/i18n/i18n-guard.test.ts` (runs in `pnpm test` / CI) — if you break them the build fails. Run it locally after any UI or catalog change:
+The app ships **23 locales** (`en` + 22 translations). Phase 1 (`en`, `ar`, `ur`) is human-reviewed; Phase 2–4 have key parity with English. Full workflows: [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md) · status: [`docs/TRANSLATIONS_STATUS.md`](../../docs/TRANSLATIONS_STATUS.md).
+
+Every new feature or content update MUST follow these rules. They are enforced by `src/i18n/i18n-guard.test.ts` and `plural-audit.test.ts` (runs in `pnpm test` / CI). Run locally after any UI or catalog change:
 
 ```
-pnpm --filter app test -- i18n-guard parity
+pnpm --filter app test -- i18n
 ```
 
-**1. No hardcoded user-facing strings.** Every visible string — `<Text>` children, titles/eyebrows/subtitles, button labels, placeholders, `accessibilityLabel`/`accessibilityHint`, `Alert`/toast/notification text, empty states, validation messages — comes from `t("namespace.key")`. The single source of truth is `src/i18n/{en,ur,ar}.json`, organized by feature namespace. Author **English first**, then add the Urdu and Arabic values for the *same keys* (the guard's parity check fails otherwise). Do NOT hardcode English as a fallback in `t(key, "English default", …)` and skip the key — a wrong/missing key then silently ships English to every locale (the guard's key-coverage check catches this).
+**1. No hardcoded user-facing strings.** Every visible string — `<Text>` children, titles/eyebrows/subtitles, button labels, placeholders, `accessibilityLabel`/`accessibilityHint`, `Alert`/toast/notification text, empty states, validation messages — comes from `t("namespace.key")`. The single source of truth is `src/i18n/en.json`, organized by feature namespace. Author **English first**, then run `node scripts/i18n/merge-missing-keys.mjs` and translate (or add to `scripts/i18n/ui-polish-patches.json` + `apply-ui-polish.mjs`). For Phase 1, add **Urdu and Arabic** for the same keys. Do NOT hardcode English as a fallback in `t(key, "English default", …)` and skip the key.
 
 **2. Standardized Islamic terminology — use ONLY the left-hand spelling in English source copy** (never the alternatives). The guard rejects the banned spellings:
 
@@ -27,11 +29,13 @@ pnpm --filter app test -- i18n-guard parity
 
 *Also: Fajr, Dhuhr, Asr, Maghrib, Isha, Witr, Tahajjud, Sunnah, Nafl, Wudu, Ghusl, Ramadan, Jumu'ah — spelled consistently.* The one nuance: **"Salah"** is for discrete labels; natural "prayer(s)" is allowed *only* mid-sentence in long educational prose under `prayerInfo.*` (and proper compounds like "Salat al-Wusta"). Everywhere else a bare "Prayer" label must be "Salah".
 
-**3. Translation quality.** Urdu/Arabic values must be fully translated — no English words left inside (the guard flags any 4+-letter Latin run except allowlisted proper nouns like JSON/iOS/Open-Meteo). Keep the exact same `{{interpolation}}` variables as the English (a `_one`/`_zero` plural form may naturally drop `{{count}}`). Never leave a value empty. **When you rewrite an existing English value, re-translate its ur/ar too** — pipelines that only fill *missing* keys leave the old translation stale.
+**3. Translation quality.** Phase 1 (`ar`, `ur`): fully translated UI — no English words left inside (the guard flags 4+-letter Latin except allowlisted proper nouns). Phase 2–4: key parity required; prefer native labels via `ui-polish-patches.json`. Keep the exact same `{{interpolation}}` variables as English. For `ar`, `ru`, `bn`, include all CLDR plural suffixes (`plural-audit.test.ts`). Never leave a value empty. **Religious text bodies** must come from OSS datasets via `src/lib/translation-locale.ts` — never AI-generated in JSON catalogs. When you rewrite English, re-translate Phase 1 `ur`/`ar` too.
 
-**4. RTL.** Both `ar` AND `ur` are right-to-left (`RTL_LOCALES` in `src/lib/i18n/rtl-locale.ts`). Layout is flexbox and auto-flips, so: use **logical** style props (`marginStart`/`paddingEnd`/`borderStartWidth`) never physical (`marginLeft`/`left`); for direction-encoding glyphs use the helpers in **`src/lib/rtl.ts`** (`chevronForward`, `chevronBack`, `chevronBackward`, `arrowForward`) — never hardcode `chevron.right`/`arrow.left`. Concept icons (clock, calendar, mosque, moon, qibla turn-arrows) must NOT mirror. `textAlign:"right"` is correct only when paired with `writingDirection:"rtl"` (Arabic content); UI-chrome that must flip uses `I18nManager.isRTL ? "left" : "right"`. Language + layout direction are owned by `changeAppLocale` in `src/i18n/index.ts`, called from `preferences-store` hydration and `setLocale` — never apply RTL from init or a reactive provider effect.
+**4. RTL.** `ar`, `ur`, `fa`, `ps`, and `ku` are RTL (`RTL_LOCALES` in `src/lib/i18n/rtl-locale.ts`). Layout is flexbox and auto-flips, so: use **logical** style props (`marginStart`/`paddingEnd`/`borderStartWidth`) never physical (`marginLeft`/`left`); for direction-encoding glyphs use the helpers in **`src/lib/rtl.ts`** (`chevronForward`, `chevronBack`, `chevronBackward`, `arrowForward`) — never hardcode `chevron.right`/`arrow.left`. Concept icons (clock, calendar, mosque, moon, qibla turn-arrows) must NOT mirror. `textAlign:"right"` is correct only when paired with `writingDirection:"rtl"` (Arabic content); UI-chrome that must flip uses `I18nManager.isRTL ? "left" : "right"`. Language + layout direction are owned by `changeAppLocale` in `src/i18n/index.ts`, called from `preferences-store` hydration and `setLocale` — never apply RTL from init or a reactive provider effect.
 
 **5. Non-component code** (notifications, widgets, lib) uses the global singleton `import i18n from "@/i18n"` → `i18n.t(...)`, not the `useTranslation` hook.
+
+**6. Scripture vs UI language.** `locale` drives UI catalogs; `translationLocale` drives dua/zikr/Qur'an/hadith meaning. Hadith remote translations: `ur`, `id`, `tr`, `bn`, `fr`, `ru` (`packages/shared/src/i18n/hadith-editions.ts`).
 
 If a check's allowlist needs a genuinely new proper noun or Latin-legit key, extend the `LATIN_OK_*` / `BANNED_TERMS` constants at the top of `i18n-guard.test.ts` (with a comment) — don't weaken the check.
 

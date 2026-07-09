@@ -1,3 +1,4 @@
+import type { HadithItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,18 +14,30 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import type { BookmarkedHadith } from "@/db/repositories/hadith-repository";
+import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { buildHadithSharePayload } from "@/lib/share";
+import { resolveHadithTranslation } from "@/lib/translation-locale";
+
 import { usePreferences } from "@/stores/preferences-store";
+
+function BookmarkHadithPreview({ item }: { item: HadithItem }) {
+  const displayTranslation = useHadithTranslation(item);
+  return (
+    <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
+      {displayTranslation}
+    </ThemedText>
+  );
+}
 
 export default function HadithBookmarksScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { fontPrefs } = usePreferences();
+  const { fontPrefs, translationLocale } = usePreferences();
   const arabicSize = fontPrefs.arabic.size;
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
@@ -50,16 +63,17 @@ export default function HadithBookmarksScreen() {
 
   const shareEntry = useCallback(
     (entry: BookmarkedHadith) => {
-      const { arabic, english, reference } = entry.item;
+      const { arabic, reference } = entry.item;
+      const translation = resolveHadithTranslation(entry.item, { translationLocale });
       void share({
-        ...buildHadithSharePayload(arabic, english, reference, {
+        ...buildHadithSharePayload(arabic, translation, reference, {
           sectionTitle: t("share.sectionHadith"),
           contentLabel: reference,
         }),
         shareKey: entry.item.id,
       });
     },
-    [share, t],
+    [share, t, translationLocale],
   );
 
   const open = (entry: BookmarkedHadith) =>
@@ -112,9 +126,7 @@ export default function HadithBookmarksScreen() {
                         {entry.item.arabic}
                       </ThemedText>
                     ) : null}
-                    <ThemedText type="small" themeColor="mutedForeground" numberOfLines={2}>
-                      {entry.item.english}
-                    </ThemedText>
+                    <BookmarkHadithPreview item={entry.item} />
                   </PressableScale>
                   <View style={styles.actions}>
                     <LabeledIconButton

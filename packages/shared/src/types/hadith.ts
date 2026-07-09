@@ -14,6 +14,8 @@ export interface HadithItem {
   number: string;
   arabic: string;
   english: string;
+  /** Dataset-sourced translations keyed by app locale (remote collections only). */
+  translations?: Partial<Record<string, string>>;
   narrator?: string;
   /** "sahih" | "hasan" | ... (may be absent → show "ungraded") */
   grade?: string;

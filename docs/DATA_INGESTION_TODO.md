@@ -66,7 +66,7 @@ These were confirmed by reading the source. **Reuse them; do not rebuild what ex
   `lib/hadith.ts`.
 - **Home surfaces features** via the `quickActions: QuickActionItem[]` array in
   `src/app/(tabs)/index.tsx` (`router.push("/zikr")`, etc.). Add Qur'an + Hadith entries there.
-- **i18n:** `src/i18n/{en,ar,ur}.json`. Existing namespaces include `actions`, `zikr`, `zikrCat`,
+- **i18n:** `src/i18n/{locale}.json` for **23 locales** (see [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md)). Existing namespaces include `actions`, `zikr`, `zikrCat`,
   `dua`, `duaCat`, `duroods`, `names`, and a shared `reading` (`{ reference: "Reference: {{ref}}" }`).
   Add `actions.quran`, `actions.hadith`, and `quran`/`hadith`/`credits` namespaces in **all three**
   locales. Reuse `reading.reference`.

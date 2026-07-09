@@ -66,7 +66,7 @@
     "increase": "{{label}} köpelt",
     "decrease": "{{label}} azalt",
     "appName": "Munib Tracker",
-    "appTagline": "Allah-a gaýdyp geliş ýoluňyzy yzarlaň."
+    "appTagline": "Allaha gaýdyp geliş ýoluňyzy yzarlaň."
   },
   "search": {
     "placeholder": "Guran, hadis, dua, zikir ara…",
@@ -479,7 +479,7 @@
     "accountGuest": "Misafir — senkronize etmek için giriş yapyn",
     "appearance": "Görünüm",
     "appearanceSub": "Tema ve vurgu rengi",
-    "haptics": "Dokunsal geri bildirim",
+    "haptics": "Duýgurly jogap",
     "hapticsSub": "Dokunma ve eylemlerde titreşim",
     "notifications": "Bildirimler",
     "notificationsSub": "Namaz, Gaza ve Zikr hatyrlatmalary",
@@ -620,7 +620,7 @@
     "ctaPrivacyTitle": "Varsayylan olarak gizli",
     "ctaPrivacyBody": "Hesap gerekmez. Yedeklemeyi ve senkronize etmeyi seçene kadar ibadet verileriniz cihazynyzda kalyr.",
     "signInToSync": "Senkronize etmek için giriş yapyn",
-    "pageOf": "Sayfa {{page}} / {{total}}"
+    "pageOf": "Sahypa {{page}} / {{total}}"
   },
   "appearance": {
     "eyebrow": "Sazlamalar",
@@ -737,7 +737,7 @@
       "zikr": "Zikr ýatlatmalary",
       "qaza": "Gaza reminders"
     },
-    "snooze": "{{minutes}} min. gijä goý",
+    "snooze": "{{minutes}} min gijikdir",
     "defaultTitle": "Hatyrlatma",
     "reminders": {
       "prayerTitle": "{{prayer}} wagty",
@@ -1908,10 +1908,10 @@
     "translationLanguage": "Çeviri dili",
     "translationHint": "Gözlegpça dini metinlerin anlamy için kullanylyr.",
     "footer": "Gözlegyüzün daha fazlasy zamanla çevriliyor. Gözlegpça ve Urduca uygulamayy sagdan sola düzene geçirir.",
-    "scriptureAvailable": "Gur'an terjimesi elýeterli",
-    "scriptureUnavailable": "Diňe interfeýs — din metni iňlisçe galýar",
+    "scriptureAvailable": "Guran terjimesi elýeterli",
+    "scriptureUnavailable": "Diňe interfeýs — ykrarlyk tekstler iňlis dilinde galýar",
     "eyebrow": "Sazlamalar",
-    "subtitle": "Uygulama ve çeviri dili",
+    "subtitle": "Programma we terjime dili",
     "en": "Yngilizce",
     "ar": "Gözlegpça",
     "ur": "Urduca"
@@ -3895,7 +3895,7 @@
   },
   "pinLock": {
     "title": "Uygulama kilidi",
-    "backspace": "Pozmak",
+    "backspace": "Poz",
     "settingsSubtitle": "Require  PIN  aç  app",
     "webUnavailable": "App kilit dir available  iOS ve Android only.",
     "expoGoTitle": "App kilit unavailable içinde Expo Go",

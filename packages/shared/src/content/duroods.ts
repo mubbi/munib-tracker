@@ -16,6 +16,9 @@ export const DUROOD_ITEMS: DurudItem[] = [
       "Allahumma salli 'ala Muhammadin wa 'ala aali Muhammad, kama sallayta 'ala Ibrahim wa 'ala aali Ibrahim, innaka Hamidun Majid. Allahumma barik 'ala Muhammadin wa 'ala aali Muhammad, kama barakta 'ala Ibrahim wa 'ala aali Ibrahim, innaka Hamidun Majid",
     translation:
       "O Allah, send blessings upon Muhammad and the family of Muhammad, as You sent blessings upon Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious. O Allah, bless Muhammad and the family of Muhammad, as You blessed Ibrahim and the family of Ibrahim; indeed You are Praiseworthy, Glorious.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি (আপনার নিকটস্থ উচ্চসভায়) মুহাম্মাদকে সম্মানের সাথে স্মরণ করুন এবং তাঁর পরিবার-পরিজনকে, যেমন আপনি সম্মানের সাথে স্মরণ করেছেন ইবরাহীমকে ও তাঁর পরিবার-পরিজনদেরকে। নিশ্চয় আপনি অত্যন্ত প্রশংসিত ও মহামহিমান্বিত। হে আল্লাহ! আপনি মুহাম্মাদ ও তাঁর পরিবার পরিজনের উপর বরকত নাযিল করুন যেমন আপনি বরকত নাযিল করেছিলেন ইবরাহীম ও তাঁর পরিবার-পরিজনের উপর। নিশ্চয় আপনি অত্যন্ত প্রশংসিত ও মহামহিমান্বিত",
+    },
     virtues:
       "Recited in every prayer; the most complete form of sending blessings on the Prophet ﷺ.",
     reference: "Bukhari & Muslim",
@@ -28,6 +31,7 @@ export const DUROOD_ITEMS: DurudItem[] = [
     arabic: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَىٰ نَبِيِّنَا مُحَمَّدٍ",
     transliteration: "Allahumma salli wa sallim 'ala Nabiyyina Muhammad",
     translation: "O Allah, send blessings and peace upon our Prophet Muhammad.",
+    translations: { bn: "হে আল্লাহ! আপনি সালাত ও সালাম পেশ করুন আমাদের নবী মুহাম্মাদের উপর।" },
     virtues: "Whoever sends blessings once, Allah sends ten upon him.",
     reference: "Muslim",
     audioUri:

@@ -51,7 +51,7 @@ Universal Expo app for salah, dhikr, qadha, and Islamic content — offline-firs
 - Expo SDK 57 with React Compiler, typed routes, `expo-dev-client`
 - Offline-first persistence on AsyncStorage (`src/db/` repositories + a zero-dep `useSyncExternalStore` store), no SQLite
 - Centralized `ThemeProvider` — light/dark/system + preset & custom-hex accents (persisted)
-- Full i18n (English/Arabic/Urdu) with RTL; motion + a11y (WCAG AA contrast, ≥44pt targets) design system
+- Full i18n (**23 locales**: English + 22 translations; RTL for Arabic, Urdu, Persian, Pashto, Kurdish); motion + a11y (WCAG AA contrast, ≥44pt targets) design system
 
 **Worship & tracking:**
 - Prayer tracker (5 fard + Witr + sunnah) with statuses, notes, streaks

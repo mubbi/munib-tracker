@@ -39,6 +39,6 @@ Content is sourced from open datasets, never hand-written. See [`docs/DATA_INGES
 - **Routing:** Expo Router (typed routes), root `Stack` + `(tabs)` group under `src/app/`.
 - **Persistence:** AsyncStorage behind `src/db/` repositories (`KeyedCollection` + `DB_KEYS`), no SQLite.
 - **State:** zero-dep `useSyncExternalStore` stores in `src/stores/` (`tracker-store` is the reactive hub).
-- **Theme/i18n:** `ThemeProvider` (light/dark + preset & custom-hex accents) and `react-i18next` (en/ar/ur, RTL).
+- **Theme/i18n:** `ThemeProvider` (light/dark + preset & custom-hex accents) and `react-i18next` (**23 locales**, RTL for `ar`/`ur`/`fa`/`ps`/`ku`). See [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md).
 - **Search:** one Fuse.js engine in `src/lib/search.ts` — extend it, don't scatter `new Fuse()` (see [`AGENTS.md`](AGENTS.md)).
 - **Content library / times / sync:** see the project memory + [`docs/`](../../docs).

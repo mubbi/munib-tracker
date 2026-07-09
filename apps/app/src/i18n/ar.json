@@ -340,7 +340,19 @@
       "hoursAgo_other": "منذ {{count}} س",
       "yesterday": "أمس",
       "daysAgo_one": "منذ {{count}} يوم",
-      "daysAgo_other": "منذ {{count}} أيام"
+      "daysAgo_other": "منذ {{count}} أيام",
+      "minutesAgo_zero": "منذ {{count}} د",
+      "minutesAgo_two": "منذ {{count}} د",
+      "minutesAgo_few": "منذ {{count}} د",
+      "minutesAgo_many": "منذ {{count}} د",
+      "hoursAgo_zero": "منذ {{count}} س",
+      "hoursAgo_two": "منذ {{count}} س",
+      "hoursAgo_few": "منذ {{count}} س",
+      "hoursAgo_many": "منذ {{count}} س",
+      "daysAgo_zero": "منذ {{count}} أيام",
+      "daysAgo_two": "منذ {{count}} أيام",
+      "daysAgo_few": "منذ {{count}} أيام",
+      "daysAgo_many": "منذ {{count}} أيام"
     },
     "continueKind": {
       "quran": "القرآن",
@@ -424,7 +436,15 @@
         "text": "جلسة تسبيح قصيرة مهمة. الذكر ليس فقط للجلسات الطويلة – ابدأ بالعشرة.",
         "topic": "ذكر"
       }
-    }
+    },
+    "scheduleShowPast_zero": "{{count}} صلوات سابقة مخفية",
+    "scheduleShowPast_two": "{{count}} صلوات سابقة مخفية",
+    "scheduleShowPast_few": "{{count}} صلوات سابقة مخفية",
+    "scheduleShowPast_many": "{{count}} صلوات سابقة مخفية",
+    "scheduleShowLater_zero": "{{count}} صلوات لاحقة مخفية",
+    "scheduleShowLater_two": "{{count}} صلوات لاحقة مخفية",
+    "scheduleShowLater_few": "{{count}} صلوات لاحقة مخفية",
+    "scheduleShowLater_many": "{{count}} صلوات لاحقة مخفية"
   },
   "tracker": {
     "eyebrow": "سجّل وتابِع",
@@ -1104,7 +1124,11 @@
     "translationRemote": "يُنزَّل عند الحاجة",
     "backToLanguages": "كل اللغات",
     "searchTranslationLanguages": "ابحث عن اللغات…",
-    "searchTranslators": "ابحث عن المترجمين…"
+    "searchTranslators": "ابحث عن المترجمين…",
+    "translationCount_zero": "{{count}} ترجمات",
+    "translationCount_two": "{{count}} ترجمات",
+    "translationCount_few": "{{count}} ترجمات",
+    "translationCount_many": "{{count}} ترجمات"
   },
   "hadith": {
     "eyebrow": "السنة النبوية",
@@ -1422,7 +1446,11 @@
     },
     "attachTitle": "وزّعها على اليوم",
     "attachHint": "كثيرون يجدون أنفسهم ٢–٣ قضاءً بعد كل صلاة حالية أسهل — مثلاً بعد الفجر قضاء الفجر، وبعد الظهر قضاء الظهر، وهكذا. يوزّع العبء طبيعياً.",
-    "fiqhNote": "يختلف العلماء في تقدير الصلوات الفائتة وترتيب قضائها. راجع عالماً تثق به وفق مذهبك."
+    "fiqhNote": "يختلف العلماء في تقدير الصلوات الفائتة وترتيب قضائها. راجع عالماً تثق به وفق مذهبك.",
+    "dailyTimeHours_zero": "≈ {{count}} س",
+    "durationYears_zero": "{{count}} سنة",
+    "durationMonths_zero": "{{count}} شهر",
+    "durationDays_zero": "{{count}} يوم"
   },
   "qazaRoza": {
     "eyebrow": "القضاء",
@@ -1721,7 +1749,12 @@
           "8": "ألف أضواء",
           "9": "ألفين",
           "10": "صلاح مدى الحياة"
-        }
+        },
+        "description_zero": "أكمل {{count}} الصلاة المفروضة",
+        "description_two": "أكمل {{count}} الصلاة المفروضة",
+        "description_few": "أكمل {{count}} الصلاة المفروضة",
+        "description_many": "أكمل {{count}} الصلاة المفروضة",
+        "description_other": "أكمل {{count}} الصلاة المفروضة"
       },
       "streak": {
         "titleFallback": "خط {{level}}",
@@ -1740,7 +1773,12 @@
           "9": "أربعة أشهر قوية",
           "10": "نصف عام من النور",
           "11": "سنة الاتساق"
-        }
+        },
+        "description_zero": "حافظ على سلسلة صلاة مدتها {{count}} يومًا",
+        "description_two": "حافظ على سلسلة صلاة مدتها {{count}} يومًا",
+        "description_few": "حافظ على سلسلة صلاة مدتها {{count}} يومًا",
+        "description_many": "حافظ على سلسلة صلاة مدتها {{count}} يومًا",
+        "description_other": "حافظ على سلسلة صلاة مدتها {{count}} يومًا"
       },
       "zikr": {
         "titleFallback": "الذكر {{level}}",
@@ -1756,7 +1794,12 @@
           "6": "انعكاس عميق",
           "7": "خمسمائة قلب",
           "8": "ألف ذكرى"
-        }
+        },
+        "description_zero": "أكمل جلسة الذكر {{count}}",
+        "description_two": "أكمل جلسة الذكر {{count}}",
+        "description_few": "أكمل جلسة الذكر {{count}}",
+        "description_many": "أكمل جلسة الذكر {{count}}",
+        "description_other": "أكمل جلسة الذكر {{count}}"
       },
       "consistency": {
         "titleFallback": "الاتساق {{level}}",
@@ -1772,7 +1815,12 @@
           "6": "مائة يوم مثالي",
           "7": "مائتي يوم",
           "8": "سنة الأيام المثالية"
-        }
+        },
+        "description_zero": "أكمل جميع الصلوات المفروضة في يوم {{count}}",
+        "description_two": "أكمل جميع الصلوات المفروضة في يوم {{count}}",
+        "description_few": "أكمل جميع الصلوات المفروضة في يوم {{count}}",
+        "description_many": "أكمل جميع الصلوات المفروضة في يوم {{count}}",
+        "description_other": "أكمل جميع الصلوات المفروضة في يوم {{count}}"
       }
     },
     "devotionRank": {
@@ -1800,7 +1848,17 @@
         "activeDescription": "قضِ {{count}} صلوات",
         "activeDescription_one": "قضِ {{count}} صلاة",
         "clearedDescription": "قُضيت كل {{count}} صلاة مسجّلة",
-        "clearedDescription_one": "قُضيت كل {{count}} صلاة مسجّلة"
+        "clearedDescription_one": "قُضيت كل {{count}} صلاة مسجّلة",
+        "activeDescription_zero": "قضِ {{count}} صلاة",
+        "activeDescription_two": "قضِ {{count}} صلاة",
+        "activeDescription_few": "قضِ {{count}} صلاة",
+        "activeDescription_many": "قضِ {{count}} صلاة",
+        "activeDescription_other": "قضِ {{count}} صلاة",
+        "clearedDescription_zero": "قُضيت كل {{count}} صلاة مسجّلة",
+        "clearedDescription_two": "قُضيت كل {{count}} صلاة مسجّلة",
+        "clearedDescription_few": "قُضيت كل {{count}} صلاة مسجّلة",
+        "clearedDescription_many": "قُضيت كل {{count}} صلاة مسجّلة",
+        "clearedDescription_other": "قُضيت كل {{count}} صلاة مسجّلة"
       },
       "roza": {
         "activeTitle": "سدّاد دين الصيام",
@@ -1808,7 +1866,17 @@
         "activeDescription": "قضِ {{count}} أيام صيام فائتة",
         "activeDescription_one": "قضِ {{count}} يوم صيام فائت",
         "clearedDescription": "قُضيت كل {{count}} يوم صيام مسجّل",
-        "clearedDescription_one": "قُضِيَ كل {{count}} يوم صيام مسجّل"
+        "clearedDescription_one": "قُضِيَ كل {{count}} يوم صيام مسجّل",
+        "activeDescription_zero": "قضِ {{count}} يوم صيام فائت",
+        "activeDescription_two": "قضِ {{count}} يوم صيام فائت",
+        "activeDescription_few": "قضِ {{count}} يوم صيام فائت",
+        "activeDescription_many": "قضِ {{count}} يوم صيام فائت",
+        "activeDescription_other": "قضِ {{count}} يوم صيام فائت",
+        "clearedDescription_zero": "قُضِيَ كل {{count}} يوم صيام مسجّل",
+        "clearedDescription_two": "قُضِيَ كل {{count}} يوم صيام مسجّل",
+        "clearedDescription_few": "قُضِيَ كل {{count}} يوم صيام مسجّل",
+        "clearedDescription_many": "قُضِيَ كل {{count}} يوم صيام مسجّل",
+        "clearedDescription_other": "قُضِيَ كل {{count}} يوم صيام مسجّل"
       }
     }
   },

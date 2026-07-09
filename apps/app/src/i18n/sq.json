@@ -66,7 +66,7 @@
     "increase": "Rrit {{label}}",
     "decrease": "Ul {{label}}",
     "appName": "Munib Tracker",
-    "appTagline": "Ndiq Juaj Udhëtimi Back në Allah."
+    "appTagline": "Ndiqni rrugën tuaj të kthimit te Allahu."
   },
   "search": {
     "placeholder": "Kërko Kurani, hadith, duas, adhkar…",
@@ -479,7 +479,7 @@
     "accountGuest": "Vizitor — regjistrohu për të sinkronizuar",
     "appearance": "Pamja e jashtme",
     "appearanceSub": "Ngjyra e temës dhe e theksit",
-    "haptics": "Reagime haptike",
+    "haptics": "Reagim haptik",
     "hapticsSub": "Dridhje në çezmat dhe veprimet",
     "notifications": "Njoftimet",
     "notificationsSub": "Përkujtues për Namazin, Kazanë dhe Zikrin",
@@ -620,7 +620,7 @@
     "ctaPrivacyTitle": "Privat si parazgjedhje",
     "ctaPrivacyBody": "No llogaria e detyrueshme. Juaj ibadeti të dhënat stays në juaj pajisja until ju choose në back up dhe sync.",
     "signInToSync": "Sign në në sync",
-    "pageOf": "Page {{page}} e {{total}}"
+    "pageOf": "Faqja {{page}} nga {{total}}"
   },
   "appearance": {
     "eyebrow": "Cilësimet",
@@ -737,7 +737,7 @@
       "zikr": "Përkujtues Zikri",
       "qaza": "Kujtime kaza"
     },
-    "snooze": "Shtyje {{minutes}} min",
+    "snooze": "Shty {{minutes}} min",
     "defaultTitle": "Përkujtues",
     "reminders": {
       "prayerTitle": "{{prayer}} kohë",
@@ -1909,9 +1909,9 @@
     "translationHint": "Used për  meaning e Arabic religious text.",
     "footer": "More e  interface është being translated over time. Arabic dhe Urdu switch  app në  right-në-left layout.",
     "scriptureAvailable": "Përkthimi i Kur'anit është i disponueshëm",
-    "scriptureUnavailable": "Vetëm ndërfaqja — teksti fetar mbetet në anglisht",
+    "scriptureUnavailable": "Vetëm ndërfaqja — tekstet e shenjta mbeten në anglisht",
     "eyebrow": "Cilësimet",
-    "subtitle": "App dhe translation language",
+    "subtitle": "Gjuha e aplikacionit dhe përkthimit",
     "en": "anglisht",
     "ar": "arabisht",
     "ur": "urdu"
@@ -3987,7 +3987,7 @@
   },
   "pinLock": {
     "title": "Kyçja e aplikacionit",
-    "backspace": "Fshij",
+    "backspace": "Fshi",
     "settingsSubtitle": "Require  PIN në open  app",
     "webUnavailable": "App lock është available në iOS dhe Android only.",
     "expoGoTitle": "App lock unavailable në Expo Go",

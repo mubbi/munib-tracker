@@ -9,7 +9,7 @@
     "previous": "Retour&#10;",
     "quiz": {
       "progress": "Question {{current}} sur {{total}}",
-      "answeredCount": "{{count}} a répondu",
+      "answeredCount": "{{count}} répondu",
       "answerHint": "Choisissez une réponse pour voir l'explication.",
       "reflectHint": "Prenez un moment, puis continuez lorsque vous êtes prêt.",
       "reflectMark": "ont reflété",
@@ -23,7 +23,7 @@
       "seeResults": "Afficher les résultats",
       "complete": "Quiz terminé : ",
       "scoreCaption": "Балл",
-      "scoreDetail": "{{score}} sur {{total}} a noté les questions correctes",
+      "scoreDetail": "{{score}} sur {{total}} questions correctes",
       "retry": "Réessayer",
       "reviewTitle": "Passez en revue vos réponses",
       "encouragementPerfect": "Belle revue - qu'Allah vous augmente en connaissances bénéfiques.",
@@ -51,9 +51,9 @@
     "off": "Désactivé",
     "signedIn": "Se connecterıldı",
     "confirm": "Confirmer",
-    "markCompleteConfirmTitle": "Terminé olarak işaretlensin mi?",
-    "markCompleteConfirmMsg": "Ce, öğrenme aetcrlemenize ekler. İstediğiniz zaman geri alabilirsiniz.",
-    "markCompleteConfirmAction": "Terminé işaretle",
+    "markCompleteConfirmTitle": "Marquer comme terminé ?",
+    "markCompleteConfirmMsg": "Ceci sera ajouté à votre progression d'apprentissage. Vous pouvez annuler à tout moment.",
+    "markCompleteConfirmAction": "Marquer terminé",
     "search": "Rechercher",
     "notifications": "Уведомления",
     "goBack": "Retourner",
@@ -78,7 +78,7 @@
     "noResultsDesc": "Essayez un autre mot ou une autre orthographe.",
     "recent": "Recherches récentes",
     "clearRecent": "Effacer",
-    "suggestions": "Essayez de chercher",
+    "suggestions": "Essayez de rechercher",
     "searching": "Recherche…",
     "searchingQuran": "Recherche dans le Coran…",
     "suggestion": {
@@ -95,7 +95,7 @@
       "quran": "Coran",
       "hadith": "Хадисы",
       "dua": "Dua",
-      "zikr": "Zikrler",
+      "zikr": "Adhkar",
       "name": "99 Noms",
       "durood": "Salawat",
       "jannah": "Voyage vers Jannah",
@@ -296,7 +296,7 @@
       "name": "Explorez les 99 noms"
     },
     "devotionMeta": "Niveau {{level}} · {{noor}} Nour",
-    "devotionProgress": "{{current}} / {{next}} Noor au niveau suivant",
+    "devotionProgress": "{{current}} / {{next}} Noor jusqu'au niveau suivant",
     "devotionA11y": "Niveau de dévotion {{level}}, {{noor}} total noor, {{current}} de {{next}} au niveau suivant",
     "scheduleTitle": "Le programme d'aujourd'hui",
     "explore": "Explorer",
@@ -315,14 +315,14 @@
     "scheduleGroupDay": "Après-midi",
     "scheduleGroupEvening": "Soirée",
     "scheduleGroupFlexible": "À tout moment",
-    "scheduleShowPast_one": "{{count}} prière précédente cachée",
-    "scheduleShowPast_other": "{{count}} prières précédentes cachées",
+    "scheduleShowPast_one": "{{count}} prière antérieure masquée",
+    "scheduleShowPast_other": "{{count}} prières antérieures masquées",
     "scheduleShowPastHint": "Appuyez pour afficher l'horaire complet",
     "scheduleHidePast": "Masquer les prières antérieures",
     "scheduleShowPastA11y": "Afficher {{count}} prières antérieures cachées dans le programme d'aujourd'hui",
     "scheduleHidePastA11y": "Masquer les prières précédentes dans le programme d'aujourd'hui",
-    "scheduleShowLater_one": "{{count}} plus tard, prière cachée",
-    "scheduleShowLater_other": "{{count}} prières ultérieures cachées",
+    "scheduleShowLater_one": "{{count}} prière ultérieure masquée",
+    "scheduleShowLater_other": "{{count}} prières ultérieures masquées",
     "scheduleShowLaterHint": "Appuyez pour afficher le reste de la journée",
     "scheduleHideLater": "Masquer les prières ultérieures",
     "scheduleShowLaterA11y": "Afficher {{count}} les prières ultérieures cachées dans le programme d'aujourd'hui",
@@ -331,7 +331,7 @@
     "continueSubtitle": "Revenez à ce que vous lisiez ou écoutiez",
     "continueLastOpened": "Dernière ouverture {{time}}",
     "continueDismissA11y": "Ignorer et effacer l'historique continu",
-    "continueListening": "Écoute",
+    "continueListening": "Audio",
     "continueWhen": {
       "justNow": "Tout à l' heure",
       "minutesAgo_one": "il y a {{count}} min",
@@ -349,7 +349,7 @@
       "zikr": "Adhkar",
       "durood": "Duroud",
       "names": "99 noms",
-      "audio": "Écoute"
+      "audio": "Audio"
     },
     "continueAction": {
       "quran": "Continuer la lecture",
@@ -429,13 +429,13 @@
   "tracker": {
     "eyebrow": "Suivi et et kmoisdet",
     "title": "Suivi",
-    "subtitle": "Durumunu moisarlamak pour un salaha dokunun — bu cihazda kmoisdedilir.",
+    "subtitle": "Appuyez sur une prière pour définir son statut — enregistré sur cet appareil.",
     "excusedTitle": "Mazeretli jour",
     "excusedHint": "Hmoisız, hastalık ou seyahat — serinizi bozmadan farz takibini duraklatın.",
     "excusedActive": "Ce jour mazeretli — farz takibi duraklatıldı et seriniz korunuyor.",
-    "excusedConfirmTitle": "Aujourd'hui mazeretli olarak işaretlensin mi?",
-    "excusedConfirmMsg": "Aujourd'hui farz takibi duraklatılacak ({{reason}}). Sérieniz korunacak.",
-    "excusedConfirmAction": "Mark excusé",
+    "excusedConfirmTitle": "Marquer aujourd'hui comme excusé ?",
+    "excusedConfirmMsg": "Le suivi obligatoire sera en pause aujourd'hui ({{reason}}). Votre série sera conservée.",
+    "excusedConfirmAction": "Marquer excusé",
     "excusedReason": {
       "hayd": "Hmoisız",
       "sick": "Maladie",
@@ -443,7 +443,7 @@
     },
     "obligatory": "Obligatoire",
     "witr": "Витр",
-    "witrSubtitle": "Sunnah-i müekkede — güçlü vurgulanır, beş farz salahdan uni değildir.",
+    "witrSubtitle": "Sunnah mu'akkadah — fortement recommandée, pas l'une des cinq prières fard.",
     "sunnahOptional": "Sunnah et nafaetc",
     "keepGoing": "Continuer",
     "salahAdhkar": "Salah zikirleri",
@@ -453,7 +453,7 @@
     "rings": {
       "sunnah": "Nafaetc salah",
       "witr": "Витр",
-      "adhkar": "Zikrler",
+      "adhkar": "Adhkar",
       "qaza": "Qz",
       "a11y": "{{label}}: {{percent}}% complete, {{completed}} sur {{total}}"
     },
@@ -462,8 +462,8 @@
     "keepGoingShort": "Continue",
     "almostThere": "Presque là",
     "summaryLogged": "{{completed}} sur {{total}} obligatory prayers logged today.",
-    "streakLine": "🔥 {{count}} quotidien seri",
-    "streakLabel": "{{count}} quotidien seri",
+    "streakLine": "🔥 série de {{count}} jours",
+    "streakLabel": "série de {{count}} jours",
     "qazaTargets": "Qaza hedefleri",
     "qazaTargetsProgress": "Aujourd'hui {{total}} kazadan {{done}}",
     "afterSalahAdhkarReminderTitle": "{{prayer}} sonrası",
@@ -521,13 +521,13 @@
     "appLock": "Verrouillage d'application",
     "appLockSub": "Protégez l'application avec un code PIN",
     "downloadNativeApps": "Obtenez l'application native",
-    "downloadNativeAppsDesc": "Installez Munib Tracker sur votre téléphone pour salah, zikr et Coran hors ligne : même compte, même progression.",
+    "downloadNativeAppsDesc": "Installez Munib Tracker sur votre téléphone pour salah, zikr et Coran hors ligne — même compte, même progression.",
     "downloadIosTopLine": "Télécharger sur le",
     "downloadIosBottomLine": "Magasin d'applications",
     "downloadAndroidTopLine": "OBTENEZ-LE",
     "downloadAndroidBottomLine": "Google Play",
-    "downloadIosA11y": "Téléchargez Munib Tracker sur l’App Store",
-    "downloadAndroidA11y": "Obtenez Munib Tracker sur Google Play",
+    "downloadIosA11y": "Télécharger Munib Tracker sur l'App Store",
+    "downloadAndroidA11y": "Obtenir Munib Tracker sur Google Play",
     "adhanStyles": {
       "default": {
         "name": "Adhan classique",
@@ -592,7 +592,7 @@
     "brandDuaTranslation": "Allahm, Sen kolmoislaştırmadıkça kolmoislık yoktur; daetcdiğinde zorluğu kolmoislaştırırsın.",
     "slide1Eyebrow": "Slh",
     "slide1Title": "Salahlarınızı takip edin",
-    "slide1Body": "etrs Allah dönüş yolculuğunuzda her salahı işaretleyin — tamamlanan, kaçırılan, geciken ou kaza.",
+    "slide1Body": "Marquez chaque prière sur votre chemin de retour vers Allah — accomplie, manquée, retardée ou qaza.",
     "slide1Highlight1": "Beş farz salah artı Witr (sünnet-i müekkede) et sünnetler",
     "slide1Highlight2": "Sérieler, aetcrleme halkası et takvim",
     "slide1Highlight3": "Hicri tarih et geri smoisımlı salah vakitleri",
@@ -616,11 +616,11 @@
     "slide4Highlight3": "Salah vakitleri, kıble pusulası et isteğe bağlı hatırlatmalar",
     "ctaEyebrow": "Tu es prêt",
     "ctaTitle": "Yolculuğunuza başlmoisın",
-    "ctaBody": "Her şey sur votre appareil hors ligne çalışır. Telefon et tabletler arasında senkronize etmek pour istediğiniz zaman giriş yapın.",
+    "ctaBody": "Tout fonctionne hors ligne sur votre appareil. Connectez-vous à tout moment pour synchroniser.",
     "ctaPrivacyTitle": "Varsaannéean olarak gizli",
     "ctaPrivacyBody": "Compte gerekmez. Sauetgardermeyi et senkronize etmeyi seçene kadar ibadet etraetcriniz sur votre appareil kalır.",
-    "signInToSync": "Synchroniser etmek pour giriş yapın",
-    "pageOf": "Smoisfa {{page}} / {{total}}"
+    "signInToSync": "Se connecter pour synchroniser",
+    "pageOf": "Page {{page}} sur {{total}}"
   },
   "appearance": {
     "eyebrow": "Paramètres",
@@ -728,7 +728,7 @@
     "webAllowMessage": "Autorisez les notifications du navigateur à recevoir des alertes Salah, Zikr et Qaza sur cet appareil.",
     "webGrantedMobileNote": "Les notifications du navigateur sont activées. Pour des rappels fiables à l'heure de Salah, installez l'application iOS ou Android.",
     "webLimitedTitle": "Les rappels s'exécutent sur l'application mobile",
-    "groupWorship": "Culte",
+    "groupWorship": "Ibadah",
     "groupZikr": "Zikr",
     "groupMilestones": "Jalons",
     "channels": {
@@ -737,7 +737,7 @@
       "zikr": "Rappels du Zikr",
       "qaza": "Rappels Qaza"
     },
-    "snooze": "Répétition {{minutes}} min",
+    "snooze": "Reporter {{minutes}} min",
     "defaultTitle": "Rappel",
     "reminders": {
       "prayerTitle": "{{prayer}} heure",
@@ -1906,12 +1906,12 @@
     "title": "Langue",
     "appLanguage": "Langue de l'application",
     "translationLanguage": "Langue de traduction",
-    "translationHint": "Rechercherpça dini metinlerin anlamı pour kullanılır.",
-    "footer": "Rechercheryüzün daha fazlası zamanla çevriliyor. Rechercherpça et Urduca uygulammoisı sağdan sola düzene geçirir.",
-    "scriptureAvailable": "Traduction du Qur'an disponible",
-    "scriptureUnavailable": "Interface seulement — le texte religieux reste en anglais",
+    "translationHint": "Utilisé pour le sens des textes religieux arabes.",
+    "footer": "Davantage de sections de l'interface sont traduites progressivement. L'arabe et l'ourdou passent l'app en RTL.",
+    "scriptureAvailable": "Traduction du Coran disponible",
+    "scriptureUnavailable": "Interface seule — les textes sacrés restent en anglais",
     "eyebrow": "Paramètres",
-    "subtitle": "Uygulama et çeviri dili",
+    "subtitle": "Langue de l'app et des traductions",
     "en": "Anglais",
     "ar": "Rechercherpça",
     "ur": "Ourdou"
@@ -1981,23 +1981,23 @@
   },
   "seo": {
     "intro": {
-      "title": "Accueillir",
-      "description": "Çevrimdışı öncelikli İslami yardımcınızla başlmoisın."
+      "title": "Bienvenue",
+      "description": "Commencez avec votre compagnon islamique hors ligne."
     },
     "login": {
-      "description": "Adoration etraetcrinizi cihazlar arasında senkronize etmek pour giriş yapın."
+      "description": "Connectez-vous pour synchroniser vos données d'ibadah."
     },
     "notFound": {
-      "description": "Rechercherdığınız smoisfa bulunamadı."
+      "description": "La page que vous cherchez est introuvable."
     },
     "calendarDay": {
-      "description": "Ce jour pour kmoisdettiğiniz ibadeti gözden geçirin et düzenleyin."
+      "description": "Consultez et ajustez l'ibadah enregistrée pour ce jour."
     },
     "tasbeehZikr": {
-      "description": "Ce zikri dokunsal un tesbih smoisacıyla smoisın."
+      "description": "Comptez ce zikr avec le compteur tactile de tasbeeh."
     },
     "tasbeehCustom": {
-      "description": "Özel tesbih smoisacınız."
+      "description": "Votre compteur de tasbeeh personnalisé."
     }
   },
   "pwa": {
@@ -3987,7 +3987,7 @@
   },
   "pinLock": {
     "title": "Verrouillage de l'app",
-    "backspace": "Retour arrière",
+    "backspace": "Effacer",
     "settingsSubtitle": "Exiger un code PIN pour ouvrir l'application",
     "webUnavailable": "Le verrouillage des applications est disponible uniquement sur iOS et Android.",
     "expoGoTitle": "App kilit unavailable pourde Expo Go",

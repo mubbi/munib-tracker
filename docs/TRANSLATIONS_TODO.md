@@ -1,5 +1,7 @@
 # Claude Code Prompt — Internationalize Munib Tracker for Global Muslim Audience
 
+> **Status (2026-07-09):** All four phases **shipped** — 23 locales live with UI key parity. Phase 1 (`en`/`ar`/`ur`) is human-reviewed; Phase 2–4 vary in native quality. **Do not re-run bulk machine translation.** For day-to-day work use [`I18N_GUIDE.md`](I18N_GUIDE.md) and [`TRANSLATIONS_STATUS.md`](TRANSLATIONS_STATUS.md). The spec below remains the quality bar for future polish and new locales.
+
 You are a Staff Software Engineer, Senior React Native/Expo Engineer, Senior i18n Engineer, Senior UX Localization Specialist, and an Islamic content localization expert.
 
 Your task is to expand the existing internationalization (i18n) system of the Munib Tracker codebase by adding new languages while maintaining excellent code quality, consistency, and Islamic terminology.
@@ -16,9 +18,11 @@ The application already has:
 
 These are fully implemented.
 
-Do **NOT** modify existing translations unless you find obvious bugs or inconsistencies.
+Do **NOT** modify existing Phase 1 translations unless you find obvious bugs or inconsistencies.
 
 English must remain the single source of truth.
+
+**Phases 2–4** (`id` through `tk`) are live with catalog parity; ongoing work is native UI polish and OSS scripture sourcing — see [`I18N_GUIDE.md`](I18N_GUIDE.md).
 
 ---
 

@@ -66,7 +66,7 @@
     "increase": "{{label}} زیاتول",
     "decrease": "{{label}} کمول",
     "appName": "Munib Tracker",
-    "appTagline": "خپل سفر بیرته الله ته تعقیب کړئ."
+    "appTagline": "خپل لاره بیرته الله ته وڅارئ."
   },
   "search": {
     "placeholder": "قرآن، حدیث، دعا، اذکار لټون…",
@@ -160,7 +160,7 @@
     "updatedJustNow": "Updted just now",
     "updatedMinutesAgo": "Updted {{count}}m go",
     "updatedHoursAgo": "Updted {{count}}h go",
-    "nextPrayer": "Next pryer",
+    "nextPrayer": "Next prayer",
     "schedule": "نن's schedule",
     "progress": "نن's پرمختګ",
     "setLocation": "Set موقعیت",
@@ -170,50 +170,50 @@
     "total": "تهtl",
     "gallery": {
       "nextPrayer": {
-        "label": "Munib Trcker · Next pryer",
-        "description": "Next pryer nme, time, او countdown په home یا lock screen"
+        "label": "Munib Tracker · Next prayer",
+        "description": "Next prayer name, time, and countdown on home or lock screen"
       },
       "schedule": {
-        "label": "Munib Trcker · Schedule",
-        "description": "نن's obligtیاy pryer times t  glnce"
+        "label": "Munib Tracker · Schedule",
+        "description": "Today's obligatory prayer times at a glance"
       },
       "progress": {
-        "label": "Munib Trcker · پرمختګ",
-        "description": "نن's obligtیاy pryer پرمختګ"
+        "label": "Munib Tracker · Progress",
+        "description": "Today's obligatory prayer progress"
       }
     }
   },
   "ramadan": {
-    "eyebrow": "Rmdn",
-    "title": "Rmdn",
+    "eyebrow": "Ramadan",
+    "title": "Ramadan",
     "subtitle": "روژه times او ستاسو روژه log",
-    "dayOf": "Dy {{day}} د {{total}}",
+    "dayOf": "Day {{day}} of {{total}}",
     "timesTitle": "نن's روژه times",
     "suhoor": "Suhoیا ends",
-    "iftar": "Iftr",
-    "timesHint": "Suhoیا ends t Fjr او iftr begپهs t Mghrib لپاره ستاسو موقعیت.",
+    "iftar": "Iftar",
+    "timesHint": "Suhoor ends at Fajr and iftar begins at Maghrib for your location.",
     "fastingTitle": "روژه log",
-    "fastedCount": "{{count}} د {{total}} dys fsted",
+    "fastedCount": "{{count}} of {{total}} days fasted",
     "todayTitle": "نن's fst",
     "countdownSuhoor": "Suhoیا ends په {{time}}",
-    "countdownIftar": "Iftr په {{time}}",
-    "afterIftar": "Fst complete لپاره نن",
-    "dayCell": "Rmdn dy {{day}}",
-    "dayCellStatus": "Rmdn dy {{day}}, {{status}}",
-    "dayCellHint": "وټاکئ ته choose ستاسو روژه sttus",
+    "countdownIftar": "Iftar in {{time}}",
+    "afterIftar": "Fast complete for today",
+    "dayCell": "Ramadan day {{day}}",
+    "dayCellStatus": "Ramadan day {{day}}, {{status}}",
+    "dayCellHint": "Tap to choose your fasting status",
     "statusNone": "نه mrked",
-    "gridHint": "وټاکئ  dy ته log ستاسو روژه sttus",
+    "gridHint": "Tap a day to log your fasting status",
     "gridFutureDaysNote": "Future dys unlock په ir dte — تاسو cn پهly log through نن.",
-    "fastingLogBackfillNote": "ښکاره کړئپهg Rmdn {{year}} H so تاسو cn bckfill ستاسو log. وټاکئ ny dy ته updte ستاسو روژه sttus.",
+    "fastingLogBackfillNote": "Showing Ramadan {{year}} AH so you can backfill your log. Tap any day to update your fasting status.",
     "fastedToday": "Mrk نن fsted",
     "statusFasted": "Fsted",
     "statusMissed": "پاتې شو",
     "statusExempt": "معاف",
-    "disclaimer": "Times دي clculted estimtes — follow ستاسو locl msjid لپاره  strt د Rmdn او  ورځنی times.",
+    "disclaimer": "Times are calculated estimates — follow your local masjid for the start of Ramadan and the daily times.",
     "lastTenTitle": " lst ten شپهs",
-    "lastTenBody": "Seek Lylt l-Qdr په  odd شپهs — stاو په pryer, recite Qur'n, او mke du.  Prophet ﷺ strove hrdest په wیاship durپهg se شپهs.",
-    "laylatQadrTitle": "Lylt l-Qdr",
-    "laylatQadrBody": "Better thn  thousاو mپهths — wیاship په دا شپه outweighs decdes د اخلاص. Recite Qur'n, pry Thjjud, او sy: ټولhumm پهnk 'fuwwun tuhibbu l-'fw f'fu 'nni."
+    "lastTenBody": "Seek Laylat al-Qadr in the odd nights — stand in prayer, recite Qur'an, and make dua. The Prophet ﷺ strove hardest in worship during these nights.",
+    "laylatQadrTitle": "Laylat al-Qadr",
+    "laylatQadrBody": "Better than a thousand months — worship on this night outweighs decades of devotion. Recite Qur'an, pray Tahajjud, and say: Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni."
   },
   "fastStatusSheet": {
     "prompt": "د روژې حالت وټاکئ",
@@ -257,14 +257,14 @@
     "todaysGoal": "نن's Gol",
     "freshStartHint": "Log ستاسو first ct د wیاship ته begپه",
     "checklistHint": "Complete  ورځنی ctivity چک لیست",
-    "excusedPausedLabel": "Pused",
-    "excusedGoalHint": "Trckپهg pused لپاره {{reason}} — ستاسو لړۍ دی held.",
-    "excusedGoalBody": "Obligtیاy trckپهg دی pused لپاره نن. تاسو cn still log اختیاري wیاship.",
+    "excusedPausedLabel": "Paused",
+    "excusedGoalHint": "Tracking paused for {{reason}} — your streak is held.",
+    "excusedGoalBody": "Obligatory tracking is paused for today. You can still log optional worship.",
     "tasksProgress": "{{done}} د {{total}} tsks",
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Strt trckپهg",
     "goToChecklist": "Go ته چک لیست",
-    "prayersStat": "Slh",
+    "prayersStat": "Salah",
     "dhikrStat": "ذکر",
     "qazaStat": "Qz",
     "streakStat": "لړۍ",
@@ -273,7 +273,7 @@
     "qazaProgress": "{{pct}}% mde up",
     "qazaA11y": "{{remaining}} qz remپهپهg, {{completed}} mde up, {{pct}} percent cleديd",
     "gentleReminder": "Gentle یادونه",
-    "gentleReminderBody": "Smټول, stedy steps mtter mیاe thn perfectiپه. Log wht تاسو complete او return تهmیاrow.",
+    "gentleReminderBody": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow.",
     "knowledgeShuffle": "ښکاره کړئ nیا crd",
     "knowledgeKind": {
       "quran": "Qur'n verse",
@@ -283,7 +283,7 @@
       "motivation": "ورځنی یادونه"
     },
     "knowledgeTopic": {
-      "prayer": "Slh",
+      "prayer": "Salah",
       "qaza": "Qz",
       "zikr": "ذکر",
       "fasting": "روژه",
@@ -305,7 +305,7 @@
     "exploreHint": "{{shown}} د {{total}} shیاtcuts ښکاره کړئn — وټاکئ Mnge ته زیاتول یا reیاder.",
     "scheduleNext": "بل",
     "scheduleCurrent": "اوسنی",
-    "scheduleNextA11y": "{{name}} t {{time}}, next pryer {{countdown}}",
+    "scheduleNextA11y": "{{name}} at {{time}}, next prayer {{countdown}}",
     "scheduleObligatory": "Obligtیاy",
     "scheduleOptional": "اختیاري",
     "scheduleAnyTime": "ny time",
@@ -315,18 +315,18 @@
     "scheduleGroupDay": "fternoپه",
     "scheduleGroupEvening": "ماښام",
     "scheduleGroupFlexible": "nytime",
-    "scheduleShowPast_one": "{{count}} erlier pryer hidden",
-    "scheduleShowPast_other": "{{count}} erlier pryers hidden",
+    "scheduleShowPast_one": "{{count}} earlier prayer hidden",
+    "scheduleShowPast_other": "{{count}} earlier prayers hidden",
     "scheduleShowPastHint": "وټاکئ ته ښکاره کړئ full schedule",
-    "scheduleHidePast": "پټ کړئ erlier pryers",
-    "scheduleShowPastA11y": "ښکاره کړئ {{count}} erlier pryers hidden په نن's schedule",
-    "scheduleHidePastA11y": "پټ کړئ erlier pryers په نن's schedule",
-    "scheduleShowLater_one": "{{count}} lter pryer hidden",
-    "scheduleShowLater_other": "{{count}} lter pryers hidden",
+    "scheduleHidePast": "Hide earlier prayers",
+    "scheduleShowPastA11y": "Show {{count}} earlier prayers hidden in today's schedule",
+    "scheduleHidePastA11y": "Hide earlier prayers in today's schedule",
+    "scheduleShowLater_one": "{{count}} later prayer hidden",
+    "scheduleShowLater_other": "{{count}} later prayers hidden",
     "scheduleShowLaterHint": "وټاکئ ته ښکاره کړئ rest د نن",
-    "scheduleHideLater": "پټ کړئ lter pryers",
-    "scheduleShowLaterA11y": "ښکاره کړئ {{count}} lter pryers hidden په نن's schedule",
-    "scheduleHideLaterA11y": "پټ کړئ lter pryers په نن's schedule",
+    "scheduleHideLater": "Hide later prayers",
+    "scheduleShowLaterA11y": "Show {{count}} later prayers hidden in today's schedule",
+    "scheduleHideLaterA11y": "Hide later prayers in today's schedule",
     "continueTitle": "دوام where تاسو left دf",
     "continueSubtitle": "Jump bck ته wht تاسو were لوستل یا lدیtenپهg ته",
     "continueLastOpened": "Lst خلاص کړئed {{time}}",
@@ -339,7 +339,7 @@
       "hoursAgo_one": "{{count}} hr go",
       "hoursAgo_other": "{{count}} hr go",
       "yesterday": "Yesterdy",
-      "daysAgo_one": "{{count}} dy go",
+      "daysAgo_one": "{{count}} day ago",
       "daysAgo_other": "{{count}} dys go"
     },
     "continueKind": {
@@ -364,15 +364,15 @@
     "rozaRemaining": "Fsts ته mke up",
     "knowledgeMotivation": {
       "steady-steps": {
-        "text": "Smټول, stedy steps mtter mیاe thn perfectiپه. Log wht تاسو complete او return تهmیاrow.",
+        "text": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow.",
         "topic": "stedfstness"
       },
       "prayer-light": {
-        "text": "Tret ech slh s  بیا تنظیم — five brief returns ته ټولh هغه nchیا ستاسو dy.",
-        "topic": "pryer"
+        "text": "Treat each salah as a reset — five brief returns to Allah that anchor your day.",
+        "topic": "prayer"
       },
       "qaza-hope": {
-        "text": "پاتې شو pryers cn be mde up. Set  gentle ورځنی pce لپاره qz rr thn crryپهg guilt.",
+        "text": "Missed prayers can be made up. Set a gentle daily pace for qaza rather than carrying guilt.",
         "topic": "qz"
       },
       "qaza-one": {
@@ -380,7 +380,7 @@
         "topic": "qz"
       },
       "zikr-heart": {
-        "text": "Even  few moments د zikr fter slh sدtens  hert او stedies  تهngue.",
+        "text": "Even a few moments of zikr after salah softens the heart and steadies the tongue.",
         "topic": "ذکر"
       },
       "zikr-walking": {
@@ -388,11 +388,11 @@
         "topic": "ذکر"
       },
       "fasting-patience": {
-        "text": "روژه trپهs ptience په  body so sbr becomes esier په everydy life.",
+        "text": "Fasting trains patience in the body so sabr becomes easier in everyday life.",
         "topic": "روژه"
       },
       "ramadan-intention": {
-        "text": "Renew ستاسو پهtentiپه beلپارهe ech fst —  rewrd follows sپهcerity, نه perfectiپه.",
+        "text": "Renew your intention before each fast — the reward follows sincerity, not perfection.",
         "topic": "روژه"
       },
       "consistency": {
@@ -401,19 +401,19 @@
         "source": "a"
       },
       "tracker-honest": {
-        "text": "n hپهest trcker helps تاسو see ptterns, نه judge ستاسوself. پرمختګ begپهs with wديness.",
+        "text": "An honest tracker helps you see patterns, not judge yourself. Progress begins with awareness.",
         "topic": "generl"
       },
       "morning-fajr": {
-        "text": "Wپه  سهار with Fjr په time —  rest د  dy follows  clmer rhythm.",
-        "topic": "pryer"
+        "text": "Win the morning with Fajr on time — the rest of the day follows a calmer rhythm.",
+        "topic": "prayer"
       },
       "witr-closure": {
         "text": "تړل ستاسو شپه with witr when تاسو cn —  gentle sel په  dy's wیاship.",
-        "topic": "pryer"
+        "topic": "prayer"
       },
       "gratitude-salah": {
-        "text": "fter ech pryer, puse لپاره پهe breth د shukr beلپارهe rushپهg bck ته  wیاld.",
+        "text": "After each prayer, pause for one breath of shukr before rushing back to the world.",
         "topic": "generl"
       },
       "return-tomorrow": {
@@ -428,11 +428,11 @@
   },
   "tracker": {
     "eyebrow": "Trck & log",
-    "title": "Trcker",
-    "subtitle": "وټاکئ  pryer ته set its sttus — خوندي کولd په دا device.",
+    "title": "Tracker",
+    "subtitle": "Tap a prayer to set its status — saved on this device.",
     "excusedTitle": "Excused dy",
     "excusedHint": "Hyd, illness, یا trvel — puse obligtیاy trckپهg without brekپهg ستاسو لړۍ.",
-    "excusedActive": "دا dy دی excused — obligtیاy trckپهg دی pused او ستاسو لړۍ دی held.",
+    "excusedActive": "This day is excused — obligatory tracking is paused and your streak is held.",
     "excusedConfirmTitle": "Mrk نن s excused?",
     "excusedConfirmMsg": "Obligtیاy trckپهg will puse لپاره نن ({{reason}}). ستاسو لړۍ will be held.",
     "excusedConfirmAction": "Mrk excused",
@@ -443,15 +443,15 @@
     },
     "obligatory": "Obligtیاy",
     "witr": "وتر",
-    "witrSubtitle": "Sunnh mu'kkdh — strپهgly emphsized, نه پهe د  five frd pryers.",
-    "sunnahOptional": "Sunnh & اختیاري",
+    "witrSubtitle": "Sunnah mu'akkadah — strongly emphasized, not one of the five fard prayers.",
+    "sunnahOptional": "Sunnah & optional",
     "keepGoing": "Keep goپهg",
-    "salahAdhkar": "Slh dhkr",
-    "salahAdhkarSubtitle": "Sunnh dhkr ته recite round every pryer.",
-    "salahCaption": "slh",
+    "salahAdhkar": "Salah adhkar",
+    "salahAdhkarSubtitle": "Sunnah adhkar to recite around every prayer.",
+    "salahCaption": "salah",
     "glanceTitle": "نن's پرمختګ",
     "rings": {
-      "sunnah": "اختیاري Slh",
+      "sunnah": "Optional Salah",
       "witr": "وتر",
       "adhkar": "dhkr",
       "qaza": "Qz",
@@ -461,15 +461,15 @@
     "freshStart": " fresh strt",
     "keepGoingShort": "Keep goپهg",
     "almostThere": "lmost re",
-    "summaryLogged": "{{completed}} د {{total}} obligtیاy pryers logged نن.",
-    "streakLine": "🔥 {{count}}-dy لړۍ",
-    "streakLabel": "{{count}} dy لړۍ",
+    "summaryLogged": "{{completed}} of {{total}} obligatory prayers logged today.",
+    "streakLine": "🔥 {{count}}-day streak",
+    "streakLabel": "{{count}} day streak",
     "qazaTargets": "Qz trgets",
     "qazaTargetsProgress": "{{done}} د {{total}} qz نن",
     "afterSalahAdhkarReminderTitle": "fter {{prayer}}",
-    "afterSalahAdhkarReminderBody": "Tke  moment لپاره tsbeeh او fter-slh dhkr.",
+    "afterSalahAdhkarReminderBody": "Take a moment for tasbeeh and after-salah adhkar.",
     "afterSalahProgress": "dhkr {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} fter-slh dhkr: {{completed}} د {{total}} بشپړ شو نن"
+    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} of {{total}} completed today"
   },
   "settings": {
     "eyebrow": "Persپهlize",
@@ -479,10 +479,10 @@
     "accountGuest": "Guest — ننوتل ته sync",
     "appearance": "بڼه",
     "appearanceSub": "بڼه & د تاکید رنګ",
-    "haptics": "Hptic feedbck",
+    "haptics": "لمسيز غبرګون",
     "hapticsSub": "Vibrtiپه په وټاکئs او ctiپهs",
     "notifications": "خبرتیاs",
-    "notificationsSub": "یادونهs لپاره Slh, Qz, او ذکر",
+    "notificationsSub": "Reminders for Salah, Qaza, and Zikr",
     "bedtime": "د خوب وخت",
     "bedtimeSub": "Used لپاره beلپارهe-sleep dhkr",
     "fonts": "فونټونه",
@@ -492,28 +492,28 @@
     "timeFormat": "Time لپارهmt",
     "timeFormatSub": "12-hour یا 24-hour clock",
     "defaultCalendar": "Defult جنتری",
-    "defaultCalendarSub": "Gregیاin یا Hijri dtes",
+    "defaultCalendarSub": "Gregorian or Hijri dates",
     "weather": "مووسم",
     "weatherSub": "Hero effects او temperture unit",
     "achievements": "chievements",
     "achievementsSub": "Milesتهnes او bdges",
     "qibla": "Qibl",
-    "qiblaSub": "Fپهd  directiپه د pryer",
+    "qiblaSub": "Find the direction of prayer",
     "about": "په اړه",
     "aboutSub": "نسخه, مننه, او policies",
-    "import": "Impیاt pryer hدیtیاy",
+    "import": "Import prayer history",
     "importSub": "Bckfill pst dys له  JSپه یا CSV file",
     "footer": "{{app}} · built with پهtentiپه",
     "backup": "بیک اپ او بیا رغونه",
     "backupSub": "صادرول یا بیا رغونه ټول ستاسو dt s  file",
-    "travel": "Trvellپهg & pryer",
-    "travelSub": "How ته shیاten او combپهe pryers په  journey",
+    "travel": "Travelling & prayer",
+    "travelSub": "How to shorten and combine prayers on a journey",
     "homeCustomize": "Cusتهmize home",
     "homeCustomizeSub": "Reیاder shیاtcuts او پټ کړئ home crds",
     "offlineData": "آفلاین dt",
-    "offlineDataSub": "Mnge downloded cپهtent او cler cches",
+    "offlineDataSub": "Manage downloaded content and clear caches",
     "cacheAudioLocally": "خوندي کول غږ locټولy",
-    "cacheAudioLocallySub": "Downlod recittiپه لپاره آفلاین reply او smoیا plybck",
+    "cacheAudioLocallySub": "Download recitation for offline replay and smoother playback",
     "cacheQuranEditionsLocally": "خوندي کول Qur'n ژباړهs locټولy",
     "cacheQuranEditionsLocallySub": "Keep خلاص کړئed ژباړهs & tfsir لپاره آفلاین لوستل",
     "cacheHadithLocally": "خوندي کول hdith locټولy",
@@ -521,13 +521,13 @@
     "appLock": "pp lock",
     "appLockSub": "Protect  pp with  Pپه",
     "downloadNativeApps": "Get  ntive pp",
-    "downloadNativeAppsDesc": "پهstټول Munib Trcker په ستاسو phپهe لپاره آفلاین slh, zikr, او Qur'n — sme حساب, sme پرمختګ.",
-    "downloadIosTopLine": "Downlod په ",
+    "downloadNativeAppsDesc": "Install Munib Tracker on your phone for offline salah, zikr, and Qur'an — same account, same progress.",
+    "downloadIosTopLine": "Download on the",
     "downloadIosBottomLine": "pp Stیاe",
     "downloadAndroidTopLine": "GET IT په",
     "downloadAndroidBottomLine": "Google Ply",
-    "downloadIosA11y": "Downlod Munib Trcker په  pp Stیاe",
-    "downloadAndroidA11y": "Get Munib Trcker په Google Ply",
+    "downloadIosA11y": "Download Munib Tracker on the App Store",
+    "downloadAndroidA11y": "Get Munib Tracker on Google Play",
     "adhanStyles": {
       "default": {
         "name": "Clssic dhn",
@@ -552,24 +552,24 @@
     }
   },
   "import": {
-    "title": "Impیاt pryer hدیtیاy",
+    "title": "Import prayer history",
     "subtitle": "Bckfill logs له nیا pp یا  spredsheet",
     "pasteTitle": "Pste ستاسو dt",
-    "formatHint": "Pste JSپه (n rry د { dte, pryerId, sttus }) یا CSV rows dte,pryerId,sttus. Dtes دي YYYY-MM-DD; pryers دي fjr, dhuhr, sr, mghrib, دیh, witr; sttuses دي بشپړ شو, پاتې شو, delyed, qz.",
-    "placeholder": "[{\"dte\":\"2026-06-01\",\"pryerId\":\"fjr\",\"sttus\":\"بشپړ شو\"}]",
+    "formatHint": "Paste JSON (an array of { date, prayerId, status }) or CSV rows date,prayerId,status. Dates are YYYY-MM-DD; prayers are fajr, dhuhr, asr, maghrib, isha, witr; statuses are completed, missed, delayed, qaza.",
+    "placeholder": "[{\"date\":\"2026-06-01\",\"prayerId\":\"fajr\",\"status\":\"completed\"}]",
     "preview": "مخکې کتل",
     "previewTitle": "مخکې کتل",
     "summaryValid": "{{count}} vlid rows",
     "summaryErrors": "{{count}} تېروتنهs",
     "summaryDuplicates": "{{count}} duplicte rows merged",
-    "summaryRange": "Dtes {{from}} → {{to}}",
+    "summaryRange": "Dates {{from}} → {{to}}",
     "errorLine": "قطار {{row}}: {{message}}",
     "moreErrors": "+{{count}} mیاe تېروتنهs",
-    "alsoQaza": "lso زیاتول پاتې شو pryers ته Qz",
+    "alsoQaza": "Also add missed prayers to Qaza",
     "alsoQazaHint": "پهcrese ستاسو mke-up counters by ech impیاted mدیs.",
     "commit": "Impیاt {{count}} logs",
     "importing": "Impیاtپهg…",
-    "done": "Impیاted {{count}} pryer logs",
+    "done": "Imported {{count}} prayer logs",
     "failed": "Impیاt filed. Plese try gپه."
   },
   "login": {
@@ -581,7 +581,7 @@
     "apple": "دوام with pple",
     "facebook": "دوام with Fcebook",
     "heroGuest": "تاسو're usپهg  guest حساب. Lپهk  provider ته bck up او sync ستاسو dt — نهhپهg دی lost.",
-    "heroUser": "ننوتل ته keep ستاسو pryers, qz, او zikr sfe په  cloud.",
+    "heroUser": "Sign in to keep your prayers, qaza, and zikr safe in the cloud.",
     "error": "Couldn't ننوتل. Mke sure  PI server دی runnپهg او دا provider دی cپهfigured."
   },
   "onboarding": {
@@ -590,16 +590,16 @@
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
     "brandDuaTransliteration": "ټولhumm l shl ill m j'lthu shl, w nt tj'lul-hzn idh shi't shl",
     "brandDuaTranslation": "O ټولh, re دی no ese except په هغه which تاسو mke esy, او تاسو mke  difficult esy if تاسو wدیh.",
-    "slide1Eyebrow": "Slh",
-    "slide1Title": "Trck ستاسو pryers",
-    "slide1Body": "Mrk ech pryer په ستاسو journey bck ته ټولh — بشپړ شو, پاتې شو, delyed, یا qz.",
-    "slide1Highlight1": "Five frd pryers plus وتر (sunnh mu'kkdh) او sunnh",
+    "slide1Eyebrow": "Salah",
+    "slide1Title": "Track your prayers",
+    "slide1Body": "Mark each prayer on your journey back to Allah — completed, missed, delayed, or qaza.",
+    "slide1Highlight1": "Five fard prayers plus Witr (sunnah mu'akkadah) and sunnah",
     "slide1Highlight2": "لړۍs, پرمختګ rپهg, او جنتری",
-    "slide1Highlight3": "Pryer times hero with Hijri dte او countdown",
+    "slide1Highlight3": "Prayer times hero with Hijri date and countdown",
     "slide2Eyebrow": "Qz",
     "slide2Title": "Mke up wht ws پاتې شو",
     "slide2Body": "Turn qz له overwhelmپهg ته doble — estimte, pln  pce, او trck روژه.",
-    "slide2Highlight1": "Per-pryer counters synced له ستاسو trcker",
+    "slide2Highlight1": "Per-prayer counters synced from your tracker",
     "slide2Highlight2": "Lifetime حسابگر with scholr-wدي guidnce",
     "slide2Highlight3": "ورځنی pce plnner with ET ته cler ستاسو bcklog",
     "slide3Eyebrow": "ذکر",
@@ -613,14 +613,14 @@
     "slide4Body": "Red, لټون, او lدیten — bundled لپاره  rod with اختیاري gentle یادونهs.",
     "slide4Highlight1": "Full Qur'n with recittiپه او yh لټون",
     "slide4Highlight2": "Hdith, dus, duroods, او  99 Nmes",
-    "slide4Highlight3": "Pryer times, qibl compss, او اختیاري nudges",
+    "slide4Highlight3": "Prayer times, qibla compass, and optional nudges",
     "ctaEyebrow": "تاسو're redy",
     "ctaTitle": "Begپه ستاسو journey",
     "ctaBody": "Everythپهg wیاks آفلاین په ستاسو device. ننوتل nytime ته sync cross phپهes او tblets.",
     "ctaPrivacyTitle": "Privte by defult",
     "ctaPrivacyBody": "No حساب اړین. ستاسو wیاship dt stys په ستاسو device until تاسو choose ته bck up او sync.",
     "signInToSync": "ننوتل ته sync",
-    "pageOf": "Pge {{page}} د {{total}}"
+    "pageOf": "پاڼه {{page}} له {{total}}"
   },
   "appearance": {
     "eyebrow": "تنظیمات",
@@ -652,7 +652,7 @@
   "timeFormat": {
     "title": "Time لپارهmt",
     "subtitle": "How clock times pper cross  pp",
-    "hint": "pplies ته pryer times, یادونهs, schedules, او bedtime",
+    "hint": "Applies to prayer times, reminders, schedules, and bedtime",
     "option12": "۱۲ ساعته",
     "option24": "۲۴ ساعته",
     "example12": "Exmple: 2:30 PM",
@@ -663,12 +663,12 @@
   },
   "defaultCalendar": {
     "title": "Defult جنتری",
-    "subtitle": "How dtes pper cross  pp",
+    "subtitle": "How dates appear across the app",
     "hint": "pplies ته events, یادداشت, جنتری tbs, او یا dte lbels.  home hero lwys ښکاره کړئs both جنتریs.",
     "optionGregorian": "میلادي",
     "optionHijri": "هجري",
     "exampleGregorian": "Exmple: Mپهdy, Mrch 23, 2026",
-    "exampleHijri": "Exmple: Rmdn 1, 1447 H",
+    "exampleHijri": "Example: Ramadan 1, 1447 AH",
     "footer": "ستاسو choice دی خوندي کولd uتهmticټولy. جنتری screens still let تاسو switch tempیاrily."
   },
   "weather": {
@@ -699,82 +699,82 @@
     "master": "ټول خبرتیاs",
     "masterSub": "Mster switch لپاره every یادونه",
     "adhanTitle": "د Adhan مخکتنه",
-    "adhanSub": "Ply  bundled cټول-ته-pryer sound",
-    "playAdhan": "Ply dhn t pryer time",
-    "playAdhanHint": "Obligtیاy-pryer یادونهs ply  dhn when y fire.",
+    "adhanSub": "Play the bundled call-to-prayer sound",
+    "playAdhan": "Play adhan at prayer time",
+    "playAdhanHint": "Obligatory-prayer reminders play the adhan when they fire.",
     "liveActivity": "Live ctivity",
-    "liveActivityHint": "ښکاره کړئ  live next-pryer countdown په  lock screen او Dynmic دیlاو.",
+    "liveActivityHint": "Show a live next-prayer countdown on the lock screen and Dynamic Island.",
     "liveActivityUnavailable": "vilble په iPhپهe (iOS 16.1+) with  dev یا productiپه build.",
     "upcomingTitle": "Upcomپهg یادونهs",
     "upcomingHint": "ستاسو next scheduled lerts, په ستاسو موقعیت's timezپهe. Use  تهggles below ته enble, dدیble, یا سمول m.",
     "footer": "Delivery د se یادونهs دی scheduled پهce خبرتیاs دي enbled په ستاسو device.",
     "permissionBannerTitle": "Enble یادونهs",
-    "permissionBannerMessage": "ټولow خبرتیاs so Munib Trcker cn remپهd تاسو په اړه Slh, ذکر, او Qz.",
+    "permissionBannerMessage": "Allow notifications so Munib Tracker can remind you about Salah, Zikr, and Qaza.",
     "permissionGrantedTitle": "خبرتیاs enbled",
     "permissionGrantedMessage": "یادونهs دي scheduled په دا device. Mnge ctegیاies below.",
     "permissionDenied": "خبرتیاs blocked",
     "permissionDeniedSub": "Turn خبرتیاs په په ستاسو browser یا device تنظیمات.",
     "permissionDismissed": "Permدیsiپه request dدیپاتې شو. وټاکئ ټولow when تاسو're redy.",
-    "openSettingsHint": "خلاص کړئ تنظیمات او turn په خبرتیاs لپاره Munib Trcker.",
+    "openSettingsHint": "Open Settings and turn on notifications for Munib Tracker.",
     "openSettings": "خلاص کړئ تنظیمات",
     "webUseAllowButton": "وټاکئ  ټولow butتهn below ته enble browser خبرتیاs.",
     "unsupportedTitle": "یادونهs need  mobile pp",
     "expoGoTitle": "Development build اړین",
     "expoGoMessage": "Locl یادونهs need  dev یا productiپه build. Expo Go cnنه schedule OS خبرتیاs.",
     "iosPwaTitle": "پهstټول  web pp first",
-    "iosPwaMessage": "په iPhپهe, browser خبرتیاs پهly wیاk when Munib Trcker دی زیاتولed ته ستاسو Home Screen.",
+    "iosPwaMessage": "On iPhone, browser notifications only work when Munib Tracker is added to your Home Screen.",
     "iosPwaSteps": "په Sfri: شریکول → زیاتول ته Home Screen, n خلاص کړئ  pp له ستاسو home screen او ټولow خبرتیاs.",
     "iosPwaStepsSafari": "خلاص کړئ دا pge په Sfri, n شریکول → زیاتول ته Home Screen. خبرتیاs ديn't vilble په دا browser په iPhپهe.",
-    "webAllowMessage": "ټولow browser خبرتیاs ته get Slh, ذکر, او Qz lerts په دا device.",
-    "webGrantedMobileNote": "Browser خبرتیاs دي په. لپاره relible Slh-time یادونهs, پهstټول  iOS یا اوroid pp.",
+    "webAllowMessage": "Allow browser notifications to get Salah, Zikr, and Qaza alerts on this device.",
+    "webGrantedMobileNote": "Browser notifications are on. For reliable Salah-time reminders, install the iOS or Android app.",
     "webLimitedTitle": "یادونهs run په  mobile pp",
     "groupWorship": "Wیاship",
     "groupZikr": "ذکر",
     "groupMilestones": "Milesتهnes",
     "channels": {
-      "prayer": "Slh یادونهs",
-      "prayerAdhan": "dhn t pryer time",
+      "prayer": "Salah reminders",
+      "prayerAdhan": "Adhan at prayer time",
       "zikr": "ذکر یادونهs",
       "qaza": "Qz یادونهs"
     },
-    "snooze": "Snooze {{minutes}} mپه",
+    "snooze": "{{minutes}} دقیقې وځنډوه",
     "defaultTitle": "یادونه",
     "reminders": {
       "prayerTitle": "د {{prayer}} وخت",
       "prayerBodyObligatory": "It's time ته pry. My ټولh ccept it له تاسو.",
-      "prayerBodySunnah": " Sunnh Slh wپهdow دی here. My ټولh ccept it له تاسو.",
+      "prayerBodySunnah": "A Sunnah Salah window is here. May Allah accept it from you.",
       "afterAdhanTitle": "fter {{prayer}} dhn",
       "afterAdhanBody": "Recite  supplictiپه fter  dhn.",
       "beforePrayerTitle": "{{prayer}} soپه",
-      "beforePrayerBody": "Prepدي ستاسو hert — Slh دی pprochپهg.",
+      "beforePrayerBody": "Prepare your heart — Salah is approaching.",
       "afterPrayerTitle": "fter {{prayer}}",
       "afterPrayerBody": "Tke  moment لپاره tsbeeh او zikr.",
       "morningZikrTitle": "سهار dhkr",
-      "morningZikrBody": "Begپه ستاسو dy په remembrnce د ټولh.",
+      "morningZikrBody": "Begin your day in remembrance of Allah.",
       "eveningZikrTitle": "ماښام dhkr",
       "eveningZikrBody": "Tke  moment لپاره ستاسو ماښام zikr.",
       "beforeSleepTitle": "Beلپارهe-sleep dhkr",
       "beforeSleepBody": "Recite ستاسو beلپارهe-sleep supplictiپهs.",
       "qazaTitle": "Qz یادونه",
-      "qazaBody": "Mke up  پاتې شو Slh یا fst نن.",
+      "qazaBody": "Make up a missed Salah or fast today.",
       "achievementTitle": "chievement unlocked",
       "dailyContentTitle": "نن's reflectiپه",
-      "dailyContentBody": " new verse, hdith, او nme د ټولh دي redy په ستاسو home screen.",
+      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
       "fridayTitle": "Jumu'h Mubrk",
-      "fridayBody": "It's Fridy — send slwt او red Surh l-Khf."
+      "fridayBody": "It's Friday — send salawat and read Surah Al-Kahf."
     },
     "items": {
       "prayer": {
-        "title": "Slh یادونهs",
-        "subtitle": "Nudges round ech Slh time"
+        "title": "Salah reminders",
+        "subtitle": "Nudges around each Salah time"
       },
       "sunnahPrayer": {
-        "title": "Sunnh & اختیاري",
-        "subtitle": "Thjjud, دیhrq, Duh, او یا اختیاري wپهdows"
+        "title": "Sunnah & optional",
+        "subtitle": "Tahajjud, Ishraq, Duha, and other optional windows"
       },
       "qaza": {
         "title": "Qz یادونهs",
-        "subtitle": "Sty په pce with mke-up pryers"
+        "subtitle": "Stay on pace with make-up prayers"
       },
       "afterAzan": {
         "title": "fter dhn",
@@ -782,7 +782,7 @@
       },
       "morningZikr": {
         "title": "سهار dhkr",
-        "subtitle": "Strt  dy په remembrnce"
+        "subtitle": "Start the day in remembrance"
       },
       "eveningZikr": {
         "title": "ماښام dhkr",
@@ -793,11 +793,11 @@
         "subtitle": "Uses ستاسو bedtime"
       },
       "beforePrayer": {
-        "title": "Beلپارهe Slh",
+        "title": "Before Salah",
         "subtitle": "Prepدي ستاسو hert"
       },
       "afterPrayer": {
-        "title": "fter Slh",
+        "title": "After Salah",
         "subtitle": "Tsbeeh یادونهs"
       },
       "achievements": {
@@ -809,12 +809,12 @@
         "subtitle": " verse او hdith witپهg په ستاسو home screen ech سهار"
       },
       "friday": {
-        "title": "Fridy یادونه",
+        "title": "Friday reminder",
         "subtitle": "Jumu'h او Surh l-Khf"
       }
     },
-    "prayerAlertsObligatory": "Obligtیاy Slh lerts",
-    "prayerAlertsSunnah": "Sunnh & اختیاري lerts",
+    "prayerAlertsObligatory": "Obligatory Salah alerts",
+    "prayerAlertsSunnah": "Sunnah & optional alerts",
     "prayerAlertItems": {
       "fajr": {
         "subtitle": "lert t Fjr time"
@@ -832,7 +832,7 @@
         "subtitle": "lert t دیh time"
       },
       "witr": {
-        "subtitle": "lert t وتر time (sunnh mu'kkdh)"
+        "subtitle": "Alert at Witr time (sunnah mu'akkadah)"
       },
       "tahajjud": {
         "subtitle": "lert t  lst third د  شپه"
@@ -906,8 +906,8 @@
   "zikrCat": {
     "morning": "سهار dhkr",
     "evening": "ماښام dhkr",
-    "before_prayer": "Beلپارهe Slh",
-    "after_prayer": "fter Slh",
+    "before_prayer": "Before Salah",
+    "after_prayer": "After Salah",
     "after_azan": "fter dhn",
     "before_sleep": "Beلپارهe Sleep",
     "anytime": "nytime ذکر"
@@ -929,11 +929,11 @@
     "dialogTitle": "شریکول",
     "brandingFooterName": "— {{appName}}",
     "proofTagline": "Trck ستاسو Journey Bck ته ټولh — free په iOS, اوroid & web",
-    "proofGetApp": "Get Munib Trcker free",
+    "proofGetApp": "Get Munib Tracker free",
     "proofIosLabel": "pp Stیاe",
     "proofAndroidLabel": "Google Ply",
     "proofWebLabel": "Web pp",
-    "proofQrIosA11y": "QR code — downlod په  pp Stیاe",
+    "proofQrIosA11y": "QR code — download on the App Store",
     "proofQrAndroidA11y": "QR code — get it په Google Ply",
     "proofQrWebA11y": "QR code — خلاص کړئ  web pp",
     "proofExportedAt": "شریکولd · {{exportedAt}}",
@@ -945,14 +945,14 @@
     "sectionNames": "99 Nmes د ټولh",
     "sectionAchievement": "chievement",
     "sectionGuide": "زده کړئ",
-    "guideReadAt": "Red په Munib Trcker:",
+    "guideReadAt": "Read in Munib Tracker:",
     "preparing": "Shrپهg…",
     "tapToShare": "وټاکئ ته شریکول"
   },
   "dua": {
     "eyebrow": "Supplictiپه",
     "title": "Dus",
-    "subtitle": "untic dus له  Qur'n او Sunnh",
+    "subtitle": "Authentic duas from the Qur'an and Sunnah",
     "duroodsLink": "Duroods او Salawat",
     "categoryEyebrow": "Dus",
     "supplicationsCount": "{{count}} supplictiپهs",
@@ -973,7 +973,7 @@
   "duaCat": {
     "morning_evening": "سهار & ماښام",
     "sleep": "Sleep & Wkپهg",
-    "prayer": "Slh & Msjid",
+    "prayer": "Salah & Masjid",
     "forgiveness": "لپارهgiveness & Grtitude",
     "distress": "Dدیtress & Hrdship",
     "protection": "Protectiپه & Refuge",
@@ -1020,7 +1020,7 @@
     "eyebrow": " Noble Qur'n",
     "title": "قرآن",
     "subtitle": "Red, lدیten, او reflect",
-    "searchSurah": "لټون by nme, menپهg, یا number",
+    "searchSurah": "Search by name, meaning, or number",
     "filterAll": "ټول",
     "continueReading": "دوام لوستل",
     "continueAt": "سوره {{surah}} · آیت {{ayah}}",
@@ -1062,7 +1062,7 @@
     "ayahRef": "{{surah}}:{{ayah}}",
     "notFoundTitle": "Surh نه found",
     "notFoundDesc": "دا surh my نه exدیt.",
-    "offlineTranslation": "Cپهnect ته downlod دا ژباړه. ښکاره کړئپهg  bundled ژباړه پهsted.",
+    "offlineTranslation": "Connect to download this translation. Showing a bundled translation instead.",
     "shareAyah": "شریکول verse",
     "pauseAyah": "Puse verse",
     "actionPlay": "Ply",
@@ -1078,6 +1078,14 @@
     "searching": "لټونپهg…",
     "secondTranslation": "Secپهd ژباړه",
     "secondTranslationNone": "Nپهe",
+    "selectTranslator": "ژباړن وټاکئ — {{language}}",
+    "translationCount_one": "{{count}} ژباړه",
+    "translationCount_other": "{{count}} ژباړې",
+    "translationBundled": "آفلاین شتون لري",
+    "translationRemote": "کله چې اړتیا وي ډاونلوډ کیږي",
+    "backToLanguages": "ټولې ژبې",
+    "searchTranslationLanguages": "ژبې ولټوئ…",
+    "searchTranslators": "ژباړن ولټوئ…",
     "pages": "Pges",
     "pagesSubtitle": "Browse  Mdni mushf by pge",
     "pageN": "Pge {{n}}",
@@ -1096,15 +1104,7 @@
     "prevPage": "Previous pge",
     "nextPage": "Next pge",
     "openPageView": "خلاص کړئ pge view",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "ژباړن وټاکئ — {{language}}",
-    "translationCount_one": "{{count}} ژباړه",
-    "translationCount_other": "{{count}} ژباړې",
-    "translationBundled": "آفلاین شتون لري",
-    "translationRemote": "کله چې اړتیا وي ډاونلوډ کیږي",
-    "backToLanguages": "ټولې ژبې",
-    "searchTranslationLanguages": "ژبې ولټوئ…",
-    "searchTranslators": "ژباړن ولټوئ…"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "Prophetic trditiپه",
@@ -1122,7 +1122,7 @@
     "emptyTitle": "نهhپهg here yet",
     "emptyDesc": "دا collectiپه could نه be loded.",
     "offlineTitle": "Cپهnect ته lod دا collectiپه",
-    "offlineDesc": "Full collectiپهs دي downloded په demاو او cched لپاره آفلاین لوستل fterwrd.",
+    "offlineDesc": "Full collections are downloaded on demand and cached for offline reading afterward.",
     "loading": "په بارولو…",
     "notFoundTitle": "نه found",
     "notFoundDesc": "دا item my hve been لرې کولd.",
@@ -1159,7 +1159,7 @@
     "customTitleLabel": "سرلیک",
     "customTitlePlaceholder": "e.g. Durood شریکولef",
     "customDescLabel": "Descriptiپه (اختیاري)",
-    "customDescPlaceholder": "e.g. fter every slh",
+    "customDescPlaceholder": "e.g. After every salah",
     "customTargetLabel": "Trget count",
     "customTargetSummary": "Trget: {{target}}",
     "customUnlimitedSummary": "نامحدود شمېر",
@@ -1179,7 +1179,7 @@
     "maghrib": "Mghrib",
     "isha": "دیh",
     "witr": "وتر",
-    "tahajjud": "Thjjud",
+    "tahajjud": "Tahajjud",
     "ishraq": "دیhrq",
     "duha": "Duh",
     "tahiyyatul_masjid": "Thiyytul Msjid",
@@ -1197,54 +1197,54 @@
     "infoHint": "خلاص کړئs detils, benefits, او references",
     "learnMore": "Lern mیاe",
     "tahajjud": {
-      "summary": " شپه pryer دfered په  lst third د  شپه, beلپارهe Fjr.",
+      "summary": "The night prayer offered in the last third of the night, before Fajr.",
       "why": "ټولh descends ته  lowest heven په  lst third د  شپه او sks who will cټول upپه Him.  Prophet ﷺ regulrly pryed t شپه even when اختیاري لپاره him.",
       "benefits": "Drws پهe تړلr ته ټولh, sدtens  hert, او ws  hbit د  righteous beلپارهe him.  time when du دی especiټولy nswered."
     },
     "fajr": {
-      "summary": " dwn pryer —  first د  five ورځنی obligtیاy pryers.",
-      "why": "ټولh commاوed estblدیhپهg pryer t  edges د  dy; Fjr mrks  strt د  Muslim dy او ws never bاوپهed by  Prophet ﷺ په cپهgregtiپه یا lپهe.",
-      "benefits": "Whoever prys Fjr دی under ټولh's protectiپه. It دی witnessed by  ngels د  شپه او dy او brپهgs روښانه لپاره  rest د  dy."
+      "summary": "The dawn prayer — the first of the five daily obligatory prayers.",
+      "why": "Allah commanded establishing prayer at the edges of the day; Fajr marks the start of the Muslim day and was never abandoned by the Prophet ﷺ in congregation or alone.",
+      "benefits": "Whoever prays Fajr is under Allah's protection. It is witnessed by the angels of the night and day and brings light for the rest of the day."
     },
     "sunrise": {
-      "summary": " moment  sun rدیes bove  hیاizپه —  time mrker, نه  pryer itself.",
-      "why": "Pryer دی لپارهbidden while  sun دی rدیپهg (او t zenith او settپهg) so  ummh does نه resemble sun-wیاshippers. Knowپهg sunrدیe helps time دیhrq او void پهvlid pryer times.",
-      "benefits": "Observپهg ټولh's signs په  sky پهcreses we (tqw) او helps structure  سهار sunnh pryers cیاrectly."
+      "summary": "The moment the sun rises above the horizon — a time marker, not a prayer itself.",
+      "why": "Prayer is forbidden while the sun is rising (and at zenith and setting) so the ummah does not resemble sun-worshippers. Knowing sunrise helps time Ishraq and avoid invalid prayer times.",
+      "benefits": "Observing Allah's signs in the sky increases awe (taqwa) and helps structure the morning sunnah prayers correctly."
     },
     "ishraq": {
-      "summary": " two-rk'h sunnh pryer fter  sun hs fully rدیen (په اړه 15–20 mپهutes fter sunrدیe).",
+      "summary": "A two-rak'ah sunnah prayer after the sun has fully risen (about 15–20 minutes after sunrise).",
       "why": " Prophet ﷺ sid whoever prys Fjr په cپهgregtiپه n sits rememberپهg ټولh until sunrدیe, n prys two rk'hs, receives  rewrd د  complete Hjj او 'Umrh.",
-      "benefits": "Immense rewrd with mپهiml efلپارهt when combپهed with Fjr په cپهgregtiپه.  peceful strt ته  dy په zikr او اختیاري pryer."
+      "benefits": "Immense reward with minimal effort when combined with Fajr in congregation. A peaceful start to the day in zikr and optional prayer."
     },
     "duha": {
-      "summary": " لپارهenoپه pryer — typicټولy two ته eight rk'hs between sunrدیe او ظهر.",
-      "why": "Chrity دی due په every joپهt د  body ech dy; even  few rk'hs د Duh fulfills هغه chrity لپاره  limbs through wیاship.",
-      "benefits": "لپارهgives sپهs, brپهgs sustennce (rizq), او revives  neglected sunnh. Flexible timپهg mkes it ccessible when  dy ټولows."
+      "summary": "The forenoon prayer — typically two to eight rak'ahs between sunrise and Dhuhr.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "benefits": "Forgives sins, brings sustenance (rizq), and revives a neglected sunnah. Flexible timing makes it accessible when the day allows."
     },
     "dhuhr": {
-      "summary": " middy pryer —  secپهd obligtیاy pryer, when  sun psses its zenith.",
-      "why": " five ورځنی pryers were mde obligtیاy په  شپه Journey; ظهر breks  dy's busyness with remembrnce د ټولh.",
-      "benefits": " Prophet ﷺ sid  first deed judged په  Dy د Resurrectiپه دی pryer. Gurdپهg ظهر protects  rest د پهe's deeds."
+      "summary": "The midday prayer — the second obligatory prayer, when the sun passes its zenith.",
+      "why": "The five daily prayers were made obligatory on the Night Journey; Dhuhr breaks the day's busyness with remembrance of Allah.",
+      "benefits": "The Prophet ﷺ said the first deed judged on the Day of Resurrection is prayer. Guarding Dhuhr protects the rest of one's deeds."
     },
     "asr": {
-      "summary": " fternoپه pryer —  middle pryer emphsized په  Qur'n.",
-      "why": "ټولh specificټولy wrns په اړه gurdپهg  middle pryer (Slt l-Wust). It fټولs when mny دي busy یا tired, so preservپهg it دی  sign د sپهcerity.",
+      "summary": "The afternoon prayer — the middle prayer emphasized in the Qur'an.",
+      "why": "Allah specifically warns about guarding the middle prayer (Salat al-Wusta). It falls when many are busy or tired, so preserving it is a sign of sincerity.",
       "benefits": "Whoever mدیses sr, it دی s if he lost hدی fmily او welth — highروښانهپهg its weight. Keepپهg it strengns dدیciplپهe through  dy."
     },
     "maghrib": {
-      "summary": " sunset pryer — pryed immeditely fter  sun hs set.",
-      "why": " time خلاص کړئs right t sunset; delyپهg without resپه rدیks mدیsپهg  preferred wپهdow.  Prophet ﷺ wrned gپهst neglectپهg pryer until  sun hs set.",
-      "benefits": "Mrks grtitude t  dy's end او ws mپهg  first pryers  Prophet ﷺ emphsized ته hدی compniپهs."
+      "summary": "The sunset prayer — prayed immediately after the sun has set.",
+      "why": "The time opens right at sunset; delaying without reason risks missing the preferred window. The Prophet ﷺ warned against neglecting prayer until the sun has set.",
+      "benefits": "Marks gratitude at the day's end and was among the first prayers the Prophet ﷺ emphasized to his companions."
     },
     "isha": {
-      "summary": " شپه pryer —  lst د  five obligtیاy pryers, fter twiروښانه fdes.",
+      "summary": "The night prayer — the last of the five obligatory prayers, after twilight fades.",
       "why": "Completes  cycle د ورځنی wیاship.  Prophet ﷺ sid if someپهe pryed دیh په cپهgregtiپه, it دی s if he pryed hlf  شپه.",
-      "benefits": "Brپهgs trnquility beلپارهe sleep او completes  dy's frd pryers. دten followed by وتر, which دی sunnh mu'kkdh."
+      "benefits": "Brings tranquility before sleep and completes the day's fard prayers. Often followed by Witr, which is sunnah mu'akkadah."
     },
     "witr": {
-      "summary": "n odd-numbered pryer (usuټولy پهe یا three rk'hs) fter دیh beلپارهe Fjr — sunnh mu'kkdh, نه پهe د  five frd pryers.",
-      "why": " Prophet ﷺ sid ټولh دی وتر (پهe) او loves وتر, so mپهtپه  وتر pryer. He never bاوپهed it, even when trvelپهg.",
-      "benefits": " dدیtپهctive mrk د  believer's شپه routپهe. Closپهg  dy with odd-numbered pryer ligns with ټولh's nmes او  Prophet's cپهsدیtent prctice."
+      "summary": "An odd-numbered prayer (usually one or three rak'ahs) after Isha before Fajr — sunnah mu'akkadah, not one of the five fard prayers.",
+      "why": "The Prophet ﷺ said Allah is Witr (One) and loves Witr, so maintain the Witr prayer. He never abandoned it, even when traveling.",
+      "benefits": "A distinctive mark of the believer's night routine. Closing the day with odd-numbered prayer aligns with Allah's names and the Prophet's consistent practice."
     },
     "tahiyyatul_masjid": {
       "summary": "Two rk'hs greetپهg  msjid when enterپهg, beلپارهe sittپهg.",
@@ -1252,8 +1252,8 @@
       "benefits": "Hپهیاs  house د ټولh, prepديs  hert لپاره cپهgregtiپه یا privte wیاship, او replces idle sittپهg with immedite good."
     },
     "hajat_istikhara": {
-      "summary": "اختیاري pryers لپاره persپهl needs (Slt l-Hjh) او seekپهg ټولh's guidnce (Slt l-دیtikhr).",
-      "why": "دیtikhr دی ته sk ټولh ته choose good لپاره تاسو when fcپهg  decدیiپه. Hjh دی ته present پهe's need ته ټولh through pryer beلپارهe یا lپهgside du.",
+      "summary": "Optional prayers for personal needs (Salat al-Hajah) and seeking Allah's guidance (Salat al-Istikhara).",
+      "why": "Istikhara is to ask Allah to choose good for you when facing a decision. Hajah is to present one's need to Allah through prayer before or alongside dua.",
       "benefits": "Builds relince په ټولh (twkkul) پهsted د nxiety lپهe. دیtikhr brپهgs clrity; Hjh pirs wیاship with sپهcere request — او ټولh nswers those who cټول upپه Him."
     }
   },
@@ -1273,15 +1273,15 @@
   "qaza": {
     "eyebrow": "Mke-up wیاship",
     "title": "Qz",
-    "subtitle": "Trck او cler پاتې شو pryers",
+    "subtitle": "Track and clear missed prayers",
     "calculator": "حسابگر",
     "planner": "Plnner",
     "roza": "روژه",
-    "perPrayer": "Per pryer",
+    "perPrayer": "Per prayer",
     "rowMeta": "{{remaining}} left · {{completed}} dپهe",
     "rowMetaWithDaily": "{{remaining}} left · {{completed}} dپهe · نن {{done}}/{{target}}",
     "dailySchedule": "ورځنی schedule",
-    "dailyScheduleHint": "Set how mny د ech pryer تاسو pln ته mke up every dy. پرمختګ counts تهwrd نن's چک لیست.",
+    "dailyScheduleHint": "Set how many of each prayer you plan to make up every day. Progress counts toward today's checklist.",
     "dailyTotal": "{{count}} qz / dy",
     "dailyProgress": "{{done}} / {{target}} نن",
     "dailyTargetHint": "Set  ورځنی trget",
@@ -1296,7 +1296,7 @@
     "confirmSetRemainingTitle": "Updte remپهپهg count?",
     "confirmSetRemainingMsg": "Set  remپهپهg {{prayer}} qz count ته {{remaining}}?",
     "editCountTitle": "{{prayer}} remپهپهg",
-    "editCountHint": "Enter how mny د دا pryer تاسو still need ته mke up.",
+    "editCountHint": "Enter how many of this prayer you still need to make up.",
     "editCountPlaceholder": "Remپهپهg",
     "editCountA11y": "سمول {{prayer}} remپهپهg qz count",
     "confirmPerformTitle": "Mrk qz perلپارهmed?",
@@ -1308,22 +1308,22 @@
     "confirmResetPrayerMsg": "Cler remپهپهg او mde-up counts لپاره {{prayer}}? دا cnنه be undپهe.",
     "confirmResetAllTitle": "بیا تنظیم ټول counters?",
     "confirmResetAllMsg": "Cler ټول qz counts ({{remaining}} remپهپهg, {{completed}} mde up)? دا cnنه be undپهe.",
-    "hint": "وټاکئ  check ته recیاd  mde-up pryer. Mدیsپهg  pryer په  trcker زیاتولs ته se counts uتهmticټولy.",
+    "hint": "Tap the check to record a made-up prayer. Missing a prayer in the tracker adds to these counts automatically.",
     "witrNote": {
       "title": "دی وتر qz اړین?",
       "intro": "ccیاdپهg ته  mjیاity د scholrs, mkپهg up  پاتې شو وتر دی ټولowed, but wher it دی اړین depends په ستاسو mdhhb (school د thought).",
       "hanafiTitle": "Hnfi mdhhb",
       "hanafiBody": "وتر دی wjib (obligtیاy). If تاسو mدیs it, تاسو must mke it up (qz). Pry it s soپه s تاسو remember — even if dys یا weeks hve pssed. دا دی  view followed by most Muslims په South si, Centrl si, او Turkey.",
       "othersTitle": "Shfi'i, Mliki & Hnbli",
-      "othersBody": "وتر دی  strپهgly emphsized sunnh (sunnh mu'kkdh), نه obligtیاy. Mkپهg it up دی recommended (musthbb) but نه اړین.  Prophet ﷺ would mke up شپه pryers پاتې شو due ته sleep یا illness.",
+      "othersBody": "Witr is a strongly emphasized sunnah (sunnah mu'akkadah), not obligatory. Making it up is recommended (mustahabb) but not required. The Prophet ﷺ would make up night prayers missed due to sleep or illness.",
       "evidenceTitle": "شواهد",
-      "evidenceBody": " Prophet ﷺ sid: \"Whoever sleeps او mدیses وتر یا لپارهgets it, let him pry it when he remembers.\" (Tirmidhi, Ibn Mjh — scholrs differ په its grdپهg.) په Shih Muslim, when he پاتې شو شپه pryer due ته illness یا sleep, he mde it up durپهg  dy with n even number د rk'hs.",
+      "evidenceBody": "The Prophet ﷺ said: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — scholars differ on its grading.) In Sahih Muslim, when he missed night prayer due to illness or sleep, he made it up during the day with an even number of rak'ahs.",
       "tableHeader": "Summry by mdhhb",
       "rows": {
         "hanafi": "Hnfi — Wjib — Qz اړین",
-        "shafii": "Shfi'i — Sunnh mu'kkdh — Recommended",
-        "maliki": "Mliki — Sunnh mu'kkdh — Recommended",
-        "hanbali": "Hnbli — Sunnh mu'kkdh — Recommended"
+        "shafii": "Shafi'i — Sunnah mu'akkadah — Recommended",
+        "maliki": "Maliki — Sunnah mu'akkadah — Recommended",
+        "hanbali": "Hanbali — Sunnah mu'akkadah — Recommended"
       },
       "footer": "دا pp counts پاتې شو وتر تهwrd qz لپاره ټول users. Tret it s اړین if تاسو follow  Hnfi view; یاwدیe trck it s  recommended mke-up. Cپهsult  scholr لپاره ستاسو situtiپه."
     },
@@ -1332,21 +1332,21 @@
   "qazaCalc": {
     "eyebrow": "Qz",
     "title": "حسابگر",
-    "subtitle": "Estimte  lifetime د پاتې شو pryers",
+    "subtitle": "Estimate a lifetime of missed prayers",
     "currentAge": "Current ge",
     "pubertyAge": "ge t puberty",
     "yearsPrayed": "Yers pryed cپهsدیtently",
     "exemptDays": "Exempt dys / yer (اختیاري)",
-    "exemptHint": "e.g. menstrutiپه dys when pryers دي نه owed",
+    "exemptHint": "e.g. menstruation days when prayers are not owed",
     "yearLength": "Yer length",
     "lunar": "Lunr (354)",
     "solar": "Solr (365)",
     "estimatedDays": "Estimted پاتې شو dys",
-    "resultYears": "{{years}} yers · پهe د ech pryer per dy",
+    "resultYears": "{{years}} years · one of each prayer per day",
     "apply": "pply ته my counters",
-    "disclaimer": "دا دی n estimte پهly. Rulپهgs په mkپهg up پاتې شو pryers vry — plese cپهsult  knowledgeble scholr لپاره ستاسو situtiپه.",
+    "disclaimer": "This is an estimate only. Rulings on making up missed prayers vary — please consult a knowledgeable scholar for your situation.",
     "confirmTitle": "pply estimte?",
-    "confirmMsg": "دا replces  remپهپهg qz count لپاره ech frd pryer او وتر with  estimte bove. بشپړ شو counts دي kept."
+    "confirmMsg": "This replaces the remaining qaza count for each fard prayer and Witr with the estimate above. Completed counts are kept."
   },
   "qazaPlan": {
     "eyebrow": "Qz",
@@ -1355,8 +1355,8 @@
     "consistencyTitle": "ثبات over پهtensity",
     "consistencyHadith": " most beloved deeds ته ټولh دي those هغه دي cپهsدیtent, even if y دي smټول.",
     "consistencySource": "Hdith — Bukhri & Muslim",
-    "consistencyPrinciple": " stedy ورځنی pln usuټولy clers  lrge bcklog mیاe relibly thn n ggressive sprپهt هغه burns out.",
-    "prayersPerDay": "pryers / dy",
+    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
+    "prayersPerDay": "prayers / day",
     "dailyTimeLabel": "est. time / dy",
     "dailyTimeMinutes": "≈ {{count}} دقیقې",
     "dailyTimeHours_one": "≈ {{count}} ساعت",
@@ -1379,17 +1379,17 @@
     "durationDays_other": "{{count}} dys",
     "durationTwo": "{{first}} او {{second}}",
     "durationThree": "{{first}}, {{second}} او {{third}}",
-    "etaCaption": "t دا pce, {{count}} qz pryers دي cleديd by {{date}}.",
+    "etaCaption": "At this pace, {{count}} qaza prayers are cleared by {{date}}.",
     "etaEmpty": "Pick  pبیا تنظیم below یا set ورځنی trgets ته estimte  completiپه dte.",
     "dailyTargets": "ورځنی trgets",
     "planSaved": "Pln خوندي کولd",
     "savePlan": "خوندي کول pln",
     "presetsTitle": "Choose  pln",
-    "presetsHint": "لپاره most wیاkپهg dults, 3–5 د ech pryer ورځنی دی  relدیtic sweet spot. Strt gentle if تاسو دي unsure.",
+    "presetsHint": "For most working adults, 3–5 of each prayer daily is a realistic sweet spot. Start gentle if you are unsure.",
     "recommended": "وړاندیز شوی",
     "presetActive": "ctive",
     "presetCustom": "Cusتهm pln",
-    "presetCustomHint": "تاسو djusted پهdividul pryers — fپهe-tune below s needed.",
+    "presetCustomHint": "You adjusted individual prayers — fine-tune below as needed.",
     "presets": {
       "gentle": {
         "title": "🌱 نرم",
@@ -1405,12 +1405,12 @@
       },
       "intensive": {
         "title": "🔥 پهtensive",
-        "subtitle": "{{perPrayer}} ech · {{dailyTotal}} / dy · shیاt-term پهly"
+        "subtitle": "{{perPrayer}} each · {{dailyTotal}} / day · short-term only"
       }
     },
     "attachTitle": "Spred it through  dy",
-    "attachHint": "Mny people fپهd it esier ته pry 2–3 qz د ech pryer right fter هغه pryer's current slh — e.g. fter Fjr do qz Fjr, fter ظهر do qz ظهر, او so په. It spreds  lod nturټولy.",
-    "fiqhNote": "Scholrs differ په how ته estimte او یاgnize پاتې شو pryers. Cپهsult  scholr تاسو trust لپاره ستاسو situtiپه او mdhhb."
+    "attachHint": "Many people find it easier to pray 2–3 qaza of each prayer right after that prayer's current salah — e.g. after Fajr do qaza Fajr, after Dhuhr do qaza Dhuhr, and so on. It spreads the load naturally.",
+    "fiqhNote": "Scholars differ on how to estimate and organize missed prayers. Consult a scholar you trust for your situation and madhhab."
   },
   "qazaRoza": {
     "eyebrow": "Qz",
@@ -1423,31 +1423,31 @@
     "editCountTitle": "Remپهپهg fsts",
     "editCountHint": "Enter how mny qz fsts تاسو still need ته mke up.",
     "editCountPlaceholder": "Remپهپهg",
-    "editCountA11y": "سمول remپهپهg fst count",
+    "editCountA11y": "Edit remaining fast count",
     "confirmSetRemainingTitle": "Updte remپهپهg count?",
-    "confirmSetRemainingMsg": "Set  remپهپهg fst count ته {{remaining}}?",
+    "confirmSetRemainingMsg": "Set the remaining fast count to {{remaining}}?",
     "estimateFormula": "× 30 =",
     "estimateTitle": "Estimte پاتې شو fsts",
-    "estimateHint": "Roughly how mny yers د Rmdn fsts were پاتې شو?",
+    "estimateHint": "Roughly how many years of Ramadan fasts were missed?",
     "yearsPlaceholder": "yers",
     "estimateResult": "≈ {{count}} fsts",
     "addToRemaining": "زیاتول ته remپهپهg",
     "resetCounter": "بیا تنظیم counter",
     "confirmDecrementTitle": "Reduce remپهپهg count?",
-    "confirmDecrementMsg": "Lower  remپهپهg fst count ته {{remaining}}?",
+    "confirmDecrementMsg": "Lower the remaining fast count to {{remaining}}?",
     "confirmIncrementTitle": "پهcrese remپهپهg count?",
-    "confirmIncrementMsg": "Rدیe  remپهپهg fst count ته {{remaining}}?",
-    "confirmPerformTitle": "Mrk fst perلپارهmed?",
-    "confirmPerformMsg": "Recیاd پهe qz fst s بشپړ شو?",
+    "confirmIncrementMsg": "Raise the remaining fast count to {{remaining}}?",
+    "confirmPerformTitle": "Mark fast performed?",
+    "confirmPerformMsg": "Record one qaza fast as completed?",
     "confirmAddEstimateTitle": "زیاتول estimted fsts?",
     "confirmAddEstimateMsg": "زیاتول {{count}} fsts ته remپهپهg (new تهtl: {{total}})?",
     "confirmResetTitle": "بیا تنظیم counter?",
-    "confirmResetMsg": "Cler ټول fst counts ({{remaining}} remپهپهg, {{completed}} بشپړ شو)? دا cnنه be undپهe."
+    "confirmResetMsg": "Clear all fast counts ({{remaining}} remaining, {{completed}} completed)? This cannot be undone."
   },
   "calendar": {
     "eyebrow": "Hدیtیاy",
     "title": "جنتری",
-    "subtitle": "ستاسو wیاship, dy by dy",
+    "subtitle": "Your worship, day by day",
     "prevMonth": "Previous mپهth",
     "nextMonth": "Next mپهth",
     "prevYear": "Previous yer",
@@ -1459,13 +1459,13 @@
     "prayed": "Pryed",
     "partial": "Prtil",
     "missed": "پاتې شو",
-    "legendHint": "وټاکئ ny pst یا current dy ته review او djust it. نن دی {{date}}."
+    "legendHint": "Tap any past or current day to review and adjust it. Today is {{date}}."
   },
   "calDay": {
     "today": "نن",
     "history": "Hدیtیاy",
-    "futureSubtitle": "دا dy hsn't hppened yet",
-    "summary": "{{completed}} د {{total}} obligtیاy pryers",
+    "futureSubtitle": "This day hasn't happened yet",
+    "summary": "{{completed}} of {{total}} obligatory prayers",
     "emptyTitle": "نهhپهg ته log yet",
     "emptyDesc": "تاسو cn پهly recیاd wیاship لپاره نن او pst dys.",
     "prevWeek": "تیره اونۍ",
@@ -1485,27 +1485,27 @@
     "periodMonth": "Lst 30 dys",
     "periodYear": "دا yer",
     "avgCompletion": "{{percent}}% vg",
-    "chartEmpty": "No slh logged په دا period yet",
+    "chartEmpty": "No salah logged in this period yet",
     "details": "Detils",
     "detailsHint": "Brekdowns when تاسو hve trcked dt",
     "streak": "Current لړۍ",
-    "totalPrayers": "Slh logged",
+    "totalPrayers": "Salah logged",
     "totalZikr": "ذکر sessiپهs",
     "perfectDays": "Perfect dys",
     "viewAchievements": "View chievements",
-    "todayPrayers": "Slh",
+    "todayPrayers": "Salah",
     "todayZikr": "ذکر",
     "todayQaza": "Qz",
     "week": "اونۍ",
     "month": "Mپهth",
     "year": "Yer",
-    "prayerCompletion": "Slh completiپه",
-    "prayer": "Slh",
+    "prayerCompletion": "Salah completion",
+    "prayer": "Salah",
     "consistency": "ثبات",
     "qaza": "Qz",
     "roza": "روژه",
     "zikr": "ذکر",
-    "perPrayer": "Per pryer",
+    "perPrayer": "Per prayer",
     "zikrBreakdown": "ذکر by ctegیاy",
     "reading": "لوستل",
     "quranSurahs": "Surhs strted",
@@ -1521,8 +1521,8 @@
     "qaza": "قضا"
   },
   "statusSheet": {
-    "prompt": "How did دا pryer go نن?",
-    "afterSalahAdhkar": "Red fter-slh dhkr",
+    "prompt": "How did this prayer go today?",
+    "afterSalahAdhkar": "Read after-salah adhkar",
     "editNote": "سمول نهe",
     "addNote": "زیاتول  نهe",
     "noteTitle": "{{prayer}} — نهe",
@@ -1565,12 +1565,12 @@
     "nextPrayerAwayHours": "{{prayer}} دی {{hours}}h {{min}}m wy",
     "locating": "Fپهdپهg ستاسو موقعیت…",
     "changeLocation": "Chnge موقعیت",
-    "scheduleTitle": "نن's Slh",
+    "scheduleTitle": "Today's Salah",
     "nextIn": "په {{time}}",
     "current": "اوس",
     "clockLabel": "{{time}}، {{countdown}}",
     "prayerItem": "{{name}} t {{time}}",
-    "prayerItemActive": "{{name}} t {{time}}, current pryer",
+    "prayerItemActive": "{{name}} at {{time}}, current prayer",
     "weatherA11y": "{{temp}}، {{condition}}",
     "locationWeatherA11y": "{{location}}, {{weather}}. Chnge موقعیت",
     "dateRowA11y": "{{phase}}. {{dates}}. وټاکئ لپاره moپه detils"
@@ -1578,7 +1578,7 @@
   "location": {
     "eyebrow": "موقعیت",
     "title": "Set ستاسو موقعیت",
-    "subtitle": "Slh times دي clculted لپاره دا plce. لټون ny city, یا use ستاسو current موقعیت.",
+    "subtitle": "Salah times are calculated for this place. Search any city, or use your current location.",
     "currentTitle": "Current موقعیت",
     "useCurrent": "Use my current موقعیت",
     "locating": "Gettپهg ستاسو موقعیت…",
@@ -1592,13 +1592,13 @@
     "manualBadge": "Set by تاسو",
     "gpsBadge": "له device",
     "defaultBadge": "Defult",
-    "calculationTitle": "Pryer clcultiپه",
+    "calculationTitle": "Prayer calculation",
     "method": "Clcultiپه method",
-    "methodHint": "Pick  لیکوالity whose method mtches ستاسو regiپه so slh times lپهe up with ستاسو locl msjid.",
+    "methodHint": "Pick the authority whose method matches your region so salah times line up with your local masjid.",
     "madhab": "sr clcultiپه",
     "madhabShafi": "Stاوrd",
     "madhabHanafi": "Hnfi",
-    "madhabHint": "Hnfi clcultes sr lter; Stاوrd (Shfiʿi, Mliki, Hnbli) uses  erlier time.",
+    "madhabHint": "Hanafi calculates Asr later; Standard (Shafiʿi, Maliki, Hanbali) uses the earlier time.",
     "methods": {
       "MuslimWorldLeague": "Muslim Wیاld Legue",
       "Egyptian": "Egyptin Generl لیکوالity",
@@ -1648,14 +1648,14 @@
     "illuminationLabel": "روښانه",
     "hijriDate": "دیlmic dte",
     "lunarDay": "Lunr dy",
-    "lunarDayValue": "Dy {{day}} د {{month}}",
+    "lunarDayValue": "Day {{day}} of {{month}}",
     "age": "Moپه ge",
     "ageValue": "{{days}} dys sپهce  new moپه",
     "nextNewMoon": "راتلونکی نوی سپین زړه",
     "nextNewMoonValue": "~{{days}} dys · begپهs {{month}}",
     "note": {
       "whiteDaysTitle": "yyām l-Bīḍ —  White Dys",
-      "whiteDaysBody": " 13th, 14th, او 15th د ech دیlmic mپهth fټول round  full moپه. روژه se three bright dys دی  beloved sunnh د  Prophet ﷺ.",
+      "whiteDaysBody": "The 13th, 14th, and 15th of each Islamic month fall around the full moon. Fasting these three bright days is a beloved sunnah of the Prophet ﷺ.",
       "newMonthTitle": " new mپهth begپهs",
       "newMonthBody": " thپه crescent (hilāl) mrks  strt د {{month}}. Ech دیlmic mپهth begپهs when  new moپه دی first sighted fter sunset.",
       "fullTitle": "Full moپه تهشپه",
@@ -1671,7 +1671,7 @@
     "devotion": "اخلاص",
     "devotionLevel": "کچه {{level}}",
     "devotionNoor": "{{current}} / {{next}} Noیا ته next level",
-    "devotionHint": "Noیا grows له slh, qz, zikr, perfect dys, او ستاسو current لړۍ.",
+    "devotionHint": "Noor grows from salah, qaza, zikr, perfect days, and your current streak.",
     "levelShort": "کچه",
     "noorPill": "{{noor}} نور",
     "milestonePill": "{{count}} خلاص شول",
@@ -1681,7 +1681,7 @@
     "milestonesReachedHint": "{{count}} unlocked so fr — او countپهg.",
     "level": "کچه {{level}}",
     "tracks": {
-      "salah": "Slh",
+      "salah": "Salah",
       "streak": "لړۍ",
       "qaza": "Qz",
       "roza": "روژه",
@@ -1690,9 +1690,9 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "Slh {{level}}",
+        "titleFallback": "Salah {{level}}",
         "description": "{{count}} فرض نمازونه بشپړ کړئ",
-        "description_one": "Complete {{count}} obligtیاy pryer",
+        "description_one": "Complete {{count}} obligatory prayer",
         "titles": {
           "0": "لومړی ګام",
           "1": "ثابت پیل",
@@ -1744,8 +1744,8 @@
       },
       "consistency": {
         "titleFallback": "ثبات {{level}}",
-        "description": "Complete ټول obligtیاy pryers په {{count}} dys",
-        "description_one": "Complete ټول obligtیاy pryers په {{count}} dy",
+        "description": "Complete all obligatory prayers on {{count}} days",
+        "description_one": "Complete all obligatory prayers on {{count}} day",
         "titles": {
           "0": "بشپړه ورځ",
           "1": "درې بشپړې ورځې",
@@ -1783,8 +1783,8 @@
         "clearedTitle": "Qz Debt Cleديd",
         "activeDescription": "{{count}} قضا نمازونه ادا کړئ",
         "activeDescription_one": "{{count}} قضا نماز ادا کړئ",
-        "clearedDescription": "Cleديd ټول {{count}} trcked qz pryers",
-        "clearedDescription_one": "Cleديd ټول {{count}} trcked qz pryer"
+        "clearedDescription": "Cleared all {{count}} tracked qaza prayers",
+        "clearedDescription_one": "Cleared all {{count}} tracked qaza prayer"
       },
       "roza": {
         "activeTitle": "Cler روژه Debt",
@@ -1804,8 +1804,8 @@
     "eyebrow": "یادونهs",
     "subtitle": "Delivered او upcomپهg یادونهs",
     "inboxSubtitle": "خبرتیاs تاسو've received",
-    "webNote": "Scheduled یادونهs run په iOS او اوroid. په  web, use  pp په ستاسو phپهe ته receive Slh, ذکر, او Qz یادونهs.",
-    "permissionText": "Turn په خبرتیاs ته receive یادونهs لپاره Slh, ذکر, او Qz.",
+    "webNote": "Scheduled reminders run on iOS and Android. On the web, use the app on your phone to receive Salah, Zikr, and Qaza reminders.",
+    "permissionText": "Turn on notifications to receive reminders for Salah, Zikr, and Qaza.",
     "enable": "Enble خبرتیاs",
     "scheduled": "مهالویش شوی",
     "scheduledHint": "se lerts fire t  scheduled time په ستاسو موقعیت's timezپهe. y دي نه delivered until n.",
@@ -1823,7 +1823,7 @@
     "confirmClearAllMessage": "دا لرې کولs every خبرتیا له دا lدیt. دا cn't be undپهe.",
     "loadMore": "Lod mیاe",
     "upcoming": "Upcomپهg",
-    "categorySalah": "Slh",
+    "categorySalah": "Salah",
     "categoryZikr": "ذکر",
     "categoryQaza": "Qz",
     "categoryMilestone": "Milesتهne",
@@ -1843,7 +1843,7 @@
     "compassLabel": "Qibl compss",
     "compassValue": "{{bearing}} degrees ته  Kb, {{distance}} wy",
     "aligned": "ligned with  Qibl",
-    "alignedHint": "Hold stedy — تاسو're fcپهg  Kb",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
     "turnFineTuneLeft": "کيڼ اخیستل",
     "turnFineTuneRight": "ښي اخیستل",
     "turnSlightLeft": "Sروښانهly left",
@@ -1883,12 +1883,12 @@
     "syncing": "Syncپهg…",
     "done": "ستاسو dt دی bcked up",
     "failed": "Couldn't sync. Check ستاسو cپهnectiپه او try gپه.",
-    "mergeNoChanges": "Everythپهg ws lredy up ته dte",
+    "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} ترلاسه · {{sent}} لیږل شوي",
     "conflictsResolved": "{{count}} cپهflicts uته-resolved — kept  newest سمول",
     "conflictAffected": "ffected: {{list}}",
     "entities": {
-      "prayer_logs": "Slh log",
+      "prayer_logs": "Salah log",
       "zikr_progress": "ذکر پرمختګ",
       "qaza_entries": "Qz entries",
       "preferences": "غوره توبونه",
@@ -1909,9 +1909,9 @@
     "translationHint": "Used لپاره  menپهg د عربي religious text.",
     "footer": "Mیاe د  پهterfce دی beپهg trnslted over time. عربي او Urdu switch  pp ته  right-ته-left lتاسوt.",
     "scriptureAvailable": "د قرآن ژباړه شتون لري",
-    "scriptureUnavailable": "یوازې انٹرفیس — مذهبي متن په انګلیسي پاتې کیږي",
+    "scriptureUnavailable": "یوازې انٹرفیس — مقدس متن په انګلیسي پاتې",
     "eyebrow": "تنظیمات",
-    "subtitle": "pp او ژباړه ژبه",
+    "subtitle": "د اپ او ژباړې ژبه",
     "en": "Englدیh",
     "ar": "عربي",
     "ur": "اردو"
@@ -2010,11 +2010,11 @@
   },
   "qazaHistory": {
     "title": "Qz hدیtیاy",
-    "subtitle": "Every mke-up pryer تاسو've logged, by dy",
+    "subtitle": "Every make-up prayer you've logged, by day",
     "emptyTitle": "No qz logged yet",
-    "emptyDesc": "Perلپارهm  mke-up pryer له  qz mnger او it will pper here.",
+    "emptyDesc": "Perform a make-up prayer from the qaza manager and it will appear here.",
     "count": "{{count}} mde up",
-    "legendHint": "وټاکئ  highروښانهed dy ته see which pryers تاسو mde up.",
+    "legendHint": "Tap a highlighted day to see which prayers you made up.",
     "dayA11y": "{{date}}, {{count}} mde up"
   },
   "weeklyReport": {
@@ -2038,26 +2038,26 @@
     "restored": "بیک اپ بیا رغول شو",
     "error": {
       "invalid_json": "هغه doesn't look like  vlid بیک اپ file.",
-      "wrong_format": "دا file دیn't  Munib Trcker بیک اپ.",
+      "wrong_format": "This file isn't a Munib Tracker backup.",
       "unsupported_version": "دا بیک اپ ws mde by  newer نسخه د  pp."
     }
   },
   "reminderOffsets": {
     "title": "یادونه timپهg",
-    "subtitle": "When خبرتیاs rپهg — does نه chnge dدیplyed pryer times",
+    "subtitle": "When notifications ring — does not change displayed prayer times",
     "rowSub": "نهify beلپارهe یا fter ech dhn",
-    "hint": "Shift ech obligtیاy pryer یادونه up ته {{max}} mپهutes beلپارهe یا fter  dhn. Times ښکاره کړئn په  pp sty  sme.",
+    "hint": "Shift each obligatory prayer reminder up to {{max}} minutes before or after the adhan. Times shown in the app stay the same.",
     "atTime": "t time",
     "before": "{{count}} mپه beلپارهe",
     "after": "{{count}} mپه fter",
-    "earlier": "Erlier",
+    "earlier": "Earlier",
     "later": "Lter"
   },
   "khatm": {
     "eyebrow": " Noble Qur'n",
     "short": "Khtm",
     "title": "Khtm pln",
-    "subtitle": "Fپهدیh  Qur'n t  stedy pce",
+    "subtitle": "Finish the Qur'an at a steady pace",
     "startTitle": "Strt  pln",
     "startHint": "Choose how mny dys ته complete  Qur'n. We'll set  ورځنی yh trget.",
     "startHintPages": "Choose how mny dys ته complete  Qur'n. We'll set  ورځنی mushf pge trget.",
@@ -2081,7 +2081,7 @@
     "startConfirmMsg": "Fپهدیh  Qur'n په {{days}} dys — په اړه {{count}} yhs ech dy. تاسو cn trck پرمختګ here s تاسو red.",
     "startConfirmMsgPages": "Fپهدیh  Qur'n په {{days}} dys — په اړه {{count}} pges ech dy. تاسو cn trck پرمختګ here s تاسو red.",
     "startConfirmAction": "Strt pln",
-    "dayOf": "Dy {{day}} د {{total}}",
+    "dayOf": "Day {{day}} of {{total}}",
     "dailyTarget": "{{count}} yhs  dy",
     "dailyTargetPages": "{{count}} pges  dy",
     "progress": "{{read}} / {{total}} yhs",
@@ -2138,12 +2138,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": " khtm built په stedy ورځنی لوستل lsts lپهger thn  sprپهt هغه burns out.",
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
         "source": "Prپهciple د ثبات"
       },
       "portion": {
         "text": "تاسو do نه hve ته fپهدیh نن — پهly hپهour نن's pیاtiپه with sپهcerity.",
-        "source": "Stedy پرمختګ"
+        "source": "Steady progress"
       },
       "return": {
         "text": "If تاسو fټول behپهd, do نه bاوپه  pln. Resume with نن's yhs او move لپارهwrd.",
@@ -2159,7 +2159,7 @@
   },
   "hifz": {
     "short": "حفظ",
-    "title": "Hifz trcker",
+    "title": "Hifz tracker",
     "subtitle": "yhs تاسو've memیاized یا need ته review",
     "markMemorized": "Mrk memیاized",
     "markReview": "Mrk needs review",
@@ -2171,84 +2171,84 @@
     "emptyDesc": "وټاکئ Hifz په ny yh په  reder ته mrk it memیاized.",
     "toastRef": "{{surah}}, yh {{ayah}}",
     "toastMemorizedTitle": "Mrked s memیاized",
-    "toastMemorizedBody": "{{ref}} ws زیاتولed ته ستاسو Hifz trcker.",
+    "toastMemorizedBody": "{{ref}} was added to your Hifz tracker.",
     "toastReviewTitle": "Flgged لپاره review",
     "toastReviewBody": "{{ref}} دی mrked ته revدیe.",
     "toastClearedTitle": "Memیاiztiپه cleديd",
-    "toastClearedBody": "{{ref}} ws لرې کولd له ستاسو Hifz trcker.",
-    "confirmTitle": "Updte Hifz sttus?",
+    "toastClearedBody": "{{ref}} was removed from your Hifz tracker.",
+    "confirmTitle": "Update Hifz status?",
     "confirmReviewBody": "{{ref}} will be flgged لپاره review.",
     "confirmMemorizedBody": "{{ref}} will be mrked s memیاized.",
-    "confirmClearBody": "{{ref}} will be لرې کولd له ستاسو Hifz trcker."
+    "confirmClearBody": "{{ref}} will be removed from your Hifz tracker."
   },
   "travel": {
     "eyebrow": "زده کړئ",
-    "title": "Trvellپهg & pryer",
-    "subtitle": "Qsr, Jm', او wht  Qur'n او Sunnh tech په اړه slh په  journey",
-    "takeaway": "ټولh legدیlted shیاtenپهg (Qsr) او combپهپهg (Jm') out د mercy لپاره  trveller — نه ته bاوپه pryer, but ته ese its perلپارهmnce په  rod.",
+    "title": "Travelling & prayer",
+    "subtitle": "Qasr, Jam', and what the Qur'an and Sunnah teach about salah on a journey",
+    "takeaway": "Allah legislated shortening (Qasr) and combining (Jam') out of mercy for the traveller — not to abandon prayer, but to ease its performance on the road.",
     "quranTitle": "له  Qur'n",
-    "hadithTitle": "له  Sunnh",
+    "hadithTitle": "From the Sunnah",
     "obligationsTitle": "Wht تاسو دي still respپهsible لپاره",
     "rakatsTitle": "Rkts t  glnce",
-    "rakatsPrayer": "Slh",
+    "rakatsPrayer": "Salah",
     "rakatsResident": "t home",
-    "rakatsTravel": "Trvellپهg",
-    "rakatsNote": "پهly  frd دی ښکاره کړئn. Sunnh rwtib او وتر دي dدیcussed below — y remپه recommended, though mny trvellers روښانهen m لپاره hrdship.",
+    "rakatsTravel": "Travelling",
+    "rakatsNote": "Only the fard is shown. Sunnah rawatib and Witr are discussed below — they remain recommended, though many travellers lighten them for hardship.",
     "duasLink": "Trvel dus & supplictiپهs",
     "quran": [
       {
-        "excerpt": "When تاسو trvel through  lاو, re دی no blme په تاسو if تاسو shیاten  pryer, if تاسو fer هغه those who dدیbelieve my hrm تاسو. پهdeed,  dدیbelievers دي ever  cler enemy ته تاسو."
+        "excerpt": "When you travel through the land, there is no blame on you if you shorten the prayer, if you fear that those who disbelieve may harm you. Indeed, the disbelievers are ever a clear enemy to you."
       }
     ],
     "hadith": [
       {
-        "excerpt": "ns sid: We trvelled with  Messenger د ټولh ﷺ.  mu'dhپه cټولed لپاره pryer او he sid: 'Pry two rkhs' — او he did  sme لپاره  یا pryers except Mghrib (three) او Fjr (two)."
+        "excerpt": "Anas said: We travelled with the Messenger of Allah ﷺ. The mu'adhin called for prayer and he said: 'Pray two rakahs' — and he did the same for the other prayers except Maghrib (three) and Fajr (two)."
       },
       {
         "excerpt": "Ibn bbs sid:  Prophet ﷺ combپهed ظهر او sr, او Mghrib او دیh په Mdپهh without fer یا rپه. When sked why, he sid: 'He wnted نه ته burden hدی Ummh.'"
       },
       {
-        "excerpt": "Y'l ibn Umyyh sid: I sid ته Umr ibn l-Khttb: 're دی no sپه if پهe shیاtens  pryer while trvellپهg.' Umr replied: 'I wپهdered  sme, so I sked  Prophet ﷺ او he sid: It دی chrity له ټولh — ccept Hدی chrity.'"
+        "excerpt": "Ya'la ibn Umayyah said: I said to Umar ibn al-Khattab: 'There is no sin if one shortens the prayer while travelling.' Umar replied: 'I wondered the same, so I asked the Prophet ﷺ and he said: It is charity from Allah — accept His charity.'"
       },
       {
         "excerpt": " Prophet ﷺ sid: 'ټولh loves هغه Hدی cپهcessiپهs be tken, just s He htes ته be dدیobeyed.'"
       }
     ],
     "obligations": [
-      " five ورځنی pryers remپه obligtیاy — shیاtened (Qsr) when تاسو qulify s  trveller.",
+      "The five daily prayers remain obligatory — shortened (Qasr) when you qualify as a traveller.",
       "Fjr (two rkhs) او Mghrib (three rkhs) دي never shیاtened.",
       "تاسو my combپهe ظهر with sr, او Mghrib with دیh, when  cپهditiپهs د trvel pply.",
-      "Ech shیاtened pryer دی pryed like  first two rkhs د  full pryer — recite l-Ftih او  surh, bow, prostrte, n sit لپاره tshhhud او slm.",
-      "When تاسو return home یا پهtend ته settle, resume pryپهg ech pryer په full t its proper time.",
-      "پاتې شو pryers while trvellپهg must still be mde up (qz) — trvel does نه wive wht ws omitted."
+      "Each shortened prayer is prayed like the first two rakahs of the full prayer — recite Al-Fatiha and a surah, bow, prostrate, then sit for tashahhud and salam.",
+      "When you return home or intend to settle, resume praying each prayer in full at its proper time.",
+      "Missed prayers while travelling must still be made up (qaza) — travel does not waive what was omitted."
     ],
     "qasr": {
       "title": "Qsr — shیاtenپهg",
-      "body": " four-rkh frd pryers — ظهر, sr, او دیh — دي pryed s two rkhs په  qulifyپهg journey. Pry m exctly s  first two rkhs t home: stاوپهg recittiپه, پهe ruku, two sujud, tshhhud, او slm. Fjr stys two rkhs او Mghrib stys three; neir دی shیاtened. Qsr pplies ته  frd پهly."
+      "body": "The four-rakah fard prayers — Dhuhr, Asr, and Isha — are prayed as two rakahs on a qualifying journey. Pray them exactly as the first two rakahs at home: standing recitation, one ruku, two sujud, tashahhud, and salam. Fajr stays two rakahs and Maghrib stays three; neither is shortened. Qasr applies to the fard only."
     },
     "jam": {
       "title": "Jm' — combپهپهg",
-      "body": " trveller my combپهe ظهر with sr پهته پهe sittپهg, او Mghrib with دیh پهته پهe sittپهg — pryپهg both frd pryers bck-ته-bck with پهe dhn او iqmh. Fjr cnنه be combپهed with ny یا pryer. Combپهپهg دی  seprte cپهcessiپه له shیاtenپهg: تاسو my shیاten without combپهپهg, combپهe without shیاtenپهg (په some situtiپهs), یا do both تهger."
+      "body": "A traveller may combine Dhuhr with Asr into one sitting, and Maghrib with Isha into one sitting — praying both fard prayers back-to-back with one adhan and iqamah. Fajr cannot be combined with any other prayer. Combining is a separate concession from shortening: you may shorten without combining, combine without shortening (in some situations), or do both together."
     },
     "jamTypes": {
       "title": "Jm' l-Tqdim & l-T'khir",
-      "body": "Jm' l-Tqdim (erly combپهپهg): pry both pryers تهger t  erlier pryer's time — e.g. ظهر او sr t ظهر time. Jm' l-T'khir (delyed combپهپهg): pry both t  lter pryer's time — e.g. ظهر او sr t sr time.  Prophet ﷺ combپهed t rfh (ظهر t sr time) او t Muzdlifh (Mghrib t دیh time), estblدیhپهg both لپارهms."
+      "body": "Jam' al-Taqdim (early combining): pray both prayers together at the earlier prayer's time — e.g. Dhuhr and Asr at Dhuhr time. Jam' al-Ta'khir (delayed combining): pray both at the later prayer's time — e.g. Dhuhr and Asr at Asr time. The Prophet ﷺ combined at Arafah (Dhuhr at Asr time) and at Muzdalifah (Maghrib at Isha time), establishing both forms."
     },
     "when": {
       "title": "When cپهcessiپهs begپه & end",
-      "body": "Cپهcessiپهs begپه پهce تاسو leve ستاسو تهwn یا city په  journey — نه لپاره ورځنی commutes withپه ستاسو loclity. y end when تاسو return home, یا when تاسو پهtend ته sty t ستاسو destپهtiپه لپاره  period scholrs defپهe s 'settlپهg' ( number د dys differs between schools). If تاسو دي unsure wher تاسو still count s  trveller, sk  scholr beلپارهe ssumپهg  cپهcessiپهs."
+      "body": "Concessions begin once you leave your town or city on a journey — not for daily commutes within your locality. They end when you return home, or when you intend to stay at your destination for the period scholars define as 'settling' (the number of days differs between schools). If you are unsure whether you still count as a traveller, ask a scholar before assuming the concessions."
     },
     "distance": {
       "title": "Trvel dدیtnce",
       "body": "Most scholrs require  mپهimum trvel dدیtnce beلپارهe Qsr او Jm' pply — commپهly cited s roughly 80 km (48 miles), یا په اړه two dys' journey په foot. Some schools mesure له  lst buildپهgs د پهe's city; یاs use  shیاter threshold.  pp does نه clculte دا لپاره تاسو — know ستاسو school's criteriپه او pply it with  scholr's guidnce."
     },
     "sunnah": {
-      "title": "Sunnh pryers while trvellپهg",
-      "body": " emphsized sunnh pryers (rwtib) beلپارهe او fter frd remپه virtuous but دي نه اړین. Mny scholrs permit levپهg m while trvellپهg due ته hrdship, especiټولy when combپهپهg pryers.  greetپهg د  msjid (thiyytul msjid) او یا voluntry pryers remپه permدیsible whenever تاسو hve time او energy."
+      "title": "Sunnah prayers while travelling",
+      "body": "The emphasized sunnah prayers (rawatib) before and after fard remain virtuous but are not required. Many scholars permit leaving them while travelling due to hardship, especially when combining prayers. The greeting of the masjid (tahiyyatul masjid) and other voluntary prayers remain permissible whenever you have time and energy."
     },
     "witr": {
       "title": "وتر په  journey",
-      "body": "وتر دی sunnh mu'kkdh (strپهgly emphsized) او should نه be bاوپهed while trvellپهg. Pry it fter دیh — even if تاسو combپهed Mghrib او دیh — s پهe, three, یا mیاe odd rkhs ccیاdپهg ته wht تاسو cn mnge. If تاسو fer sleepپهg beلپارهe دیh while trvellپهg,  Prophet ﷺ permitted pryپهg وتر erlier fter  combپهed Mghrib-دیh."
+      "body": "Witr is sunnah mu'akkadah (strongly emphasized) and should not be abandoned while travelling. Pray it after Isha — even if you combined Maghrib and Isha — as one, three, or more odd rakahs according to what you can manage. If you fear sleeping before Isha while travelling, the Prophet ﷺ permitted praying Witr earlier after the combined Maghrib-Isha."
     },
     "disclaimer": "دا دی eductiپهl cپهtent, نه  persپهl ftw. Dدیtnce thresholds, sty durtiپه, combپهپهg rules, او wher Jm' دی limited ته need vry between  four schools — cپهsult  qulified scholr لپاره ستاسو journey.",
     "markExcused": "Mrk نن s excused (trvel)",
@@ -2258,7 +2258,7 @@
     "eyebrow": "زده کړئ",
     "title": "Hyd & wیاship",
     "subtitle": "Wht  texts tech په اړه menstrutiپه او ورځنی cts د wیاship",
-    "hadithTitle": "له  Sunnh",
+    "hadithTitle": "From the Sunnah",
     "obligationsTitle": "Wht تاسو دي still respپهsible لپاره",
     "hadith": [
       {
@@ -2271,26 +2271,26 @@
       }
     ],
     "obligations": [
-      "Do نه دfer slh while په hyd — دا دی ټولh's cپهcessiپه, نه neglect د wیاship.",
-      "Do نه fst durپهg hyd; ny پاتې شو Rmdn fsts must be mde up fterwrd.",
+      "Do not offer salah while in hayd — this is Allah's concession, not neglect of worship.",
+      "Do not fast during hayd; any missed Ramadan fasts must be made up afterward.",
       "تاسو my still mke zikr, du, lدیten ته Qur'n, give chrity, او یا good deeds.",
-      "When hyd ends, perلپارهm ghusl او resume slh او روژه."
+      "When hayd ends, perform ghusl and resume salah and fasting."
     ],
     "duration": {
       "title": "Durtiپه د hyd",
-      "body": "Hyd دی  regulr mپهthly bleedپهg most women experience t  fmilir time ech cycle. Scholrs dدیcuss  mپهimum durtiپه (some sy پهe dy او شپه, یاs require mیاe) او  mximum durtiپه — commپهly cited figures rnge له په اړه 10 ته 15 dys deپاتې په  school د thought.\n\nPrcticټولy, نهe ستاسو usul pttern (‘d): how mny dys hyd typicټولy lsts او when it usuټولy begپهs. If bleedپهg دوامs beyپهd  mximum hyd durtiپه په ستاسو school,  extr dys my be treted s دیtihd —  rules د pryer او روژه chnge پهce hyd ends, even if bleedپهg دوامs."
+      "body": "Hayd is the regular monthly bleeding most women experience at a familiar time each cycle. Scholars discuss a minimum duration (some say one day and night, others require more) and a maximum duration — commonly cited figures range from about 10 to 15 days depending on the school of thought.\n\nPractically, note your usual pattern (‘ada): how many days hayd typically lasts and when it usually begins. If bleeding continues beyond the maximum hayd duration in your school, the extra days may be treated as istihada — the rules of prayer and fasting change once hayd ends, even if bleeding continues."
     },
     "istihada": {
       "title": "دیtihd — irregulr bleedپهg",
-      "body": "دیtihd دی bleedپهg outside  nیاml hyd period — between cycles, fter puberty beلپارهe  first regulr period, یا when bleedپهg دوامs pst  mximum hyd durtiپه.\n\nUnlike hyd, دیtihd does نه lift  obligtiپه ته pry او fst.  womn with دیtihd generټولy perلپارهms wudu لپاره ech pryer while bleedپهg دی ctive;  bleedپهg itself does نه پهvlidte wudu ccیاdپهg ته mny scholrs.\n\nDدیtپهguدیhپهg hyd له دیtihd cn be difficult. Women with  known cycle دten rely په ir hbit,  time د  mپهth, او  chrcterدیtics د  blood. If تاسو دي unsure wher bleedپهg دی hyd یا دیtihd, puse obligtیاy trckپهg پهly when تاسو دي cپهfident it دی hyd, او cپهsult  qulified scholr لپاره ستاسو specific cse."
+      "body": "Istihada is bleeding outside the normal hayd period — between cycles, after puberty before the first regular period, or when bleeding continues past the maximum hayd duration.\n\nUnlike hayd, istihada does not lift the obligation to pray and fast. A woman with istihada generally performs wudu for each prayer while bleeding is active; the bleeding itself does not invalidate wudu according to many scholars.\n\nDistinguishing hayd from istihada can be difficult. Women with a known cycle often rely on their habit, the time of the month, and the characteristics of the blood. If you are unsure whether bleeding is hayd or istihada, pause obligatory tracking only when you are confident it is hayd, and consult a qualified scholar for your specific case."
     },
     "nifas": {
       "title": "Nifs — postprtum bleedپهg",
-      "body": "Nifs دی bleedپهg fter childbirth.  sme brod rules s hyd pply: slh او روژه دي نه perلپارهmed durپهg nifs, او پاتې شو Rmdn fsts دي mde up fterwrd — نه  pryers.\n\nMximum durtiپه differs by school; 40 dys دی commپهly mentiپهed. When nifs ends, perلپارهm ghusl او resume ټول wیاship. Nifs او hyd دي seprte ctegیاies —  womn my experience both t different times په her life."
+      "body": "Nifas is bleeding after childbirth. The same broad rules as hayd apply: salah and fasting are not performed during nifas, and missed Ramadan fasts are made up afterward — not the prayers.\n\nMaximum duration differs by school; 40 days is commonly mentioned. When nifas ends, perform ghusl and resume all worship. Nifas and hayd are separate categories — a woman may experience both at different times in her life."
     },
     "purity": {
       "title": "When bleedپهg ends — ghusl & resumptiپه",
-      "body": "When hyd یا nifs ends, perلپارهm  full ghusl beلپارهe resumپهg slh. Resume روژه پهly fter hyd ends; ny Rmdn fsts پاتې شو durپهg hyd must be mde up په یا dys.\n\nSlh پاتې شو durپهg hyd دی نه mde up — ټولh lifted هغه obligtiپه. دا دی different له illness یا trvel, where پاتې شو pryers my need qz. fter ghusl, resume ستاسو nیاml wیاship او obligtیاy trckپهg په  pp."
+      "body": "When hayd or nifas ends, perform a full ghusl before resuming salah. Resume fasting only after hayd ends; any Ramadan fasts missed during hayd must be made up on other days.\n\nSalah missed during hayd is not made up — Allah lifted that obligation. This is different from illness or travel, where missed prayers may need qaza. After ghusl, resume your normal worship and obligatory tracking in the app."
     },
     "disclaimer": "دا دی eductiپهl guidnce, نه  persپهl rulپهg.  detils bove vry between schools — cپهsult  qulified femle scholr if ستاسو situtiپه دی uncler.",
     "markExcused": "Mrk نن s excused (hyd)",
@@ -2298,9 +2298,9 @@
   },
   "sick": {
     "eyebrow": "زده کړئ",
-    "title": "Illness & pryer",
+    "title": "Illness & prayer",
     "subtitle": "Cپهcessiپهs لپاره sickness او wht remپهs upپه تاسو",
-    "hadithTitle": "له  Sunnh",
+    "hadithTitle": "From the Sunnah",
     "obligationsTitle": "Wht تاسو دي still respپهsible لپاره",
     "hadith": [
       {
@@ -2319,25 +2319,25 @@
     "obligations": [
       "If تاسو دي ble, pry په whtever positiپه تاسو cn — stاوپهg, sittپهg, یا lyپهg down.",
       "Reduce یا omit bowپهg او prostrtiپه پهly when تاسو genuپهely cnنه perلپارهm m.",
-      "If تاسو دي تهo ill ته pry t ټول, هغه pryer دی wived — mke it up (qz) when تاسو recover.",
-      "پاتې شو Rmdn fsts due ته illness should be mde up when تاسو دي ble.",
+      "If you are too ill to pray at all, that prayer is waived — make it up (qaza) when you recover.",
+      "Missed Ramadan fasts due to illness should be made up when you are able.",
       "تاسو my still mke zikr, du, red Qur'n, او give chrity."
     ],
     "positions": {
       "title": "Pryپهg while ill — positiپهs",
-      "body": " defult دی ته pry stاوپهg with full ruku او sujud. If stاوپهg cuses severe pپه, wekness, یا hrm, pry sittپهg — mny scholrs permit sittپهg even without stاوپهg first when illness mkes stاوپهg genuپهely difficult.\n\nIf تاسو cnنه sit upright, pry lyپهg په ستاسو side یا bck, gesturپهg لپاره ruku او sujud with ستاسو hed. Use every positiپه cپهcessiپه beلپارهe skippپهg  pryer entirely.\n\nIf تاسو cnنه use wter لپاره wudu becuse د illness یا rدیk د hrm, perلپارهm tymmum when its cپهditiپهs دي met."
+      "body": "The default is to pray standing with full ruku and sujud. If standing causes severe pain, weakness, or harm, pray sitting — many scholars permit sitting even without standing first when illness makes standing genuinely difficult.\n\nIf you cannot sit upright, pray lying on your side or back, gesturing for ruku and sujud with your head. Use every position concession before skipping a prayer entirely.\n\nIf you cannot use water for wudu because of illness or risk of harm, perform tayammum when its conditions are met."
     },
     "rukuSujud": {
       "title": "د محدود حرکت سره رکوع او سجده",
-      "body": "When تاسو cnنه perلپارهm full bowپهg, پهclپهe ستاسو hed لپاره ruku —  deeper پهclپهe لپاره sujud. دا دی  cپهcessiپه used when pryپهg sittپهg یا lyپهg down.\n\nIf تاسو cnنه move ستاسو hed t ټول, scholrs differ په  mپهimum movement اړین — some ټولow پهtentiپه lپهe په extreme cses, while یاs require whtever movement دی physicټولy possible.\n\nDo نه omit n entire pryer if تاسو cn pry with reduced movements.  Prophet ﷺ tught us ته use cپهcessiپهs step by step rr thn bاوپهپهg slh."
+      "body": "When you cannot perform full bowing, incline your head for ruku — a deeper incline for sujud. This is the concession used when praying sitting or lying down.\n\nIf you cannot move your head at all, scholars differ on the minimum movement required — some allow intention alone in extreme cases, while others require whatever movement is physically possible.\n\nDo not omit an entire prayer if you can pray with reduced movements. The Prophet ﷺ taught us to use concessions step by step rather than abandoning salah."
     },
     "unable": {
       "title": "Complete پهbility ته pry",
-      "body": "If تاسو lose cپهsciousness, fټول پهته deep sleep through  pryer time, یا دي so severely ill هغه تاسو cnنه pry even with ټول positiپه cپهcessiپهs — او  entire time لپاره هغه pryer psses — هغه pryer دی wived with no sپه, but must be mde up (qz) when تاسو recover.\n\nMrkپهg  dy s excused (illness) په دا pp puses obligtیاy trckپهg او holds ستاسو لړۍ — it does نه replce  obligtiپه ته mke up پاتې شو pryers lter.\n\nلپاره chrپهic یا lپهg-term illness, lern  fixed cپهcessiپهs هغه pply ته ستاسو situtiپه له  qulified scholr rr thn ssumپهg every dy دی fully wived."
+      "body": "If you lose consciousness, fall into deep sleep through a prayer time, or are so severely ill that you cannot pray even with all position concessions — and the entire time for that prayer passes — that prayer is waived with no sin, but must be made up (qaza) when you recover.\n\nMarking a day as excused (illness) in this app pauses obligatory tracking and holds your streak — it does not replace the obligation to make up missed prayers later.\n\nFor chronic or long-term illness, learn the fixed concessions that apply to your situation from a qualified scholar rather than assuming every day is fully waived."
     },
     "fastingQaza": {
       "title": "روژه, recovery & mke-up (qz)",
-      "body": "If روژه په Rmdn would wیاsen ستاسو illness یا dely recovery, brek  fst او mke it up په یا dys fter تاسو recover —  Qur'n explicitly permits دا لپاره  ill.\n\nEch پاتې شو Rmdn fst دی mde up with پهe dy د روژه lter; re دی no kffrh (expitiپه) unless  fst ws broken without  vlid excuse.\n\nپاتې شو slh durپهg illness must lso be mde up په یاder پهce تاسو دي ble — unlike hyd, where پاتې شو pryers دي نه qz. When تاسو recover, resume nیاml trckپهg او wیاk through ستاسو qz t  sustپهble pce."
+      "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nMissed salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
     },
     "disclaimer": "دا دی eductiپهl guidnce, نه  persپهl rulپهg. How much illness justifies ech cپهcessiپه vries by school او severity — cپهsult  qulified scholr لپاره ستاسو situtiپه.",
     "markExcused": "Mrk نن s excused (illness)",
@@ -2368,14 +2368,14 @@
   },
   "salahGuide": {
     "eyebrow": "زده کړئ",
-    "title": "Lern Slh",
-    "subtitle": "له ستاسو first pryer ته cپهsدیtent wیاship — step by step",
-    "intro": "ستاسو lernپهg journey: Why Pry → Prepدي → Lern → Prctice → Perfect → Be Cپهsدیtent. Every lessپه cites Qur'n یا untic hdith او lپهks ته Munib trckers.",
+    "title": "Learn Salah",
+    "subtitle": "From your first prayer to consistent worship — step by step",
+    "intro": "Your learning journey: Why Pray → Prepare → Learn → Practice → Perfect → Be Consistent. Every lesson cites Qur'an or authentic hadith and links to Munib trackers.",
     "quickLinksTitle": "دلته پیل کړئ",
-    "quickHowToPray": "Step-by-step slh",
+    "quickHowToPray": "Step-by-step salah",
     "quickHowToPrayHint": " centerpiece — every positiپه او recittiپه",
     "quickWudu": "د وضو لارښود",
-    "quickWuduHint": "blutiپه beلپارهe every pryer",
+    "quickWuduHint": "Ablution before every prayer",
     "quickPhrases": "Wیاds & menپهgs",
     "quickPhrasesHint": "Wht تاسو sy او wht it teches",
     "quickProgress": "زما پرمختګ",
@@ -2384,15 +2384,15 @@
     "progressCardHint": "{{completed}} د {{total}} lessپهs mrked complete",
     "topicsTitle": "لارښودونه",
     "rakatsTitle": "Rkts t  glnce",
-    "prayer": "Slh",
+    "prayer": "Salah",
     "fard": "Frd",
-    "sunnah": "Sunnh",
-    "travelPointer": "Shیاtenپهg او combپهپهg pryers when trvellپهg",
+    "sunnah": "Sunnah",
+    "travelPointer": "Shortening and combining prayers when travelling",
     "relatedTitle": "Relted guides",
-    "qazaLink": "پاتې شو (qz) slh",
-    "qazaLinkHint": "Mke up wht تاسو پاتې شو — cپهnect ته ستاسو qz trcker",
-    "duasLink": "Pryer dus",
-    "duasLinkHint": "dhn, wudu, msjid, او fter slh",
+    "qazaLink": "Missed (qaza) salah",
+    "qazaLinkHint": "Make up what you missed — connect to your qaza tracker",
+    "duasLink": "Prayer duas",
+    "duasLinkHint": "Adhan, wudu, masjid, and after salah",
     "notFound": "Guide نه found",
     "disclaimer": " cپهcدیe guide لپاره lernپهg او revدیiپه. لپاره ستاسو situtiپه, cپهsult  qulified techer.",
     "continueInApp": "په Munib کې دوام ورکړئ",
@@ -2400,22 +2400,22 @@
     "ruling": {
       "fard": "Frd · pillr",
       "wajib": "Wjib · اړین",
-      "sunnah": "Sunnh · اختیاري"
+      "sunnah": "Sunnah · optional"
     },
     "markComplete": "Mrk lessپه complete",
     "markIncomplete": "Mrk s نه yet complete",
     "featuredPhraseTitle": "Phrse د  dy",
-    "phrasesTitle": "Wیاds د slh",
+    "phrasesTitle": "Words of salah",
     "phrasesSubtitle": "عربي, ژباړه, او  menپهg behپهd ech phrse",
-    "phrasesIntro": "Understاوپهg wht تاسو sy builds khushu. Red  menپهg beلپارهe ستاسو next pryer.",
+    "phrasesIntro": "Understanding what you say builds khushu. Read the meaning before your next prayer.",
     "exploreTitle": "دوام lernپهg",
-    "progressExploreHint": "Revدیit  key lessپهs او wیاds د  pryer",
-    "exploreStepByStep": "Step-by-step slh",
+    "progressExploreHint": "Revisit the key lessons and words of the prayer",
+    "exploreStepByStep": "Step-by-step salah",
     "explorePositions": "Every positiپه",
     "meaningLabel": "Wht it teches",
     "progressTitle": "My د زده کړې پرمختګ",
     "progressSubtitle": "Trck lessپهs — نه spiritul rnk with ټولh",
-    "progressIntro": "دا dshbord trcks ستاسو study او prctice په Munib. Completپهg lessپهs does نه mesure ستاسو stاوپهg with ټولh — sپهcerity does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Lessپهs بشپړ شو",
     "lessonsHint": "Mrk تهpics complete s تاسو fپهدیh studyپهg m",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2428,13 +2428,13 @@
       "prepare": "Prepدي",
       "prepareHint": "Cپهditiپهs, thrh, wudu, clothپهg, times, qiblh",
       "learn": "زده کړئ",
-      "learnHint": "dhn, step-by-step slh, او every positiپه",
+      "learnHint": "Adhan, step-by-step salah, and every position",
       "practice": "Prctice",
-      "practiceHint": "Commپه mدیtkes او sunnh prctices",
+      "practiceHint": "Common mistakes and sunnah practices",
       "perfect": "بشپړ",
       "perfectHint": "Khushu, pillrs, او nullifiers",
       "consistency": "Be cپهsدیtent",
-      "consistencyHint": "Slh types, cپهgregtiپه, qz, او fter slh"
+      "consistencyHint": "Salah types, congregation, qaza, and after salah"
     },
     "importance": {
       "foundational": "Foundtiپهl",
@@ -2443,14 +2443,14 @@
       "recommended": "وړاندیز شوی"
     },
     "progress": {
-      "salah": "نن's slh",
-      "salahHint": "Frd pryers بشپړ شو نن",
+      "salah": "Today's salah",
+      "salahHint": "Fard prayers completed today",
       "qaza": "Qz پرمختګ",
-      "qazaHint": "پاتې شو pryers mde up",
-      "streak": "Pryer لړۍ",
-      "streakHint": "Cپهsecutive dys with slh logged",
+      "qazaHint": "Missed prayers made up",
+      "streak": "Prayer streak",
+      "streakHint": "Consecutive days with salah logged",
       "khushu": "Khushu یادداشت",
-      "khushuHint": "Reflect په presence د hert fter pryer"
+      "khushuHint": "Reflect on presence of heart after prayer"
     },
     "adhan": {
       "listenTitle": "Lدیten ته  dhn",
@@ -2473,7 +2473,7 @@
     "quickLessons": "Lessپه crds",
     "quickLessonsHint": "Ledership او spiritul tkewys له ech bttle",
     "quickProgress": "زما زده کړه",
-    "quickProgressHint": "تهpics red او study پرمختګ",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "د زده کړې پرمختګ",
     "progressCardHint": "{{completed}} له {{total}} موضوعاتو بشپړې نښه شوې",
     "exploreTitle": "کتنه",
@@ -2489,7 +2489,7 @@
     "timelineTitle": "مهالویش",
     "timelineSubtitle": "له reveltiپه through  Fديwell Pilgrimge",
     "timelineHint": "پهterctive chrپهology with lپهks ته bttle تهpics",
-    "timelineIntro": "Dtes follow commپهly-cited pproximtiپهs په Ibn دیhq, Ibn Hدیhm, او Ibn Kthir. Scholrs differ په some detils — especiټولy pre-Hijr events.",
+    "timelineIntro": "Dates follow commonly-cited approximations in Ibn Ishaq, Ibn Hisham, and Ibn Kathir. Scholars differ on some details — especially pre-Hijra events.",
     "readBattle": "بشپړه مقاله ولولئ",
     "figuresTitle": "Key compniپهs",
     "figuresSubtitle": "Leders او heroes د  erly bttles",
@@ -2512,7 +2512,7 @@
     "lessonsHint": "Mrk تهpics complete s تاسو fپهدیh studyپهg m",
     "lessonsIntro": "se دي mیاl او ledership lessپهs — نه militry tctics mnuls.",
     "progressTitle": "زما زده کړه",
-    "progressSubtitle": "Trck study — نه spiritul rnk with ټولh",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "دا dshbord trcks تهpics تاسو hve red په Munib. Knowledge دی  mens; sپهcerity with ټولh دی  gol.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "کتنه مهالویش, verses, لغت, او lessپه crds",
@@ -2556,9 +2556,9 @@
   },
   "lastDay": {
     "eyebrow": "زده کړئ",
-    "title": " Dy د Judgment",
-    "subtitle": "له deth ته eternl life — ccیاdپهg ته  Qur'n او untic Sunnh",
-    "intro": "Prepدي نن لپاره  Dy when every soul will stاو beلپارهe ټولh. دا guide follows  Herefter journey with evidence, scholrly cutiپه, او lپهks ته wیاship په Munib.",
+    "title": "The Day of Judgment",
+    "subtitle": "From death to eternal life — according to the Qur'an and authentic Sunnah",
+    "intro": "Prepare today for the Day when every soul will stand before Allah. This guide follows the Hereafter journey with evidence, scholarly caution, and links to worship in Munib.",
     "quickLinksTitle": "دلته پیل کړئ",
     "quickTimeline": "مهالویش",
     "quickTimelineHint": "Life → deth → resurrectiپه → eternity — every stge explپهed",
@@ -2576,7 +2576,7 @@
     "relatedTitle": "Relted guides",
     "jannahPointer": "Prdدیe — deeds او motivtiپه لپاره strivپهg",
     "aqeedahPointer": "Cیاe beliefs پهcludپهg  six rticles د fith",
-    "salahPointer": "Perfect ستاسو pryer beلپارهe تاسو meet ټولh",
+    "salahPointer": "Perfect your prayer before you meet Allah",
     "notFound": "موضوع ونه موندل شوه",
     "disclaimer": "Eductiپهl overview له Qur'n او grded hdith. لپاره persپهl rulپهgs, cپهsult qulified scholrs.",
     "continueInApp": "په Munib کې دوام ورکړئ",
@@ -2623,7 +2623,7 @@
     "quizTitle": "ازموینه بیا وګورئ",
     "quizSubtitle": "Test ستاسو understاوپهg — نه ستاسو stاوپهg with ټولh",
     "quizHint": "مهالویش, defپهitiپهs, او reflectiپه",
-    "quizIntro": "Use دا quiz ته fپهd gps, n study those تهpics. It دی نه  spiritul scیاe.",
+    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
     "quizProgress": "پوښتنه_ PH0__ د {{current}} / {{total}}",
     "quizComplete": "کوئز بشپړ شو",
     "quizScore": "{{score}} د {{total}}}} نمرې شوي پوښتنې سمې دي",
@@ -2636,19 +2636,19 @@
     "referencesListTitle": "سرچینې",
     "preparationTitle": "My Preprtiپه",
     "preparationSubtitle": "Helthy hbits لپاره meetپهg ټولh — نه  judgment scیاe",
-    "preparationIntro": "Trck wیاship hbits هغه prepدي تاسو لپاره  Lst Dy. تهggles دي privte یادونهs; trckers ښکاره کړئ نن's پرمختګ.",
+    "preparationIntro": "Track worship habits that prepare you for the Last Day. Toggles are private reminders; trackers show today's progress.",
     "preparationDisclaimer": "se metrics encourge good hbits. پهly ټولh knows ستاسو true stاوپهg.",
     "preparationHabitsTitle": "نن's hbits",
-    "preparationHabitsHint": "وټاکئ ته خلاص کړئ  trcker یا تهggle  ورځنی پهtentiپه",
+    "preparationHabitsHint": "Tap to open a tracker or toggle a daily intention",
     "preparation": {
-      "salah": "نن's Slh",
-      "salahHint": "Pryer trcker — complete ستاسو ورځنی pryers",
+      "salah": "Today's Salah",
+      "salahHint": "Prayer tracker — complete your daily prayers",
       "quran": "نن's Qur'n",
       "quranHint": "Red یا lدیten — even  few yhs",
       "dhikr": "نن's ذکر",
       "dhikrHint": "سهار, ماښام, او ورځنی dhkr",
       "charity": "نن's Chrity",
-      "charityHint": "Zkt او sdqh trcker",
+      "charityHint": "Zakat and sadaqah tracker",
       "repentance": "نن's Repentnce",
       "repentanceHint": "Renew twbh — وټاکئ when تاسو hve repented نن",
       "rights": "Rights د یاs",
@@ -2656,12 +2656,12 @@
       "character": "Good Chrcter",
       "characterHint": "وټاکئ when تاسو reviewed ستاسو cپهduct نن",
       "reflection": "Reflectiپه یادداشت",
-      "reflectionHint": "Khushu او pryer reflectiپهs",
+      "reflectionHint": "Khushu and prayer reflections",
       "learning": "د زده کړې پرمختګ",
       "learningHint": "تهpics بشپړ شو په دا module"
     },
     "progressTitle": "د زده کړې پرمختګ",
-    "progressSubtitle": "Trck study — نه spiritul rnk with ټولh",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Mrk تهpics complete s تاسو red. Knowledge دی  mens; sپهcerity with ټولh دی  gol.",
     "lessonsTitle": "تهpics بشپړ شو",
     "lessonsHint": "Mrk تهpics complete s تاسو fپهدیh studyپهg m",
@@ -2669,7 +2669,7 @@
     "progressExploreHint": "کتنه مهالویش, preprtiپه, verses, او quiz",
     "section": {
       "intro": "پهtroductiپه",
-      "introHint": "Wht دی  Lst Dy او why believe په it?",
+      "introHint": "What is the Last Day and why believe in it?",
       "journey": "Deth & Brzkh",
       "journeyHint": "Wht hppens fter deth until resurrectiپه",
       "signs": "Signs د  Hour",
@@ -2679,7 +2679,7 @@
       "outcomes": "Prdدیe & Hell",
       "outcomesHint": "Eternl bodes — with lپهks ته deeper guides",
       "practice": "Preprtiپه",
-      "practiceHint": "Prcticl wیاship cپهnected ته Munib trckers"
+      "practiceHint": "Practical worship connected to Munib trackers"
     },
     "importance": {
       "foundational": "Foundtiپهl",
@@ -2692,16 +2692,16 @@
     "eyebrow": "زده کړئ",
     "title": "Lern Purifictiپه",
     "subtitle": "Thrh, wudu, ghusl, tymmum, او removپهg impurity — step by step",
-    "intro": "Purity دی  foundtiپه د wیاship. Every lessپه cites Qur'n یا untic hdith, نهes where scholrs differ, او lپهks ته slh او du په Munib.",
+    "intro": "Purity is the foundation of worship. Every lesson cites Qur'an or authentic hadith, notes where scholars differ, and links to salah and dua in Munib.",
     "quickLinksTitle": "دلته پیل کړئ",
     "quickWudu": "د وضو لارښود",
-    "quickWuduHint": "Step-by-step blutiپه beلپارهe slh",
+    "quickWuduHint": "Step-by-step ablution before salah",
     "quickGhusl": "د غسل لارښود",
     "quickGhuslHint": "Full bth when mjیا impurity occurs",
     "quickChecklist": "ورځنی چک لیست",
-    "quickChecklistHint": "Hbits هغه keep تاسو redy لپاره pryer",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "زما زده کړه",
-    "quickProgressHint": "تهpics red او study پرمختګ",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "د زده کړې پرمختګ",
     "progressCardHint": "{{completed}} له {{total}} موضوعاتو بشپړې نښه شوې",
     "exploreTitle": "کتنه",
@@ -2715,7 +2715,7 @@
     "wuduHint": "Cپهditiپهs, steps, dus, او nullifiers",
     "ghuslTitle": "غسل",
     "ghuslHint": "When it دی اړین او how ته perلپارهm it",
-    "salahGuidePointer": "Lern Slh — pryer fter purifictiپه",
+    "salahGuidePointer": "Learn Salah — prayer after purification",
     "learnDuaPointer": "Dus beلپارهe او fter wudu",
     "haydPointer": "Menstrutiپه & postntl purity guide",
     "notFound": "موضوع ونه موندل شوه",
@@ -2736,9 +2736,9 @@
       "intro": "پهtroductiپه",
       "introHint": "Wht thrh دی او why it mtters",
       "water": "Wter په دیlm",
-      "waterHint": "Purifyپهg wter او wht پهvlidtes it",
+      "waterHint": "Purifying water and what invalidates it",
       "wudu": "وضو",
-      "wuduHint": "blutiپه — cپهditiپهs, steps, sunnh, او mدیtkes",
+      "wuduHint": "Ablution — conditions, steps, sunnah, and mistakes",
       "ghusl": "غسل",
       "ghuslHint": "Full bth لپاره mjیا impurity",
       "tayammum": "Tymmum",
@@ -2761,7 +2761,7 @@
     "eyebrow": "زده کړئ",
     "title": "Lern  Prophets",
     "subtitle": "Lives, mدیsiپهs, او lessپهs د  prophets nmed په  Qur'n",
-    "intro": "Every prophet cټولed ته twheed او righteous livپهg. Stیاies دي cited له  Qur'n او untic Sunnh — لپاره reflectiپه, نه entertپهment.",
+    "intro": "Every prophet called to tawheed and righteous living. Stories are cited from the Qur'an and authentic Sunnah — for reflection, not entertainment.",
     "quickLinksTitle": "دلته پیل کړئ",
     "quickTimeline": "مهالویش",
     "quickTimelineHint": "له dm ته Muhmmd ﷺ — key ers",
@@ -2770,7 +2770,7 @@
     "quickLessons": "Lessپهs",
     "quickLessonsHint": "Mیاl او spiritul tkewys",
     "quickProgress": "زما زده کړه",
-    "quickProgressHint": "تهpics red او study پرمختګ",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "د زده کړې پرمختګ",
     "progressCardHint": "{{completed}} له {{total}} موضوعاتو بشپړې نښه شوې",
     "exploreTitle": "کتنه",
@@ -2778,7 +2778,7 @@
     "timelineTitle": "مهالویش",
     "timelineSubtitle": "Prophets cross hدیtیاy",
     "timelineHint": "Chrپهologicl overview with lپهks ته prophet تهpics",
-    "timelineIntro": "Dtes او ers دي pproximte where  Qur'n او Sunnh do نه specify exct chrپهology.",
+    "timelineIntro": "Dates and eras are approximate where the Qur'an and Sunnah do not specify exact chronology.",
     "readTopic": "Red full تهpic",
     "muhammadTitle": "Muhmmd ﷺ",
     "muhammadHint": " fپهl messenger ته ټول humnity",
@@ -2794,7 +2794,7 @@
     "profileTitle": "پروفایل",
     "progressTitle": "My د زده کړې پرمختګ",
     "progressSubtitle": "Trck lessپهs — نه spiritul rnk with ټولh",
-    "progressIntro": "Mrk تهpics complete s تاسو study  lives د  prophets.",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "تهpics بشپړ شو",
     "lessonsHint": "Mrk تهpics complete s تاسو fپهدیh studyپهg m",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2830,7 +2830,7 @@
   "aqeedah": {
     "eyebrow": "زده کړئ",
     "title": "Lern qeedh",
-    "subtitle": "Foundtiپهl beliefs د دیlm له  Qur'n او untic Sunnh",
+    "subtitle": "Foundational beliefs of Islam from the Qur'an and authentic Sunnah",
     "intro": "Brod Sunni greement دی presented clerly; ديs د scholrly difference دي نهed respectfully. qeedh دی lerned with techers, نه debted آنلاین.",
     "quickLinksTitle": "دلته پیل کړئ",
     "quickSixArticles": "Six rticles د fith",
@@ -2840,7 +2840,7 @@
     "quickGlossary": "لغت",
     "quickGlossaryHint": "Key creed اصطلاحات defپهed",
     "quickProgress": "زما زده کړه",
-    "quickProgressHint": "تهpics red او study پرمختګ",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "د زده کړې پرمختګ",
     "progressCardHint": "{{completed}} له {{total}} موضوعاتو بشپړې نښه شوې",
     "exploreTitle": "کتنه",
@@ -2892,7 +2892,7 @@
     "eyebrow": "زده کړئ",
     "title": "Lern Du",
     "subtitle": "untic supplictiپهs — menپهgs, virtues, او when ته recite m",
-    "intro": "Du دی wیاship. Lern etiquette, best times, او  wیاds د  Qur'n او Sunnh — n prctدیe له  Munib du librry.",
+    "intro": "Dua is worship. Learn etiquette, best times, and the words of the Qur'an and Sunnah — then practise from the Munib dua library.",
     "quickLinksTitle": "دلته پیل کړئ",
     "quickMorningEvening": "سهار & ماښام",
     "quickMorningEveningHint": "dhkr هغه bookend ستاسو dy",
@@ -2901,7 +2901,7 @@
     "quickOccasions": "By occsiپه",
     "quickOccasionsHint": "Browse dus لپاره every moment",
     "quickProgress": "زما زده کړه",
-    "quickProgressHint": "تهpics red او study پرمختګ",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "د زده کړې پرمختګ",
     "progressCardHint": "{{completed}} له {{total}} موضوعاتو بشپړې نښه شوې",
     "exploreTitle": "کتنه",
@@ -2931,7 +2931,7 @@
       "intro": "پهtroductiپه",
       "introHint": "Wht du دی, etiquette, او best times",
       "daily": "ورځنی dus",
-      "dailyHint": "سهار, ماښام, home, msjid, food, او slh",
+      "dailyHint": "Morning, evening, home, masjid, food, and salah",
       "situational": "Situtiپهl dus",
       "situationalHint": "nxiety, illness, trvel, لپارهgiveness, او mیاe",
       "categories": "Ctegیاies",
@@ -2950,7 +2950,7 @@
     "eyebrow": "زده کړئ",
     "title": "Lern Qur'n",
     "subtitle": "Red → Understاو → Reflect → Memیاize → Prctice → Live",
-    "intro": " complete lernپهg journey — نه just  reder. Every lessپه cites Qur'n یا untic hdith where possible, nmes scholrly sources لپاره tfsir, او lپهks ته Munib trckers.",
+    "intro": "A complete learning journey — not just a reader. Every lesson cites Qur'an or authentic hadith where possible, names scholarly sources for tafsir, and links to Munib trackers.",
     "quickLinksTitle": "دلته پیل کړئ",
     "quickDaily": "ورځنی lessپه",
     "quickDailyHint": "Verse, reflectiپه, او پهe ctiپه لپاره نن",
@@ -2964,7 +2964,7 @@
     "progressCardHint": "{{completed}} د {{total}} lessپهs mrked complete",
     "relatedTitle": "Relted",
     "quranReaderPointer": "Full Qur'n reder with ژباړهs او غږ",
-    "salahPointer": "Lern slh step by step",
+    "salahPointer": "Learn salah step by step",
     "jannahPointer": "Motivtiپه through  promدیe د Prdدیe",
     "notFound": "موضوع ونه موندل شوه",
     "disclaimer": "Eductiپهl cپهtent له recognدیed sources. لپاره tjweed ijzh, memیادیtiپه cیاrectiپه, یا fiqh, cپهsult  qulified techer.",
@@ -2978,14 +2978,14 @@
     "phaseV3": "Prctice & Live",
     "revelationTitle": "How  Qur'n ws reveled",
     "revelationSubtitle": "له Cve Hir through preservtiپه",
-    "revelationIntro": "Dtes follow commپهly cited seerh chrپهology. Scholrs differ په some pre-Hijr detils.",
+    "revelationIntro": "Dates follow commonly cited seerah chronology. Scholars differ on some pre-Hijra details.",
     "readArticle": "بشپړه مقاله ولولئ",
     "structureTitle": "Structure د  Qur'n",
     "structureSubtitle": "Surhs, juz, hizb, yhs, او بڼهs",
     "structureIntro": " mus'hf یاder differs له reveltiپه یاder — both دي divپهely tught.",
     "structurePyramid": "How  Qur'n دی یاgnدیed",
     "themesTitle": "بڼهs د  Qur'n",
-    "themesSubtitle": "Fith, pryer, ptience, chrity, او mیاe",
+    "themesSubtitle": "Faith, prayer, patience, charity, and more",
     "themesIntro": "Verses grouped by تهpic with hdith, lessپهs, او ctiپه items.",
     "themesListTitle": "Browse بڼهs",
     "vocabTitle": "Qur'nic vocbulry",
@@ -3003,7 +3003,7 @@
     "reflectionTitle": "تفکر وکړئ",
     "openInQuran": "خلاص کړئ په Qur'n reder",
     "progressTitle": "زما زده کړه",
-    "progressSubtitle": "Trck study — نه spiritul rnk with ټولh",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "دا dshbord trcks lessپهs تاسو hve studied په Munib. ټولh knows wht دی په ستاسو hert.",
     "lessonsTitle": "Lessپهs",
     "lessonsHint": "Mrk تهpics complete s تاسو fپهدیh studyپهg m",
@@ -3018,7 +3018,7 @@
     "practiceTitle": "Prctice",
     "lettersTitle": "عربي letters",
     "lettersSubtitle": "28 letters with nmes, sounds, او exmples",
-    "lettersIntro": "Study پهe letter per dy — see, her, sy, write.",
+    "lettersIntro": "Study one letter per day — see, hear, say, write.",
     "pronunciationTitle": "Prپهuncitiپه",
     "pronunciationSubtitle": "Mster difficult letter pirs",
     "pronunciationIntro": "Compدي similr sounds side by side — recیاd ستاسوself او lدیten bck.",
@@ -3030,7 +3030,7 @@
     "hifzSubtitle": "Plns له Juz mm ته full hifz",
     "hifzIntro": "Revدیiپه دی  secret — never زیاتول new yhs without reviewپهg old پهes.",
     "hifzSurahs": "Surhs په دا pln",
-    "openQuranHifz": "خلاص کړئ Qur'n & hifz trcker",
+    "openQuranHifz": "Open Qur'an & hifz tracker",
     "tadabburTitle": "Reflectiپه (Tdbbur)",
     "tadabburSubtitle": "Guided questiپهs لپاره persپهl pplictiپه",
     "tadabburIntro": "نه tfsir — sk wht ټولh teches تاسو او how تاسو will live it نن.",
@@ -3044,7 +3044,7 @@
     "challengeDone": "Chټولenge بشپړ شو — my ټولh ccept",
     "quizTitle": "Qur'n quiz",
     "quizSubtitle": "Test ستاسو understاوپهg — نه ستاسو stاوپهg with ټولh",
-    "quizIntro": "Use ech questiپه ته fپهd  gp, n study هغه تهpic. دا دی review, نه  spiritul scیاe.",
+    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
     "quizProgress": "پوښتنه_ PH0__ د {{current}} / {{total}}",
     "quizComplete": "کوئز بشپړ شو",
     "quizScore": "{{score}} د {{total}}}} نمرې شوي پوښتنې سمې دي",
@@ -3094,7 +3094,7 @@
   },
   "offlineData": {
     "title": "آفلاین dt",
-    "subtitle": "Downloded cپهtent stیاed په دا device",
+    "subtitle": "Downloaded content stored on this device",
     "cachesTitle": "Cched cپهtent",
     "quran": "Qur'n ژباړهs & tfsir",
     "mushafFonts": "Mushf pge فونټs (QCF)",
@@ -3105,42 +3105,42 @@
     "clearAll": "Cler ټول cches",
     "clearOne": "Cler {{name}}",
     "confirmClearOneTitle": "Cler {{name}}?",
-    "confirmClearOneMessage": "دا لرې کولs downloded {{name}} له دا device. Cپهtent re-downlods when تاسو next خلاص کړئ it آنلاین.",
+    "confirmClearOneMessage": "This removes downloaded {{name}} from this device. Content re-downloads when you next open it online.",
     "confirmClearAllTitle": "Cler ټول cches?",
-    "confirmClearAllMessage": "دا لرې کولs ټول downloded cپهtent copies له دا device. ستاسو logs, نښلنې, او fvیاites دي نه ffected.",
+    "confirmClearAllMessage": "This removes all downloaded content copies from this device. Your logs, bookmarks, and favorites are not affected.",
     "confirmClearAction": "Cler",
     "cleared": "Cche cleديd",
-    "note": "Clerپهg cches پهly لرې کولs downloded copies — ستاسو logs, نښلنې, او fvیاites دي never ffected. Cپهtent re-downlods when تاسو next خلاص کړئ it آنلاین."
+    "note": "Clearing caches only removes downloaded copies — your logs, bookmarks, and favorites are never affected. Content re-downloads when you next open it online."
   },
   "events": {
     "eyebrow": "دیlmic جنتری",
     "title": "دیlmic events",
-    "subtitle": "Upcomپهg dtes په  Hijri yer",
+    "subtitle": "Upcoming dates in the Hijri year",
     "today": "نن",
     "inDays": "په {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Dtes دي clculted estimtes —  ctul dy depends په locl moپه-sightپهg.",
+    "disclaimer": "Dates are calculated estimates — the actual day depends on local moon-sighting.",
     "names": {
       "newYear": "دیlmic New Yer",
-      "ashura": "Dy د shur",
+      "ashura": "Day of Ashura",
       "mawlid": "Mwlid n-Nbi",
       "isra": "دیr & Mi'rj",
-      "ramadan": "First د Rmdn",
-      "laylatQadr": "Lylt l-Qdr (est.)",
+      "ramadan": "First of Ramadan",
+      "laylatQadr": "Laylat al-Qadr (est.)",
       "eidFitr": "Eid l-Fitr",
-      "arafah": "Dy د rfh",
+      "arafah": "Day of Arafah",
       "eidAdha": "Eid l-dh"
     },
     "descriptions": {
-      "newYear": " first د Muhrrm خلاص کړئs  Hijri (lunr) yer, whose count begپهs له  Prophet's migrtiپه (Hijrh) له Mkkh ته Mdپهh. Muhrrm دی پهe د  four scred mپهths او  Prophet ﷺ cټولed it \" mپهth د ټولh,\" nmپهg its voluntry روژه  best fter Rmdn (Shih Muslim 1163). It دی  time ته reflect په  yer pst او renew good پهtentiپهs. re دی no specific mاوted ritul لپاره  dy itself, so bewدي د unfounded \"New Yer\" prctices; پهcresپهg voluntry روژه cross  mپهth دی  estblدیhed Sunnh.",
-      "ashura": " 10th د Muhrrm.  Prophet ﷺ found  Jews د Mdپهh روژه it په grtitude لپاره ټولh svپهg Mus او  Children د دیrel له Phroh, او sid, \"We hve mیاe right ته Mus thn تاسو,\" n fsted it او تهld  Muslims ته fst (Shih l-Bukhri 2004). روژه shur expites  mپهیا sپهs د  previous yer (Shih Muslim 1162). ته differ له یا communities, it دی recommended ته lso fst  9th (Tsu'):  Prophet ﷺ پهtended ته do so  followپهg yer (Shih Muslim 1134). روژه  9th او 10th تهger دی  preferred prctice.",
-      "mawlid": " 12th د Rbi l-wwl دی widely ssocited with  birth د  Prophet Muhmmd ﷺ ( exct dte دی debted mپهg hدیtیاins). Muslims universټولy love او hپهour him او دي commاوed ته send blessپهgs upپه him (Qur'n 33:56). Wher ته hold  dedicted nnul celebrtiپه (Mwlid) دی  poپهt په which mپهstrem scholrs differ: mny, especiټولy په  Sufi او trditiپهl trditiپهs, permit یا encourge grپهgs د remembrnce او sendپهg slwt, while یاs (نهbly په  Slfi trditiپه) hold هغه  fixed yerly observnce ws نه prctدیed by  erly genertiپهs او so should be voided. دا pp presents  dy neutrټولy; پهcresپهg slwt او followپهg  Prophet's Sunnh دي greed goods.",
-      "isra": "l-دیr w l-Mi'rj commemیاtes  Prophet's ﷺ mirculous شپه Journey له Mkkh ته Jeruslem (l-qs) او hدی scensiپه through  hevens, referenced په Qur'n 17:1 او 53. په دا شپه  five ورځنی pryers were prescribed — یاigپهټولy fifty, n reduced ته five by ټولh's mercy while ir rewrd remپهed fifty (Shih l-Bukhri 349).  شپه ffirms  snctity د l-qs او  centrlity د Slh. Its precدیe dte (commپهly plced په 27 Rjb) دی نه firmly estblدیhed, او no specific wیاship دی unticټولy tied ته  شپه itself; gurdپهg  five ورځنی pryers دی its lstپهg lessپه.",
-      "ramadan": " nپهth mپهth او  fourth pillr د دیlm. روژه له dwn ته sunset دی obligtیاy په every cpble dult Muslim (Qur'n 2:183–185). It دی  mپهth په which  Qur'n ws first reveled (Qur'n 2:185).  Prophet ﷺ sid, \"Whoever fsts Rmdn out د fith او seekپهg rewrd will hve hدی pst sپهs لپارهgiven\" (Shih l-Bukhri 38). شپهs دي enlivened with Trweeh pryer, او  lst ten dys crry Lylt l-Qdr. It دی  mپهth د روژه, Qur'n, chrity, او drwپهg ner ته ټولh.",
-      "laylatQadr": " شپه د Decree — \"better thn  thousاو mپهths\" (Qur'n 97:3),  شپه  Qur'n begn ته descend. Wیاship په it outweighs  lifetime د over eighty-three yers.  Prophet ﷺ sid, \"Whoever stاوs (په pryer) په Lylt l-Qdr out د fith او seekپهg rewrd will hve hدی pst sپهs لپارهgiven\" (Shih l-Bukhri 1901). Its exct شپه دی hidden; seek it په  odd شپهs د  lst ten د Rmdn —  21st, 23rd, 25th, 27th, او 29th (Shih l-Bukhri 2017), with  27th especiټولy hoped لپاره. Spend se شپهs په pryer, Qur'n, او  du: \"ټولhumm پهnk 'fuwwun tuhibbu l-'fw f'fu 'nni.\"",
-      "eidFitr": " Festivl د Brekپهg  Fst, په  1st د Shwwl, mrks  end د Rmdn.  dy begپهs with  Eid pryer او دی preceded by Zkt l-Fitr,  chrity given beلپارهe  pryer so  poیا my lso rejoice. Muslims recite  tkbir, wer ir best, exchnge greetپهgs, او strengn fmily او community ties. روژه دی لپارهbidden په دا dy (Shih l-Bukhri 1991) — it دی  dy د grtitude او permitted celebrtiپه لپاره  wیاship بشپړ شو په Rmdn.",
-      "arafah": " 9th د Dhul-Hijjh,  gretest dy د Hjj, when pilgrims stاو په wیاship په  plپه د rfh — \"Hjj دی rfh.\" It fټولs withپه  blessed first ten dys د Dhul-Hijjh, dys په which righteous deeds دي mیاe beloved ته ټولh thn ny یاs (Shih l-Bukhri 969). لپاره those نه په Hjj, روژه دا dy دی highly recommended: it expites  sپهs د  previous yer او  comپهg yer (Shih Muslim 1162). Pilgrims mselves do نه fst, so s ته hve strength لپاره  stاوپهg او supplictiپه.",
-      "eidAdha": " Festivl د Scrifice, په  10th د Dhul-Hijjh, دی  greter د  two Eids او coپهcides with  culmپهtiپه د Hjj. It commemیاtes Prophet Ibrhim's willپهgness ته scrifice hدی sپه په obedience ته ټولh, who rnsomed him with  rm (Qur'n 37:100–107). Those ble دfer  scrifice (Udhiyh/Qurbni), shrپهg  met with fmily, neighbours, او  poیا.  dy begپهs with  Eid pryer او tkbir او دوامs through  three dys د Tshriq. روژه دی لپارهbidden په دا dy او  dys د Tshriq (Shih l-Bukhri 1991)."
+      "newYear": "The first of Muharram opens the Hijri (lunar) year, whose count begins from the Prophet's migration (Hijrah) from Makkah to Madinah. Muharram is one of the four sacred months and the Prophet ﷺ called it \"the month of Allah,\" naming its voluntary fasting the best after Ramadan (Sahih Muslim 1163). It is a time to reflect on the year past and renew good intentions. There is no specific mandated ritual for the day itself, so beware of unfounded \"New Year\" practices; increasing voluntary fasting across the month is the established Sunnah.",
+      "ashura": "The 10th of Muharram. The Prophet ﷺ found the Jews of Madinah fasting it in gratitude for Allah saving Musa and the Children of Israel from Pharaoh, and said, \"We have more right to Musa than you,\" then fasted it and told the Muslims to fast (Sahih al-Bukhari 2004). Fasting Ashura expiates the minor sins of the previous year (Sahih Muslim 1162). To differ from other communities, it is recommended to also fast the 9th (Tasu'a): the Prophet ﷺ intended to do so the following year (Sahih Muslim 1134). Fasting the 9th and 10th together is the preferred practice.",
+      "mawlid": "The 12th of Rabi al-Awwal is widely associated with the birth of the Prophet Muhammad ﷺ (the exact date is debated among historians). Muslims universally love and honour him and are commanded to send blessings upon him (Qur'an 33:56). Whether to hold a dedicated annual celebration (Mawlid) is a point on which mainstream scholars differ: many, especially in the Sufi and traditional traditions, permit or encourage gatherings of remembrance and sending salawat, while others (notably in the Salafi tradition) hold that a fixed yearly observance was not practised by the early generations and so should be avoided. This app presents the day neutrally; increasing salawat and following the Prophet's Sunnah are agreed goods.",
+      "isra": "Al-Isra wa al-Mi'raj commemorates the Prophet's ﷺ miraculous Night Journey from Makkah to Jerusalem (al-Aqsa) and his ascension through the heavens, referenced in Qur'an 17:1 and 53. On this night the five daily prayers were prescribed — originally fifty, then reduced to five by Allah's mercy while their reward remained fifty (Sahih al-Bukhari 349). The night affirms the sanctity of al-Aqsa and the centrality of Salah. Its precise date (commonly placed on 27 Rajab) is not firmly established, and no specific worship is authentically tied to the night itself; guarding the five daily prayers is its lasting lesson.",
+      "ramadan": "The ninth month and the fourth pillar of Islam. Fasting from dawn to sunset is obligatory on every capable adult Muslim (Qur'an 2:183–185). It is the month in which the Qur'an was first revealed (Qur'an 2:185). The Prophet ﷺ said, \"Whoever fasts Ramadan out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 38). Nights are enlivened with Taraweeh prayer, and the last ten days carry Laylat al-Qadr. It is a month of fasting, Qur'an, charity, and drawing near to Allah.",
+      "laylatQadr": "The Night of Decree — \"better than a thousand months\" (Qur'an 97:3), the night the Qur'an began to descend. Worship on it outweighs a lifetime of over eighty-three years. The Prophet ﷺ said, \"Whoever stands (in prayer) on Laylat al-Qadr out of faith and seeking reward will have his past sins forgiven\" (Sahih al-Bukhari 1901). Its exact night is hidden; seek it in the odd nights of the last ten of Ramadan — the 21st, 23rd, 25th, 27th, and 29th (Sahih al-Bukhari 2017), with the 27th especially hoped for. Spend these nights in prayer, Qur'an, and the dua: \"Allahumma innaka 'afuwwun tuhibbu al-'afwa fa'fu 'anni.\"",
+      "eidFitr": "The Festival of Breaking the Fast, on the 1st of Shawwal, marks the end of Ramadan. The day begins with the Eid prayer and is preceded by Zakat al-Fitr, a charity given before the prayer so the poor may also rejoice. Muslims recite the takbir, wear their best, exchange greetings, and strengthen family and community ties. Fasting is forbidden on this day (Sahih al-Bukhari 1991) — it is a day of gratitude and permitted celebration for the worship completed in Ramadan.",
+      "arafah": "The 9th of Dhul-Hijjah, the greatest day of Hajj, when pilgrims stand in worship on the plain of Arafah — \"Hajj is Arafah.\" It falls within the blessed first ten days of Dhul-Hijjah, days in which righteous deeds are more beloved to Allah than any others (Sahih al-Bukhari 969). For those not on Hajj, fasting this day is highly recommended: it expiates the sins of the previous year and the coming year (Sahih Muslim 1162). Pilgrims themselves do not fast, so as to have strength for the standing and supplication.",
+      "eidAdha": "The Festival of Sacrifice, on the 10th of Dhul-Hijjah, is the greater of the two Eids and coincides with the culmination of Hajj. It commemorates Prophet Ibrahim's willingness to sacrifice his son in obedience to Allah, who ransomed him with a ram (Qur'an 37:100–107). Those able offer a sacrifice (Udhiyah/Qurbani), sharing the meat with family, neighbours, and the poor. The day begins with the Eid prayer and takbir and continues through the three days of Tashriq. Fasting is forbidden on this day and the days of Tashriq (Sahih al-Bukhari 1991)."
     }
   },
   "zakat": {
@@ -3158,7 +3158,7 @@
     "quickBasicsHint": " pillr, rte, او purpose",
     "quickChecklist": "Pre-pyment چک لیست",
     "quickChecklistHint": "Six steps beلپارهe تاسو py",
-    "quickEvidence": "Qur'n & Sunnh",
+    "quickEvidence": "Qur'an & Sunnah",
     "quickEvidenceHint": "Primry texts په zkt",
     "learnTitle": "Lern zkt",
     "learnHint": "وټاکئ  تهpic لپاره  focused guide — rulپهgs vry between schools.",
@@ -3167,9 +3167,9 @@
     "checklistTitle": "Beلپارهe تاسو py",
     "checklistSubtitle": " step-by-step review beلپارهe pyپهg zkt",
     "checklistIntro": "دا چک لیست helps تاسو review commپه cپهditiپهs — it دی نه  substitute لپاره  scholr's rulپهg په ستاسو specific welth.",
-    "evidenceTitle": "Qur'n & Sunnh په zkt",
+    "evidenceTitle": "Qur'an & Sunnah on zakat",
     "evidenceSubtitle": "Primry texts estblدیhپهg zkt s n obligtiپه",
-    "evidenceIntro": "Zkt دی estblدیhed په  Qur'n او Sunnh s  fixed duty په qulifyپهg welth — نه voluntry chrity.",
+    "evidenceIntro": "Zakat is established in the Qur'an and Sunnah as a fixed duty on qualifying wealth — not voluntary charity.",
     "checklist": [
       {
         "title": "تایید  hwl (lunr yer)",
@@ -3200,12 +3200,12 @@
       "basics": {
         "title": "Wht دی zkt?",
         "summary": " third pillr — 2.5% په qulifyپهg welth",
-        "body": "Zkt دی  third pillr د دیlm, sittپهg between  pryer (slh) او  fst د Rmdn. په  Qur'n  commاو ته estblدیh pryer او give zkt دی repeted mny times s  sپهgle pirپهg — ښکاره کړئپهg هغه wیاship د ټولh او cدي لپاره Hدی cretiپه دي woven تهger. It دی نه n اختیاري gift but  fixed, compulsیاy right هغه  poیا hold over  welth د  rich.\n\n wیاd zkt mens both purifictiپه او growth. Givپهg  smټول, fixed pیاtiپه د ستاسو surplus purifies  rest د ستاسو welth او ستاسو hert له greed, او — by ټولh's promدیe — cuses wht remپهs ته grow په blessپهg rr thn shrپهk.\n\n stاوrd rte په mپهetry welth دی پهe-لپارهtieth, هغه دی 2.5%. So لپاره every 1,000 د qulifyپهg welth هغه hs بشپړ شو its lunr yer bove  threshold, 25 دی due. دا دی  modest شریکول by design: enough ته circulte resources ته those په need without strپهپهg  giver.\n\nZkt دی نه  sme s sdqh. Sdqh دی ny voluntry chrity, given په ny mount, t ny time, ته lmost nyپهe. Zkt دی  defپهed obligtiپه —  set rte, په set ctegیاies د welth, پهce set cپهditiپهs دي met, pid ته set ctegیاies د people. Neglectپهg it delibertely دی  serious sپه; both  Qur'n او Sunnh wrn sternly gپهst hordپهg welth while withholdپهg its due."
+        "body": "Zakat is the third pillar of Islam, sitting between the prayer (salah) and the fast of Ramadan. In the Qur'an the command to establish prayer and give zakat is repeated many times as a single pairing — showing that worship of Allah and care for His creation are woven together. It is not an optional gift but a fixed, compulsory right that the poor hold over the wealth of the rich.\n\nThe word zakat means both purification and growth. Giving a small, fixed portion of your surplus purifies the rest of your wealth and your heart from greed, and — by Allah's promise — causes what remains to grow in blessing rather than shrink.\n\nThe standard rate on monetary wealth is one-fortieth, that is 2.5%. So for every 1,000 of qualifying wealth that has completed its lunar year above the threshold, 25 is due. This is a modest share by design: enough to circulate resources to those in need without straining the giver.\n\nZakat is not the same as sadaqah. Sadaqah is any voluntary charity, given in any amount, at any time, to almost anyone. Zakat is a defined obligation — a set rate, on set categories of wealth, once set conditions are met, paid to set categories of people. Neglecting it deliberately is a serious sin; both the Qur'an and Sunnah warn sternly against hoarding wealth while withholding its due."
       },
       "purpose": {
         "title": "Why zkt — purpose & wدیdom",
         "summary": "It purifies welth او  soul, او lifts  poیا",
-        "body": "ټولh sys د zkt: \"Tke له ir welth  chrity by which تاسو purify m او cuse m ته grow\" (Qur'n 9:103).  obligtiپه wیاks په two levels t پهce — it purifies  giver's soul له stپهgپهess او love د  wیاld, او it purifies  welth itself so هغه wht stys په ستاسو hاو دی wholesome او blessed.\n\nSociټولy, zkt دی  divپهely یاdered سیسټم د circultiپه. When  Prophet ﷺ sent Mu'dh ته Yemen he پهstructed هغه zkt be tken له ir rich او given ته ir poیا. Welth دی نه ment ته pile up mپهg  few; zkt pulls it bck پهته motiپه so  needy دي fed, debtیاs دي freed, او  community's bپهds دي strengned.\n\nSpirituټولy, givپهg zkt دی n ct د grtitude او trust. It nswers  humn urge ته hord with  certپهty هغه provدیiپه comes له ټولh, او it trپهs  believer ته love givپهg.  پهe who pys zkt willپهgly fپهds ir welth protected, ir hert روښانهened, او ir rewrd stیاed with ir Lیاd — \"re will be no fer cپهcernپهg m, nیا will y grieve\" (Qur'n 2:277)."
+        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
       },
       "hawl": {
         "title": " lunr yer (hwl)",
@@ -3220,32 +3220,32 @@
       "zakatable": {
         "title": "Wht دی generټولy zktble",
         "summary": "Csh, metls, پهvestments, trde goods, receivbles",
-        "body": "Zkt دی due په welth هغه hs  potentil ته grow — mپهey او thپهgs held s mپهey — rr thn په items تاسو simply use.  mپه ctegیاies greed upپه cross  schools دي csh, gold او silver, trde goods, او (with ir own rules) crops او livesتهck.\n\nCommپهly zktble نن: csh په hاو او په bnk حسابs; gold او silver, پهcludپهg bulliپه, coپهs, او stیاed jewellery نه په regulr use; sتهcks, شریکولs, او mutul funds vlued t ir current mrket price;  merchاودیe او پهventیاy د  busپهess (trde goods), vlued t resle price; strپهg receivbles — lons او پهvoices تاسو resپهbly expect ته collect; او rentl یا busپهess پهcome تاسو hve خوندي کولd rr thn spent.\n\nMny scholrs lso پهclude ccessible retirement svپهgs او crypتهcurrencies held s n sset, tretپهg m like csh یا پهvestments. When په doubt,  guidپهg questiپه دی simple: دی دا welth  stیاe د vlue یا  mens د growth هغه I could liquidte? If so, it دی likely zktble. Vlue everythپهg t نن's mrket price په ستاسو zkt dte — نه t wht تاسو یاigپهټولy pid."
+        "body": "Zakat is due on wealth that has the potential to grow — money and things held as money — rather than on items you simply use. The main categories agreed upon across the schools are cash, gold and silver, trade goods, and (with their own rules) crops and livestock.\n\nCommonly zakatable today: cash in hand and in bank accounts; gold and silver, including bullion, coins, and stored jewellery not in regular use; stocks, shares, and mutual funds valued at their current market price; the merchandise and inventory of a business (trade goods), valued at resale price; strong receivables — loans and invoices you reasonably expect to collect; and rental or business income you have saved rather than spent.\n\nMany scholars also include accessible retirement savings and cryptocurrencies held as an asset, treating them like cash or investments. When in doubt, the guiding question is simple: is this wealth a store of value or a means of growth that I could liquidate? If so, it is likely zakatable. Value everything at today's market price on your zakat date — not at what you originally paid."
       },
       "exempt": {
         "title": "Wht دی usuټولy نه zktble",
         "summary": "Persپهl use items, wیاn jewellery, locked pensiپهs",
-        "body": "Welth tied up په ستاسو یاdپهry ورځنی life دی generټولy نه zktble, becuse zkt trgets growپهg welth, نه  thپهgs تاسو live with او use. ستاسو home, ستاسو cr, ستاسو clothپهg, furniture, pplinces, او  تهols او equipment د ستاسو trde دي ټول exempt — however vluble y دي.\n\nGold او silver jewellery هغه  womn wers regulrly دی  well-known poپهt د difference.  Hnfi school holds هغه ټول gold او silver دی zktble even if wیاn;  mjیاity — Mliki, Shfi'i, او Hnbli — exempt jewellery kept لپاره nیاml persپهl use but پهclude it if it دی horded s  stیاe د welth یا exceeds cusتهmry dیاnment. Follow  rulپهg د  school تاسو follow.\n\nPensiپه یا provident funds تاسو cnنه yet ccess دي دten excluded until  mپهey ctuټولy comes پهته ستاسو hاوs, though some scholrs require zkt په  ccessible pیاtiپه. Debts owed ته تاسو هغه دي unlikely ever ته be repid دي usuټولy نه counted until recovered. s lwys,  fپهer detils vry between schools — when  cse دی uncler, sk  qulified scholr rr thn guess."
+        "body": "Wealth tied up in your ordinary daily life is generally not zakatable, because zakat targets growing wealth, not the things you live with and use. Your home, your car, your clothing, furniture, appliances, and the tools and equipment of your trade are all exempt — however valuable they are.\n\nGold and silver jewellery that a woman wears regularly is a well-known point of difference. The Hanafi school holds that all gold and silver is zakatable even if worn; the majority — Maliki, Shafi'i, and Hanbali — exempt jewellery kept for normal personal use but include it if it is hoarded as a store of wealth or exceeds customary adornment. Follow the ruling of the school you follow.\n\nPension or provident funds you cannot yet access are often excluded until the money actually comes into your hands, though some scholars require zakat on the accessible portion. Debts owed to you that are unlikely ever to be repaid are usually not counted until recovered. As always, the finer details vary between schools — when a case is unclear, ask a qualified scholar rather than guess."
       },
       "debts": {
         "title": "Debts & deductiپهs",
         "summary": "Immedite debts my be deducted beلپارهe clcultپهg 2.5%",
-        "body": "Zkt دی clculted په ستاسو net zktble welth, so genuپهe debts تاسو owe cn reduce  mount په which تاسو py.  cleديst cse دی debts due now — n unpid persپهl lon, n outstاوپهg crسمول-crd blnce, rent یا bills lredy owed. Most scholrs ټولow se ته be subtrcted له ستاسو gross welth beلپارهe تاسو pply  2.5%.\n\nLپهg-term debts such s  mیاtgge یا  multi-yer پهstlment pln دي hاوled with mیاe cدي, becuse deductپهg  entire blnce would wipe out  zkt د lmost nyپهe with  home lon.  commپه cپهtempیاry pproch دی ته deduct پهly  pyments due withپه  comپهg yer, نه  whole outstاوپهg sum. Schools او scholrs differ here, so pick  cپهsدیtent method under guidnce.\n\nTwo cutiپهs. First, do نه tret future یا hypoticl expenses s deductible debts — پهly wht تاسو ctuټولy owe counts. Secپهd, do نه subtrct lst yer's unpid zkt s if it were n یاdپهry debt; unpid zkt remپهs  due obligtiپه او should simply be pid. When ستاسو debt situtiپه دی complex,  scholr's rulپهg دی wیاth mیاe thn  rough guess."
+        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
       },
       "recipients": {
         "title": "Who my receive zkt",
         "summary": "Eight ctegیاies nmed په Qur'n 9:60",
-        "body": "Zkt my پهly be given ته  ctegیاies د people ټولh Himself nmed په Surh t-Twbh (9:60). دا دی پهe د  few cts د wیاship where  recipients دي fixed by reveltiپه, نه left ته  giver's preference.  eight ctegیاies دي:  poیا (l-fuqr);  needy (l-mskپه); those employed ته collect او dmپهدیter zkt; those whose herts دي ته be recپهciled (l-mu'ټولfh);  freeپهg د cptives او those په bپهdge (fi'r-riqb);  debt-burdened (l-ghrimپه); په  cuse د ټولh (fi sbil ټولh); او  strاوed trveller (ibn s-sbil).\n\nIt دی نه اړین ته give ته ټول eight; givپهg ستاسو zkt ته even پهe eligible ctegیاy fulfils  obligtiپه, او directپهg it ته  poیا او needy دی  most commپه prctice.\n\nEquټولy impیاtnt دی who my نه receive it. Zkt cnنه be given ته  welthy, nیا ته those تاسو دي lredy obliged ته suppیاt — ستاسو pديnts, ستاسو children, یا ستاسو spouse — sپهce suppیاtپهg m دی  duty تاسو owe nywy. په  clssicl view it دی  persپهl trnsfer د ownership ته n eligible پهdividul, نه  generl dپهtiپه; scholrs differ په wher پهstitutiپهs such s msjids یا brod public projects qulify under  cuse د ټولh. It lso cnنه be given ته  fmily د  Prophet ﷺ,  Bnu Hshim, s zkt. im it delibertely t people who mtch  Qur'nic ctegیاies."
+        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
       },
       "otherRates": {
         "title": "یا types د zkt & zkt l-fitr",
         "summary": "Crops, livesتهck, او  pre-Eid zkt l-fitr differ",
-        "body": " 2.5% rte pplies ته mپهey او trde welth — zkt l-ml, which دا حسابگر covers. Severl یا ctegیاies hve entirely different rules او rtes.\n\nCrops او fruit hve zkt due t hrvest, نه fter  yer:  rte دی 10% (ushr) لپاره lاو wtered nturټولy by rپه یا sprپهgs, او 5% لپاره lاو irrigted by rtificil efلپارهt یا cost. Grzپهg livesتهck — cmels, cttle, sheep, او gots هغه grze freely لپاره most د  yer — hve ir own species-by-species nدیb counts او slidپهg scles, drwn directly له  Sunnh.\n\nZkt l-fitr دی different gپه, او every Muslim should know it. It دی  smټول, fixed chrity — په اړه پهe s' (roughly 2.5–3 kg) د  sوټاکئle food such s dtes, brley, whet, یا rice, یا its csh vlue په mny rulپهgs — due t  end د Rmdn په behlf د every member د  household, تاسوng او old. Its purpose دی ته purify  روژه persپه له ny shیاtfټول او ته ensure  poیا lso hve food ته celebrte Eid.  Prophet ﷺ commاوed هغه it be pid beلپارهe  Eid l-Fitr pryer; pid fterwrds it counts پهly s یاdپهry chrity. Ech د se ctegیاies hs its own detiled rulپهgs — seek guidnce specific ته  sset."
+        "body": "The 2.5% rate applies to money and trade wealth — zakat al-mal, which this calculator covers. Several other categories have entirely different rules and rates.\n\nCrops and fruit have zakat due at harvest, not after a year: the rate is 10% (ushr) for land watered naturally by rain or springs, and 5% for land irrigated by artificial effort or cost. Grazing livestock — camels, cattle, sheep, and goats that graze freely for most of the year — have their own species-by-species nisab counts and sliding scales, drawn directly from the Sunnah.\n\nZakat al-fitr is different again, and every Muslim should know it. It is a small, fixed charity — about one sa' (roughly 2.5–3 kg) of a staple food such as dates, barley, wheat, or rice, or its cash value in many rulings — due at the end of Ramadan on behalf of every member of the household, young and old. Its purpose is to purify the fasting person from any shortfall and to ensure the poor also have food to celebrate Eid. The Prophet ﷺ commanded that it be paid before the Eid al-Fitr prayer; paid afterwards it counts only as ordinary charity. Each of these categories has its own detailed rulings — seek guidance specific to the asset."
       },
       "mistakes": {
         "title": "Commپه mدیtkes ته void",
         "summary": "تېروتنهs هغه mke zkt پهvlid یا mدیclculted",
-        "body": "Even sپهcere Muslims دten slip په  prcticl detils د zkt. Knowپهg  commپه تېروتنهs helps تاسو py cیاrectly او with pece د mپهd.\n\nلپارهgettپهg  hwl یا  nniversry: pyپهg t  rاوom time, یا skippپهg yers, leves n outstاوپهg obligtiپه. Fix پهe Hijri dte ech yer او ssess ستاسو welth په it.\n\nMدیcountپهg welth: vluپهg gold یا شریکولs t ir purchse price پهsted د نن's mrket vlue, لپارهgettپهg csh held په multiple حسابs یا currencies, یا overlookپهg busپهess پهventیاy او mپهey owed ته تاسو. Zkt دی په everythپهg zktble هغه تاسو own په ستاسو dte.\n\nGivپهg ته  wrپهg people: hاوپهg zkt ته pديnts, children, یا  spouse تاسو lredy suppیاt, یا tretپهg it s  generic dپهtiپه ته ny good cuse. It must rech پهe د  eight Qur'nic ctegیاies.\n\nپهtentiپه تېروتنهs: givپهg generously ټول yer but never پهtendپهg ny د it s zkt. Zkt دی n ct د wیاship او needs  پهtentiپه (niyyh) هغه دا prticulr pyment دی ستاسو obligtیاy zkt.\n\nOver-deductپهg debts: subtrctپهg  whole lپهg-term mیاtgge, یا future expenses هغه دي نه yet owed, ته shrپهk  bill. پهly rel, current libilities reduce ستاسو zktble welth. When ny د se دی uncler لپاره ستاسو situtiپه, sk  qulified scholr rr thn ssume."
+        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
       }
     },
     "recipientsListTitle": " eight ctegیاies",
@@ -3280,7 +3280,7 @@
       },
       {
         "title": "Ibn s-sbil ( wyfديr)",
-        "body": " trveller strاوed without resources."
+        "body": "A traveller stranded without resources."
       }
     ],
     "nisabWeightsTitle": "Stاوrd nدیb weights",
@@ -3289,7 +3289,7 @@
     "nisabWeightNote": "Exct weights او which metl ته prefer vry sروښانهly between schools.  حسابگر uses se widely cited Hnfi figures.",
     "quran": [
       {
-        "excerpt": "Zkt expenditures دي پهly لپاره  poیا او لپاره  needy او لپاره those employed ته collect it او لپاره brپهgپهg herts تهger او لپاره freeپهg cptives او لپاره those په debt او لپاره  cuse د ټولh او لپاره  wyfديr — n obligtiپه له ټولh. او ټولh دی Knowپهg او Wدیe."
+        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
         "excerpt": "Tke له ir welth  chrity by which تاسو purify m او cuse m ته grow, او پهvoke blessپهgs upپه m. پهdeed, ستاسو پهvoctiپه دی ressurnce لپاره m. او ټولh دی Herپهg او Knowپهg."
@@ -3298,18 +3298,18 @@
         "excerpt": "O تاسو who believe, spend له  good thپهgs which تاسو hve erned او له هغه which We hve produced لپاره تاسو له  erth."
       },
       {
-        "excerpt": "Those who believe او do righteous deeds او estblدیh pryer او give zkt will hve ir rewrd with ir Lیاd, او re will be no fer cپهcernپهg m, nیا will y grieve."
+        "excerpt": "Those who believe and do righteous deeds and establish prayer and give zakat will have their reward with their Lord, and there will be no fear concerning them, nor will they grieve."
       }
     ],
     "hadith": [
       {
-        "excerpt": "دیlm دی built upپه five:  testimپهy هغه nپهe hs  right ته be wیاshipped but ټولh او هغه Muhmmd دی  Messenger د ټولh, estblدیhپهg pryer, pyپهg zkt, pilgrimge ته  House, او روژه Rmdn."
+        "excerpt": "Islam is built upon five: the testimony that none has the right to be worshipped but Allah and that Muhammad is the Messenger of Allah, establishing prayer, paying zakat, pilgrimage to the House, and fasting Ramadan."
       },
       {
         "excerpt": " Prophet ﷺ sent Mu'dh ته Yemen او sid: Tech m هغه ټولh hs mde chrity (zkt) obligtیاy upپه m — tken له ir rich او returned ته ir poیا."
       },
       {
-        "excerpt": "re دی no owner د gold یا silver who does نه py wht دی due په it except هغه په  Dy د Resurrectiپه pltes د fire will be mde لپاره him, heted په  Fire د Hell, او hدی side, لپارهehed, او bck will be seديd with m."
+        "excerpt": "There is no owner of gold or silver who does not pay what is due on it except that on the Day of Resurrection plates of fire will be made for him, heated in the Fire of Hell, and his side, forehead, and back will be seared with them."
       },
       {
         "excerpt": "When تاسو own two hundred dirhms او  yer hs pssed over m, five dirhms دي due. او no zkt دی due په welth until  yer hs pssed over it."
@@ -3370,7 +3370,7 @@
       "stocks": "Current mrket vlue د شریکولs, funds, او similr پهvestments.",
       "business": "Vlue د merchاودیe, پهventیاy, او goods held لپاره sle.",
       "receivables": "Lons او پهvoices تاسو resپهbly expect ته collect.",
-      "rentalIncome": "Rentl یا busپهess prدits تاسو still hold — نه lredy spent.",
+      "rentalIncome": "Rental or business profits you still hold — not already spent.",
       "otherAssets": "Crypتهcurrency, ccessible retirement funds, یا یا zktble welth per ستاسو scholr.",
       "debts": "Persپهl lons, crسمول crds, او bills due now — نه lپهg-term mیاtgge تهtls unless ستاسو scholr ټولows.",
       "nisab": "Leve blnk ته use  computed threshold, یا enter  cusتهm nدیb."
@@ -3394,78 +3394,78 @@
     }
   },
   "tahajjud": {
-    "eyebrow": "شپه pryer",
-    "title": "Thjjud",
-    "subtitle": "Build  lstپهg hbit د  شپه pryer.",
+    "eyebrow": "Night prayer",
+    "title": "Tahajjud",
+    "subtitle": "Build a lasting habit of the night prayer.",
     "streakValue": "{{count}}",
     "streakCaption": "شپه لړۍ",
     "bestStreak": "غوره: {{count}}",
     "totalNights": "{{count}} شپهs تهtl",
-    "markTonight": "I pryed Thjjud تهشپه",
+    "markTonight": "I prayed Tahajjud tonight",
     "markedTonight": "Pryed تهشپه — mshټولh",
     "lastNights": "Lst {{count}} شپهs",
     "lastNightsHint": "Ech dot دی پهe شپه, lbeled by جنتری dte (most recent په  left).",
-    "virtueTitle": "Virtue د  شپه pryer",
-    "virtueBody": " best pryer fter  obligtیاy pryers دی  شپه pryer.",
+    "virtueTitle": "Virtue of the night prayer",
+    "virtueBody": "The best prayer after the obligatory prayers is the night prayer.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Thjjud لړۍ"
+    "streakRow": "Tahajjud streak"
   },
   "seasonalTheme": {
-    "dateDisclaimer": "Dtes دي clculted estimtes — locl moپه-sightپهg my differ.",
+    "dateDisclaimer": "Dates are calculated estimates — local moon-sighting may differ.",
     "newYearEyebrow": "New yer",
     "newYearBannerTitle": "دیlmic New Yer",
     "newYearBannerDesc": "Muhrrm خلاص کړئs  Hijri yer —  time ته reflect او renew ستاسو پهtentiپهs.",
     "ashuraEyebrow": "Scred dys",
     "ashuraBannerTitle": "Dys د shur",
-    "ashuraBannerDesc": "Fst  9th او 10th د Muhrrm —  beloved sunnh هغه expites mپهیا sپهs.",
-    "ramadanEyebrow": "Rmdn",
-    "ramadanBannerTitle": "Rmdn Mubrk",
+    "ashuraBannerDesc": "Fast the 9th and 10th of Muharram — a beloved sunnah that expiates minor sins.",
+    "ramadanEyebrow": "Ramadan",
+    "ramadanBannerTitle": "Ramadan Mubarak",
     "ramadanBannerDesc": " mپهth د  Qur'n — fst, pry, او drw neديr ته ټولh.",
     "lastTenEyebrow": "Lst ten شپهs",
     "lastTenBannerTitle": " lst ten شپهs",
-    "lastTenBannerDesc": "Seek Lylt l-Qdr په  odd شپهs — wیاship wیاth mیاe thn  thousاو mپهths.",
+    "lastTenBannerDesc": "Seek Laylat al-Qadr in the odd nights — worship worth more than a thousand months.",
     "laylatQadrEyebrow": "شپه د Decree",
-    "laylatQadrBannerTitle": "Lylt l-Qdr",
-    "laylatQadrBannerDesc": "Better thn  thousاو mپهths — stاو په pryer, recite Qur'n, او mke du تهشپه.",
+    "laylatQadrBannerTitle": "Laylat al-Qadr",
+    "laylatQadrBannerDesc": "Better than a thousand months — stand in prayer, recite Qur'an, and make dua tonight.",
     "eidFitrEyebrow": "عید",
     "eidFitrBannerTitle": "Eid Mubrk",
-    "eidFitrBannerDesc": "Celebrte  end د Rmdn with pryer, grtitude, او joy with fmily او community.",
+    "eidFitrBannerDesc": "Celebrate the end of Ramadan with prayer, gratitude, and joy with family and community.",
     "hajjEyebrow": "Dhul-Hijjh",
     "hajjBannerTitle": " ten best dys",
     "hajjBannerDesc": "Righteous deeds دي most beloved ته ټولh په se dys — پهcrese zikr, chrity, او good.",
-    "arafahEyebrow": "Dy د rfh",
+    "arafahEyebrow": "Day of Arafah",
     "arafahBannerTitle": "Stاو t rfh",
-    "arafahBannerDesc": " hert د Hjj — if تاسو دي نه په Hjj, روژه دا dy expites two yers د sپهs.",
+    "arafahBannerDesc": "The heart of Hajj — if you are not on Hajj, fasting this day expiates two years of sins.",
     "eidAdhaEyebrow": "عید",
     "eidAdhaBannerTitle": "Eid l-dh Mubrk",
-    "eidAdhaBannerDesc": " Festivl د Scrifice — pryer, tkbir, او shrپهg with those په need."
+    "eidAdhaBannerDesc": "The Festival of Sacrifice — prayer, takbir, and sharing with those in need."
   },
   "journal": {
     "eyebrow": "انعکاس",
-    "title": "Pryer یادداشت",
-    "subtitle": "نهe ستاسو presence په ech pryer او wtch it grow.",
+    "title": "Prayer journal",
+    "subtitle": "Note your presence in each prayer and watch it grow.",
     "add": "New reflectiپه",
     "addShort": "زیاتول",
-    "noCompletedTitle": "Complete  slh first",
-    "noCompletedDesc": "Mrk  slh s بشپړ شو نن, n reflect په it here.",
-    "newTitle": "How ws ستاسو pryer?",
+    "noCompletedTitle": "Complete a salah first",
+    "noCompletedDesc": "Mark a salah as completed today, then reflect on it here.",
+    "newTitle": "How was your prayer?",
     "editTitle": "سمول reflectiپه",
-    "navRow": "Reflect په  pryer",
+    "navRow": "Reflect on a prayer",
     "recentTitle": "Recent reflectiپهs",
-    "fieldPrayer": "Slh",
+    "fieldPrayer": "Salah",
     "fieldRating": "خشوع (حاضري)",
     "fieldNote": "نهe (اختیاري)",
     "notePlaceholder": "Wht helped یا dدیtrcted تاسو?",
     "emptyTitle": "No reflectiپهs yet",
-    "emptyDesc": "fter  pryer, tke  moment ته نهe how present ستاسو hert ws.",
+    "emptyDesc": "After a prayer, take a moment to note how present your heart was.",
     "avgLabel": "verge khushu",
     "khushuInfoA11y": "Lern په اړه khushu",
-    "khushuInfoHint": "خلاص کړئs  Slh guide lessپه په khushu",
+    "khushuInfoHint": "Opens the Salah guide lesson on khushu",
     "outOf": "له {{max}}",
     "totalReflections": "{{count}} reflectiپهs",
     "today": "نن",
     "noNote": "No نهe زیاتولed",
-    "ratingHint": "وټاکئ  str ته rte ستاسو presence په pryer.",
+    "ratingHint": "Tap a star to rate your presence in prayer.",
     "delete": "ړنګول reflectiپه",
     "editA11y": "سمول {{prayer}} reflectiپه",
     "discard": "Dدیcrd",
@@ -3474,7 +3474,7 @@
     "confirmDiscardTitle": "Dدیcrd chnges?",
     "confirmDiscardMsg": "nythپهg تاسو wrote will be lost.",
     "confirmOverwriteTitle": "Replce exدیtپهg reflectiپه?",
-    "confirmOverwriteMsg": "تاسو lredy نهed {{prayer}} لپاره دا dy. Svپهg will replce it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "Dدیtrcted",
     "level2": "بې ارامه",
     "level3": "کافي حاضري",
@@ -3482,16 +3482,16 @@
     "level5": "ژوره حاضري"
   },
   "prayerTuning": {
-    "title": "Pryer time tunپهg",
+    "title": "Prayer time tuning",
     "subtitle": "djust dدیplyed dhn times ته mtch ستاسو msjid",
     "settingsSub": "Dدیplyed times & high-ltitude rule",
     "rowValue": "Dدیply times",
     "offsetTitle": "Msjid دfsets",
-    "offsetHint": "Chnges when ech pryer time دی ښکاره کړئn cross  pp. Seprte له خبرتیا یادونهs (تنظیمات → خبرتیاs).",
+    "offsetHint": "Changes when each prayer time is shown across the app. Separate from notification reminders (Settings → Notifications).",
     "onTime": "په time",
     "earlierMin": "−{{count}} mپه",
     "laterMin": "+{{count}} mپه",
-    "earlier": "Erlier",
+    "earlier": "Earlier",
     "later": "Lter",
     "highLatTitle": "High-ltitude rule",
     "highLatHint": "په fr-nیاrn یا fr-sourn regiپهs  sun my نه rech  twiروښانه ngles. Choose how Fjr او دیh دي estimted.",
@@ -3535,13 +3535,13 @@
     "subtitle": "Key milesتهnes په  life د  Prophet Muhmmd ﷺ.",
     "ceBadge": "{{year}} م.",
     "ahBadge": "{{ah}} H",
-    "disclaimer": "n overview د mjیا milesتهnes drwn له clssicl seerh sources. CE او H dtes دي commپهly-cited pproximtiپهs; scholrs differ په some events, especiټولy l-دیr wl-Mi'rj."
+    "disclaimer": "An overview of major milestones drawn from classical seerah sources. CE and AH dates are commonly-cited approximations; scholars differ on some events, especially al-Isra wal-Mi'raj."
   },
   "jannah": {
     "eyebrow": "زده کړئ",
     "title": "Journey ته Jnnh",
     "subtitle": "Prdدیe, its rnks, او  deeds هغه elevte  believer.",
-    "intro": "دیlm does نه give  numbered چک لیست لپاره Prdدیe levels. Here تاسو will fپهd wht  Qur'n او untic Sunnh tech — او lپهks ته trck ستاسو ورځنی strivپهg.",
+    "intro": "Islam does not give a numbered checklist for Paradise levels. Here you will find what the Qur'an and authentic Sunnah teach — and links to track your daily striving.",
     "learnTitle": "په اړه Prdدیe",
     "quickLinksTitle": "کتنه",
     "continueInApp": "په Munib کې دوام ورکړئ",
@@ -3552,7 +3552,7 @@
     "gatesTitle": "Gtes د Jnnh",
     "gatesSummary": "Gtes nmed په untic hdith",
     "gatesSubtitle": "Different gtes لپاره different deeds",
-    "gatesLead": "untic hdith describe gtes د Prdدیe خلاص کړئed لپاره people dدیtپهguدیhed by pryer, chrity, روژه, jihd, او Hjj. Some my be cټولed ته enter through mیاe thn پهe.",
+    "gatesLead": "Authentic hadith describe gates of Paradise opened for people distinguished by prayer, charity, fasting, jihad, and Hajj. Some may be called to enter through more than one.",
     "duasTitle": "Dus لپاره Prdدیe",
     "duasSummary": "Supplictiپهs له Hدیnul Muslim",
     "duasSubtitle": "sk ټولh لپاره Jnnh او refuge له  Fire",
@@ -3563,22 +3563,22 @@
     "versesLead": "وټاکئ ny verse ته خلاص کړئ it په  Qur'n reder.",
     "journeyTitle": "زما سفر",
     "journeySummary": "نن's hbits — نه ستاسو rnk with ټولh",
-    "journeySubtitle": "ثبات په wیاship تاسو lredy trck",
+    "journeySubtitle": "Consistency in worship you already track",
     "journeyBanner": "se hbits دي mپهg  deeds ټولh loves. ستاسو fپهl rnk دی پهly with Him.",
     "journeyToday": "نن's strivپهg",
-    "journeyEmpty": "Strt with پهe pryer یا dhkr — smټول steps build lifelپهg hbits.",
+    "journeyEmpty": "Start with one prayer or adhkar — small steps build lifelong habits.",
     "journeyDisclaimer": "دا dshbord ښکاره کړئs ثبات, نه  percentge د Prdدیe. Strive sپهcerely او trust په ټولh's mercy.",
     "journey": {
-      "salah": "Slh نن",
-      "salahHint": "Five ورځنی pryers په ستاسو چک لیست",
+      "salah": "Salah today",
+      "salahHint": "Five daily prayers on your checklist",
       "dhikr": "dhkr نن",
       "dhikrHint": "سهار, ماښام, او ورځنی remembrnces",
       "qaza": "Qz پرمختګ",
       "qazaHint": "Mkپهg up پاتې شو wیاship",
       "streak": "ctive لړۍ",
       "streakHint": "Dys د cپهsدیtent trckپهg",
-      "tahajjud": "Thjjud دا week",
-      "tahajjudHint": "شپه pryer په  lst 7 dys",
+      "tahajjud": "Tahajjud this week",
+      "tahajjudHint": "Night prayer in the last 7 days",
       "reflection": "Reflectiپهs دا week",
       "reflectionHint": "Khushu یادداشت entries",
       "quran": "قرآن",
@@ -3658,14 +3658,14 @@
     "hadithLead": "Hdith دي presented with collectiپه, cittiپه, او grde where known.",
     "duasTitle": "Dus لپاره protectiپه",
     "duasSummary": "Seek refuge له  Fire",
-    "duasSubtitle": "له slh, Hدیnul Muslim, او  Qur'n",
-    "duasLead": " Prophet ﷺ tught us ته sk ټولh لپاره protectiپه له Jhnnm — especiټولy په pryer او ورځنی dhkr.",
+    "duasSubtitle": "From salah, Hisnul Muslim, and the Qur'an",
+    "duasLead": "The Prophet ﷺ taught us to ask Allah for protection from Jahannam — especially in prayer and daily adhkar.",
     "duaNumber": "Du {{number}}",
-    "refugeDuaTitle": "Refuge له Jhnnm په slh",
+    "refugeDuaTitle": "Refuge from Jahannam in salah",
     "reflectionTitle": "ورځنی reflectiپه",
     "reflectionSummary": "Self-حسابbility questiپهs",
     "reflectionSubtitle": "Cپهnect wیاship ته wديness",
-    "reflectionLead": "Puse او sk ستاسوself se questiپهs. وټاکئ  row ته خلاص کړئ  relted trcker یا lessپه.",
+    "reflectionLead": "Pause and ask yourself these questions. Tap a row to open the related tracker or lesson.",
     "reflectionListTitle": "نن's questiپهs",
     "referencesTitle": "حوالې",
     "referencesSummary": "Sources او scholrly نهes",
@@ -3676,14 +3676,14 @@
     "majorSinsHint": "Ech پهcludes Qur'n, hdith, why it دی serious, او how ته repent.",
     "journeyTitle": "زما سفر",
     "journeySummary": "Hbits هغه help تاسو grow — نه  scیاe د fte",
-    "journeySubtitle": "Slh, دیtighfr, Qur'n, او ورځنی پهtentiپهs",
+    "journeySubtitle": "Salah, istighfar, Qur'an, and daily intentions",
     "journeyBanner": "se hbits protect  soul او drw تاسو ner ته ټولh. y دي نه  clcultiپه د ستاسو destپهy — پهly ټولh judges.",
     "journeyToday": "نن's hbits",
-    "journeyEmpty": "Begپه with پهe pryer یا  moment د دیtighfr — smټول steps mtter.",
+    "journeyEmpty": "Begin with one prayer or a moment of istighfar — small steps matter.",
     "journeyDisclaimer": "دا dshbord trcks ثبات په wیاship او reflectiپه — never  'chnce د Hell.' Strive او trust ټولh's mercy.",
     "journey": {
-      "salah": "Slh نن",
-      "salahHint": "Five ورځنی pryers په ستاسو چک لیست",
+      "salah": "Salah today",
+      "salahHint": "Five daily prayers on your checklist",
       "istighfar": "dhkr & دیtighfr",
       "istighfarHint": "سهار, ماښام, او ورځنی remembrnces",
       "quran": "قرآن",
@@ -3716,7 +3716,7 @@
       "reconcileHint": "With fmily یا someپهe I wrپهged"
     },
     "notFound": "موضوع ونه موندل شوه",
-    "disclaimer": "Eductiپهl cپهtent rooted په Qur'n او untic Sunnh — نه  ftw. لپاره persپهl rulپهgs, cپهsult  qulified scholr. ټولh knows best.",
+    "disclaimer": "Educational content rooted in Qur'an and authentic Sunnah — not a fatwa. For personal rulings, consult a qualified scholar. Allah knows best.",
     "importance": {
       "foundational": "Foundtiپهl",
       "obligatory": "Obligtیاy",
@@ -3773,12 +3773,12 @@
     "navRowSub": " quick guided wlkthrough د  mپه fetures",
     "steps": {
       "tracker": {
-        "title": "Trck ستاسو pryers",
-        "body": "Mrk ech د  five ورځنی pryers, log qz, او keep ستاسو لړۍ live."
+        "title": "Track your prayers",
+        "body": "Mark each of the five daily prayers, log qaza, and keep your streak alive."
       },
       "prayerTimes": {
-        "title": "ccurte pryer times",
-        "body": "په-device pryer times لپاره ستاسو موقعیت, with dhn یادونهs تاسو cn fپهe-tune."
+        "title": "Accurate prayer times",
+        "body": "On-device prayer times for your location, with adhan reminders you can fine-tune."
       },
       "quran": {
         "title": "Red  Qur'n",
@@ -3806,11 +3806,11 @@
       },
       "paths": {
         "title": "Pths هغه elevte",
-        "body": "Ech deed پهcludes evidence, prcticl steps, او lپهks ته Munib trckers."
+        "body": "Each deed includes evidence, practical steps, and links to Munib trackers."
       },
       "journey": {
         "title": "زما سفر",
-        "body": "See نن's ثبات په slh, dhkr, او reflectiپه — نه  rnk scیاe."
+        "body": "See today's consistency in salah, adhkar, and reflection — not a rank score."
       }
     }
   },
@@ -3839,8 +3839,8 @@
     "signInRequiredBody": "Lپهk ستاسو حساب so we cn follow up په ستاسو repیاt او نهify تاسو when it's resolved.",
     "signInCta": "Go ته حساب",
     "myReportsTitle": "My cپهtent repیاts",
-    "myReportsSubtitle": "Trck دیsues تاسو've repیاted او ir review sttus.",
-    "myReportsNavSub": "View submitted repیاts او sttus",
+    "myReportsSubtitle": "Track issues you've reported and their review status.",
+    "myReportsNavSub": "View submitted reports and status",
     "myReportsGuest": "ننوتل ته view repیاts تاسو've submitted.",
     "loadFailed": "Could نه lod ستاسو repیاts",
     "emptyTitle": "No repیاts yet",
@@ -3868,29 +3868,29 @@
   "externalCommands": {
     "titleIos": "Siri & voice shیاtcuts",
     "titleAndroid": "Google ssدیtnt & voice shیاtcuts",
-    "settingsSubtitleIos": "Mrk Slh with Siri یا pple Wtch",
-    "settingsSubtitleAndroid": "Mrk Slh with Google ssدیtnt یا Wer OS",
-    "introIos": "Use Siri, Shیاtcuts, یا pple Wtch ته mrk Slh without خلاص کړئپهg  چک لیست. Requires n ES dev یا productiپه build — نه vilble په Expo Go.",
-    "introAndroid": "Use Google ssدیtnt یا Wer OS ته mrk Slh without خلاص کړئپهg  چک لیست. Requires n ES dev یا productiپه build — نه vilble په Expo Go.",
+    "settingsSubtitleIos": "Mark Salah with Siri or Apple Watch",
+    "settingsSubtitleAndroid": "Mark Salah with Google Assistant or Wear OS",
+    "introIos": "Use Siri, Shortcuts, or Apple Watch to mark Salah without opening the checklist. Requires an EAS dev or production build — not available in Expo Go.",
+    "introAndroid": "Use Google Assistant or Wear OS to mark Salah without opening the checklist. Requires an EAS dev or production build — not available in Expo Go.",
     "siriTitle": "Siri & Shیاtcuts",
-    "siriHint": "fter پهstټولپهg له TestFروښانه یا  pp Stیاe, خلاص کړئ  Shیاtcuts pp یا sy “Hey Siri, mrk my Slh په Munib Trcker”. If  pp ws لپارهce-quit,  mrk syncs  next time تاسو خلاص کړئ Munib Trcker.",
+    "siriHint": "After installing from TestFlight or the App Store, open the Shortcuts app or say “Hey Siri, mark my Salah in Munib Tracker”. If the app was force-quit, the mark syncs the next time you open Munib Tracker.",
     "assistantTitle": "Google ssدیtnt",
-    "assistantHint": "Sy “Hey Google, mrk my Slh په Munib Trcker” په  device with  pp پهstټولed.",
+    "assistantHint": "Say “Hey Google, mark my Salah in Munib Tracker” on a device with the app installed.",
     "watchTitle": "pple Wtch",
-    "watchHint": "خلاص کړئ  Munib Trcker wtch pp ته see نن’s schedule او mrk Slh. Dt syncs له ستاسو iPhپهe.",
+    "watchHint": "Open the Munib Tracker watch app to see today’s schedule and mark Salah. Data syncs from your iPhone.",
     "wearTitle": "Wer OS",
-    "wearHint": "زیاتول  Munib Trcker tile په ستاسو wtch fter pirپهg with ستاسو phپهe.",
-    "marked": "Slh mrked",
-    "alreadyDone": "lredy mrked",
-    "allDone": "ټول obligtیاy Slh mrked لپاره نن",
-    "excused": "Trckپهg دی pused لپاره نن",
-    "locked": "Unlock  pp ته mrk Slh",
-    "failed": "Could نه mrk Slh",
+    "wearHint": "Add the Munib Tracker tile on your watch after pairing with your phone.",
+    "marked": "Salah marked",
+    "alreadyDone": "Already marked",
+    "allDone": "All obligatory Salah marked for today",
+    "excused": "Tracking is paused for today",
+    "locked": "Unlock the app to mark Salah",
+    "failed": "Could not mark Salah",
     "intents": {
       "openTracker": "خلاص کړئ چک لیست",
       "openQibla": "خلاص کړئ Qibl",
       "openTasbeeh": "خلاص کړئ Tsbeeh",
-      "markCurrent": "Mrk my Slh"
+      "markCurrent": "Mark my Salah"
     }
   },
   "pinLock": {
@@ -3906,7 +3906,7 @@
     "unlockWithFaceId": "Use Fce ID",
     "unlockWithTouchId": "Use تهuch ID",
     "unlockWithFingerprint": "Use fپهgerprپهt",
-    "biometricUnlockPrompt": "Unlock Munib Trcker",
+    "biometricUnlockPrompt": "Unlock Munib Tracker",
     "setPin": "Set Pپه",
     "setPinSubtitle": "Choose  6-digit Pپه ته lock  pp",
     "confirmPin": "تایید Pپه",

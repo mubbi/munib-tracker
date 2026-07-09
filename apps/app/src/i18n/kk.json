@@ -66,7 +66,7 @@
     "increase": "Увеличить {{label}}",
     "decrease": "Уменьшить {{label}}",
     "appName": "Munib Tracker",
-    "appTagline": "Отслеживайте свой путь обратно к Аллау."
+    "appTagline": "Аллаға оралу жолыңызды бақылаңыз."
   },
   "search": {
     "placeholder": "Іздеу по Құрану, хадисам, дуа, adhkar…",
@@ -479,7 +479,7 @@
     "accountGuest": "Қонақ — синхрондау үшін жүйеге кіріңіз",
     "appearance": "Сыртқы түрі",
     "appearanceSub": "Тақырып және екпін түсі",
-    "haptics": "Гаптикалық кері байланыс",
+    "haptics": "Тактильді кері байланыс",
     "hapticsSub": "Түртулер мен әрекеттердегі діріл",
     "notifications": "Хабарландырулар",
     "notificationsSub": "Намаз, Қаза және Зікірге арналған ескертулер",
@@ -620,7 +620,7 @@
     "ctaPrivacyTitle": "Private арқылы default",
     "ctaPrivacyBody": "Жоқ есептік жазба міндетті. Сіздің ғибадат деректер stays үстінде сіздің құрылғы until сіз choose ға артқа up және sync.",
     "signInToSync": "Sign ішінде ға sync",
-    "pageOf": "{{page}} бет/{{total}}"
+    "pageOf": "{{total}} ішінен {{page}}-бет"
   },
   "appearance": {
     "eyebrow": "Баптаулар",
@@ -737,7 +737,7 @@
       "zikr": "Зікір еске салғыштар",
       "qaza": "Qaza ескертулері"
     },
-    "snooze": "Кейінге қалдыру {{minutes}} мин",
+    "snooze": "{{minutes}} мин кідірту",
     "defaultTitle": "Еске салғыш",
     "reminders": {
       "prayerTitle": "{{prayer}} уақыт",
@@ -1909,9 +1909,9 @@
     "translationHint": "Used үшін  meaning  Arabic religious text.",
     "footer": "More   interface  being translated over time. Arabic және Urdu switch  қолданба ға  right-ға-left layout.",
     "scriptureAvailable": "Құран аудармасы қолжетімді",
-    "scriptureUnavailable": "Тек интерфейс — діни мәтін ағылшын тілінде қалады",
+    "scriptureUnavailable": "Тек интерфейс — қасиетті мәтіндер ағылшынша қалады",
     "eyebrow": "Баптаулар",
-    "subtitle": "Қолданба және translation language",
+    "subtitle": "Қолданба және аударма тілі",
     "en": "Ағылшын",
     "ar": "араб",
     "ur": "урду"

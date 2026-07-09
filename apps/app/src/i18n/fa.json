@@ -66,7 +66,7 @@
     "increase": "افزایش {{label}}",
     "decrease": "کاهش {{label}}",
     "appName": "Munib Tracker",
-    "appTagline": "سفر بازگشت خود را به سوی الله دنبال کنید."
+    "appTagline": "سفر بازگشت به الله را دنبال کنید."
   },
   "search": {
     "placeholder": "جستجوی قرآن، حدیث، دعا، اذکار…",
@@ -331,7 +331,7 @@
     "continueSubtitle": "به آنچه می خواندید یا گوش می دادید برگردید",
     "continueLastOpened": "آخرین باز شده {{time}}",
     "continueDismissA11y": "رد کردن و پاک کردن ادامه تاریخ",
-    "continueListening": "صوتی",
+    "continueListening": "صدا",
     "continueWhen": {
       "justNow": "همین الان",
       "minutesAgo_one": "{{count}} دقیقه قبل",
@@ -349,7 +349,7 @@
       "zikr": "ادهکار",
       "durood": "دورود",
       "names": "99 نام",
-      "audio": "صوتی"
+      "audio": "صدا"
     },
     "continueAction": {
       "quran": "به خواندن ادامه دهید",
@@ -620,7 +620,7 @@
     "ctaPrivacyTitle": "Varsaسالan olarak gizli",
     "ctaPrivacyBody": "حساب gerekmez. پشتیبانmeyi و senkronize etmeyi seçene kaدرr عبادت وrباriniz در دستگاه شما kalır.",
     "signInToSync": "همگام‌سازی etmek برای giriş yapın",
-    "pageOf": "Sماهfa {{page}} / {{total}}"
+    "pageOf": "صفحه {{page}} از {{total}}"
   },
   "appearance": {
     "eyebrow": "تنظیمات",
@@ -737,7 +737,7 @@
       "zikr": "یادآوری ذکر",
       "qaza": "یادآوری قضا"
     },
-    "snooze": "به تعویق انداختن {{minutes}} دقیقه",
+    "snooze": "تأخیر {{minutes}} دقیقه",
     "defaultTitle": "یادآوری",
     "reminders": {
       "prayerTitle": "{{prayer}} زمان",
@@ -1908,10 +1908,10 @@
     "translationLanguage": "ترجمے کی زبان",
     "translationHint": "جستجوpça dini metinlerin anlamı برای kullanılır.",
     "footer": "جستجوyüzün درha fazlası zamanla çevriliyor. جستجوpça و Urduca uygulamماهı sağدرn sola düzene geçirir.",
-    "scriptureAvailable": "ترجمه قرآن موجود است",
-    "scriptureUnavailable": "فقط رابط — متن دینی به انگلیسی باقی می‌ماند",
+    "scriptureAvailable": "ترجمهٔ قرآن موجود است",
+    "scriptureUnavailable": "فقط رابط — متون مقدس به انگلیسی می‌مانند",
     "eyebrow": "تنظیمات",
-    "subtitle": "Uygulama و çeviri dili",
+    "subtitle": "زبان برنامه و ترجمه",
     "en": "انگریزی",
     "ar": "جستجوpça",
     "ur": "اردو"
@@ -3987,7 +3987,7 @@
   },
   "pinLock": {
     "title": "قفل برنامه",
-    "backspace": "پاک‌کردن",
+    "backspace": "پاک کردن",
     "settingsSubtitle": "ایپ کھولنے کے لیے PIN درکار ہے",
     "webUnavailable": "ایپ لاک صرف iOS اور Android پر دستیاب ہے۔",
     "expoGoTitle": "App kilit unavailable برایde Expo Go",

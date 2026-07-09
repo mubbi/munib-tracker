@@ -15,6 +15,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
+import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { dailyHadith } from "@/lib/daily-hadith";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
@@ -25,6 +26,15 @@ const HADITH_ITEMS = getBundledCollections().map((collection) => ({
   name: collection.nameEnglish,
   path: `/hadith/${collection.id}`,
 }));
+
+function TodayHadithPreview({ hadith }: { hadith: NonNullable<ReturnType<typeof dailyHadith>> }) {
+  const displayTranslation = useHadithTranslation(hadith);
+  return (
+    <ThemedText type="default" numberOfLines={3} style={styles.dailyBody}>
+      {displayTranslation}
+    </ThemedText>
+  );
+}
 
 export default function HadithHomeScreen() {
   const router = useRouter();
@@ -107,9 +117,7 @@ export default function HadithHomeScreen() {
                 {t("dailyHadith.cardTitle")}
               </ThemedText>
             </View>
-            <ThemedText type="default" numberOfLines={3} style={styles.dailyBody}>
-              {today.english}
-            </ThemedText>
+            <TodayHadithPreview hadith={today} />
             <ThemedText type="caption" style={{ color: tokens.status.info.text }}>
               {today.reference} · {t("dailyHadith.seeArchive")}
             </ThemedText>

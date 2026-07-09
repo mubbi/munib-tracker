@@ -18,6 +18,11 @@ const HISN_AUDIO_SHA = "07533fa1494d02c4b24aecb3ad7267e09219c956";
 const HISN_AUDIO_CDN = `https://cdn.jsdelivr.net/gh/${HISN_AUDIO_REPO}@${HISN_AUDIO_SHA}/audio`;
 const HISN_CSV = `https://cdn.jsdelivr.net/gh/${HISN_AUDIO_REPO}@${HISN_AUDIO_SHA}/hisnul_database.csv`;
 
+// Bengali Hisnul Muslim segment translations (MIT). Data is served from Cloudflare
+// Workers/D1; the public GitHub repo documents the API but does not ship CSV dumps.
+const THELIGHTHUB_DUA_API = "https://dua-api.hisnul.workers.dev";
+const THELIGHTHUB_REPO = "ThelightHub/dua-api";
+
 /** Strip tashkeel/diacritics/punctuation and unify letter forms for matching. */
 function normalizeArabic(text) {
   return text
@@ -348,6 +353,51 @@ function buildBnTranslationMap(hisnDuas) {
     const n = normalizeArabic(h.arabic);
     if (n) map.set(n, bn);
   }
+  return map;
+}
+
+/** Register Bengali text under normalized Arabic (first wins). */
+function addBnSegment(map, arabic, bn) {
+  const n = normalizeArabic(arabic ?? "");
+  const t = (bn ?? "").trim();
+  if (n && t && !map.has(n)) map.set(n, t);
+}
+
+/**
+ * Fetch Bengali Hisnul Muslim translations from ThelightHub dua-api (book 1).
+ * Builds a normalized-Arabic → Bengali map from per-segment and joined multi-segment duas.
+ */
+async function buildBnTranslationMapFromThelightHub() {
+  const map = new Map();
+  const chaptersRes = await fetchJSON(`${THELIGHTHUB_DUA_API}/api/books/1/chapters?limit=200`);
+  const chapters = chaptersRes?.data ?? [];
+
+  const batchSize = 8;
+  for (let i = 0; i < chapters.length; i += batchSize) {
+    const batch = chapters.slice(i, i + batchSize);
+    await Promise.all(
+      batch.map(async (ch) => {
+        const res = await fetchJSON(
+          `${THELIGHTHUB_DUA_API}/api/books/1/chapters/${ch.chap_id}/duas`,
+        );
+        for (const dua of res?.data ?? []) {
+          const segments = dua.segments ?? [];
+          for (const seg of segments) {
+            addBnSegment(map, seg.arabic || seg.arabic_diacless, seg.translations);
+          }
+          if (segments.length > 1) {
+            const arabic = segments.map((s) => s.arabic || s.arabic_diacless || "").join(" ");
+            const bn = segments
+              .map((s) => (s.translations ?? "").trim())
+              .filter(Boolean)
+              .join(" ");
+            addBnSegment(map, arabic, bn);
+          }
+        }
+      }),
+    );
+  }
+
   return map;
 }
 
@@ -1772,7 +1822,10 @@ export async function buildAdhkar() {
   // Duroods: curated base + authentic Hisnul Muslim ch.107 salawat.
   const duroodItems = mergeDuruds(DUROOD_ITEMS, buildHisnDuruds(hisnDuas, translitLookup));
 
-  const bnMap = buildBnTranslationMap(hisnDuas);
+  const bnCsvMap = buildBnTranslationMap(hisnDuas);
+  const bnApiMap = await buildBnTranslationMapFromThelightHub();
+  const bnMap = new Map([...bnApiMap, ...bnCsvMap]);
+  console.log(`  [adhkar] Bengali: ${bnMap.size} keys (${bnApiMap.size} from ${THELIGHTHUB_REPO})`);
   const idMap = await buildIdTranslationMap();
   for (const list of [zikrItems, duaItems, duroodItems]) {
     mergeTranslationMaps(list, { bn: bnMap, id: idMap });
@@ -1812,11 +1865,11 @@ export async function buildAdhkar() {
     await datasetEntry({
       id: "adhkar",
       kind: "content",
-      version: 6,
+      version: 7,
       absFiles: [zikrPath, duasPath, duroodsPath],
       license: "Text: public domain (Qur'an & Hadith). Audio: streamed, © reciter.",
-      attribution: `Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (${HISN_AUDIO_REPO}); adhkar & transliteration from ${DUADHIKR_REPO} (Arabic, transliteration, translation). Audio streamed from ${HISN_AUDIO_REPO}.`,
-      sourceUrl: `https://github.com/${DUADHIKR_REPO}`,
+      attribution: `Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (${HISN_AUDIO_REPO}); adhkar & transliteration from ${DUADHIKR_REPO} (Arabic, transliteration, translation). Bengali Hisnul translations from ${THELIGHTHUB_REPO} (MIT, ${THELIGHTHUB_DUA_API}). Indonesian subset from fitrahive/dua-dhikr. Audio streamed from ${HISN_AUDIO_REPO}.`,
+      sourceUrl: `https://github.com/${THELIGHTHUB_REPO}`,
     }),
   ];
 }

@@ -9,6 +9,7 @@ import { Platform } from "react-native";
 
 import {
   absoluteUrl,
+  canonicalUrl,
   formatTitle,
   HREFLANG_BY_LOCALE,
   localizedUrl,
@@ -92,8 +93,8 @@ function SeoWeb(props: SeoProps) {
   const rawTitle = props.title ?? registry?.title;
   const title = formatTitle(rawTitle, { isHome });
   const description = props.description ?? registry?.description ?? SEO_APP.description;
-  const canonical = absoluteUrl(resolvedPath);
   const locale = props.locale ?? SEO_DEFAULT_LOCALE;
+  const canonical = canonicalUrl(resolvedPath, locale);
 
   const index = props.index ?? registry?.index ?? true;
   const follow = props.follow ?? true;
@@ -137,7 +138,7 @@ function SeoWeb(props: SeoProps) {
   // URLs. Today the app is one static build (language switches client-side), so
   // `localizedUrl` is identity and we emit none — this auto-activates the day
   // locale-prefixed routing lands, with no change to callers.
-  const localeUrls = SEO_LOCALES.map((l) => localizedUrl(resolvedPath, l));
+  const localeUrls = SEO_LOCALES.map((l) => absoluteUrl(localizedUrl(resolvedPath, l)));
   const hasDistinctLocaleUrls = new Set(localeUrls).size > 1;
 
   return (
@@ -157,7 +158,7 @@ function SeoWeb(props: SeoProps) {
               key={`hreflang-${l}`}
               rel="alternate"
               hrefLang={HREFLANG_BY_LOCALE[l]}
-              href={localizedUrl(resolvedPath, l)}
+              href={absoluteUrl(localizedUrl(resolvedPath, l))}
             />
           ))
         : null}
@@ -165,7 +166,7 @@ function SeoWeb(props: SeoProps) {
         <link
           rel="alternate"
           hrefLang="x-default"
-          href={localizedUrl(resolvedPath, SEO_DEFAULT_LOCALE)}
+          href={absoluteUrl(localizedUrl(resolvedPath, SEO_DEFAULT_LOCALE))}
         />
       ) : null}
 

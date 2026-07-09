@@ -1371,7 +1371,7 @@
       "intensive": "ন intensive"
     },
     "intensiveWarning": "এই গতি হয় very demanding — best suited তে short campaigns, not years এর daily life.",
-    "durationYears_one": "{{count}} years",
+    "durationYears_one": "{{count}} বছর",
     "durationYears_other": "{{count}} বছর",
     "durationMonths_one": "{{count}} মাস",
     "durationMonths_other": "{{count}} মাস",
@@ -1705,7 +1705,8 @@
           "8": "হাজার আলো",
           "9": "দুই হাজার",
           "10": "Lifelong নামাজ"
-        }
+        },
+        "description_other": "সম্পন্ন {{count}} ফরজ নামাজ"
       },
       "streak": {
         "titleFallback": "ধারাবাহিক {{level}}",
@@ -1724,7 +1725,8 @@
           "9": "চার মাস শক্তিশালী",
           "10": "Half Year এর হালকা",
           "11": "Year এর ধারাবাহিকতা"
-        }
+        },
+        "description_other": "Keep  {{count}}-দিন নামাজ ধারাবাহিক"
       },
       "zikr": {
         "titleFallback": "যিকির {{level}}",
@@ -1740,7 +1742,8 @@
           "6": "Deep Refleksi",
           "7": "Five Hundred Hati",
           "8": "হাজার Remembrances"
-        }
+        },
+        "description_other": "সম্পন্ন {{count}} যিকির সেশন"
       },
       "consistency": {
         "titleFallback": "ধারাবাহিকতা {{level}}",
@@ -1756,7 +1759,8 @@
           "6": "Hundred নিখুঁত দিন",
           "7": "Two Hundred দিন",
           "8": "Year এর নিখুঁত দিন"
-        }
+        },
+        "description_other": "সম্পন্ন সব ফরজ prayers এ {{count}} দিন"
       }
     },
     "devotionRank": {
@@ -1784,7 +1788,9 @@
         "activeDescription": "Make up {{count}} কাজা prayers",
         "activeDescription_one": "Make up {{count}} কাজা নামাজ",
         "clearedDescription": "Cleared সব {{count}} tracked কাজা prayers",
-        "clearedDescription_one": "Cleared সব {{count}} tracked কাজা নামাজ"
+        "clearedDescription_one": "Cleared সব {{count}} tracked কাজা নামাজ",
+        "activeDescription_other": "Make up {{count}} কাজা নামাজ",
+        "clearedDescription_other": "Cleared সব {{count}} tracked কাজা নামাজ"
       },
       "roza": {
         "activeTitle": "Clear রোজা ঋণ",
@@ -1792,7 +1798,9 @@
         "activeDescription": "Make up {{count}} মিস fasts",
         "activeDescription_one": "Make up {{count}} মিস রোজা",
         "clearedDescription": "Cleared সব {{count}} tracked মিস fasts",
-        "clearedDescription_one": "Cleared সব {{count}} tracked মিস রোজা"
+        "clearedDescription_one": "Cleared সব {{count}} tracked মিস রোজা",
+        "activeDescription_other": "Make up {{count}} মিস রোজা",
+        "clearedDescription_other": "Cleared সব {{count}} tracked মিস রোজা"
       }
     },
     "share": "শেয়ার",

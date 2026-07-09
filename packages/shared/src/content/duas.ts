@@ -36,11 +36,11 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire.",
     translations: {
+      bn: "আর তাদের মধ্যে কেউ কেউ বলে-হে পরওয়ারদেগার! আমাদিগকে দুনয়াতেও কল্যাণ দান কর এবং আখেরাতেও কল্যাণ দান কর এবং আমাদিগকে দোযখের আযাব থেকে রক্ষা কর।",
       id: 'Dan di antara mereka ada orang yang berdoa, "Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka',
       ur: "اور بعضے ایسے ہیں کہ دعا کرتے ہیں کہ پروردگار ہم کو دنیا میں بھی نعمت عطا فرما اور آخرت میں بھی نعمت بخشیو اور دوزخ کے عذاب سے محفوظ رکھیو",
       tr: 'Rabbimiz! Bize dünyada iyiyi, ahirette de iyiyi ver, bizi ateşin azabından koru" diyenler vardır',
       tk: 'Rabbimiz! Bize dünyada iyiyi, ahirette de iyiyi ver, bizi ateşin azabından koru" diyenler vardır',
-      bn: "আর তাদের মধ্যে কেউ কেউ বলে-হে পরওয়ারদেগার! আমাদিগকে দুনয়াতেও কল্যাণ দান কর এবং আখেরাতেও কল্যাণ দান কর এবং আমাদিগকে দোযখের আযাব থেকে রক্ষা কর।",
       ms: 'Dan di antara mereka pula ada yang (berdoa dengan) berkata: "Wahai Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari azab neraka',
       fa: "و بعضی می‌گویند: «پروردگارا! به ما در دنیا (*نیکی*) عطا کن! و در آخرت نیز (*نیکی*) مرحمت فرما! و ما را از عذابِ آتش نگاه دار!»",
       fr: "Et il est des gens qui disent: «Seigneur! Accorde nous belle part ici-bas, et belle part aussi dans l'au-delà; et protège-nous du châtiment du Feu!»",
@@ -167,11 +167,11 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "Hasbunallahu wa ni'mal-wakil",
     translation: "Allah is sufficient for us, and He is the best disposer of affairs.",
     translations: {
+      bn: "যাদেরকে লোকেরা বলেছে যে, তোমাদের সাথে মোকাবেলা করার জন্য লোকেরা সমাবেশ করেছে বহু সাজ-সরঞ্জাম; তাদের ভয় কর। তখন তাদের বিশ্বাস আরও দৃঢ়তর হয়ে যায় এবং তারা বলে, আমাদের জন্য আল্লাহই যথেষ্ট; কতই না চমৎকার কামিয়াবীদানকারী।",
       ur: "(جب) ان سے لوگوں نے آکر بیان کیا کہ کفار نے تمہارے (مقابلے کے) لئے لشکر کثیر) جمع کیا ہے تو ان سے ڈرو۔ تو ان کا ایمان اور زیادہ ہوگیا۔ اور کہنے لگے ہم کو خدا کافی ہے اور وہ بہت اچھا کارساز ہے",
       id: '(Yaitu) orang-orang (yang menaati Allah dan Rasul) yang ketika ada orang-orang mengatakan kepadanya, "Orang-orang (Quraisy) telah mengumpulkan pasukan untuk menyerang kamu, karena itu takutlah kepada mereka," ternyata (ucapan) itu menambah (kuat) iman mereka dan mereka menjawab, "Cukuplah Allah (menjadi penolong) bagi kami dan Dia sebaik-baik pelindung',
       tr: 'İnsanlar onlara: "Düşmanınız olan insanlar size karşı bir ordu topladılar, onlardan korkun" dediler. Bu, onların imanını artırdı da: "Allah bize yeter. O ne güzel Vekil\'dir" dediler',
       tk: 'İnsanlar onlara: "Düşmanınız olan insanlar size karşı bir ordu topladılar, onlardan korkun" dediler. Bu, onların imanını artırdı da: "Allah bize yeter. O ne güzel Vekil\'dir" dediler',
-      bn: "যাদেরকে লোকেরা বলেছে যে, তোমাদের সাথে মোকাবেলা করার জন্য লোকেরা সমাবেশ করেছে বহু সাজ-সরঞ্জাম; তাদের ভয় কর। তখন তাদের বিশ্বাস আরও দৃঢ়তর হয়ে যায় এবং তারা বলে, আমাদের জন্য আল্লাহই যথেষ্ট; কতই না চমৎকার কামিয়াবীদানকারী।",
       ms: 'Mereka juga ialah yang diberitahu oleh orang-orang (pembawa berita) kepada mereka: "Bahawa kaum (kafir musyrik) telah mengumpulkan tentera untuk memerangi kamu, oleh itu hendaklah kamu gerun kepadanya". Maka berita itu makin menambahkan iman mereka lalu berkata: "Cukuplah untuk (menolong) kami, dan Ia sebaik-baik pengurus (yang terserah kepadaNya segala urusan kami)',
       fa: "اینها کسانی بودند که (بعضی از) مردم، به آنان گفتند: «مردم [= لشکر دشمن] برای (حمله به) شما اجتماع کرده‌اند؛ از آنها بترسید!» اما این سخن، بر ایمانشان افزود؛ و گفتند: «خدا ما را کافی است؛ و او بهترین حامی ماست.»",
       fr: "Certes ceux auxquels l'on disait: «Les gens se sont rassemblés contre vous; craignez-les» - cela accrut leur foi - et ils dirent: «Allah nous suffit; Il est notre meilleur garant»",
@@ -201,11 +201,11 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "La ilaha illa anta subhanaka inni kuntu minaz-zalimin",
     translation: "There is no god but You; glory be to You. Indeed, I have been of the wrongdoers.",
     translations: {
+      bn: "এবং মাছওয়ালার কথা স্মরণ করুন তিনি ক্রুদ্ধ হয়ে চলে গিয়েছিলেন, অতঃপর মনে করেছিলেন যে, আমি তাঁকে ধৃত করতে পারব না। অতঃপর তিনি অন্ধকারের মধ্যে আহবান করলেনঃ তুমি ব্যতীত কোন উপাস্য নেই; তুমি নির্দোষ আমি গুনাহগার।",
       ur: "اور ذوالنون (کو یاد کرو) جب وہ (اپنی قوم سے ناراض ہو کر) غصے کی حالت میں چل دیئے اور خیال کیا کہ ہم ان پر قابو نہیں پاسکیں گے۔ آخر اندھیرے میں (خدا کو) پکارنے لگے کہ تیرے سوا کوئی معبود نہیں۔ تو پاک ہے (اور) بےشک میں قصوروار ہوں",
       id: 'Dan (ingatlah kisah) Żun Nūn (Yunus), ketika dia pergi dalam keadaan marah, lalu dia menyangka bahwa Kami tidak akan menyulitkannya, maka dia berdoa dalam keadaan yang sangat gelap,536) "Tidak ada tuhan selain Engkau, Mahasuci Engkau. Sungguh, aku termasuk orang-orang yang zalim',
       tr: 'Zünnun (Balık Sahibi; Yunus) hakkında söylediğimizi de an. O, öfkelenerek giderken, kendisini sıkıntıya sokmayacağımızı sanmıştı; fakat sonunda karanlıklar içinde: "Senden başka tanrı yoktur, Sen münezzehsin, doğrusu ben haksızlık edenlerdenim" diye seslenmişti',
       tk: 'Zünnun (Balık Sahibi; Yunus) hakkında söylediğimizi de an. O, öfkelenerek giderken, kendisini sıkıntıya sokmayacağımızı sanmıştı; fakat sonunda karanlıklar içinde: "Senden başka tanrı yoktur, Sen münezzehsin, doğrusu ben haksızlık edenlerdenim" diye seslenmişti',
-      bn: "এবং মাছওয়ালার কথা স্মরণ করুন তিনি ক্রুদ্ধ হয়ে চলে গিয়েছিলেন, অতঃপর মনে করেছিলেন যে, আমি তাঁকে ধৃত করতে পারব না। অতঃপর তিনি অন্ধকারের মধ্যে আহবান করলেনঃ তুমি ব্যতীত কোন উপাস্য নেই; তুমি নির্দোষ আমি গুনাহগার।",
       ms: 'Dan (sebutkanlah peristiwa) Zun-Nun, ketika ia pergi (meninggalkan kaumnya) dalam keadaan marah, yang menyebabkan ia menyangka bahawa Kami tidak akan mengenakannya kesusahan atau cubaan; (setelah berlaku kepadanya apa yang berlaku) maka ia pun menyeru dalam keadaan yang gelap-gelita dengan berkata: "Sesungguhnya tiada Tuhan (yang dapat menolong) melainkan Engkau (ya Allah)! Maha Suci Engkau (daripada melakukan aniaya, tolongkanlah daku)! Sesungguhnya aku adalah dari orang-orang yang menganiaya diri sendiri',
       fa: "و ذاالنون [= یونس‌] را (به یاد آور) در آن هنگام که خشمگین (از میان قوم خود) رفت؛ و چنین می‌پنداشت که ما بر او تنگ نخواهیم گرفت؛ (امّا موقعی که در کام نهنگ فرو رفت،) در آن ظلمتها (ی متراکم) صدا زد: «(خداوندا!) جز تو معبودی نیست! منزّهی تو! من از ستمکاران بودم!»",
       fr: "Et Dû'n-Nûn (Jonas) quand il partit, irrité. Il pensa que Nous N'allions pas l'éprouver. Puis il fit, dans les ténèbres, l'appel que voici: «Pas de divinité à part Toi! Pureté à Toi! J'ai été vraiment du nombre des injustes»",
@@ -265,6 +265,9 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatik",
     translation:
       "O Allah, help me to remember You, to thank You, and to worship You in the best manner.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার যিক্‌র করতে, আপনার শুকরিয়া জ্ঞাপন করতে এবং সুন্দরভাবে আপনার ইবাদত করতে আমাকে সাহায্য করুন",
+    },
     virtues: "The Prophet ﷺ advised Mu'adh never to leave this after every prayer.",
     reference: "Abu Dawud & An-Nasa'i",
     audioUri:
@@ -286,7 +289,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "بِسْمِ اللَّهِ",
     transliteration: "Bismillah",
     translation: "In the name of Allah.",
-    translations: { id: "Dengan nama Allah (aku mulai makan)." },
+    translations: { bn: "আল্লাহ্‌র নামে (খুলে রাখলাম)", id: "Dengan nama Allah (aku mulai makan)." },
     reference: "Abu Dawud",
   },
   {
@@ -298,6 +301,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "Alhamdu lillahilladhi at'amani hadha wa razaqanihi min ghayri hawlin minni wa la quwwah",
     translation:
       "All praise is for Allah who fed me this and provided it for me without any might or power on my part.",
+    translations: {
+      bn: "সকল প্রশংসা আল্লাহ্‌র জন্য, যিনি আমাকে এ আহার করালেন এবং এ রিযিক দিলেন যাতে ছিল না আমার পক্ষ থেকে কোনো উপায়, ছিল না কোনো শক্তি-সামর্থ্য।",
+    },
     virtues: "Whoever says it after eating has his past sins forgiven.",
     reference: "Abu Dawud & Tirmidhi",
     audioUri:
@@ -311,6 +317,9 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "Bismillah, tawakkaltu 'alallah, wa la hawla wa la quwwata illa billah",
     translation:
       "In the name of Allah, I place my trust in Allah; there is no might nor power except with Allah.",
+    translations: {
+      bn: "আল্লাহ্‌র নামে (বের হচ্ছি)। আল্লাহর উপর ভরসা করলাম। আর আল্লাহর সাহায্য ছাড়া (পাপ কাজ থেকে দূরে থাকার) কোনো উপায় এবং (সৎকাজ করার) কোনো শক্তি কারো নেই [১]",
+    },
     reference: "Abu Dawud & Tirmidhi",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/16hm.mp3",
@@ -365,7 +374,10 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ",
     transliteration: "Allahummaftah li abwaba rahmatik",
     translation: "O Allah, open for me the gates of Your mercy.",
-    translations: { id: "Ya Allah, bukalah pintu-pintu rahmat-Mu untukku." },
+    translations: {
+      bn: "হে আল্লাহ! আপনি আমার জন্য আপনার রহমতের দরজাসমূহ খুলে দিন। [৫]",
+      id: "Ya Allah, bukalah pintu-pintu rahmat-Mu untukku.",
+    },
     reference: "Muslim",
   },
   {
@@ -725,6 +737,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "Praise is to Allah Who gives us life after He has caused us to die and to Him is the return.",
     translations: {
+      bn: "হামদ-প্রশংসা আল্লাহ্‌র জন্য, যিনি (নিদ্রারূপ) মৃত্যুর পর আমাদেরকে জীবিত করলেন, আর তাঁরই নিকট সকলের পুনরুত্থান",
       id: "Segala puji bagi Allah, yang telah membangunkan kami setelah menidurkan kami dan kepada-Nya lah kami dibangkitkan.",
     },
     reference: "Al-Bukhârî [6312], see Fatĥ al-Bârî (11/113) and Muslim [2711](4/2083).",
@@ -739,6 +752,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "لَا إِلَهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الحَمدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، سُبْحاَنَ اللهِ، وَالحَمدُ للهِ، وَلَا إِلَهَ إِلَّا اللهُ وَاللهُ أَكْبَرُ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيمِ، رَبِّ اغْفِرْ لِي",
     translation:
       "There is none worthy of worship but Allah alone, Who has no partner, His is the dominion and to Him belongs all praise, and He is able to do all things. Glory is to Allah. Praise is to Allah. There is none worthy of worship but Allah. Allah is the Most Great. There is no might and no power except by Allah's leave, the Exalted, the Mighty. My Lord, forgive me. (Whoever says this will be forgiven, and if he supplicates to Allah, his prayer will be answered; if he performs ablution and prays, his prayer will be accepted).",
+    translations: {
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই; রাজত্ব তাঁরই, প্রশংসাও তাঁরই; আর তিনি সকল কিছুর ওপর ক্ষমতাবান। আল্লাহ পবিত্র-মহান। সকল হামদ-প্রশংসা আল্লাহ্‌র। আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই। আল্লাহ সবচেয়ে বড়। সুউচ্চ সুমহান আল্লাহর সাহায্য ছাড়া (পাপ কাজ থেকে দূরে থাকার) কোনো উপায় এবং (সৎকাজ করার) কোনো শক্তি কারো নেই। হে রব্ব ! আমাকে ক্ষমা করুন",
+    },
     reference:
       "Al-Bukhârî [1154], see Fatĥ al-Bârî (3/39) and the wording is of Ibn Mâjah (2/335), also see Ŝaĥiĥ Ibn Mâjah (2/335).",
     audioUri:
@@ -751,6 +767,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "الحَمدُ لِلهِ الَّذِي عَافَانِي فِي جَسَدِي، وَرَدَّ عَلَيَّ رُوحِي، وَأَذِنَ لِي بِذِكْرِهِ",
     translation:
       "Praise is to Allah Who gave strength to my body, He returned my soul to me and permitted me to remember Him.",
+    translations: {
+      bn: "সকল হামদ-প্রশংসা আল্লাহ্‌র জন্য, যিনি আমার দেহকে নিরাপদ করেছেন, আমার রূহকে আমার নিকট ফেরত দিয়েছেন এবং আমাকে তাঁর যিক্‌র করার অনুমতি (সুযোগ) দিয়েছেন",
+    },
     reference: "At-Tirmidhî [3401](5/473), also see Ŝaĥiĥ At-Tirmidhî (3/144).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/3hm.mp3",
@@ -772,6 +791,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اَلحَمدُ لِلهِ الَّذِي كَسَانِي هَذَا (الثَّوْبَ) وَرَزَقَنِيهِ مِنْ غَيْرِ حَولٍ مِنِّي وَ لَا قُوَّةٍ",
     translation:
       "Praise is to Allah Who has clothed me with this (garment) and provided it for me, though I was powerless myself and incapable.",
+    translations: {
+      bn: "সকল হামদ-প্রশংসা আল্লাহ্‌র জন্য; যিনি আমাকে এ (কাপড়)টি পরিধান করিয়েছেন এবং আমার শক্তি-সামর্থ্য ছাড়াই তিনি আমাকে এটা দান করেছেন",
+    },
     reference:
       "Abû Dâwud [4023], At-Tirmidhî [2458] and Ibn Mâjah [3285]. Also see Irwâ'-ul-Ghalîl (7/47).",
     audioUri:
@@ -788,6 +810,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "O Allah, for You is all praise, You have clothed me with it (i.e. the garment), I ask You for the good of it and the good for which it was made, and I seek refuge with You from the evil of it and the evil for which it was made.",
     translations: {
+      bn: "হে আল্লাহ্! আপনারই জন্য সকল হাম্‌দ-প্রশংসা। আপনিই এটি আমাকে পরিয়েছেন। আমি আপনার কাছে এর কল্যাণ ও এটি যে উদ্দেশ্যে তৈরি হয়েছে তার কল্যাণ প্রার্থনা করি। আর আমি এর অনিষ্ট এবং এটি যে জন্য তৈরি করা হয়েছে তার অনিষ্ট থেকে আপনার আশ্রয় চাই",
       id: "Ya Allah, hanya milik-Mu lah segala pujian. Engkaulah yang memberi pakaian ini kepadaku. Aku memohon kepada-Mu agar memperoleh kebaikan dari pakaian ini dan kebaikan yang ia diciptakan karenanya. Aku berlindung kepada-Mu dari kejahatannya dan kejahatan yang diciptakan karenanya.",
     },
     reference:
@@ -801,6 +824,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication said to someone wearing new clothes #1",
     arabic: "تُبْلِي وَيُخْلِفُ اللهُ تَعَالَى",
     translation: "May you wear it out and Allah replace it (with another).",
+    translations: { bn: "তুমি পুরাতন করে ফেলবে, আর মহান আল্লাহ এর স্থলাভিষিক্ত করবেন" },
     reference: "Abû Dâwud [4020](4/41). Also see Ŝaĥiĥ Abû Dâwud (2/760).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/7hm.mp3",
@@ -811,6 +835,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication said to someone wearing new clothes #2",
     arabic: "إِلبَسْ جَدِيداً، وَعِشْ حَمِيداً، وَمُتْ شَهِيداً",
     translation: "Wear anew, live commendably and die a martyr.",
+    translations: { bn: "নতুন কাপড় পরিধান কর, প্রশংসিতরূপে দিনাতিপাত কর এবং শহীদ হয়ে মারা যাও" },
     reference: "Ibn Mâjah [3558](2/1178) and Al-Baghawî (12/41). Also see Ŝaĥiĥ Ibn Mâjah (2/275).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/8hm.mp3",
@@ -822,6 +847,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "(بِسْمِ اللهِ) اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبْثِ وَالْخَبَائِثِ",
     translation:
       "(In the name of Allah). O Allah, I take refuge with you from all evil and evil-doers.",
+    translations: { bn: "আল্লাহ্‌র নামে। হে আল্লাহ! আমি আপনার নিকট অপবিত্র নর জিন্ ও নারী জিন্ থেকে আশ্রয় চাই" },
     reference:
       'Al-Bukhârî [142](1/45) and Muslim [375](1/283). The narration with the extension "In the name of Allah" has been collected by Sa\'eed bin Manŝoor, see Fatĥ al-Bârî (1/244).',
     audioUri:
@@ -834,7 +860,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "غُفْرَانَكَ",
     transliteration: "ghufranak",
     translation: "I ask You (Allah) for forgiveness.",
-    translations: { id: "Aku mohon ampunan-Mu (ya Allah)." },
+    translations: { bn: "আমি আপনার কাছে ক্ষমাপ্রার্থী।", id: "Aku mohon ampunan-Mu (ya Allah)." },
     reference:
       "At-Tirmidhî [7], Abû Dâwud [30], Ibn Mâjah [300] and An-Nisâ'i ['Amal al-Yawm wa al-Laylah][79].",
     audioUri:
@@ -847,6 +873,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "أَشْهَدُ أَنْ لَّا إِلَهَ إِلَّا اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّداً عَبْدُهُ وَرَسُولُهُ",
     translation:
       "I bear witness that none has the right to be worshipped except Allah, Alone, without partner, and I bear witness that Muhammad is His slave and Messenger.",
+    translations: {
+      bn: "আমি সাক্ষ্য দিচ্ছি যে, একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই। আমি আরও সাক্ষ্য দিচ্ছি যে, মুহাম্মাদ তাঁর বান্দা ও রাসূল",
+    },
     reference: "Muslim [234](1/209).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/13hm.mp3",
@@ -858,6 +887,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ، وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ",
     translation:
       "O Allah, make me of those who return to You often in repentance and make me of those who remain clean and pure.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি আমাকে তাওবাকারীদের অন্তর্ভুক্ত করুন এবং পবিত্রতা অর্জনকারীদেরও অন্তর্ভুক্ত করুন।",
+    },
     reference: "At-Tirmidhî [55](1/78). Also see Ŝaĥiĥ At-Tirmidhî (1/18).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/14hm.mp3",
@@ -871,6 +903,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "Subhanaka-llahumma wa bihamdik, ashhadu an la ilaha illa anta, astaghfiruka wa atubu ilayk",
     translation:
       "How perfect You are O Allah, and I praise You, I bear witness that none has the right to be worshipped except You, I seek Your forgiveness and turn in repentance to You.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার প্রশংসাসহ পবিত্রতা ও মহিমা ঘোষণা করছি। আমি সাক্ষ্য দেই যে, আপনি ছাড়া কোন হক্ব ইলাহ নেই, আমি আপনার কাছে ক্ষমা প্রার্থনা করছি এবং আপনার নিকট তওবা করছি",
+    },
     reference: "An-Nisâ'i ['Amal al-Yawm wa al-Laylah][81](173).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/15hm.mp3",
@@ -883,6 +918,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنَّي أَعْوْذُ بِكَ أَنْ أَضِلَّ، أَوْ أُضِلَّ، أَوْ أَزِلَّ، أُوْ أُزَلَّ أَوْ أَظْلِمَ، أَوْ أُظْلَمَ، أَوْ أَجْهَلَ، أَوْ يُجْهَلَ عَلَيَّ",
     translation:
       "O Allah, I take refuge with You lest I should stray or be led astray, or slip or be tripped, or oppress or be oppressed, or behave foolishly or be treated foolishly.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার নিকট আশ্রয় চাই যেন নিজেকে বা অন্যকে পথভ্রষ্ট না করি, অথবা অন্যের দ্বারা পথভ্রষ্ট না হই; আমার নিজের বা অন্যের পদস্খলন না করি, অথবা আমায় যেন পদস্খলন করানো না হয়; আমি যেন নিজের বা অন্যের উপর যুলম না করি অথবা আমার প্রতি যুলম না করা হয়; আমি যেন নিজে মুর্খতা না করি, অথবা আমার উপর মূর্খতা করা না হয়।",
+    },
     reference:
       "Abû Dâwud [5094], At-Tirmidhî [3427], An-Nisâ'i (8/268) and Ibn Mâjah [3884]. Also see Ŝaĥiĥ At-Tirmidhî (3/152) and Ŝaĥiĥ Ibn Mâjah (2/336).",
     audioUri:
@@ -895,6 +933,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "بِسْمِ اللَّهِ وَلَجْنَا، وَبِسْمِ اللَّهِ خَرَجْنَا، وَعَلَى اللهِ رَبَّنَا تَوَكَّلْنَا",
     translation:
       "In the name of Allah we enter and in the name of Allah we leave, and upon our Lord we place our trust.",
+    translations: {
+      bn: "আল্লাহ্‌র নামে আমরা প্রবেশ করলাম, আল্লাহ্‌র নামেই আমরা বের হলাম এবং আমাদের রব আল্লাহ্‌র উপরই আমরা ভরসা করলাম",
+    },
     reference:
       "Abû Dâwud [5096](4/325) and Shaykh Abdul 'Azîz bin Bâz graded its chain ĥasan in [Tuĥfat al-Akhyâr](28).",
     audioUri:
@@ -908,6 +949,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُوْراً، وَفِي لِسَانِي نُوْراً، وَ فِي سَمْعِي نُوْراً، وَ فِي بَصَري نُوْراً، وَ مِنْ فَوقِي نُوْراً، وَمِنْ تحْتِي نُوْراً، وَعَنْ يَمِيْنِي نُوْراً، وَ عَنْ شِمَالِي نُوْراً، وَ مِنْ أَمَامِي نُوْراً، وَ مِنْ خَلْفِي نُوراً، واجْعَلْ فِي نَفْسِي نُوراً، وَ أعْظِمْ لي نُوراً، وَ عَظِّمْ لي نُوراً، وَاجْعَلْ لي نُوراً، وَاجْعَلْنِي نُوراً، اللهم أَعْطِنِي نُوراً، وَاجْعَلْ في عَصَبِي نُوراً، وَ في لَحْمِي نُوراً، وَ في دَمِي نُوراً، وَ في شَعْرِي نُوراً، وَ في بَشَرِي نُوراً . .",
     translation:
       "O Allah, place light in my heart, and on my tongue light, and in my ears light and in my sight light, and above me light, and below me light, and to my right light, and to my left light, and before me light and behind me light. Place in my soul light. Magnify for me light, and amplify for me light. Make for me light and make me a light. O Allah, grant me light, and place light in my nerves, and in my body light and in my blood light and in my hair light and in my skin light.[O Allah, make for me a light in my grave... and a light in my bones].[Increase me in light, increase me in light, increase me in light].",
+    translations: {
+      bn: "হে আল্লাহ! আপনি আমার অন্তরে নূর (বা আলো) দান করুন, আমার যবানে নূর দান করুন, আমার শ্রবণশক্তিতে নূর দান করুন, আমার দর্শনশক্তিতে নূর দান করুন, আমার উপরে নূর দান করুন, আমার নীচে নূর দান করুন, আমার ডানে নূর দান করুন, আমার বামে নূর দান করুন, আমার সামনে নূর দান করুন, আমার পেছনে নূর দান করুন, আমার আত্মায় নূর দান করুন, আমার জন্য নূরকে বড় করে দিন, আমার জন্য নূর বাড়িয়ে দিন, আমার জন্য নূর নির্ধারণ করুন, আমাকে আলোকময় করুন। হে আল্লাহ! আমাকে নূর দান করুন, আমার পেশীতে নূর প্রদান করুন, আমার গোশ্‌তে নূর দান করুন, আমার রক্তে নূর দান করুন, আমার চুলে নূর দান করুন ও আমার চামড়ায় নূর দান করুন। [১]",
+    },
     reference:
       "(1) Al-Bukhârî [6316](11/116) and Muslim [763](1/526,529,530).\n(2) At-Tirmidhî [3419](5/483).",
     audioUri:
@@ -1014,6 +1058,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ، وَتَبَارَكَ اسْمُكَ، وَتَعَالَى جَدُّكَ، وَلاَ إِلَهَ غَيْرُكَ.",
     translation:
       "How perfect You are O Allah, and I praise You. Blessed be Your name, and lofty is Your position and none has the right to be worshipped except You.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার প্রশংসাসহ আপনার পবিত্রতা ও মহিমা ঘোষণা করছি, আপনার নাম বড়ই বরকতময়, আপনার প্রতিপত্তি অতি উচ্চ। আর আপনি ব্যতীত অন্য কোনো হক্ব ইলাহ্‌ নেই।",
+    },
     reference:
       "Abû Dâwud [775,776], At-Tirmidhî [242, 432], An-Nisâ'i (2/133), and Ibn Mâjah [804, 806]. Also see \nŜaĥîĥ At-Tirmidhî (1/77) and Ŝaĥîĥ Ibn Mâjah (1/135).",
     audioUri:
@@ -1086,6 +1133,9 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "While bowing in Ŝalâh (Rukû') #2",
     arabic: "سُبْحَانَكَ اللَّهُمَّ رَبَّنَا وَبِحَمْدِكَ اللَّهُمَّ اغْفِرْلِي",
     translation: "How perfect You are O Allah, our Lord and I praise You. O Allah, forgive me.",
+    translations: {
+      bn: "হে আল্লাহ! আমাদের রব্ব! আপনার পবিত্রতা ও মহিমা ঘোষণা করছি আপনার প্রশংসাসহ। হে আল্লাহ! আপনি আমাকে মাফ করে দিন।",
+    },
     reference: "Al-Bukhârî [794](1/99) and Muslim [484](1/350).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/34hm.mp3",
@@ -1096,6 +1146,9 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "While bowing in Ŝalâh (Rukû') #3",
     arabic: "سُبُّوحٌ، قُدُّوسٌ، رَبُّ المَلائِكَةِ وَالرُّوحِ.",
     translation: "Perfect and Holy (He is), Lord of the angels and the Ruuh (i.e. Jibreel).",
+    translations: {
+      bn: "(তিনি/আপনি) সম্পূর্ণরূপে দোষ-ত্রুটিমুক্ত, অত্যন্ত পবিত্র ও মহিমান্বিত; ফেরেশতাগণ ও রূহ এর রব্ব।",
+    },
     reference: "Muslim [487](1/353) and Abû Dâwud [872](1/230).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/35hm.mp3",
@@ -1119,6 +1172,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سُبْحَانَ ذِي الْجَبَروتِ ، وَالْمَلَكُوتِ ، وَالكِبْرِيَاءِ ، وَالْعَظَمَةِ.",
     translation:
       "How perfect He is, The Possessor of total power, sovereignty, magnificence and grandeur.",
+    translations: {
+      bn: "পবিত্রতা ও মহিমা ঘোষণা করছি সেই সত্তার, যিনি প্রবল প্রতাপ, বিশাল সাম্রাজ্য, বিরাট গৌরব-গরিমা এবং অতুলনীয় মহত্ত্বের অধিকারী",
+    },
     reference: "Abû Dâwud [873](1/230), An-Nisâ'i (2/191) and Aĥmad (6/24).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/37hm.mp3",
@@ -1129,6 +1185,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Upon rising from Rukû' (bowing position in Ŝalâh) #1",
     arabic: "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ.",
     translation: "May Allah answer he who praises Him.",
+    translations: { bn: "যে আল্লাহর হামদ-প্রশংসা করে, আল্লাহ তার প্রশংসা শোনেন (কবুল করুন)" },
     reference: "Al-Bukhârî [795](2/282).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/38hm.mp3",
@@ -1139,6 +1196,9 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Upon rising from Rukû' (bowing position in Ŝalâh) #2",
     arabic: "رَبَّنَا وَلَكَ الْحَمْدُ حَمْداً كَثِيراً طَيِّباً مُبَارَكاً فِيهِ.",
     translation: "Our Lord, for You is all praise, an abundant beautiful blessed praise.",
+    translations: {
+      bn: "হে আমাদের রব্ব! আর আপনার জন্যই সমস্ত প্রশংসা; অঢেল, পবিত্র ও বরকত-রয়েছে-এমন প্রশংসা।",
+    },
     reference: "Al-Bukhârî [799](2/284).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/39hm.mp3",
@@ -1174,6 +1234,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ لَكَ سَجَدْتُ، وَبِكَ آمَنْتُ، وَلَكَ أَسْلَمْتُ، سَجَدَ وَجْهِي لِلَّذِي خَلَقَهُ، وَصَوَّرَهَ، وَشَقَّ سَمْعَهُ وَبَصَرَهُ، تَبَارَكَ اللَّهُ أَحْسَنُ الخَالِقِينَ",
     translation:
       "O Allah, unto You I have prostrated and in You I have believed, and unto You I have submitted. My face has prostrated before He Who created it and fashioned it, and brought forth its faculties of hearing and seeing. Blessed is Allah, the Best of creators.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার জন্যই সিজদা করেছি, আপনার উপরই ঈমান এনেছি, আপনার কাছেই নিজেকে সঁপে দিয়েছি। আমার মুখমণ্ডল সিজদায় অবনত সেই মহান সত্তার জন্য; যিনি একে সৃষ্টি করেছেন এবং আকৃতি দিয়েছেন, আর তার কান ও চোখ বিদীর্ণ করেছেন। সর্বোত্তম স্রষ্টা আল্লাহ্‌ অত্যন্ত বরকতময়।",
+    },
     reference: "Muslim [771](1/534).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/44hm.mp3",
@@ -1185,6 +1248,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللًّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ، دِقَّهُ وَجِلَّهُ، وَأَوَّلَهُ وَآخِرَهُ، وَعَلانِيَتَهُ وَسِرَّهُ",
     translation:
       "O Allah, forgive me all of my sins, the small and great of them, the first and last of them, and the seen and hidden of them.",
+    translations: {
+      bn: "হে আল্লাহ! আমার সমস্ত গুনাহ মাফ করে দিন— তার ক্ষুদ্র অংশ, তার বড় অংশ, আগের গুনাহ, পরের গুনাহ, প্রকাশ্য ও গোপন গুনাহ।",
+    },
     reference: "Muslim [483](1/350).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/46hm.mp3",
@@ -1197,6 +1263,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أَعُوْذُ بِرِضَاكَ مِنْ سَخَطِكَ، وَبِمُعَافَاتِكَ مِنْ عُقُوبَتِكَ، وَأَعُوْذُ بِكَ مِنْكَ، لاَ أُحْصِي ثَنَاءً عَلَيْكَ، أَنْتَ كَمَا أَثْنَيْتَ عَلَى نَفْسِكَ",
     translation:
       "O Allah, I take refuge within Your pleasure from Your displeasure and within Your pardon from Your punishment, and I take refuge in You from You. I cannot enumerate Your praise. You are as You have praised Yourself.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার সন্তুষ্টির মাধ্যমে অসন্তুষ্টি থেকে, আর আপনার নিরাপত্তার মাধ্যমে আপনার শাস্তি থেকে আশ্রয় চাই। আর আমি আপনার নিকটে আপনার (পাকড়াও) থেকে আশ্রয় চাই। আমি আপনার প্রশংসা গুনতে সক্ষম নই; আপনি সেরূপই, যেরূপ প্রশংসা আপনি নিজের জন্য করেছেন",
+    },
     reference: "Muslim [486](1/352).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/47hm.mp3",
@@ -1207,6 +1276,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplications between sajdatain (two prostrations) #1",
     arabic: "رَبِّ اغْفِرْ لِي، رَبِّ اغْفِرْ لِي",
     translation: "My Lord forgive me, My Lord forgive me.",
+    translations: { bn: "হে আমার রব্ব! আপনি আমাকে ক্ষমা করুন। হে আমার রব্ব! আপনি আমাকে ক্ষমা করুন।" },
     reference: "Abû Dâwud [874](1/231). Also see Ŝaĥîĥ Ibn Mâjah (1/148).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/48hm.mp3",
@@ -1218,6 +1288,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ اغْفِرْ لِي، وَارْحَمْنِي، وَاهْدِنِي، وَاجْبُرْنِي، وَعَافِنِي، وَارْزُقْنِي، وَارْفَعْنِي",
     translation:
       "O Allah, forgive me, have mercy upon me, guide me, enrich me, give me health, grant me sustenance and raise my rank.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি আমাকে ক্ষমা করুন, আমার প্রতি দয়া করুন, আমাকে সঠিক পথে পরিচালিত করুন, আমার সমস্ত ক্ষয়ক্ষতি পূরণ করে দিন, আমাকে নিরাপত্তা দান করুন, আমাকে রিযিক দান করুন এবং আমার মর্যাদা বৃদ্ধি করুন",
+    },
     reference:
       "Abû Dâwud [850], At-Tirmidhî [284], Ibn Mâjah [898]. Also see Ŝaĥîĥ At-Tirmidhî (1/90) and Ŝaĥîĥ Ibn Mâjah (1/148).",
     audioUri:
@@ -1230,6 +1303,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سَجَدَ وَجْهِي لِلَّذِي خَلَقَهُ، وَشَقَّ سَمْعَهُ وَبَصَرَهُ، بِحَوْلِهِ وَقُوَّتِهِ (فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ)",
     translation:
       "My face fell prostrate before He who created it and brought forth its faculties of hearing and seeing by His might and power (So Blessed is Allah, the best of creators).",
+    translations: {
+      bn: "আমার মুখমণ্ডল সিজদা করেছে সে সত্তার জন্য, যিনি একে সৃষ্টি করেছেন, আর নিজ শক্তি ও ক্ষমতাবলে এর কান ও চোখ বিদীর্ণ করেছেন।  সুতরাং সর্বোত্তম স্রষ্টা আল্লাহ্‌ অত্যন্ত বরকতময়।",
+    },
     reference:
       "At-Tirmidhî [580](2/474), Aĥmad (6/30) and Al-Hâkim declated it authentic and Ad-Dhahabî agreed with him (1/220). The extension is from Ŝûrah Al-Mu'minûn.",
     audioUri:
@@ -1243,6 +1319,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ اكْتُبْ لِي بِهَا عِنْدَكَ أَجْراً، وَضَعْ عَنِّي بِهَا وِزْراً، وَاجْعَلْهَا لِي عِنْدَكَ ذُخْراً، وَتَقَبَّلَهَا مِنِّي كَمَا تَقَبَّلْتَهَا مِنْ عَبْدِكَ دَاوُدَ",
     translation:
       "O Allah, record for me a reward for this (prostration), and remove from me a sin. Save it for me and accept it from me just as You had accepted it from Your servant Dâwud.",
+    translations: {
+      bn: "হে আল্লাহ! এই সিজদার বদৌলতে আপনার নিকট আমার জন্য প্রতিদান লিখে রাখুন, এর দ্বারা আমার পাপসমূহ ফেলে দিন, এটাকে আপনার কাছে আমার জন্য সঞ্চয় হিসেবে জমা রাখুন, আর একে আমার থেকে কবুল করুন যেমন কবুল করেছেন আপনার বান্দা দাউদ (আলাইহিস সালাম) এর থেকে",
+    },
     reference:
       "At-Tirmidhî [579](2/473) and Al-Al-Hâkim declared it Ŝaĥîĥ and Ad-Dhahabî agreed with him (1/219).",
     audioUri:
@@ -1256,6 +1335,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "التَّحِيَّاتُ لِلَّهِ، وَالصَّلَوَاتُ، وَالطَّيِّبَاتُ، السَّلامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ، السَّلامُ عَلَيْنَا وَعَلَى عِبَادِ اللهِ الصَّالِحِينَ،. أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ، وَأَشْهَدُ أَنَّ مُحَمَّداً عَبْدُهُ وَرَسُولُهُ",
     translation:
       "Al-Tahiyyât is for Allah. All acts of worship and good deeds are for Him. Peace and the mercy and blessings of Allah be upon you O Prophet. Peace be upon us and all of Allah’s righteous servants. I bear witness that none has the right to be worshipped except Allah and I bear witness that Muhammad is His slave and Messenger.",
+    translations: {
+      bn: "যাবতীয় অভিবাদন আল্লাহ্‌র জন্য, অনুরূপভাবে সকল সালাত ও পবিত্র কাজও। হে নবী! আপনার উপর বর্ষিত হোক সালাম, আল্লাহর রহমত ও বরকতসমূহ। আমাদের উপর এবং আল্লাহ্‌র সৎ বান্দাদের উপরও বর্ষিত হোক সালাম। আমি সাক্ষ্য দিচ্ছি যে, আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই এবং আমি আরও সাক্ষ্য দিচ্ছি যে, মুহাম্মদ (সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম) আল্লাহ্‌র বান্দা ও রাসূল",
+    },
     reference: "Al-Bukhârî [831](2/311) and Muslim [402](1/301).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/52hm.mp3",
@@ -1268,6 +1350,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ، كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ",
     translation:
       "O Allah, send prayers upon Muhammad and the followers of Muhammad, just as You sent prayers upon Ibrahim and upon the followers of Ibrahim. Verily, You are full of praise and majesty. O Allah, send blessings upon Muhammad and upon the family of Muhammad, just as You send blessings upon Ibrahim and upon the family of Ibrahim. Verily, You are full of praise and majesty.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি (আপনার নিকটস্থ উচ্চসভায়) মুহাম্মাদকে সম্মানের সাথে স্মরণ করুন এবং তাঁর পরিবার-পরিজনকে, যেমন আপনি সম্মানের সাথে স্মরণ করেছেন ইবরাহীমকে ও তাঁর পরিবার-পরিজনদেরকে। নিশ্চয় আপনি অত্যন্ত প্রশংসিত ও মহামহিমান্বিত। হে আল্লাহ! আপনি মুহাম্মাদ ও তাঁর পরিবার পরিজনের উপর বরকত নাযিল করুন যেমন আপনি বরকত নাযিল করেছিলেন ইবরাহীম ও তাঁর পরিবার-পরিজনের উপর। নিশ্চয় আপনি অত্যন্ত প্রশংসিত ও মহামহিমান্বিত",
+    },
     reference: "Al-Bukhârî [337](6/408).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/53hm.mp3",
@@ -1280,6 +1365,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا صَلَّيْتَ عَلَى آلِ إِبْرَاهِيمَ، وَبَارِكْ عَلَى مُحَمَّدٍ، وَ عَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا بَارَكْتَ عَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ",
     translation:
       "O Allah, send prayers upon Muhammad and upon the wives and descendants of Muhammad, just as You sent prayers upon the family of Ibrahim, and send blessings upon Muhammad and upon the wives and descendants of Muhammad, just as You sent blessings upon the family of Ibrahim. Verily, You are full of praise and majesty.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি (আপনার নিকটস্থ উচ্চসভায়) মুহাম্মাদকে সম্মানের সাথে স্মরণ করুন এবং তাঁর স্ত্রীগণ ও তাঁর বংশধরকেও, যেমন আপনি সম্মানের সাথে স্মরণ করেছেন ইবরাহীমের পরিবার-পরিজনকে। আর আপনি মুহাম্মাদ এবং তাঁর স্ত্রীগণ ও তাঁর বংশধরের উপর বরকত নাযিল করুন যেমন আপনি বরকত নাযিল করেছিলেন ইবরাহীমের পরিবার- পরিজনের উপর। নিশ্চয় আপনি অত্যন্ত প্রশংসিত ও মহামহিমান্বিত",
+    },
     reference: "Al-Bukhârî [3369](2/407) and Muslim [407](1/306).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/54hm.mp3",
@@ -1292,6 +1380,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أَعُوْذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، وَمِنْ عَذَابِ جَهَنَّمَ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ",
     translation:
       "O Allah, I take refuge in You from the punishment of the grave, from the torment of the Fire, from the trials and tribulations of life and death and from the evil affliction of Al-Masîh Ad-Dajjâl.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার কাছে আশ্রয় চাচ্ছি কবরের আযাব থেকে, জাহান্নামের আযাব থেকে, জীবন-মৃত্যুর ফিতনা থেকে এবং মাসীহ দাজ্জালের ফিতনার অনিষ্টতা থেকে",
+    },
     reference: "Al-Bukhârî 2/102 and Muslim 1/412.",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/55hm.mp3",
@@ -1304,6 +1395,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أَعُوْذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، وأَعُوْذُ بِكَ مِنْ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ، وَأَعُوْذُ بِكَ مِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، اللَّهُمَّ إِنِّي أَعُوْذُ بِكَ مِنَ الْمَأْثَمِ وَالْمَغْرَمِ",
     translation:
       "O Allah, I take refuge in You from the punishment of the grave, and I take refuge in You from the temptation and trial of Al-Masîĥ Ad-Dajjâl, and I take refuge in You from the trials and tribulations of life and death. O Allah, I take refuge in You from sin and debt.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার কাছে আশ্রয় চাই কবরের আযাব থেকে, আশ্রয় চাই মাসীহ দাজ্জালের ফিতনা থেকে এবং আশ্রয় চাই জীবন-মৃত্যুর ফিতনা থেকে। হে আল্লাহ! আমি আপনার কাছে আশ্রয় চাই পাপাচার ও ঋণের বোঝা থেকে",
+    },
     reference: "Al-Bukhârî [832](2/102) and Muslim [589](1/412) and the wording is the latter's.",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/56hm.mp3",
@@ -1316,6 +1410,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِي ظُلْماً كَثِيراً، وَلَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ، فَاغْفِرْ لِي مَغْفِرةً مِنْ عِنْدِكَ، وَارْحَمْني، إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ",
     translation:
       "O Allah, I have indeed oppressed my soul excessively and none can forgive sin except You, so forgive me a forgiveness from Yourself and have mercy upon me. Surely, You are The Most-Forgiving, The Most-Merciful.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আমার নিজের উপর অনেক যুলুম করেছি। আর আপনি ছাড়া গুনাহসমূহ কেউই ক্ষমা করতে পারে না। অতএব আমাকে আপনার পক্ষ থেকে বিশেষ ক্ষমা দ্বারা মাফ করে দিন, আর আমার প্রতি দয়া করুন; আপনিই তো ক্ষমাকারী, পরম দয়ালু",
+    },
     reference: "Al-Bukhârî [7387](8/168) and Muslim [2705](4/2078).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/57hm.mp3",
@@ -1328,6 +1425,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ اغْفِرْ لِي مَا قَدَّمْتُ، وَمَا أَخَّرْتُ، وَمَا أَسْرَرْتُ، وَمَا أَعْلَنْتُ، وَمَا أَسْرَفْتُ، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّي، أَنْتَ الْمُقَدِّمُ، وَأَنْتَ الْمُؤَخِّرُ لَا إِلَهَ إِلَّا أَنْتَ",
     translation:
       "O Allah, forgive me for those sins which have come to pass as well as those which shall come to pass, and those I have committed in secret as well as those I have made public, and where I have exceeded all bounds as well as those things about which You are more knowledgeable. You are Al-Muqaddim and Al-Mu’akhkhir. None has the right to be worshipped except You.",
+    translations: {
+      bn: "হে আল্লাহ! ক্ষমা করে দিন আমার গুনাহসমূহ— যা পূর্বে করেছি, যা পরে করেছি, যা আমি গোপন করেছি, যা প্রকাশ্যে করেছি, যা সীমালঙ্ঘন করে করেছি, আর যা আপনি আমার চেয়ে বেশি জানেন। আপনিই (কাউকে) করেন অগ্রগামী, আর আপনিই (কাউকে) করেন পশ্চাদগামী, আপনি ব্যতীত আর কোনো হক্ব ইলাহ নেই।",
+    },
     reference: "Muslim [771](1/534).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/58hm.mp3",
@@ -1340,6 +1440,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أَعُوْذُ بِكَ مِنَ البُخْلِ، وَأَعُوذُبِكَ مِنَ الْجُبْنِ، وَأَعُوْذُ بِكَ مِنْ أَنْ أُرَدَّ إِلَى أَرْذَلِ الْعُمُرِ، وَأَعُوْذُ بِكَ مِنْ فِتْنَةِ الدُّنْيَا، وَأعُوذُبِكَ مِنْ عَذَابِ الْقَبْرِ",
     translation:
       "O Allah, I take refuge in You from miserliness and cowardice, I take refuge in You lest I be returned to the worst of lives. And I take refuge in You from the trails and tribulations of this life and the punishment of the grave.",
+    translations: {
+      bn: "হে আল্লাহ, আমি আপনার আশ্রয় প্রার্থনা করছি কৃপণতা থেকে, আমি আপনার আশ্রয় প্রার্থনা করছি কাপুরুষতা থেকে, আমি আপনার আশ্রয় প্রার্থনা করছি অপমানকর অতি বৃদ্ধ বয়সে পৌঁছান  থেকে, (যে বয়সে মানুষ কাণ্ডজ্ঞান হারিয়ে ফেলে), আমি আপনার আশ্রয় প্রার্থনা করছি দুনিয়ার ফিতনা থেকে, আমি আপনার আশ্রয় প্রার্থনা করছি কবরের আযাব থেকে।",
+    },
     reference: "Al-Bukhârî [2822](6/35).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/60hm.mp3",
@@ -1350,6 +1453,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication to be said after the last Tashahhud and before the Taslîm #7",
     arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ، وَأَعُوْذُ بِكَ مِنْ النَّارِ",
     translation: "O Allah, I ask You to grant me Paradise and I take refuge in You from the Fire.",
+    translations: { bn: "হে আল্লাহ! আমি আপনার কাছে জান্নাত চাই এবং জাহান্নাম থেকে আপনার কাছে আশ্রয় চাই" },
     reference: "Abû Dâwud [792] and Ibn Mâjah, see Ŝaĥîĥ Ibn Mâjah (2/328).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/61hm.mp3",
@@ -1362,6 +1466,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ بِعِلْمِكَ الْغَيْبَ وَقُدْرَتِكَ عَلَى الْخَلْقِ؛ أَحْيِنِي مَا عَلِمْتَ الْحَيَاةَ خَيْراً لِي، وَتَوَفَّنِي إِذَا عَلِمْتَ الْوَفَاةَ خَيْراً لِي، اللَّهُمَّ إِنِّي أَسْأَلُكَ خَشْيَتَكَ فِي الْغَيْبِ وَالشَّهَادَةِ، وَأَسْأَلُكَ كَلِمَةَ الْحَقِّ فِي الرِّضَا وَالْغَضَبِ، وَأَسْأَلُكَ الْقَصْدَ فِي الْغِنَى وَالْفَقْرِ، وَأَسْأَلُكَ نَعِيماً لاَ يَنْفَدُ، وَأَسْأَلُكَ قُرَّةَ عَيْنٍ لاَ تَنْقَطِعُ، وَأَسْأَلُكَ الرَّضَا بَعْدَ الْقَضَاءِ، وَأَسْأَلُكَ بَرْدَ الْعَيْشِ بَعْدَ الْمَوْتِ، وَأَسْأَلُكَ لَذَّةَ النَّظَرِ إِلَى وَجْهِكَ، وَالشَّوْقَ إِلَى لِقَائِكَ فِي غَيْرِ ضَرَّاءَ مُضِرَّةٍ، وَلَا فِتْنَةٍ مُضِلَّةٍ، اللَّهُمَّ زَيَّنَّا بِزِينَةِ الإِيمَانِ، وَاجْعَلْنَا هُدَاةً مُهْتَدِينَ",
     translation:
       "O Allah, by Your knowledge of the unseen and Your power over creation, keep me alive so long as You know such life to be good for me and take me if You know death to be better for me. O Allah, make me fearful of You whether in secret or in public and I ask You to make me true in speech, in times of pleasure and anger. I ask You to make me moderate in times of wealth and poverty and I ask You for everlasting bliss and joy which will never cease. I ask You to make me pleased with what You have decreed and for an easy life after death. I ask You for the sweetness of looking upon Your Face and a longing to encounter You in a manner which does not entail a calamity which will bring about harm or a trial which will cause deviation. O Allah, beautify us with the adornment of faith and make us of those who guide and are rightly guided.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার গায়েবী জ্ঞান এবং সকল সৃষ্টির উপর আপনার সার্বভৌম ক্ষমতার অসিলায় (চাই), আমাকে আপনি জীবিত রাখুন সে-সময় পর্যন্ত, যে সময় পর্যন্ত জীবিত থাকা আপনার জ্ঞানে আমার জন্য কল্যাণকর; আর আমাকে মৃত্যু দিন যখন আপনি জানেন যে, মৃত্যু আমার জন্য কল্যাণকর। হে আল্লাহ! আমি আপনার নিকট চাই গোপনে ও প্রকাশ্যে আপনাকে ভয় করা আপনার নিকট চাই সন্তুষ্টি ও ক্রোধ উভয় অবস্থায় সত্য কথা বলা; আপনার নিকট চাই দারিদ্র্যে ও প্রাচুর্যে ভারসাম্যপূর্ণ (মধ্যম) পন্থা। আপনার নিকট চাই এমন নে‘আমত, যা কখনো শেষ হবে না; আপনার নিকট চাই এমন নয়নাভিরাম বস্তু, যা কখনো বিচ্ছিন্ন হবে না। আর আমি আপনার নিকট চাই (তাকদীরের) ফয়সালার পর সন্তোষ; আমি আপনার নিকট চাই মৃত্যুর পর প্রশান্ত জীবন। আমি আপনার নিকট চাই আপনার চেহারার প্রতি দৃষ্টিপাতের স্বাদ, আপনার নিকট চাই আপনার সাথে সাক্ষাৎ লাভের ব্যাকুলতা; এমন যে, তাতে থাকবে না কোনো ক্ষতিকর কষ্ট কিংবা ভ্রষ্টকারী ফেতনা। হে আল্লাহ! আপনি আমাদেরকে ঈমানের সৌন্দর্যে সৌন্দর্যমণ্ডিত করুন এবং আমাদেরকে হেদায়াত-প্রাপ্ত পথপ্রদর্শক বানান",
+    },
     reference:
       "An-Nisâ'i (4/54, 55) and Aĥmad (4/364). Al-Albânî authenticated it in Ŝaĥîĥ An-Nisâ'i (1/281).",
     audioUri:
@@ -1375,6 +1482,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أَسْأَلُكَ يَا اللَّهُ بِأَنَّكَ الْوَاحِدُ الأَحَدُ الصَّمَدُ، الَّذِي لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُنْ لَهُ كُفُواً أَحَدٌ، أَنْ تَغْفِرَ لِي ذُنُوبِي، إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ",
     translation:
       "O Allah, I ask You O Allah, as You are – The One, The Only, Aŝ-Ŝamad, The One who begets not, nor was He begotten and there is none like unto Him- that You forgive me my sins for verily You are The Oft-Forgiving, Most-Merciful.",
+    translations: {
+      bn: "হে আল্লাহ! আপনিই একক, অদ্বিতীয়, অমুখাপেক্ষী; যিনি জন্ম দেন নি, জন্ম নেনও নি; আর যার সমকক্ষ কেউ নেই। তাই হে আল্লাহ! আমি আপনার কাছে চাই, যেন আপনি আমার সকল গুনাহ্‌ ক্ষমা করে দেন; নিশ্চয় আপনি অতীব ক্ষমাশীল, পরম দয়ালু",
+    },
     reference:
       "An-Nisâ'i (3/52) and Aĥmad (4/238). Al-Albânî authenticated it in Ŝaĥîĥ An-Nisâ'i (1/280).",
     audioUri:
@@ -1401,6 +1511,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنِّي أَشْهَدُ أَنَّكَ أَنْتَ اللَّهُ لَا إِلَهَ إِلَّا أَنْتَ، الأَحَدُ الصَّمَدُ الَّذِي لَمْ يَلِدْ وَلَمْ يُولَدْ، وَلَمْ يَكُنْ لَهُ كُفُواً أَحَدٌ",
     translation:
       "O Allah, I ask You, as I bear witness that You are Allah, none has the right to be worshipped except You, The One, Aŝ-Ŝamad Who begets not nor was He begotten and there is none like unto Him.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার কাছে চাই। কেননা, আমি সাক্ষ্য দেই যে, নিশ্চয় আপনিই আল্লাহ, আপনি ছাড়া আর কোনো হক্ব ইলাহ নেই; আপনি একক সত্তা, অমুখাপেক্ষী—সকল কিছু আপনার মুখাপেক্ষী, যিনি কাউকে জন্ম দেন নি এবং জন্ম নেনও নি। আর যাঁর সমকক্ষ কেউ নেই",
+    },
     reference:
       "Abû Dâwud [1493](2/62), At-Tirmidhî [3475](5/515), Ibn Mâjah [3857](2/1267) and Aĥmad (5/360). Also see Ŝaĥîĥ Ibn Mâjah (2/329) and Ŝaĥîĥ At-Tirmidhî (3/163).",
     audioUri:
@@ -1440,6 +1553,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "None has the right to be worshipped except Allah, alone, without partner, to Him belongs all sovereignty and praise and He is over all things omnipotent. There is no might nor power except with Allah, none has the right to be worshipped except Allah and we worship none except Him. For Him is all favor, grace, and glorious praise. None has the right to be worshipped except Allah and we are sincere in faith and devotion to Him although the disbelievers detest it.",
     translations: {
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই, রাজত্ব তাঁরই, সমস্ত প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান। আল্লাহর সাহায্য ছাড়া (পাপ কাজ থেকে দূরে থাকার) কোনো উপায় এবং (সৎকাজ করার) কোনো শক্তি নেই। আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, আমরা কেবল তাঁরই ইবাদত করি, নেয়ামতসমূহ তাঁরই, যাবতীয় অনুগ্রহও তাঁর এবং উত্তম প্রশংসা তাঁরই। আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, আমরা তাঁর দেয়া দ্বীনকে একনিষ্ঠভাবে মান্য করি, যদিও কাফেররা তা অপছন্দ করে",
       id: "Tiada Rabb (yang berhak disembah) kecuali Allah, Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan dan pujaan. Dia Mahakuasa atas segala sesuatu. Tidak ada daya dan kekuatan kecuali (dengan pertolongan) Allah. Tiada Rabb (yang hak disembah) kecuali Allah. Kami tidak menyembah kecuali kepada-Nya. Bagi-Nya nikmat, anugerah dan pujaan yang baik. Tiada Rabb (yang hak disembah) kecuali Allah, dengan memurnikan ibadah kepada-Nya, sekalipun orang-orang kafir sama benci.",
     },
     reference: "Muslim [594](1/415).",
@@ -1530,6 +1644,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "O Allah, You are my Lord, none has the right to be worshipped except You, You created me and I am Your servant and I abide to Your covenant and promise as best I can, I take refuge in You from the evil of which I have committed. I acknowledge Your favour upon me and I acknowledge my sins, so forgive me, for verily none can forgive sins except You.",
     translations: {
+      bn: "হে আল্লাহ্‌! আপনি আমার রব্ব, আপনি ছাড়া আর কোনো হক্ব ইলাহ নেই। আপনি আমাকে সৃষ্টি করেছেন এবং আমি আপনার বান্দা। আর আমি আমার সাধ্য মতো আপনার (তাওহীদের) অঙ্গীকার ও (জান্নাতের) প্রতিশ্রুতির উপর রয়েছি। আমি আমার কৃতকর্মের অনিষ্ট থেকে আপনার আশ্রয় চাই। আপনি আমাকে আপনার যে নিয়ামত দিয়েছেন তা আমি স্বীকার করছি, আর আমি স্বীকার করছি আমার অপরাধ। অতএব আপনি আমাকে মাফ করুন। নিশ্চয় আপনি ছাড়া আর কেউ গুনাহসমূহ মাফ করে না।",
       id: "Ya Allah, Engkau adalah Rabb-ku, tidak ada Ilah (yang berhak diibadahi dengan benar) kecuali Engkau, Engkau-lah yang menciptakanku. Aku adalah hamba-Mu. Aku akan setia pada perjanjianku dengan-Mu semampuku. Aku berlindung kepada-Mu dari kejelekan (apa) yang kuperbuat. Aku mengakui nikmat-Mu (yang diberikan) kepadaku dan aku mengakui dosaku, oleh karena itu, ampunilah aku. Sesungguhnya tidak ada yang dapat mengampuni dosa kecuali Engkau.",
     },
     reference: "Al-Bukhârî [6306](7/150).",
@@ -1560,6 +1675,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "O Allah, grant my body health, O Allah, grant my hearing health, O Allah, grant my sight health. None has the right to be worshipped except You. O Allah, I take refuge with You from disbelief and poverty, and I take refuge with You from the punishment of the grave; none has the right to be worshipped except You. [Three times]",
     translations: {
+      bn: "হে আল্লাহ! আমাকে নিরাপত্তা দিন আমার শরীরে। হে আল্লাহ! আমাকে নিরাপত্তা দিন আমার শ্রবণশক্তিতে। হে আল্লাহ! আমাকে নিরাপত্তা দিন আমার দৃষ্টিশক্তিতে। আপনি ছাড়া কোনো হক্ব ইলাহ নেই। হে আল্লাহ! আমি আপনার কাছে আশ্রয় চাই কুফরি ও দারিদ্র্য থেকে। আর আমি আপনার আশ্রয় চাই কবরের আযাব থেকে। আপনি ছাড়া আর কোনো হক্ব ইলাহ নেই।",
       id: "Ya Allah, selamatkanlah tubuhku (dari penyakit dan dari apa yang tidak aku inginkan). Ya Allah, selamatkanlah pendengaranku (dari penyakit dan maksiat atau dari apa yang tidak aku inginkan). Ya Allah, selamatkanlah penglihatanku, tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau. Ya Allah, sesungguhnya aku berlindung kepada-Mu dari kekufuran dan kefakiran. Aku berlindung kepada-Mu dari siksa kubur, tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau.",
     },
     reference:
@@ -1574,6 +1690,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "حَسْبِيَ اللهُ لَا إلَهَ إلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ العَرْشِ العَظِيمِ",
     translation:
       "Allah is Sufficient for me, none has the right to be worshipped except Him, upon Him I rely and He is Lord of the exalted throne. [Seven times]",
+    translations: {
+      bn: "আল্লাহই আমার জন্য যথেষ্ট, তিনি ছাড়া আর কোনো হক্ব ইলাহ নেই। আমি তাঁর উপরই ভরসা করি। আর তিনি মহান আরশের রব্ব।",
+    },
     reference:
       "Ibn As-Sunnî [71][Marfû'] and Abû Dâwud [5081](4/321)[Mawqûf]. Shu'aîb and 'Abdul Qadir Al-Arnâ'ûť declared it authentic. Also see Zâd al-Ma'âd (2/376). Al-Albânî declared it weak. See Ďa'îf Abî Dâwud.",
     audioUri:
@@ -1587,6 +1706,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَ العَافِيَةَ في الدُّنْيَا وَالآخِرَةِ، اللّهُمَّ إِنِّي أسْأَلُكَ العَفْوَ وَ العَافِيَةَ في دِيْنِي وَدُنْيَايَ وَأهْلي وَمالي، اللَّهُمَّ اسْتُرْ عَوْرَاتي، وَآمِنْ رَوْعَاتي، اللَّهُمَّ احْفَظْني مِنْ بَيْنِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِيْنِي وَعَنْ شِمَالي، وَمِنْ فَوْقي ، وَ أعُوذُ بِعَظَمَتِكَ أنْ أُغْتَالَ مِنْ تَحْتِي.",
     translation:
       "O Allah, I ask You for pardon and well-being in this life and the next. O Allah, I ask You for pardon and well-being in my religious and worldly affairs, and my family and my wealth. O Allah, veil my weaknesses and set at ease my dismay. O Allah, preserve me from the front and from behind and on my right and on my left and from above, and I take refuge in Your greatness lest I be swallowed up by the earth.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার নিকট দুনিয়া ও আখেরাতে ক্ষমা ও নিরাপত্তা প্রার্থনা করছি। হে আল্লাহ! আমি আপনার নিকট ক্ষমা এবং নিরাপত্তা চাচ্ছি আমার দ্বীন, দুনিয়া, পরিবার ও অর্থ-সম্পদের। হে আল্লাহ! আপনি আমার গোপন ত্রুটিসমূহ ঢেকে রাখুন, আমার উদ্বিগ্নতাকে রূপান্তরিত করুন নিরাপত্তায়। হে আল্লাহ! আপনি আমাকে হেফাযত করুন আমার সামনের দিক থেকে, আমার পিছনের দিক থেকে, আমার ডান দিক থেকে, আমার বাম দিক থেকে এবং আমার উপরের দিক থেকে। আর আপনার মহত্ত্বের অসিলায় আশ্রয় চাই আমার নীচ থেকে হঠাৎ আক্রান্ত হওয়া থেকে",
+    },
     reference: "Abû Dâwud [5074], Ibn Mâjah [3871]. Also see Ŝaĥîĥ Ibn Mâjah (2/332).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/84hm.mp3",
@@ -1602,6 +1724,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "O Allah, Knower of the unseen and the seen, Creator of the heavens and the Earth, Lord and Sovereign of all things, I bear witness that none has the right to be worshipped except You. I take refuge in You from the evil of my soul and from the evil and shirk of the devil, and from committing wrong against my soul or bringing such upon another Muslim.",
     translations: {
+      bn: "হে আল্লাহ! হে গায়েব ও উপস্থিতের জ্ঞানী, হে আসমানসমূহ ও যমীনের স্রষ্টা, হে সব কিছুর রব্ব ও মালিক! আমি সাক্ষ্য দিচ্ছি যে, আপনি ছাড়া আর কোনো হক্ব ইলাহ নেই। আমি আপনার কাছে আশ্রয় চাই আমার আত্মার অনিষ্ট থেকে, শয়তানের অনিষ্টতা থেকে ও তার শির্ক বা তার ফাঁদ থেকে, আমার নিজের উপর কোনো অনিষ্ট করা, অথবা কোনো মুসলিমের দিকে তা টেনে নেওয়া থেকে।",
       id: "Ya Allah, Yang Maha Mengetahui yang ghaib dan yang nyata, wahai Rabb pencipta langit dan bumi, Rabb segala sesuatu dan yang merajainya. Aku bersaksi bahwa tidak ada ilah yang berhak disembah kecuali Engkau. Aku berlindung kepada-Mu dari kejahatan diriku, setan dan balatentaranya (godaan untuk berbuat syirik pada Allah), dan aku (berlindung kepada-Mu) dari berbuat kejelekan terhadap diriku atau menyeretnya kepada seorang muslim.",
     },
     reference: "At-Tirmidhî [3392] and Abû Dâwud [5067]. Also see Ŝaĥîĥ At-Tirmidhî (3/142).",
@@ -1617,6 +1740,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "Bismillahilladhi la yadurru ma'asmihi shay'un fil-ardi wa la fis-sama', wa huwas-Sami'ul-'Alim",
     translation:
       "In the name of Allah with whose name nothing is harmed on earth nor in the heavens and He is The All-Seeing, The All-Knowing. [Three times]",
+    translations: {
+      bn: "আল্লাহ্‌র নামে; যাঁর নামের সাথে আসমান ও যমীনে কোনো কিছুই ক্ষতি করতে পারে না। আর তিনি সর্বশ্রোতা, মহাজ্ঞানী।”",
+    },
     reference:
       "Abû Dâwud [5088, 5089](4/323), At-Tirmidhî [3388](5/465), Ibn Mâjah [3869], Aĥmad (1/72). Also see Ŝaĥîĥ Ibn Mâjah (2/332). Shaykh Ibn Bâz authenticated its chain in [Tuĥfat Al-Akhyâr][pg. 39].",
     audioUri:
@@ -1641,6 +1767,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيْثُ، أَصْلِحْ لي شَأْني كُلَّهُ، وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ",
     translation:
       "O Ever Living, O Self-Subsisting and Supporter of all, by Your mercy I seek assistance, rectify for me all of my affairs and do not leave me to myself, even for the blink of an eye.",
+    translations: {
+      bn: "হে চিরঞ্জীব, হে চিরস্থায়ী! আমি আপনার রহমতের অসীলায় আপনার কাছে উদ্ধার কামনা করি, আপনি আমার সার্বিক অবস্থা সংশোধন করে দিন, আর আমাকে আমার নিজের কাছে নিমেষের জন্যও সোপর্দ করবেন না।",
+    },
     reference:
       "Al-Hâkim (1/545); he authenticated it and Adh-Dhahabî agreed with him. Also see Ŝaĥîĥ At-Targhîb wa At-Tarhîb [654](1/273).",
     audioUri:
@@ -1679,7 +1808,10 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سُبْحَانَ اللهِ وَبِحَمْدِهِ",
     transliteration: "Subhan-Allahi wa bihamdihi",
     translation: "How perfect Allah is and I praise Him. [One Hundred Times]",
-    translations: { id: "Maha Suci Allah, aku memuji-Nya." },
+    translations: {
+      bn: "আমি আল্লাহর প্রশংসাসহ পবিত্রতা ও মহিমা ঘোষণা করছি।",
+      id: "Maha Suci Allah, aku memuji-Nya.",
+    },
     reference: "Muslim [2723](4/2071).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/91hm.mp3",
@@ -1706,6 +1838,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "None has the right to be worshipped except Allah, alone, without partner, to Him belongs all sovereignty and praise, and He is over all things omnipotent. [One hundred times in the morning]",
     translations: {
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই, রাজত্ব তাঁরই, সমস্ত প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান।",
       id: "Tidak ada Rabb (yang berhak disembah) kecuali Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan. Bagi-Nya pujaan. Dia-lah Yang Mahakuasa atas segala sesuatu.",
     },
     reference: "Al-Bukhârî [3293](4/95) and Muslim [2691](4/2071).",
@@ -1719,6 +1852,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سُبْحَانَ اللهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ ، وَمِدَادَ كَلِمَاتِهِ.",
     translation:
       "How perfect Allah is and I praise Him by the number of His creation and His pleasure, and by the weight of His throne, and the ink of His words. [Three times in the morning]",
+    translations: {
+      bn: "আমি আল্লাহর প্রশংসাসহ পবিত্রতা ও মহিমা ঘোষণা করছি— তাঁর সৃষ্ট বস্তুসমূহের সংখ্যার সমান, তাঁর নিজের সন্তোষের সমান, তাঁর আরশের ওজনের সমান ও তাঁর বাণীসমূহ লেখার কালি পরিমাণ (অগণিত অসংখ্য)",
+    },
     reference: "Muslim [2726](4/2090).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/94hm.mp3",
@@ -1730,6 +1866,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْماً نَافِعاً، وَ رِزْقاً طَيِّباً، وَ عَمَلاً مُتَقَبَّلاً",
     translation:
       "O Allah, I ask You for knowledge which is beneficial and sustenance which is good, and deeds which are acceptable. [In the morning]",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার নিকট উপকারী জ্ঞান, পবিত্র রিযিক এবং কবুলযোগ্য আমল প্রার্থনা করি।",
+    },
     reference:
       "Ibn As-Sunnî ['Amal al-Yawm wa al-Laylah][54] and Ibn Mâjah [925]. Shu'aîb and 'Abdul Qadir Al-Arnâ'ûť declared it authentic in their research of Zâd al-Ma'âd (2/375).",
     audioUri:
@@ -1743,7 +1882,10 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "astaghfirullah wa atubu ilayh",
     translation:
       "I seek Your forgiveness, Allah, and repent unto You. [One hundred times in a day]",
-    translations: { id: "Aku memohon ampunan kepada Allah dan bertaubat kepada-Nya." },
+    translations: {
+      bn: "আমি আল্লাহ্‌র কাছে ক্ষমা প্রার্থনা করছি এবং তাঁর নিকটই তাওবা করছি",
+      id: "Aku memohon ampunan kepada Allah dan bertaubat kepada-Nya.",
+    },
     reference: "Al-Bukhârî [6307](11/101) and Muslim [2702](4/2075).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/96hm.mp3",
@@ -1757,6 +1899,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "I take refuge in Allah’s perfect words from the evil He has created. [Three times in the evening]",
     translations: {
+      bn: "আল্লাহ্‌র পরিপূর্ণ কালেমাসমূহের ওসিলায় আমি তাঁর নিকট তাঁর সৃষ্টির ক্ষতি থেকে আশ্রয় চাই।",
       id: "Aku berlindung dengan kalimat-kalimat Allah yang sempurna, dari kejahatan sesuatu yang diciptakan-Nya.",
     },
     reference:
@@ -1770,6 +1913,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Remembrance said in the morning and evening #24",
     arabic: "اللَّهُمَّ صَلِّ وَ سَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
     translation: "O Allah, send prayers and blessings upon our prophet Muhammad. [Ten times]",
+    translations: { bn: "হে আল্লাহ! আপনি সালাত ও সালাম পেশ করুন আমাদের নবী মুহাম্মাদের উপর।" },
     reference:
       "Ať-Ťabarânî through two chains, one of which is good. See Majm'u Az-Zawâ 'id (10/120) and Ŝaĥîĥ At-Targhîb wa At-Tarhîb [656](1/273).",
     audioUri:
@@ -1783,6 +1927,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي، وَبِكَ أَرْفَعُهُ، فإِنْ أَمْسَكْتَ نَفْسِي فَارْحَمْهَا، وَإِنْ أَرْسَلْتَهَا فَاحْفَظْهَا، بِمَا تَحْفَظُ بِهِ عِبَادَكَ الصَّالِحِينَ",
     translation:
       "If one of you rises from his bed and then returns to it he should dust it with the edge of his garment three times for he does not know what has occurred in his absence and when he lies down he should supplicate:'In Your name my Lord, I lie down and in Your name I rise, so if You should take my soul then have mercy upon it, and if You should return my soul then protect it in the manner You do so with Your righteous servants.'",
+    translations: {
+      bn: "আমার রব! আপনার নামে আমি আমার পার্শ্বদেশ রেখেছি (শুয়েছি) এবং আপনারই নাম নিয়ে আমি তা উঠাবো। যদি আপনি (ঘুমন্ত অবস্থায়) আমার প্রাণ আটকে রাখেন, তবে আপনি তাকে দয়া করুন। আর যদি আপনি তা ফেরত পাঠিয়ে দেন, তাহলে আপনি তার হেফাযত করুন যেভাবে আপনি আপনার সৎকর্মশীল বান্দাগণকে হেফাযত করে থাকেন।",
+    },
     reference: "Al-Bukhârî [6320](11/126) and Muslim [2714](4/2084).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/102hm.mp3",
@@ -1795,6 +1942,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنَّكَ خَلَقْتَ نَفْسي وَأَنْتَ تَوَفَّاهـَا، لَكَ مَمَاتُهَا وَمَحْيَاهَا، إِنْ أَحْيَيْتَهَا فَاحْفَظْهَا، وَإِنْ أَمَتَّهَا فَاغْفِرْ لَهَا، اللَّهُمَّ إِنَّي أَسْألُكَ العَافِيَةَ",
     translation:
       "O Allah, verily You have created my soul and You shall take its life, to You belongs its life and death. If You should keep my soul alive then protect it, and if You should take its life then forgive it. O Allah, I ask You to grant my good health.",
+    translations: {
+      bn: "হে আল্লাহ! নিশ্চয় আপনি আমার আত্মাকে সৃষ্টি করেছেন এবং আপনি তার মৃত্যু ঘটাবেন। তার মৃত্যু ও তার জীবন আপনার মালিকানায়। যদি তাকে বাঁচিয়ে রাখেন তাহলে আপনি তার হেফাযত করুন, আর যদি তার মৃত্যু ঘটান তবে তাকে মাফ করে দিন। হে আল্লাহ! আমি আপনার কাছে নিরাপত্তা চাই।",
+    },
     reference: "Muslim [2712](4/2083) and Aĥmad (2/79).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/103hm.mp3",
@@ -1806,6 +1956,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ قِنِي عَذابَكَ، يَوْمَ تَبْعَثُ عِبَادَكَ",
     translation:
       "O Allah, protect me from Your punishment on the day Your servants are resurrected.",
+    translations: {
+      bn: "হে আল্লাহ! আমাকে আপনার আযাব থেকে রক্ষা করুন, যেদিন আপনি আপনার বান্দাদেরকে পুনর্জীবিত করবেন।",
+    },
     reference: "Abû Dâwud [5045](4/311). Also see Ŝaĥîĥ At-Tirmidhî (3/143).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/104hm.mp3",
@@ -1817,7 +1970,10 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "بِاسْمِكَ اللَّهُمَّ أَموتُ وَأحْيَا",
     transliteration: "Bismika Allahumma amutu wa ahya",
     translation: "In Your name O Allah, I live and die.",
-    translations: { id: "Dengan menyebut nama-Mu, ya Allah! Aku mati dan dan hidup." },
+    translations: {
+      bn: "হে আল্লাহ ! আপনার নাম নিয়েই আমি মরছি (ঘুমাচ্ছি) এবং আপনার নাম নিয়েই জীবিত (জাগ্রত) হবো।",
+      id: "Dengan menyebut nama-Mu, ya Allah! Aku mati dan dan hidup.",
+    },
     reference: "Abû Dâwud [5045](4/311). Also see Ŝaĥîĥ At-Tirmidhî (3/143).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/105hm.mp3",
@@ -1852,6 +2008,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "الحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا، وَكَفَانَا، وَآوَانَا، فَكَمْ مِمَّنْ لَا كَافِيَ لَهُ وَلَا مُؤْوِيَ",
     translation:
       "All praise is for Allah, Who fed us and gave us drink, and Who is sufficient for us and has sheltered us, for how many have none to suffice them or shelter them.",
+    translations: {
+      bn: "সকল প্রশংসা আল্লাহ্‌র জন্য, যিনি আমাদেরকে আহার করিয়েছেন, পান করিয়েছেন, আমাদের প্রয়োজন পূর্ণ করেছেন এবং আমাদেরকে আশ্রয় দিয়েছেন। কেননা, এমন বহু লোক আছে যাদের প্রয়োজনপূর্ণকারী কেউ নেই এবং যাদের আশ্রয়দানকারীও কেউ নেই।",
+    },
     reference: "Muslim [2715](4/2085).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/108hm.mp3",
@@ -1874,6 +2033,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ أَسْلَمْتُ نَفْسِي إِلَيْكَ، وَفَوَّضْتُ أَمْرِي إِلَيْكَ، وَوَجَّهْتُ وَجْهِي إِلَيْكَ، وَأَلْجَأتُ ظَهْرِي إِلَيْكَ، رَغْبَةً وَرَهْبَةً إِلَيْكَ، لَا مَلْجَأَ وَلا مَنْجَا مِنْكَ إِلَّا إِلَيْكَ، آمَنْتُ بِكِتَابِكَ الَّذِي أَنْزَلْتَ، وَبِنَبِيِّكَ الَّذِي أَرْسَلْتَ",
     translation:
       "O Allah, I submit my soul unto You, and I entrust my affair unto You, and I turn my face towards You, and I totally rely on You, in hope and fear of You. Verily there is no refuge nor safe haven from You except with You. I believe in Your Book which You have revealed and in Your Prophet whom You have sent.",
+    translations: {
+      bn: "হে আল্লাহ! আমি নিজেকে আপনার কাছে সঁপে দিলাম। আমার যাবতীয় বিষয় আপনার কাছেই সোপর্দ করলাম, আমার চেহারা আপনার দিকেই ফিরালাম, আর আমার পৃষ্ঠদেশকে আপনার দিকেই ন্যস্ত করলাম; আপনার প্রতি অনুরাগী হয়ে এবং আপনার ভয়ে ভীত হয়ে। একমাত্র আপনার নিকট ছাড়া আপনার (পাকড়াও) থেকে বাঁচার কোনো আশ্রয়স্থল নেই এবং কোনো মুক্তির উপায় নেই। আমি ঈমান এনেছি আপনার নাযিলকৃত কিতাবের উপর এবং আপনার প্রেরিত নবীর উপর।”",
+    },
     reference: "Al-Bukhârî [6313,6315,7488](11/113) and Muslim [2710](4/2081).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/111hm.mp3",
@@ -1897,6 +2059,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "أَعُوذُبِكَلِمَاتِ اللهِ التَّامَّاتِ، مِنْ غَضَبِهِ وَعِقَابِهِ، وَشَرِّ عِبَادِهِ، وَمِنْ هَمَزَاتِ الشَّيَاطِينِ، وَأنْ يَحْضُرُونِ",
     translation:
       "I take refuge in the perfect words of Allah from His anger and punishment, and from the evil of His servants, and from the madness and appearance of devils.",
+    translations: {
+      bn: "আমি আশ্রয় চাই আল্লাহ্‌র পরিপূর্ণ কালামসমূহের অসীলায় তাঁর ক্রোধ থেকে, তাঁর শাস্তি থেকে, তাঁর বান্দাদের অনিষ্ট থেকে, শয়তানদের কুমন্ত্রণা থেকে এবং তাদের উপস্থিতি থেকে",
+    },
     reference: "Abû Dâwud [3893](4/12). Also see Ŝaĥîĥ At-Tirmidhî (3/171).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/113hm.mp3",
@@ -1940,6 +2105,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِيَّاكَ نَعْبُدُ، وَلَكَ نُصَلِّي وَنَسْجُدُ، وَإِلَيْكَ نَسْعَى وَنَحْفِدُ، نَرْجُو رَحْمَتَكَ، وَنَخْشَى عَذَابَكَ، إِنَّ عَذَابَكَ بِالكَافِرِيْنَ ملْحَقٌ، اللَّهُمَّ إِنَّا نَسْتَعِيْنُكَ، وَنَسْتَغْفِرُكَ، وَنُثْنِي عَلَيْكَ الخَيْرَ، وَلَا نَكْفُرُكَ، وَنُؤْمِنُ بِكَ، وَنَخْضَعُ لَكَ، وَنَخْلَعُ مَنْ يَكْفُرُكَ",
     translation:
       "O Allah, it is You we worship, and unto You we pray and prostrate, and towards You we hasten and You we serve. We hope for Your mercy and fear Your punishment, verily Your punishment will fall upon the disbelievers.O Allah, we seek Your aid and ask Your pardon, we praise You with all good and do not disbelieve in You.We believe in You and submit unto You, and we disown and reject those who disbelieve in You.",
+    translations: {
+      bn: "হে আল্লাহ! আমরা আপনারই ইবাদত করি; আপনার জন্যই সালাত আদায় করি ও সিজদা করি; আমরা আপনার দিকেই দৌড়াই এবং দ্রুত অগ্রসর হই; আমরা আপনার করুণা লাভের আকাঙ্ক্ষা করি এবং আপনার শাস্তিকে ভয় করি। নিশ্চয় আপনার শাস্তি কাফেরদেরকে পাবে। হে আল্লাহ! নিশ্চয় আমরা আপনার কাছে সাহায্য চাই, আপনার কাছে ক্ষমা চাই, আপনার উত্তম প্রশংসা করি, আপনার সাথে কুফরি করি না, আপনার উপর ঈমান আনি, আপনার প্রতি অনুগত হই, আর যে আপনার সাথে কুফরি করে আমরা তার সাথে সম্পর্ক ছিন্ন করি।",
+    },
     reference:
       "Al-Baihaqî [As-Sunan Al-Kubrâ](2/211) and he declared its chain Ŝaĥîĥ. Al-Albânî said in [Irwâ'-ul-Ghalîl](2/170) that its chain is Ŝaĥîĥ and that the narration is mawqûf through 'Umar (RadiAllah ʻanhu).",
     audioUri:
@@ -1965,6 +2133,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي عَبْدُكَ، ابْنُ عَبْدِكَ، ابْنُ أَمَتِكَ، نَاصِيَتِي بِيَدِكَ، مَاضٍ فِيَّ حُكْمُكَ، عَدْلٌ فِيَّ قَضَاؤُكَ، أَسْأَلُكَ بِكُلِّ اسْمٍ هُوَ لَكَ، سَمَّيْتَ بِهِ نَفْسَكَ، أوْ أَنْزَلْتَهُ فِي كِتَابِكَ، أَوْ عَلَّمْتَهُ أَحَداً مِنْ خَلْقِكَ، أَوِ اسْتَأْثَرْتَ بِهِ فِي عِلْمِ الغَيْبِ عِنْدَكَ، أَنْ تَجْعَلَ القُرْآنَ رَبِيْعَ قَلْبِي، وَنُورَ صَدْرِي، وجَلَاءَ حُزْنِي، وَذَهَابَ هَمِّي",
     translation:
       "O Allah, I am Your servant, son of Your servant, son of Your maidservant, my forelock is in Your hand, Your command over me is forever executed and Your decree over me is just. I ask You by every name belonging to You which You named Yourself with, or revealed in Your Book, or You taught to any of Your creation, or You have preserved in the knowledge of the unseen with You, that You make the Quran the life of my heart and the light of my breast, and a departure for my sorrow and a release for my anxiety.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার বান্দা, আপনারই এক বান্দার পুত্র এবং আপনার এক বাঁদীর পুত্র। আমার কপাল (নিয়ন্ত্রণ) আপনার হাতে; আমার উপর আপনার নির্দেশ কার্যকর; আমার ব্যাপারে আপনার ফয়সালা ন্যায়পূর্ণ। আমি আপনার কাছে প্রার্থনা করি আপনার প্রতিটি নামের উসীলায়; যে নাম আপনি নিজের জন্য নিজে রেখেছেন অথবা আপনি আপনার কিতাবে নাযিল করেছেন অথবা আপনার সৃষ্টজীবের কাউকেও শিখিয়েছেন অথবা নিজ গায়েবী জ্ঞানে নিজের জন্য সংরক্ষণ করে রেখেছেন—আপনি কুরআনকে বানিয়ে দিন আমার হৃদয়ের প্রশান্তি, আমার বক্ষের জ্যোতি, আমার দুঃখের অপসারণকারী এবং দুশ্চিন্তা দূরকারী।",
+    },
     reference: "Aĥmad (1/391). Al-Albânî authenticated it in Al-Kalam Ať-Ťayyib [124].",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/120hm.mp3",
@@ -1977,6 +2148,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الهَمِّ وَ الْحَـزَنِ، والعَجْـزِ والكَسَلِ، والبُخْلِ والجُبْنِ، وضَلَعِ الدَّيْنِ وغَلَبَةِ الرِّجَالِ",
     translation:
       "O Allah, I take refuge in You from anxiety and sorrow, weakness and laziness, miserliness and cowardice, the burden of debts and from being over powered by men.",
+    translations: {
+      bn: "হে আল্লাহ! নিশ্চয় আমি আপনার আশ্রয় নিচ্ছি দুশ্চিন্তা ও দুঃখ থেকে, অপারগতা ও অলসতা থেকে, কৃপণতা ও ভীরুতা থেকে, ঋণের ভার ও মানুষদের দমন-পীড়ন থেকে।",
+    },
     reference: "Al-Bukhârî [6363](7/158), see Fatĥ al-Bârî (11/173).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/121hm.mp3",
@@ -2000,6 +2174,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ رَحْمَتَكَ أَرْجـُو، فَلا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ، وَأَصْلِحْ لِي شَأْنِي كُلَّهُ، لَا إِلَهَ إِلَّا أنْتَ",
     translation:
       "O Allah, it is Your mercy that I hope for, so do not leave me in charge of my affairs even for a blink of an eye and rectify for me all of my affairs. None has the right to be worshipped except You.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার রহমতেরই আশা করি। তাই আপনি এক নিমেষের জন্যও আমাকে আমার নিজের কাছে সোপর্দ করবেন না। আপনি আমার সার্বিক বিষয়াদি সংশোধন করে দিন। আপনি ছাড়া কোনো হক্ব ইলাহ নেই।",
+    },
     reference:
       "Abû Dâwud [5090](4/324) and Aĥmad (5/42). Al-Albânî authenticated it in Ŝaĥîĥ Abî Dâwud (3/959).",
     audioUri:
@@ -2011,6 +2188,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication for one in distress #4",
     arabic: "اللهُ اللهُ رَبِّي لَا أُشْرِكُ بِهِ شَيْئاً",
     translation: "Allah, Allah is my Lord, I do not associate anything with Him.",
+    translations: { bn: "আল্লাহ! আল্লাহ! (তিনি) আমার রব্ব! আমি তাঁর সাথে কোনো কিছু শরীক করি না।" },
     reference: "Abû Dâwud [1525](2/87). Also see Ŝaĥîĥ Ibn Mâjah (2/335).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/125hm.mp3",
@@ -2021,6 +2199,9 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Upon encountering an enemy or those of authority #1",
     arabic: "اللَّهُمَّ إِنَّا نَجْعَلُكَ فِي نُحُورِهِمْ، وَنَعُوذُ بِكَ مِنْ شُرُورِهـِمْ",
     translation: "O Allah, we place You before them and we take refuge in You from their evil.",
+    translations: {
+      bn: "হে আল্লাহ! আমরা আপনাকে তাদের গলদেশে রাখছি এবং তাদের অনিষ্ট থেকে আপনার নিকট আশ্রয় প্রার্থনা করছি।",
+    },
     reference:
       "Abû Dâwud [1537](2/89) and Al-Hâkim (2/142) and he authenticated it and Adh-Dhahabî agreed with him.",
     audioUri:
@@ -2033,6 +2214,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ أَنْتَ عَضُدِي، وَأَنْتَ نَصِيْرِي، بِكَ أَحُولُ، وَبِكَ أَصُولُ، وَبِكَ أُقَاتِلُ",
     translation:
       "O Allah, You are my supporter and You are my helper, by You I move and by You I attack and by You I battle.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি আমার শক্তি এবং আপনি আমার সাহায্যকারী; আপনারই সাহায্যে আমি বিচরণ করি, আপনারই সাহায্যে আমি আক্রমন করি এবং আপনারই সাহায্যে আমি যুদ্ধ করি।",
+    },
     reference:
       "Abû Dâwud [2632](3/42) and At-Tirmidhî [3584](5/572). Also see Ŝaĥîĥ At-Tirmidhî (3/183).",
     audioUri:
@@ -2071,6 +2255,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ مُنْزِلَ الْكِتَابِ، سَرِيْعَ الْحِسَابِ، اهْزِمِ الأحْزَابَ، اللَّهُمَّ اهْزِمْهُمْ وَ زَلْزِلْهُمْ",
     translation:
       "O Allah, Revealer of the Book, Swift at reckoning, defeat the confederates. O Allah, defeat them and convulse them.",
+    translations: {
+      bn: "হে আল্লাহ, কিতাব নাযিলকারী, দ্রুত হিসাব গ্রহণকারী! আপনি শত্রুবাহিনীকে পরাভূত করুন। হে আল্লাহ! আপনি তাদেরকে পরাজিত করুন এবং তাদের মধ্যে ত্রাস সৃষ্টি করে দিন।",
+    },
     reference: "Muslim [1742](3/1362).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/131hm.mp3",
@@ -2081,6 +2268,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "When afraid of a group people",
     arabic: "اللَّهُمَّ اكْفِنِيْهِمْ بِمَا شِئْتَ",
     translation: "O Allah, protect me from them with what You choose.",
+    translations: { bn: "হে আল্লাহ! আপনি যা ইচ্ছে তা দ্বারাই এদের মোকাবিলায় আমার জন্য যথেষ্ট হোন।" },
     reference: "Muslim [3005](4/2300).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/132hm.mp3",
@@ -2100,6 +2288,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication for one afflicted with doubt in his faith #2",
     arabic: "آمَنْتُ بِاللهِ وَرُسُلِهِ",
     translation: "I have believed in Allah and His Messenger.",
+    translations: { bn: "আমি আল্লাহ ও তাঁর রাসূলগণের উপর ঈমান আনলাম। [২]" },
     reference: "Muslim [134,212](1/119-120).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/134hm.mp3",
@@ -2111,6 +2300,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "﴿هُوَ الأوَّلُ وَالآخِـرُ وَالظَّاهِرُ وَالْبَاطِنُ وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ﴾",
     translation:
       "He is The First and The Last, Ath-Thahir and Al-Batin and He knows well all things.",
+    translations: {
+      bn: "তিনিই সর্বপ্রথম, তিনিই সর্বশেষ, তিনিই সকলের উপরে, তিনিই সকলের নিকটে এবং তিনি সব কিছু সম্পর্কে সর্বজ্ঞ।",
+    },
     reference:
       "(1) Sûrah Al-Ĥadîd : 3.\n\n(2) Abû Dâwud [5110](4/329) and Al-Albânî declared it Ĥasan in Ŝaĥîĥ Abî  Dâwud (3/962).",
     audioUri:
@@ -2123,6 +2315,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ اكْفِنِي بِحَلاَلِكَ عَنْ حَرَامِكَ، وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ",
     translation:
       "O Allah, make what is lawful enough for me, as opposed to what is unlawful, and spare me by Your grace, of need of others.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি আমাকে আপনার হালাল দ্বারা পরিতুষ্ট করে আপনার হারাম থেকে ফিরিয়ে রাখুন এবং আপনার অনুগ্রহ দ্বারা আপনি ছাড়া অন্য সকলের থেকে আমাকে অমুখাপেক্ষী করে দিন।",
+    },
     reference: "At-Tirmidhî [3563](5/650). Also see Ŝaĥîĥ At-Tirmidhî (3/180).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/136hm.mp3",
@@ -2148,6 +2343,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "O Allah, there is no ease except in that which You have made easy, and You make the difficulty, if You wish, easy.",
     translations: {
+      bn: "হে আল্লাহ! আপনি যা সহজ করেছেন তা ছাড়া কোনো কিছুই সহজ নয়। আর যখন আপনি ইচ্ছা করেন তখন কঠিনকেও সহজ করে দেন।",
       id: "Ya Allah, tidak ada kemudahan kecuali Engkau buat mudah. Dan engkau menjadikan kesedihan (kesulitan), jika Engkau kehendaki pasti akan menjadi mudah.",
     },
     reference:
@@ -2195,6 +2391,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication when stricken with a mishap or overtaken by an affair",
     arabic: "قَدَرُ اللهِ وَما شَاءَ فَعَلَ",
     translation: "Allah has decreed and what He wills, He does.",
+    translations: { bn: "এটি আল্লাহ্‌র ফয়সালা, আর তিনি যা ইচ্ছা করেছেন।" },
     reference: "Muslim [2664](4/2052).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/144hm.mp3",
@@ -2219,6 +2416,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "أُعِيْذُكُمَا بِكَلِمَاتِ اللهِ التَّامَّةِ، مِنْ كُلِّ شَيْطَانٍ وَهـَامَّةٍ، وَمِنْ كُلِّ عَيْنٍ لامَّةٍ",
     translation:
       "I commend you to the protection of Allah’s perfect words from every devil, vermin, and every evil eye.",
+    translations: {
+      bn: "আমি তোমাদের দু’জনকে আল্লাহ্‌র পরিপূর্ণ কালেমাসমূহের আশ্রয়ে নিচ্ছি যাবতীয় শয়তান ও বিষধর জন্তু থেকে এবং যাবতীয় ক্ষতিকর চক্ষু (বদনযর) থেকে।",
+    },
     reference: "Al-Bukhârî [3371](4/119).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/146hm.mp3",
@@ -2229,6 +2429,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "When visiting the sick #1",
     arabic: "لَا بأْسَ طَهُورٌ إِنْ شَاءَ اللهُ",
     translation: "Never mind, may it (the sickness) be a purification, if Allah wills.",
+    translations: { bn: "কোনো ক্ষতি নেই, আল্লাহ যদি চান তো (রোগটি গুনাহ থেকে) পবিত্রকারী হবে।" },
     reference: "Al-Bukhârî [3616](10/118).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/147hm.mp3",
@@ -2240,6 +2441,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "أَسْأَلُ اللهَ العَظِيْمَ، رَبَّ العَرْشِ العَظِيْمِ، أَنْ يَشْفِيَكَ",
     translation:
       "I ask Allah The Supreme, Lord of the magnificent throne to cure you. (Seven times)",
+    translations: {
+      bn: "আমি মহান আল্লাহ্‌র কাছে চাচ্ছি, যিনি মহান আরশের রব, তিনি যেন আপনাকে রোগমুক্তি প্রদান করেন।",
+    },
     reference:
       "At-Tirmidhî [2083] and Abû Dâwud [3106]. Also see Ŝaĥîĥ At-Tirmidhî (2/210) and Ŝaĥîĥ Al-Jâmi' [5766](5/180).",
     audioUri:
@@ -2262,6 +2466,9 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication of the sick who have renounced all hope of life #1",
     arabic: "اللَّهُمَّ اغْفِرْ لي، وَارْحَمْنِي، وَأَلْحِقْنِي بِالرَّفِيْقِ الأعْلَى",
     translation: "O Allah, forgive me, have mercy upon me and unite me with the higher companions.",
+    translations: {
+      bn: "হে আল্লাহ! আমাকে ক্ষমা করুন, আমার প্রতি দয়া করুন এবং আমাকে সর্বোচ্চ বন্ধুর সঙ্গ পাইয়ে দিন।",
+    },
     reference: "Al-Bukhârî [4440](7/10) and Muslim [2444](4/1893).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/150hm.mp3",
@@ -2285,6 +2492,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "لَا إلَهَ إلَّا اللهُ وَاللهُ أَكْبَرُ، لَا إلَهَ إلَّا اللهُ وحْدَهُ، لَا إلَهَ إلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لهُ، لَا إلَهَ إلَّا اللهُ لَهُ المُلْكُ ولَهُ الحَمْدُ، لَا إلَهَ إلَّا اللهُ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ",
     translation:
       "None has the right to be worshipped except Allah and Allah is the greatest.None has the right to be worshipped except Allah, alone.None has the right to be worshipped except Allah, alone, without partner.None has the right to be worshipped except Allah, to Him belongs all sovereignty and praise. None has the right to be worshipped except Allah and there is no might and no power except with Allah.",
+    translations: {
+      bn: "আল্লাহ ব্যতীত কোনো হক্ব ইলাহ নেই, আল্লাহ মহান। একমাত্র আল্লাহ ব্যতীত কোনো হক্ব ইলাহ নেই। একমাত্র আল্লাহ ব্যতীত কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই। আল্লাহ ব্যতীত কোনো হক্ব ইলাহ নেই, যাবতীয় রাজত্ব তাঁরই, তার জন্যই সকল প্রশংসা, আল্লাহ ব্যতীত কোনো হক্ব ইলাহ নেই, আল্লাহর সাহায্য ছাড়া (পাপ কাজ থেকে দূরে থাকার) কোনো উপায় এবং (সৎকাজ করার) কোনো শক্তি নেই।",
+    },
     reference:
       "At-Tirmidhî [3430] and Ibn Mâjah [3794]. Al-Albânî authenticated it. Also see Ŝaĥîĥ At-Tirmidhî (3/152) and Ŝaĥîĥ Ibn Mâjah (2/317).",
     audioUri:
@@ -2297,6 +2507,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "لَا إلَهَ إلَّا اللهُ",
     translation:
       "He, whose last words are 'None has the right to be worshipped except Allah', will enter Jannah.",
+    translations: { bn: "আল্লাহ ছাড়া কোনো মা’বুদ নেই" },
     reference: "Abû Dâwud [3116](3/190). Also See Ŝaĥîĥ Al-Jâmi' [6479](5/432).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/153hm.mp3",
@@ -2308,6 +2519,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "إِنَّا لِلهِ وَ إِنَّا إِلَيْهِ رَاجِعُونَ، اللَّهُمَّ أجُرْنِي فِي مُصِيْبَتِي، وَ أخْلِفْ لِي خَيْراً مِنْهَا",
     translation:
       "To Allah we belong and unto Him is our return.O Allah, recompense me for my affliction and replace it for me with something better.",
+    translations: {
+      bn: "আমরা তো আল্লাহ্‌রই। আর নিশ্চয় আমরা তাঁর দিকেই প্রত্যাবর্তনকারী। হে আল্লাহ! আমাকে আমার বিপদে সওয়াব দিন এবং আমার জন্য তার চেয়েও উত্তম কিছু স্থলাভিষিক্ত করে দিন।",
+    },
     reference: "Muslim [918](2/632).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/154hm.mp3",
@@ -2320,6 +2534,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ اغْفِرْ لِفُلانٍ (باسْمِهِ)، وَارْفَعْ دَرَجَتَهُ في المَهْدِيِّيْنَ، وَاخْلُفْهُ في عَقِبِهِ في الغَابِرِيْنَ، وَاغْفِرْ لَنَا وَلَهُ يَا رَبَّ العَالَمِيْنَ، وَافْسَحْ لَهُ في قَبْرِهِ وَنَوِّرْ لَهُ فِيْهِ",
     translation:
       "O Allah, forgive (name of deceased) and raise his rank among the rightly guided, and be a successor to whom he has left behind, and forgive us and him O Lord of the worlds. Make spacious his grave and illuminate it for him.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি অমুককে (মৃত ব্যক্তির নাম ধরে) ক্ষমা করুন; যারা হেদায়াত লাভ করেছে, তাদের মাঝে তার মর্যাদা উঁচু করে দিন; যারা রয়ে গেছে তাদের মাঝে তার বংশধরদের ক্ষেত্রে আপনি তার প্রতিনিধি হোন। হে সৃষ্টিকুলের রব! আমাদের ও তার গুনাহ মাফ করে দিন। তার জন্য তার কবরকে প্রশস্ত করে দিন এবং তার জন্য তা আলোকময় করে দিন।",
+    },
     reference: "Muslim [920](2/634).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/155hm.mp3",
@@ -2332,6 +2549,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ، وَعافِهِ، وَاعْفُ عَنْهُ، وَأَكْرِمْ نُزُلَهُ، وَوَسِّعْ مُدْخَلَهُ، وَاغْسِلْهُ بِالْمَاءِ وَالثَّـلْجِ وَالْبَرَدِ، وَنَقِّهِ مِنَ الْخَطَايَا كَمَا نَقَّيْتَ الثَّوْبَ الأَبْيَضَ مِنَ الدَّنَسِ، وَأَبْدِلْهُ داراً خَيْراً مِنْ دَارِهِ، وَأَهْلاً خَيْراً مِنْ أَهْلِهِ، وَزَوْجَاً خَيْراً مِنْ زَوْجِهِ، وَأَدْخِلْهُ الْجَنَّةَ، وَأَعِذْهُ مِنْ عَذَابِ القَبْرِ(وَ عَذَابِ النَّارِ)",
     translation:
       "O Allah, forgive and have mercy upon him, excuse him and pardon him, and make honourable his reception. Expand his entry, and cleanse him with water, snow, and ice, and purify him of sin as a white robe is purified of filth. Exchange his home for a better home, and his family for a better family, and his spouse for a better spouse. Admit him into the Garden, protect him from the punishment of the grave (and the torment of the Fire).",
+    translations: {
+      bn: "হে আল্লাহ! আপনি তাকে ক্ষমা করুন, তাকে দয়া করুন, তাকে পূর্ণ নিরাপত্তায় রাখুন, তাকে মাফ করে দিন, তার মেহমানদারীকে মর্যাদাপূর্ণ করুন, তার প্রবেশস্থান কবরকে প্রশস্ত করে দিন। আর আপনি তাকে ধৌত করুন পানি, বরফ ও শিলা দিয়ে, আপনি তাকে গুনাহ থেকে এমনভাবে পরিষ্কার করুন যেমন সাদা কাপড়কে ময়লা থেকে পরিষ্কার করেছেন। আর তাকে তার ঘরের পরিবর্তে উত্তম ঘর, তার পরিবারের বদলে উত্তম পরিবার ও তার জোড়ের (স্ত্রী/স্বামীর) চেয়ে উত্তম জোড় প্রদান করুন। আর আপনি তাকে জান্নাতে প্রবেশ করান এবং তাকে কবরের আযাব [ও জাহান্নামের আযাব] থেকে রক্ষা করুন",
+    },
     reference: "Muslim [963](2/663).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/156hm.mp3",
@@ -2344,6 +2564,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ اغْفِرْ لِحَيِّنَا، وَمَيِّتِنَا، وَشَاهِدِنَا، وَغَائِبِنَا، وَصَغِيْرِنَا، وَكَبِيْرِنَا، وَذَكَرِنَا، وَأُنْثَانَا، اللَّهُمَّ مَنْ أَحْيَيْتَهُ مِنَّا فَأَحْيِهِ عَلَى الإِسْلامِ، وَمَنْ تَوَفَّيْتَهُ مِنَّا فَتَوَفَّهُ عَلَى الإِيْمَانِ، اللَّهُمَّ لَا تَحْرِمْنَا أَجْرَهُ، وَلَا تُضِلَّنَا بَعْدَهُ",
     translation:
       "O Allah, forgive our living and our dead, those present and those absent, our young and our old, our males and our females. O Allah, whom amongst us You keep alive, then let such a life be upon Islam, and whom amongst us You take unto Yourself, then let such a death be upon faith. O Allah, do not deprive us of his reward and do not let us stray after him.",
+    translations: {
+      bn: "হে আল্লাহ! আমাদের জীবিত ও মৃত, উপস্থিত ও অনুপস্থিত, ছোট ও বড় এবং নর ও নারীদেরকে ক্ষমা করুন। হে আল্লাহ! আপনি আমাদের মধ্যে যাদের আপনি জীবিত রাখবেন তাদেরকে ইসলামের উপর জীবিত রাখুন এবং যাদেরকে মৃত্যু দান করবেন তাদেরকে ঈমানের সাথে মৃত্যু দান করুন। হে আল্লাহ! আমাদেরকে তার (মৃত্যুতে ধৈয্যধারণের) সওয়াব থেকে বঞ্চিত করবেন না এবং তার (মৃত্যুর) পর আমাদেরকে পথভ্রষ্ট করবেন না।",
+    },
     reference:
       "Ibn Mâjah [1498](1/480), Abû Dâwud [3201], At-Tirmidhî [1024], An-Nisâ'i [1988] and Aĥmad (2/368). Also see Ŝaĥîĥ Ibn Mâjah (1/251).",
     audioUri:
@@ -2357,6 +2580,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنَّ فُلانَ بْنَ فُلانٍ في ذِمَّتِكَ، وَحَبْلِ جِوارِكَ، فَقِهِ مِنْ فِتْنَةِ الْقَبْرِ وَعَذَابِ النَّارِ، وَأَنْتَ أَهْلُ الْوَفاءِ وَالْحَقِّ، فَاغْفِرْ لَهُ، وَارْحَمْهُ، إِنَّكَ أَنْتَ الغَفُورُ الرَّحِيْمُ",
     translation:
       "O Allah, so-and-so is under Your care and protection so protect him from the trial of the grave and torment of the Fire. Indeed You are faithful and truthful. Forgive and have mercy upon him, surely You are The Oft-Forgiving, The Most-Merciful.",
+    translations: {
+      bn: "হে আল্লাহ, অমুকের পুত্র অমুক আপনার যিম্মাদারীতে, আপনার প্রতিবেশিত্বের নিরাপত্তায়; সুতরাং আপনি তাকে কবরের পরীক্ষা থেকে এবং জাহান্নামের শাস্তি থেকে রক্ষা করুন। আর আপনি প্রতিশ্রুতি পূর্ণকারী এবং প্রকৃত সত্যের অধিকারী। অতএব, আপনি তাকে ক্ষমা করুন এবং তার উপর দয়া করুন। নিশ্চয় আপনি ক্ষমাশীল, দয়ালু।",
+    },
     reference: "Ibn Mâjah [1499] and Abû Dâwud (3/211). Also see Ŝaĥîĥ Ibn Mâjah (1/251).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/158hm.mp3",
@@ -2369,6 +2595,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ عَبْدُكَ وَابْنُ أَمَتِكَ، احْتَاجَ إِلى رَحْمَتِكَ، وَأَنْتَ غَنِيٌّ عَنْ عَذَابِهِ، إِنْ كَانَ مُحْسِناً فَزِدْ في حَسَنَاتِهِ، وَإِنْ كَانَ مُسِيْئاً فَتَجَاوَزْ عَنْهُ",
     translation:
       "O Allah, Your servant and the son of Your maidservant is in need of Your mercy and You are without need of his punishment. If he was righteous then increase his reward and if he was wicked then look over his sins.",
+    translations: {
+      bn: "হে আল্লাহ, আপনার এক দাস, আর এক দাসীর পুত্র, আপনার অনুগ্রহের মুখাপেক্ষী, আপনি তাকে শাস্তি দেওয়া থেকে অমুখাপেক্ষী। যদি সে নেককার বান্দা হয়, তবে তার সওয়াব আরও বাড়িয়ে দিন, আর যদি বদকার বান্দা হয়, তবে তার অপরাধকর্ম এড়িয়ে যান।",
+    },
     reference:
       "Al-Hâkim (1/359 )and he authenticated it and Adh-Dhahabî agreed with him. Also see Aĥkâm Al-Janâ'iz by Al-Albânî (pg. 125).",
     audioUri:
@@ -2382,6 +2611,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ اجْعَلْهُ فَرَطاً وَذُخْراً لِوالِدَيْهِ، وَشَفِيْعاً مُجَاباً، اللَّهُمَّ ثَقِّلْ بِهِ مَوَازِيْنَهُمَا، وَأَعْظِمْ بِهِ أُجـُورَهُمَا، وَأَلْحِقْهُ بِصَالِحِ المُؤْمِنِيْنَ، وَاجْعَلْهُ في كَفَالَةِ إِبْرَاهـِيْمَ، وَقِهِ بِرَحْمَتِكَ عَذَابَ الْجَحِيْمِ، و أبْدِلْهُ دَاراً خَيْراً مِنْ دَارِهِ، و أهْلاً خَيْراً مِنْ أهْلِهِ، اللهم اغْفِرْ لأسْلاَفِنَا، وَ أفْرَاطِنَا، وَ مَنْ سَبَقَنَا باِلإيْمَانِ",
     translation:
       "O Lord, make him a preceding reward and a stored treasure for his parents, and an answered intercessor. O Allah, through him, make heavy their scales and magnify their reward. Unite him with the righteous believers, place him under the care of Ibraheem, and protect him by Your mercy from the torment of Hell. Give him in exchange a better residence and a better family than his. O Allah, forgive our ancestors and our descendants and those who came before us with faith.",
+    translations: {
+      bn: "হে আল্লাহ, তাকে তার পিতা-মাতার জন্য অগ্রগামী প্রতিনিধি বা সওয়াব ও সযত্নে গচ্ছিত সওয়াব হিসেবে কবুল করুন। আর তাকে এমন শাফা‘আতকারী বানান, যার শাফা‘আত কবুল হয়। হে আল্লাহ, এ শিশুর দ্বারা তার পিতা মাতার ওজনসমূহ আরও ভারী করে দিন। আর এর দ্বারা তাদের দু’জনের সওয়াব আরও বাড়িয়ে দিন। আর তাকে নেককারদের সঙ্গী-সাথী বানান এবং তাকে ইবরাহীম আলাইহিসসালামের যিম্মায় রাখুন। আর আপনার রহমতের অসীলায় তাকে জাহান্নামের শাস্তি থেকে রক্ষা করুন। তাকে তার এ বাসস্থানের পরিবর্তে উত্তম বাসস্থান প্রদান করুন, এখানকার পরিবার-পরিজনের পরিবর্তে উত্তম পরিবার-পরিজন প্রদান করুন। হে আল্লাহ, আমাদের পূর্ববর্তী নর-নারী ও নাবালক অগ্রগামী সন্তান-সন্ততিদের মাফ করুন এবং যারা ঈমান সহকারে আমাদের পূর্বে মারা গেছে তাদেরকেও।",
+    },
     reference:
       "See Al-Mughnî by Ibn Qudâmah (3/416) and Ad-Durûs  Al-Muhimmah Li'âmah Al-Ummah by Shaykh Ibn Bâz (pg. 15).",
     audioUri:
@@ -2393,6 +2625,9 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication for the deceased child at the funeral prayer #2",
     arabic: "اللَّهُمَّ اجْعَلْهُ لَنَا فَرَطاً، وَسَلَفاً، وَأَجْراً",
     translation: "O Allah, make him a preceding reward, a prepayment and a recompense for us.",
+    translations: {
+      bn: "হে আল্লাহ, আমাদের জন্য তাকে অগ্রগামী প্রতিনিধি, অগ্রিম পূণ্য এবং সওয়াব হিসেবে নির্ধারণ করে দিন।",
+    },
     reference: "Al-Baghawî [Sharĥ As-Sunnah](5/357).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/161hm.mp3",
@@ -2403,6 +2638,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Placing the deceased in the grave",
     arabic: "بِسْمِ اللهِ، وَعَلَى سُنَّةِ رَسُولِ اللهِ",
     translation: "In the name of Allah and upon the sunnah of the Messenger of Allah.",
+    translations: { bn: "আল্লাহর নামে এবং রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লামের নিয়মে।" },
     reference:
       "Abû Dâwud [3213](3/314) with a Ŝaĥîĥ chain and Aĥmad (2/40) with the phrase: (بسم الله و على ملة رسول الله) and its chain is Ŝaĥîĥ.",
     audioUri:
@@ -2414,6 +2650,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "After burying the deceased",
     arabic: "اللَّهُمَّ اغْفِرْ لَهُ، اللَّهُمَّ ثَبِّتْهُ",
     translation: "O Allah, forgive him, O Allah, protect him.",
+    translations: { bn: "হে আল্লাহ! আপনি তাকে ক্ষমা করুন, হে আল্লাহ্‌ আপনি তাকে (প্রশ্নোত্তরের সময়) স্থির রাখুন।" },
     reference:
       "Abû Dâwud [3221](3/315) and Al-Hâkim (1/370) and he authenticated it and Adh-Dhahabî agreed with him.",
     audioUri:
@@ -2440,6 +2677,7 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "allahumma inni as'aluka khayraha wa a'udhu bika min sharriha",
     translation: "O Allah, I ask You for it’s goodness and I take refuge with You from it’s evil.",
     translations: {
+      bn: "হে আল্লাহ! আমি আপনার নিকট এর কল্যাণ চাই। আর আমি আপনার নিকট এর অনিষ্ট থেকে আশ্রয় চাই।",
       id: "Ya Allah, sesungguhnya aku memohon kepada-Mu kebaikan angin ini dan aku berlindung kepada-Mu dari keburukannya.",
     },
     reference:
@@ -2455,6 +2693,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَهَا، وَخَيْرَ مَا فِيْهَا، وَخَيْرَ مَا اُرْسِلَتْ بِهِ، وَأَعُوذُ بِكَ مِنْ شَـرِّهَا، وَشَرِّ مَا فِيْهَا، وَشَرِّ مَا اُرْسِلَتْ بِهِ",
     translation:
       "O Allah, I ask You for it’s goodness, the good within it, and the good it was sent with, and I take refuge with You from it’s evil, the evil within it, and from the evil it was sent with.",
+    translations: {
+      bn: "হে আল্লাহ! আমি আপনার নিকট প্রার্থনা করি এর কল্যাণ, এর মধ্যকার কল্যাণ এবং যা এর সাথে প্রেরিত হয়েছে তার কল্যাণ। আর আমি আপনার আশ্রয় চাই এর অনিষ্ট থেকে, এর ভেতরে নিহিত অনিষ্ট থেকে এবং যা এর সাথে প্রেরিত হয়েছে তার অনিষ্ট থেকে।",
+    },
     reference: "Muslim [899](2/616) and Al-Bukhârî [3206](4/76).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/167hm.mp3",
@@ -2466,6 +2707,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سُبْحَانَ الَّذِي يُسَبِّحُ الرَّعْدُ بِحَمْدِهِ، وَالمَلائِكَةُ مِنْ خِيْفَتِهِ",
     translation:
       "How perfect He is, (The One) Whom the thunder declares His perfection with His praise, as do the angles out of fear of Him.",
+    translations: {
+      bn: "পবিত্র-মহান সেই সত্তা, রা‘দ ফেরেশ্তা যাঁর মহিমা ও পবিত্রতা ঘোষণা করে প্রশংসার সাথে, আর ফেরেশ্তাগণও তা-ই করে যাঁর ভয়ে।",
+    },
     reference: "Al-Muwaťťa' (2/992) and Al-Albânî declared its chain to be Ŝaĥîĥ and Mawqûf.",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/168hm.mp3",
@@ -2477,6 +2721,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ أَسْقِنَا غَيْثاً مُغِيْثاً مَرِيْئاً مَرِيْعاً، نَافِعاً، غَيْرَ ضَارٍّ، عاجِلاً غَيْرَ آجِلٍ",
     translation:
       "O Allah, send upon us helpful, wholesome and healthy rain, beneficial not harmful rain, now, not later.",
+    translations: {
+      bn: "হে আল্লাহ! আমাদেরকে এমন বৃষ্টির পানি দান করুন যা সাহায্যকারী, সুপেয়, উর্বরকারী; কল্যাণকর, ক্ষতিকর নয়; শীঘ্রই, বিলম্বে নয়।",
+    },
     reference:
       "Abû Dâwud [1169](1/303). Al-Albânî declared it authentic in Ŝaĥîĥ Abû Dâwud (1/216).",
     audioUri:
@@ -2499,6 +2746,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ اسْقِ عِبَادَكَ، وَبَهَائِمَكَ، وَانْشُرْ رَحْمَتَكَ، وَأَحْيِيْ بَلَدَكَ المَيِّتَ",
     translation:
       "O Allah, provide water for Your servants and Your cattle, spread out Your mercy and resurrect Your dead land.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি আপনার বান্দাগণকে ও জীব- জন্তুগুলোকে পানি পান করান, আর আপনার রহমত বিস্তৃত করুন এবং আপনার মৃত শহরকে সজীব করুন।",
+    },
     reference:
       "Abû Dâwud [1176](1/305) and Al-Albânî declared it Ĥasan in Ŝaĥîĥ Abû Dâwud (1/218).",
     audioUri:
@@ -2511,7 +2761,10 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ صَيِّباً نَافِعاً",
     transliteration: "allahumma sayyiban nafi'a",
     translation: "O Allah, may it be a beneficial rain cloud.",
-    translations: { id: "Ya Allah turunkanlah pada kami hujan yang bermanfaat." },
+    translations: {
+      bn: "হে আল্লাহ! মুষলধারায় উপকারী বৃষ্টি বর্ষণ করুন।",
+      id: "Ya Allah turunkanlah pada kami hujan yang bermanfaat.",
+    },
     reference: "Al-Bukhârî [1032](2/518).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/172hm.mp3",
@@ -2523,7 +2776,10 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "مُطِرْنَا بِفَضْلِ اللهِ وَرَحْمَتِهِ",
     transliteration: "mutirna bi fadlillahi wa rahmatih",
     translation: "We have been given rain by the grace and mercy of Allah.",
-    translations: { id: "Kita diberi hujan karena karunia dan rahmat Allah." },
+    translations: {
+      bn: "আল্লাহ্‌র অনুগ্রহ ও দয়ায় আমাদের উপর বৃষ্টি বর্ষিত হয়েছে।",
+      id: "Kita diberi hujan karena karunia dan rahmat Allah.",
+    },
     reference: "Al-Bukhârî [846](1/205) and Muslim [71](1/83).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/173hm.mp3",
@@ -2538,6 +2794,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "O Allah, let the rain fall around us and not upon us, O Allah, (let it fall) on the pastures, hills, valleys and the roots of trees.",
     translations: {
+      bn: "হে আল্লাহ! আমাদের পার্শ্ববর্তী এলাকায় (বর্ষণ করুন), আমাদের উপর নয়। হে আল্লাহ! উঁচু ভূমিতে, পাহাড়ে, উপত্যকার কোলে ও বনাঞ্চলে (বর্ষণ করুন)।",
       id: "Ya Allah, turunkanlah hujan di sekitar kami, bukan untuk merusak kami. Ya Allah, turunkanlah hujan ke dataran tinggi, gunung-gunung, bukit-bukit, perut lembah dan tempat tumbuhnya pepohonan.",
     },
     reference: "Al-Bukhârî [1013](1/224) and Muslim [897](2/614).",
@@ -2552,6 +2809,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "اللهُ أَكْبَرُ، اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالأمْنِ وَالإيْمَانِ، والسَّلامَةِ والإسْلامِ، وَالتَّوْفِيْقِ لِمَا تُحِبُّ رَبَّنَا وَتَرْضَى، رَبُّنَا وَرَبُّكَ اللهُ",
     translation:
       "Allah is the greatest. O Allah, let the crescent loom above us in safety, faith, peace, and Islam, and in agreement with all that You love and pleases You. Our Lord and your Lord is Allah.",
+    translations: {
+      bn: "আল্লাহ সবচেয়ে বড়। হে আল্লাহ! এই নতুন চাঁদকে আমাদের উপর উদিত করুন নিরাপত্তা, ঈমান, শান্তি ও ইসলামের সাথে; আর হে আমাদের রব্ব! যা আপনি পছন্দ করেন এবং যাতে আপনি সন্তুষ্ট হন তার প্রতি তাওফীক লাভের সাথে। আল্লাহ আমাদের রব্ব এবং তোমার (চাঁদের) রব্ব।",
+    },
     reference:
       "At-Tirmidhî [3451](5/405) and Ad-Dârimî (1/336) and the wording is his. Also see Ŝaĥîĥ At-Tirmidhî (3/157).",
     audioUri:
@@ -2566,6 +2826,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "The thirst has gone and the veins are quenched, and reward is confirmed, if Allah wills.",
     translations: {
+      bn: "পিপাসা মিটেছে, শিরাগুলো সিক্ত হয়েছে এবং আল্লাহ্‌ চান তো সওয়াব সাব্যস্ত হয়েছে।",
       id: "Rasa haus telah hilang, urat-urat telah basah, dan pahala telah ditetapkan insya Allah.",
     },
     reference: "Abû Dâwud [2357](2/306). Also see Ŝaĥîĥ Al-Jâmi' [4678](4/209).",
@@ -2579,6 +2840,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِرَحْمَتِكَ الَّتِي وَسِعَتْ كُلَّ شَيْءٍ، أَنْ تَغْفِرَ لِي",
     translation:
       "O Allah, I ask You by Your mercy which envelopes all things, that You forgive me.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার যে রহমত সকল কিছু পরিব্যাপ্ত করে রেখেছে তার উসীলায় আবেদন করি, আপনি আমাকে ক্ষমা করুন।",
+    },
     reference:
       "Ibn Mâjah [1753](1/557) and Al-Hâfiž declared it Ĥasan in this takhrîj of Al-Athkâr. Also see Sharĥ Al-Athkâr (4/342).",
     audioUri:
@@ -2590,6 +2854,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication before eating #1",
     arabic: "بِسْمِ اللهِ (في أَوَّلِهِ وَآخِرِهِ)",
     translation: "In the name of Allah (in its beginning and end)*.",
+    translations: { bn: "এর শুরু ও শেষ আল্লাহ্‌র নামে।" },
     reference:
       "* The words in the bracket are to be said if one forgets to recite the dua before eating and remembers while eating.\nAbû Dâwud [3767](3/347) and At-Tirmidhî [1858](4/288). Also see Ŝaĥîĥ At-Tirmidhî (2/167).",
     audioUri:
@@ -2602,6 +2867,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "(١) اللَّهُمَّ بَارِكْ لَنَا فِيْهِ، وَأَطْعِمْنَا خَيْراً مِنْهُ (٢) اللَّهُمَّ بَارِكْ لَنَا فِيْهِ، وَزِدْنَا مِنْهُ",
     translation:
       "(1) 'O Allah, bless it for us and feed us better than it.'\n\nIf one is given milk, recite the following instead:\n(2) 'O Allah, bless it fo it for usand give us more of it.'",
+    translations: {
+      bn: "হে আল্লাহ! আপনি আমাদেরকে এই খাদ্যে বরকত দিন এবং এর চেয়েও উত্তম খাদ্য আহার করান। হে আল্লাহ! আপনি আমাদেরকে এই খাদ্যে বরকত দিন এবং আমাদেরকে তা থেকে আরও বেশি দিন।",
+    },
     reference:
       "Abû Dâwud [3767] and An-Nisâ'i ['Amal al-Yawm wa al-Laylah][282]. Al-Albânî declared it weak, see Al-Kalam Ať-Ťayyib [184].",
     audioUri:
@@ -2625,6 +2893,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ بَارِكْ لَهُمْ فِيْمَا رَزَقْتَهُمْ، وَاغْفِرْ لَهُمْ، وَارْحَمْهُمْ",
     translation:
       "O Allah, bless for them, that which You have provided them, forgive them and have mercy upon them.",
+    translations: {
+      bn: "হে আল্লাহ! আপনি তাদেরকে যে রিযিক দান করেছেন তাতে তাদের জন্য বরকত দিন এবং তাদের গুনাহ মাফ করুন, আর তাদের প্রতি দয়া করুন।",
+    },
     reference: "Muslim [2042](3/1615).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/182hm.mp3",
@@ -2636,6 +2907,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ أَطْعِمْ مَنْ أَطْعَمَنِي، وَاسْقِ مَنْ سَقَانِي",
     translation:
       "O Allah, feed him who fed me, and provide with drink him who provided me with drink.",
+    translations: {
+      bn: "হে আল্লাহ! যে আমাকে আহার করাবে আপনি তাদেরকে আহার করান এবং যে আমাকে পান করাবে আপনি তাদেরকে পান করান।",
+    },
     reference: "Muslim [2055](3/1626).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/183hm.mp3",
@@ -2647,6 +2921,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "أَفْطَرَ عِنْدَكُمُ الصَّائِمُونَ، وَأَكَلَ طَعَامَكُمُ الأبْرَارُ، وَصَلَّتْ عَلَيْكُمُ المَلائِكَةُ",
     translation:
       "May the fasting break their fast in your home, and may the dutiful and pious eat your food, and may the angles send prayers upon you.",
+    translations: {
+      bn: "আপনাদের কাছে রোযাদাররা ইফতার করুন, আপনাদের খাবার যেন সৎলোকেরা খায়, আর আপনাদের জন্য ফিরিশতারা ক্ষমা প্রার্থনা করুন।",
+    },
     reference:
       "Abû Dâwud [3854](3/367), Ibn Mâjah [1747](1/556) and An-Nisâ'i ['Amal al-Yawm wa al-Laylah][296-298]. Al-Albânî authenticated it in Ŝaĥîĥ Abû Dâwud (2/730).",
     audioUri:
@@ -2668,6 +2945,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "If insulted while fasting #1",
     arabic: "إِنِّي صَائِمٌ، إِنِّي صَائِمٌ",
     translation: "I am fasting, I am fasting.",
+    translations: { bn: "নিশ্চয় আমি রোযাদার, নিশ্চয় আমি রোযাদার।" },
     reference: "Al-Bukhârî [1894](4/103) and Muslim [1151](2/806).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/186hm.mp3",
@@ -2679,6 +2957,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ بَارِكْ لَنَا فِي ثَمَرِنَا، وَبَارِكْ لَنَا فِي مَدِيْنَتِنَا، وَبَارِكْ لَنَا فِي صَاعِنَا، وَبَارِكْ لَنَا فِي مُدِّنَا",
     translation:
       "O Allah, bless our fruit for us, bless our town for us, bless our saAA for us and bless our mudd for us.",
+    translations: {
+      bn: "হে আল্লাহ, আপনি আমাদের ফল-ফলাদিতে বরকত দিন, আমাদের শহরে বরকত দিন, আমাদের সা‘ তথা বড় পরিমাপক যন্ত্রে বরকত দিন, আমাদের মুদ্দ তথা ছোট পরিমাপক যন্ত্রে বরকত দিন।",
+    },
     reference: "Muslim [1373](2/1000).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/187hm.mp3",
@@ -2690,6 +2971,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "(١) الْحَمْدُ للهِ (٢) يَرْحَمُكَ اللهُ (٣) يَهْدِيْكُمُ اللهُ وَيُصْلِحُ بَالَكُمْ",
     translation:
       "When one of you sneezes, say : (1) 'All praise if for Allah.', then his brother or companion should reply: (2) 'May Allah have mercy upon you.' and the one who sneezed replies back by saying (3) 'May Allah guide you and rectify your condition.'",
+    translations: {
+      bn: "সকল প্রশংসা আল্লাহ্‌র আল্লাহ আপনাকে রহমত করুন আল্লাহ আপনাদেরকে সৎপথ প্রদর্শন করুন এবং আপনাদের অবস্থা উন্নত করুন।",
+    },
     reference: "Al-Bukhârî [6224](7/125).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/188hm.mp3",
@@ -2701,7 +2985,10 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "يَهْدِيْكُمُ اللهُ، وَيُصْلِحُ بَالَكُمْ",
     transliteration: "yahdikumullah wa yuslihu balakum",
     translation: "May Allah guide you and rectify your condition.",
-    translations: { id: "Semoga Allah memberikan petunjuk, dan memperbaiki keadaan kalian." },
+    translations: {
+      bn: "আল্লাহ আপনাদেরকে সৎপথ প্রদর্শন করুন এবং আপনাদের অবস্থা উন্নত করুন।",
+      id: "Semoga Allah memberikan petunjuk, dan memperbaiki keadaan kalian.",
+    },
     reference:
       "At-Tirmidhî [2739](5/82), Aĥmad (4/400) and Abû Dâwud [5038](4/308). Also see Ŝaĥîĥ At-Tirmidhî (2/354).",
     audioUri:
@@ -2714,6 +3001,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "بَارَكَ اللّهُ لَكَ، وَبَارَكَ عَلَيْكَ، وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ",
     translation:
       "May Allah bless for you (your spouse) and bless you, and may He unite both of you in goodness.",
+    translations: {
+      bn: "আল্লাহ আপনার জন্য বরকতদান করুন, আপনার উপর বরকত নাযিল করুন এবং কল্যাণের সাথে আপনাদের উভয়কে একত্রিত করুন।",
+    },
     reference:
       "Abû Dâwud [2130], At-Tirmidhî [1091], and Ibn Mâjah [1905]. Also see Ŝaĥîĥ Ibn Mâjah (1/324).",
     audioUri:
@@ -2726,6 +3016,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَهَا، وَخَيْرَ مَا جَبَلْتَهَا عَلَيْهِ، وَأَعُوذُ بِكَ مِنْ شَرِّهَا، وَشَرِّ مَا جَبَلْتَهَا عَلَيْهِ",
     translation:
       "O Allah, I ask You for the goodness within her and the goodness that you have made her inclined towards, and I take refuge with You from the evil within her and the evil that you have made her inclined towards.",
+    translations: {
+      bn: "হে আল্লাহ, আমি এর যত কল্যাণ রয়েছে এবং যত কল্যাণ তার স্বভাবে আপনি দিয়েছেন তা চাই। আর এর যত অকল্যাণ রয়েছে এবং যত অকল্যাণ ওর স্বভাব-চরিত্রে আপনি রেখেছেন তা থেকে আপনার আশ্রয় চাই।",
+    },
     reference:
       "Abû Dâwud [2160](2/248) and Ibn Mâjah [1918](1/617). Also see Ŝaĥîĥ Ibn Mâjah (1/324).",
     audioUri:
@@ -2738,6 +3031,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "بِسْمِ اللهِ، اللَّهُمَّ جَنِّبْنَا الشَّيْطَانَ، وَجَنِّبِ الشَّيْطانَ مَا رَزَقْتَنَا",
     translation:
       "In the name of Allah. O Allah, keep the devil away from us and keep the devil away from what you have blessed us with.",
+    translations: {
+      bn: "আল্লাহর নামে, হে আল্লাহ, আমাদেরকে শয়তান থেকে দূরে রাখুন এবং আমাদের যা রিযক দিবেন তা থেকে শয়তানকে দূরে রাখুন।",
+    },
     reference: "Al-Bukhârî [3271](6/141) and Muslim [1434](2/1028).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/192hm.mp3",
@@ -2749,6 +3045,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيْمِ",
     transliteration: "A'udhu billahi minash-shaytanir-rajim",
     translation: "I take refuge with Allah from the accursed devil.",
+    translations: { bn: "বিতাড়িত শয়তান থেকে আমি আল্লাহ্‌র আশ্রয় নিচ্ছি।" },
     reference: "Al-Bukhârî [6048](7/99) and Muslim [2610](5/2015).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/193hm.mp3",
@@ -2760,6 +3057,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "الْحَمْدُ لِلَّهِ الَّذِيْ عَافَانِي مِمَّا ابْتَلاكَ بِهِ، وَفَضَّلَنِي عَلَى كَثِيْرٍ مِمَّنْ خَلَقَ تَفْضِيْلاً",
     translation:
       "All praise is for Allah Who saved me from that which He tested you with and Who most certainly favoured me over much of His creation.",
+    translations: {
+      bn: "সকল প্রশংসা আল্লাহ্‌র জন্য, যিনি আপনাকে যে পরীক্ষায় ফেলেছেন তা থেকে আমাকে নিরাপদ রেখেছেন এবং তার সৃষ্টির অনেকের উপরে আমাকে অধিক সম্মানিত করেছেন।",
+    },
     reference: "At-Tirmidhî [3432](5/493,494). Also see Ŝaĥîĥ At-Tirmidhî (3/153).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/194hm.mp3",
@@ -2782,6 +3082,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Replying to a supplication of forgiveness #1",
     arabic: "وَلَكَ",
     translation: "And (may Allah forgive) you.",
+    translations: { bn: "আর আপনাকেও।" },
     reference: "Aĥmad (5/82) and An-Nisâ'i ['Amal al-Yawm wa al-Laylah](pg. 218).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/197hm.mp3",
@@ -2792,6 +3093,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication said to one who does you a favor",
     arabic: "جَزَاكَ اللهُ خَيْراً",
     translation: "May Allah reward you with good.",
+    translations: { bn: "আল্লাহ আপনাকে উত্তম বিনিময় দান করুন।" },
     reference: "At-Tirmidhî [2035]. Also see Ŝaĥîĥ Al-Jâmi' [6244] and Ŝaĥîĥ At-Tirmidhî (2/200).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/198hm.mp3",
@@ -2811,6 +3113,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication said to one who pronounces his love for you, for Allah's sake",
     arabic: "أَحَبَّكَ الَّذِيْ أَحْبَبْتَنِي لَهُ",
     translation: "May He, for whom you have loved me, love you.",
+    translations: { bn: "যাঁর জন্য আপনি আমাকে ভালোবেসেছেন, তিনি আপনাকে ভালোবাসুন।" },
     reference: "Abû Dâwud [5125](4/333) and Al-Albânî authenticated it in Ŝaĥîĥ Abû Dâwud (3/965).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/200hm.mp3",
@@ -2821,6 +3124,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication said to one who has offered you some of his wealth",
     arabic: "بَارَكَ اللهُ لَكَ في أَهْلِكَ وَمالِكَ",
     translation: "May Allah bless for you, your family and wealth.",
+    translations: { bn: "আল্লাহ আপনার পরিবারে ও সম্পদে বরকত দান করুন।" },
     reference:
       "Abû Dâwud [5125](4/333) and Al-Albânî declared it Ĥasan in Ŝaĥîĥ Abû Dâwud (3/965).",
     audioUri:
@@ -2833,6 +3137,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "بَارَكَ اللهُ لَكَ في أَهْلِكَ وَمالِك، إِنَّمَا جَزَاءُ السَّلَفِ الْحَمْدُ والأَدَاءُ",
     translation:
       "May Allah bless for you, your family and wealth. Surely commendation and payment are the reward for a loan.",
+    translations: {
+      bn: "আল্লাহ আপনার পরিবারে ও সম্পদে বরকত দান করুন। ঋণের প্রতিদান তো কৃতজ্ঞতা প্রকাশ ও (ঠিকভাবে) আদায়।",
+    },
     reference:
       "An-Nisâ'i ['Amal al-Yawm wa al-Laylah][372](pg. 300) and Ibn Mâjah [2424](2/809). Also see Ŝaĥîĥ Ibn Mâjah (2/55).",
     audioUri:
@@ -2845,6 +3152,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ إِنِّي أَعُوذُبِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ",
     translation:
       "O Allah, I take refuge in You lest I should commit shirk with You knowingly and I seek Your forgiveness for what I do unknowingly.",
+    translations: {
+      bn: "হে আল্লাহ, আমি জ্ঞাতসারে শিরক করা থেকে আপনার আশ্রয় গ্রহণ করছি এবং অজ্ঞাতসারে যা ঘটে তার জন্য আপনার কাছে ক্ষমা চাচ্ছি।",
+    },
     reference:
       "Aĥmad (4/403). Also see Ŝaĥîĥ Al-Jâmi' [3731](3/233) and Ŝaĥîĥ At-Targhîb wa At-Tarhîb [36](1/122) by Al-Albânî.",
     audioUri:
@@ -2856,6 +3166,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Returning a supplication after having bestowed a gift or charity upon someone",
     arabic: "وَفِيْكَ بَارَكَ اللهُ",
     translation: "May Allah bless you.",
+    translations: { bn: "আর আপনার মধ্যেও আল্লাহ বরকত দিন।" },
     reference:
       "Ibn As-Sunnî [278](pg. 138). Also see Ibn Qayyim [Al-Wabil Aŝ-Ŝayyib](pg. 304) with research by Bashîr Muĥammad 'Uyun.",
     audioUri:
@@ -2868,6 +3179,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ لَا طَيْرَ إِلَّا طَيْرُكَ، وَلَا خَيْرَ إِلَّا خَيْرُكَ، وَلَا إِلَهَ غَيْرُكَ",
     translation:
       "O Allah, there is no omen but there is reliance on You, there is no good except Your good and none has the right to be worshipped except You.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার পক্ষ থেকে অশুভ মঞ্জুর না হলে অশুভ বলে কিছু নেই। আপনার কল্যাণ ছাড়া কোনো কল্যাণ নেই। আর আপনি ছাড়া কোনো হক্ব ইলাহ নেই। [১]",
+    },
     reference:
       "Aĥmad (2/220), Ibn As-Sunnî [292] and Al-Albânî authenticated it in [Al-Aḥâdīth Aŝ-Ŝaĥîĥah][1065](3/54). The Prophet (salla Allaahu ʻalayhi wa salaam) liked Al-Fa'al [الفأل](good omens). When he heard a good word from a man, he liked it and said: \"We took your good omens from your mouth\", narrated by Abû Dâwud [3917] and Imâm Aĥmad; and Al-Albânî authenticated it in [Al-Aḥâdīth Aŝ-Ŝaĥîĥah](2/363). This narration can also be found in Abu As-Shaykh's book [Akhlâq An-Nabî (salla Allaahu ʻalayhi wa salaam)] (p. 270).",
     audioUri:
@@ -2881,6 +3195,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "بِسْمِ اللهِ، وَالْحَمْدُ لِلَّهِ ﴿سُبْحَانَ الَّذِيْ سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِيْنَ، وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ﴾ الحَمْدُ لِلَّهِ، الحَمْدُ لِلَّهِ، الحَمْدُ لِلَّهِ، اللهُ أكْبَرُ، اللهُ أكْبَرُ، اللهُ أكْبَرُ، سُبْحَانَكَ اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِيْ، فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ",
     translation:
       "In the name of Allah and all praise is for Allah. How perfect He is, the One Who has placed this (transport) at our service and we ourselves would not have been capable of that, and to our Lord is our final destiny. All praise is for Allah, All praise is for Allah, All praise is for Allah, Allah is the greatest, Allah is the greatest, Allah is the greatest. How perfect You are, O Allah, verily I have wronged my soul, so forgive me, for surely none can forgive sins except You.",
+    translations: {
+      bn: "আল্লাহ্‌র নামে; আর সকল প্রশংসা আল্লাহ্‌র জন্য। পবিত্র মহান সেই সত্তা, যিনি একে আমাদের জন্য বশীভূত করে দিয়েছেন, অন্যথায় আমরা একে বশীভূত করতে সক্ষম ছিলাম না। আর আমরা অবশ্যই প্রত্যাবর্তন করবো আমাদের রব্বের দিকে। সকল প্রশংসা আল্লাহ্‌র জন্য, সকল প্রশংসা আল্লাহ্‌র জন্য, সকল প্রশংসা আল্লাহ্‌র জন্য। আল্লাহ সবচেয়ে বড়, আল্লাহ সবচেয়ে বড়, আল্লাহ সবচেয়ে বড়। হে আল্লাহ! আপনি পবিত্র-মহান; আমি আমার নিজের উপর যুলুম করেছি, সুতরাং আপনি আমাকে মাফ করে দিন। কেননা, আপনি ছাড়া গুনাহ মাফ করার আর কেউ নেই।",
+    },
     reference:
       "Abû Dâwud [2602](3/34) and At-Tirmidhî [3446](5/510). Also see Ŝaĥîĥ At-Tirmidhî (3/156).",
     audioUri:
@@ -2919,6 +3236,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "لَا إلَهَ إلَّا اللهُ وَحْدَهُ لَا شَرِيْكَ لَهُ، لَهُ المُلْكُ وَلَهُ الحَمْدُ، يُحْيِي وَيُمِيْتُ، وَهُوَ حَيٌّ لَا يَمُوتُ، بِيَدِهِ الْخَيْرُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ",
     translation:
       "None has the right to be worshipped except Allah, alone, without partner, to Him belongs all sovereignty and praise. He gives life and causes death, and He is living and does not die. In His hand is all good and He is over all things, omnipotent.",
+    translations: {
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরিক নেই, রাজত্ব তাঁরই, প্রশংসা মাত্রই তাঁর। তিনিই জীবন দান করেন এবং তিনিই মারেন। আর তিনি চিরঞ্জীব, মারা যাবেন না। সকল প্রকার কল্যাণ তাঁর হাতে নিহিত। তিনি সব কিছুর উপর ক্ষমতাবান।",
+    },
     reference:
       "At-Tirmidhî [3429](5/291), Al-Hâkim (1/538) and Ibn Mâjah [2235]. Al-Albânî classed it as Ĥasan in Ŝaĥîĥ Ibn Mâjah (2/21) and Ŝaĥîĥ At-Tirmidhî (3/152).",
     audioUri:
@@ -2930,6 +3250,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "Supplication of the traveller for the resident",
     arabic: "أَسْتَوْدِعُكُمُ اللَّهَ، الَّذِيْ لَا تَضِيْعُ وَدَائِعُهُ",
     translation: "I place you in the trust of Allah, whose trust is never misplaced.",
+    translations: { bn: "আমি তোমাদেরকে আল্লাহ্‌র হেফাযতে রেখে যাচ্ছি, যাঁর কাছে রাখা আমানতসমূহ কখনও বিনষ্ট হয় না।" },
     reference: "Aĥmad (2/403) and Ibn Mâjah [2825](2/943). Also see Ŝaĥîĥ Ibn Mâjah (2/133).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/211hm.mp3",
@@ -2942,7 +3263,10 @@ export const DUA_ITEMS: DuaItem[] = [
     transliteration: "astawdi'ullaha dinaka, wa amanataka, wa khawatima 'amalik",
     translation:
       "I place your religion, your faithfulness and the ends of your deeds in the trust of Allah.",
-    translations: { id: "Aku menetipkan agamamu, amanahmu, dan amal terakhir kepada Allah." },
+    translations: {
+      bn: "আমি আপনার দীন, আপনার আমানত (পরিবার-পরিজন ও ধন-সম্পদ) এবং আপনার সর্বশেষ আমলকে আল্লাহ্‌র হেফাযতে রাখছি।",
+      id: "Aku menetipkan agamamu, amanahmu, dan amal terakhir kepada Allah.",
+    },
     reference: "Aĥmad (2/7) and At-Tirmidhî [3443](5/499). Also see Ŝaĥîĥ At-Tirmidhî (2/155).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/212hm.mp3",
@@ -2957,6 +3281,7 @@ export const DUA_ITEMS: DuaItem[] = [
     translation:
       "May Allah endow you with taqwa, forgive your sins and facilitate all good for you, wherever you be.",
     translations: {
+      bn: "আল্লাহ আপনাকে তাকওয়ার পাথেয় প্রদান করুন, আপনার গুনাহ ক্ষমা করুন, আর যেখানেই থাকুন না কেন আপনার জন্য কল্যাণকে সহজ করে দিন।",
       id: "Semoga Allah membekalimu ketakwaan, mengampuni dosamu, dan memudahkan kebaikan untukmu dimanapun kamu berada.",
     },
     reference: "At-Tirmidhî [3444]. Also see Ŝaĥîĥ At-Tirmidhî (3/155).",
@@ -2970,6 +3295,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "(١) اللهُ أَكْبَرُ (٢) سُبْحَانَ اللهُ",
     translation:
       "When ascending, recite (1) 'Allah is the greatest', and when descending, recite (2) 'How perfect is Allah'.",
+    translations: { bn: "আল্লাহ সবচেয়ে বড়। কতই না পবিত্র-মহান।" },
     reference: "Al-Bukhârî [2993](6/135).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/214hm.mp3",
@@ -2981,6 +3307,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سَمَّعَ سَامِعٌ بِحَمْدِ اللهِ، وَحُسْنِ بَلائِهِ عَلَيْنَا،.رَبَّنَا صَاحِبْنَا، وَأَفْضِلْ عَلَيْنَا عَائِذاً باللهِ مِنَ النَّارِ",
     translation:
       "May a witness, be witness to our praise of Allah for His favours and bounties upon us. Our Lord, protect us, show favour on us and deliver us from every evil. I take refuge in Allah from the fire.",
+    translations: {
+      bn: "আমরা যে আল্লাহ্‌র প্রশংসা করলাম, আর আমাদের উপর তাঁর উত্তম নেয়ামতের ঘোষণা দিলাম, তা একজন শ্রোতা আমার এ কথা শুনে অন্যের কাছে পৌঁছে দিক। হে আমাদের রব! আপনি আমাদের সাথী হোন, আর আমাদের উপর অনুগ্রহ বর্ষণ করুন। আগুন থেকে আল্লাহ্‌র কাছে আশ্রয়প্রার্থী হয়ে (এ দো‘আ করছি)",
+    },
     reference: "Muslim [2718](4/2086).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/215hm.mp3",
@@ -3004,6 +3333,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "(١) الحَمْدُ لِلَّهِ الَّذِيْ بِنِعْمَتِهِ تَتِمُّ الصَّالِحَاتُ (٢) الحَمْدُ لِلَّهِ عَلَى كُلِّ حَالٍ",
     translation:
       "Upon receiving good news, say: (1) 'All Praise is for Allah by whose favour good works are accomplished.'\n\nUpon receiving bad news, say: (2) 'All Praise is for Allah in all circumstances.'",
+    translations: {
+      bn: "আল্লাহ্‌র জন্য সমস্ত প্রশংসা, যাঁর নেয়ামত দ্বারা সকল ভাল কিছু পরিপূর্ণ হয়। সকল অবস্থায় যাবতীয় প্রশংসা আল্লাহ্‌র জন্য।",
+    },
     reference:
       "Ibn As-Sunnî ['Amal al-Yawm wa al-Laylah][378] and Al-Hâkim (1/499) and he authenticated it. Al-Albânî authenticated it in Ŝaĥîĥ Al-Jâmi' [4640](4/201).",
     audioUri:
@@ -3098,6 +3430,7 @@ export const DUA_ITEMS: DuaItem[] = [
     title: "How to reply to the Salâm of a Kâfir",
     arabic: "وَ عَلَيْكُمْ",
     translation: "And upon you.",
+    translations: { bn: "আর তোমাদেরও উপর।" },
     reference: "Al-Bukhârî [6258](11/42) and Muslim [2163](4/1705).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/227hm.mp3",
@@ -3121,6 +3454,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللَّهُمَّ فأَيُّمَا مُؤْمِنٍ سَبَبْتُهُ؛ فَاجْعَلْ ذَلِكَ لَهُ قُرْبَةً إلَيْكَ يَوْمَ القِيَامَةِ",
     translation:
       "O Allah, to any believer whom I have insulted, let that be cause to draw him near to You on the Day of Resurrection.",
+    translations: {
+      bn: "হে আল্লাহ! যে মুমিনকেই আমি গালি দিয়েছি, তা তার জন্য কিয়ামতের দিন আপনার নৈকট্যের মাধ্যম করে দিন।",
+    },
     reference: "Al-Bukhârî [6361](11/171) and Muslim [2601](4/2007).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/230hm.mp3",
@@ -3154,6 +3490,9 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ، لَبَّيْكَ لاَ شَرِيْكَ لَكَ لَبَّيْكَ، إِنَّ الْحَمْدَ والنِّعْمَةَ، لَكَ وَالمُلْكَ، لَا شَرِيْكَ لَكَ",
     translation:
       "Here I am O Allah, (in response to Your call), here I am. Here I am, You have no partner, here I am. Verily all praise, grace and sovereignty belong to You. You have no partner.",
+    translations: {
+      bn: "আমি আপনার দরবারে হাযির, হে আল্লাহ! আমি আপনার দরবারে উপস্থিত। আমি আপনার দরবারে হাযির, আপনার কোনো শরীক নেই, আমি আপনার দরবারে উপস্থিত। নিশ্চয় সকল প্রশংসা ও নেয়ামত আপনার, আর রাজত্বও। আপনার কোনো শরীক নেই।",
+    },
     reference: "Al-Bukhârî [1549](3/408) and Muslim [1184](2/841).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/233hm.mp3",
@@ -3165,7 +3504,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "اللهُ أَكْبَرُ",
     transliteration: "Allahu Akbar",
     translation: "Allah is the greatest.",
-    translations: { id: "Allah Maha Besar" },
+    translations: { bn: "আল্লাহ অতি-মহান", id: "Allah Maha Besar" },
     reference: "Al-Bukhârî [1612](1/476).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/234hm.mp3",
@@ -3200,7 +3539,7 @@ export const DUA_ITEMS: DuaItem[] = [
     arabic: "سُبْحَانَ اللهِ!",
     transliteration: "Subhan-Allah",
     translation: "How perfect is Allah!",
-    translations: { id: "Maha Suci Allah" },
+    translations: { bn: "আল্লাহ অতি-পবিত্র", id: "Maha Suci Allah" },
     reference: "Al-Bukhârî [155](1/210), [283](1/390) and Muslim [371], [314](414), [332](4/1857).",
     audioUri:
       "https://cdn.jsdelivr.net/gh/sheikhhanif/Hisnul_Muslim_Database@07533fa1494d02c4b24aecb3ad7267e09219c956/audio/240hm.mp3",
@@ -3258,6 +3597,9 @@ export const DUA_ITEMS: DuaItem[] = [
       "أَعُوذُ بِكَلِمَاتِ اللهِ التَّامَّاتِ، الَّتِي لَا يُجَاوِزُهُنَّ بَرٌّ ولَا فَاجِرٌ مِنْ شَرِّ مَا خَلقَ، وبَرَأَ وذَرَأَ، ومِنْ شَرِّ مَا يَنْزِلُ مِنَ السَّمَاءِ، وِمنْ شَرِّ مَا يَعْرُجُ فِيْهَا، ومِنْ شَرِّ مَا ذَرَأَ فِي الأَرْضِ، ومِنْ شَرِّ مَا يَخْرُجُ مِنْهَا، وِمنْ شَرِّ فِتَنِ اللَّيْلِ والنَّهَارِ، ومِنْ شَرِّ كُلِّ طَارِقٍ إِلَّا طَارِقاً يَطْرُقُ بِخَيْرٍ يَا رَحْمَنُ",
     translation:
       "I take refuge within Allah’s perfect words which no righteous or unrighteous person can transgress, from all the evil that He has created, made and originated. (I take refuge) from the evil that descends from the sky and the evil that rises up to it. (I take refuge) from the evil that is spread on Earth and the evil that springs from her, and I take refuge from the evil of the tribulations of night and day, and the evil of one who visits at night except the one who brings good, O Merciful One.",
+    translations: {
+      bn: "আমি আল্লাহ্‌র ঐ সকল পরিপূর্ণ বাণীসমূহের সাহায্যে আশ্রয় চাই যা কোনো সৎলোক বা অসৎলোক অতিক্রম করতে পারে না— আল্লাহ যা সৃষ্টি করেছেন, অস্তিত্বে এনেছেন এবং তৈরি করেছেন তার অনিষ্ট থেকে, আসমান থেকে যা নেমে আসে তার অনিষ্ট থেকে, যা আকাশে উঠে তার অনিষ্ট থেকে, যা পৃথিবীতে তিনি সৃষ্টি করেছেন তার অনিষ্ট থেকে, যা পৃথিবী থেকে বেরিয়ে আসে তার অনিষ্ট থেকে, দিনে-রাতে সংঘটিত ফেতনার অনিষ্ট থেকে, আর রাত্রিবেলা হঠাৎ করে আগত অনিষ্ট থেকে, তবে রাতে আগত যে বিষয় কল্যাণ নিয়ে আসে তা ব্যতীত; হে দয়াময়!",
+    },
     reference:
       "Aĥmad (3/419) with a Ŝaĥîĥ chain, Ibn As-Sunnî [637]. Al-Arnâ'ûť declared its chain Ŝaĥîĥ in his research of Ať-Ťaĥawiyyah (pg. 133). Also see Majma' Az-Zawâ'id (10/127).",
     audioUri:

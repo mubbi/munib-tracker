@@ -66,7 +66,7 @@
     "increase": "Увеличить {{label}}",
     "decrease": "Уменьшить {{label}}",
     "appName": "Munib Tracker",
-    "appTagline": "Отслеживайте свой путь обратно к Аллау."
+    "appTagline": "Аллага кайтуу жолуңузду көз салыңыз."
   },
   "search": {
     "placeholder": "Издөө по Курану, хадисам, дуа, adhkar…",
@@ -479,7 +479,7 @@
     "accountGuest": "Конок — синхрондоштуруу үчүн кириңиз",
     "appearance": "Көрүнүш",
     "appearanceSub": "Тема жана акцент түсү",
-    "haptics": "Каптикалык пикир",
+    "haptics": "Тактилдик жооп",
     "hapticsSub": "Басканда жана аракеттерде титирөө",
     "notifications": "Эскертмелер",
     "notificationsSub": "Намаз, каза жана зикир үчүн эскертүүлөр",
@@ -620,7 +620,7 @@
     "ctaPrivacyTitle": "Демейки боюнча жашырылган",
     "ctaPrivacyBody": "No эсеп милдеттүү. Сиздин ибадат маалыматтар stays үстүндө сиздин түзмөк until сиз choose га back up жана sync.",
     "signInToSync": "Sign ичинде га sync",
-    "pageOf": "{{total}} ичинен {{page}} бет"
+    "pageOf": "{{total}} ичинен {{page}}-бет"
   },
   "appearance": {
     "eyebrow": "Жөндөөлөр",
@@ -737,7 +737,7 @@
       "zikr": "Зикир эскертүүлөрү",
       "qaza": "Qaza эскертүүлөрү"
     },
-    "snooze": "Тындыруу {{minutes}} мүн",
+    "snooze": "{{minutes}} мүн. кийинкиге калуу",
     "defaultTitle": "Эскертүү",
     "reminders": {
       "prayerTitle": "{{prayer}} убакыт",
@@ -1909,9 +1909,9 @@
     "translationHint": "Used үчүн  meaning  Arabic religious text.",
     "footer": "More   interface  being translated over time. Arabic жана Urdu switch  app га  right-га-left layout.",
     "scriptureAvailable": "Куран котормосу бар",
-    "scriptureUnavailable": "Интерфейс гана — диний текст англисче калат",
+    "scriptureUnavailable": "Интерфейс гана — ыйык тексттер англисче калат",
     "eyebrow": "Жөндөөлөр",
-    "subtitle": "App жана translation language",
+    "subtitle": "Колдонмо жана котормо тили",
     "en": "Англисче",
     "ar": "Арабча",
     "ur": "Урдуча"

@@ -9,6 +9,8 @@ import { SORTED_LOCALE_REGISTRY } from "@munib-tracker/shared/i18n";
 import type { AppLocale } from "@munib-tracker/shared/types";
 
 import { PWA_THEME_COLOR } from "@/config/pwa";
+import { normalizePath } from "@/config/seo-routes";
+import { localizedUrl as buildLocalizedUrl, prependLocalePath } from "@/lib/locale-path";
 
 /**
  * Centralized SEO configuration for the Expo **web** build.
@@ -115,14 +117,19 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /**
- * Localized path for a locale. The app currently serves a single static build
- * (language is switched client-side), so this is the identity function today.
- * Locale-prefixed routing (`/ar/...`) can be introduced later by changing only
- * this helper — every `hreflang` alternate flows through it. YAGNI-safe seam.
+ * Localized path for SEO hreflang/canonical. Default locale (`en`) stays unprefixed;
+ * others use `/{locale}/…` so alternates resolve to distinct URLs.
  */
-export function localizedUrl(path: string, _locale: SeoLocale): string {
-  return absoluteUrl(path);
+export function localizedUrl(path: string, locale: SeoLocale): string {
+  return buildLocalizedUrl(path, locale);
 }
+
+/** Canonical absolute URL for a route in the given locale. */
+export function canonicalUrl(path: string, locale: SeoLocale = SEO_DEFAULT_LOCALE): string {
+  return absoluteUrl(prependLocalePath(normalizePath(path), locale));
+}
+
+export { LOCALE_PATH_DEFAULT, prependLocalePath, stripLocalePrefix } from "@/lib/locale-path";
 
 /** Compose a full document title. The home page uses the brand title verbatim. */
 export function formatTitle(title: string | undefined, { isHome = false } = {}): string {

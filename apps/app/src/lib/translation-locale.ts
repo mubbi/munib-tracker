@@ -1,5 +1,9 @@
-import { BUNDLED_QURAN_EDITION_IDS, getLocaleDefinition } from "@munib-tracker/shared/i18n";
-import type { UserPreferences } from "@munib-tracker/shared/types";
+import {
+  BUNDLED_QURAN_EDITION_IDS,
+  getLocaleDefinition,
+  hasHadithTranslationEdition,
+} from "@munib-tracker/shared/i18n";
+import type { HadithItem, UserPreferences } from "@munib-tracker/shared/types";
 
 /** Qur'an editions actually bundled offline (see `assets/data/quran/translation/`). */
 export { BUNDLED_QURAN_EDITION_IDS as BUNDLED_QURAN_EDITIONS } from "@munib-tracker/shared/i18n";
@@ -38,4 +42,28 @@ export function resolveTranslationField<T extends { translation: string; transla
   const translations = item.translations as Partial<Record<string, string>> | undefined;
   const preferred = translations?.[prefs.translationLocale];
   return preferred && preferred.trim().length > 0 ? preferred : item.translation;
+}
+
+/**
+ * Resolves hadith body text for the user's `translationLocale`. Arabic locale
+ * prefers the bundled `arabic` field; other locales use fawazahmed0 editions when
+ * fetched into `translations`, else English `english` — never generated text.
+ */
+export function resolveHadithTranslation(
+  item: Pick<HadithItem, "english" | "arabic" | "translations">,
+  prefs: Pick<UserPreferences, "translationLocale">,
+): string {
+  if (prefs.translationLocale === "ar") {
+    const arabic = item.arabic?.trim();
+    if (arabic) return arabic;
+  }
+  const translations = item.translations as Partial<Record<string, string>> | undefined;
+  const preferred = translations?.[prefs.translationLocale]?.trim();
+  if (preferred) return preferred;
+  return item.english;
+}
+
+/** Whether remote hadith collections can supply a translation for this locale. */
+export function isHadithTranslationAvailable(locale: string): boolean {
+  return hasHadithTranslationEdition(locale as UserPreferences["translationLocale"]);
 }

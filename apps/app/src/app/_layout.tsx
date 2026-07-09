@@ -11,6 +11,7 @@ import { MiniPlayer } from "@/components/audio/mini-player";
 import { ContentReportProvider } from "@/components/content-report/content-report-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { ExternalCommandProcessor } from "@/components/external-command-processor";
+import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
 import { WebReminderAdhanBridge } from "@/components/notifications/web-reminder-adhan-bridge";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
@@ -64,6 +65,7 @@ export default function RootLayout() {
                                   overlays={
                                     <>
                                       <WebNavigationFocusManager />
+                                      <LocalePathBootstrap />
                                       <WebPwaBootstrap />
                                       <OnboardingGate />
                                       <PinLockGate />

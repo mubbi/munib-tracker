@@ -23,7 +23,7 @@
       "seeResults": "Sonuçları göster",
       "complete": "Test Tamamlandı!",
       "scoreCaption": "Not",
-      "scoreDetail": "{{score}}/{{total}} puanlı sorular doğru",
+      "scoreDetail": "{{score}} / {{total}} doğru soru",
       "retry": "Tekrar deneyin",
       "reviewTitle": "Cevapları görüntüle",
       "encouragementPerfect": "Güzel inceleme — Allah faydalı bilginizi artırsın.",
@@ -51,8 +51,8 @@
     "off": "Kapalı",
     "signedIn": "Giriş yapıldı",
     "confirm": "Onayla",
-    "markCompleteConfirmTitle": "Tamamlandı olarak işaretlensin mi?",
-    "markCompleteConfirmMsg": "Bu, öğrenme ilerlemenize ekler. İstediğiniz zaman geri alabilirsiniz.",
+    "markCompleteConfirmTitle": "Tamamlandı olarak işaretle?",
+    "markCompleteConfirmMsg": "Bu, öğrenme ilerlemenize eklenir. İstediğiniz zaman geri alabilirsiniz.",
     "markCompleteConfirmAction": "Tamamlandı işaretle",
     "search": "Ara",
     "notifications": "Bildirimler",
@@ -66,7 +66,7 @@
     "increase": "{{label}} artır",
     "decrease": "{{label}} azalt",
     "appName": "Munib Tracker",
-    "appTagline": "Allah'a Dönüş Yolculuğunuzu Takip Edin."
+    "appTagline": "Allah'a dönüş yolculuğunuzu takip edin."
   },
   "search": {
     "placeholder": "Kur'an, hadis, dua, zikir ara…",
@@ -74,7 +74,7 @@
     "all": "Tümü",
     "resultsCount": "{{count}} sonuç",
     "seeAllCount": "Tüm {{count}} sonucu gör",
-    "noResultsTitle": "Sonuç bulunamadı",
+    "noResultsTitle": "Eşleşme bulunamadı",
     "noResultsDesc": "Farklı bir kelime veya yazım deneyin.",
     "recent": "Son aramalar",
     "clearRecent": "Temizle",
@@ -95,7 +95,7 @@
       "quran": "Kur'an",
       "hadith": "Hadis",
       "dua": "Dualar",
-      "zikr": "Zikirler",
+      "zikr": "Zikir",
       "name": "99 İsim",
       "durood": "Salavat",
       "jannah": "Cennet Yolculuğu",
@@ -296,7 +296,7 @@
       "name": "99 ismin tamamını keşfedin"
     },
     "devotionMeta": "Seviye {{level}} · {{noor}} Nûr",
-    "devotionProgress": "Sonraki seviyeye {{current}} / {{next}} Nûr",
+    "devotionProgress": "{{current}} / {{next}} Noor sonraki seviyeye",
     "devotionA11y": "Bağlılık seviyesi {{level}}, toplam {{noor}} nûr, sonraki seviyeye {{current}} / {{next}}",
     "scheduleTitle": "Bugünün programı",
     "explore": "Keşfet",
@@ -346,7 +346,7 @@
       "quran": "Kur'an",
       "hadith": "Hadis",
       "dua": "Dua",
-      "zikr": "Zikirler",
+      "zikr": "Zikir",
       "durood": "Salavat",
       "names": "99 İsim",
       "audio": "Ses"
@@ -429,12 +429,12 @@
   "tracker": {
     "eyebrow": "Takip et ve kaydet",
     "title": "Takip",
-    "subtitle": "Durumunu ayarlamak için bir namaza dokunun — bu cihazda kaydedilir.",
+    "subtitle": "Durumu ayarlamak için bir namaza dokunun — bu cihazda kaydedilir.",
     "excusedTitle": "Mazeretli gün",
     "excusedHint": "Hayız, hastalık veya seyahat — serinizi bozmadan farz takibini duraklatın.",
     "excusedActive": "Bu gün mazeretli — farz takibi duraklatıldı ve seriniz korunuyor.",
-    "excusedConfirmTitle": "Bugün mazeretli olarak işaretlensin mi?",
-    "excusedConfirmMsg": "Bugün farz takibi duraklatılacak ({{reason}}). Seriniz korunacak.",
+    "excusedConfirmTitle": "Bugünü mazeretli olarak işaretle?",
+    "excusedConfirmMsg": "Farz takibi bugün duraklatılacak ({{reason}}). Seriniz korunur.",
     "excusedConfirmAction": "Mazeretli işaretle",
     "excusedReason": {
       "hayd": "Hayız",
@@ -443,7 +443,7 @@
     },
     "obligatory": "Farz",
     "witr": "Vitir",
-    "witrSubtitle": "Sünnet-i müekkede — güçlü vurgulanır, beş farz namazdan biri değildir.",
+    "witrSubtitle": "Sünnet mu'akkade — güçlü vurgulanır, beş farz namazdan biri değildir.",
     "sunnahOptional": "Sünnet ve nafile",
     "keepGoing": "Devam et",
     "salahAdhkar": "Namaz zikirleri",
@@ -453,7 +453,7 @@
     "rings": {
       "sunnah": "Nafile namaz",
       "witr": "Vitir",
-      "adhkar": "Zikirler",
+      "adhkar": "Zikir",
       "qaza": "Kaza",
       "a11y": "{{label}}: %{{percent}} tamamlandı, {{total}} içinden {{completed}}"
     },
@@ -592,7 +592,7 @@
     "brandDuaTranslation": "Allah'ım, Sen kolaylaştırmadıkça kolaylık yoktur; dilediğinde zorluğu kolaylaştırırsın.",
     "slide1Eyebrow": "Namaz",
     "slide1Title": "Namazlarınızı takip edin",
-    "slide1Body": "Allah'a dönüş yolculuğunuzda her namazı işaretleyin — tamamlanan, kaçırılan, geciken veya kaza.",
+    "slide1Body": "Allah'a dönüş yolculuğunuzda her namazı işaretleyin — kılınan, kaçırılan, geciken veya kaza.",
     "slide1Highlight1": "Beş farz namaz artı Vitir (sünnet-i müekkede) ve sünnetler",
     "slide1Highlight2": "Seriler, ilerleme halkası ve takvim",
     "slide1Highlight3": "Hicri tarih ve geri sayımlı namaz vakitleri",
@@ -698,7 +698,7 @@
     "subtitle": "what you'd like to be reminded about Seç",
     "master": "Tüm notifications",
     "masterSub": "Master switch için every hatırlatıcı",
-    "adhanTitle": "Adhan önizleme",
+    "adhanTitle": "Ezan önizlemesi",
     "adhanSub": "Oynat  bundled call--namaz sound",
     "playAdhan": "Oynat ezan at namaz time",
     "playAdhanHint": "Farz-namaz reminders oynat  ezan when they fire.",
@@ -1907,9 +1907,9 @@
     "appLanguage": "Uygulama dili",
     "translationLanguage": "Çeviri dili",
     "translationHint": "Arapça dini metinlerin anlamı için kullanılır.",
-    "footer": "Arayüzün daha fazlası zamanla çevriliyor. Arapça ve Urduca uygulamayı sağdan sola düzene geçirir.",
-    "scriptureAvailable": "Kur'an çevirisi mevcut",
-    "scriptureUnavailable": "Yalnızca arayüz — dini metin İngilizce kalır",
+    "footer": "Zamanla daha fazla arayüz bölümü çevrilir. Arapça ve Urduca uygulamayı RTL yapar.",
+    "scriptureAvailable": "Kur'an mealı mevcut",
+    "scriptureUnavailable": "Yalnızca arayüz — kutsal metinler İngilizce kalır",
     "eyebrow": "Ayarlar",
     "subtitle": "Uygulama ve çeviri dili",
     "en": "İngilizce",
@@ -1982,7 +1982,7 @@
   "seo": {
     "intro": {
       "title": "Hoş geldiniz",
-      "description": "Çevrimdışı öncelikli İslami yardımcınızla başlayın."
+      "description": "Çevrimdışı İslami yol arkadaşınızla başlayın."
     },
     "login": {
       "description": "İbadet verilerinizi cihazlar arasında senkronize etmek için giriş yapın."
@@ -1991,10 +1991,10 @@
       "description": "Aradığınız sayfa bulunamadı."
     },
     "calendarDay": {
-      "description": "Bu gün için kaydettiğiniz ibadeti gözden geçirin ve düzenleyin."
+      "description": "Bu gün için kayıtlı ibadeti inceleyin ve düzenleyin."
     },
     "tasbeehZikr": {
-      "description": "Bu zikri dokunsal bir tesbih sayacıyla sayın."
+      "description": "Bu zikri dokunmatik tesbih sayacıyla sayın."
     },
     "tasbeehCustom": {
       "description": "Özel tesbih sayacınız."

@@ -15,7 +15,10 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
     transliteration: "Subhan-Allahi wa bihamdihi",
     translation: "Glory is to Allah and praise is to Him.",
-    translations: { id: "Maha Suci Allah, aku memuji-Nya." },
+    translations: {
+      bn: "আমি আল্লাহর প্রশংসাসহ পবিত্রতা ও মহিমা ঘোষণা করছি।",
+      id: "Maha Suci Allah, aku memuji-Nya.",
+    },
     virtues:
       "Whoever says it 100 times a day has his sins wiped away, though they be like the foam of the sea.",
     reference: "Bukhari & Muslim",
@@ -33,6 +36,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     translation:
       "There is no god but Allah, alone, without partner. His is the dominion and His is the praise, and He is over all things capable.",
     translations: {
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই, রাজত্ব তাঁরই, সমস্ত প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান।",
       id: "Tidak ada Rabb (yang berhak disembah) kecuali Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan. Bagi-Nya pujaan. Dia-lah Yang Mahakuasa atas segala sesuatu.",
     },
     virtues: "Whoever says it 100 times has a reward equal to freeing ten slaves.",
@@ -48,7 +52,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "أَسْتَغْفِرُ اللَّهَ",
     transliteration: "Astaghfirullah",
     translation: "I seek the forgiveness of Allah.",
-    translations: { id: "Aku minta ampun kepada Allah." },
+    translations: { bn: "আল্লাহর কাছে ক্ষমা চাই।", id: "Aku minta ampun kepada Allah." },
     virtues: "The Prophet ﷺ would seek forgiveness more than seventy times a day.",
     reference: "Bukhari",
     targetCount: 100,
@@ -62,6 +66,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
     transliteration: "La hawla wa la quwwata illa billah",
     translation: "There is no might nor power except with Allah.",
+    translations: {
+      bn: "আল্লাহর সাহায্য ছাড়া (পাপ কাজ থেকে দূরে থাকার) কোনো উপায় এবং (সৎকাজ করার) কোনো শক্তি কারো নেই। [১]",
+    },
     virtues: "A treasure from the treasures of Paradise.",
     reference: "Bukhari & Muslim",
     targetCount: 33,
@@ -74,6 +81,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     transliteration: "Subhan-Allah, wal-hamdu lillah, wa la ilaha illallah, wallahu akbar",
     translation:
       "Glory is to Allah, all praise is for Allah, there is no god but Allah, and Allah is the Greatest.",
+    translations: {
+      bn: "আল্লাহ পবিত্র-মহান। সকল হামদ-প্রশংসা আল্লাহর। আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই। আল্লাহ সবচেয়ে বড়। [১]",
+    },
     virtues: "The most beloved words to Allah.",
     reference: "Muslim",
     targetCount: 25,
@@ -85,6 +95,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
     transliteration: "Subhan-Allahi wa bihamdih, subhan-Allahil-'Azim",
     translation: "Glory and praise is to Allah, glory is to Allah the Magnificent.",
+    translations: {
+      bn: "আল্লাহ্‌র প্রশংসাসহকারে তাঁর পবিত্রতা ও মহিমা বর্ণনা করছি। মহান আল্লাহর পবিত্রতা ও মহিমা ঘোষণা করছি”।",
+    },
     virtues: "Two phrases light on the tongue, heavy on the scale, beloved to the Most Merciful.",
     reference: "Bukhari & Muslim",
     targetCount: 10,
@@ -96,7 +109,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ",
     transliteration: "Subhan-Allah",
     translation: "Glory is to Allah.",
-    translations: { id: "Maha Suci Allah" },
+    translations: { bn: "আল্লাহ অতি-পবিত্র", id: "Maha Suci Allah" },
     reference: "Muslim",
     targetCount: 33,
   },
@@ -107,7 +120,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "الْحَمْدُ لِلَّهِ",
     transliteration: "Alhamdulillah",
     translation: "All praise is for Allah.",
-    translations: { id: "Segala puji bagi Allah" },
+    translations: { bn: "সকল প্রশংসা আল্লাহর জন্য", id: "Segala puji bagi Allah" },
     reference: "Muslim",
     targetCount: 33,
   },
@@ -118,7 +131,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "اللَّهُ أَكْبَرُ",
     transliteration: "Allahu Akbar",
     translation: "Allah is the Greatest.",
-    translations: { id: "Allah Maha Besar" },
+    translations: { bn: "আল্লাহ অতি-মহান", id: "Allah Maha Besar" },
     virtues:
       "Completing the tasbih after each prayer wipes away sins though they be like the foam of the sea.",
     reference: "Muslim",
@@ -134,6 +147,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     translation:
       "There is no god but Allah, alone, without partner. His is the dominion and His is the praise, and He is over all things capable.",
     translations: {
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই, রাজত্ব তাঁরই, সমস্ত প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান।",
       id: "Tidak ada Rabb (yang berhak disembah) kecuali Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan. Bagi-Nya pujaan. Dia-lah Yang Mahakuasa atas segala sesuatu.",
     },
     virtues:
@@ -152,6 +166,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "La ilaha illallahu wahdahu la sharika lah, lahul-mulku wa lahul-hamd, yuhyi wa yumit, wa huwa 'ala kulli shay'in qadir",
     translation:
       "There is no god but Allah, alone, without partner. His is the dominion and His is the praise. He gives life and causes death, and He is over all things capable.",
+    translations: {
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই, রাজত্ব তারই এবং সকল প্রশংসা তাঁর। তিনিই জীবিত করেন এবং মৃত্যু দান করেন। আর তিনি সকল কিছুর উপর ক্ষমতাবান",
+    },
     virtues:
       "Whoever says it ten times after Maghrib and after Fajr: Allah records for him ten good deeds, erases ten sins, raises him ten degrees, and it is a protection for him that day from every disliked thing and a guard from Shaytan.",
     reference: "Tirmidhi 3474",
@@ -167,6 +184,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ",
     transliteration: "Allahumma ajirni minan-nar",
     translation: "O Allah, save me from the Fire.",
+    translations: { bn: "হে আল্লাহ, আমাকে জাহান্নামের আগুন থেকে রক্ষা করুন।" },
     virtues:
       "Whoever says it seven times after the Maghrib prayer before speaking, then dies that night, is protected from the Fire; and whoever says it after Fajr before speaking, then dies that day, is protected from the Fire.",
     reference: "Abu Dawud 5079",
@@ -181,6 +199,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     transliteration: "Allahumma a'inni 'ala dhikrika wa shukrika wa husni 'ibadatik",
     translation:
       "O Allah, help me to remember You, to thank You, and to worship You in the best manner.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার যিক্‌র করতে, আপনার শুকরিয়া জ্ঞাপন করতে এবং সুন্দরভাবে আপনার ইবাদত করতে আমাকে সাহায্য করুন",
+    },
     virtues:
       "The Prophet ﷺ took Mu'adh by the hand and said, 'By Allah, I love you,' then advised him never to leave saying this after every prayer.",
     reference: "Abu Dawud 1522 & An-Nasa'i",
@@ -215,6 +236,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "Subhanaka-llahumma wa bihamdik, ashhadu an la ilaha illa anta, astaghfiruka wa atubu ilayk",
     translation:
       "Glory is to You, O Allah, and praise; I bear witness that there is no god but You; I seek Your forgiveness and repent to You.",
+    translations: {
+      bn: "হে আল্লাহ! আপনার প্রশংসাসহ পবিত্রতা ও মহিমা ঘোষণা করছি। আমি সাক্ষ্য দেই যে, আপনি ছাড়া কোন হক্ব ইলাহ নেই, আমি আপনার কাছে ক্ষমা প্রার্থনা করছি এবং আপনার নিকট তওবা করছি",
+    },
     virtues:
       "'A'ishah reported that the Prophet ﷺ would say this at the end of a sitting. Whoever says it, what occurred in that gathering is forgiven for him.",
     reference: "Tirmidhi 3433 & An-Nasa'i",
@@ -229,6 +253,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ الْمَلِكِ الْقُدُّوسِ",
     transliteration: "Subhanal-Malikil-Quddus",
     translation: "Glory be to the King, the Most Holy.",
+    translations: { bn: "কতই না পবিত্র-মহান সেই মহাপবিত্র বাদশা!" },
     virtues:
       "After the salam of the Witr prayer the Prophet ﷺ would say it three times, raising and prolonging his voice on the third, adding: 'Rabbil-mala'ikati war-ruh' (Lord of the angels and the Spirit). Witr is prayed after the Isha prayer.",
     reference: "An-Nasa'i 1699",
@@ -242,7 +267,10 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
     transliteration: "Subhan-Allahi wa bihamdihi",
     translation: "Glory is to Allah and praise is to Him.",
-    translations: { id: "Maha Suci Allah, aku memuji-Nya." },
+    translations: {
+      bn: "আমি আল্লাহর প্রশংসাসহ পবিত্রতা ও মহিমা ঘোষণা করছি।",
+      id: "Maha Suci Allah, aku memuji-Nya.",
+    },
     virtues:
       "None will come on the Day of Judgement with better than this, except one who did the same or more.",
     reference: "Muslim",
@@ -259,6 +287,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "Bismillahilladhi la yadurru ma'asmihi shay'un fil-ardi wa la fis-sama', wa huwas-Sami'ul-'Alim",
     translation:
       "In the name of Allah, with whose name nothing on earth or in the heaven can cause harm, and He is the All-Hearing, the All-Knowing.",
+    translations: {
+      bn: "আল্লাহ্‌র নামে; যাঁর নামের সাথে আসমান ও যমীনে কোনো কিছুই ক্ষতি করতে পারে না। আর তিনি সর্বশ্রোতা, মহাজ্ঞানী।”",
+    },
     virtues: "Whoever says it three times, nothing will harm him.",
     reference: "Abu Dawud & Tirmidhi",
     targetCount: 3,
@@ -274,6 +305,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     translation:
       "I am pleased with Allah as my Lord, with Islam as my religion, and with Muhammad ﷺ as my Prophet.",
     translations: {
+      bn: "আল্লাহকে রব, ইসলামকে দীন ও মুহাম্মাদ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম-কে নবীরূপে গ্রহণ করে আমি সন্তুষ্ট।",
       id: "Aku ridha Allah sebagai Rabb, Islam sebagai agama dan Muhammad shallallahu 'alaihi wa sallam sebagai nabi.",
     },
     virtues:
@@ -288,7 +320,10 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
     transliteration: "Subhan-Allahi wa bihamdihi",
     translation: "Glory is to Allah and praise is to Him.",
-    translations: { id: "Maha Suci Allah, aku memuji-Nya." },
+    translations: {
+      bn: "আমি আল্লাহর প্রশংসাসহ পবিত্রতা ও মহিমা ঘোষণা করছি।",
+      id: "Maha Suci Allah, aku memuji-Nya.",
+    },
     reference: "Muslim",
     targetCount: 100,
     audioUri:
@@ -303,6 +338,9 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "Bismillahilladhi la yadurru ma'asmihi shay'un fil-ardi wa la fis-sama', wa huwas-Sami'ul-'Alim",
     translation:
       "In the name of Allah, with whose name nothing on earth or in the heaven can cause harm, and He is the All-Hearing, the All-Knowing.",
+    translations: {
+      bn: "আল্লাহ্‌র নামে; যাঁর নামের সাথে আসমান ও যমীনে কোনো কিছুই ক্ষতি করতে পারে না। আর তিনি সর্বশ্রোতা, মহাজ্ঞানী।”",
+    },
     reference: "Abu Dawud & Tirmidhi",
     targetCount: 3,
     audioUri:
@@ -317,6 +355,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     translation:
       "I seek refuge in the perfect words of Allah from the evil of what He has created.",
     translations: {
+      bn: "আল্লাহ্‌র পরিপূর্ণ কালেমাসমূহের ওসিলায় আমি তাঁর নিকট তাঁর সৃষ্টির ক্ষতি থেকে আশ্রয় চাই।",
       id: "Aku berlindung dengan kalimat-kalimat Allah yang sempurna, dari kejahatan sesuatu yang diciptakan-Nya.",
     },
     virtues: "Whoever says it three times in the evening, no venom will harm him that night.",
@@ -417,11 +456,11 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     transliteration: "A'udhu billahi minash-shaytanir-rajim",
     translation: "I seek refuge in Allah from the accursed Shaytan.",
     translations: {
+      bn: "অতএব, যখন আপনি কোরআন পাঠ করেন তখন বিতাড়িত শয়তান থেকে আল্লাহর আশ্রয় গ্রহণ করুন।",
       ur: "اور جب تم قرآن پڑھنے لگو تو شیطان مردود سے پناہ مانگ لیا کرو",
       id: "Maka apabila engkau (Muhammad) hendak membaca Alquran, mohonlah perlindungan kepada Allah dari setan yang terkutuk",
       tr: "Kuran okuyacağın zaman, kovulmuş şeytandan Allah'a sığın",
       tk: "Kuran okuyacağın zaman, kovulmuş şeytandan Allah'a sığın",
-      bn: "অতএব, যখন আপনি কোরআন পাঠ করেন তখন বিতাড়িত শয়তান থেকে আল্লাহর আশ্রয় গ্রহণ করুন।",
       ms: "(Oleh itu, apabila engkau membaca Al-Quran, maka hendaklah engkau terlebih dahulu) memohon perlindungan kepada Allah dari hasutan Syaitan yang kena rejam",
       fa: "هنگامی که قرآن می‌خوانی، از شرّ شیطان مطرود، به خدا پناه بر",
       fr: "Lorsque tu lis le Coran, demande la protection d'Allah contre le Diable banni",
@@ -461,7 +500,10 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
     transliteration: "Bismika Allahumma amutu wa ahya",
     translation: "In Your name, O Allah, I die and I live.",
-    translations: { id: "Dengan menyebut nama-Mu, ya Allah! Aku mati dan dan hidup." },
+    translations: {
+      bn: "হে আল্লাহ ! আপনার নাম নিয়েই আমি মরছি (ঘুমাচ্ছি) এবং আপনার নাম নিয়েই জীবিত (জাগ্রত) হবো।",
+      id: "Dengan menyebut nama-Mu, ya Allah! Aku mati dan dan hidup.",
+    },
     reference: "Bukhari",
     targetCount: 1,
     audioUri:
@@ -527,6 +569,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "O Allah, You are Peace, and from You is peace. Blessed are You, O Possessor of majesty and honor.",
     translations: {
       id: "Ya Allah, Engkau pemberi keselamatan, dan dari-Mu keselaatan, Maha Suci Engkau, wahai tuhan yang pemilik keagungan dan kemuliaan.",
+      bn: "হে আল্লাহ! আপনি শান্তিময়। আপনার নিকট থেকেই শান্তি বর্ষিত হয়। আপনি বরকতময়, হে মহিমাময় ও সম্মানের অধিকারী!",
     },
     virtues:
       "When the Messenger of Allah, sallallahu 'alayhi wa sallam, finished his prayer, he would seek forgiveness three times and recite the dhikr above. Al-Auza'i stated that the recitation of istighfar is 'Astaghfirullah, Astaghfirullah.'",
@@ -544,6 +587,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs dominion and praise, and He is over all things competent. O Allah, there is no preventer of what You give, and no giver of what You withhold, and wealth and honor do not benefit their possessor (except faith and righteous deeds that save from punishment). Only from You is wealth and honor.",
     translations: {
       id: "Tiada Rabb yang berhak disembah selain Allah yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya puji dan bagi-Nya kerajaan. Dia Maha Kuasa atas segala sesuatu. Ya Allah, tidak ada yang mencegah apa yang Engkau berikan dan tidak ada yang memberi apa yang Engkau cegah. Tidak berguna kekayaan dan kemuliaan itu bagi pemiliknya (selain iman dan amal shalihnya yang menyelamatkan dari siksaan). Hanya dari-Mu kekayaan dan kemuliaan.",
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই, রাজত্ব তাঁরই, সমস্ত প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান। হে আল্লাহ, আপনি যা প্রদান করেছেন তা বন্ধ করার কেউ নেই, আর আপনি যা রুদ্ধ করেছেন তা প্রদান করার কেউ নেই। আর কোনো ক্ষমতা-প্রতিপত্তির অধিকারীর ক্ষমতা ও প্রতিপত্তি আপনার কাছে কোনো উপকারে আসবে না।",
     },
     virtues: "Read 1x",
     reference: "HR. Bukhari No. 844 and Muslim No. 593",
@@ -562,6 +606,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs dominion and praise, and He is over all things competent. There is no power and no strength except by Allah. There is no deity worthy of worship except Allah, and we do not worship except Him. To Him belongs all favor, grace, and good praise. There is no deity worthy of worship except Allah, making our religion sincerely for Him, even if the disbelievers dislike it.",
     translations: {
       id: "Tiada Rabb (yang berhak disembah) kecuali Allah, Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan dan pujaan. Dia Mahakuasa atas segala sesuatu. Tidak ada daya dan kekuatan kecuali (dengan pertolongan) Allah. Tiada Rabb (yang hak disembah) kecuali Allah. Kami tidak menyembah kecuali kepada-Nya. Bagi-Nya nikmat, anugerah dan pujaan yang baik. Tiada Rabb (yang hak disembah) kecuali Allah, dengan memurnikan ibadah kepada-Nya, sekalipun orang-orang kafir sama benci.",
+      bn: "একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই, রাজত্ব তাঁরই, সমস্ত প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান। আল্লাহর সাহায্য ছাড়া (পাপ কাজ থেকে দূরে থাকার) কোনো উপায় এবং (সৎকাজ করার) কোনো শক্তি নেই। আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, আমরা কেবল তাঁরই ইবাদত করি, নেয়ামতসমূহ তাঁরই, যাবতীয় অনুগ্রহও তাঁর এবং উত্তম প্রশংসা তাঁরই। আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, আমরা তাঁর দেয়া দ্বীনকে একনিষ্ঠভাবে মান্য করি, যদিও কাফেররা তা অপছন্দ করে",
     },
     virtues:
       "'Abdullah bin Zubair said, \"The Prophet, sallallahu 'alayhi wa sallam, used to recite the tahlil (laa ilaha illallah) at the end of the prayer.\"",
@@ -598,6 +643,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       'Say, "He is Allah , [who is] One, (1) Allah , the Eternal Refuge. (2) He neither begets nor is born, (3) Nor is there to Him any equivalent." (4)',
     translations: {
       id: 'Katakanlah: "Dialah Allah, Yang Maha Esa. Allah adalah Tuhan yang bergantung kepada-Nya segala sesuatu. Dia tiada beranak dan tidak pula diperanakkan, dan tidak ada seorangpun yang setara dengan Dia".',
+      bn: "বলুন, তিনি আল্লাহ্, এক-অদ্বিতীয়। আল্লাহ্ হচ্ছেন ‘সামাদ’ (তিনি কারো মুখাপেক্ষী নন, সকলেই তাঁর মুখাপেক্ষী)। তিনি কাউকেও জন্ম দেন নি এবং তাঁকেও জন্ম দেয়া হয় নি। আর তাঁর সমতুল্য কেউই নেই।",
     },
     virtues:
       "The Messenger of Allah, sallallahu 'alayhi wa sallam, said: Recite Qul huwallahu ahad, and Al-Mu'awwidhatayn (Al-Falaq and An-Nas) in the evening and morning three times, and it will suffice you (protect you) from everything.",
@@ -617,6 +663,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       'Say, "I seek refuge in the Lord of daybreak (1) From the evil of that which He created (2) And from the evil of darkness when it settles (3) And from the evil of the blowers in knots (4) And from the evil of an envier when he envies." (5)',
     translations: {
       id: 'Katakanlah: "Aku berlindung kepada Tuhan Yang Menguasai subuh, dari kejahatan makhluk-Nya, dan dari kejahatan malam apabila telah gelap gulita, dan dari kejahatan wanita-wanita tukang sihir yang menghembus pada buhul-buhul, dan dari kejahatan pendengki bila ia dengki".',
+      bn: "বলুন, আমি আশ্রয় প্রার্থনা করছি ঊষার রবের। তিনি যা সৃষ্টি করেছেন তার অনিষ্ট হতে। ‘আর অনিষ্ট হতে রাতের অন্ধকারের, যখন তা গভীর হয়। আর অনিষ্ট হতে সমস্ত নারীদের, যারা গিরায় ফুঁক দেয়। আর অনিষ্ট হতে হিংসুকের, যখন সে হিংসা করে।",
     },
     virtues:
       "The Messenger of Allah, sallallahu 'alayhi wa sallam, said: Recite Qul huwallahu ahad, and Al-Mu'awwidhatayn (Al-Falaq and An-Nas) in the evening and morning three times, and it will suffice you (protect you) from everything.",
@@ -636,6 +683,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       'Say, "I seek refuge in the Lord of mankind, (1) The King of mankind. (2) The God of mankind, (3) From the evil of the whisperer who withdraws, (4) Who whispers in the breasts of mankind, (5) Of the jinn and mankind." (6)',
     translations: {
       id: "Katakanlah: “Aku berlindung kepada Tuhan (yang memelihara dan menguasai) manusia. (1) Raja manusia. (2) Sembahan manusia. (3) Dari kejahatan (bisikan) syaitan yang biasa bersembunyi, (4) yang membisikkan (kejahatan) ke dalam dada manusia, (5) dari (golongan) jin dan manusia. (6)",
+      bn: "বলুন, আমি আশ্রয় প্রার্থনা করছি মানুষের রবের, মানুষের অধিপতির, মানুষের ইলাহের কাছে, আত্মগোপনকারী কুমন্ত্রণাদাতার অনিষ্ট হতে; যে কুমন্ত্রণা দেয় মানুষের অন্তরে, জিনের মধ্য থেকে এবং মানুষের মধ্য থেকে।",
     },
     virtues:
       "The Messenger of Allah, sallallahu 'alayhi wa sallam, said: Recite Qul huwallahu ahad, and Al-Mu'awwidhatayn (Al-Falaq and An-Nas) in the evening and morning three times, and it will suffice you (protect you) from everything.",
@@ -672,6 +720,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "We have entered the morning and the dominion belongs to Allah, and all praise is for Allah. There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs the dominion and to Him is praise, and He is over all things competent. My Lord, I ask You for the good of this day and the good of what follows it, and I seek refuge in You from the evil of this day and the evil of what follows it. My Lord, I seek refuge in You from laziness and the evil of old age. My Lord, I seek refuge in You from the punishment of the Fire and the punishment of the grave.",
     translations: {
       id: "Kami telah memasuki waktu pagi dan kerajaan hanya milik Allah, segala puji bagi Allah. Tidak ada ilah (yang berhak disembah) kecuali Allah semata, tiada sekutu bagi-Nya. Milik Allah kerajaan dan bagi-Nya pujian. Dia-lah Yang Mahakuasa atas segala sesuatu. Wahai Rabbku, aku mohon kepada-Mu kebaikan di hari ini dan kebaikan sesudahnya. Aku berlindung kepada-Mu dari kejahatan hari ini dan kejahatan sesudahnya. Wahai Rabbku, aku berlindung kepada-Mu dari kemalasan dan kejelekan di hari tua. Wahai Rabbku, aku berlindung kepada-Mu dari siksaan di neraka dan siksaan di alam kubur.",
+      bn: "আমরা আল্লাহর জন্য সকালে উপনীত হয়েছি, অনুরূপ যাবতীয় রাজত্বও সকালে উপনীত হয়েছে, আল্লাহ্‌র জন্য। সমুদয় প্রশংসা আল্লাহ্‌র জন্য। একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই। রাজত্ব তাঁরই এবং প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান। হে রব্ব! এই দিনের মাঝে এবং এর পরে যা কিছু কল্যাণ আছে আমি আপনার নিকট তা প্রার্থনা করি। আর এই দিনের মাঝে এবং এর পরে যা কিছু অকল্যাণ আছে, তা থেকে আমি আপনার আশ্রয় চাই। \r\nহে রব্ব! আমি আপনার কাছে আশ্রয় চাই অলসতা ও খারাপ বার্ধক্য থেকে। হে রব্ব!আমি আপনার কাছে আশ্রয় চাই জাহান্নামে আযাব হওয়া থেকে এবং কবরে আযাব হওয়া থেকে।",
     },
     virtues: "Recite 1x",
     reference:
@@ -690,6 +739,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "O Allah, with Your grace and help we enter the morning, and with Your grace and help we enter the evening. By Your grace and will we live and by Your grace and will we die. And to You is the resurrection (for all creatures).",
     translations: {
       id: "Ya Allah, dengan rahmat dan pertolongan-Mu kami memasuki waktu pagi, dan dengan rahmat dan pertolongan-Mu kami memasuki waktu petang. Dengan rahmat dan pertolongan-Mu kami hidup dan dengan kehendak-Mu kami mati. Dan kepada-Mu kebangkitan (bagi semua makhluk).",
+      bn: "হে আল্লাহ! আমরা আপনার জন্য সকালে উপনীত হয়েছি এবং আপনারই জন্য আমরা বিকালে উপনীত হয়েছি। আর আপনার দ্বারা আমরা জীবিত থাকি, আপনার দ্বারাই আমরা মারা যাব; আর আপনার দিকেই উত্থিত হব।",
     },
     virtues: "Recite 1x",
     reference:
@@ -709,6 +759,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "O Allah, You are my Lord. There is no deity worthy of worship except You. You created me and I am Your servant. I will be true to my covenant and promise to You as much as I can. I seek refuge in You from the evil of what I have done. I acknowledge Your favor upon me and I acknowledge my sin, therefore, forgive me. Indeed, there is no one who can forgive sins except You.",
     translations: {
       id: "Ya Allah, Engkau adalah Rabb-ku, tidak ada Ilah (yang berhak diibadahi dengan benar) kecuali Engkau, Engkau-lah yang menciptakanku. Aku adalah hamba-Mu. Aku akan setia pada perjanjianku dengan-Mu semampuku. Aku berlindung kepada-Mu dari kejelekan (apa) yang kuperbuat. Aku mengakui nikmat-Mu (yang diberikan) kepadaku dan aku mengakui dosaku, oleh karena itu, ampunilah aku. Sesungguhnya tidak ada yang dapat mengampuni dosa kecuali Engkau.",
+      bn: "হে আল্লাহ্‌! আপনি আমার রব্ব, আপনি ছাড়া আর কোনো হক্ব ইলাহ নেই। আপনি আমাকে সৃষ্টি করেছেন এবং আমি আপনার বান্দা। আর আমি আমার সাধ্য মতো আপনার (তাওহীদের) অঙ্গীকার ও (জান্নাতের) প্রতিশ্রুতির উপর রয়েছি। আমি আমার কৃতকর্মের অনিষ্ট থেকে আপনার আশ্রয় চাই। আপনি আমাকে আপনার যে নিয়ামত দিয়েছেন তা আমি স্বীকার করছি, আর আমি স্বীকার করছি আমার অপরাধ। অতএব আপনি আমাকে মাফ করুন। নিশ্চয় আপনি ছাড়া আর কেউ গুনাহসমূহ মাফ করে না।",
     },
     virtues: "Recite 1x",
     reference: "HR. al-Bukhari No. 6306, 6323, Ahmad IV/122-125, an-Nasa'i VIII/279-280",
@@ -727,6 +778,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "O Allah, protect my body (from illness and from what I do not want). O Allah, protect my hearing (from illness and disobedience or from what I do not want). O Allah, protect my sight, there is no deity worthy of worship except You. O Allah, indeed I seek refuge in You from disbelief and poverty. I seek refuge in You from the punishment of the grave, there is no deity worthy of worship except You.",
     translations: {
       id: "Ya Allah, selamatkanlah tubuhku (dari penyakit dan dari apa yang tidak aku inginkan). Ya Allah, selamatkanlah pendengaranku (dari penyakit dan maksiat atau dari apa yang tidak aku inginkan). Ya Allah, selamatkanlah penglihatanku, tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau. Ya Allah, sesungguhnya aku berlindung kepada-Mu dari kekufuran dan kefakiran. Aku berlindung kepada-Mu dari siksa kubur, tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau.",
+      bn: "হে আল্লাহ! আমাকে নিরাপত্তা দিন আমার শরীরে। হে আল্লাহ! আমাকে নিরাপত্তা দিন আমার শ্রবণশক্তিতে। হে আল্লাহ! আমাকে নিরাপত্তা দিন আমার দৃষ্টিশক্তিতে। আপনি ছাড়া কোনো হক্ব ইলাহ নেই। হে আল্লাহ! আমি আপনার কাছে আশ্রয় চাই কুফরি ও দারিদ্র্য থেকে। আর আমি আপনার আশ্রয় চাই কবরের আযাব থেকে। আপনি ছাড়া আর কোনো হক্ব ইলাহ নেই।",
     },
     virtues: "Recite 1x",
     reference:
@@ -763,6 +815,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "O Allah, Knower of the unseen and the seen, Creator of the heavens and the earth, Lord of all things and their Sovereign. I bear witness that there is no deity worthy of worship except You. I seek refuge in You from the evil of myself, Satan and his soldiers (temptations to commit shirk against Allah), and I (seek refuge in You) from committing evil against myself or dragging it to a Muslim.",
     translations: {
       id: "Ya Allah, Yang Maha Mengetahui yang ghaib dan yang nyata, wahai Rabb pencipta langit dan bumi, Rabb segala sesuatu dan yang merajainya. Aku bersaksi bahwa tidak ada ilah yang berhak disembah kecuali Engkau. Aku berlindung kepada-Mu dari kejahatan diriku, setan dan balatentaranya (godaan untuk berbuat syirik pada Allah), dan aku (berlindung kepada-Mu) dari berbuat kejelekan terhadap diriku atau menyeretnya kepada seorang muslim.",
+      bn: "হে আল্লাহ! হে গায়েব ও উপস্থিতের জ্ঞানী, হে আসমানসমূহ ও যমীনের স্রষ্টা, হে সব কিছুর রব্ব ও মালিক! আমি সাক্ষ্য দিচ্ছি যে, আপনি ছাড়া আর কোনো হক্ব ইলাহ নেই। আমি আপনার কাছে আশ্রয় চাই আমার আত্মার অনিষ্ট থেকে, শয়তানের অনিষ্টতা থেকে ও তার শির্ক বা তার ফাঁদ থেকে, আমার নিজের উপর কোনো অনিষ্ট করা, অথবা কোনো মুসলিমের দিকে তা টেনে নেওয়া থেকে।",
     },
     virtues: "Recite 1x",
     reference:
@@ -815,6 +868,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "In the morning we are upon the fitrah of Islam, the word of sincerity (the testimony of faith), the religion of our Prophet Muhammad, sallallahu 'alayhi wa sallam, and the religion of our father Abraham, who stood upon the straight path, a Muslim, and was not among the polytheists.",
     translations: {
       id: "Di waktu pagi kami memegang agama Islam, kalimat ikhlas (kalimat syahadat), agama Nabi kami Muhammad shallallahu 'alaihi wa sallam, dan agama bapak kami Ibrahim, yang berdiri di atas jalan yang lurus, muslim dan tidak tergolong orang-orang musyrik.",
+      bn: "আমরা সকালে উপনীত হয়েছি ইসলামের ফিত্বরাতের উপর, নিষ্ঠাপূর্ণ বাণী (তাওহীদ) এর উপর, আমাদের নবী মুহাম্মাদ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম-এর দ্বীনের উপর, আর আমাদের পিতা ইব্রাহীম আলাইহিস সালাম-এর মিল্লাতের উপর—যিনি ছিলেন একনিষ্ঠ মুসলিম এবং যিনি মুশরিকদের অন্তর্ভুক্ত ছিলেন না",
     },
     virtues: "Recite 1x",
     reference:
@@ -846,7 +900,10 @@ export const ZIKR_ITEMS: ZikrItem[] = [
     arabic: "أَسْتَغْفِرُ الله وَأَتُوْبُ إِلَيْهِ",
     transliteration: "astaghfirullah wa atubu ilayh",
     translation: "I seek forgiveness from Allah and repent to Him.",
-    translations: { id: "Aku memohon ampunan kepada Allah dan bertaubat kepada-Nya." },
+    translations: {
+      id: "Aku memohon ampunan kepada Allah dan bertaubat kepada-Nya.",
+      bn: "আমি আল্লাহ্‌র কাছে ক্ষমা প্রার্থনা করছি এবং তাঁর নিকটই তাওবা করছি",
+    },
     virtues: "Recite 100x a day",
     reference: "HR. al-Bukhari/Fat-hul Baari XI/101 and Muslim No. 2702",
     targetCount: 100,
@@ -865,6 +922,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "We have entered the evening and the dominion belongs to Allah, and all praise is for Allah. There is no deity worthy of worship except Allah alone, He has no partner. To Him belongs the dominion and to Him is praise, and He is over all things competent. My Lord, I ask You for the good of this night and the good of what follows it, and I seek refuge in You from the evil of this night and the evil of what follows it. My Lord, I seek refuge in You from laziness and the evil of old age. My Lord, I seek refuge in You from the punishment of the Fire and the punishment of the grave.",
     translations: {
       id: "Kami telah memasuki waktu petang dan kerajaan hanya milik Allah, segala puji bagi Allah. Tidak ada ilah (yang berhak disembah) kecuali Allah semata, tiada sekutu bagi-Nya. Milik Allah kerajaan dan bagi-Nya pujian. Dia-lah Yang Mahakuasa atas segala sesuatu. Wahai Rabbku, aku mohon kepada-Mu kebaikan di malam ini dan kebaikan sesudahnya. Aku berlindung kepada-Mu dari kejahatan malam ini dan kejahatan sesudahnya. Wahai Rabbku, aku berlindung kepada-Mu dari kemalasan dan kejelekan di hari tua. Wahai Rabbku, aku berlindung kepada-Mu dari siksaan di neraka dan siksaan di kubur.",
+      bn: "আমরা আল্লাহর জন্য বিকালে উপনীত হয়েছি, অনুরূপ যাবতীয় রাজত্বও বিকালে উপনীত হয়েছে, আল্লাহ্‌র জন্য। সমুদয় প্রশংসা আল্লাহ্‌র জন্য। একমাত্র আল্লাহ ছাড়া কোনো হক্ব ইলাহ নেই, তাঁর কোনো শরীক নেই। রাজত্ব তাঁরই এবং প্রশংসাও তাঁর, আর তিনি সকল কিছুর উপর ক্ষমতাবান। হে রব্ব! এই রাতের মাঝে এবং এর পরে যা কিছু কল্যাণ আছে আমি আপনার নিকট তা প্রার্থনা করি। আর এই রাতের মাঝে এবং এর পরে যা কিছু অকল্যাণ আছে, তা থেকে আমি আপনার আশ্রয় চাই। \r\nহে রব্ব! আমি আপনার কাছে আশ্রয় চাই অলসতা ও খারাপ বার্ধক্য থেকে। হে রব্ব!আমি আপনার কাছে আশ্রয় চাই জাহান্নামে আযাব হওয়া থেকে এবং কবরে আযাব হওয়া থেকে।",
     },
     virtues:
       'Seeking protection from evil is prioritized, the principle that shows the importance of this is: "Preventing harm is more important and prioritized than bringing about good."',
@@ -882,6 +940,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "O Allah, by Your grace and help we have entered the evening, and by Your grace and help we enter the morning. By Your grace and help we live and by Your will we die. And to You is the final return (of all creatures).",
     translations: {
       id: "Ya Allah, dengan rahmat dan pertolongan-Mu kami memasuki waktu petang, dan dengan rahmat dan pertolongan-Mu kami memasuki waktu pagi. Dengan rahmat dan pertolongan-Mu kami hidup dan dengan kehendak-Mu kami mati. Dan kepada-Mu tempat kembali (bagi semua makhluk).",
+      bn: "হে আল্লাহ!আমরা আপনার জন্য বিকালে উপনীত হয়েছি এবং আপনারই জন্য আমরা সকালে উপনীত হয়েছি। আর আপনার দ্বারা আমরা জীবিত থাকি, আপনার দ্বারাই আমরা মারা যাব;আর আপনার দিকেই প্রত্যাবর্তিত হব।",
     },
     virtues:
       "Everything we do from morning to evening, from the beginning of our lives until we die, is all under Allah's control and to Him we return.",
@@ -900,6 +959,7 @@ export const ZIKR_ITEMS: ZikrItem[] = [
       "In the evening we are upon the fitrah of Islam, the word of sincerity (the testimony of faith), the religion of our Prophet Muhammad, sallallahu 'alayhi wa sallam, and the religion of our father Abraham, who stood upon the straight path, a Muslim, and was not among the polytheists.",
     translations: {
       id: "Di waktu sore kami di atas fithrah agama Islam, kalimat ikhlas (kalimat syahadat), agama Nabi kami Muhammad shallallahu 'alaihi wa sallam, dan agama bapak kami Ibrahim, yang berdiri di atas jalan yang lurus, muslim dan tidak tergolong orang-orang musyrik.",
+      bn: "আমরা বিকালে উপনীত হয়েছি ইসলামের ফিত্বরাতের উপর, নিষ্ঠাপূর্ণ বাণী (তাওহীদ) এর উপর, আমাদের নবী মুহাম্মাদ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম-এর দ্বীনের উপর, আর আমাদের পিতা ইব্রাহীম আলাইহিস সালাম-এর মিল্লাতের উপর—যিনি ছিলেন একনিষ্ঠ মুসলিম এবং যিনি মুশরিকদের অন্তর্ভুক্ত ছিলেন না",
     },
     virtues:
       "'Fitratil Islam' means upon the Sunnah, 'kalimatil ikhlas' means the testimony of faith, and 'hanifan' means a heart inclined towards the straight path and goodness.",

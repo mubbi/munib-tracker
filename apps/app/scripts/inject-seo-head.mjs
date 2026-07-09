@@ -8,7 +8,7 @@
  *   • locale meta    → `src/config/locale-seo-meta.json`
  *
  * Set `SEO_LOCALE` (default `en`) for the primary injected title/description.
- * All 23 locales get `hreflang` + `og:locale:alternate` tags (SPA — same URL).
+ * All locales get distinct `hreflang` URLs (`/{locale}/…`, except `en`).
  *
  * Run after `expo export --platform web`, before `generate-seo-files.mjs`.
  */
@@ -131,6 +131,20 @@ const escapeHtml = (s) =>
     .replace(/"/g, "&quot;");
 
 const absolute = (routePath) => `${ORIGIN}${routePath === "/" ? "" : routePath}`;
+
+/** Match `apps/app/src/lib/locale-path.ts` — default locale has no URL prefix. */
+function prependLocalePath(routePath, locale) {
+  const normalized = routePath === "/" || routePath === "" ? "" : routePath;
+  if (locale === "en") return normalized || "/";
+  return `/${locale}${normalized}`;
+}
+
+function absoluteLocalized(routePath, locale) {
+  const localized = prependLocalePath(routePath, locale);
+  return `${ORIGIN}${localized === "/" ? "" : localized}`;
+}
+
+const LOCALE_BOOT_SCRIPT = `(function(){try{var p=location.pathname.replace(/\\/+$/,'')||'/';var m=p.match(/^\\/([a-z]{2})(\\/.*)?$/);if(!m||m[1]==='en')return;var loc=m[1];var appPath=m[2]||'/';sessionStorage.setItem('munib-locale-boot',loc);history.replaceState({munibLocale:loc},'',appPath+location.search+location.hash);}catch(e){}})();`;
 
 function humanizeSlug(slug, stripPrefixes = []) {
   let s = decodeURIComponent(slug);
@@ -362,7 +376,8 @@ function buildJsonLd(route, meta) {
 }
 
 function buildHeadTags(route, meta) {
-  const url = absolute(route);
+  const pageLocale = meta.locale ?? SEO_LOCALE;
+  const url = absoluteLocalized(route, pageLocale);
   const fullTitle = meta.isHome ? meta.title : `${meta.title} · ${APP_NAME}`;
   const robots = meta.index
     ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
@@ -394,11 +409,15 @@ function buildHeadTags(route, meta) {
   ];
 
   for (const entry of LOCALE_META) {
-    if (entry.code === (meta.locale ?? SEO_LOCALE)) continue;
+    if (entry.code === pageLocale) continue;
     tags.push(`<meta data-rh="true" property="og:locale:alternate" content="${entry.ogLocale}"/>`);
-    tags.push(`<link data-rh="true" rel="alternate" hreflang="${entry.hreflang}" href="${url}"/>`);
+    tags.push(
+      `<link data-rh="true" rel="alternate" hreflang="${entry.hreflang}" href="${absoluteLocalized(route, entry.code)}"/>`,
+    );
   }
-  tags.push(`<link data-rh="true" rel="alternate" hreflang="x-default" href="${url}"/>`);
+  tags.push(
+    `<link data-rh="true" rel="alternate" hreflang="x-default" href="${absoluteLocalized(route, "en")}"/>`,
+  );
 
   for (const block of buildJsonLd(route, meta)) {
     tags.push(
@@ -429,32 +448,72 @@ function collectHtmlFiles(dir) {
   return out;
 }
 
+function destFileForLocalizedRoute(route, locale) {
+  const localized = prependLocalePath(route, locale);
+  if (localized === "/") return path.join(distDir, "index.html");
+  return path.join(distDir, localized.slice(1), "index.html");
+}
+
+function injectHeadIntoHtml(html, fullTitle, tags, htmlLang) {
+  html = html.replace(/<title[^>]*>.*?<\/title>/i, `<title data-rh="true">${fullTitle}</title>`);
+  html = html.replace(/<html([^>]*)lang="[^"]*"/i, `<html$1 lang="${htmlLang}"`);
+  if (!html.includes('rel="canonical"')) {
+    html = html.replace("</head>", `${tags}</head>`);
+  }
+  if (!html.includes("munib-locale-boot")) {
+    html = html.replace("</head>", `<script>${LOCALE_BOOT_SCRIPT}</script></head>`);
+  }
+  return html;
+}
+
 function main() {
   if (!fs.existsSync(distDir)) {
     console.error(`[seo] dist/ not found — run the web export first.`);
     process.exit(1);
   }
+  const htmlFiles = collectHtmlFiles(distDir).filter((file) => {
+    const route = routeForFile(file).replace(/\/\([^)]*\)/g, "") || "/";
+    return !route.match(/^\/[a-z]{2}(\/|$)/);
+  });
   let injected = 0;
-  for (const file of collectHtmlFiles(distDir)) {
+  let localeCopies = 0;
+  const routes = new Map();
+
+  for (const file of htmlFiles) {
     let route = routeForFile(file);
     route = route.replace(/\/\([^)]*\)/g, "") || "/";
+    if (/[[\]]/.test(route)) continue;
+    routes.set(route, file);
     const meta = resolveMeta(route, SEO_LOCALE);
     const { fullTitle, tags } = buildHeadTags(route, meta);
 
     let html = fs.readFileSync(file, "utf8");
-    html = html.replace(/<title[^>]*>.*?<\/title>/i, `<title data-rh="true">${fullTitle}</title>`);
-    html = html.replace(
-      /<html([^>]*)lang="[^"]*"/i,
-      `<html$1 lang="${localeMetaByCode.get(SEO_LOCALE)?.hreflang ?? "en"}"`,
+    html = injectHeadIntoHtml(
+      html,
+      fullTitle,
+      tags,
+      localeMetaByCode.get(SEO_LOCALE)?.hreflang ?? "en",
     );
-    if (!html.includes('rel="canonical"')) {
-      html = html.replace("</head>", `${tags}</head>`);
-      injected += 1;
-    }
     fs.writeFileSync(file, html, "utf8");
+    injected += 1;
   }
+
+  for (const [route, sourceFile] of routes) {
+    const template = fs.readFileSync(sourceFile, "utf8");
+    for (const entry of LOCALE_META) {
+      if (entry.code === "en") continue;
+      const meta = resolveMeta(route, entry.code);
+      const { fullTitle, tags } = buildHeadTags(route, meta);
+      const dest = destFileForLocalizedRoute(route, entry.code);
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      const html = injectHeadIntoHtml(template, fullTitle, tags, entry.hreflang);
+      fs.writeFileSync(dest, html, "utf8");
+      localeCopies += 1;
+    }
+  }
+
   console.log(
-    `[seo] Injected per-route head into ${injected} HTML files (locale=${SEO_LOCALE}, hreflang×${LOCALE_META.length}).`,
+    `[seo] Injected per-route head into ${injected} HTML files (locale=${SEO_LOCALE}, hreflang×${LOCALE_META.length}, locale copies=${localeCopies}).`,
   );
 }
 

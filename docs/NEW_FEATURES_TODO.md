@@ -101,7 +101,7 @@ _Removed earlier (not implemented, out of scope): NF-1.27, NF-1.28, NF-2.5, NF-2
 - **Screens:** Expo Router file routes under `apps/app/src/app/`; reuse `ScreenLayout`, `Card`, `Stagger`, `SectionHeader`.
 - **State:** zero-dep `useSyncExternalStore` stores via `createStore` (`apps/app/src/stores/create-store.ts`, Zustand-like but no dependency); persist via repositories in `apps/app/src/db/`. Action hooks return a stable singleton — don't subscribe to them.
 - **New persisted data:** add a key to `apps/app/src/db/keys.ts` (`DB_KEYS`), a repository in `apps/app/src/db/repositories/` (use `readJSON`/`writeJSON`/`withKeyLock`), export it from `apps/app/src/db/index.ts`, **and register the key in `resetDatabase()`** so account deletion clears it.
-- **i18n:** add strings to `apps/app/src/i18n/{en,ar,ur}.json` for every user-facing label.
+- **i18n:** add strings to `apps/app/src/i18n/en.json` first, then `merge-missing-keys.mjs`; Phase 1 requires `ar`/`ur` too. See [`docs/I18N_GUIDE.md`](I18N_GUIDE.md).
 - **Search:** extend `apps/app/src/lib/search.ts` — do not add standalone `new Fuse()` in screens (see [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) and `.agents/skills/fuse-js/SKILL.md`).
 - **Audio:** reuse `useAudioPlayerContext()` from `apps/app/src/providers/audio-player-provider.tsx` — build `AudioTrack[]`, call `play()`.
 - **Notifications:** extend `apps/app/src/lib/notifications/build-reminders.ts` + `apps/app/src/notifications/scheduler.ts`; reschedule via `rescheduleAll()` after pref changes.

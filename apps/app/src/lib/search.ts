@@ -27,7 +27,7 @@ import Fuse from "fuse.js";
 
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { getBundledEdition, getSurahAyahs, getSurahMeta, getTransliteration } from "@/lib/quran";
-import { resolveTranslationField } from "@/lib/translation-locale";
+import { resolveHadithTranslation, resolveTranslationField } from "@/lib/translation-locale";
 import { preferencesStore } from "@/stores/preferences-store";
 
 /**
@@ -598,6 +598,11 @@ function exactSurahNumberMatch(query: string): Surah | null {
 /** Shared hadith field weights, used by the global index and per-collection search. */
 const HADITH_FIELDS: FuzzyField<HadithItem>[] = [
   { key: "english", weight: 3, get: (h) => h.english },
+  {
+    key: "translation",
+    weight: 3,
+    get: (h) => resolveHadithTranslation(h, preferencesStore.getState().prefs),
+  },
   { key: "narrator", weight: 2, get: (h) => h.narrator },
   { key: "reference", weight: 2, get: (h) => h.reference },
   { key: "arabic", weight: 1, get: (h) => h.arabic },
@@ -759,11 +764,12 @@ function searchSurahs(query: string, limit: number) {
 }
 
 function searchHadith(query: string, limit: number) {
+  const prefs = preferencesStore.getState().prefs;
   return fuseSearch(getHadithFuse(), query, limit, (item) => ({
     key: `hadith:${item.id}`,
     category: "hadith",
     title: item.reference,
-    subtitle: item.english,
+    subtitle: resolveHadithTranslation(item, prefs),
     arabic: item.arabic,
     reference: item.narrator,
     badge: item.grade ? capitalize(item.grade) : undefined,

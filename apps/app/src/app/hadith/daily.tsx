@@ -12,6 +12,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Pill } from "@/components/ui/pill";
 import { Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
+import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { recentDailyHadith } from "@/lib/daily-hadith";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -29,6 +30,7 @@ function DailyHadithCard({
 }) {
   const { colors, tokens } = useThemeTokens();
   const { hadith } = entry;
+  const displayTranslation = useHadithTranslation(hadith);
   return (
     <Card
       padding="three"
@@ -72,7 +74,7 @@ function DailyHadithCard({
       ) : null}
 
       <ThemedText type="default" style={styles.english}>
-        {hadith.english}
+        {displayTranslation}
       </ThemedText>
     </Card>
   );

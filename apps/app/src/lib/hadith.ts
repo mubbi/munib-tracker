@@ -7,6 +7,8 @@ import type {
 
 import nawawi from "@/assets/data/hadith/nawawi40.json";
 import riyad from "@/assets/data/hadith/riyad-as-salihin.json";
+import { resolveHadithTranslation } from "@/lib/translation-locale";
+import { preferencesStore } from "@/stores/preferences-store";
 
 export interface BundledHadithCollection {
   collection: HadithCollection;
@@ -54,10 +56,14 @@ export function getBundledCollectionData(id: string): HadithCollectionData | und
 export function searchHadiths(items: HadithItem[], query: string): HadithItem[] {
   const q = query.trim().toLowerCase();
   if (!q) return items;
-  return items.filter(
-    (h) =>
+  const prefs = preferencesStore.getState().prefs;
+  return items.filter((h) => {
+    const translation = resolveHadithTranslation(h, prefs).toLowerCase();
+    return (
       h.english.toLowerCase().includes(q) ||
+      translation.includes(q) ||
       h.reference.toLowerCase().includes(q) ||
-      (h.narrator?.toLowerCase().includes(q) ?? false),
-  );
+      (h.narrator?.toLowerCase().includes(q) ?? false)
+    );
+  });
 }

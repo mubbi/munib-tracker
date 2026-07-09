@@ -19,6 +19,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useRemoteCollection } from "@/hooks/use-hadith";
+import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
@@ -34,6 +35,7 @@ import { runWhenIdle } from "@/lib/run-when-idle";
 import { createHadithSearch, type FuzzyIndex } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { buildHadithSharePayload } from "@/lib/share";
+import { resolveHadithTranslation } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
@@ -66,11 +68,13 @@ export default function HadithCollectionScreen() {
   const sections = data?.sections ?? [];
   const allItems = data?.items ?? [];
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
+  const { translationLocale } = usePreferences();
 
   const shareHadith = useCallback(
     (item: HadithItem) => {
+      const translation = resolveHadithTranslation(item, { translationLocale });
       void share({
-        ...buildHadithSharePayload(item.arabic, item.english, item.reference, {
+        ...buildHadithSharePayload(item.arabic, translation, item.reference, {
           sectionTitle: t("share.sectionHadith"),
           contentLabel: collection
             ? `${collection.nameEnglish} · ${item.reference}`
@@ -79,7 +83,7 @@ export default function HadithCollectionScreen() {
         shareKey: item.id,
       });
     },
-    [collection, share, t],
+    [collection, share, t, translationLocale],
   );
 
   // Seed the in-collection search from a `q` param (e.g. arriving from universal
@@ -350,6 +354,7 @@ function HadithCard({
   const { fontPrefs } = usePreferences();
   const arabicSize = fontPrefs.arabic.size;
   const textSize = fontPrefs.translation.size;
+  const displayTranslation = useHadithTranslation(item);
 
   const onShare = () => {
     recordContinueActivity(buildHadithActivity(item, collectionName));
@@ -452,7 +457,7 @@ function HadithCard({
                   snapshot: {
                     title: item.reference,
                     arabic: item.arabic,
-                    translation: item.english,
+                    translation: displayTranslation,
                     reference: item.reference,
                   },
                 },
@@ -486,7 +491,7 @@ function HadithCard({
             textSize ? { fontSize: textSize, lineHeight: textSize * 1.6 } : null,
           ]}
         >
-          {item.english}
+          {displayTranslation}
         </ThemedText>
       </Card>
     </ContextMenu>

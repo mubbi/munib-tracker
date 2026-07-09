@@ -1023,23 +1023,26 @@ export interface DailySummary {
 
 ## 7.5 Internationalization (i18n)
 
+> **Updated 2026-07-09:** Expanded to **23 locales**. See [`I18N_GUIDE.md`](I18N_GUIDE.md) and [`TRANSLATIONS_STATUS.md`](TRANSLATIONS_STATUS.md).
+
 | | |
 |---|---|
 | **ID** | P7.5 |
 | **Depends on** | P7.1 |
-| **Status** | `done` |
+| **Status** | `done` (Phase 1); Phases 2–4 shipped 2026-07 |
 | **Packages** | `expo-localization`, `i18next`, `react-i18next` |
-| **Files** | `apps/app/src/i18n/{en,ar,ur}.json` (370+ keys each), `apps/app/src/i18n/index.ts` |
+| **Files** | `apps/app/src/i18n/{locale}.json`, `packages/shared/src/i18n/locale-registry.ts`, `apps/app/src/i18n/index.ts` |
 
-**Languages:** English, Arabic, Urdu.
+**Languages:** 23 (`en` + 22 translations). Phase 1 (`en`/`ar`/`ur`) human-reviewed; Phase 2–4 key parity.
 
-**Separate:** app UI language vs translation language for religious text.
+**Separate:** app UI language (`locale`) vs translation language for religious text (`translationLocale`).
 
 **AC:**
 
-- [x] RTL layout when Arabic UI selected (`I18nManager` forceRTL on `ar`)
-- [x] All user-facing UI strings use `t()` — every screen + shared component wired; en/ur/ar catalogs at full key parity (prayer names, statuses, zikr/dua categories, and all chrome translated). Religious content text (Arabic zikr/dua bodies) stays in source.
+- [x] RTL layout for `ar`, `ur`, `fa`, `ps`, `ku` (`I18nManager` via `changeAppLocale`)
+- [x] All user-facing UI strings use `t()` — catalogs at key parity; Phase 1 fully native. Religious bodies from OSS via `translation-locale.ts`.
 - [x] Language change without restart for LTR locales (`i18next.changeLanguage`; RTL flip needs a reload on native)
+- [x] Hadith remote translations (`ur`, `id`, `tr`, `bn`, `fr`, `ru`); web hreflang + locale-prefixed URLs; ICU plural audit for `ar`/`ru`/`bn`
 
 ---
 
