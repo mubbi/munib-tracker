@@ -104,7 +104,12 @@ function findBuildApiKeyP8(apiKeyId, explicitPath) {
       path.join(projectRoot, "private_keys", `AuthKey_${apiKeyId}.p8`),
       path.join(process.env.HOME || "", "private_keys", `AuthKey_${apiKeyId}.p8`),
       path.join(process.env.HOME || "", ".private_keys", `AuthKey_${apiKeyId}.p8`),
-      path.join(process.env.HOME || "", ".appstoreconnect", "private_keys", `AuthKey_${apiKeyId}.p8`),
+      path.join(
+        process.env.HOME || "",
+        ".appstoreconnect",
+        "private_keys",
+        `AuthKey_${apiKeyId}.p8`,
+      ),
     ];
     for (const candidate of candidates) {
       if (fs.existsSync(candidate)) {

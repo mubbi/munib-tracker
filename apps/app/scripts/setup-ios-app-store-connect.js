@@ -6,11 +6,7 @@
  *   node scripts/setup-ios-app-store-connect.js
  */
 const fs = require("node:fs");
-const {
-  keysDir,
-  appStoreConnectEnvPath,
-  appStoreConnectEnvExamplePath,
-} = require("./ios-native");
+const { keysDir, appStoreConnectEnvPath, appStoreConnectEnvExamplePath } = require("./ios-native");
 
 function main() {
   fs.mkdirSync(keysDir, { recursive: true });
@@ -22,9 +18,7 @@ function main() {
 
   if (fs.existsSync(appStoreConnectEnvPath)) {
     console.log(`Already exists: ${appStoreConnectEnvPath}\n`);
-    console.log(
-      "Edit issuer ID and ensure munib_build_api_AuthKey_<KEY_ID>.p8 is in ios-keys/.\n",
-    );
+    console.log("Edit issuer ID and ensure munib_build_api_AuthKey_<KEY_ID>.p8 is in ios-keys/.\n");
     console.log("Upload after building IPA:\n  pnpm release:app:ios:upload\n");
     return;
   }
