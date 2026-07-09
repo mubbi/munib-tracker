@@ -76,6 +76,108 @@ function prepareWindowsAndroidBuild(appRoot = DEFAULT_APP_ROOT) {
 }
 
 /**
+ * @returns {{ serial: string, state: string }[]}
+ */
+function listAdbDevices() {
+  const result = spawnSync("adb", ["devices"], {
+    encoding: "utf8",
+    shell: process.platform === "win32",
+  });
+  if (result.status !== 0 || !result.stdout) {
+    return [];
+  }
+
+  return result.stdout
+    .split(/\r?\n/)
+    .slice(1)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const [serial, state] = line.split(/\s+/);
+      return { serial, state };
+    });
+}
+
+/**
+ * @param {string} serial
+ */
+function isAndroidDeviceResponsive(serial) {
+  const result = spawnSync(
+    "adb",
+    ["-s", serial, "shell", "getprop", "sys.boot_completed"],
+    {
+      encoding: "utf8",
+      shell: process.platform === "win32",
+      timeout: 8000,
+    },
+  );
+  return result.status === 0 && result.stdout?.trim() === "1";
+}
+
+/**
+ * Expo run:android queries the connected device ABI before Gradle starts. An offline
+ * emulator makes adb getprop hang indefinitely with no console output.
+ *
+ * @param {string} [appRoot]
+ */
+function ensureAndroidDeviceReady(appRoot = DEFAULT_APP_ROOT) {
+  const findReadyDevice = () => {
+    for (const { serial, state } of listAdbDevices()) {
+      if (state === "device" && isAndroidDeviceResponsive(serial)) {
+        return serial;
+      }
+    }
+    return null;
+  };
+
+  let readySerial = findReadyDevice();
+  if (readySerial) {
+    console.log(`\nAndroid device ready (${readySerial}).`);
+    return;
+  }
+
+  const transports = listAdbDevices();
+  const offline = transports.filter(({ state }) => state === "offline");
+  if (offline.length > 0) {
+    console.warn(
+      `\nAndroid emulator is offline (${offline.map(({ serial }) => serial).join(", ")}).`,
+    );
+    console.warn("Expo would hang here while querying device ABI via adb.\n");
+    spawnSync("adb", ["reconnect", "offline"], {
+      stdio: "ignore",
+      shell: process.platform === "win32",
+    });
+    readySerial = findReadyDevice();
+    if (readySerial) {
+      console.log(`adb reconnect restored ${readySerial}.\n`);
+      return;
+    }
+  }
+
+  console.log("Starting a clean emulator boot before expo run:android…\n");
+  runStep(
+    "Android emulator cold restart",
+    process.execPath,
+    [path.join(appRoot, "scripts/android-emulator.js"), "--cold"],
+    { cwd: appRoot },
+  );
+
+  readySerial = findReadyDevice();
+  if (readySerial) {
+    console.log(`\nAndroid device ready (${readySerial}).`);
+    return;
+  }
+
+  console.error(
+    "\nNo responsive Android device found.\n" +
+      "  pnpm dev:app:android:restart   # cold boot emulator\n" +
+      "  pnpm dev:app:android:doctor    # repair adb only\n" +
+      "  pnpm dev:app:android:wipe      # factory reset if corrupted\n",
+  );
+  process.exit(1);
+}
+
+/**
  * @param {NodeJS.ProcessEnv} [env]
  * @returns {NodeJS.ProcessEnv}
  */
@@ -95,5 +197,6 @@ module.exports = {
   WINDOWS_GRADLE_PROPERTIES,
   runStep,
   prepareWindowsAndroidBuild,
+  ensureAndroidDeviceReady,
   withAndroidNativeBuildEnv,
 };

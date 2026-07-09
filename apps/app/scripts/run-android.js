@@ -8,10 +8,18 @@
 const {
   runStep,
   prepareWindowsAndroidBuild,
+  ensureAndroidDeviceReady,
   withAndroidNativeBuildEnv,
 } = require("./lib/native-script-utils.cjs");
 
 prepareWindowsAndroidBuild();
+ensureAndroidDeviceReady();
+
+console.log(
+  "\nStarting expo run:android…",
+  "\nAfter a clean prebuild, Gradle configure + native compile can take 10–20 min on Windows.",
+  "\nYou should soon see: › Building app…\n",
+);
 
 runStep("Expo run:android", "expo", ["run:android", ...process.argv.slice(2)], {
   env: withAndroidNativeBuildEnv(),
