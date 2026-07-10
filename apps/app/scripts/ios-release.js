@@ -31,6 +31,7 @@ const {
   ensureJsBundleDeps,
   ensureIosReactCodegen,
   cleanXcodeArchiveCaches,
+  resolveExportIpaPath,
 } = require("./ios-native");
 const { preparePlatformRelease } = require("./lib/platform-versions.cjs");
 const {
@@ -39,6 +40,7 @@ const {
   logReleaseVersionSummary,
   buildNativeReleaseProcessEnv,
 } = require("./lib/release-app-env.cjs");
+const { applyIosCredentialsEnv, logIosKeysSummary } = require("./lib/ios-keys.cjs");
 
 const archiveOnly = process.argv.includes("--archive-only");
 const appRoot = path.join(__dirname, "..");
@@ -64,14 +66,6 @@ function ensureTeamConfigured() {
   return teamId;
 }
 
-function resolveExportIpaPath() {
-  if (!fs.existsSync(exportDir)) {
-    return null;
-  }
-  const alt = fs.readdirSync(exportDir).find((name) => name.endsWith(".ipa"));
-  return alt ? path.join(exportDir, alt) : null;
-}
-
 function main() {
   ensureXcodeCli();
   ensureIosProject();
@@ -94,6 +88,13 @@ function main() {
   logReleaseVersionSummary(appRoot, { activePlatform: "ios" });
   syncIosMarketingVersion(marketingVersion);
   syncIosBuildNumber(buildNumber);
+  try {
+    applyIosCredentialsEnv(appRoot, { buildApi: true, signIn: true, apn: true });
+  } catch (err) {
+    console.error(err instanceof Error ? `\n${err.message}\n` : err);
+    process.exit(1);
+  }
+  logIosKeysSummary(appRoot);
   ensureTeamConfigured();
   cleanXcodeArchiveCaches();
   ensureIosReactCodegen();
@@ -156,7 +157,11 @@ function main() {
     process.exit(1);
   }
 
-  console.log(`\nIPA ready:\n  ${ipaPath}\n`);
+  console.log(
+    `\nIPA ready:\n  ${ipaPath}\n\n` +
+      `Upload: pnpm release:app:ios:upload\n` +
+      `  (setup: pnpm ios:setup-app-store-connect)\n`,
+  );
 }
 
 main();

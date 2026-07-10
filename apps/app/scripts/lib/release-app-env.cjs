@@ -110,12 +110,28 @@ function buildNativeReleaseProcessEnv() {
     );
   }
 
-  return {
+  const env = {
     ...process.env,
     ...sentryEnv,
     NODE_ENV: "production",
     EXPO_PUBLIC_APP_VERSION: process.env.EXPO_PUBLIC_APP_VERSION,
+    ...(process.env.EXPO_ASC_API_KEY_PATH
+      ? {
+          EXPO_ASC_API_KEY_PATH: process.env.EXPO_ASC_API_KEY_PATH,
+          EXPO_ASC_API_KEY_ID: process.env.EXPO_ASC_API_KEY_ID,
+          EXPO_ASC_API_KEY_ISSUER_ID: process.env.EXPO_ASC_API_KEY_ISSUER_ID,
+          EXPO_ASC_KEY_ID: process.env.EXPO_ASC_KEY_ID,
+          EXPO_ASC_ISSUER_ID: process.env.EXPO_ASC_ISSUER_ID,
+        }
+      : {}),
   };
+
+  // Local release builds without Sentry org/project should not fail the archive.
+  if (!env.SENTRY_ORG?.trim() || !env.SENTRY_PROJECT?.trim()) {
+    env.SENTRY_DISABLE_AUTO_UPLOAD = "true";
+  }
+
+  return env;
 }
 
 module.exports = {

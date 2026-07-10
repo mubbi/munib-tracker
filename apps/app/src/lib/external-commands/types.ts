@@ -8,7 +8,8 @@ export type ExternalCommand =
       prayerId: ObligatoryPrayer;
       date: string;
       source?: ExternalCommandSource;
-    };
+    }
+  | { type: "open-route"; href: string; source?: ExternalCommandSource };
 
 export type ExternalCommandSource =
   | "siri"

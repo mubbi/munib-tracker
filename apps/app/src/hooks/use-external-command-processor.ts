@@ -1,3 +1,4 @@
+import { type Href, useRouter } from "expo-router";
 import { useCallback, useEffect, useRef } from "react";
 import { AppState, Platform } from "react-native";
 
@@ -33,6 +34,7 @@ function resultMessage(result: Awaited<ReturnType<typeof handleExternalCommand>>
 
 /** Drains Siri/watch/assistant command queue; respects pin lock deferral. */
 export function useExternalCommandProcessor(): void {
+  const router = useRouter();
   const { deferActionsUntilPinUnlock } = usePinLock();
   const toast = useToast();
   const pendingRef = useRef<ExternalCommand[]>([]);
@@ -40,6 +42,11 @@ export function useExternalCommandProcessor(): void {
 
   const processOne = useCallback(
     async (command: ExternalCommand) => {
+      if (command.type === "open-route") {
+        router.push(command.href as Href);
+        return;
+      }
+
       const result = await handleExternalCommand(command, {
         defer: deferActionsUntilPinUnlock,
       });
@@ -53,7 +60,7 @@ export function useExternalCommandProcessor(): void {
         else toast.info(message);
       }
     },
-    [deferActionsUntilPinUnlock, toast],
+    [deferActionsUntilPinUnlock, router, toast],
   );
 
   const drain = useCallback(async () => {

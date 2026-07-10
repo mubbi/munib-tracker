@@ -5,6 +5,7 @@ module.exports = (config) => ({
   bundleIdentifier: ".munibtrackerwatch",
   displayName: "Munib Tracker",
   deploymentTarget: "10.0",
+  icon: "../../assets/images/icon.png",
   entitlements: {
     "com.apple.security.application-groups": [
       config.ios?.entitlements?.["com.apple.security.application-groups"]?.[0] ??
