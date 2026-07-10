@@ -40,6 +40,7 @@
     "android:signing-report": "node scripts/android-signing-report.js",
     "android:bundle:release": "node scripts/android-release.js",
     "android:apk:release": "node scripts/android-release.js --apk",
+    "android:verify-upload-aab": "node scripts/verify-android-upload-aab.js",
     "ios:signing-report": "node scripts/ios-signing-report.js",
     "ios:archive:release": "node scripts/ios-release.js",
     "ios:upload:release": "node scripts/ios-upload.js",

@@ -37,7 +37,13 @@ yarn-error.*
 .env*.local
 
 # Android signing keys & Play Console PEPK artifacts (never commit)
-android-keys/
+android-keys/upload-keystore.jks
+android-keys/keystore.properties
+android-keys/output.zip
+android-keys/*.pem
+android-keys/pepk.jar
+!android-keys/README.md
+!android-keys/keystore.properties.example
 
 # typescript
 *.tsbuildinfo

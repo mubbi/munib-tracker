@@ -29,12 +29,12 @@ function withWearOs(config) {
 
 android {
     namespace 'expo.modules.munibwear'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "app.munibtracker.wear"
         minSdk 30
-        targetSdk 35
+        targetSdk 36
         versionCode 1
         versionName "1.0"
     }
@@ -48,10 +48,10 @@ android {
 
 dependencies {
     implementation 'androidx.wear.tiles:tiles:1.4.0'
-    implementation 'androidx.wear.tiles:tiles-material:1.4.0'
+    implementation 'androidx.wear.protolayout:protolayout:1.2.1'
+    implementation 'androidx.wear.protolayout:protolayout-material:1.2.1'
     implementation 'com.google.android.gms:play-services-wearable:18.2.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1'
+    implementation 'com.google.guava:guava:33.3.1-android'
 }
 `,
       );
@@ -96,19 +96,18 @@ dependencies {
 
 import android.content.Context
 import androidx.wear.protolayout.LayoutElementBuilders
+import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.protolayout.material.Text
+import androidx.wear.tiles.EventBuilders
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
-import androidx.wear.tiles.tooling.preview.Preview
-import androidx.wear.tiles.tooling.preview.TilePreviewHelper
-import androidx.wear.tooling.preview.Devices
-import com.google.android.gms.wearable.DataClient
+import androidx.wear.tiles.TileService
+import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.DataMapItem
 import com.google.android.gms.wearable.Wearable
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import org.json.JSONObject
-import androidx.wear.tiles.TileService
 
 private const val SNAPSHOT_PATH = "/munib/widget_snapshot"
 
@@ -118,26 +117,22 @@ class MunibWearTileService : TileService() {
     val line1 = snapshot?.optJSONObject("nextPrayer")?.optString("prayerName") ?: "Munib Tracker"
     val line2 = snapshot?.optJSONObject("nextPrayer")?.optString("prayerTime") ?: "Open phone app"
 
-    val layout = LayoutElementBuilders.LayoutElement.Builder()
-      .setColumn(
-        LayoutElementBuilders.Column.Builder()
-          .addContent(Text.Builder(applicationContext, line1).build())
-          .addContent(Text.Builder(applicationContext, line2).build())
-          .build()
-      )
+    val column = LayoutElementBuilders.Column.Builder()
+      .addContent(Text.Builder(applicationContext, line1).build())
+      .addContent(Text.Builder(applicationContext, line2).build())
+      .build()
+
+    val layout = LayoutElementBuilders.Layout.Builder()
+      .setRoot(column)
       .build()
 
     val tile = TileBuilders.Tile.Builder()
       .setResourcesVersion("1")
       .setTileTimeline(
-        TileBuilders.Timeline.Builder()
+        TimelineBuilders.Timeline.Builder()
           .addTimelineEntry(
-            TileBuilders.TimelineEntry.Builder()
-              .setLayout(
-                LayoutElementBuilders.Layout.Builder()
-                  .setRoot(layout)
-                  .build()
-              )
+            TimelineBuilders.TimelineEntry.Builder()
+              .setLayout(layout)
               .build()
           )
           .build()
@@ -147,14 +142,14 @@ class MunibWearTileService : TileService() {
     return Futures.immediateFuture(tile)
   }
 
-  override fun onTileAddEvent(requestParams: RequestBuilders.TileAddEventRequest) {
+  override fun onTileAddEvent(requestParams: EventBuilders.TileAddEvent) {
     sendMarkCurrent(applicationContext)
   }
 
   private fun readSnapshot(context: Context): JSONObject? {
     return try {
       val client = Wearable.getDataClient(context)
-      val items = client.getDataItems(android.net.Uri.parse("wear://*$SNAPSHOT_PATH")).await()
+      val items = Tasks.await(client.getDataItems(android.net.Uri.parse("wear://*$SNAPSHOT_PATH")))
       val buffer = DataMapItem.fromDataItem(items.first()).dataMap.getString("snapshot") ?: return null
       JSONObject(buffer)
     } catch (_: Exception) {
@@ -164,20 +159,19 @@ class MunibWearTileService : TileService() {
 
   private fun sendMarkCurrent(context: Context) {
     try {
-      val nodeId = Wearable.getNodeClient(context).connectedNodes.await().firstOrNull()?.id ?: return
-      Wearable.getMessageClient(context).sendMessage(
-        nodeId,
-        "/munib/mark_current",
-        ByteArray(0),
-      ).await()
+      val nodes = Tasks.await(Wearable.getNodeClient(context).connectedNodes)
+      val nodeId = nodes.firstOrNull()?.id ?: return
+      Tasks.await(
+        Wearable.getMessageClient(context).sendMessage(
+          nodeId,
+          "/munib/mark_current",
+          ByteArray(0),
+        )
+      )
     } catch (_: Exception) {
       /* phone unreachable */
     }
   }
-}
-
-private suspend fun <T> ListenableFuture<T>.await(): T {
-  return com.google.android.gms.tasks.Tasks.await(this)
 }
 `,
       );
