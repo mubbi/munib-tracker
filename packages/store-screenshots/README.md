@@ -42,6 +42,11 @@ Native Maestro scripts map app scenes → these filenames via `STUDIO_ALIASES` i
 | `android-7` | 1200×1920 portrait; 1920×1200 landscape |
 | `android-10` | 1600×2560 portrait; 2560×1600 landscape |
 | `feature-graphic` | 1024×500 |
+| `watch` | 422×514 (Ultra 3; Apple scales to smaller watches) |
+
+### Apple Watch
+
+`pnpm screenshots:watch` captures raw watch UI (no Screenshot Studio frames) into `apps/app/store-assets/ios/screenshots/watch-ultra-3/en/`. Upload that single size in App Store Connect — Apple scales down. Watch UI is English-only today.
 
 ## Files
 

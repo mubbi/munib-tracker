@@ -21,5 +21,14 @@
     "06": "06-names",
     "07": "07-more"
   },
+  "watch": {
+    "preferredSize": { "label": "watch-ultra-3", "w": 422, "h": 514 },
+    "slideScenes": {
+      "01": "01-schedule",
+      "02": "02-morning",
+      "03": "03-location"
+    },
+    "note": "Upload Ultra 3 only — App Store Connect scales to smaller watches. Same size across all localizations."
+  },
   "storeAssetsRoot": "apps/app/store-assets"
 }

@@ -59,6 +59,7 @@
     "screenshots:validate": "node apps/app/scripts/screenshots/validate.mjs",
     "screenshots:android": "node apps/app/scripts/screenshots/capture-android.mjs",
     "screenshots:ios": "node apps/app/scripts/screenshots/capture-ios.mjs",
+    "screenshots:watch": "node apps/app/scripts/screenshots/capture-watch.mjs",
     "dev:screenshot-studio": "npm --prefix tools/screenshot-studio run dev",
     "seed:screenshot-studio": "node tools/screenshot-studio/scripts/seed-project.mjs",
     "sync:screenshot-brand-assets": "node tools/screenshot-studio/scripts/sync-brand-assets.mjs",

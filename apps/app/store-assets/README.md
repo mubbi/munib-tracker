@@ -8,13 +8,14 @@ Full pipeline guide: [`docs/STORE_ASSETS.md`](../../docs/STORE_ASSETS.md).
 
 ```
 store-assets/
-├── captures-native/          # Full native matrix (Maestro) — optional to commit
+├── captures-native/          # Full native matrix (Maestro / watch simctl) — optional to commit
 │   ├── android/<locale>/<theme>/<scene>.png
-│   └── ios/<locale>/<theme>/<scene>.png
+│   ├── ios/<locale>/<theme>/<scene>.png
+│   └── watch/en/<scene>.png
 ├── captures/                 # Studio inputs — **per platform** (do not share)
 │   ├── android/<locale>/
 │   └── ios/<locale>/
-├── ios/screenshots/          # Final App Store PNGs
+├── ios/screenshots/          # Final App Store PNGs (incl. watch-ultra-3/)
 ├── android/screenshots/      # Final Play Store PNGs
 └── android/feature-graphic/  # Play feature graphic 1024×500
 ```
@@ -28,17 +29,21 @@ Designed store screenshots (advertisement-style, dark brand theme matching the m
 | iOS 6.9" (1320×2868) | `ios/screenshots/6.9-inch/<locale>/NN-<scene>.png` |
 | iOS 6.5" (1242×2688) | `ios/screenshots/6.5-inch/<locale>/NN-<scene>.png` |
 | iPad 13" (2064×2752) | `ios/screenshots/13-inch/<locale>/NN-<scene>.png` |
+| Apple Watch Ultra 3 (422×514) | `ios/screenshots/watch-ultra-3/en/NN-<scene>.png` |
 | Play phone (1080×1920) | `android/screenshots/phone/<locale>/NN-<scene>.png` |
 | Play feature graphic (1024×500) | `android/feature-graphic/<locale>.png` |
 | Play 7" tablet (1200×1920 / 1920×1200) | `android/screenshots/tablet-7-inch/{portrait,landscape}/<locale>/NN-<scene>.png` |
 | Play 10" tablet (1600×2560 / 2560×1600) | `android/screenshots/tablet-10-inch/{portrait,landscape}/<locale>/NN-<scene>.png` |
 
-Scenes per locale: `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-qibla`, `06-names`, `07-more`.
+Phone/tablet scenes per locale: `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-qibla`, `06-names`, `07-more`.
+
+Watch scenes (English only, raw UI — no marketing frames): `01-schedule`, `02-morning`, `03-location`. Upload Ultra 3 only; Apple scales to smaller watches.
 
 **Regenerate:**
 
 ```bash
-pnpm screenshots:android              # or screenshots:ios — native captures
+pnpm screenshots:android              # or screenshots:ios — native phone captures
+pnpm screenshots:watch                # Apple Watch Ultra 3 (macOS)
 pnpm seed:screenshot-studio           # refresh deck copy
 pnpm sync:screenshot-captures         # copy captures into editor
 pnpm dev:screenshot-studio            # export each device tab in UI

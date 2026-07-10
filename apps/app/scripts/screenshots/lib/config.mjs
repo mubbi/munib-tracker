@@ -82,6 +82,17 @@ export const IOS = {
   screenshotScale: 3,
 };
 
+/**
+ * Apple Watch store captures (see capture-watch.mjs).
+ * Ultra 3 (422×514) is enough — App Store Connect scales to smaller watches.
+ */
+export const WATCH = {
+  deviceNameEnv: "WATCH_SIMULATOR_DEVICE",
+  defaultDeviceName: "Apple Watch Ultra 3 (49mm)",
+  storeSize: { w: 422, h: 514, label: "watch-ultra-3" },
+  bundleSuffix: ".munibtrackerwatch",
+};
+
 /** Map capture scene ids → screenshot-studio JPEG filenames. */
 export const STUDIO_ALIASES = {
   home: "home.jpg",

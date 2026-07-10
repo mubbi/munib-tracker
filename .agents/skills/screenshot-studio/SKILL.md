@@ -48,11 +48,13 @@ pnpm sync:screenshot-captures              # after dark aliases land in captures
 
 **Filter env vars:** `LOCALES`, `THEMES`, `SCENES`, `GROUPS`, `SKIP_EMULATOR` / `SKIP_SIMULATOR`, `SKIP_BUILD`, `VALIDATE_ONLY`, `SCENE_BATCH`.
 
+**Watch:** `pnpm screenshots:watch` (macOS) — `WATCH_SIMULATOR_DEVICE`, `IOS_SIMULATOR_DEVICE`, `SCENES`, `SKIP_BUILD`, `SKIP_SIMULATOR`.
+
 **Locales:** defaults to every Expo `AppLocale` (from `packages/shared/src/i18n/app-locale.ts`). Marketing studio decks use the subset in `packages/store-screenshots/spec.json` (en/ar/ur).
 
 **Scene groups:** `tabs`, `track`, `read`, `supplicate`, `learn`, `more`, `settings` (53 scenes in `lib/scenes.mjs`).
 
-Android and iOS share Maestro batching (`lib/run-maestro-batches.mjs`). iOS requires macOS.
+Android and iOS share Maestro batching (`lib/run-maestro-batches.mjs`). iOS requires macOS. Watch uses App Group seeding + `simctl` (no Maestro).
 
 After a dark capture run, `STUDIO_ALIASES` copies key scenes into `captures/<platform>/<locale>/` as the studio JPEG filenames (`home.jpg`, `tracker.jpg`, …). See `apps/app/scripts/screenshots/lib/config.mjs`. Android and iOS use separate folders.
 
@@ -110,6 +112,23 @@ From `@munib-tracker/store-screenshots`:
 | Android 7" | 1200×1920 portrait, 1920×1200 landscape |
 | Android 10" | 1600×2560 portrait, 2560×1600 landscape |
 | Feature graphic | 1024×500 |
+| Apple Watch | 422×514 (Ultra 3) — via `pnpm screenshots:watch`, not Screenshot Studio |
+
+## Apple Watch captures
+
+Maestro does **not** support watchOS. Use the separate simctl pipeline:
+
+```bash
+pnpm screenshots:watch
+# SCENES=schedule,morning SKIP_BUILD=1 pnpm screenshots:watch
+```
+
+Seeds `widget_snapshot_v1` into the watch App Group, screenshots Ultra 3, writes:
+
+- `store-assets/captures-native/watch/en/<scene>.png`
+- `store-assets/ios/screenshots/watch-ultra-3/en/{01-schedule,02-morning,03-location}.png`
+
+Upload that single size in App Store Connect (Apple scales to smaller watches). Watch UI is English-only today.
 
 ## Theme
 
@@ -127,7 +146,7 @@ Studio theme id: **`munib-tracker`** — charcoal `#060a09`, inverted slides `#0
 - Add `tools/screenshot-studio` to `pnpm-workspace.yaml` (standalone npm project)
 - Hand-edit generated PNGs in `store-assets` — regenerate via the studio
 - Commit `tools/screenshot-studio/exports/` or `node_modules/` (gitignored)
-- Run full `screenshots:android`/`ios` in CI (long-running; use `screenshots:validate` instead)
+- Run full `screenshots:android`/`ios`/`watch` in CI (long-running; use `screenshots:validate` instead)
 
 ## Related
 

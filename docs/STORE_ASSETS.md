@@ -37,6 +37,7 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
 |------|---------|--------|
 | Validate capture scripts (CI-safe) | `pnpm screenshots:validate` | — |
 | Native full matrix | `pnpm screenshots:android` / `pnpm screenshots:ios` | `captures-native/` |
+| Apple Watch (Ultra 3) | `pnpm screenshots:watch` | `captures-native/watch/` + `ios/screenshots/watch-ultra-3/` |
 | Seed studio decks + copy | `pnpm seed:screenshot-studio` | `tools/screenshot-studio/app-store-screenshots.json` |
 | Sync Munib logo/icon into studio | `pnpm sync:screenshot-brand-assets` | `tools/screenshot-studio/public/app-icon.png` |
 | Sync captures into editor | `pnpm sync:screenshot-captures` | `tools/screenshot-studio/public/screenshots/app/` |
@@ -45,22 +46,24 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
 
 ## Native capture (`apps/app/scripts/screenshots/`)
 
-Automates **all product screens** on real emulators/simulators using [Maestro](https://maestro.mobile.dev).
+Automates **all product screens** on real emulators/simulators using [Maestro](https://maestro.mobile.dev) (phone) or `simctl` (watch).
 
 - **Locales:** every Expo `AppLocale` from `packages/shared/src/i18n/app-locale.ts` (override with `LOCALES=…`)
 - **Themes:** `light`, `dark`
 - **Scenes:** 53 routes/tabs/modals (see `lib/scenes.mjs`)
 - **Demo data:** AsyncStorage pre-seed skips onboarding and fills prayer logs, qaza debt, bookmarks, achievements, Makkah location, etc.
 - **Platforms:** Android + iOS share the same Maestro batching (`lib/run-maestro-batches.mjs`); iOS requires macOS.
+- **Apple Watch:** `pnpm screenshots:watch` — not Maestro. Seeds `widget_snapshot_v1` into the watch App Group, captures Ultra 3 (422×514). Apple scales that set to smaller watches; upload one size consistently across localizations.
 
 ```bash
 pnpm screenshots:validate                              # structure + syntax only
 LOCALES=en,ar,ur THEMES=dark SCENES=home,tracker pnpm screenshots:android
 LOCALES=all THEMES=all pnpm screenshots:android        # every AppLocale × light/dark
 GROUPS=tabs,learn SKIP_SIMULATOR=1 SKIP_BUILD=1 pnpm screenshots:ios
+SCENES=schedule,morning,location-denied pnpm screenshots:watch
 ```
 
-**Prerequisites:** dev build on device, Maestro CLI, Android AVD or Xcode Simulator (iOS/macOS), `adb` / `xcrun simctl`.
+**Prerequisites:** dev build on device, Maestro CLI (phone only), Android AVD or Xcode Simulator (iOS/macOS), `adb` / `xcrun simctl`. Watch needs a paired iPhone + Ultra 3 simulator.
 
 Full detail: [`apps/app/scripts/screenshots/README.md`](../apps/app/scripts/screenshots/README.md).
 
@@ -104,9 +107,9 @@ Full detail: [`tools/screenshot-studio/README.md`](../tools/screenshot-studio/RE
 
 | Path | Purpose |
 |------|---------|
-| `captures-native/` | Full native matrix (platform × locale × theme × scene) |
+| `captures-native/` | Full native matrix (platform × locale × theme × scene) + `watch/en/` |
 | `captures/<android\|ios>/<locale>/` | Studio input images per platform × locale |
-| `ios/screenshots/` | App Store PNGs (6.9", 6.5", iPad 13") |
+| `ios/screenshots/` | App Store PNGs (6.9", 6.5", iPad 13", `watch-ultra-3/`) |
 | `android/screenshots/` | Play Store PNGs (phone, 7", 10" portrait/landscape) |
 | `android/feature-graphic/` | Play feature graphic 1024×500 |
 

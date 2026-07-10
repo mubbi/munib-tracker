@@ -13,7 +13,11 @@ import { buildDemoStoragePairs } from "./lib/demo-data.mjs";
 import { buildCaptureFlowYaml } from "./lib/maestro.mjs";
 import { SCENES } from "./lib/scenes.mjs";
 import { log, warn } from "./lib/shell.mjs";
-import { parseRuntimeFilters, validateStructure } from "./lib/validate-core.mjs";
+import {
+  parseRuntimeFilters,
+  validateStructure,
+  validateWatchStructure,
+} from "./lib/validate-core.mjs";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 
@@ -28,6 +32,7 @@ function main() {
   for (const rel of [
     "capture-android.mjs",
     "capture-ios.mjs",
+    "capture-watch.mjs",
     "validate.mjs",
     "lib/config.mjs",
     "lib/app-locales.mjs",
@@ -35,11 +40,13 @@ function main() {
     "lib/db-keys.mjs",
     "lib/i18n.mjs",
     "lib/scenes.mjs",
+    "lib/watch-scenes.mjs",
     "lib/shell.mjs",
     "lib/maestro.mjs",
     "lib/run-maestro-batches.mjs",
     "lib/inject-storage-android.mjs",
     "lib/inject-storage-ios.mjs",
+    "lib/inject-watch-snapshot.mjs",
     "lib/validate-core.mjs",
     "lib/build-screenshot-apk.mjs",
   ]) {
@@ -55,6 +62,7 @@ function main() {
   const validation = validateStructure();
   log(`Structure: ${validation.ok ? "OK" : "FAILED"}`);
   log(`Scenes: ${validation.sceneCount}`);
+  log(`Watch scenes: ${validation.watchSceneCount}`);
   log(`App locales (${validation.localeCount}): ${validation.locales.join(", ")}`);
   log(`Studio locales (${validation.studioLocaleCount}): ${validation.studioLocales.join(", ")}`);
   log(
@@ -62,6 +70,14 @@ function main() {
   );
   for (const w of validation.warnings) warn(w);
   for (const e of validation.errors) log(`error: ${e}`);
+
+  const watchValidation = validateWatchStructure();
+  log(
+    `Watch structure: ${watchValidation.ok ? "OK" : "FAILED"} (${watchValidation.sceneCount} scenes → ${watchValidation.storeSize.w}×${watchValidation.storeSize.h})`,
+  );
+  for (const e of watchValidation.errors) {
+    if (!validation.errors.includes(e)) log(`error: ${e}`);
+  }
 
   const filters = parseRuntimeFilters();
   log(
@@ -83,7 +99,7 @@ function main() {
   }
   log("Maestro YAML generator: OK");
 
-  process.exit(validation.ok ? 0 : 1);
+  process.exit(validation.ok && watchValidation.ok ? 0 : 1);
 }
 
 main();

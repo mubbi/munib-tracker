@@ -19,6 +19,7 @@ import { demoReadyMarkers } from "./demo-data.mjs";
 import { validateI18nKeys } from "./i18n.mjs";
 import { filterScenes, SCENES, sceneCount } from "./scenes.mjs";
 import { commandExists } from "./shell.mjs";
+import { WATCH_SCENES, WATCH_STORE_SIZE } from "./watch-scenes.mjs";
 
 const REQUIRED_I18N = [
   "tabs.home",
@@ -41,6 +42,7 @@ export function validateStructure() {
   for (const file of [
     "capture-android.mjs",
     "capture-ios.mjs",
+    "capture-watch.mjs",
     "validate.mjs",
     "lib/config.mjs",
     "lib/app-locales.mjs",
@@ -50,6 +52,8 @@ export function validateStructure() {
     "lib/run-maestro-batches.mjs",
     "lib/inject-storage-android.mjs",
     "lib/inject-storage-ios.mjs",
+    "lib/inject-watch-snapshot.mjs",
+    "lib/watch-scenes.mjs",
     "lib/build-screenshot-apk.mjs",
   ]) {
     const full = path.join(APP_ROOT, "scripts", "screenshots", file);
@@ -89,9 +93,14 @@ export function validateStructure() {
 
   if (!commandExists("adb")) warnings.push("adb not on PATH (required for capture-android.mjs)");
   if (process.platform === "darwin") {
-    if (!commandExists("xcrun")) warnings.push("xcrun not on PATH (required for capture-ios.mjs)");
+    if (!commandExists("xcrun")) {
+      warnings.push("xcrun not on PATH (required for capture-ios.mjs / capture-watch.mjs)");
+    }
+    if (!commandExists("sips")) {
+      warnings.push("sips not on PATH (required to resize watch screenshots to 422×514)");
+    }
   } else {
-    warnings.push("capture-ios.mjs requires macOS + Xcode Simulator");
+    warnings.push("capture-ios.mjs / capture-watch.mjs require macOS + Xcode Simulator");
   }
   if (!commandExists("maestro")) {
     warnings.push("maestro not on PATH — install for automated navigation captures");
@@ -112,6 +121,50 @@ export function validateStructure() {
     workDir: WORK_DIR,
     timing: TIMING,
     appIds: APP_ID,
+    watchSceneCount: WATCH_SCENES.length,
+    watchStoreSize: WATCH_STORE_SIZE,
+  };
+}
+
+/** Structure checks specific to Apple Watch capture (also covered by validateStructure files list). */
+export function validateWatchStructure() {
+  const base = validateStructure();
+  const errors = [...base.errors];
+  const warnings = [...base.warnings];
+
+  if (!WATCH_SCENES.length) errors.push("WATCH_SCENES is empty");
+  const ids = new Set();
+  for (const scene of WATCH_SCENES) {
+    if (!scene.id) errors.push("Watch scene missing id");
+    if (!scene.storeFile) errors.push(`Watch scene ${scene.id} missing storeFile`);
+    if (typeof scene.buildSnapshot !== "function") {
+      errors.push(`Watch scene ${scene.id} missing buildSnapshot`);
+    }
+    if (ids.has(scene.id)) errors.push(`Duplicate watch scene id: ${scene.id}`);
+    ids.add(scene.id);
+    try {
+      const snap = scene.buildSnapshot();
+      if (snap?.version !== 1) errors.push(`Watch scene ${scene.id} snapshot version must be 1`);
+      if (typeof snap?.locationDenied !== "boolean") {
+        errors.push(`Watch scene ${scene.id} snapshot missing locationDenied`);
+      }
+    } catch (err) {
+      errors.push(`Watch scene ${scene.id} buildSnapshot failed: ${err.message || err}`);
+    }
+  }
+
+  if (WATCH_STORE_SIZE.w !== 422 || WATCH_STORE_SIZE.h !== 514) {
+    warnings.push(
+      `Watch store size is ${WATCH_STORE_SIZE.w}×${WATCH_STORE_SIZE.h} (expected Ultra 3 422×514)`,
+    );
+  }
+
+  return {
+    ok: errors.length === 0,
+    errors,
+    warnings,
+    sceneCount: WATCH_SCENES.length,
+    storeSize: WATCH_STORE_SIZE,
   };
 }
 

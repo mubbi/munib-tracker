@@ -11,7 +11,8 @@ export type DeviceKind =
   | "android"
   | "android-7"
   | "android-10"
-  | "feature-graphic";
+  | "feature-graphic"
+  | "watch";
 
 export const CANVAS: Record<DeviceKind, { w: number; h: number; wL?: number; hL?: number }> = {
   iphone: { w: 1320, h: 2868 },
@@ -20,6 +21,8 @@ export const CANVAS: Record<DeviceKind, { w: number; h: number; wL?: number; hL?
   "android-7": { w: 1200, h: 1920, wL: 1920, hL: 1200 },
   "android-10": { w: 1600, h: 2560, wL: 2560, hL: 1600 },
   "feature-graphic": { w: 1024, h: 500 },
+  /** Apple Watch Ultra 3 — App Store scales down to smaller watches. */
+  watch: { w: 422, h: 514 },
 };
 
 export const EXPORT_SIZES: Record<DeviceKind, ExportSize[]> = {
@@ -32,7 +35,28 @@ export const EXPORT_SIZES: Record<DeviceKind, ExportSize[]> = {
   "android-7": [{ label: '7" Portrait', w: 1200, h: 1920 }],
   "android-10": [{ label: '10" Portrait', w: 1600, h: 2560 }],
   "feature-graphic": [{ label: "Feature Graphic", w: 1024, h: 500 }],
+  watch: [{ label: "Ultra 3", w: 422, h: 514 }],
 };
+
+/** Accepted Apple Watch screenshot sizes (upload one size consistently across locales). */
+export const WATCH_SCREENSHOT_SIZES = [
+  { label: "Ultra 3", w: 422, h: 514 },
+  { label: "Ultra 2 / Ultra", w: 410, h: 502 },
+  { label: "Series 11 / 10", w: 416, h: 496 },
+  { label: "Series 9 / 8 / 7", w: 396, h: 484 },
+  { label: "Series 6 / 5 / 4 / SE", w: 368, h: 448 },
+  { label: "Series 3", w: 312, h: 390 },
+] as const;
+
+/** Preferred capture size — Apple auto-scales to smaller watches. */
+export const WATCH_PREFERRED_SIZE = WATCH_SCREENSHOT_SIZES[0];
+
+/** Watch store slide filenames produced by `pnpm screenshots:watch`. */
+export const WATCH_SLIDE_SCENES = {
+  "01": "01-schedule",
+  "02": "02-morning",
+  "03": "03-location",
+} as const;
 
 export const EXPORT_SIZES_LANDSCAPE: Partial<Record<DeviceKind, ExportSize[]>> = {
   "android-7": [{ label: '7" Landscape', w: 1920, h: 1200 }],
