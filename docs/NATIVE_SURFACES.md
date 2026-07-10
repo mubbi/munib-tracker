@@ -63,9 +63,11 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 | Open checklist / Qibla / Tasbeeh | Foreground — opens `munib-tracker://` route |
 
 - iOS: `targets/munib-tracker-intents/MunibAppIntents.swift` (`openAppWhenRun: false` for mark)
-- Android: `plugins/withExternalCommands.cjs` → App Actions + broadcast receiver
+- Android: `plugins/withExternalCommands.cjs` → App Actions (`OPEN_APP_FEATURE` + inventory) + broadcast receiver + launcher shortcut
 - JS drain: `ExternalCommandProcessor` in root `_layout.tsx` (respects pin lock deferral)
 - Help: **Settings → Siri & voice shortcuts**
+
+**Play Console (App Actions uploads):** set Privacy policy to `https://munibtracker.app/privacy`, then **Setup → Advanced settings → App Actions → accept Terms of Service**.
 
 **Force-quit limitation:** if the app process is killed, Siri still enqueues the command; it applies on next launch or foreground.
 
