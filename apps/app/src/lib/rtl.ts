@@ -81,6 +81,29 @@ export function useIsRTL(): boolean {
   return code != null;
 }
 
+/** Default `textAlign` + `writingDirection` for UI chrome text in the active locale. */
+export function uiTextStyle(): TextStyle {
+  const rtl = isRTL();
+  return {
+    writingDirection: rtl ? "rtl" : "ltr",
+    textAlign: rtl ? "right" : "left",
+  };
+}
+
+/** Skip-to-previous icon — mirrors with reading direction in RTL media controls. */
+export function skipPreviousIcon(): IconName {
+  return isRTL()
+    ? { ios: "forward.fill", android: "skip_next", web: "skip_next" }
+    : { ios: "backward.fill", android: "skip_previous", web: "skip_previous" };
+}
+
+/** Skip-to-next icon — mirrors with reading direction in RTL media controls. */
+export function skipNextIcon(): IconName {
+  return isRTL()
+    ? { ios: "backward.fill", android: "skip_previous", web: "skip_previous" }
+    : { ios: "forward.fill", android: "skip_next", web: "skip_next" };
+}
+
 /** Disclosure chevron for the current layout direction. */
 export function forwardChevronIcon(rtl: boolean): IconName {
   return rtl

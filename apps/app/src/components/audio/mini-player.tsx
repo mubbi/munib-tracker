@@ -38,7 +38,7 @@ import {
 } from "@/lib/audio-queue-timing";
 import { supportsProgrammaticVolume } from "@/lib/audio-volume";
 import { triggerHaptic } from "@/lib/haptics";
-import { ltrControlViewProps } from "@/lib/rtl";
+import { ltrControlViewProps, skipNextIcon, skipPreviousIcon } from "@/lib/rtl";
 import {
   AUDIO_SPEEDS,
   type AudioTrack,
@@ -468,7 +468,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
             />
             {hasQueue ? (
               <IconButton
-                name={{ ios: "backward.fill", android: "skip_previous", web: "skip_previous" }}
+                name={skipPreviousIcon()}
                 size={20}
                 tintColor={colors.foreground}
                 accessibilityLabel={t("player.previous")}
@@ -511,7 +511,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
             </GlassControl>
             {hasQueue ? (
               <IconButton
-                name={{ ios: "forward.fill", android: "skip_next", web: "skip_next" }}
+                name={skipNextIcon()}
                 size={20}
                 tintColor={colors.foreground}
                 accessibilityLabel={t("player.next")}
@@ -986,7 +986,11 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
         animated,
       });
     } catch {
-      // FlatList throws on web when the row is not yet measured.
+      const centerInset = Math.max(0, playlistHeightRef.current / 2 - PLAYLIST_ROW_HEIGHT / 2);
+      playlistRef.current?.scrollToOffset({
+        offset: Math.max(0, centerInset + targetIndex * PLAYLIST_ROW_HEIGHT),
+        animated,
+      });
     }
   }, []);
 
@@ -994,7 +998,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
     (info: { index: number; averageItemLength: number }) => {
       const centerInset = Math.max(0, playlistHeightRef.current / 2 - info.averageItemLength / 2);
       playlistRef.current?.scrollToOffset({
-        offset: Math.max(0, centerInset + info.index * info.averageItemLength - centerInset),
+        offset: Math.max(0, centerInset + info.index * info.averageItemLength),
         animated: false,
       });
       setTimeout(() => scrollActiveToCenter(info.index), 80);
@@ -1214,7 +1218,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             style={loopActive ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
           />
           <IconButton
-            name={{ ios: "backward.fill", android: "skip_previous", web: "skip_previous" }}
+            name={skipPreviousIcon()}
             size={26}
             tintColor={hasQueue ? colors.foreground : colors.mutedForeground}
             accessibilityLabel={t("player.previous")}
@@ -1256,7 +1260,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             </PressableScale>
           </GlassControl>
           <IconButton
-            name={{ ios: "forward.fill", android: "skip_next", web: "skip_next" }}
+            name={skipNextIcon()}
             size={26}
             tintColor={hasQueue ? colors.foreground : colors.mutedForeground}
             accessibilityLabel={t("player.next")}

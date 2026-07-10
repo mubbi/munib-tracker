@@ -7,6 +7,7 @@ import {
   resolveArabicFontFamily,
   resolveArabicLineHeight,
 } from "@/lib/reading-typography";
+import { uiTextStyle } from "@/lib/rtl";
 import { useStore } from "@/stores/create-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -49,15 +50,15 @@ function headingProps(level?: 1 | 2 | 3 | 4 | 5 | 6): Record<string, unknown> {
  * We multiply these by the live `fontScale` so lines reflow instead.
  */
 const LINE_HEIGHTS: Partial<Record<NonNullable<ThemedTextProps["type"]>, number>> = {
-  default: 24,
+  default: 26,
   display: 58,
-  title: 46,
-  header: 32,
-  subtitle: 26,
-  small: 20,
-  smallBold: 20,
-  caption: 16,
-  label: 14,
+  title: 48,
+  header: 34,
+  subtitle: 28,
+  small: 22,
+  smallBold: 22,
+  caption: 18,
+  label: 16,
   link: 30,
   linkPrimary: 30,
 };
@@ -78,6 +79,7 @@ export function ThemedText({
   const resolvedColor = type === "linkPrimary" ? colors.accent : colors[themeColor ?? "foreground"];
   const baseLineHeight = LINE_HEIGHTS[type];
   const flatStyle = StyleSheet.flatten(style);
+  const localeTextAlign = type !== "arabic" && flatStyle?.textAlign == null ? uiTextStyle() : null;
   const arabicFontSize =
     type === "arabic"
       ? typeof flatStyle?.fontSize === "number"
@@ -110,6 +112,7 @@ export function ThemedText({
         type === "code" && styles.code,
         type === "arabic" && styles.arabic,
         type === "arabic" && { fontFamily: resolveArabicFontFamily(arabicFamily) },
+        localeTextAlign,
         scaledLineHeight,
         style,
         arabicMetrics,
@@ -122,17 +125,17 @@ export function ThemedText({
 const styles = StyleSheet.create({
   small: {
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 22,
     fontWeight: "500",
   },
   smallBold: {
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 22,
     fontWeight: "700",
   },
   default: {
     fontSize: 16,
-    lineHeight: 24,
+    lineHeight: 26,
     fontWeight: "500",
   },
   display: {
@@ -150,23 +153,23 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 26,
     fontWeight: "700",
-    lineHeight: 32,
+    lineHeight: 34,
     letterSpacing: -0.4,
   },
   subtitle: {
     fontSize: 20,
-    lineHeight: 26,
+    lineHeight: 28,
     fontWeight: "700",
     letterSpacing: -0.2,
   },
   caption: {
     fontSize: 12,
-    lineHeight: 16,
+    lineHeight: 18,
     fontWeight: "600",
   },
   label: {
     fontSize: 11,
-    lineHeight: 14,
+    lineHeight: 16,
     fontWeight: "700",
     letterSpacing: 0.8,
     textTransform: "uppercase",

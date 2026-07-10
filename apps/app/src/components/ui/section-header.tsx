@@ -77,12 +77,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
+    alignSelf: "stretch",
     gap: Spacing.two,
     minWidth: 0,
   },
   title: {
     flex: 1,
     flexShrink: 1,
+    alignSelf: "stretch",
     textTransform: "capitalize",
   },
   iconWell: {

@@ -36,7 +36,7 @@ export function NavRow({ icon, label, count, onPress }: NavRowProps) {
       {count != null ? (
         <Pill label={`${count}`} color={colors.mutedForeground} background={colors.card} />
       ) : null}
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={16} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }
@@ -46,9 +46,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    padding: Spacing.two + 2,
+    paddingVertical: Spacing.two + 4,
+    paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    minHeight: 52,
   },
   label: {
     flex: 1,

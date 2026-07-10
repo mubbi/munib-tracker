@@ -22,10 +22,10 @@ type IconWellProps = {
 /** The recurring "rounded square containing a symbol" affordance, unified in one place. */
 export function IconWell({
   icon,
-  size = 18,
+  size = 20,
   tint,
   background,
-  well = 38,
+  well = 44,
   radius = Radius.md,
   style,
 }: IconWellProps) {

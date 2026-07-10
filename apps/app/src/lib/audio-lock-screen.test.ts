@@ -43,7 +43,10 @@ describe("buildLockScreenMetadata", () => {
   });
 
   it("shows queue position in album title for multi-track queues", () => {
-    const meta = buildLockScreenMetadata({ title: "Ayah 1", subtitle: "Al-Baqarah" }, 2, 5);
+    const meta = buildLockScreenMetadata(
+      { title: "Ayah 1", subtitle: "Al-Baqarah" },
+      { queueIndex: 2, queueLength: 5 },
+    );
     expect(meta.albumTitle).toBe("Track 3 of 5");
   });
 });

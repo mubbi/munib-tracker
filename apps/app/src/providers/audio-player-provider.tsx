@@ -27,6 +27,7 @@ import {
   activateLockScreenControls,
   deactivateLockScreenControls,
   ensureAndroidMediaNotificationPermission,
+  type LockScreenQueueContext,
   updateLockScreenControls,
 } from "@/lib/audio-lock-screen";
 import { applyPlaybackRate } from "@/lib/audio-playback-rate";
@@ -333,7 +334,13 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 
   const syncLockScreenForTrack = useCallback(
     (targetPlayer: AudioPlayer, track: AudioTrack, trackIndex: number, tracks: AudioTrack[]) => {
-      activateLockScreenControls(targetPlayer, track, trackIndex, tracks.length);
+      const queueCtx: LockScreenQueueContext = {
+        queueIndex: trackIndex,
+        queueLength: tracks.length,
+        queuePosition: computeQueuePosition(tracks, trackIndex, 0, trackDurationsRef.current),
+        queueDuration: queueDuration(tracks, trackDurationsRef.current),
+      };
+      activateLockScreenControls(targetPlayer, track, queueCtx, track.id);
     },
     [],
   );
@@ -915,11 +922,67 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     syncLockScreenForTrack,
   ]);
 
+  // Web: override Media Session next/prev with real queue navigation.
+  useEffect(() => {
+    if (Platform.OS !== "web" || typeof navigator === "undefined" || !navigator.mediaSession) {
+      return;
+    }
+    if (!current || queue.length <= 1) {
+      try {
+        navigator.mediaSession.setActionHandler("nexttrack", null);
+        navigator.mediaSession.setActionHandler("previoustrack", null);
+      } catch {
+        // ignore
+      }
+      return;
+    }
+    try {
+      navigator.mediaSession.setActionHandler("nexttrack", next);
+      navigator.mediaSession.setActionHandler("previoustrack", previous);
+    } catch {
+      // ignore
+    }
+    return () => {
+      try {
+        navigator.mediaSession.setActionHandler("nexttrack", null);
+        navigator.mediaSession.setActionHandler("previoustrack", null);
+      } catch {
+        // ignore
+      }
+    };
+  }, [current, queue.length, next, previous]);
+
+  // Web: present grouped Qur'an queue as one scrubbable item on the lock screen.
+  useEffect(() => {
+    if (Platform.OS !== "web" || !current || queue.length <= 1) return;
+    if (!/^\d+:\d+$/.test(current.id)) return;
+    const playbackPosition = status.currentTime ?? 0;
+    const total = queueDuration(queue, trackDurations);
+    if (!Number.isFinite(total) || total <= 0) return;
+    const pos = computeQueuePosition(queue, index, playbackPosition, trackDurations);
+    try {
+      navigator.mediaSession.setPositionState({
+        duration: total,
+        playbackRate: rate,
+        position: Math.min(Math.max(pos, 0), total),
+      });
+    } catch {
+      // ignore
+    }
+  }, [current, queue, index, status.currentTime, trackDurations, rate]);
+
   // Refresh lock-screen metadata when the active track changes on the same player.
   useEffect(() => {
     if (Platform.OS === "web" || !current) return;
-    updateLockScreenControls(getActive(), current, index, queue.length);
-  }, [current, index, queue.length, getActive]);
+    const playbackPosition = status.currentTime ?? 0;
+    const queueCtx: LockScreenQueueContext = {
+      queueIndex: index,
+      queueLength: queue.length,
+      queuePosition: computeQueuePosition(queue, index, playbackPosition, trackDurations),
+      queueDuration: queueDuration(queue, trackDurations),
+    };
+    updateLockScreenControls(getActive(), current, queueCtx, current.id);
+  }, [current, index, queue, status.currentTime, trackDurations, getActive]);
 
   // Treat an unloaded source with a live track as "buffering" too, so the play
   // button spins immediately after a tap while the engine spins up, not just

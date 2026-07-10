@@ -17,8 +17,15 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { chartCoordinateStyle, progressRingKnobStyle } from "@/lib/chart-rtl";
+import {
+  chartCoordinateStyle,
+  progressRingKnobStyle,
+  segmentedThumbAnchor,
+  segmentedThumbOffset,
+  segmentedTrackDirection,
+} from "@/lib/chart-rtl";
 import { triggerHaptic } from "@/lib/haptics";
+import { isRTL, ltrControlViewProps } from "@/lib/rtl";
 
 export type TasbeehMode = { label: string; target: number };
 
@@ -215,8 +222,54 @@ function TargetModeBar({
   const isCustom =
     onCustom && target > 0 && !modes.some((mode) => mode.target === target && mode.target > 0);
 
+  const segments = onCustom
+    ? [...modes, { label: "custom", target: isCustom ? target : -1 }]
+    : modes;
+  const selectedIndex = Math.max(
+    0,
+    segments.findIndex((mode) =>
+      mode.target === -1 ? isCustom : mode.target === target && (mode.target > 0 || target === 0),
+    ),
+  );
+
+  const [trackWidth, setTrackWidth] = useState(0);
+  const pad = Spacing.half + 2;
+  const gap = Spacing.half;
+  const countSegments = segments.length;
+  const segmentWidth =
+    trackWidth > 0 ? (trackWidth - pad * 2 - gap * (countSegments - 1)) / countSegments : 0;
+  const rtl = isRTL();
+  const thumbTravel = segmentedThumbOffset(selectedIndex, segmentWidth, gap, rtl);
+  const translateX = useSharedValue(0);
+
+  useEffect(() => {
+    translateX.value = withSpring(thumbTravel, Springs.gentle);
+  }, [thumbTravel, translateX]);
+
+  const thumbStyle = useAnimatedStyle(() => ({ transform: [{ translateX: translateX.value }] }));
+
   return (
-    <View accessibilityRole="tablist" style={[styles.modeTrack, { backgroundColor: colors.muted }]}>
+    <View
+      accessibilityRole="tablist"
+      {...ltrControlViewProps()}
+      onLayout={(event) => setTrackWidth(event.nativeEvent.layout.width)}
+      style={[
+        styles.modeTrack,
+        chartCoordinateStyle,
+        { flexDirection: segmentedTrackDirection(), backgroundColor: colors.muted },
+      ]}
+    >
+      {segmentWidth > 0 ? (
+        <Animated.View
+          style={[
+            styles.modeThumb,
+            segmentedThumbAnchor(pad, rtl),
+            { width: segmentWidth, backgroundColor: colors.card, pointerEvents: "none" },
+            thumbStyle,
+          ]}
+        />
+      ) : null}
+
       {modes.map((mode) => {
         const active = mode.target === target;
         const modeName = mode.target > 0 ? mode.label : t("tasbeehUi.unlimited");
@@ -228,7 +281,7 @@ function TargetModeBar({
             accessibilityLabel={t("tasbeehUi.modeLabel", { mode: modeName, count })}
             accessibilityState={{ selected: active }}
             onPress={() => onSelectMode(mode.target)}
-            style={[styles.modeSegment, active && { backgroundColor: colors.card, ...Shadows.sm }]}
+            style={styles.modeSegment}
           >
             <ThemedText
               type="smallBold"
@@ -249,7 +302,7 @@ function TargetModeBar({
           })}
           accessibilityState={{ selected: !!isCustom }}
           onPress={onCustom}
-          style={[styles.modeSegment, isCustom && { backgroundColor: colors.card, ...Shadows.sm }]}
+          style={styles.modeSegment}
         >
           <ThemedText
             type="smallBold"
@@ -398,7 +451,7 @@ function CounterRing({
       ) : null}
 
       <View style={styles.ringCenter}>
-        <View style={styles.countRow}>
+        <View style={[styles.countRow, ltrControlViewProps().style]}>
           <Animated.View style={countAnimStyle}>
             <ThemedText type="display" style={styles.count}>
               {count}
@@ -543,11 +596,20 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   modeTrack: {
-    flexDirection: "row",
+    position: "relative",
     padding: Spacing.half + 2,
     borderRadius: Radius.md,
     borderCurve: "continuous",
     gap: Spacing.half,
+    overflow: "hidden",
+  },
+  modeThumb: {
+    position: "absolute",
+    top: Spacing.half + 2,
+    bottom: Spacing.half + 2,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    ...Shadows.sm,
   },
   modeSegment: {
     flex: 1,
@@ -557,6 +619,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.sm,
     borderCurve: "continuous",
     minHeight: 40,
+    zIndex: 1,
   },
   counterStage: {
     position: "relative",
@@ -593,6 +656,7 @@ const styles = StyleSheet.create({
   countRow: {
     flexDirection: "row",
     alignItems: "baseline",
+    justifyContent: "center",
     gap: Spacing.one,
   },
   count: {

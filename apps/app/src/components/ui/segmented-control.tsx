@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     gap: GAP,
+    overflow: "hidden",
   },
   thumb: {
     position: "absolute",

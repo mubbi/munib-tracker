@@ -60,6 +60,7 @@ jest.mock("react-native-reanimated", () => {
     },
     useSharedValue: (initial: unknown) => ({ value: initial }),
     useAnimatedStyle: () => ({}),
+    useAnimatedKeyboard: () => ({ height: { value: 0 } }),
     useReducedMotion: () => false,
     withSpring: (toValue: unknown) => toValue,
     withTiming: (toValue: unknown) => toValue,

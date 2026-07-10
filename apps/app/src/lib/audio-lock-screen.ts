@@ -10,10 +10,26 @@ export type LockScreenTrackInfo = {
   title: string;
   subtitle?: string;
   playlistPrimary?: string;
+  /** When set, lock screen shows one grouped track (e.g. full surah) instead of per-ayah. */
+  lockScreenGroupId?: string;
+};
+
+export type LockScreenQueueContext = {
+  queueIndex: number;
+  queueLength: number;
+  /** Elapsed seconds across the whole queue (for grouped Qur'an recitation). */
+  queuePosition?: number;
+  /** Total seconds across the whole queue. */
+  queueDuration?: number;
 };
 
 let cachedArtworkUrl: string | undefined;
 let androidNotificationPermissionRequested = false;
+
+/** True when track id looks like a Qur'an ayah reference (`surah:ayah`). */
+function isQuranAyahTrackId(id?: string): boolean {
+  return id != null && /^\d+:\d+$/.test(id);
+}
 
 /** Resolve the bundled app icon to a URI the native lock-screen APIs can load. */
 export function getLockScreenArtworkUrl(): string | undefined {
@@ -26,15 +42,31 @@ export function getLockScreenArtworkUrl(): string | undefined {
 /** Build Now Playing / media-notification metadata for a track. */
 export function buildLockScreenMetadata(
   track: LockScreenTrackInfo,
-  queueIndex?: number,
-  queueLength?: number,
+  queue?: LockScreenQueueContext,
 ): AudioMetadata {
-  const artist =
-    track.subtitle?.trim() || track.playlistPrimary?.trim() || i18n.t("common.appName");
+  const grouped =
+    track.lockScreenGroupId != null &&
+    queue != null &&
+    queue.queueLength > 1 &&
+    queue.queueDuration != null &&
+    queue.queueDuration > 0;
+
+  let artist = track.subtitle?.trim() || track.playlistPrimary?.trim() || i18n.t("common.appName");
   let albumTitle = i18n.t("player.nowPlaying");
-  if (queueLength != null && queueLength > 1 && queueIndex != null) {
-    albumTitle = i18n.t("player.trackOf", { current: queueIndex + 1, total: queueLength });
+
+  if (grouped) {
+    // Present the full surah (or other grouped queue) as a single lock-screen item.
+    albumTitle = i18n.t("player.nowPlaying");
+    if (track.subtitle && !/^ayah\s/i.test(track.subtitle)) {
+      artist = track.subtitle;
+    }
+  } else if (queue != null && queue.queueLength > 1) {
+    albumTitle = i18n.t("player.trackOf", {
+      current: queue.queueIndex + 1,
+      total: queue.queueLength,
+    });
   }
+
   const metadata: AudioMetadata = {
     title: track.title,
     artist,
@@ -45,19 +77,34 @@ export function buildLockScreenMetadata(
   return metadata;
 }
 
+export type LockScreenControlOptions = {
+  showSeekForward?: boolean;
+  showSeekBackward?: boolean;
+};
+
 /** Register the active player with OS lock-screen / notification media controls. */
 export function activateLockScreenControls(
   player: AudioPlayer,
   track: LockScreenTrackInfo,
-  queueIndex: number,
-  queueLength: number,
+  queue: LockScreenQueueContext,
+  trackId?: string,
 ): void {
   if (Platform.OS === "web") return;
+  const hasQueue = queue.queueLength > 1;
+  const groupedQuran = hasQueue && isQuranAyahTrackId(trackId);
+  const trackInfo: LockScreenTrackInfo = groupedQuran
+    ? { ...track, lockScreenGroupId: trackId?.split(":")[0] }
+    : track;
+
+  const options: LockScreenControlOptions = {
+    // expo-audio 57 maps skip ±10s to next/prev on web; on native this at least
+    // enables adjacent transport buttons when OS track skip is unavailable.
+    showSeekForward: hasQueue,
+    showSeekBackward: hasQueue,
+  };
+
   try {
-    player.setActiveForLockScreen(true, buildLockScreenMetadata(track, queueIndex, queueLength), {
-      showSeekForward: false,
-      showSeekBackward: false,
-    });
+    player.setActiveForLockScreen(true, buildLockScreenMetadata(trackInfo, queue), options);
   } catch {
     // Non-fatal: in-app playback still works.
   }
@@ -67,12 +114,18 @@ export function activateLockScreenControls(
 export function updateLockScreenControls(
   player: AudioPlayer,
   track: LockScreenTrackInfo,
-  queueIndex: number,
-  queueLength: number,
+  queue: LockScreenQueueContext,
+  trackId?: string,
 ): void {
   if (Platform.OS === "web") return;
+  const hasQueue = queue.queueLength > 1;
+  const groupedQuran = hasQueue && isQuranAyahTrackId(trackId);
+  const trackInfo: LockScreenTrackInfo = groupedQuran
+    ? { ...track, lockScreenGroupId: trackId?.split(":")[0] }
+    : track;
+
   try {
-    player.updateLockScreenMetadata(buildLockScreenMetadata(track, queueIndex, queueLength));
+    player.updateLockScreenMetadata(buildLockScreenMetadata(trackInfo, queue));
   } catch {
     // Non-fatal
   }

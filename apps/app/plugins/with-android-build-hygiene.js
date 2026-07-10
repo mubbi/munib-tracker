@@ -45,17 +45,22 @@ function withAndroidBuildHygiene(config) {
       value: "none",
     });
 
-    if (process.platform === "win32") {
-      const { WINDOWS_GRADLE_PROPERTIES } = require("../scripts/lib/native-script-utils.cjs");
-      for (const [key, value] of Object.entries(WINDOWS_GRADLE_PROPERTIES)) {
-        const existing = config.modResults.find(
-          (entry) => entry.type === "property" && entry.key === key,
-        );
-        if (existing) {
-          existing.value = value;
-        } else {
-          config.modResults.push({ type: "property", key, value });
-        }
+    const {
+      WINDOWS_GRADLE_PROPERTIES,
+      ANDROID_RELEASE_GRADLE_PROPERTIES,
+    } = require("../scripts/lib/native-script-utils.cjs");
+    const gradleProperties = {
+      ...ANDROID_RELEASE_GRADLE_PROPERTIES,
+      ...(process.platform === "win32" ? WINDOWS_GRADLE_PROPERTIES : {}),
+    };
+    for (const [key, value] of Object.entries(gradleProperties)) {
+      const existing = config.modResults.find(
+        (entry) => entry.type === "property" && entry.key === key,
+      );
+      if (existing) {
+        existing.value = value;
+      } else {
+        config.modResults.push({ type: "property", key, value });
       }
     }
 

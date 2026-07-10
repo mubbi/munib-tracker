@@ -134,7 +134,7 @@ export function JannahNavRow({
       {badge ? (
         <Pill label={badge} compact color={colors.mutedForeground} background={colors.card} />
       ) : null}
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward()} size={16} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }
@@ -445,9 +445,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
-    padding: Spacing.two + 2,
+    paddingVertical: Spacing.two + 4,
+    paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    minHeight: 56,
   },
   navCopy: { flex: 1, gap: 2 },
   quickGrid: {

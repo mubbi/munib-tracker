@@ -248,8 +248,10 @@ export default function QazaHomeScreen() {
                 >
                   <IconWell icon={PRAYER_ICONS[counter.prayerId]} />
                   <View style={styles.rowBody}>
-                    <ThemedText type="small">{t(`prayers.${counter.prayerId}`)}</ThemedText>
-                    <ThemedText type="caption" themeColor="mutedForeground">
+                    <ThemedText type="smallBold" numberOfLines={1}>
+                      {t(`prayers.${counter.prayerId}`)}
+                    </ThemedText>
+                    <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
                       {target > 0
                         ? t("qaza.rowMetaWithDaily", {
                             remaining: counter.remaining,
@@ -262,68 +264,71 @@ export default function QazaHomeScreen() {
                             completed: counter.completed,
                           })}
                     </ThemedText>
+                    <View style={styles.rowActions}>
+                      <IconButton
+                        accessibilityLabel={t("qaza.resetPrayer", {
+                          prayer: t(`prayers.${counter.prayerId}`),
+                        })}
+                        disabled={!hasCounts}
+                        onPress={() =>
+                          setPending({ kind: "resetPrayer", prayerId: counter.prayerId })
+                        }
+                        name={{
+                          ios: "arrow.counterclockwise",
+                          android: "restart_alt",
+                          web: "restart_alt",
+                        }}
+                        size={20}
+                        tintColor={colors.mutedForeground}
+                      />
+
+                      <Stepper
+                        value={counter.remaining}
+                        label={t(`prayers.${counter.prayerId}`)}
+                        valueAccessibilityLabel={t("qaza.editCountA11y", {
+                          prayer: t(`prayers.${counter.prayerId}`),
+                        })}
+                        onValuePress={() =>
+                          setEditTarget({
+                            prayerId: counter.prayerId,
+                            remaining: counter.remaining,
+                            completed: counter.completed,
+                          })
+                        }
+                        onDecrement={() =>
+                          setPending({
+                            kind: "decrement",
+                            prayerId: counter.prayerId,
+                            nextRemaining: counter.remaining - 1,
+                            completed: counter.completed,
+                          })
+                        }
+                        onIncrement={() =>
+                          setPending({
+                            kind: "increment",
+                            prayerId: counter.prayerId,
+                            nextRemaining: counter.remaining + 1,
+                            completed: counter.completed,
+                          })
+                        }
+                      />
+
+                      <IconButton
+                        accessibilityLabel={t("qaza.markPerformed", {
+                          prayer: t(`prayers.${counter.prayerId}`),
+                        })}
+                        disabled={counter.remaining === 0}
+                        onPress={() => setPending({ kind: "perform", prayerId: counter.prayerId })}
+                        name={{
+                          ios: "checkmark.circle.fill",
+                          android: "check_circle",
+                          web: "check_circle",
+                        }}
+                        size={26}
+                        tintColor={tokens.status.success.color}
+                      />
+                    </View>
                   </View>
-
-                  <IconButton
-                    accessibilityLabel={t("qaza.resetPrayer", {
-                      prayer: t(`prayers.${counter.prayerId}`),
-                    })}
-                    disabled={!hasCounts}
-                    onPress={() => setPending({ kind: "resetPrayer", prayerId: counter.prayerId })}
-                    name={{
-                      ios: "arrow.counterclockwise",
-                      android: "restart_alt",
-                      web: "restart_alt",
-                    }}
-                    size={20}
-                    tintColor={colors.mutedForeground}
-                  />
-
-                  <Stepper
-                    value={counter.remaining}
-                    label={t(`prayers.${counter.prayerId}`)}
-                    valueAccessibilityLabel={t("qaza.editCountA11y", {
-                      prayer: t(`prayers.${counter.prayerId}`),
-                    })}
-                    onValuePress={() =>
-                      setEditTarget({
-                        prayerId: counter.prayerId,
-                        remaining: counter.remaining,
-                        completed: counter.completed,
-                      })
-                    }
-                    onDecrement={() =>
-                      setPending({
-                        kind: "decrement",
-                        prayerId: counter.prayerId,
-                        nextRemaining: counter.remaining - 1,
-                        completed: counter.completed,
-                      })
-                    }
-                    onIncrement={() =>
-                      setPending({
-                        kind: "increment",
-                        prayerId: counter.prayerId,
-                        nextRemaining: counter.remaining + 1,
-                        completed: counter.completed,
-                      })
-                    }
-                  />
-
-                  <IconButton
-                    accessibilityLabel={t("qaza.markPerformed", {
-                      prayer: t(`prayers.${counter.prayerId}`),
-                    })}
-                    disabled={counter.remaining === 0}
-                    onPress={() => setPending({ kind: "perform", prayerId: counter.prayerId })}
-                    name={{
-                      ios: "checkmark.circle.fill",
-                      android: "check_circle",
-                      web: "check_circle",
-                    }}
-                    size={26}
-                    tintColor={tokens.status.success.color}
-                  />
                 </View>
               );
             })}
@@ -376,15 +381,23 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: Spacing.two + 2,
-    padding: Spacing.two + 2,
+    padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
   rowBody: {
     flex: 1,
-    gap: 2,
+    minWidth: 0,
+    gap: Spacing.half,
+  },
+  rowActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+    marginTop: Spacing.one,
+    flexWrap: "wrap",
   },
   hint: {
     marginTop: Spacing.three,

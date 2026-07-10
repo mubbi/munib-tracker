@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   textBlock: {
     flex: 1,
     gap: Spacing.half,
+    alignSelf: "stretch",
   },
   notificationButton: {
     width: 44,

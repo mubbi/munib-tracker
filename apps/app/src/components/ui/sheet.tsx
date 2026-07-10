@@ -1,6 +1,7 @@
 import { type ReactNode, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  KeyboardAvoidingView,
   Modal,
   PanResponder,
   Platform,
@@ -12,7 +13,12 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import Animated, {
+  useAnimatedKeyboard,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
@@ -79,6 +85,10 @@ export function Sheet({
   const renderedChildren = visible ? children : lastVisibleChildren.current;
 
   const dragY = useSharedValue(0);
+  const keyboard = useAnimatedKeyboard();
+  const keyboardInsetStyle = useAnimatedStyle(() => ({
+    paddingBottom: keyboard.height.value,
+  }));
 
   useEffect(() => {
     if (visible) {
@@ -217,11 +227,24 @@ export function Sheet({
   );
 
   const bottomCard = (
-    <Animated.View accessibilityViewIsModal style={[bottomCardStyle, bottomCardDragStyle]}>
+    <Animated.View
+      accessibilityViewIsModal
+      style={[bottomCardStyle, bottomCardDragStyle, isBottom ? keyboardInsetStyle : null]}
+    >
       {!solid ? glassFill : null}
       {dragHandle}
       {cardBody}
     </Animated.View>
+  );
+
+  const centerCardBody = (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={insets.top}
+      style={styles.centerKeyboard}
+    >
+      {cardBody}
+    </KeyboardAvoidingView>
   );
 
   const centerCard = (
@@ -235,7 +258,7 @@ export function Sheet({
       ]}
     >
       {!solid ? glassFill : null}
-      {cardBody}
+      {centerCardBody}
     </View>
   );
 
@@ -291,6 +314,10 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
     overflow: "hidden",
+  },
+  centerKeyboard: {
+    width: "100%",
+    gap: Spacing.two,
   },
   bottomCard: {
     width: "100%",

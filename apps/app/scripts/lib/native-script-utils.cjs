@@ -9,10 +9,36 @@ const path = require("node:path");
 const DEFAULT_APP_ROOT = path.join(__dirname, "../..");
 
 const WINDOWS_GRADLE_PROPERTIES = {
-  "org.gradle.jvmargs": "-Xmx1536m -XX:MaxMetaspaceSize=384m",
+  // lintVitalAnalyzeRelease across many RN modules needs far more metaspace than native compile.
+  "org.gradle.jvmargs": "-Xmx3072m -XX:MaxMetaspaceSize=768m -Dfile.encoding=UTF-8",
   "org.gradle.parallel": "false",
   "org.gradle.workers.max": "2",
 };
+
+/** Applied on every release build — lint vital on third-party AARs is slow and OOM-prone. */
+const ANDROID_RELEASE_GRADLE_PROPERTIES = {
+  "android.lint.checkReleaseBuilds": "false",
+};
+
+/**
+ * @param {string} gradlePropsPath
+ * @param {Record<string, string>} properties
+ */
+function mergeGradlePropertiesFile(gradlePropsPath, properties) {
+  if (!fs.existsSync(gradlePropsPath)) {
+    return;
+  }
+
+  let contents = fs.readFileSync(gradlePropsPath, "utf8");
+  for (const [key, value] of Object.entries(properties)) {
+    const line = `${key}=${value}`;
+    const pattern = new RegExp(`^${key.replaceAll(".", "\\.")}=.*$`, "m");
+    contents = pattern.test(contents)
+      ? contents.replace(pattern, line)
+      : `${contents.trimEnd()}\n${line}\n`;
+  }
+  fs.writeFileSync(gradlePropsPath, contents);
+}
 
 /**
  * Remove stale Metro file-map caches (v8 serialized blobs in the OS temp dir).
@@ -106,23 +132,29 @@ function prepareWindowsAndroidBuild(appRoot = DEFAULT_APP_ROOT) {
     return;
   }
 
-  const androidDir = path.join(appRoot, "android");
-  const gradlePropsPath = path.join(androidDir, "gradle.properties");
-  if (!fs.existsSync(gradlePropsPath)) {
-    return;
-  }
-
-  let contents = fs.readFileSync(gradlePropsPath, "utf8");
-  for (const [key, value] of Object.entries(WINDOWS_GRADLE_PROPERTIES)) {
-    const line = `${key}=${value}`;
-    const pattern = new RegExp(`^${key.replaceAll(".", "\\.")}=.*$`, "m");
-    contents = pattern.test(contents)
-      ? contents.replace(pattern, line)
-      : `${contents.trimEnd()}\n${line}\n`;
-  }
-  fs.writeFileSync(gradlePropsPath, contents);
-
+  const gradlePropsPath = path.join(appRoot, "android", "gradle.properties");
+  mergeGradlePropertiesFile(gradlePropsPath, WINDOWS_GRADLE_PROPERTIES);
   stopGradleDaemon(appRoot);
+}
+
+/**
+ * Gradle settings for signed release artifacts (AAB/APK).
+ *
+ * @param {string} [appRoot]
+ */
+function prepareAndroidReleaseBuild(appRoot = DEFAULT_APP_ROOT) {
+  const gradlePropsPath = path.join(appRoot, "android", "gradle.properties");
+  const properties = {
+    ...ANDROID_RELEASE_GRADLE_PROPERTIES,
+    ...(process.platform === "win32" ? WINDOWS_GRADLE_PROPERTIES : {}),
+  };
+  mergeGradlePropertiesFile(gradlePropsPath, properties);
+  stopGradleDaemon(appRoot);
+  console.log(
+    "Gradle release settings applied (release lint off" +
+      (process.platform === "win32" ? ", 3G heap / 768M metaspace" : "") +
+      ").\n",
+  );
 }
 
 /**
@@ -241,10 +273,13 @@ function withAndroidNativeBuildEnv(env = process.env) {
 module.exports = {
   DEFAULT_APP_ROOT,
   WINDOWS_GRADLE_PROPERTIES,
+  ANDROID_RELEASE_GRADLE_PROPERTIES,
+  mergeGradlePropertiesFile,
   runStep,
   clearMetroDiskCache,
   stopGradleDaemon,
   prepareWindowsAndroidBuild,
+  prepareAndroidReleaseBuild,
   ensureAndroidDeviceReady,
   withAndroidNativeBuildEnv,
 };

@@ -5,6 +5,7 @@ import type { ReactNode, RefObject } from "react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  KeyboardAvoidingView,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
   Platform,
@@ -197,6 +198,8 @@ export function ScreenLayout({
           : undefined
       }
       scrollEventThrottle={16}
+      keyboardShouldPersistTaps="handled"
+      keyboardDismissMode="on-drag"
       contentContainerStyle={[
         styles.scrollContent,
         { paddingTop: headerInset, paddingBottom: contentBottomInset },
@@ -215,8 +218,26 @@ export function ScreenLayout({
   const screenBody =
     Platform.OS === "android" ? (
       <BlurTargetView ref={contentBlurTargetRef} style={styles.root}>
-        {scrollBody}
+        {scrollable ? (
+          <KeyboardAvoidingView
+            style={styles.root}
+            behavior="padding"
+            keyboardVerticalOffset={insets.top}
+          >
+            {scrollBody}
+          </KeyboardAvoidingView>
+        ) : (
+          scrollBody
+        )}
       </BlurTargetView>
+    ) : scrollable ? (
+      <KeyboardAvoidingView
+        style={styles.root}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={insets.top}
+      >
+        {scrollBody}
+      </KeyboardAvoidingView>
     ) : (
       scrollBody
     );
