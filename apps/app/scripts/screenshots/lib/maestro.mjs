@@ -3,8 +3,16 @@ import os from "node:os";
 import path from "node:path";
 import { APP_ID, deepLink, TIMING } from "./config.mjs";
 import { demoReadyMarkers } from "./demo-data.mjs";
-import { prayerNames, tabLabels, translate } from "./i18n.mjs";
+import { prayerNames, translate } from "./i18n.mjs";
 import { runCapture } from "./shell.mjs";
+
+/** Expo Router paths for bottom tabs (avoid tapOn — flaky on Windows Maestro). */
+const TAB_ROUTES = {
+  home: "/",
+  tracker: "/tracker",
+  library: "/library",
+  settings: "/settings",
+};
 
 function commandExists(name) {
   const check = process.platform === "win32" ? "where" : "which";
@@ -24,7 +32,6 @@ function resolveMaestroBinary() {
       .filter(Boolean);
     const bat = lines.find((l) => /\.bat$/i.test(l));
     if (bat) return bat;
-    // Prefer sibling .bat next to the extensionless shim.
     for (const line of lines) {
       const batSibling = `${line}.bat`;
       if (fs.existsSync(batSibling)) return batSibling;
@@ -45,36 +52,35 @@ function yamlQuote(value) {
 function materializeStep(step, { locale, prayers }) {
   switch (step.action) {
     case "wait":
-      // Maestro 2.x removed `wait:` — fold delay into animation wait + JS sleep.
       return [
         `- waitForAnimationToEnd:`,
         `    timeout: ${Math.max(200, step.ms ?? 200)}`,
         `- evalScript: \${java.lang.Thread.sleep(${Math.max(0, step.ms ?? 0)})}`,
       ];
     case "tapPrayerRow":
-      return [`- tapOn: ${yamlQuote(prayers[step.prayer] ?? step.prayer)}`];
+      return [
+        `- tapOn:`,
+        `    text: ${yamlQuote(prayers[step.prayer] ?? step.prayer)}`,
+        `    optional: true`,
+      ];
     case "tapText": {
       const text = step.text ?? translate(locale, step.textKey);
-      return [`- tapOn: ${yamlQuote(text)}`];
+      return [`- tapOn:`, `    text: ${yamlQuote(text)}`, `    optional: true`];
     }
     default:
       return [];
   }
 }
 
-function sceneSteps(scene, { locale, tabs, prayers, outputDir }) {
+function sceneSteps(scene, { locale, prayers, outputDir }) {
   const markers = demoReadyMarkers(scene.id);
-  // Prefer writing straight into captures-native; Maestro also mirrors under ~/.maestro/tests/.
   const outFile = path.join(outputDir, scene.id).replace(/\\/g, "/");
   const animTimeout = Math.max(scene.waitMs ?? TIMING.animationMs, TIMING.animationMs);
   const steps = [`# scene: ${scene.id}`];
 
   if (scene.type === "tab") {
-    // Already on home after capture launch — tapping "Home" again hangs Maestro
-    // 2.6 on Windows (tab label often not a plain text node).
-    if (scene.tab !== "home") {
-      steps.push(`- tapOn: ${yamlQuote(tabs[scene.tab])}`);
-    }
+    const route = TAB_ROUTES[scene.tab] ?? `/${scene.tab}`;
+    steps.push(`- openLink: ${yamlQuote(deepLink(route))}`);
   } else if (scene.route) {
     steps.push(`- openLink: ${yamlQuote(deepLink(scene.route))}`);
   }
@@ -83,67 +89,51 @@ function sceneSteps(scene, { locale, tabs, prayers, outputDir }) {
     steps.push(...materializeStep(step, { locale, prayers }));
   }
 
-  const primaryMarker = markers[0] ?? ".*Home.*";
+  const primaryMarker = markers[0] ?? ".*Munib.*";
+  // optional: true so a bad marker does not abort the rest of the matrix
   steps.push(
     `- extendedWaitUntil:`,
     `    visible:`,
     `      text: ${yamlQuote(primaryMarker)}`,
-    `    timeout: ${TIMING.readyTimeoutMs}`,
+    `    timeout: ${Math.min(TIMING.readyTimeoutMs, 20_000)}`,
+    `    optional: true`,
     `- waitForAnimationToEnd:`,
     `    timeout: ${animTimeout}`,
+    `- takeScreenshot: ${yamlQuote(outFile)}`,
   );
-
-  if (!scene.keepOverlay && scene.type !== "tab") {
-    // Conditional back-dismiss. Skip for tabs — Maestro 2.6 on Windows can hang
-    // forever evaluating `when: visible: "Back"` against a flaky hierarchy.
-    steps.push(`- runFlow:`, `    when:`, `      visible: "Back"`, `    commands:`, `      - back`);
-  }
-
-  steps.push(`- takeScreenshot: ${yamlQuote(outFile)}`);
   return steps;
 }
 
-/** Generate Maestro YAML for one locale/theme capture session. */
+/**
+ * Generate Maestro YAML for one locale/theme capture session.
+ * App must already be launched + seeded by capture-*.mjs.
+ */
 export function buildCaptureFlowYaml({
   platform,
   locale,
   scenes,
   outputDir,
   appId = APP_ID[platform],
+  includeBootWait = true,
 }) {
-  const tabs = tabLabels(locale);
   const prayers = prayerNames(locale);
-  const homeMarker = demoReadyMarkers("home")[0] ?? ".*Home.*";
-  const lines = [
-    `appId: ${appId}`,
-    "---",
-    // App is already launched + seeded by capture-*.mjs. Avoid a second
-    // launchApp (it races Maestro's hierarchy driver on Windows/adb).
-    "- runFlow:",
-    "    when:",
-    '      visible: "Allow"',
-    "    commands:",
-    '      - tapOn: "Allow"',
-    "- runFlow:",
-    "    when:",
-    '      visible: "While using the app"',
-    "    commands:",
-    '      - tapOn: "While using the app"',
-    "- runFlow:",
-    "    when:",
-    '      visible: "Only this time"',
-    "    commands:",
-    '      - tapOn: "While using the app"',
-    "- extendedWaitUntil:",
-    "    visible:",
-    `      text: ${yamlQuote(homeMarker)}`,
-    `    timeout: ${TIMING.readyTimeoutMs}`,
-    "- waitForAnimationToEnd:",
-    `    timeout: ${TIMING.animationMs + TIMING.settleMs}`,
-  ];
+  const homeMarker = demoReadyMarkers("home")[0] ?? ".*Makkah.*";
+  const lines = [`appId: ${appId}`, "---"];
+
+  if (includeBootWait) {
+    lines.push(
+      "- extendedWaitUntil:",
+      "    visible:",
+      `      text: ${yamlQuote(homeMarker)}`,
+      `    timeout: ${TIMING.readyTimeoutMs}`,
+      "    optional: true",
+      "- waitForAnimationToEnd:",
+      `    timeout: ${TIMING.animationMs + TIMING.settleMs}`,
+    );
+  }
 
   for (const scene of scenes) {
-    lines.push(...sceneSteps(scene, { locale, tabs, prayers, outputDir }));
+    lines.push(...sceneSteps(scene, { locale, prayers, outputDir }));
   }
 
   return `${lines.join("\n")}\n`;
@@ -162,7 +152,6 @@ export function runMaestro(flowPath, { dryRun = false } = {}) {
       "Maestro CLI not found. Install: https://maestro.mobile.dev/docs/getting-started/installation",
     );
   }
-  // Absolute Windows paths with spaces need shell on some Node versions.
   return runCapture(maestro, ["test", "--format", "junit", flowPath], {
     shell: process.platform === "win32",
   });

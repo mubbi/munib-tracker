@@ -46,9 +46,13 @@ pnpm screenshots:android                     # or screenshots:ios (macOS)
 pnpm sync:screenshot-captures              # after dark aliases land in captures/
 ```
 
-**Filter env vars:** `LOCALES`, `THEMES`, `SCENES`, `GROUPS`, `SKIP_EMULATOR`, `SKIP_BUILD`, `VALIDATE_ONLY`.
+**Filter env vars:** `LOCALES`, `THEMES`, `SCENES`, `GROUPS`, `SKIP_EMULATOR` / `SKIP_SIMULATOR`, `SKIP_BUILD`, `VALIDATE_ONLY`, `SCENE_BATCH`.
+
+**Locales:** defaults to every Expo `AppLocale` (from `packages/shared/src/i18n/app-locale.ts`). Marketing studio decks use the subset in `packages/store-screenshots/spec.json` (en/ar/ur).
 
 **Scene groups:** `tabs`, `track`, `read`, `supplicate`, `learn`, `more`, `settings` (53 scenes in `lib/scenes.mjs`).
+
+Android and iOS share Maestro batching (`lib/run-maestro-batches.mjs`). iOS requires macOS.
 
 After a dark capture run, `STUDIO_ALIASES` copies seven key scenes into `captures/<locale>/` as the studio JPEG filenames (`home.jpg`, `tracker.jpg`, …). See `apps/app/scripts/screenshots/lib/config.mjs`.
 

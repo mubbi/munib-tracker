@@ -4,23 +4,34 @@
  *
  * Prerequisites (macOS):
  *   - Xcode + iOS Simulator
- *   - Debug dev build installed: pnpm --filter app ios
- *   - Maestro CLI (recommended): https://maestro.mobile.dev
+ *   - Debug / screenshot build installed (`pnpm --filter app ios` or prebuilt)
+ *   - Maestro CLI: https://maestro.mobile.dev
  *   - host sqlite3 (for demo storage injection)
  *
  * Usage (from repo root):
  *   pnpm screenshots:ios
- *   LOCALES=en THEMES=light,dark SCENES=home,quran pnpm screenshots:ios
+ *   LOCALES=en,ar,ur THEMES=dark SCENES=home,quran pnpm screenshots:ios
+ *   LOCALES=all THEMES=all  # default: every AppLocale × light/dark
  *   VALIDATE_ONLY=1 pnpm screenshots:ios
  *   SKIP_SIMULATOR=1 SKIP_BUILD=1 pnpm screenshots:ios
  *
  * Output:
  *   apps/app/store-assets/captures-native/ios/<locale>/<theme>/<scene>.png
+ *
+ * Navigation / batching matches capture-android.mjs (deep links + SCENE_BATCH).
  */
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { APP_ID, APP_ROOT, deepLink, IOS, TIMING, WORK_DIR } from "./lib/config.mjs";
+import {
+  APP_ID,
+  APP_ROOT,
+  deepLink,
+  IOS,
+  LOCALES,
+  localeBootExtraMs,
+  TIMING,
+  WORK_DIR,
+} from "./lib/config.mjs";
 import {
   bootSimulator,
   forceStopIosApp,
@@ -28,12 +39,8 @@ import {
   launchIosApp,
   resolveSimulatorUdid,
 } from "./lib/inject-storage-ios.mjs";
-import {
-  buildCaptureFlowYaml,
-  maestroAvailable,
-  runMaestro,
-  writeFlowFile,
-} from "./lib/maestro.mjs";
+import { maestroAvailable } from "./lib/maestro.mjs";
+import { runMaestroSceneBatches } from "./lib/run-maestro-batches.mjs";
 import { log, run, sleep, warn } from "./lib/shell.mjs";
 import {
   parseRuntimeFilters,
@@ -41,8 +48,6 @@ import {
   syncStudioAliases,
   validateStructure,
 } from "./lib/validate-core.mjs";
-
-const _SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 async function main() {
   if (process.platform !== "darwin") {
@@ -64,6 +69,7 @@ async function main() {
   log(
     `iOS capture plan: ${locales.length} locale(s) × ${themes.length} theme(s) × ${scenes.length} scene(s) = ${locales.length * themes.length * scenes.length} PNGs`,
   );
+  log(`App locales available: ${LOCALES.join(", ")}`);
 
   const bundleId = APP_ID.ios;
   const deviceName = process.env[IOS.deviceNameEnv] || IOS.defaultDeviceName;
@@ -75,7 +81,7 @@ async function main() {
   }
 
   if (process.env.SKIP_BUILD !== "1") {
-    log("Building & installing dev client (expo run:ios)…");
+    log("Building & installing iOS app (expo run:ios)…");
     run("pnpm", ["--filter", "app", "ios"], {
       cwd: path.join(APP_ROOT, "..", ".."),
       env: { ...process.env, EXPO_IOS_SIMULATOR_DEVICE_NAME: deviceName },
@@ -91,11 +97,12 @@ async function main() {
   }
 
   let captured = 0;
+  let failed = 0;
+
   for (const locale of locales) {
     for (const theme of themes) {
       log(`\n── ${locale} / ${theme} ──`);
       const sessionDir = path.join(WORK_DIR, "ios", locale, theme);
-      fs.mkdirSync(sessionDir, { recursive: true });
 
       log("Seeding demo AsyncStorage…");
       injectDemoStorageIos({ udid, bundleId, locale, theme, resetApp: true });
@@ -103,24 +110,22 @@ async function main() {
       log("Launching app…");
       forceStopIosApp({ udid, bundleId });
       launchIosApp({ udid, bundleId, deepLink: deepLink("/") });
-      sleep(TIMING.appBootMs + (locale === "ar" || locale === "ur" ? TIMING.localeReloadMs : 0));
+      sleep(TIMING.appBootMs + localeBootExtraMs(locale));
 
       if (useMaestro) {
-        const flowPath = path.join(sessionDir, "capture.yaml");
         const outDir = path.join(APP_ROOT, "store-assets", "captures-native", "ios", locale, theme);
-        const yaml = buildCaptureFlowYaml({
+        const result = runMaestroSceneBatches({
           platform: "ios",
           locale,
+          theme,
           scenes,
-          outputDir: outDir,
+          outDir,
+          sessionDir,
         });
-        writeFlowFile(flowPath, yaml);
-        log(`Running Maestro flow (${scenes.length} scenes)…`);
-        const result = runMaestro(flowPath);
-        if (!result.ok) {
-          throw new Error(`Maestro capture failed:\n${result.stderr || result.stdout}`);
-        }
-        captured += scenes.length;
+        captured += result.captured;
+        failed += result.failedBatches;
+      } else {
+        warn("Skipping automated navigation — install Maestro to capture all scenes.");
       }
 
       const aliases = syncStudioAliases("ios", locale, theme);
@@ -131,11 +136,16 @@ async function main() {
   log(
     `\nDone. Planned ${plannedOutputPaths("ios", locales, themes, scenes).length} files under store-assets/captures-native/ios/`,
   );
-  log(`Captured via Maestro: ${captured} scene(s).`);
+  log(`Captured via Maestro: ${captured} scene slot(s). Failed batches: ${failed}.`);
+  if (failed > 0) {
+    warn("Some batches failed — re-run with SCENES=… for missing ids, or check Maestro logs.");
+  }
 }
 
 function printValidation(validation) {
-  log(`Scenes: ${validation.sceneCount} · Full matrix: ${validation.matrixSize} PNGs`);
+  log(
+    `Scenes: ${validation.sceneCount} · Locales: ${validation.localeCount} · Full matrix: ${validation.matrixSize} PNGs`,
+  );
   for (const w of validation.warnings) warn(w);
   for (const e of validation.errors) log(`error: ${e}`);
 }

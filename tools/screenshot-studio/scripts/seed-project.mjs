@@ -3,7 +3,8 @@
 // Pipeline: docs/STORE_ASSETS.md
 //
 // Copy rules: one idea per headline, 3–5 words per line, intentional line breaks,
-// one **emphasis** word per slide (rendered as the marketing emerald gradient).
+// one **emphasis** word per slide (rendered as the Forest accent gradient).
+// App ships 23 UI locales (en + 22) — never claim "3 languages".
 
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
@@ -35,12 +36,12 @@ const COPY = {
   },
   salah: {
     label: {
-      en: "SALAH",
-      ar: "الصلاة",
-      ur: "نماز",
+      en: "SALAH TRACKER",
+      ar: "تتبّع الصلاة",
+      ur: "نماز ٹریکر",
     },
     headline: {
-      en: "Build unshakeable\n**salah** consistency",
+      en: "Build unshakeable\n**salah** habits",
       ar: "ثبّت **الصلاة**\nفي يومك",
       ur: "**نماز** میں\nاستقامت پائیں",
     },
@@ -64,33 +65,33 @@ const COPY = {
       ur: "لرننگ لائبریری",
     },
     headline: {
-      en: "Zikr, Qur'an,\n**hadith** — offline",
-      ar: "أذكار وقرآن\n**وحديث** — بدون إنترنت",
-      ur: "ذکر، قرآن،\n**حدیث** — آف لائن",
+      en: "Qur'an, Zikr &\n**hadith** — offline",
+      ar: "قرآن وأذكار\n**وحديث** — بدون إنترنت",
+      ur: "قرآن، ذکر،\n**حدیث** — آف لائن",
     },
   },
-  privacy: {
+  qibla: {
     label: {
-      en: "PRIVACY FIRST",
-      ar: "الخصوصية أولاً",
-      ur: "رازداری اوّل",
+      en: "QIBLA",
+      ar: "القبلة",
+      ur: "قبلہ",
     },
     headline: {
-      en: "Private by\n**default**",
-      ar: "خصوصية\n**افتراضية**",
-      ur: "بنیادی طور\n**نجی**",
+      en: "Find the **Qibla**\nin seconds",
+      ar: "اعثر على **القبلة**\nفي ثوانٍ",
+      ur: "**قبلہ** چند\nسیکنڈ میں",
     },
   },
-  offline: {
+  names: {
     label: {
-      en: "OFFLINE & SYNC",
-      ar: "بدون إنترنت والمزامنة",
-      ur: "آف لائن اور ہم آہنگی",
+      en: "99 NAMES",
+      ar: "الأسماء الحسنى",
+      ur: "۹۹ نام",
     },
     headline: {
-      en: "Works **offline**.\nSync optional.",
-      ar: "يعمل **بدون إنترنت**.\nالمزامنة اختيارية.",
-      ur: "**آف لائن** چلتا ہے۔\nہم آہنگی اختیاری۔",
+      en: "Asma-ul-Husna\nwith **audio**",
+      ar: "الأسماء الحسنى\nمع **الصوت**",
+      ur: "اسماء الحسنیٰ\nمع **آڈیو**",
     },
   },
   more: {
@@ -100,16 +101,16 @@ const COPY = {
       ur: "اور مزید",
     },
     headline: {
-      en: "Prayer times hero\nQibla & reminders\nPIN lock\nWidgets\n**3 languages**",
-      ar: "مواقيت الصلاة\nالقبلة والتذكيرات\nقفل PIN\nودجات\n**3 لغات**",
-      ur: "نماز کے اوقات\nقبلہ و یاد دہانیاں\nPIN لاک\nوجٹس\n**3 زبانیں**",
+      en: "Widgets · PIN lock\nTasbeeh · Journal\n**23 languages**",
+      ar: "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
+      ur: "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**",
     },
   },
   featureGraphic: {
     headline: {
-      en: "Salah, dhikr, qaza & learning.\nOffline-first. Private by design.",
-      ar: "صلاة وذكر وقضاء وتعلّم.\nبدون إنترنت. خصوصية بالتصميم.",
-      ur: "نماز، ذکر، قضا اور تعلیم۔\nآف لائن۔ رازداری بنیادی اصول۔",
+      en: "Salah, Zikr, Qaza & learning — offline.\n23 languages. Private by design.",
+      ar: "صلاة وذكر وقضاء وتعلّم — بدون إنترنت.\n23 لغة. خصوصية بالتصميم.",
+      ur: "نماز، ذکر، قضا اور تعلیم — آف لائن۔\n23 زبانیں۔ رازداری بنیادی اصول۔",
     },
   },
 };
@@ -117,9 +118,9 @@ const COPY = {
 const SHOT = (name) => `/screenshots/app/{locale}/${name}.jpg`;
 
 const HERO_BADGE = {
-  iphone: { x: 132, y: 640, width: 1056, height: 130, fontSize: 46 },
-  android: { x: 108, y: 450, width: 864, height: 96, fontSize: 34 },
-  ipad: { x: 232, y: 820, width: 1600, height: 120, fontSize: 54 },
+  iphone: { x: 132, y: 520, width: 1056, height: 100, fontSize: 38 },
+  android: { x: 90, y: 320, width: 900, height: 68, fontSize: 27 },
+  ipad: { x: 232, y: 680, width: 1600, height: 100, fontSize: 46 },
 };
 
 function phoneDeck(device) {
@@ -146,7 +147,7 @@ function phoneDeck(device) {
                 },
                 fontSize: badge.fontSize,
                 fontWeight: 600,
-                color: "#93a79d",
+                color: "#A9C6BB",
                 align: "center",
               },
             ],
@@ -179,23 +180,24 @@ function phoneDeck(device) {
     {
       id: `mt-${device}-05`,
       layout: "device-bottom",
-      label: COPY.privacy.label,
-      headline: COPY.privacy.headline,
-      screenshot: SHOT("settings-privacy"),
+      label: COPY.qibla.label,
+      headline: COPY.qibla.headline,
+      screenshot: SHOT("qibla"),
     },
     {
       id: `mt-${device}-06`,
       layout: "hero",
-      label: COPY.offline.label,
-      headline: COPY.offline.headline,
-      screenshot: SHOT("settings-sync"),
+      label: COPY.names.label,
+      headline: COPY.names.headline,
+      screenshot: SHOT("names-of-allah"),
+      inverted: true,
     },
     {
       id: `mt-${device}-07`,
-      layout: "no-device",
+      layout: "device-bottom",
       label: COPY.more.label,
       headline: COPY.more.headline,
-      screenshot: "",
+      screenshot: SHOT("tasbeeh"),
       inverted: true,
     },
   ];

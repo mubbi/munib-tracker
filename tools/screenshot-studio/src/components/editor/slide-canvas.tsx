@@ -272,13 +272,13 @@ function Caption({
         onFocus={onFocus}
         placeholder="LABEL"
         style={{
-          fontSize: unit * 0.028,
-          fontWeight: 600,
-          letterSpacing: unit * 0.0015,
+          fontSize: unit * 0.024,
+          fontWeight: 700,
+          letterSpacing: unit * 0.0035,
           color: accent,
           textTransform: "uppercase",
-          marginBottom: unit * 0.018,
-          minHeight: unit * 0.03,
+          marginBottom: unit * 0.016,
+          minHeight: unit * 0.028,
         }}
       />
       <EditableText
@@ -289,11 +289,12 @@ function Caption({
         onFocus={onFocus}
         placeholder="Headline goes here"
         style={{
-          fontSize: unit * 0.092,
-          fontWeight: 700,
-          lineHeight: 0.96,
-          letterSpacing: -unit * 0.001,
+          fontSize: unit * 0.066,
+          fontWeight: 800,
+          lineHeight: 1.12,
+          letterSpacing: -unit * 0.0006,
           color: fg,
+          textShadow: inverted ? "0 2px 24px rgba(0,0,0,0.18)" : "0 2px 28px rgba(0,0,0,0.22)",
         }}
       />
     </div>
@@ -304,9 +305,13 @@ function Caption({
 
 function backgroundFor(theme: Theme, inverted?: boolean) {
   if (inverted) {
-    return `linear-gradient(160deg, ${theme.bgAlt} 0%, ${shade(theme.bgAlt, -8)} 100%)`;
+    return `radial-gradient(120% 80% at 15% 0%, ${shade(theme.accent, 18)}33 0%, transparent 55%),
+      radial-gradient(90% 70% at 90% 100%, ${theme.accent}28 0%, transparent 50%),
+      linear-gradient(165deg, ${shade(theme.bgAlt, 6)} 0%, ${theme.bgAlt} 42%, ${shade(theme.bgAlt, -10)} 100%)`;
   }
-  return `linear-gradient(160deg, ${theme.bg} 0%, ${shade(theme.bg, -6)} 100%)`;
+  return `radial-gradient(110% 75% at 12% -5%, ${theme.accent}40 0%, transparent 52%),
+    radial-gradient(95% 70% at 95% 105%, ${shade(theme.accent, -20)}30 0%, transparent 48%),
+    linear-gradient(165deg, ${shade(theme.bg, 8)} 0%, ${theme.bg} 45%, ${shade(theme.bg, -8)} 100%)`;
 }
 
 function shade(hex: string, percent: number) {
@@ -374,6 +379,22 @@ type LayoutRects = {
   deviceSecondary?: Rect;
 };
 
+/** Fit a device rect into the remaining band below/above the caption. */
+function fitDevice(
+  maxW: number,
+  frameAspect: number,
+  availH: number,
+  maxFrac = 1,
+): { width: number; height: number } {
+  let width = maxW * maxFrac;
+  let height = width / frameAspect;
+  if (height > availH) {
+    height = availH;
+    width = height * frameAspect;
+  }
+  return { width, height };
+}
+
 function getDefaultRects(
   layout: Slide["layout"],
   cW: number,
@@ -383,85 +404,126 @@ function getDefaultRects(
   fwSmallFrac: number,
 ): LayoutRects {
   const deviceW = fwFrac * cW;
-  const deviceH = deviceW / frameAspect;
   const smallW = fwSmallFrac * cW;
-  const smallH = smallW / frameAspect;
   const capW = cW * 0.84;
-  const capH = cH * 0.28;
+  // Keep caption band compact so headlines never collide with the device frame.
+  const topTextBand = cH * 0.24;
+  const bottomTextBand = cH * 0.28;
+  const gap = cH * 0.02;
 
   switch (layout) {
-    case "hero":
+    case "hero": {
+      const availH = cH - topTextBand - gap;
+      const device = fitDevice(deviceW, frameAspect, availH * 1.08);
       return {
-        caption: { x: cW * 0.08, y: cH * 0.09, width: capW, height: capH, align: "center" },
+        caption: {
+          x: cW * 0.08,
+          y: cH * 0.055,
+          width: capW,
+          height: topTextBand * 0.9,
+          align: "center",
+        },
         device: {
-          x: (cW - deviceW) / 2,
-          y: cH - deviceH + deviceH * 0.15,
-          width: deviceW,
-          height: deviceH,
+          x: (cW - device.width) / 2,
+          y: topTextBand + gap + Math.max(0, (availH - device.height) * 0.15),
+          width: device.width,
+          height: device.height,
         },
       };
-    case "device-bottom":
+    }
+    case "device-bottom": {
+      const availH = cH - topTextBand - gap - cH * 0.02;
+      const device = fitDevice(deviceW, frameAspect, availH);
       return {
-        caption: { x: cW * 0.08, y: cH * 0.08, width: capW, height: capH, align: "center" },
+        caption: {
+          x: cW * 0.08,
+          y: cH * 0.05,
+          width: capW,
+          height: topTextBand * 0.88,
+          align: "center",
+        },
         device: {
-          x: (cW - deviceW) / 2,
-          y: cH - deviceH - cH * 0.02,
-          width: deviceW,
-          height: deviceH,
+          x: (cW - device.width) / 2,
+          y: topTextBand + gap + Math.max(0, (availH - device.height) / 2),
+          width: device.width,
+          height: device.height,
         },
       };
-    case "device-top":
+    }
+    case "device-top": {
+      const availH = cH - bottomTextBand - gap;
+      const device = fitDevice(deviceW, frameAspect, availH * 1.05);
       return {
-        caption: { x: cW * 0.08, y: cH * 0.65, width: capW, height: capH, align: "center" },
+        caption: {
+          x: cW * 0.08,
+          y: cH - bottomTextBand + cH * 0.02,
+          width: capW,
+          height: bottomTextBand * 0.85,
+          align: "center",
+        },
         device: {
-          x: (cW - deviceW) / 2,
-          y: -cH * 0.1,
-          width: deviceW,
-          height: deviceH,
+          x: (cW - device.width) / 2,
+          y: Math.min(0, availH - device.height) * 0.4,
+          width: device.width,
+          height: device.height,
         },
       };
-    case "two-devices":
+    }
+    case "two-devices": {
+      const textBand = cH * 0.28;
+      const availH = cH - textBand - gap - cH * 0.02;
+      const front = fitDevice(deviceW, frameAspect, availH, 0.84);
+      const back = fitDevice(smallW, frameAspect, availH * 0.9, 0.9);
       return {
-        caption: { x: cW * 0.08, y: cH * 0.08, width: capW, height: capH, align: "center" },
+        caption: {
+          x: cW * 0.08,
+          y: cH * 0.04,
+          width: capW,
+          height: textBand * 0.82,
+          align: "center",
+        },
         deviceSecondary: {
-          x: -cW * 0.06,
-          y: cH - smallH - cH * 0.05,
-          width: smallW,
-          height: smallH,
+          x: cW * 0.03,
+          y: textBand + gap * 1.5 + Math.max(0, availH - back.height) * 0.6,
+          width: back.width,
+          height: back.height,
         },
         device: {
-          x: cW - deviceW * 0.9 + cW * 0.06,
-          y: cH - deviceH * 0.9 - cH * 0.02,
-          width: deviceW * 0.9,
-          height: (deviceW * 0.9) / frameAspect,
+          x: cW - front.width - cW * 0.03,
+          y: textBand + gap * 1.5 + Math.max(0, availH - front.height) * 0.3,
+          width: front.width,
+          height: front.height,
         },
       };
+    }
     case "no-device":
       return {
         caption: {
           x: cW * 0.1,
-          y: cH * 0.35,
+          y: cH * 0.26,
           width: cW * 0.8,
-          height: cH * 0.3,
+          height: cH * 0.5,
           align: "center",
         },
       };
-    case "split-landscape":
+    case "split-landscape": {
+      const device = fitDevice(deviceW, frameAspect, cH * 0.9);
       return {
         caption: {
           x: cW * 0.05,
-          y: cH * 0.25,
+          y: cH * 0.22,
           width: cW * 0.38,
-          height: cH * 0.5,
+          height: cH * 0.56,
           align: "left",
         },
         device: {
-          x: cW - deviceW + cW * 0.03,
-          y: (cH - deviceH) / 2,
-          width: deviceW,
-          height: deviceH,
+          x: cW - device.width + cW * 0.02,
+          y: (cH - device.height) / 2,
+          width: device.width,
+          height: device.height,
         },
       };
+    }
     default:
       return {};
   }
@@ -768,12 +830,24 @@ function SlideBackground({
       <Blob
         cW={cW}
         color={theme.accent}
-        x={-15}
-        y={-10}
-        size={55}
-        opacity={inverted ? 0.25 : 0.32}
+        x={-18}
+        y={-14}
+        size={62}
+        opacity={inverted ? 0.22 : 0.28}
       />
-      <Blob cW={cW} color={theme.accent} x={70} y={75} size={45} opacity={inverted ? 0.18 : 0.25} />
+      <Blob cW={cW} color="#E4CE9E" x={62} y={-8} size={38} opacity={inverted ? 0.08 : 0.1} />
+      <Blob cW={cW} color={theme.accent} x={68} y={72} size={52} opacity={inverted ? 0.16 : 0.22} />
+      {/* Soft vignette for depth */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(120% 90% at 50% 40%, transparent 35%, rgba(0,0,0,0.28) 100%)",
+          pointerEvents: "none",
+        }}
+      />
     </div>
   );
 }

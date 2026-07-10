@@ -1,6 +1,9 @@
 /** Canonical production URLs for Munib Tracker. */
 export const OFFICIAL_SITE_ORIGIN = "https://munibtracker.app" as const;
 
+/** NestJS API origin (no path prefix). Override clients with EXPO_PUBLIC_API_URL / NEXT_PUBLIC_API_URL. */
+export const OFFICIAL_API_ORIGIN = "https://api.munibtracker.app" as const;
+
 /** Expo web app (PWA) origin. Override with EXPO_PUBLIC_APP_URL at build time. */
 export const OFFICIAL_APP_WEB_ORIGIN = "https://my.munibtracker.app" as const;
 

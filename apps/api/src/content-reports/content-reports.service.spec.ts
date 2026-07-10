@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createAuthTestingModule } from "../../test/support/testing-module";
 import { AuthService } from "../auth/auth.service";
 import { AuthProvider } from "../auth/dto/auth.dto";
@@ -30,10 +30,16 @@ describe("ContentReportsService", () => {
   let contentReportsService: ContentReportsService;
 
   beforeEach(async () => {
+    // ConfigModule snapshots env at module create — set before compiling.
+    process.env.REPORT_ADMIN_KEY = "test-admin-key";
     resetContentReportRateLimits();
     const module = await createAuthTestingModule([ContentReportsService]);
     authService = module.get(AuthService);
     contentReportsService = module.get(ContentReportsService);
+  });
+
+  afterEach(() => {
+    delete process.env.REPORT_ADMIN_KEY;
   });
 
   it("blocks guest accounts from submitting reports", async () => {
@@ -82,7 +88,6 @@ describe("ContentReportsService", () => {
   });
 
   it("allows admin status updates with a valid admin key", async () => {
-    process.env.REPORT_ADMIN_KEY = "test-admin-key";
     const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
     const report = await contentReportsService.create(session.accessToken, samplePayload);
 
@@ -94,11 +99,9 @@ describe("ContentReportsService", () => {
     expect(updated.status).toBe("completed");
     expect(updated.adminNotes).toBe("Fixed in content pipeline.");
     expect(updated.resolvedAt).toBeTruthy();
-    delete process.env.REPORT_ADMIN_KEY;
   });
 
   it("rejects admin updates with a wrong or missing admin key", async () => {
-    process.env.REPORT_ADMIN_KEY = "test-admin-key";
     const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
     const report = await contentReportsService.create(session.accessToken, samplePayload);
 
@@ -115,7 +118,5 @@ describe("ContentReportsService", () => {
     await expect(
       contentReportsService.adminUpdate(undefined, report.id, { status: "completed" }),
     ).rejects.toThrow("Invalid admin key");
-
-    delete process.env.REPORT_ADMIN_KEY;
   });
 });

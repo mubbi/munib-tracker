@@ -4,6 +4,12 @@
     "outDir": "./dist",
     "ignoreDeprecations": "6.0"
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "vitest.config.ts", "vitest.config.e2e.ts"],
+  "include": [
+    "src/**/*.ts",
+    "api/**/*.ts",
+    "test/**/*.ts",
+    "vitest.config.ts",
+    "vitest.config.e2e.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

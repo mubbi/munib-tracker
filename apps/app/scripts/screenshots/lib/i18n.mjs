@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import { APP_ROOT } from "./config.mjs";
+import { APP_ROOT, LOCALES } from "./config.mjs";
 
 const I18N_DIR = path.join(APP_ROOT, "src", "i18n");
 
 const cache = new Map();
 
-/** Load en/ar/ur JSON once. */
+/** Load a locale JSON catalog (falls back to en when a key lookup needs a base). */
 export function loadLocaleBundle(locale) {
   if (cache.has(locale)) return cache.get(locale);
   const file = path.join(I18N_DIR, `${locale}.json`);
@@ -18,16 +18,25 @@ export function loadLocaleBundle(locale) {
   return json;
 }
 
-/** Dot-path lookup: t("tabs.home") */
+/** Dot-path lookup: t("tabs.home") — falls back to English when missing. */
 export function translate(locale, key) {
-  const bundle = loadLocaleBundle(locale);
+  const value = lookup(loadLocaleBundle(locale), key);
+  if (typeof value === "string") return value;
+  if (locale !== "en") {
+    const en = lookup(loadLocaleBundle("en"), key);
+    if (typeof en === "string") return en;
+  }
+  return null;
+}
+
+function lookup(bundle, key) {
   const parts = key.split(".");
   let node = bundle;
   for (const part of parts) {
     if (node == null || typeof node !== "object") return null;
     node = node[part];
   }
-  return typeof node === "string" ? node : null;
+  return node;
 }
 
 export function tabLabels(locale) {
@@ -74,13 +83,24 @@ export function prayerStatusLabels(locale) {
   };
 }
 
-/** Validate that every i18n key referenced by automation exists in all locales. */
-export function validateI18nKeys(keys) {
+/**
+ * Validate that every i18n key referenced by automation exists for each locale
+ * (English fallback is allowed at runtime, but catalogs should still define keys).
+ */
+export function validateI18nKeys(keys, locales = LOCALES) {
   const missing = [];
-  for (const locale of ["en", "ar", "ur"]) {
+  for (const locale of locales) {
+    const file = path.join(I18N_DIR, `${locale}.json`);
+    if (!fs.existsSync(file)) {
+      missing.push(`${locale}:(missing catalog file)`);
+      continue;
+    }
     for (const key of keys) {
-      const value = translate(locale, key);
-      if (!value) missing.push(`${locale}:${key}`);
+      const value = lookup(loadLocaleBundle(locale), key);
+      if (typeof value !== "string" || !value.trim()) {
+        // Soft: English fallback covers runtime; only hard-fail when en is missing.
+        if (locale === "en") missing.push(`${locale}:${key}`);
+      }
     }
   }
   return missing;

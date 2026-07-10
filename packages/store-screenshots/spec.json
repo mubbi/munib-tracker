@@ -1,13 +1,22 @@
 {
   "locales": ["en", "ar", "ur"],
-  "captureFiles": ["home", "tracker", "qaza", "zikr", "quran", "settings-privacy", "settings-sync"],
+  "captureFiles": [
+    "home",
+    "tracker",
+    "qaza",
+    "zikr",
+    "quran",
+    "qibla",
+    "names-of-allah",
+    "tasbeeh"
+  ],
   "slideScenes": {
     "01": "01-home",
     "02": "02-salah",
     "03": "03-qaza",
     "04": "04-library",
-    "05": "05-privacy",
-    "06": "06-offline",
+    "05": "05-qibla",
+    "06": "06-names",
     "07": "07-more"
   },
   "storeAssetsRoot": "apps/app/store-assets"

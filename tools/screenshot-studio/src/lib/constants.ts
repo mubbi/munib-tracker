@@ -62,11 +62,11 @@ export const PHONE_SCREEN = {
 };
 
 // ---------- Width formula helpers ----------
-export function phoneW(cW: number, cH: number, clamp = 0.84) {
-  return Math.min(clamp, 0.72 * (cH / cW) * MK_RATIO);
+export function phoneW(cW: number, cH: number, clamp = 0.78) {
+  return Math.min(clamp, 0.68 * (cH / cW) * MK_RATIO);
 }
 export function phoneWSmall(cW: number, cH: number) {
-  return phoneW(cW, cH, 0.66);
+  return phoneW(cW, cH, 0.6);
 }
 export function tabletPW(cW: number, cH: number, clamp = 0.8) {
   return Math.min(clamp, 0.72 * (cH / cW) * TAB_P_RATIO);
@@ -82,17 +82,17 @@ export function ipadW(cW: number, cH: number, clamp = 0.75) {
 export const DEFAULT_THEME_ID: ThemeId = "munib-tracker";
 
 export const THEMES: Record<string, Theme> = {
-  // Munib Tracker marketing design language (apps/marketing-web): charcoal base,
-  // emerald brand accents, deep-green inverted slides, soft gold emphasis.
+  // Product brand language (apps/app Brand hero + Forest accent): deep green
+  // prayer-hero surfaces, cream type, forest green labels — matches in-app UI.
   "munib-tracker": {
     id: "munib-tracker",
     name: "Munib Tracker",
-    bg: "#060a09",
-    bgAlt: "#0d4235",
-    fg: "#eaf2ee",
-    fgAlt: "#f3f7f2",
-    accent: "#34d399",
-    muted: "#93a79d",
+    bg: "#0B2A22",
+    bgAlt: "#12463A",
+    fg: "#F2EFE6",
+    fgAlt: "#F2EFE6",
+    accent: "#66BB6A",
+    muted: "#A9C6BB",
   },
   "clean-light": {
     id: "clean-light",

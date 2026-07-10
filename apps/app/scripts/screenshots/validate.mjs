@@ -30,12 +30,14 @@ function main() {
     "capture-ios.mjs",
     "validate.mjs",
     "lib/config.mjs",
+    "lib/app-locales.mjs",
     "lib/demo-data.mjs",
     "lib/db-keys.mjs",
     "lib/i18n.mjs",
     "lib/scenes.mjs",
     "lib/shell.mjs",
     "lib/maestro.mjs",
+    "lib/run-maestro-batches.mjs",
     "lib/inject-storage-android.mjs",
     "lib/inject-storage-ios.mjs",
     "lib/validate-core.mjs",
@@ -53,7 +55,11 @@ function main() {
   const validation = validateStructure();
   log(`Structure: ${validation.ok ? "OK" : "FAILED"}`);
   log(`Scenes: ${validation.sceneCount}`);
-  log(`Full matrix (en/ar/ur × light/dark): ${validation.matrixSize} PNGs`);
+  log(`App locales (${validation.localeCount}): ${validation.locales.join(", ")}`);
+  log(`Studio locales (${validation.studioLocaleCount}): ${validation.studioLocales.join(", ")}`);
+  log(
+    `Full native matrix (${validation.localeCount} locales × light/dark × ${validation.sceneCount} scenes): ${validation.matrixSize} PNGs`,
+  );
   for (const w of validation.warnings) warn(w);
   for (const e of validation.errors) log(`error: ${e}`);
 

@@ -66,7 +66,8 @@ export function AndroidPhone({ src, alt = "", style, hideEmpty }: FrameProps) {
           height: "100%",
           borderRadius: "8% / 4%",
           background: "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)",
-          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 40px rgba(0,0,0,0.55)",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.1), 0 12px 48px rgba(0,0,0,0.45), 0 4px 16px rgba(11,42,34,0.35)",
           position: "relative",
           overflow: "hidden",
         }}

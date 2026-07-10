@@ -11,7 +11,8 @@
  *
  * Usage (from repo root):
  *   pnpm screenshots:android
- *   LOCALES=en,ar THEMES=dark SCENES=home,tracker pnpm screenshots:android
+ *   LOCALES=en,ar,ur THEMES=dark SCENES=home,tracker pnpm screenshots:android
+ *   LOCALES=all THEMES=all  # default: every AppLocale × light/dark
  *   GROUPS=tabs,track pnpm screenshots:android
  *   VALIDATE_ONLY=1 pnpm screenshots:android
  *   SKIP_EMULATOR=1 SKIP_BUILD=1 pnpm screenshots:android
@@ -20,22 +21,16 @@
  *   apps/app/store-assets/captures-native/android/<locale>/<theme>/<scene>.png
  */
 import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { buildAndInstallScreenshotApk, launchScreenshotApp } from "./lib/build-screenshot-apk.mjs";
-import { APP_ID, APP_ROOT, TIMING, WORK_DIR } from "./lib/config.mjs";
+import { APP_ID, APP_ROOT, LOCALES, localeBootExtraMs, TIMING, WORK_DIR } from "./lib/config.mjs";
 import {
   injectDemoStorageAndroid,
   listAndroidDevices,
   resolveAdbBinary,
 } from "./lib/inject-storage-android.mjs";
-import {
-  buildCaptureFlowYaml,
-  maestroAvailable,
-  runMaestro,
-  writeFlowFile,
-} from "./lib/maestro.mjs";
+import { maestroAvailable } from "./lib/maestro.mjs";
+import { runMaestroSceneBatches } from "./lib/run-maestro-batches.mjs";
 import { log, run, sleep, warn } from "./lib/shell.mjs";
 import {
   parseRuntimeFilters,
@@ -43,41 +38,6 @@ import {
   syncStudioAliases,
   validateStructure,
 } from "./lib/validate-core.mjs";
-
-const _SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
-
-/** Maestro writes takeScreenshot basenames under ~/.maestro/tests/<run>/ — copy into outDir. */
-function collectMaestroScreenshots(outDir, sceneIds) {
-  const testsRoot = path.join(os.homedir(), ".maestro", "tests");
-  if (!fs.existsSync(testsRoot)) return 0;
-  const runs = fs
-    .readdirSync(testsRoot, { withFileTypes: true })
-    .filter((d) => d.isDirectory())
-    .map((d) => ({
-      name: d.name,
-      mtime: fs.statSync(path.join(testsRoot, d.name)).mtimeMs,
-    }))
-    .sort((a, b) => b.mtime - a.mtime);
-
-  let copied = 0;
-  fs.mkdirSync(outDir, { recursive: true });
-  for (const sceneId of sceneIds) {
-    const dest = path.join(outDir, `${sceneId}.png`);
-    if (fs.existsSync(dest) && fs.statSync(dest).size > 0) {
-      copied += 1;
-      continue;
-    }
-    for (const run of runs.slice(0, 5)) {
-      const candidate = path.join(testsRoot, run.name, `${sceneId}.png`);
-      if (fs.existsSync(candidate) && fs.statSync(candidate).size > 0) {
-        fs.copyFileSync(candidate, dest);
-        copied += 1;
-        break;
-      }
-    }
-  }
-  return copied;
-}
 
 async function main() {
   const validation = validateStructure();
@@ -95,6 +55,7 @@ async function main() {
   log(
     `Android capture plan: ${locales.length} locale(s) × ${themes.length} theme(s) × ${scenes.length} scene(s) = ${locales.length * themes.length * scenes.length} PNGs`,
   );
+  log(`App locales available: ${LOCALES.join(", ")}`);
 
   const adb = resolveAdbBinary();
   const packageId = APP_ID.android;
@@ -111,7 +72,6 @@ async function main() {
   const serial = process.env.ANDROID_SERIAL || devices[0];
   log(`Using device: ${serial}`);
 
-  // Always prefer a self-contained APK (embedded JS). SKIP_BUILD reuses an existing APK.
   buildAndInstallScreenshotApk({
     adb,
     serial,
@@ -126,21 +86,21 @@ async function main() {
   }
 
   let captured = 0;
+  let failed = 0;
+
   for (const locale of locales) {
     for (const theme of themes) {
       log(`\n── ${locale} / ${theme} ──`);
       const sessionDir = path.join(WORK_DIR, "android", locale, theme);
-      fs.mkdirSync(sessionDir, { recursive: true });
 
       log("Seeding demo AsyncStorage…");
       injectDemoStorageAndroid({ adb, packageId, locale, theme, clearFirst: true });
 
       log("Launching screenshot APK (MainActivity, no Metro)…");
       launchScreenshotApp({ adb, packageId });
-      sleep(TIMING.appBootMs);
+      sleep(TIMING.appBootMs + localeBootExtraMs(locale));
 
       if (useMaestro) {
-        const flowPath = path.join(sessionDir, "capture.yaml");
         const outDir = path.join(
           APP_ROOT,
           "store-assets",
@@ -149,25 +109,16 @@ async function main() {
           locale,
           theme,
         );
-        fs.mkdirSync(outDir, { recursive: true });
-        const yaml = buildCaptureFlowYaml({
+        const result = runMaestroSceneBatches({
           platform: "android",
           locale,
+          theme,
           scenes,
-          outputDir: outDir,
-        });
-        writeFlowFile(flowPath, yaml);
-        log(`Running Maestro flow (${scenes.length} scenes)…`);
-        const result = runMaestro(flowPath);
-        if (!result.ok) {
-          throw new Error(`Maestro capture failed:\n${result.stderr || result.stdout}`);
-        }
-        const collected = collectMaestroScreenshots(
           outDir,
-          scenes.map((s) => s.id),
-        );
-        log(`Collected ${collected}/${scenes.length} PNG(s) → ${outDir}`);
-        captured += collected;
+          sessionDir,
+        });
+        captured += result.captured;
+        failed += result.failedBatches;
       } else {
         warn("Skipping automated navigation — install Maestro to capture all scenes.");
       }
@@ -180,11 +131,16 @@ async function main() {
   log(
     `\nDone. Planned ${plannedOutputPaths("android", locales, themes, scenes).length} files under store-assets/captures-native/android/`,
   );
-  log(`Captured via Maestro: ${captured} scene(s).`);
+  log(`Captured via Maestro: ${captured} scene slot(s). Failed batches: ${failed}.`);
+  if (failed > 0) {
+    warn("Some batches failed — re-run with SCENES=… for missing ids, or check Maestro logs.");
+  }
 }
 
 function printValidation(validation) {
-  log(`Scenes: ${validation.sceneCount} · Full matrix: ${validation.matrixSize} PNGs`);
+  log(
+    `Scenes: ${validation.sceneCount} · Locales: ${validation.localeCount} · Full matrix: ${validation.matrixSize} PNGs`,
+  );
   for (const w of validation.warnings) warn(w);
   for (const e of validation.errors) log(`error: ${e}`);
 }

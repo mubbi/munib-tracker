@@ -10,6 +10,8 @@ This is a **pnpm + Turborepo** monorepo for Munib Tracker (salah, dhikr, qadha).
 | **Marketing** | `apps/marketing-web` | Next.js 16 landing site (port 3000) | `pnpm dev:marketing-web` |
 | **API** | `apps/api` | NestJS 11 — cloud sync, auth, backend services (port 3001) | `pnpm dev:api` |
 
+Deploy web surfaces to Vercel (three projects): see [`docs/PRODUCTION.md`](docs/PRODUCTION.md).
+
 **Important:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), and `apps/app web` (Expo, ~8081) are different apps.
 
 ## Shared packages

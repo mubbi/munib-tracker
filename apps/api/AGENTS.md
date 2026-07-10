@@ -65,6 +65,8 @@ cp apps/api/.env.example apps/api/.env
 
 Key variables: `PORT`, `JWT_SECRET`, `CORS_ORIGINS`, OAuth provider IDs.
 
+**Vercel:** project root `apps/api` — see [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md) and `vercel.json`. Serverless entry is `api/index.ts`.
+
 ## Commands
 
 ```bash

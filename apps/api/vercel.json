@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": false
+  },
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+  "buildCommand": "cd ../.. && pnpm --filter api migration:run && pnpm exec turbo run build --filter=api",
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
+}

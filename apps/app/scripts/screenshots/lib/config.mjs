@@ -1,5 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { loadAppLocaleCodes, loadStudioLocaleCodes } from "./app-locales.mjs";
 
 const SCRIPT_ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 export const APP_ROOT = path.resolve(SCRIPT_ROOT, "../..");
@@ -12,8 +13,17 @@ export const APP_ID = {
 
 export const URL_SCHEME = "munib-tracker";
 
-/** Product locales — matches AppLocale in @munib-tracker/shared. */
-export const LOCALES = ["en", "ar", "ur"];
+/**
+ * Every Expo AppLocale — kept in sync with packages/shared/src/i18n/app-locale.ts.
+ * Override with LOCALES=en,ar or LOCALES=all (default).
+ */
+export const LOCALES = loadAppLocaleCodes();
+
+/**
+ * Locales that get STUDIO_ALIASES copies + screenshot-studio decks.
+ * From packages/store-screenshots/spec.json (marketing subset).
+ */
+export const STUDIO_LOCALES = loadStudioLocaleCodes();
 
 export const THEMES = ["light", "dark"];
 
@@ -40,13 +50,13 @@ export const TIMING = {
   heavyScreenMs: 2_800,
   /** Modal / bottom sheet open animation. */
   modalMs: 1_100,
-  /** Locale switch may trigger native reload (ar / ur). */
+  /** Non-English locale switch may trigger native reload. */
   localeReloadMs: 14_000,
   /** Poll interval for ready-marker checks. */
   pollMs: 400,
   /** Max wait for ready markers before failing the scene. */
   readyTimeoutMs: 45_000,
-  /** Metro bundler warm-up when starting dev client. */
+  /** Metro bundler warm-up when starting iOS/Android dev client. */
   metroWarmMs: 8_000,
 };
 
@@ -71,8 +81,9 @@ export const STUDIO_ALIASES = {
   qaza: "qaza.jpg",
   zikr: "zikr.jpg",
   quran: "quran.jpg",
-  "settings-offline-data": "settings-privacy.jpg",
-  "settings-backup": "settings-sync.jpg",
+  qibla: "qibla.jpg",
+  "names-of-allah": "names-of-allah.jpg",
+  tasbeeh: "tasbeeh.jpg",
 };
 
 export function deepLink(route) {
@@ -86,4 +97,9 @@ export function outputPath(platform, locale, theme, sceneId, ext = "png") {
 
 export function studioAliasPath(locale, aliasFile) {
   return path.join(STUDIO_CAPTURE_ROOT, locale, aliasFile);
+}
+
+/** Extra boot settle when seeding a non-default UI locale. */
+export function localeBootExtraMs(locale) {
+  return locale && locale !== DEFAULT_LOCALE ? TIMING.localeReloadMs : 0;
 }

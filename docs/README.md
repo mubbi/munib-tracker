@@ -29,6 +29,7 @@ Central map of project docs. **Active backlog** lives in [`BACKLOG.md`](./BACKLO
 | **Google Play short description** (23 app locales + 7 ASO) | [`ANDROID_APP_COPY.md`](./ANDROID_APP_COPY.md) |
 | **Deep links & App Links** (scheme, widgets, OAuth) | [`DEEP_LINKS.md`](./DEEP_LINKS.md) |
 | **OAuth setup** (Google & Apple sign-in) | [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) |
+| **Production / Vercel** (marketing, API, Expo web) | [`PRODUCTION.md`](./PRODUCTION.md) |
 
 Per-app agent guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md) · [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md)
 

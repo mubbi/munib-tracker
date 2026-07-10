@@ -1,6 +1,6 @@
 # Native screenshot capture
 
-Automated **native** Android/iOS screenshots for Munib Tracker — all tabs, library routes, settings, modals, in **en / ar / ur** and **light / dark**.
+Automated **native** Android/iOS screenshots for Munib Tracker — all tabs, library routes, settings, modals, across **every Expo AppLocale** and **light / dark**.
 
 Part of the store-assets pipeline — see [`docs/STORE_ASSETS.md`](../../../../docs/STORE_ASSETS.md) for the full flow into `tools/screenshot-studio`.
 
@@ -8,12 +8,20 @@ Part of the store-assets pipeline — see [`docs/STORE_ASSETS.md`](../../../../d
 
 | Tool | Android | iOS |
 |------|---------|-----|
-| Screenshot APK | Built by `screenshots:android` (release + embedded JS, temporarily debuggable) | `pnpm --filter app ios` (macOS) |
-| Emulator | Android SDK + AVD (`pnpm dev:app:android:emulator`) | Xcode Simulator |
+| App build | Built by `screenshots:android` (release + embedded JS, temporarily debuggable) | `pnpm --filter app ios` (macOS) |
+| Emulator / Simulator | Android SDK + AVD | Xcode Simulator |
 | Automation | [Maestro CLI](https://maestro.mobile.dev) | Maestro CLI |
 | Storage seed | Host `sqlite3` + `adb` base64 push into `RKStorage` | Host `sqlite3` + `xcrun simctl` |
 
-> **Android note:** Do **not** rely on the Expo Dev Client + Metro for captures. The capture script builds/installs a self-contained APK so the app launches without a bundler.
+> **Android note:** Do **not** rely on Expo Dev Client + Metro for captures. The capture script builds/installs a self-contained APK so the app launches without a bundler.
+>
+> **iOS note:** Requires macOS. Navigation/batching matches Android (`lib/run-maestro-batches.mjs`).
+
+## Locales
+
+Native capture defaults to **all AppLocales** from `packages/shared/src/i18n/app-locale.ts` (currently 23). Override with `LOCALES=…`.
+
+Marketing screenshot-studio decks stay on the subset in `packages/store-screenshots/spec.json` (typically `en`, `ar`, `ur`) via `STUDIO_LOCALES`.
 
 ## Commands
 
@@ -29,10 +37,11 @@ pnpm screenshots:ios   # macOS only
 Filter matrix:
 
 ```bash
-LOCALES=en,ar THEMES=dark SCENES=home,tracker,qaza pnpm screenshots:android
+LOCALES=en,ar,ur THEMES=dark SCENES=home,tracker,qaza pnpm screenshots:android
+LOCALES=all THEMES=all pnpm screenshots:android          # every AppLocale × light/dark
 GROUPS=tabs,learn pnpm screenshots:ios
-VALIDATE_ONLY=1 pnpm screenshots:android   # dry validation inside capture script
-SKIP_EMULATOR=1 SKIP_BUILD=1 pnpm screenshots:android   # reuse running device + installed build
+SCENE_BATCH=5 SKIP_EMULATOR=1 SKIP_BUILD=1 pnpm screenshots:android
+VALIDATE_ONLY=1 pnpm screenshots:android
 ```
 
 ## Output layout
@@ -43,7 +52,7 @@ apps/app/store-assets/captures-native/
   ios/<locale>/<theme>/<scene>.png
 ```
 
-After each **dark** capture run, seven marketing scenes are copied to `store-assets/captures/<locale>/` for screenshot-studio (`STUDIO_ALIASES` in `lib/config.mjs`):
+After each **dark** capture for a **studio locale**, marketing scenes are copied to `store-assets/captures/<locale>/` (`STUDIO_ALIASES` in `lib/config.mjs`):
 
 | Studio file | Scene id |
 |-------------|----------|
@@ -52,16 +61,17 @@ After each **dark** capture run, seven marketing scenes are copied to `store-ass
 | `qaza.jpg` | `qaza` |
 | `zikr.jpg` | `zikr` |
 | `quran.jpg` | `quran` |
-| `settings-privacy.jpg` | `settings-offline-data` |
-| `settings-sync.jpg` | `settings-backup` |
+| `qibla.jpg` | `qibla` |
+| `names-of-allah.jpg` | `names-of-allah` |
+| `tasbeeh.jpg` | `tasbeeh` |
 
 Then run `pnpm sync:screenshot-captures` from the repo root.
 
 ## How it works
 
-1. **Demo data** — `lib/demo-data.mjs` builds realistic AsyncStorage (prayer logs, qaza debt, bookmarks, achievements, onboarding complete, tours dismissed, Makkah location, etc.) per locale/theme.
-2. **Storage injection** — Android: warm-launch → host `sqlite3` merge into pulled `RKStorage` → base64 push; iOS: host `sqlite3` on simulator container.
-3. **Navigation** — Maestro flows (`lib/maestro.mjs`) deep-link to routes, tap tabs, open modals (prayer status sheet), wait for animations (`waitForAnimationToEnd` + scene-specific delays), then `takeScreenshot`.
+1. **Demo data** — `lib/demo-data.mjs` seeds AsyncStorage with real repository/store shapes per locale/theme.
+2. **Storage injection** — Android: warm-launch → host `sqlite3` merge → base64 push; iOS: host `sqlite3` on simulator container.
+3. **Navigation** — Maestro deep-links (tabs + routes), optional ready markers, `waitForAnimationToEnd`, `takeScreenshot`. Batched via `lib/run-maestro-batches.mjs` so one failure does not abort the matrix.
 4. **Scenes** — `lib/scenes.mjs` lists **53** screens across tabs, track, read, supplicate, learn, more, and settings.
 
 ## Scene groups
@@ -80,16 +90,18 @@ Then run `pnpm sync:screenshot-captures` from the repo root.
 
 | File | Role |
 |------|------|
-| `capture-android.mjs` / `capture-ios.mjs` | Orchestrators |
+| `capture-android.mjs` / `capture-ios.mjs` | Orchestrators (same batching / filters) |
 | `validate.mjs` | CI-safe validation |
-| `lib/scenes.mjs` | Scene catalog + wait/interact steps |
-| `lib/demo-data.mjs` | AsyncStorage demo seed (real DB shapes) |
+| `lib/app-locales.mjs` | Loads AppLocale + studio locale lists |
+| `lib/scenes.mjs` | Scene catalog |
+| `lib/demo-data.mjs` | AsyncStorage demo seed |
 | `lib/db-keys.mjs` | Mirror of `src/db/keys.ts` + theme keys |
 | `lib/maestro.mjs` | YAML flow generator |
+| `lib/run-maestro-batches.mjs` | Shared Android/iOS Maestro batch runner |
 | `lib/build-screenshot-apk.mjs` | Self-contained Android APK (no Metro) |
 | `lib/inject-storage-*.mjs` | Platform storage injection |
-| `lib/i18n.mjs` | Localized Maestro tap labels |
-| `lib/config.mjs` | App IDs, timing, `STUDIO_ALIASES` |
+| `lib/i18n.mjs` | Localized labels (all AppLocale catalogs) |
+| `lib/config.mjs` | App IDs, timing, `LOCALES`, `STUDIO_ALIASES` |
 
 ## Adding a scene
 

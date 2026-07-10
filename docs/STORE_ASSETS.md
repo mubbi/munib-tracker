@@ -46,15 +46,17 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
 
 Automates **all product screens** on real emulators/simulators using [Maestro](https://maestro.mobile.dev).
 
-- **Locales:** `en`, `ar`, `ur`
+- **Locales:** every Expo `AppLocale` from `packages/shared/src/i18n/app-locale.ts` (override with `LOCALES=…`)
 - **Themes:** `light`, `dark`
 - **Scenes:** 53 routes/tabs/modals (see `lib/scenes.mjs`)
 - **Demo data:** AsyncStorage pre-seed skips onboarding and fills prayer logs, qaza debt, bookmarks, achievements, Makkah location, etc.
+- **Platforms:** Android + iOS share the same Maestro batching (`lib/run-maestro-batches.mjs`); iOS requires macOS.
 
 ```bash
 pnpm screenshots:validate                              # structure + syntax only
-LOCALES=en THEMES=dark SCENES=home,tracker pnpm screenshots:android
-GROUPS=tabs,learn SKIP_EMULATOR=1 SKIP_BUILD=1 pnpm screenshots:ios
+LOCALES=en,ar,ur THEMES=dark SCENES=home,tracker pnpm screenshots:android
+LOCALES=all THEMES=all pnpm screenshots:android        # every AppLocale × light/dark
+GROUPS=tabs,learn SKIP_SIMULATOR=1 SKIP_BUILD=1 pnpm screenshots:ios
 ```
 
 **Prerequisites:** dev build on device, Maestro CLI, Android AVD or Xcode Simulator (iOS/macOS), `adb` / `xcrun simctl`.
@@ -63,7 +65,7 @@ Full detail: [`apps/app/scripts/screenshots/README.md`](../apps/app/scripts/scre
 
 ### Studio alias mapping
 
-After each dark capture run, key scenes are copied into `store-assets/captures/<locale>/` for the marketing editor (`lib/config.mjs` → `STUDIO_ALIASES`):
+After each dark capture run for a **studio locale** (`packages/store-screenshots/spec.json`, typically en/ar/ur), key scenes are copied into `store-assets/captures/<locale>/` for the marketing editor (`lib/config.mjs` → `STUDIO_ALIASES`):
 
 | Studio file | Source scene |
 |-------------|--------------|
@@ -72,8 +74,9 @@ After each dark capture run, key scenes are copied into `store-assets/captures/<
 | `qaza.jpg` | `qaza` |
 | `zikr.jpg` | `zikr` |
 | `quran.jpg` | `quran` |
-| `settings-privacy.jpg` | `settings-offline-data` |
-| `settings-sync.jpg` | `settings-backup` |
+| `qibla.jpg` | `qibla` |
+| `names-of-allah.jpg` | `names-of-allah` |
+| `tasbeeh.jpg` | `tasbeeh` |
 
 Native Maestro output is PNG; files land with `.jpg` names for deck compatibility. `sync-app-screenshots.mjs` accepts `.jpg`, `.jpeg`, or `.png` sources.
 

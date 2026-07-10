@@ -8,6 +8,7 @@ import {
   outputPath,
   STUDIO_ALIASES,
   STUDIO_CAPTURE_ROOT,
+  STUDIO_LOCALES,
   studioAliasPath,
   THEMES,
   TIMING,
@@ -41,14 +42,24 @@ export function validateStructure() {
     "capture-ios.mjs",
     "validate.mjs",
     "lib/config.mjs",
+    "lib/app-locales.mjs",
     "lib/demo-data.mjs",
     "lib/scenes.mjs",
     "lib/maestro.mjs",
+    "lib/run-maestro-batches.mjs",
     "lib/inject-storage-android.mjs",
     "lib/inject-storage-ios.mjs",
+    "lib/build-screenshot-apk.mjs",
   ]) {
     const full = path.join(APP_ROOT, "scripts", "screenshots", file);
     if (!fs.existsSync(full)) errors.push(`Missing file: ${file}`);
+  }
+
+  if (!LOCALES.length) errors.push("LOCALES is empty — failed to load AppLocale codes");
+  for (const studioLocale of STUDIO_LOCALES) {
+    if (!LOCALES.includes(studioLocale)) {
+      errors.push(`Studio locale "${studioLocale}" is not an AppLocale`);
+    }
   }
 
   const ids = new Set();
@@ -62,7 +73,7 @@ export function validateStructure() {
     if (!markers.length) warnings.push(`Scene ${scene.id} has no ready markers`);
   }
 
-  const missingI18n = validateI18nKeys(REQUIRED_I18N);
+  const missingI18n = validateI18nKeys(REQUIRED_I18N, LOCALES);
   if (missingI18n.length) {
     errors.push(
       `Missing i18n keys: ${missingI18n.slice(0, 8).join(", ")}${missingI18n.length > 8 ? "…" : ""}`,
@@ -90,7 +101,11 @@ export function validateStructure() {
     errors,
     warnings,
     sceneCount: sceneCount(),
+    localeCount: LOCALES.length,
+    studioLocaleCount: STUDIO_LOCALES.length,
     matrixSize: LOCALES.length * THEMES.length * sceneCount(),
+    locales: LOCALES,
+    studioLocales: STUDIO_LOCALES,
     outputRoot: OUTPUT_ROOT,
     studioRoot: STUDIO_CAPTURE_ROOT,
     workDir: WORK_DIR,
@@ -134,8 +149,10 @@ export function plannedOutputPaths(platform, locales, themes, scenes) {
   return paths;
 }
 
+/** Copy dark marketing scenes into captures/<locale>/ for screenshot-studio. */
 export function syncStudioAliases(platform, locale, theme) {
   if (theme !== "dark") return [];
+  if (!STUDIO_LOCALES.includes(locale)) return [];
   const copied = [];
   for (const [sceneId, aliasFile] of Object.entries(STUDIO_ALIASES)) {
     const src = outputPath(platform, locale, theme, sceneId, "png");
