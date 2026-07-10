@@ -27,9 +27,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "blockedPermissions": [
-        "android.permission.ACTIVITY_RECOGNITION"
-      ]
+      "blockedPermissions": ["android.permission.ACTIVITY_RECOGNITION"]
     },
     "web": {
       "bundler": "metro",
