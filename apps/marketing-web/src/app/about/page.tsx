@@ -48,12 +48,14 @@ export default function AboutPage() {
           <Link href={SITE_PATHS.features} className="font-medium text-brand hover:underline">
             Features
           </Link>{" "}
-          page — prayer tracking, qaza calculator and planner, adhkar and tasbeeh, offline Qur'an
-          and hadith, qibla, Hijri calendar, universal search, statistics, achievements, and
-          optional cloud sync. Beyond tracking, {APP_NAME} is a place to learn: structured lessons
+          page — salah tracking and qaza planning, adhkar and a custom tasbeeh builder, offline
+          Qur&apos;an (surah, juz, 604-page mushaf) and hadith, qibla, Hijri events, universal
+          search, statistics, achievements, widgets and watch companions, optional cloud sync, local
+          backup, and app lock. Beyond tracking, {APP_NAME} is a place to learn: structured lessons
           on aqeedah, the prophets, the seerah, and the Hereafter; a guided path to read and
-          understand the Qur'an; and practical worship guides for salah, wudu, zakat, and hajj —
-          every lesson referenced to Qur'an and authenticated hadith.
+          understand the Qur&apos;an; and practical worship guides for salah, wudu, zakat, and hajj
+          — every lesson referenced to Qur&apos;an and authenticated hadith. The interface ships in
+          23 languages.
         </p>
       </ContentSection>
 

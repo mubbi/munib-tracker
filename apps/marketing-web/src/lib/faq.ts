@@ -18,7 +18,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Does it work offline?",
     answer:
-      "Yes. Prayer tracking, qaza, adhkar, tasbeeh, bundled Qur'an and hadith highlights, duas, the learning library, and worship guides all work without an internet connection. Full hadith collections and extra Qur'an translations download on demand and are cached.",
+      "Yes. Prayer tracking, qaza, adhkar, tasbeeh, bundled Qur'an and hadith highlights, duas, the learning library, and worship guides all work without an internet connection. Full hadith collections, extra Qur'an translations, tafsir, and audio download on demand and can be cached from Settings → Offline data.",
   },
   {
     question: "Is it just a prayer tracker, or does it teach too?",
@@ -27,12 +27,12 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "Which platforms are supported?",
-    answer: `${APP_NAME} runs on iOS, Android, and web from a single codebase. Use it in the browser or install the native app when available on the App Store and Google Play.`,
+    answer: `${APP_NAME} runs on iOS, Android, and web from a single codebase. Native builds add home-screen widgets, Live Activities (iOS), Apple Watch and Wear OS companions, Siri / Assistant shortcuts, haptics, and app lock. Use it in the browser or install the native app when available on the App Store and Google Play.`,
   },
   {
     question: "How accurate are prayer times?",
     answer:
-      "Times are calculated for your GPS location or chosen city using standard Islamic prayer-time methods. You can refresh location from the home screen at any time.",
+      "Times are calculated on-device for your GPS location or chosen city using standard Islamic methods (14 calculation methods, Shafi/Hanafi Asr madhab, high-latitude rules, and optional per-prayer minute offsets). You can refresh location from the home screen at any time.",
   },
   {
     question: "Can I trust the religious content?",
@@ -42,21 +42,26 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "What data do you collect?",
     answer:
-      "In guest mode, nothing leaves your device. If you sign in, we store the minimum needed to sync your worship records and account identifier from your provider. We do not sell data or use it for advertising. See our Privacy Policy for details.",
+      "In guest mode, nothing leaves your device. If you sign in, we store the minimum needed to sync your worship and learning records and an account identifier from Google or Apple. The product app does not sell data or use advertising SDKs. See our Privacy Policy for location, notifications, backups, and this website's optional analytics.",
   },
   {
     question: "Which languages are supported?",
     answer:
-      "The app interface is available in English, Arabic (with full RTL layout), and Urdu. Translation language for religious content can be set separately in settings.",
+      "The app interface ships in 23 locales, including English, Arabic, Urdu, Indonesian, Turkish, Bengali, Malay, Persian, French, and more — with full RTL for Arabic, Urdu, Persian, Pashto, and Kurdish. Scripture translation language for religious content can be set separately in settings.",
   },
   {
     question: "How do reminders work?",
     answer:
-      "You control every reminder category: prayer times, qaza, after-azan, morning/evening adhkar, before sleep (using your bedtime setting), and achievements. All are off until you enable them.",
+      "You control every reminder category: prayer times (with optional adhan playback and styles), sunnah, qaza, after-adhan, morning/evening adhkar, before sleep (using your bedtime setting), daily content, Friday reminders, and achievements. All are off until you enable them. On iOS you can also opt into Live Activities for the next prayer.",
+  },
+  {
+    question: "Can I back up or lock the app?",
+    answer:
+      "Yes. Export or import a local JSON backup from Settings, manage offline downloads, and on native builds enable a PIN with optional biometrics. You can also customize which home modules and library items appear.",
   },
   {
     question: "How do I report a content error?",
     answer:
-      "Accuracy in religious content is a trust we take seriously. Use the support link in the app to report errors and we will correct them promptly.",
+      "Accuracy in religious content is a trust we take seriously. Use the in-app report flow (Settings → My reports) or our contact form, and we will correct errors promptly.",
   },
 ];

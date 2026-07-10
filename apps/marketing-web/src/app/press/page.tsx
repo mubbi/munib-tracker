@@ -30,11 +30,11 @@ export default function PressPage() {
       <ContentSection heading="Boilerplate">
         <p className="text-muted">
           <strong>{APP_NAME}</strong> — {APP_TAGLINE} Available on iOS, Android, and web. Free for
-          personal and educational use with no ads. Features include prayer tracking, qaza
-          calculator and planner, adhkar and tasbeeh, offline Qur'an and hadith, qibla, and Hijri
-          calendar — plus a full learning library (aqeedah, prophets, seerah, the Hereafter, and
-          Qur'an study) and step-by-step worship guides for salah, wudu, zakat, and hajj, with
-          optional cloud sync.
+          personal and educational use with no ads. Features include salah tracking, qaza calculator
+          and planner, adhkar and tasbeeh, offline Qur&apos;an (surah, juz, 604-page mushaf) and
+          hadith, qibla, Hijri events, widgets and watch companions, 23 languages, and optional
+          cloud sync — plus a full learning library (aqeedah, prophets, seerah, the Hereafter, and
+          Qur&apos;an study) and step-by-step worship guides for salah, wudu, zakat, and hajj.
         </p>
       </ContentSection>
 
@@ -63,7 +63,10 @@ export default function PressPage() {
         <ul className="list-inside list-disc text-sm text-muted">
           <li>Display & UI: Spline Sans</li>
           <li>Headlines: Lora (serif accent)</li>
-          <li>Arabic content in-app: system serif stack</li>
+          <li>
+            Arabic content in-app: Amiri, Scheherazade New, Noto Naskh Arabic, QPC Hafs
+            (user-selectable)
+          </li>
         </ul>
       </ContentSection>
 

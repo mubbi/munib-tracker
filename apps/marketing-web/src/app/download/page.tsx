@@ -30,7 +30,7 @@ const PLATFORMS: Platform[] = [
     status: "Available now",
     available: true,
     description:
-      "Use Munib Tracker in any modern browser. Works offline as a progressive web app with notification support.",
+      "Use Munib Tracker in any modern browser. Works offline as a progressive web app with notification support and the full learning library.",
     cta: { label: "Open web app", href: PRODUCT_APP_URL },
   },
   {
@@ -39,7 +39,7 @@ const PLATFORMS: Platform[] = [
     status: "Coming to the App Store",
     available: false,
     description:
-      "Native tabs, haptics, compass qibla, and Apple Sign In. TestFlight builds available during beta.",
+      "Native tabs, haptics, compass qibla, widgets, Live Activities, Apple Watch, Siri shortcuts, app lock, and Apple Sign In. TestFlight builds available during beta.",
     cta: null,
   },
   {
@@ -48,7 +48,7 @@ const PLATFORMS: Platform[] = [
     status: "Coming to Google Play",
     available: false,
     description:
-      "Full native experience with magnetometer qibla, Google Sign In, and local notifications.",
+      "Full native experience with magnetometer qibla, home-screen widgets, Wear OS, Assistant shortcuts, app lock, Google Sign In, and local notifications.",
     cta: null,
   },
 ];
@@ -115,8 +115,9 @@ export default function DownloadPage() {
 
       <ContentSection heading="Guest mode">
         <p className="text-muted">
-          No account needed. Install or open the app and start tracking immediately. Sign in with
-          Google or Apple later to back up prayers, qaza, and zikr across your devices.
+          No account needed. Install or open the app and start tracking immediately. Export a local
+          backup anytime, or sign in with Google or Apple later to sync prayers, qaza, zikr, and
+          learning progress across your devices.
         </p>
       </ContentSection>
     </ContentPage>

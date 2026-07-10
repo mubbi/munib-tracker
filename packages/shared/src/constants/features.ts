@@ -61,7 +61,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Morning, evening, and situational adhkar with favorites, daily progress, and a tactile tasbeeh counter.",
     highlights: [
       "Seven adhkar categories plus favorites you can reorder",
-      "Free tasbeeh with presets and custom targets",
+      "Custom adhkar builder and free tasbeeh with presets",
       "Zikr-linked counters that save to your daily goal",
       "Bedtime-aware before-sleep reminders",
     ],
@@ -72,10 +72,10 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Read, search, and listen — Qur'an, hadith, duas, duroods, and the 99 Names bundled for the road.",
     highlights: [
-      "Full Qur'an with recitation, bookmarks, and ayah search",
+      "Full mushaf: surah, juz, 604-page view, khatm & hifz",
+      "Side-by-side translations, tafsir on demand, and recitation",
       "Bundled Nawawi 40 & Riyad as-Salihin; six books on demand",
-      "Duas by category, duroods, and 99 Names with audio",
-      "Universal fuzzy search across all corpora",
+      "Duas, duroods, 99 Names, and universal fuzzy search",
     ],
   },
   {
@@ -110,8 +110,8 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     highlights: [
       "Salah guide plus wudu and taharah with a daily checklist",
       "Zakat calculator with nisab and an interactive hajj step tracker",
-      "Rulings for travel, illness, and hayd — worship at your capacity",
-      "Ramadan fasting tracker and a tahajjud night log",
+      "Travel (qasr/jam'), illness, and hayd — worship at your capacity",
+      "Ramadan tracker, tahajjud log, and khushu' prayer journal",
     ],
   },
   {
@@ -120,9 +120,9 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Know when to pray and which way to face — accurate times, Hijri calendar, moon insights, and qibla compass.",
     highlights: [
-      "GPS or city search for location",
-      "Gregorian or Hijri month views",
-      "Moon phase on the home hero",
+      "GPS or city search with 14 calculation methods and Asr madhab",
+      "Per-prayer tuning, high-latitude rules, and reminder offsets",
+      "Hijri events calendar, moon phase, and optional weather",
       "Qibla compass with alignment haptic (native)",
     ],
   },
@@ -132,10 +132,10 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Statistics, achievements, and reminders that encourage the journey — never shame you for where you are.",
     highlights: [
-      "Week, month, and year charts for prayers and zikr",
+      "Week, month, and year charts plus a weekly worship report",
       "Infinite Salah, Streak, Zikr, and Consistency tracks that never cap out",
       "Growing Noor devotion levels and today's combined salah + dhikr goal",
-      "Optional prayer, zikr, and qaza reminders",
+      "Optional prayer, zikr, qaza, daily content, and Friday reminders",
     ],
   },
   {
@@ -153,12 +153,12 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     id: "personalize",
     title: "Make the app yours",
     summary:
-      "Light, dark, or system theme — twelve accent presets, custom colors, fonts, and three languages.",
+      "Light, dark, or system theme — twelve accent presets, custom colors, fonts, and twenty-three languages.",
     highlights: [
-      "Warm cream and deep-forest palettes",
-      "12 accent colors plus custom hex picker",
-      "Separate Arabic and translation font sizes",
-      "English, Arabic (RTL), and Urdu",
+      "23 UI locales with RTL for Arabic, Urdu, Persian, Pashto, and Kurdish",
+      "12 accent colors plus custom hex picker; seasonal Hijri themes",
+      "Arabic font families (Amiri, Scheherazade, Noto Naskh, QPC Hafs) and sizes",
+      "Customizable home modules, quick actions, and library order",
     ],
   },
   {
@@ -168,20 +168,21 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Your journey stays on your device until you choose to sign in and sync with Google or Apple.",
     highlights: [
       "No account required for full functionality",
-      "Local-first storage with optional backup",
-      "No ads or behavioural tracking SDKs",
-      "Delete account and data anytime",
+      "Local backup export/import and offline download manager",
+      "Optional PIN / biometric app lock on native",
+      "No ads in the app; delete account and data anytime",
     ],
   },
   {
     id: "platform",
     title: "Wherever you are",
-    summary: "iOS, Android, and web — the same calm companion on phone, tablet, or browser.",
+    summary:
+      "iOS, Android, and web — plus widgets, Live Activities, Watch, Wear, and voice shortcuts.",
     highlights: [
-      "Native tabs and haptics on mobile",
-      "PWA-friendly web with notification support",
-      "Sync across devices when signed in",
-      "Free for personal and educational use",
+      "Home-screen widgets and iOS Live Activities / Dynamic Island",
+      "Apple Watch and Wear OS companions to view and mark salah",
+      "Siri and Google Assistant shortcuts; app-icon quick actions",
+      "PWA-friendly web with sync when signed in — free for personal use",
     ],
   },
 ];
@@ -205,7 +206,7 @@ export const APP_HOME_FEATURES: AppHomeFeature[] = [
     id: "quran",
     title: "Qur'an reader",
     description:
-      "Read with Arabic, transliteration, and translation. Bookmark ayahs, listen, and search offline.",
+      "Surah, juz, and 604-page mushaf — translations, tafsir, recitation, khatm, and hifz offline.",
     icon: "quran",
   },
   {
@@ -246,7 +247,7 @@ export const APP_HOME_FEATURES: AppHomeFeature[] = [
     id: "reminders",
     title: "Gentle reminders",
     description:
-      "Optional nudges for prayer, zikr, and qaza — every category off until you enable it.",
+      "Prayer, adhan styles, adhkar, qaza, daily content, and Friday nudges — all off until you enable them.",
     icon: "reminders",
   },
 ];

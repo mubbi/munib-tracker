@@ -1,3 +1,4 @@
+import { RUNTIME_DATA_CREDITS } from "@munib-tracker/shared/constants";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import * as WebBrowser from "expo-web-browser";
@@ -23,39 +24,13 @@ interface CreditRow {
   note?: string;
 }
 
-// Runtime (non-bundled) sources are not in the build manifest — list them here.
-const RUNTIME_SOURCES: CreditRow[] = [
-  {
-    name: "Extra Qur'an translations",
-    license: "Free to use, © respective authors",
-    attribution: "Saheeh International & Clear Qur'an (Khattab) fetched on demand.",
-    sourceUrl: "https://github.com/fawazahmed0/quran-api",
-  },
-  {
-    name: "Full hadith collections",
-    license: "Public domain (classical text)",
-    attribution: "The six books via fawazahmed0/hadith-api.",
-    sourceUrl: "https://github.com/fawazahmed0/hadith-api",
-  },
-  {
-    name: "Qur'an recitation audio",
-    license: "Free to stream",
-    attribution: "Per-ayah recitations from everyayah.com.",
-    sourceUrl: "https://everyayah.com/",
-  },
-  {
-    name: "Audio translation & adhkar audio",
-    license: "Free to stream",
-    attribution: "QuranicAudio.com and Internet Archive.",
-    sourceUrl: "https://archive.org/",
-  },
-  {
-    name: "Adhan call audio",
-    license: "Bundled clip, © reciter",
-    attribution: "Bundled call-to-prayer clip.",
-    sourceUrl: "https://github.com/itsnavee/prayeraudio",
-  },
-];
+const RUNTIME_SOURCES: CreditRow[] = RUNTIME_DATA_CREDITS.map((c) => ({
+  name: c.name,
+  license: c.license,
+  attribution: c.attribution,
+  sourceUrl: c.url,
+  note: c.note,
+}));
 
 export default function CreditsScreen() {
   const router = useRouter();

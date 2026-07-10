@@ -45,7 +45,7 @@ const BENEFITS = [
     icon: ShieldCheck,
     title: "Private by default",
     description:
-      "Everything works offline and stays on your device. No account, no ads, no behavioural tracking.",
+      "Everything works offline and stays on your device. No account required, no ads in the app, optional sync when you want it.",
   },
 ];
 

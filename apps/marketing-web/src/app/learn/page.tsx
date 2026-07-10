@@ -133,9 +133,10 @@ const FIQH: Area[] = [
   },
   {
     icon: Moon,
-    title: "Ramadan & tahajjud",
-    meta: "Trackers",
-    description: "A fasting tracker with suhoor/iftar times and a night-prayer log.",
+    title: "Ramadan, tahajjud & journal",
+    meta: "Trackers + khushu'",
+    description:
+      "A fasting tracker with suhoor/iftar times, a night-prayer log, and a khushu' prayer journal.",
   },
 ];
 

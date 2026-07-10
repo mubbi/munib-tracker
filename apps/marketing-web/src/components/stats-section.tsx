@@ -5,7 +5,7 @@ const STATS = [
   { value: 6236, label: "Qur'an ayahs, fully offline" },
   { value: 300, suffix: "+", label: "Lessons across the library" },
   { value: 99, label: "Names of Allah, with audio" },
-  { value: 3, label: "Languages · EN · AR · UR" },
+  { value: 23, label: "Languages · UI + RTL" },
 ];
 
 export function StatsSection() {
