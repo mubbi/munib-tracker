@@ -84,9 +84,35 @@ function logReleaseVersionSummary(projectRoot, { activePlatform } = {}) {
   console.log("");
 }
 
+function resolveSentryReleaseUploadEnv() {
+  const hasAuthToken = Boolean(process.env.SENTRY_AUTH_TOKEN?.trim());
+  const explicitDisable = process.env.SENTRY_DISABLE_AUTO_UPLOAD === "true";
+  const explicitEnable = process.env.SENTRY_DISABLE_AUTO_UPLOAD === "false";
+
+  if (explicitDisable || (!hasAuthToken && !explicitEnable)) {
+    return {
+      env: { SENTRY_DISABLE_AUTO_UPLOAD: "true" },
+      skipReason: explicitDisable
+        ? "SENTRY_DISABLE_AUTO_UPLOAD=true"
+        : "SENTRY_AUTH_TOKEN is not set",
+    };
+  }
+
+  return { env: {}, skipReason: null };
+}
+
 function buildNativeReleaseProcessEnv() {
+  const { env: sentryEnv, skipReason } = resolveSentryReleaseUploadEnv();
+  if (skipReason) {
+    console.log(
+      `Sentry source-map upload disabled for this build (${skipReason}).\n` +
+        "  Set SENTRY_AUTH_TOKEN in apps/app/.env to upload maps, or SENTRY_DISABLE_AUTO_UPLOAD=false to force upload.\n",
+    );
+  }
+
   return {
     ...process.env,
+    ...sentryEnv,
     NODE_ENV: "production",
     EXPO_PUBLIC_APP_VERSION: process.env.EXPO_PUBLIC_APP_VERSION,
   };

@@ -1,10 +1,11 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { getDefaultConfig } = require("expo/metro-config");
-const { withSentryConfig } = require("@sentry/react-native/metro");
+const { getSentryExpoConfig } = require("@sentry/react-native/metro");
 
 const projectRoot = __dirname;
-const config = getDefaultConfig(projectRoot);
+const config = getSentryExpoConfig(projectRoot, {
+  autoWrapExpoRouterErrorBoundary: true,
+});
 
 // `@/assets/*` maps to `./assets/*` in tsconfig (not `./src/assets/*` like `@/*`).
 // Mirror jest.config.js: resolve this before the generic `@/*` alias.
@@ -90,6 +91,4 @@ config.server.enhanceMiddleware = (middleware) => {
   };
 };
 
-module.exports = withSentryConfig(config, {
-  autoWrapExpoRouterErrorBoundary: true,
-});
+module.exports = config;
