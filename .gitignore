@@ -25,6 +25,9 @@ expo-env.d.ts
 apps/app/android/
 apps/app/ios/
 
+# Local Expo module Gradle outputs (keep android/src; ignore build/)
+apps/app/modules/**/android/build/
+
 # Testing
 coverage/
 
