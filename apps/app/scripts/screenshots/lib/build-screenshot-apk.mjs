@@ -6,8 +6,24 @@ import { log, run, runCapture, warn } from "./shell.mjs";
 const ANDROID_DIR = path.join(APP_ROOT, "android");
 const APP_BUILD_GRADLE = path.join(ANDROID_DIR, "app", "build.gradle");
 const GRADLEW = process.platform === "win32" ? "gradlew.bat" : "./gradlew";
-const RELEASE_APK = path.join(ANDROID_DIR, "app", "build", "outputs", "apk", "release", "app-release.apk");
-const DEBUG_APK = path.join(ANDROID_DIR, "app", "build", "outputs", "apk", "debug", "app-debug.apk");
+const RELEASE_APK = path.join(
+  ANDROID_DIR,
+  "app",
+  "build",
+  "outputs",
+  "apk",
+  "release",
+  "app-release.apk",
+);
+const DEBUG_APK = path.join(
+  ANDROID_DIR,
+  "app",
+  "build",
+  "outputs",
+  "apk",
+  "debug",
+  "app-debug.apk",
+);
 
 /**
  * Patch release buildType so the APK stays debuggable (run-as storage seed)
@@ -15,9 +31,7 @@ const DEBUG_APK = path.join(ANDROID_DIR, "app", "build", "outputs", "apk", "debu
  */
 function withDebuggableReleaseBuildGradle(fn) {
   if (!fs.existsSync(APP_BUILD_GRADLE)) {
-    throw new Error(
-      `Missing ${APP_BUILD_GRADLE}. Run: pnpm prebuild:app:android`,
-    );
+    throw new Error(`Missing ${APP_BUILD_GRADLE}. Run: pnpm prebuild:app:android`);
   }
   const original = fs.readFileSync(APP_BUILD_GRADLE, "utf8");
   const marker = "// munib-screenshot-apk: debuggable release for Maestro captures";
@@ -28,7 +42,11 @@ function withDebuggableReleaseBuildGradle(fn) {
   let patched = original;
   // Prefer patching the existing minifyEnabled line inside buildTypes.release so we
   // are not overridden by a later assignment in the same block.
-  if (/buildTypes\s*\{[\s\S]*?release\s*\{[\s\S]*?minifyEnabled\s+enableMinifyInReleaseBuilds/.test(original)) {
+  if (
+    /buildTypes\s*\{[\s\S]*?release\s*\{[\s\S]*?minifyEnabled\s+enableMinifyInReleaseBuilds/.test(
+      original,
+    )
+  ) {
     patched = original.replace(
       /(buildTypes\s*\{[\s\S]*?release\s*\{)/,
       `$1\n            ${marker}\n            debuggable true\n`,
@@ -117,9 +135,14 @@ export function buildAndInstallScreenshotApk({ adb, serial, skipBuild = false } 
   const result = runCapture(adb, args);
   if (!result.ok) {
     // Fallback without --no-incremental for older adb
-    const fallback = runCapture(adb, serial ? ["-s", serial, "install", "-r", "-d", apkPath] : ["install", "-r", "-d", apkPath]);
+    const fallback = runCapture(
+      adb,
+      serial ? ["-s", serial, "install", "-r", "-d", apkPath] : ["install", "-r", "-d", apkPath],
+    );
     if (!fallback.ok) {
-      throw new Error(`adb install failed:\n${result.stderr || result.stdout}\n${fallback.stderr || fallback.stdout}`);
+      throw new Error(
+        `adb install failed:\n${result.stderr || result.stdout}\n${fallback.stderr || fallback.stdout}`,
+      );
     }
   }
   log(`Installed: ${apkPath}`);
@@ -169,4 +192,4 @@ export function launchScreenshotApp({ adb, packageId }) {
   }
 }
 
-export { RELEASE_APK, DEBUG_APK };
+export { DEBUG_APK, RELEASE_APK };

@@ -23,8 +23,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { APP_ID, APP_ROOT, TIMING, WORK_DIR } from "./lib/config.mjs";
 import { buildAndInstallScreenshotApk, launchScreenshotApp } from "./lib/build-screenshot-apk.mjs";
+import { APP_ID, APP_ROOT, TIMING, WORK_DIR } from "./lib/config.mjs";
 import {
   injectDemoStorageAndroid,
   listAndroidDevices,

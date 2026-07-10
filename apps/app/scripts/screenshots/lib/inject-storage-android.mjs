@@ -33,9 +33,7 @@ function resolveSqlite3() {
     "sqlite3.exe",
   );
   if (winDefault && fs.existsSync(winDefault)) return winDefault;
-  throw new Error(
-    "sqlite3 not found on host. Install Android platform-tools or set SQLITE3_PATH.",
-  );
+  throw new Error("sqlite3 not found on host. Install Android platform-tools or set SQLITE3_PATH.");
 }
 
 function runSqlite(sqlite3, dbPath, sql) {

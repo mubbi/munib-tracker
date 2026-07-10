@@ -96,13 +96,7 @@ function sceneSteps(scene, { locale, tabs, prayers, outputDir }) {
   if (!scene.keepOverlay && scene.type !== "tab") {
     // Conditional back-dismiss. Skip for tabs — Maestro 2.6 on Windows can hang
     // forever evaluating `when: visible: "Back"` against a flaky hierarchy.
-    steps.push(
-      `- runFlow:`,
-      `    when:`,
-      `      visible: "Back"`,
-      `    commands:`,
-      `      - back`,
-    );
+    steps.push(`- runFlow:`, `    when:`, `      visible: "Back"`, `    commands:`, `      - back`);
   }
 
   steps.push(`- takeScreenshot: ${yamlQuote(outFile)}`);
