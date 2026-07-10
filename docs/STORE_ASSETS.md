@@ -13,14 +13,15 @@ End-to-end workflow for Munib Tracker **App Store Connect** and **Google Play Co
                                 │ dark captures → STUDIO_ALIASES copy
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 2. Studio inputs (7 JPEG filenames per locale)                          │
-│    → store-assets/captures/<locale>/{home,tracker,qaza,…}.jpg           │
+│ 2. Studio inputs (per platform × locale)                                │
+│    → store-assets/captures/{android|ios}/<locale>/{home,tracker,…}.jpg │
 └───────────────────────────────┬─────────────────────────────────────────┘
                                 │ pnpm sync:screenshot-captures
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────────┐
 │ 3. Screenshot Studio editor (Next.js, port 3010)                      │
 │    pnpm dev:screenshot-studio → export bundles                          │
+│    iPhone/iPad decks ← captures/ios · Android decks ← captures/android  │
 └───────────────────────────────┬─────────────────────────────────────────┘
                                 │ pnpm distribute:screenshot-exports
                                 ▼
@@ -65,7 +66,7 @@ Full detail: [`apps/app/scripts/screenshots/README.md`](../apps/app/scripts/scre
 
 ### Studio alias mapping
 
-After each dark capture run for a **studio locale** (`packages/store-screenshots/spec.json`, typically en/ar/ur), key scenes are copied into `store-assets/captures/<locale>/` for the marketing editor (`lib/config.mjs` → `STUDIO_ALIASES`):
+After each dark capture run for a **studio locale** (`packages/store-screenshots/spec.json`, typically en/ar/ur), key scenes are copied into `store-assets/captures/<platform>/<locale>/` for the marketing editor (`lib/config.mjs` → `STUDIO_ALIASES`):
 
 | Studio file | Source scene |
 |-------------|--------------|
@@ -78,7 +79,7 @@ After each dark capture run for a **studio locale** (`packages/store-screenshots
 | `names-of-allah.jpg` | `names-of-allah` |
 | `tasbeeh.jpg` | `tasbeeh` |
 
-Native Maestro output is PNG; files land with `.jpg` names for deck compatibility. `sync-app-screenshots.mjs` accepts `.jpg`, `.jpeg`, or `.png` sources.
+Native Maestro output is PNG; files land with `.jpg` names for deck compatibility. `sync-app-screenshots.mjs` accepts `.jpg`, `.jpeg`, or `.png` sources. iOS and Android stay in separate trees so captures never overwrite across platforms.
 
 ## Screenshot Studio (`tools/screenshot-studio/`)
 
@@ -104,7 +105,7 @@ Full detail: [`tools/screenshot-studio/README.md`](../tools/screenshot-studio/RE
 | Path | Purpose |
 |------|---------|
 | `captures-native/` | Full native matrix (platform × locale × theme × scene) |
-| `captures/<locale>/` | Seven studio input images per locale |
+| `captures/<android\|ios>/<locale>/` | Studio input images per platform × locale |
 | `ios/screenshots/` | App Store PNGs (6.9", 6.5", iPad 13") |
 | `android/screenshots/` | Play Store PNGs (phone, 7", 10" portrait/landscape) |
 | `android/feature-graphic/` | Play feature graphic 1024×500 |

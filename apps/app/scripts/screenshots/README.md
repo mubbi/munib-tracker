@@ -8,7 +8,7 @@ Part of the store-assets pipeline — see [`docs/STORE_ASSETS.md`](../../../../d
 
 | Tool | Android | iOS |
 |------|---------|-----|
-| App build | Built by `screenshots:android` (release + embedded JS, temporarily debuggable) | `pnpm --filter app ios` (macOS) |
+| App build | Built by `screenshots:android` (release + embedded JS, temporarily debuggable) | `screenshots:ios` builds Release simulator app (embedded JS, no Metro) |
 | Emulator / Simulator | Android SDK + AVD | Xcode Simulator |
 | Automation | [Maestro CLI](https://maestro.mobile.dev) | Maestro CLI |
 | Storage seed | Host `sqlite3` + `adb` base64 push into `RKStorage` | Host `sqlite3` + `xcrun simctl` |
@@ -52,7 +52,7 @@ apps/app/store-assets/captures-native/
   ios/<locale>/<theme>/<scene>.png
 ```
 
-After each **dark** capture for a **studio locale**, marketing scenes are copied to `store-assets/captures/<locale>/` (`STUDIO_ALIASES` in `lib/config.mjs`):
+After each **dark** capture for a **studio locale**, marketing scenes are copied to `store-assets/captures/<platform>/<locale>/` (`STUDIO_ALIASES` in `lib/config.mjs`):
 
 | Studio file | Scene id |
 |-------------|----------|
@@ -64,6 +64,8 @@ After each **dark** capture for a **studio locale**, marketing scenes are copied
 | `qibla.jpg` | `qibla` |
 | `names-of-allah.jpg` | `names-of-allah` |
 | `tasbeeh.jpg` | `tasbeeh` |
+
+Android and iOS write to separate folders (`captures/android/…` vs `captures/ios/…`) so one platform never overwrites the other.
 
 Then run `pnpm sync:screenshot-captures` from the repo root.
 

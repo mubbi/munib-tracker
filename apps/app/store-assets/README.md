@@ -11,7 +11,9 @@ store-assets/
 ├── captures-native/          # Full native matrix (Maestro) — optional to commit
 │   ├── android/<locale>/<theme>/<scene>.png
 │   └── ios/<locale>/<theme>/<scene>.png
-├── captures/<locale>/        # Studio inputs (7 images per locale)
+├── captures/                 # Studio inputs — **per platform** (do not share)
+│   ├── android/<locale>/
+│   └── ios/<locale>/
 ├── ios/screenshots/          # Final App Store PNGs
 ├── android/screenshots/      # Final Play Store PNGs
 └── android/feature-graphic/  # Play feature graphic 1024×500
@@ -31,7 +33,7 @@ Designed store screenshots (advertisement-style, dark brand theme matching the m
 | Play 7" tablet (1200×1920 / 1920×1200) | `android/screenshots/tablet-7-inch/{portrait,landscape}/<locale>/NN-<scene>.png` |
 | Play 10" tablet (1600×2560 / 2560×1600) | `android/screenshots/tablet-10-inch/{portrait,landscape}/<locale>/NN-<scene>.png` |
 
-Scenes per locale: `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-privacy`, `06-offline`, `07-more`.
+Scenes per locale: `01-home`, `02-salah`, `03-qaza`, `04-library`, `05-qibla`, `06-names`, `07-more`.
 
 **Regenerate:**
 
@@ -47,32 +49,26 @@ See also `tools/screenshot-studio/README.md`.
 
 ## Raw app captures (inputs to the studio)
 
-Seven images per locale before exporting marketing frames:
+Eight images per **platform** × locale × theme before exporting marketing frames:
 
 ```
-captures/<locale>/
+captures/android/<locale>/{light,dark}/
+captures/ios/<locale>/{light,dark}/
   home.jpg
   tracker.jpg
   qaza.jpg
   zikr.jpg
   quran.jpg
-  settings-privacy.jpg
-  settings-sync.jpg
+  qibla.jpg
+  names-of-allah.jpg
+  tasbeeh.jpg
 ```
 
-**Automated:** `pnpm screenshots:android` or `pnpm screenshots:ios` seeds demo data via Maestro, captures all screens, and copies dark marketing aliases into `captures/<locale>/` (see `apps/app/scripts/screenshots/lib/config.mjs` → `STUDIO_ALIASES`).
+iOS and Android captures stay separate so one platform never overwrites the other. Screenshot Studio marketing decks use **light** captures by default (`studioTheme` in `packages/store-screenshots/spec.json`, override with `STUDIO_THEME=dark`). iPhone/iPad decks read `captures/ios/…/light/`; Android decks read `captures/android/…/light/`.
+
+**Automated:** `pnpm screenshots:android` or `pnpm screenshots:ios` seeds demo data via Maestro, captures all screens, and copies dark marketing aliases into `captures/<platform>/<locale>/` (see `apps/app/scripts/screenshots/lib/config.mjs` → `STUDIO_ALIASES`).
 
 **Manual:** run the app on iOS Simulator or Android emulator at native resolution in dark mode; switch locale before each batch. JPEG or PNG accepted.
-
-| Studio file | App screen |
-|-------------|------------|
-| `home.jpg` | Home tab |
-| `tracker.jpg` | Salah tracker (or status sheet variant) |
-| `qaza.jpg` | Qaza planner |
-| `zikr.jpg` | Adhkar / zikr |
-| `quran.jpg` | Qur'an reader |
-| `settings-privacy.jpg` | Settings → offline data |
-| `settings-sync.jpg` | Settings → backup |
 
 ## Native capture archive
 

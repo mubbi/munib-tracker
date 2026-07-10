@@ -9,6 +9,7 @@ import {
   STUDIO_ALIASES,
   STUDIO_CAPTURE_ROOT,
   STUDIO_LOCALES,
+  STUDIO_THEME,
   studioAliasPath,
   THEMES,
   TIMING,
@@ -149,14 +150,17 @@ export function plannedOutputPaths(platform, locales, themes, scenes) {
   return paths;
 }
 
-/** Copy dark marketing scenes into captures/<locale>/ for screenshot-studio. */
+/**
+ * Copy marketing scenes into captures/<platform>/<locale>/<theme>/ for both light and dark.
+ * Screenshot-studio syncs from STUDIO_THEME (default: light).
+ */
 export function syncStudioAliases(platform, locale, theme) {
-  if (theme !== "dark") return [];
+  if (!THEMES.includes(theme)) return [];
   if (!STUDIO_LOCALES.includes(locale)) return [];
   const copied = [];
   for (const [sceneId, aliasFile] of Object.entries(STUDIO_ALIASES)) {
     const src = outputPath(platform, locale, theme, sceneId, "png");
-    const dest = studioAliasPath(locale, aliasFile);
+    const dest = studioAliasPath(platform, locale, theme, aliasFile);
     if (fs.existsSync(src)) {
       fs.mkdirSync(path.dirname(dest), { recursive: true });
       fs.copyFileSync(src, dest);
@@ -164,4 +168,9 @@ export function syncStudioAliases(platform, locale, theme) {
     }
   }
   return copied;
+}
+
+/** Theme folder screenshot-studio should load (default light). */
+export function studioThemeForSync() {
+  return THEMES.includes(STUDIO_THEME) ? STUDIO_THEME : "light";
 }

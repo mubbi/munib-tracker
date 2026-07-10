@@ -1,5 +1,7 @@
 {
   "locales": ["en", "ar", "ur"],
+  "platforms": ["android", "ios"],
+  "studioTheme": "light",
   "captureFiles": [
     "home",
     "tracker",

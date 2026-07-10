@@ -5,7 +5,7 @@
   "connectedCanvas": false,
   "locales": ["en", "ar", "ur"],
   "locale": "en",
-  "device": "feature-graphic",
+  "device": "ipad",
   "orientation": "portrait",
   "appIcon": "/app-icon.png",
   "slidesByDevice": {
@@ -23,7 +23,7 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/{locale}/home.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
         "textElements": [
           {
             "id": "hero-badge",
@@ -59,7 +59,7 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg"
       },
       {
         "id": "mt-iphone-03",
@@ -74,7 +74,7 @@
           "ar": "أنجِ **القضاء**\nبوضوح",
           "ur": "**قضا** واضح\nطریقے سے"
         },
-        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/qaza.jpg",
         "inverted": true
       },
       {
@@ -90,8 +90,8 @@
           "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
-        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
       },
       {
         "id": "mt-iphone-05",
@@ -106,7 +106,7 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg"
       },
       {
         "id": "mt-iphone-06",
@@ -121,7 +121,7 @@
           "ar": "الأسماء الحسنى\nمع **الصوت**",
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
-        "screenshot": "/screenshots/app/{locale}/names-of-allah.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/names-of-allah.jpg",
         "inverted": true
       },
       {
@@ -137,7 +137,7 @@
           "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
           "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
         },
-        "screenshot": "/screenshots/app/{locale}/tasbeeh.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
         "inverted": true
       }
     ],
@@ -155,7 +155,7 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/{locale}/home.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg",
         "textElements": [
           {
             "id": "hero-badge",
@@ -191,7 +191,7 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
       },
       {
         "id": "mt-android-03",
@@ -206,7 +206,7 @@
           "ar": "أنجِ **القضاء**\nبوضوح",
           "ur": "**قضا** واضح\nطریقے سے"
         },
-        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
         "inverted": true
       },
       {
@@ -222,8 +222,8 @@
           "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
-        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
       },
       {
         "id": "mt-android-05",
@@ -238,7 +238,7 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
       },
       {
         "id": "mt-android-06",
@@ -253,7 +253,7 @@
           "ar": "الأسماء الحسنى\nمع **الصوت**",
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
-        "screenshot": "/screenshots/app/{locale}/names-of-allah.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
         "inverted": true
       },
       {
@@ -269,7 +269,7 @@
           "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
           "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
         },
-        "screenshot": "/screenshots/app/{locale}/tasbeeh.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
         "inverted": true
       }
     ],
@@ -287,7 +287,7 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/{locale}/home.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/home.jpg",
         "textElements": [
           {
             "id": "hero-badge",
@@ -323,7 +323,7 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/tracker.jpg"
       },
       {
         "id": "mt-ipad-03",
@@ -338,7 +338,7 @@
           "ar": "أنجِ **القضاء**\nبوضوح",
           "ur": "**قضا** واضح\nطریقے سے"
         },
-        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/qaza.jpg",
         "inverted": true
       },
       {
@@ -354,8 +354,8 @@
           "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
-        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/ios/{locale}/quran.jpg"
       },
       {
         "id": "mt-ipad-05",
@@ -370,7 +370,7 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/ios/{locale}/qibla.jpg"
       },
       {
         "id": "mt-ipad-06",
@@ -385,7 +385,7 @@
           "ar": "الأسماء الحسنى\nمع **الصوت**",
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
-        "screenshot": "/screenshots/app/{locale}/names-of-allah.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/names-of-allah.jpg",
         "inverted": true
       },
       {
@@ -401,7 +401,7 @@
           "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
           "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
         },
-        "screenshot": "/screenshots/app/{locale}/tasbeeh.jpg",
+        "screenshot": "/screenshots/app/ios/{locale}/tasbeeh.jpg",
         "inverted": true
       }
     ],
@@ -419,7 +419,7 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/{locale}/home.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg"
       },
       {
         "id": "mt-android-7-02",
@@ -434,7 +434,7 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
       },
       {
         "id": "mt-android-7-03",
@@ -449,7 +449,7 @@
           "ar": "أنجِ **القضاء**\nبوضوح",
           "ur": "**قضا** واضح\nطریقے سے"
         },
-        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
         "inverted": true
       },
       {
@@ -465,8 +465,8 @@
           "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
-        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
       },
       {
         "id": "mt-android-7-05",
@@ -481,7 +481,7 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
       },
       {
         "id": "mt-android-7-06",
@@ -496,7 +496,7 @@
           "ar": "الأسماء الحسنى\nمع **الصوت**",
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
-        "screenshot": "/screenshots/app/{locale}/names-of-allah.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
         "inverted": true
       },
       {
@@ -512,7 +512,7 @@
           "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
           "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
         },
-        "screenshot": "/screenshots/app/{locale}/tasbeeh.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
         "inverted": true
       }
     ],
@@ -530,7 +530,7 @@
           "ar": "تتبّع رحلتك\n**إلى الله**",
           "ur": "اپنا سفر\n**اللہ کی طرف**"
         },
-        "screenshot": "/screenshots/app/{locale}/home.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/home.jpg"
       },
       {
         "id": "mt-android-10-02",
@@ -545,7 +545,7 @@
           "ar": "ثبّت **الصلاة**\nفي يومك",
           "ur": "**نماز** میں\nاستقامت پائیں"
         },
-        "screenshot": "/screenshots/app/{locale}/tracker.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/tracker.jpg"
       },
       {
         "id": "mt-android-10-03",
@@ -560,7 +560,7 @@
           "ar": "أنجِ **القضاء**\nبوضوح",
           "ur": "**قضا** واضح\nطریقے سے"
         },
-        "screenshot": "/screenshots/app/{locale}/qaza.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/qaza.jpg",
         "inverted": true
       },
       {
@@ -576,8 +576,8 @@
           "ar": "قرآن وأذكار\n**وحديث** — بدون إنترنت",
           "ur": "قرآن، ذکر،\n**حدیث** — آف لائن"
         },
-        "screenshot": "/screenshots/app/{locale}/zikr.jpg",
-        "screenshotSecondary": "/screenshots/app/{locale}/quran.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/zikr.jpg",
+        "screenshotSecondary": "/screenshots/app/android/{locale}/quran.jpg"
       },
       {
         "id": "mt-android-10-05",
@@ -592,7 +592,7 @@
           "ar": "اعثر على **القبلة**\nفي ثوانٍ",
           "ur": "**قبلہ** چند\nسیکنڈ میں"
         },
-        "screenshot": "/screenshots/app/{locale}/qibla.jpg"
+        "screenshot": "/screenshots/app/android/{locale}/qibla.jpg"
       },
       {
         "id": "mt-android-10-06",
@@ -607,7 +607,7 @@
           "ar": "الأسماء الحسنى\nمع **الصوت**",
           "ur": "اسماء الحسنیٰ\nمع **آڈیو**"
         },
-        "screenshot": "/screenshots/app/{locale}/names-of-allah.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/names-of-allah.jpg",
         "inverted": true
       },
       {
@@ -623,7 +623,7 @@
           "ar": "ودجات · قفل PIN\nتسبيح · يوميات\n**23 لغة**",
           "ur": "وجٹس · PIN لاک\nتسبیح · جرنل\n**23 زبانیں**"
         },
-        "screenshot": "/screenshots/app/{locale}/tasbeeh.jpg",
+        "screenshot": "/screenshots/app/android/{locale}/tasbeeh.jpg",
         "inverted": true
       }
     ],

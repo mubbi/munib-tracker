@@ -115,7 +115,17 @@ const COPY = {
   },
 };
 
-const SHOT = (name) => `/screenshots/app/{locale}/${name}.jpg`;
+const SHOT = (platform, name) => `/screenshots/app/${platform}/{locale}/${name}.jpg`;
+
+/** Map studio device tabs → native capture platform folder. */
+const DEVICE_CAPTURE_PLATFORM = {
+  iphone: "ios",
+  ipad: "ios",
+  android: "android",
+  "android-7": "android",
+  "android-10": "android",
+  "feature-graphic": "android",
+};
 
 const HERO_BADGE = {
   iphone: { x: 132, y: 520, width: 1056, height: 100, fontSize: 38 },
@@ -125,13 +135,15 @@ const HERO_BADGE = {
 
 function phoneDeck(device) {
   const badge = HERO_BADGE[device];
+  const platform = DEVICE_CAPTURE_PLATFORM[device] ?? "android";
+  const shot = (name) => SHOT(platform, name);
   return [
     {
       id: `mt-${device}-01`,
       layout: "hero",
       label: COPY.hero.label,
       headline: COPY.hero.headline,
-      screenshot: SHOT("home"),
+      screenshot: shot("home"),
       ...(badge
         ? {
             textElements: [
@@ -159,14 +171,14 @@ function phoneDeck(device) {
       layout: "device-bottom",
       label: COPY.salah.label,
       headline: COPY.salah.headline,
-      screenshot: SHOT("tracker"),
+      screenshot: shot("tracker"),
     },
     {
       id: `mt-${device}-03`,
       layout: "device-top",
       label: COPY.qaza.label,
       headline: COPY.qaza.headline,
-      screenshot: SHOT("qaza"),
+      screenshot: shot("qaza"),
       inverted: true,
     },
     {
@@ -174,22 +186,22 @@ function phoneDeck(device) {
       layout: "two-devices",
       label: COPY.library.label,
       headline: COPY.library.headline,
-      screenshot: SHOT("zikr"),
-      screenshotSecondary: SHOT("quran"),
+      screenshot: shot("zikr"),
+      screenshotSecondary: shot("quran"),
     },
     {
       id: `mt-${device}-05`,
       layout: "device-bottom",
       label: COPY.qibla.label,
       headline: COPY.qibla.headline,
-      screenshot: SHOT("qibla"),
+      screenshot: shot("qibla"),
     },
     {
       id: `mt-${device}-06`,
       layout: "hero",
       label: COPY.names.label,
       headline: COPY.names.headline,
-      screenshot: SHOT("names-of-allah"),
+      screenshot: shot("names-of-allah"),
       inverted: true,
     },
     {
@@ -197,7 +209,7 @@ function phoneDeck(device) {
       layout: "device-bottom",
       label: COPY.more.label,
       headline: COPY.more.headline,
-      screenshot: SHOT("tasbeeh"),
+      screenshot: shot("tasbeeh"),
       inverted: true,
     },
   ];

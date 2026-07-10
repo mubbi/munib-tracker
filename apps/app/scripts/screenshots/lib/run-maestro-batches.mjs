@@ -57,9 +57,18 @@ function clearMaestroSessionLock() {
  * @param {object[]} opts.scenes
  * @param {string} opts.outDir
  * @param {string} opts.sessionDir
+ * @param {string} [opts.deviceId] Maestro --device (UDID / serial)
  * @returns {{ captured: number, failedBatches: number, onDisk: number }}
  */
-export function runMaestroSceneBatches({ platform, locale, theme, scenes, outDir, sessionDir }) {
+export function runMaestroSceneBatches({
+  platform,
+  locale,
+  theme,
+  scenes,
+  outDir,
+  sessionDir,
+  deviceId = null,
+}) {
   const BATCH = Math.max(1, Number.parseInt(process.env.SCENE_BATCH || "6", 10) || 6);
   fs.mkdirSync(outDir, { recursive: true });
   fs.mkdirSync(sessionDir, { recursive: true });
@@ -84,7 +93,7 @@ export function runMaestroSceneBatches({ platform, locale, theme, scenes, outDir
       `Maestro ${platform} ${locale}/${theme} batch ${batchIndex}/${batchTotal}: ${batch.map((s) => s.id).join(", ")}`,
     );
     clearMaestroSessionLock();
-    const result = runMaestro(flowPath);
+    const result = runMaestro(flowPath, { deviceId });
     if (!result.ok) {
       failedBatches += 1;
       warn(

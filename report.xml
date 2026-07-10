@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <testsuites>
-  <testsuite name="Test Suite" device="my_emulator" tests="1" failures="0" time="69.0">
-    <testcase id="capture-batch-11" name="capture-batch-11" classname="capture-batch-11" file="apps\app\.screenshots-work\android\ur\dark\capture-batch-11.yaml" time="69.0" status="SUCCESS"/>
+  <testsuite name="Test Suite" device="iPhone 17 - iOS 26.4 - 46A38FDC-7143-42EB-B682-A53E6594FBE2" tests="1" failures="0" time="44.0">
+    <testcase id="capture-batch-2" name="capture-batch-2" classname="capture-batch-2" file="apps/app/.screenshots-work/ios/ur/light/capture-batch-2.yaml" time="44.0" status="SUCCESS"/>
   </testsuite>
 </testsuites>

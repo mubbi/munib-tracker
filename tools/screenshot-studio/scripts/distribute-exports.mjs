@@ -40,6 +40,15 @@ const PHONE_TARGETS = [
   },
 ];
 
+const platformFilter = (process.env.EXPORT_PLATFORMS || "all")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+const targets =
+  platformFilter.includes("all") || platformFilter.length === 0
+    ? PHONE_TARGETS
+    : PHONE_TARGETS.filter((t) => platformFilter.includes(t.src[0]));
+
 let copied = 0;
 const missing = [];
 
@@ -64,10 +73,14 @@ function copyLocaleSets(srcParts, destParts) {
   }
 }
 
-for (const t of PHONE_TARGETS) copyLocaleSets(t.src, t.dest);
+for (const t of targets) copyLocaleSets(t.src, t.dest);
 
+const includeAndroid =
+  platformFilter.includes("all") ||
+  platformFilter.length === 0 ||
+  platformFilter.includes("android");
 const fgRoot = path.join(exportsDir, "android", "feature-graphic", "1024x500");
-if (fs.existsSync(fgRoot)) {
+if (includeAndroid && fs.existsSync(fgRoot)) {
   const destDir = path.join(storeAssets, "android", "feature-graphic");
   fs.mkdirSync(destDir, { recursive: true });
   for (const locale of fs.readdirSync(fgRoot)) {

@@ -116,6 +116,7 @@ async function main() {
           scenes,
           outDir,
           sessionDir,
+          deviceId: serial,
         });
         captured += result.captured;
         failed += result.failedBatches;

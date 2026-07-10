@@ -16,7 +16,7 @@ Full workflow: [`docs/STORE_ASSETS.md`](../../docs/STORE_ASSETS.md).
 
 ## Raw capture files (`CAPTURE_FILES`)
 
-Seven inputs per locale under `apps/app/store-assets/captures/<locale>/`:
+Seven inputs per platform × locale under `apps/app/store-assets/captures/<android|ios>/<locale>/`:
 
 | File | Marketing slide |
 |------|-----------------|

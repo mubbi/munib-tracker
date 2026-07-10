@@ -28,7 +28,7 @@ Canonical overview: [`docs/STORE_ASSETS.md`](../../docs/STORE_ASSETS.md).
 | Editor (Next.js, standalone npm) | `tools/screenshot-studio/` |
 | Shared sizes & scene names | `packages/store-screenshots/` |
 | Full native matrix | `apps/app/store-assets/captures-native/{android\|ios}/<locale>/<theme>/` |
-| Studio inputs (7 files/locale) | `apps/app/store-assets/captures/<locale>/` |
+| Studio inputs (8 files/locale/platform) | `apps/app/store-assets/captures/{android\|ios}/<locale>/` |
 | Final PNG outputs | `apps/app/store-assets/ios/…`, `android/…` |
 | Project state (git-tracked) | `tools/screenshot-studio/app-store-screenshots.json` |
 
@@ -54,9 +54,9 @@ pnpm sync:screenshot-captures              # after dark aliases land in captures
 
 Android and iOS share Maestro batching (`lib/run-maestro-batches.mjs`). iOS requires macOS.
 
-After a dark capture run, `STUDIO_ALIASES` copies seven key scenes into `captures/<locale>/` as the studio JPEG filenames (`home.jpg`, `tracker.jpg`, …). See `apps/app/scripts/screenshots/lib/config.mjs`.
+After a dark capture run, `STUDIO_ALIASES` copies key scenes into `captures/<platform>/<locale>/` as the studio JPEG filenames (`home.jpg`, `tracker.jpg`, …). See `apps/app/scripts/screenshots/lib/config.mjs`. Android and iOS use separate folders.
 
-Manual capture is still valid: place JPEGs/PNGs under `captures/<locale>/` yourself (dark theme, native resolution).
+Manual capture is still valid: place JPEGs/PNGs under `captures/<android|ios>/<locale>/` yourself (dark theme, native resolution).
 
 ### Phase B — Studio frames & export
 
@@ -71,7 +71,7 @@ pnpm dev:screenshot-studio     # http://localhost:3010
 pnpm distribute:screenshot-exports
 ```
 
-If `sync-app-screenshots.mjs` reports missing files, run native capture or add images under `apps/app/store-assets/captures/<locale>/`.
+If `sync-app-screenshots.mjs` reports missing files, run native capture or add images under `apps/app/store-assets/captures/<android|ios>/<locale>/`.
 
 **Brand assets:** `public/app-icon.png` must be the Munib Tracker app icon (not a placeholder from another project). Refresh with `pnpm sync:screenshot-brand-assets` or `pnpm generate:app:brand-assets` (also runs at end of `pnpm seed:screenshot-studio`).
 

@@ -28,13 +28,21 @@ export const STUDIO_LOCALES = loadStudioLocaleCodes();
 export const THEMES = ["light", "dark"];
 
 export const DEFAULT_LOCALE = "en";
-export const DEFAULT_THEME = "dark";
+export const DEFAULT_THEME = "light";
+
+/**
+ * Theme used by screenshot-studio marketing decks (store listing frames).
+ * Both light and dark are still written under captures/<platform>/<locale>/<theme>/.
+ * Override with STUDIO_THEME=dark if needed.
+ */
+export const STUDIO_THEME = (process.env.STUDIO_THEME || "light").trim() || "light";
 
 /** Native PNG output (full matrix). */
 export const OUTPUT_ROOT = path.join(APP_ROOT, "store-assets", "captures-native");
 
-/** Flat JPEG aliases for screenshot-studio (dark locale set). */
+/** Flat JPEG aliases for screenshot-studio — per platform so iOS/Android do not overwrite each other. */
 export const STUDIO_CAPTURE_ROOT = path.join(APP_ROOT, "store-assets", "captures");
+export const STUDIO_PLATFORMS = ["android", "ios"];
 
 /** Maestro + temp flow workspace (gitignored). */
 export const WORK_DIR = path.join(APP_ROOT, ".screenshots-work");
@@ -68,12 +76,13 @@ export const ANDROID = {
 
 export const IOS = {
   deviceNameEnv: "IOS_SIMULATOR_DEVICE",
-  defaultDeviceName: "iPhone 16 Pro",
+  /** Prefer a current Xcode default; override with IOS_SIMULATOR_DEVICE. */
+  defaultDeviceName: "iPhone 17 Pro",
   /** Portrait phone — store marketing frames crop from this. */
   screenshotScale: 3,
 };
 
-/** Map capture scene ids → screenshot-studio JPEG filenames (dark captures). */
+/** Map capture scene ids → screenshot-studio JPEG filenames. */
 export const STUDIO_ALIASES = {
   home: "home.jpg",
   tracker: "tracker.jpg",
@@ -95,8 +104,9 @@ export function outputPath(platform, locale, theme, sceneId, ext = "png") {
   return path.join(OUTPUT_ROOT, platform, locale, theme, `${sceneId}.${ext}`);
 }
 
-export function studioAliasPath(locale, aliasFile) {
-  return path.join(STUDIO_CAPTURE_ROOT, locale, aliasFile);
+/** Studio alias path: captures/<platform>/<locale>/<theme>/<file> */
+export function studioAliasPath(platform, locale, theme, aliasFile) {
+  return path.join(STUDIO_CAPTURE_ROOT, platform, locale, theme, aliasFile);
 }
 
 /** Extra boot settle when seeding a non-default UI locale. */

@@ -4,9 +4,11 @@
  *
  * Prerequisites (macOS):
  *   - Xcode + iOS Simulator
- *   - Debug / screenshot build installed (`pnpm --filter app ios` or prebuilt)
- *   - Maestro CLI: https://maestro.mobile.dev
+ *   - Maestro CLI: https://maestro.mobile.dev (+ Java / JAVA_HOME)
  *   - host sqlite3 (for demo storage injection)
+ *
+ * Builds a Release simulator app (embedded JS, no Metro) — same idea as the
+ * Android screenshot APK — unless SKIP_BUILD=1 (reuses an already-installed app).
  *
  * Usage (from repo root):
  *   pnpm screenshots:ios
@@ -81,12 +83,39 @@ async function main() {
   }
 
   if (process.env.SKIP_BUILD !== "1") {
-    log("Building & installing iOS app (expo run:ios)…");
-    run("pnpm", ["--filter", "app", "ios"], {
-      cwd: path.join(APP_ROOT, "..", ".."),
-      env: { ...process.env, EXPO_IOS_SIMULATOR_DEVICE_NAME: deviceName },
-    });
-    sleep(TIMING.metroWarmMs);
+    // Release + --no-bundler: embed JS so captures do not hang on Metro
+    // (plain `expo run:ios` starts the bundler and never returns).
+    // ONLY_ACTIVE_ARCH avoids universal arm64+x86_64 lipo (saves disk on Apple Silicon).
+    log("Building & installing iOS Release app (embedded JS, no Metro)…");
+    run(
+      "pnpm",
+      [
+        "--filter",
+        "app",
+        "exec",
+        "expo",
+        "run:ios",
+        "--configuration",
+        "Release",
+        "--no-bundler",
+        "--device",
+        deviceName,
+      ],
+      {
+        cwd: path.join(APP_ROOT, "..", ".."),
+        env: {
+          ...process.env,
+          EXPO_IOS_SIMULATOR_DEVICE_NAME: deviceName,
+          ONLY_ACTIVE_ARCH: "YES",
+          EXCLUDED_ARCHS: "x86_64",
+        },
+      },
+    );
+    sleep(TIMING.appBootMs);
+  } else {
+    warn(
+      "SKIP_BUILD=1 — reusing installed app. Debug builds need Metro on :8081; Release does not.",
+    );
   }
 
   fs.mkdirSync(WORK_DIR, { recursive: true });
@@ -121,6 +150,7 @@ async function main() {
           scenes,
           outDir,
           sessionDir,
+          deviceId: udid,
         });
         captured += result.captured;
         failed += result.failedBatches;

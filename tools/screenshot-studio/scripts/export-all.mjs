@@ -10,7 +10,7 @@ import { chromium } from "playwright";
 const BASE = process.env.STUDIO_URL || "http://localhost:3010";
 
 /** @type {{ platform: "ios"|"android", device: string, label: string, orientations?: string[] }[]} */
-const DECKS = [
+const ALL_DECKS = [
   { platform: "ios", device: "iphone", label: "iPhone" },
   { platform: "ios", device: "ipad", label: "iPad" },
   { platform: "android", device: "android", label: "Android Phone" },
@@ -28,6 +28,15 @@ const DECKS = [
   },
   { platform: "android", device: "feature-graphic", label: "Feature Graphic" },
 ];
+
+const platformFilter = (process.env.EXPORT_PLATFORMS || "all")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+const DECKS =
+  platformFilter.includes("all") || platformFilter.length === 0
+    ? ALL_DECKS
+    : ALL_DECKS.filter((d) => platformFilter.includes(d.platform));
 
 async function selectDevice(page, { platform, label }) {
   // Platform tabs

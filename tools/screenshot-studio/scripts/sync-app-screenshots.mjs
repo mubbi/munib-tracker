@@ -1,10 +1,9 @@
 // Copies raw app captures from apps/app/store-assets/captures into
-// public/screenshots/app/<locale>/ so deck paths can use {locale}.
+// public/screenshots/app/<platform>/<locale>/ so deck paths can use {platform}/{locale}.
 //
 // Place captures at:
-//   apps/app/store-assets/captures/<locale>/<name>.jpg   (or .jpeg / .png)
-// Native Maestro scripts write PNG with .jpg alias names — both work.
-// (see packages/store-screenshots/spec.json → captureFiles)
+//   apps/app/store-assets/captures/<android|ios>/<locale>/<light|dark>/<name>.jpg
+// Screenshot-studio marketing decks use STUDIO_THEME (default: light).
 //
 // Run from tools/screenshot-studio:  node scripts/sync-app-screenshots.mjs
 import fs from "node:fs";
@@ -19,32 +18,49 @@ const spec = JSON.parse(
 const capturesRoot = path.join(repoRoot, spec.storeAssetsRoot, "captures");
 const destRoot = path.join(studioRoot, "public", "screenshots", "app");
 
+const PLATFORMS = spec.platforms ?? ["android", "ios"];
 const { locales: LOCALES, captureFiles: FILES } = spec;
+const STUDIO_THEME = (process.env.STUDIO_THEME || spec.studioTheme || "light").trim() || "light";
+
+function resolveCapture(platform, locale, name) {
+  const candidates = [
+    path.join(capturesRoot, platform, locale, STUDIO_THEME, name),
+    // Legacy flat path (pre theme subfolder)
+    path.join(capturesRoot, platform, locale, name),
+  ];
+  for (const base of candidates) {
+    const found = [".jpg", ".jpeg", ".png"]
+      .map((ext) => `${base}${ext}`)
+      .find((p) => fs.existsSync(p) && fs.statSync(p).size > 0);
+    if (found) return found;
+  }
+  return null;
+}
 
 let copied = 0;
 const missing = [];
-for (const locale of LOCALES) {
-  const srcLocale = path.join(capturesRoot, locale);
-  const dest = path.join(destRoot, locale);
-  fs.mkdirSync(dest, { recursive: true });
-  for (const name of FILES) {
-    const src =
-      [".jpg", ".jpeg", ".png"]
-        .map((ext) => path.join(srcLocale, `${name}${ext}`))
-        .find((p) => fs.existsSync(p)) ?? null;
-    if (!src) {
-      missing.push(`${locale}/${name}.jpg`);
-      continue;
+for (const platform of PLATFORMS) {
+  for (const locale of LOCALES) {
+    const dest = path.join(destRoot, platform, locale);
+    fs.mkdirSync(dest, { recursive: true });
+    for (const name of FILES) {
+      const src = resolveCapture(platform, locale, name);
+      if (!src) {
+        missing.push(`${platform}/${locale}/${STUDIO_THEME}/${name}.jpg`);
+        continue;
+      }
+      fs.copyFileSync(src, path.join(dest, `${name}.jpg`));
+      copied += 1;
     }
-    // Deck paths always reference .jpg; PNG from native capture is fine (browser reads magic bytes).
-    fs.copyFileSync(src, path.join(dest, `${name}.jpg`));
-    copied += 1;
   }
 }
-console.log(`Copied ${copied}/${LOCALES.length * FILES.length} captures into ${destRoot}`);
+const expected = PLATFORMS.length * LOCALES.length * FILES.length;
+console.log(`Copied ${copied}/${expected} ${STUDIO_THEME} captures into ${destRoot}`);
 if (missing.length) {
   console.log(
     `Missing (${missing.length}): ${missing.slice(0, 12).join(", ")}${missing.length > 12 ? "…" : ""}`,
   );
-  console.log(`Add JPEGs under ${capturesRoot}/<locale>/ then re-run.`);
+  console.log(
+    `Add JPEGs under ${capturesRoot}/<android|ios>/<locale>/${STUDIO_THEME}/ then re-run.`,
+  );
 }
