@@ -19,6 +19,12 @@ export {
   APP_TAGLINE,
 } from "./branding";
 export {
+  BUNDLED_DATA_CREDITS,
+  type DataCredit,
+  RUNTIME_DATA_CREDITS,
+  SERVICE_DATA_CREDITS,
+} from "./credits";
+export {
   APP_ACHIEVEMENTS,
   APP_FEATURE_PILLARS,
   APP_HOME_FEATURES,
