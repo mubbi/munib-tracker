@@ -8,10 +8,12 @@ Part of the store-assets pipeline — see [`docs/STORE_ASSETS.md`](../../../../d
 
 | Tool | Android | iOS |
 |------|---------|-----|
-| Dev build | `pnpm --filter app android` | `pnpm --filter app ios` (macOS) |
+| Screenshot APK | Built by `screenshots:android` (release + embedded JS, temporarily debuggable) | `pnpm --filter app ios` (macOS) |
 | Emulator | Android SDK + AVD (`pnpm dev:app:android:emulator`) | Xcode Simulator |
 | Automation | [Maestro CLI](https://maestro.mobile.dev) | Maestro CLI |
-| Storage seed | `adb` + on-device `sqlite3` | Host `sqlite3` + `xcrun simctl` |
+| Storage seed | Host `sqlite3` + `adb` base64 push into `RKStorage` | Host `sqlite3` + `xcrun simctl` |
+
+> **Android note:** Do **not** rely on the Expo Dev Client + Metro for captures. The capture script builds/installs a self-contained APK so the app launches without a bundler.
 
 ## Commands
 
@@ -58,7 +60,7 @@ Then run `pnpm sync:screenshot-captures` from the repo root.
 ## How it works
 
 1. **Demo data** — `lib/demo-data.mjs` builds realistic AsyncStorage (prayer logs, qaza debt, bookmarks, achievements, onboarding complete, tours dismissed, Makkah location, etc.) per locale/theme.
-2. **Storage injection** — Android: `adb shell run-as … sqlite3`; iOS: host `sqlite3` on simulator container.
+2. **Storage injection** — Android: warm-launch → host `sqlite3` merge into pulled `RKStorage` → base64 push; iOS: host `sqlite3` on simulator container.
 3. **Navigation** — Maestro flows (`lib/maestro.mjs`) deep-link to routes, tap tabs, open modals (prayer status sheet), wait for animations (`waitForAnimationToEnd` + scene-specific delays), then `takeScreenshot`.
 4. **Scenes** — `lib/scenes.mjs` lists **53** screens across tabs, track, read, supplicate, learn, more, and settings.
 
@@ -81,8 +83,10 @@ Then run `pnpm sync:screenshot-captures` from the repo root.
 | `capture-android.mjs` / `capture-ios.mjs` | Orchestrators |
 | `validate.mjs` | CI-safe validation |
 | `lib/scenes.mjs` | Scene catalog + wait/interact steps |
-| `lib/demo-data.mjs` | AsyncStorage demo seed |
+| `lib/demo-data.mjs` | AsyncStorage demo seed (real DB shapes) |
+| `lib/db-keys.mjs` | Mirror of `src/db/keys.ts` + theme keys |
 | `lib/maestro.mjs` | YAML flow generator |
+| `lib/build-screenshot-apk.mjs` | Self-contained Android APK (no Metro) |
 | `lib/inject-storage-*.mjs` | Platform storage injection |
 | `lib/i18n.mjs` | Localized Maestro tap labels |
 | `lib/config.mjs` | App IDs, timing, `STUDIO_ALIASES` |

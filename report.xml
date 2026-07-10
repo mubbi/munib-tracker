@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites>
+  <testsuite name="Test Suite" device="my_emulator" tests="1" failures="0" time="61.0">
+    <testcase id="capture" name="capture" classname="capture" file="apps\app\.screenshots-work\android\en\dark\capture.yaml" time="61.0" status="SUCCESS"/>
+  </testsuite>
+</testsuites>

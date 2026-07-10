@@ -39,6 +39,7 @@ function main() {
     "lib/inject-storage-android.mjs",
     "lib/inject-storage-ios.mjs",
     "lib/validate-core.mjs",
+    "lib/build-screenshot-apk.mjs",
   ]) {
     checks.push(syntaxCheck(path.join(ROOT, rel)));
   }

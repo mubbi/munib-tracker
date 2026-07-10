@@ -24,6 +24,9 @@ expo-env.d.ts
 # Data build pipeline cache
 scripts/build-data/.cache/
 
+# Screenshot capture scratch (Maestro YAML, pulled RKStorage, UI dumps)
+.screenshots-work/
+
 # debug
 npm-debug.*
 yarn-debug.*

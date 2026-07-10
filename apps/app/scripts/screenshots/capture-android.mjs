@@ -4,8 +4,10 @@
  *
  * Prerequisites:
  *   - Android SDK (adb, emulator)
- *   - Debug dev build installed: pnpm --filter app android
- *   - Maestro CLI (recommended): https://maestro.mobile.dev
+ *   - Maestro CLI: https://maestro.mobile.dev
+ *
+ * Builds a self-contained release APK (embedded JS, temporarily debuggable)
+ * so captures do not depend on Metro / Expo Dev Client.
  *
  * Usage (from repo root):
  *   pnpm screenshots:android
@@ -18,12 +20,13 @@
  *   apps/app/store-assets/captures-native/android/<locale>/<theme>/<scene>.png
  */
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { APP_ID, APP_ROOT, deepLink, TIMING, WORK_DIR } from "./lib/config.mjs";
+import { APP_ID, APP_ROOT, TIMING, WORK_DIR } from "./lib/config.mjs";
+import { buildAndInstallScreenshotApk, launchScreenshotApp } from "./lib/build-screenshot-apk.mjs";
 import {
   injectDemoStorageAndroid,
-  launchAndroidApp,
   listAndroidDevices,
   resolveAdbBinary,
 } from "./lib/inject-storage-android.mjs";
@@ -42,6 +45,39 @@ import {
 } from "./lib/validate-core.mjs";
 
 const _SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+
+/** Maestro writes takeScreenshot basenames under ~/.maestro/tests/<run>/ — copy into outDir. */
+function collectMaestroScreenshots(outDir, sceneIds) {
+  const testsRoot = path.join(os.homedir(), ".maestro", "tests");
+  if (!fs.existsSync(testsRoot)) return 0;
+  const runs = fs
+    .readdirSync(testsRoot, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => ({
+      name: d.name,
+      mtime: fs.statSync(path.join(testsRoot, d.name)).mtimeMs,
+    }))
+    .sort((a, b) => b.mtime - a.mtime);
+
+  let copied = 0;
+  fs.mkdirSync(outDir, { recursive: true });
+  for (const sceneId of sceneIds) {
+    const dest = path.join(outDir, `${sceneId}.png`);
+    if (fs.existsSync(dest) && fs.statSync(dest).size > 0) {
+      copied += 1;
+      continue;
+    }
+    for (const run of runs.slice(0, 5)) {
+      const candidate = path.join(testsRoot, run.name, `${sceneId}.png`);
+      if (fs.existsSync(candidate) && fs.statSync(candidate).size > 0) {
+        fs.copyFileSync(candidate, dest);
+        copied += 1;
+        break;
+      }
+    }
+  }
+  return copied;
+}
 
 async function main() {
   const validation = validateStructure();
@@ -75,17 +111,18 @@ async function main() {
   const serial = process.env.ANDROID_SERIAL || devices[0];
   log(`Using device: ${serial}`);
 
-  if (process.env.SKIP_BUILD !== "1") {
-    log("Building & installing dev client (expo run:android)…");
-    run("pnpm", ["--filter", "app", "android"], { cwd: path.join(APP_ROOT, "..", "..") });
-    sleep(TIMING.metroWarmMs);
-  }
+  // Always prefer a self-contained APK (embedded JS). SKIP_BUILD reuses an existing APK.
+  buildAndInstallScreenshotApk({
+    adb,
+    serial,
+    skipBuild: process.env.SKIP_BUILD === "1",
+  });
 
   fs.mkdirSync(WORK_DIR, { recursive: true });
 
   const useMaestro = maestroAvailable();
   if (!useMaestro) {
-    warn("Maestro not installed — falling back to adb screencap after manual deep links only.");
+    warn("Maestro not installed — cannot automate navigation captures.");
   }
 
   let captured = 0;
@@ -98,8 +135,8 @@ async function main() {
       log("Seeding demo AsyncStorage…");
       injectDemoStorageAndroid({ adb, packageId, locale, theme, clearFirst: true });
 
-      log("Launching app…");
-      launchAndroidApp({ adb, packageId, deepLink: deepLink("/") });
+      log("Launching screenshot APK (MainActivity, no Metro)…");
+      launchScreenshotApp({ adb, packageId });
       sleep(TIMING.appBootMs);
 
       if (useMaestro) {
@@ -112,6 +149,7 @@ async function main() {
           locale,
           theme,
         );
+        fs.mkdirSync(outDir, { recursive: true });
         const yaml = buildCaptureFlowYaml({
           platform: "android",
           locale,
@@ -124,7 +162,12 @@ async function main() {
         if (!result.ok) {
           throw new Error(`Maestro capture failed:\n${result.stderr || result.stdout}`);
         }
-        captured += scenes.length;
+        const collected = collectMaestroScreenshots(
+          outDir,
+          scenes.map((s) => s.id),
+        );
+        log(`Collected ${collected}/${scenes.length} PNG(s) → ${outDir}`);
+        captured += collected;
       } else {
         warn("Skipping automated navigation — install Maestro to capture all scenes.");
       }
