@@ -56,6 +56,21 @@ function withExternalCommandsAndroid(config) {
       const resXml = path.join(config.modRequest.platformProjectRoot, "app/src/main/res/xml");
       fs.mkdirSync(resXml, { recursive: true });
 
+      const resValues = path.join(config.modRequest.platformProjectRoot, "app/src/main/res/values");
+      fs.mkdirSync(resValues, { recursive: true });
+      fs.writeFileSync(
+        path.join(resValues, "app_actions_strings.xml"),
+        `<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="mark_current_synonyms" translatable="false">
+    <item>mark my Salah</item>
+    <item>mark current Salah</item>
+    <item>mark Salah</item>
+  </string-array>
+</resources>
+`,
+      );
+
       fs.writeFileSync(
         path.join(resXml, "actions.xml"),
         `<?xml version="1.0" encoding="utf-8"?>
@@ -66,13 +81,15 @@ function withExternalCommandsAndroid(config) {
     </parameter>
     <fulfillment urlTemplate="munib-tracker://{feature}"/>
   </action>
-  <action intentName="custom.mark_salah">
-    <fulfillment>
-      <intent
-        action="app.munibtracker.action.MARK_CURRENT"
-        package="app.munibtracker"/>
-    </fulfillment>
-  </action>
+  <entity-set entitySetId="MunibFeatureEntitySet">
+    <entity name="tracker" url="munib-tracker://tracker"/>
+    <entity name="qibla" url="munib-tracker://qibla"/>
+    <entity name="tasbeeh" url="munib-tracker://tasbeeh/free"/>
+    <entity
+      name="mark-current"
+      url="munib-tracker://mark-current"
+      alternateName="@array/mark_current_synonyms"/>
+  </entity-set>
 </actions>
 `,
       );
