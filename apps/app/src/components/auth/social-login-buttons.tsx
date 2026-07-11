@@ -46,13 +46,31 @@ const PROVIDERS: { id: OAuthProvider; brand: ProviderBrand }[] = [
       logo: require("@/assets/brands/apple.svg"),
     },
   },
+  {
+    id: "facebook",
+    brand: {
+      background: "#1877F2",
+      foreground: "#FFFFFF",
+      border: "#1877F2",
+      spinner: "#FFFFFF",
+      logo: require("@/assets/brands/facebook.svg"),
+    },
+  },
 ];
 
 export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
-  const { signIn, busy } = useSocialAuth();
+  const { signIn, busy, googleConfigured, appleConfigured, facebookConfigured } = useSocialAuth();
   const [error, setError] = useState<string | null>(null);
+
+  const configured: Record<OAuthProvider, boolean> = {
+    google: googleConfigured,
+    apple: appleConfigured,
+    facebook: facebookConfigured,
+  };
+
+  const visibleProviders = PROVIDERS.filter(({ id }) => configured[id]);
 
   const connect = async (provider: OAuthProvider) => {
     setError(null);
@@ -66,9 +84,13 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
     }
   };
 
+  if (visibleProviders.length === 0) {
+    return null;
+  }
+
   return (
     <View style={styles.root}>
-      {PROVIDERS.map(({ id, brand }) => (
+      {visibleProviders.map(({ id, brand }) => (
         <PressableScale
           key={id}
           haptic="light"

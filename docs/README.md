@@ -27,9 +27,9 @@ Central map of project docs. **Active backlog** lives in [`BACKLOG.md`](./BACKLO
 | **App Store / Play screenshots** | [`STORE_ASSETS.md`](./STORE_ASSETS.md) |
 | **iOS App Store listing copy** (23 app locales + 7 ASO) | [`IOS_APP_COPY.md`](./IOS_APP_COPY.md) |
 | **Google Play short description** (23 app locales + 7 ASO) | [`ANDROID_APP_COPY.md`](./ANDROID_APP_COPY.md) |
-| **Deep links & App Links** (scheme, widgets, OAuth) | [`DEEP_LINKS.md`](./DEEP_LINKS.md) |
-| **OAuth setup** (Google & Apple sign-in) | [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) |
-| **Production / Vercel** (marketing, API, Expo web) | [`PRODUCTION.md`](./PRODUCTION.md) |
+| **Deep links & App Links** (scheme, widgets, OAuth App Links) | [`DEEP_LINKS.md`](./DEEP_LINKS.md) |
+| **OAuth setup** (Google / Apple / Facebook; native + web cookies) | [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) |
+| **Production / Vercel** (marketing, API, Expo web, OAuth env) | [`PRODUCTION.md`](./PRODUCTION.md) |
 
 Per-app agent guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md) · [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md)
 
@@ -47,5 +47,5 @@ Per-app agent guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/ap
 ## Doc maintenance
 
 - Mark work **done** in [`FEATURES.md`](./FEATURES.md); remove from [`BACKLOG.md`](./BACKLOG.md).
-- Operational how-tos belong in **guides** (`I18N_GUIDE`, `DATA_INGESTION`, etc.), not in backlog files.
-- Last docs review: **2026-07-09**.
+- Operational how-tos belong in **guides** (`I18N_GUIDE`, `DATA_INGESTION`, `OAUTH_SETUP`, etc.), not in backlog files.
+- Last docs review: **2026-07-11** (OAuth sample-parity env names + platform flows).

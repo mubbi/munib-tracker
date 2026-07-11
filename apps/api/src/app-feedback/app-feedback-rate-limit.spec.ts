@@ -6,10 +6,10 @@ describe("app-feedback-rate-limit", () => {
     resetAppFeedbackRateLimits();
   });
 
-  it("allows up to 10 submissions per window", () => {
+  it("allows up to 10 submissions per window", async () => {
     for (let i = 0; i < 10; i++) {
-      expect(isAppFeedbackRateLimited("user-1")).toBe(false);
+      expect(await isAppFeedbackRateLimited("user-1")).toBe(false);
     }
-    expect(isAppFeedbackRateLimited("user-1")).toBe(true);
+    expect(await isAppFeedbackRateLimited("user-1")).toBe(true);
   });
 });

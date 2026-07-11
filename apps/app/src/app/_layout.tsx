@@ -14,6 +14,7 @@ import { MiniPlayer } from "@/components/audio/mini-player";
 import { ContentReportProvider } from "@/components/content-report/content-report-provider";
 import { ErrorFallback } from "@/components/error-boundary";
 import { ExternalCommandProcessor } from "@/components/external-command-processor";
+import { IdleMount } from "@/components/idle-mount";
 import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
 import { WebReminderAdhanBridge } from "@/components/notifications/web-reminder-adhan-bridge";
 import { OnboardingGate } from "@/components/onboarding-gate";
@@ -47,17 +48,43 @@ setAppVersionInfo(resolveAppVersion(), resolveAppPlatform());
 
 SplashScreen.preventAutoHideAsync();
 
-function RootLayout() {
-  const [fontsLoaded, fontError] = useFonts({ ...ARABIC_FONT_FILES, ...BENGALI_FONT_FILES });
+/**
+ * Optional scripture/UI typefaces — loaded after first paint so splash is not
+ * gated on ~1.5 MB of Arabic + Bengali TTFs. Default Arabic uses the system face.
+ */
+function useDeferredReadingFonts() {
+  const [ready, error] = useFonts({});
 
   useEffect(() => {
-    if (fontError) {
-      console.error("[RootLayout] Font load failed — continuing without bundled fonts", fontError);
+    let cancelled = false;
+    void (async () => {
+      try {
+        const Font = await import("expo-font");
+        if (cancelled) return;
+        await Font.loadAsync({ ...ARABIC_FONT_FILES, ...BENGALI_FONT_FILES });
+      } catch (err) {
+        console.error("[RootLayout] Deferred font load failed", err);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (error) {
+      console.error("[RootLayout] Font bootstrap failed — continuing", error);
       void SplashScreen.hideAsync();
     }
-  }, [fontError]);
+  }, [error]);
 
-  if (!fontsLoaded && !fontError) {
+  return ready || Boolean(error);
+}
+
+function RootLayout() {
+  const fontsReady = useDeferredReadingFonts();
+
+  if (!fontsReady) {
     return null;
   }
 
@@ -85,7 +112,9 @@ function RootLayout() {
                                 <NotificationProvider>
                                   <AudioPlayerProvider>
                                     <WebReminderAdhanBridge />
-                                    <ShareQrWarmup />
+                                    <IdleMount>
+                                      <ShareQrWarmup />
+                                    </IdleMount>
                                     <MiniPlayerInsetProvider>
                                       <AppVersionGate>
                                         <BlurTargetProvider

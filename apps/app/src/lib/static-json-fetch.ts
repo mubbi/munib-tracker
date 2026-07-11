@@ -1,11 +1,15 @@
 import { Platform } from "react-native";
 
+import { LruMap } from "@/lib/lru-map";
+
 /**
  * In-memory cache for immutable CDN JSON (Qur'an editions, hadith corpora).
  * Scripture data never changes — once fetched in-process, skip the network.
+ * Capped so browsing many editions cannot grow RAM without bound.
  */
 
-const memory = new Map<string, unknown>();
+const MAX_CACHED_URLS = 48;
+const memory = new LruMap<string, unknown>(MAX_CACHED_URLS);
 
 /** @internal Test helper — reset the in-memory JSON cache. */
 export function clearStaticJsonCache(): void {

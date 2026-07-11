@@ -1,14 +1,17 @@
 import type { PrayerLog } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import {
+  HadithRepository,
   PrayerRepository,
   PreferencesRepository,
   QazaRepository,
+  QuranRepository,
   TombstoneRepository,
   ZikrRepository,
 } from "@/db";
+import { DB_KEYS } from "@/db/keys";
+import { writeJSON } from "@/db/store";
 
 beforeEach(async () => {
   await AsyncStorage.clear();
@@ -212,5 +215,75 @@ describe("PreferencesRepository", () => {
     expect(prefs.favoriteZikrIds).toContain("z1");
     prefs = await PreferencesRepository.toggleFavorite("z1");
     expect(prefs.favoriteZikrIds).not.toContain("z1");
+  });
+});
+
+describe("QuranRepository bookmark sync", () => {
+  it("union-merges remote bookmarks per surah:ayah, keeping newer createdAt", async () => {
+    await QuranRepository.toggleBookmark(2, 255);
+    const [local] = await QuranRepository.getBookmarks();
+    expect(local).toBeDefined();
+    await writeJSON(DB_KEYS.quranBookmarksUpdatedAt, "2026-07-02T00:00:00.000Z");
+    await QuranRepository.applyRemoteBookmarks(
+      [
+        { id: "remote-old", surah: 2, ayah: 255, createdAt: "2026-07-01T00:00:00.000Z" },
+        { id: "remote-new", surah: 18, ayah: 10, createdAt: "2026-07-05T00:00:00.000Z" },
+      ],
+      "2026-07-04T00:00:00.000Z",
+    );
+
+    const bookmarks = await QuranRepository.getBookmarks();
+    expect(bookmarks).toHaveLength(2);
+    expect(bookmarks.find((bm) => bm.surah === 2 && bm.ayah === 255)?.id).toBe(local?.id);
+    expect(bookmarks.find((bm) => bm.surah === 18 && bm.ayah === 10)?.id).toBe("remote-new");
+    expect(await QuranRepository.getBookmarksUpdatedAt()).toBe("2026-07-04T00:00:00.000Z");
+  });
+
+  it("keeps the newer local watermark when remote updatedAt is older", async () => {
+    await QuranRepository.touchBookmarks();
+    const localUpdatedAt = await QuranRepository.getBookmarksUpdatedAt();
+    await QuranRepository.applyRemoteBookmarks(
+      [{ id: "remote", surah: 1, ayah: 1, createdAt: "2026-07-05T00:00:00.000Z" }],
+      "2026-07-03T00:00:00.000Z",
+    );
+    expect(await QuranRepository.getBookmarksUpdatedAt()).toBe(localUpdatedAt);
+  });
+});
+
+describe("HadithRepository bookmark sync", () => {
+  it("union-merges remote bookmarks per hadithId, keeping newer createdAt", async () => {
+    await HadithRepository.toggleBookmark({
+      id: "bukhari:1",
+      collection: "bukhari",
+      number: "1",
+    });
+    const local = (await HadithRepository.getBookmarks())[0];
+    expect(local).toBeDefined();
+    await writeJSON(DB_KEYS.hadithBookmarksUpdatedAt, "2026-07-02T00:00:00.000Z");
+    await HadithRepository.applyRemoteBookmarks(
+      [
+        {
+          id: "remote-old",
+          hadithId: "bukhari:1",
+          collection: "bukhari",
+          number: "1",
+          createdAt: "2026-07-01T00:00:00.000Z",
+        },
+        {
+          id: "remote-new",
+          hadithId: "muslim:2",
+          collection: "muslim",
+          number: "2",
+          createdAt: "2026-07-05T00:00:00.000Z",
+        },
+      ],
+      "2026-07-04T00:00:00.000Z",
+    );
+
+    const bookmarks = await HadithRepository.getBookmarks();
+    expect(bookmarks).toHaveLength(2);
+    expect(bookmarks.find((bm) => bm.hadithId === "bukhari:1")?.id).toBe(local?.id);
+    expect(bookmarks.find((bm) => bm.hadithId === "muslim:2")?.id).toBe("remote-new");
+    expect(await HadithRepository.getBookmarksUpdatedAt()).toBe("2026-07-04T00:00:00.000Z");
   });
 });

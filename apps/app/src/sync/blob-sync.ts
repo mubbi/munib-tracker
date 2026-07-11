@@ -248,15 +248,86 @@ export async function applyRemoteBlob(
   return withKeyLock(DB_KEYS.blobSyncState, async () => {
     const state = await readJSON<BlobSyncState>(DB_KEYS.blobSyncState, {});
     const tracked = state[entity];
-    // Our copy is the same age or newer — keep it (last-write-wins).
-    if (tracked && updatedAt && tracked.updatedAt >= updatedAt) return false;
+    const unionMerge = UNION_MERGE_ENTITIES.has(entity);
 
-    const value = "value" in data ? data.value : null;
+    // Pure LWW blobs: keep local when it is the same age or newer.
+    if (!unionMerge && tracked && updatedAt && tracked.updatedAt >= updatedAt) return false;
+
+    const remoteValue = "value" in data ? data.value : null;
+    const value = unionMerge
+      ? await mergeBlobValue(entity, e.storageKey, remoteValue)
+      : remoteValue;
+
+    // For union-merge, advance watermark to the newer of local/remote.
+    const nextUpdatedAt =
+      unionMerge && tracked?.updatedAt && updatedAt
+        ? tracked.updatedAt >= updatedAt
+          ? tracked.updatedAt
+          : updatedAt
+        : updatedAt;
+
+    const hash = fingerprint(value);
+    // Identical content + watermark (e.g. server echo of our own push) — no-op.
+    if (tracked?.hash === hash && tracked.updatedAt === nextUpdatedAt) return false;
+
     await withKeyLock(e.storageKey, () => writeJSON(e.storageKey, value));
-    state[entity] = { hash: fingerprint(value), updatedAt };
+    state[entity] = { hash, updatedAt: nextUpdatedAt };
     await writeJSON(DB_KEYS.blobSyncState, state);
     return true;
   });
+}
+
+/** Entities whose values are plain maps/arrays of independent user edits. */
+const UNION_MERGE_ENTITIES = new Set([
+  "fasting",
+  "hajj_checklist",
+  "salah_guide_progress",
+  "taharah_progress",
+  "aqeedah_progress",
+  "battles_progress",
+  "prophets_progress",
+  "quran_guide_progress",
+  "learn_dua_progress",
+  "last_day_progress",
+  "jannah_intentions",
+  "jahannam_intentions",
+]);
+
+async function mergeBlobValue(
+  entity: string,
+  storageKey: string,
+  remoteValue: unknown,
+): Promise<unknown> {
+  if (!UNION_MERGE_ENTITIES.has(entity)) return remoteValue;
+
+  const localValue = await readJSON<unknown>(storageKey, null);
+  if (localValue == null || isEmptyBlob(localValue)) return remoteValue;
+  if (remoteValue == null || isEmptyBlob(remoteValue)) return localValue;
+
+  if (Array.isArray(localValue) && Array.isArray(remoteValue)) {
+    const seen = new Set<unknown>();
+    const merged: unknown[] = [];
+    for (const item of [...localValue, ...remoteValue]) {
+      const key =
+        typeof item === "string" || typeof item === "number" ? item : stableStringify(item);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      merged.push(item);
+    }
+    return merged;
+  }
+
+  if (
+    typeof localValue === "object" &&
+    typeof remoteValue === "object" &&
+    !Array.isArray(localValue) &&
+    !Array.isArray(remoteValue)
+  ) {
+    // Local keys win on conflict (same day edited on both devices).
+    return { ...(remoteValue as object), ...(localValue as object) };
+  }
+
+  return remoteValue;
 }
 
 /** Refreshes the in-memory stores for the given applied blob entities (deduped). */

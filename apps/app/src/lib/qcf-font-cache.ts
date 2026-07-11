@@ -32,6 +32,8 @@ const WEB_QCF_FONT_CACHE = "munib-qcf-fonts-v1";
 const QCF_FONT_PREFETCH_AHEAD = 2;
 /** One page behind for Previous / RTL back navigation. */
 const QCF_FONT_PREFETCH_BEHIND = 1;
+/** Max registered QCF page fonts in memory — unload outside the reader window. */
+const QCF_FONT_RUNTIME_MAX = 8;
 const QCF_PAGE_COUNT = 604;
 
 const inflight = new Map<number, Promise<string>>();
@@ -291,6 +293,29 @@ export async function ensureMushafPageFonts(page: number, needsBsml: boolean): P
   await Promise.all(loads);
 }
 
+/** Unload registered page fonts that fall outside a window around `anchorPage`. */
+async function trimLoadedQcfFonts(anchorPage: number): Promise<void> {
+  if (loadedPages.size <= QCF_FONT_RUNTIME_MAX) return;
+  const keep = new Set<number>();
+  for (
+    let p = anchorPage - QCF_FONT_PREFETCH_BEHIND;
+    p <= anchorPage + QCF_FONT_PREFETCH_AHEAD;
+    p++
+  ) {
+    if (p >= 1 && p <= QCF_PAGE_COUNT) keep.add(p);
+  }
+  const victims = [...loadedPages]
+    .filter((p) => !keep.has(p))
+    .sort((a, b) => Math.abs(b - anchorPage) - Math.abs(a - anchorPage));
+  while (loadedPages.size > QCF_FONT_RUNTIME_MAX && victims.length > 0) {
+    const page = victims.shift();
+    if (page == null) break;
+    loadedPages.delete(page);
+    webRegisteredFamilies.delete(qcfPageFontFamily(page));
+    await Font.unloadAsync(qcfPageFontFamily(page)).catch(() => undefined);
+  }
+}
+
 /** Download (if needed), register with expo-font, and mark a page font ready for rendering. */
 export async function loadQcfPageFont(page: number): Promise<void> {
   if (loadedPages.has(page)) return;
@@ -300,10 +325,11 @@ export async function loadQcfPageFont(page: number): Promise<void> {
   const family = qcfPageFontFamily(page);
   const task = resolveCachedQcfFontUri(page)
     .then((uri) => registerQcfFontFamily(family, uri))
-    .then(() => {
+    .then(async () => {
       loadedPages.add(page);
       fontLoadInflight.delete(page);
       prefetchQcfFont(page + QCF_FONT_PREFETCH_AHEAD + 1);
+      await trimLoadedQcfFonts(page);
     })
     .catch((error: unknown) => {
       fontLoadInflight.delete(page);

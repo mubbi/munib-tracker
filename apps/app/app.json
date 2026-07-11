@@ -11,7 +11,9 @@
       "bundleIdentifier": "app.munibtracker",
       "buildNumber": "1",
       "supportsTablet": true,
+      "usesAppleSignIn": true,
       "icon": "./assets/images/icon.png",
+      "associatedDomains": ["applinks:my.munibtracker.app"],
       "infoPlist": {
         "UIBackgroundModes": ["remote-notification", "audio"],
         "NSSupportsLiveActivities": true
@@ -27,7 +29,21 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "blockedPermissions": ["android.permission.ACTIVITY_RECOGNITION"]
+      "blockedPermissions": ["android.permission.ACTIVITY_RECOGNITION"],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "my.munibtracker.app",
+              "pathPrefix": "/oauth/apple"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -40,7 +56,16 @@
       "backgroundColor": "#152921"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "asyncRoutes": {
+            "web": true,
+            "android": false,
+            "ios": false
+          }
+        }
+      ],
       [
         "expo-splash-screen",
         {
@@ -49,6 +74,7 @@
           "imageWidth": 280
         }
       ],
+      "expo-apple-authentication",
       [
         "expo-location",
         {

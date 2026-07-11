@@ -91,14 +91,23 @@ export const QuranRepository = {
     return readJSON<string | undefined>(DB_KEYS.quranBookmarksUpdatedAt, undefined);
   },
 
-  /** Replaces the whole bookmark set with a pulled one, newest-wins on the blob. */
+  /** Per-item LWW union merge from remote; deletes still need tombstones later. */
   async applyRemoteBookmarks(incoming: QuranBookmark[], updatedAt?: string): Promise<void> {
-    const local = await this.getBookmarksUpdatedAt();
-    if (local && updatedAt && local >= updatedAt) return;
-    const map: Record<string, QuranBookmark> = {};
-    for (const bm of incoming) map[bookmarkKey(bm.surah, bm.ayah)] = bm;
-    await writeJSON(DB_KEYS.quranBookmarks, map);
-    if (updatedAt) await writeJSON(DB_KEYS.quranBookmarksUpdatedAt, updatedAt);
+    const localMap = await bookmarks.getMap();
+    const localUpdatedAt = await this.getBookmarksUpdatedAt();
+    const merged: Record<string, QuranBookmark> = { ...localMap };
+    for (const bm of incoming) {
+      const key = bookmarkKey(bm.surah, bm.ayah);
+      const existing = merged[key];
+      if (!existing || bm.createdAt > existing.createdAt) {
+        merged[key] = bm;
+      }
+    }
+    await writeJSON(DB_KEYS.quranBookmarks, merged);
+    if (updatedAt) {
+      const watermark = localUpdatedAt && localUpdatedAt > updatedAt ? localUpdatedAt : updatedAt;
+      await writeJSON(DB_KEYS.quranBookmarksUpdatedAt, watermark);
+    }
   },
 
   // ── Last read ──────────────────────────────────────────

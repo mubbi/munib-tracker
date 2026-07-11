@@ -42,7 +42,7 @@
 | Bundled religious data (`assets/data`) | **~12 MB** (Qur’an ~9.1 MB, Hadith ~2.4 MB) |
 | All `apps/app/assets` | **~15 MB** |
 | `@munib-tracker/shared` content (non-test `.ts`) | **~1.4 MB** under `packages/shared/src/content` |
-| i18n JSON (`en` + `ar` + `ur`) | **~660 KB** raw |
+| i18n JSON (**23** catalogs: `en` + 22 translations) | **~5+ MB** raw (all eagerly imported today) |
 
 ### 2.2 Web production export (`apps/app/dist`)
 
@@ -54,7 +54,7 @@
 | Other JS chunks | Tiny (~62 KB + ExtensionStorage); **effectively no route-level split** |
 | `dist/assets` | **~6.4 MB** (many `.ttf` from Google-font packages + icons + adhan) |
 
-**Markers confirmed inside the main JS graph:** Fuse, adhan, reanimated, react-native-svg, QR helpers, `reanimated-color-picker`, Material Symbols / Scheherazade names, `DUA_ITEMS` / `NAMES_OF_ALLAH` / guide topic tables, Nawawi/Riyad hadith titles, Qur’an loader factory strings (`assets/data/quran/arabic`), and all three i18n catalogs (loaded from `src/i18n/index.ts`).
+**Markers confirmed inside the main JS graph:** Fuse, adhan, reanimated, react-native-svg, QR helpers, `reanimated-color-picker`, Material Symbols / Scheherazade names, `DUA_ITEMS` / `NAMES_OF_ALLAH` / guide topic tables, Nawawi/Riyad hadith titles, Qur’an loader factory strings (`assets/data/quran/arabic`), and **all 23 i18n catalogs** (eager static imports from `src/i18n/index.ts` — locale-on-demand is the fix).
 
 **Interpretation:** Web first paint pays for **almost the entire app** before any navigation. Gzip helps transfer (~4 MB) but **parse/compile of ~22 MB of JS** on mid-tier phones is still expensive.
 
@@ -65,9 +65,9 @@
 | Qur’an per-surah / page JSON (~9.1 MB on disk) | Deferred `require()` maps in `src/lib/quran-loader.ts` | **Good** — evaluated when a surah/page is opened; assets stay packable without parsing everything at boot |
 | QCF V2 page fonts | Download + cache (`qcf-font-cache.ts`) | **Good** — not blocking splash |
 | Remote hadith / extra Qur’an editions | CDN + cache APIs | **Good** |
-| Riyad as-Salihin JSON (**~2.2 MB**) + Nawawi40 | **Static `import` in `src/lib/hadith.ts`** | **Bad for JS size / parse** — pulled into the JS graph whenever hadith/search touch the module |
+| Riyad as-Salihin JSON (**~2.2 MB**) + Nawawi40 | **Static `import` in `src/lib/hadith-bundled.ts`** | **Bad for JS size / parse** — pulled into the JS graph whenever hadith/search touch the module |
 | Entire `@munib-tracker/shared/content` barrel | **52 app files** import `@munib-tracker/shared/content` (no deep subpaths) | **Moderate** — large TS content modules end up in one graph early via guides + search |
-| All 3 i18n locales | Static import in `src/i18n/index.ts` | **Moderate** — ~660 KB JSON always loaded |
+| All **23** i18n locales | Static import in `src/i18n/index.ts` | **High** — multi‑MB JSON always loaded; load `en` + active locale only |
 | 4 Arabic TTFs via `useFonts(ARABIC_FONT_FILES)` in root `_layout.tsx` | Blocks render until fonts resolve | **Startup gate** — correct for offline Arabic, but all four register before first frame |
 | `reanimated-color-picker` | Imported from appearance settings UI | Ends up in main graph today (seen in web JS) |
 
@@ -124,14 +124,13 @@ Priority: **P0** = clear measured pain · **P1** = solid ROI · **P2** = polish 
 
 ### P0 — Web first-load & JS graph
 
-- [ ] **P0.1 Enable Expo Router async routes on web**  
-  - Config (app config plugin): `["expo-router", { "asyncRoutes": { "web": true, "android": false, "ios": false } }]` (or `"development"` for native dev only if you want faster Metro).  
+- [x] **P0.1 Enable Expo Router async routes on web**  
+  - Config: `["expo-router", { "asyncRoutes": { "web": true, "android": false, "ios": false } }]` in `app.json`.  
   - Re-run `pnpm --filter app build:web` and confirm **multiple** `dist/_expo/static/js/web/*.js` chunks, not one ~22 MB file.  
   - Acceptance: home HTML’s critical JS drops substantially; infrequently used trees (`learn-quran/*`, `jahannam/*`, deep settings) load on navigation.
 
-- [ ] **P0.2 Stop statically importing Riyad into the JS bundle**  
-  - Today: `src/lib/hadith.ts` does `import riyad from "@/assets/data/hadith/riyad-as-salihin.json"` (~2.2 MB raw).  
-  - Prefer the same pattern as Qur’an: `() => require(...)` / async asset read **on first open of that collection or search index**, and keep Nawawi40 eager if you need it for daily hadith / knowledge cards.  
+- [x] **P0.2 Stop statically importing Riyad into the JS bundle**  
+  - `src/lib/hadith-bundled.ts` keeps Nawawi40 eager; Riyad loads via deferred `require()` on first open.  
   - Acceptance: Riyad english samples no longer sit in the **entry** chunk; first open of Riyad may show a short loading state.
 
 - [ ] **P0.3 Re-export web & record a new size table**  
@@ -139,10 +138,10 @@ Priority: **P0** = clear measured pain · **P1** = solid ROI · **P2** = polish 
 
 ### P1 — Startup work & secondary weight
 
-- [ ] **P1.1 Locale-on-demand i18n**  
-  - Load `en` always; dynamically import `ar.json` / `ur.json` when language is selected or detected.  
-  - Keep `i18n-guard` tests importing all three for parity.  
-  - Acceptance: cold start with English does not parse ~480 KB of ur+ar JSON.
+- [x] **P1.1 Locale-on-demand i18n**  
+  - Load `en` always; dynamically import the active locale JSON when language is selected or detected (all 23 catalogs).  
+  - Keep `i18n-guard` / parity tests importing catalogs as needed for CI.  
+  - Acceptance: cold start with English does not parse the other 22 locale JSON files.
 
 - [ ] **P1.2 Font strategy**  
   - Root `useFonts(ARABIC_FONT_FILES)` registers Amiri + Scheherazade + Noto Naskh + QPC Hafs before UI.  

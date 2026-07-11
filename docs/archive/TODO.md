@@ -116,6 +116,7 @@
 **Backend/infra completion pass (2026-07-03):**
 
 - **Auth hardening (P8.0.1 / P0.5.5):** access tokens are now signed JWTs (`@nestjs/jwt`, `TokenService`) with a configurable TTL; `POST /auth/refresh` rotates the opaque refresh token; sessions are revocable server-side (logout invalidates even an unexpired JWT). Real OAuth code/id_token exchange is implemented in `OAuthProviderService` (Google via token+userinfo, Facebook via graph API, Apple via id_token claim validation) — activates when provider secrets are set; unit + e2e tests use a stubbed exchange. The Expo client rotates tokens proactively on boot/foreground (`auth-provider.tsx` `refresh()`).
+  - **Current (2026-07-11):** platform-specific Google/Apple routes, web HttpOnly cookies, and sample-aligned env names — see [`docs/OAUTH_SETUP.md`](../OAUTH_SETUP.md) (not this archive note) for the live guide. API env uses `GOOGLE_OAUTH_CLIENT_IDS` / `GOOGLE_OAUTH_WEB_CLIENT_*` / `APPLE_CLIENT_IDS` (not the older `GOOGLE_CLIENT_ID` / `APPLE_CLIENT_ID` names recorded elsewhere in this file).
 - **Sync e2e (P0.5.6):** full guest-403 + push→pull round-trip + last-write-wins conflict covered in `apps/api/test/app.e2e-spec.ts`. `POST /sync/push` now returns 200 to match its contract.
 - **Production migrations (P0.5.3):** `src/database/data-source.ts` + baseline migration in `src/database/migrations/` + `migration:run|revert|generate` scripts; entities use a driver-portable timestamp type so the same schema validates on SQLite (tests) and Postgres (prod). Prod runs `synchronize: false`.
 - **Marketing site (P0.5.1 / P11.2):** About, Privacy, and Terms pages added; real domain wired via `NEXT_PUBLIC_SITE_URL` (default `https://munibtracker.app`) across metadata/robots/sitemap; footer links them. The app's About screen reads `EXPO_PUBLIC_SITE_URL`.
@@ -128,7 +129,7 @@ The user authorized adding native dependencies (accepting a dev-client rebuild),
 - **Local persistence uses AsyncStorage, not `expo-sqlite`** (`apps/app/src/db/`) — cross-platform (incl. web), behind a `KeyedCollection` abstraction with versioned migrations, so the engine can be swapped without touching callers.
 - **State layer is a zero-dep `useSyncExternalStore` store** (`apps/app/src/stores/create-store.ts`), not zustand. `tracker-store` is the reactive hub; `preferences-store` mirrors `UserPreferences`.
 - **Navigation** is a root `Stack` + `(tabs)` group, with `(auth)` and `(onboarding)` groups. `ScreenLayout`/`AppHeader` gained an `onBack`. `.expo/types/router.d.ts` is Metro-generated (regenerates on `expo start`).
-- **Sync client** calls `apiFetch` directly with per-request bearer tokens (the generated orval functions can't attach a JSON body). Guest is fully functional; the server OAuth exchange is real (`oauth-provider.service.ts`) and activates once provider secrets are configured.
+- **Sync client** calls `apiFetch` directly with per-request bearer tokens on native (the generated orval functions can't attach a JSON body). On web, Google/Apple user sessions use HttpOnly cookies (`credentials: "include"`). Guest remains fully functional; OAuth activates once provider secrets are configured ([`docs/OAUTH_SETUP.md`](../OAUTH_SETUP.md)).
 - **Charts, the tasbeeh ring, favorites reorder, and the qibla compass** are built without extra UI libs (Views + `experimental_backgroundImage` + `expo-sensors`).
 
 **Per phase:** P1 data layer/utils · P2 prayer statuses + notes + dashboard · P3 zikr library/favorites/tasbeeh · P4 qaza counters/calculator/planner/roza · P5 calendar/day-detail/statistics · P6 global audio player + mini-player + 99 Names/Dua/Duroods libraries · P7 settings (appearance incl. custom-hex accent, notifications, bedtime, fonts, language, about) + i18n scaffold (en/ar/ur + RTL) · P8 auth (guest + OAuth scaffold) + secure token storage + sync engine · P9 notification scheduler/center + permission flow + reminders · P10 onboarding flow + achievements · P11 profile (avatar/name/sign-out/delete) · P12 qibla compass with web fallback.
@@ -137,7 +138,7 @@ The user authorized adding native dependencies (accepting a dev-client rebuild),
 
 **Remaining work — requires external assets/credentials (all code paths are ready):**
 
-- **OAuth provider credentials (P8.0.1):** the exchange code is implemented and tested; it needs real Google/Apple/Facebook client IDs + secrets in the API env to go live. Apple id_token validation checks claims — add JWKS signature verification before production (noted in `oauth-provider.service.ts`).
+- **OAuth provider credentials (P8.0.1):** the exchange code is implemented and tested; it needs real Google/Apple/Facebook client IDs + secrets in the API/app env to go live. **Current setup:** [`docs/OAUTH_SETUP.md`](../OAUTH_SETUP.md) (Apple JWKS verification and dedicated Google/Apple routes are shipped).
 - **Audio content (P6):** the global player, mini-player, and playlists are built; the `audioUri`s in content JSON are empty pending licensed/recorded audio files.
 - **Live multi-device sync:** the sync engine + server round-trip are covered by automated e2e tests; a final smoke test against a deployed API on two physical devices remains.
 
@@ -1093,7 +1094,7 @@ export interface DailySummary {
 - [x] Provider env vars documented in `.env.example`
 - [x] E2e/unit tests for OAuth (stubbed exchange) + link-guest flow
 
-> **Note:** Apple id_token validation checks claims (iss/aud/exp). Add JWKS signature verification before production — flagged in `oauth-provider.service.ts`.
+> **Note (historical):** Apple id_token validation originally checked claims only. **Current code** verifies Apple (and Google id_tokens) against provider JWKS. Live ops guide: [`docs/OAUTH_SETUP.md`](../OAUTH_SETUP.md).
 
 ---
 

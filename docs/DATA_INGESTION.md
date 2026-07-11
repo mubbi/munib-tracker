@@ -70,7 +70,7 @@ These were confirmed by reading the source. **Reuse them; do not rebuild what ex
 | D2 | **Extra Qur'an translations (Saheeh International, Clear Qur'an/Khattab) + tafsir** | **Live CDN, on-demand**, cached (react-query + AsyncStorage) | `fawazahmed0/quran-api` jsDelivr (no key) |
 | D3 | **Qur'an recitation audio (Arabic, per-ayah)** | **Streamed** from CDN, optional per-surah download later | `everyayah.com` predictable URLs |
 | D4 | **Qur'an English audio-translation** | **Streamed**, per-surah | `QuranicAudio.com` (Ibrahim Walk / Saheeh Intl) |
-| D5 | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)** | **Bundled JSON**, offline | `AhmedBaset/hadith-json` (build-time; see license note §12) |
+| D5 | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)** | **Bundled JSON**, offline | `AhmedBaset/hadith-json` (build-time; license policy §12) |
 | D6 | **Hadith — full six-books browse/search** | **Live CDN, on-demand**, cached | `fawazahmed0/hadith-api` jsDelivr (no key) |
 | D7 | **Duas + Adhkar → full Hisnul Muslim** | **Bundled static content** (expand existing files) | `wafaaelmaandy/Hisn-Muslim-Json` + `Seen-Arabic/…ADB` |
 | D8 | **Names of Allah → complete 99** | **Bundled static content** | standard Asma-ul-Husna (from fawazahmed0 / muslimKit) |
@@ -475,10 +475,16 @@ Acceptance: app's existing Zikr/Dua/Names screens now show the full sets with **
   Pickthall/Yusuf Ali/Jalandhry (public domain). ✅
 - **Do NOT bundle** Saheeh International or Khattab "Clear Qur'an" text — fetch at runtime (D2) and
   render verbatim with credit. (They're free-to-use but copyrighted.)
-- **`AhmedBaset/hadith-json` has no explicit license** (scraped from sunnah.com). Use it only for the
-  small **highlight** sets (40 Nawawi / Riyad as-Salihin, which are themselves classical/public),
-  attribute sunnah.com, and add a `TODO(license)` note in the manifest. Do **not** bundle the full
-  50k corpus. Full browse is via the runtime CDN (D6).
+- **`AhmedBaset/hadith-json` licensing (resolved policy):** The GitHub repo has **no
+  explicit license** (scraped from sunnah.com). Munib's policy is therefore:
+  1. **Ship only classical highlight sets** (40 Nawawi / Riyad as-Salihin) that are
+     themselves public-domain / classical corpora, attributed to sunnah.com in the
+     Credits screen and `assets/data/manifest.json`.
+  2. **Do not** bundle the full ~50k hadith corpus from that repo.
+  3. Full-collection browse uses the **runtime CDN** path (D6), not AhmedBaset.
+  4. The manifest `note` field documents this constraint for auditors (`TODO(license)`
+     marker = "confirm rights before expanding beyond highlights"). Until the
+     upstream adds a clear license, treat any expansion of that source as blocked.
 - **No encryption** of any scripture/text (D12). Integrity = SHA-256 in the manifest only.
 
 ---

@@ -6,12 +6,18 @@ import { readJSON, writeJSON } from "@/db/store";
 import { applyRemoteBlob, buildBlobRecords, isBlobEntity } from "./blob-sync";
 
 const FASTING = "fasting";
+/** Pure last-write-wins blob (not in the union-merge set). */
+const KHATM = "khatm";
 const T1 = "2026-07-01T00:00:00.000Z";
 const T2 = "2026-07-02T00:00:00.000Z";
 const T3 = "2026-07-03T00:00:00.000Z";
 
 function fastingRecord(records: Awaited<ReturnType<typeof buildBlobRecords>>) {
   return records.find((r) => r.entity === FASTING);
+}
+
+function khatmRecord(records: Awaited<ReturnType<typeof buildBlobRecords>>) {
+  return records.find((r) => r.entity === KHATM);
 }
 
 beforeEach(async () => {
@@ -76,36 +82,66 @@ describe("buildBlobRecords", () => {
   });
 });
 
-describe("applyRemoteBlob", () => {
+describe("applyRemoteBlob (last-write-wins)", () => {
   it("writes a pulled value and records it as applied", async () => {
-    const applied = await applyRemoteBlob(FASTING, { value: { "2026-03-05": "exempt" } }, T2);
+    const applied = await applyRemoteBlob(KHATM, { value: { plan: "juz" } }, T2);
     expect(applied).toBe(true);
-    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({ "2026-03-05": "exempt" });
+    expect(await readJSON(DB_KEYS.khatm, null)).toEqual({ plan: "juz" });
   });
 
   it("keeps a newer local value when the pulled copy is older (last-write-wins)", async () => {
-    // Establish local content at T2 via a push build.
-    await writeJSON(DB_KEYS.fasting, { local: "fasted" });
+    await writeJSON(DB_KEYS.khatm, { local: "plan" });
     await buildBlobRecords(T2);
-    // An older remote must not overwrite it.
-    const applied = await applyRemoteBlob(FASTING, { value: { old: "missed" } }, T1);
+    const applied = await applyRemoteBlob(KHATM, { value: { old: "plan" } }, T1);
     expect(applied).toBe(false);
-    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({ local: "fasted" });
+    expect(await readJSON(DB_KEYS.khatm, null)).toEqual({ local: "plan" });
   });
 
   it("does not ping-pong: re-applying our own just-pushed record is a no-op", async () => {
-    await writeJSON(DB_KEYS.fasting, { "2026-03-01": "fasted" });
-    const record = fastingRecord(await buildBlobRecords(T2));
-    // The server echoes our record back on the next pull with the same timestamp.
-    const applied = await applyRemoteBlob(FASTING, record?.data ?? {}, record?.updatedAt ?? T2);
+    await writeJSON(DB_KEYS.khatm, { plan: "juz" });
+    const record = khatmRecord(await buildBlobRecords(T2));
+    const applied = await applyRemoteBlob(KHATM, record?.data ?? {}, record?.updatedAt ?? T2);
     expect(applied).toBe(false);
   });
 
   it("applies a newer remote over tracked local content", async () => {
+    await writeJSON(DB_KEYS.khatm, { local: "plan" });
+    await buildBlobRecords(T2);
+    const applied = await applyRemoteBlob(KHATM, { value: { remote: "plan" } }, T3);
+    expect(applied).toBe(true);
+    expect(await readJSON(DB_KEYS.khatm, null)).toEqual({ remote: "plan" });
+  });
+});
+
+describe("applyRemoteBlob (union-merge)", () => {
+  it("merges keys from an older remote without dropping local edits", async () => {
     await writeJSON(DB_KEYS.fasting, { local: "fasted" });
     await buildBlobRecords(T2);
-    const applied = await applyRemoteBlob(FASTING, { value: { remote: "missed" } }, T3);
+    const applied = await applyRemoteBlob(FASTING, { value: { old: "missed" } }, T1);
     expect(applied).toBe(true);
-    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({ remote: "missed" });
+    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({ old: "missed", local: "fasted" });
+  });
+
+  it("does not ping-pong when the server echoes an identical union-merge blob", async () => {
+    await writeJSON(DB_KEYS.fasting, { "2026-03-01": "fasted" });
+    const record = fastingRecord(await buildBlobRecords(T2));
+    const applied = await applyRemoteBlob(FASTING, record?.data ?? {}, record?.updatedAt ?? T2);
+    expect(applied).toBe(false);
+  });
+
+  it("keeps local values on key conflict when merging a newer remote", async () => {
+    await writeJSON(DB_KEYS.fasting, { day: "fasted", local: "fasted" });
+    await buildBlobRecords(T2);
+    const applied = await applyRemoteBlob(
+      FASTING,
+      { value: { day: "missed", remote: "missed" } },
+      T3,
+    );
+    expect(applied).toBe(true);
+    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({
+      day: "fasted",
+      remote: "missed",
+      local: "fasted",
+    });
   });
 });

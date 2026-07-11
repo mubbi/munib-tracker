@@ -50,7 +50,9 @@ describe("quran bundled data", () => {
     const editionIds = getBundledEditions()
       .filter((e) => e.kind === "translation")
       .map((e) => e.id);
-    expect(editionIds.length).toBeGreaterThanOrEqual(3);
+    // Offline defaults only — other locales fetch via CDN (quran-remote).
+    expect(editionIds).toEqual(expect.arrayContaining(["en-pickthall", "ur-jalandhry"]));
+    expect(editionIds).toHaveLength(2);
 
     for (const n of [1, 2, 18, 114]) {
       const meta = surahs.find((s) => s.number === n);

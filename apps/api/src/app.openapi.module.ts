@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { AppFeedbackController } from "./app-feedback/app-feedback.controller";
 import { AppFeedbackService } from "./app-feedback/app-feedback.service";
 import { AuthController } from "./auth/auth.controller";
+import { AuthOAuthService } from "./auth/auth-oauth.service";
 import { AuthService } from "./auth/auth.service";
 import { AppConfigModule } from "./config/config.module";
 import { ContentReportsController } from "./content-reports/content-reports.controller";
@@ -16,10 +17,24 @@ const openApiServiceMocks = {
   auth: {
     createGuestSession: async () => ({}),
     completeOAuth: async () => ({}),
+    completeOAuthFromProfile: async () => ({}),
     linkGuestAccount: async () => ({}),
+    refreshSession: async () => ({}),
     getCurrentUser: async () => ({}),
     revokeSession: async () => undefined,
     deleteAccount: async () => undefined,
+  },
+  authOAuth: {
+    completeGoogleNative: async () => ({}),
+    completeGoogleOauth: async () => ({}),
+    completeAppleNative: async () => ({}),
+    completeAppleOauth: async () => ({}),
+    startAppleOauthSession: () => undefined,
+    completeAppleOauthCallback: async () => undefined,
+    issueSessionResponse: async () => ({}),
+    resolveAccessToken: () => "token",
+    resolveRefreshToken: () => "refresh",
+    clearAuthCookies: () => undefined,
   },
   sync: {
     pull: async () => ({ changes: [], serverTime: new Date().toISOString() }),
@@ -58,6 +73,7 @@ const openApiServiceMocks = {
   ],
   providers: [
     { provide: AuthService, useValue: openApiServiceMocks.auth },
+    { provide: AuthOAuthService, useValue: openApiServiceMocks.authOAuth },
     { provide: SyncService, useValue: openApiServiceMocks.sync },
     { provide: ContentReportsService, useValue: openApiServiceMocks.contentReports },
     { provide: AppFeedbackService, useValue: openApiServiceMocks.appFeedback },

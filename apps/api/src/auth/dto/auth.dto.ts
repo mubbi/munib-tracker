@@ -35,6 +35,13 @@ export class OAuthCallbackDto {
   @IsString()
   idToken?: string;
 
+  @ApiPropertyOptional({
+    description: "Google OAuth access token from on-device PKCE exchange (native Google)",
+  })
+  @IsOptional()
+  @IsString()
+  accessToken?: string;
+
   @ApiPropertyOptional({ description: "PKCE code verifier when using auth code + PKCE" })
   @IsOptional()
   @IsString()
@@ -44,6 +51,89 @@ export class OAuthCallbackDto {
   @IsOptional()
   @IsString()
   redirectUri?: string;
+
+  @ApiPropertyOptional({ description: "Display name from Apple native credential (first sign-in)" })
+  @IsOptional()
+  @IsString()
+  @MaxLength(256)
+  displayName?: string;
+}
+
+export class AuthGoogleBodyDto {
+  @ApiProperty({ description: "Google OAuth access token from on-device PKCE exchange" })
+  @IsString()
+  @IsNotEmpty()
+  accessToken!: string;
+}
+
+export class AuthGoogleOauthBodyDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  code!: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  redirectUri!: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  codeVerifier!: string;
+}
+
+export class AuthAppleBodyDto {
+  @ApiProperty({ description: "Apple identity token (JWT) from native Sign in with Apple" })
+  @IsString()
+  @IsNotEmpty()
+  identityToken!: string;
+
+  @ApiPropertyOptional({ description: "Given + family name from Apple (first authorization only)" })
+  @IsOptional()
+  @IsString()
+  @MaxLength(256)
+  displayName?: string;
+}
+
+export class AuthAppleOauthBodyDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  code!: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  redirectUri!: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  codeVerifier!: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(256)
+  displayName?: string;
+}
+
+export class AuthAppleOauthSessionBodyDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  codeVerifier!: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  redirectUri!: string;
+
+  @ApiProperty({ description: "Web origin URL to redirect after Apple form_post callback" })
+  @IsString()
+  @IsNotEmpty()
+  returnUrl!: string;
 }
 
 export class LinkAccountDto {
@@ -63,6 +153,13 @@ export class LinkAccountDto {
   @IsString()
   idToken?: string;
 
+  @ApiPropertyOptional({
+    description: "Google OAuth access token from on-device PKCE exchange",
+  })
+  @IsOptional()
+  @IsString()
+  accessToken?: string;
+
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
@@ -72,13 +169,21 @@ export class LinkAccountDto {
   @IsOptional()
   @IsString()
   redirectUri?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(256)
+  displayName?: string;
 }
 
 export class RefreshTokenDto {
-  @ApiProperty({ description: "The opaque refresh token issued with the session" })
+  @ApiPropertyOptional({
+    description: "Opaque refresh token; optional for web clients that send mt_refresh_token cookie",
+  })
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  refreshToken!: string;
+  refreshToken?: string;
 }
 
 export class AuthSessionResponseDto {
@@ -116,4 +221,9 @@ export class AuthUserResponseDto {
 
   @ApiPropertyOptional()
   displayName?: string;
+}
+
+export class WebAuthSessionResponseDto {
+  @ApiProperty({ type: AuthUserResponseDto })
+  user!: AuthUserResponseDto;
 }

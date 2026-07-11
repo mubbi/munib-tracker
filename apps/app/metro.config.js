@@ -9,11 +9,28 @@ const config = getSentryExpoConfig(projectRoot, {
 
 // `@/assets/*` maps to `./assets/*` in tsconfig (not `./src/assets/*` like `@/*`).
 // Mirror jest.config.js: resolve this before the generic `@/*` alias.
+/** Themed content-space loader while async route chunks bundle (web). */
+const routeSuspenseFallback = path.join(
+  projectRoot,
+  "src/components/navigation/route-suspense-fallback.tsx",
+);
+
 const originalResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (moduleName.startsWith("@/assets/")) {
     const assetPath = path.join(projectRoot, "assets", moduleName.slice("@/assets/".length));
     return context.resolveRequest(context, assetPath, platform);
+  }
+  // Async routes always use expo-router's built-in SuspenseFallback (tiny toast /
+  // blank). Alias it to our themed content-space placeholder instead.
+  const origin = (context.originModulePath || "").replace(/\\/g, "/");
+  if (
+    origin.includes("/expo-router/") &&
+    (moduleName === "./views/SuspenseFallback" ||
+      moduleName.endsWith("/views/SuspenseFallback") ||
+      moduleName === "expo-router/build/views/SuspenseFallback")
+  ) {
+    return { filePath: routeSuspenseFallback, type: "sourceFile" };
   }
   if (originalResolveRequest) {
     return originalResolveRequest(context, moduleName, platform);

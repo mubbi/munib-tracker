@@ -37,8 +37,8 @@ describe("isRTL on web", () => {
     expect(isRTL()).toBe(true);
   });
 
-  it("falls back to i18n.language when the saved locale is LTR", () => {
-    void i18n.changeLanguage("ar");
+  it("falls back to i18n.language when the saved locale is LTR", async () => {
+    await i18n.changeLanguage("ar");
 
     expect(isRTL()).toBe(true);
   });

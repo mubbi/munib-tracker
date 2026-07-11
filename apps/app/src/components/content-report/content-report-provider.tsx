@@ -10,6 +10,7 @@ import { AppState, type AppStateStatus, Platform } from "react-native";
 import { ContentReportAuthGate } from "@/components/content-report/content-report-auth-gate";
 import { ContentReportContext } from "@/components/content-report/content-report-context";
 import { ContentReportSheet } from "@/components/content-report/content-report-sheet";
+import { useIsOnline } from "@/hooks/use-is-online";
 import {
   isGuestReportError,
   isOfflineReportError,
@@ -24,6 +25,7 @@ export function ContentReportProvider({ children }: { children: ReactNode }) {
   const { session, isGuest } = useAuth();
   const toast = useToast();
   const { t } = useTranslation();
+  const online = useIsOnline();
   const [activeRef, setActiveRef] = useState<ContentReportReference | null>(null);
   const [authGateVisible, setAuthGateVisible] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -48,6 +50,10 @@ export function ContentReportProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     void flushQueue();
   }, [flushQueue]);
+
+  useEffect(() => {
+    if (online) void flushQueue();
+  }, [online, flushQueue]);
 
   useEffect(() => {
     const onChange = (status: AppStateStatus) => {

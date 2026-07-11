@@ -6,6 +6,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AuthService } from "../../src/auth/auth.service";
 import { OAuthProviderService } from "../../src/auth/oauth-provider.service";
 import { TokenService } from "../../src/auth/token.service";
+import { AttachmentStorageService } from "../../src/common/attachment-storage.service";
 import { validateEnvironment } from "../../src/config/env.validation";
 import {
   AppFeedbackEntity,
@@ -43,6 +44,7 @@ export function createAuthTestingModule(extraProviders: Provider[] = []): Promis
     providers: [
       AuthService,
       TokenService,
+      AttachmentStorageService,
       { provide: OAuthProviderService, useClass: StubOAuthProviderService },
       ...extraProviders,
     ],

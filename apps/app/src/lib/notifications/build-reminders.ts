@@ -42,6 +42,11 @@ export type BuiltReminder = {
    * when the adhan option is on.
    */
   sound?: string;
+  /**
+   * Scheduling priority — lower numbers keep a slot when we trim to the iOS
+   * pending-notification budget (~64). Fard prayers win over optional nudges.
+   */
+  priority: number;
 };
 
 /** Deep-link a zikr category collection screen. */
@@ -57,7 +62,33 @@ type ReminderPrayerSlot =
 const BEFORE_PRAYER_MINUTES = 10;
 const AFTER_PRAYER_MINUTES = 10;
 const AFTER_AZAN_MINUTES = 2;
-const SCHEDULE_DAYS_AHEAD = 7;
+
+/**
+ * Prayer times shift daily, so they must use DATE triggers. Keep the window short
+ * and refresh on foreground (`rescheduleAll`) so we stay under the iOS ~64 cap.
+ */
+export const SCHEDULE_DAYS_AHEAD = 2;
+
+/**
+ * Leave headroom for snooze / achievement one-shots. iOS silently drops locals
+ * past ~64 pending notifications.
+ */
+export const MAX_PENDING_REMINDERS = 60;
+
+const PRIORITY = {
+  fard: 10,
+  witr: 20,
+  sunnah: 30,
+  afterAzan: 40,
+  beforePrayer: 50,
+  afterPrayer: 55,
+  morningZikr: 60,
+  eveningZikr: 61,
+  beforeSleep: 62,
+  qaza: 70,
+  dailyContent: 80,
+  friday: 85,
+} as const;
 
 /** Registered adhan sound file (see the `sounds` array in `app.json`). */
 export const ADHAN_NOTIFICATION_SOUND = "adhan.mp3";
@@ -123,6 +154,7 @@ function pushPrayerReminders(
     const label = i18n.t(`prayers.${slot}`);
     const dayKey = day.toISOString().slice(0, 10);
     const isFard = FARD_SLOTS.includes(slot as (typeof FARD_SLOTS)[number]);
+    const isWitr = slot === "witr";
 
     // The adhan plays only for the obligatory prayers, and only when the user
     // opted in. Sunnah/witr and the surrounding zikr nudges stay silent.
@@ -145,6 +177,7 @@ function pushPrayerReminders(
       channelId: playAdhan ? "prayerAdhan" : "prayer",
       repeat: "date",
       route: "/tracker",
+      priority: isFard ? PRIORITY.fard : isWitr ? PRIORITY.witr : PRIORITY.sunnah,
       ...(playAdhan ? { sound: ADHAN_NOTIFICATION_SOUND } : {}),
     });
 
@@ -160,6 +193,7 @@ function pushPrayerReminders(
         channelId: "zikr",
         repeat: "date",
         route: zikrRoute("after_azan"),
+        priority: PRIORITY.afterAzan,
       });
     }
 
@@ -173,6 +207,7 @@ function pushPrayerReminders(
         channelId: "zikr",
         repeat: "date",
         route: zikrRoute("before_prayer"),
+        priority: PRIORITY.beforePrayer,
       });
     }
 
@@ -186,15 +221,20 @@ function pushPrayerReminders(
         channelId: "zikr",
         repeat: "date",
         route: afterSalahAdhkarHref(slot as ObligatoryPrayer),
+        priority: PRIORITY.afterPrayer,
       });
     }
   }
 }
 
-function pushDailyReminders(
+/**
+ * One DAILY repeating notification for a fixed wall-clock time. Uses a single
+ * OS slot instead of 7 DATE copies (critical for the iOS pending budget).
+ */
+function pushDailyReminder(
   reminders: BuiltReminder[],
   when: string,
-  idPrefix: string,
+  id: string,
   title: string,
   body: string,
   channelId: ReminderChannelId,
@@ -202,38 +242,47 @@ function pushDailyReminders(
   enabled: boolean,
   location: StoredLocation,
   now: Date,
+  priority: number,
 ): void {
   if (!enabled) return;
   const { hour, minute } = parseHhMm(when);
-  const anchor = prayerDayAnchor(now, location.timeZone);
-
-  for (let offset = 0; offset < SCHEDULE_DAYS_AHEAD; offset += 1) {
-    const day = shiftPrayerDay(anchor, offset);
-    const fireAt = wallClockInTimeZoneToDate(
-      day.getFullYear(),
-      day.getMonth() + 1,
-      day.getDate(),
+  const parts = getZonedParts(now, location.timeZone);
+  let fireAt = wallClockInTimeZoneToDate(
+    parts.year,
+    parts.month,
+    parts.day,
+    hour,
+    minute,
+    location.timeZone,
+  );
+  // If today's occurrence already passed, point fireAt at tomorrow so the OS
+  // daily trigger's first fire and the UI "next at" row stay aligned.
+  if (fireAt.getTime() <= now.getTime() - 60_000) {
+    const tomorrow = shiftPrayerDay(prayerDayAnchor(now, location.timeZone), 1);
+    fireAt = wallClockInTimeZoneToDate(
+      tomorrow.getFullYear(),
+      tomorrow.getMonth() + 1,
+      tomorrow.getDate(),
       hour,
       minute,
       location.timeZone,
     );
-    if (fireAt.getTime() <= now.getTime() - 60_000) continue;
-
-    const dayKey = `${day.getFullYear()}-${`${day.getMonth() + 1}`.padStart(2, "0")}-${`${day.getDate()}`.padStart(2, "0")}`;
-    reminders.push({
-      id: `${idPrefix}:${dayKey}`,
-      fireAt,
-      title,
-      body,
-      channelId,
-      repeat: "date",
-      route,
-    });
   }
+
+  reminders.push({
+    id,
+    fireAt,
+    title,
+    body,
+    channelId,
+    repeat: "daily",
+    route,
+    priority,
+  });
 }
 
-/** Pushes a Jumu'ah / Surah Al-Kahf reminder on each Friday in the 7-day window. */
-function pushFridayReminders(
+/** Next Friday (or today if still upcoming) — single DATE, refreshed on reschedule. */
+function pushFridayReminder(
   reminders: BuiltReminder[],
   location: StoredLocation,
   now: Date,
@@ -243,11 +292,8 @@ function pushFridayReminders(
   const { hour, minute } = parseHhMm("11:00");
   const anchor = prayerDayAnchor(now, location.timeZone);
 
-  // Cover a full week inclusive (0..7 days) so a future Friday is always found even
-  // when today is Friday and its reminder time has already passed.
-  for (let offset = 0; offset <= SCHEDULE_DAYS_AHEAD; offset += 1) {
+  for (let offset = 0; offset <= 7; offset += 1) {
     const day = shiftPrayerDay(anchor, offset);
-    // 5 = Friday. The anchor sits at local noon so the weekday is the local one.
     if (day.getDay() !== 5) continue;
 
     const fireAt = wallClockInTimeZoneToDate(
@@ -269,8 +315,22 @@ function pushFridayReminders(
       channelId: "zikr",
       repeat: "date",
       route: "/quran/18",
+      priority: PRIORITY.friday,
     });
+    return;
   }
+}
+
+/** Keep the highest-priority reminders within the OS pending budget. */
+export function trimRemindersToBudget(
+  reminders: BuiltReminder[],
+  max = MAX_PENDING_REMINDERS,
+): BuiltReminder[] {
+  if (reminders.length <= max) return reminders;
+  return [...reminders]
+    .sort((a, b) => a.priority - b.priority || a.fireAt.getTime() - b.fireAt.getTime())
+    .slice(0, max)
+    .sort((a, b) => a.fireAt.getTime() - b.fireAt.getTime());
 }
 
 export function buildReminders(
@@ -285,7 +345,7 @@ export function buildReminders(
     pushPrayerReminders(reminders, prefs, location, offset);
   }
 
-  pushDailyReminders(
+  pushDailyReminder(
     reminders,
     "07:00",
     "morningZikr",
@@ -296,8 +356,9 @@ export function buildReminders(
     n.morningZikr,
     location,
     now,
+    PRIORITY.morningZikr,
   );
-  pushDailyReminders(
+  pushDailyReminder(
     reminders,
     "17:30",
     "eveningZikr",
@@ -308,8 +369,9 @@ export function buildReminders(
     n.eveningZikr,
     location,
     now,
+    PRIORITY.eveningZikr,
   );
-  pushDailyReminders(
+  pushDailyReminder(
     reminders,
     prefs.bedtime ?? "22:30",
     "beforeSleep",
@@ -320,8 +382,9 @@ export function buildReminders(
     n.beforeSleep,
     location,
     now,
+    PRIORITY.beforeSleep,
   );
-  pushDailyReminders(
+  pushDailyReminder(
     reminders,
     "20:00",
     "qaza",
@@ -332,8 +395,9 @@ export function buildReminders(
     n.qaza,
     location,
     now,
+    PRIORITY.qaza,
   );
-  pushDailyReminders(
+  pushDailyReminder(
     reminders,
     "09:00",
     "dailyContent",
@@ -345,13 +409,17 @@ export function buildReminders(
     n.dailyContent,
     location,
     now,
+    PRIORITY.dailyContent,
   );
 
-  // Jumu'ah nudge — only on Fridays, before midday prayer.
-  pushFridayReminders(reminders, location, now, n.friday);
+  // Jumu'ah nudge — next Friday only; refreshed on reschedule.
+  pushFridayReminder(reminders, location, now, n.friday);
 
-  // Drop reminders whose fire time has already passed.
-  return reminders.filter((reminder) => reminder.fireAt.getTime() > now.getTime() - 60_000);
+  // Drop reminders whose fire time has already passed (DATE only; daily uses next slot).
+  const upcoming = reminders.filter(
+    (reminder) => reminder.fireAt.getTime() > now.getTime() - 60_000,
+  );
+  return trimRemindersToBudget(upcoming);
 }
 
 export type ScheduledReminderRow = {

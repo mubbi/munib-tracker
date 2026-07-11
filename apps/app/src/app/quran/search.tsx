@@ -16,7 +16,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { runWhenIdle } from "@/lib/run-when-idle";
-import { searchQuranAyahs } from "@/lib/search";
+import { clearAyahIndex, searchQuranAyahs } from "@/lib/search";
 import { buildAyahSharePayload } from "@/lib/share";
 
 const MAX_RESULTS = 40;
@@ -72,6 +72,9 @@ export default function QuranSearchScreen() {
 
   const [results, setResults] = useState<SearchHit[]>([]);
   const [searching, setSearching] = useState(false);
+
+  // Reclaim the multi-MB ayah Fuse heap when leaving this screen.
+  useEffect(() => () => clearAyahIndex(), []);
 
   // Fuzzy, typo-tolerant search over the shared Qur'an ayah index (translation +
   // transliteration), mapped to this screen's row shape. Building/scanning the

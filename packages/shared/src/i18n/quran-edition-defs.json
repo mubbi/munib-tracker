@@ -15,7 +15,7 @@
     "language": "en",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "ur-jalandhry",
@@ -33,7 +33,7 @@
     "language": "ar",
     "direction": "rtl",
     "kind": "tafsir",
-    "bundled": true,
+    "bundled": false,
     "perSurah": true
   },
   {
@@ -43,7 +43,7 @@
     "language": "id",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "tr-diyanet",
@@ -52,7 +52,7 @@
     "language": "tr",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "bn-muhiuddinkhan",
@@ -61,7 +61,7 @@
     "language": "bn",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "ms-basmeih",
@@ -70,7 +70,7 @@
     "language": "ms",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "fa-makarem",
@@ -79,7 +79,7 @@
     "language": "fa",
     "direction": "rtl",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "fr-hamidullah",
@@ -88,7 +88,7 @@
     "language": "fr",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "ha-gumi",
@@ -97,7 +97,7 @@
     "language": "ha",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "sw-basmeih",
@@ -106,7 +106,7 @@
     "language": "sw",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "ru-kuliev",
@@ -115,7 +115,7 @@
     "language": "ru",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "az-mammadaliyev",
@@ -124,7 +124,7 @@
     "language": "az",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "ps-khan",
@@ -133,7 +133,7 @@
     "language": "ps",
     "direction": "rtl",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "so-hassan",
@@ -142,7 +142,7 @@
     "language": "so",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "uz-mansour",
@@ -151,7 +151,7 @@
     "language": "uz",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "kk-altai",
@@ -160,7 +160,7 @@
     "language": "kk",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "ku-tanzil",
@@ -169,7 +169,7 @@
     "language": "ku",
     "direction": "rtl",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "bs-korkut",
@@ -178,7 +178,7 @@
     "language": "bs",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "sq-ahmeti",
@@ -187,7 +187,7 @@
     "language": "sq",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "ky-hakim",
@@ -196,7 +196,7 @@
     "language": "ky",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "tg-ayati",
@@ -205,7 +205,7 @@
     "language": "tg",
     "direction": "ltr",
     "kind": "translation",
-    "bundled": true
+    "bundled": false
   },
   {
     "id": "en-saheehintl",

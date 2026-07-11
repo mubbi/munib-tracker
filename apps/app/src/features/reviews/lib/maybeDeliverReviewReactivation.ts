@@ -4,7 +4,6 @@ import {
   reviewReactivationWindowKey,
 } from "@munib-tracker/shared/reviews";
 import * as Notifications from "expo-notifications";
-import { Platform } from "react-native";
 import { SessionStore } from "@/auth/session-store";
 import { getReviewPromptRuntime } from "@/features/reviews/lib/reviewEngagementBridge";
 import { canSendReviewReactivationPush } from "@/features/reviews/lib/reviewGating";
@@ -21,8 +20,6 @@ import { preferencesStore } from "@/stores/preferences-store";
 export async function maybeDeliverReviewReactivation(
   triggerId: ReviewFunnelTriggerId,
 ): Promise<boolean> {
-  if (Platform.OS === "web") return false;
-
   const prefs = preferencesStore.getState().prefs;
   if (prefs.notificationPrefs.reviewReactivationEnabled === false) return false;
 

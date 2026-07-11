@@ -8,7 +8,7 @@
  * Profiles:
  *   quick     lint + typecheck (default; fast pre-commit)
  *   style     format-and-lint + typecheck
- *   ci        typecheck + lint + test + build (matches .github/workflows/ci.yml)
+ *   ci        typecheck + lint + test + build + generate (matches .github/workflows/ci.yml)
  *
  * Individual steps: format, lint, typecheck, test, build, generate
  */
@@ -33,7 +33,7 @@ const steps = {
 const profiles = {
   quick: ["lint", "typecheck"],
   style: ["format", "lint", "typecheck"],
-  ci: ["typecheck", "lint", "test", "build"],
+  ci: ["typecheck", "lint", "test", "build", "generate"],
 };
 
 function runStep(name) {

@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   verify:
-    name: Type-check, lint, test, build
+    name: Type-check, lint, test, build, OpenAPI drift
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,5 +31,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Type-check, lint, test, build
+      - name: Type-check, lint, test, build, OpenAPI generate drift
         run: pnpm check:ci

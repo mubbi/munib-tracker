@@ -2,7 +2,7 @@
 
 Consolidated open work across product, i18n, performance, devices, and content. **Shipped features** are in [`FEATURES.md`](./FEATURES.md). **How-to guides** are linked from [`README.md`](./README.md).
 
-**Last updated:** 2026-07-09
+**Last updated:** 2026-07-11
 
 ---
 
@@ -26,11 +26,11 @@ Full ops guide: [`I18N_GUIDE.md`](./I18N_GUIDE.md)
 
 | Priority | Task | How |
 |----------|------|-----|
-| P1 | Native UI for `az`, `ps`, `so`, `uz`, `tg` high-traffic screens | Expand `ui-polish-patches.json` |
+| P1 | Native UI for `az`, `ps`, `so`, `uz`, `tg` high-traffic screens | Keep open until mangled auto-translate strings are fixed + expand `ui-polish-patches.json`. Corrupted catalogs fall back to English via `fix-runglish-catalog.mjs`; native polish is still required before marking done. |
 | P2 | Full Hisnul for `ur`/`tr`/`fr` | Source OSS corpus; extend `build-adhkar.mjs` — no AI |
 | P3 | Bengali dua coverage (~128/270 → higher) | Improve prefix matching in `build-adhkar.mjs` |
 | P4 | Literary review of learn overlays | Human pass on `packages/shared/src/content/i18n/` |
-| P5 | Bundle size (23 Qur'an editions) | Profile APK/IPA; phased download if needed |
+| P5 | Bundle size (Qur'an editions) | **Done 2026-07-11** — only `en-pickthall` + `ur-jalandhry` bundled; rest CDN via `quran-remote` |
 | P6 | Per-locale device QA | Language picker, RTL, fonts, notifications, widgets |
 
 **CI:** App i18n 152/152 tests · Shared overlay coverage ≥90% · 731 UI polish patches across 19 locales.
@@ -41,13 +41,27 @@ Full ops guide: [`I18N_GUIDE.md`](./I18N_GUIDE.md)
 
 Full profile + playbooks: [`PROFILING.md`](./PROFILING.md)
 
-**Verdict:** Native route lazy-loading not required; **web ~22.5 MB single JS chunk** is the main debt.
+**Verdict (2026-07-11):** Native route lazy-loading still not required. Reliability/size/startup fixes landed; re-measure web chunks when convenient.
 
-| Priority | Task |
-|----------|------|
-| **P0** | Enable Expo Router `asyncRoutes` on web; defer Riyad hadith JSON import; re-measure |
-| **P1** | Locale-on-demand i18n; trim root fonts; lazy settings UI; narrow `@munib-tracker/shared/content` imports; ML Kit audit |
-| **P2** | Cold-start baseline; release AAB/IPA size; Lighthouse; Metro treemap |
+| Priority | Task | Status |
+|----------|------|--------|
+| **P0** | iOS notification budget (daily + 2-day prayer window + cap 60) | Done |
+| **P0** | Bundle only `en-pickthall` + `ur-jalandhry`; other editions CDN | Done |
+| **P0** | Entry trim (deep content imports, lazy color picker, Nawawi-only light search); web `asyncRoutes` | Done |
+| **P1** | Deferred fonts; Qur'an/QCF LRU; Hadith FlatList | Done |
+| **P1** | Google JWKS; per-item bookmark/favorites merge | Done |
+| **P2** | Cold-start baseline; release AAB/IPA size; Lighthouse; Metro treemap | Open |
+
+---
+
+## Auth / App Links ops
+
+Canonical guides: [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) · [`DEEP_LINKS.md`](./DEEP_LINKS.md) · [`PRODUCTION.md`](./PRODUCTION.md)
+
+| Priority | Task | Status |
+|----------|------|--------|
+| **P1** | Serve `.well-known/apple-app-site-association` + `assetlinks.json` from `my.munibtracker.app` at web build | Open — `app.json` App Links + Apple OAuth route shipped; host verification files still needed for store-grade Android Apple return |
+| **P2** | Fill production OAuth secrets (`GOOGLE_OAUTH_*`, `APPLE_*`, `OAUTH_REDIRECT_URI_ALLOWLIST`) per environment | Ops — code paths ready |
 
 ---
 

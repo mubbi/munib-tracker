@@ -81,10 +81,31 @@ export function createFavoritesStore(storageKey: string, updatedAtKey: string): 
 
   async function applyRemote(order: string[], updatedAt?: string): Promise<void> {
     const localUpdatedAt = await readJSON<string | undefined>(updatedAtKey, undefined);
-    if (localUpdatedAt && updatedAt && localUpdatedAt >= updatedAt) return;
-    await writeJSON(storageKey, order);
-    if (updatedAt) await writeJSON(updatedAtKey, updatedAt);
-    if (store.getState().isReady) store.setState({ order, updatedAt });
+    const localOrder = await readJSON<string[]>(storageKey, []);
+    // Per-item union merge: keep local order, append remote ids not already present.
+    // Avoids wiping favorites from the other device (blob LWW). Deletes still need
+    // tombstones for true multi-device remove sync.
+    const merged: string[] = [];
+    const seen = new Set<string>();
+    for (const id of localOrder) {
+      if (seen.has(id)) continue;
+      seen.add(id);
+      merged.push(id);
+    }
+    for (const id of order) {
+      if (seen.has(id)) continue;
+      seen.add(id);
+      merged.push(id);
+    }
+    const nextUpdatedAt =
+      localUpdatedAt && updatedAt
+        ? localUpdatedAt >= updatedAt
+          ? localUpdatedAt
+          : updatedAt
+        : (updatedAt ?? localUpdatedAt);
+    await writeJSON(storageKey, merged);
+    if (nextUpdatedAt) await writeJSON(updatedAtKey, nextUpdatedAt);
+    if (store.getState().isReady) store.setState({ order: merged, updatedAt: nextUpdatedAt });
   }
 
   // Stable singleton — actions never change reference, so no subscription needed.

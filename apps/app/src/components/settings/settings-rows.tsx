@@ -1,15 +1,15 @@
-import { SymbolView, type SymbolViewProps } from "expo-symbols";
+import { SymbolView } from "expo-symbols";
 import { memo } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
+import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { forwardChevronIcon, useIsRTL } from "@/lib/rtl";
-
-type SymbolName = SymbolViewProps["name"];
 
 export function SettingsRow({
   icon,
@@ -18,13 +18,13 @@ export function SettingsRow({
   value,
   onPress,
 }: {
-  icon: SymbolName;
+  icon: AppIcon;
   title: string;
   subtitle?: string;
   value?: string;
   onPress: () => void;
 }) {
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const rtl = useIsRTL();
   return (
     <PressableScale
@@ -34,9 +34,7 @@ export function SettingsRow({
       onPress={onPress}
       style={[styles.row, { backgroundColor: colors.muted }]}
     >
-      <View style={[styles.iconWell, { backgroundColor: tokens.accentSoft }]}>
-        <SymbolView name={icon} size={18} tintColor={colors.accent} />
-      </View>
+      <IconWell icon={icon} />
       <View style={styles.body}>
         <ThemedText type="small">{title}</ThemedText>
         {subtitle ? (
@@ -53,7 +51,7 @@ export function SettingsRow({
       <SymbolView
         key={rtl ? "chevron-rtl" : "chevron-ltr"}
         name={forwardChevronIcon(rtl)}
-        size={14}
+        size={16}
         tintColor={colors.mutedForeground}
       />
     </PressableScale>
@@ -69,22 +67,18 @@ export const ToggleRow = memo(
     disabled,
     onValueChange,
   }: {
-    icon?: SymbolName;
+    icon?: AppIcon;
     title: string;
     subtitle?: string;
     value: boolean;
     disabled?: boolean;
     onValueChange: (value: boolean) => void;
   }) {
-    const { colors, tokens } = useThemeTokens();
+    const { colors } = useThemeTokens();
 
     return (
       <View style={[styles.row, { backgroundColor: colors.muted, opacity: disabled ? 0.5 : 1 }]}>
-        {icon ? (
-          <View style={[styles.iconWell, { backgroundColor: tokens.accentSoft }]}>
-            <SymbolView name={icon} size={18} tintColor={colors.accent} />
-          </View>
-        ) : null}
+        {icon ? <IconWell icon={icon} /> : null}
         <View style={styles.body}>
           <ThemedText type="small">{title}</ThemedText>
           {subtitle ? (
@@ -119,14 +113,6 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     borderCurve: "continuous",
     minHeight: 56,
-  },
-  iconWell: {
-    width: 36,
-    height: 36,
-    borderRadius: 10,
-    borderCurve: "continuous",
-    alignItems: "center",
-    justifyContent: "center",
   },
   body: {
     flex: 1,

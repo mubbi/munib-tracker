@@ -62,7 +62,7 @@ export default function ZikrFavoritesScreen() {
                   style={styles.body}
                   accessibilityLabel={`${index + 1}. ${item.title}`}
                 >
-                  <ThemedText type="small" numberOfLines={1}>
+                  <ThemedText type="small" numberOfLines={2}>
                     {item.title}
                   </ThemedText>
                   <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>

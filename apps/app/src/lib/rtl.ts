@@ -21,9 +21,12 @@ function resolveLocaleCode(raw: string | undefined): AppLocale | null {
 
 function webIsRtlFromI18n(): boolean | null {
   if (!i18n.isInitialized) return null;
-  const code = resolveLocaleCode(i18n.resolvedLanguage ?? i18n.language);
-  if (code) return true;
-  const raw = i18n.resolvedLanguage ?? i18n.language;
+  // Prefer `language` over `resolvedLanguage`: while a catalog is still loading,
+  // i18next keeps resolvedLanguage on the fallback (en) even after changeLanguage.
+  for (const raw of [i18n.language, i18n.resolvedLanguage]) {
+    if (resolveLocaleCode(raw)) return true;
+  }
+  const raw = i18n.language ?? i18n.resolvedLanguage;
   if (!raw) return null;
   return false;
 }

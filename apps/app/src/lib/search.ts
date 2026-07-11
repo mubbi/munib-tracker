@@ -1,19 +1,3 @@
-import {
-  AQEDAH_TOPICS,
-  BATTLES_TOPICS,
-  DUA_ITEMS,
-  DUROOD_ITEMS,
-  JAHANNAM_TOPICS,
-  JANNAH_TOPICS,
-  LAST_DAY_TOPICS,
-  LEARN_DUA_TOPICS,
-  NAMES_OF_ALLAH,
-  PROPHETS_TOPICS,
-  QURAN_GUIDE_TOPICS,
-  SALAH_GUIDE_TOPICS,
-  TAHARAH_TOPICS,
-  ZIKR_ITEMS,
-} from "@munib-tracker/shared/content";
 import type {
   DuaItem,
   DurudItem,
@@ -23,12 +7,32 @@ import type {
   Surah,
   ZikrItem,
 } from "@munib-tracker/shared/types";
-import Fuse from "fuse.js";
+import type Fuse from "fuse.js";
 
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { getBundledEdition, getSurahAyahs, getSurahMeta, getTransliteration } from "@/lib/quran";
+import {
+  createFuzzyIndex,
+  type FuseDoc,
+  type FuzzyField,
+  type FuzzyIndex,
+  fusePattern,
+  fuseSearch,
+  makeFuse,
+} from "@/lib/search-fuse";
+import {
+  SEARCH_CATEGORY_ORDER,
+  type SearchCategory,
+  type SearchGroup,
+  type SearchResult,
+} from "@/lib/search-types";
 import { resolveHadithTranslation, resolveTranslationField } from "@/lib/translation-locale";
 import { preferencesStore } from "@/stores/preferences-store";
+
+export type { FuzzyField, FuzzyIndex } from "@/lib/search-fuse";
+export { createFuzzyIndex, normalize, tokenize } from "@/lib/search-fuse";
+export type { SearchCategory, SearchGroup, SearchHref, SearchResult } from "@/lib/search-types";
+export { SEARCH_CATEGORY_ORDER } from "@/lib/search-types";
 
 /**
  * Universal, offline search across every bundled content source (Qur'an, hadith,
@@ -47,6 +51,7 @@ import { preferencesStore } from "@/stores/preferences-store";
  *   the 114 surah names are indexed instantly. Qur'an ayah full-text is far
  *   larger, so its Fuse index is built lazily and cached — the caller runs
  *   {@link searchQuranAyahs} off the interaction thread to keep typing smooth.
+ * - Learn guide corpora live in {@link ./search-guides} and load on first guide hit.
  */
 
 function scriptureSubtitle<T extends { translation: string; translations?: unknown }>(
@@ -55,236 +60,11 @@ function scriptureSubtitle<T extends { translation: string; translations?: unkno
   return resolveTranslationField(item, preferencesStore.getState().prefs);
 }
 
-export type SearchCategory =
-  | "quran"
-  | "hadith"
-  | "dua"
-  | "zikr"
-  | "durood"
-  | "name"
-  | "jannah"
-  | "jahannam"
-  | "lastDay"
-  | "salahGuide"
-  | "battles"
-  | "taharah"
-  | "prophets"
-  | "aqeedah"
-  | "learnDua"
-  | "learnQuran";
-
-export interface SearchResult {
-  /** Stable React key, unique across all categories. */
-  key: string;
-  category: SearchCategory;
-  /** Primary line (transliteration / title / surah name). */
-  title: string;
-  /** Secondary line (translation / english / meaning). */
-  subtitle?: string;
-  /** Arabic text, when the source has it (shown small + RTL in the row). */
-  arabic?: string;
-  /** Longer human reference, e.g. "Bukhari & Muslim" or "Quran 2:201". */
-  reference?: string;
-  /** Short contextual tag for a pill, e.g. "2:255", "Sahih", "34/99". */
-  badge?: string;
-  /** Router pathname for the item's view. */
-  href: SearchHref;
-  /** Router params for dynamic routes. */
-  params?: Record<string, string>;
-}
-
-export type SearchHref =
-  | "/quran/[surah]"
-  | "/hadith/[collection]"
-  | "/dua/detail/[id]"
-  | "/zikr/detail/[id]"
-  | "/duroods"
-  | "/names-of-allah"
-  | "/jannah/[topic]"
-  | "/jahannam/[topic]"
-  | "/last-day/[topic]"
-  | "/salah-guide/[topic]"
-  | "/battles/[topic]"
-  | "/taharah/[topic]"
-  | "/prophets/[topic]"
-  | "/aqeedah/[topic]"
-  | "/learn-dua/[topic]"
-  | "/learn-quran/[topic]";
-
-export interface SearchGroup {
-  category: SearchCategory;
-  results: SearchResult[];
-  /** Total matches before the per-group cap (drives "see all N"). */
-  total: number;
-}
-
-/** Fixed display order for groups — mirrors the home quick-action ordering. */
-export const SEARCH_CATEGORY_ORDER: SearchCategory[] = [
-  "quran",
-  "hadith",
-  "dua",
-  "zikr",
-  "name",
-  "durood",
-  "jannah",
-  "jahannam",
-  "lastDay",
-  "salahGuide",
-  "battles",
-  "taharah",
-  "prophets",
-  "aqeedah",
-  "learnDua",
-  "learnQuran",
-];
-
 /** Translation edition used for Qur'an ayah full-text (matches /quran/search). */
 const QURAN_SEARCH_EDITION = "en-pickthall";
 
 const DEFAULT_GROUP_LIMIT = 6;
 const DEFAULT_AYAH_LIMIT = 8;
-
-// ── Normalization ────────────────────────────────────────────────────────────
-
-// Arabic combining marks only (never letters): annotation signs U+0610–U+061A,
-// harakat/tanwin U+064B–U+065F, tatweel U+0640, superscript alef U+0670, and the
-// Qur'anic annotation range U+06D6–U+06ED.
-const ARABIC_MARKS = /[ؐ-ًؚ-ٟـٰۖ-ۭ]/g;
-/** Latin combining diacritics left over after NFD decomposition (U+0300–U+036F). */
-const LATIN_MARKS = /[̀-ͯ]/g;
-/**
- * Intra-word joiners removed (not spaced) so transliteration punctuation folds
- * away: apostrophes/hamza marks and hyphens/periods, letting "subhanallah" match
- * "Subhan-Allah" while "subhan allah" still matches too.
- */
-const JOINERS = /['ʻʼʽʾʿ`´.-]+/g;
-/** Anything that isn't a Latin alphanumeric or an Arabic-block char → a separator. */
-const SEPARATORS = /[^0-9a-z؀-ۿ]+/g;
-
-/** Fold the common Arabic letter variants so spelling differences still match. */
-function foldArabicLetters(text: string): string {
-  return text
-    .replace(/[آأإٱ]/g, "ا") // aa/hamza-alef variants -> alef
-    .replace(/ى/g, "ي") // alef maksura -> yaa
-    .replace(/ة/g, "ه") // taa marbuta -> haa
-    .replace(/ؤ/g, "و") // waw+hamza -> waw
-    .replace(/ئ/g, "ي"); // yaa+hamza -> yaa
-}
-
-/**
- * Collapse a string to a diacritic-free, punctuation-free, lowercase token
- * stream suitable for substring matching across scripts.
- */
-export function normalize(input: string): string {
-  if (!input) return "";
-  return foldArabicLetters(
-    input.normalize("NFD").replace(LATIN_MARKS, "").replace(ARABIC_MARKS, ""),
-  )
-    .toLowerCase()
-    .replace(JOINERS, "")
-    .replace(SEPARATORS, " ")
-    .trim();
-}
-
-/** Split a raw query into normalized tokens; returns [] for queries under 2 chars. */
-export function tokenize(query: string): string[] {
-  const normalized = normalize(query);
-  if (normalized.length < 2) return [];
-  return normalized.split(" ").filter(Boolean);
-}
-
-// ── Fuzzy index (Fuse over normalized fields) ────────────────────────────────
-
-/**
- * Fuse fuzziness: lower = stricter. 0.2 keeps typo tolerance (fatiah → Al-Fatihah,
- * forgivness → forgiveness) while eliminating the false positives 0.3 produced on
- * short fields like surah names.
- */
-const FUSE_THRESHOLD = 0.2;
-const MIN_TOKEN_LENGTH = 2;
-
-/** A source item paired with its normalized, searchable fields. */
-type FuseDoc<T> = { item: T } & Record<string, string>;
-
-/** A searchable field on an item: which text to index, and its relative weight. */
-export interface FuzzyField<T> {
-  key: string;
-  weight: number;
-  get: (item: T) => string | undefined | null;
-}
-
-/** A reusable fuzzy index over an arbitrary in-memory list (for screen-local search bars). */
-export interface FuzzyIndex<T> {
-  /** Ranked matches for the query; `[]` for a query below the minimum length. */
-  search(query: string, limit?: number): T[];
-  /** Match count (unbounded) for the query; `0` for a too-short query. */
-  count(query: string): number;
-}
-
-function makeFuse<T>(items: T[], fields: FuzzyField<T>[]): Fuse<FuseDoc<T>> {
-  const docs = items.map((item) => {
-    const doc = { item } as FuseDoc<T>;
-    for (const field of fields) doc[field.key] = normalize(field.get(item) ?? "");
-    return doc;
-  });
-  return new Fuse(docs, {
-    includeScore: true,
-    ignoreLocation: true,
-    threshold: FUSE_THRESHOLD,
-    minMatchCharLength: MIN_TOKEN_LENGTH,
-    useExtendedSearch: true,
-    keys: fields.map((field) => ({ name: field.key, weight: field.weight })),
-  });
-}
-
-/**
- * Turn a raw query into an extended-search pattern: normalized tokens joined by
- * spaces (Fuse treats that as AND), each fuzzy-matched. Tokens below the minimum
- * length are dropped to avoid noise.
- */
-function fusePattern(query: string): string {
-  return tokenize(query)
-    .filter((token) => token.length >= MIN_TOKEN_LENGTH)
-    .join(" ");
-}
-
-function fuseSearch<T>(
-  fuse: Fuse<FuseDoc<T>>,
-  query: string,
-  limit: number,
-  toResult: (item: T) => SearchResult,
-): { results: SearchResult[]; total: number } {
-  const pattern = fusePattern(query);
-  if (!pattern) return { results: [], total: 0 };
-  const matches = fuse.search(pattern);
-  return {
-    results: matches.slice(0, limit).map((match) => toResult(match.item.item)),
-    total: matches.length,
-  };
-}
-
-/**
- * Build a reusable fuzzy index over an arbitrary list, using the project Fuse
- * defaults + `normalize()`-ed fields. Screens memoize this (keyed on the list)
- * for their own search bars instead of scanning with `.includes()`; extend this
- * module rather than calling `new Fuse()` in a screen (see AGENTS.md).
- */
-export function createFuzzyIndex<T>(items: T[], fields: FuzzyField<T>[]): FuzzyIndex<T> {
-  const fuse = makeFuse(items, fields);
-  return {
-    search(query, limit) {
-      const pattern = fusePattern(query);
-      if (!pattern) return [];
-      const matches = fuse.search(pattern, limit ? { limit } : undefined);
-      return matches.map((match) => match.item.item);
-    },
-    count(query) {
-      const pattern = fusePattern(query);
-      if (!pattern) return 0;
-      return fuse.search(pattern).length;
-    },
-  };
-}
 
 /** "sahih" -> "Sahih"; used for the hadith grade badge. */
 function capitalize(text: string): string {
@@ -296,22 +76,37 @@ function capitalize(text: string): string {
 let duaFuse: Fuse<FuseDoc<DuaItem>> | null = null;
 let zikrFuse: Fuse<FuseDoc<ZikrItem>> | null = null;
 let duroodFuse: Fuse<FuseDoc<DurudItem>> | null = null;
-let jannahFuse: Fuse<FuseDoc<(typeof JANNAH_TOPICS)[number]>> | null = null;
-let jahannamFuse: Fuse<FuseDoc<(typeof JAHANNAM_TOPICS)[number]>> | null = null;
-let lastDayFuse: Fuse<FuseDoc<(typeof LAST_DAY_TOPICS)[number]>> | null = null;
-let salahGuideFuse: Fuse<FuseDoc<(typeof SALAH_GUIDE_TOPICS)[number]>> | null = null;
-let battlesFuse: Fuse<FuseDoc<(typeof BATTLES_TOPICS)[number]>> | null = null;
-let taharahFuse: Fuse<FuseDoc<(typeof TAHARAH_TOPICS)[number]>> | null = null;
-let prophetsFuse: Fuse<FuseDoc<(typeof PROPHETS_TOPICS)[number]>> | null = null;
-let aqeedahFuse: Fuse<FuseDoc<(typeof AQEDAH_TOPICS)[number]>> | null = null;
-let learnDuaFuse: Fuse<FuseDoc<(typeof LEARN_DUA_TOPICS)[number]>> | null = null;
-let quranGuideFuse: Fuse<FuseDoc<(typeof QURAN_GUIDE_TOPICS)[number]>> | null = null;
 let nameFuse: Fuse<FuseDoc<NameOfAllah>> | null = null;
 let surahFuse: Fuse<FuseDoc<Surah>> | null = null;
 let hadithFuse: Fuse<FuseDoc<HadithItem>> | null = null;
+let namePosition: Map<string, number> | null = null;
 
-/** Precomputed 1-based position for each name (drives the "34/99" badge). */
-const NAME_POSITION = new Map(NAMES_OF_ALLAH.map((name, index) => [name.id, index + 1]));
+function loadDuaItems(): DuaItem[] {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return require("@munib-tracker/shared/content/duas").DUA_ITEMS as DuaItem[];
+}
+
+function loadZikrItems(): ZikrItem[] {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return require("@munib-tracker/shared/content/zikr").ZIKR_ITEMS as ZikrItem[];
+}
+
+function loadDuroodItems(): DurudItem[] {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return require("@munib-tracker/shared/content/duroods").DUROOD_ITEMS as DurudItem[];
+}
+
+function loadNames(): NameOfAllah[] {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return require("@munib-tracker/shared/content/names").NAMES_OF_ALLAH as NameOfAllah[];
+}
+
+function getNamePosition(): Map<string, number> {
+  if (!namePosition) {
+    namePosition = new Map(loadNames().map((name, index) => [name.id, index + 1]));
+  }
+  return namePosition;
+}
 
 /** Shared dua field weights, used by the global index and per-category search. */
 const DUA_FIELDS: FuzzyField<DuaItem>[] = [
@@ -335,12 +130,12 @@ const ZIKR_FIELDS: FuzzyField<ZikrItem>[] = [
 ];
 
 function getDuaFuse(): Fuse<FuseDoc<DuaItem>> {
-  duaFuse ??= makeFuse(DUA_ITEMS, DUA_FIELDS);
+  duaFuse ??= makeFuse(loadDuaItems(), DUA_FIELDS);
   return duaFuse;
 }
 
 function getZikrFuse(): Fuse<FuseDoc<ZikrItem>> {
-  zikrFuse ??= makeFuse(ZIKR_ITEMS, ZIKR_FIELDS);
+  zikrFuse ??= makeFuse(loadZikrItems(), ZIKR_FIELDS);
   return zikrFuse;
 }
 
@@ -361,187 +156,12 @@ const NAME_FIELDS: FuzzyField<NameOfAllah>[] = [
 ];
 
 function getDuroodFuse(): Fuse<FuseDoc<DurudItem>> {
-  duroodFuse ??= makeFuse(DUROOD_ITEMS, DUROOD_FIELDS);
+  duroodFuse ??= makeFuse(loadDuroodItems(), DUROOD_FIELDS);
   return duroodFuse;
 }
 
-const JANNAH_FIELDS: FuzzyField<(typeof JANNAH_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-];
-
-function getJannahFuse(): Fuse<FuseDoc<(typeof JANNAH_TOPICS)[number]>> {
-  jannahFuse ??= makeFuse(JANNAH_TOPICS, JANNAH_FIELDS);
-  return jannahFuse;
-}
-
-const JAHANNAM_FIELDS: FuzzyField<(typeof JAHANNAM_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-];
-
-function getJahannamFuse(): Fuse<FuseDoc<(typeof JAHANNAM_TOPICS)[number]>> {
-  jahannamFuse ??= makeFuse(JAHANNAM_TOPICS, JAHANNAM_FIELDS);
-  return jahannamFuse;
-}
-
-const LAST_DAY_FIELDS: FuzzyField<(typeof LAST_DAY_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-];
-
-function getLastDayFuse(): Fuse<FuseDoc<(typeof LAST_DAY_TOPICS)[number]>> {
-  lastDayFuse ??= makeFuse(LAST_DAY_TOPICS, LAST_DAY_FIELDS);
-  return lastDayFuse;
-}
-
-const SALAH_GUIDE_FIELDS: FuzzyField<(typeof SALAH_GUIDE_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-  {
-    key: "steps",
-    weight: 2,
-    get: (t) => (t.steps ?? []).map((s) => `${s.title} ${s.body}`).join(" "),
-  },
-];
-
-function getSalahGuideFuse(): Fuse<FuseDoc<(typeof SALAH_GUIDE_TOPICS)[number]>> {
-  salahGuideFuse ??= makeFuse(SALAH_GUIDE_TOPICS, SALAH_GUIDE_FIELDS);
-  return salahGuideFuse;
-}
-
-const BATTLES_FIELDS: FuzzyField<(typeof BATTLES_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-  {
-    key: "battleDetails",
-    weight: 2,
-    get: (t) =>
-      t.battleDetails
-        ? [
-            t.battleDetails.location,
-            t.battleDetails.outcome,
-            ...(t.battleDetails.keyEvents ?? []),
-          ].join(" ")
-        : "",
-  },
-];
-
-function getBattlesFuse(): Fuse<FuseDoc<(typeof BATTLES_TOPICS)[number]>> {
-  battlesFuse ??= makeFuse(BATTLES_TOPICS, BATTLES_FIELDS);
-  return battlesFuse;
-}
-
-const TAHARAH_FIELDS: FuzzyField<(typeof TAHARAH_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-  {
-    key: "steps",
-    weight: 2,
-    get: (t) => (t.steps ?? []).map((s) => `${s.title} ${s.body}`).join(" "),
-  },
-];
-
-function getTaharahFuse(): Fuse<FuseDoc<(typeof TAHARAH_TOPICS)[number]>> {
-  taharahFuse ??= makeFuse(TAHARAH_TOPICS, TAHARAH_FIELDS);
-  return taharahFuse;
-}
-
-const PROPHETS_FIELDS: FuzzyField<(typeof PROPHETS_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-  {
-    key: "profile",
-    weight: 2,
-    get: (t) =>
-      t.profile
-        ? [t.profile.nation, t.profile.mission, ...(t.profile.lessons ?? [])]
-            .filter(Boolean)
-            .join(" ")
-        : "",
-  },
-];
-
-function getProphetsFuse(): Fuse<FuseDoc<(typeof PROPHETS_TOPICS)[number]>> {
-  prophetsFuse ??= makeFuse(PROPHETS_TOPICS, PROPHETS_FIELDS);
-  return prophetsFuse;
-}
-
-const AQEDAH_FIELDS: FuzzyField<(typeof AQEDAH_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-  { key: "misconceptions", weight: 2, get: (t) => (t.misconceptions ?? []).join(" ") },
-];
-
-function getAqeedahFuse(): Fuse<FuseDoc<(typeof AQEDAH_TOPICS)[number]>> {
-  aqeedahFuse ??= makeFuse(AQEDAH_TOPICS, AQEDAH_FIELDS);
-  return aqeedahFuse;
-}
-
-const LEARN_DUA_FIELDS: FuzzyField<(typeof LEARN_DUA_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-  {
-    key: "phrases",
-    weight: 2,
-    get: (t) => (t.phrases ?? []).map((p) => `${p.title} ${p.translation} ${p.arabic}`).join(" "),
-  },
-];
-
-function getLearnDuaFuse(): Fuse<FuseDoc<(typeof LEARN_DUA_TOPICS)[number]>> {
-  learnDuaFuse ??= makeFuse(LEARN_DUA_TOPICS, LEARN_DUA_FIELDS);
-  return learnDuaFuse;
-}
-
-const QURAN_GUIDE_FIELDS: FuzzyField<(typeof QURAN_GUIDE_TOPICS)[number]>[] = [
-  { key: "title", weight: 5, get: (t) => t.title },
-  { key: "summary", weight: 4, get: (t) => t.summary },
-  { key: "body", weight: 2, get: (t) => t.body.join(" ") },
-  { key: "actions", weight: 2, get: (t) => (t.actions ?? []).join(" ") },
-  { key: "sources", weight: 1, get: (t) => (t.sources ?? []).join(" ") },
-];
-
-function getQuranGuideFuse(): Fuse<FuseDoc<(typeof QURAN_GUIDE_TOPICS)[number]>> {
-  quranGuideFuse ??= makeFuse(QURAN_GUIDE_TOPICS, QURAN_GUIDE_FIELDS);
-  return quranGuideFuse;
-}
-
-/** Fuzzy-ranked Journey to Jannah topics for screen-local filters. */
-export function searchJannahList(query: string, limit?: number) {
-  const pattern = fusePattern(query);
-  if (!pattern) return [];
-  const matches = getJannahFuse().search(pattern, limit ? { limit } : undefined);
-  return matches.map((match) => match.item.item);
-}
-
-/** Fuzzy-ranked Understanding Jahannam topics for screen-local filters. */
-export function searchJahannamList(query: string, limit?: number) {
-  const pattern = fusePattern(query);
-  if (!pattern) return [];
-  const matches = getJahannamFuse().search(pattern, limit ? { limit } : undefined);
-  return matches.map((match) => match.item.item);
-}
-
 function getNameFuse(): Fuse<FuseDoc<NameOfAllah>> {
-  nameFuse ??= makeFuse(NAMES_OF_ALLAH, NAME_FIELDS);
+  nameFuse ??= makeFuse(loadNames(), NAME_FIELDS);
   return nameFuse;
 }
 
@@ -611,7 +231,10 @@ const HADITH_FIELDS: FuzzyField<HadithItem>[] = [
 function getHadithFuse(): Fuse<FuseDoc<HadithItem>> {
   if (!hadithFuse) {
     const items: HadithItem[] = [];
+    // Universal / light search indexes Nawawi only. Riyad (~2.2 MB) stays lazy —
+    // open that collection (or call ensureRiyadHadithSearch) to search it.
     for (const collection of getBundledCollections()) {
+      if (collection.id === "riyad_assalihin") continue;
       const bundled = getBundledCollection(collection.id);
       if (bundled) items.push(...bundled.items);
     }
@@ -716,6 +339,11 @@ export function isAyahIndexReady(): boolean {
   return ayahFuse !== null;
 }
 
+/** Drop the ayah Fuse index (e.g. when leaving Qur'an search) to reclaim heap. */
+export function clearAyahIndex(): void {
+  ayahFuse = null;
+}
+
 /**
  * Build (once) the Fuse index over all 6,236 ayahs by pairing the bundled
  * translation, transliteration, and Arabic text per surah — so an Arabic-script
@@ -813,7 +441,7 @@ function searchNames(query: string, limit: number) {
     title: item.transliteration,
     subtitle: item.meaning ?? scriptureSubtitle(item),
     arabic: item.arabic,
-    badge: `${NAME_POSITION.get(item.id) ?? ""}/99`,
+    badge: `${getNamePosition().get(item.id) ?? ""}/99`,
     href: "/names-of-allah",
   }));
 }
@@ -828,126 +456,6 @@ function searchDuroods(query: string, limit: number) {
     reference: item.reference,
     badge: item.reference,
     href: "/duroods",
-  }));
-}
-
-function searchJannah(query: string, limit: number) {
-  return fuseSearch(getJannahFuse(), query, limit, (item) => ({
-    key: `jannah:${item.id}`,
-    category: "jannah",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.hub,
-    href: "/jannah/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchJahannam(query: string, limit: number) {
-  return fuseSearch(getJahannamFuse(), query, limit, (item) => ({
-    key: `jahannam:${item.id}`,
-    category: "jahannam",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.section,
-    href: "/jahannam/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchLastDay(query: string, limit: number) {
-  return fuseSearch(getLastDayFuse(), query, limit, (item) => ({
-    key: `last-day:${item.id}`,
-    category: "lastDay",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.section,
-    href: "/last-day/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchSalahGuide(query: string, limit: number) {
-  return fuseSearch(getSalahGuideFuse(), query, limit, (item) => ({
-    key: `salah-guide:${item.id}`,
-    category: "salahGuide",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.journey,
-    href: "/salah-guide/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchBattles(query: string, limit: number) {
-  return fuseSearch(getBattlesFuse(), query, limit, (item) => ({
-    key: `battles:${item.id}`,
-    category: "battles",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.section,
-    href: "/battles/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchTaharah(query: string, limit: number) {
-  return fuseSearch(getTaharahFuse(), query, limit, (item) => ({
-    key: `taharah:${item.id}`,
-    category: "taharah",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.section,
-    href: "/taharah/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchProphets(query: string, limit: number) {
-  return fuseSearch(getProphetsFuse(), query, limit, (item) => ({
-    key: `prophets:${item.id}`,
-    category: "prophets",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.section,
-    href: "/prophets/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchAqeedah(query: string, limit: number) {
-  return fuseSearch(getAqeedahFuse(), query, limit, (item) => ({
-    key: `aqeedah:${item.id}`,
-    category: "aqeedah",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.section,
-    href: "/aqeedah/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchLearnDua(query: string, limit: number) {
-  return fuseSearch(getLearnDuaFuse(), query, limit, (item) => ({
-    key: `learn-dua:${item.id}`,
-    category: "learnDua",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.section,
-    href: "/learn-dua/[topic]",
-    params: { topic: item.id },
-  }));
-}
-
-function searchLearnQuran(query: string, limit: number) {
-  return fuseSearch(getQuranGuideFuse(), query, limit, (item) => ({
-    key: `learn-quran:${item.id}`,
-    category: "learnQuran",
-    title: item.title,
-    subtitle: item.summary,
-    badge: item.journey,
-    href: "/learn-quran/[topic]",
-    params: { topic: item.id },
   }));
 }
 
@@ -977,6 +485,12 @@ export function searchQuranAyahs(query: string, limit = DEFAULT_AYAH_LIMIT): Sea
 export function searchLight(query: string, perGroupLimit = DEFAULT_GROUP_LIMIT): SearchGroup[] {
   if (fusePattern(query) === "") return [];
 
+  // Guides are a separate module so dua/zikr/quran screens do not evaluate ~700 KB
+  // of English Learn corpora until universal search actually needs them.
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { searchGuideGroups } = require("./search-guides") as typeof import("./search-guides");
+  const guides = searchGuideGroups(query, perGroupLimit);
+
   const byCategory: Record<SearchCategory, { results: SearchResult[]; total: number }> = {
     quran: searchSurahs(query, perGroupLimit),
     hadith: searchHadith(query, perGroupLimit),
@@ -984,16 +498,7 @@ export function searchLight(query: string, perGroupLimit = DEFAULT_GROUP_LIMIT):
     zikr: searchZikr(query, perGroupLimit),
     name: searchNames(query, perGroupLimit),
     durood: searchDuroods(query, perGroupLimit),
-    jannah: searchJannah(query, perGroupLimit),
-    jahannam: searchJahannam(query, perGroupLimit),
-    lastDay: searchLastDay(query, perGroupLimit),
-    salahGuide: searchSalahGuide(query, perGroupLimit),
-    battles: searchBattles(query, perGroupLimit),
-    taharah: searchTaharah(query, perGroupLimit),
-    prophets: searchProphets(query, perGroupLimit),
-    aqeedah: searchAqeedah(query, perGroupLimit),
-    learnDua: searchLearnDua(query, perGroupLimit),
-    learnQuran: searchLearnQuran(query, perGroupLimit),
+    ...guides,
   };
 
   return SEARCH_CATEGORY_ORDER.map((category) => ({ category, ...byCategory[category] })).filter(

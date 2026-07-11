@@ -1,6 +1,7 @@
 import type { HadithCollectionData, HadithItem } from "@munib-tracker/shared/types";
 
 import { getBundledCollectionData } from "@/lib/hadith-bundled";
+import { LruMap } from "@/lib/lru-map";
 
 import { createId } from "../id";
 import { DB_KEYS } from "../keys";
@@ -22,7 +23,8 @@ export interface HadithBookmark {
 
 type BookCache = Record<string, HadithCollectionData>;
 
-const bookMemory = new Map<string, HadithCollectionData>();
+/** Cap in-memory remote collections (disk cache remains authoritative). */
+const bookMemory = new LruMap<string, HadithCollectionData>(12);
 let bookStorageLoaded = false;
 
 const bookmarks = new KeyedCollection<HadithBookmark>(DB_KEYS.hadithBookmarks);
@@ -103,14 +105,22 @@ export const HadithRepository = {
     return readJSON<string | undefined>(DB_KEYS.hadithBookmarksUpdatedAt, undefined);
   },
 
-  /** Replaces the whole bookmark set with a pulled one, newest-wins on the blob. */
+  /** Per-item LWW union merge from remote; deletes still need tombstones later. */
   async applyRemoteBookmarks(incoming: HadithBookmark[], updatedAt?: string): Promise<void> {
-    const local = await this.getBookmarksUpdatedAt();
-    if (local && updatedAt && local >= updatedAt) return;
-    const map: Record<string, HadithBookmark> = {};
-    for (const bm of incoming) map[bm.hadithId] = bm;
-    await writeJSON(DB_KEYS.hadithBookmarks, map);
-    if (updatedAt) await writeJSON(DB_KEYS.hadithBookmarksUpdatedAt, updatedAt);
+    const localMap = await bookmarks.getMap();
+    const localUpdatedAt = await this.getBookmarksUpdatedAt();
+    const merged: Record<string, HadithBookmark> = { ...localMap };
+    for (const bm of incoming) {
+      const existing = merged[bm.hadithId];
+      if (!existing || bm.createdAt > existing.createdAt) {
+        merged[bm.hadithId] = bm;
+      }
+    }
+    await writeJSON(DB_KEYS.hadithBookmarks, merged);
+    if (updatedAt) {
+      const watermark = localUpdatedAt && localUpdatedAt > updatedAt ? localUpdatedAt : updatedAt;
+      await writeJSON(DB_KEYS.hadithBookmarksUpdatedAt, watermark);
+    }
   },
 
   // ── Offline cache of fetched books (D6) ────────────────

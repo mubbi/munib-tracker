@@ -23,6 +23,214 @@
         ]
       }
     },
+    "/api/v1/auth/google": {
+      "post": {
+        "operationId": "AuthController_completeGoogle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthGoogleBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete Google sign-in with a native OAuth access token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/google/oauth": {
+      "post": {
+        "operationId": "AuthController_completeGoogleOauth",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthGoogleOauthBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete Google sign-in via authorization-code + PKCE (web)",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/apple": {
+      "post": {
+        "operationId": "AuthController_completeApple",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthAppleBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete Apple sign-in with a native identity token",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/apple/oauth": {
+      "post": {
+        "operationId": "AuthController_completeAppleOauth",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthAppleOauthBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Complete Apple sign-in via authorization-code + PKCE",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/apple/oauth/session": {
+      "post": {
+        "operationId": "AuthController_startAppleOauthSession",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthAppleOauthSessionBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "summary": "Store Apple web OAuth PKCE session cookie before form_post",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/apple/oauth/callback": {
+      "post": {
+        "operationId": "AuthController_appleOauthCallback",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Apple form_post callback — exchanges code and redirects to returnUrl",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
     "/api/v1/auth/oauth/{provider}": {
       "post": {
         "operationId": "AuthController_completeOAuth",
@@ -53,7 +261,7 @@
             }
           }
         },
-        "summary": "Complete OAuth sign-in for Google, Apple, or Facebook",
+        "summary": "Complete OAuth sign-in (Facebook, or legacy Google/Apple code/idToken path)",
         "tags": [
           "auth"
         ]
@@ -64,6 +272,16 @@
         "operationId": "AuthController_refresh",
         "parameters": [],
         "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAuthSessionResponseDto"
+                }
+              }
+            }
+          },
           "201": {
             "description": "",
             "content": {
@@ -581,6 +799,18 @@
           "userId"
         ]
       },
+      "AuthGoogleBodyDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Google OAuth access token from on-device PKCE exchange"
+          }
+        },
+        "required": [
+          "accessToken"
+        ]
+      },
       "AuthUserResponseDto": {
         "type": "object",
         "properties": {
@@ -612,6 +842,94 @@
         "required": [
           "userId",
           "accountType"
+        ]
+      },
+      "WebAuthSessionResponseDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/AuthUserResponseDto"
+          }
+        },
+        "required": [
+          "user"
+        ]
+      },
+      "AuthGoogleOauthBodyDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "redirectUri": {
+            "type": "string"
+          },
+          "codeVerifier": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "redirectUri",
+          "codeVerifier"
+        ]
+      },
+      "AuthAppleBodyDto": {
+        "type": "object",
+        "properties": {
+          "identityToken": {
+            "type": "string",
+            "description": "Apple identity token (JWT) from native Sign in with Apple"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Given + family name from Apple (first authorization only)"
+          }
+        },
+        "required": [
+          "identityToken"
+        ]
+      },
+      "AuthAppleOauthBodyDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "redirectUri": {
+            "type": "string"
+          },
+          "codeVerifier": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "redirectUri",
+          "codeVerifier"
+        ]
+      },
+      "AuthAppleOauthSessionBodyDto": {
+        "type": "object",
+        "properties": {
+          "codeVerifier": {
+            "type": "string"
+          },
+          "redirectUri": {
+            "type": "string"
+          },
+          "returnUrl": {
+            "type": "string",
+            "description": "Web origin URL to redirect after Apple form_post callback"
+          }
+        },
+        "required": [
+          "codeVerifier",
+          "redirectUri",
+          "returnUrl"
         ]
       },
       "SyncRecordDto": {

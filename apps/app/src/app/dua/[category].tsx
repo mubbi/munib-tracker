@@ -213,7 +213,7 @@ const DuaRow = memo(function DuaRow({
       >
         {index != null ? <ListIndexBadge index={index} /> : null}
         <View style={styles.body}>
-          <ThemedText type="small" numberOfLines={1}>
+          <ThemedText type="small" numberOfLines={2}>
             {item.title}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
@@ -273,7 +273,10 @@ const styles = StyleSheet.create({
   favoriteSlot: { width: FAVORITE_SIZE, height: FAVORITE_SIZE },
   favoriteButton: {
     position: "absolute",
-    top: 7,
+    // Stretch to the row height so the glyph stays vertically centered when the
+    // title wraps to a second line (IconButton centers via justifyContent).
+    top: 0,
+    bottom: 0,
     right: Spacing.three + CHEVRON_SIZE + Spacing.two + FAVORITE_SIZE / 2 - 22,
   },
 });

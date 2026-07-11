@@ -66,7 +66,9 @@
     "appName": "Munib Tracker",
     "appTagline": "اللہ کی طرف اپنے سفر کو ٹریک کریں۔",
     "dismiss": "برخاست کریں",
-    "tryAgain": "دوبارہ کوشش کریں"
+    "tryAgain": "دوبارہ کوشش کریں",
+    "loadingRoute": "تیاری ہو رہی ہے…",
+    "loadingRouteHint": "ایک لمحہ — یہ اسکرین لوڈ ہو رہی ہے۔"
   },
   "search": {
     "placeholder": "قرآن، حدیث، دعائیں، اذکار تلاش کریں…",

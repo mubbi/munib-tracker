@@ -55,6 +55,14 @@ export function getRegisteredTokenRefresher(): TokenRefresher | null {
 
 export { getApiBaseUrl } from "./api-base-url";
 
+function isWebRuntime(): boolean {
+  return typeof document !== "undefined";
+}
+
+function isLikelyWebCookieSession(): boolean {
+  return isWebRuntime();
+}
+
 export async function apiFetch<T>(
   config: OrvalRequestConfig,
   options: ApiFetchOptions = {},
@@ -80,32 +88,53 @@ export async function apiFetch<T>(
   const requestBody =
     config.body ?? (config.data != null ? JSON.stringify(config.data) : undefined);
 
-  const send = (token?: string) =>
-    fetch(targetUrl, {
+  const webHeaders: Record<string, string> = isWebRuntime()
+    ? {
+        "x-munib-tracker-client": "web",
+        "x-client-platform": "web",
+      }
+    : {};
+
+  const send = (token?: string) => {
+    const requestHeaders: Record<string, string> = {
+      "Content-Type": "application/json",
+      ...getAppVersionHeaders(),
+      ...webHeaders,
+    };
+    if (token && token !== "cookie") {
+      requestHeaders.Authorization = `Bearer ${token}`;
+    }
+    return fetch(targetUrl, {
       ...requestInit,
       method: config.method,
       body: requestBody,
       signal: config.signal,
+      credentials: "include",
       headers: {
-        "Content-Type": "application/json",
-        ...getAppVersionHeaders(),
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        ...config.headers,
-        ...headers,
+        ...requestHeaders,
+        ...(config.headers as Record<string, string> | undefined),
+        ...(headers as Record<string, string> | undefined),
       },
     });
+  };
 
   beginApiRequest();
   try {
     let response = await send(accessToken);
 
     // Transparently recover from an expired access token: refresh once and retry.
-    // Only attempts a retry when the caller supplied a token and a refresher is
-    // registered, so unauthenticated 401s still surface immediately.
-    if (response.status === 401 && accessToken && tokenRefresher && !isAppReloadInProgress()) {
+    // Cookie sessions (no Bearer) also refresh on 401 when a refresher is registered.
+    if (
+      response.status === 401 &&
+      tokenRefresher &&
+      !isAppReloadInProgress() &&
+      (accessToken || isLikelyWebCookieSession())
+    ) {
       const refreshed = await tokenRefresher();
       if (refreshed && refreshed !== accessToken) {
-        response = await send(refreshed);
+        response = await send(refreshed === "cookie" ? undefined : refreshed);
+      } else if (refreshed === "cookie" || (refreshed && !accessToken)) {
+        response = await send(undefined);
       }
     }
 

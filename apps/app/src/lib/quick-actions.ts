@@ -301,18 +301,18 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
  * back from Settings → Customize home. Order here is the on-screen order.
  */
 export const DEFAULT_QUICK_ACTION_ORDER: string[] = [
+  "quran",
   "checklist",
-  "schedule",
-  "qaza",
+  "qibla",
   "tasbeeh",
   "zikr",
   "duas",
-  "quran",
+  "qaza",
   "hadith",
-  "qibla",
-  "names",
   "bookmarks",
   "calendar",
+  "events",
+  "stats",
 ];
 
 type QuickActionTheme = {

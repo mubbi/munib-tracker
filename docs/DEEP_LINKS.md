@@ -1,6 +1,6 @@
 # Deep links & App Links
 
-Munib Tracker uses a **custom URL scheme** (`munib-tracker://`) for widgets, Siri/Assistant shortcuts, app-icon quick actions, and OAuth redirects. **HTTPS App Links** on the product web origin (`my.munibtracker.app`) are planned for shareable web URLs and Android Apple Sign In — not wired in `app.json` yet.
+Munib Tracker uses a **custom URL scheme** (`munib-tracker://`) for widgets, Siri/Assistant shortcuts, app-icon quick actions, and Google OAuth redirects. **HTTPS App Links** on the product web origin (`my.munibtracker.app`) handle Apple OAuth return on Android (and iOS OAuth fallback).
 
 **Related:** [OAUTH_SETUP.md](./OAUTH_SETUP.md) · [NATIVE_SURFACES.md](./NATIVE_SURFACES.md)
 
@@ -67,10 +67,12 @@ Snapshot builder: `apps/app/src/lib/appSurfaces/widgets/buildWidgetSnapshot.ts`.
 
 | Path | Purpose |
 |------|---------|
-| `munib-tracker://oauthredirect` | Apple OAuth return (web/Android); fallback when Google reversed scheme unavailable |
+| `munib-tracker:/oauthredirect` / `oauth2redirect` route | Google OAuth resume when Custom Tabs dismiss |
 | `com.googleusercontent.apps.{client-id}:/oauthredirect` | Google OAuth return on native (reversed Android/iOS client ID) |
+| `https://my.munibtracker.app/oauth/apple` | Apple OAuth App Link return (Android / iOS OAuth fallback) |
+| `https://api.munibtracker.app/api/v1/auth/apple/oauth/callback` | Apple web `form_post` callback (API) |
 
-Configured in `apps/app/src/lib/auth/oauth-config.ts` (`OAUTH_REDIRECT_PATH = "oauthredirect"`).
+Configured in `apps/app/src/lib/auth/oauth-config.ts`. App Links / associated domains are declared in `apps/app/app.json` (`ios.associatedDomains`, `android.intentFilters`).
 
 ### In-app reference links
 
@@ -78,21 +80,28 @@ Content modules (Jannah/Jahannam journeys, battles, aqeedah, etc.) use **Expo Ro
 
 ---
 
-## HTTPS App Links (planned)
+## HTTPS App Links
 
-When enabled on `my.munibtracker.app`, host verification files at:
+`app.json` already declares:
+
+- iOS `associatedDomains`: `applinks:my.munibtracker.app`
+- Android `intentFilters` for `https://my.munibtracker.app/oauth/apple`
+- `usesAppleSignIn` + `expo-apple-authentication` plugin
+
+Apple OAuth on Android (and iOS OAuth fallback) returns to **`https://my.munibtracker.app/oauth/apple`** — handled by `apps/app/src/app/oauth/apple.tsx`. Apple rejects custom URI schemes as Services ID return URLs.
+
+Host verification files still need to be served from the product web origin at build/deploy time:
 
 | File | URL |
 |------|-----|
 | Apple App Site Association | `https://my.munibtracker.app/.well-known/apple-app-site-association` |
 | Digital Asset Links | `https://my.munibtracker.app/.well-known/assetlinks.json` |
 
-**Not yet in repo.** To add (mirror Expense Trail / Expo web deploy pattern):
+**Still to wire for store-grade verification** (mirror Expense Trail / Expo web deploy pattern):
 
-1. Add `associatedDomains` (`applinks:my.munibtracker.app`) and Android `intentFilters` in `app.json` / config plugin.
-2. Generate `.well-known` at web build time (team ID, package, SHA-256 fingerprints).
-3. Centralize allowed paths in a JSON manifest (e.g. `config/appLinkPaths.json`).
-4. Add locale-prefixed web redirect routes under `apps/app/app/` for shareable URLs.
+1. Generate `.well-known` at web build time (team ID, package, SHA-256 fingerprints).
+2. Centralize allowed App Link paths in a JSON manifest if you add more HTTPS routes.
+3. Optional locale-prefixed web redirect routes for shareable non-OAuth URLs.
 
 **Env for verification (web deploy):**
 
@@ -102,6 +111,7 @@ When enabled on `my.munibtracker.app`, host verification files at:
 | `ANDROID_APP_LINK_SHA256_FINGERPRINTS` | Play App Signing + debug SHA-256 (comma-separated) |
 | `EXPO_PUBLIC_APP_IDENTIFIER` | iOS bundle ID (`app.munibtracker`) |
 | `EXPO_PUBLIC_ANDROID_PACKAGE` | Android package (`app.munibtracker`) |
+| `EXPO_PUBLIC_WEB_APP_ORIGIN` | Product web origin used for Apple redirect URIs (falls back to `EXPO_PUBLIC_APP_URL`) |
 
 **SHA-256 sources:**
 
@@ -117,8 +127,7 @@ curl -sI https://my.munibtracker.app/.well-known/apple-app-site-association
 
 [Google Asset Links tool](https://developers.google.com/digital-asset-links/tools/generator)
 
-**Apple OAuth on Android** requires an **HTTPS** return URL on the Services ID (not `munib-tracker://`). See [OAUTH_SETUP.md](./OAUTH_SETUP.md).
-
+Full OAuth console setup: [OAUTH_SETUP.md](./OAUTH_SETUP.md).
 ---
 
 ## Push notifications
@@ -139,9 +148,11 @@ Deep links, quick actions, and external commands are blocked until PIN/biometric
 |------|------|
 | Scheme + URL builder | `apps/app/src/lib/app-links.ts` |
 | OAuth redirect URIs | `apps/app/src/lib/auth/oauth-config.ts` |
+| Apple OAuth App Link route | `apps/app/src/app/oauth/apple.tsx` |
+| Google OAuth resume route | `apps/app/src/app/oauth2redirect.tsx` |
 | Quick actions | `apps/app/src/lib/appSurfaces/quickActions/` |
 | Voice intents | `apps/app/src/lib/appSurfaces/intents/registry.ts` |
 | External command queue | `apps/app/src/lib/external-commands/` |
 | Widget snapshot + deep links | `apps/app/src/lib/appSurfaces/widgets/` |
-| Expo config | `apps/app/app.json`, `apps/app/app.config.js` |
+| Expo config | `apps/app/app.json` |
 | Native surfaces overview | [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) |

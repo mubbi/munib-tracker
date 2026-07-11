@@ -14,7 +14,6 @@ import {
   type ViewStyle,
 } from "react-native";
 import Animated, {
-  useAnimatedKeyboard,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -23,6 +22,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useAnimatedKeyboardHeight } from "@/hooks/use-animated-keyboard-height";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 
 /** Drag distance (px) before a bottom sheet dismisses. */
@@ -85,9 +85,9 @@ export function Sheet({
   const renderedChildren = visible ? children : lastVisibleChildren.current;
 
   const dragY = useSharedValue(0);
-  const keyboard = useAnimatedKeyboard();
+  const keyboardHeight = useAnimatedKeyboardHeight();
   const keyboardInsetStyle = useAnimatedStyle(() => ({
-    paddingBottom: keyboard.height.value,
+    paddingBottom: keyboardHeight.value,
   }));
 
   useEffect(() => {
@@ -176,9 +176,12 @@ export function Sheet({
     </View>
   );
 
+  // Scrim color lives on the Pressable (not a box-none parent) so Android
+  // always builds a real hit target. Transparent pressables without a paint
+  // often drop taps on Fabric.
   const backdrop = (
     <Pressable
-      style={isBottom ? styles.backdropBottom : StyleSheet.absoluteFill}
+      style={[styles.backdrop, { backgroundColor: tokens.scrim }]}
       onPress={onClose}
       accessibilityLabel={t("common.close")}
       // react-native-web renders a real <button> for role="button"; the backdrop
@@ -250,9 +253,12 @@ export function Sheet({
   const centerCard = (
     <View
       accessibilityViewIsModal
+      // collapsable={false}: keeps a real host view on Android so the card (and
+      // its buttons) stay hittable when a frosted fill sits behind the content.
+      collapsable={false}
       style={[
         styles.centerCard,
-        { borderColor: colors.border, zIndex: 1 },
+        { borderColor: colors.border },
         solid ? { backgroundColor: colors.card } : null,
         contentStyle,
       ]}
@@ -262,30 +268,33 @@ export function Sheet({
     </View>
   );
 
+  // Outer View wrapper: Fabric + Reanimated bug — a Modal that shares a React
+  // tree with useAnimatedStyle siblings (e.g. tasbeeh ring / PressableScale)
+  // can mount visually but ignore all touches. Wrapping Modal in a plain View
+  // restores hit-testing (see reanimated#6659 / #7199).
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType={isBottom ? "slide" : "fade"}
-      onRequestClose={onClose}
-    >
-      <View
-        style={[
-          styles.scrim,
-          isBottom ? styles.scrimBottom : styles.scrimCenter,
-          { backgroundColor: tokens.scrim, pointerEvents: "box-none" },
-        ]}
+    <View>
+      <Modal
+        visible={visible}
+        transparent
+        animationType={isBottom ? "slide" : "fade"}
+        onRequestClose={onClose}
+        statusBarTranslucent
       >
-        {/*
-          Bottom sheets: an absolute-fill backdrop behind the card so taps on
-          the dimmed region always dismiss. Center dialogs: same pattern behind
-          the centred card. The card is never a wrapping Pressable so nested
-          buttons receive touches on iOS (stopPropagation is web-only).
-        */}
-        {backdrop}
-        {isBottom ? bottomCard : centerCard}
-      </View>
-    </Modal>
+        <View
+          style={[styles.scrim, isBottom ? styles.scrimBottom : styles.scrimCenter]}
+          pointerEvents="box-none"
+        >
+          {/*
+            Absolute-fill backdrop behind the card so taps on the dimmed region
+            dismiss. The card is never a wrapping Pressable so nested buttons
+            receive touches on iOS (stopPropagation is web-only).
+          */}
+          {backdrop}
+          {isBottom ? bottomCard : centerCard}
+        </View>
+      </Modal>
+    </View>
   );
 }
 
@@ -300,8 +309,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: Spacing.four,
   },
-  /** Full-screen tappable scrim behind a bottom sheet card. */
-  backdropBottom: {
+  /** Full-screen tappable dimmer behind the sheet card. */
+  backdrop: {
     ...StyleSheet.absoluteFill,
   },
   centerCard: {
@@ -314,6 +323,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
     overflow: "hidden",
+    zIndex: 1,
   },
   centerKeyboard: {
     width: "100%",

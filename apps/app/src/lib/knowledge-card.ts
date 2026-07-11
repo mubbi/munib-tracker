@@ -1,4 +1,4 @@
-import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
+import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content/names";
 import type { UserPreferences } from "@munib-tracker/shared/types";
 import type { Href } from "expo-router";
 

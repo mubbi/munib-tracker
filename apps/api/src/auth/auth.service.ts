@@ -1,14 +1,17 @@
 import { randomUUID } from "node:crypto";
-import { rm } from "node:fs/promises";
 import {
   BadRequestException,
   ConflictException,
+  HttpException,
+  HttpStatus,
   Injectable,
+  OnModuleInit,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DataSource, In, Repository } from "typeorm";
+import { AttachmentStorageService } from "../common/attachment-storage.service";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
   AuthSessionEntity,
@@ -17,6 +20,12 @@ import {
   SyncRecordEntity,
   UserEntity,
 } from "../database/entities";
+import {
+  configureAuthRateLimit,
+  isAuthGuestRateLimited,
+  isAuthOAuthRateLimited,
+  isAuthRefreshRateLimited,
+} from "./auth-rate-limit";
 import type {
   AuthProvider,
   AuthSessionResponseDto,
@@ -28,8 +37,11 @@ import type {
 import { type OAuthProfile, OAuthProviderService } from "./oauth-provider.service";
 import { TokenService } from "./token.service";
 
+/** Client-supplied device ids must be high-entropy; reject empty / trivial values. */
+const MIN_DEVICE_ID_LENGTH = 16;
+
 @Injectable()
-export class AuthService {
+export class AuthService implements OnModuleInit {
   constructor(
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>,
@@ -39,12 +51,33 @@ export class AuthService {
     private readonly tokenService: TokenService,
     private readonly oauthProvider: OAuthProviderService,
     private readonly dataSource: DataSource,
+    private readonly attachmentStorage: AttachmentStorageService,
   ) {}
 
-  async createGuestSession(dto: GuestSessionDto): Promise<AuthSessionResponseDto> {
-    if (dto.deviceId) {
+  onModuleInit(): void {
+    configureAuthRateLimit({
+      upstashUrl: this.configService.get("UPSTASH_REDIS_REST_URL", { infer: true }),
+      upstashToken: this.configService.get("UPSTASH_REDIS_REST_TOKEN", { infer: true }),
+    });
+  }
+
+  async createGuestSession(
+    dto: GuestSessionDto,
+    clientIp = "unknown",
+  ): Promise<AuthSessionResponseDto> {
+    const deviceId = dto.deviceId?.trim() || undefined;
+    if (deviceId != null && deviceId.length < MIN_DEVICE_ID_LENGTH) {
+      throw new BadRequestException("deviceId is too short");
+    }
+
+    const rateKey = deviceId ? `device:${deviceId}` : `ip:${clientIp}`;
+    if (await isAuthGuestRateLimited(rateKey)) {
+      throw new HttpException("Too many guest session requests", HttpStatus.TOO_MANY_REQUESTS);
+    }
+
+    if (deviceId) {
       const existingUser = await this.usersRepository.findOne({
-        where: { deviceId: dto.deviceId, accountType: "guest" },
+        where: { deviceId, accountType: "guest" },
       });
 
       if (existingUser) {
@@ -52,11 +85,12 @@ export class AuthService {
       }
     }
 
+    // Always server-mint the user id — never use client deviceId as primary key.
     const user = await this.usersRepository.save(
       this.usersRepository.create({
-        id: dto.deviceId ?? randomUUID(),
+        id: randomUUID(),
         accountType: "guest",
-        deviceId: dto.deviceId ?? null,
+        deviceId: deviceId ?? null,
       }),
     );
 
@@ -66,8 +100,23 @@ export class AuthService {
   async completeOAuth(
     provider: AuthProvider,
     dto: OAuthCallbackDto,
+    clientIp = "unknown",
   ): Promise<AuthSessionResponseDto> {
+    if (await isAuthOAuthRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many OAuth attempts", HttpStatus.TOO_MANY_REQUESTS);
+    }
     const profile = await this.oauthProvider.exchange(provider, dto);
+    if (dto.displayName?.trim()) {
+      profile.displayName = dto.displayName.trim();
+    }
+    return this.completeOAuthFromProfile(provider, profile);
+  }
+
+  /** Upsert provider user + issue session (used by dedicated Google/Apple routes). */
+  async completeOAuthFromProfile(
+    provider: AuthProvider,
+    profile: OAuthProfile,
+  ): Promise<AuthSessionResponseDto> {
     const user = await this.upsertProviderUser(provider, profile);
     return this.issueSession(user);
   }
@@ -83,6 +132,9 @@ export class AuthService {
     }
 
     const profile = await this.oauthProvider.exchange(dto.provider, dto);
+    if (dto.displayName?.trim()) {
+      profile.displayName = dto.displayName.trim();
+    }
 
     // If this provider identity already belongs to another user, linking would
     // hijack/collide with it. Reject rather than silently overwrite — the caller
@@ -106,7 +158,13 @@ export class AuthService {
     return this.issueSession(user);
   }
 
-  async refreshSession(refreshToken: string): Promise<AuthSessionResponseDto> {
+  async refreshSession(
+    refreshToken: string,
+    clientIp = "unknown",
+  ): Promise<AuthSessionResponseDto> {
+    if (await isAuthRefreshRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many refresh attempts", HttpStatus.TOO_MANY_REQUESTS);
+    }
     const now = new Date();
     const nextToken = randomUUID();
     const nextExpiry = this.refreshExpiry();
@@ -190,9 +248,7 @@ export class AuthService {
       await manager.delete(UserEntity, { id: userId });
     });
 
-    await Promise.all(
-      attachmentPaths.map((path) => rm(path, { force: true }).catch(() => undefined)),
-    );
+    await Promise.all(attachmentPaths.map((path) => this.attachmentStorage.remove(path)));
   }
 
   private async upsertProviderUser(

@@ -1,5 +1,5 @@
 import { SymbolView } from "expo-symbols";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import Animated, {
@@ -141,56 +141,60 @@ export function TasbeehCounter({
   };
 
   return (
-    <View style={styles.root}>
-      {onSelectMode ? (
-        <TargetModeBar
-          modes={modes}
-          target={target}
-          count={displayCount}
-          onSelectMode={onSelectMode}
-          onCustom={onCustom}
-        />
-      ) : null}
+    <Fragment>
+      <View style={styles.root}>
+        {onSelectMode ? (
+          <TargetModeBar
+            modes={modes}
+            target={target}
+            count={displayCount}
+            onSelectMode={onSelectMode}
+            onCustom={onCustom}
+          />
+        ) : null}
 
-      <View style={styles.counterStage}>
-        <PartyPopper burstKey={celebrationKey} colors={celebrationColors} />
-        <PressableScale
-          haptic={false}
-          onPress={handleTap}
-          scaleTo={0.96}
-          hitSlop={TAP_HIT_SLOP}
-          accessibilityRole="button"
-          accessibilityLabel={t("common.count")}
-          accessibilityValue={{ now: displayCount, min: 0, max: target > 0 ? target : undefined }}
-          style={styles.tapZone}
-        >
-          <CounterRing count={displayCount} target={target} complete={complete} />
-        </PressableScale>
+        <View style={styles.counterStage}>
+          <PartyPopper burstKey={celebrationKey} colors={celebrationColors} />
+          <PressableScale
+            haptic={false}
+            onPress={handleTap}
+            scaleTo={0.96}
+            hitSlop={TAP_HIT_SLOP}
+            accessibilityRole="button"
+            accessibilityLabel={t("common.count")}
+            accessibilityValue={{ now: displayCount, min: 0, max: target > 0 ? target : undefined }}
+            style={styles.tapZone}
+          >
+            <CounterRing count={displayCount} target={target} complete={complete} />
+          </PressableScale>
+        </View>
+
+        {complete ? (
+          <CompletionBanner onStartAgain={() => setPending("startAgain")} />
+        ) : (
+          <View style={styles.hintRow}>
+            {target > 0 ? (
+              <View style={[styles.remainingPill, { backgroundColor: tokens.accentSoft }]}>
+                <ThemedText type="smallBold" style={{ color: colors.accentText }}>
+                  {t("tasbeehUi.remaining", { count: remaining })}
+                </ThemedText>
+              </View>
+            ) : null}
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hintText}>
+              {t("tasbeehUi.tapToCount")}
+            </ThemedText>
+          </View>
+        )}
+
+        <ControlBar
+          count={displayCount}
+          onDecrement={() => setPending("decrement")}
+          onReset={() => setPending("reset")}
+        />
       </View>
 
-      {complete ? (
-        <CompletionBanner onStartAgain={() => setPending("startAgain")} />
-      ) : (
-        <View style={styles.hintRow}>
-          {target > 0 ? (
-            <View style={[styles.remainingPill, { backgroundColor: tokens.accentSoft }]}>
-              <ThemedText type="smallBold" style={{ color: colors.accentText }}>
-                {t("tasbeehUi.remaining", { count: remaining })}
-              </ThemedText>
-            </View>
-          ) : null}
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hintText}>
-            {t("tasbeehUi.tapToCount")}
-          </ThemedText>
-        </View>
-      )}
-
-      <ControlBar
-        count={displayCount}
-        onDecrement={() => setPending("decrement")}
-        onReset={() => setPending("reset")}
-      />
-
+      {/* Sibling of the animated counter tree so Fabric + Reanimated cannot
+          zero-out Modal hit-testing after the completion celebration. */}
       <ConfirmDialog
         visible={pending !== null}
         title={confirmCopy?.title ?? ""}
@@ -200,7 +204,7 @@ export function TasbeehCounter({
         onConfirm={executePending}
         onClose={() => setPending(null)}
       />
-    </View>
+    </Fragment>
   );
 }
 

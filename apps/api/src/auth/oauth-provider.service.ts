@@ -10,6 +10,7 @@ import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/
 import { ConfigService } from "@nestjs/config";
 import type { EnvironmentVariables } from "../config/env.schema";
 import type { AuthProvider, OAuthCallbackDto } from "./dto/auth.dto";
+import { verifyGoogleAccessToken } from "./google-access-token";
 
 /** Normalised identity returned by every provider exchange. */
 export interface OAuthProfile {
@@ -29,12 +30,15 @@ export interface OAuthProfile {
 const APPLE_ISSUER = "https://appleid.apple.com";
 const APPLE_TOKEN_URL = "https://appleid.apple.com/auth/token";
 const APPLE_JWKS_URL = "https://appleid.apple.com/auth/keys";
-/** Cache Apple's public keys briefly so we don't refetch on every sign-in. */
-const APPLE_JWKS_TTL_MS = 60 * 60 * 1000;
+const GOOGLE_ISSUERS = new Set(["https://accounts.google.com", "accounts.google.com"]);
+const GOOGLE_JWKS_URL = "https://www.googleapis.com/oauth2/v3/certs";
+/** Cache provider JWKS briefly so we don't refetch on every sign-in. */
+const JWKS_TTL_MS = 60 * 60 * 1000;
 
 @Injectable()
 export class OAuthProviderService {
   private appleJwksCache: { keys: JsonWebKey[]; fetchedAt: number } | null = null;
+  private googleJwksCache: { keys: JsonWebKey[]; fetchedAt: number } | null = null;
 
   constructor(private readonly configService: ConfigService<EnvironmentVariables, true>) {}
 
@@ -45,7 +49,7 @@ export class OAuthProviderService {
    */
   protected async fetchAppleJwks(): Promise<JsonWebKey[]> {
     const now = Date.now();
-    if (this.appleJwksCache && now - this.appleJwksCache.fetchedAt < APPLE_JWKS_TTL_MS) {
+    if (this.appleJwksCache && now - this.appleJwksCache.fetchedAt < JWKS_TTL_MS) {
       return this.appleJwksCache.keys;
     }
     const jwks = await this.fetchJson<{ keys: JsonWebKey[] }>(APPLE_JWKS_URL);
@@ -53,9 +57,24 @@ export class OAuthProviderService {
     return jwks.keys;
   }
 
+  /**
+   * Fetches Google's JSON Web Key Set (RSA public keys) used to verify id_token
+   * signatures. Overridable in tests so we can verify locally-signed tokens
+   * without reaching Google's JWKS endpoint.
+   */
+  protected async fetchGoogleJwks(): Promise<JsonWebKey[]> {
+    const now = Date.now();
+    if (this.googleJwksCache && now - this.googleJwksCache.fetchedAt < JWKS_TTL_MS) {
+      return this.googleJwksCache.keys;
+    }
+    const jwks = await this.fetchJson<{ keys: JsonWebKey[] }>(GOOGLE_JWKS_URL);
+    this.googleJwksCache = { keys: jwks.keys, fetchedAt: now };
+    return jwks.keys;
+  }
+
   async exchange(provider: AuthProvider, dto: OAuthCallbackDto): Promise<OAuthProfile> {
-    if (!dto.code?.trim() && !dto.idToken?.trim()) {
-      throw new BadRequestException("An OAuth code or id_token is required");
+    if (!dto.code?.trim() && !dto.idToken?.trim() && !dto.accessToken?.trim()) {
+      throw new BadRequestException("An OAuth code, id_token, or access_token is required");
     }
 
     switch (provider) {
@@ -87,26 +106,47 @@ export class OAuthProviderService {
 
   // --- Google -------------------------------------------------------------
 
-  private async exchangeGoogle(dto: OAuthCallbackDto): Promise<OAuthProfile> {
-    const clientId = this.requireCredential("GOOGLE_CLIENT_ID", "google");
+  /**
+   * Allowed Google id_token audiences (comma/space separated). Include the Web
+   * client id plus iOS/Android client ids so native Sign-In tokens validate.
+   */
+  private googleAudiences(): string[] {
+    const raw = this.requireCredential("GOOGLE_OAUTH_CLIENT_IDS", "google");
+    return raw
+      .split(/[\s,]+/)
+      .map((value) => value.trim())
+      .filter(Boolean);
+  }
 
-    // Native flows hand us an id_token directly — validate it with Google's
-    // tokeninfo endpoint (server-side signature + claim validation, no crypto deps).
+  /** Web client id used for the authorization-code exchange (holds the secret). */
+  private googleWebClientId(): string {
+    const dedicated = this.env("GOOGLE_OAUTH_WEB_CLIENT_ID")?.trim();
+    if (dedicated) return dedicated;
+    const audiences = this.googleAudiences();
+    return audiences[0] ?? "";
+  }
+
+  private async exchangeGoogle(dto: OAuthCallbackDto): Promise<OAuthProfile> {
+    // Native flows may hand us an id_token directly — verify RS256 signature and claims.
     if (dto.idToken?.trim()) {
-      const claims = await this.fetchJson<GoogleTokenInfo>(
-        `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(dto.idToken)}`,
-      );
-      if (claims.aud !== clientId) {
-        throw new UnauthorizedException("Google id_token audience mismatch");
+      return this.verifyGoogleIdToken(dto.idToken);
+    }
+
+    // Native Google: on-device PKCE exchange yields an access token verified via tokeninfo.
+    if (dto.accessToken?.trim()) {
+      const info = await verifyGoogleAccessToken(this.configService, dto.accessToken);
+      if (!info?.sub) {
+        throw new UnauthorizedException("Invalid Google access token");
       }
       return {
-        providerAccountId: claims.sub,
-        email: claims.email,
-        displayName: claims.name,
+        providerAccountId: info.sub,
+        email: info.email,
+        displayName: info.name,
       };
     }
 
-    const clientSecret = this.requireCredential("GOOGLE_CLIENT_SECRET", "google");
+    const clientId = this.googleWebClientId();
+    const clientSecret = this.requireCredential("GOOGLE_OAUTH_WEB_CLIENT_SECRET", "google");
     const tokens = await this.postForm<GoogleTokenResponse>("https://oauth2.googleapis.com/token", {
       code: dto.code ?? "",
       client_id: clientId,
@@ -138,6 +178,9 @@ export class OAuthProviderService {
     tokenUrl.searchParams.set("client_secret", appSecret);
     tokenUrl.searchParams.set("redirect_uri", dto.redirectUri ?? "");
     tokenUrl.searchParams.set("code", dto.code ?? "");
+    if (dto.codeVerifier?.trim()) {
+      tokenUrl.searchParams.set("code_verifier", dto.codeVerifier.trim());
+    }
     const tokens = await this.fetchJson<FacebookTokenResponse>(tokenUrl.toString());
 
     // Prove server-side possession of the app secret so a leaked access token
@@ -156,6 +199,70 @@ export class OAuthProviderService {
       providerAccountId: profile.id,
       email: profile.email,
       displayName: profile.name,
+    };
+  }
+
+  /**
+   * Cryptographically verifies a Google identity token: RSA (RS256) signature
+   * against Google's JWKS, plus issuer, audience, and expiry claims.
+   */
+  private async verifyGoogleIdToken(idToken: string): Promise<OAuthProfile> {
+    const audiences = this.googleAudiences();
+    const parts = idToken.split(".");
+    if (parts.length !== 3) {
+      throw new UnauthorizedException("Malformed Google identity token");
+    }
+    const [encodedHeader, encodedPayload, encodedSignature] = parts as [string, string, string];
+
+    let header: { kid?: string; alg?: string };
+    let claims: GoogleIdTokenClaims;
+    try {
+      header = JSON.parse(Buffer.from(encodedHeader, "base64url").toString("utf8"));
+      claims = JSON.parse(Buffer.from(encodedPayload, "base64url").toString("utf8"));
+    } catch {
+      throw new UnauthorizedException("Malformed Google identity token");
+    }
+
+    if (header.alg !== "RS256") {
+      throw new UnauthorizedException("Unsupported Google identity token algorithm");
+    }
+
+    const jwk = (await this.fetchGoogleJwks()).find(
+      (key) => (key as { kid?: string }).kid === header.kid,
+    );
+    if (!jwk) {
+      throw new UnauthorizedException("Google signing key not found for token");
+    }
+
+    const publicKey = createPublicKey({ key: jwk, format: "jwk" });
+    const signatureValid = cryptoVerify(
+      "RSA-SHA256",
+      Buffer.from(`${encodedHeader}.${encodedPayload}`),
+      publicKey,
+      Buffer.from(encodedSignature, "base64url"),
+    );
+    if (!signatureValid) {
+      throw new UnauthorizedException("Invalid Google identity token signature");
+    }
+
+    if (!claims.iss || !GOOGLE_ISSUERS.has(claims.iss)) {
+      throw new UnauthorizedException("Google id_token issuer mismatch");
+    }
+    const tokenAudiences = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
+    if (!tokenAudiences.some((aud) => audiences.includes(aud))) {
+      throw new UnauthorizedException("Google id_token audience mismatch");
+    }
+    if (typeof claims.exp === "number" && claims.exp * 1000 < Date.now()) {
+      throw new UnauthorizedException("Google id_token has expired");
+    }
+    if (!claims.sub) {
+      throw new UnauthorizedException("Google identity token is missing a subject");
+    }
+
+    return {
+      providerAccountId: claims.sub,
+      email: claims.email,
+      displayName: claims.name,
     };
   }
 
@@ -194,7 +301,12 @@ export class OAuthProviderService {
 
   /** Comma/space separated allowed audiences (iOS bundle id + web Services ID). */
   private appleAudiences(): string[] {
-    const raw = this.requireCredential("APPLE_CLIENT_ID", "apple");
+    const list = this.env("APPLE_CLIENT_IDS")?.trim();
+    const legacy = this.env("APPLE_CLIENT_ID")?.trim();
+    const raw = list || legacy;
+    if (!raw) {
+      throw new BadRequestException("apple sign-in is not configured on the server yet");
+    }
     return raw
       .split(/[\s,]+/)
       .map((value) => value.trim())
@@ -363,9 +475,11 @@ interface GoogleTokenResponse {
   access_token: string;
   id_token?: string;
 }
-interface GoogleTokenInfo {
+interface GoogleIdTokenClaims {
+  iss: string;
+  aud: string | string[];
   sub: string;
-  aud: string;
+  exp?: number;
   email?: string;
   name?: string;
 }

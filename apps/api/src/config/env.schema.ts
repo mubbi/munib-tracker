@@ -109,13 +109,27 @@ export class EnvironmentVariables {
   @IsOptional()
   CORS_ORIGINS?: string;
 
+  /**
+   * Allowed Google OAuth client IDs (comma/space separated) for access-token /
+   * id_token audience checks. Include Web + iOS + Android client ids.
+   * Example: web-xxx.apps.googleusercontent.com,ios-xxx.apps.googleusercontent.com
+   */
   @IsString()
   @IsOptional()
-  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_OAUTH_CLIENT_IDS?: string;
 
+  /**
+   * Web OAuth client id used for the authorization-code + secret exchange.
+   * Defaults to the first entry in `GOOGLE_OAUTH_CLIENT_IDS` when unset.
+   */
   @IsString()
   @IsOptional()
-  GOOGLE_CLIENT_SECRET?: string;
+  GOOGLE_OAUTH_WEB_CLIENT_ID?: string;
+
+  /** Web OAuth client secret (API only — never ship in the Expo app). */
+  @IsString()
+  @IsOptional()
+  GOOGLE_OAUTH_WEB_CLIENT_SECRET?: string;
 
   /**
    * Allowed audiences for Apple id_token verification (comma/space separated).
@@ -124,11 +138,25 @@ export class EnvironmentVariables {
    */
   @IsString()
   @IsOptional()
+  APPLE_CLIENT_IDS?: string;
+
+  /** Legacy single Apple audience when `APPLE_CLIENT_IDS` is unset. */
+  @IsString()
+  @IsOptional()
   APPLE_CLIENT_ID?: string;
 
   @IsString()
   @IsOptional()
   APPLE_CLIENT_SECRET?: string;
+
+  /**
+   * Comma-separated redirect URIs allowed for OAuth code exchange (web origins,
+   * Google reversed schemes, Apple API callback, App Link return URLs).
+   * Required in production when exchanging authorization codes.
+   */
+  @IsString()
+  @IsOptional()
+  OAUTH_REDIRECT_URI_ALLOWLIST?: string;
 
   /** Apple Services ID used as the `client_id` for the web/Android OAuth code exchange. */
   @IsString()
@@ -170,4 +198,34 @@ export class EnvironmentVariables {
   @IsString()
   @IsOptional()
   REPORT_ADMIN_KEY?: string;
+
+  /**
+   * Cloudinary cloud name for report attachments (required on Vercel).
+   * When set with API key + secret, files are stored as `cloudinary:{public_id}`.
+   */
+  @IsString()
+  @IsOptional()
+  CLOUDINARY_CLOUD_NAME?: string;
+
+  @IsString()
+  @IsOptional()
+  CLOUDINARY_API_KEY?: string;
+
+  @IsString()
+  @IsOptional()
+  CLOUDINARY_API_SECRET?: string;
+
+  /** Optional Cloudinary folder prefix (default: munib-tracker/reports). */
+  @IsString()
+  @IsOptional()
+  CLOUDINARY_FOLDER?: string;
+
+  /** Upstash Redis REST URL for durable rate limits across serverless instances. */
+  @IsString()
+  @IsOptional()
+  UPSTASH_REDIS_REST_URL?: string;
+
+  @IsString()
+  @IsOptional()
+  UPSTASH_REDIS_REST_TOKEN?: string;
 }

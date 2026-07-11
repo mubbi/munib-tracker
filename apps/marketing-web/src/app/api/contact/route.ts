@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isContactRateLimited } from "@/lib/contact-rate-limit";
 
 type ContactBody = {
   name?: string;
@@ -14,34 +15,15 @@ const MAX_NAME = 100;
 const MAX_EMAIL = 254;
 const MAX_MESSAGE = 5000;
 
-// Fixed-window in-memory rate limit. Adequate for a single-region marketing
-// route; not a substitute for an edge rate limiter at scale.
-const RATE_LIMIT = 5;
-const RATE_WINDOW_MS = 60_000;
-const rateBuckets = new Map<string, { count: number; resetAt: number }>();
-
 function clientIp(request: Request): string {
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) return forwarded.split(",")[0]?.trim() || "unknown";
   return request.headers.get("x-real-ip")?.trim() || "unknown";
 }
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const bucket = rateBuckets.get(ip);
-
-  if (!bucket || now >= bucket.resetAt) {
-    rateBuckets.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return false;
-  }
-
-  bucket.count += 1;
-  return bucket.count > RATE_LIMIT;
-}
-
 export async function POST(request: Request) {
   const ip = clientIp(request);
-  if (isRateLimited(ip)) {
+  if (await isContactRateLimited(ip)) {
     return NextResponse.json(
       { error: "Too many requests. Please try again shortly." },
       { status: 429 },

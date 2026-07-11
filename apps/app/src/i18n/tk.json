@@ -51,9 +51,9 @@
     "off": "Öçürilen",
     "signedIn": "Girdiňiz",
     "confirm": "Onayla",
-    "markCompleteConfirmTitle": "Tamamlandy diýip bellenilsinmi?",
+    "markCompleteConfirmTitle": "Mark as complete?",
     "markCompleteConfirmMsg": "Bu, okuw ösüşiňize goşulýar. Islän wagtyňyz yzyna gaýtaryp bilersiňiz.",
-    "markCompleteConfirmAction": "Tamamlandy diýip belläň",
+    "markCompleteConfirmAction": "Mark complete",
     "search": "Gözleg",
     "notifications": "Bildirimler",
     "goBack": "Yza",
@@ -66,7 +66,9 @@
     "increase": "{{label}} köpelt",
     "decrease": "{{label}} azalt",
     "appName": "Munib Tracker",
-    "appTagline": "Allaha gaýdyp geliş ýoluňyzy yzarlaň."
+    "appTagline": "Allaha gaýdyp geliş ýoluňyzy yzarlaň.",
+    "loadingRoute": "Preparing…",
+    "loadingRouteHint": "Just a moment while this screen loads."
   },
   "search": {
     "placeholder": "Guran, hadis, dua, zikir ara…",
@@ -258,7 +260,7 @@
     "freshStartHint": "Başlamak için ilk ibadetinizi kaydedin",
     "checklistHint": "Günlük aktivite kontrol listesini tamamlayyn",
     "excusedPausedLabel": "Duraklatyldy",
-    "excusedGoalHint": "{{reason}} nedeniyle takip duraklatyldy — seriniz korunuyor.",
+    "excusedGoalHint": "Tracking paused for {{reason}} — your streak is held.",
     "excusedGoalBody": "Şu gün farz takibi duraklatyldy. Ystege bagly ibadetleri yine de kaydedebilirsiniz.",
     "tasksProgress": "{{total}} görevden {{done}}",
     "tasksFraction": "{{done}}/{{total}}",
@@ -352,14 +354,14 @@
       "audio": "Ses"
     },
     "continueAction": {
-      "quran": "Okumaya devam et",
+      "quran": "Continue reading",
       "hadith": "Hadise dön",
       "dua": "Duayy aç",
       "zikr": "Zikrleri aç",
       "durood": "Salavatlara dön",
       "names": "Ysimlere dön",
       "audio": "Sese dön",
-      "listening": "Dinlemeye devam et"
+      "listening": "Continue listening"
     },
     "rozaRemaining": "Gaza oruçlary",
     "knowledgeMotivation": {
@@ -432,7 +434,7 @@
     "subtitle": "Durumunu ayarlamak için bir namaza dokunun — bu cihazda kaydedilir.",
     "excusedTitle": "Mazeretli gün",
     "excusedHint": "Hayyz, hastalyk veya seyahat — serinizi bozmadan farz takibini duraklatyn.",
-    "excusedActive": "Bu gün mazeretli — farz takibi duraklatyldy ve seriniz korunuyor.",
+    "excusedActive": "This day is excused — obligatory tracking is paused and your streak is held.",
     "excusedConfirmTitle": "Şu gün mazeretli olarak işaretlensin mi?",
     "excusedConfirmMsg": "Şu gün farz takibi duraklatylacak ({{reason}}). Seriniz korunacak.",
     "excusedConfirmAction": "Mazeretli işaretle",
@@ -471,6 +473,46 @@
     "afterSalahProgress": "Zikrler {{completed}}/{{total}}",
     "afterSalahProgressA11y": "{{prayer}} sonrasy zikirler: bugün {{total}} içinden {{completed}} tamamlandy"
   },
+  "update": {
+    "title": "Täzelenme elýeterli",
+    "hardTitle": "Täzelenme zerur",
+    "availableBadge": "Täze wersiýa",
+    "requiredBadge": "Zerur",
+    "yourVersion": "Siziň wersiýaňyz",
+    "latestVersion": "Iň soňky",
+    "body": "{{version}} wersiýasy iň soňky gowulaşdyrmalar we düzedişler bilen taýýar.",
+    "hardBody": "Programmany ulanmagy dowam etdirmek üçin {{version}} wersiýasyna täzeläň.",
+    "hardNote": "Dowam etmek üçin bu täzelenme zerur.",
+    "updateButton": "Häzir täzele",
+    "webReloadButton": "Täzeden ýükle",
+    "webSoftRefreshHint": "Iň soňky wersiýa üçin täzeden ýükläň. Maglumatlaryňyz şu enjamda galýar.",
+    "webHardRefreshHint": "Ýokardaky Täzeden ýükle düwmesine basyň. Habar dowam etse, sahypany güýç bilen täzeläň: Windows/Linux-da Ctrl+Shift+R ýa-da macOS-da Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker hoşuna gelýärmi?",
+    "rateSubtitle": "Pikiriňiz beýleki musulmanlara programmany tapmaga kömek edýär.",
+    "starLabel": "{{count}} ýyldyz",
+    "starLabel_other": "{{count}} ýyldyz",
+    "storeTitle": "Sag boluň!",
+    "storeBody": "Munib Tracker-e programma dükanynda baha berersiňizmi? Diňe bir pursat alýar.",
+    "storeCta": "Programma dükanynda baha ber",
+    "maybeLater": "Belki soňra",
+    "feedbackTitle": "Gowulaşmagymyza kömek ediň",
+    "feedbackBody": "Gynansagam Munib Tracker garaşyklaryňyzy kanagatlandyrmady. Näme gowulap bileris?",
+    "feedbackPlaceholder": "Näme ýalňyşdyr ýa-da näme ýetmezçiligini ýazyň…",
+    "feedbackCta": "Pikir iber",
+    "feedbackOffline": "Pikir ibermek üçin internete birigiň.",
+    "feedbackError": "Pikir iberilmedi. Täzeden synanyşyň.",
+    "skip": "Geç",
+    "thanksTitle": "Sag boluň!",
+    "thanksBody": "Goldawyňyz biziň üçin örän möhümdir.",
+    "feedbackThanksTitle": "Pikir kabul edildi",
+    "feedbackThanksBody": "Bellikleriňizi Munib Tracker-i gowulamak üçin ulanyarys."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Gowy gidýärsiňiz",
+    "reviewReactivationBody": "Munib Tracker tejribäňizi paýlaşmak isleýärsiňizmi?"
+  },
   "settings": {
     "eyebrow": "Kişiselleştir",
     "title": "Sazlamalar",
@@ -501,6 +543,18 @@
     "qiblaSub": "Namaz yönünü bul",
     "about": "Hakkynda",
     "aboutSub": "Sürüm, katkylar ve politikalar",
+    "rateApp": "Munib Tracker-e baha beriň",
+    "rateAppDesc": "Tejribäňizi programma dükanynda paýlaşyň",
+    "reviewReactivationEnabled": "Programma pikir ýatlatmalary",
+    "reviewReactivationEnabledDesc": "Käwagt ýumşak ýatlatmalar programmada pikir paýlaşmak üçin — dükandaky göni baha soragy däl.",
+    "appUpdate": "Programma täzelenmesi",
+    "updateAvailableTitle": "Täzelenme elýeterli",
+    "updateRequiredTitle": "Täzelenme zerur",
+    "updateAvailableDesc": "{{latest}} wersiýasy elýeterli. Siz {{current}}-da.",
+    "updateRequiredDesc": "Programmany ulanmagy dowam etdirmek üçin {{latest}}-a täzeläň.",
+    "updateNow": "Häzir täzele",
+    "viewUpdateDetails": "Jikme-jikleri gör",
+    "remindInSettings": "Sazlamalarda ýatlat",
     "import": "Namaz geçmişini içe aktar",
     "importSub": "Geçmiş günleri JSON veya CSV dosyasyndan doldurun",
     "footer": "{{app}} · niyetle yapyldy",
@@ -549,19 +603,7 @@
         "name": "Ali Ybn Ahmed Mala",
         "location": "Mescid-i Haram"
       }
-    },
-    "rateApp": "Munib Tracker-e baha beriň",
-    "rateAppDesc": "Tejribäňizi programma dükanynda paýlaşyň",
-    "reviewReactivationEnabled": "Programma pikir ýatlatmalary",
-    "reviewReactivationEnabledDesc": "Käwagt ýumşak ýatlatmalar programmada pikir paýlaşmak üçin — dükandaky göni baha soragy däl.",
-    "appUpdate": "Programma täzelenmesi",
-    "updateAvailableTitle": "Täzelenme elýeterli",
-    "updateRequiredTitle": "Täzelenme zerur",
-    "updateAvailableDesc": "{{latest}} wersiýasy elýeterli. Siz {{current}}-da.",
-    "updateRequiredDesc": "Programmany ulanmagy dowam etdirmek üçin {{latest}}-a täzeläň.",
-    "updateNow": "Häzir täzele",
-    "viewUpdateDetails": "Jikme-jikleri gör",
-    "remindInSettings": "Sazlamalarda ýatlat"
+    }
   },
   "import": {
     "title": "Namaz geçmişini içe aktar",
@@ -577,7 +619,7 @@
     "summaryRange": "Tarihler {{from}} → {{to}}",
     "errorLine": "Satyr {{row}}: {{message}}",
     "moreErrors": "+{{count}} ýalňyşlyk has",
-    "alsoQaza": "Also ekle kaçyryldy prayers  Gaza",
+    "alsoQaza": "Also add missed prayers to Qaza",
     "alsoQazaHint": "Increase sizin make-up counters by each imported miss.",
     "commit": "{{count}} logs Yçe Aktar",
     "importing": "Import edilýär…",
@@ -589,9 +631,9 @@
     "eyebrowWelcome": "Hoş geldiniz",
     "title": "Girmek",
     "subtitle": "Ybadetinizi cihazlar arasynda senkronize edin",
-    "google": "Google ile devam et",
-    "apple": "Apple ile devam et",
-    "facebook": "Facebook ile devam et",
+    "google": "Continue with Google",
+    "apple": "Continue with Apple",
+    "facebook": "Continue with Facebook",
     "heroGuest": "Misafir hesaby kullanyyorsunuz. Verilerinizi yedeklemek ve senkronize etmek için bir saglayycy baglayyn — hiçbir şey kaybolmaz.",
     "heroUser": "Namazlarynyzy, kazalarynyzy ve zikirlerinizi bulutta güvende tutmak için giriş yapyn.",
     "error": "Girmek yapylamady. API sunucusunun çalyştygyndan ve bu saglayycynyn yapylandyryldygyndan emin olun."
@@ -768,10 +810,10 @@
       "beforeSleepTitle": "Uyku öncesi zikirler",
       "beforeSleepBody": "Recite sizin before-sleep supplications.",
       "qazaTitle": "Gaza hatyrlatycy",
-      "qazaBody": "Make up  kaçyryldy Namaz veya oruç bugün.",
+      "qazaBody": "Make up a missed Salah or fast today.",
       "achievementTitle": "Başary açyldy",
       "dailyContentTitle": "Şu günün reflection",
-      "dailyContentBody": " yeni verse, hadis, ve name  Allah dir ready  sizin ana sayfa screen.",
+      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
       "fridayTitle": "Cuma Mubarek",
       "fridayBody": "It's Friday — send salawat ve read Surah Al-Kahf."
     },
@@ -930,7 +972,7 @@
     "share": "Paylaş",
     "showMore": "more Göster",
     "showLess": "less Göster",
-    "copied": "Kopyalandy  clipboard",
+    "copied": "Copied to clipboard",
     "textSize": "Text boyut",
     "decrease": "Decrease text boyut",
     "increase": "Increase text boyut",
@@ -948,7 +990,7 @@
     "proofQrIosA11y": "QR code — download   App Store",
     "proofQrAndroidA11y": "QR code — get it  Google Oynat",
     "proofQrWebA11y": "QR code — aç  web app",
-    "proofExportedAt": "Paýlaşyldy · {{exportedAt}}",
+    "proofExportedAt": "Shared · {{exportedAt}}",
     "proofOrVisit": "Veya visit: {{url}}",
     "proofNotice": "Shared için benefit — please verify religious içerik ile  trusted alim.",
     "sectionReading": "Okuma",
@@ -1034,7 +1076,7 @@
     "subtitle": "Read, listen, ve reflect",
     "searchSurah": "by name, meaning, or number Gözleg",
     "filterAll": "Tüm",
-    "continueReading": "Okumaya devam et",
+    "continueReading": "Continue reading",
     "continueAt": "Sure {{surah}} · Aýet {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
@@ -1090,6 +1132,14 @@
     "searching": "Gözlegnyyor…",
     "secondTranslation": "Second çeviri",
     "secondTranslationNone": "Ýok",
+    "selectTranslator": "Terjimeçini saýlaň — {{language}}",
+    "translationCount_one": "{{count}} terjime",
+    "translationCount_other": "{{count}} terjime",
+    "translationBundled": "Oflayn elýeterli",
+    "translationRemote": "Gerek bolanda göçürilýär",
+    "backToLanguages": "Ähli diller",
+    "searchTranslationLanguages": "Dilleri gözle…",
+    "searchTranslators": "Terjimeçileri gözle…",
     "pages": "Sayfalar",
     "pagesSubtitle": "Browse  Madani mushaf by page",
     "pageN": "Sahypa {{n}}",
@@ -1108,15 +1158,7 @@
     "prevPage": "Önceki page",
     "nextPage": "Sonraki page",
     "openPageView": "page view Aç",
-    "continueAtPage": "Sahypa {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "Terjimeçini saýlaň — {{language}}",
-    "translationCount_one": "{{count}} terjime",
-    "translationCount_other": "{{count}} terjime",
-    "translationBundled": "Oflayn elýeterli",
-    "translationRemote": "Gerek bolanda göçürilýär",
-    "backToLanguages": "Ähli diller",
-    "searchTranslationLanguages": "Dilleri gözle…",
-    "searchTranslators": "Terjimeçileri gözle…"
+    "continueAtPage": "Sahypa {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "Peygamber gelenegi",
@@ -1178,7 +1220,7 @@
     "customEmptyTitle": "Henüz saved counters yok",
     "customEmptyDesc": "Create  counter için durood, istighfar, veya any zikir siz repeat often — sizin say dir kaydedildi otomatik.",
     "customDeleteTitle": "counter? Pozmak",
-    "customDeleteMessage": "\"{{title}}\" ve its kaydedildi say will be kaldyryldy kalycy.",
+    "customDeleteMessage": "\"{{title}}\" and its saved count will be removed permanently.",
     "customBackToCounters": "Geri  counters",
     "notFoundTitle": "Zikr tapylmady",
     "notFoundDesc": "Bu item may have been kaldyryldy."
@@ -1225,12 +1267,12 @@
     },
     "ishraq": {
       "summary": " two-rak'ah sunnah namaz after  sun has fully risen (about 15–20 minutes after sunrise).",
-      "why": " Prophet ﷺ said whoever prays Ertir içinde congregation then sits remembering Allah until sunrise, then prays two rak'ahs, receives  reward   tamamlandy Hac ve 'Umre.",
+      "why": "The Prophet ﷺ said whoever prays Fajr in congregation then sits remembering Allah until sunrise, then prays two rak'ahs, receives the reward of a complete Hajj and 'Umrah.",
       "benefits": "Immense reward ile minimal effort when combined ile Ertir içinde congregation.  peaceful start   gün içinde zikir ve istege bagly namaz."
     },
     "duha": {
       "summary": " forenoon namaz — typically two  eight rak'ahs between sunrise ve Öýle.",
-      "why": "Charity dir due  every joint   body each gün; even  few rak'ahs  Duha fulfills şu charity için  limbs through ibadet.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
       "benefits": "Forgives sins, brings sustenance (rizq), ve revives  neglected sunnah. Flexible timing makes it accessible when  gün allows."
     },
     "dhuhr": {
@@ -1291,7 +1333,7 @@
     "roza": "Oruç",
     "perPrayer": "Per namaz",
     "rowMeta": "{{remaining}} left · {{completed}} tamamlandy",
-    "rowMetaWithDaily": "{{remaining}} left · {{completed}} tamamlandy · bugün {{done}}/{{target}}",
+    "rowMetaWithDaily": "{{remaining}} left · {{completed}} done · today {{done}}/{{target}}",
     "dailySchedule": "Günlük schedule",
     "dailyScheduleHint": "how many of each prayer you plan to make up every day. Progress counts toward today's checklist. Ayarla",
     "dailyTotal": "{{count}} kaza / gün",
@@ -1323,13 +1365,13 @@
     "hint": "Dokunun  check  record  made-up namaz. Missing  namaz içinde  tracker adds  these counts otomatik.",
     "witrNote": {
       "title": "Dir Vitir kaza gerekli?",
-      "intro": "According   majority  alimler, making up  kaçyryldy Vitir dir allowed, but whether it dir gerekli depends  sizin madhhab (school  thought).",
+      "intro": "According to the majority of scholars, making up a missed Witr is allowed, but whether it is required depends on your madhhab (school of thought).",
       "hanafiTitle": "Hanefi mezhebi",
       "hanafiBody": "Vitir dir wajib (farz). If siz miss it, siz must make it up (kaza). Pray it as soon as siz remember — even if gün veya weeks have passed. Bu dir  view followed by most Muslims içinde South Asia, Central Asia, ve Turkey.",
       "othersTitle": "Şafii, Maliki & Hanbeli",
-      "othersBody": "Vitir dir  strongly emphasized sunnah (sunnah mu'akkadah), not farz. Making it up dir recommended (mustahabb) but not gerekli.  Prophet ﷺ would make up night prayers kaçyryldy due  sleep veya hastalyk.",
+      "othersBody": "Witr is a strongly emphasized sunnah (sunnah mu'akkadah), not obligatory. Making it up is recommended (mustahabb) but not required. The Prophet ﷺ would make up night prayers missed due to sleep or illness.",
       "evidenceTitle": "Delil",
-      "evidenceBody": " Prophet ﷺ said: \"Whoever sleeps ve misses Vitir veya forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — alimler differ  its grading.) Içinde Sahih Muslim, when he kaçyryldy night namaz due  hastalyk veya sleep, he made it up during  gün ile  even number  rak'ahs.",
+      "evidenceBody": "The Prophet ﷺ said: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — scholars differ on its grading.) In Sahih Muslim, when he missed night prayer due to illness or sleep, he made it up during the day with an even number of rak'ahs.",
       "tableHeader": "Mezhebe görä jemleme",
       "rows": {
         "hanafi": "Hanafi — Wajib — Gaza gerekli",
@@ -1337,14 +1379,14 @@
         "maliki": "Maliki — Sünnet mu'akkadah — Recommended",
         "hanbali": "Hanbali — Sünnet mu'akkadah — Recommended"
       },
-      "footer": "Bu app counts kaçyryldy Vitir toward kaza için tüm users. Treat it as gerekli if siz follow  Hanafi view; otherwise takip it as  recommended make-up. Consult  alim için sizin situation."
+      "footer": "This app counts missed Witr toward qaza for all users. Treat it as required if you follow the Hanafi view; otherwise track it as a recommended make-up. Consult a scholar for your situation."
     },
     "history": "Geçmiş"
   },
   "qazaCalc": {
     "eyebrow": "Gaza",
     "title": "Hesaplayycy",
-    "subtitle": "Tahmin  lifetime  kaçyryldy prayers",
+    "subtitle": "Estimate a lifetime of missed prayers",
     "currentAge": "Mevcut yaş",
     "pubertyAge": "Gynansaklyk ýaşy",
     "yearsPrayed": "Tutarly namaz yyllary",
@@ -1353,10 +1395,10 @@
     "yearLength": "ýyl length",
     "lunar": "Kameri (354)",
     "solar": "Gün ýyly (365)",
-    "estimatedDays": "Estimated kaçyryldy gün",
+    "estimatedDays": "Estimated missed days",
     "resultYears": "{{years}} years · one  each namaz per gün",
     "apply": "to my counters Uygula",
-    "disclaimer": "Bu dir  tahmin only. Rulings  making up kaçyryldy prayers vary — please consult  knowledgeable alim için sizin situation.",
+    "disclaimer": "This is an estimate only. Rulings on making up missed prayers vary — please consult a knowledgeable scholar for your situation.",
     "confirmTitle": "estimate? Uygula",
     "confirmMsg": "Bu replaces  kalan kaza say için each fard namaz ve Vitir ile  tahmin above. Completed counts dir kept."
   },
@@ -1367,7 +1409,7 @@
     "consistencyTitle": "Istikrar over intensity",
     "consistencyHadith": " most beloved deeds  Allah dir those şu dir istikrarly, even if they dir small.",
     "consistencySource": "Hadis — Bukhari & Muslim",
-    "consistencyPrinciple": " steady daily plan usually clears  large backlog more reliably than  aggressive sprint şu burns out.",
+    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
     "prayersPerDay": "prayers / gün",
     "dailyTimeLabel": "est. time / gün",
     "dailyTimeMinutes": "≈ {{count}} min",
@@ -1422,7 +1464,7 @@
     },
     "attachTitle": "Spread it through  gün",
     "attachHint": "Many people find it easier  pray 2–3 kaza  each namaz right after şu prayer's current salah — e.g. after Ertir do kaza Ertir, after Öýle do kaza Öýle, ve so . It spreads  load naturally.",
-    "fiqhNote": "Alimler differ  how  tahmin ve organize kaçyryldy prayers. Consult  alim siz trust için sizin situation ve madhhab."
+    "fiqhNote": "Scholars differ on how to estimate and organize missed prayers. Consult a scholar you trust for your situation and madhhab."
   },
   "qazaRoza": {
     "eyebrow": "Gaza",
@@ -1439,7 +1481,7 @@
     "confirmSetRemainingTitle": "Güncelle kalan say?",
     "confirmSetRemainingMsg": "the remaining fast count to {{remaining}}? Ayarla",
     "estimateFormula": "× 30 =",
-    "estimateTitle": "Tahmin kaçyryldy fasts",
+    "estimateTitle": "Estimate missed fasts",
     "estimateHint": "Roughly how many years  Ramazan fasts were kaçyryldy?",
     "yearsPlaceholder": "yyl",
     "estimateResult": "≈ {{count}} oruç",
@@ -1690,7 +1732,7 @@
     "activeGoals": "Sonraki hedefler",
     "activeGoalsHint": "Always  sonraki hedef — plus kaza ve oruç when siz takip borç.",
     "milestonesReached": "Milestones ulaşyldy",
-    "milestonesReachedHint": "{{count}} açyldy so far — ve counting.",
+    "milestonesReachedHint": "{{count}} unlocked so far — and counting.",
     "level": "Sv {{level}}",
     "tracks": {
       "salah": "Namaz",
@@ -1703,8 +1745,8 @@
     "milestones": {
       "salah": {
         "titleFallback": "Namaz {{level}}",
-        "description": "Tamamlandy {{count}} farz prayers",
-        "description_one": "Tamamlandy {{count}} farz namaz",
+        "description": "Complete {{count}} obligatory prayers",
+        "description_one": "Complete {{count}} obligatory prayer",
         "titles": {
           "0": "Ilkinji ädim",
           "1": "Durnukly başlangyç",
@@ -1740,8 +1782,8 @@
       },
       "zikr": {
         "titleFallback": "Zikr {{level}}",
-        "description": "Tamamlandy {{count}} zikir sessions",
-        "description_one": "Tamamlandy {{count}} zikir oturum",
+        "description": "Complete {{count}} zikr sessions",
+        "description_one": "Complete {{count}} zikr session",
         "titles": {
           "0": "Ilk Remembrance",
           "1": "Uyandyrylmyş Kalp",
@@ -1756,8 +1798,8 @@
       },
       "consistency": {
         "titleFallback": "Istikrar {{level}}",
-        "description": "Tamamlandy tüm farz prayers  {{count}} gün",
-        "description_one": "Tamamlandy tüm farz prayers  {{count}} gün",
+        "description": "Complete all obligatory prayers on {{count}} days",
+        "description_one": "Complete all obligatory prayers on {{count}} day",
         "titles": {
           "0": "Mükemmel Gün",
           "1": "Three Mükemmel Gün",
@@ -1801,14 +1843,14 @@
       "roza": {
         "activeTitle": "Clear Oruç Borç",
         "clearedTitle": "Oruç Borç Cleared",
-        "activeDescription": "Make up {{count}} kaçyryldy fasts",
-        "activeDescription_one": "Make up {{count}} kaçyryldy oruç",
-        "clearedDescription": "Cleared tüm {{count}} tracked kaçyryldy fasts",
-        "clearedDescription_one": "Cleared tüm {{count}} tracked kaçyryldy oruç"
+        "activeDescription": "Make up {{count}} missed fasts",
+        "activeDescription_one": "Make up {{count}} missed fast",
+        "clearedDescription": "Cleared all {{count}} tracked missed fasts",
+        "clearedDescription_one": "Cleared all {{count}} tracked missed fast"
       }
     },
     "share": "Paylaş",
-    "shareMessage": "Alhamdulillah — I açyldy \"{{title}}\" içinde Munib Tracker: {{description}}.",
+    "shareMessage": "Alhamdulillah — I unlocked \"{{title}}\" in Munib Tracker: {{description}}.",
     "unlockedToast": "Kilometre taşy ulaşyldy: {{name}}",
     "inAppBody": "{{name}} · {{description}}"
   },
@@ -1855,7 +1897,7 @@
     "compassLabel": "Kyble compass",
     "compassValue": "{{bearing}} degrees   Kaaba, {{distance}} away",
     "aligned": "Aligned ile  Kyble",
-    "alignedHint": "Hold steady — you're facing  Kaaba",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
     "turnFineTuneLeft": "Sola çevir",
     "turnFineTuneRight": "Saga çevir",
     "turnSlightLeft": "Hafif sola",
@@ -1895,8 +1937,8 @@
     "syncing": "Sinhronlanýar…",
     "done": "Sizin data dir backed up",
     "failed": "Couldn't sync. Check sizin connection ve try again.",
-    "mergeNoChanges": "Everything was already up  date",
-    "mergeSummary": "{{received}} alyndy · {{sent}} gönderildi",
+    "mergeNoChanges": "Everything was already up to date",
+    "mergeSummary": "{{received}} received · {{sent}} sent",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest düzenle",
     "conflictAffected": "Etkilenen: {{list}}",
     "entities": {
@@ -2016,7 +2058,7 @@
     "installBannerMessage": "iPhone'da uygulama benzeri bir deneyim ve tarayycy bildirimleri için Munib Tracker'y Ana Ekranynyza yükleyin.",
     "installStepsViaSafari": "Aşagydaki baglantyyy kopyalayyn, Safari'de açyn, ardyndan Paylaş → Ana Ekrana Ekle.",
     "installCopyLink": "Safari için baglantyyy kopyala",
-    "installLinkCopied": "Baglanty kopyalandy — devam etmek için Safari'nin adres çubuguna yapyştyryn.",
+    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
     "installLinkCopyFailed": "Baglanty kopyalanamady. Bu sayfayy Safari'de manuel olarak açyn.",
     "installDismiss": "Ýapmak"
   },
@@ -2039,7 +2081,7 @@
     "exportTitle": "Dyşa aktar",
     "exportHint": "Creates  backup  sizin tracking, yer imleri, ve ayarlar. Paylaş it  yourself veya kaydet it somewhere safe.",
     "exportAction": "Ätiýaçlyk döret",
-    "copied": "Backup kopyalandy  clipboard",
+    "copied": "Backup copied to clipboard",
     "importTitle": "Geri ýükle",
     "importHint": "Paste  backup file below  restore it. Bu replaces  matching data  bu cihaz.",
     "importPlaceholder": "Paste sizin backup here…",
@@ -2069,13 +2111,13 @@
     "eyebrow": " Noble Guran",
     "short": "Hatim",
     "title": "Hatim plan",
-    "subtitle": "Finish  Guran at  steady tempo",
+    "subtitle": "Finish the Qur'an at a steady pace",
     "startTitle": "a plan Başlat",
     "startHint": "how many days to complete the Guran. We'll set a daily ayah target. Seç",
     "startHintPages": "how many days to complete the Guran. We'll set a daily mushaf page target. Seç",
     "unitAyah": "Aýet boýunça",
     "unitPage": "Sahypa boýunça",
-    "continueReading": "Okumaya devam et",
+    "continueReading": "Continue reading",
     "dayPlan": "{{count}} gün",
     "preset": {
       "intensive": "Yogun",
@@ -2150,12 +2192,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": " hatim built  steady daily okuma lasts longer than  sprint şu burns out.",
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
         "source": "Principle  istikrar"
       },
       "portion": {
         "text": "Siz do not have  finish bugün — only honour today's portion ile sincerity.",
-        "source": "Steady ilerleme"
+        "source": "Steady progress"
       },
       "return": {
         "text": "If siz fall behind, do not abandon  plan. Resume ile today's ayahs ve move forward.",
@@ -2187,11 +2229,11 @@
     "toastReviewTitle": "Flagged için gözden geçir",
     "toastReviewBody": "{{ref}} dir marked  revise.",
     "toastClearedTitle": "Ýatda saklamak arassalandy",
-    "toastClearedBody": "{{ref}} was kaldyryldy den sizin Hifz tracker.",
+    "toastClearedBody": "{{ref}} was removed from your Hifz tracker.",
     "confirmTitle": "Güncelle Hifz status?",
     "confirmReviewBody": "{{ref}} will be flagged için gözden geçir.",
     "confirmMemorizedBody": "{{ref}} will be işaretlendi as memorized.",
-    "confirmClearBody": "{{ref}} will be kaldyryldy den sizin Hifz tracker."
+    "confirmClearBody": "{{ref}} will be removed from your Hifz tracker."
   },
   "travel": {
     "eyebrow": "Ögren",
@@ -2264,7 +2306,7 @@
     },
     "disclaimer": "Bu dir egitim içerik, not  personal fatwa. Distance thresholds, stay duration, combining rules, ve whether Jam' dir limited  need vary between  four schools — consult  qualified alim için sizin yolculuk.",
     "markExcused": "today as excused (travel) Yşaretle",
-    "clearExcused": "obligatory tracking Devam Et"
+    "clearExcused": "Resume obligatory tracking"
   },
   "hayd": {
     "eyebrow": "Ögren",
@@ -2298,15 +2340,15 @@
     },
     "nifas": {
       "title": "Nifas — logusalyk kanamasy",
-      "body": "Nifas dir bleeding after childbirth.  same broad rules as hayyz uygula: salah ve oruç dir not performed during nifas, ve kaçyryldy Ramazan fasts dir made up afterward — not  prayers.\n\nMaximum duration differs by school; 40 gün dir commonly mentioned. When nifas ends, perform ghusl ve resume tüm ibadet. Nifas ve hayyz dir separate categories —  woman may experience both at different vakitler içinde her life."
+      "body": "Nifas is bleeding after childbirth. The same broad rules as hayd apply: salah and fasting are not performed during nifas, and missed Ramadan fasts are made up afterward — not the prayers.\n\nMaximum duration differs by school; 40 days is commonly mentioned. When nifas ends, perform ghusl and resume all worship. Nifas and hayd are separate categories — a woman may experience both at different times in her life."
     },
     "purity": {
       "title": "Gan akmasy gutaranda — ghusl we dowam",
-      "body": "When hayyz veya nifas ends, perform  full ghusl before resuming salah. Resume oruç only after hayyz ends; any Ramazan fasts kaçyryldy during hayyz must be made up  other gün.\n\nNamaz kaçyryldy during hayyz dir not made up — Allah lifted şu obligation. Bu dir different den hastalyk veya seyahat, where kaçyryldy prayers may need kaza. After ghusl, resume sizin normal ibadet ve farz tracking içinde  app."
+      "body": "When hayd or nifas ends, perform a full ghusl before resuming salah. Resume fasting only after hayd ends; any Ramadan fasts missed during hayd must be made up on other days.\n\nSalah missed during hayd is not made up — Allah lifted that obligation. This is different from illness or travel, where missed prayers may need qaza. After ghusl, resume your normal worship and obligatory tracking in the app."
     },
     "disclaimer": "Bu dir egitim guidance, not  personal ruling.  details above vary between schools — consult  qualified female alim if sizin situation dir unclear.",
     "markExcused": "today as excused (hayd) Yşaretle",
-    "clearExcused": "obligatory tracking Devam Et"
+    "clearExcused": "Resume obligatory tracking"
   },
   "sick": {
     "eyebrow": "Ögren",
@@ -2344,16 +2386,16 @@
       "body": "When siz cannot perform full bowing, incline sizin head için ruku —  deeper incline için sujud. Bu dir  concession used when praying sitting veya lying down.\n\nIf siz cannot move sizin head at tüm, alimler differ   minimum movement gerekli — some allow intention alone içinde extreme cases, while others require whatever movement dir physically possible.\n\nDo not omit  entire namaz if siz can pray ile reduced movements.  Prophet ﷺ taught us  use concessions step by step rather than abandoning salah."
     },
     "unable": {
-      "title": "Tamamlandy inability  pray",
-      "body": "If siz lose consciousness, fall into deep sleep through  namaz time, veya dir so severely ill şu siz cannot pray even ile tüm position concessions — ve  entire time için şu namaz passes — şu namaz dir waived ile no sin, but must be made up (kaza) when siz recover.\n\nMarking  gün as excused (hastalyk) içinde bu app pauses farz tracking ve holds sizin seri — it does not replace  obligation  make up kaçyryldy prayers later.\n\nIçin chronic veya long-term hastalyk, ögren  fixed concessions şu uygula  sizin situation den  qualified alim rather than assuming every gün dir fully waived."
+      "title": "Complete inability to pray",
+      "body": "If you lose consciousness, fall into deep sleep through a prayer time, or are so severely ill that you cannot pray even with all position concessions — and the entire time for that prayer passes — that prayer is waived with no sin, but must be made up (qaza) when you recover.\n\nMarking a day as excused (illness) in this app pauses obligatory tracking and holds your streak — it does not replace the obligation to make up missed prayers later.\n\nFor chronic or long-term illness, learn the fixed concessions that apply to your situation from a qualified scholar rather than assuming every day is fully waived."
     },
     "fastingQaza": {
       "title": "Oruç, recovery & make-up (kaza)",
-      "body": "If oruç içinde Ramazan would worsen sizin hastalyk veya delay recovery, break  oruç ve make it up  other gün after siz recover —  Guran explicitly permits bu için  ill.\n\nEach kaçyryldy Ramazan oruç dir made up ile one gün  oruç later; there dir no kaffarah (expiation) unless  oruç was broken without  valid excuse.\n\nKaçyryldy salah during hastalyk must also be made up içinde order once siz dir able — unlike hayyz, where kaçyryldy prayers dir not kaza. When siz recover, resume normal tracking ve work through sizin kaza at  sustainable tempo."
+      "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nMissed salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
     },
     "disclaimer": "Bu dir egitim guidance, not  personal ruling. How much hastalyk justifies each concession varies by school ve severity — consult  qualified alim için sizin situation.",
     "markExcused": "today as excused (illness) Yşaretle",
-    "clearExcused": "obligatory tracking Devam Et"
+    "clearExcused": "Resume obligatory tracking"
   },
   "homeCustomize": {
     "title": "Ana sayfayy özelleştir",
@@ -2367,7 +2409,7 @@
     "add": "shortcut Ekle",
     "remove": "shortcut Kaldyr",
     "module": {
-      "continue": "Okumaya devam et",
+      "continue": "Continue reading",
       "knowledge": "Günlük knowledge card",
       "quickActions": "Hyzly eylemler",
       "qaza": "Gaza summary",
@@ -2401,13 +2443,13 @@
     "sunnah": "Sünnet",
     "travelPointer": "Shortening ve combining prayers when travelling",
     "relatedTitle": "Ylgili rehberler",
-    "qazaLink": "Kaçyryldy (kaza) salah",
-    "qazaLinkHint": "Make up what siz kaçyryldy — connect  sizin kaza tracker",
+    "qazaLink": "Missed (qaza) salah",
+    "qazaLinkHint": "Make up what you missed — connect to your qaza tracker",
     "duasLink": "Namaz duas",
     "duasLinkHint": "Ezan, abdest, masjid, ve after salah",
     "notFound": "Guide däl found",
     "disclaimer": " concise guide için learning ve revision. Için sizin situation, consult  qualified teacher.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "stepsTitle": "Ädimme-ädim",
     "ruling": {
       "fard": "Fard · rükün",
@@ -2420,14 +2462,14 @@
     "phrasesTitle": "Words  salah",
     "phrasesSubtitle": "Gözlegpça, çeviri, ve  meaning behind each phrase",
     "phrasesIntro": "what you say builds khushu. Read the meaning before your next prayer.'y Anlamak",
-    "exploreTitle": "learning Devam Et",
+    "exploreTitle": "Continue learning",
     "progressExploreHint": "Revisit  key lessons ve words   namaz",
     "exploreStepByStep": "Step-by-step Namaz",
     "explorePositions": "Her pozisyon",
     "meaningLabel": "Näme öwredýär",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "Bu dashboard tracks sizin study ve pratik içinde Munib. Completing lessons does not measure sizin standing ile Allah — sincerity does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Tamamlanan dersler",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2458,7 +2500,7 @@
       "salah": "Şu günün salah",
       "salahHint": "Fard prayers completed bugün",
       "qaza": "Gaza ilerleme",
-      "qazaHint": "Kaçyryldy prayers made up",
+      "qazaHint": "Missed prayers made up",
       "streak": "Namaz seri",
       "streakHint": "Consecutive gün ile salah logged",
       "khushu": "Huşu günlük",
@@ -2485,7 +2527,7 @@
     "quickLessons": "Ders kartlary",
     "quickLessonsHint": "Leadership ve spiritual takeaways den each battle",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -2494,7 +2536,7 @@
     "jannahPointer": "Cennet, deeds, ve motivation için striving",
     "notFound": "Topic däl found",
     "disclaimer": " egitim genel bakyş drawn den classical seerah ve graded hadis. Için rulings veya political application, consult qualified alimler.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "topic complete Yşaretle",
     "markIncomplete": "as not yet complete Yşaretle",
     "phaseV1": "V1 — Esaslar",
@@ -2524,7 +2566,7 @@
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsIntro": "These dir moral ve leadership lessons — not military tactics manuals.",
     "progressTitle": "learning'im",
-    "progressSubtitle": "study — not spiritual rank with Allah Takip Et",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Bu dashboard tracks topics siz have read içinde Munib. Knowledge dir  means; sincerity ile Allah dir  goal.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Explore timeline, verses, glossary, ve lesson cards",
@@ -2591,7 +2633,7 @@
     "salahPointer": "Mükemmel sizin namaz before siz meet Allah",
     "notFound": "Topic däl found",
     "disclaimer": "Egitim genel bakyş den Guran ve graded hadis. Için personal rulings, consult qualified alimler.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "topic complete Yşaretle",
     "markIncomplete": "as not yet complete Yşaretle",
     "misconceptionsTitle": "Yaygyn yanlyş anlamalar",
@@ -2635,7 +2677,7 @@
     "quizTitle": "Gözden geçir synav",
     "quizSubtitle": "Test sizin understanding — not sizin standing ile Allah",
     "quizHint": "Timeline, definitions, ve reflection",
-    "quizIntro": "Use bu synav  find gaps, then study those topics. It dir not  spiritual puan.",
+    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
     "quizProgress": "Soru {{current}} of {{total}}",
     "quizComplete": "Täzeleşdirilen sorag",
     "quizScore": "{{score}} ýa-da {{total}} dogry soraglary aldy",
@@ -2654,7 +2696,7 @@
     "preparationHabitsHint": "Dokunun  aç  tracker veya toggle  daily intention",
     "preparation": {
       "salah": "Şu günün Namaz",
-      "salahHint": "Namaz tracker — tamamlandy sizin daily prayers",
+      "salahHint": "Prayer tracker — complete your daily prayers",
       "quran": "Şu günün Guran",
       "quranHint": "Read veya listen — even  few ayahs",
       "dhikr": "Şu günün Zikr",
@@ -2673,7 +2715,7 @@
       "learningHint": "Topics completed içinde bu module"
     },
     "progressTitle": "Learning ilerleme",
-    "progressSubtitle": "study — not spiritual rank with Allah Takip Et",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "topics complete as you read. Knowledge is a means; sincerity with Allah is the goal. Yşaretle",
     "lessonsTitle": "Tamamlanan mowzular",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
@@ -2711,9 +2753,9 @@
     "quickGhusl": "Gusül guide",
     "quickGhuslHint": "Uly hadesten soň doly gusül",
     "quickChecklist": "Günlük checklist",
-    "quickChecklistHint": "Habits şu keep siz ready için namaz",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -2732,7 +2774,7 @@
     "haydPointer": "Hayd we dogumdan soň arassalyk gollanmasy",
     "notFound": "Topic däl found",
     "disclaimer": "Egitim genel bakyş için learning ve revision. Için sizin situation, consult  qualified teacher.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "stepsTitle": "Ädimme-ädim",
     "markComplete": "topic complete Yşaretle",
     "markIncomplete": "as not yet complete Yşaretle",
@@ -2782,7 +2824,7 @@
     "quickLessons": "Dersler",
     "quickLessonsHint": "Moral ve spiritual takeaways",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -2799,14 +2841,14 @@
     "quranPointer": "Read their stories içinde  Guran",
     "notFound": "Topic däl found",
     "disclaimer": "Egitim summaries drawn den  Guran ve graded hadis. Için detailed tafsir, consult qualified alimler.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "topic complete Yşaretle",
     "markIncomplete": "as not yet complete Yşaretle",
     "phaseV1": "V1 — Esaslar",
     "profileTitle": "Profil",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "topics complete as you study the lives of the prophets. Yşaretle",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "Tamamlanan mowzular",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2852,7 +2894,7 @@
     "quickGlossary": "Sözlük",
     "quickGlossaryHint": "Key creed şartlar defined",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -2867,14 +2909,14 @@
     "glossaryListTitle": "Şartlar",
     "notFound": "Topic däl found",
     "disclaimer": "Egitim genel bakyş — not  fatwa. Için personal questions, ask  qualified alim.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "misconceptionsTitle": "Yaygyn yanlyş anlamalar",
     "markComplete": "topic complete Yşaretle",
     "markIncomplete": "as not yet complete Yşaretle",
     "phaseV1": "V1 — Esaslar",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "Studying aqeedah strengthens iman when tamamlandy ile sincerity ve reliable kaynaklar.",
+    "progressIntro": "Studying aqeedah strengthens iman when done with sincerity and reliable sources.",
     "lessonsTitle": "Tamamlanan mowzular",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2913,7 +2955,7 @@
     "quickOccasions": "Waka boýunça",
     "quickOccasionsHint": "Browse duas için every moment",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -2928,7 +2970,7 @@
     "duaEtiquetteTitle": "Etiquette  dua",
     "notFound": "Topic däl found",
     "disclaimer": "Egitim guide — verify wording ile  teacher when memorising. Translations dir aids, not replacements için Gözlegpça içinde ibadet.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "topic complete Yşaretle",
     "markIncomplete": "as not yet complete Yşaretle",
     "phaseV1": "V1 — Esaslar",
@@ -2962,7 +3004,7 @@
     "eyebrow": "Ögren",
     "title": "Guran Ögren",
     "subtitle": "Read → Understand → Reflect → Memorize → Pratik → Live",
-    "intro": " tamamlandy learning yolculuk — not just  reader. Every lesson cites Guran veya sahih hadis where possible, isimler scholarly kaynaklar için tafsir, ve links  Munib trackers.",
+    "intro": "A complete learning journey — not just a reader. Every lesson cites Qur'an or authentic hadith where possible, names scholarly sources for tafsir, and links to Munib trackers.",
     "quickLinksTitle": "here Başlat",
     "quickDaily": "Günlük lesson",
     "quickDailyHint": "Verse, reflection, ve one action için bugün",
@@ -2980,7 +3022,7 @@
     "jannahPointer": "Motivation through  promise  Cennet",
     "notFound": "Topic däl found",
     "disclaimer": "Egitim içerik den recognised kaynaklar. Için tajvid ijazah, memorisation correction, veya fiqh, consult  qualified teacher.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "lesson complete Yşaretle",
     "markIncomplete": "as not yet complete Yşaretle",
     "comingSoon": "Yakynda",
@@ -3015,12 +3057,12 @@
     "reflectionTitle": "Düşün",
     "openInQuran": "in Guran reader Aç",
     "progressTitle": "learning'im",
-    "progressSubtitle": "study — not spiritual rank with Allah Takip Et",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Bu dashboard tracks lessons siz have studied içinde Munib. Allah knows what dir içinde sizin heart.",
     "lessonsTitle": "Dersler",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
-    "progressExploreHint": "your journey through daily lessons, vocabulary, and themes Devam Et",
+    "progressExploreHint": "Continue your journey through daily lessons, vocabulary, and themes",
     "exploreTitle": "Keşfet",
     "tajweedTitle": "Tajvid",
     "tajweedSubtitle": "Rules  dogru ve beautiful recitation",
@@ -3030,7 +3072,7 @@
     "practiceTitle": "Pratik",
     "lettersTitle": "Gözlegpça harfler",
     "lettersSubtitle": "28 harfler ile isimler, sounds, ve examples",
-    "lettersIntro": "Study one letter per gün — see, hear, say, write.",
+    "lettersIntro": "Study one letter per day — see, hear, say, write.",
     "pronunciationTitle": "Telaffuz",
     "pronunciationSubtitle": "Zor harf çiftlerini ögren",
     "pronunciationIntro": "Compare similar sounds side by side — record yourself ve listen geri.",
@@ -3040,7 +3082,7 @@
     "levelBadge": "Seviye {{level}}",
     "hifzTitle": "Ezber",
     "hifzSubtitle": "Plans den Juz Amma  full hifz",
-    "hifzIntro": "Revision dir  secret — never ekle yeni ayahs without reviewing old ones.",
+    "hifzIntro": "Gaýtalamak syrdyr — köne aýatlary gaýtalamazdan hiç haçan täze aýat goşmaň.",
     "hifzSurahs": "Surahs içinde bu plan",
     "openQuranHifz": "Guran & hifz tracker Aç",
     "tadabburTitle": "Tefekkür (Tadabbur)",
@@ -3053,10 +3095,10 @@
     "todayChallenge": "Şu günün challenge",
     "habitLabel": "Build bu habit",
     "markChallengeComplete": "I completed Şu gün's challenge",
-    "challengeDone": "Çäre tamamlandy — Allah kabul etsin",
+    "challengeDone": "Challenge completed — may Allah accept",
     "quizTitle": "Guran synav",
     "quizSubtitle": "Test sizin understanding — not sizin standing ile Allah",
-    "quizIntro": "Use each question  find  gap, then study şu topic. Bu dir gözden geçir, not  spiritual puan.",
+    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
     "quizProgress": "Soru {{current}} of {{total}}",
     "quizComplete": "Täzeleşdirilen sorag",
     "quizScore": "{{score}} ýa-da {{total}} dogry soraglary aldy",
@@ -3217,12 +3259,12 @@
       "purpose": {
         "title": "Why zekat — purpose & wisdom",
         "summary": "It purifies wealth ve  soul, ve lifts  poor",
-        "body": "Allah says  zekat: \"Take den their wealth  charity by which siz purify them ve cause them  grow\" (Guran 9:103).  obligation works  two katmanlar at once — it purifies  giver's soul den stinginess ve love   world, ve it purifies  wealth itself so şu what stays içinde sizin hand dir wholesome ve blessed.\n\nSocially, zekat dir  divinely ordered system  circulation. When  Prophet ﷺ sent Mu'adh  Yemen he instructed şu zekat be taken den their rich ve given  their poor. Wealth dir not meant  pile up among  few; zekat pulls it geri into motion so  needy dir fed, debtors dir freed, ve  community's bonds dir strengthened.\n\nSpiritually, giving zekat dir  act  gratitude ve trust. It answers  human urge  hoard ile  certainty şu provision comes den Allah, ve it trains  believer  love giving.  one who pays zekat willingly finds their wealth protected, their heart lightened, ve their reward stored ile their Lord — \"there will be no fear concerning them, nor will they grieve\" (Guran 2:277)."
+        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
       },
       "hawl": {
         "title": " kameri year (hawl)",
         "summary": "Wealth must stay above nisab için one Hicri year",
-        "body": "Zekat  cash, gold, silver, ve trade wealth dir generally due only after şu wealth has remained at veya above  nisab threshold için one tamamlandy Hicri (kameri) year, known as  hawl.  Prophet ﷺ taught şu there dir no zekat  wealth until  year has passed over it.\n\nIçinde pratik, note  date sizin zakatable wealth first ulaşyldy nisab. Şu date becomes sizin annual zekat anniversary — each year,  şu same Hicri date, siz value everything siz own ve pay 2.5%   toplam.\n\nSiz do not need  takip each coin separately. Most alimler hold şu as long as sizin toplam stays at veya above nisab across  year, small dips ve rises içinde between do not matter — siz simply assess  whole sum  sizin anniversary. If sizin wealth falls entirely below nisab during  year, many alimler consider  hawl  reset, restarting only when siz sonraki reach nisab.\n\nRemember şu  Hicri (kameri) year dir about eleven gün shorter than  solar year. If siz prefer  pay   fixed Gregoryen date için convenience, some alimler permit it provided siz slightly increase  rate  account için  shorter kameri cycle. Agricultural produce ve livestock follow their own timing rules ve dir not tied   hawl içinde  same way."
+        "body": "Zakat on cash, gold, silver, and trade wealth is generally due only after that wealth has remained at or above the nisab threshold for one complete Hijri (lunar) year, known as the hawl. The Prophet ﷺ taught that there is no zakat on wealth until a year has passed over it.\n\nIn practice, note the date your zakatable wealth first reached nisab. That date becomes your annual zakat anniversary — each year, on that same Hijri date, you value everything you own and pay 2.5% of the total.\n\nYou do not need to track each coin separately. Most scholars hold that as long as your total stays at or above nisab across the year, small dips and rises in between do not matter — you simply assess the whole sum on your anniversary. If your wealth falls entirely below nisab during the year, many scholars consider the hawl to reset, restarting only when you next reach nisab.\n\nRemember that the Hijri (lunar) year is about eleven days shorter than the solar year. If you prefer to pay on a fixed Gregorian date for convenience, some scholars permit it provided you slightly increase the rate to account for the shorter lunar cycle. Agricultural produce and livestock follow their own timing rules and are not tied to the hawl in the same way."
       },
       "nisab": {
         "title": "Nisab —  minimum threshold",
@@ -3242,12 +3284,12 @@
       "debts": {
         "title": "Borçlar & kesintiler",
         "summary": "Immediate debts may be deducted önce calculating 2.5%",
-        "body": "Zekat dir calculated  sizin net zakatable wealth, so genuine debts siz owe can reduce  amount  which siz pay.  clearest case dir debts due now —  unpaid personal loan,  outstanding credit-card balance, rent veya bills already owed. Most alimler allow these  be subtracted den sizin gross wealth before siz uygula  2.5%.\n\nLong-term debts such as  mortgage veya  multi-year instalment plan dir handled ile more care, because deducting  entire balance would wipe out  zekat  almost anyone ile  ana sayfa loan.  common contemporary approach dir  deduct only  payments due within  coming year, not  whole outstanding sum. Schools ve alimler differ here, so pick  istikrarly method under guidance.\n\nTwo cautions. First, do not treat future veya hypothetical expenses as deductible debts — only what siz actually owe counts. Second, do not subtract last year's unpaid zekat as if it were  ordinary borç; unpaid zekat remains  due obligation ve should simply be paid. When sizin borç situation dir complex,  scholar's ruling dir worth more than  rough guess."
+        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
       },
       "recipients": {
         "title": "Who may receive zekat",
         "summary": "Eight categories named içinde Guran 9:60",
-        "body": "Zekat may only be given   categories  people Allah Himself named içinde Surah at-Tövbe (9:60). Bu dir one   few acts  ibadet where  recipients dir fixed by revelation, not left   giver's preference.  eight categories dir:  poor (al-fuqara);  needy (al-masakin); those employed  collect ve administer zekat; those whose hearts dir  be reconciled (al-mu'allafah);  freeing  captives ve those içinde bondage (fi'r-riqab);  borç-burdened (al-gharimin); içinde  cause  Allah (fi sabil Allah); ve  stranded traveller (ibn as-sabil).\n\nIt dir not gerekli  give  tüm eight; giving sizin zekat  even one eligible category fulfils  obligation, ve directing it   poor ve needy dir  most common pratik.\n\nEqually important dir who may not receive it. Zekat cannot be given   wealthy, nor  those siz dir already obliged  support — sizin parents, sizin children, veya sizin spouse — since supporting them dir  duty siz owe anyway. Içinde  classical view it dir  personal transfer  ownership   eligible individual, not  general donation; alimler differ  whether institutions such as masjids veya broad public projects qualify under  cause  Allah. It also cannot be given   family   Prophet ﷺ,  Banu Hashim, as zekat. Aim it deliberately at people who match  Guranic categories."
+        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
       },
       "otherRates": {
         "title": "Other types  zekat & zekat al-fitr",
@@ -3257,7 +3299,7 @@
       "mistakes": {
         "title": "Common mistakes  avoid",
         "summary": "Errors şu make zekat invalid veya miscalculated",
-        "body": "Even sincere Muslims often slip   practical details  zekat. Knowing  common errors helps siz pay correctly ve ile peace  mind.\n\nForgetting  hawl veya  anniversary: paying at  random time, veya skipping years, leaves  outstanding obligation. Fix one Hicri date each year ve assess sizin wealth  it.\n\nMiscounting wealth: valuing gold veya shares at their purchase price instead  today's market value, forgetting cash held içinde multiple accounts veya currencies, veya overlooking business inventory ve money owed  siz. Zekat dir  everything zakatable şu siz own  sizin date.\n\nGiving   wrong people: handing zekat  parents, children, veya  spouse siz already support, veya treating it as  generic donation  any good cause. It must reach one   eight Guranic categories.\n\nIntention errors: giving generously tüm year but never intending any  it as zekat. Zekat dir  act  ibadet ve needs  intention (niyyah) şu bu particular payment dir sizin farz zekat.\n\nOver-deducting debts: subtracting  whole long-term mortgage, veya future expenses şu dir not yet owed,  shrink  bill. Only real, current liabilities reduce sizin zakatable wealth. When any  these dir unclear için sizin situation, ask  qualified alim rather than assume."
+        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
       }
     },
     "recipientsListTitle": " eight categories",
@@ -3301,7 +3343,7 @@
     "nisabWeightNote": "Exact weights ve which metal  prefer vary slightly between schools.  hesaplayycy uses these widely cited Hanafi figures.",
     "quran": [
       {
-        "excerpt": "Zakat expenditures are only üçiçinde  poor we üçiçinde  needy we üçiçinde those employed - collect it we üçiçinde bringing hearts together we üçiçinde freeing captives we üçiçinde those içinde debt we üçiçinde  cause -iň Allah we üçiçinde  wayfarer —  obligation -dan Allah. we Allah is Knowing we Wise."
+        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
         "excerpt": "Take -dan their wealth  charity by which siz purify them we cause them - grow, we invoke blessings upon them. Indeed, siziň invocation is reassurance üçiçinde them. we Allah is Hearing we Knowing."
@@ -3382,7 +3424,7 @@
       "stocks": "Current market value  shares, funds, ve similar investments.",
       "business": "Value  merchandise, inventory, ve goods held için sale.",
       "receivables": "Loans ve invoices siz reasonably expect  collect.",
-      "rentalIncome": "Rental veya business profits siz still hold — not already spent.",
+      "rentalIncome": "Rental or business profits you still hold — not already spent.",
       "otherAssets": "Cryptocurrency, accessible retirement funds, veya other zakatable wealth per sizin alim.",
       "debts": "Personal loans, credit cards, ve bills due now — not long-term mortgage totals unless sizin alim allows.",
       "nisab": "Leave blank  use  computed threshold, veya enter  özel nisab."
@@ -3414,7 +3456,7 @@
     "bestStreak": "En iyi: {{count}}",
     "totalNights": "{{count}} nights toplam",
     "markTonight": "I prayed Teheccüd tonight",
-    "markedTonight": "Bu gije kylndy — maşallah",
+    "markedTonight": "Prayed tonight — mashaAllah",
     "lastNights": "Soňky {{count}} gije",
     "lastNightsHint": "Each dot dir one night, labeled by takvim date (most recent   left).",
     "virtueTitle": "Virtue   night namaz",
@@ -3458,7 +3500,7 @@
     "subtitle": "Note sizin presence içinde each namaz ve watch it grow.",
     "add": "Yeni reflection",
     "addShort": "Goşmak",
-    "noCompletedTitle": "Tamamlandy  salah first",
+    "noCompletedTitle": "Complete a salah first",
     "noCompletedDesc": "a salah as completed today, then reflect on it here. Yşaretle",
     "newTitle": "How was sizin namaz?",
     "editTitle": "reflection Düzenle",
@@ -3482,11 +3524,11 @@
     "editA11y": "{{prayer}} reflection Düzenle",
     "discard": "Vazgeç",
     "confirmDeleteTitle": "this reflection? Pozmak",
-    "confirmDeleteMsg": "Sizin note için {{prayer}}  {{date}} will be kaldyryldy kalycy.",
+    "confirmDeleteMsg": "Your note for {{prayer}} on {{date}} will be removed permanently.",
     "confirmDiscardTitle": "Degişiklikler iptal edilsin mi?",
     "confirmDiscardMsg": "Anything siz wrote will be lost.",
     "confirmOverwriteTitle": "Bar bolan tefekkür çalşyrylsynmy?",
-    "confirmOverwriteMsg": "Siz already noted {{prayer}} için bu gün. Saving will replace it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "Dalgyn",
     "level2": "Huzursuz",
     "level3": "Yeterince hazyr",
@@ -3556,7 +3598,7 @@
     "intro": "Islam does not give  numbered checklist için Cennet katmanlar. Here siz will find what  Guran ve sahih Sünnet teach — ve links  takip sizin daily striving.",
     "learnTitle": "About Cennet",
     "quickLinksTitle": "Keşfet",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "gatesListTitle": "Named içinde hadis",
     "duaNumber": "Dua {{number}}",
     "pathsTitle": "Paths  higher ranks",
@@ -3575,7 +3617,7 @@
     "versesLead": "Dokunun any verse  aç it içinde  Guran reader.",
     "journeyTitle": "Journey'im",
     "journeySummary": "Şu günün habits — not your rank with Allah",
-    "journeySubtitle": "Istikrar içinde ibadet siz already takip",
+    "journeySubtitle": "Consistency in worship you already track",
     "journeyBanner": "These habits dir among  deeds Allah loves. Sizin final rank dir only ile Him.",
     "journeyToday": "Şu günün striving",
     "journeyEmpty": "with one prayer or adhkar — small steps build lifelong habits. Başlat",
@@ -3586,7 +3628,7 @@
       "dhikr": "Zikrler bugün",
       "dhikrHint": "Morning, evening, ve daily remembrances",
       "qaza": "Gaza ilerleme",
-      "qazaHint": "Making up kaçyryldy ibadet",
+      "qazaHint": "Making up missed worship",
       "streak": "Aktif seri",
       "streakHint": "Gün  istikrarly tracking",
       "tahajjud": "Teheccüd bu week",
@@ -3594,7 +3636,7 @@
       "reflection": "Reflections bu week",
       "reflectionHint": "Huşu günlük entries",
       "quran": "Guran",
-      "quranHint": "reading or memorising Devam Et"
+      "quranHint": "Continue reading or memorising"
     },
     "intentionsTitle": "Şu günün intentions",
     "intentionsHint": "Private toggles için sizin niyyah — not synced, not  puan.",
@@ -3699,7 +3741,7 @@
       "istighfar": "Zikrler & istighfar",
       "istighfarHint": "Morning, evening, ve daily remembrances",
       "quran": "Guran",
-      "quranHint": "reading or listening Devam Et",
+      "quranHint": "Continue reading or listening",
       "charity": "Sadaka we beriş",
       "charityHint": "Şu günün self-accountability intentions",
       "character": "Güzel ahlak",
@@ -3947,45 +3989,5 @@
     "after1Min": "1 dakika sonra",
     "after5Min": "5 dakika sonra",
     "footer": "Sizin PIN dir stored securely  bu cihaz ve never leaves it."
-  },
-  "update": {
-    "title": "Täzelenme elýeterli",
-    "hardTitle": "Täzelenme zerur",
-    "availableBadge": "Täze wersiýa",
-    "requiredBadge": "Zerur",
-    "yourVersion": "Siziň wersiýaňyz",
-    "latestVersion": "Iň soňky",
-    "body": "{{version}} wersiýasy iň soňky gowulaşdyrmalar we düzedişler bilen taýýar.",
-    "hardBody": "Programmany ulanmagy dowam etdirmek üçin {{version}} wersiýasyna täzeläň.",
-    "hardNote": "Dowam etmek üçin bu täzelenme zerur.",
-    "updateButton": "Häzir täzele",
-    "webReloadButton": "Täzeden ýükle",
-    "webSoftRefreshHint": "Iň soňky wersiýa üçin täzeden ýükläň. Maglumatlaryňyz şu enjamda galýar.",
-    "webHardRefreshHint": "Ýokardaky Täzeden ýükle düwmesine basyň. Habar dowam etse, sahypany güýç bilen täzeläň: Windows/Linux-da Ctrl+Shift+R ýa-da macOS-da Cmd+Shift+R."
-  },
-  "reviews": {
-    "rateTitle": "Munib Tracker hoşuna gelýärmi?",
-    "rateSubtitle": "Pikiriňiz beýleki musulmanlara programmany tapmaga kömek edýär.",
-    "starLabel": "{{count}} ýyldyz",
-    "starLabel_other": "{{count}} ýyldyz",
-    "storeTitle": "Sag boluň!",
-    "storeBody": "Munib Tracker-e programma dükanynda baha berersiňizmi? Diňe bir pursat alýar.",
-    "storeCta": "Programma dükanynda baha ber",
-    "maybeLater": "Belki soňra",
-    "feedbackTitle": "Gowulaşmagymyza kömek ediň",
-    "feedbackBody": "Gynansagam Munib Tracker garaşyklaryňyzy kanagatlandyrmady. Näme gowulap bileris?",
-    "feedbackPlaceholder": "Näme ýalňyşdyr ýa-da näme ýetmezçiligini ýazyň…",
-    "feedbackCta": "Pikir iber",
-    "feedbackOffline": "Pikir ibermek üçin internete birigiň.",
-    "feedbackError": "Pikir iberilmedi. Täzeden synanyşyň.",
-    "skip": "Geç",
-    "thanksTitle": "Sag boluň!",
-    "thanksBody": "Goldawyňyz biziň üçin örän möhümdir.",
-    "feedbackThanksTitle": "Pikir kabul edildi",
-    "feedbackThanksBody": "Bellikleriňizi Munib Tracker-i gowulamak üçin ulanyarys."
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Gowy gidýärsiňiz",
-    "reviewReactivationBody": "Munib Tracker tejribäňizi paýlaşmak isleýärsiňizmi?"
   }
 }

@@ -221,10 +221,9 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
     ],
   );
 
-  if (!isReady) {
-    return null;
-  }
-
+  // Paint immediately with defaults — hydrate prefs/locale in the background so
+  // cold start is not gated on AsyncStorage + catalog load (splash still hides
+  // once the first paint path completes, with a timeout fallback).
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 

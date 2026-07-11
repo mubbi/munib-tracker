@@ -66,7 +66,9 @@
     "increase": "Увеличить {{label}}",
     "decrease": "Уменьшить {{label}}",
     "appName": "Munib Tracker",
-    "appTagline": "Аллаға оралу жолыңызды бақылаңыз."
+    "appTagline": "Аллаға оралу жолыңызды бақылаңыз.",
+    "loadingRoute": "Preparing…",
+    "loadingRouteHint": "Just a moment while this screen loads."
   },
   "search": {
     "placeholder": "Іздеу по Құрану, хадисам, дуа, adhkar…",
@@ -89,7 +91,7 @@
       "rizq": "Ризк",
       "rahman": "Ар-Рахман",
       "sleep": "Сон",
-      "istighfar": "Истighfar"
+      "istighfar": "Istighfar"
     },
     "cat": {
       "quran": "Құран",
@@ -97,7 +99,7 @@
       "dua": "Дұға",
       "zikr": "Адхкар",
       "name": "99 имён",
-      "durood": "Сalawat",
+      "durood": "Duroods",
       "jannah": "Jannah-ға сапар",
       "jahannam": "Jahannam түсінігі",
       "lastDay": "Соңғы күн",
@@ -122,7 +124,7 @@
     "tasbeeh": "Тасбих",
     "qaza": "Kaza",
     "duas": "Дұға",
-    "duroods": "Сalawat",
+    "duroods": "Duroods",
     "names": "99 имён",
     "quran": "Құран",
     "hadith": "Хадис",
@@ -150,10 +152,10 @@
     "adhkarBuilder": "Менің adhkar"
   },
   "quickActions": {
-    "checklistSubtitle": "Белгілеу сегодняшние Salahы",
+    "checklistSubtitle": "Log today's prayers",
     "qiblaSubtitle": "Найти направление киблы",
     "tasbeehSubtitle": "Открыть счётчик тасбиха",
-    "qazaSubtitle": "Управление пропущенными Salahами",
+    "qazaSubtitle": "Manage missed prayers",
     "quranSubtitle": "Читать Құран"
   },
   "widgets": {
@@ -457,7 +459,7 @@
       "qaza": "Kaza",
       "a11y": "{{label}}: {{percent}}% аяқталды, {{completed}}  {{total}}"
     },
-    "allDone": "MashaАлла — барлық done",
+    "allDone": "MashaAllah — all done",
     "freshStart": " fresh бастау",
     "keepGoingShort": "Жалғастыру",
     "almostThere": "Жақында",
@@ -470,6 +472,46 @@
     "afterSalahAdhkarReminderBody": "Take  moment үшін tasbeeh және after-salah adhkar.",
     "afterSalahProgress": "Адхкар {{completed}}/{{total}}",
     "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}}  {{total}} орындалды бүгін"
+  },
+  "update": {
+    "title": "Жаңарту қолжетімді",
+    "hardTitle": "Жаңарту қажет",
+    "availableBadge": "Жаңа нұсқа",
+    "requiredBadge": "Міндетті",
+    "yourVersion": "Сіздің нұсқаңыз",
+    "latestVersion": "Соңғы",
+    "body": "{{version}} нұсқасы соңғы жақсартулар мен түзетулермен дайын.",
+    "hardBody": "Қолданбаны пайдалануды жалғастыру үшін {{version}} нұсқасына жаңартыңыз.",
+    "hardNote": "Жалғастыру үшін бұл жаңарту міндетті.",
+    "updateButton": "Қазір жаңарту",
+    "webReloadButton": "Қайта жүктеу",
+    "webSoftRefreshHint": "Соңғы нұсқа үшін қайта жүктеңіз. Деректеріңіз осы құрылғыда қалады.",
+    "webHardRefreshHint": "Жоғарыдағы Қайта жүктеу түймесін басыңыз. Хабарлама қайталанса, бетті мәжбүрлеп жаңартыңыз: Windows/Linux-та Ctrl+Shift+R немесе macOS-та Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker ұнай ма?",
+    "rateSubtitle": "Пікіріңіз басқа мұсылмандарға қолданбаны табуға көмектеседі.",
+    "starLabel": "{{count}} жұлдыз",
+    "starLabel_other": "{{count}} жұлдыз",
+    "storeTitle": "Рақмет!",
+    "storeBody": "Munib Tracker-ге қолданба дүкенінде баға бересіз бе? Бір сәт уақыт алады.",
+    "storeCta": "Қолданба дүкенінде бағалау",
+    "maybeLater": "Кейінірек болуы мүмкін",
+    "feedbackTitle": "Жақсартуымызға көмектесіңіз",
+    "feedbackBody": "Кешіріңіз, Munib Tracker сіздің күткеніңізге жауап бермеді. Нені жақсарта аламыз?",
+    "feedbackPlaceholder": "Не дұрыс емес немесе не жетіспейтінін жазыңыз…",
+    "feedbackCta": "Пікір жіберу",
+    "feedbackOffline": "Пікір жіберу үшін интернетке қосылыңыз.",
+    "feedbackError": "Пікір жіберілмеді. Қайта көріңіз.",
+    "skip": "Өткізу",
+    "thanksTitle": "Рақмет!",
+    "thanksBody": "Қолдауыңыз біз үшін көп маңызды.",
+    "feedbackThanksTitle": "Пікір қабылданды",
+    "feedbackThanksBody": "Жазбаларыңызды Munib Tracker-ді жақсарту үшін пайдаланамыз."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Керемет жетіп жатырсыз",
+    "reviewReactivationBody": "Munib Tracker тәжірибеңізбен бөліскіңіз келе ме?"
   },
   "settings": {
     "eyebrow": "Жекелендіру",
@@ -501,6 +543,18 @@
     "qiblaSub": "Намаздың бағытын табыңыз",
     "about": "туралы",
     "aboutSub": "Нұсқа, несиелер және саясаттар",
+    "rateApp": "Munib Tracker-ге баға беру",
+    "rateAppDesc": "Тәжірибеңізді қолданба дүкенінде бөлісіңіз",
+    "reviewReactivationEnabled": "Қолданба пікірі еске салулары",
+    "reviewReactivationEnabledDesc": "Кейде жұмсақ еске салулар қолданбада пікір бөлісу үшін — дүкендегі тікелей баға сұрауы емес.",
+    "appUpdate": "Қолданба жаңартуы",
+    "updateAvailableTitle": "Жаңарту қолжетімді",
+    "updateRequiredTitle": "Жаңарту қажет",
+    "updateAvailableDesc": "{{latest}} нұсқасы қолжетімді. Сіз {{current}} нұсқасындасыз.",
+    "updateRequiredDesc": "Қолданбаны пайдалануды жалғастыру үшін {{latest}} нұсқасына жаңартыңыз.",
+    "updateNow": "Қазір жаңарту",
+    "viewUpdateDetails": "Толығырақ",
+    "remindInSettings": "Баптауларда еске сал",
     "import": "Намаз тарихын импорттау",
     "importSub": "JSON немесе CSV файлынан өткен күндерді толтырыңыз",
     "footer": "{{app}} · ниетпен салынған",
@@ -549,19 +603,7 @@
         "name": "Али ибн Ахмад Мала",
         "location": "Әл-Мәсжид әл-Харам"
       }
-    },
-    "rateApp": "Munib Tracker-ге баға беру",
-    "rateAppDesc": "Тәжірибеңізді қолданба дүкенінде бөлісіңіз",
-    "reviewReactivationEnabled": "Қолданба пікірі еске салулары",
-    "reviewReactivationEnabledDesc": "Кейде жұмсақ еске салулар қолданбада пікір бөлісу үшін — дүкендегі тікелей баға сұрауы емес.",
-    "appUpdate": "Қолданба жаңартуы",
-    "updateAvailableTitle": "Жаңарту қолжетімді",
-    "updateRequiredTitle": "Жаңарту қажет",
-    "updateAvailableDesc": "{{latest}} нұсқасы қолжетімді. Сіз {{current}} нұсқасындасыз.",
-    "updateRequiredDesc": "Қолданбаны пайдалануды жалғастыру үшін {{latest}} нұсқасына жаңартыңыз.",
-    "updateNow": "Қазір жаңарту",
-    "viewUpdateDetails": "Толығырақ",
-    "remindInSettings": "Баптауларда еске сал"
+    }
   },
   "import": {
     "title": "Import salah тарих",
@@ -600,7 +642,7 @@
     "begin": "Бастау",
     "brandDuaLabel": " supplication үшін ease",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
-    "brandDuaTransliteration": "Аллаumma la sahla illa ma ja'altahu sahla, wa anta taj'alul-hazna idha shi'ta sahla",
+    "brandDuaTransliteration": "Allahumma la sahla illa ma ja'altahu sahla, wa anta taj'alul-hazna idha shi'ta sahla",
     "brandDuaTranslation": "O Алла, there  жоқ ease except ішінде сол which Сіз make easy, және Сіз make  difficult easy if Сіз wish.",
     "slide1Eyebrow": "Салах",
     "slide1Title": "Бақылау сіздің salah",
@@ -1002,7 +1044,7 @@
   },
   "duroods": {
     "eyebrow": "Салават",
-    "title": "Сalawat",
+    "title": "Duroods",
     "subtitle": "Пайғамбарға ﷺ салауат айту",
     "searchPlaceholder": "Іздеу duroods…",
     "noResults": "Жоқ duroods match сіздің іздеу",
@@ -1090,6 +1132,14 @@
     "searching": "Іздеуде…",
     "secondTranslation": "Екінші translation",
     "secondTranslationNone": "Жоқ",
+    "selectTranslator": "Аудармашыны таңдаңыз — {{language}}",
+    "translationCount_one": "{{count}} аударма",
+    "translationCount_other": "{{count}} аудармалар",
+    "translationBundled": "Офлайн режимінде қол жетімді",
+    "translationRemote": "Қажет кезде жүктеп алады",
+    "backToLanguages": "Барлық тілдер",
+    "searchTranslationLanguages": "Тілдерді іздеу…",
+    "searchTranslators": "Аудармашыларды іздеу…",
     "pages": "Беттер",
     "pagesSubtitle": "Browse  Madani mushaf арқылы page",
     "pageN": "Бет {{n}}",
@@ -1108,15 +1158,7 @@
     "prevPage": "Алдыңғы page",
     "nextPage": "Келесі page",
     "openPageView": "Ашу page view",
-    "continueAtPage": "Бет {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "Аудармашыны таңдаңыз — {{language}}",
-    "translationCount_one": "{{count}} аударма",
-    "translationCount_other": "{{count}} аудармалар",
-    "translationBundled": "Офлайн режимінде қол жетімді",
-    "translationRemote": "Қажет кезде жүктеп алады",
-    "backToLanguages": "Барлық тілдер",
-    "searchTranslationLanguages": "Тілдерді іздеу…",
-    "searchTranslators": "Аудармашыларды іздеу…"
+    "continueAtPage": "Бет {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "Пайғамбарлық tradition",
@@ -1230,7 +1272,7 @@
     },
     "duha": {
       "summary": " forenoon salah — typically екі ға eight rak'ahs between sunrise және Dhuhr.",
-      "why": "Charity  due үстінде every joint   body әр күн; even  few rak'ahs  Duha fulfills сол charity үшін  limbs бойымен ғибадат.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
       "benefits": "Forgives sins, brings sustenance (rizq), және revives  neglected sunnah. Flexible timing makes it accessible when  күн allows."
     },
     "dhuhr": {
@@ -1553,7 +1595,7 @@
   },
   "tasbeehUi": {
     "custom": "Өз",
-    "targetReached": "MashaАлла — мақсат жетілді",
+    "targetReached": "MashaAllah — target reached",
     "tapToCount": "Басыңыз  circle ға count",
     "ofTarget": "{{target}}",
     "remaining": "{{count}} қалды",
@@ -1895,7 +1937,7 @@
     "syncing": "Синхрондалуда…",
     "done": "Сіздің деректер  backed up",
     "failed": "Couldn't sync. Check сіздің connection және try again.",
-    "mergeNoChanges": "Everything was already up ға date",
+    "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} алынды · {{sent}} жіберілді",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest өңдеу",
     "conflictAffected": "Зардап шеккендер: {{list}}",
@@ -2387,8 +2429,8 @@
     }
   },
   "schedule": {
-    "eyebrow": "Время Salahа",
-    "subtitle": "Обязательные Salahы, окна сунны и гибкие акты на сегодня"
+    "eyebrow": "Prayer times",
+    "subtitle": "Obligatory prayers, sunnah windows, and flexible acts for today"
   },
   "salahGuide": {
     "eyebrow": "Үйрену",
@@ -2439,7 +2481,7 @@
     "meaningLabel": "Нені үйретеді",
     "progressTitle": "Менің learning progress",
     "progressSubtitle": "Бақылау сабақтар — емес рухани rank бірге Алла",
-    "progressIntro": "Бұл dashboard tracks сіздің study және practice ішінде Munib. Completing сабақтар does емес measure сіздің standing бірге Алла — шындық does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Сабақтар орындалды",
     "lessonsHint": "Mark тақырыптар аяқталды as сіз аяқтау оқу them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2723,9 +2765,9 @@
     "quickGhusl": "Ғұсылға арналған нұсқаулық",
     "quickGhuslHint": "Full bath when ірі impurity occurs",
     "quickChecklist": "Күнделікті checklist",
-    "quickChecklistHint": "Habits сол keep сіз ready үшін salah",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "Менің learning",
-    "quickProgressHint": "Тақырыптар read және study прогресс",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning прогресс",
     "progressCardHint": "{{total}} тақырыптың {{completed}}-і орындалды деп белгіленді",
     "exploreTitle": "Зерттеу",
@@ -2794,7 +2836,7 @@
     "quickLessons": "Сабақтар",
     "quickLessonsHint": "Moral және рухани ұғымдар",
     "quickProgress": "Менің learning",
-    "quickProgressHint": "Тақырыптар read және study прогресс",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning прогресс",
     "progressCardHint": "{{total}} тақырыптың {{completed}}-і орындалды деп белгіленді",
     "exploreTitle": "Зерттеу",
@@ -2818,7 +2860,7 @@
     "profileTitle": "Профиль",
     "progressTitle": "Менің learning progress",
     "progressSubtitle": "Бақылау сабақтар — емес рухани rank бірге Алла",
-    "progressIntro": "Mark тақырыптар аяқталды as сіз study  lives   prophets.",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "Тақырыптар орындалды",
     "lessonsHint": "Mark тақырыптар аяқталды as сіз аяқтау оқу them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2831,7 +2873,7 @@
       "themes": "Тақырыптар",
       "themesHint": "Miracles, nations, және shared сабақтар",
       "evidence": "Дәлелдер",
-      "evidenceHint": "Құранic анықтамалар және дереккөздер"
+      "evidenceHint": "Qur'anic references and sources"
     },
     "profile": {
       "nation": "Ұлт/халық",
@@ -2864,7 +2906,7 @@
     "quickGlossary": "Глоссарий",
     "quickGlossaryHint": "Негізгі ақида шарттар defined",
     "quickProgress": "Менің learning",
-    "quickProgressHint": "Тақырыптар read және study прогресс",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning прогресс",
     "progressCardHint": "{{total}} тақырыптың {{completed}}-і орындалды деп белгіленді",
     "exploreTitle": "Зерттеу",
@@ -2925,13 +2967,13 @@
     "quickOccasions": "Арқылы occasion",
     "quickOccasionsHint": "Browse duas үшін every moment",
     "quickProgress": "Менің learning",
-    "quickProgressHint": "Тақырыптар read және study прогресс",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning прогресс",
     "progressCardHint": "{{total}} тақырыптың {{completed}}-і орындалды деп белгіленді",
     "exploreTitle": "Зерттеу",
     "occasionsTitle": "Duas арқылы occasion",
     "occasionsSubtitle": "Find  right supplication үшін сіздің situation",
-    "occasionsHint": "Күнделікті, situational, және Құранic duas",
+    "occasionsHint": "Daily, situational, and Qur'anic duas",
     "occasionsIntro": "Басыңыз  occasion ға ашу  сабақ немесе browse  full dua library.",
     "duaLibraryPointer": "Full dua library — read және memorise",
     "featuredPhraseTitle": "Таңдаулы дұға",
@@ -2959,7 +3001,7 @@
       "situational": "Ситуациялық дұғалар",
       "situationalHint": "Anxiety, illness, travel, forgiveness, және more",
       "categories": "Санаттар",
-      "categoriesHint": "Құранic, пайғамбарлық, zikr, және salawat",
+      "categoriesHint": "Qur'anic, prophetic, zikr, and salawat",
       "reference": "Анықтамалар",
       "referenceHint": "Дереккөздер және further reading"
     },
@@ -3313,7 +3355,7 @@
     "nisabWeightNote": "Нақты салмақтар және қай металды таңдау керектігі мектептер арасында аздап өзгереді. Калькулятор осы кеңінен келтірілген ханафи фигураларын пайдаланады.",
     "quran": [
       {
-        "excerpt": "Zakat expenditures  only үшін  poor және үшін  needy және үшін those employed ға collect it және үшін bringing жүректер together және үшін freeing captives және үшін those ішінде қарыз және үшін  cause  Алла және үшін  wayfarer —  obligation бастап Алла. Және Алла  Knowing және Wise."
+        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
         "excerpt": "Take бастап their wealth  charity арқылы which сіз purify them және cause them ға grow, және invoke blessings upon them. Indeed, сіздің invocation  reassurance үшін them. Және Алла  Hearing және Knowing."
@@ -3506,7 +3548,7 @@
     "bestStreak": "Ең жақсысы: {{count}}",
     "totalNights": "{{count}} түн жалпы",
     "markTonight": "Мен бүгін түнде Тахаджуд намазын оқыдым",
-    "markedTonight": "Prayed tonight — mashaАлла",
+    "markedTonight": "Prayed tonight — mashaAllah",
     "lastNights": "Соңғы {{count}} түн",
     "lastNightsHint": "Әр dot  one night, labeled арқылы calendar date (most recent үстінде  left).",
     "virtueTitle": "Түнгі намаздың қасиеті",
@@ -3578,7 +3620,7 @@
     "confirmDiscardTitle": "Өзгерістерді жою қажет пе?",
     "confirmDiscardMsg": "Anything сіз wrote will be lost.",
     "confirmOverwriteTitle": "Replace existing ойлану?",
-    "confirmOverwriteMsg": "Сіз already noted {{prayer}} үшін бұл күн. Saving will replace it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "Алаңдады",
     "level2": "Мазасыз",
     "level3": "Бұл жеткілікті",
@@ -3667,7 +3709,7 @@
     "versesLead": "Басыңыз any verse ға ашу it ішінде  Құран reader.",
     "journeyTitle": "Менің Journey",
     "journeySummary": "Today's habits — емес сіздің rank бірге Алла",
-    "journeySubtitle": "Тұрақтылық ішінде ғибадат сіз already бақылау",
+    "journeySubtitle": "Consistency in worship you already track",
     "journeyBanner": "These habits  among  deeds Алла loves. Сіздің final rank  only бірге Him.",
     "journeyToday": "Бүгінгі талпыныс",
     "journeyEmpty": "Бастау бірге one salah немесе adhkar — small steps build өмір бойы habits.",
@@ -3985,7 +4027,7 @@
     "wearTitle": "Wear OS",
     "wearHint": "Қосу  Munib Tracker tile үстінде сіздің watch after pairing бірге сіздің phone.",
     "marked": "Salah белгіленді",
-    "alreadyDone": "Already белгіленді",
+    "alreadyDone": "Already marked",
     "allDone": "Барлық міндетті Salah белгіленді үшін бүгін",
     "excused": "Бақылау  paused үшін бүгін",
     "locked": "Unlock  қолданба ға mark Salah",
@@ -4039,45 +4081,5 @@
     "after1Min": "1 минуттан кейін",
     "after5Min": "5 минуттан кейін",
     "footer": "Сіздің PIN  stored securely үстінде бұл құрылғы және never leaves it."
-  },
-  "update": {
-    "title": "Жаңарту қолжетімді",
-    "hardTitle": "Жаңарту қажет",
-    "availableBadge": "Жаңа нұсқа",
-    "requiredBadge": "Міндетті",
-    "yourVersion": "Сіздің нұсқаңыз",
-    "latestVersion": "Соңғы",
-    "body": "{{version}} нұсқасы соңғы жақсартулар мен түзетулермен дайын.",
-    "hardBody": "Қолданбаны пайдалануды жалғастыру үшін {{version}} нұсқасына жаңартыңыз.",
-    "hardNote": "Жалғастыру үшін бұл жаңарту міндетті.",
-    "updateButton": "Қазір жаңарту",
-    "webReloadButton": "Қайта жүктеу",
-    "webSoftRefreshHint": "Соңғы нұсқа үшін қайта жүктеңіз. Деректеріңіз осы құрылғыда қалады.",
-    "webHardRefreshHint": "Жоғарыдағы Қайта жүктеу түймесін басыңыз. Хабарлама қайталанса, бетті мәжбүрлеп жаңартыңыз: Windows/Linux-та Ctrl+Shift+R немесе macOS-та Cmd+Shift+R."
-  },
-  "reviews": {
-    "rateTitle": "Munib Tracker ұнай ма?",
-    "rateSubtitle": "Пікіріңіз басқа мұсылмандарға қолданбаны табуға көмектеседі.",
-    "starLabel": "{{count}} жұлдыз",
-    "starLabel_other": "{{count}} жұлдыз",
-    "storeTitle": "Рақмет!",
-    "storeBody": "Munib Tracker-ге қолданба дүкенінде баға бересіз бе? Бір сәт уақыт алады.",
-    "storeCta": "Қолданба дүкенінде бағалау",
-    "maybeLater": "Кейінірек болуы мүмкін",
-    "feedbackTitle": "Жақсартуымызға көмектесіңіз",
-    "feedbackBody": "Кешіріңіз, Munib Tracker сіздің күткеніңізге жауап бермеді. Нені жақсарта аламыз?",
-    "feedbackPlaceholder": "Не дұрыс емес немесе не жетіспейтінін жазыңыз…",
-    "feedbackCta": "Пікір жіберу",
-    "feedbackOffline": "Пікір жіберу үшін интернетке қосылыңыз.",
-    "feedbackError": "Пікір жіберілмеді. Қайта көріңіз.",
-    "skip": "Өткізу",
-    "thanksTitle": "Рақмет!",
-    "thanksBody": "Қолдауыңыз біз үшін көп маңызды.",
-    "feedbackThanksTitle": "Пікір қабылданды",
-    "feedbackThanksBody": "Жазбаларыңызды Munib Tracker-ді жақсарту үшін пайдаланамыз."
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Керемет жетіп жатырсыз",
-    "reviewReactivationBody": "Munib Tracker тәжірибеңізбен бөліскіңіз келе ме?"
   }
 }

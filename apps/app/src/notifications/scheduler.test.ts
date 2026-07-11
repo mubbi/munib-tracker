@@ -130,18 +130,26 @@ describe("rescheduleAll", () => {
     expect(mockSchedule).not.toHaveBeenCalled();
   });
 
-  it("uses DATE triggers for every built reminder", async () => {
+  it("uses DATE triggers for prayer slots and DAILY for fixed-clock reminders", async () => {
     const prefs = makePrefs();
     await rescheduleAll(prefs, DEFAULT_LOCATION);
 
-    const triggers = mockSchedule.mock.calls.map(
-      ([arg]) => (arg as { trigger: { type: string } }).trigger,
-    );
-    const date = triggers.filter((t) => t.type === TRIGGER.DATE);
-
     const built = buildReminders(prefs, DEFAULT_LOCATION);
-    expect(date.length).toBe(built.length);
-    expect(triggers.every((t) => t.type === TRIGGER.DATE)).toBe(true);
+    const byId = new Map(built.map((r) => [r.id, r]));
+
+    for (const [arg] of mockSchedule.mock.calls) {
+      const { identifier, trigger } = arg as {
+        identifier: string;
+        trigger: { type: string };
+      };
+      const reminder = byId.get(identifier);
+      expect(reminder).toBeDefined();
+      if (!reminder) continue;
+      expect(trigger.type).toBe(reminder.repeat === "daily" ? TRIGGER.DAILY : TRIGGER.DATE);
+    }
+
+    expect(built.some((r) => r.repeat === "daily")).toBe(true);
+    expect(built.some((r) => r.repeat === "date")).toBe(true);
   });
 
   it("gives date triggers an absolute fire instant", async () => {

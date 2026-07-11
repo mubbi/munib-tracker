@@ -25,8 +25,14 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AuthAppleBodyDto,
+  AuthAppleOauthBodyDto,
+  AuthAppleOauthSessionBodyDto,
+  AuthGoogleBodyDto,
+  AuthGoogleOauthBodyDto,
   AuthSessionResponseDto,
-  AuthUserResponseDto
+  AuthUserResponseDto,
+  WebAuthSessionResponseDto
 } from '../../models';
 
 import { apiFetch } from '../../../mutator';
@@ -99,7 +105,389 @@ export const useAuthControllerCreateGuestSession = <TError = unknown,
       return useMutation(mutationOptions, queryClient);
     }
     /**
- * @summary Complete OAuth sign-in for Google, Apple, or Facebook
+ * @summary Complete Google sign-in with a native OAuth access token
+ */
+export const authControllerCompleteGoogle = (
+    authGoogleBodyDto: AuthGoogleBodyDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<WebAuthSessionResponseDto | AuthSessionResponseDto>(
+      {url: `/api/v1/auth/google`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: authGoogleBodyDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerCompleteGoogleMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteGoogle>>, TError,{data: AuthGoogleBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteGoogle>>, TError,{data: AuthGoogleBodyDto}, TContext> => {
+
+const mutationKey = ['authControllerCompleteGoogle'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerCompleteGoogle>>, {data: AuthGoogleBodyDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authControllerCompleteGoogle(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerCompleteGoogleMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerCompleteGoogle>>>
+    export type AuthControllerCompleteGoogleMutationBody = AuthGoogleBodyDto
+    export type AuthControllerCompleteGoogleMutationError = unknown
+
+    /**
+ * @summary Complete Google sign-in with a native OAuth access token
+ */
+export const useAuthControllerCompleteGoogle = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteGoogle>>, TError,{data: AuthGoogleBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerCompleteGoogle>>,
+        TError,
+        {data: AuthGoogleBodyDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerCompleteGoogleMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * @summary Complete Google sign-in via authorization-code + PKCE (web)
+ */
+export const authControllerCompleteGoogleOauth = (
+    authGoogleOauthBodyDto: AuthGoogleOauthBodyDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<WebAuthSessionResponseDto | AuthSessionResponseDto>(
+      {url: `/api/v1/auth/google/oauth`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: authGoogleOauthBodyDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerCompleteGoogleOauthMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteGoogleOauth>>, TError,{data: AuthGoogleOauthBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteGoogleOauth>>, TError,{data: AuthGoogleOauthBodyDto}, TContext> => {
+
+const mutationKey = ['authControllerCompleteGoogleOauth'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerCompleteGoogleOauth>>, {data: AuthGoogleOauthBodyDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authControllerCompleteGoogleOauth(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerCompleteGoogleOauthMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerCompleteGoogleOauth>>>
+    export type AuthControllerCompleteGoogleOauthMutationBody = AuthGoogleOauthBodyDto
+    export type AuthControllerCompleteGoogleOauthMutationError = unknown
+
+    /**
+ * @summary Complete Google sign-in via authorization-code + PKCE (web)
+ */
+export const useAuthControllerCompleteGoogleOauth = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteGoogleOauth>>, TError,{data: AuthGoogleOauthBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerCompleteGoogleOauth>>,
+        TError,
+        {data: AuthGoogleOauthBodyDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerCompleteGoogleOauthMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * @summary Complete Apple sign-in with a native identity token
+ */
+export const authControllerCompleteApple = (
+    authAppleBodyDto: AuthAppleBodyDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<WebAuthSessionResponseDto | AuthSessionResponseDto>(
+      {url: `/api/v1/auth/apple`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: authAppleBodyDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerCompleteAppleMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteApple>>, TError,{data: AuthAppleBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteApple>>, TError,{data: AuthAppleBodyDto}, TContext> => {
+
+const mutationKey = ['authControllerCompleteApple'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerCompleteApple>>, {data: AuthAppleBodyDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authControllerCompleteApple(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerCompleteAppleMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerCompleteApple>>>
+    export type AuthControllerCompleteAppleMutationBody = AuthAppleBodyDto
+    export type AuthControllerCompleteAppleMutationError = unknown
+
+    /**
+ * @summary Complete Apple sign-in with a native identity token
+ */
+export const useAuthControllerCompleteApple = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteApple>>, TError,{data: AuthAppleBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerCompleteApple>>,
+        TError,
+        {data: AuthAppleBodyDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerCompleteAppleMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * @summary Complete Apple sign-in via authorization-code + PKCE
+ */
+export const authControllerCompleteAppleOauth = (
+    authAppleOauthBodyDto: AuthAppleOauthBodyDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<WebAuthSessionResponseDto | AuthSessionResponseDto>(
+      {url: `/api/v1/auth/apple/oauth`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: authAppleOauthBodyDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerCompleteAppleOauthMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteAppleOauth>>, TError,{data: AuthAppleOauthBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteAppleOauth>>, TError,{data: AuthAppleOauthBodyDto}, TContext> => {
+
+const mutationKey = ['authControllerCompleteAppleOauth'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerCompleteAppleOauth>>, {data: AuthAppleOauthBodyDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authControllerCompleteAppleOauth(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerCompleteAppleOauthMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerCompleteAppleOauth>>>
+    export type AuthControllerCompleteAppleOauthMutationBody = AuthAppleOauthBodyDto
+    export type AuthControllerCompleteAppleOauthMutationError = unknown
+
+    /**
+ * @summary Complete Apple sign-in via authorization-code + PKCE
+ */
+export const useAuthControllerCompleteAppleOauth = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteAppleOauth>>, TError,{data: AuthAppleOauthBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerCompleteAppleOauth>>,
+        TError,
+        {data: AuthAppleOauthBodyDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerCompleteAppleOauthMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * @summary Store Apple web OAuth PKCE session cookie before form_post
+ */
+export const authControllerStartAppleOauthSession = (
+    authAppleOauthSessionBodyDto: AuthAppleOauthSessionBodyDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<void>(
+      {url: `/api/v1/auth/apple/oauth/session`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: authAppleOauthSessionBodyDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerStartAppleOauthSessionMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerStartAppleOauthSession>>, TError,{data: AuthAppleOauthSessionBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerStartAppleOauthSession>>, TError,{data: AuthAppleOauthSessionBodyDto}, TContext> => {
+
+const mutationKey = ['authControllerStartAppleOauthSession'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerStartAppleOauthSession>>, {data: AuthAppleOauthSessionBodyDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authControllerStartAppleOauthSession(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerStartAppleOauthSessionMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerStartAppleOauthSession>>>
+    export type AuthControllerStartAppleOauthSessionMutationBody = AuthAppleOauthSessionBodyDto
+    export type AuthControllerStartAppleOauthSessionMutationError = unknown
+
+    /**
+ * @summary Store Apple web OAuth PKCE session cookie before form_post
+ */
+export const useAuthControllerStartAppleOauthSession = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerStartAppleOauthSession>>, TError,{data: AuthAppleOauthSessionBodyDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerStartAppleOauthSession>>,
+        TError,
+        {data: AuthAppleOauthSessionBodyDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerStartAppleOauthSessionMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * @summary Apple form_post callback — exchanges code and redirects to returnUrl
+ */
+export const authControllerAppleOauthCallback = (
+    
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<void>(
+      {url: `/api/v1/auth/apple/oauth/callback`, method: 'POST', signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerAppleOauthCallbackMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerAppleOauthCallback>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerAppleOauthCallback>>, TError,void, TContext> => {
+
+const mutationKey = ['authControllerAppleOauthCallback'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerAppleOauthCallback>>, void> = () => {
+          
+
+          return  authControllerAppleOauthCallback(requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerAppleOauthCallbackMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerAppleOauthCallback>>>
+    
+    export type AuthControllerAppleOauthCallbackMutationError = unknown
+
+    /**
+ * @summary Apple form_post callback — exchanges code and redirects to returnUrl
+ */
+export const useAuthControllerAppleOauthCallback = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerAppleOauthCallback>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerAppleOauthCallback>>,
+        TError,
+        void,
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerAppleOauthCallbackMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * @summary Complete OAuth sign-in (Facebook, or legacy Google/Apple code/idToken path)
  */
 export const authControllerCompleteOAuth = (
     provider: 'google' | 'apple' | 'facebook',
@@ -145,7 +533,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type AuthControllerCompleteOAuthMutationError = unknown
 
     /**
- * @summary Complete OAuth sign-in for Google, Apple, or Facebook
+ * @summary Complete OAuth sign-in (Facebook, or legacy Google/Apple code/idToken path)
  */
 export const useAuthControllerCompleteOAuth = <TError = unknown,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerCompleteOAuth>>, TError,{provider: 'google' | 'apple' | 'facebook'}, TContext>, request?: SecondParameter<typeof apiFetch>}
@@ -169,7 +557,7 @@ export const authControllerRefresh = (
 ) => {
       
       
-      return apiFetch<AuthSessionResponseDto>(
+      return apiFetch<WebAuthSessionResponseDto | AuthSessionResponseDto>(
       {url: `/api/v1/auth/refresh`, method: 'POST', signal
     },
       options);

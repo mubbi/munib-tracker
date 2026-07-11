@@ -71,7 +71,7 @@ export default function DuaFavoritesScreen() {
                   }
                   style={styles.body}
                 >
-                  <ThemedText type="small" numberOfLines={1}>
+                  <ThemedText type="small" numberOfLines={2}>
                     {item.title}
                   </ThemedText>
                   <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>

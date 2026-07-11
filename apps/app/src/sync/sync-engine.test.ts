@@ -350,7 +350,7 @@ describe("runSync", () => {
     expect((await readCustomTasbeehBlob()).items).toHaveLength(1);
   });
 
-  it("keeps newer local dua favorites when the pulled blob is older (last-write-wins)", async () => {
+  it("union-merges older remote dua favorites into newer local order", async () => {
     await applyRemoteDuaFavorites(["local"], "2026-07-04T12:00:00.000Z");
     mockPull.mockResolvedValue(
       pullResult({
@@ -367,7 +367,8 @@ describe("runSync", () => {
 
     await runSync(user);
 
-    expect((await readDuaFavoritesBlob()).order).toEqual(["local"]);
+    expect((await readDuaFavoritesBlob()).order).toEqual(["local", "old"]);
+    expect((await readDuaFavoritesBlob()).updatedAt).toBe("2026-07-04T12:00:00.000Z");
   });
 
   it("pushes newly-synced blob entities (fasting, learning progress, qaza schedule)", async () => {
@@ -412,7 +413,7 @@ describe("runSync", () => {
     expect(await readJSON(DB_KEYS.learnDuaProgress, null)).toEqual(["morning"]);
   });
 
-  it("keeps newer local blob data when the pulled blob is older (last-write-wins)", async () => {
+  it("union-merges fasting days when local is newer than a remote sibling key", async () => {
     // Establish local fasting content stamped at a late time via a first sync.
     await writeJSON(DB_KEYS.fasting, { local: "fasted" });
     await runSync(user);
@@ -432,7 +433,10 @@ describe("runSync", () => {
 
     await runSync(user);
 
-    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({ local: "fasted" });
+    expect(await readJSON(DB_KEYS.fasting, null)).toEqual({
+      old: "missed",
+      local: "fasted",
+    });
   });
 
   it("emits then clears local deletion tombstones after a successful push", async () => {
@@ -451,5 +455,28 @@ describe("runSync", () => {
     const pushed = mockPush.mock.calls[0]?.[1] as SyncRecordDto[];
     expect(pushed.some((r) => r.deletedAt && r.id === "maghrib::2026-07-03")).toBe(true);
     expect(await TombstoneRepository.getAll()).toHaveLength(0);
+  });
+
+  it("keeps local deletion tombstones when pull fails after a successful push", async () => {
+    await PrayerRepository.upsertLog({
+      id: "p",
+      prayerId: "isha",
+      date: "2026-07-03",
+      status: "completed",
+      updatedAt: "2026-07-03T10:00:00.000Z",
+      source: "manual",
+    });
+    await PrayerRepository.remove("isha", "2026-07-03");
+
+    mockPull.mockRejectedValueOnce(new Error("network down"));
+
+    await expect(runSync(user)).rejects.toThrow("network down");
+
+    expect(mockPush).toHaveBeenCalled();
+    expect(await TombstoneRepository.getAll()).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ entity: "prayer_logs", id: "isha::2026-07-03" }),
+      ]),
+    );
   });
 });

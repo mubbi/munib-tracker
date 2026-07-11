@@ -66,7 +66,7 @@ export const ZikrRow = memo(function ZikrRow({
         {index != null ? <ListIndexBadge index={index} /> : null}
 
         <View style={styles.body}>
-          <ThemedText type="small" numberOfLines={1}>
+          <ThemedText type="small" numberOfLines={2}>
             {item.title}
           </ThemedText>
           <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
@@ -146,11 +146,12 @@ const styles = StyleSheet.create({
   },
   favoriteButton: {
     position: "absolute",
-    // Vertically centered over the collapsed header row (two text lines +
-    // padding ≈ 58pt tall, minus the 44pt target ≈ 7pt inset from the top).
-    top: 7,
-    // Center the 44pt target over the reserved slot (slot sits just left of the
-    // chevron): slot right edge + half the slot, minus half the tap target.
-    right: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_SIZE / 2 - 22,
+    // Stretch to the row height so the glyph stays vertically centered when the
+    // title wraps to a second line (IconButton centers via justifyContent).
+    top: 0,
+    bottom: 0,
+    // Center the 44pt target over the reserved slot (slot sits just start-ward of the
+    // chevron): slot end edge + half the slot, minus half the tap target.
+    end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_SIZE / 2 - 22,
   },
 });

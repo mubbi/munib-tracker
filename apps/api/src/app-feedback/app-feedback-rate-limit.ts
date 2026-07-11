@@ -1,22 +1,30 @@
+import { isRateLimited, resetMemoryRateLimits } from "../common/durable-rate-limit";
+
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 15 * 60 * 1000;
 
-const buckets = new Map<string, { count: number; resetAt: number }>();
+let upstashUrl: string | undefined;
+let upstashToken: string | undefined;
+
+export function configureAppFeedbackRateLimit(options: {
+  upstashUrl?: string;
+  upstashToken?: string;
+}): void {
+  upstashUrl = options.upstashUrl;
+  upstashToken = options.upstashToken;
+}
 
 /** Fixed-window rate limit per user id (10 submissions / 15 min). */
-export function isAppFeedbackRateLimited(userId: string): boolean {
-  const now = Date.now();
-  const bucket = buckets.get(userId);
-
-  if (!bucket || now >= bucket.resetAt) {
-    buckets.set(userId, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return false;
-  }
-
-  bucket.count += 1;
-  return bucket.count > RATE_LIMIT;
+export async function isAppFeedbackRateLimited(userId: string): Promise<boolean> {
+  return isRateLimited({
+    key: `app-feedback:${userId}`,
+    limit: RATE_LIMIT,
+    windowMs: RATE_WINDOW_MS,
+    upstashUrl,
+    upstashToken,
+  });
 }
 
 export function resetAppFeedbackRateLimits(): void {
-  buckets.clear();
+  resetMemoryRateLimits();
 }

@@ -44,7 +44,7 @@
     "show": "Göster",
     "dismiss": "Kapat",
     "tryAgain": "Tekrar deneyin",
-    "continueAsGuest": "Misafir olarak devam et",
+    "continueAsGuest": "Continue as guest",
     "signIn": "Giriş yap",
     "signOut": "Çıkış yap",
     "on": "Açık",
@@ -66,7 +66,9 @@
     "increase": "{{label}} artır",
     "decrease": "{{label}} azalt",
     "appName": "Munib Tracker",
-    "appTagline": "Allah'a dönüş yolculuğunuzu takip edin."
+    "appTagline": "Allah'a dönüş yolculuğunuzu takip edin.",
+    "loadingRoute": "Preparing…",
+    "loadingRouteHint": "Just a moment while this screen loads."
   },
   "search": {
     "placeholder": "Kur'an, hadis, dua, zikir ara…",
@@ -352,14 +354,14 @@
       "audio": "Ses"
     },
     "continueAction": {
-      "quran": "Okumaya devam et",
+      "quran": "Continue reading",
       "hadith": "Hadise dön",
       "dua": "Duayı aç",
       "zikr": "Zikirleri aç",
       "durood": "Salavatlara dön",
       "names": "İsimlere dön",
       "audio": "Sese dön",
-      "listening": "Dinlemeye devam et"
+      "listening": "Continue listening"
     },
     "rozaRemaining": "Kaza oruçları",
     "knowledgeMotivation": {
@@ -445,7 +447,7 @@
     "witr": "Vitir",
     "witrSubtitle": "Sünnet mu'akkade — güçlü vurgulanır, beş farz namazdan biri değildir.",
     "sunnahOptional": "Sünnet ve nafile",
-    "keepGoing": "Devam et",
+    "keepGoing": "Keep going",
     "salahAdhkar": "Namaz zikirleri",
     "salahAdhkarSubtitle": "Her namaz etrafında okunacak sünnet zikirler.",
     "salahCaption": "namaz",
@@ -470,6 +472,46 @@
     "afterSalahAdhkarReminderBody": "Tesbih ve namaz sonrası zikirler için bir an ayırın.",
     "afterSalahProgress": "Zikirler {{completed}}/{{total}}",
     "afterSalahProgressA11y": "{{prayer}} sonrası zikirler: bugün {{total}} içinden {{completed}} tamamlandı"
+  },
+  "update": {
+    "title": "Güncelleme mevcut",
+    "hardTitle": "Güncelleme gerekli",
+    "availableBadge": "Yeni sürüm",
+    "requiredBadge": "Gerekli",
+    "yourVersion": "Sürümünüz",
+    "latestVersion": "En son",
+    "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
+    "hardBody": "Update to version {{version}} to keep using the app.",
+    "hardNote": "This update is required to continue.",
+    "updateButton": "Şimdi güncelle",
+    "webReloadButton": "Yeniden yükle",
+    "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
+    "webHardRefreshHint": "Yukarıdaki Yeniden yükle'ye dokunun. Bu mesaj sürekli görünüyorsa sayfayı zorla yenileyin: Windows/Linux'ta Ctrl+Shift+R veya macOS'ta Cmd+Shift+R."
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker'ı beğeniyor musunuz?",
+    "rateSubtitle": "Geri bildiriminiz diğer Müslümanların uygulamayı keşfetmesine yardımcı olur.",
+    "starLabel": "{{count}} yıldız",
+    "starLabel_other": "{{count}} yıldız",
+    "storeTitle": "Teşekkürler!",
+    "storeBody": "Munib Tracker'ı uygulama mağazasında değerlendirir misiniz? Sadece bir an sürer.",
+    "storeCta": "Uygulama mağazasında değerlendir",
+    "maybeLater": "Belki sonra",
+    "feedbackTitle": "Gelişmemize yardım edin",
+    "feedbackBody": "Munib Tracker beklentilerinizi karşılamadıysa üzgünüz. Neyi daha iyi yapabiliriz?",
+    "feedbackPlaceholder": "Neyin yanlış gittiğini veya neyin eksik olduğunu yazın…",
+    "feedbackCta": "Geri bildirim gönder",
+    "feedbackOffline": "Geri bildirim göndermek için internete bağlanın.",
+    "feedbackError": "Geri bildirim gönderilemedi. Tekrar deneyin.",
+    "skip": "Atla",
+    "thanksTitle": "Teşekkürler!",
+    "thanksBody": "Desteğiniz bizim için çok değerli.",
+    "feedbackThanksTitle": "Geri bildirim alındı",
+    "feedbackThanksBody": "Notlarınızı Munib Tracker'ı geliştirmek için kullanacağız."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Harika gidiyorsunuz",
+    "reviewReactivationBody": "Munib Tracker deneyiminizi paylaşmak ister misiniz?"
   },
   "settings": {
     "eyebrow": "Kişiselleştir",
@@ -501,6 +543,18 @@
     "qiblaSub": "Namaz yönünü bul",
     "about": "Hakkında",
     "aboutSub": "Sürüm, katkılar ve politikalar",
+    "rateApp": "Munib Tracker'ı değerlendir",
+    "rateAppDesc": "Uygulama mağazasında deneyiminizi paylaşın",
+    "reviewReactivationEnabled": "Uygulama geri bildirim hatırlatıcıları",
+    "reviewReactivationEnabledDesc": "Ara sıra uygulama içinde geri bildirim paylaşmak için nazik hatırlatmalar — doğrudan mağaza değerlendirmesi değil.",
+    "appUpdate": "Uygulama güncellemesi",
+    "updateAvailableTitle": "Güncelleme mevcut",
+    "updateRequiredTitle": "Güncelleme gerekli",
+    "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
+    "updateRequiredDesc": "Update to version {{latest}} to continue using the app.",
+    "updateNow": "Şimdi güncelle",
+    "viewUpdateDetails": "Ayrıntıları gör",
+    "remindInSettings": "Ayarlar'da hatırlat",
     "import": "Namaz geçmişini içe aktar",
     "importSub": "Geçmiş günleri JSON veya CSV dosyasından doldurun",
     "footer": "{{app}} · niyetle yapıldı",
@@ -549,19 +603,7 @@
         "name": "Ali İbn Ahmed Mala",
         "location": "Mescid-i Haram"
       }
-    },
-    "rateApp": "Munib Tracker'ı değerlendir",
-    "rateAppDesc": "Uygulama mağazasında deneyiminizi paylaşın",
-    "reviewReactivationEnabled": "Uygulama geri bildirim hatırlatıcıları",
-    "reviewReactivationEnabledDesc": "Ara sıra uygulama içinde geri bildirim paylaşmak için nazik hatırlatmalar — doğrudan mağaza değerlendirmesi değil.",
-    "appUpdate": "Uygulama güncellemesi",
-    "updateAvailableTitle": "Güncelleme mevcut",
-    "updateRequiredTitle": "Güncelleme gerekli",
-    "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
-    "updateRequiredDesc": "Uygulamayı kullanmaya devam etmek için {{latest}} sürümüne güncelleyin.",
-    "updateNow": "Şimdi güncelle",
-    "viewUpdateDetails": "Ayrıntıları gör",
-    "remindInSettings": "Ayarlar'da hatırlat"
+    }
   },
   "import": {
     "title": "Namaz geçmişini içe aktar",
@@ -589,9 +631,9 @@
     "eyebrowWelcome": "Hoş geldiniz",
     "title": "Giriş yap",
     "subtitle": "İbadetinizi cihazlar arasında senkronize edin",
-    "google": "Google ile devam et",
-    "apple": "Apple ile devam et",
-    "facebook": "Facebook ile devam et",
+    "google": "Continue with Google",
+    "apple": "Continue with Apple",
+    "facebook": "Continue with Facebook",
     "heroGuest": "Misafir hesabı kullanıyorsunuz. Verilerinizi yedeklemek ve senkronize etmek için bir sağlayıcı bağlayın — hiçbir şey kaybolmaz.",
     "heroUser": "Namazlarınızı, kazalarınızı ve zikirlerinizi bulutta güvende tutmak için giriş yapın.",
     "error": "Giriş yapılamadı. API sunucusunun çalıştığından ve bu sağlayıcının yapılandırıldığından emin olun."
@@ -771,7 +813,7 @@
       "qazaBody": "Make up  kaçırıldı Namaz veya oruç bugün.",
       "achievementTitle": "Başarı açıldı",
       "dailyContentTitle": "Bugünün reflection",
-      "dailyContentBody": " yeni verse, hadis, ve name  Allah dir ready  sizin ana sayfa screen.",
+      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
       "fridayTitle": "Cuma Mubarek",
       "fridayBody": "It's Friday — send salawat ve read Surah Al-Kahf."
     },
@@ -1034,7 +1076,7 @@
     "subtitle": "Read, listen, ve reflect",
     "searchSurah": "by name, meaning, or number Ara",
     "filterAll": "Tüm",
-    "continueReading": "Okumaya devam et",
+    "continueReading": "Continue reading",
     "continueAt": "Sure {{surah}} · Ayet {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
@@ -1090,6 +1132,14 @@
     "searching": "Aranıyor…",
     "secondTranslation": "Second çeviri",
     "secondTranslationNone": "Yok",
+    "selectTranslator": "Çevirmen seçin — {{language}}",
+    "translationCount_one": "{{count}} çeviri",
+    "translationCount_other": "{{count}} çeviri",
+    "translationBundled": "Çevrimdışı kullanılabilir",
+    "translationRemote": "Gerektiğinde indirilir",
+    "backToLanguages": "Tüm diller",
+    "searchTranslationLanguages": "Dil ara…",
+    "searchTranslators": "Çevirmen ara…",
     "pages": "Sayfalar",
     "pagesSubtitle": "Browse  Madani mushaf by page",
     "pageN": "Sayfa {{n}}",
@@ -1108,15 +1158,7 @@
     "prevPage": "Önceki page",
     "nextPage": "Sonraki page",
     "openPageView": "page view Aç",
-    "continueAtPage": "Sayfa {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "Çevirmen seçin — {{language}}",
-    "translationCount_one": "{{count}} çeviri",
-    "translationCount_other": "{{count}} çeviri",
-    "translationBundled": "Çevrimdışı kullanılabilir",
-    "translationRemote": "Gerektiğinde indirilir",
-    "backToLanguages": "Tüm diller",
-    "searchTranslationLanguages": "Dil ara…",
-    "searchTranslators": "Çevirmen ara…"
+    "continueAtPage": "Sayfa {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -1230,7 +1272,7 @@
     },
     "duha": {
       "summary": " forenoon namaz — typically two  eight rak'ahs between sunrise ve Öğle.",
-      "why": "Charity dir due  every joint   body each gün; even  few rak'ahs  Duha fulfills şu charity için  limbs through ibadet.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
       "benefits": "Forgives sins, brings sustenance (rizq), ve revives  neglected sunnah. Flexible timing makes it accessible when  gün allows."
     },
     "dhuhr": {
@@ -1367,7 +1409,7 @@
     "consistencyTitle": "Istikrar over intensity",
     "consistencyHadith": " most beloved deeds  Allah dir those şu dir istikrarlı, even if they dir small.",
     "consistencySource": "Hadis — Bukhari & Muslim",
-    "consistencyPrinciple": " steady daily plan usually clears  large backlog more reliably than  aggressive sprint şu burns out.",
+    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
     "prayersPerDay": "prayers / gün",
     "dailyTimeLabel": "est. time / gün",
     "dailyTimeMinutes": "≈ {{count}} dk",
@@ -1745,7 +1787,7 @@
         "titles": {
           "0": "Ilk Remembrance",
           "1": "Uyandırılmış Kalp",
-          "2": "Steady Zikir",
+          "2": "Steady Zikr",
           "3": "Sürekli Zikir",
           "4": "Zikir",
           "5": "Yüz Oturum",
@@ -1855,7 +1897,7 @@
     "compassLabel": "Kıble compass",
     "compassValue": "{{bearing}} degrees   Kaaba, {{distance}} away",
     "aligned": "Aligned ile  Kıble",
-    "alignedHint": "Hold steady — you're facing  Kaaba",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
     "turnFineTuneLeft": "Sola çevir",
     "turnFineTuneRight": "Sağa çevir",
     "turnSlightLeft": "Hafif sola",
@@ -1895,7 +1937,7 @@
     "syncing": "Senkronize ediliyor…",
     "done": "Sizin data dir backed up",
     "failed": "Couldn't sync. Check sizin connection ve try again.",
-    "mergeNoChanges": "Everything was already up  date",
+    "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} alındı · {{sent}} gönderildi",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest düzenle",
     "conflictAffected": "Etkilenen: {{list}}",
@@ -2016,7 +2058,7 @@
     "installBannerMessage": "iPhone'da uygulama benzeri bir deneyim ve tarayıcı bildirimleri için Munib Tracker'ı Ana Ekranınıza yükleyin.",
     "installStepsViaSafari": "Aşağıdaki bağlantıyı kopyalayın, Safari'de açın, ardından Paylaş → Ana Ekrana Ekle.",
     "installCopyLink": "Safari için bağlantıyı kopyala",
-    "installLinkCopied": "Bağlantı kopyalandı — devam etmek için Safari'nin adres çubuğuna yapıştırın.",
+    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
     "installLinkCopyFailed": "Bağlantı kopyalanamadı. Bu sayfayı Safari'de manuel olarak açın.",
     "installDismiss": "Kapat"
   },
@@ -2069,13 +2111,13 @@
     "eyebrow": " Noble Kur'an",
     "short": "Hatim",
     "title": "Hatim plan",
-    "subtitle": "Finish  Kur'an at  steady tempo",
+    "subtitle": "Finish the Qur'an at a steady pace",
     "startTitle": "a plan Başlat",
     "startHint": "how many days to complete the Kur'an. We'll set a daily ayah target. Seç",
     "startHintPages": "how many days to complete the Kur'an. We'll set a daily mushaf page target. Seç",
     "unitAyah": "Ayete göre",
     "unitPage": "Sayfaya göre",
-    "continueReading": "Okumaya devam et",
+    "continueReading": "Continue reading",
     "dayPlan": "{{count}} gün",
     "preset": {
       "intensive": "Yoğun",
@@ -2150,12 +2192,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": " hatim built  steady daily okuma lasts longer than  sprint şu burns out.",
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
         "source": "Principle  istikrar"
       },
       "portion": {
         "text": "Siz do not have  finish bugün — only honour today's portion ile sincerity.",
-        "source": "Steady ilerleme"
+        "source": "Steady progress"
       },
       "return": {
         "text": "If siz fall behind, do not abandon  plan. Resume ile today's ayahs ve move forward.",
@@ -2264,7 +2306,7 @@
     },
     "disclaimer": "Bu dir eğitim içerik, not  personal fatwa. Distance thresholds, stay duration, combining rules, ve whether Jam' dir limited  need vary between  four schools — consult  qualified alim için sizin yolculuk.",
     "markExcused": "today as excused (travel) İşaretle",
-    "clearExcused": "obligatory tracking Devam Et"
+    "clearExcused": "Resume obligatory tracking"
   },
   "hayd": {
     "eyebrow": "Öğren",
@@ -2306,7 +2348,7 @@
     },
     "disclaimer": "Bu dir eğitim guidance, not  personal ruling.  details above vary between schools — consult  qualified female alim if sizin situation dir unclear.",
     "markExcused": "today as excused (hayd) İşaretle",
-    "clearExcused": "obligatory tracking Devam Et"
+    "clearExcused": "Resume obligatory tracking"
   },
   "sick": {
     "eyebrow": "Öğren",
@@ -2353,7 +2395,7 @@
     },
     "disclaimer": "Bu dir eğitim guidance, not  personal ruling. How much hastalık justifies each concession varies by school ve severity — consult  qualified alim için sizin situation.",
     "markExcused": "today as excused (illness) İşaretle",
-    "clearExcused": "obligatory tracking Devam Et"
+    "clearExcused": "Resume obligatory tracking"
   },
   "homeCustomize": {
     "title": "Ana sayfayı özelleştir",
@@ -2367,7 +2409,7 @@
     "add": "shortcut Ekle",
     "remove": "shortcut Kaldır",
     "module": {
-      "continue": "Okumaya devam et",
+      "continue": "Continue reading",
       "knowledge": "Günlük knowledge card",
       "quickActions": "Hızlı eylemler",
       "qaza": "Kaza summary",
@@ -2407,7 +2449,7 @@
     "duasLinkHint": "Ezan, abdest, masjid, ve after salah",
     "notFound": "Rehber bulunamadı",
     "disclaimer": " concise guide için learning ve revision. Için sizin situation, consult  qualified teacher.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "stepsTitle": "Adım adım",
     "ruling": {
       "fard": "Fard · rükün",
@@ -2420,14 +2462,14 @@
     "phrasesTitle": "Words  salah",
     "phrasesSubtitle": "Arapça, çeviri, ve  meaning behind each phrase",
     "phrasesIntro": "what you say builds khushu. Read the meaning before your next prayer.'ı Anlamak",
-    "exploreTitle": "learning Devam Et",
+    "exploreTitle": "Continue learning",
     "progressExploreHint": "Revisit  key lessons ve words   namaz",
     "exploreStepByStep": "Adım adım Salah",
     "explorePositions": "Her pozisyon",
     "meaningLabel": "Ne öğretir",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "Bu dashboard tracks sizin study ve pratik içinde Munib. Completing lessons does not measure sizin standing ile Allah — sincerity does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Tamamlanan dersler",
     "lessonsHint": "topics complete as you finish studying them İşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2485,7 +2527,7 @@
     "quickLessons": "Ders kartları",
     "quickLessonsHint": "Leadership ve spiritual takeaways den each battle",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -2494,7 +2536,7 @@
     "jannahPointer": "Cennet, deeds, ve motivation için striving",
     "notFound": "Konu bulunamadı",
     "disclaimer": " eğitim genel bakış drawn den classical seerah ve graded hadis. Için rulings veya political application, consult qualified alimler.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "topic complete İşaretle",
     "markIncomplete": "as not yet complete İşaretle",
     "phaseV1": "V1 — Temeller",
@@ -2524,7 +2566,7 @@
     "lessonsHint": "topics complete as you finish studying them İşaretle",
     "lessonsIntro": "These dir moral ve leadership lessons — not military tactics manuals.",
     "progressTitle": "learning'im",
-    "progressSubtitle": "study — not spiritual rank with Allah Takip Et",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Bu dashboard tracks topics siz have read içinde Munib. Knowledge dir  means; sincerity ile Allah dir  goal.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Explore timeline, verses, glossary, ve lesson cards",
@@ -2591,7 +2633,7 @@
     "salahPointer": "Mükemmel sizin namaz before siz meet Allah",
     "notFound": "Konu bulunamadı",
     "disclaimer": "Eğitim genel bakış den Kur'an ve graded hadis. Için personal rulings, consult qualified alimler.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "topic complete İşaretle",
     "markIncomplete": "as not yet complete İşaretle",
     "misconceptionsTitle": "Yaygın yanlış anlamalar",
@@ -2635,7 +2677,7 @@
     "quizTitle": "Gözden geçir sınav",
     "quizSubtitle": "Test sizin understanding — not sizin standing ile Allah",
     "quizHint": "Timeline, definitions, ve reflection",
-    "quizIntro": "Use bu sınav  find gaps, then study those topics. It dir not  spiritual puan.",
+    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
     "quizProgress": "Soru {{current}}/{{total}}",
     "quizComplete": "Test Tamamlandı!",
     "quizScore": "{{score}}/{{total}} puanlı sorular doğru",
@@ -2673,7 +2715,7 @@
       "learningHint": "Topics completed içinde bu module"
     },
     "progressTitle": "Learning ilerleme",
-    "progressSubtitle": "study — not spiritual rank with Allah Takip Et",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "topics complete as you read. Knowledge is a means; sincerity with Allah is the goal. İşaretle",
     "lessonsTitle": "Tamamlanan konular",
     "lessonsHint": "topics complete as you finish studying them İşaretle",
@@ -2711,9 +2753,9 @@
     "quickGhusl": "Gusül guide",
     "quickGhuslHint": "Büyük hadesten sonra tam gusül",
     "quickChecklist": "Günlük checklist",
-    "quickChecklistHint": "Habits şu keep siz ready için namaz",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -2732,7 +2774,7 @@
     "haydPointer": "Hayd ve doğum sonrası temizlik rehberi",
     "notFound": "Konu bulunamadı",
     "disclaimer": "Eğitim genel bakış için learning ve revision. Için sizin situation, consult  qualified teacher.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "stepsTitle": "Adım adım",
     "markComplete": "topic complete İşaretle",
     "markIncomplete": "as not yet complete İşaretle",
@@ -2782,7 +2824,7 @@
     "quickLessons": "Dersler",
     "quickLessonsHint": "Moral ve spiritual takeaways",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -2799,14 +2841,14 @@
     "quranPointer": "Read their stories içinde  Kur'an",
     "notFound": "Konu bulunamadı",
     "disclaimer": "Eğitim summaries drawn den  Kur'an ve graded hadis. Için detailed tafsir, consult qualified alimler.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "topic complete İşaretle",
     "markIncomplete": "as not yet complete İşaretle",
     "phaseV1": "V1 — Temeller",
     "profileTitle": "Profil",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "topics complete as you study the lives of the prophets. İşaretle",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "Tamamlanan konular",
     "lessonsHint": "topics complete as you finish studying them İşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2852,7 +2894,7 @@
     "quickGlossary": "Sözlük",
     "quickGlossaryHint": "Key creed şartlar defined",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -2867,7 +2909,7 @@
     "glossaryListTitle": "Şartlar",
     "notFound": "Konu bulunamadı",
     "disclaimer": "Eğitim genel bakış — not  fatwa. Için personal questions, ask  qualified alim.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "misconceptionsTitle": "Yaygın yanlış anlamalar",
     "markComplete": "topic complete İşaretle",
     "markIncomplete": "as not yet complete İşaretle",
@@ -2913,7 +2955,7 @@
     "quickOccasions": "Duruma göre",
     "quickOccasionsHint": "Browse duas için every moment",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read ve study ilerleme",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -2928,7 +2970,7 @@
     "duaEtiquetteTitle": "Etiquette  dua",
     "notFound": "Konu bulunamadı",
     "disclaimer": "Eğitim guide — verify wording ile  teacher when memorising. Translations dir aids, not replacements için Arapça içinde ibadet.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "topic complete İşaretle",
     "markIncomplete": "as not yet complete İşaretle",
     "phaseV1": "V1 — Temeller",
@@ -2980,7 +3022,7 @@
     "jannahPointer": "Motivation through  promise  Cennet",
     "notFound": "Konu bulunamadı",
     "disclaimer": "Eğitim içerik den recognised kaynaklar. Için tajvid ijazah, memorisation correction, veya fiqh, consult  qualified teacher.",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "markComplete": "lesson complete İşaretle",
     "markIncomplete": "as not yet complete İşaretle",
     "comingSoon": "Yakında",
@@ -3015,12 +3057,12 @@
     "reflectionTitle": "Düşün",
     "openInQuran": "in Kur'an reader Aç",
     "progressTitle": "learning'im",
-    "progressSubtitle": "study — not spiritual rank with Allah Takip Et",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Bu dashboard tracks lessons siz have studied içinde Munib. Allah knows what dir içinde sizin heart.",
     "lessonsTitle": "Dersler",
     "lessonsHint": "topics complete as you finish studying them İşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
-    "progressExploreHint": "your journey through daily lessons, vocabulary, and themes Devam Et",
+    "progressExploreHint": "Continue your journey through daily lessons, vocabulary, and themes",
     "exploreTitle": "Keşfet",
     "tajweedTitle": "Tajvid",
     "tajweedSubtitle": "Rules  doğru ve beautiful recitation",
@@ -3030,7 +3072,7 @@
     "practiceTitle": "Pratik",
     "lettersTitle": "Arapça harfler",
     "lettersSubtitle": "28 harfler ile isimler, sounds, ve examples",
-    "lettersIntro": "Study one letter per gün — see, hear, say, write.",
+    "lettersIntro": "Study one letter per day — see, hear, say, write.",
     "pronunciationTitle": "Telaffuz",
     "pronunciationSubtitle": "Zor harf çiftlerini öğren",
     "pronunciationIntro": "Compare similar sounds side by side — record yourself ve listen geri.",
@@ -3040,7 +3082,7 @@
     "levelBadge": "Seviye {{level}}",
     "hifzTitle": "Ezber",
     "hifzSubtitle": "Plans den Juz Amma  full hifz",
-    "hifzIntro": "Revision dir  secret — never ekle yeni ayahs without reviewing old ones.",
+    "hifzIntro": "Tekrar sırrıdır — eski ayetleri tekrarlamadan asla yeni ayet eklemeyin.",
     "hifzSurahs": "Surahs içinde bu plan",
     "openQuranHifz": "Kur'an & hifz tracker Aç",
     "tadabburTitle": "Tefekkür (Tadabbur)",
@@ -3056,7 +3098,7 @@
     "challengeDone": "Meydan okuma tamamlandı — Allah kabul etsin",
     "quizTitle": "Kur'an sınav",
     "quizSubtitle": "Test sizin understanding — not sizin standing ile Allah",
-    "quizIntro": "Use each question  find  gap, then study şu topic. Bu dir gözden geçir, not  spiritual puan.",
+    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
     "quizProgress": "Soru {{current}}/{{total}}",
     "quizComplete": "Test Tamamlandı!",
     "quizScore": "{{score}}/{{total}} puanlı sorular doğru",
@@ -3217,7 +3259,7 @@
       "purpose": {
         "title": "Why zekat — purpose & wisdom",
         "summary": "It purifies wealth ve  soul, ve lifts  poor",
-        "body": "Allah says  zekat: \"Take den their wealth  charity by which siz purify them ve cause them  grow\" (Kur'an 9:103).  obligation works  two katmanlar at once — it purifies  giver's soul den stinginess ve love   world, ve it purifies  wealth itself so şu what stays içinde sizin hand dir wholesome ve blessed.\n\nSocially, zekat dir  divinely ordered system  circulation. When  Prophet ﷺ sent Mu'adh  Yemen he instructed şu zekat be taken den their rich ve given  their poor. Wealth dir not meant  pile up among  few; zekat pulls it geri into motion so  needy dir fed, debtors dir freed, ve  community's bonds dir strengthened.\n\nSpiritually, giving zekat dir  act  gratitude ve trust. It answers  human urge  hoard ile  certainty şu provision comes den Allah, ve it trains  believer  love giving.  one who pays zekat willingly finds their wealth protected, their heart lightened, ve their reward stored ile their Lord — \"there will be no fear concerning them, nor will they grieve\" (Kur'an 2:277)."
+        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
       },
       "hawl": {
         "title": " kameri year (hawl)",
@@ -3242,12 +3284,12 @@
       "debts": {
         "title": "Borçlar & kesintiler",
         "summary": "Immediate debts may be deducted önce calculating 2.5%",
-        "body": "Zekat dir calculated  sizin net zakatable wealth, so genuine debts siz owe can reduce  amount  which siz pay.  clearest case dir debts due now —  unpaid personal loan,  outstanding credit-card balance, rent veya bills already owed. Most alimler allow these  be subtracted den sizin gross wealth before siz uygula  2.5%.\n\nLong-term debts such as  mortgage veya  multi-year instalment plan dir handled ile more care, because deducting  entire balance would wipe out  zekat  almost anyone ile  ana sayfa loan.  common contemporary approach dir  deduct only  payments due within  coming year, not  whole outstanding sum. Schools ve alimler differ here, so pick  istikrarlı method under guidance.\n\nTwo cautions. First, do not treat future veya hypothetical expenses as deductible debts — only what siz actually owe counts. Second, do not subtract last year's unpaid zekat as if it were  ordinary borç; unpaid zekat remains  due obligation ve should simply be paid. When sizin borç situation dir complex,  scholar's ruling dir worth more than  rough guess."
+        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
       },
       "recipients": {
         "title": "Who may receive zekat",
         "summary": "Eight categories named içinde Kur'an 9:60",
-        "body": "Zekat may only be given   categories  people Allah Himself named içinde Surah at-Tövbe (9:60). Bu dir one   few acts  ibadet where  recipients dir fixed by revelation, not left   giver's preference.  eight categories dir:  poor (al-fuqara);  needy (al-masakin); those employed  collect ve administer zekat; those whose hearts dir  be reconciled (al-mu'allafah);  freeing  captives ve those içinde bondage (fi'r-riqab);  borç-burdened (al-gharimin); içinde  cause  Allah (fi sabil Allah); ve  stranded traveller (ibn as-sabil).\n\nIt dir not gerekli  give  tüm eight; giving sizin zekat  even one eligible category fulfils  obligation, ve directing it   poor ve needy dir  most common pratik.\n\nEqually important dir who may not receive it. Zekat cannot be given   wealthy, nor  those siz dir already obliged  support — sizin parents, sizin children, veya sizin spouse — since supporting them dir  duty siz owe anyway. Içinde  classical view it dir  personal transfer  ownership   eligible individual, not  general donation; alimler differ  whether institutions such as masjids veya broad public projects qualify under  cause  Allah. It also cannot be given   family   Prophet ﷺ,  Banu Hashim, as zekat. Aim it deliberately at people who match  Kur'anic categories."
+        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
       },
       "otherRates": {
         "title": "Other types  zekat & zekat al-fitr",
@@ -3257,7 +3299,7 @@
       "mistakes": {
         "title": "Common mistakes  avoid",
         "summary": "Errors şu make zekat invalid veya miscalculated",
-        "body": "Even sincere Muslims often slip   practical details  zekat. Knowing  common errors helps siz pay correctly ve ile peace  mind.\n\nForgetting  hawl veya  anniversary: paying at  random time, veya skipping years, leaves  outstanding obligation. Fix one Hicri date each year ve assess sizin wealth  it.\n\nMiscounting wealth: valuing gold veya shares at their purchase price instead  today's market value, forgetting cash held içinde multiple accounts veya currencies, veya overlooking business inventory ve money owed  siz. Zekat dir  everything zakatable şu siz own  sizin date.\n\nGiving   wrong people: handing zekat  parents, children, veya  spouse siz already support, veya treating it as  generic donation  any good cause. It must reach one   eight Kur'anic categories.\n\nIntention errors: giving generously tüm year but never intending any  it as zekat. Zekat dir  act  ibadet ve needs  intention (niyyah) şu bu particular payment dir sizin farz zekat.\n\nOver-deducting debts: subtracting  whole long-term mortgage, veya future expenses şu dir not yet owed,  shrink  bill. Only real, current liabilities reduce sizin zakatable wealth. When any  these dir unclear için sizin situation, ask  qualified alim rather than assume."
+        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
       }
     },
     "recipientsListTitle": " eight categories",
@@ -3301,7 +3343,7 @@
     "nisabWeightNote": "Exact weights ve which metal  prefer vary slightly between schools.  hesaplayıcı uses these widely cited Hanafi figures.",
     "quran": [
       {
-        "excerpt": "Zekat expenditures dir only için  poor ve için  needy ve için those employed  collect it ve için bringing hearts together ve için freeing captives ve için those içinde borç ve için  cause  Allah ve için  wayfarer —  obligation den Allah. Ve Allah dir Knowing ve Wise."
+        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
         "excerpt": "Take den their wealth  charity by which siz purify them ve cause them  grow, ve invoke blessings upon them. Indeed, sizin invocation dir reassurance için them. Ve Allah dir Hearing ve Knowing."
@@ -3382,7 +3424,7 @@
       "stocks": "Current market value  shares, funds, ve similar investments.",
       "business": "Value  merchandise, inventory, ve goods held için sale.",
       "receivables": "Loans ve invoices siz reasonably expect  collect.",
-      "rentalIncome": "Rental veya business profits siz still hold — not already spent.",
+      "rentalIncome": "Rental or business profits you still hold — not already spent.",
       "otherAssets": "Cryptocurrency, accessible retirement funds, veya other zakatable wealth per sizin alim.",
       "debts": "Personal loans, credit cards, ve bills due now — not long-term mortgage totals unless sizin alim allows.",
       "nisab": "Leave blank  use  computed threshold, veya enter  özel nisab."
@@ -3486,7 +3528,7 @@
     "confirmDiscardTitle": "Değişiklikler iptal edilsin mi?",
     "confirmDiscardMsg": "Anything siz wrote will be lost.",
     "confirmOverwriteTitle": "Mevcut tefekkür değiştirilsin mi?",
-    "confirmOverwriteMsg": "Siz already noted {{prayer}} için bu gün. Saving will replace it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "Dalgın",
     "level2": "Huzursuz",
     "level3": "Yeterince hazır",
@@ -3556,7 +3598,7 @@
     "intro": "Islam does not give  numbered checklist için Cennet katmanlar. Here siz will find what  Kur'an ve sahih Sünnet teach — ve links  takip sizin daily striving.",
     "learnTitle": "About Cennet",
     "quickLinksTitle": "Keşfet",
-    "continueInApp": "in Munib Devam Et",
+    "continueInApp": "Continue in Munib",
     "gatesListTitle": "Named içinde hadis",
     "duaNumber": "Dua {{number}}",
     "pathsTitle": "Paths  higher ranks",
@@ -3575,7 +3617,7 @@
     "versesLead": "Dokunun any verse  aç it içinde  Kur'an reader.",
     "journeyTitle": "Journey'im",
     "journeySummary": "Bugünün habits — not your rank with Allah",
-    "journeySubtitle": "Istikrar içinde ibadet siz already takip",
+    "journeySubtitle": "Consistency in worship you already track",
     "journeyBanner": "These habits dir among  deeds Allah loves. Sizin final rank dir only ile Him.",
     "journeyToday": "Bugünün striving",
     "journeyEmpty": "with one prayer or adhkar — small steps build lifelong habits. Başlat",
@@ -3594,7 +3636,7 @@
       "reflection": "Reflections bu week",
       "reflectionHint": "Huşu günlük entries",
       "quran": "Kur'an",
-      "quranHint": "reading or memorising Devam Et"
+      "quranHint": "Continue reading or memorising"
     },
     "intentionsTitle": "Bugünün intentions",
     "intentionsHint": "Private toggles için sizin niyyah — not synced, not  puan.",
@@ -3699,7 +3741,7 @@
       "istighfar": "Zikirler & istighfar",
       "istighfarHint": "Morning, evening, ve daily remembrances",
       "quran": "Kur'an",
-      "quranHint": "reading or listening Devam Et",
+      "quranHint": "Continue reading or listening",
       "charity": "Sadaka ve bağış",
       "charityHint": "Bugünün self-accountability intentions",
       "character": "Güzel ahlak",
@@ -3947,45 +3989,5 @@
     "after1Min": "1 dakika sonra",
     "after5Min": "5 dakika sonra",
     "footer": "Sizin PIN dir stored securely  bu cihaz ve never leaves it."
-  },
-  "update": {
-    "title": "Güncelleme mevcut",
-    "hardTitle": "Güncelleme gerekli",
-    "availableBadge": "Yeni sürüm",
-    "requiredBadge": "Gerekli",
-    "yourVersion": "Sürümünüz",
-    "latestVersion": "En son",
-    "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
-    "hardBody": "Uygulamayı kullanmaya devam etmek için {{version}} sürümüne güncelleyin.",
-    "hardNote": "Devam etmek için bu güncelleme gereklidir.",
-    "updateButton": "Şimdi güncelle",
-    "webReloadButton": "Yeniden yükle",
-    "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
-    "webHardRefreshHint": "Yukarıdaki Yeniden yükle'ye dokunun. Bu mesaj sürekli görünüyorsa sayfayı zorla yenileyin: Windows/Linux'ta Ctrl+Shift+R veya macOS'ta Cmd+Shift+R."
-  },
-  "reviews": {
-    "rateTitle": "Munib Tracker'ı beğeniyor musunuz?",
-    "rateSubtitle": "Geri bildiriminiz diğer Müslümanların uygulamayı keşfetmesine yardımcı olur.",
-    "starLabel": "{{count}} yıldız",
-    "starLabel_other": "{{count}} yıldız",
-    "storeTitle": "Teşekkürler!",
-    "storeBody": "Munib Tracker'ı uygulama mağazasında değerlendirir misiniz? Sadece bir an sürer.",
-    "storeCta": "Uygulama mağazasında değerlendir",
-    "maybeLater": "Belki sonra",
-    "feedbackTitle": "Gelişmemize yardım edin",
-    "feedbackBody": "Munib Tracker beklentilerinizi karşılamadıysa üzgünüz. Neyi daha iyi yapabiliriz?",
-    "feedbackPlaceholder": "Neyin yanlış gittiğini veya neyin eksik olduğunu yazın…",
-    "feedbackCta": "Geri bildirim gönder",
-    "feedbackOffline": "Geri bildirim göndermek için internete bağlanın.",
-    "feedbackError": "Geri bildirim gönderilemedi. Tekrar deneyin.",
-    "skip": "Atla",
-    "thanksTitle": "Teşekkürler!",
-    "thanksBody": "Desteğiniz bizim için çok değerli.",
-    "feedbackThanksTitle": "Geri bildirim alındı",
-    "feedbackThanksBody": "Notlarınızı Munib Tracker'ı geliştirmek için kullanacağız."
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Harika gidiyorsunuz",
-    "reviewReactivationBody": "Munib Tracker deneyiminizi paylaşmak ister misiniz?"
   }
 }

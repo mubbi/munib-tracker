@@ -2,7 +2,11 @@ import { DEFAULT_NOTIFICATION_PREFERENCES } from "@munib-tracker/shared/constant
 import type { UserPreferences } from "@munib-tracker/shared/types";
 
 import { DEFAULT_LOCATION } from "@/lib/location";
-import { buildReminders, summarizeReminders } from "@/lib/notifications/build-reminders";
+import {
+  buildReminders,
+  MAX_PENDING_REMINDERS,
+  summarizeReminders,
+} from "@/lib/notifications/build-reminders";
 import { computePrayerTimes } from "@/lib/prayer-times";
 
 const basePrefs: UserPreferences = {
@@ -244,7 +248,9 @@ describe("buildReminders", () => {
 
   it("emits daily-content and Friday reminders only when opted in", () => {
     const off = buildReminders(basePrefs, DEFAULT_LOCATION);
-    expect(off.some((r) => r.id.startsWith("dailyContent:"))).toBe(false);
+    expect(off.some((r) => r.id === "dailyContent" || r.id.startsWith("dailyContent:"))).toBe(
+      false,
+    );
     expect(off.some((r) => r.id.startsWith("friday:"))).toBe(false);
 
     const on: UserPreferences = {
@@ -252,13 +258,54 @@ describe("buildReminders", () => {
       notificationPrefs: { ...basePrefs.notificationPrefs, dailyContent: true, friday: true },
     };
     const reminders = buildReminders(on, DEFAULT_LOCATION);
-    expect(reminders.some((r) => r.id.startsWith("dailyContent:"))).toBe(true);
+    const daily = reminders.find((r) => r.id === "dailyContent");
+    expect(daily).toBeDefined();
+    expect(daily?.repeat).toBe("daily");
     const friday = reminders.find((r) => r.id.startsWith("friday:"));
     expect(friday).toBeDefined();
-    // Deep-links to Surah Al-Kahf, and every emitted Friday reminder is a Friday.
+    // Deep-links to Surah Al-Kahf, and the next Friday reminder is a Friday.
     expect(friday?.route).toBe("/quran/18");
+    expect(reminders.filter((x) => x.id.startsWith("friday:"))).toHaveLength(1);
     for (const r of reminders.filter((x) => x.id.startsWith("friday:"))) {
       expect(new Date(`${r.id.split(":")[1]}T00:00:00`).getDay()).toBe(5);
     }
+  });
+
+  it("stays within the iOS pending-notification budget", () => {
+    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    expect(reminders.length).toBeLessThanOrEqual(MAX_PENDING_REMINDERS);
+
+    // Worst case: every nudge on — still capped.
+    const allOn: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: {
+        ...basePrefs.notificationPrefs,
+        masterEnabled: true,
+        prayer: true,
+        sunnahPrayer: true,
+        beforePrayer: true,
+        afterPrayer: true,
+        afterAzan: true,
+        morningZikr: true,
+        eveningZikr: true,
+        beforeSleep: true,
+        qaza: true,
+        dailyContent: true,
+        friday: true,
+        playAdhanOnPrayer: true,
+      },
+    };
+    expect(buildReminders(allOn, DEFAULT_LOCATION).length).toBeLessThanOrEqual(
+      MAX_PENDING_REMINDERS,
+    );
+  });
+
+  it("uses a single DAILY slot for fixed-clock zikr reminders", () => {
+    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const morning = reminders.filter(
+      (r) => r.id === "morningZikr" || r.id.startsWith("morningZikr:"),
+    );
+    expect(morning).toHaveLength(1);
+    expect(morning[0]?.repeat).toBe("daily");
   });
 });

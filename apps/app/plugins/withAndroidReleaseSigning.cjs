@@ -4,10 +4,10 @@ const MARKER = "withAndroidReleaseSigning";
 
 const RELEASE_SIGNING_BLOCK = `// ${MARKER}
             def keystorePropertiesFile = rootProject.file("keystore.properties")
-            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
             if (!keystorePropertiesFile.exists()) {
-                println "WARNING [${MARKER}]: android/keystore.properties missing — release is debug-signed (not for Play). See apps/app/android-keys/README.md"
-            }`;
+                throw new GradleException("[${MARKER}] android/keystore.properties missing — refusing to debug-sign a release build. See apps/app/android-keys/README.md")
+            }
+            signingConfig signingConfigs.release`;
 
 /** True when buildTypes.release still uses the debug keystore (misconfigured or plugin misfire). */
 function releaseBuildTypeUsesDebugKeystore(contents) {

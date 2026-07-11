@@ -66,7 +66,9 @@
     "increase": "{{label}} বাড়ান",
     "decrease": "{{label}} কমান",
     "appName": "Munib Tracker",
-    "appTagline": "আল্লাহর দিকে আপনার যাত্রা ট্র্যাক করুন।"
+    "appTagline": "আল্লাহর দিকে আপনার যাত্রা ট্র্যাক করুন।",
+    "loadingRoute": "Preparing…",
+    "loadingRouteHint": "Just a moment while this screen loads."
   },
   "search": {
     "placeholder": "কুরআন, হাদিস, দোয়া, আযকার অনুসন্ধান…",
@@ -471,6 +473,47 @@
     "afterSalahProgress": "আযকার {{completed}}/{{total}}",
     "afterSalahProgressA11y": "{{prayer}}-এর পর আযকার: আজ {{total}}-এর {{completed}} সম্পন্ন"
   },
+  "update": {
+    "title": "আপডেট উপলব্ধ",
+    "hardTitle": "আপডেট প্রয়োজন",
+    "availableBadge": "নতুন সংস্করণ",
+    "requiredBadge": "প্রয়োজন",
+    "yourVersion": "আপনার সংস্করণ",
+    "latestVersion": "সর্বশেষ",
+    "body": "সংস্করণ {{version}} সর্বশেষ উন্নতি ও সংশোধন নিয়ে প্রস্তুত।",
+    "hardBody": "অ্যাপ ব্যবহার চালিয়ে যেতে সংস্করণ {{version}}-এ আপডেট করুন।",
+    "hardNote": "চালিয়ে যেতে এই আপডেট প্রয়োজন।",
+    "updateButton": "এখনই আপডেট করুন",
+    "webReloadButton": "পুনরায় লোড",
+    "webSoftRefreshHint": "সর্বশেষ সংস্করণ পেতে পুনরায় লোড করুন। আপনার ডেটা এই ডিভাইসেই থাকবে।",
+    "webHardRefreshHint": "উপরে «পুনরায় লোড» ট্যাপ করুন। এই বার্তা বারবার দেখালে জোর করে রিফ্রেশ করুন: Windows/Linux-এ Ctrl+Shift+R, অথবা macOS-এ Cmd+Shift+R।"
+  },
+  "reviews": {
+    "rateTitle": "Munib Tracker পছন্দ করছেন?",
+    "rateSubtitle": "আপনার মতামত অন্য মুসলমানদের এই অ্যাপ খুঁজে পেতে সাহায্য করে।",
+    "starLabel": "{{count}}টি তারা",
+    "starLabel_other": "{{count}}টি তারা",
+    "storeTitle": "ধন্যবাদ!",
+    "storeBody": "অ্যাপ স্টোরে Munib Tracker-কে রেটিং দেবেন? মাত্র এক মুহূর্ত লাগবে।",
+    "storeCta": "অ্যাপ স্টোরে রেটিং দিন",
+    "maybeLater": "পরে হয়তো",
+    "feedbackTitle": "আমাদের উন্নতিতে সাহায্য করুন",
+    "feedbackBody": "দুঃখিত, Munib Tracker আপনার প্রত্যাশা পূরণ করতে পারেনি। আমরা কীভাবে ভালো করতে পারি?",
+    "feedbackPlaceholder": "কী ভুল হয়েছে বা কী কম আছে জানান…",
+    "feedbackCta": "মতামত পাঠান",
+    "feedbackOffline": "মতামত পাঠাতে ইন্টারনেটে সংযুক্ত হন।",
+    "feedbackError": "মতামত পাঠানো যায়নি। আবার চেষ্টা করুন।",
+    "skip": "এড়িয়ে যান",
+    "thanksTitle": "ধন্যবাদ!",
+    "thanksBody": "আপনার সমর্থন আমাদের কাছে অনেক মূল্যবান।",
+    "feedbackThanksTitle": "মতামত গ্রহণ হয়েছে",
+    "feedbackThanksBody": "আমরা আপনার মতামত দিয়ে Munib Tracker উন্নত করব।",
+    "starLabel_one": "১টি তারা"
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "আপনি দারুণ করছেন",
+    "reviewReactivationBody": "Munib Tracker নিয়ে আপনার অভিজ্ঞতা শেয়ার করতে চান?"
+  },
   "settings": {
     "eyebrow": "ব্যক্তিগতকরণ",
     "title": "সেটিংস",
@@ -501,6 +544,18 @@
     "qiblaSub": "নামাজের দিক খুঁজুন",
     "about": "সম্পর্কে",
     "aboutSub": "সংস্করণ, কৃতিত্ব ও নীতিমালা",
+    "rateApp": "Munib Tracker রেটিং দিন",
+    "rateAppDesc": "অ্যাপ স্টোরে আপনার অভিজ্ঞতা শেয়ার করুন",
+    "reviewReactivationEnabled": "অ্যাপ মতামতের অনুস্মারক",
+    "reviewReactivationEnabledDesc": "মাঝে মাঝে নরম অনুস্মারক অ্যাপে মতামত শেয়ার করতে — সরাসরি স্টোর রেটিংয়ের অনুরোধ নয়।",
+    "appUpdate": "অ্যাপ আপডেট",
+    "updateAvailableTitle": "আপডেট উপলব্ধ",
+    "updateRequiredTitle": "আপডেট প্রয়োজন",
+    "updateAvailableDesc": "সংস্করণ {{latest}} উপলব্ধ। আপনি {{current}}-এ আছেন।",
+    "updateRequiredDesc": "অ্যাপ ব্যবহার চালিয়ে যেতে সংস্করণ {{latest}}-এ আপডেট করুন।",
+    "updateNow": "এখনই আপডেট করুন",
+    "viewUpdateDetails": "বিবরণ দেখুন",
+    "remindInSettings": "সেটিংসে আমাকে মনে করিয়ে দিন",
     "import": "নামাজের ইতিহাস আমদানি",
     "importSub": "JSON বা CSV ফাইল থেকে অতীত দিনগুলো পূরণ করুন",
     "footer": "{{app}} · নিয়তের সাথে তৈরি",
@@ -549,19 +604,7 @@
         "name": "আলী ইবনে আহমাদ মালা",
         "location": "আল-মসজিদুল হারাম"
       }
-    },
-    "rateApp": "Munib Tracker রেটিং দিন",
-    "rateAppDesc": "অ্যাপ স্টোরে আপনার অভিজ্ঞতা শেয়ার করুন",
-    "reviewReactivationEnabled": "অ্যাপ মতামতের অনুস্মারক",
-    "reviewReactivationEnabledDesc": "মাঝে মাঝে নরম অনুস্মারক অ্যাপে মতামত শেয়ার করতে — সরাসরি স্টোর রেটিংয়ের অনুরোধ নয়।",
-    "appUpdate": "অ্যাপ আপডেট",
-    "updateAvailableTitle": "আপডেট উপলব্ধ",
-    "updateRequiredTitle": "আপডেট প্রয়োজন",
-    "updateAvailableDesc": "সংস্করণ {{latest}} উপলব্ধ। আপনি {{current}}-এ আছেন।",
-    "updateRequiredDesc": "অ্যাপ ব্যবহার চালিয়ে যেতে সংস্করণ {{latest}}-এ আপডেট করুন।",
-    "updateNow": "এখনই আপডেট করুন",
-    "viewUpdateDetails": "বিবরণ দেখুন",
-    "remindInSettings": "সেটিংসে আমাকে মনে করিয়ে দিন"
+    }
   },
   "import": {
     "title": "prayer history আমদানি",
@@ -771,7 +814,7 @@
       "qazaBody": "Make up  মিস নামাজ অথবা রোজা আজ.",
       "achievementTitle": "অর্জন আনলক",
       "dailyContentTitle": "আজকের reflection",
-      "dailyContentBody": " নতুন verse, হাদিস, এবং name এর আল্লাহ হয় ready এ আপনার হোম screen.",
+      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
       "fridayTitle": "জুমুআ মোবারক",
       "fridayBody": "It's Friday — send salawat এবং read Surah Al-Kahf."
     },
@@ -1090,6 +1133,14 @@
     "searching": "Mencari… ",
     "secondTranslation": "Second অনুবাদ",
     "secondTranslationNone": "Tidak ada",
+    "selectTranslator": "অনুবাদক বেছে নিন — {{language}}",
+    "translationCount_one": "{{count}}টি অনুবাদ",
+    "translationCount_other": "{{count}}টি অনুবাদ",
+    "translationBundled": "অফলাইনে উপলব্ধ",
+    "translationRemote": "প্রয়োজনে ডাউনলোড হয়",
+    "backToLanguages": "সব ভাষা",
+    "searchTranslationLanguages": "ভাষা খুঁজুন…",
+    "searchTranslators": "অনুবাদক খুঁজুন…",
     "pages": "পৃষ্ঠা",
     "pagesSubtitle": "Browse  Madani mushaf by page",
     "pageN": "পৃষ্ঠা {{n}}",
@@ -1108,15 +1159,7 @@
     "prevPage": "পূর্ববর্তী page",
     "nextPage": "পরবর্তী page",
     "openPageView": "page view খুলুন",
-    "continueAtPage": "পৃষ্ঠা {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "অনুবাদক বেছে নিন — {{language}}",
-    "translationCount_one": "{{count}}টি অনুবাদ",
-    "translationCount_other": "{{count}}টি অনুবাদ",
-    "translationBundled": "অফলাইনে উপলব্ধ",
-    "translationRemote": "প্রয়োজনে ডাউনলোড হয়",
-    "backToLanguages": "সব ভাষা",
-    "searchTranslationLanguages": "ভাষা খুঁজুন…",
-    "searchTranslators": "অনুবাদক খুঁজুন…"
+    "continueAtPage": "পৃষ্ঠা {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "নববী tradition",
@@ -1230,7 +1273,7 @@
     },
     "duha": {
       "summary": " forenoon নামাজ — typically two তে eight rak'ahs between sunrise এবং যোহর.",
-      "why": "Charity হয় due এ every joint এর  body each দিন; even  few rak'ahs এর Duha fulfills সেই charity জন্য  limbs through ইবাদত.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
       "benefits": "Forgives sins, brings sustenance (rizq), এবং revives  neglected sunnah. Flexible timing makes it accessible when  দিন allows."
     },
     "dhuhr": {
@@ -1367,7 +1410,7 @@
     "consistencyTitle": "ধারাবাহিকতা over intensity",
     "consistencyHadith": " most beloved deeds তে আল্লাহ হয় those সেই হয় ধারাবাহিক, even if they হয় small.",
     "consistencySource": "হাদিস — Bukhari & Muslim",
-    "consistencyPrinciple": " steady daily পরিকল্পনা usually clears  large backlog more reliably than  aggressive sprint সেই burns out.",
+    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
     "prayersPerDay": "prayers / দিন",
     "dailyTimeLabel": "est. time / দিন",
     "dailyTimeMinutes": "≈ {{count}} মিনিট",
@@ -1707,7 +1750,7 @@
         "description_one": "সম্পন্ন {{count}} ফরজ নামাজ",
         "titles": {
           "0": "Langkah Pertama",
-          "1": "Steady Mulai",
+          "1": "Steady Start",
           "2": "দৈনিক Worshipper",
           "3": "বিশ্বস্ত বান্দা",
           "4": "নিবেদিত",
@@ -1747,7 +1790,7 @@
         "titles": {
           "0": "প্রথম Remembrance",
           "1": "জাগ্রত হৃদয়",
-          "2": "Steady যিকির",
+          "2": "Steady Zikr",
           "3": "অবিরাম স্মরণ",
           "4": "Zikir",
           "5": "Hundred Sesi",
@@ -1863,7 +1906,7 @@
     "compassLabel": "কিবলা compass",
     "compassValue": "{{bearing}} degrees তে  Kaaba, {{distance}} away",
     "aligned": "Aligned সহ  কিবলা",
-    "alignedHint": "Hold steady — you're facing  Kaaba",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
     "turnFineTuneLeft": "Geser left",
     "turnFineTuneRight": "Geser right",
     "turnSlightLeft": "Sedikit ke left",
@@ -1903,7 +1946,7 @@
     "syncing": "Menyinkronkan…",
     "done": "আপনার data হয় backed up",
     "failed": "Couldn't sync. Check আপনার connection এবং try again.",
-    "mergeNoChanges": "Everything was already up তে date",
+    "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} গ্রহণ · {{sent}} পাঠানো",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest সম্পাদনা",
     "conflictAffected": "প্রভাবিত: {{list}}",
@@ -2077,7 +2120,7 @@
     "eyebrow": " Noble কুরআন",
     "short": "খতম",
     "title": "খতম পরিকল্পনা",
-    "subtitle": "Finish  কুরআন at  steady গতি",
+    "subtitle": "Finish the Qur'an at a steady pace",
     "startTitle": "a plan শুরু",
     "startHint": "how many days to complete the কুরআন. We'll set a daily ayah target. বেছে নিন",
     "startHintPages": "how many days to complete the কুরআন. We'll set a daily mushaf page target. বেছে নিন",
@@ -2158,12 +2201,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": " খতম built এ steady daily পড়া lasts longer than  sprint সেই burns out.",
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
         "source": "Principle এর ধারাবাহিকতা"
       },
       "portion": {
         "text": "আপনি do not have তে finish আজ — only honour today's portion সহ sincerity.",
-        "source": "Steady অগ্রগতি"
+        "source": "Steady progress"
       },
       "return": {
         "text": "If আপনি fall behind, do not abandon  পরিকল্পনা. Resume সহ today's ayahs এবং move forward.",
@@ -2435,7 +2478,7 @@
     "meaningLabel": "Apa it teaches",
     "progressTitle": "আমার learning progress",
     "progressSubtitle": "lessons — not spiritual rank with আল্লাহ ট্র্যাক",
-    "progressIntro": "এই dashboard tracks আপনার study এবং অভ্যাস এ Munib. Completing lessons does not measure আপনার standing সহ আল্লাহ — sincerity does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Pelajaran সম্পন্ন",
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2493,7 +2536,7 @@
     "quickLessons": "Pelajaran cards",
     "quickLessonsHint": "Leadership এবং spiritual takeaways থেকে each battle",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read এবং study অগ্রগতি",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -2532,7 +2575,7 @@
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
     "lessonsIntro": "These হয় moral এবং leadership lessons — not military tactics manuals.",
     "progressTitle": "আমার learning",
-    "progressSubtitle": "study — not spiritual rank with আল্লাহ ট্র্যাক",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "এই dashboard tracks topics আপনি have read এ Munib. Knowledge হয়  means; sincerity সহ আল্লাহ হয়  goal.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Explore timeline, verses, glossary, এবং lesson cards",
@@ -2643,7 +2686,7 @@
     "quizTitle": "পর্যালোচনা কুইজ",
     "quizSubtitle": "Test আপনার understanding — not আপনার standing সহ আল্লাহ",
     "quizHint": "Timeline, definitions, এবং reflection",
-    "quizIntro": "Use এই কুইজ তে find gaps, then study those topics. It হয় not  spiritual স্কোর.",
+    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
     "quizProgress": "প্রশ্ন {{current}} এর {{total}}",
     "quizComplete": "সম্পূর্ণ ক্যুইজ",
     "quizScore": "{{score}} of {{total}} স্কোর করা প্রশ্ন সঠিক",
@@ -2681,7 +2724,7 @@
       "learningHint": "Topics completed এ এই module"
     },
     "progressTitle": "Learning অগ্রগতি",
-    "progressSubtitle": "study — not spiritual rank with আল্লাহ ট্র্যাক",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "topics complete as you read. Knowledge is a means; sincerity with আল্লাহ is the goal. চিহ্নিত করুন",
     "lessonsTitle": "Topik সম্পন্ন",
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
@@ -2719,9 +2762,9 @@
     "quickGhusl": "গhusl guide",
     "quickGhuslHint": "Penuh bath when major impurity occurs",
     "quickChecklist": "দৈনিক checklist",
-    "quickChecklistHint": "Habits সেই keep আপনি ready জন্য নামাজ",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read এবং study অগ্রগতি",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -2790,7 +2833,7 @@
     "quickLessons": "Pelajaran",
     "quickLessonsHint": "Moral এবং spiritual takeaways",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read এবং study অগ্রগতি",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -2814,7 +2857,7 @@
     "profileTitle": "প্রোফাইল",
     "progressTitle": "আমার learning progress",
     "progressSubtitle": "lessons — not spiritual rank with আল্লাহ ট্র্যাক",
-    "progressIntro": "topics complete as you study the lives of the prophets. চিহ্নিত করুন",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "Topik সম্পন্ন",
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2860,7 +2903,7 @@
     "quickGlossary": "Glosari",
     "quickGlossaryHint": "Key creed শর্ত defined",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read এবং study অগ্রগতি",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -2921,7 +2964,7 @@
     "quickOccasions": "Oleh occasion",
     "quickOccasionsHint": "Browse duas জন্য every moment",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read এবং study অগ্রগতি",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -3023,7 +3066,7 @@
     "reflectionTitle": "চিন্তা",
     "openInQuran": "in কুরআন reader খুলুন",
     "progressTitle": "আমার learning",
-    "progressSubtitle": "study — not spiritual rank with আল্লাহ ট্র্যাক",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "এই dashboard tracks lessons আপনি have studied এ Munib. আল্লাহ knows what হয় এ আপনার heart.",
     "lessonsTitle": "Pelajaran",
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
@@ -3038,7 +3081,7 @@
     "practiceTitle": "অভ্যাস",
     "lettersTitle": "আrabic অক্ষর",
     "lettersSubtitle": "28 অক্ষর সহ নাম, sounds, এবং examples",
-    "lettersIntro": "Study one letter per দিন — see, hear, say, write.",
+    "lettersIntro": "Study one letter per day — see, hear, say, write.",
     "pronunciationTitle": "উচ্চারণ",
     "pronunciationSubtitle": "কঠিন অক্ষর জোড়া mastered",
     "pronunciationIntro": "Compare similar sounds side by side — record yourself এবং listen ফিরে.",
@@ -3048,7 +3091,7 @@
     "levelBadge": "লেভেল {{level}}",
     "hifzTitle": "মুখস্থ",
     "hifzSubtitle": "Plans থেকে Juz Amma তে full হিফজ",
-    "hifzIntro": "Revision হয়  secret — never যোগ নতুন ayahs without reviewing old ones.",
+    "hifzIntro": "পুনরাবৃত্তিই মূল কথা — পুরনো আয়াত না দেখে কখনো নতুন আয়াত যোগ করবেন না।",
     "hifzSurahs": "Surahs এ এই পরিকল্পনা",
     "openQuranHifz": "কুরআন & hifz tracker খুলুন",
     "tadabburTitle": "Refleksi (Tadabbur)",
@@ -3064,7 +3107,7 @@
     "challengeDone": "Challenge completed — may আল্লাহ accept",
     "quizTitle": "কুরআন কুইজ",
     "quizSubtitle": "Test আপনার understanding — not আপনার standing সহ আল্লাহ",
-    "quizIntro": "Use each question তে find  gap, then study সেই topic. এই হয় পর্যালোচনা, not  spiritual স্কোর.",
+    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
     "quizProgress": "প্রশ্ন {{current}} এর {{total}}",
     "quizComplete": "সম্পূর্ণ ক্যুইজ",
     "quizScore": "{{score}} of {{total}} স্কোর করা প্রশ্ন সঠিক",
@@ -3225,7 +3268,7 @@
       "purpose": {
         "title": "Why যাকাত — purpose & wisdom",
         "summary": "It purifies wealth এবং  soul, এবং lifts  poor",
-        "body": "আল্লাহ says এর যাকাত: \"Take থেকে their wealth  charity by which আপনি purify them এবং cause them তে grow\" (কুরআন 9:103).  obligation works এ two স্তর at once — it purifies  giver's soul থেকে stinginess এবং love এর  world, এবং it purifies  wealth itself so সেই what stays এ আপনার hand হয় wholesome এবং blessed.\n\nSocially, যাকাত হয়  divinely ordered system এর circulation. When  Prophet ﷺ sent Mu'adh তে Yemen he instructed সেই যাকাত be taken থেকে their rich এবং given তে their poor. Wealth হয় not meant তে pile up among  few; যাকাত pulls it ফিরে into motion so  needy হয় fed, debtors হয় freed, এবং  community's bonds হয় strengthened.\n\nSpiritually, giving যাকাত হয়  act এর gratitude এবং trust. It answers  human urge তে hoard সহ  certainty সেই provision comes থেকে আল্লাহ, এবং it trains  believer তে love giving.  one who pays যাকাত willingly finds their wealth protected, their heart lightened, এবং their reward stored সহ their Lord — \"there will be no fear concerning them, nor will they grieve\" (কুরআন 2:277)."
+        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
       },
       "hawl": {
         "title": " চান্দ্র year (hawl)",
@@ -3250,12 +3293,12 @@
       "debts": {
         "title": "Utang & ছাড়",
         "summary": "Immediate debts may be deducted আগে calculating 2.5%",
-        "body": "যাকাত হয় calculated এ আপনার net zakatable wealth, so genuine debts আপনি owe can reduce  amount এ which আপনি pay.  clearest case হয় debts due now —  unpaid personal loan,  outstanding credit-card balance, rent অথবা bills already owed. Most আলেমগণ allow these তে be subtracted থেকে আপনার gross wealth before আপনি প্রয়োগ  2.5%.\n\nLong-term debts such as  mortgage অথবা  multi-year instalment পরিকল্পনা হয় handled সহ more care, because deducting  entire balance would wipe out  যাকাত এর almost anyone সহ  হোম loan.  common contemporary approach হয় তে deduct only  payments due within  coming year, not  whole outstanding sum. Schools এবং আলেমগণ differ here, so pick  ধারাবাহিক method under guidance.\n\nTwo cautions. First, do not treat future অথবা hypothetical expenses as deductible debts — only what আপনি actually owe counts. Second, do not subtract last year's unpaid যাকাত as if it were  ordinary ঋণ; unpaid যাকাত remains  due obligation এবং should simply be paid. When আপনার ঋণ situation হয় complex,  scholar's ruling হয় worth more than  rough guess."
+        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
       },
       "recipients": {
         "title": "Who may receive যাকাত",
         "summary": "Eight categories named এ কুরআন 9:60",
-        "body": "যাকাত may only be given তে  categories এর people আল্লাহ Himself named এ Surah at-তাওবা (9:60). এই হয় one এর  few acts এর ইবাদত where  recipients হয় fixed by revelation, not left তে  giver's preference.  eight categories হয়:  poor (al-fuqara);  needy (al-masakin); those employed তে collect এবং administer যাকাত; those whose hearts হয় তে be reconciled (al-mu'allafah);  freeing এর captives এবং those এ bondage (fi'r-riqab);  ঋণ-burdened (al-gharimin); এ  cause এর আল্লাহ (fi sabil আল্লাহ); এবং  stranded traveller (ibn as-sabil).\n\nIt হয় not প্রয়োজনীয় তে give তে সব eight; giving আপনার যাকাত তে even one eligible category fulfils  obligation, এবং directing it তে  poor এবং needy হয়  most common অভ্যাস.\n\nEqually important হয় who may not receive it. যাকাত cannot be given তে  wealthy, nor তে those আপনি হয় already obliged তে support — আপনার parents, আপনার children, অথবা আপনার spouse — since supporting them হয়  duty আপনি owe anyway. এ  classical view it হয়  personal transfer এর ownership তে  eligible individual, not  general donation; আলেমগণ differ এ whether institutions such as masjids অথবা broad public projects qualify under  cause এর আল্লাহ. It also cannot be given তে  family এর  Prophet ﷺ,  Banu Hashim, as যাকাত. Aim it deliberately at people who match  কুরআনic categories."
+        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
       },
       "otherRates": {
         "title": "Other types এর যাকাত & যাকাত al-fitr",
@@ -3265,7 +3308,7 @@
       "mistakes": {
         "title": "Common mistakes তে avoid",
         "summary": "Errors সেই make যাকাত invalid অথবা miscalculated",
-        "body": "Even sincere Muslims often slip এ  practical details এর যাকাত. Knowing  common errors helps আপনি pay correctly এবং সহ peace এর mind.\n\nForgetting  hawl অথবা  anniversary: paying at  random time, অথবা skipping years, leaves  outstanding obligation. Fix one হিজরি date each year এবং assess আপনার wealth এ it.\n\nMiscounting wealth: valuing gold অথবা shares at their purchase price instead এর today's market value, forgetting cash held এ multiple accounts অথবা currencies, অথবা overlooking business inventory এবং money owed তে আপনি. যাকাত হয় এ everything zakatable সেই আপনি own এ আপনার date.\n\nGiving তে  wrong people: handing যাকাত তে parents, children, অথবা  spouse আপনি already support, অথবা treating it as  generic donation তে any good cause. It must reach one এর  eight কুরআনic categories.\n\nIntention errors: giving generously সব year but never intending any এর it as যাকাত. যাকাত হয়  act এর ইবাদত এবং needs  intention (niyyah) সেই এই particular payment হয় আপনার ফরজ যাকাত.\n\nOver-deducting debts: subtracting  whole long-term mortgage, অথবা future expenses সেই হয় not yet owed, তে shrink  bill. Only real, current liabilities reduce আপনার zakatable wealth. When any এর these হয় unclear জন্য আপনার situation, ask  qualified আলেম rather than assume."
+        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
       }
     },
     "recipientsListTitle": " eight categories",
@@ -3309,7 +3352,7 @@
     "nisabWeightNote": "Exact weights এবং which metal তে prefer vary slightly between schools.  ক্যালকুলেটর uses these widely cited Hanafi figures.",
     "quran": [
       {
-        "excerpt": "যাকাত expenditures হয় only জন্য  poor এবং জন্য  needy এবং জন্য those employed তে collect it এবং জন্য bringing hearts together এবং জন্য freeing captives এবং জন্য those এ ঋণ এবং জন্য  cause এর আল্লাহ এবং জন্য  wayfarer —  obligation থেকে আল্লাহ. এবং আল্লাহ হয় Knowing এবং Wise."
+        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
         "excerpt": "Take থেকে their wealth  charity by which আপনি purify them এবং cause them তে grow, এবং invoke blessings upon them. Indeed, আপনার invocation হয় reassurance জন্য them. এবং আল্লাহ হয় Hearing এবং Knowing."
@@ -3390,7 +3433,7 @@
       "stocks": "Current market value এর shares, funds, এবং similar investments.",
       "business": "Value এর merchandise, inventory, এবং goods held জন্য sale.",
       "receivables": "Loans এবং invoices আপনি reasonably expect তে collect.",
-      "rentalIncome": "Rental অথবা business profits আপনি still hold — not already spent.",
+      "rentalIncome": "Rental or business profits you still hold — not already spent.",
       "otherAssets": "Cryptocurrency, accessible retirement funds, অথবা other zakatable wealth per আপনার আলেম.",
       "debts": "Personal loans, credit cards, এবং bills due now — not long-term mortgage totals unless আপনার আলেম allows.",
       "nisab": "Leave blank তে use  computed threshold, অথবা enter  কাস্টম nisab."
@@ -3494,7 +3537,7 @@
     "confirmDiscardTitle": "পরিবর্তন বাতিল করবেন?",
     "confirmDiscardMsg": "Anything আপনি wrote will be lost.",
     "confirmOverwriteTitle": "Replace existing refleksi?",
-    "confirmOverwriteMsg": "আপনি already noted {{prayer}} জন্য এই দিন. Saving will replace it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "মনোযোগহীন",
     "level2": "অস্থির",
     "level3": "যথেষ্ট উপস্থিত",
@@ -3583,7 +3626,7 @@
     "versesLead": "ট্যাপ any verse তে খুলুন it এ  কুরআন reader.",
     "journeyTitle": "আমার Journey",
     "journeySummary": "আজকের habits — not your rank with আল্লাহ",
-    "journeySubtitle": "ধারাবাহিকতা এ ইবাদত আপনি already ট্র্যাক",
+    "journeySubtitle": "Consistency in worship you already track",
     "journeyBanner": "These habits হয় among  deeds আল্লাহ loves. আপনার final rank হয় only সহ Him.",
     "journeyToday": "আজকের striving",
     "journeyEmpty": "with one prayer or adhkar — small steps build lifelong habits. শুরু",
@@ -3955,46 +3998,5 @@
     "after1Min": "১ মিনিট পর",
     "after5Min": "৫ মিনিট পর",
     "footer": "আপনার PIN হয় stored securely এ এই ডিভাইস এবং never leaves it."
-  },
-  "update": {
-    "title": "আপডেট উপলব্ধ",
-    "hardTitle": "আপডেট প্রয়োজন",
-    "availableBadge": "নতুন সংস্করণ",
-    "requiredBadge": "প্রয়োজন",
-    "yourVersion": "আপনার সংস্করণ",
-    "latestVersion": "সর্বশেষ",
-    "body": "সংস্করণ {{version}} সর্বশেষ উন্নতি ও সংশোধন নিয়ে প্রস্তুত।",
-    "hardBody": "অ্যাপ ব্যবহার চালিয়ে যেতে সংস্করণ {{version}}-এ আপডেট করুন।",
-    "hardNote": "চালিয়ে যেতে এই আপডেট প্রয়োজন।",
-    "updateButton": "এখনই আপডেট করুন",
-    "webReloadButton": "পুনরায় লোড",
-    "webSoftRefreshHint": "সর্বশেষ সংস্করণ পেতে পুনরায় লোড করুন। আপনার ডেটা এই ডিভাইসেই থাকবে।",
-    "webHardRefreshHint": "উপরে «পুনরায় লোড» ট্যাপ করুন। এই বার্তা বারবার দেখালে জোর করে রিফ্রেশ করুন: Windows/Linux-এ Ctrl+Shift+R, অথবা macOS-এ Cmd+Shift+R।"
-  },
-  "reviews": {
-    "rateTitle": "Munib Tracker পছন্দ করছেন?",
-    "rateSubtitle": "আপনার মতামত অন্য মুসলমানদের এই অ্যাপ খুঁজে পেতে সাহায্য করে।",
-    "starLabel": "{{count}}টি তারা",
-    "starLabel_one": "১টি তারা",
-    "starLabel_other": "{{count}}টি তারা",
-    "storeTitle": "ধন্যবাদ!",
-    "storeBody": "অ্যাপ স্টোরে Munib Tracker-কে রেটিং দেবেন? মাত্র এক মুহূর্ত লাগবে।",
-    "storeCta": "অ্যাপ স্টোরে রেটিং দিন",
-    "maybeLater": "পরে হয়তো",
-    "feedbackTitle": "আমাদের উন্নতিতে সাহায্য করুন",
-    "feedbackBody": "দুঃখিত, Munib Tracker আপনার প্রত্যাশা পূরণ করতে পারেনি। আমরা কীভাবে ভালো করতে পারি?",
-    "feedbackPlaceholder": "কী ভুল হয়েছে বা কী কম আছে জানান…",
-    "feedbackCta": "মতামত পাঠান",
-    "feedbackOffline": "মতামত পাঠাতে ইন্টারনেটে সংযুক্ত হন।",
-    "feedbackError": "মতামত পাঠানো যায়নি। আবার চেষ্টা করুন।",
-    "skip": "এড়িয়ে যান",
-    "thanksTitle": "ধন্যবাদ!",
-    "thanksBody": "আপনার সমর্থন আমাদের কাছে অনেক মূল্যবান।",
-    "feedbackThanksTitle": "মতামত গ্রহণ হয়েছে",
-    "feedbackThanksBody": "আমরা আপনার মতামত দিয়ে Munib Tracker উন্নত করব।"
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "আপনি দারুণ করছেন",
-    "reviewReactivationBody": "Munib Tracker নিয়ে আপনার অভিজ্ঞতা শেয়ার করতে চান?"
   }
 }

@@ -57,6 +57,8 @@
     "search": "Search",
     "notifications": "Notifications",
     "goBack": "Go back",
+    "loadingRoute": "Preparing…",
+    "loadingRouteHint": "Just a moment while this screen loads.",
     "count": "Count",
     "minus": "Minus",
     "set": "Set",

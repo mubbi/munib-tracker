@@ -3,32 +3,11 @@ import type { AppLocale } from "@munib-tracker/shared/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import { preloadContentOverlays } from "@/lib/content-overlay-registry";
 import { applyRtlForLocale, willRequireNativeReloadForLocale } from "@/lib/i18n/rtl";
 import { completeAllStaggerEntrances } from "@/lib/stagger-entrances";
 
-import ar from "./ar.json";
-import az from "./az.json";
-import bn from "./bn.json";
-import bs from "./bs.json";
 import en from "./en.json";
-import fa from "./fa.json";
-import fr from "./fr.json";
-import ha from "./ha.json";
-import id from "./id.json";
-import kk from "./kk.json";
-import ku from "./ku.json";
-import ky from "./ky.json";
-import ms from "./ms.json";
-import ps from "./ps.json";
-import ru from "./ru.json";
-import so from "./so.json";
-import sq from "./sq.json";
-import sw from "./sw.json";
-import tg from "./tg.json";
-import tk from "./tk.json";
-import tr from "./tr.json";
-import ur from "./ur.json";
-import uz from "./uz.json";
 
 const SUPPORTED = APP_LOCALE_CODES;
 
@@ -38,35 +17,38 @@ export const PENDING_APP_LOCALE_KEY = "@munib-tracker/pending-app-locale";
 /** Set when a JS reload was already attempted for RTL layout but direction still mismatches. */
 export const RTL_LAYOUT_RETRY_KEY = "@munib-tracker/rtl-layout-retry";
 
-const CATALOG_BY_LOCALE: Record<AppLocale, object> = {
-  en,
-  ar,
-  ur,
-  id,
-  tr,
-  bn,
-  ms,
-  fa,
-  fr,
-  ha,
-  sw,
-  ru,
-  az,
-  ps,
-  so,
-  uz,
-  kk,
-  ku,
-  bs,
-  sq,
-  ky,
-  tg,
-  tk,
+type Catalog = typeof en;
+
+/**
+ * Dynamic import map so Metro/web can code-split locale JSON. English stays in
+ * the entry graph; other catalogs load on first use (boot locale or language change).
+ */
+const LOCALE_LOADERS: Record<Exclude<AppLocale, "en">, () => Promise<{ default: Catalog }>> = {
+  ar: () => import("./ar.json"),
+  ur: () => import("./ur.json"),
+  id: () => import("./id.json"),
+  tr: () => import("./tr.json"),
+  bn: () => import("./bn.json"),
+  ms: () => import("./ms.json"),
+  fa: () => import("./fa.json"),
+  fr: () => import("./fr.json"),
+  ha: () => import("./ha.json"),
+  sw: () => import("./sw.json"),
+  ru: () => import("./ru.json"),
+  az: () => import("./az.json"),
+  ps: () => import("./ps.json"),
+  so: () => import("./so.json"),
+  uz: () => import("./uz.json"),
+  kk: () => import("./kk.json"),
+  ku: () => import("./ku.json"),
+  bs: () => import("./bs.json"),
+  sq: () => import("./sq.json"),
+  ky: () => import("./ky.json"),
+  tg: () => import("./tg.json"),
+  tk: () => import("./tk.json"),
 };
 
-const I18N_RESOURCES = Object.fromEntries(
-  SUPPORTED.map((code) => [code, { translation: CATALOG_BY_LOCALE[code] }]),
-);
+const loadedLocales = new Set<AppLocale>(["en"]);
 
 export function getSupportedLocales(): readonly AppLocale[] {
   return SUPPORTED;
@@ -76,22 +58,43 @@ function isSupportedLocale(value: string | null | undefined): value is AppLocale
   return value != null && (SUPPORTED as readonly string[]).includes(value);
 }
 
-function ensureI18nInit(lng: AppLocale): Promise<void> {
-  if (i18n.isInitialized) {
-    if (i18n.language === lng) return Promise.resolve();
-    return i18n.changeLanguage(lng).then(() => undefined);
+async function ensureCatalogLoaded(lng: AppLocale): Promise<void> {
+  if (loadedLocales.has(lng) || lng === "en") return;
+
+  let catalog: Catalog;
+  if (process.env.NODE_ENV === "test") {
+    // Jest CJS VM cannot evaluate native `import()` without --experimental-vm-modules.
+    // Static require map lives in a separate module so Metro accepts it and production
+    // tree-shaking can drop the test branch (keeps async locale code-splits).
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { LOCALE_SYNC_LOADERS } = require("./locale-sync-loaders") as typeof import("./locale-sync-loaders");
+    catalog = LOCALE_SYNC_LOADERS[lng]();
+  } else {
+    const mod = await LOCALE_LOADERS[lng]();
+    catalog = mod.default;
   }
-  return i18n
-    .use(initReactI18next)
-    .init({
-      resources: I18N_RESOURCES,
-      lng,
+
+  i18n.addResourceBundle(lng, "translation", catalog, true, true);
+  loadedLocales.add(lng);
+}
+
+async function ensureI18nInit(lng: AppLocale): Promise<void> {
+  if (!i18n.isInitialized) {
+    await i18n.use(initReactI18next).init({
+      resources: { en: { translation: en } },
+      lng: "en",
       fallbackLng: "en",
       interpolation: { escapeValue: false },
       returnNull: false,
       react: { useSuspense: false },
-    })
-    .then(() => undefined);
+    });
+  }
+
+  await ensureCatalogLoaded(lng);
+
+  if (i18n.language !== lng) {
+    await i18n.changeLanguage(lng);
+  }
 }
 
 if (!i18n.isInitialized) {
@@ -107,6 +110,15 @@ export function consumePendingRtlReloadLocale(): AppLocale | null {
   return locale;
 }
 
+async function finishLocaleSwitch(code: AppLocale): Promise<void> {
+  if (i18n.language !== code) {
+    await i18n.changeLanguage(code);
+    completeAllStaggerEntrances();
+  }
+  // Prefetch Learn overlays for this locale in the background (English until ready).
+  void preloadContentOverlays(code);
+}
+
 export async function changeAppLocale(
   code: AppLocale,
   options?: { deferReload?: boolean },
@@ -118,10 +130,7 @@ export async function changeAppLocale(
       // wrong — proceed with strings so startup cannot brick on the splash screen.
       await AsyncStorage.multiRemove([PENDING_APP_LOCALE_KEY, RTL_LAYOUT_RETRY_KEY]);
       await ensureI18nInit(code);
-      if (i18n.language !== code) {
-        await i18n.changeLanguage(code);
-        completeAllStaggerEntrances();
-      }
+      await finishLocaleSwitch(code);
       return false;
     }
 
@@ -130,10 +139,7 @@ export async function changeAppLocale(
 
     // Apply UI strings before any native reload so splash dismissal is not blocked.
     await ensureI18nInit(code);
-    if (i18n.language !== code) {
-      await i18n.changeLanguage(code);
-      completeAllStaggerEntrances();
-    }
+    await finishLocaleSwitch(code);
 
     if (options?.deferReload) {
       pendingRtlReloadLocale = code;
@@ -148,10 +154,7 @@ export async function changeAppLocale(
   // Apply `document.dir` before `changeLanguage` so any i18n-driven re-render
   // and `isRTL()` (which reads the saved locale) agree on direction.
   const rtlApplied = await applyRtlForLocale(code);
-  if (i18n.language !== code) {
-    await i18n.changeLanguage(code);
-    completeAllStaggerEntrances();
-  }
+  await finishLocaleSwitch(code);
   return rtlApplied;
 }
 

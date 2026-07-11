@@ -1,7 +1,21 @@
+import * as Network from "expo-network";
 import { useEffect, useState } from "react";
 import { Platform } from "react-native";
 
-/** Best-effort online detection for version polling (no NetInfo dependency). */
+function isReachable(state: {
+  isConnected?: boolean | null;
+  isInternetReachable?: boolean | null;
+}): boolean {
+  if (state.isConnected === false) return false;
+  // null means "unknown" on some platforms — treat as online so we still try sync.
+  if (state.isInternetReachable === false) return false;
+  return true;
+}
+
+/**
+ * Online detection for sync / version polls / review submission.
+ * Web uses `navigator.onLine`; native uses expo-network.
+ */
 export function useIsOnline(): boolean {
   const [online, setOnline] = useState(true);
 
@@ -17,7 +31,21 @@ export function useIsOnline(): boolean {
         window.removeEventListener("offline", onOffline);
       };
     }
-    return undefined;
+
+    let subscription: { remove: () => void } | undefined;
+    void (async () => {
+      try {
+        const state = await Network.getNetworkStateAsync();
+        setOnline(isReachable(state));
+      } catch {
+        setOnline(true);
+      }
+      subscription = Network.addNetworkStateListener((state) => {
+        setOnline(isReachable(state));
+      });
+    })();
+
+    return () => subscription?.remove();
   }, []);
 
   return online;

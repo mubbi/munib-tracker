@@ -66,7 +66,9 @@
     "increase": "Povećaj {{label}}",
     "decrease": "Smanji {{label}}",
     "appName": "Munib Tracker",
-    "appTagline": "Pratite svoj put nazad Allahu."
+    "appTagline": "Pratite svoj put nazad Allahu.",
+    "loadingRoute": "Preparing…",
+    "loadingRouteHint": "Just a moment while this screen loads."
   },
   "search": {
     "placeholder": "Pretraži Kur'an, hadith, duas, adhkar…",
@@ -445,7 +447,7 @@
     "witr": "Vitir",
     "witrSubtitle": "Sunnah mu'akkadah — snažno naglašeno, nije jedna od pet farz molitvi.",
     "sunnahOptional": "Sunna & opcionalno",
-    "keepGoing": "Devam et",
+    "keepGoing": "Keep going",
     "salahAdhkar": "Namaz zikirleri",
     "salahAdhkarSubtitle": "Sunna adhkar u recite around every salah.",
     "salahCaption": "namaz",
@@ -470,6 +472,46 @@
     "afterSalahAdhkarReminderBody": "Take  moment za tasbeeh i after-salah adhkar.",
     "afterSalahProgress": "Zikirler {{completed}}/{{total}}",
     "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}}  {{total}} završeno danas"
+  },
+  "update": {
+    "title": "Ažuriranje dostupno",
+    "hardTitle": "Ažuriranje obavezno",
+    "availableBadge": "Nova verzija",
+    "requiredBadge": "Obavezno",
+    "yourVersion": "Vaša verzija",
+    "latestVersion": "Najnovija",
+    "body": "Verzija {{version}} je spremna s najnovijim poboljšanjima i ispravkama.",
+    "hardBody": "Ažurirajte na verziju {{version}} da nastavite koristiti aplikaciju.",
+    "hardNote": "Ovo ažuriranje je obavezno za nastavak.",
+    "updateButton": "Ažuriraj sada",
+    "webReloadButton": "Ponovo učitaj",
+    "webSoftRefreshHint": "Ponovo učitajte za najnoviju verziju. Vaši podaci ostaju na ovom uređaju.",
+    "webHardRefreshHint": "Dodirnite Ponovo učitaj iznad. Ako se poruka ponavlja, prisilno osvježite stranicu: Ctrl+Shift+R na Windows/Linux, ili Cmd+Shift+R na macOS."
+  },
+  "reviews": {
+    "rateTitle": "Uživate li u Munib Trackeru?",
+    "rateSubtitle": "Vaše mišljenje pomaže drugim muslimanima da otkriju aplikaciju.",
+    "starLabel": "{{count}} zvijezda",
+    "starLabel_other": "{{count}} zvijezda",
+    "storeTitle": "Hvala!",
+    "storeBody": "Možete li ocijeniti Munib Tracker u trgovini aplikacija? Traje samo trenutak.",
+    "storeCta": "Ocijeni u trgovini aplikacija",
+    "maybeLater": "Možda kasnije",
+    "feedbackTitle": "Pomozite nam da se poboljšamo",
+    "feedbackBody": "Žao nam je što Munib Tracker nije ispunio vaša očekivanja. Šta možemo poboljšati?",
+    "feedbackPlaceholder": "Recite nam šta nije u redu ili šta nedostaje…",
+    "feedbackCta": "Pošalji povratnu informaciju",
+    "feedbackOffline": "Povežite se na internet da pošaljete povratnu informaciju.",
+    "feedbackError": "Povratna informacija nije poslana. Pokušajte ponovo.",
+    "skip": "Preskoči",
+    "thanksTitle": "Hvala!",
+    "thanksBody": "Vaša podrška nam mnogo znači.",
+    "feedbackThanksTitle": "Povratna informacija primljena",
+    "feedbackThanksBody": "Koristit ćemo vaše bilješke da poboljšamo Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Odlično vam ide",
+    "reviewReactivationBody": "Želite podijeliti svoje iskustvo s Munib Trackerom?"
   },
   "settings": {
     "eyebrow": "Personalizujte",
@@ -501,6 +543,18 @@
     "qiblaSub": "Pronađite smjer molitve",
     "about": "O",
     "aboutSub": "Verzija, krediti i pravila",
+    "rateApp": "Ocijeni Munib Tracker",
+    "rateAppDesc": "Podijelite iskustvo u trgovini aplikacija",
+    "reviewReactivationEnabled": "Podsjetnici za povratne informacije",
+    "reviewReactivationEnabledDesc": "Povremeni nježni podsjetnici za dijeljenje povratne informacije u aplikaciji — nikad izravni zahtjev za ocjenu u trgovini.",
+    "appUpdate": "Ažuriranje aplikacije",
+    "updateAvailableTitle": "Ažuriranje dostupno",
+    "updateRequiredTitle": "Ažuriranje obavezno",
+    "updateAvailableDesc": "Verzija {{latest}} je dostupna. Vi ste na {{current}}.",
+    "updateRequiredDesc": "Ažurirajte na {{latest}} da nastavite koristiti aplikaciju.",
+    "updateNow": "Ažuriraj sada",
+    "viewUpdateDetails": "Pogledaj detalje",
+    "remindInSettings": "Podsjeti me u Postavkama",
     "import": "Uvezite istoriju molitve",
     "importSub": "Popunite protekle dane iz JSON ili CSV datoteke",
     "footer": "{{app}} · izgrađen s namjerom",
@@ -549,19 +603,7 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    },
-    "rateApp": "Ocijeni Munib Tracker",
-    "rateAppDesc": "Podijelite iskustvo u trgovini aplikacija",
-    "reviewReactivationEnabled": "Podsjetnici za povratne informacije",
-    "reviewReactivationEnabledDesc": "Povremeni nježni podsjetnici za dijeljenje povratne informacije u aplikaciji — nikad izravni zahtjev za ocjenu u trgovini.",
-    "appUpdate": "Ažuriranje aplikacije",
-    "updateAvailableTitle": "Ažuriranje dostupno",
-    "updateRequiredTitle": "Ažuriranje obavezno",
-    "updateAvailableDesc": "Verzija {{latest}} je dostupna. Vi ste na {{current}}.",
-    "updateRequiredDesc": "Ažurirajte na {{latest}} da nastavite koristiti aplikaciju.",
-    "updateNow": "Ažuriraj sada",
-    "viewUpdateDetails": "Pogledaj detalje",
-    "remindInSettings": "Podsjeti me u Postavkama"
+    }
   },
   "import": {
     "title": "Import salah historija",
@@ -600,7 +642,7 @@
     "begin": "Započni",
     "brandDuaLabel": " supplication za ease",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
-    "brandDuaTransliteration": "всеhumm l shl ill m j'lthu shl, w t tj'lul-hzn idh shi't shl",
+    "brandDuaTransliteration": "Allahumma la sahla illa ma ja'altahu sahla, wa anta taj'alul-hazna idha shi'ta sahla",
     "brandDuaTranslation": "O Allah, there je no ease except u to which Vi make easy, i Vi make  difficult easy if Vi wish.",
     "slide1Eyebrow": "Namaz",
     "slide1Title": "Prati vaš salah",
@@ -897,7 +939,7 @@
     "detailEyebrow": "Zikir",
     "today": "Danas",
     "openInTasbeeh": "Open u Tasbeeh",
-    "favorite": "Fvилиite",
+    "favorite": "Favorite",
     "favorited": "Favorilere eklendi",
     "share": "Podijeli",
     "notFoundTitle": "Zikir not found",
@@ -941,8 +983,8 @@
     "dialogTitle": "Podijeli",
     "brandingFooterName": "— {{appName}}",
     "proofTagline": "Prati Vaš Putovanje Back u Allah — free na iOS, Android & web",
-    "proofGetApp": "Get Munib Trcker free",
-    "proofIosLabel": "pp Stилиe",
+    "proofGetApp": "Get Munib Tracker free",
+    "proofIosLabel": "App Store",
     "proofAndroidLabel": "Google Oynat",
     "proofWebLabel": "Web pp",
     "proofQrIosA11y": "QR code — download na  App Store",
@@ -1038,7 +1080,7 @@
     "continueAt": "Surh {{surah}} · yh {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
-    "ayahCount": "{{count}} yhs",
+    "ayahCount": "{{count}} ayahs",
     "surahList": "Sureler",
     "surahCount": "{{shown}}  {{total}}",
     "reciter": "Okuyucu",
@@ -1090,6 +1132,14 @@
     "searching": "Aranıyor…",
     "secondTranslation": "Second çeviri",
     "secondTranslationNone": "Nema",
+    "selectTranslator": "Odaberite prevodioca — {{language}}",
+    "translationCount_one": "{{count}} prijevod",
+    "translationCount_other": "{{count}} prijevoda",
+    "translationBundled": "Dostupno van mreže",
+    "translationRemote": "Preuzimanja po potrebi",
+    "backToLanguages": "Svi jezici",
+    "searchTranslationLanguages": "Pretraži jezike…",
+    "searchTranslators": "Traži prevodioce…",
     "pages": "Sayfalar",
     "pagesSubtitle": "Browse  Madani mushaf by page",
     "pageN": "Pge {{n}}",
@@ -1108,15 +1158,7 @@
     "prevPage": "Prethodni page",
     "nextPage": "Sljedeći page",
     "openPageView": "page view Aç",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "Odaberite prevodioca — {{language}}",
-    "translationCount_one": "{{count}} prijevod",
-    "translationCount_other": "{{count}} prijevoda",
-    "translationBundled": "Dostupno van mreže",
-    "translationRemote": "Preuzimanja po potrebi",
-    "backToLanguages": "Svi jezici",
-    "searchTranslationLanguages": "Pretraži jezike…",
-    "searchTranslators": "Traži prevodioce…"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -1230,7 +1272,7 @@
     },
     "duha": {
       "summary": " forenoon salah — typically two u eight rak'ahs between sunrise i Dhuhr.",
-      "why": "Charity je due na every joint   body each dan; even  few rak'ahs  Duha fulfills to charity za  limbs through ibadet.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
       "benefits": "Forgives sins, brings sustenance (rizq), i revives  neglected sunnah. Flexible timing makes it accessible when  dan allows."
     },
     "dhuhr": {
@@ -1608,7 +1650,7 @@
     "method": "Hesaplama yöntemi",
     "methodHint": "Pick  authority whose method matches vaš region so salah times line up sa vaš local masjid.",
     "madhab": "İkindi calculation",
-    "madhabShafi": "Stиrd",
+    "madhabShafi": "Standard",
     "madhabHanafi": "Hanefi",
     "madhabHint": "Hanafi calculates Asr later; Standard (Shafiʿi, Maliki, Hanbali) uses  earlier time.",
     "methods": {
@@ -1855,7 +1897,7 @@
     "compassLabel": "Kıble compass",
     "compassValue": "{{bearing}} degrees u  Kaaba, {{distance}} away",
     "aligned": "Aligned sa  Qibla",
-    "alignedHint": "Hold steady — you're facing  Kaaba",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
     "turnFineTuneLeft": "Sola çevir",
     "turnFineTuneRight": "Sağa çevir",
     "turnSlightLeft": "Hafif sola",
@@ -1895,7 +1937,7 @@
     "syncing": "Sinhroniziranje…",
     "done": "Vaš podaci je backed up",
     "failed": "Couldn't sync. Check vaš connection i try again.",
-    "mergeNoChanges": "Everything was already up u date",
+    "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} alındı · {{sent}} gönderildi",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest uredi",
     "conflictAffected": "Etkilenen: {{list}}",
@@ -2069,7 +2111,7 @@
     "eyebrow": " Noble Kur'an",
     "short": "Hatim",
     "title": "Hatim plan",
-    "subtitle": "Finish  Kur'an at  steady pace",
+    "subtitle": "Finish the Qur'an at a steady pace",
     "startTitle": "Počni  plan",
     "startHint": "Choose how many dana u završeno  Kur'an. We'll set  dnevno ayah target.",
     "startHintPages": "Choose how many dana u završeno  Kur'an. We'll set  dnevno mushaf page target.",
@@ -2096,7 +2138,7 @@
     "dayOf": "Dan {{day}}  {{total}}",
     "dailyTarget": "{{count}} ayahs  dan",
     "dailyTargetPages": "{{count}} pages  dan",
-    "progress": "{{read}} / {{total}} yhs",
+    "progress": "{{read}} / {{total}} ayahs",
     "progressPages": "{{read}} / {{total}} pges",
     "expected": "na-prati: {{ayahs}}",
     "expectedLabel": "Na-prati total",
@@ -2119,7 +2161,7 @@
     "logQuickDaily": "Dnevno goal · {{count}}",
     "logAdd": "Dodaj {{count}} ayahs",
     "logAddPages": "Dodaj {{count}} pages",
-    "logInvalid": "Enter 1–{{max}} yhs",
+    "logInvalid": "Enter 1–{{max}} ayahs",
     "logInvalidPages": "Enter 1–{{max}} pges",
     "correctTotalTitle": "Doğru toplam",
     "correctTotalHint": "Set  exact number  ayahs you've read so far.",
@@ -2127,7 +2169,7 @@
     "correctTotalA11y": "Toplam ayahs read",
     "correctTotalA11yPages": "Toplam pages read",
     "correctTotalApply": "Güncelle toplam",
-    "correctTotalInvalid": "Enter 0–{{max}} yhs",
+    "correctTotalInvalid": "Enter 0–{{max}} ayahs",
     "correctTotalInvalidPages": "Enter 0–{{max}} pges",
     "correctTotalToggle": "Wrong toplam? Ayarla it manuel",
     "logToday": "today's reading Kaydet",
@@ -2150,12 +2192,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": " khatm built na steady dnevno reading lasts longer than  sprint to burns out.",
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
         "source": "Principle  dosljednost"
       },
       "portion": {
         "text": "Vi do not have u finish danas — only honour today's portion sa sincerity.",
-        "source": "Steady napredak"
+        "source": "Steady progress"
       },
       "return": {
         "text": "If vi fall behind, do not abandon  plan. Resume sa today's ayahs i move forward.",
@@ -2171,7 +2213,7 @@
   },
   "hifz": {
     "short": "Хифз",
-    "title": "Hifz trcker",
+    "title": "Hifz tracker",
     "subtitle": "Ayahs you've memorized ili need u review",
     "markMemorized": "memorized İşaretle",
     "markReview": "needs review İşaretle",
@@ -2264,7 +2306,7 @@
     },
     "disclaimer": "Ovo je obrazovno sadržaj, not  lično fatwa. Distance thresholds, stay duration, combining rules, i whether Jam' je limited u need vary between  four schools — consult  qualified učenjak za vaš putovanje.",
     "markExcused": "Mark danas as excused (travel)",
-    "clearExcused": "obligatory tracking Devam Et"
+    "clearExcused": "Resume obligatory tracking"
   },
   "hayd": {
     "eyebrow": "Naučite",
@@ -2365,7 +2407,7 @@
     },
     "disclaimer": "Ovo je obrazovno guidance, not  lično ruling. How much illness justifies each concession varies by school i severity — consult  qualified učenjak za vaš situation.",
     "markExcused": "Mark danas as excused (illness)",
-    "clearExcused": "obligatory tracking Devam Et"
+    "clearExcused": "Resume obligatory tracking"
   },
   "homeCustomize": {
     "title": "Prilagodite dom",
@@ -2439,7 +2481,7 @@
     "meaningLabel": "Wht it teches",
     "progressTitle": "Moji learning progress",
     "progressSubtitle": "Prati lessons — not duhovno rank sa Allah",
-    "progressIntro": "Ovo dashboard tracks vaš study i practice u Munib. Completing lessons does not measure vaš standing sa Allah — sincerity does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Lessons završeno",
     "lessonsHint": "Mark teme završeno as vi finish učenje them",
     "lessonsCount": "{{completed}} из {{total}}",
@@ -2723,9 +2765,9 @@
     "quickGhusl": "Gusül guide",
     "quickGhuslHint": "Puna kupka kada dođe do veće nečistoće",
     "quickChecklist": "Dnevno checklist",
-    "quickChecklistHint": "Habits to keep vi ready za salah",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "Moji learning",
-    "quickProgressHint": "Teme read i study napredak",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}} od {{total}} tema označeno kao završeno",
     "exploreTitle": "Istraži",
@@ -2794,7 +2836,7 @@
     "quickLessons": "Lekcije",
     "quickLessonsHint": "Moral i duhovno takeaways",
     "quickProgress": "Moji learning",
-    "quickProgressHint": "Teme read i study napredak",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}} od {{total}} tema označeno kao završeno",
     "exploreTitle": "Istraži",
@@ -2818,7 +2860,7 @@
     "profileTitle": "Profil",
     "progressTitle": "Moji learning progress",
     "progressSubtitle": "Prati lessons — not duhovno rank sa Allah",
-    "progressIntro": "Mark teme završeno as vi study  lives   prophets.",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "Teme završeno",
     "lessonsHint": "Mark teme završeno as vi finish učenje them",
     "lessonsCount": "{{completed}} из {{total}}",
@@ -2864,7 +2906,7 @@
     "quickGlossary": "Rječnik",
     "quickGlossaryHint": "Key creed uslovi defined",
     "quickProgress": "Moji learning",
-    "quickProgressHint": "Teme read i study napredak",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}} od {{total}} tema označeno kao završeno",
     "exploreTitle": "Istraži",
@@ -2925,7 +2967,7 @@
     "quickOccasions": "Po prilici",
     "quickOccasionsHint": "Browse duas za every moment",
     "quickProgress": "Moji learning",
-    "quickProgressHint": "Teme read i study napredak",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}} od {{total}} tema označeno kao završeno",
     "exploreTitle": "Istraži",
@@ -3313,7 +3355,7 @@
     "nisabWeightNote": "Tačne težine i koji metal preferirati malo variraju između škola. Kalkulator koristi ove naširoko citirane hanefijske brojke.",
     "quran": [
       {
-        "excerpt": "Zakat expenditures su only za  poor i za  needy i za those employed u collect it i za bringing hearts together i za freeing captives i za those u dug i za  cause  Allah i za  wayfarer —  obligation od Allah. I Allah je Knowing i Wise."
+        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
         "excerpt": "Take od their wealth  charity by which vi purify them i cause them u grow, i invoke blessings upon them. Indeed, vaš invocation je reassurance za them. I Allah je Hearing i Knowing."
@@ -3578,7 +3620,7 @@
     "confirmDiscardTitle": "Değişiklikler iptal edilsin mi?",
     "confirmDiscardMsg": "Anything vi wrote will be lost.",
     "confirmOverwriteTitle": "Zamijeniti postojeću refleksiju?",
-    "confirmOverwriteMsg": "Vi already noted {{prayer}} za ovo dan. Saving will replace it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "Dalgın",
     "level2": "Huzursuz",
     "level3": "Yeterince hazır",
@@ -3593,7 +3635,7 @@
     "offsetTitle": "Mescit offsets",
     "offsetHint": "Changes when each salah time je shown across  app. Separate od notification reminders (Postavke → Notifications).",
     "onTime": "Na time",
-    "earlierMin": "−{{count}} mв",
+    "earlierMin": "−{{count}} min",
     "laterMin": "+{{count}} dk",
     "earlier": "Daha erken",
     "later": "Daha geç",
@@ -3667,7 +3709,7 @@
     "versesLead": "Tap any verse u open it u  Kur'an reader.",
     "journeyTitle": "Moji Journey",
     "journeySummary": "Today's habits — not vaš rank sa Allah",
-    "journeySubtitle": "Dosljednost u ibadet vi already prati",
+    "journeySubtitle": "Consistency in worship you already track",
     "journeyBanner": "These habits su among  deeds Allah loves. Vaš final rank je only sa Him.",
     "journeyToday": "Bugünün striving",
     "journeyEmpty": "Počni sa one salah ili adhkar — small steps build lifelong habits.",
@@ -3985,7 +4027,7 @@
     "wearTitle": "Wer OS",
     "wearHint": "Dodaj  Munib Tracker tile na vaš watch after pairing sa vaš phone.",
     "marked": "Salah označeno",
-    "alreadyDone": "Already označeno",
+    "alreadyDone": "Already marked",
     "allDone": "Sve obligatory Salah označeno za danas",
     "excused": "Tracking je paused za danas",
     "locked": "Unlock  app u mark Salah",
@@ -4039,45 +4081,5 @@
     "after1Min": "1 dakika sonra",
     "after5Min": "5 dakika sonra",
     "footer": "Vaš PIN je stored securely na ovo uređaj i never leaves it."
-  },
-  "update": {
-    "title": "Ažuriranje dostupno",
-    "hardTitle": "Ažuriranje obavezno",
-    "availableBadge": "Nova verzija",
-    "requiredBadge": "Obavezno",
-    "yourVersion": "Vaša verzija",
-    "latestVersion": "Najnovija",
-    "body": "Verzija {{version}} je spremna s najnovijim poboljšanjima i ispravkama.",
-    "hardBody": "Ažurirajte na verziju {{version}} da nastavite koristiti aplikaciju.",
-    "hardNote": "Ovo ažuriranje je obavezno za nastavak.",
-    "updateButton": "Ažuriraj sada",
-    "webReloadButton": "Ponovo učitaj",
-    "webSoftRefreshHint": "Ponovo učitajte za najnoviju verziju. Vaši podaci ostaju na ovom uređaju.",
-    "webHardRefreshHint": "Dodirnite Ponovo učitaj iznad. Ako se poruka ponavlja, prisilno osvježite stranicu: Ctrl+Shift+R na Windows/Linux, ili Cmd+Shift+R na macOS."
-  },
-  "reviews": {
-    "rateTitle": "Uživate li u Munib Trackeru?",
-    "rateSubtitle": "Vaše mišljenje pomaže drugim muslimanima da otkriju aplikaciju.",
-    "starLabel": "{{count}} zvijezda",
-    "starLabel_other": "{{count}} zvijezda",
-    "storeTitle": "Hvala!",
-    "storeBody": "Možete li ocijeniti Munib Tracker u trgovini aplikacija? Traje samo trenutak.",
-    "storeCta": "Ocijeni u trgovini aplikacija",
-    "maybeLater": "Možda kasnije",
-    "feedbackTitle": "Pomozite nam da se poboljšamo",
-    "feedbackBody": "Žao nam je što Munib Tracker nije ispunio vaša očekivanja. Šta možemo poboljšati?",
-    "feedbackPlaceholder": "Recite nam šta nije u redu ili šta nedostaje…",
-    "feedbackCta": "Pošalji povratnu informaciju",
-    "feedbackOffline": "Povežite se na internet da pošaljete povratnu informaciju.",
-    "feedbackError": "Povratna informacija nije poslana. Pokušajte ponovo.",
-    "skip": "Preskoči",
-    "thanksTitle": "Hvala!",
-    "thanksBody": "Vaša podrška nam mnogo znači.",
-    "feedbackThanksTitle": "Povratna informacija primljena",
-    "feedbackThanksBody": "Koristit ćemo vaše bilješke da poboljšamo Munib Tracker."
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Odlično vam ide",
-    "reviewReactivationBody": "Želite podijeliti svoje iskustvo s Munib Trackerom?"
   }
 }

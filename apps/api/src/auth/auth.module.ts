@@ -5,6 +5,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { AuthSessionEntity, UserEntity } from "../database/entities";
 import { AuthController } from "./auth.controller";
+import { AuthOAuthService } from "./auth-oauth.service";
 import { AuthService } from "./auth.service";
 import { OAuthProviderService } from "./oauth-provider.service";
 import { TokenService } from "./token.service";
@@ -21,7 +22,7 @@ import { TokenService } from "./token.service";
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, TokenService, OAuthProviderService],
+  providers: [AuthService, AuthOAuthService, TokenService, OAuthProviderService],
   exports: [AuthService],
 })
 export class AuthModule {}

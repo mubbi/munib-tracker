@@ -20,27 +20,30 @@ describe("AuthService", () => {
   });
 
   it("creates a guest session with a signed access token", async () => {
-    const session = await service.createGuestSession({ deviceId: "device-1" });
+    const session = await service.createGuestSession({ deviceId: "device-1-xxxxxxxx" });
 
     expect(session.accountType).toBe("guest");
-    expect(session.userId).toBe("device-1");
+    expect(session.userId).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
+    );
+    expect(session.userId).not.toBe("device-1-xxxxxxxx");
     expect(session.accessToken.split(".")).toHaveLength(3); // JWT header.payload.signature
     expect(session.accessTokenExpiresIn).toBeGreaterThan(0);
     expect(session.refreshToken).toBeTruthy();
   });
 
   it("resumes an existing guest by device id", async () => {
-    const first = await service.createGuestSession({ deviceId: "device-2" });
-    const second = await service.createGuestSession({ deviceId: "device-2" });
+    const first = await service.createGuestSession({ deviceId: "device-2-xxxxxxxx" });
+    const second = await service.createGuestSession({ deviceId: "device-2-xxxxxxxx" });
 
     expect(second.userId).toBe(first.userId);
   });
 
   it("resolves the current user from a signed access token", async () => {
-    const session = await service.createGuestSession({ deviceId: "device-3" });
+    const session = await service.createGuestSession({ deviceId: "device-3-xxxxxxxx" });
     const user = await service.getCurrentUser(session.accessToken);
 
-    expect(user.userId).toBe("device-3");
+    expect(user.userId).toBe(session.userId);
     expect(user.accountType).toBe("guest");
   });
 
@@ -54,7 +57,7 @@ describe("AuthService", () => {
   });
 
   it("links a guest account to a provider, preserving the user id", async () => {
-    const guest = await service.createGuestSession({ deviceId: "device-link" });
+    const guest = await service.createGuestSession({ deviceId: "device-link-xxxxxxxx" });
     const linked = await service.linkGuestAccount(guest.accessToken, {
       provider: AuthProvider.Google,
       code: "auth-code",
@@ -69,7 +72,7 @@ describe("AuthService", () => {
   });
 
   it("rotates the refresh token and keeps the session usable", async () => {
-    const session = await service.createGuestSession({ deviceId: "device-4" });
+    const session = await service.createGuestSession({ deviceId: "device-4-xxxxxxxx" });
     const refreshed = await service.refreshSession(session.refreshToken);
 
     expect(refreshed.refreshToken).not.toBe(session.refreshToken);
@@ -90,7 +93,7 @@ describe("AuthService", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-01-01T00:00:00.000Z"));
 
-    const session = await service.createGuestSession({ deviceId: "device-expiry" });
+    const session = await service.createGuestSession({ deviceId: "device-expiry-xxxxxxxx" });
     const sessionsRepo = module.get<Repository<AuthSessionEntity>>(
       getRepositoryToken(AuthSessionEntity),
     );
@@ -124,7 +127,7 @@ describe("AuthService", () => {
 
     // A separate guest tries to link the same Google identity — must be rejected,
     // not silently merged/overwritten.
-    const guest = await service.createGuestSession({ deviceId: "device-collision" });
+    const guest = await service.createGuestSession({ deviceId: "device-collision-xxxxxxxx" });
     await expect(
       service.linkGuestAccount(guest.accessToken, {
         provider: AuthProvider.Google,
@@ -134,7 +137,7 @@ describe("AuthService", () => {
   });
 
   it("revokes a session on logout so its access token stops working", async () => {
-    const session = await service.createGuestSession({ deviceId: "device-5" });
+    const session = await service.createGuestSession({ deviceId: "device-5-xxxxxxxx" });
     await service.revokeSession(session.accessToken);
 
     await expect(service.getCurrentUser(session.accessToken)).rejects.toThrow(

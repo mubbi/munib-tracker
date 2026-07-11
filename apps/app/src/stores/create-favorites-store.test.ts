@@ -27,18 +27,24 @@ describe("createFavoritesStore", () => {
     expect(api.store.getState().order).toEqual(["b"]);
   });
 
-  it("applies a newer remote blob but keeps a newer local one (last-write-wins)", async () => {
+  it("union-merges remote favorites and keeps the newer watermark", async () => {
     const api = createFavoritesStore(STORAGE_KEY, UPDATED_AT_KEY);
 
     await api.applyRemote(["x"], "2026-07-04T10:00:00.000Z");
     expect(await readJSON<string[]>(STORAGE_KEY, [])).toEqual(["x"]);
 
-    // Older remote is ignored.
+    // Older remote still appends missing ids (union merge); watermark stays local.
     await api.applyRemote(["old"], "2026-07-04T05:00:00.000Z");
-    expect(await readJSON<string[]>(STORAGE_KEY, [])).toEqual(["x"]);
+    expect(await readJSON<string[]>(STORAGE_KEY, [])).toEqual(["x", "old"]);
+    expect(await readJSON<string | undefined>(UPDATED_AT_KEY, undefined)).toBe(
+      "2026-07-04T10:00:00.000Z",
+    );
 
-    // Newer remote wins.
+    // Newer remote appends missing ids and advances the watermark.
     await api.applyRemote(["y", "z"], "2026-07-04T12:00:00.000Z");
-    expect(await readJSON<string[]>(STORAGE_KEY, [])).toEqual(["y", "z"]);
+    expect(await readJSON<string[]>(STORAGE_KEY, [])).toEqual(["x", "old", "y", "z"]);
+    expect(await readJSON<string | undefined>(UPDATED_AT_KEY, undefined)).toBe(
+      "2026-07-04T12:00:00.000Z",
+    );
   });
 });

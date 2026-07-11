@@ -2,6 +2,18 @@
 
 Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
 
+## Auth (guest + social)
+
+Guest-first sessions with optional Google / Apple / Facebook sign-in for cloud sync. Canonical ops guide: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md) · App Links: [`docs/DEEP_LINKS.md`](../../docs/DEEP_LINKS.md).
+
+| Platform | Google | Apple |
+|----------|--------|-------|
+| **iOS** | On-device PKCE → `POST /auth/google` `{ accessToken }` | Native `expo-apple-authentication` → `POST /auth/apple` |
+| **Android** | Same as iOS | Services ID PKCE → HTTPS App Link → `POST /auth/apple/oauth` |
+| **Web** | PKCE → `POST /auth/google/oauth` (HttpOnly cookies) | Apple `form_post` via API callback → cookies |
+
+Key files: `src/hooks/use-social-auth.ts`, `src/lib/auth/oauth-config.ts`, `src/lib/auth/appleAuth.ios.ts`, `src/providers/auth-provider.tsx`, `src/auth/session-store.ts`. Social buttons only render when the matching `EXPO_PUBLIC_*` client env is set.
+
 ## Internationalization & Islamic terminology (READ BEFORE ADDING ANY SCREEN, COMPONENT, OR CONTENT)
 
 The app ships **23 locales** (`en` + 22 translations). Phase 1 (`en`, `ar`, `ur`) is human-reviewed; Phase 2–4 have key parity with English. Full guide: [`docs/I18N_GUIDE.md`](../../docs/I18N_GUIDE.md) · backlog: [`docs/BACKLOG.md`](../../docs/BACKLOG.md).

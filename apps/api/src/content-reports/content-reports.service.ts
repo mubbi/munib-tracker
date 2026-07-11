@@ -1,6 +1,4 @@
 import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
 import type {
   ContentReportReference,
   ContentReportStatus,
@@ -12,15 +10,20 @@ import {
   HttpStatus,
   Injectable,
   NotFoundException,
+  OnModuleInit,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
+import { AttachmentStorageService } from "../common/attachment-storage.service";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { ContentReportAttachmentEntity, ContentReportEntity } from "../database/entities";
-import { isContentReportRateLimited } from "./content-report-rate-limit";
+import {
+  configureContentReportRateLimit,
+  isContentReportRateLimited,
+} from "./content-report-rate-limit";
 import {
   type AdminContentReportDetailDto,
   AdminUpdateContentReportDto,
@@ -42,7 +45,7 @@ export type UploadedAttachment = {
 };
 
 @Injectable()
-export class ContentReportsService {
+export class ContentReportsService implements OnModuleInit {
   constructor(
     @InjectRepository(ContentReportEntity)
     private readonly reportsRepository: Repository<ContentReportEntity>,
@@ -50,7 +53,15 @@ export class ContentReportsService {
     private readonly attachmentsRepository: Repository<ContentReportAttachmentEntity>,
     private readonly authService: AuthService,
     private readonly configService: ConfigService<EnvironmentVariables, true>,
+    private readonly attachmentStorage: AttachmentStorageService,
   ) {}
+
+  onModuleInit(): void {
+    configureContentReportRateLimit({
+      upstashUrl: this.configService.get("UPSTASH_REDIS_REST_URL", { infer: true }),
+      upstashToken: this.configService.get("UPSTASH_REDIS_REST_TOKEN", { infer: true }),
+    });
+  }
 
   async create(
     accessToken: string,
@@ -59,7 +70,7 @@ export class ContentReportsService {
   ): Promise<ContentReportDetailDto> {
     const user = await this.requireLinkedUser(accessToken);
 
-    if (isContentReportRateLimited(user.userId)) {
+    if (await isContentReportRateLimited(user.userId)) {
       throw new HttpException(
         "Report rate limit exceeded. Try again later.",
         HttpStatus.TOO_MANY_REQUESTS,
@@ -204,17 +215,16 @@ export class ContentReportsService {
   }
 
   private async saveAttachments(reportId: string, files: UploadedAttachment[]): Promise<void> {
-    const baseDir =
-      this.configService.get("REPORT_ATTACHMENTS_DIR", { infer: true }) ?? "./uploads/reports";
-    const reportDir = join(baseDir, reportId);
-    await mkdir(reportDir, { recursive: true });
-
     for (const file of files) {
       const attachmentId = randomUUID();
       const ext = extensionForMime(file.mimetype);
       const filename = `${attachmentId}${ext}`;
-      const storagePath = join(reportDir, filename);
-      await writeFile(storagePath, file.buffer);
+      const { storagePath } = await this.attachmentStorage.save(
+        reportId,
+        filename,
+        file.buffer,
+        file.mimetype,
+      );
 
       await this.attachmentsRepository.save(
         this.attachmentsRepository.create({

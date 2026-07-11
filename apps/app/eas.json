@@ -1,7 +1,7 @@
 {
   "cli": {
     "version": ">= 16.0.0",
-    "appVersionSource": "local"
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -11,14 +11,11 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "autoIncrement": true
+    }
   },
   "submit": {
-    "production": {
-      "ios": {
-        "ascApiKeyPath": "./ios-keys/munib_build_api_AuthKey_U7JUX5D2Q7.p8",
-        "ascApiKeyId": "U7JUX5D2Q7"
-      }
-    }
+    "production": {}
   }
 }

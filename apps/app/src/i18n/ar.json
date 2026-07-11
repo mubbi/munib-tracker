@@ -66,7 +66,9 @@
     "appName": "Munib Tracker",
     "appTagline": "تتبع رحلتك إلى الله.",
     "dismiss": "تجاهل",
-    "tryAgain": "حاول مرة أخرى"
+    "tryAgain": "حاول مرة أخرى",
+    "loadingRoute": "جاري التحضير…",
+    "loadingRouteHint": "لحظة واحدة بينما تُحمَّل هذه الشاشة."
   },
   "search": {
     "placeholder": "ابحث في القرآن والحديث والأدعية والأذكار…",

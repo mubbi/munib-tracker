@@ -143,7 +143,22 @@ const GLOBAL_OFFSETS = (() => {
   return offsets;
 })();
 
-// ── Bundled loaders (memoized) ───────────────────────────────────────────────
+// ── Bundled loaders (memoized, LRU-capped) ───────────────────────────────────
+
+/** Keep recent surahs/pages warm without unbounded heap growth on long sessions. */
+const MAX_SURAH_CACHE = 16;
+const MAX_TRANSLATION_CACHE = 24;
+const MAX_PAGE_CACHE = 10;
+
+function setLruCache<K, V>(map: Map<K, V>, key: K, value: V, max: number): void {
+  if (map.has(key)) map.delete(key);
+  map.set(key, value);
+  while (map.size > max) {
+    const oldest = map.keys().next().value;
+    if (oldest === undefined) break;
+    map.delete(oldest);
+  }
+}
 
 const arabicCache = new Map<number, Record<string, string>>();
 const translitCache = new Map<number, Record<string, string>>();
@@ -155,7 +170,9 @@ function loadArabic(surah: number): Record<string, string> {
   let data = arabicCache.get(surah);
   if (!data) {
     data = arabicLoaders[surah]();
-    arabicCache.set(surah, data);
+    setLruCache(arabicCache, surah, data, MAX_SURAH_CACHE);
+  } else {
+    setLruCache(arabicCache, surah, data, MAX_SURAH_CACHE);
   }
   return data;
 }
@@ -164,7 +181,9 @@ function loadTranslit(surah: number): Record<string, string> {
   let data = translitCache.get(surah);
   if (!data) {
     data = transliterationLoaders[surah]();
-    translitCache.set(surah, data);
+    setLruCache(translitCache, surah, data, MAX_SURAH_CACHE);
+  } else {
+    setLruCache(translitCache, surah, data, MAX_SURAH_CACHE);
   }
   return data;
 }
@@ -173,7 +192,9 @@ function loadAyahMeta(surah: number): Record<string, { page: number; hizb: numbe
   let data = ayahMetaCache.get(surah);
   if (!data) {
     data = ayahMetaLoaders[surah]();
-    ayahMetaCache.set(surah, data);
+    setLruCache(ayahMetaCache, surah, data, MAX_SURAH_CACHE);
+  } else {
+    setLruCache(ayahMetaCache, surah, data, MAX_SURAH_CACHE);
   }
   return data;
 }
@@ -275,8 +296,8 @@ export function getPageLayout(page: number): MushafPageLayout {
     const loader = mushafPageLoaders[page];
     if (!loader) throw new Error(`missing mushaf layout for page ${page}`);
     layout = loader();
-    mushafPageCache.set(page, layout);
   }
+  setLruCache(mushafPageCache, page, layout, MAX_PAGE_CACHE);
   return layout;
 }
 
@@ -298,8 +319,8 @@ export function getBundledEdition(editionId: string, surah: number): Record<stri
   let data = translationCache.get(cacheKey);
   if (!data) {
     data = loaders[surah]();
-    translationCache.set(cacheKey, data);
   }
+  setLruCache(translationCache, cacheKey, data, MAX_TRANSLATION_CACHE);
   return data;
 }
 

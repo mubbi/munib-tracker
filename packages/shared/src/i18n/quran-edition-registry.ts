@@ -27,10 +27,10 @@ export const BUNDLED_QURAN_EDITION_IDS: ReadonlySet<string> = new Set(
   ALL_EDITIONS.filter((ed) => ed.bundled).map((ed) => ed.id),
 );
 
-/** Every remote-fetchable edition (deduped by id). */
-export const QURAN_REMOTE_EDITIONS: readonly QuranEditionRemoteDef[] = ALL_EDITIONS.map(
-  ({ bundled: _bundled, ...ed }) => ed,
-);
+/** On-demand CDN editions (not packed into the app binary). */
+export const QURAN_REMOTE_EDITIONS: readonly QuranEditionRemoteDef[] = ALL_EDITIONS.filter(
+  (ed) => !ed.bundled,
+).map(({ bundled: _bundled, ...ed }) => ed);
 
 export function getQuranRemoteEdition(editionId: string): QuranEditionRemoteDef | undefined {
   return QURAN_REMOTE_EDITIONS.find((d) => d.id === editionId);

@@ -214,7 +214,7 @@ function DuaSearchRow({
     >
       {index != null ? <ListIndexBadge index={index} /> : null}
       <View style={styles.resultBody}>
-        <ThemedText type="small" numberOfLines={1}>
+        <ThemedText type="small" numberOfLines={2}>
           {item.title}
         </ThemedText>
         <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>

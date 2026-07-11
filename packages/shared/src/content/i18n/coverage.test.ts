@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import * as content from "../index";
-import * as overlays from "./index";
+import * as overlays from "./all-overlays";
 import { PROTECTED_CONTENT_KEYS } from "./localize";
 import { parseOverlayExportName } from "./overlay-locale";
 

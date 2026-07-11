@@ -2,13 +2,12 @@ import type { HadithItem, HadithSection } from "@munib-tracker/shared/types";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, TextInput, View } from "react-native";
+import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 import { getRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -39,9 +38,6 @@ import { resolveHadithTranslation } from "@/lib/translation-locale";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
-
-/** Build the plain-text body shared for a hadith (arabic + english + reference). */
-const PAGE_SIZE = 20;
 
 /**
  * Pre-render a static HTML page for every bundled hadith collection at web
@@ -90,7 +86,6 @@ export default function HadithCollectionScreen() {
   // search) so the matched hadith is already filtered into view.
   const [query, setQuery] = useState(params.q ?? "");
   const [sectionId, setSectionId] = useState<string | null>(null);
-  const [visible, setVisible] = useState(PAGE_SIZE);
   const searching = query.trim().length > 0;
 
   // Fuzzy index over this collection's hadith. Building it is O(n) over every
@@ -153,11 +148,12 @@ export default function HadithCollectionScreen() {
     if (sectionId) return allItems.filter((h) => h.chapterId === sectionId);
     return allItems;
   }, [allItems, activeIndex, query, sectionId, searching]);
-  const shown = listItems.slice(0, visible);
 
   const activeSection = sections.find((s) => s.id === sectionId);
 
-  const toggleBookmark = async (item: HadithItem) => {
+  const collectionName = collection?.nameEnglish ?? "";
+
+  const toggleBookmark = useCallback(async (item: HadithItem) => {
     const added = await HadithRepository.toggleBookmark(item);
     setBookmarked((prev) => {
       const next = new Set(prev);
@@ -165,9 +161,26 @@ export default function HadithCollectionScreen() {
       else next.delete(item.id);
       return next;
     });
-  };
+  }, []);
 
-  const resetPage = () => setVisible(PAGE_SIZE);
+  const keyExtractor = useCallback((item: HadithItem) => item.id, []);
+
+  const renderHadithItem = useCallback<ListRenderItem<HadithItem>>(
+    ({ item }) => (
+      <View style={styles.readingColumn}>
+        <HadithCard
+          item={item}
+          collectionName={collectionName}
+          isBookmarked={bookmarked.has(item.id)}
+          onBookmark={() => toggleBookmark(item)}
+          onShare={shareHadith}
+          isSharing={isSharing}
+          isGesturePending={isGesturePending}
+        />
+      </View>
+    ),
+    [bookmarked, collectionName, isGesturePending, isSharing, shareHadith, toggleBookmark],
+  );
 
   if (!collection) {
     return (
@@ -193,10 +206,9 @@ export default function HadithCollectionScreen() {
   const goBackToBooks = () => {
     setSectionId(null);
     setQuery("");
-    resetPage();
   };
 
-  const collectionName = collection.nameEnglish;
+  const useFlatList = !isLoading && !failedOffline && !showSectionList;
   const collectionDescription = `Read hadith from ${collectionName} — the sayings and traditions of the Prophet Muhammad ﷺ, with narrator and grading details.`;
   const collectionBreadcrumbs = [
     { name: t("tabs.home"), path: "/" },
@@ -210,6 +222,7 @@ export default function HadithCollectionScreen() {
       title={activeSection ? activeSection.name : collection.nameEnglish}
       subtitle={activeSection ? collection.nameEnglish : collection.nameArabic}
       onBack={activeSection ? goBackToBooks : () => goBackOrReplace(router, "/")}
+      scrollable={useFlatList ? false : undefined}
     >
       {SnapshotHost}
       <Seo
@@ -227,28 +240,29 @@ export default function HadithCollectionScreen() {
           }),
         ]}
       />
-      <Stagger>
-        {isLoading ? (
+      {isLoading ? (
+        <Stagger>
           <EmptyState
             icon={{ ios: "arrow.down.circle", android: "download", web: "download" }}
             title={t("hadith.loading")}
           />
-        ) : failedOffline ? (
+        </Stagger>
+      ) : failedOffline ? (
+        <Stagger>
           <EmptyState
             icon={{ ios: "wifi.slash", android: "wifi_off", web: "wifi_off" }}
             title={t("hadith.offlineTitle")}
             description={t("hadith.offlineDesc")}
           />
-        ) : (
+        </Stagger>
+      ) : showSectionList ? (
+        <Stagger>
           <View style={styles.contentStack}>
-            <Card padding="four" style={showSectionList ? undefined : styles.readingColumn}>
+            <Card padding="four">
               <View style={styles.searchCard}>
                 <TextInput
                   value={query}
-                  onChangeText={(text) => {
-                    setQuery(text);
-                    resetPage();
-                  }}
+                  onChangeText={setQuery}
                   placeholder={t("hadith.searchPlaceholder")}
                   placeholderTextColor={colors.mutedForeground}
                   accessibilityLabel={t("hadith.searchPlaceholder")}
@@ -258,65 +272,75 @@ export default function HadithCollectionScreen() {
                   ]}
                 />
                 <ThemedText type="caption" themeColor="mutedForeground">
-                  {showSectionList
-                    ? t("hadith.bookCount", { count: sections.length })
-                    : t("hadith.hadithCount", { count: listItems.length })}
+                  {t("hadith.bookCount", { count: sections.length })}
                 </ThemedText>
               </View>
             </Card>
-
-            {showSectionList ? (
-              <Card padding="four">
-                <View style={styles.list}>
-                  {sections.map((section) => (
-                    <SectionRow
-                      key={section.id}
-                      section={section}
-                      onPress={() => {
-                        setSectionId(section.id);
-                        resetPage();
-                      }}
-                    />
-                  ))}
-                </View>
-              </Card>
-            ) : shown.length === 0 ? (
-              <EmptyState
-                icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
-                title={t("hadith.emptyTitle")}
-                description={t("hadith.emptyDesc")}
-              />
-            ) : (
-              <View style={styles.hadithList}>
-                {shown.map((item) => (
-                  <HadithCard
-                    key={item.id}
-                    item={item}
-                    collectionName={collection.nameEnglish}
-                    isBookmarked={bookmarked.has(item.id)}
-                    onBookmark={() => toggleBookmark(item)}
-                    onShare={shareHadith}
-                    isSharing={isSharing}
-                    isGesturePending={isGesturePending}
+            <Card padding="four">
+              <View style={styles.list}>
+                {sections.map((section) => (
+                  <SectionRow
+                    key={section.id}
+                    section={section}
+                    onPress={() => setSectionId(section.id)}
                   />
                 ))}
               </View>
-            )}
-
-            {!showSectionList && visible < listItems.length ? (
-              <Button
-                label={t("hadith.loadMore")}
-                variant="secondary"
-                fullWidth
-                style={styles.readingColumn}
-                onPress={() => setVisible((v) => v + PAGE_SIZE)}
-              />
-            ) : null}
+            </Card>
           </View>
-        )}
-      </Stagger>
+        </Stagger>
+      ) : (
+        /* No Stagger wrapper: its item view has no flex, which would break the
+           FlatList's height chain (matches the dua category screen). */
+        <FlatList
+          style={styles.flatList}
+          contentContainerStyle={styles.flatListContent}
+          data={listItems}
+          keyExtractor={keyExtractor}
+          renderItem={renderHadithItem}
+          ItemSeparatorComponent={HadithListSeparator}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          initialNumToRender={12}
+          maxToRenderPerBatch={8}
+          windowSize={7}
+          removeClippedSubviews
+          ListHeaderComponent={
+            <Card padding="four" style={[styles.readingColumn, styles.listHeader]}>
+              <View style={styles.searchCard}>
+                <TextInput
+                  value={query}
+                  onChangeText={setQuery}
+                  placeholder={t("hadith.searchPlaceholder")}
+                  placeholderTextColor={colors.mutedForeground}
+                  accessibilityLabel={t("hadith.searchPlaceholder")}
+                  style={[
+                    styles.input,
+                    { backgroundColor: colors.muted, color: colors.foreground },
+                  ]}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("hadith.hadithCount", { count: listItems.length })}
+                </ThemedText>
+              </View>
+            </Card>
+          }
+          ListEmptyComponent={
+            <EmptyState
+              icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
+              title={t("hadith.emptyTitle")}
+              description={t("hadith.emptyDesc")}
+            />
+          }
+        />
+      )}
     </ScreenLayout>
   );
+}
+
+/** Spacer matching the previous `gap: Spacing.three` between hadith cards. */
+function HadithListSeparator() {
+  return <View style={styles.hadithSeparator} />;
 }
 
 function SectionRow({ section, onPress }: { section: HadithSection; onPress: () => void }) {
@@ -503,6 +527,10 @@ const HadithReadingMaxWidth = 720;
 
 const styles = StyleSheet.create({
   contentStack: { gap: Spacing.four, width: "100%" },
+  flatList: { flex: 1 },
+  flatListContent: { paddingBottom: Spacing.four },
+  listHeader: { marginBottom: Spacing.four },
+  hadithSeparator: { height: Spacing.three },
   searchCard: { gap: Spacing.three },
   input: {
     borderRadius: Radius.md,
@@ -512,12 +540,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   list: { gap: Spacing.two },
-  hadithList: {
-    gap: Spacing.three,
-    width: "100%",
-    maxWidth: HadithReadingMaxWidth,
-    alignSelf: "center",
-  },
   readingColumn: {
     width: "100%",
     maxWidth: HadithReadingMaxWidth,

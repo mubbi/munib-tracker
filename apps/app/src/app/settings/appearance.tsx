@@ -3,14 +3,14 @@ import { bestForeground } from "@munib-tracker/theme/color";
 import type { AccentColorId, ColorMode } from "@munib-tracker/theme/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { type ComponentType, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { InlineCustomColorPicker } from "@/components/ui/inline-custom-color-picker";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
@@ -19,6 +19,28 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { normalizeHex, readableForeground, relativeLuminance } from "@/lib/color";
 import { goBackOrReplace } from "@/lib/navigation";
+
+type InlineCustomColorPickerProps = {
+  value: string;
+  onChange: (hex: string) => void;
+};
+
+/** Settings-only — keep `reanimated-color-picker` out of the home entry graph. */
+const InlineCustomColorPicker: ComponentType<InlineCustomColorPickerProps> =
+  process.env.NODE_ENV === "test"
+    ? // Jest cannot evaluate React.lazy's native `import()` without --experimental-vm-modules.
+
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      (
+        require("@/components/ui/inline-custom-color-picker") as {
+          InlineCustomColorPicker: ComponentType<InlineCustomColorPickerProps>;
+        }
+      ).InlineCustomColorPicker
+    : lazy(() =>
+        import("@/components/ui/inline-custom-color-picker").then((m) => ({
+          default: m.InlineCustomColorPicker,
+        })),
+      );
 
 const colorModeIds: ColorMode[] = ["light", "dark", "system"];
 
@@ -245,7 +267,15 @@ export default function AppearanceScreen() {
           <ThemedText type="label" themeColor="mutedForeground" style={styles.sectionLabel}>
             {t("appearance.customColorPicker")}
           </ThemedText>
-          <InlineCustomColorPicker value={pickerValue} onChange={(hex) => setCustomAccent(hex)} />
+          <Suspense
+            fallback={
+              <View style={styles.pickerFallback}>
+                <ActivityIndicator color={colors.accent} />
+              </View>
+            }
+          >
+            <InlineCustomColorPicker value={pickerValue} onChange={(hex) => setCustomAccent(hex)} />
+          </Suspense>
         </Card>
 
         <Card variant="muted">
@@ -311,6 +341,11 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     marginTop: Spacing.three,
     marginBottom: Spacing.two,
+  },
+  pickerFallback: {
+    minHeight: 160,
+    alignItems: "center",
+    justifyContent: "center",
   },
   presetGrid: {
     flexDirection: "row",

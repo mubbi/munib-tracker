@@ -285,15 +285,16 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   // The server resolved these in favour of another device — take its version.
   if (pushResult.conflicts.length) await applyRemoteRecords(pushResult.conflicts);
 
-  // The deletions we just pushed were accepted (or superseded by a conflict we
-  // applied above), so drop those tombstones. Any tombstone created during this
-  // sync is not in `tombstones` and is preserved for the next push.
+  // Pull before clearing tombstones / advancing watermarks. If pull fails after a
+  // successful push, deletions must remain queued so the next sync re-pushes them.
+  const pullResult = await syncPull(session.accessToken, meta.lastSyncedAt);
+  if (pullResult.changes.length) await applyRemoteRecords(pullResult.changes);
+
+  // Deletions we pushed were accepted (or superseded by a conflict applied above).
+  // Any tombstone created during this sync is not in `tombstones` and is preserved.
   if (tombstones.length) {
     await TombstoneRepository.clear(tombstones.map((t) => ({ entity: t.entity, id: t.id })));
   }
-
-  const pullResult = await syncPull(session.accessToken, meta.lastSyncedAt);
-  if (pullResult.changes.length) await applyRemoteRecords(pullResult.changes);
 
   // Record the merge outcome so the sync-status UI can surface auto-resolved
   // last-write-wins conflicts and cross-device changes (NF-2.19).

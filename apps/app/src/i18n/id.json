@@ -66,7 +66,9 @@
     "increase": "Tingkatkan {{label}}",
     "decrease": "Turunkan {{label}}",
     "appName": "Pelacak Munib",
-    "appTagline": "Lacak Perjalanan Anda Kembali kepada Allah."
+    "appTagline": "Lacak Perjalanan Anda Kembali kepada Allah.",
+    "loadingRoute": "Preparing…",
+    "loadingRouteHint": "Just a moment while this screen loads."
   },
   "search": {
     "placeholder": "Cari Al- Qur'an, hadits, duas, adhkar…",
@@ -471,6 +473,46 @@
     "afterSalahProgress": "Adzkar {{completed}}/{{total}}",
     "afterSalahProgressA11y": "Adhkar setelah {{prayer}}: {{completed}} dari {{total}} selesai hari ini"
   },
+  "update": {
+    "title": "Pembaruan tersedia",
+    "hardTitle": "Pembaruan diperlukan",
+    "availableBadge": "Versi baru",
+    "requiredBadge": "Wajib",
+    "yourVersion": "Versi Anda",
+    "latestVersion": "Terbaru",
+    "body": "Versi {{version}} siap dengan perbaikan dan peningkatan terbaru.",
+    "hardBody": "Perbarui ke versi {{version}} untuk terus menggunakan aplikasi.",
+    "hardNote": "Pembaruan ini wajib untuk melanjutkan.",
+    "updateButton": "Perbarui sekarang",
+    "webReloadButton": "Muat ulang",
+    "webSoftRefreshHint": "Muat ulang untuk mendapatkan versi terbaru. Data Anda tetap di perangkat ini.",
+    "webHardRefreshHint": "Ketuk Muat ulang di atas. Jika pesan ini terus muncul, paksa segarkan halaman: Ctrl+Shift+R di Windows/Linux, atau Cmd+Shift+R di macOS."
+  },
+  "reviews": {
+    "rateTitle": "Menikmati Munib Tracker?",
+    "rateSubtitle": "Masukan Anda membantu Muslim lain menemukan aplikasi ini.",
+    "starLabel": "{{count}} bintang",
+    "starLabel_other": "{{count}} bintang",
+    "storeTitle": "Terima kasih!",
+    "storeBody": "Bersediakah Anda memberi rating Munib Tracker di toko aplikasi? Hanya sebentar.",
+    "storeCta": "Beri rating di toko aplikasi",
+    "maybeLater": "Mungkin nanti",
+    "feedbackTitle": "Bantu kami berkembang",
+    "feedbackBody": "Maaf Munib Tracker belum memenuhi harapan Anda. Apa yang bisa kami perbaiki?",
+    "feedbackPlaceholder": "Ceritakan apa yang salah atau kurang…",
+    "feedbackCta": "Kirim masukan",
+    "feedbackOffline": "Hubungkan internet untuk mengirim masukan.",
+    "feedbackError": "Masukan tidak terkirim. Coba lagi.",
+    "skip": "Lewati",
+    "thanksTitle": "Terima kasih!",
+    "thanksBody": "Dukungan Anda sangat berarti.",
+    "feedbackThanksTitle": "Masukan diterima",
+    "feedbackThanksBody": "Kami akan gunakan catatan Anda untuk meningkatkan Munib Tracker."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Anda hebat",
+    "reviewReactivationBody": "Ingin berbagi pengalaman Anda dengan Munib Tracker?"
+  },
   "settings": {
     "eyebrow": "Personalisasi",
     "title": "Pengaturan",
@@ -501,6 +543,18 @@
     "qiblaSub": "Temukan arah shalat",
     "about": "Tentang",
     "aboutSub": "Versi, kredit, dan kebijakan",
+    "rateApp": "Beri rating Munib Tracker",
+    "rateAppDesc": "Bagikan pengalaman Anda di toko aplikasi",
+    "reviewReactivationEnabled": "Pengingat masukan aplikasi",
+    "reviewReactivationEnabledDesc": "Sesekali pengingat lembut untuk berbagi masukan di aplikasi — bukan permintaan rating langsung di toko.",
+    "appUpdate": "Pembaruan aplikasi",
+    "updateAvailableTitle": "Pembaruan tersedia",
+    "updateRequiredTitle": "Pembaruan diperlukan",
+    "updateAvailableDesc": "Versi {{latest}} tersedia. Anda memakai {{current}}.",
+    "updateRequiredDesc": "Perbarui ke versi {{latest}} untuk terus menggunakan aplikasi.",
+    "updateNow": "Perbarui sekarang",
+    "viewUpdateDetails": "Lihat detail",
+    "remindInSettings": "Ingatkan saya di Pengaturan",
     "import": "Impor riwayat shalat",
     "importSub": "Isi ulang hari-hari lalu dari file JSON atau CSV",
     "footer": "{{app}} · dibangun dengan niat",
@@ -549,19 +603,7 @@
         "name": "Ali Ibn Ahmad Mala",
         "location": "Al-Masjid al-Haram"
       }
-    },
-    "rateApp": "Beri rating Munib Tracker",
-    "rateAppDesc": "Bagikan pengalaman Anda di toko aplikasi",
-    "reviewReactivationEnabled": "Pengingat masukan aplikasi",
-    "reviewReactivationEnabledDesc": "Sesekali pengingat lembut untuk berbagi masukan di aplikasi — bukan permintaan rating langsung di toko.",
-    "appUpdate": "Pembaruan aplikasi",
-    "updateAvailableTitle": "Pembaruan tersedia",
-    "updateRequiredTitle": "Pembaruan diperlukan",
-    "updateAvailableDesc": "Versi {{latest}} tersedia. Anda memakai {{current}}.",
-    "updateRequiredDesc": "Perbarui ke versi {{latest}} untuk terus menggunakan aplikasi.",
-    "updateNow": "Perbarui sekarang",
-    "viewUpdateDetails": "Lihat detail",
-    "remindInSettings": "Ingatkan saya di Pengaturan"
+    }
   },
   "import": {
     "title": "Impor prayer history",
@@ -771,7 +813,7 @@
       "qazaBody": "Make up  terlewat Shalat atau puasa hari ini.",
       "achievementTitle": "Pencapaian terbuka",
       "dailyContentTitle": "reflection hari ini",
-      "dailyContentBody": " baru verse, hadits, dan nama dari Allah adalah ready pada Anda beranda screen.",
+      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
       "fridayTitle": "Jum'at Mubarak",
       "fridayBody": "It's Friday — send salawat dan read Surah Al-Kahf."
     },
@@ -1090,6 +1132,14 @@
     "searching": "Mencari… ",
     "secondTranslation": "Second terjemahan",
     "secondTranslationNone": "Tidak ada",
+    "selectTranslator": "Pilih penerjemah — {{language}}",
+    "translationCount_one": "{{count}} terjemahan",
+    "translationCount_other": "{{count}} terjemahan",
+    "translationBundled": "Tersedia offline",
+    "translationRemote": "Diunduh saat diperlukan",
+    "backToLanguages": "Semua bahasa",
+    "searchTranslationLanguages": "Cari bahasa…",
+    "searchTranslators": "Cari penerjemah…",
     "pages": "Halaman",
     "pagesSubtitle": "Browse  Madani mushaf oleh page",
     "pageN": "Halaman {{n}}",
@@ -1108,15 +1158,7 @@
     "prevPage": "Sebelumnya page",
     "nextPage": "Berikutnya page",
     "openPageView": "Buka page view",
-    "continueAtPage": "Halaman {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "Pilih penerjemah — {{language}}",
-    "translationCount_one": "{{count}} terjemahan",
-    "translationCount_other": "{{count}} terjemahan",
-    "translationBundled": "Tersedia offline",
-    "translationRemote": "Diunduh saat diperlukan",
-    "backToLanguages": "Semua bahasa",
-    "searchTranslationLanguages": "Cari bahasa…",
-    "searchTranslators": "Cari penerjemah…"
+    "continueAtPage": "Halaman {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -1230,7 +1272,7 @@
     },
     "duha": {
       "summary": " forenoon shalat — typically two ke eight rak'ahs between terbit dan Dzuhur.",
-      "why": "Sedekah adalah due pada every joint dari  body each hari; even  few rak'ahs dari Duha fulfills itu sedekah untuk  limbs through ibadah.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
       "benefits": "Forgives sins, brings sustenance (rizq), dan revives  neglected sunnah. Fleksibel timing makes it accessible when  hari allows."
     },
     "dhuhr": {
@@ -1367,7 +1409,7 @@
     "consistencyTitle": "Konsistensi over intensity",
     "consistencyHadith": " most beloved deeds ke Allah adalah those itu adalah konsisten, even if they adalah small.",
     "consistencySource": "Hadits — Bukhari & Muslim",
-    "consistencyPrinciple": " steady harian rencana usually clears  large backlog lebih reliably than  aggressive sprint itu burns out.",
+    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
     "prayersPerDay": "shalat / hari",
     "dailyTimeLabel": "est. time / hari",
     "dailyTimeMinutes": "≈ {{count}} mnt",
@@ -1707,7 +1749,7 @@
         "description_one": "Selesai {{count}} wajib shalat",
         "titles": {
           "0": "Langkah Pertama",
-          "1": "Steady Mulai",
+          "1": "Steady Start",
           "2": "Worshipper harian",
           "3": "Hamba yang Setia",
           "4": "Berdedikasi",
@@ -1745,7 +1787,7 @@
         "titles": {
           "0": "Pertama Remembrance",
           "1": "Hati Terbangun",
-          "2": "Steady Zikir",
+          "2": "Steady Zikr",
           "3": "Zikir Berkelanjutan",
           "4": "Zikir",
           "5": "Hundred Sesi",
@@ -1855,7 +1897,7 @@
     "compassLabel": "Kiblat compass",
     "compassValue": "{{bearing}} degrees ke  Kaaba, {{distance}} away",
     "aligned": "Aligned dengan  Kiblat",
-    "alignedHint": "Hold steady — you're facing  Kaaba",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
     "turnFineTuneLeft": "Geser kiri",
     "turnFineTuneRight": "Geser kanan",
     "turnSlightLeft": "Sedikit ke kiri",
@@ -1895,7 +1937,7 @@
     "syncing": "Menyinkronkan…",
     "done": "Anda data adalah backed up",
     "failed": "Couldn't sinkron. Check Anda connection dan try again.",
-    "mergeNoChanges": "Everything was already up ke date",
+    "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} diterima · {{sent}} dikirim",
     "conflictsResolved": "{{count}} conflicts otomatis-resolved — kept  newest edit",
     "conflictAffected": "Terkena: {{list}}",
@@ -2069,7 +2111,7 @@
     "eyebrow": " Noble Al-Al-Al-Al-Al-Al-Qur'an",
     "short": "Khatm",
     "title": "Khatm rencana",
-    "subtitle": "Finish  Al-Al-Al-Al-Al-Al-Qur'an pada  steady tempo",
+    "subtitle": "Finish the Qur'an at a steady pace",
     "startTitle": "Mulai a plan",
     "startHint": "Pilih how many days to complete the Al-Al-Al-Al-Al-Qur'an. We'll set a daily ayah target.",
     "startHintPages": "Pilih how many days to complete the Al-Al-Al-Al-Al-Qur'an. We'll set a daily mushaf page target.",
@@ -2150,12 +2192,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": " khatm built pada steady harian membaca lasts longer than  sprint itu burns out.",
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
         "source": "Principle dari konsistensi"
       },
       "portion": {
         "text": "Anda do tidak have ke finish hari ini — only honour today's portion dengan sincerity.",
-        "source": "Steady kemajuan"
+        "source": "Steady progress"
       },
       "return": {
         "text": "If Anda fall behind, do tidak abandon  rencana. Lanjutkan dengan today's ayahs dan move forward.",
@@ -2427,7 +2469,7 @@
     "meaningLabel": "Apa it teaches",
     "progressTitle": "learning progress saya",
     "progressSubtitle": "Lacak lessons — not spiritual rank with Allah",
-    "progressIntro": "Ini dashboard tracks Anda study dan latihan di Munib. Completing pelajaran does tidak measure Anda standing dengan Allah — sincerity does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Pelajaran selesai",
     "lessonsHint": "Tandai topics complete as you finish studying them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2485,7 +2527,7 @@
     "quickLessons": "Pelajaran cards",
     "quickLessonsHint": "Leadership dan spiritual takeaways dari each battle",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topik read dan study kemajuan",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -2524,7 +2566,7 @@
     "lessonsHint": "Tandai topics complete as you finish studying them",
     "lessonsIntro": "These adalah moral dan leadership pelajaran — tidak military tactics manuals.",
     "progressTitle": "Pembelajaran saya",
-    "progressSubtitle": "Lacak study — not spiritual rank with Allah",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Ini dashboard tracks topik Anda have read di Munib. Knowledge adalah  means; sincerity dengan Allah adalah  goal.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Explore timeline, verses, glossary, dan pelajaran cards",
@@ -2635,7 +2677,7 @@
     "quizTitle": "Tinjau kuis",
     "quizSubtitle": "Test Anda understanding — tidak Anda standing dengan Allah",
     "quizHint": "Timeline, definitions, dan refleksi",
-    "quizIntro": "Use ini kuis ke find gaps, then study those topik. It adalah tidak  spiritual skor.",
+    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
     "quizProgress": "Pertanyaan {{current}} dari {{total}}",
     "quizComplete": "Kuis selesai",
     "quizScore": "{{score}} dari {{total}} menjawab pertanyaan dengan benar",
@@ -2673,7 +2715,7 @@
       "learningHint": "Topik selesai di ini module"
     },
     "progressTitle": "Kemajuan pembelajaran",
-    "progressSubtitle": "Lacak study — not spiritual rank with Allah",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Tandai topics complete as you read. Knowledge is a means; sincerity with Allah is the goal.",
     "lessonsTitle": "Topik selesai",
     "lessonsHint": "Tandai topics complete as you finish studying them",
@@ -2711,9 +2753,9 @@
     "quickGhusl": "Ghusl panduan",
     "quickGhuslHint": "Penuh bath when major impurity occurs",
     "quickChecklist": "checklist harian",
-    "quickChecklistHint": "Habits itu keep Anda ready untuk shalat",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topik read dan study kemajuan",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -2782,7 +2824,7 @@
     "quickLessons": "Pelajaran",
     "quickLessonsHint": "Moral dan spiritual takeaways",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topik read dan study kemajuan",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -2806,7 +2848,7 @@
     "profileTitle": "Profil",
     "progressTitle": "learning progress saya",
     "progressSubtitle": "Lacak lessons — not spiritual rank with Allah",
-    "progressIntro": "Tandai topics complete as you study the lives of the prophets.",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "Topik selesai",
     "lessonsHint": "Tandai topics complete as you finish studying them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2852,7 +2894,7 @@
     "quickGlossary": "Glosari",
     "quickGlossaryHint": "Key creed ketentuan defined",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topik read dan study kemajuan",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -2913,7 +2955,7 @@
     "quickOccasions": "Oleh occasion",
     "quickOccasionsHint": "Browse duas untuk every moment",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topik read dan study kemajuan",
+    "quickProgressHint": "Topics read and study progress",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -3015,7 +3057,7 @@
     "reflectionTitle": "Renung",
     "openInQuran": "Buka in Al-Al-Al-Al-Al-Qur'an reader",
     "progressTitle": "Pembelajaran saya",
-    "progressSubtitle": "Lacak study — not spiritual rank with Allah",
+    "progressSubtitle": "Track study — not spiritual rank with Allah",
     "progressIntro": "Ini dashboard tracks pelajaran Anda have studied di Munib. Allah knows what adalah di Anda heart.",
     "lessonsTitle": "Pelajaran",
     "lessonsHint": "Tandai topics complete as you finish studying them",
@@ -3030,7 +3072,7 @@
     "practiceTitle": "Latihan",
     "lettersTitle": "Arab huruf",
     "lettersSubtitle": "28 huruf dengan nama, sounds, dan examples",
-    "lettersIntro": "Study one letter per hari — see, hear, say, write.",
+    "lettersIntro": "Study one letter per day — see, hear, say, write.",
     "pronunciationTitle": "Pelafalan",
     "pronunciationSubtitle": "Kuasai pasangan huruf sulit",
     "pronunciationIntro": "Compare similar sounds side oleh side — rekam yourself dan listen kembali.",
@@ -3040,7 +3082,7 @@
     "levelBadge": "Tahap {{level}}",
     "hifzTitle": "Hafalan",
     "hifzSubtitle": "Plans dari Juz Amma ke penuh hifzh",
-    "hifzIntro": "Revision adalah  secret — never tambah baru ayahs without reviewing lama ones.",
+    "hifzIntro": "Murajaah adalah kuncinya — jangan pernah menambah ayat baru tanpa mengulang yang lama.",
     "hifzSurahs": "Surahs di ini rencana",
     "openQuranHifz": "Buka Al-Al-Al-Al-Al-Qur'an & hifz tracker",
     "tadabburTitle": "Refleksi (Tadabbur)",
@@ -3056,7 +3098,7 @@
     "challengeDone": "Challenge selesai — may Allah accept",
     "quizTitle": "Al-Al-Al-Al-Al-Al-Qur'an kuis",
     "quizSubtitle": "Test Anda understanding — tidak Anda standing dengan Allah",
-    "quizIntro": "Use each question ke find  gap, then study itu topik. Ini adalah tinjau, tidak  spiritual skor.",
+    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
     "quizProgress": "Pertanyaan {{current}} dari {{total}}",
     "quizComplete": "Kuis selesai",
     "quizScore": "{{score}} dari {{total}} menjawab pertanyaan dengan benar",
@@ -3242,12 +3284,12 @@
       "debts": {
         "title": "Utang & pengurangan",
         "summary": "Immediate debts may be deducted sebelum calculating 2.5%",
-        "body": "Zakat adalah calculated pada Anda net zakatable harta, so genuine debts Anda owe can reduce  amount pada which Anda pay.  clearest case adalah debts due sekarang —  unpaid personal loan,  outstanding credit-card balance, rent atau bills already owed. Most ulama allow these ke be subtracted dari Anda gross harta before Anda terapkan  2.5%.\n\nLong-term debts such as  mortgage atau  multi-tahun instalment rencana adalah handled dengan lebih care, because deducting  entire balance would wipe out  zakat dari almost anyone dengan  beranda loan.  common contemporary approach adalah ke deduct only  payments due within  coming tahun, tidak  whole outstanding sum. Schools dan ulama differ here, so pick  konsisten method under guidance.\n\nTwo cautions. First, do tidak treat future atau hypothetical expenses as deductible debts — only what Anda actually owe counts. Second, do tidak subtract last year's unpaid zakat as if it were  ordinary utang; unpaid zakat remains  due obligation dan should simply be paid. When Anda utang situation adalah complex,  scholar's ruling adalah worth lebih than  rough guess."
+        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
       },
       "recipients": {
         "title": "Siapa yang boleh menerima zakat",
         "summary": "Eight categories named di Al-Al-Al-Al-Al-Al-Qur'an 9:60",
-        "body": "Zakat may only be given ke  categories dari people Allah Himself named di Surah pada-Taubat (9:60). Ini adalah one dari  few acts dari ibadah where  recipients adalah fixed oleh revelation, tidak left ke  giver's preference.  eight categories adalah:  fakir (al-fuqara);  miskin (al-masakin); those employed ke collect dan administer zakat; those whose hati adalah ke be reconciled (al-mu'allafah);  freeing dari captives dan those di bondage (fi'r-riqab);  utang-burdened (al-gharimin); di  cause dari Allah (fi sabil Allah); dan  stranded traveller (ibn as-sabil).\n\nIt adalah tidak wajib ke give ke semua eight; giving Anda zakat ke even one eligible category fulfils  obligation, dan directing it ke  fakir dan miskin adalah  most common latihan.\n\nEqually important adalah who may tidak receive it. Zakat cannot be given ke  wealthy, nor ke those Anda adalah already obliged ke support — Anda parents, Anda children, atau Anda spouse — since supporting them adalah  duty Anda owe anyway. Di  classical lihat it adalah  personal transfer dari ownership ke  eligible individual, tidak  general donation; ulama differ pada whether institutions such as masjids atau broad public projects qualify under  cause dari Allah. It also cannot be given ke  family dari  Prophet ﷺ,  Banu Hashim, as zakat. Aim it deliberately pada people who match  Al-Al-Al-Al-Al-Al-Qur'anic categories."
+        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
       },
       "otherRates": {
         "title": "Other types dari zakat & zakat al-fitr",
@@ -3257,7 +3299,7 @@
       "mistakes": {
         "title": "Common mistakes ke avoid",
         "summary": "Errors itu make zakat invalid atau miscalculated",
-        "body": "Even sincere Muslims often slip pada  praktis detail dari zakat. Knowing  common errors helps Anda pay correctly dan dengan peace dari mind.\n\nForgetting  hawl atau  anniversary: paying pada  random time, atau skipping years, leaves  outstanding obligation. Fix one Hijriah date each tahun dan assess Anda harta pada it.\n\nMiscounting harta: valuing gold atau shares pada their purchase price instead dari today's market value, forgetting cash held di multiple accounts atau currencies, atau overlooking business inventory dan money owed ke Anda. Zakat adalah pada everything zakatable itu Anda own pada Anda date.\n\nGiving ke  wrong people: handing zakat ke parents, children, atau  spouse Anda already support, atau treating it as  generic donation ke any good cause. It must reach one dari  eight Al-Al-Al-Al-Al-Al-Qur'anic categories.\n\nNiat errors: giving generously semua tahun but never intending any dari it as zakat. Zakat adalah  act dari ibadah dan needs  niat (niyyah) itu ini particular payment adalah Anda wajib zakat.\n\nOver-deducting debts: subtracting  whole long-term mortgage, atau future expenses itu adalah tidak yet owed, ke shrink  bill. Only real, current liabilities reduce Anda zakatable harta. When any dari these adalah unclear untuk Anda situation, ask  qualified ulama rather than assume."
+        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
       }
     },
     "recipientsListTitle": " eight categories",
@@ -3382,7 +3424,7 @@
       "stocks": "Current market value dari shares, funds, dan similar investments.",
       "business": "Value dari merchandise, inventory, dan goods held untuk sale.",
       "receivables": "Loans dan invoices Anda reasonably expect ke collect.",
-      "rentalIncome": "Rental atau business profits Anda still hold — tidak already spent.",
+      "rentalIncome": "Rental or business profits you still hold — not already spent.",
       "otherAssets": "Cryptocurrency, accessible retirement funds, atau other zakatable harta per Anda ulama.",
       "debts": "Personal loans, credit cards, dan bills due sekarang — tidak long-term mortgage totals unless Anda ulama allows.",
       "nisab": "Leave blank ke use  computed threshold, atau enter  kustom nisab."
@@ -3486,7 +3528,7 @@
     "confirmDiscardTitle": "Buang perubahan?",
     "confirmDiscardMsg": "Anything Anda wrote will be lost.",
     "confirmOverwriteTitle": "Replace existing refleksi?",
-    "confirmOverwriteMsg": "Anda already noted {{prayer}} untuk ini hari. Saving will replace it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "Lengah",
     "level2": "Gelisah",
     "level3": "Cukup hadir",
@@ -3575,7 +3617,7 @@
     "versesLead": "Ketuk any verse ke buka it di  Al-Al-Al-Al-Al-Al-Qur'an reader.",
     "journeyTitle": "Journey saya",
     "journeySummary": "habits — not your rank with Allah hari ini",
-    "journeySubtitle": "Konsistensi di ibadah Anda already lacak",
+    "journeySubtitle": "Consistency in worship you already track",
     "journeyBanner": "These habits adalah among  deeds Allah loves. Anda final rank adalah only dengan Him.",
     "journeyToday": "striving hari ini",
     "journeyEmpty": "Mulai with one prayer or adhkar — small steps build lifelong habits.",
@@ -3947,45 +3989,5 @@
     "after1Min": "Setelah 1 menit",
     "after5Min": "Setelah 5 menit",
     "footer": "Anda PIN adalah stored securely pada ini perangkat dan never leaves it."
-  },
-  "update": {
-    "title": "Pembaruan tersedia",
-    "hardTitle": "Pembaruan diperlukan",
-    "availableBadge": "Versi baru",
-    "requiredBadge": "Wajib",
-    "yourVersion": "Versi Anda",
-    "latestVersion": "Terbaru",
-    "body": "Versi {{version}} siap dengan perbaikan dan peningkatan terbaru.",
-    "hardBody": "Perbarui ke versi {{version}} untuk terus menggunakan aplikasi.",
-    "hardNote": "Pembaruan ini wajib untuk melanjutkan.",
-    "updateButton": "Perbarui sekarang",
-    "webReloadButton": "Muat ulang",
-    "webSoftRefreshHint": "Muat ulang untuk mendapatkan versi terbaru. Data Anda tetap di perangkat ini.",
-    "webHardRefreshHint": "Ketuk Muat ulang di atas. Jika pesan ini terus muncul, paksa segarkan halaman: Ctrl+Shift+R di Windows/Linux, atau Cmd+Shift+R di macOS."
-  },
-  "reviews": {
-    "rateTitle": "Menikmati Munib Tracker?",
-    "rateSubtitle": "Masukan Anda membantu Muslim lain menemukan aplikasi ini.",
-    "starLabel": "{{count}} bintang",
-    "starLabel_other": "{{count}} bintang",
-    "storeTitle": "Terima kasih!",
-    "storeBody": "Bersediakah Anda memberi rating Munib Tracker di toko aplikasi? Hanya sebentar.",
-    "storeCta": "Beri rating di toko aplikasi",
-    "maybeLater": "Mungkin nanti",
-    "feedbackTitle": "Bantu kami berkembang",
-    "feedbackBody": "Maaf Munib Tracker belum memenuhi harapan Anda. Apa yang bisa kami perbaiki?",
-    "feedbackPlaceholder": "Ceritakan apa yang salah atau kurang…",
-    "feedbackCta": "Kirim masukan",
-    "feedbackOffline": "Hubungkan internet untuk mengirim masukan.",
-    "feedbackError": "Masukan tidak terkirim. Coba lagi.",
-    "skip": "Lewati",
-    "thanksTitle": "Terima kasih!",
-    "thanksBody": "Dukungan Anda sangat berarti.",
-    "feedbackThanksTitle": "Masukan diterima",
-    "feedbackThanksBody": "Kami akan gunakan catatan Anda untuk meningkatkan Munib Tracker."
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Anda hebat",
-    "reviewReactivationBody": "Ingin berbagi pengalaman Anda dengan Munib Tracker?"
   }
 }

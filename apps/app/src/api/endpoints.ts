@@ -18,6 +18,7 @@ type OAuthPayload = {
   code?: string;
   idToken?: string;
   accessToken?: string;
+  identityToken?: string;
   codeVerifier?: string;
   email?: string;
   displayName?: string;
@@ -25,6 +26,40 @@ type OAuthPayload = {
 };
 
 export type OAuthProvider = "google" | "apple" | "facebook";
+
+/** Marker stored instead of JWTs when the web app uses HttpOnly cookies. */
+export const WEB_COOKIE_SESSION_TOKEN = "cookie";
+
+export type WebAuthSessionResponse = {
+  user: AuthUserResponseDto;
+};
+
+function isWebAuthSession(body: unknown): body is WebAuthSessionResponse {
+  return (
+    typeof body === "object" &&
+    body != null &&
+    "user" in body &&
+    !("accessToken" in body) &&
+    typeof (body as WebAuthSessionResponse).user === "object"
+  );
+}
+
+/** Normalize native JWT body or web cookie `{ user }` into AuthSessionResponseDto. */
+export function normalizeAuthSessionResponse(
+  body: AuthSessionResponseDto | WebAuthSessionResponse,
+): AuthSessionResponseDto {
+  if (isWebAuthSession(body)) {
+    return {
+      accessToken: WEB_COOKIE_SESSION_TOKEN,
+      accessTokenExpiresIn: 0,
+      refreshToken: WEB_COOKIE_SESSION_TOKEN,
+      accountType: body.user.accountType,
+      userId: body.user.userId,
+      provider: body.user.provider,
+    };
+  }
+  return body;
+}
 
 export function requestGuestSession(deviceId: string): Promise<AuthSessionResponseDto> {
   return apiFetch<AuthSessionResponseDto>({
@@ -34,54 +69,133 @@ export function requestGuestSession(deviceId: string): Promise<AuthSessionRespon
   });
 }
 
-export function completeOAuth(
+export async function completeOAuth(
   provider: OAuthProvider,
   payload: OAuthPayload,
 ): Promise<AuthSessionResponseDto> {
-  return apiFetch<AuthSessionResponseDto>({
+  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>({
     url: `/auth/oauth/${provider}`,
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return normalizeAuthSessionResponse(body);
+}
+
+/** Native Google: POST access token from on-device PKCE exchange. */
+export async function authGoogle(accessToken: string): Promise<AuthSessionResponseDto> {
+  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>({
+    url: "/auth/google",
+    method: "POST",
+    body: JSON.stringify({ accessToken }),
+  });
+  return normalizeAuthSessionResponse(body);
+}
+
+/** Web Google: server-side code + PKCE exchange. */
+export async function authGoogleOauth(payload: {
+  code: string;
+  redirectUri: string;
+  codeVerifier: string;
+}): Promise<AuthSessionResponseDto> {
+  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>({
+    url: "/auth/google/oauth",
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return normalizeAuthSessionResponse(body);
+}
+
+/** Native Apple: identity token from expo-apple-authentication. */
+export async function authApple(payload: {
+  identityToken: string;
+  displayName?: string;
+}): Promise<AuthSessionResponseDto> {
+  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>({
+    url: "/auth/apple",
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return normalizeAuthSessionResponse(body);
+}
+
+/** Android / non-web Apple OAuth code exchange. */
+export async function authAppleOauth(payload: {
+  code: string;
+  redirectUri: string;
+  codeVerifier: string;
+  displayName?: string;
+}): Promise<AuthSessionResponseDto> {
+  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>({
+    url: "/auth/apple/oauth",
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return normalizeAuthSessionResponse(body);
+}
+
+/** Web Apple: store PKCE session cookie before navigating to Apple authorize. */
+export function authAppleOauthSession(payload: {
+  codeVerifier: string;
+  redirectUri: string;
+  returnUrl: string;
+}): Promise<void> {
+  return apiFetch<void>({
+    url: "/auth/apple/oauth/session",
     method: "POST",
     body: JSON.stringify(payload),
   });
 }
 
-export function linkAccount(
+export async function linkAccount(
   accessToken: string,
   provider: OAuthProvider,
   payload: OAuthPayload,
 ): Promise<AuthSessionResponseDto> {
-  return apiFetch<AuthSessionResponseDto>(
+  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>(
     { url: "/auth/link", method: "POST", body: JSON.stringify({ provider, ...payload }) },
-    { accessToken },
+    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
   );
+  return normalizeAuthSessionResponse(body);
 }
 
-export function refreshSession(refreshToken: string): Promise<AuthSessionResponseDto> {
-  return apiFetch<AuthSessionResponseDto>({
+export async function refreshSession(refreshToken: string): Promise<AuthSessionResponseDto> {
+  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>({
     url: "/auth/refresh",
     method: "POST",
-    body: JSON.stringify({ refreshToken }),
+    body: JSON.stringify(
+      refreshToken === WEB_COOKIE_SESSION_TOKEN ? {} : { refreshToken },
+    ),
   });
+  return normalizeAuthSessionResponse(body);
 }
 
 export function getCurrentUser(accessToken: string): Promise<AuthUserResponseDto> {
-  return apiFetch<AuthUserResponseDto>({ url: "/auth/me", method: "GET" }, { accessToken });
+  return apiFetch<AuthUserResponseDto>(
+    { url: "/auth/me", method: "GET" },
+    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
+  );
 }
 
 export function logout(accessToken: string): Promise<void> {
-  return apiFetch<void>({ url: "/auth/logout", method: "POST" }, { accessToken });
+  return apiFetch<void>(
+    { url: "/auth/logout", method: "POST" },
+    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
+  );
 }
 
 /** Permanently deletes the current account and all its synced data on the server. */
 export function deleteAccount(accessToken: string): Promise<void> {
-  return apiFetch<void>({ url: "/auth/me", method: "DELETE" }, { accessToken });
+  return apiFetch<void>(
+    { url: "/auth/me", method: "DELETE" },
+    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
+  );
 }
 
 export function syncPull(accessToken: string, since?: string): Promise<SyncPullResponseDto> {
   const query = since ? `?since=${encodeURIComponent(since)}` : "";
   return apiFetch<SyncPullResponseDto>(
     { url: `/sync/pull${query}`, method: "GET" },
-    { accessToken },
+    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
   );
 }
 
@@ -93,6 +207,6 @@ export function syncPush(
     // The server DTO field is `changes` (SyncPushDto.changes) — the payload key
     // must match or the ValidationPipe rejects every push.
     { url: "/sync/push", method: "POST", body: JSON.stringify({ changes: records }) },
-    { accessToken },
+    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
   );
 }

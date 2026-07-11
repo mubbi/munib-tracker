@@ -40,7 +40,7 @@ pnpm generate:api
 | Module | Purpose |
 |--------|---------|
 | `health` | Liveness probe at `GET /api/v1/health` |
-| `auth` | Guest sessions, OAuth callbacks, account linking |
+| `auth` | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions |
 | `sync` | Pull/push cloud sync (last-write-wins) |
 | `content-reports` | User content issue reports with attachments and admin triage |
 
@@ -63,9 +63,19 @@ Copy `.env.example` to `.env` (or `.env.local`) in this directory:
 cp apps/api/.env.example apps/api/.env
 ```
 
-Key variables: `PORT`, `JWT_SECRET`, `CORS_ORIGINS`, OAuth provider IDs.
+Key variables:
 
-**Vercel:** project root `apps/api` — see [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md) and `vercel.json`. Serverless entry is `api/index.ts`.
+| Area | Vars |
+|------|------|
+| Server | `PORT`, `JWT_SECRET`, `JWT_ACCESS_TTL`, `JWT_REFRESH_TTL_DAYS`, `CORS_ORIGINS` |
+| Google | `GOOGLE_OAUTH_CLIENT_IDS`, `GOOGLE_OAUTH_WEB_CLIENT_ID`, `GOOGLE_OAUTH_WEB_CLIENT_SECRET` |
+| Apple | `APPLE_CLIENT_IDS`, `APPLE_SERVICES_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` |
+| OAuth allowlist | `OAUTH_REDIRECT_URI_ALLOWLIST` (required in production for code exchange) |
+| Facebook | `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` |
+
+Full console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md).
+
+**Vercel:** project root `apps/api` — see `vercel.json`. Serverless entry is `api/index.ts`.
 
 ## Commands
 
@@ -83,11 +93,13 @@ pnpm --filter api check-types
 - Validation: `ValidationPipe` with `class-validator` DTOs
 - Swagger decorators on all public endpoints
 - **Persistence is TypeORM** (`src/database/`) — PostgreSQL in prod, in-memory SQLite for tests (`in-memory-sqlite.options.ts`). Entities: `UserEntity`, `AuthSessionEntity`, `SyncRecordEntity`. Prod runs `synchronize: false`; schema changes go through migrations in `src/database/migrations/` (`pnpm --filter api migration:generate|run|revert`).
-- **Auth:** signed JWT access tokens (`token.service.ts` + `@nestjs/jwt`) with revocable server-side sessions; `POST /auth/refresh` rotates the opaque refresh token. Real OAuth exchange in `oauth-provider.service.ts` (Google/Facebook/Apple) — activates when provider secrets are set; tests stub it. Add JWKS signature verification for Apple before production.
+- **Auth:** signed JWT access tokens (`token.service.ts` + `@nestjs/jwt`) with revocable server-side sessions; `POST /auth/refresh` rotates the opaque refresh token. Dedicated Google/Apple routes (`POST /auth/google`, `/auth/google/oauth`, `/auth/apple`, `/auth/apple/oauth`, Apple `form_post` callback) plus Facebook via `POST /auth/oauth/facebook`. Web clients (`x-munib-tracker-client: web`) receive HttpOnly cookies (`mt_access_token` / `mt_refresh_token`) instead of tokens in the JSON body. Real OAuth exchange in `oauth-provider.service.ts` — activates when provider secrets are set; tests stub it. Apple `id_token`s are verified against Apple's JWKS. `GOOGLE_OAUTH_CLIENT_IDS` and `APPLE_CLIENT_IDS` accept comma/space-separated audiences for multi-platform clients. Set `OAUTH_REDIRECT_URI_ALLOWLIST` in production for code-exchange redirect checks.
 - Entity datetime columns must use the driver-portable timestamp type (datetime on sqlite/tests, timestamp on postgres) — nullable `Date` reflects as `Object`, so it needs an explicit column type.
 
 ## Related docs
 
-- [docs/TODO.md](../../docs/archive/TODO.md) — Phase 8 (auth + cloud sync) — historical
+- [docs/OAUTH_SETUP.md](../../docs/OAUTH_SETUP.md) — Google / Apple / Facebook console + env guide
+- [docs/PRODUCTION.md](../../docs/PRODUCTION.md) — Vercel + production env
+- [docs/archive/TODO.md](../../docs/archive/TODO.md) — Phase 8 (auth + cloud sync) — historical
 - [.agents/skills/nestjs/SKILL.md](../../.agents/skills/nestjs/SKILL.md) — official NestJS guides (read before implementing API features)
 - [NestJS docs online](https://docs.nestjs.com/first-steps)

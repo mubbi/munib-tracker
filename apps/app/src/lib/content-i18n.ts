@@ -8,6 +8,7 @@ import {
 } from "@munib-tracker/shared/content-i18n";
 import { isAppLocale } from "@munib-tracker/shared/i18n";
 import i18n from "@/i18n";
+import { subscribeContentOverlays } from "@/lib/content-overlay-registry";
 
 /**
  * Resolve Learn-content translation overlays against the active app locale.
@@ -19,6 +20,12 @@ import i18n from "@/i18n";
  * so accessors must be invoked inside a render that reacts to locale changes
  * (memoize on `i18n.language`) rather than at module scope.
  */
+
+// When lazy overlays finish loading, nudge react-i18next subscribers so Learn
+// screens that memoize on `i18n.language` re-read translated content.
+subscribeContentOverlays(() => {
+  void i18n.emit("languageChanged", i18n.language);
+});
 
 function activeOverlayLocale(): OverlayLocale | undefined {
   const lang = i18n.language?.split("-")[0];

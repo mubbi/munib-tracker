@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { parseISO } from "date-fns";
-import { Repository } from "typeorm";
+import { MoreThan, Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
 import { SyncRecordEntity } from "../database/entities";
 import type {
@@ -10,6 +10,9 @@ import type {
   SyncPushResponseDto,
   SyncRecordDto,
 } from "./dto/sync.dto";
+
+/** Reject client timestamps more than this far in the future (clock skew). */
+const MAX_FUTURE_SKEW_MS = 5 * 60 * 1000;
 
 @Injectable()
 export class SyncService {
@@ -24,16 +27,14 @@ export class SyncService {
     const sinceDate = since ? parseISO(since) : null;
 
     const records = await this.syncRecordsRepository.find({
-      where: { userId: user.userId },
+      where: sinceDate
+        ? { userId: user.userId, updatedAt: MoreThan(sinceDate) }
+        : { userId: user.userId },
       order: { updatedAt: "ASC" },
     });
 
-    const changes = records
-      .filter((record) => !sinceDate || record.updatedAt > sinceDate)
-      .map((record) => this.toDto(record));
-
     return {
-      changes,
+      changes: records.map((record) => this.toDto(record)),
       serverTime: new Date().toISOString(),
     };
   }
@@ -41,8 +42,17 @@ export class SyncService {
   async push(accessToken: string, dto: SyncPushDto): Promise<SyncPushResponseDto> {
     const user = await this.requireSyncedUser(accessToken);
     const conflicts: SyncRecordDto[] = [];
+    const now = Date.now();
 
     for (const change of dto.changes) {
+      const clientUpdatedAt = parseISO(change.updatedAt);
+      if (Number.isNaN(clientUpdatedAt.getTime())) {
+        continue;
+      }
+      // Clamp far-future client clocks so they cannot permanently win LWW.
+      const updatedAt =
+        clientUpdatedAt.getTime() > now + MAX_FUTURE_SKEW_MS ? new Date(now) : clientUpdatedAt;
+
       const existing = await this.syncRecordsRepository.findOne({
         where: {
           userId: user.userId,
@@ -51,7 +61,7 @@ export class SyncService {
         },
       });
 
-      if (existing && existing.updatedAt > parseISO(change.updatedAt)) {
+      if (existing && existing.updatedAt > updatedAt) {
         conflicts.push(this.toDto(existing));
         continue;
       }
@@ -63,7 +73,7 @@ export class SyncService {
           entity: change.entity,
           recordId: change.id,
           data: change.data,
-          updatedAt: parseISO(change.updatedAt),
+          updatedAt,
           deletedAt: change.deletedAt ? parseISO(change.deletedAt) : null,
         }),
       );

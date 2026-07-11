@@ -7,6 +7,8 @@ import { NestFactory } from "@nestjs/core";
 import { ExpressAdapter, type NestExpressApplication } from "@nestjs/platform-express";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import type { Express } from "express";
+import cookieParser from "cookie-parser";
+import express from "express";
 import helmet from "helmet";
 import { AppModule } from "./app.module";
 import { AppOpenApiModule } from "./app.openapi.module";
@@ -42,6 +44,8 @@ export async function createApp(
   const corsOrigins = parseCorsOrigins(configService.get("CORS_ORIGINS", { infer: true }));
 
   app.use(helmet());
+  app.use(cookieParser());
+  app.use(express.urlencoded({ extended: true }));
   // Only enable credentialed CORS against an explicit allowlist. When no origins
   // are configured, `corsOrigins` is `false` (deny) so we never reflect an
   // arbitrary origin back with `credentials: true`.

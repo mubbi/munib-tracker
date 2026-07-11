@@ -1,5 +1,5 @@
 import type { AuthSessionResponseDto, AuthUserResponseDto } from "@munib-tracker/api-client";
-import { setTokenRefresher } from "@munib-tracker/api-client";
+import { ApiError, setTokenRefresher } from "@munib-tracker/api-client";
 import {
   createContext,
   type ReactNode,
@@ -13,6 +13,10 @@ import {
 import { AppState, type AppStateStatus } from "react-native";
 
 import {
+  authApple,
+  authAppleOauth,
+  authGoogle,
+  authGoogleOauth,
   completeOAuth,
   deleteAccount as deleteAccountRequest,
   getCurrentUser,
@@ -21,9 +25,11 @@ import {
   type OAuthProvider,
   refreshSession,
   requestGuestSession,
+  WEB_COOKIE_SESSION_TOKEN,
 } from "@/api/endpoints";
-import { SessionStore, type StoredSession } from "@/auth/session-store";
+import { SessionPersistError, SessionStore, type StoredSession } from "@/auth/session-store";
 import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
+import { useIsOnline } from "@/hooks/use-is-online";
 import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
 import { runSync } from "@/sync/sync-engine";
 
@@ -31,6 +37,7 @@ export type OAuthPayload = {
   code?: string;
   idToken?: string;
   accessToken?: string;
+  identityToken?: string;
   codeVerifier?: string;
   email?: string;
   displayName?: string;
@@ -55,6 +62,17 @@ interface AuthContextValue {
   signInAsGuest: () => Promise<void>;
   signInWithProvider: (provider: OAuthProvider, payload?: OAuthPayload) => Promise<void>;
   linkProvider: (provider: OAuthProvider, payload?: OAuthPayload) => Promise<void>;
+  /** Persist a session DTO from dedicated Google/Apple auth routes. */
+  applySessionDto: (dto: AuthSessionResponseDto) => Promise<void>;
+  /**
+   * Complete Google/Apple sign-in or guest link using dedicated API routes
+   * (access token / identity token / code) instead of the unified oauth path.
+   */
+  completeSocialSession: (
+    provider: "google" | "apple",
+    kind: "accessToken" | "identityToken" | "googleOauth" | "appleOauth",
+    payload: OAuthPayload,
+  ) => Promise<void>;
   signOut: () => Promise<void>;
   syncNow: () => Promise<ManualSyncOutcome>;
   /** True while a cloud sync round-trip is in progress. */
@@ -100,11 +118,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (current?.accountType !== "user" || !current.refreshToken) return current;
       try {
         const stored = toStored(await refreshSession(current.refreshToken));
-        await SessionStore.set(stored);
+        try {
+          await SessionStore.set(stored);
+        } catch (error) {
+          // Server already rotated the one-time refresh token — if we cannot
+          // persist it, drop the session rather than keeping a zombie in memory.
+          if (error instanceof SessionPersistError) {
+            await SessionStore.clear();
+            setSession(null);
+            setUser(null);
+            return null;
+          }
+          throw error;
+        }
         setSession(stored);
         return stored;
-      } catch {
-        // Offline, or the refresh token was revoked — keep the existing session.
+      } catch (error) {
+        // Revoked / expired refresh — clear so the UI does not look signed in.
+        if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
+          await SessionStore.clear();
+          setSession(null);
+          setUser(null);
+          return null;
+        }
+        // Offline or 5xx — keep the existing session for a later retry.
         return current;
       }
     })();
@@ -142,7 +179,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setTokenRefresher(async () => {
       const refreshed = await refresh();
-      return refreshed?.accessToken ?? null;
+      if (!refreshed) return null;
+      // Cookie sessions keep the marker; Bearer sessions return the new JWT.
+      return refreshed.accessToken === WEB_COOKIE_SESSION_TOKEN
+        ? WEB_COOKIE_SESSION_TOKEN
+        : refreshed.accessToken;
     });
     return () => setTokenRefresher(null);
   }, [refresh]);
@@ -162,6 +203,74 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     return stored;
   }, []);
+
+  const applySessionDto = useCallback(
+    async (dto: AuthSessionResponseDto) => {
+      await persist(dto);
+      void syncNow();
+    },
+    [persist, syncNow],
+  );
+
+  const completeSocialSession = useCallback(
+    async (
+      provider: "google" | "apple",
+      kind: "accessToken" | "identityToken" | "googleOauth" | "appleOauth",
+      payload: OAuthPayload,
+    ) => {
+      const runFresh = async () => {
+        switch (kind) {
+          case "accessToken":
+            return authGoogle(payload.accessToken ?? "");
+          case "identityToken":
+            return authApple({
+              identityToken: payload.identityToken ?? payload.idToken ?? "",
+              displayName: payload.displayName,
+            });
+          case "googleOauth":
+            return authGoogleOauth({
+              code: payload.code ?? "",
+              redirectUri: payload.redirectUri ?? "",
+              codeVerifier: payload.codeVerifier ?? "",
+            });
+          case "appleOauth":
+            return authAppleOauth({
+              code: payload.code ?? "",
+              redirectUri: payload.redirectUri ?? "",
+              codeVerifier: payload.codeVerifier ?? "",
+              displayName: payload.displayName,
+            });
+        }
+      };
+
+      const current = await SessionStore.get();
+      if (current?.accountType === "guest") {
+        const linkPayload: OAuthPayload =
+          kind === "accessToken"
+            ? { accessToken: payload.accessToken }
+            : kind === "identityToken"
+              ? {
+                  idToken: payload.identityToken ?? payload.idToken,
+                  displayName: payload.displayName,
+                }
+              : {
+                  code: payload.code,
+                  codeVerifier: payload.codeVerifier,
+                  redirectUri: payload.redirectUri,
+                  displayName: payload.displayName,
+                };
+        const dto = await linkAccount(current.accessToken, provider, linkPayload);
+        await persist(dto);
+        void syncNow();
+        return;
+      }
+
+      const dto = await runFresh();
+      await persist(dto);
+      void syncNow();
+    },
+    [persist, syncNow],
+  );
 
   const signInAsGuest = useCallback(async () => {
     const deviceId = await SessionStore.getDeviceId();
@@ -280,6 +389,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.remove();
   }, [syncNow]);
 
+  // Sync when connectivity returns (native NetInfo / web online event).
+  const online = useIsOnline();
+  const wasOnline = useRef(true);
+  useEffect(() => {
+    if (online && !wasOnline.current) void syncNow();
+    wasOnline.current = online;
+  }, [online, syncNow]);
+
   const value = useMemo<AuthContextValue>(
     () => ({
       session,
@@ -290,6 +407,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signInAsGuest,
       signInWithProvider,
       linkProvider,
+      applySessionDto,
+      completeSocialSession,
       signOut,
       syncNow,
       deleteAccount,
@@ -302,6 +421,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signInAsGuest,
       signInWithProvider,
       linkProvider,
+      applySessionDto,
+      completeSocialSession,
       signOut,
       syncNow,
       deleteAccount,

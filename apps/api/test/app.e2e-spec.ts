@@ -54,17 +54,21 @@ describe("API (e2e)", () => {
   it("POST /api/v1/auth/guest issues a signed JWT session", async () => {
     const response = await http()
       .post("/api/v1/auth/guest")
-      .send({ deviceId: "e2e-device" })
+      .send({ deviceId: "e2e-device-xxxxxxxx" })
       .expect(201);
 
     expect(response.body.accountType).toBe("guest");
-    expect(response.body.userId).toBe("e2e-device");
+    // Guest user ids are server-minted UUIDs — never the client deviceId.
+    expect(response.body.userId).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i,
+    );
+    expect(response.body.userId).not.toBe("e2e-device-xxxxxxxx");
     expect(String(response.body.accessToken).split(".")).toHaveLength(3);
     expect(response.body.accessTokenExpiresIn).toBeGreaterThan(0);
   });
 
   it("POST /api/v1/auth/refresh rotates the refresh token", async () => {
-    const guest = await http().post("/api/v1/auth/guest").send({ deviceId: "e2e-refresh" });
+    const guest = await http().post("/api/v1/auth/guest").send({ deviceId: "e2e-refresh-xxxxxxx" });
     const refreshed = await http()
       .post("/api/v1/auth/refresh")
       .send({ refreshToken: guest.body.refreshToken })
@@ -81,7 +85,7 @@ describe("API (e2e)", () => {
   });
 
   it("blocks guests from cloud sync with 403", async () => {
-    const guest = await http().post("/api/v1/auth/guest").send({ deviceId: "e2e-guest-sync" });
+    const guest = await http().post("/api/v1/auth/guest").send({ deviceId: "e2e-guest-sync-xxxx" });
 
     await http()
       .get("/api/v1/sync/pull")

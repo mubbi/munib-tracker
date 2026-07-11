@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { AppFeedbackModule } from "./app-feedback/app-feedback.module";
 import { AuthModule } from "./auth/auth.module";
+import { CommonModule } from "./common/common.module";
 import { AppConfigModule } from "./config/config.module";
 import { ContentReportsModule } from "./content-reports/content-reports.module";
 import { DatabaseModule } from "./database/database.module";
@@ -12,6 +13,7 @@ import { VersionModule } from "./version/version.module";
 @Module({
   imports: [
     AppConfigModule,
+    CommonModule,
     DatabaseModule,
     HealthModule,
     AuthModule,

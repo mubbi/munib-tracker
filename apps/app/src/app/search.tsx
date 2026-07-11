@@ -619,7 +619,7 @@ function ResultRow({
             text={result.title}
             query={query}
             type="small"
-            numberOfLines={1}
+            numberOfLines={2}
             style={styles.rowTitle}
           />
           {result.badge ? (

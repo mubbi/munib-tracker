@@ -1,11 +1,15 @@
 import * as AuthSession from "expo-auth-session";
 import { Platform } from "react-native";
+import { getApiBaseUrl } from "@munib-tracker/api-client";
 
 /** Custom URL scheme registered in app.json (`expo.scheme`). */
 export const APP_SCHEME = "munib-tracker";
 
-/** Path segment used in native OAuth redirect URIs. */
-const OAUTH_REDIRECT_PATH = "oauthredirect";
+/** Path segment used in Google native OAuth redirect URIs. */
+export const GOOGLE_OAUTH_REDIRECT_PATH = "oauthredirect";
+
+/** HTTPS App Link path for Apple OAuth return (Android + iOS OAuth fallback). */
+export const APPLE_OAUTH_NATIVE_PATH = "oauth/apple";
 
 function env(key: string): string {
   return (process.env[key] ?? "").trim();
@@ -14,7 +18,7 @@ function env(key: string): string {
 /**
  * Google OAuth client id for the current platform, falling back to the shared
  * `EXPO_PUBLIC_GOOGLE_CLIENT_ID`. The web client id is exchanged server-side
- * (the API holds the matching secret); native ids validate id_tokens.
+ * (the API holds the matching secret); native ids validate access tokens.
  */
 export function resolveGoogleClientId(): string {
   const fallback = env("EXPO_PUBLIC_GOOGLE_CLIENT_ID");
@@ -36,6 +40,23 @@ export function getAppleServicesId(): string {
   return env("EXPO_PUBLIC_APPLE_SERVICES_ID");
 }
 
+/** iOS bundle id used as Apple JWT `aud` for native Sign in with Apple. */
+export function getAppIdentifier(): string {
+  return env("EXPO_PUBLIC_APP_IDENTIFIER") || "app.munibtracker";
+}
+
+/**
+ * Product web origin for OAuth redirects / App Links.
+ * Prefers `EXPO_PUBLIC_WEB_APP_ORIGIN`, falls back to `EXPO_PUBLIC_APP_URL`.
+ */
+export function getWebAppOrigin(): string {
+  return (
+    env("EXPO_PUBLIC_WEB_APP_ORIGIN") ||
+    env("EXPO_PUBLIC_APP_URL") ||
+    "https://my.munibtracker.app"
+  ).replace(/\/$/, "");
+}
+
 /**
  * Converts a Google OAuth client id to its reversed-client-id URL scheme, e.g.
  * `123-abc.apps.googleusercontent.com` → `com.googleusercontent.apps.123-abc`.
@@ -44,6 +65,10 @@ export function getAppleServicesId(): string {
 export function googleClientIdToReversedScheme(clientId: string): string | null {
   const match = clientId.trim().match(/^([\w-]+)\.apps\.googleusercontent\.com$/i);
   return match ? `com.googleusercontent.apps.${match[1]}` : null;
+}
+
+export function buildGoogleNativeRedirectUri(scheme: string): string {
+  return `${scheme.trim()}:/${GOOGLE_OAUTH_REDIRECT_PATH}`;
 }
 
 /**
@@ -61,13 +86,44 @@ export function getGoogleRedirectUri(): string {
   }
   const reversed = googleClientIdToReversedScheme(resolveGoogleClientId());
   const scheme = reversed ?? APP_SCHEME;
-  return `${scheme}:/${OAUTH_REDIRECT_PATH}`;
+  return buildGoogleNativeRedirectUri(scheme);
 }
 
-/** Redirect URI for the web/Android Apple OAuth request. */
+/**
+ * Redirect URI for Apple OAuth.
+ * Web uses the API form_post callback (required for email/name scopes).
+ * Native (Android + iOS OAuth fallback) uses an HTTPS App Link — Apple rejects custom URI schemes.
+ */
 export function getAppleRedirectUri(): string {
+  if (Platform.OS === "web") {
+    const api = getApiBaseUrl().replace(/\/$/, "");
+    return `${api}/auth/apple/oauth/callback`;
+  }
+  return `${getWebAppOrigin()}/${APPLE_OAUTH_NATIVE_PATH}`;
+}
+
+/** Page to return to after web Apple form_post (same tab — not a popup). */
+export function getAppleOAuthReturnUrl(): string {
+  if (typeof window !== "undefined" && window.location?.origin) {
+    const path = window.location.pathname || "/";
+    return `${window.location.origin}${path}${window.location.search}${window.location.hash}`;
+  }
+  return getWebAppOrigin();
+}
+
+/** Facebook App ID (same value as `FACEBOOK_APP_ID` on the API). */
+export function getFacebookAppId(): string {
+  return env("EXPO_PUBLIC_FACEBOOK_APP_ID");
+}
+
+export function isFacebookConfigured(): boolean {
+  return !!getFacebookAppId();
+}
+
+/** Redirect URI for Facebook OAuth (must match the Facebook app Valid OAuth Redirect URIs). */
+export function getFacebookRedirectUri(): string {
   if (Platform.OS === "web") {
     return AuthSession.makeRedirectUri({ scheme: APP_SCHEME });
   }
-  return `${APP_SCHEME}:/${OAUTH_REDIRECT_PATH}`;
+  return `${APP_SCHEME}:/${GOOGLE_OAUTH_REDIRECT_PATH}`;
 }

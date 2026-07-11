@@ -66,10 +66,10 @@ Our API (`apps/api`) currently has:
 | Module | Status | Next doc to read when extending |
 |--------|--------|--------------------------------|
 | `health` | Live probe | `docs/recipes/terminus.md` for richer checks |
-| `auth` | In-memory stub | `docs/security/authentication.md`, `docs/recipes/passport.md` |
-| `sync` | In-memory LWW | `docs/recipes/prisma.md` or `docs/recipes/sql-typeorm.md` for persistence |
+| `auth` | Guest + Google/Apple/Facebook OAuth (JWT + web cookies) | `docs/security/authentication.md`; project guide [`docs/OAUTH_SETUP.md`](../../../docs/OAUTH_SETUP.md) |
+| `sync` | TypeORM LWW cloud sync | `docs/recipes/sql-typeorm.md` |
 
-Phase 8 in [docs/TODO.md](../../../docs/TODO.md): Google/Apple/Facebook OAuth, guest mode, cloud sync.
+Auth is **not** an in-memory stub — see [`apps/api/AGENTS.md`](../../../apps/api/AGENTS.md). Historical Phase 8 notes: [`docs/archive/TODO.md`](../../../docs/archive/TODO.md).
 
 ## Doc format notes
 

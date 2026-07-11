@@ -66,7 +66,9 @@
     "increase": "{{label}} zêde bike",
     "decrease": "{{label}} azalt",
     "appName": "Munib Tracker",
-    "appTagline": "Rêwîtiya Xwe Vegere ber Xwedê Bişopînin."
+    "appTagline": "Rêwîtiya Xwe Vegere ber Xwedê Bişopînin.",
+    "loadingRoute": "Preparing…",
+    "loadingRouteHint": "Just a moment while this screen loads."
   },
   "search": {
     "placeholder": "Qur'an, hədis, dua, adhkar axtar…",
@@ -471,6 +473,46 @@
     "afterSalahProgress": "ئادکار {{completed}}/{{total}} .",
     "afterSalahProgressA11y": "Adhkarê piştî {{prayer}}: {{completed}} ji {{total}} îro temam bûn"
   },
+  "update": {
+    "title": "Nûkirin heye",
+    "hardTitle": "Nûkirin pêwîst e",
+    "availableBadge": "Guhertoya nû",
+    "requiredBadge": "Pêwîst",
+    "yourVersion": "Guhertoya we",
+    "latestVersion": "Herî nû",
+    "body": "Guhertoya {{version}} bi başkirin û rastkirinên herî nû amade ye.",
+    "hardBody": "Ji bo domandina sepanê biguherînin guhertoya {{version}}.",
+    "hardNote": "Ev nûkirin ji bo domandinê pêwîst e.",
+    "updateButton": "Niha nûve bike",
+    "webReloadButton": "Ji nû ve bar bike",
+    "webSoftRefreshHint": "Ji bo guhertoya herî nû ji nû ve bar bike. Daneyên we li ser vê cîhazê dimînin.",
+    "webHardRefreshHint": "Li jor «Ji nû ve bar bike» bitikîne. Ger ev peyam berdewam be, rûpelê bi zor nûve bike: Ctrl+Shift+R li Windows/Linux, an Cmd+Shift+R li macOS."
+  },
+  "reviews": {
+    "rateTitle": "Ji Munib Tracker kêfxweş in?",
+    "rateSubtitle": "Bersiva we alîkariya Mislimên din dike ku sepanê bibînin.",
+    "starLabel": "{{count}} stêrk",
+    "starLabel_other": "{{count}} stêrk",
+    "storeTitle": "Spas!",
+    "storeBody": "Dixwazin Munib Tracker li firotgeha sepanan binirxînin? Tenê çend saniyeyan digire.",
+    "storeCta": "Li firotgeha sepanan binirxîne",
+    "maybeLater": "Dibe paşê",
+    "feedbackTitle": "Alîkariya me bikin ku baştir bibin",
+    "feedbackBody": "Bibore Munib Tracker hêviyên we bi cih neanî. Em çi dikarin baştir bikin?",
+    "feedbackPlaceholder": "Bêje çi xelet bû an çi kêm e…",
+    "feedbackCta": "Bersiv bişîne",
+    "feedbackOffline": "Ji bo şandina bersivê bi înternetê ve girê bide.",
+    "feedbackError": "Bersiv nehat şandin. Dîsa biceribîne.",
+    "skip": "Derbas bibe",
+    "thanksTitle": "Spas!",
+    "thanksBody": "Piştgiriya we ji bo me gelek giring e.",
+    "feedbackThanksTitle": "Bersiv hate wergirtin",
+    "feedbackThanksBody": "Em ê notên we bikar bînin da ku Munib Tracker baştir bikin."
+  },
+  "localNotifications": {
+    "reviewReactivationTitle": "Heta baş diçin",
+    "reviewReactivationBody": "Dixwazin ezmûna xwe ya Munib Tracker parve bikin?"
+  },
   "settings": {
     "eyebrow": "Kesane bike",
     "title": "Mîheng",
@@ -501,6 +543,18 @@
     "qiblaSub": "Rêya nimêjê bibînin",
     "about": "Ji dor",
     "aboutSub": "Versiyon, kredî, û polîtîkayên",
+    "rateApp": "Munib Tracker binirxîne",
+    "rateAppDesc": "Ezmûna xwe li firotgeha sepanan parve bike",
+    "reviewReactivationEnabled": "Bîranînên bersiva sepanê",
+    "reviewReactivationEnabledDesc": "Carinan bîranînên nerm ji bo parvekirina bersivê di sepanê de — ne daxwaza rasterast a nirxandinê li firotgehê.",
+    "appUpdate": "Nûkirina sepanê",
+    "updateAvailableTitle": "Nûkirin heye",
+    "updateRequiredTitle": "Nûkirin pêwîst e",
+    "updateAvailableDesc": "Guhertoya {{latest}} heye. Hûn li ser {{current}} ne.",
+    "updateRequiredDesc": "Ji bo domandina sepanê biguherînin {{latest}}.",
+    "updateNow": "Niha nûve bike",
+    "viewUpdateDetails": "Hûragahiyan bibîne",
+    "remindInSettings": "Di Mîhengan de bîra min bike",
     "import": "Dîroka nimêjê Import",
     "importSub": "Rojên borî ji pelek JSON an CSV dagirtin",
     "footer": "{{app}} · bi niyet hatiye avakirin",
@@ -549,19 +603,7 @@
         "name": "Elî Îbn Ehmed Mela",
         "location": "Mescid el-Haram"
       }
-    },
-    "rateApp": "Munib Tracker binirxîne",
-    "rateAppDesc": "Ezmûna xwe li firotgeha sepanan parve bike",
-    "reviewReactivationEnabled": "Bîranînên bersiva sepanê",
-    "reviewReactivationEnabledDesc": "Carinan bîranînên nerm ji bo parvekirina bersivê di sepanê de — ne daxwaza rasterast a nirxandinê li firotgehê.",
-    "appUpdate": "Nûkirina sepanê",
-    "updateAvailableTitle": "Nûkirin heye",
-    "updateRequiredTitle": "Nûkirin pêwîst e",
-    "updateAvailableDesc": "Guhertoya {{latest}} heye. Hûn li ser {{current}} ne.",
-    "updateRequiredDesc": "Ji bo domandina sepanê biguherînin {{latest}}.",
-    "updateNow": "Niha nûve bike",
-    "viewUpdateDetails": "Hûragahiyan bibîne",
-    "remindInSettings": "Di Mîhengan de bîra min bike"
+    }
   },
   "import": {
     "title": "Import salah dîrok",
@@ -1090,6 +1132,14 @@
     "searching": "Lêgerîn…",
     "secondTranslation": "Wergera duyemîn",
     "secondTranslationNone": "Netû",
+    "selectTranslator": "Wergêr hilbijêre - {{language}}",
+    "translationCount_one": "{{count}} werger",
+    "translationCount_other": "{{count}} werger",
+    "translationBundled": "Offline heye",
+    "translationRemote": "Dema ku hewce bike dakêşin",
+    "backToLanguages": "Hemû zimanan",
+    "searchTranslationLanguages": "Li zimanan bigerin…",
+    "searchTranslators": "Li wergêran bigerin…",
     "pages": "لاپەڕەکان",
     "pagesSubtitle": "Browse  Madani mushaf by page",
     "pageN": "Rûpel {{n}}",
@@ -1108,15 +1158,7 @@
     "prevPage": "Berê page",
     "nextPage": "Rûpelê pêştir",
     "openPageView": "Dîtina rûpelê vekin",
-    "continueAtPage": "Rûpel {{page}} · {{surah}}:{{ayah}}",
-    "selectTranslator": "Wergêr hilbijêre - {{language}}",
-    "translationCount_one": "{{count}} werger",
-    "translationCount_other": "{{count}} werger",
-    "translationBundled": "Offline heye",
-    "translationRemote": "Dema ku hewce bike dakêşin",
-    "backToLanguages": "Hemû zimanan",
-    "searchTranslationLanguages": "Li zimanan bigerin…",
-    "searchTranslators": "Li wergêran bigerin…"
+    "continueAtPage": "Rûpel {{page}} · {{surah}}:{{ayah}}"
   },
   "hadith": {
     "eyebrow": "Kevneşopiya pêxemberî",
@@ -1230,7 +1272,7 @@
     },
     "duha": {
       "summary": " forenoon salah — typically two bo eight rak'ahs between sunrise û Dhuhr.",
-      "why": "Charity e due li every joint ya  body each roj; even  few rak'ahs ya Duha fulfills wê charity ji bo  limbs through ibadet.",
+      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
       "benefits": "Forgives sins, brings sustenance (rizq), û revives  neglected sunnah. Flexible timing makes it accessible when  roj allows."
     },
     "dhuhr": {
@@ -1855,7 +1897,7 @@
     "compassLabel": "Kumpasa Qibla",
     "compassValue": "{{bearing}} degrees bo  Kaaba, {{distance}} away",
     "aligned": "Aligned bi  Qibla",
-    "alignedHint": "Hold steady — you're facing  Kaaba",
+    "alignedHint": "Hold steady — you're facing the Kaaba",
     "turnFineTuneLeft": "Berde berde",
     "turnFineTuneRight": "Rast bihejînin",
     "turnSlightLeft": "Hinekî çep",
@@ -1895,7 +1937,7 @@
     "syncing": "Hevdemkirin…",
     "done": "We daneyên e backed up",
     "failed": "Couldn't sync. Check we connection û try again.",
-    "mergeNoChanges": "Everything was already up bo date",
+    "mergeNoChanges": "Everything was already up to date",
     "mergeSummary": "{{received}} wergirt · {{sent}} şandin",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest sererast bike",
     "conflictAffected": "Bi bandor: {{list}}",
@@ -2069,7 +2111,7 @@
     "eyebrow": " Noble Qur'an",
     "short": "Xatm",
     "title": "Xatm plan",
-    "subtitle": "Finish  Qur'an at  steady pace",
+    "subtitle": "Finish the Qur'an at a steady pace",
     "startTitle": "Dest pê bike  plan",
     "startHint": "Choose how many roj bo temam  Qur'an. We'll set  rojane ayah target.",
     "startHintPages": "Choose how many roj bo temam  Qur'an. We'll set  rojane mushaf page target.",
@@ -2150,7 +2192,7 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": " khatm built li steady rojane reading lasts longer than  sprint wê burns out.",
+        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
         "source": "Principle ya domdarî"
       },
       "portion": {
@@ -2439,7 +2481,7 @@
     "meaningLabel": "Ya ku ew hîn dike",
     "progressTitle": "learning progressên min",
     "progressSubtitle": "Dersan bişopînin - ne pileya giyanî li cem Xwedê",
-    "progressIntro": "Ev dashboard tracks we study û practice di Munib. Completing lessons does not measure we standing bi Allah — sincerity does.",
+    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
     "lessonsTitle": "Lessons temam bû",
     "lessonsHint": "Mark mijar temam as hûn finish xwendin them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2723,7 +2765,7 @@
     "quickGhusl": "Rêberê Guslê",
     "quickGhuslHint": "Dema ku nepakiyek mezin çêbibe serşokê tijî",
     "quickChecklist": "Rojane checklist",
-    "quickChecklistHint": "Habits wê keep hûn ready ji bo salah",
+    "quickChecklistHint": "Habits that keep you ready for prayer",
     "quickProgress": "learningên min",
     "quickProgressHint": "Mijar dixwînin û pêşveçûnê dixwînin",
     "progressCardTitle": "Pêşveçûna fêrbûnê",
@@ -2818,7 +2860,7 @@
     "profileTitle": "Tengal",
     "progressTitle": "learning progressên min",
     "progressSubtitle": "Dersan bişopînin - ne pileya giyanî li cem Xwedê",
-    "progressIntro": "Mark mijar temam as hûn study  lives ya  prophets.",
+    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
     "lessonsTitle": "Mijar temam bû",
     "lessonsHint": "Mark mijar temam as hûn finish xwendin them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3313,7 +3355,7 @@
     "nisabWeightNote": "Giraniyên tam û kîjan metal tercîh bikin di navbera dibistanan de hinekî diguhere. Hesabker van jimareyên Henefî yên ku pir têne destnîşan kirin bikar tîne.",
     "quran": [
       {
-        "excerpt": "Zakat expenditures in only ji bo  poor û ji bo  needy û ji bo those employed bo collect it û ji bo bringing hearts together û ji bo freeing captives û ji bo those di deyn û ji bo  cause ya Allah û ji bo  wayfarer —  obligation ji Allah. Û Allah e Knowing û Wise."
+        "excerpt": "Zakat expenditures are only for the poor and for the needy and for those employed to collect it and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer — an obligation from Allah. And Allah is Knowing and Wise."
       },
       {
         "excerpt": "Take ji their wealth  charity by which hûn purify them û cause them bo grow, û invoke blessings upon them. Indeed, we invocation e reassurance ji bo them. Û Allah e Hearing û Knowing."
@@ -3578,7 +3620,7 @@
     "confirmDiscardTitle": "Guherandinên ji holê rakin?",
     "confirmDiscardMsg": "Anything hûn wrote will be lost.",
     "confirmOverwriteTitle": "Refleksiyona heyî veguherîne?",
-    "confirmOverwriteMsg": "Hûn already noted {{prayer}} ji bo ev roj. Saving will replace it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
     "level1": "Balkêş kirin",
     "level2": "Nerehet",
     "level3": "Têra xwe pêşkêş bikin",
@@ -4039,45 +4081,5 @@
     "after1Min": "Piştî 1 deqîqe",
     "after5Min": "Piştî 5 deqîqeyan",
     "footer": "We PIN e stored securely li ev cîhaz û never leaves it."
-  },
-  "update": {
-    "title": "Nûkirin heye",
-    "hardTitle": "Nûkirin pêwîst e",
-    "availableBadge": "Guhertoya nû",
-    "requiredBadge": "Pêwîst",
-    "yourVersion": "Guhertoya we",
-    "latestVersion": "Herî nû",
-    "body": "Guhertoya {{version}} bi başkirin û rastkirinên herî nû amade ye.",
-    "hardBody": "Ji bo domandina sepanê biguherînin guhertoya {{version}}.",
-    "hardNote": "Ev nûkirin ji bo domandinê pêwîst e.",
-    "updateButton": "Niha nûve bike",
-    "webReloadButton": "Ji nû ve bar bike",
-    "webSoftRefreshHint": "Ji bo guhertoya herî nû ji nû ve bar bike. Daneyên we li ser vê cîhazê dimînin.",
-    "webHardRefreshHint": "Li jor «Ji nû ve bar bike» bitikîne. Ger ev peyam berdewam be, rûpelê bi zor nûve bike: Ctrl+Shift+R li Windows/Linux, an Cmd+Shift+R li macOS."
-  },
-  "reviews": {
-    "rateTitle": "Ji Munib Tracker kêfxweş in?",
-    "rateSubtitle": "Bersiva we alîkariya Mislimên din dike ku sepanê bibînin.",
-    "starLabel": "{{count}} stêrk",
-    "starLabel_other": "{{count}} stêrk",
-    "storeTitle": "Spas!",
-    "storeBody": "Dixwazin Munib Tracker li firotgeha sepanan binirxînin? Tenê çend saniyeyan digire.",
-    "storeCta": "Li firotgeha sepanan binirxîne",
-    "maybeLater": "Dibe paşê",
-    "feedbackTitle": "Alîkariya me bikin ku baştir bibin",
-    "feedbackBody": "Bibore Munib Tracker hêviyên we bi cih neanî. Em çi dikarin baştir bikin?",
-    "feedbackPlaceholder": "Bêje çi xelet bû an çi kêm e…",
-    "feedbackCta": "Bersiv bişîne",
-    "feedbackOffline": "Ji bo şandina bersivê bi înternetê ve girê bide.",
-    "feedbackError": "Bersiv nehat şandin. Dîsa biceribîne.",
-    "skip": "Derbas bibe",
-    "thanksTitle": "Spas!",
-    "thanksBody": "Piştgiriya we ji bo me gelek giring e.",
-    "feedbackThanksTitle": "Bersiv hate wergirtin",
-    "feedbackThanksBody": "Em ê notên we bikar bînin da ku Munib Tracker baştir bikin."
-  },
-  "localNotifications": {
-    "reviewReactivationTitle": "Heta baş diçin",
-    "reviewReactivationBody": "Dixwazin ezmûna xwe ya Munib Tracker parve bikin?"
   }
 }
