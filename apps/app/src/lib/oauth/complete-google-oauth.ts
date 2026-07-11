@@ -1,5 +1,5 @@
-import * as AuthSession from "expo-auth-session";
 import type { DiscoveryDocument } from "expo-auth-session";
+import * as AuthSession from "expo-auth-session";
 
 import {
   clearGoogleOAuthPendingSession,

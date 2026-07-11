@@ -3,9 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { NodeEnvironment } from "../config/env.schema";
 
-function getAllowedRedirectUris(
-  config: ConfigService<EnvironmentVariables, true>,
-): string[] {
+function getAllowedRedirectUris(config: ConfigService<EnvironmentVariables, true>): string[] {
   const raw = config.get("OAUTH_REDIRECT_URI_ALLOWLIST", { infer: true })?.trim();
   if (!raw) return [];
   return raw

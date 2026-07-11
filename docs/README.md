@@ -23,7 +23,7 @@ Central map of project docs. **Active backlog** lives in [`BACKLOG.md`](./BACKLO
 | **Data sources & licenses** (OSS Qur'an, hadith, adhkar, audio) | [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) |
 | **Native surfaces** (widgets, Live Activities, Siri, Watch, Wear) | [`NATIVE_SURFACES.md`](./NATIVE_SURFACES.md) |
 | **Device & platform support** | [`DEVICES.md`](./DEVICES.md) |
-| **Performance profiling & optimization** | [`PROFILING.md`](./PROFILING.md) |
+| **Performance profiling & optimization** | [`PROFILING.md`](./PROFILING.md) — web ~458 chunks, lab Lighthouse, open `__common` / cold-start / AAB items |
 | **App Store / Play screenshots** | [`STORE_ASSETS.md`](./STORE_ASSETS.md) |
 | **iOS App Store listing copy** (23 app locales + 7 ASO) | [`IOS_APP_COPY.md`](./IOS_APP_COPY.md) |
 | **Google Play short description** (23 app locales + 7 ASO) | [`ANDROID_APP_COPY.md`](./ANDROID_APP_COPY.md) |
@@ -47,5 +47,6 @@ Per-app agent guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/ap
 ## Doc maintenance
 
 - Mark work **done** in [`FEATURES.md`](./FEATURES.md); remove from [`BACKLOG.md`](./BACKLOG.md).
-- Operational how-tos belong in **guides** (`I18N_GUIDE`, `DATA_INGESTION`, `OAUTH_SETUP`, etc.), not in backlog files.
+- Operational how-tos belong in **guides** (`I18N_GUIDE`, `DATA_INGESTION`, `OAUTH_SETUP`, `PROFILING`, etc.), not in backlog files.
+- After web perf changes: re-run `pnpm --filter app build:web`, update [`PROFILING.md`](./PROFILING.md) §2.2 / §2.5, and sync the Performance table in [`BACKLOG.md`](./BACKLOG.md).
 - Last docs review: **2026-07-11** (OAuth sample-parity env names + platform flows).

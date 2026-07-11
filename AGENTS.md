@@ -70,7 +70,7 @@ pnpm release:app:ios        # local signed IPA (xcodebuild, macOS)
 
 ## Content & data
 
-Religious content (Qur'an, hadith, adhkar, duas, 99 Names, audio) is **sourced from open datasets, never hand-written**, and generated into `apps/app/assets/data/` (+ a `manifest.json` credits registry) by the pipeline in `apps/app/scripts/build-data/`. Bundled JSON is offline-first; extra Qur'an editions and full hadith collections are fetched cache-first from CDNs (`apps/app/src/api/{quran,hadith}-remote.ts`). Never edit generated content files (`packages/shared/src/content/*` for adhkar/duas, `apps/app/assets/data/*`, `apps/app/src/lib/quran-loader.ts`) by hand — change the builder and re-run `build:data`.
+Religious content (Qur'an, hadith, adhkar, duas, 99 Names, audio) is **sourced from open datasets, never hand-written**, and generated into `apps/app/assets/data/` (+ a `manifest.json` credits registry) by the pipeline in `apps/app/scripts/build-data/`. Bundled JSON is offline-first; extra Qur'an editions and full hadith collections are fetched cache-first from CDNs (`apps/app/src/api/{quran,hadith}-remote.ts`). Never edit generated content files (`packages/shared/src/content/*` for adhkar/duas, `apps/app/assets/data/*`, `apps/app/src/lib/quran-loader.ts`) by hand — change the builder and re-run `build:data`. Web first-load / chunk rules: [`docs/PROFILING.md`](docs/PROFILING.md) (use `quran-meta` / dynamic `import()` so multi‑MB JSON stays out of `__common`).
 
 ## Docs
 
@@ -85,7 +85,7 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`DEEP_LINKS.md`](docs/DEEP_LINKS.md) | Custom scheme + HTTPS App Links (incl. Apple OAuth) |
 | [`PRODUCTION.md`](docs/PRODUCTION.md) | Vercel deploys + production env (incl. OAuth) |
 | [`DATA_INGESTION.md`](docs/DATA_INGESTION.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) | Content pipeline & OSS sources |
-| [`PROFILING.md`](docs/PROFILING.md) | Bundle / startup optimization backlog |
+| [`PROFILING.md`](docs/PROFILING.md) | Web/native perf profile, Lighthouse lab scores, remaining `__common` work |
 | [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md) | Widgets, Live Activities, Siri, Watch, Wear |
 
 Historical PRD and NF flows: [`docs/archive/`](docs/archive/).

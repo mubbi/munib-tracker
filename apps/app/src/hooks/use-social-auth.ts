@@ -45,9 +45,7 @@ const FACEBOOK_DISCOVERY: AuthSession.DiscoveryDocument = {
 function appleDisplayName(
   fullName?: { givenName?: string | null; familyName?: string | null } | null,
 ): string | undefined {
-  const parts = [fullName?.givenName, fullName?.familyName]
-    .map((p) => p?.trim())
-    .filter(Boolean);
+  const parts = [fullName?.givenName, fullName?.familyName].map((p) => p?.trim()).filter(Boolean);
   return parts.length ? parts.join(" ") : undefined;
 }
 

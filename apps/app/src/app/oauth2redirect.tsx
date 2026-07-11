@@ -1,9 +1,8 @@
 import { Redirect, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-
-import { APP_SCHEME, GOOGLE_OAUTH_REDIRECT_PATH } from "@/lib/auth/oauth-config";
 import { useSocialAuth } from "@/hooks/use-social-auth";
+import { APP_SCHEME, GOOGLE_OAUTH_REDIRECT_PATH } from "@/lib/auth/oauth-config";
 
 /**
  * Google OAuth return handler for the app custom scheme / reversed-client-id path.

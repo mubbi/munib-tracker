@@ -21,8 +21,8 @@ import {
   ApiTags,
 } from "@nestjs/swagger";
 import type { Request, Response } from "express";
-import { AuthOAuthService } from "./auth-oauth.service";
 import { AuthService } from "./auth.service";
+import { AuthOAuthService } from "./auth-oauth.service";
 import {
   AuthAppleBodyDto,
   AuthAppleOauthBodyDto,

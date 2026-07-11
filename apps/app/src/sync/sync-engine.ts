@@ -44,8 +44,16 @@ import { preferencesStore } from "@/stores/preferences-store";
 import { quranStore } from "@/stores/quran-store";
 import { trackerStore } from "@/stores/tracker-store";
 
-import { applyRemoteBlob, buildBlobRecords, isBlobEntity, reloadBlobStores } from "./blob-sync";
 import { buildSyncRecords } from "./records";
+
+async function blobSync() {
+  // Jest CJS cannot use dynamic `import()` without --experimental-vm-modules.
+  if (process.env.NODE_ENV === "test") {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS
+    return require("./blob-sync") as typeof import("./blob-sync");
+  }
+  return import("./blob-sync");
+}
 
 export interface SyncMetadata {
   /** Server clock at our last successful pull — the `since` cursor for the next pull. */
@@ -87,6 +95,7 @@ export async function readSyncMetadata(): Promise<SyncMetadata> {
  * applied records don't get re-stamped (which would cause sync ping-pong).
  */
 async function applyRemoteRecords(records: SyncRecordDto[]): Promise<void> {
+  const { applyRemoteBlob, isBlobEntity, reloadBlobStores } = await blobSync();
   const reloadBlobEntities = new Set<string>();
   for (const record of records) {
     const data = record.data as Record<string, unknown>;
@@ -270,7 +279,7 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   // Blob entities (fasting, khatm, learning progress, qaza schedule, …) detect
   // their own changes/deletions via a content-hash tracker; merge them in so the
   // same delta filter and last-write-wins push apply uniformly.
-  const blobRecords = await buildBlobRecords(nowIso);
+  const blobRecords = await (await blobSync()).buildBlobRecords(nowIso);
   const allRecords = [...typedRecords, ...blobRecords];
 
   // Delta push: only send records changed since our last successful push, plus

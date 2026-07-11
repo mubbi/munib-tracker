@@ -1,4 +1,4 @@
-import { PROPHETS_TOPICS } from "@munib-tracker/shared/content";
+import { PROPHETS_TOPICS } from "@munib-tracker/shared/content/prophets";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";

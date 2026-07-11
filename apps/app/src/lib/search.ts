@@ -10,7 +10,7 @@ import type {
 import type Fuse from "fuse.js";
 
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
-import { getBundledEdition, getSurahAyahs, getSurahMeta, getTransliteration } from "@/lib/quran";
+import { getSurahMeta } from "@/lib/quran-meta";
 import {
   createFuzzyIndex,
   type FuseDoc,
@@ -81,26 +81,116 @@ let surahFuse: Fuse<FuseDoc<Surah>> | null = null;
 let hadithFuse: Fuse<FuseDoc<HadithItem>> | null = null;
 let namePosition: Map<string, number> | null = null;
 
+let duaItemsCache: DuaItem[] | undefined;
+let zikrItemsCache: ZikrItem[] | undefined;
+let duroodItemsCache: DurudItem[] | undefined;
+let namesCache: NameOfAllah[] | undefined;
+
+function syncRequireCorpus<T>(specifier: string, key: string): T {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS only
+  return require(specifier)[key] as T;
+}
+
+async function ensureDuaItems(): Promise<DuaItem[]> {
+  if (duaItemsCache) return duaItemsCache;
+  if (process.env.NODE_ENV === "test") {
+    duaItemsCache = syncRequireCorpus<DuaItem[]>("@munib-tracker/shared/content/duas", "DUA_ITEMS");
+    return duaItemsCache;
+  }
+  const mod = await import("@munib-tracker/shared/content/duas");
+  duaItemsCache = mod.DUA_ITEMS;
+  duaFuse = null;
+  return duaItemsCache;
+}
+
+async function ensureZikrItems(): Promise<ZikrItem[]> {
+  if (zikrItemsCache) return zikrItemsCache;
+  if (process.env.NODE_ENV === "test") {
+    zikrItemsCache = syncRequireCorpus<ZikrItem[]>(
+      "@munib-tracker/shared/content/zikr",
+      "ZIKR_ITEMS",
+    );
+    return zikrItemsCache;
+  }
+  const mod = await import("@munib-tracker/shared/content/zikr");
+  zikrItemsCache = mod.ZIKR_ITEMS;
+  zikrFuse = null;
+  return zikrItemsCache;
+}
+
+async function ensureDuroodItems(): Promise<DurudItem[]> {
+  if (duroodItemsCache) return duroodItemsCache;
+  if (process.env.NODE_ENV === "test") {
+    duroodItemsCache = syncRequireCorpus<DurudItem[]>(
+      "@munib-tracker/shared/content/duroods",
+      "DUROOD_ITEMS",
+    );
+    return duroodItemsCache;
+  }
+  const mod = await import("@munib-tracker/shared/content/duroods");
+  duroodItemsCache = mod.DUROOD_ITEMS;
+  duroodFuse = null;
+  return duroodItemsCache;
+}
+
+async function ensureNames(): Promise<NameOfAllah[]> {
+  if (namesCache) return namesCache;
+  if (process.env.NODE_ENV === "test") {
+    namesCache = syncRequireCorpus<NameOfAllah[]>(
+      "@munib-tracker/shared/content/names",
+      "NAMES_OF_ALLAH",
+    );
+    return namesCache;
+  }
+  const mod = await import("@munib-tracker/shared/content/names");
+  namesCache = mod.NAMES_OF_ALLAH;
+  nameFuse = null;
+  return namesCache;
+}
+
+/** Warm dua/zikr/names/duroods chunks before the user types (search screens). */
+export async function preloadSearchCorpora(): Promise<void> {
+  await Promise.all([ensureDuaItems(), ensureZikrItems(), ensureDuroodItems(), ensureNames()]);
+}
+
 function loadDuaItems(): DuaItem[] {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require("@munib-tracker/shared/content/duas").DUA_ITEMS as DuaItem[];
+  if (duaItemsCache) return duaItemsCache;
+  if (process.env.NODE_ENV === "test") {
+    return syncRequireCorpus<DuaItem[]>("@munib-tracker/shared/content/duas", "DUA_ITEMS");
+  }
+  void ensureDuaItems();
+  return [];
 }
 
 function loadZikrItems(): ZikrItem[] {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require("@munib-tracker/shared/content/zikr").ZIKR_ITEMS as ZikrItem[];
+  if (zikrItemsCache) return zikrItemsCache;
+  if (process.env.NODE_ENV === "test") {
+    return syncRequireCorpus<ZikrItem[]>("@munib-tracker/shared/content/zikr", "ZIKR_ITEMS");
+  }
+  void ensureZikrItems();
+  return [];
 }
 
 function loadDuroodItems(): DurudItem[] {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require("@munib-tracker/shared/content/duroods").DUROOD_ITEMS as DurudItem[];
+  if (duroodItemsCache) return duroodItemsCache;
+  if (process.env.NODE_ENV === "test") {
+    return syncRequireCorpus<DurudItem[]>("@munib-tracker/shared/content/duroods", "DUROOD_ITEMS");
+  }
+  void ensureDuroodItems();
+  return [];
 }
 
 function loadNames(): NameOfAllah[] {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require("@munib-tracker/shared/content/names").NAMES_OF_ALLAH as NameOfAllah[];
+  if (namesCache) return namesCache;
+  if (process.env.NODE_ENV === "test") {
+    return syncRequireCorpus<NameOfAllah[]>(
+      "@munib-tracker/shared/content/names",
+      "NAMES_OF_ALLAH",
+    );
+  }
+  void ensureNames();
+  return [];
 }
-
 function getNamePosition(): Map<string, number> {
   if (!namePosition) {
     namePosition = new Map(loadNames().map((name, index) => [name.id, index + 1]));
@@ -350,14 +440,28 @@ export function clearAyahIndex(): void {
  * query finds the ayah, not just its surah name. Normalizing ~18k strings on
  * first call is the heavy part, so callers defer it via `runWhenIdle`;
  * afterwards it is a cached in-memory fuzzy search.
+ *
+ * Dynamic-imports `@/lib/quran` so the ~9 MB ayah JSON require-map stays out of
+ * the shared web `__common` chunk until Qur'an search runs.
  */
 function getAyahFuse(): Fuse<FuseDoc<AyahRef>> {
   if (ayahFuse) return ayahFuse;
+  // Sync path for tests / after warm; production first call uses ensureAyahFuse.
+  if (process.env.NODE_ENV === "test") {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const quran = require("@/lib/quran") as typeof import("@/lib/quran");
+    ayahFuse = buildAyahFuse(quran);
+    return ayahFuse;
+  }
+  throw new Error("Ayah index not ready — call ensureAyahFuse() first");
+}
+
+function buildAyahFuse(quran: typeof import("@/lib/quran")): Fuse<FuseDoc<AyahRef>> {
   const refs: AyahRef[] = [];
   for (const surah of getSurahMeta()) {
-    const translation = getBundledEdition(QURAN_SEARCH_EDITION, surah.number);
-    const transliteration = getTransliteration(surah.number);
-    const ayahs = getSurahAyahs(surah.number);
+    const translation = quran.getBundledEdition(QURAN_SEARCH_EDITION, surah.number);
+    const transliteration = quran.getTransliteration(surah.number);
+    const ayahs = quran.getSurahAyahs(surah.number);
     for (let a = 1; a <= surah.ayahCount; a++) {
       refs.push({
         surah: surah.number,
@@ -369,12 +473,25 @@ function getAyahFuse(): Fuse<FuseDoc<AyahRef>> {
       });
     }
   }
-  ayahFuse = makeFuse(refs, [
+  return makeFuse(refs, [
     { key: "translation", weight: 2, get: (r) => r.translation },
     { key: "translit", weight: 2, get: (r) => r.transliteration },
     { key: "arabic", weight: 2, get: (r) => r.arabic },
   ]);
-  return ayahFuse;
+}
+
+/** Ensure the heavy ayah Fuse index is built (loads Qur'an JSON chunk on web). */
+export async function ensureAyahFuse(): Promise<void> {
+  if (ayahFuse) return;
+  // Jest CJS: sync loader in a separate module (DCE'd from production).
+  const quran =
+    process.env.NODE_ENV === "test"
+      ? // eslint-disable-next-line @typescript-eslint/no-require-imports
+        (
+          require("./knowledge-card-quran-test-loader") as typeof import("./knowledge-card-quran-test-loader")
+        ).loadQuranSyncForTests()
+      : await import("@/lib/quran");
+  ayahFuse = buildAyahFuse(quran);
 }
 
 // ── Public search API ────────────────────────────────────────────────────────

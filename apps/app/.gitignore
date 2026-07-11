@@ -27,6 +27,9 @@ scripts/build-data/.cache/
 # Screenshot capture scratch (Maestro YAML, pulled RKStorage, UI dumps)
 .screenshots-work/
 
+# Local Lighthouse lab reports (Chrome CLI)
+.lighthouse/
+
 # debug
 npm-debug.*
 yarn-debug.*

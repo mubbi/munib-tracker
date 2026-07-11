@@ -1,12 +1,9 @@
-import { describe, expect, it, vi } from "vitest";
 import type { ConfigService } from "@nestjs/config";
+import { describe, expect, it, vi } from "vitest";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { NodeEnvironment } from "../config/env.schema";
 import { verifyGoogleAccessToken } from "./google-access-token";
-import {
-  assertOAuthReturnUrlAllowed,
-  assertRedirectUriAllowed,
-} from "./oauth-redirect-allowlist";
+import { assertOAuthReturnUrlAllowed, assertRedirectUriAllowed } from "./oauth-redirect-allowlist";
 
 function makeConfig(env: Partial<EnvironmentVariables> = {}) {
   return {
@@ -17,7 +14,10 @@ function makeConfig(env: Partial<EnvironmentVariables> = {}) {
 describe("assertRedirectUriAllowed", () => {
   it("allows any URI when allowlist is empty in development", () => {
     expect(() =>
-      assertRedirectUriAllowed(makeConfig({ NODE_ENV: NodeEnvironment.Development }), "https://example.com"),
+      assertRedirectUriAllowed(
+        makeConfig({ NODE_ENV: NodeEnvironment.Development }),
+        "https://example.com",
+      ),
     ).not.toThrow();
   });
 

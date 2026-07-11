@@ -1,4 +1,4 @@
-import { AQEDAH_TOPICS } from "@munib-tracker/shared/content";
+import { AQEDAH_TOPICS } from "@munib-tracker/shared/content/aqeedah";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";

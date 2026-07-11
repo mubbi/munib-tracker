@@ -67,7 +67,8 @@ async function ensureCatalogLoaded(lng: AppLocale): Promise<void> {
     // Static require map lives in a separate module so Metro accepts it and production
     // tree-shaking can drop the test branch (keeps async locale code-splits).
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { LOCALE_SYNC_LOADERS } = require("./locale-sync-loaders") as typeof import("./locale-sync-loaders");
+    const { LOCALE_SYNC_LOADERS } =
+      require("./locale-sync-loaders") as typeof import("./locale-sync-loaders");
     catalog = LOCALE_SYNC_LOADERS[lng]();
   } else {
     const mod = await LOCALE_LOADERS[lng]();

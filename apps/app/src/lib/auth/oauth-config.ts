@@ -1,6 +1,6 @@
+import { getApiBaseUrl } from "@munib-tracker/api-client";
 import * as AuthSession from "expo-auth-session";
 import { Platform } from "react-native";
-import { getApiBaseUrl } from "@munib-tracker/api-client";
 
 /** Custom URL scheme registered in app.json (`expo.scheme`). */
 export const APP_SCHEME = "munib-tracker";

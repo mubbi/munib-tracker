@@ -1,8 +1,4 @@
-import { QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
-import type { Ayah, MushafPageLayout, Surah } from "@munib-tracker/shared/types";
-
-import metaJson from "../../assets/data/quran/meta.json";
-import pagesIndexJson from "../../assets/data/quran/pages/index.json";
+import type { Ayah, MushafPageLayout } from "@munib-tracker/shared/types";
 import {
   arabicLoaders,
   ayahMetaLoaders,
@@ -10,138 +6,37 @@ import {
   translationLoaders,
   transliterationLoaders,
 } from "./quran-loader";
+import {
+  GLOBAL_OFFSETS,
+  getBundledEditions,
+  getEditionById,
+  getJuzList,
+  getPageList,
+  getPageStarts,
+  getSurahByNumber,
+  getSurahMeta,
+  type JuzListEntry,
+  juzForAyah,
+  type PageListEntry,
+  type PageStart,
+  pageToStartAyah,
+  pos,
+  QURAN_TOTAL_PAGES,
+  SAJDA_AYAHS,
+} from "./quran-meta";
 
-type SurahMeta = {
-  surahs: Surah[];
-  editions: import("@munib-tracker/shared/types").QuranEdition[];
+export type { JuzListEntry, PageListEntry, PageStart };
+export {
+  getBundledEditions,
+  getEditionById,
+  getJuzList,
+  getPageList,
+  getPageStarts,
+  getSurahByNumber,
+  getSurahMeta,
+  juzForAyah,
+  pageToStartAyah,
 };
-
-const META = metaJson as SurahMeta;
-const PAGES_INDEX = pagesIndexJson as {
-  pageCount: number;
-  starts: Array<{ page: number; surah: number; ayah: number }>;
-};
-
-export interface PageStart {
-  page: number;
-  surah: number;
-  ayah: number;
-}
-
-export interface PageListEntry extends PageStart {
-  surahNameEnglish: string;
-  surahNameArabic: string;
-  surahNameTransliteration: string;
-  juz: number;
-}
-
-// ── Canonical reference tables (computed at runtime, nothing fabricated) ──────
-
-/** Starting ayah (surah:ayah) of each of the 30 juz — standard Hafs division. */
-const JUZ_STARTS: Array<[number, number]> = [
-  [1, 1],
-  [2, 142],
-  [2, 253],
-  [3, 92],
-  [4, 24],
-  [4, 148],
-  [5, 82],
-  [6, 111],
-  [7, 88],
-  [8, 41],
-  [9, 93],
-  [11, 6],
-  [12, 53],
-  [15, 1],
-  [17, 1],
-  [18, 75],
-  [21, 1],
-  [23, 1],
-  [25, 21],
-  [27, 56],
-  [29, 46],
-  [33, 31],
-  [36, 28],
-  [39, 32],
-  [41, 47],
-  [46, 1],
-  [51, 31],
-  [58, 1],
-  [67, 1],
-  [78, 1],
-];
-
-/** The 15 places of prostration in the mushaf, as surah:ayah. */
-const SAJDA_AYAHS = new Set(
-  [
-    [7, 206],
-    [13, 15],
-    [16, 50],
-    [17, 109],
-    [19, 58],
-    [22, 18],
-    [22, 77],
-    [25, 60],
-    [27, 26],
-    [32, 15],
-    [38, 24],
-    [41, 38],
-    [53, 62],
-    [84, 21],
-    [96, 19],
-  ].map(([s, a]) => s * 1000 + a),
-);
-
-function pos(surah: number, ayah: number): number {
-  return surah * 1000 + ayah;
-}
-
-export function juzForAyah(surah: number, ayah: number): number {
-  const p = pos(surah, ayah);
-  let juz = 1;
-  for (let i = 0; i < JUZ_STARTS.length; i++) {
-    const [s, a] = JUZ_STARTS[i];
-    if (p >= pos(s, a)) juz = i + 1;
-    else break;
-  }
-  return juz;
-}
-
-/** One entry per juz (1..30) with the surah:ayah it begins at + that surah's name. */
-export interface JuzListEntry {
-  juz: number;
-  surah: number;
-  ayah: number;
-  surahNameEnglish: string;
-  surahNameArabic: string;
-  surahNameTransliteration: string;
-}
-
-/** The 30 juz start points, resolved against surah metadata for display. */
-export function getJuzList(): JuzListEntry[] {
-  return JUZ_STARTS.map(([surah, ayah], index) => {
-    const meta = getSurahByNumber(surah);
-    return {
-      juz: index + 1,
-      surah,
-      ayah,
-      surahNameEnglish: meta?.nameEnglish ?? `Surah ${surah}`,
-      surahNameArabic: meta?.nameArabic ?? "",
-      surahNameTransliteration: meta?.nameTransliteration ?? `Surah ${surah}`,
-    };
-  });
-}
-
-// Cumulative ayah counts so we can derive a 1..6236 global number per ayah.
-const GLOBAL_OFFSETS = (() => {
-  const offsets: Record<number, number> = {};
-  let running = 0;
-  for (const surah of META.surahs) {
-    offsets[surah.number] = running;
-    running += surah.ayahCount;
-  }
-  return offsets;
-})();
 
 // ── Bundled loaders (memoized, LRU-capped) ───────────────────────────────────
 
@@ -199,24 +94,6 @@ function loadAyahMeta(surah: number): Record<string, { page: number; hizb: numbe
   return data;
 }
 
-// ── Public selectors ─────────────────────────────────────────────────────────
-
-export function getSurahMeta(): Surah[] {
-  return META.surahs;
-}
-
-export function getSurahByNumber(n: number): Surah | undefined {
-  return META.surahs.find((s) => s.number === n);
-}
-
-export function getBundledEditions() {
-  return META.editions;
-}
-
-export function getEditionById(id: string) {
-  return META.editions.find((e) => e.id === id);
-}
-
 /** Full ayah list for a surah (Arabic + page/hizb/juz/sajda/global), memoized. */
 export function getSurahAyahs(surah: number): Ayah[] {
   const arabic = loadArabic(surah);
@@ -242,29 +119,8 @@ export function getSurahAyahs(surah: number): Ayah[] {
   return ayahs;
 }
 
-export function getPageStarts(): PageStart[] {
-  return PAGES_INDEX.starts;
-}
-
-export function getPageList(): PageListEntry[] {
-  return PAGES_INDEX.starts.map((entry) => {
-    const meta = getSurahByNumber(entry.surah);
-    return {
-      ...entry,
-      surahNameEnglish: meta?.nameEnglish ?? `Surah ${entry.surah}`,
-      surahNameArabic: meta?.nameArabic ?? "",
-      surahNameTransliteration: meta?.nameTransliteration ?? `Surah ${entry.surah}`,
-      juz: juzForAyah(entry.surah, entry.ayah),
-    };
-  });
-}
-
 export function getPageForAyah(surah: number, ayah: number): number {
   return loadAyahMeta(surah)[String(ayah)]?.page ?? 1;
-}
-
-export function pageToStartAyah(page: number): PageStart | undefined {
-  return PAGES_INDEX.starts.find((s) => s.page === page);
 }
 
 /** All ayahs appearing on a mushaf page (may span multiple surahs). */
@@ -302,7 +158,7 @@ export function getPageLayout(page: number): MushafPageLayout {
 }
 
 export function getPageCount(): number {
-  return PAGES_INDEX.pageCount ?? QURAN_TOTAL_PAGES;
+  return QURAN_TOTAL_PAGES;
 }
 
 /** Transliteration text keyed by ayah number for a surah. */

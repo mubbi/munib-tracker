@@ -1,4 +1,4 @@
-import { SALAH_GUIDE_TOPICS } from "@munib-tracker/shared/content";
+import { SALAH_GUIDE_TOPICS } from "@munib-tracker/shared/content/salah-guide";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";

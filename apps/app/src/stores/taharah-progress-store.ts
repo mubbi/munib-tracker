@@ -1,4 +1,4 @@
-import { TAHARAH_TOPICS } from "@munib-tracker/shared/content";
+import { TAHARAH_TOPICS } from "@munib-tracker/shared/content/taharah";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";

@@ -1,4 +1,4 @@
-import { BATTLES_TOPICS } from "@munib-tracker/shared/content";
+import { BATTLES_TOPICS } from "@munib-tracker/shared/content/battles";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";

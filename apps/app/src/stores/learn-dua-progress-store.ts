@@ -1,4 +1,4 @@
-import { LEARN_DUA_TOPICS } from "@munib-tracker/shared/content";
+import { LEARN_DUA_TOPICS } from "@munib-tracker/shared/content/learn-dua";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";

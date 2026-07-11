@@ -13,9 +13,7 @@ function isGoogleEmailVerified(value: unknown): boolean {
   return value === true || value === "true";
 }
 
-function getAllowedGoogleClientIds(
-  config: ConfigService<EnvironmentVariables, true>,
-): string[] {
+function getAllowedGoogleClientIds(config: ConfigService<EnvironmentVariables, true>): string[] {
   const list = config.get("GOOGLE_OAUTH_CLIENT_IDS", { infer: true })?.trim();
   if (list) {
     return list
@@ -104,8 +102,7 @@ export async function verifyGoogleAccessToken(
   if (data.error || !data.sub) return null;
 
   const allowed = getAllowedGoogleClientIds(config);
-  const isProduction =
-    config.get("NODE_ENV", { infer: true }) === NodeEnvironment.Production;
+  const isProduction = config.get("NODE_ENV", { infer: true }) === NodeEnvironment.Production;
   if (isProduction && allowed.length === 0) {
     throw new Error(
       "GOOGLE_OAUTH_CLIENT_IDS or GOOGLE_OAUTH_WEB_CLIENT_ID is required in production for Google sign-in.",

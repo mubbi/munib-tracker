@@ -62,7 +62,8 @@ All search bars and content filtering use **[Fuse.js v7](https://github.com/kris
 | Export | Purpose |
 |--------|---------|
 | `searchLight()` | Instant results (all sources except Qur'an ayah full-text) |
-| `searchQuranAyahs()` | Heavy ayah index — defer off interaction thread |
+| `preloadSearchCorpora()` | Warm dua/zikr/names/duroods async chunks (call from search screens on mount) |
+| `ensureAyahFuse()` / `searchQuranAyahs()` | Heavy ayah index — `ensureAyahFuse` dynamic-imports `@/lib/quran`; run off the interaction thread |
 | `searchAll()` | Synchronous full search (tests / non-interactive callers) |
 | `normalize()` / `tokenize()` | Diacritic-insensitive, Arabic-aware text folding |
 | `createFuzzyIndex(items, fields)` | Reusable `FuzzyIndex` for a screen-local list (project defaults + `normalize()`) — memoize per list |
@@ -81,7 +82,7 @@ Search bars wired to these: home `src/app/search.tsx` (universal), `quran/index.
 2. **Pre-normalize** indexed fields with `normalize()` before passing to Fuse (Arabic harakat, Latin accents, transliteration joiners).
 3. **Reuse project defaults:** `threshold: 0.2`, `ignoreLocation: true`, `minMatchCharLength: 2`, `useExtendedSearch: true`, weighted keys (title/name highest). (`0.2` was tuned down from `0.3` to drop false positives on short fields like surah names while keeping typo tolerance.)
 4. **Multi-word queries:** join normalized tokens with spaces (extended-search AND) or consider `useTokenSearch: true` for new indexes — see the skill for trade-offs.
-5. **Performance:** lazy-build indexes; defer the Qur'an ayah index; use `limit` for UI caps. `FuseWorker` only if a corpus exceeds ~10k items and profiling shows jank.
+5. **Performance:** lazy-build indexes; call `preloadSearchCorpora()` on search screens; use `ensureAyahFuse()` before `searchQuranAyahs`; use `limit` for UI caps. For surah **meta** only, import `@/lib/quran-meta` — never pull `@/lib/quran` (ayah JSON loaders) into home/shared graphs. Riyad hadith: `ensureBundledCollection` / `import()`, never `require()` of the JSON. Web bundle details: [`docs/PROFILING.md`](../../docs/PROFILING.md). `FuseWorker` only if a corpus exceeds ~10k items and profiling shows jank.
 6. **Tests:** `src/lib/search.test.ts` — run with `pnpm --filter app test -- search`.
 
 ### Per-screen search bars

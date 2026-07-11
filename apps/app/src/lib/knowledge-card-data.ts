@@ -42,6 +42,7 @@ export const KNOWLEDGE_QURAN_AYAHS: Array<{ surah: number; ayah: number }> = [
 ];
 
 /** Bundled hadith ids — English excerpt length is checked at resolve time. */
+/** Nawawi only — Riyad loads via async chunk; keep home free of that graph. */
 export const KNOWLEDGE_HADITH_IDS = [
   "nawawi40:1",
   "nawawi40:3",
@@ -54,21 +55,6 @@ export const KNOWLEDGE_HADITH_IDS = [
   "nawawi40:21",
   "nawawi40:23",
   "nawawi40:40",
-  "riyad_assalihin:1",
-  "riyad_assalihin:4",
-  "riyad_assalihin:12",
-  "riyad_assalihin:28",
-  "riyad_assalihin:39",
-  "riyad_assalihin:41",
-  "riyad_assalihin:56",
-  "riyad_assalihin:64",
-  "riyad_assalihin:75",
-  "riyad_assalihin:82",
-  "riyad_assalihin:368",
-  "riyad_assalihin:384",
-  "riyad_assalihin:421",
-  "riyad_assalihin:427",
-  "riyad_assalihin:490",
 ];
 
 export const KNOWLEDGE_NAME_IDS = [
@@ -95,12 +81,7 @@ export const FRIDAY_QURAN_AYAHS: Array<{ surah: number; ayah: number }> = [
   { surah: 62, ayah: 11 },
 ];
 
-export const FRIDAY_HADITH_IDS = [
-  "riyad_assalihin:468",
-  "riyad_assalihin:366",
-  "riyad_assalihin:447",
-  "nawawi40:29",
-];
+export const FRIDAY_HADITH_IDS = ["nawawi40:29", "nawawi40:23", "nawawi40:18"];
 
 export type MotivationQuote = {
   id: string;

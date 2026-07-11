@@ -1,6 +1,6 @@
 import type { HadithCollectionData, HadithItem } from "@munib-tracker/shared/types";
 
-import { getBundledCollectionData } from "@/lib/hadith-bundled";
+import { ensureBundledCollectionData } from "@/lib/hadith-bundled";
 import { LruMap } from "@/lib/lru-map";
 
 import { createId } from "../id";
@@ -63,7 +63,7 @@ export const HadithRepository = {
       const existing = byCollection.get(collection);
       if (existing) return existing;
       const data: HadithCollectionData | null =
-        getBundledCollectionData(collection) ?? (await this.getCachedBook(collection));
+        (await ensureBundledCollectionData(collection)) ?? (await this.getCachedBook(collection));
       const map = new Map<string, HadithItem>((data?.items ?? []).map((it) => [it.id, it]));
       byCollection.set(collection, map);
       return map;

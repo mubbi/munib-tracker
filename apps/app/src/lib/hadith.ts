@@ -5,6 +5,8 @@ import { preferencesStore } from "@/stores/preferences-store";
 
 export type { BundledHadithCollection } from "./hadith-bundled";
 export {
+  ensureBundledCollection,
+  ensureBundledCollectionData,
   getBundledCollection,
   getBundledCollectionData,
   getBundledCollections,

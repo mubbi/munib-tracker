@@ -139,10 +139,10 @@ no-native-dep** reality:
 | Content | Size | Query needs | **Recommended delivery** | Why |
 |---|---|---|---|---|
 | **Adhkar / Duas / Duroods / 99 Names** | Small (KB) | Browse by category | **Bundled static content** (extend existing `packages/shared/src/content/*.ts` or JSON in `assets/`) | Matches current pattern; instant, offline, trivially versioned. |
-| **Qur'an Arabic + 1–2 PD translations + transliteration** | ~2–6 MB/edition | Read sequentially by surah/page; jump to ayah | **Bundled JSON assets, lazy-loaded per surah** (`assets/quran/surah-001.json` …) via `require`/`Asset` | Fully offline core mushaf, no DB, no native module. Load one surah at a time to keep memory low. |
+| **Qur'an Arabic + 1–2 PD translations + transliteration** | ~2–6 MB/edition | Read sequentially by surah/page; jump to ayah | **Bundled JSON**, per-surah loaders in `quran-loader.ts`. Home/search light paths use **`quran-meta`** only; ayah JSON must not enter the web `__common` chunk — see [`PROFILING.md`](./PROFILING.md). | Fully offline core mushaf. Load one surah at a time. |
 | **Extra translations (Saheeh Intl, Khattab, others), tafsir** | Large / many | On demand | **Live CDN/API** (fawazahmed0 jsDelivr, Al Quran Cloud, Quran.Foundation) + cache with React Query | Keeps app small & license-clean; only fetched when the user selects that edition. |
 | **Qur'an audio (per-ayah / per-surah)** | Very large | Stream | **Third-party CDN, streamed** (everyayah.com / QuranicAudio / QUL) | Never bundle audio; stream + optional download-for-offline later. |
-| **Hadith (50k+)** | Large (tens of MB) | Search + browse by book/chapter | **Hybrid:** bundle **curated highlights** (e.g. 40 Nawawi, Riyad as-Salihin) as JSON; serve **full collections via API** (or lazy per-book JSON) | Full offline Hadith with search really wants SQLite; avoid that unless required (§6.4). |
+| **Hadith (50k+)** | Large (tens of MB) | Search + browse by book/chapter | **Hybrid:** bundle **Nawawi40** eagerly; **Riyad** via web `import()` / `ensureBundledCollection` (never `require` — Metro embeds it); full collections via CDN API | Full offline Hadith with search really wants SQLite; avoid that unless required (§6.4). Web graph notes: [`PROFILING.md`](./PROFILING.md). |
 
 ### 6.2 Bundled JSON pattern (recommended for Qur'an core)
 

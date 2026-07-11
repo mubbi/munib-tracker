@@ -13,11 +13,7 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from "react-native-reanimated";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";

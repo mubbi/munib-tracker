@@ -16,7 +16,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
 import { runWhenIdle } from "@/lib/run-when-idle";
-import { clearAyahIndex, searchQuranAyahs } from "@/lib/search";
+import { clearAyahIndex, ensureAyahFuse, searchQuranAyahs } from "@/lib/search";
 import { buildAyahSharePayload } from "@/lib/share";
 
 const MAX_RESULTS = 40;
@@ -91,16 +91,19 @@ export default function QuranSearchScreen() {
     let cancelled = false;
     const handle = runWhenIdle(() => {
       if (cancelled) return;
-      const hits = searchQuranAyahs(debounced, MAX_RESULTS).results.map((hit) => ({
-        surah: Number(hit.params?.surah),
-        ayah: Number(hit.params?.ayah),
-        surahName: hit.title,
-        text: hit.subtitle ?? "",
-        arabic: hit.arabic ?? "",
-      }));
-      if (cancelled) return;
-      setResults(hits);
-      setSearching(false);
+      void ensureAyahFuse().then(() => {
+        if (cancelled) return;
+        const hits = searchQuranAyahs(debounced, MAX_RESULTS).results.map((hit) => ({
+          surah: Number(hit.params?.surah),
+          ayah: Number(hit.params?.ayah),
+          surahName: hit.title,
+          text: hit.subtitle ?? "",
+          arabic: hit.arabic ?? "",
+        }));
+        if (cancelled) return;
+        setResults(hits);
+        setSearching(false);
+      });
     });
     return () => {
       cancelled = true;

@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -11,6 +12,7 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Fonts, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { ARABIC_FONT_FILES } from "@/lib/arabic-fonts";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   ARABIC_FONT_OPTIONS,
@@ -51,6 +53,11 @@ export default function FontsScreen() {
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
   const sizeLabel = (id: SizeId) => t(`fonts.${SIZE_LABEL_KEY[id]}`);
+
+  // Register Arabic picker faces only when this screen opens.
+  useEffect(() => {
+    void import("expo-font").then((Font) => Font.loadAsync({ ...ARABIC_FONT_FILES }));
+  }, []);
 
   const arabicSize = prefs.fontPrefs.arabic.size ?? 28;
   const translationSize = prefs.fontPrefs.translation.size ?? 16;

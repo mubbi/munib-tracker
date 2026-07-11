@@ -1,7 +1,7 @@
 import type { DuaItem, HadithItem, ZikrItem } from "@munib-tracker/shared/types";
 import type { Href } from "expo-router";
 
-import { getSurahByNumber } from "@/lib/quran";
+import { getSurahByNumber } from "@/lib/quran-meta";
 
 export type ContinueKind = "quran" | "hadith" | "dua" | "zikr" | "durood" | "names" | "audio";
 

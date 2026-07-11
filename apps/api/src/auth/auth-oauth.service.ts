@@ -9,6 +9,12 @@ import { ConfigService } from "@nestjs/config";
 import type { Request, Response } from "express";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
+  clearAppleOAuthSessionCookie,
+  readAppleOAuthSessionCookie,
+  setAppleOAuthSessionCookie,
+} from "./apple-oauth-session-cookie";
+import { AuthService } from "./auth.service";
+import {
   clearAccessTokenCookie,
   clearRefreshTokenCookie,
   isWebAuthClient,
@@ -18,13 +24,6 @@ import {
   setRefreshTokenCookie,
 } from "./auth-cookies";
 import { isAuthOAuthRateLimited } from "./auth-rate-limit";
-import { AuthService } from "./auth.service";
-import {
-  clearAppleOAuthSessionCookie,
-  readAppleOAuthSessionCookie,
-  setAppleOAuthSessionCookie,
-} from "./apple-oauth-session-cookie";
-import { AuthProvider } from "./dto/auth.dto";
 import type {
   AuthAppleBodyDto,
   AuthAppleOauthBodyDto,
@@ -35,12 +34,10 @@ import type {
   AuthUserResponseDto,
   WebAuthSessionResponseDto,
 } from "./dto/auth.dto";
+import { AuthProvider } from "./dto/auth.dto";
 import { verifyGoogleAccessToken } from "./google-access-token";
-import {
-  assertOAuthReturnUrlAllowed,
-  assertRedirectUriAllowed,
-} from "./oauth-redirect-allowlist";
 import { OAuthProviderService } from "./oauth-provider.service";
+import { assertOAuthReturnUrlAllowed, assertRedirectUriAllowed } from "./oauth-redirect-allowlist";
 
 function clientIp(req: Request): string {
   const forwarded = req.headers["x-forwarded-for"];
@@ -158,7 +155,7 @@ export class AuthOAuthService {
     return this.issueSessionResponse(req, res, session, user);
   }
 
-  startAppleOauthSession(req: Request, res: Response, dto: AuthAppleOauthSessionBodyDto): void {
+  startAppleOauthSession(_req: Request, res: Response, dto: AuthAppleOauthSessionBodyDto): void {
     assertRedirectUriAllowed(this.configService, dto.redirectUri);
     assertOAuthReturnUrlAllowed(this.configService, dto.returnUrl);
     setAppleOAuthSessionCookie(res, {

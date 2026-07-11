@@ -57,6 +57,8 @@ Git auto-deploy is off (`git.deploymentEnabled: false`) — deploy with the Verc
 | API | `apps/api` | `pnpm --filter api migration:run` then `turbo build --filter=api` | Serverless handler `api/index.ts` (rewrites → `/api`) |
 | Web app | `apps/app` | `turbo run build:web --filter=app` | `apps/app/dist` |
 
+Web export uses Expo Router **`asyncRoutes` (web only)** and ships ~458 JS chunks. Home critical-path size / Lighthouse lab scores: [`PROFILING.md`](./PROFILING.md). After deploy, optional CrUX/field Web Vitals remain open.
+
 Set env vars per project from `apps/*/.env.example`.
 
 ### Create / link projects

@@ -1,4 +1,4 @@
-import { LAST_DAY_TOPICS } from "@munib-tracker/shared/content";
+import { LAST_DAY_TOPICS } from "@munib-tracker/shared/content/last-day";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";

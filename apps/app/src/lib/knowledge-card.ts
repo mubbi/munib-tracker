@@ -11,7 +11,7 @@ import {
 } from "@/lib/knowledge-card-data";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { hadithCollectionId, hadithExcerpt, resolveHadithItem } from "@/lib/prayer-info";
-import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
+import { getSurahByNumber } from "@/lib/quran-meta";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
 
 export type KnowledgeCardKind = "quran" | "hadith" | "name" | "friday" | "motivation";
@@ -64,16 +64,28 @@ function truncate(text: string, max: number): string {
   return `${normalized.slice(0, max).trim()}…`;
 }
 
-function resolveQuran(
+async function resolveQuran(
   surah: number,
   ayah: number,
   kind: "quran" | "friday",
   prefs: Pick<UserPreferences, "locale" | "translationLocale">,
-): ResolvedKnowledgeCard | null {
+): Promise<ResolvedKnowledgeCard | null> {
   const meta = getSurahByNumber(surah);
+  if (!meta) return null;
+
+  // Dynamic import keeps the ayah JSON require-map out of the home entry graph.
+  // Jest CJS: sync loader in a separate module (DCE'd from production).
+  const quran =
+    process.env.NODE_ENV === "test"
+      ? // eslint-disable-next-line @typescript-eslint/no-require-imports
+        (
+          require("./knowledge-card-quran-test-loader") as typeof import("./knowledge-card-quran-test-loader")
+        ).loadQuranSyncForTests()
+      : await import("@/lib/quran");
+  const { getBundledEdition, getSurahAyahs } = quran;
   const ayahs = getSurahAyahs(surah);
   const item = ayahs[ayah - 1];
-  if (!meta || !item) return null;
+  if (!item) return null;
 
   const editionId = resolveQuranEditionId(prefs);
   const translation =
@@ -178,10 +190,10 @@ function resolveMotivation(id: string): ResolvedKnowledgeCard | null {
   };
 }
 
-export function resolveKnowledgeCardEntry(
+export async function resolveKnowledgeCardEntry(
   entry: KnowledgeCardEntry,
   prefs: Pick<UserPreferences, "locale" | "translationLocale"> = DEFAULT_PREFS,
-): ResolvedKnowledgeCard | null {
+): Promise<ResolvedKnowledgeCard | null> {
   switch (entry.kind) {
     case "quran":
       return resolveQuran(entry.surah, entry.ayah, "quran", prefs);
@@ -201,17 +213,17 @@ export function resolveKnowledgeCardEntry(
 }
 
 /** Pick a random resolved card; retries if a pool entry fails to resolve. */
-export function pickKnowledgeCard(
+export async function pickKnowledgeCard(
   seed: number,
   date = new Date(),
   prefs: Pick<UserPreferences, "locale" | "translationLocale"> = DEFAULT_PREFS,
-): ResolvedKnowledgeCard {
+): Promise<ResolvedKnowledgeCard> {
   const pool = buildKnowledgeCardPool(date);
   const start = pickIndex(pool, seed);
 
   for (let offset = 0; offset < pool.length; offset += 1) {
     const entry = pool[(start + offset) % pool.length];
-    const resolved = resolveKnowledgeCardEntry(entry, prefs);
+    const resolved = await resolveKnowledgeCardEntry(entry, prefs);
     if (resolved) return resolved;
   }
 

@@ -24,6 +24,8 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildHadithActivity, buildHadithCollectionActivity } from "@/lib/continue-activity";
 import {
+  ensureBundledCollection,
+  ensureBundledCollectionData,
   getBundledCollection,
   getBundledCollectionData,
   getBundledCollections,
@@ -55,8 +57,24 @@ export default function HadithCollectionScreen() {
   const collectionId = params.collection ?? "";
   const remote = isRemoteCollection(collectionId);
 
-  const bundled = getBundledCollection(collectionId);
-  const bundledData = useMemo(() => getBundledCollectionData(collectionId), [collectionId]);
+  const [bundled, setBundled] = useState(() => getBundledCollection(collectionId));
+  const [bundledData, setBundledData] = useState(() => getBundledCollectionData(collectionId));
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const [collection, data] = await Promise.all([
+        ensureBundledCollection(collectionId),
+        ensureBundledCollectionData(collectionId),
+      ]);
+      if (cancelled) return;
+      setBundled(collection);
+      setBundledData(data);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [collectionId]);
   const remoteQuery = useRemoteCollection(remote ? collectionId : null);
 
   const collection = bundled?.collection ?? getRemoteCollection(collectionId);

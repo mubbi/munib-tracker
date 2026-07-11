@@ -1,7 +1,7 @@
 import { QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
 import type { Href } from "expo-router";
 
-import { getSurahByNumber, getSurahMeta } from "@/lib/quran";
+import { getSurahByNumber, getSurahMeta } from "@/lib/quran-meta";
 
 /**
  * A source a `reference` string points to. Only Qur'an ayahs are linkable.

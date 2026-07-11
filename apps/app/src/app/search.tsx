@@ -18,6 +18,8 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { chevronBack, chevronForward } from "@/lib/rtl";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import {
+  ensureAyahFuse,
+  preloadSearchCorpora,
   SEARCH_CATEGORY_ORDER,
   type SearchCategory,
   type SearchGroup,
@@ -172,12 +174,13 @@ export default function SearchScreen() {
     [colors.accent, tokens],
   );
 
-  // Load persisted recent searches once.
+  // Load persisted recent searches once; warm corpora off the critical path.
   useEffect(() => {
     let active = true;
     void loadRecentSearches().then((list) => {
       if (active) setRecent(list);
     });
+    void preloadSearchCorpora();
     return () => {
       active = false;
     };
@@ -241,10 +244,13 @@ export default function SearchScreen() {
     let cancelled = false;
     const handle = runWhenIdle(() => {
       if (cancelled) return;
-      const group = searchQuranAyahs(debounced, AYAH_FETCH_LIMIT);
-      if (cancelled) return;
-      setAyah(group);
-      setAyahLoading(false);
+      void ensureAyahFuse().then(() => {
+        if (cancelled) return;
+        const group = searchQuranAyahs(debounced, AYAH_FETCH_LIMIT);
+        if (cancelled) return;
+        setAyah(group);
+        setAyahLoading(false);
+      });
     });
     return () => {
       cancelled = true;

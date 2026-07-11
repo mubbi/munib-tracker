@@ -1,9 +1,8 @@
 import { Redirect, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-
-import { getWebAppOrigin } from "@/lib/auth/oauth-config";
 import { useSocialAuth } from "@/hooks/use-social-auth";
+import { getWebAppOrigin } from "@/lib/auth/oauth-config";
 
 /**
  * HTTPS App Link return route for Apple OAuth (Android / iOS OAuth fallback).

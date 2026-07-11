@@ -162,9 +162,7 @@ export async function refreshSession(refreshToken: string): Promise<AuthSessionR
   const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>({
     url: "/auth/refresh",
     method: "POST",
-    body: JSON.stringify(
-      refreshToken === WEB_COOKIE_SESSION_TOKEN ? {} : { refreshToken },
-    ),
+    body: JSON.stringify(refreshToken === WEB_COOKIE_SESSION_TOKEN ? {} : { refreshToken }),
   });
   return normalizeAuthSessionResponse(body);
 }

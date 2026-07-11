@@ -1,4 +1,4 @@
-import { EXCUSED_GUIDE_ROUTES } from "@munib-tracker/shared/content";
+import { EXCUSED_GUIDE_ROUTES } from "@munib-tracker/shared/content/excused-guide";
 import type { ExcusedReason } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";

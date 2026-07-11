@@ -1,4 +1,10 @@
-import { getBundledCollection, getBundledCollections, searchHadiths } from "@/lib/hadith";
+import {
+  ensureBundledCollection,
+  getBundledCollection,
+  getBundledCollections,
+  searchHadiths,
+} from "@/lib/hadith";
+import type { BundledHadithCollection } from "@/lib/hadith-bundled";
 
 describe("hadith bundled highlights", () => {
   it("loads the bundled highlight collections", () => {
@@ -7,9 +13,9 @@ describe("hadith bundled highlights", () => {
     expect(collections.map((c) => c.id)).toContain("nawawi40");
   });
 
-  it("gives every bundled hadith a non-empty reference and arabic", () => {
+  it("gives every bundled hadith a non-empty reference and arabic", async () => {
     for (const collection of getBundledCollections()) {
-      const bundled = getBundledCollection(collection.id);
+      const bundled = await ensureBundledCollection(collection.id);
       expect(bundled).toBeDefined();
       expect(bundled?.items.length).toBeGreaterThan(0);
       for (const item of bundled?.items ?? []) {
@@ -21,7 +27,7 @@ describe("hadith bundled highlights", () => {
   });
 
   it("searches english text and references", () => {
-    const nawawi = getBundledCollection("nawawi40");
+    const nawawi = getBundledCollection("nawawi40") as BundledHadithCollection;
     const results = searchHadiths(nawawi?.items ?? [], "Allah");
     expect(results.length).toBeGreaterThan(0);
     // Reference-based search also works.

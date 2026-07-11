@@ -24,10 +24,7 @@ function sessionCookieOptions(): CookieOptions {
   };
 }
 
-export function setAppleOAuthSessionCookie(
-  res: Response,
-  payload: AppleOAuthSessionPayload,
-): void {
+export function setAppleOAuthSessionCookie(res: Response, payload: AppleOAuthSessionPayload): void {
   res.cookie(APPLE_OAUTH_SESSION_COOKIE, JSON.stringify(payload), sessionCookieOptions());
 }
 

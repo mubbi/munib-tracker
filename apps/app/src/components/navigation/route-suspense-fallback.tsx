@@ -51,10 +51,14 @@ export function SuspenseFallback(_props: SuspenseFallbackProps) {
 }
 
 function useColorSchemeSafe(): "light" | "dark" {
-  const [scheme, setScheme] = useState<ColorSchemeName>(() => Appearance.getColorScheme());
+  const [scheme, setScheme] = useState<ColorSchemeName>(
+    () => Appearance.getColorScheme() ?? "light",
+  );
 
   useEffect(() => {
-    const sub = Appearance.addChangeListener(({ colorScheme }) => setScheme(colorScheme));
+    const sub = Appearance.addChangeListener(({ colorScheme }) => {
+      setScheme(colorScheme ?? "light");
+    });
     return () => sub.remove();
   }, []);
 

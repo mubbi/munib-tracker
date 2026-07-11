@@ -2,7 +2,7 @@
 
 Consolidated open work across product, i18n, performance, devices, and content. **Shipped features** are in [`FEATURES.md`](./FEATURES.md). **How-to guides** are linked from [`README.md`](./README.md).
 
-**Last updated:** 2026-07-11
+**Last updated:** 2026-07-12
 
 ---
 
@@ -41,16 +41,18 @@ Full ops guide: [`I18N_GUIDE.md`](./I18N_GUIDE.md)
 
 Full profile + playbooks: [`PROFILING.md`](./PROFILING.md)
 
-**Verdict (2026-07-11):** Native route lazy-loading still not required. Reliability/size/startup fixes landed; re-measure web chunks when convenient.
+**Verdict (2026-07-12):** Native route lazy-loading still not required. Web asyncRoutes + graph trims shipped; home critical JS ~19 MB / ~3.4 MB gzip (was ~62 MB / ~12 MB). Lab Lighthouse recorded in [`PROFILING.md`](./PROFILING.md) §2.5. Remaining: shrink `__common` (search corpora), device cold-start, release AAB size, optional treemap.
 
 | Priority | Task | Status |
 |----------|------|--------|
 | **P0** | iOS notification budget (daily + 2-day prayer window + cap 60) | Done |
 | **P0** | Bundle only `en-pickthall` + `ur-jalandhry`; other editions CDN | Done |
-| **P0** | Entry trim (deep content imports, lazy color picker, Nawawi-only light search); web `asyncRoutes` | Done |
-| **P1** | Deferred fonts; Qur'an/QCF LRU; Hadith FlatList | Done |
+| **P0** | Entry trim + web `asyncRoutes` + Riyad/`quran-meta`/content graph (2026-07-12) | Done |
+| **P1** | Deferred fonts; Qur'an/QCF LRU; Hadith FlatList; IdleMount bridges | Done |
 | **P1** | Google JWKS; per-item bookmark/favorites merge | Done |
-| **P2** | Cold-start baseline; release AAB/IPA size; Lighthouse; Metro treemap | Open |
+| **P2** | Lab Lighthouse on `/` + `/tracker` | Done (lab) — CrUX after deploy optional |
+| **P2** | Cold-start baseline; release AAB/IPA size; Metro treemap | Open |
+| **P2** | Further `__common` trim (DUA/NAMES out of multi-route shared modules) | Open |
 
 ---
 
