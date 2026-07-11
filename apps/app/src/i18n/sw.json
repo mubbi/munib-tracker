@@ -1158,7 +1158,9 @@
     "prevPage": "Iliyotangulia page",
     "nextPage": "Ifuatayo page",
     "openPageView": "Fungua mwonekano wa ukurasa",
-    "continueAtPage": "Ukurasa {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Ukurasa {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Ingia skrini kamili",
+    "exitFullscreen": "Toka skrini kamili"
   },
   "hadith": {
     "eyebrow": "Mila ya kinabii",

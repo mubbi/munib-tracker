@@ -1158,7 +1158,9 @@
     "prevPage": "Prethodni page",
     "nextPage": "Sljedeći page",
     "openPageView": "page view Aç",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Uđi u cijeli ekran",
+    "exitFullscreen": "Izađi iz cijelog ekrana"
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",

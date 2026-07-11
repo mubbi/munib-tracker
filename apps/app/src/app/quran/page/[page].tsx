@@ -403,6 +403,7 @@ export default function QuranPageReaderScreen() {
               return (
                 <ScrollView
                   key={page}
+                  style={styles.pageScroll}
                   contentContainerStyle={[
                     styles.pageContent,
                     { paddingBottom: contentBottomInset },
@@ -462,94 +463,95 @@ export default function QuranPageReaderScreen() {
             </View>
           ) : null}
         </View>
-
-        <PagePickerSheet
-          visible={pagePickerOpen}
-          selectedPage={currentPage}
-          onSelect={(page) => void navigateToPage(page)}
-          onClose={() => setPagePickerOpen(false)}
-        />
-        <OptionPickerSheet
-          visible={layoutPickerOpen}
-          title={t("quran.readerLayout")}
-          options={layoutOptions}
-          selectedId={layout}
-          onSelect={handleLayoutSelect}
-          onClose={() => setLayoutPickerOpen(false)}
-        />
-        <OptionPickerSheet
-          visible={reciterPickerOpen}
-          title={t("quran.reciter")}
-          options={RECITER_OPTIONS}
-          selectedId={prefs.preferredReciterDir}
-          onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
-          onClose={() => setReciterPickerOpen(false)}
-        />
-        <TranslationPickerSheet
-          visible={translationPickerOpen}
-          title={t("quran.translation")}
-          selectedId={primaryEditionId}
-          preferredLanguages={[translationLocale, appLocale]}
-          onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
-          onClose={() => setTranslationPickerOpen(false)}
-        />
-        <TranslationPickerSheet
-          visible={secondaryPickerOpen}
-          title={t("quran.secondTranslation")}
-          allowNone
-          selectedId={secondaryId ?? ""}
-          preferredLanguages={[translationLocale, appLocale]}
-          onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
-          onClose={() => setSecondaryPickerOpen(false)}
-        />
-        <AyahActionSheet
-          visible={actionAyah != null}
-          surah={actionAyah?.surah ?? 1}
-          ayah={actionAyah?.ayah ?? 1}
-          surahName={getSurahByNumber(actionAyah?.surah ?? 1)?.nameTransliteration}
-          isBookmarked={actionBookmarked}
-          isPlaying={actionPlaying}
-          onClose={() => setActionAyah(null)}
-          onPlay={() => {
-            if (!actionAyah) return;
-            const meta = getSurahByNumber(actionAyah.surah);
-            const ayahs = getSurahAyahs(actionAyah.surah);
-            const index = ayahs.findIndex((a) => a.ayah === actionAyah.ayah);
-            if (index < 0 || !meta) return;
-            audio.play(
-              ayahTracks(
-                prefs.preferredReciterDir,
-                meta.nameTransliteration,
-                actionAyah.surah,
-                ayahs,
-              ),
-              index,
-              { sourceHref: `/quran/page/${currentPage}` },
-            );
-          }}
-          onBookmark={() => actionAyah && void toggleBookmark(actionAyah.surah, actionAyah.ayah)}
-          onShare={() => {
-            if (!actionAyah) return;
-            const ayahData = getAyahsOnPage(currentPage).find(
-              (a) => a.surah === actionAyah.surah && a.ayah === actionAyah.ayah,
-            );
-            if (!ayahData) return;
-            void share({
-              ...buildAyahSharePayload(
-                ayahData.arabic,
-                translationText[String(actionAyah.ayah)] ?? "",
-                actionAyah.surah,
-                actionAyah.ayah,
-                {
-                  surahName: getSurahByNumber(actionAyah.surah)?.nameTransliteration,
-                  sectionTitle: t("share.sectionQuran"),
-                },
-              ),
-              shareKey: `${actionAyah.surah}:${actionAyah.ayah}`,
-            });
-          }}
-        />
       </ScreenLayout>
+
+      {/* Sheets live outside ScreenLayout so they never participate in its column gap. */}
+      <PagePickerSheet
+        visible={pagePickerOpen}
+        selectedPage={currentPage}
+        onSelect={(page) => void navigateToPage(page)}
+        onClose={() => setPagePickerOpen(false)}
+      />
+      <OptionPickerSheet
+        visible={layoutPickerOpen}
+        title={t("quran.readerLayout")}
+        options={layoutOptions}
+        selectedId={layout}
+        onSelect={handleLayoutSelect}
+        onClose={() => setLayoutPickerOpen(false)}
+      />
+      <OptionPickerSheet
+        visible={reciterPickerOpen}
+        title={t("quran.reciter")}
+        options={RECITER_OPTIONS}
+        selectedId={prefs.preferredReciterDir}
+        onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
+        onClose={() => setReciterPickerOpen(false)}
+      />
+      <TranslationPickerSheet
+        visible={translationPickerOpen}
+        title={t("quran.translation")}
+        selectedId={primaryEditionId}
+        preferredLanguages={[translationLocale, appLocale]}
+        onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
+        onClose={() => setTranslationPickerOpen(false)}
+      />
+      <TranslationPickerSheet
+        visible={secondaryPickerOpen}
+        title={t("quran.secondTranslation")}
+        allowNone
+        selectedId={secondaryId ?? ""}
+        preferredLanguages={[translationLocale, appLocale]}
+        onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
+        onClose={() => setSecondaryPickerOpen(false)}
+      />
+      <AyahActionSheet
+        visible={actionAyah != null}
+        surah={actionAyah?.surah ?? 1}
+        ayah={actionAyah?.ayah ?? 1}
+        surahName={getSurahByNumber(actionAyah?.surah ?? 1)?.nameTransliteration}
+        isBookmarked={actionBookmarked}
+        isPlaying={actionPlaying}
+        onClose={() => setActionAyah(null)}
+        onPlay={() => {
+          if (!actionAyah) return;
+          const meta = getSurahByNumber(actionAyah.surah);
+          const ayahs = getSurahAyahs(actionAyah.surah);
+          const index = ayahs.findIndex((a) => a.ayah === actionAyah.ayah);
+          if (index < 0 || !meta) return;
+          audio.play(
+            ayahTracks(
+              prefs.preferredReciterDir,
+              meta.nameTransliteration,
+              actionAyah.surah,
+              ayahs,
+            ),
+            index,
+            { sourceHref: `/quran/page/${currentPage}` },
+          );
+        }}
+        onBookmark={() => actionAyah && void toggleBookmark(actionAyah.surah, actionAyah.ayah)}
+        onShare={() => {
+          if (!actionAyah) return;
+          const ayahData = getAyahsOnPage(currentPage).find(
+            (a) => a.surah === actionAyah.surah && a.ayah === actionAyah.ayah,
+          );
+          if (!ayahData) return;
+          void share({
+            ...buildAyahSharePayload(
+              ayahData.arabic,
+              translationText[String(actionAyah.ayah)] ?? "",
+              actionAyah.surah,
+              actionAyah.ayah,
+              {
+                surahName: getSurahByNumber(actionAyah.surah)?.nameTransliteration,
+                sectionTitle: t("share.sectionQuran"),
+              },
+            ),
+            shareKey: `${actionAyah.surah}:${actionAyah.ayah}`,
+          });
+        }}
+      />
     </>
   );
 }
@@ -560,7 +562,8 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFill,
     zIndex: 10,
   },
-  pager: { flex: 1 },
+  pager: { flex: 1, minHeight: 0 },
   pagePlaceholder: { flex: 1 },
+  pageScroll: { flex: 1 },
   pageContent: { padding: Spacing.three, flexGrow: 1 },
 });

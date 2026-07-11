@@ -1050,6 +1050,8 @@
     "transliteration": "نقل حرفی",
     "backToTop": "اوپر جائیں",
     "readingProgress": "مطالعے کی پیش رفت",
+    "enterFullscreen": "پوری اسکرین",
+    "exitFullscreen": "پوری اسکرین بند کریں",
     "playSurah": "سورہ چلائیں",
     "playPage": "صفحہ چلائیں",
     "playAyah": "آیت {{n}} چلائیں",

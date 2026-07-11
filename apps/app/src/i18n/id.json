@@ -1158,7 +1158,9 @@
     "prevPage": "Sebelumnya page",
     "nextPage": "Berikutnya page",
     "openPageView": "Buka page view",
-    "continueAtPage": "Halaman {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Halaman {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Masuk layar penuh",
+    "exitFullscreen": "Keluar dari layar penuh"
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",

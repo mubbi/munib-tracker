@@ -1158,7 +1158,9 @@
     "prevPage": "Previous pge",
     "nextPage": "Next pge",
     "openPageView": "خلاص کړئ pge view",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "بشپړ سکرین ته ننوځه",
+    "exitFullscreen": "بشپړ سکرین بند کړه"
   },
   "hadith": {
     "eyebrow": "Prophetic tradition",

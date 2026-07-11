@@ -1158,7 +1158,9 @@
     "prevPage": "I mëparshëm page",
     "nextPage": "Tjetër page",
     "openPageView": "Hapni pamjen e faqes",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Hyr në ekran të plotë",
+    "exitFullscreen": "Dil nga ekrani i plotë"
   },
   "hadith": {
     "eyebrow": "Tradita profetike",

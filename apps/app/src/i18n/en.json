@@ -1090,6 +1090,8 @@
     "transliteration": "Transliteration",
     "backToTop": "Back to top",
     "readingProgress": "Reading progress",
+    "enterFullscreen": "Enter fullscreen",
+    "exitFullscreen": "Exit fullscreen",
     "playSurah": "Play surah",
     "playPage": "Play page",
     "playAyah": "Play ayah {{n}}",

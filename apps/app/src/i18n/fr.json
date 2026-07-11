@@ -1158,7 +1158,9 @@
     "prevPage": "Précédent page",
     "nextPage": "Suivant page",
     "openPageView": "Ouvrir la vue de la page",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Passer en plein écran",
+    "exitFullscreen": "Quitter le plein écran"
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",

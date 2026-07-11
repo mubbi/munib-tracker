@@ -26,11 +26,13 @@ export function initSentry(): void {
 
   const runningInExpoGo = isExpoGoClient();
   const enabledInDev = process.env.EXPO_PUBLIC_SENTRY_ENABLED_IN_DEV === "true";
+  const enabled = !__DEV__ || enabledInDev;
 
   Sentry.init({
     dsn: sentryDsn,
-    debug: __DEV__,
-    enabled: !__DEV__ || enabledInDev,
+    // debug + enabled:false logs "Transport disabled" as ERROR in Expo LogBox.
+    debug: enabled && __DEV__,
+    enabled,
     environment: __DEV__ ? "development" : "production",
     release: `${Constants.expoConfig?.slug ?? "munib-tracker"}@${Constants.expoConfig?.version ?? "0.0.0"}`,
     tracesSampleRate: __DEV__ ? 1.0 : 0.2,

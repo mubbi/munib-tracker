@@ -25,6 +25,7 @@ import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { MaxContentWidth, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useTheme } from "@/hooks/use-theme";
+import { useWebFullscreen } from "@/hooks/use-web-fullscreen";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 
@@ -91,9 +92,13 @@ export function ScreenLayout({
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const contentBottomInset = useContentBottomInset();
+  const { active: fullscreenActive } = useWebFullscreen();
   const rootRef = useRef<View>(null);
   const contentBlurTargetRef = useRef<View>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
+  // Hide the title bar in browser fullscreen so the reading surface grows; keep
+  // any headerAccessory (e.g. Qur'an toolbar) for exit + reading controls.
+  const showAppHeader = !fullscreenActive;
 
   // Reading-progress line: driven by the built-in scroller. A plain ScrollView
   // isn't virtualized, so pixel offset over content size is accurate and stable.
@@ -148,8 +153,10 @@ export function ScreenLayout({
   // Content sits beneath the floating glass header. Fall back to an estimated
   // bar height for the first frame (before onLayout measures the real height)
   // so content isn't briefly hidden under the header. Add a small gap below the
-  // bar so content isn't cramped directly against it.
-  const headerInset = (headerHeight || insets.top + 60) + Spacing.three;
+  // bar so content isn't cramped directly against it. In fullscreen the title
+  // bar is gone — fall back to safe-area only when nothing has measured yet.
+  const headerFallback = showAppHeader ? insets.top + 60 : insets.top;
+  const headerInset = (headerHeight || headerFallback) + Spacing.three;
 
   // On web, move focus into the incoming screen so it isn't left on a button in
   // the outgoing screen when React Navigation marks that layer aria-hidden.
@@ -254,17 +261,21 @@ export function ScreenLayout({
           scrolls beneath the translucent material for the glass effect. Only the
           header bar itself is measured for the content inset — the accessory
           floats over content below it. */}
-      <View style={styles.headerFloat}>
-        <AppHeader
-          title={title}
-          subtitle={subtitle}
-          eyebrow={eyebrow}
-          notificationCount={notificationCount}
-          onNotificationsPress={onNotificationsPress}
-          onBack={onBack}
-          blurTargetRef={Platform.OS === "android" ? contentBlurTargetRef : undefined}
-          onLayout={(event) => setHeaderHeight(event.nativeEvent.layout.height)}
-        />
+      <View
+        style={styles.headerFloat}
+        onLayout={(event) => setHeaderHeight(event.nativeEvent.layout.height)}
+      >
+        {showAppHeader ? (
+          <AppHeader
+            title={title}
+            subtitle={subtitle}
+            eyebrow={eyebrow}
+            notificationCount={notificationCount}
+            onNotificationsPress={onNotificationsPress}
+            onBack={onBack}
+            blurTargetRef={Platform.OS === "android" ? contentBlurTargetRef : undefined}
+          />
+        ) : null}
         {headerAccessory}
         {trackProgress && canScroll ? (
           <ReadingProgressBar
@@ -302,8 +313,14 @@ const styles = StyleSheet.create({
     width: "100%",
     gap: Spacing.four,
   },
-  /** Fill the available height when the screen hosts its own scroller (FlatList). */
+  /**
+   * Fill the available height when the screen hosts its own scroller (FlatList /
+   * pager). No gap — overlay siblings (Modal sheets) still sit in this tree and
+   * would otherwise invent empty space under the main chrome.
+   */
   innerFill: {
     flex: 1,
+    minHeight: 0,
+    gap: 0,
   },
 });

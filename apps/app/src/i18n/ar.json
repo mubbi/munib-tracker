@@ -1070,6 +1070,8 @@
     "transliteration": "النقحرة",
     "backToTop": "العودة إلى الأعلى",
     "readingProgress": "تقدم القراءة",
+    "enterFullscreen": "ملء الشاشة",
+    "exitFullscreen": "إنهاء ملء الشاشة",
     "playSurah": "تشغيل السورة",
     "playPage": "تشغيل الصفحة",
     "playAyah": "تشغيل الآية {{n}}",

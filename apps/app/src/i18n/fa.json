@@ -1158,7 +1158,9 @@
     "prevPage": "قبلی page",
     "nextPage": "بعدی page",
     "openPageView": "صفحہ منظر کھولیں",
-    "continueAtPage": "صفحہ {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "صفحہ {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "ورود به تمام‌صفحه",
+    "exitFullscreen": "خروج از تمام‌صفحه"
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",

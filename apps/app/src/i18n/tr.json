@@ -1158,7 +1158,9 @@
     "prevPage": "Önceki page",
     "nextPage": "Sonraki page",
     "openPageView": "page view Aç",
-    "continueAtPage": "Sayfa {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Sayfa {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Tam ekrana geç",
+    "exitFullscreen": "Tam ekrandan çık"
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",

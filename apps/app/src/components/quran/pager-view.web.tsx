@@ -106,7 +106,7 @@ const PagerView = forwardRef<PagerViewHandle, PagerViewProps>(
             </Animated.View>
           </>
         ) : (
-          (pages[safeIndex] ?? null)
+          <View style={styles.page}>{pages[safeIndex] ?? null}</View>
         )}
       </View>
     );

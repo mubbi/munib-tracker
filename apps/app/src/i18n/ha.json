@@ -1158,7 +1158,9 @@
     "prevPage": "Na baya page",
     "nextPage": "Na gaba page",
     "openPageView": "Buɗe kallon shafi",
-    "continueAtPage": "Shafi {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Shafi {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Shiga cikakken allo",
+    "exitFullscreen": "Fita daga cikakken allo"
   },
   "hadith": {
     "eyebrow": "Hadisin annabci",

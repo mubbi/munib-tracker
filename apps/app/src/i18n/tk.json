@@ -1158,7 +1158,9 @@
     "prevPage": "Önceki page",
     "nextPage": "Sonraki page",
     "openPageView": "page view Aç",
-    "continueAtPage": "Sahypa {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Sahypa {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Doly ekrana gir",
+    "exitFullscreen": "Doly ekrandan çyk"
   },
   "hadith": {
     "eyebrow": "Peygamber gelenegi",

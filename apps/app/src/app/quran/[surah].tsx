@@ -10,6 +10,7 @@ import {
   type ListRenderItemInfo,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
+  Platform,
   StyleSheet,
   View,
   type ViewToken,
@@ -691,7 +692,7 @@ export default function SurahReaderScreen() {
         onBack={() => goBackOrReplace(router, "/")}
         headerAccessory={
           <QuranReadingToolbar
-            visible={toolbarVisible}
+            visible={Platform.OS === "web" ? true : toolbarVisible}
             progress={readingProgress}
             onBackToTop={() => listRef.current?.scrollToOffset({ offset: 0, animated: true })}
             reciterName={reciter.name}
@@ -723,57 +724,58 @@ export default function SurahReaderScreen() {
           onScrollToIndexFailed={onScrollToIndexFailed}
           contentContainerStyle={{ paddingBottom: contentBottomInset }}
         />
-        <OptionPickerSheet
-          visible={reciterPickerOpen}
-          title={t("quran.reciter")}
-          options={RECITER_OPTIONS}
-          selectedId={reciterDir}
-          onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
-          onClose={() => setReciterPickerOpen(false)}
-        />
-        <TranslationPickerSheet
-          visible={translationPickerOpen}
-          title={t("quran.translation")}
-          selectedId={knownEdition}
-          preferredLanguages={[translationLocale, appLocale]}
-          onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
-          onClose={() => setTranslationPickerOpen(false)}
-        />
-        <TranslationPickerSheet
-          visible={secondaryPickerOpen}
-          title={t("quran.secondTranslation")}
-          allowNone
-          selectedId={secondaryId ?? ""}
-          preferredLanguages={[translationLocale, appLocale]}
-          onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
-          onClose={() => setSecondaryPickerOpen(false)}
-        />
-        <ConfirmDialog
-          visible={hifzPending != null}
-          title={t("hifz.confirmTitle")}
-          message={
-            hifzPending != null
-              ? hifzPendingNext === "review"
-                ? t("hifz.confirmReviewBody", { ref: hifzPendingRef })
-                : hifzPendingNext === "memorized"
-                  ? t("hifz.confirmMemorizedBody", { ref: hifzPendingRef })
-                  : t("hifz.confirmClearBody", { ref: hifzPendingRef })
-              : undefined
-          }
-          confirmLabel={
-            hifzPendingNext === "review"
-              ? t("hifz.markReview")
-              : hifzPendingNext === "memorized"
-                ? t("hifz.markMemorized")
-                : t("hifz.clear")
-          }
-          cancelLabel={t("common.cancel")}
-          destructive={hifzPendingNext == null}
-          onConfirm={() => void confirmHifz()}
-          onCancel={() => setHifzPending(null)}
-          onClose={() => setHifzPending(null)}
-        />
       </ScreenLayout>
+
+      <OptionPickerSheet
+        visible={reciterPickerOpen}
+        title={t("quran.reciter")}
+        options={RECITER_OPTIONS}
+        selectedId={reciterDir}
+        onSelect={(id) => updatePrefs({ preferredReciterDir: id })}
+        onClose={() => setReciterPickerOpen(false)}
+      />
+      <TranslationPickerSheet
+        visible={translationPickerOpen}
+        title={t("quran.translation")}
+        selectedId={knownEdition}
+        preferredLanguages={[translationLocale, appLocale]}
+        onSelect={(id) => updatePrefs({ preferredTranslationIds: [id] })}
+        onClose={() => setTranslationPickerOpen(false)}
+      />
+      <TranslationPickerSheet
+        visible={secondaryPickerOpen}
+        title={t("quran.secondTranslation")}
+        allowNone
+        selectedId={secondaryId ?? ""}
+        preferredLanguages={[translationLocale, appLocale]}
+        onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
+        onClose={() => setSecondaryPickerOpen(false)}
+      />
+      <ConfirmDialog
+        visible={hifzPending != null}
+        title={t("hifz.confirmTitle")}
+        message={
+          hifzPending != null
+            ? hifzPendingNext === "review"
+              ? t("hifz.confirmReviewBody", { ref: hifzPendingRef })
+              : hifzPendingNext === "memorized"
+                ? t("hifz.confirmMemorizedBody", { ref: hifzPendingRef })
+                : t("hifz.confirmClearBody", { ref: hifzPendingRef })
+            : undefined
+        }
+        confirmLabel={
+          hifzPendingNext === "review"
+            ? t("hifz.markReview")
+            : hifzPendingNext === "memorized"
+              ? t("hifz.markMemorized")
+              : t("hifz.clear")
+        }
+        cancelLabel={t("common.cancel")}
+        destructive={hifzPendingNext == null}
+        onConfirm={() => void confirmHifz()}
+        onCancel={() => setHifzPending(null)}
+        onClose={() => setHifzPending(null)}
+      />
     </>
   );
 }

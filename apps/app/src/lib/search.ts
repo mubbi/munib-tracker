@@ -86,15 +86,12 @@ let zikrItemsCache: ZikrItem[] | undefined;
 let duroodItemsCache: DurudItem[] | undefined;
 let namesCache: NameOfAllah[] | undefined;
 
-function syncRequireCorpus<T>(specifier: string, key: string): T {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS only
-  return require(specifier)[key] as T;
-}
-
 async function ensureDuaItems(): Promise<DuaItem[]> {
   if (duaItemsCache) return duaItemsCache;
   if (process.env.NODE_ENV === "test") {
-    duaItemsCache = syncRequireCorpus<DuaItem[]>("@munib-tracker/shared/content/duas", "DUA_ITEMS");
+    // Literal require — Metro rejects `require(variable)` even in dead test branches.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
+    duaItemsCache = require("@munib-tracker/shared/content/duas").DUA_ITEMS as DuaItem[];
     return duaItemsCache;
   }
   const mod = await import("@munib-tracker/shared/content/duas");
@@ -106,10 +103,8 @@ async function ensureDuaItems(): Promise<DuaItem[]> {
 async function ensureZikrItems(): Promise<ZikrItem[]> {
   if (zikrItemsCache) return zikrItemsCache;
   if (process.env.NODE_ENV === "test") {
-    zikrItemsCache = syncRequireCorpus<ZikrItem[]>(
-      "@munib-tracker/shared/content/zikr",
-      "ZIKR_ITEMS",
-    );
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
+    zikrItemsCache = require("@munib-tracker/shared/content/zikr").ZIKR_ITEMS as ZikrItem[];
     return zikrItemsCache;
   }
   const mod = await import("@munib-tracker/shared/content/zikr");
@@ -121,10 +116,8 @@ async function ensureZikrItems(): Promise<ZikrItem[]> {
 async function ensureDuroodItems(): Promise<DurudItem[]> {
   if (duroodItemsCache) return duroodItemsCache;
   if (process.env.NODE_ENV === "test") {
-    duroodItemsCache = syncRequireCorpus<DurudItem[]>(
-      "@munib-tracker/shared/content/duroods",
-      "DUROOD_ITEMS",
-    );
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
+    duroodItemsCache = require("@munib-tracker/shared/content/duroods").DUROOD_ITEMS as DurudItem[];
     return duroodItemsCache;
   }
   const mod = await import("@munib-tracker/shared/content/duroods");
@@ -136,10 +129,8 @@ async function ensureDuroodItems(): Promise<DurudItem[]> {
 async function ensureNames(): Promise<NameOfAllah[]> {
   if (namesCache) return namesCache;
   if (process.env.NODE_ENV === "test") {
-    namesCache = syncRequireCorpus<NameOfAllah[]>(
-      "@munib-tracker/shared/content/names",
-      "NAMES_OF_ALLAH",
-    );
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
+    namesCache = require("@munib-tracker/shared/content/names").NAMES_OF_ALLAH as NameOfAllah[];
     return namesCache;
   }
   const mod = await import("@munib-tracker/shared/content/names");
@@ -156,7 +147,9 @@ export async function preloadSearchCorpora(): Promise<void> {
 function loadDuaItems(): DuaItem[] {
   if (duaItemsCache) return duaItemsCache;
   if (process.env.NODE_ENV === "test") {
-    return syncRequireCorpus<DuaItem[]>("@munib-tracker/shared/content/duas", "DUA_ITEMS");
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
+    duaItemsCache = require("@munib-tracker/shared/content/duas").DUA_ITEMS as DuaItem[];
+    return duaItemsCache;
   }
   void ensureDuaItems();
   return [];
@@ -165,7 +158,9 @@ function loadDuaItems(): DuaItem[] {
 function loadZikrItems(): ZikrItem[] {
   if (zikrItemsCache) return zikrItemsCache;
   if (process.env.NODE_ENV === "test") {
-    return syncRequireCorpus<ZikrItem[]>("@munib-tracker/shared/content/zikr", "ZIKR_ITEMS");
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
+    zikrItemsCache = require("@munib-tracker/shared/content/zikr").ZIKR_ITEMS as ZikrItem[];
+    return zikrItemsCache;
   }
   void ensureZikrItems();
   return [];
@@ -174,7 +169,9 @@ function loadZikrItems(): ZikrItem[] {
 function loadDuroodItems(): DurudItem[] {
   if (duroodItemsCache) return duroodItemsCache;
   if (process.env.NODE_ENV === "test") {
-    return syncRequireCorpus<DurudItem[]>("@munib-tracker/shared/content/duroods", "DUROOD_ITEMS");
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
+    duroodItemsCache = require("@munib-tracker/shared/content/duroods").DUROOD_ITEMS as DurudItem[];
+    return duroodItemsCache;
   }
   void ensureDuroodItems();
   return [];
@@ -183,10 +180,9 @@ function loadDuroodItems(): DurudItem[] {
 function loadNames(): NameOfAllah[] {
   if (namesCache) return namesCache;
   if (process.env.NODE_ENV === "test") {
-    return syncRequireCorpus<NameOfAllah[]>(
-      "@munib-tracker/shared/content/names",
-      "NAMES_OF_ALLAH",
-    );
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
+    namesCache = require("@munib-tracker/shared/content/names").NAMES_OF_ALLAH as NameOfAllah[];
+    return namesCache;
   }
   void ensureNames();
   return [];

@@ -1158,7 +1158,9 @@
     "prevPage": "Berê page",
     "nextPage": "Rûpelê pêştir",
     "openPageView": "Dîtina rûpelê vekin",
-    "continueAtPage": "Rûpel {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Rûpel {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Têkeve ekrana tijî",
+    "exitFullscreen": "Ji ekrana tijî derkeve"
   },
   "hadith": {
     "eyebrow": "Kevneşopiya pêxemberî",

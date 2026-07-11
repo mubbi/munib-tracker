@@ -18,6 +18,7 @@ import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useWebFullscreen } from "@/hooks/use-web-fullscreen";
 import { filterValueTextStyle, ltrControlViewProps } from "@/lib/rtl";
 
 /** SF Symbols → Material fallbacks for each toolbar chip. */
@@ -30,6 +31,16 @@ const TOOLBAR_ICONS = {
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
   page: { ios: "list.number", android: "format_list_numbered", web: "format_list_numbered" },
   layout: { ios: "book.pages", android: "menu_book", web: "menu_book" },
+  enterFullscreen: {
+    ios: "arrow.up.left.and.arrow.down.right",
+    android: "fullscreen",
+    web: "fullscreen",
+  },
+  exitFullscreen: {
+    ios: "arrow.down.right.and.arrow.up.left",
+    android: "fullscreen_exit",
+    web: "fullscreen_exit",
+  },
 } as const satisfies Record<string, SymbolViewProps["name"]>;
 
 type ReadingToolbarProps = {
@@ -61,8 +72,8 @@ type ReadingToolbarProps = {
 
 /**
  * Flat, horizontally-scrollable reading controls that ride beneath the header
- * once the header card scrolls out of view — a compact echo of that card so the
- * reciter, translations, transliteration, and text size can be changed
+ * once the header card has scrolled out of view — a compact echo of that card so
+ * the reciter, translations, transliteration, and text size can be changed
  * mid-scroll without jumping back to the top.
  */
 export function QuranReadingToolbar({
@@ -89,6 +100,7 @@ export function QuranReadingToolbar({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const scrollRef = useHorizontalWheelScroll();
+  const fullscreen = useWebFullscreen();
   const reveal = useSharedValue(visible ? 1 : 0);
 
   useEffect(() => {
@@ -136,7 +148,7 @@ export function QuranReadingToolbar({
             accessibilityRole="button"
             accessibilityLabel={t("quran.backToTop")}
             onPress={onBackToTop}
-            style={[styles.backToTop, { backgroundColor: tokens.accentSoft }]}
+            style={[styles.iconBtn, { backgroundColor: tokens.accentSoft }]}
           >
             <SymbolView
               name={{ ios: "arrow.up", android: "arrow_upward", web: "arrow_upward" }}
@@ -217,6 +229,32 @@ export function QuranReadingToolbar({
             </>
           ) : null}
         </ScrollView>
+        {fullscreen.supported ? (
+          <PressableScale
+            haptic="light"
+            accessibilityRole="button"
+            accessibilityLabel={
+              fullscreen.active ? t("quran.exitFullscreen") : t("quran.enterFullscreen")
+            }
+            accessibilityState={{ selected: fullscreen.active }}
+            onPress={() => void fullscreen.toggle()}
+            style={[
+              styles.iconBtn,
+              styles.fullscreenBtn,
+              {
+                backgroundColor: fullscreen.active ? tokens.accentSoft : colors.muted,
+              },
+            ]}
+          >
+            <SymbolView
+              name={
+                fullscreen.active ? TOOLBAR_ICONS.exitFullscreen : TOOLBAR_ICONS.enterFullscreen
+              }
+              size={18}
+              tintColor={fullscreen.active ? colors.accent : colors.mutedForeground}
+            />
+          </PressableScale>
+        ) : null}
       </View>
       <ReadingProgressBar progress={progress} accessibilityLabel={t("quran.readingProgress")} />
     </Animated.View>
@@ -317,7 +355,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
   },
-  backToTop: {
+  iconBtn: {
     width: 36,
     height: 36,
     borderRadius: Radius.pill,
@@ -325,6 +363,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
+  },
+  fullscreenBtn: {
+    marginEnd: Spacing.three,
   },
   content: {
     flexDirection: "row",

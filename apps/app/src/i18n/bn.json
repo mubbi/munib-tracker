@@ -1159,7 +1159,9 @@
     "prevPage": "পূর্ববর্তী page",
     "nextPage": "পরবর্তী page",
     "openPageView": "page view খুলুন",
-    "continueAtPage": "পৃষ্ঠা {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "পৃষ্ঠা {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "পূর্ণস্ক্রিনে প্রবেশ",
+    "exitFullscreen": "পূর্ণস্ক্রিন থেকে প্রস্থান"
   },
   "hadith": {
     "eyebrow": "নববী tradition",

@@ -1158,7 +1158,9 @@
     "prevPage": "Previous pge",
     "nextPage": "Next pge",
     "openPageView": "çın pge view",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Tam ekrana keç",
+    "exitFullscreen": "Tam ekrandan çıx"
   },
   "hadith": {
     "eyebrow": "Prophetic trditiüzərində",

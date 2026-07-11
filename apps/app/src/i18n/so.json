@@ -1158,7 +1158,9 @@
     "prevPage": "Previous pge",
     "nextPage": "Next pge",
     "openPageView": "fur pge view",
-    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Pge {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Geli shaashadda buuxda",
+    "exitFullscreen": "Ka bax shaashadda buuxda"
   },
   "hadith": {
     "eyebrow": "Prophetic trditiku",

@@ -1158,7 +1158,9 @@
     "prevPage": "Алдыңғы page",
     "nextPage": "Келесі page",
     "openPageView": "Ашу page view",
-    "continueAtPage": "Бет {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Бет {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Толық экранға кіру",
+    "exitFullscreen": "Толық экраннан шығу"
   },
   "hadith": {
     "eyebrow": "Пайғамбарлық tradition",

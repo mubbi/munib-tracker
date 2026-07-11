@@ -1158,7 +1158,9 @@
     "prevPage": "Мурунку page",
     "nextPage": "Кийинки page",
     "openPageView": "Барактын көрүнүшүн ачуу",
-    "continueAtPage": "Бет {{page}} · {{surah}}:{{ayah}}"
+    "continueAtPage": "Бет {{page}} · {{surah}}:{{ayah}}",
+    "enterFullscreen": "Толук экранга кирүү",
+    "exitFullscreen": "Толук экрандан чыгуу"
   },
   "hadith": {
     "eyebrow": "пайгамбарлык салт",

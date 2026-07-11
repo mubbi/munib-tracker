@@ -2,10 +2,109 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { getSentryExpoConfig } = require("@sentry/react-native/metro");
 
+// Queue fs ops on EMFILE instead of crashing. Metro's BinaryFileStore + async
+// route HMR can open thousands of metro-cache files in parallel on Windows.
+try {
+  require("graceful-fs").gracefulify(fs);
+} catch {
+  // optional transitive dep; ignore if not hoisted
+}
+
 const projectRoot = __dirname;
+const monorepoRoot = path.resolve(projectRoot, "../..");
 const config = getSentryExpoConfig(projectRoot, {
   autoWrapExpoRouterErrorBoundary: true,
 });
+
+// Expo monorepo watchFolders include every workspace package (api, marketing-web,
+// tooling). That + ~458 async web chunks fans out HMR transforms until Windows
+// hits EMFILE on metro-cache reads. Keep only packages the product app imports.
+/** Case-fold paths on Windows so `E:\…` and `e:\…` match in Set lookups. */
+function watchPathKey(p) {
+  const resolved = path.resolve(p);
+  return process.platform === "win32" ? resolved.toLowerCase() : resolved;
+}
+const appWatchFolders = new Set(
+  [
+    // Do NOT watch root node_modules on Windows — tens of thousands of watch
+    // handles tip the process into EMFILE before BinaryFileStore even runs.
+    // Resolution still uses nodeModulesPaths; dep edits need a Metro restart.
+    path.join(monorepoRoot, "packages/shared"),
+    path.join(monorepoRoot, "packages/theme"),
+    path.join(monorepoRoot, "packages/api-client"),
+    path.join(monorepoRoot, "packages/api-contract"),
+  ].map(watchPathKey),
+);
+if (process.platform !== "win32") {
+  appWatchFolders.add(watchPathKey(path.join(monorepoRoot, "node_modules")));
+}
+config.watchFolders = (config.watchFolders || []).filter((folder) =>
+  appWatchFolders.has(watchPathKey(folder)),
+);
+
+// Windows: disk metro-cache + async-route HMR opens thousands of .mp files in
+// parallel (buildSubgraph Promise.all) and hits EMFILE. Keep transforms in
+// memory for this process instead. Opt back into disk with METRO_DISK_CACHE=1.
+if (process.platform === "win32" && process.env.METRO_DISK_CACHE !== "1") {
+  const map = new Map();
+  config.cacheStores = [
+    {
+      name: "MemoryTransformStore",
+      get(key) {
+        const k = key.toString("hex");
+        return map.has(k) ? map.get(k) : null;
+      },
+      set(key, value) {
+        map.set(key.toString("hex"), value);
+      },
+      clear() {
+        map.clear();
+      },
+    },
+  ];
+}
+
+// Cap transform workers on Windows (16-core default ≈ 8–10 workers). Override
+// with METRO_MAX_WORKERS when needed.
+if (process.platform === "win32") {
+  const fromEnv = Number(process.env.METRO_MAX_WORKERS);
+  config.maxWorkers =
+    Number.isFinite(fromEnv) && fromEnv > 0 ? fromEnv : Math.min(config.maxWorkers ?? 2, 2);
+}
+
+// Expo monorepo watchFolders include apps/app. A local `dist/` (expo export) can
+// hold tens of thousands of hashed chunks; on Windows the native watcher then
+// times out ("Failed to start watch mode"), leaving DependencyGraph without
+// `_resolutionCache` and crashing SSR with "Cannot read properties of undefined
+// (reading 'get')". Keep export / lab / native / asset output out of the graph.
+/** Match an absolute directory and its descendants on Windows or POSIX. */
+function absoluteDirPattern(absDir) {
+  const escaped = path
+    .resolve(absDir)
+    .split(/[/\\]/)
+    .map((segment) => segment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("[\\\\/]");
+  return new RegExp(`^${escaped}([\\\\/]|$)`);
+}
+
+const existingBlockList = config.resolver.blockList;
+config.resolver.blockList = [
+  ...(Array.isArray(existingBlockList)
+    ? existingBlockList
+    : existingBlockList
+      ? [existingBlockList]
+      : []),
+  absoluteDirPattern(path.join(projectRoot, "dist")),
+  absoluteDirPattern(path.join(projectRoot, "web-build")),
+  absoluteDirPattern(path.join(projectRoot, ".lighthouse")),
+  absoluteDirPattern(path.join(projectRoot, ".screenshots-work")),
+  absoluteDirPattern(path.join(projectRoot, "android")),
+  absoluteDirPattern(path.join(projectRoot, "ios")),
+  absoluteDirPattern(path.join(projectRoot, "store-assets")),
+  absoluteDirPattern(path.join(projectRoot, "scripts")),
+  absoluteDirPattern(path.join(projectRoot, "targets")),
+  absoluteDirPattern(path.join(projectRoot, ".expo")),
+];
 
 // `@/assets/*` maps to `./assets/*` in tsconfig (not `./src/assets/*` like `@/*`).
 // Mirror jest.config.js: resolve this before the generic `@/*` alias.
