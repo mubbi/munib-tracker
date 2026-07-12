@@ -71,7 +71,7 @@ Key variables:
 
 Full product OAuth console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md). Admin ops (separate app, same DB): [`docs/ADMIN.md`](../../docs/ADMIN.md) · [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md).
 
-**Vercel:** project root `apps/api` — see `vercel.json` (`framework: null` keeps the custom `api/` function; do not use NestJS zero-config — it loads workspace `.ts` exports at runtime). Serverless entry is `api/index.js` → webpack `dist/vercel-handler.js`.
+**Vercel:** project root `apps/api` — see `vercel.json` (`framework: null`, `outputDirectory: "."` — functions-only, no static `public/`). Do not use NestJS zero-config (loads workspace `.ts` exports at runtime). Serverless entry is `api/index.js` → webpack `dist/vercel-handler.js`.
 
 ## Commands
 
