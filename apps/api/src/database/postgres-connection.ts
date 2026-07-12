@@ -1,4 +1,8 @@
-import { hostRequiresDatabaseSsl, resolveDatabaseSsl, type DatabaseSslOption } from "./database-ssl";
+import {
+  type DatabaseSslOption,
+  hostRequiresDatabaseSsl,
+  resolveDatabaseSsl,
+} from "./database-ssl";
 
 /** Discrete Postgres connection fields used by TypeORM (CLI + Nest). */
 export type PostgresConnectionOptions = {
