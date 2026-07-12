@@ -35,7 +35,8 @@ async function redisHit(key: string, limit: number, windowMs: number): Promise<b
   }
   const ttlSeconds = Math.max(1, Math.ceil(windowMs / 1000));
   const namespaced = `${redisNamespace()}:rl:${key}`;
-  const count = await redis.incr(namespaced);
+  const rawCount = await redis.incr(namespaced);
+  const count = typeof rawCount === "number" ? rawCount : Number(rawCount);
   if (count === 1) {
     await redis.expire(namespaced, ttlSeconds);
   }

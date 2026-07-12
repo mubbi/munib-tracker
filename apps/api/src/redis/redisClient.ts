@@ -4,11 +4,18 @@
  */
 
 import { Logger } from "@nestjs/common";
-import { createClient, type RedisClientType } from "redis";
+import { createClient } from "redis";
 
 const logger = new Logger("Redis");
 
-let client: RedisClientType | null = null;
+/** RESP2 keeps GET/INCR as string|null / number (avoids RESP3 `string | {}` under Vercel tsc). */
+function createAppRedisClient(url: string) {
+  return createClient({ url, RESP: 2 });
+}
+
+type AppRedisClient = ReturnType<typeof createAppRedisClient>;
+
+let client: AppRedisClient | null = null;
 let connectInFlight: Promise<void> | null = null;
 let lastConnectAttemptAtMs = 0;
 let lastConnectedAtMs = 0;
@@ -57,7 +64,7 @@ export function isRedisConfigured(): boolean {
 }
 
 /** Connected client, or null if Redis disabled or connection failed. */
-export function getRedisClient(): RedisClientType | null {
+export function getRedisClient(): AppRedisClient | null {
   // Best-effort background reconnect so callers can eventually leverage Redis
   // after transient startup/network failures without requiring process restart.
   const now = Date.now();
@@ -95,7 +102,7 @@ export async function connectRedisIfConfigured(): Promise<void> {
     try {
       const url = process.env.REDIS_URL?.trim();
       if (!url) return;
-      const c = createClient({ url });
+      const c = createAppRedisClient(url);
       c.on("error", (err) => {
         lastErrorAtMs = Date.now();
         logger.error(`[Redis] client error: ${err instanceof Error ? err.message : String(err)}`);

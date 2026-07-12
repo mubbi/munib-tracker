@@ -1,11 +1,16 @@
 import { redisNamespace } from "./cacheKeys";
 import { getRedisClient } from "./redisClient";
 
+function asRedisString(value: unknown): string | null {
+  return typeof value === "string" ? value : null;
+}
+
 export async function cacheGetJson<T>(key: string): Promise<T | null> {
   const redis = getRedisClient();
   if (!redis?.isOpen) return null;
   try {
-    const raw = await redis.get(key);
+    // redis v6 + RESP3 types can widen GET to `string | {}`; only parse real strings.
+    const raw = asRedisString(await redis.get(key));
     if (raw == null) return null;
     return JSON.parse(raw) as T;
   } catch {
@@ -39,7 +44,10 @@ export async function cacheDelPattern(matchPattern: string): Promise<void> {
   if (!redis?.isOpen) return;
   try {
     for await (const batch of redis.scanIterator({ MATCH: matchPattern, COUNT: 128 })) {
-      if (batch.length > 0) await redis.del(batch);
+      const keys = (Array.isArray(batch) ? batch : [batch])
+        .map(asRedisString)
+        .filter((k): k is string => k != null);
+      if (keys.length > 0) await redis.del(keys);
     }
   } catch {
     /* ignore */
