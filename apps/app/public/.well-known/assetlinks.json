@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.munibtracker",
+      "sha256_cert_fingerprints": [
+        "DF:6D:E8:63:F1:9D:B7:30:FD:28:79:18:9A:0B:5F:08:B3:EB:F1:47:38:60:24:DB:71:30:9E:B0:AE:95:46:71"
+      ]
+    }
+  }
+]
