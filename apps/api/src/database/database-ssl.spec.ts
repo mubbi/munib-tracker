@@ -22,6 +22,19 @@ describe("resolveDatabaseSsl", () => {
     });
   });
 
+  it("pins the bundled Supabase CA for supabase hosts", () => {
+    const result = resolveDatabaseSsl({
+      enabled: true,
+      rejectUnauthorized: true,
+      host: "aws-0-eu.pooler.supabase.com",
+    });
+    expect(result).toMatchObject({ rejectUnauthorized: true });
+    expect(result).toHaveProperty("ca");
+    if (result && typeof result === "object" && "ca" in result) {
+      expect(result.ca).toContain("BEGIN CERTIFICATE");
+    }
+  });
+
   it("never silently keeps rejectUnauthorized off unless explicitly configured", () => {
     // The insecure legacy behaviour was a hardcoded { rejectUnauthorized: false }.
     // With the secure default the flag is only false when an operator opts in.

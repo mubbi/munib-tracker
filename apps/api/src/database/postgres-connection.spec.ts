@@ -86,6 +86,17 @@ describe("resolvePostgresConnection", () => {
     });
   });
 
+  it("pins Supabase CA and strips sslmode from the URL", () => {
+    const conn = resolvePostgresConnection({
+      DATABASE_URL:
+        "postgresql://u:p@aws-0.pooler.supabase.com:5432/postgres?sslmode=require&supa=base-pooler.x",
+    });
+    expect(conn.url).not.toContain("sslmode=");
+    expect(conn.url).not.toContain("supa=");
+    expect(conn.ssl).toMatchObject({ rejectUnauthorized: true });
+    expect(conn.ssl).toHaveProperty("ca");
+  });
+
   it("falls back to discrete DATABASE_* vars", () => {
     const conn = resolvePostgresConnection({
       DATABASE_HOST: "db.example.com",

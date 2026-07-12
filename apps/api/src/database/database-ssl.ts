@@ -1,3 +1,5 @@
+import { SUPABASE_ROOT_CA_2021 } from "./supabase-ca";
+
 /** TLS options passed to the Postgres driver. */
 export type DatabaseSslOption = false | { rejectUnauthorized: boolean; ca?: string };
 
@@ -8,6 +10,8 @@ export interface DatabaseSslInput {
   rejectUnauthorized: boolean;
   /** Optional PEM CA bundle (`DATABASE_CA_CERT`), literal `\n` between lines. */
   ca?: string;
+  /** Hostname — when Supabase, pin the bundled prod-ca-2021 if no explicit CA. */
+  host?: string;
 }
 
 /**
@@ -20,26 +24,38 @@ export function hostRequiresDatabaseSsl(host: string | undefined | null): boolea
   return h.includes("supabase") || h.includes("neon.tech") || h.includes("amazonaws.com");
 }
 
+export function isSupabaseHost(host: string | undefined | null): boolean {
+  if (!host) return false;
+  const h = host.toLowerCase();
+  return h.includes("supabase");
+}
+
 /**
  * Builds the TypeORM/pg `ssl` option from validated config.
  *
  * When SSL is off we return `false` (plaintext, e.g. a local dev database on
  * `localhost`). When SSL is on we verify the certificate chain by default —
  * `rejectUnauthorized: false` silently accepts any certificate and defeats the
- * point of TLS by allowing an active MITM (CWE-295). Operators using a managed
- * provider with a self-signed cert should supply that provider's CA via
- * `DATABASE_CA_CERT` rather than disabling verification.
+ * point of TLS by allowing an active MITM (CWE-295). For Supabase hosts we pin
+ * the bundled prod-ca-2021 so Vercel builds don't fail with
+ * `SELF_SIGNED_CERT_IN_CHAIN` (same pattern as Expense Trail / admin Drizzle).
  */
 export function resolveDatabaseSsl({
   enabled,
   rejectUnauthorized,
   ca,
+  host,
 }: DatabaseSslInput): DatabaseSslOption {
   if (!enabled) {
     return false;
   }
 
-  const expandedCa = ca?.trim() ? ca.replace(/\\n/g, "\n") : undefined;
+  const expandedCa = ca?.trim()
+    ? ca.replace(/\\n/g, "\n")
+    : isSupabaseHost(host)
+      ? SUPABASE_ROOT_CA_2021
+      : undefined;
+
   return {
     rejectUnauthorized,
     ...(expandedCa ? { ca: expandedCa } : {}),

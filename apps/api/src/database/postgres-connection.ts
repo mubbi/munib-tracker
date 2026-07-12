@@ -55,12 +55,12 @@ function restorePgScheme(normalizedUrl: string, originalUrl: string): string {
   return normalizedUrl;
 }
 
-/** Strip dashboard `supa*` artifacts that break node-postgres / TypeORM. */
-export function sanitizeDatabaseUrl(url: string): string {
+/** Strip dashboard `supa*` artifacts and `sslmode` (pg v2 maps require→verify-full). */
+export function sanitizeDatabaseUrl(url: string, options?: { stripSslMode?: boolean }): string {
   try {
     const parsed = new URL(normalizePgUrl(url));
     for (const key of [...parsed.searchParams.keys()]) {
-      if (key.startsWith("supa")) {
+      if (key.startsWith("supa") || (options?.stripSslMode && key === "sslmode")) {
         parsed.searchParams.delete(key);
       }
     }
@@ -161,13 +161,13 @@ export function loadLocalApiEnvFile(env: NodeJS.ProcessEnv = process.env): void 
 function pickDatabaseUrl(env: NodeJS.ProcessEnv, forMigrate: boolean): string | undefined {
   if (forMigrate) {
     const explicit = env.DATABASE_MIGRATE_URL?.trim();
-    if (explicit) return sanitizeDatabaseUrl(explicit);
+    if (explicit) return sanitizeDatabaseUrl(explicit, { stripSslMode: true });
   }
 
   const runtime = env.DATABASE_URL?.trim();
   if (!runtime) return undefined;
 
-  const sanitized = sanitizeDatabaseUrl(runtime);
+  const sanitized = sanitizeDatabaseUrl(runtime, { stripSslMode: true });
   if (forMigrate && isTransactionPoolerUrl(sanitized)) {
     return toSessionPoolerUrl(sanitized);
   }
@@ -201,10 +201,11 @@ export function resolvePostgresConnection(
     );
   }
 
+  const rawUrl = env.DATABASE_MIGRATE_URL?.trim() || env.DATABASE_URL?.trim();
   const sslEnabled =
     envFlagTrue(env.DATABASE_SSL) ||
     hostRequiresDatabaseSsl(host) ||
-    (typeof url === "string" && /[?&]sslmode=(require|verify-full|verify-ca)\b/i.test(url));
+    (typeof rawUrl === "string" && /[?&]sslmode=(require|verify-full|verify-ca)\b/i.test(rawUrl));
 
   return {
     ...(url ? { url } : {}),
@@ -217,6 +218,7 @@ export function resolvePostgresConnection(
       enabled: sslEnabled,
       rejectUnauthorized: !envFlagFalse(env.DATABASE_SSL_REJECT_UNAUTHORIZED),
       ca: env.DATABASE_CA_CERT,
+      host,
     }),
   };
 }
