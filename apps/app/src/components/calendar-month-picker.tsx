@@ -14,7 +14,7 @@ import {
   localizedMonthNames,
 } from "@/lib/calendar";
 import { hijriMonthName } from "@/lib/hijri";
-import { chevronBackward, chevronForward } from "@/lib/rtl";
+import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 
 type CalendarMonthPickerProps = {
   visible: boolean;
@@ -44,6 +44,8 @@ export function CalendarMonthPicker({
 }: CalendarMonthPickerProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronBackward = useChevronBackward();
+  const chevronForward = useChevronForward();
   const [view, setView] = useState<PickerView>("months");
   const [pickerYear, setPickerYear] = useState(year);
 
@@ -117,7 +119,7 @@ export function CalendarMonthPicker({
           <ThemedText type="subtitle">{t("calendar.pickMonthYear")}</ThemedText>
           <View style={styles.yearNav}>
             <NavIconButton
-              icon={chevronBackward()}
+              icon={chevronBackward}
               label={t("calendar.prevYear")}
               disabled={pickerYear <= minYear}
               onPress={() => shiftYear(-1)}
@@ -143,7 +145,7 @@ export function CalendarMonthPicker({
               />
             </PressableScale>
             <NavIconButton
-              icon={chevronForward()}
+              icon={chevronForward}
               label={t("calendar.nextYear")}
               disabled={pickerYear >= maxYear}
               onPress={() => shiftYear(1)}
@@ -202,7 +204,7 @@ export function CalendarMonthPicker({
               onPress={() => setView("months")}
               style={[styles.backButton, { backgroundColor: tokens.accentSoft }]}
             >
-              <SymbolView name={chevronBackward()} size={16} tintColor={colors.accent} />
+              <SymbolView name={chevronBackward} size={16} tintColor={colors.accent} />
             </PressableScale>
             <ThemedText type="subtitle" style={styles.yearTitle}>
               {t("calendar.selectYear")}

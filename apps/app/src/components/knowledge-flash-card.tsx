@@ -14,7 +14,7 @@ import { useKnowledgeCard } from "@/hooks/use-knowledge-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { KnowledgeCardPalette, ResolvedKnowledgeCard } from "@/lib/knowledge-card";
 import { arabicReadingLayout } from "@/lib/reading-typography";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 function getPalette(
   colors: ReturnType<typeof useThemeTokens>["colors"],
@@ -48,6 +48,7 @@ function KnowledgeCardBody({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const router = useRouter();
+  const chevronForward = useChevronForward();
 
   const palette = getPalette(colors, tokens, card.palette);
 
@@ -104,7 +105,7 @@ function KnowledgeCardBody({
             <ThemedText type="caption" style={{ color: palette.text }}>
               {t(card.actionKey)}
             </ThemedText>
-            <SymbolView name={chevronForward()} size={12} tintColor={palette.color} />
+            <SymbolView name={chevronForward} size={12} tintColor={palette.color} />
           </View>
         ) : null}
       </View>

@@ -405,11 +405,6 @@ export default {
     title: "Qur'on Testi",
     description: "Sura nomlari, lug'at, tajvid va Qur'on qissalaridagi bilimingizni sinang.",
   },
-  "/learn-quran/reflection": {
-    title: "Qur'on Tafakkur Jurnali",
-    description:
-      "Shaxsiy tadabbur qaydlaringiz — oyatda Alloh sizga nima o'rgatayotganini va bugun qanday yashashingizni so'rang.",
-  },
   "/learn-quran/revelation": {
     title: "Qur'on Qanday Nozil Bo'lgan",
     description:

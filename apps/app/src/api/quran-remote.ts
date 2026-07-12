@@ -38,7 +38,9 @@ type FawazSurahPayload = {
 };
 
 /** True when a cache/query hit has at least one ayah string. */
-export function hasEditionAyahs(ayahText: Record<string, string> | null | undefined): boolean {
+export function hasEditionAyahs(
+  ayahText: Record<string, string> | null | undefined,
+): ayahText is Record<string, string> {
   if (!ayahText) return false;
   for (const value of Object.values(ayahText)) {
     if (value.trim().length > 0) return true;
@@ -62,7 +64,7 @@ export async function fetchRemoteEditionSurah(
   const cached = await QuranCacheRepository.get(editionId, surah);
   // Empty maps were cached by an older parser that read the wrong JSON key —
   // treat them as a miss so we refetch the real edition.
-  if (hasEditionAyahs(cached)) return cached as Record<string, string>;
+  if (hasEditionAyahs(cached)) return cached;
 
   const slug = fawazSlugForEdition(editionId);
   if (!slug) {

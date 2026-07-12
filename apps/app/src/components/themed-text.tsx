@@ -7,7 +7,7 @@ import {
   resolveArabicFontFamily,
   resolveArabicLineHeight,
 } from "@/lib/reading-typography";
-import { uiTextStyle } from "@/lib/rtl";
+import { useUiTextStyle } from "@/lib/rtl";
 import { useStore } from "@/stores/create-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -76,10 +76,14 @@ export function ThemedText({
   // node app-wide. Subscribing to just the family string keeps re-renders to the
   // rare moment the setting actually changes.
   const arabicFamily = useStore(preferencesStore, (s) => s.prefs.fontPrefs.arabic.family);
+  // Subscribe to layout direction so React Compiler cannot keep a stale LTR
+  // textAlign after the user switches to ar/ur/fa/ps/ku (see useUiTextStyle).
+  const localeTextStyle = useUiTextStyle();
   const resolvedColor = type === "linkPrimary" ? colors.accent : colors[themeColor ?? "foreground"];
   const baseLineHeight = LINE_HEIGHTS[type];
   const flatStyle = StyleSheet.flatten(style);
-  const localeTextAlign = type !== "arabic" && flatStyle?.textAlign == null ? uiTextStyle() : null;
+  const localeTextAlign =
+    type !== "arabic" && flatStyle?.textAlign == null ? localeTextStyle : null;
   const arabicFontSize =
     type === "arabic"
       ? typeof flatStyle?.fontSize === "number"

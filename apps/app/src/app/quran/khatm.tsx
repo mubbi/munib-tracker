@@ -49,7 +49,7 @@ import {
 } from "@/lib/khatm-motivation";
 import { goBackOrReplace } from "@/lib/navigation";
 import { pageToStartAyah } from "@/lib/quran";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import { useEnsureKhatmLoaded, useKhatm, useKhatmActions } from "@/stores/khatm-store";
 
 const PLAN_PRESETS = [
@@ -170,6 +170,7 @@ function PlanPresetCard({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   const target = unit === "page" ? dailyPageTarget(days) : dailyAyahTarget(days);
   const targetLabel =
     unit === "page"
@@ -197,7 +198,7 @@ function PlanPresetCard({
           color={colors.accentText}
           background={tokens.accentSoft}
         />
-        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
       </View>
     </PressableCard>
   );

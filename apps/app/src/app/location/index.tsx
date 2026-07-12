@@ -24,7 +24,7 @@ import {
   type CalculationMethodKey,
   type MadhabKey,
 } from "@/lib/prayer-times";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import { rescheduleAll } from "@/notifications/scheduler";
 import {
   locationStore,
@@ -49,6 +49,7 @@ export default function LocationScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForward = useChevronForward();
   const location = useLocation();
   const status = useLocationStatus();
   const actions = useLocationActions();
@@ -246,7 +247,7 @@ export default function LocationScreen() {
                             android: "check_circle",
                             web: "check_circle",
                           }
-                        : chevronForward()
+                        : chevronForward
                     }
                     size={selected ? 20 : 15}
                     tintColor={selected ? colors.accent : colors.mutedForeground}

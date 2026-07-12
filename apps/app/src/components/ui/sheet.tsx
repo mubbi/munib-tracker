@@ -277,10 +277,7 @@ export function Sheet({
         onRequestClose={onClose}
         statusBarTranslucent
       >
-        <View
-          style={[styles.scrim, isBottom ? styles.scrimBottom : styles.scrimCenter]}
-          pointerEvents="box-none"
-        >
+        <View style={[styles.scrim, isBottom ? styles.scrimBottom : styles.scrimCenter]}>
           {/*
             Absolute-fill backdrop behind the card so taps on the dimmed region
             dismiss. The card is never a wrapping Pressable so nested buttons
@@ -297,6 +294,7 @@ export function Sheet({
 const styles = StyleSheet.create({
   scrim: {
     flex: 1,
+    pointerEvents: "box-none",
   },
   scrimBottom: {
     justifyContent: "flex-end",

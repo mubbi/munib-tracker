@@ -7,7 +7,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 type QazaSummaryCardProps = {
   remaining: number;
@@ -29,6 +29,7 @@ export function QazaSummaryCard({
 }: QazaSummaryCardProps) {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForward = useChevronForward();
 
   const total = remaining + completed;
   // Unified debt view: render when there is any prayer OR fasting debt.
@@ -73,7 +74,7 @@ export function QazaSummaryCard({
             {t("home.qazaMeta", { completed })}
           </ThemedText>
         </View>
-        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
       </View>
 
       {total > 0 ? (

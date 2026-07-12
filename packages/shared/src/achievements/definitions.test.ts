@@ -10,7 +10,6 @@ import {
   computeDevotionNoor,
   evaluateProgression,
   getMilestoneById,
-  migrateLegacyAchievementIds,
   newlyUnlocked,
   resolveUnlockedMilestones,
   syncAchievementIds,
@@ -169,17 +168,6 @@ describe.concurrent("newlyUnlocked", () => {
     };
     const fresh = newlyUnlocked(stats, []);
     expect(fresh).toContain("qaza:debt:10:cleared");
-  });
-
-  it("migrates legacy badge ids", () => {
-    const migrated = migrateLegacyAchievementIds(["first-prayer", "qaza-10"]);
-    expect(migrated).toContain("salah:1");
-    expect(migrated).toContain("qaza:debt:10:cleared");
-  });
-
-  it("normalizes legacy qaza numeric ids", () => {
-    const migrated = migrateLegacyAchievementIds(["qaza:35042", "qaza:debt:35042:cleared"]);
-    expect(migrated).toEqual(["qaza:debt:35042:cleared"]);
   });
 });
 

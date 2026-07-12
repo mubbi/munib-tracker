@@ -135,6 +135,11 @@
     "description": "Your saved hadith, kept together for quick return.",
     "index": false
   },
+  "/hadith/daily": {
+    "title": "Daily Hadith",
+    "description": "A daily hadith from the authentic collections — a short prophetic teaching to read and reflect on each day.",
+    "keywords": ["daily hadith", "hadith of the day", "prophetic saying"]
+  },
   "/hajj": {
     "title": "Hajj & Umrah Checklist",
     "description": "A step-by-step checklist for the rites of Hajj and Umrah. Track each rite as you go and follow the pilgrimage in order — practical, not a fiqh manual.",
@@ -388,11 +393,6 @@
     "description": "Test your knowledge of surah names, vocabulary, tajweed, and stories from the Qur'an.",
     "index": false
   },
-  "/learn-quran/reflection": {
-    "title": "Qur'an Reflection Journal",
-    "description": "Your private tadabbur notes — ask what Allah teaches you in a verse and how you will live it today.",
-    "index": false
-  },
   "/learn-quran/revelation": {
     "title": "How the Qur'an Was Revealed",
     "description": "The revelation of the Qur'an — from the Cave of Hira through its preservation. Dates follow commonly-cited seerah chronology, noting where scholars differ.",
@@ -509,6 +509,11 @@
     "description": "Estimate a lifetime of missed prayers from your age, puberty age, and years prayed. A simple qaza calculator to turn an overwhelming backlog into a clear number.",
     "keywords": ["qaza calculator", "missed prayer calculator", "qadha calculator", "lifetime qaza"]
   },
+  "/qaza/history": {
+    "title": "Qaza History Log",
+    "description": "Review the make-up prayers you have logged — a private history of clearing your qaza backlog, one salah at a time.",
+    "index": false
+  },
   "/qaza/planner": {
     "title": "Qaza Planner — A Daily Pace to Clear Your Backlog",
     "description": "Set a realistic daily pace to make up missed prayers and see an estimated date to clear your qaza backlog. Plan a steady, doable routine.",
@@ -533,6 +538,28 @@
     "title": "Qur'an Bookmarks",
     "description": "Your saved Qur'an ayahs, kept together for quick return.",
     "index": false
+  },
+  "/quran/hifz": {
+    "title": "Hifz Tracker — Memorize the Qur'an",
+    "description": "Track the surahs and ayahs you are memorizing. A lightweight hifz companion that stays on your device.",
+    "keywords": ["hifz tracker", "memorize Quran", "Quran memorization", "hifz progress"],
+    "index": false
+  },
+  "/quran/juz": {
+    "title": "Browse the Qur'an by Juz",
+    "description": "Open any of the 30 juz of the Qur'an and jump to the first ayah of that portion. Useful for paced reading and khatm plans.",
+    "keywords": ["Quran juz", "30 juz", "browse Quran by juz", "juz list"]
+  },
+  "/quran/khatm": {
+    "title": "Khatm — Qur'an Reading Plan",
+    "description": "Set a paced reading plan to complete the Qur'an and track your progress toward khatm.",
+    "keywords": ["khatm Quran", "Quran reading plan", "complete the Quran", "khatm tracker"],
+    "index": false
+  },
+  "/quran/pages": {
+    "title": "Mushaf Pages — 604-Page View",
+    "description": "Browse the Qur'an by classic mushaf page (1–604) and open any page in the reader.",
+    "keywords": ["mushaf pages", "Quran page view", "604 pages", "Madinah mushaf"]
   },
   "/quran/search": {
     "title": "Search the Qur'an",

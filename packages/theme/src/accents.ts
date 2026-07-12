@@ -97,18 +97,10 @@ export const accentColorIds = Object.keys(accentColors) as AccentColorId[];
 /** Matches smart-expense-tracker `DEFAULT_PRIMARY_COLOR`. */
 export const defaultAccentColorId: AccentColorId = "forest";
 
-/** Maps removed Munib accent ids to the closest new preset. */
-const legacyAccentColorMap: Record<string, AccentColorId> = {
-  gold: "amber",
-  emerald: "forest",
-  ramadan: "indigo",
-  hajj: "amber",
-};
-
 export function resolveAccentColorId(stored: string | null): AccentColorId | null {
   if (stored === null) return null;
   if (accentColorIds.includes(stored as AccentColorId)) {
     return stored as AccentColorId;
   }
-  return legacyAccentColorMap[stored] ?? null;
+  return null;
 }

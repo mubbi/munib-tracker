@@ -333,11 +333,6 @@ export default {
     title: "قرآن کوئز",
     description: "د سورې نومونو، لغت، تجوید او د قرآن کیسې پوهه ازموئ.",
   },
-  "/learn-quran/reflection": {
-    title: "د قرآن تفکر یادښت",
-    description:
-      "ستاسو شخصي تدبر یادښتونه — وپوښتئ چې الله تاسو ته په آیت کې څه زده کوي او نن څنګه یې پلي کوئ.",
-  },
   "/learn-quran/revelation": {
     title: "قرآن څنګه نازل شو",
     description:

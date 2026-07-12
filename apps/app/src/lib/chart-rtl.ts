@@ -107,21 +107,6 @@ export function progressRingKnobStyle(
   };
 }
 
-/** @deprecated Use {@link progressRingKnobOffset} — kept for tests. */
-export function progressRingKnobPosition(
-  size: number,
-  stroke: number,
-  progress: number,
-  knobSize: number,
-  rtl = progressSweepRtl(),
-): { left: number; top: number } {
-  const { translateX, translateY } = progressRingKnobOffset(size, stroke, progress, rtl);
-  return {
-    left: size / 2 + translateX - knobSize / 2,
-    top: size / 2 + translateY - knobSize / 2,
-  };
-}
-
 /**
  * SVG path for a partial ring arc from 12 o'clock. Uses standard SVG coords
  * (0 rad = 3 o'clock); sweep flag 1 = clockwise, 0 = counter-clockwise.

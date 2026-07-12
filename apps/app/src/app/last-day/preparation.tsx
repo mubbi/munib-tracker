@@ -21,7 +21,7 @@ import type { LastDayPreparationRowId } from "@/lib/last-day-preparation";
 import { buildLastDayPreparation } from "@/lib/last-day-preparation";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import {
   useEnsureLastDayProgressLoaded,
   useLastDayCharacterChecked,
@@ -56,6 +56,7 @@ function PreparationRow({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   const isToggle = TOGGLE_ROWS.includes(row.id);
   const repentance = useLastDayRepentanceChecked(today);
   const character = useLastDayCharacterChecked(today);
@@ -118,7 +119,7 @@ function PreparationRow({
         </ThemedText>
         {row.progress != null && row.progress > 0 ? <ProgressBar value={row.progress} /> : null}
       </View>
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

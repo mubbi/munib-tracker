@@ -30,7 +30,7 @@ import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronBackward, chevronForward } from "@/lib/rtl";
+import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 
 type HistoryEntry = { date: string; total: number; progress: QazaDailyProgress };
 
@@ -52,6 +52,8 @@ export default function QazaHistoryScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronBackward = useChevronBackward();
+  const chevronForward = useChevronForward();
   const defaultCalendar = useDefaultCalendar();
   const now = new Date();
   const today = getLocalDateString();
@@ -161,7 +163,7 @@ export default function QazaHistoryScreen() {
           <Card padding="three">
             <View style={styles.header}>
               <NavButton
-                icon={chevronBackward()}
+                icon={chevronBackward}
                 label={t("calendar.prevMonth")}
                 onPress={() => shift(-1)}
               />
@@ -184,7 +186,7 @@ export default function QazaHistoryScreen() {
                 />
               </PressableScale>
               <NavButton
-                icon={chevronForward()}
+                icon={chevronForward}
                 label={t("calendar.nextMonth")}
                 onPress={() => shift(1)}
               />

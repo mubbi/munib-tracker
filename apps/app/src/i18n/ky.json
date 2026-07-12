@@ -67,8 +67,8 @@
     "decrease": "Уменьшить {{label}}",
     "appName": "Munib Tracker",
     "appTagline": "Аллага кайтуу жолуңузду көз салыңыз.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "Даярдалууда…",
+    "loadingRouteHint": "Бир аз күтүңүз — бул экран жүктөлүп жатат."
   },
   "search": {
     "placeholder": "Издөө по Курану, хадисам, дуа, adhkar…",

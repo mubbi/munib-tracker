@@ -17,11 +17,12 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamReflections } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
   const router = useRouter();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
 
   return (
     <PressableScale
@@ -50,7 +51,7 @@ function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
         ) : null}
       </View>
       {entry.appLink ? (
-        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
       ) : null}
     </PressableScale>
   );

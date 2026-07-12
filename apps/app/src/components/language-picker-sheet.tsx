@@ -12,7 +12,7 @@ import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { APP_LOCALES, localeSecondaryLabel, matchesLocaleSearch } from "@/lib/locale-display";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward, useIsRTL } from "@/lib/rtl";
 
 type LanguagePickerSheetProps = {
   visible: boolean;
@@ -32,6 +32,8 @@ type LanguageSelectRowProps = {
 /** Tappable field that opens the language sheet — shows flag + native name + chevron. */
 export function LanguageSelectRow({ locale, onPress, accessibilityLabel }: LanguageSelectRowProps) {
   const { colors } = useThemeTokens();
+  const rtl = useIsRTL();
+  const chevron = useChevronForward();
   const { name } = APP_LOCALES.find((entry) => entry.code === locale) ?? APP_LOCALES[0];
 
   return (
@@ -53,7 +55,12 @@ export function LanguageSelectRow({ locale, onPress, accessibilityLabel }: Langu
           {name}
         </ThemedText>
       </View>
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView
+        key={rtl ? "chevron-rtl" : "chevron-ltr"}
+        name={chevron}
+        size={14}
+        tintColor={colors.mutedForeground}
+      />
     </PressableScale>
   );
 }

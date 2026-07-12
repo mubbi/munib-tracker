@@ -444,11 +444,6 @@ export default {
     description:
       "Testez vos connaissances des noms de sourates, vocabulaire, tajweed et récits du Coran.",
   },
-  "/learn-quran/reflection": {
-    title: "Journal de réflexion Coran",
-    description:
-      "Vos notes privées de tadabbur — demandez ce qu'Allah vous enseigne dans un verset et comment vous le vivrez aujourd'hui.",
-  },
   "/learn-quran/revelation": {
     title: "Comment le Coran a été révélé",
     description:

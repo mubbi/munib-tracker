@@ -16,7 +16,7 @@ import {
   statusToneColor,
   statusToneSoft,
 } from "@/lib/prayer-ui";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 const ICON_WELL = 34;
 
@@ -46,6 +46,7 @@ export function PrayerTrackerRow({
 }: PrayerTrackerRowProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const chevronForward = useChevronForward();
   const meta = PRAYER_STATUS_META[status];
   const toneColor = statusToneColor(meta.tone, colors, tokens);
   // A muted row needs the soft-accent fill so the pending well stays visible.
@@ -128,7 +129,7 @@ export function PrayerTrackerRow({
                   </View>
                   <View style={styles.rowChevron}>
                     <SymbolView
-                      name={chevronForward()}
+                      name={chevronForward}
                       size={14}
                       tintColor={colors.mutedForeground}
                     />
@@ -171,11 +172,7 @@ export function PrayerTrackerRow({
                       total: adhkarTotal,
                     })}
                   </ThemedText>
-                  <SymbolView
-                    name={chevronForward()}
-                    size={14}
-                    tintColor={colors.mutedForeground}
-                  />
+                  <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
                 </View>
               </PressableScale>
             ) : (

@@ -14,12 +14,13 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getBattlesTimeline } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 export default function BattlesTimelineScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   const events = getBattlesTimeline();
 
   return (
@@ -96,7 +97,7 @@ export default function BattlesTimelineScreen() {
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("battles.readBattle")}
                     </ThemedText>
-                    <SymbolView name={chevronForward()} size={12} tintColor={colors.accent} />
+                    <SymbolView name={chevronForwardIcon} size={12} tintColor={colors.accent} />
                   </View>
                 ) : null}
               </Card>

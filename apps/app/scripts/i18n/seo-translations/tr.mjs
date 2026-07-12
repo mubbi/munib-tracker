@@ -416,11 +416,6 @@ export default {
     title: "Kur'an Testi",
     description: "Sure isimleri, kelime bilgisi, tecvid ve Kur'an kıssaları bilginizi sınayın.",
   },
-  "/learn-quran/reflection": {
-    title: "Kur'an Tefekkür Günlüğü",
-    description:
-      "Özel tefekkür notlarınız — bir ayette Allah'ın size ne öğrettiğini ve bugün nasıl yaşayacağınızı sorun.",
-  },
   "/learn-quran/revelation": {
     title: "Kur'an Nasıl İndirildi",
     description:

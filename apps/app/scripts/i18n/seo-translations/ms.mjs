@@ -416,11 +416,6 @@ export default {
     description:
       "Uji pengetahuan anda tentang nama surah, kosakata, tajwid, dan kisah-kisah dalam Al-Quran.",
   },
-  "/learn-quran/reflection": {
-    title: "Jurnal Refleksi Al-Quran",
-    description:
-      "Catatan tadabbur pribadi anda — tanyakan apa yang Allah ajarkan dalam ayat dan bagaimana anda akan mengamalkannya hari ini.",
-  },
   "/learn-quran/revelation": {
     title: "Bagaimana Al-Quran Diturunkan",
     description:

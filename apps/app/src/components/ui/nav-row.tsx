@@ -1,14 +1,13 @@
 import { SymbolView } from "expo-symbols";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { IconWell } from "@/components/ui/icon-well";
-import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward, useIsRTL } from "@/lib/rtl";
 
 type NavRowProps = {
   icon: AppIcon;
@@ -20,7 +19,9 @@ type NavRowProps = {
 
 /** A tappable navigation row: icon well + label + optional count + chevron. */
 export function NavRow({ icon, label, count, onPress }: NavRowProps) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const rtl = useIsRTL();
+  const chevron = useChevronForward();
   return (
     <PressableScale
       haptic="light"
@@ -34,12 +35,23 @@ export function NavRow({ icon, label, count, onPress }: NavRowProps) {
         {label}
       </ThemedText>
       {count != null ? (
-        <Pill label={`${count}`} color={colors.mutedForeground} background={colors.card} />
+        <View style={[styles.countBadge, { backgroundColor: tokens.accentSoft }]}>
+          <ThemedText type="caption" style={[styles.countText, { color: colors.mutedForeground }]}>
+            {count}
+          </ThemedText>
+        </View>
       ) : null}
-      <SymbolView name={chevronForward()} size={16} tintColor={colors.mutedForeground} />
+      <SymbolView
+        key={rtl ? "chevron-rtl" : "chevron-ltr"}
+        name={chevron}
+        size={16}
+        tintColor={colors.mutedForeground}
+      />
     </PressableScale>
   );
 }
+
+const COUNT_SIZE = 24;
 
 const styles = StyleSheet.create({
   row: {
@@ -54,5 +66,21 @@ const styles = StyleSheet.create({
   },
   label: {
     flex: 1,
+  },
+  countBadge: {
+    minWidth: COUNT_SIZE,
+    height: COUNT_SIZE,
+    paddingHorizontal: Spacing.one + 2,
+    borderRadius: COUNT_SIZE / 2,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    alignSelf: "center",
+  },
+  countText: {
+    fontSize: 12,
+    lineHeight: 14,
+    textAlign: "center",
   },
 });

@@ -67,8 +67,8 @@
     "decrease": "{{label}} azalt",
     "appName": "Munib Tracker",
     "appTagline": "Allaha qayıdış yolunuzu izləyin.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "Hazırlanır…",
+    "loadingRouteHint": "Bir an — bu ekran yüklənir."
   },
   "search": {
     "placeholder": "Qur'an, hədis, dua, adhkar axtar…",

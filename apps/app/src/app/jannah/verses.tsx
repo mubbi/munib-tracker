@@ -19,7 +19,7 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJannahContent, getJannahVerses } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 const THEME_ORDER = ["description", "reward", "ranks", "mercy", "supplication"] as const;
 
@@ -44,6 +44,7 @@ function JannahVersesList() {
   }, []);
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
+  const chevronForwardIcon = useChevronForward();
   const verses = getJannahVerses();
 
   const grouped = useMemo(() => {
@@ -109,7 +110,7 @@ function JannahVersesList() {
                   </View>
                   <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
                   <SymbolView
-                    name={chevronForward()}
+                    name={chevronForwardIcon}
                     size={14}
                     tintColor={colors.mutedForeground}
                   />

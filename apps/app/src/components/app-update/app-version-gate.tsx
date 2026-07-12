@@ -15,7 +15,7 @@ export function AppVersionSoftGate() {
   if (updateRequired === "hard") return null;
 
   return (
-    <View style={styles.softOverlay} pointerEvents="box-none" collapsable={false}>
+    <View style={styles.softOverlay} collapsable={false}>
       <UpdateRequiredModal visible meta={versionMeta} isHard={false} />
     </View>
   );
@@ -56,5 +56,6 @@ const styles = StyleSheet.create({
   softOverlay: {
     ...StyleSheet.absoluteFill,
     zIndex: 9000,
+    pointerEvents: "box-none",
   },
 });

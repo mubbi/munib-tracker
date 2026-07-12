@@ -14,12 +14,13 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getProphetsTimeline } from "@/lib/prophets";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 export default function ProphetsTimelineScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   const events = getProphetsTimeline();
 
   return (
@@ -76,7 +77,7 @@ export default function ProphetsTimelineScreen() {
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("prophets.readTopic")}
                     </ThemedText>
-                    <SymbolView name={chevronForward()} size={12} tintColor={colors.accent} />
+                    <SymbolView name={chevronForwardIcon} size={12} tintColor={colors.accent} />
                   </View>
                 ) : null}
               </Card>

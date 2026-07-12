@@ -195,7 +195,76 @@ async function waitForPlayerReady(player: AudioPlayer, timeoutMs = 12000): Promi
 
 const AudioContext = createContext<AudioContextValue | null>(null);
 
+/** No-op context for web SSR — `expo-audio` calls `new Audio()` which Node lacks. */
+const SSR_AUDIO_CONTEXT: AudioContextValue = {
+  current: null,
+  queue: [],
+  index: 0,
+  trackDurations: {},
+  isPlaying: false,
+  isBuffering: false,
+  isTransitioning: false,
+  isLoaded: false,
+  position: 0,
+  duration: 0,
+  queuePosition: 0,
+  queueDuration: 0,
+  queueProgress: 0,
+  isQueueFinished: false,
+  rate: 1,
+  volume: 1,
+  loopMode: "off",
+  sourceHref: null,
+  play: () => {},
+  toggle: () => {},
+  seekTo: () => {},
+  seekToQueuePosition: () => {},
+  next: () => {},
+  previous: () => {},
+  jumpTo: () => {},
+  replay: () => {},
+  setRate: () => {},
+  setVolume: () => {},
+  cycleLoopMode: () => {},
+  stop: () => {},
+  readPlaybackSeconds: () => 0,
+};
+
+/**
+ * Web SSR gate: expo-audio's `useAudioPlayer` constructs `Audio` immediately.
+ * Defer the live engine until after hydration, while keeping children under a
+ * stable Provider so the app tree does not remount.
+ */
 export function AudioPlayerProvider({ children }: { children: ReactNode }) {
+  if (Platform.OS !== "web") {
+    return <AudioPlayerProviderLive>{children}</AudioPlayerProviderLive>;
+  }
+  return <AudioPlayerProviderWeb>{children}</AudioPlayerProviderWeb>;
+}
+
+function AudioPlayerProviderWeb({ children }: { children: ReactNode }) {
+  const [value, setValue] = useState<AudioContextValue>(SSR_AUDIO_CONTEXT);
+  const [live, setLive] = useState(false);
+
+  useLayoutEffect(() => {
+    setLive(true);
+  }, []);
+
+  return (
+    <AudioContext.Provider value={value}>
+      {live ? <AudioPlayerProviderLive onValueChange={setValue} /> : null}
+      {children}
+    </AudioContext.Provider>
+  );
+}
+
+function AudioPlayerProviderLive({
+  children,
+  onValueChange,
+}: {
+  children?: ReactNode;
+  onValueChange?: (value: AudioContextValue) => void;
+}) {
   // Double-buffered players: one plays the current track while the other is
   // preloaded with the next one, so auto-advance is a near-instant hand-off
   // instead of a `replace()` teardown + reload (which caused the audible gap).
@@ -1117,6 +1186,12 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
     ],
   );
 
+  useLayoutEffect(() => {
+    onValueChange?.(value);
+  }, [onValueChange, value]);
+
+  // Web parent already owns AudioContext.Provider + children (avoids remount).
+  if (onValueChange) return null;
   return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>;
 }
 

@@ -89,15 +89,3 @@ export const PROGRESSION_TRACKS: ProgressionTrackConfig[] = [
     titlesCount: 9,
   },
 ];
-
-export const LEGACY_ACHIEVEMENT_MAP: Record<string, string> = {
-  "first-prayer": "salah:1",
-  "perfect-day": "consistency:1",
-  "streak-3": "streak:2",
-  "streak-7": "streak:3",
-  "streak-30": "streak:6",
-  "prayers-100": "salah:6",
-  "qaza-10": "qaza:debt:10:cleared",
-  "qaza-100": "qaza:debt:100:cleared",
-  "zikr-50": "zikr:5",
-};

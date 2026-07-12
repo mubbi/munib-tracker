@@ -11,7 +11,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
-import { chevronBack, useIsRTL } from "@/lib/rtl";
+import { useChevronBack, useIsRTL } from "@/lib/rtl";
 import { ThemedText } from "./themed-text";
 
 type AppHeaderProps = {
@@ -41,6 +41,7 @@ export function AppHeader({
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const rtl = useIsRTL();
+  const backIcon = useChevronBack();
 
   const withNavigationBlur = (handler?: () => void) => () => {
     if (Platform.OS === "web") blurActiveElement();
@@ -63,7 +64,7 @@ export function AppHeader({
       {onBack ? (
         <IconButton
           key={rtl ? "back-rtl" : "back-ltr"}
-          name={chevronBack()}
+          name={backIcon}
           size={19}
           tintColor={colors.accent}
           accessibilityLabel={t("common.goBack")}

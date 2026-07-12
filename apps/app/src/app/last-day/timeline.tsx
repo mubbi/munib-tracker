@@ -14,12 +14,13 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getLastDayTimeline } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 export default function LastDayTimelineScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   const events = getLastDayTimeline();
 
   return (
@@ -84,7 +85,7 @@ export default function LastDayTimelineScreen() {
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("lastDay.readTopic")}
                     </ThemedText>
-                    <SymbolView name={chevronForward()} size={12} tintColor={colors.accent} />
+                    <SymbolView name={chevronForwardIcon} size={12} tintColor={colors.accent} />
                   </View>
                 ) : null}
               </Card>

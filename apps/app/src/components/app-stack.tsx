@@ -7,8 +7,9 @@ import { useTheme } from "@/providers/theme-provider";
 
 /**
  * Root stack with a React Navigation theme synced to Munib colors.
- * Without this, iOS push/pop animations flash the default light stack background
- * in dark mode before each screen paints.
+ * Screen cards are transparent so async-route Suspense can leave the previous
+ * screen visible under a content-area loader; each route paints its own opaque
+ * background (ScreenLayout / tab roots) to avoid light/dark flash.
  */
 export function AppStack() {
   const { colors, scheme } = useTheme();
@@ -18,9 +19,9 @@ export function AppStack() {
   const screenOptions = useMemo(
     () => ({
       headerShown: false as const,
-      contentStyle: { backgroundColor: colors.background },
+      contentStyle: { backgroundColor: "transparent" as const },
     }),
-    [colors.background],
+    [],
   );
 
   return (

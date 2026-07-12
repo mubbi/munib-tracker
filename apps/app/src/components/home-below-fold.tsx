@@ -32,7 +32,7 @@ import {
   orderQuickActions,
   QUICK_ACTION_META,
 } from "@/lib/quick-actions";
-import { arrowForward } from "@/lib/rtl";
+import { useArrowForward } from "@/lib/rtl";
 import { usePreferences } from "@/stores/preferences-store";
 import {
   useDailySummary,
@@ -94,6 +94,7 @@ export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFol
   useReviewRouteTrigger("home");
   useReviewStreakTrigger(streak);
   const { quickActionOrder, hiddenHomeModules } = usePreferences();
+  const arrowForward = useArrowForward();
   const hiddenModules = new Set(hiddenHomeModules ?? []);
 
   const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
@@ -278,7 +279,7 @@ export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFol
             }
             variant={isExcused ? "secondary" : "primary"}
             fullWidth
-            trailingIcon={arrowForward()}
+            trailingIcon={arrowForward}
             onPress={() => router.push("/tracker")}
           />
         </Card>

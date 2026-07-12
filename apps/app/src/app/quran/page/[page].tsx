@@ -151,7 +151,7 @@ export default function QuranPageReaderScreen() {
   );
 
   const translationText =
-    remoteActive && hasEditionAyahs(remoteQuery.data) ? remoteQuery.data! : bundledTranslation;
+    remoteActive && hasEditionAyahs(remoteQuery.data) ? remoteQuery.data : bundledTranslation;
   const secondTranslationText = secondaryId
     ? secondaryRemoteActive && hasEditionAyahs(secondaryRemoteQuery.data)
       ? secondaryRemoteQuery.data
@@ -268,11 +268,12 @@ export default function QuranPageReaderScreen() {
   const openAyahReader = useCallback(() => {
     const start = pageToStartAyah(currentPage);
     if (!start) return;
+    void updatePrefs({ readerLayout: "ayah" });
     router.push({
       pathname: "/quran/[surah]",
       params: { surah: String(start.surah), ayah: String(start.ayah) },
     });
-  }, [currentPage, router]);
+  }, [currentPage, router, updatePrefs]);
 
   const layoutOptions = LAYOUT_OPTIONS.map((o) => ({ id: o.id, label: t(o.labelKey) }));
 

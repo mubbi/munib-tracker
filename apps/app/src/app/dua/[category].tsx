@@ -16,7 +16,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import { createDuaSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import {
@@ -183,6 +183,8 @@ function ListSeparator() {
 
 const CHEVRON_SIZE = 14;
 const FAVORITE_SIZE = 18;
+const FAVORITE_HIT = 44;
+const ROW_GAP = Spacing.two;
 
 const DuaRow = memo(function DuaRow({
   item,
@@ -199,6 +201,7 @@ const DuaRow = memo(function DuaRow({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
 
   const handleToggleFavorite = useCallback(
     () => onToggleFavorite(item.id),
@@ -229,7 +232,7 @@ const DuaRow = memo(function DuaRow({
         </View>
         <View style={styles.favoriteSlot} />
         <SymbolView
-          name={chevronForward()}
+          name={chevronForwardIcon}
           size={CHEVRON_SIZE}
           tintColor={colors.mutedForeground}
         />
@@ -271,7 +274,7 @@ const styles = StyleSheet.create({
   rowHeader: {
     flexDirection: "row",
     alignItems: "center",
-    gap: Spacing.two,
+    gap: ROW_GAP,
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -280,10 +283,12 @@ const styles = StyleSheet.create({
   favoriteSlot: { width: FAVORITE_SIZE, height: FAVORITE_SIZE },
   favoriteButton: {
     position: "absolute",
-    // Stretch to the row height so the glyph stays vertically centered when the
-    // title wraps to a second line (IconButton centers via justifyContent).
-    top: 0,
-    bottom: 0,
-    right: Spacing.three + CHEVRON_SIZE + Spacing.two + FAVORITE_SIZE / 2 - 22,
+    // Center over the row: PressableScale keeps the glyph on an inner view that
+    // does not stretch when top/bottom are set, so pin to mid-height instead.
+    top: "50%",
+    marginTop: -(FAVORITE_HIT / 2),
+    // Center the 44pt target over the reserved slot (slot sits just start-ward of the
+    // chevron): slot end edge + half the slot, minus half the tap target.
+    end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_SIZE / 2 - FAVORITE_HIT / 2,
   },
 });

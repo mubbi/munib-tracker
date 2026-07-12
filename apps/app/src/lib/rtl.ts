@@ -85,26 +85,53 @@ export function useIsRTL(): boolean {
 }
 
 /** Default `textAlign` + `writingDirection` for UI chrome text in the active locale. */
-export function uiTextStyle(): TextStyle {
-  const rtl = isRTL();
+export function uiTextStyle(rtl: boolean = isRTL()): TextStyle {
   return {
     writingDirection: rtl ? "rtl" : "ltr",
     textAlign: rtl ? "right" : "left",
   };
 }
 
-/** Skip-to-previous icon — mirrors with reading direction in RTL media controls. */
-export function skipPreviousIcon(): IconName {
-  return isRTL()
+/**
+ * Reactive UI text direction for components. Prefer this over {@link uiTextStyle}
+ * inside render — `isRTL()` alone is invisible to React Compiler, which can keep
+ * a stale `textAlign: left` after switching to an RTL locale (flex flips via
+ * `dir`, but titles stay LTR-aligned).
+ */
+export function useUiTextStyle(): TextStyle {
+  return uiTextStyle(useIsRTL());
+}
+
+/** Skip icons for the given layout direction. */
+export function skipPreviousIconFor(rtl: boolean): IconName {
+  return rtl
     ? { ios: "forward.fill", android: "skip_next", web: "skip_next" }
     : { ios: "backward.fill", android: "skip_previous", web: "skip_previous" };
 }
 
-/** Skip-to-next icon — mirrors with reading direction in RTL media controls. */
-export function skipNextIcon(): IconName {
-  return isRTL()
+export function skipNextIconFor(rtl: boolean): IconName {
+  return rtl
     ? { ios: "backward.fill", android: "skip_previous", web: "skip_previous" }
     : { ios: "forward.fill", android: "skip_next", web: "skip_next" };
+}
+
+/** Skip-to-previous icon — mirrors with reading direction in RTL media controls. */
+export function skipPreviousIcon(): IconName {
+  return skipPreviousIconFor(isRTL());
+}
+
+/** Skip-to-next icon — mirrors with reading direction in RTL media controls. */
+export function skipNextIcon(): IconName {
+  return skipNextIconFor(isRTL());
+}
+
+/** Reactive skip icons — safe under React Compiler when locale direction changes. */
+export function useSkipPreviousIcon(): IconName {
+  return skipPreviousIconFor(useIsRTL());
+}
+
+export function useSkipNextIcon(): IconName {
+  return skipNextIconFor(useIsRTL());
 }
 
 /** Disclosure chevron for the current layout direction. */
@@ -114,6 +141,25 @@ export function forwardChevronIcon(rtl: boolean): IconName {
     : { ios: "chevron.right", android: "chevron_right", web: "chevron_right" };
 }
 
+/** Back / dismiss chevron for the current layout direction. */
+export function backChevronIcon(rtl: boolean): IconName {
+  return rtl
+    ? { ios: "chevron.right", android: "arrow_forward", web: "arrow_forward" }
+    : { ios: "chevron.left", android: "arrow_back", web: "arrow_back" };
+}
+
+export function arrowForwardIcon(rtl: boolean): IconName {
+  return rtl
+    ? { ios: "arrow.left", android: "arrow_back", web: "arrow_back" }
+    : { ios: "arrow.right", android: "arrow_forward", web: "arrow_forward" };
+}
+
+export function backwardChevronIcon(rtl: boolean): IconName {
+  return rtl
+    ? { ios: "chevron.right", android: "chevron_right", web: "chevron_right" }
+    : { ios: "chevron.left", android: "chevron_left", web: "chevron_left" };
+}
+
 /**
  * Disclosure / "forward" chevron pointing toward the reading direction — right
  * in LTR, left in RTL. Use for nav rows, list items, and "open" affordances.
@@ -121,40 +167,64 @@ export function forwardChevronIcon(rtl: boolean): IconName {
  * Concept icons (clock, calendar, mosque, moon, search, …) must NOT be mirrored
  * and are intentionally absent here — only glyphs that encode reading direction
  * belong in this module.
+ *
+ * In React components prefer {@link useChevronForward} — bare `chevronForward()`
+ * reads layout direction without a hook, so React Compiler can keep a stale glyph
+ * after an LTR↔RTL locale switch.
  */
 export function chevronForward(): IconName {
   return forwardChevronIcon(isRTL());
 }
 
+/** Reactive forward chevron — safe under React Compiler when locale direction changes. */
+export function useChevronForward(): IconName {
+  return forwardChevronIcon(useIsRTL());
+}
+
 /**
  * "Back" chevron pointing against the reading direction — left in LTR, right in
  * RTL. Use for back buttons and dismiss-to-previous affordances.
+ *
+ * In React components prefer {@link useChevronBack}.
  */
 export function chevronBack(): IconName {
-  return isRTL()
-    ? { ios: "chevron.right", android: "arrow_forward", web: "arrow_forward" }
-    : { ios: "chevron.left", android: "arrow_back", web: "arrow_back" };
+  return backChevronIcon(isRTL());
+}
+
+/** Reactive back chevron — safe under React Compiler when locale direction changes. */
+export function useChevronBack(): IconName {
+  return backChevronIcon(useIsRTL());
 }
 
 /**
  * "Forward" arrow (e.g. an onboarding Next button) — right in LTR, left in RTL.
+ *
+ * In React components prefer {@link useArrowForward}.
  */
 export function arrowForward(): IconName {
-  return isRTL()
-    ? { ios: "arrow.left", android: "arrow_back", web: "arrow_back" }
-    : { ios: "arrow.right", android: "arrow_forward", web: "arrow_forward" };
+  return arrowForwardIcon(isRTL());
+}
+
+/** Reactive forward arrow — safe under React Compiler when locale direction changes. */
+export function useArrowForward(): IconName {
+  return arrowForwardIcon(useIsRTL());
 }
 
 /**
  * "Previous" chevron for paginators (e.g. month steppers) — points backward in
  * reading order (left in LTR, right in RTL) but stays a chevron on every
  * platform, unlike {@link chevronBack} which uses platform back-arrows. Pair
- * with {@link chevronForward} for the "next" control.
+ * with {@link useChevronForward} for the "next" control.
+ *
+ * In React components prefer {@link useChevronBackward}.
  */
 export function chevronBackward(): IconName {
-  return isRTL()
-    ? { ios: "chevron.right", android: "chevron_right", web: "chevron_right" }
-    : { ios: "chevron.left", android: "chevron_left", web: "chevron_left" };
+  return backwardChevronIcon(isRTL());
+}
+
+/** Reactive previous chevron — safe under React Compiler when locale direction changes. */
+export function useChevronBackward(): IconName {
+  return backwardChevronIcon(useIsRTL());
 }
 
 /** Page turn "next" in Arabic mushaf order (higher page) — always points left. */

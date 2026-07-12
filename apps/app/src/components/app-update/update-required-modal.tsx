@@ -18,7 +18,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useLocalizedSiteUrls } from "@/hooks/use-localized-site-urls";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isWebPlatform, performAppUpdate } from "@/lib/app/app-update-actions";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import { useAppVersion } from "@/providers/app-version-provider";
 
 type UpdateRequiredModalProps = {
@@ -41,6 +41,7 @@ export function UpdateRequiredModal({
   const { height: windowHeight } = useWindowDimensions();
   const isWeb = isWebPlatform();
   const { locale } = useLocalizedSiteUrls();
+  const chevronForward = useChevronForward();
 
   const handleUpdate = () => {
     performAppUpdate(meta, { isHard, locale });
@@ -91,7 +92,7 @@ export function UpdateRequiredModal({
               v{clientVersion}
             </ThemedText>
           </View>
-          <AppIcon icon={chevronForward()} size={18} tintColor={colors.mutedForeground} />
+          <AppIcon icon={chevronForward} size={18} tintColor={colors.mutedForeground} />
           <View style={styles.versionCol}>
             <ThemedText type="caption" themeColor="mutedForeground">
               {t("update.latestVersion")}
@@ -151,7 +152,6 @@ export function UpdateRequiredModal({
             paddingBottom: Math.max(insets.bottom, Spacing.four),
           },
         ]}
-        pointerEvents="auto"
         accessibilityViewIsModal
         {...webRootId}
       >
@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
     zIndex: 9999,
     justifyContent: "center",
     paddingHorizontal: Spacing.four,
+    pointerEvents: "auto",
   },
   fullscreenScroll: {
     flexGrow: 1,

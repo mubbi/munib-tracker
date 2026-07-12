@@ -81,6 +81,7 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
 ### API on Vercel
 
 - NestJS boots once per cold start via `api/index.ts` (`serverless-http` + Express adapter).
+- Runtime is pinned to **Node 22.x** (`engines` in `apps/api/package.json`) — avoid Node 24 on Vercel (native optional deps like `dtrace-provider` from the monorepo lockfile fail to compile).
 - Build runs TypeORM migrations (`migration:run`) before `nest build`.
 - Set production `DATABASE_*`, `JWT_SECRET` (≥32 chars), and `CORS_ORIGINS` on the API project.
 - OAuth: set `GOOGLE_OAUTH_*`, `APPLE_*`, and `OAUTH_REDIRECT_URI_ALLOWLIST` as in [OAUTH_SETUP.md](./OAUTH_SETUP.md) before enabling social sign-in.

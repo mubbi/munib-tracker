@@ -24,7 +24,7 @@ import { Durations } from "@/constants/motion";
 import { Brand, Radius, Spacing, StatusPalette, withAlpha } from "@/constants/theme";
 import type { DualCalendarDates } from "@/lib/calendar-format";
 import { gradientBackground } from "@/lib/gradient";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import type { SkyPalette } from "@/lib/sky";
 
 import { heroMotionClasses } from "./prayer-times-hero-motion";
@@ -41,9 +41,7 @@ export type PrayerTime = {
 
 type PrayerTimesHeroProps = {
   location: string;
-  displayDates?: DualCalendarDates;
-  /** @deprecated Legacy single-line prop — kept for hot-reload safety. */
-  displayDate?: string;
+  displayDates: DualCalendarDates;
   currentTime: string;
   /** Pre-localized countdown line, e.g. "Maghrib is 27 min away". */
   countdown: string;
@@ -101,8 +99,7 @@ const STARS = [
  */
 export function PrayerTimesHero({
   location,
-  displayDates: displayDatesProp,
-  displayDate,
+  displayDates,
   currentTime,
   countdown,
   prayers,
@@ -122,15 +119,12 @@ export function PrayerTimesHero({
   onLocationPress,
 }: PrayerTimesHeroProps) {
   const { t } = useTranslation();
-  const displayDates = displayDatesProp ?? {
-    primary: displayDate ?? "",
-    secondary: "",
-  };
   const { primary: primaryDate, secondary: secondaryDate } = displayDates;
   const reducedMotion = useReducedMotion();
   const breath = useSharedValue(0);
   const drift = useSharedValue(0);
   const [moonOpen, setMoonOpen] = useState(false);
+  const chevronForward = useChevronForward();
 
   useEffect(() => {
     if (Platform.OS === "web" || reducedMotion) return;
@@ -276,7 +270,7 @@ export function PrayerTimesHero({
                   </ThemedText>
                 </>
               ) : null}
-              <SymbolView name={chevronForward()} size={11} tintColor={Brand.heroText} />
+              <SymbolView name={chevronForward} size={11} tintColor={Brand.heroText} />
             </PressableScale>
             <View style={styles.actions}>
               <HeroIconButton
@@ -325,7 +319,7 @@ export function PrayerTimesHero({
                 ) : null}
               </View>
               <View style={styles.dateChevron}>
-                <SymbolView name={chevronForward()} size={12} tintColor={Brand.heroText} />
+                <SymbolView name={chevronForward} size={12} tintColor={Brand.heroText} />
               </View>
             </PressableScale>
             <View

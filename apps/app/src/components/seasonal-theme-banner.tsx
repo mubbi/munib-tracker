@@ -9,7 +9,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import {
   currentSeasonalTheme,
   type SeasonalThemeId,
@@ -37,6 +37,7 @@ export function SeasonalThemeBanner() {
   const router = useRouter();
   const { t } = useTranslation();
   const location = useLocation();
+  const chevronForward = useChevronForward();
   const season = currentSeasonalTheme(new Date(), location.timeZone);
 
   if (!season) return null;
@@ -82,7 +83,7 @@ export function SeasonalThemeBanner() {
             {t("seasonalTheme.dateDisclaimer")}
           </ThemedText>
         </View>
-        <SymbolView name={chevronForward()} size={16} tintColor={withAlpha("#FFFFFF", 0.7)} />
+        <SymbolView name={chevronForward} size={16} tintColor={withAlpha("#FFFFFF", 0.7)} />
       </View>
     </PressableScale>
   );

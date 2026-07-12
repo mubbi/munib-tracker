@@ -438,11 +438,6 @@ export default {
     description:
       "Jaribu ujuzi wako wa majina ya sura, msamiati, tajweed na hadithi kutoka Qur'ani.",
   },
-  "/learn-quran/reflection": {
-    title: "Jarida la Tafakari ya Qur'ani",
-    description:
-      "Maelezo yako ya faragha ya tadabbur — uliza Allah anakufundisha nini katika aya na utaishi nayo vipi leo.",
-  },
   "/learn-quran/revelation": {
     title: "Jinsi Qur'ani Ilivyoshushwa",
     description:

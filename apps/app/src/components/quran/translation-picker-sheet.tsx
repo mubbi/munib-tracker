@@ -16,7 +16,7 @@ import {
   languageForEditionId,
   type TranslationLanguageGroup,
 } from "@/lib/quran-translation-options";
-import { chevronBack, chevronForward } from "@/lib/rtl";
+import { useChevronBack, useChevronForward } from "@/lib/rtl";
 
 type TranslationPickerSheetProps = {
   visible: boolean;
@@ -45,6 +45,8 @@ export function TranslationPickerSheet({
 }: TranslationPickerSheetProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronBack = useChevronBack();
+  const chevronForward = useChevronForward();
   const [step, setStep] = useState<Step>("languages");
   const [activeLanguage, setActiveLanguage] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -173,7 +175,7 @@ export function TranslationPickerSheet({
             {countLabel}
           </ThemedText>
         </View>
-        <SymbolView name={chevronForward()} size={16} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForward} size={16} tintColor={colors.mutedForeground} />
       </PressableScale>
     );
   };
@@ -233,7 +235,7 @@ export function TranslationPickerSheet({
             onPress={backToLanguages}
             style={styles.backRow}
           >
-            <SymbolView name={chevronBack()} size={16} tintColor={colors.accent} />
+            <SymbolView name={chevronBack} size={16} tintColor={colors.accent} />
             <ThemedText type="small" style={{ color: colors.accent }}>
               {t("quran.backToLanguages")}
             </ThemedText>

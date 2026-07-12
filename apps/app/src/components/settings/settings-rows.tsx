@@ -9,7 +9,7 @@ import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
-import { forwardChevronIcon, useIsRTL } from "@/lib/rtl";
+import { useChevronForward, useIsRTL } from "@/lib/rtl";
 
 export function SettingsRow({
   icon,
@@ -26,6 +26,7 @@ export function SettingsRow({
 }) {
   const { colors } = useThemeTokens();
   const rtl = useIsRTL();
+  const chevron = useChevronForward();
   return (
     <PressableScale
       haptic="light"
@@ -50,7 +51,7 @@ export function SettingsRow({
       ) : null}
       <SymbolView
         key={rtl ? "chevron-rtl" : "chevron-ltr"}
-        name={forwardChevronIcon(rtl)}
+        name={chevron}
         size={16}
         tintColor={colors.mutedForeground}
       />

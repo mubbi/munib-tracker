@@ -1,8 +1,5 @@
 import type { AchievementStats } from "@munib-tracker/shared/achievements";
-import {
-  migrateLegacyAchievementIds,
-  syncAchievementIds,
-} from "@munib-tracker/shared/achievements";
+import { syncAchievementIds } from "@munib-tracker/shared/achievements";
 
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
@@ -14,7 +11,7 @@ function sameAchievementSet(a: string[], b: string[]): boolean {
 }
 
 export async function readPersistedAchievementIds(): Promise<string[]> {
-  return migrateLegacyAchievementIds(await readJSON<string[]>(DB_KEYS.achievements, []));
+  return readJSON<string[]>(DB_KEYS.achievements, []);
 }
 
 /**

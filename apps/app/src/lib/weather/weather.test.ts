@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { generateCloudPuffs, generateCumulusCloud } from "@/components/weather/cloud-shape";
+import { generateCumulusCloud } from "@/components/weather/cloud-shape";
 import { conditionFromMetNoSymbol, conditionFromWmoCode, isWindy } from "./conditions";
 import { isWeatherCacheStale, weatherCacheKey } from "./fetch-weather";
 import { formatTemperature } from "./format";
@@ -14,15 +14,6 @@ describe("generateCumulusCloud", () => {
     expect(c.length).toBeGreaterThanOrEqual(4);
     expect(a.some((part) => part.kind === "ellipse")).toBe(true);
     expect(a.every((part) => part.r > 0.1)).toBe(true);
-  });
-});
-
-describe("generateCloudPuffs", () => {
-  it("maps legacy archetypes to cumulus sizes", () => {
-    const triplet = generateCloudPuffs(11, "triplet");
-    const wisp = generateCloudPuffs(23, "wisp");
-    expect(triplet.length).toBeGreaterThanOrEqual(4);
-    expect(wisp.length).toBeGreaterThanOrEqual(4);
   });
 });
 

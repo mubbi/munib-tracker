@@ -18,7 +18,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildJahannamJourney, type JahannamJourneyRow } from "@/lib/jahannam-journey";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import {
   JAHANNAM_INTENTION_IDS,
   type JahannamIntentionId,
@@ -99,6 +99,7 @@ function IntentionRow({ id }: { id: JahannamIntentionId }) {
 function MetricRow({ row, onPress }: { row: JahannamJourneyRow; onPress: () => void }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
 
   return (
     <PressableScale
@@ -123,7 +124,7 @@ function MetricRow({ row, onPress }: { row: JahannamJourneyRow; onPress: () => v
           <ProgressBar value={row.progress} height={4} color={colors.accent} />
         ) : null}
       </View>
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

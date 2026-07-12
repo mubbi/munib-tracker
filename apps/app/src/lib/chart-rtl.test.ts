@@ -4,7 +4,7 @@ import {
   progressFillTransformOrigin,
   progressRingArcPath,
   progressRingConicGradient,
-  progressRingKnobPosition,
+  progressRingKnobOffset,
   progressRingSweepAngle,
   progressSweepRtl,
   segmentedThumbAnchor,
@@ -20,24 +20,24 @@ describe("progressRingSweepAngle", () => {
   });
 });
 
-describe("progressRingKnobPosition", () => {
+describe("progressRingKnobOffset", () => {
   it("places the knob at 12 o'clock for zero progress", () => {
-    const { left, top } = progressRingKnobPosition(100, 10, 0, 14, false);
-    expect(left).toBeCloseTo(43, 0);
-    expect(top).toBeCloseTo(-2, 0);
+    const { translateX, translateY } = progressRingKnobOffset(100, 10, 0, false);
+    expect(translateX).toBeCloseTo(0, 0);
+    expect(translateY).toBeCloseTo(-45, 0);
   });
 
   it("places the knob at the arc head for clockwise progress", () => {
-    const { left, top } = progressRingKnobPosition(100, 10, 0.25, 14, false);
-    expect(left).toBeCloseTo(88, 0);
-    expect(top).toBeCloseTo(43, 0);
+    const { translateX, translateY } = progressRingKnobOffset(100, 10, 0.25, false);
+    expect(translateX).toBeCloseTo(45, 0);
+    expect(translateY).toBeCloseTo(0, 0);
   });
 
   it("mirrors the knob to the counter-clockwise arc head in RTL", () => {
-    const ltr = progressRingKnobPosition(100, 10, 0.25, 14, false);
-    const rtl = progressRingKnobPosition(100, 10, 0.25, 14, true);
-    expect(rtl.left + ltr.left + 14).toBeCloseTo(100, 0);
-    expect(rtl.top).toBeCloseTo(ltr.top, 0);
+    const ltr = progressRingKnobOffset(100, 10, 0.25, false);
+    const rtl = progressRingKnobOffset(100, 10, 0.25, true);
+    expect(rtl.translateX).toBeCloseTo(-ltr.translateX, 0);
+    expect(rtl.translateY).toBeCloseTo(ltr.translateY, 0);
   });
 });
 

@@ -395,11 +395,6 @@ export default {
     title: "Guran Synagy",
     description: "Sura atlary, sözlük, tajwid we Guran hekaýalaryndaky bilimiňizi synagyň.",
   },
-  "/learn-quran/reflection": {
-    title: "Guran Pikir Gündeligi",
-    description:
-      "Şahsy tadabbur ýazgylaryňyz — aýatda Allah size näme öwredýändigini we şu gün nähili ýaşaýarsyňyz diýip soraň.",
-  },
   "/learn-quran/revelation": {
     title: "Guran Nähili Indirildi",
     description:

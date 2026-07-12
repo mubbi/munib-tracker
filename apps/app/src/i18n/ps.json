@@ -67,8 +67,8 @@
     "decrease": "{{label}} کمول",
     "appName": "Munib Tracker",
     "appTagline": "خپل لاره بیرته الله ته وڅارئ.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "چمتو کېږي…",
+    "loadingRouteHint": "یوه شیبه — دا پرده بارېږي."
   },
   "search": {
     "placeholder": "قرآن، حدیث، دعا، اذکار لټون…",

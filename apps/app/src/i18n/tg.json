@@ -67,8 +67,8 @@
     "decrease": "{{label}}-ро кам кунед",
     "appName": "Munib Tracker",
     "appTagline": "Роҳи бозгашт ба Аллоҳро пайгирӣ кунед.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "Омода мешавад…",
+    "loadingRouteHint": "Як лаҳза — ин экран бор мешавад."
   },
   "search": {
     "placeholder": "Ҷустуҷӯ по Қуръону, хадисам, дуа, adhkar…",

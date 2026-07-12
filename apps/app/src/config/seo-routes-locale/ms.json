@@ -387,11 +387,6 @@
     "description": "Uji pengetahuan anda tentang nama surah, kosakata, tajwid, dan kisah-kisah dalam Al-Quran.",
     "index": false
   },
-  "/learn-quran/reflection": {
-    "title": "Jurnal Refleksi Al-Quran",
-    "description": "Catatan tadabbur pribadi anda — tanyakan apa yang Allah ajarkan dalam ayat dan bagaimana anda akan mengamalkannya hari ini.",
-    "index": false
-  },
   "/learn-quran/revelation": {
     "title": "Bagaimana Al-Quran Diturunkan",
     "description": "Penurunan Al-Quran — dari Gua Hira hingga pemeliharaannya. Tanggal mengikuti kronologi sirah yang umum, dengan catatan perbedaan pendapat ulama.",

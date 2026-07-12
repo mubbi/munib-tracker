@@ -38,7 +38,7 @@ import {
 } from "@/lib/audio-queue-timing";
 import { supportsProgrammaticVolume } from "@/lib/audio-volume";
 import { triggerHaptic } from "@/lib/haptics";
-import { ltrControlViewProps, skipNextIcon, skipPreviousIcon } from "@/lib/rtl";
+import { ltrControlViewProps, useSkipNextIcon, useSkipPreviousIcon } from "@/lib/rtl";
 import {
   AUDIO_SPEEDS,
   type AudioTrack,
@@ -284,6 +284,8 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
   const setMiniPlayerInset = useSetMiniPlayerInset();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const skipPreviousIcon = useSkipPreviousIcon();
+  const skipNextIcon = useSkipNextIcon();
   const {
     current,
     isPlaying,
@@ -468,7 +470,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
             />
             {hasQueue ? (
               <IconButton
-                name={skipPreviousIcon()}
+                name={skipPreviousIcon}
                 size={20}
                 tintColor={colors.foreground}
                 accessibilityLabel={t("player.previous")}
@@ -511,7 +513,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
             </GlassControl>
             {hasQueue ? (
               <IconButton
-                name={skipNextIcon()}
+                name={skipNextIcon}
                 size={20}
                 tintColor={colors.foreground}
                 accessibilityLabel={t("player.next")}
@@ -938,6 +940,8 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const skipPreviousIcon = useSkipPreviousIcon();
+  const skipNextIcon = useSkipNextIcon();
   const cacheAudioLocally = usePreferences().cacheAudioLocally !== false;
   const audio = useAudioPlayerContext();
   const playlistRef = useRef<FlatList<AudioTrack>>(null);
@@ -1218,7 +1222,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             style={loopActive ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
           />
           <IconButton
-            name={skipPreviousIcon()}
+            name={skipPreviousIcon}
             size={26}
             tintColor={hasQueue ? colors.foreground : colors.mutedForeground}
             accessibilityLabel={t("player.previous")}
@@ -1260,7 +1264,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             </PressableScale>
           </GlassControl>
           <IconButton
-            name={skipNextIcon()}
+            name={skipNextIcon}
             size={26}
             tintColor={hasQueue ? colors.foreground : colors.mutedForeground}
             accessibilityLabel={t("player.next")}

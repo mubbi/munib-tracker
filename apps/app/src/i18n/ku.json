@@ -67,8 +67,8 @@
     "decrease": "{{label}} azalt",
     "appName": "Munib Tracker",
     "appTagline": "Rêwîtiya Xwe Vegere ber Xwedê Bişopînin.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "ئامادە دەکرێت…",
+    "loadingRouteHint": "کەمێک چاوەڕێ بکە — ئەم شاشەیە بار دەکرێت."
   },
   "search": {
     "placeholder": "Qur'an, hədis, dua, adhkar axtar…",

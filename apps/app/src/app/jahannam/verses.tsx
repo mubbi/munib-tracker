@@ -19,7 +19,7 @@ import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getJahannamVerses } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 const THEME_ORDER = [
   "warnings",
@@ -44,6 +44,7 @@ function JahannamVersesList() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
+  const chevronForwardIcon = useChevronForward();
   const verses = getJahannamVerses();
 
   const grouped = useMemo(() => {
@@ -118,7 +119,7 @@ function JahannamVersesList() {
                   </View>
                   <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
                   <SymbolView
-                    name={chevronForward()}
+                    name={chevronForwardIcon}
                     size={14}
                     tintColor={colors.mutedForeground}
                   />

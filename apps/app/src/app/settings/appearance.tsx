@@ -17,7 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { COLOR_PALETTE } from "@/constants/color-palette";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { normalizeHex, readableForeground, relativeLuminance } from "@/lib/color";
+import { normalizeHex, relativeLuminance } from "@/lib/color";
 import { goBackOrReplace } from "@/lib/navigation";
 
 type InlineCustomColorPickerProps = {
@@ -253,7 +253,7 @@ export default function AppearanceScreen() {
                           <SymbolView
                             name={{ ios: "checkmark", android: "check", web: "check" }}
                             size={12}
-                            tintColor={readableForeground(c)}
+                            tintColor={bestForeground(c)}
                           />
                         ) : null}
                       </View>

@@ -79,7 +79,8 @@
   },
   "pnpm": {
     "neverBuiltDependencies": [
-      "sqlite3"
+      "sqlite3",
+      "dtrace-provider"
     ],
     "overrides": {
       "react": "19.1.0",

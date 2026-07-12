@@ -67,8 +67,8 @@
     "decrease": "Punguza {{label}}",
     "appName": "Munib Tracker",
     "appTagline": "Fuata safari yako ya kurudi kwa Allah.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "Inatayarisha…",
+    "loadingRouteHint": "Subiri kidogo skrini hii inapopakia."
   },
   "search": {
     "placeholder": "Tafuta Qur'ani, hadithi, dua, adhkar…",

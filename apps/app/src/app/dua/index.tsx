@@ -231,7 +231,7 @@ function DuaSearchRow({
           {item.transliteration ?? item.translation}
         </ThemedText>
       </View>
-      <Pill label={categoryLabel} color={colors.mutedForeground} background={colors.card} />
+      <Pill compact label={categoryLabel} color={colors.mutedForeground} background={colors.card} />
     </PressableScale>
   );
 }

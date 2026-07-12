@@ -73,11 +73,6 @@ export function bestForeground(background: string): string {
   return contrastRatio(background, INK) >= contrastRatio(background, PAPER) ? INK : PAPER;
 }
 
-/** @deprecated prefer {@link bestForeground} — kept for call-site compatibility. */
-export function readableForeground(background: string): string {
-  return bestForeground(background);
-}
-
 /**
  * Returns `color` if it already meets `target` contrast on `surface`; otherwise
  * nudges it toward black (on light surfaces) or white (on dark surfaces) until it

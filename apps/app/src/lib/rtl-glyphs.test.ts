@@ -2,7 +2,18 @@ import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { Platform } from "react-native";
 
 import i18n from "@/i18n";
-import { chevronBack, chevronForward, isRTL } from "@/lib/rtl";
+import {
+  arrowForwardIcon,
+  backChevronIcon,
+  backwardChevronIcon,
+  chevronBack,
+  chevronForward,
+  forwardChevronIcon,
+  isRTL,
+  skipNextIconFor,
+  skipPreviousIconFor,
+  uiTextStyle,
+} from "@/lib/rtl";
 import { preferencesStore } from "@/stores/preferences-store";
 
 jest.mock("@/stores/preferences-store", () => ({
@@ -41,6 +52,69 @@ describe("isRTL on web", () => {
     await i18n.changeLanguage("ar");
 
     expect(isRTL()).toBe(true);
+  });
+});
+
+describe("uiTextStyle", () => {
+  it("aligns UI chrome to the start edge of the reading direction", () => {
+    expect(uiTextStyle(false)).toEqual({
+      writingDirection: "ltr",
+      textAlign: "left",
+    });
+    expect(uiTextStyle(true)).toEqual({
+      writingDirection: "rtl",
+      textAlign: "right",
+    });
+  });
+});
+
+describe("forwardChevronIcon / backChevronIcon", () => {
+  it("points toward reading direction for forward, against it for back", () => {
+    expect(forwardChevronIcon(false)).toEqual({
+      ios: "chevron.right",
+      android: "chevron_right",
+      web: "chevron_right",
+    });
+    expect(forwardChevronIcon(true)).toEqual({
+      ios: "chevron.left",
+      android: "chevron_left",
+      web: "chevron_left",
+    });
+    expect(backChevronIcon(false)).toEqual({
+      ios: "chevron.left",
+      android: "arrow_back",
+      web: "arrow_back",
+    });
+    expect(backChevronIcon(true)).toEqual({
+      ios: "chevron.right",
+      android: "arrow_forward",
+      web: "arrow_forward",
+    });
+    expect(arrowForwardIcon(false)).toEqual({
+      ios: "arrow.right",
+      android: "arrow_forward",
+      web: "arrow_forward",
+    });
+    expect(arrowForwardIcon(true)).toEqual({
+      ios: "arrow.left",
+      android: "arrow_back",
+      web: "arrow_back",
+    });
+    expect(backwardChevronIcon(true)).toEqual({
+      ios: "chevron.right",
+      android: "chevron_right",
+      web: "chevron_right",
+    });
+    expect(skipPreviousIconFor(true)).toEqual({
+      ios: "forward.fill",
+      android: "skip_next",
+      web: "skip_next",
+    });
+    expect(skipNextIconFor(false)).toEqual({
+      ios: "forward.fill",
+      android: "skip_next",
+      web: "skip_next",
+    });
   });
 });
 

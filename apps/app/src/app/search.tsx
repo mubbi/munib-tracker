@@ -15,7 +15,7 @@ import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronBack, chevronForward } from "@/lib/rtl";
+import { useChevronBack, useChevronForward } from "@/lib/rtl";
 import { runSearchLightWithGuides } from "@/lib/run-search-light-with-guides";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import {
@@ -67,6 +67,8 @@ export default function SearchScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
+  const chevronBackIcon = useChevronBack();
+  const chevronForwardIcon = useChevronForward();
 
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
@@ -384,7 +386,7 @@ export default function SearchScreen() {
         <IconButton
           accessibilityLabel={t("common.goBack")}
           onPress={() => goBackOrReplace(router, "/")}
-          name={chevronBack()}
+          name={chevronBackIcon}
           size={19}
           tintColor={colors.accent}
           background={tokens.accentSoft}
@@ -514,7 +516,11 @@ export default function SearchScreen() {
                       <ThemedText type="smallBold" style={{ color: colors.accentText }}>
                         {t("search.seeAllCount", { count: group.total })}
                       </ThemedText>
-                      <SymbolView name={chevronForward()} size={13} tintColor={colors.accentText} />
+                      <SymbolView
+                        name={chevronForwardIcon}
+                        size={13}
+                        tintColor={colors.accentText}
+                      />
                     </PressableScale>
                   ) : null}
                 </View>

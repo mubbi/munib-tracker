@@ -1,4 +1,4 @@
-import type { Ayah } from "@munib-tracker/shared/types";
+import type { Ayah, QuranReaderLayout } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -10,7 +10,6 @@ import {
   type ListRenderItemInfo,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-  Platform,
   StyleSheet,
   View,
   type ViewToken,
@@ -40,7 +39,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Durations } from "@/constants/motion";
-import { Radius, Spacing } from "@/constants/theme";
+import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useRemoteEditionSurah } from "@/hooks/use-quran";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
@@ -91,6 +90,12 @@ const LAST_READ_FLUSH_MS = 600;
 
 const RECITER_OPTIONS = RECITERS.map((r) => ({ id: r.dir, label: r.name }));
 
+const LAYOUT_OPTIONS: Array<{ id: QuranReaderLayout; labelKey: string }> = [
+  { id: "page", labelKey: "quran.layoutPage" },
+  { id: "mushaf", labelKey: "quran.layoutMushaf" },
+  { id: "ayah", labelKey: "quran.layoutAyah" },
+];
+
 function editionDirection(id: string): "ltr" | "rtl" {
   return (
     getEditionById(id)?.direction ?? REMOTE_EDITIONS.find((e) => e.id === id)?.direction ?? "ltr"
@@ -114,7 +119,7 @@ export default function SurahReaderScreen() {
   // Optional deep-link target (e.g. from universal search) — scroll to & mark it.
   const focusAyah = params.ayah ? Number(params.ayah) : undefined;
 
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const contentBottomInset = useContentBottomInset();
   const prefs = useQuranPrefs();
   const { fontPrefs, translationLocale, locale: appLocale } = usePreferences();
@@ -132,6 +137,7 @@ export default function SurahReaderScreen() {
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
   const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
+  const [layoutPickerOpen, setLayoutPickerOpen] = useState(false);
   const [focusHighlightAyah, setFocusHighlightAyah] = useState<number | undefined>(focusAyah);
   const focusTargetKey = focusAyah != null ? `${surahNumber}:${focusAyah}` : null;
 
@@ -145,11 +151,41 @@ export default function SurahReaderScreen() {
     headerCardHeightRef.current = event.nativeEvent.layout.height;
   }, []);
 
+  // Exact resume position: the top-most ayah currently rendered on screen. We
+  // persist it (debounced) so "continue reading" drops the user back precisely
+  // where they left off — critical for long surahs.
+  const topVisibleAyahRef = useRef<number | null>(null);
+  const lastRecordedAyahRef = useRef(0);
+  const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Deep-link / continue-reading scrolls often leave the previous ayah as the
+  // top-most viewable row. Ignore regressions until the user actually moves the
+  // list (finger drag, or a post-settle offset change from wheel/trackpad).
+  const userMovedListRef = useRef(false);
+  const scrollYRef = useRef(0);
+  const settleOffsetRef = useRef<number | null>(null);
+  // Reassigned every render so the debounced flush always sees the latest surah,
+  // audio state, and store actions without recreating the stable handler below.
+  const flushReadingPositionRef = useRef<() => void>(() => {});
+
   const onListScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const y = event.nativeEvent.contentOffset.y;
+    scrollYRef.current = y;
     const threshold = Math.max(0, headerCardHeightRef.current - Spacing.four);
     const next = y > threshold;
     setToolbarVisible((prev) => (prev === next ? prev : next));
+    // After focus-scroll settles, treat a real offset change as user intent
+    // (covers web wheel / trackpad which do not fire onScrollBeginDrag).
+    if (
+      !userMovedListRef.current &&
+      settleOffsetRef.current != null &&
+      Math.abs(y - settleOffsetRef.current) > Spacing.six
+    ) {
+      userMovedListRef.current = true;
+    }
+  }, []);
+
+  const onScrollBeginDrag = useCallback(() => {
+    userMovedListRef.current = true;
   }, []);
 
   // Index-based progress: with a virtualized list, pixel offsets over an
@@ -157,16 +193,6 @@ export default function SurahReaderScreen() {
   // derive progress from the furthest ayah on screen instead — always accurate.
   const ayahCountRef = useRef(0);
   const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 0 }).current;
-
-  // Exact resume position: the top-most ayah currently rendered on screen. We
-  // persist it (debounced) so "continue reading" drops the user back precisely
-  // where they left off — critical for long surahs.
-  const topVisibleAyahRef = useRef<number | null>(null);
-  const lastRecordedAyahRef = useRef(0);
-  const flushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // Reassigned every render so the debounced flush always sees the latest surah,
-  // audio state, and store actions without recreating the stable handler below.
-  const flushReadingPositionRef = useRef<() => void>(() => {});
 
   const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     const total = ayahCountRef.current;
@@ -236,6 +262,9 @@ export default function SurahReaderScreen() {
     const ayah = topVisibleAyahRef.current;
     if (ayah == null || ayah === lastRecordedAyahRef.current) return;
     if (audioActiveKey != null) return;
+    // scrollToIndex for continue/deep-link often reports the previous ayah as
+    // top-most; don't walk the resume point backward until the user moves the list.
+    if (ayah < lastRecordedAyahRef.current && !userMovedListRef.current) return;
     lastRecordedAyahRef.current = ayah;
     void recordProgress(surahNumber, ayah);
   };
@@ -280,7 +309,8 @@ export default function SurahReaderScreen() {
   );
   // Remote data when available, otherwise fall back to a bundled translation.
   const remoteReady = hasEditionAyahs(remoteQuery.data);
-  const translation = remoteActive && remoteReady ? remoteQuery.data! : bundledTranslation;
+  const translation =
+    remoteActive && hasEditionAyahs(remoteQuery.data) ? remoteQuery.data : bundledTranslation;
   const translationLoading = remoteActive && remoteQuery.isPending;
   const usingFallback = remoteActive && !remoteReady && !translationLoading;
   const translationDir = usingFallback ? "ltr" : editionDirection(knownEdition);
@@ -330,7 +360,19 @@ export default function SurahReaderScreen() {
     // actually moves past the entry point.
     lastRecordedAyahRef.current = startAyah;
     topVisibleAyahRef.current = startAyah;
+    userMovedListRef.current = false;
+    settleOffsetRef.current = null;
     void setLastRead(surahNumber, startAyah);
+    // After scrollToIndex settles, snapshot the offset and re-assert the entry
+    // ayah so a peeked previous row cannot stick as the resume point on exit.
+    const settleTimer = setTimeout(() => {
+      settleOffsetRef.current = scrollYRef.current;
+      if (!userMovedListRef.current) {
+        topVisibleAyahRef.current = startAyah;
+        lastRecordedAyahRef.current = startAyah;
+      }
+    }, 900);
+    return () => clearTimeout(settleTimer);
   }, [surahNumber]);
 
   const reciterDir = prefs.preferredReciterDir;
@@ -416,98 +458,117 @@ export default function SurahReaderScreen() {
   );
   const currentAudioId = audio.current?.id;
 
+  const layoutOptions = useMemo(
+    () => LAYOUT_OPTIONS.map((o) => ({ id: o.id, label: t(o.labelKey) })),
+    [t],
+  );
+
+  const openPageReader = useCallback(
+    (layout: Exclude<QuranReaderLayout, "ayah">) => {
+      const ayah = topVisibleAyahRef.current ?? focusAyah ?? 1;
+      void updatePrefs({ readerLayout: layout });
+      router.push(
+        `/quran/page/${getPageForAyah(surahNumber, ayah)}?surah=${surahNumber}&ayah=${ayah}`,
+      );
+    },
+    [focusAyah, router, surahNumber, updatePrefs],
+  );
+
+  const handleLayoutSelect = useCallback(
+    (id: string) => {
+      const next = id as QuranReaderLayout;
+      if (next === "ayah") {
+        void updatePrefs({ readerLayout: "ayah" });
+        return;
+      }
+      openPageReader(next);
+    },
+    [openPageReader, updatePrefs],
+  );
+
   // Header card (reciter/translation controls + bismillah) rides above the
   // virtualized list. Plain View — Stagger entrance would re-run on every header
   // rebuild (e.g. when a remote translation resolves) and stall the list.
   const listHeader = useMemo(() => {
     if (!surah) return null;
     return (
-      <View style={styles.listHeader} onLayout={onHeaderCardLayout}>
-        <Card padding="three">
-          <View style={styles.controlRow}>
-            <ControlLabel icon={CONTROL_ICONS.reciter} label={t("quran.reciter")} />
-            <SelectTrigger
-              label={reciter.name}
-              accessibilityLabel={t("quran.reciter")}
-              onPress={() => setReciterPickerOpen(true)}
-            />
-          </View>
+      <View style={styles.listHeader}>
+        <View onLayout={onHeaderCardLayout}>
+          <Card padding="three">
+            <View style={styles.controlRow}>
+              <ControlLabel icon={CONTROL_ICONS.layout} label={t("quran.readerLayout")} />
+              <SelectTrigger
+                label={t("quran.layoutAyah")}
+                accessibilityLabel={t("quran.readerLayout")}
+                onPress={() => setLayoutPickerOpen(true)}
+              />
+            </View>
 
-          <View style={[styles.controlRow, styles.translationRow]}>
-            <ControlLabel icon={CONTROL_ICONS.translation} label={t("quran.translation")} />
-            <SelectTrigger
-              label={selectedEdition.name}
-              accessibilityLabel={t("quran.translation")}
-              onPress={() => setTranslationPickerOpen(true)}
-            />
-          </View>
+            <View style={[styles.controlRow, styles.translationRow]}>
+              <ControlLabel icon={CONTROL_ICONS.reciter} label={t("quran.reciter")} />
+              <SelectTrigger
+                label={reciter.name}
+                accessibilityLabel={t("quran.reciter")}
+                onPress={() => setReciterPickerOpen(true)}
+              />
+            </View>
 
-          <View style={[styles.controlRow, styles.translationRow]}>
-            <ControlLabel
-              icon={CONTROL_ICONS.secondTranslation}
-              label={t("quran.secondTranslation")}
-            />
-            <SelectTrigger
-              label={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
-              accessibilityLabel={t("quran.secondTranslation")}
-              onPress={() => setSecondaryPickerOpen(true)}
-            />
-          </View>
-          {translationLoading ? (
-            <View style={styles.loadingRow}>
-              <ActivityIndicator size="small" color={colors.accent} />
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("quran.loadingTranslation")}
+            <View style={[styles.controlRow, styles.translationRow]}>
+              <ControlLabel icon={CONTROL_ICONS.translation} label={t("quran.translation")} />
+              <SelectTrigger
+                label={selectedEdition.name}
+                accessibilityLabel={t("quran.translation")}
+                onPress={() => setTranslationPickerOpen(true)}
+              />
+            </View>
+
+            <View style={[styles.controlRow, styles.translationRow]}>
+              <ControlLabel
+                icon={CONTROL_ICONS.secondTranslation}
+                label={t("quran.secondTranslation")}
+              />
+              <SelectTrigger
+                label={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+                accessibilityLabel={t("quran.secondTranslation")}
+                onPress={() => setSecondaryPickerOpen(true)}
+              />
+            </View>
+            {translationLoading ? (
+              <View style={styles.loadingRow}>
+                <ActivityIndicator size="small" color={colors.accent} />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("quran.loadingTranslation")}
+                </ThemedText>
+              </View>
+            ) : usingFallback ? (
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
+                {t("quran.offlineTranslation")}
               </ThemedText>
-            </View>
-          ) : usingFallback ? (
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.offlineNote}>
-              {t("quran.offlineTranslation")}
-            </ThemedText>
-          ) : null}
+            ) : null}
 
-          <PrefToggle
-            icon={CONTROL_ICONS.showTransliteration}
-            label={t("quran.showTransliteration")}
-            enabled={prefs.showTransliteration}
-            onToggle={() => updatePrefs({ showTransliteration: !prefs.showTransliteration })}
-          />
-          <PrefToggle
-            icon={CONTROL_ICONS.showTranslation}
-            label={t("quran.showTranslation")}
-            enabled={prefs.showTranslation}
-            onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
-          />
-
-          <View style={[styles.controlRow, styles.translationRow]}>
-            <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
-            <View style={styles.controlValue}>
-              <ReadingFontControls surface="quran" />
-            </View>
-          </View>
-
-          <PlaySurahButton onPress={() => playFrom(0)} />
-          <PressableScale
-            haptic="light"
-            accessibilityRole="button"
-            accessibilityLabel={t("quran.openPageView")}
-            onPress={() =>
-              router.push(
-                `/quran/page/${getPageForAyah(surahNumber, focusAyah ?? 1)}?surah=${surahNumber}${focusAyah ? `&ayah=${focusAyah}` : ""}`,
-              )
-            }
-            style={[styles.openPageView, { backgroundColor: tokens.accentSoft }]}
-          >
-            <SymbolView
-              name={{ ios: "book.pages.fill", android: "menu_book", web: "menu_book" }}
-              size={18}
-              tintColor={colors.accent}
+            <PrefToggle
+              icon={CONTROL_ICONS.showTransliteration}
+              label={t("quran.showTransliteration")}
+              enabled={prefs.showTransliteration}
+              onToggle={() => updatePrefs({ showTransliteration: !prefs.showTransliteration })}
             />
-            <ThemedText type="smallBold" style={{ color: colors.accent }}>
-              {t("quran.openPageView")}
-            </ThemedText>
-          </PressableScale>
-        </Card>
+            <PrefToggle
+              icon={CONTROL_ICONS.showTranslation}
+              label={t("quran.showTranslation")}
+              enabled={prefs.showTranslation}
+              onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+            />
+
+            <View style={[styles.controlRow, styles.translationRow]}>
+              <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
+              <View style={styles.controlValue}>
+                <ReadingFontControls surface="quran" />
+              </View>
+            </View>
+
+            <PlaySurahButton onPress={() => playFrom(0)} />
+          </Card>
+        </View>
 
         {surah.bismillahPre ? (
           <ThemedText
@@ -521,20 +582,16 @@ export default function SurahReaderScreen() {
     );
   }, [
     colors.accent,
-    focusAyah,
     onHeaderCardLayout,
     playFrom,
     prefs.showTransliteration,
     prefs.showTranslation,
     readingSizes.arabic,
     reciter.name,
-    router,
     secondaryEdition?.name,
     selectedEdition.name,
     surah,
-    surahNumber,
     t,
-    tokens.accentSoft,
     translationLoading,
     updatePrefs,
     usingFallback,
@@ -694,7 +751,7 @@ export default function SurahReaderScreen() {
         onBack={() => goBackOrReplace(router, "/")}
         headerAccessory={
           <QuranReadingToolbar
-            visible={Platform.OS === "web" ? true : toolbarVisible}
+            visible={toolbarVisible}
             progress={readingProgress}
             onBackToTop={() => listRef.current?.scrollToOffset({ offset: 0, animated: true })}
             reciterName={reciter.name}
@@ -702,6 +759,8 @@ export default function SurahReaderScreen() {
             secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
             showTransliteration={prefs.showTransliteration}
             showTranslation={prefs.showTranslation}
+            layoutLabel={t("quran.layoutAyah")}
+            onOpenLayout={() => setLayoutPickerOpen(true)}
             onOpenReciter={() => setReciterPickerOpen(true)}
             onOpenTranslation={() => setTranslationPickerOpen(true)}
             onOpenSecondary={() => setSecondaryPickerOpen(true)}
@@ -721,6 +780,7 @@ export default function SurahReaderScreen() {
           ListHeaderComponent={listHeader}
           ItemSeparatorComponent={AyahSeparator}
           onScroll={onListScroll}
+          onScrollBeginDrag={onScrollBeginDrag}
           onViewableItemsChanged={onViewableItemsChanged}
           viewabilityConfig={viewabilityConfig}
           onScrollToIndexFailed={onScrollToIndexFailed}
@@ -728,6 +788,14 @@ export default function SurahReaderScreen() {
         />
       </ScreenLayout>
 
+      <OptionPickerSheet
+        visible={layoutPickerOpen}
+        title={t("quran.readerLayout")}
+        options={layoutOptions}
+        selectedId="ayah"
+        onSelect={handleLayoutSelect}
+        onClose={() => setLayoutPickerOpen(false)}
+      />
       <OptionPickerSheet
         visible={reciterPickerOpen}
         title={t("quran.reciter")}
@@ -784,6 +852,7 @@ export default function SurahReaderScreen() {
 
 /** Icon glyphs for each reading-control row (SF Symbols → Material fallbacks). */
 const CONTROL_ICONS = {
+  layout: { ios: "book.pages", android: "menu_book", web: "menu_book" },
   reciter: { ios: "person.wave.2.fill", android: "record_voice_over", web: "record_voice_over" },
   translation: { ios: "translate", android: "translate", web: "translate" },
   secondTranslation: { ios: "globe", android: "language", web: "language" },
@@ -996,10 +1065,20 @@ const AyahRow = memo(function AyahRow({
         style={isPlaying ? { borderColor: colors.accent, borderWidth: 1 } : undefined}
       >
         <View style={styles.ayahHeader}>
-          <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
-            <ThemedText type="caption" style={{ color: colors.accent }}>
-              {ayah.ayah}
-            </ThemedText>
+          <View style={styles.ayahIdentity}>
+            <View style={[styles.ayahBadge, { backgroundColor: tokens.accentSoft }]}>
+              <ThemedText type="caption" style={{ color: colors.accent }}>
+                {ayah.ayah}
+              </ThemedText>
+            </View>
+            {highlighted && !isPlaying ? (
+              <Pill
+                compact
+                label={t("quran.continueReading")}
+                color={colors.accentText}
+                background={withAlpha(colors.accent, tokens.isDark ? 0.28 : 0.16)}
+              />
+            ) : null}
           </View>
           <View style={styles.ayahActions}>
             {ayah.sajda ? (
@@ -1185,16 +1264,6 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     marginTop: Spacing.three,
   },
-  openPageView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: Spacing.two,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    marginTop: Spacing.two,
-  },
   bismillah: { marginBottom: Spacing.two },
   ayahRow: { position: "relative" },
   focusRing: {
@@ -1207,6 +1276,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: Spacing.three,
+    gap: Spacing.two,
+  },
+  ayahIdentity: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    flexShrink: 1,
+    minWidth: 0,
   },
   ayahBadge: {
     minWidth: 30,

@@ -14,12 +14,13 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getQuranGuideTimeline } from "@/lib/quran-guide";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 export default function LearnQuranRevelationScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   const events = getQuranGuideTimeline();
 
   return (
@@ -94,7 +95,7 @@ export default function LearnQuranRevelationScreen() {
                     <ThemedText type="caption" style={{ color: colors.accent }}>
                       {t("learnQuran.readArticle")}
                     </ThemedText>
-                    <SymbolView name={chevronForward()} size={12} tintColor={colors.accent} />
+                    <SymbolView name={chevronForwardIcon} size={12} tintColor={colors.accent} />
                   </View>
                 ) : null}
               </Card>

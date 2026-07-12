@@ -16,13 +16,14 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getPageForAyah, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 import { compactArabicTextStyle } from "@/lib/reading-typography";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import { listHifzEntries, useEnsureHifzLoaded, useHifzMap } from "@/stores/hifz-store";
 
 export default function HifzScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   useEnsureHifzLoaded();
   const statuses = useHifzMap();
 
@@ -127,7 +128,7 @@ export default function HifzScreen() {
                         </ThemedText>
                       </View>
                       <SymbolView
-                        name={chevronForward()}
+                        name={chevronForwardIcon}
                         size={14}
                         tintColor={colors.mutedForeground}
                       />

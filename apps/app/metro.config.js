@@ -110,7 +110,7 @@ config.resolver.blockList = [
 
 // `@/assets/*` maps to `./assets/*` in tsconfig (not `./src/assets/*` like `@/*`).
 // Mirror jest.config.js: resolve this before the generic `@/*` alias.
-/** Themed content-space loader while async route chunks bundle (web). */
+/** Content-area route loader while async chunks bundle (web). Keeps prior UI visible. */
 const routeSuspenseFallback = path.join(
   projectRoot,
   "src/components/navigation/route-suspense-fallback.tsx",

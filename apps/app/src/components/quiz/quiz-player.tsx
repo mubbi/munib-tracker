@@ -15,7 +15,7 @@ import { ProgressRing } from "@/components/ui/progress-ring";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
-import { chevronBackward, chevronForward } from "@/lib/rtl";
+import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 
 export type QuizPlayerQuestion = {
   id: string;
@@ -69,6 +69,8 @@ export function QuizPlayer({
 }: QuizPlayerProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronBackward = useChevronBackward();
+  const chevronForward = useChevronForward();
 
   const scored = useMemo(() => questions.filter(isScoredQuestion), [questions]);
   const [index, setIndex] = useState(0);
@@ -258,7 +260,7 @@ export function QuizPlayer({
                       </ThemedText>
                     </View>
                     <SymbolView
-                      name={chevronForward()}
+                      name={chevronForward}
                       size={14}
                       tintColor={colors.mutedForeground}
                     />
@@ -518,7 +520,7 @@ export function QuizPlayer({
             variant="secondary"
             size="sm"
             disabled={index === 0}
-            icon={chevronBackward()}
+            icon={chevronBackward}
             onPress={goPrevious}
             style={styles.navButton}
           />
@@ -527,7 +529,7 @@ export function QuizPlayer({
             variant="primary"
             size="sm"
             disabled={!canGoNext}
-            trailingIcon={isLast ? undefined : chevronForward()}
+            trailingIcon={isLast ? undefined : chevronForward}
             onPress={goNext}
             style={styles.navButton}
           />

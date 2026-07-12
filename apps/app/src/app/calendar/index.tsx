@@ -27,12 +27,14 @@ import { formatCalendarDate } from "@/lib/calendar-format";
 import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronBackward, chevronForward } from "@/lib/rtl";
+import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 
 export default function CalendarScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronBackward = useChevronBackward();
+  const chevronForward = useChevronForward();
   const defaultCalendar = useDefaultCalendar();
   const now = new Date();
   const todayHijri = gregorianToHijri(now);
@@ -117,7 +119,7 @@ export default function CalendarScreen() {
         <Card padding="three">
           <View style={styles.header}>
             <NavButton
-              icon={chevronBackward()}
+              icon={chevronBackward}
               label={t("calendar.prevMonth")}
               onPress={() => shift(-1)}
             />
@@ -148,7 +150,7 @@ export default function CalendarScreen() {
               />
             </PressableScale>
             <NavButton
-              icon={chevronForward()}
+              icon={chevronForward}
               label={t("calendar.nextMonth")}
               onPress={() => shift(1)}
             />

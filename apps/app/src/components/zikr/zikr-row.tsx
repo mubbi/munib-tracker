@@ -10,10 +10,11 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 const CHEVRON_SIZE = 14;
 const FAVORITE_SIZE = 18;
+const FAVORITE_HIT = 44;
 const ROW_GAP = Spacing.two + 2;
 
 type ZikrRowProps = {
@@ -44,6 +45,7 @@ export const ZikrRow = memo(function ZikrRow({
 }: ZikrRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForward = useChevronForward();
 
   const handlePress = useCallback(() => onPress(item.id), [item.id, onPress]);
   const handleToggleFavorite = useCallback(
@@ -76,15 +78,22 @@ export const ZikrRow = memo(function ZikrRow({
 
         {completed ? (
           <Pill
+            compact
             label={progressLabel ?? t("zikr.done")}
             color={tokens.status.success.color}
             background={tokens.status.success.soft}
             icon={{ ios: "checkmark", android: "check", web: "check" }}
           />
         ) : progressLabel ? (
-          <Pill label={progressLabel} color={colors.mutedForeground} background={colors.card} />
+          <Pill
+            compact
+            label={progressLabel}
+            color={colors.mutedForeground}
+            background={colors.card}
+          />
         ) : item.targetCount ? (
           <Pill
+            compact
             label={`×${item.targetCount}`}
             color={colors.accent}
             background={tokens.accentSoft}
@@ -92,16 +101,17 @@ export const ZikrRow = memo(function ZikrRow({
         ) : null}
 
         {categoryLabel ? (
-          <Pill label={categoryLabel} color={colors.mutedForeground} background={colors.card} />
+          <Pill
+            compact
+            label={categoryLabel}
+            color={colors.mutedForeground}
+            background={colors.card}
+          />
         ) : null}
 
         {onToggleFavorite ? <View style={styles.favoriteSlot} /> : null}
 
-        <SymbolView
-          name={chevronForward()}
-          size={CHEVRON_SIZE}
-          tintColor={colors.mutedForeground}
-        />
+        <SymbolView name={chevronForward} size={CHEVRON_SIZE} tintColor={colors.mutedForeground} />
       </PressableScale>
 
       {onToggleFavorite ? (
@@ -146,12 +156,12 @@ const styles = StyleSheet.create({
   },
   favoriteButton: {
     position: "absolute",
-    // Stretch to the row height so the glyph stays vertically centered when the
-    // title wraps to a second line (IconButton centers via justifyContent).
-    top: 0,
-    bottom: 0,
+    // Center over the row: PressableScale keeps the glyph on an inner view that
+    // does not stretch when top/bottom are set, so pin to mid-height instead.
+    top: "50%",
+    marginTop: -(FAVORITE_HIT / 2),
     // Center the 44pt target over the reserved slot (slot sits just start-ward of the
     // chevron): slot end edge + half the slot, minus half the tap target.
-    end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_SIZE / 2 - 22,
+    end: Spacing.three + CHEVRON_SIZE + ROW_GAP + FAVORITE_SIZE / 2 - FAVORITE_HIT / 2,
   },
 });

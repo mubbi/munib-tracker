@@ -12,7 +12,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildWeekContainingDate, localizedWeekdayInitials } from "@/lib/calendar";
 import { formatCalendarDate } from "@/lib/calendar-format";
 import { gregorianToHijri } from "@/lib/hijri";
-import { chevronBackward, chevronForward } from "@/lib/rtl";
+import { useChevronBackward, useChevronForward } from "@/lib/rtl";
 
 type CalendarWeekStripProps = {
   date: string;
@@ -31,6 +31,8 @@ export function CalendarWeekStrip({
 }: CalendarWeekStripProps) {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronBackward = useChevronBackward();
+  const chevronForward = useChevronForward();
   const today = getLocalDateString();
   const weekdays = localizedWeekdayInitials(i18n.language ?? "en");
   const week = buildWeekContainingDate(date, today);
@@ -60,7 +62,7 @@ export function CalendarWeekStrip({
     <Card padding="three">
       <View style={styles.header}>
         <NavButton
-          icon={chevronBackward()}
+          icon={chevronBackward}
           label={t("calDay.prevWeek")}
           onPress={() => shiftWeek(-1)}
         />
@@ -73,7 +75,7 @@ export function CalendarWeekStrip({
           })}
         </ThemedText>
         <NavButton
-          icon={chevronForward()}
+          icon={chevronForward}
           label={t("calDay.nextWeek")}
           onPress={() => shiftWeek(1)}
         />

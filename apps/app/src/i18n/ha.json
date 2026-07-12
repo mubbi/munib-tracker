@@ -67,8 +67,8 @@
     "decrease": "Rage {{label}}",
     "appName": "Munib Tracker",
     "appTagline": "Bi diddigin hanyar komawa zuwa Allah.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "Ana shiri…",
+    "loadingRouteHint": "Jira ɗan lokaci yayin da wannan allon ke lodawa."
   },
   "search": {
     "placeholder": "Nemo Alkur'ani, hadisi, dua, adhkar…",

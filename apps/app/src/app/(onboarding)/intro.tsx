@@ -22,7 +22,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
-import { arrowForward } from "@/lib/rtl";
+import { useArrowForward } from "@/lib/rtl";
 import { usePreferencesActions } from "@/stores/preferences-store";
 
 type SlideKind = "brand" | "feature" | "cta";
@@ -77,6 +77,7 @@ export default function OnboardingIntroScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
+  const arrowForward = useArrowForward();
   const { width } = useWindowDimensions();
   const { update } = usePreferencesActions();
   const scrollRef = useRef<ScrollView>(null);
@@ -213,7 +214,7 @@ export default function OnboardingIntroScreen() {
           <Button
             label={isBrand ? t("onboarding.begin") : t("common.next")}
             fullWidth
-            trailingIcon={arrowForward()}
+            trailingIcon={arrowForward}
             onPress={goNext}
           />
         )}

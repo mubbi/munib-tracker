@@ -67,8 +67,8 @@ export function IosPwaInstallBanner() {
       style={[
         styles.card,
         {
-          borderColor: `${colors.accent}55`,
-          backgroundColor: `${colors.accent}12`,
+          borderColor: tokens.accentBorder,
+          backgroundColor: colors.card,
         },
       ]}
     >

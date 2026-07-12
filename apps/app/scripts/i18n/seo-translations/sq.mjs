@@ -428,11 +428,6 @@ export default {
     description:
       "Testoni njohuritë për emrat e sureve, fjalorin, tajvidin dhe historitë nga Kurani.",
   },
-  "/learn-quran/reflection": {
-    title: "Ditari i Reflektimit të Kuranit",
-    description:
-      "Shënimet tuaja private të tedebburit — pyetni çfarë ju mëson Allahu në një ajet dhe si do ta jetoni sot.",
-  },
   "/learn-quran/revelation": {
     title: "Si u Shpall Kurani",
     description:

@@ -392,11 +392,6 @@ export default {
     description:
       "Gwada ilimin ku game da sunayen surori, kalmomi, tajweed da labarai daga Alkur'ani.",
   },
-  "/learn-quran/reflection": {
-    title: "Littafin Tunani Alkur'ani",
-    description:
-      "Rubutun tadabbur na sirri — tambayi abin da Allah yake koyar da ku a ayah da yadda za ku rayu da shi yau.",
-  },
   "/learn-quran/revelation": {
     title: "Yadda Alkur'ani aka Saukar",
     description:

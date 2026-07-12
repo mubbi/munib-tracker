@@ -30,7 +30,7 @@ import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { getSurahByNumber, getSurahMeta } from "@/lib/quran";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import { type SurahRevelationFilter, searchSurahList } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useLastRead, useQuranBookmarks, useQuranPrefs } from "@/stores/quran-store";
@@ -58,13 +58,16 @@ function revelationTone(
  */
 const SurahRow = memo(function SurahRow({
   surah,
+  isContinue,
   onPress,
 }: {
   surah: Surah;
+  isContinue: boolean;
   onPress: (n: number) => void;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   const revelation = revelationTone(surah.revelationPlace, tokens);
   const makki = surah.revelationPlace === "makkah";
 
@@ -72,21 +75,37 @@ const SurahRow = memo(function SurahRow({
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={`${surah.nameEnglish}, ${makki ? t("quran.makki") : t("quran.madani")}`}
+      accessibilityLabel={
+        isContinue
+          ? `${surah.nameEnglish}, ${t("quran.continueReading")}`
+          : `${surah.nameEnglish}, ${makki ? t("quran.makki") : t("quran.madani")}`
+      }
       onPress={() => onPress(surah.number)}
       style={[
         styles.row,
         {
-          backgroundColor: colors.card,
-          borderColor: tokens.hairline,
+          backgroundColor: isContinue ? tokens.accentSoft : colors.card,
+          borderColor: isContinue
+            ? withAlpha(colors.accent, tokens.isDark ? 0.45 : 0.28)
+            : tokens.hairline,
         },
       ]}
     >
       <ListIndexBadge index={surah.number} />
       <View style={styles.rowBody}>
-        <ThemedText type="smallBold" numberOfLines={1}>
-          {surah.nameTransliteration}
-        </ThemedText>
+        <View style={styles.rowTitle}>
+          <ThemedText type="smallBold" numberOfLines={1} style={styles.rowName}>
+            {surah.nameTransliteration}
+          </ThemedText>
+          {isContinue ? (
+            <Pill
+              compact
+              label={t("quran.continueReading")}
+              color={colors.accentText}
+              background={withAlpha(colors.accent, tokens.isDark ? 0.28 : 0.16)}
+            />
+          ) : null}
+        </View>
         <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
           {surah.nameEnglish} · {t("quran.ayahCount", { count: surah.ayahCount })}
         </ThemedText>
@@ -101,7 +120,7 @@ const SurahRow = memo(function SurahRow({
           background={revelation.soft}
         />
       </View>
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 });
@@ -157,6 +176,7 @@ function ContinueReadingCard({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
   const surah = getSurahByNumber(surahNumber);
 
   return (
@@ -213,7 +233,7 @@ function ContinueReadingCard({
         <ThemedText type="smallBold" style={{ color: colors.accentText }}>
           {t("home.continueAction.quran")}
         </ThemedText>
-        <SymbolView name={chevronForward()} size={14} tintColor={colors.accentText} />
+        <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.accentText} />
       </View>
     </Card>
   );
@@ -294,11 +314,6 @@ export default function QuranHomeScreen() {
     [t],
   );
 
-  const openSurah = useCallback(
-    (n: number) => router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } }),
-    [router],
-  );
-
   // Resume at the exact ayah the reader last left off on (ayah 1 needs no param).
   const openSurahAt = useCallback(
     (n: number, ayah: number) =>
@@ -309,11 +324,26 @@ export default function QuranHomeScreen() {
     [router],
   );
 
+  const openSurah = useCallback(
+    (n: number) => {
+      if (lastRead && lastRead.surah === n) {
+        openSurahAt(n, lastRead.ayah);
+        return;
+      }
+      router.push({ pathname: "/quran/[surah]", params: { surah: String(n) } });
+    },
+    [lastRead, openSurahAt, router],
+  );
+
   const keyExtractor = useCallback((surah: Surah) => String(surah.number), []);
 
+  const continueSurah = lastRead?.surah ?? null;
+
   const renderItem = useCallback<ListRenderItem<Surah>>(
-    ({ item }) => <SurahRow surah={item} onPress={openSurah} />,
-    [openSurah],
+    ({ item }) => (
+      <SurahRow surah={item} isContinue={item.number === continueSurah} onPress={openSurah} />
+    ),
+    [continueSurah, openSurah],
   );
 
   // The header (shortcuts, continue card, search + filters) scrolls with the list
@@ -448,6 +478,7 @@ export default function QuranHomeScreen() {
           data={filtered}
           keyExtractor={keyExtractor}
           renderItem={renderItem}
+          extraData={continueSurah}
           ListHeaderComponent={listHeader}
           ListEmptyComponent={
             <EmptyState
@@ -539,6 +570,13 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
   },
   rowBody: { flex: 1, gap: 2, minWidth: 0 },
+  rowTitle: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    minWidth: 0,
+  },
+  rowName: { flexShrink: 1, minWidth: 0 },
   rowMeta: { alignItems: "flex-end", gap: Spacing.one, maxWidth: "34%" },
   rowArabic: { fontSize: 20, writingDirection: "rtl" },
 });

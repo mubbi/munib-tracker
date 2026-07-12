@@ -21,7 +21,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 type CalloutTone = "info" | "success" | "accent" | "warning";
 
@@ -110,6 +110,7 @@ export function JannahNavRow({
   tint?: string;
 }) {
   const { colors } = useThemeTokens();
+  const chevronForward = useChevronForward();
   const iconTint = tint ?? colors.accent;
 
   return (
@@ -134,7 +135,7 @@ export function JannahNavRow({
       {badge ? (
         <Pill label={badge} compact color={colors.mutedForeground} background={colors.card} />
       ) : null}
-      <SymbolView name={chevronForward()} size={16} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward} size={16} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

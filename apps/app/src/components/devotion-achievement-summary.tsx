@@ -8,7 +8,7 @@ import { Pill } from "@/components/ui/pill";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import { useAchievementStats, useDevotionProgress } from "@/stores/tracker-store";
 
 type DevotionAchievementSummaryProps = {
@@ -32,6 +32,7 @@ export function DevotionAchievementSummary({
   const { colors, tokens } = useThemeTokens();
   const devotion = useDevotionProgress();
   const stats = useAchievementStats();
+  const chevronForward = useChevronForward();
 
   const locale = i18n.language?.split("-")[0];
   const formatCount = (value: number) => value.toLocaleString(locale);
@@ -84,7 +85,7 @@ export function DevotionAchievementSummary({
           </View>
         </View>
 
-        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
       </View>
 
       <View style={styles.achievementProgress}>

@@ -420,11 +420,6 @@ export default {
     description:
       "Tijaabi aqoontaada magacyada suuraha, erayada, tajweed, iyo sheekooyinka Qur'aanka.",
   },
-  "/learn-quran/reflection": {
-    title: "Diiwaanka Fikirka Qur'aanka",
-    description:
-      "Qoraalladaada tadabbur gaarka ah — weydii waxa Allaah ku barayo aayad iyo sida aad maanta ugu noolaan doonto.",
-  },
   "/learn-quran/revelation": {
     title: "Sida Qur'aanka Loo Soo Dejiyay",
     description:

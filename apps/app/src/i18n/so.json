@@ -67,8 +67,8 @@
     "decrease": "Yaree {{label}}",
     "appName": "Munib Tracker",
     "appTagline": "La soco safarkaaga ku soo noqoshada Allaah.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "Waa la diyaarinayaa…",
+    "loadingRouteHint": "Daawo yar — shaashadan ayaa soo raraysa."
   },
   "search": {
     "placeholder": "Raadi Qur'aanka, xadiiska, duacada, adhkar…",

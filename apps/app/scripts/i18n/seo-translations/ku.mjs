@@ -411,11 +411,6 @@ export default {
     title: "Pirsên Qur'anê",
     description: "Zanîna xwe ya navên sureyan, peyvên, tecwîd û çîrokên Qur'anê biceribînin.",
   },
-  "/learn-quran/reflection": {
-    title: "Rojnameya Ramana Qur'anê",
-    description:
-      "Notên tedebbura we yên taybet — bipirsin Xwedê di ayetekê de çi fêr dike û îro hûn wê çawa dijîn.",
-  },
   "/learn-quran/revelation": {
     title: "Qur'an Çawa Hat Naskirin",
     description:

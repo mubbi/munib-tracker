@@ -123,9 +123,6 @@ export function MunibThemeProvider({ children }: { children: ReactNode }) {
           setCustomAccentState(normalizeHex(storedCustom));
         }
 
-        // Drop legacy seasonal-theme preference (banners are now automatic).
-        void AsyncStorage.removeItem("@munib-tracker/seasonal-theme");
-
         // Hydrate saved locale + RTL before the first screen paints so users
         // never see English strings in an RTL shell (or vice versa).
         await preferencesStore.getState().load();

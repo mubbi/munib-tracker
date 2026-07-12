@@ -54,8 +54,3 @@ export function contrastRatio(a: string, b: string): number {
   const [light, dark] = la > lb ? [la, lb] : [lb, la];
   return (light + 0.05) / (dark + 0.05);
 }
-
-/** Picks a readable foreground (near-black or near-white) for text on `background`. */
-export function readableForeground(background: string): string {
-  return relativeLuminance(background) > 0.5 ? "#152921" : "#FFFFFF";
-}

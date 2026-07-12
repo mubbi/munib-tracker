@@ -257,9 +257,3 @@ export function cloudPlacementsFor(options: {
 
   return withOpacity([CLOUD_SLOTS[0], CLOUD_SLOTS[1]]);
 }
-
-/** @deprecated Use generateCumulusCloud — kept for tests during transition. */
-export function generateCloudPuffs(seed: number, archetype: "triplet" | "duo" | "wisp") {
-  const size = archetype === "triplet" ? "large" : archetype === "duo" ? "medium" : "small";
-  return generateCumulusCloud(seed, size);
-}

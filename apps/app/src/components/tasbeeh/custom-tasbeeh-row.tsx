@@ -6,7 +6,7 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import type { CustomTasbeeh } from "@/stores/custom-tasbeeh-store";
 
 type CustomTasbeehRowProps = {
@@ -22,6 +22,7 @@ function progressLabel(item: CustomTasbeeh): string {
 export function CustomTasbeehRow({ item, onPress }: CustomTasbeehRowProps) {
   const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
+  const chevronForward = useChevronForward();
   const complete = item.target > 0 && item.count >= item.target;
 
   return (
@@ -60,7 +61,7 @@ export function CustomTasbeehRow({ item, onPress }: CustomTasbeehRowProps) {
         }
       />
 
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

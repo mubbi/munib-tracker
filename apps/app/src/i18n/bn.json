@@ -67,8 +67,8 @@
     "decrease": "{{label}} কমান",
     "appName": "Munib Tracker",
     "appTagline": "আল্লাহর দিকে আপনার যাত্রা ট্র্যাক করুন।",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "প্রস্তুত হচ্ছে…",
+    "loadingRouteHint": "একটু অপেক্ষা করুন — এই স্ক্রিন লোড হচ্ছে।"
   },
   "search": {
     "placeholder": "কুরআন, হাদিস, দোয়া, আযকার অনুসন্ধান…",

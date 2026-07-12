@@ -18,7 +18,7 @@ import { HadithRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
 import {
   useEnsureDuroodFavoritesLoaded,
@@ -266,6 +266,7 @@ function ExploreRow({
   onPress: () => void;
 }) {
   const { colors } = useThemeTokens();
+  const chevronForwardIcon = useChevronForward();
 
   return (
     <PressableScale
@@ -282,7 +283,7 @@ function ExploreRow({
           {hint}
         </ThemedText>
       </View>
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+      <SymbolView name={chevronForwardIcon} size={14} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
 }

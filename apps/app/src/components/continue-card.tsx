@@ -20,7 +20,7 @@ import {
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { arabicReadingLayout } from "@/lib/reading-typography";
 import { formatRelativeWhen } from "@/lib/relative-time";
-import { chevronForward, containsArabicScript } from "@/lib/rtl";
+import { containsArabicScript, useChevronForward } from "@/lib/rtl";
 import { continueStore, useContinueActivity } from "@/stores/continue-store";
 
 type KindVisual = {
@@ -105,6 +105,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const { colors, tokens } = useThemeTokens();
+  const chevronForward = useChevronForward();
 
   const visual = KIND_VISUALS[activity.kind];
   const palette = getPalette(colors, tokens, visual.palette);
@@ -256,7 +257,7 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
             <ThemedText type="smallBold" style={{ color: palette.text }}>
               {t(actionKey)}
             </ThemedText>
-            <SymbolView name={chevronForward()} size={14} tintColor={palette.color} />
+            <SymbolView name={chevronForward} size={14} tintColor={palette.color} />
           </View>
         </PressableScale>
       </Card>

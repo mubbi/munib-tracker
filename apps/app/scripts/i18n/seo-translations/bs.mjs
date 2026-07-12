@@ -395,11 +395,6 @@ export default {
     title: "Kviz Kur'ana",
     description: "Provjerite znanje imena sura, vokabulara, tajvida i priča iz Kur'ana.",
   },
-  "/learn-quran/reflection": {
-    title: "Dnevnik refleksije Kur'ana",
-    description:
-      "Vaše privatne tedebbur bilješke — pitajte šta vas Allah uči u ajetu i kako ćete to danas živjeti.",
-  },
   "/learn-quran/revelation": {
     title: "Kako je Kur'an objavljen",
     description:

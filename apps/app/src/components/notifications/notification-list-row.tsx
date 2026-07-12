@@ -18,7 +18,7 @@ import {
   type NotificationCategory,
   resolveNotificationVisual,
 } from "@/lib/notifications/notification-visuals";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 export type NotificationListItem = {
   id: string;
@@ -94,6 +94,7 @@ const CATEGORY_LABEL_KEY: Record<NotificationCategory, string> = {
 export function NotificationListRow({ item, formattedWhen, onPress }: NotificationListRowProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const chevronForward = useChevronForward();
 
   const reminderKey = item.reminderKey ?? extractReminderKey(item.id, item.inboxId);
   const visual = resolveNotificationVisual({ kind: item.kind, reminderKey });
@@ -169,7 +170,7 @@ export function NotificationListRow({ item, formattedWhen, onPress }: Notificati
       </View>
 
       {isPressable ? (
-        <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+        <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
       ) : null}
     </>
   );

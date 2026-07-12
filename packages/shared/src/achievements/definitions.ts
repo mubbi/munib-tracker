@@ -7,7 +7,6 @@ import {
   completedLevelForValue,
   descriptionKeyForTrack,
   descriptionParamsForTrack,
-  LEGACY_ACHIEVEMENT_MAP,
   PROGRESSION_TRACKS,
   type ProgressionTrackConfig,
   thresholdForTrackLevel,
@@ -35,9 +34,6 @@ export type {
   ProgressionState,
   ProgressionTrackId,
 } from "./types";
-
-/** @deprecated Use MilestoneProgress — kept for gradual UI migration. */
-export interface AchievementProgress extends MilestoneProgress {}
 
 export function totalNoorForDevotionLevel(level: number): number {
   if (level <= 0) return 0;
@@ -217,16 +213,6 @@ export function evaluateAchievements(stats: AchievementStats): MilestoneProgress
   return [...state.activeGoals, ...state.unlockedMilestones];
 }
 
-function normalizeAchievementId(id: string): string {
-  const legacyQaza = /^qaza:(\d+)$/.exec(id);
-  if (legacyQaza) return `qaza:debt:${legacyQaza[1]}:cleared`;
-  return LEGACY_ACHIEVEMENT_MAP[id] ?? id;
-}
-
-export function migrateLegacyAchievementIds(known: string[]): string[] {
-  return Array.from(new Set(known.map(normalizeAchievementId)));
-}
-
 export function resolveUnlockedMilestones(
   ids: string[],
   stats: AchievementStats,
@@ -250,7 +236,7 @@ export function syncAchievementIds(
   known: string[],
 ): { synced: string[]; newlyUnlocked: string[] } {
   const synced = earnedAchievementIds(stats);
-  const knownSet = new Set(migrateLegacyAchievementIds(known));
+  const knownSet = new Set(known);
   const newlyUnlocked = synced.filter((id) => !knownSet.has(id));
   return { synced, newlyUnlocked };
 }
@@ -285,17 +271,6 @@ export function getMilestoneById(
     const track = PROGRESSION_TRACKS.find((t) => t.id === trackId);
     if (!track) return undefined;
     return buildTrackMilestone(track, level, resolved, true);
-  }
-
-  const legacy = LEGACY_ACHIEVEMENT_MAP[id];
-  if (legacy) return getMilestoneById(legacy, stats);
-
-  const legacyQaza = /^qaza:(\d+)$/.exec(id);
-  if (legacyQaza) {
-    return getDebtMilestoneById(`qaza:debt:${legacyQaza[1]}:cleared`, {
-      qaza: resolved.qazaDebt,
-      roza: resolved.rozaDebt,
-    });
   }
 
   return undefined;

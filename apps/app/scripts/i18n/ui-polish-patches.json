@@ -113,7 +113,9 @@
     "language.footer": "Ƙarin ɓangaren app yana fassarwa a hankali. Larabci da Urdu suna canza app zuwa tsarin daga dama zuwa hagu.",
     "language.subtitle": "Yaren app da fassara",
     "pinLock.setPinFailed": "An kasa ajiye PIN ɗinku. Da fatan za a sake gwadawa.",
-    "pinLock.wrongPinAttemptsRemaining": "PIN ba daidai ba. Ƙoƙarin {{count}} ya rage kafin kullewa."
+    "pinLock.wrongPinAttemptsRemaining": "PIN ba daidai ba. Ƙoƙarin {{count}} ya rage kafin kullewa.",
+    "common.loadingRoute": "Ana shiri…",
+    "common.loadingRouteHint": "Jira ɗan lokaci yayin da wannan allon ke lodawa."
   },
   "ku": {
     "home.streakStat": "Zincîre",
@@ -202,7 +204,9 @@
     "pinLock.enablePin": "Qefilîna sepanê çalak bike",
     "pinLock.disablePin": "Qefilîna sepanê neçalak bike",
     "pinLock.setPinFailed": "PIN nehat tomarkirin. Ji kerema xwe dîsa biceribîne.",
-    "pinLock.wrongPinAttemptsRemaining": "PINê çewt. {{count}} hewildan maye berî girtinê."
+    "pinLock.wrongPinAttemptsRemaining": "PINê çewt. {{count}} hewildan maye berî girtinê.",
+    "common.loadingRoute": "ئامادە دەکرێت…",
+    "common.loadingRouteHint": "کەمێک چاوەڕێ بکە — ئەم شاشەیە بار دەکرێت."
   },
   "bs": {
     "home.streakStat": "Niz",
@@ -293,7 +297,9 @@
     "pinLock.enablePin": "Omogući zaključavanje aplikacije",
     "pinLock.statusProtected": "Zaštićeno PIN-om",
     "pinLock.disablePin": "Onemogući zaključavanje aplikacije",
-    "pinLock.changePin": "Promijeni PIN"
+    "pinLock.changePin": "Promijeni PIN",
+    "common.loadingRoute": "Priprema…",
+    "common.loadingRouteHint": "Samo trenutak dok se ovaj ekran učitava."
   },
   "ms": {
     "search.cat.zikr": "Adhkar",
@@ -380,7 +386,9 @@
     "settings.downloadNativeAppsDesc": "Pasang Munib Tracker pada telefon untuk solat, zikr dan Al-Quran luar talian — akaun sama, kemajuan sama.",
     "onboarding.begin": "Mula",
     "onboarding.slide1Body": "Tandakan setiap solat dalam perjalanan kembali kepada Allah — selesai, terlepas, lewat, atau qadha.",
-    "notif.groupWorship": "Ibadat"
+    "notif.groupWorship": "Ibadat",
+    "common.loadingRoute": "Sedang disediakan…",
+    "common.loadingRouteHint": "Sebentar sahaja sementara skrin ini dimuatkan."
   },
   "sw": {
     "common.quiz.answeredCount": "{{count}} imejibiwa",
@@ -475,7 +483,9 @@
     "seo.notFound.description": "Ukurasa unaoutafuta haukupatikana.",
     "seo.calendarDay.description": "Kagua na urekebishe ibada iliyorekodiwa kwa siku hii.",
     "seo.tasbeehZikr.description": "Hesabu zikr hii kwa kihesabu cha tasbeeh cha mguso.",
-    "seo.tasbeehCustom.description": "Kihesabu chako maalum cha tasbeeh."
+    "seo.tasbeehCustom.description": "Kihesabu chako maalum cha tasbeeh.",
+    "common.loadingRoute": "Inatayarisha…",
+    "common.loadingRouteHint": "Subiri kidogo skrini hii inapopakia."
   },
   "id": {
     "search.cat.zikr": "Adzkar",
@@ -504,7 +514,9 @@
     "seo.notFound.description": "Halaman yang Anda cari tidak ditemukan.",
     "seo.calendarDay.description": "Tinjau dan sesuaikan ibadah yang tercatat untuk hari ini.",
     "seo.tasbeehZikr.description": "Hitung zikr ini dengan penghitung tasbih sentuh.",
-    "seo.tasbeehCustom.description": "Penghitung tasbih kustom Anda."
+    "seo.tasbeehCustom.description": "Penghitung tasbih kustom Anda.",
+    "common.loadingRoute": "Menyiapkan…",
+    "common.loadingRouteHint": "Sebentar saja sementara layar ini dimuat."
   },
   "ru": {
     "language.scriptureAvailable": "Перевод Корана доступен",
@@ -550,7 +562,9 @@
     "settings.haptics": "Тактильная обратная связь",
     "onboarding.signInToSync": "Войти для синхронизации",
     "onboarding.pageOf": "Страница {{page}} из {{total}}",
-    "notif.snooze": "Отложить на {{minutes}} мин"
+    "notif.snooze": "Отложить на {{minutes}} мин",
+    "common.loadingRoute": "Подготовка…",
+    "common.loadingRouteHint": "Минутку — этот экран загружается."
   },
   "tr": {
     "home.continueListening": "Ses",
@@ -598,7 +612,9 @@
     "language.footer": "Zamanla daha fazla arayüz bölümü çevrilir. Arapça ve Urduca uygulamayı RTL yapar.",
     "seo.calendarDay.description": "Bu gün için kayıtlı ibadeti inceleyin ve düzenleyin.",
     "seo.tasbeehZikr.description": "Bu zikri dokunmatik tesbih sayacıyla sayın.",
-    "seo.tasbeehCustom.description": "Özel tesbih sayacınız."
+    "seo.tasbeehCustom.description": "Özel tesbih sayacınız.",
+    "common.loadingRoute": "Hazırlanıyor…",
+    "common.loadingRouteHint": "Bu ekran yüklenirken bir an bekleyin."
   },
   "fr": {
     "home.continueListening": "Audio",
@@ -654,7 +670,9 @@
     "language.footer": "Davantage de sections de l'interface sont traduites progressivement. L'arabe et l'ourdou passent l'app en RTL.",
     "seo.calendarDay.description": "Consultez et ajustez l'ibadah enregistrée pour ce jour.",
     "seo.tasbeehZikr.description": "Comptez ce zikr avec le compteur tactile de tasbeeh.",
-    "seo.tasbeehCustom.description": "Votre compteur de tasbeeh personnalisé."
+    "seo.tasbeehCustom.description": "Votre compteur de tasbeeh personnalisé.",
+    "common.loadingRoute": "Préparation…",
+    "common.loadingRouteHint": "Un instant pendant le chargement de cet écran."
   },
   "fa": {
     "home.continueListening": "صدا",
@@ -667,7 +685,9 @@
     "common.appTagline": "سفر بازگشت به الله را دنبال کنید.",
     "settings.haptics": "بازخورد لمسی",
     "onboarding.pageOf": "صفحه {{page}} از {{total}}",
-    "notif.snooze": "تأخیر {{minutes}} دقیقه"
+    "notif.snooze": "تأخیر {{minutes}} دقیقه",
+    "common.loadingRoute": "در حال آماده‌سازی…",
+    "common.loadingRouteHint": "لطفاً کمی صبر کنید — این صفحه در حال بارگذاری است."
   },
   "az": {
     "language.scriptureAvailable": "Qur'an tərcüməsi mövcuddur",
@@ -678,7 +698,9 @@
     "common.appTagline": "Allaha qayıdış yolunuzu izləyin.",
     "settings.haptics": "Taktik geri bildirim",
     "onboarding.pageOf": "Səhifə {{page}} / {{total}}",
-    "notif.snooze": "{{minutes}} dəq təxirə sal"
+    "notif.snooze": "{{minutes}} dəq təxirə sal",
+    "common.loadingRoute": "Hazırlanır…",
+    "common.loadingRouteHint": "Bir an — bu ekran yüklənir."
   },
   "ps": {
     "language.scriptureAvailable": "د قرآن ژباړه شتون لري",
@@ -689,7 +711,9 @@
     "common.appTagline": "خپل لاره بیرته الله ته وڅارئ.",
     "settings.haptics": "لمسيز غبرګون",
     "onboarding.pageOf": "پاڼه {{page}} له {{total}}",
-    "notif.snooze": "{{minutes}} دقیقې وځنډوه"
+    "notif.snooze": "{{minutes}} دقیقې وځنډوه",
+    "common.loadingRoute": "چمتو کېږي…",
+    "common.loadingRouteHint": "یوه شیبه — دا پرده بارېږي."
   },
   "so": {
     "language.scriptureAvailable": "Turjumaadda Quraanka waa la heli karaa",
@@ -700,7 +724,9 @@
     "common.appTagline": "La soco safarkaaga ku soo noqoshada Allaah.",
     "settings.haptics": "Jawaab taabasho",
     "onboarding.pageOf": "Bogga {{page}} ee {{total}}",
-    "notif.snooze": "Dib u dhig {{minutes}} daq"
+    "notif.snooze": "Dib u dhig {{minutes}} daq",
+    "common.loadingRoute": "Waa la diyaarinayaa…",
+    "common.loadingRouteHint": "Daawo yar — shaashadan ayaa soo raraysa."
   },
   "uz": {
     "language.scriptureAvailable": "Qur'on tarjimasi mavjud",
@@ -711,7 +737,9 @@
     "common.appTagline": "Allohga qaytish yo'lingizni kuzating.",
     "settings.haptics": "Taktil javob",
     "onboarding.pageOf": "{{total}} dan {{page}}-bet",
-    "notif.snooze": "{{minutes}} daq kechiktirish"
+    "notif.snooze": "{{minutes}} daq kechiktirish",
+    "common.loadingRoute": "Tayyorlanmoqda…",
+    "common.loadingRouteHint": "Bir lahza — bu ekran yuklanmoqda."
   },
   "tg": {
     "language.scriptureAvailable": "Тарҷумаи Қуръон дастрас аст",
@@ -722,7 +750,9 @@
     "common.appTagline": "Роҳи бозгашт ба Аллоҳро пайгирӣ кунед.",
     "settings.haptics": "Бозгашти ламсӣ",
     "onboarding.pageOf": "Саҳифа {{page}} аз {{total}}",
-    "notif.snooze": "{{minutes}} дақ. таъхир"
+    "notif.snooze": "{{minutes}} дақ. таъхир",
+    "common.loadingRoute": "Омода мешавад…",
+    "common.loadingRouteHint": "Як лаҳза — ин экран бор мешавад."
   },
   "tk": {
     "language.scriptureAvailable": "Guran terjimesi elýeterli",
@@ -733,7 +763,9 @@
     "common.appTagline": "Allaha gaýdyp geliş ýoluňyzy yzarlaň.",
     "settings.haptics": "Duýgurly jogap",
     "onboarding.pageOf": "Sahypa {{page}} / {{total}}",
-    "notif.snooze": "{{minutes}} min gijikdir"
+    "notif.snooze": "{{minutes}} min gijikdir",
+    "common.loadingRoute": "Taýýarlanylýar…",
+    "common.loadingRouteHint": "Bir pursat — bu ekran ýüklenýär."
   },
   "kk": {
     "language.scriptureAvailable": "Құран аудармасы қолжетімді",
@@ -744,7 +776,9 @@
     "common.appTagline": "Аллаға оралу жолыңызды бақылаңыз.",
     "settings.haptics": "Тактильді кері байланыс",
     "onboarding.pageOf": "{{total}} ішінен {{page}}-бет",
-    "notif.snooze": "{{minutes}} мин кідірту"
+    "notif.snooze": "{{minutes}} мин кідірту",
+    "common.loadingRoute": "Дайындалуда…",
+    "common.loadingRouteHint": "Сәл күтіңіз — осы экран жүктелуде."
   },
   "sq": {
     "language.scriptureAvailable": "Përkthimi i Kur'anit është i disponueshëm",
@@ -755,7 +789,9 @@
     "common.appTagline": "Ndiqni rrugën tuaj të kthimit te Allahu.",
     "settings.haptics": "Reagim haptik",
     "onboarding.pageOf": "Faqja {{page}} nga {{total}}",
-    "notif.snooze": "Shty {{minutes}} min"
+    "notif.snooze": "Shty {{minutes}} min",
+    "common.loadingRoute": "Duke u përgatitur…",
+    "common.loadingRouteHint": "Një moment ndërsa ky ekran ngarkohet."
   },
   "ky": {
     "language.scriptureAvailable": "Куран котормосу бар",
@@ -766,6 +802,8 @@
     "common.appTagline": "Аллага кайтуу жолуңузду көз салыңыз.",
     "settings.haptics": "Тактилдик жооп",
     "onboarding.pageOf": "{{total}} ичинен {{page}}-бет",
-    "notif.snooze": "{{minutes}} мүн. кийинкиге калуу"
+    "notif.snooze": "{{minutes}} мүн. кийинкиге калуу",
+    "common.loadingRoute": "Даярдалууда…",
+    "common.loadingRouteHint": "Бир аз күтүңүз — бул экран жүктөлүп жатат."
   }
 }

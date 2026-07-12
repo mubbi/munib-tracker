@@ -5,7 +5,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { chevronForward } from "@/lib/rtl";
+import { useChevronForward } from "@/lib/rtl";
 
 export type Metric = {
   value: string | number;
@@ -128,6 +128,7 @@ type LinkRowProps = {
 
 export function LinkRow({ label, onPress }: LinkRowProps) {
   const { colors } = useThemeTokens();
+  const chevronForward = useChevronForward();
   return (
     <PressableScale
       haptic="light"
@@ -138,7 +139,7 @@ export function LinkRow({ label, onPress }: LinkRowProps) {
       <ThemedText type="smallBold" style={{ color: colors.accent }}>
         {label}
       </ThemedText>
-      <SymbolView name={chevronForward()} size={14} tintColor={colors.accent} />
+      <SymbolView name={chevronForward} size={14} tintColor={colors.accent} />
     </PressableScale>
   );
 }

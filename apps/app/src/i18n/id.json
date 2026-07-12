@@ -67,8 +67,8 @@
     "decrease": "Turunkan {{label}}",
     "appName": "Pelacak Munib",
     "appTagline": "Lacak Perjalanan Anda Kembali kepada Allah.",
-    "loadingRoute": "Preparing…",
-    "loadingRouteHint": "Just a moment while this screen loads."
+    "loadingRoute": "Menyiapkan…",
+    "loadingRouteHint": "Sebentar saja sementara layar ini dimuat."
   },
   "search": {
     "placeholder": "Cari Al- Qur'an, hadits, duas, adhkar…",
