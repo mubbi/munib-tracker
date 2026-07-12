@@ -10,8 +10,10 @@ try {
   // optional transitive dep; ignore if not hoisted
 }
 
-const projectRoot = __dirname;
-const monorepoRoot = path.resolve(projectRoot, "../..");
+// realpathSync keeps drive-letter casing stable on Windows (e: vs E:). Metro's
+// FileMap lookups are case-sensitive; mixed casing breaks monorepo resolves.
+const projectRoot = fs.realpathSync.native(__dirname);
+const monorepoRoot = fs.realpathSync.native(path.resolve(projectRoot, "../.."));
 const config = getSentryExpoConfig(projectRoot, {
   autoWrapExpoRouterErrorBoundary: true,
 });
@@ -114,6 +116,40 @@ const routeSuspenseFallback = path.join(
   "src/components/navigation/route-suspense-fallback.tsx",
 );
 
+/**
+ * Orval `clean: true` deletes + rewrites packages/api-client/src/generated while
+ * Metro is running. On Windows the FileMap often misses the new files (watcher
+ * race), so doesFileExist returns false even though the paths exist on disk.
+ * Fall back to real fs for relative imports under packages/*.
+ */
+function resolveWorkspaceRelativeFromDisk(originModulePath, moduleName, sourceExts) {
+  if (!moduleName.startsWith("./") && !moduleName.startsWith("../")) {
+    return null;
+  }
+  const origin = (originModulePath || "").replace(/\\/g, "/").toLowerCase();
+  if (!origin.includes("/packages/")) {
+    return null;
+  }
+  const base = path.resolve(path.dirname(originModulePath), moduleName);
+  const exts = sourceExts?.length ? sourceExts : ["ts", "tsx", "js", "jsx", "mjs", "cjs", "json"];
+  for (const ext of exts) {
+    const candidate = `${base}.${ext}`;
+    if (fs.existsSync(candidate)) {
+      return { type: "sourceFile", filePath: candidate };
+    }
+  }
+  if (fs.existsSync(base) && fs.statSync(base).isFile()) {
+    return { type: "sourceFile", filePath: base };
+  }
+  for (const ext of exts) {
+    const candidate = path.join(base, `index.${ext}`);
+    if (fs.existsSync(candidate)) {
+      return { type: "sourceFile", filePath: candidate };
+    }
+  }
+  return null;
+}
+
 const originalResolveRequest = config.resolver.resolveRequest;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (moduleName.startsWith("@/assets/")) {
@@ -131,10 +167,22 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   ) {
     return { filePath: routeSuspenseFallback, type: "sourceFile" };
   }
-  if (originalResolveRequest) {
-    return originalResolveRequest(context, moduleName, platform);
+  try {
+    if (originalResolveRequest) {
+      return originalResolveRequest(context, moduleName, platform);
+    }
+    return context.resolveRequest(context, moduleName, platform);
+  } catch (error) {
+    const fromDisk = resolveWorkspaceRelativeFromDisk(
+      context.originModulePath,
+      moduleName,
+      context.sourceExts,
+    );
+    if (fromDisk) {
+      return fromDisk;
+    }
+    throw error;
   }
-  return context.resolveRequest(context, moduleName, platform);
 };
 
 // Serve the Web Push service worker in dev so /expo-service-worker.js is available at localhost
