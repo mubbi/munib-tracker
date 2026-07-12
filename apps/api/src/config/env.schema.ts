@@ -39,12 +39,21 @@ export class EnvironmentVariables {
   DATABASE_TYPE: DatabaseType = DatabaseType.Postgres;
 
   /**
-   * Optional Postgres URI (same Session-pooler string as admin/marketing).
-   * When set, TypeORM prefers this over discrete DATABASE_HOST / USER / etc.
+   * Preferred Postgres URI (same Session-pooler string as admin/marketing).
+   * When set, TypeORM uses `url` instead of discrete DATABASE_HOST / USER / etc.
+   * On Vercel (API project) this is required — name it DATABASE_URL, not POSTGRES_URL.
    */
   @IsString()
   @IsOptional()
   DATABASE_URL?: string;
+
+  /**
+   * Optional override for TypeORM migrations only (Vercel build). When unset,
+   * `DATABASE_URL` is used and transaction-pooler URLs (:6543) are upgraded to session (:5432).
+   */
+  @IsString()
+  @IsOptional()
+  DATABASE_MIGRATE_URL?: string;
 
   @IsString()
   @IsOptional()

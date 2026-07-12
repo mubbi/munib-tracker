@@ -6,11 +6,13 @@
   "exports": {
     ".": "./src/index.ts",
     "./schema": "./src/schema/index.ts",
-    "./pg/createDb": "./src/pg/createDb.ts"
+    "./pg/createDb": "./src/pg/createDb.ts",
+    "./pg/preparePgConnection": "./src/pg/preparePgConnection.ts"
   },
   "scripts": {
     "lint": "biome check .",
     "check-types": "tsc --noEmit",
+    "test": "vitest run",
     "transit": "echo transit"
   },
   "dependencies": {
@@ -22,6 +24,7 @@
     "@munib-tracker/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/pg": "^8.15.0",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.0",
+    "vitest": "^3.2.0"
   }
 }

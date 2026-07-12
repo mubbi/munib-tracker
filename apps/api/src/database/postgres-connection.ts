@@ -1,17 +1,29 @@
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
   type DatabaseSslOption,
   hostRequiresDatabaseSsl,
   resolveDatabaseSsl,
 } from "./database-ssl";
 
-/** Discrete Postgres connection fields used by TypeORM (CLI + Nest). */
+/** Discrete / URL-resolved Postgres fields for TypeORM. */
 export type PostgresConnectionOptions = {
+  /** When set, TypeORM should use `url` instead of discrete host fields. */
+  url?: string;
   host: string;
   port: number;
   username: string;
   password: string;
   database: string;
   ssl: DatabaseSslOption;
+};
+
+export type ResolvePostgresConnectionOptions = {
+  /**
+   * When true (TypeORM CLI migrations), prefer `DATABASE_MIGRATE_URL` and
+   * upgrade transaction-pooler URLs (:6543 / pgbouncer) to session (:5432).
+   */
+  forMigrate?: boolean;
 };
 
 function isLoopbackHost(host: string): boolean {
@@ -32,13 +44,56 @@ function envFlagFalse(value: string | undefined): boolean {
   return value === "false" || value === "0";
 }
 
+function normalizePgUrl(url: string): string {
+  return url.replace(/^postgres:\/\//i, "postgresql://");
+}
+
+function restorePgScheme(normalizedUrl: string, originalUrl: string): string {
+  if (/^postgres:\/\//i.test(originalUrl)) {
+    return normalizedUrl.replace(/^postgresql:/i, "postgres:");
+  }
+  return normalizedUrl;
+}
+
+/** Strip dashboard `supa*` artifacts that break node-postgres / TypeORM. */
+export function sanitizeDatabaseUrl(url: string): string {
+  try {
+    const parsed = new URL(normalizePgUrl(url));
+    for (const key of [...parsed.searchParams.keys()]) {
+      if (key.startsWith("supa")) {
+        parsed.searchParams.delete(key);
+      }
+    }
+    return restorePgScheme(parsed.toString(), url);
+  } catch {
+    return url;
+  }
+}
+
+export function isTransactionPoolerUrl(url: string): boolean {
+  try {
+    const parsed = new URL(normalizePgUrl(url));
+    return parsed.port === "6543" || parsed.searchParams.get("pgbouncer") === "true";
+  } catch {
+    return false;
+  }
+}
+
+export function toSessionPoolerUrl(url: string): string {
+  const parsed = new URL(normalizePgUrl(url));
+  if (parsed.port === "6543") parsed.port = "5432";
+  parsed.searchParams.delete("pgbouncer");
+  return restorePgScheme(parsed.toString(), url);
+}
+
 /**
  * Parse a `postgres://` / `postgresql://` URI into discrete connection fields.
- * Query params used by managed providers (`sslmode`, `supa*`) are ignored here;
- * TLS is decided by `DATABASE_SSL` / host heuristics (same as Nest + admin).
  */
-export function parseDatabaseUrl(databaseUrl: string): Omit<PostgresConnectionOptions, "ssl"> {
-  const normalized = databaseUrl.trim().replace(/^postgres:\/\//i, "postgresql://");
+export function parseDatabaseUrl(
+  databaseUrl: string,
+): Omit<PostgresConnectionOptions, "ssl" | "url"> {
+  const sanitized = sanitizeDatabaseUrl(databaseUrl.trim());
+  const normalized = normalizePgUrl(sanitized);
   let parsed: URL;
   try {
     parsed = new URL(normalized);
@@ -71,16 +126,64 @@ export function parseDatabaseUrl(databaseUrl: string): Omit<PostgresConnectionOp
 }
 
 /**
- * Resolve Postgres options for TypeORM from either `DATABASE_URL` or discrete
- * `DATABASE_*` vars. Prefer `DATABASE_URL` when set (same URI as admin/marketing).
- *
- * On Vercel builds, loopback defaults are rejected with a clear error instead of
- * `ECONNREFUSED 127.0.0.1:5432`.
+ * Load apps/api/.env into process.env when keys are unset (TypeORM CLI does not
+ * boot Nest ConfigModule). Skipped on Vercel where project env is injected.
+ */
+export function loadLocalApiEnvFile(env: NodeJS.ProcessEnv = process.env): void {
+  if (env.VERCEL) return;
+
+  try {
+    // TypeORM CLI runs with cwd = apps/api (pnpm --filter api …).
+    const envPath = join(process.cwd(), ".env");
+    if (!existsSync(envPath)) return;
+    for (const line of readFileSync(envPath, "utf8").split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eq = trimmed.indexOf("=");
+      if (eq <= 0) continue;
+      const key = trimmed.slice(0, eq).trim();
+      let value = trimmed.slice(eq + 1).trim();
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
+      }
+      if (env[key] === undefined) {
+        env[key] = value;
+      }
+    }
+  } catch {
+    // Ignore missing/unreadable .env — Vercel and CI supply env explicitly.
+  }
+}
+
+function pickDatabaseUrl(env: NodeJS.ProcessEnv, forMigrate: boolean): string | undefined {
+  if (forMigrate) {
+    const explicit = env.DATABASE_MIGRATE_URL?.trim();
+    if (explicit) return sanitizeDatabaseUrl(explicit);
+  }
+
+  const runtime = env.DATABASE_URL?.trim();
+  if (!runtime) return undefined;
+
+  const sanitized = sanitizeDatabaseUrl(runtime);
+  if (forMigrate && isTransactionPoolerUrl(sanitized)) {
+    return toSessionPoolerUrl(sanitized);
+  }
+  return sanitized;
+}
+
+/**
+ * Resolve Postgres options for TypeORM from `DATABASE_URL` (preferred, same as
+ * admin/Expense Trail) or discrete `DATABASE_*` vars.
  */
 export function resolvePostgresConnection(
   env: NodeJS.ProcessEnv = process.env,
+  options: ResolvePostgresConnectionOptions = {},
 ): PostgresConnectionOptions {
-  const url = env.DATABASE_URL?.trim();
+  const forMigrate = options.forMigrate === true;
+  const url = pickDatabaseUrl(env, forMigrate);
   const fromUrl = url ? parseDatabaseUrl(url) : null;
 
   const host = fromUrl?.host ?? env.DATABASE_HOST?.trim() ?? "localhost";
@@ -92,18 +195,19 @@ export function resolvePostgresConnection(
   if (env.VERCEL && isLoopbackHost(host)) {
     throw new Error(
       "Postgres resolved to localhost during a Vercel build/deploy. " +
-        "Set DATABASE_URL (Supabase Session pooler URI) or DATABASE_HOST / DATABASE_PORT / " +
-        "DATABASE_USER / DATABASE_PASSWORD / DATABASE_NAME on the API Vercel project " +
-        "(available to Production builds). See apps/api/.env.example.",
+        "Set DATABASE_URL on the API Vercel project to the same Supabase Session pooler URI " +
+        "as admin (Settings → Environment Variables → Production). " +
+        "Name it DATABASE_URL (not POSTGRES_URL). See apps/api/.env.example.",
     );
   }
 
   const sslEnabled =
     envFlagTrue(env.DATABASE_SSL) ||
     hostRequiresDatabaseSsl(host) ||
-    (typeof url === "string" && /[?&]sslmode=require\b/i.test(url));
+    (typeof url === "string" && /[?&]sslmode=(require|verify-full|verify-ca)\b/i.test(url));
 
   return {
+    ...(url ? { url } : {}),
     host,
     port,
     username,
@@ -114,5 +218,35 @@ export function resolvePostgresConnection(
       rejectUnauthorized: !envFlagFalse(env.DATABASE_SSL_REJECT_UNAUTHORIZED),
       ca: env.DATABASE_CA_CERT,
     }),
+  };
+}
+
+/** TypeORM DataSource fields shared by CLI + Nest. */
+export function toTypeOrmPostgresOptions(connection: PostgresConnectionOptions): {
+  type: "postgres";
+  url?: string;
+  host?: string;
+  port?: number;
+  username?: string;
+  password?: string;
+  database?: string;
+  ssl: DatabaseSslOption;
+} {
+  if (connection.url) {
+    return {
+      type: "postgres",
+      url: connection.url,
+      ssl: connection.ssl,
+    };
+  }
+
+  return {
+    type: "postgres",
+    host: connection.host,
+    port: connection.port,
+    username: connection.username,
+    password: connection.password,
+    database: connection.database,
+    ssl: connection.ssl,
   };
 }

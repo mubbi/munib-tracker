@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { parseDatabaseUrl, resolvePostgresConnection } from "./postgres-connection";
+import {
+  isTransactionPoolerUrl,
+  parseDatabaseUrl,
+  resolvePostgresConnection,
+  toSessionPoolerUrl,
+  toTypeOrmPostgresOptions,
+} from "./postgres-connection";
 
 describe("parseDatabaseUrl", () => {
   it("parses a Session-pooler style URI", () => {
@@ -16,6 +22,13 @@ describe("parseDatabaseUrl", () => {
     });
   });
 
+  it("strips invalid supa* query params", () => {
+    const parsed = parseDatabaseUrl(
+      "postgresql://u:p@aws-0.pooler.supabase.com:5432/postgres?supa=base-pooler.x",
+    );
+    expect(parsed.host).toBe("aws-0.pooler.supabase.com");
+  });
+
   it("accepts the postgres:// scheme", () => {
     expect(parseDatabaseUrl("postgres://u:p@db.example.com:6543/munib").host).toBe(
       "db.example.com",
@@ -27,17 +40,50 @@ describe("parseDatabaseUrl", () => {
   });
 });
 
+describe("migrate pooler rewrite", () => {
+  it("upgrades transaction pooler URLs when forMigrate is set", () => {
+    const conn = resolvePostgresConnection(
+      {
+        DATABASE_URL: "postgresql://u:p@aws-0.pooler.supabase.com:6543/postgres",
+      },
+      { forMigrate: true },
+    );
+    expect(conn.url).toContain(":5432/");
+    expect(conn.port).toBe(5432);
+    expect(isTransactionPoolerUrl(conn.url ?? "")).toBe(false);
+  });
+
+  it("prefers DATABASE_MIGRATE_URL for migrations", () => {
+    const conn = resolvePostgresConnection(
+      {
+        DATABASE_URL: "postgresql://u:p@aws-0.pooler.supabase.com:6543/postgres",
+        DATABASE_MIGRATE_URL: "postgresql://u:p@db.example.com:5432/munib",
+      },
+      { forMigrate: true },
+    );
+    expect(conn.url).toBe("postgresql://u:p@db.example.com:5432/munib");
+  });
+
+  it("toSessionPoolerUrl rewrites 6543", () => {
+    expect(toSessionPoolerUrl("postgresql://u:p@host:6543/db")).toBe(
+      "postgresql://u:p@host:5432/db",
+    );
+  });
+});
+
 describe("resolvePostgresConnection", () => {
-  it("prefers DATABASE_URL over discrete DATABASE_* defaults", () => {
+  it("prefers DATABASE_URL and exposes TypeORM url option", () => {
     const conn = resolvePostgresConnection({
       DATABASE_URL: "postgresql://app:secret@db.neon.tech:5432/munib",
       DATABASE_HOST: "localhost",
     });
+    expect(conn.url).toBe("postgresql://app:secret@db.neon.tech:5432/munib");
     expect(conn.host).toBe("db.neon.tech");
-    expect(conn.username).toBe("app");
-    expect(conn.password).toBe("secret");
-    expect(conn.database).toBe("munib");
-    expect(conn.ssl).toMatchObject({ rejectUnauthorized: true });
+    expect(toTypeOrmPostgresOptions(conn)).toEqual({
+      type: "postgres",
+      url: "postgresql://app:secret@db.neon.tech:5432/munib",
+      ssl: { rejectUnauthorized: true },
+    });
   });
 
   it("falls back to discrete DATABASE_* vars", () => {
@@ -49,7 +95,9 @@ describe("resolvePostgresConnection", () => {
       DATABASE_NAME: "tracker",
       DATABASE_SSL: "true",
     });
-    expect(conn).toMatchObject({
+    expect(conn.url).toBeUndefined();
+    expect(toTypeOrmPostgresOptions(conn)).toMatchObject({
+      type: "postgres",
       host: "db.example.com",
       port: 5433,
       username: "munib",

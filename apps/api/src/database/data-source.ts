@@ -14,29 +14,24 @@ import {
   UserEntity,
   UserMediaEntity,
 } from "./entities";
-import { resolvePostgresConnection } from "./postgres-connection";
+import {
+  loadLocalApiEnvFile,
+  resolvePostgresConnection,
+  toTypeOrmPostgresOptions,
+} from "./postgres-connection";
 
 /**
  * Standalone DataSource for the TypeORM CLI (migration generate/run/revert).
  *
- * Production runs with `synchronize: false` (see `database.module.ts`), so schema
- * changes are applied through committed migrations rather than auto-sync.
- *
- * Connection: prefer `DATABASE_URL` (same Session-pooler URI as admin), else
- * discrete `DATABASE_HOST` / `DATABASE_PORT` / `DATABASE_USER` /
- * `DATABASE_PASSWORD` / `DATABASE_NAME`. On Vercel, unset DB env fails with a
- * clear error instead of connecting to localhost.
+ * Prefers `DATABASE_URL` (same as admin / Expense Trail). On Vercel set that
+ * on the API project. Transaction-pooler URLs (:6543) are upgraded to session
+ * (:5432) for migrations; override with `DATABASE_MIGRATE_URL` if needed.
  */
-const connection = resolvePostgresConnection();
+loadLocalApiEnvFile();
+const connection = resolvePostgresConnection(process.env, { forMigrate: true });
 
 export default new DataSource({
-  type: "postgres",
-  host: connection.host,
-  port: connection.port,
-  username: connection.username,
-  password: connection.password,
-  database: connection.database,
-  ssl: connection.ssl,
+  ...toTypeOrmPostgresOptions(connection),
   entities: [
     UserEntity,
     AuthSessionEntity,

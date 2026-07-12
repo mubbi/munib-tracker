@@ -17,7 +17,7 @@ import {
   UserMediaEntity,
 } from "./entities";
 import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
-import { resolvePostgresConnection } from "./postgres-connection";
+import { resolvePostgresConnection, toTypeOrmPostgresOptions } from "./postgres-connection";
 
 @Module({
   imports: [
@@ -37,17 +37,11 @@ import { resolvePostgresConnection } from "./postgres-connection";
           return createInMemorySqliteOptions();
         }
 
-        // Same resolver as the TypeORM CLI data-source (DATABASE_URL or DATABASE_*).
+        // Same URL-first resolver as the TypeORM CLI (DATABASE_URL or DATABASE_*).
         const connection = resolvePostgresConnection(process.env);
 
         return {
-          type: "postgres",
-          host: connection.host,
-          port: connection.port,
-          username: connection.username,
-          password: connection.password,
-          database: connection.database,
-          ssl: connection.ssl,
+          ...toTypeOrmPostgresOptions(connection),
           entities: [
             UserEntity,
             AuthSessionEntity,
