@@ -100,6 +100,7 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
 ### API on Vercel
 
 - NestJS boots once per cold start via `api/index.ts` (`serverless-http` + Express adapter).
+- `vercel.json` sets `"framework": null` so Vercel does **not** use zero-config NestJS detection (that builder requires `src/main.ts` to import `@nestjs/core` directly; our entry is the `api/` serverless function instead).
 - Runtime is pinned to **Node 22.x** (`engines` in `apps/api/package.json`) — avoid Node 24 on Vercel (native optional deps like `dtrace-provider` from the monorepo lockfile fail to compile).
 - Build runs TypeORM migrations (`migration:run`) before `nest build`.
 - Set production Postgres as **`DATABASE_URL`** on the API project (same Supabase Session pooler URI as admin — name it `DATABASE_URL`, not `POSTGRES_URL`). Build-time migrations need this available to **Production** builds. Optional `DATABASE_MIGRATE_URL` if runtime uses the transaction pooler (`:6543`); otherwise migrate auto-upgrades `:6543` → `:5432`. Discrete `DATABASE_HOST` / `USER` / … remain a local fallback only.
