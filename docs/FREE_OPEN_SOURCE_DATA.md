@@ -1,55 +1,14 @@
-# Free & Open-Source Islamic Data — Sourcing & Integration Plan
+# Free & Open-Source Islamic Data — Sources & licenses
 
-> **Goal:** Populate Munib Tracker with authentic Qur'an, Hadith, Duas, Adhkar, translations, and
-> transliterations from free / open-source data that is **valid and accepted by the majority of the
-> Muslim ummah**, and integrate it into the app in the most appropriate way for each content type
-> (bundled JSON, seeded local store, or live third-party API).
->
-> Last researched: **July 2026**. Verify licenses again before shipping — terms change.
->
-> **Status (2026-07-05):** the integration described here is **implemented** — the app now has a
-> Qur'an reader and Hadith library, and the duas/adhkar/99-Names content has been expanded from
-> the small hand-written sets described in §1.1 below. Treat §1.1's "what the app has now" as the
-> *pre-implementation* snapshot; this document is retained as the sourcing/rationale record.
+Reference for authentic Qur'an, Hadith, Duas, Adhkar, translations, and audio from free / open-source datasets accepted by the majority of the Muslim ummah.
+
+Pipeline ops: [`DATA_INGESTION.md`](./DATA_INGESTION.md). Open gaps: [`BACKLOG.md`](./BACKLOG.md#content-pipeline) · data-blocked features in [`BACKLOG.md`](./BACKLOG.md).
+
+Verify licenses again before shipping — terms change.
 
 ---
 
-## 1. Why this document exists (app audit)
-
-Munib Tracker today ships a small amount of **hand-written static content** and calculates prayer
-times on-device. It has no Qur'an reader and no Hadith library. This plan covers **expanding the
-existing content** and **adding two new content domains (Qur'an + Hadith)** using vetted open data.
-
-### 1.1 What the app has now
-
-| Domain | Where it lives | Count today | Shape |
-|---|---|---|---|
-| Zikr / Adhkar | `packages/shared/src/content/zikr.ts` | ~28 | `arabic, transliteration, translation, virtues, reference, targetCount` |
-| Duas | `packages/shared/src/content/duas.ts` | 9 | `arabic, transliteration, translation, reference` |
-| Duroods / Salawat | `packages/shared/src/content/duroods.ts` | 4 | same as Dua |
-| Names of Allah | `packages/shared/src/content/names.ts` | 25 | `arabic, transliteration, translation` |
-| Prayer times | `adhan` npm package (calculated) | n/a | computed from GPS |
-| Qibla | `expo-location` (calculated) | n/a | computed |
-
-**Storage/tech reality that constrains our choices:**
-
-- **Offline-first**, everything persisted in **AsyncStorage** (`@react-native-async-storage/async-storage`). **No SQLite / WatermelonDB / Realm.**
-- Monorepo: read-only content in `packages/shared/src/content/*.ts`; user/tracking data in `apps/app/src/db/repositories/*`.
-- Content is versioned with constants (`ZIKR_CONTENT_VERSION`, `DUA_CONTENT_VERSION`, …) that can trigger re-seed via `apps/app/src/db/migrations.ts`.
-- i18n: `en`, `ar`, `ur` (`apps/app/src/i18n/*.json`).
-- **Constraint (from project memory): avoid new native dependencies** — keep it rebuild-free and cross-platform (iOS / Android / Web). This pushes us toward **bundled JSON assets + CDN APIs** rather than an on-device SQL database. See §6.
-
-### 1.2 What we need to source
-
-1. **Qur'an** — Arabic (Uthmani) text, verse metadata (surah/juz/page), **translations** by accepted scholars, **transliteration**, optional **tafsir**, optional **audio**. *(New feature.)*
-2. **Hadith** — the canonical collections (Kutub al-Sittah + others), Arabic + English, **with authenticity grades**. *(New feature.)*
-3. **Duas & Adhkar** — expand to full **Hisnul Muslim** (Fortress of the Muslim). *(Expand existing.)*
-4. **Names of Allah** — complete **99** with meanings. *(Expand existing.)*
-5. **Prayer times / Qibla** — keep on-device calc; note an API fallback.
-
----
-
-## 2. Guiding principles
+## 1. Guiding principles
 
 1. **Authenticity first (ummah-accepted).**
    - Qur'an: use the **Ḥafṣ ʿan ʿĀṣim** reading in **Uthmani (Madīnah Mushaf) script** — the reading used by the overwhelming majority of Muslims worldwide and published by the **King Fahd Complex** for the Printing of the Holy Qur'an. **Tanzil.net** distributes exactly this, verified character-by-character.
@@ -57,19 +16,19 @@ existing content** and **adding two new content domains (Qur'an + Hadith)** usin
    - Duas/Adhkar: **Hisnul Muslim** by Sheikh **Saʿīd bin ʿAlī bin Wahf al-Qaḥṭānī** — a globally trusted, referenced compilation (every dua cites its Qur'an/Hadith source).
    - This app's content model (Witr, Tahajjud, Sunnah prayers, Hisnul Muslim adhkar) is **mainstream Sunni**, which is what "majority of the ummah" points to here. Keep translations sectarian-neutral; avoid polemical editions.
 
-2. **License-clean.** Prefer **public domain / CC0 / CC-BY / CC-BY-SA / MIT / Unlicense**. Some *translations* are still **copyrighted** even when a website serves them for free (see §11). Track license per resource.
+2. **License-clean.** Prefer **public domain / CC0 / CC-BY / CC-BY-SA / MIT / Unlicense**. Some *translations* are still **copyrighted** even when a website serves them for free (see §10). Track license per resource.
 
 3. **Offline-first & durable.** The core mushaf and core adhkar must work with **zero network**. APIs are for *enrichment* (extra translations, audio streaming, tafsir), never for the critical path.
 
-4. **No unnecessary native deps.** Ship data as **bundled JSON** and read it lazily; use **remote CDNs** for large/optional extras. Only consider `expo-sqlite` if full-offline Hadith search becomes a hard requirement (§6.4).
+4. **No unnecessary native deps.** Ship data as **bundled JSON** and read it lazily; use **remote CDNs** for large/optional extras. Only consider `expo-sqlite` if full-offline Hadith search becomes a hard requirement (§5.4).
 
 5. **Attribution built-in.** Add a "Data sources & credits" screen; store attribution text with each dataset (Tanzil requires a visible link back; CC-BY requires credit).
 
 ---
 
-## 3. Qur'an — Arabic text
+## 2. Qur'an — Arabic text
 
-### 3.1 Recommended primary source
+### 2.1 Recommended primary source
 
 | Source | Contents | Script / reading | License | Verdict |
 |---|---|---|---|---|
@@ -80,9 +39,9 @@ existing content** and **adding two new content domains (Qur'an + Hadith)** usin
 | **Al Quran Cloud** — `alquran.cloud/api` (Islamic Network) | 114 surahs / 6236 ayahs, dozens of translations/tafsir/audio editions | Uthmani (Tanzil-derived) | API code GPL-3.0; text from Tanzil | ✅ Good **live API** option, no auth. |
 | **Quran.Foundation API** (quran.com) — `api-docs.quran.foundation` | Official quran.com content API v4: verses, translations (Saheeh Intl, Khattab…), recitations | Multiple | Free; **requires client registration** (id/secret) | ◻︎ Use if you want the *canonical quran.com* editions & word-by-word with an official API. |
 
-**Recommendation:** Bootstrap the mushaf from **risan/quran-json** (ready JSON) *or* pull raw text from **Tanzil** and process it ourselves (§9). Treat **QUL** as the enrichment warehouse for word-by-word and mushaf page layout later.
+**Recommendation:** Bootstrap the mushaf from **risan/quran-json** (ready JSON) *or* pull raw text from **Tanzil** via `build-data`. Treat **QUL** as the enrichment warehouse for word-by-word and mushaf page layout.
 
-### 3.2 Verse metadata to include
+### 2.2 Verse metadata to include
 
 Surah number/name (Arabic + English + transliteration), ayah number (in-surah and global 1–6236),
 juz', hizb, rukū', **page (Madīnah Mushaf)**, sajda flag, revelation place (Makki/Madani). Tanzil
@@ -90,7 +49,7 @@ juz', hizb, rukū', **page (Madīnah Mushaf)**, sajda flag, revelation place (Ma
 
 ---
 
-## 4. Qur'an — Translations (by accepted scholars)
+## 3. Qur'an — Translations (by accepted scholars)
 
 Pick a **curated shortlist** rather than dumping 400 editions. Suggested defaults per language:
 
@@ -115,7 +74,7 @@ already has `translationLocale` in `UserPreferences`).
 
 ---
 
-## 5. Qur'an — Transliteration
+## 4. Qur'an — Transliteration
 
 | Source | Coverage | License |
 |---|---|---|
@@ -129,12 +88,11 @@ existing `transliteration` field convention.
 
 ---
 
-## 6. Delivery strategy — how each dataset should reach the app
+## 5. Delivery strategy
 
-This is the "which approach for each" decision the request asks for. Given the **AsyncStorage /
-no-native-dep** reality:
+Given **AsyncStorage / no-new-native-deps**:
 
-### 6.1 Decision matrix
+### 5.1 Decision matrix
 
 | Content | Size | Query needs | **Recommended delivery** | Why |
 |---|---|---|---|---|
@@ -144,7 +102,7 @@ no-native-dep** reality:
 | **Qur'an audio (per-ayah / per-surah)** | Very large | Stream | **Third-party CDN, streamed** (everyayah.com / QuranicAudio / QUL) | Never bundle audio; stream + optional download-for-offline later. |
 | **Hadith (50k+)** | Large (tens of MB) | Search + browse by book/chapter | **Hybrid:** bundle **Nawawi40** eagerly; **Riyad** via web `import()` / `ensureBundledCollection` (never `require` — Metro embeds it); full collections via CDN API | Full offline Hadith with search really wants SQLite; avoid that unless required (§6.4). Web graph notes: [`PROFILING.md`](./PROFILING.md). |
 
-### 6.2 Bundled JSON pattern (recommended for Qur'an core)
+### 5.2 Bundled JSON pattern (recommended for Qur'an core)
 
 ```
 apps/app/src/assets/quran/
@@ -158,20 +116,20 @@ Load lazily in a repository/hook (`quran-repository.ts`) using `expo-asset` + `f
 cache parsed surahs in memory (React Query or a small LRU). No AsyncStorage bloat — AsyncStorage
 stays for **user data only** (bookmarks, last-read position, reading progress).
 
-### 6.3 What to store in AsyncStorage (user data, not content)
+### 5.3 What to store in AsyncStorage (user data, not content)
 
 Add a `quran` slice: `lastRead {surah, ayah}`, `bookmarks[]`, `khatmah/reading-plan progress`,
 `preferredTranslationId`, `preferredReciterId`. Follow the existing repository pattern
 (`apps/app/src/db/repositories/`), new key under `DB_KEYS`, bump a `QURAN_CONTENT_VERSION`.
 
-### 6.4 If full offline Hadith search becomes a hard requirement
+### 5.4 If full offline Hadith search becomes a hard requirement
 
 Then—and only then—introduce **`expo-sqlite`** (bundled prebuilt `.db`), and ship the Hadith corpus
 as a seeded SQLite database. **This breaks the "no new native deps" rule**, so treat it as an
 explicit, approved exception. See [[no-new-native-deps]]. Until then, prefer **API-backed Hadith +
 bundled highlights**.
 
-### 6.5 On "encrypted built-in data"
+### 5.5 On "encrypted built-in data"
 
 You mentioned possibly encrypting built-in data. **Recommendation: don't encrypt the Qur'an/Hadith
 text.** It's public/openly-licensed — there's no IP reason to hide it, obfuscation only adds bundle
@@ -182,7 +140,7 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
 
 ---
 
-## 7. Hadith
+## 6. Hadith
 
 | Source | Contents | Grades? | License | Verdict |
 |---|---|---|---|---|
@@ -207,7 +165,7 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
 
 ---
 
-## 8. Duas & Adhkar (expand existing → full Hisnul Muslim)
+## 7. Duas & Adhkar (Hisnul Muslim)
 
 | Source | Contents | License | Verdict |
 |---|---|---|---|
@@ -228,7 +186,7 @@ Qur'an/Hadith. Bump `ZIKR_CONTENT_VERSION` / `DUA_CONTENT_VERSION` to trigger re
 
 ---
 
-## 9. Names of Allah (complete the 99)
+## 8. Names of Allah
 
 - Standard **Asma-ul-Husna** list (99) is available in essentially every dataset above
   (fawazahmed0, QUL, muslimKit, awesome-Islam collections) and is uncontroversial.
@@ -238,7 +196,7 @@ Qur'an/Hadith. Bump `ZIKR_CONTENT_VERSION` / `DUA_CONTENT_VERSION` to trigger re
 
 ---
 
-## 10. Audio — for every content type
+## 9. Audio — for every content type
 
 Your content types (`ZikrItem`, `DuaItem`, `DurudItem`, `NameOfAllah`) already carry an `audioUri?`
 field, and `UserPreferences` has `audioSpeed` — so audio is a first-class feature. **Golden rule:
@@ -246,7 +204,7 @@ never bundle audio in the app binary** (it's hundreds of MB). Stream from a CDN 
 `expo-av`/`expo-audio`, with an optional "download for offline" per item/surah later. Cache the
 resolved URLs; store only the user's chosen reciter/qari in AsyncStorage.
 
-### 10.1 Qur'an recitation (Arabic)
+### 9.1 Qur'an recitation (Arabic)
 
 | Source | Granularity | Reciters | License | Use |
 |---|---|---|---|---|
@@ -255,7 +213,7 @@ resolved URLs; store only the user's chosen reciter/qari in AsyncStorage.
 | **QUL (Tarteel)** | Per-ayah/surah **+ segment timestamps** | 71 unsegmented / 57 segmented | Per-resource | ✅ Use its **timing data** for word-by-word/ayah highlighting. |
 | **Al Quran Cloud / Quran.Foundation** | Per-ayah via API (audio editions) | Several | Free | ◻︎ API-driven alternative. |
 
-### 10.2 Translation audio (recited meaning)
+### 9.2 Translation audio (recited meaning)
 
 | Source | Content | Granularity | Note |
 |---|---|---|---|
@@ -263,13 +221,13 @@ resolved URLs; store only the user's chosen reciter/qari in AsyncStorage.
 | **Internet Archive** | Ibrahim Walk **English-only** & Arabic+English combined editions | Per-surah | ✅ Mirror/backup. Saheeh Intl text is copyrighted-but-freely-distributed → credit + verbatim. |
 | Urdu audio translations | Available on QuranicAudio / Archive (various qaris) | Per-surah | ◻︎ Add per audience. |
 
-### 10.3 Transliteration audio — **no separate dataset needed**
+### 9.3 Transliteration audio — **no separate dataset needed**
 
 The transliteration is just the Latin rendering of the **same Arabic sound**, so the **Qur'an
 recitation in §10.1 *is* the transliteration's audio.** Reuse the same reciter URL; no extra source
 required. (Same applies to adhkar/dua/names transliteration → reuse their Arabic audio.)
 
-### 10.4 Duas & Adhkar audio (Hisnul Muslim)
+### 9.4 Duas & Adhkar audio (Hisnul Muslim)
 
 | Source | Content | Format | License |
 |---|---|---|---|
@@ -280,7 +238,7 @@ required. (Same applies to adhkar/dua/names transliteration → reuse their Arab
 → Map each dua/zikr's `audioUri` to the matching Hisnul Muslim track. This directly fills the
 `audioUri?` fields you already have in `ZikrItem`/`DuaItem`.
 
-### 10.5 99 Names of Allah audio
+### 9.5 99 Names of Allah audio
 
 | Source | Content | Note |
 |---|---|---|
@@ -288,7 +246,7 @@ required. (Same applies to adhkar/dua/names transliteration → reuse their Arab
 
 → Fills `NameOfAllah.audioUri`. Use a per-name pronunciation clip so tapping a name plays just that name.
 
-### 10.6 Hadith audio (optional)
+### 9.6 Hadith audio (optional)
 
 | Source | Content | Note |
 |---|---|---|
@@ -298,7 +256,7 @@ required. (Same applies to adhkar/dua/names transliteration → reuse their Arab
 → Realistic scope: attach audio to the **curated highlight sets** (40 Nawawi), not the entire 50k
 corpus. Don't promise per-hadith audio for the full Kutub al-Sittah — it doesn't exist openly.
 
-### 10.7 Prayer times & Qibla (calculated, not audio data)
+### 9.7 Prayer times & Qibla (calculated, not audio data)
 
 - **Prayer times:** keep the on-device **`adhan`** library (already installed) — offline, all major
   methods (MWL, ISNA, Umm al-Qura, Karachi, Egypt…). Fallback: **Aladhan API** (GPL-3.0, free, no key).
@@ -306,7 +264,7 @@ corpus. Don't promise per-hadith audio for the full Kutub al-Sittah — it doesn
   Internet Archive for prayer-time notifications — a single small file, one per style.
 - **Qibla:** keep `expo-location` compass calc.
 
-### 10.8 Audio coverage summary
+### 9.8 Audio coverage summary
 
 | Content | Open audio? | Best source | Granularity |
 |---|---|---|---|
@@ -320,7 +278,7 @@ corpus. Don't promise per-hadith audio for the full Kutub al-Sittah — it doesn
 
 ---
 
-## 11. Licensing & attribution checklist (do before shipping)
+## 10. Licensing & attribution checklist (do before shipping)
 
 | Dataset | License | Obligation |
 |---|---|---|
@@ -339,62 +297,7 @@ Ship a **"Data Sources & Credits"** screen listing every dataset + license + lin
 
 ---
 
-## 12. AI processing pipeline (how to turn sources into app seeds)
-
-When you hand a source to an AI to "process into our local seed", give it this contract:
-
-**1. Target schemas** (align to existing `packages/shared/src/types/`):
-
-```ts
-// Qur'an (new)
-interface Surah { number: number; nameArabic: string; nameEnglish: string;
-  nameTransliteration: string; revelationPlace: "makkah"|"madinah"; ayahCount: number; }
-interface Ayah { surah: number; ayah: number; global: number; // 1..6236
-  arabic: string; juz: number; hizb: number; page: number; sajda: boolean; }
-interface AyahTranslation { surah: number; ayah: number; editionId: string; text: string; }
-interface AyahTransliteration { surah: number; ayah: number; text: string; }
-
-// Hadith (new)
-interface HadithItem { id: string; collection: string; book: string; chapterId: string;
-  number: string; arabic: string; english: string; narrator?: string;
-  grade?: string; gradedBy?: string; reference: string; }
-
-// Adhkar/Dua/Names reuse existing ZikrItem / DuaItem / NameOfAllah shapes.
-```
-
-**2. Processing rules to give the AI:**
-- Preserve Arabic **exactly** (Uthmani diacritics, no normalization, no removing tashkeel).
-- Normalize field names to the target schema; drop editorial footnote markup from translations.
-- Emit **one JSON file per surah / per hadith-book** (lazy-loadable), UTF-8, no BOM.
-- Attach `editionId`, `license`, `attribution`, and a `sourceUrl` to each edition manifest.
-- Produce a **SHA-256** per output file → write to `manifest.json` for integrity checks.
-- Validate: 114 surahs / 6236 ayahs; every ayah has Arabic; translations align by (surah, ayah);
-  every hadith has a `reference`; flag any missing grade.
-- Never invent, "correct", or paraphrase religious text; if a value is missing, leave it null and
-  list it in a `gaps.json` report.
-
-**3. Output layout:** as in §6.2 (`assets/quran/...`, `assets/hadith/<collection>/<book>.json`,
-`content/adhkar.json`) + a top-level `manifest.json` (versions, hashes, licenses).
-
-**4. Wire-up:** add `quran-repository.ts` / `hadith-repository.ts` (lazy asset loaders + React Query
-cache), extend `migrations.ts` to seed/re-seed on version bump, add Settings toggles for
-translation/reciter, and add the Credits screen.
-
----
-
-## 13. Recommended phased roadmap
-
-| Phase | Deliverable | Sources | Delivery |
-|---|---|---|---|
-| **P1 — Expand what exists (low risk, high value)** | Full **Hisnul Muslim** adhkar/duas, complete **99 Names** | Hisn-Muslim-Json, Seen-Arabic ADB, fitrahive | Bundled static content; bump content versions |
-| **P2 — Qur'an reader (core)** | Uthmani mushaf + transliteration + **Pickthall/Yusuf Ali/Jalandhry** (PD) | Tanzil / risan/quran-json | Bundled per-surah JSON assets; new `quran-repository` + AsyncStorage user slice (last-read, bookmarks) |
-| **P3 — Qur'an enrichment** | Extra translations (**Saheeh Intl, Khattab**), tafsir, **audio** | Quran.Foundation / fawazahmed0 / Al Quran Cloud; everyayah/QuranicAudio | Live CDN/API + React Query cache; streamed audio |
-| **P4 — Hadith** | Browse Six Books + **40 Nawawi / Riyad as-Salihin** offline highlights, with **grades** | sunnah.com API + bundled highlights | Bundled highlights JSON + API for full corpus (SQLite only if offline search is mandated) |
-| **P5 — Polish** | Data Sources & Credits screen, integrity hashes, word-by-word study view | QUL word-by-word | Bundled/QUL |
-
----
-
-## 14. Quick-reference source list
+## 11. Quick-reference source list
 
 - **Tanzil** (Qur'an text/translit/translations, CC BY): https://tanzil.net/download/
 - **QUL / Tarteel** (everything hub): https://qul.tarteel.ai/
@@ -427,8 +330,7 @@ translation/reciter, and add the Credits screen.
   per-surah JSON (offline core). **Extra/copyrighted translations, tafsir, audio →** live via
   **fawazahmed0 / Quran.Foundation / everyayah** CDNs.
 - **Hadith →** **sunnah.com API** (authoritative, with grades) + small **bundled highlights**.
-- **Duas/Adhkar/99 Names →** **bundle** processed **Hisnul Muslim** into existing content files —
-  do this first.
+- **Duas/Adhkar/99 Names →** **bundle** processed **Hisnul Muslim** (already shipping; extend via OSS only).
 - **Prayer times →** keep `adhan` on-device; **Aladhan** as fallback.
 - **Audio (all types) →** never bundle; **stream from CDN** (everyayah/QuranicAudio for Qur'an +
   translation, Internet Archive for Hisnul Muslim / 99 Names / 40-Nawawi), optional offline download
@@ -439,9 +341,8 @@ translation/reciter, and add the Credits screen.
 
 ---
 
-## Implementation status (data ingestion)
+## 12. Current shipped state
 
-Implemented per `DATA_INGESTION.md` — all §13 gates green (types, biome, jest+vitest):
 
 - **Qur'an core (bundled, offline):** Arabic (Uthmani) + English transliteration + Pickthall +
   Yusuf Ali + Jalandhry (Urdu), validated at 114 surahs / 6236 ayahs. Assets under
@@ -451,20 +352,16 @@ Implemented per `DATA_INGESTION.md` — all §13 gates green (types, biome, jest
   fawazahmed0, cache-first over AsyncStorage (offline after first open).
 - **Hadith:** bundled highlights (40 Nawawi, Riyad as-Salihin) offline + full six books via
   fawazahmed0 CDN (cache-first). Reference + grade always shown ("Ungraded" when absent).
-- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas
-  now ship the full Hisnul Muslim corpus (~266 supplications) across 16 situational/source
-  categories** — sourced verbatim from the `sheikhhanif/Hisnul_Muslim_Database` CSV (Arabic +
-  translation + reference + per-item audio), chapters mapped to categories in `build-adhkar.mjs`.
-  Transliteration is optional (only where a clean open source provides it; never auto-generated).
+- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas:** full Hisnul Muslim corpus (~266) across 16 categories — sourced from `sheikhhanif/Hisnul_Muslim_Database` CSV via `build-adhkar.mjs`. Transliteration only where a clean OSS source provides it (never auto-generated).
 - **Credits screen** renders from `assets/data/manifest.json` (SHA-256 per file) + runtime sources.
 - **Build pipeline:** `pnpm --filter app build:data` (dev/CI only) — cached fetch, validation,
   deterministic committed output.
 
-**Deferred (needs a maintainer-supplied binary + prebuild):** the bundled adhan-call MP3 (D11) — see
+**Still open:** bundled adhan-call MP3 (D11) — see
 `apps/app/assets/audio/adhan/README.md`. Content audio (`audioUri`, D9) infrastructure is wired but
 play controls stay hidden until real per-item audio URLs are supplied (nothing fabricated).
 
-## Extending translations & reciters (NF-1.12)
+## 13. Extending translations & reciters
 
 - **Reciters** (`apps/app/src/lib/quran-audio.ts` `RECITERS`): per-ayah audio from
   [everyayah.com](https://everyayah.com). Add an entry `{ dir, name }` where `dir` is the reciter's

@@ -1,5 +1,3 @@
-import { SALAH_GUIDE_TOPICS } from "@munib-tracker/shared/content/salah-guide";
-
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 
@@ -19,6 +17,7 @@ export const salahGuideProgressStore = createStore<SalahGuideProgressState>((set
 
   async load() {
     const stored = await readJSON<string[]>(DB_KEYS.salahGuideProgress, []);
+    const { SALAH_GUIDE_TOPICS } = await import("@munib-tracker/shared/content/salah-guide");
     const valid = new Set(SALAH_GUIDE_TOPICS.map((topic) => topic.id));
     const completedTopicIds = stored.filter((id) => valid.has(id));
     set({ completedTopicIds, isReady: true });

@@ -1,7 +1,7 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { type ReactNode, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
@@ -42,7 +42,11 @@ import {
   QURAN_TOTAL_PAGES,
   scheduleGap,
 } from "@/lib/khatm";
-import { dayMotivationSeed, pickKhatmMotivation } from "@/lib/khatm-motivation";
+import {
+  dayMotivationSeed,
+  pickKhatmMotivation,
+  type ResolvedKhatmMotivation,
+} from "@/lib/khatm-motivation";
 import { goBackOrReplace } from "@/lib/navigation";
 import { pageToStartAyah } from "@/lib/quran";
 import { chevronForward } from "@/lib/rtl";
@@ -71,7 +75,22 @@ function paceTone(pace: KhatmPace, tokens: ReturnType<typeof useThemeTokens>["to
 function KhatmMotivationCard({ seed, onShuffle }: { seed: number; onShuffle: () => void }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const motivation = useMemo(() => pickKhatmMotivation(seed, t), [seed, t]);
+  const [motivation, setMotivation] = useState<ResolvedKhatmMotivation>(() => ({
+    key: "loading",
+    kind: "quote",
+    body: t("khatm.motivationQuote.steady.text"),
+    reference: t("khatm.motivationQuote.steady.source"),
+  }));
+
+  useEffect(() => {
+    let cancelled = false;
+    void pickKhatmMotivation(seed, t).then((resolved) => {
+      if (!cancelled) setMotivation(resolved);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [seed, t]);
 
   const kindLabel =
     motivation.kind === "hadith"

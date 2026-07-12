@@ -7,7 +7,6 @@ import {
   Text,
   View,
 } from "react-native";
-import Animated, { FadeIn } from "react-native-reanimated";
 
 import { Spacing } from "@/constants/theme";
 import i18n from "@/i18n";
@@ -23,11 +22,9 @@ const ACCENT = "#059669";
 
 /**
  * Content-space placeholder while Expo Router async-route chunks bundle/load.
- * Replaces expo-router's default (tiny "Bundling…" toast in dev, blank in prod)
- * via Metro alias so the chrome stays and the body never feels stuck.
- *
- * Intentionally avoids `useTheme` / `useTranslation` so it still works if the
- * root layout chunk itself is the one suspending (providers not mounted yet).
+ * Intentionally avoids Reanimated, `useTheme`, and `useTranslation` so the
+ * fallback stays cheap on the critical path (providers / heavy graph may still
+ * be loading).
  */
 export function SuspenseFallback(_props: SuspenseFallbackProps) {
   const scheme = useColorSchemeSafe();
@@ -35,8 +32,7 @@ export function SuspenseFallback(_props: SuspenseFallbackProps) {
   const title = i18n.t("common.loadingRoute");
 
   return (
-    <Animated.View
-      entering={FadeIn.duration(220)}
+    <View
       style={[styles.root, { backgroundColor: palette.background }]}
       accessibilityRole="progressbar"
       accessibilityLabel={title}
@@ -46,7 +42,7 @@ export function SuspenseFallback(_props: SuspenseFallbackProps) {
         <ActivityIndicator color={ACCENT} />
         <Text style={[styles.title, { color: palette.foreground }]}>{title}</Text>
       </View>
-    </Animated.View>
+    </View>
   );
 }
 

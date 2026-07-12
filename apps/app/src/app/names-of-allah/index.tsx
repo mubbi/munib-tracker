@@ -1,7 +1,7 @@
-import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
+import type { NameOfAllah } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { memo, useCallback, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FlatList,
@@ -29,6 +29,7 @@ import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
+import { loadNamesOfAllah } from "@/lib/content-loaders";
 import { buildNamesActivity } from "@/lib/continue-activity";
 import { cueStartSec, isNamesCompleteTrack, nameIdAtCueTime } from "@/lib/names-complete-cues";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -48,10 +49,7 @@ const NAMES_HREF = "/names-of-allah";
 const NAME_ROW_HEIGHT = 196;
 /** Play-all header card + search + bottom margin. */
 const NAMES_LIST_HEADER_HEIGHT = 272;
-/** Canonical 1..99 number per name, stable regardless of any search filter. */
-const NUMBER_BY_ID = new Map(NAMES_OF_ALLAH.map((name, index) => [name.id, index + 1]));
-
-type Name = (typeof NAMES_OF_ALLAH)[number];
+type Name = NameOfAllah;
 
 export default function NamesOfAllahScreen() {
   const router = useRouter();
@@ -67,8 +65,16 @@ export default function NamesOfAllahScreen() {
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const [query, setQuery] = useState("");
-  const index = useMemo(() => createNameSearch(NAMES_OF_ALLAH), []);
-  const names = query.trim() ? index.search(query) : NAMES_OF_ALLAH;
+  const [allNames, setAllNames] = useState<Name[]>([]);
+  useEffect(() => {
+    void loadNamesOfAllah().then(setAllNames);
+  }, []);
+  const index = useMemo(() => createNameSearch(allNames), [allNames]);
+  const names = query.trim() ? index.search(query) : allNames;
+  const numberById = useMemo(
+    () => new Map(allNames.map((name, index) => [name.id, index + 1])),
+    [allNames],
+  );
 
   // Reading progress from scroll position. `getItemLayout` gives the list an
   // exact content size, so pixel offset over the scrollable range is accurate
@@ -114,11 +120,11 @@ export default function NamesOfAllahScreen() {
 
   const playFrom = useCallback(
     (name: Name) => {
-      const position = NAMES_OF_ALLAH.findIndex((n) => n.id === name.id);
-      audio.play(allNameTracks(NAMES_OF_ALLAH), Math.max(0, position), { sourceHref: NAMES_HREF });
+      const position = allNames.findIndex((n) => n.id === name.id);
+      audio.play(allNameTracks(allNames), Math.max(0, position), { sourceHref: NAMES_HREF });
       recordContinueActivity(buildNamesActivity(name, { isAudio: true }));
     },
-    [audio],
+    [allNames, audio],
   );
 
   /** Play one name, or seek within the continuous recitation when it is active. */
@@ -186,7 +192,7 @@ export default function NamesOfAllahScreen() {
             <Button
               label={t("names.playAll")}
               icon={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
-              onPress={() => playFrom(NAMES_OF_ALLAH[0])}
+              onPress={() => allNames[0] && playFrom(allNames[0])}
               style={styles.flex}
             />
             <Button
@@ -224,6 +230,7 @@ export default function NamesOfAllahScreen() {
       colors.mutedForeground,
       favoriteIds.length,
       playFrom,
+      allNames,
       query,
       router,
       t,
@@ -256,10 +263,11 @@ export default function NamesOfAllahScreen() {
           isSharing={isSharing}
           isGesturePending={isGesturePending}
           onTogglePlayback={audio.toggle}
+          number={numberById.get(name.id)}
         />
       );
     },
-    [audio.toggle, isGesturePending, isSharing, playName, shareName, toggle],
+    [audio.toggle, isGesturePending, isSharing, numberById, playName, shareName, toggle],
   );
 
   return (
@@ -267,7 +275,7 @@ export default function NamesOfAllahScreen() {
       scrollable={false}
       eyebrow={t("names.eyebrow")}
       title={t("names.title")}
-      subtitle={t("names.subtitle", { count: NAMES_OF_ALLAH.length })}
+      subtitle={t("names.subtitle", { count: allNames.length })}
       onBack={() => goBackOrReplace(router, "/")}
       headerAccessory={
         <ReadingProgressBar
@@ -333,6 +341,7 @@ const NameRow = memo(function NameRow({
   isSharing,
   isGesturePending,
   onTogglePlayback,
+  number,
 }: {
   name: Name;
   isPlaying: boolean;
@@ -344,6 +353,7 @@ const NameRow = memo(function NameRow({
   isSharing: (shareKey: string) => boolean;
   isGesturePending: (shareKey: string) => boolean;
   onTogglePlayback: () => void;
+  number?: number;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -376,7 +386,7 @@ const NameRow = memo(function NameRow({
         <View style={styles.cardHeader}>
           <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
             <ThemedText type="caption" style={{ color: colors.accentText }}>
-              {NUMBER_BY_ID.get(name.id)}
+              {number}
             </ThemedText>
           </View>
           <ThemedText type="arabic" style={styles.arabic}>

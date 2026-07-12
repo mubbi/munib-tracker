@@ -25,7 +25,7 @@ import {
 import { readCustomTasbeehBlob } from "@/stores/custom-tasbeeh-store";
 import { applyRemoteDuaFavorites, readDuaFavoritesBlob } from "@/stores/dua-favorites-store";
 
-import { runSync } from "./sync-engine";
+import { __setBlobSyncModuleForTests, runSync } from "./sync-engine";
 
 // jest.mock is hoisted above the imports by babel-jest, so the endpoints module
 // is mocked before sync-engine (and this file) import it.
@@ -37,6 +37,10 @@ jest.mock("@/api/endpoints", () => ({
 jest.mock("@/lib/cloud-api-reload-gate", () => ({
   isAppReloadInProgress: jest.fn(() => false),
 }));
+
+// Jest can't `import()` without --experimental-vm-modules; inject blob-sync after
+// mocks so suite-level mocks still apply (do not require sync-engine from jest.setup).
+__setBlobSyncModuleForTests(require("./blob-sync") as typeof import("./blob-sync"));
 
 const mockPush = syncPush as jest.MockedFunction<typeof syncPush>;
 const mockPull = syncPull as jest.MockedFunction<typeof syncPull>;

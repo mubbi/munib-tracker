@@ -1,4 +1,4 @@
-import type { ZakatGuideSectionKey } from "@munib-tracker/shared/content";
+import type { ZakatGuideSectionKey } from "@munib-tracker/shared/content/zakat-guide";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 
 export const ZAKAT_TOPIC_ICONS: Record<ZakatGuideSectionKey, AppIcon> = {

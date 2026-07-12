@@ -1,5 +1,5 @@
-import { getDuaById } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -12,6 +12,7 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { loadDuaItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
@@ -26,8 +27,14 @@ export default function DuaFavoritesScreen() {
   useEnsureDuaFavoritesLoaded();
   const order = useFavoriteDuaIds();
   const { setOrder, toggle } = useDuaFavoritesActions();
+  const [duaItems, setDuaItems] = useState<Awaited<ReturnType<typeof loadDuaItems>>>([]);
+  useEffect(() => {
+    void loadDuaItems().then(setDuaItems);
+  }, []);
 
-  const items = order.map((id) => getDuaById(id)).filter((item) => item != null);
+  const items = order
+    .map((id) => duaItems.find((item) => item.id === id))
+    .filter((item) => item != null);
 
   const move = (index: number, direction: -1 | 1) => {
     const target = index + direction;

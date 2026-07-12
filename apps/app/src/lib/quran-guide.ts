@@ -1,27 +1,53 @@
-import {
-  QURAN_GUIDE_APPLY_CHALLENGES,
-  QURAN_GUIDE_DAILY_LESSONS,
-  QURAN_GUIDE_JOURNEY_ORDER,
-  QURAN_GUIDE_LETTERS,
-  QURAN_GUIDE_MEMORIZATION_PLANS,
-  QURAN_GUIDE_PRONUNCIATION,
-  QURAN_GUIDE_QUIZ,
-  QURAN_GUIDE_READING_LEVELS,
-  QURAN_GUIDE_STORIES,
-  QURAN_GUIDE_STRUCTURE_LEVELS,
-  QURAN_GUIDE_TADABBUR_PROMPTS,
-  QURAN_GUIDE_TAJWEED,
-  QURAN_GUIDE_THEMES,
-  QURAN_GUIDE_TIMELINE,
-  QURAN_GUIDE_TOPICS,
-  QURAN_GUIDE_VOCABULARY,
-} from "@munib-tracker/shared/content";
 import type { QuranGuideJourney, QuranGuideTopic } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
 
+type QuranGuideContent = typeof import("@munib-tracker/shared/content/quran-guide") &
+  typeof import("@munib-tracker/shared/content/quran-guide-apply") &
+  typeof import("@munib-tracker/shared/content/quran-guide-daily") &
+  typeof import("@munib-tracker/shared/content/quran-guide-letters") &
+  typeof import("@munib-tracker/shared/content/quran-guide-memorization") &
+  typeof import("@munib-tracker/shared/content/quran-guide-pronunciation") &
+  typeof import("@munib-tracker/shared/content/quran-guide-quiz") &
+  typeof import("@munib-tracker/shared/content/quran-guide-learn-to-read") &
+  typeof import("@munib-tracker/shared/content/quran-guide-stories") &
+  typeof import("@munib-tracker/shared/content/quran-guide-structure") &
+  typeof import("@munib-tracker/shared/content/quran-guide-tadabbur") &
+  typeof import("@munib-tracker/shared/content/quran-guide-tajweed") &
+  typeof import("@munib-tracker/shared/content/quran-guide-themes") &
+  typeof import("@munib-tracker/shared/content/quran-guide-timeline") &
+  typeof import("@munib-tracker/shared/content/quran-guide-vocabulary");
+let contentCache: QuranGuideContent | undefined;
+export async function ensureQuranGuideContent(): Promise<QuranGuideContent> {
+  if (!contentCache) {
+    const modules = await Promise.all([
+      import("@munib-tracker/shared/content/quran-guide"),
+      import("@munib-tracker/shared/content/quran-guide-apply"),
+      import("@munib-tracker/shared/content/quran-guide-daily"),
+      import("@munib-tracker/shared/content/quran-guide-letters"),
+      import("@munib-tracker/shared/content/quran-guide-memorization"),
+      import("@munib-tracker/shared/content/quran-guide-pronunciation"),
+      import("@munib-tracker/shared/content/quran-guide-quiz"),
+      import("@munib-tracker/shared/content/quran-guide-learn-to-read"),
+      import("@munib-tracker/shared/content/quran-guide-stories"),
+      import("@munib-tracker/shared/content/quran-guide-structure"),
+      import("@munib-tracker/shared/content/quran-guide-tadabbur"),
+      import("@munib-tracker/shared/content/quran-guide-tajweed"),
+      import("@munib-tracker/shared/content/quran-guide-themes"),
+      import("@munib-tracker/shared/content/quran-guide-timeline"),
+      import("@munib-tracker/shared/content/quran-guide-vocabulary"),
+    ]);
+    contentCache = Object.assign({}, ...modules) as QuranGuideContent;
+  }
+  return contentCache;
+}
+function content(): Partial<QuranGuideContent> {
+  if (!contentCache) void ensureQuranGuideContent();
+  return contentCache ?? {};
+}
+
 export function getQuranGuideTopics(): QuranGuideTopic[] {
-  return localizeList(QURAN_GUIDE_TOPICS, overlayList("QURAN_GUIDE_TOPICS"));
+  return localizeList(content().QURAN_GUIDE_TOPICS ?? [], overlayList("QURAN_GUIDE_TOPICS"));
 }
 
 export function getQuranGuideTopic(id: string | undefined): QuranGuideTopic | undefined {
@@ -30,7 +56,7 @@ export function getQuranGuideTopic(id: string | undefined): QuranGuideTopic | un
 
 export function getQuranGuideTopicsByJourney(): Record<QuranGuideJourney, QuranGuideTopic[]> {
   const grouped = Object.fromEntries(
-    QURAN_GUIDE_JOURNEY_ORDER.map((phase) => [phase, [] as QuranGuideTopic[]]),
+    (content().QURAN_GUIDE_JOURNEY_ORDER ?? []).map((phase) => [phase, [] as QuranGuideTopic[]]),
   ) as Record<QuranGuideJourney, QuranGuideTopic[]>;
 
   for (const topic of getQuranGuideTopics()) {
@@ -40,19 +66,22 @@ export function getQuranGuideTopicsByJourney(): Record<QuranGuideJourney, QuranG
 }
 
 export function getQuranGuideLessonCount(): number {
-  return QURAN_GUIDE_TOPICS.filter((t) => !t.comingSoon).length;
+  return (content().QURAN_GUIDE_TOPICS ?? []).filter((t) => !t.comingSoon).length;
 }
 
 export function getQuranGuideTimeline() {
-  return localizeList(QURAN_GUIDE_TIMELINE, overlayList("QURAN_GUIDE_TIMELINE"));
+  return localizeList(content().QURAN_GUIDE_TIMELINE ?? [], overlayList("QURAN_GUIDE_TIMELINE"));
 }
 
 export function getQuranGuideStructureLevels() {
-  return localizeList(QURAN_GUIDE_STRUCTURE_LEVELS, overlayList("QURAN_GUIDE_STRUCTURE_LEVELS"));
+  return localizeList(
+    content().QURAN_GUIDE_STRUCTURE_LEVELS ?? [],
+    overlayList("QURAN_GUIDE_STRUCTURE_LEVELS"),
+  );
 }
 
 export function getQuranGuideThemes() {
-  return localizeList(QURAN_GUIDE_THEMES, overlayList("QURAN_GUIDE_THEMES"));
+  return localizeList(content().QURAN_GUIDE_THEMES ?? [], overlayList("QURAN_GUIDE_THEMES"));
 }
 
 export function getQuranGuideTheme(id: string | undefined) {
@@ -60,11 +89,14 @@ export function getQuranGuideTheme(id: string | undefined) {
 }
 
 export function getQuranGuideVocabulary() {
-  return localizeList(QURAN_GUIDE_VOCABULARY, overlayList("QURAN_GUIDE_VOCABULARY"));
+  return localizeList(
+    content().QURAN_GUIDE_VOCABULARY ?? [],
+    overlayList("QURAN_GUIDE_VOCABULARY"),
+  );
 }
 
 export function getQuranGuideStories() {
-  return localizeList(QURAN_GUIDE_STORIES, overlayList("QURAN_GUIDE_STORIES"));
+  return localizeList(content().QURAN_GUIDE_STORIES ?? [], overlayList("QURAN_GUIDE_STORIES"));
 }
 
 export function getQuranGuideStory(id: string | undefined) {
@@ -72,7 +104,7 @@ export function getQuranGuideStory(id: string | undefined) {
 }
 
 export function getQuranGuideTajweedLessons() {
-  return localizeList(QURAN_GUIDE_TAJWEED, overlayList("QURAN_GUIDE_TAJWEED"));
+  return localizeList(content().QURAN_GUIDE_TAJWEED ?? [], overlayList("QURAN_GUIDE_TAJWEED"));
 }
 
 export function getQuranGuideTajweedLesson(id: string | undefined) {
@@ -80,26 +112,35 @@ export function getQuranGuideTajweedLesson(id: string | undefined) {
 }
 
 export function getQuranGuideLetters() {
-  return localizeList(QURAN_GUIDE_LETTERS, overlayList("QURAN_GUIDE_LETTERS"));
+  return localizeList(content().QURAN_GUIDE_LETTERS ?? [], overlayList("QURAN_GUIDE_LETTERS"));
 }
 
 export function getQuranGuidePronunciationPairs() {
-  return localizeList(QURAN_GUIDE_PRONUNCIATION, overlayList("QURAN_GUIDE_PRONUNCIATION"));
+  return localizeList(
+    content().QURAN_GUIDE_PRONUNCIATION ?? [],
+    overlayList("QURAN_GUIDE_PRONUNCIATION"),
+  );
 }
 
 export function getQuranGuideReadingLevels() {
-  return localizeList(QURAN_GUIDE_READING_LEVELS, overlayList("QURAN_GUIDE_READING_LEVELS"));
+  return localizeList(
+    content().QURAN_GUIDE_READING_LEVELS ?? [],
+    overlayList("QURAN_GUIDE_READING_LEVELS"),
+  );
 }
 
 export function getQuranGuideMemorizationPlans() {
   return localizeList(
-    QURAN_GUIDE_MEMORIZATION_PLANS,
+    content().QURAN_GUIDE_MEMORIZATION_PLANS ?? [],
     overlayList("QURAN_GUIDE_MEMORIZATION_PLANS"),
   );
 }
 
 export function getQuranGuideDailyLessons() {
-  return localizeList(QURAN_GUIDE_DAILY_LESSONS, overlayList("QURAN_GUIDE_DAILY_LESSONS"));
+  return localizeList(
+    content().QURAN_GUIDE_DAILY_LESSONS ?? [],
+    overlayList("QURAN_GUIDE_DAILY_LESSONS"),
+  );
 }
 
 /** Deterministic daily lesson from day-of-year. */
@@ -112,7 +153,10 @@ export function getQuranGuideDailyLessonForDate(date = new Date()) {
 }
 
 export function getQuranGuideApplyChallenges() {
-  return localizeList(QURAN_GUIDE_APPLY_CHALLENGES, overlayList("QURAN_GUIDE_APPLY_CHALLENGES"));
+  return localizeList(
+    content().QURAN_GUIDE_APPLY_CHALLENGES ?? [],
+    overlayList("QURAN_GUIDE_APPLY_CHALLENGES"),
+  );
 }
 
 /** Deterministic daily challenge from day-of-year. */
@@ -125,11 +169,14 @@ export function getQuranGuideApplyChallengeForDate(date = new Date()) {
 }
 
 export function getQuranGuideTadabburPrompts() {
-  return localizeList(QURAN_GUIDE_TADABBUR_PROMPTS, overlayList("QURAN_GUIDE_TADABBUR_PROMPTS"));
+  return localizeList(
+    content().QURAN_GUIDE_TADABBUR_PROMPTS ?? [],
+    overlayList("QURAN_GUIDE_TADABBUR_PROMPTS"),
+  );
 }
 
 export function getQuranGuideQuiz() {
-  return localizeList(QURAN_GUIDE_QUIZ, overlayList("QURAN_GUIDE_QUIZ"));
+  return localizeList(content().QURAN_GUIDE_QUIZ ?? [], overlayList("QURAN_GUIDE_QUIZ"));
 }
 
 /** Hub route for a topic id — dedicated screens vs generic article. */

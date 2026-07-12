@@ -1,5 +1,5 @@
 import { type Href, useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
@@ -20,6 +20,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
+  ensureJannahContent,
   getJannahFirdawsDua,
   getJannahHubTopics,
   getJannahPathTopics,
@@ -40,6 +41,10 @@ export default function JannahScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const [, setContentReady] = useState(false);
+  useEffect(() => {
+    void ensureJannahContent().then(() => setContentReady(true));
+  }, []);
   const hubTopics = getJannahHubTopics();
   const pathTopics = getJannahPathTopics();
   const promised = getJannahPromised();
@@ -138,13 +143,15 @@ export default function JannahScreen() {
           </View>
         </Card>
 
-        <JannahDuaBlock
-          title={t("jannah.firdawsCardTitle")}
-          arabic={firdawsDua.arabic}
-          transliteration={firdawsDua.transliteration}
-          translation={firdawsDua.translation}
-          reference={firdawsDua.reference}
-        />
+        {firdawsDua ? (
+          <JannahDuaBlock
+            title={t("jannah.firdawsCardTitle")}
+            arabic={firdawsDua.arabic}
+            transliteration={firdawsDua.transliteration}
+            translation={firdawsDua.translation}
+            reference={firdawsDua.reference}
+          />
+        ) : null}
 
         <Card padding="three">
           <SectionHeader

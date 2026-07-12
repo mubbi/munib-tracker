@@ -20,6 +20,7 @@ import {
   searchZikrList,
   tokenize,
 } from "@/lib/search";
+import { searchLightWithGuides } from "@/lib/search-with-guides";
 import { zikrByCategory } from "@/lib/zikr";
 
 describe("normalize", () => {
@@ -84,7 +85,7 @@ describe("searchLight", () => {
   });
 
   it("finds Journey to Jannah topics", () => {
-    const groups = searchLight("firdaws");
+    const groups = searchLightWithGuides("firdaws");
     const jannah = groups.find((g) => g.category === "jannah");
     expect(jannah).toBeDefined();
     expect(jannah?.results.some((r) => r.params?.topic === "al-firdaws")).toBe(true);

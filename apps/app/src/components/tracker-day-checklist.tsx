@@ -1,6 +1,7 @@
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type { ExcusedReason, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
@@ -14,14 +15,14 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Spacing } from "@/constants/theme";
 import { afterSalahProgressForPrayer } from "@/lib/after-salah-adhkar-progress";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
-import { zikrCategories } from "@/lib/zikr";
+import { ensureZikrCorpus, zikrCategories } from "@/lib/zikr";
 
-const SALAH_ADHKAR = (() => {
+function salahAdhkarCategories() {
   const byId = new Map(zikrCategories().map((category) => [category.id, category]));
   return (["after_azan", "before_prayer", "after_prayer"] as const)
     .map((id) => byId.get(id))
     .filter((category): category is NonNullable<typeof category> => category != null);
-})();
+}
 
 export type TrackerDayChecklistProps = {
   date: string;
@@ -51,6 +52,17 @@ export function TrackerDayChecklist({
 }: TrackerDayChecklistProps) {
   const router = useRouter();
   const { t } = useTranslation();
+  const [, setZikrReady] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    void ensureZikrCorpus().then(() => {
+      if (active) setZikrReady(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const openAfterSalah = (prayerId: Parameters<typeof afterSalahAdhkarRoute>[0]) => {
     if (!isToday) return;
@@ -128,7 +140,7 @@ export function TrackerDayChecklist({
           {t("tracker.salahAdhkarSubtitle")}
         </ThemedText>
         <View style={styles.rows}>
-          {SALAH_ADHKAR.map((category) => (
+          {salahAdhkarCategories().map((category) => (
             <NavRow
               key={category.id}
               icon={category.icon}

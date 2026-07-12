@@ -9,7 +9,7 @@ import type {
 } from "@munib-tracker/shared/types";
 import type Fuse from "fuse.js";
 
-import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
+import { ensureBundledCollection, getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { getSurahMeta } from "@/lib/quran-meta";
 import {
   createFuzzyIndex,
@@ -86,14 +86,64 @@ let zikrItemsCache: ZikrItem[] | undefined;
 let duroodItemsCache: DurudItem[] | undefined;
 let namesCache: NameOfAllah[] | undefined;
 
+/** Jest-only: inject corpora without production modules `require()`-ing content. */
+export function __setSearchCorporaForTests(corpora: {
+  duas?: DuaItem[];
+  zikr?: ZikrItem[];
+  duroods?: DurudItem[];
+  names?: NameOfAllah[];
+}): void {
+  if (corpora.duas) {
+    duaItemsCache = corpora.duas;
+    duaFuse = null;
+  }
+  if (corpora.zikr) {
+    zikrItemsCache = corpora.zikr;
+    zikrFuse = null;
+  }
+  if (corpora.duroods) {
+    duroodItemsCache = corpora.duroods;
+    duroodFuse = null;
+  }
+  if (corpora.names) {
+    namesCache = corpora.names;
+    nameFuse = null;
+    namePosition = null;
+  }
+}
+
+type GuideGroupsFn = (
+  query: string,
+  perGroupLimit: number,
+) => Record<
+  | "jannah"
+  | "jahannam"
+  | "lastDay"
+  | "salahGuide"
+  | "battles"
+  | "taharah"
+  | "prophets"
+  | "aqeedah"
+  | "learnDua"
+  | "learnQuran",
+  { results: SearchResult[]; total: number }
+>;
+
+let searchGuideGroupsForTests: GuideGroupsFn | undefined;
+let quranModuleForTests: typeof import("@/lib/quran") | undefined;
+
+/** Jest-only: avoid `await import("./search-guides")` (needs experimental-vm-modules). */
+export function __setSearchGuideGroupsForTests(fn: GuideGroupsFn): void {
+  searchGuideGroupsForTests = fn;
+}
+
+/** Jest-only: inject `@/lib/quran` for ayah index / knowledge card without `require` in prod. */
+export function __setQuranModuleForTests(mod: typeof import("@/lib/quran")): void {
+  quranModuleForTests = mod;
+}
+
 async function ensureDuaItems(): Promise<DuaItem[]> {
   if (duaItemsCache) return duaItemsCache;
-  if (process.env.NODE_ENV === "test") {
-    // Literal require — Metro rejects `require(variable)` even in dead test branches.
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
-    duaItemsCache = require("@munib-tracker/shared/content/duas").DUA_ITEMS as DuaItem[];
-    return duaItemsCache;
-  }
   const mod = await import("@munib-tracker/shared/content/duas");
   duaItemsCache = mod.DUA_ITEMS;
   duaFuse = null;
@@ -102,11 +152,6 @@ async function ensureDuaItems(): Promise<DuaItem[]> {
 
 async function ensureZikrItems(): Promise<ZikrItem[]> {
   if (zikrItemsCache) return zikrItemsCache;
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
-    zikrItemsCache = require("@munib-tracker/shared/content/zikr").ZIKR_ITEMS as ZikrItem[];
-    return zikrItemsCache;
-  }
   const mod = await import("@munib-tracker/shared/content/zikr");
   zikrItemsCache = mod.ZIKR_ITEMS;
   zikrFuse = null;
@@ -115,11 +160,6 @@ async function ensureZikrItems(): Promise<ZikrItem[]> {
 
 async function ensureDuroodItems(): Promise<DurudItem[]> {
   if (duroodItemsCache) return duroodItemsCache;
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
-    duroodItemsCache = require("@munib-tracker/shared/content/duroods").DUROOD_ITEMS as DurudItem[];
-    return duroodItemsCache;
-  }
   const mod = await import("@munib-tracker/shared/content/duroods");
   duroodItemsCache = mod.DUROOD_ITEMS;
   duroodFuse = null;
@@ -128,62 +168,46 @@ async function ensureDuroodItems(): Promise<DurudItem[]> {
 
 async function ensureNames(): Promise<NameOfAllah[]> {
   if (namesCache) return namesCache;
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
-    namesCache = require("@munib-tracker/shared/content/names").NAMES_OF_ALLAH as NameOfAllah[];
-    return namesCache;
-  }
   const mod = await import("@munib-tracker/shared/content/names");
   namesCache = mod.NAMES_OF_ALLAH;
   nameFuse = null;
+  namePosition = null;
   return namesCache;
 }
 
-/** Warm dua/zikr/names/duroods chunks before the user types (search screens). */
+/** Warm dua/zikr/names/duroods + Nawawi hadith chunks before the user types (search screens). */
 export async function preloadSearchCorpora(): Promise<void> {
-  await Promise.all([ensureDuaItems(), ensureZikrItems(), ensureDuroodItems(), ensureNames()]);
+  await Promise.all([
+    ensureDuaItems(),
+    ensureZikrItems(),
+    ensureDuroodItems(),
+    ensureNames(),
+    ensureBundledCollection("nawawi40"),
+  ]);
+  // Rebuild hadith fuse once Nawawi is available.
+  hadithFuse = null;
 }
 
 function loadDuaItems(): DuaItem[] {
   if (duaItemsCache) return duaItemsCache;
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
-    duaItemsCache = require("@munib-tracker/shared/content/duas").DUA_ITEMS as DuaItem[];
-    return duaItemsCache;
-  }
   void ensureDuaItems();
   return [];
 }
 
 function loadZikrItems(): ZikrItem[] {
   if (zikrItemsCache) return zikrItemsCache;
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
-    zikrItemsCache = require("@munib-tracker/shared/content/zikr").ZIKR_ITEMS as ZikrItem[];
-    return zikrItemsCache;
-  }
   void ensureZikrItems();
   return [];
 }
 
 function loadDuroodItems(): DurudItem[] {
   if (duroodItemsCache) return duroodItemsCache;
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
-    duroodItemsCache = require("@munib-tracker/shared/content/duroods").DUROOD_ITEMS as DurudItem[];
-    return duroodItemsCache;
-  }
   void ensureDuroodItems();
   return [];
 }
 
 function loadNames(): NameOfAllah[] {
   if (namesCache) return namesCache;
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS sync path
-    namesCache = require("@munib-tracker/shared/content/names").NAMES_OF_ALLAH as NameOfAllah[];
-    return namesCache;
-  }
   void ensureNames();
   return [];
 }
@@ -442,11 +466,8 @@ export function clearAyahIndex(): void {
  */
 function getAyahFuse(): Fuse<FuseDoc<AyahRef>> {
   if (ayahFuse) return ayahFuse;
-  // Sync path for tests / after warm; production first call uses ensureAyahFuse.
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const quran = require("@/lib/quran") as typeof import("@/lib/quran");
-    ayahFuse = buildAyahFuse(quran);
+  if (quranModuleForTests) {
+    ayahFuse = buildAyahFuse(quranModuleForTests);
     return ayahFuse;
   }
   throw new Error("Ayah index not ready — call ensureAyahFuse() first");
@@ -479,14 +500,7 @@ function buildAyahFuse(quran: typeof import("@/lib/quran")): Fuse<FuseDoc<AyahRe
 /** Ensure the heavy ayah Fuse index is built (loads Qur'an JSON chunk on web). */
 export async function ensureAyahFuse(): Promise<void> {
   if (ayahFuse) return;
-  // Jest CJS: sync loader in a separate module (DCE'd from production).
-  const quran =
-    process.env.NODE_ENV === "test"
-      ? // eslint-disable-next-line @typescript-eslint/no-require-imports
-        (
-          require("./knowledge-card-quran-test-loader") as typeof import("./knowledge-card-quran-test-loader")
-        ).loadQuranSyncForTests()
-      : await import("@/lib/quran");
+  const quran = quranModuleForTests ?? (await import("@/lib/quran"));
   ayahFuse = buildAyahFuse(quran);
 }
 
@@ -590,20 +604,36 @@ export function searchQuranAyahs(query: string, limit = DEFAULT_AYAH_LIMIT): Sea
   return { category: "quran", results, total };
 }
 
-/**
- * Instant fuzzy search over every source except Qur'an ayah full-text (that is
- * Qur'an *surah* names only here). Returns non-empty groups in {@link
- * SEARCH_CATEGORY_ORDER}. Pair with {@link searchQuranAyahs} for full coverage.
- */
-export function searchLight(query: string, perGroupLimit = DEFAULT_GROUP_LIMIT): SearchGroup[] {
-  if (fusePattern(query) === "") return [];
+const EMPTY_GUIDE_GROUPS: Record<
+  | "jannah"
+  | "jahannam"
+  | "lastDay"
+  | "salahGuide"
+  | "battles"
+  | "taharah"
+  | "prophets"
+  | "aqeedah"
+  | "learnDua"
+  | "learnQuran",
+  { results: SearchResult[]; total: number }
+> = {
+  jannah: { results: [], total: 0 },
+  jahannam: { results: [], total: 0 },
+  lastDay: { results: [], total: 0 },
+  salahGuide: { results: [], total: 0 },
+  battles: { results: [], total: 0 },
+  taharah: { results: [], total: 0 },
+  prophets: { results: [], total: 0 },
+  aqeedah: { results: [], total: 0 },
+  learnDua: { results: [], total: 0 },
+  learnQuran: { results: [], total: 0 },
+};
 
-  // Guides are a separate module so dua/zikr/quran screens do not evaluate ~700 KB
-  // of English Learn corpora until universal search actually needs them.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { searchGuideGroups } = require("./search-guides") as typeof import("./search-guides");
-  const guides = searchGuideGroups(query, perGroupLimit);
-
+function assembleLightGroups(
+  query: string,
+  perGroupLimit: number,
+  guides: typeof EMPTY_GUIDE_GROUPS,
+): SearchGroup[] {
   const byCategory: Record<SearchCategory, { results: SearchResult[]; total: number }> = {
     quran: searchSurahs(query, perGroupLimit),
     hadith: searchHadith(query, perGroupLimit),
@@ -620,13 +650,28 @@ export function searchLight(query: string, perGroupLimit = DEFAULT_GROUP_LIMIT):
 }
 
 /**
+ * Instant fuzzy search over core corpora only (no Learn guides, no Qur'an ayah
+ * full-text). Pair with {@link searchLightWithGuides} from `@/lib/search-with-guides`
+ * on the universal search screen.
+ */
+export function searchLight(query: string, perGroupLimit = DEFAULT_GROUP_LIMIT): SearchGroup[] {
+  if (fusePattern(query) === "") return [];
+  return assembleLightGroups(query, perGroupLimit, EMPTY_GUIDE_GROUPS);
+}
+
+/**
  * Full synchronous search (light sources + Qur'an ayahs merged into the Qur'an
  * group, surah matches first). Convenient for tests and non-interactive callers;
- * the search screen composes {@link searchLight} + {@link searchQuranAyahs}
- * instead so it can defer the heavy ayah pass.
+ * the search screen uses `@/lib/search-with-guides` + {@link searchQuranAyahs}.
  */
 export function searchAll(query: string, perGroupLimit = DEFAULT_GROUP_LIMIT): SearchGroup[] {
-  const light = searchLight(query, perGroupLimit);
+  if (fusePattern(query) === "") return [];
+
+  const guides = searchGuideGroupsForTests
+    ? searchGuideGroupsForTests(query, perGroupLimit)
+    : EMPTY_GUIDE_GROUPS;
+
+  const light = assembleLightGroups(query, perGroupLimit, guides);
   const ayahs = searchQuranAyahs(query, perGroupLimit);
   if (ayahs.total === 0) return light;
 
@@ -643,7 +688,6 @@ export function searchAll(query: string, perGroupLimit = DEFAULT_GROUP_LIMIT): S
       )
     : [ayahs, ...light];
 
-  // Keep the fixed category order even when the Qur'an group was newly inserted.
   return SEARCH_CATEGORY_ORDER.map((category) =>
     groups.find((group) => group.category === category),
   ).filter((group): group is SearchGroup => Boolean(group));

@@ -1,7 +1,6 @@
-import { DUROOD_ITEMS } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -14,6 +13,7 @@ import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { loadDuroodItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
 import { createDuroodSearch } from "@/lib/search";
@@ -34,8 +34,12 @@ export default function DuroodsScreen() {
   const { toggle } = useDuroodFavoritesActions();
 
   const [query, setQuery] = useState("");
-  const index = useMemo(() => createDuroodSearch(DUROOD_ITEMS), []);
-  const items = query.trim() ? index.search(query) : DUROOD_ITEMS;
+  const [duroodItems, setDuroodItems] = useState<Awaited<ReturnType<typeof loadDuroodItems>>>([]);
+  useEffect(() => {
+    void loadDuroodItems().then(setDuroodItems);
+  }, []);
+  const index = useMemo(() => createDuroodSearch(duroodItems), [duroodItems]);
+  const items = query.trim() ? index.search(query) : duroodItems;
   const favoriteSet = new Set(favoriteIds);
 
   return (

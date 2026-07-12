@@ -1,6 +1,6 @@
-import { DUA_ITEMS } from "@munib-tracker/shared/content";
 import type { DuaItem, JannahDuaEntry } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -14,7 +14,8 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJannahDuas } from "@/lib/jannah";
+import { loadDuaItems } from "@/lib/content-loaders";
+import { ensureJannahContent, getJannahDuas } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
@@ -75,8 +76,16 @@ function JannahDuaEntryBlock({
 export default function JannahDuasScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
+  const [, setContentReady] = useState(false);
+  useEffect(() => {
+    void Promise.all([loadDuaItems(), ensureJannahContent()]).then(([items]) => {
+      setDuaItems(items);
+      setContentReady(true);
+    });
+  }, []);
   const entries = getJannahDuas();
-  const byId = new Map(DUA_ITEMS.map((item) => [item.id, item]));
+  const byId = new Map(duaItems.map((item) => [item.id, item]));
   useEnsureDuaFavoritesLoaded();
 
   return (

@@ -78,17 +78,15 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 
 | Doc | Role |
 |-----|------|
-| [`BACKLOG.md`](docs/BACKLOG.md) | Active open work (product, i18n, perf, devices) |
+| [`BACKLOG.md`](docs/BACKLOG.md) | Open work (product, i18n, perf, devices) |
 | [`FEATURES.md`](docs/FEATURES.md) | Shipped NF-* feature catalog |
-| [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) | 23-locale i18n ops, status, scripture rules |
+| [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) | 23-locale i18n ops, scripture rules |
 | [`OAUTH_SETUP.md`](docs/OAUTH_SETUP.md) | Google / Apple / Facebook sign-in (native + web) |
 | [`DEEP_LINKS.md`](docs/DEEP_LINKS.md) | Custom scheme + HTTPS App Links (incl. Apple OAuth) |
 | [`PRODUCTION.md`](docs/PRODUCTION.md) | Vercel deploys + production env (incl. OAuth) |
 | [`DATA_INGESTION.md`](docs/DATA_INGESTION.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) | Content pipeline & OSS sources |
-| [`PROFILING.md`](docs/PROFILING.md) | Web/native perf profile, Lighthouse lab scores, remaining `__common` work |
+| [`PROFILING.md`](docs/PROFILING.md) | Web/native perf profile + remaining `__common` work |
 | [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md) | Widgets, Live Activities, Siri, Watch, Wear |
-
-Historical PRD and NF flows: [`docs/archive/`](docs/archive/).
 
 ## AI skills (installed via `pnpm dlx skills add`)
 

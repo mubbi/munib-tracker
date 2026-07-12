@@ -1,5 +1,6 @@
-import { ZAKAT_GUIDE_SECTIONS, type ZakatGuideSectionKey } from "@munib-tracker/shared/content";
+import type { ZakatGuideSectionKey } from "@munib-tracker/shared/content/zakat-guide";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
@@ -12,11 +13,8 @@ import { buildContentReportRef } from "@/lib/content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-function isZakatTopic(value: string | undefined): value is ZakatGuideSectionKey {
-  return ZAKAT_GUIDE_SECTIONS.includes(value as ZakatGuideSectionKey);
-}
-
-export function generateStaticParams(): Array<{ topic: string }> {
+export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
+  const { ZAKAT_GUIDE_SECTIONS } = await import("@munib-tracker/shared/content/zakat-guide");
   return ZAKAT_GUIDE_SECTIONS.map((section) => ({ topic: section }));
 }
 
@@ -24,7 +22,13 @@ export default function ZakatTopicScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const valid = isZakatTopic(topicId);
+  const [sections, setSections] = useState<ZakatGuideSectionKey[]>([]);
+  useEffect(() => {
+    void import("@munib-tracker/shared/content/zakat-guide").then(({ ZAKAT_GUIDE_SECTIONS }) =>
+      setSections([...ZAKAT_GUIDE_SECTIONS]),
+    );
+  }, []);
+  const valid = sections.includes(topicId as ZakatGuideSectionKey);
   const locale = i18n.language?.split("-")[0] ?? "en";
   const reportRef = valid
     ? buildContentReportRef("zakat", topicId, `/zakat/${topicId}`, locale, {
@@ -83,7 +87,7 @@ export default function ZakatTopicScreen() {
       ) : (
         <Stagger>
           <LearnReadingChrome surface="jannah">
-            <ZakatTopicContent topicId={topicId} />
+            <ZakatTopicContent topicId={topicId as ZakatGuideSectionKey} />
           </LearnReadingChrome>
           <JannahDisclaimer textKey="zakat.disclaimer" contentRef={reportRef} />
         </Stagger>

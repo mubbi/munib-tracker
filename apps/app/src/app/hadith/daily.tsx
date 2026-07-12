@@ -1,7 +1,7 @@
 import type { HadithItem } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,7 +14,7 @@ import { Spacing } from "@/constants/theme";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { recentDailyHadith } from "@/lib/daily-hadith";
+import { ensureDailyHadithPool, recentDailyHadith } from "@/lib/daily-hadith";
 import { goBackOrReplace } from "@/lib/navigation";
 
 const ARCHIVE_DAYS = 21;
@@ -85,8 +85,17 @@ export default function DailyHadithScreen() {
   const { t } = useTranslation();
   const { formatIso } = useFormatCalendarDate();
   const today = getLocalDateString();
+  const [feed, setFeed] = useState<{ date: string; hadith: HadithItem }[]>([]);
 
-  const feed = useMemo(() => recentDailyHadith(today, ARCHIVE_DAYS), [today]);
+  useEffect(() => {
+    let active = true;
+    void ensureDailyHadithPool().then(() => {
+      if (active) setFeed(recentDailyHadith(today, ARCHIVE_DAYS));
+    });
+    return () => {
+      active = false;
+    };
+  }, [today]);
 
   const formatDate = (iso: string) =>
     iso === today

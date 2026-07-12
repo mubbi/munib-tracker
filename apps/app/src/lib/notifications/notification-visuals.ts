@@ -3,7 +3,7 @@ import type { SymbolViewProps } from "expo-symbols";
 
 import type { InAppNotificationKind } from "@/lib/in-app-notifications/storage";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
-import { ZIKR_CATEGORY_ICONS } from "@/lib/zikr";
+import { ZIKR_CATEGORY_ICONS } from "@/lib/zikr-ui";
 
 type SymbolName = SymbolViewProps["name"];
 

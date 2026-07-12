@@ -17,7 +17,7 @@ import { Spacing } from "@/constants/theme";
 import { HadithRepository } from "@/db";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { dailyHadith } from "@/lib/daily-hadith";
+import { dailyHadith, ensureDailyHadithPool } from "@/lib/daily-hadith";
 import { getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { goBackOrReplace } from "@/lib/navigation";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
@@ -43,8 +43,18 @@ export default function HadithHomeScreen() {
 
   const bundled = getBundledCollections();
   const remote = REMOTE_COLLECTIONS;
-  const today = dailyHadith(getLocalDateString());
+  const [today, setToday] = useState<ReturnType<typeof dailyHadith>>(undefined);
   const [bookmarkCount, setBookmarkCount] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+    void ensureDailyHadithPool().then(() => {
+      if (active) setToday(dailyHadith(getLocalDateString()));
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     let active = true;

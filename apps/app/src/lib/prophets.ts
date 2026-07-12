@@ -1,8 +1,3 @@
-import {
-  PROPHETS_SECTION_ORDER,
-  PROPHETS_TIMELINE,
-  PROPHETS_TOPICS,
-} from "@munib-tracker/shared/content";
 import type { ContentOverlays, OverlayLocale } from "@munib-tracker/shared/content-i18n";
 import type {
   ProphetsSection,
@@ -11,6 +6,24 @@ import type {
 } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
+
+type ProphetsContent = typeof import("@munib-tracker/shared/content/prophets") &
+  typeof import("@munib-tracker/shared/content/prophets-timeline");
+let contentCache: ProphetsContent | undefined;
+export async function ensureProphetsContent(): Promise<ProphetsContent> {
+  if (!contentCache) {
+    const [topics, timeline] = await Promise.all([
+      import("@munib-tracker/shared/content/prophets"),
+      import("@munib-tracker/shared/content/prophets-timeline"),
+    ]);
+    contentCache = { ...topics, ...timeline };
+  }
+  return contentCache;
+}
+function content(): Partial<ProphetsContent> {
+  if (!contentCache) void ensureProphetsContent();
+  return contentCache ?? {};
+}
 
 // The English PROPHETS_TOPICS is composed as
 // [...contextTopics(3), ...PROPHETS_BIO_TOPICS(25), ...themeTopics(2), ...evidenceTopics(2)].
@@ -40,7 +53,7 @@ function prophetsTopicsOverlays(): ContentOverlays<ProphetsTopic> {
 }
 
 export function getProphetsTopics(): ProphetsTopic[] {
-  return localizeList(PROPHETS_TOPICS, prophetsTopicsOverlays());
+  return localizeList(content().PROPHETS_TOPICS ?? [], prophetsTopicsOverlays());
 }
 
 export function getProphetsTopic(id: string | undefined): ProphetsTopic | undefined {
@@ -50,7 +63,7 @@ export function getProphetsTopic(id: string | undefined): ProphetsTopic | undefi
 
 export function getProphetsTopicsBySection(): Record<ProphetsSection, ProphetsTopic[]> {
   const grouped = Object.fromEntries(
-    PROPHETS_SECTION_ORDER.map((section) => [section, [] as ProphetsTopic[]]),
+    (content().PROPHETS_SECTION_ORDER ?? []).map((section) => [section, [] as ProphetsTopic[]]),
   ) as Record<ProphetsSection, ProphetsTopic[]>;
 
   for (const topic of getProphetsTopics()) {
@@ -60,9 +73,9 @@ export function getProphetsTopicsBySection(): Record<ProphetsSection, ProphetsTo
 }
 
 export function getProphetsTimeline(): ProphetsTimelineEvent[] {
-  return localizeList(PROPHETS_TIMELINE, overlayList("PROPHETS_TIMELINE"));
+  return localizeList(content().PROPHETS_TIMELINE ?? [], overlayList("PROPHETS_TIMELINE"));
 }
 
 export function getProphetsLessonCount(): number {
-  return PROPHETS_TOPICS.length;
+  return content().PROPHETS_TOPICS?.length ?? 0;
 }

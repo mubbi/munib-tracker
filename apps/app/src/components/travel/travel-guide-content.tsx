@@ -5,7 +5,7 @@ import {
   TRAVEL_RAKATS,
   TRAVEL_SECTIONS,
   type TravelSectionKey,
-} from "@munib-tracker/shared/content";
+} from "@munib-tracker/shared/content/travel-guide";
 import type { JannahHadithRef, JannahQuranRef } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";

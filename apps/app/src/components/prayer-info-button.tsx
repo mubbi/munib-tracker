@@ -1,15 +1,18 @@
 import { SymbolView } from "expo-symbols";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 
-import { PrayerInfoSheet } from "@/components/prayer-info-sheet";
 import { ThemedText } from "@/components/themed-text";
 import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { PrayerInfoId } from "@/lib/prayer-info";
+
+const PrayerInfoSheet = lazy(() =>
+  import("@/components/prayer-info-sheet").then((mod) => ({ default: mod.PrayerInfoSheet })),
+);
 
 type PrayerInfoButtonProps = {
   prayerId: PrayerInfoId;
@@ -65,7 +68,11 @@ export function PrayerInfoButton({
           onPress={() => setOpen(true)}
         />
       )}
-      <PrayerInfoSheet visible={open} prayerId={prayerId} onClose={() => setOpen(false)} />
+      {open ? (
+        <Suspense fallback={null}>
+          <PrayerInfoSheet visible={open} prayerId={prayerId} onClose={() => setOpen(false)} />
+        </Suspense>
+      ) : null}
     </>
   );
 }

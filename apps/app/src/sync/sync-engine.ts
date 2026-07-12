@@ -46,12 +46,15 @@ import { trackerStore } from "@/stores/tracker-store";
 
 import { buildSyncRecords } from "./records";
 
+let blobSyncModuleForTests: typeof import("./blob-sync") | undefined;
+
+/** Jest-only: avoid `require("./blob-sync")` in production (Metro would embed all progress corpora). */
+export function __setBlobSyncModuleForTests(mod: typeof import("./blob-sync")): void {
+  blobSyncModuleForTests = mod;
+}
+
 async function blobSync() {
-  // Jest CJS cannot use dynamic `import()` without --experimental-vm-modules.
-  if (process.env.NODE_ENV === "test") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS
-    return require("./blob-sync") as typeof import("./blob-sync");
-  }
+  if (blobSyncModuleForTests) return blobSyncModuleForTests;
   return import("./blob-sync");
 }
 

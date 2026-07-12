@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Location from "expo-location";
 
 import { DB_KEYS } from "@/db/keys";
 import {
@@ -10,16 +11,15 @@ import {
   searchLocations,
 } from "@/lib/location";
 
-const mockRequestPermissions = jest.fn();
-const mockGetCurrentPosition = jest.fn();
-
-jest.mock("expo-location", () => ({
-  requestForegroundPermissionsAsync: (...args: unknown[]) => mockRequestPermissions(...args),
-  getCurrentPositionAsync: (...args: unknown[]) => mockGetCurrentPosition(...args),
-  getLastKnownPositionAsync: jest.fn(),
-  reverseGeocodeAsync: jest.fn(),
-  Accuracy: { Low: 2 },
-}));
+const mockRequestPermissions = Location.requestForegroundPermissionsAsync as jest.MockedFunction<
+  typeof Location.requestForegroundPermissionsAsync
+>;
+const mockGetCurrentPosition = Location.getCurrentPositionAsync as jest.MockedFunction<
+  typeof Location.getCurrentPositionAsync
+>;
+const mockGetLastKnown = Location.getLastKnownPositionAsync as jest.MockedFunction<
+  typeof Location.getLastKnownPositionAsync
+>;
 
 const KARACHI = {
   id: 1174872,
@@ -41,7 +41,7 @@ function mockFetchOnce(value: unknown, ok = true) {
 }
 
 afterEach(() => {
-  jest.restoreAllMocks();
+  jest.clearAllMocks();
   clearReverseGeocodeMemoryCache();
 });
 
@@ -65,7 +65,9 @@ describe("coordsMatchCache", () => {
 describe("getDeviceLocation", () => {
   beforeEach(async () => {
     await AsyncStorage.clear();
-    mockRequestPermissions.mockResolvedValue({ status: "granted" });
+    mockRequestPermissions.mockResolvedValue({ status: "granted" } as Awaited<
+      ReturnType<typeof Location.requestForegroundPermissionsAsync>
+    >);
     mockGetCurrentPosition.mockResolvedValue({
       coords: {
         latitude: 24.8608,
@@ -78,6 +80,7 @@ describe("getDeviceLocation", () => {
       },
       timestamp: Date.now(),
     });
+    mockGetLastKnown.mockResolvedValue(null);
   });
 
   it("reuses stored place data when the fix is in the same cache bucket", async () => {

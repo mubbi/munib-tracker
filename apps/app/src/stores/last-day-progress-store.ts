@@ -1,5 +1,3 @@
-import { LAST_DAY_TOPICS } from "@munib-tracker/shared/content/last-day";
-
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 
@@ -41,6 +39,7 @@ export const lastDayProgressStore = createStore<LastDayProgressState>((set, get)
       repentanceDate: null,
       characterDate: null,
     });
+    const { LAST_DAY_TOPICS } = await import("@munib-tracker/shared/content/last-day");
     const valid = new Set(LAST_DAY_TOPICS.map((topic) => topic.id));
     set({
       completedTopicIds: data.completedTopicIds.filter((id) => valid.has(id)),

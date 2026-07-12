@@ -1,13 +1,3 @@
-import {
-  BATTLES_AFTER_PROPHET,
-  BATTLES_FIGURES,
-  BATTLES_GLOSSARY,
-  BATTLES_LESSON_CARDS,
-  BATTLES_SECTION_ORDER,
-  BATTLES_TIMELINE,
-  BATTLES_TOPICS,
-  BATTLES_VERSES,
-} from "@munib-tracker/shared/content";
 import type { BattlesSection, BattlesTopic } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
@@ -21,11 +11,36 @@ export interface BattlesAfterProphetItem {
   location: string;
 }
 
-// Widen the `as const` source so overlays (plain strings) merge without literal-type clashes.
-const BATTLES_AFTER_PROPHET_BASE: BattlesAfterProphetItem[] = [...BATTLES_AFTER_PROPHET];
+type BattlesContent = typeof import("@munib-tracker/shared/content/battles") &
+  typeof import("@munib-tracker/shared/content/battles-figures") &
+  typeof import("@munib-tracker/shared/content/battles-glossary") &
+  typeof import("@munib-tracker/shared/content/battles-lessons") &
+  typeof import("@munib-tracker/shared/content/battles-timeline") &
+  typeof import("@munib-tracker/shared/content/battles-verses");
+let contentCache: BattlesContent | undefined;
+
+export async function ensureBattlesContent(): Promise<BattlesContent> {
+  if (!contentCache) {
+    const modules = await Promise.all([
+      import("@munib-tracker/shared/content/battles"),
+      import("@munib-tracker/shared/content/battles-figures"),
+      import("@munib-tracker/shared/content/battles-glossary"),
+      import("@munib-tracker/shared/content/battles-lessons"),
+      import("@munib-tracker/shared/content/battles-timeline"),
+      import("@munib-tracker/shared/content/battles-verses"),
+    ]);
+    contentCache = Object.assign({}, ...modules) as BattlesContent;
+  }
+  return contentCache;
+}
+
+function content(): Partial<BattlesContent> {
+  if (!contentCache) void ensureBattlesContent();
+  return contentCache ?? {};
+}
 
 export function getBattlesTopics(): BattlesTopic[] {
-  return localizeList(BATTLES_TOPICS, overlayList("BATTLES_TOPICS"));
+  return localizeList(content().BATTLES_TOPICS ?? [], overlayList("BATTLES_TOPICS"));
 }
 
 export function getBattlesTopic(id: string | undefined): BattlesTopic | undefined {
@@ -35,7 +50,7 @@ export function getBattlesTopic(id: string | undefined): BattlesTopic | undefine
 
 export function getBattlesTopicsBySection(): Record<BattlesSection, BattlesTopic[]> {
   const grouped = Object.fromEntries(
-    BATTLES_SECTION_ORDER.map((section) => [section, [] as BattlesTopic[]]),
+    (content().BATTLES_SECTION_ORDER ?? []).map((section) => [section, [] as BattlesTopic[]]),
   ) as Record<BattlesSection, BattlesTopic[]>;
 
   for (const topic of getBattlesTopics()) {
@@ -45,29 +60,30 @@ export function getBattlesTopicsBySection(): Record<BattlesSection, BattlesTopic
 }
 
 export function getBattlesLessonCount(): number {
-  return BATTLES_TOPICS.length;
+  return content().BATTLES_TOPICS?.length ?? 0;
 }
 
 export function getBattlesTimeline() {
-  return localizeList(BATTLES_TIMELINE, overlayList("BATTLES_TIMELINE"));
+  return localizeList(content().BATTLES_TIMELINE ?? [], overlayList("BATTLES_TIMELINE"));
 }
 
 export function getBattlesGlossary() {
-  return localizeList(BATTLES_GLOSSARY, overlayList("BATTLES_GLOSSARY"));
+  return localizeList(content().BATTLES_GLOSSARY ?? [], overlayList("BATTLES_GLOSSARY"));
 }
 
 export function getBattlesFigures() {
-  return localizeList(BATTLES_FIGURES, overlayList("BATTLES_FIGURES"));
+  return localizeList(content().BATTLES_FIGURES ?? [], overlayList("BATTLES_FIGURES"));
 }
 
 export function getBattlesLessonCards() {
-  return localizeList(BATTLES_LESSON_CARDS, overlayList("BATTLES_LESSON_CARDS"));
+  return localizeList(content().BATTLES_LESSON_CARDS ?? [], overlayList("BATTLES_LESSON_CARDS"));
 }
 
 export function getBattlesVerses() {
-  return localizeList(BATTLES_VERSES, overlayList("BATTLES_VERSES"));
+  return localizeList(content().BATTLES_VERSES ?? [], overlayList("BATTLES_VERSES"));
 }
 
 export function getBattlesAfterProphet(): BattlesAfterProphetItem[] {
-  return localizeList(BATTLES_AFTER_PROPHET_BASE, overlayList("BATTLES_AFTER_PROPHET"));
+  const base: BattlesAfterProphetItem[] = [...(content().BATTLES_AFTER_PROPHET ?? [])];
+  return localizeList(base, overlayList("BATTLES_AFTER_PROPHET"));
 }

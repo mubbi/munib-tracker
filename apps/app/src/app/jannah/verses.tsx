@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
@@ -17,7 +17,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJannahVerses } from "@/lib/jannah";
+import { ensureJannahContent, getJannahVerses } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 
@@ -38,6 +38,10 @@ const THEME_ICONS: Record<(typeof THEME_ORDER)[number], SymbolViewProps["name"]>
 function JannahVersesList() {
   const router = useRouter();
   const { t } = useTranslation();
+  const [, setContentReady] = useState(false);
+  useEffect(() => {
+    void ensureJannahContent().then(() => setContentReady(true));
+  }, []);
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
   const verses = getJannahVerses();

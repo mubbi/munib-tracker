@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer, JannahDuaBlock } from "@/components/jannah/primitives";
 import { JannahTopicContent } from "@/components/jannah/topic-content";
@@ -9,17 +9,22 @@ import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { getJannahFirdawsDua, getJannahTopic, getJannahTopics } from "@/lib/jannah";
+import { ensureJannahContent, getJannahFirdawsDua, getJannahTopic } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-export function generateStaticParams(): Array<{ topic: string }> {
-  return getJannahTopics().map((tpc) => ({ topic: tpc.id }));
+export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
+  const { JANNAH_TOPICS } = await import("@munib-tracker/shared/content/jannah");
+  return JANNAH_TOPICS.map((tpc) => ({ topic: tpc.id }));
 }
 
 export default function JannahTopicScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+  const [, setContentReady] = useState(false);
+  useEffect(() => {
+    void ensureJannahContent().then(() => setContentReady(true));
+  }, []);
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
   const topic = getJannahTopic(topicId);
   const reportRef = useGuideContentReportRef("jannah", topic, "/jannah");
@@ -75,7 +80,7 @@ export default function JannahTopicScreen() {
           <LearnReadingChrome surface="jannah">
             <JannahTopicContent topic={topic} />
 
-            {topic.id === "al-firdaws" ? (
+            {topic.id === "al-firdaws" && firdawsDua ? (
               <JannahDuaBlock
                 title={t("jannah.firdawsDuaTitle")}
                 arabic={firdawsDua.arabic}

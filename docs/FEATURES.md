@@ -1,8 +1,6 @@
 # Shipped product features
 
-Catalog of features beyond the MVP baseline in [`archive/TODO.md`](./archive/TODO.md). Stable IDs (`NF-*`) match the historical roadmap. For implementation flows, see [`archive/NEW_FEATURES_TODO.md`](./archive/NEW_FEATURES_TODO.md).
-
-**Last updated:** 2026-07-09 · **Open backlog:** [`BACKLOG.md`](./BACKLOG.md)
+Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.md`](./BACKLOG.md).
 
 ---
 
@@ -109,6 +107,8 @@ Product pillars for landing copy: `packages/shared/src/constants/features.ts` (`
 
 ---
 
-## Removed / out of scope
+## Out of scope
 
 NF-1.27, NF-1.28, NF-2.5, NF-2.6, NF-2.16, NF-2.18, NF-2.22, NF-2.25, NF-2.26 — not implemented.
+
+Data-blocked (see [`BACKLOG.md`](./BACKLOG.md)): NF-2.7, NF-2.8, NF-2.9.

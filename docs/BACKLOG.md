@@ -1,75 +1,63 @@
 # Active backlog
 
-Consolidated open work across product, i18n, performance, devices, and content. **Shipped features** are in [`FEATURES.md`](./FEATURES.md). **How-to guides** are linked from [`README.md`](./README.md).
-
-**Last updated:** 2026-07-12
+Open work only. Shipped features: [`FEATURES.md`](./FEATURES.md). Guides: [`README.md`](./README.md).
 
 ---
 
-## Product — data-blocked only
+## Product — data-blocked
 
 All software-achievable NF items are shipped. These need **OSS datasets** before implementation (do not AI-generate):
 
-| ID | Feature | Blocker | When unblocked, start at |
-|----|---------|---------|--------------------------|
+| ID | Feature | Blocker | When unblocked |
+|----|---------|---------|----------------|
 | NF-2.7 | Word-by-word Qur'an | Large per-word dataset (QUL / quran.com) | [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md), new reader mode |
 | NF-2.8 | Hadith sharh / explanation | Bundled or linked explanation corpus | Extend `HadithItem` + `build-hadith` |
 | NF-2.9 | Full isnad chain | Structured `isnad[]` on `HadithItem` | Baseline `narrator` string already shown in UI |
-
-Implementation flows for shipped NF items: [`archive/NEW_FEATURES_TODO.md`](./archive/NEW_FEATURES_TODO.md).
 
 ---
 
 ## Internationalization
 
-Full ops guide: [`I18N_GUIDE.md`](./I18N_GUIDE.md)
+Guide: [`I18N_GUIDE.md`](./I18N_GUIDE.md)
 
 | Priority | Task | How |
 |----------|------|-----|
-| P1 | Native UI for `az`, `ps`, `so`, `uz`, `tg` high-traffic screens | Keep open until mangled auto-translate strings are fixed + expand `ui-polish-patches.json`. Corrupted catalogs fall back to English via `fix-runglish-catalog.mjs`; native polish is still required before marking done. |
+| P1 | Native UI for `az`, `ps`, `so`, `uz`, `tg` high-traffic screens | Fix mangled auto-translate strings; expand `ui-polish-patches.json`. Corrupted catalogs fall back to English via `fix-runglish-catalog.mjs`. |
 | P2 | Full Hisnul for `ur`/`tr`/`fr` | Source OSS corpus; extend `build-adhkar.mjs` — no AI |
 | P3 | Bengali dua coverage (~128/270 → higher) | Improve prefix matching in `build-adhkar.mjs` |
 | P4 | Literary review of learn overlays | Human pass on `packages/shared/src/content/i18n/` |
-| P5 | Bundle size (Qur'an editions) | **Done 2026-07-11** — only `en-pickthall` + `ur-jalandhry` bundled; rest CDN via `quran-remote` |
-| P6 | Per-locale device QA | Language picker, RTL, fonts, notifications, widgets |
-
-**CI:** App i18n 152/152 tests · Shared overlay coverage ≥90% · 731 UI polish patches across 19 locales.
+| P5 | Per-locale device QA | Language picker, RTL, fonts, notifications, widgets |
 
 ---
 
 ## Performance
 
-Full profile + playbooks: [`PROFILING.md`](./PROFILING.md)
+Profile + playbooks: [`PROFILING.md`](./PROFILING.md)
 
-**Verdict (2026-07-12):** Native route lazy-loading still not required. Web asyncRoutes + graph trims shipped; home critical JS ~19 MB / ~3.4 MB gzip (was ~62 MB / ~12 MB). Lab Lighthouse recorded in [`PROFILING.md`](./PROFILING.md) §2.5. Remaining: shrink `__common` (search corpora), device cold-start, release AAB size, optional treemap.
-
-| Priority | Task | Status |
-|----------|------|--------|
-| **P0** | iOS notification budget (daily + 2-day prayer window + cap 60) | Done |
-| **P0** | Bundle only `en-pickthall` + `ur-jalandhry`; other editions CDN | Done |
-| **P0** | Entry trim + web `asyncRoutes` + Riyad/`quran-meta`/content graph (2026-07-12) | Done |
-| **P1** | Deferred fonts; Qur'an/QCF LRU; Hadith FlatList; IdleMount bridges | Done |
-| **P1** | Google JWKS; per-item bookmark/favorites merge | Done |
-| **P2** | Lab Lighthouse on `/` + `/tracker` | Done (lab) — CrUX after deploy optional |
-| **P2** | Cold-start baseline; release AAB/IPA size; Metro treemap | Open |
-| **P2** | Further `__common` trim (DUA/NAMES out of multi-route shared modules) | Open |
+| Priority | Task |
+|----------|------|
+| P1 | Android barcode / ML Kit assets — confirm unused; exclude from release AAB if so |
+| P2 | Device cold-start baseline (mid Android + one iPhone) |
+| P2 | Release AAB/IPA size (replace debug APK numbers) |
+| P2 | Further `__common` trim (remaining guide/dua fragments; thinner home shell) |
+| P2 | Optional Metro treemap / source-map explorer |
 
 ---
 
 ## Auth / App Links ops
 
-Canonical guides: [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) · [`DEEP_LINKS.md`](./DEEP_LINKS.md) · [`PRODUCTION.md`](./PRODUCTION.md)
+Guides: [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) · [`DEEP_LINKS.md`](./DEEP_LINKS.md) · [`PRODUCTION.md`](./PRODUCTION.md)
 
-| Priority | Task | Status |
-|----------|------|--------|
-| **P1** | Serve `.well-known/apple-app-site-association` + `assetlinks.json` from `my.munibtracker.app` at web build | Open — `app.json` App Links + Apple OAuth route shipped; host verification files still needed for store-grade Android Apple return |
-| **P2** | Fill production OAuth secrets (`GOOGLE_OAUTH_*`, `APPLE_*`, `OAUTH_REDIRECT_URI_ALLOWLIST`) per environment | Ops — code paths ready |
+| Priority | Task |
+|----------|------|
+| P1 | Serve `.well-known/apple-app-site-association` + `assetlinks.json` from `my.munibtracker.app` at web build (`app.json` App Links + Apple OAuth route shipped; host verification files still needed) |
+| P2 | Fill production OAuth secrets (`GOOGLE_OAUTH_*`, `APPLE_*`, `OAUTH_REDIRECT_URI_ALLOWLIST`) per environment |
 
 ---
 
 ## Device platforms
 
-Full inventory: [`DEVICES.md`](./DEVICES.md)
+Support matrix: [`DEVICES.md`](./DEVICES.md)
 
 | ID | Goal | Status |
 |----|------|--------|
@@ -84,7 +72,7 @@ Full inventory: [`DEVICES.md`](./DEVICES.md)
 
 ---
 
-## Content pipeline — deferred
+## Content pipeline
 
 See [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) and [`DATA_INGESTION.md`](./DATA_INGESTION.md).
 
@@ -92,9 +80,3 @@ See [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) and [`DATA_INGESTIO
 |------|-------|
 | Bundled adhan-call MP3 (full set) | Infra exists; expand `assets/audio/adhan/` |
 | Per-item content `audioUri` | Types wired; populate from OSS where available |
-
----
-
-## Historical MVP (complete)
-
-Phases 0–12 in [`archive/TODO.md`](./archive/TODO.md) — all `done`. Do not add new tasks there.

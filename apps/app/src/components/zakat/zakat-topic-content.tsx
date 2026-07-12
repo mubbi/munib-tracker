@@ -1,4 +1,4 @@
-import type { ZakatGuideSectionKey } from "@munib-tracker/shared/content";
+import type { ZakatGuideSectionKey } from "@munib-tracker/shared/content/zakat-guide";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 

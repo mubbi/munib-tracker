@@ -1,10 +1,10 @@
-import { getZikrById } from "@munib-tracker/shared/content";
 import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
+import { ReadingTypographyBar } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { TasbeehCounter } from "@/components/tasbeeh/tasbeeh-counter";
@@ -13,33 +13,53 @@ import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
-import { zikrCountKey } from "@/lib/after-salah-adhkar-progress";
 import { goBackOrReplace } from "@/lib/navigation";
-import { arabicReadingLayout } from "@/lib/reading-typography";
+import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
+import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
+import { zikrCountKey } from "@/lib/zikr-count-key";
 import { usePreferences } from "@/stores/preferences-store";
 import { trackerStore } from "@/stores/tracker-store";
+
+function paramId(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
+}
 
 export default function ZikrTasbeehScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ zikrId: string; prayer?: string }>();
+  const zikrId = paramId(params.zikrId);
+  const prayerParam = paramId(params.prayer);
   const { fontPrefs } = usePreferences();
-  const arabicSize = fontPrefs.arabic.size;
-  const item = params.zikrId ? getZikrById(params.zikrId) : undefined;
+  const [corpusReady, setCorpusReady] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    void ensureZikrCorpus().then(() => {
+      if (active) setCorpusReady(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const readingSizes = resolveReadingFontSizes("dua_zikr", fontPrefs);
+  const item = corpusReady && zikrId ? getZikrById(zikrId) : undefined;
   const afterSalahPrayer =
-    item?.categoryId === "after_prayer" && params.prayer && isAfterSalahPrayer(params.prayer)
-      ? params.prayer
+    item?.categoryId === "after_prayer" && prayerParam && isAfterSalahPrayer(prayerParam)
+      ? prayerParam
       : undefined;
   const target = item?.targetCount && item.targetCount > 0 ? item.targetCount : 33;
 
-  // Local, responsive count seeded once from today's stored progress; every
-  // change is persisted so the dashboard and zikr detail stay in sync.
-  const [count, setCount] = useState(() => {
-    if (!item) return 0;
+  // Seed from today's stored progress once the corpus (and thus the item) is ready.
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!item) return;
     const key = zikrCountKey(item.id, afterSalahPrayer);
     const stored = trackerStore.getState().zikrCounts[key] ?? 0;
-    return Math.max(0, Math.min(stored, target));
-  });
+    setCount(Math.max(0, Math.min(stored, target)));
+  }, [afterSalahPrayer, item, target]);
 
   useEffect(() => {
     if (!item) return;
@@ -56,6 +76,10 @@ export default function ZikrTasbeehScreen() {
         );
     }
   }, [afterSalahPrayer, item, target]);
+
+  if (!corpusReady) {
+    return null;
+  }
 
   if (!item) {
     return (
@@ -102,15 +126,26 @@ export default function ZikrTasbeehScreen() {
         description={t("seo.tasbeehZikr.description")}
         index={false}
       />
+      <ReadingTypographyBar surface="dua_zikr" />
       <Card variant="muted" padding="four" style={styles.reading}>
         <ThemedText
           type="arabic"
-          style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize, "center") : null]}
+          style={[styles.arabic, arabicReadingLayout(readingSizes.arabic, "center")]}
         >
           {item.arabic}
         </ThemedText>
         {item.transliteration ? (
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.translit}>
+          <ThemedText
+            type="caption"
+            themeColor="mutedForeground"
+            style={[
+              styles.translit,
+              {
+                fontSize: readingSizes.transliteration,
+                lineHeight: readingSizes.transliteration * 1.35,
+              },
+            ]}
+          >
             {item.transliteration}
           </ThemedText>
         ) : null}

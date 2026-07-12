@@ -69,7 +69,7 @@ Our API (`apps/api`) currently has:
 | `auth` | Guest + Google/Apple/Facebook OAuth (JWT + web cookies) | `docs/security/authentication.md`; project guide [`docs/OAUTH_SETUP.md`](../../../docs/OAUTH_SETUP.md) |
 | `sync` | TypeORM LWW cloud sync | `docs/recipes/sql-typeorm.md` |
 
-Auth is **not** an in-memory stub — see [`apps/api/AGENTS.md`](../../../apps/api/AGENTS.md). Historical Phase 8 notes: [`docs/archive/TODO.md`](../../../docs/archive/TODO.md).
+Auth is **not** an in-memory stub — see [`apps/api/AGENTS.md`](../../../apps/api/AGENTS.md).
 
 ## Doc format notes
 

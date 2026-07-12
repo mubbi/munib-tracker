@@ -1,5 +1,6 @@
 import type { JannahGate } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
@@ -15,7 +16,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJannahGates } from "@/lib/jannah";
+import { ensureJannahContent, getJannahGates } from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 
@@ -95,6 +96,10 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
 }
 
 export default function JannahGatesScreen() {
+  const [, setContentReady] = useState(false);
+  useEffect(() => {
+    void ensureJannahContent().then(() => setContentReady(true));
+  }, []);
   const router = useRouter();
   const { t } = useTranslation();
   const gates = getJannahGates();

@@ -22,7 +22,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from "react-native-reanimated";
-import { isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
+import { hasEditionAyahs, isRemoteEdition, REMOTE_EDITIONS } from "@/api/quran-remote";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { AyahSeparator, ayahKeyExtractor, SurahAyahList } from "@/components/quran/ayah-reader";
@@ -279,9 +279,10 @@ export default function SurahReaderScreen() {
     [surah, surahNumber, knownEdition, remoteActive],
   );
   // Remote data when available, otherwise fall back to a bundled translation.
-  const translation = remoteActive ? (remoteQuery.data ?? bundledTranslation) : bundledTranslation;
+  const remoteReady = hasEditionAyahs(remoteQuery.data);
+  const translation = remoteActive && remoteReady ? remoteQuery.data! : bundledTranslation;
   const translationLoading = remoteActive && remoteQuery.isPending;
-  const usingFallback = remoteActive && !remoteQuery.data && !translationLoading;
+  const usingFallback = remoteActive && !remoteReady && !translationLoading;
   const translationDir = usingFallback ? "ltr" : editionDirection(knownEdition);
 
   // ── Second (side-by-side) translation — NF-1.13 ──────────────────────────
@@ -307,9 +308,10 @@ export default function SurahReaderScreen() {
         : {},
     [secondaryKnown, secondaryRemoteActive, surah, surahNumber],
   );
+  const secondaryRemoteReady = hasEditionAyahs(secondaryRemoteQuery.data);
   const secondTranslation = secondaryKnown
-    ? secondaryRemoteActive
-      ? (secondaryRemoteQuery.data ?? secondaryBundled)
+    ? secondaryRemoteActive && secondaryRemoteReady
+      ? secondaryRemoteQuery.data
       : secondaryBundled
     : undefined;
   const secondaryDir = secondaryKnown ? editionDirection(secondaryKnown) : "ltr";

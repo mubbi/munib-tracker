@@ -1,5 +1,5 @@
-import { getZikrById } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -13,6 +13,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
+import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 
 export default function ZikrFavoritesScreen() {
@@ -21,6 +22,10 @@ export default function ZikrFavoritesScreen() {
   const { colors, tokens } = useThemeTokens();
   const order = useFavoriteZikrIds();
   const { setFavoriteOrder, toggleFavorite } = usePreferencesActions();
+  const [, setCorpusReady] = useState(false);
+  useEffect(() => {
+    void ensureZikrCorpus().then(() => setCorpusReady(true));
+  }, []);
 
   const items = order.map((id) => getZikrById(id)).filter((item) => item != null);
 

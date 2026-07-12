@@ -1,7 +1,7 @@
 import { ZIKR_CATEGORY_IDS } from "@munib-tracker/shared/constants";
 import type { ZikrItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -18,7 +18,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { searchZikrList } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import { zikrByCategory, zikrCategories } from "@/lib/zikr";
+import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
 
 export default function ZikrHomeScreen() {
@@ -26,9 +26,20 @@ export default function ZikrHomeScreen() {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const favoriteIds = useFavoriteZikrIds();
-  const categories = zikrCategories();
+  const [zikrReady, setZikrReady] = useState(false);
+  const categories = zikrReady ? zikrCategories() : [];
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
+
+  useEffect(() => {
+    let active = true;
+    void ensureZikrCorpus().then(() => {
+      if (active) setZikrReady(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const results = useMemo(() => (searching ? searchZikrList(query) : []), [query, searching]);
 

@@ -16,6 +16,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import { chevronBack, chevronForward } from "@/lib/rtl";
+import { runSearchLightWithGuides } from "@/lib/run-search-light-with-guides";
 import { runWhenIdle } from "@/lib/run-when-idle";
 import {
   ensureAyahFuse,
@@ -24,7 +25,6 @@ import {
   type SearchCategory,
   type SearchGroup,
   type SearchResult,
-  searchLight,
   searchQuranAyahs,
   tokenize,
 } from "@/lib/search";
@@ -220,10 +220,17 @@ export default function SearchScreen() {
     let cancelled = false;
     const handle = runWhenIdle(() => {
       if (cancelled) return;
-      const groups = searchLight(debounced, LIGHT_FETCH_LIMIT);
-      if (cancelled) return;
-      setLightGroups(groups);
-      setLightSearching(false);
+      void runSearchLightWithGuides(debounced, LIGHT_FETCH_LIMIT)
+        .then((groups) => {
+          if (cancelled) return;
+          setLightGroups(groups);
+          setLightSearching(false);
+        })
+        .catch(() => {
+          if (cancelled) return;
+          setLightGroups([]);
+          setLightSearching(false);
+        });
     });
     return () => {
       cancelled = true;

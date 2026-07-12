@@ -258,13 +258,15 @@ export default function JahannamScreen() {
           </View>
         </Card>
 
-        <JannahDuaBlock
-          title={t("jahannam.refugeDuaTitle")}
-          arabic={refugeDua.arabic}
-          transliteration={refugeDua.transliteration}
-          translation={refugeDua.translation}
-          reference={refugeDua.reference}
-        />
+        {refugeDua ? (
+          <JannahDuaBlock
+            title={t("jahannam.refugeDuaTitle")}
+            arabic={refugeDua.arabic}
+            transliteration={refugeDua.transliteration}
+            translation={refugeDua.translation}
+            reference={refugeDua.reference}
+          />
+        ) : null}
 
         <JannahDisclaimer textKey="jahannam.disclaimer" />
       </Stagger>

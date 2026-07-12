@@ -53,7 +53,7 @@ import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/co
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { isRTL } from "@/lib/rtl";
-import { zikrByCategory, zikrCategories } from "@/lib/zikr";
+import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
 import { preferencesStore } from "@/stores/preferences-store";
@@ -79,25 +79,18 @@ function encouragementKey(progress: number): string {
 
 const CONFETTI_COLORS = ["#D4AF37", "#4CAF7D", "#5AA9E6", "#F2C94C"];
 
-/**
- * Adhkar tied to the ritual of prayer, ordered as they occur around each salah:
- * the dua after the adhan, the supplication before starting, then the
- * after-salah adhkar. Deep-links straight into the relevant zikr collection so
- * the worshipper can complete them right after logging a prayer.
- */
-const SALAH_ADHKAR = (() => {
-  const byId = new Map(zikrCategories().map((category) => [category.id, category]));
-  return (["after_azan", "before_prayer", "after_prayer"] as const)
-    .map((id) => byId.get(id))
-    .filter((category): category is NonNullable<typeof category> => category != null);
-})();
+const SALAH_ADHKAR_CATEGORY_IDS = ["after_azan", "before_prayer", "after_prayer"] as const;
 
-/**
- * Every around-salah zikr item, flattened across the salah-adhkar categories so
- * we can measure how many were completed today. Cached at module load since the
- * catalog is static.
- */
-const SALAH_ADHKAR_ITEMS = SALAH_ADHKAR.flatMap((category) => zikrByCategory(category.id));
+function buildSalahAdhkar() {
+  const byId = new Map(zikrCategories().map((category) => [category.id, category]));
+  return SALAH_ADHKAR_CATEGORY_IDS.map((id) => byId.get(id)).filter(
+    (category): category is NonNullable<typeof category> => category != null,
+  );
+}
+
+function buildSalahAdhkarItems() {
+  return buildSalahAdhkar().flatMap((category) => zikrByCategory(category.id));
+}
 
 /** A zikr counts as done today once its daily target is met (or it was recited when it has no target). */
 function isZikrDone(count: number, targetCount?: number): boolean {
@@ -120,6 +113,17 @@ export default function TrackerScreen() {
   const { setPrayerStatus, setPrayerNotes, setPrayerJama } = useTrackerActions();
   const remindAfterSalahAdhkar = useAfterSalahAdhkarReminder();
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
+  const [zikrReady, setZikrReady] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    void ensureZikrCorpus().then(() => {
+      if (active) setZikrReady(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
   // Keep the sheet mounted with a valid prayer id after it first opens so it can
   // play its close animation with stable content instead of unmounting instantly.
   const lastActivePrayer = useRef<PrayerId | null>(activePrayer);
@@ -184,7 +188,7 @@ export default function TrackerScreen() {
     const witrDone = (status[WITR_PRAYER] ?? "pending") === "completed" ? 1 : 0;
     const afterSalahTotals = totalAfterSalahProgress(zikrCounts);
     const witrAfterSalah = afterSalahProgressForPrayer(WITR_PRAYER, zikrCounts);
-    const otherAdhkarItems = SALAH_ADHKAR_ITEMS.filter(
+    const otherAdhkarItems = (zikrReady ? buildSalahAdhkarItems() : []).filter(
       (item) => item.categoryId !== "after_prayer",
     );
     const otherAdhkarCompleted = otherAdhkarItems.filter((item) =>

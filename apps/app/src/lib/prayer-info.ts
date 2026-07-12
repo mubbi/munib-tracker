@@ -1,5 +1,5 @@
 import type { HadithItem, PrayerId } from "@munib-tracker/shared/types";
-import { getBundledCollection } from "@/lib/hadith";
+import { ensureBundledCollection, getBundledCollection } from "@/lib/hadith";
 import type { DailyScheduleEntryId } from "@/lib/prayer-times";
 
 /** Schedule entries and tracked prayers that have learn-more content. */
@@ -90,6 +90,13 @@ export function resolveHadithItem(hadithId: string): HadithItem | undefined {
   const collectionId = hadithId.split(":")[0];
   const bundled = getBundledCollection(collectionId);
   return bundled?.items.find((item) => item.id === hadithId);
+}
+
+/** Resolve after ensuring the bundled collection chunk is loaded. */
+export async function ensureHadithItem(hadithId: string): Promise<HadithItem | undefined> {
+  const collectionId = hadithId.split(":")[0];
+  if (collectionId) await ensureBundledCollection(collectionId);
+  return resolveHadithItem(hadithId);
 }
 
 export function hadithCollectionId(hadithId: string): string {

@@ -1,8 +1,7 @@
 # Native surfaces (widgets, Live Activities, voice, watch)
 
 Native home-screen widgets, Live Activities, Siri/Assistant shortcuts, Apple Watch,
-and Wear OS companion surfaces share the **`appSurfaces`** architecture documented
-originally in this file for widgets (NF-1.18 / NF-1.19).
+and Wear OS companion surfaces share the **`appSurfaces`** architecture.
 
 ## Architecture
 

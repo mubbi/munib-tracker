@@ -26,8 +26,8 @@ import {
 
 import { initDatabase, PrayerRepository, QazaRepository, ZikrRepository } from "@/db";
 import { persistAchievementSync } from "@/lib/achievements-persistence";
-import { zikrCountKey } from "@/lib/after-salah-adhkar-progress";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
+import { zikrCountKey } from "@/lib/zikr-count-key";
 
 import { createStore, useStore } from "./create-store";
 

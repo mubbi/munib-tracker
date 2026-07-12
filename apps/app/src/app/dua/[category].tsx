@@ -1,8 +1,7 @@
-import { duasByCategory } from "@munib-tracker/shared/content";
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FlatList, type ListRenderItem, StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -15,6 +14,7 @@ import { ListIndexBadge } from "@/components/ui/list-index-badge";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { loadDuaItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
 import { chevronForward } from "@/lib/rtl";
 import { createDuaSearch } from "@/lib/search";
@@ -58,7 +58,14 @@ export default function DuaCategoryScreen() {
   const params = useLocalSearchParams<{ category: string }>();
   const isKnownCategory = VALID.includes(params.category as DuaCategoryId);
   const categoryId = (isKnownCategory ? params.category : "morning_evening") as DuaCategoryId;
-  const items = duasByCategory(categoryId);
+  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
+  useEffect(() => {
+    void loadDuaItems().then(setDuaItems);
+  }, []);
+  const items = useMemo(
+    () => duaItems.filter((item) => item.categoryId === categoryId),
+    [categoryId, duaItems],
+  );
   const { colors } = useThemeTokens();
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;

@@ -233,5 +233,72 @@ jest.mock("expo-notifications", () => ({
   requestPermissionsAsync: jest.fn(async () => ({ status: "granted" })),
 }));
 
+// Must be mocked before any suite pulls `@/db` → `location.ts` (e.g. sync-engine).
+jest.mock("expo-location", () => ({
+  requestForegroundPermissionsAsync: jest.fn(async () => ({ status: "granted" })),
+  getCurrentPositionAsync: jest.fn(async () => ({
+    coords: {
+      latitude: 0,
+      longitude: 0,
+      altitude: null,
+      accuracy: 10,
+      altitudeAccuracy: null,
+      heading: null,
+      speed: null,
+    },
+    timestamp: Date.now(),
+  })),
+  getLastKnownPositionAsync: jest.fn(async () => null),
+  reverseGeocodeAsync: jest.fn(async () => []),
+  Accuracy: { Lowest: 1, Low: 2, Balanced: 3, High: 4, Highest: 5, BestForNavigation: 6 },
+}));
+
 // Initialise i18n (English) so `t()` returns real strings in component tests.
 require("./src/i18n");
+
+// Warm async content caches via sync `require` loaders. Jest cannot use
+// production `import()` without --experimental-vm-modules; never `require`
+// sync-engine here (it locks `@/db` → `location` before suite mocks apply).
+(() => {
+  const { __setSearchCorporaForTests, __setSearchGuideGroupsForTests, __setQuranModuleForTests } =
+    require("./src/lib/search") as typeof import("./src/lib/search");
+  const { __setZikrItemsForTests } = require("./src/lib/zikr") as typeof import("./src/lib/zikr");
+  const { __setKnowledgeCardNamesForTests, __setKnowledgeCardQuranForTests } =
+    require("./src/lib/knowledge-card") as typeof import("./src/lib/knowledge-card");
+  const { __setBundledHadithForTests } =
+    require("./src/lib/hadith-bundled") as typeof import("./src/lib/hadith-bundled");
+  const { __setContentLoaderCachesForTests } =
+    require("./src/lib/content-loaders") as typeof import("./src/lib/content-loaders");
+  const corpora =
+    require("./src/lib/search-corpora-test-loader") as typeof import("./src/lib/search-corpora-test-loader");
+  const { loadNawawiSyncForTests } =
+    require("./src/lib/hadith-nawawi-test-loader") as typeof import("./src/lib/hadith-nawawi-test-loader");
+  const { loadRiyadSyncForTests } =
+    require("./src/lib/hadith-riyad-test-loader") as typeof import("./src/lib/hadith-riyad-test-loader");
+  const { loadQuranSyncForTests } =
+    require("./src/lib/knowledge-card-quran-test-loader") as typeof import("./src/lib/knowledge-card-quran-test-loader");
+  const { searchGuideGroups } =
+    require("./src/lib/search-guides") as typeof import("./src/lib/search-guides");
+
+  const duas = corpora.loadDuaItemsSyncForTests();
+  const zikr = corpora.loadZikrItemsSyncForTests();
+  const duroods = corpora.loadDuroodItemsSyncForTests();
+  const names = corpora.loadNamesSyncForTests();
+  const quran = loadQuranSyncForTests();
+
+  __setContentLoaderCachesForTests({ duas, zikr, duroods, names });
+  __setSearchCorporaForTests({ duas, zikr, duroods, names });
+  __setZikrItemsForTests(zikr);
+  __setKnowledgeCardNamesForTests(names);
+  __setKnowledgeCardQuranForTests(quran);
+  __setQuranModuleForTests(quran);
+  __setBundledHadithForTests("nawawi40", loadNawawiSyncForTests());
+  __setBundledHadithForTests("riyad_assalihin", loadRiyadSyncForTests());
+  __setSearchGuideGroupsForTests(searchGuideGroups);
+
+  const { __setLightSearchWithGuidesForTests } =
+    require("./src/lib/run-search-light-with-guides") as typeof import("./src/lib/run-search-light-with-guides");
+  const { searchLightWithGuides } =
+    require("./src/lib/search-with-guides") as typeof import("./src/lib/search-with-guides");
+  __setLightSearchWithGuidesForTests(searchLightWithGuides);
+})();

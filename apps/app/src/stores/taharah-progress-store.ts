@@ -1,5 +1,3 @@
-import { TAHARAH_TOPICS } from "@munib-tracker/shared/content/taharah";
-
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 
@@ -19,6 +17,7 @@ export const taharahProgressStore = createStore<TaharahProgressState>((set, get)
 
   async load() {
     const stored = await readJSON<string[]>(DB_KEYS.taharahProgress, []);
+    const { TAHARAH_TOPICS } = await import("@munib-tracker/shared/content/taharah");
     const valid = new Set(TAHARAH_TOPICS.map((topic) => topic.id));
     const completedTopicIds = stored.filter((id) => valid.has(id));
     set({ completedTopicIds, isReady: true });

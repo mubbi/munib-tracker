@@ -1,6 +1,5 @@
-import { DUA_ITEMS, getDuaById } from "@munib-tracker/shared/content";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -9,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
+import { loadDuaItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { buildDuaActivity } from "@/lib/continue-activity";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -22,7 +22,8 @@ import {
 } from "@/stores/dua-favorites-store";
 
 /** Pre-render a static HTML page for every bundled dua at web export time. */
-export function generateStaticParams(): Array<{ id: string }> {
+export async function generateStaticParams(): Promise<Array<{ id: string }>> {
+  const { DUA_ITEMS } = await import("@munib-tracker/shared/content/duas");
   return DUA_ITEMS.map((dua) => ({ id: dua.id }));
 }
 
@@ -30,7 +31,11 @@ export default function DuaDetailScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const params = useLocalSearchParams<{ id: string }>();
-  const item = params.id ? getDuaById(params.id) : undefined;
+  const [items, setItems] = useState<Awaited<ReturnType<typeof loadDuaItems>>>([]);
+  useEffect(() => {
+    void loadDuaItems().then(setItems);
+  }, []);
+  const item = params.id ? items.find((dua) => dua.id === params.id) : undefined;
   useEnsureDuaFavoritesLoaded();
   const isFavorite = useIsFavoriteDua(item?.id ?? "");
   const { toggle } = useDuaFavoritesActions();
@@ -40,7 +45,7 @@ export default function DuaDetailScreen() {
     if (item) recordContinueActivity(buildDuaActivity(item));
   }, [item]);
 
-  if (!item) {
+  if (!item && items.length > 0) {
     return (
       <ScreenLayout title={t("dua.detailEyebrow")} onBack={() => goBackOrReplace(router, "/")}>
         <Seo
@@ -57,6 +62,7 @@ export default function DuaDetailScreen() {
       </ScreenLayout>
     );
   }
+  if (!item) return null;
 
   const onShare = async () => {
     await shareCard.share({

@@ -9,7 +9,8 @@ import { fetchRemoteEditionSurah } from "@/api/quran-remote";
  */
 export function useRemoteEditionSurah(editionId: string | null, surah: number) {
   return useQuery({
-    queryKey: ["quran-edition", editionId, surah],
+    // v2: payloads are read from fawaz `chapter[]` (older cache entries were empty `{}`).
+    queryKey: ["quran-edition", "v2", editionId, surah],
     enabled: editionId != null,
     staleTime: Number.POSITIVE_INFINITY,
     gcTime: Number.POSITIVE_INFINITY,

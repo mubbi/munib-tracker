@@ -1,8 +1,9 @@
+import type { HadithItem } from "@munib-tracker/shared/types";
 import type { Href } from "expo-router";
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
-
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { IconWell } from "@/components/ui/icon-well";
@@ -10,12 +11,12 @@ import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
+  ensureHadithItem,
   hadithCollectionId,
   hadithExcerpt,
   PRAYER_INFO,
   type PrayerInfoId,
   type PrayerInfoReference,
-  resolveHadithItem,
 } from "@/lib/prayer-info";
 import { scheduleEntryIcon } from "@/lib/schedule-ui";
 
@@ -34,6 +35,20 @@ function ReferenceCard({
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const [hadith, setHadith] = useState<HadithItem | null | undefined>(
+    reference.type === "hadith" ? undefined : null,
+  );
+
+  useEffect(() => {
+    if (reference.type !== "hadith") return;
+    let cancelled = false;
+    void ensureHadithItem(reference.id).then((item) => {
+      if (!cancelled) setHadith(item ?? null);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [reference]);
 
   if (reference.type === "quran") {
     const label = t("quran.ayahRef", { surah: reference.surah, ayah: reference.ayah });
@@ -59,7 +74,13 @@ function ReferenceCard({
     );
   }
 
-  const hadith = resolveHadithItem(reference.id);
+  if (hadith === undefined) {
+    return (
+      <View style={[styles.refCard, { backgroundColor: colors.muted }]}>
+        <ActivityIndicator color={colors.accent} />
+      </View>
+    );
+  }
   if (!hadith) return null;
 
   return (

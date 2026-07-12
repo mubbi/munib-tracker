@@ -1,12 +1,12 @@
 # Munib Tracker — Profiling & optimization
 
-> **Purpose:** Profile of `apps/app` + actionable performance backlog (updated **2026-07-12**). **Active tasks:** [`BACKLOG.md`](./BACKLOG.md#performance).
+> **Purpose:** Performance profile of `apps/app` + playbooks. **Open tasks:** [`BACKLOG.md`](./BACKLOG.md#performance).
 >
 > **Apps covered:** `apps/app` (iOS / Android / Web). Marketing site and API are out of scope.
 >
 > **Verdict (read this first):**  
 > - **Native (iOS/Android): further React.lazy / per-route code-splitting is not required.** Metro already ships one Hermes-friendly JS graph; Expo’s production async routes still do **not** split native bundles. Keep the single-load app shell. Optimize **payload and startup work**, not screen module wrappers.  
-> - **Web: async routes + graph trims landed (2026-07-12).** Export now emits **~458 JS chunks**; home critical path is **~19 MB raw / ~3.4 MB gzip** (down from a single ~62 MB / ~12 MB gzip entry on 2026-07-09). Lab Lighthouse: mobile `/` **39** / desktop **62** (was 27 / 44). Remaining debt is mostly `__common` (~15 MB / ~2.5 MB gzip) — shared runtime + Nawawi + content still pulled by multi-route modules. Continue trimming search corpora / content deep-imports; Qur’an ayah JSON and Riyad are off the critical path.
+> - **Web (2026-07-12 pass 2):** asyncRoutes on — **~468 JS chunks**; home critical path **~18.7 MB raw / ~3.4 MB gzip**. Lab Lighthouse: mobile `/` **~38** / desktop **~64**. `__common` **~15.1 MB / ~2.4 MB gzip**. Names, zikr, Nawawi JSON, Learn `search-guides`, and Arabic TTF picker assets are **out** of `__common`; remaining size is mostly RN/Expo runtime + still-shared guide/dua strings. LCP on throttled mobile is still dominated by parsing `__common`.
 
 ---
 
@@ -15,7 +15,7 @@
 | Method | What it measures | Limits |
 |--------|------------------|--------|
 | Filesystem sizes | Routes, `src/`, `assets/data`, shared content | Disk ≠ parse cost |
-| `apps/app/dist` web static export (**2026-07-12**) | JS chunk count / size / gzip | Regenerated after asyncRoutes + graph fixes |
+| `apps/app/dist` web static export | JS chunk count / size / gzip | After asyncRoutes + graph trims |
 | Gzip of home critical scripts | Transfer size on a warm CDN | Brotli may be slightly smaller in production hosting |
 | String / payload probes inside `__common` | Confirms corpora in / out of shared chunk | Not a full Metro treemap |
 | Chrome Lighthouse (local `serve dist`, Chrome headless) | LCP / TBT / FCP / SI on `/` and `/tracker` | Lab-only; not CrUX field data |
@@ -44,30 +44,24 @@
 | `@munib-tracker/shared` content (non-test `.ts`) | **~1.4 MB** under `packages/shared/src/content` |
 | i18n JSON (**23** catalogs: `en` + 22 translations) | **~5+ MB** raw on disk; **locale-on-demand** via `import()` (only `en` + active locale at boot) |
 
-### 2.2 Web production export (`apps/app/dist`) — 2026-07-12
+### 2.2 Web production export (`apps/app/dist`) — 2026-07-12 pass 2
 
 | Artifact | Size |
 |----------|-----:|
-| JS files under `dist/_expo/static/js/web/` | **~458** chunks (asyncRoutes working) |
-| Home critical path (sum of scripts in `index.html`) | **~19.0 MB** raw / **~3.4 MB** gzip -9 |
-| `__common-*.js` (shared) | **~15.5 MB** raw / **~2.53 MB** gzip |
-| Largest route/`index` chunk | **~4.0 MB** raw / **~0.98 MB** gzip |
+| JS files under `dist/_expo/static/js/web/` | **~468** chunks (asyncRoutes working) |
+| Home critical path (sum of scripts in `index.html`) | **~18.7 MB** raw / **~3.4 MB** gzip -9 |
+| `__common-*.js` (shared) | **~15.1 MB** raw / **~2.44 MB** gzip |
+| Largest route/`index` chunk | **~3.4 MB** raw |
 | Riyad JSON | **own async chunk** (~4.1 MB raw / ~0.64 MB gzip) — **not** required to paint home |
+| Duas corpus | **own async chunk** (~0.73 MB) |
 | Color picker | **own async chunk** (~535 KB) — absent from `__common` |
 | Locale catalogs (`ar`, `ur`, …) | **own async chunks** (~500–580 KB each) |
 
-**Historical baselines (do not confuse with current):**
+**`__common` probes (pass 2):** `NAMES` meanings **absent**; zikr `Subhan-Allah` **absent**; Nawawi English body **absent**; `search-guides` module **absent**; `ScheherazadeNew-Regular` TTF **absent**; Qur’an arabic / color picker / Riyad full JSON **absent**. Still present: some dua/guide string fragments shared across multi-route modules.
 
-| Date | Shape | Critical / main |
-|------|-------|-----------------|
-| 2026-07-07 | ~1 fat `index-*.js` | ~21.5 MB / ~4.2 MB gzip |
-| 2026-07-09 | ~1 fat entry still | ~62 MB / ~12 MB gzip |
-| 2026-07-12 (pre graph trim, async on) | 456 chunks; fat `__common` | ~24 MB / ~4.2 MB gzip critical |
-| **2026-07-12 (after graph trim)** | 458 chunks | **~19 MB / ~3.4 MB gzip critical** |
+**Metro rule (critical):** never `require()` content/JSON from production modules — even behind `NODE_ENV === "test"`. Jest warms via `jest.setup.ts` setters (`__set*ForTests`). Guides live in `search-with-guides.ts`, loaded only from the search screen runner.
 
-**`__common` probes (2026-07-12 after):** `assets/data/quran/arabic` **absent**; `reanimated-color-picker` **absent**; Riyad full JSON **absent** (id strings only); still present: `DUA_ITEMS`, `NAMES_OF_ALLAH`, Nawawi40, Scheherazade asset refs.
-
-**Interpretation:** First paint no longer downloads the whole app as one file, but home still parses a large shared chunk. Next wins: keep search corpora / names out of modules shared by ≥2 routes, and shrink `__common` toward the §7 budgets.
+**Interpretation:** Corpora trims landed; `__common` is now mostly framework/runtime. Further LCP wins need either a smaller shared runtime or shipping less JS before first paint (e.g. thinner home route, partial hydration strategies).
 
 ### 2.3 Content already deferred vs eager
 
@@ -76,10 +70,12 @@
 | Qur’an per-surah / page JSON | `quran-loader` `require()` maps; home uses `quran-meta` + dynamic `import("@/lib/quran")` for cards/search | **Good for home** — ayah JSON out of `__common`; still heavy when Qur’an routes load |
 | QCF V2 page fonts | Download + cache (`qcf-font-cache.ts`) | **Good** — not blocking splash |
 | Remote hadith / extra Qur’an editions | CDN + cache APIs | **Good** |
-| Riyad as-Salihin | `import()` via `ensureBundledCollection` (`hadith-bundled.ts`) | **Good** — own async chunk; Nawawi stays sync for home/search |
-| Content barrel | Progress stores + excused picker use **deep** `@munib-tracker/shared/content/*`; search corpora `import()` | **Improved** — full barrel no longer on Auth→blob path; duas/names can still land in `__common` if shared |
+| Riyad as-Salihin | `import()` via `ensureBundledCollection` (`hadith-bundled.ts`) | **Good** — own async chunk |
+| Nawawi Forty | `import()` via `ensureBundledCollection` (same as Riyad) | **Good** — own async chunk; sync only after warm / Jest setters |
+| Content corpora | Screens use `content-loaders` / `ensure*`; progress stores `await import()` topic lists in `load()`; no content barrel on home | **Improved** |
+| Learn guides (search) | `search-with-guides.ts` — only pulled from search screen runner | **Good** — not in `__common` |
 | i18n locales | `en` static; others `import()` in `i18n/index.ts` | **Good** |
-| Arabic / Bengali fonts | Root loads Bengali + **active** Arabic face only; full Arabic set on Settings → Fonts; no Google Fonts CSS in `+html.tsx` | **Good** |
+| Arabic / Bengali fonts | Root: Bengali + optional active face via `import("@/lib/arabic-font-files")`; picker TTFs not in `__common` | **Good** |
 | `reanimated-color-picker` | `React.lazy` from `settings/appearance` | **Good** — own chunk |
 
 Search (`src/lib/search.ts`) lazy-builds Fuse indexes, uses `quran-meta` for surah names, and **`ensureAyahFuse()`** dynamic-imports `@/lib/quran` for ayah full-text — keep that pattern.
@@ -88,25 +84,15 @@ Search (`src/lib/search.ts`) lazy-builds Fuse indexes, uses `quran-meta` for sur
 
 Served with `npx serve apps/app/dist -l 4173`. Reports under `apps/app/.lighthouse/`.
 
-**Before graph trim (asyncRoutes on, ~24 MB / ~4.2 MB gzip critical):**
+**Lab scores (2026-07-12 pass 2, ~18.7 MB / ~3.4 MB gzip critical path):**
 
-| Page | Form | Score | FCP | LCP | TBT | SI | TTI |
-|------|------|------:|-----|-----|-----|-----|-----|
-| `/` | mobile | 27 | 12.5 s | 36.6 s | 2.3 s | 13.2 s | 36.7 s |
-| `/tracker` | mobile | 26 | 12.5 s | 36.4 s | 3.0 s | 13.8 s | 36.5 s |
-| `/` | desktop | 44 | 0.6 s | 6.3 s | 590 ms | 3.2 s | 6.3 s |
-| `/tracker` | desktop | 44 | 0.5 s | 6.6 s | 620 ms | 3.1 s | 6.6 s |
+| Page | Form | Score | FCP | LCP | TBT | SI |
+|------|------|------:|-----|-----|-----|-----|
+| `/` | mobile | 38 | 0.9 s | 26.3 s | 1.9 s | 10.0 s |
+| `/tracker` | mobile | 40 | 0.9 s | 25.9 s | 1.7 s | 8.3 s |
+| `/` | desktop | 64 | 0.2 s | 4.3 s | 260 ms | 2.1 s |
 
-**After graph trim (~19 MB / ~3.4 MB gzip critical):**
-
-| Page | Form | Score | FCP | LCP | TBT | SI | TTI |
-|------|------|------:|-----|-----|-----|-----|-----|
-| `/` | mobile | 39 | 0.9 s | 27.6 s | 2.0 s | 9.2 s | 27.9 s |
-| `/tracker` | mobile | 40 | 0.9 s | 26.6 s | 1.5 s | 10.0 s | 26.7 s |
-| `/` | desktop | 62 | 0.2 s | 4.7 s | 260 ms | 2.4 s | 4.9 s |
-| `/tracker` | desktop | 58 | 0.2 s | 4.6 s | 320 ms | 2.6 s | 4.6 s |
-
-CLS was **0** on all before/after runs. Mobile FCP improved dramatically (~12.5 s → ~0.9 s); LCP/TBT still dominated by parsing `__common`.
+CLS was **0**. Mobile LCP/TBT still dominated by parsing `__common` (~15 MB). Desktop improved vs pass 1 (~62 → **64**).
 
 ### 2.4 Android debug APK (directional only)
 
@@ -141,78 +127,26 @@ bundletool get-size total --apks=app.apks
 
 Official reference: [Async routes (Expo Router)](https://docs.expo.dev/router/web/async-routes/).
 
-### 3.2 Payload / startup optimizations — status (2026-07-12)
+### 3.2 Payload / startup — already done
 
-| Item | Status |
-|------|--------|
-| 1. Stop eager multi‑MB hadith JSON (Riyad) | **Done** — `import()` + `ensureBundledCollection` |
-| 2. Split web JS by route (`asyncRoutes`) | **Done** |
-| 3. Locale-on-demand (`en` + active) | **Done** |
-| 4. Defer settings-only heavy UI / fonts | **Done** — lazy color picker; active Arabic face + Settings → Fonts; no Google Fonts CSS in `+html` |
-| 5. Measure cold start (device + web lab) | **Partial** — web Lighthouse lab done (§2.5); device cold-start + release AAB still open |
+Web asyncRoutes, Riyad `import()`, locale-on-demand, deferred fonts/color picker, and deep content imports are in place. Remaining work is listed in §4 and [`BACKLOG.md`](./BACKLOG.md#performance).
 
-**Next:** keep DUA/NAMES/search corpora out of modules shared into `__common`; optional Metro treemap (P2.4).
 
 ---
 
-## 4. Optimization backlog (TODO)
+## 4. Open optimization work
 
-Priority: **P0** = clear measured pain · **P1** = solid ROI · **P2** = polish / measure-first.
+Full list also in [`BACKLOG.md`](./BACKLOG.md#performance).
 
-### P0 — Web first-load & JS graph
+| ID | Task | Notes |
+|----|------|-------|
+| P1.5 | Android barcode / ML Kit assets | Debug APK packs ~0.86 MB TFLite under `assets/`. Exclude from release AAB if unused. |
+| P2.1 | Device cold start | Mid-tier Android + one iPhone; optional [EAS Observe](https://docs.expo.dev/eas/observe/get-started/) |
+| P2.2 | Release AAB / IPA size | Replace §2.4 debug numbers with Play download size / TestFlight |
+| P2.4 | Metro treemap (optional) | Source-map explorer; attach top modules here |
+| — | Further `__common` trim | Keep DUA/NAMES/search corpora out of modules shared by ≥2 routes |
 
-- [x] **P0.1 Enable Expo Router async routes on web**  
-  - Config: `["expo-router", { "asyncRoutes": { "web": true, "android": false, "ios": false } }]` in `app.json`.  
-  - Re-run `pnpm --filter app build:web` and confirm **multiple** `dist/_expo/static/js/web/*.js` chunks, not one ~22 MB file.  
-  - Acceptance: home HTML’s critical JS drops substantially; infrequently used trees (`learn-quran/*`, `jahannam/*`, deep settings) load on navigation.
-
-- [x] **P0.2 Stop statically importing Riyad into the JS bundle**  
-  - Nawawi40 eager; Riyad via **`import()`** + `ensureBundledCollection` (not `require()` — Metro still embeds `require` targets).  
-  - Acceptance: Riyad is a **separate** `riyad-as-salihin-*.js` chunk; home critical path does not include the full JSON.
-
-- [x] **P0.3 Re-export web & record a new size table**  
-  - Done 2026-07-12 — see §2.2 (458 chunks; ~19 MB / ~3.4 MB gzip critical path).
-
-### P1 — Startup work & secondary weight
-
-- [x] **P1.1 Locale-on-demand i18n**  
-  - Load `en` always; dynamically import the active locale JSON when language is selected or detected (all 23 catalogs).  
-  - Keep `i18n-guard` / parity tests importing catalogs as needed for CI.  
-  - Acceptance: cold start with English does not parse the other 22 locale JSON files.
-
-- [x] **P1.2 Font strategy**  
-  - Root deferred load: Bengali + **active** Arabic family only; Settings → Fonts registers full `ARABIC_FONT_FILES`.  
-  - Removed render-blocking Google Fonts CSS from `+html.tsx` (bundled OFL Bengali).  
-
-- [x] **P1.3 Lazy-load settings-only heavy UI**  
-  - Color picker lazy; confirmed absent from `__common`. QR warmup + MiniPlayer / adhan bridge behind `IdleMount`.  
-
-- [x] **P1.4 Narrow `@munib-tracker/shared/content` imports where cheap**  
-  - Progress stores + excused picker deep-import; `blob-sync` dynamic from `sync-engine`; search corpora via `import()` + `preloadSearchCorpora`. Further barrel sweeps remain incremental.
-
-- [ ] **P1.5 Android barcode / ML Kit assets**  
-  - Debug APK packs ~0.86 MB ML Kit barcode TFLite under `assets/`. Confirm whether a dependency (e.g. scanner / auth / image pipeline) needs it; exclude if unused.  
-  - Acceptance: release AAB asset dump has no barcode models unless a feature uses them.
-
-### P2 — Measure & monitor
-
-- [ ] **P2.1 Device cold start**  
-  - Record time-to-interactive on a mid-tier Android + one iPhone for: cold kill → home interactive.  
-  - Optional: add [EAS Observe](https://docs.expo.dev/eas/observe/get-started/) (`markInteractive`) for production percentiles.
-
-- [ ] **P2.2 Release AAB / IPA size**  
-  - Replace §2.4 debug numbers with Play **download size** and TestFlight build size.
-
-- [x] **P2.3 Web Lighthouse / CrUX**  
-  - Lab run 2026-07-12 against local `serve dist` (Chrome headless). See §2.5. Field CrUX still optional after deploy.
-
-- [ ] **P2.4 Metro treemap (optional)**  
-  - Generate a source-map explorer / Expo bundle visualizer on web export; attach top 20 modules to this doc.
-
-- [ ] **P2.5 Avoid premature `React.lazy` on shared components**  
-  - Explicit non-goal unless a treemap shows a single optional dependency &gt; ~200–300 KB gzip unique to one screen.
-
----
+Non-goals: blanket `React.lazy` on shared components; native production `asyncRoutes` without Expo documenting native splits.
 
 ## 5. Guides — how to improve (playbooks)
 
@@ -275,13 +209,13 @@ await i18n.changeLanguage("ar");
 
 Preserve the existing i18n guard/parity tests (they can keep importing all locales). **Shipped** in `apps/app/src/i18n/index.ts`.
 
-### Guide E — Re-measure checklist (copy into PR descriptions)
+### Guide E — Re-measure checklist (after perf PRs)
 
-- [x] Web: main / critical path bytes + gzip + chunk count (2026-07-12 — §2.2)  
-- [x] Web: Lighthouse TBT / LCP on `/` and `/tracker` (2026-07-12 — §2.5)  
-- [ ] Native: cold start ms (same device, 3 runs avg)  
-- [ ] Release AAB download size (not debug APK)  
-- [x] Confirm Riyad / Qur’an ayah JSON not required to paint home  
+- [ ] Web: critical path bytes + gzip + chunk count (§2.2)
+- [ ] Web: Lighthouse TBT / LCP on `/` and `/tracker` (§2.5)
+- [ ] Native: cold start ms (same device, 3 runs avg)
+- [ ] Release AAB download size (not debug APK)
+- [ ] Confirm Riyad / Qur’an ayah JSON not required to paint home
 
 ### Guide F — What **not** to do
 
@@ -310,7 +244,7 @@ Preserve the existing i18n guard/parity tests (they can keep importing all local
 
 Lab baselines exist (§2.5). Stretch goals below are **not** CI gates yet — tighten after `__common` shrinks further and device/AAB numbers land.
 
-| Surface | Stretch target | 2026-07-12 status |
+| Surface | Stretch target | Current |
 |---------|----------------|-------------------|
 | Web entry JS (gzip) | **&lt; 1.5 MB** critical path (home), rest async | ~**3.4 MB** — in progress |
 | Web entry JS (raw) | **&lt; 6 MB** critical path | ~**19 MB** — in progress |
@@ -329,10 +263,3 @@ Lab baselines exist (§2.5). Stretch goals below are **not** CI gates yet — ti
 - Expo: [Async routes](https://docs.expo.dev/router/web/async-routes/), [Metro bundle splitting](https://docs.expo.dev/versions/v57.0.0/config/metro/#bundle-splitting), [EAS Observe](https://docs.expo.dev/eas/observe/get-started/)
 
 ---
-
-## 9. Changelog
-
-| Date | Note |
-|------|------|
-| 2026-07-12 | Fresh `build:web` + Chrome Lighthouse. AsyncRoutes → ~458 chunks. Graph fixes: Riyad `import()`, `quran-meta`, knowledge-card/search dynamic Qur’an, deep content imports, lazy blob-sync, font/IdleMount/Google Fonts trim. Critical path ~19 MB / ~3.4 MB gzip (was ~62 MB / ~12 MB on 07-09). P0.3 + P2.3 lab Lighthouse recorded. |
-| 2026-07-08 | Initial profile from existing web `dist`, debug APK anatomy, asset/source inventory, and import-graph review. **Verdict: native route lazy-loading not required; web + eager multi‑MB JSON / locales / fonts are the real optimizations.** |

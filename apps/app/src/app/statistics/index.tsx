@@ -1,4 +1,3 @@
-import { getZikrById } from "@munib-tracker/shared/content";
 import type {
   PrayerLog,
   QazaCounter,
@@ -17,7 +16,7 @@ import {
   sumPrayerTotals,
 } from "@munib-tracker/shared/utils";
 import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { BarChart, type BarDatum } from "@/components/charts/bar-chart";
@@ -49,6 +48,7 @@ import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementB
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import {
   useAchievementStats,
   useDailySummary,
@@ -119,6 +119,10 @@ export default function StatisticsScreen() {
   const [quranSurahsStarted, setQuranSurahsStarted] = useState(0);
   const [quranBookmarks, setQuranBookmarks] = useState(0);
   const [hadithBookmarks, setHadithBookmarks] = useState(0);
+  const [, setCorpusReady] = useState(false);
+  useEffect(() => {
+    void ensureZikrCorpus().then(() => setCorpusReady(true));
+  }, []);
 
   const locale = i18n.language?.split("-")[0];
   const formatCount = (value: number) => value.toLocaleString(locale);

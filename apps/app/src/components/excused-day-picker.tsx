@@ -1,4 +1,3 @@
-import { EXCUSED_GUIDE_ROUTES } from "@munib-tracker/shared/content/excused-guide";
 import type { ExcusedReason } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
@@ -10,6 +9,13 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useDayExcused, useTrackerActions } from "@/stores/tracker-store";
+
+/** Keep routes local — importing excused-guide content would pull guide copy into home `__common`. */
+const EXCUSED_GUIDE_ROUTES: Record<ExcusedReason, Href> = {
+  hayd: "/hayd",
+  sick: "/sick",
+  travel: "/travel",
+};
 
 const EXCUSED_REASONS = ["hayd", "sick", "travel"] as const satisfies readonly ExcusedReason[];
 
@@ -53,7 +59,7 @@ export function ExcusedDayPicker({
       onExcusedChange(reason);
       return;
     }
-    router.push(EXCUSED_GUIDE_ROUTES[reason] as Href);
+    router.push(EXCUSED_GUIDE_ROUTES[reason]);
   };
 
   const chips = (

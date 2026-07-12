@@ -12,7 +12,6 @@ import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Fonts, Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ARABIC_FONT_FILES } from "@/lib/arabic-fonts";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   ARABIC_FONT_OPTIONS,
@@ -54,9 +53,15 @@ export default function FontsScreen() {
   const { update } = usePreferencesActions();
   const sizeLabel = (id: SizeId) => t(`fonts.${SIZE_LABEL_KEY[id]}`);
 
-  // Register Arabic picker faces only when this screen opens.
+  // Register Arabic picker faces only when this screen opens (dynamic import keeps TTFs out of `__common`).
   useEffect(() => {
-    void import("expo-font").then((Font) => Font.loadAsync({ ...ARABIC_FONT_FILES }));
+    void (async () => {
+      const [{ ARABIC_FONT_FILES }, Font] = await Promise.all([
+        import("@/lib/arabic-font-files"),
+        import("expo-font"),
+      ]);
+      await Font.loadAsync({ ...ARABIC_FONT_FILES });
+    })();
   }, []);
 
   const arabicSize = prefs.fontPrefs.arabic.size ?? 28;

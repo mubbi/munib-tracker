@@ -4,13 +4,11 @@
  * zakat is 2.5% of it. A disclaimer directs nuanced cases to a scholar.
  */
 
-import {
-  GOLD_NISAB_GRAMS,
-  SILVER_NISAB_GRAMS,
-  ZAKAT_WEALTH_RATE,
-} from "@munib-tracker/shared/content";
-
-export { GOLD_NISAB_GRAMS, SILVER_NISAB_GRAMS, ZAKAT_WEALTH_RATE as ZAKAT_RATE };
+/** Canonical nisab / rate (mirrored from zakat-guide content; keep in sync). */
+export const GOLD_NISAB_GRAMS = 87.48;
+export const SILVER_NISAB_GRAMS = 612.36;
+export const ZAKAT_RATE = 0.025;
+const ZAKAT_WEALTH_RATE = ZAKAT_RATE;
 
 export interface ZakatAssets {
   cash?: number;

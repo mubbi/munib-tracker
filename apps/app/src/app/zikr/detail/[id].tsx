@@ -1,7 +1,6 @@
-import { getZikrById, ZIKR_ITEMS } from "@munib-tracker/shared/content";
 import { isAfterSalahPrayer } from "@munib-tracker/shared/validators";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -21,25 +20,44 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { formatReadingShare } from "@/lib/share";
+import { ensureZikrCorpus, getZikrById } from "@/lib/zikr";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 import { useZikrCount } from "@/stores/tracker-store";
 
 /** Pre-render a static HTML page for every bundled zikr at web export time. */
-export function generateStaticParams(): Array<{ id: string }> {
+export async function generateStaticParams(): Promise<Array<{ id: string }>> {
+  const { ZIKR_ITEMS } = await import("@munib-tracker/shared/content/zikr");
   return ZIKR_ITEMS.map((zikr) => ({ id: zikr.id }));
+}
+
+function paramId(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
 }
 
 export default function ZikrDetailScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const params = useLocalSearchParams<{ id: string; prayer?: string }>();
+  const zikrId = paramId(params.id);
+  const prayerParam = paramId(params.prayer);
+  const [corpusReady, setCorpusReady] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void ensureZikrCorpus().then(() => {
+      if (active) setCorpusReady(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
-  const item = params.id ? getZikrById(params.id) : undefined;
+  const item = corpusReady && zikrId ? getZikrById(zikrId) : undefined;
   const afterSalahPrayer =
-    item?.categoryId === "after_prayer" && params.prayer && isAfterSalahPrayer(params.prayer)
-      ? params.prayer
+    item?.categoryId === "after_prayer" && prayerParam && isAfterSalahPrayer(prayerParam)
+      ? prayerParam
       : undefined;
   const count = useZikrCount(item?.id ?? "", afterSalahPrayer);
   const shareCard = useShareContentCard();
@@ -48,11 +66,15 @@ export default function ZikrDetailScreen() {
     if (item) recordContinueActivity(buildZikrActivity(item));
   }, [item]);
 
+  if (!corpusReady) {
+    return null;
+  }
+
   if (!item) {
     return (
       <ScreenLayout title={t("zikr.title")} onBack={() => goBackOrReplace(router, "/")}>
         <Seo
-          path={`/zikr/detail/${params.id ?? ""}`}
+          path={`/zikr/detail/${zikrId ?? ""}`}
           title={t("zikr.notFoundTitle")}
           description={t("zikr.notFoundDesc")}
           index={false}

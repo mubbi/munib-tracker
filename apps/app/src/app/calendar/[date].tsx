@@ -15,11 +15,11 @@ import { PrayerRepository, ZikrRepository } from "@/db";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { usePrayerTimesForDate } from "@/hooks/use-prayer-times-for-date";
-import { zikrCountKey } from "@/lib/after-salah-adhkar-progress";
 import { formatCalendarDateFromIso } from "@/lib/calendar-format";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { reconcileQazaDebtForStatusChange } from "@/lib/prayer-qaza-debt";
+import { zikrCountKey } from "@/lib/zikr-count-key";
 import { trackerStore } from "@/stores/tracker-store";
 
 export default function CalendarDayScreen() {

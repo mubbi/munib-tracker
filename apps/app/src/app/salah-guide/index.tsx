@@ -1,6 +1,5 @@
-import { PRAYER_RAKATS } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
@@ -22,6 +21,8 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
+  ensureSalahGuideContent,
+  getPrayerRakats,
   getSalahGuideLessonCount,
   getSalahGuidePhrases,
   getSalahGuideTopicsByJourney,
@@ -70,6 +71,10 @@ export default function SalahGuideScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureSalahGuideProgressLoaded();
+  const [, setContentLoaded] = useState(false);
+  useEffect(() => {
+    void ensureSalahGuideContent().then(() => setContentLoaded(true));
+  }, []);
   const completedCount = useSalahGuideCompletedCount();
   const lessonTotal = getSalahGuideLessonCount();
   // Recompute per locale so translated topic titles/summaries render on switch.
@@ -232,7 +237,7 @@ export default function SalahGuideScreen() {
               {t("salahGuide.sunnah")}
             </ThemedText>
           </View>
-          {PRAYER_RAKATS.map((row) => (
+          {getPrayerRakats().map((row) => (
             <View key={row.prayerId} style={[styles.tableRow, { borderTopColor: tokens.hairline }]}>
               <ThemedText type="small" style={styles.colName}>
                 {t(`prayers.${row.prayerId}`)}

@@ -29,6 +29,27 @@ export function isRemoteEdition(editionId: string): boolean {
   return QURAN_REMOTE_EDITIONS.some((d) => d.id === editionId);
 }
 
+type FawazVerse = { verse: number; text: string };
+
+/** fawazahmed0 per-surah payloads use `chapter`; older docs/mirrors used `quran`. */
+type FawazSurahPayload = {
+  chapter?: FawazVerse[];
+  quran?: FawazVerse[];
+};
+
+/** True when a cache/query hit has at least one ayah string. */
+export function hasEditionAyahs(ayahText: Record<string, string> | null | undefined): boolean {
+  if (!ayahText) return false;
+  for (const value of Object.values(ayahText)) {
+    if (value.trim().length > 0) return true;
+  }
+  return false;
+}
+
+function versesFromPayload(data: FawazSurahPayload): FawazVerse[] {
+  return data.chapter ?? data.quran ?? [];
+}
+
 /**
  * Cache-first fetch of a remote edition for one surah. Returns ayah-number →
  * text. Reads AsyncStorage first; on a miss, fetches, then writes back so the
@@ -39,21 +60,26 @@ export async function fetchRemoteEditionSurah(
   surah: number,
 ): Promise<Record<string, string>> {
   const cached = await QuranCacheRepository.get(editionId, surah);
-  if (cached) return cached;
+  // Empty maps were cached by an older parser that read the wrong JSON key —
+  // treat them as a miss so we refetch the real edition.
+  if (hasEditionAyahs(cached)) return cached as Record<string, string>;
 
   const slug = fawazSlugForEdition(editionId);
   if (!slug) {
     throw new Error(`Unknown remote Qur'an edition: ${editionId}`);
   }
 
-  const data = await fetchStaticJson<{ quran?: { verse: number; text: string }[] }>(
-    `${FAWAZ}/${slug}/${surah}.json`,
-  );
-  const verses = data.quran ?? [];
+  const data = await fetchStaticJson<FawazSurahPayload>(`${FAWAZ}/${slug}/${surah}.json`);
+  const verses = versesFromPayload(data);
   const out: Record<string, string> = {};
   for (const v of verses) {
     out[String(v.verse)] = v.text;
   }
+
+  if (!hasEditionAyahs(out)) {
+    throw new Error(`Empty Qur'an edition payload for ${editionId} surah ${surah}`);
+  }
+
   await QuranCacheRepository.set(editionId, surah, out);
   return out;
 }

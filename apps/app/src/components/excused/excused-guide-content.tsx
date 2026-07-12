@@ -1,4 +1,4 @@
-import { EXCUSED_GUIDES } from "@munib-tracker/shared/content";
+import { EXCUSED_GUIDES } from "@munib-tracker/shared/content/excused-guide";
 import type { ExcusedReason, JannahHadithRef } from "@munib-tracker/shared/types";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useMemo, useState } from "react";

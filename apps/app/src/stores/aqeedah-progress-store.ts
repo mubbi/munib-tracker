@@ -1,5 +1,3 @@
-import { AQEDAH_TOPICS } from "@munib-tracker/shared/content/aqeedah";
-
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 
@@ -19,6 +17,7 @@ export const aqeedahProgressStore = createStore<AqeedahProgressState>((set, get)
 
   async load() {
     const stored = await readJSON<string[]>(DB_KEYS.aqeedahProgress, []);
+    const { AQEDAH_TOPICS } = await import("@munib-tracker/shared/content/aqeedah");
     const valid = new Set(AQEDAH_TOPICS.map((topic) => topic.id));
     const completedTopicIds = stored.filter((id) => valid.has(id));
     set({ completedTopicIds, isReady: true });

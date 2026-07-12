@@ -1,7 +1,6 @@
-import { SEERAH_EVENTS } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -20,11 +19,19 @@ export default function SeerahScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const [seerahEvents, setSeerahEvents] = useState<
+    Awaited<typeof import("@munib-tracker/shared/content/seerah")>["SEERAH_EVENTS"]
+  >([]);
+  useEffect(() => {
+    void import("@munib-tracker/shared/content/seerah").then(({ SEERAH_EVENTS }) =>
+      setSeerahEvents(SEERAH_EVENTS),
+    );
+  }, []);
   // Recompute per locale so translated titles/bodies render on language switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
   const events = useMemo(
-    () => localizeList(SEERAH_EVENTS, overlayList("SEERAH_EVENTS")),
-    [i18n.language],
+    () => localizeList(seerahEvents, overlayList("SEERAH_EVENTS")),
+    [i18n.language, seerahEvents],
   );
 
   return (

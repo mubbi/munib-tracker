@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
-import { isRemoteEdition } from "@/api/quran-remote";
+import { hasEditionAyahs, isRemoteEdition } from "@/api/quran-remote";
 import { AyahActionSheet } from "@/components/quran/ayah-action-sheet";
 import { MushafFontLoading } from "@/components/quran/mushaf-font-loading";
 import { MushafLineRenderer } from "@/components/quran/mushaf-line-renderer";
@@ -150,12 +150,11 @@ export default function QuranPageReaderScreen() {
     [secondaryId, secondaryRemoteActive, startSurah],
   );
 
-  const translationText = remoteActive
-    ? (remoteQuery.data ?? bundledTranslation)
-    : bundledTranslation;
+  const translationText =
+    remoteActive && hasEditionAyahs(remoteQuery.data) ? remoteQuery.data! : bundledTranslation;
   const secondTranslationText = secondaryId
-    ? secondaryRemoteActive
-      ? (secondaryRemoteQuery.data ?? bundledSecond)
+    ? secondaryRemoteActive && hasEditionAyahs(secondaryRemoteQuery.data)
+      ? secondaryRemoteQuery.data
       : bundledSecond
     : undefined;
   const translationLoading = remoteActive && remoteQuery.isPending;

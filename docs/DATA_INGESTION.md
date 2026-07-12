@@ -2,9 +2,9 @@
 
 > **Audience:** Developers and agents working on the **build-data pipeline** and bundled religious content.
 >
-> **Status (2026-07-05): ✅ Implemented.** Qur'an reader, Hadith library, full Hisnul Muslim duas, 99 Names, and `apps/app/scripts/build-data/` all ship. This doc records **architecture and operations** — not an active task list.
+> Architecture and operations for the content pipeline (already shipping). Open data work: [`BACKLOG.md`](./BACKLOG.md#content-pipeline).
 >
-> **Companion docs:** [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) (sources & licenses) · [`FEATURES.md`](./FEATURES.md) (shipped content features) · [`BACKLOG.md`](./BACKLOG.md) (open data work)
+> **Companion docs:** [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) · [`FEATURES.md`](./FEATURES.md)
 
 ---
 
@@ -16,9 +16,8 @@
 4. **Do not add native dependencies** for content ingestion.
 5. **Never alter Arabic text** byte-for-byte in source datasets.
 
-### 0.1 Verified codebase facts (audited — build on these, don't re-discover)
+### 0.1 Existing platform pieces (reuse — do not rebuild)
 
-These were confirmed by reading the source. **Reuse them; do not rebuild what exists.**
 
 - **Audio already exists.** `src/providers/audio-player-provider.tsx` exports `AudioPlayerProvider`
   (mounted in `src/app/_layout.tsx`) and `useAudioPlayerContext()` built on **`expo-audio`**. It
@@ -62,7 +61,7 @@ These were confirmed by reading the source. **Reuse them; do not rebuild what ex
 
 ---
 
-## 1. Locked decisions (the "final answer")
+## 1. Delivery decisions
 
 | # | Decision | Delivery | Source (no-key) |
 |---|---|---|---|
@@ -108,7 +107,7 @@ scope** here. All D1–D12 sources work with **no key**.
 6. **Match existing conventions.** Screens use `ScreenLayout`/`Card`/`Stagger`/`EmptyState` from
    `@/components`, i18n via `useTranslation()` + keys in `src/i18n/{en,ar,ur}.json`, content
    accessors in `src/lib/*`, repos in `src/db/repositories/*`. RTL: Arabic and Urdu must render RTL.
-7. **All gates green** (§13) before "done".
+7. After pipeline changes: `pnpm --filter app check-types`, lint, and tests must pass; smoke Qur'an/Hadith offline.
 
 ---
 
@@ -156,7 +155,7 @@ NAWAWI_AUDIO = https://archive.org/details/40Hadith_Nawawi
 
 ---
 
-## 4. Target file tree (create these)
+## 4. File tree
 
 ```
 apps/app/
@@ -271,7 +270,7 @@ A Node **ESM** pipeline, run with `node apps/app/scripts/build-data/index.mjs` (
 
 ---
 
-## 6. Type definitions to add (`packages/shared/src/types/`)
+## 6. Type definitions (`packages/shared/src/types/`)
 
 Add and export from `packages/shared/src/types/index.ts`. Mirror existing style (string-literal
 unions, `readonly`-friendly, no classes).
@@ -493,54 +492,10 @@ Acceptance: app's existing Zikr/Dua/Names screens now show the full sets with **
 
 ---
 
-## 13. Definition of Done (gates — all must pass)
-
-Run from repo root (pnpm workspace):
-- `pnpm --filter app check-types` → **0 errors**.
-- `pnpm --filter app lint` (biome) → **clean**.
-- `pnpm --filter app test` (jest) → **green**, including new tests:
-  - Qur'an: `meta.json` has 114 surahs; sum of `ayahCount` === 6236; a sampled surah loads and ayah
-    counts match; bundled edition alignment (translit + each PD translation length === surah ayahs).
-  - Content: names length === 99; every dua/zikr has non-empty `reference`; content versions bumped.
-  - Hadith: highlights load; every item has `reference`.
-- **Manual smoke (Web is fastest):** `pnpm --filter app dev` → open Qur'an surah 1 & 2 offline (Arabic
-  + translit + Pickthall render, RTL correct); play an ayah (network on); open a Hadith highlight
-  offline; open Zikr/Dua/Names and see full sets; Credits screen lists sources; bookmark persists
-  across reload.
-- **Offline check:** disable network → core Qur'an, adhkar, duas, names, hadith highlights all still
-  render.
-- No new entries in `apps/app/package.json` dependencies (native-dep guard).
-
----
-
-## 14. Ordered task list (execute in this order)
-
-- [x] **T0.** Read Expo v57 docs (esp. `expo-audio`). Confirm pnpm workspace commands.
-- [x] **T1.** Add types: `packages/shared/src/types/{quran,hadith}.ts`; extend content types
-      (optional fields); export from `types/index.ts`. `check-types` green.
-- [x] **T2.** Scaffold `scripts/build-data/` (fetch+cache, schemas, manifest). Add npm script
-      `build:data`. `.cache/` gitignored.
-- [x] **T3.** **Phase 1 content (D7/D8):** `build-adhkar.mjs` + `build-names.mjs` → regenerate
-      `content/{duas,zikr,duroods,names}.ts`, bump versions. Extend content tests. Gates green.
-- [x] **T4.** `build-quran.mjs` (D1) → `apps/app/assets/data/quran/*` + generated `src/lib/quran-loader.ts`
-      (literal relative `require()`s). Validate 114/6236. Manifest updated.
-- [x] **T5.** `src/lib/quran.ts` selectors + repositories + `quran-store.ts` + `DB_KEYS` + tests.
-- [x] **T6.** Qur'an screens `src/app/quran/*` — list, reader, bookmarks, mushaf pages.
-- [x] **T7.** Qur'an audio via `useAudioPlayerContext().play(...)`.
-- [x] **T8.** Qur'an remote enrichment + cache-first editions.
-- [x] **T9.** Hadith highlights + remote collections + screens.
-- [x] **T10.** Audio for adhkar/names/adhan builders.
-- [x] **T11.** Credits screen + manifest-driven list.
-- [x] **T12.** Navigation quick actions + i18n namespaces.
-- [x] **T13.** Full DoD sweep — types, lint, tests, offline smoke.
-- [x] **T14.** Generated data committed; sourcing doc updated.
-
----
-
-## 15. Gotchas / guardrails (read before coding)
+## 13. Gotchas / guardrails
 
 - **Metro + dynamic requires:** `require(variable)` fails. The surah require-map **must** be
-  generated with literal paths (that's why `quran-loader.ts` is code-generated by T4). On **web**,
+  generated with literal paths (that's why `quran-loader.ts` is code-generated by `build-quran.mjs`). On **web**,
   avoid statically importing that map from modules shared into `__common` — use `quran-meta` /
   dynamic `import("@/lib/quran")` ([`PROFILING.md`](./PROFILING.md)).
 - **Bundle size:** bundling Arabic + translit + 3 translations ≈ a few MB of JSON in the JS bundle —
@@ -563,10 +518,3 @@ Run from repo root (pnpm workspace):
   native module, STOP and report — do not add it.
 
 ---
-
-### One-line summary for the executor
-Build a dev-only Node pipeline that fetches from **no-key CDNs**, normalizes to the §6 schemas, and
-commits **bundled JSON (Qur'an core, adhkar, names, hadith highlights)** + **runtime-cached CDN
-fetchers (extra translations, full hadith)** + **streamed audio (expo-audio)**, then add the Qur'an
-and Hadith screens and expand the existing content — all offline-first, attributed, and with **zero
-new native dependencies**. Ship only when §13 is fully green.

@@ -1,7 +1,7 @@
 import type { HadithItem } from "@munib-tracker/shared/types";
 import { addDays } from "@munib-tracker/shared/utils";
 
-import { getBundledCollection } from "@/lib/hadith";
+import { ensureBundledCollection, getBundledCollection } from "@/lib/hadith";
 
 /**
  * Daily hadith series (NF-2.10). A deterministic once-per-day pick from Imam
@@ -9,11 +9,30 @@ import { getBundledCollection } from "@/lib/hadith";
  * habit. The pick is a pure function of the calendar date, so the home card, the
  * archive, and any notification all agree on "today's hadith" without storing
  * anything.
+ *
+ * Nawawi JSON loads via {@link ensureDailyHadithPool} / sync Jest loaders — not
+ * at module evaluate time — so web home does not pay for it in `__common`.
  */
-const POOL: HadithItem[] = getBundledCollection("nawawi40")?.items ?? [];
+let poolCache: HadithItem[] | undefined;
+
+function getPool(): HadithItem[] {
+  if (poolCache) return poolCache;
+  const items = getBundledCollection("nawawi40")?.items;
+  if (items) {
+    poolCache = items;
+    return poolCache;
+  }
+  return [];
+}
+
+/** Ensure Nawawi is loaded before reading today's pick (hadith hub / archive). */
+export async function ensureDailyHadithPool(): Promise<void> {
+  await ensureBundledCollection("nawawi40");
+  poolCache = getBundledCollection("nawawi40")?.items ?? [];
+}
 
 export function dailyHadithPoolSize(): number {
-  return POOL.length;
+  return getPool().length;
 }
 
 /** Integer day number (days since the Unix epoch) for a YYYY-MM-DD date. */
@@ -32,15 +51,17 @@ function hashDay(n: number): number {
 }
 
 /** Deterministic pool index for a given day. */
-export function dailyHadithIndex(dateStr: string, poolSize: number = POOL.length): number {
-  if (poolSize <= 0) return 0;
-  return hashDay(dayNumber(dateStr)) % poolSize;
+export function dailyHadithIndex(dateStr: string, poolSize?: number): number {
+  const size = poolSize ?? getPool().length;
+  if (size <= 0) return 0;
+  return hashDay(dayNumber(dateStr)) % size;
 }
 
-/** Today's (or a given day's) hadith, or undefined if the pool is empty. */
+/** Today's (or a given day's) hadith, or undefined if the pool is empty / not loaded. */
 export function dailyHadith(dateStr: string): HadithItem | undefined {
-  if (POOL.length === 0) return undefined;
-  return POOL[dailyHadithIndex(dateStr)];
+  const pool = getPool();
+  if (pool.length === 0) return undefined;
+  return pool[dailyHadithIndex(dateStr, pool.length)];
 }
 
 /** The last `count` days of picks, newest first — the archive feed. */

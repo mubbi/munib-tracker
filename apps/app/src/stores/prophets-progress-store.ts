@@ -1,5 +1,3 @@
-import { PROPHETS_TOPICS } from "@munib-tracker/shared/content/prophets";
-
 import { DB_KEYS } from "@/db/keys";
 import { readJSON, writeJSON } from "@/db/store";
 
@@ -19,6 +17,7 @@ export const prophetsProgressStore = createStore<ProphetsProgressState>((set, ge
 
   async load() {
     const stored = await readJSON<string[]>(DB_KEYS.prophetsProgress, []);
+    const { PROPHETS_TOPICS } = await import("@munib-tracker/shared/content/prophets");
     const valid = new Set(PROPHETS_TOPICS.map((topic) => topic.id));
     const completedTopicIds = stored.filter((id) => valid.has(id));
     set({ completedTopicIds, isReady: true });

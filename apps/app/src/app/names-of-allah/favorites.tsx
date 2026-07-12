@@ -1,5 +1,5 @@
-import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -10,15 +10,13 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { loadNamesOfAllah } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureNameFavoritesLoaded,
   useFavoriteNameIds,
   useNameFavoritesActions,
 } from "@/stores/name-favorites-store";
-
-const BY_ID = new Map(NAMES_OF_ALLAH.map((name) => [name.id, name]));
-const NUMBER_BY_ID = new Map(NAMES_OF_ALLAH.map((name, index) => [name.id, index + 1]));
 
 export default function NameFavoritesScreen() {
   const router = useRouter();
@@ -27,8 +25,17 @@ export default function NameFavoritesScreen() {
   useEnsureNameFavoritesLoaded();
   const favoriteIds = useFavoriteNameIds();
   const { toggle } = useNameFavoritesActions();
+  const [names, setNames] = useState<Awaited<ReturnType<typeof loadNamesOfAllah>>>([]);
+  useEffect(() => {
+    void loadNamesOfAllah().then(setNames);
+  }, []);
+  const byId = useMemo(() => new Map(names.map((name) => [name.id, name])), [names]);
+  const numberById = useMemo(
+    () => new Map(names.map((name, index) => [name.id, index + 1])),
+    [names],
+  );
 
-  const items = favoriteIds.map((id) => BY_ID.get(id)).filter((item) => item != null);
+  const items = favoriteIds.map((id) => byId.get(id)).filter((item) => item != null);
 
   return (
     <ScreenLayout
@@ -53,7 +60,7 @@ export default function NameFavoritesScreen() {
               <View key={name.id} style={[styles.row, { backgroundColor: colors.muted }]}>
                 <View style={[styles.number, { backgroundColor: tokens.accentSoft }]}>
                   <ThemedText type="caption" style={{ color: colors.accentText }}>
-                    {NUMBER_BY_ID.get(name.id)}
+                    {numberById.get(name.id)}
                   </ThemedText>
                 </View>
                 <View style={styles.body}>

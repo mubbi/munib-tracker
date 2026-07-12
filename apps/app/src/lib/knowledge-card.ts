@@ -1,5 +1,4 @@
-import { NAMES_OF_ALLAH } from "@munib-tracker/shared/content/names";
-import type { UserPreferences } from "@munib-tracker/shared/types";
+import type { NameOfAllah, UserPreferences } from "@munib-tracker/shared/types";
 import type { Href } from "expo-router";
 
 import i18n from "@/i18n";
@@ -10,7 +9,7 @@ import {
   type MotivationTopic,
 } from "@/lib/knowledge-card-data";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
-import { hadithCollectionId, hadithExcerpt, resolveHadithItem } from "@/lib/prayer-info";
+import { ensureHadithItem, hadithCollectionId, hadithExcerpt } from "@/lib/prayer-info";
 import { getSurahByNumber } from "@/lib/quran-meta";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
 
@@ -41,6 +40,19 @@ const DEFAULT_PREFS: Pick<UserPreferences, "locale" | "translationLocale"> = {
   locale: "en",
   translationLocale: "en",
 };
+
+let namesForTests: NameOfAllah[] | undefined;
+let quranForTests: typeof import("@/lib/quran") | undefined;
+
+/** Jest-only: inject names without production `require()` of the corpus. */
+export function __setKnowledgeCardNamesForTests(names: NameOfAllah[]): void {
+  namesForTests = names;
+}
+
+/** Jest-only: inject Qur'an module without production `require()`. */
+export function __setKnowledgeCardQuranForTests(mod: typeof import("@/lib/quran")): void {
+  quranForTests = mod;
+}
 
 function mulberry32(seed: number): () => number {
   let t = seed >>> 0;
@@ -73,15 +85,7 @@ async function resolveQuran(
   const meta = getSurahByNumber(surah);
   if (!meta) return null;
 
-  // Dynamic import keeps the ayah JSON require-map out of the home entry graph.
-  // Jest CJS: sync loader in a separate module (DCE'd from production).
-  const quran =
-    process.env.NODE_ENV === "test"
-      ? // eslint-disable-next-line @typescript-eslint/no-require-imports
-        (
-          require("./knowledge-card-quran-test-loader") as typeof import("./knowledge-card-quran-test-loader")
-        ).loadQuranSyncForTests()
-      : await import("@/lib/quran");
+  const quran = quranForTests ?? (await import("@/lib/quran"));
   const { getBundledEdition, getSurahAyahs } = quran;
   const ayahs = getSurahAyahs(surah);
   const item = ayahs[ayah - 1];
@@ -115,8 +119,11 @@ async function resolveQuran(
   };
 }
 
-function resolveHadith(id: string, kind: "hadith" | "friday"): ResolvedKnowledgeCard | null {
-  const item = resolveHadithItem(id);
+async function resolveHadith(
+  id: string,
+  kind: "hadith" | "friday",
+): Promise<ResolvedKnowledgeCard | null> {
+  const item = await ensureHadithItem(id);
   if (!item) return null;
 
   return {
@@ -142,8 +149,10 @@ function resolveHadith(id: string, kind: "hadith" | "friday"): ResolvedKnowledge
   };
 }
 
-function resolveName(id: string): ResolvedKnowledgeCard | null {
-  const name = NAMES_OF_ALLAH.find((entry) => entry.id === id);
+async function resolveName(id: string): Promise<ResolvedKnowledgeCard | null> {
+  const names =
+    namesForTests ?? (await import("@munib-tracker/shared/content/names")).NAMES_OF_ALLAH;
+  const name = names.find((entry) => entry.id === id);
   if (!name) return null;
 
   return {

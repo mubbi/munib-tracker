@@ -5,15 +5,20 @@ import type {
   HadithSection,
 } from "@munib-tracker/shared/types";
 
-import nawawi from "@/assets/data/hadith/nawawi40.json";
-
 export interface BundledHadithCollection {
   collection: HadithCollection;
   chapters: Array<{ id: string; nameArabic: string; nameEnglish: string }>;
   items: HadithItem[];
 }
 
-const NAWAWI = nawawi as BundledHadithCollection;
+/** Collection meta for the hadith index without pulling Nawawi JSON (~200 KB+). */
+const NAWAWI_COLLECTION: HadithCollection = {
+  id: "nawawi40",
+  nameArabic: "الأربعون النووية",
+  nameEnglish: "The Forty Hadith of Imam Nawawi",
+  bundled: true,
+  bookCount: 1,
+};
 
 /** Collection meta for the hadith index without pulling the ~2.2 MB Riyad JSON. */
 const RIYAD_COLLECTION: HadithCollection = {
@@ -24,23 +29,35 @@ const RIYAD_COLLECTION: HadithCollection = {
   bookCount: 20,
 };
 
+let nawawiCache: BundledHadithCollection | undefined;
+let nawawiLoad: Promise<BundledHadithCollection> | undefined;
 let riyadCache: BundledHadithCollection | undefined;
 let riyadLoad: Promise<BundledHadithCollection> | undefined;
 
 /**
- * Dynamic `import()` — Metro emits a separate async chunk. Do not use
- * `require()` here; it still embeds Riyad in the parent module graph on web.
+ * Jest-only: inject bundled JSON without production modules `require()`-ing it.
+ * Metro follows every `require()` in this file into the web graph — never add one.
  */
+export function __setBundledHadithForTests(id: string, data: BundledHadithCollection): void {
+  if (id === NAWAWI_COLLECTION.id) nawawiCache = data;
+  if (id === RIYAD_COLLECTION.id) riyadCache = data;
+}
+
+/**
+ * Dynamic `import()` — Metro emits a separate async chunk. Do not use
+ * `require()` here; it still embeds the JSON in the parent module graph on web.
+ */
+function loadNawawiAsync(): Promise<BundledHadithCollection> {
+  if (nawawiCache) return Promise.resolve(nawawiCache);
+  nawawiLoad ??= import("@/assets/data/hadith/nawawi40.json").then((mod) => {
+    nawawiCache = (mod.default ?? mod) as BundledHadithCollection;
+    return nawawiCache;
+  });
+  return nawawiLoad;
+}
+
 function loadRiyadAsync(): Promise<BundledHadithCollection> {
   if (riyadCache) return Promise.resolve(riyadCache);
-  if (process.env.NODE_ENV === "test") {
-    // Isolate sync require in a separate module so production Metro never sees it.
-    // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS
-    const { loadRiyadSyncForTests } =
-      require("./hadith-riyad-test-loader") as typeof import("./hadith-riyad-test-loader");
-    riyadCache = loadRiyadSyncForTests();
-    return Promise.resolve(riyadCache);
-  }
   riyadLoad ??= import("@/assets/data/hadith/riyad-as-salihin.json").then((mod) => {
     riyadCache = (mod.default ?? mod) as BundledHadithCollection;
     return riyadCache;
@@ -49,41 +66,30 @@ function loadRiyadAsync(): Promise<BundledHadithCollection> {
 }
 
 export function getBundledCollections(): HadithCollection[] {
-  return [NAWAWI.collection, RIYAD_COLLECTION];
+  return [NAWAWI_COLLECTION, RIYAD_COLLECTION];
 }
 
 /**
- * Sync accessor. Nawawi is always available; Riyad only after
- * {@link ensureBundledCollection} (or a prior async load) has resolved.
- * In Jest, Riyad is loaded synchronously via the test-only loader.
+ * Sync accessor. Returns a collection only after {@link ensureBundledCollection}
+ * (or {@link __setBundledHadithForTests}) has populated the cache.
  */
 export function getBundledCollection(id: string): BundledHadithCollection | undefined {
-  if (id === NAWAWI.collection.id) return NAWAWI;
-  if (id === RIYAD_COLLECTION.id) {
-    if (riyadCache) return riyadCache;
-    if (process.env.NODE_ENV === "test") {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports -- Jest CJS
-      const { loadRiyadSyncForTests } =
-        require("./hadith-riyad-test-loader") as typeof import("./hadith-riyad-test-loader");
-      riyadCache = loadRiyadSyncForTests();
-      return riyadCache;
-    }
-    return undefined;
-  }
+  if (id === NAWAWI_COLLECTION.id) return nawawiCache;
+  if (id === RIYAD_COLLECTION.id) return riyadCache;
   return undefined;
 }
 
-/** Load a bundled collection, fetching Riyad on demand via async import. */
+/** Load a bundled collection via async import (Nawawi + Riyad). */
 export async function ensureBundledCollection(
   id: string,
 ): Promise<BundledHadithCollection | undefined> {
-  if (id === NAWAWI.collection.id) return NAWAWI;
+  if (id === NAWAWI_COLLECTION.id) return loadNawawiAsync();
   if (id === RIYAD_COLLECTION.id) return loadRiyadAsync();
   return undefined;
 }
 
 export function isBundledCollection(id: string): boolean {
-  return id === NAWAWI.collection.id || id === RIYAD_COLLECTION.id;
+  return id === NAWAWI_COLLECTION.id || id === RIYAD_COLLECTION.id;
 }
 
 function toCollectionData(bundled: BundledHadithCollection): HadithCollectionData {

@@ -29,7 +29,6 @@ import { ReviewPromptProvider } from "@/features/reviews/context/ReviewPromptCon
 import { MiniPlayerInsetProvider } from "@/hooks/use-content-bottom-inset";
 import { resolveAppPlatform } from "@/lib/app/resolve-app-platform";
 import { resolveAppVersion } from "@/lib/app/resolve-app-version";
-import { ARABIC_FONT_FILES } from "@/lib/arabic-fonts";
 import { BENGALI_FONT_FILES } from "@/lib/bengali-fonts";
 import { DEFAULT_ARABIC_FONT_ID } from "@/lib/reading-typography";
 import { Sentry } from "@/lib/sentry";
@@ -66,9 +65,12 @@ function useDeferredReadingFonts() {
         if (cancelled) return;
         const family = preferencesStore.getState().prefs.fontPrefs.arabic.family;
         const files: Record<string, unknown> = { ...BENGALI_FONT_FILES };
-        // Warm only the active Arabic face (system = skip). Full picker set loads in Settings → Fonts.
-        if (family && family !== DEFAULT_ARABIC_FONT_ID && family in ARABIC_FONT_FILES) {
-          files[family] = ARABIC_FONT_FILES[family as keyof typeof ARABIC_FONT_FILES];
+        // Dynamic import keeps all Arabic TTFs out of the root layout graph until needed.
+        if (family && family !== DEFAULT_ARABIC_FONT_ID) {
+          const { ARABIC_FONT_FILES } = await import("@/lib/arabic-font-files");
+          if (family in ARABIC_FONT_FILES) {
+            files[family] = ARABIC_FONT_FILES[family as keyof typeof ARABIC_FONT_FILES];
+          }
         }
         await Font.loadAsync(files as Parameters<typeof Font.loadAsync>[0]);
       } catch (err) {

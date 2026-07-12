@@ -1,6 +1,6 @@
-import { ZAKAT_GUIDE_SECTIONS } from "@munib-tracker/shared/content";
+import type { ZakatGuideSectionKey } from "@munib-tracker/shared/content/zakat-guide";
 import { useRouter } from "expo-router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
@@ -29,6 +29,13 @@ export default function ZakatScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const calculator = useZakatCalculator();
+  const [guideSections, setGuideSections] = useState<ZakatGuideSectionKey[]>([]);
+
+  useEffect(() => {
+    void import("@munib-tracker/shared/content/zakat-guide").then(({ ZAKAT_GUIDE_SECTIONS }) =>
+      setGuideSections([...ZAKAT_GUIDE_SECTIONS]),
+    );
+  }, []);
 
   const quickLinks = useMemo(
     () => [
@@ -108,7 +115,7 @@ export default function ZakatScreen() {
             {t("zakat.learnHint")}
           </ThemedText>
           <View style={styles.rows}>
-            {ZAKAT_GUIDE_SECTIONS.map((topicId) => (
+            {guideSections.map((topicId) => (
               <JannahNavRow
                 key={topicId}
                 icon={ZAKAT_TOPIC_ICONS[topicId]}

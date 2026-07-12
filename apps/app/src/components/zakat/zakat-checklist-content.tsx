@@ -1,4 +1,4 @@
-import { ZAKAT_CHECKLIST_COUNT } from "@munib-tracker/shared/content";
+import { ZAKAT_CHECKLIST_COUNT } from "@munib-tracker/shared/content/zakat-guide";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";

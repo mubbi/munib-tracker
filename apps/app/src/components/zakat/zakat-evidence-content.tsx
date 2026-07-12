@@ -1,4 +1,4 @@
-import { ZAKAT_HADITH_REFS, ZAKAT_QURAN_REFS } from "@munib-tracker/shared/content";
+import { ZAKAT_HADITH_REFS, ZAKAT_QURAN_REFS } from "@munib-tracker/shared/content/zakat-guide";
 import type { JannahHadithRef, JannahQuranRef } from "@munib-tracker/shared/types";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";

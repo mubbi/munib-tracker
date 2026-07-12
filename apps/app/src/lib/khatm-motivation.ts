@@ -1,6 +1,6 @@
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 
-import { resolveHadithItem } from "@/lib/prayer-info";
+import { ensureHadithItem } from "@/lib/prayer-info";
 import { getBundledEdition, getSurahAyahs, getSurahByNumber } from "@/lib/quran";
 
 /** Curated entries resolved from bundled Qur'an + hadith (never hand-written religious text). */
@@ -76,8 +76,8 @@ function resolveQuran(surah: number, ayah: number): ResolvedKhatmMotivation | nu
   };
 }
 
-function resolveHadith(id: string): ResolvedKhatmMotivation | null {
-  const item = resolveHadithItem(id);
+async function resolveHadith(id: string): Promise<ResolvedKhatmMotivation | null> {
+  const item = await ensureHadithItem(id);
   if (!item) return null;
 
   return {
@@ -106,10 +106,10 @@ export function resolveKhatmQuote(
   };
 }
 
-export function resolveKhatmMotivationEntry(
+export async function resolveKhatmMotivationEntry(
   entry: KhatmMotivationEntry,
   t: (key: string) => string,
-): ResolvedKhatmMotivation | null {
+): Promise<ResolvedKhatmMotivation | null> {
   switch (entry.kind) {
     case "hadith":
       return resolveHadith(entry.id);
@@ -123,17 +123,17 @@ export function resolveKhatmMotivationEntry(
 }
 
 /** Pick a motivation card; retries if an entry fails to resolve. */
-export function pickKhatmMotivation(
+export async function pickKhatmMotivation(
   seed: number,
   t: (key: string) => string,
-): ResolvedKhatmMotivation {
+): Promise<ResolvedKhatmMotivation> {
   const pool = KHATM_MOTIVATION_POOL;
   const rand = mulberry32(seed);
   const start = Math.floor(rand() * pool.length);
 
   for (let offset = 0; offset < pool.length; offset += 1) {
     const entry = pool[(start + offset) % pool.length];
-    const resolved = resolveKhatmMotivationEntry(entry, t);
+    const resolved = await resolveKhatmMotivationEntry(entry, t);
     if (resolved) return resolved;
   }
 

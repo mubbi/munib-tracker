@@ -1,8 +1,20 @@
 /**
  * Learn-guide Fuse indexes — kept in a separate module so light search helpers
  * (duas/zikr/names/…) can load without pulling ~700 KB of English guide corpora
- * into the initial module graph. Loaded on first guide search via require().
+ * into the initial module graph. Loaded via `import()` from
+ * {@link searchLightWithGuides}.
  */
+
+import { AQEDAH_TOPICS } from "@munib-tracker/shared/content/aqeedah";
+import { BATTLES_TOPICS } from "@munib-tracker/shared/content/battles";
+import { JAHANNAM_TOPICS } from "@munib-tracker/shared/content/jahannam";
+import { JANNAH_TOPICS } from "@munib-tracker/shared/content/jannah";
+import { LAST_DAY_TOPICS } from "@munib-tracker/shared/content/last-day";
+import { LEARN_DUA_TOPICS } from "@munib-tracker/shared/content/learn-dua";
+import { PROPHETS_TOPICS } from "@munib-tracker/shared/content/prophets";
+import { QURAN_GUIDE_TOPICS } from "@munib-tracker/shared/content/quran-guide";
+import { SALAH_GUIDE_TOPICS } from "@munib-tracker/shared/content/salah-guide";
+import { TAHARAH_TOPICS } from "@munib-tracker/shared/content/taharah";
 import type Fuse from "fuse.js";
 
 import {
@@ -59,44 +71,28 @@ const BASE_FIELDS: FuzzyField<GuideTopic>[] = [
 
 function getJannahFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!jannahFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { JANNAH_TOPICS } = require("@munib-tracker/shared/content/jannah") as {
-      JANNAH_TOPICS: GuideTopic[];
-    };
-    jannahFuse = makeFuse(JANNAH_TOPICS, BASE_FIELDS);
+    jannahFuse = makeFuse(JANNAH_TOPICS as GuideTopic[], BASE_FIELDS);
   }
   return jannahFuse;
 }
 
 function getJahannamFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!jahannamFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { JAHANNAM_TOPICS } = require("@munib-tracker/shared/content/jahannam") as {
-      JAHANNAM_TOPICS: GuideTopic[];
-    };
-    jahannamFuse = makeFuse(JAHANNAM_TOPICS, BASE_FIELDS);
+    jahannamFuse = makeFuse(JAHANNAM_TOPICS as GuideTopic[], BASE_FIELDS);
   }
   return jahannamFuse;
 }
 
 function getLastDayFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!lastDayFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { LAST_DAY_TOPICS } = require("@munib-tracker/shared/content/last-day") as {
-      LAST_DAY_TOPICS: GuideTopic[];
-    };
-    lastDayFuse = makeFuse(LAST_DAY_TOPICS, BASE_FIELDS);
+    lastDayFuse = makeFuse(LAST_DAY_TOPICS as GuideTopic[], BASE_FIELDS);
   }
   return lastDayFuse;
 }
 
 function getSalahGuideFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!salahGuideFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { SALAH_GUIDE_TOPICS } = require("@munib-tracker/shared/content/salah-guide") as {
-      SALAH_GUIDE_TOPICS: GuideTopic[];
-    };
-    salahGuideFuse = makeFuse(SALAH_GUIDE_TOPICS, [
+    salahGuideFuse = makeFuse(SALAH_GUIDE_TOPICS as GuideTopic[], [
       ...BASE_FIELDS,
       {
         key: "steps",
@@ -110,11 +106,7 @@ function getSalahGuideFuse(): Fuse<FuseDoc<GuideTopic>> {
 
 function getBattlesFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!battlesFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { BATTLES_TOPICS } = require("@munib-tracker/shared/content/battles") as {
-      BATTLES_TOPICS: GuideTopic[];
-    };
-    battlesFuse = makeFuse(BATTLES_TOPICS, [
+    battlesFuse = makeFuse(BATTLES_TOPICS as GuideTopic[], [
       ...BASE_FIELDS,
       {
         key: "battleDetails",
@@ -137,11 +129,7 @@ function getBattlesFuse(): Fuse<FuseDoc<GuideTopic>> {
 
 function getTaharahFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!taharahFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { TAHARAH_TOPICS } = require("@munib-tracker/shared/content/taharah") as {
-      TAHARAH_TOPICS: GuideTopic[];
-    };
-    taharahFuse = makeFuse(TAHARAH_TOPICS, [
+    taharahFuse = makeFuse(TAHARAH_TOPICS as GuideTopic[], [
       ...BASE_FIELDS,
       {
         key: "steps",
@@ -155,11 +143,7 @@ function getTaharahFuse(): Fuse<FuseDoc<GuideTopic>> {
 
 function getProphetsFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!prophetsFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { PROPHETS_TOPICS } = require("@munib-tracker/shared/content/prophets") as {
-      PROPHETS_TOPICS: GuideTopic[];
-    };
-    prophetsFuse = makeFuse(PROPHETS_TOPICS, [
+    prophetsFuse = makeFuse(PROPHETS_TOPICS as GuideTopic[], [
       ...BASE_FIELDS,
       {
         key: "profile",
@@ -178,11 +162,7 @@ function getProphetsFuse(): Fuse<FuseDoc<GuideTopic>> {
 
 function getAqeedahFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!aqeedahFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { AQEDAH_TOPICS } = require("@munib-tracker/shared/content/aqeedah") as {
-      AQEDAH_TOPICS: GuideTopic[];
-    };
-    aqeedahFuse = makeFuse(AQEDAH_TOPICS, [
+    aqeedahFuse = makeFuse(AQEDAH_TOPICS as GuideTopic[], [
       ...BASE_FIELDS,
       { key: "misconceptions", weight: 2, get: (t) => (t.misconceptions ?? []).join(" ") },
     ]);
@@ -192,11 +172,7 @@ function getAqeedahFuse(): Fuse<FuseDoc<GuideTopic>> {
 
 function getLearnDuaFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!learnDuaFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { LEARN_DUA_TOPICS } = require("@munib-tracker/shared/content/learn-dua") as {
-      LEARN_DUA_TOPICS: GuideTopic[];
-    };
-    learnDuaFuse = makeFuse(LEARN_DUA_TOPICS, [
+    learnDuaFuse = makeFuse(LEARN_DUA_TOPICS as GuideTopic[], [
       ...BASE_FIELDS,
       {
         key: "phrases",
@@ -211,11 +187,7 @@ function getLearnDuaFuse(): Fuse<FuseDoc<GuideTopic>> {
 
 function getQuranGuideFuse(): Fuse<FuseDoc<GuideTopic>> {
   if (!quranGuideFuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { QURAN_GUIDE_TOPICS } = require("@munib-tracker/shared/content/quran-guide") as {
-      QURAN_GUIDE_TOPICS: GuideTopic[];
-    };
-    quranGuideFuse = makeFuse(QURAN_GUIDE_TOPICS, [
+    quranGuideFuse = makeFuse(QURAN_GUIDE_TOPICS as GuideTopic[], [
       ...BASE_FIELDS,
       { key: "sources", weight: 1, get: (t) => (t.sources ?? []).join(" ") },
     ]);

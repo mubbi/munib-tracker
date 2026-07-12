@@ -1,8 +1,8 @@
 # Internationalization guide (Munib Tracker)
 
-**Single reference** for **23 app locales** (`en` + 22 translations): architecture, status, workflows, scripture rules, and backlog.
+Reference for **23 app locales** (`en` + 22 translations): architecture, workflows, and scripture rules.
 
-**Last updated:** 2026-07-09 · **Backlog:** [`BACKLOG.md`](./BACKLOG.md#internationalization)
+**Open work:** [`BACKLOG.md`](./BACKLOG.md#internationalization)
 
 ---
 
@@ -15,23 +15,13 @@
 | 3 | `fr`, `ha`, `sw`, `ru`, `az`, `ps` | Key parity + polish | Native overlays | `fr`/`ru` hadith remote | **Shipped** |
 | 4 | `so`, `uz`, `kk`, `ku`, `bs`, `sq`, `ky`, `tg`, `tk` | Key parity + polish | Native overlays | English fallback | **Shipped** |
 
-**CI:** App i18n **152/152** tests · Shared overlay coverage ≥90% · SEO **22×114** routes · ICU plural audit for `ar`/`ru`/`bn`.
-
-### Recent work (2026-07)
-
-| Area | Done |
-|------|------|
-| **Bengali Hisnul** | ThelightHub `dua-api` (~128/270 duas) in `build-adhkar.mjs` |
-| **Hadith OSS** | Remote editions for `ur`, `id`, `tr`, `bn`, `fr`, `ru`; `resolveHadithTranslation()` |
-| **ICU plurals** | `plural-audit.test.ts`; `_few`/`_many` for `ru` |
-| **Web hreflang** | Locale-prefixed URLs, static HTML copies, router bootstrap |
-| **Russian UI** | Runglish removed via `catalog-overrides/ru.json` |
-| **UI polish** | **731** curated patches in `ui-polish-patches.json` (19 locales) |
-| **Garbled locales** | `az`, `ps`, `so`, `uz`, `tg` reset to clean English — native polish backlog |
+**CI:** App i18n **152/152** tests · Shared overlay coverage ≥90% · SEO **22×114** routes · ICU plural audit for `ar`/`ru`/`bn` · **731** UI polish patches across 19 locales.
 
 **RTL:** `ar`, `ur`, `fa`, `ps`, `ku` — `apps/app/src/lib/i18n/rtl-locale.ts`.
 
 **Scripture bundled (`scriptureSupported: true`):** `en`, `ar`, `ur`, `bn`, `id`, `ms`, `fr`.
+
+**Needs native polish (currently English fallback):** `az`, `ps`, `so`, `uz`, `tg` — see backlog P1.
 
 ---
 
@@ -228,9 +218,3 @@ pnpm --filter app test -- i18n
 pnpm --filter @munib-tracker/shared test
 pnpm check:quick
 ```
-
----
-
-## Historical note
-
-Global i18n expansion (Phases 2–4) shipped 2026-07. Original agent spec archived at [`archive/TRANSLATIONS_TODO.md`](./archive/TRANSLATIONS_TODO.md).

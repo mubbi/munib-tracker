@@ -1,12 +1,3 @@
-import {
-  JANNAH_DUAS,
-  JANNAH_FIRDAWS_DUA,
-  JANNAH_GATES,
-  JANNAH_PATH_TOPIC_IDS,
-  JANNAH_PROMISED,
-  JANNAH_TOPICS,
-  JANNAH_VERSES,
-} from "@munib-tracker/shared/content";
 import type {
   JannahDuaEntry,
   JannahGate,
@@ -18,9 +9,23 @@ import type {
 import { localizeList, localizeObject } from "@/lib/content-i18n";
 import { overlayList, overlayObject } from "@/lib/content-overlay-registry";
 
+type JannahContent = typeof import("@munib-tracker/shared/content/jannah");
+let contentCache: JannahContent | undefined;
+
+/** Warm the Journey to Jannah corpus before reading its synchronous getters. */
+export async function ensureJannahContent(): Promise<JannahContent> {
+  if (!contentCache) contentCache = await import("@munib-tracker/shared/content/jannah");
+  return contentCache;
+}
+
+function content(): Partial<JannahContent> {
+  if (!contentCache) void ensureJannahContent();
+  return contentCache ?? {};
+}
+
 /** All Journey to Jannah topics, localized to the active app locale. */
 export function getJannahTopics(): JannahTopic[] {
-  return localizeList(JANNAH_TOPICS, overlayList("JANNAH_TOPICS"));
+  return localizeList(content().JANNAH_TOPICS ?? [], overlayList("JANNAH_TOPICS"));
 }
 
 /** One topic by id. */
@@ -32,14 +37,14 @@ export function getJannahTopic(id: string | undefined): JannahTopic | undefined 
 /** Path deed topics only. */
 export function getJannahPathTopics(): JannahTopic[] {
   const topics = getJannahTopics();
-  return JANNAH_PATH_TOPIC_IDS.map((id) => topics.find((t) => t.id === id)).filter(
-    (t): t is JannahTopic => t != null,
-  );
+  return (content().JANNAH_PATH_TOPIC_IDS ?? [])
+    .map((id) => topics.find((t) => t.id === id))
+    .filter((t): t is JannahTopic => t != null);
 }
 
 /** Hub topics (excluding path deeds). */
 export function getJannahHubTopics(): JannahTopic[] {
-  const pathSet = new Set<string>(JANNAH_PATH_TOPIC_IDS);
+  const pathSet = new Set<string>(content().JANNAH_PATH_TOPIC_IDS ?? []);
   return getJannahTopics().filter((t) => !pathSet.has(t.id));
 }
 
@@ -49,24 +54,25 @@ export function getJannahTopicsByHub(hub: JannahHub): JannahTopic[] {
 }
 
 export function getJannahGates(): JannahGate[] {
-  return localizeList(JANNAH_GATES, overlayList("JANNAH_GATES"));
+  return localizeList(content().JANNAH_GATES ?? [], overlayList("JANNAH_GATES"));
 }
 
 export function getJannahVerses(): JannahVerseEntry[] {
-  return localizeList(JANNAH_VERSES, overlayList("JANNAH_VERSES"));
+  return localizeList(content().JANNAH_VERSES ?? [], overlayList("JANNAH_VERSES"));
 }
 
 export function getJannahDuas(): JannahDuaEntry[] {
-  return localizeList(JANNAH_DUAS, overlayList("JANNAH_DUAS"));
+  return localizeList(content().JANNAH_DUAS ?? [], overlayList("JANNAH_DUAS"));
 }
 
 export function getJannahPromised(): JannahPromisedEntry[] {
-  return localizeList(JANNAH_PROMISED, overlayList("JANNAH_PROMISED"));
+  return localizeList(content().JANNAH_PROMISED ?? [], overlayList("JANNAH_PROMISED"));
 }
 
 /** The Al-Firdaws du'a text, localized to the active app locale. */
-export function getJannahFirdawsDua(): typeof JANNAH_FIRDAWS_DUA {
-  return localizeObject(JANNAH_FIRDAWS_DUA, overlayObject("JANNAH_FIRDAWS_DUA"));
+export function getJannahFirdawsDua(): JannahContent["JANNAH_FIRDAWS_DUA"] | undefined {
+  const dua = content().JANNAH_FIRDAWS_DUA;
+  return dua ? localizeObject(dua, overlayObject("JANNAH_FIRDAWS_DUA")) : undefined;
 }
 
 /** Importance label key suffix under `jannah.importance.*`. */

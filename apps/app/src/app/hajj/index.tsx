@@ -1,8 +1,7 @@
-import { HAJJ_GUIDE_SECTIONS } from "@munib-tracker/shared/content";
 import type { HajjGuideStep } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
@@ -26,8 +25,6 @@ import {
   useHajjChecklist,
   useHajjChecklistActions,
 } from "@/stores/hajj-checklist-store";
-
-const TOTAL_STEPS = HAJJ_GUIDE_SECTIONS.reduce((sum, section) => sum + section.steps.length, 0);
 
 function CheckStep({
   step,
@@ -89,16 +86,28 @@ export default function HajjScreen() {
   const done = useHajjChecklist();
   const { toggle, reset } = useHajjChecklistActions();
   const [resetOpen, setResetOpen] = useState(false);
+  const [guideSections, setGuideSections] = useState<
+    Awaited<typeof import("@munib-tracker/shared/content/hajj-guide")>["HAJJ_GUIDE_SECTIONS"]
+  >([]);
+  useEffect(() => {
+    void import("@munib-tracker/shared/content/hajj-guide").then(({ HAJJ_GUIDE_SECTIONS }) =>
+      setGuideSections(HAJJ_GUIDE_SECTIONS),
+    );
+  }, []);
 
   // Recompute per locale so translated section titles/summaries/steps render on switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
   const sections = useMemo(
-    () => localizeList(HAJJ_GUIDE_SECTIONS, overlayList("HAJJ_GUIDE_SECTIONS")),
-    [i18n.language],
+    () => localizeList(guideSections, overlayList("HAJJ_GUIDE_SECTIONS")),
+    [guideSections, i18n.language],
   );
 
+  const totalSteps = useMemo(
+    () => guideSections.reduce((sum, section) => sum + section.steps.length, 0),
+    [guideSections],
+  );
   const doneCount = useMemo(() => Object.values(done).filter(Boolean).length, [done]);
-  const progress = TOTAL_STEPS > 0 ? doneCount / TOTAL_STEPS : 0;
+  const progress = totalSteps > 0 ? doneCount / totalSteps : 0;
 
   return (
     <ScreenLayout
@@ -114,7 +123,7 @@ export default function HajjScreen() {
       <Card padding="three" style={styles.progressCard}>
         <View style={styles.progressHead}>
           <ThemedText type="smallBold">
-            {t("hajj.progress", { done: doneCount, total: TOTAL_STEPS })}
+            {t("hajj.progress", { done: doneCount, total: totalSteps })}
           </ThemedText>
           {doneCount > 0 ? (
             <Button

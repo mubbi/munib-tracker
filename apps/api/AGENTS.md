@@ -100,6 +100,5 @@ pnpm --filter api check-types
 
 - [docs/OAUTH_SETUP.md](../../docs/OAUTH_SETUP.md) — Google / Apple / Facebook console + env guide
 - [docs/PRODUCTION.md](../../docs/PRODUCTION.md) — Vercel + production env
-- [docs/archive/TODO.md](../../docs/archive/TODO.md) — Phase 8 (auth + cloud sync) — historical
 - [.agents/skills/nestjs/SKILL.md](../../.agents/skills/nestjs/SKILL.md) — official NestJS guides (read before implementing API features)
 - [NestJS docs online](https://docs.nestjs.com/first-steps)

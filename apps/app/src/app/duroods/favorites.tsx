@@ -1,5 +1,5 @@
-import { DUROOD_ITEMS } from "@munib-tracker/shared/content";
 import { useRouter } from "expo-router";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -9,6 +9,7 @@ import { ThemedText } from "@/components/themed-text";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { loadDuroodItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuroodFavoritesActions,
@@ -16,16 +17,19 @@ import {
   useFavoriteDuroodIds,
 } from "@/stores/durood-favorites-store";
 
-const BY_ID = new Map(DUROOD_ITEMS.map((item) => [item.id, item]));
-
 export default function DuroodFavoritesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   useEnsureDuroodFavoritesLoaded();
   const favoriteIds = useFavoriteDuroodIds();
   const { toggle } = useDuroodFavoritesActions();
+  const [duroodItems, setDuroodItems] = useState<Awaited<ReturnType<typeof loadDuroodItems>>>([]);
+  useEffect(() => {
+    void loadDuroodItems().then(setDuroodItems);
+  }, []);
+  const byId = useMemo(() => new Map(duroodItems.map((item) => [item.id, item])), [duroodItems]);
 
-  const items = favoriteIds.map((id) => BY_ID.get(id)).filter((item) => item != null);
+  const items = favoriteIds.map((id) => byId.get(id)).filter((item) => item != null);
 
   return (
     <ScreenLayout

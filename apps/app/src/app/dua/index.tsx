@@ -1,8 +1,7 @@
-import { duasByCategory } from "@munib-tracker/shared/content";
 import type { DuaCategoryId, DuaItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import type { SymbolViewProps } from "expo-symbols";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -18,8 +17,9 @@ import { SavedNavCard } from "@/components/ui/saved-nav-card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { loadDuaItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
-import { searchDuaList } from "@/lib/search";
+import { createDuaSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { useEnsureDuaFavoritesLoaded, useFavoriteDuaIds } from "@/stores/dua-favorites-store";
 
@@ -76,19 +76,29 @@ export default function DuaHomeScreen() {
   useEnsureDuaFavoritesLoaded();
   const favoriteCount = useFavoriteDuaIds().length;
   const [query, setQuery] = useState("");
+  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
+  useEffect(() => {
+    void loadDuaItems().then(setDuaItems);
+  }, []);
   const searching = query.trim().length > 0;
 
-  const results = useMemo(() => (searching ? searchDuaList(query) : []), [query, searching]);
+  const searchIndex = useMemo(() => createDuaSearch(duaItems), [duaItems]);
+  const results = useMemo(
+    () => (searching ? searchIndex.search(query) : []),
+    [query, searchIndex, searching],
+  );
 
   const indexById = useMemo(() => {
     const map = new Map<string, number>();
     for (const categoryId of CATEGORIES) {
-      duasByCategory(categoryId).forEach((item, position) => {
-        map.set(item.id, position + 1);
-      });
+      duaItems
+        .filter((item) => item.categoryId === categoryId)
+        .forEach((item, position) => {
+          map.set(item.id, position + 1);
+        });
     }
     return map;
-  }, []);
+  }, [duaItems]);
 
   return (
     <ScreenLayout
@@ -177,7 +187,7 @@ export default function DuaHomeScreen() {
                   key={categoryId}
                   icon={CATEGORY_ICONS[categoryId]}
                   label={t(`duaCat.${categoryId}`)}
-                  count={duasByCategory(categoryId).length}
+                  count={duaItems.filter((item) => item.categoryId === categoryId).length}
                   onPress={() =>
                     router.push({ pathname: "/dua/[category]", params: { category: categoryId } })
                   }

@@ -1,18 +1,35 @@
-import {
-  LAST_DAY_HADITH,
-  LAST_DAY_QUIZ,
-  LAST_DAY_REFERENCES,
-  LAST_DAY_SECTION_ORDER,
-  LAST_DAY_TIMELINE,
-  LAST_DAY_TOPICS,
-  LAST_DAY_VERSES,
-} from "@munib-tracker/shared/content";
 import type { LastDaySection, LastDayTopic } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
 
+type LastDayContent = typeof import("@munib-tracker/shared/content/last-day") &
+  typeof import("@munib-tracker/shared/content/last-day-hadith") &
+  typeof import("@munib-tracker/shared/content/last-day-quiz") &
+  typeof import("@munib-tracker/shared/content/last-day-references") &
+  typeof import("@munib-tracker/shared/content/last-day-timeline") &
+  typeof import("@munib-tracker/shared/content/last-day-verses");
+let contentCache: LastDayContent | undefined;
+export async function ensureLastDayContent(): Promise<LastDayContent> {
+  if (!contentCache) {
+    const modules = await Promise.all([
+      import("@munib-tracker/shared/content/last-day"),
+      import("@munib-tracker/shared/content/last-day-hadith"),
+      import("@munib-tracker/shared/content/last-day-quiz"),
+      import("@munib-tracker/shared/content/last-day-references"),
+      import("@munib-tracker/shared/content/last-day-timeline"),
+      import("@munib-tracker/shared/content/last-day-verses"),
+    ]);
+    contentCache = Object.assign({}, ...modules) as LastDayContent;
+  }
+  return contentCache;
+}
+function content(): Partial<LastDayContent> {
+  if (!contentCache) void ensureLastDayContent();
+  return contentCache ?? {};
+}
+
 export function getLastDayTopics(): LastDayTopic[] {
-  return localizeList(LAST_DAY_TOPICS, overlayList("LAST_DAY_TOPICS"));
+  return localizeList(content().LAST_DAY_TOPICS ?? [], overlayList("LAST_DAY_TOPICS"));
 }
 
 export function getLastDayTopic(id: string | undefined): LastDayTopic | undefined {
@@ -21,7 +38,7 @@ export function getLastDayTopic(id: string | undefined): LastDayTopic | undefine
 
 export function getLastDayTopicsBySection(): Record<LastDaySection, LastDayTopic[]> {
   const grouped = Object.fromEntries(
-    LAST_DAY_SECTION_ORDER.map((section) => [section, [] as LastDayTopic[]]),
+    (content().LAST_DAY_SECTION_ORDER ?? []).map((section) => [section, [] as LastDayTopic[]]),
   ) as Record<LastDaySection, LastDayTopic[]>;
 
   for (const topic of getLastDayTopics()) {
@@ -31,25 +48,25 @@ export function getLastDayTopicsBySection(): Record<LastDaySection, LastDayTopic
 }
 
 export function getLastDayLessonCount(): number {
-  return LAST_DAY_TOPICS.length;
+  return content().LAST_DAY_TOPICS?.length ?? 0;
 }
 
 export function getLastDayTimeline() {
-  return localizeList(LAST_DAY_TIMELINE, overlayList("LAST_DAY_TIMELINE"));
+  return localizeList(content().LAST_DAY_TIMELINE ?? [], overlayList("LAST_DAY_TIMELINE"));
 }
 
 export function getLastDayVerses() {
-  return localizeList(LAST_DAY_VERSES, overlayList("LAST_DAY_VERSES"));
+  return localizeList(content().LAST_DAY_VERSES ?? [], overlayList("LAST_DAY_VERSES"));
 }
 
 export function getLastDayHadith() {
-  return localizeList(LAST_DAY_HADITH, overlayList("LAST_DAY_HADITH"));
+  return localizeList(content().LAST_DAY_HADITH ?? [], overlayList("LAST_DAY_HADITH"));
 }
 
 export function getLastDayQuiz() {
-  return localizeList(LAST_DAY_QUIZ, overlayList("LAST_DAY_QUIZ"));
+  return localizeList(content().LAST_DAY_QUIZ ?? [], overlayList("LAST_DAY_QUIZ"));
 }
 
 export function getLastDayReferences() {
-  return localizeList(LAST_DAY_REFERENCES, overlayList("LAST_DAY_REFERENCES"));
+  return localizeList(content().LAST_DAY_REFERENCES ?? [], overlayList("LAST_DAY_REFERENCES"));
 }

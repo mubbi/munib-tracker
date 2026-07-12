@@ -1,6 +1,6 @@
-import { DUA_ITEMS } from "@munib-tracker/shared/content";
 import type { DuaItem, JahannamDuaEntry } from "@munib-tracker/shared/types";
 import { type Href, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -14,6 +14,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { loadDuaItems } from "@/lib/content-loaders";
 import { getJahannamDuas, getJahannamRefugeDua } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -77,7 +78,11 @@ export default function JahannamDuasScreen() {
   const { t } = useTranslation();
   const entries = getJahannamDuas();
   const refugeDua = getJahannamRefugeDua();
-  const byId = new Map(DUA_ITEMS.map((item) => [item.id, item]));
+  const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
+  useEffect(() => {
+    void loadDuaItems().then(setDuaItems);
+  }, []);
+  const byId = new Map(duaItems.map((item) => [item.id, item]));
   useEnsureDuaFavoritesLoaded();
 
   return (
@@ -92,13 +97,15 @@ export default function JahannamDuasScreen() {
         <LearnReadingChrome surface="jahannam">
           <JannahCallout tone="success">{t("jahannam.duasLead")}</JannahCallout>
 
-          <JannahDuaBlock
-            title={t("jahannam.refugeDuaTitle")}
-            arabic={refugeDua.arabic}
-            transliteration={refugeDua.transliteration}
-            translation={refugeDua.translation}
-            reference={refugeDua.reference}
-          />
+          {refugeDua ? (
+            <JannahDuaBlock
+              title={t("jahannam.refugeDuaTitle")}
+              arabic={refugeDua.arabic}
+              transliteration={refugeDua.transliteration}
+              translation={refugeDua.translation}
+              reference={refugeDua.reference}
+            />
+          ) : null}
 
           {entries.map((entry, index) => {
             const dua = byId.get(entry.duaId);
