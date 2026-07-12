@@ -31,6 +31,7 @@ import { SessionPersistError, SessionStore, type StoredSession } from "@/auth/se
 import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useIsOnline } from "@/hooks/use-is-online";
 import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
+import { flushPendingOssContentFailures } from "@/lib/report-oss-content-download-failure";
 import { runSync } from "@/sync/sync-engine";
 
 export type OAuthPayload = {
@@ -379,6 +380,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       mounted = false;
     };
   }, [signInAsGuest, syncNow]);
+
+  // Flush OSS CDN failure reports that queued before a guest/user token existed.
+  useEffect(() => {
+    if (!session?.accessToken) return;
+    flushPendingOssContentFailures();
+  }, [session?.accessToken]);
 
   // Sync when returning to the foreground.
   useEffect(() => {

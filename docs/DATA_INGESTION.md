@@ -83,6 +83,11 @@ manually-requested API key/registration → they would **block a one-pass automa
 recorded in `FREE_OPEN_SOURCE_DATA.md` as the future "authoritative upgrade path", but are **out of
 scope** here. All D1–D12 sources work with **no key**.
 
+**Runtime failure telemetry:** On-demand CDN failures (D2/D3/D4/D6/D9/D11 + QCF fonts) are reported
+from the Expo app to Sentry and `POST /api/v1/oss-content-failures`, then reviewed in admin
+[`/oss-failures`](./ADMIN.md) so broken upstream mirrors can be swapped without waiting on user
+content reports.
+
 ---
 
 ## 2. Non-negotiable constraints

@@ -1,3 +1,5 @@
+"use client";
+
 import type { LucideIcon } from "lucide-react";
 import {
   BookOpen,
@@ -8,14 +10,15 @@ import {
   RotateCcw,
   ScrollText,
 } from "lucide-react";
-import Link from "next/link";
 import { Section } from "@/components/section";
+import { TrackedLink } from "@/components/tracked-link";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { SITE_PATHS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type Tile = {
+  id: string;
   icon: LucideIcon;
   title: string;
   description: string;
@@ -26,6 +29,7 @@ type Tile = {
 
 const TILES: Tile[] = [
   {
+    id: "salah_tracking",
     icon: ListChecks,
     title: "Salah tracking that respects you",
     description:
@@ -35,6 +39,7 @@ const TILES: Tile[] = [
     span: "lg:col-span-3",
   },
   {
+    id: "learn_deen",
     icon: GraduationCap,
     title: "Learn your deen",
     description:
@@ -44,6 +49,7 @@ const TILES: Tile[] = [
     span: "lg:col-span-3",
   },
   {
+    id: "qaza",
     icon: RotateCcw,
     title: "Qaza made doable",
     description: "Estimate a lifetime backlog and plan a daily pace with a real ETA to clear it.",
@@ -51,6 +57,7 @@ const TILES: Tile[] = [
     span: "lg:col-span-2",
   },
   {
+    id: "dhikr_tasbeeh",
     icon: Hand,
     title: "Dhikr & tasbeeh",
     description:
@@ -59,6 +66,7 @@ const TILES: Tile[] = [
     span: "lg:col-span-2",
   },
   {
+    id: "times_qibla",
     icon: Compass,
     title: "Times & qibla",
     description:
@@ -67,6 +75,7 @@ const TILES: Tile[] = [
     span: "lg:col-span-2",
   },
   {
+    id: "quran_hadith",
     icon: BookOpen,
     title: "Qur'an & hadith, offline",
     description:
@@ -76,6 +85,7 @@ const TILES: Tile[] = [
     span: "lg:col-span-3",
   },
   {
+    id: "worship_guides",
     icon: ScrollText,
     title: "Step-by-step worship guides",
     description:
@@ -99,9 +109,16 @@ export function FeatureBento() {
         {TILES.map((tile) => {
           const Icon = tile.icon;
           return (
-            <StaggerItem key={tile.title} className={cn("min-h-full", tile.span)}>
+            <StaggerItem key={tile.id} className={cn("min-h-full", tile.span)}>
               <SpotlightCard className="h-full">
-                <Link href={tile.href} className="flex h-full flex-col p-7">
+                <TrackedLink
+                  href={tile.href}
+                  className="flex h-full flex-col p-7"
+                  track="select_content"
+                  contentType="feature_tile"
+                  itemId={tile.id}
+                  placement="home_bento"
+                >
                   <div className="flex size-12 items-center justify-center rounded-2xl bg-brand/10 text-brand ring-1 ring-brand/15">
                     <Icon className="size-6" />
                   </div>
@@ -123,7 +140,7 @@ export function FeatureBento() {
                       ))}
                     </ul>
                   ) : null}
-                </Link>
+                </TrackedLink>
               </SpotlightCard>
             </StaggerItem>
           );

@@ -1,7 +1,7 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
+import { TrackedButton } from "@/components/tracked-button";
 import { Aurora, GridBackdrop } from "@/components/ui/backgrounds";
-import { Button } from "@/components/ui/button";
 import { SITE_PATHS } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -24,10 +24,17 @@ export default function NotFound() {
         path.
       </p>
       <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-        <Button href={SITE_PATHS.home}>Return home</Button>
-        <Button href={SITE_PATHS.features} variant="outline">
+        <TrackedButton href={SITE_PATHS.home} cta="return_home" placement="not_found">
+          Return home
+        </TrackedButton>
+        <TrackedButton
+          href={SITE_PATHS.features}
+          variant="outline"
+          cta="explore_features"
+          placement="not_found"
+        >
           Explore {APP_NAME}
-        </Button>
+        </TrackedButton>
       </div>
     </section>
   );

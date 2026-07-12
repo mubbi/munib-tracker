@@ -2,13 +2,15 @@
 
 Guide for **Sign in with Google**, **Sign in with Apple**, and **Sign in with Facebook** on **web**, **iOS**, and **Android** for Munib Tracker. Use this for first-time console setup, production env configuration, and debugging.
 
-**Related:** [`apps/app/.env.example`](../apps/app/.env.example) · [`apps/api/.env.example`](../apps/api/.env.example) · [DEEP_LINKS.md](./DEEP_LINKS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md)
+**Related:** [`apps/app/.env.example`](../apps/app/.env.example) · [`apps/api/.env.example`](../apps/api/.env.example) · [DEEP_LINKS.md](./DEEP_LINKS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md) · [ADMIN.md](./ADMIN.md) (ops console Google OAuth — separate clients)
 
 ---
 
 ## How sign-in works in this repo
 
 The Expo app uses **`expo-auth-session`** with **PKCE** (and **`expo-apple-authentication`** on iOS). The NestJS API validates tokens / exchanges codes and issues JWT access + refresh tokens. On **web**, Google/Apple sessions use **HttpOnly cookies** (`mt_access_token`, `mt_refresh_token`) when the client sends `x-munib-tracker-client: web`.
+
+The **admin console** (`apps/admin`) is a different app: its own Google OAuth web client, cookie `mt_admin_session`, and allowlist table `admin_users`. Do not reuse product `GOOGLE_OAUTH_*` / `EXPO_PUBLIC_GOOGLE_*` for admin — see [Admin Google OAuth](#admin-google-oauth-ops-console) below.
 
 | Platform | Google | Apple | Facebook |
 |----------|--------|-------|----------|
@@ -245,6 +247,23 @@ SHA-1 for Google Android OAuth clients: `pnpm dev:app:android:signs` (see root `
 
 ---
 
+## Admin Google OAuth (ops console)
+
+Separate from product sign-in. Full ops guide: [`ADMIN.md`](./ADMIN.md).
+
+| Item | Value |
+|------|-------|
+| App | `apps/admin` → https://admin.munibtracker.app |
+| Env | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` in `apps/admin/.env.local` (not `GOOGLE_OAUTH_*`) |
+| Redirect URI | `${ADMIN_URL}/api/auth/callback/google` (prod: `https://admin.munibtracker.app/api/auth/callback/google`) |
+| Access | Email must be in `admin_users` with `enabled = true` |
+| Session cookie | `mt_admin_session` (`ADMIN_SESSION_SECRET`) |
+| Sign-in reveal | `?iAmAdmin=1` or `iAmAdmin()` in the browser console |
+
+Create a dedicated Google Cloud **Web** OAuth client for the admin origin (or add the redirect URI to an existing web client used only for ops). Seed operators with `node apps/admin/scripts/seed-admin.mjs you@example.com`.
+
+---
+
 ## Troubleshooting
 
 | Symptom | Check |
@@ -257,3 +276,4 @@ SHA-1 for Google Android OAuth clients: `pnpm dev:app:android:signs` (see root `
 | Web session lost on reload | Cookie path/domain; `credentials: 'include'`; `CORS_ORIGINS` includes the web origin |
 | Social buttons missing | Empty `EXPO_PUBLIC_*` client IDs — buttons are hidden until configured |
 | Env renamed from older Munib installs | Old `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` / `APPLE_CLIENT_ID` → new sample names in the tables above |
+| Admin Google sign-in rejected | Email not in `admin_users` or `enabled = false`; wrong redirect URI; using product OAuth client IDs on admin |

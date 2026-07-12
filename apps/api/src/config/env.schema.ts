@@ -194,10 +194,10 @@ export class EnvironmentVariables {
   @IsOptional()
   REPORT_ATTACHMENTS_DIR = "./uploads/reports";
 
-  /** Admin API key for triaging content reports via PATCH /content-reports/:id. */
+  /** Directory for private user media when Cloudinary is unset (default: ./uploads/user-media). */
   @IsString()
   @IsOptional()
-  REPORT_ADMIN_KEY?: string;
+  USER_MEDIA_DIR = "./uploads/user-media";
 
   /**
    * Cloudinary cloud name for report attachments (required on Vercel).
@@ -215,17 +215,38 @@ export class EnvironmentVariables {
   @IsOptional()
   CLOUDINARY_API_SECRET?: string;
 
-  /** Optional Cloudinary folder prefix (default: munib-tracker/reports). */
+  /** Optional Cloudinary folder prefix for report attachments (default: munib-tracker/reports). */
   @IsString()
   @IsOptional()
   CLOUDINARY_FOLDER?: string;
 
-  /** Upstash Redis REST URL for durable rate limits across serverless instances. */
+  /**
+   * Optional Cloudinary folder prefix for private custom-adhkar images
+   * (default: munib-tracker/custom-adhkar). Assets use authenticated delivery.
+   */
   @IsString()
   @IsOptional()
-  UPSTASH_REDIS_REST_URL?: string;
+  CLOUDINARY_USER_MEDIA_FOLDER?: string;
 
+  /**
+   * Optional Redis URL for shared rate limits, JSON caches, and cron locks.
+   * When unset, rate limits stay in-memory per process and caches are skipped.
+   * Example: redis://localhost:6379 or rediss://default:…@….upstash.io:6379
+   */
   @IsString()
   @IsOptional()
-  UPSTASH_REDIS_REST_TOKEN?: string;
+  REDIS_URL?: string;
+
+  /**
+   * Optional key namespace segment (defaults to NODE_ENV).
+   * Keys are stored as `mt:{prefix}:…`.
+   */
+  @IsString()
+  @IsOptional()
+  REDIS_KEY_PREFIX?: string;
+
+  /** Web Push VAPID public key (optional; exposed via GET /notifications/vapid-public-key). */
+  @IsString()
+  @IsOptional()
+  VAPID_PUBLIC_KEY?: string;
 }

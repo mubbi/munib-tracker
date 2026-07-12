@@ -2,14 +2,20 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule, type TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DatabaseType, EnvironmentVariables } from "../config/env.schema";
-import { resolveDatabaseSsl } from "./database-ssl";
+import { hostRequiresDatabaseSsl, resolveDatabaseSsl } from "./database-ssl";
 import {
+  AppFeedbackEntity,
   AppVersionEntity,
   AuthSessionEntity,
+  ContactMessageEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
+  InAppNotificationEntity,
+  OssContentDownloadFailureEntity,
+  PushTokenEntity,
   SyncRecordEntity,
   UserEntity,
+  UserMediaEntity,
 } from "./entities";
 import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
 
@@ -31,15 +37,19 @@ import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
           return createInMemorySqliteOptions();
         }
 
+        const host = configService.get("DATABASE_HOST", { infer: true }) ?? "localhost";
+        const sslEnabled =
+          configService.get("DATABASE_SSL", { infer: true }) || hostRequiresDatabaseSsl(host);
+
         return {
           type: "postgres",
-          host: configService.get("DATABASE_HOST", { infer: true }) ?? "localhost",
+          host,
           port: configService.get("DATABASE_PORT", { infer: true }) ?? 5432,
           username: configService.get("DATABASE_USER", { infer: true }) ?? "postgres",
           password: configService.get("DATABASE_PASSWORD", { infer: true }) ?? "postgres",
           database: configService.get("DATABASE_NAME", { infer: true }) ?? "munib_tracker",
           ssl: resolveDatabaseSsl({
-            enabled: configService.get("DATABASE_SSL", { infer: true }),
+            enabled: sslEnabled,
             rejectUnauthorized: configService.get("DATABASE_SSL_REJECT_UNAUTHORIZED", {
               infer: true,
             }),
@@ -51,7 +61,13 @@ import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
             SyncRecordEntity,
             ContentReportEntity,
             ContentReportAttachmentEntity,
+            UserMediaEntity,
             AppVersionEntity,
+            AppFeedbackEntity,
+            ContactMessageEntity,
+            OssContentDownloadFailureEntity,
+            InAppNotificationEntity,
+            PushTokenEntity,
           ],
           synchronize: false,
           autoLoadEntities: true,

@@ -75,6 +75,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-1.30 | App icon quick actions | `expo-quick-actions`, `(tabs)/_layout.tsx` |
 | NF-1.31 | Arabic font family picker | `lib/reading-typography.ts`, `assets/fonts/` |
 | NF-1.32 | In-context reading font size | `ReadingFontControls`, `readingOverrides` |
+| NF-1.34 | Ops admin broadcasts (in-app + push) | kind `admin_announcement`; `notifications-api.ts`; console [`ADMIN_BROADCASTS.md`](./ADMIN_BROADCASTS.md) |
 
 ---
 
@@ -87,7 +88,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-2.3 | Hajj & Umrah checklist | `content/hajj-guide.ts`, `/hajj` |
 | NF-2.4 | Seerah timeline | `content/seerah.ts`, `/seerah` |
 | NF-2.10 | Daily hadith series | `lib/daily-hadith.ts`, `/hadith/daily` |
-| NF-2.11 | Custom adhkar builder | `custom-adhkar-store`, `/adhkar-builder` |
+| NF-2.11 | Custom adhkar builder | `custom-adhkar-store`, `/adhkar-builder` (optional private images via `/user-media`) |
 | NF-2.12 | Prayer journal / khushu | `khushu-store`, `/journal` |
 | NF-2.13 | Tahajjud streak | `computePrayerStreak`, `/tahajjud` |
 | NF-2.14 | Apple Watch / Wear OS | `targets/munib-tracker-watch`, `modules/munib-wear` |

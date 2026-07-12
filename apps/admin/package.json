@@ -1,0 +1,39 @@
+{
+  "name": "@munib-tracker/admin",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3002",
+    "build": "next build",
+    "start": "next start --port 3002",
+    "check-types": "tsc --noEmit",
+    "lint": "biome check .",
+    "test:db": "node scripts/test-db-connection.mjs"
+  },
+  "dependencies": {
+    "@munib-tracker/db": "workspace:*",
+    "@munib-tracker/shared": "workspace:*",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.44.2",
+    "jose": "^6.0.11",
+    "lucide-react": "^1.23.0",
+    "next": "16.2.10",
+    "pg": "^8.21.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "redis": "^6.0.0",
+    "tailwind-merge": "^3.3.1",
+    "web-push": "^3.6.7",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@munib-tracker/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "4.3.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/web-push": "^3.6.4",
+    "tailwindcss": "4.3.0",
+    "typescript": "^6.0.0"
+  }
+}

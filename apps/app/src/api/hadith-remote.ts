@@ -7,6 +7,7 @@ import type {
 } from "@munib-tracker/shared/types";
 
 import { HadithRepository } from "@/db";
+import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
 import { preferencesStore } from "@/stores/preferences-store";
 
@@ -22,6 +23,7 @@ import { preferencesStore } from "@/stores/preferences-store";
  */
 
 const HADITH_CDN = "https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions";
+const SOURCE_PROVIDER = "fawazahmed0/hadith-api";
 
 interface RemoteCollectionDef {
   id: string; // fawazahmed0 book slug
@@ -72,8 +74,28 @@ interface RemoteEdition {
   hadiths: RemoteHadith[];
 }
 
-async function fetchEdition(name: string): Promise<RemoteEdition> {
-  return fetchStaticJson<RemoteEdition>(`${HADITH_CDN}/${name}.min.json`);
+async function fetchEdition(
+  name: string,
+  context: {
+    collectionId: string;
+    translationLocale: string;
+    editionSlugs: string[];
+  },
+): Promise<RemoteEdition> {
+  const url = `${HADITH_CDN}/${name}.min.json`;
+  return fetchStaticJson<RemoteEdition>(url, {
+    contentKind: "hadith_collection",
+    contentKey: `hadith_collection:${context.collectionId}:${context.translationLocale}:${name}`,
+    sourceProvider: SOURCE_PROVIDER,
+    contentMeta: {
+      collectionId: context.collectionId,
+      contentId: context.collectionId,
+      sourceSlug: name,
+      translationLocale: context.translationLocale,
+      editionSlugs: context.editionSlugs,
+      decisionId: "D6",
+    },
+  });
 }
 
 function cacheKeyFor(collectionId: string, translationLocale: string): string {
@@ -92,14 +114,38 @@ export async function fetchRemoteCollection(id: string): Promise<HadithCollectio
   if (cached?.items) return cached;
 
   const def = REMOTE_DEFS.find((d) => d.id === id);
-  if (!def) throw new Error(`Unknown collection: ${id}`);
+  if (!def) {
+    const error = new Error(`Unknown collection: ${id}`);
+    reportOssContentDownloadFailure({
+      contentKind: "hadith_collection",
+      contentKey: `hadith_collection:${id}:${translationLocale}`,
+      sourceProvider: SOURCE_PROVIDER,
+      sourceUrl: HADITH_CDN,
+      contentMeta: {
+        collectionId: id,
+        contentId: id,
+        translationLocale,
+        decisionId: "D6",
+      },
+      errorCode: "unknown_content",
+      errorMessage: error.message,
+      error,
+    });
+    throw error;
+  }
 
   const localeEdition = hasHadithTranslationEdition(translationLocale)
     ? hadithEditionSlug(translationLocale, id)
     : null;
 
-  const fetches: Promise<RemoteEdition>[] = [fetchEdition(`eng-${id}`), fetchEdition(`ara-${id}`)];
-  if (localeEdition) fetches.push(fetchEdition(localeEdition));
+  const editionSlugs = [`eng-${id}`, `ara-${id}`, ...(localeEdition ? [localeEdition] : [])];
+  const editionContext = { collectionId: id, translationLocale, editionSlugs };
+
+  const fetches: Promise<RemoteEdition>[] = [
+    fetchEdition(`eng-${id}`, editionContext),
+    fetchEdition(`ara-${id}`, editionContext),
+  ];
+  if (localeEdition) fetches.push(fetchEdition(localeEdition, editionContext));
 
   const [english, arabic, localized] = await Promise.all(fetches);
   const arabicByNumber = new Map(arabic.hadiths.map((h) => [h.hadithnumber, h.text]));
@@ -144,6 +190,28 @@ export async function fetchRemoteCollection(id: string): Promise<HadithCollectio
       item.gradedBy = grade.name;
     }
     items.push(item);
+  }
+
+  if (items.length === 0) {
+    const error = new Error(`Empty hadith collection payload for ${id}`);
+    reportOssContentDownloadFailure({
+      contentKind: "hadith_collection",
+      contentKey: `hadith_collection:${id}:${translationLocale}`,
+      sourceProvider: SOURCE_PROVIDER,
+      sourceUrl: `${HADITH_CDN}/eng-${id}.min.json`,
+      contentMeta: {
+        collectionId: id,
+        contentId: id,
+        displayName: def.nameEnglish,
+        translationLocale,
+        editionSlugs,
+        decisionId: "D6",
+      },
+      errorCode: "empty_payload",
+      errorMessage: error.message,
+      error,
+    });
+    throw error;
   }
 
   const counts = new Map<string, number>();

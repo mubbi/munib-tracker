@@ -40,6 +40,7 @@ type ButtonProps = {
   size?: ButtonSize;
   className?: string;
   "aria-label"?: string;
+  onClick?: () => void;
 };
 
 export function Button({
@@ -48,6 +49,7 @@ export function Button({
   variant = "primary",
   size = "md",
   className,
+  onClick,
   ...rest
 }: ButtonProps) {
   const classNames = buttonClass(variant, size, className);
@@ -55,14 +57,21 @@ export function Button({
 
   if (isExternal) {
     return (
-      <a href={href} className={classNames} target="_blank" rel="noopener noreferrer" {...rest}>
+      <a
+        href={href}
+        className={classNames}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+        {...rest}
+      >
         {children}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={classNames} {...rest}>
+    <Link href={href} className={classNames} onClick={onClick} {...rest}>
       {children}
     </Link>
   );

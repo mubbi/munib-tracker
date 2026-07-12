@@ -22,8 +22,10 @@
 | Deep links & App Links | [`DEEP_LINKS.md`](./DEEP_LINKS.md) |
 | OAuth (Google / Apple / Facebook) | [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) |
 | Production / Vercel | [`PRODUCTION.md`](./PRODUCTION.md) |
+| Ops / admin console (`admin.munibtracker.app`) | [`ADMIN.md`](./ADMIN.md) |
+| Admin → product broadcasts (inbox + push) | [`ADMIN_BROADCASTS.md`](./ADMIN_BROADCASTS.md) |
 
-Per-app guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md) · [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md)
+Per-app guides: [`apps/app/AGENTS.md`](../apps/app/AGENTS.md) · [`apps/api/AGENTS.md`](../apps/api/AGENTS.md) · [`apps/admin/AGENTS.md`](../apps/admin/AGENTS.md) · [`apps/marketing-web/AGENTS.md`](../apps/marketing-web/AGENTS.md) · [`packages/db/README.md`](../packages/db/README.md)
 
 ## Doc maintenance
 

@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { trackDemoEngage } from "@/lib/analytics";
 
 const DEMO_MAX = 5;
+const PRAYERS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"] as const;
 
 export function ProgressDemo() {
   const [value, setValue] = useState(3);
@@ -39,14 +41,23 @@ export function ProgressDemo() {
       </div>
 
       <ul className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"].map((prayer, index) => {
+        {PRAYERS.map((prayer, index) => {
           const done = index < value;
           return (
             <li key={prayer}>
               <button
                 type="button"
                 aria-pressed={done}
-                onClick={() => setValue(index < value ? index : index + 1)}
+                onClick={() => {
+                  const next = index < value ? index : index + 1;
+                  setValue(next);
+                  trackDemoEngage({
+                    demo: "prayer_progress",
+                    action: "toggle_prayer",
+                    prayer: prayer.toLowerCase(),
+                    completed_count: next,
+                  });
+                }}
                 className={`w-full rounded-xl border px-3 py-3 text-sm font-medium transition-[transform,colors] active:scale-[0.98] ${
                   done
                     ? "border-brand/30 bg-brand/10 text-brand"

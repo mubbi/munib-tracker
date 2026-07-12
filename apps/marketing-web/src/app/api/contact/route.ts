@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { isContactRateLimited } from "@/lib/contact-rate-limit";
+import {
+  CONTACT_RATE_LIMIT,
+  countRecentContactMessagesByEmail,
+  insertContactMessage,
+} from "@/lib/contact-messages";
 
 type ContactBody = {
   name?: string;
@@ -22,14 +26,6 @@ function clientIp(request: Request): string {
 }
 
 export async function POST(request: Request) {
-  const ip = clientIp(request);
-  if (await isContactRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too many requests. Please try again shortly." },
-      { status: 429 },
-    );
-  }
-
   let body: ContactBody;
 
   try {
@@ -67,27 +63,35 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Message is too long" }, { status: 400 });
   }
 
-  const webhookUrl = process.env.CONTACT_WEBHOOK_URL;
-  if (!webhookUrl) {
-    // No delivery destination configured — fail loud rather than pretending
-    // the message was received and silently dropping it.
-    console.error("CONTACT_WEBHOOK_URL is not set; cannot deliver contact message.");
+  if (!process.env.DATABASE_URL?.trim()) {
+    console.error("DATABASE_URL is not set; cannot store contact message.");
     return NextResponse.json(
-      { error: "Contact form is not configured. Please email us directly." },
+      { error: "Contact form is not configured. Please try again later." },
       { status: 503 },
     );
   }
 
   try {
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, message }),
-    });
-    if (!response.ok) {
-      throw new Error(`Webhook responded ${response.status}`);
+    const recent = await countRecentContactMessagesByEmail(email);
+    if (recent >= CONTACT_RATE_LIMIT) {
+      return NextResponse.json(
+        {
+          error:
+            "You have reached the limit of 2 messages per day for this email. Please try again tomorrow.",
+        },
+        { status: 429 },
+      );
     }
-  } catch {
+
+    await insertContactMessage({
+      name,
+      email,
+      message,
+      ipAddress: clientIp(request),
+      userAgent: request.headers.get("user-agent")?.slice(0, 512) ?? null,
+    });
+  } catch (error) {
+    console.error("Failed to store contact message", error);
     return NextResponse.json({ error: "Contact service unavailable" }, { status: 503 });
   }
 

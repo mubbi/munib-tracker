@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { trackCtaClick, trackNavClick } from "@/lib/analytics";
 import { NAV_LINKS, SITE_PATHS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -74,6 +75,7 @@ export function SiteHeader() {
                         "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                         active ? "text-foreground" : "text-muted hover:text-foreground",
                       )}
+                      onClick={() => trackNavClick(link.label.toLowerCase(), pathname)}
                     >
                       {link.label}
                       {active ? (
@@ -93,7 +95,11 @@ export function SiteHeader() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <div className="hidden sm:block">
-              <Button href={SITE_PATHS.download} size="sm">
+              <Button
+                href={SITE_PATHS.download}
+                size="sm"
+                onClick={() => trackCtaClick("get_app", "header")}
+              >
                 Get the app
               </Button>
             </div>
@@ -128,13 +134,18 @@ export function SiteHeader() {
                   <Link
                     href={link.href}
                     className="block rounded-xl px-3 py-3 text-[15px] font-medium text-foreground hover:bg-muted-surface/60"
+                    onClick={() => trackNavClick(link.label.toLowerCase(), pathname)}
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
               <li className="mt-2">
-                <Button href={SITE_PATHS.download} className="w-full">
+                <Button
+                  href={SITE_PATHS.download}
+                  className="w-full"
+                  onClick={() => trackCtaClick("get_app", "header")}
+                >
                   Get the app
                 </Button>
               </li>

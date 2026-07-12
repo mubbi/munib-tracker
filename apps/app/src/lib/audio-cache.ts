@@ -8,6 +8,8 @@ import {
   readDirectoryAsync,
 } from "expo-file-system/legacy";
 import { Platform } from "react-native";
+import { classifyOssAudioUri } from "@/lib/classify-oss-audio-uri";
+import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 import { preferencesStore } from "@/stores/preferences-store";
 
 /**
@@ -27,6 +29,26 @@ import { preferencesStore } from "@/stores/preferences-store";
  * network again. This runs entirely in the app, so it works identically in dev
  * and production and does not depend on the service worker controlling the page.
  */
+
+function reportAudioDownloadFailure(
+  remoteUri: string,
+  input: {
+    errorCode?: "http_error" | "network_error" | "empty_payload" | "download_failed";
+    errorMessage: string;
+    httpStatus?: number;
+    error?: unknown;
+  },
+): void {
+  const classified = classifyOssAudioUri(remoteUri);
+  reportOssContentDownloadFailure({
+    ...classified,
+    sourceUrl: remoteUri,
+    errorCode: input.errorCode ?? (input.httpStatus != null ? "http_error" : "download_failed"),
+    errorMessage: input.errorMessage,
+    httpStatus: input.httpStatus,
+    error: input.error,
+  });
+}
 
 // Persistent (documents) rather than the OS-evictable cache directory, so a
 // downloaded recitation keeps replaying locally until the user clears it.
@@ -168,7 +190,13 @@ async function resolveWebCachedAudioUri(remoteUri: string): Promise<string> {
 
       if (!cached) {
         const net = await fetch(remoteUri, { mode: "cors", credentials: "omit" });
-        if (!net.ok) return remoteUri;
+        if (!net.ok) {
+          reportAudioDownloadFailure(remoteUri, {
+            httpStatus: net.status,
+            errorMessage: `HTTP ${net.status} for ${remoteUri}`,
+          });
+          return remoteUri;
+        }
         try {
           await cache.put(remoteUri, net.clone());
         } catch {
@@ -178,11 +206,22 @@ async function resolveWebCachedAudioUri(remoteUri: string): Promise<string> {
       }
 
       const blob = await cached.blob();
-      if (blob.size === 0) return remoteUri;
+      if (blob.size === 0) {
+        reportAudioDownloadFailure(remoteUri, {
+          errorCode: "empty_payload",
+          errorMessage: `Empty audio blob for ${remoteUri}`,
+        });
+        return remoteUri;
+      }
       const objectUrl = URL.createObjectURL(blob);
       rememberObjectUrl(remoteUri, objectUrl);
       return objectUrl;
-    } catch {
+    } catch (error) {
+      reportAudioDownloadFailure(remoteUri, {
+        errorCode: "network_error",
+        errorMessage: error instanceof Error ? error.message : String(error),
+        error,
+      });
       return remoteUri;
     } finally {
       webInflight.delete(remoteUri);
@@ -262,7 +301,11 @@ export async function resolveCachedAudioUri(remoteUri: string): Promise<string> 
       await makeDirectoryAsync(AUDIO_CACHE_DIR, { intermediates: true });
       const result = await downloadAsync(remoteUri, localUri);
       return result.uri;
-    } catch {
+    } catch (error) {
+      reportAudioDownloadFailure(remoteUri, {
+        errorMessage: error instanceof Error ? error.message : String(error),
+        error,
+      });
       return remoteUri;
     } finally {
       inflight.delete(remoteUri);

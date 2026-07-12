@@ -43,6 +43,7 @@ export {
   buildLocalizedAndroidPlayStoreUrl,
   buildLocalizedIosAppStoreUrl,
   buildMarketingSiteUrl,
+  OFFICIAL_ADMIN_ORIGIN,
   OFFICIAL_ANDROID_PACKAGE,
   OFFICIAL_ANDROID_PLAY_STORE_URL,
   OFFICIAL_APP_WEB_ORIGIN,
@@ -50,6 +51,15 @@ export {
   OFFICIAL_IOS_BUNDLE_IDENTIFIER,
   OFFICIAL_SITE_ORIGIN,
 } from "./site";
+export {
+  normalizeUserMediaMime,
+  sniffUserMediaMime,
+  USER_MEDIA_ALLOWED_MIME_TYPES,
+  USER_MEDIA_FILE_NAME_MAX,
+  USER_MEDIA_MAX_BYTES,
+  USER_MEDIA_MAX_PER_ENTITY,
+  type UserMediaAllowedMimeType,
+} from "./user-media";
 
 /** Minutes before/after adhan the main obligatory-prayer reminder may be shifted (NF-1.7). */
 export const PRAYER_REMINDER_OFFSET_MIN = -120;

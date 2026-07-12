@@ -15,6 +15,34 @@ import {
   qcfPageFontFamily,
   qcfPageFontRemoteUrl,
 } from "@/lib/arabic-fonts";
+import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
+
+const QCF_SOURCE_PROVIDER = "nuqayah/qpc-fonts";
+
+function reportQcfFontFailure(input: {
+  page?: number;
+  sourceUrl: string;
+  contentKey: string;
+  httpStatus?: number;
+  errorCode?: "http_error" | "network_error" | "download_failed" | "empty_payload";
+  errorMessage: string;
+  error?: unknown;
+}): void {
+  reportOssContentDownloadFailure({
+    contentKind: "qcf_font",
+    contentKey: input.contentKey,
+    sourceProvider: QCF_SOURCE_PROVIDER,
+    sourceUrl: input.sourceUrl,
+    contentMeta: {
+      page: input.page,
+      decisionId: "NF-mushaf",
+    },
+    errorCode: input.errorCode ?? (input.httpStatus != null ? "http_error" : "download_failed"),
+    errorMessage: input.errorMessage,
+    httpStatus: input.httpStatus,
+    error: input.error,
+  });
+}
 
 /**
  * On-demand cache for QCF V2 per-page mushaf fonts (~350 KB each, 604 pages).
@@ -99,7 +127,16 @@ async function resolveWebCachedQcfFontUri(page: number): Promise<string> {
 
       if (!cached) {
         const net = await fetch(remoteUri, { mode: "cors", credentials: "omit" });
-        if (!net.ok) return remoteUri;
+        if (!net.ok) {
+          reportQcfFontFailure({
+            page,
+            sourceUrl: remoteUri,
+            contentKey: `qcf_font:page:${page}`,
+            httpStatus: net.status,
+            errorMessage: `HTTP ${net.status} for ${remoteUri}`,
+          });
+          return remoteUri;
+        }
         try {
           await cache.put(remoteUri, net.clone());
         } catch {
@@ -109,11 +146,28 @@ async function resolveWebCachedQcfFontUri(page: number): Promise<string> {
       }
 
       const blob = await cached.blob();
-      if (blob.size === 0) return remoteUri;
+      if (blob.size === 0) {
+        reportQcfFontFailure({
+          page,
+          sourceUrl: remoteUri,
+          contentKey: `qcf_font:page:${page}`,
+          errorCode: "empty_payload",
+          errorMessage: `Empty QCF font blob for page ${page}`,
+        });
+        return remoteUri;
+      }
       const objectUrl = URL.createObjectURL(blob);
       webObjectUrls.set(page, objectUrl);
       return objectUrl;
-    } catch {
+    } catch (error) {
+      reportQcfFontFailure({
+        page,
+        sourceUrl: remoteUri,
+        contentKey: `qcf_font:page:${page}`,
+        errorCode: "network_error",
+        errorMessage: error instanceof Error ? error.message : String(error),
+        error,
+      });
       return remoteUri;
     } finally {
       webInflight.delete(page);
@@ -146,7 +200,14 @@ export async function resolveCachedQcfFontUri(page: number): Promise<string> {
       await makeDirectoryAsync(QCF_FONT_CACHE_DIR, { intermediates: true });
       const result = await downloadAsync(remoteUri, localUri);
       return result.uri;
-    } catch {
+    } catch (error) {
+      reportQcfFontFailure({
+        page,
+        sourceUrl: remoteUri,
+        contentKey: `qcf_font:page:${page}`,
+        errorMessage: error instanceof Error ? error.message : String(error),
+        error,
+      });
       return remoteUri;
     } finally {
       inflight.delete(page);
@@ -172,7 +233,15 @@ async function resolveCachedQcfBsmlFontUri(): Promise<string> {
         if (cached && cached.type === "opaque") cached = undefined;
         if (!cached) {
           const net = await fetch(remoteUri, { mode: "cors", credentials: "omit" });
-          if (!net.ok) return remoteUri;
+          if (!net.ok) {
+            reportQcfFontFailure({
+              sourceUrl: remoteUri,
+              contentKey: "qcf_font:bsml",
+              httpStatus: net.status,
+              errorMessage: `HTTP ${net.status} for ${remoteUri}`,
+            });
+            return remoteUri;
+          }
           try {
             await cache.put(remoteUri, net.clone());
           } catch {
@@ -181,10 +250,25 @@ async function resolveCachedQcfBsmlFontUri(): Promise<string> {
           cached = net;
         }
         const blob = await cached.blob();
-        if (blob.size === 0) return remoteUri;
+        if (blob.size === 0) {
+          reportQcfFontFailure({
+            sourceUrl: remoteUri,
+            contentKey: "qcf_font:bsml",
+            errorCode: "empty_payload",
+            errorMessage: "Empty QCF basmala font blob",
+          });
+          return remoteUri;
+        }
         webBsmlObjectUrl = URL.createObjectURL(blob);
         return webBsmlObjectUrl;
-      } catch {
+      } catch (error) {
+        reportQcfFontFailure({
+          sourceUrl: remoteUri,
+          contentKey: "qcf_font:bsml",
+          errorCode: "network_error",
+          errorMessage: error instanceof Error ? error.message : String(error),
+          error,
+        });
         return remoteUri;
       } finally {
         bsmlUriInflight = null;
@@ -208,7 +292,13 @@ async function resolveCachedQcfBsmlFontUri(): Promise<string> {
       await makeDirectoryAsync(QCF_FONT_CACHE_DIR, { intermediates: true });
       const result = await downloadAsync(remoteUri, localUri);
       return result.uri;
-    } catch {
+    } catch (error) {
+      reportQcfFontFailure({
+        sourceUrl: remoteUri,
+        contentKey: "qcf_font:bsml",
+        errorMessage: error instanceof Error ? error.message : String(error),
+        error,
+      });
       return remoteUri;
     } finally {
       bsmlUriInflight = null;

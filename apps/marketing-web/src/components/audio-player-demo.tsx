@@ -2,6 +2,7 @@
 
 import { Loader2, Pause, Play } from "lucide-react";
 import { type SyntheticEvent, useRef, useState } from "react";
+import { trackDemoEngage } from "@/lib/analytics";
 
 /** Full Surah Al-Fatiha, Mishary Alafasy — Al-Quran Cloud CDN. */
 const AUDIO_SRC = "https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/1.mp3";
@@ -27,6 +28,7 @@ export function AudioPlayerDemo() {
     if (playing) {
       audio.pause();
       setPlaying(false);
+      trackDemoEngage({ demo: "audio_recitation", action: "pause" });
       return;
     }
 
@@ -34,6 +36,7 @@ export function AudioPlayerDemo() {
       setLoading(true);
       await audio.play();
       setPlaying(true);
+      trackDemoEngage({ demo: "audio_recitation", action: "play" });
     } catch {
       setPlaying(false);
     } finally {
@@ -105,6 +108,7 @@ export function AudioPlayerDemo() {
         onEnded={() => {
           setPlaying(false);
           setCurrent(0);
+          trackDemoEngage({ demo: "audio_recitation", action: "complete" });
         }}
       >
         <track kind="captions" label="Recitation" srcLang="ar" default />

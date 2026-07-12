@@ -4,33 +4,22 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  OnModuleInit,
   UnauthorizedException,
 } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
-import type { EnvironmentVariables } from "../config/env.schema";
 import { AppFeedbackEntity } from "../database/entities";
-import { configureAppFeedbackRateLimit, isAppFeedbackRateLimited } from "./app-feedback-rate-limit";
+import { isAppFeedbackRateLimited } from "./app-feedback-rate-limit";
 import { SubmitAppFeedbackDto } from "./dto/app-feedback.dto";
 
 @Injectable()
-export class AppFeedbackService implements OnModuleInit {
+export class AppFeedbackService {
   constructor(
     @InjectRepository(AppFeedbackEntity)
     private readonly feedbackRepository: Repository<AppFeedbackEntity>,
     private readonly authService: AuthService,
-    private readonly configService: ConfigService<EnvironmentVariables, true>,
   ) {}
-
-  onModuleInit(): void {
-    configureAppFeedbackRateLimit({
-      upstashUrl: this.configService.get("UPSTASH_REDIS_REST_URL", { infer: true }),
-      upstashToken: this.configService.get("UPSTASH_REDIS_REST_TOKEN", { infer: true }),
-    });
-  }
 
   async submit(accessToken: string, dto: SubmitAppFeedbackDto): Promise<void> {
     if (!Number.isInteger(dto.rating) || dto.rating < 1 || dto.rating > 3) {

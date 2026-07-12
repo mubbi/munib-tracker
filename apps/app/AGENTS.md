@@ -6,6 +6,10 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 
 Guest-first sessions with optional Google / Apple / Facebook sign-in for cloud sync. Canonical ops guide: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md) · App Links: [`docs/DEEP_LINKS.md`](../../docs/DEEP_LINKS.md).
 
+## Admin broadcasts (product side)
+
+Ops announcements arrive as in-app notifications with kind **`admin_announcement`**. Client: `src/lib/notifications-api.ts` (push-token `PUT` + inbox sync against `/api/v1/notifications/*`). Contracts and limits: `@munib-tracker/shared/admin-broadcasts`. Ops console docs: [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md) (do not build admin UI in this app).
+
 | Platform | Google | Apple |
 |----------|--------|-------|
 | **iOS** | On-device PKCE → `POST /auth/google` `{ accessToken }` | Native `expo-apple-authentication` → `POST /auth/apple` |

@@ -7,7 +7,13 @@ import { ZIKR_CATEGORY_ICONS } from "@/lib/zikr-ui";
 
 type SymbolName = SymbolViewProps["name"];
 
-export type NotificationCategory = "salah" | "zikr" | "qaza" | "milestone" | "system";
+export type NotificationCategory =
+  | "salah"
+  | "zikr"
+  | "qaza"
+  | "milestone"
+  | "system"
+  | "announcement";
 
 export type NotificationVisualSpec = {
   icon: SymbolName;
@@ -100,6 +106,13 @@ export function resolveNotificationVisual(input: {
     return {
       icon: { ios: "trophy.fill", android: "emoji_events", web: "emoji_events" },
       category: "milestone",
+    };
+  }
+
+  if (input.kind === "admin_announcement") {
+    return {
+      icon: { ios: "megaphone.fill", android: "campaign", web: "campaign" },
+      category: "announcement",
     };
   }
 

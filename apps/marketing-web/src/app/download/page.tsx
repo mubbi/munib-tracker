@@ -4,7 +4,7 @@ import { Apple, Globe, Smartphone } from "lucide-react";
 import type { Metadata } from "next";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { StoreBadges } from "@/components/store-badges";
-import { Button } from "@/components/ui/button";
+import { TrackedWebAppButton } from "@/components/tracked-web-app-button";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { PRODUCT_APP_URL } from "@/lib/site";
@@ -88,9 +88,7 @@ export default function DownloadPage() {
                 </p>
                 {platform.cta ? (
                   <div className="mt-6">
-                    <Button href={platform.cta.href} size="sm">
-                      {platform.cta.label}
-                    </Button>
+                    <TrackedWebAppButton href={platform.cta.href} label={platform.cta.label} />
                   </div>
                 ) : null}
               </SpotlightCard>
@@ -101,7 +99,7 @@ export default function DownloadPage() {
 
       <div className="flex flex-col items-center gap-4 rounded-[var(--radius-card)] border border-border/60 bg-surface/60 p-8 text-center">
         <p className="font-display text-lg font-semibold text-foreground">Grab it your way</p>
-        <StoreBadges className="justify-center" />
+        <StoreBadges className="justify-center" placement="download" />
       </div>
 
       <ContentSection heading="System requirements">

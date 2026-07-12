@@ -1,8 +1,11 @@
+"use client";
+
 import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import { Globe, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { trackOutboundClick, trackWebDemoLaunch } from "@/lib/analytics";
 import { FOOTER_GROUPS, PRODUCT_APP_URL, SITE_PATHS } from "@/lib/site";
 
 const COPYRIGHT_YEAR = 2026;
@@ -35,7 +38,12 @@ export function Footer() {
               your deen.
             </p>
             <div className="mt-6">
-              <Button href={PRODUCT_APP_URL} variant="gold" size="sm">
+              <Button
+                href={PRODUCT_APP_URL}
+                variant="gold"
+                size="sm"
+                onClick={() => trackWebDemoLaunch("footer")}
+              >
                 Open the web app
               </Button>
             </div>
@@ -46,6 +54,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label={`${APP_AUTHOR}'s website`}
                 className="inline-flex size-9 items-center justify-center rounded-full border border-white/15 text-hero-muted transition-colors hover:bg-white/10 hover:text-hero-text"
+                onClick={() => trackOutboundClick(APP_AUTHOR_URL, APP_AUTHOR, "footer")}
               >
                 <Globe className="size-[18px]" />
               </a>
@@ -74,6 +83,7 @@ export function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-hero-muted transition-colors hover:text-hero-text"
+                          onClick={() => trackOutboundClick(link.href, link.label, "footer")}
                         >
                           {link.label}
                         </a>

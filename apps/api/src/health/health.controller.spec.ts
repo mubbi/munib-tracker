@@ -19,5 +19,9 @@ describe("HealthController", () => {
     expect(response.status).toBe("ok");
     expect(response.service).toBe("Munib Tracker");
     expect(response.timestamp).toBeTruthy();
+    expect(response.redis).toMatchObject({
+      configured: false,
+      connected: false,
+    });
   });
 });

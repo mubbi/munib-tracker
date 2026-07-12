@@ -3,26 +3,12 @@ import { isRateLimited, resetMemoryRateLimits } from "../common/durable-rate-lim
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 60 * 60 * 1000;
 
-let upstashUrl: string | undefined;
-let upstashToken: string | undefined;
-
-/** Configure Upstash credentials (called from the module / service on boot). */
-export function configureContentReportRateLimit(options: {
-  upstashUrl?: string;
-  upstashToken?: string;
-}): void {
-  upstashUrl = options.upstashUrl;
-  upstashToken = options.upstashToken;
-}
-
 /** Fixed-window rate limit per user id (10 reports / hour). */
 export async function isContentReportRateLimited(userId: string): Promise<boolean> {
   return isRateLimited({
     key: `content-report:${userId}`,
     limit: RATE_LIMIT,
     windowMs: RATE_WINDOW_MS,
-    upstashUrl,
-    upstashToken,
   });
 }
 

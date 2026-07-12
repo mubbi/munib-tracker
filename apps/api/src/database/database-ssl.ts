@@ -11,6 +11,16 @@ export interface DatabaseSslInput {
 }
 
 /**
+ * Managed Postgres hosts that require TLS even when `DATABASE_SSL` is unset.
+ * Matches admin Drizzle (`packages/db`) so Nest and admin share the same rule.
+ */
+export function hostRequiresDatabaseSsl(host: string | undefined | null): boolean {
+  if (!host) return false;
+  const h = host.toLowerCase();
+  return h.includes("supabase") || h.includes("neon.tech") || h.includes("amazonaws.com");
+}
+
+/**
  * Builds the TypeORM/pg `ssl` option from validated config.
  *
  * When SSL is off we return `false` (plaintext, e.g. a local dev database on

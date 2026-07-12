@@ -1,0 +1,27 @@
+{
+  "name": "@munib-tracker/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts",
+    "./pg/createDb": "./src/pg/createDb.ts"
+  },
+  "scripts": {
+    "lint": "biome check .",
+    "check-types": "tsc --noEmit",
+    "transit": "echo transit"
+  },
+  "dependencies": {
+    "@munib-tracker/shared": "workspace:*",
+    "drizzle-orm": "^0.44.2",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@munib-tracker/typescript-config": "workspace:*",
+    "@types/node": "^20",
+    "@types/pg": "^8.15.0",
+    "typescript": "^6.0.0"
+  }
+}

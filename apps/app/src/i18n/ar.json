@@ -1935,7 +1935,11 @@
     "categoryZikr": "ذكر",
     "categoryQaza": "قضاء",
     "categoryMilestone": "إنجاز",
-    "categorySystem": "نظام"
+    "categorySystem": "نظام",
+    "categoryAnnouncement": "إعلان"
+  },
+  "notifications": {
+    "adminAnnouncement": "إعلان"
   },
   "qibla": {
     "eyebrow": "الاتجاه",
@@ -3085,6 +3089,55 @@
       "transliteration": "النقحرة (اختياري)",
       "translation": "المعنى (اختياري)",
       "reference": "المرجع (اختياري)"
+    },
+    "images": {
+      "label": "صور (اختياري)",
+      "add": "إضافة صورة",
+      "remove": "إزالة الصورة",
+      "hint": "حتى ٥ صور، كل صورة ١ ميغابايت كحد أقصى. اضغط مطولاً على الصورة لإزالتها.",
+      "signInRequired": "سجّل الدخول لإرفاق صور خاصة بأذكارك.",
+      "permissionDenied": "يلزم إذن مكتبة الصور لإرفاق الصور.",
+      "unsupportedType": "استخدم صوراً بالصيغة المدعومة فقط.",
+      "tooLarge": "يجب ألا يتجاوز حجم كل صورة ١ ميغابايت.",
+      "uploadFailed": "تعذر رفع الصور. حاول مرة أخرى.",
+      "uploading": "جارٍ الرفع…",
+      "open": "فتح الصورة {{index}}",
+      "counter": "{{current}} من {{total}}",
+      "zoomHint": "قرّب بإصبعيك، اسحب للتحريك، واضغط مرتين للإعادة",
+      "previous": "الصورة السابقة",
+      "next": "الصورة التالية"
+    },
+    "attachments": {
+      "label": "مرفقات (اختياري)",
+      "add": "إضافة ملف",
+      "remove": "إزالة المرفق",
+      "hint": "حتى ٥ ملفات (صور أو مستندات)، كل ملف ١ ميغابايت. اضغط مطولاً للإزالة.",
+      "signInRequired": "سجّل الدخول لإرفاق ملفات خاصة بأذكارك.",
+      "permissionDenied": "يلزم الإذن لإرفاق الملفات.",
+      "permissionTitle": "السماح بالوصول",
+      "permissionBody": "يحتاج التطبيق إلى الكاميرا أو الصور لإرفاق الملفات.",
+      "permissionSettingsBody": "رُفض الإذن. افتح الإعدادات للسماح بالكاميرا أو الصور.",
+      "allowAccess": "السماح بالوصول",
+      "unsupportedType": "استخدم صوراً أو مستندات بالصيغة المدعومة فقط.",
+      "tooLarge": "يجب ألا يتجاوز حجم كل ملف ١ ميغابايت.",
+      "uploadFailed": "تعذر رفع المرفقات. حاول مرة أخرى.",
+      "uploading": "جارٍ الرفع…",
+      "readFailed": "تعذر قراءة الملف. جرّب ملفاً آخر.",
+      "pickFailed": "تعذر إضافة الملف. حاول مرة أخرى.",
+      "openFailed": "تعذر فتح الملف.",
+      "open": "فتح المرفق {{index}}",
+      "counter": "{{current}} من {{total}}",
+      "zoomHint": "قرّب بإصبعيك، اسحب للتحريك، واضغط مرتين للإعادة",
+      "previous": "المرفق السابق",
+      "next": "المرفق التالي",
+      "openPdf": "فتح المستند",
+      "sourceTitle": "إضافة مرفق",
+      "sourceCamera": "التقاط صورة",
+      "sourceCameraHint": "استخدم الكاميرا لالتقاط صورة",
+      "sourceGallery": "مكتبة الصور",
+      "sourceGalleryHint": "اختر صورة من صورك",
+      "sourceDocument": "الملفات",
+      "sourceDocumentHint": "اختر صورة أو مستنداً من ملفاتك"
     }
   },
   "tahajjud": {

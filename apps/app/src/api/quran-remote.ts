@@ -1,11 +1,13 @@
 import {
   BUNDLED_QURAN_EDITION_IDS,
   fawazSlugForEdition,
+  getQuranRemoteEdition,
   QURAN_REMOTE_EDITIONS,
 } from "@munib-tracker/shared/i18n";
 import type { QuranEdition } from "@munib-tracker/shared/types";
 
 import { QuranCacheRepository } from "@/db";
+import { reportOssContentDownloadFailure } from "@/lib/report-oss-content-download-failure";
 import { fetchStaticJson } from "@/lib/static-json-fetch";
 
 /**
@@ -14,6 +16,7 @@ import { fetchStaticJson } from "@/lib/static-json-fetch";
  */
 
 const FAWAZ = "https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions";
+const SOURCE_PROVIDER = "fawazahmed0/quran-api";
 
 export const REMOTE_EDITIONS: QuranEdition[] = QURAN_REMOTE_EDITIONS.map((d) => ({
   id: d.id,
@@ -67,11 +70,41 @@ export async function fetchRemoteEditionSurah(
   if (hasEditionAyahs(cached)) return cached;
 
   const slug = fawazSlugForEdition(editionId);
+  const def = getQuranRemoteEdition(editionId);
+  const contentKey = `quran_edition:${editionId}:${surah}`;
+  const contentMeta = {
+    contentId: editionId,
+    sourceSlug: slug,
+    displayName: def?.name,
+    language: def?.language,
+    kind: def?.kind ?? "translation",
+    direction: def?.direction,
+    surah,
+    decisionId: "D2",
+  };
+
   if (!slug) {
-    throw new Error(`Unknown remote Qur'an edition: ${editionId}`);
+    const error = new Error(`Unknown remote Qur'an edition: ${editionId}`);
+    reportOssContentDownloadFailure({
+      contentKind: "quran_edition",
+      contentKey,
+      sourceProvider: SOURCE_PROVIDER,
+      sourceUrl: FAWAZ,
+      contentMeta,
+      errorCode: "unknown_content",
+      errorMessage: error.message,
+      error,
+    });
+    throw error;
   }
 
-  const data = await fetchStaticJson<FawazSurahPayload>(`${FAWAZ}/${slug}/${surah}.json`);
+  const url = `${FAWAZ}/${slug}/${surah}.json`;
+  const data = await fetchStaticJson<FawazSurahPayload>(url, {
+    contentKind: "quran_edition",
+    contentKey,
+    sourceProvider: SOURCE_PROVIDER,
+    contentMeta,
+  });
   const verses = versesFromPayload(data);
   const out: Record<string, string> = {};
   for (const v of verses) {
@@ -79,7 +112,18 @@ export async function fetchRemoteEditionSurah(
   }
 
   if (!hasEditionAyahs(out)) {
-    throw new Error(`Empty Qur'an edition payload for ${editionId} surah ${surah}`);
+    const error = new Error(`Empty Qur'an edition payload for ${editionId} surah ${surah}`);
+    reportOssContentDownloadFailure({
+      contentKind: "quran_edition",
+      contentKey,
+      sourceProvider: SOURCE_PROVIDER,
+      sourceUrl: url,
+      contentMeta,
+      errorCode: "empty_payload",
+      errorMessage: error.message,
+      error,
+    });
+    throw error;
   }
 
   await QuranCacheRepository.set(editionId, surah, out);

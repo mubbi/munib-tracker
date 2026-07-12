@@ -1,11 +1,17 @@
 import type { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import {
+  AppFeedbackEntity,
   AppVersionEntity,
   AuthSessionEntity,
+  ContactMessageEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
+  InAppNotificationEntity,
+  OssContentDownloadFailureEntity,
+  PushTokenEntity,
   SyncRecordEntity,
   UserEntity,
+  UserMediaEntity,
 } from "./entities";
 
 const testEntities = [
@@ -14,7 +20,13 @@ const testEntities = [
   SyncRecordEntity,
   ContentReportEntity,
   ContentReportAttachmentEntity,
+  UserMediaEntity,
   AppVersionEntity,
+  AppFeedbackEntity,
+  ContactMessageEntity,
+  OssContentDownloadFailureEntity,
+  InAppNotificationEntity,
+  PushTokenEntity,
 ];
 
 /** Shared in-memory SQLite options for unit, e2e, and OpenAPI export runs. */

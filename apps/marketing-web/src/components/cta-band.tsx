@@ -1,8 +1,11 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import { StoreBadges } from "@/components/store-badges";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/interactive";
 import { Reveal } from "@/components/ui/motion";
+import { trackCtaClick } from "@/lib/analytics";
 import { SITE_PATHS } from "@/lib/site";
 
 export function CtaBand() {
@@ -31,17 +34,27 @@ export function CtaBand() {
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Magnetic>
-              <Button href={SITE_PATHS.download} variant="gold" size="lg">
+              <Button
+                href={SITE_PATHS.download}
+                variant="gold"
+                size="lg"
+                onClick={() => trackCtaClick("get_app", "cta")}
+              >
                 Get the app
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
             </Magnetic>
-            <Button href={SITE_PATHS.features} variant="glass" size="lg">
+            <Button
+              href={SITE_PATHS.features}
+              variant="glass"
+              size="lg"
+              onClick={() => trackCtaClick("explore_features", "cta")}
+            >
               Explore features
             </Button>
           </div>
           <div className="mt-10 flex justify-center">
-            <StoreBadges className="justify-center" />
+            <StoreBadges className="justify-center" placement="cta" />
           </div>
         </Reveal>
       </div>

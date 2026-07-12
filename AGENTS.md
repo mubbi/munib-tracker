@@ -8,19 +8,21 @@ This is a **pnpm + Turborepo** monorepo for Munib Tracker (salah, dhikr, qadha).
 |-----|------|------|-------------|
 | **Product** | `apps/app` | Expo SDK 57 — iOS, Android, Web (single codebase) | `pnpm dev:app` |
 | **Marketing** | `apps/marketing-web` | Next.js 16 landing site (port 3000) | `pnpm dev:marketing-web` |
+| **Admin** | `apps/admin` | Next.js ops console (port 3002) — users, reports, broadcasts, platform | `pnpm dev:admin` |
 | **API** | `apps/api` | NestJS 11 — cloud sync, auth, backend services (port 3001) | `pnpm dev:api` |
 
-Deploy web surfaces to Vercel (three projects): see [`docs/PRODUCTION.md`](docs/PRODUCTION.md).
+Deploy web surfaces to Vercel (four projects): see [`docs/PRODUCTION.md`](docs/PRODUCTION.md). Admin ops: [`docs/ADMIN.md`](docs/ADMIN.md).
 
 **OAuth (Google / Apple / Facebook):** platform flows, env names, and console setup live in [`docs/OAUTH_SETUP.md`](docs/OAUTH_SETUP.md). App Links for Apple on Android: [`docs/DEEP_LINKS.md`](docs/DEEP_LINKS.md).
 
-**Important:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), and `apps/app web` (Expo, ~8081) are different apps.
+**Important:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), `apps/admin` (port 3002), and `apps/app web` (Expo, ~8081) are different apps.
 
 ## Shared packages
 
 Import via workspace package names:
 
-- `@munib-tracker/shared` — domain types, constants, validators
+- `@munib-tracker/shared` — domain types, constants, validators, admin broadcast contracts
+- `@munib-tracker/db` — Drizzle schema mirror for the admin console (DDL owned by API TypeORM migrations)
 - `@munib-tracker/theme` — design tokens, `resolveTheme()`, accent palette
 - `@munib-tracker/typescript-config` — shared TS configs
 - `@munib-tracker/vitest-config` — Vitest presets
@@ -39,6 +41,7 @@ Import via workspace package names:
 
 - [apps/app/AGENTS.md](apps/app/AGENTS.md) — Expo product app
 - [apps/marketing-web/AGENTS.md](apps/marketing-web/AGENTS.md) — Next.js marketing site
+- [apps/admin/AGENTS.md](apps/admin/AGENTS.md) — Ops / admin console
 - [apps/api/AGENTS.md](apps/api/AGENTS.md) — NestJS API server
 
 ## Common commands
@@ -47,6 +50,8 @@ Import via workspace package names:
 pnpm install              # always from repo root
 pnpm generate:api         # export OpenAPI + generate typed client (Orval)
 pnpm dev                  # all dev servers (turbo)
+pnpm dev:admin            # admin console only (port 3002)
+pnpm build:admin          # production build for apps/admin
 pnpm check:ci             # CI profile: typecheck + lint + test + build
 pnpm check:quick          # fast pre-commit: lint + typecheck
 pnpm turbo run lint check-types test
@@ -54,6 +59,7 @@ pnpm --filter app ios     # Expo iOS dev build
 pnpm --filter app android # Expo Android dev build
 pnpm --filter app web     # Expo web
 pnpm --filter app build:data  # regenerate bundled content (adhkar/duas/names/Qur'an/hadith)
+# Seed allowlisted admin (needs DATABASE_URL): node apps/admin/scripts/seed-admin.mjs you@example.com
 
 # Native (Expo prebuild / local release — requires apps/app/.env)
 pnpm prebuild:app:android   # expo prebuild + version sync
@@ -85,7 +91,9 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) | 23-locale i18n ops, scripture rules |
 | [`OAUTH_SETUP.md`](docs/OAUTH_SETUP.md) | Google / Apple / Facebook sign-in (native + web) |
 | [`DEEP_LINKS.md`](docs/DEEP_LINKS.md) | Custom scheme + HTTPS App Links (incl. Apple OAuth) |
-| [`PRODUCTION.md`](docs/PRODUCTION.md) | Vercel deploys + production env (incl. OAuth) |
+| [`PRODUCTION.md`](docs/PRODUCTION.md) | Vercel deploys + production env (incl. OAuth + admin) |
+| [`ADMIN.md`](docs/ADMIN.md) | Ops console (modules, roles, seed, branding) |
+| [`ADMIN_BROADCASTS.md`](docs/ADMIN_BROADCASTS.md) | In-app / push broadcasts from admin → product |
 | [`DATA_INGESTION.md`](docs/DATA_INGESTION.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) | Content pipeline & OSS sources |
 | [`PROFILING.md`](docs/PROFILING.md) | Web/native perf profile + remaining `__common` work |
 | [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md) | Widgets, Live Activities, Siri, Watch, Wear |

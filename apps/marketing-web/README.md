@@ -22,3 +22,5 @@ pnpm --filter marketing-web check-types
 - Canonical origin via `NEXT_PUBLIC_SITE_URL` (default `https://munibtracker.app`) in `src/lib/site.ts`, consumed by metadata / `robots.ts` / `sitemap.ts` / footer.
 - Feature copy is driven by `APP_FEATURE_PILLARS` from `@munib-tracker/shared/constants` (consumed by `feature-grid.tsx` / `feature-pillars.tsx`) — keep it in sync when app features ship.
 - Pages: landing (`src/app/page.tsx`) plus `about`, `features`, `faq`, `credits`, `download`, `press`, `contact`, `privacy`, `terms` (legal pages use the shared `content-page.tsx`).
+- Contact form: `POST /api/contact` stores rows in Postgres `contact_messages` (requires `DATABASE_URL`). Rate limit: 2 submissions per email per 24h. Admins triage at `/contact-messages`.
+- Analytics: optional GA4 via `NEXT_PUBLIC_GA_MEASUREMENT_ID` (`src/components/analytics.tsx`, `src/lib/gtag.ts`, `src/lib/analytics.ts`). Consent Mode v2 defaults deny storage until Google’s Privacy & Messaging cookie consent popup grants it — enable that message for the tag in Google Ads / Tag Manager. Set the env to empty to disable GA.

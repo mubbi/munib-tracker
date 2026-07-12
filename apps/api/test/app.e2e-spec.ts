@@ -2,7 +2,7 @@ process.env.DATABASE_TYPE = "sqlite";
 process.env.NODE_ENV = "test";
 process.env.JWT_ACCESS_TTL = "15m";
 
-import { type INestApplication, ValidationPipe } from "@nestjs/common";
+import { type INestApplication, RequestMethod, ValidationPipe } from "@nestjs/common";
 import { Test, type TestingModule } from "@nestjs/testing";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
@@ -23,7 +23,9 @@ describe("API (e2e)", () => {
 
     app = moduleFixture.createNestApplication();
 
-    app.setGlobalPrefix("api/v1");
+    app.setGlobalPrefix("api/v1", {
+      exclude: [{ path: "/", method: RequestMethod.GET }],
+    });
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,
@@ -43,6 +45,13 @@ describe("API (e2e)", () => {
   });
 
   const http = () => request(app.getHttpServer());
+
+  it("GET /", async () => {
+    const response = await http().get("/").expect(200);
+
+    expect(response.body.status).toBe("ok");
+    expect(response.body.service).toBe("Munib Tracker");
+  });
 
   it("GET /api/v1/health", async () => {
     const response = await http().get("/api/v1/health").expect(200);

@@ -1895,7 +1895,8 @@
     "categoryZikr": "ذکر",
     "categoryQaza": "Qz",
     "categoryMilestone": "Milestone",
-    "categorySystem": "سیسټم"
+    "categorySystem": "سیسټم",
+    "categoryAnnouncement": "Announcement"
   },
   "qibla": {
     "eyebrow": "Direction",
@@ -3463,6 +3464,55 @@
       "transliteration": "Transliteration (optional)",
       "translation": "Meaning (optional)",
       "reference": "Reference (اختیاري)"
+    },
+    "images": {
+      "label": "Pictures (optional)",
+      "add": "Add picture",
+      "remove": "Remove picture",
+      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
+      "signInRequired": "Sign in to attach private pictures to your adhkar.",
+      "permissionDenied": "Photo library permission is required to attach pictures.",
+      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
+      "tooLarge": "Each picture must be 1 MB or smaller.",
+      "uploadFailed": "Could not upload pictures. Try again.",
+      "uploading": "Uploading…",
+      "open": "Open picture {{index}}",
+      "counter": "{{current}} of {{total}}",
+      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
+      "previous": "Previous picture",
+      "next": "Next picture"
+    },
+    "attachments": {
+      "label": "Attachments (optional)",
+      "add": "Add file",
+      "remove": "Remove attachment",
+      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
+      "signInRequired": "Sign in to attach private files to your adhkar.",
+      "permissionDenied": "Permission is required to attach files.",
+      "permissionTitle": "Allow access",
+      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
+      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
+      "allowAccess": "Allow access",
+      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
+      "tooLarge": "Each file must be 1 MB or smaller.",
+      "uploadFailed": "Could not upload attachments. Try again.",
+      "uploading": "Uploading…",
+      "readFailed": "Could not read that file. Try another.",
+      "pickFailed": "Could not add that file. Try again.",
+      "openFailed": "Could not open that file.",
+      "open": "Open attachment {{index}}",
+      "counter": "{{current}} of {{total}}",
+      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
+      "previous": "Previous attachment",
+      "next": "Next attachment",
+      "openPdf": "Open PDF",
+      "sourceTitle": "Add attachment",
+      "sourceCamera": "Take a photo",
+      "sourceCameraHint": "Use the camera to capture an image",
+      "sourceGallery": "Photo library",
+      "sourceGalleryHint": "Choose an image from your photos",
+      "sourceDocument": "Files",
+      "sourceDocumentHint": "Pick an image or PDF from your files"
     }
   },
   "tahajjud": {
@@ -4007,5 +4057,8 @@
     "after1Min": "After 1 minute",
     "after5Min": "After 5 minutes",
     "footer": "Your PIN is stored securely on this device and never leaves it."
+  },
+  "notifications": {
+    "adminAnnouncement": "Announcement"
   }
 }

@@ -1,4 +1,4 @@
-import { createHash, randomUUID, timingSafeEqual } from "node:crypto";
+import { randomUUID } from "node:crypto";
 import type {
   ContentReportReference,
   ContentReportStatus,
@@ -10,24 +10,15 @@ import {
   HttpStatus,
   Injectable,
   NotFoundException,
-  OnModuleInit,
   UnauthorizedException,
 } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { AuthService } from "../auth/auth.service";
 import { AttachmentStorageService } from "../common/attachment-storage.service";
-import type { EnvironmentVariables } from "../config/env.schema";
 import { ContentReportAttachmentEntity, ContentReportEntity } from "../database/entities";
+import { isContentReportRateLimited } from "./content-report-rate-limit";
 import {
-  configureContentReportRateLimit,
-  isContentReportRateLimited,
-} from "./content-report-rate-limit";
-import {
-  type AdminContentReportDetailDto,
-  AdminUpdateContentReportDto,
-  CONTENT_REPORT_STATUSES,
   ContentReportDetailDto,
   ContentReportListResponseDto,
   CreateContentReportDto,
@@ -45,23 +36,15 @@ export type UploadedAttachment = {
 };
 
 @Injectable()
-export class ContentReportsService implements OnModuleInit {
+export class ContentReportsService {
   constructor(
     @InjectRepository(ContentReportEntity)
     private readonly reportsRepository: Repository<ContentReportEntity>,
     @InjectRepository(ContentReportAttachmentEntity)
     private readonly attachmentsRepository: Repository<ContentReportAttachmentEntity>,
     private readonly authService: AuthService,
-    private readonly configService: ConfigService<EnvironmentVariables, true>,
     private readonly attachmentStorage: AttachmentStorageService,
   ) {}
-
-  onModuleInit(): void {
-    configureContentReportRateLimit({
-      upstashUrl: this.configService.get("UPSTASH_REDIS_REST_URL", { infer: true }),
-      upstashToken: this.configService.get("UPSTASH_REDIS_REST_TOKEN", { infer: true }),
-    });
-  }
 
   async create(
     accessToken: string,
@@ -137,44 +120,6 @@ export class ContentReportsService implements OnModuleInit {
     return this.toDetail(report, attachmentCount);
   }
 
-  async adminUpdate(
-    adminKey: string | undefined,
-    id: string,
-    dto: AdminUpdateContentReportDto,
-  ): Promise<AdminContentReportDetailDto> {
-    this.requireAdminKey(adminKey);
-
-    const report = await this.reportsRepository.findOne({ where: { id } });
-    if (!report) {
-      throw new NotFoundException("Report not found");
-    }
-
-    if (dto.status !== undefined) {
-      if (!CONTENT_REPORT_STATUSES.includes(dto.status)) {
-        throw new BadRequestException("Invalid status");
-      }
-      report.status = dto.status;
-    }
-
-    if (dto.adminNotes !== undefined) {
-      report.adminNotes = dto.adminNotes.trim() || null;
-    }
-
-    if (dto.resolvedAt !== undefined) {
-      report.resolvedAt = new Date(dto.resolvedAt);
-    } else if (dto.status === "completed" || dto.status === "cancelled" || dto.status === "spam") {
-      report.resolvedAt = report.resolvedAt ?? new Date();
-    }
-
-    await this.reportsRepository.save(report);
-
-    const attachmentCount = await this.attachmentsRepository.count({ where: { reportId: id } });
-    return {
-      ...this.toDetail(report, attachmentCount),
-      adminNotes: report.adminNotes ?? null,
-    };
-  }
-
   private async requireLinkedUser(accessToken: string) {
     if (!accessToken) {
       throw new UnauthorizedException("Missing bearer token");
@@ -190,13 +135,6 @@ export class ContentReportsService implements OnModuleInit {
     }
 
     return user;
-  }
-
-  private requireAdminKey(adminKey: string | undefined): void {
-    const expected = this.configService.get("REPORT_ADMIN_KEY", { infer: true });
-    if (!expected || !adminKey || !timingSafeStringEqual(adminKey, expected)) {
-      throw new UnauthorizedException("Invalid admin key");
-    }
   }
 
   private validateAttachments(files: UploadedAttachment[]): void {
@@ -280,18 +218,6 @@ export class ContentReportsService implements OnModuleInit {
       platform: report.platform ?? null,
     };
   }
-}
-
-/**
- * Constant-time secret comparison. Hashing both sides to a fixed 32-byte digest
- * lets `timingSafeEqual` run without leaking length (it throws on unequal-length
- * buffers) and keeps the comparison independent of how many leading characters
- * match, closing the timing side-channel on the admin key (CWE-208).
- */
-function timingSafeStringEqual(a: string, b: string): boolean {
-  const aHash = createHash("sha256").update(a).digest();
-  const bHash = createHash("sha256").update(b).digest();
-  return timingSafeEqual(aHash, bHash);
 }
 
 function extensionForMime(mime: string): string {

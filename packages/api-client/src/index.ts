@@ -25,6 +25,7 @@ export { formatApiDateTime, fromApiDateTime, toApiDateTime } from "./datetime";
 export * from "./generated/endpoints/app-feedback/app-feedback";
 export * from "./generated/endpoints/auth/auth";
 export * from "./generated/endpoints/health/health";
+export * from "./generated/endpoints/oss-content-failures/oss-content-failures";
 export * from "./generated/endpoints/sync/sync";
 export * from "./generated/models";
 export {

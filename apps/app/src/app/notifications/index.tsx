@@ -21,9 +21,11 @@ import { useNotificationPermissions } from "@/hooks/use-notification-permissions
 import { goBackOrReplace } from "@/lib/navigation";
 import { extractReminderKey } from "@/lib/notifications/notification-visuals";
 import { isWeb } from "@/lib/notifications/platform";
+import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
 import { beginWebNotificationPermissionRequest } from "@/lib/notifications/web-environment";
 import { formatDisplayDateTime } from "@/lib/time";
 import { rescheduleAll } from "@/notifications/scheduler";
+import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
 import { locationStore, useLocation } from "@/stores/location-store";
@@ -57,6 +59,7 @@ export default function NotificationCenterScreen() {
   const { setNotificationPrefs } = usePreferencesActions();
   const location = useLocation();
   const toast = useToast();
+  const { session, isAuthenticated } = useAuth();
   const { items, unreadCount, open, markAllRead, clearAll } = useInAppNotifications();
   const { requestPermission, granted } = useNotificationPermissions();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
@@ -81,6 +84,9 @@ export default function NotificationCenterScreen() {
     // late grant (e.g. user skipped onboarding permissions).
     await setNotificationPrefs({ masterEnabled: true });
     await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+    if (isAuthenticated && session?.accessToken) {
+      void registerExpoPushTokenWithApi(session.accessToken);
+    }
   };
 
   const delivered = useMemo(() => mapInboxItems(items), [items]);

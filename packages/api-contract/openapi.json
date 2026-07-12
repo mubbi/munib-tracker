@@ -598,9 +598,58 @@
         "tags": [
           "content-reports"
         ]
-      },
-      "patch": {
-        "operationId": "ContentReportsController_adminUpdate",
+      }
+    },
+    "/api/v1/user-media": {
+      "post": {
+        "operationId": "UserMediaController_upload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "maxItems": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserMediaListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Upload private images/PDFs for custom adhkar (linked accounts only)",
+        "tags": [
+          "user-media"
+        ]
+      }
+    },
+    "/api/v1/user-media/{id}": {
+      "get": {
+        "operationId": "UserMediaController_getMeta",
         "parameters": [
           {
             "name": "id",
@@ -611,31 +660,82 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AdminUpdateContentReportDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AdminContentReportDetailDto"
+                  "$ref": "#/components/schemas/UserMediaDto"
                 }
               }
             }
           }
         },
-        "summary": "Admin: update report status and notes (X-Admin-Key required)",
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get metadata for a media item owned by the current user",
         "tags": [
-          "content-reports"
+          "user-media"
+        ]
+      },
+      "delete": {
+        "operationId": "UserMediaController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a media item owned by the current user",
+        "tags": [
+          "user-media"
+        ]
+      }
+    },
+    "/api/v1/user-media/{id}/content": {
+      "get": {
+        "operationId": "UserMediaController_getContent",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Download image bytes for a media item owned by the current user",
+        "tags": [
+          "user-media"
         ]
       }
     },
@@ -666,6 +766,36 @@
         "summary": "Submit low-star in-app review feedback (1–3 stars)",
         "tags": [
           "app-feedback"
+        ]
+      }
+    },
+    "/api/v1/oss-content-failures": {
+      "post": {
+        "operationId": "OssContentFailuresController_report",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportOssContentDownloadFailureDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Failure recorded"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Report a failed on-demand open-source content download (CDN / remote JSON / fonts)",
+        "tags": [
+          "oss-content-failures"
         ]
       }
     },
@@ -721,6 +851,243 @@
         "summary": "Compare client semver with platform update policy",
         "tags": [
           "version"
+        ]
+      }
+    },
+    "/api/v1/notifications/vapid-public-key": {
+      "get": {
+        "operationId": "NotificationsController_getVapidPublicKey",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VapidPublicKeyResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Public Web Push VAPID key (null when unset)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/push-token": {
+      "put": {
+        "operationId": "NotificationsController_upsertPushToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpsertPushTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushTokenResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Register or refresh a push token (linked accounts only)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app": {
+      "get": {
+        "operationId": "NotificationsController_listInApp",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InAppNotificationListResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List in-app notifications for the current user (newest first)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app/unread-count": {
+      "get": {
+        "operationId": "NotificationsController_unreadCount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnreadCountResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Unread in-app notification count",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app/mark-all-read": {
+      "post": {
+        "operationId": "NotificationsController_markAllRead",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnreadCountResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark all in-app notifications as read",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app/{id}/read": {
+      "patch": {
+        "operationId": "NotificationsController_markRead",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InAppNotificationDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mark a single in-app notification as read",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/in-app/{id}/engage": {
+      "post": {
+        "operationId": "NotificationsController_engage",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EngageInAppNotificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InAppNotificationDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Record open/click engagement (increments broadcast counters)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "operationId": "RootController_getRoot",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "API is reachable"
+          }
+        },
+        "summary": "Root liveness probe",
+        "tags": [
+          "health"
         ]
       }
     },
@@ -1285,112 +1652,143 @@
           "limit"
         ]
       },
-      "AdminUpdateContentReportDto": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "in_review",
-              "in_progress",
-              "completed",
-              "cancelled",
-              "spam"
-            ]
-          },
-          "adminNotes": {
-            "type": "string"
-          },
-          "resolvedAt": {
-            "type": "string"
-          }
-        }
-      },
-      "AdminContentReportDetailDto": {
+      "UserMediaDto": {
         "type": "object",
         "properties": {
           "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "mimeType": {
+            "type": "string",
+            "example": "image/jpeg"
+          },
+          "filename": {
             "type": "string"
           },
-          "status": {
+          "sizeBytes": {
+            "type": "number",
+            "example": 102400
+          },
+          "contentPath": {
             "type": "string",
-            "enum": [
-              "pending",
-              "in_review",
-              "in_progress",
-              "completed",
-              "cancelled",
-              "spam"
-            ]
-          },
-          "issueType": {
-            "type": "string",
-            "enum": [
-              "incorrect_arabic",
-              "incorrect_translation",
-              "incorrect_transliteration",
-              "wrong_reference",
-              "missing_content",
-              "audio_issue",
-              "typo",
-              "other"
-            ]
-          },
-          "description": {
-            "type": "string"
-          },
-          "content": {
-            "$ref": "#/components/schemas/ContentReportReferenceDto"
-          },
-          "attachmentCount": {
-            "type": "number"
+            "description": "Authenticated content URL (requires bearer token on GET)",
+            "example": "/api/v1/user-media/…/content"
           },
           "createdAt": {
             "type": "string"
-          },
-          "updatedAt": {
-            "type": "string"
-          },
-          "resolvedAt": {
-            "type": "object",
-            "nullable": true
-          },
-          "suggestedCorrection": {
-            "type": "object",
-            "nullable": true
-          },
-          "userReference": {
-            "type": "object",
-            "nullable": true
-          },
-          "appVersion": {
-            "type": "object",
-            "nullable": true
-          },
-          "platform": {
-            "type": "object",
-            "nullable": true
-          },
-          "adminNotes": {
-            "type": "object",
-            "nullable": true
           }
         },
         "required": [
           "id",
-          "status",
-          "issueType",
-          "description",
-          "content",
-          "attachmentCount",
-          "createdAt",
-          "updatedAt"
+          "mimeType",
+          "filename",
+          "sizeBytes",
+          "contentPath",
+          "createdAt"
+        ]
+      },
+      "UserMediaListResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserMediaDto"
+            }
+          }
+        },
+        "required": [
+          "items"
         ]
       },
       "SubmitAppFeedbackDto": {
         "type": "object",
         "properties": {}
+      },
+      "ReportOssContentDownloadFailureDto": {
+        "type": "object",
+        "properties": {
+          "contentKind": {
+            "type": "string",
+            "enum": [
+              "quran_edition",
+              "hadith_collection",
+              "qcf_font",
+              "quran_audio",
+              "adhan_audio",
+              "content_audio"
+            ]
+          },
+          "contentKey": {
+            "type": "string",
+            "description": "Stable grouping key, e.g. quran_edition:en-saheehintl:2",
+            "maxLength": 256
+          },
+          "sourceProvider": {
+            "type": "string",
+            "example": "fawazahmed0/quran-api",
+            "maxLength": 128
+          },
+          "sourceUrl": {
+            "type": "string",
+            "description": "Full CDN URL that failed"
+          },
+          "contentMeta": {
+            "type": "object",
+            "description": "Identifying fields for the failed content (edition, surah, page, …)",
+            "additionalProperties": true
+          },
+          "errorCode": {
+            "type": "string",
+            "enum": [
+              "http_error",
+              "network_error",
+              "empty_payload",
+              "unknown_content",
+              "parse_error",
+              "download_failed"
+            ]
+          },
+          "errorMessage": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "httpStatus": {
+            "type": "number"
+          },
+          "appVersion": {
+            "type": "string",
+            "maxLength": 32
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android",
+              "web"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "maxLength": 16
+          },
+          "translationLocale": {
+            "type": "string",
+            "maxLength": 16
+          }
+        },
+        "required": [
+          "contentKind",
+          "contentKey",
+          "sourceProvider",
+          "sourceUrl",
+          "contentMeta",
+          "errorCode",
+          "errorMessage",
+          "appVersion",
+          "platform"
+        ]
       },
       "VersionMetaResponseDto": {
         "type": "object",
@@ -1429,6 +1827,182 @@
           "latestVersion",
           "minSoftVersion",
           "minHardVersion"
+        ]
+      },
+      "VapidPublicKeyResponseDto": {
+        "type": "object",
+        "properties": {
+          "publicKey": {
+            "type": "object",
+            "nullable": true,
+            "description": "Web Push VAPID public key, if configured"
+          }
+        }
+      },
+      "UpsertPushTokenDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Expo push token or web push subscription endpoint"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "Stable device id for upsert"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "expo",
+              "web"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "example": "en"
+          },
+          "clientPlatform": {
+            "type": "string",
+            "description": "Client OS / runtime",
+            "example": "ios"
+          }
+        },
+        "required": [
+          "token",
+          "platform"
+        ]
+      },
+      "PushTokenResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "token": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "expo",
+              "web"
+            ]
+          },
+          "deviceId": {
+            "type": "object",
+            "nullable": true
+          },
+          "locale": {
+            "type": "object",
+            "nullable": true
+          },
+          "clientPlatform": {
+            "type": "object",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "token",
+          "platform",
+          "updatedAt"
+        ]
+      },
+      "InAppNotificationDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "kind": {
+            "type": "string",
+            "example": "admin_announcement"
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "object",
+            "nullable": true
+          },
+          "routeData": {
+            "type": "object",
+            "nullable": true,
+            "additionalProperties": true
+          },
+          "dedupeKey": {
+            "type": "object",
+            "nullable": true
+          },
+          "broadcastId": {
+            "type": "object",
+            "nullable": true
+          },
+          "readAt": {
+            "type": "object",
+            "nullable": true
+          },
+          "clickedAt": {
+            "type": "object",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "title",
+          "body",
+          "createdAt"
+        ]
+      },
+      "InAppNotificationListResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InAppNotificationDto"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "UnreadCountResponseDto": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "example": 3
+          }
+        },
+        "required": [
+          "count"
+        ]
+      },
+      "EngageInAppNotificationDto": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "open",
+              "click"
+            ]
+          }
+        },
+        "required": [
+          "action"
         ]
       }
     }

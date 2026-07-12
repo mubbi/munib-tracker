@@ -73,6 +73,13 @@ function categoryPalette(
         pillColor: colors.mutedForeground,
         pillBg: colors.muted,
       };
+    case "announcement":
+      return {
+        iconTint: tokens.status.info.color,
+        iconBg: tokens.status.info.soft,
+        pillColor: tokens.status.info.color,
+        pillBg: tokens.status.info.soft,
+      };
     default:
       return {
         iconTint: colors.accent,
@@ -89,6 +96,7 @@ const CATEGORY_LABEL_KEY: Record<NotificationCategory, string> = {
   qaza: "notifCenter.categoryQaza",
   milestone: "notifCenter.categoryMilestone",
   system: "notifCenter.categorySystem",
+  announcement: "notifCenter.categoryAnnouncement",
 };
 
 export function NotificationListRow({ item, formattedWhen, onPress }: NotificationListRowProps) {

@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { FormInput } from "@/components/form-input";
+import { trackContactError, trackContactSubmit } from "@/lib/analytics";
 
 export function ContactForm() {
   const formId = useId();
@@ -38,7 +39,10 @@ export function ContactForm() {
     if (!message.trim()) nextErrors.message = "Please enter a message.";
 
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+    if (Object.keys(nextErrors).length > 0) {
+      trackContactError("validation");
+      return;
+    }
 
     setStatus("loading");
 
@@ -49,15 +53,25 @@ export function ContactForm() {
         body: JSON.stringify({ name, email, message, company }),
       });
 
-      if (!response.ok) throw new Error("Request failed");
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(payload?.error || "Request failed");
+      }
 
+      trackContactSubmit();
       setStatus("success");
       setName("");
       setEmail("");
       setMessage("");
-    } catch {
+    } catch (error) {
+      trackContactError("server");
       setStatus("error");
-      setErrors({ form: "Something went wrong. Please try again." });
+      setErrors({
+        form:
+          error instanceof Error && error.message && error.message !== "Request failed"
+            ? error.message
+            : "Something went wrong. Please try again.",
+      });
     }
   }
 

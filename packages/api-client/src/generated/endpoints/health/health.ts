@@ -28,6 +28,98 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 /**
+ * @summary Root liveness probe
+ */
+export const rootControllerGetRoot = (
+    
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<void>(
+      {url: `/`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getRootControllerGetRootQueryKey = () => {
+    return [
+    `/`
+    ] as const;
+    }
+
+    
+export const getRootControllerGetRootQueryOptions = <TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getRootControllerGetRootQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof rootControllerGetRoot>>> = ({ signal }) => rootControllerGetRoot(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type RootControllerGetRootQueryResult = NonNullable<Awaited<ReturnType<typeof rootControllerGetRoot>>>
+export type RootControllerGetRootQueryError = unknown
+
+
+export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof rootControllerGetRoot>>,
+          TError,
+          Awaited<ReturnType<typeof rootControllerGetRoot>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof rootControllerGetRoot>>,
+          TError,
+          Awaited<ReturnType<typeof rootControllerGetRoot>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Root liveness probe
+ */
+
+export function useRootControllerGetRoot<TData = Awaited<ReturnType<typeof rootControllerGetRoot>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof rootControllerGetRoot>>, TError, TData>>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getRootControllerGetRootQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
  * @summary Liveness and readiness probe
  */
 export const healthControllerGetHealth = (

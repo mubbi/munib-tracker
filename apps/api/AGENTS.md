@@ -39,21 +39,15 @@ pnpm generate:api
 
 | Module | Purpose |
 |--------|---------|
-| `health` | Liveness probe at `GET /api/v1/health` |
+| `health` | Liveness probes at `GET /` and `GET /api/v1/health` |
 | `auth` | Guest sessions, Google/Apple/Facebook OAuth, account linking, web cookie sessions |
 | `sync` | Pull/push cloud sync (last-write-wins) |
-| `content-reports` | User content issue reports with attachments and admin triage |
-
-## Content reports admin triage
-
-Set `REPORT_ADMIN_KEY` in `.env`, then:
-
-```bash
-curl -X PATCH "http://localhost:3001/api/v1/content-reports/$REPORT_ID" \
-  -H "X-Admin-Key: $REPORT_ADMIN_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"status":"completed","adminNotes":"Fixed in content pipeline."}'
-```
+| `content-reports` | User content issue reports with optional attachments |
+| `user-media` | Private custom-adhkar images (Cloudinary authenticated / disk) |
+| `app-feedback` | Low-star in-app feedback submissions |
+| `oss-content-failures` | On-demand OSS CDN download failures from the Expo app |
+| `version` | Soft/hard update policy (`app_versions`) |
+| `notifications` | Product inbox + push tokens for admin broadcasts (`/notifications/*`); review-reactivation dedupe |
 
 ## Environment
 
@@ -72,8 +66,10 @@ Key variables:
 | Apple | `APPLE_CLIENT_IDS`, `APPLE_SERVICES_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` |
 | OAuth allowlist | `OAUTH_REDIRECT_URI_ALLOWLIST` (required in production for code exchange) |
 | Facebook | `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` |
+| Redis (optional) | `REDIS_URL`, `REDIS_KEY_PREFIX` — rate limits, app-version cache; graceful degrade when unset |
+| Web Push | `VAPID_PUBLIC_KEY` (optional; exposed at `GET /notifications/vapid-public-key`) |
 
-Full console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md).
+Full product OAuth console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md). Admin ops (separate app, same DB): [`docs/ADMIN.md`](../../docs/ADMIN.md) · [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md).
 
 **Vercel:** project root `apps/api` — see `vercel.json`. Serverless entry is `api/index.ts`.
 
@@ -92,7 +88,7 @@ pnpm --filter api check-types
 - Global prefix: `api/v1`
 - Validation: `ValidationPipe` with `class-validator` DTOs
 - Swagger decorators on all public endpoints
-- **Persistence is TypeORM** (`src/database/`) — PostgreSQL in prod, in-memory SQLite for tests (`in-memory-sqlite.options.ts`). Entities: `UserEntity`, `AuthSessionEntity`, `SyncRecordEntity`. Prod runs `synchronize: false`; schema changes go through migrations in `src/database/migrations/` (`pnpm --filter api migration:generate|run|revert`).
+- **Persistence is TypeORM** (`src/database/`) — PostgreSQL in prod, in-memory SQLite for tests (`in-memory-sqlite.options.ts`). Entities include users/sessions/sync plus `InAppNotificationEntity`, `PushTokenEntity`, and admin/broadcast tables from migration `1720000005000-AdminAndNotifications`. Prod runs `synchronize: false`; schema changes go through migrations in `src/database/migrations/` (`pnpm --filter api migration:generate|run|revert`). The admin app reads/writes the same DB via Drizzle (`@munib-tracker/db`) — mirror new columns there after migrating. On Supabase, `HardenSupabaseRls` forces RLS and revokes Data API roles; do not add permissive `anon`/`authenticated` policies unless intentionally exposing PostgREST.
 - **Auth:** signed JWT access tokens (`token.service.ts` + `@nestjs/jwt`) with revocable server-side sessions; `POST /auth/refresh` rotates the opaque refresh token. Dedicated Google/Apple routes (`POST /auth/google`, `/auth/google/oauth`, `/auth/apple`, `/auth/apple/oauth`, Apple `form_post` callback) plus Facebook via `POST /auth/oauth/facebook`. Web clients (`x-munib-tracker-client: web`) receive HttpOnly cookies (`mt_access_token` / `mt_refresh_token`) instead of tokens in the JSON body. Real OAuth exchange in `oauth-provider.service.ts` — activates when provider secrets are set; tests stub it. Apple `id_token`s are verified against Apple's JWKS. `GOOGLE_OAUTH_CLIENT_IDS` and `APPLE_CLIENT_IDS` accept comma/space-separated audiences for multi-platform clients. Set `OAUTH_REDIRECT_URI_ALLOWLIST` in production for code-exchange redirect checks.
 - Entity datetime columns must use the driver-portable timestamp type (datetime on sqlite/tests, timestamp on postgres) — nullable `Date` reflects as `Object`, so it needs an explicit column type.
 
@@ -100,5 +96,6 @@ pnpm --filter api check-types
 
 - [docs/OAUTH_SETUP.md](../../docs/OAUTH_SETUP.md) — Google / Apple / Facebook console + env guide
 - [docs/PRODUCTION.md](../../docs/PRODUCTION.md) — Vercel + production env
+- [docs/ADMIN.md](../../docs/ADMIN.md) · [docs/ADMIN_BROADCASTS.md](../../docs/ADMIN_BROADCASTS.md) — ops console + broadcast fan-out (admin does not use Nest for CRUD)
 - [.agents/skills/nestjs/SKILL.md](../../.agents/skills/nestjs/SKILL.md) — official NestJS guides (read before implementing API features)
 - [NestJS docs online](https://docs.nestjs.com/first-steps)

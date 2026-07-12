@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { resolveDatabaseSsl } from "./database-ssl";
+import { hostRequiresDatabaseSsl, resolveDatabaseSsl } from "./database-ssl";
+
+describe("hostRequiresDatabaseSsl", () => {
+  it("detects Supabase / Neon / AWS RDS-style hosts", () => {
+    expect(hostRequiresDatabaseSsl("db.abcdefgh.supabase.co")).toBe(true);
+    expect(hostRequiresDatabaseSsl("aws-0-eu-central-1.pooler.supabase.com")).toBe(true);
+    expect(hostRequiresDatabaseSsl("ep-cool-name.eu-central-1.aws.neon.tech")).toBe(true);
+    expect(hostRequiresDatabaseSsl("munib.cluster-xyz.eu-central-1.rds.amazonaws.com")).toBe(true);
+    expect(hostRequiresDatabaseSsl("localhost")).toBe(false);
+  });
+});
 
 describe("resolveDatabaseSsl", () => {
   it("returns false (plaintext) when SSL is disabled", () => {

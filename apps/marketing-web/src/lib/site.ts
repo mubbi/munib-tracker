@@ -12,8 +12,11 @@ export const PRODUCT_APP_URL = (
   process.env.NEXT_PUBLIC_PRODUCT_APP_URL ?? "https://my.munibtracker.app"
 ).replace(/\/$/, "");
 
-/** Google Analytics 4 measurement ID (e.g. G-XXXXXXXX). */
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? null;
+/** Google Analytics 4 measurement ID (e.g. G-XXXXXXXX). Empty env disables GA. */
+export const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID === ""
+    ? null
+    : process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || null;
 
 export const SITE_PATHS = {
   home: "/",

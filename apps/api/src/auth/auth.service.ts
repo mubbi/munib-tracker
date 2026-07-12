@@ -5,7 +5,6 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  OnModuleInit,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -19,9 +18,9 @@ import {
   ContentReportEntity,
   SyncRecordEntity,
   UserEntity,
+  UserMediaEntity,
 } from "../database/entities";
 import {
-  configureAuthRateLimit,
   isAuthGuestRateLimited,
   isAuthOAuthRateLimited,
   isAuthRefreshRateLimited,
@@ -41,7 +40,7 @@ import { TokenService } from "./token.service";
 const MIN_DEVICE_ID_LENGTH = 16;
 
 @Injectable()
-export class AuthService implements OnModuleInit {
+export class AuthService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>,
@@ -53,13 +52,6 @@ export class AuthService implements OnModuleInit {
     private readonly dataSource: DataSource,
     private readonly attachmentStorage: AttachmentStorageService,
   ) {}
-
-  onModuleInit(): void {
-    configureAuthRateLimit({
-      upstashUrl: this.configService.get("UPSTASH_REDIS_REST_URL", { infer: true }),
-      upstashToken: this.configService.get("UPSTASH_REDIS_REST_TOKEN", { infer: true }),
-    });
-  }
 
   async createGuestSession(
     dto: GuestSessionDto,
@@ -238,17 +230,27 @@ export class AuthService implements OnModuleInit {
         ).map((attachment) => attachment.storagePath)
       : [];
 
+    const userMedia = await this.dataSource
+      .getRepository(UserMediaEntity)
+      .find({ where: { userId }, select: { id: true, storagePath: true } });
+    const userMediaPaths = userMedia.map((media) => media.storagePath);
+
     await this.dataSource.transaction(async (manager) => {
       if (reportIds.length) {
         await manager.delete(ContentReportAttachmentEntity, { reportId: In(reportIds) });
       }
       await manager.delete(ContentReportEntity, { userId });
+      if (userMedia.length) {
+        await manager.delete(UserMediaEntity, { userId });
+      }
       await manager.delete(SyncRecordEntity, { userId });
       await manager.delete(AuthSessionEntity, { userId });
       await manager.delete(UserEntity, { id: userId });
     });
 
-    await Promise.all(attachmentPaths.map((path) => this.attachmentStorage.remove(path)));
+    await Promise.all(
+      [...attachmentPaths, ...userMediaPaths].map((path) => this.attachmentStorage.remove(path)),
+    );
   }
 
   private async upsertProviderUser(

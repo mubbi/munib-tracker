@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import math
 import shutil
 import sys
 from pathlib import Path
@@ -99,8 +98,36 @@ def _generate_android_adaptive(logo: Image.Image) -> tuple[Image.Image, Image.Im
     return fg_canvas, bg, mono
 
 
-def _generate_favicon(logo: Image.Image) -> Image.Image:
-    return _flatten_on_bg(logo, 48).convert("RGB")
+def _write_ico(icon_48: Image.Image, ico_path: Path) -> None:
+    ico_path.parent.mkdir(parents=True, exist_ok=True)
+    # Pillow builds multi-size ICOs by resizing a single source via `sizes=` —
+    # `append_images` is ignored by the ICO plugin and only yields 16×16.
+    icon_48.save(ico_path, format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+    print(f"  wrote {ico_path.relative_to(REPO_ROOT)}")
+
+
+def _write_favicon_set(logo: Image.Image, dest_dir: Path, *, ico_path: Path | None = None) -> None:
+    """Write favicon.png (48), 16/32 PNGs, optional multi-size .ico, and SVG shim."""
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    icon_48 = _flatten_on_bg(logo, 48)
+    icon_32 = _flatten_on_bg(logo, 32)
+    icon_16 = _flatten_on_bg(logo, 16)
+    _save_png(icon_48, dest_dir / "favicon.png")
+    _save_png(icon_32, dest_dir / "favicon-32.png")
+    _save_png(icon_16, dest_dir / "favicon-16.png")
+
+    # SVG that references the 32px PNG — same pattern as apps/admin.
+    svg_path = dest_dir / "favicon.svg"
+    svg_path.write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">\n'
+        '  <image href="/favicon-32.png" width="32" height="32"/>\n'
+        "</svg>\n",
+        encoding="utf-8",
+    )
+    print(f"  wrote {svg_path.relative_to(REPO_ROOT)}")
+
+    if ico_path is not None:
+        _write_ico(icon_48, ico_path)
 
 
 def main() -> None:
@@ -119,9 +146,17 @@ def main() -> None:
         ("icon-180.png", 180),
         ("icon-192.png", 192),
         ("icon-512.png", 512),
-        ("favicon.png", 48),
     ]:
         _save_png(_flatten_on_bg(logo, size), APP_IMAGES / name)
+
+    # App favicon (48px PNG for expo web.favicon + multi-size .ico for /favicon.ico)
+    icon_48 = _flatten_on_bg(logo, 48)
+    _save_png(icon_48, APP_IMAGES / "favicon.png")
+    _write_ico(icon_48, APP_PUBLIC / "favicon.ico")
+    shutil.copy2(APP_IMAGES / "favicon.png", APP_PUBLIC_IMAGES / "favicon.png")
+    print("  synced public/assets/images/favicon.png")
+    shutil.copy2(APP_PUBLIC / "favicon.ico", APP_IMAGES / "favicon.ico")
+    print("  synced assets/images/favicon.ico")
 
     # Native splash: keep transparent corners so the baked-in squircle shows
     # (Android 12+ still applies a circular clip viewport — transparent outside
@@ -151,9 +186,15 @@ def main() -> None:
         ("icon-192.png", 192),
         ("icon-512.png", 512),
         ("apple-touch-icon.png", 180),
-        ("favicon.png", 48),
     ]:
         _save_png(_flatten_on_bg(logo, size), MARKETING_PUBLIC / name)
+
+    marketing_app = REPO_ROOT / "apps" / "marketing-web" / "src" / "app"
+    _write_favicon_set(
+        logo,
+        MARKETING_PUBLIC,
+        ico_path=marketing_app / "favicon.ico",
+    )
 
     _save_png(logo, MARKETING_PUBLIC / "munib-logo.png")
 

@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { createAuthTestingModule } from "../../test/support/testing-module";
 import { AuthService } from "../auth/auth.service";
 import { AuthProvider } from "../auth/dto/auth.dto";
@@ -30,16 +30,10 @@ describe("ContentReportsService", () => {
   let contentReportsService: ContentReportsService;
 
   beforeEach(async () => {
-    // ConfigModule snapshots env at module create — set before compiling.
-    process.env.REPORT_ADMIN_KEY = "test-admin-key";
     resetContentReportRateLimits();
     const module = await createAuthTestingModule([ContentReportsService]);
     authService = module.get(AuthService);
     contentReportsService = module.get(ContentReportsService);
-  });
-
-  afterEach(() => {
-    delete process.env.REPORT_ADMIN_KEY;
   });
 
   it("blocks guest accounts from submitting reports", async () => {
@@ -85,38 +79,5 @@ describe("ContentReportsService", () => {
         },
       ]),
     ).rejects.toThrow("Unsupported attachment type");
-  });
-
-  it("allows admin status updates with a valid admin key", async () => {
-    const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
-    const report = await contentReportsService.create(session.accessToken, samplePayload);
-
-    const updated = await contentReportsService.adminUpdate("test-admin-key", report.id, {
-      status: "completed",
-      adminNotes: "Fixed in content pipeline.",
-    });
-
-    expect(updated.status).toBe("completed");
-    expect(updated.adminNotes).toBe("Fixed in content pipeline.");
-    expect(updated.resolvedAt).toBeTruthy();
-  });
-
-  it("rejects admin updates with a wrong or missing admin key", async () => {
-    const session = await authService.completeOAuth(AuthProvider.Google, { code: "oauth-code" });
-    const report = await contentReportsService.create(session.accessToken, samplePayload);
-
-    await expect(
-      contentReportsService.adminUpdate("wrong-key", report.id, { status: "completed" }),
-    ).rejects.toThrow("Invalid admin key");
-
-    // A near-miss of a different length must also be rejected (guards the
-    // constant-time comparison against length-mismatch throws).
-    await expect(
-      contentReportsService.adminUpdate("test-admin-key-longer", report.id, { status: "spam" }),
-    ).rejects.toThrow("Invalid admin key");
-
-    await expect(
-      contentReportsService.adminUpdate(undefined, report.id, { status: "completed" }),
-    ).rejects.toThrow("Invalid admin key");
   });
 });

@@ -227,6 +227,102 @@ export class AppFeedbackEntity {
   createdAt!: Date;
 }
 
+/** Marketing-site contact form submissions (anonymous; keyed by email for rate limits). */
+@Entity("contact_messages")
+@Index(["email", "createdAt"])
+@Index(["status", "createdAt"])
+@Index(["createdAt"])
+export class ContactMessageEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column({ type: "varchar", length: 100 })
+  name!: string;
+
+  @Column({ type: "varchar", length: 254 })
+  email!: string;
+
+  @Column({ type: "text" })
+  message!: string;
+
+  /** Triage: new | in_progress | closed */
+  @Column({ type: "varchar", length: 32, default: "new" })
+  status!: string;
+
+  @Column({ type: "text", nullable: true })
+  adminNotes?: string | null;
+
+  @Column({ type: "varchar", length: 64, nullable: true })
+  ipAddress?: string | null;
+
+  @Column({ type: "varchar", length: 512, nullable: true })
+  userAgent?: string | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: TIMESTAMP_TYPE })
+  updatedAt!: Date;
+}
+
+/** Failed on-demand OSS CDN downloads reported by the Expo app (Qur'an/hadith/fonts/audio). */
+@Entity("oss_content_download_failures")
+@Index(["contentKind", "createdAt"])
+@Index(["contentKey", "createdAt"])
+@Index(["sourceProvider", "createdAt"])
+@Index(["createdAt"])
+export class OssContentDownloadFailureEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column("uuid")
+  userId!: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user!: UserEntity;
+
+  @Column({ type: "varchar", length: 64 })
+  contentKind!: string;
+
+  /** Stable grouping key, e.g. `quran_edition:en-saheehintl:2` or `hadith:bukhari:ur`. */
+  @Column({ type: "varchar", length: 256 })
+  contentKey!: string;
+
+  @Column({ type: "varchar", length: 128 })
+  sourceProvider!: string;
+
+  @Column({ type: "text" })
+  sourceUrl!: string;
+
+  @Column({ type: "simple-json" })
+  contentMeta!: Record<string, unknown>;
+
+  @Column({ type: "varchar", length: 64 })
+  errorCode!: string;
+
+  @Column({ type: "text" })
+  errorMessage!: string;
+
+  @Column({ type: "int", nullable: true })
+  httpStatus?: number | null;
+
+  @Column({ type: "varchar", length: 32 })
+  appVersion!: string;
+
+  @Column({ type: "varchar", length: 16 })
+  platform!: string;
+
+  @Column({ type: "varchar", length: 16, nullable: true })
+  locale?: string | null;
+
+  @Column({ type: "varchar", length: 16, nullable: true })
+  translationLocale?: string | null;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+}
+
 @Entity("content_report_attachments")
 export class ContentReportAttachmentEntity {
   @PrimaryColumn("uuid")
@@ -253,4 +349,122 @@ export class ContentReportAttachmentEntity {
 
   @CreateDateColumn()
   createdAt!: Date;
+}
+
+/** Private user-owned images (e.g. custom adhkar attachments). */
+@Entity("user_media")
+@Index(["userId", "createdAt"])
+export class UserMediaEntity {
+  @PrimaryColumn("uuid")
+  id!: string;
+
+  @Column("uuid")
+  userId!: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user!: UserEntity;
+
+  @Column({ type: "varchar", length: 128 })
+  mimeType!: string;
+
+  @Column({ type: "varchar", length: 255 })
+  filename!: string;
+
+  @Column({ type: "int" })
+  sizeBytes!: number;
+
+  /** Disk path or `cloudinary:{public_id}` (authenticated delivery). */
+  @Column({ type: "varchar", length: 512 })
+  storagePath!: string;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+}
+
+const JSON_COLUMN_TYPE: ColumnType = usingSqlite ? "simple-json" : "jsonb";
+
+/** Server-synced in-app inbox rows (including admin broadcast announcements). */
+@Entity("in_app_notifications")
+@Index("in_app_notifications_userId_idx", ["userId"])
+@Index("in_app_notifications_user_read_idx", ["userId", "readAt"])
+@Index("in_app_notifications_broadcastId_idx", ["broadcastId"])
+@Index("in_app_notifications_user_dedupe", ["userId", "dedupeKey"], { unique: true })
+export class InAppNotificationEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column("uuid")
+  userId!: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user!: UserEntity;
+
+  @Column({ type: "varchar" })
+  kind!: string;
+
+  @Column({ type: "text" })
+  title!: string;
+
+  @Column({ type: "text" })
+  body!: string;
+
+  @Column({ type: "text", nullable: true })
+  subtitle?: string | null;
+
+  @Column({ type: JSON_COLUMN_TYPE, nullable: true })
+  routeData?: Record<string, unknown> | null;
+
+  @Column({ type: "text", nullable: true })
+  dedupeKey?: string | null;
+
+  @Column({ type: "int", nullable: true })
+  broadcastId?: number | null;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  readAt?: Date | null;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  clickedAt?: Date | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+}
+
+/** Expo / web push tokens for linked users. */
+@Entity("push_tokens")
+@Index("push_tokens_userId_idx", ["userId"])
+@Index("push_tokens_user_device", ["userId", "deviceId"], { unique: true })
+export class PushTokenEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column("uuid")
+  userId!: string;
+
+  @ManyToOne(() => UserEntity, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "userId" })
+  user!: UserEntity;
+
+  @Column({ type: "text" })
+  token!: string;
+
+  @Column({ type: "text", nullable: true })
+  deviceId?: string | null;
+
+  @Column({ type: "varchar", default: "expo" })
+  platform!: string;
+
+  @Column({ type: "text", nullable: true })
+  locale?: string | null;
+
+  @Column({ type: "text", nullable: true })
+  clientPlatform?: string | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ type: TIMESTAMP_TYPE })
+  updatedAt!: Date;
 }

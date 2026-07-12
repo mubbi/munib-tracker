@@ -7,6 +7,9 @@ export const OFFICIAL_API_ORIGIN = "https://api.munibtracker.app" as const;
 /** Expo web app (PWA) origin. Override with EXPO_PUBLIC_APP_URL at build time. */
 export const OFFICIAL_APP_WEB_ORIGIN = "https://my.munibtracker.app" as const;
 
+/** Super-admin console origin. */
+export const OFFICIAL_ADMIN_ORIGIN = "https://admin.munibtracker.app" as const;
+
 /** Android application ID (Google Play package name). */
 export const OFFICIAL_ANDROID_PACKAGE = "app.munibtracker" as const;
 

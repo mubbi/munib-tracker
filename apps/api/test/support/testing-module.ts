@@ -13,8 +13,12 @@ import {
   AuthSessionEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
+  InAppNotificationEntity,
+  OssContentDownloadFailureEntity,
+  PushTokenEntity,
   SyncRecordEntity,
   UserEntity,
+  UserMediaEntity,
 } from "../../src/database/entities";
 import { createInMemorySqliteOptions } from "../../src/database/in-memory-sqlite.options";
 import { StubOAuthProviderService } from "./oauth-stub";
@@ -25,7 +29,11 @@ const ENTITIES = [
   SyncRecordEntity,
   ContentReportEntity,
   ContentReportAttachmentEntity,
+  UserMediaEntity,
   AppFeedbackEntity,
+  OssContentDownloadFailureEntity,
+  InAppNotificationEntity,
+  PushTokenEntity,
 ];
 
 /**

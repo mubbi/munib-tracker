@@ -1,18 +1,26 @@
+"use client";
+
 import { Globe } from "lucide-react";
 import Link from "next/link";
+import { type DownloadPlacement, trackDownloadClick, trackWebDemoLaunch } from "@/lib/analytics";
 import { PRODUCT_APP_URL, SITE_PATHS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type StoreBadgesProps = {
   className?: string;
   layout?: "row" | "column";
+  placement?: DownloadPlacement;
 };
 
 const badge =
   "inline-flex h-[52px] items-center gap-2.5 rounded-xl border border-white/10 bg-neutral-900 px-4 text-white shadow-sm transition-transform hover:scale-[1.02] active:scale-[0.98]";
 
 /** App Store and Google Play badges — follow platform branding guidelines. */
-export function StoreBadges({ className = "", layout = "row" }: StoreBadgesProps) {
+export function StoreBadges({
+  className = "",
+  layout = "row",
+  placement = "hero",
+}: StoreBadgesProps) {
   const flexClass = layout === "row" ? "flex flex-wrap items-center gap-3" : "flex flex-col gap-3";
 
   return (
@@ -22,6 +30,7 @@ export function StoreBadges({ className = "", layout = "row" }: StoreBadgesProps
         aria-label="View iOS download options"
         className={badge}
         data-analytics-event="download_ios_click"
+        onClick={() => trackDownloadClick("ios", placement)}
       >
         <AppleLogo className="size-7 shrink-0" />
         <span className="flex flex-col items-start leading-none">
@@ -37,6 +46,7 @@ export function StoreBadges({ className = "", layout = "row" }: StoreBadgesProps
         aria-label="View Android download options"
         className={badge}
         data-analytics-event="download_android_click"
+        onClick={() => trackDownloadClick("android", placement)}
       >
         <GooglePlayLogo className="size-6 shrink-0" />
         <span className="flex flex-col items-start leading-none">
@@ -56,6 +66,7 @@ export function StoreBadges({ className = "", layout = "row" }: StoreBadgesProps
         aria-label="Try Munib Tracker in your browser"
         className="inline-flex h-[52px] items-center gap-2 rounded-xl border border-border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:border-brand/50 hover:bg-muted-surface/50"
         data-analytics-event="web_demo_launch"
+        onClick={() => trackWebDemoLaunch(placement)}
       >
         <Globe className="size-[18px] text-brand" />
         Try web app

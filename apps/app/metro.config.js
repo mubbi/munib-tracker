@@ -220,6 +220,21 @@ config.server.enhanceMiddleware = (middleware) => {
         return;
       }
     }
+    if (url === "/favicon.ico") {
+      const icoPublic = path.join(projectRoot, "public", "favicon.ico");
+      const icoAssets = path.join(projectRoot, "assets", "images", "favicon.ico");
+      const icoPath = fs.existsSync(icoPublic)
+        ? icoPublic
+        : fs.existsSync(icoAssets)
+          ? icoAssets
+          : null;
+      if (icoPath) {
+        res.setHeader("Content-Type", "image/x-icon");
+        res.setHeader("Cache-Control", "public, max-age=86400");
+        res.end(fs.readFileSync(icoPath));
+        return;
+      }
+    }
     /** Serve PWA / notification icons without Metro asset resolution. */
     const assetMatch = url?.match(/^\/assets\/images\/([^?]+)$/);
     if (assetMatch) {

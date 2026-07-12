@@ -17,8 +17,8 @@ import {
   ShieldCheck,
   Smartphone,
 } from "lucide-react";
-import Link from "next/link";
 import { Section } from "@/components/section";
+import { TrackedLink } from "@/components/tracked-link";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { SITE_PATHS } from "@/lib/site";
@@ -79,13 +79,16 @@ export function FeaturePillars({ limit }: { limit?: number }) {
       </Stagger>
       {limit && limit < APP_FEATURE_PILLARS.length ? (
         <p className="mt-12 text-center">
-          <Link
+          <TrackedLink
             href={SITE_PATHS.features}
             className="inline-flex items-center gap-1 font-semibold text-brand transition-opacity hover:opacity-80"
+            track="cta"
+            cta="explore_features"
+            placement="home_pillars"
           >
             See all features
             <span aria-hidden>→</span>
-          </Link>
+          </TrackedLink>
         </p>
       ) : null}
     </Section>

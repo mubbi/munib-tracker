@@ -2,6 +2,12 @@ import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import type { Repository } from "typeorm";
 import { AppVersionEntity } from "../database/entities";
+import {
+  appVersionPlatformConfigKey,
+  cacheGetJson,
+  cacheSetJson,
+  invalidateAppVersionCache,
+} from "../redis/redisJsonCache";
 import type { UpdateRequired, VersionMetaResponseDto } from "./dto/version.dto";
 import { isVersionLessThan } from "./lib/semver";
 
@@ -9,6 +15,8 @@ export type AppPlatform = "web" | "android" | "ios";
 
 /** Platform config from DB is cached in memory for this long. */
 export const APP_VERSION_CONFIG_CACHE_TTL_MS = 300_000;
+/** Redis L2 TTL matches in-memory cache (seconds). */
+const APP_VERSION_REDIS_TTL_SEC = Math.ceil(APP_VERSION_CONFIG_CACHE_TTL_MS / 1000);
 const MEMORY_MAX_ENTRIES = 20;
 
 interface PlatformVersionConfig {
@@ -18,6 +26,9 @@ interface PlatformVersionConfig {
   message: string | null;
   storeUrl: string | null;
 }
+
+/** Envelope so Redis can distinguish a cache hit of `null` from a miss. */
+type CachedPlatformConfig = { config: PlatformVersionConfig | null };
 
 const DEFAULT_META: VersionMetaResponseDto = {
   updateRequired: "none",
@@ -103,9 +114,10 @@ export class AppVersionService {
   async clearAppVersionCache(platform?: AppPlatform): Promise<void> {
     if (platform) {
       platformMemoryCache.delete(platform);
-      return;
+    } else {
+      platformMemoryCache.clear();
     }
-    platformMemoryCache.clear();
+    await invalidateAppVersionCache(platform);
   }
 
   async getAppVersionMeta(
@@ -133,6 +145,13 @@ export class AppVersionService {
       return mem.data;
     }
 
+    const redisKey = appVersionPlatformConfigKey(platform);
+    const cached = await cacheGetJson<CachedPlatformConfig>(redisKey);
+    if (cached && typeof cached === "object" && "config" in cached) {
+      touchPlatformMemory(platform, cached.config);
+      return cached.config;
+    }
+
     try {
       const row = await this.appVersions.findOne({ where: { platform } });
       const config = row
@@ -146,6 +165,11 @@ export class AppVersionService {
         : null;
 
       touchPlatformMemory(platform, config);
+      await cacheSetJson(
+        redisKey,
+        { config } satisfies CachedPlatformConfig,
+        APP_VERSION_REDIS_TTL_SEC,
+      );
       if (!config) {
         this.logger.warn(
           `No app_versions row for platform "${platform}" — using client version defaults. ` +

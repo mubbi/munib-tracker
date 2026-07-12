@@ -12,17 +12,6 @@ const REFRESH_WINDOW_MS = 15 * 60 * 1000;
 const OAUTH_LIMIT = 30;
 const OAUTH_WINDOW_MS = 60 * 60 * 1000;
 
-let upstashUrl: string | undefined;
-let upstashToken: string | undefined;
-
-export function configureAuthRateLimit(options: {
-  upstashUrl?: string;
-  upstashToken?: string;
-}): void {
-  upstashUrl = options.upstashUrl;
-  upstashToken = options.upstashToken;
-}
-
 function bucket(kind: string, identity: string): string {
   return `auth:${kind}:${identity}`;
 }
@@ -32,8 +21,6 @@ export async function isAuthGuestRateLimited(identity: string): Promise<boolean>
     key: bucket("guest", identity),
     limit: GUEST_LIMIT,
     windowMs: GUEST_WINDOW_MS,
-    upstashUrl,
-    upstashToken,
   });
 }
 
@@ -42,8 +29,6 @@ export async function isAuthRefreshRateLimited(identity: string): Promise<boolea
     key: bucket("refresh", identity),
     limit: REFRESH_LIMIT,
     windowMs: REFRESH_WINDOW_MS,
-    upstashUrl,
-    upstashToken,
   });
 }
 
@@ -52,8 +37,6 @@ export async function isAuthOAuthRateLimited(identity: string): Promise<boolean>
     key: bucket("oauth", identity),
     limit: OAUTH_LIMIT,
     windowMs: OAUTH_WINDOW_MS,
-    upstashUrl,
-    upstashToken,
   });
 }
 

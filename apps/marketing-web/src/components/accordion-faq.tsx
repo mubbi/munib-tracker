@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { useId, useState } from "react";
+import { trackFaqToggle } from "@/lib/analytics";
 import type { FaqItem } from "@/lib/faq";
 import { cn } from "@/lib/utils";
 
@@ -36,7 +37,11 @@ export function AccordionFaq({ items }: AccordionFaqProps) {
                 className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left font-display font-semibold tracking-tight text-foreground transition-colors hover:text-brand"
                 aria-expanded={isOpen}
                 aria-controls={panelId}
-                onClick={() => setOpenIndex(isOpen ? null : index)}
+                onClick={() => {
+                  const nextOpen = !isOpen;
+                  setOpenIndex(nextOpen ? index : null);
+                  if (nextOpen) trackFaqToggle(index, true);
+                }}
               >
                 {item.question}
                 <span

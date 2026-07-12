@@ -1,4 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+vi.mock("@/lib/contact-messages", () => ({
+  CONTACT_RATE_LIMIT: 2,
+  countRecentContactMessagesByEmail: vi.fn(),
+  insertContactMessage: vi.fn(),
+}));
+
+import { countRecentContactMessagesByEmail, insertContactMessage } from "@/lib/contact-messages";
 import { POST } from "./route";
 
 function makeRequest(body: unknown, ip = "203.0.113.1") {
@@ -7,6 +15,7 @@ function makeRequest(body: unknown, ip = "203.0.113.1") {
     headers: {
       "Content-Type": "application/json",
       "x-forwarded-for": ip,
+      "user-agent": "vitest",
     },
     body: typeof body === "string" ? body : JSON.stringify(body),
   });
@@ -18,100 +27,81 @@ const validBody = {
   message: "Salaam, I have a question.",
 };
 
-// Each test uses a distinct IP so the module-level rate-limit buckets do not
-// bleed across tests.
-let ipCounter = 0;
-function nextIp() {
-  ipCounter += 1;
-  return `198.51.100.${ipCounter}`;
-}
+const countMock = vi.mocked(countRecentContactMessagesByEmail);
+const insertMock = vi.mocked(insertContactMessage);
 
 describe("POST /api/contact", () => {
-  const originalWebhook = process.env.CONTACT_WEBHOOK_URL;
+  const originalDatabaseUrl = process.env.DATABASE_URL;
 
   beforeEach(() => {
-    vi.restoreAllMocks();
+    vi.clearAllMocks();
+    process.env.DATABASE_URL = "postgres://localhost/test";
+    countMock.mockResolvedValue(0);
+    insertMock.mockResolvedValue("msg-id");
   });
 
   afterEach(() => {
-    if (originalWebhook === undefined) {
-      delete process.env.CONTACT_WEBHOOK_URL;
+    if (originalDatabaseUrl === undefined) {
+      delete process.env.DATABASE_URL;
     } else {
-      process.env.CONTACT_WEBHOOK_URL = originalWebhook;
+      process.env.DATABASE_URL = originalDatabaseUrl;
     }
   });
 
-  it("returns 503 and does not report success when no webhook is configured", async () => {
-    delete process.env.CONTACT_WEBHOOK_URL;
-    const res = await POST(makeRequest(validBody, nextIp()));
+  it("returns 503 when DATABASE_URL is not configured", async () => {
+    delete process.env.DATABASE_URL;
+    const res = await POST(makeRequest(validBody));
     expect(res.status).toBe(503);
     const json = await res.json();
     expect(json.ok).toBeUndefined();
     expect(json.error).toBeTruthy();
+    expect(insertMock).not.toHaveBeenCalled();
   });
 
-  it("delivers to the webhook and returns ok when configured", async () => {
-    process.env.CONTACT_WEBHOOK_URL = "https://hooks.example.com/contact";
-    const fetchMock = vi
-      .spyOn(globalThis, "fetch")
-      .mockResolvedValue(new Response(null, { status: 200 }));
-
-    const res = await POST(makeRequest(validBody, nextIp()));
+  it("stores the message and returns ok when configured", async () => {
+    const res = await POST(makeRequest(validBody));
     expect(res.status).toBe(200);
     const json = await res.json();
     expect(json.ok).toBe(true);
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    const call = fetchMock.mock.calls[0];
-    if (!call) throw new Error("expected fetch to have been called");
-    const [url, init] = call;
-    expect(url).toBe("https://hooks.example.com/contact");
-    expect(JSON.parse((init as RequestInit).body as string)).toMatchObject({
-      name: "Aisha",
-      email: "aisha@example.com",
-    });
+    expect(insertMock).toHaveBeenCalledTimes(1);
+    expect(insertMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: "Aisha",
+        email: "aisha@example.com",
+        message: "Salaam, I have a question.",
+        ipAddress: "203.0.113.1",
+      }),
+    );
   });
 
-  it("returns 503 when the webhook responds non-2xx", async () => {
-    process.env.CONTACT_WEBHOOK_URL = "https://hooks.example.com/contact";
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null, { status: 500 }));
-    const res = await POST(makeRequest(validBody, nextIp()));
+  it("returns 503 when insert fails", async () => {
+    insertMock.mockRejectedValue(new Error("db down"));
+    const res = await POST(makeRequest(validBody));
     expect(res.status).toBe(503);
   });
 
-  it("silently accepts (200) but does not deliver when the honeypot is filled", async () => {
-    process.env.CONTACT_WEBHOOK_URL = "https://hooks.example.com/contact";
-    const fetchMock = vi.spyOn(globalThis, "fetch");
-    const res = await POST(makeRequest({ ...validBody, company: "AcmeBot" }, nextIp()));
+  it("silently accepts (200) but does not store when the honeypot is filled", async () => {
+    const res = await POST(makeRequest({ ...validBody, company: "AcmeBot" }));
     expect(res.status).toBe(200);
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(insertMock).not.toHaveBeenCalled();
   });
 
   it("rejects an over-length message with 400", async () => {
-    process.env.CONTACT_WEBHOOK_URL = "https://hooks.example.com/contact";
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null, { status: 200 }));
-    const res = await POST(makeRequest({ ...validBody, message: "x".repeat(5001) }, nextIp()));
+    const res = await POST(makeRequest({ ...validBody, message: "x".repeat(5001) }));
     expect(res.status).toBe(400);
+    expect(insertMock).not.toHaveBeenCalled();
   });
 
   it("rejects an over-length name with 400", async () => {
-    process.env.CONTACT_WEBHOOK_URL = "https://hooks.example.com/contact";
-    const res = await POST(makeRequest({ ...validBody, name: "x".repeat(101) }, nextIp()));
+    const res = await POST(makeRequest({ ...validBody, name: "x".repeat(101) }));
     expect(res.status).toBe(400);
+    expect(insertMock).not.toHaveBeenCalled();
   });
 
-  it("rate-limits repeated submissions from the same IP", async () => {
-    process.env.CONTACT_WEBHOOK_URL = "https://hooks.example.com/contact";
-    vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null, { status: 200 }));
-    const ip = nextIp();
-
-    const statuses: number[] = [];
-    for (let i = 0; i < 7; i += 1) {
-      const res = await POST(makeRequest(validBody, ip));
-      statuses.push(res.status);
-    }
-    // First 5 within the window succeed; the 6th+ are limited.
-    expect(statuses.slice(0, 5).every((s) => s === 200)).toBe(true);
-    expect(statuses[5]).toBe(429);
-    expect(statuses[6]).toBe(429);
+  it("rate-limits to 2 submissions per email in 24 hours", async () => {
+    countMock.mockResolvedValue(2);
+    const res = await POST(makeRequest(validBody));
+    expect(res.status).toBe(429);
+    expect(insertMock).not.toHaveBeenCalled();
   });
 });

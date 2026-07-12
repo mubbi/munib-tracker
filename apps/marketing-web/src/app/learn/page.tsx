@@ -19,9 +19,9 @@ import {
 import type { Metadata } from "next";
 import { CtaBand } from "@/components/cta-band";
 import { Section } from "@/components/section";
+import { TrackedButton } from "@/components/tracked-button";
 import { Aurora, GridBackdrop } from "@/components/ui/backgrounds";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import { SITE_PATHS } from "@/lib/site";
@@ -208,12 +208,18 @@ export default function LearnPage() {
               citations on every lesson.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button href={SITE_PATHS.download} size="lg">
+              <TrackedButton href={SITE_PATHS.download} size="lg" cta="get_app" placement="learn">
                 Get the app
-              </Button>
-              <Button href={SITE_PATHS.features} variant="outline" size="lg">
+              </TrackedButton>
+              <TrackedButton
+                href={SITE_PATHS.features}
+                variant="outline"
+                size="lg"
+                cta="explore_features"
+                placement="learn"
+              >
                 See all features
-              </Button>
+              </TrackedButton>
             </div>
           </Reveal>
         </div>

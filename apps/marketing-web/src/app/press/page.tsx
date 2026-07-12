@@ -2,6 +2,7 @@ import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ContentPage, ContentSection } from "@/components/content-page";
+import { TrackedLink } from "@/components/tracked-link";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -91,9 +92,15 @@ export default function PressPage() {
               className="size-32 rounded-[28px] border border-border/60 shadow-sm"
             />
             <figcaption className="text-xs text-muted">
-              <a href="/icon-512.png" className="font-medium text-brand hover:underline">
+              <TrackedLink
+                href="/icon-512.png"
+                className="font-medium text-brand hover:underline"
+                track="file_download"
+                fileName="icon-512.png"
+                placement="press"
+              >
                 Download 512×512
-              </a>
+              </TrackedLink>
             </figcaption>
           </figure>
         </div>

@@ -1,7 +1,8 @@
 import { writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { createRequire } from "node:module";
+import { dirname, join, resolve } from "node:path";
 import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants/branding";
-import { type INestApplication, ValidationPipe } from "@nestjs/common";
+import { type INestApplication, RequestMethod, ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import { ExpressAdapter, type NestExpressApplication } from "@nestjs/platform-express";
@@ -12,16 +13,41 @@ import express from "express";
 import helmet from "helmet";
 import { AppModule } from "./app.module";
 import { AppOpenApiModule } from "./app.openapi.module";
-import type { EnvironmentVariables } from "./config/env.schema";
+import { type EnvironmentVariables, NodeEnvironment } from "./config/env.schema";
 import { parseCorsOrigins } from "./config/env.validation";
 import { APP_VERSION_CORS_EXPOSED_HEADERS } from "./version/lib/app-version-response-headers";
 
 export type CreateAppOptions = {
   /** When set, Nest mounts on this Express instance (Vercel / serverless). */
   express?: Express;
-  /** Skip Swagger UI (still builds the OpenAPI document when exporting). */
+  /**
+   * Force Swagger UI on/off. Defaults to on only for local/dev (`NODE_ENV` is
+   * not `production`) and never while exporting OpenAPI.
+   */
   enableSwagger?: boolean;
 };
+
+/**
+ * Webpack bundles `swagger-ui-dist/absolute-path.js` with a wrong `__dirname`
+ * (`apps/api/dist`), so Nest's default asset path 404s. Resolve the real package.
+ */
+function resolveSwaggerUiDistPath(): string {
+  const requireFromCwd = createRequire(join(process.cwd(), "package.json"));
+  return dirname(requireFromCwd.resolve("swagger-ui-dist/package.json"));
+}
+
+function shouldEnableSwaggerUi(
+  configService: ConfigService<EnvironmentVariables, true>,
+  options: CreateAppOptions,
+): boolean {
+  if (process.env.EXPORT_OPENAPI === "true") {
+    return false;
+  }
+  if (options.enableSwagger !== undefined) {
+    return options.enableSwagger;
+  }
+  return configService.get("NODE_ENV", { infer: true }) !== NodeEnvironment.Production;
+}
 
 /**
  * Shared Nest bootstrap for local `listen()` and the Vercel serverless entry.
@@ -31,7 +57,6 @@ export async function createApp(
   options: CreateAppOptions = {},
 ): Promise<INestApplication | NestExpressApplication> {
   const rootModule = process.env.EXPORT_OPENAPI === "true" ? AppOpenApiModule : AppModule;
-  const enableSwagger = options.enableSwagger ?? process.env.EXPORT_OPENAPI !== "true";
 
   const app = options.express
     ? await NestFactory.create<NestExpressApplication>(
@@ -42,6 +67,7 @@ export async function createApp(
 
   const configService = app.get(ConfigService<EnvironmentVariables, true>);
   const corsOrigins = parseCorsOrigins(configService.get("CORS_ORIGINS", { infer: true }));
+  const enableSwagger = shouldEnableSwaggerUi(configService, options);
 
   app.use(helmet());
   app.use(cookieParser());
@@ -55,7 +81,9 @@ export async function createApp(
     exposedHeaders: APP_VERSION_CORS_EXPOSED_HEADERS,
   });
 
-  app.setGlobalPrefix("api/v1");
+  app.setGlobalPrefix("api/v1", {
+    exclude: [{ path: "/", method: RequestMethod.GET }],
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -68,25 +96,27 @@ export async function createApp(
     }),
   );
 
-  const swaggerConfig = new DocumentBuilder()
-    .setTitle(`${APP_NAME} API`)
-    .setDescription(
-      `Cloud sync, authentication, and backend services for ${APP_NAME}. ${APP_TAGLINE}`,
-    )
-    .setVersion("1.0")
-    .addBearerAuth()
-    .build();
+  if (process.env.EXPORT_OPENAPI === "true" || enableSwagger) {
+    const swaggerConfig = new DocumentBuilder()
+      .setTitle(`${APP_NAME} API`)
+      .setDescription(
+        `Cloud sync, authentication, and backend services for ${APP_NAME}. ${APP_TAGLINE}`,
+      )
+      .setVersion("1.0")
+      .addBearerAuth()
+      .build();
 
-  const document = SwaggerModule.createDocument(app, swaggerConfig);
+    const document = SwaggerModule.createDocument(app, swaggerConfig);
 
-  if (process.env.EXPORT_OPENAPI === "true") {
-    const outputPath = resolve(process.cwd(), "../../packages/api-contract/openapi.json");
-    writeFileSync(outputPath, `${JSON.stringify(document, null, 2)}\n`);
-    return app;
-  }
+    if (process.env.EXPORT_OPENAPI === "true") {
+      const outputPath = resolve(process.cwd(), "../../packages/api-contract/openapi.json");
+      writeFileSync(outputPath, `${JSON.stringify(document, null, 2)}\n`);
+      return app;
+    }
 
-  if (enableSwagger) {
-    SwaggerModule.setup("docs", app, document);
+    SwaggerModule.setup("docs", app, document, {
+      customSwaggerUiPath: resolveSwaggerUiDistPath(),
+    });
   }
 
   return app;

@@ -10,7 +10,6 @@ import { Type } from "class-transformer";
 import {
   IsIn,
   IsInt,
-  IsISO8601,
   IsOptional,
   IsString,
   Max,
@@ -241,27 +240,4 @@ export class ContentReportListResponseDto {
 
   @ApiProperty()
   limit!: number;
-}
-
-export class AdminUpdateContentReportDto {
-  @ApiPropertyOptional({ enum: CONTENT_REPORT_STATUSES })
-  @IsOptional()
-  @IsIn([...CONTENT_REPORT_STATUSES])
-  status?: ContentReportStatus;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  @MaxLength(4000)
-  adminNotes?: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsISO8601()
-  resolvedAt?: string;
-}
-
-export class AdminContentReportDetailDto extends ContentReportDetailDto {
-  @ApiPropertyOptional({ nullable: true })
-  adminNotes?: string | null;
 }

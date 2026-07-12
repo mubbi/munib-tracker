@@ -2,6 +2,7 @@ import { APP_AUTHOR, APP_AUTHOR_URL, APP_NAME, APP_TAGLINE } from "@munib-tracke
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentPage, ContentSection } from "@/components/content-page";
+import { TrackedLink } from "@/components/tracked-link";
 import { SITE_PATHS } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -62,14 +63,15 @@ export default function AboutPage() {
       <ContentSection heading="Author & collaborators">
         <p className="text-muted">
           {APP_NAME} is built and maintained by{" "}
-          <a
+          <TrackedLink
             href={APP_AUTHOR_URL}
             className="font-medium text-brand hover:underline"
-            rel="noopener noreferrer"
-            target="_blank"
+            track="outbound"
+            linkText={APP_AUTHOR}
+            placement="about"
           >
             {APP_AUTHOR}
-          </a>
+          </TrackedLink>
           , with content reviewed for authenticity before it ships. We are grateful to every
           contributor, tester, and reviewer who has helped shape the app.
         </p>

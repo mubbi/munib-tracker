@@ -3,10 +3,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const uploadStreamMock = vi.fn();
 const destroyMock = vi.fn();
 const configMock = vi.fn();
+const urlMock = vi.fn();
 
 vi.mock("cloudinary", () => ({
   v2: {
     config: (...args: unknown[]) => configMock(...args),
+    url: (...args: unknown[]) => urlMock(...args),
     uploader: {
       upload_stream: (...args: unknown[]) => uploadStreamMock(...args),
       destroy: (...args: unknown[]) => destroyMock(...args),
@@ -29,6 +31,7 @@ describe("AttachmentStorageService (Cloudinary)", () => {
     uploadStreamMock.mockReset();
     destroyMock.mockReset();
     configMock.mockReset();
+    urlMock.mockReset();
   });
 
   afterEach(() => {
@@ -75,7 +78,41 @@ describe("AttachmentStorageService (Cloudinary)", () => {
         folder: "munib-tracker/reports/r1",
         public_id: "file-id",
         resource_type: "image",
+        type: "upload",
         format: "jpg",
+      }),
+      expect.any(Function),
+    );
+  });
+
+  it("uploads user media as authenticated Cloudinary assets", async () => {
+    uploadStreamMock.mockImplementation((_options, callback) => {
+      queueMicrotask(() =>
+        callback(undefined, { public_id: "munib-tracker/custom-adhkar/u1/media-id" }),
+      );
+      return { end: () => undefined };
+    });
+
+    const service = new AttachmentStorageService(
+      makeConfig({
+        CLOUDINARY_CLOUD_NAME: "demo",
+        CLOUDINARY_API_KEY: "key",
+        CLOUDINARY_API_SECRET: "secret",
+      }),
+    );
+
+    const stored = await service.saveUserMedia(
+      "u1",
+      "media-id.jpg",
+      Buffer.from("img"),
+      "image/jpeg",
+    );
+
+    expect(stored.storagePath).toBe("cloudinary:munib-tracker/custom-adhkar/u1/media-id");
+    expect(uploadStreamMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        folder: "munib-tracker/custom-adhkar/u1",
+        type: "authenticated",
       }),
       expect.any(Function),
     );

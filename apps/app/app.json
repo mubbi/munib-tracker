@@ -16,7 +16,9 @@
       "associatedDomains": ["applinks:my.munibtracker.app"],
       "infoPlist": {
         "UIBackgroundModes": ["remote-notification", "audio"],
-        "NSSupportsLiveActivities": true
+        "NSSupportsLiveActivities": true,
+        "NSCameraUsageDescription": "Munib Tracker uses the camera so you can attach photos to custom adhkar.",
+        "NSPhotoLibraryUsageDescription": "Munib Tracker uses your photo library so you can attach images to custom adhkar."
       }
     },
     "android": {
@@ -77,6 +79,14 @@
           }
         }
       ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Munib Tracker uses your photo library so you can attach images to custom adhkar.",
+          "cameraPermission": "Munib Tracker uses the camera so you can attach photos to custom adhkar."
+        }
+      ],
+      "expo-document-picker",
       "expo-apple-authentication",
       [
         "expo-location",

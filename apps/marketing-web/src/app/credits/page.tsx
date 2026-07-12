@@ -6,48 +6,12 @@ import {
 } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import { ContentPage, ContentSection } from "@/components/content-page";
+import { CreditList } from "@/components/credit-list";
 
 export const metadata: Metadata = {
   title: "Credits",
   description: `Open data sources and attributions for ${APP_NAME}.`,
 };
-
-function CreditList({
-  sources,
-}: {
-  sources: readonly {
-    name: string;
-    attribution: string;
-    license: string;
-    url: string;
-    note?: string;
-  }[];
-}) {
-  return (
-    <div className="flex flex-col gap-4">
-      {sources.map((source) => (
-        <article
-          key={source.name}
-          className="rounded-[var(--radius-card)] border border-border/50 bg-card p-5"
-        >
-          <h3 className="font-semibold">
-            <a
-              href={source.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand hover:underline"
-            >
-              {source.name}
-            </a>
-          </h3>
-          <p className="mt-2 text-sm text-muted">{source.attribution}</p>
-          <p className="mt-1 text-xs text-muted/80">{source.license}</p>
-          {source.note ? <p className="mt-1 text-xs italic text-muted/70">{source.note}</p> : null}
-        </article>
-      ))}
-    </div>
-  );
-}
 
 export default function CreditsPage() {
   return (

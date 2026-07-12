@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Magnetic, Tilt } from "@/components/ui/interactive";
 import { ProgressRing } from "@/components/ui/progress-ring";
+import { trackCtaClick } from "@/lib/analytics";
 import { SITE_PATHS } from "@/lib/site";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -74,18 +75,27 @@ export function Hero() {
             className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:items-start lg:justify-start"
           >
             <Magnetic>
-              <Button href={SITE_PATHS.download} size="lg">
+              <Button
+                href={SITE_PATHS.download}
+                size="lg"
+                onClick={() => trackCtaClick("get_app", "hero")}
+              >
                 Get the app
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
             </Magnetic>
-            <Button href={SITE_PATHS.features} variant="outline" size="lg">
+            <Button
+              href={SITE_PATHS.features}
+              variant="outline"
+              size="lg"
+              onClick={() => trackCtaClick("explore_features", "hero")}
+            >
               Explore features
             </Button>
           </motion.div>
 
           <motion.div variants={item} className="mt-8">
-            <StoreBadges className="justify-center lg:justify-start" />
+            <StoreBadges className="justify-center lg:justify-start" placement="hero" />
           </motion.div>
 
           <motion.ul

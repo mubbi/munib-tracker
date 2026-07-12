@@ -111,11 +111,14 @@ export default function PrivacyPage() {
 
       <ContentSection heading="This marketing website">
         <p className="text-muted">
-          If Google Analytics 4 is configured for this site, we may collect anonymized page-view
-          metrics (IP anonymization enabled) to understand how the marketing pages are used. The
-          contact form sends the message you submit to our support inbox via a webhook; we use it
-          only to respond. Analytics on this website is separate from the product app and is not
-          used to profile your worship data.
+          If Google Analytics 4 is configured for this site, we may collect anonymized page-view and
+          interaction metrics (IP anonymization enabled) to understand how the marketing pages are
+          used. Analytics storage is gated by Google Consent Mode; when Google&apos;s cookie consent
+          message is enabled for the site tag, you can accept or decline analytics cookies via that
+          popup. The contact form stores your name, email, and message in our database so our
+          support team can respond; we use it only to reply and do not sell contact data. Analytics
+          on this website is separate from the product app and is not used to profile your worship
+          data.
         </p>
       </ContentSection>
 

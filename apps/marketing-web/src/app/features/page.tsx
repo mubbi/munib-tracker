@@ -8,9 +8,9 @@ import { FeaturePillars } from "@/components/feature-pillars";
 import { ProgressDemo } from "@/components/progress-demo";
 import { Section } from "@/components/section";
 import { StoreBadges } from "@/components/store-badges";
+import { TrackedButton } from "@/components/tracked-button";
 import { Aurora, GridBackdrop } from "@/components/ui/backgrounds";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import { SITE_PATHS } from "@/lib/site";
@@ -179,12 +179,23 @@ export default function FeaturesPage() {
               judgement-free, and entirely in your control.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button href={SITE_PATHS.download} size="lg">
+              <TrackedButton
+                href={SITE_PATHS.download}
+                size="lg"
+                cta="get_app"
+                placement="features"
+              >
                 Get the app
-              </Button>
-              <Button href={SITE_PATHS.learn} variant="outline" size="lg">
+              </TrackedButton>
+              <TrackedButton
+                href={SITE_PATHS.learn}
+                variant="outline"
+                size="lg"
+                cta="explore_library"
+                placement="features"
+              >
                 Explore the library
-              </Button>
+              </TrackedButton>
             </div>
           </Reveal>
         </div>
@@ -201,7 +212,7 @@ export default function FeaturesPage() {
           <AudioPlayerDemo />
         </div>
         <div className="mt-10 flex justify-center">
-          <StoreBadges layout="row" />
+          <StoreBadges layout="row" placement="features" />
         </div>
       </Section>
 

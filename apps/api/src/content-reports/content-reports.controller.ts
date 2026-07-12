@@ -7,7 +7,6 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-  Patch,
   Post,
   Query,
   UnauthorizedException,
@@ -29,8 +28,6 @@ import { validateSync } from "class-validator";
 import { memoryStorage } from "multer";
 import { ContentReportsService, type UploadedAttachment } from "./content-reports.service";
 import {
-  AdminContentReportDetailDto,
-  AdminUpdateContentReportDto,
   ContentReportDetailDto,
   ContentReportListQueryDto,
   ContentReportListResponseDto,
@@ -114,17 +111,6 @@ export class ContentReportsController {
     @Param("id") id: string,
   ): Promise<ContentReportDetailDto> {
     return this.contentReportsService.getById(this.extractBearerToken(authorization), id);
-  }
-
-  @Patch(":id")
-  @ApiOperation({ summary: "Admin: update report status and notes (X-Admin-Key required)" })
-  @ApiOkResponse({ type: AdminContentReportDetailDto })
-  adminUpdate(
-    @Headers("x-admin-key") adminKey: string | undefined,
-    @Param("id") id: string,
-    @Body() dto: AdminUpdateContentReportDto,
-  ): Promise<AdminContentReportDetailDto> {
-    return this.contentReportsService.adminUpdate(adminKey, id, dto);
   }
 
   private parsePayload(payload: string): CreateContentReportDto {

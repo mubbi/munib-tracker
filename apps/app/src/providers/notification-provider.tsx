@@ -4,6 +4,7 @@ import { type ReactNode, useEffect } from "react";
 import { AppState, Platform } from "react-native";
 import { maybeOpenReviewFunnelFromNotificationData } from "@/features/reviews/lib/reviewNotificationTap";
 import { isWeb } from "@/lib/notifications/platform";
+import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
 import { tryPlayWebAdhanForReminder } from "@/lib/notifications/web-adhan-playback";
 import { setWebReminderFireHandler } from "@/lib/notifications/web-reminder-scheduler";
 import {
@@ -12,6 +13,7 @@ import {
   SNOOZE_ACTION_IDENTIFIER,
   snoozeNotification,
 } from "@/notifications/scheduler";
+import { useAuth } from "@/providers/auth-provider";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useStore } from "@/stores/create-store";
 import { locationStore } from "@/stores/location-store";
@@ -26,6 +28,7 @@ const isNative = Platform.OS === "ios" || Platform.OS === "android";
 export function NotificationProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const ready = usePreferencesReady();
+  const { session, isAuthenticated } = useAuth();
   const { deliver } = useInAppNotifications();
   const notificationPrefs = useStore(preferencesStore, (s) => s.prefs.notificationPrefs);
   const prayerAlerts = useStore(preferencesStore, (s) => s.prefs.prayerAlerts);
@@ -37,6 +40,11 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     void configureNotifications();
   }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated || !session?.accessToken) return;
+    void registerExpoPushTokenWithApi(session.accessToken);
+  }, [isAuthenticated, session?.accessToken]);
 
   useEffect(() => {
     if (!isWeb) return;
@@ -89,6 +97,9 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
         { ...prefs, notificationPrefs, prayerAlerts, prayerReminderOffsets, bedtime },
         location,
       );
+      if (isAuthenticated && session?.accessToken) {
+        void registerExpoPushTokenWithApi(session.accessToken);
+      }
     });
     return () => sub.remove();
   }, [
@@ -99,6 +110,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     prayerReminderOffsets,
     bedtime,
     location,
+    isAuthenticated,
+    session?.accessToken,
   ]);
 
   useEffect(() => {

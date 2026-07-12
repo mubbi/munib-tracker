@@ -10,6 +10,8 @@ export const PWA_ICON_PATHS = {
   any512: "/assets/images/icon-512.png",
   /** Maskable safe zone — 192px asset avoids cropping a full-bleed 512 icon on Android. */
   maskable: "/assets/images/icon-192.png",
+  /** Multi-size ICO served at site root (browsers + Expo inject `/favicon.ico`). */
+  faviconIco: "/favicon.ico",
   favicon: "/assets/images/favicon.png",
   /** Default path iOS probes when adding to home screen. */
   appleTouchRoot: "/apple-touch-icon.png",

@@ -25,8 +25,6 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  AdminContentReportDetailDto,
-  AdminUpdateContentReportDto,
   ContentReportDetailDto,
   ContentReportListResponseDto,
   ContentReportsControllerCreateBody,
@@ -294,68 +292,3 @@ export function useContentReportsControllerGetById<TData = Awaited<ReturnType<ty
 
 
 
-/**
- * @summary Admin: update report status and notes (X-Admin-Key required)
- */
-export const contentReportsControllerAdminUpdate = (
-    id: string,
-    adminUpdateContentReportDto: AdminUpdateContentReportDto,
- options?: SecondParameter<typeof apiFetch>,) => {
-      
-      
-      return apiFetch<AdminContentReportDetailDto>(
-      {url: `/api/v1/content-reports/${id}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: adminUpdateContentReportDto
-    },
-      options);
-    }
-  
-
-
-export const getContentReportsControllerAdminUpdateMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof contentReportsControllerAdminUpdate>>, TError,{id: string;data: AdminUpdateContentReportDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof contentReportsControllerAdminUpdate>>, TError,{id: string;data: AdminUpdateContentReportDto}, TContext> => {
-
-const mutationKey = ['contentReportsControllerAdminUpdate'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof contentReportsControllerAdminUpdate>>, {id: string;data: AdminUpdateContentReportDto}> = (props) => {
-          const {id,data} = props ?? {};
-
-          return  contentReportsControllerAdminUpdate(id,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type ContentReportsControllerAdminUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof contentReportsControllerAdminUpdate>>>
-    export type ContentReportsControllerAdminUpdateMutationBody = AdminUpdateContentReportDto
-    export type ContentReportsControllerAdminUpdateMutationError = unknown
-
-    /**
- * @summary Admin: update report status and notes (X-Admin-Key required)
- */
-export const useContentReportsControllerAdminUpdate = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof contentReportsControllerAdminUpdate>>, TError,{id: string;data: AdminUpdateContentReportDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof contentReportsControllerAdminUpdate>>,
-        TError,
-        {id: string;data: AdminUpdateContentReportDto},
-        TContext
-      > => {
-
-      const mutationOptions = getContentReportsControllerAdminUpdateMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    

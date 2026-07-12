@@ -1,13 +1,19 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { resolveDatabaseSsl } from "./database-ssl";
+import { hostRequiresDatabaseSsl, resolveDatabaseSsl } from "./database-ssl";
 import {
+  AppFeedbackEntity,
   AppVersionEntity,
   AuthSessionEntity,
+  ContactMessageEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
+  InAppNotificationEntity,
+  OssContentDownloadFailureEntity,
+  PushTokenEntity,
   SyncRecordEntity,
   UserEntity,
+  UserMediaEntity,
 } from "./entities";
 
 /**
@@ -18,16 +24,17 @@ import {
  * your `.env` before invoking, e.g. `pnpm --filter api migration:run`.
  */
 const port = Number(process.env.DATABASE_PORT ?? 5432);
+const host = process.env.DATABASE_HOST ?? "localhost";
 
 export default new DataSource({
   type: "postgres",
-  host: process.env.DATABASE_HOST ?? "localhost",
+  host,
   port: Number.isFinite(port) ? port : 5432,
   username: process.env.DATABASE_USER ?? "postgres",
   password: process.env.DATABASE_PASSWORD ?? "postgres",
   database: process.env.DATABASE_NAME ?? "munib_tracker",
   ssl: resolveDatabaseSsl({
-    enabled: process.env.DATABASE_SSL === "true",
+    enabled: process.env.DATABASE_SSL === "true" || hostRequiresDatabaseSsl(host),
     rejectUnauthorized: process.env.DATABASE_SSL_REJECT_UNAUTHORIZED !== "false",
     ca: process.env.DATABASE_CA_CERT,
   }),
@@ -37,7 +44,13 @@ export default new DataSource({
     SyncRecordEntity,
     ContentReportEntity,
     ContentReportAttachmentEntity,
+    UserMediaEntity,
     AppVersionEntity,
+    AppFeedbackEntity,
+    ContactMessageEntity,
+    OssContentDownloadFailureEntity,
+    InAppNotificationEntity,
+    PushTokenEntity,
   ],
   migrations: ["src/database/migrations/*.ts"],
   synchronize: false,
