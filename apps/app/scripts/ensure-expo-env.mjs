@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 /**
  * Expo CLI normally writes expo-env.d.ts and .expo/types/router.d.ts on
  * `expo start`. Those files are gitignored but tsconfig includes them for
@@ -6,7 +7,6 @@
  * Expo — create the stub and regenerate route types when missing/stale.
  */
 import { createRequire } from "node:module";
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -24,9 +24,9 @@ if (!existsSync(expoEnvPath)) {
 try {
   process.env.EXPO_ROUTER_APP_ROOT = appDir;
   const { requireContext } = require("expo-router/internal/testing");
-  const { getTypedRoutesDeclarationFile } = require(
-    "@expo/router-server/build/typed-routes/generate",
-  );
+  const {
+    getTypedRoutesDeclarationFile,
+  } = require("@expo/router-server/build/typed-routes/generate");
   const { EXPO_ROUTER_CTX_IGNORE } = require("expo-router/_ctx-shared");
   const ctx = requireContext(appDir, true, EXPO_ROUTER_CTX_IGNORE);
   const file = getTypedRoutesDeclarationFile(ctx, {});
