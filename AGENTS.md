@@ -64,8 +64,10 @@ pnpm doctor:app             # expo doctor
 pnpm dev:app:android:doctor # adb/emulator connectivity repair
 pnpm dev:app:android:signs  # Gradle signingReport
 pnpm dev:app:ios:signs      # Xcode signing settings (macOS)
-pnpm release:app:android    # local signed AAB (Gradle)
-pnpm release:app:ios        # local signed IPA (xcodebuild, macOS)
+pnpm release:app:android          # local signed AAB (Gradle)
+pnpm release:app:android:upload   # upload AAB to Play internal testing
+pnpm release:app:ios              # local signed IPA (xcodebuild, macOS)
+pnpm release:app:ios:upload       # upload IPA to App Store Connect
 ```
 
 ## Content & data

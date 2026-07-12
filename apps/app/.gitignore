@@ -45,6 +45,7 @@ yarn-error.*
 # Android signing keys & Play Console PEPK artifacts (never commit)
 android-keys/upload-keystore.jks
 android-keys/keystore.properties
+android-keys/play-console-service-account.json
 android-keys/output.zip
 android-keys/*.pem
 android-keys/pepk.jar

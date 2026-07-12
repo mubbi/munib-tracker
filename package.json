@@ -21,6 +21,7 @@
     "doctor:app": "pnpm --filter app doctor",
     "release:app:android": "pnpm --filter app android:bundle:release",
     "release:app:android:apk": "pnpm --filter app android:apk:release",
+    "release:app:android:upload": "pnpm --filter app android:upload:release",
     "release:app:ios": "pnpm --filter app ios:archive:release",
     "release:app:ios:upload": "pnpm --filter app ios:upload:release",
     "release:app:ios:upload:validate": "pnpm --filter app ios:upload:release:validate",

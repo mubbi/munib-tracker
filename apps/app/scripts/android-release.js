@@ -131,4 +131,10 @@ if (task === "bundleRelease") {
   }
 }
 
-console.log(`\nRelease artifact ready:\n  ${releaseArtifactPath}\n`);
+console.log(
+  `\nRelease artifact ready:\n  ${releaseArtifactPath}\n\n` +
+    (task === "bundleRelease"
+      ? `Upload: pnpm release:app:android:upload\n` +
+        `  (needs android-keys/play-console-service-account.json)\n`
+      : ""),
+);
