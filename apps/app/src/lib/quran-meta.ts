@@ -174,4 +174,19 @@ export function pageToStartAyah(page: number): PageStart | undefined {
   return PAGES_INDEX.starts.find((s) => s.page === page);
 }
 
+/**
+ * Mushaf page for a surah:ayah from the Madinah-15 page-start index (no per-surah
+ * ayah-meta JSON). Safe for light boot paths (stores, home) that must not pull
+ * `quran-loader`.
+ */
+export function getPageForAyah(surah: number, ayah: number): number {
+  const target = pos(surah, ayah);
+  let page = 1;
+  for (const start of PAGES_INDEX.starts) {
+    if (pos(start.surah, start.ayah) > target) break;
+    page = start.page;
+  }
+  return page;
+}
+
 export { JUZ_STARTS, QURAN_TOTAL_PAGES };

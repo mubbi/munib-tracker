@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "@/global.css";
@@ -10,17 +10,14 @@ import { setAppVersionInfo } from "@munib-tracker/api-client";
 import { AnimatedSplashOverlay } from "@/components/animated-icon";
 import { AppStack } from "@/components/app-stack";
 import { AppVersionGate } from "@/components/app-update/app-version-gate";
-import { MiniPlayer } from "@/components/audio/mini-player";
 import { ContentReportProvider } from "@/components/content-report/content-report-provider";
 import { ErrorFallback } from "@/components/error-boundary";
 import { ExternalCommandProcessor } from "@/components/external-command-processor";
 import { IdleMount } from "@/components/idle-mount";
 import { LocalePathBootstrap } from "@/components/locale-path-bootstrap";
-import { WebReminderAdhanBridge } from "@/components/notifications/web-reminder-adhan-bridge";
 import { OnboardingGate } from "@/components/onboarding-gate";
 import { WebPwaBootstrap } from "@/components/pwa/web-pwa-bootstrap";
 import { RtlLayoutBootstrap } from "@/components/rtl-layout-bootstrap";
-import { ShareQrWarmup } from "@/components/share/share-qr-warmup";
 import { WebNavigationFocusManager } from "@/components/web-navigation-focus";
 import { PinLockGate, PinLockProvider } from "@/features/pin-lock";
 import { ReviewDeepLinkBridge } from "@/features/reviews/components/ReviewDeepLinkBridge";
@@ -45,6 +42,17 @@ import { ToastHost, ToastProvider } from "@/providers/toast-provider";
 import { WebLayoutDirectionBridge } from "@/providers/web-layout-direction";
 import { preferencesStore } from "@/stores/preferences-store";
 
+const MiniPlayer = lazy(() =>
+  import("@/components/audio/mini-player").then((mod) => ({ default: mod.MiniPlayer })),
+);
+const ShareQrWarmup = lazy(() =>
+  import("@/components/share/share-qr-warmup").then((mod) => ({ default: mod.ShareQrWarmup })),
+);
+const WebReminderAdhanBridge = lazy(() =>
+  import("@/components/notifications/web-reminder-adhan-bridge").then((mod) => ({
+    default: mod.WebReminderAdhanBridge,
+  })),
+);
 setAppVersionInfo(resolveAppVersion(), resolveAppPlatform());
 
 SplashScreen.preventAutoHideAsync();
@@ -123,8 +131,10 @@ function RootLayout() {
                                 <NotificationProvider>
                                   <AudioPlayerProvider>
                                     <IdleMount>
-                                      <WebReminderAdhanBridge />
-                                      <ShareQrWarmup />
+                                      <Suspense fallback={null}>
+                                        <WebReminderAdhanBridge />
+                                        <ShareQrWarmup />
+                                      </Suspense>
                                     </IdleMount>
                                     <MiniPlayerInsetProvider>
                                       <AppVersionGate>
@@ -138,7 +148,9 @@ function RootLayout() {
                                               <OnboardingGate />
                                               <PinLockGate />
                                               <IdleMount>
-                                                <MiniPlayer />
+                                                <Suspense fallback={null}>
+                                                  <MiniPlayer />
+                                                </Suspense>
                                               </IdleMount>
                                               {/* Outside BlurTargetView so Android can
                                         capture a real backdrop blur (same as

@@ -11,6 +11,7 @@ import {
   getBundledEditions,
   getEditionById,
   getJuzList,
+  getPageForAyah,
   getPageList,
   getPageStarts,
   getSurahByNumber,
@@ -30,6 +31,7 @@ export {
   getBundledEditions,
   getEditionById,
   getJuzList,
+  getPageForAyah,
   getPageList,
   getPageStarts,
   getSurahByNumber,
@@ -119,11 +121,6 @@ export function getSurahAyahs(surah: number): Ayah[] {
   return ayahs;
 }
 
-export function getPageForAyah(surah: number, ayah: number): number {
-  return loadAyahMeta(surah)[String(ayah)]?.page ?? 1;
-}
-
-/** All ayahs appearing on a mushaf page (may span multiple surahs). */
 export function getAyahsOnPage(page: number): Ayah[] {
   const start = pageToStartAyah(page);
   if (!start) return [];

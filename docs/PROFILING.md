@@ -6,7 +6,7 @@
 >
 > **Verdict (read this first):**  
 > - **Native (iOS/Android): further React.lazy / per-route code-splitting is not required.** Metro already ships one Hermes-friendly JS graph; Expo’s production async routes still do **not** split native bundles. Keep the single-load app shell. Optimize **payload and startup work**, not screen module wrappers.  
-> - **Web (2026-07-12 pass 2):** asyncRoutes on — **~468 JS chunks**; home critical path **~18.7 MB raw / ~3.4 MB gzip**. Lab Lighthouse: mobile `/` **~38** / desktop **~64**. `__common` **~15.1 MB / ~2.4 MB gzip**. Names, zikr, Nawawi JSON, Learn `search-guides`, and Arabic TTF picker assets are **out** of `__common`; remaining size is mostly RN/Expo runtime + still-shared guide/dua strings. LCP on throttled mobile is still dominated by parsing `__common`.
+> - **Web (2026-07-12 pass 3 — thinner home shell):** Home `/` is a **hero + SEO shell**; below-fold cards live in `home-below-fold` (lazy chunk). `quran-store` uses `quran-meta.getPageForAyah` (no `quran-loader` on boot). SEO locale JSON packs load on demand. Idle root overlays (`MiniPlayer`, QR warmup, web adhan bridge) are `React.lazy`. Lab PSI mobile still ~**39** until `__common` RN/Expo runtime shrinks further; expect better TBT/parse on `/` after deploy.
 
 ---
 

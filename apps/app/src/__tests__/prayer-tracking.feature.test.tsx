@@ -1,9 +1,14 @@
 import { act, screen, waitFor } from "@testing-library/react-native";
 
-import HomeScreen from "@/app/(tabs)/index";
+import HomeScreen, { __setHomeBelowFoldForTests } from "@/app/(tabs)/index";
+import { loadHomeBelowFoldSyncForTests } from "@/components/home-below-fold-test-loader";
 import { trackerStore } from "@/stores/tracker-store";
 import { renderWithProviders } from "@/test-support/render";
 import { resetTrackerStore } from "@/test-support/store";
+
+beforeAll(() => {
+  __setHomeBelowFoldForTests(loadHomeBelowFoldSyncForTests());
+});
 
 beforeEach(async () => {
   await resetTrackerStore();

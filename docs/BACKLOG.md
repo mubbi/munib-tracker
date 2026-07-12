@@ -39,8 +39,9 @@ Profile + playbooks: [`PROFILING.md`](./PROFILING.md)
 | P1 | Android barcode / ML Kit assets — confirm unused; exclude from release AAB if so |
 | P2 | Device cold-start baseline (mid Android + one iPhone) |
 | P2 | Release AAB/IPA size (replace debug APK numbers) |
-| P2 | Further `__common` trim (remaining guide/dua fragments; thinner home shell) |
+| P2 | Further `__common` trim (RN/Expo runtime; remaining shared fragments) |
 | P2 | Optional Metro treemap / source-map explorer |
+| — | ~~Thinner home shell~~ — shipped: lazy `home-below-fold`, deferred store loads, SEO locale `import()`, lazy moon sheet / idle root overlays |
 
 ---
 

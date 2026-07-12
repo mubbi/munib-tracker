@@ -301,4 +301,8 @@ require("./src/i18n");
   const { searchLightWithGuides } =
     require("./src/lib/search-with-guides") as typeof import("./src/lib/search-with-guides");
   __setLightSearchWithGuidesForTests(searchLightWithGuides);
+
+  // Do not require `app/(tabs)/index` here — it pulls the home graph and
+  // poisons suite-level mocks (notifications, Platform, RTL). Home tests inject
+  // below-fold via `__setHomeBelowFoldForTests` themselves.
 })();

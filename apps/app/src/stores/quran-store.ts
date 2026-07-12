@@ -6,7 +6,7 @@ import {
   type QuranPrefs,
 } from "@/db/repositories/quran-repository";
 import { buildQuranActivity } from "@/lib/continue-activity";
-import { getPageForAyah } from "@/lib/quran";
+import { getPageForAyah } from "@/lib/quran-meta";
 import { recordContinueActivity } from "@/stores/continue-store";
 
 import { createStore, useStore } from "./create-store";

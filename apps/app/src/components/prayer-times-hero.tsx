@@ -1,6 +1,6 @@
 import type { WeatherEffectKind } from "@munib-tracker/shared/types";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, StyleSheet, View } from "react-native";
 import {
@@ -13,7 +13,6 @@ import {
   withTiming,
 } from "react-native-reanimated";
 import { MoonPhaseIcon } from "@/components/moon-phase";
-import { MoonPhaseSheet } from "@/components/moon-phase-sheet";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { SkyGradientLayer } from "@/components/sky-gradient-layer";
 import { ThemedText } from "@/components/themed-text";
@@ -29,6 +28,10 @@ import { chevronForward } from "@/lib/rtl";
 import type { SkyPalette } from "@/lib/sky";
 
 import { heroMotionClasses } from "./prayer-times-hero-motion";
+
+const MoonPhaseSheet = lazy(() =>
+  import("@/components/moon-phase-sheet").then((mod) => ({ default: mod.MoonPhaseSheet })),
+);
 
 export type PrayerTime = {
   name: string;
@@ -392,7 +395,11 @@ export function PrayerTimesHero({
           </View>
         </View>
       </View>
-      <MoonPhaseSheet visible={moonOpen} date={now} onClose={() => setMoonOpen(false)} />
+      {moonOpen ? (
+        <Suspense fallback={null}>
+          <MoonPhaseSheet visible={moonOpen} date={now} onClose={() => setMoonOpen(false)} />
+        </Suspense>
+      ) : null}
     </>
   );
 }

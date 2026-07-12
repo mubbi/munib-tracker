@@ -25,7 +25,7 @@ import {
   scheduleGroupFor,
 } from "@/lib/schedule-ui";
 
-type PrayerScheduleCardProps = {
+export type PrayerScheduleCardProps = {
   schedule: ScheduleItem[];
   nextIn: string;
   nextScheduleId: string | null;

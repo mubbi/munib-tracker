@@ -1,9 +1,9 @@
 import { type ReactNode, useEffect, useState } from "react";
-import { InteractionManager } from "react-native";
+import { runWhenIdle } from "@/lib/run-when-idle";
 
 /**
- * Mounts children after the first interactions settle so the cold-start tree
- * can paint a thin shell before heavy providers initialize.
+ * Mounts children once the JS thread is idle so the cold-start tree can paint a
+ * thin shell first. Uses {@link runWhenIdle} (Jest runs the task synchronously).
  */
 export function IdleMount({
   children,
@@ -15,7 +15,7 @@ export function IdleMount({
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const handle = InteractionManager.runAfterInteractions(() => setReady(true));
+    const handle = runWhenIdle(() => setReady(true));
     return () => handle.cancel();
   }, []);
 

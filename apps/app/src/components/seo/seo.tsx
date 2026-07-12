@@ -4,7 +4,7 @@ import { usePathname } from "expo-router";
 // static HTML. We use it directly instead of `expo-router/head`'s `Head`, whose
 // `useIsFocused()` gate returns false during static export and drops all tags.
 import { Helmet } from "expo-router/vendor/react-helmet-async/lib";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Platform } from "react-native";
 
 import {
@@ -24,7 +24,7 @@ import {
   type SeoLocale,
 } from "@/config/seo";
 import { normalizePath } from "@/config/seo-routes";
-import { getRouteSeoForLocale } from "@/config/seo-routes-locale";
+import { ensureSeoLocale, getRouteSeoForLocale } from "@/config/seo-routes-locale";
 import { type BreadcrumbEntry, breadcrumbSchema } from "@/lib/seo/structured-data";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -78,8 +78,28 @@ export function Seo(props: SeoProps) {
 function SeoWeb(props: SeoProps) {
   const pathname = usePathname();
   const { locale: appLocale } = usePreferences();
+  const seoLocale = props.locale ?? appLocale;
+  const [localePackReady, setLocalePackReady] = useState(seoLocale === "en");
+  useEffect(() => {
+    if (seoLocale === "en") {
+      setLocalePackReady(true);
+      return;
+    }
+    let cancelled = false;
+    setLocalePackReady(false);
+    void ensureSeoLocale(seoLocale).then(() => {
+      if (!cancelled) setLocalePackReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [seoLocale]);
   const resolvedPath = normalizePath(props.path ?? pathname ?? "/");
-  const registry = getRouteSeoForLocale(resolvedPath, props.locale ?? appLocale);
+  const registry = getRouteSeoForLocale(
+    resolvedPath,
+    // Until the pack is ready, fall back to English base titles.
+    localePackReady ? seoLocale : "en",
+  );
 
   // Emit head tags only for the screen whose canonical path matches the URL
   // being rendered. This replaces `Head`'s focus gate with a deterministic
