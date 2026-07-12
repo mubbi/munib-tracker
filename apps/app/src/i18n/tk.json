@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Varsayylan olarak gizli",
     "ctaPrivacyBody": "Hesap gerekmez. Yedeklemeyi ve senkronize etmeyi seçene kadar ibadet verileriniz cihazynyzda kalyr.",
     "signInToSync": "Senkronize etmek için giriş yapyn",
-    "pageOf": "Sahypa {{page}} / {{total}}"
+    "pageOf": "Sahypa {{page}} / {{total}}",
+    "locationEyebrow": "Ýerleşiş we ýatladyjylar",
+    "locationTitle": "Namaz wagtlary we ýumşak ýatladyjylar",
+    "locationBody": "Munib Tracker takyk namaz wagtlary we gyla üçin ýerleşişiňizi ulanýar we Namaz, Zikr we Kaza üçin islege bagly ýatladyjylary iberip biler. Ikisini hem soň sazlamalardan üýtgedip bilersiňiz.",
+    "locationHighlight1": "Şäheriňize laýyk namaz wagtlary",
+    "locationHighlight2": "Durýan ýeriňizden gyla kompasy",
+    "locationHighlight3": "Namaz, Zikr we Kaza üçin islege bagly ýatladyjylar",
+    "locationPrivacyTitle": "Enjamyňyzda şahsy",
+    "locationPrivacyBody": "Koordinatalaryňyz namaz wagtlary we gyla üçin şu enjamda galýar. Bildirişler ýerli ýatladyjylar — hereketleriňizi yzarlamaýarys we maglumatlaryňyzy satmaýarys.",
+    "locationAllow": "Ýerleşişe we bildirişlere rugsat beriň",
+    "locationLocating": "Taýýarlanýar…",
+    "locationSkip": "Soň sazla",
+    "locationHighlight4": "Islän wagtyňyz geçiriň — ýerleşişi ýa-da bildirişleri soň sazlaň"
   },
   "appearance": {
     "eyebrow": "Sazlamalar",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Şahsy tasbeeh hasaplaýjyňyz."
+    },
+    "introLocation": {
+      "title": "Ýerleşiş we ýatladyjylar",
+      "description": "Takyk namaz wagtlary, gyla we islege bagly ýatladyjylar üçin ýerleşişe we bildirişlere rugsat beriň — ýa-da soň sazlaň."
     }
   },
   "pwa": {

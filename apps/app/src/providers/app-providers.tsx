@@ -10,8 +10,10 @@ import { weatherStore } from "@/stores/weather-store";
 
 /**
  * Boots the local data stores and keeps them fresh when the app returns to the
- * foreground or the calendar day rolls over. Location loads immediately (hero
- * needs it); tracker / quran / continue / weather warm after the first paint.
+ * foreground or the calendar day rolls over. Location loads cached coords
+ * immediately (hero needs them) and only refreshes GPS when permission was
+ * already granted — never prompts at startup. Tracker / quran / continue /
+ * weather warm after the first paint.
  */
 export function AppProviders({ children }: { children: ReactNode }) {
   useEffect(() => {

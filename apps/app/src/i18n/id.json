@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Privat secara default",
     "ctaPrivacyBody": "Tidak perlu akun. Data ibadah Anda tetap di perangkat hingga Anda memilih cadangkan dan sinkronisasi.",
     "signInToSync": "Masuk untuk sinkronisasi",
-    "pageOf": "Halaman {{page}} dari {{total}}"
+    "pageOf": "Halaman {{page}} dari {{total}}",
+    "locationEyebrow": "Lokasi & pengingat",
+    "locationTitle": "Waktu sholat dan pengingat lembut",
+    "locationBody": "Munib Tracker memakai lokasi Anda untuk waktu sholat dan kiblat yang akurat, serta dapat mengirim pengingat opsional untuk Sholat, Zikir, dan Qaza. Keduanya bisa diubah nanti di pengaturan.",
+    "locationHighlight1": "Waktu sholat sesuai kota Anda",
+    "locationHighlight2": "Kompas kiblat dari posisi Anda",
+    "locationHighlight3": "Pengingat opsional untuk Sholat, Zikir, dan Qaza",
+    "locationPrivacyTitle": "Pribadi di perangkat Anda",
+    "locationPrivacyBody": "Koordinat Anda tetap di perangkat ini untuk waktu sholat dan kiblat. Notifikasi adalah pengingat lokal — kami tidak melacak pergerakan Anda atau menjual data Anda.",
+    "locationAllow": "Izinkan lokasi & notifikasi",
+    "locationLocating": "Menyiapkan…",
+    "locationSkip": "Atur nanti",
+    "locationHighlight4": "Lewati kapan saja — atur lokasi atau aktifkan notifikasi nanti"
   },
   "appearance": {
     "eyebrow": "Pengaturan",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Penghitung tasbih kustom Anda."
+    },
+    "introLocation": {
+      "title": "Lokasi & pengingat",
+      "description": "Izinkan lokasi dan notifikasi untuk waktu sholat akurat, kiblat, dan pengingat opsional — atau atur nanti."
     }
   },
   "pwa": {

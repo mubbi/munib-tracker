@@ -41,6 +41,16 @@ def _flatten_on_bg(img: Image.Image, size: int, bg: tuple[int, int, int] = BRAND
     return canvas
 
 
+def _contain_transparent(img: Image.Image, size: int) -> Image.Image:
+    """Resize logo onto a transparent square — keeps the iOS-style squircle alpha."""
+    canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    fitted = ImageOps.contain(img, (size, size), method=Image.Resampling.LANCZOS)
+    x = (size - fitted.width) // 2
+    y = (size - fitted.height) // 2
+    canvas.paste(fitted, (x, y), fitted)
+    return canvas
+
+
 def _save_png(img: Image.Image, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if img.mode == "RGBA":
@@ -104,15 +114,19 @@ def main() -> None:
     icon_1024 = _flatten_on_bg(logo, 1024)
     _save_png(icon_1024, APP_IMAGES / "icon.png")
 
-    # PWA / favicon sizes
+    # PWA / favicon sizes (opaque — platforms / browsers apply their own masks)
     for name, size in [
         ("icon-180.png", 180),
         ("icon-192.png", 192),
         ("icon-512.png", 512),
         ("favicon.png", 48),
-        ("splash-icon.png", 280),
     ]:
         _save_png(_flatten_on_bg(logo, size), APP_IMAGES / name)
+
+    # Native splash: keep transparent corners so the baked-in squircle shows
+    # (Android 12+ still applies a circular clip viewport — transparent outside
+    # the squircle lets the brand background show through instead of a hard disc).
+    _save_png(_contain_transparent(logo, 1024), APP_IMAGES / "splash-icon.png")
 
     # Decorative glow
     _save_png(_generate_logo_glow(), APP_IMAGES / "logo-glow.png")

@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Privte by defult",
     "ctaPrivacyBody": "No hesb məcburi. siziçində wvə yship dt stys üzərində siziçində device until siz choose - bck up və sync.",
     "signInToSync": "dxil ol - sync",
-    "pageOf": "Səhifə {{page}} / {{total}}"
+    "pageOf": "Səhifə {{page}} / {{total}}",
+    "locationEyebrow": "Məkan və xatırlatmalar",
+    "locationTitle": "Namaz vaxtları və yumşaq xatırlatmalar",
+    "locationBody": "Munib Tracker dəqiq namaz vaxtları və qiblə üçün məkanınızdan istifadə edir və Namaz, Zikr və Qaza üçün istəyə bağlı xatırlatmalar göndərə bilər. Hər ikisini sonra parametrlərdən dəyişə bilərsiniz.",
+    "locationHighlight1": "Şəhərinizə uyğun namaz vaxtları",
+    "locationHighlight2": "Olduğunuz yerdən qiblə kompası",
+    "locationHighlight3": "Namaz, Zikr və Qaza üçün istəyə bağlı xatırlatmalar",
+    "locationPrivacyTitle": "Cihazınızda şəxsi",
+    "locationPrivacyBody": "Koordinatlarınız namaz vaxtları və qiblə üçün bu cihazda qalır. Bildirişlər yerli xatırlatmalardır — hərəkətlərinizi izləmirik və məlumatlarınızı satmırıq.",
+    "locationAllow": "Məkan və bildirişlərə icazə ver",
+    "locationLocating": "Hazırlanır…",
+    "locationSkip": "Sonra qur",
+    "locationHighlight4": "İstədiyiniz vaxt keçin — məkanı və ya bildirişləri sonra qurun"
   },
   "appearance": {
     "eyebrow": "Parametrlər",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Fərdi təsbeh sayğacınız."
+    },
+    "introLocation": {
+      "title": "Məkan və xatırlatmalar",
+      "description": "Dəqiq namaz vaxtları, qiblə və istəyə bağlı xatırlatmalar üçün məkan və bildirişlərə icazə verin — və ya sonra qurun."
     }
   },
   "pwa": {

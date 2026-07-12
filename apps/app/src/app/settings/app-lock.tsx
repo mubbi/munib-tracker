@@ -19,6 +19,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { triggerHaptic } from "@/lib/haptics";
 import { goBackOrReplace } from "@/lib/navigation";
 import { isExpoGo } from "@/lib/notifications/platform";
+import { useChevronForward } from "@/lib/rtl";
 import { useToast } from "@/providers/toast-provider";
 
 export default function AppLockScreen() {
@@ -26,6 +27,7 @@ export default function AppLockScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const toast = useToast();
+  const chevronForward = useChevronForward();
   const {
     isPinEnabled,
     enablePin,
@@ -157,11 +159,7 @@ export default function AppLockScreen() {
                 <ThemedText type="small" style={styles.actionLabel}>
                   {t("pinLock.changePin")}
                 </ThemedText>
-                <SymbolView
-                  name={{ ios: "chevron.right", android: "chevron_right", web: "chevron_right" }}
-                  size={14}
-                  tintColor={colors.mutedForeground}
-                />
+                <SymbolView name={chevronForward} size={14} tintColor={colors.mutedForeground} />
               </PressableScale>
 
               <View style={styles.timeoutSection}>

@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Faragha kwa chaguo-msingi",
     "ctaPrivacyBody": "Hakuna akaunti inayohitajika. Data yako ya ibada inabaki kwenye kifaa hadi uchague chelezo na usawazishaji.",
     "signInToSync": "Ingia ili kusawazisha",
-    "pageOf": "Ukurasa {{page}} wa {{total}}"
+    "pageOf": "Ukurasa {{page}} wa {{total}}",
+    "locationEyebrow": "Mahali na vikumbusho",
+    "locationTitle": "Nyakati za swala na vikumbusho laini",
+    "locationBody": "Munib Tracker hutumia mahali pako kwa nyakati sahihi za swala na qibla, na inaweza kutuma vikumbusho vya hiari kwa Swala, Zikr, na Qaza. Unaweza kubadilisha yoyote baadaye kwenye mipangilio.",
+    "locationHighlight1": "Nyakati za swala zinazolingana na mji wako",
+    "locationHighlight2": "Dira ya qibla kutoka unaposimama",
+    "locationHighlight3": "Vikumbusho vya hiari kwa Swala, Zikr, na Qaza",
+    "locationPrivacyTitle": "Faragha kwenye kifaa chako",
+    "locationPrivacyBody": "Kuratibu zako zinabaki kwenye kifaa hiki kwa nyakati za swala na qibla. Arifa ni vikumbusho vya ndani — hatufuatilii harakati zako wala hatuuuzi data yako.",
+    "locationAllow": "Ruhusu mahali na arifa",
+    "locationLocating": "Inaandaa…",
+    "locationSkip": "Weka baadaye",
+    "locationHighlight4": "Ruka wakati wowote — weka mahali au washa arifa baadaye"
   },
   "appearance": {
     "eyebrow": "Mipangilio",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Kihesabu chako maalum cha tasbeeh."
+    },
+    "introLocation": {
+      "title": "Mahali na vikumbusho",
+      "description": "Ruhusu mahali na arifa kwa nyakati sahihi za swala, qibla, na vikumbusho vya hiari — au weka baadaye."
     }
   },
   "pwa": {

@@ -23,7 +23,6 @@ import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { useArrowForward } from "@/lib/rtl";
-import { usePreferencesActions } from "@/stores/preferences-store";
 
 type SlideKind = "brand" | "feature" | "cta";
 
@@ -79,7 +78,6 @@ export default function OnboardingIntroScreen() {
   const insets = useSafeAreaInsets();
   const arrowForward = useArrowForward();
   const { width } = useWindowDimensions();
-  const { update } = usePreferencesActions();
   const scrollRef = useRef<ScrollView>(null);
   const [index, setIndex] = useState(0);
 
@@ -87,9 +85,12 @@ export default function OnboardingIntroScreen() {
   const isLast = index === SLIDES.length - 1;
   const isBrand = slide.kind === "brand";
 
-  const finish = async (destination: "/" | "/login") => {
-    await update({ hasCompletedOnboarding: true });
-    router.replace(destination);
+  /** Carousel complete → location permission step (onboarding finishes there). */
+  const goToLocationStep = (destination: "/" | "/login") => {
+    router.replace({
+      pathname: "/intro-location",
+      params: { next: destination },
+    });
   };
 
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -129,7 +130,7 @@ export default function OnboardingIntroScreen() {
             style={styles.skipButton}
             onPress={() => {
               triggerHaptic("light");
-              finish("/");
+              goToLocationStep("/");
             }}
           >
             <ThemedText type="smallBold" style={{ color: Brand.heroSubtext }}>
@@ -196,14 +197,14 @@ export default function OnboardingIntroScreen() {
             <Button
               label={t("onboarding.signInToSync")}
               fullWidth
-              onPress={() => finish("/login")}
+              onPress={() => goToLocationStep("/login")}
             />
             <Button
               label={t("common.continueAsGuest")}
               variant="ghost"
               fullWidth
               labelColor={Brand.heroText}
-              onPress={() => finish("/")}
+              onPress={() => goToLocationStep("/")}
               style={{
                 backgroundColor: Brand.onHeroStrongSurface,
                 borderColor: withAlpha(Brand.heroText, 0.32),

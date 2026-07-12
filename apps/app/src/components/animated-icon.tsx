@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
   image: {
     width: 128,
     height: 128,
-    borderRadius: 28,
   },
   splashOverlay: {
     ...StyleSheet.absoluteFill,
@@ -106,6 +105,5 @@ const styles = StyleSheet.create({
   splashImage: {
     width: 280,
     height: 280,
-    borderRadius: 62,
   },
 });

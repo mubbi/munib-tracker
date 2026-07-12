@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Sirri a tukunna",
     "ctaPrivacyBody": "Ba a buƙatar asusu. Bayananku na ibada suna kan na'urarku har sai kun zaɓi ajiyewa da daidaitawa.",
     "signInToSync": "Shiga don daidaita",
-    "pageOf": "Shafi {{page}} na {{total}}"
+    "pageOf": "Shafi {{page}} na {{total}}",
+    "locationEyebrow": "Wuri da tunatarwa",
+    "locationTitle": "Lokutan sallah da tunatarwa mai sauƙi",
+    "locationBody": "Munib Tracker yana amfani da wurinku don ingantattun lokutan sallah da qibla, kuma zai iya aika zaɓaɓɓun tunatarwa na Sallah, Zikir, da Qaza. Kuna iya canza kowanne daga baya a cikin saituna.",
+    "locationHighlight1": "Lokutan sallah da suka dace da garinku",
+    "locationHighlight2": "Kamfas ɗin qibla daga inda kuke tsaye",
+    "locationHighlight3": "Zaɓaɓɓun tunatarwa na Sallah, Zikir, da Qaza",
+    "locationPrivacyTitle": "Sirri a kan na'urarku",
+    "locationPrivacyBody": "Mahangar wurinku tana kan wannan na'ura don lokutan sallah da qibla. Sanarwa tunatarwa ne na gida — ba ma bin ƙafar ku ko sayar da bayanan ku.",
+    "locationAllow": "Bada izinin wuri da sanarwa",
+    "locationLocating": "Ana shiryawa…",
+    "locationSkip": "Saita daga baya",
+    "locationHighlight4": "Tsallake kowane lokaci — saita wuri ko kunna sanarwa daga baya"
   },
   "appearance": {
     "eyebrow": "Saituna",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Ƙugiyar tasbih ɗinka."
+    },
+    "introLocation": {
+      "title": "Wuri da tunatarwa",
+      "description": "Bada izinin wuri da sanarwa don ingantattun lokutan sallah, qibla, da zaɓaɓɓun tunatarwa — ko saita daga baya."
     }
   },
   "pwa": {

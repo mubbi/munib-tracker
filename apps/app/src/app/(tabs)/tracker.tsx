@@ -52,7 +52,6 @@ import { triggerHaptic } from "@/lib/haptics";
 import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/content";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
 import { TASBEEH_ICON } from "@/lib/quick-actions";
-import { isRTL } from "@/lib/rtl";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -373,17 +372,9 @@ export default function TrackerScreen() {
         <View>
           <Card>
             <View style={styles.summaryRow}>
-              {isRTL() ? (
-                <>
-                  {summaryCopy}
-                  {summaryRing}
-                </>
-              ) : (
-                <>
-                  {summaryRing}
-                  {summaryCopy}
-                </>
-              )}
+              {/* Yoga flips row order under RTL — keep a single LTR child order. */}
+              {summaryRing}
+              {summaryCopy}
             </View>
 
             {glanceItems.length > 0 ? (

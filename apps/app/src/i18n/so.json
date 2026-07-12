@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Privte by defult",
     "ctaPrivacyBody": "No koku wjib. kg wmship dt stys ku kg device until dig choose u bck up iyo sync.",
     "signInToSync": "gl u sync",
-    "pageOf": "Bogga {{page}} ee {{total}}"
+    "pageOf": "Bogga {{page}} ee {{total}}",
+    "locationEyebrow": "Goobta & xusuusin",
+    "locationTitle": "Waqtiyada salaadda iyo xusuusin khafiif ah",
+    "locationBody": "Munib Tracker wuxuu isticmaalaa goobtaada waqtiyo sax ah oo salaad iyo qibla ah, wuxuuna diri karaa xusuusin ikhtiyaari ah oo Salaad, Zikr, iyo Qaza. Labadaba waxaad ka beddeli kartaa goor dambe settings-ka.",
+    "locationHighlight1": "Waqtiyada salaadda ee ku habboon magaaladaada",
+    "locationHighlight2": "Compass-ka qibla meesha aad taagan tahay",
+    "locationHighlight3": "Xusuusin ikhtiyaari ah oo Salaad, Zikr, iyo Qaza",
+    "locationPrivacyTitle": "Gaar ah qalabkaaga",
+    "locationPrivacyBody": "Isku-duweyntaadu waxay ku sii jirtaa qalabkan waqtiyada salaadda iyo qibla. Ogeysiisyadu waa xusuusin maxalli ah — ma raadino dhaqdhaqaaqaaga mana iibino xogtaada.",
+    "locationAllow": "Oggolow goobta & ogeysiisyada",
+    "locationLocating": "Waa la diyaarinayaa…",
+    "locationSkip": "Dambe deji",
+    "locationHighlight4": "Ka bood waqti kasta — goobta ama ogeysiisyada dambe deji"
   },
   "appearance": {
     "eyebrow": "Dejinta",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Tirinta tasbeeh ee gaarka ah."
+    },
+    "introLocation": {
+      "title": "Goobta & xusuusin",
+      "description": "Oggolow goobta iyo ogeysiisyada waqtiyo sax ah oo salaad, qibla, iyo xusuusin ikhtiyaari ah — ama dambe deji."
     }
   },
   "pwa": {

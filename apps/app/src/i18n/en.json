@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Private by default",
     "ctaPrivacyBody": "No account required. Your worship data stays on your device until you choose to back up and sync.",
     "signInToSync": "Sign in to sync",
-    "pageOf": "Page {{page}} of {{total}}"
+    "pageOf": "Page {{page}} of {{total}}",
+    "locationEyebrow": "Location & reminders",
+    "locationTitle": "Salah times and gentle nudges",
+    "locationBody": "Munib Tracker uses your location for accurate salah times and qibla, and can send optional reminders for Salah, Zikr, and Qaza. You can change either later in settings.",
+    "locationHighlight1": "Salah times matched to your city",
+    "locationHighlight2": "Qibla compass for where you stand",
+    "locationHighlight3": "Optional reminders for Salah, Zikr, and Qaza",
+    "locationHighlight4": "Skip anytime — set location or enable notifications later",
+    "locationPrivacyTitle": "Private on your device",
+    "locationPrivacyBody": "Your coordinates stay on this device for salah times and qibla. Notifications are local reminders — we do not track your movements or sell your data.",
+    "locationAllow": "Allow location & notifications",
+    "locationLocating": "Setting up…",
+    "locationSkip": "Set up later"
   },
   "appearance": {
     "eyebrow": "Settings",
@@ -2039,6 +2051,10 @@
     "intro": {
       "title": "Welcome",
       "description": "Get started with your offline-first Islamic companion."
+    },
+    "introLocation": {
+      "title": "Location & reminders",
+      "description": "Allow location and notifications for accurate salah times, qibla, and optional reminders — or set them up later."
     },
     "login": {
       "description": "Sign in to sync your worship data across devices."

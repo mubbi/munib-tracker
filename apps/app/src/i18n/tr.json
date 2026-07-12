@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Varsayılan olarak gizli",
     "ctaPrivacyBody": "Hesap gerekmez. Yedeklemeyi ve senkronize etmeyi seçene kadar ibadet verileriniz cihazınızda kalır.",
     "signInToSync": "Senkronize etmek için giriş yapın",
-    "pageOf": "Sayfa {{page}} / {{total}}"
+    "pageOf": "Sayfa {{page}} / {{total}}",
+    "locationEyebrow": "Konum ve hatırlatmalar",
+    "locationTitle": "Namaz vakitleri ve nazik hatırlatmalar",
+    "locationBody": "Munib Tracker, doğru namaz vakitleri ve kıble için konumunuzu kullanır; Namaz, Zikir ve Kaza için isteğe bağlı hatırlatmalar da gönderebilir. İkisini de daha sonra ayarlardan değiştirebilirsiniz.",
+    "locationHighlight1": "Şehrinize uygun namaz vakitleri",
+    "locationHighlight2": "Bulunduğunuz yerden kıble pusulası",
+    "locationHighlight3": "Namaz, Zikir ve Kaza için isteğe bağlı hatırlatmalar",
+    "locationPrivacyTitle": "Cihazınızda gizli",
+    "locationPrivacyBody": "Koordinatlarınız namaz vakitleri ve kıble için bu cihazda kalır. Bildirimler yerel hatırlatmalardır — hareketlerinizi izlemez veya verilerinizi satmayız.",
+    "locationAllow": "Konuma ve bildirimlere izin ver",
+    "locationLocating": "Hazırlanıyor…",
+    "locationSkip": "Sonra ayarla",
+    "locationHighlight4": "İstediğiniz zaman atlayın — konumu veya bildirimleri sonra ayarlayın"
   },
   "appearance": {
     "eyebrow": "Ayarlar",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Özel tesbih sayacınız."
+    },
+    "introLocation": {
+      "title": "Konum ve hatırlatmalar",
+      "description": "Doğru namaz vakitleri, kıble ve isteğe bağlı hatırlatmalar için konum ve bildirimlere izin verin — veya sonra ayarlayın."
     }
   },
   "pwa": {

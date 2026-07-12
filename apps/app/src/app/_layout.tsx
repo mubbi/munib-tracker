@@ -1,6 +1,7 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { lazy, Suspense, useEffect } from "react";
+import { Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import "@/global.css";
@@ -132,7 +133,7 @@ function RootLayout() {
                                   <AudioPlayerProvider>
                                     <IdleMount>
                                       <Suspense fallback={null}>
-                                        <WebReminderAdhanBridge />
+                                        {Platform.OS === "web" ? <WebReminderAdhanBridge /> : null}
                                         <ShareQrWarmup />
                                       </Suspense>
                                     </IdleMount>

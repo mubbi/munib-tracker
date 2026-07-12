@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Varsaannéean olarak gizli",
     "ctaPrivacyBody": "Compte gerekmez. Sauetgardermeyi et senkronize etmeyi seçene kadar ibadet etraetcriniz sur votre appareil kalır.",
     "signInToSync": "Se connecter pour synchroniser",
-    "pageOf": "Page {{page}} sur {{total}}"
+    "pageOf": "Page {{page}} sur {{total}}",
+    "locationEyebrow": "Localisation et rappels",
+    "locationTitle": "Horaires de Salah et rappels doux",
+    "locationBody": "Munib Tracker utilise votre localisation pour des horaires de Salah et une qibla précis, et peut envoyer des rappels optionnels pour la Salah, le Zikr et le Qaza. Vous pourrez tout modifier plus tard dans les paramètres.",
+    "locationHighlight1": "Horaires de Salah adaptés à votre ville",
+    "locationHighlight2": "Boussole qibla depuis votre position",
+    "locationHighlight3": "Rappels optionnels pour Salah, Zikr et Qaza",
+    "locationPrivacyTitle": "Privé sur votre appareil",
+    "locationPrivacyBody": "Vos coordonnées restent sur cet appareil pour les horaires de Salah et la qibla. Les notifications sont des rappels locaux — nous ne suivons pas vos déplacements ni ne vendons vos données.",
+    "locationAllow": "Autoriser la localisation et les notifications",
+    "locationLocating": "Configuration…",
+    "locationSkip": "Configurer plus tard",
+    "locationHighlight4": "Ignorez à tout moment — définissez la localisation ou activez les notifications plus tard"
   },
   "appearance": {
     "eyebrow": "Paramètres",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Votre compteur de tasbeeh personnalisé."
+    },
+    "introLocation": {
+      "title": "Localisation et rappels",
+      "description": "Autorisez la localisation et les notifications pour des horaires de Salah précis, la qibla et des rappels optionnels — ou configurez-les plus tard."
     }
   },
   "pwa": {

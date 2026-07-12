@@ -12,7 +12,10 @@ import {
   beginWebNotificationPermissionRequest,
   canRequestWebNotificationPermission,
 } from "@/lib/notifications/web-environment";
+import { rescheduleAll } from "@/notifications/scheduler";
 import { useToast } from "@/providers/toast-provider";
+import { locationStore } from "@/stores/location-store";
+import { preferencesStore, usePreferencesActions } from "@/stores/preferences-store";
 
 type NotificationPermissionBannerProps = {
   showWhenGranted?: boolean;
@@ -24,6 +27,7 @@ export function NotificationPermissionBanner({
   const { t } = useTranslation();
   const toast = useToast();
   const { tokens } = useThemeTokens();
+  const { setNotificationPrefs } = usePreferencesActions();
   const {
     permission,
     granted,
@@ -38,6 +42,11 @@ export function NotificationPermissionBanner({
   if (!showWhenGranted && granted) return null;
   if (!canEnableLocalReminders && !isWeb) return null;
 
+  const onGranted = async () => {
+    await setNotificationPrefs({ masterEnabled: true });
+    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
+  };
+
   const handleAllow = () => {
     if (isWeb) {
       const started = beginWebNotificationPermissionRequest();
@@ -48,14 +57,18 @@ export function NotificationPermissionBanner({
       void requestPermission({ webPermissionRequest: started }).then((result) => {
         if (!result.granted) {
           toast.warning(t("notif.permissionDenied"), t("notif.permissionDeniedSub"));
+          return;
         }
+        void onGranted();
       });
       return;
     }
     void requestPermission().then((result) => {
       if (!result.granted) {
         toast.warning(t("notif.permissionDenied"), t("notif.openSettingsHint"));
+        return;
       }
+      void onGranted();
     });
   };
 

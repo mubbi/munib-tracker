@@ -235,6 +235,7 @@ jest.mock("expo-notifications", () => ({
 
 // Must be mocked before any suite pulls `@/db` → `location.ts` (e.g. sync-engine).
 jest.mock("expo-location", () => ({
+  getForegroundPermissionsAsync: jest.fn(async () => ({ status: "granted" })),
   requestForegroundPermissionsAsync: jest.fn(async () => ({ status: "granted" })),
   getCurrentPositionAsync: jest.fn(async () => ({
     coords: {

@@ -2,6 +2,7 @@ import { initDatabase, LocationRepository } from "@/db";
 import {
   DEFAULT_LOCATION,
   getDeviceLocation,
+  getLocationPermissionGranted,
   type LocationSearchResult,
   resolvePlaceFromCoordinates,
   type StoredLocation,
@@ -54,14 +55,20 @@ export const locationStore = createStore<LocationState>((set, get) => ({
   async load() {
     await initDatabase();
     const location = await LocationRepository.get();
-    set({ location, isReady: true });
-    // Kick off a background refresh; failures keep the cached/default location.
+    set({ location, isReady: true, status: "ready" });
+    // Silent GPS refresh only — never prompt at boot / during onboarding.
     void get().refresh();
   },
 
   async refresh() {
     // Respect a city the user chose by hand — don't clobber it with GPS.
     if (get().location.source === "manual") {
+      if (get().status !== "ready") set({ status: "ready" });
+      return;
+    }
+    // Never show the OS permission dialog from background refresh. Prompt only
+    // via `requestDeviceLocation` when the user explicitly asks (intro / picker).
+    if (!(await getLocationPermissionGranted())) {
       if (get().status !== "ready") set({ status: "ready" });
       return;
     }

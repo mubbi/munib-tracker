@@ -33,6 +33,7 @@ export function AppStack() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="(auth)/login" options={{ presentation: "modal" }} />
         <Stack.Screen name="(onboarding)/intro" options={{ gestureEnabled: false }} />
+        <Stack.Screen name="(onboarding)/intro-location" options={{ gestureEnabled: false }} />
       </Stack>
     </ThemeProvider>
   );

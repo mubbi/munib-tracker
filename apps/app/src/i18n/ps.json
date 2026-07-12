@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Privte by defult",
     "ctaPrivacyBody": "No account required. Your worship data stays on your device until you choose to back up and sync.",
     "signInToSync": "ننوتل ته sync",
-    "pageOf": "پاڼه {{page}} له {{total}}"
+    "pageOf": "پاڼه {{page}} له {{total}}",
+    "locationEyebrow": "ځای او یادونې",
+    "locationTitle": "د لمونځ وختونه او نرم یادونې",
+    "locationBody": "Munib Tracker ستاسو ځای د دقیقو لمونځ وختونو او قبلې لپاره کاروي، او د لمونځ، ذکر او قضا لپاره اختیاري یادونې استولی شي. دواړه وروسته په ترتیباتو کې بدلولی شئ.",
+    "locationHighlight1": "ستاسو ښار ته سم د لمونځ وختونه",
+    "locationHighlight2": "له ستاسو موقعیت څخه د قبلې قطب‌نما",
+    "locationHighlight3": "د لمونځ، ذکر او قضا اختیاري یادونې",
+    "locationPrivacyTitle": "په ستاسو وسیله کې خصوصي",
+    "locationPrivacyBody": "ستاسو مختصات د لمونځ وختونو او قبلې لپاره په دې وسیله کې پاتې کېږي. خبرتیاوې محلي یادونې دي — موږ ستاسو حرکت نه تعقیبوو او معلومات نه پلورو.",
+    "locationAllow": "ځای او خبرتیاوو ته اجازه ورکړئ",
+    "locationLocating": "چمتو کېږي…",
+    "locationSkip": "وروسته تنظیم کړئ",
+    "locationHighlight4": "هر وخت پرېږدئ — وروسته ځای یا خبرتیاوې فعال کړئ"
   },
   "appearance": {
     "eyebrow": "تنظیمات",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "ستاسو شخصي تسبیح."
+    },
+    "introLocation": {
+      "title": "ځای او یادونې",
+      "description": "د دقیقو لمونځ وختونو، قبلې او اختیاري یادونو لپاره ځای او خبرتیاوو ته اجازه ورکړئ — یا وروسته تنظیم کړئ."
     }
   },
   "pwa": {

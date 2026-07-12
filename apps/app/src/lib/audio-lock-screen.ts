@@ -147,14 +147,25 @@ export function deactivateLockScreenControls(player: AudioPlayer): void {
 
 /**
  * Android 13+ needs notification permission for the media playback notification.
- * Safe to call repeatedly; only prompts once per app session.
+ * Only prompts when status is still undetermined — never at cold start, and never
+ * after the user already allowed/denied during onboarding or settings.
  */
 export async function ensureAndroidMediaNotificationPermission(): Promise<void> {
   if (Platform.OS !== "android" || androidNotificationPermissionRequested) return;
   androidNotificationPermissionRequested = true;
   try {
-    await requestNotificationPermissionsAsync();
+    const { readNotificationPermissionUiState, requestNotificationPermission } = await import(
+      "@/lib/notifications/permissions"
+    );
+    const status = await readNotificationPermissionUiState();
+    if (status === "granted" || status === "denied") return;
+    await requestNotificationPermission();
   } catch {
-    // Playback may still work; controls can be limited without permission.
+    // Fallback for environments where expo-notifications isn't available yet.
+    try {
+      await requestNotificationPermissionsAsync();
+    } catch {
+      // Playback may still work; controls can be limited without permission.
+    }
   }
 }

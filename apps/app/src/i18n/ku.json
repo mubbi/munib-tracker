@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Ji hêla xwerû ve taybet e",
     "ctaPrivacyBody": "No hesab ferz. We ibadet daneyên stays li we cîhaz until hûn choose bo back up û sync.",
     "signInToSync": "Têkeve da hevgirê bike",
-    "pageOf": "Rûpel {{page}} ji {{total}}"
+    "pageOf": "Rûpel {{page}} ji {{total}}",
+    "locationEyebrow": "Cih û bîranîn",
+    "locationTitle": "Demên nimêjê û bîranînên nerm",
+    "locationBody": "Munib Tracker cihê te ji bo demên nimêjê û qiblê yên rast bikar tîne, û dikare bîranînên vebijarkî ji bo Nimêj, Zikr û Qaza bişîne. Herdu jî paşê di mîhengan de diguherînin.",
+    "locationHighlight1": "Demên nimêjê li gorî bajarê te",
+    "locationHighlight2": "Kompasa qiblê ji cihê te",
+    "locationHighlight3": "Bîranînên vebijarkî ji bo Nimêj, Zikr û Qaza",
+    "locationPrivacyTitle": "Taybet li ser amûra te",
+    "locationPrivacyBody": "Koordinatên te ji bo demên nimêjê û qiblê li ser vê amûrê dimînin. Agahdarî bîranînên herêmî ne — em tevgera te nagrin û daneyên te nafiroşin.",
+    "locationAllow": "Destûrê bide cih û agahdariyan",
+    "locationLocating": "Tê amadekirin…",
+    "locationSkip": "Paşê saz bike",
+    "locationHighlight4": "Her dem derbas bike — cih an agahdariyan paşê saz bike"
   },
   "appearance": {
     "eyebrow": "Mîheng",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Hejmarê tasbîhê yê taybet ê te."
+    },
+    "introLocation": {
+      "title": "Cih û bîranîn",
+      "description": "Ji bo demên nimêjê yên rast, qiblê û bîranînên vebijarkî destûrê bide cih û agahdariyan — an paşê saz bike."
     }
   },
   "pwa": {

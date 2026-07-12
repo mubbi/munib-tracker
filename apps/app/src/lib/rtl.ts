@@ -84,19 +84,40 @@ export function useIsRTL(): boolean {
   return code != null;
 }
 
+/**
+ * Start-edge `textAlign` for UI chrome.
+ *
+ * Native Fabric mirrors `left`/`right` when `I18nManager.isRTL` is on (`left` =
+ * start → physical right in RTL). Web CSS `text-align` is always physical, so
+ * RTL web needs an explicit `"right"`.
+ */
+export function uiTextAlign(rtl: boolean = isRTL()): NonNullable<TextStyle["textAlign"]> {
+  if (Platform.OS === "web") return rtl ? "right" : "left";
+  return "left";
+}
+
+/**
+ * Physical-right `textAlign` for Arabic scripture (always the right edge).
+ * Compensates for native mirroring under RTL layout direction.
+ */
+export function arabicTextAlign(rtl: boolean = isRTL()): NonNullable<TextStyle["textAlign"]> {
+  if (Platform.OS === "web") return "right";
+  return rtl ? "left" : "right";
+}
+
 /** Default `textAlign` + `writingDirection` for UI chrome text in the active locale. */
 export function uiTextStyle(rtl: boolean = isRTL()): TextStyle {
   return {
     writingDirection: rtl ? "rtl" : "ltr",
-    textAlign: rtl ? "right" : "left",
+    textAlign: uiTextAlign(rtl),
   };
 }
 
 /**
  * Reactive UI text direction for components. Prefer this over {@link uiTextStyle}
  * inside render — `isRTL()` alone is invisible to React Compiler, which can keep
- * a stale `textAlign: left` after switching to an RTL locale (flex flips via
- * `dir`, but titles stay LTR-aligned).
+ * a stale start-edge align after switching locale (flex flips via `dir`, but
+ * titles stay on the wrong edge).
  */
 export function useUiTextStyle(): TextStyle {
   return uiTextStyle(useIsRTL());
@@ -274,6 +295,6 @@ export function filterValueTextStyle(value: string): TextStyle {
   const scriptRtl = containsArabicScript(value);
   return {
     writingDirection: scriptRtl ? "rtl" : "ltr",
-    textAlign: rtl ? "right" : "left",
+    textAlign: uiTextAlign(rtl),
   };
 }

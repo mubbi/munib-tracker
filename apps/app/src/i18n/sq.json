@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Privat si parazgjedhje",
     "ctaPrivacyBody": "No llogaria e detyrueshme. Juaj ibadeti të dhënat stays në juaj pajisja until ju choose në back up dhe sync.",
     "signInToSync": "Sign në në sync",
-    "pageOf": "Faqja {{page}} nga {{total}}"
+    "pageOf": "Faqja {{page}} nga {{total}}",
+    "locationEyebrow": "Vendndodhja dhe rikujtimet",
+    "locationTitle": "Oraret e namazit dhe rikujtime të buta",
+    "locationBody": "Munib Tracker përdor vendndodhjen tuaj për orare të sakta namazi dhe kiblë, dhe mund të dërgojë rikujtime opsionale për Namaz, Zikr dhe Kaza. Të dyja mund t’i ndryshoni më vonë te cilësimet.",
+    "locationHighlight1": "Orare namazi të përshtatura me qytetin tuaj",
+    "locationHighlight2": "Busulla e kiblës nga vendi ku jeni",
+    "locationHighlight3": "Rikujtime opsionale për Namaz, Zikr dhe Kaza",
+    "locationPrivacyTitle": "Private në pajisjen tuaj",
+    "locationPrivacyBody": "Koordinatat tuaja mbeten në këtë pajisje për oraret e namazit dhe kiblën. Njoftimet janë rikujtime lokale — nuk ndjekim lëvizjet tuaja dhe nuk shesim të dhënat tuaja.",
+    "locationAllow": "Lejo vendndodhjen dhe njoftimet",
+    "locationLocating": "Duke u përgatitur…",
+    "locationSkip": "Vendos më vonë",
+    "locationHighlight4": "Anashkaloje kur të duash — vendose vendndodhjen ose njoftimet më vonë"
   },
   "appearance": {
     "eyebrow": "Cilësimet",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Numëruesi juaj i personalizuar i tasbeeh."
+    },
+    "introLocation": {
+      "title": "Vendndodhja dhe rikujtimet",
+      "description": "Lejoni vendndodhjen dhe njoftimet për orare të sakta namazi, kiblë dhe rikujtime opsionale — ose vendosini më vonë."
     }
   },
   "pwa": {

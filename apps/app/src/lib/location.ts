@@ -236,11 +236,28 @@ export type LocationResult =
   | { status: "error" };
 
 /**
+ * Reads the current foreground location permission without prompting.
+ * Use this for silent background refreshes; reserve
+ * `requestForegroundPermissionsAsync` for explicit user actions.
+ */
+export async function getLocationPermissionGranted(): Promise<boolean> {
+  try {
+    const { status } = await Location.getForegroundPermissionsAsync();
+    return status === "granted";
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Requests foreground permission, gets a fix, and resolves a place label.
  * Never throws — returns a discriminated result the store can act on.
  *
  * When `existing` coordinates match the new fix, reuses the stored city/country
  * so tab switches and background refreshes do not re-hit the reverse-geocode API.
+ *
+ * Call only from explicit user actions (onboarding allow, "use current location").
+ * Background refresh should gate on {@link getLocationPermissionGranted} first.
  */
 export async function getDeviceLocation(
   existing?: Pick<StoredLocation, "latitude" | "longitude" | "city" | "country">,

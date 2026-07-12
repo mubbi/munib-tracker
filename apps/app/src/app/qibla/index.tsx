@@ -27,6 +27,7 @@ import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
+import { getLocationPermissionGranted } from "@/lib/location";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   getQiblaTurnGuidance,
@@ -280,9 +281,10 @@ export default function QiblaScreen() {
   const alignGlow = useSharedValue(0);
 
   useEffect(() => {
+    // Silent refresh only — never prompt on screen mount. Permission is requested
+    // from onboarding or the location picker when the user opts in.
     void (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") return;
+      if (!(await getLocationPermissionGranted())) return;
       if (location.source === "manual") return;
       await requestDeviceLocation();
     })();

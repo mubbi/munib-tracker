@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Peribadi secara lalai",
     "ctaPrivacyBody": "Tiada akaun diperlukan. Data ibadah anda kekal pada peranti sehingga anda memilih sandaran dan segerak.",
     "signInToSync": "Log masuk untuk segerak",
-    "pageOf": "Halaman {{page}} daripada {{total}}"
+    "pageOf": "Halaman {{page}} daripada {{total}}",
+    "locationEyebrow": "Lokasi & peringatan",
+    "locationTitle": "Waktu solah dan peringatan lembut",
+    "locationBody": "Munib Tracker menggunakan lokasi anda untuk waktu solah dan kiblat yang tepat, serta boleh menghantar peringatan pilihan untuk Solah, Zikir, dan Qaza. Kedua-duanya boleh diubah kemudian dalam tetapan.",
+    "locationHighlight1": "Waktu solah mengikut bandar anda",
+    "locationHighlight2": "Kompas kiblat dari kedudukan anda",
+    "locationHighlight3": "Peringatan pilihan untuk Solah, Zikir, dan Qaza",
+    "locationPrivacyTitle": "Peribadi pada peranti anda",
+    "locationPrivacyBody": "Koordinat anda kekal pada peranti ini untuk waktu solah dan kiblat. Pemberitahuan ialah peringatan tempatan — kami tidak menjejak pergerakan anda atau menjual data anda.",
+    "locationAllow": "Benarkan lokasi & pemberitahuan",
+    "locationLocating": "Menyediakan…",
+    "locationSkip": "Sediakan kemudian",
+    "locationHighlight4": "Langkau bila-bila masa — tetapkan lokasi atau dayakan pemberitahuan kemudian"
   },
   "appearance": {
     "eyebrow": "Tetapan",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Kaunter tasbih tersuai anda."
+    },
+    "introLocation": {
+      "title": "Lokasi & peringatan",
+      "description": "Benarkan lokasi dan pemberitahuan untuk waktu solah tepat, kiblat, dan peringatan pilihan — atau sediakan kemudian."
     }
   },
   "pwa": {

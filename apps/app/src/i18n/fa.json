@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Private by default",
     "ctaPrivacyBody": "No account required. Your worship data stays on your device until you choose to back up and sync.",
     "signInToSync": "همگام‌سازی etmek برای giriş yapın",
-    "pageOf": "صفحه {{page}} از {{total}}"
+    "pageOf": "صفحه {{page}} از {{total}}",
+    "locationEyebrow": "موقعیت و یادآورها",
+    "locationTitle": "اوقات نماز و یادآورهای ملایم",
+    "locationBody": "Munib Tracker از موقعیت شما برای اوقات نماز و قبلهٔ دقیق استفاده می‌کند و می‌تواند یادآورهای اختیاری برای نماز، ذکر و قضا بفرستد. هر دو را بعداً در تنظیمات می‌توانید تغییر دهید.",
+    "locationHighlight1": "اوقات نماز متناسب با شهر شما",
+    "locationHighlight2": "قطب‌نمای قبله از جای شما",
+    "locationHighlight3": "یادآورهای اختیاری برای نماز، ذکر و قضا",
+    "locationPrivacyTitle": "خصوصی روی دستگاه شما",
+    "locationPrivacyBody": "مختصات شما برای اوقات نماز و قبله روی همین دستگاه می‌ماند. اعلان‌ها یادآورهای محلی‌اند — ما حرکت شما را ردیابی نمی‌کنیم و داده نمی‌فروشیم.",
+    "locationAllow": "اجازهٔ موقعیت و اعلان‌ها",
+    "locationLocating": "در حال آماده‌سازی…",
+    "locationSkip": "بعداً تنظیم کنید",
+    "locationHighlight4": "هر وقت خواستید رد شوید — بعداً موقعیت یا اعلان‌ها را تنظیم کنید"
   },
   "appearance": {
     "eyebrow": "تنظیمات",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "شمارنده تسبیح سفارشی شما."
+    },
+    "introLocation": {
+      "title": "موقعیت و یادآورها",
+      "description": "برای اوقات نماز دقیق، قبله و یادآورهای اختیاری به موقعیت و اعلان‌ها اجازه دهید — یا بعداً تنظیم کنید."
     }
   },
   "pwa": {

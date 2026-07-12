@@ -3,6 +3,7 @@ import { Platform } from "react-native";
 
 import i18n from "@/i18n";
 import {
+  arabicTextAlign,
   arrowForwardIcon,
   backChevronIcon,
   backwardChevronIcon,
@@ -56,7 +57,26 @@ describe("isRTL on web", () => {
 });
 
 describe("uiTextStyle", () => {
-  it("aligns UI chrome to the start edge of the reading direction", () => {
+  const originalOS = Platform.OS;
+
+  afterEach(() => {
+    Platform.OS = originalOS;
+  });
+
+  it("uses start-edge align on native (left = start under I18nManager RTL swap)", () => {
+    Platform.OS = "ios";
+    expect(uiTextStyle(false)).toEqual({
+      writingDirection: "ltr",
+      textAlign: "left",
+    });
+    expect(uiTextStyle(true)).toEqual({
+      writingDirection: "rtl",
+      textAlign: "left",
+    });
+  });
+
+  it("uses physical right on web when the locale is RTL", () => {
+    Platform.OS = "web";
     expect(uiTextStyle(false)).toEqual({
       writingDirection: "ltr",
       textAlign: "left",
@@ -65,6 +85,27 @@ describe("uiTextStyle", () => {
       writingDirection: "rtl",
       textAlign: "right",
     });
+  });
+});
+
+describe("arabicTextAlign", () => {
+  const originalOS = Platform.OS;
+
+  afterEach(() => {
+    Platform.OS = originalOS;
+  });
+
+  it("keeps Arabic on the physical right edge on native", () => {
+    Platform.OS = "android";
+    expect(arabicTextAlign(false)).toBe("right");
+    // Native mirrors left→physical right when I18nManager.isRTL.
+    expect(arabicTextAlign(true)).toBe("left");
+  });
+
+  it("keeps Arabic on the physical right edge on web", () => {
+    Platform.OS = "web";
+    expect(arabicTextAlign(false)).toBe("right");
+    expect(arabicTextAlign(true)).toBe("right");
   });
 });
 

@@ -674,7 +674,19 @@
     "ctaPrivacyTitle": "Privatno po defaultu",
     "ctaPrivacyBody": "Račun nije potreban. Vaši podaci o ibadetu ostaju na uređaju dok ne odaberete sigurnosnu kopiju i sinhronizaciju.",
     "signInToSync": "Prijavite se za sinhronizaciju",
-    "pageOf": "Stranica {{page}} od {{total}}"
+    "pageOf": "Stranica {{page}} od {{total}}",
+    "locationEyebrow": "Lokacija i podsjetnici",
+    "locationTitle": "Vremena namaza i blagi podsjetnici",
+    "locationBody": "Munib Tracker koristi vašu lokaciju za tačna vremena namaza i kible, te može slati opcionalne podsjetnike za namaz, zikr i kazu. Oboje možete kasnije promijeniti u postavkama.",
+    "locationHighlight1": "Vremena namaza prema vašem gradu",
+    "locationHighlight2": "Kompas kible s vaše pozicije",
+    "locationHighlight3": "Opcionalni podsjetnici za namaz, zikr i kazu",
+    "locationPrivacyTitle": "Privatno na vašem uređaju",
+    "locationPrivacyBody": "Vaše koordinate ostaju na ovom uređaju za vremena namaza i kible. Obavještenja su lokalni podsjetnici — ne pratimo vaše kretanje niti prodajemo vaše podatke.",
+    "locationAllow": "Dozvoli lokaciju i obavještenja",
+    "locationLocating": "Priprema…",
+    "locationSkip": "Podesi kasnije",
+    "locationHighlight4": "Preskočite bilo kada — lokaciju ili obavještenja podesite kasnije"
   },
   "appearance": {
     "eyebrow": "Postavke",
@@ -2054,6 +2066,10 @@
     },
     "tasbeehCustom": {
       "description": "Vaš prilagođeni brojač tesbiha."
+    },
+    "introLocation": {
+      "title": "Lokacija i podsjetnici",
+      "description": "Dozvolite lokaciju i obavještenja za tačna vremena namaza, kible i opcionalne podsjetnike — ili podesite kasnije."
     }
   },
   "pwa": {

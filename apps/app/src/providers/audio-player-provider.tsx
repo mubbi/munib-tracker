@@ -6,10 +6,10 @@ import {
   useAudioPlayerStatus,
 } from "expo-audio";
 import {
-  createContext,
+  Component,
+  type ErrorInfo,
   type ReactNode,
   useCallback,
-  useContext,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -43,73 +43,17 @@ import {
 import { applyVolume } from "@/lib/audio-volume";
 import { buildAudioActivity } from "@/lib/continue-activity";
 import { triggerHaptic } from "@/lib/haptics";
+import {
+  AudioContext,
+  type AudioContextValue,
+  SSR_AUDIO_CONTEXT,
+} from "@/providers/audio-player-context";
+import type { AudioTrack, LoopMode } from "@/providers/audio-player-types";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
-export type AudioTrack = {
-  id: string;
-  title: string;
-  subtitle?: string;
-  /** Short preview shown in the expanded player playlist (e.g. ayah opening). */
-  preview?: string;
-  /** Expanded-player playlist primary line (defaults to subtitle || title). */
-  playlistPrimary?: string;
-  /** Expanded-player playlist secondary line (defaults to preview). */
-  playlistSecondary?: string;
-  /** When true, `playlistPrimary` uses Arabic typography. */
-  playlistPrimaryRtl?: boolean;
-  uri: string;
-  /** Bundled asset module (from `require()`), used instead of `uri` when set. */
-  source?: number;
-};
-
-export type LoopMode = "off" | "all" | "one";
-
-interface AudioContextValue {
-  current: AudioTrack | null;
-  queue: AudioTrack[];
-  index: number;
-  /** Cached/loaded duration per track id (for live queue progress UI). */
-  trackDurations: Record<string, number>;
-  isPlaying: boolean;
-  /** True while the player is fetching/decoding audio and not yet ready. */
-  isBuffering: boolean;
-  /** True while auto-advancing or skipping within a queue (suppress UI flicker). */
-  isTransitioning: boolean;
-  /** True once the current source has finished loading and can play. */
-  isLoaded: boolean;
-  position: number;
-  duration: number;
-  /** Elapsed time across the whole queue (sum of prior tracks + current position). */
-  queuePosition: number;
-  /** Total duration across the whole queue. */
-  queueDuration: number;
-  /** Smoothed 0–1 progress across the queue (for progress bars). */
-  queueProgress: number;
-  /** True when playback has reached the end of the queue (loop off). */
-  isQueueFinished: boolean;
-  rate: number;
-  volume: number;
-  loopMode: LoopMode;
-  /** Route to return to for the currently-playing content (tap the mini-player). */
-  sourceHref: string | null;
-  play: (tracks: AudioTrack[], startIndex?: number, options?: { sourceHref?: string }) => void;
-  toggle: () => void;
-  seekTo: (seconds: number) => void;
-  /** Seek within a multi-track queue using a queue-wide timestamp. */
-  seekToQueuePosition: (seconds: number) => void;
-  next: () => void;
-  previous: () => void;
-  jumpTo: (index: number) => void;
-  /** Restart a finished queue from the first track. */
-  replay: () => void;
-  setRate: (rate: number) => void;
-  setVolume: (volume: number) => void;
-  cycleLoopMode: () => void;
-  stop: () => void;
-  /** Sync read of engine playback time (for rAF-driven progress UI). */
-  readPlaybackSeconds: () => number;
-}
+export { useAudioPlayerContext } from "@/providers/audio-player-context";
+export type { AudioTrack, LoopMode } from "@/providers/audio-player-types";
 
 export const AUDIO_SPEEDS = [0.5, 1, 1.5, 2];
 
@@ -193,77 +137,55 @@ async function waitForPlayerReady(player: AudioPlayer, timeoutMs = 12000): Promi
   }
 }
 
-const AudioContext = createContext<AudioContextValue | null>(null);
+/** Isolates expo-audio engine failures so the app tree keeps a working context shell. */
+class AudioEngineBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
 
-/** No-op context for web SSR — `expo-audio` calls `new Audio()` which Node lacks. */
-const SSR_AUDIO_CONTEXT: AudioContextValue = {
-  current: null,
-  queue: [],
-  index: 0,
-  trackDurations: {},
-  isPlaying: false,
-  isBuffering: false,
-  isTransitioning: false,
-  isLoaded: false,
-  position: 0,
-  duration: 0,
-  queuePosition: 0,
-  queueDuration: 0,
-  queueProgress: 0,
-  isQueueFinished: false,
-  rate: 1,
-  volume: 1,
-  loopMode: "off",
-  sourceHref: null,
-  play: () => {},
-  toggle: () => {},
-  seekTo: () => {},
-  seekToQueuePosition: () => {},
-  next: () => {},
-  previous: () => {},
-  jumpTo: () => {},
-  replay: () => {},
-  setRate: () => {},
-  setVolume: () => {},
-  cycleLoopMode: () => {},
-  stop: () => {},
-  readPlaybackSeconds: () => 0,
-};
-
-/**
- * Web SSR gate: expo-audio's `useAudioPlayer` constructs `Audio` immediately.
- * Defer the live engine until after hydration, while keeping children under a
- * stable Provider so the app tree does not remount.
- */
-export function AudioPlayerProvider({ children }: { children: ReactNode }) {
-  if (Platform.OS !== "web") {
-    return <AudioPlayerProviderLive>{children}</AudioPlayerProviderLive>;
+  static getDerivedStateFromError(): { failed: boolean } {
+    return { failed: true };
   }
-  return <AudioPlayerProviderWeb>{children}</AudioPlayerProviderWeb>;
+
+  componentDidCatch(error: Error, info: ErrorInfo): void {
+    if (__DEV__) {
+      console.error("[AudioPlayerProvider] Engine failed to start:", error, info.componentStack);
+    }
+  }
+
+  render(): ReactNode {
+    return this.state.failed ? null : this.props.children;
+  }
 }
 
-function AudioPlayerProviderWeb({ children }: { children: ReactNode }) {
+/**
+ * Stable context shell for all platforms. The live expo-audio engine mounts as a
+ * headless sibling so children always see a Provider — even before web hydration
+ * (SSR no-op value) or if the engine fails to initialize.
+ *
+ * Web: defer `useAudioPlayer` until after hydration (`new Audio()` is browser-only).
+ * Native: mount the engine on the first paint.
+ */
+export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   const [value, setValue] = useState<AudioContextValue>(SSR_AUDIO_CONTEXT);
-  const [live, setLive] = useState(false);
+  const [live, setLive] = useState(() => Platform.OS !== "web");
 
   useLayoutEffect(() => {
-    setLive(true);
+    if (Platform.OS === "web") setLive(true);
   }, []);
 
   return (
     <AudioContext.Provider value={value}>
-      {live ? <AudioPlayerProviderLive onValueChange={setValue} /> : null}
+      <AudioEngineBoundary>
+        {live ? <AudioPlayerProviderLive onValueChange={setValue} /> : null}
+      </AudioEngineBoundary>
       {children}
     </AudioContext.Provider>
   );
 }
 
 function AudioPlayerProviderLive({
-  children,
   onValueChange,
 }: {
-  children?: ReactNode;
-  onValueChange?: (value: AudioContextValue) => void;
+  onValueChange: (value: AudioContextValue) => void;
 }) {
   // Double-buffered players: one plays the current track while the other is
   // preloaded with the next one, so auto-advance is a near-instant hand-off
@@ -364,9 +286,10 @@ function AudioPlayerProviderLive({
   // Configure the audio session once: keep playing through the iOS mute switch
   // (otherwise recitation is silent when the ringer is off) and in the background.
   // Native only — the web audio element ignores these.
+  // Do NOT request notification permission here — that waits for onboarding or
+  // first playback via ensureAndroidMediaNotificationPermission.
   useEffect(() => {
     if (Platform.OS === "web") return;
-    void ensureAndroidMediaNotificationPermission();
     setAudioModeAsync({
       playsInSilentMode: true,
       shouldPlayInBackground: true,
@@ -409,7 +332,10 @@ function AudioPlayerProviderLive({
         queuePosition: computeQueuePosition(tracks, trackIndex, 0, trackDurationsRef.current),
         queueDuration: queueDuration(tracks, trackDurationsRef.current),
       };
-      activateLockScreenControls(targetPlayer, track, queueCtx, track.id);
+      // Prompt only if still undetermined (e.g. user skipped onboarding permissions).
+      void ensureAndroidMediaNotificationPermission().then(() => {
+        activateLockScreenControls(targetPlayer, track, queueCtx, track.id);
+      });
     },
     [],
   );
@@ -1187,16 +1113,9 @@ function AudioPlayerProviderLive({
   );
 
   useLayoutEffect(() => {
-    onValueChange?.(value);
+    onValueChange(value);
   }, [onValueChange, value]);
 
-  // Web parent already owns AudioContext.Provider + children (avoids remount).
-  if (onValueChange) return null;
-  return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>;
-}
-
-export function useAudioPlayerContext(): AudioContextValue {
-  const context = useContext(AudioContext);
-  if (!context) throw new Error("useAudioPlayerContext must be used within an AudioPlayerProvider");
-  return context;
+  // Parent shell owns AudioContext.Provider + children (avoids remount / context gaps).
+  return null;
 }

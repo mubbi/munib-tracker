@@ -27,7 +27,11 @@ import { rescheduleAll } from "@/notifications/scheduler";
 import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
 import { locationStore, useLocation } from "@/stores/location-store";
-import { usePreferences } from "@/stores/preferences-store";
+import {
+  preferencesStore,
+  usePreferences,
+  usePreferencesActions,
+} from "@/stores/preferences-store";
 
 const PAGE_SIZE = 10;
 
@@ -50,6 +54,7 @@ export default function NotificationCenterScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const prefs = usePreferences();
+  const { setNotificationPrefs } = usePreferencesActions();
   const location = useLocation();
   const toast = useToast();
   const { items, unreadCount, open, markAllRead, clearAll } = useInAppNotifications();
@@ -72,7 +77,10 @@ export default function NotificationCenterScreen() {
       }
       return;
     }
-    await rescheduleAll(prefs, locationStore.getState().location);
+    // Turn on the reminder master switch so scheduling actually runs after a
+    // late grant (e.g. user skipped onboarding permissions).
+    await setNotificationPrefs({ masterEnabled: true });
+    await rescheduleAll(preferencesStore.getState().prefs, locationStore.getState().location);
   };
 
   const delivered = useMemo(() => mapInboxItems(items), [items]);
