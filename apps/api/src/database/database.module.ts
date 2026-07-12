@@ -2,7 +2,6 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule, type TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DatabaseType, EnvironmentVariables } from "../config/env.schema";
-import { hostRequiresDatabaseSsl, resolveDatabaseSsl } from "./database-ssl";
 import {
   AppFeedbackEntity,
   AppVersionEntity,
@@ -18,6 +17,7 @@ import {
   UserMediaEntity,
 } from "./entities";
 import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
+import { resolvePostgresConnection } from "./postgres-connection";
 
 @Module({
   imports: [
@@ -37,24 +37,17 @@ import { createInMemorySqliteOptions } from "./in-memory-sqlite.options";
           return createInMemorySqliteOptions();
         }
 
-        const host = configService.get("DATABASE_HOST", { infer: true }) ?? "localhost";
-        const sslEnabled =
-          configService.get("DATABASE_SSL", { infer: true }) || hostRequiresDatabaseSsl(host);
+        // Same resolver as the TypeORM CLI data-source (DATABASE_URL or DATABASE_*).
+        const connection = resolvePostgresConnection(process.env);
 
         return {
           type: "postgres",
-          host,
-          port: configService.get("DATABASE_PORT", { infer: true }) ?? 5432,
-          username: configService.get("DATABASE_USER", { infer: true }) ?? "postgres",
-          password: configService.get("DATABASE_PASSWORD", { infer: true }) ?? "postgres",
-          database: configService.get("DATABASE_NAME", { infer: true }) ?? "munib_tracker",
-          ssl: resolveDatabaseSsl({
-            enabled: sslEnabled,
-            rejectUnauthorized: configService.get("DATABASE_SSL_REJECT_UNAUTHORIZED", {
-              infer: true,
-            }),
-            ca: configService.get("DATABASE_CA_CERT", { infer: true }),
-          }),
+          host: connection.host,
+          port: connection.port,
+          username: connection.username,
+          password: connection.password,
+          database: connection.database,
+          ssl: connection.ssl,
           entities: [
             UserEntity,
             AuthSessionEntity,

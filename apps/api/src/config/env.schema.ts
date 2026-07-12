@@ -38,6 +38,14 @@ export class EnvironmentVariables {
   @IsEnum(DatabaseType)
   DATABASE_TYPE: DatabaseType = DatabaseType.Postgres;
 
+  /**
+   * Optional Postgres URI (same Session-pooler string as admin/marketing).
+   * When set, TypeORM prefers this over discrete DATABASE_HOST / USER / etc.
+   */
+  @IsString()
+  @IsOptional()
+  DATABASE_URL?: string;
+
   @IsString()
   @IsOptional()
   DATABASE_HOST = "localhost";
