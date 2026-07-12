@@ -2,12 +2,12 @@ import "reflect-metadata";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import express from "express";
 import serverless from "serverless-http";
-import { createApp } from "../src/create-app";
-import { connectRedisIfConfigured } from "../src/redis/redisClient";
+import { createApp } from "./create-app";
+import { connectRedisIfConfigured } from "./redis/redisClient";
 
 /**
- * Vercel serverless entry (project root directory: `apps/api`).
- * `vercel.json` rewrites all paths to this function.
+ * Webpack entry for Vercel (`dist/vercel-handler.js`).
+ * Workspace packages are bundled here so Node never loads `.ts` package exports.
  */
 const expressApp = express();
 

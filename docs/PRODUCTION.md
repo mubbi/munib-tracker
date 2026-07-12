@@ -57,7 +57,7 @@ Git auto-deploy is off (`git.deploymentEnabled: false`) — deploy with the Verc
 | Project | Root | Build | Output |
 |---------|------|-------|--------|
 | Marketing | `apps/marketing-web` | `turbo run build --filter=marketing-web` | Next.js `.next` (Vercel default) |
-| API | `apps/api` | `pnpm --filter api migration:run` then `turbo build --filter=api` | Serverless handler `api/index.ts` (rewrites → `/api`) |
+| API | `apps/api` | `pnpm --filter api migration:run` then `turbo build --filter=api` | Serverless handler `api/index.js` → `dist/vercel-handler.js` (rewrites → `/api`) |
 | Web app | `apps/app` | `turbo run build:web --filter=app` | `apps/app/dist` |
 | Admin | `apps/admin` | `turbo run build --filter=@munib-tracker/admin` | Next.js `.next` (`X-Robots-Tag: noindex`) |
 
@@ -99,8 +99,8 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
 
 ### API on Vercel
 
-- NestJS boots once per cold start via `api/index.ts` (`serverless-http` + Express adapter); `vercel.json` rewrites all paths to `/api`.
-- Framework preset is **NestJS** (`"framework": "nestjs"`). `src/main.ts` must import `@nestjs/core` directly so Vercel’s NestJS entrypoint detector succeeds (boot still goes through `create-app`).
+- NestJS boots once per cold start via `api/index.js` → webpack `dist/vercel-handler.js` (`serverless-http` + Express adapter); `vercel.json` rewrites all paths to `/api`.
+- `vercel.json` sets `"framework": null` so Vercel does **not** use NestJS zero-config (that builder leaves `@munib-tracker/shared` as `.ts` requires Node cannot load). Webpack allowlists `@munib-tracker/*` so those sources are inlined into `dist/vercel-handler.js`.
 - Runtime is pinned to **Node 22.x** (`engines` in `apps/api/package.json`) — avoid Node 24 on Vercel (native optional deps like `dtrace-provider` from the monorepo lockfile fail to compile).
 - Build runs TypeORM migrations (`migration:run`) before `nest build`.
 - Set production Postgres as **`DATABASE_URL`** on the API project (same Supabase Session pooler URI as admin — name it `DATABASE_URL`, not `POSTGRES_URL`). Build-time migrations need this available to **Production** builds. Optional `DATABASE_MIGRATE_URL` if runtime uses the transaction pooler (`:6543`); otherwise migrate auto-upgrades `:6543` → `:5432`. Discrete `DATABASE_HOST` / `USER` / … remain a local fallback only.

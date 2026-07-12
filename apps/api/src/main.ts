@@ -1,6 +1,3 @@
-// Vercel NestJS detection requires a direct `@nestjs/core` import in this file
-// (entrypoint regex on `@nestjs/core`). Boot logic stays in create-app.
-import "@nestjs/core";
 import { createApp, getListenPort } from "./create-app";
 import { closeRedis, connectRedisIfConfigured } from "./redis/redisClient";
 
