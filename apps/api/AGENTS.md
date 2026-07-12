@@ -71,7 +71,7 @@ Key variables:
 
 Full product OAuth console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md). Admin ops (separate app, same DB): [`docs/ADMIN.md`](../../docs/ADMIN.md) · [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md).
 
-**Vercel:** project root `apps/api` — see `vercel.json` (`framework: null` keeps the custom `api/` function; do not rely on NestJS zero-config). Serverless entry is `api/index.ts`.
+**Vercel:** project root `apps/api` — see `vercel.json` (`framework: nestjs`). Runtime entry is `api/index.ts` (rewrites); `src/main.ts` must import `@nestjs/core` for Vercel’s NestJS entrypoint detector.
 
 ## Commands
 
