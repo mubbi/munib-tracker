@@ -5,7 +5,6 @@ import Animated, {
   Easing,
   interpolate,
   useAnimatedStyle,
-  useReducedMotion,
   useSharedValue,
   withDelay,
   withRepeat,
@@ -13,6 +12,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { CloudGraphic } from "@/components/weather/cloud-graphic";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import {
   type CloudPartSpec,
   type CloudSize,
@@ -108,7 +108,7 @@ const WIND_STREAKS = Array.from({ length: 14 }, (_, index) => ({
  * Sits above the readability scrim; hero text uses a higher z-index.
  */
 export function HeroWeatherEffects({ effects }: HeroWeatherEffectsProps) {
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useHydrationSafeReducedMotion();
   const cloudConfigs = useMemo(() => cloudConfigsFor(effects), [effects]);
 
   const showRain = effects.includes("rain") || effects.includes("thunderstorm");

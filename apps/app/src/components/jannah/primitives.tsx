@@ -460,8 +460,11 @@ const styles = StyleSheet.create({
     marginTop: Spacing.three,
   },
   quickTile: {
-    width: "48%",
+    // Slightly under half so `gap` does not push a row past the card edge.
+    width: "47%",
     flexGrow: 1,
+    flexShrink: 1,
+    maxWidth: "100%",
     minWidth: 140,
     padding: Spacing.three,
     borderRadius: Radius.lg,

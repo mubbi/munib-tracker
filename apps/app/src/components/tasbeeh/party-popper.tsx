@@ -3,13 +3,13 @@ import { StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
-  useReducedMotion,
   useSharedValue,
   withDelay,
   withTiming,
 } from "react-native-reanimated";
 
 import { Durations } from "@/constants/motion";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 
 const PARTICLE_COUNT = 28;
 const BURST_DURATION = Durations.slow + 280;
@@ -88,7 +88,7 @@ type PartyPopperProps = {
 };
 
 export function PartyPopper({ burstKey, colors }: PartyPopperProps) {
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useHydrationSafeReducedMotion();
   const [activeKey, setActiveKey] = useState(0);
   const particles = useMemo(
     () => (activeKey > 0 ? createParticles(activeKey, colors) : []),

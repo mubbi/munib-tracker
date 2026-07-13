@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, type ViewStyle } from "react-native";
-import { useReducedMotion } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
 import { ArcProgressRing } from "@/components/ui/arc-progress-ring";
 import { Shadows } from "@/constants/theme";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { chartCoordinateStyle, progressRingKnobStyle } from "@/lib/chart-rtl";
 
@@ -45,14 +45,15 @@ export function ProgressRing({
   style,
 }: ProgressRingProps) {
   const { colors, tokens } = useThemeTokens();
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useHydrationSafeReducedMotion();
 
   const fill = color ?? colors.accent;
   const track = trackColor ?? tokens.track;
   const surface = surfaceColor ?? colors.card;
   const target = Math.min(1, Math.max(0, progress));
 
-  const [display, setDisplay] = useState(reducedMotion ? target : 0);
+  // Always start at 0 so SSR / first paint match; snap in the effect when reduced.
+  const [display, setDisplay] = useState(0);
   const rafRef = useRef<number | null>(null);
   // Tracks the latest displayed value so a target change animates from where we
   // currently are, without making `display` an effect dependency.

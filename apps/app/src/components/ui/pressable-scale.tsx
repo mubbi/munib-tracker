@@ -17,6 +17,13 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
 
+/**
+ * Flex/content layout for the inner animated wrapper (icon + text stacks, gaps).
+ * Deliberately excludes width/height — those must size the Pressable host so
+ * percentage tiles (e.g. 2×2 quick-link grids) participate in the parent flex
+ * row. Putting width on the inner alone left the host unconstrained and made
+ * the tile background overflow its card.
+ */
 const RIPPLE_INNER_LAYOUT_KEYS = [
   "flexDirection",
   "alignItems",
@@ -31,8 +38,6 @@ const RIPPLE_INNER_LAYOUT_KEYS = [
   "flexShrink",
   "flexBasis",
   "alignSelf",
-  "width",
-  "height",
   "minWidth",
   "minHeight",
   "maxWidth",
@@ -46,6 +51,8 @@ const RIPPLE_HOST_LAYOUT_KEYS = [
   "flexShrink",
   "flexBasis",
   "alignSelf",
+  "width",
+  "height",
   "minWidth",
   "minHeight",
   "maxWidth",
@@ -72,6 +79,7 @@ function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
         hostStyle[key] = value;
       }
     } else {
+      // Box model + host-only size (width/height) so %-based tiles size correctly.
       hostStyle[key] = value;
     }
   }

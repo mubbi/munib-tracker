@@ -17,7 +17,6 @@ import Animated, {
   Easing,
   runOnJS,
   useAnimatedStyle,
-  useReducedMotion,
   useSharedValue,
   withDelay,
   withTiming,
@@ -25,6 +24,7 @@ import Animated, {
 
 import { Durations, Stagger as StaggerTokens } from "@/constants/motion";
 import { Spacing } from "@/constants/theme";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { registerStaggerLayoutListener } from "@/lib/stagger-entrances";
 
 /** Routes/screens whose stagger entrance has already played this session. */
@@ -234,7 +234,7 @@ function StaggerItem({
   children: ReactNode;
 }) {
   const { hasCompletedEntrance, forceVisible, animate } = useContext(StaggerContext);
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useHydrationSafeReducedMotion();
   // Read completion live on every render so late-mounted siblings (e.g. the
   // Upcoming Reminders card after enabling notifications) skip opacity 0.
   const shouldSkip = !animate || reducedMotion === true || forceVisible || hasCompletedEntrance();

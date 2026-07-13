@@ -8,6 +8,7 @@ import { getTajweedRule, type TajweedRuleDef } from "@/constants/tajweed";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { withArabicJoiningZwj } from "@/lib/arabic-text-join";
 import { arabicReadingLayout, resolveArabicLineHeight } from "@/lib/reading-typography";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -79,6 +80,10 @@ export function TajweedText({ segments, fallback, fontSize, style }: TajweedText
     return <Text style={baseStyle}>{fallback}</Text>;
   }
 
+  // Nested/colored spans break Arabic cursive joining on Android Fabric and RN
+  // web — trail ZWJ across same-word boundaries so letters stay connected.
+  const joinedTexts = withArabicJoiningZwj(segments.map((s) => s.text));
+
   return (
     <View style={styles.wrap}>
       {activeRule ? (
@@ -111,12 +116,9 @@ export function TajweedText({ segments, fallback, fontSize, style }: TajweedText
           const rule = getTajweedRule(segment.rule);
           const color = rule ? (isDark ? rule.colorDark : rule.colorLight) : colors.foreground;
           const segmentKey = `${index}:${segment.rule ?? ""}:${segment.text}`;
+          const text = joinedTexts[index] ?? segment.text;
           if (!rule) {
-            return (
-              <Text key={segmentKey} style={{ color, fontFamily }}>
-                {segment.text}
-              </Text>
-            );
+            return <Text key={segmentKey}>{text}</Text>;
           }
 
           const webHoverProps =
@@ -130,7 +132,8 @@ export function TajweedText({ segments, fallback, fontSize, style }: TajweedText
           return (
             <Text
               key={segmentKey}
-              accessibilityRole="button"
+              // Stay a nested span — role "button" becomes <button> on web and
+              // splits Arabic words into isolated letter forms.
               accessibilityLabel={formatRuleTooltip(rule, t)}
               accessibilityHint={
                 fineHover ? t("quran.tajweed.hoverHint") : t("quran.tajweed.tapHint")
@@ -138,9 +141,9 @@ export function TajweedText({ segments, fallback, fontSize, style }: TajweedText
               suppressHighlighting
               onPress={() => onSegmentPress(rule.id)}
               {...(webHoverProps as object)}
-              style={[{ color, fontFamily }, Platform.OS === "web" ? styles.webInteractive : null]}
+              style={[{ color }, Platform.OS === "web" ? styles.webInteractive : null]}
             >
-              {segment.text}
+              {text}
             </Text>
           );
         })}
@@ -185,5 +188,7 @@ const styles = StyleSheet.create({
   webInteractive: {
     // RN web — help cursor signals “rule info on hover”.
     cursor: "help",
+    // Replaced elements (e.g. buttons) break Arabic joining across siblings.
+    display: "inline",
   } as TextStyle,
 });

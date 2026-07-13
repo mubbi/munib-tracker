@@ -127,19 +127,26 @@ function backChevron(): SymbolViewProps["name"] {
     : { ios: "chevron.left", android: "arrow_back", web: "arrow_back" };
 }
 
+/**
+ * Pin the first paint to the app default (`dark`) so static HTML matches
+ * hydration. Reading `Appearance` during render differs between SSG (often
+ * `null` → would have been light) and a dark-mode browser → React #418.
+ */
 function useColorSchemeSafe(): "light" | "dark" {
-  const [scheme, setScheme] = useState<ColorSchemeName>(
-    () => Appearance.getColorScheme() ?? "light",
-  );
+  const [scheme, setScheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
+    const sync = (colorScheme: ColorSchemeName) => {
+      setScheme(colorScheme === "dark" ? "dark" : "light");
+    };
+    sync(Appearance.getColorScheme());
     const sub = Appearance.addChangeListener(({ colorScheme }) => {
-      setScheme(colorScheme ?? "light");
+      sync(colorScheme);
     });
     return () => sub.remove();
   }, []);
 
-  return scheme === "dark" ? "dark" : "light";
+  return scheme;
 }
 
 /** Mirrors `resolveTheme` light base + `computeThemeTokens` soft/hairline. */
