@@ -47,7 +47,9 @@ export default function EidScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/eid" />
-      <Stagger>
+      {/* Remount once the lazy corpus is ready so section rows aren't inserted
+          mid-entrance (first visit used to leave them empty / stuck). */}
+      <Stagger key={`eid-${contentVersion}`}>
         <JannahCallout tone="info">{t("eid.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

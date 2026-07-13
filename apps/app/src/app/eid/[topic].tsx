@@ -12,7 +12,8 @@ import { ensureEidGuideContent, getEidGuideTopic, getEidGuideTopics } from "@/li
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-export function generateStaticParams(): Array<{ topic: string }> {
+export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
+  await ensureEidGuideContent();
   return getEidGuideTopics().map((topic) => ({ topic: topic.id }));
 }
 

@@ -55,7 +55,7 @@ export default function LaylatAlQadrScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/laylat-al-qadr" />
-      <Stagger>
+      <Stagger key={`laylat-al-qadr-${contentVersion}`}>
         <JannahCallout tone="info">{t("laylatAlQadr.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

@@ -51,7 +51,7 @@ export default function NewMuslimScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/new-muslim" />
-      <Stagger>
+      <Stagger key={`new-muslim-${contentVersion}`}>
         <JannahCallout tone="info">{t("newMuslim.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

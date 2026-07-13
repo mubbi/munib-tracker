@@ -12,7 +12,8 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { ensureNewMuslimContent, getNewMuslimTopic, getNewMuslimTopics } from "@/lib/new-muslim";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-export function generateStaticParams(): Array<{ topic: string }> {
+export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
+  await ensureNewMuslimContent();
   return getNewMuslimTopics().map((topic) => ({ topic: topic.id }));
 }
 

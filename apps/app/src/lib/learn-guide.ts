@@ -33,9 +33,17 @@ export function createLearnGuideAccessors<Section extends string>(
   function ensureContent(): Promise<void> {
     if (cache) return Promise.resolve();
     if (!inflight) {
-      inflight = load().then((loaded) => {
-        cache = loaded;
-      });
+      inflight = load()
+        .then((loaded) => {
+          cache = {
+            topics: loaded.topics ?? [],
+            sectionOrder: loaded.sectionOrder ?? [],
+          };
+        })
+        .finally(() => {
+          // Allow a later retry if the first import rejected before cache was set.
+          if (!cache) inflight = undefined;
+        });
     }
     return inflight;
   }

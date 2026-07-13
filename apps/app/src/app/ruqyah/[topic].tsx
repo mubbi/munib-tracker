@@ -12,7 +12,8 @@ import { goBackOrReplace } from "@/lib/navigation";
 import { ensureRuqyahContent, getRuqyahTopic, getRuqyahTopics } from "@/lib/ruqyah";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-export function generateStaticParams(): Array<{ topic: string }> {
+export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
+  await ensureRuqyahContent();
   return getRuqyahTopics().map((topic) => ({ topic: topic.id }));
 }
 

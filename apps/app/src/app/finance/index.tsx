@@ -54,7 +54,7 @@ export default function FinanceScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/finance" />
-      <Stagger>
+      <Stagger key={`finance-${contentVersion}`}>
         <JannahCallout tone="info">{t("finance.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

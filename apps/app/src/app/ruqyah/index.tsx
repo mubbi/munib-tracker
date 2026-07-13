@@ -41,7 +41,7 @@ export default function RuqyahScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/ruqyah" />
-      <Stagger>
+      <Stagger key={`ruqyah-${contentVersion}`}>
         <JannahCallout tone="info">{t("ruqyah.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {
