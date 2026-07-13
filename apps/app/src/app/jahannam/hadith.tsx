@@ -14,8 +14,9 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJahannamHadith } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamHadith } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 
 const THEME_ORDER = ["warning", "mercy", "repentance", "accountability", "protection"] as const;
@@ -32,6 +33,7 @@ export default function JahannamHadithScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  useEnsureContent(ensureJahannamContent);
   const { sizes } = useReadingTypography();
   const entries = getJahannamHadith();
 

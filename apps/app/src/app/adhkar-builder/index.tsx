@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -10,6 +10,7 @@ import {
 import { CustomAdhkarImageGallery } from "@/components/custom-adhkar/custom-adhkar-image-gallery";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
@@ -18,9 +19,12 @@ import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
+import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { resolveArabicLineHeight } from "@/lib/reading-typography";
+import { arabicTextAlign, useIsRTL } from "@/lib/rtl";
+import type { SttErrorKind } from "@/lib/stt";
 import { deleteUserMediaMany, isGuestUserMediaError, uploadUserMedia } from "@/lib/user-media-api";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
@@ -34,13 +38,18 @@ import { usePreferences } from "@/stores/preferences-store";
 
 const EMPTY: CustomAdhkarInput = { title: "", arabic: "" };
 
+type DictatableField = "arabic" | "transliteration" | "translation";
+
+const DICTATABLE_FIELDS = new Set<string>(["arabic", "transliteration", "translation"]);
+
 export default function AdhkarBuilderScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors } = useThemeTokens();
   const { fontPrefs } = usePreferences();
   const arabicFontFamily = useArabicFontFamily();
   const arabicInputLineHeight = resolveArabicLineHeight(20, fontPrefs.arabic.family);
+  const rtl = useIsRTL();
   const { isAuthenticated, session } = useAuth();
   const toast = useToast();
   useEnsureCustomAdhkarLoaded();
@@ -51,10 +60,51 @@ export default function AdhkarBuilderScreen() {
   const [draft, setDraft] = useState<CustomAdhkarInput>(EMPTY);
   const [draftAttachments, setDraftAttachments] = useState<DraftAdhkarAttachment[]>([]);
   const [saving, setSaving] = useState(false);
+  const sttFieldRef = useRef<DictatableField | null>(null);
 
   const canSave = draft.title.trim().length > 0 && draft.arabic.trim().length > 0 && !saving;
 
+  const handleSttError = useCallback(
+    (kind: SttErrorKind) => {
+      switch (kind) {
+        case "permission":
+          toast.warning(t("customAdhkar.stt.permissionDenied"));
+          break;
+        case "noSpeech":
+          toast.info(t("customAdhkar.stt.couldNotHear"));
+          break;
+        case "unavailable":
+          toast.warning(t("customAdhkar.stt.unavailable"));
+          break;
+        default:
+          toast.error(t("customAdhkar.stt.errorGeneric"));
+      }
+    },
+    [t, toast],
+  );
+
+  const handleTranscript = useCallback((text: string) => {
+    const field = sttFieldRef.current;
+    if (!field) return;
+    setDraft((prev) => ({ ...prev, [field]: text }));
+  }, []);
+
+  const stt = useSpeechToText({
+    uiLocale: i18n.language ?? "en",
+    onTranscript: handleTranscript,
+    onError: handleSttError,
+  });
+
+  useEffect(() => {
+    sttFieldRef.current = (stt.activeField as DictatableField | null) ?? null;
+  }, [stt.activeField]);
+
+  useEffect(() => {
+    if (!formOpen) stt.abort();
+  }, [formOpen, stt.abort]);
+
   const resetForm = () => {
+    stt.abort();
     setDraft(EMPTY);
     setDraftAttachments([]);
   };
@@ -113,33 +163,76 @@ export default function AdhkarBuilderScreen() {
     }
   };
 
+  const toggleDictate = (key: DictatableField) => {
+    if (stt.listening && stt.activeField === key) {
+      stt.stop();
+      return;
+    }
+    sttFieldRef.current = key;
+    void stt.start(key, draft[key] ?? "", key === "arabic" ? "arabic" : "other");
+  };
+
   const input = (
     key: keyof Omit<CustomAdhkarInput, "images">,
     labelKey: string,
     opts?: { multiline?: boolean; rtl?: boolean },
-  ) => (
-    <View style={styles.field}>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {t(labelKey)}
-      </ThemedText>
-      <TextInput
-        value={draft[key] ?? ""}
-        onChangeText={(v) => setDraft((prev) => ({ ...prev, [key]: v }))}
-        placeholder={t(labelKey)}
-        placeholderTextColor={colors.mutedForeground}
-        accessibilityLabel={t(labelKey)}
-        multiline={opts?.multiline}
-        style={[
-          styles.input,
-          opts?.multiline ? styles.inputMultiline : null,
-          opts?.rtl
-            ? [styles.inputRtl, { fontFamily: arabicFontFamily, lineHeight: arabicInputLineHeight }]
-            : null,
-          { backgroundColor: colors.muted, color: colors.foreground },
-        ]}
-      />
-    </View>
-  );
+  ) => {
+    const dictatable = DICTATABLE_FIELDS.has(key);
+    const listeningHere = stt.listening && stt.activeField === key;
+
+    return (
+      <View style={styles.field}>
+        <View style={styles.labelRow}>
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.labelText}>
+            {t(labelKey)}
+          </ThemedText>
+          {dictatable && stt.available ? (
+            <VoiceInputButton
+              listening={!!listeningHere}
+              level={stt.level}
+              accessibilityLabel={
+                listeningHere ? t("customAdhkar.stt.stopDictate") : t("customAdhkar.stt.dictate")
+              }
+              accessibilityHint={listeningHere ? t("customAdhkar.stt.listening") : undefined}
+              disabled={saving}
+              onPress={() => toggleDictate(key as DictatableField)}
+            />
+          ) : null}
+        </View>
+        <TextInput
+          value={draft[key] ?? ""}
+          onChangeText={(v) => {
+            if (stt.listening && stt.activeField === key) stt.abort();
+            setDraft((prev) => ({ ...prev, [key]: v }));
+          }}
+          placeholder={t(labelKey)}
+          placeholderTextColor={colors.mutedForeground}
+          accessibilityLabel={t(labelKey)}
+          multiline={opts?.multiline}
+          style={[
+            styles.input,
+            opts?.multiline ? styles.inputMultiline : null,
+            opts?.rtl
+              ? [
+                  styles.inputRtl,
+                  {
+                    fontFamily: arabicFontFamily,
+                    lineHeight: arabicInputLineHeight,
+                    textAlign: arabicTextAlign(rtl),
+                  },
+                ]
+              : null,
+            {
+              backgroundColor: colors.muted,
+              color: colors.foreground,
+              borderWidth: listeningHere ? 1.5 : 0,
+              borderColor: listeningHere ? colors.accent : "transparent",
+            },
+          ]}
+        />
+      </View>
+    );
+  };
 
   return (
     <ScreenLayout
@@ -233,6 +326,13 @@ const styles = StyleSheet.create({
   sheetTitle: { marginBottom: Spacing.two },
   form: { alignSelf: "stretch", maxHeight: 420 },
   field: { gap: Spacing.one, marginBottom: Spacing.three },
+  labelRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    minHeight: 56,
+  },
+  labelText: { flex: 1, marginEnd: Spacing.two },
   input: {
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -241,6 +341,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   inputMultiline: { minHeight: 72, textAlignVertical: "top" },
-  inputRtl: { writingDirection: "rtl", textAlign: "right", fontSize: 20 },
+  inputRtl: { writingDirection: "rtl", fontSize: 20 },
   saveButton: { marginTop: Spacing.two },
 });

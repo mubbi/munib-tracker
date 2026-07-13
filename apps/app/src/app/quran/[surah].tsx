@@ -1,4 +1,10 @@
-import type { Ayah, QuranReaderLayout } from "@munib-tracker/shared/types";
+import { getTafsirEdition, resolveIntlLocale } from "@munib-tracker/shared/i18n";
+import type {
+  Ayah,
+  QuranReaderLayout,
+  QuranWord,
+  TajweedSegment,
+} from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -26,8 +32,14 @@ import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { AyahSeparator, ayahKeyExtractor, SurahAyahList } from "@/components/quran/ayah-reader";
 import { OptionPickerSheet, SelectTrigger } from "@/components/quran/option-picker-sheet";
+import { PlaybackSettingsSheet } from "@/components/quran/playback-settings-sheet";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
+import { TafsirAyahSheet } from "@/components/quran/tafsir-ayah-sheet";
+import { TafsirPickerSheet } from "@/components/quran/tafsir-picker-sheet";
+import { TajweedLegend, TajweedStickyLegendBar } from "@/components/quran/tajweed-legend";
+import { TajweedText } from "@/components/quran/tajweed-text";
 import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
+import { WordByWord } from "@/components/quran/word-by-word";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -39,9 +51,17 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ThemedSwitch } from "@/components/ui/themed-switch";
 import { Durations } from "@/constants/motion";
+import { quranComRecitationId } from "@/constants/tajweed";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
-import { useRemoteEditionSurah } from "@/hooks/use-quran";
+import { usePlaybackSummaryLabel } from "@/hooks/use-playback-summary-label";
+import {
+  useAyahWordSegments,
+  useRemoteEditionSurah,
+  useSurahTajweed,
+  useSurahWords,
+  useTafsirSurah,
+} from "@/hooks/use-quran";
 import { useScrollToActiveIndex } from "@/hooks/use-scroll-to-active";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -57,7 +77,10 @@ import {
   getTransliteration,
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
+import { normalizeRepeatPlan } from "@/lib/quran-repeat";
+import { resolvePreferredTafsirId } from "@/lib/quran-tafsir-options";
 import { ALL_QURAN_TRANSLATIONS } from "@/lib/quran-translation-options";
+import { activeWordIndexAt } from "@/lib/quran-word-timing";
 import { arabicReadingLayout, resolveReadingFontSizes } from "@/lib/reading-typography";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { buildAyahSharePayload } from "@/lib/share";
@@ -137,13 +160,21 @@ export default function SurahReaderScreen() {
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
   const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
+  const [tafsirPickerOpen, setTafsirPickerOpen] = useState(false);
+  const [tafsirAyah, setTafsirAyah] = useState<number | null>(null);
   const [layoutPickerOpen, setLayoutPickerOpen] = useState(false);
+  const [playbackSheetOpen, setPlaybackSheetOpen] = useState(false);
   const [focusHighlightAyah, setFocusHighlightAyah] = useState<number | undefined>(focusAyah);
+  const [activeWordIndex, setActiveWordIndex] = useState<number | null>(null);
   const focusTargetKey = focusAyah != null ? `${surahNumber}:${focusAyah}` : null;
 
   // Reveal the compact reading toolbar once the header card scrolls out of view.
   const [toolbarVisible, setToolbarVisible] = useState(false);
+  // Sticky tajweed swatch bar — only after the in-list legend scrolls away.
+  const [tajweedBarVisible, setTajweedBarVisible] = useState(false);
   const headerCardHeightRef = useRef(0);
+  const tajweedLegendBottomRef = useRef(0);
+  const showTajweedRef = useRef(false);
   // 0→1 fraction of the surah scrolled through, driving the toolbar progress line.
   const readingProgress = useSharedValue(0);
 
@@ -167,12 +198,26 @@ export default function SurahReaderScreen() {
   // audio state, and store actions without recreating the stable handler below.
   const flushReadingPositionRef = useRef<() => void>(() => {});
 
+  const onTajweedLegendLayout = useCallback((event: LayoutChangeEvent) => {
+    const { y, height } = event.nativeEvent.layout;
+    const bottom = y + height;
+    tajweedLegendBottomRef.current = bottom;
+    const next = showTajweedRef.current && scrollYRef.current > Math.max(0, bottom - Spacing.four);
+    setTajweedBarVisible((prev) => (prev === next ? prev : next));
+  }, []);
+
   const onListScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const y = event.nativeEvent.contentOffset.y;
     scrollYRef.current = y;
     const threshold = Math.max(0, headerCardHeightRef.current - Spacing.four);
-    const next = y > threshold;
-    setToolbarVisible((prev) => (prev === next ? prev : next));
+    const nextToolbar = y > threshold;
+    setToolbarVisible((prev) => (prev === nextToolbar ? prev : nextToolbar));
+
+    const legendBottom = tajweedLegendBottomRef.current;
+    const nextTajweedBar =
+      showTajweedRef.current && legendBottom > 0 && y > Math.max(0, legendBottom - Spacing.four);
+    setTajweedBarVisible((prev) => (prev === nextTajweedBar ? prev : nextTajweedBar));
+
     // After focus-scroll settles, treat a real offset change as user intent
     // (covers web wheel / trackpad which do not fire onScrollBeginDrag).
     if (
@@ -347,10 +392,111 @@ export default function SurahReaderScreen() {
   const secondaryDir = secondaryKnown ? editionDirection(secondaryKnown) : "ltr";
   const secondaryEdition = ALL_QURAN_TRANSLATIONS.find((e) => e.id === secondaryId);
 
+  // ── On-demand tafsir (NF-1.10) ───────────────────────────────────────────
+  const activeTafsirId = resolvePreferredTafsirId(
+    prefs.preferredTafsirId,
+    translationLocale,
+    appLocale,
+  );
+  const tafsirEdition = activeTafsirId ? getTafsirEdition(activeTafsirId) : undefined;
+  const tafsirQuery = useTafsirSurah(activeTafsirId ?? null, surahNumber);
+  const tafsirMap = hasEditionAyahs(tafsirQuery.data) ? tafsirQuery.data : undefined;
+  const tafsirLoading = Boolean(activeTafsirId) && tafsirQuery.isPending;
+  const tafsirOffline =
+    Boolean(activeTafsirId) && !tafsirLoading && tafsirQuery.isError && !tafsirMap;
+
+  const openTafsirForAyah = useCallback(
+    (ayahNumber: number) => {
+      if (!activeTafsirId) {
+        setTafsirPickerOpen(true);
+        return;
+      }
+      setTafsirAyah(ayahNumber);
+    },
+    [activeTafsirId],
+  );
+
   const transliteration = useMemo(
     () => (surah ? getTransliteration(surahNumber) : {}),
     [surah, surahNumber],
   );
+
+  const showWordByWord = prefs.showWordByWord === true;
+  const showTajweed = prefs.showTajweed === true;
+  showTajweedRef.current = showTajweed;
+
+  useEffect(() => {
+    if (!showTajweed) {
+      setTajweedBarVisible(false);
+      return;
+    }
+    const bottom = tajweedLegendBottomRef.current;
+    if (bottom > 0 && scrollYRef.current > Math.max(0, bottom - Spacing.four)) {
+      setTajweedBarVisible(true);
+    }
+  }, [showTajweed]);
+
+  const wordLang = translationLocale || appLocale || "en";
+  const tajweedQuery = useSurahTajweed(surahNumber, showTajweed && Boolean(surah));
+  const wordsQuery = useSurahWords(surahNumber, wordLang, showWordByWord && Boolean(surah));
+  const tajweedByAyah = tajweedQuery.data ?? {};
+  const wordByWordByAyah = wordsQuery.data ?? {};
+  const studyExtrasLoading =
+    (showTajweed && tajweedQuery.isPending) || (showWordByWord && wordsQuery.isPending);
+
+  const playingAyahNumber = audioActiveKey ? Number(audioActiveKey.split(":")[1]) : null;
+  const recitationId = quranComRecitationId(prefs.preferredReciterDir);
+  const segmentsQuery = useAyahWordSegments(
+    recitationId,
+    surahNumber,
+    playingAyahNumber,
+    showWordByWord && playingAyahNumber != null,
+  );
+
+  useEffect(() => {
+    if (!showWordByWord || playingAyahNumber == null || !audio.isPlaying) {
+      setActiveWordIndex(null);
+      return;
+    }
+    const segments = segmentsQuery.data;
+    const wordsForAyah = wordByWordByAyah[String(playingAyahNumber)] ?? [];
+    const wordCount = wordsForAyah.length;
+    // Need either real timings or a word count for the proportional fallback.
+    if (!segments?.length && wordCount === 0) {
+      setActiveWordIndex(null);
+      return;
+    }
+    let cancelled = false;
+    let raf = 0;
+    const tick = () => {
+      if (cancelled) return;
+      const durationSec =
+        audio.duration > 0
+          ? audio.duration
+          : (audio.trackDurations?.[audio.current?.id ?? ""] ?? 0);
+      const next = activeWordIndexAt(audio.readPlaybackSeconds(), segments, {
+        wordCount,
+        durationSec,
+      });
+      setActiveWordIndex((prev) => (prev === next ? prev : next));
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+    };
+  }, [
+    showWordByWord,
+    playingAyahNumber,
+    audio.isPlaying,
+    audio.readPlaybackSeconds,
+    audio.duration,
+    audio.trackDurations,
+    audio.current?.id,
+    segmentsQuery.data,
+    wordByWordByAyah,
+  ]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: record entry once per surah open.
   useEffect(() => {
@@ -382,15 +528,42 @@ export default function SurahReaderScreen() {
     ALL_QURAN_TRANSLATIONS.find((e) => e.id === BUNDLED_EN_FALLBACK) ??
     ALL_QURAN_TRANSLATIONS[0];
 
+  const ttsLang = resolveIntlLocale(translationLocale);
+  const ttsVoiceId = prefs.ttsVoiceByLang?.[ttsLang];
+  const repeatPlan = useMemo(
+    () => normalizeRepeatPlan(prefs.repeatMode, prefs.repeatRange, ayahs.length),
+    [prefs.repeatMode, prefs.repeatRange, ayahs.length],
+  );
+  const playbackSummary = usePlaybackSummaryLabel(
+    repeatPlan,
+    prefs.translationAudio,
+    "quran.playback.open",
+  );
+  const toolbarPlaybackSummary = usePlaybackSummaryLabel(
+    repeatPlan,
+    prefs.translationAudio,
+    "quran.playback.title",
+  );
+
+  useEffect(() => {
+    audio.setRepeatPlan(repeatPlan);
+    audio.setTranslationAudio(prefs.translationAudio ?? "off");
+  }, [audio, repeatPlan, prefs.translationAudio]);
+
   const playFrom = useCallback(
     (index: number) => {
       if (!surah) return;
-      audio.play(ayahTracks(reciterDir, surah.nameTransliteration, surahNumber, ayahs), index, {
+      const tracks = ayahTracks(reciterDir, surah.nameTransliteration, surahNumber, ayahs, {
+        translations: translation,
+        lang: ttsLang,
+        voice: ttsVoiceId,
+      });
+      audio.play(tracks, index, {
         sourceHref: `/quran/${surahNumber}`,
       });
       void setLastRead(surahNumber, index + 1, { isAudio: true });
     },
-    [audio, ayahs, reciterDir, setLastRead, surah, surahNumber],
+    [audio, ayahs, reciterDir, setLastRead, surah, surahNumber, translation, ttsLang, ttsVoiceId],
   );
 
   const handleBookmarkAyah = useCallback(
@@ -533,6 +706,15 @@ export default function SurahReaderScreen() {
                 onPress={() => setSecondaryPickerOpen(true)}
               />
             </View>
+
+            <View style={[styles.controlRow, styles.translationRow]}>
+              <ControlLabel icon={CONTROL_ICONS.tafsir} label={t("quran.tafsir")} />
+              <SelectTrigger
+                label={tafsirEdition?.name ?? t("quran.tafsirNone")}
+                accessibilityLabel={t("quran.tafsir")}
+                onPress={() => setTafsirPickerOpen(true)}
+              />
+            </View>
             {translationLoading ? (
               <View style={styles.loadingRow}>
                 <ActivityIndicator size="small" color={colors.accent} />
@@ -558,6 +740,40 @@ export default function SurahReaderScreen() {
               enabled={prefs.showTranslation}
               onToggle={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
             />
+            <PrefToggle
+              icon={CONTROL_ICONS.wordByWord}
+              label={t("quran.showWordByWord")}
+              enabled={showWordByWord}
+              onToggle={() => updatePrefs({ showWordByWord: !showWordByWord })}
+            />
+            <PrefToggle
+              icon={CONTROL_ICONS.tajweed}
+              label={t("quran.showTajweed")}
+              enabled={showTajweed}
+              onToggle={() => updatePrefs({ showTajweed: !showTajweed })}
+            />
+            {studyExtrasLoading ? (
+              <View style={styles.loadingRow}>
+                <ActivityIndicator size="small" color={colors.accent} />
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {showWordByWord && showTajweed
+                    ? `${t("quran.wordByWord.loading")} / ${t("quran.tajweed.loading")}`
+                    : showTajweed
+                      ? t("quran.tajweed.loading")
+                      : t("quran.wordByWord.loading")}
+                </ThemedText>
+              </View>
+            ) : null}
+
+            <View style={[styles.controlRow, styles.translationRow]}>
+              <ControlLabel icon={CONTROL_ICONS.playback} label={t("quran.playback.title")} />
+              <SelectTrigger
+                label={playbackSummary.label}
+                accessibilityLabel={t("quran.playback.open")}
+                active={playbackSummary.active}
+                onPress={() => setPlaybackSheetOpen(true)}
+              />
+            </View>
 
             <View style={[styles.controlRow, styles.translationRow]}>
               <ControlLabel icon={CONTROL_ICONS.textSize} label={t("reading.textSize")} />
@@ -569,6 +785,12 @@ export default function SurahReaderScreen() {
             <PlaySurahButton onPress={() => playFrom(0)} />
           </Card>
         </View>
+
+        {showTajweed ? (
+          <View onLayout={onTajweedLegendLayout}>
+            <TajweedLegend />
+          </View>
+        ) : null}
 
         {surah.bismillahPre ? (
           <ThemedText
@@ -583,18 +805,25 @@ export default function SurahReaderScreen() {
   }, [
     colors.accent,
     onHeaderCardLayout,
+    onTajweedLegendLayout,
     playFrom,
     prefs.showTransliteration,
     prefs.showTranslation,
+    showWordByWord,
+    showTajweed,
+    studyExtrasLoading,
     readingSizes.arabic,
     reciter.name,
     secondaryEdition?.name,
     selectedEdition.name,
     surah,
     t,
+    tafsirEdition?.name,
     translationLoading,
     updatePrefs,
     usingFallback,
+    playbackSummary.active,
+    playbackSummary.label,
   ]);
 
   const locale = i18n.language?.split("-")[0] ?? "en";
@@ -610,6 +839,8 @@ export default function SurahReaderScreen() {
       translationSize: readingSizes.translation,
       showTransliteration: prefs.showTransliteration,
       showTranslation: prefs.showTranslation,
+      showWordByWord,
+      showTajweed,
       translationDir,
       secondaryDir,
       currentAudioId,
@@ -619,13 +850,19 @@ export default function SurahReaderScreen() {
       translation,
       transliteration,
       secondTranslation,
+      wordByWordByAyah,
+      tajweedByAyah,
+      activeWordIndex,
+      playingAyahNumber,
     }),
     [
+      activeWordIndex,
       bookmarkedSet,
       currentAudioId,
       focusHighlightAyah,
       hifzMap,
       locale,
+      playingAyahNumber,
       prefs.showTransliteration,
       prefs.showTranslation,
       readingSizes.arabic,
@@ -633,9 +870,13 @@ export default function SurahReaderScreen() {
       readingSizes.translation,
       secondTranslation,
       secondaryDir,
+      showTajweed,
+      showWordByWord,
+      tajweedByAyah,
       translation,
       translationDir,
       transliteration,
+      wordByWordByAyah,
     ],
   );
 
@@ -666,12 +907,20 @@ export default function SurahReaderScreen() {
           transliteration={extras.showTransliteration ? extras.transliteration[ayahKey] : undefined}
           translation={extras.showTranslation ? (extras.translation[ayahKey] ?? "") : ""}
           translationDir={extras.translationDir}
+          words={extras.showWordByWord ? extras.wordByWordByAyah[ayahKey] : undefined}
+          tajweedSegments={extras.showTajweed ? extras.tajweedByAyah[ayahKey] : undefined}
+          activeWordIndex={
+            extras.showWordByWord && extras.playingAyahNumber === ayah.ayah
+              ? extras.activeWordIndex
+              : null
+          }
           isPlaying={extras.currentAudioId === `${surahNumber}:${ayah.ayah}`}
           highlighted={ayah.ayah === extras.focusHighlightAyah}
           isBookmarked={extras.bookmarkedSet.has(`${surahNumber}:${ayah.ayah}`)}
           onPlayAtIndex={playFrom}
           onBookmarkAyah={handleBookmarkAyah}
           onShareAyah={shareAyah}
+          onOpenTafsir={openTafsirForAyah}
           isSharing={isSharing}
           isGesturePending={isGesturePending}
         />
@@ -682,6 +931,7 @@ export default function SurahReaderScreen() {
       handleHifzAyah,
       isGesturePending,
       isSharing,
+      openTafsirForAyah,
       playFrom,
       shareAyah,
       surahNumber,
@@ -750,25 +1000,37 @@ export default function SurahReaderScreen() {
         subtitle={`${surah.nameEnglish} · ${t("quran.ayahCount", { count: surah.ayahCount })}`}
         onBack={() => goBackOrReplace(router, "/")}
         headerAccessory={
-          <QuranReadingToolbar
-            visible={toolbarVisible}
-            progress={readingProgress}
-            onBackToTop={() => listRef.current?.scrollToOffset({ offset: 0, animated: true })}
-            reciterName={reciter.name}
-            translationName={selectedEdition.name}
-            secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
-            showTransliteration={prefs.showTransliteration}
-            showTranslation={prefs.showTranslation}
-            layoutLabel={t("quran.layoutAyah")}
-            onOpenLayout={() => setLayoutPickerOpen(true)}
-            onOpenReciter={() => setReciterPickerOpen(true)}
-            onOpenTranslation={() => setTranslationPickerOpen(true)}
-            onOpenSecondary={() => setSecondaryPickerOpen(true)}
-            onToggleTransliteration={() =>
-              updatePrefs({ showTransliteration: !prefs.showTransliteration })
-            }
-            onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
-          />
+          <View>
+            <QuranReadingToolbar
+              visible={toolbarVisible}
+              progress={readingProgress}
+              onBackToTop={() => listRef.current?.scrollToOffset({ offset: 0, animated: true })}
+              reciterName={reciter.name}
+              translationName={selectedEdition.name}
+              secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+              tafsirName={tafsirEdition?.name ?? t("quran.tafsirNone")}
+              showTransliteration={prefs.showTransliteration}
+              showTranslation={prefs.showTranslation}
+              showWordByWord={showWordByWord}
+              showTajweed={showTajweed}
+              layoutLabel={t("quran.layoutAyah")}
+              onOpenLayout={() => setLayoutPickerOpen(true)}
+              onOpenReciter={() => setReciterPickerOpen(true)}
+              onOpenTranslation={() => setTranslationPickerOpen(true)}
+              onOpenSecondary={() => setSecondaryPickerOpen(true)}
+              onOpenTafsir={() => setTafsirPickerOpen(true)}
+              onToggleTransliteration={() =>
+                updatePrefs({ showTransliteration: !prefs.showTransliteration })
+              }
+              onToggleTranslation={() => updatePrefs({ showTranslation: !prefs.showTranslation })}
+              onToggleWordByWord={() => updatePrefs({ showWordByWord: !showWordByWord })}
+              onToggleTajweed={() => updatePrefs({ showTajweed: !showTajweed })}
+              onOpenPlayback={() => setPlaybackSheetOpen(true)}
+              playbackLabel={toolbarPlaybackSummary.label}
+              playbackActive={toolbarPlaybackSummary.active}
+            />
+            <TajweedStickyLegendBar visible={showTajweed && tajweedBarVisible} />
+          </View>
         }
       >
         <SurahAyahList
@@ -821,6 +1083,46 @@ export default function SurahReaderScreen() {
         onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
         onClose={() => setSecondaryPickerOpen(false)}
       />
+      <TafsirPickerSheet
+        visible={tafsirPickerOpen}
+        title={t("quran.tafsir")}
+        allowNone
+        selectedId={activeTafsirId ?? ""}
+        preferredLanguages={[translationLocale, appLocale]}
+        onSelect={(id) => updatePrefs({ preferredTafsirId: id })}
+        onClose={() => setTafsirPickerOpen(false)}
+      />
+      <TafsirAyahSheet
+        visible={tafsirAyah != null}
+        onClose={() => setTafsirAyah(null)}
+        surah={surahNumber}
+        ayah={tafsirAyah ?? 1}
+        editionName={tafsirEdition?.name ?? t("quran.tafsir")}
+        author={tafsirEdition?.author ?? ""}
+        text={tafsirAyah != null ? tafsirMap?.[String(tafsirAyah)] : undefined}
+        direction={tafsirEdition?.direction ?? "ltr"}
+        loading={tafsirLoading}
+        offline={tafsirOffline}
+      />
+      <PlaybackSettingsSheet
+        visible={playbackSheetOpen}
+        onClose={() => setPlaybackSheetOpen(false)}
+        ayahCount={ayahs.length}
+        repeatMode={prefs.repeatMode ?? "off"}
+        repeatRange={prefs.repeatRange ?? { start: 1, end: Math.max(1, ayahs.length) }}
+        translationAudio={prefs.translationAudio ?? "off"}
+        ttsLang={ttsLang}
+        ttsVoiceId={ttsVoiceId}
+        onRepeatModeChange={(mode) => updatePrefs({ repeatMode: mode })}
+        onRepeatRangeChange={(range) => updatePrefs({ repeatRange: range })}
+        onTranslationAudioChange={(mode) => updatePrefs({ translationAudio: mode })}
+        onTtsVoiceChange={(voiceId) => {
+          const next = { ...(prefs.ttsVoiceByLang ?? {}) };
+          if (voiceId) next[ttsLang] = voiceId;
+          else delete next[ttsLang];
+          updatePrefs({ ttsVoiceByLang: next });
+        }}
+      />
       <ConfirmDialog
         visible={hifzPending != null}
         title={t("hifz.confirmTitle")}
@@ -856,8 +1158,12 @@ const CONTROL_ICONS = {
   reciter: { ios: "person.wave.2.fill", android: "record_voice_over", web: "record_voice_over" },
   translation: { ios: "translate", android: "translate", web: "translate" },
   secondTranslation: { ios: "globe", android: "language", web: "language" },
+  tafsir: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
   showTransliteration: { ios: "textformat.abc", android: "abc", web: "abc" },
   showTranslation: { ios: "text.alignleft", android: "notes", web: "notes" },
+  wordByWord: { ios: "text.word.spacing", android: "space_bar", web: "space_bar" },
+  tajweed: { ios: "paintpalette.fill", android: "palette", web: "palette" },
+  playback: { ios: "slider.horizontal.3", android: "tune", web: "tune" },
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
 } as const satisfies Record<string, SymbolViewProps["name"]>;
 
@@ -929,6 +1235,9 @@ type AyahRowProps = {
   transliteration?: string;
   translation: string;
   translationDir: "ltr" | "rtl";
+  words?: QuranWord[];
+  tajweedSegments?: TajweedSegment[];
+  activeWordIndex?: number | null;
   isPlaying: boolean;
   highlighted?: boolean;
   isBookmarked: boolean;
@@ -948,6 +1257,7 @@ type AyahRowProps = {
     ayah: number,
     transliteration?: string,
   ) => void;
+  onOpenTafsir: (ayahNumber: number) => void;
   isSharing: (shareKey: string) => boolean;
   isGesturePending: (shareKey: string) => boolean;
 };
@@ -961,6 +1271,9 @@ function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): boolean {
     prev.transliteration === next.transliteration &&
     prev.translation === next.translation &&
     prev.translationDir === next.translationDir &&
+    prev.words === next.words &&
+    prev.tajweedSegments === next.tajweedSegments &&
+    prev.activeWordIndex === next.activeWordIndex &&
     prev.isPlaying === next.isPlaying &&
     prev.highlighted === next.highlighted &&
     prev.isBookmarked === next.isBookmarked &&
@@ -974,6 +1287,7 @@ function ayahRowPropsAreEqual(prev: AyahRowProps, next: AyahRowProps): boolean {
     prev.onPlayAtIndex === next.onPlayAtIndex &&
     prev.onBookmarkAyah === next.onBookmarkAyah &&
     prev.onShareAyah === next.onShareAyah &&
+    prev.onOpenTafsir === next.onOpenTafsir &&
     prev.isSharing === next.isSharing &&
     prev.isGesturePending === next.isGesturePending
   );
@@ -987,6 +1301,9 @@ const AyahRow = memo(function AyahRow({
   transliteration,
   translation,
   translationDir,
+  words,
+  tajweedSegments,
+  activeWordIndex = null,
   isPlaying,
   highlighted,
   isBookmarked,
@@ -1000,6 +1317,7 @@ const AyahRow = memo(function AyahRow({
   onPlayAtIndex,
   onBookmarkAyah,
   onShareAyah,
+  onOpenTafsir,
   isSharing,
   isGesturePending,
 }: AyahRowProps) {
@@ -1017,6 +1335,7 @@ const AyahRow = memo(function AyahRow({
     () => onShareAyah(ayah.arabic, translation, surahNumber, ayah.ayah, transliteration),
     [ayah.arabic, ayah.ayah, onShareAyah, surahNumber, translation, transliteration],
   );
+  const handleTafsir = useCallback(() => onOpenTafsir(ayah.ayah), [ayah.ayah, onOpenTafsir]);
   const handleHifz = useCallback(
     () => onHifzAyah(surahNumber, ayah.ayah),
     [ayah.ayah, onHifzAyah, surahNumber],
@@ -1157,6 +1476,14 @@ const AyahRow = memo(function AyahRow({
               onPress={handleBookmark}
             />
             <LabeledIconButton
+              name={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+              label={t("quran.actionTafsir")}
+              tintColor={colors.mutedForeground}
+              labelColor={colors.mutedForeground}
+              accessibilityLabel={t("quran.openTafsir")}
+              onPress={handleTafsir}
+            />
+            <LabeledIconButton
               name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
               label={
                 isGesturePending(ayahShareKey) ? t("share.tapToShare") : t("quran.actionShare")
@@ -1171,9 +1498,22 @@ const AyahRow = memo(function AyahRow({
           </View>
         </View>
 
-        <ThemedText type="arabic" style={[styles.arabic, arabicReadingLayout(arabicSize)]}>
-          {ayah.arabic}
-        </ThemedText>
+        <TajweedText
+          segments={tajweedSegments}
+          fallback={ayah.arabic}
+          fontSize={arabicSize}
+          style={styles.arabic}
+        />
+
+        {words?.length ? (
+          <WordByWord
+            words={words}
+            activeWordIndex={activeWordIndex}
+            arabicSize={arabicSize}
+            translitSize={translitSize}
+            glossSize={translationSize}
+          />
+        ) : null}
 
         {transliteration ? (
           <ThemedText
@@ -1310,5 +1650,5 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.three,
     borderTopWidth: StyleSheet.hairlineWidth,
   },
-  rtl: { writingDirection: "rtl", textAlign: "right" },
+  rtl: { writingDirection: "rtl" },
 });

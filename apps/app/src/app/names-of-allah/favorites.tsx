@@ -26,8 +26,12 @@ export default function NameFavoritesScreen() {
   const favoriteIds = useFavoriteNameIds();
   const { toggle } = useNameFavoritesActions();
   const [names, setNames] = useState<Awaited<ReturnType<typeof loadNamesOfAllah>>>([]);
+  const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
-    void loadNamesOfAllah().then(setNames);
+    void loadNamesOfAllah().then((loaded) => {
+      setNames(loaded);
+      setCorpusReady(true);
+    });
   }, []);
   const byId = useMemo(() => new Map(names.map((name) => [name.id, name])), [names]);
   const numberById = useMemo(
@@ -45,7 +49,15 @@ export default function NameFavoritesScreen() {
       onBack={() => goBackOrReplace(router, "/names-of-allah")}
     >
       <Seo path="/names-of-allah/favorites" />
-      {items.length === 0 ? (
+      {favoriteIds.length === 0 ? (
+        <EmptyState
+          icon={{ ios: "star", android: "star_border", web: "star_border" }}
+          title={t("names.favEmptyTitle")}
+          description={t("names.favEmptyDesc")}
+          actionLabel={t("names.title")}
+          onAction={() => router.replace("/names-of-allah")}
+        />
+      ) : !corpusReady ? null : items.length === 0 ? (
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
           title={t("names.favEmptyTitle")}

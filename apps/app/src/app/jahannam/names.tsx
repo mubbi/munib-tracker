@@ -14,8 +14,9 @@ import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJahannamNames } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamNames } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 
 function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean }) {
@@ -84,6 +85,7 @@ function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean 
 export default function JahannamNamesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureJahannamContent);
   const names = getJahannamNames();
 
   return (

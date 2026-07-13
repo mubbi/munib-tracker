@@ -12,8 +12,9 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getSalahGuideLessonCount } from "@/lib/salah-guide";
+import { ensureSalahGuideContent, getSalahGuideLessonCount } from "@/lib/salah-guide";
 import { buildSalahGuideProgress } from "@/lib/salah-guide-progress";
 import {
   useEnsureSalahGuideProgressLoaded,
@@ -26,13 +27,15 @@ export default function SalahGuideProgressScreen() {
   useEnsureSalahGuideProgressLoaded();
   const completedCount = useSalahGuideCompletedCount();
 
+  const { version: contentVersion } = useEnsureContent(ensureSalahGuideContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildSalahGuideProgress({
         lessonsCompleted: completedCount,
         lessonsTotal: getSalahGuideLessonCount(),
       }),
-    [completedCount],
+    [completedCount, contentVersion],
   );
 
   return (

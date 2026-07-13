@@ -16,10 +16,13 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
+  ensureQuranGuideContent,
+  getQuranGuideJourneyOrder,
   getQuranGuideLessonCount,
   getQuranGuideTopicRoute,
   getQuranGuideTopicsByJourney,
@@ -28,16 +31,6 @@ import {
   useEnsureQuranGuideProgressLoaded,
   useQuranGuideCompletedCount,
 } from "@/stores/quran-guide-progress-store";
-
-const JOURNEY_ORDER = [
-  "read",
-  "understand",
-  "reflect",
-  "memorize",
-  "practice",
-  "live",
-  "evidence",
-] as const;
 
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
@@ -65,11 +58,18 @@ export default function LearnQuranScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureQuranGuideProgressLoaded();
+  const { version: contentVersion } = useEnsureContent(ensureQuranGuideContent);
   const completedCount = useQuranGuideCompletedCount();
-  const lessonTotal = getQuranGuideLessonCount();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const lessonTotal = useMemo(() => getQuranGuideLessonCount(), [contentVersion]);
   // Recompute per locale so translated topic titles/summaries render on switch.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const TOPICS_BY_JOURNEY = useMemo(() => getQuranGuideTopicsByJourney(), [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const TOPICS_BY_JOURNEY = useMemo(
+    () => getQuranGuideTopicsByJourney(),
+    [i18n.language, contentVersion],
+  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const JOURNEY_ORDER = useMemo(() => getQuranGuideJourneyOrder(), [i18n.language, contentVersion]);
 
   const quickLinks = useMemo(
     () => [
@@ -148,7 +148,7 @@ export default function LearnQuranScreen() {
 
         {JOURNEY_ORDER.map((phase) => {
           const topics = TOPICS_BY_JOURNEY[phase];
-          if (!topics.length) return null;
+          if (!topics?.length) return null;
           return (
             <Card key={phase} padding="three">
               <SectionHeader

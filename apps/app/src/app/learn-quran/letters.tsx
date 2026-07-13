@@ -9,14 +9,16 @@ import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideLetters } from "@/lib/quran-guide";
+import { ensureQuranGuideContent, getQuranGuideLetters } from "@/lib/quran-guide";
 
 export default function LearnQuranLettersScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  useEnsureContent(ensureQuranGuideContent);
   const letters = getQuranGuideLetters();
 
   return (

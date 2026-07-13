@@ -110,6 +110,15 @@
       "aqeedah": "Belajar Aqidah",
       "learnDua": "Pelajari Dua",
       "learnQuran": "Pelajari Al -Qur'an"
+    },
+    "stt": {
+      "dictate": "Search by voice",
+      "stopDictate": "Stop voice search",
+      "listening": "Listening…",
+      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
+      "unavailable": "Speech recognition is unavailable on this device.",
+      "couldNotHear": "Couldn't hear that — try again or type.",
+      "errorGeneric": "Voice search failed. Try again or type."
     }
   },
   "tabs": {
@@ -149,7 +158,14 @@
     "tahajjud": "Tahajud",
     "hayd": "Hayd & ibadah",
     "sick": "Penyakit & doa",
-    "adhkarBuilder": "Adhkar saya"
+    "adhkarBuilder": "Adhkar saya",
+    "sahaba": "Sahabat",
+    "history": "Sejarah Islam",
+    "laylatAlQadr": "Lailatul Qadar",
+    "eid": "Panduan Idul Fitri & Idul Adha",
+    "ruqyah": "Ruqyah",
+    "newMuslim": "Panduan Muslim Baru",
+    "finance": "Keuangan Islam"
   },
   "quickActions": {
     "checklistSubtitle": "Catat doa hari ini",
@@ -183,7 +199,9 @@
         "label": "Pelacak Munib · Kemajuan",
         "description": "Kemajuan shalat wajib hari ini"
       }
-    }
+    },
+    "remaining": "Remaining",
+    "atTime": "at {{time}}"
   },
   "ramadan": {
     "eyebrow": "Ramadan",
@@ -200,13 +218,13 @@
     "countdownSuhoor": "Suhoor berakhir pada {{time}}",
     "countdownIftar": "Iftar di {{time}}",
     "afterIftar": "Cepat selesai untuk hari ini",
-    "dayCell": "Hari Ramadan {{day}}",
-    "dayCellStatus": "Hari Ramadan {{day}}, {{status}}",
+    "dayCell": "Hari Ramadan {{day}} · {{gregorian}}",
+    "dayCellStatus": "Hari Ramadan {{day}} ({{gregorian}}), {{status}}",
     "dayCellHint": "Ketuk untuk memilih status puasa Anda",
     "statusNone": "Tidak ditandai",
     "gridHint": "Ketuk satu hari untuk mencatat status puasa Anda",
     "gridFutureDaysNote": "Hari - hari mendatang dibuka pada tanggalnya - Anda hanya bisa masuk hari ini.",
-    "fastingLogBackfillNote": "Menampilkan Ramadan {{year}} AH sehingga Anda dapat mengisi ulang catatan Anda. Ketuk hari mana saja untuk memperbarui status puasa Anda.",
+    "fastingLogBackfillNote": "Menampilkan Ramadan {{year}} ({{gregorian}}) AH sehingga Anda dapat mengisi ulang catatan Anda. Ketuk hari mana saja untuk memperbarui status puasa Anda.",
     "fastedToday": "Tandai hari ini berpuasa",
     "statusFasted": "Puasa",
     "statusMissed": "Terlewatkan",
@@ -1172,7 +1190,95 @@
     "openPageView": "Buka page view",
     "continueAtPage": "Halaman {{page}} · {{surah}}:{{ayah}}",
     "enterFullscreen": "Masuk layar penuh",
-    "exitFullscreen": "Keluar dari layar penuh"
+    "exitFullscreen": "Keluar dari layar penuh",
+    "showWordByWord": "Show word by word",
+    "showTajweed": "Show tajweed colours",
+    "wordByWord": {
+      "title": "Word by word",
+      "playWord": "Play this word",
+      "noAudio": "No audio for this word",
+      "loading": "Loading words…"
+    },
+    "tajweed": {
+      "legend": "Tajweed legend",
+      "openLesson": "Open Learn Qur'an lesson",
+      "loading": "Loading tajweed…",
+      "rules": {
+        "ghunnah": "Ghunnah",
+        "ikhafa": "Ikhfa",
+        "ikhafaShafawi": "Ikhfa Shafawi",
+        "idghamGhunnah": "Idgham (Ghunnah)",
+        "idghamNoGhunnah": "Idgham (No Ghunnah)",
+        "idghamShafawi": "Idgham Shafawi",
+        "iqlab": "Iqlab",
+        "qalqalah": "Qalqalah",
+        "maddNormal": "Madd (2)",
+        "maddPermissible": "Madd (2-4-6)",
+        "maddObligatory": "Madd (4-5)",
+        "maddNecessary": "Madd (6)",
+        "hamWasl": "Hamzat Wasl",
+        "lamShamsiyah": "Lam Shamsiyah",
+        "silent": "Silent"
+      },
+      "hoverHint": "Hover to see the tajweed rule",
+      "tapHint": "Tap to see the tajweed rule",
+      "hints": {
+        "ghunnah": "Nasal sound — 2 beats",
+        "ikhafa": "Concealment with ghunnah — 2 beats",
+        "ikhafaShafawi": "Labial concealment — 2 beats",
+        "idghamGhunnah": "Merging with nasal sound — 2 beats",
+        "idghamNoGhunnah": "Merging without nasal sound",
+        "idghamShafawi": "Labial merging — 2 beats",
+        "iqlab": "Conversion to hidden meem — 2 beats",
+        "qalqalah": "Echoing bounce on the letter",
+        "maddNormal": "Normal elongation — 2 beats",
+        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
+        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
+        "maddNecessary": "Necessary elongation — 6 beats",
+        "hamWasl": "Connecting hamza — dropped when joining",
+        "lamShamsiyah": "Sun-letter لام — not pronounced",
+        "silent": "Written but not pronounced"
+      }
+    },
+    "wordByWordLoading": "Loading word-by-word…",
+    "tajweedLoading": "Loading tajweed…",
+    "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
+    "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
+    "playback": {
+      "title": "Playback",
+      "open": "Playback settings",
+      "repeatMode": "Repeat mode",
+      "repeatOff": "Off",
+      "repeatVerse": "Verse",
+      "repeatRange": "Range",
+      "repeatSurah": "Surah",
+      "rangeStart": "From ayah",
+      "rangeEnd": "To ayah",
+      "translationAudio": "Translation audio",
+      "translationOff": "Off",
+      "translationAfter": "After each verse",
+      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
+      "ttsVoice": "Translation speech voice",
+      "ttsVoiceDefault": "Default for language",
+      "ttsVoiceEmpty": "No voices found for this language on this device.",
+      "summaryVerse": "Repeat verse",
+      "summarySurah": "Repeat surah",
+      "summaryRange": "Range {{start}}–{{end}}",
+      "summaryTts": "Translation TTS",
+      "summaryWithTts": "{{summary}} · TTS"
+    },
+    "actionTafsir": "Tafsir",
+    "openTafsir": "Open tafsir for this ayah",
+    "tafsir": "Tafsir",
+    "tafsirNone": "Select tafsir",
+    "selectTafsirAuthor": "Choose tafsir — {{language}}",
+    "tafsirCount_one": "{{count}} tafsir",
+    "tafsirCount_other": "{{count}} tafsirs",
+    "searchTafsirLanguages": "Search languages…",
+    "searchTafsirAuthors": "Search authors…",
+    "tafsirLoading": "Loading tafsir…",
+    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
+    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -1527,7 +1633,9 @@
     "prayed": "Shalat",
     "partial": "Separuh",
     "missed": "Terlewatkan",
-    "legendHint": "Ketuk any past atau current hari ke tinjau dan adjust it. Hari ini adalah {{date}}."
+    "legendHint": "Ketuk any past atau current hari ke tinjau dan adjust it. Hari ini adalah {{date}}.",
+    "converterRowTitle": "Konverter Hijriah ⟷ Masehi",
+    "converterRowSubtitle": "Konversi tanggal antara kedua kalender"
   },
   "calDay": {
     "today": "Hari ini",
@@ -3392,7 +3500,8 @@
     "assetsHint": "Enter current market values di Anda local currency.",
     "group": {
       "liquid": "Tunai & logam mulia",
-      "investments": "Investasi & bisnis"
+      "investments": "Investasi & bisnis",
+      "property": "Land, property & vehicles"
     },
     "weightSectionTitle": "Calculate gold & silver oleh weight",
     "nisabOverrideTitle": "Override nisab manual",
@@ -3413,14 +3522,34 @@
       "gold": {
         "title": "Atau calculate gold oleh weight",
         "grams": "Gram",
-        "pricePerGram": "Harga/g"
+        "pricePerGram": "Harga/g",
+        "titleShort": "Gold by weight",
+        "amount": "Weight",
+        "pricePerGram24k": "Price/g (24k)"
       },
       "silver": {
         "title": "Atau calculate silver oleh weight",
         "grams": "Gram",
-        "pricePerGram": "Harga/g"
+        "pricePerGram": "Harga/g",
+        "titleShort": "Silver by weight",
+        "amount": "Weight",
+        "pricePerGramFine": "Price/g (fine)"
       },
-      "computed": "Adds {{value}} ke total"
+      "computed": "Adds {{value}} ke total",
+      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
+      "unit": "Weight unit",
+      "karat": "Gold karat",
+      "purity": "Silver purity",
+      "karatLabel": "{{karat}}k",
+      "purityLabel": "{{purity}}",
+      "units": {
+        "g": "Gram",
+        "tola": "Tola",
+        "oz": "Troy oz",
+        "kg": "Kilogram"
+      },
+      "pureGrams": "≈ {{grams}} g pure metal",
+      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
     },
     "field": {
       "cash": "Tunai & tabungan",
@@ -3434,7 +3563,13 @@
       "debts": "Utang jatuh tempo segera",
       "nisab": "Nilai nisab (override)",
       "nisabGoldPrice": "Emas price per gram",
-      "nisabSilverPrice": "Perak price per gram"
+      "nisabSilverPrice": "Perak price per gram",
+      "crypto": "Cryptocurrency",
+      "livingExpenses": "Immediate living expenses",
+      "investmentPlots": "Investment plots (market value)",
+      "installmentPlotsPaid": "Installment plots — amount paid",
+      "investmentProperty": "Investment houses / buildings",
+      "tradeVehicles": "Vehicles for sale / trade"
     },
     "fieldHint": {
       "cash": "Bank accounts, cash pada hand, dan liquid savings.",
@@ -3446,7 +3581,159 @@
       "rentalIncome": "Rental or business profits you still hold — not already spent.",
       "otherAssets": "Cryptocurrency, accessible retirement funds, atau other zakatable harta per Anda ulama.",
       "debts": "Personal loans, credit cards, dan bills due sekarang — tidak long-term mortgage totals unless Anda ulama allows.",
-      "nisab": "Leave blank ke use  computed threshold, atau enter  kustom nisab."
+      "nisab": "Leave blank ke use  computed threshold, atau enter  kustom nisab.",
+      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
+      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
+      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
+      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
+      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
+      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+    },
+    "currency": {
+      "title": "Currency",
+      "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
+      "changeA11y": "Change zakat currency",
+      "pickerTitle": "Select currency",
+      "pickerHint": "{{count}} currencies — search by code or name",
+      "searchPlaceholder": "Search currencies…",
+      "noResults": "No currencies match your search.",
+      "inCurrency": "{{code}}"
+    },
+    "market": {
+      "title": "Live gold & silver",
+      "goldPerGram": "Gold / gram",
+      "silverPerGram": "Silver / gram",
+      "source": "{{source}} · FX {{date}}",
+      "loading": "Fetching live prices…",
+      "error": "Could not load live prices. Enter gold and silver prices manually.",
+      "prefilled": "Nisab and metal prices are prefilled from live rates.",
+      "useLive": "Use live prices again",
+      "useLiveA11y": "Reset to live gold and silver prices",
+      "refreshA11y": "Refresh live market prices",
+      "livePrice": "Live"
+    },
+    "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
+    "bar": {
+      "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
+      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
+      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+    },
+    "toolbar": {
+      "gold": "Gold/g",
+      "silver": "Silver/g",
+      "nisab": "Nisab",
+      "due": "Due"
+    },
+    "breakdown": {
+      "wealth": "Wealth zakat (2.5%): {{value}}",
+      "agriculture": "Crops (ushr): {{value}}",
+      "livestock": "Livestock (cash estimate): {{value}}"
+    },
+    "groupHint": {
+      "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
+      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
+      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+    },
+    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "livestock": {
+      "title": "Livestock (grazing flocks)",
+      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
+      "sheep": "Sheep / goats (heads)",
+      "sheepHint": "Nisab starts at 40 head.",
+      "cattle": "Cattle / buffalo (heads)",
+      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
+      "camels": "Camels (heads)",
+      "camelsHint": "Nisab starts at 5 head.",
+      "valueTitle": "Optional cash values (per head)",
+      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
+      "sheepValue": "Value per sheep/goat",
+      "cattleValue": "Value per cattle head",
+      "camelValue": "Value per camel",
+      "dueTitle": "Animals due (Sunnah estimate)",
+      "cashEstimate": "Cash estimate: {{value}}",
+      "due": {
+        "sheep": "{{count}} sheep/goat",
+        "cattleTabi": "{{count}} tabi' (1-year cattle)",
+        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
+        "bintMakhad": "{{count}} bint makhad (1-year camel)",
+        "bintLabun": "{{count}} bint labun (2-year camel)",
+        "hiqqah": "{{count}} hiqqah (3-year camel)",
+        "jadhah": "{{count}} jadhah (4-year camel)"
+      },
+      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+    },
+    "agriculture": {
+      "title": "Agriculture & harvest (ushr)",
+      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
+      "harvest": "Harvest market value",
+      "harvestHint": "Value of this season's crops or fruit at harvest time.",
+      "irrigation": "Water source",
+      "natural": "Rain / springs (10%)",
+      "irrigated": "Irrigated (5%)",
+      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
+      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
+      "due": "Ushr due: {{value}}",
+      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+    },
+    "numberFormat": {
+      "title": "Number format",
+      "hint": "How thousands and decimals are shown in amounts.",
+      "changeA11y": "Change number format",
+      "pickerTitle": "Number format",
+      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+    },
+    "learnMore": "Learn more",
+    "sectionInfo": {
+      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
+      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
+      "openGuide": "Open full guide",
+      "a11y": "Learn more about {{section}}",
+      "currency": {
+        "title": "Currency & rates",
+        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+      },
+      "liquid": {
+        "title": "Cash & precious metals",
+        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+      },
+      "metals": {
+        "title": "Gold & silver by weight",
+        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+      },
+      "investments": {
+        "title": "Investments & business",
+        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+      },
+      "property": {
+        "title": "Land, property & vehicles",
+        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+      },
+      "livestock": {
+        "title": "Livestock (grazing flocks)",
+        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+      },
+      "agriculture": {
+        "title": "Agriculture & harvest (ushr)",
+        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
+        "localRefLabel": "Qur'an 6:141",
+        "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
+      },
+      "deductions": {
+        "title": "Deductions",
+        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+      },
+      "nisab": {
+        "title": "Nisab threshold",
+        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+      }
+    },
+    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "reset": {
+      "title": "Reset calculator?",
+      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
+      "confirm": "Reset form",
+      "a11y": "Reset zakat calculator form",
+      "hint": "Asks for confirmation, then clears all entered amounts"
     }
   },
   "customAdhkar": {
@@ -3513,6 +3800,15 @@
       "sourceGalleryHint": "Choose an image from your photos",
       "sourceDocument": "Files",
       "sourceDocumentHint": "Pick an image or PDF from your files"
+    },
+    "stt": {
+      "dictate": "Dictate with microphone",
+      "stopDictate": "Stop dictation",
+      "listening": "Listening…",
+      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
+      "unavailable": "Speech recognition is unavailable on this device.",
+      "couldNotHear": "Couldn't hear that — try again or type.",
+      "errorGeneric": "Dictation failed. Try again or type."
     }
   },
   "tahajjud": {
@@ -3601,7 +3897,16 @@
     "level2": "Gelisah",
     "level3": "Cukup hadir",
     "level4": "Fokus",
-    "level5": "Sangat hadir"
+    "level5": "Sangat hadir",
+    "stt": {
+      "dictate": "Dictate with microphone",
+      "stopDictate": "Stop dictation",
+      "listening": "Listening…",
+      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
+      "unavailable": "Speech recognition is unavailable on this device.",
+      "couldNotHear": "Couldn't hear that — try again or type.",
+      "errorGeneric": "Dictation failed. Try again or type."
+    }
   },
   "prayerTuning": {
     "title": "Shalat time tuning",
@@ -3640,7 +3945,8 @@
     "resetConfirmMsg": "Ini akan menghapus centang semua rukun. Progres Anda tidak dapat dipulihkan.",
     "umrahTag": "Umrah",
     "hajjTag": "Haji",
-    "disclaimer": "Daftar periksa praktis, bukan buku fiqih. Ikuti pemandu yang berkompeten untuk hukum dan detail."
+    "disclaimer": "Daftar periksa praktis, bukan buku fiqih. Ikuti pemandu yang berkompeten untuk hukum dan detail.",
+    "prepTag": "Prep"
   },
   "dailyHadith": {
     "eyebrow": "Seri harian",
@@ -4060,5 +4366,180 @@
   },
   "notifications": {
     "adminAnnouncement": "Announcement"
+  },
+  "sahaba": {
+    "eyebrow": "Belajar",
+    "title": "Sahabat",
+    "subtitle": "Profil singkat para sahabat Nabi ﷺ",
+    "intro": "Sahabat adalah generasi yang membawa Islam dari Nabi ﷺ ke seluruh dunia. Profil singkat ini mengikuti gaya lini masa seerah — satu kehidupan, satu pelajaran, dan satu sumber untuk setiap klaim.",
+    "categoryAll": "Semua",
+    "category": {
+      "caliphs": "Khalifah",
+      "ashara": "Ashara Mubasyarah",
+      "family": "Keluarga",
+      "women": "Perempuan",
+      "notable": "Terkemuka"
+    },
+    "noResults": "Belum ada sahabat dalam kategori ini",
+    "readMore": "Ketuk untuk membaca profil lengkap",
+    "disclaimer": "Fakta naratif mengikuti karya seerah dan sejarah klasik; setiap klaim yang terkait riwayat tertentu mencantumkan kitab hadis dan nomornya. Ini adalah konten edukatif umum, bukan peringkat keilmuan.",
+    "quickLinksTitle": "Jelajahi",
+    "quickCaliphsHint": "Mulai dengan Abu Bakar, khalifah pertama",
+    "quickAsharaHint": "Sepuluh sahabat yang dijanjikan Surga",
+    "quickWomenHint": "Khadijah dan Ibunda Kaum Beriman",
+    "quickBattles": "Sahabat dalam pertempuran",
+    "quickBattlesHint": "Profil kampanye dari panduan Peperangan",
+    "countCardTitle": "Direktori sahabat",
+    "countCardHint": "{{count}} profil edukatif terverifikasi",
+    "categoryHint": {
+      "caliphs": "Empat Khalifah yang Terbimbing",
+      "ashara": "Sepuluh sahabat yang dijanjikan Surga",
+      "family": "Keluarga dekat Nabi ﷺ",
+      "women": "Perempuan terkemuka pada masa awal umat",
+      "notable": "Sahabat lain yang banyak dikenal"
+    },
+    "exploreTitle": "Lanjutkan belajar",
+    "exploreBattles": "Tokoh dalam Peperangan",
+    "exploreBattlesHint": "Sahabat yang tampil dalam kampanye militer",
+    "exploreSeerah": "Lini masa Seerah",
+    "exploreSeerahHint": "Kehidupan Nabi ﷺ melalui tonggak-tonggak penting",
+    "exploreHistory": "Sejarah Islam awal",
+    "exploreHistoryHint": "Dari wafatnya Nabi ﷺ hingga akhir masa Khulafa Rasyidin",
+    "profileBodyTitle": "Kehidupan dan pelajaran",
+    "relatedTitle": "Panduan terkait",
+    "linkBattlesFigures": "Lihat sahabat di Peperangan",
+    "linkSeerah": "Buka lini masa Seerah",
+    "linkHistory": "Buka sejarah Islam awal",
+    "openProfileHint": "Buka profil lengkap sahabat",
+    "notFound": "Sahabat tidak ditemukan"
+  },
+  "history": {
+    "eyebrow": "Belajar",
+    "title": "Sejarah Islam awal",
+    "subtitle": "Dari wafatnya Nabi ﷺ hingga akhir Khilafah Rasyidin",
+    "ceBadge": "{{year}} M",
+    "ahBadge": "{{ah}} H",
+    "era": {
+      "prophetic-close": "Nabi ﷺ",
+      "abu-bakr": "Abu Bakar",
+      "umar": "Umar",
+      "uthman": "Utsman",
+      "ali": "Ali"
+    },
+    "disclaimer": "Terbatas pada 11–41 H (632–661 M) — dari akhir kehidupan Nabi ﷺ hingga akhir Khilafah Rasyidin. Narasi politik dan militer mengikuti karya sejarah klasik; periode Utsman/Ali disajikan tanpa memutuskan perselisihan teologis selanjutnya."
+  },
+  "laylatAlQadr": {
+    "eyebrow": "Belajar",
+    "title": "Lailatul Qadar",
+    "subtitle": "Malam Kemuliaan — lebih baik dari seribu bulan",
+    "intro": "Lailatul Qadar tersembunyi di antara malam-malam ganjil sepuluh hari terakhir Ramadan, tidak ditetapkan pada satu tanggal tertentu. Carilah dengan ibadah yang tulus di semua malam itu, bukan hanya menebak satu malam.",
+    "section": {
+      "virtues": "Keutamaannya",
+      "when": "Kapan mencarinya",
+      "dua": "Apa yang diucapkan",
+      "ibadah": "Cara menghabiskan malam itu",
+      "reminders": "Pengingat"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Panduan ini tidak mendukung satu tanggal kalender tetap atau 'tanda-tanda' rakyat mana pun untuk mengenali malam itu — hanya apa yang dinyatakan Al-Qur'an dan hadis yang autentik.",
+    "continueInApp": "Lanjutkan di Munib"
+  },
+  "eid": {
+    "eyebrow": "Belajar",
+    "title": "Panduan Idul Fitri & Idul Adha",
+    "subtitle": "Idul Fitri dan Idul Adha — salat, sunnah, dan hukum-hukumnya",
+    "intro": "Kedua hari raya dari Al-Qur'an dan hadis autentik — cara melaksanakan salat Id, Zakat Fitrah, kurban (udhiyah), dan amalan sunnah hari itu.",
+    "section": {
+      "fitr": "Idul Fitri",
+      "adha": "Idul Adha",
+      "prayer": "Salat Id",
+      "sunnah": "Amalan sunnah",
+      "zakat-fitr": "Zakat Fitrah",
+      "udhiyah": "Kurban (Udhiyah)"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Ulasan edukatif — bukan fatwa. Ketika mazhab berbeda pendapat (seperti jumlah takbir tambahan), kedua pandangan disajikan; ikuti imam Anda atau ulama setempat yang kompeten.",
+    "continueInApp": "Lanjutkan di Munib"
+  },
+  "ruqyah": {
+    "eyebrow": "Belajar",
+    "title": "Ruqyah",
+    "subtitle": "Penyembuhan spiritual dari Al-Qur'an dan sunnah Nabi",
+    "intro": "Ruqyah adalah membacakan Al-Qur'an, Nama-nama Allah, atau doa-doa Nabi yang autentik untuk penyembuhan dan perlindungan — bukan pengganti salat atau perawatan medis.",
+    "section": {
+      "basics": "Dasar-dasar",
+      "verses": "Ayat-ayat kunci",
+      "daily-protection": "Perlindungan harian",
+      "reminders": "Pengingat"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Ruqyah adalah praktik spiritual, bukan pengobatan medis. Ini tidak menggantikan pemeriksaan ke dokter yang kompeten, maupun salat lima waktu. Untuk gangguan yang serius atau terus-menerus, konsultasikan dengan ulama dan tenaga medis profesional.",
+    "continueInApp": "Lanjutkan di Munib"
+  },
+  "newMuslim": {
+    "eyebrow": "Belajar",
+    "title": "Panduan Muslim Baru",
+    "subtitle": "Awal yang hangat dan praktis untuk hari-hari dan minggu-minggu pertama",
+    "intro": "Selamat datang dalam Islam. Panduan ini membahas syahadat, lima pilar Islam, dasar-dasar akidah, dan pengenalan pertama tentang salat, lalu mengarahkan Anda ke panduan Salat, Akidah, dan Al-Qur'an yang lebih lengkap di aplikasi ini.",
+    "section": {
+      "start": "Memulai",
+      "pillars": "Lima pilar Islam",
+      "faith": "Dasar-dasar akidah",
+      "prayer": "Salat pertama Anda",
+      "next-steps": "Langkah selanjutnya",
+      "faq": "Pertanyaan umum"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Panduan awal yang sederhana namun benar, hanya mencakup pokok-pokok yang disepakati semua mazhab. Untuk situasi khusus Anda, tanyakan kepada imam atau guru setempat.",
+    "continueInApp": "Lanjutkan di Munib"
+  },
+  "finance": {
+    "eyebrow": "Belajar",
+    "title": "Keuangan Islam",
+    "subtitle": "Riba, perdagangan yang adil, sedekah, dan takaful",
+    "intro": "Pengantar edukatif tentang kerangka etika yang dibawa Islam pada urusan harta — larangan riba, perdagangan yang adil, zakat dan sedekah, serta takaful (pembagian risiko secara kooperatif).",
+    "section": {
+      "principles": "Prinsip-prinsip",
+      "riba": "Riba (bunga)",
+      "trade": "Perdagangan yang adil",
+      "giving": "Memberi",
+      "takaful": "Takaful",
+      "faq": "Pertanyaan umum"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Edukasi umum, bukan nasihat keuangan atau fatwa. Penyaring dana, produk tertentu, dan hukum atas kontrak Anda sendiri memerlukan ulama atau lembaga keuangan Islam yang kompeten dan bersertifikat.",
+    "continueInApp": "Lanjutkan di Munib"
+  },
+  "dateConverter": {
+    "eyebrow": "Kalender",
+    "title": "Konverter tanggal",
+    "subtitle": "Mengonversi antara kalender Hijriah dan Masehi",
+    "intro": "Masukkan tanggal pada salah satu kalender untuk melihat kesetaraannya pada kalender lain, dihitung secara offline menggunakan algoritma tabular Kuwait.",
+    "toHijri": "Masehi → Hijriah",
+    "toGregorian": "Hijriah → Masehi",
+    "gregorianDateLabel": "Tanggal Masehi",
+    "hijriDateLabel": "Tanggal Hijriah",
+    "day": "Hari",
+    "month": "Bulan",
+    "year": "Tahun",
+    "useToday": "Gunakan hari ini",
+    "invalidDate": "Masukkan tanggal yang valid",
+    "disclaimer": "Ini adalah perkiraan aritmetika ('algoritma tabular Kuwait') dan dapat berbeda satu hari dari pengumuman rukyat lokal — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
+    "directionTitle": "Conversion direction",
+    "resultFrom": "From {{date}}",
+    "quickLinksTitle": "Related",
+    "quickCalendar": "Worship calendar",
+    "quickCalendarHint": "Browse months with your prayer log",
+    "quickEvents": "Islamic events",
+    "quickEventsHint": "Upcoming dates on the Hijri calendar",
+    "quickRamadan": "Ramadan",
+    "quickRamadanHint": "Fasting times and your fasting log",
+    "quickHistory": "Early history",
+    "quickHistoryHint": "Rashidun timeline with Hijri years",
+    "exploreTitle": "Continue learning",
+    "exploreCalendar": "Open the calendar",
+    "exploreCalendarHint": "See worship history day by day",
+    "exploreEvents": "Open Islamic events",
+    "exploreEventsHint": "Milestones and observances ahead"
   }
 }

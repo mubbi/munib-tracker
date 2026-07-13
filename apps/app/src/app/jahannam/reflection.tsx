@@ -14,8 +14,9 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJahannamReflections } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamReflections } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -60,6 +61,7 @@ function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
 export default function JahannamReflectionScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureJahannamContent);
   const reflections = getJahannamReflections();
 
   return (

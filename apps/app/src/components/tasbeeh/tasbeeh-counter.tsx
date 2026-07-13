@@ -221,7 +221,7 @@ function TargetModeBar({
   onSelectMode: (target: number) => void;
   onCustom?: () => void;
 }) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const isCustom =
     onCustom && target > 0 && !modes.some((mode) => mode.target === target && mode.target > 0);
@@ -268,7 +268,7 @@ function TargetModeBar({
           style={[
             styles.modeThumb,
             segmentedThumbAnchor(pad, rtl),
-            { width: segmentWidth, backgroundColor: colors.card, pointerEvents: "none" },
+            { width: segmentWidth, backgroundColor: tokens.segmentThumb, pointerEvents: "none" },
             thumbStyle,
           ]}
         />

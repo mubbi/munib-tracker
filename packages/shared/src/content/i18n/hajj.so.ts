@@ -208,4 +208,103 @@ export const HAJJ_GUIDE_SECTIONS_SO: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Inta aadan tagin",
+    title: "Fiisada & diiwaangelinta",
+    summary:
+      "Sida xujaajta ay ku diiwaangeliyaan oo ay ku helaan fiisadda Xajka ama Cumrada iyada oo la maro qaybaha rasmiga ah.",
+    steps: [
+      {
+        title: "Barnaamijka Nusuk",
+        body: "Nusuk (nusuk.sa) waa barnaamijka rasmiga ah ee Sacuudi Carabiya ee Xajka iyo Cumrada — waxaa loo isticmaalaa in la qabsado fiisada, hoyga, gaadiidka, iyo xirmooyinka dalxiiska ee la diiwaan geliyay. Isticmaal oo keliya Nusuk ama shirkado shati leh oo ka wada shaqeeya; dhexdhexaadiyayaal aan rasmi ahayn waa isha caadiga ah ee khiyaanada iyo safarrada la joojiyo.",
+      },
+      {
+        title: "Fiisadda Xajka & qandaraaska waddanka",
+        body: "Waddan kastaa waxa ay heli sanad walba qandaraas Xaj — sidaas darteed inta badan xujaajta waxay ka codsadaan hay'adda Xajka ee waddankooda ama wakiil deegaan oo shati leh, halkii ay si gaar ah ku codsan lahaayeen. Codso hore sanadka ay xilliga Xajku furmo — qandaraaska iyo booska xirmooyinka way buuxsamaan bilo ka hor.",
+      },
+      {
+        title: "Fiisadda Cumrada",
+        body: "Si ka duwan Xajka, Cumradu ma laha qandaraas oo waa la qaban karaa wakhti kasta oo sanadka. Inta badan dadka waddan waxay ka codsan karaan fiisadda Cumrada si toos ah Nusuk ama wakiillo dalxiis oo la ansixiyay, sida caadiga ah oo lagu daray dallacaad diyaarad iyo huteel.",
+      },
+    ],
+  },
+  {
+    day: "Inta aadan tagin",
+    title: "Liiska alaabta",
+    summary: "Waxyaabaha wax ku ool ah oo lagu qaadan karo ka hor safarka.",
+    steps: [
+      {
+        title: "Dharka ixraamka",
+        body: "Ragga waa in ay qaataan ugu yaraan laba xirmo oo ah dhar ixraam aan la tolin (maro hoose iyo maro sare) iyo suun ixraam ballaadhan oo aan meran ahayn oo loogu talagalay lacagta iyo dukumentiyada. Dumarku waa in ay qaataan dhar sare oo furan, edeb leh, oo aan la qurxinayn.",
+      },
+      {
+        title: "Kabaha & raaxada",
+        body: "Kabo furan oo si fudud loo xidho oo loo furo aad ayey muhiim u tahay, maadaama kabaha daboola qofka ay ka mamnuucan yihiin ixraamka ragga. Qaado boorso fudud, dhalo biyo oo dib loo buuxin karo, iyo sujaad yar oo loo isticmaalo sugitaanka dheer.",
+      },
+      {
+        title: "Alaabta nadaafadda ee aan udgoonta lahayn",
+        body: "Qaado saabuun aan udgoon lahayn, subag qorraxda, iyo tishuu qoyan — alaabta udgoonta leh way mamnuuc yihiin ixraamka. Qalab caafimaad oo yar, daawooyin gaar ah oo la socda qoraal dhakhtar, iyo caajimo dalool cudur waa mudan yihiin miisaanka dheeraadka ah maadaama socodku badan yahay.",
+      },
+      {
+        title: "Dukumentiyada & waxyaabaha lagama maarmaanka ah",
+        body: "Ku hay baasaboor, daabacaadda fiisadda, shatiga tallaalka (tallaalka daacuunka meningitis inta badan waa loo baahan yahay), iyo lambarrada degdegga ah boorso khafiif ah oo lagu xidho hoosta dharka. Baytari qaadi karo iyo simka deegaanka ama eSIM way fududeeyaan dhaqdhaqaaqa meelaha aad u buuxa.",
+      },
+    ],
+  },
+  {
+    day: "Inta aadan tagin",
+    title: "Tilmaanta meelaha muqadaska ah",
+    summary:
+      "Xusuus-qorayaal wax ku ool ah oo kooban oo ku saabsan meelaha weyn ee aad booqan doonto.",
+    steps: [
+      {
+        title: "Masjidka al-Xaraam, Makkah",
+        body: "Masjidka Weyn ee ku wareegsan Kacbada — meesha tawaafka iyo sacyiga. Waxa uu shaqeeyaa 24 saacadood; sug dadaal weyn oo aad u badan agagaarka Dhagaxa Madow iyo intii ay socdaan shanta salaadood ee maalinlaha ah, gaar ahaan tobankii habeen ee ugu dambeeya ee Ramadaan iyo maalmaha Xajka.",
+        location: "Makkah",
+      },
+      {
+        title: "Masjidka an-Nabawi, Madiino",
+        body: "Masjidka Nabiga ﷺ, meesha ay ku taal ar-Rawdah iyo meesha uu ku aasanyahay, ma aha qayb ka mid ah Xajka lafteedu laakiin ku dhawaad dhammaan xujaajta way booqdaan Madiino ka hor ama ka dib Xajka. Gelitaanka ar-Rawdah waxay u baahan tahay fasax wakhti go'an oo lagu qabsado Nusuk ama abka Rawdah.",
+        location: "Madiino",
+      },
+      {
+        title: "Mina",
+        body: "Magaalada teendhooyinka ee dhawr kiiliyoo meetir ka ah Makkah oo xujaajta ku qaataan habeenka 8, 11, 12, (iyo 13) Dul-Hijjah. Xeryaha teendhooyinka qaboojiya oo dabka ka ilaaliya waxaa habeeyo shirkadaha dalxiiska; sug adeegyo la wadaago oo aasaasi ah iyo socod dheer oo loo maro Jamaraat.",
+        location: "Mina",
+      },
+      {
+        title: "Cerafaat",
+        body: "Bannaan furan oo qiyaastii 20km ka ah Makkah, meesha rukunka Xajka ugu muhiimsan — istaaga (wuquuf) ee 9-ka Dul-Hijjah. Waxa la dhisay qaab hooseeya iyo qodxeed biyo ah, laakiin kulaylka maalinlaha aad ayuu u xun yahay; biyo cabidda iyo ilaalinta qorraxda aad ayey muhiim u yihiin.",
+        location: "Cerafaat",
+      },
+      {
+        title: "Muzdalifah",
+        body: "Aag furan oo u dhexeeya Cerafaat iyo Mina oo xujaajta ku qaataan habeenka 9-10 Dul-Hijjah hoosta cirka furan iyagoo ururinaya dhagxan yaryar loogu tuurayo jamaraatka. Adeegyada si ula kac ah ayaa loo yareeyay — qaado sujaad iyo u dhar qorsheeya hawada habeenka oo qabow.",
+        location: "Muzdalifah",
+      },
+    ],
+  },
+  {
+    day: "Inta aadan tagin",
+    title: "Kheyraadka rasmiga ah",
+    summary: "Meesha laga heli karo macluumaad rasmi oo la isku halayn karo oo cusub.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Furaha internetka iyo abka rasmiga ah ee Wasaaradda Xajka & Cumrada ee Sacuudiga ee fiisada, xirmooyinka la ansixiyay, oggolaanshaha booqashada ar-Rawdah, iyo hagitaanka dadaalka iyo gaadiidka wakhtiga dhabta ah — meesha ugu horeysa ee wax kasta oo su'aal rasmi ah.",
+      },
+      {
+        title: "Hay'adda Xajka ee waddankaaga",
+        body: "Inta badan waddammada waxay leeyihiin hay'ad Xaj oo qaran ama xafiis wasaarad oo maamula qandaraaska sannadlaha ah, hubiya wakiillada deegaanka, oo daabaca jadwalka duulista iyo shuruudaha caafimaadka — hubi ka hor inta aan lagu dallacin wakiil gaar ah.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Boggga dalxiiska rasmiga ah ee dawladdu wuxuu ka kooban yahay shuruudaha soo gelitaanka, macluumaadka fiisadda elektaroonig ah ee dadka waddan ee u qalma, iyo talooyin dalxiis oo wax ku ool ah oo ku saabsan Makkah, Madiino, iyo safarrada kale ee gudaha Sacuudi Carabiya.",
+      },
+      {
+        title: "Xaqiiji ka hor inta aad bixin",
+        body: "Ka dallac oo keliya shirkadaha ku qoran Nusuk ama hay'adda Xajka ee waddankaaga. Haddii dallacaadu ay u muuqato mid aad u jaban ama dhexdhexaadiyuhu uu weyddiisto lacag bixin ka baxsan qaybaha rasmiga ah, u qaado calaamad digniin oo si toos ah ugu xaqiiji furaha wasaaradda.",
+      },
+    ],
+  },
 ];

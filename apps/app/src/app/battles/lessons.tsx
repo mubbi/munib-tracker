@@ -10,14 +10,16 @@ import { Card } from "@/components/ui/card";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getBattlesLessonCards } from "@/lib/battles";
+import { ensureBattlesContent, getBattlesLessonCards } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesLessonsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  useEnsureContent(ensureBattlesContent);
   const cards = getBattlesLessonCards();
 
   return (

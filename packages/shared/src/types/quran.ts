@@ -42,3 +42,48 @@ export interface AyahText {
   editionId: string;
   text: string;
 }
+
+/** Tajweed color-rule ids used by the ayah-study legend and colored Arabic renderer. */
+export type TajweedRuleId =
+  | "ham_wasl"
+  | "laam_shamsiyah"
+  | "slnt"
+  | "madda_normal"
+  | "madda_permissible"
+  | "madda_necessary"
+  | "madda_obligatory"
+  | "qalqalah"
+  | "ikhafa"
+  | "ikhafa_shafawi"
+  | "iqlab"
+  | "idgham_ghunnah"
+  | "idgham_wo_ghunnah"
+  | "idgham_shafawi"
+  | "ghunnah";
+
+/** A contiguous run of Arabic text sharing one tajweed rule (or none). */
+export interface TajweedSegment {
+  text: string;
+  rule?: TajweedRuleId;
+}
+
+/** One word of a verse for the ayah-study word-by-word view. */
+export interface QuranWord {
+  arabic: string;
+  translit: string;
+  gloss: string;
+  audioUrl?: string;
+}
+
+/** Quran playback repeat plan (ayah-study / mini-player). */
+export type QuranRepeatMode = "off" | "verse" | "range" | "surah";
+
+export interface QuranRepeatPlan {
+  mode: QuranRepeatMode;
+  /** Inclusive 1-based ayah numbers when mode is `"range"`. */
+  start?: number;
+  end?: number;
+}
+
+/** Whether to speak the translation after each Arabic ayah via native TTS. */
+export type QuranTranslationAudio = "off" | "after";

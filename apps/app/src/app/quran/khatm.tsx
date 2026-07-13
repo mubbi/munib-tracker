@@ -1085,7 +1085,6 @@ const styles = StyleSheet.create({
   motivationHeaderCopy: { flex: 1, gap: Spacing.one, paddingTop: 2 },
   motivationArabic: {
     writingDirection: "rtl",
-    textAlign: "right",
     marginBottom: Spacing.two,
   },
   motivationBody: { marginBottom: Spacing.one },

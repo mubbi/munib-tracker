@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
@@ -17,6 +17,7 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -42,6 +43,7 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
   conditions: { ios: "checklist", android: "checklist", web: "checklist" },
   taharah: { ios: "drop.fill", android: "water_drop", web: "water_drop" },
   wudu: { ios: "hands.sparkles.fill", android: "volunteer_activism", web: "volunteer_activism" },
+  tayammum: { ios: "hand.raised.fill", android: "back_hand", web: "back_hand" },
   clothing: { ios: "tshirt.fill", android: "checkroom", web: "checkroom" },
   "prayer-times": { ios: "clock.fill", android: "schedule", web: "schedule" },
   qiblah: { ios: "location.north.fill", android: "explore", web: "explore" },
@@ -71,17 +73,18 @@ export default function SalahGuideScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureSalahGuideProgressLoaded();
-  const [, setContentLoaded] = useState(false);
-  useEffect(() => {
-    void ensureSalahGuideContent().then(() => setContentLoaded(true));
-  }, []);
+  const { version: contentVersion } = useEnsureContent(ensureSalahGuideContent);
   const completedCount = useSalahGuideCompletedCount();
-  const lessonTotal = getSalahGuideLessonCount();
-  // Recompute per locale so translated topic titles/summaries render on switch.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const TOPICS_BY_JOURNEY = useMemo(() => getSalahGuideTopicsByJourney(), [i18n.language]);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const FEATURED_PHRASE = useMemo(() => getSalahGuidePhrases()[0], [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
+  const lessonTotal = useMemo(() => getSalahGuideLessonCount(), [contentVersion]);
+  // Recompute when locale changes or the lazy content chunk finishes loading.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const TOPICS_BY_JOURNEY = useMemo(
+    () => getSalahGuideTopicsByJourney(),
+    [i18n.language, contentVersion],
+  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const FEATURED_PHRASE = useMemo(() => getSalahGuidePhrases()[0], [i18n.language, contentVersion]);
 
   const quickLinks = useMemo(
     () => [
@@ -166,7 +169,7 @@ export default function SalahGuideScreen() {
 
         {JOURNEY_ORDER.map((phase) => {
           const topics = TOPICS_BY_JOURNEY[phase];
-          if (!topics.length) return null;
+          if (!topics?.length) return null;
           return (
             <Card key={phase} padding="three">
               <SectionHeader

@@ -10,14 +10,16 @@ import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideReadingLevels } from "@/lib/quran-guide";
+import { ensureQuranGuideContent, getQuranGuideReadingLevels } from "@/lib/quran-guide";
 
 export default function LearnQuranLearnToReadScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  useEnsureContent(ensureQuranGuideContent);
   const levels = getQuranGuideReadingLevels();
 
   return (

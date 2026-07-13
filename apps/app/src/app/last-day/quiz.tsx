@@ -7,14 +7,16 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Button } from "@/components/ui/button";
 import { Stagger } from "@/components/ui/stagger";
-import { getLastDayQuiz } from "@/lib/last-day";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureLastDayContent, getLastDayQuiz } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function LastDayQuizScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const questions = useMemo(() => getLastDayQuiz(), [i18n.language]);
+  const { version: contentVersion } = useEnsureContent(ensureLastDayContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
+  const questions = useMemo(() => getLastDayQuiz(), [i18n.language, contentVersion]);
 
   return (
     <ScreenLayout

@@ -34,14 +34,26 @@ export function getSalahGuideTopic(id: string | undefined): SalahGuideTopic | un
   return getSalahGuideTopics().find((topic) => topic.id === id);
 }
 
+/** Fallback when the lazy content chunk has not loaded yet — matches SALAH_GUIDE_JOURNEY_ORDER. */
+const FALLBACK_JOURNEY_ORDER: readonly SalahGuideJourney[] = [
+  "why",
+  "prepare",
+  "learn",
+  "practice",
+  "perfect",
+  "consistency",
+];
+
 /** Topics grouped by learning journey phase. */
 export function getSalahGuideTopicsByJourney(): Record<SalahGuideJourney, SalahGuideTopic[]> {
+  const order = content().SALAH_GUIDE_JOURNEY_ORDER ?? FALLBACK_JOURNEY_ORDER;
   const grouped = Object.fromEntries(
-    (content().SALAH_GUIDE_JOURNEY_ORDER ?? []).map((phase) => [phase, [] as SalahGuideTopic[]]),
+    order.map((phase) => [phase, [] as SalahGuideTopic[]]),
   ) as Record<SalahGuideJourney, SalahGuideTopic[]>;
 
   for (const topic of getSalahGuideTopics()) {
-    grouped[topic.journey].push(topic);
+    const bucket = grouped[topic.journey];
+    if (bucket) bucket.push(topic);
   }
   return grouped;
 }

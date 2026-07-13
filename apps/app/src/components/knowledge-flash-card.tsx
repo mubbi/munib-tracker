@@ -88,7 +88,10 @@ function KnowledgeCardBody({
       />
       <View style={styles.copy}>
         {card.arabic ? (
-          <ThemedText type="arabic" style={[styles.arabic, { color: palette.text }]}>
+          <ThemedText
+            type="arabic"
+            style={[styles.arabic, arabicReadingLayout(22), { color: palette.text }]}
+          >
             {card.arabic}
           </ThemedText>
         ) : null}
@@ -175,9 +178,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: Spacing.one + 2,
   },
-  arabic: {
-    ...arabicReadingLayout(22),
-  },
+  arabic: {},
   body: {
     lineHeight: 22,
   },

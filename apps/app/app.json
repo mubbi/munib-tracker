@@ -111,6 +111,13 @@
           "enableBackgroundPlayback": true
         }
       ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Munib Tracker uses the microphone so you can dictate custom adhkar.",
+          "speechRecognitionPermission": "Munib Tracker uses speech recognition so you can dictate custom adhkar."
+        }
+      ],
       "./plugins/with-android-build-hygiene.js",
       "./plugins/withAndroidReleaseSigning.cjs",
       [

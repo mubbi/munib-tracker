@@ -12,7 +12,8 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getLastDayLessonCount } from "@/lib/last-day";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureLastDayContent, getLastDayLessonCount } from "@/lib/last-day";
 import { buildLastDayProgress } from "@/lib/last-day-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -26,13 +27,15 @@ export default function LastDayProgressScreen() {
   useEnsureLastDayProgressLoaded();
   const completedCount = useLastDayCompletedCount();
 
+  const { version: contentVersion } = useEnsureContent(ensureLastDayContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildLastDayProgress({
         lessonsCompleted: completedCount,
         lessonsTotal: getLastDayLessonCount(),
       }),
-    [completedCount],
+    [completedCount, contentVersion],
   );
 
   return (

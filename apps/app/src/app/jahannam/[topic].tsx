@@ -7,7 +7,8 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { getJahannamTopic, getJahannamTopics } from "@/lib/jahannam";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureJahannamContent, getJahannamTopic, getJahannamTopics } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
@@ -19,6 +20,7 @@ export default function JahannamTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent);
   const topic = getJahannamTopic(topicId);
 
   const detailPath = topic ? `/jahannam/${topic.id}` : "/jahannam";
@@ -57,7 +59,7 @@ export default function JahannamTopicScreen() {
             : undefined
         }
       />
-      {!topic ? (
+      {!contentReady ? null : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("jahannam.notFound")}

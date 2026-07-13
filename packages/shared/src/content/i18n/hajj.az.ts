@@ -208,4 +208,101 @@ export const HAJJ_GUIDE_SECTIONS_AZ: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Getməmişdən əvvəl",
+    title: "Viza və qeydiyyat",
+    summary: "Zəvvarlar rəsmi kanallar vasitəsilə Həcc və ya Ümrə vizasını necə əldə edirlər.",
+    steps: [
+      {
+        title: "Nusuk platforması",
+        body: "Nusuk (nusuk.sa) Səudiyyə Ərəbistanının Həcc və Ümrə üçün rəsmi platformasıdır - viza, yaşayış, nəqliyyat və qeydiyyatdan keçmiş tur paketlərini sifariş etmək üçün istifadə olunur. Yalnız Nusuk-u və ya onun vasitəsilə lisenziyalı agentlikləri istifadə edin; qeyri-rəsmi vasitəçilər çox vaxt fırıldaq və ləğv olunmuş səfərlərə səbəb olur.",
+      },
+      {
+        title: "Həcc vizaları və ölkə kvotaları",
+        body: "Hər ölkə illik Həcc kvotası alır, ona görə də əksər zəvvarlar fərdi müraciət etmək əvəzinə öz milli Həcc idarəsi və ya lisenziyalı yerli agent vasitəsilə müraciət edirlər. Həcc mövsümü açılan kimi tez müraciət edin - kvotalar və paket yerləri aylarla əvvəl dolur.",
+      },
+      {
+        title: "Ümrə vizaları",
+        body: "Həccdən fərqli olaraq, Ümrənin kvotası yoxdur və ilin istənilən vaxtında icra edilə bilər. Əksər millətlər birbaşa Nusuk və ya təsdiqlənmiş səyahət agenti vasitəsilə Ümrə vizası üçün müraciət edə bilər, adətən uçuş və otel sifarişi ilə birlikdə.",
+      },
+    ],
+  },
+  {
+    day: "Getməmişdən əvvəl",
+    title: "Yükləmə siyahısı",
+    summary: "Səfərdən əvvəl yükləməli olduğunuz praktiki zəruri əşyalar.",
+    steps: [
+      {
+        title: "İhram geyimləri",
+        body: "Kişilər ən azı iki dəst tikilməmiş ihram geyimi (bel örtüyü və çiyin örtüyü) və pul və sənədlər üçün geniş, dəri olmayan ihram kəməri götürməlidirlər. Qadınlar geniş, təvazökar, bəzəksiz üst geyim götürməlidirlər.",
+      },
+      {
+        title: "Ayaqqabı və rahatlıq",
+        body: "Asanlıqla geyilib çıxarıla bilən açıq sandallar vacibdir, çünki kişilər üçün ihramda topuqları örtən ayaqqabılar qadağandır. Yüngül çanta, doldurulan su qabı və uzun gözləmələr üçün kiçik namaz xalçası götürün.",
+      },
+      {
+        title: "Ətirsiz gigiyena vasitələri",
+        body: "Ətirsiz sabun, günəşdən qoruyucu vasitə və salfetlər götürün - ihramda ətirli məhsullar qadağandır. Yığcam sanitar çantası, həkim qeydi ilə şəxsi dərmanlar və qabarcıq üçün plasterlər çoxlu piyada gedəcəyinizə görə əlavə çəkiyə dəyər.",
+      },
+      {
+        title: "Sənədlər və vacib əşyalar",
+        body: "Pasportunuzu, viza çıxarışını, peyvənd sertifikatını (adətən meningit peyvəndi tələb olunur) və təcili əlaqə nömrələrini paltarın altında geyilən yastı çantada saxlayın. Portativ enerji bankı və yerli SIM və ya eSIM izdihamlı yerlərdə naviqasiyanı çox asanlaşdırır.",
+      },
+    ],
+  },
+  {
+    day: "Getməmişdən əvvəl",
+    title: "Müqəddəs yerlər bələdçisi",
+    summary: "Ziyarət edəcəyiniz əsas yerlər haqqında qısa praktiki qeydlər.",
+    steps: [
+      {
+        title: "Məscidül-Həram, Məkkə",
+        body: "Kəbənin ətrafındaki Böyük Məscid - təvaf və səyin yeri. O, sutka boyu işləyir; Qara Daş yaxınlığında və gündəlik beş namaz zamanı, xüsusən Ramazanın son on gecəsində və Həcc günlərində çox sıxlıq gözləyin.",
+        location: "Məkkə",
+      },
+      {
+        title: "Məscidün-Nəbi, Mədinə",
+        body: "Peyğəmbərin ﷺ məscidi, Rövzəni və onun dəfn yerini özündə saxlayır, Həccin özünün hissəsi deyil, lakin demək olar ki, bütün zəvvarlar Həccdən əvvəl və ya sonra Mədinəni ziyarət edirlər. Rövzəyə giriş Nusuk və ya Rövzə tətbiqi vasitəsilə vaxtı təyin olunmuş giriş vərəqəsi tələb edir.",
+        location: "Mədinə",
+      },
+      {
+        title: "Mina",
+        body: "Məkkədən bir neçə kilometr aralı çadır şəhəri, zəvvarların Zilhiccənin 8, 11, 12 (və 13-cü) gecələrini keçirdiyi yer. Kondisionerli, yanmaya davamlı çadır düşərgələri tur operatoru tərəfindən təyin olunur; sadə paylaşılan avadanlıqlar və Cəmərata gedən uzun yol gözləyin.",
+        location: "Mina",
+      },
+      {
+        title: "Ərəfat",
+        body: "Məkkədən təxminən 20 km aralıda açıq düzənlik, Həccin ən vacib ayini - Zilhiccənin 9-da dayanma - yeri. Kölgəlik qurğular və su nöqtələri var, lakin gündüz istisi çox şiddətlidir; su içmək və gündən qorunma vacibdir.",
+        location: "Ərəfat",
+      },
+      {
+        title: "Müzdəlifə",
+        body: "Ərəfat və Mina arasında açıq ərazi, zəvvarların Zilhiccənin 9-10-u gecəsini açıq səma altında keçirib rəcm üçün daş yığdıqları yer. Avadanlıqlar qəsdən sadə saxlanılıb - xalça götürün və gecə soyuğuna uyğun geyinin.",
+        location: "Müzdəlifə",
+      },
+    ],
+  },
+  {
+    day: "Getməmişdən əvvəl",
+    title: "Rəsmi mənbələr",
+    summary: "Etibarlı, ən son rəsmi məlumatı haradan tapmaq olar.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Səudiyyə Həcc və Ümrə Nazirliyinin viza, akkreditə olunmuş paketlər, Rövzə ziyarət icazələri və real vaxtda izdiham və nəqliyyat təlimatları üçün rəsmi portalı və tətbiqi - hər hansı rəsmi sual üçün ilk mərhələ.",
+      },
+      {
+        title: "Öz ölkənizin Həcc idarəsi",
+        body: "Əksər ölkələr illik kvotayı idarə edən, yerli agentləri yoxlayan və yola düşmə cədvəllərini və sağlamlıq tələblərini dərc edən milli Həcc idarəsi və ya nazirlik ofisi işlədir - hər hansı şəxsi agent vasitəsilə sifariş etməzdən əvvəl yoxlayın.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Krallığın rəsmi turizm saytı giriş tələblərini, uyğun millətlər üçün elektron viza məlumatını və Məkkə, Mədinə və Səudiyyə Ərəbistanı daxilində davamlı səyahət üçün praktiki səyahət məsləhətlərini ehtiva edir.",
+      },
+      {
+        title: "Ödəniş etməzdən əvvəl yoxlayın",
+        body: "Yalnız Nusuk-da qeydiyyatdan keçmiş agentliklər və ya öz milli Həcc idarəniz vasitəsilə sifariş edin. Əgər sövdələşmə qeyri-adi ucuz görünürsə və ya vasitəçi rəsmi kanallardan kənar ödəniş tələb edirsə, bunu təhlükə işarəsi kimi qəbul edin və birbaşa nazirlik portalı ilə yoxlayın.",
+      },
+    ],
+  },
 ];

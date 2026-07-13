@@ -1,4 +1,5 @@
 import { QURAN_TOTAL_PAGES } from "@munib-tracker/shared/constants/quran";
+import { getTafsirEdition } from "@munib-tracker/shared/i18n";
 import type { QuranReaderLayout } from "@munib-tracker/shared/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -16,6 +17,7 @@ import { PagePickerSheet } from "@/components/quran/page-picker-sheet";
 import { PageReaderFooter } from "@/components/quran/page-reader-footer";
 import PagerView, { type PagerViewHandle } from "@/components/quran/pager-view";
 import { QuranReadingToolbar } from "@/components/quran/reading-toolbar";
+import { TafsirPickerSheet } from "@/components/quran/tafsir-picker-sheet";
 import { TranslationPickerSheet } from "@/components/quran/translation-picker-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -46,6 +48,7 @@ import {
   pageToStartAyah,
 } from "@/lib/quran";
 import { ayahTracks, RECITERS } from "@/lib/quran-audio";
+import { resolvePreferredTafsirId } from "@/lib/quran-tafsir-options";
 import { resolveReadingFontSizes } from "@/lib/reading-typography";
 import { buildAyahSharePayload } from "@/lib/share";
 import { resolveQuranEditionId } from "@/lib/translation-locale";
@@ -102,6 +105,7 @@ export default function QuranPageReaderScreen() {
   const [reciterPickerOpen, setReciterPickerOpen] = useState(false);
   const [translationPickerOpen, setTranslationPickerOpen] = useState(false);
   const [secondaryPickerOpen, setSecondaryPickerOpen] = useState(false);
+  const [tafsirPickerOpen, setTafsirPickerOpen] = useState(false);
   const [actionAyah, setActionAyah] = useState<{ surah: number; ayah: number } | null>(null);
   const [mushafFontLoading, setMushafFontLoading] = useState(false);
   const navigatingRef = useRef(false);
@@ -127,6 +131,12 @@ export default function QuranPageReaderScreen() {
   const selectedEdition = getEditionById(primaryEditionId) ?? fallbackEdition;
   const secondaryId = prefs.secondaryTranslationId;
   const secondaryEdition = secondaryId ? getEditionById(secondaryId) : undefined;
+  const activeTafsirId = resolvePreferredTafsirId(
+    prefs.preferredTafsirId,
+    translationLocale,
+    appLocale,
+  );
+  const tafsirEdition = activeTafsirId ? getTafsirEdition(activeTafsirId) : undefined;
 
   const startSurah = pageStart?.surah ?? pageAyahs[0]?.surah ?? 1;
   const startSurahMeta = getSurahByNumber(startSurah);
@@ -369,6 +379,7 @@ export default function QuranPageReaderScreen() {
             reciterName={RECITERS.find((r) => r.dir === prefs.preferredReciterDir)?.name ?? ""}
             translationName={selectedEdition.name}
             secondTranslationName={secondaryEdition?.name ?? t("quran.secondTranslationNone")}
+            tafsirName={tafsirEdition?.name ?? t("quran.tafsirNone")}
             showTransliteration={prefs.showTransliteration}
             showTranslation={layout === "page" && prefs.showTranslation}
             showTranslationControls={layout === "page"}
@@ -377,6 +388,7 @@ export default function QuranPageReaderScreen() {
             onOpenReciter={() => setReciterPickerOpen(true)}
             onOpenTranslation={() => setTranslationPickerOpen(true)}
             onOpenSecondary={() => setSecondaryPickerOpen(true)}
+            onOpenTafsir={() => setTafsirPickerOpen(true)}
             onToggleTransliteration={() =>
               updatePrefs({ showTransliteration: !prefs.showTransliteration })
             }
@@ -504,6 +516,15 @@ export default function QuranPageReaderScreen() {
         preferredLanguages={[translationLocale, appLocale]}
         onSelect={(id) => updatePrefs({ secondaryTranslationId: id || undefined })}
         onClose={() => setSecondaryPickerOpen(false)}
+      />
+      <TafsirPickerSheet
+        visible={tafsirPickerOpen}
+        title={t("quran.tafsir")}
+        allowNone
+        selectedId={activeTafsirId ?? ""}
+        preferredLanguages={[translationLocale, appLocale]}
+        onSelect={(id) => updatePrefs({ preferredTafsirId: id })}
+        onClose={() => setTafsirPickerOpen(false)}
       />
       <AyahActionSheet
         visible={actionAyah != null}

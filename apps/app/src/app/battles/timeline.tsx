@@ -11,8 +11,9 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getBattlesTimeline } from "@/lib/battles";
+import { ensureBattlesContent, getBattlesTimeline } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -21,6 +22,7 @@ export default function BattlesTimelineScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
+  useEnsureContent(ensureBattlesContent);
   const events = getBattlesTimeline();
 
   return (

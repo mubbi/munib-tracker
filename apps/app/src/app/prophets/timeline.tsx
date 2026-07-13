@@ -11,9 +11,10 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getProphetsTimeline } from "@/lib/prophets";
+import { ensureProphetsContent, getProphetsTimeline } from "@/lib/prophets";
 import { useChevronForward } from "@/lib/rtl";
 
 export default function ProphetsTimelineScreen() {
@@ -21,6 +22,7 @@ export default function ProphetsTimelineScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
+  useEnsureContent(ensureProphetsContent);
   const events = getProphetsTimeline();
 
   return (

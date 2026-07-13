@@ -24,6 +24,7 @@ import Reanimated, {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { QuranPlaybackSettingsControl } from "@/components/quran/quran-playback-settings-control";
 import { ThemedText } from "@/components/themed-text";
 import { GlassControl, GlassSurface, hasLiquidGlass } from "@/components/ui/glass-surface";
 import { IconButton } from "@/components/ui/icon-button";
@@ -468,6 +469,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               wellRadius={20}
               style={loopActive ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
             />
+            <QuranPlaybackSettingsControl size={18} wellRadius={20} />
             {hasQueue ? (
               <IconButton
                 name={skipPreviousIcon}
@@ -1221,6 +1223,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             wellRadius={24}
             style={loopActive ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
           />
+          <QuranPlaybackSettingsControl size={22} wellRadius={24} />
           <IconButton
             name={skipPreviousIcon}
             size={26}
@@ -1704,11 +1707,9 @@ const styles = StyleSheet.create({
   plArabic: {
     fontSize: 22,
     writingDirection: "rtl",
-    textAlign: "right",
   },
   plPreview: {
     fontSize: 14,
     writingDirection: "rtl",
-    textAlign: "right",
   },
 });

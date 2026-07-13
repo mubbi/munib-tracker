@@ -12,7 +12,8 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getLearnDuaLessonCount } from "@/lib/learn-dua";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureLearnDuaContent, getLearnDuaLessonCount } from "@/lib/learn-dua";
 import { buildLearnDuaProgress } from "@/lib/learn-dua-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -26,13 +27,15 @@ export default function LearnDuaProgressScreen() {
   useEnsureLearnDuaProgressLoaded();
   const completedCount = useLearnDuaCompletedCount();
 
+  const { version: contentVersion } = useEnsureContent(ensureLearnDuaContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildLearnDuaProgress({
         lessonsCompleted: completedCount,
         lessonsTotal: getLearnDuaLessonCount(),
       }),
-    [completedCount],
+    [completedCount, contentVersion],
   );
 
   return (

@@ -54,13 +54,18 @@ export function getQuranGuideTopic(id: string | undefined): QuranGuideTopic | un
   return getQuranGuideTopics().find((topic) => topic.id === id);
 }
 
+export function getQuranGuideJourneyOrder(): readonly QuranGuideJourney[] {
+  return content().QURAN_GUIDE_JOURNEY_ORDER ?? [];
+}
+
 export function getQuranGuideTopicsByJourney(): Record<QuranGuideJourney, QuranGuideTopic[]> {
   const grouped = Object.fromEntries(
-    (content().QURAN_GUIDE_JOURNEY_ORDER ?? []).map((phase) => [phase, [] as QuranGuideTopic[]]),
+    getQuranGuideJourneyOrder().map((phase) => [phase, [] as QuranGuideTopic[]]),
   ) as Record<QuranGuideJourney, QuranGuideTopic[]>;
 
   for (const topic of getQuranGuideTopics()) {
-    grouped[topic.journey].push(topic);
+    const bucket = grouped[topic.journey];
+    if (bucket) bucket.push(topic);
   }
   return grouped;
 }
@@ -149,6 +154,7 @@ export function getQuranGuideDailyLessonForDate(date = new Date()) {
   const diff = date.getTime() - start.getTime();
   const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
   const lessons = getQuranGuideDailyLessons();
+  if (!lessons.length) return undefined;
   return lessons[dayOfYear % lessons.length] ?? lessons[0];
 }
 
@@ -165,6 +171,7 @@ export function getQuranGuideApplyChallengeForDate(date = new Date()) {
   const diff = date.getTime() - start.getTime();
   const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
   const challenges = getQuranGuideApplyChallenges();
+  if (!challenges.length) return undefined;
   return challenges[dayOfYear % challenges.length] ?? challenges[0];
 }
 

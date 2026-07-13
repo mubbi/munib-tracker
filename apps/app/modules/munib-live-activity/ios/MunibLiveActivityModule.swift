@@ -8,7 +8,9 @@ struct PrayerActivityRecord: Record {
   @Field var prayerId: String = ""
   @Field var prayerName: String = ""
   @Field var prayerTime: String = ""
+  @Field var prayerTimeLabel: String = ""
   @Field var countdownLabel: String = ""
+  @Field var remainingLabel: String = ""
   @Field var minutesUntil: Int = 0
   @Field var targetTimeMs: Double = 0
   @Field var displayDate: String = ""
@@ -33,7 +35,9 @@ private extension PrayerActivityAttributes.ContentState {
       prayerId: record.prayerId,
       prayerName: record.prayerName,
       prayerTime: record.prayerTime,
+      prayerTimeLabel: record.prayerTimeLabel,
       countdownLabel: record.countdownLabel,
+      remainingLabel: record.remainingLabel,
       minutesUntil: record.minutesUntil,
       targetTimeMs: record.targetTimeMs,
       displayDate: record.displayDate,

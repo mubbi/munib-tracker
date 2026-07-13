@@ -2,12 +2,12 @@ import { useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { lazy, Suspense, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
+import { ActivityIndicator, RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PrayerTimesHero } from "@/components/prayer-times-hero";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
-import { MaxContentWidth } from "@/constants/theme";
+import { MaxContentWidth, Radius, Shadows, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
 import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
@@ -31,6 +31,43 @@ export function __setHomeBelowFoldForTests(
   Comp: typeof import("@/components/home-below-fold").HomeBelowFold,
 ): void {
   HomeBelowFoldForTests = Comp;
+}
+
+/** Visible placeholder while the lazy below-fold chunk loads (avoids a blank “stuck” home). */
+function HomeBelowFoldFallback() {
+  const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const title = t("common.loadingRoute");
+  const hint = t("common.loadingRouteHint");
+
+  return (
+    <View
+      style={styles.belowFoldFallback}
+      accessibilityRole="progressbar"
+      accessibilityLabel={title}
+      accessibilityLiveRegion="polite"
+    >
+      <View
+        style={[
+          styles.belowFoldStatus,
+          {
+            backgroundColor: colors.card,
+            borderColor: tokens.hairline,
+          },
+        ]}
+      >
+        <View style={[styles.belowFoldWell, { backgroundColor: tokens.accentSoft }]}>
+          <ActivityIndicator color={colors.accent} />
+        </View>
+        <View style={styles.belowFoldCopy}>
+          <ThemedText type="smallBold">{title}</ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {hint}
+          </ThemedText>
+        </View>
+      </View>
+    </View>
+  );
 }
 
 /**
@@ -107,7 +144,7 @@ export default function HomeScreen() {
             onLocationPress={() => router.push("/location")}
           />
 
-          <Suspense fallback={null}>
+          <Suspense fallback={<HomeBelowFoldFallback />}>
             <BelowFold
               schedule={hero.schedule}
               nextIn={hero.nextIn}
@@ -125,4 +162,32 @@ const styles = StyleSheet.create({
   srOnly: { position: "absolute", width: 1, height: 1, margin: -1, overflow: "hidden", opacity: 0 },
   scrollContent: { flexGrow: 1, alignItems: "center" },
   column: { width: "100%", maxWidth: MaxContentWidth },
+  // Match `HomeBelowFold` body inset so the loader sits where cards will land.
+  belowFoldFallback: {
+    paddingHorizontal: Spacing.four,
+    marginTop: -Spacing.five,
+    zIndex: 1,
+  },
+  belowFoldStatus: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+    padding: Spacing.three,
+    borderRadius: Radius.lg,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderCurve: "continuous",
+    ...Shadows.sm,
+  },
+  belowFoldWell: {
+    width: 44,
+    height: 44,
+    borderRadius: Radius.md,
+    alignItems: "center",
+    justifyContent: "center",
+    borderCurve: "continuous",
+  },
+  belowFoldCopy: {
+    flex: 1,
+    gap: Spacing.half,
+  },
 });

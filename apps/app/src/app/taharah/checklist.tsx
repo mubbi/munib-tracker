@@ -10,14 +10,16 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getTaharahChecklist } from "@/lib/taharah";
+import { ensureTaharahContent, getTaharahChecklist } from "@/lib/taharah";
 
 export default function TaharahChecklistScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
+  useEnsureContent(ensureTaharahContent);
   const items = getTaharahChecklist();
 
   return (

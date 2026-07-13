@@ -77,8 +77,12 @@ export default function DuaHomeScreen() {
   const favoriteCount = useFavoriteDuaIds().length;
   const [query, setQuery] = useState("");
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
+  const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
-    void loadDuaItems().then(setDuaItems);
+    void loadDuaItems().then((items) => {
+      setDuaItems(items);
+      setCorpusReady(true);
+    });
   }, []);
   const searching = query.trim().length > 0;
 
@@ -154,7 +158,7 @@ export default function DuaHomeScreen() {
         </Card>
 
         {searching ? (
-          results.length === 0 ? (
+          !corpusReady ? null : results.length === 0 ? (
             <EmptyState
               icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
               title={t("dua.noResults")}

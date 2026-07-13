@@ -1,8 +1,13 @@
 import { createContext, useContext } from "react";
 
-import type { AudioTrack, LoopMode } from "@/providers/audio-player-types";
+import type {
+  AudioTrack,
+  LoopMode,
+  QuranRepeatPlan,
+  TranslationAudioMode,
+} from "@/providers/audio-player-types";
 
-export type { AudioTrack, LoopMode };
+export type { AudioTrack, LoopMode, QuranRepeatPlan, TranslationAudioMode };
 
 export interface AudioContextValue {
   current: AudioTrack | null;
@@ -30,6 +35,12 @@ export interface AudioContextValue {
   rate: number;
   volume: number;
   loopMode: LoopMode;
+  /** Quran-specific repeat plan (overrides generic loop for ayah queues when not off). */
+  repeatPlan: QuranRepeatPlan;
+  /** Speak translation after each Arabic ayah via native TTS. */
+  translationAudio: TranslationAudioMode;
+  /** True while TTS is speaking a translation. */
+  isSpeakingTranslation: boolean;
   /** Route to return to for the currently-playing content (tap the mini-player). */
   sourceHref: string | null;
   play: (tracks: AudioTrack[], startIndex?: number, options?: { sourceHref?: string }) => void;
@@ -45,6 +56,8 @@ export interface AudioContextValue {
   setRate: (rate: number) => void;
   setVolume: (volume: number) => void;
   cycleLoopMode: () => void;
+  setRepeatPlan: (plan: QuranRepeatPlan) => void;
+  setTranslationAudio: (mode: TranslationAudioMode) => void;
   stop: () => void;
   /** Sync read of engine playback time (for rAF-driven progress UI). */
   readPlaybackSeconds: () => number;
@@ -72,6 +85,9 @@ export const SSR_AUDIO_CONTEXT: AudioContextValue = {
   rate: 1,
   volume: 1,
   loopMode: "off",
+  repeatPlan: { mode: "off" },
+  translationAudio: "off",
+  isSpeakingTranslation: false,
   sourceHref: null,
   play: () => {},
   toggle: () => {},
@@ -84,6 +100,8 @@ export const SSR_AUDIO_CONTEXT: AudioContextValue = {
   setRate: () => {},
   setVolume: () => {},
   cycleLoopMode: () => {},
+  setRepeatPlan: () => {},
+  setTranslationAudio: () => {},
   stop: () => {},
   readPlaybackSeconds: () => 0,
 };

@@ -208,4 +208,102 @@ export const HAJJ_GUIDE_SECTIONS_UZ: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Yo'lga chiqishdan oldin",
+    title: "Viza va ro'yxatdan o'tish",
+    summary:
+      "Ziyoratchilar rasmiy kanallar orqali qanday ro'yxatdan o'tib, Haj yoki Umra vizasini oladi.",
+    steps: [
+      {
+        title: "Nusuk platformasi",
+        body: "Nusuk (nusuk.sa) — Saudiya Arabistonining Haj va Umra uchun rasmiy platformasi bo'lib, u orqali viza, turar joy, transport va ro'yxatdan o'tgan sayohat paketlarini band qilish mumkin. Faqat Nusuk yoki uning orqali litsenziyalangan agentliklardan foydalaning; norasmiy vositachilar ko'pincha firibgarlik va bekor qilingan sayohatlarning manbaidir.",
+      },
+      {
+        title: "Haj vizalari va davlat kvotalari",
+        body: "Har bir davlat yillik Haj kvotasini oladi, shuning uchun ziyoratchilarning ko'pchiligi yakka tartibda emas, balki o'z milliy Haj idorasi yoki litsenziyalangan mahalliy agent orqali murojaat qiladi. Haj mavsumi ochilgan yilning boshida erta murojaat qiling — kvotalar va paket o'rinlari oylar oldin to'lib qoladi.",
+      },
+      {
+        title: "Umra vizalari",
+        body: "Hajdan farqli o'laroq, Umraning kvotasi yo'q va yilning istalgan vaqtida bajarilishi mumkin. Ko'pchilik fuqarolar to'g'ridan-to'g'ri Nusuk yoki tasdiqlangan sayohat agenti orqali Umra vizasiga murojaat qilishi mumkin, odatda parvoz va mehmonxona bandini bilan birga.",
+      },
+    ],
+  },
+  {
+    day: "Yo'lga chiqishdan oldin",
+    title: "Yuk yig'ish ro'yxati",
+    summary: "Sayohatdan oldin yig'ib olishingiz kerak bo'lgan amaliy zarur narsalar.",
+    steps: [
+      {
+        title: "Ehrom kiyimlari",
+        body: "Erkaklar kamida ikki to'plam tikilmagan ehrom kiyimini (bel matosi va yelka matosi) va pul va hujjatlar uchun keng, teridan bo'lmagan ehrom kamarini olishi kerak. Ayollar keng, oddiy, bezaksiz tashqi kiyim olishi kerak.",
+      },
+      {
+        title: "Poyabzal va qulaylik",
+        body: "Osongina kiyilib-yechiladigan ochiq sandallar zarur, chunki to'piqni yopadigan poyabzal erkaklar uchun ehromda taqiqlanadi. Uzoq kutish uchun yengil ryukzak, to'ldiriladigan suv butilkasi va kichik namoz gilamchasini olib boring.",
+      },
+      {
+        title: "Hidsiz gigiyena vositalari",
+        body: "Hidsiz sovun, quyoshdan himoya kremi va ho'l salfetkalar olib boring — hidli mahsulotlar ehromda taqiqlangan. Kichik birinchi yordam to'plami, shifokor tavsiyasi bilan shaxsiy dorilar va ko'p yurish tufayli pufakchalar uchun leykoplastir qo'shimcha og'irlikka arziydi.",
+      },
+      {
+        title: "Hujjatlar va zarur narsalar",
+        body: "Pasportingizni, viza chiqarmasini, emlash sertifikatini (odatda meningit talab qilinadi) va favqulodda aloqa raqamlarini kiyim ostida kiyiladigan yupqa cho'ntakda saqlang. Ko'chma quvvat banki va mahalliy SIM yoki eSIM to'lqinli joylarda yo'l topishni ancha osonlashtiradi.",
+      },
+    ],
+  },
+  {
+    day: "Yo'lga chiqishdan oldin",
+    title: "Muqaddas joylar yo'nalishnomasi",
+    summary: "Tashrif buyuradigan asosiy joylar haqida qisqa amaliy izohlar.",
+    steps: [
+      {
+        title: "Masjid al-Harom, Makka",
+        body: "Ka'bani o'rab turgan Buyuk Masjid — tavof va sa'iy joyi. U kecha-kunduz ishlaydi; Qora tosh yaqinida va besh kunlik namoz vaqtida, ayniqsa Ramazonning oxirgi o'n kechasida va Haj kunlarida juda katta izdihomni kutish kerak.",
+        location: "Makka",
+      },
+      {
+        title: "Masjid an-Nabaviy, Madina",
+        body: "Payg'ambar ﷺ masjidi, Ravza va u kishining dafn etilgan joyini o'z ichiga oladi, Hajning o'zi qismi emas, lekin deyarli barcha ziyoratchilar Hajdan oldin yoki keyin Madinaga tashrif buyuradi. Ravzaga kirish uchun Nusuk yoki Ravza dasturi orqali band qilingan vaqtli kirish ruxsatnomasi kerak.",
+        location: "Madina",
+      },
+      {
+        title: "Mina",
+        body: "Makkadan bir necha kilometr uzoqlikdagi chodirlar shahri, u yerda ziyoratchilar Zulhijjaning 8, 11, 12 (va 13) kechalarini o'tkazadi. Konditsionerli, olovga chidamli chodir lagerlari sayyohlik operatori tomonidan tayinlanadi; asosiy umumiy sharoitlar va Jamarotgacha uzoq yurishlarni kutish kerak.",
+        location: "Mina",
+      },
+      {
+        title: "Arafot",
+        body: "Makkadan taxminan 20 km uzoqlikdagi ochiq tekislik, Hajning eng muhim yagona marosimi — 9-Zulhijjadagi turishning joyi. Soyabon inshootlar va suv nuqtalari taqdim etiladi, ammo kunduzgi issiqlik kuchli; suv ichish va quyoshdan himoyalanish juda muhim.",
+        location: "Arafot",
+      },
+      {
+        title: "Muzdalifa",
+        body: "Arafot va Mina orasidagi ochiq maydon, u yerda ziyoratchilar 9-10-Zulhijja kechasini ochiq osmon ostida o'tkazadi va toshbo'ron uchun mayda toshlar to'playdi. Sharoitlar ataylab minimal — gilamcha olib boring va sovuq kecha havosi uchun kiyinib boring.",
+        location: "Muzdalifa",
+      },
+    ],
+  },
+  {
+    day: "Yo'lga chiqishdan oldin",
+    title: "Rasmiy manbalar",
+    summary: "Ishonchli va yangilangan rasmiy ma'lumotni qayerdan topish mumkin.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Saudiya Haj va Umra vazirligining viza, akkreditlangan paketlar, Ravza tashrif ruxsatnomalari va real vaqtdagi izdiham va transport bo'yicha yo'riqnoma uchun rasmiy portali va dasturi — har qanday rasmiy savol uchun birinchi manzil.",
+      },
+      {
+        title: "Mamlakatingizning Haj idorasi",
+        body: "Ko'pchilik davlatlar yillik kvotani boshqaradigan, mahalliy agentlarni tekshiradigan va ketish jadvallari va sog'liq talablarini e'lon qiladigan milliy Haj idorasi yoki vazirlik bo'limini yuritadi — har qanday xususiy agent orqali band qilishdan oldin uni tekshiring.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Qirollikning rasmiy sayyohlik sayti kirish talablarini, munosib fuqarolar uchun elektron viza ma'lumotlarini va Makka, Madina va Saudiya Arabistoni ichida keyingi sayohat uchun amaliy sayohat maslahatlarini o'z ichiga oladi.",
+      },
+      {
+        title: "To'lashdan oldin tekshiring",
+        body: "Faqat Nusukda ro'yxatga olingan agentliklar yoki milliy Haj idorangiz orqali band qiling. Agar taklif g'ayrioddiy arzon ko'rinsa yoki vositachi rasmiy kanallardan tashqarida to'lov talab qilsa, buni ogohlantiruvchi belgi deb bilib, to'g'ridan-to'g'ri vazirlik portali orqali tekshiring.",
+      },
+    ],
+  },
 ];

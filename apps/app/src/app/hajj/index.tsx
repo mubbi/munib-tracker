@@ -149,7 +149,10 @@ export default function HajjScreen() {
               </View>
               <Pill
                 label={
-                  section.day ?? (section.kind === "umrah" ? t("hajj.umrahTag") : t("hajj.hajjTag"))
+                  section.kind === "prep"
+                    ? t("hajj.prepTag")
+                    : (section.day ??
+                      (section.kind === "umrah" ? t("hajj.umrahTag") : t("hajj.hajjTag")))
                 }
                 color={colors.accentText}
                 background={tokens.accentSoft}

@@ -18,6 +18,8 @@ export type ThemeTokens = {
   accentBorder: string;
   hairline: string;
   surfaceRaised: string;
+  /** Sliding thumb on a muted segmented track — must read clearly in both schemes. */
+  segmentThumb: string;
   track: string;
   ripple: string;
   scrim: string;
@@ -60,6 +62,8 @@ export function computeThemeTokens(colors: ThemeColors, scheme: "light" | "dark"
     accentBorder: withAlpha(colors.accent, isDark ? 0.45 : 0.3),
     hairline: withAlpha(colors.foreground, isDark ? 0.1 : 0.08),
     surfaceRaised: isDark ? colors.muted : colors.card,
+    // Dark `card` ≈ `muted`, so lift the thumb with a translucent foreground wash.
+    segmentThumb: isDark ? withAlpha(colors.foreground, 0.22) : colors.card,
     track: withAlpha(colors.foreground, isDark ? 0.18 : 0.12),
     ripple: withAlpha(colors.foreground, isDark ? 0.16 : 0.1),
     scrim: withAlpha("#000000", 0.4),

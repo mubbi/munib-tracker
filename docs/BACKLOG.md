@@ -10,7 +10,6 @@ All software-achievable NF items are shipped. These need **OSS datasets** before
 
 | ID | Feature | Blocker | When unblocked |
 |----|---------|---------|----------------|
-| NF-2.7 | Word-by-word Qur'an | Large per-word dataset (QUL / quran.com) | [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md), new reader mode |
 | NF-2.8 | Hadith sharh / explanation | Bundled or linked explanation corpus | Extend `HadithItem` + `build-hadith` |
 | NF-2.9 | Full isnad chain | Structured `isnad[]` on `HadithItem` | Baseline `narrator` string already shown in UI |
 

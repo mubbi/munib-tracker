@@ -7,10 +7,11 @@ import { Seo } from "@/components/seo/seo";
 import { TaharahTopicContent } from "@/components/taharah/topic-content";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
-import { getTaharahTopic, getTaharahTopics } from "@/lib/taharah";
+import { ensureTaharahContent, getTaharahTopic, getTaharahTopics } from "@/lib/taharah";
 import { useEnsureTaharahProgressLoaded } from "@/stores/taharah-progress-store";
 
 export function generateStaticParams(): Array<{ topic: string }> {
@@ -21,6 +22,7 @@ export default function TaharahTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  const { ready: contentReady } = useEnsureContent(ensureTaharahContent);
   const topic = getTaharahTopic(topicId);
   const reportRef = useGuideContentReportRef("taharah", topic, "/taharah");
   useEnsureTaharahProgressLoaded();
@@ -61,7 +63,7 @@ export default function TaharahTopicScreen() {
             : undefined
         }
       />
-      {!topic ? (
+      {!contentReady ? null : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("taharah.notFound")}

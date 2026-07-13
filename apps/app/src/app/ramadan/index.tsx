@@ -1,3 +1,4 @@
+import type { AppLocale } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
@@ -19,7 +20,9 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { formatCompactGridDateFromIso } from "@/lib/calendar-format";
 import { hijriToGregorian } from "@/lib/hijri";
+import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { formatDuration, formatPrayerTime } from "@/lib/prayer-times";
 import { getRamadanInfo, RAMADAN_MONTH } from "@/lib/ramadan";
@@ -49,9 +52,22 @@ function formatCount(value: number, locale?: string): string {
   return new Intl.NumberFormat(locale).format(value);
 }
 
+/** Compact Gregorian span for the fasting-log banner, e.g. "Feb 18 – Mar 19, 2026". */
+function formatGregorianRange(startIso: string, endIso: string, locale: AppLocale): string {
+  const start = new Date(`${startIso}T00:00:00`);
+  const end = new Date(`${endIso}T00:00:00`);
+  const opts: Intl.DateTimeFormatOptions = { month: "short", day: "numeric", year: "numeric" };
+  const bcp = localeToBcp47(locale);
+  const formatter = new Intl.DateTimeFormat(bcp, opts);
+  if (typeof formatter.formatRange === "function") {
+    return formatter.formatRange(start, end);
+  }
+  return `${formatter.format(start)} – ${formatter.format(end)}`;
+}
+
 export default function RamadanScreen() {
   const router = useRouter();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { scrollRef, register, onScroll, isFocused } = useScreenFocus();
   const location = useLocation();
@@ -65,7 +81,7 @@ export default function RamadanScreen() {
   const [sheetDay, setSheetDay] = useState<{ day: number; date: string } | null>(null);
 
   const info = useMemo(() => getRamadanInfo(location, now), [location, now]);
-  const locale = i18n.language?.split("-")[0];
+  const locale = prefs.locale as AppLocale;
   const success = tokens.status.success;
   const danger = tokens.status.danger;
   const infoTone = tokens.status.info;
@@ -81,6 +97,13 @@ export default function RamadanScreen() {
       }),
     [info.fastingLogTotalDays, info.fastingLogHijriYear],
   );
+
+  const fastingLogGregorianRange = useMemo(() => {
+    const first = ramadanDays[0]?.date;
+    const last = ramadanDays[ramadanDays.length - 1]?.date;
+    if (!first || !last) return "";
+    return formatGregorianRange(first, last, locale);
+  }, [ramadanDays, locale]);
 
   type RamadanDayCell = (typeof ramadanDays)[number];
   type GridCell = RamadanDayCell | { type: "pad"; key: string };
@@ -335,7 +358,10 @@ export default function RamadanScreen() {
               ]}
             >
               <ThemedText type="caption" style={{ color: colors.accent }}>
-                {t("ramadan.fastingLogBackfillNote", { year: info.fastingLogHijriYear })}
+                {t("ramadan.fastingLogBackfillNote", {
+                  year: info.fastingLogHijriYear,
+                  gregorian: fastingLogGregorianRange,
+                })}
               </ThemedText>
             </View>
           ) : null}
@@ -406,6 +432,7 @@ export default function RamadanScreen() {
                   const palette = statusColor(status);
                   const isToday = date === today;
                   const isFuture = date > today;
+                  const gregorianLabel = formatCompactGridDateFromIso(date, "gregorian", locale);
 
                   return (
                     <View key={day} style={styles.gridCell}>
@@ -415,6 +442,7 @@ export default function RamadanScreen() {
                         accessibilityRole="button"
                         accessibilityLabel={t("ramadan.dayCellStatus", {
                           day,
+                          gregorian: gregorianLabel,
                           status: statusLabel(status),
                         })}
                         accessibilityHint={isFuture ? undefined : t("ramadan.dayCellHint")}
@@ -438,7 +466,7 @@ export default function RamadanScreen() {
                           type="smallBold"
                           style={{ color: palette ? palette.color : colors.mutedForeground }}
                         >
-                          {day}
+                          {formatCount(day, locale)}
                         </ThemedText>
                       </PressableScale>
                     </View>
@@ -472,7 +500,14 @@ export default function RamadanScreen() {
 
       <FastStatusSheet
         visible={sheetDay != null}
-        dayLabel={sheetDay ? t("ramadan.dayCell", { day: sheetDay.day }) : ""}
+        dayLabel={
+          sheetDay
+            ? t("ramadan.dayCell", {
+                day: sheetDay.day,
+                gregorian: formatCompactGridDateFromIso(sheetDay.date, "gregorian", locale),
+              })
+            : ""
+        }
         currentStatus={sheetDay ? days[sheetDay.date] : undefined}
         onSelect={(status) => {
           if (sheetDay) setStatus(sheetDay.date, status);

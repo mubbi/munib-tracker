@@ -19,6 +19,7 @@ export const DB_KEYS = {
   quranReadingProgress: `${PREFIX}/quran_reading_progress`,
   quranPrefs: `${PREFIX}/quran_prefs`,
   quranEditionCache: `${PREFIX}/quran_edition_cache`,
+  quranStudyCache: `${PREFIX}/quran_study_cache`,
   hadithBookmarks: `${PREFIX}/hadith_bookmarks`,
   hadithBookCache: `${PREFIX}/hadith_book_cache`,
   continueActivity: `${PREFIX}/continue_activity`,
@@ -83,6 +84,10 @@ export const DB_KEYS = {
   // the generic cloud-sync path in `sync/blob-sync.ts`. Device-local: rebuilds on
   // the next sync, so it's never backed up and is cleared on reset.
   blobSyncState: `${PREFIX}/blob_sync_state`,
+  // Zakat calculator draft (currency, assets, metal prices, nisab) — device-local.
+  zakatCalculator: `${PREFIX}/zakat_calculator`,
+  /** @deprecated Prefer {@link DB_KEYS.zakatCalculator}; kept for one-time migration. */
+  zakatCurrency: `${PREFIX}/zakat_currency`,
 } as const;
 
 /**
@@ -118,6 +123,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   quranReadingProgress: "userData",
   quranPrefs: "userData",
   quranEditionCache: "cache",
+  quranStudyCache: "cache",
   hadithBookmarks: "userData",
   hadithBookCache: "cache",
   continueActivity: "userData",
@@ -158,6 +164,8 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   reviewPendingTrigger: "deviceLocal",
   reviewReactivationDedupe: "deviceLocal",
   blobSyncState: "deviceLocal",
+  zakatCalculator: "deviceLocal",
+  zakatCurrency: "deviceLocal",
 };
 
 function keysMatching(classes: readonly KeyPersistence[]): string[] {

@@ -10,12 +10,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideTadabburPrompts } from "@/lib/quran-guide";
+import { ensureQuranGuideContent, getQuranGuideTadabburPrompts } from "@/lib/quran-guide";
 
 export default function LearnQuranTadabburScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureQuranGuideContent);
   const prompts = getQuranGuideTadabburPrompts();
 
   return (

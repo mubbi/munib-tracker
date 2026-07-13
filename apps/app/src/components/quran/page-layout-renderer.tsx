@@ -1,7 +1,7 @@
 import type { Ayah } from "@munib-tracker/shared/types";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 
 import { MushafPageFrame } from "@/components/quran/mushaf-page-frame";
 import { SurahBanner } from "@/components/quran/surah-banner";
@@ -31,10 +31,79 @@ type PageLayoutRendererProps = {
 
 const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 const ARABIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+/** Unicode ARABIC END OF AYAH — drawn empty; digits are overlaid (font shaping is unreliable). */
+const END_OF_AYAH = "\u06DD";
 
 /** Renders a Western number as Arabic-Indic digits for the in-line ayah marker. */
 function toArabicDigits(value: number): string {
   return String(value).replace(/\d/g, (d) => ARABIC_DIGITS[Number(d)]);
+}
+
+/**
+ * Gilt end-of-ayah rosette with the verse number centered inside.
+ * Native fonts often render U+06DD as an empty circle and place following digits
+ * beside it (especially at larger reading sizes), so we draw the mark and the
+ * digits as separate layers instead of relying on enclosing-mark shaping.
+ */
+function AyahEndMarker({
+  ayah,
+  fontSize,
+  color,
+}: {
+  ayah: number;
+  fontSize: number;
+  color: string;
+}) {
+  const digits = toArabicDigits(ayah);
+  const digitCount = digits.length;
+  const box = Math.round(fontSize * (digitCount >= 3 ? 1.15 : 1.02));
+  const rosetteSize = Math.round(fontSize * (digitCount >= 3 ? 1.05 : 0.95));
+  const numberSize = Math.round(
+    fontSize * (digitCount >= 3 ? 0.34 : digitCount === 2 ? 0.4 : 0.44),
+  );
+
+  return (
+    <View
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+      style={[
+        styles.marker,
+        {
+          width: box,
+          height: box,
+          marginHorizontal: Math.max(3, Math.round(fontSize * 0.08)),
+        },
+      ]}
+    >
+      <Text
+        style={[
+          styles.markerRosette,
+          {
+            fontSize: rosetteSize,
+            lineHeight: rosetteSize,
+            color,
+            width: box,
+            height: box,
+            pointerEvents: "none",
+          },
+        ]}
+      >
+        {END_OF_AYAH}
+      </Text>
+      <Text
+        style={[
+          styles.markerNumber,
+          {
+            fontSize: numberSize,
+            lineHeight: numberSize * 1.15,
+            color,
+          },
+        ]}
+      >
+        {digits}
+      </Text>
+    </View>
+  );
 }
 
 /** Groups consecutive ayahs on the page by surah so each surah gets its own header. */
@@ -84,12 +153,10 @@ export function PageLayoutRenderer({
   const groups = useMemo(() => groupBySurah(ayahs), [ayahs]);
   const interleaved = showTransliteration || showTranslation;
 
-  // The gilt end-of-ayah rosette (۝) carrying the verse number, sized to the
-  // running Arabic so it sits on the baseline like a printed mushaf.
+  // Gilt end-of-ayah rosette with the verse number centered inside, sized to
+  // the running Arabic so it sits on the baseline like a printed mushaf.
   const renderMarker = (ayah: Ayah) => (
-    <ThemedText type="arabic" style={{ fontSize: arabicSize * 0.92, color: mushaf.ink }}>
-      {` ۝${toArabicDigits(ayah.ayah)} `}
-    </ThemedText>
+    <AyahEndMarker ayah={ayah.ayah} fontSize={arabicSize} color={mushaf.ink} />
   );
 
   return (
@@ -241,9 +308,27 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   blockArabic: {
-    textAlign: "right",
     writingDirection: "rtl",
   },
   translit: { fontStyle: "italic" },
-  rtl: { writingDirection: "rtl", textAlign: "right" },
+  rtl: { writingDirection: "rtl" },
+  marker: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  markerRosette: {
+    position: "absolute",
+    textAlign: "center",
+    ...Platform.select({
+      android: { includeFontPadding: false, textAlignVertical: "center" },
+      default: {},
+    }),
+  },
+  markerNumber: {
+    textAlign: "center",
+    ...Platform.select({
+      android: { includeFontPadding: false, textAlignVertical: "center" },
+      default: {},
+    }),
+  },
 });

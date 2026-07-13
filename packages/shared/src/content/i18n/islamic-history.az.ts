@@ -1,0 +1,84 @@
+import type { IslamicHistoryEvent } from "../../types/islamic-history";
+import type { DeepPartial } from "./localize";
+
+// Azerbaijani translation overlay for the Islamic History timeline. Mirrors the
+// order of ISLAMIC_HISTORY_EVENTS in ../islamic-history.ts (index-aligned);
+// untranslated entries fall back to English. Only human-readable text is
+// translated — ids, years and hadith citations stay in the English source.
+export const ISLAMIC_HISTORY_EVENTS_AZ: DeepPartial<IslamicHistoryEvent>[] = [
+  {
+    title: "Peyğəmbərin ﷺ vəfatı və varislik",
+    location: "Mədinə",
+    body: 'Peyğəmbər ﷺ h. 11-ci ildə vəfat edəndə, gənc müsəlman icması onsuz ilk böyük sınaqla üzləşdi: kim rəhbərlik edəcək? Ənsardan bir qrup Mədinədə Səqifə Bəni Saidədə məsələni öz aralarında müzakirə etmək üçün toplaşdı. Bunu eşidən Əbu Bəkr və Ömər onlara qoşulmaq üçün tələsdilər, müzakirədən sonra iclas Əbu Bəkrə beyət etdi — geniş icma isə ertəsi gün onu izlədi. Əli və bir neçəsi isə Peyğəmbəri ﷺ dəfn etdikdən sonra bir qədər gec beyət etdilər, lakin keçid özü zorakılıqsız keçdi.\n\nƏbu Bəkrin xalqa ilk sözləri, klassik tarix kitablarında qorunan, bu vəzifənin ruhunu təyin etdi: "Sizin üzərinizə hakim təyin edildim, halbuki sizin ən yaxşınız deyiləm… yaxşı işlərsəm, mənə kömək edin; pislik etsəm, məni düzəldin." Bu, Xilafətin — "xilafə", yəni "varislik" mənasını verən — başlanğıc nöqtəsidir: icma tərəfindən seçilən və ona hesabat verən rəhbərlik, nəsildən avtomatik olaraq miras qalan deyil.\n\nDərs: ən zəif anında belə, ümmət rəhbərlik məsələsini gücdən çox məşvərətlə (şura) həll etdi, bu, erkən Xilafətin hər hesabatının qayıtdığı bir prinsipdir.',
+  },
+  {
+    title: "Ridda müharibələri",
+    location: "Ərəbistan",
+    body: "Peyğəmbərin ﷺ vəfatından demək olar dərhal sonra, ona beyət etmiş bir neçə ərəb qəbiləsi bu beyəti yalnız ona şəxsi hesab edərək İslamdan çıxdı və ya yeni xəlifəyə zəkat verməkdən boyun qaçırdı, bir neçə şəxs isə özünə peyğəmbərlik iddia etdi. Əbu Bəkr bunu İslamın qurduğu birliyə varlıq təhlükəsi olaraq qiymətləndirdi və məşhur şəkildə israr etdi ki, Peyğəmbərə ﷺ vermiş olsalar, hətta zəkat kimi verilməli bir keçinin dəyərini belə saxlayan hər kəsə qarşı vuruşacaq.\n\nTəxminən bir il davam edən çətin kampaniya — Ridda ('İslamdan çıxma') müharibələri — ərzində Xalid ibn əl-Vəlid daxil komandirlərin rəhbərliyi altında müsəlman qüvvələri Mədinənin nüfuzunu Ərəbistan yarımadasında bərpa etdi, üsyançı qəbilələri və saxta peyğəmbərlik iddiaçılarını, ən əhəmiyyətlisi Müseylimənin qüvvələrinə qarşı Yəmamə döyüşündə məğlub etdi.\n\nDərs: Əbu Bəkrin qətiyyəti, ilk ilində qəbilə-qəbilə parçalana biləcək bir icmayı bir yerdə saxladı — zəkat və birləşmiş rəhbərlik imandan ayrılmaz hesab edildi.",
+  },
+  {
+    title: "Quranın birinci yazılı toplanması",
+    location: "Mədinə",
+    body: "Ridda müharibələri zamanı Yəmamə döyüşü Quranı tam yaddaşda saxlayan çoxlu səhabəni öldürdü. Başqa bir döyüşün Quranın hissələrini tamamilə yaddaşdan itirmə riskinə sala biləcəyindən narahat olan Ömər, Əbu Bəkri onu vahid yazılı toplama halına gətirməyə çağırdı — Peyğəmbərin ﷺ özünün heç vaxt əmr etmədiyi bir şey, çünki Quran onun sağlığında həm dağınıq materiallar üzərində yazı ilə, həm də hafizlərin yaddaşında qorunmuşdu.\n\nƏbu Bəkr bu tapşırığı Peyğəmbərin ﷺ keçmiş katiblərindən biri olan Zeyd ibn Sabitə tapşırdı. Zeyd sonradan bunun ondan istənilən ən çətin iş olduğunu söylədi, xurma yarpağı saplarından, düz daşlardan, dəri parçalarından və onları birbaşa Peyğəmbərdən ﷺ öyrənənlərin yaddaşından ayələr toplayaraq, hər hissəni diqqətlə çarpaz yoxlayaraq (Səhih əl-Buxari 4986). Nəticədə çıxan yazı sonradan Ömərə, sonra da qorunmaq üçün onun qızı Hafsaya keçdi.\n\nDərs: Quranın qorunması başdan bəri həm şifahi əzbərləmə, həm də diqqətlə çarpaz yoxlanılmış yazını birləşdirdi — bir şəxsin şəxsi işi deyil, qərarlı, yoxlanılmış bir proses.",
+  },
+  {
+    title: "Yərmuk döyüşü",
+    location: "Yərmuk çayı, Suriya-İordaniya sərhədi yaxınlığında",
+    body: "Xəlifə Ömərin dövründə müsəlman ordusu Şama irəlilədikcə, Bizans İmperiyası qazanclarını geri qaytarmaq üçün çox böyük bir qüvvə topladı. İki tərəf h. 15-ci ildə Yərmuk çayı yaxınlığında qarşılaşdı. Kampaniyanın əvvəlində bir neçə müsəlman dəstəsinin komandanlığını birləşdirmək üçün gətirilən Xalid ibn əl-Vəlid, kiçik müsəlman qüvvəsini daha mobil və nizamlı bir düzülüşə yenidən qurdu, bir neçə günlük şiddətli döyüşdən sonra Bizans ordusu qırıldı və qəti şəkildə məğlub edildi.\n\nYərmuk faktiki olaraq Bizansın Şam üzərindəki hakimiyyətinə son qoydu və Dəməşq, bir qədər sonra da Qüds daxil olmaqla daha geniş Şamın müsəlman fəthinə yol açdı. Klassik tarix kitablarında (Təbəri) erkən fəthlərin ən mühüm döyüşlərindən biri olaraq xatırlanır, müsəlman qüvvələrinin sayca xeyli az olmasına baxmayaraq əldə edilmişdir.\n\nDərs: sadə say çoxluğundan çox, nizamlı təşkilat və birləşmiş komandanlıq nəticəni müəyyən etdi — erkən müsəlman generalların bu sürətli genişlənmə dövründə təkrar-təkrar arxalandığı bir model.",
+  },
+  {
+    title: "Qadisiyyə döyüşü",
+    location: "Qadisiyyə yaxınlığı, İraq",
+    body: "Yərmukla təxminən eyni dövrdə, xəlifə Ömərin dövründəki müsəlman qüvvələri, ordusu döyüş fillərini və üstün texnikanı gücləndirmiş Sasani Fars İmperiyası ilə də üzləşdi. Qadisiyyədə, Cənnətlə müjdələnən on nəfərdən biri olan Səd ibn Əbu Vəqqasın komandanlığındaki müsəlman ordusu bir neçə gün davam edən döyüşdə qəti müsəlman qələbəsi ilə nəticələndi.\n\nBu məğlubiyyət Sasani İmperiyasının İraqı saxlamaq qabiliyyətini qırdı, Səd sonradan bölgə üçün yeni bir idarə və hərbi mərkəz olaraq Kufə qarnizon şəhərini qurdu. Qadisiyyə klassik tarix kitablarında Farsın fəthinin açılış fəsli olaraq qəbul edilir, bu fəth sonrakı illərdə davam edən kampaniyalarla davam etdi.\n\nDərs: Yərmuk kimi, üstün silah deyil, qabiliyyətli, imana əsaslanan rəhbərlik altında davamlı intizam bu hesabatlarda nəticəyə hesab edilir.",
+  },
+  {
+    title: "Qüdsün fəthi və Ömərin Əhdnaməsi",
+    location: "Qüds",
+    body: "Dəməşq və daha geniş Şamın süqutundan sonra, Qüdsün xristian Patriarxı Sofronius, şəhəri təhvil verməyə razı oldu — lakin deyilənə görə, xəlifənin özünün general əvəzinə şəxsən təhvili qəbul etməyə gəlməsini istədi. Ömər Mədinədən bu məqsədlə səyahət etdi, Patriarxla razılaşdığı şərtlər, Ömərin Əhdnaməsi (əl-Əhd əl-Ümərî) olaraq xatırlanan, şəhərin xristian sakinlərinə həyatları, mülkiyyəti və kilsələri üçün təhlükəsizlik zəmanət verdi, müsəlman hakimiyyəti altındaki qeyri-müsəlman təbələrin ödədiyi cizyə müqabilində.\n\nTarixi hesabatlarda (Təbəri, İbn Kəsir) qorunan yaxşı tanınan bir detal budur ki, Ömər Müqəddəs Qəbir Kilsəsinin içərisində olduğu zaman namaz vaxtı gəldikdə, orada özü namaz qılmadı, gələcək nəsillərin onun bu nümunəsindən kilsəni məscidə çevirmək üçün istifadə edə biləcəyindən narahat olaraq — bunun əvəzinə bayırda namaz qılmağı seçdi.\n\nDərs: fəth, elə bu hadisədə, məğlub bir əhalinin dini haqlarını qorumaq üçün qəsdən özünü saxlama hərəkəti ilə birləşdirildi — xəlifənin şəxsən qoyduğu bir davranış modeli, başqasına həvalə etmədən.",
+  },
+  {
+    title: "Ömər Hicri təqvimini quraşdırır",
+    location: "Mədinə",
+    body: "Gənc müsəlman dövlətinin idarəçiliyi böyüdükcə — müqavilələr, məktublar və maliyyə reyestrləri hamısı ardıcıl tarixləmə tələb edirdi — Ömər vahid bir İslam təqvimi üçün başlanğıc nöqtəsi haqqında razılaşmaq üçün böyük səhabələrini topladı. Peyğəmbərin ﷺ doğumu daxil müxtəlif seçimlər müzakirə edildi, lakin qrup Hicrəti, Məkkədən Mədinəyə köçü, başlanğıc nöqtəsi olaraq qərar verdi: Hicrət ili (m. 622) Hicri 1-ci il oldu.\n\nTəqvim Quranın təsvir etdiyi kimi on iki ay ay dövrünə əsaslanır (Quran 9:36), bu gün bütün İslam dini həyatında istifadə olunan standart hesablama qalır, o cümlədən Ramazan, Həcc və zəkat hesablamaları üçün.\n\nDərs: Ömərin ümmətin tarixini fədakarlıq və iman hərəkətindən — Allah üçün hər şeyi tərk etməkdən — bir doğumdan və ya döyüşdən çox tarixləmə seçimi, erkən icmanın həqiqi quruluş anı hesab etdiyini əks etdirir.",
+  },
+  {
+    title: "Ömərin qətli və şura",
+    location: "Mədinə",
+    body: "H. 23-cü ildə, Mədinə məscidində səhər namazını qıldırarkən, Ömər ona şəxsi kin bəsləyən fars qulu Əbu Lülü tərəfindən ölümcül yaralandı. Bir neçə gün daha yaşadı, bu müddət ərzində — Əbu Bəkrin onu adlandırdığı kimi tək bir varis seçmək əvəzinə — Osman, Əli, Talha, Zübeyr, Abdürrəhman ibn Auf və Səd ibn Əbu Vəqqas daxil altı böyük səhabədən ibarət bir şura təyin etdi, onlara üç gün ərzində öz aralarından növbəti xəlifəni seçmələrini tapşırdı.\n\nAbdürrəhman ibn Auf müzakirələrə rəhbərlik etdi, Mədinə boyu şəxsən fikir topladı, şuranın qərarı Osman ibn Əffanda dayandı, ona bir qədər sonra beyət edildi.\n\nDərs: Ömərin öz seçdiyi varisi sadəcə adlandırmaq əvəzinə məşvərəti institusionallaşdırmaq qərarı, öz təsirini özündən sonra gələnlərin üzərində qəsdən məhdudlaşdıran, qərarı daha geniş, düşünülmüş bir prosesə həvalə edən bir lideri göstərir.",
+  },
+  {
+    title: "Osmanın xəlifəliyi: genişlənmə və standart Quran",
+    location: "Mədinə və daha geniş imperiya",
+    body: "Osmanın dövründə, müsəlman dövlətinin sərhədləri əhəmiyyətli dərəcədə genişlənməkdə davam etdi, Şimali Afrikaya, Farsa və Orta Asiyaya daha da çatdı, Aralıq dənizində kampaniya aparmaq üçün ilk dəfə müsəlman donanması təşkil edildi. İmperiya daha çox müxtəlifləşdikcə, şərqdəki kampaniyalardan qayıdan Hüzeyfə ibn əl-Yəman adlı bir səhabə, Osmana müxtəlif vilayətlərdəki müsəlmanların Quranı nəzərəçarpacaq şəkildə fərqli regional oxunuşlarla oxumağa başladığından narahat olduğunu bildirdi, ümmətin yəhudilər və xristianlar arasında gördüyü kimi mətn bölünməsi riski daşıdığından xəbərdar etdi.\n\nOsman Hafsanın saxladığı orijinal Quran nüsxəsini istəyərək, yenidən Zeyd ibn Sabitin rəhbərliyi ilə kiçik bir komitə təyin edərək, Qureyş dilində az sayda standart əsas nüsxə hazırlamaq üçün cavab verdi, sonra bunları böyük vilayət mərkəzlərinə göndərdi, əvvəlki qismən və ya fərqli nüsxələrin yeni standart mətnin xatirinə kənara qoyulmasını əmr etdi (Səhih əl-Buxari 4987).\n\nDərs: ümmət böyüdükcə və coğrafi olaraq daha yayıldıqca, Osman mərkəzi mətninin birliyini qorumaq üçün erkən və qətiyyətlə hərəkət etdi — Əbu Bəkrin əvvəlki toplamasını yönləndirən eyni instinkt, indi imperiya səviyyəsində tətbiq olunur.",
+  },
+  {
+    title: "Qarışıqlıq və Osmanın qətli",
+    location: "Mədinə",
+    body: "Hakimiyyətinin sonrakı illərində, Osman bir neçə vilayətdən artan siyasi narazılıqla üzləşdi, bir sıra şikayətlərin qarışığı ilə idarə olunurdu — bəzi təyin etdiyi valilərin davranışı ilə bağlı mübahisələr və fəthlərdən axan yeni sərvətin bölüşdürülməsi haqqında razılaşmazlıqlar. Narazı adamların qrupları şikayətlərini birbaşa bildirmək üçün Mədinəyə səyahət etdi, vəziyyət Osmanın öz evinin uzun müddətli mühasirəsinə qədər eskalasiya etdi.\n\nOsman, əksər tarixi hesabatlara görə, Mədinənin özündə onu müdafiə etmək üçün geniş miqyaslı döyüşə icazə verməməyi seçdi, öz həyatının qiymətinə olsa belə müsəlmanlar arasında qan tökülməsindən çəkinməyi üstün tutdu; h. 35-ci ildə, tarixin qeyd etdiyinə görə, Qurandan oxuyarkən öz evində öldürüldü. Onun ölümü geniş ümməti sarsıtdı, sonrakı illərin hesablaşmalı olacağı dərin və davamlı siyasi yaralar buraxdı.\n\nDərs: tez-tez Fitnə (böyük sınaq) adlanan bu hadisə, erkən İslam tarixində əsl dönüş nöqtəsini qeyd edir — imana əsaslanan bir icmanın belə daxili siyasi gərginlikdən qorunmadığının xatırladıcısı, belə bir gərginliyə verilən cavabın ondan sonra gələn hər şeyi formalaşdırdığının.",
+  },
+  {
+    title: "Əlinin xəlifəliyi və Dəvə döyüşü",
+    location: "Bəsrə yaxınlığı, İraq",
+    body: "Osmanın ölümündən sonra, Mədinə xalqı Əli ibn Əbu Talibə dördüncü xəlifə olaraq beyət etdi. O, artıq qətllə sarsılmış və onun üçün ədalətin necə axtarılmalı olduğu, məsuliyyət daşıyanların nə qədər tez müəyyən edilib hesabat verməli olduğu haqqında razılaşmazlıqla sarsılmış bir ümməti miras aldı.\n\nAişə, səhabələr Talha ibn Ubeydullah və Zübeyr ibn əl-Avvamla birlikdə, Osmanın öldürülməsi üçün hesabat tələb edərək Bəsrəyə hərəkət etdi; məsələni dialoqla həll etmək istəyən Əli, onlarla görüşmək üçün hərəkət etdi, danışıqlar hesabatlara görə real irəliləyiş etdi. Bununla belə, döyüş baş verdi — hesabatlar dəqiq necə başladığı ilə bağlı fərqlənir — Dəvə döyüşü olaraq tanınan, Aişənin görüş zamanı mindiyi heyvanın adı ilə adlandırılan. Talha və Zübeyr hər ikisi öldürüldü, Əli sonradan Aişəyə hörmətlə davrandı və onun Mədinəyə təhlükəsiz qayıdışını təmin etdi.\n\nDərs: hətta ən yüksək mövqedəki səhabələr belə, heç birinin sadəcə 'haqsız' olmadan siyasi böhranın qarşı tərəflərində özlərini tapa bilərdilər — klassik hesabatlar döyüşdən əvvəl və sonra onların bir-birinə hörmətini yaxşı-şər qəhrəmanlar arasında bir yarış kimi çərçivələmək əvəzinə diqqətlə qeyd edir.",
+  },
+  {
+    title: "Siffin döyüşü və onun hakim təyini",
+    location: "Fərat çayı üzərindəki Siffin",
+    body: "Osmanın ölümü ilə bağlı münaqişədən ayrı olaraq, Əlinin xəlifəliyi Şam valisi və Osmanın qohumu olan Müaviyə ibn Əbu Süfyanın çağırışı ilə üzləşdi, o, Osmanın qatilləri ədalətə təslim edilənə qədər Əlinin hakimiyyətinə tabe olmaqdan boyun qaçırdı. İki tərəfin ordusu h. 37-ci ildə Siffində qarşılaşdı, uzadılmış və əsasən qərarsız döyüşdən sonra, hər iki tərəf mübahisəni davam edən döyüş əvəzinə hakim təyini ilə həll etməyə razılaşdı.\n\nHakim təyini prosesi özü heç bir tərəfin tam qəbul etdiyi bir qərar çıxarmadan uzandı, Əli ilə Müaviyənin düşərgələri arasındaki əsas siyasi bölünmə döyüşün özündən çox daha uzun müddət davam etdi.\n\nDərs: hər iki tərəfin açıq müharibəni hakim təyini üçün dayandırma istəkliliyi, dərin bir böhran içərisində belə davamlı bir dəyəri əks etdirir — nə qədər qeyri-mükəmməl olsa da, danışıqlı bir proses müsəlmanlar arasında sonsuz münaqişədən üstün idi.",
+  },
+  {
+    title: "Xaricçilərin meydana gəlməsi",
+    location: "İraq",
+    body: "Əlinin öz tərəfdarlarının bir hissəsi onun Siffində hakim təyinini tamamilə qəbul etmə qərarından narazı idi, məsələnin danışıqlarla insan qərarına deyil, davam edən döyüş vasitəsilə Allahın hökmünə qoyulmalı olduğunu iddia edirdi. Bu qrup Əlinin düşərgəsindən ayrıldı, Xaricçilər ('çıxıb gedənlər') olaraq tanındı, onlarla razılaşmayan digər müsəlmanları kafir elan etmək daxil, getdikcə daha ifrat mövqelər inkişaf etdirdi.\n\nƏli bu ayrılan qrupla h. 38-ci ildə Nəhrəvanda döyüşdə üzləşdi, döyüşçülərinin çoxu orada öldürüldü, lakin hərəkatın ideyaları sonradan daha geniş bölgədə kiçik qruplarda davam etdi.\n\nDərs: bu hadisə əsas Sünni elmində ekstremizm təhlükəsi haqqında erkən xəbərdarlıq olaraq xatırlanır — çətin siyasi mühakimə qərarları üzərindəki fikir ayrılığını digər müsəlmanları tamamilə dindən çıxarma səbəbi olaraq görmək.",
+  },
+  {
+    title: "Əlinin qətli",
+    location: "Kufə, İraq",
+    body: "H. 40-cı ildə İbn Muləcəm adlı əvvəlki bir xaricçi, Kufənin baş məscidində səhər namazını qıldırmaq yolunda olarkən Nəhrəvanda Xaricçilərin məğlubiyyəti üçün qisas olaraq Əlini zəhərlənmiş qılıncla vurdu. Əli bir neçə gün sonra yarasından öldü, deyilənə görə göstəriş verdi ki, sağ qalsa, hücumçusuna qisas üçün işgəncə edilməsin və ya təhqir edilməsin, yalnız qətl üçün ədalətlə edam edilsin.\n\nOnun ölümü Peyğəmbərlə ﷺ şəxsən yaşamış dörd xəlifədən sonuncusunu götürdü, tərəfdarları ilə Şamdaki Müaviyə düşərgəsi arasında davam edən bölünmə anında rəhbərlik məsələsini yenidən həll olunmamış qoydu.\n\nDərs: Əlinin qisası ciddi ədalətlə məhdudlaşdırma göstərişi, öz qatili üçün belə, Peyğəmbərin ﷺ özünün Məkkənin fəthindən sonra qoyduğu standardı əks etdirir — ən böyük şəxsi itki anında belə özünü saxlamaq.",
+  },
+  {
+    title: "Həsənin çəkilməsi və Raşidun dövrünün sonu",
+    location: "Kufə və Dəməşq",
+    body: 'Əlinin ölümündən sonra, Kufə xalqı onun böyük oğlu Həsən ibn Əliyə xəlifə olaraq beyət etdi. Bölünmüş bir ümmətlə və Şamdaki Müaviyənin qüvvələrinə qarşı daha çox qan tökülmə ehtimalı ilə üzləşən Həsən, bir neçə ay ərzində, birlik xatirinə Xilafət iddiasından Müaviyəyə xeyrinə əl çəkməyi seçdi, Peyğəmbərin ﷺ illər əvvəl qabaqcadan söylədiyini yerinə yetirdi: "Bu mənim oğlum bir liderdir (seyid), bəlkə Allah onun vasitəsilə müsəlmanların iki böyük qrupu arasında sülh yaradacaq" (Səhih əl-Buxari 3746).\n\nBu barışığın baş verdiyi il, h. 41, Aam əl-Cəma (Birlik İli) olaraq tanındı. Bu, Peyğəmbəri ﷺ şəxsən tanıyan dörd xəlifənin dövrü olan Raşidun ("doğru yol göstərilən") Xilafətinin sonunu qeyd edir, Müaviyənin dövründəki Əməvi sülaləsinin başlanğıcını, bu zaman qrafikinin əhatəsindən kənar sonrakı bir dövrü.\n\nDərs: Səqifədə rəhbərliyin sülh yolu ilə keçidi ilə başlayan Raşidun dövrü, burada son bir döyüşlə deyil, başqa bir qəsdli barışıq hərəkəti ilə bitir — ümmətin birliyini təkrar-təkrar sınadan otuz ilə uyğun bir bitirici.',
+  },
+];

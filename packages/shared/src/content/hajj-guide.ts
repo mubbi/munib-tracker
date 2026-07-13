@@ -8,9 +8,12 @@ import type { HajjGuideSection } from "../types/hajj-guide";
  * the reward of an accepted Hajj. Qur'an and hadith evidence is woven into the
  * step bodies. It remains a practical guide, not a full fiqh manual — a
  * disclaimer directs the pilgrim to a qualified guide for rulings and edge
- * cases. Bump the version when content changes so any cache/test notices.
+ * cases. A closing set of "prep" sections (kind: "prep") covers practical
+ * logistics — visas, packing, the holy sites, and official resources — that
+ * sit alongside the rites but are not themselves acts of worship.
+ * Bump the version when content changes so any cache/test notices.
  */
-export const HAJJ_GUIDE_CONTENT_VERSION = 2;
+export const HAJJ_GUIDE_CONTENT_VERSION = 3;
 
 export const HAJJ_GUIDE_SECTIONS: HajjGuideSection[] = [
   {
@@ -261,6 +264,127 @@ export const HAJJ_GUIDE_SECTIONS: HajjGuideSection[] = [
         id: "hajj-disclaimer",
         title: "A practical guide, not a fatwa",
         body: "This is a practical overview to help you follow the rites in order. Madhhabs differ respectfully on many details, and every pilgrim's situation is different — always consult a qualified scholar or your official Hajj guide for specific rulings and unexpected cases.",
+      },
+    ],
+  },
+  {
+    id: "hajj-prep-visa",
+    kind: "prep",
+    day: "Before you go",
+    title: "Visa & registration",
+    summary: "How pilgrims register and obtain a Hajj or Umrah visa through official channels.",
+    steps: [
+      {
+        id: "prep-visa-nusuk",
+        title: "The Nusuk platform",
+        body: "Nusuk (nusuk.sa) is Saudi Arabia's official platform for Hajj and Umrah — used to book visas, accommodation, transport, and registered tour packages. Only use Nusuk or agencies licensed through it; unofficial brokers are a common source of scams and cancelled trips.",
+      },
+      {
+        id: "prep-visa-hajj-quota",
+        title: "Hajj visas & country quotas",
+        body: "Each country receives an annual Hajj quota, so most pilgrims apply through their national Hajj authority or a licensed local agent rather than individually. Apply early in the year Hajj season opens — quotas and package slots fill up months in advance.",
+      },
+      {
+        id: "prep-visa-umrah",
+        title: "Umrah visas",
+        body: "Unlike Hajj, Umrah has no quota and can be performed at any time of year. Most nationalities can apply for an Umrah visa directly through Nusuk or an approved travel agent, typically alongside flight and hotel booking.",
+      },
+    ],
+  },
+  {
+    id: "hajj-prep-packing",
+    kind: "prep",
+    day: "Before you go",
+    title: "Packing checklist",
+    summary: "Practical essentials to pack before you travel.",
+    steps: [
+      {
+        id: "prep-pack-ihram",
+        title: "Ihram garments",
+        body: "Men should pack at least two sets of unsewn ihram garments (a waist wrap and a shoulder cloth) plus a wide, non-leather ihram belt for money and documents. Women should pack loose, modest, non-decorative outer clothing.",
+      },
+      {
+        id: "prep-pack-footwear",
+        title: "Footwear & comfort",
+        body: "Open sandals that slip on and off easily are essential, since shoes covering the ankle bones are restricted in ihram for men. Bring a lightweight backpack, a refillable water bottle, and a small prayer mat for long waits.",
+      },
+      {
+        id: "prep-pack-toiletries",
+        title: "Unscented toiletries",
+        body: "Pack unscented soap, sunscreen, and wipes — perfumed products are prohibited in ihram. A compact first-aid kit, any personal medication with a doctor's note, and blister plasters are worth the extra weight given the amount of walking.",
+      },
+      {
+        id: "prep-pack-documents",
+        title: "Documents & essentials",
+        body: "Keep your passport, visa printout, vaccination certificate (meningitis is commonly required), and emergency contacts in a slim pouch worn under clothing. A portable power bank and a local SIM or eSIM make navigating crowded sites far easier.",
+      },
+    ],
+  },
+  {
+    id: "hajj-prep-sites",
+    kind: "prep",
+    day: "Before you go",
+    title: "Holy sites directory",
+    summary: "Quick practical notes on the key sites you'll visit.",
+    steps: [
+      {
+        id: "prep-site-haram",
+        title: "Masjid al-Haram, Makkah",
+        body: "The Grand Mosque surrounding the Ka'bah — the site of tawaf and sa'i. It operates around the clock; expect very heavy crowds near the Black Stone and during the five daily prayers, especially in the final ten nights of Ramadan and the days of Hajj.",
+        location: "Makkah",
+      },
+      {
+        id: "prep-site-nabawi",
+        title: "Masjid an-Nabawi, Madinah",
+        body: "The Prophet's ﷺ mosque, home to the Rawdah and his resting place, is not part of Hajj itself but almost all pilgrims visit Madinah before or after. The Rawdah requires a timed entry pass booked through Nusuk or the Rawdah app.",
+        location: "Madinah",
+      },
+      {
+        id: "prep-site-mina",
+        title: "Mina",
+        body: "A tented city a few kilometres from Makkah where pilgrims spend the nights of 8, 11, 12 (and 13) Dhul-Hijjah. Air-conditioned fireproof tent camps are assigned by tour operator; expect basic shared facilities and long walks to the Jamarat.",
+        location: "Mina",
+      },
+      {
+        id: "prep-site-arafah",
+        title: "Arafah",
+        body: "An open plain about 20km from Makkah, the site of the single most essential rite of Hajj — the standing on 9 Dhul-Hijjah. Shade structures and water points are provided, but daytime heat is severe; hydration and sun protection are critical.",
+        location: "Arafah",
+      },
+      {
+        id: "prep-site-muzdalifah",
+        title: "Muzdalifah",
+        body: "An open area between Arafah and Mina where pilgrims spend the night of 9–10 Dhul-Hijjah under the open sky and collect pebbles for the stoning. Facilities are minimal by design — bring a mat and dress for cooler night air.",
+        location: "Muzdalifah",
+      },
+    ],
+  },
+  {
+    id: "hajj-prep-resources",
+    kind: "prep",
+    day: "Before you go",
+    title: "Official resources",
+    summary: "Where to find trustworthy, up-to-date official information.",
+    steps: [
+      {
+        id: "prep-resource-nusuk",
+        title: "Nusuk (nusuk.sa)",
+        body: "The Saudi Ministry of Hajj and Umrah's official portal and app for visas, accredited packages, Rawdah visit permits, and real-time crowd and transport guidance — the first stop for any official question.",
+      },
+      {
+        id: "prep-resource-mofa",
+        title: "Your country's Hajj authority",
+        body: "Most countries run a national Hajj authority or ministry office that manages the yearly quota, vets local agents, and publishes departure schedules and health requirements — check it before booking through any private agent.",
+      },
+      {
+        id: "prep-resource-visit-saudi",
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "The Kingdom's official tourism site carries entry requirements, e-visa information for eligible nationalities, and practical travel advisories for Makkah, Madinah, and onward travel within Saudi Arabia.",
+      },
+      {
+        id: "prep-resource-verify",
+        title: "Verify before you pay",
+        body: "Book only through Nusuk-listed agencies or your national Hajj authority. If a deal seems unusually cheap or a broker asks for payment outside official channels, treat it as a red flag and verify directly with the ministry portal.",
       },
     ],
   },

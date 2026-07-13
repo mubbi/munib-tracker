@@ -523,7 +523,6 @@ const styles = StyleSheet.create({
   continueArabic: {
     fontSize: 18,
     writingDirection: "rtl",
-    textAlign: "right",
   },
   continueFooter: {
     flexDirection: "row",

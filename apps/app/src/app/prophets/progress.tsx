@@ -12,8 +12,9 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getProphetsLessonCount } from "@/lib/prophets";
+import { ensureProphetsContent, getProphetsLessonCount } from "@/lib/prophets";
 import { buildProphetsProgress } from "@/lib/prophets-progress";
 import {
   useEnsureProphetsProgressLoaded,
@@ -26,13 +27,15 @@ export default function ProphetsProgressScreen() {
   useEnsureProphetsProgressLoaded();
   const completedCount = useProphetsCompletedCount();
 
+  const { version: contentVersion } = useEnsureContent(ensureProphetsContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildProphetsProgress({
         lessonsCompleted: completedCount,
         lessonsTotal: getProphetsLessonCount(),
       }),
-    [completedCount],
+    [completedCount, contentVersion],
   );
 
   return (

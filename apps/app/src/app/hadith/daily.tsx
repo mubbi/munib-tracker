@@ -85,7 +85,7 @@ export default function DailyHadithScreen() {
   const { t } = useTranslation();
   const { formatIso } = useFormatCalendarDate();
   const today = getLocalDateString();
-  const [feed, setFeed] = useState<{ date: string; hadith: HadithItem }[]>([]);
+  const [feed, setFeed] = useState<{ date: string; hadith: HadithItem }[] | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -114,7 +114,7 @@ export default function DailyHadithScreen() {
       onBack={() => goBackOrReplace(router, "/hadith")}
     >
       <Seo path="/hadith/daily" />
-      {feed.length === 0 ? (
+      {feed == null ? null : feed.length === 0 ? (
         <EmptyState
           icon={{ ios: "text.book.closed", android: "auto_stories", web: "auto_stories" }}
           title={t("dailyHadith.emptyTitle")}

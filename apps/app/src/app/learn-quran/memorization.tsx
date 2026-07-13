@@ -11,14 +11,16 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideMemorizationPlans } from "@/lib/quran-guide";
+import { ensureQuranGuideContent, getQuranGuideMemorizationPlans } from "@/lib/quran-guide";
 
 export default function LearnQuranMemorizationScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
+  useEnsureContent(ensureQuranGuideContent);
   const plans = getQuranGuideMemorizationPlans();
 
   return (

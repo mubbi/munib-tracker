@@ -209,4 +209,102 @@ export const HAJJ_GUIDE_SECTIONS_MS: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Sebelum berangkat",
+    title: "Visa dan pendaftaran",
+    summary:
+      "Bagaimana jemaah mendaftar dan mendapatkan visa Haji atau Umrah melalui saluran rasmi.",
+    steps: [
+      {
+        title: "Platform Nusuk",
+        body: "Nusuk (nusuk.sa) ialah platform rasmi Arab Saudi untuk Haji dan Umrah — digunakan untuk menempah visa, penginapan, pengangkutan, dan pakej lawatan berdaftar. Gunakan hanya Nusuk atau agensi yang dilesenkan melaluinya; orang tengah tidak rasmi merupakan sumber lazim penipuan dan perjalanan yang dibatalkan.",
+      },
+      {
+        title: "Visa Haji dan kuota negara",
+        body: "Setiap negara menerima kuota Haji tahunan, jadi kebanyakan jemaah membuat permohonan melalui badan Haji negara masing-masing atau ejen tempatan yang berlesen berbanding memohon secara individu. Mohonlah lebih awal pada tahun musim Haji dibuka — kuota dan slot pakej akan penuh berbulan-bulan lebih awal.",
+      },
+      {
+        title: "Visa Umrah",
+        body: "Berbeza dengan Haji, Umrah tidak mempunyai kuota dan boleh dilakukan pada bila-bila masa sepanjang tahun. Kebanyakan warganegara boleh memohon visa Umrah terus melalui Nusuk atau ejen pelancongan yang diluluskan, biasanya bersama tempahan penerbangan dan hotel.",
+      },
+    ],
+  },
+  {
+    day: "Sebelum berangkat",
+    title: "Senarai barang bawaan",
+    summary: "Keperluan praktikal yang perlu dibawa sebelum bertolak.",
+    steps: [
+      {
+        title: "Pakaian ihram",
+        body: "Lelaki harus membawa sekurang-kurangnya dua set pakaian ihram tanpa jahitan (kain bawah dan kain atas) serta tali pinggang ihram yang lebar dan bukan kulit untuk wang dan dokumen. Wanita harus membawa pakaian luar yang longgar, sopan, dan tanpa hiasan.",
+      },
+      {
+        title: "Kasut dan keselesaan",
+        body: "Selipar terbuka yang mudah dipakai dan ditanggalkan amat penting, kerana kasut yang menutup buku lali dilarang dalam ihram bagi lelaki. Bawalah beg galas ringan, botol air yang boleh diisi semula, dan sejadah kecil untuk menunggu yang lama.",
+      },
+      {
+        title: "Alat mandian tanpa wangian",
+        body: "Bawalah sabun tanpa wangian, losyen matahari, dan tisu basah — produk berwangian dilarang dalam ihram. Kit pertolongan cemas yang padat, sebarang ubat peribadi berserta nota doktor, dan plaster lelasan berbaloi dengan berat tambahan memandangkan banyaknya berjalan kaki.",
+      },
+      {
+        title: "Dokumen dan keperluan penting",
+        body: "Simpan pasport, cetakan visa, sijil vaksinasi (vaksin meningitis lazimnya diperlukan), dan nombor kecemasan dalam beg nipis yang dipakai di bawah pakaian. Bank kuasa mudah alih serta SIM tempatan atau eSIM memudahkan pergerakan di tempat sesak dengan banyak.",
+      },
+    ],
+  },
+  {
+    day: "Sebelum berangkat",
+    title: "Direktori tapak suci",
+    summary: "Nota praktikal ringkas tentang tapak-tapak utama yang akan anda lawati.",
+    steps: [
+      {
+        title: "Masjidil Haram, Makkah",
+        body: "Masjid Agung yang mengelilingi Kaabah — tapak tawaf dan sa'i. Ia beroperasi sepanjang masa; jangkakan kesesakan yang amat tinggi berhampiran Hajar Aswad dan semasa lima solat harian, terutamanya pada sepuluh malam terakhir Ramadan dan hari-hari Haji.",
+        location: "Makkah",
+      },
+      {
+        title: "Masjid Nabawi, Madinah",
+        body: "Masjid Nabi ﷺ, tempat Raudhah dan tempat pengebumian baginda, bukan sebahagian daripada Haji itu sendiri tetapi hampir semua jemaah mengunjungi Madinah sebelum atau selepas Haji. Memasuki Raudhah memerlukan pas masuk bermasa yang ditempah melalui Nusuk atau aplikasi Raudhah.",
+        location: "Madinah",
+      },
+      {
+        title: "Mina",
+        body: "Bandar khemah beberapa kilometer dari Makkah tempat jemaah menghabiskan malam 8, 11, 12 (dan 13) Dzulhijjah. Kem khemah berhawa dingin dan kalis kebakaran ditentukan oleh operator pelancongan; jangkakan kemudahan kongsi yang asas dan berjalan jauh ke Jamarat.",
+        location: "Mina",
+      },
+      {
+        title: "Arafah",
+        body: "Dataran terbuka kira-kira 20km dari Makkah, tapak rukun Haji yang paling penting — wukuf pada 9 Dzulhijjah. Struktur naungan dan titik air disediakan, tetapi kepanasan siang amat tinggi; hidrasi dan perlindungan matahari amat penting.",
+        location: "Arafah",
+      },
+      {
+        title: "Muzdalifah",
+        body: "Kawasan terbuka antara Arafah dan Mina tempat jemaah menghabiskan malam 9–10 Dzulhijjah di bawah langit terbuka dan mengumpul batu kecil untuk melontar jumrah. Kemudahan sengaja dibuat minimum — bawalah tikar dan berpakaianlah untuk udara malam yang lebih sejuk.",
+        location: "Muzdalifah",
+      },
+    ],
+  },
+  {
+    day: "Sebelum berangkat",
+    title: "Sumber rasmi",
+    summary: "Di mana untuk mencari maklumat rasmi yang boleh dipercayai dan terkini.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Portal dan aplikasi rasmi Kementerian Haji dan Umrah Saudi untuk visa, pakej yang diakreditasi, permit lawatan Raudhah, dan panduan kesesakan serta pengangkutan masa nyata — tempat pertama untuk sebarang soalan rasmi.",
+      },
+      {
+        title: "Badan Haji negara anda",
+        body: "Kebanyakan negara mempunyai badan Haji negara atau pejabat kementerian yang menguruskan kuota tahunan, menyemak ejen tempatan, dan menerbitkan jadual berlepas serta keperluan kesihatan — semaklah sebelum menempah melalui mana-mana ejen persendirian.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Laman pelancongan rasmi Kerajaan itu mengandungi keperluan kemasukan, maklumat e-visa untuk warganegara yang layak, dan nasihat perjalanan praktikal untuk Makkah, Madinah, dan perjalanan seterusnya di dalam Arab Saudi.",
+      },
+      {
+        title: "Sahkan sebelum membayar",
+        body: "Tempahlah hanya melalui agensi yang disenaraikan di Nusuk atau badan Haji negara anda. Jika tawaran kelihatan terlalu murah atau orang tengah meminta bayaran di luar saluran rasmi, anggaplah ia sebagai tanda amaran dan sahkan terus melalui portal kementerian.",
+      },
+    ],
+  },
 ];

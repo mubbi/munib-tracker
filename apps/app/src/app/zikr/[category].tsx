@@ -32,13 +32,19 @@ import {
 import { goBackOrReplace } from "@/lib/navigation";
 import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
-import { zikrByCategory } from "@/lib/zikr";
+import { ensureZikrCorpus, zikrByCategory } from "@/lib/zikr";
 import { useFavoriteZikrIds, usePreferencesActions } from "@/stores/preferences-store";
 import { useZikrCounts } from "@/stores/tracker-store";
 
 // After-salah adhkar tabs: the five fard prayers plus Witr (its own adhkar).
 const AFTER_SALAH_PRAYERS: AfterSalahPrayer[] = ["fajr", "dhuhr", "asr", "maghrib", "isha", "witr"];
 type PrayerFilter = AfterSalahPrayer | "all";
+
+/** Expo Router may pass dynamic segments as `string | string[]` on deep links. */
+function paramValue(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
+}
 
 /** Pre-render a static HTML page for each fixed zikr category at web export time. */
 export function generateStaticParams(): Array<{ category: string }> {
@@ -49,28 +55,44 @@ export default function ZikrCategoryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
-  const params = useLocalSearchParams<{ category: string; prayer?: string }>();
+  const params = useLocalSearchParams<{
+    category: string | string[];
+    prayer?: string | string[];
+  }>();
   const favoriteIds = useFavoriteZikrIds();
   const { toggleFavorite } = usePreferencesActions();
   const zikrCounts = useZikrCounts();
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
+  // Cold opens (notification / deep link) never visit /zikr first, so the corpus
+  // must be warmed here — zikrByCategory is sync and returns [] until ready.
+  const [corpusReady, setCorpusReady] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void ensureZikrCorpus().then(() => {
+      if (active) setCorpusReady(true);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
-  const isKnownCategory = isZikrCategoryId(params.category);
-  const categoryId = (isKnownCategory ? params.category : "anytime") as ZikrCategoryId;
-  const allItems = zikrByCategory(categoryId);
+  const categoryParam = paramValue(params.category);
+  const isKnownCategory = isZikrCategoryId(categoryParam ?? "");
+  const categoryId = (isKnownCategory ? categoryParam : "anytime") as ZikrCategoryId;
+  const allItems = corpusReady ? zikrByCategory(categoryId) : [];
 
   // After-salah adhkar can be narrowed to a single fard prayer. An item with no
   // `prayers` tag is recited after every prayer, so it shows under each filter.
   const showPrayerFilter = categoryId === "after_prayer";
   const [prayerFilter, setPrayerFilter] = useState<PrayerFilter>(() => {
-    const raw = params.prayer;
+    const raw = paramValue(params.prayer);
     return raw && isAfterSalahPrayer(raw) ? raw : "all";
   });
   // Notification deep-links can land on this screen while it is already mounted.
   useEffect(() => {
     if (!showPrayerFilter) return;
-    const raw = params.prayer;
+    const raw = paramValue(params.prayer);
     if (raw && isAfterSalahPrayer(raw)) setPrayerFilter(raw);
   }, [showPrayerFilter, params.prayer]);
   const items = useMemo(() => {
@@ -155,9 +177,11 @@ export default function ZikrCategoryScreen() {
       eyebrow={t("zikr.categoryEyebrow")}
       title={t(`zikrCat.${categoryId}`)}
       subtitle={
-        searching
-          ? t("zikr.searchResultCount", { count: filtered.length })
-          : t("zikr.adhkarCount", { count: items.length })
+        !corpusReady
+          ? undefined
+          : searching
+            ? t("zikr.searchResultCount", { count: filtered.length })
+            : t("zikr.adhkarCount", { count: items.length })
       }
       onBack={() => goBackOrReplace(router, "/")}
       scrollable={false}
@@ -177,7 +201,7 @@ export default function ZikrCategoryScreen() {
           }),
         ]}
       />
-      {allItems.length === 0 ? (
+      {!corpusReady ? null : allItems.length === 0 ? (
         <EmptyState
           icon={{ ios: "heart", android: "favorite_border", web: "favorite_border" }}
           title={t("zikr.emptyTitle")}
@@ -259,7 +283,7 @@ export default function ZikrCategoryScreen() {
             windowSize={7}
             removeClippedSubviews
             ListEmptyComponent={
-              searching ? (
+              searching && corpusReady ? (
                 <EmptyState
                   icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
                   title={t("zikr.noResults")}

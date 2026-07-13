@@ -208,4 +208,102 @@ export const HAJJ_GUIDE_SECTIONS_TK: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Gitmeziňden öň",
+    title: "Wiza we hasaba durmak",
+    summary:
+      "Zyýaratçylaryň resmi ýollar bilen nädip hasaba duryp, Haj ýa-da Umra wizasyny alýandyklary.",
+    steps: [
+      {
+        title: "Nusuk platformasy",
+        body: "Nusuk (nusuk.sa) Saud Arabystanynyň Haj we Umra üçin resmi platformasydyr — wiza, ýaşaýyş jaýy, ulag we hasaba alnan syýahat paketlerini sargyt etmek üçin ulanylýar. Diňe Nusugy ýa-da onuň arkaly rugsat berlen agentlikleri ulanyň; resmi däl araçylar köplenç aldawyň we ýatyrylan syýahatlaryň çeşmesidir.",
+      },
+      {
+        title: "Haj wizalary we ýurt kwotalary",
+        body: "Her ýurt ýyllyk Haj kwotasyny alýar, şonuň üçin zyýaratçylaryň köpüsi aýratynlykda ýüz tutmagyň deregine öz milli Haj edarasy ýa-da rugsat berlen ýerli agent üsti bilen ýüz tutýar. Haj möwsümi açylýan ýylyň başynda irden ýüz tutuň — kwotalar we paket ýerleri aýlar öň dolýar.",
+      },
+      {
+        title: "Umra wizalary",
+        body: "Hajdan tapawutlylykda, Umranyň kwotasy ýok we ýylyň islendik wagtynda ýerine ýetirilip bilner. Köp milletler göni Nusuk ýa-da tassyklanan syýahat agenti üsti bilen Umra wizasyna ýüz tutup bilerler, adatça uçar we myhmanhana sargytlary bilen bilelikde.",
+      },
+    ],
+  },
+  {
+    day: "Gitmeziňden öň",
+    title: "Ýük ýygnamak sanawy",
+    summary: "Syýahat etmezden öň ýygnamaly amaly zerur zatlar.",
+    steps: [
+      {
+        title: "Ihram eşikleri",
+        body: "Erkekler pul we resminamalar üçin giň, deriden edilmedik ihram guşagy bilen bilelikde iň azyndan iki komplekt tikilmedik ihram eşigini (bil örtügi we egin örtügi) ýygnamaly. Aýallar giň, mynasyp we bezegsiz daşarky eşik ýygnamaly.",
+      },
+      {
+        title: "Aýak geýimi we amatlylyk",
+        body: "Aňsat geýilýän we çykarylýan açyk sandallar zerurdyr, sebäbi erkekler üçin ihramda topugy örtýän aýak geýimi çäklendirilýär. Ýeňil arka goşa, doldurylýan suw çüýşesi we uzak garaşmalar üçin kiçijik namaz haly alyň.",
+      },
+      {
+        title: "Ysyz gigiýena serişdeleri",
+        body: "Ysyz sabyn, gün krem we çyglyk süpürgiçleri alyň — ihramda ysly önümler gadagan. Kiçi birinji kömek toplumy, lukman kagyzy bilen şahsy dermanlar we köp ýöremek sebäpli köwek üçin ýapyşdyrmalar goşmaça agramyna degýär.",
+      },
+      {
+        title: "Resminamalar we zerur zatlar",
+        body: "Pasportyňyzy, wiza çapyny, sanjym şahadatnamasyny (köplenç meningit talap edilýär) we gyssagly aragatnaşyk belgilerini eşigiň aşagynda geýilýän inçe haltada saklaň. Göçme kuwwat banky we ýerli SIM ýa-da eSIM köp adamly ýerlerde ugur tapmagy ep-esli aňsatlaşdyrýar.",
+      },
+    ],
+  },
+  {
+    day: "Gitmeziňden öň",
+    title: "Mukaddes ýerler gollanmasy",
+    summary: "Baryp görjek esasy ýerler barada gysga amaly bellikler.",
+    steps: [
+      {
+        title: "Mesjid al-Haram, Mekge",
+        body: "Kaabany gurşap alan Beýik Metjit — tawaf we sa'i ýeri. Ol gije-gündiz işleýär; Gara Daşyň golaýynda we bäş wagt namaz wagtynda, aýratyn hem Remezanyň soňky on gijesinde we Haj günlerinde örän köp adam garaşyň.",
+        location: "Mekge",
+      },
+      {
+        title: "Mesjid an-Nabawi, Medine",
+        body: "Pygamberiň ﷺ metjidi, Rawda we onuň dynç alýan ýerini öz içine alýar, Hajyň özüniň bir bölegi däl, ýöne ähli zyýaratçylar diýen ýaly Hajdan öň ýa-da soň Medine baryp görýärler. Rawda girmek üçin Nusuk ýa-da Rawda programmasy üsti bilen wagt bellenen giriş rugsatnamasy gerek.",
+        location: "Medine",
+      },
+      {
+        title: "Mina",
+        body: "Mekgeden birnäçe kilometr uzaklykdaky çadyr şäheri, zyýaratçylaryň Zul-Hijjanyň 8, 11, 12 (we 13) gijelerini geçirýän ýeri. Kondisioneri bar we ýangyna çydamly çadyr düşelgeleri syýahat operatory tarapyndan bellenilýär; esasy paylaşylýan şertler we Jamarata çenli uzak ýörişlere garaşyň.",
+        location: "Mina",
+      },
+      {
+        title: "Arafat",
+        body: "Mekgeden takmynan 20 km uzaklykdaky açyk düzlük, Hajyň iň möhüm dessurynyň — Zul-Hijjanyň 9-nda durmagyň — ýeri. Kölege gurluşlary we suw nokatlary üpjün edilýär, ýöne gündizki gyzgynlyk güýçli; suw içmek we güne garşy goranmak möhümdir.",
+        location: "Arafat",
+      },
+      {
+        title: "Muzdalifa",
+        body: "Arafat we Mina aralygyndaky açyk meýdan, zyýaratçylaryň Zul-Hijjanyň 9-10 gijesini açyk asmanyň aşagynda geçirýän we daşlamak üçin çagyl ýygnaýan ýeri. Şertler bilkastlaýyn iň az derejede — haly alyň we sowuk gije howasy üçin geýniň.",
+        location: "Muzdalifa",
+      },
+    ],
+  },
+  {
+    day: "Gitmeziňden öň",
+    title: "Resmi çeşmeler",
+    summary: "Ynamdar we täzelenen resmi maglumaty nireden tapmaly.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Saud Haj we Umra ministrliginiň wiza, tassyklanan paketler, Rawda baryp görmek rugsatnamalary we hakyky wagt köpçülik we ulag gollanmasy üçin resmi portaly we programmasy — islendik resmi sowal üçin birinji duralga.",
+      },
+      {
+        title: "Ýurdunyzyň Haj edarasy",
+        body: "Köp ýurtlar ýyllyk kwotany dolandyrýan, ýerli agentleri barlaýan we gitmek tertibini we saglyk talaplaryny çap edýän milli Haj edarasyny ýa-da ministrlik edarasyny ýöredýär — islendik hususy agent üsti bilen sargyt etmezden öň ony barlaň.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Şalygyň resmi syýahatçylyk sahypasy girmek talaplaryny, mynasyp milletler üçin elektron wiza maglumatyny we Mekge, Medine we Saud Arabystanynyň içinde mundan beýläk syýahat üçin amaly maslahatlary öz içine alýar.",
+      },
+      {
+        title: "Töleg etmezden öň barlaň",
+        body: "Diňe Nusukda sanalan agentlikler ýa-da milli Haj edaraňyz üsti bilen sargyt ediň. Eger şertnama adaty däl derejede arzan görünse ýa-da wekil resmi ýollardan daşarda töleg sorasa, ony howp alamaty hasap ediň we göni ministrlik portaly bilen barlaň.",
+      },
+    ],
+  },
 ];

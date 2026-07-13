@@ -14,7 +14,9 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { ensureJahannamContent } from "@/lib/jahannam";
 import { buildJahannamJourney, type JahannamJourneyRow } from "@/lib/jahannam-journey";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -138,6 +140,7 @@ export default function JahannamJourneyScreen() {
   const intentionsSet = useJahannamIntentionsCount();
   const reflectionStreak = useJahannamReflectionStreak();
 
+  useEnsureContent(ensureJahannamContent);
   const locale = i18n.language?.split("-")[0];
   const formatCount = useCallback((value: number) => value.toLocaleString(locale), [locale]);
 

@@ -12,9 +12,10 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getSalahGuidePhrases } from "@/lib/salah-guide";
+import { ensureSalahGuideContent, getSalahGuidePhrases } from "@/lib/salah-guide";
 
 function PhraseCard({
   title,
@@ -89,9 +90,10 @@ function PhraseCard({
 export default function SalahGuidePhrasesScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
+  const { version: contentVersion } = useEnsureContent(ensureSalahGuideContent);
   // Recompute per locale so translated phrases render on language switch.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const phrases = useMemo(() => getSalahGuidePhrases(), [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
+  const phrases = useMemo(() => getSalahGuidePhrases(), [i18n.language, contentVersion]);
 
   return (
     <ScreenLayout

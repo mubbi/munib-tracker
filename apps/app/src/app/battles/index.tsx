@@ -16,16 +16,20 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getBattlesLessonCount, getBattlesTopicsBySection } from "@/lib/battles";
+import {
+  ensureBattlesContent,
+  getBattlesLessonCount,
+  getBattlesSectionOrder,
+  getBattlesTopicsBySection,
+} from "@/lib/battles";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useBattlesCompletedCount,
   useEnsureBattlesProgressLoaded,
 } from "@/stores/battles-progress-store";
-
-const SECTION_ORDER = ["context", "battles", "expeditions", "later", "wisdom", "evidence"] as const;
 
 const TOPIC_ICONS: Record<string, AppIcon> = {
   introduction: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
@@ -59,11 +63,18 @@ export default function BattlesScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureBattlesProgressLoaded();
+  const { version: contentVersion } = useEnsureContent(ensureBattlesContent);
   const completedCount = useBattlesCompletedCount();
-  const lessonTotal = getBattlesLessonCount();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const lessonTotal = useMemo(() => getBattlesLessonCount(), [contentVersion]);
   // Recompute per locale so translated topic titles/summaries render on switch.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const TOPICS_BY_SECTION = useMemo(() => getBattlesTopicsBySection(), [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const TOPICS_BY_SECTION = useMemo(
+    () => getBattlesTopicsBySection(),
+    [i18n.language, contentVersion],
+  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const SECTION_ORDER = useMemo(() => getBattlesSectionOrder(), [i18n.language, contentVersion]);
 
   const quickLinks = useMemo(
     () => [
@@ -140,7 +151,7 @@ export default function BattlesScreen() {
 
         {SECTION_ORDER.map((section) => {
           const topics = TOPICS_BY_SECTION[section];
-          if (!topics.length) return null;
+          if (!topics?.length) return null;
           return (
             <Card key={section} padding="three">
               <SectionHeader

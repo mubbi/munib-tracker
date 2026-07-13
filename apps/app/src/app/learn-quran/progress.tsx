@@ -12,8 +12,9 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideLessonCount } from "@/lib/quran-guide";
+import { ensureQuranGuideContent, getQuranGuideLessonCount } from "@/lib/quran-guide";
 import { buildQuranGuideProgress } from "@/lib/quran-guide-progress";
 import {
   useEnsureQuranGuideProgressLoaded,
@@ -26,13 +27,15 @@ export default function LearnQuranProgressScreen() {
   useEnsureQuranGuideProgressLoaded();
   const completedCount = useQuranGuideCompletedCount();
 
+  const { version: contentVersion } = useEnsureContent(ensureQuranGuideContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildQuranGuideProgress({
         lessonsCompleted: completedCount,
         lessonsTotal: getQuranGuideLessonCount(),
       }),
-    [completedCount],
+    [completedCount, contentVersion],
   );
 
   return (

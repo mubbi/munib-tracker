@@ -24,8 +24,12 @@ export default function DuroodFavoritesScreen() {
   const favoriteIds = useFavoriteDuroodIds();
   const { toggle } = useDuroodFavoritesActions();
   const [duroodItems, setDuroodItems] = useState<Awaited<ReturnType<typeof loadDuroodItems>>>([]);
+  const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
-    void loadDuroodItems().then(setDuroodItems);
+    void loadDuroodItems().then((items) => {
+      setDuroodItems(items);
+      setCorpusReady(true);
+    });
   }, []);
   const byId = useMemo(() => new Map(duroodItems.map((item) => [item.id, item])), [duroodItems]);
 
@@ -39,7 +43,15 @@ export default function DuroodFavoritesScreen() {
       onBack={() => goBackOrReplace(router, "/duroods")}
     >
       <Seo path="/duroods/favorites" />
-      {items.length === 0 ? (
+      {favoriteIds.length === 0 ? (
+        <EmptyState
+          icon={{ ios: "star", android: "star_border", web: "star_border" }}
+          title={t("duroods.favEmptyTitle")}
+          description={t("duroods.favEmptyDesc")}
+          actionLabel={t("duroods.title")}
+          onAction={() => router.replace("/duroods")}
+        />
+      ) : !corpusReady ? null : items.length === 0 ? (
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
           title={t("duroods.favEmptyTitle")}

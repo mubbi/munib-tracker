@@ -15,12 +15,14 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getLastDayHadith } from "@/lib/last-day";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureLastDayContent, getLastDayHadith } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function LastDayHadithScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureLastDayContent);
   const entries = getLastDayHadith();
 
   const grouped = useMemo(() => {

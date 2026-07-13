@@ -67,7 +67,8 @@ export function getProphetsTopicsBySection(): Record<ProphetsSection, ProphetsTo
   ) as Record<ProphetsSection, ProphetsTopic[]>;
 
   for (const topic of getProphetsTopics()) {
-    grouped[topic.section].push(topic);
+    const bucket = grouped[topic.section];
+    if (bucket) bucket.push(topic);
   }
   return grouped;
 }

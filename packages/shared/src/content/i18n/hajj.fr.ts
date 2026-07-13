@@ -208,4 +208,102 @@ export const HAJJ_GUIDE_SECTIONS_FR: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Avant de partir",
+    title: "Visa et inscription",
+    summary:
+      "Comment les pèlerins s'inscrivent et obtiennent un visa de Hajj ou d'Umrah par les canaux officiels.",
+    steps: [
+      {
+        title: "La plateforme Nusuk",
+        body: "Nusuk (nusuk.sa) est la plateforme officielle de l'Arabie saoudite pour le Hajj et l'Umrah — utilisée pour réserver des visas, l'hébergement, le transport et des forfaits touristiques enregistrés. N'utilisez que Nusuk ou des agences agréées par son intermédiaire ; les intermédiaires non officiels sont une source fréquente d'arnaques et de voyages annulés.",
+      },
+      {
+        title: "Visas de Hajj et quotas nationaux",
+        body: "Chaque pays reçoit un quota annuel de Hajj, si bien que la plupart des pèlerins font leur demande via l'autorité nationale du Hajj de leur pays ou un agent local agréé plutôt qu'individuellement. Déposez votre demande dès le début de l'année où la saison du Hajj s'ouvre — les quotas et places de forfaits se remplissent des mois à l'avance.",
+      },
+      {
+        title: "Visas d'Umrah",
+        body: "Contrairement au Hajj, l'Umrah n'a pas de quota et peut être accomplie à tout moment de l'année. La plupart des nationalités peuvent demander un visa d'Umrah directement via Nusuk ou une agence de voyage agréée, généralement en même temps que la réservation du vol et de l'hôtel.",
+      },
+    ],
+  },
+  {
+    day: "Avant de partir",
+    title: "Liste des bagages",
+    summary: "L'essentiel pratique à emporter avant votre départ.",
+    steps: [
+      {
+        title: "Vêtements d'ihram",
+        body: "Les hommes doivent emporter au moins deux jeux de vêtements d'ihram non cousus (un pagne et une étole) ainsi qu'une large ceinture d'ihram non en cuir pour l'argent et les documents. Les femmes doivent emporter des vêtements amples, modestes et sans ornements.",
+      },
+      {
+        title: "Chaussures et confort",
+        body: "Des sandales ouvertes faciles à enfiler et à retirer sont indispensables, car les chaussures couvrant les chevilles sont interdites en ihram pour les hommes. Emportez un sac à dos léger, une bouteille d'eau réutilisable et un petit tapis de prière pour les longues attentes.",
+      },
+      {
+        title: "Articles de toilette non parfumés",
+        body: "Emportez du savon non parfumé, de la crème solaire et des lingettes — les produits parfumés sont interdits en ihram. Une trousse de premiers secours compacte, tout médicament personnel accompagné d'une ordonnance et des pansements pour ampoules valent le poids supplémentaire, étant donné la quantité de marche.",
+      },
+      {
+        title: "Documents et essentiels",
+        body: "Gardez votre passeport, l'impression du visa, le certificat de vaccination (la méningite est généralement exigée) et les contacts d'urgence dans une pochette fine portée sous les vêtements. Une batterie externe portable et une carte SIM locale ou eSIM facilitent grandement les déplacements dans les lieux bondés.",
+      },
+    ],
+  },
+  {
+    day: "Avant de partir",
+    title: "Répertoire des lieux saints",
+    summary: "Notes pratiques rapides sur les principaux lieux que vous visiterez.",
+    steps: [
+      {
+        title: "Masjid al-Haram, La Mecque",
+        body: "La Grande Mosquée entourant la Ka'bah — le lieu du tawaf et du sa'i. Elle fonctionne 24 heures sur 24 ; attendez-vous à une foule très dense près de la Pierre Noire et pendant les cinq prières quotidiennes, en particulier durant les dix dernières nuits du Ramadan et les jours du Hajj.",
+        location: "La Mecque",
+      },
+      {
+        title: "Masjid an-Nabawi, Médine",
+        body: "La mosquée du Prophète ﷺ, qui abrite la Rawdah et son lieu de repos, ne fait pas partie du Hajj lui-même, mais presque tous les pèlerins visitent Médine avant ou après. L'accès à la Rawdah nécessite un créneau réservé via Nusuk ou l'application Rawdah.",
+        location: "Médine",
+      },
+      {
+        title: "Mina",
+        body: "Une ville de tentes à quelques kilomètres de La Mecque où les pèlerins passent les nuits du 8, 11, 12 (et 13) Dhul-Hijjah. Des camps de tentes climatisées et ignifugées sont attribués par l'opérateur touristique ; attendez-vous à des installations partagées basiques et à de longues marches jusqu'aux Jamarat.",
+        location: "Mina",
+      },
+      {
+        title: "Arafah",
+        body: "Une vaste plaine à environ 20 km de La Mecque, le lieu du rite le plus essentiel du Hajj — la station du 9 Dhul-Hijjah. Des structures d'ombre et des points d'eau sont fournis, mais la chaleur diurne est intense ; l'hydratation et la protection solaire sont essentielles.",
+        location: "Arafa",
+      },
+      {
+        title: "Muzdalifah",
+        body: "Une zone ouverte entre Arafah et Mina où les pèlerins passent la nuit du 9 au 10 Dhul-Hijjah à ciel ouvert et ramassent des cailloux pour la lapidation. Les installations sont volontairement minimales — emportez un tapis et habillez-vous pour l'air frais de la nuit.",
+        location: "Mouzdalifa",
+      },
+    ],
+  },
+  {
+    day: "Avant de partir",
+    title: "Ressources officielles",
+    summary: "Où trouver des informations officielles fiables et à jour.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Le portail et l'application officiels du ministère saoudien du Hajj et de l'Umrah pour les visas, les forfaits accrédités, les permis de visite de la Rawdah et les indications en temps réel sur la foule et les transports — le premier point de contact pour toute question officielle.",
+      },
+      {
+        title: "L'autorité du Hajj de votre pays",
+        body: "La plupart des pays disposent d'une autorité nationale du Hajj ou d'un service ministériel qui gère le quota annuel, contrôle les agents locaux et publie les calendriers de départ et les exigences sanitaires — vérifiez-le avant de réserver via tout agent privé.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Le site touristique officiel du Royaume présente les conditions d'entrée, les informations sur le visa électronique pour les nationalités éligibles et des conseils de voyage pratiques pour La Mecque, Médine et les déplacements ultérieurs en Arabie saoudite.",
+      },
+      {
+        title: "Vérifiez avant de payer",
+        body: "Ne réservez que via des agences répertoriées sur Nusuk ou l'autorité nationale du Hajj de votre pays. Si une offre semble anormalement bon marché ou qu'un intermédiaire demande un paiement en dehors des canaux officiels, considérez-le comme un signal d'alerte et vérifiez directement auprès du portail ministériel.",
+      },
+    ],
+  },
 ];

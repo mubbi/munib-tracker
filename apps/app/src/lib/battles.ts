@@ -48,13 +48,18 @@ export function getBattlesTopic(id: string | undefined): BattlesTopic | undefine
   return getBattlesTopics().find((topic) => topic.id === id);
 }
 
+export function getBattlesSectionOrder(): readonly BattlesSection[] {
+  return content().BATTLES_SECTION_ORDER ?? [];
+}
+
 export function getBattlesTopicsBySection(): Record<BattlesSection, BattlesTopic[]> {
   const grouped = Object.fromEntries(
-    (content().BATTLES_SECTION_ORDER ?? []).map((section) => [section, [] as BattlesTopic[]]),
+    getBattlesSectionOrder().map((section) => [section, [] as BattlesTopic[]]),
   ) as Record<BattlesSection, BattlesTopic[]>;
 
   for (const topic of getBattlesTopics()) {
-    grouped[topic.section].push(topic);
+    const bucket = grouped[topic.section];
+    if (bucket) bucket.push(topic);
   }
   return grouped;
 }

@@ -11,7 +11,11 @@ export interface LiveActivityState {
   prayerId: string;
   prayerName: string;
   prayerTime: string;
+  /** Localized "at {{time}}" for the prayer clock (user time format). */
+  prayerTimeLabel: string;
   countdownLabel: string;
+  /** Localized caption above the live countdown. */
+  remainingLabel: string;
   minutesUntil: number;
   /** Epoch milliseconds of the next prayer instant, for a native live countdown. */
   targetTimeMs: number;
@@ -33,9 +37,10 @@ export interface LiveActivityState {
 }
 
 /**
- * Builds the Live Activity content state from a widget snapshot. `now` is used
- * to derive the absolute next-prayer instant from the snapshot's whole-minute
- * countdown so the native `Text(timerInterval:)` ticks down on its own.
+ * Builds the Live Activity content state from a widget snapshot. Prefers the
+ * snapshot's exact `targetTimeMs` (from the adhan engine + user method/madhab
+ * adjustments) so the native `Text(timerInterval:)` matches displayed salah
+ * times; falls back to whole-minute reconstruction when absent.
  */
 export function buildLiveActivityState(
   snapshot: WidgetSnapshot,
@@ -43,13 +48,16 @@ export function buildLiveActivityState(
 ): LiveActivityState {
   const { nextPrayer, progress, theme } = snapshot;
   const minutesUntil = Math.max(0, Math.round(nextPrayer.minutesUntil));
-  const targetTimeMs = now.getTime() + minutesUntil * 60_000;
+  const targetTimeMs =
+    nextPrayer.targetTimeMs > 0 ? nextPrayer.targetTimeMs : now.getTime() + minutesUntil * 60_000;
 
   return {
     prayerId: nextPrayer.prayerId,
     prayerName: nextPrayer.prayerName,
     prayerTime: nextPrayer.prayerTime,
+    prayerTimeLabel: nextPrayer.prayerTimeLabel,
     countdownLabel: nextPrayer.countdownLabel,
+    remainingLabel: nextPrayer.remainingLabel,
     minutesUntil,
     targetTimeMs,
     displayDate: nextPrayer.displayDate,

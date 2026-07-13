@@ -41,8 +41,14 @@ export type WidgetSnapshot = {
     prayerId: string;
     prayerName: string;
     prayerTime: string;
+    /** Localized "at {{time}}" line for lock-screen / Live Activity context. */
+    prayerTimeLabel: string;
     countdownLabel: string;
+    /** Localized caption above the live countdown (e.g. "Remaining"). */
+    remainingLabel: string;
     minutesUntil: number;
+    /** Exact next-prayer instant (epoch ms) for ActivityKit `Text(timerInterval:)`. */
+    targetTimeMs: number;
     displayDate: string;
     location: string;
   };
@@ -108,8 +114,11 @@ export function emptyWidgetSnapshot(): WidgetSnapshot {
       prayerId: "",
       prayerName: "—",
       prayerTime: "—",
+      prayerTimeLabel: "—",
       countdownLabel: "—",
+      remainingLabel: i18n.t("widgets.remaining", "Remaining"),
       minutesUntil: 15,
+      targetTimeMs: 0,
       displayDate: "",
       location: "",
     },

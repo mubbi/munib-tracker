@@ -7,8 +7,9 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { getLearnDuaTopic, getLearnDuaTopics } from "@/lib/learn-dua";
+import { ensureLearnDuaContent, getLearnDuaTopic, getLearnDuaTopics } from "@/lib/learn-dua";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLearnDuaProgressLoaded } from "@/stores/learn-dua-progress-store";
@@ -21,6 +22,7 @@ export default function LearnDuaTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  const { ready: contentReady } = useEnsureContent(ensureLearnDuaContent);
   const topic = getLearnDuaTopic(topicId);
   const reportRef = useGuideContentReportRef("learn_dua", topic, "/learn-dua");
   useEnsureLearnDuaProgressLoaded();
@@ -62,7 +64,7 @@ export default function LearnDuaTopicScreen() {
             : undefined
         }
       />
-      {!topic ? (
+      {!contentReady ? null : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("learnDua.notFound")}

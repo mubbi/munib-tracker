@@ -38,7 +38,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
           "Hal pertama yang harus dipertanggungjawabkan seorang hamba pada hari kiamat adalah shalatnya; jika sehat, maka amal-amalnya yang lain pun baik. (juga Abu Dawud 864, an-Nasa'i 3991)",
       },
     ],
-    appLinks: [{ label: "Perjalanan ke Jannah" }, { label: "Pelacak salat" }],
+    appLinks: [
+      {
+        label: "Perjalanan ke Jannah",
+      },
+      {
+        label: "Pelacak salat",
+      },
+    ],
   },
   {
     title: "Mengapa Salah?",
@@ -78,7 +85,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Bacalah makna Al-Fatihah satu kali sebelum salat berikutnya agar Anda merasa terjawab.",
       "Aktifkan pengingat adzan agar tidak ada jendela salat yang terlewatkan tanpa disadari.",
     ],
-    appLinks: [{ label: "Pengingat salat" }, { label: "Jurnal khushu" }],
+    appLinks: [
+      {
+        label: "Pengingat salat",
+      },
+      {
+        label: "Jurnal khushu",
+      },
+    ],
   },
   {
     title: "Peringkatnya dalam Islam",
@@ -137,9 +151,15 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       },
     ],
     appLinks: [
-      { label: "Panduan haid" },
-      { label: "Salat saat sakit" },
-      { label: "Salat perjalanan" },
+      {
+        label: "Panduan haid",
+      },
+      {
+        label: "Salat saat sakit",
+      },
+      {
+        label: "Salat perjalanan",
+      },
     ],
   },
   {
@@ -189,7 +209,17 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
     ],
     disclaimer:
       "Mazhab menyebutkan dan menghitung syarat-syaratnya dengan sedikit berbeda (ada yang mencantumkan niyyah di antara rukun-rukunnya, bukan syarat-syaratnya). Substansinya disepakati.",
-    appLinks: [{ label: "Taharah" }, { label: "Kompas kiblat" }, { label: "Jadwal salat" }],
+    appLinks: [
+      {
+        label: "Taharah",
+      },
+      {
+        label: "Kompas kiblat",
+      },
+      {
+        label: "Jadwal salat",
+      },
+    ],
   },
   {
     title: "Pemurnian (Taharah)",
@@ -216,7 +246,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Simpanlah pakaian bersih yang dikhususkan untuk sembahyang jika Anda bekerja di lingkungan yang kotor.",
       "Lihatlah ke tempat salat Anda untuk mencari kotoran yang terlihat sebelum meletakkan matras.",
     ],
-    appLinks: [{ label: "Panduan taharah lengkap" }, { label: "Pelajaran wudhu" }],
+    appLinks: [
+      {
+        label: "Panduan taharah lengkap",
+      },
+      {
+        label: "Pelajaran wudhu",
+      },
+    ],
   },
   {
     title: "Wudu — wudhu",
@@ -282,7 +319,65 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Lakukan wudhu secara perlahan sebanyak satu kali sambil membaca setiap langkah dengan suara keras, memeriksa siku dan tumit.",
       "Hafalkan doa singkat setelah wudhu — lihat Kata-kata Shalat.",
     ],
-    appLinks: [{ label: "Wudhu & doa terkait" }, { label: "Kata-kata salat" }],
+    appLinks: [
+      {
+        label: "Wudhu & doa terkait",
+      },
+      {
+        label: "Kata-kata salat",
+      },
+    ],
+  },
+  {
+    title: "Tayammum — dry purification",
+    summary: "When water cannot be used, clean earth lifts impurity so prayer is not delayed.",
+    body: [
+      "Tayammum is the dry purification Allah legislated when water is genuinely unavailable, or when using it would cause harm because of illness or severe cold. It is not a lesser workaround for convenience — it is a complete substitute that lifts minor or major impurity for prayer until water can be used again.",
+      "The Qur'an names it in the same verse as wudu and ghusl (5:6): wipe the face and hands with clean earth after striking it. The Prophet ﷺ taught the companions this concession as mercy, not as a loophole to skip searching for water when it is reasonably available.",
+      "Practically: intend tayammum, say Bismillah, strike clean earth once (or twice according to some schools), wipe the face, then wipe the hands to the wrists (many scholars include up to the elbows in continuity with wudu). What breaks wudu or ghusl also ends the corresponding tayammum; finding usable water ends the concession and you return to ordinary purification.",
+      "If you prayed validly with tayammum and only found water afterward, the majority hold that the completed prayer need not be repeated. If water appears before you pray, you must use it. For casts, wounds, and illness, combine wiping over dressings with tayammum as your school and doctor advise — see the full Taharah guide for detail.",
+    ],
+    steps: [
+      {
+        title: "Confirm the need",
+        body: "Search reasonably for usable water, or confirm that using water would harm you (illness, severe cold, medical advice).",
+      },
+      {
+        title: "Intention & Bismillah",
+        body: "Intend tayammum in place of wudu or ghusl, and begin with Bismillah.",
+        transliteration: "Bismillah",
+      },
+      {
+        title: "Strike clean earth",
+        body: "Strike clean earth (or a clean dusty surface) with both hands once — some schools strike twice.",
+      },
+      {
+        title: "Wipe the face",
+        body: "Wipe the entire face with the dust remaining on the hands.",
+      },
+      {
+        title: "Wipe the hands",
+        body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
+      },
+    ],
+    quran: [
+      {
+        excerpt:
+          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
+      },
+    ],
+    actions: [
+      "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
+      "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
+    ],
+    disclaimer:
+      "Schools differ on details (one strike vs two, wrists vs elbows, renewing per prayer). This is a mainstream educational summary — follow reliable local scholarship for your practice.",
   },
   {
     title: "Pakaian & aurat",
@@ -354,7 +449,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
     ],
     disclaimer:
       "Awal Asar ada dua pendapat yang dilaporkan (bayangan sama dengan, atau dua kali, panjang suatu benda). Keduanya sah; ikuti perhitungan lokal dan komunitas Anda.",
-    appLinks: [{ label: "Jadwal salat" }, { label: "Pengaturan pengingat" }],
+    appLinks: [
+      {
+        label: "Jadwal salat",
+      },
+      {
+        label: "Pengaturan pengingat",
+      },
+    ],
   },
   {
     title: "Menghadap kiblat",
@@ -376,7 +478,11 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
           "Ketika bangun salat, berwudhu dengan baik, lalu menghadap kiblat dan mengucapkan takbir. (dari hadits orang yang shalatnya jelek)",
       },
     ],
-    appLinks: [{ label: "Kompas kiblat" }],
+    appLinks: [
+      {
+        label: "Kompas kiblat",
+      },
+    ],
   },
   {
     title: "Adzan — adzan",
@@ -422,7 +528,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
           "Barang siapa yang mendengar seruan, 'Ya Allah, Tuhan atas seruan yang sempurna dan shalat yang rukun, berilah Muhammad wasilah dan keutamaan...', maka syafaatku akan menjadi miliknya pada Hari Kebangkitan. (Jabir)",
       },
     ],
-    appLinks: [{ label: "Dengarkan adzan" }, { label: "Adzan & doa salat" }],
+    appLinks: [
+      {
+        label: "Dengarkan adzan",
+      },
+      {
+        label: "Adzan & doa salat",
+      },
+    ],
   },
   {
     title: "Salah langkah demi langkah",
@@ -568,10 +681,18 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       },
     ],
     appLinks: [
-      { label: "Kata & makna" },
-      { label: "Setiap posisi" },
-      { label: "Jika salah (sujud sahw)" },
-      { label: "Pelacak latihan" },
+      {
+        label: "Kata & makna",
+      },
+      {
+        label: "Setiap posisi",
+      },
+      {
+        label: "Jika salah (sujud sahw)",
+      },
+      {
+        label: "Pelacak latihan",
+      },
     ],
   },
   {
@@ -662,7 +783,11 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Matikan suara ponsel Anda atau tinggalkan di ruangan lain sebelum Anda mengucapkan takbir pembuka.",
       "Mintalah seseorang yang berpengetahuan untuk memperhatikan salah satu doa Anda dan memperbaiki postur tubuh Anda.",
     ],
-    appLinks: [{ label: "Pelajari membaca Al-Fatihah" }],
+    appLinks: [
+      {
+        label: "Pelajari membaca Al-Fatihah",
+      },
+    ],
   },
   {
     title: "Amalan sunnah",
@@ -688,7 +813,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
           "Barang siapa yang shalat sunnah dua belas rakaat pada siang dan malam, maka akan dibangunkan baginya sebuah rumah di surga. (Umm Habibah)",
       },
     ],
-    appLinks: [{ label: "Sunnah & dzikir pasca-salat" }, { label: "Doa masjid" }],
+    appLinks: [
+      {
+        label: "Sunnah & dzikir pasca-salat",
+      },
+      {
+        label: "Doa masjid",
+      },
+    ],
   },
   {
     title: "Khushu — kehadiran hati",
@@ -720,7 +852,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Berhentilah selama tiga detik santai di setiap postur sebelum melanjutkan.",
       "Catat tingkat fokus Anda dalam jurnal setelah salat dan perhatikan perubahan polanya.",
     ],
-    appLinks: [{ label: "Jurnal khushu" }, { label: "Kata & makna" }],
+    appLinks: [
+      {
+        label: "Jurnal khushu",
+      },
+      {
+        label: "Kata & makna",
+      },
+    ],
   },
   {
     title: "Pilar & pembatalan",
@@ -750,7 +889,11 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
     ],
     disclaimer:
       "Keempat mazhab tersebut mengklasifikasikan beberapa perbuatan secara berbeda — misalnya apakah tashahhud pertama itu wajib atau sunnah, atau daftar persis apa yang diwajibkan sujud al-sahw. Pelajari detail sekolah Anda dari guru yang berkualifikasi.",
-    appLinks: [{ label: "Sujud sahw" }],
+    appLinks: [
+      {
+        label: "Sujud sahw",
+      },
+    ],
   },
   {
     title: "Sujud al-Sahw - memperbaiki kesalahan",
@@ -777,7 +920,11 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
     ],
     disclaimer:
       "Jatuhnya dua sujud sebelum atau sesudah salam tergantung pada kesalahannya, dan madzhabnya berbeda. Keduanya berasal dari sunnah; jangan biarkan ketidakpastian menghentikan Anda untuk berdoa.",
-    appLinks: [{ label: "Rukun & pembatal" }],
+    appLinks: [
+      {
+        label: "Rukun & pembatal",
+      },
+    ],
   },
   {
     title: "Jenis-jenis shalat",
@@ -830,7 +977,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
           "Sholat yang paling utama setelah sholat fardhu adalah sholat malam. (Abu Hurairah)",
       },
     ],
-    appLinks: [{ label: "Panduan tahajud" }, { label: "Tabel rakaat" }],
+    appLinks: [
+      {
+        label: "Panduan tahajud",
+      },
+      {
+        label: "Tabel rakaat",
+      },
+    ],
   },
   {
     title: "Jumu'ah - shalat Jumat",
@@ -869,7 +1023,11 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
     ],
     disclaimer:
       "Minimnya jumlah jamaah, dan apakah mandi itu wajib atau sunah yang kuat, menjadi perbedaan pendapat para ulama. Ikuti praktik terpercaya komunitas lokal Anda.",
-    appLinks: [{ label: "Baca Surah Al-Kahf" }],
+    appLinks: [
+      {
+        label: "Baca Surah Al-Kahf",
+      },
+    ],
   },
   {
     title: "Doa berjamaah",
@@ -916,7 +1074,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Gabungkan setiap salat wajib dengan satu salat qadha hingga terhapuskan simpanannya.",
       "Jangan pernah menunda salat yang sudah jatuh tempo untuk mengganti salat lama. Jagalah salat hari ini tepat pada waktunya.",
     ],
-    appLinks: [{ label: "Pelacak qadha" }, { label: "Riwayat qadha" }],
+    appLinks: [
+      {
+        label: "Pelacak qadha",
+      },
+      {
+        label: "Riwayat qadha",
+      },
+    ],
   },
   {
     title: "Setelah shalat",
@@ -941,7 +1106,14 @@ export const SALAH_GUIDE_TOPICS_ID: DeepPartial<SalahGuideTopic>[] = [
       "Bacalah Ayat al-Kursi dan tiga Qul sebelum Anda berdiri.",
       "Tetaplah duduk selama satu menit untuk berdoa pribadi setelah setiap shalat fardhu.",
     ],
-    appLinks: [{ label: "Dzikir pasca-salat" }, { label: "Penghitung tasbih" }],
+    appLinks: [
+      {
+        label: "Dzikir pasca-salat",
+      },
+      {
+        label: "Penghitung tasbih",
+      },
+    ],
   },
 ];
 

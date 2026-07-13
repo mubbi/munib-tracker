@@ -8,7 +8,8 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getLearnDuaOccasions } from "@/lib/learn-dua";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureLearnDuaContent, getLearnDuaOccasions } from "@/lib/learn-dua";
 import { goBackOrReplace } from "@/lib/navigation";
 
 const CATEGORY_ORDER = ["daily", "situational", "quranic"] as const;
@@ -16,6 +17,7 @@ const CATEGORY_ORDER = ["daily", "situational", "quranic"] as const;
 export default function LearnDuaOccasionsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureLearnDuaContent);
   const occasions = getLearnDuaOccasions();
 
   return (
@@ -33,7 +35,7 @@ export default function LearnDuaOccasionsScreen() {
 
         {CATEGORY_ORDER.map((category) => {
           const items = occasions.filter((occasion) => occasion.category === category);
-          if (!items.length) return null;
+          if (!items?.length) return null;
           return (
             <Card key={category} padding="three">
               <SectionHeader

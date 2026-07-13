@@ -65,7 +65,7 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 | `/qaza`, `/qaza/history`, `/qaza/calculator`, `/qaza/planner`, `/qaza/roza` | Missed prayers & fasts |
 | `/tasbeeh/free` | Free counter |
 | `/ramadan`, `/tahajjud`, `/journal`, `/hayd`, `/sick` | Modes & logs |
-| `/calendar`, `/events`, `/statistics`, `/achievements` | Review |
+| `/calendar`, `/calendar/converter`, `/events`, `/statistics`, `/achievements` | Review & date tools |
 | `/search`, `/notifications`, `/profile`, `/bookmarks` | Hub screens |
 
 ### Qur'an, hadith, dua, zikr
@@ -84,7 +84,7 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 
 ### Learning hubs
 
-`/salah-guide`, `/learn-quran`, `/learn-dua`, `/jannah`, `/jahannam`, `/last-day`, `/battles`, `/prophets`, `/aqeedah`, `/taharah`, `/travel`, `/hajj`, `/seerah`, `/zakat`
+`/salah-guide`, `/learn-quran`, `/learn-dua`, `/jannah`, `/jahannam`, `/last-day`, `/battles`, `/prophets`, `/aqeedah`, `/taharah`, `/travel`, `/hajj`, `/seerah`, `/zakat`, `/sahaba`, `/history`, `/laylat-al-qadr`, `/eid`, `/ruqyah`, `/new-muslim`, `/finance`
 
 ### Settings (common)
 

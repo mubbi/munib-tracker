@@ -208,4 +208,101 @@ export const HAJJ_GUIDE_SECTIONS_SW: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Kabla ya kwenda",
+    title: "Viza na usajili",
+    summary: "Jinsi mahujaji wanavyojisajili na kupata viza ya Hija au Umra kupitia njia rasmi.",
+    steps: [
+      {
+        title: "Jukwaa la Nusuk",
+        body: "Nusuk (nusuk.sa) ni jukwaa rasmi la Saudi Arabia kwa ajili ya Hija na Umra — linatumika kuhifadhi viza, malazi, usafiri, na vifurushi vya kitalii vilivyosajiliwa. Tumia Nusuk pekee au mashirika yenye leseni kupitia hilo; wapatanishi wasio rasmi ni chanzo cha kawaida cha udanganyifu na safari zilizoghairiwa.",
+      },
+      {
+        title: "Viza ya Hija na mgao wa kitaifa",
+        body: "Kila nchi hupokea mgao wa kila mwaka wa Hija, kwa hivyo mahujaji wengi huomba kupitia mamlaka ya Hija ya nchi yao au wakala wa ndani mwenye leseni badala ya kuomba wenyewe. Omba mapema mwaka msimu wa Hija unapofunguliwa — mgao na nafasi za vifurushi hujaa miezi mingi kabla.",
+      },
+      {
+        title: "Viza ya Umra",
+        body: "Tofauti na Hija, Umra haina mgao na inaweza kufanywa wakati wowote wa mwaka. Raia wengi wanaweza kuomba viza ya Umra moja kwa moja kupitia Nusuk au wakala wa utalii walioidhinishwa, mara nyingi pamoja na uhifadhi wa ndege na hoteli.",
+      },
+    ],
+  },
+  {
+    day: "Kabla ya kwenda",
+    title: "Orodha ya vitu vya kubeba",
+    summary: "Vitu muhimu vya kubeba kabla ya kuondoka.",
+    steps: [
+      {
+        title: "Mavazi ya ihram",
+        body: "Wanaume wanapaswa kubeba angalau seti mbili za mavazi ya ihram yasiyoshonwa (kitambaa cha chini na cha juu) na mkanda mpana wa ihram usio wa ngozi kwa fedha na hati. Wanawake wanapaswa kubeba mavazi ya juu yaliyolegea, ya heshima na yasiyopambwa.",
+      },
+      {
+        title: "Viatu na starehe",
+        body: "Sandali wazi zinazovaliwa na kuvuliwa kwa urahisi ni muhimu sana, kwani viatu vinavyofunika kifundo cha mguu vimekatazwa katika ihram kwa wanaume. Beba mkoba mwepesi, chupa ya maji inayoweza kujazwa tena, na msala mdogo kwa ajili ya kusubiri kwa muda mrefu.",
+      },
+      {
+        title: "Vifaa vya usafi visivyo na harufu",
+        body: "Beba sabuni isiyo na harufu, losheni ya jua, na leso za mvua — bidhaa zenye manukato zimekatazwa katika ihram. Kisanduku kidogo cha huduma ya kwanza, dawa yoyote ya kibinafsi pamoja na kibali cha daktari, na plasta za malengelenge zinafaa uzito wa ziada kutokana na kiasi kikubwa cha kutembea.",
+      },
+      {
+        title: "Hati na vitu muhimu",
+        body: "Weka pasipoti, nakala iliyochapishwa ya viza, cheti cha chanjo (chanjo ya meninjitisi mara nyingi inahitajika), na namba za dharura katika mkoba mwembamba wa kiunoni unaovaliwa chini ya nguo. Betri ya kubebea na simu ya ndani au eSIM huifanya iwe rahisi kusonga mahali penye msongamano mkubwa.",
+      },
+    ],
+  },
+  {
+    day: "Kabla ya kwenda",
+    title: "Orodha ya maeneo matakatifu",
+    summary: "Vidokezo vifupi vya vitendo kuhusu maeneo makuu utakayoyatembelea.",
+    steps: [
+      {
+        title: "Masjid al-Haram, Makka",
+        body: "Msikiti Mkuu unaozunguka Al-Kaaba — mahali pa tawaf na sa'ai. Unafanya kazi saa ishirini na nne; tarajia msongamano mkubwa sana karibu na Jiwe Jeusi na wakati wa sala tano za kila siku, hasa katika siku kumi za mwisho za Ramadhani na siku za Hija.",
+        location: "Makka",
+      },
+      {
+        title: "Masjid an-Nabawi, Madina",
+        body: "Msikiti wa Mtume ﷺ, unaokaa na Raudha na mahali pake pa mazishi, si sehemu ya Hija yenyewe lakini karibu mahujaji wote hutembelea Madina kabla au baada ya Hija. Kuingia Raudha kunahitaji kibali cha muda maalum kilichohifadhiwa kupitia Nusuk au programu ya Raudhah.",
+        location: "Madina",
+      },
+      {
+        title: "Mina",
+        body: "Mji wa mahema kilomita chache kutoka Makka ambapo mahujaji hutumia usiku wa 8, 11, 12 (na 13) Dhul-Hijjah. Kambi za mahema yenye kiyoyozi na yasiyoshika moto hupangwa na wapangaji wa utalii; tarajia vifaa vya kawaida vya pamoja na kutembea kwa mbali kwenda Jamarat.",
+        location: "Mina",
+      },
+      {
+        title: "Arafah",
+        body: "Uwanja wazi karibu kilomita 20 kutoka Makka, mahali muhimu zaidi pa nguzo ya Hija — kusimama (wuquf) tarehe 9 Dhul-Hijjah. Miundo ya kivuli na sehemu za maji zimewekwa, lakini joto la mchana ni kali sana; unywaji wa maji na kujikinga na jua ni muhimu sana.",
+        location: "Arafah",
+      },
+      {
+        title: "Muzdalifah",
+        body: "Eneo wazi kati ya Arafah na Mina ambapo mahujaji hutumia usiku wa 9-10 Dhul-Hijjah chini ya anga wazi na kukusanya kokoto kwa ajili ya kurusha jamarat. Vifaa vimepunguzwa kimakusudi — beba msala na uvae kwa ajili ya hewa baridi zaidi ya usiku.",
+        location: "Muzdalifah",
+      },
+    ],
+  },
+  {
+    day: "Kabla ya kwenda",
+    title: "Vyanzo rasmi",
+    summary: "Mahali pa kupata taarifa rasmi za kutegemewa na za sasa.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Tovuti na programu rasmi ya Wizara ya Hija na Umra ya Saudi kwa ajili ya viza, vifurushi vilivyoidhinishwa, vibali vya kutembelea Raudhah, na mwongozo wa msongamano na usafiri wa wakati halisi — mahali pa kwanza kwa swali lolote rasmi.",
+      },
+      {
+        title: "Mamlaka ya Hija ya nchi yako",
+        body: "Nchi nyingi zina mamlaka ya kitaifa ya Hija au ofisi ya wizara inayosimamia mgao wa kila mwaka, kuthibitisha wakala wa ndani, na kuchapisha ratiba za safari na mahitaji ya afya — angalia kabla ya kuhifadhi kupitia wakala wowote binafsi.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Tovuti rasmi ya utalii ya serikali ina mahitaji ya kuingia, taarifa za viza ya kielektroniki kwa raia wanaostahili, na ushauri wa vitendo wa safari kwa Makka, Madina, na usafiri mwingine ndani ya Saudi Arabia.",
+      },
+      {
+        title: "Thibitisha kabla ya kulipa",
+        body: "Hifadhi kupitia mashirika yaliyoorodheshwa kwenye Nusuk au mamlaka ya Hija ya nchi yako pekee. Iwapo ofa inaonekana nafuu sana au mpatanishi anaomba malipo nje ya njia rasmi, chukulia hilo kama ishara ya tahadhari na thibitisha moja kwa moja kupitia tovuti ya wizara.",
+      },
+    ],
+  },
 ];

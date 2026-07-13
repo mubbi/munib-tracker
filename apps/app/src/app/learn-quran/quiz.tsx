@@ -7,14 +7,16 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Button } from "@/components/ui/button";
 import { Stagger } from "@/components/ui/stagger";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideQuiz } from "@/lib/quran-guide";
+import { ensureQuranGuideContent, getQuranGuideQuiz } from "@/lib/quran-guide";
 
 export default function LearnQuranQuizScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const questions = useMemo(() => getQuranGuideQuiz(), [i18n.language]);
+  const { version: contentVersion } = useEnsureContent(ensureQuranGuideContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
+  const questions = useMemo(() => getQuranGuideQuiz(), [i18n.language, contentVersion]);
 
   return (
     <ScreenLayout

@@ -25,6 +25,10 @@ const OMITTED_KEYS = new Set([
   "type",
   "verseLabel",
   "examples",
+  /** Structural filter tags on Sahaba / history — not literary copy. */
+  "categories",
+  "era",
+  "arabicName",
 ]);
 
 const hasLatin = (s: string) => /[A-Za-z]/.test(s);

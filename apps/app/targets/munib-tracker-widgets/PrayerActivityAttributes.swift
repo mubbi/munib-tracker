@@ -13,7 +13,9 @@ public struct PrayerActivityAttributes: ActivityAttributes {
     public var prayerId: String
     public var prayerName: String
     public var prayerTime: String
+    public var prayerTimeLabel: String
     public var countdownLabel: String
+    public var remainingLabel: String
     public var minutesUntil: Int
     public var targetTimeMs: Double
     public var displayDate: String

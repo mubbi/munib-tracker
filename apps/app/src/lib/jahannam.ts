@@ -47,7 +47,8 @@ export function getJahannamTopicsBySection(): Record<JahannamSection, JahannamTo
     (content().JAHANNAM_SECTION_ORDER ?? []).map((section) => [section, [] as JahannamTopic[]]),
   ) as Record<JahannamSection, JahannamTopic[]>;
   for (const topic of getJahannamTopics()) {
-    map[topic.section].push(topic);
+    const bucket = map[topic.section];
+    if (bucket) bucket.push(topic);
   }
   return map;
 }

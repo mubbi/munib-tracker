@@ -97,7 +97,7 @@ export default function QuranBookmarksScreen() {
                           type="arabic"
                           themeColor="mutedForeground"
                           numberOfLines={1}
-                          style={compactArabicTextStyle}
+                          style={compactArabicTextStyle()}
                         >
                           {arabic}
                         </ThemedText>

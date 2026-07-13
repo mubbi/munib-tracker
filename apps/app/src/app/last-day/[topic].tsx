@@ -7,7 +7,8 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { getLastDayTopic, getLastDayTopics } from "@/lib/last-day";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureLastDayContent, getLastDayTopic, getLastDayTopics } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLastDayProgressLoaded } from "@/stores/last-day-progress-store";
@@ -20,6 +21,7 @@ export default function LastDayTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  const { ready: contentReady } = useEnsureContent(ensureLastDayContent);
   const topic = getLastDayTopic(topicId);
   useEnsureLastDayProgressLoaded();
 
@@ -59,7 +61,7 @@ export default function LastDayTopicScreen() {
             : undefined
         }
       />
-      {!topic ? (
+      {!contentReady ? null : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("lastDay.notFound")}

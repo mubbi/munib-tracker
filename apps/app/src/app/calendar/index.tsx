@@ -10,6 +10,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
+import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
@@ -258,6 +259,27 @@ export default function CalendarScreen() {
             })}
           </ThemedText>
         </Card>
+
+        <Card
+          padding="three"
+          onPress={() => router.push("/calendar/converter")}
+          accessibilityLabel={t("calendar.converterRowTitle")}
+        >
+          <View style={styles.converterRow}>
+            <IconWell
+              icon={{ ios: "arrow.left.arrow.right", android: "sync_alt", web: "sync_alt" }}
+              tint={colors.accent}
+              background={tokens.accentSoft}
+            />
+            <View style={styles.converterCopy}>
+              <ThemedText type="smallBold">{t("calendar.converterRowTitle")}</ThemedText>
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("calendar.converterRowSubtitle")}
+              </ThemedText>
+            </View>
+            <SymbolView name={chevronForward} size={16} tintColor={colors.mutedForeground} />
+          </View>
+        </Card>
       </Stagger>
     </ScreenLayout>
   );
@@ -382,5 +404,14 @@ const styles = StyleSheet.create({
   legendHint: {
     marginTop: Spacing.three,
     textAlign: "center",
+  },
+  converterRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
+  },
+  converterCopy: {
+    flex: 1,
+    gap: 2,
   },
 });

@@ -16,8 +16,13 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getAqeedahLessonCount, getAqeedahTopicsBySection } from "@/lib/aqeedah";
+import {
+  ensureAqeedahContent,
+  getAqeedahLessonCount,
+  getAqeedahTopicsBySection,
+} from "@/lib/aqeedah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -41,11 +46,16 @@ export default function AqeedahScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureAqeedahProgressLoaded();
+  const { version: contentVersion } = useEnsureContent(ensureAqeedahContent);
   const completedCount = useAqeedahCompletedCount();
-  const lessonTotal = getAqeedahLessonCount();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
+  const lessonTotal = useMemo(() => getAqeedahLessonCount(), [contentVersion]);
   // Recompute per locale so translated topic titles/summaries render on switch.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const TOPICS_BY_SECTION = useMemo(() => getAqeedahTopicsBySection(), [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const TOPICS_BY_SECTION = useMemo(
+    () => getAqeedahTopicsBySection(),
+    [i18n.language, contentVersion],
+  );
   const SECTION_ORDER = useMemo(
     () => Object.keys(TOPICS_BY_SECTION) as Array<keyof typeof TOPICS_BY_SECTION>,
     [TOPICS_BY_SECTION],
@@ -134,7 +144,7 @@ export default function AqeedahScreen() {
 
         {SECTION_ORDER.map((section) => {
           const topics = TOPICS_BY_SECTION[section];
-          if (!topics.length) return null;
+          if (!topics?.length) return null;
           return (
             <Card key={section} padding="three">
               <SectionHeader

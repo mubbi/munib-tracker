@@ -18,8 +18,13 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideTheme, getQuranGuideThemes } from "@/lib/quran-guide";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideTheme,
+  getQuranGuideThemes,
+} from "@/lib/quran-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export function generateStaticParams(): Array<{ id: string }> {
@@ -30,6 +35,7 @@ export default function LearnQuranThemeDetailScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { ready: contentReady } = useEnsureContent(ensureQuranGuideContent);
   const theme = getQuranGuideTheme(id);
 
   const detailPath = theme ? `/learn-quran/theme/${theme.id}` : "/learn-quran/themes";
@@ -70,7 +76,7 @@ export default function LearnQuranThemeDetailScreen() {
             : undefined
         }
       />
-      {!theme ? (
+      {!contentReady ? null : !theme ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("learnQuran.notFound")}

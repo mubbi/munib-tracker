@@ -15,8 +15,9 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getLastDayLessonCount } from "@/lib/last-day";
+import { ensureLastDayContent, getLastDayLessonCount } from "@/lib/last-day";
 import type { LastDayPreparationRowId } from "@/lib/last-day-preparation";
 import { buildLastDayPreparation } from "@/lib/last-day-preparation";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
@@ -131,8 +132,10 @@ export default function LastDayPreparationScreen() {
   useEnsureLastDayProgressLoaded();
   const completedCount = useLastDayCompletedCount();
   const { toggleRepentance, toggleCharacter } = useLastDayProgressActions();
+  const { version: contentVersion } = useEnsureContent(ensureLastDayContent);
   const today = getLocalDateString();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildLastDayPreparation({
@@ -143,7 +146,7 @@ export default function LastDayPreparationScreen() {
         characterChecked: false,
         formatCount: (n) => n.toLocaleString(i18n.language),
       }),
-    [summary, completedCount, i18n.language],
+    [summary, completedCount, i18n.language, contentVersion],
   );
 
   const handleRowPress = (id: LastDayPreparationRowId, route: Href) => {

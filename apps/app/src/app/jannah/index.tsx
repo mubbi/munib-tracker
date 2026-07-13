@@ -1,5 +1,5 @@
 import { type Href, useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
@@ -18,6 +18,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   ensureJannahContent,
@@ -41,16 +42,13 @@ export default function JannahScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const [, setContentReady] = useState(false);
-  useEffect(() => {
-    void ensureJannahContent().then(() => setContentReady(true));
-  }, []);
+  const { version: contentVersion } = useEnsureContent(ensureJannahContent);
   const hubTopics = getJannahHubTopics();
   const pathTopics = getJannahPathTopics();
   const promised = getJannahPromised();
   // Recompute per locale so the localized du'a text renders on language switch.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const firdawsDua = useMemo(() => getJannahFirdawsDua(), [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
+  const firdawsDua = useMemo(() => getJannahFirdawsDua(), [i18n.language, contentVersion]);
 
   const quickLinks = useMemo(
     () => [

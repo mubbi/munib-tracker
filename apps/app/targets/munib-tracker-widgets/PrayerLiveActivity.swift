@@ -23,18 +23,56 @@ private struct CountdownText: View {
   let state: PrayerActivityAttributes.ContentState
   var font: Font = .headline
   var color: Color = .primary
+  var multilineAlignment: TextAlignment = .trailing
 
   var body: some View {
     let now = Date()
     if state.locationDenied {
-      Text(state.countdownLabel).font(font).foregroundStyle(color)
+      Text(state.countdownLabel)
+        .font(font)
+        .foregroundStyle(color)
+        .multilineTextAlignment(multilineAlignment)
+        .lineLimit(2)
+        .minimumScaleFactor(0.75)
     } else if state.targetDate > now {
       Text(timerInterval: now...state.targetDate, countsDown: true)
         .font(font)
         .monospacedDigit()
         .foregroundStyle(color)
+        .multilineTextAlignment(multilineAlignment)
+        .lineLimit(1)
+        .minimumScaleFactor(0.7)
     } else {
-      Text(state.prayerTime).font(font).foregroundStyle(color)
+      Text(state.countdownLabel)
+        .font(font)
+        .foregroundStyle(color)
+        .multilineTextAlignment(multilineAlignment)
+        .lineLimit(1)
+        .minimumScaleFactor(0.75)
+    }
+  }
+}
+
+/// Secondary meta line: "at 4:23 AM · Karachi" (time format + location from prefs).
+@available(iOS 16.2, *)
+private struct PrayerMetaLine: View {
+  let state: PrayerActivityAttributes.ContentState
+  let color: Color
+
+  private var text: String {
+    let time = state.prayerTimeLabel.isEmpty ? state.prayerTime : state.prayerTimeLabel
+    if time.isEmpty { return state.location }
+    if state.location.isEmpty { return time }
+    return "\(time) · \(state.location)"
+  }
+
+  var body: some View {
+    if !text.isEmpty {
+      Text(text)
+        .font(.caption2)
+        .foregroundStyle(color)
+        .lineLimit(1)
+        .minimumScaleFactor(0.85)
     }
   }
 }
@@ -45,33 +83,46 @@ struct PrayerLiveActivityLockScreen: View {
   private var palette: LiveActivityPalette { LiveActivityPalette(state) }
 
   var body: some View {
-    HStack(alignment: .center, spacing: 14) {
-      VStack(alignment: .leading, spacing: 3) {
+    HStack(alignment: .center, spacing: 12) {
+      VStack(alignment: .leading, spacing: 4) {
         Text(state.title)
           .font(.caption.weight(.semibold))
           .foregroundStyle(palette.accent)
           .lineLimit(1)
+
         Text(state.prayerName)
-          .font(.title3.weight(.bold))
+          .font(.title2.weight(.bold))
           .foregroundStyle(palette.textPrimary)
           .lineLimit(1)
-        if !state.location.isEmpty {
-          Text(state.location)
+          .minimumScaleFactor(0.85)
+
+        PrayerMetaLine(state: state, color: palette.textSecondary)
+
+        if !state.displayDate.isEmpty {
+          Text(state.displayDate)
             .font(.caption2)
-            .foregroundStyle(palette.textSecondary)
+            .foregroundStyle(palette.textSecondary.opacity(0.9))
             .lineLimit(1)
         }
       }
-      Spacer(minLength: 8)
-      VStack(alignment: .trailing, spacing: 3) {
-        Text(state.prayerTime)
-          .font(.title3.weight(.bold))
-          .foregroundStyle(palette.accent)
+      .frame(maxWidth: .infinity, alignment: .leading)
+
+      VStack(alignment: .trailing, spacing: 4) {
+        Text(state.remainingLabel.isEmpty ? state.countdownLabel : state.remainingLabel)
+          .font(.caption2.weight(.semibold))
+          .foregroundStyle(palette.textSecondary)
           .lineLimit(1)
-        CountdownText(state: state, font: .caption.weight(.semibold), color: palette.textSecondary)
+
+        CountdownText(
+          state: state,
+          font: .system(.title2, design: .rounded).weight(.bold),
+          color: palette.accent
+        )
       }
+      .layoutPriority(1)
     }
-    .padding(16)
+    .padding(.horizontal, 16)
+    .padding(.vertical, 14)
     .activityBackgroundTint(palette.background)
     .activitySystemActionForegroundColor(palette.accent)
   }
@@ -92,40 +143,60 @@ struct PrayerLiveActivity: Widget {
               .font(.headline.weight(.bold))
               .foregroundStyle(palette.textPrimary)
               .lineLimit(1)
-            if !context.state.location.isEmpty {
-              Text(context.state.location)
-                .font(.caption2)
-                .foregroundStyle(palette.textSecondary)
-                .lineLimit(1)
-            }
+            Text(
+              context.state.prayerTimeLabel.isEmpty
+                ? context.state.prayerTime
+                : context.state.prayerTimeLabel
+            )
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(palette.accent)
+            .lineLimit(1)
           }
         }
         DynamicIslandExpandedRegion(.trailing) {
           VStack(alignment: .trailing, spacing: 2) {
-            Text(context.state.prayerTime)
-              .font(.headline.weight(.bold))
-              .foregroundStyle(palette.accent)
-              .lineLimit(1)
+            Text(
+              context.state.remainingLabel.isEmpty
+                ? context.state.countdownLabel
+                : context.state.remainingLabel
+            )
+            .font(.caption2.weight(.semibold))
+            .foregroundStyle(palette.textSecondary)
+            .lineLimit(1)
             CountdownText(
               state: context.state,
-              font: .caption.weight(.semibold),
-              color: palette.textSecondary
+              font: .title3.weight(.bold),
+              color: palette.accent
             )
           }
         }
         DynamicIslandExpandedRegion(.bottom) {
-          if !context.state.displayDate.isEmpty {
-            Text(context.state.displayDate)
-              .font(.caption2)
-              .foregroundStyle(palette.textSecondary)
-              .frame(maxWidth: .infinity, alignment: .leading)
+          HStack(spacing: 6) {
+            if !context.state.location.isEmpty {
+              Text(context.state.location)
+                .lineLimit(1)
+            }
+            if !context.state.location.isEmpty, !context.state.displayDate.isEmpty {
+              Text("·")
+            }
+            if !context.state.displayDate.isEmpty {
+              Text(context.state.displayDate)
+                .lineLimit(1)
+            }
           }
+          .font(.caption2)
+          .foregroundStyle(palette.textSecondary)
+          .frame(maxWidth: .infinity, alignment: .leading)
         }
       } compactLeading: {
         Image(systemName: "moon.stars.fill")
           .foregroundStyle(palette.accent)
       } compactTrailing: {
-        CountdownText(state: context.state, font: .caption2.weight(.semibold), color: palette.accent)
+        CountdownText(
+          state: context.state,
+          font: .caption2.weight(.bold),
+          color: palette.accent
+        )
       } minimal: {
         Image(systemName: "moon.stars.fill")
           .foregroundStyle(palette.accent)

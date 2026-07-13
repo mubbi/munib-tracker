@@ -30,6 +30,13 @@ export const RECITERS: Reciter[] = [
 
 export const DEFAULT_RECITER_DIR = RECITERS[0].dir;
 
+export type AyahTrackTtsOptions = {
+  /** Ayah-number → translation text. */
+  translations: Record<string, string>;
+  lang: string;
+  voice?: string;
+};
+
 function pad3(n: number): string {
   return String(n).padStart(3, "0");
 }
@@ -52,14 +59,27 @@ export function ayahTracks(
   surahName: string,
   surah: number,
   ayahs: Ayah[],
+  tts?: AyahTrackTtsOptions,
 ): AudioTrack[] {
-  return ayahs.map((a) => ({
-    id: `${surah}:${a.ayah}`,
-    title: surahName,
-    subtitle: `Ayah ${a.ayah}`,
-    preview: ayahPreview(a.arabic),
-    uri: `${EVERYAYAH}/${reciterDir}/${ayahFileId(surah, a.ayah)}.mp3`,
-  }));
+  return ayahs.map((a) => {
+    const text = tts?.translations[String(a.ayah)]?.trim();
+    return {
+      id: `${surah}:${a.ayah}`,
+      title: surahName,
+      subtitle: `Ayah ${a.ayah}`,
+      preview: ayahPreview(a.arabic),
+      uri: `${EVERYAYAH}/${reciterDir}/${ayahFileId(surah, a.ayah)}.mp3`,
+      ...(text && tts
+        ? {
+            tts: {
+              text,
+              lang: tts.lang,
+              voice: tts.voice,
+            },
+          }
+        : null),
+    };
+  });
 }
 
 /** A single-ayah recitation track. */

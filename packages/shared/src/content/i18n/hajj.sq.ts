@@ -208,4 +208,102 @@ export const HAJJ_GUIDE_SECTIONS_SQ: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Para se të shkoni",
+    title: "Viza dhe regjistrimi",
+    summary:
+      "Si regjistrohen pelegrinët dhe marrin vizën e Haxhit ose Umres përmes kanaleve zyrtare.",
+    steps: [
+      {
+        title: "Platforma Nusuk",
+        body: "Nusuk (nusuk.sa) është platforma zyrtare e Arabisë Saudite për Haxhin dhe Umren — përdoret për të rezervuar viza, akomodim, transport dhe paketa turistike të regjistruara. Përdorni vetëm Nusuk ose agjenci të licencuara përmes tij; ndërmjetësuesit jozyrtarë janë burim i zakonshëm mashtrimi dhe udhëtimesh të anuluara.",
+      },
+      {
+        title: "Viza e Haxhit dhe kuotat kombëtare",
+        body: "Çdo vend merr një kuotë vjetore haxhi, kështu që shumica e pelegrinëve aplikojnë përmes autoritetit kombëtar të haxhit të vendit të tyre ose një agjenti lokal të licencuar, në vend që të aplikojnë vetë. Aplikoni herët në vitin kur hapet sezoni i haxhit — kuotat dhe vendet e paketave mbushen muaj përpara.",
+      },
+      {
+        title: "Viza e Umres",
+        body: "Ndryshe nga Haxhi, Umre nuk ka kuotë dhe mund të kryhet në çdo kohë të vitit. Shumica e shtetasve mund të aplikojnë për vizë Umre drejtpërdrejt përmes Nusuk-ut ose agjentëve turistikë të miratuar, zakonisht bashkë me rezervimin e fluturimit dhe hotelit.",
+      },
+    ],
+  },
+  {
+    day: "Para se të shkoni",
+    title: "Lista e pakot",
+    summary: "Sende praktike që duhen marrë para nisjes.",
+    steps: [
+      {
+        title: "Veshjet e ihramit",
+        body: "Burrat duhet të marrin të paktën dy komplete veshjesh ihrami të paqepura (pëlhura e poshtme dhe e sipërme) dhe një brez të gjerë ihrami, jo lëkure, për para dhe dokumente. Gratë duhet të marrin veshje të sipërme të gjera, modeste dhe të pazbukuruara.",
+      },
+      {
+        title: "Këpucët dhe komoditeti",
+        body: "Sandale të hapura që hiqen dhe vishen lehtë janë thelbësore, pasi këpucët që mbulojnë kyçin e këmbës janë të ndaluara në ihram për burrat. Merrni një çantë të lehtë shpine, një shishe uji të rimbushshme dhe një sixhade të vogël për pritjet e gjata.",
+      },
+      {
+        title: "Sende higjienike pa aromë",
+        body: "Merrni sapun pa aromë, locion mbrojtës nga dielli, dhe pecetat e lagura — produktet e parfumuara janë të ndaluara në ihram. Një kuti e vogël ndihme e parë, çdo mjekim personal me shënimin e mjekut, dhe fasho për fshikëza ia vlejnë peshën shtesë duke pasur parasysh sasinë e madhe të ecjes.",
+      },
+      {
+        title: "Dokumentet dhe sendet thelbësore",
+        body: "Mbani pasaportën, kopjen e printuar të vizës, certifikatën e vaksinimit (vaksina e meningjitit zakonisht kërkohet), dhe numrat e emergjencës në një çantë të hollë belesh të veshur nën rroba. Një bateri portative dhe një SIM lokale ose eSIM lehtësojnë lëvizjen në vende shumë të populluara.",
+      },
+    ],
+  },
+  {
+    day: "Para se të shkoni",
+    title: "Drejtoria e vendeve të shenjta",
+    summary: "Shënime praktike të shkurtra për vendet kryesore që do të vizitoni.",
+    steps: [
+      {
+        title: "Xhamia Al-Haram, Mekë",
+        body: "Xhamia e Madhe që rrethon Qabenë — vendi i tavafit dhe sais. Funksionon gjatë gjithë kohës; prisni dendësi shumë të lartë pranë Gurit të Zi dhe gjatë pesë namazeve ditore, veçanërisht në dhjetë netët e fundit të Ramazanit dhe ditët e haxhit.",
+        location: "Mekë",
+      },
+      {
+        title: "Xhamia Nabevi, Medine",
+        body: "Xhamia e Profetit ﷺ, ku ndodhet Raudha dhe vendi i tij i prehjes, nuk është pjesë e vetë Haxhit, por pothuajse të gjithë pelegrinët vizitojnë Medinen para ose pas Haxhit. Hyrja në Raudhe kërkon një kalim me kohë të caktuar të rezervuar përmes Nusuk-ut ose aplikacionit Raudha.",
+        location: "Medine",
+      },
+      {
+        title: "Mina",
+        body: "Qyteti i tendave disa kilometra nga Meka, ku pelegrinët kalojnë netët e 8, 11, 12 (dhe 13) Dhul-Hixhes. Kampet e tendave të klimatizuara dhe rezistente ndaj zjarrit organizohen nga operatorët turistikë; prisni komoditete të përbashkëta bazike dhe ecje të gjata deri në Xhemarat.",
+        location: "Mina",
+      },
+      {
+        title: "Arafat",
+        body: "Fusha e hapur rreth 20km nga Meka, vendi më i rëndësishëm i shtyllës së Haxhit — qëndrimi (uukufi) më 9 Dhul-Hixhe. Sigurohen struktura hijeje dhe pika uji, por vapa e ditës është ekstreme; hidratimi dhe mbrojtja nga dielli janë thelbësore.",
+        location: "Arafat",
+      },
+      {
+        title: "Muzdelife",
+        body: "Zona e hapur mes Arafatit dhe Minës, ku pelegrinët kalojnë natën e 9-10 Dhul-Hixhe nën qiellin e hapur dhe mbledhin gurëz për t'i hedhur në xhemarat. Komoditetet janë qëllimisht minimale — merrni një sixhade dhe vishuni për ajrin më të ftohtë të natës.",
+        location: "Muzdelife",
+      },
+    ],
+  },
+  {
+    day: "Para se të shkoni",
+    title: "Burime zyrtare",
+    summary: "Ku të gjeni informacion zyrtar të besueshëm dhe të përditësuar.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Portali dhe aplikacioni zyrtar i Ministrisë së Haxhit dhe Umres të Arabisë Saudite për viza, paketa të akredituara, leje vizitash në Raudhe, dhe udhëzime në kohë reale për dendësinë dhe transportin — vendi i parë për çdo pyetje zyrtare.",
+      },
+      {
+        title: "Autoriteti i haxhit i vendit tuaj",
+        body: "Shumica e vendeve kanë një autoritet kombëtar haxhi ose zyrë ministeriale që administron kuotën vjetore, verifikon agjentët lokalë, dhe publikon orare nisjeje dhe kërkesa shëndetësore — kontrolloni para se të rezervoni përmes ndonjë agjenti privat.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Faqja zyrtare turistike e qeverisë përmban kërkesat e hyrjes, informacion mbi e-vizën për shtetasit e kualifikuar, dhe këshilla praktike udhëtimi për Mekën, Medinen, dhe udhëtime të tjera brenda Arabisë Saudite.",
+      },
+      {
+        title: "Verifikoni para se të paguani",
+        body: "Rezervoni vetëm përmes agjencive të listuara në Nusuk ose autoritetin e haxhit të vendit tuaj. Nëse një ofertë duket shumë e lirë ose një ndërmjetës kërkon pagesë jashtë kanaleve zyrtare, konsiderojeni si shenjë paralajmëruese dhe verifikoni drejtpërdrejt përmes portalit ministerial.",
+      },
+    ],
+  },
 ];

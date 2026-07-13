@@ -208,4 +208,101 @@ export const HAJJ_GUIDE_SECTIONS_HA: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Kafin ka tafi",
+    title: "Biza da rijista",
+    summary: "Yadda alhazai ke yin rijista da samun bizar Hajji ko Umra ta hanyoyin hukuma.",
+    steps: [
+      {
+        title: "Dandalin Nusuk",
+        body: "Nusuk (nusuk.sa) shine dandali na hukuma na Saudiyya don Hajji da Umra — ana amfani da shi don ajiye biza, masauki, sufuri, da kunshin balaguro da aka yi rajista. Yi amfani da Nusuk kadai ko hukumomin da suka samu lasisi ta hanyarsa; masu shiga tsakani marasa izini sun zama tushen zamba da tafiye-tafiye da ake soke.",
+      },
+      {
+        title: "Bizar Hajji da kwatancin kasashe",
+        body: "Kowace kasa na samun kwatancin Hajji na shekara-shekara, don haka mafi yawan alhazai suna nema ta hukumar Hajji ta kasarsu ko wakili mai lasisi maimakon nema daidai su. Ku nema tun farkon shekarar da lokacin Hajji ke bude — kwatanci da wuraren kunshi suna cika watanni kafin lokaci.",
+      },
+      {
+        title: "Bizar Umra",
+        body: "Sabanin Hajji, Umra ba ta da kwatanci kuma ana iya yin ta a kowane lokaci na shekara. Yawancin al'ummomi za su iya nema bizar Umra kai tsaye ta hanyar Nusuk ko wakilin balaguro da aka amince da shi, yawanci tare da ajiye jirgin sama da otal.",
+      },
+    ],
+  },
+  {
+    day: "Kafin ka tafi",
+    title: "Jerin abubuwan da za a dauka",
+    summary: "Muhimman abubuwa masu amfani da za ku dauka kafin ku tafi.",
+    steps: [
+      {
+        title: "Tufafin ihrami",
+        body: "Maza su dauko akalla kayan ihrami marasa dinki guda biyu (zani na kwankwaso da na kafada) tare da bel na ihrami mai fadi, wanda ba na fata ba, don kudi da takardu. Mata su dauko tufafi masu sassauci, na kunya, marasa kwalliya.",
+      },
+      {
+        title: "Takalma da jin dadi",
+        body: "Takalman bude wadanda ake sauke da sanyawa da sauki suna da muhimmanci, tunda takalman da suke rufe idon kafa ba a yarda da su ba ga maza a cikin ihrami. Ku dauko jaka mai sauki, kwalbar ruwa da za a iya cika, da karamin tabarma na sallah domin jira mai tsawo.",
+      },
+      {
+        title: "Kayan tsafta marasa turare",
+        body: "Ku dauko sabulu mai turare, man rana, da tsummoki marasa turare — ba a yarda da kayan turare a cikin ihrami. Akwatin agajin gaggawa karami, duk magungunan kai da likita ya rubuta, da filasta na maruru sun cancanci nauyin da suka kara saboda tafiya mai yawa.",
+      },
+      {
+        title: "Takardu da muhimman abubuwa",
+        body: "Ku ajiye fasfo, buga bizar ku, takardar shaidar rigakafi (galibi ana bukatar na sankarau), da lambobin waya na gaggawa a cikin jaka ta bakin ciki da za a sa a karkashin tufafi. Baturin waya mai dauka da SIM na gida ko eSIM suna sauwake motsi a wuraren cunkoso sosai.",
+      },
+    ],
+  },
+  {
+    day: "Kafin ka tafi",
+    title: "Jerin wuraren tsarki",
+    summary: "Bayanan gaggawa masu amfani game da manyan wuraren da za ku ziyarta.",
+    steps: [
+      {
+        title: "Masallacin Haram, Makka",
+        body: "Babban Masallacin da ke kewaye da Ka'aba — wurin tawafi da sa'i. Yana aiki dare da rana; ku sa ran cunkoso mai yawa kusa da Black Stone da lokacin sallolin yau da kullum biyar, musamman a dararen goma na karshe na Ramadan da kwanakin Hajji.",
+        location: "Makka",
+      },
+      {
+        title: "Masallacin Nabi, Madina",
+        body: "Masallacin Annabi ﷺ, gida ga Rawdah da wurin hutawarsa, ba wani bangare na Hajji kansa ba ne amma kusan dukkan alhazai suna ziyartar Madina kafin ko bayan Hajji. Shiga Rawdah na bukatar izinin lokaci da aka ajiye ta hanyar Nusuk ko manhajar Rawdah.",
+        location: "Madina",
+      },
+      {
+        title: "Mina",
+        body: "Birni na tanti mai nisan kilomita kadan daga Makka inda alhazai ke kwana dararen 8, 11, 12 (da 13) na Zul-Hijjah. Kamfanin balaguro ne ke ba da rumfunan tanti masu sanyaya iska da hana wuta; ku sa ran wurare na tarayya na asali da tafiya mai tsawo zuwa Jamarat.",
+        location: "Mina",
+      },
+      {
+        title: "Arafah",
+        body: "Fili mai bude sararin kusan kilomita 20 daga Makka, wurin muhimmin ibada na Hajji — tsayuwar ranar 9 ga Zul-Hijjah. Ana samar da inuwa da wuraren ruwa, amma zafin rana yana da tsanani; shan ruwa da kariya daga rana suna da muhimmanci.",
+        location: "Arafah",
+      },
+      {
+        title: "Muzdalifa",
+        body: "Fili mai bude tsakanin Arafah da Mina inda alhazai ke kwana daren 9-10 na Zul-Hijjah karkashin sararin samaniya kuma su tara duwatsu domin jifa. Wuraren more rayuwa kadan ne da gangan — ku dauko tabarma kuma ku sa tufafi masu dacewa da sanyin dare.",
+        location: "Muzdalifa",
+      },
+    ],
+  },
+  {
+    day: "Kafin ka tafi",
+    title: "Kayayyakin hukuma",
+    summary: "Inda za ku sami bayanin hukuma mai inganci da sabuntacce.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Dandali da manhajar hukuma na Ma'aikatar Hajji da Umra ta Saudiyya don biza, kunshin da aka amince da su, izinin ziyartar Rawdah, da jagora na ainihin lokaci game da cunkoso da sufuri — matakin farko ga duk wata tambaya ta hukuma.",
+      },
+      {
+        title: "Hukumar Hajji ta kasarku",
+        body: "Yawancin kasashe suna gudanar da hukumar Hajji ta kasa ko ofishin ma'aikata wanda ke kula da kwatancin shekara-shekara, bincikar wakilai na gida, da buga jadawalin tafiya da bukatun lafiya — ku duba shi kafin ajiye ta kowane wakili na kashin kansa.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Shafin yawon shakatawa na hukuma na Masarautar yana dauke da bukatun shiga, bayanin biza ta lantarki ga al'ummomin da suka cancanta, da shawarwarin tafiya masu amfani ga Makka, Madina, da tafiya ta gaba a cikin Saudiyya.",
+      },
+      {
+        title: "Tabbatar kafin ku biya",
+        body: "Ku ajiye kawai ta hukumomin da ke jerin Nusuk ko hukumar Hajji ta kasarku. Idan yarjejeniya ta zama mai rahusa fiye da yadda ake tsammani ko dan tsakiya ya nemi biyan kudi a wajen hukumomin da aka amince, ku dauke shi a matsayin alamar hatsari kuma ku tabbatar kai tsaye da shafin ma'aikatar.",
+      },
+    ],
+  },
 ];

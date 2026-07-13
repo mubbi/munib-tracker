@@ -26,8 +26,12 @@ const TOOLBAR_ICONS = {
   reciter: { ios: "person.wave.2.fill", android: "record_voice_over", web: "record_voice_over" },
   translation: { ios: "translate", android: "translate", web: "translate" },
   secondTranslation: { ios: "globe", android: "language", web: "language" },
+  tafsir: { ios: "book.closed.fill", android: "menu_book", web: "menu_book" },
   transliteration: { ios: "textformat.abc", android: "abc", web: "abc" },
   showTranslation: { ios: "text.alignleft", android: "notes", web: "notes" },
+  wordByWord: { ios: "text.word.spacing", android: "space_bar", web: "space_bar" },
+  tajweed: { ios: "paintpalette.fill", android: "palette", web: "palette" },
+  playback: { ios: "slider.horizontal.3", android: "tune", web: "tune" },
   textSize: { ios: "textformat.size", android: "format_size", web: "format_size" },
   page: { ios: "list.number", android: "format_list_numbered", web: "format_list_numbered" },
   layout: { ios: "book.pages", android: "menu_book", web: "menu_book" },
@@ -51,8 +55,11 @@ type ReadingToolbarProps = {
   reciterName: string;
   translationName: string;
   secondTranslationName: string;
+  tafsirName?: string;
   showTransliteration: boolean;
   showTranslation: boolean;
+  showWordByWord?: boolean;
+  showTajweed?: boolean;
   layoutLabel?: string;
   onOpenLayout?: () => void;
   /** Optional page indicator (e.g. "Page 12 of 604") that opens the page picker. */
@@ -66,8 +73,17 @@ type ReadingToolbarProps = {
   onOpenReciter: () => void;
   onOpenTranslation: () => void;
   onOpenSecondary: () => void;
+  onOpenTafsir?: () => void;
   onToggleTransliteration: () => void;
   onToggleTranslation: () => void;
+  onToggleWordByWord?: () => void;
+  onToggleTajweed?: () => void;
+  /** Opens the ayah-study playback settings sheet (repeat / translation TTS). */
+  onOpenPlayback?: () => void;
+  /** Compact summary of active playback settings (e.g. "Range 1–2"). */
+  playbackLabel?: string;
+  /** Highlight the playback chip when non-default settings are applied. */
+  playbackActive?: boolean;
 };
 
 /**
@@ -82,8 +98,11 @@ export function QuranReadingToolbar({
   reciterName,
   translationName,
   secondTranslationName,
+  tafsirName,
   showTransliteration,
   showTranslation,
+  showWordByWord = false,
+  showTajweed = false,
   layoutLabel,
   onOpenLayout,
   pageLabel,
@@ -94,8 +113,14 @@ export function QuranReadingToolbar({
   onOpenReciter,
   onOpenTranslation,
   onOpenSecondary,
+  onOpenTafsir,
   onToggleTransliteration,
   onToggleTranslation,
+  onToggleWordByWord,
+  onToggleTajweed,
+  onOpenPlayback,
+  playbackLabel,
+  playbackActive = false,
 }: ReadingToolbarProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -212,6 +237,14 @@ export function QuranReadingToolbar({
                 accessibilityLabel={t("quran.secondTranslation")}
                 onPress={onOpenSecondary}
               />
+              {onOpenTafsir ? (
+                <SelectChip
+                  icon={TOOLBAR_ICONS.tafsir}
+                  value={tafsirName ?? t("quran.tafsirNone")}
+                  accessibilityLabel={t("quran.tafsir")}
+                  onPress={onOpenTafsir}
+                />
+              ) : null}
               <ToggleChip
                 icon={TOOLBAR_ICONS.transliteration}
                 label={t("quran.transliteration")}
@@ -226,6 +259,33 @@ export function QuranReadingToolbar({
                 accessibilityLabel={t("quran.showTranslation")}
                 onPress={onToggleTranslation}
               />
+              {onToggleWordByWord ? (
+                <ToggleChip
+                  icon={TOOLBAR_ICONS.wordByWord}
+                  label={t("quran.showWordByWord")}
+                  enabled={showWordByWord}
+                  accessibilityLabel={t("quran.showWordByWord")}
+                  onPress={onToggleWordByWord}
+                />
+              ) : null}
+              {onToggleTajweed ? (
+                <ToggleChip
+                  icon={TOOLBAR_ICONS.tajweed}
+                  label={t("quran.showTajweed")}
+                  enabled={showTajweed}
+                  accessibilityLabel={t("quran.showTajweed")}
+                  onPress={onToggleTajweed}
+                />
+              ) : null}
+              {onOpenPlayback ? (
+                <SelectChip
+                  icon={TOOLBAR_ICONS.playback}
+                  value={playbackLabel ?? t("quran.playback.title")}
+                  accessibilityLabel={t("quran.playback.open")}
+                  active={playbackActive}
+                  onPress={onOpenPlayback}
+                />
+              ) : null}
             </>
           ) : null}
         </ScrollView>
@@ -267,27 +327,41 @@ function SelectChip({
   value,
   accessibilityLabel,
   onPress,
+  active = false,
 }: {
   icon: SymbolViewProps["name"];
   value: string;
   accessibilityLabel: string;
   onPress: () => void;
+  /** Soft accent fill when the chip reflects an applied setting. */
+  active?: boolean;
 }) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
       accessibilityLabel={`${accessibilityLabel}: ${value}`}
+      accessibilityState={{ selected: active }}
       onPress={onPress}
-      style={[styles.chip, { backgroundColor: colors.muted }]}
+      style={[
+        styles.chip,
+        {
+          backgroundColor: active ? tokens.accentSoft : colors.muted,
+          borderColor: active ? colors.accent : "transparent",
+        },
+      ]}
     >
       <SymbolView name={icon} size={16} tintColor={colors.accent} />
       <View style={styles.chipValueWrap}>
         <ThemedText
           type="smallBold"
           numberOfLines={1}
-          style={[styles.chipValue, filterValueTextStyle(value)]}
+          style={[
+            styles.chipValue,
+            filterValueTextStyle(value),
+            active ? { color: colors.accent } : null,
+          ]}
         >
           {value}
         </ThemedText>
@@ -295,7 +369,7 @@ function SelectChip({
       <SymbolView
         name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
         size={12}
-        tintColor={colors.mutedForeground}
+        tintColor={active ? colors.accent : colors.mutedForeground}
       />
     </PressableScale>
   );

@@ -200,7 +200,7 @@ export default function QuranSearchScreen() {
                   />
                 </View>
                 {hit.arabic ? (
-                  <ThemedText type="arabic" numberOfLines={2} style={compactArabicTextStyle}>
+                  <ThemedText type="arabic" numberOfLines={2} style={compactArabicTextStyle()}>
                     {hit.arabic}
                   </ThemedText>
                 ) : null}

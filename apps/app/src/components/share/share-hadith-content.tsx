@@ -56,9 +56,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     gap: Spacing.two,
   },
-  arabic: {
-    textAlign: "right",
-  },
+  arabic: {},
   divider: {
     height: StyleSheet.hairlineWidth,
     marginVertical: Spacing.one,

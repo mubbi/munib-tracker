@@ -18,25 +18,44 @@ type SelectTriggerProps = {
   label: string;
   accessibilityLabel: string;
   onPress: () => void;
+  /** Soft accent fill when the value reflects an applied setting. */
+  active?: boolean;
 };
 
 /** Tappable field that opens an option sheet — used for reciter / translation pickers. */
-export function SelectTrigger({ label, accessibilityLabel, onPress }: SelectTriggerProps) {
-  const { colors } = useThemeTokens();
+export function SelectTrigger({
+  label,
+  accessibilityLabel,
+  onPress,
+  active = false,
+}: SelectTriggerProps) {
+  const { colors, tokens } = useThemeTokens();
 
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
+      accessibilityState={{ selected: active }}
       onPress={onPress}
-      style={[styles.trigger, { backgroundColor: colors.muted }]}
+      style={[
+        styles.trigger,
+        {
+          backgroundColor: active ? tokens.accentSoft : colors.muted,
+          borderColor: active ? colors.accent : "transparent",
+          borderWidth: 1,
+        },
+      ]}
     >
       <View style={styles.triggerLabelWrap}>
         <ThemedText
           type="small"
           numberOfLines={1}
-          style={[styles.triggerLabel, filterValueTextStyle(label)]}
+          style={[
+            styles.triggerLabel,
+            filterValueTextStyle(label),
+            active ? { color: colors.accent, fontWeight: "700" } : null,
+          ]}
         >
           {label}
         </ThemedText>
@@ -44,7 +63,7 @@ export function SelectTrigger({ label, accessibilityLabel, onPress }: SelectTrig
       <SymbolView
         name={{ ios: "chevron.down", android: "keyboard_arrow_down", web: "keyboard_arrow_down" }}
         size={14}
-        tintColor={colors.mutedForeground}
+        tintColor={active ? colors.accent : colors.mutedForeground}
       />
     </PressableScale>
   );

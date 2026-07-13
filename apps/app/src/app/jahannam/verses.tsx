@@ -16,8 +16,9 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJahannamVerses } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamVerses } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -137,6 +138,7 @@ export default function JahannamVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
 
+  useEnsureContent(ensureJahannamContent);
   return (
     <ScreenLayout
       eyebrow={t("jahannam.eyebrow")}

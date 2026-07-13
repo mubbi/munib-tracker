@@ -28,8 +28,12 @@ export default function DuaFavoritesScreen() {
   const order = useFavoriteDuaIds();
   const { setOrder, toggle } = useDuaFavoritesActions();
   const [duaItems, setDuaItems] = useState<Awaited<ReturnType<typeof loadDuaItems>>>([]);
+  const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
-    void loadDuaItems().then(setDuaItems);
+    void loadDuaItems().then((items) => {
+      setDuaItems(items);
+      setCorpusReady(true);
+    });
   }, []);
 
   const items = order
@@ -55,7 +59,15 @@ export default function DuaFavoritesScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/dua/favorites" />
-      {items.length === 0 ? (
+      {order.length === 0 ? (
+        <EmptyState
+          icon={{ ios: "star", android: "star_border", web: "star_border" }}
+          title={t("dua.favoritesEmpty")}
+          description={t("zikr.favEmptyDesc")}
+          actionLabel={t("dua.title")}
+          onAction={() => router.replace("/dua")}
+        />
+      ) : !corpusReady ? null : items.length === 0 ? (
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
           title={t("dua.favoritesEmpty")}

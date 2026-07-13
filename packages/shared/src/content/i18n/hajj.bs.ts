@@ -208,4 +208,102 @@ export const HAJJ_GUIDE_SECTIONS_BS: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Prije nego odeš",
+    title: "Viza i registracija",
+    summary:
+      "Kako se hodočasnici registruju i dobijaju vizu za hadž ili umru putem zvaničnih kanala.",
+    steps: [
+      {
+        title: "Platforma Nusuk",
+        body: "Nusuk (nusuk.sa) je zvanična platforma Saudijske Arabije za hadž i umru — koristi se za rezervaciju viza, smještaja, transporta i registrovanih turističkih paketa. Koristite samo Nusuk ili agencije licencirane putem njega; nezvanični posrednici su čest izvor prevara i otkazanih putovanja.",
+      },
+      {
+        title: "Vize za hadž i državne kvote",
+        body: "Svaka država dobija godišnju kvotu za hadž, tako da se većina hodočasnika prijavljuje putem svoje nacionalne institucije za hadž ili licenciranog lokalnog agenta, a ne pojedinačno. Prijavite se rano u godini kada se otvori sezona hadža — kvote i mjesta u paketima popune se mjesecima unaprijed.",
+      },
+      {
+        title: "Vize za umru",
+        body: "Za razliku od hadža, umra nema kvotu i može se obaviti u bilo koje doba godine. Većina državljanstava može aplicirati za vizu za umru direktno putem Nusuka ili odobrenog putničkog agenta, obično zajedno s rezervacijom leta i hotela.",
+      },
+    ],
+  },
+  {
+    day: "Prije nego odeš",
+    title: "Popis za pakovanje",
+    summary: "Praktične stvari koje treba ponijeti prije putovanja.",
+    steps: [
+      {
+        title: "Odjeća za ihram",
+        body: "Muškarci bi trebali ponijeti najmanje dva kompleta nešivene odjeće za ihram (pojas i ogrtač) plus širok, nekožni pojas za ihram za novac i dokumente. Žene bi trebale ponijeti široku, skromnu, neukrašenu vanjsku odjeću.",
+      },
+      {
+        title: "Obuća i komfor",
+        body: "Otvorene sandale koje se lako navlače i skidaju su neophodne, jer je muškarcima u ihramu zabranjena obuća koja prekriva gležnjeve. Ponesite laganu ruksak, bocu za vodu koja se može puniti i mali molitveni ćilim za duga čekanja.",
+      },
+      {
+        title: "Toaletni pribor bez mirisa",
+        body: "Ponesite sapun bez mirisa, kremu za sunčanje i vlažne maramice — parfimisani proizvodi su zabranjeni u ihramu. Kompaktna kutija za prvu pomoć, lični lijekovi s liječničkim uputstvom i flasteri za žuljeve vrijede dodatne težine s obzirom na količinu hodanja.",
+      },
+      {
+        title: "Dokumenti i osnovne stvari",
+        body: "Čuvajte pasoš, ispis vize, potvrdu o vakcinaciji (meningitis se često traži) i hitne kontakte u tankoj torbici koja se nosi ispod odjeće. Prijenosna power banka i lokalna SIM kartica ili eSIM znatno olakšavaju kretanje po prepunim mjestima.",
+      },
+    ],
+  },
+  {
+    day: "Prije nego odeš",
+    title: "Vodič kroz sveta mjesta",
+    summary: "Kratke praktične napomene o glavnim mjestima koja ćete posjetiti.",
+    steps: [
+      {
+        title: "Al-Haram džamija, Mekka",
+        body: "Velika džamija koja okružuje Ka'bu — mjesto tavafa i sa'ija. Radi 24 sata; očekujte veoma velike gužve u blizini Crnog kamena i tokom pet dnevnih namaza, posebno u zadnjih deset noći ramazana i danima hadža.",
+        location: "Mekka",
+      },
+      {
+        title: "Džamija Poslanika, Medina",
+        body: "Poslanikova, sallallahu alejhi ve sellem, džamija, dom Ravde i njegovog počivališta, nije dio samog hadža, ali gotovo svi hodočasnici posjete Medinu prije ili poslije. Za ulazak u Ravdu potrebna je propusnica s vremenom, rezervisana putem Nusuka ili aplikacije Ravda.",
+        location: "Medina",
+      },
+      {
+        title: "Mina",
+        body: "Šatorski grad nekoliko kilometara od Mekke gdje hodočasnici provode noći 8., 11., 12. (i 13.) zul-hidžeta. Klimatizovane, protivpožarne šatorske kampove dodjeljuje turoperator; očekujte osnovne zajedničke sadržaje i dugo hodanje do Džemarata.",
+        location: "Mina",
+      },
+      {
+        title: "Arefat",
+        body: "Otvorena ravnica oko 20 km od Mekke, mjesto najvažnijeg obreda hadža — stajanja 9. zul-hidžeta. Obezbijeđene su sjenice i mjesta s vodom, ali dnevna vrućina je jaka; hidratacija i zaštita od sunca su ključne.",
+        location: "Arafah",
+      },
+      {
+        title: "Muzdelifa",
+        body: "Otvoreno područje između Arefata i Mine gdje hodočasnici provode noć 9–10. zul-hidžeta pod otvorenim nebom i skupljaju kamenčiće za kamenovanje. Sadržaji su namjerno minimalni — ponesite ćilim i obucite se za hladniji noćni zrak.",
+        location: "Muzdalifah",
+      },
+    ],
+  },
+  {
+    day: "Prije nego odeš",
+    title: "Zvanični izvori",
+    summary: "Gdje pronaći pouzdane, ažurne zvanične informacije.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Zvanični portal i aplikacija Saudijskog ministarstva za hadž i umru za vize, akreditovane pakete, dozvole za posjetu Ravdi i smjernice o gužvama i transportu u realnom vremenu — prva stanica za svako zvanično pitanje.",
+      },
+      {
+        title: "Institucija za hadž vaše zemlje",
+        body: "Većina zemalja ima nacionalnu instituciju ili ministarski ured za hadž koji upravlja godišnjom kvotom, provjerava lokalne agente i objavljuje raspored polazaka i zdravstvene uslove — provjerite ga prije rezervacije putem bilo kojeg privatnog agenta.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Zvanični turistički sajt Kraljevine sadrži uslove za ulazak, informacije o e-vizi za državljane koji ispunjavaju uslove i praktične savjete za putovanje u Mekku, Medinu i dalje putovanje unutar Saudijske Arabije.",
+      },
+      {
+        title: "Provjerite prije plaćanja",
+        body: "Rezervišite samo putem agencija navedenih na Nusuku ili vaše nacionalne institucije za hadž. Ako se ponuda čini neobično jeftinom ili posrednik traži plaćanje van zvaničnih kanala, smatrajte to upozorenjem i provjerite direktno preko ministarskog portala.",
+      },
+    ],
+  },
 ];

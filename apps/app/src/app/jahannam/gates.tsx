@@ -12,8 +12,9 @@ import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJahannamGates } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamGates } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 
 function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean }) {
@@ -55,6 +56,7 @@ function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean })
 export default function JahannamGatesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureJahannamContent);
   const gates = getJahannamGates();
 
   return (

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ActivityIndicator, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Seo } from "@/components/seo/seo";
+import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
@@ -12,6 +13,7 @@ import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
+import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { type AppIcon, NAMES_OF_ALLAH_ICON } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -29,6 +31,8 @@ import {
   tokenize,
 } from "@/lib/search";
 import { clearRecentSearches, loadRecentSearches, pushRecentSearch } from "@/lib/search-history";
+import { abortStt, type SttErrorKind } from "@/lib/stt";
+import { useToast } from "@/providers/toast-provider";
 
 const DEBOUNCE_MS = 180;
 /** Matches fetched per light group; ample for a filtered view, cheap for tiny corpora. */
@@ -64,9 +68,10 @@ type FilterKey = SearchCategory | "all";
 
 export default function SearchScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const insets = useSafeAreaInsets();
   const { colors, tokens } = useThemeTokens();
+  const toast = useToast();
   const chevronBackIcon = useChevronBack();
   const chevronForwardIcon = useChevronForward();
 
@@ -82,6 +87,46 @@ export default function SearchScreen() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const filterScrollRef = useHorizontalWheelScroll();
 
+  const handleSttError = useCallback(
+    (kind: SttErrorKind) => {
+      switch (kind) {
+        case "permission":
+          toast.warning(t("search.stt.permissionDenied"));
+          break;
+        case "noSpeech":
+          toast.info(t("search.stt.couldNotHear"));
+          break;
+        case "unavailable":
+          toast.warning(t("search.stt.unavailable"));
+          break;
+        default:
+          toast.error(t("search.stt.errorGeneric"));
+      }
+    },
+    [t, toast],
+  );
+
+  const stt = useSpeechToText({
+    uiLocale: i18n.language ?? "en",
+    onTranscript: setQuery,
+    onError: handleSttError,
+  });
+
+  useEffect(() => () => abortStt(), []);
+
+  const toggleVoiceSearch = () => {
+    if (stt.listening) {
+      stt.stop();
+      return;
+    }
+    // Fresh dictate session replaces the query (typical voice-search UX).
+    void stt.start("query", "", "other");
+  };
+
+  const setQueryFromInput = (value: string) => {
+    if (stt.listening) stt.abort();
+    setQuery(value);
+  };
   const categoryVisual = useMemo<Record<SearchCategory, CategoryVisual>>(
     () => ({
       quran: {
@@ -393,7 +438,16 @@ export default function SearchScreen() {
           style={styles.backButton}
         />
 
-        <View style={[styles.field, { backgroundColor: colors.muted }]}>
+        <View
+          style={[
+            styles.field,
+            {
+              backgroundColor: colors.muted,
+              borderWidth: stt.listening ? 1.5 : 0,
+              borderColor: stt.listening ? colors.accent : "transparent",
+            },
+          ]}
+        >
           <SymbolView
             name={{ ios: "magnifyingglass", android: "search", web: "search" }}
             size={18}
@@ -401,7 +455,7 @@ export default function SearchScreen() {
           />
           <TextInput
             value={query}
-            onChangeText={setQuery}
+            onChangeText={setQueryFromInput}
             onSubmitEditing={() => query.trim() && remember(query.trim())}
             placeholder={t("search.placeholder")}
             placeholderTextColor={colors.mutedForeground}
@@ -411,10 +465,22 @@ export default function SearchScreen() {
             returnKeyType="search"
             style={[styles.input, { color: colors.foreground }]}
           />
+          {stt.available ? (
+            <VoiceInputButton
+              size="sm"
+              listening={stt.listening}
+              level={stt.level}
+              accessibilityLabel={
+                stt.listening ? t("search.stt.stopDictate") : t("search.stt.dictate")
+              }
+              accessibilityHint={stt.listening ? t("search.stt.listening") : undefined}
+              onPress={toggleVoiceSearch}
+            />
+          ) : null}
           {query.length > 0 ? (
             <IconButton
               accessibilityLabel={t("search.clear")}
-              onPress={() => setQuery("")}
+              onPress={() => setQueryFromInput("")}
               name={{ ios: "xmark.circle.fill", android: "cancel", web: "cancel" }}
               size={18}
               tintColor={colors.mutedForeground}
@@ -835,10 +901,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    height: 44,
+    minHeight: 44,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    overflow: "visible",
   },
   input: { flex: 1, fontSize: 15, paddingVertical: 0 },
   filterWrap: { paddingBottom: Spacing.two },
@@ -904,7 +971,6 @@ const styles = StyleSheet.create({
   },
   rowArabic: {
     fontSize: 15,
-    textAlign: "right",
     writingDirection: "rtl",
   },
   seeAll: {

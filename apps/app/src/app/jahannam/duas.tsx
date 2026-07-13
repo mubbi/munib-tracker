@@ -13,9 +13,10 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
-import { getJahannamDuas, getJahannamRefugeDua } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamDuas, getJahannamRefugeDua } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
@@ -76,6 +77,7 @@ function JahannamDuaEntryBlock({
 export default function JahannamDuasScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureJahannamContent);
   const entries = getJahannamDuas();
   const refugeDua = getJahannamRefugeDua();
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);

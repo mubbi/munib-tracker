@@ -15,11 +15,12 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ADHAN_LEARN_STYLES, adhanTrack } from "@/lib/adhan-audio";
 import { prefetchAudioUri } from "@/lib/audio-cache";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getSalahGuideTopic } from "@/lib/salah-guide";
+import { ensureSalahGuideContent, getSalahGuideTopic } from "@/lib/salah-guide";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
 
@@ -101,9 +102,10 @@ export default function SalahGuideAdhanScreen() {
   const { t, i18n } = useTranslation();
   const { tokens } = useThemeTokens();
   useEnsureSalahGuideProgressLoaded();
+  const { version: contentVersion } = useEnsureContent(ensureSalahGuideContent);
   // Recompute per locale so the translated topic renders on language switch.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const TOPIC = useMemo(() => getSalahGuideTopic("adhan"), [i18n.language]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
+  const TOPIC = useMemo(() => getSalahGuideTopic("adhan"), [i18n.language, contentVersion]);
 
   if (!TOPIC) {
     return null;

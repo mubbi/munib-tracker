@@ -39,7 +39,8 @@ export function getTaharahTopicsBySection(): Record<TaharahSection, TaharahTopic
   ) as Record<TaharahSection, TaharahTopic[]>;
 
   for (const topic of getTaharahTopics()) {
-    grouped[topic.section].push(topic);
+    const bucket = grouped[topic.section];
+    if (bucket) bucket.push(topic);
   }
   return grouped;
 }

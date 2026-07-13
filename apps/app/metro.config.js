@@ -117,10 +117,11 @@ const routeSuspenseFallback = path.join(
 );
 
 /**
- * Orval `clean: true` deletes + rewrites packages/api-client/src/generated while
- * Metro is running. On Windows the FileMap often misses the new files (watcher
- * race), so doesFileExist returns false even though the paths exist on disk.
- * Fall back to real fs for relative imports under packages/*.
+ * Orval used to wipe+rewrite packages/api-client/src/generated (now clean:false
+ * in orval.config.ts). If generated files still disappear from Metro's FileMap
+ * on Windows, doesFileExist can be false while paths exist on disk — fall back
+ * to real fs for relative imports under packages/*. SHA-1 failures still need a
+ * Metro restart (`pnpm --filter app dev:clear`).
  */
 function resolveWorkspaceRelativeFromDisk(originModulePath, moduleName, sourceExts) {
   if (!moduleName.startsWith("./") && !moduleName.startsWith("../")) {

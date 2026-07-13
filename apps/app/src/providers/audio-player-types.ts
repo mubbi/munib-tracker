@@ -1,3 +1,9 @@
+import type {
+  QuranRepeatMode,
+  QuranRepeatPlan,
+  QuranTranslationAudio,
+} from "@munib-tracker/shared/types";
+
 export type AudioTrack = {
   id: string;
   title: string;
@@ -13,6 +19,15 @@ export type AudioTrack = {
   uri: string;
   /** Bundled asset module (from `require()`), used instead of `uri` when set. */
   source?: number;
+  /** Optional translation text spoken after the Arabic track via native TTS. */
+  tts?: {
+    text: string;
+    lang: string;
+    voice?: string;
+  };
 };
 
 export type LoopMode = "off" | "all" | "one";
+
+export type TranslationAudioMode = QuranTranslationAudio;
+export type { QuranRepeatMode, QuranRepeatPlan };

@@ -3,12 +3,13 @@ import type { PrayerId } from "@munib-tracker/shared/types";
 import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TextInput, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
+import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
@@ -24,10 +25,12 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useFormatCalendarDate } from "@/hooks/use-calendar-format";
+import { useSpeechToText } from "@/hooks/use-speech-to-text";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { averageRating, groupByDate, KHUSHU_MAX, KHUSHU_MIN, type KhushuEntry } from "@/lib/khushu";
 import { goBackOrReplace } from "@/lib/navigation";
 import { PRAYER_ICONS } from "@/lib/prayer-ui";
+import type { SttErrorKind } from "@/lib/stt";
 import { useToast } from "@/providers/toast-provider";
 import { useEnsureKhushuLoaded, useKhushuActions, useKhushuEntries } from "@/stores/khushu-store";
 import { useTodayPrayers } from "@/stores/tracker-store";
@@ -128,7 +131,7 @@ function sortedGroups(entries: KhushuEntry[]) {
 
 export default function JournalScreen() {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { formatIso } = useFormatCalendarDate();
   const toast = useToast();
@@ -141,6 +144,39 @@ export default function JournalScreen() {
   const [draft, setDraft] = useState<FormDraft>(defaultDraft);
   const [savedDraft, setSavedDraft] = useState<FormDraft>(defaultDraft);
   const [pending, setPending] = useState<PendingAction | null>(null);
+
+  const handleSttError = useCallback(
+    (kind: SttErrorKind) => {
+      switch (kind) {
+        case "permission":
+          toast.warning(t("journal.stt.permissionDenied"));
+          break;
+        case "unavailable":
+          toast.warning(t("journal.stt.unavailable"));
+          break;
+        case "noSpeech":
+          toast.info(t("journal.stt.couldNotHear"));
+          break;
+        default:
+          toast.error(t("journal.stt.errorGeneric"));
+      }
+    },
+    [t, toast],
+  );
+
+  const handleTranscript = useCallback((text: string) => {
+    setDraft((current) => ({ ...current, note: text }));
+  }, []);
+
+  const stt = useSpeechToText({
+    uiLocale: i18n.language ?? "en",
+    onTranscript: handleTranscript,
+    onError: handleSttError,
+  });
+
+  useEffect(() => {
+    if (!formOpen) stt.abort();
+  }, [formOpen, stt.abort]);
 
   const groups = useMemo(() => sortedGroups(entries), [entries]);
   const avg = averageRating(entries);
@@ -210,6 +246,7 @@ export default function JournalScreen() {
   };
 
   const closeForm = () => {
+    stt.abort();
     setFormOpen(false);
     setPending(null);
   };
@@ -220,6 +257,14 @@ export default function JournalScreen() {
       return;
     }
     closeForm();
+  };
+
+  const toggleNoteDictate = () => {
+    if (stt.listening && stt.activeField === "note") {
+      stt.stop();
+      return;
+    }
+    void stt.start("note", draft.note, "other");
   };
 
   const doSave = async () => {
@@ -515,15 +560,49 @@ export default function JournalScreen() {
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
           {t("journal.fieldNote")}
         </ThemedText>
-        <TextInput
-          value={draft.note}
-          onChangeText={(note) => setDraft((current) => ({ ...current, note }))}
-          placeholder={t("journal.notePlaceholder")}
-          placeholderTextColor={colors.mutedForeground}
-          accessibilityLabel={t("journal.fieldNote")}
-          multiline
-          style={[styles.noteInput, { backgroundColor: colors.muted, color: colors.foreground }]}
-        />
+        <View
+          style={[
+            styles.noteField,
+            {
+              backgroundColor: colors.muted,
+              borderWidth: stt.listening ? 1.5 : 0,
+              borderColor: stt.listening ? colors.accent : "transparent",
+            },
+          ]}
+        >
+          <TextInput
+            value={draft.note}
+            onChangeText={(note) => {
+              if (stt.listening) stt.abort();
+              setDraft((current) => ({ ...current, note }));
+            }}
+            placeholder={t("journal.notePlaceholder")}
+            placeholderTextColor={colors.mutedForeground}
+            accessibilityLabel={t("journal.fieldNote")}
+            multiline
+            style={[
+              styles.noteInput,
+              {
+                color: colors.foreground,
+                paddingEnd: stt.available ? Spacing.three + 44 : Spacing.three,
+              },
+            ]}
+          />
+          {stt.available ? (
+            <View style={styles.noteMic}>
+              <VoiceInputButton
+                size="sm"
+                listening={stt.listening}
+                level={stt.level}
+                accessibilityLabel={
+                  stt.listening ? t("journal.stt.stopDictate") : t("journal.stt.dictate")
+                }
+                accessibilityHint={stt.listening ? t("journal.stt.listening") : undefined}
+                onPress={toggleNoteDictate}
+              />
+            </View>
+          ) : null}
+        </View>
 
         <View style={styles.formActions}>
           <Button
@@ -631,13 +710,23 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   ratingLabel: { marginTop: Spacing.one },
-  noteInput: {
+  noteField: {
+    position: "relative",
     minHeight: 88,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    overflow: "visible",
+  },
+  noteInput: {
+    minHeight: 88,
     padding: Spacing.three,
     textAlignVertical: "top",
     fontSize: 15,
+  },
+  noteMic: {
+    position: "absolute",
+    top: Spacing.one,
+    end: Spacing.one,
   },
   formActions: {
     flexDirection: "row",

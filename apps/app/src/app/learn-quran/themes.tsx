@@ -8,12 +8,14 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideThemes } from "@/lib/quran-guide";
+import { ensureQuranGuideContent, getQuranGuideThemes } from "@/lib/quran-guide";
 
 export default function LearnQuranThemesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureQuranGuideContent);
   const themes = getQuranGuideThemes();
 
   return (

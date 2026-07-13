@@ -937,6 +937,43 @@ export const QURAN_GUIDE_TAJWEED_SQ: DeepPartial<QuranGuideTajweedLesson>[] = [
     practice:
       "Merrni një faqe me shenja vakëfi dhe lexoni me zë të lartë pas regjistrimit të një mësuesi të texhvidit, duke ndaluar pikërisht aty ku tregojnë simbolet.",
   },
+  {
+    title: "Hamzat Wasl",
+    summary:
+      "The connecting hamza that is pronounced only when starting, and dropped when joining.",
+    explanation: [
+      "Hamzat wasl (ٱ) is a connecting hamza written with a small saddah-like mark above an alif. It appears at the start of many nouns, verbs, and particles — including the definite article ال.",
+      "When you begin recitation on a word that starts with hamzat wasl, you pronounce it with a clear hamza sound so the word can open cleanly.",
+      "When the word is joined to what comes before it, the hamzat wasl is silent — you glide from the previous letter straight into the following letter and do not sound a separate hamza.",
+      "Recognizing hamzat wasl helps you avoid inserting an extra glottal stop mid-phrase, which is a common beginner habit when reading the mushaf slowly.",
+    ],
+    practice:
+      "Recite the basmalah and Surah al-Fatiha, pausing at each ٱ to decide whether you are starting (pronounce) or joining (drop).",
+  },
+  {
+    title: "Lam Shamsiyah",
+    summary: "Sun letters that assimilate the لام of ال, versus moon letters that keep it clear.",
+    explanation: [
+      "When the definite article ال is attached to a noun, the لام may be pronounced clearly or assimilated, depending on the following letter.",
+      "Sun letters (huruf shamsiyah) cause the لام to be silent and the next letter to be doubled with a shaddah — as in ٱلرَّحْمَٰن where the ر absorbs the لام.",
+      "Moon letters (huruf qamariyah) keep the لام clear — as in ٱلْقَمَر — so you hear both the لام and the following letter.",
+      "Learning the sun and moon sets by heart (or by ear from a teacher) prevents over-pronouncing silent لام and under-pronouncing clear لام.",
+    ],
+    practice:
+      "Open Juz Amma and mark ten nouns with ال: for each, name whether the لام is shamsiyah (silent) or qamariyah (clear) before you recite.",
+  },
+  {
+    title: "Silent Letters",
+    summary: "Letters written in the mushaf that are not pronounced in continuous recitation.",
+    explanation: [
+      "Some letters appear in the Uthmani script for historical or orthographic reasons but are not sounded when you recite — they are marked silent in tajweed colorings.",
+      "Common cases include certain alifs that are written but not elongated, and letters that are assimilated into a following shaddah so they leave no separate sound.",
+      "Silent marking is a reading aid: it keeps the written mushaf faithful while guiding the tongue not to invent an extra sound.",
+      "When in doubt, follow a colored tajweed mushaf or a qualified reciter — the goal is fidelity to the transmitted reading, not guessing from spelling alone.",
+    ],
+    practice:
+      "With tajweed colors on, read one page slowly and whisper only the colored (sounded) letters — skip every silent-marked letter deliberately.",
+  },
 ];
 
 export const QURAN_GUIDE_VOCABULARY_SQ: DeepPartial<QuranGuideVocabEntry>[] = [

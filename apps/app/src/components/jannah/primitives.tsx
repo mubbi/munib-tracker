@@ -531,7 +531,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     gap: Spacing.two,
   },
-  duaArabic: { textAlign: "right", lineHeight: 34 },
+  duaArabic: { lineHeight: 34 },
   duaTranslit: { lineHeight: 18 },
   duaTranslation: { lineHeight: 24 },
   duaRef: { marginTop: Spacing.two, lineHeight: 18 },

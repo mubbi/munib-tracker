@@ -11,9 +11,22 @@ describe("buildWidgetPayload", () => {
     expect(payload.location).toBe(DEFAULT_LOCATION.label);
     expect(PRAYER_SLOTS).toContain(payload.nextPrayerId);
     expect(payload.minutesUntil).toBeGreaterThanOrEqual(0);
+    expect(payload.nextPrayerAtMs).toBeGreaterThan(0);
     expect(payload.nextPrayerTime).toMatch(/\d{1,2}:\d{2}/);
     expect(payload.displayDate.length).toBeGreaterThan(0);
     expect(payload.progress).toBeUndefined();
+  });
+
+  it("respects the user's 12-hour clock preference", () => {
+    const payload = buildWidgetPayload(
+      DEFAULT_LOCATION,
+      "en",
+      new Date("2026-07-06T09:00:00.000Z"),
+      undefined,
+      "hijri",
+      "12",
+    );
+    expect(payload.nextPrayerTime).toMatch(/AM|PM/i);
   });
 
   it("includes today's progress when a completed count is supplied", () => {

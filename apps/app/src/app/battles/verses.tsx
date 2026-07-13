@@ -15,14 +15,16 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getBattlesTopic, getBattlesVerses } from "@/lib/battles";
+import { ensureBattlesContent, getBattlesTopic, getBattlesVerses } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  useEnsureContent(ensureBattlesContent);
   const { sizes } = useReadingTypography();
   const verses = getBattlesVerses();
 

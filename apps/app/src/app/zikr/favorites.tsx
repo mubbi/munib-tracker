@@ -22,7 +22,7 @@ export default function ZikrFavoritesScreen() {
   const { colors, tokens } = useThemeTokens();
   const order = useFavoriteZikrIds();
   const { setFavoriteOrder, toggleFavorite } = usePreferencesActions();
-  const [, setCorpusReady] = useState(false);
+  const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
     void ensureZikrCorpus().then(() => setCorpusReady(true));
   }, []);
@@ -45,7 +45,15 @@ export default function ZikrFavoritesScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/zikr/favorites" />
-      {items.length === 0 ? (
+      {order.length === 0 ? (
+        <EmptyState
+          icon={{ ios: "star", android: "star_border", web: "star_border" }}
+          title={t("zikr.favEmptyTitle")}
+          description={t("zikr.favEmptyDesc")}
+          actionLabel={t("zikr.browseZikr")}
+          onAction={() => router.replace("/zikr")}
+        />
+      ) : !corpusReady ? null : items.length === 0 ? (
         <EmptyState
           icon={{ ios: "star", android: "star_border", web: "star_border" }}
           title={t("zikr.favEmptyTitle")}

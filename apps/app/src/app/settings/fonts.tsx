@@ -201,7 +201,6 @@ const styles = StyleSheet.create({
   },
   arabic: {
     writingDirection: "rtl",
-    textAlign: "right",
   },
   label: {
     marginBottom: Spacing.three,
@@ -216,6 +215,6 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
   },
   familyBody: { flex: 1, gap: 2 },
-  familySample: { writingDirection: "rtl", textAlign: "right" },
+  familySample: { writingDirection: "rtl" },
   familyHint: { marginTop: Spacing.three },
 });

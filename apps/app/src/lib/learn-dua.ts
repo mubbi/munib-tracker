@@ -35,7 +35,8 @@ export function getLearnDuaTopicsBySection(): Record<LearnDuaSection, LearnDuaTo
   ) as Record<LearnDuaSection, LearnDuaTopic[]>;
 
   for (const topic of getLearnDuaTopics()) {
-    grouped[topic.section].push(topic);
+    const bucket = grouped[topic.section];
+    if (bucket) bucket.push(topic);
   }
   return grouped;
 }

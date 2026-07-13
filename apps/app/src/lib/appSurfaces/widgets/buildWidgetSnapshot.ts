@@ -130,6 +130,8 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
         ctaLabel: setLocation,
         prayerName: setLocation,
         countdownLabel: hint,
+        remainingLabel: input.t("widgets.remaining", "Remaining"),
+        prayerTimeLabel: setLocation,
         location: "",
       },
       schedule: {
@@ -157,12 +159,17 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
     now,
     input.salahCompleted,
     input.calendar,
+    input.timeFormat,
   );
   const theme = buildThemeSnapshot(input);
   const prayerName = input.t(`prayers.${payload.nextPrayerId}`, payload.nextPrayerId);
   const countdownLabel = input.t("hero.nextIn", "in {{time}}", {
     time: formatDuration(payload.minutesUntil),
   });
+  const prayerTimeLabel = input.t("widgets.atTime", "at {{time}}", {
+    time: payload.nextPrayerTime,
+  });
+  const remainingLabel = input.t("widgets.remaining", "Remaining");
   const progressPercent =
     input.salahTotal > 0 ? Math.round((input.salahCompleted / input.salahTotal) * 100) : 0;
   const progressLabel = `${input.salahCompleted}/${input.salahTotal}`;
@@ -184,8 +191,11 @@ export function buildWidgetSnapshot(input: BuildWidgetSnapshotInput): WidgetSnap
       prayerId: payload.nextPrayerId,
       prayerName,
       prayerTime: payload.nextPrayerTime,
+      prayerTimeLabel,
       countdownLabel,
+      remainingLabel,
       minutesUntil: payload.minutesUntil,
+      targetTimeMs: payload.nextPrayerAtMs,
       displayDate: payload.displayDate,
       location: payload.location,
     },

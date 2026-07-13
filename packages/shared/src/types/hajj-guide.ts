@@ -13,8 +13,8 @@ export interface HajjGuideStep {
 /** A phase of the pilgrimage grouping several ordered steps. */
 export interface HajjGuideSection {
   id: string;
-  /** Which pilgrimage this section belongs to. */
-  kind: "umrah" | "hajj";
+  /** Which pilgrimage this section belongs to ("prep" covers practical logistics, not rites). */
+  kind: "umrah" | "hajj" | "prep";
   title: string;
   summary: string;
   /** Optional day label for Hajj phases (e.g. "8 Dhul-Hijjah"). */

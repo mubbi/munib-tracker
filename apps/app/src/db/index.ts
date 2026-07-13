@@ -12,9 +12,11 @@ export { PreferencesRepository } from "./repositories/preferences-repository";
 export { QazaRepository } from "./repositories/qaza-repository";
 export { QuranCacheRepository } from "./repositories/quran-cache-repository";
 export { QuranRepository } from "./repositories/quran-repository";
+export { QuranStudyCacheRepository } from "./repositories/quran-study-cache-repository";
 export { ReverseGeocodeCacheRepository } from "./repositories/reverse-geocode-cache-repository";
 export { TombstoneRepository } from "./repositories/tombstone-repository";
 export { WeatherCacheRepository } from "./repositories/weather-cache-repository";
+export { ZakatCalculatorRepository } from "./repositories/zakat-calculator-repository";
 export { ZikrRepository } from "./repositories/zikr-repository";
 
 let initPromise: Promise<void> | null = null;

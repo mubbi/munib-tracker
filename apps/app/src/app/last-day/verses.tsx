@@ -16,14 +16,16 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getLastDayVerses } from "@/lib/last-day";
+import { ensureLastDayContent, getLastDayVerses } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function LastDayVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  useEnsureContent(ensureLastDayContent);
   const { sizes } = useReadingTypography();
   const verses = getLastDayVerses();
 

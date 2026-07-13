@@ -98,7 +98,7 @@ Given **AsyncStorage / no-new-native-deps**:
 |---|---|---|---|---|
 | **Adhkar / Duas / Duroods / 99 Names** | Small (KB) | Browse by category | **Bundled static content** (extend existing `packages/shared/src/content/*.ts` or JSON in `assets/`) | Matches current pattern; instant, offline, trivially versioned. |
 | **Qur'an Arabic + 1–2 PD translations + transliteration** | ~2–6 MB/edition | Read sequentially by surah/page; jump to ayah | **Bundled JSON**, per-surah loaders in `quran-loader.ts`. Home/search light paths use **`quran-meta`** only; ayah JSON must not enter the web `__common` chunk — see [`PROFILING.md`](./PROFILING.md). | Fully offline core mushaf. Load one surah at a time. |
-| **Extra translations (Saheeh Intl, Khattab, others), tafsir** | Large / many | On demand | **Live CDN/API** (fawazahmed0 jsDelivr, Al Quran Cloud, Quran.Foundation) + cache with React Query | Keeps app small & license-clean; only fetched when the user selects that edition. |
+| Extra translations (Saheeh Intl, Khattab, others), tafsir | Large / many | On demand | **Live CDN/API** (fawazahmed0 jsDelivr for translations + Siraj; **spa5k/tafsir_api** for multi-language ayah tafsir; Al Quran Cloud / Quran.Foundation as alternatives) + cache with React Query / AsyncStorage | Keeps app small & license-clean; only fetched when the user selects that edition. Check **per-resource licenses** for spa5k/QUL tafsirs. |
 | **Qur'an audio (per-ayah / per-surah)** | Very large | Stream | **Third-party CDN, streamed** (everyayah.com / QuranicAudio / QUL) | Never bundle audio; stream + optional download-for-offline later. |
 | **Hadith (50k+)** | Large (tens of MB) | Search + browse by book/chapter | **Hybrid:** bundle **Nawawi40** eagerly; **Riyad** via web `import()` / `ensureBundledCollection` (never `require` — Metro embeds it); full collections via CDN API | Full offline Hadith with search really wants SQLite; avoid that unless required (§6.4). Web graph notes: [`PROFILING.md`](./PROFILING.md). |
 
@@ -366,8 +366,12 @@ play controls stay hidden until real per-item audio URLs are supplied (nothing f
 - **Reciters** (`apps/app/src/lib/quran-audio.ts` `RECITERS`): per-ayah audio from
   [everyayah.com](https://everyayah.com). Add an entry `{ dir, name }` where `dir` is the reciter's
   everyayah directory. Expanded to include As-Sudais, Ash-Shatri, Ash-Shuraim, and Al-Hudhaify.
-- **Translations / tafsir** (`apps/app/src/api/quran-remote.ts` `REMOTE_DEFS`): cache-first, no key,
+- **Translations** (`apps/app/src/api/quran-remote.ts` + `packages/shared` edition defs): cache-first, no key,
   from [fawazahmed0/quran-api](https://github.com/fawazahmed0/quran-api). Add `{ id, fawaz, name,
   language, direction }` where `fawaz` is the edition slug from that API (e.g. another `eng-…`, `urd-…`,
   `ara-…`). Opened editions are cached to AsyncStorage and work offline afterward; a missing/failed
   fetch falls back to the bundled translation, so a bad slug degrades gracefully.
+- **Tafsir** (`apps/app/src/api/quran-tafsir.ts` + `packages/shared/src/i18n/quran-tafsir-defs.json`):
+  on-demand from [spa5k/tafsir_api](https://github.com/spa5k/tafsir_api) (multi-language) plus fawaz
+  Siraj; cache keys prefixed `tafsir:`. Language → author picker and per-ayah sheet in the reader.
+  Check per-resource licenses (many editions originate from QUL / quran.com).

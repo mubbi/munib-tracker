@@ -103,6 +103,23 @@ jest.mock("reanimated-color-picker", () => {
   };
 });
 
+jest.mock("expo-speech-recognition", () => ({
+  ExpoSpeechRecognitionModule: {
+    isRecognitionAvailable: jest.fn(() => false),
+    supportsOnDeviceRecognition: jest.fn(() => false),
+    requestPermissionsAsync: jest.fn(async () => ({
+      granted: false,
+      canAskAgain: true,
+      status: "denied",
+    })),
+    start: jest.fn(),
+    stop: jest.fn(),
+    abort: jest.fn(),
+    addListener: jest.fn(() => ({ remove: jest.fn() })),
+  },
+  useSpeechRecognitionEvent: jest.fn(),
+}));
+
 jest.mock("expo-haptics", () => ({
   impactAsync: jest.fn().mockResolvedValue(undefined),
   notificationAsync: jest.fn().mockResolvedValue(undefined),

@@ -43,17 +43,29 @@ import {
 import { applyVolume } from "@/lib/audio-volume";
 import { buildAudioActivity } from "@/lib/continue-activity";
 import { triggerHaptic } from "@/lib/haptics";
+import { nextIndexForRepeatPlan } from "@/lib/quran-repeat";
+import { speak as speakTts, stopTts } from "@/lib/tts";
 import {
   AudioContext,
   type AudioContextValue,
   SSR_AUDIO_CONTEXT,
 } from "@/providers/audio-player-context";
-import type { AudioTrack, LoopMode } from "@/providers/audio-player-types";
+import type {
+  AudioTrack,
+  LoopMode,
+  QuranRepeatPlan,
+  TranslationAudioMode,
+} from "@/providers/audio-player-types";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
 export { useAudioPlayerContext } from "@/providers/audio-player-context";
-export type { AudioTrack, LoopMode } from "@/providers/audio-player-types";
+export type {
+  AudioTrack,
+  LoopMode,
+  QuranRepeatPlan,
+  TranslationAudioMode,
+} from "@/providers/audio-player-types";
 
 export const AUDIO_SPEEDS = [0.5, 1, 1.5, 2];
 
@@ -67,6 +79,11 @@ const PREFETCH_AHEAD = 3;
 
 /** Cycle order: off → repeat all → repeat once → off. */
 const LOOP_CYCLE: LoopMode[] = ["off", "all", "one"];
+
+/** Qur'an ayah track ids look like `2:255` — used to scope repeat/TTS to scripture queues. */
+function isQuranAyahTrack(track: AudioTrack | null | undefined): boolean {
+  return Boolean(track?.id && /^\d+:\d+$/.test(track.id));
+}
 
 /**
  * Resolve a track to a playable source, preferring a fully-local copy so the
@@ -205,6 +222,9 @@ function AudioPlayerProviderLive({
   const [rate, setRateState] = useState(1);
   const [volume, setVolumeState] = useState(1);
   const [loopMode, setLoopMode] = useState<LoopMode>("off");
+  const [repeatPlan, setRepeatPlanState] = useState<QuranRepeatPlan>({ mode: "off" });
+  const [translationAudio, setTranslationAudioState] = useState<TranslationAudioMode>("off");
+  const [isSpeakingTranslation, setIsSpeakingTranslation] = useState(false);
   const [sourceHref, setSourceHref] = useState<string | null>(null);
   const [queueFinished, setQueueFinished] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -216,6 +236,11 @@ function AudioPlayerProviderLive({
   indexRef.current = index;
   const loopRef = useRef<LoopMode>("off");
   loopRef.current = loopMode;
+  const repeatPlanRef = useRef<QuranRepeatPlan>({ mode: "off" });
+  repeatPlanRef.current = repeatPlan;
+  const translationAudioRef = useRef<TranslationAudioMode>("off");
+  translationAudioRef.current = translationAudio;
+  const finishHandlingRef = useRef(false);
   const queueRef = useRef<AudioTrack[]>(queue);
   queueRef.current = queue;
   const trackDurationsRef = useRef<Record<string, number>>(trackDurations);
@@ -558,6 +583,10 @@ function AudioPlayerProviderLive({
 
   const play = useCallback(
     (tracks: AudioTrack[], startIndex = 0, options?: { sourceHref?: string }) => {
+      void stopTts();
+      setIsSpeakingTranslation(false);
+      finishHandlingRef.current = false;
+
       const initialDurations: Record<string, number> = {};
       for (const track of tracks) {
         const cached = getCachedTrackDuration(track.uri);
@@ -748,7 +777,24 @@ function AudioPlayerProviderLive({
     setLoopMode((prev) => LOOP_CYCLE[(LOOP_CYCLE.indexOf(prev) + 1) % LOOP_CYCLE.length]);
   }, []);
 
+  const setRepeatPlan = useCallback((plan: QuranRepeatPlan) => {
+    setRepeatPlanState(plan);
+    repeatPlanRef.current = plan;
+  }, []);
+
+  const setTranslationAudio = useCallback((mode: TranslationAudioMode) => {
+    setTranslationAudioState(mode);
+    translationAudioRef.current = mode;
+    if (mode === "off") {
+      void stopTts();
+      setIsSpeakingTranslation(false);
+    }
+  }, []);
+
   const stop = useCallback(() => {
+    void stopTts();
+    setIsSpeakingTranslation(false);
+    finishHandlingRef.current = false;
     try {
       playersRef.current[0].pause();
       playersRef.current[1].pause();
@@ -828,12 +874,12 @@ function AudioPlayerProviderLive({
     [],
   );
 
-  // Auto-advance when a track finishes. "one" replays the current track a single
-  // time and then clears itself (play again once, not forever); otherwise advance
-  // — swapping to the preloaded idle player for a gapless hand-off when possible.
+  // Auto-advance when a track finishes. Optional TTS translation runs first;
+  // then Quran repeatPlan (when not off) or the generic loopMode decides next.
   // useLayoutEffect so isTransitioning flips before paint — avoids play/progress flicker.
   useLayoutEffect(() => {
     if (!status.didJustFinish) return;
+    if (finishHandlingRef.current) return;
 
     const q = queueRef.current;
     const idx = indexRef.current;
@@ -849,64 +895,100 @@ function AudioPlayerProviderLive({
       );
     }
 
-    if (loopRef.current === "one") {
-      loopRef.current = "off";
-      setLoopMode("off");
+    const advanceAfterFinish = (nextIdx: number | null) => {
+      finishHandlingRef.current = false;
+      setIsSpeakingTranslation(false);
+      if (nextIdx == null) {
+        setQueueFinished(true);
+        return;
+      }
+      setQueueFinished(false);
+      if (nextIdx === idx) {
+        beginTransition();
+        playIndex(q, idx, true);
+        return;
+      }
+
+      const nextTrack = q[nextIdx];
+      const idleSlot = getIdleSlot();
+      const incoming = playersRef.current[idleSlot];
+      const canSwap =
+        nextTrack && stagedTrackIdRef.current[idleSlot] === nextTrack.id && incoming.isLoaded;
+      if (canSwap) {
+        const outgoing = playersRef.current[activeSlotRef.current];
+        try {
+          applyRateVolume(incoming);
+          incoming.play();
+        } catch {
+          // ignore
+        }
+        try {
+          outgoing.pause();
+        } catch {
+          // ignore
+        }
+        activeSlotRef.current = idleSlot;
+        setActiveSlot(idleSlot);
+        setIndex(nextIdx);
+        anchorQueueTimeline(nextIdx);
+        if (nextTrack) {
+          syncLockScreenForTrack(incoming, nextTrack, nextIdx, q);
+        }
+        const followIndex =
+          nextIdx + 1 < q.length
+            ? nextIdx + 1
+            : loopRef.current === "all" || repeatPlanRef.current.mode === "surah"
+              ? 0
+              : nextIdx + 1;
+        stageNext(q, followIndex);
+        return;
+      }
+
       beginTransition();
-      playIndex(q, idx, true);
+      playIndex(q, nextIdx, true);
+    };
+
+    const resolveNextIndex = (): number | null => {
+      const plan = repeatPlanRef.current;
+      // Quran repeat modes only apply to ayah queues — never leak into adhkar/etc.
+      if (plan.mode !== "off" && isQuranAyahTrack(finishingTrack)) {
+        return nextIndexForRepeatPlan(idx, q.length, plan);
+      }
+
+      if (loopRef.current === "one") {
+        loopRef.current = "off";
+        setLoopMode("off");
+        return idx;
+      }
+
+      const atLast = q.length > 0 && idx >= q.length - 1;
+      if (atLast && loopRef.current !== "all") return null;
+      return idx + 1 < q.length ? idx + 1 : 0;
+    };
+
+    finishHandlingRef.current = true;
+    const nextIdx = resolveNextIndex();
+    const tts = finishingTrack?.tts;
+    const shouldSpeak =
+      translationAudioRef.current === "after" &&
+      isQuranAyahTrack(finishingTrack) &&
+      Boolean(tts?.text?.trim());
+
+    if (shouldSpeak && tts) {
+      setIsSpeakingTranslation(true);
+      void speakTts(tts.text, {
+        lang: tts.lang,
+        voice: tts.voice,
+        onDone: () => advanceAfterFinish(nextIdx),
+        onError: () => advanceAfterFinish(nextIdx),
+      });
       return;
     }
 
-    const atLast = q.length > 0 && idx >= q.length - 1;
-    if (atLast && loopRef.current !== "all") {
-      setQueueFinished(true);
-      return;
-    }
-
-    const nextIndex = idx + 1 < q.length ? idx + 1 : 0;
-    const nextTrack = q[nextIndex];
-    setQueueFinished(false);
-
-    // Gapless hand-off: if the idle player already holds the next track *and* its
-    // media element is decoded, start it immediately — no replace(), no buffer UI.
-    const idleSlot = getIdleSlot();
-    const incoming = playersRef.current[idleSlot];
-    const canSwap =
-      nextTrack && stagedTrackIdRef.current[idleSlot] === nextTrack.id && incoming.isLoaded;
-    if (canSwap) {
-      const outgoing = playersRef.current[activeSlotRef.current];
-      try {
-        applyRateVolume(incoming);
-        incoming.play();
-      } catch {
-        // ignore
-      }
-      try {
-        outgoing.pause();
-      } catch {
-        // ignore
-      }
-      activeSlotRef.current = idleSlot;
-      setActiveSlot(idleSlot);
-      setIndex(nextIndex);
-      anchorQueueTimeline(nextIndex);
-      if (nextTrack) {
-        syncLockScreenForTrack(incoming, nextTrack, nextIndex, q);
-      }
-      // Stage the track after this one into the now-idle player.
-      const followIndex =
-        nextIndex + 1 < q.length ? nextIndex + 1 : loopRef.current === "all" ? 0 : nextIndex + 1;
-      stageNext(q, followIndex);
-      return;
-    }
-
-    // Fallback: next track wasn't staged/decoded in time — reload on the active player.
-    beginTransition();
-    next();
+    advanceAfterFinish(nextIdx);
   }, [
     status.didJustFinish,
     status.duration,
-    next,
     playIndex,
     beginTransition,
     cacheTrackDuration,
@@ -1002,9 +1084,13 @@ function AudioPlayerProviderLive({
   const isQueueSessionActive = queue.length > 1 && !queueFinished;
   const atLastTrack = queue.length > 0 && index >= queue.length - 1;
   const willAutoAdvance =
-    Boolean(status.didJustFinish) &&
+    (Boolean(status.didJustFinish) || isSpeakingTranslation) &&
     queue.length > 0 &&
-    (loopMode === "one" || loopMode === "all" || !atLastTrack);
+    (loopMode === "one" ||
+      loopMode === "all" ||
+      repeatPlan.mode !== "off" ||
+      !atLastTrack ||
+      isSpeakingTranslation);
 
   const holdQueueTimeline = isTransitioning || transitionRef.current || willAutoAdvance;
 
@@ -1062,6 +1148,9 @@ function AudioPlayerProviderLive({
       rate,
       volume,
       loopMode,
+      repeatPlan,
+      translationAudio,
+      isSpeakingTranslation,
       sourceHref,
       play,
       toggle,
@@ -1074,6 +1163,8 @@ function AudioPlayerProviderLive({
       setRate,
       setVolume,
       cycleLoopMode,
+      setRepeatPlan,
+      setTranslationAudio,
       stop,
       readPlaybackSeconds,
     }),
@@ -1095,6 +1186,9 @@ function AudioPlayerProviderLive({
       rate,
       volume,
       loopMode,
+      repeatPlan,
+      translationAudio,
+      isSpeakingTranslation,
       sourceHref,
       play,
       toggle,
@@ -1107,6 +1201,8 @@ function AudioPlayerProviderLive({
       setRate,
       setVolume,
       cycleLoopMode,
+      setRepeatPlan,
+      setTranslationAudio,
       stop,
       readPlaybackSeconds,
     ],

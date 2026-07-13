@@ -10,12 +10,14 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getAqeedahGlossary } from "@/lib/aqeedah";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureAqeedahContent, getAqeedahGlossary } from "@/lib/aqeedah";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function AqeedahGlossaryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureAqeedahContent);
   const terms = getAqeedahGlossary();
 
   return (

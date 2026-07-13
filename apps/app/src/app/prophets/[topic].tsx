@@ -7,9 +7,10 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getProphetsTopic, getProphetsTopics } from "@/lib/prophets";
+import { ensureProphetsContent, getProphetsTopic, getProphetsTopics } from "@/lib/prophets";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureProphetsProgressLoaded } from "@/stores/prophets-progress-store";
 
@@ -21,6 +22,7 @@ export default function ProphetsTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  const { ready: contentReady } = useEnsureContent(ensureProphetsContent);
   const topic = getProphetsTopic(topicId);
   const reportRef = useGuideContentReportRef("prophets", topic, "/prophets");
   useEnsureProphetsProgressLoaded();
@@ -61,7 +63,7 @@ export default function ProphetsTopicScreen() {
             : undefined
         }
       />
-      {!topic ? (
+      {!contentReady ? null : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("prophets.notFound")}

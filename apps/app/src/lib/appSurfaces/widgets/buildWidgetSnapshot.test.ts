@@ -27,6 +27,9 @@ describe("buildWidgetSnapshot", () => {
     expect(snapshot.version).toBe(1);
     expect(snapshot.nextPrayer.prayerName.length).toBeGreaterThan(0);
     expect(snapshot.nextPrayer.minutesUntil).toBeGreaterThanOrEqual(0);
+    expect(snapshot.nextPrayer.targetTimeMs).toBeGreaterThan(0);
+    expect(snapshot.nextPrayer.prayerTimeLabel).toMatch(/^at /);
+    expect(snapshot.nextPrayer.remainingLabel).toBe("Remaining");
     expect(snapshot.schedule.rows.length).toBeGreaterThan(0);
     expect(snapshot.progress.progressLabel).toBe("3/5");
     expect(snapshot.progress.progressPercent).toBe(60);

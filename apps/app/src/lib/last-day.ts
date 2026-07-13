@@ -42,7 +42,8 @@ export function getLastDayTopicsBySection(): Record<LastDaySection, LastDayTopic
   ) as Record<LastDaySection, LastDayTopic[]>;
 
   for (const topic of getLastDayTopics()) {
-    grouped[topic.section].push(topic);
+    const bucket = grouped[topic.section];
+    if (bucket) bucket.push(topic);
   }
   return grouped;
 }

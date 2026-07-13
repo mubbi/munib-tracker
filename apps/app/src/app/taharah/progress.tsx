@@ -12,8 +12,9 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getTaharahLessonCount } from "@/lib/taharah";
+import { ensureTaharahContent, getTaharahLessonCount } from "@/lib/taharah";
 import { buildTaharahProgress } from "@/lib/taharah-progress";
 import {
   useEnsureTaharahProgressLoaded,
@@ -26,13 +27,15 @@ export default function TaharahProgressScreen() {
   useEnsureTaharahProgressLoaded();
   const completedCount = useTaharahCompletedCount();
 
+  const { version: contentVersion } = useEnsureContent(ensureTaharahContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildTaharahProgress({
         lessonsCompleted: completedCount,
         lessonsTotal: getTaharahLessonCount(),
       }),
-    [completedCount],
+    [completedCount, contentVersion],
   );
 
   return (

@@ -1,6 +1,6 @@
 import type { DuaItem, JannahDuaEntry } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
@@ -13,6 +13,7 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
 import { ensureJannahContent, getJannahDuas } from "@/lib/jannah";
@@ -76,15 +77,13 @@ function JannahDuaEntryBlock({
 export default function JannahDuasScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { version: contentVersion } = useEnsureContent(ensureJannahContent);
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
-  const [, setContentReady] = useState(false);
   useEffect(() => {
-    void Promise.all([loadDuaItems(), ensureJannahContent()]).then(([items]) => {
-      setDuaItems(items);
-      setContentReady(true);
-    });
+    void loadDuaItems().then(setDuaItems);
   }, []);
-  const entries = getJannahDuas();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when jannah content finishes loading
+  const entries = useMemo(() => getJannahDuas(), [contentVersion]);
   const byId = new Map(duaItems.map((item) => [item.id, item]));
   useEnsureDuaFavoritesLoaded();
 

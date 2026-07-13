@@ -12,7 +12,8 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getBattlesLessonCount } from "@/lib/battles";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureBattlesContent, getBattlesLessonCount } from "@/lib/battles";
 import { buildBattlesProgress } from "@/lib/battles-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -26,13 +27,15 @@ export default function BattlesProgressScreen() {
   useEnsureBattlesProgressLoaded();
   const completedCount = useBattlesCompletedCount();
 
+  const { version: contentVersion } = useEnsureContent(ensureBattlesContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildBattlesProgress({
         lessonsCompleted: completedCount,
         lessonsTotal: getBattlesLessonCount(),
       }),
-    [completedCount],
+    [completedCount, contentVersion],
   );
 
   return (

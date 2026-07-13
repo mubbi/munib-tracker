@@ -12,7 +12,8 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getAqeedahLessonCount } from "@/lib/aqeedah";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureAqeedahContent, getAqeedahLessonCount } from "@/lib/aqeedah";
 import { buildAqeedahProgress } from "@/lib/aqeedah-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -26,13 +27,15 @@ export default function AqeedahProgressScreen() {
   useEnsureAqeedahProgressLoaded();
   const completedCount = useAqeedahCompletedCount();
 
+  const { version: contentVersion } = useEnsureContent(ensureAqeedahContent);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
       buildAqeedahProgress({
         lessonsCompleted: completedCount,
         lessonsTotal: getAqeedahLessonCount(),
       }),
-    [completedCount],
+    [completedCount, contentVersion],
   );
 
   return (

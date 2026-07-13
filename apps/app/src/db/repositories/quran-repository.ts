@@ -1,4 +1,8 @@
-import type { QuranReaderLayout } from "@munib-tracker/shared/types";
+import type {
+  QuranReaderLayout,
+  QuranRepeatMode,
+  QuranTranslationAudio,
+} from "@munib-tracker/shared/types";
 
 import { createId } from "../id";
 import { DB_KEYS } from "../keys";
@@ -23,11 +27,28 @@ export interface QuranPrefs {
   preferredReciterDir: string;
   showTransliteration: boolean;
   showTranslation: boolean;
+  /** Word-by-word glosses under each ayah (NF-2.7, cache-first from api.quran.com). */
+  showWordByWord?: boolean;
+  /** Colored tajweed markup for Arabic lines (cache-first from api.alquran.cloud). */
+  showTajweed?: boolean;
   script?: "uthmani";
   /** Optional second translation shown side-by-side beneath the first (NF-1.13). */
   secondaryTranslationId?: string;
+  /**
+   * On-demand tafsir edition id (`spa5k` / fawaz Siraj). Empty / unset = none
+   * selected until the user picks one (NF-1.10).
+   */
+  preferredTafsirId?: string;
   /** Reader layout: ayah cards, page view, or mushaf lines (NF-1.11). */
   readerLayout?: QuranReaderLayout;
+  /** Speak translation after each Arabic ayah via native TTS. */
+  translationAudio?: QuranTranslationAudio;
+  /** Repeat plan for ayah-study playback. */
+  repeatMode?: QuranRepeatMode;
+  /** Inclusive ayah range when `repeatMode` is `"range"`. */
+  repeatRange?: { start: number; end: number };
+  /** Preferred TTS voice identifier per BCP-47 language tag. */
+  ttsVoiceByLang?: Record<string, string>;
 }
 
 /** Furthest ayah reached per surah. */
@@ -38,8 +59,13 @@ export const DEFAULT_QURAN_PREFS: QuranPrefs = {
   preferredReciterDir: "Alafasy_128kbps",
   showTransliteration: true,
   showTranslation: true,
+  showWordByWord: false,
+  showTajweed: false,
   script: "uthmani",
   readerLayout: "ayah",
+  translationAudio: "off",
+  repeatMode: "off",
+  ttsVoiceByLang: {},
 };
 
 const bookmarks = new KeyedCollection<QuranBookmark>(DB_KEYS.quranBookmarks);

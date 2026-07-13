@@ -7,9 +7,14 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getSalahGuideTopic, getSalahGuideTopics } from "@/lib/salah-guide";
+import {
+  ensureSalahGuideContent,
+  getSalahGuideTopic,
+  getSalahGuideTopics,
+} from "@/lib/salah-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
 
@@ -21,6 +26,7 @@ export default function SalahGuideTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  const { ready: contentReady } = useEnsureContent(ensureSalahGuideContent);
   const topic = getSalahGuideTopic(topicId);
   const reportRef = useGuideContentReportRef("salah_guide", topic, "/salah-guide");
   useEnsureSalahGuideProgressLoaded();
@@ -61,7 +67,7 @@ export default function SalahGuideTopicScreen() {
             : undefined
         }
       />
-      {!topic ? (
+      {!contentReady ? null : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("salahGuide.notFound")}

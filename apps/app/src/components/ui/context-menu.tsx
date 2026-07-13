@@ -32,6 +32,10 @@ type ContextMenuProps = {
  * On Android, `@expo/ui`'s `MenuView` wraps children in a parent `Pressable` that
  * swallows nested touchables (close buttons, row actions, etc.), so we render
  * `children` only there. On web there is no long-press menu analogue either.
+ *
+ * iOS caveat: `MenuView` hosts children in SwiftUI `Host matchContents` /
+ * `fixedSize`, which can collapse nested flex rows (e.g. PressableScale previews)
+ * to intrinsic width. Prefer wrapping compact triggers, not full-width home cards.
  */
 export function ContextMenu({ actions, onAction, children, title, style }: ContextMenuProps) {
   if (actions.length === 0 || Platform.OS === "web" || Platform.OS === "android") {
@@ -42,7 +46,7 @@ export function ContextMenu({ actions, onAction, children, title, style }: Conte
     <MenuView
       title={title}
       shouldOpenOnLongPress
-      style={style}
+      style={[{ alignSelf: "stretch", width: "100%" }, style]}
       actions={actions.map((action) => ({
         id: action.id,
         title: action.title,

@@ -34,7 +34,7 @@ export function SegmentedControl<T extends string>({
   value,
   onChange,
 }: SegmentedControlProps<T>) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const [trackWidth, setTrackWidth] = useState(0);
 
   const count = options.length;
@@ -76,7 +76,7 @@ export function SegmentedControl<T extends string>({
           style={[
             styles.thumb,
             segmentedThumbAnchor(PAD, rtl),
-            { width: segmentWidth, backgroundColor: colors.card, pointerEvents: "none" },
+            { width: segmentWidth, backgroundColor: tokens.segmentThumb, pointerEvents: "none" },
             thumbStyle,
           ]}
         />

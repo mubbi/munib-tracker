@@ -7,9 +7,14 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideTopic, getQuranGuideTopics } from "@/lib/quran-guide";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideTopic,
+  getQuranGuideTopics,
+} from "@/lib/quran-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureQuranGuideProgressLoaded } from "@/stores/quran-guide-progress-store";
 
@@ -21,6 +26,7 @@ export default function LearnQuranTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
+  const { ready: contentReady } = useEnsureContent(ensureQuranGuideContent);
   const topic = getQuranGuideTopic(topicId);
   const reportRef = useGuideContentReportRef("learn_quran", topic, "/learn-quran");
   useEnsureQuranGuideProgressLoaded();
@@ -62,7 +68,7 @@ export default function LearnQuranTopicScreen() {
             : undefined
         }
       />
-      {!topic ? (
+      {!contentReady ? null : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("learnQuran.notFound")}

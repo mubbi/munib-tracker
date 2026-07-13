@@ -5,6 +5,7 @@ import { Platform } from "react-native";
 
 import { Fonts } from "@/constants/theme";
 import { BENGALI_FONT_FAMILY } from "@/lib/bengali-fonts";
+import { arabicTextAlign } from "@/lib/rtl";
 
 /**
  * Central reading-typography resolver (NF-1.31 + NF-1.32). One place maps the
@@ -108,14 +109,21 @@ export function translationReadingStyle(locale: AppLocale, fontSize: number): Te
   return fontFamily ? { fontSize, fontFamily } : { fontSize };
 }
 
+/**
+ * Layout for Arabic scripture lines. Call at render time (not inside
+ * `StyleSheet.create`) so {@link arabicTextAlign} sees the live RTL flag —
+ * native Fabric mirrors `left`/`right`, so a hardcoded `"right"` lands on the
+ * physical left under RTL locales.
+ */
 export function arabicReadingLayout(
   fontSize?: number,
-  textAlign: TextStyle["textAlign"] = "right",
+  textAlign?: TextStyle["textAlign"],
 ): TextStyle {
   return {
     ...(fontSize != null ? { fontSize } : null),
     writingDirection: "rtl",
-    textAlign,
+    // Default: physical right edge. Explicit `"center"` (etc.) passes through.
+    textAlign: textAlign ?? arabicTextAlign(),
   };
 }
 
@@ -130,11 +138,13 @@ export const TEXT_SIZE_BOUNDS = { min: 12, max: 28 } as const;
 export const READING_SIZE_STEP = 2;
 
 /** Smaller Arabic line for compact list rows (bookmarks, hifz, search hits). */
-export const compactArabicTextStyle: TextStyle = {
-  fontSize: 13,
-  writingDirection: "rtl",
-  textAlign: "right",
-};
+export function compactArabicTextStyle(): TextStyle {
+  return {
+    fontSize: 13,
+    writingDirection: "rtl",
+    textAlign: arabicTextAlign(),
+  };
+}
 
 export interface ReadingFontSizes {
   arabic: number;

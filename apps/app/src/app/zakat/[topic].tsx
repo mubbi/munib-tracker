@@ -22,13 +22,14 @@ export default function ZakatTopicScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const [sections, setSections] = useState<ZakatGuideSectionKey[]>([]);
+  const [sections, setSections] = useState<ZakatGuideSectionKey[] | null>(null);
   useEffect(() => {
     void import("@munib-tracker/shared/content/zakat-guide").then(({ ZAKAT_GUIDE_SECTIONS }) =>
       setSections([...ZAKAT_GUIDE_SECTIONS]),
     );
   }, []);
-  const valid = sections.includes(topicId as ZakatGuideSectionKey);
+  const contentReady = sections !== null;
+  const valid = contentReady && sections.includes(topicId as ZakatGuideSectionKey);
   const locale = i18n.language?.split("-")[0] ?? "en";
   const reportRef = valid
     ? buildContentReportRef("zakat", topicId, `/zakat/${topicId}`, locale, {
@@ -77,7 +78,7 @@ export default function ZakatTopicScreen() {
             : undefined
         }
       />
-      {!valid ? (
+      {!contentReady ? null : !valid ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("zakat.notFound")}

@@ -15,7 +15,7 @@ import type { SeerahEvent } from "../types/seerah";
  * are preferred over weaker popular stories, and the account stays mainstream Sunni.
  * Bump SEERAH_CONTENT_VERSION when the content changes.
  */
-export const SEERAH_CONTENT_VERSION = 3;
+export const SEERAH_CONTENT_VERSION = 4;
 
 export const SEERAH_EVENTS: SeerahEvent[] = [
   {
@@ -172,12 +172,28 @@ export const SEERAH_EVENTS: SeerahEvent[] = [
     location: "Hudaybiyyah",
   },
   {
+    id: "letters-to-rulers",
+    year: 628,
+    ah: 7,
+    title: "Letters to the rulers",
+    body: "After the truce of Hudaybiyyah gave the Muslims a respite from war, the Prophet ﷺ turned his attention beyond Arabia. Around 6–7 AH he sent trusted companions as envoys, each carrying a letter sealed with his ring, inviting the great rulers of the age to accept Islam: Heraclius, the Byzantine Emperor; Khosrow II, the Persian Emperor; al-Muqawqis, the Byzantine governor of Egypt; the Negus of Abyssinia, who had already sheltered the Muslim emigrants; and the rulers of Bahrain and Oman.\n\nThe letter to Heraclius survives almost word for word in the hadith literature: 'I invite you to Islam. Accept Islam and you will be safe... Accept Islam and Allah will give you a double reward' (Sahih al-Bukhari 7). That report also preserves the long conversation in which Heraclius questioned the Makkan trader Abu Sufyan — then still a disbeliever — about the Prophet's ﷺ lineage and character, and concluded from the honest answers that the traits described matched a true prophet, even though he did not act on that conviction. Khosrow, by contrast, is remembered in the seerah as having torn up his letter in anger, while the Negus received his envoy with honour.\n\nThe lesson: the mission of the final Messenger was never confined to Arabia — once Madinah was secure, the call went out to the whole known world, exactly as the Qur'an describes him as sent 'to all mankind' (Qur'an 34:28). Some rulers listened honestly, some responded with courtesy, and some with arrogance — and each response foreshadowed how their kingdoms would later meet Islam.",
+    location: "Madinah",
+  },
+  {
     id: "khaybar",
     year: 628,
     ah: 7,
     title: "The expedition to Khaybar",
     body: "Not long after Hudaybiyyah, the Prophet ﷺ turned to Khaybar, a wealthy oasis of fortified strongholds north of Madinah. Khaybar had become a base of hostility — home to tribes that had helped organise the Confederates' siege of Madinah and continued to plot against the Muslim community. The campaign was aimed at ending that threat.\n\nThe fortresses fell one after another after hard fighting; the banner on the decisive day was given to Ali ibn Abi Talib (may Allah be pleased with him). Afterwards the Prophet ﷺ allowed the inhabitants to remain and continue farming the land in exchange for a share of its produce — an arrangement that secured food and stability for Madinah rather than expelling everyone. It was here, too, that a woman attempted to poison him with a sheep, which he was warned of.\n\nThe lesson: security and treaty-keeping went hand in hand. The action was against a proven hostile power, yet it ended in a workable settlement that let the defeated keep their livelihoods. Strength in Islam is meant to establish safety and justice, not to annihilate.",
     location: "Khaybar",
+  },
+  {
+    id: "umrah-al-qada",
+    year: 629,
+    ah: 7,
+    title: "The Make-up Umrah (Umrat al-Qada)",
+    body: "The Hudaybiyyah treaty had turned the Muslims back from Umrah in 6 AH with a promise that they could return the following year. In Dhul-Qa'dah of 7 AH, exactly as agreed, the Prophet ﷺ led some two thousand companions back to Makkah to perform the pilgrimage that had been denied them — remembered as Umrat al-Qada, the 'make-up' Umrah (also called Umrat al-Qisas in some sources).\n\nHonouring their side of the truce, Quraysh vacated the city for three days so the Muslims could perform the rites in peace, watching from the surrounding hills as the community they had once driven out now circled the Ka'bah in complete security. It was during this visit that the Prophet's ﷺ uncle al-Abbas arranged his marriage to Maymunah bint al-Harith, and several Makkans who witnessed the pilgrims' devotion and discipline were visibly moved by what they saw.\n\nThe lesson: a promise kept is itself a form of da'wah. Where twenty years of preaching had been met with swords, one peaceful, dignified Umrah — the direct fruit of the 'clear victory' of Hudaybiyyah (Qur'an 48:1) — softened hearts that force never could. This quiet visit helped set the stage for the almost bloodless surrender of Makkah the following year.",
+    location: "Makkah",
   },
   {
     id: "conquest-makkah",
@@ -188,12 +204,28 @@ export const SEERAH_EVENTS: SeerahEvent[] = [
     location: "Makkah",
   },
   {
+    id: "hunayn",
+    year: 630,
+    ah: 8,
+    title: "The Battle of Hunayn",
+    body: "Only weeks after the peaceful conquest of Makkah, the confederated tribes of Hawazin and Thaqif — alarmed at the sudden rise of Muslim power and determined to fight to the last — gathered a large army, bringing their families, herds, and wealth with them, and met the Prophet's ﷺ far larger force in the narrow valley of Hunayn between Makkah and Ta'if.\n\nHawazin had hidden archers in the passes, and when they loosed a sudden volley at dawn the Muslim vanguard broke and scattered; for a moment it looked as though the largest army the Muslims had ever fielded would be routed by surprise alone. The Qur'an describes this exact reversal: \"...and on the day of Hunayn, when your great numbers were of no avail to you at all, and the earth was tight for you despite its vastness, then you turned back in flight\" (Qur'an 9:25). The Prophet ﷺ himself stood firm and had his uncle al-Abbas call out to the Ansar and the clans of Madinah by name; at that rallying cry the companions turned back, regrouped, and the battle swung into a decisive Muslim victory, which the Qur'an credits to the tranquillity and unseen aid Allah sent down (Qur'an 9:26).\n\nThe lesson: numbers and equipment do not decide a battle's outcome — Badr had already taught that lesson with a small force, and Hunayn now taught its mirror image, that even a huge force can falter without Allah's aid and battlefield discipline. Afterwards the considerable captured wealth was distributed generously, including to recent Makkan converts, to win hearts rather than hoard spoils.",
+    location: "Hunayn",
+  },
+  {
     id: "tabuk",
     year: 631,
     ah: 9,
     title: "The expedition to Tabuk",
     body: "In the ninth year, reports reached Madinah of a possible Byzantine (Roman) mobilisation on the northern frontier. In the fierce heat of high summer, when the harvest was ripe and the journey was long and hard, the Prophet ﷺ called for the largest army he ever led — perhaps thirty thousand — to march north to Tabuk. This was \"the hour of difficulty\" (Qur'an 9:117), and it tested sincerity like nothing before.\n\nNo battle took place; the show of resolve was enough, and several northern chiefs made treaties with Madinah. But the campaign is remembered above all for what it revealed about people's hearts. The Qur'an devotes much of Surah at-Tawbah to it — praising those who gave everything (Abu Bakr reportedly gave all his wealth), exposing the hypocrites who invented excuses to stay, and telling the moving story of the three sincere believers, including Ka'b ibn Malik, who honestly admitted they had no excuse and were forgiven after a hard trial (Qur'an 9:118).\n\nThe lesson: obedience is easy when it is comfortable; its truth shows when it is costly. Tabuk separated the sincere from the excuse-makers and marked the effective end of organised idolatry's resistance in Arabia. Honesty — even the honesty of admitting one's failure — is the path back to Allah.",
     location: "Tabuk",
+  },
+  {
+    id: "year-of-delegations",
+    year: 631,
+    ah: 9,
+    title: "The Year of Delegations (Am al-Wufud)",
+    body: "In the ninth year after the Hijra, following the submission of Makkah and the show of strength at Tabuk, the tribes of Arabia understood that resisting the new order was no longer realistic. Delegation after delegation — from Bani Tamim, Bani Amir, the tribes of Yemen, and many others — arrived in Madinah to declare their acceptance of Islam and their allegiance to the Prophet ﷺ, so many that the year is remembered in the seerah as Am al-Wufud, the Year of Delegations.\n\nThe Prophet ﷺ received each group with hospitality and patient teaching, sending companions back with them to instruct their people in the Qur'an and the prayer rather than governors to rule them by force. The Qur'an speaks directly to this moment in Surah an-Nasr: \"When the victory of Allah has come and the conquest, and you see the people entering into the religion of Allah in multitudes, then exalt Him with praise and ask forgiveness of Him\" (Qur'an 110:1–3) — a surah the companions came to understand, as Ibn Abbas explained to Umar, as a sign that the Prophet's ﷺ life was nearing its end (Sahih al-Bukhari 4430).\n\nThe lesson: after decades in which the message was rejected by the many and accepted by the few, Allah's promise arrived all at once — a lesson in patience, and in reading success rightly. Surah an-Nasr's response to victory is not celebration but praise and repentance, a model for how a believer should meet any success in life. This sets the tone for the Farewell Pilgrimage that follows.",
+    location: "Madinah",
   },
   {
     id: "farewell",

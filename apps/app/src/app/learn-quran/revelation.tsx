@@ -11,9 +11,10 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { getQuranGuideTimeline } from "@/lib/quran-guide";
+import { ensureQuranGuideContent, getQuranGuideTimeline } from "@/lib/quran-guide";
 import { useChevronForward } from "@/lib/rtl";
 
 export default function LearnQuranRevelationScreen() {
@@ -21,6 +22,7 @@ export default function LearnQuranRevelationScreen() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForwardIcon = useChevronForward();
+  useEnsureContent(ensureQuranGuideContent);
   const events = getQuranGuideTimeline();
 
   return (

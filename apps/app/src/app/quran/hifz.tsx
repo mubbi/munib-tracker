@@ -122,7 +122,7 @@ export default function HifzScreen() {
                           type="arabic"
                           themeColor="mutedForeground"
                           numberOfLines={1}
-                          style={compactArabicTextStyle}
+                          style={compactArabicTextStyle()}
                         >
                           {arabic}
                         </ThemedText>

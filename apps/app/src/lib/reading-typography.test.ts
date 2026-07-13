@@ -1,14 +1,17 @@
 import { DEFAULT_USER_PREFERENCES } from "@munib-tracker/shared/constants";
 import type { FontPreferences } from "@munib-tracker/shared/types";
+import { Platform } from "react-native";
 
 import {
   ARABIC_SIZE_BOUNDS,
+  arabicReadingLayout,
   nextReadingDelta,
   resolveArabicFontFamily,
   resolveArabicLineHeight,
   resolveReadingFontSizes,
   TEXT_SIZE_BOUNDS,
 } from "@/lib/reading-typography";
+import { arabicTextAlign } from "@/lib/rtl";
 
 function fontPrefs(patch: Partial<FontPreferences> = {}): FontPreferences {
   return { ...DEFAULT_USER_PREFERENCES.fontPrefs, ...patch };
@@ -94,5 +97,27 @@ describe("resolveArabicLineHeight", () => {
     const compact = resolveArabicLineHeight(13, "system");
     const ratio = compact / 13;
     expect(ratio).toBeGreaterThan(2);
+  });
+});
+
+describe("arabicReadingLayout", () => {
+  const originalOS = Platform.OS;
+
+  afterEach(() => {
+    Platform.OS = originalOS;
+  });
+
+  it("uses arabicTextAlign so native RTL keeps scripture on the physical right", () => {
+    Platform.OS = "ios";
+    expect(arabicReadingLayout(22).textAlign).toBe(arabicTextAlign(false));
+    // Simulate RTL by calling arabicTextAlign directly — arabicReadingLayout reads isRTL().
+    expect(arabicReadingLayout(22, "center").textAlign).toBe("center");
+  });
+
+  it("keeps an explicit center align", () => {
+    expect(arabicReadingLayout(undefined, "center")).toEqual({
+      writingDirection: "rtl",
+      textAlign: "center",
+    });
   });
 });

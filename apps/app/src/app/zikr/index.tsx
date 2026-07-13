@@ -16,7 +16,7 @@ import { ZikrRow } from "@/components/zikr/zikr-row";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { searchZikrList } from "@/lib/search";
+import { createZikrSearch } from "@/lib/search";
 import { collectionPageSchema } from "@/lib/seo/structured-data";
 import { ensureZikrCorpus, zikrByCategory, zikrCategories } from "@/lib/zikr";
 import { useFavoriteZikrIds } from "@/stores/preferences-store";
@@ -27,21 +27,28 @@ export default function ZikrHomeScreen() {
   const { colors } = useThemeTokens();
   const favoriteIds = useFavoriteZikrIds();
   const [zikrReady, setZikrReady] = useState(false);
+  const [zikrItems, setZikrItems] = useState<ZikrItem[]>([]);
   const categories = zikrReady ? zikrCategories() : [];
   const [query, setQuery] = useState("");
   const searching = query.trim().length > 0;
 
   useEffect(() => {
     let active = true;
-    void ensureZikrCorpus().then(() => {
-      if (active) setZikrReady(true);
+    void ensureZikrCorpus().then((items) => {
+      if (!active) return;
+      setZikrItems(items);
+      setZikrReady(true);
     });
     return () => {
       active = false;
     };
   }, []);
 
-  const results = useMemo(() => (searching ? searchZikrList(query) : []), [query, searching]);
+  const searchIndex = useMemo(() => createZikrSearch(zikrItems), [zikrItems]);
+  const results = useMemo(
+    () => (searching ? searchIndex.search(query) : []),
+    [query, searchIndex, searching],
+  );
 
   const indexById = useMemo(() => {
     const map = new Map<string, number>();
@@ -111,7 +118,7 @@ export default function ZikrHomeScreen() {
         </Card>
 
         {searching ? (
-          results.length === 0 ? (
+          !zikrReady ? null : results.length === 0 ? (
             <EmptyState
               icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
               title={t("zikr.noResults")}

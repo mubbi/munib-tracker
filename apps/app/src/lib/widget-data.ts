@@ -1,4 +1,4 @@
-import type { AppLocale, CalendarMode } from "@munib-tracker/shared/types";
+import type { AppLocale, CalendarMode, TimeFormat } from "@munib-tracker/shared/types";
 
 import { formatCalendarDate } from "./calendar-format";
 import { locationCalcExtras, type StoredLocation } from "./location";
@@ -17,8 +17,10 @@ export interface WidgetPayload {
   location: string;
   /** Next prayer slot id (fajr…isha). */
   nextPrayerId: string;
-  /** Localized next-prayer time string. */
+  /** Localized next-prayer time string (respects the user's clock format). */
   nextPrayerTime: string;
+  /** Exact next-prayer instant (epoch ms) for ActivityKit countdown. */
+  nextPrayerAtMs: number;
   /** Whole minutes until the next prayer. */
   minutesUntil: number;
   /** Formatted date in the user's preferred calendar. */
@@ -39,6 +41,7 @@ export function buildWidgetPayload(
   now: Date = new Date(),
   completedFard?: number,
   calendar: CalendarMode = "hijri",
+  timeFormat: TimeFormat = "24",
 ): WidgetPayload {
   const next = nextPrayer(
     { latitude: location.latitude, longitude: location.longitude },
@@ -52,7 +55,8 @@ export function buildWidgetPayload(
   return {
     location: location.label,
     nextPrayerId: next.id,
-    nextPrayerTime: formatPrayerTime(next.date, "24", location.timeZone),
+    nextPrayerTime: formatPrayerTime(next.date, timeFormat, location.timeZone),
+    nextPrayerAtMs: next.date.getTime(),
     minutesUntil: next.minutesUntil,
     displayDate: formatCalendarDate(now, calendar, locale, undefined, location.timeZone),
     progress:

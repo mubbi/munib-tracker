@@ -35,11 +35,16 @@ export default function DuroodsScreen() {
 
   const [query, setQuery] = useState("");
   const [duroodItems, setDuroodItems] = useState<Awaited<ReturnType<typeof loadDuroodItems>>>([]);
+  const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
-    void loadDuroodItems().then(setDuroodItems);
+    void loadDuroodItems().then((items) => {
+      setDuroodItems(items);
+      setCorpusReady(true);
+    });
   }, []);
   const index = useMemo(() => createDuroodSearch(duroodItems), [duroodItems]);
-  const items = query.trim() ? index.search(query) : duroodItems;
+  const searching = query.trim().length > 0;
+  const items = searching ? index.search(query) : duroodItems;
   const favoriteSet = new Set(favoriteIds);
 
   return (
@@ -99,7 +104,7 @@ export default function DuroodsScreen() {
           </View>
         </Card>
 
-        {items.length === 0 ? (
+        {!corpusReady ? null : items.length === 0 ? (
           <EmptyState
             icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
             title={t("duroods.noResults")}

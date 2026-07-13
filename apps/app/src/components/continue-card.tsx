@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
-import { ContextMenu, type ContextMenuAction } from "@/components/ui/context-menu";
 import { IconButton } from "@/components/ui/icon-button";
 import { IconWell } from "@/components/ui/icon-well";
 import { Pill } from "@/components/ui/pill";
@@ -134,134 +133,121 @@ function ContinueCardBody({ activity }: { activity: ContinueActivity }) {
   const quranSurahNumber = quranSurahMatch?.[1];
   const previewIsArabic = activity.preview ? containsArabicScript(activity.preview) : false;
 
-  const menuActions: ContextMenuAction[] = [
-    { id: "open", title: t(actionKey), systemIcon: "arrow.forward" },
-    {
-      id: "clear",
-      title: t("home.continueDismissA11y"),
-      systemIcon: "xmark",
-      destructive: true,
-    },
-  ];
-  const onMenuAction = (id: string) => {
-    if (id === "open") onPress();
-    else if (id === "clear") onDismiss();
-  };
-
+  // Do not wrap this full-width card in ContextMenu/MenuView on iOS: Host
+  // `matchContents` + SwiftUI `fixedSize` collapses nested PressableScale rows
+  // to intrinsic (icon) width and clips the preview against the card edge.
   return (
-    <ContextMenu actions={menuActions} onAction={onMenuAction}>
-      <Card
-        padding="three"
-        style={[styles.card, { backgroundColor: palette.soft, borderColor: palette.border }]}
-      >
-        <View style={styles.header}>
-          <IconWell
-            icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
-            tint={palette.color}
-            background={colors.background}
-            well={40}
-            size={18}
-          />
-          <View style={styles.headerCopy}>
-            <ThemedText type="smallBold">{t("home.continueTitle")}</ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("home.continueSubtitle")}
-            </ThemedText>
-          </View>
-          <IconButton
-            name={{ ios: "xmark", android: "close", web: "close" }}
-            accessibilityLabel={t("home.continueDismissA11y")}
-            onPress={onDismiss}
-            size={16}
-            tintColor={colors.mutedForeground}
-            hitTarget={36}
-            haptic="light"
-          />
+    <Card
+      padding="three"
+      style={[styles.card, { backgroundColor: palette.soft, borderColor: palette.border }]}
+    >
+      <View style={styles.header}>
+        <IconWell
+          icon={{ ios: "arrow.uturn.backward", android: "undo", web: "undo" }}
+          tint={palette.color}
+          background={colors.background}
+          well={40}
+          size={18}
+        />
+        <View style={styles.headerCopy}>
+          <ThemedText type="smallBold">{t("home.continueTitle")}</ThemedText>
+          <ThemedText type="caption" themeColor="mutedForeground">
+            {t("home.continueSubtitle")}
+          </ThemedText>
         </View>
-
-        <PressableScale
-          onPress={onPress}
-          accessibilityRole="button"
-          accessibilityLabel={a11y}
-          scaleTo={0.98}
+        <IconButton
+          name={{ ios: "xmark", android: "close", web: "close" }}
+          accessibilityLabel={t("home.continueDismissA11y")}
+          onPress={onDismiss}
+          size={16}
+          tintColor={colors.mutedForeground}
+          hitTarget={36}
           haptic="light"
-          style={[
-            styles.preview,
-            { backgroundColor: colors.background, borderColor: palette.border },
-          ]}
-        >
-          <View style={styles.previewTop}>
-            {quranSurahNumber ? (
-              <View style={[styles.quranBadge, { backgroundColor: palette.soft }]}>
-                <ThemedText type="subtitle" style={{ color: palette.text }}>
-                  {quranSurahNumber}
-                </ThemedText>
-              </View>
-            ) : (
-              <IconWell
-                icon={visual.icon}
-                tint={palette.color}
-                background={palette.soft}
-                well={48}
-                size={22}
-                radius={Radius.md}
-              />
-            )}
+        />
+      </View>
 
-            <View style={styles.previewCopy}>
-              <View style={styles.metaRow}>
-                <Pill label={t(visual.labelKey)} color={palette.text} background={palette.soft} />
-                {activity.isAudio ? (
-                  <View style={[styles.audioBadge, { backgroundColor: palette.soft }]}>
-                    <SymbolView
-                      name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
-                      size={10}
-                      tintColor={palette.color}
-                    />
-                    <ThemedText type="caption" style={{ color: palette.text }}>
-                      {t("home.continueListening")}
-                    </ThemedText>
-                  </View>
-                ) : null}
-              </View>
-              <ThemedText type="smallBold" numberOfLines={2}>
-                {activity.title}
-              </ThemedText>
-              {activity.subtitle ? (
-                <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-                  {activity.subtitle}
-                </ThemedText>
-              ) : null}
-              {activity.preview ? (
-                <ThemedText
-                  type={previewIsArabic ? "arabic" : "small"}
-                  style={[
-                    previewIsArabic ? styles.arabic : null,
-                    { color: palette.text },
-                    previewIsArabic
-                      ? arabicReadingLayout(activity.kind === "hadith" ? 14 : 22)
-                      : null,
-                  ]}
-                  numberOfLines={activity.kind === "hadith" ? 2 : 1}
-                >
-                  {activity.preview}
-                </ThemedText>
-              ) : null}
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("home.continueLastOpened", { time: when })}
+      <PressableScale
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={a11y}
+        scaleTo={0.98}
+        haptic="light"
+        style={[
+          styles.preview,
+          { backgroundColor: colors.background, borderColor: palette.border },
+        ]}
+      >
+        <View style={styles.previewTop}>
+          {quranSurahNumber ? (
+            <View style={[styles.quranBadge, { backgroundColor: palette.soft }]}>
+              <ThemedText type="subtitle" style={{ color: palette.text }}>
+                {quranSurahNumber}
               </ThemedText>
             </View>
-          </View>
+          ) : (
+            <IconWell
+              icon={visual.icon}
+              tint={palette.color}
+              background={palette.soft}
+              well={48}
+              size={22}
+              radius={Radius.md}
+            />
+          )}
 
-          <View style={[styles.footer, { borderTopColor: tokens.hairline }]}>
-            <ThemedText type="smallBold" style={{ color: palette.text }}>
-              {t(actionKey)}
+          <View style={styles.previewCopy}>
+            <View style={styles.metaRow}>
+              <Pill label={t(visual.labelKey)} color={palette.text} background={palette.soft} />
+              {activity.isAudio ? (
+                <View style={[styles.audioBadge, { backgroundColor: palette.soft }]}>
+                  <SymbolView
+                    name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+                    size={10}
+                    tintColor={palette.color}
+                  />
+                  <ThemedText type="caption" style={{ color: palette.text }}>
+                    {t("home.continueListening")}
+                  </ThemedText>
+                </View>
+              ) : null}
+            </View>
+            <ThemedText type="smallBold" numberOfLines={2}>
+              {activity.title}
             </ThemedText>
-            <SymbolView name={chevronForward} size={14} tintColor={palette.color} />
+            {activity.subtitle ? (
+              <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                {activity.subtitle}
+              </ThemedText>
+            ) : null}
+            {activity.preview ? (
+              <ThemedText
+                type={previewIsArabic ? "arabic" : "small"}
+                style={[
+                  previewIsArabic ? styles.arabic : null,
+                  { color: palette.text },
+                  previewIsArabic
+                    ? arabicReadingLayout(activity.kind === "hadith" ? 14 : 22)
+                    : null,
+                ]}
+                numberOfLines={activity.kind === "hadith" ? 2 : 1}
+              >
+                {activity.preview}
+              </ThemedText>
+            ) : null}
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {t("home.continueLastOpened", { time: when })}
+            </ThemedText>
           </View>
-        </PressableScale>
-      </Card>
-    </ContextMenu>
+        </View>
+
+        <View style={[styles.footer, { borderTopColor: tokens.hairline }]}>
+          <ThemedText type="smallBold" style={{ color: palette.text }}>
+            {t(actionKey)}
+          </ThemedText>
+          <SymbolView name={chevronForward} size={14} tintColor={palette.color} />
+        </View>
+      </PressableScale>
+    </Card>
   );
 }
 
@@ -287,6 +273,8 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
   preview: {
+    width: "100%",
+    alignSelf: "stretch",
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: Radius.lg,
     borderCurve: "continuous",
@@ -300,6 +288,8 @@ const styles = StyleSheet.create({
   },
   previewCopy: {
     flex: 1,
+    flexShrink: 1,
+    minWidth: 0,
     gap: Spacing.one,
   },
   metaRow: {

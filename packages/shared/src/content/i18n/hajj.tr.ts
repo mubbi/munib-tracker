@@ -208,4 +208,101 @@ export const HAJJ_GUIDE_SECTIONS_TR: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Yola çıkmadan önce",
+    title: "Vize ve kayıt",
+    summary: "Hacıların resmi kanallar aracılığıyla Hac veya Umre vizesi nasıl kaydolup aldığı.",
+    steps: [
+      {
+        title: "Nusuk platformu",
+        body: "Nusuk (nusuk.sa), Suudi Arabistan'ın Hac ve Umre için resmi platformudur — vize, konaklama, ulaşım ve kayıtlı tur paketleri ayırtmak için kullanılır. Yalnızca Nusuk'u veya onun üzerinden lisanslı acenteleri kullanın; resmi olmayan aracılar sıklıkla dolandırıcılık ve iptal edilen seyahatlerin kaynağıdır.",
+      },
+      {
+        title: "Hac vizeleri ve ülke kotaları",
+        body: "Her ülke yıllık bir Hac kotası alır, bu nedenle hacıların çoğu bireysel başvuru yerine kendi ulusal Hac kurumu veya lisanslı yerel bir acente üzerinden başvurur. Hac mevsiminin açıldığı yılın başında erken başvurun — kotalar ve paket yerleri aylar öncesinden dolar.",
+      },
+      {
+        title: "Umre vizeleri",
+        body: "Hac'dan farklı olarak Umre'nin kotası yoktur ve yılın herhangi bir zamanında yapılabilir. Çoğu millet, genellikle uçuş ve otel rezervasyonuyla birlikte, Umre vizesi için doğrudan Nusuk veya onaylı bir seyahat acentesi üzerinden başvurabilir.",
+      },
+    ],
+  },
+  {
+    day: "Yola çıkmadan önce",
+    title: "Bavul listesi",
+    summary: "Yolculuktan önce toplamanız gereken pratik gerekli eşyalar.",
+    steps: [
+      {
+        title: "İhram kıyafetleri",
+        body: "Erkekler en az iki takım dikişsiz ihram kıyafeti (bir peştamal ve bir omuz örtüsü) ile para ve belgeler için geniş, deri olmayan bir ihram kemeri paketlemelidir. Kadınlar bol, mütevazı, süssüz üst giysiler paketlemelidir.",
+      },
+      {
+        title: "Ayakkabı ve konfor",
+        body: "Kolayca giyilip çıkarılan açık sandaletler önemlidir, çünkü erkekler için ihramda ayak bileğini örten ayakkabılar yasaktır. Uzun beklemeler için hafif bir sırt çantası, doldurulabilir bir su şişesi ve küçük bir seccade getirin.",
+      },
+      {
+        title: "Kokusuz kişisel bakım ürünleri",
+        body: "Kokusuz sabun, güneş kremi ve mendil paketleyin — ihramda parfümlü ürünler yasaktır. Kompakt bir ilk yardım çantası, doktor notu ile herhangi bir kişisel ilaç ve yürüme miktarı göz önüne alındığında su toplanması için yara bantları ek ağırlığa değer.",
+      },
+      {
+        title: "Belgeler ve temel eşyalar",
+        body: "Pasaportunuzu, vize çıktınızı, aşı sertifikanızı (genellikle menenjit gerekir) ve acil durum irtibatlarını giysinin altında taşınan ince bir kesede saklayın. Taşınabilir bir güç bankası ve yerel bir SIM veya eSIM, kalabalık yerlerde gezinmeyi çok daha kolaylaştırır.",
+      },
+    ],
+  },
+  {
+    day: "Yola çıkmadan önce",
+    title: "Kutsal mekanlar rehberi",
+    summary: "Ziyaret edeceğiniz önemli mekanlar hakkında hızlı pratik notlar.",
+    steps: [
+      {
+        title: "Mescid-i Haram, Mekke",
+        body: "Kâbe'yi çevreleyen Ulu Cami — tavaf ve sa'y mekanı. Gece gündüz açıktır; Hacer-ül Esved'in yakınında ve beş vakit namaz sırasında, özellikle Ramazan'ın son on gecesinde ve Hac günlerinde çok yoğun kalabalık bekleyin.",
+        location: "Mekke",
+      },
+      {
+        title: "Mescid-i Nebevi, Medine",
+        body: "Peygamber'in ﷺ camisi, Ravza'yı ve dinlenme yerini barındırır; Hac'ın kendisinin bir parçası değildir ama hemen hemen tüm hacılar Hac'dan önce veya sonra Medine'yi ziyaret eder. Ravza'ya girmek için Nusuk veya Ravza uygulaması üzerinden ayrılmış zamanlı bir giriş izni gerekir.",
+        location: "Medine",
+      },
+      {
+        title: "Mina",
+        body: "Mekke'den birkaç kilometre uzaklıkta, hacıların 8, 11, 12 (ve 13) Zilhicce gecelerini geçirdiği çadır kenti. Klimalı, yangına dayanıklı çadır kampları tur operatörü tarafından atanır; temel paylaşımlı tesisler ve Cemarat'a uzun yürüyüşler bekleyin.",
+        location: "Mina",
+      },
+      {
+        title: "Arafat",
+        body: "Mekke'den yaklaşık 20 km uzaklıkta, Hac'ın en önemli tek ibadetinin — 9 Zilhicce'deki vakfe — gerçekleştiği açık bir düzlük. Gölgelik yapılar ve su noktaları sağlanır, ancak gündüz sıcağı şiddetlidir; su içmek ve güneşten korunmak hayati önem taşır.",
+        location: "Arafat",
+      },
+      {
+        title: "Müzdelife",
+        body: "Arafat ile Mina arasında, hacıların 9-10 Zilhicce gecesini açık gökyüzü altında geçirdiği ve taşlama için çakıl taşları topladığı açık bir alan. Tesisler kasıtlı olarak minimaldir — bir seccade getirin ve serin gece havasına göre giyinin.",
+        location: "Müzdelife",
+      },
+    ],
+  },
+  {
+    day: "Yola çıkmadan önce",
+    title: "Resmi kaynaklar",
+    summary: "Güvenilir, güncel resmi bilgilerin nerede bulunacağı.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Suudi Hac ve Umre Bakanlığı'nın vizeler, akredite paketler, Ravza ziyaret izinleri ve gerçek zamanlı kalabalık ve ulaşım rehberliği için resmi portalı ve uygulaması — herhangi bir resmi soru için ilk durak.",
+      },
+      {
+        title: "Ülkenizin Hac kurumu",
+        body: "Çoğu ülke, yıllık kotayı yöneten, yerel acenteleri denetleyen ve kalkış programlarını ve sağlık gerekliliklerini yayınlayan ulusal bir Hac kurumu veya bakanlık ofisi işletir — herhangi bir özel acente üzerinden rezervasyon yapmadan önce kontrol edin.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Krallığın resmi turizm sitesi, giriş gereksinimlerini, uygun milletler için e-vize bilgilerini ve Mekke, Medine ve Suudi Arabistan içinde ilerleyen seyahatler için pratik seyahat önerilerini içerir.",
+      },
+      {
+        title: "Ödeme yapmadan önce doğrulayın",
+        body: "Yalnızca Nusuk'ta listelenen acenteler veya ulusal Hac kurumunuz üzerinden rezervasyon yapın. Bir teklif alışılmadık derecede ucuz görünüyorsa veya bir aracı resmi kanalların dışında ödeme talep ediyorsa, bunu bir uyarı işareti olarak kabul edin ve doğrudan bakanlık portalı üzerinden doğrulayın.",
+      },
+    ],
+  },
 ];

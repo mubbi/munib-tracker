@@ -11,14 +11,16 @@ import { IconWell } from "@/components/ui/icon-well";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { getJahannamReferences } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamReferences } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function JahannamReferencesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  useEnsureContent(ensureJahannamContent);
   const references = getJahannamReferences();
 
   return (

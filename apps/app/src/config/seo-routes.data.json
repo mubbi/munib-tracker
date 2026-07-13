@@ -100,6 +100,16 @@
     "description": "Review your prayers day by day across the month.",
     "index": false
   },
+  "/calendar/converter": {
+    "title": "Hijri-Gregorian Date Converter",
+    "description": "Convert dates between the Hijri (Islamic) and Gregorian calendars in either direction — offline, using the tabular Kuwaiti algorithm.",
+    "keywords": [
+      "hijri converter",
+      "islamic calendar converter",
+      "gregorian to hijri",
+      "date converter"
+    ]
+  },
   "/credits": {
     "title": "Credits & Data Sources",
     "description": "The open datasets, translations, and recitation audio that power Munib Tracker, with licenses and attribution for every source.",
@@ -120,10 +130,20 @@
     "description": "Recite Durood and Salawat — sending blessings upon the Prophet Muhammad ﷺ. Read the Arabic, transliteration, and meaning of well-known salawat offline.",
     "keywords": ["durood shareef", "salawat", "blessings on the prophet", "durood"]
   },
+  "/eid": {
+    "title": "Eid Guide — Eid al-Fitr & Eid al-Adha",
+    "description": "How to pray Eid salah, Zakat al-Fitr, udhiyah (sacrifice), and the Sunnah practices of the two Eids — sourced from the Qur'an and authentic hadith.",
+    "keywords": ["eid al-fitr", "eid al-adha", "eid prayer", "zakat al-fitr", "udhiyah"]
+  },
   "/events": {
     "title": "Islamic Events — Hijri Calendar",
     "description": "Upcoming dates in the Hijri year — the Islamic New Year, Ashura, Ramadan, Laylat al-Qadr, the two Eids, and more, with the significance of each day.",
     "keywords": ["islamic events", "hijri calendar", "islamic dates", "eid", "muharram"]
+  },
+  "/finance": {
+    "title": "Islamic Finance — Riba, Trade & Giving",
+    "description": "An educational introduction to Islamic finance — the prohibition of riba, fair trade, zakah and sadaqah, and takaful, from the Qur'an and Sunnah. Not financial advice.",
+    "keywords": ["islamic finance", "riba", "halal trade", "takaful", "zakah"]
   },
   "/hadith": {
     "title": "Hadith Collections — Sayings of the Prophet ﷺ",
@@ -149,6 +169,11 @@
     "title": "Hayd & Worship — Menstruation Guide",
     "description": "What the texts teach about menstruation and daily worship — hayd, istihada, and nifas, when to pause and resume salah and fasting, and the ghusl that follows.",
     "keywords": ["hayd", "menstruation and prayer", "istihada", "nifas", "women's worship in Islam"]
+  },
+  "/history": {
+    "title": "Early Islamic History — The Rashidun Caliphate",
+    "description": "A timeline from the Prophet's ﷺ death through the end of the Rashidun Caliphate — succession, the Ridda wars, the four Caliphs, and the compilation of the Qur'an.",
+    "keywords": ["islamic history", "rashidun caliphate", "abu bakr", "umar", "uthman", "ali"]
   },
   "/jahannam": {
     "title": "Understanding Jahannam — Hell in Islam",
@@ -322,6 +347,16 @@
       "resurrection verses"
     ]
   },
+  "/laylat-al-qadr": {
+    "title": "Laylat al-Qadr — The Night of Decree",
+    "description": "The virtue of Laylat al-Qadr, when to seek it in the odd nights of the last ten of Ramadan, the du'a to say, and how to spend the night — from Qur'an and hadith.",
+    "keywords": [
+      "laylat al-qadr",
+      "night of decree",
+      "night of power",
+      "last ten nights of ramadan"
+    ]
+  },
   "/learn-dua": {
     "title": "Learn Dua — Meanings & Etiquette",
     "description": "Learn authentic supplications with their meanings, virtues, and best times. Study the etiquette of asking Allah, then practise from the full dua library.",
@@ -464,6 +499,11 @@
     "description": "The 99 beautiful names of Allah (Asma ul-Husna) with Arabic, transliteration, and meaning. Listen to the recitation of each name — free and offline.",
     "keywords": ["99 names of Allah", "asma ul husna", "beautiful names of Allah", "names of Allah"]
   },
+  "/new-muslim": {
+    "title": "New Muslim Guide — Getting Started in Islam",
+    "description": "A warm, practical starting guide for new Muslims — the shahada, the five pillars, the basics of faith, and a first look at prayer, with next steps to keep learning.",
+    "keywords": ["new muslim guide", "shahada", "converting to islam", "five pillars of islam"]
+  },
   "/notifications": {
     "title": "Notifications",
     "description": "Delivered and upcoming reminders.",
@@ -577,6 +617,16 @@
       "ramadan fasting log",
       "laylat al-qadr"
     ]
+  },
+  "/ruqyah": {
+    "title": "Ruqyah — Qur'anic & Prophetic Spiritual Healing",
+    "description": "What ruqyah is, halal vs. haram ruqyah, key verses (Al-Fatiha, Ayat al-Kursi, the three closing surahs), and daily protection — from Qur'an and authentic hadith.",
+    "keywords": ["ruqyah", "ayat al-kursi", "spiritual healing islam", "protection from evil eye"]
+  },
+  "/sahaba": {
+    "title": "Companions of the Prophet ﷺ — Sahaba",
+    "description": "Short seerah-style profiles of the companions of the Prophet Muhammad ﷺ — the four Caliphs, the ten promised Paradise, family, women, and other notable sahaba.",
+    "keywords": ["sahaba", "companions of the prophet", "abu bakr", "umar", "aisha", "khadija"]
   },
   "/salah-guide": {
     "title": "Learn Salah — Step by Step",

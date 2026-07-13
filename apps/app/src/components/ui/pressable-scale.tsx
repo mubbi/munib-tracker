@@ -194,7 +194,14 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
       style={[hostStyle, rippleClipStyle]}
       {...rest}
     >
-      <Animated.View style={[innerStyle, animatedStyle]}>{children}</Animated.View>
+      <Animated.View style={[styles.inner, innerStyle, animatedStyle]}>{children}</Animated.View>
     </Pressable>
   );
+});
+
+const styles = StyleSheet.create({
+  // Fill the host so column/card pressables stretch; shrink-wrapped hosts stay content-sized.
+  inner: {
+    alignSelf: "stretch",
+  },
 });

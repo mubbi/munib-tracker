@@ -10,7 +10,9 @@ export default defineConfig({
       target: "./src/generated/endpoints",
       schemas: "./src/generated/models",
       client: "react-query",
-      clean: true,
+      // Overwrite in place — wipe+rewrite races Metro's FileMap on Windows
+      // ("Failed to get the SHA-1 for …/generated/…").
+      clean: false,
       override: {
         fetch: {
           includeHttpResponseReturnType: false,

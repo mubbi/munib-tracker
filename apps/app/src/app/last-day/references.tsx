@@ -9,12 +9,14 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getLastDayReferences } from "@/lib/last-day";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureLastDayContent, getLastDayReferences } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function LastDayReferencesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureLastDayContent);
   const references = getLastDayReferences();
 
   return (

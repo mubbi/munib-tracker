@@ -66,7 +66,7 @@
 | # | Decision | Delivery | Source (no-key) |
 |---|---|---|---|
 | D1 | **Qur'an Arabic (Uthmani/Ḥafṣ) + English transliteration + 2 public-domain translations (Pickthall, Yusuf Ali) + 1 Urdu (Jalandhry)** | **Bundled JSON assets**, lazy per-surah | `risan/quran-json` via jsDelivr CDN (build-time fetch) |
-| D2 | **Extra Qur'an translations (Saheeh International, Clear Qur'an/Khattab) + tafsir** | **Live CDN, on-demand**, cached (react-query + AsyncStorage) | `fawazahmed0/quran-api` jsDelivr (no key) |
+| D2 | **Extra Qur'an translations (Saheeh International, Clear Qur'an/Khattab) + tafsir** | **Live CDN, on-demand**, cached (react-query + AsyncStorage) | Translations: `fawazahmed0/quran-api` jsDelivr. Tafsir: `spa5k/tafsir_api` (multi-lang) + fawaz Siraj |
 | D3 | **Qur'an recitation audio (Arabic, per-ayah)** | **Streamed** from CDN, optional per-surah download later | `everyayah.com` predictable URLs |
 | D4 | **Qur'an English audio-translation** | **Streamed**, per-surah | `QuranicAudio.com` (Ibrahim Walk / Saheeh Intl) |
 | D5 | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)** | **Bundled JSON**, offline | `AhmedBaset/hadith-json` (build-time; license policy §12) |
@@ -125,10 +125,18 @@ QURAN_JSON_CDN = https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist
   /chapters/en/{1..114}.json                 # per-surah with verses (ar/translit/translation)
   # editions available: arabic (uthmani), transliteration, en, ur, ... (see repo)
 
-# Qur'an extra translations & tafsir (runtime, on-demand)  — Unlicense (public domain)
+# Qur'an extra translations & tafsir (runtime, on-demand)  — Unlicense (public domain) for fawaz
 QURAN_FAWAZ_CDN = https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions
   /{editionId}/{surah}.json                  # e.g. eng-saheehinternational, eng-mustafakhattb...
   # edition catalogue: https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions.json
+
+# Multi-language ayah tafsir (runtime, on-demand) — spa5k/tafsir_api (per-resource licenses via QUL/quran.com)
+QURAN_TAFSIR_CDN = https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir
+  /editions.json
+  /{slug}/{surah}.json                       # { ayahs: [{ ayah, surah, text }, ...] }
+  /{slug}/{surah}/{ayah}.json                # { surah, ayah, text }
+  # App registry: packages/shared/src/i18n/quran-tafsir-defs.json
+  # Fetcher: apps/app/src/api/quran-tafsir.ts (cache keys prefixed `tafsir:`)
 
 # Qur'an audio (runtime stream, per-ayah)  — free
 EVERYAYAH_CDN = https://everyayah.com/data/{reciterDir}/{SSSAAA}.mp3

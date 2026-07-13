@@ -8,7 +8,6 @@ import type { DeepPartial } from "./localize";
 // numbers, collections, citations, grades and the ruling enum stay in English.
 // Trabic script fields (arabic/transliteration) are kept from the English source.
 export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
-  // ── Why Pray ──────────────────────────────────────────────────────────────
   {
     title: "ما هي الصلاة؟",
     summary: "الركن الثاني من الإسلام — موعدك اليومي المقرَّر مع الله.",
@@ -37,7 +36,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
           "أول ما يُحاسَب به العبد يوم القيامة صلاتُه؛ فإن صلحت صلح سائر عمله. (وأخرجه أبو داود ٨٦٤، والنسائي ٣٩٩١)",
       },
     ],
-    appLinks: [{ label: "الرحلة إلى الجنة" }, { label: "متتبِّع الصلاة" }],
+    appLinks: [
+      {
+        label: "الرحلة إلى الجنة",
+      },
+      {
+        label: "متتبِّع الصلاة",
+      },
+    ],
   },
   {
     title: "لماذا الصلاة؟",
@@ -52,14 +58,18 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       {
         excerpt: "إِنَّنِي أَنَا اللَّهُ لَا إِلَٰهَ إِلَّا أَنَا فَاعْبُدْنِي وَأَقِمِ الصَّلَاةَ لِذِكْرِي.",
       },
-      { excerpt: "قَدْ أَفْلَحَ الْمُؤْمِنُونَ ۝ الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ." },
+      {
+        excerpt: "قَدْ أَفْلَحَ الْمُؤْمِنُونَ ۝ الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ.",
+      },
     ],
     hadith: [
       {
         excerpt:
           "«أرأيتم لو أن نهرًا بباب أحدكم يغتسل فيه كل يوم خمس مرات، هل يبقى من درنه شيء؟» قالوا: لا يبقى من درنه شيء. قال ﷺ: «فذلك مَثَل الصلوات الخمس، يمحو الله بهنَّ الخطايا». (وأخرجه مسلم ٦٦٧)",
       },
-      { excerpt: "من صلَّى البردين — الفجر والعصر — دخل الجنة." },
+      {
+        excerpt: "من صلَّى البردين — الفجر والعصر — دخل الجنة.",
+      },
       {
         excerpt: "حُبِّب إليَّ من دنياكم النساء والطيب، وجُعلت قرة عيني في الصلاة.",
       },
@@ -69,7 +79,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "اقرأ معنى الفاتحة مرة قبل صلاتك القادمة لتشعر أنك تُجاب.",
       "فعِّل تنبيهات الأذان كي لا يفوتك وقت صلاة دون أن تشعر.",
     ],
-    appLinks: [{ label: "تنبيهات الصلاة" }, { label: "مذكرة الخشوع" }],
+    appLinks: [
+      {
+        label: "تنبيهات الصلاة",
+      },
+      {
+        label: "مذكرة الخشوع",
+      },
+    ],
   },
   {
     title: "منزلتها في الإسلام",
@@ -97,7 +114,9 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         excerpt:
           "العهد الذي بيننا وبينهم الصلاة، فمن تركها فقد كفر. (بريدة رضي الله عنه؛ وأخرجه النسائي وابن ماجه ١٠٧٩)",
       },
-      { excerpt: "بين الرجل وبين الكفر والشرك تركُ الصلاة. (جابر رضي الله عنه)" },
+      {
+        excerpt: "بين الرجل وبين الكفر والشرك تركُ الصلاة. (جابر رضي الله عنه)",
+      },
     ],
     disclaimer:
       "اختلف العلماء في حكم تارك الصلاة تكاسلًا (كبيرة عند الجمهور؛ كفر عند غيرهم) وجاحد وجوبها (كفر بالإجماع). ولا تُصدر هذه التطبيقة حكمًا على أي فرد — راجِع عالمًا مؤهَّلًا في المسائل الخاصة.",
@@ -117,11 +136,23 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
           "مُروا أولادكم بالصلاة وهم أبناء سبع، واضربوهم عليها وهم أبناء عشر، وفرِّقوا بينهم في المضاجع. (عمرو بن شعيب عن أبيه عن جده)",
       },
     ],
-    quran: [{ excerpt: "وَأْمُرْ أَهْلَكَ بِالصَّلَاةِ وَاصْطَبِرْ عَلَيْهَا." }],
-    appLinks: [{ label: "دليل الحيض" }, { label: "الصلاة حال المرض" }, { label: "صلاة المسافر" }],
+    quran: [
+      {
+        excerpt: "وَأْمُرْ أَهْلَكَ بِالصَّلَاةِ وَاصْطَبِرْ عَلَيْهَا.",
+      },
+    ],
+    appLinks: [
+      {
+        label: "دليل الحيض",
+      },
+      {
+        label: "الصلاة حال المرض",
+      },
+      {
+        label: "صلاة المسافر",
+      },
+    ],
   },
-
-  // ── Prepare ─────────────────────────────────────────────────────────────────
   {
     title: "شروط الصلاة",
     summary: "الشروط التسعة التي لا بد من توافرها لصحة الصلاة.",
@@ -167,7 +198,17 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         body: "عقد القلب على الصلاة التي تريد أداءها. وهي عمل باطن لا يُتلفَّظ به.",
       },
     ],
-    appLinks: [{ label: "الطهارة" }, { label: "بوصلة القبلة" }, { label: "جدول الصلاة" }],
+    appLinks: [
+      {
+        label: "الطهارة",
+      },
+      {
+        label: "بوصلة القبلة",
+      },
+      {
+        label: "جدول الصلاة",
+      },
+    ],
     disclaimer:
       "تختلف المذاهب في صياغة الشروط وعدِّها اختلافًا يسيرًا (فبعضهم يعدُّ النية من الأركان لا الشروط). والمضمون متفق عليه.",
   },
@@ -180,7 +221,11 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "وبمعزل عن هذين الحدثين، فإن النجاسة الحسية — كالبول والروث والدم السائل ونحوها — يجب إزالتها حسًّا عن البدن والثوب وموضع الصلاة. فقد يكون وضوؤك صحيحًا ومع ذلك تحتاج إلى تنظيف بقعة من ثوبك قبل الصلاة.",
       "والماء هو المطهِّر الأصل. فإذا تعذَّر الماء حقيقةً، أو كان يضرُّك لمرض أو برد شديد، أباح الإسلام التيمم — طهارة بالتراب الطاهر — بدلًا كاملًا. وما جُعلت الطهارة مشقة قط؛ بل هي وسيلة للتقرُّب.",
     ],
-    hadith: [{ excerpt: "الطهور شطر الإيمان… (أبو مالك الأشعري رضي الله عنه)" }],
+    hadith: [
+      {
+        excerpt: "الطهور شطر الإيمان… (أبو مالك الأشعري رضي الله عنه)",
+      },
+    ],
     quran: [
       {
         excerpt: "إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ.",
@@ -191,7 +236,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "خصِّص ثوبًا نظيفًا للصلاة إن كنت تعمل في بيئة تتلوَّث فيها.",
       "أَلقِ نظرةً على موضع صلاتك بحثًا عن نجاسة ظاهرة قبل بسط السجادة.",
     ],
-    appLinks: [{ label: "دليل الطهارة الكامل" }, { label: "درس الوضوء" }],
+    appLinks: [
+      {
+        label: "دليل الطهارة الكامل",
+      },
+      {
+        label: "درس الوضوء",
+      },
+    ],
   },
   {
     title: "الوضوء",
@@ -259,7 +311,65 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "توضَّأ مرةً على مهل قارئًا كل خطوة بصوتٍ خافت، مُتفقِّدًا المرفقين والعقبين.",
       "احفظ دعاء ما بعد الوضوء القصير — انظر كلمات الصلاة.",
     ],
-    appLinks: [{ label: "أدعية الوضوء وما يتعلق بها" }, { label: "كلمات الصلاة" }],
+    appLinks: [
+      {
+        label: "أدعية الوضوء وما يتعلق بها",
+      },
+      {
+        label: "كلمات الصلاة",
+      },
+    ],
+  },
+  {
+    title: "Tayammum — dry purification",
+    summary: "When water cannot be used, clean earth lifts impurity so prayer is not delayed.",
+    body: [
+      "Tayammum is the dry purification Allah legislated when water is genuinely unavailable, or when using it would cause harm because of illness or severe cold. It is not a lesser workaround for convenience — it is a complete substitute that lifts minor or major impurity for prayer until water can be used again.",
+      "The Qur'an names it in the same verse as wudu and ghusl (5:6): wipe the face and hands with clean earth after striking it. The Prophet ﷺ taught the companions this concession as mercy, not as a loophole to skip searching for water when it is reasonably available.",
+      "Practically: intend tayammum, say Bismillah, strike clean earth once (or twice according to some schools), wipe the face, then wipe the hands to the wrists (many scholars include up to the elbows in continuity with wudu). What breaks wudu or ghusl also ends the corresponding tayammum; finding usable water ends the concession and you return to ordinary purification.",
+      "If you prayed validly with tayammum and only found water afterward, the majority hold that the completed prayer need not be repeated. If water appears before you pray, you must use it. For casts, wounds, and illness, combine wiping over dressings with tayammum as your school and doctor advise — see the full Taharah guide for detail.",
+    ],
+    steps: [
+      {
+        title: "Confirm the need",
+        body: "Search reasonably for usable water, or confirm that using water would harm you (illness, severe cold, medical advice).",
+      },
+      {
+        title: "Intention & Bismillah",
+        body: "Intend tayammum in place of wudu or ghusl, and begin with Bismillah.",
+        transliteration: "Bismillah",
+      },
+      {
+        title: "Strike clean earth",
+        body: "Strike clean earth (or a clean dusty surface) with both hands once — some schools strike twice.",
+      },
+      {
+        title: "Wipe the face",
+        body: "Wipe the entire face with the dust remaining on the hands.",
+      },
+      {
+        title: "Wipe the hands",
+        body: "Wipe the hands — at minimum to the wrists; many scholars wipe to the elbows.",
+      },
+    ],
+    quran: [
+      {
+        excerpt:
+          "…and you find no water, then perform tayammum with clean earth and wipe your faces and your hands with it.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Reported in the chapters of tayammum: the concession to purify with clean earth in the absence of usable water.",
+      },
+    ],
+    actions: [
+      "Know when tayammum applies before travel or illness so prayer is never skipped for lack of water.",
+      "Open the full Taharah tayammum lessons for school differences on striking and wiping.",
+    ],
+    disclaimer:
+      "Schools differ on details (one strike vs two, wrists vs elbows, renewing per prayer). This is a mainstream educational summary — follow reliable local scholarship for your practice.",
   },
   {
     title: "اللباس والعورة",
@@ -270,7 +380,11 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "وأما المرأة فبدنها كله عورة في الصلاة إلا الوجه والكفين عند جمهور العلماء؛ فتستر شعرها وعنقها وقدميها، بثوبٍ فضفاض وخمار غالبًا. واختلف العلماء في القدمين، فعدَّهما بعضهم مما يجوز إظهاره — وسترهما هو الأحوط وعليه عمل الجمهور.",
       "وحُكمان في اللباس يسريان خارج الصلاة أيضًا: الحرير والذهب محرَّمان على الرجال (مباحان للنساء)، وينبغي ألا يكون الثوب ضيِّقًا أو شفافًا أو لافتًا بحيث يُبطِل الحياء الذي تدعو إليه الصلاة. وقاعدةٌ تقريبية: صلِّ في ما تلبسه للقاء من تُجِلُّه — لا ثياب النوم ولا ثياب الشاطئ.",
     ],
-    quran: [{ excerpt: "يَا بَنِي آدَمَ خُذُوا زِينَتَكُمْ عِندَ كُلِّ مَسْجِدٍ." }],
+    quran: [
+      {
+        excerpt: "يَا بَنِي آدَمَ خُذُوا زِينَتَكُمْ عِندَ كُلِّ مَسْجِدٍ.",
+      },
+    ],
     actions: [
       "خصِّص طقمًا نظيفًا محتشمًا أو ثوبًا للصلاة كي تكون مستعدًّا دائمًا.",
       "متى شككتَ في كفاية الستر فاستُر أكثر لا أقل.",
@@ -323,7 +437,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         excerpt: "وَأَقِمِ الصَّلَاةَ طَرَفَيِ النَّهَارِ وَزُلَفًا مِّنَ اللَّيْلِ ۚ إِنَّ الْحَسَنَاتِ يُذْهِبْنَ السَّيِّئَاتِ.",
       },
     ],
-    appLinks: [{ label: "جدول الصلاة" }, { label: "إعدادات التنبيه" }],
+    appLinks: [
+      {
+        label: "جدول الصلاة",
+      },
+      {
+        label: "إعدادات التنبيه",
+      },
+    ],
     disclaimer:
       "في بداية العصر روايتان (أن يصير الظل مثل الشيء، أو مثليه). وكلتاهما صحيحة؛ اتبع حسابك المحلي وجماعتك.",
   },
@@ -345,10 +466,12 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         excerpt: "إذا قمتَ إلى الصلاة فأسبِغ الوضوء، ثم استقبِل القبلة فكبِّر. (من حديث المسيء صلاته)",
       },
     ],
-    appLinks: [{ label: "بوصلة القبلة" }],
+    appLinks: [
+      {
+        label: "بوصلة القبلة",
+      },
+    ],
   },
-
-  // ── Learn ─────────────────────────────────────────────────────────────────
   {
     title: "الأذان — النداء إلى الصلاة",
     summary: "الكلمات التي تنادي الأمة، ومعناها، وكيف تُجيبها.",
@@ -393,7 +516,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
           "من قال حين يسمع النداء: «اللهم ربَّ هذه الدعوة التامة والصلاة القائمة، آتِ محمدًا الوسيلة والفضيلة…» — حلَّت له شفاعتي يوم القيامة. (جابر رضي الله عنه)",
       },
     ],
-    appLinks: [{ label: "استمع إلى الأذان" }, { label: "أدعية الأذان والصلاة" }],
+    appLinks: [
+      {
+        label: "استمع إلى الأذان",
+      },
+      {
+        label: "أدعية الأذان والصلاة",
+      },
+    ],
   },
   {
     title: "الصلاة خطوةً خطوة",
@@ -523,7 +653,9 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       },
     ],
     hadith: [
-      { excerpt: "صلُّوا كما رأيتموني أُصلِّي. (مالك بن الحويرث رضي الله عنه)" },
+      {
+        excerpt: "صلُّوا كما رأيتموني أُصلِّي. (مالك بن الحويرث رضي الله عنه)",
+      },
       {
         excerpt:
           "«ارجِع فصلِّ فإنك لم تُصلِّ» — ثلاثًا — ثم علَّمه ﷺ: كبِّر، ثم اقرأ ما تيسَّر من القرآن، ثم اركع حتى تطمئن، ثم ارفع حتى تعتدل قائمًا، ثم اسجد حتى تطمئن… (المسيء صلاته؛ وأخرجه مسلم ٣٩٧)",
@@ -534,10 +666,18 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       },
     ],
     appLinks: [
-      { label: "الكلمات والمعاني" },
-      { label: "كل وضعية" },
-      { label: "إن أخطأتَ (سجود السهو)" },
-      { label: "متتبِّع التمرين" },
+      {
+        label: "الكلمات والمعاني",
+      },
+      {
+        label: "كل وضعية",
+      },
+      {
+        label: "إن أخطأتَ (سجود السهو)",
+      },
+      {
+        label: "متتبِّع التمرين",
+      },
     ],
   },
   {
@@ -585,8 +725,6 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
     disclaimer:
       "الاختلافات اليسيرة في وضع اليدين وصفة الجلوس ورفع اليدين كلها مبنية على روايات صحيحة؛ فكل مذهب يتبع رواية صحيحة. ولا يُبطل أحدها صلاة الآخر.",
   },
-
-  // ── Practice ────────────────────────────────────────────────────────────────
   {
     title: "الأخطاء الشائعة",
     summary: "الأخطاء التي تُضعِف الصلاة في صمت — وكيف تُصحِّح كلًّا منها.",
@@ -629,7 +767,11 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "اصمُت هاتفك أو اترُكه في غرفة أخرى قبل تكبيرة الإحرام.",
       "اطلُب من عالمٍ أن يراقب إحدى صلواتك ويُصحِّح أوضاعك.",
     ],
-    appLinks: [{ label: "تعلَّم قراءة الفاتحة" }],
+    appLinks: [
+      {
+        label: "تعلَّم قراءة الفاتحة",
+      },
+    ],
   },
   {
     title: "السنن",
@@ -655,10 +797,15 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
           "من صلَّى في يوم وليلة اثنتي عشرة ركعة تطوُّعًا، بُني له بيت في الجنة. (أم حبيبة رضي الله عنها)",
       },
     ],
-    appLinks: [{ label: "السنن وأذكار ما بعد الصلاة" }, { label: "أدعية المسجد" }],
+    appLinks: [
+      {
+        label: "السنن وأذكار ما بعد الصلاة",
+      },
+      {
+        label: "أدعية المسجد",
+      },
+    ],
   },
-
-  // ── Perfect ─────────────────────────────────────────────────────────────────
   {
     title: "الخشوع — حضور القلب",
     summary: "غاية الرحلة كلها: أن تُصلِّي كأنك ترى الله.",
@@ -669,7 +816,9 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "ولا تيأس من الخواطر — فقد جاهدها الصحابة أيضًا. والجهاد لردِّ تركيزك مرة بعد مرة هو نفسه جزء من العبادة. والخشوع ينمو عبر العمر؛ والمداومة هي ما يُنمِّيه.",
     ],
     quran: [
-      { excerpt: "قَدْ أَفْلَحَ الْمُؤْمِنُونَ ۝ الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ." },
+      {
+        excerpt: "قَدْ أَفْلَحَ الْمُؤْمِنُونَ ۝ الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ.",
+      },
       {
         excerpt: "فَوَيْلٌ لِّلْمُصَلِّينَ ۝ الَّذِينَ هُمْ عَن صَلَاتِهِمْ سَاهُونَ.",
       },
@@ -685,7 +834,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "توقَّف ثلاث ثوانٍ متأنِّية في كل وضعية قبل الانتقال.",
       "دوِّن مستوى تركيزك في المذكرة بعد الصلاة وراقِب تبدُّل النمط.",
     ],
-    appLinks: [{ label: "مذكرة الخشوع" }, { label: "الكلمات والمعاني" }],
+    appLinks: [
+      {
+        label: "مذكرة الخشوع",
+      },
+      {
+        label: "الكلمات والمعاني",
+      },
+    ],
   },
   {
     title: "الأركان والمبطلات",
@@ -713,7 +869,11 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         body: "الكلام المتعمَّد، والأكل أو الشرب المتعمَّد، والحركة الكثيرة المتوالية بلا حاجة، والقهقهة، وتعمُّد الانحراف بالصدر عن القبلة، وكشف العورة.",
       },
     ],
-    appLinks: [{ label: "سجود السهو" }],
+    appLinks: [
+      {
+        label: "سجود السهو",
+      },
+    ],
     disclaimer:
       "تُصنِّف المذاهب الأربعة بعض الأعمال تصنيفًا مختلفًا — كأن يكون التشهد الأول واجبًا أو سنة، أو قائمة ما يوجب سجود السهو. تعلَّم تفصيل مذهبك من معلِّم مؤهَّل.",
   },
@@ -740,12 +900,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "احفظ قاعدة الشك: ابنِ على الأقل، وأتمَّ، ثم اسجد سجدتين.",
       "إن أدركتَ في أثناء الصلاة أنك تركتَ التشهد الأول، فامضِ واسجد للسهو في الختام.",
     ],
-    appLinks: [{ label: "الأركان والمبطلات" }],
+    appLinks: [
+      {
+        label: "الأركان والمبطلات",
+      },
+    ],
     disclaimer:
       "كون السجدتين قبل السلام أو بعده يعتمد على الخطأ، والمذاهب مختلفة. وكلاهما من السنة؛ فلا تدَع الحيرة هنا تمنعك من الصلاة.",
   },
-
-  // ── Consistency ─────────────────────────────────────────────────────────────
   {
     title: "أنواع الصلاة",
     summary: "الفرض والسنة والوتر والنوافل التي تُثري يوم المؤمن.",
@@ -796,7 +958,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         excerpt: "أفضل الصلاة بعد الفريضة صلاة الليل. (أبو هريرة رضي الله عنه)",
       },
     ],
-    appLinks: [{ label: "دليل التهجد" }, { label: "جدول الركعات" }],
+    appLinks: [
+      {
+        label: "دليل التهجد",
+      },
+      {
+        label: "جدول الركعات",
+      },
+    ],
   },
   {
     title: "الجمعة — صلاة الجمعة",
@@ -822,14 +991,20 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         excerpt:
           "من ترك ثلاث جُمَع تهاونًا بها طبع الله على قلبه. (أبو الجعد رضي الله عنه؛ وأخرجه أبو داود ١٠٥٢، والترمذي ٥٠٠)",
       },
-      { excerpt: "الغُسل يوم الجمعة واجب على كل محتلم. (أبو سعيد الخدري رضي الله عنه)" },
+      {
+        excerpt: "الغُسل يوم الجمعة واجب على كل محتلم. (أبو سعيد الخدري رضي الله عنه)",
+      },
     ],
     actions: [
       "اغتسِل، والبَس ثيابًا نظيفة وتطيَّب، وبكِّر — فأسبق الحاضرين أعظمهم أجرًا.",
       "اقرأ سورة الكهف في يومٍ من الجمعة لنورٍ ما بين الجمعتين.",
       "أنصِت مُتفرِّغًا أثناء الخطبة؛ وأبعِد الهاتف.",
     ],
-    appLinks: [{ label: "اقرأ سورة الكهف" }],
+    appLinks: [
+      {
+        label: "اقرأ سورة الكهف",
+      },
+    ],
     disclaimer:
       "أقل عدد الحاضرين، وكون الغُسل واجبًا أو سنة مؤكَّدة، من مسائل الخلاف العلمي. اتبع عمل جماعتك المحلية الموثوق.",
   },
@@ -848,7 +1023,11 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
           "صلاة الجماعة تفضل صلاة الفذ بسبع وعشرين درجة. (ابن عمر رضي الله عنهما؛ وأخرجه مسلم ٦٥٠)",
       },
     ],
-    quran: [{ excerpt: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ." }],
+    quran: [
+      {
+        excerpt: "وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ وَارْكَعُوا مَعَ الرَّاكِعِينَ.",
+      },
+    ],
     actions: [
       "صلِّ اليوم صلاة واحدة على الأقل في المسجد، أو اجمَع أهل بيتك في صفٍّ في البيت.",
       "تعلَّم ما يفعله المتأخر: التحِق فورًا، ثم أتمَّ ما فاتك من ركعات بعد سلام الإمام.",
@@ -873,7 +1052,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "اقرِن كل فريضة بصلاة قضاء واحدة حتى ينتهي المتراكم.",
       "لا تُؤخِّر صلاة حاضرة لتقضي قديمة — أبقِ صلوات اليوم في وقتها.",
     ],
-    appLinks: [{ label: "متتبِّع القضاء" }, { label: "سجل القضاء" }],
+    appLinks: [
+      {
+        label: "متتبِّع القضاء",
+      },
+      {
+        label: "سجل القضاء",
+      },
+    ],
   },
   {
     title: "بعد الصلاة",
@@ -898,7 +1084,14 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
       "اقرأ آية الكرسي والمعوِّذات الثلاث قبل أن تنهض.",
       "امكُث جالسًا دقيقةً من الدعاء الشخصي بعد كل فريضة.",
     ],
-    appLinks: [{ label: "أذكار ما بعد الصلاة" }, { label: "عدَّاد التسبيح" }],
+    appLinks: [
+      {
+        label: "أذكار ما بعد الصلاة",
+      },
+      {
+        label: "عدَّاد التسبيح",
+      },
+    ],
   },
 ];
 

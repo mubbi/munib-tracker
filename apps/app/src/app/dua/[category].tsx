@@ -44,6 +44,12 @@ const VALID: DuaCategoryId[] = [
   "social",
 ];
 
+/** Expo Router may pass dynamic segments as `string | string[]` on deep links. */
+function paramValue(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
+}
+
 /** Pre-render a static HTML page for each fixed dua category at web export time. */
 export function generateStaticParams(): Array<{ category: string }> {
   return VALID.map((category) => ({ category }));
@@ -55,12 +61,22 @@ export default function DuaCategoryScreen() {
   useEnsureDuaFavoritesLoaded();
   const favoriteIds = useFavoriteDuaIds();
   const { toggle } = useDuaFavoritesActions();
-  const params = useLocalSearchParams<{ category: string }>();
-  const isKnownCategory = VALID.includes(params.category as DuaCategoryId);
-  const categoryId = (isKnownCategory ? params.category : "morning_evening") as DuaCategoryId;
+  const params = useLocalSearchParams<{ category: string | string[] }>();
+  const categoryParam = paramValue(params.category);
+  const isKnownCategory = VALID.includes(categoryParam as DuaCategoryId);
+  const categoryId = (isKnownCategory ? categoryParam : "morning_evening") as DuaCategoryId;
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
+  const [corpusReady, setCorpusReady] = useState(false);
   useEffect(() => {
-    void loadDuaItems().then(setDuaItems);
+    let active = true;
+    void loadDuaItems().then((items) => {
+      if (!active) return;
+      setDuaItems(items);
+      setCorpusReady(true);
+    });
+    return () => {
+      active = false;
+    };
   }, []);
   const items = useMemo(
     () => duaItems.filter((item) => item.categoryId === categoryId),
@@ -115,9 +131,11 @@ export default function DuaCategoryScreen() {
       eyebrow={t("dua.categoryEyebrow")}
       title={t(`duaCat.${categoryId}`)}
       subtitle={
-        searching
-          ? t("dua.searchResultCount", { count: filtered.length })
-          : t("dua.supplicationsCount", { count: items.length })
+        !corpusReady
+          ? undefined
+          : searching
+            ? t("dua.searchResultCount", { count: filtered.length })
+            : t("dua.supplicationsCount", { count: items.length })
       }
       onBack={() => goBackOrReplace(router, "/")}
       scrollable={false}
@@ -162,7 +180,7 @@ export default function DuaCategoryScreen() {
           windowSize={7}
           removeClippedSubviews
           ListEmptyComponent={
-            searching ? (
+            searching && corpusReady ? (
               <EmptyState
                 icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
                 title={t("dua.noResults")}

@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
@@ -16,6 +16,7 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ensureJannahContent, getJannahVerses } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -38,14 +39,12 @@ const THEME_ICONS: Record<(typeof THEME_ORDER)[number], SymbolViewProps["name"]>
 function JannahVersesList() {
   const router = useRouter();
   const { t } = useTranslation();
-  const [, setContentReady] = useState(false);
-  useEffect(() => {
-    void ensureJannahContent().then(() => setContentReady(true));
-  }, []);
+  const { version: contentVersion } = useEnsureContent(ensureJannahContent);
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
   const chevronForwardIcon = useChevronForward();
-  const verses = getJannahVerses();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
+  const verses = useMemo(() => getJannahVerses(), [contentVersion]);
 
   const grouped = useMemo(() => {
     const map = new Map<string, typeof verses>();

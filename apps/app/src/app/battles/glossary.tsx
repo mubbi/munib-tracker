@@ -10,12 +10,14 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { getBattlesGlossary } from "@/lib/battles";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { ensureBattlesContent, getBattlesGlossary } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesGlossaryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  useEnsureContent(ensureBattlesContent);
   const terms = getBattlesGlossary();
 
   return (

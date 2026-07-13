@@ -41,7 +41,8 @@ export function getAqeedahTopicsBySection(): Record<AqeedahSection, AqeedahTopic
   ) as Record<AqeedahSection, AqeedahTopic[]>;
 
   for (const topic of getAqeedahTopics()) {
-    grouped[topic.section].push(topic);
+    const bucket = grouped[topic.section];
+    if (bucket) bucket.push(topic);
   }
   return grouped;
 }

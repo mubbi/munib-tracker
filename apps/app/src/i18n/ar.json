@@ -110,6 +110,15 @@
       "rahman": "الرحمن",
       "sleep": "النوم",
       "istighfar": "الاستغفار"
+    },
+    "stt": {
+      "dictate": "البحث بالصوت",
+      "stopDictate": "إيقاف البحث الصوتي",
+      "listening": "جارٍ الاستماع…",
+      "permissionDenied": "يلزم إذن الميكروفون للبحث بالصوت. يمكنك الكتابة بدلاً من ذلك.",
+      "unavailable": "التعرّف على الكلام غير متاح على هذا الجهاز.",
+      "couldNotHear": "لم نسمع ذلك — حاول مجدداً أو اكتب.",
+      "errorGeneric": "فشل البحث الصوتي. حاول مجدداً أو اكتب."
     }
   },
   "tabs": {
@@ -149,7 +158,14 @@
     "tahajjud": "التهجّد",
     "hayd": "الحيض والعبادة",
     "sick": "المرض والصلاة",
-    "adhkarBuilder": "أذكاري"
+    "adhkarBuilder": "أذكاري",
+    "sahaba": "الصحابة",
+    "history": "التاريخ الإسلامي",
+    "laylatAlQadr": "ليلة القدر",
+    "eid": "دليل العيد",
+    "ruqyah": "الرقية",
+    "newMuslim": "دليل المسلم الجديد",
+    "finance": "المالية الإسلامية"
   },
   "quickActions": {
     "checklistSubtitle": "سجّل صلوات اليوم",
@@ -163,6 +179,8 @@
     "updatedMinutesAgo": "تم التحديث منذ {{count}} د",
     "updatedHoursAgo": "تم التحديث منذ {{count}} س",
     "nextPrayer": "الصلاة القادمة",
+    "remaining": "المتبقي",
+    "atTime": "الساعة {{time}}",
     "schedule": "جدول اليوم",
     "progress": "تقدّم اليوم",
     "setLocation": "حدّد الموقع",
@@ -200,13 +218,13 @@
     "countdownSuhoor": "ينتهي السحور خلال {{time}}",
     "countdownIftar": "الإفطار خلال {{time}}",
     "afterIftar": "اكتمل صيام اليوم",
-    "dayCell": "رمضان يوم {{day}}",
-    "dayCellStatus": "رمضان يوم {{day}}، {{status}}",
+    "dayCell": "رمضان {{day}} · {{gregorian}}",
+    "dayCellStatus": "رمضان {{day}} ({{gregorian}})، {{status}}",
     "dayCellHint": "اضغط لاختيار حالة صيامك",
     "statusNone": "غير مسجّل",
     "gridHint": "اضغط على يوم لتسجيل حالة الصيام",
     "gridFutureDaysNote": "تُفتح الأيام المستقبلية في تاريخها — يمكنك التسجيل حتى اليوم فقط.",
-    "fastingLogBackfillNote": "يُعرض رمضان {{year}} هـ لتتمكن من إكمال سجل صيامك. اضغط على أي يوم لتحديث حالة الصيام.",
+    "fastingLogBackfillNote": "يُعرض رمضان {{year}} هـ ({{gregorian}}) لتتمكن من إكمال سجل صيامك. اضغط على أي يوم لتحديث حالة الصيام.",
     "fastedToday": "سجّل صيام اليوم",
     "statusFasted": "صمت",
     "statusMissed": "أفطرت",
@@ -1120,6 +1138,22 @@
     "actionBookmark": "حفظ",
     "actionBookmarked": "محفوظ",
     "actionShare": "مشاركة",
+    "actionTafsir": "تفسير",
+    "openTafsir": "افتح تفسير هذه الآية",
+    "tafsir": "تفسير",
+    "tafsirNone": "اختر تفسيرًا",
+    "selectTafsirAuthor": "اختر التفسير — {{language}}",
+    "tafsirCount_one": "تفسير واحد",
+    "tafsirCount_other": "{{count}} تفاسير",
+    "tafsirCount_zero": "لا تفسير",
+    "tafsirCount_two": "تفسيران",
+    "tafsirCount_few": "{{count}} تفاسير",
+    "tafsirCount_many": "{{count}} تفسيرًا",
+    "searchTafsirLanguages": "ابحث عن اللغات…",
+    "searchTafsirAuthors": "ابحث عن المؤلفين…",
+    "tafsirLoading": "جاري تحميل التفسير…",
+    "tafsirOffline": "اتصل بالإنترنت لتنزيل هذا التفسير. تبقى التفاسير التي فتحتها متاحة دون اتصال.",
+    "tafsirEmpty": "لا يتوفر تفسير لهذه الآية في الطبعة المختارة.",
     "bookmarkAdd": "حفظ الآية",
     "bookmarkRemove": "إزالة الإشارة",
     "loadingTranslation": "جارٍ تحميل الترجمة…",
@@ -1145,6 +1179,78 @@
     "nextPage": "الصفحة التالية",
     "openPageView": "فتح عرض الصفحات",
     "continueAtPage": "صفحة {{page}} · {{surah}}:{{ayah}}",
+    "showTajweed": "ألوان التجويد",
+    "showWordByWord": "كلمة بكلمة",
+    "playback": {
+      "title": "التشغيل",
+      "open": "إعدادات التشغيل",
+      "summaryVerse": "تكرار الآية",
+      "summarySurah": "تكرار السورة",
+      "summaryRange": "نطاق {{start}}–{{end}}",
+      "summaryTts": "ترجمة صوتية",
+      "summaryWithTts": "{{summary}} · ترجمة",
+      "repeatMode": "وضع التكرار",
+      "repeatOff": "إيقاف",
+      "repeatVerse": "آية",
+      "repeatRange": "نطاق",
+      "repeatSurah": "سورة",
+      "rangeStart": "من الآية",
+      "rangeEnd": "إلى الآية",
+      "translationAudio": "صوت الترجمة",
+      "translationOff": "إيقاف",
+      "translationAfter": "بعد كل آية",
+      "translationAudioHint": "يقرأ الترجمة جهراً بعد كل آية عربية (تحويل النص إلى كلام في الجهاز)",
+      "ttsVoice": "صوت قراءة الترجمة",
+      "ttsVoiceDefault": "الافتراضي للغة",
+      "ttsVoiceEmpty": "لا توجد أصوات لهذه اللغة على هذا الجهاز."
+    },
+    "tajweed": {
+      "legend": "دليل التجويد",
+      "openLesson": "فتح درس تعلّم القرآن",
+      "hoverHint": "مرّر المؤشر لعرض حكم التجويد",
+      "tapHint": "انقر لعرض حكم التجويد",
+      "loading": "جاري تحميل التجويد…",
+      "rules": {
+        "ghunnah": "الغنّة",
+        "ikhafa": "الإخفاء",
+        "ikhafaShafawi": "الإخفاء الشفوي",
+        "idghamGhunnah": "الإدغام (بغنّة)",
+        "idghamNoGhunnah": "الإدغام (بغير غنّة)",
+        "idghamShafawi": "الإدغام الشفوي",
+        "iqlab": "الإقلاب",
+        "qalqalah": "القلقلة",
+        "maddNormal": "المدّ (٢)",
+        "maddPermissible": "المدّ (٢-٤-٦)",
+        "maddObligatory": "المدّ (٤-٥)",
+        "maddNecessary": "المدّ (٦)",
+        "hamWasl": "همزة الوصل",
+        "lamShamsiyah": "اللام الشمسية",
+        "silent": "صامت"
+      },
+      "hints": {
+        "ghunnah": "صوت أنفي — حركتان",
+        "ikhafa": "إخفاء مع غنّة — حركتان",
+        "ikhafaShafawi": "إخفاء شفوي — حركتان",
+        "idghamGhunnah": "إدغام بغنّة — حركتان",
+        "idghamNoGhunnah": "إدغام بغير غنّة",
+        "idghamShafawi": "إدغام شفوي — حركتان",
+        "iqlab": "قلب إلى ميم مخفاة — حركتان",
+        "qalqalah": "اهتزاز وصدى في الحرف",
+        "maddNormal": "مدّ طبيعي — حركتان",
+        "maddPermissible": "مدّ جائز — ٢ أو ٤ أو ٦ حركات",
+        "maddObligatory": "مدّ واجب — ٤ أو ٥ حركات",
+        "maddNecessary": "مدّ لازم — ست حركات",
+        "hamWasl": "همزة وصل — تسقط عند الوصل",
+        "lamShamsiyah": "لام شمسية — لا تُنطق",
+        "silent": "مكتوب ولا يُنطق"
+      }
+    },
+    "wordByWord": {
+      "title": "كلمة بكلمة",
+      "playWord": "تشغيل هذه الكلمة",
+      "noAudio": "لا صوت لهذه الكلمة",
+      "loading": "جاري تحميل الكلمات…"
+    },
     "selectTranslator": "اختر المترجم — {{language}}",
     "translationCount_one": "{{count}} ترجمة واحدة",
     "translationCount_other": "{{count}} ترجمات",
@@ -1527,7 +1633,9 @@
     "prayed": "صُلّيت",
     "partial": "جزئي",
     "missed": "فائتة",
-    "legendHint": "اضغط أي يوم سابق أو حالي لمراجعته وتعديله. اليوم {{date}}."
+    "legendHint": "اضغط أي يوم سابق أو حالي لمراجعته وتعديله. اليوم {{date}}.",
+    "converterRowTitle": "محوّل هجري ⟷ ميلادي",
+    "converterRowSubtitle": "حوّل تاريخًا بين التقويمين"
   },
   "calDay": {
     "today": "اليوم",
@@ -2861,7 +2969,18 @@
     "learnTitle": "تعلّم الزكاة",
     "learnHint": "اضغط موضوعًا للدليل — الأحكام تختلف بين المذاهب.",
     "heroEmpty": "الزكاة الواجبة",
-    "heroHint": "أدخل مالك والنصاب أدناه لرؤية تقدير.",
+    "heroHint": "أدخل مالك أدناه — يبقى الإجمالي ظاهرًا في الشريط.",
+    "bar": {
+      "meetsNisab": "الصافي {{wealth}} · النصاب {{nisab}}",
+      "belowNisab": "الصافي {{wealth}} · دون النصاب {{nisab}}",
+      "hasOtherDue": "الصافي {{wealth}} · زروع / أنعام مستحقة"
+    },
+    "toolbar": {
+      "gold": "ذهب/غ",
+      "silver": "فضة/غ",
+      "nisab": "نصاب",
+      "due": "مستحق"
+    },
     "checklistTitle": "قبل الدفع",
     "checklistSubtitle": "مراجعة خطوة بخطوة قبل إخراج الزكاة",
     "checklistIntro": "هذه القائمة للمراجعة الشائعة — لا تغني عن فتوى عالم في حالتك.",
@@ -3014,38 +3133,134 @@
       }
     ],
     "assetsTitle": "أموالك",
-    "assetsHint": "أدخل القيم السوقية الحالية بعملتك.",
+    "assetsHint": "أدخل القيم السوقية الحالية بالعملة المختارة. يمكن إدخال الذهب والفضة بالوزن (تولة، غرام، عيار). المسكن الشخصي والسيارة الشخصية معفيان عادة — استخدم قسم العقار فقط للأصول الاستثمارية أو التجارية.",
+    "currency": {
+      "title": "العملة",
+      "hint": "كل المبالغ والنصاب بهذه العملة. تُحوَّل أسعار الذهب والفضة الحية تلقائيًا.",
+      "changeA11y": "تغيير عملة الزكاة",
+      "pickerTitle": "اختر العملة",
+      "pickerHint": "{{count}} عملة — ابحث بالرمز أو الاسم",
+      "searchPlaceholder": "ابحث عن عملة…",
+      "noResults": "لا توجد عملات تطابق بحثك.",
+      "inCurrency": "{{code}}"
+    },
+    "market": {
+      "title": "ذهب وفضة حية",
+      "goldPerGram": "ذهب / غرام",
+      "silverPerGram": "فضة / غرام",
+      "source": "{{source}} · صرف {{date}}",
+      "loading": "جاري جلب الأسعار الحية…",
+      "error": "تعذّر جلب الأسعار الحية. أدخل أسعار الذهب والفضة يدويًا.",
+      "prefilled": "تم تعبئة النصاب وأسعار المعادن من الأسعار الحية.",
+      "useLive": "استخدم الأسعار الحية مجددًا",
+      "useLiveA11y": "إعادة تعيين لأسعار الذهب والفضة الحية",
+      "refreshA11y": "تحديث أسعار السوق الحية",
+      "livePrice": "حي"
+    },
     "group": {
       "liquid": "النقد والمعادن",
-      "investments": "الاستثمارات والتجارة"
+      "investments": "الاستثمارات والتجارة",
+      "property": "الأراضي والعقار والمركبات"
+    },
+    "groupHint": {
+      "property": "المسكن الشخصي والسيارة الشخصية معفيان غالبًا. أدخل فقط القطع أو البيوت أو المركبات المُعدّة للاستثمار أو البيع أو التجارة.",
+      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
+      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
     },
     "weightSectionTitle": "حساب الذهب والفضة بالوزن",
     "nisabOverrideTitle": "تعديل النصاب يدويًا",
     "deductionsTitle": "الخصومات",
     "nisabTitle": "حد النصاب",
     "nisabHint": "أدخل سعر الذهب والفضة للغرام اليوم (~٨٧٫٥ غ ذهب أو ~٦١٢ غ فضة). كثير من العلماء يستخدمون الأقل.",
+    "nisabHintLive": "يُقدَّر النصاب من أسعار الذهب والفضة الحية اليوم. كثير من العلماء يستخدمون الحد الأدنى منهما.",
     "nisabGoldValue": "نصاب الذهب (~٨٧٫٥ غ): {{value}}",
     "nisabSilverValue": "نصاب الفضة (~٦١٢ غ): {{value}}",
     "nisabGoldShort": "ذهب {{value}}",
     "nisabSilverShort": "فضة {{value}}",
     "nisabUsingLower": "استخدام الحد الأدنى: {{value}}",
     "netWealth": "صافي المال الخاضع للزكاة",
-    "dueLabel": "الزكاة الواجبة (٢٫٥٪)",
-    "belowNisab": "دون النصاب — لا زكاة في هذا التقدير",
-    "hawlReminder": "تذكّر: الزكاة تجب فقط إذا بقي هذا المال عند النصاب أو فوقه حولًا قمريًا كاملًا.",
-    "disclaimer": "تقدير تعليمي فقط — ليس فتوى شخصية. أوزان النصاب والحول والخصومات والمجوهرات والتقاعد والمستحقون تختلف بين المذاهب. استشر عالمًا مؤهلًا.",
+    "dueLabel": "تقدير الزكاة الواجبة",
+    "dueLabelOther": "زروع / أنعام مستحقة (المال دون النصاب)",
+    "belowNisab": "دون النصاب — لا زكاة مال في هذا التقدير (قد تجب زكاة الزروع أو الأنعام)",
+    "hawlReminder": "تذكّر: زكاة المال تجب إذا بقي عند النصاب أو فوقه حولًا قمريًا. والزروع عند الحصاد؛ والأنعام لها نصابها النبوي الخاص.",
+    "disclaimer": "تقدير تعليمي فقط — ليس فتوى شخصية. أوزان النصاب والحول والحُلي وشروط الرعي وأنواع الزروع والعقار والمستحقون تختلف بين المذاهب. الأسعار والصرف إرشادية. استشر عالمًا مؤهلًا.",
+    "breakdown": {
+      "wealth": "زكاة المال (٢٫٥٪): {{value}}",
+      "agriculture": "الزروع (العُشر): {{value}}",
+      "livestock": "الأنعام (تقدير نقدي): {{value}}"
+    },
     "weight": {
+      "hint": "الأسعار الحية للذهب عيار ٢٤ والفضة النقية لكل غرام. اختر الوحدة (غرام، تولة، أونصة تروي، كغ) والعيار/النقاء — تُحوَّل القيمة إلى المعدن الخالص × السعر.",
+      "unit": "وحدة الوزن",
+      "karat": "عيار الذهب",
+      "purity": "نقاء الفضة",
+      "karatLabel": "{{karat}} قيراط",
+      "purityLabel": "{{purity}}",
+      "units": {
+        "g": "غرام",
+        "tola": "تولة",
+        "oz": "أونصة تروي",
+        "kg": "كيلوغرام"
+      },
+      "pureGrams": "≈ {{grams}} غ معدن خالص",
       "gold": {
         "title": "أو احسب الذهب بالوزن",
+        "titleShort": "الذهب بالوزن",
+        "amount": "الوزن",
         "grams": "غرام",
-        "pricePerGram": "سعر/غ"
+        "pricePerGram": "سعر/غ",
+        "pricePerGram24k": "سعر/غ (عيار ٢٤)"
       },
       "silver": {
         "title": "أو احسب الفضة بالوزن",
+        "titleShort": "الفضة بالوزن",
+        "amount": "الوزن",
         "grams": "غرام",
-        "pricePerGram": "سعر/غ"
+        "pricePerGram": "سعر/غ",
+        "pricePerGramFine": "سعر/غ (نقية)"
       },
-      "computed": "يُضاف {{value}} إلى الإجمالي"
+      "computed": "يُضاف {{value}} إلى المال",
+      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+    },
+    "livestock": {
+      "title": "الأنعام (سائمة)",
+      "hint": "نصاب السنة للغنم والبقر والإبل السائمة (البخاري / أبو داود). المعلوفة للتجارة غالبًا تُعامل كعروض — اسأل عالمًا.",
+      "sheep": "الغنم / الماعز (رأس)",
+      "sheepHint": "يبدأ النصاب من ٤٠ رأسًا.",
+      "cattle": "البقر / الجاموس (رأس)",
+      "cattleHint": "يبدأ النصاب من ٣٠ رأسًا (تبيع / مسنّة).",
+      "camels": "الإبل (رأس)",
+      "camelsHint": "يبدأ النصاب من ٥ رؤوس.",
+      "valueTitle": "قيم نقدية اختيارية (لكل رأس)",
+      "valueHint": "زكاة الأنعام تُخرج عادة من الأنعام. أدخل القيم السوقية فقط لتقدير نقدي للتخطيط.",
+      "sheepValue": "قيمة الشاة/الماعز",
+      "cattleValue": "قيمة رأس البقر",
+      "camelValue": "قيمة البعير",
+      "dueTitle": "الواجب من الأنعام (تقدير سنّي)",
+      "cashEstimate": "التقدير النقدي: {{value}}",
+      "due": {
+        "sheep": "{{count}} شاة/ماعز",
+        "cattleTabi": "{{count}} تبيع (بقر سنة)",
+        "cattleMusinnah": "{{count}} مسنّة (بقر سنتان)",
+        "bintMakhad": "{{count}} بنت مخاض (إبل سنة)",
+        "bintLabun": "{{count}} بنت لبون (إبل سنتان)",
+        "hiqqah": "{{count}} حِقّة (إبل ثلاث)",
+        "jadhah": "{{count}} جَذَعة (إبل أربع)"
+      },
+      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+    },
+    "agriculture": {
+      "title": "الزراعة والحصاد (العُشر)",
+      "hint": "تجب عند الحصاد لا بعد حول. ١٠٪ لما سُقي بماء السماء/الينابيع، و٥٪ لما سُقي بكلفة (الأنعام ٦:١٤١؛ السنة).",
+      "harvest": "قيمة المحصول السوقية",
+      "harvestHint": "قيمة زروع أو ثمار هذا الموسم عند الحصاد.",
+      "irrigation": "مصدر الماء",
+      "natural": "مطر / ينابيع (١٠٪)",
+      "irrigated": "مروي بكلفة (٥٪)",
+      "naturalHint": "العُشر ١٠٪ عند السقي الطبيعي دون كلفة.",
+      "irrigatedHint": "نصف العُشر ٥٪ عند السقي بالآبار أو المضخات أو الري المدفوع.",
+      "due": "العُشر المستحق: {{value}}",
+      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
     },
     "field": {
       "cash": "النقد والمدخرات",
@@ -3056,22 +3271,94 @@
       "receivables": "ديون لك عند الغير",
       "rentalIncome": "إيراد إيجار/تجارة مُدّخر",
       "otherAssets": "أصول سائلة أخرى",
+      "crypto": "العملات الرقمية",
+      "investmentPlots": "قطع استثمارية (القيمة السوقية)",
+      "installmentPlotsPaid": "قطع بالأقساط — المبلغ المدفوع",
+      "investmentProperty": "بيوت / مبانٍ استثمارية",
+      "tradeVehicles": "مركبات للبيع / التجارة",
       "debts": "ديون عاجلة مستحقة",
+      "livingExpenses": "نفقات المعيشة العاجلة",
       "nisab": "قيمة النصاب (تعديل)",
       "nisabGoldPrice": "سعر الذهب للغرام",
       "nisabSilverPrice": "سعر الفضة للغرام"
     },
     "fieldHint": {
       "cash": "حسابات بنكية ونقد في اليد ومدخرات سائلة.",
-      "gold": "القيمة السوقية للذهب المملوك بما يزيد عن زينة الاستعمال اليومي إن كان مذهبك يُدخله.",
-      "silver": "القيمة السوقية للفضة والسبائك والعملات المخزّنة.",
+      "gold": "قيمة نقدية اختيارية إن عرفتها — أو استخدم الوزن أدناه (تولة، عيار…). حُلي الاستعمال اليومي قد يُعفى في بعض المذاهب.",
+      "silver": "قيمة نقدية اختيارية — أو استخدم الوزن والنقاء أدناه.",
       "stocks": "القيمة السوقية الحالية للأسهم والصناديق.",
       "business": "قيمة البضاعة والمخزون المعروض للبيع.",
       "receivables": "قروض وفواتير يُرجى تحصيلها.",
       "rentalIncome": "أرباح إيجار أو تجارة لا تزال في حوزتك.",
-      "otherAssets": "عملات رقمية أو تقاعد قابل للسحب أو أموال أخرى يُزكّيها عالمك.",
+      "otherAssets": "تقاعد قابل للسحب أو أموال أخرى يُزكّيها عالمك.",
+      "crypto": "القيمة السوقية للعملات الرقمية المملوكة كأصل — الأحكام تختلف؛ اسأل عالمًا.",
+      "investmentPlots": "أراضٍ أو قطع للاستثمار أو البيع (قيمة السوق). الأراضي الشخصية للمعيشة مختلفة — اسأل عالمًا.",
+      "installmentPlotsPaid": "ما دفعته فعلًا على قطع استثمارية بالأقساط (لا كامل العقد غير المدفوع إلا بتوجيه عالمك).",
+      "investmentProperty": "بيوت أو مبانٍ للاستثمار أو التجارة — لا مسكنك الشخصي.",
+      "tradeVehicles": "سيارات أو مركبات للبيع أو كبضاعة — لا مركبات الاستعمال الشخصي.",
       "debts": "قروض شخصية وبطاقات وفواتير مستحقة الآن — لا إجمالي الرهن طويل الأجل إلا بتوجيه.",
+      "livingExpenses": "الإيجار والطعام والفواتير المستحقة فورًا — فقط إذا سمح عالمك بهذا الخصم.",
       "nisab": "اتركه فارغًا لاستخدام النصاب المحسوب، أو أدخل قيمة مخصصة."
+    },
+    "numberFormat": {
+      "title": "تنسيق الأرقام",
+      "hint": "كيف تظهر الآلاف والكسور في المبالغ.",
+      "changeA11y": "تغيير تنسيق الأرقام",
+      "pickerTitle": "تنسيق الأرقام",
+      "pickerHint": "اختر كيف تُجمَّع المبالغ وكيف تظهر الفاصلة العشرية أثناء الإدخال وفي الإجماليات."
+    },
+    "learnMore": "اعرف المزيد",
+    "sectionInfo": {
+      "educational": "ملخص تعليمي من القرآن والسنة — ليس فتوى شخصية.",
+      "footnote": "تختلف المذاهب في التفاصيل (الحُلي، الرهن، الأنعام المعلوفة، العملات الرقمية). اسأل عالمًا مؤهلًا.",
+      "openGuide": "افتح الدليل الكامل",
+      "a11y": "اعرف المزيد عن {{section}}",
+      "currency": {
+        "title": "Currency & rates",
+        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+      },
+      "liquid": {
+        "title": "Cash & precious metals",
+        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+      },
+      "metals": {
+        "title": "Gold & silver by weight",
+        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+      },
+      "investments": {
+        "title": "Investments & business",
+        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+      },
+      "property": {
+        "title": "Land, property & vehicles",
+        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+      },
+      "livestock": {
+        "title": "Livestock (grazing flocks)",
+        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+      },
+      "agriculture": {
+        "title": "Agriculture & harvest (ushr)",
+        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
+        "localRefLabel": "Qur'an 6:141",
+        "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
+      },
+      "deductions": {
+        "title": "Deductions",
+        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+      },
+      "nisab": {
+        "title": "Nisab threshold",
+        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+      }
+    },
+    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "reset": {
+      "title": "إعادة تعيين الحاسبة؟",
+      "message": "سيُمسح كل المبالغ وأوزان المعادن والأنعام والزروع. تبقى العملة وتنسيق الأرقام كما هما.",
+      "confirm": "إعادة تعيين النموذج",
+      "a11y": "إعادة تعيين نموذج حاسبة الزكاة",
+      "hint": "يطلب التأكيد ثم يمسح كل المبالغ المدخلة"
     }
   },
   "customAdhkar": {
@@ -3138,6 +3425,15 @@
       "sourceGalleryHint": "اختر صورة من صورك",
       "sourceDocument": "الملفات",
       "sourceDocumentHint": "اختر صورة أو مستنداً من ملفاتك"
+    },
+    "stt": {
+      "dictate": "الإملاء بالميكروفون",
+      "stopDictate": "إيقاف الإملاء",
+      "listening": "جارٍ الاستماع…",
+      "permissionDenied": "يلزم إذن الميكروفون للإملاء. يمكنك الكتابة بدلاً من ذلك.",
+      "unavailable": "التعرّف على الكلام غير متاح على هذا الجهاز.",
+      "couldNotHear": "لم نسمع ذلك — حاول مجدداً أو اكتب.",
+      "errorGeneric": "فشل الإملاء. حاول مجدداً أو اكتب."
     }
   },
   "tahajjud": {
@@ -3226,7 +3522,16 @@
     "level2": "غير مستقر",
     "level3": "حاضر بما يكفي",
     "level4": "مركّز",
-    "level5": "حاضر تمامًا"
+    "level5": "حاضر تمامًا",
+    "stt": {
+      "dictate": "الإملاء بالميكروفون",
+      "stopDictate": "إيقاف الإملاء",
+      "listening": "جارٍ الاستماع…",
+      "permissionDenied": "يلزم إذن الميكروفون للإملاء. يمكنك الكتابة بدلاً من ذلك.",
+      "unavailable": "التعرّف على الكلام غير متاح على هذا الجهاز.",
+      "couldNotHear": "لم نسمع ذلك — حاول مجدداً أو اكتب.",
+      "errorGeneric": "فشل الإملاء. حاول مجدداً أو اكتب."
+    }
   },
   "prayerTuning": {
     "title": "ضبط أوقات الصلاة",
@@ -3265,7 +3570,8 @@
     "resetConfirmMsg": "سيُلغى تحديد جميع المناسك. لا يمكن استرجاع تقدّمك.",
     "umrahTag": "عمرة",
     "hajjTag": "حج",
-    "disclaimer": "قائمة عملية وليست كتاب فقه. اتبع مرشدًا مؤهلًا للأحكام والتفاصيل."
+    "disclaimer": "قائمة عملية وليست كتاب فقه. اتبع مرشدًا مؤهلًا للأحكام والتفاصيل.",
+    "prepTag": "تحضير"
   },
   "dailyHadith": {
     "eyebrow": "سلسلة يومية",
@@ -4145,5 +4451,180 @@
   "localNotifications": {
     "reviewReactivationTitle": "أنت على نحوٍ ممتاز",
     "reviewReactivationBody": "هل تود مشاركة تجربتك مع Munib Tracker؟"
+  },
+  "sahaba": {
+    "eyebrow": "تعلّم",
+    "title": "الصحابة",
+    "subtitle": "نبذات مختصرة عن صحابة النبي ﷺ",
+    "intro": "الصحابة هم الجيل الذي حمل الإسلام من النبي ﷺ إلى سائر العالم. تتبع هذه النبذات المختصرة أسلوب الخط الزمني للسيرة — حياة، وعبرة، ومصدر لكل معلومة.",
+    "categoryAll": "الكل",
+    "category": {
+      "caliphs": "الخلفاء",
+      "ashara": "العشرة المبشرون",
+      "family": "الأسرة",
+      "women": "النساء",
+      "notable": "أعلام"
+    },
+    "noResults": "لا يوجد صحابة في هذا التصنيف حتى الآن",
+    "readMore": "اضغط لقراءة النبذة الكاملة",
+    "disclaimer": "الوقائع السردية تتبع كتب السيرة والتاريخ الكلاسيكية؛ وكل معلومة مرتبطة برواية محددة تُذكر مصدرها من مجموعة الحديث ورقمها. هذا محتوى تعليمي عام، ولا يمثّل ترتيبًا علميًا للفضل.",
+    "quickLinksTitle": "استكشف",
+    "quickCaliphsHint": "ابدأ بأبي بكر، أول الخلفاء",
+    "quickAsharaHint": "العشرة المبشرون بالجنة",
+    "quickWomenHint": "خديجة وأمهات المؤمنين",
+    "quickBattles": "الصحابة في المعارك",
+    "quickBattlesHint": "نبذات الحملات من دليل الغزوات",
+    "countCardTitle": "دليل الصحابة",
+    "countCardHint": "{{count}} نبذة تعليمية موثّقة",
+    "categoryHint": {
+      "caliphs": "الخلفاء الراشدون الأربعة",
+      "ashara": "العشرة المبشرون بالجنة",
+      "family": "أقرب آل النبي ﷺ",
+      "women": "نساء بارزات من الجيل الأول",
+      "notable": "صحابة آخرون يُذكَرون كثيرًا"
+    },
+    "exploreTitle": "تابع التعلّم",
+    "exploreBattles": "أعلام الغزوات",
+    "exploreBattlesHint": "صحابة يظهرون في الحملات العسكرية",
+    "exploreSeerah": "الخط الزمني للسيرة",
+    "exploreSeerahHint": "حياة النبي ﷺ عبر محطات رئيسة",
+    "exploreHistory": "أوائل التاريخ الإسلامي",
+    "exploreHistoryHint": "من وفاة النبي ﷺ إلى نهاية الراشدين",
+    "profileBodyTitle": "الحياة والعبرة",
+    "relatedTitle": "أدلة ذات صلة",
+    "linkBattlesFigures": "انظر الصحابة في الغزوات",
+    "linkSeerah": "افتح الخط الزمني للسيرة",
+    "linkHistory": "افتح أوائل التاريخ الإسلامي",
+    "openProfileHint": "افتح النبذة الكاملة للصحابي",
+    "notFound": "الصحابي غير موجود"
+  },
+  "history": {
+    "eyebrow": "تعلّم",
+    "title": "أوائل التاريخ الإسلامي",
+    "subtitle": "من وفاة النبي ﷺ إلى نهاية الخلافة الراشدة",
+    "ceBadge": "{{year}} م",
+    "ahBadge": "{{ah}} هـ",
+    "era": {
+      "prophetic-close": "النبي ﷺ",
+      "abu-bakr": "أبو بكر",
+      "umar": "عمر",
+      "uthman": "عثمان",
+      "ali": "علي"
+    },
+    "disclaimer": "يتناول الفترة من ١١ إلى ٤١ هـ (٦٣٢–٦٦١ م) — من نهاية حياة النبي ﷺ إلى نهاية الخلافة الراشدة. السرد السياسي والعسكري يتبع كتب التاريخ الكلاسيكية؛ ويُعرض عهد عثمان وعلي دون الفصل في الخلافات العقدية اللاحقة."
+  },
+  "laylatAlQadr": {
+    "eyebrow": "تعلّم",
+    "title": "ليلة القدر",
+    "subtitle": "ليلة القدر — خير من ألف شهر",
+    "intro": "ليلة القدر مخفية بين الليالي الوتر من العشر الأواخر من رمضان، وليست محددة بتاريخ ثابت. فاطلبها بعبادة خالصة في جميعها لا في ليلة واحدة تُخمَّن.",
+    "section": {
+      "virtues": "فضلها",
+      "when": "متى تُطلب",
+      "dua": "ماذا تقول",
+      "ibadah": "كيف تقضي الليلة",
+      "reminders": "تذكيرات"
+    },
+    "notFound": "الموضوع غير موجود",
+    "disclaimer": "هذا الدليل لا يعتمد تاريخًا ثابتًا واحدًا في التقويم ولا \"علامات\" شعبية لتحديد الليلة — بل يقتصر على ما ورد في القرآن والحديث الصحيح.",
+    "continueInApp": "تابع في منيب"
+  },
+  "eid": {
+    "eyebrow": "تعلّم",
+    "title": "دليل العيد",
+    "subtitle": "عيد الفطر وعيد الأضحى — الصلاة والسنة والأحكام",
+    "intro": "العيدان من القرآن والحديث الصحيح — كيف تُصلّى صلاة العيد، وزكاة الفطر، والأضحية، وسنن هذا اليوم.",
+    "section": {
+      "fitr": "عيد الفطر",
+      "adha": "عيد الأضحى",
+      "prayer": "صلاة العيد",
+      "sunnah": "السنن",
+      "zakat-fitr": "زكاة الفطر",
+      "udhiyah": "الأضحية (الذبح)"
+    },
+    "notFound": "الموضوع غير موجود",
+    "disclaimer": "عرض تعليمي — ليس فتوى. وحيث تختلف المذاهب (كعدد التكبيرات الزائدة)، يُعرض الرأيان؛ فاتبع إمامك أو عالمًا محليًا مؤهلًا.",
+    "continueInApp": "تابع في منيب"
+  },
+  "ruqyah": {
+    "eyebrow": "تعلّم",
+    "title": "الرقية",
+    "subtitle": "الشفاء الروحي بالقرآن والسنة",
+    "intro": "الرقية هي تلاوة القرآن، وأسماء الله، أو الأدعية النبوية الصحيحة طلبًا للشفاء والحماية — وليست بديلاً عن الصلاة أو العلاج الطبي.",
+    "section": {
+      "basics": "الأساسيات",
+      "verses": "آيات مهمة",
+      "daily-protection": "الحماية اليومية",
+      "reminders": "تذكيرات"
+    },
+    "notFound": "الموضوع غير موجود",
+    "disclaimer": "الرقية عبادة روحية، وليست علاجًا طبيًا. فهي لا تُلغي زيارة طبيب مؤهل، ولا الصلوات الخمس. وفي حال الابتلاء الشديد أو المستمر، استشر عالمًا وطبيبًا مختصًا معًا.",
+    "continueInApp": "تابع في منيب"
+  },
+  "newMuslim": {
+    "eyebrow": "تعلّم",
+    "title": "دليل المسلم الجديد",
+    "subtitle": "بداية ودّية وعملية للأيام والأسابيع الأولى",
+    "intro": "مرحبًا بك في الإسلام. يتناول هذا الدليل الشهادة، وأركان الإسلام الخمسة، وأساسيات الإيمان، ونظرة أولى على الصلاة، ثم يوجّهك إلى أدلة الصلاة والعقيدة والقرآن الأوفى في هذا التطبيق.",
+    "section": {
+      "start": "بداية الطريق",
+      "pillars": "الأركان الخمسة",
+      "faith": "أساسيات الإيمان",
+      "prayer": "صلاتك الأولى",
+      "next-steps": "الخطوات التالية",
+      "faq": "أسئلة شائعة"
+    },
+    "notFound": "الموضوع غير موجود",
+    "disclaimer": "دليل تمهيدي مبسّط وصحيح، يقتصر على الأساسيات المشتركة التي تتفق عليها جميع المذاهب. ولحالتك الخاصة، اسأل إمامًا أو معلمًا محليًا.",
+    "continueInApp": "تابع في منيب"
+  },
+  "finance": {
+    "eyebrow": "تعلّم",
+    "title": "المالية الإسلامية",
+    "subtitle": "الربا، والتجارة العادلة، والعطاء، والتكافل",
+    "intro": "مقدمة تعليمية للإطار الأخلاقي الذي جاء به الإسلام للمال — تحريم الربا، والتجارة العادلة، والزكاة والصدقة، والتكافل (تقاسم المخاطر التعاوني).",
+    "section": {
+      "principles": "المبادئ",
+      "riba": "الربا (الفائدة)",
+      "trade": "التجارة العادلة",
+      "giving": "العطاء",
+      "takaful": "التكافل",
+      "faq": "أسئلة شائعة"
+    },
+    "notFound": "الموضوع غير موجود",
+    "disclaimer": "تعليم عام، ليس نصيحة مالية أو فتوى. أما فحص الصناديق، والمنتجات المحددة، والأحكام المتعلقة بعقودك الخاصة، فتحتاج إلى عالم أو مؤسسة معتمدة مؤهلة في المالية الإسلامية.",
+    "continueInApp": "تابع في منيب"
+  },
+  "dateConverter": {
+    "eyebrow": "التقويم",
+    "title": "محوّل التاريخ",
+    "subtitle": "التحويل بين التقويمين الهجري والميلادي",
+    "intro": "أدخل تاريخًا في أي من التقويمين لترى ما يعادله في الآخر، محسوبًا دون اتصال بالإنترنت باستخدام الخوارزمية الكويتية الجدولية.",
+    "toHijri": "ميلادي ← هجري",
+    "toGregorian": "هجري ← ميلادي",
+    "gregorianDateLabel": "التاريخ الميلادي",
+    "hijriDateLabel": "التاريخ الهجري",
+    "day": "اليوم",
+    "month": "الشهر",
+    "year": "السنة",
+    "useToday": "استخدام اليوم",
+    "invalidDate": "أدخل تاريخًا صحيحًا",
+    "disclaimer": "هذا تقريب حسابي (\"الخوارزمية الكويتية\" الجدولية) قد يختلف بيوم واحد عن إعلانات رؤية الهلال المحلية — اتبع دائمًا مسجدك أو الجهة المحلية المعتمدة للتواريخ الدينية.",
+    "directionTitle": "اتجاه التحويل",
+    "resultFrom": "من {{date}}",
+    "quickLinksTitle": "ذات صلة",
+    "quickCalendar": "تقويم العبادة",
+    "quickCalendarHint": "تصفّح الأشهر مع سجل صلاتك",
+    "quickEvents": "المناسبات الإسلامية",
+    "quickEventsHint": "التواريخ القادمة على التقويم الهجري",
+    "quickRamadan": "رمضان",
+    "quickRamadanHint": "أوقات الصيام وسجل صيامك",
+    "quickHistory": "أوائل التاريخ",
+    "quickHistoryHint": "الخط الزمني للراشدين بالسنوات الهجرية",
+    "exploreTitle": "تابع التعلّم",
+    "exploreCalendar": "افتح التقويم",
+    "exploreCalendarHint": "راجع تاريخ العبادة يومًا بيوم",
+    "exploreEvents": "افتح المناسبات الإسلامية",
+    "exploreEventsHint": "محطات ومناسبات قادمة"
   }
 }

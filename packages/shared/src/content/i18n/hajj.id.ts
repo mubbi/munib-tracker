@@ -208,4 +208,101 @@ export const HAJJ_GUIDE_SECTIONS_ID: DeepPartial<HajjGuideSection>[] = [
       },
     ],
   },
+  {
+    day: "Sebelum berangkat",
+    title: "Visa dan pendaftaran",
+    summary: "Bagaimana jamaah mendaftar dan memperoleh visa Haji atau Umrah melalui jalur resmi.",
+    steps: [
+      {
+        title: "Platform Nusuk",
+        body: "Nusuk (nusuk.sa) adalah platform resmi Arab Saudi untuk Haji dan Umrah — digunakan untuk memesan visa, akomodasi, transportasi, dan paket tur terdaftar. Gunakan hanya Nusuk atau agen yang berlisensi melaluinya; perantara tidak resmi adalah sumber umum penipuan dan perjalanan yang dibatalkan.",
+      },
+      {
+        title: "Visa Haji dan kuota negara",
+        body: "Setiap negara menerima kuota Haji tahunan, sehingga sebagian besar jamaah mendaftar melalui lembaga Haji nasional atau agen lokal berlisensi daripada mendaftar sendiri. Daftarlah lebih awal pada tahun ketika musim Haji dibuka — kuota dan slot paket terisi penuh berbulan-bulan sebelumnya.",
+      },
+      {
+        title: "Visa Umrah",
+        body: "Berbeda dengan Haji, Umrah tidak memiliki kuota dan dapat dilaksanakan kapan saja sepanjang tahun. Sebagian besar warga negara dapat mengajukan visa Umrah langsung melalui Nusuk atau agen perjalanan resmi, biasanya bersamaan dengan pemesanan penerbangan dan hotel.",
+      },
+    ],
+  },
+  {
+    day: "Sebelum berangkat",
+    title: "Daftar barang bawaan",
+    summary: "Perlengkapan praktis yang harus dibawa sebelum bepergian.",
+    steps: [
+      {
+        title: "Pakaian ihram",
+        body: "Pria sebaiknya membawa setidaknya dua set pakaian ihram tanpa jahitan (kain bawah dan kain atas) ditambah ikat pinggang ihram yang lebar dan bukan berbahan kulit untuk uang dan dokumen. Wanita sebaiknya membawa pakaian luar yang longgar, sopan, dan tanpa hiasan.",
+      },
+      {
+        title: "Alas kaki dan kenyamanan",
+        body: "Sandal terbuka yang mudah dipakai dan dilepas sangat penting, karena sepatu yang menutupi mata kaki dibatasi dalam ihram bagi pria. Bawalah tas ransel ringan, botol air yang dapat diisi ulang, dan sajadah kecil untuk waktu tunggu yang lama.",
+      },
+      {
+        title: "Perlengkapan mandi tanpa wewangian",
+        body: "Bawalah sabun tanpa wewangian, tabir surya, dan tisu basah — produk beraroma dilarang dalam ihram. Kotak P3K ringkas, obat pribadi apa pun dengan surat dokter, dan plester lecet sepadan dengan bobot ekstra mengingat banyaknya berjalan kaki.",
+      },
+      {
+        title: "Dokumen dan barang penting",
+        body: "Simpan paspor, cetakan visa, sertifikat vaksinasi (vaksin meningitis umumnya diwajibkan), dan kontak darurat dalam kantong tipis yang dikenakan di bawah pakaian. Power bank portabel dan SIM lokal atau eSIM membuat navigasi di tempat ramai jauh lebih mudah.",
+      },
+    ],
+  },
+  {
+    day: "Sebelum berangkat",
+    title: "Direktori tempat suci",
+    summary: "Catatan praktis singkat tentang tempat-tempat utama yang akan Anda kunjungi.",
+    steps: [
+      {
+        title: "Masjidil Haram, Makkah",
+        body: "Masjid Agung yang mengelilingi Ka'bah — tempat tawaf dan sa'i. Beroperasi sepanjang waktu; perkirakan kepadatan yang sangat tinggi di dekat Hajar Aswad dan saat lima waktu shalat, terutama pada sepuluh malam terakhir Ramadan dan hari-hari Haji.",
+        location: "Makkah",
+      },
+      {
+        title: "Masjid Nabawi, Madinah",
+        body: "Masjid Nabi ﷺ, tempat Raudhah dan makam beliau, bukan bagian dari Haji itu sendiri tetapi hampir semua jamaah mengunjungi Madinah sebelum atau setelah Haji. Memasuki Raudhah memerlukan izin masuk berjadwal yang dipesan melalui Nusuk atau aplikasi Raudhah.",
+        location: "Madinah",
+      },
+      {
+        title: "Mina",
+        body: "Kota tenda beberapa kilometer dari Makkah tempat jamaah menghabiskan malam 8, 11, 12 (dan 13) Dzulhijjah. Kamp tenda berpendingin udara dan tahan api ditentukan oleh operator tur; perkirakan fasilitas bersama yang sederhana dan jalan kaki jauh ke Jamarat.",
+        location: "Mina",
+      },
+      {
+        title: "Arafah",
+        body: "Padang terbuka sekitar 20 km dari Makkah, tempat rukun Haji yang paling esensial — wukuf pada 9 Dzulhijjah. Struktur peneduh dan titik air disediakan, tetapi panas siang sangat berat; hidrasi dan perlindungan dari matahari sangat penting.",
+        location: "Arafah",
+      },
+      {
+        title: "Muzdalifah",
+        body: "Area terbuka antara Arafah dan Mina tempat jamaah menghabiskan malam 9–10 Dzulhijjah di bawah langit terbuka dan mengumpulkan kerikil untuk melempar jumrah. Fasilitasnya sengaja dibuat minim — bawalah tikar dan berpakaianlah untuk udara malam yang lebih dingin.",
+        location: "Muzdalifah",
+      },
+    ],
+  },
+  {
+    day: "Sebelum berangkat",
+    title: "Sumber resmi",
+    summary: "Tempat menemukan informasi resmi yang tepercaya dan terkini.",
+    steps: [
+      {
+        title: "Nusuk (nusuk.sa)",
+        body: "Portal dan aplikasi resmi Kementerian Haji dan Umrah Saudi untuk visa, paket terakreditasi, izin kunjungan Raudhah, dan panduan kepadatan serta transportasi secara real-time — tempat pertama untuk setiap pertanyaan resmi.",
+      },
+      {
+        title: "Lembaga Haji negara Anda",
+        body: "Sebagian besar negara memiliki lembaga Haji nasional atau kantor kementerian yang mengelola kuota tahunan, memeriksa agen lokal, dan menerbitkan jadwal keberangkatan serta persyaratan kesehatan — periksalah sebelum memesan melalui agen swasta mana pun.",
+      },
+      {
+        title: "Visit Saudi (visitsaudi.com)",
+        body: "Situs pariwisata resmi Kerajaan memuat persyaratan masuk, informasi visa elektronik untuk kewarganegaraan yang memenuhi syarat, dan saran perjalanan praktis untuk Makkah, Madinah, dan perjalanan lanjutan di dalam Arab Saudi.",
+      },
+      {
+        title: "Verifikasi sebelum membayar",
+        body: "Pesanlah hanya melalui agen yang terdaftar di Nusuk atau lembaga Haji nasional Anda. Jika suatu penawaran terasa sangat murah atau perantara meminta pembayaran di luar jalur resmi, anggap itu sebagai tanda bahaya dan verifikasi langsung melalui portal kementerian.",
+      },
+    ],
+  },
 ];

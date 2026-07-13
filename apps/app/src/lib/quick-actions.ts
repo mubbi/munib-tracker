@@ -66,6 +66,13 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   hayd: "/hayd",
   sick: "/sick",
   adhkarBuilder: "/adhkar-builder",
+  sahaba: "/sahaba" as Href,
+  history: "/history" as Href,
+  laylatAlQadr: "/laylat-al-qadr" as Href,
+  eid: "/eid" as Href,
+  ruqyah: "/ruqyah" as Href,
+  newMuslim: "/new-muslim" as Href,
+  finance: "/finance" as Href,
 };
 
 export const QUICK_ACTION_META: QuickActionDef[] = [
@@ -291,6 +298,48 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     id: "stats",
     labelKey: "actions.stats",
     icon: { ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" },
+    tone: "success",
+  },
+  {
+    id: "sahaba",
+    labelKey: "actions.sahaba",
+    icon: { ios: "person.3.fill", android: "groups", web: "groups" },
+    tone: "accent",
+  },
+  {
+    id: "history",
+    labelKey: "actions.history",
+    icon: { ios: "scroll.fill", android: "history_edu", web: "history_edu" },
+    tone: "info",
+  },
+  {
+    id: "laylatAlQadr",
+    labelKey: "actions.laylatAlQadr",
+    icon: { ios: "moon.stars.fill", android: "nightlight", web: "nightlight" },
+    tone: "info",
+  },
+  {
+    id: "eid",
+    labelKey: "actions.eid",
+    icon: { ios: "gift.fill", android: "celebration", web: "celebration" },
+    tone: "warning",
+  },
+  {
+    id: "ruqyah",
+    labelKey: "actions.ruqyah",
+    icon: { ios: "shield.fill", android: "shield", web: "shield" },
+    tone: "success",
+  },
+  {
+    id: "newMuslim",
+    labelKey: "actions.newMuslim",
+    icon: { ios: "person.fill.badge.plus", android: "person_add", web: "person_add" },
+    tone: "accent",
+  },
+  {
+    id: "finance",
+    labelKey: "actions.finance",
+    icon: { ios: "chart.pie.fill", android: "pie_chart", web: "pie_chart" },
     tone: "success",
   },
 ];
