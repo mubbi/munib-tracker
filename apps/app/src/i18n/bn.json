@@ -112,13 +112,13 @@
       "learnQuran": "কুরআন শিখুন"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "ভয়েস দ্বারা অনুসন্ধান করুন",
+      "stopDictate": "ভয়েস অনুসন্ধান বন্ধ করুন",
+      "listening": "শোনা হচ্ছে...",
+      "permissionDenied": "ভয়েস অনুসন্ধানের জন্য মাইক্রোফোনের অনুমতি প্রয়োজন৷ আপনি এখনও টাইপ করতে পারেন.",
+      "unavailable": "এই ডিভাইসে বক্তৃতা শনাক্তকরণ অনুপলব্ধ৷",
+      "couldNotHear": "শুনতে পাচ্ছিলাম না — আবার চেষ্টা করুন বা টাইপ করুন।",
+      "errorGeneric": "ভয়েস অনুসন্ধান ব্যর্থ হয়েছে. আবার চেষ্টা করুন বা টাইপ করুন।"
     }
   },
   "tabs": {
@@ -160,12 +160,12 @@
     "sick": "অসুস্থতা ও নামাজ",
     "adhkarBuilder": "আমার আযকার",
     "sahaba": "সাহাবা",
-    "history": "ইসলামি ইতিহাস",
-    "laylatAlQadr": "লাইলাতুল কদর",
+    "history": "ইসলামের ইতিহাস",
+    "laylatAlQadr": "লায়লাতুল কদর",
     "eid": "ঈদ গাইড",
-    "ruqyah": "রুকইয়াহ",
+    "ruqyah": "রুকিয়াহ",
     "newMuslim": "নতুন মুসলিম গাইড",
-    "finance": "ইসলামি অর্থনীতি"
+    "finance": "ইসলামিক ফাইন্যান্স"
   },
   "quickActions": {
     "checklistSubtitle": "আজকের নামাজ লগ করুন",
@@ -200,7 +200,7 @@
         "description": "আজকের ফরজ নামাজের অগ্রগতি"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "অবশিষ্ট",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -284,7 +284,7 @@
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "ট্র্যাকিং শুরু",
     "goToChecklist": "চেকলিস্টে যান",
-    "prayersStat": "নামাজ",
+    "prayersStat": "সালাহ",
     "dhikrStat": "যিকির",
     "qazaStat": "কাজা",
     "streakStat": "ধারাবাহিক",
@@ -303,7 +303,7 @@
       "motivation": "দৈনিক অনুস্মারক"
     },
     "knowledgeTopic": {
-      "prayer": "নামাজ",
+      "prayer": "সালাহ",
       "qaza": "কাজা",
       "zikr": "যিকির",
       "fasting": "রোজা",
@@ -650,9 +650,9 @@
     "eyebrowWelcome": "স্বাগতম",
     "title": "সাইন ইন",
     "subtitle": "সব ডিভাইসে আপনার ইবাদত সিঙ্ক করুন",
-    "google": "Google দিয়ে চালিয়ে যান",
-    "apple": "Apple দিয়ে চালিয়ে যান",
-    "facebook": "Facebook দিয়ে চালিয়ে যান",
+    "google": "Google এর সাথে চালিয়ে যান",
+    "apple": "অ্যাপলের সাথে চালিয়ে যান",
+    "facebook": "ফেসবুকের সাথে চালিয়ে যান",
     "heroGuest": "আপনি অতিথি অ্যাকাউন্ট ব্যবহার করছেন। ব্যাকআপ ও সিঙ্কের জন্য একটি প্রোভাইডার সংযুক্ত করুন — কিছুই হারাবে না।",
     "heroUser": "আপনার নামাজ, কাজা ও যিকির ক্লাউডে নিরাপদ রাখতে সাইন ইন করুন।",
     "error": "সাইন ইন করা যায়নি। API সার্ভার চালু আছে এবং এই প্রোভাইডার কনফিগার করা আছে কিনা দেখুন।"
@@ -844,7 +844,7 @@
       "qazaBody": "Make up  মিস নামাজ অথবা রোজা আজ.",
       "achievementTitle": "অর্জন আনলক",
       "dailyContentTitle": "আজকের reflection",
-      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
+      "dailyContentBody": "আপনার হোম স্ক্রিনে নতুন একটি আয়াত, হাদিস ও আল্লাহর একটি নাম প্রস্তুত আছে।",
       "fridayTitle": "জুমুআ মোবারক",
       "fridayBody": "It's Friday — send salawat এবং read Surah Al-Kahf."
     },
@@ -1107,7 +1107,7 @@
     "subtitle": "Read, listen, এবং reflect",
     "searchSurah": "by name, meaning, or number অনুসন্ধান",
     "filterAll": "সব",
-    "continueReading": "reading চালিয়ে যান",
+    "continueReading": "পড়া চালিয়ে যান",
     "continueAt": "সূরা {{surah}} · আয়াত {{ayah}}",
     "makki": "মক্কী",
     "madani": "মাদানী",
@@ -1195,50 +1195,50 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "কথায় কথায়",
+      "playWord": "এই শব্দটি খেলুন",
+      "noAudio": "এই শব্দের জন্য কোন অডিও",
+      "loading": "শব্দ লোড হচ্ছে..."
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "তাজবীদ কিংবদন্তি",
+      "openLesson": "কুরআন পাঠ খুলুন",
+      "loading": "তাজউইদ লোড হচ্ছে...",
       "rules": {
-        "ghunnah": "Ghunnah",
-        "ikhafa": "Ikhfa",
+        "ghunnah": "গুন্নাহ",
+        "ikhafa": "ইখফা",
         "ikhafaShafawi": "Ikhfa Shafawi",
         "idghamGhunnah": "Idgham (Ghunnah)",
         "idghamNoGhunnah": "Idgham (No Ghunnah)",
         "idghamShafawi": "Idgham Shafawi",
-        "iqlab": "Iqlab",
-        "qalqalah": "Qalqalah",
-        "maddNormal": "Madd (2)",
-        "maddPermissible": "Madd (2-4-6)",
-        "maddObligatory": "Madd (4-5)",
-        "maddNecessary": "Madd (6)",
+        "iqlab": "ইকলাব",
+        "qalqalah": "কলকালাহ",
+        "maddNormal": "ম্যাড (2)",
+        "maddPermissible": "ম্যাড (2-4-6)",
+        "maddObligatory": "ম্যাড (4-5)",
+        "maddNecessary": "ম্যাড (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "নীরব"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "তাজউইদের নিয়ম দেখতে হোভার করুন",
+      "tapHint": "তাজউইদের নিয়ম দেখতে আলতো চাপুন",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "অনুনাসিক ধ্বনি — ২ হরকত",
+        "ikhafa": "গুন্নাহর সাথে লুকানো - 2 বীট",
+        "ikhafaShafawi": "ল্যাবিয়াল আড়াল - 2 বীট",
+        "idghamGhunnah": "অনুনাসিক শব্দের সাথে একত্রিত হওয়া - 2 বীট",
+        "idghamNoGhunnah": "অনুনাসিক শব্দ ছাড়া একত্রিত করা",
+        "idghamShafawi": "ল্যাবিয়াল মার্জিং - 2 বীট",
+        "iqlab": "লুকানো মীমে রূপান্তর — 2 বিট",
+        "qalqalah": "চিঠির উপর প্রতিধ্বনিত বাউন্স",
+        "maddNormal": "স্বাভাবিক প্রসারণ - 2 বিট",
+        "maddPermissible": "অনুমোদিত প্রসারণ — 2, 4, বা 6 বিট",
+        "maddObligatory": "বাধ্যতামূলক প্রসারণ - 4 বা 5 বীট",
+        "maddNecessary": "প্রয়োজনীয় প্রসারণ - 6 বিট",
+        "hamWasl": "সংযোগকারী হামজা — যোগদান করার সময় বাদ দেওয়া হয়েছে",
+        "lamShamsiyah": "সূর্য-অক্ষর لام — উচ্চারিত হয় না",
+        "silent": "লেখা কিন্তু উচ্চারিত নয়"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1246,40 +1246,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
-      "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
-      "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "title": "প্লেব্যাক",
+      "open": "প্লেব্যাক সেটিংস",
+      "repeatMode": "পুনরাবৃত্তি মোড",
+      "repeatOff": "বন্ধ",
+      "repeatVerse": "আয়াত",
+      "repeatRange": "পরিসর",
+      "repeatSurah": "সূরা",
+      "rangeStart": "আয়াত থেকে",
+      "rangeEnd": "আয়াতে",
+      "translationAudio": "অনুবাদ অডিও",
+      "translationOff": "বন্ধ",
+      "translationAfter": "প্রতিটি আয়াতের পর",
+      "translationAudioHint": "প্রতিটি আরবি আয়াতের পরে উচ্চস্বরে অনুবাদ পড়ে (ডিভাইস টিটিএস)",
+      "ttsVoice": "অনুবাদ বক্তৃতা ভয়েস",
+      "ttsVoiceDefault": "ভাষার জন্য ডিফল্ট",
+      "ttsVoiceEmpty": "এই ডিভাইসে এই ভাষার জন্য কোনো ভয়েস পাওয়া যায়নি।",
+      "summaryVerse": "শ্লোক পুনরাবৃত্তি করুন",
+      "summarySurah": "সূরা পুনরাবৃত্তি করুন",
+      "summaryRange": "ব্যাপ্তি {{start}}–{{end}}",
+      "summaryTts": "অনুবাদ TTS",
       "summaryWithTts": "{{summary}} · TTS"
     },
-    "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
-    "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
-    "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "actionTafsir": "তাফসির",
+    "openTafsir": "এই আয়াতের জন্য তাফসির খুলুন",
+    "tafsir": "তাফসির",
+    "tafsirNone": "তাফসির নির্বাচন করুন",
+    "selectTafsirAuthor": "তাফসির বেছে নিন — {{language}}",
+    "tafsirCount_one": "{{count}} তাফসির",
+    "tafsirCount_other": "{{count}} তাফসির",
+    "searchTafsirLanguages": "ভাষা খুঁজুন…",
+    "searchTafsirAuthors": "লেখক খুঁজুন…",
+    "tafsirLoading": "তাফসির লোড হচ্ছে...",
+    "tafsirOffline": "এই তাফসির ডাউনলোড করতে সংযোগ করুন। খোলা সংস্করণ অফলাইনে উপলব্ধ থাকে।",
+    "tafsirEmpty": "নির্বাচিত সংস্করণে এই আয়াতের জন্য কোন তাফসির পাওয়া যায় না।"
   },
   "hadith": {
     "eyebrow": "নববী tradition",
@@ -1393,7 +1393,7 @@
     },
     "duha": {
       "summary": " forenoon নামাজ — typically two তে eight rak'ahs between sunrise এবং যোহর.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "প্রতিদিন শরীরের প্রতিটি জয়েন্টে দান করা হয়; এমনকি কয়েক রাকাত দুহা ইবাদতের মাধ্যমে অঙ্গ-প্রত্যঙ্গের জন্য সেই দান পূর্ণ করে।",
       "benefits": "Forgives sins, brings sustenance (rizq), এবং revives  neglected sunnah. Flexible timing makes it accessible when  দিন allows."
     },
     "dhuhr": {
@@ -1530,7 +1530,7 @@
     "consistencyTitle": "ধারাবাহিকতা over intensity",
     "consistencyHadith": " most beloved deeds তে আল্লাহ হয় those সেই হয় ধারাবাহিক, even if they হয় small.",
     "consistencySource": "হাদিস — Bukhari & Muslim",
-    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
+    "consistencyPrinciple": "একটি স্থির দৈনন্দিন পরিকল্পনা সাধারণত একটি আক্রমনাত্মক স্প্রিন্টের চেয়ে বেশি নির্ভরযোগ্যভাবে একটি বড় ব্যাকলগ পরিষ্কার করে যা জ্বলে যায়।",
     "prayersPerDay": "prayers / দিন",
     "dailyTimeLabel": "est. time / দিন",
     "dailyTimeMinutes": "≈ {{count}} মিনিট",
@@ -1858,7 +1858,7 @@
     "milestonesReachedHint": "{{count}} আনলক so far — এবং counting.",
     "level": "লেভ {{level}}",
     "tracks": {
-      "salah": "নামাজ",
+      "salah": "সালাহ",
       "streak": "ধারাবাহিক",
       "qaza": "কাজা",
       "roza": "রোজা",
@@ -1867,7 +1867,7 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "নামাজ {{level}}",
+        "titleFallback": "সালাহ {{level}}",
         "description": "সম্পন্ন {{count}} ফরজ prayers",
         "description_one": "সম্পন্ন {{count}} ফরজ নামাজ",
         "titles": {
@@ -2008,12 +2008,12 @@
     "confirmClearAllMessage": "এই removes every বিজ্ঞপ্তি থেকে এই list. এই can't be undone.",
     "loadMore": "Load lebih",
     "upcoming": "আ upcoming",
-    "categorySalah": "নামাজ",
+    "categorySalah": "সালাহ",
     "categoryZikr": "যিকির",
     "categoryQaza": "কাজা",
     "categoryMilestone": "মাইলফলক",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "ঘোষণা"
   },
   "qibla": {
     "eyebrow": "Arah",
@@ -2029,7 +2029,7 @@
     "compassLabel": "কিবলা compass",
     "compassValue": "{{bearing}} degrees তে  Kaaba, {{distance}} away",
     "aligned": "Aligned সহ  কিবলা",
-    "alignedHint": "Hold steady — you're facing the Kaaba",
+    "alignedHint": "স্থির থাকুন - আপনি কাবার দিকে মুখ করে আছেন",
     "turnFineTuneLeft": "Geser left",
     "turnFineTuneRight": "Geser right",
     "turnSlightLeft": "Sedikit ke left",
@@ -2069,7 +2069,7 @@
     "syncing": "Menyinkronkan…",
     "done": "আপনার data হয় backed up",
     "failed": "Couldn't sync. Check আপনার connection এবং try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "সবকিছু ইতিমধ্যে আপ টু ডেট ছিল",
     "mergeSummary": "{{received}} গ্রহণ · {{sent}} পাঠানো",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest সম্পাদনা",
     "conflictAffected": "প্রভাবিত: {{list}}",
@@ -2247,13 +2247,13 @@
     "eyebrow": " Noble কুরআন",
     "short": "খতম",
     "title": "খতম পরিকল্পনা",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "অবিচলিত গতিতে কুরআন খতম করুন",
     "startTitle": "a plan শুরু",
     "startHint": "how many days to complete the কুরআন. We'll set a daily ayah target. বেছে নিন",
     "startHintPages": "how many days to complete the কুরআন. We'll set a daily mushaf page target. বেছে নিন",
     "unitAyah": "Oleh ayah",
     "unitPage": "Oleh page",
-    "continueReading": "reading চালিয়ে যান",
+    "continueReading": "পড়া চালিয়ে যান",
     "dayPlan": "{{count}} দিন",
     "preset": {
       "intensive": "ন intensive",
@@ -2328,12 +2328,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
+        "text": "স্থির দৈনিক পাঠের উপর নির্মিত একটি খতম স্প্রিন্টের চেয়ে দীর্ঘস্থায়ী হয় যা জ্বলে যায়।",
         "source": "Principle এর ধারাবাহিকতা"
       },
       "portion": {
         "text": "আপনি do not have তে finish আজ — only honour today's portion সহ sincerity.",
-        "source": "Steady progress"
+        "source": "অবিচলিত অগ্রগতি"
       },
       "return": {
         "text": "If আপনি fall behind, do not abandon  পরিকল্পনা. Resume সহ today's ayahs এবং move forward.",
@@ -2605,7 +2605,7 @@
     "meaningLabel": "Apa it teaches",
     "progressTitle": "আমার learning progress",
     "progressSubtitle": "lessons — not spiritual rank with আল্লাহ ট্র্যাক",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "এই ড্যাশবোর্ড মুনিবে আপনার অধ্যয়ন এবং অনুশীলন ট্র্যাক করে। পাঠ সমাপ্ত করা আল্লাহর সাথে আপনার অবস্থান পরিমাপ করে না - আন্তরিকতা করে।",
     "lessonsTitle": "Pelajaran সম্পন্ন",
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2663,7 +2663,7 @@
     "quickLessons": "Pelajaran cards",
     "quickLessonsHint": "Leadership এবং spiritual takeaways থেকে each battle",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "বিষয়গুলি পড়ুন এবং অগ্রগতি অধ্যয়ন করুন",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -2702,7 +2702,7 @@
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
     "lessonsIntro": "These হয় moral এবং leadership lessons — not military tactics manuals.",
     "progressTitle": "আমার learning",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "ট্র্যাক অধ্যয়ন - আল্লাহর কাছে আধ্যাত্মিক পদমর্যাদা নয়",
     "progressIntro": "এই dashboard tracks topics আপনি have read এ Munib. Knowledge হয়  means; sincerity সহ আল্লাহ হয়  goal.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Explore timeline, verses, glossary, এবং lesson cards",
@@ -2813,7 +2813,7 @@
     "quizTitle": "পর্যালোচনা কুইজ",
     "quizSubtitle": "Test আপনার understanding — not আপনার standing সহ আল্লাহ",
     "quizHint": "Timeline, definitions, এবং reflection",
-    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
+    "quizIntro": "ফাঁক খুঁজে পেতে এই কুইজটি ব্যবহার করুন, তারপর সেই বিষয়গুলি অধ্যয়ন করুন। এটি একটি আধ্যাত্মিক স্কোর নয়.",
     "quizProgress": "প্রশ্ন {{current}} এর {{total}}",
     "quizComplete": "সম্পূর্ণ ক্যুইজ",
     "quizScore": "{{score}} of {{total}} স্কোর করা প্রশ্ন সঠিক",
@@ -2851,7 +2851,7 @@
       "learningHint": "Topics completed এ এই module"
     },
     "progressTitle": "Learning অগ্রগতি",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "ট্র্যাক অধ্যয়ন - আল্লাহর কাছে আধ্যাত্মিক পদমর্যাদা নয়",
     "progressIntro": "topics complete as you read. Knowledge is a means; sincerity with আল্লাহ is the goal. চিহ্নিত করুন",
     "lessonsTitle": "Topik সম্পন্ন",
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
@@ -2889,9 +2889,9 @@
     "quickGhusl": "গhusl guide",
     "quickGhuslHint": "Penuh bath when major impurity occurs",
     "quickChecklist": "দৈনিক checklist",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "অভ্যাস যা আপনাকে নামাজের জন্য প্রস্তুত রাখে",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "বিষয়গুলি পড়ুন এবং অগ্রগতি অধ্যয়ন করুন",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -2960,7 +2960,7 @@
     "quickLessons": "Pelajaran",
     "quickLessonsHint": "Moral এবং spiritual takeaways",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "বিষয়গুলি পড়ুন এবং অগ্রগতি অধ্যয়ন করুন",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -2984,7 +2984,7 @@
     "profileTitle": "প্রোফাইল",
     "progressTitle": "আমার learning progress",
     "progressSubtitle": "lessons — not spiritual rank with আল্লাহ ট্র্যাক",
-    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
+    "progressIntro": "আপনি নবীদের জীবন অধ্যয়ন করার সাথে সাথে বিষয়গুলিকে সম্পূর্ণরূপে চিহ্নিত করুন।",
     "lessonsTitle": "Topik সম্পন্ন",
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3030,7 +3030,7 @@
     "quickGlossary": "Glosari",
     "quickGlossaryHint": "Key creed শর্ত defined",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "বিষয়গুলি পড়ুন এবং অগ্রগতি অধ্যয়ন করুন",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -3091,7 +3091,7 @@
     "quickOccasions": "Oleh occasion",
     "quickOccasionsHint": "Browse duas জন্য every moment",
     "quickProgress": "আমার learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "বিষয়গুলি পড়ুন এবং অগ্রগতি অধ্যয়ন করুন",
     "progressCardTitle": "Learning অগ্রগতি",
     "progressCardHint": "{{completed}} এর {{total}} topics marked সম্পন্ন",
     "exploreTitle": "Terokai",
@@ -3193,7 +3193,7 @@
     "reflectionTitle": "চিন্তা",
     "openInQuran": "in কুরআন reader খুলুন",
     "progressTitle": "আমার learning",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "ট্র্যাক অধ্যয়ন - আল্লাহর কাছে আধ্যাত্মিক পদমর্যাদা নয়",
     "progressIntro": "এই dashboard tracks lessons আপনি have studied এ Munib. আল্লাহ knows what হয় এ আপনার heart.",
     "lessonsTitle": "Pelajaran",
     "lessonsHint": "topics complete as you finish studying them চিহ্নিত করুন",
@@ -3208,7 +3208,7 @@
     "practiceTitle": "অভ্যাস",
     "lettersTitle": "আrabic অক্ষর",
     "lettersSubtitle": "28 অক্ষর সহ নাম, sounds, এবং examples",
-    "lettersIntro": "Study one letter per day — see, hear, say, write.",
+    "lettersIntro": "প্রতিদিন একটি চিঠি অধ্যয়ন করুন - দেখুন, শুনুন, বলুন, লিখুন।",
     "pronunciationTitle": "উচ্চারণ",
     "pronunciationSubtitle": "কঠিন অক্ষর জোড়া mastered",
     "pronunciationIntro": "Compare similar sounds side by side — record yourself এবং listen ফিরে.",
@@ -3234,7 +3234,7 @@
     "challengeDone": "Challenge completed — may আল্লাহ accept",
     "quizTitle": "কুরআন কুইজ",
     "quizSubtitle": "Test আপনার understanding — not আপনার standing সহ আল্লাহ",
-    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
+    "quizIntro": "একটি ফাঁক খুঁজে বের করতে প্রতিটি প্রশ্ন ব্যবহার করুন, তারপর সেই বিষয় অধ্যয়ন করুন। এটি পর্যালোচনা, আধ্যাত্মিক স্কোর নয়।",
     "quizProgress": "প্রশ্ন {{current}} এর {{total}}",
     "quizComplete": "সম্পূর্ণ ক্যুইজ",
     "quizScore": "{{score}} of {{total}} স্কোর করা প্রশ্ন সঠিক",
@@ -3395,7 +3395,7 @@
       "purpose": {
         "title": "Why যাকাত — purpose & wisdom",
         "summary": "It purifies wealth এবং  soul, এবং lifts  poor",
-        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
+        "body": "যাকাত সম্পর্কে আল্লাহ বলেন: \"তাদের ধন-সম্পদ থেকে সদকা গ্রহণ কর, যা দ্বারা তুমি তাদের পবিত্র করবে এবং তাদের বৃদ্ধি করবে\" (কুরআন 9:103)। বাধ্যবাধকতা একবারে দুটি স্তরে কাজ করে - এটি দাতার আত্মাকে কৃপণতা এবং জগতের ভালবাসা থেকে শুদ্ধ করে এবং এটি সম্পদকে নিজেই শুদ্ধ করে যাতে আপনার হাতে যা থাকে তা স্বাস্থ্যকর এবং বরকতময় হয়।\n\nসামাজিকভাবে, যাকাত হল একটি স্বর্গীয় নির্দেশিত প্রচলন ব্যবস্থা। রাসুলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম যখন মুআযকে ইয়েমেনে পাঠান তখন তিনি নির্দেশ দিয়েছিলেন যে যাকাত তাদের ধনীদের কাছ থেকে নেওয়া হবে এবং তাদের দরিদ্রদের দেওয়া হবে। ধন-সম্পদের অর্থ গুটিকয়েক লোকের মধ্যে জমা করা নয়; যাকাত এটিকে আবার গতিতে টেনে আনে যাতে অভাবগ্রস্তদের খাওয়ানো হয়, ঋণগ্রস্তদের মুক্তি দেওয়া হয় এবং সম্প্রদায়ের বন্ধন মজবুত হয়।\n\nআধ্যাত্মিকভাবে, যাকাত প্রদান কৃতজ্ঞতা এবং বিশ্বাসের একটি কাজ। এটি নিশ্চিতভাবে সঞ্চয় করার মানুষের আকাঙ্ক্ষার উত্তর দেয় যে বিধান আল্লাহর কাছ থেকে আসে, এবং এটি বিশ্বাসীকে দানকে ভালবাসতে প্রশিক্ষণ দেয়। যে ব্যক্তি স্বেচ্ছায় জাকাত প্রদান করে সে তাদের সম্পদকে সুরক্ষিত, তাদের হৃদয়কে হালকা এবং তাদের প্রতিদান তাদের পালনকর্তার কাছে সঞ্চিত দেখতে পায় - \"তাদের জন্য কোন ভয় থাকবে না এবং তারা দুঃখিত হবে না\" (কোরআন 2:277)।"
       },
       "hawl": {
         "title": " চান্দ্র year (hawl)",
@@ -3420,12 +3420,12 @@
       "debts": {
         "title": "Utang & ছাড়",
         "summary": "Immediate debts may be deducted আগে calculating 2.5%",
-        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
+        "body": "যাকাত আপনার নিট যাকাতযোগ্য সম্পদের উপর গণনা করা হয়, তাই আপনার পাওনা প্রকৃত ঋণ আপনি যে পরিমাণ অর্থ প্রদান করেন তা হ্রাস করতে পারে। সবচেয়ে স্পষ্ট ঘটনা হল এখন বকেয়া ঋণ — একটি অনাদায়ী ব্যক্তিগত ঋণ, একটি বকেয়া ক্রেডিট-কার্ড ব্যালেন্স, ভাড়া বা বিল ইতিমধ্যেই বকেয়া৷ আপনি 2.5% প্রয়োগ করার আগে বেশিরভাগ আলেমরা এগুলিকে আপনার মোট সম্পদ থেকে বিয়োগ করার অনুমতি দেন।\n\nদীর্ঘমেয়াদী ঋণ যেমন একটি বন্ধকী বা বহু-বছরের কিস্তি পরিকল্পনা আরও যত্ন সহকারে পরিচালনা করা হয়, কারণ পুরো ব্যালেন্স কেটে নিলে হোম লোন সহ প্রায় সকলের যাকাত নষ্ট হয়ে যাবে। একটি সাধারণ সমসাময়িক পদ্ধতি হল আগামী বছরের মধ্যে শুধুমাত্র বকেয়া অর্থ বাদ দেওয়া, পুরো বকেয়া রাশি নয়। স্কুল এবং আলেমরা এখানে ভিন্ন, তাই নির্দেশনার অধীনে একটি সামঞ্জস্যপূর্ণ পদ্ধতি বেছে নিন।\n\nদুটি সতর্কতা। প্রথমত, ভবিষ্যত বা কাল্পনিক ব্যয়কে কর্তনযোগ্য ঋণ হিসাবে গণ্য করবেন না - শুধুমাত্র আপনার কাছে যা পাওনা তা গণনা করা হবে। দ্বিতীয়ত, গত বছরের অপরিশোধিত যাকাত বিয়োগ করবেন না যেন এটি একটি সাধারণ ঋণ; অপরিশোধিত যাকাত একটি প্রাপ্য বাধ্যবাধকতা থেকে যায় এবং সহজভাবে প্রদান করা উচিত। যখন আপনার ঋণ পরিস্থিতি জটিল হয়, তখন একজন আলেমের রায় মোটামুটি অনুমানের চেয়ে বেশি মূল্যবান।"
       },
       "recipients": {
         "title": "Who may receive যাকাত",
         "summary": "Eight categories named এ কুরআন 9:60",
-        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
+        "body": "জাকাত শুধুমাত্র সূরা আত-তাওবাহ (9:60) এ স্বয়ং আল্লাহ স্বয়ং নামধারী ব্যক্তিদেরই দেওয়া যেতে পারে। এটি এমন কয়েকটি উপাসনার মধ্যে একটি যেখানে প্রাপককে ওহী দ্বারা স্থির করা হয়, দাতার পছন্দের উপর ছেড়ে দেওয়া হয় না। আটটি শ্রেণী হল: দরিদ্র (আল-ফুকারা); অভাবী (আল-মাসাকিন); যারা যাকাত আদায় ও পরিচালনার জন্য নিযুক্ত; যাদের অন্তর মিলিত হতে চায় (আল-মুআল্লাফাহ); বন্দী এবং দাসীদের মুক্ত করা (ফির-রিকাব); ঋণের বোঝা (আল-গারিমিন); আল্লাহর পথে (ফী সাবিল আল্লাহ); এবং আটকা পড়া পথিক (ইবনে আস-সাবিল)।\n\nআটজনকে দেওয়ার প্রয়োজন নেই; এমনকি একটি যোগ্য শ্রেণীকেও আপনার যাকাত প্রদান করা বাধ্যবাধকতা পূরণ করে, এবং এটি গরীব ও অভাবীদের দিকে পরিচালিত করা সবচেয়ে সাধারণ অভ্যাস।\n\nসমানভাবে গুরুত্বপূর্ণ কে এটি গ্রহণ করতে পারে না। যাকাত ধনী ব্যক্তিদের দেওয়া যাবে না, না যাদের আপনি ইতিমধ্যে সমর্থন করতে বাধ্য — আপনার পিতা-মাতা, আপনার সন্তান, বা আপনার পত্নী — যেহেতু তাদের সমর্থন করা একটি দায়িত্ব যেভাবেই হোক আপনার পাওনা। শাস্ত্রীয় দৃষ্টিতে এটি একটি যোগ্য ব্যক্তির কাছে মালিকানার ব্যক্তিগত হস্তান্তর, সাধারণ দান নয়; মসজিদ বা বিস্তৃত পাবলিক প্রজেক্টের মতো প্রতিষ্ঠানগুলো আল্লাহর উদ্দেশ্যে যোগ্য কিনা তা নিয়ে আলেমদের মধ্যে মতভেদ রয়েছে। এটি রাসুলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম এর পরিবার তথা বনু হাশিমকেও যাকাত হিসেবে দেওয়া যাবে না। এটা ইচ্ছাকৃতভাবে তাদের লক্ষ্য করুন যারা কুরআনের বিভাগগুলির সাথে মেলে।"
       },
       "otherRates": {
         "title": "Other types এর যাকাত & যাকাত al-fitr",
@@ -3435,7 +3435,7 @@
       "mistakes": {
         "title": "Common mistakes তে avoid",
         "summary": "Errors সেই make যাকাত invalid অথবা miscalculated",
-        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
+        "body": "এমনকি আন্তরিক মুসলমানরাও প্রায়শই যাকাতের ব্যবহারিক বিবরণে পিছলে পড়েন। সাধারণ ত্রুটিগুলি জানা আপনাকে সঠিকভাবে এবং মানসিক শান্তির সাথে অর্থ প্রদান করতে সহায়তা করে৷\n\nহাল বা বার্ষিকী ভুলে যাওয়া: এলোমেলো সময়ে অর্থ প্রদান, বা বছর এড়িয়ে যাওয়া, একটি অসামান্য বাধ্যবাধকতা ছেড়ে যায়। প্রতি বছর একটি হিজরি তারিখ নির্ধারণ করুন এবং আপনার সম্পদের মূল্যায়ন করুন।\n\nসম্পদের ভুল হিসাব করা: আজকের বাজার মূল্যের পরিবর্তে সোনা বা শেয়ারকে তাদের ক্রয় মূল্যে মূল্যায়ন করা, একাধিক অ্যাকাউন্ট বা মুদ্রায় থাকা নগদ ভুলে যাওয়া, অথবা ব্যবসার তালিকা এবং আপনার কাছে বকেয়া অর্থ উপেক্ষা করা। আপনার তারিখে আপনার মালিকানাধীন যাকাতযোগ্য সবকিছুর উপর যাকাত।\n\nভুল লোকেদের দান করা: পিতামাতা, সন্তান বা স্ত্রীকে জাকাত হস্তান্তর করা যাকে আপনি ইতিমধ্যেই সমর্থন করছেন, বা এটিকে কোনো ভাল কাজের জন্য সাধারণ দান হিসাবে বিবেচনা করা। এটি অবশ্যই আটটি কোরান বিভাগের একটিতে পৌঁছাতে হবে।\n\nউদ্দেশ্যের ত্রুটি: সারা বছর উদারভাবে দান করা কিন্তু কখনোই এর কোনোটি যাকাত হিসাবে নিয়ত করা নয়। যাকাত হল একটি উপাসনা এবং এর নিয়ত (নিয়াহ) প্রয়োজন যে এই বিশেষ অর্থ প্রদান আপনার বাধ্যতামূলক যাকাত।\n\nঅত্যধিক কর্তন করা ঋণ: বিল সংকুচিত করার জন্য সম্পূর্ণ দীর্ঘমেয়াদী বন্ধকী, বা ভবিষ্যতের খরচ যা এখনও পাওনা নেই। শুধুমাত্র বাস্তব, বর্তমান দায় আপনার যাকাতযোগ্য সম্পদ কমিয়ে দেয়। যখন এইগুলির মধ্যে কোনটি আপনার পরিস্থিতির জন্য অস্পষ্ট হয়, অনুমান না করে একজন যোগ্যতাসম্পন্ন আলেমকে জিজ্ঞাসা করুন।"
       }
     },
     "recipientsListTitle": " eight categories",
@@ -3510,7 +3510,7 @@
     "group": {
       "liquid": "নগদ ও মূল্যবান ধাতু",
       "investments": "Investasi & bisnis",
-      "property": "Land, property & vehicles"
+      "property": "জমি, সম্পত্তি এবং যানবাহন"
     },
     "weightSectionTitle": "Calculate gold & silver oleh weight",
     "nisabOverrideTitle": "Override nisab manual",
@@ -3532,33 +3532,33 @@
         "title": "অথবা calculate gold by weight",
         "grams": "Gram",
         "pricePerGram": "Harga/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "ওজনে সোনা",
+        "amount": "ওজন",
+        "pricePerGram24k": "মূল্য/গ্রাম (24 হাজার)"
       },
       "silver": {
         "title": "অথবা calculate silver by weight",
         "grams": "Gram",
         "pricePerGram": "Harga/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "ওজনে রূপা",
+        "amount": "ওজন",
+        "pricePerGramFine": "মূল্য/গ্রাম (জরিমানা)"
       },
       "computed": "Adds {{value}} তে মোট",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "লাইভ স্পট মূল্য প্রতি গ্রাম 24k স্বর্ণ এবং সূক্ষ্ম রূপা। আপনার ইউনিট (g, tola, troy oz, kg) এবং ক্যারাট/বিশুদ্ধতা চয়ন করুন — মান বিশুদ্ধ ধাতু × স্পট এ রূপান্তরিত হয়।",
+      "unit": "ওজন ইউনিট",
+      "karat": "সোনার ক্যারাট",
+      "purity": "রূপালী বিশুদ্ধতা",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
-        "g": "Gram",
-        "tola": "Tola",
-        "oz": "Troy oz",
-        "kg": "Kilogram"
+        "g": "ছোলা",
+        "tola": "তোলা",
+        "oz": "ট্রয় ওজ",
+        "kg": "কিলোগ্রাম"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} গ্রাম খাঁটি ধাতু",
+      "cardHint": "তোলা, গ্রাম, ক্যারাট / বিশুদ্ধতা × লাইভ ২৪k বা বিশুদ্ধ ধাতুর স্পট মূল্য।"
     },
     "field": {
       "cash": "নগদ ও সঞ্চয়",
@@ -3573,12 +3573,12 @@
       "nisab": "Nilai nisab (override)",
       "nisabGoldPrice": "Emas price per গ্রাম",
       "nisabSilverPrice": "Perak price per গ্রাম",
-      "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "crypto": "ক্রিপ্টোকারেন্সি",
+      "livingExpenses": "তাৎক্ষণিক জীবনযাত্রার খরচ",
+      "investmentPlots": "বিনিয়োগ প্লট (বাজার মূল্য)",
+      "installmentPlotsPaid": "কিস্তি প্লট — প্রদত্ত পরিমাণ",
+      "investmentProperty": "বিনিয়োগ ঘর/ভবন",
+      "tradeVehicles": "বিক্রয়/বাণিজ্যের জন্য যানবাহন"
     },
     "fieldHint": {
       "cash": "Bank accounts, cash এ hand, এবং liquid savings.",
@@ -3587,162 +3587,162 @@
       "stocks": "Current market value এর shares, funds, এবং similar investments.",
       "business": "Value এর merchandise, inventory, এবং goods held জন্য sale.",
       "receivables": "Loans এবং invoices আপনি reasonably expect তে collect.",
-      "rentalIncome": "Rental or business profits you still hold — not already spent.",
+      "rentalIncome": "ভাড়া বা ব্যবসায়িক লাভ যা আপনি এখনও ধরে রেখেছেন — ইতিমধ্যে ব্যয় করা হয়নি।",
       "otherAssets": "Cryptocurrency, accessible retirement funds, অথবা other zakatable wealth per আপনার আলেম.",
       "debts": "Personal loans, credit cards, এবং bills due now — not long-term mortgage totals unless আপনার আলেম allows.",
       "nisab": "Leave blank তে use  computed threshold, অথবা enter  কাস্টম nisab.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "ক্রিপ্টোর বাজার মূল্য একটি সম্পদ হিসাবে ধারণ করা হয়েছে — রায়গুলি পৃথক; একজন আলেমকে জিজ্ঞাসা করুন।",
+      "livingExpenses": "ভাড়া, খাবার এবং বিল অবিলম্বে বকেয়া — শুধুমাত্র যদি আপনার আলেম এই কর্তনের অনুমতি দেন।",
+      "investmentPlots": "বিনিয়োগ বা বিক্রয়ের জন্য রাখা জমি বা প্লট (বর্তমান বাজার মূল্য)। জীবনযাপনের জন্য ব্যবহৃত ব্যক্তিগত কৃষিজমি আলাদা - একজন আলেমকে জিজ্ঞাসা করুন।",
+      "installmentPlotsPaid": "আপনি ইতিমধ্যে কিস্তি বিনিয়োগ প্লটে কত টাকা দিয়েছেন (আপনার আলেম এটি অন্তর্ভুক্ত না হলে সম্পূর্ণ অবৈতনিক চুক্তি নয়)।",
+      "investmentProperty": "বিনিয়োগ বা বাণিজ্যের জন্য রাখা বাড়ি বা বিল্ডিং - আপনার ব্যক্তিগত বাসস্থান নয়।",
+      "tradeVehicles": "গাড়ি বা যানবাহন বিক্রয়ের জন্য বা ট্রেড স্টক হিসাবে রাখা - ব্যক্তিগত ব্যবহারের যানবাহন নয়।"
     },
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "জাকাতের মুদ্রা পরিবর্তন করুন",
+      "pickerTitle": "মুদ্রা নির্বাচন করুন",
+      "pickerHint": "{{count}} মুদ্রা — কোড বা নাম দ্বারা অনুসন্ধান করুন",
+      "searchPlaceholder": "মুদ্রা অনুসন্ধান করুন…",
+      "noResults": "কোনো মুদ্রা আপনার অনুসন্ধানের সাথে মেলে না।",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "লাইভ সোনা এবং রূপা",
+      "goldPerGram": "সোনা/গ্রাম",
+      "silverPerGram": "সিলভার/গ্রাম",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "লাইভ দাম আনা হচ্ছে...",
+      "error": "লাইভ মূল্য লোড করা যায়নি. স্বর্ণ ও রূপার দাম ম্যানুয়ালি লিখুন।",
+      "prefilled": "নিসাব এবং ধাতুর দাম লাইভ রেট থেকে প্রিফিল করা হয়।",
+      "useLive": "আবার লাইভ দাম ব্যবহার করুন",
+      "useLiveA11y": "লাইভ সোনা এবং রূপার দামে রিসেট করুন",
+      "refreshA11y": "লাইভ বাজার মূল্য রিফ্রেশ করুন",
+      "livePrice": "লাইভ"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
-      "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "meetsNisab": "নেট {{wealth}} · নিসাব {{nisab}}",
+      "belowNisab": "নেট {{wealth}} · নিসাব {{nisab}} নীচে",
+      "hasOtherDue": "নেট {{wealth}} · ফসল / পশুসম্পদ বকেয়া"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
-      "nisab": "Nisab",
-      "due": "Due"
+      "gold": "সোনা/গ্রাম",
+      "silver": "সিলভার/জি",
+      "nisab": "নিসাব",
+      "due": "ডিউ"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "সম্পদের যাকাত (2.5%): {{value}}",
+      "agriculture": "ফসল (ushr): {{value}}",
+      "livestock": "পশুসম্পদ (নগদ অনুমান): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "নগদ, ক্রিপ্টো এবং ধাতুর মূল্য যা আপনি ইতিমধ্যে জানেন। অথবা ধাতুর কার্ডে ওজন ব্যবহার করুন।",
+      "investments": "আজকের মূল্যে স্টক, বাণিজ্য পণ্য, প্রাপ্য এবং সংরক্ষিত ব্যবসায়িক আয়।"
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "শস্য / গবাদি পশু (নিসাবের নিচে সম্পদ)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "গবাদি পশু (চরণের পাল)",
+      "hint": "ভেড়া/ছাগল, গবাদি পশু ও উট মুক্তভাবে চরানোর জন্য সুন্নত দাঁড়িপাল্লা (বুখারী/আবু দাউদ)। একটি ব্যবসা হিসাবে রাখা পশুদের খাওয়ানো প্রায়শই পরিবর্তে ব্যবসা-মালের নিয়ম অনুসরণ করে — একজন আলেমকে জিজ্ঞাসা করুন।",
+      "sheep": "ভেড়া/ছাগল (মাথা)",
+      "sheepHint": "নিসাব শুরু হয় ৪০ মাথায়।",
+      "cattle": "গরু/মহিষ (মাথা)",
+      "cattleHint": "নিসাব শুরু হয় 30 মাথা (তাবি'/মুসিন্নাহ স্কেল) থেকে।",
+      "camels": "উট (মাথা)",
+      "camelsHint": "নিসাব শুরু হয় ৫ মাথায়।",
+      "valueTitle": "ঐচ্ছিক নগদ মান (মাথা প্রতি)",
+      "valueHint": "গবাদি পশুর উপর যাকাত সাধারণত পশুতে প্রদান করা হয়। যদি আপনি পরিকল্পনার জন্য নগদ-সমতুল্য অনুমান চান তবেই বাজার মূল্য লিখুন।",
+      "sheepValue": "ভেড়া/ছাগল প্রতি মূল্য",
+      "cattleValue": "গবাদি পশুর মাথা প্রতি মূল্য",
+      "camelValue": "উট প্রতি মূল্য",
+      "dueTitle": "প্রাপ্য প্রাপ্য (সুন্নাহ অনুমান)",
+      "cashEstimate": "নগদ অনুমান: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} ভেড়া/ছাগল",
+        "cattleTabi": "{{count}} tabi' (1 বছরের গবাদি পশু)",
+        "cattleMusinnah": "{{count}} মুসিন্নাহ (2 বছরের গবাদি পশু)",
+        "bintMakhad": "{{count}} বিনতে মাখাদ (1 বছরের উট)",
+        "bintLabun": "{{count}} বিনতে লাবুন (2 বছরের উট)",
+        "hiqqah": "{{count}} হিক্কাহ (3 বছরের উট)",
+        "jadhah": "{{count}} জধহ (4 বছরের উট)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "সুন্নাহ অনুযায়ী গবাদিপশুর হিসাব — ২.৫% নয়। শুধু আনুমানিক হিসাবের জন্য ঐচ্ছিক নগদ মূল্য।"
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "কৃষি ও ফসল (ushr)",
+      "hint": "ফসল কাটার সময় - চান্দ্র বছরের পরে নয়। বৃষ্টি/ঝরনা দ্বারা জলাবদ্ধ জমির জন্য 10% এবং সেচের জন্য প্রচেষ্টা বা অর্থ খরচ হলে 5% (কোরআন 6:141; সুন্নাহ)।",
+      "harvest": "ফসল বাজার মূল্য",
+      "harvestHint": "ফসল কাটার সময় এই মৌসুমের ফসল বা ফলের মূল্য।",
+      "irrigation": "পানির উৎস",
+      "natural": "বৃষ্টি / ঝর্ণা (10%)",
+      "irrigated": "সেচ দেওয়া (5%)",
+      "naturalHint": "উশর 10% যখন ব্যয়বহুল সেচ ছাড়াই প্রাকৃতিকভাবে জল দেওয়া হয়।",
+      "irrigatedHint": "অর্ধ-উশর 5% যখন কূপ, পাম্প, বা পরিশোধিত সেচ দ্বারা জল দেওয়া হয়।",
+      "due": "উশর বকেয়া: {{value}}",
+      "cardHint": "ফসল কাটার সময় — 10% বৃষ্টি/স্প্রিংস, 5% সেচ।"
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "সংখ্যা বিন্যাস",
+      "hint": "হাজার এবং দশমিক কিভাবে পরিমাণে দেখানো হয়।",
+      "changeA11y": "নম্বর বিন্যাস পরিবর্তন করুন",
+      "pickerTitle": "সংখ্যা বিন্যাস",
+      "pickerHint": "টাইপ করার সময় কীভাবে রাশিগুলিকে গোষ্ঠীবদ্ধ করা হয় এবং কীভাবে দশমিকগুলি উপস্থিত হয় এবং মোটের মধ্যে তা চয়ন করুন৷"
     },
-    "learnMore": "Learn more",
+    "learnMore": "আরও জানুন",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "কোরান ও সুন্নাহ থেকে শিক্ষাগত সারাংশ - ব্যক্তিগত ফতোয়া নয়।",
+      "footnote": "বিশদ বিবরণের (গহনা, বন্ধকী, খাওয়ানো পশুসম্পদ, ক্রিপ্টো) বিষয়ে স্কুলগুলি আলাদা। আপনার মামলার জন্য একজন যোগ্য আলেমকে জিজ্ঞাসা করুন।",
+      "openGuide": "সম্পূর্ণ গাইড খুলুন",
+      "a11y": "{{section}} সম্পর্কে আরও জানুন",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "মুদ্রা ও হার",
+        "body": "যাকাত গণনা করা হয় আপনার সম্পদের বাজার মূল্যের উপর এমন একটি মুদ্রায় যা আপনি বোঝেন। স্পট গোল্ড এবং সিলভারের দাম নিসাব এবং ধাতু মূল্য অনুমান করতে সাহায্য করে — এগুলি নির্দেশক, আপনার আলেম দ্বারা ব্যবহৃত স্থানীয় বাজার হারের বিকল্প নয়।"
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "নগদ ও মূল্যবান ধাতু",
+        "body": "নগদ অর্থ, ব্যাঙ্ক ব্যালেন্স, এবং সম্পদ হিসাবে রাখা সোনা বা রৌপ্য হল সবচেয়ে পরিষ্কার যাকাতযোগ্য সম্পদ। রাসুলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম স্বর্ণ ও রৌপ্যের উপর যা আছে তা বন্ধ রাখার ব্যাপারে কঠোরভাবে সতর্ক করেছেন। স্বাভাবিক ব্যবহারের জন্য পরা গহনা হল স্কুলের মধ্যে পার্থক্যের একটি পরিচিত বিন্দু — আপনার মাযহাব অনুসরণ করুন। আপনি এখানে একটি নগদ মান লিখতে পারেন, বা পরবর্তী বিভাগে ওজন দ্বারা ধাতু গণনা করতে পারেন।"
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "ওজনে সোনা ও রূপা",
+        "body": "সুন্নাতে ওজন অনুসারে নিসাব নির্ধারণ করা হয়েছিল: প্রায় 20 দিনার সোনা বা 200 দিরহাম রৌপ্য (সাধারণত ~ 87.5 গ্রাম সোনা বা ~ 612 গ্রাম রূপা হিসাবে উল্লেখ করা হয়)। কারাত এবং বিশুদ্ধতা বিষয় কারণ যাকাত বিশুদ্ধ ধাতু বিষয়বস্তুর উপর। লাইভ মূল্য প্রতি গ্রাম 24k / সূক্ষ্ম ধাতুর জন্য - আপনার ইউনিট (গ্রাম, তোলা, ট্রয় ওজ) এবং ক্যারাট চয়ন করুন যাতে ক্যালকুলেটর সঠিকভাবে রূপান্তরিত হয়।"
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "বিনিয়োগ এবং ব্যবসা",
+        "body": "বাণিজ্য পণ্য, পণ্যদ্রব্য, এবং সম্পদ বৃদ্ধির জন্য যা সাধারণত আজকের বাজার মূল্যে যাকাতযোগ্য। শেয়ার এবং তহবিল সাধারণত বাণিজ্য সম্পদের মত মূল্যবান। আপনি সংগ্রহ করতে চান শক্তিশালী প্রাপ্তি প্রায়ই অন্তর্ভুক্ত করা হয়. কোরান 2:267 আপনি যা উপার্জন করেছেন তার ভাল থেকে ব্যয় করার আহ্বান জানিয়েছে - আপনার যাকাতের তারিখে সততার সাথে মূল্য দিন।"
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "জমি, সম্পত্তি এবং যানবাহন",
+        "body": "আপনার ব্যক্তিগত বাড়ি, ব্যক্তিগত গাড়ি এবং সাধারণ গৃহস্থালীর জিনিসপত্র সাধারণত যাকাতযোগ্য নয় — যাকাত লক্ষ্যমাত্রা সম্পদ বৃদ্ধির লক্ষ্য, ব্যবহারযোগ্য জিনিস নয়। বিনিয়োগ, বিক্রয় বা বাণিজ্যের জন্য রাখা প্লট, বাড়ি বা যানবাহন বাজার মূল্যে অন্তর্ভুক্ত করা যেতে পারে (অথবা কিস্তি বিনিয়োগ প্লটে ইতিমধ্যেই দেওয়া পরিমাণ)। অনিশ্চিত হলে একজন আলেমকে জিজ্ঞাসা করুন।"
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "গবাদি পশু (চরণের পাল)",
+        "body": "বিনামূল্যে চরানো ভেড়া, ছাগল, গবাদি পশু এবং উটের নিজস্ব সুন্নত স্কেল এবং পশু নিসাব রয়েছে (যেমন 40টি ভেড়া, 30টি গবাদি পশু, 5টি উট) - 2.5% টাকার হার নয়। বকেয়া সাধারণত নির্দিষ্ট বয়সের পশুদের ক্ষেত্রে প্রদান করা হয়। একটি ব্যবসা হিসাবে রাখা পশুদের খাওয়ানো প্রায়ই পরিবর্তে বাণিজ্য পণ্য নিয়ম অনুসরণ করে. এখানে ঐচ্ছিক নগদ মান শুধুমাত্র একটি পরিকল্পনা অনুমান।"
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "কৃষি ও ফসল (ushr)",
+        "body": "ফসল কাটার সময় যাকাত দিতে হয়, চান্দ্র বছরের পরে নয়। সুপরিচিত হার হল 10% (ushr) যখন বৃষ্টি বা ঝরনা দ্বারা জমিতে জল দেওয়া হয়, এবং 5% যখন সেচের জন্য প্রচেষ্টা বা অর্থ খরচ হয়। এই মৌসুমের ফসলের বাজার মূল্য লিখুন এবং আপনার পরিস্থিতির সাথে মেলে এমন জলের উৎস বেছে নিন।",
+        "localRefLabel": "কোরান 6:141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "কর্তন",
+        "body": "যাকাত নিট যাকাতযোগ্য সম্পদের উপর। এখন বকেয়া তাৎক্ষণিক ঋণ সাধারণত 2.5% প্রয়োগ করার আগে কেটে নেওয়া হয়। দীর্ঘমেয়াদী বন্ধকীগুলিকে আরও যত্ন সহকারে বিবেচনা করা হয় — অনেক সমসাময়িক আলেম শুধুমাত্র আসন্ন বছরের অর্থপ্রদানগুলি কেটে নেন, পুরো ব্যালেন্স নয়। আপনার আলেম অনুমতি দিলেই জীবনযাত্রার ব্যয় অবিলম্বে অনুমোদিত।"
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "নিসাব প্রান্তিক",
+        "body": "সম্পদের যাকাত প্রাপ্য হওয়ার আগে নিসাব হল ন্যূনতম উদ্বৃত্ত। নবী সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম এটিকে 20 দিনার সোনা বা 200 দিরহাম রৌপ্য নির্ধারণ করেছেন এবং শিখিয়েছেন যে সম্পদের উপর এক বছর অতিবাহিত না হওয়া পর্যন্ত কোন যাকাত নেই। কারণ আজ সোনা ও রৌপ্যের দাম ভিন্ন হয়ে গেছে, অনেক আলেম নিম্ন (প্রায়ই রৌপ্য) থ্রেশহোল্ড পছন্দ করেন যাতে দরিদ্রদের আরও বেশি সাহায্য করা হয়। এই ক্যালকুলেটর দুটি লাইভ অনুমানের কম প্রস্তাব করে।"
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "অবিলম্বে ঋণ (এবং জীবনযাত্রার খরচ শুধুমাত্র যদি আপনার আলেম অনুমতি দেয়)।",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "ক্যালকুলেটর রিসেট করবেন?",
+      "message": "এটি সমস্ত পরিমাণ, ধাতুর ওজন, পশুসম্পদ এবং ফসল পরিষ্কার করে। আপনার মুদ্রা এবং নম্বর বিন্যাস একই থাকবে।",
+      "confirm": "ফর্ম রিসেট করুন",
+      "a11y": "জাকাত ক্যালকুলেটর ফর্ম রিসেট করুন",
+      "hint": "নিশ্চিতকরণের জন্য জিজ্ঞাসা করে, তারপরে প্রবেশ করা সমস্ত পরিমাণ সাফ করে"
     }
   },
   "customAdhkar": {
@@ -3762,62 +3762,62 @@
       "reference": "Reference (ঐচ্ছিক)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "ছবি (ঐচ্ছিক)",
+      "add": "ছবি যোগ করুন",
+      "remove": "ছবি সরান",
+      "hint": "5টি ছবি পর্যন্ত, প্রতিটি 1 MB। একটি থাম্বনেইল অপসারণ করতে দীর্ঘক্ষণ প্রেস করুন।",
+      "signInRequired": "আপনার adhkar ব্যক্তিগত ছবি সংযুক্ত করতে সাইন ইন করুন.",
+      "permissionDenied": "ছবি সংযুক্ত করার জন্য ফটো লাইব্রেরির অনুমতি প্রয়োজন।",
+      "unsupportedType": "শুধুমাত্র JPEG, PNG, বা WebP ছবি ব্যবহার করুন।",
+      "tooLarge": "প্রতিটি ছবি 1 MB বা ছোট হতে হবে।",
+      "uploadFailed": "ছবি আপলোড করা যায়নি. আবার চেষ্টা করুন",
+      "uploading": "আপলোড হচ্ছে...",
+      "open": "{{index}} ছবি খুলুন",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "জুম করতে পিঞ্চ করুন, প্যান করতে টেনে আনুন, রিসেট করতে ডবল-ট্যাপ করুন",
+      "previous": "আগের ছবি",
+      "next": "পরের ছবি"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "সংযুক্তি (ঐচ্ছিক)",
+      "add": "ফাইল যোগ করুন",
+      "remove": "সংযুক্তি সরান",
+      "hint": "5টি পর্যন্ত ফাইল (JPEG, PNG, WebP, অথবা PDF), প্রতিটি 1 MB। একটি থাম্বনেইল অপসারণ করতে দীর্ঘক্ষণ প্রেস করুন।",
+      "signInRequired": "আপনার adhkar ব্যক্তিগত ফাইল সংযুক্ত করতে সাইন ইন করুন.",
+      "permissionDenied": "ফাইল সংযুক্ত করার জন্য অনুমতি প্রয়োজন.",
+      "permissionTitle": "অ্যাক্সেসের অনুমতি দিন",
+      "permissionBody": "মুনিব ট্র্যাকারের ফাইল সংযুক্ত করার জন্য ক্যামেরা বা ফটো অ্যাক্সেস প্রয়োজন।",
+      "permissionSettingsBody": "অনুমতি প্রত্যাখ্যান করা হয়েছিল। মুনিব ট্র্যাকারের জন্য ক্যামেরা বা ফটো অনুমতি দিতে সেটিংস খুলুন।",
+      "allowAccess": "অ্যাক্সেসের অনুমতি দিন",
+      "unsupportedType": "JPEG, PNG, WebP, অথবা PDF শুধুমাত্র ব্যবহার করুন।",
+      "tooLarge": "প্রতিটি ফাইল 1 MB বা ছোট হতে হবে।",
+      "uploadFailed": "সংযুক্তি আপলোড করা যায়নি. আবার চেষ্টা করুন",
+      "uploading": "আপলোড হচ্ছে...",
+      "readFailed": "সেই ফাইলটি পড়তে পারিনি। আরেকটি চেষ্টা করুন।",
+      "pickFailed": "ফাইল যোগ করা যায়নি. আবার চেষ্টা করুন",
+      "openFailed": "সেই ফাইলটি খুলতে পারেনি।",
+      "open": "{{index}} সংযুক্তি খুলুন",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "জুম করতে পিঞ্চ করুন, প্যান করতে টেনে আনুন, রিসেট করতে ডবল-ট্যাপ করুন",
+      "previous": "পূর্ববর্তী সংযুক্তি",
+      "next": "পরবর্তী সংযুক্তি",
+      "openPdf": "PDF খুলুন",
+      "sourceTitle": "সংযুক্তি যোগ করুন",
+      "sourceCamera": "ছবি তুলুন",
+      "sourceCameraHint": "একটি ছবি ক্যাপচার করতে ক্যামেরা ব্যবহার করুন",
+      "sourceGallery": "ফটো লাইব্রেরি",
+      "sourceGalleryHint": "আপনার ছবি থেকে একটি ছবি চয়ন করুন",
+      "sourceDocument": "ফাইল",
+      "sourceDocumentHint": "আপনার ফাইল থেকে একটি ছবি বা পিডিএফ চয়ন করুন"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "মাইক্রোফোন দিয়ে নির্দেশ করুন",
+      "stopDictate": "ডিকটেশন বন্ধ করুন",
+      "listening": "শোনা হচ্ছে...",
+      "permissionDenied": "লেখার জন্য মাইক্রোফোনের অনুমতি প্রয়োজন। আপনি এখনও টাইপ করতে পারেন.",
+      "unavailable": "এই ডিভাইসে বক্তৃতা শনাক্তকরণ অনুপলব্ধ৷",
+      "couldNotHear": "শুনতে পাচ্ছিলাম না — আবার চেষ্টা করুন বা টাইপ করুন।",
+      "errorGeneric": "ডিক্টেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন বা টাইপ করুন।"
     }
   },
   "tahajjud": {
@@ -3901,20 +3901,20 @@
     "confirmDiscardTitle": "পরিবর্তন বাতিল করবেন?",
     "confirmDiscardMsg": "Anything আপনি wrote will be lost.",
     "confirmOverwriteTitle": "Replace existing refleksi?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "আপনি ইতিমধ্যে এই দিনের জন্য {{prayer}} নোট করেছেন৷ সংরক্ষণ এটি প্রতিস্থাপন করবে।",
     "level1": "মনোযোগহীন",
     "level2": "অস্থির",
     "level3": "যথেষ্ট উপস্থিত",
     "level4": "মনোযোগী",
     "level5": "গভীরভাবে উপস্থিত",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "মাইক্রোফোন দিয়ে নির্দেশ করুন",
+      "stopDictate": "ডিকটেশন বন্ধ করুন",
+      "listening": "শোনা হচ্ছে...",
+      "permissionDenied": "লেখার জন্য মাইক্রোফোনের অনুমতি প্রয়োজন। আপনি এখনও টাইপ করতে পারেন.",
+      "unavailable": "এই ডিভাইসে বক্তৃতা শনাক্তকরণ অনুপলব্ধ৷",
+      "couldNotHear": "শুনতে পাচ্ছিলাম না — আবার চেষ্টা করুন বা টাইপ করুন।",
+      "errorGeneric": "ডিক্টেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন বা টাইপ করুন।"
     }
   },
   "prayerTuning": {
@@ -3955,7 +3955,7 @@
     "umrahTag": "উমরাহ",
     "hajjTag": "হজ",
     "disclaimer": "এটি একটি ব্যবহারিক চেকলিস্ট, ফিকহের বই নয়। বিধান ও বিস্তারিত জানতে যোগ্য গাইড অনুসরণ করুন।",
-    "prepTag": "Prep"
+    "prepTag": "প্রস্তুতি"
   },
   "dailyHadith": {
     "eyebrow": "দৈনিক সিরিজ",
@@ -4000,7 +4000,7 @@
     "versesLead": "ট্যাপ any verse তে খুলুন it এ  কুরআন reader.",
     "journeyTitle": "আমার Journey",
     "journeySummary": "আজকের habits — not your rank with আল্লাহ",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "পূজার ধারাবাহিকতা আপনি ইতিমধ্যে ট্র্যাক",
     "journeyBanner": "These habits হয় among  deeds আল্লাহ loves. আপনার final rank হয় only সহ Him.",
     "journeyToday": "আজকের striving",
     "journeyEmpty": "with one prayer or adhkar — small steps build lifelong habits. শুরু",
@@ -4318,7 +4318,7 @@
     "wearTitle": "ওয়্যার OS",
     "wearHint": "the Munib Tracker tile on your watch after pairing with your phone. যোগ",
     "marked": "নামাজ marked",
-    "alreadyDone": "ইতিমধ্যে চিহ্নিত",
+    "alreadyDone": "ইতিমধ্যেই চিহ্নিত৷",
     "allDone": "সব obligatory নামাজ marked for today",
     "excused": "Tracking হয় paused জন্য আজ",
     "locked": "আনলক  app তে mark নামাজ",
@@ -4374,156 +4374,156 @@
     "footer": "আপনার PIN হয় stored securely এ এই ডিভাইস এবং never leaves it."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "ঘোষণা"
   },
   "sahaba": {
     "eyebrow": "শিখুন",
     "title": "সাহাবা",
-    "subtitle": "নবী ﷺ-এর সাহাবিদের সংক্ষিপ্ত পরিচিতি",
-    "intro": "সাহাবাগণ সেই প্রজন্ম যারা ইসলামকে নবী ﷺ থেকে বিশ্বের বাকি অংশে বহন করেছিলেন। এই সংক্ষিপ্ত পরিচিতিগুলো সীরাহ টাইমলাইনের ধারা অনুসরণ করে — প্রতিটি দাবির জন্য একটি জীবন, একটি শিক্ষা এবং একটি উৎস।",
-    "categoryAll": "সবগুলো",
+    "subtitle": "নবী সাল্লাল্লাহু আলাইহি ওয়াসাল্লামের সাহাবীদের সংক্ষিপ্ত প্রোফাইল",
+    "intro": "সাহাবা হচ্ছেন সেই প্রজন্ম যারা ইসলামকে নবী সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম থেকে বিশ্বের অন্যান্য দেশে নিয়ে গেছে। এই সংক্ষিপ্ত প্রোফাইলগুলি সিরাহ টাইমলাইনের স্বর অনুসরণ করে — একটি জীবন, একটি পাঠ এবং প্রতিটি দাবির একটি উত্স৷",
+    "categoryAll": "সব",
     "category": {
       "caliphs": "খলিফাগণ",
-      "ashara": "আশারা মুবাশ্শারা",
+      "ashara": "আশরা মুবাশারা",
       "family": "পরিবার",
       "women": "নারী",
-      "notable": "বিশিষ্ট"
+      "notable": "উল্লেখযোগ্য"
     },
-    "noResults": "এই বিভাগে এখনও কোনো সাহাবি নেই",
-    "readMore": "পূর্ণ পরিচিতি পড়তে ট্যাপ করুন",
-    "disclaimer": "বর্ণনামূলক তথ্যাদি ক্লাসিক্যাল সীরাহ ও ইতিহাস গ্রন্থ অনুসরণ করে; কোনো বিশেষ বর্ণনার সাথে যুক্ত প্রতিটি দাবিতে হাদিসের সংগ্রহ ও নম্বর উল্লেখ করা হয়েছে। এটি সাধারণ শিক্ষামূলক বিষয়বস্তু, কোনো পাণ্ডিত্যপূর্ণ ক্রম নয়।",
-    "quickLinksTitle": "অন্বেষণ করুন",
+    "noResults": "এই বিভাগে এখনও কোন সঙ্গী নেই",
+    "readMore": "সম্পূর্ণ প্রোফাইল পড়তে আলতো চাপুন",
+    "disclaimer": "বর্ণনামূলক ঘটনাগুলি ধ্রুপদী সিরাহ এবং ইতিহাসের কাজগুলি অনুসরণ করে; একটি নির্দিষ্ট বর্ণনার সাথে আবদ্ধ প্রতিটি দাবি তার হাদিস সংগ্রহ এবং সংখ্যা উল্লেখ করে। এটি একটি সাধারণ শিক্ষামূলক বিষয়বস্তু, একটি আলেম র‌্যাঙ্কিং নয়।",
+    "quickLinksTitle": "অন্বেষণ",
     "quickCaliphsHint": "প্রথম খলিফা আবু বকর থেকে শুরু করুন",
-    "quickAsharaHint": "জান্নাতের সুসংবাদপ্রাপ্ত দশজন",
-    "quickWomenHint": "খাদিজা ও উম্মুল মুমিনীন",
-    "quickBattles": "যুদ্ধে সাহাবিগণ",
-    "quickBattlesHint": "যুদ্ধ গাইড থেকে অভিযানের পরিচিতি",
-    "countCardTitle": "সাহাবি নির্দেশিকা",
-    "countCardHint": "{{count}}টি যাচাইকৃত শিক্ষামূলক পরিচিতি",
+    "quickAsharaHint": "দশজন জান্নাতের প্রতিশ্রুতি দিয়েছে",
+    "quickWomenHint": "খাদিজা ও মুমিনদের মাতা",
+    "quickBattles": "যুদ্ধে সাথীরা",
+    "quickBattlesHint": "ব্যাটলস গাইড থেকে প্রচারাভিযানের প্রোফাইল",
+    "countCardTitle": "সহচর ডিরেক্টরি",
+    "countCardHint": "{{count}} যাচাইকৃত শিক্ষাগত প্রোফাইল",
     "categoryHint": {
-      "caliphs": "চার খলিফায়ে রাশিদীন",
-      "ashara": "জান্নাতের সুসংবাদপ্রাপ্ত দশ সাহাবি",
-      "family": "নবী ﷺ-এর নিকট পরিবার",
-      "women": "প্রথম যুগের বিশিষ্ট নারীগণ",
-      "notable": "অন্যান্য সুপরিচিত সাহাবিগণ"
+      "caliphs": "চার সঠিকভাবে পরিচালিত খলিফা",
+      "ashara": "দশজন সাহাবী জান্নাতের ওয়াদা করেছিলেন",
+      "family": "রাসুলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়া সাল্লামের ঘনিষ্ঠ পরিবার",
+      "women": "আদি সম্প্রদায়ের বিশিষ্ট নারী",
+      "notable": "অন্যান্য ব্যাপকভাবে স্মরণ সঙ্গী"
     },
     "exploreTitle": "শেখা চালিয়ে যান",
-    "exploreBattles": "যুদ্ধের ব্যক্তিত্বসমূহ",
-    "exploreBattlesHint": "সামরিক অভিযানে অংশগ্রহণকারী সাহাবিগণ",
-    "exploreSeerah": "সীরাহ টাইমলাইন",
-    "exploreSeerahHint": "নবী ﷺ-এর জীবনের গুরুত্বপূর্ণ ঘটনাসমূহ",
-    "exploreHistory": "প্রাথমিক ইসলামি ইতিহাস",
-    "exploreHistoryHint": "নবী ﷺ-এর ইন্তেকাল থেকে খিলাফতে রাশিদার সমাপ্তি পর্যন্ত",
-    "profileBodyTitle": "জীবন ও শিক্ষা",
+    "exploreBattles": "যুদ্ধের পরিসংখ্যান",
+    "exploreBattlesHint": "সঙ্গীরা যারা সামরিক অভিযানে উপস্থিত হন",
+    "exploreSeerah": "Seerah টাইমলাইন",
+    "exploreSeerahHint": "গুরুত্বপূর্ণ মাইলফলকের মধ্য দিয়ে রাসূলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লামের জীবন",
+    "exploreHistory": "ইসলামের প্রাথমিক ইতিহাস",
+    "exploreHistoryHint": "রাসুলুল্লাহ সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম-এর গমন থেকে শুরু করে রাশেদুনের শেষ পর্যন্ত",
+    "profileBodyTitle": "জীবন এবং পাঠ",
     "relatedTitle": "সম্পর্কিত গাইড",
-    "linkBattlesFigures": "যুদ্ধ বিভাগে সাহাবিদের দেখুন",
-    "linkSeerah": "সীরাহ টাইমলাইন খুলুন",
-    "linkHistory": "প্রাথমিক ইসলামি ইতিহাস খুলুন",
-    "openProfileHint": "সাহাবির পূর্ণ পরিচিতি খুলুন",
-    "notFound": "সাহাবি পাওয়া যায়নি"
+    "linkBattlesFigures": "যুদ্ধে সঙ্গীদের দেখুন",
+    "linkSeerah": "Seerah টাইমলাইন খুলুন",
+    "linkHistory": "প্রাথমিক ইসলামিক ইতিহাস খুলুন",
+    "openProfileHint": "সম্পূর্ণ সহচর প্রোফাইল খুলুন",
+    "notFound": "সঙ্গী পাওয়া যায়নি"
   },
   "history": {
     "eyebrow": "শিখুন",
-    "title": "প্রাথমিক ইসলামি ইতিহাস",
-    "subtitle": "নবী ﷺ-এর ইন্তেকাল থেকে খিলাফতে রাশিদার সমাপ্তি পর্যন্ত",
+    "title": "ইসলামের প্রাথমিক ইতিহাস",
+    "subtitle": "রাসুল (সাঃ) এর ইন্তেকাল থেকে রাশেদুন খিলাফতের শেষ পর্যন্ত",
     "ceBadge": "{{year}} খ্রিস্টাব্দ",
     "ahBadge": "{{ah}} হিজরি",
     "era": {
-      "prophetic-close": "নবী ﷺ",
-      "abu-bakr": "আবু বকর",
-      "umar": "উমর",
+      "prophetic-close": "রাসূল সা",
+      "abu-bakr": "আবু বকর রা",
+      "umar": "উমর রা",
       "uthman": "উসমান",
       "ali": "আলী"
     },
-    "disclaimer": "১১–৪১ হিজরি (৬৩২–৬৬১ খ্রিস্টাব্দ) সীমাবদ্ধ — নবী ﷺ-এর জীবনের সমাপ্তি থেকে খিলাফতে রাশিদার সমাপ্তি পর্যন্ত। রাজনৈতিক ও সামরিক বর্ণনা ক্লাসিক্যাল ইতিহাস গ্রন্থ অনুসরণ করে; উসমান/আলীর সময়কাল পরবর্তী ধর্মতাত্ত্বিক বিতর্ক নিরসন না করেই উপস্থাপন করা হয়েছে।"
+    "disclaimer": "11-41 হিজরি (632-661 CE) পর্যন্ত বিস্তৃত - রাশিদুন খিলাফতের শেষের মাধ্যমে নবী সাল্লাল্লাহু আলাইহি ওয়াসাল্লামের জীবনের ঘনিষ্ঠতা। রাজনৈতিক ও সামরিক আখ্যান ধ্রুপদী ইতিহাস রচনা অনুসরণ করে; পরবর্তী ধর্মতাত্ত্বিক বিবাদের বিচার না করেই উসমান/আলি আমলকে উপস্থাপন করা হয়েছে।"
   },
   "laylatAlQadr": {
     "eyebrow": "শিখুন",
-    "title": "লাইলাতুল কদর",
-    "subtitle": "মহিমান্বিত রজনী — হাজার মাসের চেয়েও উত্তম",
-    "intro": "লাইলাতুল কদর রমজানের শেষ দশ দিনের বিজোড় রাতগুলোর মধ্যে গোপন, কোনো একটি নির্দিষ্ট তারিখে স্থির নয়। একটি রাত অনুমান করার বদলে সবগুলো রাতে একনিষ্ঠ ইবাদতের মাধ্যমে এটি খুঁজুন।",
+    "title": "লায়লাতুল কদর",
+    "subtitle": "হুকুমের রাত - হাজার মাসের চেয়েও উত্তম",
+    "intro": "লায়লাতুল কদর রমজানের শেষ দশের বিজোড় রাতের মধ্যে লুকিয়ে আছে, কোনো একটি তারিখে নির্দিষ্ট নয়। একটি অনুমানিত রাতের পরিবর্তে তাদের সকল জুড়ে আন্তরিক ইবাদতের সাথে এটি সন্ধান করুন।",
     "section": {
-      "virtues": "এর মর্যাদা",
-      "when": "কখন খুঁজবেন",
-      "dua": "কী বলবেন",
-      "ibadah": "রাতটি কীভাবে কাটাবেন",
-      "reminders": "স্মরণীয় বিষয়"
+      "virtues": "এর পুণ্য",
+      "when": "কখন তা চাইতে হবে",
+      "dua": "কি বলবো",
+      "ibadah": "কিভাবে রাত কাটবে",
+      "reminders": "অনুস্মারক"
     },
-    "notFound": "বিষয় পাওয়া যায়নি",
-    "disclaimer": "এই গাইড রাতটি চিহ্নিত করার জন্য কোনো একক নির্দিষ্ট তারিখ বা লোকপ্রচলিত 'নিশানা' সমর্থন করে না — শুধু কুরআন ও সহিহ হাদিসে যা বলা হয়েছে তাই অনুসরণ করে।",
+    "notFound": "বিষয় খুঁজে পাওয়া যায়নি",
+    "disclaimer": "এই নির্দেশিকাটি রাত শনাক্ত করার জন্য একটি নির্দিষ্ট ক্যালেন্ডার তারিখ বা লোক 'লক্ষণ'-কে সমর্থন করে না - শুধুমাত্র কুরআন এবং খাঁটি হাদিস যা বলে।",
     "continueInApp": "মুনিবে চালিয়ে যান"
   },
   "eid": {
     "eyebrow": "শিখুন",
     "title": "ঈদ গাইড",
-    "subtitle": "ঈদুল ফিতর ও ঈদুল আজহা — নামাজ, সুন্নাহ এবং বিধিবিধান",
-    "intro": "কুরআন ও সহিহ হাদিস থেকে দুই ঈদ — ঈদের নামাজ, ফিতরা, কুরবানি এবং দিনের সুন্নাহ আমলগুলো কীভাবে পালন করবেন।",
+    "subtitle": "ঈদুল ফিতর এবং ঈদুল আযহা—নামাজ, সুন্নাত এবং হুকুম",
+    "intro": "কোরান ও সহীহ হাদিস থেকে দুটি ঈদ—কীভাবে ঈদের সালাত, যাকাত আল-ফিতর, উযিয়া এবং দিনের সুন্নাত আমল।",
     "section": {
       "fitr": "ঈদুল ফিতর",
       "adha": "ঈদুল আজহা",
       "prayer": "ঈদের নামাজ",
-      "sunnah": "সুন্নাহ আমল",
-      "zakat-fitr": "যাকাতুল ফিতর",
-      "udhiyah": "কুরবানি"
+      "sunnah": "সুন্নত আমল",
+      "zakat-fitr": "জাকাতুল ফিতর",
+      "udhiyah": "উধিয়াহ (বলি)"
     },
-    "notFound": "বিষয় পাওয়া যায়নি",
-    "disclaimer": "শিক্ষামূলক পর্যালোচনা — এটি ফতোয়া নয়। যেখানে মাযহাবগুলোর মতভেদ রয়েছে (যেমন অতিরিক্ত তাকবিরের সংখ্যা), উভয় মত উপস্থাপন করা হয়েছে; আপনার ইমাম বা যোগ্য স্থানীয় আলেমের অনুসরণ করুন।",
+    "notFound": "বিষয় খুঁজে পাওয়া যায়নি",
+    "disclaimer": "শিক্ষাগত ওভারভিউ - একটি ফতোয়া নয়। যেখানে স্কুলে ভিন্নতা রয়েছে (যেমন অতিরিক্ত তাকবীর গণনা), উভয় অবস্থানই উপস্থাপন করা হয়; আপনার ইমাম বা একজন যোগ্য স্থানীয় আলেমকে অনুসরণ করুন।",
     "continueInApp": "মুনিবে চালিয়ে যান"
   },
   "ruqyah": {
     "eyebrow": "শিখুন",
-    "title": "রুকইয়াহ",
-    "subtitle": "কুরআনি ও নববী আত্মিক আরোগ্য",
-    "intro": "রুকইয়াহ হলো আরোগ্য ও সুরক্ষার জন্য কুরআন, আল্লাহর নামসমূহ, অথবা সহিহ নববী দোয়া পাঠ করা — এটি কখনোই নামাজ বা চিকিৎসা সেবার বিকল্প নয়।",
+    "title": "রুকিয়াহ",
+    "subtitle": "কোরান এবং ভবিষ্যদ্বাণীমূলক আধ্যাত্মিক নিরাময়",
+    "intro": "রুকিয়া হল কোরান, আল্লাহর নাম, বা নিরাময় এবং সুরক্ষার জন্য খাঁটি ভবিষ্যদ্বাণীমূলক মিনতি - কখনই সালাহ বা চিকিৎসা যত্নের বিকল্প নয়।",
     "section": {
-      "basics": "মৌলিক বিষয়",
-      "verses": "গুরুত্বপূর্ণ আয়াত",
+      "basics": "বুনিয়াদি",
+      "verses": "মূল আয়াত",
       "daily-protection": "দৈনিক সুরক্ষা",
-      "reminders": "স্মরণীয় বিষয়"
+      "reminders": "অনুস্মারক"
     },
-    "notFound": "বিষয় পাওয়া যায়নি",
-    "disclaimer": "রুকইয়াহ একটি আত্মিক চর্চা, চিকিৎসা নয়। এটি যোগ্য চিকিৎসকের কাছে যাওয়া বা পাঁচ ওয়াক্ত নামাজের বিকল্প নয়। গুরুতর বা দীর্ঘস্থায়ী সমস্যার ক্ষেত্রে, একজন আলেম ও চিকিৎসা পেশাজীবী উভয়ের পরামর্শ নিন।",
+    "notFound": "বিষয় খুঁজে পাওয়া যায়নি",
+    "disclaimer": "রুকিয়া একটি আধ্যাত্মিক অনুশীলন, চিকিৎসা নয়। এটি একজন যোগ্য ডাক্তারের সাথে দেখা বা পাঁচ ওয়াক্ত নামাজের প্রতিস্থাপন করে না। গুরুতর বা ক্রমাগত কষ্টের জন্য, একজন আলেম এবং একজন চিকিৎসা পেশাদার উভয়ের সাথে পরামর্শ করুন।",
     "continueInApp": "মুনিবে চালিয়ে যান"
   },
   "newMuslim": {
     "eyebrow": "শিখুন",
     "title": "নতুন মুসলিম গাইড",
-    "subtitle": "প্রথম দিন ও সপ্তাহগুলোর জন্য উষ্ণ ও ব্যবহারিক সূচনা",
-    "intro": "ইসলামে স্বাগতম। এই গাইড শাহাদাহ, পাঁচ স্তম্ভ, ঈমানের মূল বিষয়সমূহ এবং নামাজের প্রাথমিক পরিচিতি নিয়ে আলোচনা করে, তারপর এই অ্যাপের পূর্ণাঙ্গ নামাজ, আকিদা ও কুরআন গাইডের দিকে আপনাকে নির্দেশ করে।",
+    "subtitle": "প্রথম দিন এবং সপ্তাহের জন্য একটি উষ্ণ, ব্যবহারিক শুরু",
+    "intro": "ইসলামে স্বাগতম। এই নির্দেশিকাটি শাহাদা, পাঁচটি স্তম্ভ, বিশ্বাসের মূল বিষয়গুলি, এবং প্রার্থনার দিকে একটি প্রথম দৃষ্টিভঙ্গি কভার করে, তারপরে এই অ্যাপটিতে আপনাকে পূর্ণ সালাহ, আক্বীদা এবং কুরআন নির্দেশিকাগুলির দিকে নির্দেশ করে।",
     "section": {
-      "start": "শুরু করা",
-      "pillars": "ইসলামের পাঁচ স্তম্ভ",
-      "faith": "ঈমানের মূল বিষয়",
-      "prayer": "আপনার প্রথম নামাজ",
+      "start": "শুরু হচ্ছে",
+      "pillars": "পাঁচটি স্তম্ভ",
+      "faith": "বিশ্বাসের বুনিয়াদি",
+      "prayer": "তোমার প্রথম প্রার্থনা",
       "next-steps": "পরবর্তী পদক্ষেপ",
-      "faq": "সাধারণ প্রশ্নাবলী"
+      "faq": "সাধারণ প্রশ্ন"
     },
-    "notFound": "বিষয় পাওয়া যায়নি",
-    "disclaimer": "একটি সরল কিন্তু সঠিক প্রাথমিক গাইড, যা কেবল সকল মাযহাবের সম্মত মৌলিক বিষয়সমূহ নিয়ে আলোচনা করে। আপনার নির্দিষ্ট পরিস্থিতির জন্য স্থানীয় ইমাম বা শিক্ষকের কাছে জিজ্ঞাসা করুন।",
+    "notFound": "বিষয় খুঁজে পাওয়া যায়নি",
+    "disclaimer": "একটি অগভীর-কিন্তু-সঠিক সূচনা নির্দেশিকা যা প্রতিটি স্কুলের সাথে সম্মত শুধুমাত্র ভাগ করা প্রয়োজনীয় বিষয়গুলিকে কভার করে। আপনার নির্দিষ্ট পরিস্থিতির জন্য, স্থানীয় ইমাম বা শিক্ষককে জিজ্ঞাসা করুন।",
     "continueInApp": "মুনিবে চালিয়ে যান"
   },
   "finance": {
     "eyebrow": "শিখুন",
-    "title": "ইসলামি অর্থনীতি",
-    "subtitle": "রিবা, ন্যায্য ব্যবসা, দান ও তাকাফুল",
-    "intro": "অর্থের ক্ষেত্রে ইসলাম যে নৈতিক কাঠামো নিয়ে আসে তার একটি শিক্ষামূলক পরিচিতি — রিবা নিষেধাজ্ঞা, ন্যায্য ব্যবসা, যাকাত ও সদকা, এবং তাকাফুল (সমবায় ঝুঁকি বণ্টন)।",
+    "title": "ইসলামী অর্থ",
+    "subtitle": "রিবা, ন্যায্য বাণিজ্য, দান এবং তাকাফুল",
+    "intro": "নৈতিক কাঠামোর একটি শিক্ষাগত ভূমিকা ইসলাম অর্থ নিয়ে আসে — রিবা নিষিদ্ধ, ন্যায্য বাণিজ্য, যাকাত এবং সাদাকাহ এবং তাকাফুল (সমবায় ঝুঁকি-বণ্টন)।",
     "section": {
-      "principles": "মূলনীতি",
+      "principles": "নীতিমালা",
       "riba": "রিবা (সুদ)",
-      "trade": "ন্যায্য ব্যবসা",
-      "giving": "দান করা",
+      "trade": "ন্যায্য বাণিজ্য",
+      "giving": "দান",
       "takaful": "তাকাফুল",
-      "faq": "সাধারণ প্রশ্নাবলী"
+      "faq": "সাধারণ প্রশ্ন"
     },
-    "notFound": "বিষয় পাওয়া যায়নি",
-    "disclaimer": "সাধারণ শিক্ষা, আর্থিক পরামর্শ বা ফতোয়া নয়। ফান্ড স্ক্রিনার, নির্দিষ্ট পণ্য এবং আপনার নিজস্ব চুক্তির বিধান সম্পর্কে একজন যোগ্য ও সনদপ্রাপ্ত ইসলামি অর্থনীতি বিশেষজ্ঞ বা প্রতিষ্ঠানের প্রয়োজন।",
+    "notFound": "বিষয় খুঁজে পাওয়া যায়নি",
+    "disclaimer": "সাধারণ শিক্ষা, আর্থিক বা ফতোয়া পরামর্শ নয়। ফান্ড স্ক্রীনার, নির্দিষ্ট পণ্য এবং আপনার নিজের চুক্তির নিয়মগুলির জন্য একজন যোগ্য, প্রত্যয়িত ইসলামিক ফাইন্যান্স স্কলার বা প্রতিষ্ঠানের প্রয়োজন।",
     "continueInApp": "মুনিবে চালিয়ে যান"
   },
   "dateConverter": {
     "eyebrow": "ক্যালেন্ডার",
     "title": "তারিখ রূপান্তরকারী",
-    "subtitle": "হিজরি ও গ্রেগরিয়ান ক্যালেন্ডারের মধ্যে রূপান্তর করুন",
-    "intro": "কুয়েতি ট্যাবুলার অ্যালগরিদম ব্যবহার করে অফলাইনে গণনা করা সমতুল্য তারিখ দেখতে যেকোনো ক্যালেন্ডারে একটি তারিখ প্রবেশ করান।",
+    "subtitle": "হিজরি এবং গ্রেগরিয়ান ক্যালেন্ডারের মধ্যে রূপান্তর করুন",
+    "intro": "সারণী কুয়েতি অ্যালগরিদম ব্যবহার করে অফলাইনে গণনা করা অন্য ক্যালেন্ডারে তার সমতুল্য দেখতে উভয় ক্যালেন্ডারে একটি তারিখ লিখুন।",
     "toHijri": "গ্রেগরিয়ান → হিজরি",
     "toGregorian": "হিজরি → গ্রেগরিয়ান",
     "gregorianDateLabel": "গ্রেগরিয়ান তারিখ",
@@ -4531,24 +4531,24 @@
     "day": "দিন",
     "month": "মাস",
     "year": "বছর",
-    "useToday": "আজকের তারিখ ব্যবহার করুন",
-    "invalidDate": "একটি সঠিক তারিখ প্রবেশ করান",
-    "disclaimer": "এটি একটি গাণিতিক আনুমানিক হিসাব ('কুয়েতি ট্যাবুলার অ্যালগরিদম') এবং স্থানীয় চাঁদ দেখার ঘোষণা থেকে একদিন ভিন্ন হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষকে অনুসরণ করুন।",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
-    "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "useToday": "আজই ব্যবহার করুন",
+    "invalidDate": "একটি বৈধ তারিখ লিখুন",
+    "disclaimer": "এটি একটি গাণিতিক আনুমানিক (সারণী \"কুয়েতি অ্যালগরিদম\") এবং স্থানীয় চাঁদ দেখার ঘোষণা থেকে একদিনে আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষকে অনুসরণ করুন।",
+    "directionTitle": "রূপান্তর দিক",
+    "resultFrom": "{{date}} থেকে",
+    "quickLinksTitle": "সম্পর্কিত",
+    "quickCalendar": "পূজার ক্যালেন্ডার",
+    "quickCalendarHint": "আপনার প্রার্থনা লগ সঙ্গে মাস ব্রাউজ করুন",
+    "quickEvents": "ইসলামিক ঘটনা",
+    "quickEventsHint": "হিজরি ক্যালেন্ডারে আসন্ন তারিখ",
+    "quickRamadan": "রমজান",
+    "quickRamadanHint": "উপবাস সময় এবং আপনার উপবাস লগ",
+    "quickHistory": "প্রারম্ভিক ইতিহাস",
+    "quickHistoryHint": "হিজরি সাল সহ রাশিদুন টাইমলাইন",
+    "exploreTitle": "শেখা চালিয়ে যান",
+    "exploreCalendar": "ক্যালেন্ডার খুলুন",
+    "exploreCalendarHint": "দিন দিন পূজার ইতিহাস দেখুন",
+    "exploreEvents": "ইসলামিক ইভেন্ট খুলুন",
+    "exploreEventsHint": "সামনে মাইলফলক এবং পালন"
   }
 }

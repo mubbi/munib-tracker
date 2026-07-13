@@ -16,15 +16,15 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
-import { resetDatabase } from "@/db";
+import { usePinLock } from "@/features/pin-lock";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { clearDownloadedAudio } from "@/lib/cache-manager";
 import { goBackOrReplace } from "@/lib/navigation";
 import { formatRelativeWhen } from "@/lib/relative-time";
+import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
 import { useAuth } from "@/providers/auth-provider";
+import { useInAppNotifications } from "@/providers/in-app-notifications-provider";
 import { useToast } from "@/providers/toast-provider";
 import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
-import { reloadAllStores } from "@/stores/reload-all-stores";
 import { readSyncMetadata, type SyncMetadata } from "@/sync/sync-engine";
 
 /** Title-cases a raw sync entity id ("dua_favorites" -> "Dua Favorites") as a last-resort fallback. */
@@ -48,6 +48,8 @@ export default function ProfileScreen() {
   const { colors, tokens } = useThemeTokens();
   const { user, isAuthenticated, signOut, syncNow, deleteAccount: deleteServerAccount } = useAuth();
   const toast = useToast();
+  const { factoryResetPinLock } = usePinLock();
+  const { clearAll: clearInAppInbox } = useInAppNotifications();
   const prefs = usePreferences();
   const { update } = usePreferencesActions();
 
@@ -106,13 +108,10 @@ export default function ProfileScreen() {
       toast.error(t("profile.deleteFailed"));
       return;
     }
-    await resetDatabase();
-    // Downloaded audio lives outside AsyncStorage (native files / SW cache), so
-    // wipe it explicitly alongside the reset.
-    await clearDownloadedAudio();
-    // Reload every store that reads a key resetDatabase clears, so no screen is
-    // left holding stale in-memory data after the wipe.
-    await reloadAllStores();
+    await wipeLocalDeviceData();
+    // Provider-owned memory (PIN gate + inbox badge) is outside reloadAllStores.
+    await factoryResetPinLock();
+    await clearInAppInbox();
     router.replace("/");
   };
 

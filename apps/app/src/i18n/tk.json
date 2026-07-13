@@ -112,13 +112,13 @@
       "learnQuran": "Guran Ögren"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "Ses bilen gözläň",
+      "stopDictate": "Ses gözlegini bes ediň",
+      "listening": "Diňlemek…",
+      "permissionDenied": "Ses gözlemek üçin mikrofonyň rugsady talap edilýär. Siz henizem ýazyp bilersiňiz.",
+      "unavailable": "Bu enjamda gepleýiş tanamak mümkin däl.",
+      "couldNotHear": "Muny eşitmedim - gaýtadan synanyşyň ýa-da ýazyň.",
+      "errorGeneric": "Ses gözlegi şowsuz boldy. Gaýtadan synap görüň ýa-da ýazyň."
     }
   },
   "tabs": {
@@ -160,12 +160,12 @@
     "sick": "Hastalyk & namaz",
     "adhkarBuilder": "Zikrlerim",
     "sahaba": "Sahaba",
-    "history": "Islamic History",
-    "laylatAlQadr": "Laylat al-Qadr",
-    "eid": "Eid Guide",
-    "ruqyah": "Ruqyah",
-    "newMuslim": "New Muslim Guide",
-    "finance": "Islamic Finance"
+    "history": "Yslam taryhy",
+    "laylatAlQadr": "Laylat al-Kadr",
+    "eid": "Gurban baýramy",
+    "ruqyah": "Rukýa",
+    "newMuslim": "Täze musulman gollanmasy",
+    "finance": "Yslam Maliýe"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -200,7 +200,7 @@
         "description": "Şu günkü farz namaz ilerlemesi"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "Galan",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -210,7 +210,7 @@
     "dayOf": "{{total}} günün {{day}}. günü",
     "timesTitle": "Şu günkü oruç vakitleri",
     "suhoor": "Sahur sonu",
-    "iftar": "Yftar",
+    "iftar": "Iftar",
     "timesHint": "Sahur, Fejr vaktinde biter; iftar bulundugunuz yerde Agşam ile başlar.",
     "fastingTitle": "Oruç kaydy",
     "fastedCount": "{{total}} günün {{count}}'ü oruçlu",
@@ -284,7 +284,7 @@
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Takibe başla",
     "goToChecklist": "Kontrol Listesine Git",
-    "prayersStat": "Namaz",
+    "prayersStat": "Salah",
     "dhikrStat": "Zikr",
     "qazaStat": "Gaza",
     "streakStat": "Seri",
@@ -303,7 +303,7 @@
       "motivation": "Günlük hatyrlatma"
     },
     "knowledgeTopic": {
-      "prayer": "Namaz",
+      "prayer": "Salah",
       "qaza": "Gaza",
       "zikr": "Zikr",
       "fasting": "Oruç",
@@ -452,7 +452,7 @@
     "subtitle": "Durumunu ayarlamak için bir namaza dokunun — bu cihazda kaydedilir.",
     "excusedTitle": "Mazeretli gün",
     "excusedHint": "Hayyz, hastalyk veya seyahat — serinizi bozmadan farz takibini duraklatyn.",
-    "excusedActive": "This day is excused — obligatory tracking is paused and your streak is held.",
+    "excusedActive": "Bu gün üçin üzr berildi — hökmany yzarlaýyş wagtlaýyn togtadyldy we yzygiderliligiňiz saklanýar.",
     "excusedConfirmTitle": "Şu gün mazeretli olarak işaretlensin mi?",
     "excusedConfirmMsg": "Şu gün farz takibi duraklatylacak ({{reason}}). Seriniz korunacak.",
     "excusedConfirmAction": "Mazeretli işaretle",
@@ -649,9 +649,9 @@
     "eyebrowWelcome": "Hoş geldiniz",
     "title": "Girmek",
     "subtitle": "Ybadetinizi cihazlar arasynda senkronize edin",
-    "google": "Continue with Google",
-    "apple": "Continue with Apple",
-    "facebook": "Continue with Facebook",
+    "google": "Google bilen dowam ediň",
+    "apple": "“Apple” bilen dowam ediň",
+    "facebook": "“Facebook” bilen dowam ediň",
     "heroGuest": "Misafir hesaby kullanyyorsunuz. Verilerinizi yedeklemek ve senkronize etmek için bir saglayycy baglayyn — hiçbir şey kaybolmaz.",
     "heroUser": "Namazlarynyzy, kazalarynyzy ve zikirlerinizi bulutta güvende tutmak için giriş yapyn.",
     "error": "Girmek yapylamady. API sunucusunun çalyştygyndan ve bu saglayycynyn yapylandyryldygyndan emin olun."
@@ -843,7 +843,7 @@
       "qazaBody": "Make up a missed Salah or fast today.",
       "achievementTitle": "Başary açyldy",
       "dailyContentTitle": "Şu günün reflection",
-      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
+      "dailyContentBody": "Baş sahypaňyzda täze aýat, hadys we Allanyň bir ady taýýar.",
       "fridayTitle": "Cuma Mubarek",
       "fridayBody": "It's Friday — send salawat ve read Surah Al-Kahf."
     },
@@ -1106,7 +1106,7 @@
     "subtitle": "Read, listen, ve reflect",
     "searchSurah": "by name, meaning, or number Gözleg",
     "filterAll": "Tüm",
-    "continueReading": "Continue reading",
+    "continueReading": "Okamagy dowam etdiriň",
     "continueAt": "Sure {{surah}} · Aýet {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
@@ -1194,23 +1194,23 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "Söz bilen",
+      "playWord": "Bu sözi çalyň",
+      "noAudio": "Bu söz üçin ses ýok",
+      "loading": "Sözleri ýüklemek…"
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "Tajweed rowaýaty",
+      "openLesson": "Açyň, Gurhany öwreniň",
+      "loading": "Tajweed ýüklenýär…",
       "rules": {
         "ghunnah": "Ghunnah",
-        "ikhafa": "Ikhfa",
+        "ikhafa": "}\nYhfa",
         "ikhafaShafawi": "Ikhfa Shafawi",
         "idghamGhunnah": "Idgham (Ghunnah)",
         "idghamNoGhunnah": "Idgham (No Ghunnah)",
         "idghamShafawi": "Idgham Shafawi",
-        "iqlab": "Iqlab",
+        "iqlab": "Yklab",
         "qalqalah": "Qalqalah",
         "maddNormal": "Madd (2)",
         "maddPermissible": "Madd (2-4-6)",
@@ -1218,26 +1218,26 @@
         "maddNecessary": "Madd (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "Ümsüm"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "Tajweed düzgünini görmek üçin basyň",
+      "tapHint": "Tajweed düzgünini görmek üçin basyň",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "Burun sesi - 2 urgy",
+        "ikhafa": "Ghunnah bilen gizlemek - 2 urgy",
+        "ikhafaShafawi": "Labial gizlemek - 2 urgy",
+        "idghamGhunnah": "Burun sesi bilen birleşmek - 2 urgy",
+        "idghamNoGhunnah": "Burun sesi bolmazdan birleşmek",
+        "idghamShafawi": "Labial birleşmek - 2 urgy",
+        "iqlab": "Gizlin meme öwürmek - 2 urgy",
+        "qalqalah": "Hatyň üstünde gaýtalanma",
+        "maddNormal": "Adaty uzalma - 2 urgy",
+        "maddPermissible": "Rugsat berilýän uzalma - 2, 4 ýa-da 6 urgy",
+        "maddObligatory": "Hökmany uzalma - 4 ýa-da 5 urgy",
+        "maddNecessary": "Zerur uzalma - 6 urgy",
+        "hamWasl": "Hamza birikdirmek - goşulanda taşlandy",
+        "lamShamsiyah": "Gün harpy لام - aýdylmaýar",
+        "silent": "Ittenazuw, ýöne aýdylmaýar"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
-      "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
-      "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
-      "summaryWithTts": "{{summary}} · TTS"
+      "title": "Aýtdyrmak",
+      "open": "Aýtdyrmak sazlamalary",
+      "repeatMode": "Gaýtalama tertibi",
+      "repeatOff": "}\nÖçürilen",
+      "repeatVerse": "Aýat",
+      "repeatRange": "}\nAralyk",
+      "repeatSurah": "Sura",
+      "rangeStart": "Aýatdan",
+      "rangeEnd": "Aýat",
+      "translationAudio": "Terjime ses",
+      "translationOff": "Öçürilen",
+      "translationAfter": "Her aýatdan soň",
+      "translationAudioHint": "Terjimäni her arap aýatyndan soň sesli okaýar (enjam TTS)",
+      "ttsVoice": "Terjime sözüniň sesi",
+      "ttsVoiceDefault": "Dil üçin başlangyç",
+      "ttsVoiceEmpty": "Bu enjamda bu dil üçin ses tapylmady.",
+      "summaryVerse": "Aýaty gaýtala",
+      "summarySurah": "Surany gaýtala",
+      "summaryRange": "Aralyk {{start}} - {{end}}",
+      "summaryTts": "Terjime TTS",
+      "summaryWithTts": "}\n{{summary}} · TTS"
     },
     "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
+    "openTafsir": "Bu aýat üçin tafsir açyň",
     "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
+    "tafsirNone": "Tafsir saýlaň",
+    "selectTafsirAuthor": "Tafsir - {{language}} saýlaň",
     "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "tafsirCount_other": "{{count}} tafsirleri",
+    "searchTafsirLanguages": "Dil gözläň ...",
+    "searchTafsirAuthors": "Awtorlary gözläň ...",
+    "tafsirLoading": "Tafsir ýüklenýär…",
+    "tafsirOffline": "Bu tafsiri göçürip almak üçin birikdiriň. Açylan neşirler awtonom görnüşde elýeterli.",
+    "tafsirEmpty": "Saýlanan neşirde bu aýat üçin tafsir ýok."
   },
   "hadith": {
     "eyebrow": "Peygamber gelenegi",
@@ -1387,12 +1387,12 @@
     },
     "ishraq": {
       "summary": " two-rak'ah sunnah namaz after  sun has fully risen (about 15–20 minutes after sunrise).",
-      "why": "The Prophet ﷺ said whoever prays Fajr in congregation then sits remembering Allah until sunrise, then prays two rak'ahs, receives the reward of a complete Hajj and 'Umrah.",
+      "why": "Pygamber ﷺ aýtdy: kim jemagat bilen Fajr namazyny okap, gün çykýança Allany zikr edip otursa, soň iki rakat namaz okasa, doly Hajj we Umra sylagyny alar.",
       "benefits": "Immense reward ile minimal effort when combined ile Ertir içinde congregation.  peaceful start   gün içinde zikir ve istege bagly namaz."
     },
     "duha": {
       "summary": " forenoon namaz — typically two  eight rak'ahs between sunrise ve Öýle.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "Haýyr-sahawat her gün bedeniň her bir bogunlarynda bolýar; Duhanyň birnäçe rekagat namazyny agzalar üçin sadakany ybadat arkaly ýerine ýetirýär.",
       "benefits": "Forgives sins, brings sustenance (rizq), ve revives  neglected sunnah. Flexible timing makes it accessible when  gün allows."
     },
     "dhuhr": {
@@ -1453,7 +1453,7 @@
     "roza": "Oruç",
     "perPrayer": "Per namaz",
     "rowMeta": "{{remaining}} left · {{completed}} tamamlandy",
-    "rowMetaWithDaily": "{{remaining}} left · {{completed}} done · today {{done}}/{{target}}",
+    "rowMetaWithDaily": "{{remaining}} galdy · {{completed}} tamamlandy · bu gün {{done}}/{{target}}",
     "dailySchedule": "Günlük schedule",
     "dailyScheduleHint": "how many of each prayer you plan to make up every day. Progress counts toward today's checklist. Ayarla",
     "dailyTotal": "{{count}} kaza / gün",
@@ -1485,13 +1485,13 @@
     "hint": "Dokunun  check  record  made-up namaz. Missing  namaz içinde  tracker adds  these counts otomatik.",
     "witrNote": {
       "title": "Dir Vitir kaza gerekli?",
-      "intro": "According to the majority of scholars, making up a missed Witr is allowed, but whether it is required depends on your madhhab (school of thought).",
+      "intro": "Alymlaryň köpüsine görä, geçen Witr namazyny kaza etmek bolýar, emma onuň hökmanylygy mezhebiňize baglydyr.",
       "hanafiTitle": "Hanefi mezhebi",
       "hanafiBody": "Vitir dir wajib (farz). If siz miss it, siz must make it up (kaza). Pray it as soon as siz remember — even if gün veya weeks have passed. Bu dir  view followed by most Muslims içinde South Asia, Central Asia, ve Turkey.",
       "othersTitle": "Şafii, Maliki & Hanbeli",
-      "othersBody": "Witr is a strongly emphasized sunnah (sunnah mu'akkadah), not obligatory. Making it up is recommended (mustahabb) but not required. The Prophet ﷺ would make up night prayers missed due to sleep or illness.",
+      "othersBody": "Witr berk nygtalýan sünnetdir, farz däl. Onuň kazasy maslahat berilýär, emma hökmany däl. Pygamber ﷺ uky ýa-da kesel sebäpli geçen gijeki namazlaryny kaza ederdi.",
       "evidenceTitle": "Delil",
-      "evidenceBody": "The Prophet ﷺ said: \"Whoever sleeps and misses Witr or forgets it, let him pray it when he remembers.\" (Tirmidhi, Ibn Majah — scholars differ on its grading.) In Sahih Muslim, when he missed night prayer due to illness or sleep, he made it up during the day with an even number of rak'ahs.",
+      "evidenceBody": "Pygamber ﷺ aýtdy: «Kim uklap Witrini geçirse ýa-da unutsa, ýadyna düşende okasyn». (Tirmizi, Ibn Mäje — alymlar derejesinde tapawut edýär.) Sahih Muslimde, kesel ýa-da uky sebäpli gijeki namaz geçende, ony gündiz jübüt rakat edip kaza edendigi beýan edilýär.",
       "tableHeader": "Mezhebe görä jemleme",
       "rows": {
         "hanafi": "Hanafi — Wajib — Gaza gerekli",
@@ -1499,7 +1499,7 @@
         "maliki": "Maliki — Sünnet mu'akkadah — Recommended",
         "hanbali": "Hanbali — Sünnet mu'akkadah — Recommended"
       },
-      "footer": "This app counts missed Witr toward qaza for all users. Treat it as required if you follow the Hanafi view; otherwise track it as a recommended make-up. Consult a scholar for your situation."
+      "footer": "Bu programma ähli ulanyjylar üçin geçen Witri kaza hasabyna goşýar. Hanafi mezhebine eýerseňiz, ony hökmany hasaplaň; başgaça bolsa maslahat berilýän kaza hökmünde yzarlaň. Öz ýagdaýyňyz üçin alyma ýüz tutuň."
     },
     "history": "Geçmiş"
   },
@@ -1518,7 +1518,7 @@
     "estimatedDays": "Estimated missed days",
     "resultYears": "{{years}} years · one  each namaz per gün",
     "apply": "to my counters Uygula",
-    "disclaimer": "This is an estimate only. Rulings on making up missed prayers vary — please consult a knowledgeable scholar for your situation.",
+    "disclaimer": "Bu diňe çaklamadyr. Geçen namazlaryň kazasy baradaky hökümler tapawutlanýar — ýagdaýyňyz üçin bilimli alyma ýüz tutuň.",
     "confirmTitle": "estimate? Uygula",
     "confirmMsg": "Bu replaces  kalan kaza say için each fard namaz ve Vitir ile  tahmin above. Completed counts dir kept."
   },
@@ -1529,7 +1529,7 @@
     "consistencyTitle": "Istikrar over intensity",
     "consistencyHadith": " most beloved deeds  Allah dir those şu dir istikrarly, even if they dir small.",
     "consistencySource": "Hadis — Bukhari & Muslim",
-    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
+    "consistencyPrinciple": "Durnukly gündelik meýilnama, köplenç ýanýan agressiw sprinta garanyňda has uly arkaýynlygy arassalaýar.",
     "prayersPerDay": "prayers / gün",
     "dailyTimeLabel": "est. time / gün",
     "dailyTimeMinutes": "≈ {{count}} min",
@@ -1584,7 +1584,7 @@
     },
     "attachTitle": "Spread it through  gün",
     "attachHint": "Many people find it easier  pray 2–3 kaza  each namaz right after şu prayer's current salah — e.g. after Ertir do kaza Ertir, after Öýle do kaza Öýle, ve so . It spreads  load naturally.",
-    "fiqhNote": "Scholars differ on how to estimate and organize missed prayers. Consult a scholar you trust for your situation and madhhab."
+    "fiqhNote": "Alymlar geçen namazlary nähili çaklamalydygy we tertiplemelidigi barada tapawut edýärler. Ýagdaýyňyz we mezhebiňiz üçin ynanýan alymyňyza ýüz tutuň."
   },
   "qazaRoza": {
     "eyebrow": "Gaza",
@@ -1634,8 +1634,8 @@
     "partial": "Bölekleýin",
     "missed": "Kaçyryldy",
     "legendHint": "Dokunun any past veya current gün  gözden geçir ve adjust it. Şu gün dir {{date}}.",
-    "converterRowTitle": "Hijri ⟷ Gregorian converter",
-    "converterRowSubtitle": "Convert a date between the two calendars"
+    "converterRowTitle": "Hijri ⟷ Gregorian öwrüji",
+    "converterRowSubtitle": "Iki senenamanyň arasynda senäni öwüriň"
   },
   "calDay": {
     "today": "Şu gün",
@@ -1857,7 +1857,7 @@
     "milestonesReachedHint": "{{count}} unlocked so far — and counting.",
     "level": "Sv {{level}}",
     "tracks": {
-      "salah": "Namaz",
+      "salah": "Salah",
       "streak": "Seri",
       "qaza": "Gaza",
       "roza": "Oruç",
@@ -1866,7 +1866,7 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "Namaz {{level}}",
+        "titleFallback": "Salah {{level}}",
         "description": "Complete {{count}} obligatory prayers",
         "description_one": "Complete {{count}} obligatory prayer",
         "titles": {
@@ -1972,7 +1972,7 @@
       }
     },
     "share": "Paylaş",
-    "shareMessage": "Alhamdulillah — I unlocked \"{{title}}\" in Munib Tracker: {{description}}.",
+    "shareMessage": "Alhamdulillah — Munib Tracker-de «{{title}}» açdym: {{description}}.",
     "unlockedToast": "Kilometre taşy ulaşyldy: {{name}}",
     "inAppBody": "{{name}} · {{description}}"
   },
@@ -1999,12 +1999,12 @@
     "confirmClearAllMessage": "Bu removes every bildirim den bu list. Bu can't be undone.",
     "loadMore": "Has köp ýükle",
     "upcoming": "Yaklaşan",
-    "categorySalah": "Namaz",
+    "categorySalah": "Salah",
     "categoryZikr": "Zikr",
     "categoryQaza": "Gaza",
     "categoryMilestone": "Kilometre taşy",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "Bildiriş"
   },
   "qibla": {
     "eyebrow": "Yön",
@@ -2020,7 +2020,7 @@
     "compassLabel": "Kyble compass",
     "compassValue": "{{bearing}} degrees   Kaaba, {{distance}} away",
     "aligned": "Aligned ile  Kyble",
-    "alignedHint": "Hold steady — you're facing the Kaaba",
+    "alignedHint": "Dowam et - Kaaba garşy",
     "turnFineTuneLeft": "Sola çevir",
     "turnFineTuneRight": "Saga çevir",
     "turnSlightLeft": "Hafif sola",
@@ -2060,7 +2060,7 @@
     "syncing": "Sinhronlanýar…",
     "done": "Sizin data dir backed up",
     "failed": "Couldn't sync. Check sizin connection ve try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "Hemme zat eýýäm täzelendi",
     "mergeSummary": "{{received}} received · {{sent}} sent",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest düzenle",
     "conflictAffected": "Etkilenen: {{list}}",
@@ -2185,7 +2185,7 @@
     "installBannerMessage": "iPhone'da uygulama benzeri bir deneyim ve tarayycy bildirimleri için Munib Tracker'y Ana Ekranynyza yükleyin.",
     "installStepsViaSafari": "Aşagydaki baglantyyy kopyalayyn, Safari'de açyn, ardyndan Paylaş → Ana Ekrana Ekle.",
     "installCopyLink": "Safari için baglantyyy kopyala",
-    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
+    "installLinkCopied": "Baglanyşyk göçürildi — sürdürmek üçin ony Safari-niň salgy setirine goýuň.",
     "installLinkCopyFailed": "Baglanty kopyalanamady. Bu sayfayy Safari'de manuel olarak açyn.",
     "installDismiss": "Ýapmak"
   },
@@ -2238,13 +2238,13 @@
     "eyebrow": " Noble Guran",
     "short": "Hatim",
     "title": "Hatim plan",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "Gurhany yzygiderli dowam etdiriň",
     "startTitle": "a plan Başlat",
     "startHint": "how many days to complete the Guran. We'll set a daily ayah target. Seç",
     "startHintPages": "how many days to complete the Guran. We'll set a daily mushaf page target. Seç",
     "unitAyah": "Aýet boýunça",
     "unitPage": "Sahypa boýunça",
-    "continueReading": "Continue reading",
+    "continueReading": "Okamagy dowam etdiriň",
     "dayPlan": "{{count}} gün",
     "preset": {
       "intensive": "Yogun",
@@ -2319,12 +2319,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
+        "text": "Gündelik okamagyň üstünde gurlan hatm, ýanýan çapyşykdan has uzak dowam edýär.",
         "source": "Principle  istikrar"
       },
       "portion": {
         "text": "Siz do not have  finish bugün — only honour today's portion ile sincerity.",
-        "source": "Steady progress"
+        "source": "Dowamly ösüş"
       },
       "return": {
         "text": "If siz fall behind, do not abandon  plan. Resume ile today's ayahs ve move forward.",
@@ -2467,11 +2467,11 @@
     },
     "nifas": {
       "title": "Nifas — logusalyk kanamasy",
-      "body": "Nifas is bleeding after childbirth. The same broad rules as hayd apply: salah and fasting are not performed during nifas, and missed Ramadan fasts are made up afterward — not the prayers.\n\nMaximum duration differs by school; 40 days is commonly mentioned. When nifas ends, perform ghusl and resume all worship. Nifas and hayd are separate categories — a woman may experience both at different times in her life."
+      "body": "Nifas çaga doglandan soňky gan akmadyr. Haýz bilen birmeňzeş düzgünler ulanylýar: nifasda namaz we oruç ýerine ýetirilmeýär; geçen Ramadan oruçlary soň kaza edilýär, namazlar däl.\n\nIň ýokary dowamlylyk mezhebe görä tapawutlanýar; köplenç 40 gün aýdylýar. Nifas gutaranda gusal edip, ybadaty dowam ediň. Nifas we haýz aýry kategoriýalardyr."
     },
     "purity": {
       "title": "Gan akmasy gutaranda — ghusl we dowam",
-      "body": "When hayd or nifas ends, perform a full ghusl before resuming salah. Resume fasting only after hayd ends; any Ramadan fasts missed during hayd must be made up on other days.\n\nSalah missed during hayd is not made up — Allah lifted that obligation. This is different from illness or travel, where missed prayers may need qaza. After ghusl, resume your normal worship and obligatory tracking in the app."
+      "body": "Haýz ýa-da nifas gutaranda namazy dowam etdirmezden öň doly gusal ediň. Orujy diňe haýz gutarandan soň dowam ediň; şol döwürde geçen Ramadan oruçlaryny başga günlerde kaza etmeli.\n\nHaýzda geçen namazlar kaza edilmeýär — Allah bu borjy ýeňilletdi. Gusaldan soň adaty ybadatyňyzy we hökmany yzarlaýyşy dowam ediň."
     },
     "disclaimer": "Bu dir egitim guidance, not  personal ruling.  details above vary between schools — consult  qualified female alim if sizin situation dir unclear.",
     "markExcused": "today as excused (hayd) Yşaretle",
@@ -2514,11 +2514,11 @@
     },
     "unable": {
       "title": "Complete inability to pray",
-      "body": "If you lose consciousness, fall into deep sleep through a prayer time, or are so severely ill that you cannot pray even with all position concessions — and the entire time for that prayer passes — that prayer is waived with no sin, but must be made up (qaza) when you recover.\n\nMarking a day as excused (illness) in this app pauses obligatory tracking and holds your streak — it does not replace the obligation to make up missed prayers later.\n\nFor chronic or long-term illness, learn the fixed concessions that apply to your situation from a qualified scholar rather than assuming every day is fully waived."
+      "body": "Eger huşuňyzy ýitirip, namaz wagtynda çuň uka gitseňiz ýa-da ähli ýeňilliklere garamazdan namaz okap bilmejek derejede agyr kesel bolsaňyz, şol namazyň wagty geçse günä ýok, emma sagalanyňyzda kaza edilmelidir.\n\nBu programmada bir güni kesel sebäpli üzrli bellemek hökmany yzarlaýyşy wagtlaýyn saklaýar, ýöne soň geçen namazlaryň kazasyny çalşyrmaýar.\n\nDowamly kesel üçin ýagdaýyňyza degişli ýeňillikleri hünärmen alymdan öwreniň."
     },
     "fastingQaza": {
       "title": "Oruç, recovery & make-up (kaza)",
-      "body": "If fasting in Ramadan would worsen your illness or delay recovery, break the fast and make it up on other days after you recover — the Qur'an explicitly permits this for the ill.\n\nEach missed Ramadan fast is made up with one day of fasting later; there is no kaffarah (expiation) unless the fast was broken without a valid excuse.\n\nMissed salah during illness must also be made up in order once you are able — unlike hayd, where missed prayers are not qaza. When you recover, resume normal tracking and work through your qaza at a sustainable pace."
+      "body": "Ramazanda oruç tutmak keseliňizi agyrlaşdyrsa ýa-da sagalmagy gijikdirse, oruçy açyp, sagalanyňyzdan soň başga günlerde kaza ediň — Gur’an muňa rugsat berýär.\n\nHer geçen Ramadan oruçy soň bir gün oruç bilen kaza edilýär; dogry sebäpsiz bozulan oruçdan başga kaffarat ýok.\n\nKesel döwründe geçen namazlar hem başaryňyzda tertip bilen kaza edilmelidir. Sagalanyňyzda adaty yzarlaýyşy dowam etdirip, kazany durnukly depginde ýerine ýetiriň."
     },
     "disclaimer": "Bu dir egitim guidance, not  personal ruling. How much hastalyk justifies each concession varies by school ve severity — consult  qualified alim için sizin situation.",
     "markExcused": "today as excused (illness) Yşaretle",
@@ -2596,7 +2596,7 @@
     "meaningLabel": "Näme öwredýär",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "Bu dolandyryş paneli, Munibdäki okuwyňyzy we tejribäňizi yzarlaýar. Sapaklary tamamlamak, Allanyň ýanynda durmagyňyzy ölçemez - yhlas bilen.",
     "lessonsTitle": "Tamamlanan dersler",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2654,7 +2654,7 @@
     "quickLessons": "Ders kartlary",
     "quickLessonsHint": "Leadership ve spiritual takeaways den each battle",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mowzuklar okalýar we ösüşi öwrenýär",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -2693,7 +2693,7 @@
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsIntro": "These dir moral ve leadership lessons — not military tactics manuals.",
     "progressTitle": "learning'im",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Okuwy yzarla - Allah bilen ruhy dereje däl",
     "progressIntro": "Bu dashboard tracks topics siz have read içinde Munib. Knowledge dir  means; sincerity ile Allah dir  goal.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Explore timeline, verses, glossary, ve lesson cards",
@@ -2804,7 +2804,7 @@
     "quizTitle": "Gözden geçir synav",
     "quizSubtitle": "Test sizin understanding — not sizin standing ile Allah",
     "quizHint": "Timeline, definitions, ve reflection",
-    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
+    "quizIntro": "Boşluklary tapmak üçin bu wiktorinany ulanyň, soňra şol temalary öwreniň. Bu ruhy hasap däl.",
     "quizProgress": "Soru {{current}} of {{total}}",
     "quizComplete": "Täzeleşdirilen sorag",
     "quizScore": "{{score}} ýa-da {{total}} dogry soraglary aldy",
@@ -2842,7 +2842,7 @@
       "learningHint": "Topics completed içinde bu module"
     },
     "progressTitle": "Learning ilerleme",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Okuwy yzarla - Allah bilen ruhy dereje däl",
     "progressIntro": "topics complete as you read. Knowledge is a means; sincerity with Allah is the goal. Yşaretle",
     "lessonsTitle": "Tamamlanan mowzular",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
@@ -2880,9 +2880,9 @@
     "quickGhusl": "Gusül guide",
     "quickGhuslHint": "Uly hadesten soň doly gusül",
     "quickChecklist": "Günlük checklist",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "Namaza taýyn bolýan endikler",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mowzuklar okalýar we ösüşi öwrenýär",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -2951,7 +2951,7 @@
     "quickLessons": "Dersler",
     "quickLessonsHint": "Moral ve spiritual takeaways",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mowzuklar okalýar we ösüşi öwrenýär",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -2975,7 +2975,7 @@
     "profileTitle": "Profil",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
+    "progressIntro": "Pygamberleriň durmuşyny öwreneniňizde mowzuklary doly belläň.",
     "lessonsTitle": "Tamamlanan mowzular",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3021,7 +3021,7 @@
     "quickGlossary": "Sözlük",
     "quickGlossaryHint": "Key creed şartlar defined",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mowzuklar okalýar we ösüşi öwrenýär",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -3043,7 +3043,7 @@
     "phaseV1": "V1 — Esaslar",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "Studying aqeedah strengthens iman when done with sincerity and reliable sources.",
+    "progressIntro": "Akydaýy yhlas we ygtybarly çeşmeler bilen öwrenmek imany güýçlendirýär.",
     "lessonsTitle": "Tamamlanan mowzular",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3082,7 +3082,7 @@
     "quickOccasions": "Waka boýunça",
     "quickOccasionsHint": "Browse duas için every moment",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mowzuklar okalýar we ösüşi öwrenýär",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandy",
     "exploreTitle": "Keşfet",
@@ -3131,7 +3131,7 @@
     "eyebrow": "Ögren",
     "title": "Guran Ögren",
     "subtitle": "Read → Understand → Reflect → Memorize → Pratik → Live",
-    "intro": "A complete learning journey — not just a reader. Every lesson cites Qur'an or authentic hadith where possible, names scholarly sources for tafsir, and links to Munib trackers.",
+    "intro": "Doly öwreniş sapary — diňe okyjy däl. Her sapak mümkin boldugyça Gur’ana ýa-da sahih hadysa salgylanýar, tefsir çeşmelerini görkezýär we Munib yzarlaýjylaryna baglanýar.",
     "quickLinksTitle": "here Başlat",
     "quickDaily": "Günlük lesson",
     "quickDailyHint": "Verse, reflection, ve one action için bugün",
@@ -3184,12 +3184,12 @@
     "reflectionTitle": "Düşün",
     "openInQuran": "in Guran reader Aç",
     "progressTitle": "learning'im",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Okuwy yzarla - Allah bilen ruhy dereje däl",
     "progressIntro": "Bu dashboard tracks lessons siz have studied içinde Munib. Allah knows what dir içinde sizin heart.",
     "lessonsTitle": "Dersler",
     "lessonsHint": "topics complete as you finish studying them Yşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
-    "progressExploreHint": "Continue your journey through daily lessons, vocabulary, and themes",
+    "progressExploreHint": "Gündelik sapaklar, sözlük we mowzuklar arkaly saparyňyzy sürdürüň.",
     "exploreTitle": "Keşfet",
     "tajweedTitle": "Tajvid",
     "tajweedSubtitle": "Rules  dogru ve beautiful recitation",
@@ -3199,7 +3199,7 @@
     "practiceTitle": "Pratik",
     "lettersTitle": "Gözlegpça harfler",
     "lettersSubtitle": "28 harfler ile isimler, sounds, ve examples",
-    "lettersIntro": "Study one letter per day — see, hear, say, write.",
+    "lettersIntro": "Günde bir harp öwreniň - görüň, eşidiň, aýdyň, ýazyň.",
     "pronunciationTitle": "Telaffuz",
     "pronunciationSubtitle": "Zor harf çiftlerini ögren",
     "pronunciationIntro": "Compare similar sounds side by side — record yourself ve listen geri.",
@@ -3225,7 +3225,7 @@
     "challengeDone": "Challenge completed — may Allah accept",
     "quizTitle": "Guran synav",
     "quizSubtitle": "Test sizin understanding — not sizin standing ile Allah",
-    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
+    "quizIntro": "Boşluk tapmak üçin her soragy ulanyň, soňra şol mowzugy öwreniň. Bu syn, ruhy bal däl.",
     "quizProgress": "Soru {{current}} of {{total}}",
     "quizComplete": "Täzeleşdirilen sorag",
     "quizScore": "{{score}} ýa-da {{total}} dogry soraglary aldy",
@@ -3386,12 +3386,12 @@
       "purpose": {
         "title": "Why zekat — purpose & wisdom",
         "summary": "It purifies wealth ve  soul, ve lifts  poor",
-        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
+        "body": "Allah zekat hakda şeýle diýýär: \"Baýlyklaryndan arassalap, ösmegine sebäp bolýan haýyr-sahawat alyň\" (Gurhan 9: 103). Borç birbada iki derejede işleýär - berijiniň ruhuny dünýäni ýigrenmekden we söýmekden arassalaýar we eliňizde galan zatlaryň peýdaly we bereketli bolmagy üçin baýlygy arassalaýar.\n\nJemgyýetçilikde zekat, Hudaý tarapyndan sargyt edilen aýlanyş ulgamydyr. Pygamberimiz Mu'ady Yemenemende iberende, zekaty baýlardan alyp, garyplaryna bermegi buýurdy. Baýlyk az sanly adamyň arasynda jemlenmek üçin däl; zekat ony mätäçlige iýmitlendirýär, bergidarlar boşadylýar we jemgyýetiň gatnaşyklary berkidilýär.\n\nRuhy taýdan zekat bermek, minnetdarlyk we ynamdyr. Ynsanlaryň isleginiň Alladan gelýändigine ynam bilen jogap bermek we imanlyny bermegi söýmegi öwredýär. Zekat töleýän adam baýlyklarynyň goralýandygyny, ýürekleriniň ýeňilleşendigini we Rebbinde saklan sylaglaryny höwes bilen tapýar - \"Olardan gorkmaz we gynanmaz\" (Gurhan 2: 277)."
       },
       "hawl": {
         "title": " kameri year (hawl)",
         "summary": "Wealth must stay above nisab için one Hicri year",
-        "body": "Zakat on cash, gold, silver, and trade wealth is generally due only after that wealth has remained at or above the nisab threshold for one complete Hijri (lunar) year, known as the hawl. The Prophet ﷺ taught that there is no zakat on wealth until a year has passed over it.\n\nIn practice, note the date your zakatable wealth first reached nisab. That date becomes your annual zakat anniversary — each year, on that same Hijri date, you value everything you own and pay 2.5% of the total.\n\nYou do not need to track each coin separately. Most scholars hold that as long as your total stays at or above nisab across the year, small dips and rises in between do not matter — you simply assess the whole sum on your anniversary. If your wealth falls entirely below nisab during the year, many scholars consider the hawl to reset, restarting only when you next reach nisab.\n\nRemember that the Hijri (lunar) year is about eleven days shorter than the solar year. If you prefer to pay on a fixed Gregorian date for convenience, some scholars permit it provided you slightly increase the rate to account for the shorter lunar cycle. Agricultural produce and livestock follow their own timing rules and are not tied to the hawl in the same way."
+        "body": "Nagt pula, altyna, kümüşe we söwda baýlygyna zekat, adatça, baýlyk hawl diýilýän doly bir Hijri ýyly nisapda ýa-da ondan ýokary galandan soň berilýär. Pygamber ﷺ baýlygyň üstünden bir ýyl geçmän zekat ýokdugyny öwretdi.\n\nZekata degişli baýlygyňyzyň ilkinji gezek nisaba ýeten senesini belläň. Şol sene ýyllyk zekat senäňiz bolýar; her ýyl şol Hijri senede ähli baýlygyňyzy bahalandyryp, umumy mukdaryň 2,5%-ini beriň.\n\nKöp alymlar ýyl dowamynda umumy baýlyk nisapdan ýokary bolsa, ownuk üýtgemeleriň ähmiýetiniň ýokdugyny aýdýarlar. Baýlyk doly nisapdan aşak düşse, hawl täzeden başlanýar.\n\nHijri ýyly gün ýylyndan takmynan on bir gün gysga."
       },
       "nisab": {
         "title": "Nisab —  minimum threshold",
@@ -3411,12 +3411,12 @@
       "debts": {
         "title": "Borçlar & kesintiler",
         "summary": "Immediate debts may be deducted önce calculating 2.5%",
-        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
+        "body": "Zekat sap zekatable baýlygyňyzda hasaplanýar, şonuň üçin bergiňiz bolan hakyky bergiler tölän mukdaryňyzy azaldyp biler. Iň düşnükli ýagdaý, indi berilmeli bergiler - tölenmedik şahsy karz, karz kartoçkasynyň galyndysy, kärendesi ýa-da eýýäm bergileri. Alymlaryň köpüsi, 2,5% ulanmazdan ozal bularyň umumy baýlygyňyzdan aýrylmagyna ýol berýärler.\n\nIpoteka ýa-da köp ýyllyk töleg meýilnamasy ýaly uzak möhletli bergiler has seresaplylyk bilen çözülýär, sebäbi ähli balansy aýyrmak, öý karzy bolanlaryň hemmesiniň zekatyny ýok eder. Häzirki zaman çemeleşmesi, diňe tölenmedik jemi däl-de, geljek ýylyň dowamynda tölenmeli tölegleri aýyrmakdyr. Mekdepler we alymlar bu ýerde tapawutlanýar, şonuň üçin ýolbaşçylykda yzygiderli usuly saýlaň.\n\nIki seresaplyk. Ilki bilen, geljek ýa-da gipotetiki çykdajylary aýyrylan karzlar hökmünde kabul etmäň - diňe hakykatda bergiňiz bar. Ikinjiden, geçen ýyl tölenmedik zekaty adaty bergi ýaly aýyrmaň; tölenmedik zekat hökmany borç bolup galýar we diňe tölenmeli. Karz ýagdaýyňyz çylşyrymly bolsa, alymyň karary takmynan çaklamadan has möhümdir."
       },
       "recipients": {
         "title": "Who may receive zekat",
         "summary": "Eight categories named içinde Guran 9:60",
-        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
+        "body": "Zekat diňe Allahyň Özi Tawba süresinde atlandyrylan adamlar kategoriýalaryna berilip bilner (9:60). Bu, alyjylaryň wahyý bilen kesgitlenýän, berijiniň islegine görä goýulmaýan az sanly ybadat amallaryndan biridir. Sekiz kategoriýa: garyplar (al-fukara); mätäçler (al-masakin); zekat ýygnamak we dolandyrmak üçin işleýänler; ýürekleri ýaraşmaly adamlar (al-mu'allafah); ýesirleri we gulçulygy azat etmek (fi'r-riqab); bergili (al-gharimin); Allanyň ýolunda. galan syýahatçy (ibn as-sabil).\n\nSekiz adamyň hemmesine bermek talap edilmeýär; zekatyňyzy hatda bir kategoriýa bermek hem borjy ýerine ýetirýär we garyplara we mätäçlere gönükdirmek iň giň ýaýran amaldyr.\n\nKimiň alyp bilmezligi hem möhümdir. Zekat baýlara ýa-da eýýäm goldaw bermäge borçly adamlara - ene-atalaryňyza, çagalaryňyza ýa-da ýanýoldaşyňyza berilip bilinmez - sebäbi olary goldamak her niçigem bolsa bergiňizdir. Nusgawy nukdaýnazardan seredilende, umumy haýyr-sahawat däl-de, eýeçiligiň şahsy eýeçilige geçirilmegi; alymlar metjit ýa-da giň jemgyýetçilik taslamalary ýaly guramalaryň Allanyň razylygyna laýyk gelýändigi ýa-da däldigi barada tapawutlanýar. Şeýle hem Pygamberimiziň maşgalasyna, Banu Haşime zekat hökmünde berip bolmaz. Gurhan kategoriýalaryna gabat gelýän adamlara bilgeşleýin maksat ediniň."
       },
       "otherRates": {
         "title": "Other types  zekat & zekat al-fitr",
@@ -3426,7 +3426,7 @@
       "mistakes": {
         "title": "Common mistakes  avoid",
         "summary": "Errors şu make zekat invalid veya miscalculated",
-        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
+        "body": "Hatda yhlasly musulmanlaram zekatyň amaly jikme-jikliklerine köplenç göz aýlaýarlar. Umumy ýalňyşlyklary bilmek, dogry we rahatlyk bilen tölemäge kömek edýär.\n\nTüýdügi ýa-da ýubileýi ýatdan çykarmak: tötänleýin tölemek ýa-da ýyllary taşlamak ajaýyp borçlary galdyrýar. Her ýyl bir hijri senesini düzediň we baýlygyňyza baha beriň.\n\nBaýlygy ýalňyş hasaplamak: altyn ýa-da paýnamalary şu günki bazar bahasynyň ýerine satyn alyş bahasyna baha bermek, birnäçe hasapda ýa-da walýutada saklanýan nagt pullary ýatdan çykarmak ýa-da iş sanawyna we bergilerine üns bermezlik. Zekat senä degişli bolan zekatly zatlaryň hemmesinde.\n\nNädogry adamlara bermek: zekaty ene-atalara, çagalara ýa-da eýýäm goldaýan ýanýoldaşyňyza bermek ýa-da haýsydyr bir sebäbe görä umumy sadaka hökmünde garamak. Gurhanyň sekiz kategoriýasynyň birine ýetmeli.\n\nNiýet ýalňyşlyklary: ýylyň dowamynda sahylyk bilen bermek, ýöne hiç haçan zekat diýip niýet etmezlik. Zekat ybadatdyr we bu aýratyn tölegiň hökmany zekatdygyňyza niýetdir.\n\nArtykmaç karzlar: hasaby gysgaltmak üçin uzak möhletli ipotekany ýa-da entek bergisi bolmadyk geljek çykdajylary aýyrmak. Diňe hakyky, häzirki borçnamalar zakatable baýlygyňyzy azaldar. Bularyň haýsydyr biri siziň ýagdaýyňyz üçin düşnüksiz bolsa, pikir etmän, ökde hünärli alymdan soraň."
       }
     },
     "recipientsListTitle": " eight categories",
@@ -3501,7 +3501,7 @@
     "group": {
       "liquid": "Nakit & kyymetli metaller",
       "investments": "Maýa goýumlary we işewürlik",
-      "property": "Land, property & vehicles"
+      "property": "Lander, emläk we ulaglar"
     },
     "weightSectionTitle": "Altyn we kümüşi agramy boýunça hasapla",
     "nisabOverrideTitle": "Manuel nisab geçersiz kylma",
@@ -3523,23 +3523,23 @@
         "title": "Veya calculate gold by weight",
         "grams": "Gram",
         "pricePerGram": "Fiyat/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "Agramy boýunça altyn",
+        "amount": "Agram",
+        "pricePerGram24k": "Bahasy/g (24 karat)"
       },
       "silver": {
         "title": "Veya calculate silver by weight",
         "grams": "Gram",
         "pricePerGram": "Fiyat/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "Agramy boýunça kümüş",
+        "amount": "Agram",
+        "pricePerGramFine": "Bahasy/g (arassa)"
       },
       "computed": "Adds {{value}}  toplam",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "Göni bahalar 24k altyn we bir gram üçin inçe kümüş. Gurluşyňyzy saýlaň (g, tola, troy oz, kg) we karat / arassalygy - bahasy arassa metal × ýerine öwrülýär.",
+      "unit": "Agram birligi",
+      "karat": "Altyn karat",
+      "purity": "Kümüş arassalygy",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
@@ -3548,8 +3548,8 @@
         "oz": "Troy oz",
         "kg": "Kilogram"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g arassa metal",
+      "cardHint": "Tola, gram, karat / arassalyk × 24k ýa-da ajaýyp ýer."
     },
     "field": {
       "cash": "Nakit & birikimler",
@@ -3565,11 +3565,11 @@
       "nisabGoldPrice": "Gram altyn bahasy",
       "nisabSilverPrice": "Gram kümüş bahasy",
       "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "livingExpenses": "Derrew ýaşaýyş çykdajylary",
+      "investmentPlots": "Maýa goýum ýerleri (bazar bahasy)",
+      "installmentPlotsPaid": "Gurnama ýerleri - tölenen mukdar",
+      "investmentProperty": "Maýa goýum jaýlary / jaýlary",
+      "tradeVehicles": "Satmak / söwda üçin ulaglar"
     },
     "fieldHint": {
       "cash": "Bank accounts, cash  hand, ve liquid savings.",
@@ -3578,162 +3578,162 @@
       "stocks": "Current market value  shares, funds, ve similar investments.",
       "business": "Value  merchandise, inventory, ve goods held için sale.",
       "receivables": "Loans ve invoices siz reasonably expect  collect.",
-      "rentalIncome": "Rental or business profits you still hold — not already spent.",
+      "rentalIncome": "Kärende ýa-da telekeçilik girdejileri henizem saklanýar - eýýäm sarp edilmedi.",
       "otherAssets": "Cryptocurrency, accessible retirement funds, veya other zakatable wealth per sizin alim.",
       "debts": "Personal loans, credit cards, ve bills due now — not long-term mortgage totals unless sizin alim allows.",
       "nisab": "Leave blank  use  computed threshold, veya enter  özel nisab.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "Aktiw hökmünde saklanýan kripto-nyň bazar bahasy - kararlar tapawutlanýar; alymdan sora.",
+      "livingExpenses": "Kärende, iýmit we tölegler derrew tölenmeli - diňe alymyňyz bu aýyrmaga rugsat beren ýagdaýynda.",
+      "investmentPlots": "Maýa goýum ýa-da satuw üçin ýer ýa-da ýerler (häzirki bazar bahasy). Livingaşamak üçin ulanylýan şahsy ekerançylyk ýerleri başga - alymdan soraň.",
+      "installmentPlotsPaid": "Bölekleýin maýa goýum meýdançalarynda eýýäm näçe tölediňiz (alymyňyz goşmasa doly tölenmedik şertnama däl).",
+      "investmentProperty": "Maýa goýum ýa-da söwda üçin niýetlenen jaýlar ýa-da binalar - şahsy ýaşaýyş jaýyňyz däl.",
+      "tradeVehicles": "Satmak ýa-da söwda aksiýasy hökmünde saklanýan awtoulaglar ýa-da ulaglar - şahsy ulanylýan ulaglar däl."
     },
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "Zekat puluny çalşyň",
+      "pickerTitle": "Walýuta saýlaň",
+      "pickerHint": "{{count}} walýutalary - kod ýa-da at boýunça gözläň",
+      "searchPlaceholder": "Walýutalary gözläň ...",
+      "noResults": "Gözlegiňize hiç bir walýuta laýyk däl.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "Liveaşaýan altyn we kümüş",
+      "goldPerGram": "Altyn / gram",
+      "silverPerGram": "Kümüş / gram",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "Janly bahalary almak…",
+      "error": "Janly bahalary ýükläp bolmady Altyn we kümüş bahalaryny el bilen giriziň.",
+      "prefilled": "Nisab we metal bahalary janly nyrhlardan ileri tutulýar.",
+      "useLive": "}\nJanly bahalary gaýtadan ulanyň",
+      "useLiveA11y": "Altyndan we kümüşden ýaşamak üçin täzeden başlaň",
+      "refreshA11y": "Janly bazar bahalaryny täzeläň",
+      "livePrice": "Göni"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
       "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "belowNisab": "}\nNet {{wealth}} · nisab {{nisab}}",
+      "hasOtherDue": "Arassa {{wealth}} · ekinler / mallar"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
+      "gold": "Altyn / g",
+      "silver": "Kümüş / g",
       "nisab": "Nisab",
-      "due": "Due"
+      "due": "Berilmeli"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "Baýlyk zekaty (2,5%): {{value}}",
+      "agriculture": "Ekinler (ushr): {{value}}",
+      "livestock": "Mallar (nagt bahasy): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "Nagt, kripto we metal gymmatlyklary. Ora-da metal kartada agram ulanyň.",
+      "investments": "}\nAksiýalar, söwda harytlary, algylar we şu günki gymmaty boýunça iş girdejilerini tygşytlamak."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "Ekinler / mallar (nisabyň aşagyndaky baýlyk)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "Mallar (öri meýdanlary)",
+      "hint": "Erkin bakýan goýun / geçi, mal we düýe üçin sünnet terezisi (Buhari / Abu Dawud). Iş hökmünde saklanylýan iýmitlenýän haýwanlar köplenç söwda harytlarynyň düzgünlerine eýerýärler - alymdan soraň.",
+      "sheep": "Goýun / geçiler (kelleler)",
+      "sheepHint": "Nisab 40 başyndan başlaýar.",
+      "cattle": "Sygyr / öküz (kelleler)",
+      "cattleHint": "Nisab 30 kelleden başlaýar (tabi '/ musinnah şkalasy).",
+      "camels": "Düýeler (kelleler)",
+      "camelsHint": "Nisab 5 başyndan başlaýar.",
+      "valueTitle": "Goşmaça pul bahalary (başyna)",
+      "valueHint": "}\nMallardaky zekat adatça haýwanlarda tölenýär. Diňe meýilnamalaşdyrmak üçin nagt ekwiwalent bahany isleseňiz, bazar bahalaryny giriziň.",
+      "sheepValue": "Goýun / geçiniň bahasy",
+      "cattleValue": "Her mal başyna baha",
+      "camelValue": "Düýäniň bahasy",
+      "dueTitle": "Haýwanlar (Sünnetiň çaklamasy)",
+      "cashEstimate": "Nagt bahasy: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} goýun / geçi",
+        "cattleTabi": "{{count}} tabi '(1 ýyllyk mal)",
+        "cattleMusinnah": "{{count}} musinnah (2 ýyllyk mal)",
+        "bintMakhad": "{{count}} bint makhad (1 ýyllyk düýe)",
+        "bintLabun": "{{count}} bint labun (2 ýyllyk düýe)",
+        "hiqqah": "{{count}} hiqqah (3 ýyllyk düýe)",
+        "jadhah": "{{count}} jadha (4 ýyllyk düýe)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "Sünnet haýwanlaryň terezisi - 2,5% däl. Diňe bahalandyrmalar üçin goşmaça pul bahalary."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "Oba hojalygy we hasyl (ushr)",
+      "hint": "Hasyl wagtynda - Aýdan soň däl. Rainagyş / çeşmeler bilen suwarylýan ýerler üçin nyrh 10%, suwaryş üçin güýç ýa-da pul gerek bolsa 5% (Gurhan 6: 141; Sünnet).",
+      "harvest": "Hasyl bazary",
+      "harvestHint": "Hasyl wagtynda bu möwsümdäki ekinleriň ýa-da miweleriň gymmaty.",
+      "irrigation": "Suw çeşmesi",
+      "natural": "Rainagyş / çeşmeler (10%)",
+      "irrigated": "Suwarymly (5%)",
+      "naturalHint": "Gymmat bahaly suwaryşsyz tebigy suwarylanda 10%.",
+      "irrigatedHint": "Guýular, nasoslar ýa-da tölegli suwaryş bilen ýarym ushr 5%.",
+      "due": "Ushr berilmeli: {{value}}",
+      "cardHint": "Hasyl wagtynda - 10% ýagyş / çeşme, 5% suwarylýar."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "San formaty",
+      "hint": "Müňlerçe we onluk mukdarda görkezilýär.",
+      "changeA11y": "San görnüşini üýtgediň",
+      "pickerTitle": "San formaty",
+      "pickerHint": "Mukdarlaryň nädip toparlanandygyny we ýazanyňyzda we jemi onluklaryň nähili görünýändigini saýlaň."
     },
-    "learnMore": "Learn more",
+    "learnMore": "Has giňişleýin öwreniň",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "Gurhandan we Sünnetden alnan bilim mazmuny - şahsy fatwa däl.",
+      "footnote": "Mekdepler jikme-jiklikler boýunça tapawutlanýar (şaý-sepler, ipoteka, iýmitlenýän mallar, kripto). Işiňiz üçin ökde alymdan soraň.",
+      "openGuide": "Doly gollanmany açyň",
+      "a11y": "{{section}} hakda has giňişleýin öwreniň",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "Walýuta we nyrhlar",
+        "body": "Zekat, düşünýän puluňyzda baýlygyň bazar bahasy boýunça hasaplanýar. Spot altyn we kümüş bahalary nisab we metal bahalaryny kesgitlemäge kömek edýär - bu alymyňyzyň ulanýan ýerli bazar nyrhlarynyň ornuny tutmaýar."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "}\nNagt we gymmat bahaly metallar",
+        "body": "Nagt pullar, bank galyndylary, baýlyk hökmünde saklanýan altyn ýa-da kümüş iň düşnükli emläkleriň biridir. Pygamberimiz gold altyn-kümüşden alynjak zatlary saklamak barada berk duýduryş berdi. Adaty ulanmak üçin geýilýän şaý-sepler, mekdepleriň arasyndaky tapawudyň belli bir nokady - medjabyňyzy yzarlaň. Bu ýere nagt bahasyny girizip bilersiňiz ýa-da indiki bölümde metallary agramy boýunça hasaplap bilersiňiz."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "Agramy boýunça altyn we kümüş",
+        "body": "Nisab Sünnetde agramy bilen kesgitlenipdir: takmynan 20 dinar altyn ýa-da 200 dirhem kümüş (köplenç .5 87.5 g altyn ýa-da 12 612 g kümüş diýilýär). Karat we arassalyk meselesi, sebäbi zekat arassa metal düzüminde. Janly bahalar bir gram üçin 24k / inçe metal üçin - kalkulýatoryň dogry öwrülmegi üçin enjamyňyzy (gram, tola, troy oz) we karat saýlaň."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "Maýa goýumlary we iş",
+        "body": "Söwda harytlary, harytlar we ösmek üçin niýetlenen baýlyk, häzirki bazar bahasy boýunça adatça üýtgewsizdir. Paýlar we fondlar adatça söwda baýlygy ýaly baha berilýär. Collectygnamaga garaşýan güýçli algylar köplenç goşulýar. Gurhan 2: 267 gazanan zadyňyzyň peýdasyndan harçlamaga çagyrýar - zekat senäňizde dogruçyl baha beriň."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "Lander, emläk we ulaglar",
+        "body": "}\nŞahsy jaýyňyz, şahsy awtoulagyňyz we adaty öý harytlaryňyz, adatça, zekat däl - zekat ulanylýan zatlar däl-de, artýan baýlygy nyşana alýar. Maýa goýumlary, satuwlar ýa-da söwda üçin niýetlenen ýerler, jaýlar ýa-da ulaglar bazar bahasyna (ýa-da bölekleýin maýa goýum meýdançalarynda eýýäm tölenen mukdar) goşulyp bilner. Ynanmasaňyz, alymdan soraň."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "Mallar (öri meýdanlary)",
+        "body": "Mugt bakylýan goýunlar, geçiler, mallar we düýeleriň öz sünnet terezisi we haýwan nisaby bar (meselem, 40 goýun, 30 mal, 5 düýe) - 2,5% pul däl. Adatça belli ýaşdaky haýwanlarda tölenýär. Iş hökmünde saklanylýan iýmitlenýän haýwanlar köplenç söwda harytlarynyň düzgünlerine eýerýärler. Bu ýerde goşmaça nagt bahalar diňe meýilnamalaşdyryş bahasydyr."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "Oba hojalygy we hasyl (ushr)",
+        "body": "Ekinlerdäki zekat aýdan soň däl-de, hasyl wagtynda berilýär. Rainagyş ýa-da çeşmeler bilen suwlandyrylanda 10% (ushr), suwaryş üçin güýç ýa-da pul gerek bolsa 5%. Bu möwsümiň hasyl bazaryndaky bahasyny giriziň we ýagdaýyňyza laýyk suw çeşmesini saýlaň.",
+        "localRefLabel": "Gurhan 6: 141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "Aýyrmalar",
+        "body": "Zekat sap zekat baýlygyndadyr. Häzirki wagtda berilmeli bergiler, adatça, 2,5% ulanmazdan ozal aýrylýar. Uzak möhletli ipoteka has ünsli seredilýär - häzirki zaman alymlarynyň köpüsi diňe balansy däl-de, diňe geljek ýyl töleglerini aýyrýarlar. Livingaşaýyş çykdajylary derrew diňe alymyňyz rugsat berse rugsat edilýär."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "Nisab bosagasy",
+        "body": "Nisab, zekat bermezden ozal iň az artykmaçlykdyr. Pygamber alaýhyssalam ony 20 dinar altyn ýa-da 200 dirhem kümüş bilen kesgitledi we baýlykdan bir ýyl geçýänçä hiç bir zekatyň berilmejekdigini öwretdi. Häzirki wagtda altynyň we kümüşiň bahasy biri-birinden tapawutlanýanlygy sebäpli, köp alym aşaky (köplenç kümüş) çäkden peýdalanýar, şonuň üçin garyplara has köp kömek edilýär. Bu kalkulýator iki janly bahanyň aşaky bölegini teklip edýär."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "Derrew bergiler (we diňe alymyňyz rugsat berse ýaşaýyş çykdajylary).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "Kalkulýatory täzeden düzüň?",
+      "message": "Bu ähli mukdary, metal agramlary, mallary we ekinleri arassalaýar. Puluňyz we san formaty üýtgewsiz galar.",
+      "confirm": "Formany täzeden düzmek",
+      "a11y": "Zekat kalkulýator görnüşini täzeden düzmek",
+      "hint": "Tassyklamagy soraýar, soňra girizilen mukdarlaryň hemmesini arassalaýar"
     }
   },
   "customAdhkar": {
@@ -3753,62 +3753,62 @@
       "reference": "Reference (istege bagly)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "Suratlar (islege görä)",
+      "add": "Surat goşuň",
+      "remove": "Suraty aýyryň",
+      "hint": "5-e çenli surat, hersi 1 MB. Aýyrmak üçin kiçijik suraty basyň.",
+      "signInRequired": "Adhkar-a şahsy suratlary goşmak üçin giriň.",
+      "permissionDenied": "Surat goşmak üçin surat kitaphanasynyň rugsady talap edilýär.",
+      "unsupportedType": "Diňe JPEG, PNG ýa-da WebP suratlaryny ulanyň.",
+      "tooLarge": "Her surat 1 MB ýa-da has kiçi bolmaly.",
+      "uploadFailed": "Suratlar ýükläp bolmady Gaýtadan synanyşyň.",
+      "uploading": "Uploadüklemek…",
+      "open": "Suraty açyň {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "Ulaltmak üçin çümmüklemek, panada çekmek, täzeden düzmek üçin iki gezek basyň",
+      "previous": "Öňki surat",
+      "next": "Indiki surat"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "Goşundylar (islege görä)",
+      "add": "Faýl goşuň",
+      "remove": "Goşundyny aýyryň",
+      "hint": "5-e çenli faýl (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçijik suraty basyň.",
+      "signInRequired": "Adhkar-a şahsy faýllary birikdirmek üçin giriň.",
+      "permissionDenied": "Faýllary birikdirmek üçin rugsat gerek.",
+      "permissionTitle": "Girmäge rugsat beriň",
+      "permissionBody": "Munib Tracker faýllary birikdirmek üçin kamera ýa-da surata girmek zerur.",
+      "permissionSettingsBody": "Rugsat berilmedi. Munib Tracker üçin kamera ýa-da suratlara rugsat bermek üçin Sazlamalary açyň.",
+      "allowAccess": "Girmäge rugsat beriň",
+      "unsupportedType": "}\nDiňe JPEG, PNG, WebP ýa-da PDF ulanyň.",
+      "tooLarge": "Her faýl 1 MB ýa-da has kiçi bolmaly.",
+      "uploadFailed": "}\nGoşundylary ýükläp bolmady Gaýtadan synanyşyň.",
+      "uploading": "Uploadüklemek…",
+      "readFailed": "Şol faýly okap bilmedim Başga birini synap görüň.",
+      "pickFailed": "Şol faýly goşup bolmady Gaýtadan synanyşyň.",
+      "openFailed": "Şol faýly açyp bolmady",
+      "open": "{{index}} goşundysyny açyň",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "Ulaltmak üçin çümmüklemek, panada çekmek, täzeden düzmek üçin iki gezek basyň",
+      "previous": "Öňki goşundy",
+      "next": "}\nIndiki goşundy",
+      "openPdf": "PDF açyň",
+      "sourceTitle": "Goşundy goşuň",
+      "sourceCamera": "Surata alyň",
+      "sourceCameraHint": "Surata almak üçin kamerany ulanyň",
+      "sourceGallery": "Surat kitaphanasy",
+      "sourceGalleryHint": "Suratlaryňyzdan surat saýlaň",
+      "sourceDocument": "Faýllar",
+      "sourceDocumentHint": "Faýllaryňyzdan surat ýa-da PDF saýlaň"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Mikrofon bilen ýazyň",
+      "stopDictate": "Diktasiýany bes et",
+      "listening": "Diňlemek…",
+      "permissionDenied": "Buýruk bermek üçin mikrofonyň rugsady talap edilýär. Siz henizem ýazyp bilersiňiz.",
+      "unavailable": "Bu enjamda gepleýiş tanamak mümkin däl.",
+      "couldNotHear": "Muny eşitmedim - gaýtadan synanyşyň ýa-da ýazyň.",
+      "errorGeneric": "Diktasiýa başa barmady. Gaýtadan synap görüň ýa-da ýazyň."
     }
   },
   "tahajjud": {
@@ -3888,24 +3888,24 @@
     "editA11y": "{{prayer}} reflection Düzenle",
     "discard": "Vazgeç",
     "confirmDeleteTitle": "this reflection? Pozmak",
-    "confirmDeleteMsg": "Your note for {{prayer}} on {{date}} will be removed permanently.",
+    "confirmDeleteMsg": "{{prayer}} üçin {{date}} senesindäki belligiňiz hemişelik öçüriler.",
     "confirmDiscardTitle": "Degişiklikler iptal edilsin mi?",
     "confirmDiscardMsg": "Anything siz wrote will be lost.",
     "confirmOverwriteTitle": "Bar bolan tefekkür çalşyrylsynmy?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "Bu gün üçin {{prayer}}-ni eýýäm bellediňiz. Tygşytlamak onuň ornuny tutar.",
     "level1": "Dalgyn",
     "level2": "Huzursuz",
     "level3": "Yeterince hazyr",
     "level4": "Odakly",
     "level5": "Derinden hazyr",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Mikrofon bilen ýazyň",
+      "stopDictate": "Diktasiýany bes et",
+      "listening": "Diňlemek…",
+      "permissionDenied": "Buýruk bermek üçin mikrofonyň rugsady talap edilýär. Siz henizem ýazyp bilersiňiz.",
+      "unavailable": "Bu enjamda gepleýiş tanamak mümkin däl.",
+      "couldNotHear": "}\nMuny eşitmedim - gaýtadan synanyşyň ýa-da ýazyň.",
+      "errorGeneric": "Diktasiýa başa barmady. Gaýtadan synap görüň ýa-da ýazyň."
     }
   },
   "prayerTuning": {
@@ -3946,7 +3946,7 @@
     "umrahTag": "Umre",
     "hajjTag": "Hac",
     "disclaimer": "Pratik bir kontrol listesi, fykyh kitaby degil. Hüküm ve ayryntylar için nitelikli bir rehbere uyun.",
-    "prepTag": "Prep"
+    "prepTag": "Taýýarlaň"
   },
   "dailyHadith": {
     "eyebrow": "Günlük seri",
@@ -3991,7 +3991,7 @@
     "versesLead": "Dokunun any verse  aç it içinde  Guran reader.",
     "journeyTitle": "Journey'im",
     "journeySummary": "Şu günün habits — not your rank with Allah",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "Ybadatdaky yzygiderlilik",
     "journeyBanner": "These habits dir among  deeds Allah loves. Sizin final rank dir only ile Him.",
     "journeyToday": "Şu günün striving",
     "journeyEmpty": "with one prayer or adhkar — small steps build lifelong habits. Başlat",
@@ -4309,7 +4309,7 @@
     "wearTitle": "Wear OS",
     "wearHint": "the Munib Tracker tile on your watch after pairing with your phone. Ekle",
     "marked": "Namaz marked",
-    "alreadyDone": "Zaten işaretlendi",
+    "alreadyDone": "Eýýäm bellendi",
     "allDone": "Tüm obligatory Namaz marked for today",
     "excused": "Tracking dir paused için bugün",
     "locked": "Aç  app  mark Namaz",
@@ -4365,181 +4365,181 @@
     "footer": "Sizin PIN dir stored securely  bu cihaz ve never leaves it."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "Bildiriş"
   },
   "sahaba": {
-    "eyebrow": "Learn",
+    "eyebrow": "Öwreniň",
     "title": "Sahaba",
-    "subtitle": "Short profiles of the companions of the Prophet ﷺ",
-    "intro": "The sahaba are the generation that carried Islam from the Prophet ﷺ to the rest of the world. These short profiles follow the tone of the seerah timeline — a life, a lesson, and a source for every claim.",
-    "categoryAll": "All",
+    "subtitle": "Pygamberimiziň sahabalarynyň gysgaça maglumatlary ﷺ",
+    "intro": "Sahabalar Yslamy Pygamberden ﷺ dünýäniň beýleki ýerlerine alyp giden nesil. Bu gysga profiller, seerah grafiginiň äheňine eýerýär - durmuş, sapak we her bir talap üçin çeşme.",
+    "categoryAll": "Hemmesi",
     "category": {
-      "caliphs": "Caliphs",
-      "ashara": "Ashara Mubashara",
-      "family": "Family",
-      "women": "Women",
-      "notable": "Notable"
+      "caliphs": "Halyflar",
+      "ashara": "Aşara Mubaşara",
+      "family": "Maşgala",
+      "women": "Aýallar",
+      "notable": "Görnükli"
     },
-    "noResults": "No companions in this category yet",
-    "readMore": "Tap to read the full profile",
-    "disclaimer": "Narrative facts follow the classical seerah and history works; every claim tied to a specific narration cites its hadith collection and number. This is general educational content, not a scholarly ranking.",
-    "quickLinksTitle": "Explore",
-    "quickCaliphsHint": "Start with Abu Bakr, the first Caliph",
-    "quickAsharaHint": "The ten promised Paradise",
-    "quickWomenHint": "Khadijah and the Mothers of the Believers",
-    "quickBattles": "Companions in battle",
-    "quickBattlesHint": "Campaign profiles from the Battles guide",
-    "countCardTitle": "Companion directory",
-    "countCardHint": "{{count}} verified educational profiles",
+    "noResults": "Bu kategoriýada entek ýoldaş ýok",
+    "readMore": "Doly tertibi okamak üçin basyň",
+    "disclaimer": "Razgy faktlary nusgawy seera we taryh eserlerine eýerýär; Belli bir kyssa bilen baglanyşykly her bir hadysda hadysy ýygyndysy we sany görkezilýär. Bu umumy bilim mazmuny, ylmy dereje däl.",
+    "quickLinksTitle": "Gözläň",
+    "quickCaliphsHint": "Ilkinji halyf Abu Bakrdan başlaň",
+    "quickAsharaHint": "Wada berlen on adam Jennet",
+    "quickWomenHint": "Hadyýa we imanlylaryň eneleri",
+    "quickBattles": "Söweşdäki ýoldaşlar",
+    "quickBattlesHint": "Söweş gollanmasyndan kampaniýa profilleri",
+    "countCardTitle": "Companoldaş katalogy",
+    "countCardHint": "{{count}} bilim profilini barlady",
     "categoryHint": {
-      "caliphs": "The four Rightly Guided Caliphs",
-      "ashara": "The ten companions promised Paradise",
-      "family": "Close family of the Prophet ﷺ",
-      "women": "Prominent women of the early community",
-      "notable": "Other widely remembered companions"
+      "caliphs": "Dogry ugrukdyrylan dört halyf",
+      "ashara": "On ýoldaş Jennete söz berdi",
+      "family": "Pygamberimiziň ýakyn maşgalasy ﷺ",
+      "women": "Irki jemgyýetiň görnükli zenanlary",
+      "notable": "Beýleki giňden ýatlanylýan ýoldaşlar"
     },
-    "exploreTitle": "Continue learning",
-    "exploreBattles": "Battles figures",
-    "exploreBattlesHint": "Companions who appear in the military campaigns",
-    "exploreSeerah": "Seerah timeline",
-    "exploreSeerahHint": "Life of the Prophet ﷺ through key milestones",
-    "exploreHistory": "Early Islamic history",
-    "exploreHistoryHint": "From the Prophet's ﷺ passing to the end of the Rashidun",
-    "profileBodyTitle": "Life and lesson",
-    "relatedTitle": "Related guides",
-    "linkBattlesFigures": "See companions in Battles",
-    "linkSeerah": "Open the Seerah timeline",
-    "linkHistory": "Open early Islamic history",
-    "openProfileHint": "Open full companion profile",
-    "notFound": "Companion not found"
+    "exploreTitle": "Öwrenmegi dowam etdiriň",
+    "exploreBattles": "Uruş sanlary",
+    "exploreBattlesHint": "Harby kampaniýalara gatnaşýan ýoldaşlar",
+    "exploreSeerah": "Seerah wagt tertibi",
+    "exploreSeerahHint": "Pygamberiň durmuşy key möhüm pursatlar arkaly",
+    "exploreHistory": "Irki yslam taryhy",
+    "exploreHistoryHint": "Pygamberimiziň ﷺ Raşidunyň ahyryna çenli",
+    "profileBodyTitle": "Durmuş we sapak",
+    "relatedTitle": "Degişli gollanmalar",
+    "linkBattlesFigures": "Söweşdäki ýoldaşlara serediň",
+    "linkSeerah": "“Seerah” grafigini açyň",
+    "linkHistory": "Yslamyň irki taryhyny açyň",
+    "openProfileHint": "Doly ýoldaş profilini açyň",
+    "notFound": "Ionoldaş tapylmady"
   },
   "history": {
-    "eyebrow": "Learn",
-    "title": "Early Islamic history",
-    "subtitle": "From the Prophet's ﷺ death to the end of the Rashidun Caliphate",
+    "eyebrow": "Öwreniň",
+    "title": "Irki yslam taryhy",
+    "subtitle": "Pygamberimiziň ölüminden başlap, Reşidun halyflygynyň ahyryna çenli",
     "ceBadge": "{{year}} CE",
     "ahBadge": "{{ah}} AH",
     "era": {
-      "prophetic-close": "The Prophet ﷺ",
+      "prophetic-close": "Pygamber ﷺ",
       "abu-bakr": "Abu Bakr",
       "umar": "Umar",
-      "uthman": "Uthman",
-      "ali": "Ali"
+      "uthman": "Usman",
+      "ali": "Aly"
     },
-    "disclaimer": "Scoped to 11–41 AH (632–661 CE) — the close of the Prophet's ﷺ life through the end of the Rashidun Caliphate. Political and military narrative follows the classical history works; the Uthman/Ali period is presented without adjudicating later theological disputes."
+    "disclaimer": "11–41 AH (beö. 632–661-nji ýyllar) aralygynda - Reşidun halyflygynyň ahyryna çenli Pygamberimiziň ömrüniň ahyry. Syýasy we harby kyssa nusgawy taryh eserlerine eýerýär; Usman / Aly döwri soňraky ylahy jedelleri çözmezden hödürlenýär."
   },
   "laylatAlQadr": {
-    "eyebrow": "Learn",
-    "title": "Laylat al-Qadr",
-    "subtitle": "The Night of Decree — better than a thousand months",
-    "intro": "Laylat al-Qadr is hidden among the odd nights of the last ten of Ramadan, not fixed to a single date. Seek it with sincere worship across all of them rather than one guessed night.",
+    "eyebrow": "Öwreniň",
+    "title": "Laylat al-Kadr",
+    "subtitle": "Karar gijesi - müň aýdan gowrak",
+    "intro": "Laylat al-Kadr, Remezan aýynyň soňky on aýynyň täsin gijeleriniň arasynda gizlenýär, ýekeje senä-de bellenilmeýär. Bir gijäni däl-de, hemmesini çyn ýürekden ybadat bilen gözläň.",
     "section": {
-      "virtues": "Its virtue",
-      "when": "When to seek it",
-      "dua": "What to say",
-      "ibadah": "How to spend the night",
-      "reminders": "Reminders"
+      "virtues": "Onuň fazyleti",
+      "when": "Haçan gözlemeli",
+      "dua": "Näme diýmeli",
+      "ibadah": "Gijäni nädip geçirmeli",
+      "reminders": "Inderatlatmalar"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "This guide does not endorse a single fixed calendar date or folk 'signs' for identifying the night — only what the Qur'an and authentic hadith state.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Bu gollanma, kesgitli bir senenama senesini ýa-da gijäni kesgitlemek üçin halkyň \"alamatlaryny\" goldamaýar - diňe Gurhanyň we hakyky hadysyň ýagdaýyny görkezýär.",
+    "continueInApp": "Munibde dowam et"
   },
   "eid": {
-    "eyebrow": "Learn",
-    "title": "Eid guide",
-    "subtitle": "Eid al-Fitr and Eid al-Adha — prayer, sunnah, and rulings",
-    "intro": "The two Eids from the Qur'an and authentic hadith — how to pray Eid salah, Zakat al-Fitr, udhiyah, and the sunnah practices of the day.",
+    "eyebrow": "Öwreniň",
+    "title": "Baýram gollanmasy",
+    "subtitle": "Gurban baýramy we Gurban baýramy - doga, sünnet we hökümler",
+    "intro": "Gurhandan iki sany Gurban we hakyky hadys - Gurban namazyny, Zekat al-Fitr, udhiýa we günüň sünnet amallaryny nädip okamaly.",
     "section": {
-      "fitr": "Eid al-Fitr",
-      "adha": "Eid al-Adha",
-      "prayer": "The Eid prayer",
-      "sunnah": "Sunnah practices",
-      "zakat-fitr": "Zakat al-Fitr",
-      "udhiyah": "Udhiyah (sacrifice)"
+      "fitr": "Gurban baýramy",
+      "adha": "Gurban baýramy",
+      "prayer": "Gurban baýramy",
+      "sunnah": "Sünnet amallary",
+      "zakat-fitr": "Zekat al-Fitr",
+      "udhiyah": "Udhiýa (gurban)"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as the extra-takbir count), both positions are presented; follow your imam or a qualified local scholar.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Bilim syny - fatwa däl. Mekdepler tapawutlanýan ýerlerde (takbirden başga sanlar ýaly), iki wezipe hem görkezilýär; ymamyňy ýa-da ökde hünärli alymy yzarla.",
+    "continueInApp": "Munibde dowam et"
   },
   "ruqyah": {
-    "eyebrow": "Learn",
-    "title": "Ruqyah",
-    "subtitle": "Qur'anic and prophetic spiritual healing",
-    "intro": "Ruqyah is reciting Qur'an, Allah's Names, or authentic prophetic supplications for healing and protection — never a substitute for salah or medical care.",
+    "eyebrow": "Öwreniň",
+    "title": "Rukýa",
+    "subtitle": "Gurhan we pygamberlik ruhy bejeriş",
+    "intro": "Rukýa Gurhany, Allanyň atlaryny ýa-da bejeriş we goramak üçin hakyky pygamberlik dileglerini okaýar - hiç haçan namazyň ýa-da lukmançylyk kömeginiň ornuny tutmaýar.",
     "section": {
-      "basics": "The basics",
-      "verses": "Key verses",
-      "daily-protection": "Daily protection",
-      "reminders": "Reminders"
+      "basics": "Esasy zatlar",
+      "verses": "Esasy aýatlar",
+      "daily-protection": "Gündelik gorag",
+      "reminders": "Inderatlatmalar"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor, nor the five daily prayers. For serious or persistent affliction, consult both a scholar and a medical professional.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Rukýa lukmançylyk bejergisi däl-de, ruhy amaldyr. Ol ökde lukmany görmegiň ýa-da gündelik bäş namazyň ýerini tutmaýar. Çynlakaý ýa-da dowamly hasrat üçin alym we lukman hünärmeni bilen maslahatlaşyň.",
+    "continueInApp": "Munibde dowam et"
   },
   "newMuslim": {
-    "eyebrow": "Learn",
-    "title": "New Muslim guide",
-    "subtitle": "A warm, practical start for the first days and weeks",
-    "intro": "Welcome to Islam. This guide covers the shahada, the five pillars, the basics of faith, and a first look at prayer, then points you to the fuller Salah, Aqeedah, and Qur'an guides in this app.",
+    "eyebrow": "Öwreniň",
+    "title": "Täze musulman gollanmasy",
+    "subtitle": "Ilkinji günler we hepdeler üçin gyzgyn, amaly başlangyç",
+    "intro": "Yslama hoş geldiňiz. Bu gollanma şahada, bäş sütüni, imanyň esaslaryny we ilki doga seretmegi öz içine alýar, soňra sizi bu programmada has doly Salah, Aqida we Gurhan gollanmalaryna görkezýär.",
     "section": {
-      "start": "Getting started",
-      "pillars": "The five pillars",
-      "faith": "Basics of faith",
-      "prayer": "Your first prayer",
-      "next-steps": "Next steps",
-      "faq": "Common questions"
+      "start": "Başlamak",
+      "pillars": "Bäş sütün",
+      "faith": "Iman esaslary",
+      "prayer": "Ilkinji doganyň",
+      "next-steps": "Indiki ädimler",
+      "faq": "Umumy soraglar"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "A shallow-but-correct starting guide covering only the shared essentials every school agrees on. For your specific situation, ask a local imam or teacher.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Her mekdebiň ylalaşýan diňe zerur zatlaryny öz içine alýan çuňňur, ýöne dogry başlangyç gollanma. Aýratyn ýagdaýyňyz üçin ýerli ymamdan ýa-da mugallymdan soraň.",
+    "continueInApp": "Munibde dowam et"
   },
   "finance": {
-    "eyebrow": "Learn",
-    "title": "Islamic finance",
-    "subtitle": "Riba, fair trade, giving, and takaful",
-    "intro": "An educational introduction to the ethical framework Islam brings to money — the prohibition of riba, fair trade, zakah and sadaqah, and takaful (cooperative risk-sharing).",
+    "eyebrow": "Öwreniň",
+    "title": "Yslam maliýe",
+    "subtitle": "Riba, adalatly söwda, bermek we takwaful",
+    "intro": "Yslamyň ahlak esaslaryna bilim berýän giriş, riba, adalatly söwda, zekat we sadaka we takaka (gadaganlyk paýlaşmak) gadaganlygy.",
     "section": {
-      "principles": "Principles",
-      "riba": "Riba (interest)",
-      "trade": "Fair trade",
-      "giving": "Giving",
+      "principles": "Iplesörelgeler",
+      "riba": "Riba (gyzyklanma)",
+      "trade": "Adalatly söwda",
+      "giving": "Bermek",
       "takaful": "Takaful",
-      "faq": "Common questions"
+      "faq": "Umumy soraglar"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "General education, not financial or fatwa advice. Fund screeners, specific products, and rulings on your own contracts need a qualified, certified Islamic finance scholar or institution.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Maliýe ýa-da fatwa maslahaty däl-de, umumy bilim. Gaznanyň barlagçylary, aýratyn önümler we öz şertnamalaryňyzdaky kararlar ökde, kepillendirilen yslam finans alymy ýa-da edarasy gerek.",
+    "continueInApp": "Munibde dowam et"
   },
   "dateConverter": {
-    "eyebrow": "Calendar",
-    "title": "Date converter",
-    "subtitle": "Convert between the Hijri and Gregorian calendars",
-    "intro": "Enter a date in either calendar to see its equivalent in the other, calculated offline using the tabular Kuwaiti algorithm.",
+    "eyebrow": "Senenama",
+    "title": "Sene öwrüji",
+    "subtitle": "Hijri we Gregorian kalendarlarynyň arasynda öwüriň",
+    "intro": "Kuweýt tablisasynyň algoritmini ulanyp, oflayn hasaplanan beýleki birine meňzeşini görmek üçin iki senenama senesini giriziň.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
-    "gregorianDateLabel": "Gregorian date",
-    "hijriDateLabel": "Hijri date",
-    "day": "Day",
-    "month": "Month",
-    "year": "Year",
-    "useToday": "Use today",
-    "invalidDate": "Enter a valid date",
-    "disclaimer": "This is an arithmetic approximation (the tabular \"Kuwaiti algorithm\") and can differ by a day from local moon-sighting announcements — always follow your local masjid or authority for religious dates.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
-    "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "gregorianDateLabel": "Gregorian senesi",
+    "hijriDateLabel": "Hijri senesi",
+    "day": "Gün",
+    "month": "Aý",
+    "year": ".Yl",
+    "useToday": "Şu gün ulanyň",
+    "invalidDate": "Dogry senäni giriziň",
+    "disclaimer": "Bu arifmetiki ýakynlaşma (tablisa \"Kuweýt algoritmi\") we ýerli Aý görýän bildirişlerinden bir gün tapawutlanyp biler - dini seneler üçin hemişe ýerli metjidiňize ýa-da ygtyýaryňyza eýeriň.",
+    "directionTitle": "Öwürmek ugry",
+    "resultFrom": "{{date}}-den",
+    "quickLinksTitle": "Baglanyşykly",
+    "quickCalendar": "Ybadat senenamasy",
+    "quickCalendarHint": "Doga gündeligiňiz bilen aýlara göz aýlaň",
+    "quickEvents": "Yslam wakalary",
+    "quickEventsHint": "Hijri senenamasynda ýetip gelýän seneler",
+    "quickRamadan": "Remezan",
+    "quickRamadanHint": "Oraza wagtlary we agyz beklemek gündeligiňiz",
+    "quickHistory": "Irki taryh",
+    "quickHistoryHint": "Hijri ýyllary bilen Raşidun wagt tertibi",
+    "exploreTitle": "Öwrenmegi dowam etdiriň",
+    "exploreCalendar": "Senenama aç",
+    "exploreCalendarHint": "Ybadat taryhyna gün-günden serediň",
+    "exploreEvents": "Yslam wakalaryny açyň",
+    "exploreEventsHint": "Öňdäki wakalar we dabaralar"
   }
 }

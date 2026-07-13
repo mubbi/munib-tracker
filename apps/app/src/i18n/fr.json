@@ -112,13 +112,13 @@
       "learnQuran": "Apprendre le Coran"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "Recherche vocale",
+      "stopDictate": "Arrêter la recherche vocale",
+      "listening": "A l'écoute…",
+      "permissionDenied": "L'autorisation du microphone est requise pour la recherche vocale. Vous pouvez toujours taper.",
+      "unavailable": "La reconnaissance vocale n'est pas disponible sur cet appareil.",
+      "couldNotHear": "Je n'ai pas entendu cela – réessayez ou tapez.",
+      "errorGeneric": "La recherche vocale a échoué. Réessayez ou tapez."
     }
   },
   "tabs": {
@@ -164,8 +164,8 @@
     "laylatAlQadr": "Laylat al-Qadr",
     "eid": "Guide de l'Aïd",
     "ruqyah": "Ruqyah",
-    "newMuslim": "Guide du nouveau musulman",
-    "finance": "Finance islamique"
+    "newMuslim": "Nouveau guide musulman",
+    "finance": "Finance Islamique"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -200,7 +200,7 @@
         "description": "Progression de la prière obligatoire d'aujourd'hui"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "Restant",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -649,9 +649,9 @@
     "eyebrowWelcome": "Accueillir",
     "title": "Se connecter",
     "subtitle": "Adorationinizi cihazlar arasında senkronize edin",
-    "google": "Continue with Google",
-    "apple": "Continue with Apple",
-    "facebook": "Continue with Facebook",
+    "google": "Continuer avec Google",
+    "apple": "Continuer avec Apple",
+    "facebook": "Continuer avec Facebook",
     "heroGuest": "Invité hesabı kullanıyorsunuz. Veraetcrinizi yedeklemek et senkronize etmek pour un sağlmoisıcı bağlmoisın — hiçun şey kmoisbolmaz.",
     "heroUser": "Salahlarınızı, kazalarınızı et zikirlerinizi bulutta güetnde tutmak pour giriş yapın.",
     "error": "Se connecterılamadı. API sunucusunun çalıştığından et bu sağlmoisıcının yapılandırıldığından emin olun."
@@ -1106,7 +1106,7 @@
     "subtitle": "Read, listen, et reflect",
     "searchSurah": "by name, meaning, or number Rechercher",
     "filterAll": "Tous",
-    "continueReading": "Continue reading",
+    "continueReading": "Continuer la lecture",
     "continueAt": "Sourate {{surah}} · Verset {{ayah}}",
     "makki": "Mkki",
     "madani": "Mdi",
@@ -1194,15 +1194,15 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "Mot à mot",
+      "playWord": "Joue ce mot",
+      "noAudio": "Pas d'audio pour ce mot",
+      "loading": "Chargement des mots…"
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "Légende du Tajweed",
+      "openLesson": "Ouvrir la leçon d'apprentissage du Coran",
+      "loading": "Chargement du tajweed…",
       "rules": {
         "ghunnah": "Ghunnah",
         "ikhafa": "Ikhfa",
@@ -1218,26 +1218,26 @@
         "maddNecessary": "Madd (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "Silencieux"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "Passez la souris pour voir la règle du tajweed",
+      "tapHint": "Appuyez pour voir la règle du tajweed",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "Son nasal – 2 battements",
+        "ikhafa": "Dissimulation avec Ghunnah — 2 temps",
+        "ikhafaShafawi": "Dissimulation labiale — 2 battements",
+        "idghamGhunnah": "Fusion avec le son nasal — 2 battements",
+        "idghamNoGhunnah": "Fusion sans son nasal",
+        "idghamShafawi": "Fusion labiale — 2 battements",
+        "iqlab": "Conversion en meem caché — 2 temps",
+        "qalqalah": "Faisant écho au rebond sur la lettre",
+        "maddNormal": "Allongement normal — 2 battements",
+        "maddPermissible": "Allongement autorisé – 2, 4 ou 6 battements",
+        "maddObligatory": "Allongement obligatoire — 4 ou 5 battements",
+        "maddNecessary": "Allongement nécessaire — 6 battements",
+        "hamWasl": "Connexion du hamza — abandonné lors de l'adhésion",
+        "lamShamsiyah": "Lettre solaire لام — non prononcée",
+        "silent": "Écrit mais non prononcé"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
-      "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
-      "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "title": "Lecture",
+      "open": "Paramètres de lecture",
+      "repeatMode": "Mode répétition",
+      "repeatOff": "Désactivé",
+      "repeatVerse": "Verset",
+      "repeatRange": "Gamme",
+      "repeatSurah": "Sourate",
+      "rangeStart": "De Ayah",
+      "rangeEnd": "À ayah",
+      "translationAudio": "Traduction audio",
+      "translationOff": "Désactivé",
+      "translationAfter": "Après chaque verset",
+      "translationAudioHint": "Lit la traduction à haute voix après chaque verset arabe (appareil TTS)",
+      "ttsVoice": "Traduction vocale",
+      "ttsVoiceDefault": "Langue par défaut",
+      "ttsVoiceEmpty": "Aucune voix trouvée pour cette langue sur cet appareil.",
+      "summaryVerse": "Répéter le verset",
+      "summarySurah": "Répéter la sourate",
+      "summaryRange": "Plage {{start}}–{{end}}",
+      "summaryTts": "Traduction TTS",
       "summaryWithTts": "{{summary}} · TTS"
     },
     "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
+    "openTafsir": "Ouvre le tafsir pour ce verset",
     "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
+    "tafsirNone": "Sélectionnez le tafsir",
+    "selectTafsirAuthor": "Choisissez tafsir — {{language}}",
     "tafsirCount_one": "{{count}} tafsir",
     "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "searchTafsirLanguages": "Rechercher des langues…",
+    "searchTafsirAuthors": "Rechercher des auteurs…",
+    "tafsirLoading": "Chargement de tafsir…",
+    "tafsirOffline": "Connectez-vous pour télécharger ce tafsir. Les éditions ouvertes restent disponibles hors ligne.",
+    "tafsirEmpty": "Aucun tafsir n'est disponible pour cet ayah dans l'édition sélectionnée."
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",
@@ -1392,7 +1392,7 @@
     },
     "duha": {
       "summary": " forenoon salah — typically two  eight rak'ahs between sunrise et Dhuhr.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "La charité est due chaque jour à chaque jointure du corps ; même quelques rak'ahs de Duha accomplissent cette charité pour les membres par l'adoration.",
       "benefits": "Pardonne les péchés, apporte de la subsistance (rizq) et ravive une sunna négligée. Un horaire flexible le rend accessible lorsque la journée le permet."
     },
     "dhuhr": {
@@ -1634,7 +1634,7 @@
     "partial": "Partiel",
     "missed": "Manqué",
     "legendHint": "Dokunun any past ou current jour  gözden geçir et adjust it. Aujourd'hui dir {{date}}.",
-    "converterRowTitle": "Convertisseur Hégirien ⟷ Grégorien",
+    "converterRowTitle": "Hijri ⟷ Convertisseur grégorien",
     "converterRowSubtitle": "Convertir une date entre les deux calendriers"
   },
   "calDay": {
@@ -2004,7 +2004,7 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Jalon",
     "categorySystem": "Système",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "Annonce"
   },
   "qibla": {
     "eyebrow": "Direction",
@@ -2060,7 +2060,7 @@
     "syncing": "Synchronisering…",
     "done": "Vos données sont sauvegardées",
     "failed": "Couldn't sync. Check votre connection et try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "Tout était déjà à jour",
     "mergeSummary": "{{received}} reçu · {{sent}} envoyé",
     "conflictsResolved": "{{count}} conflicts auto-resoletd — kept  newest düzenle",
     "conflictAffected": "ffected: {{list}}",
@@ -2185,7 +2185,7 @@
     "installBannerMessage": "iPhone'da uygulama benzeri un deneyim et tarmoisıcı bildirimleri pour Munib Tracker'ı Ana Ekranınıza yükleyin.",
     "installStepsViaSafari": "Aşağıdaki bağlantıyı kopyalmoisın, Safari'de açın, ardından Partager → Ana Ekrana Ekle.",
     "installCopyLink": "Safari pour bağlantıyı kopyala",
-    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
+    "installLinkCopied": "Lien copié — collez-le dans la barre d’adresse de Safari pour continuer.",
     "installLinkCopyFailed": "Bağlantı kopyalanamadı. Ce smoisfmoisı Safari'de manuel olarak açın.",
     "installDismiss": "Fermer"
   },
@@ -2238,13 +2238,13 @@
     "eyebrow": " Noble Coran",
     "short": "Khtm",
     "title": "Khtm pl",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "Terminez le Coran à un rythme régulier",
     "startTitle": "a plan Commencert",
     "startHint": "Choisissez combien de jours pour terminer le Coran. Nous fixerons un objectif quotidien d'ayah.",
     "startHintPages": "Choisissez combien de jours pour terminer le Coran. Nous définirons un objectif de page mushaf quotidien.",
     "unitAyah": "Par Ayah",
     "unitPage": "Par pages",
-    "continueReading": "Continue reading",
+    "continueReading": "Continuer la lecture",
     "dayPlan": "{{count}} jour",
     "preset": {
       "intensive": "Intensif",
@@ -2324,7 +2324,7 @@
       },
       "portion": {
         "text": "Vous do not haet  finish bujour — only honour todmois's portion aetc sincerity.",
-        "source": "Steady progress"
+        "source": "Des progrès constants"
       },
       "return": {
         "text": "If siz fall behind, do not abandon  plan. Resume aetc todmois's moisahs et moet forward.",
@@ -2522,7 +2522,7 @@
     },
     "rukuSujud": {
       "title": "Ruku & sujud aetc limited moetment",
-      "body": "When you cannot perform full bowing, incline your head for ruku — a deeper incline for sujud. This is the concession used when praying sitting or lying down.\n\nIf you cannot move your head at all, scholars differ on the minimum movement required — some allow intention alone in extreme cases, while others require whatever movement is physically possible.\n\nDo not omit an entire prayer if you can pray with reduced movements. The Prophet ﷺ taught us to use concessions step by step rather than abandoning salah."
+      "body": "Lorsque vous ne pouvez pas vous incliner complètement, inclinez la tête pour le ruku, davantage pour le sujud. Cette facilité s’applique lorsque vous priez assis ou allongé.\n\nSi vous ne pouvez pas bouger la tête, les savants divergent sur le minimum requis. N’abandonnez pas une prière entière si vous pouvez prier avec des mouvements réduits. Le Prophète ﷺ nous a enseigné d’utiliser les facilités progressivement plutôt que d’abandonner la salah."
     },
     "unable": {
       "title": "Terminé inability  prmois",
@@ -2608,7 +2608,7 @@
     "meaningLabel": "Wht it teches",
     "progressTitle": "Mon learning progress",
     "progressSubtitle": "lessons — not spiritual rank with Allah Suivi Et",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "Ce tableau de bord suit vos études et votre pratique à Munib. Terminer les leçons ne mesure pas votre position auprès d’Allah – c’est la sincérité qui le fait.",
     "lessonsTitle": "Leçons completed",
     "lessonsHint": "Marquez les sujets comme terminés à mesure que vous avez fini de les étudier",
     "lessonsCount": "{{completed}} из {{total}}",
@@ -2892,9 +2892,9 @@
     "quickGhusl": "Guide du Ghusl",
     "quickGhuslHint": "Bain complet en cas d'impuretés majeures",
     "quickChecklist": "Quotidien checklist",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "Des habitudes qui vous préparent à la prière",
     "quickProgress": "Mon apprentissage",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Sujets lus et progrès d’étude",
     "progressCardTitle": "Progression d'apprentissage",
     "progressCardHint": "{{completed}} sur {{total}} topics marked complete",
     "exploreTitle": "Explorer",
@@ -2963,7 +2963,7 @@
     "quickLessons": "Leçons",
     "quickLessonsHint": "Moral et spiritual takeawmoiss",
     "quickProgress": "Mon apprentissage",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Sujets lus et progrès d’étude",
     "progressCardTitle": "Progression d'apprentissage",
     "progressCardHint": "{{completed}} sur {{total}} topics marked complete",
     "exploreTitle": "Explorer",
@@ -3033,7 +3033,7 @@
     "quickGlossary": "Glossaire",
     "quickGlossaryHint": "Termes clés de la croyance définis",
     "quickProgress": "Mon apprentissage",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Sujets lus et progrès d’étude",
     "progressCardTitle": "Progression d'apprentissage",
     "progressCardHint": "{{completed}} sur {{total}} topics marked complete",
     "exploreTitle": "Explorer",
@@ -3094,7 +3094,7 @@
     "quickOccasions": "Par occasion",
     "quickOccasionsHint": "Browse duas pour eetry moment",
     "quickProgress": "Mon apprentissage",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Sujets lus et progrès d’étude",
     "progressCardTitle": "Progression d'apprentissage",
     "progressCardHint": "{{completed}} sur {{total}} topics marked complete",
     "exploreTitle": "Explorer",
@@ -3423,12 +3423,12 @@
       "debts": {
         "title": "Dettes et déductions",
         "summary": "Les dettes immédiates peuvent être déduites avant de calculer 2,5%",
-        "body": "La Zakat est calculée sur votre richesse nette Zakatable, donc les dettes réelles que vous devez peuvent réduire le montant sur lequel vous payez. Le cas le plus clair est celui des dettes exigibles maintenant : un prêt personnel impayé, un solde impayé de carte de crédit, un loyer ou des factures déjà dues. La plupart des chercheurs permettent de les soustraire de votre richesse brute avant d'appliquer les 2,5 %.\n\nLes dettes à long terme telles qu’une hypothèque ou un plan de versements pluriannuels sont traitées avec plus de soin, car déduire la totalité du solde effacerait la Zakat de presque tous ceux qui ont un prêt immobilier. Une approche contemporaine courante consiste à déduire uniquement les paiements dus au cours de l’année à venir, et non la totalité de la somme impayée. Les écoles et les universitaires diffèrent ici, alors choisissez une méthode cohérente sous la direction.\n\nDeux mises en garde. Premièrement, ne considérez pas les dépenses futures ou hypothétiques comme des dettes déductibles : seul ce que vous devez réellement compte. Deuxièmement, ne soustrayez pas la Zakat impayée de l’année dernière comme s’il s’agissait d’une dette ordinaire ; la Zakat impayée reste une obligation due et doit simplement être payée. Lorsque votre situation d’endettement est complexe, la décision d’un spécialiste vaut plus qu’une estimation approximative."
+        "body": "La zakat est calculée sur votre richesse nette zakatable, donc les dettes réelles que vous devez peuvent réduire le montant sur lequel vous payez. Le cas le plus clair est celui des dettes exigibles maintenant : un prêt personnel impayé, un solde impayé de carte de crédit, un loyer ou des factures déjà dues. La plupart des savants permettent de les soustraire de votre richesse brute avant d'appliquer les 2,5 %.\n\nLes dettes à long terme telles qu’une hypothèque ou un plan de versements pluriannuels sont traitées avec plus de soin, car déduire la totalité du solde effacerait la zakat de presque tous ceux qui ont un prêt immobilier. Une approche contemporaine courante consiste à déduire uniquement les paiements dus au cours de l’année à venir, et non la totalité de la somme impayée. Les écoles et les savants diffèrent ici, alors choisissez une méthode cohérente sous la direction.\n\nDeux mises en garde. Premièrement, ne considérez pas les dépenses futures ou hypothétiques comme des dettes déductibles : seul ce que vous devez réellement compte. Deuxièmement, ne soustrayez pas la zakat impayée de l’année dernière comme s’il s’agissait d’une dette ordinaire ; la zakat impayée reste une obligation due et doit simplement être payée. Lorsque votre situation d’endettement est complexe, la décision d’un spécialiste vaut plus qu’une estimation approximative."
       },
       "recipients": {
         "title": "Qui peut recevoir la zakat",
         "summary": "Huit catégories nommées dans le Coran 9 :60",
-        "body": "La Zakat ne peut être accordée qu'aux catégories de personnes nommées par Allah Lui-même dans la sourate at-Tawbah (9 :60). C'est l'un des rares actes d'adoration où les destinataires sont fixés par révélation, et non laissés à la préférence du donateur. Les huit catégories sont : les pauvres (al-fuqara) ; les nécessiteux (al-masakin) ; ceux employés pour collecter et administrer la Zakat ; ceux dont les cœurs doivent être réconciliés (al-mu'allafah) ; la libération des captifs et des esclaves (fi'r-riqab) ; les endettés (al-gharimin) ; dans la cause d'Allah (fi sabil Allah) ; et le voyageur échoué (ibn as-sabil).\n\nIl n’est pas obligatoire de donner aux huit ; donner votre Zakat ne serait-ce qu’à une seule catégorie éligible remplit cette obligation, et la diriger vers les pauvres et les nécessiteux est la pratique la plus courante.\n\nIl est tout aussi important de savoir qui ne le recevra pas. La Zakat ne peut pas être accordée aux riches, ni à ceux que vous êtes déjà obligé de soutenir – vos parents, vos enfants ou votre conjoint – puisque les soutenir est un devoir que vous avez de toute façon. Dans la vision classique, il s'agit d'un transfert personnel de propriété à une personne éligible, et non d'un don général ; les érudits diffèrent sur la question de savoir si des institutions telles que les mosquées ou de grands projets publics sont éligibles à la cause d'Allah. Elle ne peut pas non plus être donnée à la famille du Prophète ﷺ, les Banu Hashim, à titre de Zakat. Dirigez-le délibérément vers les personnes qui correspondent aux catégories coraniques."
+        "body": "La zakat ne peut être accordée qu'aux catégories de personnes nommées par Allah Lui-même dans la sourate at-Tawbah (9 :60). C'est l'un des rares actes d'adoration où les destinataires sont fixés par révélation, et non laissés à la préférence du donateur. Les huit catégories sont : les pauvres (al-fuqara) ; les nécessiteux (al-masakin) ; ceux employés pour collecter et administrer la zakat ; ceux dont les cœurs doivent être réconciliés (al-mu'allafah) ; la libération des captifs et des esclaves (fi'r-riqab) ; les endettés (al-gharimin) ; dans la cause d'Allah (fi sabil Allah) ; et le voyageur échoué (ibn as-sabil).\n\nIl n’est pas obligatoire de donner aux huit ; donner votre zakat ne serait-ce qu’à une seule catégorie éligible remplit cette obligation, et la diriger vers les pauvres et les nécessiteux est la pratique la plus courante.\n\nIl est tout aussi important de savoir qui ne le recevra pas. La zakat ne peut pas être accordée aux riches, ni à ceux que vous êtes déjà obligé de soutenir – vos parents, vos enfants ou votre conjoint – puisque les soutenir est un devoir que vous avez de toute façon. Dans la vision classique, il s'agit d'un transfert personnel de propriété à une personne éligible, et non d'un don général ; les érudits diffèrent sur la question de savoir si des institutions telles que les mosquées ou de grands projets publics sont éligibles à la cause d'Allah. Elle ne peut pas non plus être donnée à la famille du Prophète ﷺ, les Banu Hashim, à titre de zakat. Dirigez-le délibérément vers les personnes qui correspondent aux catégories coraniques."
       },
       "otherRates": {
         "title": "Autres types de zakat et zakat al-fitr",
@@ -3438,7 +3438,7 @@
       "mistakes": {
         "title": "Erreurs courantes à éviter",
         "summary": "Erreurs qui rendent la zakat invalide ou mal calculée",
-        "body": "Même les musulmans sincères oublient souvent les détails pratiques de la Zakat. Connaître les erreurs courantes vous aide à payer correctement et en toute sérénité.\n\nOublier le mois ou l'anniversaire : payer à un moment aléatoire, ou sauter des années, laisse une obligation impayée. Fixez une date Hijri chaque année et évaluez votre richesse en fonction de celle-ci.\n\nUne mauvaise évaluation de la richesse : évaluer l'or ou les actions à leur prix d'achat au lieu de la valeur marchande actuelle, oublier les liquidités détenues dans plusieurs comptes ou devises, ou négliger les stocks de l'entreprise et l'argent qui vous est dû. La Zakat s'applique à tout ce que vous possédez à votre rendez-vous.\n\nDonner aux mauvaises personnes : remettre la Zakat aux parents, aux enfants ou à un conjoint que vous soutenez déjà, ou la considérer comme un don générique à une bonne cause. Il doit atteindre l'une des huit catégories coraniques.\n\nErreurs d'intention : donner généreusement toute l'année mais ne jamais considérer que cela constitue de la Zakat. La Zakat est un acte d'adoration et nécessite l'intention (niyyah) que ce paiement particulier soit votre Zakat obligatoire.\n\nSurdéduire les dettes : soustraire la totalité d’une hypothèque à long terme, ou des dépenses futures qui ne sont pas encore dues, pour réduire la facture. Seuls les passifs réels et courants réduisent votre richesse Zakatable. Lorsque l’un de ces éléments n’est pas clair pour votre situation, demandez à un universitaire qualifié plutôt que de supposer."
+        "body": "Même les musulmans sincères oublient souvent les détails pratiques de la zakat. Connaître les erreurs courantes vous aide à payer correctement et en toute sérénité.\n\nOublier le mois ou l'anniversaire : payer à un moment aléatoire, ou sauter des années, laisse une obligation impayée. Fixez une date Hijri chaque année et évaluez votre richesse en fonction de celle-ci.\n\nUne mauvaise évaluation de la richesse : évaluer l'or ou les actions à leur prix d'achat au lieu de la valeur marchande actuelle, oublier les liquidités détenues dans plusieurs comptes ou devises, ou négliger les stocks de l'entreprise et l'argent qui vous est dû. La zakat s'applique à tout ce que vous possédez à votre rendez-vous.\n\nDonner aux mauvaises personnes : remettre la zakat aux parents, aux enfants ou à un conjoint que vous soutenez déjà, ou la considérer comme un don générique à une bonne cause. Il doit atteindre l'une des huit catégories coraniques.\n\nErreurs d'intention : donner généreusement toute l'année mais ne jamais considérer que cela constitue de la zakat. La zakat est un acte d'adoration et nécessite l'intention (niyyah) que ce paiement particulier soit votre zakat obligatoire.\n\nSurdéduire les dettes : soustraire la totalité d’une hypothèque à long terme, ou des dépenses futures qui ne sont pas encore dues, pour réduire la facture. Seuls les passifs réels et courants réduisent votre richesse zakatable. Lorsque l’un de ces éléments n’est pas clair pour votre situation, demandez à un universitaire qualifié plutôt que de supposer."
       }
     },
     "recipientsListTitle": "Les huit catégories",
@@ -3513,7 +3513,7 @@
     "group": {
       "liquid": "Liquidités et métaux précieux",
       "investments": "Investissements et affaires",
-      "property": "Land, property & vehicles"
+      "property": "Terrains, propriétés et véhicules"
     },
     "weightSectionTitle": "Calculer l'or et l'argent en poids",
     "nisabOverrideTitle": "Commande manuelle nisab",
@@ -3535,33 +3535,33 @@
         "title": "Ou calculer l'or en poids",
         "grams": "Grammes",
         "pricePerGram": "Prix/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "Or au poids",
+        "amount": "Poids",
+        "pricePerGram24k": "Prix/g (24k)"
       },
       "silver": {
         "title": "Ou calculer l'argent en poids",
         "grams": "Grammes",
         "pricePerGram": "Prix/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "Argent en poids",
+        "amount": "Poids",
+        "pricePerGramFine": "Prix/g (fin)"
       },
       "computed": "Ajoute {{value}} au total",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "Les prix au comptant en temps réel sont l’or 24 carats et l’argent fin par gramme. Choisissez votre unité (g, tola, troy oz, kg) et carat/pureté — la valeur est convertie en métal pur × spot.",
+      "unit": "Unité de poids",
+      "karat": "Carats d'or",
+      "purity": "Pureté de l'argent",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
-        "g": "Gram",
+        "g": "Gramme",
         "tola": "Tola",
-        "oz": "Troy oz",
-        "kg": "Kilogram"
+        "oz": "Troie Oz",
+        "kg": "Kilogramme"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g métal pur",
+      "cardHint": "Tola, grammes, carats / pureté × cours de l’or 24 k ou de l’argent fin."
     },
     "field": {
       "cash": "Argent et épargne",
@@ -3576,12 +3576,12 @@
       "nisab": "Valeur Nisab (remplacement)",
       "nisabGoldPrice": "Prix ​​de l'or par gramme",
       "nisabSilverPrice": "Prix ​​de l'argent au gramme",
-      "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "crypto": "Crypto-monnaie",
+      "livingExpenses": "Frais de subsistance immédiats",
+      "investmentPlots": "Terrains d'investissement (valeur marchande)",
+      "installmentPlotsPaid": "Parcelles à tempérament – montant payé",
+      "investmentProperty": "Maisons/bâtiments d'investissement",
+      "tradeVehicles": "Véhicules à vendre / échange"
     },
     "fieldHint": {
       "cash": "Comptes bancaires, liquidités et épargne liquide.",
@@ -3594,12 +3594,12 @@
       "otherAssets": "Crypto-monnaie, fonds de retraite accessibles ou autre richesse zakatable selon votre étudiant.",
       "debts": "Prêts personnels, cartes de crédit et factures dues maintenant – pas le total des hypothèques à long terme, sauf si votre étudiant le permet.",
       "nisab": "Laissez ce champ vide pour utiliser le seuil calculé ou entrez un nisab personnalisé.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "Valeur marchande de la crypto détenue en tant qu’actif – les décisions diffèrent ; demande un savant.",
+      "livingExpenses": "Loyer, nourriture et factures dus immédiatement – uniquement si votre savant autorise cette déduction.",
+      "investmentPlots": "Terrains ou parcelles destinés à l'investissement ou à la vente (valeur marchande actuelle). Les terres agricoles personnelles utilisées pour vivre sont différentes – demandez à un savant.",
+      "installmentPlotsPaid": "Combien vous avez déjà payé pour des parcelles d'investissement à tempérament (pas la totalité du contrat impayé, sauf si votre savant l'inclut).",
+      "investmentProperty": "Maisons ou bâtiments détenus à des fins d’investissement ou de commerce – et non votre résidence personnelle.",
+      "tradeVehicles": "Voitures ou véhicules détenus pour la vente ou comme stock commercial – pas de véhicules à usage personnel."
     },
     "checklist[0]": {
       "title": "Confirmer le hawl (année lunaire)",
@@ -3684,148 +3684,148 @@
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "Changer la devise de la zakat",
+      "pickerTitle": "Sélectionnez la devise",
+      "pickerHint": "Devises {{count}} — recherche par code ou par nom",
+      "searchPlaceholder": "Rechercher des devises…",
+      "noResults": "Aucune devise ne correspond à votre recherche.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "Cours de l’or et de l’argent",
+      "goldPerGram": "Or / gramme",
+      "silverPerGram": "Argent / gramme",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "Récupération des prix en temps réel…",
+      "error": "Impossible de charger les prix en temps réel. Saisissez manuellement les prix de l'or et de l'argent.",
+      "prefilled": "Les prix du nisab et des métaux sont pré-remplis à partir des tarifs en temps réel.",
+      "useLive": "Utilisez à nouveau les prix en temps réel",
+      "useLiveA11y": "Rétablir les prix de l’or et de l’argent en temps réel",
+      "refreshA11y": "Actualiser les prix du marché en temps réel",
+      "livePrice": "En temps réel"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
       "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "belowNisab": "Net {{wealth}} · ci-dessous nisab {{nisab}}",
+      "hasOtherDue": "Net {{wealth}} · récoltes / bétail dus"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
-      "nisab": "Nisab",
+      "gold": "Or/g",
+      "silver": "Argent/g",
+      "nisab": "Nissab",
       "due": "Due"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "Zakat de richesse (2,5%) : {{value}}",
+      "agriculture": "Cultures (ushr) : {{value}}",
+      "livestock": "Bétail (estimation en espèces) : {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "Valeurs en espèces, crypto et métaux que vous connaissez déjà. Ou utilisez le poids dans la carte des métaux.",
+      "investments": "Actions, biens commerciaux, créances et revenus d'entreprise épargnés à la valeur actuelle."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "Cultures/bétail dus (richesse inférieure au nisab)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "Bétail (troupeaux au pâturage)",
+      "hint": "Barèmes de la Sunna pour les moutons/chèvres, bovins et chameaux en liberté (Bukhari / Abu Dawud). Les animaux nourris élevés dans le cadre d’une entreprise suivent souvent les règles relatives aux biens commerciaux – demandez à un savant.",
+      "sheep": "Moutons/chèvres (têtes)",
+      "sheepHint": "Nisab commence à 40 têtes.",
+      "cattle": "Bovins / buffles (têtes)",
+      "cattleHint": "Nisab commence à 30 têtes (échelle tabi'/musinnah).",
+      "camels": "Chameaux (têtes)",
+      "camelsHint": "Nisab commence à 5 têtes.",
+      "valueTitle": "Valeurs en espèces facultatives (par tête)",
+      "valueHint": "La zakat sur le bétail est généralement payée en animaux. Saisissez les valeurs marchandes uniquement si vous souhaitez une estimation de l'équivalent en espèces pour la planification.",
+      "sheepValue": "Valeur par mouton/chèvre",
+      "cattleValue": "Valeur par tête de bétail",
+      "camelValue": "Valeur par chameau",
+      "dueTitle": "Animaux à payer (estimation Sunnah)",
+      "cashEstimate": "Estimation de trésorerie : {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} mouton/chèvre",
+        "cattleTabi": "{{count}} tabi' (bovins d'un an)",
+        "cattleMusinnah": "{{count}} musinnah (bovins de 2 ans)",
+        "bintMakhad": "{{count}} bint makhad (chameau de 1 an)",
+        "bintLabun": "{{count}} bint labun (chameau de 2 ans)",
+        "hiqqah": "{{count}} hiqqah (chameau de 3 ans)",
+        "jadhah": "{{count}} jadhah (chameau de 4 ans)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "Barèmes de la Sunna pour le bétail — pas 2,5 %. Valeurs en espèces facultatives, à titre indicatif."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "Agriculture et récolte (ushr)",
+      "hint": "Due à la récolte – pas après une année lunaire. Le taux est de 10 % pour les terres arrosées par la pluie/les sources, et de 5 % lorsque l'irrigation coûte des efforts ou de l'argent (Coran 6 : 141 ; Sunna).",
+      "harvest": "Valeur marchande de la récolte",
+      "harvestHint": "Valeur des récoltes ou des fruits de cette saison au moment de la récolte.",
+      "irrigation": "Source d'eau",
+      "natural": "Pluie / sources (10%)",
+      "irrigated": "Irrigué (5%)",
+      "naturalHint": "Ushr 10 % lorsqu’il est arrosé naturellement sans irrigation coûteuse.",
+      "irrigatedHint": "Demi-ushr 5% lorsqu'il est arrosé par des puits, des pompes ou une irrigation payante.",
+      "due": "Ushr dû : {{value}}",
+      "cardHint": "Due à la récolte — 10 % de pluie/sources, 5 % irrigués."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "Format des nombres",
+      "hint": "Comment les milliers et les décimales sont affichés dans les montants.",
+      "changeA11y": "Changer le format des nombres",
+      "pickerTitle": "Format des nombres",
+      "pickerHint": "Choisissez comment les montants sont regroupés et comment les décimales apparaissent lors de la saisie et dans les totaux."
     },
-    "learnMore": "Learn more",
+    "learnMore": "En savoir plus",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "Résumé pédagogique du Coran et de la Sunna — pas une fatwa personnelle.",
+      "footnote": "Les écoles diffèrent sur des détails (bijoux, hypothèques, bétail nourri, crypto). Demandez à un savant qualifié de vous parler de votre cas.",
+      "openGuide": "Ouvrir le guide complet",
+      "a11y": "En savoir plus sur {{section}}",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "Devise et taux",
+        "body": "La zakat est calculée sur la valeur marchande de votre patrimoine dans une devise que vous comprenez. Les prix au comptant de l’or et de l’argent aident à estimer les valeurs du nisab et des métaux : ils sont indicatifs et ne remplacent pas les taux du marché local utilisés par votre savant."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "Liquidités et métaux précieux",
+        "body": "Les espèces, les soldes bancaires et l’or ou l’argent détenus comme richesse font partie des actifs les plus clairement zakables. Le Prophète ﷺ a sévèrement mis en garde contre la rétention de ce qui est dû sur l'or et l'argent. Les bijoux portés pour un usage normal sont un point de différence connu entre les écoles – suivez votre madhhab. Vous pouvez saisir une valeur monétaire ici ou calculer les métaux en poids dans la section suivante."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "Or et argent au poids",
+        "body": "Le nisab était fixé dans la Sunna en fonction du poids : environ 20 dinars d'or ou 200 dirhams d'argent (communément cité comme ~87,5 g d'or ou ~612 g d'argent). Le carat et la pureté sont importants car la zakat concerne la teneur en métal pur. Les prix en temps réel sont de 24k/métal fin par gramme — choisissez votre unité (gramme, tola, troy oz) et le carat pour que la calculatrice convertisse correctement."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "Investissements et affaires",
+        "body": "Les biens commerciaux, les marchandises et les richesses destinées à croître sont généralement zakatables à la valeur marchande actuelle. Les actions et les fonds sont généralement valorisés comme une richesse commerciale. Les créances importantes que vous comptez recouvrer sont souvent incluses. Le Coran 2 : 267 recommande de dépenser le bien de ce que vous avez gagné – valorisez-le honnêtement à la date de votre zakat."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "Terrains, propriétés et véhicules",
+        "body": "Votre maison personnelle, votre voiture personnelle et vos articles ménagers ordinaires ne sont généralement pas soumis à la zakat – la zakat vise la richesse croissante, et non les objets d’usage. Les terrains, maisons ou véhicules détenus à des fins d'investissement, de vente ou d'échange peuvent être inclus à la valeur marchande (ou aux montants déjà payés sur les terrains à investissement échelonné). En cas de doute, demandez à un savant."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "Bétail (troupeaux au pâturage)",
+        "body": "Les moutons, chèvres, bovins et chameaux en liberté ont leurs propres barèmes de Sunnah et leur propre nisab animal (par exemple 40 moutons, 30 bovins, 5 chameaux) – et non le taux monétaire de 2,5 %. La redevance est généralement payée pour les animaux d'un âge spécifié. Les animaux nourris élevés dans le cadre d’une entreprise suivent souvent les règles relatives aux biens commerciaux. Les valeurs en espèces facultatives ne constituent ici qu’une estimation de planification."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "Agriculture et récolte (ushr)",
+        "body": "La zakat sur les cultures est due au moment de la récolte et non après une année lunaire. Le taux bien connu est de 10 % (ushr) lorsque les terres sont arrosées par la pluie ou les sources, et de 5 % lorsque l'irrigation coûte des efforts ou de l'argent. Entrez la valeur marchande des récoltes de cette saison et choisissez la source d'eau qui correspond à votre situation.",
+        "localRefLabel": "Coran 6:141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "Déductions",
+        "body": "La zakat concerne la richesse nette zakatable. Les dettes immédiates dues maintenant sont généralement déduites avant d’appliquer 2,5 %. Les prêts hypothécaires à long terme sont traités avec plus de soin : de nombreux savants contemporains ne déduisent que les paiements de l'année à venir, et non la totalité du solde. Les frais de subsistance dus immédiatement ne sont autorisés que si votre savant le permet."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "Seuil Nisab",
+        "body": "Le nisab est le surplus minimum avant que la zakat de richesse ne soit due. Le Prophète ﷺ l'a fixé à 20 dinars d'or ou 200 dirhams d'argent, et a enseigné qu'aucune zakat n'est due avant qu'un an ne se soit écoulé sur la richesse. Parce que les prix de l’or et de l’argent divergent aujourd’hui, de nombreux savants préfèrent le seuil le plus bas (souvent l’argent), afin d’aider davantage de pauvres. Ce calculateur suggère la plus basse des deux estimations en temps réel."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "Dettes immédiates (et frais de subsistance seulement si votre savant le permet).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "Réinitialiser la calculatrice ?",
+      "message": "Cela efface tous les montants, poids de métaux, bétail et cultures. Votre devise et votre format numérique restent les mêmes.",
+      "confirm": "Réinitialiser le formulaire",
+      "a11y": "Réinitialiser le formulaire du calculateur de zakat",
+      "hint": "Demande une confirmation, puis efface tous les montants saisis"
     }
   },
   "customAdhkar": {
@@ -3845,62 +3845,62 @@
       "reference": "Référence (facultatif)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "Photos (facultatif)",
+      "add": "Ajouter une photo",
+      "remove": "Supprimer l'image",
+      "hint": "Jusqu'à 5 images, 1 Mo chacune. Appuyez longuement sur une vignette pour la supprimer.",
+      "signInRequired": "Connectez-vous pour joindre des photos privées à votre adhkar.",
+      "permissionDenied": "L'autorisation de la photothèque est requise pour joindre des images.",
+      "unsupportedType": "Utilisez uniquement des images JPEG, PNG ou WebP.",
+      "tooLarge": "Chaque image doit faire 1 Mo ou moins.",
+      "uploadFailed": "Impossible de télécharger des photos. Réessayez.",
+      "uploading": "Téléchargement…",
+      "open": "Ouvrir l'image {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "Pincez pour zoomer, faites glisser pour effectuer un panoramique, appuyez deux fois pour réinitialiser",
+      "previous": "Photo précédente",
+      "next": "Photo suivante"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "Pièces jointes (facultatif)",
+      "add": "Ajouter un fichier",
+      "remove": "Supprimer la pièce jointe",
+      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez longuement sur une vignette pour la supprimer.",
+      "signInRequired": "Connectez-vous pour joindre des fichiers privés à votre adhkar.",
+      "permissionDenied": "Une autorisation est requise pour joindre des fichiers.",
+      "permissionTitle": "Autoriser l'accès",
+      "permissionBody": "Munib Tracker a besoin d'un accès à l’appareil photo ou à la photothèque pour joindre des fichiers.",
+      "permissionSettingsBody": "L'autorisation a été refusée. Ouvrez les paramètres pour autoriser l'appareil photo ou les photos pour Munib Tracker.",
+      "allowAccess": "Autoriser l'accès",
+      "unsupportedType": "Utilisez uniquement JPEG, PNG, WebP ou PDF.",
+      "tooLarge": "Chaque fichier doit faire 1 Mo ou moins.",
+      "uploadFailed": "Impossible de télécharger les pièces jointes. Réessayez.",
+      "uploading": "Téléchargement…",
+      "readFailed": "Impossible de lire ce fichier. Essayez-en un autre.",
+      "pickFailed": "Impossible d'ajouter ce fichier. Réessayez.",
+      "openFailed": "Impossible d'ouvrir ce fichier.",
+      "open": "Ouvrir la pièce jointe {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "Pincez pour zoomer, faites glisser pour effectuer un panoramique, appuyez deux fois pour réinitialiser",
+      "previous": "Pièce jointe précédente",
+      "next": "Pièce jointe suivante",
+      "openPdf": "Ouvrir le PDF",
+      "sourceTitle": "Ajouter une pièce jointe",
+      "sourceCamera": "Prendre une photo",
+      "sourceCameraHint": "Utiliser l'appareil photo pour capturer une image",
+      "sourceGallery": "Photothèque",
+      "sourceGalleryHint": "Choisissez une image parmi vos photos",
+      "sourceDocument": "Fichiers",
+      "sourceDocumentHint": "Choisissez une image ou un PDF dans vos fichiers"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Dicter avec un microphone",
+      "stopDictate": "Arrêter la dictée",
+      "listening": "A l'écoute…",
+      "permissionDenied": "L'autorisation du microphone est requise pour dicter. Vous pouvez toujours taper.",
+      "unavailable": "La reconnaissance vocale n'est pas disponible sur cet appareil.",
+      "couldNotHear": "Je n'ai pas entendu cela – réessayez ou tapez.",
+      "errorGeneric": "La dictée a échoué. Réessayez ou tapez."
     }
   },
   "tahajjud": {
@@ -3984,20 +3984,20 @@
     "confirmDiscardTitle": "Supprimer les modifications ?",
     "confirmDiscardMsg": "Tout ce que vous avez écrit sera perdu.",
     "confirmOverwriteTitle": "Remplacer la réflexion existante ?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "Vous avez déjà noté {{prayer}} pour cette journée. L’enregistrement le remplacera.",
     "level1": "Distrait",
     "level2": "Agité",
     "level3": "Assez présent",
     "level4": "Concentré",
     "level5": "Profondément présent",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Dicter avec un microphone",
+      "stopDictate": "Arrêter la dictée",
+      "listening": "A l'écoute…",
+      "permissionDenied": "L'autorisation du microphone est requise pour dicter. Vous pouvez toujours taper.",
+      "unavailable": "La reconnaissance vocale n'est pas disponible sur cet appareil.",
+      "couldNotHear": "Je n'ai pas entendu cela – réessayez ou tapez.",
+      "errorGeneric": "La dictée a échoué. Réessayez ou tapez."
     }
   },
   "prayerTuning": {
@@ -4013,7 +4013,7 @@
     "earlier": "Earlier",
     "later": "Lter",
     "highLatTitle": "High-ltitude rule",
-    "highLatHint": "In far-northern or far-southern regions the sun may not reach the twilight angles. Choose how Fajr and Isha are estimated.",
+    "highLatHint": "Dans les régions très au nord ou au sud, le soleil peut ne pas atteindre les angles du crépuscule. Choisissez comment estimer Fajr et Isha.",
     "rule": {
       "recommended": "Automatique (recommandé)",
       "MiddleOfTheNight": "Milieu de la nuit",
@@ -4038,7 +4038,7 @@
     "umrahTag": "Umrh",
     "hajjTag": "Hjj",
     "disclaimer": "Pratik un kontrol listesi, fıkıh kitabı değil. Hüküm et moisrıntılar pour nitelikli un rehbere uyun.",
-    "prepTag": "Prep"
+    "prepTag": "Préparation"
   },
   "dailyHadith": {
     "eyebrow": "Série quotidienne",
@@ -4083,7 +4083,7 @@
     "versesLead": "Appuyez sur n'importe quel verset pour l'ouvrir dans le lecteur du Coran.",
     "journeyTitle": "Mon Journey",
     "journeySummary": "Aujourd'hui's habits — not your rank with Allah",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "La cohérence dans le culte que vous suivez déjà",
     "journeyBanner": "Ces habitudes font partie des actes qu’Allah aime. Votre rang final est seulement avec Lui.",
     "journeyToday": "Aujourd'huiün striving",
     "journeyEmpty": "with one prmoiser or adhkar — small steps build lifelong habits. Commencert",
@@ -4401,7 +4401,7 @@
     "wearTitle": "Wer OS",
     "wearHint": "Ajouter the Munib Suivi tile on your watch after pairing with your phone.",
     "marked": "Salah marked",
-    "alreadyDone": "Already marked",
+    "alreadyDone": "Déjà marqué",
     "allDone": "Tüm obligatory Salah marked for todmois",
     "excused": "Le suivi est suspendu pour aujourd'hui",
     "locked": "Aç  app  mark Salah",
@@ -4457,107 +4457,107 @@
     "footer": "Votre code PIN est stocké en toute sécurité sur cet appareil et ne le quitte jamais."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "Annonce"
   },
   "sahaba": {
     "eyebrow": "Apprendre",
     "title": "Sahaba",
-    "subtitle": "Courtes biographies des compagnons du Prophète ﷺ",
-    "intro": "Les sahaba sont la génération qui a porté l'Islam du Prophète ﷺ au reste du monde. Ces courtes biographies suivent le ton de la chronologie de la seerah — une vie, une leçon, et une source pour chaque affirmation.",
-    "categoryAll": "Tous",
+    "subtitle": "Profils courts des compagnons du Prophète ﷺ",
+    "intro": "Les Sahaba sont la génération qui a porté l'Islam du Prophète ﷺ au reste du monde. Ces courts profils suivent le ton de la chronologie de Seerah : une vie, une leçon et une source pour chaque affirmation.",
+    "categoryAll": "Tout",
     "category": {
       "caliphs": "Califes",
       "ashara": "Ashara Mubashara",
       "family": "Famille",
       "women": "Femmes",
-      "notable": "Notables"
+      "notable": "Remarquable"
     },
     "noResults": "Aucun compagnon dans cette catégorie pour l'instant",
-    "readMore": "Touchez pour lire le profil complet",
-    "disclaimer": "Les faits narratifs suivent les ouvrages classiques de seerah et d'histoire ; toute affirmation liée à une narration précise cite son recueil de hadith et son numéro. Ceci est un contenu éducatif général, pas un classement savant.",
+    "readMore": "Appuyez pour lire le profil complet",
+    "disclaimer": "Les faits narratifs suivent les œuvres classiques de seerah et d'histoire ; chaque affirmation liée à une narration spécifique cite sa collection et son numéro de hadiths. Il s’agit d’un contenu pédagogique général et non d’un classement scientifique.",
     "quickLinksTitle": "Explorer",
     "quickCaliphsHint": "Commencez par Abu Bakr, le premier calife",
-    "quickAsharaHint": "Les dix promis au Paradis",
-    "quickWomenHint": "Khadijah et les Mères des croyants",
-    "quickBattles": "Compagnons au combat",
-    "quickBattlesHint": "Profils de campagnes du guide des Batailles",
-    "countCardTitle": "Répertoire des compagnons",
-    "countCardHint": "{{count}} profils éducatifs vérifiés",
+    "quickAsharaHint": "Les dix Paradis promis",
+    "quickWomenHint": "Khadija et les mères des croyants",
+    "quickBattles": "Compagnons de combat",
+    "quickBattlesHint": "Profils de campagne du guide des batailles",
+    "countCardTitle": "Annuaire compagnon",
+    "countCardHint": "Profils éducatifs vérifiés par {{count}}",
     "categoryHint": {
       "caliphs": "Les quatre califes bien guidés",
       "ashara": "Les dix compagnons promis au Paradis",
       "family": "Famille proche du Prophète ﷺ",
       "women": "Femmes éminentes de la première communauté",
-      "notable": "Autres compagnons largement retenus"
+      "notable": "Autres compagnons dont on se souvient beaucoup"
     },
     "exploreTitle": "Continuer à apprendre",
-    "exploreBattles": "Figures des Batailles",
-    "exploreBattlesHint": "Compagnons apparaissant dans les campagnes militaires",
-    "exploreSeerah": "Chronologie de la Seerah",
-    "exploreSeerahHint": "La vie du Prophète ﷺ à travers ses jalons",
-    "exploreHistory": "Premiers temps de l'histoire islamique",
-    "exploreHistoryHint": "De la disparition du Prophète ﷺ à la fin des Rashidun",
+    "exploreBattles": "Chiffres des batailles",
+    "exploreBattlesHint": "Compagnons qui apparaissent dans les campagnes militaires",
+    "exploreSeerah": "Chronologie de Seerah",
+    "exploreSeerahHint": "La vie du Prophète ﷺ à travers les étapes clés",
+    "exploreHistory": "Première histoire islamique",
+    "exploreHistoryHint": "Du passage du Prophète ﷺ à la fin du Rashidun",
     "profileBodyTitle": "Vie et leçon",
     "relatedTitle": "Guides associés",
-    "linkBattlesFigures": "Voir les compagnons dans Batailles",
-    "linkSeerah": "Ouvrir la chronologie de la Seerah",
-    "linkHistory": "Ouvrir l'histoire islamique ancienne",
+    "linkBattlesFigures": "Voir les compagnons dans les batailles",
+    "linkSeerah": "Ouvrez la chronologie de Seerah",
+    "linkHistory": "Ouvrir l’histoire islamique ancienne",
     "openProfileHint": "Ouvrir le profil complet du compagnon",
     "notFound": "Compagnon introuvable"
   },
   "history": {
     "eyebrow": "Apprendre",
-    "title": "Débuts de l'histoire islamique",
-    "subtitle": "De la mort du Prophète ﷺ à la fin du califat Rashidun",
+    "title": "Première histoire islamique",
+    "subtitle": "De la mort du Prophète ﷺ à la fin du califat de Rashidun",
     "ceBadge": "{{year}} apr. J.-C.",
     "ahBadge": "{{ah}} AH",
     "era": {
       "prophetic-close": "Le Prophète ﷺ",
-      "abu-bakr": "Abu Bakr",
-      "umar": "Umar",
-      "uthman": "Uthman",
+      "abu-bakr": "Abou Bakr",
+      "umar": "Oumar",
+      "uthman": "Outhman",
       "ali": "Ali"
     },
-    "disclaimer": "Limité à 11–41 AH (632–661 apr. J.-C.) — de la fin de la vie du Prophète ﷺ à la fin du califat Rashidun. Le récit politique et militaire suit les ouvrages d'histoire classiques ; la période Uthman/Ali est présentée sans trancher les controverses théologiques ultérieures."
+    "disclaimer": "Portée sur 11-41 AH (632-661 CE) — la fin de la vie du Prophète ﷺ jusqu'à la fin du califat de Rashidun. Le récit politique et militaire suit les ouvrages d'histoire classiques ; la période Othman/Ali est présentée sans trancher les différends théologiques ultérieurs."
   },
   "laylatAlQadr": {
     "eyebrow": "Apprendre",
     "title": "Laylat al-Qadr",
-    "subtitle": "La Nuit du Décret — meilleure que mille mois",
-    "intro": "Laylat al-Qadr est cachée parmi les nuits impaires des dix derniers jours du Ramadan, sans date fixe. Recherchez-la par une adoration sincère durant toutes ces nuits plutôt qu'en devinant une seule.",
+    "subtitle": "La Nuit du Décret – mieux que mille mois",
+    "intro": "Laylat al-Qadr est cachée parmi les nuits impaires des dix dernières années du Ramadan, sans aucune date fixe. Recherchez-le avec une adoration sincère à travers chacun d’eux plutôt qu’une nuit devinée.",
     "section": {
-      "virtues": "Son mérite",
-      "when": "Quand la chercher",
+      "virtues": "Sa vertu",
+      "when": "Quand le chercher",
       "dua": "Que dire",
       "ibadah": "Comment passer la nuit",
       "reminders": "Rappels"
     },
     "notFound": "Sujet introuvable",
-    "disclaimer": "Ce guide n'approuve aucune date calendaire fixe unique ni aucun « signe » populaire pour identifier cette nuit — seulement ce que le Coran et le hadith authentique affirment.",
-    "continueInApp": "Continuer dans Munib"
+    "disclaimer": "Ce guide ne valide ni une date fixe ni des « signes » populaires pour identifier cette nuit — seulement ce qu’énoncent le Qur’an et les hadiths authentiques.",
+    "continueInApp": "Continuer à Munib"
   },
   "eid": {
     "eyebrow": "Apprendre",
     "title": "Guide de l'Aïd",
-    "subtitle": "Aïd al-Fitr et Aïd al-Adha — prière, sunna et règles",
-    "intro": "Les deux Aïds d'après le Coran et le hadith authentique — comment accomplir la prière de l'Aïd, la Zakat al-Fitr, l'udhiyah, et les pratiques sunna du jour.",
+    "subtitle": "Aïd al-Fitr et Aïd al-Adha : prière, sunna et décisions",
+    "intro": "Les deux Eids du Coran et des hadiths authentiques : comment prier l'Aïd salah, Zakat al-Fitr, udhiyah et les pratiques de la sunna du jour.",
     "section": {
       "fitr": "Aïd al-Fitr",
       "adha": "Aïd al-Adha",
       "prayer": "La prière de l'Aïd",
-      "sunnah": "Pratiques sunna",
-      "zakat-fitr": "Zakat al-Fitr",
-      "udhiyah": "Udhiyah (sacrifice)"
+      "sunnah": "Pratiques de la Sunna",
+      "zakat-fitr": "Zakât al-Fitr",
+      "udhiyah": "Oudhiya (sacrifice)"
     },
     "notFound": "Sujet introuvable",
-    "disclaimer": "Aperçu éducatif — pas une fatwa. Là où les écoles diffèrent (comme le nombre de takbirs supplémentaires), les deux positions sont présentées ; suivez votre imam ou un érudit local qualifié.",
-    "continueInApp": "Continuer dans Munib"
+    "disclaimer": "Aperçu pédagogique – pas une fatwa. Là où les écoles diffèrent (comme le décompte extra-takbir), les deux positions sont présentées ; suivez votre imam ou un savant local qualifié.",
+    "continueInApp": "Continuer à Munib"
   },
   "ruqyah": {
     "eyebrow": "Apprendre",
     "title": "Ruqyah",
     "subtitle": "Guérison spirituelle coranique et prophétique",
-    "intro": "La ruqyah consiste à réciter le Coran, les Noms d'Allah, ou des invocations prophétiques authentiques pour la guérison et la protection — jamais un substitut à la salah ou aux soins médicaux.",
+    "intro": "La ruqyah consiste à réciter le Qur’an, les Noms d’Allah ou des invocations prophétiques authentiques pour la guérison et la protection — jamais en remplacement de la salah ou de soins médicaux.",
     "section": {
       "basics": "Les bases",
       "verses": "Versets clés",
@@ -4565,73 +4565,73 @@
       "reminders": "Rappels"
     },
     "notFound": "Sujet introuvable",
-    "disclaimer": "La ruqyah est une pratique spirituelle, non un traitement médical. Elle ne remplace ni la consultation d'un médecin qualifié, ni les cinq prières quotidiennes. Pour une affliction grave ou persistante, consultez à la fois un érudit et un professionnel de santé.",
-    "continueInApp": "Continuer dans Munib"
+    "disclaimer": "La Ruqyah est une pratique spirituelle et non un traitement médical. Cela ne remplace pas la consultation d'un médecin qualifié, ni les cinq prières quotidiennes. En cas d'affection grave ou persistante, consultez à la fois un savant et un professionnel de la santé.",
+    "continueInApp": "Continuer à Munib"
   },
   "newMuslim": {
     "eyebrow": "Apprendre",
-    "title": "Guide du nouveau musulman",
+    "title": "Nouveau guide musulman",
     "subtitle": "Un début chaleureux et pratique pour les premiers jours et semaines",
-    "intro": "Bienvenue dans l'Islam. Ce guide couvre la shahada, les cinq piliers, les bases de la foi, et un premier aperçu de la prière, puis vous oriente vers les guides plus complets de Salah, Aqeedah et Coran de cette application.",
+    "intro": "Bienvenue en Islam. This guide covers the shahada, the five pillars, the basics of faith, and a first look at prayer, then points you to the fuller Salah, Aqeedah, and Qur'an guides in this app.",
     "section": {
-      "start": "Premiers pas",
+      "start": "Commencer",
       "pillars": "Les cinq piliers",
-      "faith": "Bases de la foi",
-      "prayer": "Votre première prière",
+      "faith": "Fondements de la foi",
+      "prayer": "Ta première prière",
       "next-steps": "Prochaines étapes",
-      "faq": "Questions fréquentes"
+      "faq": "Questions courantes"
     },
     "notFound": "Sujet introuvable",
-    "disclaimer": "Un guide de départ simple mais correct, couvrant uniquement les principes essentiels partagés par toutes les écoles. Pour votre situation particulière, demandez à un imam ou un enseignant local.",
-    "continueInApp": "Continuer dans Munib"
+    "disclaimer": "Un guide de départ superficiel mais correct couvrant uniquement les éléments essentiels partagés sur lesquels toutes les écoles sont d'accord. Pour votre situation spécifique, demandez à un imam ou à un enseignant local.",
+    "continueInApp": "Continuer à Munib"
   },
   "finance": {
     "eyebrow": "Apprendre",
     "title": "Finance islamique",
     "subtitle": "Riba, commerce équitable, don et takaful",
-    "intro": "Une introduction éducative au cadre éthique que l'Islam apporte à l'argent — l'interdiction du riba, le commerce équitable, la zakah et la sadaqah, et le takaful (partage coopératif des risques).",
+    "intro": "Une introduction pédagogique au cadre éthique que l'Islam apporte à l'argent : l'interdiction du riba, du commerce équitable, de la zakah et de la sadaqah, et du takaful (partage coopératif des risques).",
     "section": {
       "principles": "Principes",
       "riba": "Riba (intérêt)",
       "trade": "Commerce équitable",
-      "giving": "Le don",
+      "giving": "Donner",
       "takaful": "Takaful",
-      "faq": "Questions fréquentes"
+      "faq": "Questions courantes"
     },
     "notFound": "Sujet introuvable",
-    "disclaimer": "Éducation générale, non un conseil financier ou une fatwa. Les filtres de fonds, les produits spécifiques et les règles concernant vos propres contrats nécessitent un érudit ou une institution en finance islamique qualifié et certifié.",
-    "continueInApp": "Continuer dans Munib"
+    "disclaimer": "Formation générale, pas de conseils financiers ou de fatwa. Les filtres de fonds, les produits spécifiques et les décisions sur vos propres contrats nécessitent un spécialiste ou une institution qualifiée et certifiée en finance islamique.",
+    "continueInApp": "Continuer à Munib"
   },
   "dateConverter": {
     "eyebrow": "Calendrier",
     "title": "Convertisseur de dates",
-    "subtitle": "Convertir entre les calendriers hégirien et grégorien",
-    "intro": "Saisissez une date dans l'un des calendriers pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
-    "toHijri": "Grégorien → Hégirien",
-    "toGregorian": "Hégirien → Grégorien",
-    "gregorianDateLabel": "Date grégorienne",
-    "hijriDateLabel": "Date hégirienne",
+    "subtitle": "Conversion entre les calendriers hégirien et grégorien",
+    "intro": "Entrez une date dans l'un ou l'autre calendrier pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
+    "toHijri": "Grégorien → Hijri",
+    "toGregorian": "hijri → grégorien",
+    "gregorianDateLabel": "date grégorienne",
+    "hijriDateLabel": "Date de l'hégire",
     "day": "Jour",
     "month": "Mois",
     "year": "Année",
     "useToday": "Utiliser aujourd'hui",
-    "invalidDate": "Saisissez une date valide",
-    "disclaimer": "Il s'agit d'une approximation arithmétique (l'« algorithme tabulaire koweïtien ») qui peut différer d'un jour des annonces locales d'observation lunaire — suivez toujours votre mosquée ou autorité locale pour les dates religieuses.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
+    "invalidDate": "Entrez une date valide",
+    "disclaimer": "Il s'agit d'une approximation arithmétique (le tableau \"algorithme koweïtien\") et peut différer d'un jour des annonces locales d'observation de la lune - suivez toujours votre mosquée locale ou votre autorité pour les dates religieuses.",
+    "directionTitle": "Sens de conversion",
+    "resultFrom": "De {{date}}",
+    "quickLinksTitle": "Connexes",
+    "quickCalendar": "Calendrier de culte",
+    "quickCalendarHint": "Parcourez les mois avec votre journal de prière",
+    "quickEvents": "Événements islamiques",
+    "quickEventsHint": "Dates à venir sur le calendrier Hijri",
     "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "quickRamadanHint": "Horaires de jeûne et votre journal de jeûne",
+    "quickHistory": "Première histoire",
+    "quickHistoryHint": "Chronologie de Rashidun avec les années Hijri",
+    "exploreTitle": "Continuer à apprendre",
+    "exploreCalendar": "Ouvrir le calendrier",
+    "exploreCalendarHint": "Voir l'histoire du culte jour après jour",
+    "exploreEvents": "Événements islamiques ouverts",
+    "exploreEventsHint": "Jalons et célébrations à venir"
   }
 }

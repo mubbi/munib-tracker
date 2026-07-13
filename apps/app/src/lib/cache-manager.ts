@@ -28,7 +28,12 @@ export interface CacheGroupSize extends CacheGroup {
 }
 
 export const CACHE_GROUPS: CacheGroup[] = [
-  { id: "quran", labelKey: "offlineData.quran", keys: [DB_KEYS.quranEditionCache] },
+  {
+    id: "quran",
+    labelKey: "offlineData.quran",
+    // Editions/tafsir plus ayah-study caches (tajweed / word-by-word).
+    keys: [DB_KEYS.quranEditionCache, DB_KEYS.quranStudyCache],
+  },
   {
     id: "mushafFonts",
     labelKey: "offlineData.mushafFonts",

@@ -112,13 +112,13 @@
       "learnQuran": "Pelajari Al -Qur'an"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "Cari berdasarkan suara",
+      "stopDictate": "Hentikan pencarian suara",
+      "listening": "Mendengarkan…",
+      "permissionDenied": "Izin mikrofon diperlukan untuk pencarian suara. Anda masih bisa mengetik.",
+      "unavailable": "Pengenalan ucapan tidak tersedia di perangkat ini.",
+      "couldNotHear": "Tidak dapat mendengarnya — coba lagi atau ketik.",
+      "errorGeneric": "Penelusuran suara gagal. Coba lagi atau ketik."
     }
   },
   "tabs": {
@@ -161,8 +161,8 @@
     "adhkarBuilder": "Adhkar saya",
     "sahaba": "Sahabat",
     "history": "Sejarah Islam",
-    "laylatAlQadr": "Lailatul Qadar",
-    "eid": "Panduan Idul Fitri & Idul Adha",
+    "laylatAlQadr": "Lailatul Qadr",
+    "eid": "Panduan Idul Fitri",
     "ruqyah": "Ruqyah",
     "newMuslim": "Panduan Muslim Baru",
     "finance": "Keuangan Islam"
@@ -200,7 +200,7 @@
         "description": "Kemajuan shalat wajib hari ini"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "Tersisa",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -284,7 +284,7 @@
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Mulai melacak.",
     "goToChecklist": "Buka daftar periksa",
-    "prayersStat": "udah sholat apa belum\n",
+    "prayersStat": "Salah",
     "dhikrStat": "Zikir",
     "qazaStat": "Qadha",
     "streakStat": "Rangkaian",
@@ -303,7 +303,7 @@
       "motivation": "PENGINGAT HARIAN"
     },
     "knowledgeTopic": {
-      "prayer": "udah sholat apa belum\n",
+      "prayer": "Salah",
       "qaza": "Qadha",
       "zikr": "Zikir",
       "fasting": "Puasa",
@@ -843,7 +843,7 @@
       "qazaBody": "Make up  terlewat Shalat atau puasa hari ini.",
       "achievementTitle": "Pencapaian terbuka",
       "dailyContentTitle": "reflection hari ini",
-      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
+      "dailyContentBody": "Ayat baru, hadis, dan nama Allah siap di layar beranda Anda.",
       "fridayTitle": "Jum'at Mubarak",
       "fridayBody": "It's Friday — send salawat dan read Surah Al-Kahf."
     },
@@ -1194,15 +1194,15 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "Kata demi kata",
+      "playWord": "Mainkan kata ini",
+      "noAudio": "Tidak ada audio untuk kata ini",
+      "loading": "Memuat kata-kata…"
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "Legenda Tajwid",
+      "openLesson": "Buka pelajaran Belajar Al-Qur'an",
+      "loading": "Memuat tajwid…",
       "rules": {
         "ghunnah": "Ghunnah",
         "ikhafa": "Ikhfa",
@@ -1212,32 +1212,32 @@
         "idghamShafawi": "Idgham Shafawi",
         "iqlab": "Iqlab",
         "qalqalah": "Qalqalah",
-        "maddNormal": "Madd (2)",
-        "maddPermissible": "Madd (2-4-6)",
-        "maddObligatory": "Madd (4-5)",
-        "maddNecessary": "Madd (6)",
+        "maddNormal": "Gila (2)",
+        "maddPermissible": "Gila (2-4-6)",
+        "maddObligatory": "Gila (4-5)",
+        "maddNecessary": "Gila (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "Diam"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "Arahkan kursor untuk melihat aturan tajwid",
+      "tapHint": "Ketuk untuk melihat aturan tajwid",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "Dengung — 2 harakat",
+        "ikhafa": "Penyembunyian dengan ghunnah — 2 ketukan",
+        "ikhafaShafawi": "Penyembunyian labial — 2 ketukan",
+        "idghamGhunnah": "Penggabungan dengan suara sengau — 2 ketukan",
+        "idghamNoGhunnah": "Penggabungan tanpa suara sengau",
+        "idghamShafawi": "Penggabungan labial — 2 ketukan",
+        "iqlab": "Konversi ke meme tersembunyi — 2 ketukan",
+        "qalqalah": "Gema terpental pada surat itu",
+        "maddNormal": "Perpanjangan normal — 2 ketukan",
+        "maddPermissible": "Perpanjangan yang diijinkan - 2, 4, atau 6 ketukan",
+        "maddObligatory": "Perpanjangan wajib — 4 atau 5 ketukan",
+        "maddNecessary": "Perpanjangan yang diperlukan — 6 ketukan",
+        "hamWasl": "Menghubungkan hamzah — terjatuh saat bergabung",
+        "lamShamsiyah": "Huruf matahari لام — tidak diucapkan",
+        "silent": "Ditulis tetapi tidak diucapkan"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
-      "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
-      "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "title": "Pemutaran",
+      "open": "Pengaturan pemutaran",
+      "repeatMode": "Modus berulang",
+      "repeatOff": "Mati",
+      "repeatVerse": "Ayat",
+      "repeatRange": "Jangkauan",
+      "repeatSurah": "Surat",
+      "rangeStart": "Dari ayah",
+      "rangeEnd": "Untuk ayah",
+      "translationAudio": "Audio terjemahan",
+      "translationOff": "Mati",
+      "translationAfter": "Setelah setiap ayat",
+      "translationAudioHint": "Membacakan terjemahan dengan lantang setelah setiap ayat Arab (perangkat TTS)",
+      "ttsVoice": "Suara ucapan terjemahan",
+      "ttsVoiceDefault": "Default untuk bahasa",
+      "ttsVoiceEmpty": "Tidak ditemukan suara untuk bahasa ini di perangkat ini.",
+      "summaryVerse": "Ulangi ayat tersebut",
+      "summarySurah": "Ulangi surah",
+      "summaryRange": "Rentang {{start}}–{{end}}",
+      "summaryTts": "Terjemahan TTS",
       "summaryWithTts": "{{summary}} · TTS"
     },
     "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
+    "openTafsir": "Buka tafsir untuk ayat ini",
     "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
-    "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "tafsirNone": "Pilih tafsir",
+    "selectTafsirAuthor": "Pilih tafsir — {{language}}",
+    "tafsirCount_one": "Tafsir {{count}}",
+    "tafsirCount_other": "Tafsir {{count}}",
+    "searchTafsirLanguages": "Cari bahasa…",
+    "searchTafsirAuthors": "Cari penulis…",
+    "tafsirLoading": "Memuat tafsir…",
+    "tafsirOffline": "Hubungkan untuk mengunduh tafsir ini. Edisi terbuka tetap tersedia secara offline.",
+    "tafsirEmpty": "Tidak ada tafsir yang tersedia untuk ayat ini pada edisi yang dipilih."
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -1392,7 +1392,7 @@
     },
     "duha": {
       "summary": " forenoon shalat — typically two ke eight rak'ahs between terbit dan Dzuhur.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "Sedekah wajib dilakukan pada setiap sendi tubuh setiap hari; bahkan beberapa rakaat dhuha memenuhi amal anggota badan itu melalui ibadah.",
       "benefits": "Forgives sins, brings sustenance (rizq), dan revives  neglected sunnah. Fleksibel timing makes it accessible when  hari allows."
     },
     "dhuhr": {
@@ -1529,7 +1529,7 @@
     "consistencyTitle": "Konsistensi over intensity",
     "consistencyHadith": " most beloved deeds ke Allah adalah those itu adalah konsisten, even if they adalah small.",
     "consistencySource": "Hadits — Bukhari & Muslim",
-    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
+    "consistencyPrinciple": "Rencana harian yang stabil biasanya menyelesaikan tumpukan pekerjaan yang besar dengan lebih andal daripada sprint agresif yang menghabiskan banyak waktu.",
     "prayersPerDay": "shalat / hari",
     "dailyTimeLabel": "est. time / hari",
     "dailyTimeMinutes": "≈ {{count}} mnt",
@@ -1634,8 +1634,8 @@
     "partial": "Separuh",
     "missed": "Terlewatkan",
     "legendHint": "Ketuk any past atau current hari ke tinjau dan adjust it. Hari ini adalah {{date}}.",
-    "converterRowTitle": "Konverter Hijriah ⟷ Masehi",
-    "converterRowSubtitle": "Konversi tanggal antara kedua kalender"
+    "converterRowTitle": "Hijriah ⟷ Konverter Masehi",
+    "converterRowSubtitle": "Konversikan tanggal antara dua kalender"
   },
   "calDay": {
     "today": "Hari ini",
@@ -1857,7 +1857,7 @@
     "milestonesReachedHint": "{{count}} terbuka so far — dan counting.",
     "level": "Lv {{level}}",
     "tracks": {
-      "salah": "udah sholat apa belum\n",
+      "salah": "Salah",
       "streak": "Rentetan",
       "qaza": "Qadha",
       "roza": "Puasa",
@@ -1866,7 +1866,7 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "Shalat {{level}}",
+        "titleFallback": "Salah {{level}}",
         "description": "Selesai {{count}} wajib shalat",
         "description_one": "Selesai {{count}} wajib shalat",
         "titles": {
@@ -1999,12 +1999,12 @@
     "confirmClearAllMessage": "Ini removes every notifikasi dari ini list. Ini can't be undone.",
     "loadMore": "Load lebih",
     "upcoming": "Akan datang",
-    "categorySalah": "udah sholat apa belum\n",
+    "categorySalah": "Salah",
     "categoryZikr": "Zikir",
     "categoryQaza": "Qadha",
     "categoryMilestone": "Tonggak",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "Pengumuman"
   },
   "qibla": {
     "eyebrow": "Arah",
@@ -2020,7 +2020,7 @@
     "compassLabel": "Kiblat compass",
     "compassValue": "{{bearing}} degrees ke  Kaaba, {{distance}} away",
     "aligned": "Aligned dengan  Kiblat",
-    "alignedHint": "Hold steady — you're facing the Kaaba",
+    "alignedHint": "Pegang dengan mantap — Anda menghadap Ka'bah",
     "turnFineTuneLeft": "Geser kiri",
     "turnFineTuneRight": "Geser kanan",
     "turnSlightLeft": "Sedikit ke kiri",
@@ -2060,7 +2060,7 @@
     "syncing": "Menyinkronkan…",
     "done": "Anda data adalah backed up",
     "failed": "Couldn't sinkron. Check Anda connection dan try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "Semuanya sudah terkini",
     "mergeSummary": "{{received}} diterima · {{sent}} dikirim",
     "conflictsResolved": "{{count}} conflicts otomatis-resolved — kept  newest edit",
     "conflictAffected": "Terkena: {{list}}",
@@ -2238,7 +2238,7 @@
     "eyebrow": " Noble Al-Al-Al-Al-Al-Al-Qur'an",
     "short": "Khatm",
     "title": "Khatm rencana",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "Selesaikan Al-Qur'an dengan kecepatan tetap",
     "startTitle": "Mulai a plan",
     "startHint": "Pilih how many days to complete the Al-Al-Al-Al-Al-Qur'an. We'll set a daily ayah target.",
     "startHintPages": "Pilih how many days to complete the Al-Al-Al-Al-Al-Qur'an. We'll set a daily mushaf page target.",
@@ -2319,12 +2319,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
+        "text": "Khatm yang dibangun berdasarkan pembacaan harian yang stabil akan bertahan lebih lama dibandingkan dengan sprint yang melelahkan.",
         "source": "Principle dari konsistensi"
       },
       "portion": {
         "text": "Anda do tidak have ke finish hari ini — only honour today's portion dengan sincerity.",
-        "source": "Steady progress"
+        "source": "Kemajuan yang stabil"
       },
       "return": {
         "text": "If Anda fall behind, do tidak abandon  rencana. Lanjutkan dengan today's ayahs dan move forward.",
@@ -2596,7 +2596,7 @@
     "meaningLabel": "Apa it teaches",
     "progressTitle": "learning progress saya",
     "progressSubtitle": "Lacak lessons — not spiritual rank with Allah",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "Dasbor ini melacak studi dan latihan Anda di Munib. Menyelesaikan pelajaran tidak mengukur kedudukan Anda di hadapan Allah — keikhlasanlah yang mengukurnya.",
     "lessonsTitle": "Pelajaran selesai",
     "lessonsHint": "Tandai topics complete as you finish studying them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2654,7 +2654,7 @@
     "quickLessons": "Pelajaran cards",
     "quickLessonsHint": "Leadership dan spiritual takeaways dari each battle",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Topik membaca dan mempelajari kemajuan",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -2693,7 +2693,7 @@
     "lessonsHint": "Tandai topics complete as you finish studying them",
     "lessonsIntro": "These adalah moral dan leadership pelajaran — tidak military tactics manuals.",
     "progressTitle": "Pembelajaran saya",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Studi jalur — bukan tingkatan spiritual di sisi Allah",
     "progressIntro": "Ini dashboard tracks topik Anda have read di Munib. Knowledge adalah  means; sincerity dengan Allah adalah  goal.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Explore timeline, verses, glossary, dan pelajaran cards",
@@ -2804,7 +2804,7 @@
     "quizTitle": "Tinjau kuis",
     "quizSubtitle": "Test Anda understanding — tidak Anda standing dengan Allah",
     "quizHint": "Timeline, definitions, dan refleksi",
-    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
+    "quizIntro": "Gunakan kuis ini untuk menemukan kesenjangan, lalu pelajari topik tersebut. Ini bukan skor rohani.",
     "quizProgress": "Pertanyaan {{current}} dari {{total}}",
     "quizComplete": "Kuis selesai",
     "quizScore": "{{score}} dari {{total}} menjawab pertanyaan dengan benar",
@@ -2842,7 +2842,7 @@
       "learningHint": "Topik selesai di ini module"
     },
     "progressTitle": "Kemajuan pembelajaran",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Studi jalur — bukan tingkatan spiritual di sisi Allah",
     "progressIntro": "Tandai topics complete as you read. Knowledge is a means; sincerity with Allah is the goal.",
     "lessonsTitle": "Topik selesai",
     "lessonsHint": "Tandai topics complete as you finish studying them",
@@ -2880,9 +2880,9 @@
     "quickGhusl": "Ghusl panduan",
     "quickGhuslHint": "Penuh bath when major impurity occurs",
     "quickChecklist": "checklist harian",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "Kebiasaan yang membuat Anda siap untuk berdoa",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Topik membaca dan mempelajari kemajuan",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -2951,7 +2951,7 @@
     "quickLessons": "Pelajaran",
     "quickLessonsHint": "Moral dan spiritual takeaways",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Topik membaca dan mempelajari kemajuan",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -2975,7 +2975,7 @@
     "profileTitle": "Profil",
     "progressTitle": "learning progress saya",
     "progressSubtitle": "Lacak lessons — not spiritual rank with Allah",
-    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
+    "progressIntro": "Tandai topik-topik yang lengkap sewaktu Anda mempelajari kehidupan para nabi.",
     "lessonsTitle": "Topik selesai",
     "lessonsHint": "Tandai topics complete as you finish studying them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3021,7 +3021,7 @@
     "quickGlossary": "Glosari",
     "quickGlossaryHint": "Key creed ketentuan defined",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Topik membaca dan mempelajari kemajuan",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -3082,7 +3082,7 @@
     "quickOccasions": "Oleh occasion",
     "quickOccasionsHint": "Browse duas untuk every moment",
     "quickProgress": "Pembelajaran saya",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Topik membaca dan mempelajari kemajuan",
     "progressCardTitle": "Kemajuan pembelajaran",
     "progressCardHint": "{{completed}} dari {{total}} topics marked complete",
     "exploreTitle": "Terokai",
@@ -3184,7 +3184,7 @@
     "reflectionTitle": "Renung",
     "openInQuran": "Buka in Al-Al-Al-Al-Al-Qur'an reader",
     "progressTitle": "Pembelajaran saya",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Studi jalur — bukan tingkatan spiritual di sisi Allah",
     "progressIntro": "Ini dashboard tracks pelajaran Anda have studied di Munib. Allah knows what adalah di Anda heart.",
     "lessonsTitle": "Pelajaran",
     "lessonsHint": "Tandai topics complete as you finish studying them",
@@ -3199,7 +3199,7 @@
     "practiceTitle": "Latihan",
     "lettersTitle": "Arab huruf",
     "lettersSubtitle": "28 huruf dengan nama, sounds, dan examples",
-    "lettersIntro": "Study one letter per day — see, hear, say, write.",
+    "lettersIntro": "Pelajari satu huruf per hari - lihat, dengar, ucapkan, tulis.",
     "pronunciationTitle": "Pelafalan",
     "pronunciationSubtitle": "Kuasai pasangan huruf sulit",
     "pronunciationIntro": "Compare similar sounds side oleh side — rekam yourself dan listen kembali.",
@@ -3225,7 +3225,7 @@
     "challengeDone": "Challenge selesai — may Allah accept",
     "quizTitle": "Al-Al-Al-Al-Al-Al-Qur'an kuis",
     "quizSubtitle": "Test Anda understanding — tidak Anda standing dengan Allah",
-    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
+    "quizIntro": "Gunakan setiap pertanyaan untuk menemukan celah, lalu pelajari topik tersebut. Ini adalah ulasan, bukan skor rohani.",
     "quizProgress": "Pertanyaan {{current}} dari {{total}}",
     "quizComplete": "Kuis selesai",
     "quizScore": "{{score}} dari {{total}} menjawab pertanyaan dengan benar",
@@ -3386,7 +3386,7 @@
       "purpose": {
         "title": "Mengapa zakat — purpose & wisdom",
         "summary": "It purifies harta dan  soul, dan lifts  fakir",
-        "body": "Allah says dari zakat: \"Take dari their harta  sedekah oleh which Anda purify them dan cause them ke grow\" (Al-Al-Al-Al-Al-Al-Qur'an 9:103).  obligation works pada two tingkat pada once — it purifies  giver's soul dari stinginess dan love dari  world, dan it purifies  harta itself so itu what stays di Anda hand adalah wholesome dan blessed.\n\nSocially, zakat adalah  divinely ordered sistem dari circulation. When  Prophet ﷺ sent Mu'adh ke Yemen he instructed itu zakat be taken dari their rich dan given ke their fakir. Harta adalah tidak meant ke pile up among  few; zakat pulls it kembali into motion so  miskin adalah fed, debtors adalah freed, dan  community's bonds adalah strengthened.\n\nSpiritually, giving zakat adalah  act dari gratitude dan trust. It answers  human urge ke hoard dengan  certainty itu provision comes dari Allah, dan it trains  believer ke love giving.  one who pays zakat willingly finds their harta protected, their heart lightened, dan their reward stored dengan their Lord — \"there will be tidak fear concerning them, nor will they grieve\" (Al-Al-Al-Al-Al-Al-Qur'an 2:277)."
+        "body": "Allah berfirman tentang zakat: “Ambillah dari harta mereka sedekah yang dengannya kamu mensucikan mereka dan menumbuhkannya” (Qur'an 9:103). Kewajiban ini bekerja dalam dua tingkat sekaligus, yaitu menyucikan jiwa si pemberi dari kekikiran dan cinta dunia, dan mensucikan harta itu sendiri sehingga apa yang ada di tangan Anda adalah halal dan berkah.\n\nSecara sosial, zakat merupakan suatu sistem peredaran yang diatur secara ilahi. Ketika Nabi ﷺ mengutus Mu'adz ke Yaman, beliau memerintahkan agar zakat diambil dari orang kaya mereka dan diberikan kepada orang miskin. Kekayaan tidak dimaksudkan untuk dikumpulkan di antara segelintir orang; zakat menggerakkannya kembali sehingga yang membutuhkan diberi makan, debitur dibebaskan, dan ikatan masyarakat diperkuat.\n\nSecara spiritual, mengeluarkan zakat merupakan wujud rasa syukur dan amanah. Ini menjawab desakan manusia untuk menimbun dengan keyakinan bahwa rezeki itu datangnya dari Allah, dan melatih orang beriman untuk gemar memberi. Barangsiapa yang mengeluarkan zakat dengan ikhlas, maka hartanya terlindungi, hatinya diringankan, dan pahalanya disimpan di sisi Tuhannya – “tidak ada kekhawatiran terhadap mereka dan tidak pula mereka bersedih hati” (Qur'an 2:277)."
       },
       "hawl": {
         "title": " qamariah tahun (hawl)",
@@ -3411,12 +3411,12 @@
       "debts": {
         "title": "Utang & pengurangan",
         "summary": "Immediate debts may be deducted sebelum calculating 2.5%",
-        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
+        "body": "Zakat dihitung berdasarkan kekayaan bersih zakat Anda, sehingga utang asli yang Anda miliki dapat mengurangi jumlah yang harus Anda bayarkan. Kasus yang paling jelas adalah utang yang jatuh tempo sekarang — pinjaman pribadi yang belum dibayar, saldo kartu kredit, sewa atau tagihan yang sudah terutang. Kebanyakan ulama mengizinkan hal ini untuk dikurangkan dari kekayaan kotor Anda sebelum Anda menerapkan 2,5%.\n\nHutang jangka panjang seperti hipotek atau cicilan multi-tahun ditangani dengan lebih hati-hati, karena mengurangi seluruh saldo akan menghapus zakat hampir semua orang yang memiliki pinjaman rumah. Pendekatan umum yang dilakukan saat ini adalah dengan hanya memotong pembayaran yang jatuh tempo pada tahun mendatang, bukan seluruh jumlah terutang. Sekolah dan cendekiawan berbeda dalam hal ini, jadi pilihlah metode yang konsisten di bawah panduan.\n\nDua peringatan. Pertama, jangan perlakukan pengeluaran di masa depan atau pengeluaran hipotetis sebagai hutang yang dapat dikurangkan – hanya jumlah hutang Anda yang diperhitungkan. Kedua, jangan mengurangi zakat tahun lalu yang belum dibayarkan seolah-olah merupakan utang biasa; zakat yang belum dibayar tetap menjadi kewajiban dan harus dibayar begitu saja. Ketika situasi utang Anda rumit, keputusan seorang ulama lebih berharga daripada perkiraan kasar."
       },
       "recipients": {
         "title": "Siapa yang boleh menerima zakat",
         "summary": "Eight categories named di Al-Al-Al-Al-Al-Al-Qur'an 9:60",
-        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
+        "body": "Zakat hanya boleh diberikan kepada kelompok orang yang Allah sendiri sebutkan dalam Surat at-Taubah (9:60). Ini adalah salah satu dari sedikit ibadah yang penerimanya ditetapkan melalui wahyu, dan tidak diserahkan kepada preferensi si pemberi. Kedelapan kategori tersebut adalah: fakir miskin (al-fuqara); yang membutuhkan (al-masakin); mereka yang dipekerjakan untuk mengumpulkan dan mengelola zakat; mereka yang hatinya ingin rujuk (al-mu'allafah); pembebasan tawanan dan tawanan (fi'r-riqab); yang terbebani hutang (al-gharimin); di jalan Allah (fi sabil Allah); dan musafir yang terdampar (ibnu as-sabil).\n\nTidak perlu memberi kepada kedelapannya; memberikan zakat Anda kepada satu kategori yang memenuhi syarat saja sudah memenuhi kewajiban, dan menyalurkannya kepada orang miskin dan membutuhkan adalah praktik yang paling umum.\n\nYang tidak kalah pentingnya adalah siapa yang mungkin tidak menerimanya. Zakat tidak dapat diberikan kepada orang kaya, atau kepada mereka yang sudah wajib Anda nafkahi – orang tua Anda, anak-anak Anda, atau pasangan Anda – karena menafkahi mereka adalah kewajiban yang harus Anda lakukan. Dalam pandangan klasik, ini adalah pengalihan kepemilikan pribadi kepada individu yang memenuhi syarat, bukan sumbangan umum; Para ulama berbeda pendapat mengenai apakah institusi seperti masjid atau proyek publik yang luas termasuk dalam jalan Allah. Juga tidak bisa diberikan kepada keluarga Nabi ﷺ, Bani Hasyim, sebagai zakat. Sengaja ditujukan pada orang-orang yang sesuai dengan kategori Al-Qur'an."
       },
       "otherRates": {
         "title": "Other types dari zakat & zakat al-fitr",
@@ -3426,7 +3426,7 @@
       "mistakes": {
         "title": "Common mistakes ke avoid",
         "summary": "Errors itu make zakat invalid atau miscalculated",
-        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
+        "body": "Bahkan umat Islam yang tulus pun sering mengabaikan rincian praktis zakat. Mengetahui kesalahan umum membantu Anda membayar dengan benar dan pikiran tenang.\n\nMelupakan hawl atau hari jadi: membayar secara acak, atau melewatkan tahun, meninggalkan kewajiban yang belum terbayar. Tetapkan satu tanggal Hijriah setiap tahun dan nilai kekayaan Anda berdasarkan tanggal tersebut.\n\nSalah menghitung kekayaan: menilai emas atau saham pada harga pembeliannya dan bukan pada nilai pasar saat ini, melupakan uang tunai yang disimpan dalam berbagai rekening atau mata uang, atau mengabaikan inventaris bisnis dan uang yang terutang kepada Anda. Zakat adalah segala sesuatu yang dapat dizakatkan yang Anda miliki pada teman kencan Anda.\n\nMemberi kepada orang yang salah: memberikan zakat kepada orang tua, anak-anak, atau pasangan yang sudah Anda dukung, atau memperlakukannya sebagai sumbangan umum untuk tujuan baik apa pun. Itu harus mencapai salah satu dari delapan kategori Al-Qur'an.\n\nKesalahan niat: memberi secara melimpah sepanjang tahun, namun tidak pernah berniat sebagian pun sebagai zakat. Zakat adalah ibadah dan perlu niat (niyyah) sehingga pembayaran tersebut adalah zakat wajibnya.\n\nHutang yang terlalu dikurangi: mengurangi seluruh hipotek jangka panjang, atau pengeluaran masa depan yang belum terutang, untuk mengecilkan tagihan. Hanya kewajiban nyata dan lancar yang mengurangi kekayaan zakat Anda. Jika salah satu dari hal ini tidak jelas untuk situasi Anda, tanyakan pada pakar yang berkualifikasi daripada berasumsi."
       }
     },
     "recipientsListTitle": " eight categories",
@@ -3501,7 +3501,7 @@
     "group": {
       "liquid": "Tunai & logam mulia",
       "investments": "Investasi & bisnis",
-      "property": "Land, property & vehicles"
+      "property": "Tanah, properti & kendaraan"
     },
     "weightSectionTitle": "Calculate gold & silver oleh weight",
     "nisabOverrideTitle": "Override nisab manual",
@@ -3523,33 +3523,33 @@
         "title": "Atau calculate gold oleh weight",
         "grams": "Gram",
         "pricePerGram": "Harga/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "Emas menurut beratnya",
+        "amount": "Berat",
+        "pricePerGram24k": "Harga/gram (24k)"
       },
       "silver": {
         "title": "Atau calculate silver oleh weight",
         "grams": "Gram",
         "pricePerGram": "Harga/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "Perak menurut beratnya",
+        "amount": "Berat",
+        "pricePerGramFine": "Harga/g (baik)"
       },
       "computed": "Adds {{value}} ke total",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "Harga spot langsung adalah emas 24 karat dan perak murni per gram. Pilih satuan Anda (g, tola, troy oz, kg) dan karat/kemurnian — nilainya diubah menjadi logam murni × spot.",
+      "unit": "Satuan berat",
+      "karat": "Karat emas",
+      "purity": "Kemurnian perak",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
-        "g": "Gram",
+        "g": "gram",
         "tola": "Tola",
-        "oz": "Troy oz",
+        "oz": "Troy ons",
         "kg": "Kilogram"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g logam murni",
+      "cardHint": "Tola, gram, karat / kemurnian × harga spot 24k atau logam murni."
     },
     "field": {
       "cash": "Tunai & tabungan",
@@ -3564,12 +3564,12 @@
       "nisab": "Nilai nisab (override)",
       "nisabGoldPrice": "Emas price per gram",
       "nisabSilverPrice": "Perak price per gram",
-      "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "crypto": "mata uang kripto",
+      "livingExpenses": "Biaya hidup langsung",
+      "investmentPlots": "Plot investasi (nilai pasar)",
+      "installmentPlotsPaid": "Plot cicilan — jumlah yang dibayarkan",
+      "investmentProperty": "Investasi rumah/gedung",
+      "tradeVehicles": "Kendaraan untuk dijual/diperdagangkan"
     },
     "fieldHint": {
       "cash": "Bank accounts, cash pada hand, dan liquid savings.",
@@ -3578,162 +3578,162 @@
       "stocks": "Current market value dari shares, funds, dan similar investments.",
       "business": "Value dari merchandise, inventory, dan goods held untuk sale.",
       "receivables": "Loans dan invoices Anda reasonably expect ke collect.",
-      "rentalIncome": "Rental or business profits you still hold — not already spent.",
+      "rentalIncome": "Keuntungan sewa atau bisnis yang masih Anda miliki — belum dibelanjakan.",
       "otherAssets": "Cryptocurrency, accessible retirement funds, atau other zakatable harta per Anda ulama.",
       "debts": "Personal loans, credit cards, dan bills due sekarang — tidak long-term mortgage totals unless Anda ulama allows.",
       "nisab": "Leave blank ke use  computed threshold, atau enter  kustom nisab.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "Nilai pasar kripto yang dimiliki sebagai aset — peraturannya berbeda-beda; tanya seorang ulama.",
+      "livingExpenses": "Sewa, makanan, dan tagihan segera jatuh tempo — hanya jika ulama Anda mengizinkan pemotongan ini.",
+      "investmentPlots": "Tanah atau bidang tanah yang dimiliki untuk investasi atau dijual (nilai pasar saat ini). Lahan pertanian pribadi yang digunakan untuk hidup berbeda-beda — tanyakan pada seorang ulama.",
+      "installmentPlotsPaid": "Berapa banyak yang telah Anda bayarkan untuk plot investasi angsuran (bukan kontrak penuh yang belum dibayar kecuali ulama Anda memasukkannya).",
+      "investmentProperty": "Rumah atau bangunan yang dimiliki untuk investasi atau perdagangan — bukan tempat tinggal pribadi Anda.",
+      "tradeVehicles": "Mobil atau kendaraan yang dimiliki untuk dijual atau sebagai barang dagangan — bukan kendaraan untuk keperluan pribadi."
     },
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "Mengubah mata uang zakat",
+      "pickerTitle": "Pilih mata uang",
+      "pickerHint": "Mata uang {{count}} — cari berdasarkan kode atau nama",
+      "searchPlaceholder": "Telusuri mata uang…",
+      "noResults": "Tidak ada mata uang yang cocok dengan pencarian Anda.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "Emas & perak hidup",
+      "goldPerGram": "Emas / gram",
+      "silverPerGram": "Perak / gram",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "Mengambil harga langsung…",
+      "error": "Tidak dapat memuat harga langsung. Masukkan harga emas dan perak secara manual.",
+      "prefilled": "Nisab dan harga logam diisi dari kurs langsung.",
+      "useLive": "Gunakan harga langsung lagi",
+      "useLiveA11y": "Reset ke harga emas dan perak yang hidup",
+      "refreshA11y": "Segarkan harga pasar langsung",
+      "livePrice": "Hidup"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
       "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "belowNisab": "Net {{wealth}} · di bawah nisab {{nisab}}",
+      "hasOtherDue": "Net {{wealth}} · tanaman / ternak jatuh tempo"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
+      "gold": "Emas/g",
+      "silver": "Perak/g",
       "nisab": "Nisab",
-      "due": "Due"
+      "due": "Jatuh tempo"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "Zakat Kekayaan (2,5%) : {{value}}",
+      "agriculture": "Tanaman (ushr): {{value}}",
+      "livestock": "Peternakan (perkiraan tunai): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "Uang tunai, kripto, dan nilai logam yang sudah Anda ketahui. Atau gunakan berat pada kartu logam.",
+      "investments": "Saham, barang dagangan, piutang, dan pendapatan bisnis yang disimpan pada nilai saat ini."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "Hak hasil bumi/ternak (kekayaan di bawah nisab)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "Ternak (kawanan penggembalaan)",
+      "hint": "Sunnah timbangan bagi domba/kambing, sapi, dan unta yang merumput bebas (Bukhari/Abu Dawud). Hewan yang dipelihara untuk dijadikan makanan sering kali mengikuti aturan perdagangan barang — tanya seorang pakar.",
+      "sheep": "Domba/kambing (kepala)",
+      "sheepHint": "Nisab dimulai pada 40 kepala.",
+      "cattle": "Sapi/kerbau (kepala)",
+      "cattleHint": "Nisab dimulai pada 30 kepala (skala tabi'/musinnah).",
+      "camels": "Unta (kepala)",
+      "camelsHint": "Nisab dimulai pada 5 kepala.",
+      "valueTitle": "Nilai tunai opsional (per kepala)",
+      "valueHint": "Zakat hewan ternak biasanya dibayarkan dalam bentuk hewan. Masukkan nilai pasar hanya jika Anda menginginkan perkiraan setara uang tunai untuk perencanaan.",
+      "sheepValue": "Nilai per domba/kambing",
+      "cattleValue": "Nilai per ekor sapi",
+      "camelValue": "Nilai per unta",
+      "dueTitle": "Hakikat hewan (perkiraan sunnah)",
+      "cashEstimate": "Perkiraan uang tunai: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} domba/kambing",
+        "cattleTabi": "{{count}} tabi' (sapi 1 tahun)",
+        "cattleMusinnah": "{{count}} musinnah (sapi 2 tahun)",
+        "bintMakhad": "{{count}} binti makhad (unta 1 tahun)",
+        "bintLabun": "{{count}} binti labun (unta 2 tahun)",
+        "hiqqah": "{{count}} hiqqah (unta 3 tahun)",
+        "jadhah": "{{count}} jadhah (unta 4 tahun)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "Ketentuan ternak menurut Sunnah — bukan 2,5%. Nilai tunai opsional hanya untuk perkiraan."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "Pertanian & panen (ushr)",
+      "hint": "Jatuh tempo pada saat panen — bukan setelah tahun lunar. Tarifnya 10% untuk lahan yang diairi oleh hujan/mata air, dan 5% bila pengairan membutuhkan usaha atau uang (Qur'an 6:141; Sunnah).",
+      "harvest": "Nilai pasar panen",
+      "harvestHint": "Nilai tanaman atau buah musim ini pada waktu panen.",
+      "irrigation": "Sumber air",
+      "natural": "Hujan/mata air (10%)",
+      "irrigated": "Irigasi (5%)",
+      "naturalHint": "Ushr 10% bila disiram secara alami tanpa irigasi yang mahal.",
+      "irrigatedHint": "Setengah ushr 5% apabila diairi dengan sumur, pompa, atau irigasi berbayar.",
+      "due": "Batas Ushr: {{value}}",
+      "cardHint": "Jatuh tempo pada saat panen — 10% hujan/mata air, 5% irigasi."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "Format angka",
+      "hint": "Bagaimana ribuan dan desimal ditampilkan dalam jumlah.",
+      "changeA11y": "Ubah format angka",
+      "pickerTitle": "Format angka",
+      "pickerHint": "Pilih cara jumlah dikelompokkan dan cara desimal muncul saat mengetik dan total."
     },
-    "learnMore": "Learn more",
+    "learnMore": "Pelajari lebih lanjut",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "Ringkasan pendidikan dari Al-Qur'an dan Sunnah — bukan fatwa pribadi.",
+      "footnote": "Sekolah berbeda dalam hal detail (perhiasan, hipotek, pakan ternak, kripto). Tanyakan pada ulama yang berkualifikasi untuk kasus Anda.",
+      "openGuide": "Buka panduan lengkap",
+      "a11y": "Pelajari lebih lanjut tentang {{section}}",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "Mata uang & tarif",
+        "body": "Zakat dihitung berdasarkan nilai pasar kekayaan Anda dalam mata uang yang Anda pahami. Harga spot emas dan perak membantu memperkirakan nisab dan nilai logam — harga tersebut bersifat indikatif, bukan pengganti harga pasar lokal yang digunakan oleh ulama Anda."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "Uang tunai & logam mulia",
+        "body": "Uang tunai, saldo bank, dan emas atau perak yang disimpan sebagai kekayaan adalah beberapa aset yang paling jelas dapat dizakatkan. Nabi ﷺ memperingatkan dengan tegas tentang menahan hak atas emas dan perak. Perhiasan yang dikenakan untuk penggunaan normal merupakan ciri khas yang membedakan sekolah – ikuti madzhab Anda. Anda dapat memasukkan nilai tunai di sini, atau menghitung berat logam di bagian selanjutnya."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "Emas & perak menurut beratnya",
+        "body": "Nisab ditetapkan dalam Sunnah menurut beratnya: sekitar 20 dinar emas atau 200 dirham perak (biasanya disebut ~87,5 g emas atau ~612 g perak). Karat dan kemurnian penting karena zakat ada pada kandungan logam murni. Harga Semasa adalah untuk 24rb / logam halus per gram — pilih satuan Anda (gram, tola, troy oz) dan karat agar kalkulator terkonversi dengan benar."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "Investasi & bisnis",
+        "body": "Barang dagangan, barang dagangan, dan kekayaan yang dimaksudkan untuk berkembang umumnya dapat dizakatkan berdasarkan nilai pasar saat ini. Saham dan dana umumnya dinilai seperti kekayaan perdagangan. Piutang kuat yang ingin Anda kumpulkan sering kali disertakan. Al-Qur'an 2:267 mendesak pembelanjaan dari kebaikan yang telah Anda peroleh - nilailah dengan jujur ​​pada tanggal zakat Anda."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "Tanah, properti & kendaraan",
+        "body": "Rumah pribadi, mobil pribadi, dan barang-barang rumah tangga biasa pada umumnya tidak dapat dizakati — zakat menargetkan pertumbuhan kekayaan, bukan barang-barang bekas. Kavling, rumah, atau kendaraan yang dimiliki untuk investasi, penjualan, atau perdagangan dapat dimasukkan sebesar nilai pasar (atau jumlah yang telah dibayarkan pada kavling investasi angsuran). Jika tidak yakin, tanyakan pada seorang ulama."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "Ternak (kawanan penggembalaan)",
+        "body": "Domba, kambing, sapi, dan unta yang merumput bebas mempunyai timbangan Sunnah dan nisab hewannya sendiri (misalnya 40 ekor domba, 30 ekor sapi, 5 ekor unta) — bukan tingkat uang 2,5%. Pembayaran biasanya dibayarkan pada hewan dengan umur tertentu. Hewan yang diberi makan sebagai bisnis sering kali mengikuti aturan perdagangan barang. Nilai tunai opsional di sini hanyalah perkiraan perencanaan."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "Pertanian & panen (ushr)",
+        "body": "Zakat hasil panen wajib dibayarkan pada saat panen, bukan setelah tahun lunar. Tarif yang terkenal adalah 10% (ushr) bila tanah diairi oleh hujan atau mata air, dan 5% bila pengairan membutuhkan tenaga atau uang. Masukkan nilai pasar panen musim ini dan pilih sumber air yang sesuai dengan situasi Anda.",
+        "localRefLabel": "Al-Qur'an 6:141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "Pengurangan",
+        "body": "Zakat adalah kekayaan bersih yang dapat dizakatkan. Hutang segera yang jatuh tempo sekarang biasanya dipotong sebelum menerapkan 2,5%. Hipotek jangka panjang diperlakukan dengan lebih hati-hati — banyak ulama kontemporer hanya memotong pembayaran tahun depan, bukan seluruh saldo. Biaya hidup yang harus dibayarkan segera diperbolehkan hanya jika ulama Anda mengizinkan."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "ambang batas Nisab",
+        "body": "Nisab adalah kelebihan minimum sebelum jatuh tempo zakat kekayaan. Nabi ﷺ menetapkannya sebesar 20 dinar emas atau 200 dirham perak, dan mengajarkan bahwa tidak ada zakat yang wajib dikeluarkan sampai harta tersebut telah lewat satu tahun. Karena harga emas dan perak saat ini berbeda, banyak pakar lebih memilih ambang batas yang lebih rendah (sering kali perak) sehingga lebih banyak masyarakat miskin yang terbantu. Kalkulator ini menunjukkan perkiraan terendah dari dua perkiraan langsung."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "Hutang segera (dan biaya hidup hanya jika ulama Anda mengizinkan).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "Setel ulang kalkulator?",
+      "message": "Ini membersihkan semua jumlah, berat logam, ternak, dan tanaman. Mata uang dan format angka Anda tetap sama.",
+      "confirm": "Setel ulang formulir",
+      "a11y": "Reset formulir kalkulator zakat",
+      "hint": "Meminta konfirmasi, lalu menghapus semua jumlah yang dimasukkan"
     }
   },
   "customAdhkar": {
@@ -3753,62 +3753,62 @@
       "reference": "Reference (sunah)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "Gambar (opsional)",
+      "add": "Tambahkan gambar",
+      "remove": "Hapus gambar",
+      "hint": "Hingga 5 gambar, masing-masing 1 MB. Tekan lama thumbnail untuk menghapusnya.",
+      "signInRequired": "Masuk untuk melampirkan foto pribadi ke adhkar Anda.",
+      "permissionDenied": "Izin perpustakaan foto diperlukan untuk melampirkan gambar.",
+      "unsupportedType": "Gunakan gambar JPEG, PNG, atau WebP saja.",
+      "tooLarge": "Setiap gambar harus berukuran 1 MB atau lebih kecil.",
+      "uploadFailed": "Tidak dapat mengunggah gambar. Coba lagi.",
+      "uploading": "Mengunggah…",
+      "open": "Buka gambar {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "Cubit untuk memperbesar, seret untuk menggeser, ketuk dua kali untuk mengatur ulang",
+      "previous": "Gambar sebelumnya",
+      "next": "Gambar berikutnya"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "Lampiran (opsional)",
+      "add": "Tambahkan berkas",
+      "remove": "Hapus lampiran",
+      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), masing-masing 1 MB. Tekan lama thumbnail untuk menghapusnya.",
+      "signInRequired": "Masuk untuk melampirkan file pribadi ke adhkar Anda.",
+      "permissionDenied": "Izin diperlukan untuk melampirkan file.",
+      "permissionTitle": "Izinkan akses",
+      "permissionBody": "Munib Tracker memerlukan akses kamera atau foto untuk melampirkan file.",
+      "permissionSettingsBody": "Izin ditolak. Buka Pengaturan untuk mengizinkan kamera atau foto untuk Munib Tracker.",
+      "allowAccess": "Izinkan akses",
+      "unsupportedType": "Gunakan JPEG, PNG, WebP, atau PDF saja.",
+      "tooLarge": "Setiap file harus berukuran 1 MB atau lebih kecil.",
+      "uploadFailed": "Tidak dapat mengunggah lampiran. Coba lagi.",
+      "uploading": "Mengunggah…",
+      "readFailed": "Tidak dapat membaca file itu. Coba yang lain.",
+      "pickFailed": "Tidak dapat menambahkan file itu. Coba lagi.",
+      "openFailed": "Tidak dapat membuka file itu.",
+      "open": "Buka lampiran {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "Cubit untuk memperbesar, seret untuk menggeser, ketuk dua kali untuk mengatur ulang",
+      "previous": "Lampiran sebelumnya",
+      "next": "Lampiran berikutnya",
+      "openPdf": "Buka PDF",
+      "sourceTitle": "Tambahkan lampiran",
+      "sourceCamera": "Ambil foto",
+      "sourceCameraHint": "Gunakan kamera untuk mengambil gambar",
+      "sourceGallery": "Perpustakaan foto",
+      "sourceGalleryHint": "Pilih gambar dari foto Anda",
+      "sourceDocument": "File",
+      "sourceDocumentHint": "Pilih gambar atau PDF dari file Anda"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Dikte dengan mikrofon",
+      "stopDictate": "Hentikan dikte",
+      "listening": "Mendengarkan…",
+      "permissionDenied": "Izin mikrofon diperlukan untuk mendiktekan. Anda masih bisa mengetik.",
+      "unavailable": "Pengenalan ucapan tidak tersedia di perangkat ini.",
+      "couldNotHear": "Tidak dapat mendengarnya — coba lagi atau ketik.",
+      "errorGeneric": "Dikte gagal. Coba lagi atau ketik."
     }
   },
   "tahajjud": {
@@ -3892,20 +3892,20 @@
     "confirmDiscardTitle": "Buang perubahan?",
     "confirmDiscardMsg": "Anything Anda wrote will be lost.",
     "confirmOverwriteTitle": "Replace existing refleksi?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "Anda sudah mencatat {{prayer}} untuk hari ini. Menabung akan menggantikannya.",
     "level1": "Lengah",
     "level2": "Gelisah",
     "level3": "Cukup hadir",
     "level4": "Fokus",
     "level5": "Sangat hadir",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Dikte dengan mikrofon",
+      "stopDictate": "Hentikan dikte",
+      "listening": "Mendengarkan…",
+      "permissionDenied": "Izin mikrofon diperlukan untuk mendiktekan. Anda masih bisa mengetik.",
+      "unavailable": "Pengenalan ucapan tidak tersedia di perangkat ini.",
+      "couldNotHear": "Tidak dapat mendengarnya — coba lagi atau ketik.",
+      "errorGeneric": "Dikte gagal. Coba lagi atau ketik."
     }
   },
   "prayerTuning": {
@@ -3946,7 +3946,7 @@
     "umrahTag": "Umrah",
     "hajjTag": "Haji",
     "disclaimer": "Daftar periksa praktis, bukan buku fiqih. Ikuti pemandu yang berkompeten untuk hukum dan detail.",
-    "prepTag": "Prep"
+    "prepTag": "Persiapan"
   },
   "dailyHadith": {
     "eyebrow": "Seri harian",
@@ -3991,7 +3991,7 @@
     "versesLead": "Ketuk any verse ke buka it di  Al-Al-Al-Al-Al-Al-Qur'an reader.",
     "journeyTitle": "Journey saya",
     "journeySummary": "habits — not your rank with Allah hari ini",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "Konsistensi dalam beribadah sudah Anda lacak",
     "journeyBanner": "These habits adalah among  deeds Allah loves. Anda final rank adalah only dengan Him.",
     "journeyToday": "striving hari ini",
     "journeyEmpty": "Mulai with one prayer or adhkar — small steps build lifelong habits.",
@@ -4365,58 +4365,58 @@
     "footer": "Anda PIN adalah stored securely pada ini perangkat dan never leaves it."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "Pengumuman"
   },
   "sahaba": {
     "eyebrow": "Belajar",
     "title": "Sahabat",
     "subtitle": "Profil singkat para sahabat Nabi ﷺ",
-    "intro": "Sahabat adalah generasi yang membawa Islam dari Nabi ﷺ ke seluruh dunia. Profil singkat ini mengikuti gaya lini masa seerah — satu kehidupan, satu pelajaran, dan satu sumber untuk setiap klaim.",
+    "intro": "Para sahabat adalah generasi yang membawa Islam dari Nabi ﷺ ke seluruh dunia. Profil singkat ini mengikuti garis waktu seerah — kehidupan, pelajaran, dan sumber untuk setiap klaim.",
     "categoryAll": "Semua",
     "category": {
       "caliphs": "Khalifah",
-      "ashara": "Ashara Mubasyarah",
+      "ashara": "Ashara Mubashara",
       "family": "Keluarga",
-      "women": "Perempuan",
-      "notable": "Terkemuka"
+      "women": "Wanita",
+      "notable": "Penting"
     },
-    "noResults": "Belum ada sahabat dalam kategori ini",
+    "noResults": "Belum ada pendamping dalam kategori ini",
     "readMore": "Ketuk untuk membaca profil lengkap",
-    "disclaimer": "Fakta naratif mengikuti karya seerah dan sejarah klasik; setiap klaim yang terkait riwayat tertentu mencantumkan kitab hadis dan nomornya. Ini adalah konten edukatif umum, bukan peringkat keilmuan.",
+    "disclaimer": "Fakta naratif mengikuti karya seerah dan sejarah klasik; setiap klaim yang terkait dengan narasi tertentu mengutip kumpulan hadis dan nomornya. Ini adalah konten pendidikan umum, bukan peringkat ilmiah.",
     "quickLinksTitle": "Jelajahi",
-    "quickCaliphsHint": "Mulai dengan Abu Bakar, khalifah pertama",
-    "quickAsharaHint": "Sepuluh sahabat yang dijanjikan Surga",
-    "quickWomenHint": "Khadijah dan Ibunda Kaum Beriman",
+    "quickCaliphsHint": "Mulailah dengan Abu Bakar, Khalifah pertama",
+    "quickAsharaHint": "Sepuluh menjanjikan surga",
+    "quickWomenHint": "Khadijah dan Ibu-ibu Orang Mukmin",
     "quickBattles": "Sahabat dalam pertempuran",
-    "quickBattlesHint": "Profil kampanye dari panduan Peperangan",
-    "countCardTitle": "Direktori sahabat",
-    "countCardHint": "{{count}} profil edukatif terverifikasi",
+    "quickBattlesHint": "Profil kampanye dari panduan Pertempuran",
+    "countCardTitle": "Direktori pendamping",
+    "countCardHint": "{{count}} profil pendidikan terverifikasi",
     "categoryHint": {
-      "caliphs": "Empat Khalifah yang Terbimbing",
-      "ashara": "Sepuluh sahabat yang dijanjikan Surga",
+      "caliphs": "Empat Khalifah yang mendapat petunjuk yang benar",
+      "ashara": "Kesepuluh sahabat itu menjanjikan surga",
       "family": "Keluarga dekat Nabi ﷺ",
-      "women": "Perempuan terkemuka pada masa awal umat",
-      "notable": "Sahabat lain yang banyak dikenal"
+      "women": "Wanita terkemuka dari komunitas awal",
+      "notable": "Sahabat lain yang banyak diingat"
     },
     "exploreTitle": "Lanjutkan belajar",
-    "exploreBattles": "Tokoh dalam Peperangan",
-    "exploreBattlesHint": "Sahabat yang tampil dalam kampanye militer",
-    "exploreSeerah": "Lini masa Seerah",
-    "exploreSeerahHint": "Kehidupan Nabi ﷺ melalui tonggak-tonggak penting",
-    "exploreHistory": "Sejarah Islam awal",
-    "exploreHistoryHint": "Dari wafatnya Nabi ﷺ hingga akhir masa Khulafa Rasyidin",
+    "exploreBattles": "Tokoh pertempuran",
+    "exploreBattlesHint": "Sahabat yang muncul dalam kampanye militer",
+    "exploreSeerah": "Garis waktu Seerah",
+    "exploreSeerahHint": "Kehidupan Nabi ﷺ melalui tonggak penting",
+    "exploreHistory": "Sejarah awal Islam",
+    "exploreHistoryHint": "Dari wafatnya Nabi ﷺ hingga berakhirnya Rasyidin",
     "profileBodyTitle": "Kehidupan dan pelajaran",
     "relatedTitle": "Panduan terkait",
-    "linkBattlesFigures": "Lihat sahabat di Peperangan",
-    "linkSeerah": "Buka lini masa Seerah",
-    "linkHistory": "Buka sejarah Islam awal",
-    "openProfileHint": "Buka profil lengkap sahabat",
-    "notFound": "Sahabat tidak ditemukan"
+    "linkBattlesFigures": "Lihat teman di Pertempuran",
+    "linkSeerah": "Buka garis waktu Seerah",
+    "linkHistory": "Buka sejarah awal Islam",
+    "openProfileHint": "Buka profil pendamping lengkap",
+    "notFound": "Pendamping tidak ditemukan"
   },
   "history": {
     "eyebrow": "Belajar",
-    "title": "Sejarah Islam awal",
-    "subtitle": "Dari wafatnya Nabi ﷺ hingga akhir Khilafah Rasyidin",
+    "title": "Sejarah awal Islam",
+    "subtitle": "Mulai dari wafatnya Nabi ﷺ hingga berakhirnya Kekhalifahan Rasyidin",
     "ceBadge": "{{year}} M",
     "ahBadge": "{{ah}} H",
     "era": {
@@ -4426,80 +4426,80 @@
       "uthman": "Utsman",
       "ali": "Ali"
     },
-    "disclaimer": "Terbatas pada 11–41 H (632–661 M) — dari akhir kehidupan Nabi ﷺ hingga akhir Khilafah Rasyidin. Narasi politik dan militer mengikuti karya sejarah klasik; periode Utsman/Ali disajikan tanpa memutuskan perselisihan teologis selanjutnya."
+    "disclaimer": "Cakupannya terjadi pada tahun 11–41 H (632–661 M) — akhir kehidupan Nabi ﷺ hingga berakhirnya Kekhalifahan Rasyidin. Narasi politik dan militer mengikuti karya sejarah klasik; periode Utsman/Ali disajikan tanpa mengadili perselisihan teologis di kemudian hari."
   },
   "laylatAlQadr": {
     "eyebrow": "Belajar",
-    "title": "Lailatul Qadar",
-    "subtitle": "Malam Kemuliaan — lebih baik dari seribu bulan",
-    "intro": "Lailatul Qadar tersembunyi di antara malam-malam ganjil sepuluh hari terakhir Ramadan, tidak ditetapkan pada satu tanggal tertentu. Carilah dengan ibadah yang tulus di semua malam itu, bukan hanya menebak satu malam.",
+    "title": "Lailatul Qadr",
+    "subtitle": "Malam Ketetapan — lebih baik dari seribu bulan",
+    "intro": "Lailatul Qadr tersembunyi di antara malam-malam ganjil di sepuluh terakhir bulan Ramadhan, tidak terpaku pada satu tanggal saja. Carilah itu dengan ibadah yang ikhlas pada semuanya daripada hanya satu malam yang dikira-kira.",
     "section": {
       "virtues": "Keutamaannya",
       "when": "Kapan mencarinya",
-      "dua": "Apa yang diucapkan",
-      "ibadah": "Cara menghabiskan malam itu",
+      "dua": "Apa yang harus dikatakan",
+      "ibadah": "Bagaimana cara menghabiskan malam",
       "reminders": "Pengingat"
     },
     "notFound": "Topik tidak ditemukan",
-    "disclaimer": "Panduan ini tidak mendukung satu tanggal kalender tetap atau 'tanda-tanda' rakyat mana pun untuk mengenali malam itu — hanya apa yang dinyatakan Al-Qur'an dan hadis yang autentik.",
+    "disclaimer": "Panduan ini tidak mendukung satu tanggal kalender tertentu atau 'tanda-tanda' rakyat untuk mengidentifikasi malam — hanya berdasarkan apa yang dinyatakan dalam Al-Qur'an dan hadis otentik.",
     "continueInApp": "Lanjutkan di Munib"
   },
   "eid": {
     "eyebrow": "Belajar",
-    "title": "Panduan Idul Fitri & Idul Adha",
-    "subtitle": "Idul Fitri dan Idul Adha — salat, sunnah, dan hukum-hukumnya",
-    "intro": "Kedua hari raya dari Al-Qur'an dan hadis autentik — cara melaksanakan salat Id, Zakat Fitrah, kurban (udhiyah), dan amalan sunnah hari itu.",
+    "title": "Panduan Idul Fitri",
+    "subtitle": "Idul Fitri dan Idul Adha — Sholat, Sunnah, dan Hukumnya",
+    "intro": "Dua Idul Fitri dari Al-Qur'an dan hadits shahih — cara salat Idul Fitri, Zakat Fitri, udhiyah, dan amalan sunnah sehari-hari.",
     "section": {
       "fitr": "Idul Fitri",
       "adha": "Idul Adha",
-      "prayer": "Salat Id",
+      "prayer": "Sholat Idul Fitri",
       "sunnah": "Amalan sunnah",
-      "zakat-fitr": "Zakat Fitrah",
-      "udhiyah": "Kurban (Udhiyah)"
+      "zakat-fitr": "Zakat Fitri",
+      "udhiyah": "Udhiyah (pengorbanan)"
     },
     "notFound": "Topik tidak ditemukan",
-    "disclaimer": "Ulasan edukatif — bukan fatwa. Ketika mazhab berbeda pendapat (seperti jumlah takbir tambahan), kedua pandangan disajikan; ikuti imam Anda atau ulama setempat yang kompeten.",
+    "disclaimer": "Ikhtisar pendidikan — bukan fatwa. Jika sekolah berbeda (seperti penghitungan ekstra takbir), kedua posisi tersebut disajikan; ikuti imam Anda atau ulama lokal yang berkualifikasi.",
     "continueInApp": "Lanjutkan di Munib"
   },
   "ruqyah": {
     "eyebrow": "Belajar",
     "title": "Ruqyah",
-    "subtitle": "Penyembuhan spiritual dari Al-Qur'an dan sunnah Nabi",
-    "intro": "Ruqyah adalah membacakan Al-Qur'an, Nama-nama Allah, atau doa-doa Nabi yang autentik untuk penyembuhan dan perlindungan — bukan pengganti salat atau perawatan medis.",
+    "subtitle": "Penyembuhan spiritual Al-Qur'an dan kenabian",
+    "intro": "Ruqyah adalah membaca Al-Qur'an, Nama-nama Allah, atau permohonan kenabian yang otentik untuk penyembuhan dan perlindungan - tidak pernah bisa menggantikan shalat atau perawatan medis.",
     "section": {
-      "basics": "Dasar-dasar",
+      "basics": "Dasar-dasarnya",
       "verses": "Ayat-ayat kunci",
       "daily-protection": "Perlindungan harian",
       "reminders": "Pengingat"
     },
     "notFound": "Topik tidak ditemukan",
-    "disclaimer": "Ruqyah adalah praktik spiritual, bukan pengobatan medis. Ini tidak menggantikan pemeriksaan ke dokter yang kompeten, maupun salat lima waktu. Untuk gangguan yang serius atau terus-menerus, konsultasikan dengan ulama dan tenaga medis profesional.",
+    "disclaimer": "Ruqyah adalah latihan spiritual, bukan pengobatan medis. Itu tidak menggantikan menemui dokter yang berkualitas, atau shalat lima waktu. Untuk penderitaan yang serius atau terus-menerus, konsultasikan dengan ahli dan profesional medis.",
     "continueInApp": "Lanjutkan di Munib"
   },
   "newMuslim": {
     "eyebrow": "Belajar",
-    "title": "Panduan Muslim Baru",
+    "title": "Panduan Muslim baru",
     "subtitle": "Awal yang hangat dan praktis untuk hari-hari dan minggu-minggu pertama",
-    "intro": "Selamat datang dalam Islam. Panduan ini membahas syahadat, lima pilar Islam, dasar-dasar akidah, dan pengenalan pertama tentang salat, lalu mengarahkan Anda ke panduan Salat, Akidah, dan Al-Qur'an yang lebih lengkap di aplikasi ini.",
+    "intro": "Selamat datang di Islam. Panduan ini mencakup syahadat, rukun lima, dasar-dasar iman, dan pandangan pertama tentang doa, kemudian mengarahkan Anda ke panduan Sholat, Aqidah, dan Al-Qur'an yang lebih lengkap di aplikasi ini.",
     "section": {
       "start": "Memulai",
-      "pillars": "Lima pilar Islam",
-      "faith": "Dasar-dasar akidah",
-      "prayer": "Salat pertama Anda",
+      "pillars": "Lima pilar",
+      "faith": "Dasar-dasar iman",
+      "prayer": "Doa pertamamu",
       "next-steps": "Langkah selanjutnya",
       "faq": "Pertanyaan umum"
     },
     "notFound": "Topik tidak ditemukan",
-    "disclaimer": "Panduan awal yang sederhana namun benar, hanya mencakup pokok-pokok yang disepakati semua mazhab. Untuk situasi khusus Anda, tanyakan kepada imam atau guru setempat.",
+    "disclaimer": "Panduan awal yang dangkal tapi benar yang hanya mencakup hal-hal penting yang disepakati setiap sekolah. Untuk situasi spesifik Anda, tanyakan pada imam atau guru setempat.",
     "continueInApp": "Lanjutkan di Munib"
   },
   "finance": {
     "eyebrow": "Belajar",
-    "title": "Keuangan Islam",
-    "subtitle": "Riba, perdagangan yang adil, sedekah, dan takaful",
-    "intro": "Pengantar edukatif tentang kerangka etika yang dibawa Islam pada urusan harta — larangan riba, perdagangan yang adil, zakat dan sedekah, serta takaful (pembagian risiko secara kooperatif).",
+    "title": "keuangan Islam",
+    "subtitle": "Riba, perdagangan yang adil, memberi, dan takaful",
+    "intro": "Sebuah pengenalan pendidikan tentang kerangka etika yang dibawa Islam pada uang — larangan riba, perdagangan yang adil, zakat dan sadaqah, dan takaful (pembagian risiko kooperatif).",
     "section": {
-      "principles": "Prinsip-prinsip",
+      "principles": "Prinsip",
       "riba": "Riba (bunga)",
       "trade": "Perdagangan yang adil",
       "giving": "Memberi",
@@ -4507,39 +4507,39 @@
       "faq": "Pertanyaan umum"
     },
     "notFound": "Topik tidak ditemukan",
-    "disclaimer": "Edukasi umum, bukan nasihat keuangan atau fatwa. Penyaring dana, produk tertentu, dan hukum atas kontrak Anda sendiri memerlukan ulama atau lembaga keuangan Islam yang kompeten dan bersertifikat.",
+    "disclaimer": "Pendidikan umum, bukan nasihat keuangan atau fatwa. Penyaring dana, produk tertentu, dan keputusan kontrak Anda sendiri memerlukan ulama atau lembaga keuangan Islam yang berkualifikasi dan bersertifikat.",
     "continueInApp": "Lanjutkan di Munib"
   },
   "dateConverter": {
     "eyebrow": "Kalender",
     "title": "Konverter tanggal",
-    "subtitle": "Mengonversi antara kalender Hijriah dan Masehi",
-    "intro": "Masukkan tanggal pada salah satu kalender untuk melihat kesetaraannya pada kalender lain, dihitung secara offline menggunakan algoritma tabular Kuwait.",
+    "subtitle": "Konversi antara kalender Hijriah dan Masehi",
+    "intro": "Masukkan tanggal di salah satu kalender untuk melihat padanannya di kalender lain, dihitung secara offline menggunakan algoritma tabular Kuwait.",
     "toHijri": "Masehi → Hijriah",
     "toGregorian": "Hijriah → Masehi",
-    "gregorianDateLabel": "Tanggal Masehi",
-    "hijriDateLabel": "Tanggal Hijriah",
+    "gregorianDateLabel": "tanggal Gregorian",
+    "hijriDateLabel": "tanggal Hijriah",
     "day": "Hari",
     "month": "Bulan",
     "year": "Tahun",
     "useToday": "Gunakan hari ini",
     "invalidDate": "Masukkan tanggal yang valid",
-    "disclaimer": "Ini adalah perkiraan aritmetika ('algoritma tabular Kuwait') dan dapat berbeda satu hari dari pengumuman rukyat lokal — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
-    "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "disclaimer": "Ini adalah perkiraan aritmatika (\"algoritme Kuwait\") dan dapat berbeda satu hari dengan pengumuman penampakan bulan setempat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
+    "directionTitle": "Arah konversi",
+    "resultFrom": "Dari {{date}}",
+    "quickLinksTitle": "Terkait",
+    "quickCalendar": "Kalender ibadah",
+    "quickCalendarHint": "Telusuri bulan-bulan dengan catatan doa Anda",
+    "quickEvents": "acara Islami",
+    "quickEventsHint": "Tanggal-tanggal mendatang pada kalender Hijriah",
+    "quickRamadan": "Ramadhan",
+    "quickRamadanHint": "Waktu puasa dan catatan puasa Anda",
+    "quickHistory": "Sejarah awal",
+    "quickHistoryHint": "Garis waktu Rasyidin dengan tahun Hijriah",
+    "exploreTitle": "Lanjutkan belajar",
+    "exploreCalendar": "Buka kalender",
+    "exploreCalendarHint": "Lihat sejarah ibadah hari demi hari",
+    "exploreEvents": "Buka acara Islami",
+    "exploreEventsHint": "Tonggak sejarah dan peringatan ke depan"
   }
 }

@@ -128,7 +128,7 @@ const LATIN_OK_KEYS =
   /appName|authorValue|placeholder|[Tt]ransliteration|brandDua|\.email|\.url|version|formatHint|importSub|sourceNote|methods\.|footer$|iosPwa|webUseAllow|permissionDismissed|expoGoMessage|webGrantedMobileNote|webLimited|installBannerMessage|installStepsViaSafari|installLinkCopied|installCopyLink|downloadIos|downloadAndroid|proofIos|proofAndroid|proofQr|knowledgeMotivation|update\.web|externalCommands\.(siriHint|assistantHint|titleIos|titleAndroid|settingsSubtitleIos|settingsSubtitleAndroid|introIos|introAndroid)/;
 // Proper nouns / acronyms that stay in Latin even in Urdu/Arabic. Extend as needed.
 const LATIN_OK_WORDS = new Set(
-  "Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS Qur'an Jumu'ah Bukhari Muslim Pickthall".split(
+  "Munib Tracker Open Meteo MET Norway Google Apple Facebook Safari iOS Android PWA GPS Allah Sahih Hasan iPhone Share Home Screen Expo JSON CSV JPEG WebP ISNA MWL address Kiwifu adhan Umm Qura Karachi Tehran Muslim World League Egyptian Authority Gulf Region Turkey Diyanet Siri Shortcuts Assistant Watch Wear TestFlight Store Salah EAS Qur'an Jumu'ah Bukhari Muslim Pickthall".split(
     " ",
   ),
 );

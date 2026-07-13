@@ -112,13 +112,13 @@
       "learnQuran": "Koyi Alkur'ani"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "Bincika da murya",
+      "stopDictate": "Dakatar da binciken murya",
+      "listening": "Ana saurare…",
+      "permissionDenied": "Ana buƙatar izinin makirufo don binciken murya. Kuna iya har yanzu bugawa.",
+      "unavailable": "Babu gane magana akan wannan na'urar.",
+      "couldNotHear": "Ba a iya jin haka - sake gwadawa ko buga.",
+      "errorGeneric": "Binciken murya ya kasa. Sake gwadawa ko buga."
     }
   },
   "tabs": {
@@ -159,12 +159,12 @@
     "hayd": "Hayd & ibada",
     "sick": "Cuta & sallah",
     "adhkarBuilder": "Adhkarku",
-    "sahaba": "Sahaba",
-    "history": "Islamic History",
-    "laylatAlQadr": "Laylat al-Qadr",
-    "eid": "Eid Guide",
+    "sahaba": "Sahabbai",
+    "history": "Tarihin Musulunci",
+    "laylatAlQadr": "Lailatul Kadri",
+    "eid": "Jagoran Idi",
     "ruqyah": "Ruqyah",
-    "newMuslim": "New Muslim Guide",
+    "newMuslim": "Sabon Jagoran Musulmi",
     "finance": "Islamic Finance"
   },
   "quickActions": {
@@ -200,7 +200,7 @@
         "description": "Sallar farilla yau taci gaba"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "Ya rage",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -284,7 +284,7 @@
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Fara sa ido",
     "goToChecklist": "Je zuwa Lissafin Bincike",
-    "prayersStat": "Salah",
+    "prayersStat": "Sallah",
     "dhikrStat": "Zikiri",
     "qazaStat": "Qaza",
     "streakStat": "Jigila",
@@ -303,7 +303,7 @@
       "motivation": "Tunatarwa ta yau da kullun"
     },
     "knowledgeTopic": {
-      "prayer": "Salah",
+      "prayer": "Sallah",
       "qaza": "Qaza",
       "zikr": "Zikiri",
       "fasting": "Azumi",
@@ -649,9 +649,9 @@
     "eyebrowWelcome": "Barka da zuwa",
     "title": "Shiga",
     "subtitle": "Ibadainizi cihazlar arasında senkronize edin",
-    "google": "Continue with Google",
-    "apple": "Continue with Apple",
-    "facebook": "Continue with Facebook",
+    "google": "Ci gaba da Google",
+    "apple": "Ci gaba da Apple",
+    "facebook": "Ci gaba da Facebook",
     "heroGuest": "Baƙo hesabı kullanıyorsunuz. Vertare darinizi yedeklemek da senkronize etmek don dwataa sağlwataıcı bağlwataın — hiçdwataa şey kwatabolmaz.",
     "heroUser": "Sallahlarınızı, kazalarınızı da zikirlerinizi bulutta güdande tutmak don giriş yapın.",
     "error": "Shigaılamadı. API sunucusunun çalıştığından da bu sağlwataıcının yapılandırıldığından emin olun."
@@ -1106,7 +1106,7 @@
     "subtitle": "Read, listen, da reflect",
     "searchSurah": "by name, meaning, or number Nemo",
     "filterAll": "Duka",
-    "continueReading": "Continue reading",
+    "continueReading": "Ci gaba da karatu",
     "continueAt": "Surah {{surah}} · Ayah {{ayah}}",
     "makki": "Makki",
     "madani": "Madani",
@@ -1194,15 +1194,15 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "Kalma ta kalma",
+      "playWord": "Kunna wannan kalmar",
+      "noAudio": "Babu audio don wannan kalmar",
+      "loading": "Ana loda kalmomi…"
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "Tajweed labari",
+      "openLesson": "Bude Koyi Qur'ani",
+      "loading": "Ana loda tajweed…",
       "rules": {
         "ghunnah": "Ghunnah",
         "ikhafa": "Ikhfa",
@@ -1212,32 +1212,32 @@
         "idghamShafawi": "Idgham Shafawi",
         "iqlab": "Iqlab",
         "qalqalah": "Qalqalah",
-        "maddNormal": "Madd (2)",
+        "maddNormal": "Mad (2)",
         "maddPermissible": "Madd (2-4-6)",
         "maddObligatory": "Madd (4-5)",
-        "maddNecessary": "Madd (6)",
+        "maddNecessary": "Mad (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "Yayi shiru"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "Tsawa don ganin ka'idar tajweed",
+      "tapHint": "Matsa don ganin ka'idar tajweed",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "Sautin hanci - 2 bugun",
+        "ikhafa": "Boye tare da ghunnah - 2 bugun",
+        "ikhafaShafawi": "Boyewar labial - 2 bugun",
+        "idghamGhunnah": "Haɗuwa tare da sautin hanci - 2 bugun",
+        "idghamNoGhunnah": "Haɗewa ba tare da sautin hanci ba",
+        "idghamShafawi": "Haɗin Labial - 2 duka",
+        "iqlab": "Juyawa zuwa ɓoyayyiyar mem - bugun 2",
+        "qalqalah": "Maimaita billa akan harafin",
+        "maddNormal": "Al'ada elongation - 2 beats",
+        "maddPermissible": "Halatta elongation - 2, 4, ko 6 bugun",
+        "maddObligatory": "Wajibi elongation - 4 ko 5 beats",
+        "maddNecessary": "Dole ne elongation - 6 beats",
+        "hamWasl": "Haɗin hamza - ya faɗi lokacin shiga",
+        "lamShamsiyah": "Harafin rana لام - ba a furta shi ba",
+        "silent": "An rubuta amma ba a furta ba"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
+      "title": "sake kunnawa",
+      "open": "Saitunan sake kunnawa",
+      "repeatMode": "Maimaita yanayin",
+      "repeatOff": "Kashe",
+      "repeatVerse": "Aya",
+      "repeatRange": "Rage",
       "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
+      "rangeStart": "Daga ayah",
       "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "translationAudio": "Sauti na fassara",
+      "translationOff": "Kashe",
+      "translationAfter": "Bayan kowace aya",
+      "translationAudioHint": "Yana karanta fassarar da ƙarfi bayan kowace aya ta Larabci (na'urar TTS)",
+      "ttsVoice": "Muryar magana ta fassara",
+      "ttsVoiceDefault": "Default don harshe",
+      "ttsVoiceEmpty": "Babu muryoyin da aka samo don wannan harshe akan wannan na'urar.",
+      "summaryVerse": "Maimaita aya",
+      "summarySurah": "Maimaita surah",
+      "summaryRange": "Kewayon {{start}}-{{end}}",
+      "summaryTts": "Fassarar TTS",
       "summaryWithTts": "{{summary}} · TTS"
     },
-    "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
-    "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
-    "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "actionTafsir": "Tafsiri",
+    "openTafsir": "Bude tafsirin wannan aya",
+    "tafsir": "Tafsiri",
+    "tafsirNone": "Zaɓi tafsiri",
+    "selectTafsirAuthor": "Zaɓi tafsir - {{language}}",
+    "tafsirCount_one": "{{count}} tafsiri",
+    "tafsirCount_other": "{{count}} tafsirai",
+    "searchTafsirLanguages": "Bincika harsuna…",
+    "searchTafsirAuthors": "Bincika marubuta…",
+    "tafsirLoading": "Ana loda tafsir…",
+    "tafsirOffline": "Shiga domin saukar da wannan tafsiri. Buɗe buɗaɗɗen suna kasancewa a layi.",
+    "tafsirEmpty": "Babu tafsirin wannan aya a cikin zababben bugu."
   },
   "hadith": {
     "eyebrow": "Hadisin annabci",
@@ -1392,7 +1392,7 @@
     },
     "duha": {
       "summary": " forenoon sallah — typically two  eight rak'ahs between sunrise da Dhuhr.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "Sadaka ta wajaba a kan kowace gabar jiki kowace rana; hatta ‘yan raka’o’in Duha suna cika waccan sadaka ga gabobi ta hanyar ibada.",
       "benefits": "Forgives sins, brings sustenance (rizq), and revives a neglected sunnah. Flexible timintig makes it accessible when the day allows."
     },
     "dhuhr": {
@@ -1634,8 +1634,8 @@
     "partial": "Wani ɓangare",
     "missed": "Ya rasa",
     "legendHint": "Dokunun any past ko current rana  gözden geçir da adjust it. Yau dir {{date}}.",
-    "converterRowTitle": "Hijri ⟷ Gregorian converter",
-    "converterRowSubtitle": "Convert a date between the two calendars"
+    "converterRowTitle": "Hijira ⟷ Juyin Juna",
+    "converterRowSubtitle": "Maida kwanan wata tsakanin kalanda biyu"
   },
   "calDay": {
     "today": "Yau",
@@ -1857,7 +1857,7 @@
     "milestonesReachedHint": "{{count}} an buɗe zuwa yanzu - kuma ana ƙirgawa.",
     "level": "Lv {{level}}",
     "tracks": {
-      "salah": "Salah",
+      "salah": "Sallah",
       "streak": "Jigila",
       "qaza": "Qaza",
       "roza": "Azumi",
@@ -1999,12 +1999,12 @@
     "confirmClearAllMessage": "Wannan yana cire kowane sanarwa daga wannan jerin. Ba za a iya soke wannan ba.",
     "loadMore": "Ƙara ƙarin",
     "upcoming": "Mai zuwa",
-    "categorySalah": "Salah",
+    "categorySalah": "Sallah",
     "categoryZikr": "Zikiri",
     "categoryQaza": "Qaza",
     "categoryMilestone": "Muhimmi",
     "categorySystem": "Tsari",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "Sanarwa"
   },
   "qibla": {
     "eyebrow": "Hanyar",
@@ -2060,7 +2060,7 @@
     "syncing": "Daidaitaing…",
     "done": "An adana bayanan ku",
     "failed": "Couldn't sync. Check sizin connection da try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "Komai ya riga ya sabunta",
     "mergeSummary": "An aika {{received}} · {{sent}} an aika",
     "conflictsResolved": "{{count}} conflicts auto-resoldad — kept  newest düzenle",
     "conflictAffected": "Abin ya shafa: {{list}}",
@@ -2185,7 +2185,7 @@
     "installBannerMessage": "iPhone'da uygulama benzeri dwataa deneyim da tarwataıcı bildirimleri don Munib Tracker'ı Ana Ekranınıza yükleyin.",
     "installStepsViaSafari": "Aşağıdaki bağlantıyı kopyalwataın, Safari'de açın, ardından Raba → Ana Ekrana Ekle.",
     "installCopyLink": "Safari don bağlantıyı kopyala",
-    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
+    "installLinkCopied": "An kwafi mahaɗin — manna shi a sandar adireshin Safari don ci gaba.",
     "installLinkCopyFailed": "Bağlantı kopyalanamadı. Wannan swatafwataı Safari'de manuel olarak açın.",
     "installDismiss": "Rufe"
   },
@@ -2238,13 +2238,13 @@
     "eyebrow": " Noble Alkur'ani",
     "short": "Khatm",
     "title": "Tsarin Khatm",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "Kammala Al-Qur'ani da sauri",
     "startTitle": "a plan Farat",
     "startHint": "Zabi kwanaki nawa don kammala Alkur'ani. Za mu kafa manufa ta ayah kullum.",
     "startHintPages": "Zabi kwanaki nawa don kammala Alkur'ani. Za mu saita maƙasudin shafin mushaf na yau da kullun.",
     "unitAyah": "Ta ayah",
     "unitPage": "Ta shafi",
-    "continueReading": "Continue reading",
+    "continueReading": "Ci gaba da karatu",
     "dayPlan": "{{count}} rana",
     "preset": {
       "intensive": "M",
@@ -2324,7 +2324,7 @@
       },
       "portion": {
         "text": "Ku do not hada  finish burana — only honour todwata's portion tare da sincerity.",
-        "source": "Steady progress"
+        "source": "Ci gaba akai-akai"
       },
       "return": {
         "text": "If siz fall behind, do not abandon  plan. Resume tare da todwata's wataahs da moda forward.",
@@ -2596,7 +2596,7 @@
     "meaningLabel": "Abin da yake koyarwa",
     "progressTitle": "Karatuna progress",
     "progressSubtitle": "lessons — not spiritual rank with Allah Mai bin diddigi Et",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "Wannan dashboard yana bin diddigin karatun ku da aikinku a Munib. Cika darasi ba zai auna matsayinka a wurin Allah ba - ikhlasi yana yin haka.",
     "lessonsTitle": "Darussan completed",
     "lessonsHint": "Alama batutuwa sun cika yayin da kuka gama nazarin su",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2693,7 +2693,7 @@
     "lessonsHint": "Alama batutuwa sun cika yayin da kuka gama nazarin su",
     "lessonsIntro": "Waɗannan darussa ne na ɗabi'a da jagoranci - ba ƙa'idodin dabarun soja ba.",
     "progressTitle": "Koyona",
-    "progressSubtitle": "Bibiyar karatu - ba matsayi na ruhaniya tare da Allah ba",
+    "progressSubtitle": "Bin karatu - ba matsayi na ruhaniya a wurin Allah ba",
     "progressIntro": "Wannan dashboard yana bin batutuwan da kuka karanta a Munib. Ilimi hanya ce; Ikhlasi ga Allah shi ne manufa.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Bincika jerin lokaci, ayoyi, ƙamus, da katunan darasi",
@@ -2842,7 +2842,7 @@
       "learningHint": "An kammala batutuwa a cikin wannan tsarin"
     },
     "progressTitle": "Ci gaban koyo",
-    "progressSubtitle": "Bibiyar karatu - ba matsayi na ruhaniya tare da Allah ba",
+    "progressSubtitle": "Bin karatu - ba matsayi na ruhaniya a wurin Allah ba",
     "progressIntro": "Alama batutuwa sun cika yayin da kuke karantawa. Ilimi hanya ce; Ikhlasi ga Allah shi ne manufa.",
     "lessonsTitle": "An kammala batutuwa",
     "lessonsHint": "Alama batutuwa sun cika yayin da kuka gama nazarin su",
@@ -2880,9 +2880,9 @@
     "quickGhusl": "Ghusl jagora",
     "quickGhuslHint": "Cikakken wanka lokacin da ƙazanta babba ta auku",
     "quickChecklist": "Lissafin bincike na yau da kullun",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "Dabi'un da suke sa ku shirya don yin addu'a",
     "quickProgress": "Karatuna",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Batutuwan karantawa da ci gaban nazarin",
     "progressCardTitle": "Ci gaban karatu",
     "progressCardHint": "{{completed}} na {{total}} batutuwa sun cika",
     "exploreTitle": "Bincika",
@@ -2951,7 +2951,7 @@
     "quickLessons": "Darussan",
     "quickLessonsHint": "Moral da spiritual takeawwatas",
     "quickProgress": "Karatuna",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Batutuwan karantawa da ci gaban nazarin",
     "progressCardTitle": "Ci gaban karatu",
     "progressCardHint": "{{completed}} na {{total}} batutuwa sun cika",
     "exploreTitle": "Bincika",
@@ -3021,7 +3021,7 @@
     "quickGlossary": "Kamus",
     "quickGlossaryHint": "Mahimman sharuddan akida",
     "quickProgress": "Karatuna",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Batutuwan karantawa da ci gaban nazarin",
     "progressCardTitle": "Ci gaban karatu",
     "progressCardHint": "{{completed}} na {{total}} batutuwa sun cika",
     "exploreTitle": "Bincika",
@@ -3082,7 +3082,7 @@
     "quickOccasions": "Ta lokaci",
     "quickOccasionsHint": "Browse duas don edary moment",
     "quickProgress": "Karatuna",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Batutuwan karantawa da ci gaban nazarin",
     "progressCardTitle": "Ci gaban karatu",
     "progressCardHint": "{{completed}} na {{total}} batutuwa sun cika",
     "exploreTitle": "Bincika",
@@ -3184,7 +3184,7 @@
     "reflectionTitle": "Tunani",
     "openInQuran": "Budewa cikin karatun Alqur'ani",
     "progressTitle": "Koyona",
-    "progressSubtitle": "Bibiyar karatu - ba matsayi na ruhaniya tare da Allah ba",
+    "progressSubtitle": "Bin karatu - ba matsayi na ruhaniya a wurin Allah ba",
     "progressIntro": "Wannan dashboard yana bin darussan da kuka karanta a Munib. Allah Yanã sanin abin da ke cikin zuciyarka.",
     "lessonsTitle": "Darussa",
     "lessonsHint": "Alama batutuwa sun cika yayin da kuka gama nazarin su",
@@ -3386,7 +3386,7 @@
       "purpose": {
         "title": "Me ya sa zakka - manufa & hikima",
         "summary": "Yana tsarkake dukiya da rai, kuma yana dagawa talaka",
-        "body": "Allah yana cewa game da zakka: \"Ka karvi sadaka daga dukiyoyinsu, kana tsarkake su da ita, kuma ka tsirar da su\" (k:9:103). Wajibi yana aiki a matakai biyu lokaci guda - yana tsarkake ran mai bayarwa daga rowa da son duniya, kuma yana tsarkake dukiyar da kanta ta yadda abin da ke hannunka ya zama mai kyau da albarka.\n\nA zamantakewa, zakka tsari ne da Allah ya yi umarni da shi na yawo. A lokacin da Annabi SAW ya aika Mu'az zuwa Yaman ya yi umarni da a karbo zakka daga mawadatansu a ba wa talakawansu. Ba a nufin dukiya ta tara a tsakanin ‘yan kaɗan; zakka tana mayar da ita cikin motsi domin a ciyar da mabuqata, a ‘yanta masu bi bashi, a qarfafa dankon al’umma.\n\nA Ruhaniya, bada zakka aikin godiya ne da rikon amana. Yana amsa kwaɗayin ɗan adam don tarawa da haƙƙin cewa tanadi daga Allah yake, kuma yana horar da mumini ga son bayarwa. Wanda ya ba da zakka da son rai ya sami kariya daga dukiyoyinsu, zuciyarsa ta sauƙaƙa, da ladarsu a wurin Ubangijinsu – “babu tsoro a kansu, kuma ba za su yi baƙin ciki ba” (k:2:277)."
+        "body": "Allah yana cewa game da zakka: \"Ka karvi sadaka daga dukiyoyinsu, kana tsarkake su da ita, kuma ka tsirar da su\" (k:9:103). Wajibi yana aiki a matakai biyu lokaci guda - yana tsarkake ran mai bayarwa daga rowa da son duniya, kuma yana tsarkake dukiyar da kanta ta yadda abin da ke hannunka ya zama mai kyau da albarka.\n\nA zamantakewa, zakka tsari ne da Allah ya yi umarni da shi na yawo. A lokacin da Annabi SAW ya aika Mu’az zuwa Yaman ya yi umarni da a karbo zakka daga mawadatansu a ba wa talakawansu. Ba a nufin dukiya ta tara a tsakanin ‘yan kaɗan; zakka tana mayar da ita cikin motsi don a ciyar da mabuqata, a ‘yanta masu bi bashi, a qarfafa dankon al’umma.\n\nA Ruhaniya, bada zakka aikin godiya ne da rikon amana. Yana amsa kwaɗayin ɗan adam don tarawa da haƙƙin cewa tanadi daga Allah yake, kuma yana horar da mumini ga son bayarwa. Wanda ya ba da zakka da son rai ya sami kariya daga dukiyoyinsu, zuciyarsa ta sauƙaƙa, da ladarsu a wurin Ubangijinsu – “babu tsoro a kansu, kuma ba za su yi baƙin ciki ba” (k:2:277)."
       },
       "hawl": {
         "title": "Shekarar Lunar (Hawl)",
@@ -3501,7 +3501,7 @@
     "group": {
       "liquid": "Cash & karafa masu daraja",
       "investments": "Zuba jari & kasuwanci",
-      "property": "Land, property & vehicles"
+      "property": "Filaye, dukiya & ababen hawa"
     },
     "weightSectionTitle": "Yi lissafin zinariya da azurfa da nauyi",
     "nisabOverrideTitle": "Manual nisab override",
@@ -3523,23 +3523,23 @@
         "title": "Ko lissafin zinariya da nauyi",
         "grams": "Grams",
         "pricePerGram": "Farashin/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "Zinariya ta nauyi",
+        "amount": "Nauyi",
+        "pricePerGram24k": "Farashi/g (24k)"
       },
       "silver": {
         "title": "Ko lissafin azurfa da nauyi",
         "grams": "Grams",
         "pricePerGram": "Farashin/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "Azurfa ta nauyi",
+        "amount": "Nauyi",
+        "pricePerGramFine": "Farashi/g (lafiya)"
       },
       "computed": "Yana ƙara {{value}} zuwa duka",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
+      "hint": "Farashin tabo kai tsaye shine zinare 24k da azurfa mai kyau a kowace gram. Zaɓi naúrar ku (g, tola, troy oz, kg) da karat/tsarki - an canza ƙima zuwa tabo mai tsaftar ƙarfe ×.",
+      "unit": "Nau'in nauyi",
       "karat": "Gold karat",
-      "purity": "Silver purity",
+      "purity": "Azurfa tsarki",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
@@ -3548,8 +3548,8 @@
         "oz": "Troy oz",
         "kg": "Kilogram"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g karfe tsantsa",
+      "cardHint": "Tola, grams, karat / tsarki × live 24k ko tabo mai kyau."
     },
     "field": {
       "cash": "Cash & tanadi",
@@ -3565,11 +3565,11 @@
       "nisabGoldPrice": "Farashin zinari a kowace gram",
       "nisabSilverPrice": "Farashin Azurfa a kowace gram",
       "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "livingExpenses": "Kudin rayuwa na gaggawa",
+      "investmentPlots": "Filayen saka hannun jari (ƙimar kasuwa)",
+      "installmentPlotsPaid": "Filayen sakawa - adadin da aka biya",
+      "investmentProperty": "Gidajen zuba jari / gine-gine",
+      "tradeVehicles": "Motoci na siyarwa / ciniki"
     },
     "fieldHint": {
       "cash": "Asusun banki, tsabar kuɗi a hannu, da ajiyar ruwa.",
@@ -3582,158 +3582,158 @@
       "otherAssets": "Cryptocurrency, kudaden ritaya masu isa, ko sauran dukiyar zakka ga malamin ku.",
       "debts": "Lamuni na sirri, katunan kiredit, da lissafin kuɗi a yanzu - ba jimlar jinginar gidaje na dogon lokaci ba sai dai idan masanin ku ya ba da izini.",
       "nisab": "Bar fanko don amfani da ƙididdiga, ko shigar da nisab na al'ada.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "Darajar kasuwar crypto da aka gudanar a matsayin kadari - hukunce-hukuncen sun bambanta; tambayi wani malami.",
+      "livingExpenses": "Hayar, abinci, da lissafin kuɗi nan da nan - kawai idan masanin ku ya ba da izinin wannan cirewa.",
+      "investmentPlots": "Filaye ko filaye da aka riƙe don saka hannun jari ko siyarwa (ƙimar kasuwa ta yanzu). Ƙasar noma ta sirri da ake amfani da ita don rayuwa ta bambanta - tambayi malami.",
+      "installmentPlotsPaid": "Nawa kuka riga kuka biya akan filayen saka hannun jari (ba cikakken kwangilar da ba a biya ba sai dai idan masanin ku ya haɗa da shi).",
+      "investmentProperty": "Gidaje ko gine-gine da aka gudanar don saka hannun jari ko kasuwanci - ba wurin zama na kanku ba.",
+      "tradeVehicles": "Motoci ko motocin da aka riƙe na siyarwa ko azaman hannun jari - ba motocin amfani da mutum ba."
     },
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "Canja kudin zakka",
+      "pickerTitle": "Zaɓi kuɗi",
+      "pickerHint": "{{count}} ago - bincika ta lamba ko suna",
+      "searchPlaceholder": "Bincika kudaden…",
+      "noResults": "Babu wasu kudade da suka dace da bincikenku.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "Zinariya mai rai & azurfa",
+      "goldPerGram": "Zinariya / gram",
+      "silverPerGram": "Azurfa / gram",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "Ana samun farashin rayuwa…",
+      "error": "An kasa loda farashin rayuwa. Shigar da farashin zinariya da azurfa da hannu.",
+      "prefilled": "Nisab da farashin karfe an cika su daga farashin rayuwa.",
+      "useLive": "Yi amfani da farashin kai tsaye",
+      "useLiveA11y": "Sake saitin zuwa farashin zinariya da azurfa",
+      "refreshA11y": "Sabunta farashin kasuwa kai tsaye",
+      "livePrice": "Rayuwa"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
       "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "belowNisab": "Net {{wealth}} · kasa nisab {{nisab}}",
+      "hasOtherDue": "Net {{wealth}} · amfanin gona / dabbobi"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
+      "gold": "Zinariya/g",
+      "silver": "Azurfa/g",
       "nisab": "Nisab",
-      "due": "Due"
+      "due": "Sakamakon"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "Zakkar arziki (2.5%): {{value}}",
+      "agriculture": "Shuka amfanin gona (ushr): {{value}}",
+      "livestock": "Dabbobi (Kimanin kuɗi): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "Cash, crypto, da ƙimar ƙarfe da kuka riga kuka sani. Ko amfani da nauyi a cikin katin karafa.",
+      "investments": "Hannun jari, kayan ciniki, rashi, da ajiyar kuɗin shiga kasuwanci a ƙimar yau."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "Amfanin amfanin gona / dabbobi (dukiyar da ke ƙasa da nisab)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "Dabbobi (garken kiwo)",
+      "hint": "Ma'aunin Sunnah na 'yanta tumaki da awaki da shanu da rakuma (Bukhari / Abu Dawud). Dabbobin ciyarwa a matsayin kasuwanci sukan bi ka'idodin ciniki-kaya maimakon - tambayi malami.",
+      "sheep": "Tumaki / awaki (kawukan)",
+      "sheepHint": "Nisab yana farawa da kai 40.",
+      "cattle": "Shanu / bauna (kawu)",
+      "cattleHint": "Nisab yana farawa da kai 30 (tabi'/ sikelin musinnah).",
+      "camels": "Rakuma (kawu)",
+      "camelsHint": "Nisab yana farawa da kai 5.",
+      "valueTitle": "Ƙimar kuɗi na zaɓi (kowane kai)",
+      "valueHint": "Ana fitar da zakka akan dabbobi a dabbobi. Shigar da ƙimar kasuwa kawai idan kuna son ƙididdige kwatankwacin kuɗi don tsarawa.",
+      "sheepValue": "Darajar kowace tunkiya/akuya",
+      "cattleValue": "Darajar kowane kan shanu",
+      "camelValue": "Darajar kowane raƙumi",
+      "dueTitle": "Dabbobin da ya kamata (Kimanin Sunnah)",
+      "cashEstimate": "Ƙimar kuɗi: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} tumaki/awaki",
+        "cattleTabi": "{{count}} tabi' (shekara 1 shanu)",
+        "cattleMusinnah": "{{count}} musinnah (shanu mai shekaru 2)",
+        "bintMakhad": "{{count}} bint makhad (rakumi mai shekara 1)",
+        "bintLabun": "{{count}} bint labun (rakumi mai shekaru 2)",
+        "hiqqah": "{{count}} hiqqah (rakumi mai shekaru 3)",
+        "jadhah": "{{count}} jadhah (raƙumi mai shekaru 4)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "Ma'aunin dabbobin Sunnah - ba 2.5%. Ƙimar kuɗi na zaɓi don ƙididdigewa kawai."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "Noma & girbi (ushr)",
+      "hint": "Saboda a girbi - ba bayan wata Lunar shekara. Adadin shi ne kashi 10% na ƙasar da ruwan sama ya shayar da shi, da kuma kashi 5% lokacin da aikin ban ruwa ya yi tsada ko kuɗi (Alkurani 6:141; Sunnah).",
+      "harvest": "Darajar kasuwar girbi",
+      "harvestHint": "Darajar amfanin gona ko 'ya'yan itace na wannan lokacin a lokacin girbi.",
+      "irrigation": "Tushen ruwa",
+      "natural": "Ruwan sama / ruwa (10%)",
+      "irrigated": "Ban ruwa (5%)",
+      "naturalHint": "Ushr 10% lokacin da aka shayar da shi ta dabi'a ba tare da ban ruwa mai tsada ba.",
+      "irrigatedHint": "Rabin-ushr 5% lokacin shayar da rijiyoyi, famfo, ko ban ruwa da aka biya.",
+      "due": "Ushr saboda: {{value}}",
+      "cardHint": "Saboda lokacin girbi - 10% ruwan sama / bazara, 5% ban ruwa."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "Tsarin lamba",
+      "hint": "Yadda aka nuna dubunnan da ƙima a adadi.",
+      "changeA11y": "Canja tsarin lamba",
+      "pickerTitle": "Tsarin lamba",
+      "pickerHint": "Zaɓi yadda aka tara adadin da kuma yadda ƙididdiga na ƙididdiga ke bayyana yayin bugawa da jimla."
     },
-    "learnMore": "Learn more",
+    "learnMore": "Ƙara koyo",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "Takaitaccen bayani na ilimi daga Kur'ani da Sunnah - ba fatawar mutum ba.",
+      "footnote": "Makarantu sun bambanta akan cikakkun bayanai (kayan ado, jinginar gida, dabbobin abinci, crypto). Tambayi ƙwararren malami game da lamarin ku.",
+      "openGuide": "Buɗe cikakken jagora",
+      "a11y": "Ƙara koyo game da {{section}}",
       "currency": {
         "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "body": "Ana lissafta zakka akan darajar dukiyar ku ta kasuwa a cikin kudin da kuka fahimta. Haɓaka farashin zinari da azurfa suna taimakawa kimanta ƙimar nisab da ƙarfe - suna nuni ne, ba maimakon farashin kasuwannin gida da masanin ku ke amfani da shi ba."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "Cash & karafa masu daraja",
+        "body": "Kudi, ma'auni na banki, da zinare ko azurfa da aka rike a matsayin dukiya na daga cikin mafi bayyanan kadarorin zakka. Annabi ﷺ ya yi kashedi sosai game da hana abin da ya kamata a kan zinare da azurfa. Kayan ado da aka sawa don amfani na yau da kullun sanannen wurin bambanci ne tsakanin makarantu - bi mazhabar ku. Kuna iya shigar da ƙimar kuɗi anan, ko ƙididdige karafa da nauyi a sashe na gaba."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "Zinariya & azurfa bisa nauyi",
+        "body": "An kayyade Nisab a cikin Sunnah bisa nauyi: kimanin dinari 20 na zinari ko dirhami na azurfa 200 (wanda aka fi sani da ~ 87.5 g zinariya ko ~ 612 g azurfa). Al'amarin Karat da tsafta domin zakka tana kan tsantsar karfe ne. Farashin kai tsaye na 24k / ƙarfe mai kyau a kowace gram - zaɓi naúrar ku (gram, tola, troy oz) da karat don haka kalkuleta ya canza daidai."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "Zuba jari & kasuwanci",
+        "body": "Kayayyakin ciniki, kayayyaki, da dukiyoyi da ake son nomawa gabaɗaya zakka ne a darajar kasuwa a yau. Hannun jari da kuɗi ana ƙima da su kamar dukiyar ciniki. Ana shigar da ƙwaƙƙarfan karɓar kuɗi da kuke tsammanin tattarawa. Qur'an 2:267 yana kwadaitar da ciyarwa daga alherin abin da kuka tsirfanta - kimar gaskiya akan kwanan watan zakka."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "Filaye, dukiya & ababen hawa",
+        "body": "Gidanku na kanku, motar ku, da kayan gida na yau da kullun ba zakka ba ne - zakka ta yi niyya don haɓaka dukiya, ba kayan amfani ba. Ana iya haɗa filaye, gidaje, ko motocin da aka riƙe don saka hannun jari, siyarwa, ko kasuwanci a ƙimar kasuwa (ko adadin da aka riga aka biya akan filayen saka hannun jari). Lokacin da babu tabbas, tambayi malami."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "Dabbobi (garken kiwo)",
+        "body": "Tumaki da awaki da shanu da rakuma suna da ma’auni na Sunnah da nisabin dabbobi (misali tumaki 40, Shanu 30, Rakuma 5) – ba kashi 2.5% na kudi ba. Yawancin lokaci ana biyan kuɗi a cikin dabbobi na ƙayyadaddun shekaru. Dabbobin ciyarwa a matsayin kasuwanci sukan bi ka'idodin ciniki-kaya maimakon. Ƙimar kuɗi na zaɓi a nan kiyasin tsarawa ne kawai."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "Noma & girbi (ushr)",
+        "body": "Zakka akan amfanin gona ana yin girbi ne ba bayan shekara ta wata ba. Sanannen ƙimar shine kashi 10% (ushr) lokacin da aka shayar da ƙasa ta ruwan sama ko maɓuɓɓugan ruwa, da kuma 5% lokacin da farashin ban ruwa ya kashe ƙoƙari ko kuɗi. Shigar da ƙimar kasuwar girbi na wannan kakar kuma zaɓi tushen ruwa wanda ya dace da yanayin ku.",
+        "localRefLabel": "6:141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "Ragewa",
+        "body": "Zakka tana cikin dukiyar zakka. Basusukan da ke kan gaba a yanzu ana cire su ne kafin amfani da kashi 2.5%. Ana kula da jinginar gidaje na dogon lokaci a hankali - yawancin malaman zamani suna cire kuɗin kuɗi na shekara mai zuwa kawai, ba duka ma'auni ba. Ana ba da izinin kashe kuɗin rayuwa nan da nan idan masanin ku ya ba da izini."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "Nisab bakin kofa",
+        "body": "Nisab ita ce mafi qarancin ragi kafin a fitar da zakka. Manzon Allah SAW ya sanya shi akan dinari 20 na zinari ko dirhami na azurfa 200, kuma ya koyar da cewa babu zakka sai shekara ta wuce dukiya. Saboda farashin zinari da azurfa sun bambanta a yau, malamai da yawa sun fi son ƙananan (sau da yawa azurfa) ƙofar don haka ana taimakon yawancin talakawa. Wannan kalkuleta yana nuna ƙasan kimomi guda biyu masu rai."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "Basusukan gaggawa (da farashin rayuwa kawai idan masanin ku ya ba da izini).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "Sake saita kalkuleta?",
+      "message": "Wannan yana share duk adadi, ma'aunin ƙarfe, dabbobi, da amfanin gona. Kudin ku da tsarin lambar ku sun kasance iri ɗaya.",
+      "confirm": "Sake saitin tsari",
+      "a11y": "Sake saita fom kalkuleta na zakka",
+      "hint": "Ya nemi tabbaci, sannan yana share duk adadin da aka shigar"
     }
   },
   "customAdhkar": {
@@ -3753,62 +3753,62 @@
       "reference": "Magana (na zaɓi)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "Hotuna (na zaɓi)",
+      "add": "Ƙara hoto",
+      "remove": "Cire hoto",
+      "hint": "Har zuwa hotuna 5, 1 MB kowanne. Dogon latsa ɗan yatsa don cirewa.",
+      "signInRequired": "Shiga don haɗa hotuna na sirri zuwa adhkar ku.",
+      "permissionDenied": "Ana buƙatar izinin ɗakin karatu na hoto don haɗa hotuna.",
+      "unsupportedType": "Yi amfani da hotuna JPEG, PNG, ko WebP kawai.",
+      "tooLarge": "Kowane hoto dole ne ya zama 1 MB ko ƙarami.",
+      "uploadFailed": "An kasa loda hotuna. Gwada kuma.",
+      "uploading": "Ana lodawa…",
+      "open": "Bude hoto {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "Danna don zuƙowa, ja zuwa kwanon rufi, danna sau biyu don sake saitawa",
+      "previous": "Hoton baya",
+      "next": "Hoto na gaba"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "Haɗe-haɗe (na zaɓi)",
+      "add": "Ƙara fayil",
+      "remove": "Cire abin da aka makala",
+      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowane. Dogon latsa ɗan yatsa don cirewa.",
+      "signInRequired": "Shiga don haɗa fayiloli masu zaman kansu zuwa adhkar ku.",
+      "permissionDenied": "Ana buƙatar izini don haɗa fayiloli.",
+      "permissionTitle": "Bada damar shiga",
+      "permissionBody": "Munib Tracker yana buƙatar samun damar kyamara ko hoto don haɗa fayiloli.",
+      "permissionSettingsBody": "An hana izini. Bude Saituna don ba da damar kyamara ko hotuna don Munib Tracker.",
+      "allowAccess": "Bada damar shiga",
+      "unsupportedType": "Yi amfani da JPEG, PNG, WebP, ko PDF kawai.",
+      "tooLarge": "Kowane fayil dole ne ya zama 1 MB ko ƙarami.",
+      "uploadFailed": "An kasa loda abubuwan da aka makala. Gwada kuma.",
+      "uploading": "Ana lodawa…",
+      "readFailed": "An kasa karanta wancan fayil ɗin. Gwada wani.",
+      "pickFailed": "An kasa ƙara wancan fayil ɗin. Gwada kuma.",
+      "openFailed": "An kasa buɗe wancan fayil ɗin.",
+      "open": "Buɗe abin da aka makala {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "Danna don zuƙowa, ja zuwa kwanon rufi, danna sau biyu don sake saitawa",
+      "previous": "Abin da aka makala a baya",
+      "next": "Abin da aka makala na gaba",
+      "openPdf": "Bude PDF",
+      "sourceTitle": "Ƙara abin da aka makala",
+      "sourceCamera": "Ɗauki hoto",
+      "sourceCameraHint": "Yi amfani da kyamara don ɗaukar hoto",
+      "sourceGallery": "Laburaren hoto",
+      "sourceGalleryHint": "Zaɓi hoto daga hotunanku",
+      "sourceDocument": "Fayiloli",
+      "sourceDocumentHint": "Zaɓi hoto ko PDF daga fayilolinku"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Yi magana da makirufo",
+      "stopDictate": "Dakatar da magana",
+      "listening": "Ana saurare…",
+      "permissionDenied": "Ana buƙatar izinin makirufo don yin magana. Kuna iya har yanzu bugawa.",
+      "unavailable": "Babu gane magana akan wannan na'urar.",
+      "couldNotHear": "Ba a iya jin haka - sake gwadawa ko buga.",
+      "errorGeneric": "Kalmomi sun kasa. Sake gwadawa ko buga."
     }
   },
   "tahajjud": {
@@ -3892,20 +3892,20 @@
     "confirmDiscardTitle": "Yi watsi da canje-canje?",
     "confirmDiscardMsg": "Duk abin da kuka rubuta zai ɓace.",
     "confirmOverwriteTitle": "Sauya tunanin da ake ciki?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "Kun riga kun lura da {{prayer}} na wannan rana. Ajiye zai maye gurbinsa.",
     "level1": "Hankali",
     "level2": "Rashin hutawa",
     "level3": "Ya isa",
     "level4": "Mai da hankali",
     "level5": "Gabatarwa mai zurfi",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Yi magana da makirufo",
+      "stopDictate": "Dakatar da magana",
+      "listening": "Ana saurare…",
+      "permissionDenied": "Ana buƙatar izinin makirufo don yin magana. Kuna iya har yanzu bugawa.",
+      "unavailable": "Babu gane magana akan wannan na'urar.",
+      "couldNotHear": "Ba a iya jin haka - sake gwadawa ko buga.",
+      "errorGeneric": "Kalmomi sun kasa. Sake gwadawa ko buga."
     }
   },
   "prayerTuning": {
@@ -3946,7 +3946,7 @@
     "umrahTag": "Umrah",
     "hajjTag": "Hajji",
     "disclaimer": "Pratik dwataa kontrol listesi, fıkıh kitabı değil. Hüküm da watarıntılar don nitelikli dwataa rehbere uyun.",
-    "prepTag": "Prep"
+    "prepTag": "Shiri"
   },
   "dailyHadith": {
     "eyebrow": "Jerin yau da kullum",
@@ -3991,7 +3991,7 @@
     "versesLead": "Matsa kowace aya don buɗe ta a cikin mai karatun Alƙur'ani.",
     "journeyTitle": "My Tafiya",
     "journeySummary": "Yau's habits — not your rank with Allah",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "Daidaitawa a cikin ibada kun riga kun bibiya",
     "journeyBanner": "Wadannan halaye suna daga cikin ayyukan da Allah yake so. Matsayinku na ƙarshe yana wurinSa kawai.",
     "journeyToday": "Yauün striving",
     "journeyEmpty": "with one prwataer or adhkar — small steps build lifelong habits. Farat",
@@ -4365,181 +4365,181 @@
     "footer": "Ana adana PIN ɗinku amintacce akan wannan na'urar kuma baya barinsa."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "Sanarwa"
   },
   "sahaba": {
-    "eyebrow": "Learn",
-    "title": "Sahaba",
-    "subtitle": "Short profiles of the companions of the Prophet ﷺ",
-    "intro": "The sahaba are the generation that carried Islam from the Prophet ﷺ to the rest of the world. These short profiles follow the tone of the seerah timeline — a life, a lesson, and a source for every claim.",
-    "categoryAll": "All",
+    "eyebrow": "Koyi",
+    "title": "Sahabbai",
+    "subtitle": "Gajerun bayanan sahabban Annabi SAW",
+    "intro": "Sahabbai su ne mutanen da suka dauki Musulunci tun daga Annabi SAW zuwa sauran kasashen duniya. Waɗannan gajerun bayanan martaba suna bin sautin lokacin seerah - rayuwa, darasi, da tushen kowane da'awa.",
+    "categoryAll": "Duka",
     "category": {
-      "caliphs": "Caliphs",
+      "caliphs": "Halifofi",
       "ashara": "Ashara Mubashara",
-      "family": "Family",
-      "women": "Women",
-      "notable": "Notable"
+      "family": "Iyali",
+      "women": "Mata",
+      "notable": "Sanannen"
     },
-    "noResults": "No companions in this category yet",
-    "readMore": "Tap to read the full profile",
-    "disclaimer": "Narrative facts follow the classical seerah and history works; every claim tied to a specific narration cites its hadith collection and number. This is general educational content, not a scholarly ranking.",
-    "quickLinksTitle": "Explore",
-    "quickCaliphsHint": "Start with Abu Bakr, the first Caliph",
-    "quickAsharaHint": "The ten promised Paradise",
-    "quickWomenHint": "Khadijah and the Mothers of the Believers",
-    "quickBattles": "Companions in battle",
-    "quickBattlesHint": "Campaign profiles from the Battles guide",
-    "countCardTitle": "Companion directory",
-    "countCardHint": "{{count}} verified educational profiles",
+    "noResults": "Babu sahabbai a wannan rukunin tukuna",
+    "readMore": "Matsa don karanta cikakken bayanin martaba",
+    "disclaimer": "Bayanan labari suna bin seerah na gargajiya da ayyukan tarihi; duk wata da'awar da aka daure ta da wata riwaya ta kebanta da tarin hadisanta da adadinta. Wannan babban abun ciki ne na ilimi, ba matsayi na ilimi ba.",
+    "quickLinksTitle": "Bincika",
+    "quickCaliphsHint": "Fara da Abubakar, Halifa na farko",
+    "quickAsharaHint": "Goma sun yi alkawarin Aljanna",
+    "quickWomenHint": "Khadijah da Uwayen Muminai",
+    "quickBattles": "Sahabbai a yaki",
+    "quickBattlesHint": "Bayanan martaba daga jagorar yakin",
+    "countCardTitle": "Littafin jagora",
+    "countCardHint": "{{count}} ingantattun bayanan martaba na ilimi",
     "categoryHint": {
-      "caliphs": "The four Rightly Guided Caliphs",
-      "ashara": "The ten companions promised Paradise",
-      "family": "Close family of the Prophet ﷺ",
-      "women": "Prominent women of the early community",
-      "notable": "Other widely remembered companions"
+      "caliphs": "Halifofin Shiryu Hudu",
+      "ashara": "Sahabbai goma sun yi alkawarin Aljanna",
+      "family": "Kusan iyalan Annabi ﷺ",
+      "women": "Fitattun matan al'ummar farko",
+      "notable": "Sauran sahabbai da ake tunawa da su"
     },
-    "exploreTitle": "Continue learning",
-    "exploreBattles": "Battles figures",
-    "exploreBattlesHint": "Companions who appear in the military campaigns",
+    "exploreTitle": "Ci gaba da koyo",
+    "exploreBattles": "Ƙididdigar yaƙi",
+    "exploreBattlesHint": "Sahabbai da suke fitowa a yakin neman zabe",
     "exploreSeerah": "Seerah timeline",
-    "exploreSeerahHint": "Life of the Prophet ﷺ through key milestones",
-    "exploreHistory": "Early Islamic history",
-    "exploreHistoryHint": "From the Prophet's ﷺ passing to the end of the Rashidun",
-    "profileBodyTitle": "Life and lesson",
-    "relatedTitle": "Related guides",
-    "linkBattlesFigures": "See companions in Battles",
-    "linkSeerah": "Open the Seerah timeline",
-    "linkHistory": "Open early Islamic history",
-    "openProfileHint": "Open full companion profile",
-    "notFound": "Companion not found"
+    "exploreSeerahHint": "Rayuwar Annabi ﷺ ta hanyar muhimman abubuwa",
+    "exploreHistory": "Tarihin Musulunci na farko",
+    "exploreHistoryHint": "Daga Annabi ﷺ ya wuce zuwa karshen Rashidun",
+    "profileBodyTitle": "Rayuwa da darasi",
+    "relatedTitle": "Jagora masu alaƙa",
+    "linkBattlesFigures": "Dubi sahabbai a cikin Yaƙe-yaƙe",
+    "linkSeerah": "Bude lokacin Seerah",
+    "linkHistory": "Bude tarihin Musulunci na farko",
+    "openProfileHint": "Bude cikakken bayanan abokin tarayya",
+    "notFound": "Ba a samu sahibi ba"
   },
   "history": {
-    "eyebrow": "Learn",
-    "title": "Early Islamic history",
-    "subtitle": "From the Prophet's ﷺ death to the end of the Rashidun Caliphate",
+    "eyebrow": "Koyi",
+    "title": "Tarihin Musulunci na farko",
+    "subtitle": "Tun daga wafatin Annabi ﷺ har zuwa karshen halifancin Rashidun",
     "ceBadge": "{{year}} CE",
     "ahBadge": "{{ah}} AH",
     "era": {
-      "prophetic-close": "The Prophet ﷺ",
-      "abu-bakr": "Abu Bakr",
+      "prophetic-close": "Annabi ﷺ",
+      "abu-bakr": "Abubakar",
       "umar": "Umar",
-      "uthman": "Uthman",
+      "uthman": "Usman",
       "ali": "Ali"
     },
-    "disclaimer": "Scoped to 11–41 AH (632–661 CE) — the close of the Prophet's ﷺ life through the end of the Rashidun Caliphate. Political and military narrative follows the classical history works; the Uthman/Ali period is presented without adjudicating later theological disputes."
+    "disclaimer": "Tsawon shekara 11-41 AH (632-661 CE) - ƙarshen rayuwar Manzon Allah ﷺ a ƙarshen khalifancin Rashidun. Labarin siyasa da na soja ya biyo bayan ayyukan tarihi na gargajiya; an gabatar da lokacin Uthman/Ali ba tare da yanke hukunci a kan jayayyar tauhidi daga baya ba."
   },
   "laylatAlQadr": {
-    "eyebrow": "Learn",
-    "title": "Laylat al-Qadr",
-    "subtitle": "The Night of Decree — better than a thousand months",
-    "intro": "Laylat al-Qadr is hidden among the odd nights of the last ten of Ramadan, not fixed to a single date. Seek it with sincere worship across all of them rather than one guessed night.",
+    "eyebrow": "Koyi",
+    "title": "Lailatul Kadri",
+    "subtitle": "Lailatul kadari - mafi alheri daga watanni dubu",
+    "intro": "Daren Lailatul Kadri yana boye a cikin darare marasa kyau na goman karshen watan Ramadan, ba a kayyade shi da dabino daya ba. Ku nẽmi shi da tsarkakewa a tsakãninsu gabã ɗaya, a maimakon wani dare wanda aka ƙeta.",
     "section": {
-      "virtues": "Its virtue",
-      "when": "When to seek it",
-      "dua": "What to say",
-      "ibadah": "How to spend the night",
-      "reminders": "Reminders"
+      "virtues": "Nagartar sa",
+      "when": "Lokacin nema",
+      "dua": "Me za a ce",
+      "ibadah": "Yadda ake kwana",
+      "reminders": "Tunatarwa"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "This guide does not endorse a single fixed calendar date or folk 'signs' for identifying the night — only what the Qur'an and authentic hadith state.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Ba a samo batun ba",
+    "disclaimer": "Wannan jagorar ba ta amince da ƙayyadadden kwanan wata guda ɗaya ko 'alamomi' na jama'a don gano dare ba - kawai abin da Kur'ani da ingantaccen hadisi suka faɗa.",
+    "continueInApp": "Ci gaba a Munib"
   },
   "eid": {
-    "eyebrow": "Learn",
-    "title": "Eid guide",
-    "subtitle": "Eid al-Fitr and Eid al-Adha — prayer, sunnah, and rulings",
-    "intro": "The two Eids from the Qur'an and authentic hadith — how to pray Eid salah, Zakat al-Fitr, udhiyah, and the sunnah practices of the day.",
+    "eyebrow": "Koyi",
+    "title": "Jagoran Idi",
+    "subtitle": "Eid al-Fitr and Eid al-Adha — sallah, sunnah, da hukunce-hukunce",
+    "intro": "Idin sallah guda biyu daga Alqur'ani da ingantaccen hadisi - yadda ake sallar idi, zakkat al-fitr, udhiya, da ayyukan sunna na yini.",
     "section": {
       "fitr": "Eid al-Fitr",
       "adha": "Eid al-Adha",
-      "prayer": "The Eid prayer",
-      "sunnah": "Sunnah practices",
-      "zakat-fitr": "Zakat al-Fitr",
-      "udhiyah": "Udhiyah (sacrifice)"
+      "prayer": "Sallar Idi",
+      "sunnah": "Ayyukan Sunnah",
+      "zakat-fitr": "Zakkaatul Fitr",
+      "udhiyah": "Udhiyah (hadaya)"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as the extra-takbir count), both positions are presented; follow your imam or a qualified local scholar.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Ba a samo batun ba",
+    "disclaimer": "Bayanin ilimi - ba fatawa ba. Inda makarantu suka sha bamban (kamar kirga takbir), ana gabatar da mukamai biyu; ku bi limamin ku ko wani ƙwararren malami na gida.",
+    "continueInApp": "Ci gaba a Munib"
   },
   "ruqyah": {
-    "eyebrow": "Learn",
+    "eyebrow": "Koyi",
     "title": "Ruqyah",
-    "subtitle": "Qur'anic and prophetic spiritual healing",
-    "intro": "Ruqyah is reciting Qur'an, Allah's Names, or authentic prophetic supplications for healing and protection — never a substitute for salah or medical care.",
+    "subtitle": "Waraka ta ruhaniya na Kur'ani da annabci",
+    "intro": "Ruqyah ita ce karatun Alqur'ani, Sunayen Allah, ko addu'o'in annabci na kwarai don neman waraka da kariya - ba za a iya maye gurbin salah ko kula da lafiya ba.",
     "section": {
-      "basics": "The basics",
-      "verses": "Key verses",
-      "daily-protection": "Daily protection",
-      "reminders": "Reminders"
+      "basics": "Abubuwan da ake bukata",
+      "verses": "Mabuɗin ayoyi",
+      "daily-protection": "Kariyar yau da kullun",
+      "reminders": "Tunatarwa"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor, nor the five daily prayers. For serious or persistent affliction, consult both a scholar and a medical professional.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Ba a samo batun ba",
+    "disclaimer": "Ruqyah aiki ce ta ruhi, ba magani ba. Ba ya maye gurbin ganin kwararren likita, ko salloli biyar. Don tsananin wahala ko naci, tuntuɓi malami da ƙwararrun likita.",
+    "continueInApp": "Ci gaba a Munib"
   },
   "newMuslim": {
-    "eyebrow": "Learn",
-    "title": "New Muslim guide",
-    "subtitle": "A warm, practical start for the first days and weeks",
-    "intro": "Welcome to Islam. This guide covers the shahada, the five pillars, the basics of faith, and a first look at prayer, then points you to the fuller Salah, Aqeedah, and Qur'an guides in this app.",
+    "eyebrow": "Koyi",
+    "title": "Sabon jagoran musulmi",
+    "subtitle": "Farawa mai dumi, mai amfani don kwanakin farko da makonni",
+    "intro": "Barka da zuwa Musulunci. Wannan jagorar ta kunshi shahada, rukunnan guda biyar, da asasikin imani, da duban addu'a ta farko, sannan tana nuna muku cikakken jagorar Sallah, Aqida, da Qur'ani a cikin wannan app.",
     "section": {
-      "start": "Getting started",
-      "pillars": "The five pillars",
-      "faith": "Basics of faith",
-      "prayer": "Your first prayer",
-      "next-steps": "Next steps",
-      "faq": "Common questions"
+      "start": "Farawa",
+      "pillars": "Ginshikai guda biyar",
+      "faith": "Tushen imani",
+      "prayer": "Addu'ar ku ta farko",
+      "next-steps": "Matakai na gaba",
+      "faq": "Tambayoyi gama gari"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "A shallow-but-correct starting guide covering only the shared essentials every school agrees on. For your specific situation, ask a local imam or teacher.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Ba a samo batun ba",
+    "disclaimer": "Jagoran farawa mai zurfi-amma daidai wanda ke rufe abubuwan da aka raba kawai kowace makaranta ta yarda da su. Don takamaiman yanayin ku, tambayi limami ko malami na gida.",
+    "continueInApp": "Ci gaba a Munib"
   },
   "finance": {
-    "eyebrow": "Learn",
-    "title": "Islamic finance",
-    "subtitle": "Riba, fair trade, giving, and takaful",
-    "intro": "An educational introduction to the ethical framework Islam brings to money — the prohibition of riba, fair trade, zakah and sadaqah, and takaful (cooperative risk-sharing).",
+    "eyebrow": "Koyi",
+    "title": "Musulunci kudi",
+    "subtitle": "Riba, ciniki na gaskiya, bayarwa, da takaful",
+    "intro": "Gabatarwar ilimi ga tsarin da'a Musulunci yana kawo kudi - haramcin riba, ciniki na gaskiya, zakka da sadaka, da takaful (raba hada-hadar kasada).",
     "section": {
-      "principles": "Principles",
-      "riba": "Riba (interest)",
-      "trade": "Fair trade",
-      "giving": "Giving",
+      "principles": "Ka'idoji",
+      "riba": "Riba (sha'awa)",
+      "trade": "Ciniki na gaskiya",
+      "giving": "Bayarwa",
       "takaful": "Takaful",
-      "faq": "Common questions"
+      "faq": "Tambayoyi gama gari"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "General education, not financial or fatwa advice. Fund screeners, specific products, and rulings on your own contracts need a qualified, certified Islamic finance scholar or institution.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Ba a samo batun ba",
+    "disclaimer": "Ilimi gabaɗaya, ba shawara na kuɗi ko fatawa ba. Masu tantance kudi, takamaiman samfura, da hukunce-hukuncen kwangilolin naku suna buƙatar ƙwararren malami, ƙwararren malami ko cibiyar kuɗi na Musulunci.",
+    "continueInApp": "Ci gaba a Munib"
   },
   "dateConverter": {
-    "eyebrow": "Calendar",
-    "title": "Date converter",
-    "subtitle": "Convert between the Hijri and Gregorian calendars",
-    "intro": "Enter a date in either calendar to see its equivalent in the other, calculated offline using the tabular Kuwaiti algorithm.",
-    "toHijri": "Gregorian → Hijri",
-    "toGregorian": "Hijri → Gregorian",
-    "gregorianDateLabel": "Gregorian date",
-    "hijriDateLabel": "Hijri date",
-    "day": "Day",
-    "month": "Month",
-    "year": "Year",
-    "useToday": "Use today",
-    "invalidDate": "Enter a valid date",
-    "disclaimer": "This is an arithmetic approximation (the tabular \"Kuwaiti algorithm\") and can differ by a day from local moon-sighting announcements — always follow your local masjid or authority for religious dates.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
+    "eyebrow": "Kalanda",
+    "title": "Mai sauya kwanan wata",
+    "subtitle": "Tuba tsakanin kalandar Hijiriyya da Miladiyya",
+    "intro": "Shigar da kwanan wata a cikin kowane kalanda don ganin kwatankwacinsa a ɗayan, ƙididdiga ta layi ta amfani da algorithm Kuwaiti tabular.",
+    "toHijri": "Gregorian → Hijira",
+    "toGregorian": "Hijiriyya → Marigayi",
+    "gregorianDateLabel": "Kwanan Gregorian",
+    "hijriDateLabel": "Hijira",
+    "day": "Rana",
+    "month": "Watan",
+    "year": "Shekara",
+    "useToday": "Yi amfani a yau",
+    "invalidDate": "Shigar da ingantaccen kwanan wata",
+    "disclaimer": "Wannan lissafin lissafin ƙididdiga ne (tabul ɗin \"Kuwaiti algorithm\") kuma yana iya bambanta da rana ɗaya daga sanarwar ganin wata na gida - koyaushe ku bi masallacin ku ko ikon ranakun addini.",
+    "directionTitle": "Hanyar juyawa",
+    "resultFrom": "Daga {{date}}",
+    "quickLinksTitle": "Masu alaƙa",
+    "quickCalendar": "Kalanda ibada",
+    "quickCalendarHint": "Bincika watanni tare da log ɗin addu'o'in ku",
+    "quickEvents": "Al'amuran Musulunci",
+    "quickEventsHint": "Kwanaki masu zuwa a kalandar Hijira",
     "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "quickRamadanHint": "Lokutan azumi da littafan azuminku",
+    "quickHistory": "Tarihin farko",
+    "quickHistoryHint": "Lokacin Rashidun tare da shekarun Hijiriyya",
+    "exploreTitle": "Ci gaba da koyo",
+    "exploreCalendar": "Bude kalanda",
+    "exploreCalendarHint": "Duba tarihin ibada kowace rana",
+    "exploreEvents": "Bude al'amuran Musulunci",
+    "exploreEventsHint": "Mahimmanci da bukukuwan da ke gaba"
   }
 }

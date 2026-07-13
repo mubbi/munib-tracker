@@ -65,13 +65,22 @@ export function parseBackup(text: string): BackupParseResult {
   return { ok: true, file, entries };
 }
 
-/** Writes a validated backup's recognized keys back into storage. */
+/**
+ * Writes a validated backup's recognized keys back into storage as a full
+ * replace of {@link BACKUP_KEYS}: values present in the file overwrite local
+ * data, and any backed-up key absent (or null) in the file is removed so stale
+ * local rows cannot survive a restore.
+ */
 export async function applyBackup(file: BackupFile): Promise<void> {
-  for (const key of BACKUP_KEYS) {
-    if (key in file.data && file.data[key] != null) {
-      await writeJSON(key, file.data[key]);
-    }
-  }
+  await Promise.all(
+    BACKUP_KEYS.map(async (key) => {
+      if (key in file.data && file.data[key] != null) {
+        await writeJSON(key, file.data[key]);
+      } else {
+        await removeKey(key);
+      }
+    }),
+  );
 }
 
 /**

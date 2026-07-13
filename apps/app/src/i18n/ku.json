@@ -112,13 +112,13 @@
       "learnQuran": "Qur'an fêr bibe"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "گەڕان بە دەنگ",
+      "stopDictate": "گەڕانی دەنگی بوەستێنە",
+      "listening": "گوێگرتن…",
+      "permissionDenied": "بۆ گەڕانی دەنگی پێویستە مۆڵەتی مایکرۆفۆن هەبێت. هێشتا دەتوانیت بنووسیت.",
+      "unavailable": "ناسینەوەی قسەکردن لەسەر ئەم ئامێرە بەردەست نییە.",
+      "couldNotHear": "نەمتوانی ئەوە ببیستێت — دووبارە هەوڵبدەرەوە یان بنووسە.",
+      "errorGeneric": "گەڕانی دەنگی شکستی هێنا. دووبارە هەوڵبدەرەوە یان بنووسە."
     }
   },
   "tabs": {
@@ -159,13 +159,13 @@
     "hayd": "Hayd û ibadet",
     "sick": "Nexweşî & dua",
     "adhkarBuilder": "Adhkarkên min",
-    "sahaba": "Sahaba",
-    "history": "Islamic History",
-    "laylatAlQadr": "Laylat al-Qadr",
-    "eid": "Eid Guide",
-    "ruqyah": "Ruqyah",
-    "newMuslim": "New Muslim Guide",
-    "finance": "Islamic Finance"
+    "sahaba": "سەهابا",
+    "history": "مێژووی ئیسلامی",
+    "laylatAlQadr": "لەیلات القدر",
+    "eid": "ڕێبەری جەژن",
+    "ruqyah": "ڕوقیە",
+    "newMuslim": "ڕێبەری نوێی موسڵمانان",
+    "finance": "دارایی ئیسلامی"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -200,7 +200,7 @@
         "description": "Pêşveçûna nimêja ferz a îroyîn"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "ماوە",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -210,7 +210,7 @@
     "dayOf": "Roja {{day}} ya {{total}}",
     "timesTitle": "Demên rojiyê yên îro",
     "suhoor": "Sûhûr diqede",
-    "iftar": "Iftar",
+    "iftar": "ئیفتار",
     "timesHint": "Suhûr di Fecrê de diqede û ji bo cihê we îftar jî li Magrîbê dest pê dike.",
     "fastingTitle": "Têketina rojiyê",
     "fastedCount": "{{count}} ji {{total}} rojan rojî girtin",
@@ -284,7 +284,7 @@
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Dest bi şopandinê bikin",
     "goToChecklist": "Biçe navnîşa kontrolê",
-    "prayersStat": "Salah",
+    "prayersStat": "سەڵاح",
     "dhikrStat": "Zikr",
     "qazaStat": "Qaza",
     "streakStat": "Zincîre",
@@ -303,7 +303,7 @@
       "motivation": "Bîranîna rojane"
     },
     "knowledgeTopic": {
-      "prayer": "Salah",
+      "prayer": "سەڵاح",
       "qaza": "Qaza",
       "zikr": "Zikr",
       "fasting": "Rojî girtin",
@@ -649,9 +649,9 @@
     "eyebrowWelcome": "Bi xêr hatî",
     "title": "Sign di",
     "subtitle": "Sync we ibadet across devices",
-    "google": "Bidomîne bi Google",
-    "apple": "Bidomîne bi Apple",
-    "facebook": "Bidomîne bi Facebook",
+    "google": "بەردەوام بە لەگەڵ گووگڵ",
+    "apple": "بەردەوام بە لەگەڵ ئەپڵ",
+    "facebook": "لەگەڵ فەیسبووک بەردەوام بن",
     "heroGuest": "You're using  guest hesab. Link  provider bo back up û sync we daneyên — nothing e lost.",
     "heroUser": "Sign di bo keep we salah, qaza, û zikr ewle di  cloud.",
     "error": "Couldn't sign di. Make sure  API server e running û ev provider e configured."
@@ -660,7 +660,7 @@
     "begin": "Destpêkirin",
     "brandDuaLabel": " supplication ji bo ease",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
-    "brandDuaTransliteration": "Allahumma la sehla illa ma ja'altahu sehla, wa anta tec'alul-hezna idha shi'ta sehla",
+    "brandDuaTransliteration": "اللەم لە سەهلە ئیلا ما جەعالتاهو سەهلە، وە ئانتا تەجالولحەزنا ئیدها شیعتا سەهلە",
     "brandDuaTranslation": "O Allah, there e no ease except di wê which Hûn make easy, û Hûn make  difficult easy if Hûn wish.",
     "slide1Eyebrow": "سەڵاح",
     "slide1Title": "Nimêjên xwe bişopînin",
@@ -1106,7 +1106,7 @@
     "subtitle": "Read, listen, û reflect",
     "searchSurah": "Lêgerîn by name, meaning, an number",
     "filterAll": "Hemû",
-    "continueReading": "Bidomîne reading",
+    "continueReading": "بەردەوام بە لە خوێندنەوە",
     "continueAt": "Sureye {{surah}} · Ayet {{ayah}}",
     "makki": "ماکی",
     "madani": "مادانی",
@@ -1194,50 +1194,50 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "وشە بە وشە",
+      "playWord": "ئەم وشەیە لێبدە",
+      "noAudio": "هیچ دەنگێک بۆ ئەم وشەیە نییە",
+      "loading": "بارکردنی وشەکان..."
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "ئەفسانەی تەجوید",
+      "openLesson": "بکەرەوە وانەی قورئان فێربە",
+      "loading": "بارکردنی tajweed...",
       "rules": {
-        "ghunnah": "Ghunnah",
-        "ikhafa": "Ikhfa",
+        "ghunnah": "غونە",
+        "ikhafa": "ئیخفا",
         "ikhafaShafawi": "Ikhfa Shafawi",
         "idghamGhunnah": "Idgham (Ghunnah)",
         "idghamNoGhunnah": "Idgham (No Ghunnah)",
         "idghamShafawi": "Idgham Shafawi",
-        "iqlab": "Iqlab",
-        "qalqalah": "Qalqalah",
-        "maddNormal": "Madd (2)",
-        "maddPermissible": "Madd (2-4-6)",
-        "maddObligatory": "Madd (4-5)",
-        "maddNecessary": "Madd (6)",
+        "iqlab": "ئیقلاب",
+        "qalqalah": "قەلقەڵا",
+        "maddNormal": "ماد (2)",
+        "maddPermissible": "ماد (2-4-6)",
+        "maddObligatory": "ماد (4-5)",
+        "maddNecessary": "ماد (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "بێدەنگ"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "بۆ بینینی یاسای تەجوید، هۆڤەر بکە",
+      "tapHint": "بۆ بینینی یاسای تەجوید پەنجە بنێ",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "دەنگی لووت — 2 لێدان",
+        "ikhafa": "شاردنەوە بە gunnah — 2 لێدان",
+        "ikhafaShafawi": "شاردنەوەی لابیال — 2 لێدان",
+        "idghamGhunnah": "تێکەڵبوون لەگەڵ دەنگی لووت — 2 لێدان",
+        "idghamNoGhunnah": "تێکەڵبوون بەبێ دەنگی لووت",
+        "idghamShafawi": "یەکگرتنی لابیال — 2 لێدان",
+        "iqlab": "گۆڕینی بۆ meem شاراوە — 2 لێدان",
+        "qalqalah": "دەنگدانەوەی وەرگەڕان لەسەر نامەکە",
+        "maddNormal": "درێژبوونەوەی ئاسایی — 2 لێدان",
+        "maddPermissible": "درێژبوونەوەی ڕێگەپێدراو — 2، 4، یان 6 لێدان",
+        "maddObligatory": "درێژبوونەوەی ناچاری - 4 یان 5 لێدان",
+        "maddNecessary": "درێژبوونەوەی پێویست — 6 لێدان",
+        "hamWasl": "بەستنەوەی حەمزە — لە کاتی پەیوەستبووندا کەوتە خوارەوە",
+        "lamShamsiyah": "پیتی خۆر لام — بێژە ناکرێت",
+        "silent": "نووسراوە بەڵام بێژە نەکراوە"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
-      "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
-      "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "title": "پەخشکردن",
+      "open": "ڕێکخستنەکانی پەخشکردن",
+      "repeatMode": "دۆخی دووبارەکردنەوە",
+      "repeatOff": "کوژاوە",
+      "repeatVerse": "ئایەت",
+      "repeatRange": "ڕێژە",
+      "repeatSurah": "سورەتی",
+      "rangeStart": "لە ئایەتەوە",
+      "rangeEnd": "بۆ ئایە",
+      "translationAudio": "دەنگی وەرگێڕان",
+      "translationOff": "کوژاوە",
+      "translationAfter": "دوای هەر ئایەتێک",
+      "translationAudioHint": "دوای هەر ئایەتێکی عەرەبی وەرگێڕان بە دەنگی بەرز دەخوێنێتەوە (ئامێری TTS)",
+      "ttsVoice": "دەنگی قسەی وەرگێڕان",
+      "ttsVoiceDefault": "پێشوەختە بۆ زمان",
+      "ttsVoiceEmpty": "هیچ دەنگێک بۆ ئەم زمانە لەم ئامێرەدا نەدۆزراوەتەوە.",
+      "summaryVerse": "ئایەت دووبارە بکەرەوە",
+      "summarySurah": "سورەت دووبارە بکەرەوە",
+      "summaryRange": "مەودای {{start}}–{{end}}",
+      "summaryTts": "وەرگێڕان TTS",
       "summaryWithTts": "{{summary}} · TTS"
     },
-    "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
-    "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
-    "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "actionTafsir": "تەفسیر",
+    "openTafsir": "بۆ ئەم ئایە تەفسیر بکەرەوە",
+    "tafsir": "تەفسیر",
+    "tafsirNone": "تەفسیر هەڵبژێرە",
+    "selectTafsirAuthor": "تافسیر هەڵبژێرە — {{language}}",
+    "tafsirCount_one": "{{count}} تەفسیر",
+    "tafsirCount_other": "{{count}} تەفسیرەکان",
+    "searchTafsirLanguages": "گەڕان بە زمانەکان...",
+    "searchTafsirAuthors": "گەڕان بەدوای نووسەران...",
+    "tafsirLoading": "بارکردنی tafsir...",
+    "tafsirOffline": "بۆ دابەزاندنی ئەم تەفسیرە پەیوەندی بکە. چاپە کراوەکان لە ئۆفلاین بەردەست دەمێننەوە.",
+    "tafsirEmpty": "هیچ تەفسیرێک بۆ ئەم ئایەتە لە چاپی هەڵبژێردراودا بەردەست نییە."
   },
   "hadith": {
     "eyebrow": "Kevneşopiya pêxemberî",
@@ -1392,7 +1392,7 @@
     },
     "duha": {
       "summary": " forenoon salah — typically two bo eight rak'ahs between sunrise û Dhuhr.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "خێرخوازی پێویستە لەسەر هەموو جومگەکانی جەستە هەموو ڕۆژێک؛ تەنانەت چەند ڕکاتێکی دوهاش ئەو خێرە بۆ ئەندامەکان لە ڕێگەی عیبادەتەوە بەدی دێنێت.",
       "benefits": "Forgives sins, brings sustenance (rizq), û revives  neglected sunnah. Flexible timing makes it accessible when  roj allows."
     },
     "dhuhr": {
@@ -1529,7 +1529,7 @@
     "consistencyTitle": "Lihevhatina li ser tundiyê",
     "consistencyHadith": "Karên herî hezkirî li cem Xweda ew in, ku her çend hindik bin jî, ew kirinên hevgirtî ne.",
     "consistencySource": "Hedîs - Buxarî & Muslim",
-    "consistencyPrinciple": "Plansaziyek rojane ya domdar bi gelemperî paşveçûnek mezin bi pêbawertir ji sprintek agresîf a ku dişewite paqij dike.",
+    "consistencyPrinciple": "پلانێکی ڕۆژانەی جێگیر بەزۆری پاشەکەوتێکی گەورە بە شێوەیەکی متمانەپێکراوتر پاکدەکاتەوە لە چاو وەرزشێکی خێرا و شەڕانگێز کە دەسوتێت.",
     "prayersPerDay": "dua / roj",
     "dailyTimeLabel": "demjimêr / roj",
     "dailyTimeMinutes": "≈ {{count}} min",
@@ -1634,8 +1634,8 @@
     "partial": "Parpar",
     "missed": "Qedexe",
     "legendHint": "Tap any past an current roj bo review û adjust it. Îro e {{date}}.",
-    "converterRowTitle": "Hijri ⟷ Gregorian converter",
-    "converterRowSubtitle": "Convert a date between the two calendars"
+    "converterRowTitle": "هیجری ⟷ گۆڕینی گریگۆری",
+    "converterRowSubtitle": "گۆڕینی بەروارێک لە نێوان دوو ساڵنامەکەدا"
   },
   "calDay": {
     "today": "Îro",
@@ -1857,7 +1857,7 @@
     "milestonesReachedHint": "{{count}} heta niha vekiriye - û dihejmêre.",
     "level": "Lv {{level}}",
     "tracks": {
-      "salah": "Salah",
+      "salah": "سەڵاح",
       "streak": "Streak",
       "qaza": "Qaza",
       "roza": "Rojî girtin",
@@ -1866,7 +1866,7 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "Salah {{level}}",
+        "titleFallback": "سەڵاح {{level}}",
         "description": "{{count}} nimêjên ferz biqedînin",
         "description_one": "{{count}} nimêja ferz temam bike",
         "titles": {
@@ -1999,12 +1999,12 @@
     "confirmClearAllMessage": "Ev her agahdarî ji vê navnîşê radike. Ev nayê betalkirin.",
     "loadMore": "Zêdetir barkirin",
     "upcoming": "Upcoming",
-    "categorySalah": "Salah",
+    "categorySalah": "سەڵاح",
     "categoryZikr": "Zikr",
     "categoryQaza": "Qaza",
     "categoryMilestone": "Milestone",
     "categorySystem": "Sîstem",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "ڕاگەیاندن"
   },
   "qibla": {
     "eyebrow": "Ber",
@@ -2020,7 +2020,7 @@
     "compassLabel": "Kumpasa Qibla",
     "compassValue": "{{bearing}} degrees bo  Kaaba, {{distance}} away",
     "aligned": "Aligned bi  Qibla",
-    "alignedHint": "Hold steady — you're facing the Kaaba",
+    "alignedHint": "جێگیر بگرە — تۆ ڕووبەڕووی کەعبەیت",
     "turnFineTuneLeft": "Berde berde",
     "turnFineTuneRight": "Rast bihejînin",
     "turnSlightLeft": "Hinekî çep",
@@ -2060,7 +2060,7 @@
     "syncing": "Hevdemkirin…",
     "done": "We daneyên e backed up",
     "failed": "Couldn't sync. Check we connection û try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "هەموو شتێک پێشتر نوێ بوو",
     "mergeSummary": "{{received}} wergirt · {{sent}} şandin",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest sererast bike",
     "conflictAffected": "Bi bandor: {{list}}",
@@ -2238,13 +2238,13 @@
     "eyebrow": " Noble Qur'an",
     "short": "Xatm",
     "title": "Xatm plan",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "قورئان بە خێراییەکی جێگیر تەواو بکە",
     "startTitle": "Dest pê bike  plan",
     "startHint": "Choose how many roj bo temam  Qur'an. We'll set  rojane ayah target.",
     "startHintPages": "Choose how many roj bo temam  Qur'an. We'll set  rojane mushaf page target.",
     "unitAyah": "Bi ayah",
     "unitPage": "Bi rûpel",
-    "continueReading": "Bidomîne reading",
+    "continueReading": "بەردەوام بە لە خوێندنەوە",
     "dayPlan": "{{count}} roj",
     "preset": {
       "intensive": "Zexm",
@@ -2319,12 +2319,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
+        "text": "خەتمێک کە لەسەر خوێندنەوەی ڕۆژانەی جێگیر دروستکراوە، زیاتر دەخایەنێت لە وەرزشێکی خێرا کە دەسوتێت.",
         "source": "Principle ya domdarî"
       },
       "portion": {
         "text": "Hûn do not have bo finish îro — only honour today's portion bi sincerity.",
-        "source": "Pêşkeftina domdar"
+        "source": "پێشکەوتنی بەردەوام"
       },
       "return": {
         "text": "If hûn fall behind, do not abandon  plan. Resume bi today's ayahs û move forward.",
@@ -2608,7 +2608,7 @@
     "meaningLabel": "Ya ku ew hîn dike",
     "progressTitle": "learning progressên min",
     "progressSubtitle": "Dersan bişopînin - ne pileya giyanî li cem Xwedê",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "ئەم داشبۆردە بەدواداچوون بۆ خوێندن و مەشقەکانت دەکات لە مونیب. تەواوکردنی وانەکان پێگەی تۆ لەگەڵ خوا ناپێوێت — دڵسۆزی پێوانە دەکات.",
     "lessonsTitle": "Lessons temam bû",
     "lessonsHint": "Mark mijar temam as hûn finish xwendin them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2666,7 +2666,7 @@
     "quickLessons": "Kartên dersê",
     "quickLessonsHint": "Serokatî û girtina giyanî ji her şer",
     "quickProgress": "Fêrbûna min",
-    "quickProgressHint": "Mijar dixwînin û pêşveçûnê dixwînin",
+    "quickProgressHint": "بابەتەکان خوێندنەوە و پێشکەوتنی خوێندن",
     "progressCardTitle": "Pêşveçûna fêrbûnê",
     "progressCardHint": "{{completed}} ji {{total}} mijaran temam bûn",
     "exploreTitle": "Lêkolîn",
@@ -2705,7 +2705,7 @@
     "lessonsHint": "Gava ku hûn xwendina wan diqedînin mijarên temam nîşan bikin",
     "lessonsIntro": "Ev dersên exlaqî û serokatiyê ne - ne pirtûkên taktîkên leşkerî.",
     "progressTitle": "Fêrbûna min",
-    "progressSubtitle": "Xwendina bişopînin - ne pileya giyanî li cem Xwedê",
+    "progressSubtitle": "خوێندنی ڕێڕەو — نەک پلەی ڕۆحی لای خوا",
     "progressIntro": "Ev dashboard mijarên ku we li Munibê xwendiye dişopîne. Zanîn navgînek e; dilpakiya bi Xwedê re armanc e.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Demjimêr, ayet, ferhengok û kartên dersê bigerin",
@@ -2816,7 +2816,7 @@
     "quizTitle": "Quiz nirxandin",
     "quizSubtitle": "Têgihîştina xwe biceribîne - ne rawestana xwe li cem Xwedê",
     "quizHint": "Demjimêr, pênase, û refleks",
-    "quizIntro": "Vê quizê bikar bînin ku valahiyan bibînin, paşê wan mijaran bixwînin. Ew ne pîvanek giyanî ye.",
+    "quizIntro": "ئەم کویزە بەکاربهێنە بۆ دۆزینەوەی بۆشاییەکان، پاشان ئەو بابەتانە بخوێنەوە. نمرەی ڕۆحی نییە.",
     "quizProgress": "Pirs {{current}} ya {{total}}",
     "quizComplete": "Quiz temam bû",
     "quizScore": "{{score}} ji {{total}} pirsan rast kirin",
@@ -2854,7 +2854,7 @@
       "learningHint": "Mijarên ku di vê modulê de hatine qedandin"
     },
     "progressTitle": "Pêşveçûna fêrbûnê",
-    "progressSubtitle": "Xwendina bişopînin - ne pileya giyanî li cem Xwedê",
+    "progressSubtitle": "خوێندنی ڕێڕەو — نەک پلەی ڕۆحی لای خوا",
     "progressIntro": "Dema ku hûn dixwînin mijarên temam nîşan bikin. Zanîn navgînek e; dilpakiya bi Xwedê re armanc e.",
     "lessonsTitle": "Mijar temam bûn",
     "lessonsHint": "Gava ku hûn xwendina wan diqedînin mijarên temam nîşan bikin",
@@ -2892,9 +2892,9 @@
     "quickGhusl": "Rêberê Guslê",
     "quickGhuslHint": "Dema ku nepakiyek mezin çêbibe serşokê tijî",
     "quickChecklist": "Rojane checklist",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "ئەو خووانەی کە ئامادەت دەکەن بۆ نوێژ",
     "quickProgress": "learningên min",
-    "quickProgressHint": "Mijar dixwînin û pêşveçûnê dixwînin",
+    "quickProgressHint": "بابەتەکان خوێندنەوە و پێشکەوتنی خوێندن",
     "progressCardTitle": "Pêşveçûna fêrbûnê",
     "progressCardHint": "{{completed}} ji {{total}} mijaran temam bûn",
     "exploreTitle": "Lêkolîn",
@@ -2963,7 +2963,7 @@
     "quickLessons": "وانەکان",
     "quickLessonsHint": "Moral û ruhanî takeaways",
     "quickProgress": "learningên min",
-    "quickProgressHint": "Mijar dixwînin û pêşveçûnê dixwînin",
+    "quickProgressHint": "بابەتەکان خوێندنەوە و پێشکەوتنی خوێندن",
     "progressCardTitle": "Pêşveçûna fêrbûnê",
     "progressCardHint": "{{completed}} ji {{total}} mijaran temam bûn",
     "exploreTitle": "Lêkolîn",
@@ -2987,7 +2987,7 @@
     "profileTitle": "Tengal",
     "progressTitle": "learning progressên min",
     "progressSubtitle": "Dersan bişopînin - ne pileya giyanî li cem Xwedê",
-    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
+    "progressIntro": "بابەتەکان تەواو بکە لەگەڵ لێکۆڵینەوە لە ژیانی پێغەمبەران.",
     "lessonsTitle": "Mijar temam bû",
     "lessonsHint": "Mark mijar temam as hûn finish xwendin them",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3033,7 +3033,7 @@
     "quickGlossary": "Ferheng",
     "quickGlossaryHint": "Key creed merc defined",
     "quickProgress": "learningên min",
-    "quickProgressHint": "Mijar dixwînin û pêşveçûnê dixwînin",
+    "quickProgressHint": "بابەتەکان خوێندنەوە و پێشکەوتنی خوێندن",
     "progressCardTitle": "Pêşveçûna fêrbûnê",
     "progressCardHint": "{{completed}} ji {{total}} mijaran temam bûn",
     "exploreTitle": "Lêkolîn",
@@ -3094,7 +3094,7 @@
     "quickOccasions": "Bi minasebetê",
     "quickOccasionsHint": "Browse duas ji bo every moment",
     "quickProgress": "learningên min",
-    "quickProgressHint": "Mijar dixwînin û pêşveçûnê dixwînin",
+    "quickProgressHint": "بابەتەکان خوێندنەوە و پێشکەوتنی خوێندن",
     "progressCardTitle": "Pêşveçûna fêrbûnê",
     "progressCardHint": "{{completed}} ji {{total}} mijaran temam bûn",
     "exploreTitle": "Lêkolîn",
@@ -3196,7 +3196,7 @@
     "reflectionTitle": "Biriqandin",
     "openInQuran": "Di Qur'anê de veke",
     "progressTitle": "Fêrbûna min",
-    "progressSubtitle": "Xwendina bişopînin - ne pileya giyanî li cem Xwedê",
+    "progressSubtitle": "خوێندنی ڕێڕەو — نەک پلەی ڕۆحی لای خوا",
     "progressIntro": "Ev dashboard dersên ku we li Munibê xwendiye dişopîne. Di dilê we de çi heye Xwedê dizane.",
     "lessonsTitle": "Lessons",
     "lessonsHint": "Gava ku hûn xwendina wan diqedînin mijarên temam nîşan bikin",
@@ -3211,7 +3211,7 @@
     "practiceTitle": "Bikaranînî",
     "lettersTitle": "tîpên erebî",
     "lettersSubtitle": "28 tîp bi nav, deng û nimûne",
-    "lettersIntro": "Her roj yek tîpek bixwînin - bibînin, bibihîzin, bêjin, binivîsin.",
+    "lettersIntro": "ڕۆژانە یەک پیت بخوێنە — ببینە، بیبیستە، بڵێ، بنووسە.",
     "pronunciationTitle": "Nîqaş",
     "pronunciationSubtitle": "Mamoste cotên tîpên dijwar",
     "pronunciationIntro": "Dengên wekhev li kêleka hev bidin ber hev - xwe tomar bikin û paşde guhdarî bikin.",
@@ -3237,7 +3237,7 @@
     "challengeDone": "Pirsgirêk qediya - Xwedê qebûl bike",
     "quizTitle": "Quiz Qur'anê",
     "quizSubtitle": "Têgihîştina xwe biceribîne - ne rawestana xwe li cem Xwedê",
-    "quizIntro": "Her pirsê bikar bînin da ku valahiyek bibînin, paşê wê mijarê bixwînin. Ev vekolînek e, ne xalek giyanî ye.",
+    "quizIntro": "هەر پرسیارێک بەکاربهێنە بۆ دۆزینەوەی بۆشایی، پاشان ئەو بابەتە بخوێنەوە. ئەمە پێداچوونەوەیە نەک نمرەی ڕۆحی.",
     "quizProgress": "Pirs {{current}} ya {{total}}",
     "quizComplete": "Quiz temam bû",
     "quizScore": "{{score}} ji {{total}} pirsan rast kirin",
@@ -3398,7 +3398,7 @@
       "purpose": {
         "title": "Çima zekat - armanc û hikmet",
         "summary": "Dewlemendî û can paqij dike û belengazan bilind dike",
-        "body": "Xuda Teala di derbarê zekatê de wiha dibêje: “Ji mal û milkê wan sedeqeyekê bigrin, ku hûn wan pê pakij bikin û wan mezin bikin.” (Qur’an 9:103). Werziş di yek carê de li ser du astan kar dike - giyanê dide ji xwînxwarî û hezkirina dinyayê paqij dike û dewlemendiyê bi xwe jî paqij dike da ku tiştê di destê we de bimîne saxlem û pîroz be.\n\nJi aliyê civakî ve, zekat pergalek birêkûpêk a îlahî ye. Dema ku Pêxember (s.a.w) Muadh şand Yemenê, telîmat da ku zekatê ji dewlemendên wan bê girtin û ji feqîrên wan re bê dayîn. Dewlemendî ne ew e ku di nav çend kesan de kom bibe; Zekat dîsa dikişîne nav tevgerê da ku hewcedar têr bibin, deyndar azad bibin û bendeyên civakê xurt bibin.\n\nJi aliyê manewî ve dayîna zekatê şikir û emanet e. Ew bi wê yekê ku rizqê ji Xwedê tê, bersivê dide daxwaziya mirovî ya berhevkirinê û ew bawermend fêrî hezkirina danê dike. Kesê ku bi dilxwazî ​​zekatê dide mal û milkê xwe parastî dibîne, dilê wan sivik dibe û xelata wan li cem Rebbê xwe ye - \"Li ser wan ne tirs û ne jî xemgîn dibin\" (Qur'an 2:277)."
+        "body": "خوای گەورە لەبارەی زەکاتەوە دەفەرموێت: لە سامانەکانیان خێرێک وەربگرن کە بەهۆیەوە پاکیان بکەنەوە و گەشەیان بکەن (قورئان ٩:١٠٣). واجبەکە بە یەکجار لە دوو ئاستدا کاردەکات — ڕۆحی بەخشەر لە بەخشندەیی و خۆشەویستی جیهان پاکدەکاتەوە، و خودی سامانەکە پاکدەکاتەوە تا ئەوەی لە دەستتدا دەمێنێتەوە تەندروست و بەختەوەر بێت.\n\nلە ڕووی کۆمەڵایەتییەوە زەکات سیستەمێکی سووڕانەوە کە لە ڕووی خوداییەوە ڕێکخراوە. کاتێک پێغەمبەر صلى الله عليه وسلم موعەزی نارد بۆ یەمەن ڕێنمایی کرد کە زەکات لە دەوڵەمەندەکانیان وەربگیرێت و بدرێت بە هەژارەکانیان. سامان بۆ ئەوە نییە لە نێوان چەند کەسێکدا کەڵەکە بێت؛ زەکات دەیکێشێتەوە بۆ جووڵە بۆیە پێویستیەکان خۆراکیان پێدەدرێت و قەرزدارەکان ئازاد دەکرێن و پەیوەندییەکانی کۆمەڵگا بەهێزتر دەبن.\n\nلە ڕووی ڕۆحییەوە زەکات بەخشین کردەوەی سوپاسگوزاری و متمانەیە. وەڵامی ئەو حەزەی مرۆڤ دەداتەوە بۆ کۆکردنەوە بەو دڵنیاییەوە کە ڕزق لە خواوە سەرچاوە دەگرێت، ئیمانداریش ڕادەهێنێت بۆ خۆشەویستی بەخشین. ئەو کەسەی زەکات دەدات بە ئارەزووی خۆی سامانەکەی پارێزراوە و دڵی سووک بووە و پاداشتەکەی لای پەروەردگارەکەی هەڵگیراوە - \"ترسیان لێ نامێنێت و خەمبار نابن\" (قورئان ٢:٢٧٧)."
       },
       "hawl": {
         "title": "Sala heyvê (hawl)",
@@ -3423,12 +3423,12 @@
       "debts": {
         "title": "Deyn & kêmkirin",
         "summary": "Dibe ku deynên tavilê berî ku 2,5% were hesibandin were daxistin",
-        "body": "Zekat li ser serweta weya zekatî ya net tê hesibandin, ji ber vê yekê deynên rastîn ên ku hûn deyndar in dikarin mîqdara ku hûn didin kêm bikin. Bûyera herî zelal deynên niha ne - deynek kesane ya bêpere, balansek qerta krediyê ya berbiçav, kirê an fatûreyên ku berê deyndar in. Pir alim destûr didin ku vana ji serweta weya paşîn werin derxistin berî ku hûn 2.5% bicîh bînin.\n\nDeynên demdirêj ên wek îpotek an jî plansaziyek teqsîtê ya pir-salî bi lênêrînek zêdetir têne desteser kirin, ji ber ku derxistina hemî hevsengiyê dê zekata hema hema her kesê ku deynê malê heye ji holê rake. Nêzîkatiyek hevdemî ya hevpar ev e ku meriv tenê dravdanên ku di sala pêş de têne daxistin, ne tevahî dravê bermayî. Dibistan û zanyar li vir cûda dibin, ji ber vê yekê di bin rêbernameyê de rêbazek domdar hilbijêrin.\n\nDu hişyarî. Pêşîn, lêçûnên paşerojê an hîpotetîk wekî deynên dakêşan nekin - tenê tiştê ku hûn bi rastî deyndar in têne hesibandin. Ya duduyan, zekata sala borî ya ku nehatiye dayîn, wekî deynekî asayî kêm nekin; Zekatê nedaye wacib dimîne û bi tenê divê bê dayîn. Dema ku rewşa deynê we tevlihev e, hukma zanyarek ji texmînek hişk wêdetir e."
+        "body": "زەکات لەسەر سامانی پاکی زەکاتی خۆت حیسابی بۆ دەکرێت، بۆیە ئەو قەرزە ڕاستەقینانەی کە قەرزارن دەتوانن ئەو بڕە کەم بکەنەوە کە لەسەری دەدەیت. ڕوونترین حاڵەت ئەو قەرزانەن کە ئێستا دەبێ بدرێت - قەرزی کەسی نەدراو، باڵانسی کارتی بانکیی نەدراو، کرێ یان ئەو فەسڵانەی کە پێشتر قەرزارن. زۆربەی زانایان ڕێگە دەدەن ئەمانە لە سامانی گشتی خۆت کەم بکرێنەوە پێش ئەوەی 2.5% بەکاربهێنیت.\n\nقەرزە درێژخایەنەکانی وەکو گرێبەستی خانووبەرە یان پلانی قیستی چەند ساڵە بە وریاییەوە مامەڵەیان لەگەڵ دەکرێت، چونکە لێبڕینی تەواوی باڵانسەکە زەکاتی نزیکەی هەر کەسێک دەسڕێتەوە کە قەرزی خانووبەرەی هەبێت. ڕێبازێکی باوی هاوچەرخ ئەوەیە کە تەنیا ئەو پارانە ببڕدرێت کە دەبێ لە ماوەی ساڵی داهاتوودا بدرێت، نەک تەواوی بڕە پارەی نەدراو. قوتابخانە و زانایان لێرەدا جیاوازن، بۆیە شێوازێکی بەردەوام لە ژێر ڕێنماییدا هەڵبژێرە.\n\nدوو ئاگاداری. یەکەم، خەرجییەکانی داهاتوو یان گریمانەیی وەک قەرزی لێبڕین مامەڵەیان لەگەڵ مەکە - تەنها ئەوەی کە لە ڕاستیدا قەرزاریت ئەژمار دەکرێت. دووەم: زەکاتی نەدراوی ساڵی ڕابردوو وەک ئەوەی قەرزێکی ئاسایی بێت، کەم مەکەنەوە؛ زەکاتی نەدراو وەک پابەندبوونێکی شایستە دەمێنێتەوە و پێویستە بە سادەیی بدرێت. کاتێک دۆخی قەرزەکانت ئاڵۆزە، حوکمی زانایەک بەهای زیاترە لە پێشبینییەکی زبر."
       },
       "recipients": {
         "title": "Kî dikare zekatê bistîne",
         "summary": "Heşt kategoriyên ku di Qur'an 9:60 de bi nav kirin",
-        "body": "Zekat tenê dikare ji kategoriyên kesên ku Xwedê bi xwe di sûreya Tewbe (9:60) de navê wan kiriye re were dayîn. Ev yek ji wan kêm îbadetan e ku wergir bi wehyê têne sabît kirin, ne li gorî tercîha ku dide. Heşt kategori ev in: feqîr (el-fuqara); hewcedar (al-masakin); yên ku ji bo berhevkirin û birêvebirina zekatê dixebitin; ên ku dilên wan li hev bên (el-mu'allafah); azadkirina êsîr û yên di bin koletiyê de (fi'r-riqab); deyndar (al-gharimin); di reya Xuda de (fi sabil Allah); û rêwiyê asê (ibn es-sebil).\n\nNe hewce ye ku ji her heştan re bidin; dayîna zekata xwe ji bo yek kategoriyê jî wacib bi cih tîne û arastekirina wê ji feqîr û belengazan re kirina herî berbelav e.\n\nBi heman rengî girîng ew e ku kî dikare wê nestîne. Zekat ji bo dewlemendan nayê dayîn û ne jî ji bo kesên ku hûn ji berê de mecbûr in ku piştgirî bidin wan - dêûbavên we, zarokên we, an hevjîna we - ji ber ku piştgirîkirina wan erkek e ku hûn bi her awayî deyndar in. Di dîtina klasîk de ew veguheztina kesane ya xwedîtiyê ji kesek bijartî re ye, ne bexşeyek giştî ye; alim li ser wê yekê ji hev cihê ne ku saziyên wekî mizgeft an projeyên giştî yên berfireh di bin riya Xwedê de ne. Her wiha ji malbata Pêxember (s.a.a) Benî Haşim re jî wek zekat nayê dayîn. Wê bi qestî li kesên ku kategoriyên Qur'anê li hev dikin armanc bikin."
+        "body": "ڕەنگە زەکات تەنها بەو پۆلە کەسانە بدرێت کە خوا خۆی لە سورەتی تەوبە (٩:٦٠) ناوی هێناوە. ئەمە یەکێکە لەو کەمترین عیبادەتە کە وەرگرەکان بە وەحی جێگیر دەکرێن، نەک بە ئارەزووی بەخشەرەکە جێبهێڵرێن. هەشت پۆلەکە بریتین لە: هەژاران (الفقرا)؛ هەژاران (المساکین)؛ ئەوانەی بۆ کۆکردنەوە و بەڕێوەبردنی زەکات دامەزراون؛ ئەوانەی دڵیان ئاشت ببێتەوە (المعلافە)؛ ئازادکردنی دیلەکان و ئەوانەی لە کۆیلایەتیدان (فیعر ڕیقاب)؛ قەرزدارەکان (الغەریمین)؛ لە ڕێگای خوای گەورە (فی صبیل الله)؛ و ڕێبوارە گیرخواردووەکە (بن صەبیل).\n\nمەرج نییە بەخشین بە هەر هەشت کەسەکە؛ پێدانی زەکاتەکەت تەنانەت بە یەک پۆلی شایستەش واجبەکە جێبەجێ دەکات، و ئاراستەکردنی بۆ هەژاران و هەژاران باوترین کارە.\n\nبە هەمان شێوە گرنگە کێ ڕەنگە وەری نەگرێت. زەکات ناتوانرێت بدرێت بە دەوڵەمەندەکان، هەروەها بەو کەسانەی کە پێشتر پابەندن بە پشتیوانیکردن - دایک و باوکت، منداڵەکانت، یان هاوسەرەکەت - لەبەرئەوەی پشتگیریکردنیان ئەرکێکە کە بە هەر شێوەیەک بێت قەرزاریت. لە ڕوانگەی کلاسیکەوە گواستنەوەی کەسی خاوەندارێتییە بۆ تاکێکی شایستە، نەک بەخشینێکی گشتی؛ زانایان جیاوازن لەسەر ئەوەی ئایا دامەزراوەکانی وەک مزگەوت یان پڕۆژەی گشتی فراوان لە ژێر ڕێبازی خوادا شایستەن. هەروەها ناتوانرێت وەک زەکات بدرێت بە بنەماڵەی پێغەمبەر صلى الله عليه وسلم، بەنو هاشم. بە ئەنقەست ئامانجی ئەو کەسانە بکە کە لەگەڵ پۆلە قورئانییەکان دەگونجێن."
       },
       "otherRates": {
         "title": "Cûreyên din ên zekat û zekatê fitrê",
@@ -3438,7 +3438,7 @@
       "mistakes": {
         "title": "Çewtiyên hevpar ên ku jê dûr bikevin",
         "summary": "Çewtiyên ku zekatê betal dikin an jî şaş têne hesibandin",
-        "body": "Tewra misilmanên dilpak jî gelek caran li ser hûrguliyên pratîkî yên zekatê direvin. Naskirina xeletiyên hevpar ji we re dibe alîkar ku hûn rast û bi aramî bidin.\n\nJibîrkirina hawl an salvegerê: dayîna di demek rasthatî de, an paşvekişandina salan, mecbûriyek berbiçav dihêle. Her sal dîrokek Hicrî rast bikin û serweta xwe li ser wê binirxînin.\n\nDewlemendî xelet hesab kirin: li şûna nirxa bazarê ya îroyîn nirxa zêr an hîseyan bi bihayê kirîna wan, ji bîr kirina dravê ku di gelek hesab an dirav de têne girtin, an çavê xwe ji depoya karsaziyê û pereyên ku ji we re deyndar in. Zekat li ser her tiştê zekatî ye ku hûn di dîroka xwe de xwediyê wan in.\n\nDayîna ji kesên xelet re: dayîna zekatê ji bo dêûbav, zarok, an hevjîna ku hûn berê piştgirî didin wan, an jî girtina wê wekî bexşeyek gelemperî ji bo her sedemek baş. Divê ew bigihîje yek ji heşt kategoriyên Qur'anê.\n\nXeletiyên niyet: Tevahiya salê bi comerdî didin lê qet niyeta zekatê nakin. Zekat îbadetek e û pêdivî bi nîyeta (nîyetê) heye ku ev dayina taybetî zekata we ferz e.\n\nZêde kêmkirina deynan: derxistina tevahî îpotekek demdirêj, an lêçûnên paşerojê yên ku hîn ne deyndar in, ji bo kêmkirina fatûreyê. Tenê berpirsiyariyên rastîn, heyî dewlemendiya weya zekatî kêm dike. Gava ku yek ji van ji bo rewşa we ne diyar e, ji alimek jêhatî bipirsin ne ku texmîn bikin."
+        "body": "تەنانەت موسڵمانە دڵسۆزەکانیش زۆرجار لەسەر وردەکارییە کردارییەکانی زەکات دەخلیسکن. زانینی هەڵە باوەکان یارمەتیت دەدات بە شێوەیەکی دروست و بە ئارامی پارە بدەیت.\n\nلەبیرکردنی هاول یان یادەکە: پارەدان لە کاتێکی هەڕەمەکیدا، یان بازدانی ساڵان، پابەندبوونێکی نەدراو بەجێدەهێڵێت. ساڵانە یەک بەرواری کۆچی دیاری بکە و سەروەت و سامانەکەت لەسەری هەڵسەنگێنە.\n\nبە هەڵە ژماردنی سامان: بەهادان بە زێڕ یان پشکەکان بە نرخی کڕینی خۆیان لەبری بەهای بازاڕی ئەمڕۆ، لەبیرکردنی پارەی نەختینەیی کە لە چەندین ئەکاونت یان دراودا هەڵگیراون، یان چاوپۆشیکردن لە کۆگای بازرگانی و پارەی قەرزدار. زەکات لەسەر هەموو زەکاتێکە کە لە ڕێکەوتەکەتدا خاوەندارێتی دەکەیت.\n\nبەخشین بە کەسانی هەڵە: ڕادەستکردنی زەکات بە دایک و باوک، منداڵ، یان هاوسەرێک کە پێشتر پشتگیری دەکەیت، یان مامەڵەی لەگەڵ بکەیت وەک بەخشینێکی گشتی بۆ هەر کارێکی باش. دەبێت بگاتە یەکێک لە هەشت پۆلە قورئانییەکە.\n\nهەڵەی نیەت: بەخشینی بەخشندەیی بە درێژایی ساڵ بەڵام هەرگیز نیەتی هیچیان وەک زەکات. زەکات عیبادەتێکە و پێویستی بەو نیەتی (نییە) هەیە کە ئەم پارەیە تایبەتە زەکاتی واجبی تۆیە.\n\nزیادەڕۆیی لە لێبڕینی قەرزەکان: کەمکردنەوەی تەواوی گرێبەستی خانووبەرەی درێژخایەن، یان خەرجییەکانی داهاتوو کە هێشتا قەرزار نین، بۆ بچووککردنەوەی فەسڵەکە. تەنها ئیلتزاماتی ڕاستەقینە و ئێستا سامانی زەکاتی تۆ کەم دەکاتەوە. کاتێک هەریەکێک لەمانەی سەرەوە بۆ دۆخی تۆ ڕوون نییە، پرسیار لە زانایەکی شارەزا بکە نەک گریمانە بکەیت."
       }
     },
     "recipientsListTitle": "Heşt kategoriyan",
@@ -3513,7 +3513,7 @@
     "group": {
       "liquid": "Cash & metalên hêja",
       "investments": "Veberhênan & karsazî",
-      "property": "Land, property & vehicles"
+      "property": "زەوی، موڵک و ئۆتۆمبێل"
     },
     "weightSectionTitle": "Zêr û zîv bi giraniyê hesab bikin",
     "nisabOverrideTitle": "Destnîşana nîsab",
@@ -3535,33 +3535,33 @@
         "title": "An zêr bi giraniyê hesab bikin",
         "grams": "Grams",
         "pricePerGram": "Biha/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "زێڕ بە کێش",
+        "amount": "کێش",
+        "pricePerGram24k": "نرخ/گم (24k)"
       },
       "silver": {
         "title": "An zîv bi giranî hesab bike",
         "grams": "Grams",
         "pricePerGram": "Biha/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "زیو بە کێش",
+        "amount": "کێش",
+        "pricePerGramFine": "نرخ/گم (باشە)"
       },
       "computed": "{{value}} bi tevayî zêde dike",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "نرخی لایڤ سپۆت بۆ هەر گرامێک 24k زێڕ و زیوی وردە. یەکەکەت هەڵبژێرە (g، tola، troy oz، kg) و کارات/پاکی — بەها دەگۆڕێت بۆ کانزای پاک × پەڵە.",
+      "unit": "یەکەیەکی کێش",
+      "karat": "کاراتی زێڕین",
+      "purity": "پاکی زیو",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
-        "g": "Gram",
-        "tola": "Tola",
-        "oz": "Troy oz",
-        "kg": "Kilogram"
+        "g": "گرام",
+        "tola": "تۆڵا",
+        "oz": "ترۆی ئۆنس",
+        "kg": "کیلۆگرام"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g کانزای پاک",
+      "cardHint": "تۆلا، گرام، کارات / پاکی × زیندوو 24k یان خاڵی ورد."
     },
     "field": {
       "cash": "Cash & teserifê",
@@ -3576,12 +3576,12 @@
       "nisab": "Nirxa Nisab (derxistin)",
       "nisabGoldPrice": "Bihayê zêr per gram",
       "nisabSilverPrice": "Bihayê zîv per gram",
-      "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "crypto": "دراوی کریپتۆ",
+      "livingExpenses": "خەرجی ژیانی دەستبەجێ",
+      "investmentPlots": "پڵۆتەکانی وەبەرهێنان (بەهای بازاڕ)",
+      "installmentPlotsPaid": "پڵۆتەکانی قیستی — بڕی دراو",
+      "investmentProperty": "خانوو / بینای وەبەرهێنان",
+      "tradeVehicles": "ئۆتۆمبێل بۆ فرۆشتن / بازرگانی"
     },
     "fieldHint": {
       "cash": "Hesabên bankê, drav li ser dest, û teserûfa rûkal.",
@@ -3590,16 +3590,16 @@
       "stocks": "Nirxa bazarê ya heyî ya parve, fon, û veberhênanên mîna.",
       "business": "Nirxa kirrûbirra, envanter û tiştên ku ji bo firotanê têne girtin.",
       "receivables": "Deyn û fatûreyên ku hûn bi maqûl hêvî dikin ku berhev bikin.",
-      "rentalIncome": "Qezencên kirê an karsaziyê ku hûn hîn jî digirin - jixwe nehatine xerc kirin.",
+      "rentalIncome": "قازانجی کرێ یان بازرگانی کە هێشتا لەبەردەستتدایە — پێشتر خەرج نەکراوە.",
       "otherAssets": "Cryptocurrency, fonên teqawidbûnê yên gihîştî, an dewlemendiyek din a zekatî li gorî zanyarê we.",
       "debts": "Deynên kesane, qertên kredî, û fatûreyên ku naha têne berdêl kirin - heya ku zanyarê we destûr nede ne bi tevahî îpotek dirêj e.",
       "nisab": "Vala bihêlin da ku sînorê hesabkirî bikar bînin, an têkevin nisabek xwerû.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "بەهای بازاڕی کریپتۆ کە وەک سەرمایەیەک هەڵگیراوە — بڕیارەکان جیاوازن؛ لە زانایەک بپرسە.",
+      "livingExpenses": "کرێ، خواردن و فەسڵەکان دەستبەجێ دەدرێت — تەنها ئەگەر زاناکەت ڕێگە بەم لێبڕینە بدات.",
+      "investmentPlots": "زەوی یان پارچە زەوی کە بۆ وەبەرهێنان یان فرۆشتن هەڵگیراون (بەهای بازاڕی ئێستا). زەوییە کشتوکاڵییە کەسییەکان کە بۆ ژیان بەکاردەهێنرێن جیاوازن — پرسیار لە زانایەک بکە.",
+      "installmentPlotsPaid": "پێشتر چەندت داوە لەسەر پڵۆتەکانی وەبەرهێنانی قیست (نەک گرێبەستی تەواو نەدراو مەگەر زاناکەت لەخۆی نەگرێت).",
+      "investmentProperty": "خانوو یان بینا کە بۆ وەبەرهێنان یان بازرگانی هەڵگیراون — نەک شوێنی نیشتەجێبوونی کەسی خۆت.",
+      "tradeVehicles": "ئۆتۆمبێل یان ئۆتۆمبێلەکان کە بۆ فرۆشتن یان وەکو کۆگای بازرگانی هەڵگیراون — نەک ئۆتۆمبێلی بەکارهێنانی کەسی."
     },
     "checklist[0]": {
       "title": "Hawl (sala heyvê) piştrast bikin",
@@ -3684,148 +3684,148 @@
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "گۆڕینی دراوی زەکات",
+      "pickerTitle": "دراو هەڵبژێرە",
+      "pickerHint": "دراوەکانی {{count}} — گەڕان بە پێی کۆد یان ناو",
+      "searchPlaceholder": "گەڕان بەدوای دراوەکاندا...",
+      "noResults": "هیچ دراوێک لەگەڵ گەڕانەکەتدا ناگونجێت.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "زێڕ و زیوی زیندوو",
+      "goldPerGram": "زێڕ / گرام",
+      "silverPerGram": "زیو / گرام",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "هێنانی نرخە ڕاستەوخۆکان...",
+      "error": "نەیتوانی نرخە ڕاستەوخۆکان بار بکات. نرخی زێڕ و زیو بە دەستی داخڵ بکە.",
+      "prefilled": "نرخی نیساب و کانزاکان لە نرخی ڕاستەوخۆوە پێشوەختە پڕ دەکرێنەوە.",
+      "useLive": "دووبارە نرخە ڕاستەوخۆکان بەکاربهێنە",
+      "useLiveA11y": "ڕێست بۆ نرخی زیندوو زێڕ و زیو",
+      "refreshA11y": "نوێکردنەوەی نرخی بازاڕی ڕاستەوخۆ",
+      "livePrice": "ژیان"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
-      "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "meetsNisab": "نێت {{wealth}} · نیساب {{nisab}}",
+      "belowNisab": "تۆڕ {{wealth}} · لە خوار نیساب {{nisab}}",
+      "hasOtherDue": "تۆڕ {{wealth}} · بەرهەم / ئاژەڵداری کە دەبێ بدرێت"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
-      "nisab": "Nisab",
-      "due": "Due"
+      "gold": "زێڕ/گ",
+      "silver": "زیو/گ",
+      "nisab": "نیساب",
+      "due": "بەهۆی"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "زەکاتی سامان (2.5%): {{value}}",
+      "agriculture": "بەرهەمەکان (ushr): {{value}}",
+      "livestock": "ئاژەڵداری (خەمڵاندنی پارە): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "بەهاکانی پارە و کریپتۆ و کانزاکان کە پێشتر دەیانزانیت. یان کێش لە کارتی کانزاکاندا بەکاربهێنە.",
+      "investments": "پشکەکان، کاڵای بازرگانی، وەرگیراوەکان، و داهاتی پاشەکەوتکراوی بازرگانی بە بەهای ئەمڕۆ."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "بەروبووم / ئاژەڵداری بەهۆی (سەروەت و سامان لە خوار نیسابەوە)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "ئاژەڵداری (مەڕەکانی لەوەڕاندن)",
+      "hint": "تەرازووی سوننەت بۆ مەڕ/بزن و ئاژەڵ و وشتر کە بە ئازادی دەلەوەڕێن (بوخاری / ئەبو داود). ئەو ئاژەڵانەی کە وەک بازرگانییەک بەخێو دەکرێن زۆرجار لەبری ئەوە یاساکانی کاڵا بازرگانییەکان پەیڕەو دەکەن — پرسیار لە زانایەک بکە.",
+      "sheep": "مەڕ / بزن (سەر)",
+      "sheepHint": "نیساب لە ٤٠ سەرەوە دەست پێدەکات.",
+      "cattle": "ئاژەڵ / بوفالۆ (سەر)",
+      "cattleHint": "نیساب لە ٣٠ سەرەوە دەست پێدەکات (پێوەری تابیع / موسینە).",
+      "camels": "وشتر (سەر)",
+      "camelsHint": "نیساب لە 5 سەرەوە دەست پێدەکات.",
+      "valueTitle": "بەهای نەختینەی ئیختیاری (بۆ هەر سەرێک)",
+      "valueHint": "زەکاتی سەر ئاژەڵ بەزۆری لە ئاژەڵدا دەدرێت. بەهاکانی بازاڕ تەنها لەو کاتەدا داخڵ بکە کە بتەوێت خەمڵاندنێکی هاوتای پارە بۆ پلاندانان.",
+      "sheepValue": "بەهای هەر مەڕێک/بزنێک",
+      "cattleValue": "بەهای هەر سەرێکی ئاژەڵ",
+      "camelValue": "بەهای هەر وشترێک",
+      "dueTitle": "ئەو ئاژەڵانەی کە دەبێ بدرێن (خەمڵاندنی سوننەت)",
+      "cashEstimate": "خەمڵاندنی پارە: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} مەڕ/بزن",
+        "cattleTabi": "{{count}} tabi' (گامێشی یەک ساڵان)",
+        "cattleMusinnah": "{{count}} musinnah (گامێشی ٢ ساڵان)",
+        "bintMakhad": "{{count}} بنت مەخاد (وشتری یەک ساڵ)",
+        "bintLabun": "{{count}} بنت لابون (وشتری ٢ ساڵان)",
+        "hiqqah": "{{count}} حیقە (وشتری ٣ ساڵان)",
+        "jadhah": "{{count}} jadhah (وشتری ٤ ساڵان)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "تەرازووی ئاژەڵانی سوننەت — نەک 2.5%. بەهاکانی نەختینەی ئیختیاری تەنها بۆ خەمڵاندنەکان."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "کشتوکاڵ و دروێنە (ushr)",
+      "hint": "لە کاتی دروێنەکردندا — نەک دوای ساڵێکی مانگی. ڕێژەی 10% بۆ ئەو زەویانەی کە بە باران/بەهار ئاویان پێدەدرێت، و 5% کاتێک ئاودێری هەوڵدان یان پارەی دەوێت (قورئان 6:141؛ سوننەت).",
+      "harvest": "بەهای بازاڕی دروێنەکردن",
+      "harvestHint": "بەهای بەرهەم یان میوەی ئەم وەرزە لە کاتی دروێنەکردندا.",
+      "irrigation": "سەرچاوەی ئاو",
+      "natural": "باران / کانیاو (10%)",
+      "irrigated": "ئاودێری (5%)",
+      "naturalHint": "ئوشر 10% کاتێک ئاو دەدرێت بە شێوەیەکی سروشتی بەبێ ئاودێری تێچووی زۆر.",
+      "irrigatedHint": "نیوە ئوشر 5% کاتێک ئاو دەدرێت لەلایەن بیر، پەمپ، یان ئاودێری پارەدار.",
+      "due": "ئوشر بەپێی: {{value}}",
+      "cardHint": "لە کاتی دروێنەکردندا — 10% باران/بەهار، 5% ئاودێری."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "فۆرمات ژمارە",
+      "hint": "چۆن هەزاران و دەهەمی بە بڕی نیشان دەدرێن.",
+      "changeA11y": "گۆڕینی فۆرمات ژمارە",
+      "pickerTitle": "فۆرمات ژمارە",
+      "pickerHint": "چۆن بڕە پارەکان گرووپ دەکرێن و چۆن دەهەمیەکان دەردەکەون لە کاتی نووسین و بە کۆی گشتی هەڵبژێرە."
     },
-    "learnMore": "Learn more",
+    "learnMore": "زیاتر بزانە",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "پوختەیەکی پەروەردەیی لە قورئان و سوننەتەوە — نەک فەتوای کەسی.",
+      "footnote": "قوتابخانەکان جیاوازن لە وردەکارییەکان (زەڕەنگەری، گرێبەستی خانووبەرە، ئاژەڵداری خۆراکپێدراو، کریپتۆ). داوای کەیسەکەت لە زانایەکی شارەزا بکە.",
+      "openGuide": "ڕێنمایی تەواو بکەرەوە",
+      "a11y": "زیاتر بزانە دەربارەی {{section}}",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "دراو و نرخەکان",
+        "body": "زەکات لەسەر بەهای بازاڕی سامانەکەت بە دراوێک کە تێی دەگەیت حیسابی بۆ دەکرێت. نرخی زێڕ و زیوی پەڵە یارمەتیدەرە بۆ خەمڵاندنی بەهاکانی نیساب و کانزا — ئەوان ئاماژەن، نەک جێگرەوەی ڕێژەی بازاڕی ناوخۆیی کە زاناکەت بەکاری دەهێنێت."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "پارە و کانزا بەنرخەکان",
+        "body": "پارەی نەختینەیی، باڵانسی بانکی و زێڕ یان زیو کە وەک سەروەت و سامان هەڵگیراوە، لە ڕوونترین سامانە زەکاتییەکانن. پێغەمبەر صلى الله عليه وسلم بە توندی هۆشداری دا لە ڕاگرتنی ئەوەی کە لەسەر زێڕ و زیو پێویستە. ئەو زەڕەنگەریانەی کە بۆ بەکارهێنانی ئاسایی لەبەر دەکرێن خاڵێکی جیاوازی ناسراوە لە نێوان قوتابخانەکاندا — شوێن مەزهەبەکەت بکەوە. دەتوانیت لێرەدا بەهای کاش دابنێیت، یان لە بەشی داهاتوودا کانزاکان بەپێی کێش حیساب بکەیت."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "زێڕ و زیو بە کێش",
+        "body": "نیساب لە سوننەتدا بە کێش جێگیر کرابوو: نزیکەی ٢٠ دینار زێڕ یان ٢٠٠ درهەم زیو (بە شێوەیەکی گشتی بە ~٨٧.٥ گم زێڕ یان ~٦١٢ گم زیو ناودەبرێت). قەرەت و پاکی گرنگە چونکە زەکات لەسەر ناوەڕۆکی کانزای پاکە. نرخی ڕاستەوخۆ بۆ 24k / کانزای وردە بۆ هەر گرامێک — یەکەکەت هەڵبژێرە (گرام، تۆلا، ترۆی ئۆنس) و کارات بۆ ئەوەی حاسیبەکە بە دروستی بگۆڕێت."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "وەبەرهێنان و بازرگانی",
+        "body": "کاڵا بازرگانییەکان، کاڵا و سامان کە مەبەست لێی گەشەکردنە، بە گشتی بە بەهای بازاڕی ئەمڕۆ زەکاتە. پشک و سندوقەکان بە شێوەیەکی باو وەک سامانی بازرگانی بەهایان هەیە. زۆرجار ئەو قەرزە بەهێزانەی کە چاوەڕێی کۆکردنەوەیان دەکەیت، لەخۆدەگرێت. قورئان ٢:٢٦٧ داوای خەرجکردن دەکات لە چاکەی ئەو شتانەی کە بەدەستت هێناوە — بەهای ڕاستگۆیانە لەسەر بەرواری زەکاتەکەت."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "زەوی، موڵک و ئۆتۆمبێل",
+        "body": "ماڵە تایبەتیەکەت، ئۆتۆمبێلی کەسی و کەلوپەلی ئاسایی ماڵەوە بەگشتی زەکات نین — زەکات گەشەکردنی سامان دەکاتە ئامانج نەک شتومەکی بەکارهێنراو. لەوانەیە ئەو پارچە زەوییە، خانوو، یان ئۆتۆمبێلانەی کە بۆ وەبەرهێنان، فرۆشتن، یان بازرگانی هەڵگیراون بە بەهای بازاڕ (یان ئەو بڕە پارانەی کە پێشتر لەسەر پارچە زەوییە وەبەرهێنانە قیستەکان دراون) جێگیر بکرێن. کاتێک دڵنیا نەبوویت، پرسیار لە زانایەک بکە."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "ئاژەڵداری (مەڕەکانی لەوەڕاندن)",
+        "body": "مەڕ، بزن، ئاژەڵ و وشتر کە ئازادن، تەرازووی سوننەت و نیسابی ئاژەڵیان هەیە (بۆ نموونە ٤٠ مەڕ، ٣٠ ئاژەڵ، ٥ وشتر) — نەک ڕێژەی پارەی ٢.٥%. بەزۆری باج لە ئاژەڵانی تەمەن دیاریکراودا دەدرێت. ئەو ئاژەڵانەی کە وەک بازرگانییەک بەخێو دەکرێن زۆرجار لەبری ئەوە یاساکانی کاڵا بازرگانییەکان پەیڕەو دەکەن. بەهاکانی نەختینەی ئیختیاری لێرەدا تەنها خەمڵاندنێکی پلاندانانە."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "کشتوکاڵ و دروێنە (ushr)",
+        "body": "زەکاتی بەروبوومەکان لە کاتی دروێنەکردندایە نەک دوای ساڵێکی مانگی. ڕێژەی ناسراو 10% (ushr) کاتێک زەوی بە باران یان کانیاو ئاو دەدرێت، و 5% کاتێک ئاودێری تێچووی هەوڵ یان پارە دەخایەنێت. بەهای بازاڕی دروێنەی ئەم وەرزە بنووسە و ئەو سەرچاوەی ئاوە هەڵبژێرە کە لەگەڵ دۆخەکەتدا بگونجێت.",
+        "localRefLabel": "قورئان ٦:١٤١",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "لێبڕینەکان",
+        "body": "زەکات لەسەر سامانی زەکاتی تۆڕە. قەرزە دەستبەجێیەکانی ئێستا کە دەبێ بدرێت بە شێوەیەکی باو پێش ئەوەی 2.5% جێبەجێ بکرێت دەبڕدرێن. گرێبەستی خانووبەرەی درێژخایەن بە وردی مامەڵەی لەگەڵ دەکرێت - زۆرێک لە زانایانی هاوچەرخ تەنها پارەی ساڵی داهاتوو دەبڕن نەک تەواوی باڵانسەکە. خەرجییەکانی ژیان کە دەستبەجێ دەدرێت تەنها لە حاڵەتێکدا ڕێگەپێدراوە کە زاناکەت ڕێگەی پێبدات."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "ئاستی نیساب",
+        "body": "نساب کەمترین زیادەیە پێش ئەوەی زەکاتی سەروەت و سامان بدرێت. پێغەمبەر صلى الله عليه وسلم بە ٢٠ دینار زێڕ یان ٢٠٠ درهەم زیو جێگیری کرد، فێری کرد کە هیچ زەکاتێک نادرێت تا ساڵێک بەسەر سەروەت و ساماندا تێنەپەڕێت. لەبەر ئەوەی ئەمڕۆ نرخی زێڕ و زیو جیاوازە، زۆرێک لە زانایان ئاستی نزمتر (زۆرجار زیو)یان پێ باشترە بۆیە زیاتر لە هەژاران یارمەتیان دەدرێت. ئەم حاسیبە پێشنیاری خوارەوەی دوو خەمڵاندنە زیندووەکە دەکات."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "قەرزی دەستبەجێ (و تێچووی ژیان تەنها ئەگەر زاناکەت ڕێگەی پێبدات).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "حاسیبە ڕێست بکە؟",
+      "message": "بەم شێوەیە هەموو بڕەکان و کێشی کانزاکان و ئاژەڵ و بەرهەمەکان پاک دەکاتەوە. فۆرماتەکەی دراو و ژمارەکەت وەک خۆی دەمێنێتەوە.",
+      "confirm": "فۆڕمی ڕێستکردنەوە",
+      "a11y": "فۆڕمی حاسیبەی زەکات ڕێست بکە",
+      "hint": "داوای پشتڕاستکردنەوە دەکات، پاشان هەموو ئەو بڕە پارانەی کە داخڵ کراوە پاک دەکاتەوە"
     }
   },
   "customAdhkar": {
@@ -3845,62 +3845,62 @@
       "reference": "Reference (ne ferz)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "وێنەکان (ئیختیاری)",
+      "add": "وێنە زیاد بکە",
+      "remove": "وێنە لابەرە",
+      "hint": "تا ٥ وێنە، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
+      "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی وێنەی تایبەت بە adhkar ـەکەتەوە.",
+      "permissionDenied": "بۆ هاوپێچکردنی وێنەکان مۆڵەتی کتێبخانەی وێنە پێویستە.",
+      "unsupportedType": "تەنها وێنەی JPEG، PNG، یان WebP بەکاربهێنە.",
+      "tooLarge": "هەر وێنەیەک دەبێت 1 مێگابایت یان بچووکتر بێت.",
+      "uploadFailed": "نەتوانرا وێنە باربکرێت. دووبارە هەوڵبدەرەوە.",
+      "uploading": "بارکردن...",
+      "open": "وێنەی کراوە {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "بۆ زوومکردن، کێشان بۆ پان، دووجار لێدان بۆ ڕێستکردنەوە",
+      "previous": "وێنەی پێشوو",
+      "next": "وێنەی داهاتوو"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "هاوپێچەکان (ئیختیاری)",
+      "add": "زیادکردنی فایل",
+      "remove": "هاوپێچەکە لاببە",
+      "hint": "تا ٥ فایل (JPEG، PNG، WebP، یان PDF)، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
+      "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی فایلە تایبەتەکان بە adhkar ـەکەتەوە.",
+      "permissionDenied": "بۆ هاوپێچکردنی فایلەکان مۆڵەت پێویستە.",
+      "permissionTitle": "ڕێگە بدە بە دەستگەیشتن",
+      "permissionBody": "Munib Tracker پێویستی بە دەستگەیشتن بە کامێرا یان وێنە هەیە بۆ هاوپێچکردنی فایلەکان.",
+      "permissionSettingsBody": "مۆڵەتەکە ڕەتکرایەوە. ڕێکخستنەکان بکەرەوە بۆ ئەوەی ڕێگە بە کامێرا یان وێنە بدەیت بۆ Munib Tracker.",
+      "allowAccess": "ڕێگە بدە بە دەستگەیشتن",
+      "unsupportedType": "تەنها JPEG، PNG، WebP، یان PDF بەکاربهێنە.",
+      "tooLarge": "هەر فایلێک دەبێت 1 مێگابایت یان بچووکتر بێت.",
+      "uploadFailed": "نەتوانرا هاوپێچەکان باربکرێت. دووبارە هەوڵبدەرەوە.",
+      "uploading": "بارکردن...",
+      "readFailed": "نەتوانرا ئەو فایلە بخوێنرێتەوە. یەکێکی تر تاقی بکەرەوە.",
+      "pickFailed": "نەتوانرا ئەو پەڕگەیە زیاد بکرێت. دووبارە هەوڵبدەرەوە.",
+      "openFailed": "نەتوانرا ئەو فایلە بکرێتەوە.",
+      "open": "هاوپێچەکە بکەرەوە {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "بۆ زوومکردن، کێشان بۆ پان، دووجار لێدان بۆ ڕێستکردنەوە",
+      "previous": "هاوپێچی پێشوو",
+      "next": "هاوپێچی داهاتوو",
+      "openPdf": "PDF بکەرەوە",
+      "sourceTitle": "هاوپێچ زیاد بکە",
+      "sourceCamera": "وێنەیەک بگرە",
+      "sourceCameraHint": "بۆ گرتنی وێنەیەک کامێرا بەکاربهێنە",
+      "sourceGallery": "کتێبخانەی وێنە",
+      "sourceGalleryHint": "لە وێنەکانت وێنەیەک هەڵبژێرە",
+      "sourceDocument": "فایلەکان",
+      "sourceDocumentHint": "وێنەیەک یان PDF لە فایلەکانت هەڵبژێرە"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "بە مایکرۆفۆن دیکتە بکە",
+      "stopDictate": "دیکتەکردن بوەستێنە",
+      "listening": "گوێگرتن…",
+      "permissionDenied": "بۆ دیکتەکردن مۆڵەتی مایکرۆفۆن پێویستە. هێشتا دەتوانیت بنووسیت.",
+      "unavailable": "ناسینەوەی قسەکردن لەسەر ئەم ئامێرە بەردەست نییە.",
+      "couldNotHear": "نەمتوانی ئەوە ببیستێت — دووبارە هەوڵبدەرەوە یان بنووسە.",
+      "errorGeneric": "دیکتەکردن شکستی هێنا. دووبارە هەوڵبدەرەوە یان بنووسە."
     }
   },
   "tahajjud": {
@@ -3984,20 +3984,20 @@
     "confirmDiscardTitle": "Guherandinên ji holê rakin?",
     "confirmDiscardMsg": "Anything hûn wrote will be lost.",
     "confirmOverwriteTitle": "Refleksiyona heyî veguherîne?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. پاشەکەوتکردن جێگەی دەگرێتەوە.",
     "level1": "Balkêş kirin",
     "level2": "Nerehet",
     "level3": "Têra xwe pêşkêş bikin",
     "level4": "Balkêş kirin",
     "level5": "Bi kûrahî heye",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "بە مایکرۆفۆن دیکتە بکە",
+      "stopDictate": "دیکتەکردن بوەستێنە",
+      "listening": "گوێگرتن…",
+      "permissionDenied": "بۆ دیکتەکردن مۆڵەتی مایکرۆفۆن پێویستە. هێشتا دەتوانیت بنووسیت.",
+      "unavailable": "ناسینەوەی قسەکردن لەسەر ئەم ئامێرە بەردەست نییە.",
+      "couldNotHear": "نەمتوانی ئەوە ببیستێت — دووبارە هەوڵبدەرەوە یان بنووسە.",
+      "errorGeneric": "دیکتەکردن شکستی هێنا. دووبارە هەوڵبدەرەوە یان بنووسە."
     }
   },
   "prayerTuning": {
@@ -4038,7 +4038,7 @@
     "umrahTag": "Umre",
     "hajjTag": "Hac",
     "disclaimer": " practical checklist, not  fiqh manual. Follow  qualified guide ji bo rulings û details.",
-    "prepTag": "Prep"
+    "prepTag": "ئامادەکاری"
   },
   "dailyHadith": {
     "eyebrow": "Rojane series",
@@ -4083,7 +4083,7 @@
     "versesLead": "Tap any verse bo open it di  Qur'an reader.",
     "journeyTitle": "Journeyên min",
     "journeySummary": "Today's habits — not we rank bi Allah",
-    "journeySubtitle": "Di îbadetê de domdarîya ku hûn berê dişopînin",
+    "journeySubtitle": "یەکدەنگی لە پەرستشدا کە پێشتر شوێنپێی دەگریت",
     "journeyBanner": "These habits in among  deeds Allah loves. We final rank e only bi Him.",
     "journeyToday": "Hewldana îro",
     "journeyEmpty": "Dest pê bike bi one salah an adhkar — small steps build lifelong habits.",
@@ -4244,7 +4244,7 @@
       "recommended": "Pêşniyar kirin"
     },
     "grade": {
-      "sahih": "Sahih",
+      "sahih": "سەحیح",
       "hasan": "Hasan",
       "daif": "Da'if",
       "scholarly-opinion": "Nîşeya zanistî"
@@ -4401,7 +4401,7 @@
     "wearTitle": "OS-ê li xwe bikin",
     "wearHint": "Zêde bike  Munib Tracker tile li we watch after pairing bi we phone.",
     "marked": "Salah nîşan kir",
-    "alreadyDone": "Jixwe nîşankirin",
+    "alreadyDone": "پێشتر نیشانە کراوە",
     "allDone": "Hemî Cewadên ferz ji bo îro hatine nîşankirin",
     "excused": "Tracking e paused ji bo îro",
     "locked": "Unlock  app bo mark Salah",
@@ -4457,181 +4457,181 @@
     "footer": "We PIN e stored securely li ev cîhaz û never leaves it."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "ڕاگەیاندن"
   },
   "sahaba": {
-    "eyebrow": "Learn",
-    "title": "Sahaba",
-    "subtitle": "Short profiles of the companions of the Prophet ﷺ",
-    "intro": "The sahaba are the generation that carried Islam from the Prophet ﷺ to the rest of the world. These short profiles follow the tone of the seerah timeline — a life, a lesson, and a source for every claim.",
-    "categoryAll": "All",
+    "eyebrow": "فێربوون",
+    "title": "سەهابا",
+    "subtitle": "کورتە پرۆفایلی هاوەڵانی پێغەمبەر صلى الله عليه وسلم",
+    "intro": "سەحابەکان ئەو نەوەیەن کە ئیسلامیان لە پێغەمبەر صلى الله عليه وسلمەوە گواستەوە بۆ هەموو جیهان. ئەم کورتە پرۆفایلیانە تۆنی هێڵی کاتیی سیرا پەیڕەو دەکەن — ژیانێک، وانەیەک و سەرچاوەیەک بۆ هەر ئیدیعایەک.",
+    "categoryAll": "گشت",
     "category": {
-      "caliphs": "Caliphs",
-      "ashara": "Ashara Mubashara",
-      "family": "Family",
-      "women": "Women",
-      "notable": "Notable"
+      "caliphs": "خەلیفەکان",
+      "ashara": "ئاشارا موباشارە",
+      "family": "خێزان",
+      "women": "ئافرەتان",
+      "notable": "جێگای سەرنجە"
     },
-    "noResults": "No companions in this category yet",
-    "readMore": "Tap to read the full profile",
-    "disclaimer": "Narrative facts follow the classical seerah and history works; every claim tied to a specific narration cites its hadith collection and number. This is general educational content, not a scholarly ranking.",
-    "quickLinksTitle": "Explore",
-    "quickCaliphsHint": "Start with Abu Bakr, the first Caliph",
-    "quickAsharaHint": "The ten promised Paradise",
-    "quickWomenHint": "Khadijah and the Mothers of the Believers",
-    "quickBattles": "Companions in battle",
-    "quickBattlesHint": "Campaign profiles from the Battles guide",
-    "countCardTitle": "Companion directory",
-    "countCardHint": "{{count}} verified educational profiles",
+    "noResults": "هێشتا هیچ هاوەڵێک لەم پۆلەدا نییە",
+    "readMore": "بۆ خوێندنەوەی تەواوی پڕۆفایلەکە پەنجە بنێ",
+    "disclaimer": "ڕاستییە گێڕانەوەکان بەدوای سیرە کلاسیکییەکان و بەرهەمەکانی مێژوودا دەڕۆن؛ هەر ئیدیعایەک کە بەستراوەتەوە بە ڕیوایەتێکی دیاریکراوەوە، کۆکردنەوە و ژمارەی فەرموودەکانی دەهێنێتەوە. ئەمە ناوەڕۆکی پەروەردەیی گشتییە نەک ڕیزبەندییەکی زانستی.",
+    "quickLinksTitle": "گەڕان",
+    "quickCaliphsHint": "سەرەتا لە ئەبوبەکر یەکەم خەلیفە دەست پێ بکە",
+    "quickAsharaHint": "دەیان بەڵێنی بەهەشتیان دا",
+    "quickWomenHint": "خەدیجە و دایکانی ئیمانداران",
+    "quickBattles": "هاوەڵان لە شەڕدا",
+    "quickBattlesHint": "پرۆفایلی هەڵمەتەکان لە ڕێبەری شەڕەکانەوە",
+    "countCardTitle": "بەڕێوەبەرایەتی هاوڕێ",
+    "countCardHint": "{{count}} پرۆفایلی پەروەردەیی پشتڕاستکراوە",
     "categoryHint": {
-      "caliphs": "The four Rightly Guided Caliphs",
-      "ashara": "The ten companions promised Paradise",
-      "family": "Close family of the Prophet ﷺ",
-      "women": "Prominent women of the early community",
-      "notable": "Other widely remembered companions"
+      "caliphs": "چوار خەلیفەی ڕاست ڕێنمایی کراو",
+      "ashara": "دە هاوەڵەکە بەڵێنی بەهەشتیان دا",
+      "family": "خێزانی نزیکی پێغەمبەر صلى الله عليه وسلم",
+      "women": "ژنانی دیار لە کۆمەڵگەی سەرەتایی",
+      "notable": "هاوڕێکانی تر کە بە شێوەیەکی بەرفراوان لەبیرکراون"
     },
-    "exploreTitle": "Continue learning",
-    "exploreBattles": "Battles figures",
-    "exploreBattlesHint": "Companions who appear in the military campaigns",
-    "exploreSeerah": "Seerah timeline",
-    "exploreSeerahHint": "Life of the Prophet ﷺ through key milestones",
-    "exploreHistory": "Early Islamic history",
-    "exploreHistoryHint": "From the Prophet's ﷺ passing to the end of the Rashidun",
-    "profileBodyTitle": "Life and lesson",
-    "relatedTitle": "Related guides",
-    "linkBattlesFigures": "See companions in Battles",
-    "linkSeerah": "Open the Seerah timeline",
-    "linkHistory": "Open early Islamic history",
-    "openProfileHint": "Open full companion profile",
-    "notFound": "Companion not found"
+    "exploreTitle": "بەردەوام بە لە فێربوون",
+    "exploreBattles": "فیگەرەکانی شەڕەکان",
+    "exploreBattlesHint": "ئەو هاوەڵانەی لە هەڵمەتە سەربازییەکاندا دەردەکەون",
+    "exploreSeerah": "هێڵی کاتی سیرە",
+    "exploreSeerahHint": "ژیانی پێغەمبەر صلى الله عليه وسلم لە ڕێگەی بەربەستە سەرەکییەکان",
+    "exploreHistory": "مێژووی سەرەتایی ئیسلامی",
+    "exploreHistoryHint": "لە تێپەڕبوونی پێغەمبەرەوە صلى الله عليه وسلم تا کۆتایی ڕەشیدون",
+    "profileBodyTitle": "ژیان و وانە",
+    "relatedTitle": "ڕێنماییە پەیوەندیدارەکان",
+    "linkBattlesFigures": "سەیری هاوڕێیان بکە لە شەڕەکاندا",
+    "linkSeerah": "هێڵی کاتی سیرە بکەرەوە",
+    "linkHistory": "مێژووی سەرەتایی ئیسلامی بکەرەوە",
+    "openProfileHint": "پرۆفایلی تەواوی هاوڕێ بکەرەوە",
+    "notFound": "هاوەڵ نەدۆزراوەتەوە"
   },
   "history": {
-    "eyebrow": "Learn",
-    "title": "Early Islamic history",
-    "subtitle": "From the Prophet's ﷺ death to the end of the Rashidun Caliphate",
+    "eyebrow": "فێربوون",
+    "title": "مێژووی سەرەتایی ئیسلامی",
+    "subtitle": "لە کۆچی دوایی پێغەمبەر صلى الله عليه وسلم تا کۆتایی خەلافەتی ڕەشیدون",
     "ceBadge": "{{year}} CE",
     "ahBadge": "{{ah}} AH",
     "era": {
-      "prophetic-close": "The Prophet ﷺ",
-      "abu-bakr": "Abu Bakr",
-      "umar": "Umar",
-      "uthman": "Uthman",
-      "ali": "Ali"
+      "prophetic-close": "پێغەمبەر صلى الله عليه وسلم",
+      "abu-bakr": "ئەبوبەکر",
+      "umar": "عومەر",
+      "uthman": "عوسمان",
+      "ali": "عەلی"
     },
-    "disclaimer": "Scoped to 11–41 AH (632–661 CE) — the close of the Prophet's ﷺ life through the end of the Rashidun Caliphate. Political and military narrative follows the classical history works; the Uthman/Ali period is presented without adjudicating later theological disputes."
+    "disclaimer": "مەودای 11-41 کۆچی (632-661 ز) — کۆتایی ژیانی پێغەمبەر صلى الله عليه وسلم تا کۆتایی خەلافەتی ڕەشیدون. گێڕانەوەی سیاسی و سەربازی بەدوای بەرهەمە مێژووییە کلاسیکییەکاندا دێت؛ سەردەمی عوسمان/عەلی بەبێ حوکمدان لەسەر ناکۆکییە ئیلاهیاتییەکانی دواتر دەخرێتەڕوو."
   },
   "laylatAlQadr": {
-    "eyebrow": "Learn",
-    "title": "Laylat al-Qadr",
-    "subtitle": "The Night of Decree — better than a thousand months",
-    "intro": "Laylat al-Qadr is hidden among the odd nights of the last ten of Ramadan, not fixed to a single date. Seek it with sincere worship across all of them rather than one guessed night.",
+    "eyebrow": "فێربوون",
+    "title": "لەیلات القدر",
+    "subtitle": "شەوی فەرمان — باشترە لە هەزار مانگ",
+    "intro": "لەیلات القدر لە نێو شەوانی نامۆکانی دە کۆتای مانگی ڕەمەزاندا شاراوەتەوە، بە یەک بەرواردا جێگیر نەکراوە. بە پەرستشێکی دڵسۆزانە لە سەرانسەری هەموویاندا بەدوایدا بگەڕێ نەک یەک شەوی پێشبینیکراو.",
     "section": {
-      "virtues": "Its virtue",
-      "when": "When to seek it",
-      "dua": "What to say",
-      "ibadah": "How to spend the night",
-      "reminders": "Reminders"
+      "virtues": "فەزیلەتەکەی",
+      "when": "کەی بەدوایدا بگەڕێین",
+      "dua": "چی بڵێم",
+      "ibadah": "چۆنیەتی بەسەربردنی شەو",
+      "reminders": "بیرخستنەوەکان"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "This guide does not endorse a single fixed calendar date or folk 'signs' for identifying the night — only what the Qur'an and authentic hadith state.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "بابەت نەدۆزرایەوە",
+    "disclaimer": "ئەم ڕێنماییە پشتگیری لە یەک بەرواری ساڵنامەی دیاریکراو یان 'نیشانە' فۆلکلۆرییەکان ناکات بۆ ناسینەوەی شەو - تەنها ئەوەی کە قورئان و فەرموودەی ڕەسەن باسی دەکەن.",
+    "continueInApp": "لە مونیب بەردەوام بە"
   },
   "eid": {
-    "eyebrow": "Learn",
-    "title": "Eid guide",
-    "subtitle": "Eid al-Fitr and Eid al-Adha — prayer, sunnah, and rulings",
-    "intro": "The two Eids from the Qur'an and authentic hadith — how to pray Eid salah, Zakat al-Fitr, udhiyah, and the sunnah practices of the day.",
+    "eyebrow": "فێربوون",
+    "title": "ڕێبەری جەژن",
+    "subtitle": "جەژنی ڕەمەزان و جەژنی قوربان — نوێژ و سوننەت و حوکمەکان",
+    "intro": "دوو جەژنەکە لە قورئان و فەرموودەی صحیحەوە — چۆنیەتی نوێژی جەژن و زەکاتی فیتر و ئودیە و پراکتیزەکردنی سوننەتی ڕۆژەکە.",
     "section": {
-      "fitr": "Eid al-Fitr",
-      "adha": "Eid al-Adha",
-      "prayer": "The Eid prayer",
-      "sunnah": "Sunnah practices",
-      "zakat-fitr": "Zakat al-Fitr",
-      "udhiyah": "Udhiyah (sacrifice)"
+      "fitr": "جەژنی ڕەمەزان",
+      "adha": "جەژنی قوربان",
+      "prayer": "نوێژی جەژن",
+      "sunnah": "پراکتیزەکردنی سوننەت",
+      "zakat-fitr": "زەکات الفتری",
+      "udhiyah": "ئودییە ​​(قوربانیکردن)"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as the extra-takbir count), both positions are presented; follow your imam or a qualified local scholar.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "بابەت نەدۆزرایەوە",
+    "disclaimer": "تێڕوانینێکی گشتی پەروەردەیی — نەک فەتوایەک. لەو شوێنانەی کە قوتابخانەکان جیاوازن (وەک ژمارەی تەکبیری زیادە)، هەردوو پۆستەکە دەخرێنەڕوو؛ شوێن ئیمامەکەت یان زانایەکی ناوخۆیی شارەزا بکەوە.",
+    "continueInApp": "لە مونیب بەردەوام بە"
   },
   "ruqyah": {
-    "eyebrow": "Learn",
-    "title": "Ruqyah",
-    "subtitle": "Qur'anic and prophetic spiritual healing",
-    "intro": "Ruqyah is reciting Qur'an, Allah's Names, or authentic prophetic supplications for healing and protection — never a substitute for salah or medical care.",
+    "eyebrow": "فێربوون",
+    "title": "ڕوقیە",
+    "subtitle": "شیفای ڕۆحی قورئانی و پێغەمبەرانە",
+    "intro": "ڕوقیە خوێندنەوەی قورئان، ناوی خوا، یان دوعای پێغەمبەرایەتی ڕەسەنە بۆ شیفا و پاراستن — هەرگیز جێگرەوەی سەڵاح یان چاودێری پزیشکی نییە.",
     "section": {
-      "basics": "The basics",
-      "verses": "Key verses",
-      "daily-protection": "Daily protection",
-      "reminders": "Reminders"
+      "basics": "بنەماکان",
+      "verses": "ئایەتەکانی سەرەکی",
+      "daily-protection": "پاراستنی ڕۆژانە",
+      "reminders": "بیرخستنەوەکان"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor, nor the five daily prayers. For serious or persistent affliction, consult both a scholar and a medical professional.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "بابەت نەدۆزرایەوە",
+    "disclaimer": "ڕوقیە پراکتیزەیەکی ڕۆحییە نەک چارەسەری پزیشکی. جێگای بینینی پزیشکی شارەزا ناگرێتەوە، نە پێنج نوێژی ڕۆژانە. بۆ ناخۆشییەکی جددی یان بەردەوام، ڕاوێژ بە هەردوو زانا و پسپۆڕی پزیشکی بکە.",
+    "continueInApp": "لە مونیب بەردەوام بە"
   },
   "newMuslim": {
-    "eyebrow": "Learn",
-    "title": "New Muslim guide",
-    "subtitle": "A warm, practical start for the first days and weeks",
-    "intro": "Welcome to Islam. This guide covers the shahada, the five pillars, the basics of faith, and a first look at prayer, then points you to the fuller Salah, Aqeedah, and Qur'an guides in this app.",
+    "eyebrow": "فێربوون",
+    "title": "ڕێبەری نوێی موسڵمانان",
+    "subtitle": "دەستپێکردنێکی گەرم و پراکتیکی بۆ ڕۆژ و هەفتەکانی یەکەم",
+    "intro": "بەخێربێن بۆ ئیسلام. ئەم ڕێنماییە شەهادە و پێنج پایە و بنەماکانی ئیمان و سەرەتا ئاوڕدانەوەیەک لە نوێژ دەگرێتەوە، پاشان ئاماژەت بۆ ڕێنماییە پڕترەکانی سەڵاح و عەقیدە و قورئان لەم ئەپەدا دەکات.",
     "section": {
-      "start": "Getting started",
-      "pillars": "The five pillars",
-      "faith": "Basics of faith",
-      "prayer": "Your first prayer",
-      "next-steps": "Next steps",
-      "faq": "Common questions"
+      "start": "دەستپێکردن",
+      "pillars": "پێنج ستوونەکە",
+      "faith": "بنەماکانی ئیمان",
+      "prayer": "یەکەم دوعای ئێوە",
+      "next-steps": "هەنگاوەکانی داهاتوو",
+      "faq": "پرسیارە باوەکان"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "A shallow-but-correct starting guide covering only the shared essentials every school agrees on. For your specific situation, ask a local imam or teacher.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "بابەت نەدۆزرایەوە",
+    "disclaimer": "ڕێنمایی دەستپێکردنێکی قووڵ-بەڵام-دروست کە تەنها ئەو شتە سەرەکییە هاوبەشانە دەگرێتەوە کە هەموو قوتابخانەیەک لەسەری ڕێککەوتووە. بۆ بارودۆخی تایبەتی خۆت پرسیار لە ئیمام یان مامۆستایەکی ناوچەکە بکە.",
+    "continueInApp": "لە مونیب بەردەوام بە"
   },
   "finance": {
-    "eyebrow": "Learn",
-    "title": "Islamic finance",
-    "subtitle": "Riba, fair trade, giving, and takaful",
-    "intro": "An educational introduction to the ethical framework Islam brings to money — the prohibition of riba, fair trade, zakah and sadaqah, and takaful (cooperative risk-sharing).",
+    "eyebrow": "فێربوون",
+    "title": "دارایی ئیسلامی",
+    "subtitle": "ڕیبا، بازرگانی دادپەروەرانە، بەخشین، و تەکافول",
+    "intro": "پێشەکییەکی پەروەردەیی بۆ ئەو چوارچێوەی ئەخلاقیەی کە ئیسلام دەیخاتە سەر پارە - قەدەغەکردنی ڕیبا، بازرگانی دادپەروەرانە، زەکات و سەداقە، و تەکفول (بەشکردنی مەترسی هاوبەش).",
     "section": {
-      "principles": "Principles",
-      "riba": "Riba (interest)",
-      "trade": "Fair trade",
-      "giving": "Giving",
-      "takaful": "Takaful",
-      "faq": "Common questions"
+      "principles": "بنەماکان",
+      "riba": "ڕیبا (سود)",
+      "trade": "بازرگانی دادپەروەرانە",
+      "giving": "بەخشین",
+      "takaful": "تەکافول",
+      "faq": "پرسیارە باوەکان"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "General education, not financial or fatwa advice. Fund screeners, specific products, and rulings on your own contracts need a qualified, certified Islamic finance scholar or institution.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "بابەت نەدۆزرایەوە",
+    "disclaimer": "پەروەردەی گشتی نەک ئامۆژگاری دارایی یان فەتوا. سکرینکەری سندوقەکان، بەرهەمە تایبەتەکان و بڕیارەکان لەسەر گرێبەستەکانی خۆت پێویستیان بە زانا یان دامەزراوەیەکی دارایی ئیسلامی شارەزا و بڕوانامەدار هەیە.",
+    "continueInApp": "لە مونیب بەردەوام بە"
   },
   "dateConverter": {
-    "eyebrow": "Calendar",
-    "title": "Date converter",
-    "subtitle": "Convert between the Hijri and Gregorian calendars",
-    "intro": "Enter a date in either calendar to see its equivalent in the other, calculated offline using the tabular Kuwaiti algorithm.",
-    "toHijri": "Gregorian → Hijri",
-    "toGregorian": "Hijri → Gregorian",
-    "gregorianDateLabel": "Gregorian date",
-    "hijriDateLabel": "Hijri date",
-    "day": "Day",
-    "month": "Month",
-    "year": "Year",
-    "useToday": "Use today",
-    "invalidDate": "Enter a valid date",
-    "disclaimer": "This is an arithmetic approximation (the tabular \"Kuwaiti algorithm\") and can differ by a day from local moon-sighting announcements — always follow your local masjid or authority for religious dates.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
-    "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "eyebrow": "ساڵنامە",
+    "title": "گۆڕینی بەروار",
+    "subtitle": "گۆڕینی نێوان ساڵنامەی هیجری و زاینی",
+    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە بە بەکارهێنانی ئەلگۆریتمەکەی کوەیتی خشتەیی لە ئۆفلاین حیسابی بۆ کراوە.",
+    "toHijri": "گریگۆری → هیجری",
+    "toGregorian": "هیجری → گریگۆری",
+    "gregorianDateLabel": "بەرواری گریگۆری",
+    "hijriDateLabel": "بەرواری هیجری",
+    "day": "ڕۆژ",
+    "month": "مانگ",
+    "year": "ساڵ",
+    "useToday": "ئەمڕۆ بەکاری بهێنە",
+    "invalidDate": "بەروارێکی دروست بنووسە",
+    "disclaimer": "ئەمە نزیکبوونەوەیەکی ژمێریارییە (\"ئەلگۆریتمەکەی کوێت\"ی خشتەیی) و دەتوانێت ڕۆژێک جیاواز بێت لە ڕاگەیاندنەکانی بینینی مانگ لە ناوخۆدا — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
+    "directionTitle": "ئاراستەی گۆڕانکاری",
+    "resultFrom": "لە {{date}} ەوە",
+    "quickLinksTitle": "پەیوەست",
+    "quickCalendar": "ساڵنامەی پەرستن",
+    "quickCalendarHint": "لەگەڵ لۆگی نوێژەکانتدا مانگەکان بگەڕێ",
+    "quickEvents": "ڕووداوە ئیسلامییەکان",
+    "quickEventsHint": "بەروارەکانی داهاتوو لەسەر ساڵنامەی کۆچی",
+    "quickRamadan": "ڕەمەزان",
+    "quickRamadanHint": "کاتەکانی ڕۆژوو و لۆگی ڕۆژووەکەت",
+    "quickHistory": "مێژووی سەرەتایی",
+    "quickHistoryHint": "هێڵی کاتی ڕەشیدون لەگەڵ ساڵانی هیجری",
+    "exploreTitle": "بەردەوام بە لە فێربوون",
+    "exploreCalendar": "ساڵنامەکە بکەرەوە",
+    "exploreCalendarHint": "ڕۆژ بە ڕۆژ مێژووی پەرستن ببینە",
+    "exploreEvents": "ڕووداوە ئیسلامییە کراوەکان",
+    "exploreEventsHint": "بەردی بناغە و ئاهەنگەکانی پێشەنگ"
   }
 }

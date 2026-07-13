@@ -112,13 +112,13 @@
       "learnQuran": "Kur'an Öğren"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "Sesle ara",
+      "stopDictate": "Sesli aramayı durdur",
+      "listening": "Dinleniyor…",
+      "permissionDenied": "Sesli arama için mikrofon izni gereklidir. Hala yazabilirsiniz.",
+      "unavailable": "Bu cihazda konuşma tanıma kullanılamıyor.",
+      "couldNotHear": "Bunu duyamadım; tekrar deneyin veya yazın.",
+      "errorGeneric": "Sesli arama başarısız oldu. Tekrar deneyin veya yazın."
     }
   },
   "tabs": {
@@ -162,9 +162,9 @@
     "sahaba": "Sahabe",
     "history": "İslam Tarihi",
     "laylatAlQadr": "Kadir Gecesi",
-    "eid": "Bayram Kılavuzu",
-    "ruqyah": "Rukye",
-    "newMuslim": "Yeni Müslüman Kılavuzu",
+    "eid": "Bayram Rehberi",
+    "ruqyah": "Ruqyah",
+    "newMuslim": "Yeni Müslüman Rehberi",
     "finance": "İslami Finans"
   },
   "quickActions": {
@@ -200,7 +200,7 @@
         "description": "Bugünkü farz namaz ilerlemesi"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "Kalan",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -284,7 +284,7 @@
     "tasksFraction": "{{done}}/{{total}}",
     "startTracking": "Takibe başla",
     "goToChecklist": "Kontrol Listesine Git",
-    "prayersStat": "Namaz",
+    "prayersStat": "Salah",
     "dhikrStat": "Zikir",
     "qazaStat": "Kaza",
     "streakStat": "Seri",
@@ -303,7 +303,7 @@
       "motivation": "Günlük hatırlatma"
     },
     "knowledgeTopic": {
-      "prayer": "Namaz",
+      "prayer": "Salah",
       "qaza": "Kaza",
       "zikr": "Zikir",
       "fasting": "Oruç",
@@ -649,9 +649,9 @@
     "eyebrowWelcome": "Hoş geldiniz",
     "title": "Giriş yap",
     "subtitle": "İbadetinizi cihazlar arasında senkronize edin",
-    "google": "Continue with Google",
-    "apple": "Continue with Apple",
-    "facebook": "Continue with Facebook",
+    "google": "Google ile giriş yap",
+    "apple": "Apple ile giriş yap",
+    "facebook": "Facebook ile giriş yap",
     "heroGuest": "Misafir hesabı kullanıyorsunuz. Verilerinizi yedeklemek ve senkronize etmek için bir sağlayıcı bağlayın — hiçbir şey kaybolmaz.",
     "heroUser": "Namazlarınızı, kazalarınızı ve zikirlerinizi bulutta güvende tutmak için giriş yapın.",
     "error": "Giriş yapılamadı. API sunucusunun çalıştığından ve bu sağlayıcının yapılandırıldığından emin olun."
@@ -660,7 +660,7 @@
     "begin": "Başla",
     "brandDuaLabel": "Kolaylık duası",
     "brandDuaArabic": "اللَّهُمَّ لاَ سَهْلَ إِلاَّ مَا جَعَلْتَهُ سَهْلاً وَأَنْتَ تَجْعَلُ الحَزْنَ إِذَا شِئْتَ سَهْلاً",
-    "brandDuaTransliteration": "Allahumma la sahla illa ma ja'altahu sahla, wa anta taj'alul-hazna idha shi'ta sahla",
+    "brandDuaTransliteration": "Allahumme la sahla illa ma ja'altehu sahla, ve ente taj'alul-hazna idha shi'ta sahla",
     "brandDuaTranslation": "Allah'ım, Sen kolaylaştırmadıkça kolaylık yoktur; dilediğinde zorluğu kolaylaştırırsın.",
     "slide1Eyebrow": "Namaz",
     "slide1Title": "Namazlarınızı takip edin",
@@ -843,7 +843,7 @@
       "qazaBody": "Make up  kaçırıldı Namaz veya oruç bugün.",
       "achievementTitle": "Başarı açıldı",
       "dailyContentTitle": "Bugünün reflection",
-      "dailyContentBody": "A new verse, hadith, and name of Allah are ready on your home screen.",
+      "dailyContentBody": "Ana ekranınızda yeni bir ayet, hadis ve Allah’ın bir ismi hazır.",
       "fridayTitle": "Cuma Mubarek",
       "fridayBody": "It's Friday — send salawat ve read Surah Al-Kahf."
     },
@@ -1106,7 +1106,7 @@
     "subtitle": "Read, listen, ve reflect",
     "searchSurah": "by name, meaning, or number Ara",
     "filterAll": "Tüm",
-    "continueReading": "Continue reading",
+    "continueReading": "Okumaya sürdür",
     "continueAt": "Sure {{surah}} · Ayet {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
@@ -1194,50 +1194,50 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "Kelime kelime",
+      "playWord": "Bu kelimeyi çal",
+      "noAudio": "Bu kelime için ses yok",
+      "loading": "Kelimeler yükleniyor…"
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "Tacweed efsanesi",
+      "openLesson": "Kuran Öğren dersini aç",
+      "loading": "Tajweed yükleniyor…",
       "rules": {
         "ghunnah": "Ghunnah",
-        "ikhafa": "Ikhfa",
+        "ikhafa": "İhfa",
         "ikhafaShafawi": "Ikhfa Shafawi",
         "idghamGhunnah": "Idgham (Ghunnah)",
         "idghamNoGhunnah": "Idgham (No Ghunnah)",
         "idghamShafawi": "Idgham Shafawi",
-        "iqlab": "Iqlab",
-        "qalqalah": "Qalqalah",
+        "iqlab": "İqlab",
+        "qalqalah": "Kalkala",
         "maddNormal": "Madd (2)",
         "maddPermissible": "Madd (2-4-6)",
         "maddObligatory": "Madd (4-5)",
         "maddNecessary": "Madd (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "Sessiz"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "Tajweed kuralını görmek için fareyle üzerine gelin",
+      "tapHint": "Tajweed kuralını görmek için dokunun",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "Burun sesi – 2 vuruş",
+        "ikhafa": "Ghunne ile gizleme - 2 vuruş",
+        "ikhafaShafawi": "Labial gizleme – 2 atım",
+        "idghamGhunnah": "Burun sesiyle birleşme — 2 vuruş",
+        "idghamNoGhunnah": "Burun sesi olmadan birleşme",
+        "idghamShafawi": "Dudak birleştirme – 2 atım",
+        "iqlab": "Gizli meeme dönüştürme — 2 vuruş",
+        "qalqalah": "Mektupta yankılanan sıçrama",
+        "maddNormal": "Normal uzama – 2 atım",
+        "maddPermissible": "İzin verilen uzama — 2, 4 veya 6 atım",
+        "maddObligatory": "Zorunlu uzama – 4 veya 5 atım",
+        "maddNecessary": "Gerekli uzama – 6 atım",
+        "hamWasl": "Hamza bağlanıyor — katılırken düştü",
+        "lamShamsiyah": "Güneş harfi لام - telaffuz edilmiyor",
+        "silent": "Yazıldı ama telaffuz edilmedi"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
-      "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
-      "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "title": "Oynatma",
+      "open": "Oynatma ayarları",
+      "repeatMode": "Tekrarlama modu",
+      "repeatOff": "Kapalı",
+      "repeatVerse": "Ayet",
+      "repeatRange": "Aralık",
+      "repeatSurah": "Sure",
+      "rangeStart": "ayetten",
+      "rangeEnd": "ayah'a",
+      "translationAudio": "Çeviri sesi",
+      "translationOff": "Kapalı",
+      "translationAfter": "Her ayetten sonra",
+      "translationAudioHint": "Her Arapça ayetten sonra çeviriyi yüksek sesle okur (cihaz TTS)",
+      "ttsVoice": "Çeviri konuşma sesi",
+      "ttsVoiceDefault": "Dil için varsayılan",
+      "ttsVoiceEmpty": "Bu cihazda bu dil için ses bulunamadı.",
+      "summaryVerse": "Ayeti tekrarla",
+      "summarySurah": "Sureyi tekrarla",
+      "summaryRange": "Aralık {{start}}–{{end}}",
+      "summaryTts": "Çeviri TTS'si",
       "summaryWithTts": "{{summary}} · TTS"
     },
-    "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
-    "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
-    "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "actionTafsir": "Tefsir",
+    "openTafsir": "Bu ayetin tefsirini aç",
+    "tafsir": "Tefsir",
+    "tafsirNone": "Tefsir seç",
+    "selectTafsirAuthor": "Tefsiri seçin — {{language}}",
+    "tafsirCount_one": "{{count}} tefsir",
+    "tafsirCount_other": "{{count}} tefsirleri",
+    "searchTafsirLanguages": "Dilleri ara…",
+    "searchTafsirAuthors": "Yazarları ara…",
+    "tafsirLoading": "Tefsir yükleniyor…",
+    "tafsirOffline": "Bu tefsiri indirmek için bağlanın. Açılan sürümler çevrimdışı olarak kullanılabilir durumda kalır.",
+    "tafsirEmpty": "Bu ayetin seçilen nüshasında tefsiri bulunmamaktadır."
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -1392,7 +1392,7 @@
     },
     "duha": {
       "summary": " forenoon namaz — typically two  eight rak'ahs between sunrise ve Öğle.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "Vücudun her eklemine her gün sadaka verilmesi gerekir; Duha namazının birkaç rekatı bile ibadetle uzuvlara verilen bu sadakayı yerine getirir.",
       "benefits": "Forgives sins, brings sustenance (rizq), ve revives  neglected sunnah. Flexible timing makes it accessible when  gün allows."
     },
     "dhuhr": {
@@ -1529,7 +1529,7 @@
     "consistencyTitle": "Istikrar over intensity",
     "consistencyHadith": " most beloved deeds  Allah dir those şu dir istikrarlı, even if they dir small.",
     "consistencySource": "Hadis — Bukhari & Muslim",
-    "consistencyPrinciple": "A steady daily plan usually clears a large backlog more reliably than an aggressive sprint that burns out.",
+    "consistencyPrinciple": "İstikrarlı bir günlük plan genellikle büyük bir birikmiş yığını, tükenen agresif bir sprintten daha güvenilir bir şekilde temizler.",
     "prayersPerDay": "prayers / gün",
     "dailyTimeLabel": "est. time / gün",
     "dailyTimeMinutes": "≈ {{count}} dk",
@@ -1634,8 +1634,8 @@
     "partial": "Kısmi",
     "missed": "Kaçırıldı",
     "legendHint": "Dokunun any past veya current gün  gözden geçir ve adjust it. Bugün dir {{date}}.",
-    "converterRowTitle": "Hicri ⟷ Miladi dönüştürücü",
-    "converterRowSubtitle": "İki takvim arasında bir tarihi dönüştürün"
+    "converterRowTitle": "Hicri ⟷ Gregoryen çevirici",
+    "converterRowSubtitle": "İki takvim arasındaki tarihi dönüştürme"
   },
   "calDay": {
     "today": "Bugün",
@@ -1857,7 +1857,7 @@
     "milestonesReachedHint": "{{count}} açıldı so far — ve counting.",
     "level": "Sv {{level}}",
     "tracks": {
-      "salah": "Namaz",
+      "salah": "Salah",
       "streak": "Seri",
       "qaza": "Kaza",
       "roza": "Oruç",
@@ -1866,7 +1866,7 @@
     },
     "milestones": {
       "salah": {
-        "titleFallback": "Namaz {{level}}",
+        "titleFallback": "Salah {{level}}",
         "description": "Tamamlandı {{count}} farz prayers",
         "description_one": "Tamamlandı {{count}} farz namaz",
         "titles": {
@@ -1999,12 +1999,12 @@
     "confirmClearAllMessage": "Bu removes every bildirim den bu list. Bu can't be undone.",
     "loadMore": "Daha fazla yükle",
     "upcoming": "Yaklaşan",
-    "categorySalah": "Namaz",
+    "categorySalah": "Salah",
     "categoryZikr": "Zikir",
     "categoryQaza": "Kaza",
     "categoryMilestone": "Kilometre taşı",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "Duyuru"
   },
   "qibla": {
     "eyebrow": "Yön",
@@ -2020,7 +2020,7 @@
     "compassLabel": "Kıble compass",
     "compassValue": "{{bearing}} degrees   Kaaba, {{distance}} away",
     "aligned": "Aligned ile  Kıble",
-    "alignedHint": "Hold steady — you're facing the Kaaba",
+    "alignedHint": "Sabit durun – Kabe'ye bakıyorsunuz",
     "turnFineTuneLeft": "Sola çevir",
     "turnFineTuneRight": "Sağa çevir",
     "turnSlightLeft": "Hafif sola",
@@ -2060,7 +2060,7 @@
     "syncing": "Senkronize ediliyor…",
     "done": "Sizin data dir backed up",
     "failed": "Couldn't sync. Check sizin connection ve try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "Her şey zaten günceldi",
     "mergeSummary": "{{received}} alındı · {{sent}} gönderildi",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest düzenle",
     "conflictAffected": "Etkilenen: {{list}}",
@@ -2185,7 +2185,7 @@
     "installBannerMessage": "iPhone'da uygulama benzeri bir deneyim ve tarayıcı bildirimleri için Munib Tracker'ı Ana Ekranınıza yükleyin.",
     "installStepsViaSafari": "Aşağıdaki bağlantıyı kopyalayın, Safari'de açın, ardından Paylaş → Ana Ekrana Ekle.",
     "installCopyLink": "Safari için bağlantıyı kopyala",
-    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
+    "installLinkCopied": "Bağlantı kopyalandı — sürdürmek için Safari’nin adres çubuğuna yapıştırın.",
     "installLinkCopyFailed": "Bağlantı kopyalanamadı. Bu sayfayı Safari'de manuel olarak açın.",
     "installDismiss": "Kapat"
   },
@@ -2238,13 +2238,13 @@
     "eyebrow": " Noble Kur'an",
     "short": "Hatim",
     "title": "Hatim plan",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "Kuran'ı istikrarlı bir şekilde bitirin",
     "startTitle": "a plan Başlat",
     "startHint": "how many days to complete the Kur'an. We'll set a daily ayah target. Seç",
     "startHintPages": "how many days to complete the Kur'an. We'll set a daily mushaf page target. Seç",
     "unitAyah": "Ayete göre",
     "unitPage": "Sayfaya göre",
-    "continueReading": "Continue reading",
+    "continueReading": "Okumaya sürdür",
     "dayPlan": "{{count}} gün",
     "preset": {
       "intensive": "Yoğun",
@@ -2319,12 +2319,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
+        "text": "Düzenli olarak günlük okumaya dayalı bir hatm, tükenen bir sprint koşusundan daha uzun sürer.",
         "source": "Principle  istikrar"
       },
       "portion": {
         "text": "Siz do not have  finish bugün — only honour today's portion ile sincerity.",
-        "source": "Steady progress"
+        "source": "İstikrarlı ilerleme"
       },
       "return": {
         "text": "If siz fall behind, do not abandon  plan. Resume ile today's ayahs ve move forward.",
@@ -2596,7 +2596,7 @@
     "meaningLabel": "Ne öğretir",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "Bu kontrol paneli Munib'deki çalışma ve uygulamanızı takip eder. Dersleri tamamlamak Allah katındaki konumunuzu ölçmez; ölçü samimiyettir.",
     "lessonsTitle": "Tamamlanan dersler",
     "lessonsHint": "topics complete as you finish studying them İşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2654,7 +2654,7 @@
     "quickLessons": "Ders kartları",
     "quickLessonsHint": "Leadership ve spiritual takeaways den each battle",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Okunan konular ve çalışma ilerlemesi",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -2693,7 +2693,7 @@
     "lessonsHint": "topics complete as you finish studying them İşaretle",
     "lessonsIntro": "These dir moral ve leadership lessons — not military tactics manuals.",
     "progressTitle": "learning'im",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Parça çalışması - Allah katındaki manevi rütbe değil",
     "progressIntro": "Bu dashboard tracks topics siz have read içinde Munib. Knowledge dir  means; sincerity ile Allah dir  goal.",
     "lessonsCount": "{{completed}} / {{total}}",
     "progressExploreHint": "Explore timeline, verses, glossary, ve lesson cards",
@@ -2804,7 +2804,7 @@
     "quizTitle": "Gözden geçir sınav",
     "quizSubtitle": "Test sizin understanding — not sizin standing ile Allah",
     "quizHint": "Timeline, definitions, ve reflection",
-    "quizIntro": "Use this quiz to find gaps, then study those topics. It is not a spiritual score.",
+    "quizIntro": "Boşlukları bulmak için bu testi kullanın, ardından bu konuları inceleyin. Bu manevi bir skor değil.",
     "quizProgress": "Soru {{current}}/{{total}}",
     "quizComplete": "Test Tamamlandı!",
     "quizScore": "{{score}}/{{total}} puanlı sorular doğru",
@@ -2842,7 +2842,7 @@
       "learningHint": "Topics completed içinde bu module"
     },
     "progressTitle": "Learning ilerleme",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Parça çalışması - Allah katındaki manevi rütbe değil",
     "progressIntro": "topics complete as you read. Knowledge is a means; sincerity with Allah is the goal. İşaretle",
     "lessonsTitle": "Tamamlanan konular",
     "lessonsHint": "topics complete as you finish studying them İşaretle",
@@ -2880,9 +2880,9 @@
     "quickGhusl": "Gusül guide",
     "quickGhuslHint": "Büyük hadesten sonra tam gusül",
     "quickChecklist": "Günlük checklist",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "Namaza hazır olmanızı sağlayan alışkanlıklar",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Okunan konular ve çalışma ilerlemesi",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -2951,7 +2951,7 @@
     "quickLessons": "Dersler",
     "quickLessonsHint": "Moral ve spiritual takeaways",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Okunan konular ve çalışma ilerlemesi",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -2975,7 +2975,7 @@
     "profileTitle": "Profil",
     "progressTitle": "learning progress'im",
     "progressSubtitle": "lessons — not spiritual rank with Allah Takip Et",
-    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
+    "progressIntro": "Peygamberlerin hayatlarını incelerken konuları tamamlandı olarak işaretleyin.",
     "lessonsTitle": "Tamamlanan konular",
     "lessonsHint": "topics complete as you finish studying them İşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -3021,7 +3021,7 @@
     "quickGlossary": "Sözlük",
     "quickGlossaryHint": "Key creed şartlar defined",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Okunan konular ve çalışma ilerlemesi",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -3082,7 +3082,7 @@
     "quickOccasions": "Duruma göre",
     "quickOccasionsHint": "Browse duas için every moment",
     "quickProgress": "learning'im",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Okunan konular ve çalışma ilerlemesi",
     "progressCardTitle": "Learning ilerleme",
     "progressCardHint": "{{completed}}  {{total}} topics marked tamamlandı",
     "exploreTitle": "Keşfet",
@@ -3184,12 +3184,12 @@
     "reflectionTitle": "Düşün",
     "openInQuran": "in Kur'an reader Aç",
     "progressTitle": "learning'im",
-    "progressSubtitle": "Track study — not spiritual rank with Allah",
+    "progressSubtitle": "Parça çalışması - Allah katındaki manevi rütbe değil",
     "progressIntro": "Bu dashboard tracks lessons siz have studied içinde Munib. Allah knows what dir içinde sizin heart.",
     "lessonsTitle": "Dersler",
     "lessonsHint": "topics complete as you finish studying them İşaretle",
     "lessonsCount": "{{completed}} / {{total}}",
-    "progressExploreHint": "Continue your journey through daily lessons, vocabulary, and themes",
+    "progressExploreHint": "Günlük dersler, kelime dağarcığı ve temalarla yolculuğunuzu sürdürün.",
     "exploreTitle": "Keşfet",
     "tajweedTitle": "Tajvid",
     "tajweedSubtitle": "Rules  doğru ve beautiful recitation",
@@ -3199,7 +3199,7 @@
     "practiceTitle": "Pratik",
     "lettersTitle": "Arapça harfler",
     "lettersSubtitle": "28 harfler ile isimler, sounds, ve examples",
-    "lettersIntro": "Study one letter per day — see, hear, say, write.",
+    "lettersIntro": "Günde bir harf çalışın; görün, duyun, söyleyin, yazın.",
     "pronunciationTitle": "Telaffuz",
     "pronunciationSubtitle": "Zor harf çiftlerini öğren",
     "pronunciationIntro": "Compare similar sounds side by side — record yourself ve listen geri.",
@@ -3225,7 +3225,7 @@
     "challengeDone": "Meydan okuma tamamlandı — Allah kabul etsin",
     "quizTitle": "Kur'an sınav",
     "quizSubtitle": "Test sizin understanding — not sizin standing ile Allah",
-    "quizIntro": "Use each question to find a gap, then study that topic. This is review, not a spiritual score.",
+    "quizIntro": "Her soruyu bir boşluk bulmak için kullanın, ardından o konuyu inceleyin. Bu bir incelemedir, manevi bir puan değil.",
     "quizProgress": "Soru {{current}}/{{total}}",
     "quizComplete": "Test Tamamlandı!",
     "quizScore": "{{score}}/{{total}} puanlı sorular doğru",
@@ -3386,7 +3386,7 @@
       "purpose": {
         "title": "Why zekat — purpose & wisdom",
         "summary": "It purifies wealth ve  soul, ve lifts  poor",
-        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
+        "body": "Allah zekat hakkında şöyle buyurmaktadır: \"Onların mallarından bir sadaka al ki onunla onları arındır ve onları büyüt\" (Kur'an 9:103). Vazife aynı anda iki düzeyde işler; verenin ruhunu cimrilikten ve dünya sevgisinden arındırır ve elinde kalanın sağlıklı ve bereketli olması için servetin kendisini arındırır.\n\nSosyal açıdan zekat, ilahi olarak düzenlenmiş bir dolaşım sistemidir. Peygamber Efendimiz (sav), Muaz'ı Yemen'e gönderdiğinde, zekatın zenginlerden alınıp fakirlere verilmesini emretti. Zenginlik birkaç kişi arasında birikecek şekilde tasarlanmamıştır; Zekat onu tekrar harekete geçirir, böylece ihtiyaç sahipleri doyurulur, borçlular serbest bırakılır ve toplumun bağları güçlendirilir.\n\nManevi açıdan zekat vermek bir şükran ve güven eylemidir. İnsanın istifleme dürtüsüne, rızkın Allah'tan geldiği kesinliğiyle cevap verir ve mümini, vermeyi sevme konusunda eğitir. Zekâtı gönüllü olarak veren kişi, mallarının güvende olduğunu, kalplerinin ferahladığını ve mükafatlarının Rableri katında saklandığını görür; \"onlara korku yoktur ve onlar üzülmeyeceklerdir\" (Kuran 2:277)."
       },
       "hawl": {
         "title": " kameri year (hawl)",
@@ -3411,12 +3411,12 @@
       "debts": {
         "title": "Borçlar & kesintiler",
         "summary": "Immediate debts may be deducted önce calculating 2.5%",
-        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
+        "body": "Zekat, zekatlanabilir net servetiniz üzerinden hesaplanır, dolayısıyla borçlu olduğunuz gerçek borçlar, ödediğiniz tutarı azaltabilir. En açık örnek, ödenmemiş kişisel kredi, ödenmemiş kredi kartı bakiyesi, halihazırda ödenmemiş kira veya faturalar gibi vadesi dolmuş borçlardır. Çoğu akademisyen, %2,5'luk oranı uygulamadan önce bunların brüt servetinizden çıkarılmasına izin verir.\n\nİpotek veya çok yıllı taksit planı gibi uzun vadeli borçlar daha dikkatli bir şekilde ele alınır çünkü bakiyenin tamamının düşülmesi, ev kredisi olan hemen hemen herkesin zekatını yok eder. Yaygın olarak kullanılan çağdaş bir yaklaşım, ödenmemiş tutarın tamamını değil, yalnızca önümüzdeki yıl içinde ödenmesi gereken ödemeleri kesintiye uğratmaktır. Okullar ve akademisyenler burada farklılık gösterdiğinden, rehberlik altında tutarlı bir yöntem seçin.\n\nİki uyarı. İlk olarak, gelecekteki veya varsayımsal harcamaları indirilebilir borçlar olarak görmeyin; yalnızca gerçekte borçlu olduğunuz miktar dikkate alınır. İkincisi, geçen senenin ödenmemiş zekatını sıradan bir borçmuş gibi düşürmeyin; ödenmemiş zekat, ödenmesi gereken bir yükümlülük olmaya sürdürmektedir ve sadece ödenmesi gerekmektedir. Borç durumunuz karmaşık olduğunda, bir bilim adamının kararı kaba bir tahminden daha değerlidir."
       },
       "recipients": {
         "title": "Who may receive zekat",
         "summary": "Eight categories named içinde Kur'an 9:60",
-        "body": "Zakat may only be given to the categories of people Allah Himself named in Surah at-Tawbah (9:60). This is one of the few acts of worship where the recipients are fixed by revelation, not left to the giver's preference. The eight categories are: the poor (al-fuqara); the needy (al-masakin); those employed to collect and administer zakat; those whose hearts are to be reconciled (al-mu'allafah); the freeing of captives and those in bondage (fi'r-riqab); the debt-burdened (al-gharimin); in the cause of Allah (fi sabil Allah); and the stranded traveller (ibn as-sabil).\n\nIt is not required to give to all eight; giving your zakat to even one eligible category fulfils the obligation, and directing it to the poor and needy is the most common practice.\n\nEqually important is who may not receive it. Zakat cannot be given to the wealthy, nor to those you are already obliged to support — your parents, your children, or your spouse — since supporting them is a duty you owe anyway. In the classical view it is a personal transfer of ownership to an eligible individual, not a general donation; scholars differ on whether institutions such as masjids or broad public projects qualify under the cause of Allah. It also cannot be given to the family of the Prophet ﷺ, the Banu Hashim, as zakat. Aim it deliberately at people who match the Qur'anic categories."
+        "body": "Zekat, yalnızca Allah'ın Tevbe Suresi'nde (9:60) adını verdiği kişi kategorilerine verilebilir. Bu, alıcının vahiy yoluyla belirlendiği, verenin tercihine bırakılmadığı birkaç ibadetten biridir. Sekiz kategori şunlardır: yoksullar (el-fukara); muhtaçlar (el-masakin); zekat toplamak ve yönetmek için çalışanlar; kalpleri uzlaştırılacak olanlar (el-mu'allâfâ); esirlerin ve esaret altında olanların serbest bırakılması (fi'r-riqab); borç yükü altındakiler (el-gharimin); Allah (fi sabil Allah) yolunda; ve mahsur kalan yolcu (ibn es-sabil).\n\nSekizine de vermek gerekli değildir; Zekâtınızı uygun bir kategoriye bile vermek yükümlülüğü yerine getirir ve bunu yoksullara ve ihtiyaç sahiplerine yönlendirmek en yaygın uygulamadır.\n\nKimin alamayacağı da aynı derecede önemlidir. Zekât zenginlere veya halihazırda desteklemekle yükümlü olduğunuz kişilere (anne-babanıza, çocuklarınıza veya eşinize) verilemez, çünkü onları desteklemek zaten borçlu olduğunuz bir görevdir. Klasik görüşe göre bu, genel bir bağış değil, mülkiyetin uygun bir bireye kişisel olarak devredilmesidir; Akademisyenler, mescitler veya geniş kamu projeleri gibi kurumların Allah'ın davasına uygun olup olmadığı konusunda farklı görüşlere sahiptir. Ayrıca Peygamber Efendimiz'in (s.a.v.) ailesi olan Beni Haşim'e zekat olarak verilemez. Bunu bilinçli olarak Kur'an'daki kategorilere uyan kişilere hedefleyin."
       },
       "otherRates": {
         "title": "Other types  zekat & zekat al-fitr",
@@ -3426,7 +3426,7 @@
       "mistakes": {
         "title": "Common mistakes  avoid",
         "summary": "Errors şu make zekat invalid veya miscalculated",
-        "body": "Even sincere Muslims often slip on the practical details of zakat. Knowing the common errors helps you pay correctly and with peace of mind.\n\nForgetting the hawl or the anniversary: paying at a random time, or skipping years, leaves an outstanding obligation. Fix one Hijri date each year and assess your wealth on it.\n\nMiscounting wealth: valuing gold or shares at their purchase price instead of today's market value, forgetting cash held in multiple accounts or currencies, or overlooking business inventory and money owed to you. Zakat is on everything zakatable that you own on your date.\n\nGiving to the wrong people: handing zakat to parents, children, or a spouse you already support, or treating it as a generic donation to any good cause. It must reach one of the eight Qur'anic categories.\n\nIntention errors: giving generously all year but never intending any of it as zakat. Zakat is an act of worship and needs the intention (niyyah) that this particular payment is your obligatory zakat.\n\nOver-deducting debts: subtracting a whole long-term mortgage, or future expenses that are not yet owed, to shrink the bill. Only real, current liabilities reduce your zakatable wealth. When any of these is unclear for your situation, ask a qualified scholar rather than assume."
+        "body": "Samimi Müslümanlar bile zekatın pratik ayrıntılarını sıklıkla atlıyorlar. Yaygın hataları bilmek, doğru ve gönül rahatlığıyla ödeme yapmanıza yardımcı olur.\n\nŞahı veya yıldönümünü unutmak: Rastgele bir zamanda ödeme yapmak veya yılları atlamak, ödenmemiş bir yükümlülük bırakır. Her yıl bir Hicri tarih belirleyin ve servetinizi buna göre değerlendirin.\n\nZenginliği yanlış saymak: Altına veya hisselere bugünkü piyasa değeri yerine satın alma fiyatıyla değer vermek, birden fazla hesapta veya para biriminde tutulan nakit parayı unutmak veya işletme envanterini ve size borçlu olunan parayı gözden kaçırmak. Zekat, randevunuzda sahip olduğunuz, zekatlanabilir her şeyin zekatıdır.\n\nYanlış kişilere vermek: Zekâtı ebeveynlere, çocuklara veya halihazırda desteklediğiniz bir eşe vermek veya bunu herhangi bir iyi amaç için genel bir bağış olarak görmek. Kur'an'ın sekiz kategorisinden birine ulaşmalıdır.\n\nNiyet hatası: Bütün sene cömertçe verip, hiçbirini zekat olarak niyet etmemek. Zekat bir ibadettir ve bu ödemenin sizin farzınız olan zekat olduğuna dair niyet (niyyah) gerektirir.\n\nBorçları aşırı düşürmek: Faturayı küçültmek için uzun vadeli bir ipoteğin tamamını veya henüz borçlu olunmayan gelecekteki harcamaları çıkarmak. Yalnızca gerçek, mevcut yükümlülükler zekatlanabilir servetinizi azaltır. Bunlardan herhangi biri sizin durumunuz için net değilse, varsaymak yerine nitelikli bir bilim adamına sorun."
       }
     },
     "recipientsListTitle": " eight categories",
@@ -3501,7 +3501,7 @@
     "group": {
       "liquid": "Nakit & kıymetli metaller",
       "investments": "Yatırımlar ve işletme",
-      "property": "Land, property & vehicles"
+      "property": "Arazi, mülk ve araçlar"
     },
     "weightSectionTitle": "Altın ve gümüşü ağırlığa göre hesapla",
     "nisabOverrideTitle": "Manuel nisab geçersiz kılma",
@@ -3523,33 +3523,33 @@
         "title": "Veya calculate gold by weight",
         "grams": "Gram",
         "pricePerGram": "Fiyat/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "Ağırlığa göre altın",
+        "amount": "Ağırlık",
+        "pricePerGram24k": "Fiyat/g (24 ayar)"
       },
       "silver": {
         "title": "Veya calculate silver by weight",
         "grams": "Gram",
         "pricePerGram": "Fiyat/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "Ağırlığa göre gümüş",
+        "amount": "Ağırlık",
+        "pricePerGramFine": "Fiyat/g (saf)"
       },
       "computed": "Adds {{value}}  toplam",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "Canlı spot fiyatlar gram başına 24 ayar altın ve saf gümüştür. Biriminizi seçin (g, tola, troy oz, kg) ve karat/saflık — değer saf metal × spot'a dönüştürülür.",
+      "unit": "Ağırlık birimi",
+      "karat": "Altın karat",
+      "purity": "Gümüş saflığı",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
-        "g": "Gram",
+        "g": "gram",
         "tola": "Tola",
         "oz": "Troy oz",
         "kg": "Kilogram"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g saf metal",
+      "cardHint": "Tola, gram, karat / saflık × canlı 24k veya hassas nokta."
     },
     "field": {
       "cash": "Nakit & birikimler",
@@ -3564,12 +3564,12 @@
       "nisab": "Nisab değeri (geçersiz kılma)",
       "nisabGoldPrice": "Gram altın fiyatı",
       "nisabSilverPrice": "Gram gümüş fiyatı",
-      "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "crypto": "Kripto para birimi",
+      "livingExpenses": "Acil yaşam masrafları",
+      "investmentPlots": "Yatırım arsaları (piyasa değeri)",
+      "installmentPlotsPaid": "Taksitli arsalar — ödenen tutar",
+      "investmentProperty": "Yatırım evleri / binaları",
+      "tradeVehicles": "Satılık / ticari araçlar"
     },
     "fieldHint": {
       "cash": "Bank accounts, cash  hand, ve liquid savings.",
@@ -3578,162 +3578,162 @@
       "stocks": "Current market value  shares, funds, ve similar investments.",
       "business": "Value  merchandise, inventory, ve goods held için sale.",
       "receivables": "Loans ve invoices siz reasonably expect  collect.",
-      "rentalIncome": "Rental or business profits you still hold — not already spent.",
+      "rentalIncome": "Henüz harcanmamış olan, hâlâ elinizde bulunan kira veya ticari kârlar.",
       "otherAssets": "Cryptocurrency, accessible retirement funds, veya other zakatable wealth per sizin alim.",
       "debts": "Personal loans, credit cards, ve bills due now — not long-term mortgage totals unless sizin alim allows.",
       "nisab": "Leave blank  use  computed threshold, veya enter  özel nisab.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "Varlık olarak tutulan kriptonun piyasa değeri; kararlar farklıdır; bir alim'e sorun.",
+      "livingExpenses": "Kira, yiyecek ve faturalar derhal ödenecek; ancak eğer akademisyeniniz bu kesintiye izin veriyorsa.",
+      "investmentPlots": "Yatırım veya satış amacıyla elde tutulan arazi veya arsalar (mevcut piyasa değeri). Yaşamak için kullanılan kişisel tarım arazileri farklıdır; bir bilim adamına sorun.",
+      "installmentPlotsPaid": "Taksitli yatırım arsaları için halihazırda ne kadar ödemiş olduğunuzu (bilgininiz dahil etmedikçe ödenmemiş sözleşmenin tamamını değil).",
+      "investmentProperty": "Yatırım veya ticaret amacıyla tutulan evler veya binalar - kişisel ikametgahınız değil.",
+      "tradeVehicles": "Satış amacıyla veya ticari stok olarak tutulan otomobiller veya taşıtlar - kişisel kullanım amaçlı taşıtlar değil."
     },
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "Zekat para birimini değiştir",
+      "pickerTitle": "Para birimini seçin",
+      "pickerHint": "{{count}} para birimleri — koda veya isme göre arama yapın",
+      "searchPlaceholder": "Para birimlerini arayın…",
+      "noResults": "Aramanızla eşleşen para birimi yok.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "Canlı altın ve gümüş",
+      "goldPerGram": "Altın / gram",
+      "silverPerGram": "Gümüş / gram",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "Canlı fiyatlar getiriliyor…",
+      "error": "Canlı fiyatlar yüklenemedi. Altın ve gümüş fiyatlarını manuel olarak girin.",
+      "prefilled": "Nisab ve metal fiyatları canlı oranlardan önceden doldurulur.",
+      "useLive": "Canlı fiyatları tekrar kullanın",
+      "useLiveA11y": "Canlı altın ve gümüş fiyatlarına sıfırla",
+      "refreshA11y": "Canlı piyasa fiyatlarını yenile",
+      "livePrice": "Canlı"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
       "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "belowNisab": "Net {{wealth}} · nisab {{nisab}}'nin altında",
+      "hasOtherDue": "Net {{wealth}} · vadesi gelen mahsuller / canlı hayvanlar"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
+      "gold": "Altın/g",
+      "silver": "Gümüş/g",
       "nisab": "Nisab",
-      "due": "Due"
+      "due": "Vadesi gelmiş"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "Servet zekatı (%2,5): {{value}}",
+      "agriculture": "Mahsuller (uşr): {{value}}",
+      "livestock": "Hayvancılık (nakit tahmini): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "Zaten bildiğiniz nakit, kripto ve metal değerleri. Veya metal kartındaki ağırlığı kullanın.",
+      "investments": "Hisse senetleri, ticari mallar, alacaklar ve tasarruf edilen işletme gelirleri bugünkü değeriyle."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "Mahsuller / hayvancılık (zenginlik nisabın altında)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "Hayvancılık (otlayan sürüler)",
+      "hint": "Serbest otlayan koyun/keçi, sığır ve develer için sünnet terazisi (Buhari/Ebu Davud). Bir işletme olarak beslenen hayvanlar genellikle ticari mal kurallarına tabidir; bir akademisyene sorun.",
+      "sheep": "Koyun / keçi (baş)",
+      "sheepHint": "Nisab 40 kafadan başlar.",
+      "cattle": "Sığır / manda (baş)",
+      "cattleHint": "Nisab 30 kafadan (tabi' / musinnah ölçeği) başlar.",
+      "camels": "Develer (kafalar)",
+      "camelsHint": "Nisab 5 kafadan başlar.",
+      "valueTitle": "İsteğe bağlı nakit değerleri (kişi başına)",
+      "valueHint": "Çiftlik hayvanlarının zekatı genellikle hayvanlar üzerinden ödenir. Piyasa değerlerini yalnızca planlama için nakit eşdeğeri bir tahmin istiyorsanız girin.",
+      "sheepValue": "Koyun/keçi başına değer",
+      "cattleValue": "Sığır başı başına değer",
+      "camelValue": "Deve başına değer",
+      "dueTitle": "Vadesi gelen hayvanlar (Sünnet tahmini)",
+      "cashEstimate": "Nakit tahmini: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} koyun/keçi",
+        "cattleTabi": "{{count}} tabi' (1 yıllık sığır)",
+        "cattleMusinnah": "{{count}} musinnah (2 yıllık sığır)",
+        "bintMakhad": "{{count}} bint makhad (1 yıllık deve)",
+        "bintLabun": "{{count}} bint labun (2 yıllık deve)",
+        "hiqqah": "{{count}} hiqqah (3 yıllık deve)",
+        "jadhah": "{{count}} jadhah (4 yıllık deve)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "Sünnet hayvan pulları %2,5 değil. Yalnızca tahminler için isteğe bağlı nakit değerleri."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "Tarım ve hasat (uşr)",
+      "hint": "Hasat sırasında vadesi gelecek; bir ay yılından sonra değil. Bu oran, yağmur/kaynaklarla sulanan araziler için %10, sulamanın emek veya para gerektirdiği durumlarda ise %5'tir (Kuran 6:141; Sünnet).",
+      "harvest": "Hasat piyasa değeri",
+      "harvestHint": "Bu sezonun mahsulünün veya meyvesinin hasat zamanındaki değeri.",
+      "irrigation": "Su kaynağı",
+      "natural": "Yağmur / baharlar (%10)",
+      "irrigated": "Sulanan (%5)",
+      "naturalHint": "Pahalı sulama olmadan doğal olarak sulandığında %10 ushr.",
+      "irrigatedHint": "Kuyularla, pompalarla veya ücretli sulamayla sulandığında %5 yarım öşür.",
+      "due": "Öşür zamanı: {{value}}",
+      "cardHint": "Hasatta vadesi gelecek — %10 yağmur/kaynaklar, %5 sulanan."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "Sayı biçimi",
+      "hint": "Binler ve ondalık sayılar miktar olarak nasıl gösterilir?",
+      "changeA11y": "Sayı biçimini değiştir",
+      "pickerTitle": "Sayı biçimi",
+      "pickerHint": "Tutarların nasıl gruplandırılacağını ve yazarken ve toplamlarda ondalık sayıların nasıl görüneceğini seçin."
     },
-    "learnMore": "Learn more",
+    "learnMore": "Daha fazla bilgi edinin",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "Kişisel bir fetva değil, Kur'an ve Sünnet'ten eğitim özeti.",
+      "footnote": "Okullar ayrıntılar konusunda farklılık gösterir (mücevher, ipotek, beslenen hayvancılık, kripto). Durumunuzu nitelikli bir bilim adamına sorun.",
+      "openGuide": "Kılavuzun tamamını aç",
+      "a11y": "{{section}} hakkında daha fazla bilgi edinin",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "Para birimi ve oranlar",
+        "body": "Zekat, servetinizin anladığınız para birimindeki piyasa değeri üzerinden hesaplanır. Spot altın ve gümüş fiyatları, nisab ve metal değerlerinin tahmin edilmesine yardımcı olur; bunlar gösterge niteliğindedir, akademisyeniniz tarafından kullanılan yerel piyasa oranlarının yerine geçmez."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "Nakit ve değerli metaller",
+        "body": "Nakit para, banka bakiyeleri ve servet olarak tutulan altın veya gümüş, en net zekatlanabilir varlıklar arasındadır. Peygamber Efendimiz (sav), altın ve gümüşe olan borcun verilmemesi konusunda sert bir şekilde uyardı. Normal kullanım için takılan takılar, mezhepler arasındaki bilinen bir farktır; mezhebinize uyun. Buraya nakit değerini girebilir veya bir sonraki bölümde metalleri ağırlığa göre hesaplayabilirsiniz."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "Ağırlığa göre altın ve gümüş",
+        "body": "Nisap, Sünnet'te ağırlığa göre sabitlenmiştir: yaklaşık 20 dinar altın veya 200 dirhem gümüş (genellikle ~87,5 gr altın veya ~612 gr gümüş olarak anılır). Karat ve saflık önemlidir, çünkü zekat saf metalin içeriğindedir. Canlı fiyatlar gram başına 24k / ince metal içindir - hesaplayıcının doğru dönüştürme yapması için biriminizi (gram, tola, troy oz) ve karat'ı seçin."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "Yatırımlar ve iş",
+        "body": "Büyümeyi amaçlayan ticari mallar, mallar ve servet genellikle bugünkü piyasa değeri üzerinden zekatlanabilir. Hisseler ve fonlar genellikle ticari servet gibi değerlenir. Tahsil etmeyi beklediğiniz güçlü alacaklar genellikle buna dahildir. Kur'an 2:267, kazandığınız şeylerin iyi olanlarından harcamanızı, zekat tarihinizde dürüstçe değer vermenizi tavsiye eder."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "Arazi, mülk ve araçlar",
+        "body": "Kişisel eviniz, kişisel arabanız ve sıradan ev eşyalarınız genellikle zekatlanamaz; zekat, kullanım öğelerini değil, zenginliği artırmayı hedefler. Yatırım, satış veya ticaret amacıyla elde tutulan arsalar, evler veya araçlar piyasa değerine (veya taksitli yatırım arsalarında halihazırda ödenmiş tutarlara) dahil edilebilir. Emin olamadığınızda bir bilim adamına sorun."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "Hayvancılık (otlayan sürüler)",
+        "body": "Serbest otlayan koyun, keçi, sığır ve develerin kendi sünnet terazileri ve hayvan nisapları vardır (örneğin 40 koyun, 30 sığır, 5 deve) - %2,5'lik para oranı değil. Aidat genellikle belirli yaştaki hayvanlara ödenir. Bir işletme olarak beslenen hayvanlar genellikle ticari mal kurallarına uyar. Buradaki isteğe bağlı nakit değerleri yalnızca bir planlama tahminidir."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "Tarım ve hasat (uşr)",
+        "body": "Mahsullerin zekatı bir kameri yıldan sonra değil, hasat sırasında verilir. Arazinin yağmur veya kaynaklarla sulanması durumunda bilinen oran %10 (öşür), sulamanın emek veya para gerektirdiği durumlarda ise %5'tir. Bu sezonun hasat piyasa değerini girin ve durumunuza uygun su kaynağını seçin.",
+        "localRefLabel": "Kuran 6:141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "Kesintiler",
+        "body": "Zekat, net zekatlanabilir servettir. Şu anda vadesi gelen acil borçlar genellikle %2,5 uygulanmadan önce düşülür. Uzun vadeli ipotekler daha dikkatli ele alınıyor; çağdaş bilim adamlarının çoğu bakiyenin tamamını değil, yalnızca gelecek yılın ödemelerini kesiyor. Derhal ödenmesi gereken yaşam masraflarına ancak bursiyerinizin izin vermesi halinde izin verilir."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "Nisab eşiği",
+        "body": "Nisap, servetin zekatının ödenmesinden önceki asgari fazlalıktır. Peygamber (s.a.v.) bunu 20 dinar altın veya 200 dirhem gümüş olarak belirledi ve servetin üzerinden bir yıl geçmedikçe zekat verilmeyeceğini öğretti. Günümüzde altın ve gümüş fiyatları farklılık gösterdiğinden, birçok bilim insanı daha düşük (çoğunlukla gümüş) eşiği tercih ediyor, böylece daha fazla yoksula yardım ediliyor. Bu hesap makinesi iki canlı tahminden düşük olanı önerir."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "Acil borçlar (ve yalnızca bursiyeriniz izin veriyorsa yaşam masrafları).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "Hesap makinesi sıfırlansın mı?",
+      "message": "Bu, tüm miktarları, metal ağırlıklarını, hayvancılığı ve mahsulleri temizler. Para biriminiz ve sayı biçiminiz aynı kalır.",
+      "confirm": "Formu sıfırla",
+      "a11y": "Zekat hesaplama formunu sıfırla",
+      "hint": "Onay ister ve girilen tüm tutarları siler"
     }
   },
   "customAdhkar": {
@@ -3753,62 +3753,62 @@
       "reference": "Reference (isteğe bağlı)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "Resimler (isteğe bağlı)",
+      "add": "Resim ekle",
+      "remove": "Resmi kaldır",
+      "hint": "Her biri 1 MB boyutunda en fazla 5 fotoğraf. Kaldırmak için küçük resme uzun basın.",
+      "signInRequired": "Adhkar'ınıza özel resimler eklemek için oturum açın.",
+      "permissionDenied": "Resim eklemek için fotoğraf kitaplığı izni gereklidir.",
+      "unsupportedType": "Yalnızca JPEG, PNG veya WebP resimlerini kullanın.",
+      "tooLarge": "Her resim 1 MB veya daha küçük olmalıdır.",
+      "uploadFailed": "Resimler yüklenemedi. Tekrar deneyin.",
+      "uploading": "Yükleniyor…",
+      "open": "Resmi aç {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "Yakınlaştırmak için parmaklarınızı sıkıştırın, kaydırmak için sürükleyin, sıfırlamak için iki kez dokunun",
+      "previous": "Önceki resim",
+      "next": "Sonraki resim"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "Ekler (isteğe bağlı)",
+      "add": "Dosya ekle",
+      "remove": "Eki kaldır",
+      "hint": "Her biri 1 MB boyutunda en fazla 5 dosya (JPEG, PNG, WebP veya PDF). Kaldırmak için küçük resme uzun basın.",
+      "signInRequired": "Adhkar'ınıza özel dosyalar eklemek için oturum açın.",
+      "permissionDenied": "Dosya eklemek için izin gereklidir.",
+      "permissionTitle": "Erişime izin ver",
+      "permissionBody": "Munib Tracker'ın dosya eklemek için kamera veya fotoğraf erişimine ihtiyacı var.",
+      "permissionSettingsBody": "İzin reddedildi. Munib Tracker'da kamera veya fotoğraflara izin vermek için Ayarlar'ı açın.",
+      "allowAccess": "Erişime izin ver",
+      "unsupportedType": "Yalnızca JPEG, PNG, WebP veya PDF kullanın.",
+      "tooLarge": "Her dosya 1 MB veya daha küçük olmalıdır.",
+      "uploadFailed": "Ekler yüklenemedi. Tekrar deneyin.",
+      "uploading": "Yükleniyor…",
+      "readFailed": "Bu dosya okunamadı. Başka birini dene.",
+      "pickFailed": "Bu dosya eklenemedi. Tekrar deneyin.",
+      "openFailed": "Bu dosya açılamadı.",
+      "open": "Eki açın {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "Yakınlaştırmak için parmaklarınızı sıkıştırın, kaydırmak için sürükleyin, sıfırlamak için iki kez dokunun",
+      "previous": "Önceki ek",
+      "next": "Sonraki ek",
+      "openPdf": "PDF'yi aç",
+      "sourceTitle": "Ek ekle",
+      "sourceCamera": "Fotoğraf çek",
+      "sourceCameraHint": "Fotoğraf çekmek için kamerayı kullanın",
+      "sourceGallery": "Fotoğraf kitaplığı",
+      "sourceGalleryHint": "Fotoğraflarınızdan bir resim seçin",
+      "sourceDocument": "Dosyalar",
+      "sourceDocumentHint": "Dosyalarınızdan bir resim veya PDF seçin"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Mikrofonla dikte edin",
+      "stopDictate": "Dikteyi durdur",
+      "listening": "Dinleniyor…",
+      "permissionDenied": "Dikte etmek için mikrofon izni gereklidir. Hala yazabilirsiniz.",
+      "unavailable": "Bu cihazda konuşma tanıma kullanılamıyor.",
+      "couldNotHear": "Bunu duyamadım; tekrar deneyin veya yazın.",
+      "errorGeneric": "Dikte başarısız oldu. Tekrar deneyin veya yazın."
     }
   },
   "tahajjud": {
@@ -3892,20 +3892,20 @@
     "confirmDiscardTitle": "Değişiklikler iptal edilsin mi?",
     "confirmDiscardMsg": "Anything siz wrote will be lost.",
     "confirmOverwriteTitle": "Mevcut tefekkür değiştirilsin mi?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "Bu gün için {{prayer}}'yi zaten not etmiştiniz. Tasarruf onun yerini alacak.",
     "level1": "Dalgın",
     "level2": "Huzursuz",
     "level3": "Yeterince hazır",
     "level4": "Odaklı",
     "level5": "Derinden hazır",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Mikrofonla dikte edin",
+      "stopDictate": "Dikteyi durdur",
+      "listening": "Dinleniyor…",
+      "permissionDenied": "Dikte etmek için mikrofon izni gereklidir. Hala yazabilirsiniz.",
+      "unavailable": "Bu cihazda konuşma tanıma kullanılamıyor.",
+      "couldNotHear": "Bunu duyamadım; tekrar deneyin veya yazın.",
+      "errorGeneric": "Dikte başarısız oldu. Tekrar deneyin veya yazın."
     }
   },
   "prayerTuning": {
@@ -3946,7 +3946,7 @@
     "umrahTag": "Umre",
     "hajjTag": "Hac",
     "disclaimer": "Pratik bir kontrol listesi, fıkıh kitabı değil. Hüküm ve ayrıntılar için nitelikli bir rehbere uyun.",
-    "prepTag": "Prep"
+    "prepTag": "Hazırlık"
   },
   "dailyHadith": {
     "eyebrow": "Günlük seri",
@@ -3991,7 +3991,7 @@
     "versesLead": "Dokunun any verse  aç it içinde  Kur'an reader.",
     "journeyTitle": "Journey'im",
     "journeySummary": "Bugünün habits — not your rank with Allah",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "Zaten takip ettiğiniz ibadetteki tutarlılık",
     "journeyBanner": "These habits dir among  deeds Allah loves. Sizin final rank dir only ile Him.",
     "journeyToday": "Bugünün striving",
     "journeyEmpty": "with one prayer or adhkar — small steps build lifelong habits. Başlat",
@@ -4365,181 +4365,181 @@
     "footer": "Sizin PIN dir stored securely  bu cihaz ve never leaves it."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "Duyuru"
   },
   "sahaba": {
     "eyebrow": "Öğren",
     "title": "Sahabe",
-    "subtitle": "Peygamberimizin ﷺ sahabelerinin kısa profilleri",
-    "intro": "Sahabe, İslam'ı Peygamberimizden ﷺ dünyanın diğer bölgelerine taşıyan nesildir. Bu kısa profiller, seerah zaman çizelgesinin üslubunu takip eder — her iddia için bir hayat, bir ders ve bir kaynak.",
-    "categoryAll": "Tümü",
+    "subtitle": "Peygamber Efendimiz'in sahabelerinin kısa profilleri",
+    "intro": "Sahabe, İslam'ı Peygamber Efendimiz'den dünyanın geri kalanına taşıyan nesildir. Bu kısa profiller, bir hayat, bir ders ve her iddia için bir kaynak olan siyer zaman çizelgesinin tonunu takip ediyor.",
+    "categoryAll": "Hepsi",
     "category": {
       "caliphs": "Halifeler",
-      "ashara": "Aşere-i Mübeşşere",
+      "ashara": "Aşara Mubaşhara",
       "family": "Aile",
       "women": "Kadınlar",
-      "notable": "Öne çıkanlar"
+      "notable": "Önemli"
     },
-    "noResults": "Bu kategoride henüz sahabe yok",
-    "readMore": "Tam profili okumak için dokun",
-    "disclaimer": "Anlatı bilgileri klasik seerah ve tarih eserlerini takip eder; belirli bir rivayete bağlı her iddia, hadis kaynağını ve numarasını belirtir. Bu genel eğitim içeriğidir, akademik bir sıralama değildir.",
+    "noResults": "Bu kategoride henüz arkadaş yok",
+    "readMore": "Profilin tamamını okumak için dokunun",
+    "disclaimer": "Anlatı olguları klasik siyer ve tarih eserlerini takip eder; Belirli bir rivayete bağlanan her iddia, o hadis koleksiyonunu ve numarasını belirtir. Bu genel eğitim içeriğidir, bilimsel bir sıralama değildir.",
     "quickLinksTitle": "Keşfet",
     "quickCaliphsHint": "İlk Halife Ebu Bekir ile başlayın",
-    "quickAsharaHint": "Cennetle müjdelenen on kişi",
-    "quickWomenHint": "Hatice ve müminlerin anneleri",
-    "quickBattles": "Savaşta sahabeler",
+    "quickAsharaHint": "On kişi cenneti vaat etti",
+    "quickWomenHint": "Hatice ve Müminlerin Anneleri",
+    "quickBattles": "Savaştaki yoldaşlar",
     "quickBattlesHint": "Savaşlar kılavuzundan sefer profilleri",
-    "countCardTitle": "Sahabe rehberi",
-    "countCardHint": "{{count}} doğrulanmış eğitim profili",
+    "countCardTitle": "Tamamlayıcı dizin",
+    "countCardHint": "{{count}} doğrulanmış eğitim profilleri",
     "categoryHint": {
       "caliphs": "Dört Raşid Halife",
-      "ashara": "Cennetle müjdelenen on sahabe",
-      "family": "Peygamberimizin ﷺ yakın ailesi",
-      "women": "İlk topluluğun önde gelen kadınları",
-      "notable": "Yaygın olarak hatırlanan diğer sahabeler"
+      "ashara": "On sahabe cenneti vaat etti",
+      "family": "Peygamber Efendimiz'in yakın ailesi",
+      "women": "Erken toplumun önde gelen kadınları",
+      "notable": "Yaygın olarak hatırlanan diğer yoldaşlar"
     },
-    "exploreTitle": "Öğrenmeye devam edin",
-    "exploreBattles": "Savaşlar'daki isimler",
-    "exploreBattlesHint": "Askeri seferlerde yer alan sahabeler",
-    "exploreSeerah": "Seerah zaman çizelgesi",
-    "exploreSeerahHint": "Peygamberimizin ﷺ hayatı önemli dönüm noktalarıyla",
-    "exploreHistory": "İlk İslam tarihi",
-    "exploreHistoryHint": "Peygamberimizin ﷺ vefatından Raşidin döneminin sonuna kadar",
-    "profileBodyTitle": "Hayatı ve dersi",
+    "exploreTitle": "Öğrenmeye devam",
+    "exploreBattles": "Savaş rakamları",
+    "exploreBattlesHint": "Askeri kampanyalarda yer alan sahabeler",
+    "exploreSeerah": "Sira zaman çizelgesi",
+    "exploreSeerahHint": "Önemli dönüm noktalarından Peygamber Efendimiz (sav)'in Hayatı",
+    "exploreHistory": "Erken İslam tarihi",
+    "exploreHistoryHint": "Peygamber Efendimiz'in (s.a.v.) vefatından Raşidun sonuna kadar",
+    "profileBodyTitle": "Hayat ve ders",
     "relatedTitle": "İlgili kılavuzlar",
-    "linkBattlesFigures": "Savaşlar'da sahabeleri gör",
+    "linkBattlesFigures": "Savaşlardaki yoldaşları görün",
     "linkSeerah": "Seerah zaman çizelgesini aç",
-    "linkHistory": "İlk İslam tarihini aç",
-    "openProfileHint": "Sahabenin tam profilini aç",
-    "notFound": "Sahabe bulunamadı"
+    "linkHistory": "Erken İslam tarihini açın",
+    "openProfileHint": "Tam arkadaş profilini aç",
+    "notFound": "Tamamlayıcı bulunamadı"
   },
   "history": {
     "eyebrow": "Öğren",
-    "title": "İlk İslam tarihi",
-    "subtitle": "Peygamberimizin ﷺ vefatından Raşidin Halifeliği'nin sonuna kadar",
+    "title": "Erken İslam tarihi",
+    "subtitle": "Peygamber Efendimiz (sav)'in vefatından Raşidun Halifeliğinin sonuna kadar",
     "ceBadge": "MS {{year}}",
     "ahBadge": "{{ah}} Hicri",
     "era": {
-      "prophetic-close": "Peygamberimiz ﷺ",
+      "prophetic-close": "Peygamber Efendimiz",
       "abu-bakr": "Ebu Bekir",
       "umar": "Ömer",
       "uthman": "Osman",
       "ali": "Ali"
     },
-    "disclaimer": "11–41 Hicri (632–661 MS) ile sınırlıdır — Peygamberimizin ﷺ hayatının sonundan Raşidin Halifeliği'nin sonuna kadar. Siyasi ve askeri anlatı klasik tarih eserlerini takip eder; Osman/Ali dönemi, sonraki teolojik anlaşmazlıklara hakemlik etmeden sunulur."
+    "disclaimer": "Hicri 11-41 (MS 632-661) aralığını kapsamaktadır - Peygamber Efendimiz (sav)'in hayatının kapanışından Rashidun Halifeliğinin sonuna kadar olan dönem. Siyasi ve askeri anlatı klasik tarih eserlerini takip eder; Osman/Ali dönemi daha sonraki teolojik tartışmalara hükmedilmeden sunulmaktadır."
   },
   "laylatAlQadr": {
     "eyebrow": "Öğren",
     "title": "Kadir Gecesi",
-    "subtitle": "Kadir Gecesi — bin aydan daha hayırlıdır",
-    "intro": "Kadir Gecesi, Ramazan'ın son on gününün tek gecelerinde gizlidir, tek bir tarihe bağlı değildir. Tek bir geceyi tahmin etmek yerine, hepsinde samimi ibadetle onu arayın.",
+    "subtitle": "Kadir Gecesi bin aydan hayırlıdır",
+    "intro": "Kadir Gecesi, tek bir tarihe sabitlenmemiş, Ramazan ayının son on ayının tek geceleri arasında gizlidir. Onu tek bir gecede değil, hepsinde samimi bir ibadetle arayın.",
     "section": {
-      "virtues": "Fazileti",
+      "virtues": "Onun erdemi",
       "when": "Ne zaman aranmalı",
-      "dua": "Ne söylenmeli",
-      "ibadah": "Geceyi nasıl geçirmeli",
-      "reminders": "Hatırlatmalar"
+      "dua": "Ne söylenmeli?",
+      "ibadah": "Gece nasıl geçirilir",
+      "reminders": "Hatırlatıcılar"
     },
     "notFound": "Konu bulunamadı",
-    "disclaimer": "Bu kılavuz, geceyi belirlemek için tek bir sabit takvim tarihini veya halk arasındaki 'işaretleri' onaylamaz — yalnızca Kur'an ve sahih hadisin belirttiklerini esas alır.",
-    "continueInApp": "Munib'de sürdürün"
+    "disclaimer": "Bu kılavuz, geceyi tanımlamak için tek bir sabit takvim tarihini veya halk 'işaretlerini' onaylamaz; yalnızca Kur'an ve sahih hadislerde belirtilenler geçerlidir.",
+    "continueInApp": "Munib'de sürdür"
   },
   "eid": {
     "eyebrow": "Öğren",
-    "title": "Bayram kılavuzu",
+    "title": "Bayram rehberi",
     "subtitle": "Ramazan Bayramı ve Kurban Bayramı — namaz, sünnet ve hükümler",
-    "intro": "Kur'an ve sahih hadisten iki bayram — bayram namazının nasıl kılınacağı, Fıtır Sadakası, kurban ve günün sünnet uygulamaları.",
+    "intro": "Kuran'dan ve sahih hadislerden iki bayram: Bayram namazı nasıl kılınır, Fitre zekatı, udhiyah ve günün sünnet uygulamaları.",
     "section": {
       "fitr": "Ramazan Bayramı",
       "adha": "Kurban Bayramı",
       "prayer": "Bayram namazı",
       "sunnah": "Sünnet uygulamaları",
-      "zakat-fitr": "Fıtır Sadakası",
-      "udhiyah": "Kurban"
+      "zakat-fitr": "Fitr Zekâtı",
+      "udhiyah": "Udhiyah (kurban)"
     },
     "notFound": "Konu bulunamadı",
-    "disclaimer": "Eğitim amaçlı genel bakış — fetva değildir. Mezheplerin görüş ayrılığına düştüğü yerlerde (ekstra tekbir sayısı gibi) her iki görüş de sunulur; imamınızı veya yetkin bir yerel alimi takip edin.",
-    "continueInApp": "Munib'de sürdürün"
+    "disclaimer": "Eğitime genel bakış – bir fetva değil. Okulların farklılık gösterdiği durumlarda (ekstra tekbir sayısı gibi) her iki konum da sunulur; imamınızı veya nitelikli bir yerel alimi takip edin.",
+    "continueInApp": "Munib'de sürdür"
   },
   "ruqyah": {
     "eyebrow": "Öğren",
-    "title": "Rukye",
-    "subtitle": "Kur'ani ve peygamberî ruhsal şifa",
-    "intro": "Rukye; şifa ve korunma için Kur'an, Allah'ın isimleri veya sahih peygamber dualarının okunmasıdır — asla namazın veya tıbbi bakımın yerini tutmaz.",
+    "title": "Ruqyah",
+    "subtitle": "Kur'an ve peygamberlik manevi şifa",
+    "intro": "Ruqyah, şifa ve koruma için Kuran'ı, Allah'ın İsimlerini veya gerçek peygamberlik dualarını okumaktır - asla dua veya tıbbi bakımın yerine geçmez.",
     "section": {
       "basics": "Temel bilgiler",
       "verses": "Anahtar ayetler",
-      "daily-protection": "Günlük korunma",
-      "reminders": "Hatırlatmalar"
+      "daily-protection": "Günlük koruma",
+      "reminders": "Hatırlatıcılar"
     },
     "notFound": "Konu bulunamadı",
-    "disclaimer": "Rukye ruhsal bir uygulamadır, tıbbi bir tedavi değildir. Ne yetkin bir doktora görünmenin ne de beş vakit namazın yerini tutar. Ciddi veya sürekli bir sıkıntı için hem bir alime hem de bir sağlık uzmanına danışın.",
-    "continueInApp": "Munib'de sürdürün"
+    "disclaimer": "Ruqyah tıbbi bir tedavi değil, manevi bir uygulamadır. Ehil bir doktora görünmenin veya beş vakit namazın yerini tutmaz. Ciddi veya sürekli bir rahatsızlık için hem bir alim hem de bir tıp uzmanına danışın.",
+    "continueInApp": "Munib'de sürdür"
   },
   "newMuslim": {
     "eyebrow": "Öğren",
-    "title": "Yeni Müslüman kılavuzu",
+    "title": "Yeni Müslüman rehberi",
     "subtitle": "İlk günler ve haftalar için sıcak, pratik bir başlangıç",
-    "intro": "İslam'a hoş geldiniz. Bu kılavuz; kelime-i şehadeti, beş şartı, iman esaslarını ve namaza ilk bakışı kapsar, ardından sizi bu uygulamadaki daha kapsamlı Namaz, Akide ve Kur'an kılavuzlarına yönlendirir.",
+    "intro": "İslam'a hoş geldiniz. Bu kılavuz, şehadet, beş sütun, imanın temelleri ve duaya ilk bakışı kapsar, ardından sizi bu uygulamadaki daha kapsamlı Namaz, Akide ve Kur'an kılavuzlarına yönlendirir.",
     "section": {
       "start": "Başlarken",
-      "pillars": "İslam'ın beş şartı",
-      "faith": "İman esasları",
-      "prayer": "İlk namazınız",
+      "pillars": "Beş sütun",
+      "faith": "İnancın temelleri",
+      "prayer": "İlk duan",
       "next-steps": "Sonraki adımlar",
       "faq": "Sık sorulan sorular"
     },
     "notFound": "Konu bulunamadı",
-    "disclaimer": "Tüm mezheplerin ortak kabul ettiği temel esasları kapsayan basit ama doğru bir başlangıç kılavuzu. Kendi durumunuz için yerel bir imam veya öğretmene sorun.",
-    "continueInApp": "Munib'de sürdürün"
+    "disclaimer": "Yalnızca her okulun üzerinde mutabakata vardığı ortak esasları kapsayan sığ ama doğru bir başlangıç kılavuzu. Özel durumunuz için yerel bir imama veya öğretmene danışın.",
+    "continueInApp": "Munib'de sürdür"
   },
   "finance": {
     "eyebrow": "Öğren",
     "title": "İslami finans",
-    "subtitle": "Riba, adil ticaret, bağış ve tekafül",
-    "intro": "İslam'ın paraya getirdiği etik çerçeveye eğitim amaçlı bir giriş — riba yasağı, adil ticaret, zekat ve sadaka, ve tekafül (ortak risk paylaşımı).",
+    "subtitle": "Riba, adil ticaret, verme ve tekafül",
+    "intro": "İslam'ın paraya getirdiği etik çerçeveye eğitici bir giriş - riba, adil ticaret, zekat, sadaka ve tekafül (işbirlikçi risk paylaşımı) yasağı.",
     "section": {
       "principles": "İlkeler",
       "riba": "Riba (faiz)",
       "trade": "Adil ticaret",
-      "giving": "Bağış",
+      "giving": "Vermek",
       "takaful": "Tekafül",
       "faq": "Sık sorulan sorular"
     },
     "notFound": "Konu bulunamadı",
-    "disclaimer": "Genel eğitim içeriğidir, finansal veya fetva tavsiyesi değildir. Fon tarayıcıları, belirli ürünler ve kendi sözleşmelerinizle ilgili hükümler için yetkin, sertifikalı bir İslami finans alimine veya kuruma danışılmalıdır.",
-    "continueInApp": "Munib'de sürdürün"
+    "disclaimer": "Genel eğitim, mali veya fetva tavsiyesi değil. Fon ayırıcıları, özel ürünler ve kendi sözleşmelerinizdeki kararlar için nitelikli, sertifikalı bir İslami finans uzmanına veya kurumuna ihtiyaç vardır.",
+    "continueInApp": "Munib'de sürdür"
   },
   "dateConverter": {
     "eyebrow": "Takvim",
     "title": "Tarih dönüştürücü",
-    "subtitle": "Hicri ve Miladi takvimler arasında dönüştürün",
-    "intro": "Kuveyt tablo algoritması kullanılarak çevrimdışı hesaplanan karşılığını görmek için her iki takvimden birine bir tarih girin.",
-    "toHijri": "Miladi → Hicri",
-    "toGregorian": "Hicri → Miladi",
-    "gregorianDateLabel": "Miladi tarih",
+    "subtitle": "Hicri ve Gregoryen takvimleri arasında dönüştürme",
+    "intro": "Takvimlerden herhangi birine bir tarih girin ve bunun diğer takvimdeki eşdeğerini görmek için Kuveyt tablo algoritması kullanılarak çevrimdışı olarak hesaplayın.",
+    "toHijri": "Gregoryen → Hicri",
+    "toGregorian": "Hicri → Gregoryen",
+    "gregorianDateLabel": "Gregoryen tarihi",
     "hijriDateLabel": "Hicri tarih",
     "day": "Gün",
     "month": "Ay",
     "year": "Yıl",
-    "useToday": "Bugünü kullan",
+    "useToday": "Bugün kullanın",
     "invalidDate": "Geçerli bir tarih girin",
-    "disclaimer": "Bu, aritmetik bir yaklaşımdır (tablo halindeki 'Kuveyt algoritması') ve yerel hilal gözlem duyurularından bir gün farklı olabilir — dini tarihler için her zaman yerel cami veya yetkilinizi takip edin.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
-    "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "disclaimer": "Bu aritmetik bir yaklaşımdır (tablo \"Kuveyt algoritması\") ve yerel ay gözlemi duyurularından bir gün farklılık gösterebilir; dini tarihler için daima yerel mescidinizi veya otoritenizi takip edin.",
+    "directionTitle": "Dönüşüm yönü",
+    "resultFrom": "{{date}}'den",
+    "quickLinksTitle": "İlgili",
+    "quickCalendar": "İbadet takvimi",
+    "quickCalendarHint": "Dua günlüğünüzle aylara göz atın",
+    "quickEvents": "İslami olaylar",
+    "quickEventsHint": "Hicri takvimde yaklaşan tarihler",
+    "quickRamadan": "Ramazan",
+    "quickRamadanHint": "Oruç süreleri ve oruç günlüğünüz",
+    "quickHistory": "Erken tarih",
+    "quickHistoryHint": "Hicri yıllarla Rashidun zaman çizelgesi",
+    "exploreTitle": "Öğrenmeye devam",
+    "exploreCalendar": "Takvimi aç",
+    "exploreCalendarHint": "İbadet geçmişini gün be gün görün",
+    "exploreEvents": "Açık İslami etkinlikler",
+    "exploreEventsHint": "Önümüzdeki kilometre taşları ve kutlamalar"
   }
 }

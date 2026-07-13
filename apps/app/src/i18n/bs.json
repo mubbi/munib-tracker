@@ -112,13 +112,13 @@
       "learnQuran": "Nauči Kur'an"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "Pretražujte glasom",
+      "stopDictate": "Zaustavite glasovnu pretragu",
+      "listening": "Slušanje…",
+      "permissionDenied": "Za glasovno pretraživanje potrebna je dozvola za mikrofon. Još uvijek možete kucati.",
+      "unavailable": "Prepoznavanje govora nije dostupno na ovom uređaju.",
+      "couldNotHear": "Ne čujem – pokušajte ponovo ili ukucajte.",
+      "errorGeneric": "Glasovna pretraga nije uspjela. Pokušajte ponovo ili upišite."
     }
   },
   "tabs": {
@@ -161,11 +161,11 @@
     "adhkarBuilder": "Moji adhkar",
     "sahaba": "Sahaba",
     "history": "Islamic History",
-    "laylatAlQadr": "Laylat al-Qadr",
-    "eid": "Eid Guide",
+    "laylatAlQadr": "Laylet al-Qadr",
+    "eid": "Bajramski vodič",
     "ruqyah": "Ruqyah",
-    "newMuslim": "New Muslim Guide",
-    "finance": "Islamic Finance"
+    "newMuslim": "Novi muslimanski vodič",
+    "finance": "Islamske finansije"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -200,7 +200,7 @@
         "description": "Današnji obavezni molitveni napredak"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "Preostalo",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -649,9 +649,9 @@
     "eyebrowWelcome": "Hoş geldiniz",
     "title": "Sign u",
     "subtitle": "Sync vaš ibadet across devices",
-    "google": "Nastavi sa Google",
-    "apple": "Nastavi sa Apple",
-    "facebook": "Nastavi sa Facebook",
+    "google": "Nastavite s Googleom",
+    "apple": "Nastavite s Appleom",
+    "facebook": "Nastavite s Facebookom",
     "heroGuest": "You're using  guest račun. Link  provider u back up i sync vaš podaci — nothing je lost.",
     "heroUser": "Sign u u keep vaš salah, qaza, i zikr sigurno u  cloud.",
     "error": "Couldn't sign u. Make sure  API server je running i ovo provider je configured."
@@ -1106,7 +1106,7 @@
     "subtitle": "Read, listen, i reflect",
     "searchSurah": "Pretraži by name, meaning, ili number",
     "filterAll": "Sve",
-    "continueReading": "Nastavi reading",
+    "continueReading": "Nastavite čitati",
     "continueAt": "Surh {{surah}} · yh {{ayah}}",
     "makki": "Mekki",
     "madani": "Medeni",
@@ -1194,15 +1194,15 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "Riječ po riječ",
+      "playWord": "Pusti ovu riječ",
+      "noAudio": "Nema zvuka za ovu riječ",
+      "loading": "Učitavanje riječi…"
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "Tajweed legenda",
+      "openLesson": "Otvorite lekciju Učiti Kur'an",
+      "loading": "Učitavanje tajweeda…",
       "rules": {
         "ghunnah": "Ghunnah",
         "ikhafa": "Ikhfa",
@@ -1218,26 +1218,26 @@
         "maddNecessary": "Madd (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "Tiho"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "Zadržite pokazivač miša da vidite pravilo tajvida",
+      "tapHint": "Dodirnite da vidite pravilo tajvida",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "Nosni zvuk — 2 otkucaja",
+        "ikhafa": "Prikrivanje sa ghunnah - 2 takta",
+        "ikhafaShafawi": "Labijalno prikrivanje — 2 otkucaja",
+        "idghamGhunnah": "Spajanje sa nazalnim zvukom — 2 takta",
+        "idghamNoGhunnah": "Spajanje bez nazalnog zvuka",
+        "idghamShafawi": "Labijalno spajanje — 2 otkucaja",
+        "iqlab": "Konverzija u skriveni meem — 2 takta",
+        "qalqalah": "Odjek odjek na pismu",
+        "maddNormal": "Normalno izduženje — 2 otkucaja",
+        "maddPermissible": "Dozvoljeno izduženje — 2, 4 ili 6 otkucaja",
+        "maddObligatory": "Obavezno izduženje - 4 ili 5 otkucaja",
+        "maddNecessary": "Potrebno izduženje — 6 otkucaja",
+        "hamWasl": "Povezivanje hamze — ispušteno prilikom spajanja",
+        "lamShamsiyah": "Sunčevo slovo لام — ne izgovara se",
+        "silent": "Napisano, ali ne i izgovoreno"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
-      "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
+      "title": "Reprodukcija",
+      "open": "Postavke reprodukcije",
+      "repeatMode": "Režim ponavljanja",
+      "repeatOff": "Isključeno",
+      "repeatVerse": "Stih",
+      "repeatRange": "Domet",
+      "repeatSurah": "Sura",
+      "rangeStart": "Od ayaha",
       "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "translationAudio": "Audio prijevoda",
+      "translationOff": "Isključeno",
+      "translationAfter": "Nakon svakog stiha",
+      "translationAudioHint": "Čita prijevod naglas nakon svakog arapskog stiha (uređaj TTS)",
+      "ttsVoice": "Prevod govorni glas",
+      "ttsVoiceDefault": "Podrazumevano za jezik",
+      "ttsVoiceEmpty": "Na ovom uređaju nisu pronađeni glasovi za ovaj jezik.",
+      "summaryVerse": "Ponovi stih",
+      "summarySurah": "Ponovite suru",
+      "summaryRange": "Raspon {{start}}–{{end}}",
+      "summaryTts": "Prijevod TTS",
       "summaryWithTts": "{{summary}} · TTS"
     },
     "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
+    "openTafsir": "Otvorite tefsir za ovaj ajet",
     "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
-    "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "tafsirNone": "Odaberite tefsir",
+    "selectTafsirAuthor": "Odaberite tefsir — {{language}}",
+    "tafsirCount_one": "{{count}} tefsir",
+    "tafsirCount_other": "{{count}} tefsiri",
+    "searchTafsirLanguages": "Pretraži jezike…",
+    "searchTafsirAuthors": "Traži autore…",
+    "tafsirLoading": "Učitavanje tafsira…",
+    "tafsirOffline": "Povežite se da preuzmete ovaj tefsir. Otvorena izdanja ostaju dostupna van mreže.",
+    "tafsirEmpty": "Za ovaj ajet u odabranom izdanju nije dostupan tefsir."
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -1392,7 +1392,7 @@
     },
     "duha": {
       "summary": " forenoon salah — typically two u eight rak'ahs between sunrise i Dhuhr.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "Dobročinstvo se plaća svakom zglobu tijela svakog dana; čak i nekoliko rekata Duha ispunjava to dobročinstvo za udove kroz ibadet.",
       "benefits": "Forgives sins, brings sustenance (rizq), i revives  neglected sunnah. Flexible timing makes it accessible when  dan allows."
     },
     "dhuhr": {
@@ -1634,8 +1634,8 @@
     "partial": "Prtil",
     "missed": "Propušteno",
     "legendHint": "Tap any past ili current dan u review i adjust it. Danas je {{date}}.",
-    "converterRowTitle": "Hijri ⟷ Gregorian converter",
-    "converterRowSubtitle": "Convert a date between the two calendars"
+    "converterRowTitle": "Hidžri ⟷ gregorijanski pretvarač",
+    "converterRowSubtitle": "Pretvorite datum između dva kalendara"
   },
   "calDay": {
     "today": "Danas",
@@ -2004,7 +2004,7 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Milestone",
     "categorySystem": "Sistem",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "Najava"
   },
   "qibla": {
     "eyebrow": "Yön",
@@ -2020,7 +2020,7 @@
     "compassLabel": "Kıble compass",
     "compassValue": "{{bearing}} degrees u  Kaaba, {{distance}} away",
     "aligned": "Aligned sa  Qibla",
-    "alignedHint": "Hold steady — you're facing the Kaaba",
+    "alignedHint": "Držite se mirno - okrenuti ste ka Kabi",
     "turnFineTuneLeft": "Sola çevir",
     "turnFineTuneRight": "Sağa çevir",
     "turnSlightLeft": "Hafif sola",
@@ -2060,7 +2060,7 @@
     "syncing": "Sinhroniziranje…",
     "done": "Vaš podaci je backed up",
     "failed": "Couldn't sync. Check vaš connection i try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "Sve je već bilo ažurirano",
     "mergeSummary": "{{received}} alındı · {{sent}} gönderildi",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest uredi",
     "conflictAffected": "Etkilenen: {{list}}",
@@ -2238,13 +2238,13 @@
     "eyebrow": " Noble Kur'an",
     "short": "Hatim",
     "title": "Hatim plan",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "Završite Kur'an ujednačenim tempom",
     "startTitle": "Počni  plan",
     "startHint": "Choose how many dana u završeno  Kur'an. We'll set  dnevno ayah target.",
     "startHintPages": "Choose how many dana u završeno  Kur'an. We'll set  dnevno mushaf page target.",
     "unitAyah": "от yh",
     "unitPage": "Po stranici",
-    "continueReading": "Nastavi reading",
+    "continueReading": "Nastavite čitati",
     "dayPlan": "{{count}} dana",
     "preset": {
       "intensive": "Yoğun",
@@ -2319,12 +2319,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
+        "text": "Khatm izgrađen na stalnom svakodnevnom čitanju traje duže od sprinta koji sagorijeva.",
         "source": "Principle  dosljednost"
       },
       "portion": {
         "text": "Vi do not have u finish danas — only honour today's portion sa sincerity.",
-        "source": "Steady progress"
+        "source": "Stalan napredak"
       },
       "return": {
         "text": "If vi fall behind, do not abandon  plan. Resume sa today's ayahs i move forward.",
@@ -2608,7 +2608,7 @@
     "meaningLabel": "Wht it teches",
     "progressTitle": "Moji learning progress",
     "progressSubtitle": "Prati lessons — not duhovno rank sa Allah",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "Ova kontrolna tabla prati vaše učenje i praksu u Munibu. Završavanje lekcija ne mjeri vaš položaj kod Allaha – to čini iskrenost.",
     "lessonsTitle": "Lessons završeno",
     "lessonsHint": "Mark teme završeno as vi finish učenje them",
     "lessonsCount": "{{completed}} из {{total}}",
@@ -2892,9 +2892,9 @@
     "quickGhusl": "Gusül guide",
     "quickGhuslHint": "Puna kupka kada dođe do veće nečistoće",
     "quickChecklist": "Dnevno checklist",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "Navike koje vas drže spremnim za molitvu",
     "quickProgress": "Moji learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Pročitane teme i napredak u učenju",
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}} od {{total}} tema označeno kao završeno",
     "exploreTitle": "Istraži",
@@ -2963,7 +2963,7 @@
     "quickLessons": "Lekcije",
     "quickLessonsHint": "Moral i duhovno takeaways",
     "quickProgress": "Moji learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Pročitane teme i napredak u učenju",
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}} od {{total}} tema označeno kao završeno",
     "exploreTitle": "Istraži",
@@ -2987,7 +2987,7 @@
     "profileTitle": "Profil",
     "progressTitle": "Moji learning progress",
     "progressSubtitle": "Prati lessons — not duhovno rank sa Allah",
-    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
+    "progressIntro": "Označite teme završenim dok proučavate živote proroka.",
     "lessonsTitle": "Teme završeno",
     "lessonsHint": "Mark teme završeno as vi finish učenje them",
     "lessonsCount": "{{completed}} из {{total}}",
@@ -3033,7 +3033,7 @@
     "quickGlossary": "Rječnik",
     "quickGlossaryHint": "Key creed uslovi defined",
     "quickProgress": "Moji learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Pročitane teme i napredak u učenju",
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}} od {{total}} tema označeno kao završeno",
     "exploreTitle": "Istraži",
@@ -3094,7 +3094,7 @@
     "quickOccasions": "Po prilici",
     "quickOccasionsHint": "Browse duas za every moment",
     "quickProgress": "Moji learning",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Pročitane teme i napredak u učenju",
     "progressCardTitle": "Learning napredak",
     "progressCardHint": "{{completed}} od {{total}} tema označeno kao završeno",
     "exploreTitle": "Istraži",
@@ -3398,7 +3398,7 @@
       "purpose": {
         "title": "Zašto zekat — svrha i mudrost",
         "summary": "Pročišćava bogatstvo i dušu, i podiže siromašne",
-        "body": "Allah kaže za zekat: \"Uzmite od njihovog imetka milostinju kojom ćete ih očistiti i učiniti da rastu\" (Kur'an 9:103). Obaveza djeluje na dva nivoa odjednom — pročišćava dušu darodavca od škrtosti i ljubavi prema svijetu, a pročišćava i samo bogatstvo kako bi ono što vam je u ruci bilo zdravo i blagoslovljeno.\n\nDruštveno, zekat je božanski uređen sistem cirkulacije. Kada je Poslanik, sallAllahu alejhi ve sellem, poslao Muaza u Jemen, naredio je da se zekat uzima od njihovih bogatih i daje njihovim siromašnima. Bogatstvo nije zamišljeno da se gomila među nekolicinom; Zekat ga vraća u pokret kako bi se siromašni nahranili, dužnici oslobođeni, a veze zajednice ojačale.\n\nU duhovnom smislu, davanje zekata je čin zahvalnosti i povjerenja. Ona odgovara ljudskom porivu za gomilanjem sa sigurnošću da opskrba dolazi od Allaha, i obučava vjernika da voli davanje. Onaj ko dobrovoljno plaća zekat nalazi svoje bogatstvo zaštićeno, srce mu je olakšano, a nagradu pohranjenu kod njihovog Gospodara - \"neće biti straha za njih, niti će tugovati\" (Kur'an 2:277)."
+        "body": "Allah kaže za zekat: \"Uzmite od njihovog imetka milostinju kojom ćete ih očistiti i učiniti da rastu\" (Kur'an 9:103). Obaveza djeluje na dva nivoa odjednom — pročišćava dušu darodavca od škrtosti i ljubavi prema svijetu, a pročišćava i samo bogatstvo kako bi ono što vam je u ruci bilo zdravo i blagoslovljeno.\n\nDruštveno, zekat je božanski uređen sistem cirkulacije. Kada je Poslanik, sallallahu alejhi ve sellem, poslao Muaza u Jemen, naredio je da se zekat uzima od njihovih bogatih i daje njihovim siromašnima. Bogatstvo nije zamišljeno da se gomila među nekolicinom; Zekat ga vraća u pokret kako bi se siromašni nahranili, dužnici oslobođeni, a veze zajednice ojačale.\n\nU duhovnom smislu, davanje zekata je čin zahvalnosti i povjerenja. Ona odgovara ljudskom porivu za gomilanjem sa sigurnošću da opskrba dolazi od Allaha, i obučava vjernika da voli davanje. Onaj ko dobrovoljno plaća zekat nalazi svoje bogatstvo zaštićeno, srce mu je olakšano, a nagradu pohranjenu kod njihovog Gospodara - \"neće biti straha za njih, niti će tugovati\" (Kur'an 2:277)."
       },
       "hawl": {
         "title": "lunarna godina (lov)",
@@ -3423,12 +3423,12 @@
       "debts": {
         "title": "Dugovi i odbici",
         "summary": "Trenutni dugovi se mogu odbiti prije obračuna 2,5%",
-        "body": "Zekat se računa na vaše neto bogatstvo koje se može dobiti, tako da stvarni dugovi koje dugujete mogu smanjiti iznos koji plaćate. Najjasniji slučaj su dugovi koji sada dospijevaju — neplaćeni lični zajam, nepodmireni saldo na kreditnoj kartici, stanarina ili već dugovani računi. Većina učenjaka dozvoljava da se oni oduzmu od vašeg bruto bogatstva prije nego što primijenite 2,5%.\n\nDugoročnim dugovima poput hipoteke ili višegodišnjeg otplatnog plana postupa se pažljivije, jer bi odbijanje cjelokupnog stanja izbrisalo zekat gotovo svakoga tko ima stambeni kredit. Uobičajeni savremeni pristup je da se odbiju samo plaćanja koja dospijevaju u narednoj godini, a ne cijeli nepodmireni iznos. Škole i naučnici se ovdje razlikuju, pa odaberite dosljedan metod pod vodstvom.\n\nDva upozorenja. Prvo, nemojte tretirati buduće ili hipotetičke troškove kao odbitne dugove – računa se samo ono što stvarno dugujete. Drugo, nemojte oduzimati prošlogodišnji neplaćeni zekat kao da je to običan dug; neplaćeni zekat ostaje dospjela obaveza i treba ga jednostavno platiti. Kada je vaša situacija duga složena, odluka učenjaka vrijedi više od grubog nagađanja."
+        "body": "Zekat se računa na vaše neto bogatstvo koje se može dobiti, tako da stvarni dugovi koje dugujete mogu smanjiti iznos koji plaćate. Najjasniji slučaj su dugovi koji sada dospijevaju — neplaćeni lični zajam, nepodmireni saldo na kreditnoj kartici, stanarina ili već dugovani računi. Većina učenjaka dozvoljava da se oni oduzmu od vašeg bruto bogatstva prije nego što primijenite 2,5%.\n\nDugoročnim dugovima poput hipoteke ili višegodišnjeg otplatnog plana postupa se pažljivije, jer bi odbijanje cjelokupnog bilansa izbrisalo zekat gotovo svakoga tko ima stambeni kredit. Uobičajeni savremeni pristup je da se odbiju samo plaćanja koja dospijevaju u narednoj godini, a ne cijeli nepodmireni iznos. Škole i naučnici se ovdje razlikuju, pa odaberite dosljedan metod pod vodstvom.\n\nDva upozorenja. Prvo, nemojte tretirati buduće ili hipotetičke troškove kao odbitne dugove – računa se samo ono što stvarno dugujete. Drugo, nemojte oduzimati prošlogodišnji neplaćeni zekat kao da je to običan dug; neplaćeni zekat ostaje dospjela obaveza i treba ga jednostavno platiti. Kada je vaša situacija duga složena, odluka učenjaka vrijedi više od grubog nagađanja."
       },
       "recipients": {
         "title": "Ko može primiti zekat",
         "summary": "Osam kategorija navedenih u Kur'anu 9:60",
-        "body": "Zekat se može dati samo kategorijama ljudi koje je sam Allah naveo u suri Et-Tawbah (9:60). Ovo je jedan od rijetkih činova ibadeta gdje su primaoci fiksirani otkrivenjem, a ne prepušteni preferencijama davaoca. Osam kategorija su: siromašni (al-fuqara); potrebiti (al-masakin); oni koji su zaposleni da prikupljaju i daju zekat; oni čija srca treba da se pomire (al-mu'allafah); oslobađanje zarobljenika i onih u ropstvu (fi'r-riqab); dugovima opterećeni (al-gharimin); na Allahovom putu (fi sabil Allah); i nasukanog putnika (ibn as-sabil).\n\nNije potrebno dati na svih osam; davanje vašeg zekata čak i jednoj prihvatljivoj kategoriji ispunjava obavezu, a usmjeravanje prema siromašnima i potrebitima je najčešća praksa.\n\nJednako je važno ko ga možda neće primiti. Zekat se ne može dati bogatima, niti onima koje ste već dužni izdržavati — vašim roditeljima, vašoj djeci ili vašem supružniku — jer je izdržavanje njih ionako obaveza koju ste dužni. U klasičnom pogledu to je lični prenos vlasništva na kvalifikovanog pojedinca, a ne opšta donacija; učenjaci se razlikuju oko toga da li se institucije kao što su mesdžidi ili široki javni projekti kvalificiraju za Allahovo djelo. Također se ne može dati porodici Poslanika sallAllahu alejhi ve sellem, Banu Hašima, kao zekat. Namjerno ga usmjerite na ljude koji odgovaraju kur'anskim kategorijama."
+        "body": "Zekat se može dati samo kategorijama ljudi koje je sam Allah naveo u suri Et-Tawbah (9:60). Ovo je jedan od rijetkih činova ibadeta gdje su primaoci fiksirani otkrivenjem, a ne prepušteni preferencijama davaoca. Osam kategorija su: siromašni (al-fuqara); potrebiti (al-masakin); oni koji su zaposleni da prikupljaju i daju zekat; oni čija srca treba da se pomire (al-mu'allafah); oslobađanje zarobljenika i onih u ropstvu (fi'r-riqab); dugovima opterećeni (al-gharimin); na Allahovom putu (fi sabil Allah); i nasukanog putnika (ibn as-sabil).\n\nNije potrebno dati na svih osam; davanje vašeg zekata čak i jednoj prihvatljivoj kategoriji ispunjava obavezu, a usmjeravanje prema siromašnima i potrebitima je najčešća praksa.\n\nJednako je važno ko ga možda neće primiti. Zekat se ne može dati bogatima, niti onima koje ste već dužni izdržavati — vašim roditeljima, vašoj djeci ili vašem supružniku — jer je izdržavanje njih ionako obaveza koju ste dužni. U klasičnom pogledu to je lični prenos vlasništva na kvalifikovanog pojedinca, a ne opšta donacija; učenjaci se razlikuju oko toga da li se institucije kao što su mesdžidi ili široki javni projekti kvalificiraju za Allahovo djelo. Također se ne može dati porodici Poslanika sallallahu alejhi ve sellem, Banu Hašima, kao zekat. Namjerno ga usmjerite na ljude koji odgovaraju kur'anskim kategorijama."
       },
       "otherRates": {
         "title": "Ostale vrste zekata i zekat al-fitr",
@@ -3438,7 +3438,7 @@
       "mistakes": {
         "title": "Uobičajene greške koje treba izbjegavati",
         "summary": "Greške koje čine zekat nevažećim ili pogrešno izračunatim",
-        "body": "Čak i iskreni muslimani često izmiču praktične detalje zekata. Poznavanje uobičajenih grešaka pomaže vam da platite ispravno i bezbrižno.\n\nZaboravljanje hala ili godišnjice: plaćanje u nasumično vrijeme ili preskakanje godina ostavlja neizmirenu obavezu. Odredite jedan hidžretski datum svake godine i na njemu procijenite svoje bogatstvo.\n\nPogrešno računanje bogatstva: procjenjivanje zlata ili dionica po njihovoj kupovnoj cijeni umjesto današnje tržišne vrijednosti, zaboravljanje gotovine koja se drži na više računa ili valuta, ili previđanje poslovnog inventara i novca koji vam se duguje. Zekat je na svim zekatima koje posjedujete na svom spoju.\n\nDavanje pogrešnim ljudima: davanje zekata roditeljima, djeci ili supružniku kojeg već podržavate, ili ga tretirajte kao generičku donaciju za bilo koji dobar cilj. Mora doseći jednu od osam kur'anskih kategorija.\n\nGreške u namjeri: velikodušno davanje cijele godine, ali nikada ništa od toga kao zekat. Zekat je čin ibadeta i potrebna mu je namjera (nija) da ova posebna isplata bude vaš obavezni zekat.\n\nPreveliki odbitak dugova: oduzimanje cijele dugoročne hipoteke ili budućih troškova koji još nisu dužni, kako bi se smanjio račun. Samo stvarne, tekuće obaveze smanjuju vaše bogatstvo koje se može dobiti. Kada je bilo šta od ovoga nejasno za vašu situaciju, pitajte kvalifikovanog naučnika radije nego pretpostavljajte."
+        "body": "Čak i iskreni muslimani često izmiču praktične detalje zekata. Poznavanje uobičajenih grešaka pomaže vam da platite ispravno i bezbrižno.\n\nZaboravljanje hala ili godišnjice: plaćanje u nasumično vrijeme ili preskakanje godina ostavlja neizmirenu obavezu. Odredite jedan hidžretski datum svake godine i na njemu procijenite svoje bogatstvo.\n\nPogrešno računanje bogatstva: procjenjivanje zlata ili dionica po njihovoj kupovnoj cijeni umjesto današnje tržišne vrijednosti, zaboravljanje gotovine koja se drži na više računa ili valuta, ili previđanje poslovnog inventara i novca koji vam se duguje. Zekat je na svim zekatima koje posjedujete na svom spoju.\n\nDavanje pogrešnim ljudima: davanje zekata roditeljima, djeci ili supružniku kojeg već podržavate, ili ga tretirajte kao generičku donaciju za bilo koji dobar cilj. Mora doseći jednu od osam kur'anskih kategorija.\n\nGreške u namjeri: velikodušno davanje cijele godine, ali nikada ništa od toga kao zekat. Zekat je ibadet i potrebna mu je namjera (nija) da ova posebna isplata bude vaš obavezni zekat.\n\nPreveliki odbitak dugova: oduzimanje cijele dugoročne hipoteke ili budućih troškova koji još nisu dužni, kako bi se smanjio račun. Samo stvarne, tekuće obaveze smanjuju vaše bogatstvo koje se može dobiti. Kada je bilo šta od ovoga nejasno za vašu situaciju, pitajte kvalifikovanog naučnika radije nego pretpostavljajte."
       }
     },
     "recipientsListTitle": "Osam kategorija",
@@ -3513,7 +3513,7 @@
     "group": {
       "liquid": "Gotovina i plemeniti metali",
       "investments": "Investicije i poslovanje",
-      "property": "Land, property & vehicles"
+      "property": "Zemljište, imovina i vozila"
     },
     "weightSectionTitle": "Izračunajte zlato i srebro po težini",
     "nisabOverrideTitle": "Ručno nisab nadjačavanje",
@@ -3535,23 +3535,23 @@
         "title": "Ili izračunajte zlato po težini",
         "grams": "Grams",
         "pricePerGram": "Cijena/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "Zlato po težini",
+        "amount": "Težina",
+        "pricePerGram24k": "Cijena/g (24k)"
       },
       "silver": {
         "title": "Ili izračunajte srebro po težini",
         "grams": "Grams",
         "pricePerGram": "Cijena/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "Srebro po težini",
+        "amount": "Težina",
+        "pricePerGramFine": "Cijena/g (fino)"
       },
       "computed": "Dodaje {{value}} ukupno",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "Live spot cijene su 24k zlata i finog srebra po gramu. Odaberite svoju jedinicu (g, tola, troy oz, kg) i karat/čistoću — vrijednost se pretvara u čisti metal × spot.",
+      "unit": "Jedinica težine",
+      "karat": "Zlatni karat",
+      "purity": "Srebrna čistoća",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
@@ -3560,8 +3560,8 @@
         "oz": "Troy oz",
         "kg": "Kilogram"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g čisti metal",
+      "cardHint": "Tola, grami, karat / čistoća × cijena zlata 24k ili čistog srebra."
     },
     "field": {
       "cash": "Gotovina i štednja",
@@ -3576,12 +3576,12 @@
       "nisab": "Nisab vrijednost (nadglasavanje)",
       "nisabGoldPrice": "Cijena zlata po gramu",
       "nisabSilverPrice": "Cijena srebra po gramu",
-      "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "crypto": "kriptovaluta",
+      "livingExpenses": "Neposredni životni troškovi",
+      "investmentPlots": "Investicione parcele (tržišna vrijednost)",
+      "installmentPlotsPaid": "Parcele na rate — plaćen iznos",
+      "investmentProperty": "Investicione kuće / zgrade",
+      "tradeVehicles": "Prodaja/trgovina vozila"
     },
     "fieldHint": {
       "cash": "Bankovni računi, gotovina u blagajni i likvidna štednja.",
@@ -3594,12 +3594,12 @@
       "otherAssets": "Kriptovaluta, dostupni penzioni fondovi ili drugo bogatstvo koje se može dobiti po vašem učeniku.",
       "debts": "Lični zajmovi, kreditne kartice i računi koji sada dospiju – a ne ukupni dugoročni iznosi hipoteke osim ako vaš učenjak ne dozvoli.",
       "nisab": "Ostavite prazno da koristite izračunati prag ili unesite prilagođeni nisab.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "Tržišna vrijednost kriptovaluta koji se drži kao imovina — odluke se razlikuju; pitajte učenjaka.",
+      "livingExpenses": "Kirija, hrana i računi dospiju odmah - samo ako vaš učenjak dozvoli ovaj odbitak.",
+      "investmentPlots": "Zemljište ili parcele koje se drže radi ulaganja ili prodaje (trenutna tržišna vrijednost). Lično poljoprivredno zemljište koje se koristi za život je drugačije — pitajte naučnika.",
+      "installmentPlotsPaid": "Koliko ste već platili na investicionim parcelama na rate (ne u potpunosti neplaćeni ugovor osim ako ga vaš stipendista ne uključuje).",
+      "investmentProperty": "Kuće ili zgrade koje se drže za ulaganje ili trgovinu - a ne vaše lično stanovanje.",
+      "tradeVehicles": "Automobili ili vozila koja se drže za prodaju ili kao trgovačke zalihe — ne vozila za ličnu upotrebu."
     },
     "checklist[0]": {
       "title": "Potvrdite hal (lunarna godina)",
@@ -3684,148 +3684,148 @@
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "Promijenite valutu zekata",
+      "pickerTitle": "Odaberite valutu",
+      "pickerHint": "{{count}} valute — pretražujte po kodu ili nazivu",
+      "searchPlaceholder": "Traži valute…",
+      "noResults": "Nijedna valuta ne odgovara vašoj pretrazi.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "Živo zlato i srebro",
+      "goldPerGram": "Zlato / gram",
+      "silverPerGram": "Srebro / gram",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "Preuzimanje cijena uživo…",
+      "error": "Nije moguće učitati cijene uživo. Ručno unesite cijene zlata i srebra.",
+      "prefilled": "Cijene nisaba i metala su unaprijed popunjene iz aktivnih cijena.",
+      "useLive": "Ponovo koristite cijene uživo",
+      "useLiveA11y": "Vratite na žive cijene zlata i srebra",
+      "refreshA11y": "Osvježite tržišne cijene uživo",
+      "livePrice": "Uživo"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
-      "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "meetsNisab": "Neto {{wealth}} · Nisab {{nisab}}",
+      "belowNisab": "Neto {{wealth}} · ispod nisab {{nisab}}",
+      "hasOtherDue": "Neto {{wealth}} · usjevi / stoka dospjelih"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
+      "gold": "Zlato/g",
+      "silver": "Srebro/g",
       "nisab": "Nisab",
       "due": "Due"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "Zekat bogatstva (2,5%): {{value}}",
+      "agriculture": "Usjevi (ushr): {{value}}",
+      "livestock": "Stoka (procjena gotovine): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "Vrijednosti gotovine, kriptovaluta i metala koje već znate. Ili koristite težinu na kartici metala.",
+      "investments": "Dionice, trgovačka roba, potraživanja i ušteđeni poslovni prihodi po današnjoj vrijednosti."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "Usjevi/Stoka (bogatstvo ispod nisaba)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "Stoka (stada na ispaši)",
+      "hint": "Sunnetske vage za ovce/koze na slobodnoj ispaši, goveda i kamile (Buhari / Abu Dawud). Uhranjene životinje koje se drže kao posao često umjesto toga slijede pravila trgovine robom - pitajte učenjaka.",
+      "sheep": "Ovce / koze (glave)",
+      "sheepHint": "Nisab počinje od 40 grla.",
+      "cattle": "Goveda / bivoli (glave)",
+      "cattleHint": "Nisab počinje od 30 glava (skala tabi' / musinnah).",
+      "camels": "kamile (glave)",
+      "camelsHint": "Nisab počinje od 5 glava.",
+      "valueTitle": "Opcione gotovinske vrijednosti (po grlu)",
+      "valueHint": "Zekat na stoku se obično plaća životinjama. Unesite tržišne vrijednosti samo ako želite procjenu gotovinskog ekvivalenta za planiranje.",
+      "sheepValue": "Vrijednost po ovci/kozi",
+      "cattleValue": "Vrijednost po grlu goveda",
+      "camelValue": "Vrijednost po kamili",
+      "dueTitle": "Životinje (procjena suneta)",
+      "cashEstimate": "Procjena gotovine: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} ovca/koza",
+        "cattleTabi": "{{count}} tabi' (1-godišnja goveda)",
+        "cattleMusinnah": "{{count}} musinnah (2-godišnja goveda)",
+        "bintMakhad": "{{count}} bint makhad (1-godišnja kamila)",
+        "bintLabun": "{{count}} bint labun (2-godišnja kamila)",
+        "hiqqah": "{{count}} hiqqah (trogodišnja kamila)",
+        "jadhah": "{{count}} jadhah (4-godišnja kamila)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "Sunnetske skale za stoku — ne 2,5%. Opcione novčane vrijednosti služe samo za procjenu."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "Poljoprivreda i žetva (ushr)",
+      "hint": "Rok za berbu - ne nakon lunarne godine. Stopa je 10% za zemljište zaliveno kišom/proljeće, i 5% kada navodnjavanje košta truda ili novca (Kur'an 6:141; Sunnet).",
+      "harvest": "Tržišna vrijednost žetve",
+      "harvestHint": "Vrijednost ovosezonskih usjeva ili voća u vrijeme berbe.",
+      "irrigation": "Izvor vode",
+      "natural": "Kiša / proljeća (10%)",
+      "irrigated": "navodnjavan (5%)",
+      "naturalHint": "Ushr 10% kada se zalijeva prirodnim putem bez skupog navodnjavanja.",
+      "irrigatedHint": "Polu-ušr 5% kada se navodnjava bunarima, pumpama ili plaćenim navodnjavanjem.",
+      "due": "Ushr dospijeće: {{value}}",
+      "cardHint": "Dospjelo u berbi — 10% kiša/proljeća, 5% navodnjavanje."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "Format broja",
+      "hint": "Kako su hiljade i decimale prikazane u iznosima.",
+      "changeA11y": "Promijenite format broja",
+      "pickerTitle": "Format broja",
+      "pickerHint": "Odaberite kako su iznosi grupirani i kako se decimale pojavljuju dok kucate i u zbrojevima."
     },
-    "learnMore": "Learn more",
+    "learnMore": "Saznajte više",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "Obrazovni sažetak iz Kur'ana i Sunneta — nije lična fetva.",
+      "footnote": "Škole se razlikuju po detaljima (nakit, hipoteke, hranjena stoka, kripto). Pitajte kvalifikovanog naučnika za vaš slučaj.",
+      "openGuide": "Otvorite cijeli vodič",
+      "a11y": "Saznajte više o {{section}}",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "Valuta i kursevi",
+        "body": "Zekat se izračunava na osnovu tržišne vrijednosti vašeg bogatstva u valuti koju razumijete. Prometne cijene zlata i srebra pomažu u procjeni vrijednosti nisaba i metala — one su indikativne, a ne zamjena za stope na lokalnom tržištu koje koristi vaš učenjak."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "Gotovina i plemeniti metali",
+        "body": "Gotovina, bankovni bilansi i zlato ili srebro koji se drže kao bogatstvo su među najjasnijim sredstvima koja se mogu dobiti. Poslanik, sallallahu alejhi ve sellem, je strogo upozorio na zadržavanje onoga što se duguje za zlato i srebro. Nakit koji se nosi za normalnu upotrebu je poznata točka razlike između škola - slijedite svoj mezheb. Ovdje možete unijeti gotovinsku vrijednost ili izračunati metale po težini u sljedećem odjeljku."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "Zlato i srebro po težini",
+        "body": "Nisab je fiksiran u Sunnetu po težini: oko 20 dinara zlata ili 200 dirhama srebra (obično se navodi kao ~87,5 g zlata ili ~612 g srebra). Karat i čistoća su bitni jer je zekat na sadržaj čistog metala. Cijene uživo su za 24k / fini metal po gramu — odaberite svoju jedinicu (gram, tola, troy oz) i karat kako bi kalkulator ispravno konvertirao."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "Investicije i poslovanje",
+        "body": "Trgovinska roba, roba i bogatstvo namijenjeno rastu općenito su zakatibilni po današnjoj tržišnoj vrijednosti. Dionice i fondovi se obično vrednuju kao trgovačko bogatstvo. Često su uključena jaka potraživanja koja očekujete da ćete naplatiti. Kur'an 2:267 podstiče na trošenje od dobra onoga što ste zaradili - pošteno cijenite svoj datum zekata."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "Zemljište, imovina i vozila",
+        "body": "Vaš lični dom, lični automobil i obična kućna potrepština generalno se ne mogu zekat – zekat cilja na rastuće bogatstvo, a ne na predmete za upotrebu. Parcele, kuće ili vozila koji se drže radi ulaganja, prodaje ili trgovine mogu biti uključeni po tržišnoj vrijednosti (ili iznosima koji su već plaćeni na investicionim parcelama na rate). Kada niste sigurni, pitajte učenjaka."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "Stoka (stada na ispaši)",
+        "body": "Ovce, koze, goveda i kamile na slobodnoj ispaši imaju svoje sunnetske skale i životinjski nisab (npr. 40 ovaca, 30 goveda, 5 deva) - a ne novčanu stopu od 2,5%. Naknada se obično plaća za životinje određene starosti. Uhranjene životinje koje se drže kao posao često se umjesto toga pridržavaju pravila trgovine robom. Opcione gotovinske vrijednosti ovdje su samo planska procjena."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "Poljoprivreda i žetva (ushr)",
+        "body": "Zekat na usjeve dospijeva u vrijeme žetve, a ne nakon lunarne godine. Dobro poznata stopa je 10% (ushr) kada se zemljište zalijeva kišom ili izvorima, i 5% kada navodnjavanje košta truda ili novca. Unesite tržišnu vrijednost berbe ove sezone i odaberite izvor vode koji odgovara vašoj situaciji.",
+        "localRefLabel": "Kur'an 6:141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "Odbici",
+        "body": "Zekat se obračunava na neto imovinu koja podliježe zekatu. Neposredni dugovi koji sada dospijevaju obično se odbijaju prije primjene 2,5%. Dugoročne hipoteke se tretiraju pažljivije — mnogi savremeni učenjaci odbijaju samo rate za narednu godinu, a ne cijeli saldo. Troškovi života koji odmah dospijevaju dopušteni su samo ako to odobri vaš učenjak."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "Nisab prag",
+        "body": "Nisab je minimalni višak prije dospijeća zekata. Poslanik, sallallahu alejhi ve sellem, ga je odredio na 20 dinara zlata ili 200 dirhama srebra, i učio da se zekat ne plaća dok ne prođe godinu dana preko bogatstva. Budući da se cijene zlata i srebra danas razlikuju, mnogi naučnici preferiraju niži (često srebrni) prag kako bi se pomoglo većem broju siromašnih. Ovaj kalkulator predlaže nižu od dvije procjene u stvarnom vremenu."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "Trenutni dugovi (i troškovi života samo ako vaš učenjak dozvoli).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "Resetirati kalkulator?",
+      "message": "Ovo čisti sve količine, metalne utege, stoku i usjeve. Vaša valuta i format broja ostaju isti.",
+      "confirm": "Resetirajte obrazac",
+      "a11y": "Resetirajte obrazac za kalkulator zekata",
+      "hint": "Traži potvrdu, zatim briše sve unesene iznose"
     }
   },
   "customAdhkar": {
@@ -3845,62 +3845,62 @@
       "reference": "Reference (opcionalno)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "Slike (opciono)",
+      "add": "Dodaj sliku",
+      "remove": "Ukloni sliku",
+      "hint": "Do 5 slika, po 1 MB. Dugo pritisnite sličicu za uklanjanje.",
+      "signInRequired": "Prijavite se da priložite privatne slike svom adhkaru.",
+      "permissionDenied": "Za prilaganje slika potrebna je dozvola biblioteke fotografija.",
+      "unsupportedType": "Koristite samo JPEG, PNG ili WebP slike.",
+      "tooLarge": "Svaka slika mora biti 1 MB ili manja.",
+      "uploadFailed": "Nije moguće otpremiti slike. Pokušajte ponovo.",
+      "uploading": "Otpremanje…",
+      "open": "Otvori sliku {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "Stisnite prste za zumiranje, prevucite za pomicanje, dvaput dodirnite za resetiranje",
+      "previous": "Prethodna slika",
+      "next": "Sljedeća slika"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "Prilozi (opcionalno)",
+      "add": "Dodaj fajl",
+      "remove": "Uklonite prilog",
+      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), svaka od 1 MB. Dugo pritisnite sličicu za uklanjanje.",
+      "signInRequired": "Prijavite se da priložite privatne fajlove svom adhkaru.",
+      "permissionDenied": "Za prilaganje fajlova potrebna je dozvola.",
+      "permissionTitle": "Dozvoli pristup",
+      "permissionBody": "Munib Tracker-u treba pristup kameri ili fotografiji za prilaganje fajlova.",
+      "permissionSettingsBody": "Dozvola je odbijena. Otvorite Postavke da dozvolite kameru ili fotografije za Munib Tracker.",
+      "allowAccess": "Dozvoli pristup",
+      "unsupportedType": "Koristite samo JPEG, PNG, WebP ili PDF.",
+      "tooLarge": "Svaka datoteka mora biti 1 MB ili manja.",
+      "uploadFailed": "Nije moguće otpremiti priloge. Pokušajte ponovo.",
+      "uploading": "Otpremanje…",
+      "readFailed": "Nije moguće pročitati taj fajl. Probaj drugu.",
+      "pickFailed": "Nije moguće dodati taj fajl. Pokušajte ponovo.",
+      "openFailed": "Nije moguće otvoriti taj fajl.",
+      "open": "Otvorite prilog {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "Stisnite prste za zumiranje, prevucite za pomicanje, dvaput dodirnite za resetiranje",
+      "previous": "Prethodni prilog",
+      "next": "Sljedeći prilog",
+      "openPdf": "Otvorite PDF",
+      "sourceTitle": "Dodajte prilog",
+      "sourceCamera": "Snimite fotografiju",
+      "sourceCameraHint": "Koristite kameru da snimite sliku",
+      "sourceGallery": "Biblioteka fotografija",
+      "sourceGalleryHint": "Odaberite sliku sa svojih fotografija",
+      "sourceDocument": "Fajlovi",
+      "sourceDocumentHint": "Odaberite sliku ili PDF iz svojih datoteka"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Diktirajte mikrofonom",
+      "stopDictate": "Zaustavi diktiranje",
+      "listening": "Slušanje…",
+      "permissionDenied": "Za diktiranje je potrebna dozvola mikrofona. Još uvijek možete kucati.",
+      "unavailable": "Prepoznavanje govora nije dostupno na ovom uređaju.",
+      "couldNotHear": "Ne čujem – pokušajte ponovo ili ukucajte.",
+      "errorGeneric": "Diktat nije uspio. Pokušajte ponovo ili upišite."
     }
   },
   "tahajjud": {
@@ -3984,20 +3984,20 @@
     "confirmDiscardTitle": "Değişiklikler iptal edilsin mi?",
     "confirmDiscardMsg": "Anything vi wrote will be lost.",
     "confirmOverwriteTitle": "Zamijeniti postojeću refleksiju?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "Već ste zabilježili {{prayer}} za ovaj dan. Čuvanje će ga zamijeniti.",
     "level1": "Dalgın",
     "level2": "Huzursuz",
     "level3": "Yeterince hazır",
     "level4": "Odaklı",
     "level5": "Derinden hazır",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Diktirajte mikrofonom",
+      "stopDictate": "Zaustavi diktiranje",
+      "listening": "Slušanje…",
+      "permissionDenied": "Za diktiranje je potrebna dozvola mikrofona. Još uvijek možete kucati.",
+      "unavailable": "Prepoznavanje govora nije dostupno na ovom uređaju.",
+      "couldNotHear": "Ne čujem – pokušajte ponovo ili ukucajte.",
+      "errorGeneric": "Diktat nije uspio. Pokušajte ponovo ili upišite."
     }
   },
   "prayerTuning": {
@@ -4083,7 +4083,7 @@
     "versesLead": "Tap any verse u open it u  Kur'an reader.",
     "journeyTitle": "Moji Journey",
     "journeySummary": "Today's habits — not vaš rank sa Allah",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "Dosljednost u obožavanju već pratite",
     "journeyBanner": "These habits su among  deeds Allah loves. Vaš final rank je only sa Him.",
     "journeyToday": "Bugünün striving",
     "journeyEmpty": "Počni sa one salah ili adhkar — small steps build lifelong habits.",
@@ -4401,7 +4401,7 @@
     "wearTitle": "Wer OS",
     "wearHint": "Dodaj  Munib Tracker tile na vaš watch after pairing sa vaš phone.",
     "marked": "Salah označeno",
-    "alreadyDone": "Already marked",
+    "alreadyDone": "Već označeno",
     "allDone": "Sve obligatory Salah označeno za danas",
     "excused": "Tracking je paused za danas",
     "locked": "Unlock  app u mark Salah",
@@ -4457,181 +4457,181 @@
     "footer": "Vaš PIN je stored securely na ovo uređaj i never leaves it."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "Najava"
   },
   "sahaba": {
-    "eyebrow": "Learn",
+    "eyebrow": "Naučite",
     "title": "Sahaba",
-    "subtitle": "Short profiles of the companions of the Prophet ﷺ",
-    "intro": "The sahaba are the generation that carried Islam from the Prophet ﷺ to the rest of the world. These short profiles follow the tone of the seerah timeline — a life, a lesson, and a source for every claim.",
-    "categoryAll": "All",
+    "subtitle": "Kratki profili ashaba Poslanika ﷺ",
+    "intro": "Sahabe su generacija koja je prenijela islam od Poslanika, sallallahu alejhi ve sellem, do ostatka svijeta. Ovi kratki profili prate ton vremenske linije sera - život, lekcija i izvor za svaku tvrdnju.",
+    "categoryAll": "Sve",
     "category": {
-      "caliphs": "Caliphs",
+      "caliphs": "Halife",
       "ashara": "Ashara Mubashara",
-      "family": "Family",
-      "women": "Women",
-      "notable": "Notable"
+      "family": "Porodica",
+      "women": "Žene",
+      "notable": "Značajno"
     },
-    "noResults": "No companions in this category yet",
-    "readMore": "Tap to read the full profile",
-    "disclaimer": "Narrative facts follow the classical seerah and history works; every claim tied to a specific narration cites its hadith collection and number. This is general educational content, not a scholarly ranking.",
-    "quickLinksTitle": "Explore",
-    "quickCaliphsHint": "Start with Abu Bakr, the first Caliph",
-    "quickAsharaHint": "The ten promised Paradise",
-    "quickWomenHint": "Khadijah and the Mothers of the Believers",
-    "quickBattles": "Companions in battle",
-    "quickBattlesHint": "Campaign profiles from the Battles guide",
-    "countCardTitle": "Companion directory",
-    "countCardHint": "{{count}} verified educational profiles",
+    "noResults": "Još nema pratilaca u ovoj kategoriji",
+    "readMore": "Dodirnite da pročitate cijeli profil",
+    "disclaimer": "Narativne činjenice prate klasične sere i istorijska djela; svaka tvrdnja vezana za određenu predaju navodi njenu zbirku hadisa i broj. Ovo je opšti obrazovni sadržaj, a ne rangiranje naučnika.",
+    "quickLinksTitle": "Istražite",
+    "quickCaliphsHint": "Počnite od Abu Bekra, prvog halife",
+    "quickAsharaHint": "Desetorica su obećali raj",
+    "quickWomenHint": "Hatidža i majke vjernika",
+    "quickBattles": "Drugovi u borbi",
+    "quickBattlesHint": "Profili kampanje iz vodiča za bitke",
+    "countCardTitle": "Popratni imenik",
+    "countCardHint": "{{count}} verifikovani obrazovni profili",
     "categoryHint": {
-      "caliphs": "The four Rightly Guided Caliphs",
-      "ashara": "The ten companions promised Paradise",
-      "family": "Close family of the Prophet ﷺ",
-      "women": "Prominent women of the early community",
-      "notable": "Other widely remembered companions"
+      "caliphs": "Četiri ispravno vođena halifa",
+      "ashara": "Deset ashaba je obećalo raj",
+      "family": "Uža porodica Poslanika sallallahu alejhi ve sellem",
+      "women": "Istaknute žene rane zajednice",
+      "notable": "Drugi nadaleko zapamćeni pratioci"
     },
-    "exploreTitle": "Continue learning",
-    "exploreBattles": "Battles figures",
-    "exploreBattlesHint": "Companions who appear in the military campaigns",
+    "exploreTitle": "Nastavite sa učenjem",
+    "exploreBattles": "Brojke bitaka",
+    "exploreBattlesHint": "Pratioci koji se pojavljuju u vojnim pohodima",
     "exploreSeerah": "Seerah timeline",
-    "exploreSeerahHint": "Life of the Prophet ﷺ through key milestones",
-    "exploreHistory": "Early Islamic history",
-    "exploreHistoryHint": "From the Prophet's ﷺ passing to the end of the Rashidun",
-    "profileBodyTitle": "Life and lesson",
-    "relatedTitle": "Related guides",
-    "linkBattlesFigures": "See companions in Battles",
-    "linkSeerah": "Open the Seerah timeline",
-    "linkHistory": "Open early Islamic history",
-    "openProfileHint": "Open full companion profile",
-    "notFound": "Companion not found"
+    "exploreSeerahHint": "Život Poslanika ﷺ kroz ključne prekretnice",
+    "exploreHistory": "Rana islamska historija",
+    "exploreHistoryHint": "Od Poslanikovog ﷺ prolaska do kraja Rašiduna",
+    "profileBodyTitle": "Život i lekcija",
+    "relatedTitle": "Povezani vodiči",
+    "linkBattlesFigures": "Vidite pratioce u Bitkama",
+    "linkSeerah": "Otvorite Seerah vremensku liniju",
+    "linkHistory": "Otvorena rana islamska historija",
+    "openProfileHint": "Otvorite puni profil pratioca",
+    "notFound": "Pratilac nije pronađen"
   },
   "history": {
-    "eyebrow": "Learn",
-    "title": "Early Islamic history",
-    "subtitle": "From the Prophet's ﷺ death to the end of the Rashidun Caliphate",
+    "eyebrow": "Naučite",
+    "title": "Rana islamska historija",
+    "subtitle": "Od Poslanikove smrti do kraja Rašidunskog kalifata",
     "ceBadge": "{{year}} CE",
     "ahBadge": "{{ah}} AH",
     "era": {
-      "prophetic-close": "The Prophet ﷺ",
-      "abu-bakr": "Abu Bakr",
+      "prophetic-close": "Poslanik ﷺ",
+      "abu-bakr": "Abu Bekr",
       "umar": "Umar",
-      "uthman": "Uthman",
+      "uthman": "Osmane",
       "ali": "Ali"
     },
-    "disclaimer": "Scoped to 11–41 AH (632–661 CE) — the close of the Prophet's ﷺ life through the end of the Rashidun Caliphate. Political and military narrative follows the classical history works; the Uthman/Ali period is presented without adjudicating later theological disputes."
+    "disclaimer": "Opseg za 11-41 AH (632-661 CE) - kraj Poslanikovog života do kraja Rašidunskog kalifata. Politički i vojni narativ prati djela klasične istorije; period Osmana/Alija predstavljen je bez rješavanja kasnijih teoloških sporova."
   },
   "laylatAlQadr": {
-    "eyebrow": "Learn",
-    "title": "Laylat al-Qadr",
-    "subtitle": "The Night of Decree — better than a thousand months",
-    "intro": "Laylat al-Qadr is hidden among the odd nights of the last ten of Ramadan, not fixed to a single date. Seek it with sincere worship across all of them rather than one guessed night.",
+    "eyebrow": "Naučite",
+    "title": "Laylet al-Qadr",
+    "subtitle": "Noć Dekreta - bolje od hiljadu meseci",
+    "intro": "Lejlet al-Kadr je skriven među neparnim noćima poslednjih deset ramazana, nije fiksiran za jedan datum. Tražite to sa iskrenim obožavanjem u svima njima radije nego u jednoj nagađanoj noći.",
     "section": {
-      "virtues": "Its virtue",
-      "when": "When to seek it",
-      "dua": "What to say",
-      "ibadah": "How to spend the night",
-      "reminders": "Reminders"
+      "virtues": "Njegova vrlina",
+      "when": "Kada ga tražiti",
+      "dua": "Šta reći",
+      "ibadah": "Kako provesti noć",
+      "reminders": "Podsjetnici"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "This guide does not endorse a single fixed calendar date or folk 'signs' for identifying the night — only what the Qur'an and authentic hadith state.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Ovaj vodič ne podržava jedan fiksni kalendarski datum ili narodne 'znakove' za identifikaciju noći - samo ono što Kur'an i vjerodostojni hadis navode.",
+    "continueInApp": "Nastavak u Munibu"
   },
   "eid": {
-    "eyebrow": "Learn",
-    "title": "Eid guide",
-    "subtitle": "Eid al-Fitr and Eid al-Adha — prayer, sunnah, and rulings",
-    "intro": "The two Eids from the Qur'an and authentic hadith — how to pray Eid salah, Zakat al-Fitr, udhiyah, and the sunnah practices of the day.",
+    "eyebrow": "Naučite",
+    "title": "Bajramski vodič",
+    "subtitle": "Kurban-bajram i Kurban-bajram — namaz, sunnet i odredbe",
+    "intro": "Dva bajrama iz Kur'ana i vjerodostojni hadis - kako se klanja Bajram namaz, zekatul-fitr, uzija i sunnet dana.",
     "section": {
       "fitr": "Eid al-Fitr",
-      "adha": "Eid al-Adha",
-      "prayer": "The Eid prayer",
-      "sunnah": "Sunnah practices",
-      "zakat-fitr": "Zakat al-Fitr",
-      "udhiyah": "Udhiyah (sacrifice)"
+      "adha": "Kurban-bajram",
+      "prayer": "Bajram namaz",
+      "sunnah": "Sunnetske prakse",
+      "zakat-fitr": "Zekat al-Fitr",
+      "udhiyah": "udija (žrtvovanje)"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as the extra-takbir count), both positions are presented; follow your imam or a qualified local scholar.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Obrazovni pregled — nije fetva. Gdje se škole razlikuju (kao što je broj ekstra tekbira), obje pozicije su predstavljene; slijedite svog imama ili kvalifikovanog lokalnog učenjaka.",
+    "continueInApp": "Nastavak u Munibu"
   },
   "ruqyah": {
-    "eyebrow": "Learn",
+    "eyebrow": "Naučite",
     "title": "Ruqyah",
-    "subtitle": "Qur'anic and prophetic spiritual healing",
-    "intro": "Ruqyah is reciting Qur'an, Allah's Names, or authentic prophetic supplications for healing and protection — never a substitute for salah or medical care.",
+    "subtitle": "Kur'ansko i proročansko duhovno liječenje",
+    "intro": "Ruqyah uči Kur'an, Allahova imena ili autentične proročke molbe za izlječenje i zaštitu - nikada nije zamjena za namaz ili medicinsku njegu.",
     "section": {
-      "basics": "The basics",
-      "verses": "Key verses",
-      "daily-protection": "Daily protection",
-      "reminders": "Reminders"
+      "basics": "Osnove",
+      "verses": "Ključni stihovi",
+      "daily-protection": "Dnevna zaštita",
+      "reminders": "Podsjetnici"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor, nor the five daily prayers. For serious or persistent affliction, consult both a scholar and a medical professional.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Ruqyah je duhovna praksa, a ne medicinski tretman. To ne zamjenjuje posjet kvalifikovanom ljekaru, niti pet dnevnih namaza. Za ozbiljnu ili upornu nevolju, konsultujte i naučnika i medicinskog stručnjaka.",
+    "continueInApp": "Nastavak u Munibu"
   },
   "newMuslim": {
-    "eyebrow": "Learn",
-    "title": "New Muslim guide",
-    "subtitle": "A warm, practical start for the first days and weeks",
-    "intro": "Welcome to Islam. This guide covers the shahada, the five pillars, the basics of faith, and a first look at prayer, then points you to the fuller Salah, Aqeedah, and Qur'an guides in this app.",
+    "eyebrow": "Naučite",
+    "title": "Novi muslimanski vodič",
+    "subtitle": "Topao, praktičan početak za prve dane i sedmice",
+    "intro": "Dobrodošli u islam. Ovaj vodič pokriva šehadu, pet stubova, osnove vjere i prvi pogled na namaz, a zatim vas upućuje na potpunije vodiče za namaz, akidu i Kur'an u ovoj aplikaciji.",
     "section": {
-      "start": "Getting started",
-      "pillars": "The five pillars",
-      "faith": "Basics of faith",
-      "prayer": "Your first prayer",
-      "next-steps": "Next steps",
-      "faq": "Common questions"
+      "start": "Početak",
+      "pillars": "Pet stubova",
+      "faith": "Osnove vjere",
+      "prayer": "Tvoja prva molitva",
+      "next-steps": "Sledeći koraci",
+      "faq": "Uobičajena pitanja"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "A shallow-but-correct starting guide covering only the shared essentials every school agrees on. For your specific situation, ask a local imam or teacher.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Plitak, ali ispravan početni vodič koji pokriva samo osnovne osnovne stvari oko kojih se svaka škola slaže. Za vašu specifičnu situaciju, pitajte lokalnog imama ili učitelja.",
+    "continueInApp": "Nastavak u Munibu"
   },
   "finance": {
-    "eyebrow": "Learn",
-    "title": "Islamic finance",
-    "subtitle": "Riba, fair trade, giving, and takaful",
-    "intro": "An educational introduction to the ethical framework Islam brings to money — the prohibition of riba, fair trade, zakah and sadaqah, and takaful (cooperative risk-sharing).",
+    "eyebrow": "Naučite",
+    "title": "Islamske finansije",
+    "subtitle": "Riba, poštena trgovina, davanje i tekaful",
+    "intro": "Obrazovni uvod u etički okvir koji islam donosi novcu — zabranu riba, poštene trgovine, zekata i sadake i tekafula (kooperativno podjela rizika).",
     "section": {
-      "principles": "Principles",
-      "riba": "Riba (interest)",
-      "trade": "Fair trade",
-      "giving": "Giving",
+      "principles": "Principi",
+      "riba": "riba (kamate)",
+      "trade": "Fer trgovina",
+      "giving": "Davanje",
       "takaful": "Takaful",
-      "faq": "Common questions"
+      "faq": "Uobičajena pitanja"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "General education, not financial or fatwa advice. Fund screeners, specific products, and rulings on your own contracts need a qualified, certified Islamic finance scholar or institution.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Opće obrazovanje, a ne finansijski savjeti ili savjeti fetve. Za provjeru fondova, specifične proizvode i odluke o vašim vlastitim ugovorima potreban je kvalifikovani, certificirani učenjak ili institucija za islamske finansije.",
+    "continueInApp": "Nastavak u Munibu"
   },
   "dateConverter": {
-    "eyebrow": "Calendar",
-    "title": "Date converter",
-    "subtitle": "Convert between the Hijri and Gregorian calendars",
-    "intro": "Enter a date in either calendar to see its equivalent in the other, calculated offline using the tabular Kuwaiti algorithm.",
-    "toHijri": "Gregorian → Hijri",
-    "toGregorian": "Hijri → Gregorian",
-    "gregorianDateLabel": "Gregorian date",
-    "hijriDateLabel": "Hijri date",
-    "day": "Day",
-    "month": "Month",
-    "year": "Year",
-    "useToday": "Use today",
-    "invalidDate": "Enter a valid date",
-    "disclaimer": "This is an arithmetic approximation (the tabular \"Kuwaiti algorithm\") and can differ by a day from local moon-sighting announcements — always follow your local masjid or authority for religious dates.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
-    "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "eyebrow": "Kalendar",
+    "title": "Konverter datuma",
+    "subtitle": "Pretvorite između hidžretskog i gregorijanskog kalendara",
+    "intro": "Unesite datum u bilo koji kalendar da vidite njegov ekvivalent u drugom, izračunatom van mreže pomoću tabelarnog kuvajtskog algoritma.",
+    "toHijri": "Gregorijanski → Hidžri",
+    "toGregorian": "hidžretski → gregorijanski",
+    "gregorianDateLabel": "Gregorijanski datum",
+    "hijriDateLabel": "Datum hidžre",
+    "day": "Dan",
+    "month": "Mjesec",
+    "year": "Godina",
+    "useToday": "Iskoristite danas",
+    "invalidDate": "Unesite važeći datum",
+    "disclaimer": "Ovo je aritmetička aproksimacija (tabelarni \"Kuvajtski algoritam\") i može se razlikovati za jedan dan od lokalnih najava o viđenju Mjeseca - uvijek pratite svoj lokalni mesdžid ili autoritet za vjerske datume.",
+    "directionTitle": "Smjer konverzije",
+    "resultFrom": "Od {{date}}",
+    "quickLinksTitle": "Povezano",
+    "quickCalendar": "Kalendar bogosluženja",
+    "quickCalendarHint": "Pregledajte mjesece sa svojim molitvenim dnevnikom",
+    "quickEvents": "Islamski događaji",
+    "quickEventsHint": "Predstojeći datumi na hidžretskom kalendaru",
+    "quickRamadan": "Ramazan",
+    "quickRamadanHint": "Vremena posta i vaš dnevnik posta",
+    "quickHistory": "Rana istorija",
+    "quickHistoryHint": "Rashidun vremenski okvir sa hidžretskim godinama",
+    "exploreTitle": "Nastavite sa učenjem",
+    "exploreCalendar": "Otvorite kalendar",
+    "exploreCalendarHint": "Pogledajte istoriju bogosluženja iz dana u dan",
+    "exploreEvents": "Otvoreni islamski događaji",
+    "exploreEventsHint": "Prekretnice i obreda pred nama"
   }
 }

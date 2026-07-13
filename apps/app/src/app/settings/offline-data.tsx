@@ -12,7 +12,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
-import { HadithRepository, QuranCacheRepository } from "@/db";
+import { HadithRepository, QuranCacheRepository, QuranStudyCacheRepository } from "@/db";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import {
   type CacheGroupSize,
@@ -47,7 +47,10 @@ export default function OfflineDataScreen() {
 
   const clearGroup = async (group: CacheGroupSize) => {
     // Reset in-memory caches too so the freed space takes effect immediately.
-    if (group.id === "quran") await QuranCacheRepository.clear();
+    if (group.id === "quran") {
+      await QuranCacheRepository.clear();
+      await QuranStudyCacheRepository.clear();
+    }
     if (group.id === "mushafFonts") await clearDownloadedQcfFonts();
     if (group.id === "hadith") await HadithRepository.clearBookCache();
     if (group.id === "audio") await clearDownloadedAudio();
@@ -58,6 +61,7 @@ export default function OfflineDataScreen() {
 
   const clearAll = async () => {
     await QuranCacheRepository.clear();
+    await QuranStudyCacheRepository.clear();
     await HadithRepository.clearBookCache();
     await clearDownloadedAudio();
     await clearDownloadedQcfFonts();

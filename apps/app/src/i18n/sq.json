@@ -112,13 +112,13 @@
       "learnQuran": "Mëso Kuranin"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "Kërko me zë",
+      "stopDictate": "Ndalo kërkimin me zë",
+      "listening": "Po dëgjon…",
+      "permissionDenied": "Kërkohet leja e mikrofonit për kërkimin me zë. Ju ende mund të shkruani.",
+      "unavailable": "Njohja e të folurit nuk ofrohet në këtë pajisje.",
+      "couldNotHear": "Nuk mund ta dëgjoja - provo përsëri ose shkruani.",
+      "errorGeneric": "Kërkimi zanor dështoi. Provo sërish ose shkruaj."
     }
   },
   "tabs": {
@@ -160,12 +160,12 @@
     "sick": "Sëmundja dhe Salah",
     "adhkarBuilder": "Adhkarët e mi",
     "sahaba": "Sahaba",
-    "history": "Islamic History",
-    "laylatAlQadr": "Laylat al-Qadr",
-    "eid": "Eid Guide",
-    "ruqyah": "Ruqyah",
-    "newMuslim": "New Muslim Guide",
-    "finance": "Islamic Finance"
+    "history": "Histori Islame",
+    "laylatAlQadr": "Nata e Kadrit",
+    "eid": "Guida e Bajramit",
+    "ruqyah": "Rukjah",
+    "newMuslim": "Udhëzues i ri mysliman",
+    "finance": "Financa Islame"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -200,7 +200,7 @@
         "description": "Vazhdon lutja e detyrueshme e sotme"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "E mbetur",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -650,7 +650,7 @@
     "title": "Sign në",
     "subtitle": "Sync juaj ibadeti across devices",
     "google": "Vazhdo me Google",
-    "apple": "Vazhdo me Apple",
+    "apple": "Vazhdoni me Apple",
     "facebook": "Vazhdo me Facebook",
     "heroGuest": "You're using  guest llogaria. Link  provider në back up dhe sync juaj të dhënat — nothing është lost.",
     "heroUser": "Sign në në keep juaj salah, qaza, dhe zikr i sigurt në  cloud.",
@@ -1106,7 +1106,7 @@
     "subtitle": "Read, listen, dhe reflect",
     "searchSurah": "Kërko by name, meaning, ose number",
     "filterAll": "Të gjitha",
-    "continueReading": "Vazhdo reading",
+    "continueReading": "Vazhdo leximin",
     "continueAt": "Surh {{surah}} · yh {{ayah}}",
     "makki": "Mkki",
     "madani": "Mdi",
@@ -1194,23 +1194,23 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "Fjalë për fjalë",
+      "playWord": "Luaj këtë fjalë",
+      "noAudio": "Nuk ka audio për këtë fjalë",
+      "loading": "Fjalët po ngarkohen…"
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "Legjenda e Tajvidit",
+      "openLesson": "Hapni mësimin Mësoni Kur'anin",
+      "loading": "Po ngarkohet tajvidi…",
       "rules": {
-        "ghunnah": "Ghunnah",
+        "ghunnah": "Ghunah",
         "ikhafa": "Ikhfa",
         "ikhafaShafawi": "Ikhfa Shafawi",
         "idghamGhunnah": "Idgham (Ghunnah)",
         "idghamNoGhunnah": "Idgham (No Ghunnah)",
         "idghamShafawi": "Idgham Shafawi",
-        "iqlab": "Iqlab",
+        "iqlab": "Iklab",
         "qalqalah": "Qalqalah",
         "maddNormal": "Madd (2)",
         "maddPermissible": "Madd (2-4-6)",
@@ -1218,26 +1218,26 @@
         "maddNecessary": "Madd (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "I heshtur"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "Rri pezull për të parë rregullin e texhvidit",
+      "tapHint": "Prekni për të parë rregullin e tajvidit",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "Tingulli i hundës - 2 rrahje",
+        "ikhafa": "Fshehja me gunnah - 2 rrahje",
+        "ikhafaShafawi": "Fshehja labiale - 2 rrahje",
+        "idghamGhunnah": "Bashkimi me tingullin e hundës - 2 rrahje",
+        "idghamNoGhunnah": "Bashkimi pa zhurmë hundore",
+        "idghamShafawi": "Bashkimi labial - 2 rrahje",
+        "iqlab": "Konvertimi në meem të fshehur - 2 rrahje",
+        "qalqalah": "Kërcim me jehonë në letër",
+        "maddNormal": "Zgjatim normal - 2 rrahje",
+        "maddPermissible": "Zgjatimi i lejuar - 2, 4 ose 6 rrahje",
+        "maddObligatory": "Zgjatimi i detyrueshëm - 4 ose 5 rrahje",
+        "maddNecessary": "Zgjatimi i nevojshëm - 6 rrahje",
+        "hamWasl": "Hamza lidhëse - ra kur bashkohet",
+        "lamShamsiyah": "Shkronja e diellit لام - nuk shqiptohet",
+        "silent": "E shkruar por jo e shqiptuar"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
-      "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
-      "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "title": "Riprodhimi",
+      "open": "Cilësimet e riprodhimit",
+      "repeatMode": "Mënyra e përsëritjes",
+      "repeatOff": "Joaktiv",
+      "repeatVerse": "Ajeti",
+      "repeatRange": "Gama",
+      "repeatSurah": "Surja",
+      "rangeStart": "Nga ajeti",
+      "rangeEnd": "Për ajah",
+      "translationAudio": "Përkthim audio",
+      "translationOff": "Joaktiv",
+      "translationAfter": "Pas çdo vargu",
+      "translationAudioHint": "Lexon përkthimin me zë të lartë pas çdo vargu arab (pajisja TTS)",
+      "ttsVoice": "Përkthimi i të folurit zë",
+      "ttsVoiceDefault": "Parazgjedhja për gjuhën",
+      "ttsVoiceEmpty": "Nuk u gjetën zëra për këtë gjuhë në këtë pajisje.",
+      "summaryVerse": "Përsëritni vargun",
+      "summarySurah": "Përsërite suren",
+      "summaryRange": "Gama {{start}}–{{end}}",
+      "summaryTts": "Përkthimi TTS",
       "summaryWithTts": "{{summary}} · TTS"
     },
-    "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
-    "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
-    "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "actionTafsir": "Tefsir",
+    "openTafsir": "Hape tefsirin për këtë ajet",
+    "tafsir": "Tefsir",
+    "tafsirNone": "Zgjidh tefsirin",
+    "selectTafsirAuthor": "Zgjidhni tefsir - {{language}}",
+    "tafsirCount_one": "{{count}} tefsir",
+    "tafsirCount_other": "{{count}} tefsire",
+    "searchTafsirLanguages": "Kërko gjuhët…",
+    "searchTafsirAuthors": "Kërko autorët…",
+    "tafsirLoading": "Po ngarkohet tefsiri…",
+    "tafsirOffline": "Lidhu për të shkarkuar këtë tefsir. Botimet e hapura qëndrojnë të disponueshme jashtë linje.",
+    "tafsirEmpty": "Nuk ka tefsir për këtë ajet në botimin e zgjedhur."
   },
   "hadith": {
     "eyebrow": "Tradita profetike",
@@ -1392,7 +1392,7 @@
     },
     "duha": {
       "summary": " forenoon salah — typically two në eight rak'ahs between sunrise dhe Dhuhr.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "Sadakaja i takon çdo nyjeje të trupit çdo ditë; edhe disa rekate Duha e plotëson atë sadaka për gjymtyrët përmes adhurimit.",
       "benefits": "Forgives sins, brings sustenance (rizq), dhe revives  neglected sunnah. Flexible timing makes it accessible when  ditë allows."
     },
     "dhuhr": {
@@ -1634,8 +1634,8 @@
     "partial": "Prtil",
     "missed": "Humbur",
     "legendHint": "Tap any past ose current ditë në review dhe adjust it. Sot është {{date}}.",
-    "converterRowTitle": "Hijri ⟷ Gregorian converter",
-    "converterRowSubtitle": "Convert a date between the two calendars"
+    "converterRowTitle": "Konvertuesi hixhri ⟷ gregorian",
+    "converterRowSubtitle": "Konvertoni një datë midis dy kalendarëve"
   },
   "calDay": {
     "today": "Sot",
@@ -2004,7 +2004,7 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Pika historike",
     "categorySystem": "Sistemi",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "Njoftim"
   },
   "qibla": {
     "eyebrow": "Drejtimi",
@@ -2020,7 +2020,7 @@
     "compassLabel": "Qibl compss",
     "compassValue": "{{bearing}} degrees në  Kaaba, {{distance}} away",
     "aligned": "Aligned me  Qibla",
-    "alignedHint": "Hold steady — you're facing the Kaaba",
+    "alignedHint": "Qëndroni të qëndrueshme - jeni përballë Qabes",
     "turnFineTuneLeft": "Shtyqe majtas",
     "turnFineTuneRight": "Tërhiqe djathtas",
     "turnSlightLeft": "Pak majtas",
@@ -2060,7 +2060,7 @@
     "syncing": "Po sinkronizohet…",
     "done": "Juaj të dhënat është backed up",
     "failed": "Couldn't sync. Check juaj connection dhe try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "Gjithçka ishte tashmë e përditësuar",
     "mergeSummary": "{{received}} marrë · {{sent}} u dërgua",
     "conflictsResolved": "{{count}} conflicts auto-resolved — kept  newest redakto",
     "conflictAffected": "ffected: {{list}}",
@@ -2238,13 +2238,13 @@
     "eyebrow": " Noble Kurani",
     "short": "Hatmi",
     "title": "Hatmi plan",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "Përfundoni Kuranin me një ritëm të qëndrueshëm",
     "startTitle": "Fillo  plan",
     "startHint": "Choose how many ditë në përfunduar  Kurani. We'll set  ditor ayah target.",
     "startHintPages": "Choose how many ditë në përfunduar  Kurani. We'll set  ditor mushaf page target.",
     "unitAyah": "Nga ajah",
     "unitPage": "Sipas faqes",
-    "continueReading": "Vazhdo reading",
+    "continueReading": "Vazhdo leximin",
     "dayPlan": "{{count}} ditë",
     "preset": {
       "intensive": "Intensive",
@@ -2319,12 +2319,12 @@
     },
     "motivationQuote": {
       "steady": {
-        "text": "A khatm built on steady daily reading lasts longer than a sprint that burns out.",
+        "text": "Një khatm i ndërtuar mbi lexim të vazhdueshëm ditor zgjat më shumë se një sprint që digjet.",
         "source": "Principle e konsistenca"
       },
       "portion": {
         "text": "Ju do not have në finish sot — only honour today's portion me sincerity.",
-        "source": "Steady progress"
+        "source": "Përparim i qëndrueshëm"
       },
       "return": {
         "text": "If ju fall behind, do not abandon  plan. Resume me today's ayahs dhe move forward.",
@@ -2608,7 +2608,7 @@
     "meaningLabel": "Wht it teches",
     "progressTitle": "learning progress e mi",
     "progressSubtitle": "Ndiq lessons — not shpirtërore rank me Allah",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "Ky panel kontrollon studimin dhe praktikën tuaj në Munib. Përfundimi i mësimeve nuk matë qëndrimin tuaj tek Allahu - e bën sinqeriteti.",
     "lessonsTitle": "Lessons përfunduar",
     "lessonsHint": "Mark temat përfunduar as ju finish studimi them",
     "lessonsCount": "{{completed}} из {{total}}",
@@ -2892,9 +2892,9 @@
     "quickGhusl": "Udhëzues Gusl",
     "quickGhuslHint": "Banja e plotë kur shfaqet papastërti e madhe",
     "quickChecklist": "Ditor checklist",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "Zakonet që ju bëjnë gati për lutje",
     "quickProgress": "learning e mi",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Temat e lexuara dhe studimi përparimin",
     "progressCardTitle": "Learning progresi",
     "progressCardHint": "{{completed}} nga {{total}} tema të shënuara si të përfunduara",
     "exploreTitle": "Eksploro",
@@ -2963,7 +2963,7 @@
     "quickLessons": "Mësimet",
     "quickLessonsHint": "Moral dhe shpirtërore takeaways",
     "quickProgress": "learning e mi",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Temat e lexuara dhe studimi përparimin",
     "progressCardTitle": "Learning progresi",
     "progressCardHint": "{{completed}} nga {{total}} tema të shënuara si të përfunduara",
     "exploreTitle": "Eksploro",
@@ -2987,7 +2987,7 @@
     "profileTitle": "Profili",
     "progressTitle": "learning progress e mi",
     "progressSubtitle": "Ndiq lessons — not shpirtërore rank me Allah",
-    "progressIntro": "Mark topics complete as you study the lives of the prophets.",
+    "progressIntro": "Shënoni temat të përfunduara ndërsa studioni jetën e profetëve.",
     "lessonsTitle": "Temat përfunduar",
     "lessonsHint": "Mark temat përfunduar as ju finish studimi them",
     "lessonsCount": "{{completed}} из {{total}}",
@@ -3033,7 +3033,7 @@
     "quickGlossary": "Fjalori",
     "quickGlossaryHint": "Key creed kushtet defined",
     "quickProgress": "learning e mi",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Temat e lexuara dhe studimi përparimin",
     "progressCardTitle": "Learning progresi",
     "progressCardHint": "{{completed}} nga {{total}} tema të shënuara si të përfunduara",
     "exploreTitle": "Eksploro",
@@ -3094,7 +3094,7 @@
     "quickOccasions": "Sipas rastit",
     "quickOccasionsHint": "Browse duas për every moment",
     "quickProgress": "learning e mi",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Temat e lexuara dhe studimi përparimin",
     "progressCardTitle": "Learning progresi",
     "progressCardHint": "{{completed}} nga {{total}} tema të shënuara si të përfunduara",
     "exploreTitle": "Eksploro",
@@ -3333,7 +3333,7 @@
       "laylatQadr": "Nata e Kadrit - \"më e mirë se një mijë muaj\" (Kur'an 97:3), nata kur Kur'ani filloi të zbriste. Adhurimi mbi të peshon më shumë se një jetë mbi tetëdhjetë e tre vjet. Pejgamberi ﷺ ka thënë: \"Kushdo që qëndron (në namaz) në Natën e Kadrit për besim dhe për të kërkuar shpërblim, do t'i falen mëkatet e kaluara\" (Sahih el-Bukhari 1901). Nata e saj e saktë është e fshehur; kërkojeni atë në netët teke të dhjetës së fundit të Ramazanit - 21, 23, 25, 27 dhe 29 (Sahih al-Bukhari 2017), me datën 27 të shpresuar veçanërisht. Kalojini këto netë në namaz, Kuran dhe dua: \"Allahumma innaka 'afuwwun tuhibbu el-'afwa fa'fu'anni.\"",
       "eidFitr": "Festa e Agjërimit, më 1 Sheval, shënon fundin e Ramazanit. Dita fillon me namazin e Bajramit dhe paraprihet nga Zekatul-Fitri, një sadaka që jepet para namazit që të gëzohen edhe të varfrit. Myslimanët recitojnë tekbir, veshin më të mirën, shkëmbejnë përshëndetje dhe forcojnë lidhjet familjare dhe komuniteti. Agjërimi është i ndaluar në këtë ditë (Sahih al-Bukhari 1991) - është një ditë falënderimi dhe festimi i lejuar për adhurimin e përfunduar në Ramazan.",
       "arafah": "9 Dhul-Hixhe, dita më e madhe e Haxhit, kur pelegrinët qëndrojnë në adhurim në fushën e Arafah - \"Haxhi është Arafah\". Ai bie në dhjetë ditët e para të bekuara të Dhul-Hixhes, ditë në të cilat veprat e mira janë më të dashura tek Allahu se çdo tjetër (Sahih el-Bukhari 969). Për ata që nuk janë në haxh, agjërimi i kësaj dite rekomandohet shumë: ai i shlyen mëkatet e vitit të kaluar dhe të vitit të ardhshëm (Sahih Muslim 1162). Vetë haxhinjtë nuk agjërojnë, që të kenë forcë për qëndrimin dhe lutjen.",
-      "eidAdha": "The Festival of Sacrifice, on the 10th of Dhul-Hijjah, is the greater of the two Eids and coincides with the culmination of Hajj. It commemorates Prophet Ibrahim's willingness to sacrifice his son in obedience to Allah, who ransomed him with a ram (Qur'an 37:100–107). Those able offer a sacrifice (Udhiyah/Qurbani), sharing the meat with family, neighbours, and the poor. The day begins with the Eid prayer and takbir and continues through the three days of Tashriq. Fasting is forbidden on this day and the days of Tashriq (Sahih al-Bukhari 1991)."
+      "eidAdha": "Festa e Kurbanit, më 10 Dhul-Hixhe, është më e madhja nga dy Bajramet dhe përkon me kulmin e Haxhit. Ajo përkujton gatishmërinë e Profetit Ibrahim për të flijuar të birin në bindje ndaj Allahut, i Cili e shpërbleu me një dash (Kur’an 37:100–107). Ata që munden bëjnë kurban dhe e ndajnë mishin me familjen, fqinjët dhe të varfrit. Dita nis me namazin e Bajramit dhe tekbirin, dhe vazhdon gjatë tri ditëve të Teshrikut. Agjërimi ndalohet këtë ditë dhe në ditët e Teshrikut (Sahih al-Bukhari 1991)."
     }
   },
   "zakat": {
@@ -3398,7 +3398,7 @@
       "purpose": {
         "title": "Pse zekati - qëllimi dhe urtësia",
         "summary": "Pastron pasurinë dhe shpirtin dhe ngre të varfrin",
-        "body": "Allah says of zakat: \"Take from their wealth a charity by which you purify them and cause them to grow\" (Qur'an 9:103). The obligation works on two levels at once — it purifies the giver's soul from stinginess and love of the world, and it purifies the wealth itself so that what stays in your hand is wholesome and blessed.\n\nSocially, zakat is a divinely ordered system of circulation. When the Prophet ﷺ sent Mu'adh to Yemen he instructed that zakat be taken from their rich and given to their poor. Wealth is not meant to pile up among a few; zakat pulls it back into motion so the needy are fed, debtors are freed, and the community's bonds are strengthened.\n\nSpiritually, giving zakat is an act of gratitude and trust. It answers the human urge to hoard with the certainty that provision comes from Allah, and it trains the believer to love giving. The one who pays zakat willingly finds their wealth protected, their heart lightened, and their reward stored with their Lord — \"there will be no fear concerning them, nor will they grieve\" (Qur'an 2:277)."
+        "body": "Allahu thotë për zekatin: \"Merrni nga pasuria e tyre një sadaka me të cilën do t'i pastroni dhe do t'i rritni\" (Kur'an 9:103). Detyrimi funksionon në dy nivele njëherësh - pastron shpirtin e dhënësit nga koprracia dhe dashuria ndaj botës dhe pastron vetë pasurinë, në mënyrë që ajo që të mbetet në dorë të jetë e shëndetshme dhe e bekuar.\n\nNë aspektin shoqëror, zekati është një sistem qarkullimi i urdhëruar hyjnor. Kur Profeti ﷺ dërgoi Muadhin në Jemen, ai urdhëroi që të merrej zekati nga të pasurit e tyre dhe t'u jepej të varfërve. Pasuria nuk është menduar të grumbullohet mes disave; zekati e kthen atë në lëvizje, kështu që nevojtarët ushqehen, borxhlinjtë lirohen dhe lidhjet e bashkësisë forcohen.\n\nNga ana shpirtërore, dhënia e zekatit është një akt mirënjohjeje dhe besimi. Ai i përgjigjet nxitjes njerëzore për grumbullim me siguri se furnizimi vjen nga Allahu dhe e stërvit besimtarin që të dashurojë dhënien. Ai që e jep zekatin me dëshirë e gjen pasurinë e tij të mbrojtur, zemrën e tij të lehtësuar dhe shpërblimin e tij të ruajtur te Zoti i tyre - \"për ta nuk do të ketë frikë as pikëllim\" (Kur'an 2:277)."
       },
       "hawl": {
         "title": "Viti hënor (hall)",
@@ -3408,7 +3408,7 @@
       "nisab": {
         "title": "Nisab - pragu minimal",
         "summary": "Matet me ~87,5 g ar ose ~595–612 g argjend",
-        "body": "Nisab is the minimum amount of wealth a person must own before zakat becomes obligatory. Someone whose net wealth stays below nisab all year owes no zakat — the obligation is only on those who have a genuine surplus.\n\nThe Prophet ﷺ fixed the thresholds in the currency of his time: 20 dinars of gold or 200 dirhams of silver. In weight this works out to roughly 85–87.5 g of gold, and roughly 595–612 g of silver (the small variation reflects different scholarly conversions of the dirham). This calculator uses widely cited figures of about 87.48 g gold and 612.36 g silver.\n\nBecause gold and silver no longer trade at the ratio they did in the Prophet's era, the two thresholds now give very different monetary values — the silver nisab is far lower. Many contemporary scholars therefore advise measuring cash and mixed wealth against the silver nisab: it makes more people liable, but that means more of the poor are helped, which is the spirit of the obligation. Others follow the gold nisab. Both positions are respected — follow your own scholar's guidance."
+        "body": "Nisabi është sasia minimale e pasurisë që duhet zotëruar para se zekati të bëhet detyrim. Kush mbetet nën nisab gjatë vitit nuk ka detyrim zekati.\n\nProfeti ﷺ përcaktoi pragjet si 20 dinarë ari ose 200 dirhemë argjendi: afërsisht 85–87,5 g ar dhe 595–612 g argjend. Ky llogaritës përdor 87,48 g ar dhe 612,36 g argjend.\n\nSot nisabi i argjendit është dukshëm më i ulët se ai i arit. Shumë dijetarë këshillojnë matjen e parave dhe pasurisë së përzier me nisabin e argjendit; të tjerë ndjekin nisabin e arit. Të dyja qëndrimet respektohen — ndiqni udhëzimin e dijetarit tuaj."
       },
       "zakatable": {
         "title": "Ajo që në përgjithësi është e zekatueshme",
@@ -3423,7 +3423,7 @@
       "debts": {
         "title": "Borxhet & zbritjet",
         "summary": "Borxhet e menjëhershme mund të zbriten përpara se të llogaritet 2.5%",
-        "body": "Zakat is calculated on your net zakatable wealth, so genuine debts you owe can reduce the amount on which you pay. The clearest case is debts due now — an unpaid personal loan, an outstanding credit-card balance, rent or bills already owed. Most scholars allow these to be subtracted from your gross wealth before you apply the 2.5%.\n\nLong-term debts such as a mortgage or a multi-year instalment plan are handled with more care, because deducting the entire balance would wipe out the zakat of almost anyone with a home loan. A common contemporary approach is to deduct only the payments due within the coming year, not the whole outstanding sum. Schools and scholars differ here, so pick a consistent method under guidance.\n\nTwo cautions. First, do not treat future or hypothetical expenses as deductible debts — only what you actually owe counts. Second, do not subtract last year's unpaid zakat as if it were an ordinary debt; unpaid zakat remains a due obligation and should simply be paid. When your debt situation is complex, a scholar's ruling is worth more than a rough guess."
+        "body": "Zekati llogaritet në pasurinë tuaj neto të zekatit, kështu që borxhet e vërteta që keni mund të zvogëlojnë shumën për të cilën paguani. Rasti më i qartë janë borxhet e papaguara tani - një hua personale e papaguar, një bilanc i papaguar i kartës së kreditit, qiraja ose faturat e borxhit tashmë. Shumica e studiuesve lejojnë që këto të zbriten nga pasuria juaj bruto përpara se të aplikoni 2.5%.\n\nBorxhet afatgjata si hipoteka ose plani me këste shumëvjeçare trajtohen me më shumë kujdes, sepse zbritja e të gjithë bilancit do të fshinte zekatin e pothuajse kujtdo që ka një kredi për shtëpi. Një qasje e zakonshme bashkëkohore është që të zbriten vetëm pagesat që duhen paguar brenda vitit të ardhshëm, jo ​​e gjithë shuma e papaguar. Shkollat ​​dhe studiuesit ndryshojnë këtu, kështu që zgjidhni një metodë të qëndrueshme nën udhëzim.\n\nDy paralajmërime. Së pari, mos i trajtoni shpenzimet e ardhshme ose hipotetike si borxhe të zbritshme - llogaritet vetëm ajo që keni në të vërtetë borxh. Së dyti, mos e zbrit zekatin e papaguar të vitit të kaluar sikur të ishte një borxh i zakonshëm; Zekati i papaguar mbetet obligim i duhur dhe thjesht duhet paguar. Kur situata juaj e borxhit është komplekse, vendimi i një studiuesi vlen më shumë sesa një supozim i përafërt."
       },
       "recipients": {
         "title": "Kush mund të marrë zekatin",
@@ -3513,7 +3513,7 @@
     "group": {
       "liquid": "Para të gatshme dhe metale të çmuara",
       "investments": "Investimet dhe biznesi",
-      "property": "Land, property & vehicles"
+      "property": "Toka, prona dhe automjete"
     },
     "weightSectionTitle": "Llogaritni arin dhe argjendin sipas peshës",
     "nisabOverrideTitle": "Ndalimi manual i nisabit",
@@ -3535,33 +3535,33 @@
         "title": "Ose llogarisni arin sipas peshës",
         "grams": "gram",
         "pricePerGram": "Çmimi/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "Ari sipas peshës",
+        "amount": "Pesha",
+        "pricePerGram24k": "Çmimi/g (24 mijë)"
       },
       "silver": {
         "title": "Ose llogaritni argjendin sipas peshës",
         "grams": "gram",
         "pricePerGram": "Çmimi/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "Argjendi sipas peshës",
+        "amount": "Pesha",
+        "pricePerGramFine": "Çmimi/g (gjobë)"
       },
       "computed": "Shton {{value}} në total",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "Çmimet e spoteve të drejtpërdrejta janë 24 mijë ari dhe argjendi i imët për gram. Zgjidhni njësinë tuaj (g, tola, troy oz, kg) dhe karat/pastërti — vlera konvertohet në metal të pastër × pikë.",
+      "unit": "Njësia e peshës",
+      "karat": "karat ari",
+      "purity": "Pastërtia e argjendit",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
-        "g": "Gram",
+        "g": "gram",
         "tola": "Tola",
         "oz": "Troy oz",
-        "kg": "Kilogram"
+        "kg": "kilogram"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g metal të pastër",
+      "cardHint": "Tola, gramë, karat / pastërti × çmimi i arit 24k ose i argjendit të pastër."
     },
     "field": {
       "cash": "Paratë dhe kursimet",
@@ -3576,12 +3576,12 @@
       "nisab": "Vlera e Nisab (mbikaluar)",
       "nisabGoldPrice": "Çmimi i arit për gram",
       "nisabSilverPrice": "Çmimi i argjendit për gram",
-      "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "crypto": "Kriptovaluta",
+      "livingExpenses": "Shpenzimet e menjëhershme të jetesës",
+      "investmentPlots": "Parcela investimi (vlera e tregut)",
+      "installmentPlotsPaid": "Parcela me këste - shuma e paguar",
+      "investmentProperty": "Shtëpi/ndërtesa investimi",
+      "tradeVehicles": "Automjete per shitje/tregtim"
     },
     "fieldHint": {
       "cash": "Llogari bankare, para në dorë dhe kursime likuide.",
@@ -3594,12 +3594,12 @@
       "otherAssets": "Kriptomonedhë, fonde pensioni të arritshme ose pasuri të tjera të zekatueshme për dijetarin tuaj.",
       "debts": "Kreditë personale, kartat e kreditit dhe faturat që duhet të paguhen tani - jo totalet e hipotekës afatgjatë, përveç nëse studiuesi juaj lejon.",
       "nisab": "Lëreni bosh për të përdorur pragun e llogaritur ose futni një nisab të personalizuar.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "Vlera e tregut e kriptos së mbajtur si një aktiv - vendimet ndryshojnë; pyesni një dijetar.",
+      "livingExpenses": "Qiraja, ushqimi dhe faturat duhet të paguhen menjëherë - vetëm nëse studiuesi juaj e lejon këtë zbritje.",
+      "investmentPlots": "Tokë ose parcela të mbajtura për investim ose shitje (vlera aktuale e tregut). Toka bujqësore personale e përdorur për të jetuar është e ndryshme - pyesni një studiues.",
+      "installmentPlotsPaid": "Sa keni paguar tashmë në parcelat e investimit me këste (jo kontratën e plotë të papaguar, përveç nëse studiuesi juaj e përfshin atë).",
+      "investmentProperty": "Shtëpi ose ndërtesa të mbajtura për investime ose tregti - jo vendbanimi juaj personal.",
+      "tradeVehicles": "Makina ose automjete të mbajtura për shitje ose si stok tregtimi - jo automjete për përdorim personal."
     },
     "checklist[0]": {
       "title": "Konfirmo hawl (viti hënor)",
@@ -3684,148 +3684,148 @@
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "Ndryshoni monedhën e zekatit",
+      "pickerTitle": "Zgjidhni monedhën",
+      "pickerHint": "Monedhat {{count}} — kërkoni sipas kodit ose emrit",
+      "searchPlaceholder": "Kërko monedha…",
+      "noResults": "Asnjë monedhë nuk përputhet me kërkimin tuaj.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "Ari dhe argjendi i gjallë",
+      "goldPerGram": "Ar / gram",
+      "silverPerGram": "Argjend / gram",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "Po merren çmimet e drejtpërdrejta…",
+      "error": "Çmimet në kohë reale nuk mund të ngarkoheshin. Futni manualisht çmimet e arit dhe argjendit.",
+      "prefilled": "Çmimet e Nisabit dhe të metaleve janë të parambushura nga tarifat e drejtpërdrejta.",
+      "useLive": "Përdorni sërish çmimet e drejtpërdrejta",
+      "useLiveA11y": "Rivendos në çmimet e arit dhe argjendit të drejtpërdrejtë",
+      "refreshA11y": "Rifresko çmimet e drejtpërdrejta të tregut",
+      "livePrice": "Jetoni"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
       "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "belowNisab": "Net {{wealth}} · më poshtë nisab {{nisab}}",
+      "hasOtherDue": "Net {{wealth}} · kulturat / bagëtitë e duhura"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
+      "gold": "Ar/g",
+      "silver": "Argjend/g",
       "nisab": "Nisab",
-      "due": "Due"
+      "due": "Për shkak"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "Zekati i pasurisë (2,5%): {{value}}",
+      "agriculture": "Të lashtat (ushr): {{value}}",
+      "livestock": "Blegtoria (vlerësimi në para): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "Vlerat e parave të gatshme, kriptove dhe metaleve që tashmë i dini. Ose përdorni peshën në kartën e metaleve.",
+      "investments": "Stoqet, mallrat e tregtimit, të arkëtueshmet dhe të ardhurat e kursyera të biznesit me vlerën e sotme."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "Të lashtat / bagëtitë e duhura (pasuria nën nisab)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "Blegtori (kopetë e kullotës)",
+      "hint": "Peshoret e Sunetit për delet/dhitë, bagëtitë dhe devetë me kullotje të lirë (Buhariu / Ebu Davudi). Kafshët e ushqyera që mbahen si biznes shpesh ndjekin rregullat e tregtisë - pyesni një studiues.",
+      "sheep": "Dele / dhi (koka)",
+      "sheepHint": "Nisab fillon në 40 kokë.",
+      "cattle": "Bagëti / buall (kokat)",
+      "cattleHint": "Nisab fillon me 30 kokë (shkalla tabi'/musinnah).",
+      "camels": "Devetë (kokat)",
+      "camelsHint": "Nisab fillon me 5 kokë.",
+      "valueTitle": "Vlerat opsionale të parave (për kokë)",
+      "valueHint": "Zekati për bagëtinë zakonisht paguhet në kafshë. Futni vlerat e tregut vetëm nëse dëshironi një vlerësim të barabartë me paratë për planifikim.",
+      "sheepValue": "Vlera për dele/dhi",
+      "cattleValue": "Vlera për kokë bagëti",
+      "camelValue": "Vlera për deve",
+      "dueTitle": "Kafshët e duhura (vlerësimi i Sunetit)",
+      "cashEstimate": "Vlerësimi i parave të gatshme: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} dele/dhi",
+        "cattleTabi": "{{count}} tabi' (gjedhë 1-vjeçare)",
+        "cattleMusinnah": "{{count}} musinnah (bagëti 2-vjeçare)",
+        "bintMakhad": "{{count}} bint makhad (deve 1-vjeçare)",
+        "bintLabun": "{{count}} bint labun (deve 2-vjeçare)",
+        "hiqqah": "{{count}} hiqkah (deve 3-vjeçare)",
+        "jadhah": "{{count}} jadhah (deve 4-vjeçare)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "Shkallët e Sunetit për bagëtinë — jo 2,5%. Vlerat opsionale në para shërbejnë vetëm për vlerësim."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "Bujqësi dhe korrje (ushr)",
+      "hint": "Afati në korrje - jo pas një viti hënor. Norma është 10% për tokën e ujitur nga shiu/burimet dhe 5% kur ujitja kushton përpjekje ose para (Kur'an 6:141; Sunet).",
+      "harvest": "Vlera e tregut të korrjes",
+      "harvestHint": "Vlera e të korrave ose frutave të kësaj stine në kohën e vjeljes.",
+      "irrigation": "Burimi i ujit",
+      "natural": "Shi / burime (10%)",
+      "irrigated": "I ujitur (5%)",
+      "naturalHint": "Ushr 10% kur ujitet natyrshëm pa ujitje të kushtueshme.",
+      "irrigatedHint": "Gjysmë-ushr 5% kur ujitet nga puse, pompa ose ujitje me pagesë.",
+      "due": "Afati i Ushrit: {{value}}",
+      "cardHint": "Duhet në korrje - 10% shi/burim, 5% ujitur."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "Formati i numrit",
+      "hint": "Si tregohen mijëra dhe dhjetore në shuma.",
+      "changeA11y": "Ndrysho formatin e numrit",
+      "pickerTitle": "Formati i numrit",
+      "pickerHint": "Zgjidhni se si grupohen shumat dhe si shfaqen numrat dhjetorë gjatë shtypjes dhe në total."
     },
-    "learnMore": "Learn more",
+    "learnMore": "Mësoni më shumë",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "Përmbledhje edukative nga Kur'ani dhe Suneti - jo një fetva personale.",
+      "footnote": "Shkollat ndryshojnë në detaje (bizhuteri, hipoteka, bagëti të ushqyer, kripto). Pyetni një studiues të kualifikuar për rastin tuaj.",
+      "openGuide": "Hap udhëzuesin e plotë",
+      "a11y": "Mësoni më shumë rreth {{section}}",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "Valuta dhe tarifat",
+        "body": "Zekati llogaritet në vlerën e tregut të pasurisë suaj në një monedhë që ju e kuptoni. Çmimet e arit dhe argjendit ndihmojnë në vlerësimin e vlerave të nisabit dhe metaleve – ato janë treguese, jo një zëvendësim për normat e tregut lokal të përdorur nga studiuesi juaj."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "Para të gatshme dhe metale të çmuara",
+        "body": "Paratë, gjendjet bankare dhe ari ose argjendi i mbajtur si pasuri janë ndër pasuritë më të qarta të zekatit. Pejgamberi ﷺ paralajmëroi ashpër për mbajtjen e asaj që i takon arit dhe argjendit. Bizhuteritë e veshura për përdorim normal janë një pikë e njohur dallimi midis shkollave - ndiqni medhhebin tuaj. Këtu mund të vendosni një vlerë në para ose të llogaritni metalet sipas peshës në seksionin tjetër."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "Ari dhe argjendi sipas peshës",
+        "body": "Nisabi ishte i fiksuar në Sunet sipas peshës: rreth 20 dinarë ari ose 200 dirhemë argjendi (zakonisht përmendet si ~ 87,5 g ar ose ~ 612 g argjend). Karati dhe pastërtia kanë rëndësi sepse zekati është në përmbajtjen e metalit të pastër. Çmimet në kohë reale janë për 24k / metal të imët për gram — zgjidhni njësinë tuaj (gram, tola, troy oz) dhe karat në mënyrë që kalkulatori të konvertohet saktë."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "Investimet dhe biznesi",
+        "body": "Mallrat tregtare, mallrat dhe pasuria që synohen të rriten në përgjithësi janë të zekatueshme me vlerën e sotme të tregut. Aksionet dhe fondet zakonisht vlerësohen si pasuria tregtare. Të arkëtueshmet e forta që prisni të mblidhni shpesh përfshihen. Kur'ani 2:267 nxit të shpenzoni nga e mira e asaj që keni fituar - vlerësoni me ndershmëri datën tuaj të zekatit."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "Toka, prona dhe automjete",
+        "body": "Shtëpia juaj personale, makina personale dhe mallrat e zakonshme shtëpiake në përgjithësi nuk janë të zekatueshme – zekati synon rritjen e pasurisë, jo sendet e përdorimit. Parcelat, shtëpitë ose automjetet e mbajtura për investim, shitje ose tregti mund të përfshihen me vlerën e tregut (ose shumat e paguara tashmë në parcelat e investimit me këste). Kur nuk jeni të sigurt, pyesni një dijetar."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "Blegtori (kopetë e kullotës)",
+        "body": "Delet, dhitë, bagëtitë dhe devetë me kullotje të lirë kanë shkallët e tyre të Sunetit dhe nisabin e kafshëve (p.sh. 40 dele, 30 gjedhe, 5 deve) - jo normën e parave prej 2,5%. Taksa zakonisht paguhet për kafshët e moshës së caktuar. Kafshët e ushqyera që mbahen si biznes shpesh ndjekin rregullat e tregtisë së mallrave. Vlerat opsionale të parave të gatshme këtu janë vetëm një vlerësim planifikimi."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
-        "localRefLabel": "Qur'an 6:141",
+        "title": "Bujqësi dhe korrje (ushr)",
+        "body": "Zekati për të korrat jepet gjatë korrjes, jo pas një viti hënor. Shkalla e njohur është 10% (ushr) kur toka ujitet nga shiu ose burimet, dhe 5% kur ujitja kushton përpjekje ose para. Futni vlerën e tregut të korrjeve të këtij sezoni dhe zgjidhni burimin e ujit që përputhet me situatën tuaj.",
+        "localRefLabel": "Kur'ani 6:141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "Zbritjet",
+        "body": "Zekati llogaritet mbi pasurinë neto që i nënshtrohet zekatit. Borxhet e menjëhershme që duhet të paguhen tani zakonisht zbriten para se të zbatohet norma 2,5%. Hipotekat afatgjata trajtohen me më shumë kujdes — shumë dijetarë bashkëkohorë zbresin vetëm pagesat e vitit të ardhshëm, jo gjithë gjendjen. Shpenzimet e jetesës që duhet të paguhen menjëherë lejohen vetëm nëse e pranon dijetari juaj."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "Pragu i nisabit",
+        "body": "Nisabi është teprica minimale para se të jepet zekati i pasurisë. Profeti ﷺ e caktoi atë në 20 dinarë ari ose 200 dirhemë argjend dhe mësoi se nuk jepet zekat derisa të kalojë një vit mbi pasurinë. Për shkak se çmimet e arit dhe të argjendit ndryshojnë sot, shumë studiues preferojnë pragun më të ulët (shpesh të argjendit) në mënyrë që të ndihmohen më shumë nga të varfërit. Ky kalkulator sugjeron më të ulëtin nga dy vlerësimet në kohë reale."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "Borxhet e menjëhershme (dhe kostot e jetesës vetëm nëse dijetari juaj lejon).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "Të rivendoset kalkulatori?",
+      "message": "Kjo pastron të gjitha sasitë, peshat metalike, bagëtinë dhe të korrat. Formati i monedhës dhe numrit tuaj mbeten të njëjta.",
+      "confirm": "Rivendos formularin",
+      "a11y": "Rivendos formularin e kalkulatorit të zekatit",
+      "hint": "Kërkon konfirmim, pastaj fshin të gjitha shumat e futura"
     }
   },
   "customAdhkar": {
@@ -3845,62 +3845,62 @@
       "reference": "Reference (opsionale)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "Fotografitë (opsionale)",
+      "add": "Shto foto",
+      "remove": "Hiq foton",
+      "hint": "Deri në 5 fotografi, 1 MB secila. Shtypni gjatë një miniaturë për ta hequr.",
+      "signInRequired": "Identifikohu për të bashkangjitur fotografi private në adkarin tuaj.",
+      "permissionDenied": "Kërkohet leja e bibliotekës së fotografive për të bashkangjitur fotot.",
+      "unsupportedType": "Përdorni vetëm fotografi JPEG, PNG ose WebP.",
+      "tooLarge": "Çdo foto duhet të jetë 1 MB ose më e vogël.",
+      "uploadFailed": "Fotot nuk mund të ngarkoheshin. Provo sërish.",
+      "uploading": "Po ngarkohet…",
+      "open": "Hape foton {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "Pini për të zmadhuar, zvarriteni për të shtrirë, prekni dy herë për ta rivendosur",
+      "previous": "Foto e mëparshme",
+      "next": "Fotografia e radhës"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "Shtojcat (opsionale)",
+      "add": "Shto skedar",
+      "remove": "Hiq shtojcën",
+      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Shtypni gjatë një miniaturë për ta hequr.",
+      "signInRequired": "Identifikohu për të bashkëngjitur skedarë privatë në adkar-in tënd.",
+      "permissionDenied": "Kërkohet leje për të bashkangjitur skedarët.",
+      "permissionTitle": "Lejo qasjen",
+      "permissionBody": "Munib Tracker ka nevojë për qasje në kamerë ose fotografi për të bashkangjitur skedarët.",
+      "permissionSettingsBody": "Leja u refuzua. Hap \"Cilësimet\" për të lejuar kamerën ose fotot për Munib Tracker.",
+      "allowAccess": "Lejo qasjen",
+      "unsupportedType": "Përdorni vetëm JPEG, PNG, WebP ose PDF.",
+      "tooLarge": "Çdo skedar duhet të jetë 1 MB ose më i vogël.",
+      "uploadFailed": "Nuk mund të ngarkoheshin bashkëngjitjet. Provo sërish.",
+      "uploading": "Po ngarkohet…",
+      "readFailed": "Nuk mund ta lexoja atë skedar. Provoni një tjetër.",
+      "pickFailed": "Nuk mund të shtohej ai skedar. Provo sërish.",
+      "openFailed": "Nuk mund të hapej ai skedar.",
+      "open": "Hap shtojcën {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "Pini për të zmadhuar, zvarriteni për të shtrirë, prekni dy herë për ta rivendosur",
+      "previous": "Shtojca e mëparshme",
+      "next": "Shtojca e radhës",
+      "openPdf": "Hapni PDF",
+      "sourceTitle": "Shto bashkëngjitje",
+      "sourceCamera": "Bëni një foto",
+      "sourceCameraHint": "Përdorni kamerën për të kapur një imazh",
+      "sourceGallery": "Biblioteka e fotografive",
+      "sourceGalleryHint": "Zgjidhni një imazh nga fotot tuaja",
+      "sourceDocument": "Skedarët",
+      "sourceDocumentHint": "Zgjidhni një imazh ose PDF nga skedarët tuaj"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Diktoni me mikrofon",
+      "stopDictate": "Ndaloni diktimin",
+      "listening": "Po dëgjon…",
+      "permissionDenied": "Për të diktuar kërkohet leja e mikrofonit. Ju ende mund të shkruani.",
+      "unavailable": "Njohja e të folurit nuk ofrohet në këtë pajisje.",
+      "couldNotHear": "Nuk mund ta dëgjoja - provo përsëri ose shkruani.",
+      "errorGeneric": "Diktimi dështoi. Provo sërish ose shkruaj."
     }
   },
   "tahajjud": {
@@ -3984,20 +3984,20 @@
     "confirmDiscardTitle": "Të hiqen ndryshimet?",
     "confirmDiscardMsg": "Anything ju wrote will be lost.",
     "confirmOverwriteTitle": "Të zëvendësohet reflektimi ekzistues?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "Tashmë ke vënë re {{prayer}} për këtë ditë. Ruajtja do ta zëvendësojë atë.",
     "level1": "I hutuar",
     "level2": "I shqetësuar",
     "level3": "Prezantoni mjaftueshëm",
     "level4": "I fokusuar",
     "level5": "Thellësisht i pranishëm",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Diktoni me mikrofon",
+      "stopDictate": "Ndaloni diktimin",
+      "listening": "Po dëgjon…",
+      "permissionDenied": "Për të diktuar kërkohet leja e mikrofonit. Ju ende mund të shkruani.",
+      "unavailable": "Njohja e të folurit nuk ofrohet në këtë pajisje.",
+      "couldNotHear": "Nuk mund ta dëgjoja - provo përsëri ose shkruani.",
+      "errorGeneric": "Diktimi dështoi. Provo sërish ose shkruaj."
     }
   },
   "prayerTuning": {
@@ -4038,7 +4038,7 @@
     "umrahTag": "Umra",
     "hajjTag": "Haxhi",
     "disclaimer": " practical checklist, not  fiqh manual. Follow  qualified guide për rulings dhe details.",
-    "prepTag": "Prep"
+    "prepTag": "Përgatitja"
   },
   "dailyHadith": {
     "eyebrow": "Ditor series",
@@ -4083,7 +4083,7 @@
     "versesLead": "Tap any verse në open it në  Kurani reader.",
     "journeyTitle": "Journey e mi",
     "journeySummary": "Today's habits — not juaj rank me Allah",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "Qëndrueshmëria në adhurim ju tashmë e gjurmoni",
     "journeyBanner": "These habits janë among  deeds Allah loves. Juaj final rank është only me Him.",
     "journeyToday": "Përpjekja e sotme",
     "journeyEmpty": "Fillo me one salah ose adhkar — small steps build lifelong habits.",
@@ -4401,7 +4401,7 @@
     "wearTitle": "Wer OS",
     "wearHint": "Shto  Munib Tracker tile në juaj watch after pairing me juaj phone.",
     "marked": "Salah shënuar",
-    "alreadyDone": "Already marked",
+    "alreadyDone": "Tashmë e shënuar",
     "allDone": "Të gjitha obligatory Salah shënuar për sot",
     "excused": "Tracking është paused për sot",
     "locked": "Unlock  app në mark Salah",
@@ -4457,181 +4457,181 @@
     "footer": "Juaj PIN është stored securely në kjo pajisja dhe never leaves it."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "Njoftim"
   },
   "sahaba": {
-    "eyebrow": "Learn",
+    "eyebrow": "Mësoni",
     "title": "Sahaba",
-    "subtitle": "Short profiles of the companions of the Prophet ﷺ",
-    "intro": "The sahaba are the generation that carried Islam from the Prophet ﷺ to the rest of the world. These short profiles follow the tone of the seerah timeline — a life, a lesson, and a source for every claim.",
-    "categoryAll": "All",
+    "subtitle": "Profilet e shkurtra të sahabëve të Profetit ﷺ",
+    "intro": "Sahabët janë brezi që e çoi Islamin nga Profeti ﷺ në pjesën tjetër të botës. Këto profile të shkurtra ndjekin tonin e afatit kohor të seerahut - një jetë, një mësim dhe një burim për çdo pretendim.",
+    "categoryAll": "Të gjitha",
     "category": {
-      "caliphs": "Caliphs",
+      "caliphs": "Kalifët",
       "ashara": "Ashara Mubashara",
-      "family": "Family",
-      "women": "Women",
-      "notable": "Notable"
+      "family": "Familja",
+      "women": "Gratë",
+      "notable": "I shquar"
     },
-    "noResults": "No companions in this category yet",
-    "readMore": "Tap to read the full profile",
-    "disclaimer": "Narrative facts follow the classical seerah and history works; every claim tied to a specific narration cites its hadith collection and number. This is general educational content, not a scholarly ranking.",
-    "quickLinksTitle": "Explore",
-    "quickCaliphsHint": "Start with Abu Bakr, the first Caliph",
-    "quickAsharaHint": "The ten promised Paradise",
-    "quickWomenHint": "Khadijah and the Mothers of the Believers",
-    "quickBattles": "Companions in battle",
-    "quickBattlesHint": "Campaign profiles from the Battles guide",
-    "countCardTitle": "Companion directory",
-    "countCardHint": "{{count}} verified educational profiles",
+    "noResults": "Nuk ka ende shoqërues në këtë kategori",
+    "readMore": "Prekni për të lexuar profilin e plotë",
+    "disclaimer": "Faktet narrative ndjekin veprat klasike të sherit dhe historisë; çdo pretendim i lidhur me një transmetim specifik citon koleksionin dhe numrin e haditheve të tij. Kjo është përmbajtje e përgjithshme arsimore, jo një renditje shkencore.",
+    "quickLinksTitle": "Eksploroni",
+    "quickCaliphsHint": "Filloni me Ebu Bekrin, Kalifin e parë",
+    "quickAsharaHint": "Të dhjetët e premtuar parajsën",
+    "quickWomenHint": "Hatixheja dhe nënat e besimtarëve",
+    "quickBattles": "Shokët në betejë",
+    "quickBattlesHint": "Profilet e fushatës nga udhëzuesi i Betejave",
+    "countCardTitle": "Drejtoria shoqëruese",
+    "countCardHint": "{{count}} profile të verifikuara arsimore",
     "categoryHint": {
-      "caliphs": "The four Rightly Guided Caliphs",
-      "ashara": "The ten companions promised Paradise",
-      "family": "Close family of the Prophet ﷺ",
-      "women": "Prominent women of the early community",
-      "notable": "Other widely remembered companions"
+      "caliphs": "Katër Kalifët e Drejtuar",
+      "ashara": "Dhjetë sahabët premtuan Xhenetin",
+      "family": "Familja e ngushtë e Profetit ﷺ",
+      "women": "Gratë e shquara të komunitetit të hershëm",
+      "notable": "Shokë të tjerë të kujtuar gjerësisht"
     },
-    "exploreTitle": "Continue learning",
-    "exploreBattles": "Battles figures",
-    "exploreBattlesHint": "Companions who appear in the military campaigns",
-    "exploreSeerah": "Seerah timeline",
-    "exploreSeerahHint": "Life of the Prophet ﷺ through key milestones",
-    "exploreHistory": "Early Islamic history",
-    "exploreHistoryHint": "From the Prophet's ﷺ passing to the end of the Rashidun",
-    "profileBodyTitle": "Life and lesson",
-    "relatedTitle": "Related guides",
-    "linkBattlesFigures": "See companions in Battles",
-    "linkSeerah": "Open the Seerah timeline",
-    "linkHistory": "Open early Islamic history",
-    "openProfileHint": "Open full companion profile",
-    "notFound": "Companion not found"
+    "exploreTitle": "Vazhdoni të mësoni",
+    "exploreBattles": "Shifrat e betejave",
+    "exploreBattlesHint": "Sahabët që shfaqen në fushatat ushtarake",
+    "exploreSeerah": "Afati kohor i Seeah",
+    "exploreSeerahHint": "Jeta e Profetit sal-lAllahu alejhi ue sel-lem përmes momenteve kyçe",
+    "exploreHistory": "Historia e hershme islame",
+    "exploreHistoryHint": "Nga kalimi i Profetit ﷺ deri në fund të Rashidunit",
+    "profileBodyTitle": "Jeta dhe mësimi",
+    "relatedTitle": "Udhëzues të lidhur",
+    "linkBattlesFigures": "Shih shokët në Betejat",
+    "linkSeerah": "Hapni vijën kohore të Seerah",
+    "linkHistory": "Hapni historinë e hershme islame",
+    "openProfileHint": "Hap profilin e plotë të shoqëruesit",
+    "notFound": "Shoqëruesi nuk u gjet"
   },
   "history": {
-    "eyebrow": "Learn",
-    "title": "Early Islamic history",
-    "subtitle": "From the Prophet's ﷺ death to the end of the Rashidun Caliphate",
+    "eyebrow": "Mësoni",
+    "title": "Historia e hershme islame",
+    "subtitle": "Nga vdekja e Profetit ﷺ deri në fund të Kalifatit Rashidun",
     "ceBadge": "{{year}} CE",
     "ahBadge": "{{ah}} AH",
     "era": {
-      "prophetic-close": "The Prophet ﷺ",
-      "abu-bakr": "Abu Bakr",
-      "umar": "Umar",
-      "uthman": "Uthman",
-      "ali": "Ali"
+      "prophetic-close": "Pejgamberi ﷺ",
+      "abu-bakr": "Ebu Bekri",
+      "umar": "Umari",
+      "uthman": "Osmani",
+      "ali": "Aliu"
     },
-    "disclaimer": "Scoped to 11–41 AH (632–661 CE) — the close of the Prophet's ﷺ life through the end of the Rashidun Caliphate. Political and military narrative follows the classical history works; the Uthman/Ali period is presented without adjudicating later theological disputes."
+    "disclaimer": "Shtrihet në vitin 11–41 hixhri (632–661 e.s.) – fundi i jetës së Profetit ﷺ deri në fund të Kalifatit Rashidun. Narrativa politike dhe ushtarake ndjek veprat klasike të historisë; periudha e Uthman/Aliut paraqitet pa gjykuar mosmarrëveshjet e mëvonshme teologjike."
   },
   "laylatAlQadr": {
-    "eyebrow": "Learn",
-    "title": "Laylat al-Qadr",
-    "subtitle": "The Night of Decree — better than a thousand months",
-    "intro": "Laylat al-Qadr is hidden among the odd nights of the last ten of Ramadan, not fixed to a single date. Seek it with sincere worship across all of them rather than one guessed night.",
+    "eyebrow": "Mësoni",
+    "title": "Nata e Kadrit",
+    "subtitle": "Nata e Kadrit është më e mirë se një mijë muaj",
+    "intro": "Nata e Kadrit është e fshehur mes netëve tek të dhjetë të fundit të Ramazanit, e pa fiksuar në një datë të vetme. Kërkojeni atë me adhurim të sinqertë në të gjithë ata dhe jo me një natë të supozuar.",
     "section": {
-      "virtues": "Its virtue",
-      "when": "When to seek it",
-      "dua": "What to say",
-      "ibadah": "How to spend the night",
-      "reminders": "Reminders"
+      "virtues": "Virtyti i saj",
+      "when": "Kur ta kërkoni",
+      "dua": "Çfarë të them",
+      "ibadah": "Si të kaloni natën",
+      "reminders": "Përkujtues"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "This guide does not endorse a single fixed calendar date or folk 'signs' for identifying the night — only what the Qur'an and authentic hadith state.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Ky udhëzues nuk miraton një datë të vetme kalendarike fikse ose 'shenja' popullore për identifikimin e natës – vetëm atë që thotë Kurani dhe hadithet autentike.",
+    "continueInApp": "Vazhdon në Munib"
   },
   "eid": {
-    "eyebrow": "Learn",
-    "title": "Eid guide",
-    "subtitle": "Eid al-Fitr and Eid al-Adha — prayer, sunnah, and rulings",
-    "intro": "The two Eids from the Qur'an and authentic hadith — how to pray Eid salah, Zakat al-Fitr, udhiyah, and the sunnah practices of the day.",
+    "eyebrow": "Mësoni",
+    "title": "Udhëzues për Bajramin",
+    "subtitle": "Fitër Bajrami dhe Kurban Bajrami - namazi, sunet dhe vendime",
+    "intro": "Dy Bajramet nga Kur'ani dhe hadithet autentike - si të falet namazi i Bajramit, Zekatul-Fitr, udhijah dhe praktikat sunet të ditës.",
     "section": {
-      "fitr": "Eid al-Fitr",
-      "adha": "Eid al-Adha",
-      "prayer": "The Eid prayer",
-      "sunnah": "Sunnah practices",
-      "zakat-fitr": "Zakat al-Fitr",
-      "udhiyah": "Udhiyah (sacrifice)"
+      "fitr": "Fitër Bajrami",
+      "adha": "Kurban Bajrami",
+      "prayer": "Namazi i Bajramit",
+      "sunnah": "Praktikat e Sunetit",
+      "zakat-fitr": "Zekatul-Fitr",
+      "udhiyah": "Udhiyah (sakrificë)"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as the extra-takbir count), both positions are presented; follow your imam or a qualified local scholar.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Pasqyrë edukative - jo një fetva. Aty ku shkollat ​​ndryshojnë (siç është numërimi i tekbireve ekstra), paraqiten të dyja pozicionet; ndiqni imamin tuaj ose një dijetar të kualifikuar vendas.",
+    "continueInApp": "Vazhdon në Munib"
   },
   "ruqyah": {
-    "eyebrow": "Learn",
-    "title": "Ruqyah",
-    "subtitle": "Qur'anic and prophetic spiritual healing",
-    "intro": "Ruqyah is reciting Qur'an, Allah's Names, or authentic prophetic supplications for healing and protection — never a substitute for salah or medical care.",
+    "eyebrow": "Mësoni",
+    "title": "Rukjah",
+    "subtitle": "Shërimi shpirtëror kuranor dhe profetik",
+    "intro": "Rukjah është duke recituar Kur'an, Emrat e Allahut, ose lutje autentike profetike për shërim dhe mbrojtje – asnjëherë një zëvendësues për namazin apo kujdesin mjekësor.",
     "section": {
-      "basics": "The basics",
-      "verses": "Key verses",
-      "daily-protection": "Daily protection",
-      "reminders": "Reminders"
+      "basics": "Bazat",
+      "verses": "Vargjet kryesore",
+      "daily-protection": "Mbrojtje ditore",
+      "reminders": "Përkujtues"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor, nor the five daily prayers. For serious or persistent affliction, consult both a scholar and a medical professional.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Rukja është një praktikë shpirtërore, jo një trajtim mjekësor. Nuk zëvendëson vizitën te një mjek i kualifikuar, as pesë namazet ditore. Për vuajtje serioze ose të vazhdueshme, konsultohuni me një dijetar dhe një profesionist mjekësor.",
+    "continueInApp": "Vazhdon në Munib"
   },
   "newMuslim": {
-    "eyebrow": "Learn",
-    "title": "New Muslim guide",
-    "subtitle": "A warm, practical start for the first days and weeks",
-    "intro": "Welcome to Islam. This guide covers the shahada, the five pillars, the basics of faith, and a first look at prayer, then points you to the fuller Salah, Aqeedah, and Qur'an guides in this app.",
+    "eyebrow": "Mësoni",
+    "title": "Udhëzues i ri mysliman",
+    "subtitle": "Një fillim i ngrohtë dhe praktik për ditët dhe javët e para",
+    "intro": "Mirë se vini në Islam. Ky udhëzues mbulon shehadetin, pesë shtyllat, bazat e besimit dhe një vështrim të parë në namaz, më pas ju drejton drejt udhëzuesve më të plotë të Namazit, Akaidës dhe Kur'anit në këtë aplikacion.",
     "section": {
-      "start": "Getting started",
-      "pillars": "The five pillars",
-      "faith": "Basics of faith",
-      "prayer": "Your first prayer",
-      "next-steps": "Next steps",
-      "faq": "Common questions"
+      "start": "Duke filluar",
+      "pillars": "Pesë shtyllat",
+      "faith": "Bazat e besimit",
+      "prayer": "Lutja juaj e parë",
+      "next-steps": "Hapat e ardhshëm",
+      "faq": "Pyetje të zakonshme"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "A shallow-but-correct starting guide covering only the shared essentials every school agrees on. For your specific situation, ask a local imam or teacher.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Një udhëzues fillestar i cekët, por i saktë që mbulon vetëm gjërat thelbësore të përbashkëta për të cilat çdo shkollë bie dakord. Për situatën tuaj specifike, pyesni një imam ose mësues lokal.",
+    "continueInApp": "Vazhdon në Munib"
   },
   "finance": {
-    "eyebrow": "Learn",
-    "title": "Islamic finance",
-    "subtitle": "Riba, fair trade, giving, and takaful",
-    "intro": "An educational introduction to the ethical framework Islam brings to money — the prohibition of riba, fair trade, zakah and sadaqah, and takaful (cooperative risk-sharing).",
+    "eyebrow": "Mësoni",
+    "title": "Financat islame",
+    "subtitle": "Riba, tregti e ndershme, dhënie dhe takaful",
+    "intro": "Një hyrje edukative në kornizën etike që Islami i sjell parasë – ndalimi i ribasë, tregtisë së ndershme, zekatit dhe sadakasë dhe takafulit (ndarja e rrezikut në bashkëpunim).",
     "section": {
-      "principles": "Principles",
-      "riba": "Riba (interest)",
-      "trade": "Fair trade",
-      "giving": "Giving",
+      "principles": "Parimet",
+      "riba": "Riba (interesi)",
+      "trade": "Tregtia e ndershme",
+      "giving": "Dhënia",
       "takaful": "Takaful",
-      "faq": "Common questions"
+      "faq": "Pyetje të zakonshme"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "General education, not financial or fatwa advice. Fund screeners, specific products, and rulings on your own contracts need a qualified, certified Islamic finance scholar or institution.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Arsim i përgjithshëm, jo këshilla financiare apo fetva. Ekzaminuesit e fondeve, produktet specifike dhe vendimet për kontratat tuaja kanë nevojë për një studiues ose institucion të kualifikuar dhe të certifikuar të financave islame.",
+    "continueInApp": "Vazhdon në Munib"
   },
   "dateConverter": {
-    "eyebrow": "Calendar",
-    "title": "Date converter",
-    "subtitle": "Convert between the Hijri and Gregorian calendars",
-    "intro": "Enter a date in either calendar to see its equivalent in the other, calculated offline using the tabular Kuwaiti algorithm.",
-    "toHijri": "Gregorian → Hijri",
-    "toGregorian": "Hijri → Gregorian",
-    "gregorianDateLabel": "Gregorian date",
-    "hijriDateLabel": "Hijri date",
-    "day": "Day",
-    "month": "Month",
-    "year": "Year",
-    "useToday": "Use today",
-    "invalidDate": "Enter a valid date",
-    "disclaimer": "This is an arithmetic approximation (the tabular \"Kuwaiti algorithm\") and can differ by a day from local moon-sighting announcements — always follow your local masjid or authority for religious dates.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
-    "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "eyebrow": "Kalendari",
+    "title": "Konvertuesi i datës",
+    "subtitle": "Konvertoni midis kalendarit Hixhri dhe Gregorian",
+    "intro": "Fut një datë në secilin nga kalendarët për të parë ekuivalentin e saj në tjetrin, të llogaritur jashtë linje duke përdorur algoritmin tabelor të Kuvajtit.",
+    "toHijri": "Gregorian → Hixhri",
+    "toGregorian": "Hixhri → Gregorian",
+    "gregorianDateLabel": "Data Gregoriane",
+    "hijriDateLabel": "Data e Hixhrit",
+    "day": "Dita",
+    "month": "muaj",
+    "year": "viti",
+    "useToday": "Përdoreni sot",
+    "invalidDate": "Fut një datë të vlefshme",
+    "disclaimer": "Ky është një përafrim aritmetik (\"algoritmi kuvajtian\" në formë tabele) dhe mund të ndryshojë për një ditë nga njoftimet lokale për shikimin e hënës - ndiqni gjithmonë xhaminë ose autoritetin tuaj lokal për datat fetare.",
+    "directionTitle": "Drejtimi i konvertimit",
+    "resultFrom": "Nga {{date}}",
+    "quickLinksTitle": "Të lidhura",
+    "quickCalendar": "Kalendari i adhurimit",
+    "quickCalendarHint": "Shfletoni muajt me regjistrin tuaj të lutjeve",
+    "quickEvents": "ngjarjet islame",
+    "quickEventsHint": "Datat e ardhshme në kalendarin Hixhri",
+    "quickRamadan": "Ramazani",
+    "quickRamadanHint": "Kohët e agjërimit dhe regjistri juaj i agjërimit",
+    "quickHistory": "Historia e hershme",
+    "quickHistoryHint": "Afati kohor i Rashidun me vitet e Hixhrit",
+    "exploreTitle": "Vazhdoni të mësoni",
+    "exploreCalendar": "Hapni kalendarin",
+    "exploreCalendarHint": "Shihni historinë e adhurimit dita ditës",
+    "exploreEvents": "Hapni ngjarjet islame",
+    "exploreEventsHint": "Piketat dhe ritet përpara"
   }
 }

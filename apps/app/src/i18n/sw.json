@@ -112,13 +112,13 @@
       "learnQuran": "Jifunze Qur'ani"
     },
     "stt": {
-      "dictate": "Search by voice",
-      "stopDictate": "Stop voice search",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required for voice search. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Voice search failed. Try again or type."
+      "dictate": "Tafuta kwa sauti",
+      "stopDictate": "Acha kutafuta kwa kutamka",
+      "listening": "Inasikiliza...",
+      "permissionDenied": "Ruhusa ya maikrofoni inahitajika kwa utafutaji wa sauti. Bado unaweza kuandika.",
+      "unavailable": "Utambuzi wa usemi haupatikani kwenye kifaa hiki.",
+      "couldNotHear": "Haikuweza kusikia hilo - jaribu tena au chapa.",
+      "errorGeneric": "Utafutaji wa sauti haukufaulu. Jaribu tena au chapa."
     }
   },
   "tabs": {
@@ -160,12 +160,12 @@
     "sick": "Ugonjwa & swala",
     "adhkarBuilder": "Adhkar zangu",
     "sahaba": "Sahaba",
-    "history": "Islamic History",
+    "history": "Historia ya Kiislamu",
     "laylatAlQadr": "Laylat al-Qadr",
-    "eid": "Eid Guide",
+    "eid": "Mwongozo wa Eid",
     "ruqyah": "Ruqyah",
-    "newMuslim": "New Muslim Guide",
-    "finance": "Islamic Finance"
+    "newMuslim": "Mwongozo Mpya wa Waislamu",
+    "finance": "Fedha za Kiislamu"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -200,7 +200,7 @@
         "description": "Maendeleo ya maombi ya faradhi ya leo"
       }
     },
-    "remaining": "Remaining",
+    "remaining": "Iliyosalia",
     "atTime": "at {{time}}"
   },
   "ramadan": {
@@ -649,9 +649,9 @@
     "eyebrowWelcome": "Karibu",
     "title": "Ingia",
     "subtitle": "Ibadainizi cihazlar arasında senkronize edin",
-    "google": "Continue with Google",
-    "apple": "Continue with Apple",
-    "facebook": "Continue with Facebook",
+    "google": "Endelea na Google",
+    "apple": "Endelea na Apple",
+    "facebook": "Endelea na Facebook",
     "heroGuest": "Mgeni hesabı kullanıyorsunuz. Vernarinizi yedeklemek na senkronize etmek kwa moja sağlmweziıcı bağlmweziın — hiçmoja şey kmwezibolmaz.",
     "heroUser": "Swalalarınızı, kazalarınızı na zikirlerinizi bulutta günande tutmak kwa giriş yapın.",
     "error": "Ingiaılamadı. API sunucusunun çalıştığından na bu sağlmweziıcının yapılandırıldığından emin olun."
@@ -1106,7 +1106,7 @@
     "subtitle": "Read, listen, na reflect",
     "searchSurah": "by name, meaning, or number Tafuta",
     "filterAll": "Zote",
-    "continueReading": "Continue reading",
+    "continueReading": "Endelea kusoma",
     "continueAt": "سورة {{surah}} · آية {{ayah}}",
     "makki": "مكية",
     "madani": "مدنية",
@@ -1194,15 +1194,15 @@
     "showWordByWord": "Show word by word",
     "showTajweed": "Show tajweed colours",
     "wordByWord": {
-      "title": "Word by word",
-      "playWord": "Play this word",
-      "noAudio": "No audio for this word",
-      "loading": "Loading words…"
+      "title": "Neno kwa neno",
+      "playWord": "Cheza neno hili",
+      "noAudio": "Hakuna sauti ya neno hili",
+      "loading": "Inapakia maneno..."
     },
     "tajweed": {
-      "legend": "Tajweed legend",
-      "openLesson": "Open Learn Qur'an lesson",
-      "loading": "Loading tajweed…",
+      "legend": "Hadithi ya Tajweed",
+      "openLesson": "Fungua somo la Jifunze Qur'an",
+      "loading": "Inapakia tajweed...",
       "rules": {
         "ghunnah": "Ghunnah",
         "ikhafa": "Ikhfa",
@@ -1214,30 +1214,30 @@
         "qalqalah": "Qalqalah",
         "maddNormal": "Madd (2)",
         "maddPermissible": "Madd (2-4-6)",
-        "maddObligatory": "Madd (4-5)",
+        "maddObligatory": "Wazimu (4-5)",
         "maddNecessary": "Madd (6)",
         "hamWasl": "Hamzat Wasl",
         "lamShamsiyah": "Lam Shamsiyah",
-        "silent": "Silent"
+        "silent": "Kimya"
       },
-      "hoverHint": "Hover to see the tajweed rule",
-      "tapHint": "Tap to see the tajweed rule",
+      "hoverHint": "Elea ili kuona sheria ya tajweed",
+      "tapHint": "Gusa ili kuona sheria ya tajweed",
       "hints": {
-        "ghunnah": "Nasal sound — 2 beats",
-        "ikhafa": "Concealment with ghunnah — 2 beats",
-        "ikhafaShafawi": "Labial concealment — 2 beats",
-        "idghamGhunnah": "Merging with nasal sound — 2 beats",
-        "idghamNoGhunnah": "Merging without nasal sound",
-        "idghamShafawi": "Labial merging — 2 beats",
-        "iqlab": "Conversion to hidden meem — 2 beats",
-        "qalqalah": "Echoing bounce on the letter",
-        "maddNormal": "Normal elongation — 2 beats",
-        "maddPermissible": "Permissible elongation — 2, 4, or 6 beats",
-        "maddObligatory": "Obligatory elongation — 4 or 5 beats",
-        "maddNecessary": "Necessary elongation — 6 beats",
-        "hamWasl": "Connecting hamza — dropped when joining",
-        "lamShamsiyah": "Sun-letter لام — not pronounced",
-        "silent": "Written but not pronounced"
+        "ghunnah": "Sauti ya pua - 2 beats",
+        "ikhafa": "Kujificha kwa ghunnah - midundo 2",
+        "ikhafaShafawi": "Ufichaji wa labial - 2 beats",
+        "idghamGhunnah": "Kuunganisha na sauti ya pua - 2 beats",
+        "idghamNoGhunnah": "Kuunganisha bila sauti ya pua",
+        "idghamShafawi": "Kuunganisha labial - 2 beats",
+        "iqlab": "Ubadilishaji kuwa meem iliyofichwa - midundo 2",
+        "qalqalah": "Mwangwi bounce juu ya barua",
+        "maddNormal": "Elongation ya kawaida - 2 beats",
+        "maddPermissible": "Urefu unaoruhusiwa - midundo 2, 4 au 6",
+        "maddObligatory": "Elongation ya lazima - 4 au 5 beats",
+        "maddNecessary": "Urefu wa lazima - beats 6",
+        "hamWasl": "Kuunganisha hamza - imeshuka wakati wa kujiunga",
+        "lamShamsiyah": "Herufi-jua لام — haitamki",
+        "silent": "Imeandikwa lakini haijatamkwa"
       }
     },
     "wordByWordLoading": "Loading word-by-word…",
@@ -1245,40 +1245,40 @@
     "wordByWordHint": "English glosses from Quran.com — requires a network fetch the first time per surah.",
     "tajweedHint": "Colour rules from AlQuran.cloud — requires a network fetch the first time per surah.",
     "playback": {
-      "title": "Playback",
-      "open": "Playback settings",
-      "repeatMode": "Repeat mode",
-      "repeatOff": "Off",
-      "repeatVerse": "Verse",
-      "repeatRange": "Range",
+      "title": "Uchezaji",
+      "open": "Mipangilio ya uchezaji",
+      "repeatMode": "Hali ya kurudia",
+      "repeatOff": "Imezimwa",
+      "repeatVerse": "Aya",
+      "repeatRange": "Masafa",
       "repeatSurah": "Surah",
-      "rangeStart": "From ayah",
-      "rangeEnd": "To ayah",
-      "translationAudio": "Translation audio",
-      "translationOff": "Off",
-      "translationAfter": "After each verse",
-      "translationAudioHint": "Reads translation aloud after each Arabic verse (device TTS)",
-      "ttsVoice": "Translation speech voice",
-      "ttsVoiceDefault": "Default for language",
-      "ttsVoiceEmpty": "No voices found for this language on this device.",
-      "summaryVerse": "Repeat verse",
-      "summarySurah": "Repeat surah",
-      "summaryRange": "Range {{start}}–{{end}}",
-      "summaryTts": "Translation TTS",
+      "rangeStart": "Kutoka kwa ayah",
+      "rangeEnd": "Kwa ayah",
+      "translationAudio": "Tafsiri sauti",
+      "translationOff": "Imezimwa",
+      "translationAfter": "Baada ya kila aya",
+      "translationAudioHint": "Husoma tafsiri kwa sauti baada ya kila mstari wa Kiarabu (kifaa TTS)",
+      "ttsVoice": "Tafsiri sauti ya hotuba",
+      "ttsVoiceDefault": "Chaguomsingi kwa lugha",
+      "ttsVoiceEmpty": "Hakuna sauti zilizopatikana za lugha hii kwenye kifaa hiki.",
+      "summaryVerse": "Rudia aya",
+      "summarySurah": "Rudia surah",
+      "summaryRange": "Masafa {{start}}–{{end}}",
+      "summaryTts": "Tafsiri TTS",
       "summaryWithTts": "{{summary}} · TTS"
     },
     "actionTafsir": "Tafsir",
-    "openTafsir": "Open tafsir for this ayah",
+    "openTafsir": "Fungua tafsir kwa ayah hii",
     "tafsir": "Tafsir",
-    "tafsirNone": "Select tafsir",
-    "selectTafsirAuthor": "Choose tafsir — {{language}}",
+    "tafsirNone": "Chagua tafsir",
+    "selectTafsirAuthor": "Chagua tafsir - {{language}}",
     "tafsirCount_one": "{{count}} tafsir",
-    "tafsirCount_other": "{{count}} tafsirs",
-    "searchTafsirLanguages": "Search languages…",
-    "searchTafsirAuthors": "Search authors…",
-    "tafsirLoading": "Loading tafsir…",
-    "tafsirOffline": "Connect to download this tafsir. Opened editions stay available offline.",
-    "tafsirEmpty": "No tafsir is available for this ayah in the selected edition."
+    "tafsirCount_other": "Tafsiri za {{count}}",
+    "searchTafsirLanguages": "Tafuta lugha...",
+    "searchTafsirAuthors": "Tafuta waandishi...",
+    "tafsirLoading": "Inapakia tafsir...",
+    "tafsirOffline": "Unganisha ili kupakua tafsir hii. Matoleo yaliyofunguliwa husalia yanapatikana nje ya mtandao.",
+    "tafsirEmpty": "Hakuna tafsir inayopatikana kwa aya hii katika toleo lililochaguliwa."
   },
   "hadith": {
     "eyebrow": "Mila ya kinabii",
@@ -1392,7 +1392,7 @@
     },
     "duha": {
       "summary": " forenoon swala — typically two  eight rak'ahs between sunrise na Dhuhr.",
-      "why": "Charity is due on every joint of the body each day; even a few rak'ahs of Duha fulfills that charity for the limbs through worship.",
+      "why": "Sadaka ni kwa kila kiungo cha mwili kila siku; hata rakaa chache za Duha hutimiza sadaka hiyo kwa viungo kwa njia ya ibada.",
       "benefits": "Forgives sins, brings sustenance (rizq), and revives a neglected sunnah. Flexible tidakg makes it accessible when the day allows."
     },
     "dhuhr": {
@@ -1634,8 +1634,8 @@
     "partial": "Sehemu",
     "missed": "Imekosa",
     "legendHint": "Dokunun any past au current siku  gözden geçir na adjust it. Leo dir {{date}}.",
-    "converterRowTitle": "Hijri ⟷ Gregorian converter",
-    "converterRowSubtitle": "Convert a date between the two calendars"
+    "converterRowTitle": "Hijri ⟷ Kigeuzi cha Gregorian",
+    "converterRowSubtitle": "Badilisha tarehe kati ya kalenda mbili"
   },
   "calDay": {
     "today": "Leo",
@@ -2004,7 +2004,7 @@
     "categoryQaza": "Qaza",
     "categoryMilestone": "Milestone",
     "categorySystem": "Mfumo",
-    "categoryAnnouncement": "Announcement"
+    "categoryAnnouncement": "Tangazo"
   },
   "qibla": {
     "eyebrow": "Mwelekeo",
@@ -2060,7 +2060,7 @@
     "syncing": "Sawazishaing…",
     "done": "Data yako imechelezwa",
     "failed": "Couldn't sync. Check sizin connection na try again.",
-    "mergeNoChanges": "Everything was already up to date",
+    "mergeNoChanges": "Kila kitu kilikuwa tayari kimesasishwa",
     "mergeSummary": "{{received}} imepokelewa · {{sent}} imetumwa",
     "conflictsResolved": "{{count}} conflicts auto-resolnad — kept  newest düzenle",
     "conflictAffected": "Iliyoathiriwa: {{list}}",
@@ -2185,7 +2185,7 @@
     "installBannerMessage": "iPhone'da uygulama benzeri moja deneyim na tarmweziıcı bildirimleri kwa Munib Tracker'ı Ana Ekranınıza yükleyin.",
     "installStepsViaSafari": "Aşağıdaki bağlantıyı kopyalmweziın, Safari'de açın, ardından Shiriki → Ana Ekrana Ekle.",
     "installCopyLink": "Safari kwa bağlantıyı kopyala",
-    "installLinkCopied": "Link copied — paste it into Safari's address bar to continue.",
+    "installLinkCopied": "Kiungo kimenakiliwa — kibandike kwenye upau wa anwani wa Safari ili kuendelea.",
     "installLinkCopyFailed": "Bağlantı kopyalanamadı. Hii smwezifmweziı Safari'de manuel olarak açın.",
     "installDismiss": "Funga"
   },
@@ -2238,13 +2238,13 @@
     "eyebrow": " Noble Qur'ani",
     "short": "ختمة",
     "title": "Mpango wa Khatm",
-    "subtitle": "Finish the Qur'an at a steady pace",
+    "subtitle": "Maliza Kurani kwa mwendo wa utulivu",
     "startTitle": "a plan Anzat",
     "startHint": "Chagua siku ngapi za kukamilisha Kurani. Tutaweka lengo la ayah kila siku.",
     "startHintPages": "Chagua siku ngapi za kukamilisha Kurani. Tutaweka lengo la kila siku la ukurasa wa mushaf.",
     "unitAyah": "Kwa Aya",
     "unitPage": "Kwa ukurasa",
-    "continueReading": "Continue reading",
+    "continueReading": "Endelea kusoma",
     "dayPlan": "{{count}} siku",
     "preset": {
       "intensive": "مكثّف",
@@ -2324,7 +2324,7 @@
       },
       "portion": {
         "text": "Wewe do not hana  finish busiku — only honour todmwezi's portion na sincerity.",
-        "source": "Steady progress"
+        "source": "Maendeleo thabiti"
       },
       "return": {
         "text": "If siz fall behind, do not abandon  plan. Resume na todmwezi's mweziahs na mona forward.",
@@ -2608,7 +2608,7 @@
     "meaningLabel": "Inafundisha nini",
     "progressTitle": "Kujifunza kwangu progress",
     "progressSubtitle": "lessons — not spiritual rank with Allah Kifuatiliaji Et",
-    "progressIntro": "This dashboard tracks your study and practice in Munib. Completing lessons does not measure your standing with Allah — sincerity does.",
+    "progressIntro": "Dashibodi hii hufuatilia masomo na mazoezi yako katika Munib. Kumaliza masomo hakupimi msimamo wako mbele ya Mwenyezi Mungu - ikhlasi.",
     "lessonsTitle": "Masomo completed",
     "lessonsHint": "Tia alama kwenye mada unapomaliza kuzisoma",
     "lessonsCount": "{{completed}} / {{total}}",
@@ -2892,9 +2892,9 @@
     "quickGhusl": "Mwongozo wa Ghusl",
     "quickGhuslHint": "Kuoga kamili wakati uchafu mkubwa unatokea",
     "quickChecklist": "Orodha ya ukaguzi ya kila siku",
-    "quickChecklistHint": "Habits that keep you ready for prayer",
+    "quickChecklistHint": "Tabia zinazokuweka tayari kwa maombi",
     "quickProgress": "Kujifunza kwangu",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mada zinazosomwa na kujifunza zinaendelea",
     "progressCardTitle": "Maendeleo ya kujifunza",
     "progressCardHint": "{{completed}} kati ya {{total}} mada zimetiwa alama kuwa zimekamilika",
     "exploreTitle": "Chunguza",
@@ -2963,7 +2963,7 @@
     "quickLessons": "Masomo",
     "quickLessonsHint": "Moral na spiritual takeawmwezis",
     "quickProgress": "Kujifunza kwangu",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mada zinazosomwa na kujifunza zinaendelea",
     "progressCardTitle": "Maendeleo ya kujifunza",
     "progressCardHint": "{{completed}} kati ya {{total}} mada zimetiwa alama kuwa zimekamilika",
     "exploreTitle": "Chunguza",
@@ -3033,7 +3033,7 @@
     "quickGlossary": "Kamusi",
     "quickGlossaryHint": "Masharti muhimu ya imani yamefafanuliwa",
     "quickProgress": "Kujifunza kwangu",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mada zinazosomwa na kujifunza zinaendelea",
     "progressCardTitle": "Maendeleo ya kujifunza",
     "progressCardHint": "{{completed}} kati ya {{total}} mada zimetiwa alama kuwa zimekamilika",
     "exploreTitle": "Chunguza",
@@ -3094,7 +3094,7 @@
     "quickOccasions": "Kwa hafla",
     "quickOccasionsHint": "Browse duas kwa enary moment",
     "quickProgress": "Kujifunza kwangu",
-    "quickProgressHint": "Topics read and study progress",
+    "quickProgressHint": "Mada zinazosomwa na kujifunza zinaendelea",
     "progressCardTitle": "Maendeleo ya kujifunza",
     "progressCardHint": "{{completed}} kati ya {{total}} mada zimetiwa alama kuwa zimekamilika",
     "exploreTitle": "Chunguza",
@@ -3423,12 +3423,12 @@
       "debts": {
         "title": "Madeni na makato",
         "summary": "Madeni ya papo hapo yanaweza kukatwa kabla ya kukokotoa 2.5%",
-        "body": "Zaka huhesabiwa kwa utajiri wako wa zaka inayoweza kutolewa, kwa hivyo deni la kweli unalodaiwa linaweza kupunguza kiasi unacholipa. Kesi iliyo wazi zaidi ni madeni yanayodaiwa sasa - mkopo wa kibinafsi ambao haujalipwa, salio ambalo halijalipwa la kadi ya mkopo, kodi ya nyumba au bili ambazo tayari zinadaiwa. Wasomi wengi huruhusu hizi zitolewe kutoka kwa utajiri wako wa jumla kabla ya kutumia 2.5%.\n\nMadeni ya muda mrefu kama vile rehani au mpango wa awamu ya miaka mingi hushughulikiwa kwa uangalifu zaidi, kwa sababu kukata salio lote kunaweza kufuta Zakat ya karibu mtu yeyote aliye na mkopo wa nyumba. Mbinu ya kisasa ni kukatwa tu malipo yanayopaswa kulipwa ndani ya mwaka ujao, na sio jumla yote inayosalia. Shule na wasomi hutofautiana hapa, kwa hivyo chagua mbinu thabiti chini ya mwongozo.\n\nTahadhari mbili. Kwanza, usichukulie gharama za siku zijazo au za dhahania kama deni linalokatwa - ni yale tu unayodaiwa ndiyo yanayohesabiwa. Pili, usipunguze Zakat ya mwaka jana ambayo haijalipwa kana kwamba ni deni la kawaida; Zakat isiyolipwa inabakia kuwa ni wajibu unaostahiki na inapaswa kulipwa tu. Wakati hali yako ya deni ni ngumu, uamuzi wa msomi ni wa thamani zaidi kuliko nadhani mbaya."
+        "body": "Zaka huhesabiwa kwa utajiri wako wa zaka inayoweza kutolewa, kwa hivyo deni la kweli unalodaiwa linaweza kupunguza kiasi unacholipa. Kesi iliyo wazi zaidi ni madeni yanayodaiwa sasa - mkopo wa kibinafsi ambao haujalipwa, salio ambalo halijalipwa la kadi ya mkopo, kodi ya nyumba au bili ambazo tayari zinadaiwa. Wasomi wengi huruhusu hizi zitolewe kutoka kwa utajiri wako wa jumla kabla ya kutumia 2.5%.\n\nMadeni ya muda mrefu kama vile rehani au mpango wa awamu ya miaka mingi hushughulikiwa kwa uangalifu zaidi, kwa sababu kukata salio lote kunaweza kufuta zakat ya karibu mtu yeyote aliye na mkopo wa nyumba. Mbinu ya kisasa ni kukatwa tu malipo yanayopaswa kulipwa ndani ya mwaka ujao, na sio jumla yote inayosalia. Shule na wasomi hutofautiana hapa, kwa hivyo chagua mbinu thabiti chini ya mwongozo.\n\nTahadhari mbili. Kwanza, usichukulie gharama za siku zijazo au za dhahania kama deni linalokatwa - ni yale tu unayodaiwa ndiyo yanayohesabiwa. Pili, usipunguze zakat ya mwaka jana ambayo haijalipwa kana kwamba ni deni la kawaida; Zakat isiyolipwa inabakia kuwa ni wajibu unaostahiki na inapaswa kulipwa tu. Wakati hali yako ya deni ni ngumu, uamuzi wa msomi ni wa thamani zaidi kuliko nadhani mbaya."
       },
       "recipients": {
         "title": "Ambao wanaweza kupokea zaka",
         "summary": "Makundi nane yaliyotajwa katika Qur'an 9:60",
-        "body": "Zakat inaweza tu kutolewa kwa makundi ya watu ambao Mwenyezi Mungu mwenyewe amewataja katika Surah at-Tawbah (9:60). Hiki ni miongoni mwa ibada chache ambapo wapokeaji huwekwa kwa wahyi, na sio kuachwa kwa matakwa ya mtoaji. Makundi manane ni: masikini (al-fuqara); wahitaji (al-masakin); wale walioajiriwa kukusanya na kusimamia Zakat; wale ambao nyoyo zao zitapatana (al-mu'allafah); kuachiliwa huru mateka na walio katika utumwa (fi'r-riqab); wenye deni (al-gharimin); katika njia ya Mwenyezi Mungu (fi sabil Allah); na msafiri aliyekwama (ibn as-sabil).\n\nHaihitajiki kuwapa wote wanane; kutoa zaka yako hata kwa kundi moja linalostahiki hutimiza wajibu, na kuielekeza kwa masikini na masikini ni jambo la kawaida zaidi.\n\nMuhimu sawa ni nani anaweza asiipokee. Zakat haiwezi kutolewa kwa matajiri, au kwa wale ambao tayari unalazimika kuwaunga mkono - wazazi wako, watoto wako, au mwenzi wako - kwani kuwaunga mkono ni jukumu ambalo unadaiwa. Kwa mtazamo wa kitamaduni ni uhamishaji wa kibinafsi wa umiliki kwa mtu anayestahiki, sio mchango wa jumla; Wanazuoni wanatofautiana kuhusu kama taasisi kama vile Misikiti au miradi mikubwa ya umma inastahiki kwa njia ya Mwenyezi Mungu. Pia haiwezi kutolewa kwa familia ya Mtume ﷺ, Banu Hashim, kama zaka. Ilenge kwa makusudi watu wanaolingana na kategoria za Qur'ani."
+        "body": "Zakat inaweza tu kutolewa kwa makundi ya watu ambao Mwenyezi Mungu mwenyewe amewataja katika Surah at-Tawbah (9:60). Hiki ni miongoni mwa ibada chache ambapo wapokeaji huwekwa kwa wahyi, na sio kuachwa kwa matakwa ya mtoaji. Makundi manane ni: masikini (al-fuqara); wahitaji (al-masakin); wale walioajiriwa kukusanya na kusimamia zakat; wale ambao nyoyo zao zitapatana (al-mu'allafah); kuachiliwa huru mateka na walio katika utumwa (fi'r-riqab); wenye deni (al-gharimin); katika njia ya Mwenyezi Mungu (fi sabil Allah); na msafiri aliyekwama (ibn as-sabil).\n\nHaihitajiki kuwapa wote wanane; kutoa zaka yako hata kwa kundi moja linalostahiki hutimiza wajibu, na kuielekeza kwa masikini na masikini ni jambo la kawaida zaidi.\n\nMuhimu sawa ni nani anaweza asiipokee. Zakat haiwezi kutolewa kwa matajiri, au kwa wale ambao tayari unalazimika kuwaunga mkono - wazazi wako, watoto wako, au mwenzi wako - kwani kuwaunga mkono ni jukumu ambalo unadaiwa. Kwa mtazamo wa kitamaduni ni uhamishaji wa kibinafsi wa umiliki kwa mtu anayestahiki, sio mchango wa jumla; Wanazuoni wanatofautiana kuhusu kama taasisi kama vile Misikiti au miradi mikubwa ya umma inastahiki kwa njia ya Mwenyezi Mungu. Pia haiwezi kutolewa kwa familia ya Mtume ﷺ, Banu Hashim, kama zaka. Ilenge kwa makusudi watu wanaolingana na kategoria za Qur'ani."
       },
       "otherRates": {
         "title": "Aina zingine za zakat na zakat al-fitr",
@@ -3438,7 +3438,7 @@
       "mistakes": {
         "title": "Makosa ya kawaida ya kuepukwa",
         "summary": "Makosa yanayofanya zakat kuwa batili au kukokotwa vibaya",
-        "body": "Hata Waislamu waaminifu mara nyingi huteleza kwenye maelezo ya vitendo ya Zakat. Kujua makosa ya kawaida husaidia kulipa kwa usahihi na kwa amani ya akili.\n\nKusahau hawl au maadhimisho ya miaka: kulipa kwa wakati nasibu, au kuruka miaka, huacha wajibu bora. Rekebisha tarehe moja ya Hijri kila mwaka na tathmini utajiri wako juu yake.\n\nUtajiri usio sahihi: kuthamini dhahabu au hisa kwa bei ya ununuzi wao badala ya thamani ya soko la leo, kusahau pesa taslimu uliyohifadhi katika akaunti au sarafu nyingi, au kupuuza hesabu za biashara na pesa unazodaiwa. Zaka ni juu ya kila kitu ambacho unamiliki kwa tarehe yako.\n\nKutoa kwa watu wasio sahihi: kukabidhi Zakat kwa wazazi, watoto, au mwenzi ambaye tayari unamuunga mkono, au kuichukulia kama mchango wa kawaida kwa sababu yoyote nzuri. Lazima ifikie mojawapo ya kategoria nane za Qur'ani.\n\nMakosa ya kukusudia: kutoa kwa ukarimu mwaka mzima lakini bila kukusudia yoyote kama Zakat. Zaka ni ibada na inahitaji nia (niyyah) kwamba malipo haya mahususi ni zaka yako ya faradhi.\n\nKutoa madeni kupita kiasi: kutoa rehani ya muda mrefu, au gharama za siku zijazo ambazo bado hazijadaiwa, ili kupunguza bili. Madeni ya kweli tu, ya sasa yanapunguza utajiri wako wa zaka. Wakati mojawapo ya haya haijulikani kwa hali yako, muulize mwanachuoni aliyehitimu badala ya kudhani."
+        "body": "Hata Waislamu waaminifu mara nyingi huteleza kwenye maelezo ya vitendo ya zakat. Kujua makosa ya kawaida husaidia kulipa kwa usahihi na kwa amani ya akili.\n\nKusahau hawl au maadhimisho ya miaka: kulipa kwa wakati nasibu, au kuruka miaka, huacha wajibu bora. Rekebisha tarehe moja ya Hijri kila mwaka na tathmini utajiri wako juu yake.\n\nUtajiri usio sahihi: kuthamini dhahabu au hisa kwa bei ya ununuzi wao badala ya thamani ya soko la leo, kusahau pesa taslimu uliyohifadhi katika akaunti au sarafu nyingi, au kupuuza hesabu za biashara na pesa unazodaiwa. Zaka ni juu ya kila kitu ambacho unamiliki kwa tarehe yako.\n\nKutoa kwa watu wasio sahihi: kukabidhi zakat kwa wazazi, watoto, au mwenzi ambaye tayari unamuunga mkono, au kuichukulia kama mchango wa kawaida kwa sababu yoyote nzuri. Lazima ifikie mojawapo ya kategoria nane za Qur'ani.\n\nMakosa ya kukusudia: kutoa kwa ukarimu mwaka mzima lakini bila kukusudia yoyote kama zakat. Zaka ni ibada na inahitaji nia (niyyah) kwamba malipo haya mahususi ni zaka yako ya faradhi.\n\nKutoa madeni kupita kiasi: kutoa rehani ya muda mrefu, au gharama za siku zijazo ambazo bado hazijadaiwa, ili kupunguza bili. Madeni ya kweli tu, ya sasa yanapunguza utajiri wako wa zaka. Wakati mojawapo ya haya haijulikani kwa hali yako, muulize mwanachuoni aliyehitimu badala ya kudhani."
       }
     },
     "recipientsListTitle": "Makundi nane",
@@ -3513,7 +3513,7 @@
     "group": {
       "liquid": "Fedha na madini ya thamani",
       "investments": "Uwekezaji na biashara",
-      "property": "Land, property & vehicles"
+      "property": "Ardhi, mali na magari"
     },
     "weightSectionTitle": "Kuhesabu dhahabu na fedha kwa uzito",
     "nisabOverrideTitle": "Batilisha nisab kwa mikono",
@@ -3535,33 +3535,33 @@
         "title": "Au hesabu dhahabu kwa uzito",
         "grams": "Gramu",
         "pricePerGram": "Bei/g",
-        "titleShort": "Gold by weight",
-        "amount": "Weight",
-        "pricePerGram24k": "Price/g (24k)"
+        "titleShort": "Dhahabu kwa uzito",
+        "amount": "Uzito",
+        "pricePerGram24k": "Bei/g (24k)"
       },
       "silver": {
         "title": "Au hesabu fedha kwa uzito",
         "grams": "Gramu",
         "pricePerGram": "Bei/g",
-        "titleShort": "Silver by weight",
-        "amount": "Weight",
-        "pricePerGramFine": "Price/g (fine)"
+        "titleShort": "Fedha kwa uzito",
+        "amount": "Uzito",
+        "pricePerGramFine": "Bei/g (faini)"
       },
       "computed": "Inaongeza {{value}} kwa jumla",
-      "hint": "Live spot prices are 24k gold and fine silver per gram. Choose your unit (g, tola, troy oz, kg) and karat/purity — value is converted to pure metal × spot.",
-      "unit": "Weight unit",
-      "karat": "Gold karat",
-      "purity": "Silver purity",
+      "hint": "Bei za moja kwa moja ni dhahabu 24k na fedha safi kwa gramu. Chagua kitengo chako (g, tola, troy oz, kg) na karat/purity - thamani inabadilishwa kuwa metali safi × doa.",
+      "unit": "Kitengo cha uzito",
+      "karat": "Karati ya dhahabu",
+      "purity": "Usafi wa fedha",
       "karatLabel": "{{karat}}k",
       "purityLabel": "{{purity}}",
       "units": {
-        "g": "Gram",
+        "g": "Gramu",
         "tola": "Tola",
         "oz": "Troy oz",
-        "kg": "Kilogram"
+        "kg": "Kilo"
       },
-      "pureGrams": "≈ {{grams}} g pure metal",
-      "cardHint": "Tola, grams, karat / purity × live 24k or fine spot."
+      "pureGrams": "≈ {{grams}} g chuma safi",
+      "cardHint": "Tola, gramu, karat / usafi × kuishi 24k au sehemu nzuri."
     },
     "field": {
       "cash": "Fedha na akiba",
@@ -3577,11 +3577,11 @@
       "nisabGoldPrice": "Bei ya dhahabu kwa gramu",
       "nisabSilverPrice": "Bei ya fedha kwa gramu",
       "crypto": "Cryptocurrency",
-      "livingExpenses": "Immediate living expenses",
-      "investmentPlots": "Investment plots (market value)",
-      "installmentPlotsPaid": "Installment plots — amount paid",
-      "investmentProperty": "Investment houses / buildings",
-      "tradeVehicles": "Vehicles for sale / trade"
+      "livingExpenses": "Gharama za kuishi mara moja",
+      "investmentPlots": "Viwanja vya uwekezaji (thamani ya soko)",
+      "installmentPlotsPaid": "Viwanja vya malipo - kiasi kilicholipwa",
+      "investmentProperty": "Nyumba za uwekezaji / majengo",
+      "tradeVehicles": "Magari ya kuuza / biashara"
     },
     "fieldHint": {
       "cash": "Akaunti za benki, pesa mkononi, na akiba ya kioevu.",
@@ -3594,12 +3594,12 @@
       "otherAssets": "Cryptocurrency, pesa za kustaafu zinazoweza kufikiwa, au utajiri mwingine unaoweza kutolewa kwa kila mwanachuoni wako.",
       "debts": "Mikopo ya kibinafsi, kadi za mkopo na bili zinazodaiwa sasa - sio jumla ya rehani ya muda mrefu isipokuwa msomi wako akuruhusu.",
       "nisab": "Acha wazi ili kutumia kiwango cha juu kilichokokotwa, au ingiza nisab maalum.",
-      "crypto": "Market value of crypto held as an asset — rulings differ; ask a scholar.",
-      "livingExpenses": "Rent, food, and bills due immediately — only if your scholar allows this deduction.",
-      "investmentPlots": "Land or plots held for investment or sale (current market value). Personal farmland used for living is different — ask a scholar.",
-      "installmentPlotsPaid": "How much you have already paid on installment investment plots (not the full unpaid contract unless your scholar includes it).",
-      "investmentProperty": "Houses or buildings held for investment or trade — not your personal residence.",
-      "tradeVehicles": "Cars or vehicles held for sale or as trade stock — not personal-use vehicles."
+      "crypto": "Thamani ya soko ya crypto inayoshikiliwa kama mali - maamuzi yanatofautiana; muulize mwanachuoni.",
+      "livingExpenses": "Kodi, chakula na bili zitatozwa mara moja - ikiwa tu msomi wako ataruhusu kukatwa huku.",
+      "investmentPlots": "Ardhi au viwanja vinavyoshikiliwa kwa uwekezaji au mauzo (thamani ya soko la sasa). Mashamba ya kibinafsi yanayotumika kwa kuishi ni tofauti - muulize msomi.",
+      "installmentPlotsPaid": "Ni kiasi gani ambacho tayari umelipa kwenye viwanja vya uwekezaji wa awamu (sio mkataba kamili ambao haujalipwa isipokuwa msomi wako ajumuishe).",
+      "investmentProperty": "Nyumba au majengo yanayoshikiliwa kwa uwekezaji au biashara - sio makazi yako ya kibinafsi.",
+      "tradeVehicles": "Magari au magari yanayouzwa kwa mauzo au kama hisa - sio magari ya matumizi ya kibinafsi."
     },
     "checklist[0]": {
       "title": "Thibitisha hawl (mwaka wa mwandamo)",
@@ -3684,148 +3684,148 @@
     "currency": {
       "title": "Currency",
       "hint": "All amounts and nisab use this currency. Live gold and silver prices convert automatically.",
-      "changeA11y": "Change zakat currency",
-      "pickerTitle": "Select currency",
-      "pickerHint": "{{count}} currencies — search by code or name",
-      "searchPlaceholder": "Search currencies…",
-      "noResults": "No currencies match your search.",
+      "changeA11y": "Badilisha sarafu ya zakat",
+      "pickerTitle": "Chagua sarafu",
+      "pickerHint": "{{count}} sarafu — tafuta kwa msimbo au jina",
+      "searchPlaceholder": "Tafuta sarafu...",
+      "noResults": "Hakuna sarafu zinazolingana na utafutaji wako.",
       "inCurrency": "{{code}}"
     },
     "market": {
-      "title": "Live gold & silver",
-      "goldPerGram": "Gold / gram",
-      "silverPerGram": "Silver / gram",
+      "title": "Dhahabu na fedha hai",
+      "goldPerGram": "Dhahabu / gramu",
+      "silverPerGram": "Fedha / gramu",
       "source": "{{source}} · FX {{date}}",
-      "loading": "Fetching live prices…",
-      "error": "Could not load live prices. Enter gold and silver prices manually.",
-      "prefilled": "Nisab and metal prices are prefilled from live rates.",
-      "useLive": "Use live prices again",
-      "useLiveA11y": "Reset to live gold and silver prices",
-      "refreshA11y": "Refresh live market prices",
-      "livePrice": "Live"
+      "loading": "Inaleta bei za moja kwa moja...",
+      "error": "Haikuweza kupakia bei za moja kwa moja. Weka bei za dhahabu na fedha wewe mwenyewe.",
+      "prefilled": "Bei za Nisab na chuma hujazwa awali kutokana na viwango vya moja kwa moja.",
+      "useLive": "Tumia tena bei za moja kwa moja",
+      "useLiveA11y": "Weka upya ili uishi bei za dhahabu na fedha",
+      "refreshA11y": "Onyesha upya bei za soko za moja kwa moja",
+      "livePrice": "Ishi"
     },
     "nisabHintLive": "Nisab is estimated from today's live gold and silver prices. Many scholars use the lower of the two thresholds.",
     "bar": {
       "meetsNisab": "Net {{wealth}} · Nisab {{nisab}}",
-      "belowNisab": "Net {{wealth}} · below nisab {{nisab}}",
-      "hasOtherDue": "Net {{wealth}} · crops / livestock due"
+      "belowNisab": "Net {{wealth}} · hapa chini nisab {{nisab}}",
+      "hasOtherDue": "Net {{wealth}} · mazao / mifugo inayodaiwa"
     },
     "toolbar": {
-      "gold": "Gold/g",
-      "silver": "Silver/g",
+      "gold": "Dhahabu/g",
+      "silver": "Fedha/g",
       "nisab": "Nisab",
-      "due": "Due"
+      "due": "Inastahili"
     },
     "breakdown": {
-      "wealth": "Wealth zakat (2.5%): {{value}}",
-      "agriculture": "Crops (ushr): {{value}}",
-      "livestock": "Livestock (cash estimate): {{value}}"
+      "wealth": "Zakat ya Utajiri (2.5%): {{value}}",
+      "agriculture": "Mazao (usr): {{value}}",
+      "livestock": "Mifugo (makadirio ya pesa): {{value}}"
     },
     "groupHint": {
       "property": "Personal residence and personal-use cars are generally exempt. Enter only plots, houses, or vehicles held for investment, sale, or trade.",
-      "liquid": "Cash, crypto, and metal values you already know. Or use weight in the metals card.",
-      "investments": "Stocks, trade goods, receivables, and saved business income at today's value."
+      "liquid": "Pesa, crypto na thamani za chuma ambazo tayari unajua. Au tumia uzito kwenye kadi ya metali.",
+      "investments": "Hisa, bidhaa za biashara, zinazopokelewa, na mapato ya biashara yaliyohifadhiwa kwa thamani ya leo."
     },
-    "dueLabelOther": "Crops / livestock due (wealth below nisab)",
+    "dueLabelOther": "Mazao / mifugo inayodaiwa (utajiri chini ya nisab)",
     "livestock": {
-      "title": "Livestock (grazing flocks)",
-      "hint": "Sunnah scales for free-grazing sheep/goats, cattle, and camels (Bukhari / Abu Dawud). Fed animals kept as a business often follow trade-goods rules instead — ask a scholar.",
-      "sheep": "Sheep / goats (heads)",
-      "sheepHint": "Nisab starts at 40 head.",
-      "cattle": "Cattle / buffalo (heads)",
-      "cattleHint": "Nisab starts at 30 head (tabi' / musinnah scale).",
-      "camels": "Camels (heads)",
-      "camelsHint": "Nisab starts at 5 head.",
-      "valueTitle": "Optional cash values (per head)",
-      "valueHint": "Zakat on livestock is usually paid in animals. Enter market values only if you want a cash-equivalent estimate for planning.",
-      "sheepValue": "Value per sheep/goat",
-      "cattleValue": "Value per cattle head",
-      "camelValue": "Value per camel",
-      "dueTitle": "Animals due (Sunnah estimate)",
-      "cashEstimate": "Cash estimate: {{value}}",
+      "title": "Mifugo (malisho ya mifugo)",
+      "hint": "Mizani ya Sunnah kwa kondoo/mbuzi, ng'ombe, na ngamia wa malisho ya bure (Bukhari / Abu Dawud). Wanyama wanaolishwa kama biashara mara nyingi hufuata sheria za bidhaa za biashara badala yake - muulize mwanazuoni.",
+      "sheep": "Kondoo / mbuzi (vichwa)",
+      "sheepHint": "Nisab huanza saa 40 kichwa.",
+      "cattle": "Ng'ombe / nyati (vichwa)",
+      "cattleHint": "Nisab huanza na kichwa 30 (tabi' / mizani ya musinnah).",
+      "camels": "Ngamia (vichwa)",
+      "camelsHint": "Nisab huanza saa 5 kichwa.",
+      "valueTitle": "Thamani za pesa za hiari (kwa kila kichwa)",
+      "valueHint": "Zaka ya mifugo kwa kawaida hutolewa kwa wanyama. Weka thamani za soko ikiwa tu unataka makadirio sawa na pesa taslimu ya kupanga.",
+      "sheepValue": "Thamani kwa kila kondoo/mbuzi",
+      "cattleValue": "Thamani kwa kila ng'ombe",
+      "camelValue": "Thamani kwa ngamia",
+      "dueTitle": "Wanyama wanaostahili (makadirio ya Sunnah)",
+      "cashEstimate": "Makadirio ya fedha: {{value}}",
       "due": {
-        "sheep": "{{count}} sheep/goat",
-        "cattleTabi": "{{count}} tabi' (1-year cattle)",
-        "cattleMusinnah": "{{count}} musinnah (2-year cattle)",
-        "bintMakhad": "{{count}} bint makhad (1-year camel)",
-        "bintLabun": "{{count}} bint labun (2-year camel)",
-        "hiqqah": "{{count}} hiqqah (3-year camel)",
-        "jadhah": "{{count}} jadhah (4-year camel)"
+        "sheep": "{{count}} kondoo/mbuzi",
+        "cattleTabi": "{{count}} tabi' (ng'ombe wa mwaka 1)",
+        "cattleMusinnah": "{{count}} musinnah (ng'ombe wa miaka 2)",
+        "bintMakhad": "{{count}} bint makhad (ngamia wa mwaka 1)",
+        "bintLabun": "{{count}} bint labun (ngamia wa miaka 2)",
+        "hiqqah": "{{count}} hiqqah (ngamia wa miaka 3)",
+        "jadhah": "{{count}} jadhah (ngamia wa miaka 4)"
       },
-      "cardHint": "Sunnah animal scales — not 2.5%. Optional cash values for estimates only."
+      "cardHint": "Mizani ya wanyama wa Sunnah - sio 2.5%. Thamani za hiari za pesa taslimu kwa makadirio pekee."
     },
     "agriculture": {
-      "title": "Agriculture & harvest (ushr)",
-      "hint": "Due at harvest — not after a lunar year. Rate is 10% for land watered by rain/springs, and 5% when irrigation costs effort or money (Qur'an 6:141; Sunnah).",
-      "harvest": "Harvest market value",
-      "harvestHint": "Value of this season's crops or fruit at harvest time.",
-      "irrigation": "Water source",
-      "natural": "Rain / springs (10%)",
-      "irrigated": "Irrigated (5%)",
-      "naturalHint": "Ushr 10% when watered naturally without costly irrigation.",
-      "irrigatedHint": "Half-ushr 5% when watered by wells, pumps, or paid irrigation.",
-      "due": "Ushr due: {{value}}",
-      "cardHint": "Due at harvest — 10% rain/springs, 5% irrigated."
+      "title": "Kilimo na mavuno (usr)",
+      "hint": "Kutokana na mavuno - si baada ya mwaka mwandamo. Kiwango ni 10% kwa ardhi iliyotiwa maji na mvua/chemchemi, na 5% wakati umwagiliaji unagharimu juhudi au pesa (Qur'an 6:141; Sunnah).",
+      "harvest": "Thamani ya soko la mavuno",
+      "harvestHint": "Thamani ya mazao au matunda ya msimu huu wakati wa mavuno.",
+      "irrigation": "Chanzo cha maji",
+      "natural": "Mvua / chemchemi (10%)",
+      "irrigated": "Kumwagilia maji (5%)",
+      "naturalHint": "Ushr 10% wakati wa kumwagilia kawaida bila umwagiliaji wa gharama kubwa.",
+      "irrigatedHint": "Nusu-ush 5% inapomwagiliwa na visima, pampu, au umwagiliaji wa kulipia.",
+      "due": "Ushr inadaiwa: {{value}}",
+      "cardHint": "Wakati wa mavuno - 10% ya mvua/chemchemi, 5% ya umwagiliaji."
     },
     "numberFormat": {
-      "title": "Number format",
-      "hint": "How thousands and decimals are shown in amounts.",
-      "changeA11y": "Change number format",
-      "pickerTitle": "Number format",
-      "pickerHint": "Choose how amounts are grouped and how decimals appear while typing and in totals."
+      "title": "Muundo wa nambari",
+      "hint": "Jinsi maelfu na desimali huonyeshwa kwa kiasi.",
+      "changeA11y": "Badilisha muundo wa nambari",
+      "pickerTitle": "Muundo wa nambari",
+      "pickerHint": "Chagua jinsi kiasi kinavyopangwa na jinsi desimali huonekana unapoandika na katika jumla."
     },
-    "learnMore": "Learn more",
+    "learnMore": "Jifunze zaidi",
     "sectionInfo": {
-      "educational": "Educational summary from the Qur'an and Sunnah — not a personal fatwa.",
-      "footnote": "Schools differ on details (jewellery, mortgages, fed livestock, crypto). Ask a qualified scholar for your case.",
-      "openGuide": "Open full guide",
-      "a11y": "Learn more about {{section}}",
+      "educational": "Mukhtasari wa kielimu kutoka katika Qur'an na Sunnah - sio fatwa ya kibinafsi.",
+      "footnote": "Shule hutofautiana kwa maelezo (vito, rehani, mifugo ya kulishwa, crypto). Uliza mwanachuoni aliyehitimu kwa kesi yako.",
+      "openGuide": "Fungua mwongozo kamili",
+      "a11y": "Pata maelezo zaidi kuhusu {{section}}",
       "currency": {
-        "title": "Currency & rates",
-        "body": "Zakat is calculated on the market value of your wealth in a currency you understand. Spot gold and silver prices help estimate nisab and metal values — they are indicative, not a substitute for local market rates used by your scholar."
+        "title": "Sarafu na viwango",
+        "body": "Zakat huhesabiwa kwa thamani ya soko ya mali yako katika sarafu unayoelewa. Bei za dhahabu na fedha za uhakika husaidia kukadiria thamani za nisab na chuma - ni dalili, si mbadala wa viwango vya soko vya ndani vinavyotumiwa na mwanachuoni wako."
       },
       "liquid": {
-        "title": "Cash & precious metals",
-        "body": "Cash, bank balances, and gold or silver held as wealth are among the clearest zakatable assets. The Prophet ﷺ warned sternly about withholding what is due on gold and silver. Jewellery worn for normal use is a known point of difference between schools — follow your madhhab. You may enter a cash value here, or calculate metals by weight in the next section."
+        "title": "Fedha na madini ya thamani",
+        "body": "Fedha, salio la benki, na dhahabu au fedha inayoshikiliwa kama mali ni miongoni mwa mali ya wazi ya zaka. Mtume (Swalla Allaahu ´alayhi wa sallam) alionya vikali juu ya kunyima haki ya dhahabu na fedha. Vito vinavyovaliwa kwa matumizi ya kawaida ni tofauti inayojulikana kati ya shule - fuata madhhab yako. Unaweza kuingiza thamani ya pesa taslimu hapa, au kukokotoa metali kwa uzani katika sehemu inayofuata."
       },
       "metals": {
-        "title": "Gold & silver by weight",
-        "body": "Nisab was fixed in the Sunnah by weight: about 20 dinars of gold or 200 dirhams of silver (commonly cited as ~87.5 g gold or ~612 g silver). Karat and purity matter because zakat is on the pure metal content. Live prices are for 24k / fine metal per gram — choose your unit (gram, tola, troy oz) and karat so the calculator converts correctly."
+        "title": "Dhahabu na fedha kwa uzito",
+        "body": "Nisab iliwekwa katika Sunnah kwa uzani: takriban dinari 20 za dhahabu au dirham 200 za fedha (zinazojulikana kama ~ 87.5 g dhahabu au ~ 612 g fedha). Karat na usafi ni jambo kwa sababu zakat iko kwenye chuma safi. Bei za moja kwa moja ni za 24k / metali nzuri kwa gramu - chagua kitengo chako (gramu, tola, troy oz) na karat ili kikokotoo kibadilike kwa usahihi."
       },
       "investments": {
-        "title": "Investments & business",
-        "body": "Trade goods, merchandise, and wealth meant to grow are generally zakatable at today's market value. Shares and funds are commonly valued like trade wealth. Strong receivables you expect to collect are often included. Qur'an 2:267 urges spending from the good of what you have earned — value honestly on your zakat date."
+        "title": "Uwekezaji na biashara",
+        "body": "Bidhaa za biashara, bidhaa, na mali zinazokusudiwa kukua kwa ujumla zinaweza kutolewa kwa thamani ya soko la leo. Hisa na fedha kwa kawaida huthaminiwa kama utajiri wa biashara. Mapokezi makubwa unayotarajia kukusanya mara nyingi hujumuishwa. Qur'an 2:267 inahimiza kutumia kutokana na manufaa ya ulichochuma - thamini kwa uaminifu tarehe yako ya zakat."
       },
       "property": {
-        "title": "Land, property & vehicles",
-        "body": "Your personal home, personal car, and ordinary household goods are generally not zakatable — zakat targets growing wealth, not items of use. Plots, houses, or vehicles held for investment, sale, or trade may be included at market value (or amounts already paid on installment investment plots). When unsure, ask a scholar."
+        "title": "Ardhi, mali na magari",
+        "body": "Nyumba yako ya kibinafsi, gari lako la kibinafsi, na bidhaa za kawaida za nyumbani kwa ujumla haziwezi kutolewa - zakat inalenga kukuza utajiri, sio vitu vya matumizi. Viwanja, nyumba, au magari yanayoshikiliwa kwa uwekezaji, mauzo au biashara yanaweza kujumuishwa kwa thamani ya soko (au kiasi ambacho tayari kimelipwa kwenye viwanja vya uwekezaji wa awamu). Wakati huna uhakika, muulize mwanachuoni."
       },
       "livestock": {
-        "title": "Livestock (grazing flocks)",
-        "body": "Free-grazing sheep, goats, cattle, and camels have their own Sunnah scales and animal nisab (e.g. 40 sheep, 30 cattle, 5 camels) — not the 2.5% money rate. Due is usually paid in animals of specified age. Fed animals kept as a business often follow trade-goods rules instead. Optional cash values here are only a planning estimate."
+        "title": "Mifugo (malisho ya mifugo)",
+        "body": "Kondoo wa malisho bila malipo, mbuzi, ng'ombe na ngamia wana mizani zao za Sunnah na nisab za wanyama (k.m. kondoo 40, ng'ombe 30, ngamia 5) - sio kiwango cha pesa cha 2.5%. Malipo kawaida hulipwa kwa wanyama wa umri maalum. Wanyama waliolishwa kama biashara mara nyingi hufuata sheria za bidhaa za biashara badala yake. Thamani za pesa za hiari hapa ni makadirio ya kupanga tu."
       },
       "agriculture": {
-        "title": "Agriculture & harvest (ushr)",
-        "body": "Zakat on crops is due at harvest, not after a lunar year. The well-known rate is 10% (ushr) when land is watered by rain or springs, and 5% when irrigation costs effort or money. Enter this season's harvest market value and choose the water source that matches your situation.",
+        "title": "Kilimo na mavuno (usr)",
+        "body": "Zaka ya mazao ni wakati wa mavuno, sio baada ya mwaka wa mwandamo. Kiwango kinachojulikana ni 10% (usr) wakati ardhi inanyweshwa na mvua au chemchemi, na 5% wakati umwagiliaji unagharimu juhudi au pesa. Weka thamani ya soko la mavuno ya msimu huu na uchague chanzo cha maji kinacholingana na hali yako.",
         "localRefLabel": "Qur'an 6:141",
         "localRefExcerpt": "And He is the One Who produces gardens, trellised and untrellised, and palm trees and crops of different [flavours], and olives and pomegranates, similar and dissimilar. Eat of their fruit when they bear fruit, and give its due on the day of its harvest…"
       },
       "deductions": {
-        "title": "Deductions",
-        "body": "Zakat is on net zakatable wealth. Immediate debts due now are commonly deducted before applying 2.5%. Long-term mortgages are treated more carefully — many contemporary scholars deduct only the coming year's payments, not the whole balance. Living expenses due immediately are allowed only if your scholar permits."
+        "title": "Makato",
+        "body": "Zaka ni juu ya utajiri wa zaka. Madeni ya papo hapo yanayodaiwa sasa hukatwa kabla ya kutuma 2.5%. Rehani za muda mrefu hushughulikiwa kwa uangalifu zaidi - wasomi wengi wa kisasa huchukua tu malipo ya mwaka ujao, sio salio zima. Gharama za kuishi mara moja zinaruhusiwa tu ikiwa msomi wako anaruhusu."
       },
       "nisab": {
-        "title": "Nisab threshold",
-        "body": "Nisab is the minimum surplus before wealth zakat is due. The Prophet ﷺ fixed it at 20 dinars of gold or 200 dirhams of silver, and taught that no zakat is due until a year has passed over the wealth. Because gold and silver prices diverge today, many scholars prefer the lower (often silver) threshold so more of the poor are helped. This calculator suggests the lower of the two live estimates."
+        "title": "Kizingiti cha Nisab",
+        "body": "Nisab ni ziada ya chini kabla ya zakat ya mali. Mtume (Swalla Allaahu ‘alayhi wa aalihi wa sallam) aliiweka dinari 20 za dhahabu au dirham 200 za fedha, na akafundisha kwamba hakuna zakat inayotozwa mpaka mwaka upite juu ya mali. Kwa sababu bei za dhahabu na fedha zinatofautiana leo, wanazuoni wengi wanapendelea kizingiti cha chini (mara nyingi cha fedha) ili maskini zaidi wanasaidiwa. Kikokotoo hiki kinapendekeza makadirio ya chini kati ya haya mawili ya moja kwa moja."
       }
     },
-    "deductionsCardHint": "Immediate debts (and living costs only if your scholar allows).",
+    "deductionsCardHint": "Madeni ya haraka (na gharama za kuishi tu ikiwa msomi wako anaruhusu).",
     "reset": {
-      "title": "Reset calculator?",
-      "message": "This clears all amounts, metal weights, livestock, and crops. Your currency and number format stay the same.",
-      "confirm": "Reset form",
-      "a11y": "Reset zakat calculator form",
-      "hint": "Asks for confirmation, then clears all entered amounts"
+      "title": "Ungependa kuweka upya kikokotoo?",
+      "message": "Hii husafisha viwango vyote, uzani wa chuma, mifugo, na mazao. Sarafu yako na muundo wa nambari hukaa sawa.",
+      "confirm": "Weka upya fomu",
+      "a11y": "Weka upya fomu ya kikokotoo cha zakat",
+      "hint": "Inaomba uthibitisho, kisha kufuta kiasi chochote kilichowekwa"
     }
   },
   "customAdhkar": {
@@ -3845,62 +3845,62 @@
       "reference": "Marejeleo (ya hiari)"
     },
     "images": {
-      "label": "Pictures (optional)",
-      "add": "Add picture",
-      "remove": "Remove picture",
-      "hint": "Up to 5 pictures, 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private pictures to your adhkar.",
-      "permissionDenied": "Photo library permission is required to attach pictures.",
-      "unsupportedType": "Use JPEG, PNG, or WebP pictures only.",
-      "tooLarge": "Each picture must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload pictures. Try again.",
-      "uploading": "Uploading…",
-      "open": "Open picture {{index}}",
+      "label": "Picha (si lazima)",
+      "add": "Ongeza picha",
+      "remove": "Ondoa picha",
+      "hint": "Hadi picha 5, MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
+      "signInRequired": "Ingia ili kuambatisha picha za faragha kwenye adhkar yako.",
+      "permissionDenied": "Ruhusa ya maktaba ya picha inahitajika ili kuambatisha picha.",
+      "unsupportedType": "Tumia picha za JPEG, PNG, au WebP pekee.",
+      "tooLarge": "Kila picha lazima iwe MB 1 au ndogo zaidi.",
+      "uploadFailed": "Haikuweza kupakia picha. Jaribu tena.",
+      "uploading": "Inapakia...",
+      "open": "Fungua picha {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous picture",
-      "next": "Next picture"
+      "zoomHint": "Bana ili kukuza, buruta hadi kwenye sufuria, gusa mara mbili ili kuweka upya",
+      "previous": "Picha iliyotangulia",
+      "next": "Picha inayofuata"
     },
     "attachments": {
-      "label": "Attachments (optional)",
-      "add": "Add file",
-      "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
-      "signInRequired": "Sign in to attach private files to your adhkar.",
-      "permissionDenied": "Permission is required to attach files.",
-      "permissionTitle": "Allow access",
-      "permissionBody": "Munib Tracker needs camera or photo access to attach files.",
-      "permissionSettingsBody": "Permission was denied. Open Settings to allow camera or photos for Munib Tracker.",
-      "allowAccess": "Allow access",
-      "unsupportedType": "Use JPEG, PNG, WebP, or PDF only.",
-      "tooLarge": "Each file must be 1 MB or smaller.",
-      "uploadFailed": "Could not upload attachments. Try again.",
-      "uploading": "Uploading…",
-      "readFailed": "Could not read that file. Try another.",
-      "pickFailed": "Could not add that file. Try again.",
-      "openFailed": "Could not open that file.",
-      "open": "Open attachment {{index}}",
+      "label": "Viambatisho (si lazima)",
+      "add": "Ongeza faili",
+      "remove": "Ondoa kiambatisho",
+      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
+      "signInRequired": "Ingia ili kuambatisha faili za faragha kwenye adhkar yako.",
+      "permissionDenied": "Ruhusa inahitajika ili kuambatisha faili.",
+      "permissionTitle": "Ruhusu ufikiaji",
+      "permissionBody": "Munib Tracker inahitaji ufikiaji wa kamera au picha ili kuambatisha faili.",
+      "permissionSettingsBody": "Ruhusa ilikataliwa. Fungua Mipangilio ili kuruhusu kamera au picha za Munib Tracker.",
+      "allowAccess": "Ruhusu ufikiaji",
+      "unsupportedType": "Tumia JPEG, PNG, WebP au PDF pekee.",
+      "tooLarge": "Kila faili lazima 1 MB au ndogo zaidi.",
+      "uploadFailed": "Haikuweza kupakia viambatisho. Jaribu tena.",
+      "uploading": "Inapakia...",
+      "readFailed": "Haikuweza kusoma faili hiyo. Jaribu nyingine.",
+      "pickFailed": "Haikuweza kuongeza faili hiyo. Jaribu tena.",
+      "openFailed": "Haikuweza kufungua faili hiyo.",
+      "open": "Fungua kiambatisho {{index}}",
       "counter": "{{current}} of {{total}}",
-      "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
-      "previous": "Previous attachment",
-      "next": "Next attachment",
-      "openPdf": "Open PDF",
-      "sourceTitle": "Add attachment",
-      "sourceCamera": "Take a photo",
-      "sourceCameraHint": "Use the camera to capture an image",
-      "sourceGallery": "Photo library",
-      "sourceGalleryHint": "Choose an image from your photos",
-      "sourceDocument": "Files",
-      "sourceDocumentHint": "Pick an image or PDF from your files"
+      "zoomHint": "Bana ili kukuza, buruta hadi kwenye sufuria, gusa mara mbili ili kuweka upya",
+      "previous": "Kiambatisho kilichotangulia",
+      "next": "Kiambatisho kinachofuata",
+      "openPdf": "Fungua PDF",
+      "sourceTitle": "Ongeza kiambatisho",
+      "sourceCamera": "Piga picha",
+      "sourceCameraHint": "Tumia kamera kupiga picha",
+      "sourceGallery": "Maktaba ya picha",
+      "sourceGalleryHint": "Chagua picha kutoka kwa picha zako",
+      "sourceDocument": "Faili",
+      "sourceDocumentHint": "Chagua picha au PDF kutoka kwa faili zako"
     },
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Amri kwa kutumia kipaza sauti",
+      "stopDictate": "Acha kuamuru",
+      "listening": "Inasikiliza...",
+      "permissionDenied": "Ruhusa ya maikrofoni inahitajika ili kuamuru. Bado unaweza kuandika.",
+      "unavailable": "Utambuzi wa usemi haupatikani kwenye kifaa hiki.",
+      "couldNotHear": "Haikuweza kusikia hilo - jaribu tena au chapa.",
+      "errorGeneric": "Imeshindikana. Jaribu tena au chapa."
     }
   },
   "tahajjud": {
@@ -3984,20 +3984,20 @@
     "confirmDiscardTitle": "Ungependa kutupa mabadiliko?",
     "confirmDiscardMsg": "Chochote ulichoandika kitapotea.",
     "confirmOverwriteTitle": "Je, ungependa kubadilisha tafakari iliyopo?",
-    "confirmOverwriteMsg": "You already noted {{prayer}} for this day. Saving will replace it.",
+    "confirmOverwriteMsg": "Tayari umebainisha {{prayer}} kwa siku hii. Kuhifadhi kutaibadilisha.",
     "level1": "Imekengeushwa",
     "level2": "Kutotulia",
     "level3": "Wasilisha vya kutosha",
     "level4": "Imezingatia",
     "level5": "Ipo kwa undani",
     "stt": {
-      "dictate": "Dictate with microphone",
-      "stopDictate": "Stop dictation",
-      "listening": "Listening…",
-      "permissionDenied": "Microphone permission is required to dictate. You can still type.",
-      "unavailable": "Speech recognition is unavailable on this device.",
-      "couldNotHear": "Couldn't hear that — try again or type.",
-      "errorGeneric": "Dictation failed. Try again or type."
+      "dictate": "Amri kwa kutumia kipaza sauti",
+      "stopDictate": "Acha kuamuru",
+      "listening": "Inasikiliza...",
+      "permissionDenied": "Ruhusa ya maikrofoni inahitajika ili kuamuru. Bado unaweza kuandika.",
+      "unavailable": "Utambuzi wa usemi haupatikani kwenye kifaa hiki.",
+      "couldNotHear": "Haikuweza kusikia hilo - jaribu tena au chapa.",
+      "errorGeneric": "Imeshindikana. Jaribu tena au chapa."
     }
   },
   "prayerTuning": {
@@ -4038,7 +4038,7 @@
     "umrahTag": "عمرة",
     "hajjTag": "حج",
     "disclaimer": "Pratik moja kontrol listesi, fıkıh kitabı değil. Hüküm na mwezirıntılar kwa nitelikli moja rehbere uyun.",
-    "prepTag": "Prep"
+    "prepTag": "Maandalizi"
   },
   "dailyHadith": {
     "eyebrow": "Mfululizo wa kila siku",
@@ -4083,7 +4083,7 @@
     "versesLead": "Gonga aya yoyote ili kuifungua katika msomaji wa Kurani.",
     "journeyTitle": "My Safari",
     "journeySummary": "Leo's habits — not your rank with Allah",
-    "journeySubtitle": "Consistency in worship you already track",
+    "journeySubtitle": "Uthabiti katika ibada tayari unafuatilia",
     "journeyBanner": "Tabia hizi ni miongoni mwa amali anazozipenda Mwenyezi Mungu. Cheo chako cha mwisho kiko kwake tu.",
     "journeyToday": "Leoün striving",
     "journeyEmpty": "with one prmwezier or adhkar — small steps build lifelong habits. Anzat",
@@ -4457,181 +4457,181 @@
     "footer": "PIN yako imehifadhiwa kwa usalama kwenye kifaa hiki na kamwe huiachi."
   },
   "notifications": {
-    "adminAnnouncement": "Announcement"
+    "adminAnnouncement": "Tangazo"
   },
   "sahaba": {
-    "eyebrow": "Learn",
+    "eyebrow": "Jifunze",
     "title": "Sahaba",
-    "subtitle": "Short profiles of the companions of the Prophet ﷺ",
-    "intro": "The sahaba are the generation that carried Islam from the Prophet ﷺ to the rest of the world. These short profiles follow the tone of the seerah timeline — a life, a lesson, and a source for every claim.",
-    "categoryAll": "All",
+    "subtitle": "Maelezo mafupi ya maswahaba wa Mtume ﷺ",
+    "intro": "Masahaba ni kizazi kilichobeba Uislamu kutoka kwa Mtume ﷺ hadi ulimwengu mzima. Wasifu huu mfupi hufuata mlio wa kalenda ya matukio ya seerah - maisha, somo na chanzo kwa kila dai.",
+    "categoryAll": "Wote",
     "category": {
-      "caliphs": "Caliphs",
+      "caliphs": "Makhalifa",
       "ashara": "Ashara Mubashara",
-      "family": "Family",
-      "women": "Women",
-      "notable": "Notable"
+      "family": "Familia",
+      "women": "Wanawake",
+      "notable": "Maarufu"
     },
-    "noResults": "No companions in this category yet",
-    "readMore": "Tap to read the full profile",
-    "disclaimer": "Narrative facts follow the classical seerah and history works; every claim tied to a specific narration cites its hadith collection and number. This is general educational content, not a scholarly ranking.",
-    "quickLinksTitle": "Explore",
-    "quickCaliphsHint": "Start with Abu Bakr, the first Caliph",
-    "quickAsharaHint": "The ten promised Paradise",
-    "quickWomenHint": "Khadijah and the Mothers of the Believers",
-    "quickBattles": "Companions in battle",
-    "quickBattlesHint": "Campaign profiles from the Battles guide",
-    "countCardTitle": "Companion directory",
-    "countCardHint": "{{count}} verified educational profiles",
+    "noResults": "Bado hakuna washirika katika kategoria hii",
+    "readMore": "Gusa ili kusoma wasifu kamili",
+    "disclaimer": "Ukweli wa masimulizi hufuata vitabu vya kale vya kale na kazi za historia; kila dai linalofungamana na riwaya maalum linataja mkusanyo wa hadith na idadi yake. Haya ni maudhui ya elimu ya jumla, si cheo cha kitaaluma.",
+    "quickLinksTitle": "Chunguza",
+    "quickCaliphsHint": "Anza na Abu Bakr, Khalifa wa kwanza",
+    "quickAsharaHint": "Wale kumi walioahidiwa Pepo",
+    "quickWomenHint": "Khadijah na Mama wa Waumini",
+    "quickBattles": "Maswahaba katika vita",
+    "quickBattlesHint": "Profaili za kampeni kutoka kwa mwongozo wa Vita",
+    "countCardTitle": "Saraka mwenza",
+    "countCardHint": "{{count}} maelezo mafupi ya elimu yaliyothibitishwa",
     "categoryHint": {
-      "caliphs": "The four Rightly Guided Caliphs",
-      "ashara": "The ten companions promised Paradise",
-      "family": "Close family of the Prophet ﷺ",
-      "women": "Prominent women of the early community",
-      "notable": "Other widely remembered companions"
+      "caliphs": "Makhalifa wanne Waongofu",
+      "ashara": "Masahaba kumi waliahidi Pepo",
+      "family": "Familia ya karibu ya Mtume ﷺ",
+      "women": "Wanawake mashuhuri wa jamii ya mapema",
+      "notable": "Masahaba wengine wanaokumbukwa sana"
     },
-    "exploreTitle": "Continue learning",
-    "exploreBattles": "Battles figures",
-    "exploreBattlesHint": "Companions who appear in the military campaigns",
-    "exploreSeerah": "Seerah timeline",
-    "exploreSeerahHint": "Life of the Prophet ﷺ through key milestones",
-    "exploreHistory": "Early Islamic history",
-    "exploreHistoryHint": "From the Prophet's ﷺ passing to the end of the Rashidun",
-    "profileBodyTitle": "Life and lesson",
-    "relatedTitle": "Related guides",
-    "linkBattlesFigures": "See companions in Battles",
-    "linkSeerah": "Open the Seerah timeline",
-    "linkHistory": "Open early Islamic history",
-    "openProfileHint": "Open full companion profile",
-    "notFound": "Companion not found"
+    "exploreTitle": "Endelea kujifunza",
+    "exploreBattles": "Takwimu za vita",
+    "exploreBattlesHint": "Masahaba wanaojitokeza kwenye kampeni za kijeshi",
+    "exploreSeerah": "Orodha ya matukio ya Seerah",
+    "exploreSeerahHint": "Maisha ya Mtume ﷺ kupitia matukio muhimu",
+    "exploreHistory": "Historia ya awali ya Kiislamu",
+    "exploreHistoryHint": "Kutoka kwa Mtume ﷺ kupita hadi mwisho wa Rashidun",
+    "profileBodyTitle": "Maisha na somo",
+    "relatedTitle": "Miongozo inayohusiana",
+    "linkBattlesFigures": "Tazama wenzi kwenye Vita",
+    "linkSeerah": "Fungua kalenda ya matukio ya Seerah",
+    "linkHistory": "Fungua historia ya awali ya Kiislamu",
+    "openProfileHint": "Fungua wasifu kamili mwenza",
+    "notFound": "Mwenzi hakupatikana"
   },
   "history": {
-    "eyebrow": "Learn",
-    "title": "Early Islamic history",
-    "subtitle": "From the Prophet's ﷺ death to the end of the Rashidun Caliphate",
+    "eyebrow": "Jifunze",
+    "title": "Historia ya awali ya Kiislamu",
+    "subtitle": "Kuanzia kifo cha Mtume ﷺ hadi mwisho wa Ukhalifa wa Rashidun",
     "ceBadge": "{{year}} CE",
     "ahBadge": "{{ah}} AH",
     "era": {
-      "prophetic-close": "The Prophet ﷺ",
+      "prophetic-close": "Mtume ﷺ",
       "abu-bakr": "Abu Bakr",
       "umar": "Umar",
       "uthman": "Uthman",
       "ali": "Ali"
     },
-    "disclaimer": "Scoped to 11–41 AH (632–661 CE) — the close of the Prophet's ﷺ life through the end of the Rashidun Caliphate. Political and military narrative follows the classical history works; the Uthman/Ali period is presented without adjudicating later theological disputes."
+    "disclaimer": "Imepangwa hadi 11-41 AH (632-661 CE) - mwisho wa maisha ya Mtume ﷺ hadi mwisho wa Ukhalifa wa Rashidun. Simulizi za kisiasa na kijeshi hufuata kazi za historia ya kitambo; kipindi cha Uthman/Ali kinawasilishwa bila kuhukumu mabishano ya kitheolojia baadaye."
   },
   "laylatAlQadr": {
-    "eyebrow": "Learn",
+    "eyebrow": "Jifunze",
     "title": "Laylat al-Qadr",
-    "subtitle": "The Night of Decree — better than a thousand months",
-    "intro": "Laylat al-Qadr is hidden among the odd nights of the last ten of Ramadan, not fixed to a single date. Seek it with sincere worship across all of them rather than one guessed night.",
+    "subtitle": "Usiku wa hukumu - bora kuliko miezi elfu",
+    "intro": "Laylat al-Qadr imefichwa miongoni mwa mikesha ya kumi ya mwisho ya Ramadhani, isiyowekwa kwa tarehe moja. Itafute kwa ibada ya kweli kwa wote badala ya usiku mmoja wa kubahatisha.",
     "section": {
-      "virtues": "Its virtue",
-      "when": "When to seek it",
-      "dua": "What to say",
-      "ibadah": "How to spend the night",
-      "reminders": "Reminders"
+      "virtues": "fadhila yake",
+      "when": "Wakati wa kuitafuta",
+      "dua": "Nini cha kusema",
+      "ibadah": "Jinsi ya kutumia usiku",
+      "reminders": "Vikumbusho"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "This guide does not endorse a single fixed calendar date or folk 'signs' for identifying the night — only what the Qur'an and authentic hadith state.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mada haijapatikana",
+    "disclaimer": "Mwongozo huu hauidhinishi tarehe moja maalum ya kalenda au 'ishara' za watu za kubainisha usiku - kile tu ambacho Qur'ani na Hadith sahihi zinaeleza.",
+    "continueInApp": "Endelea Munib"
   },
   "eid": {
-    "eyebrow": "Learn",
-    "title": "Eid guide",
-    "subtitle": "Eid al-Fitr and Eid al-Adha — prayer, sunnah, and rulings",
-    "intro": "The two Eids from the Qur'an and authentic hadith — how to pray Eid salah, Zakat al-Fitr, udhiyah, and the sunnah practices of the day.",
+    "eyebrow": "Jifunze",
+    "title": "Mwongozo wa Eid",
+    "subtitle": "Eid al-Fitr na Eid al-Adha - sala, sunna, na hukumu",
+    "intro": "Eid mbili kutoka katika Qur'ani Tukufu na Hadith Sahihi - jinsi ya kuswali swala ya Eid, Zakat al-Fitr, udhiyah, na taratibu za sunna za siku hiyo.",
     "section": {
       "fitr": "Eid al-Fitr",
       "adha": "Eid al-Adha",
-      "prayer": "The Eid prayer",
-      "sunnah": "Sunnah practices",
+      "prayer": "Sala ya Eid",
+      "sunnah": "Matendo ya Sunnah",
       "zakat-fitr": "Zakat al-Fitr",
-      "udhiyah": "Udhiyah (sacrifice)"
+      "udhiyah": "Udhiyah (kafara)"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as the extra-takbir count), both positions are presented; follow your imam or a qualified local scholar.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mada haijapatikana",
+    "disclaimer": "Muhtasari wa elimu - sio fatwa. Ambapo shule zinatofautiana (kama vile hesabu ya ziada ya takbir), nafasi zote mbili zinawasilishwa; fuata imamu wako au mwanachuoni wa ndani aliyehitimu.",
+    "continueInApp": "Endelea Munib"
   },
   "ruqyah": {
-    "eyebrow": "Learn",
+    "eyebrow": "Jifunze",
     "title": "Ruqyah",
-    "subtitle": "Qur'anic and prophetic spiritual healing",
-    "intro": "Ruqyah is reciting Qur'an, Allah's Names, or authentic prophetic supplications for healing and protection — never a substitute for salah or medical care.",
+    "subtitle": "Uponyaji wa kiroho wa Qur'an na unabii",
+    "intro": "Ruqyah anakariri Kurani, Majina ya Mwenyezi Mungu, au dua sahihi za kinabii kwa ajili ya uponyaji na ulinzi - kamwe si badala ya salah au matibabu.",
     "section": {
-      "basics": "The basics",
-      "verses": "Key verses",
-      "daily-protection": "Daily protection",
-      "reminders": "Reminders"
+      "basics": "Misingi",
+      "verses": "Aya kuu",
+      "daily-protection": "Ulinzi wa kila siku",
+      "reminders": "Vikumbusho"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "Ruqyah is a spiritual practice, not a medical treatment. It does not replace seeing a qualified doctor, nor the five daily prayers. For serious or persistent affliction, consult both a scholar and a medical professional.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mada haijapatikana",
+    "disclaimer": "Ruqyah ni mazoezi ya kiroho, sio matibabu. Haichukui nafasi ya kuona daktari aliyehitimu, wala sala tano za kila siku. Kwa ugonjwa mbaya au unaoendelea, wasiliana na mwanachuoni na mtaalamu wa matibabu.",
+    "continueInApp": "Endelea Munib"
   },
   "newMuslim": {
-    "eyebrow": "Learn",
-    "title": "New Muslim guide",
-    "subtitle": "A warm, practical start for the first days and weeks",
-    "intro": "Welcome to Islam. This guide covers the shahada, the five pillars, the basics of faith, and a first look at prayer, then points you to the fuller Salah, Aqeedah, and Qur'an guides in this app.",
+    "eyebrow": "Jifunze",
+    "title": "Mwongozo mpya wa Waislamu",
+    "subtitle": "Kuanza kwa joto, kwa vitendo kwa siku na wiki za kwanza",
+    "intro": "Karibu katika Uislamu. Mwongozo huu unashughulikia shahada, nguzo tano, misingi ya imani, na mtazamo wa kwanza wa sala, kisha unakuelekeza kwenye miongozo kamili ya Sala, Aqeedah na Qur'an katika programu hii.",
     "section": {
-      "start": "Getting started",
-      "pillars": "The five pillars",
-      "faith": "Basics of faith",
-      "prayer": "Your first prayer",
-      "next-steps": "Next steps",
-      "faq": "Common questions"
+      "start": "Kuanza",
+      "pillars": "Nguzo tano",
+      "faith": "Misingi ya imani",
+      "prayer": "Maombi yako ya kwanza",
+      "next-steps": "Hatua zinazofuata",
+      "faq": "Maswali ya kawaida"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "A shallow-but-correct starting guide covering only the shared essentials every school agrees on. For your specific situation, ask a local imam or teacher.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mada haijapatikana",
+    "disclaimer": "Mwongozo wa kuanzia usio na kina lakini-sahihi unaoshughulikia tu mambo muhimu yaliyoshirikiwa ambayo kila shule inakubali. Kwa hali yako mahususi, muulize imamu wa karibu au mwalimu.",
+    "continueInApp": "Endelea Munib"
   },
   "finance": {
-    "eyebrow": "Learn",
-    "title": "Islamic finance",
-    "subtitle": "Riba, fair trade, giving, and takaful",
-    "intro": "An educational introduction to the ethical framework Islam brings to money — the prohibition of riba, fair trade, zakah and sadaqah, and takaful (cooperative risk-sharing).",
+    "eyebrow": "Jifunze",
+    "title": "fedha za Kiislamu",
+    "subtitle": "Riba, biashara ya haki, kutoa, na takaful",
+    "intro": "Utangulizi wa elimu kwa mfumo wa kimaadili Uislamu unaleta pesa - kukataza riba, biashara ya haki, zaka na sadaqah, na takaful (kushiriki hatari kwa ushirika).",
     "section": {
-      "principles": "Principles",
-      "riba": "Riba (interest)",
-      "trade": "Fair trade",
-      "giving": "Giving",
+      "principles": "Kanuni",
+      "riba": "Riba (riba)",
+      "trade": "Biashara ya haki",
+      "giving": "Kutoa",
       "takaful": "Takaful",
-      "faq": "Common questions"
+      "faq": "Maswali ya kawaida"
     },
-    "notFound": "Topic not found",
-    "disclaimer": "General education, not financial or fatwa advice. Fund screeners, specific products, and rulings on your own contracts need a qualified, certified Islamic finance scholar or institution.",
-    "continueInApp": "Continue in Munib"
+    "notFound": "Mada haijapatikana",
+    "disclaimer": "Elimu ya jumla, sio ushauri wa kifedha au fatwa. Wachunguzi wa ufadhili, bidhaa mahususi na maamuzi kuhusu kandarasi zako binafsi wanahitaji msomi au taasisi ya fedha ya Kiislamu aliyehitimu na aliyeidhinishwa.",
+    "continueInApp": "Endelea Munib"
   },
   "dateConverter": {
-    "eyebrow": "Calendar",
-    "title": "Date converter",
-    "subtitle": "Convert between the Hijri and Gregorian calendars",
-    "intro": "Enter a date in either calendar to see its equivalent in the other, calculated offline using the tabular Kuwaiti algorithm.",
+    "eyebrow": "Kalenda",
+    "title": "Kigeuzi cha tarehe",
+    "subtitle": "Badilisha kati ya kalenda ya Hijri na Gregorian",
+    "intro": "Weka tarehe katika mojawapo ya kalenda ili kuona sawa katika nyingine, iliyokokotwa nje ya mtandao kwa kutumia algoriti ya Kuwaiti ya jedwali.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
-    "gregorianDateLabel": "Gregorian date",
-    "hijriDateLabel": "Hijri date",
-    "day": "Day",
-    "month": "Month",
-    "year": "Year",
-    "useToday": "Use today",
-    "invalidDate": "Enter a valid date",
-    "disclaimer": "This is an arithmetic approximation (the tabular \"Kuwaiti algorithm\") and can differ by a day from local moon-sighting announcements — always follow your local masjid or authority for religious dates.",
-    "directionTitle": "Conversion direction",
-    "resultFrom": "From {{date}}",
-    "quickLinksTitle": "Related",
-    "quickCalendar": "Worship calendar",
-    "quickCalendarHint": "Browse months with your prayer log",
-    "quickEvents": "Islamic events",
-    "quickEventsHint": "Upcoming dates on the Hijri calendar",
-    "quickRamadan": "Ramadan",
-    "quickRamadanHint": "Fasting times and your fasting log",
-    "quickHistory": "Early history",
-    "quickHistoryHint": "Rashidun timeline with Hijri years",
-    "exploreTitle": "Continue learning",
-    "exploreCalendar": "Open the calendar",
-    "exploreCalendarHint": "See worship history day by day",
-    "exploreEvents": "Open Islamic events",
-    "exploreEventsHint": "Milestones and observances ahead"
+    "gregorianDateLabel": "Tarehe ya Gregorian",
+    "hijriDateLabel": "Tarehe ya Hijri",
+    "day": "Siku",
+    "month": "Mwezi",
+    "year": "Mwaka",
+    "useToday": "Tumia leo",
+    "invalidDate": "Weka tarehe halali",
+    "disclaimer": "Huu ni ukadiriaji wa hesabu (jedwali la \"algorithm ya Kuwaiti\") na inaweza kutofautiana kwa siku kutoka kwa matangazo ya karibu ya kuona mwezi - fuata msikiti wa eneo lako au mamlaka ya tarehe za kidini kila wakati.",
+    "directionTitle": "Mwelekeo wa uongofu",
+    "resultFrom": "Kutoka {{date}}",
+    "quickLinksTitle": "Kuhusiana",
+    "quickCalendar": "Kalenda ya ibada",
+    "quickCalendarHint": "Vinjari miezi na logi yako ya maombi",
+    "quickEvents": "Matukio ya Kiislamu",
+    "quickEventsHint": "Tarehe zinazokuja kwenye kalenda ya Hijri",
+    "quickRamadan": "Ramadhani",
+    "quickRamadanHint": "Nyakati za kufunga na logi yako ya kufunga",
+    "quickHistory": "Historia ya mapema",
+    "quickHistoryHint": "Ratiba ya matukio ya Rashidun na miaka ya Hijri",
+    "exploreTitle": "Endelea kujifunza",
+    "exploreCalendar": "Fungua kalenda",
+    "exploreCalendarHint": "Tazama historia ya ibada siku baada ya siku",
+    "exploreEvents": "Fungua matukio ya Kiislamu",
+    "exploreEventsHint": "Maadhimisho na maadhimisho mbele"
   }
 }

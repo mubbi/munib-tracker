@@ -40,6 +40,30 @@ describe("backup export/import", () => {
     expect(await readJSON(DB_KEYS.learnDuaProgress, null)).toEqual(["dua-1"]);
   });
 
+  it("replaces local user data wholesale — keys missing from the file are cleared", async () => {
+    await writeJSON(DB_KEYS.prayerLogs, { keep: true });
+    await writeJSON(DB_KEYS.hifz, { "1:1": "memorized" });
+    await writeJSON(DB_KEYS.khushuJournal, { "2026-01-01": { rating: 5 } });
+
+    const text = await exportBackup();
+    const result = parseBackup(text);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+
+    // Simulate an older/partial backup that never had journal or hifz entries.
+    delete result.file.data[DB_KEYS.hifz];
+    delete result.file.data[DB_KEYS.khushuJournal];
+    // Local device still has those keys from before restore.
+    await writeJSON(DB_KEYS.hifz, { "1:1": "stale" });
+    await writeJSON(DB_KEYS.khushuJournal, { stale: true });
+
+    await applyBackup(result.file);
+
+    expect(await readJSON(DB_KEYS.prayerLogs, null)).toEqual({ keep: true });
+    expect(await readJSON(DB_KEYS.hifz, null)).toBeNull();
+    expect(await readJSON(DB_KEYS.khushuJournal, null)).toBeNull();
+  });
+
   it("clears device-local sync cursors after a restore so restored data re-syncs", async () => {
     await writeJSON(DB_KEYS.syncMetadata, { lastPushedAt: "2026-07-01T00:00:00.000Z" });
     await writeJSON(DB_KEYS.blobSyncState, { fasting: { hash: "abc", updatedAt: "x" } });
@@ -65,6 +89,7 @@ describe("backup export/import", () => {
 describe("key coverage", () => {
   const CACHE_KEYS = [
     DB_KEYS.quranEditionCache,
+    DB_KEYS.quranStudyCache,
     DB_KEYS.hadithBookCache,
     DB_KEYS.audioDurationCache,
     DB_KEYS.reverseGeocodeCache,
@@ -86,6 +111,8 @@ describe("key coverage", () => {
       DB_KEYS.tombstones,
       DB_KEYS.contentReportQueue,
       DB_KEYS.blobSyncState,
+      DB_KEYS.zakatCalculator,
+      DB_KEYS.zakatCurrency,
     ]) {
       expect(BACKUP_KEYS).not.toContain(local);
     }
@@ -100,6 +127,9 @@ describe("key coverage", () => {
       DB_KEYS.jannahIntentions,
       DB_KEYS.jahannamIntentions,
       DB_KEYS.learnDuaProgress,
+      DB_KEYS.qazaRoza,
+      DB_KEYS.qazaSchedule,
+      DB_KEYS.quranReadingProgress,
     ]) {
       expect(BACKUP_KEYS).toContain(key);
     }
