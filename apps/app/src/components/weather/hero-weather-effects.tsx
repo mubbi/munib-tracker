@@ -12,7 +12,6 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { CloudGraphic } from "@/components/weather/cloud-graphic";
-import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import {
   type CloudPartSpec,
   type CloudSize,
@@ -22,6 +21,7 @@ import {
   generateCumulusCloud,
 } from "@/components/weather/cloud-shape";
 import { createShadow } from "@/constants/theme";
+import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
 import { gradientBackground } from "@/lib/gradient";
 
 /** Global scale — keeps location, clock, and prayer row legible over the hero. */
