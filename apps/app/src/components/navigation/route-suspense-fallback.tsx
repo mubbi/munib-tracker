@@ -136,7 +136,7 @@ function useColorSchemeSafe(): "light" | "dark" {
   const [scheme, setScheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
-    const sync = (colorScheme: ColorSchemeName) => {
+    const sync = (colorScheme: ColorSchemeName | null | undefined) => {
       setScheme(colorScheme === "dark" ? "dark" : "light");
     };
     sync(Appearance.getColorScheme());

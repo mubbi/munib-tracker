@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     // RN web — help cursor signals “rule info on hover”.
     cursor: "help",
     // Replaced elements (e.g. buttons) break Arabic joining across siblings.
+    // RN TextStyle only allows none|flex|contents; "inline" is a web CSS value.
     display: "inline",
-  } as TextStyle,
+  } as unknown as TextStyle,
 });
