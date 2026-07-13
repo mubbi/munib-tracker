@@ -13,4 +13,11 @@ module.exports = {
     "**/__tests__/**/*.(test|spec|feature.test).[jt]s?(x)",
     "**/*.(test|spec|feature.test).[jt]s?(x)",
   ],
+  collectCoverageFrom: [
+    "src/**/*.{ts,tsx}",
+    "!src/**/*.{test,spec,feature.test}.{ts,tsx}",
+    "!src/**/__tests__/**",
+  ],
+  coverageDirectory: "coverage",
+  coverageReporters: ["text", "html", "clover"],
 };

@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 /**
- * Targeted quality checks — faster than full turbo for day-to-day work.
+ * Targeted quality checks — shared by local hooks and GitHub Actions.
  *
  * Usage:
  *   node scripts/check.mjs [profile]
  *
  * Profiles:
- *   quick     lint + typecheck (default; fast pre-commit)
+ *   quick     lint + typecheck (fast local smoke; not a git hook)
  *   style     format-and-lint + typecheck
- *   ci        typecheck + lint + test + build + generate (matches .github/workflows/ci.yml)
+ *   ci|push   lint → typecheck → test → build → generate (matches CI + pre-push)
  *
  * Individual steps: format, lint, typecheck, test, build, generate
+ *
+ * Git hooks:
+ *   pre-commit  — Biome --write --staged + restage (see .husky/pre-commit)
+ *   pre-push    — this script with profile `ci`
  */
 import { spawnSync } from "node:child_process";
 import path from "node:path";
@@ -19,6 +23,13 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const GENERATED_PATHS = ["packages/api-contract/openapi.json", "packages/api-client/src/generated"];
+
+/** Non-interactive turbo logs in hooks/CI (turbo.json defaults to tui). */
+const CHECK_ENV = {
+  ...process.env,
+  FORCE_COLOR: "1",
+  TURBO_UI: process.env.TURBO_UI ?? "false",
+};
 
 /** @type {Record<string, { cmd: string; args: string[]; env?: NodeJS.ProcessEnv }>} */
 const steps = {
@@ -33,8 +44,11 @@ const steps = {
 const profiles = {
   quick: ["lint", "typecheck"],
   style: ["format", "lint", "typecheck"],
-  ci: ["typecheck", "lint", "test", "build", "generate"],
+  // lint first for fast fail; generate last (OpenAPI drift after build)
+  ci: ["lint", "typecheck", "test", "build", "generate"],
 };
+
+profiles.push = profiles.ci;
 
 function runStep(name) {
   if (name === "generate") {
@@ -53,7 +67,7 @@ function runStep(name) {
     cwd: root,
     stdio: "inherit",
     shell: process.platform === "win32",
-    env: { ...process.env, FORCE_COLOR: "1", ...(step.env ?? {}) },
+    env: { ...CHECK_ENV, ...(step.env ?? {}) },
   });
   const ok = result.status === 0;
   const elapsed = ((Date.now() - started) / 1000).toFixed(1);
@@ -75,7 +89,7 @@ function runGenerateCheck() {
     cwd: root,
     stdio: "inherit",
     shell: process.platform === "win32",
-    env: { ...process.env, FORCE_COLOR: "1" },
+    env: CHECK_ENV,
   });
   if (generate.status !== 0) {
     const elapsed = ((Date.now() - started) / 1000).toFixed(1);
@@ -89,7 +103,7 @@ function runGenerateCheck() {
     cwd: root,
     stdio: "inherit",
     shell: process.platform === "win32",
-    env: { ...process.env, FORCE_COLOR: "1" },
+    env: CHECK_ENV,
   });
   const ok = diff.status === 0;
   const elapsed = ((Date.now() - started) / 1000).toFixed(1);
@@ -115,7 +129,7 @@ function resolveProfile(arg) {
     return { name: arg, steps: [arg] };
   }
   process.stderr.write(
-    `Unknown profile "${arg}". Use: quick, style, ci, generate, or a step name.\n`,
+    `Unknown profile "${arg}". Use: quick, style, ci, push, generate, or a step name.\n`,
   );
   process.exit(2);
 }
@@ -135,6 +149,9 @@ for (const stepName of stepNames) {
 
 if (failed) {
   process.stderr.write(`\nCHECK FAILED at step: ${failed}\n`);
+  process.stderr.write(
+    "Fix the reported errors (or run `pnpm format-and-lint:fix` / `pnpm generate:api` as needed), then re-run.\n",
+  );
   process.exit(1);
 }
 

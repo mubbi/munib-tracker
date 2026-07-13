@@ -52,9 +52,12 @@ pnpm generate:api         # export OpenAPI + generate typed client (Orval)
 pnpm dev                  # all dev servers (turbo)
 pnpm dev:admin            # admin console only (port 3002)
 pnpm build:admin          # production build for apps/admin
-pnpm check:ci             # CI profile: typecheck + lint + test + build
-pnpm check:quick          # fast pre-commit: lint + typecheck
+pnpm check:ci             # same as CI + pre-push: lint → types → test → build → OpenAPI drift
+pnpm check:quick          # fast local smoke: lint + typecheck (not a git hook)
+# Husky: pre-commit = Biome --write --staged + restage; pre-push = pnpm check:ci
 pnpm turbo run lint check-types test
+pnpm test:coverage          # unit tests + HTML/Clover reports under */coverage/ (gitignored)
+pnpm test:coverage:open     # open coverage HTML in the browser (optional: app api shared …)
 pnpm --filter app ios     # Expo iOS dev build
 pnpm --filter app android # Expo Android dev build
 pnpm --filter app web     # Expo web

@@ -1,0 +1,2 @@
+# Husky hooks must use LF — CRLF breaks `sh -e` under Git for Windows.
+.husky/** text eol=lf

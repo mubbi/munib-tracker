@@ -1,1 +1,5 @@
-pnpm turbo run check-types test
+# Match GitHub Actions: lint -> typecheck -> test -> build -> OpenAPI drift.
+# Highlights failures locally before they reach CI. Skip with --no-verify only if needed.
+export CI=1
+export TURBO_UI=false
+pnpm check:ci

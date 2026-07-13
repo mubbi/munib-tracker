@@ -11,6 +11,7 @@
     "lint": "biome check .",
     "check-types": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run && vitest run --config vitest.config.e2e.ts",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "test:e2e": "vitest run --config vitest.config.e2e.ts",
     "openapi": "cross-env DATABASE_TYPE=sqlite NODE_ENV=test EXPORT_OPENAPI=true node dist/main.js",

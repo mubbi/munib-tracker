@@ -12,6 +12,13 @@ export default defineConfig({
       DATABASE_TYPE: "sqlite",
       NODE_ENV: "test",
     },
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html", "clover"],
+      reportsDirectory: "./coverage",
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: ["src/**/*.spec.ts", "src/main.ts", "src/**/*.module.ts"],
+    },
   },
   plugins: [
     swc.vite({

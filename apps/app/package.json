@@ -59,6 +59,7 @@
     "check-types": "node scripts/ensure-expo-env.mjs && tsc --noEmit",
     "lint": "biome check .",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "test:watch": "jest --watchAll",
     "generate:brand-assets": "python scripts/generate-brand-assets.py",
     "refresh:brand-assets": "python scripts/generate-brand-assets.py && node scripts/sync-pwa-manifest.mjs",

@@ -28,8 +28,9 @@ apps/app/ios/
 # Local Expo module Gradle outputs (keep android/src; ignore build/)
 apps/app/modules/**/android/build/
 
-# Testing
+# Testing / coverage reports (generated — never commit)
 coverage/
+*.lcov
 
 # Environment
 .env

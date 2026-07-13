@@ -27,6 +27,12 @@
       "inputs": ["$TURBO_DEFAULT$", "**/*.{test,spec,feature.test}.{ts,tsx}"],
       "outputs": ["coverage/**"]
     },
+    "test:coverage": {
+      "description": "Runs tests with HTML and Clover coverage reports",
+      "dependsOn": ["transit"],
+      "inputs": ["$TURBO_DEFAULT$", "**/*.{test,spec,feature.test}.{ts,tsx}"],
+      "outputs": ["coverage/**"]
+    },
     "test:watch": {
       "description": "Runs tests in watch mode",
       "cache": false,

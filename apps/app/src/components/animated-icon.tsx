@@ -1,35 +1,66 @@
 import { Image } from "expo-image";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import Animated, { Easing, FadeOut, Keyframe } from "react-native-reanimated";
+import Animated, {
+  Easing,
+  Keyframe,
+  runOnJS,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 const SPLASH_FAILSAFE_MS = 2500;
+const SPLASH_FADE_MS = 450;
 
+/**
+ * Full-screen splash that stays mounted after fade-out.
+ *
+ * Unmounting this overlay (`return null`) during cold start races Android
+ * `SwipeRefreshLayout` / overlay layout (home pull-to-refresh). That can fatal
+ * with `getChildDrawingOrder() returned invalid index` (Sentry REACT-NATIVE-6).
+ * Keep an inert host instead of removing the native child.
+ */
 export function AnimatedSplashOverlay() {
-  const [visible, setVisible] = useState(true);
+  const [dismissed, setDismissed] = useState(false);
+  const opacity = useSharedValue(1);
+  const fadingRef = useRef(false);
 
   useEffect(() => {
     void SplashScreen.hideAsync();
 
-    const timer = setTimeout(() => {
-      setVisible(false);
-    }, SPLASH_FAILSAFE_MS);
+    const fadeOut = () => {
+      if (fadingRef.current) return;
+      fadingRef.current = true;
+      opacity.value = withTiming(
+        0,
+        { duration: SPLASH_FADE_MS, easing: Easing.out(Easing.cubic) },
+        (finished) => {
+          if (finished) runOnJS(setDismissed)(true);
+        },
+      );
+    };
 
-    return () => clearTimeout(timer);
-  }, []);
+    const failsafe = setTimeout(fadeOut, SPLASH_FAILSAFE_MS);
+    const early = setTimeout(fadeOut, 500);
 
-  if (!visible) return null;
+    return () => {
+      clearTimeout(failsafe);
+      clearTimeout(early);
+    };
+  }, [opacity]);
 
   return (
     <Animated.View
-      exiting={FadeOut.duration(450).easing(Easing.out(Easing.cubic))}
-      onLayout={() => {
-        setTimeout(() => setVisible(false), 500);
-      }}
-      style={styles.splashOverlay}
+      pointerEvents={dismissed ? "none" : "auto"}
+      importantForAccessibility={dismissed ? "no-hide-descendants" : "yes"}
+      accessibilityElementsHidden={dismissed}
+      collapsable={false}
+      style={[styles.splashOverlay, { opacity }, dismissed ? styles.splashDismissed : null]}
     >
-      <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
+      {!dismissed ? (
+        <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
+      ) : null}
     </Animated.View>
   );
 }
@@ -101,6 +132,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,
+  },
+  /** After fade: keep the native view mounted (stable child) but inert. */
+  splashDismissed: {
+    backgroundColor: "transparent",
   },
   splashImage: {
     width: 280,

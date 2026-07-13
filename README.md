@@ -111,7 +111,7 @@ import { resolveTheme } from "@munib-tracker/theme/resolve";
 |------|-------|
 | **Biome** | Lint + format (`pnpm lint`, `pnpm format-and-lint:fix`) |
 | **Turborepo** | Task orchestration (`pnpm turbo run build lint check-types test`) |
-| **Husky** | pre-commit: Biome staged checks; pre-push: types + tests |
+| **Husky** | pre-commit: Biome autofix staged files + restage; pre-push: `pnpm check:ci` (matches GitHub Actions) |
 | **Vitest** | marketing-web + package tests |
 | **Jest** | apps/app unit + feature tests |
 
