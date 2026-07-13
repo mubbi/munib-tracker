@@ -2,6 +2,7 @@ import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@/components/analytics";
+import { SiteBackground } from "@/components/day-arc/site-background";
 import { Footer } from "@/components/footer";
 import { JsonLd } from "@/components/json-ld";
 import { SiteHeader } from "@/components/site-header";
@@ -82,18 +83,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafcfb" },
-    { media: "(prefers-color-scheme: dark)", color: "#060a09" },
-  ],
-  colorScheme: "light dark",
+  themeColor: "#060f1c",
+  colorScheme: "dark",
 };
-
-/**
- * Runs before first paint to apply the saved (or system) theme, preventing a
- * flash of the wrong theme on load. Kept tiny and dependency-free.
- */
-const THEME_INIT = `(function(){try{var s=localStorage.getItem("munib-theme");var m=window.matchMedia("(prefers-color-scheme: dark)").matches;if(s==="dark"||(s!=="light"&&m)){document.documentElement.classList.add("dark")}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -107,11 +99,10 @@ export default function RootLayout({
       className={`${inter.variable} ${jakarta.variable} h-full antialiased`}
     >
       <head>
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: pre-paint theme init to avoid FOUC */}
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         <JsonLd />
       </head>
-      <body className="flex min-h-full flex-col bg-background text-foreground">
+      <body className="day-arc-scope relative isolate flex min-h-full flex-col bg-[#060f1c] text-foreground">
+        <SiteBackground />
         <SkipLink />
         <Analytics />
         <SiteHeader />

@@ -44,6 +44,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 export function TestimonialsSection() {
   return (
     <Section
+      id="testimonials"
       variant="muted"
       eyebrow="Loved by the ummah"
       title="Worship, gently supported"

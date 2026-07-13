@@ -20,6 +20,7 @@ export function ContentPage({ eyebrow, title, intro, children, wide = false }: C
     <div className="relative flex flex-1 flex-col">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[26rem]">
         <Aurora className="opacity-70" />
+        <div className="islamic-tiles-soft absolute inset-0 opacity-[0.14] [mask-image:radial-gradient(90%_80%_at_15%_20%,#000_0%,rgba(0,0,0,0.45)_50%,transparent_80%)]" />
       </div>
       <article
         className={cn(

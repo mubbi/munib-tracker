@@ -16,8 +16,8 @@ type SectionProps = {
 
 const variantClasses = {
   default: "",
-  muted: "border-y border-border/50 bg-surface/60",
-  "hero-band": "bg-gradient-to-b from-hero-from via-hero-via to-hero-to text-hero-text",
+  muted: "border-y border-white/10 bg-white/[0.03]",
+  "hero-band": "border-y border-white/10 bg-[#0a1c2e]/45 text-white",
 };
 
 export function Section({

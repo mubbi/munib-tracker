@@ -1,7 +1,7 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
 import type { Metadata } from "next";
 import { TrackedButton } from "@/components/tracked-button";
-import { Aurora, GridBackdrop } from "@/components/ui/backgrounds";
+import { Aurora, IslamicPatternBackdrop } from "@/components/ui/backgrounds";
 import { SITE_PATHS } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export default function NotFound() {
   return (
     <section className="relative isolate flex flex-1 flex-col items-center justify-center gap-6 overflow-hidden px-6 py-28 text-center">
       <Aurora />
-      <GridBackdrop className="opacity-50" />
+      <IslamicPatternBackdrop />
       <p className="text-gradient font-display text-7xl font-extrabold tracking-tight md:text-8xl">
         404
       </p>

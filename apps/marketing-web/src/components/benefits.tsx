@@ -33,7 +33,7 @@ const BENEFITS = [
     icon: GraduationCap,
     title: "Learn your deen",
     description:
-      "Study aqeedah, the seerah, Qur'an, and fiqh with structured lessons — knowledge, not just tracking.",
+      "Study aqeedah, seerah, sahaba, Qur'an, and fiqh — 350+ structured lessons with citations, not just tracking.",
   },
   {
     icon: HeartHandshake,

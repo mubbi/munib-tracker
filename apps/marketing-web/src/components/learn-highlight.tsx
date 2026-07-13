@@ -5,6 +5,7 @@ import {
   BookOpenCheck,
   Flame,
   GraduationCap,
+  Hand,
   Languages,
   Scale,
   ScrollText,
@@ -23,13 +24,13 @@ const AREAS: { id: string; icon: LucideIcon; title: string; meta: string }[] = [
     id: "aqeedah",
     icon: BookOpenCheck,
     title: "Aqeedah",
-    meta: "27 lessons on the articles of faith",
+    meta: "24 topics on the articles of faith",
   },
   { id: "prophets", icon: Users, title: "The Prophets", meta: "25 prophets with a timeline" },
-  { id: "seerah", icon: Swords, title: "Seerah & battles", meta: "26-event life + major battles" },
-  { id: "jannah", icon: Sparkles, title: "Jannah", meta: "51 topics · the eight gates" },
-  { id: "jahannam", icon: Flame, title: "Jahannam", meta: "The seven names & repentance" },
-  { id: "last_day", icon: Scale, title: "The Last Day", meta: "29 lessons + an interactive quiz" },
+  { id: "seerah", icon: Swords, title: "Seerah & battles", meta: "30-event life + 21 battles" },
+  { id: "jannah", icon: Sparkles, title: "Jannah", meta: "45 topics · the eight gates" },
+  { id: "jahannam", icon: Flame, title: "Jahannam", meta: "16 topics & repentance" },
+  { id: "last_day", icon: Scale, title: "The Last Day", meta: "20 lessons + an interactive quiz" },
   {
     id: "learn_quran",
     icon: Languages,
@@ -37,10 +38,16 @@ const AREAS: { id: string; icon: LucideIcon; title: string; meta: string }[] = [
     meta: "Letters, tajweed & memorization",
   },
   {
+    id: "learn_dua",
+    icon: Hand,
+    title: "Learn dua",
+    meta: "46 topics on when & how to supplicate",
+  },
+  {
     id: "fiqh_guides",
     icon: ScrollText,
     title: "Fiqh guides",
-    meta: "Salah, zakat, hajj & purification",
+    meta: "Salah, zakat, 60-step hajj & purification",
   },
 ];
 
@@ -49,10 +56,10 @@ export function LearnHighlight() {
     <Section
       id="learn"
       eyebrow="Learn, don't just track"
-      title="A scholar-checked library in your pocket"
+      title="A cited library in your pocket"
       description="Every lesson is referenced to the Qur'an and authenticated hadith, with per-topic progress so you always know where you are."
     >
-      <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {AREAS.map(({ id, icon: Icon, title, meta }) => (
           <StaggerItem key={id}>
             <SpotlightCard className="h-full">

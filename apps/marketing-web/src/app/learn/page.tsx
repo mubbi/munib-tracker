@@ -3,9 +3,12 @@ import type { LucideIcon } from "lucide-react";
 import {
   BarChart3,
   BookOpenCheck,
+  Calendar,
   Compass,
   Flame,
   GraduationCap,
+  Hand,
+  Heart,
   Languages,
   ListChecks,
   Moon,
@@ -20,7 +23,7 @@ import type { Metadata } from "next";
 import { CtaBand } from "@/components/cta-band";
 import { Section } from "@/components/section";
 import { TrackedButton } from "@/components/tracked-button";
-import { Aurora, GridBackdrop } from "@/components/ui/backgrounds";
+import { Aurora, IslamicPatternBackdrop } from "@/components/ui/backgrounds";
 import { Badge } from "@/components/ui/badge";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
@@ -28,7 +31,7 @@ import { SITE_PATHS } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Learn",
-  description: `The ${APP_NAME} learning library — aqeedah, the prophets, seerah, the Hereafter, Qur'an study, and fiqh guides, all referenced to Qur'an and authenticated hadith.`,
+  description: `The ${APP_NAME} learning library — 350+ cited topics on aqeedah, prophets, seerah, the Hereafter, Qur'an study, sahaba, learn dua, and fiqh guides.`,
 };
 
 type Area = { icon: LucideIcon; title: string; meta: string; description: string };
@@ -37,7 +40,7 @@ const KNOWLEDGE: Area[] = [
   {
     icon: BookOpenCheck,
     title: "Aqeedah",
-    meta: "27 lessons + glossary",
+    meta: "24 topics + glossary",
     description: "The six articles of faith, tawheed, and the names and attributes of Allah.",
   },
   {
@@ -49,25 +52,26 @@ const KNOWLEDGE: Area[] = [
   {
     icon: Swords,
     title: "Seerah & battles",
-    meta: "26-event life + battles",
+    meta: "30-event life + 21 battles",
     description: "The life of the Prophet ﷺ and the major campaigns, with leadership lessons.",
   },
   {
     icon: Sparkles,
     title: "Jannah",
-    meta: "51 topics · 8 gates",
+    meta: "45 topics · 8 gates",
     description: "The reality of Paradise, its ranks, and the deeds that open its gates.",
   },
   {
     icon: Flame,
     title: "Jahannam",
-    meta: "The seven names",
-    description: "A balanced warning — and the ever-open door of sincere repentance.",
+    meta: "16 topics",
+    description:
+      "A balanced warning — its names, major sins, and the ever-open door of repentance.",
   },
   {
     icon: Scale,
     title: "The Last Day",
-    meta: "29 lessons + quiz",
+    meta: "20 lessons + quiz",
     description: "The signs, the reckoning, the Scale, and the Bridge — with an interactive quiz.",
   },
 ];
@@ -94,7 +98,7 @@ const QURAN: Area[] = [
   {
     icon: BookOpenCheck,
     title: "Understand & reflect",
-    meta: "14 themes · stories",
+    meta: "13 themes · stories",
     description: "Themes, prophet stories, vocabulary by root, and daily tadabbur prompts.",
   },
 ];
@@ -109,7 +113,7 @@ const FIQH: Area[] = [
   {
     icon: WifiOff,
     title: "Taharah",
-    meta: "31 topics + checklist",
+    meta: "28 topics + checklist",
     description: "Wudu, ghusl, and tayammum with a daily purification checklist.",
   },
   {
@@ -121,7 +125,7 @@ const FIQH: Area[] = [
   {
     icon: ScrollText,
     title: "Hajj & Umrah",
-    meta: "41-step tracker",
+    meta: "60-step tracker",
     description: "An interactive, offline checklist for every rite with location context.",
   },
   {
@@ -137,6 +141,62 @@ const FIQH: Area[] = [
     meta: "Trackers + khushu'",
     description:
       "A fasting tracker with suhoor/iftar times, a night-prayer log, and a khushu' prayer journal.",
+  },
+];
+
+const MORE: Area[] = [
+  {
+    icon: Users,
+    title: "The Sahaba",
+    meta: "30 companions",
+    description: "Virtues, lessons, and citations from the noble companions of the Prophet ﷺ.",
+  },
+  {
+    icon: ScrollText,
+    title: "Early Islamic history",
+    meta: "15 topics",
+    description:
+      "From the Khulafa Rashidun through the Umayyad period — context for today's ummah.",
+  },
+  {
+    icon: Hand,
+    title: "Learn dua",
+    meta: "46 topics",
+    description:
+      "When and how to supplicate — with Arabic, transliteration, and evidence for each occasion.",
+  },
+  {
+    icon: Heart,
+    title: "New Muslim guide",
+    meta: "18 topics",
+    description:
+      "A gentle on-ramp for converts — salah, wudu, adhkar, and building a daily rhythm.",
+  },
+  {
+    icon: Moon,
+    title: "Laylat al-Qadr",
+    meta: "8 topics",
+    description:
+      "The Night of Decree — its virtue, signs, and how to seek it in the last ten nights.",
+  },
+  {
+    icon: Calendar,
+    title: "Eid guide",
+    meta: "6 topics",
+    description: "Fitr and Adha — takbir, prayer, sunnah acts, and the spirit of celebration.",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "Ruqyah",
+    meta: "8 topics",
+    description: "Qur'anic and prophetic healing supplications — with conditions and etiquette.",
+  },
+  {
+    icon: BarChart3,
+    title: "Islamic finance",
+    meta: "14 topics",
+    description:
+      "Riba, halal income, zakat principles, and everyday money matters — educational, not fatwa.",
   },
 ];
 
@@ -191,7 +251,7 @@ export default function LearnPage() {
     <>
       <section className="relative isolate overflow-hidden">
         <Aurora />
-        <GridBackdrop className="opacity-50" />
+        <IslamicPatternBackdrop />
         <div className="relative mx-auto max-w-4xl px-6 py-16 text-center md:px-8 md:py-24">
           <Reveal>
             <div className="flex justify-center">
@@ -203,8 +263,8 @@ export default function LearnPage() {
               Learn your deen, <span className="text-gradient">deeply</span>
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted">
-              {APP_NAME} is more than a tracker. It&apos;s a structured, scholar-checked path
-              through creed, history, the Qur&apos;an, and fiqh — with progress, quizzes, and
+              {APP_NAME} is more than a tracker. It&apos;s a structured path reviewed for
+              authenticity — creed, history, the Qur&apos;an, and fiqh with progress, quizzes, and
               citations on every lesson.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -252,6 +312,14 @@ export default function LearnPage() {
 
       <Section
         variant="muted"
+        eyebrow="Beyond the basics"
+        title="Companions, dua & life guides"
+        description="Practical topics for every season — from the sahaba and early history to Laylat al-Qadr, Eid, and everyday finance."
+      >
+        <AreaGrid areas={MORE} />
+      </Section>
+
+      <Section
         eyebrow="Built on trust"
         title="Knowledge you can rely on"
         description="The library is designed to teach faithfully — cited, tracked, and always available."

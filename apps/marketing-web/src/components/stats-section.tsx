@@ -3,14 +3,14 @@ import { Reveal } from "@/components/ui/motion";
 
 const STATS = [
   { value: 6236, label: "Qur'an ayahs, fully offline" },
-  { value: 300, suffix: "+", label: "Lessons across the library" },
+  { value: 350, suffix: "+", label: "Lessons across the library" },
   { value: 99, label: "Names of Allah, with audio" },
   { value: 23, label: "Languages · UI + RTL" },
 ];
 
 export function StatsSection() {
   return (
-    <section className="relative py-8 md:py-12">
+    <section id="how" className="relative py-8 md:py-12">
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <Reveal>
           <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-gradient-to-b from-surface to-background p-8 shadow-[var(--shadow-card)] md:p-12">

@@ -20,20 +20,13 @@ export function Aurora({ className }: { className?: string }) {
   );
 }
 
-/** Hairline grid or dot field, faded toward the edges. */
-export function GridBackdrop({
-  className,
-  variant = "grid",
-}: {
-  className?: string;
-  variant?: "grid" | "dots";
-}) {
+/** Warm-gold girih strapwork lattice — the same Islamic pattern used in the hero. */
+export function IslamicPatternBackdrop({ className }: { className?: string }) {
   return (
     <div
       aria-hidden
       className={cn(
-        "mask-radial pointer-events-none absolute inset-0",
-        variant === "dots" ? "bg-dots" : "bg-grid",
+        "islamic-tiles-soft pointer-events-none absolute inset-0 opacity-[0.14] [mask-image:radial-gradient(90%_80%_at_15%_20%,#000_0%,rgba(0,0,0,0.45)_50%,transparent_80%)]",
         className,
       )}
     />

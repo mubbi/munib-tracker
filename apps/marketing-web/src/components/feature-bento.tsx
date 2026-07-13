@@ -61,7 +61,7 @@ const TILES: Tile[] = [
     icon: Hand,
     title: "Dhikr & tasbeeh",
     description:
-      "Morning, evening, and situational adhkar with a tactile counter, custom targets, and a custom adhkar builder.",
+      "Morning, evening, and situational adhkar (54 items) with a tactile counter, custom targets, and a custom adhkar builder.",
     href: SITE_PATHS.features,
     span: "lg:col-span-2",
   },
@@ -70,7 +70,7 @@ const TILES: Tile[] = [
     icon: Compass,
     title: "Times & qibla",
     description:
-      "Accurate prayer times with method and madhab pickers, Hijri events, widgets, and a qibla compass.",
+      "Accurate prayer times with 13 calculation methods, Hijri events, widgets, and a qibla compass.",
     href: SITE_PATHS.features,
     span: "lg:col-span-2",
   },
@@ -79,8 +79,8 @@ const TILES: Tile[] = [
     icon: BookOpen,
     title: "Qur'an & hadith, offline",
     description:
-      "Surah, juz, and 604-page mushaf with recitation and search — plus Nawawi 40 and Riyad as-Salihin bundled, six more collections on demand.",
-    chips: ["604 pages", "8 collections", "Audio", "Search"],
+      "Surah, juz, and 604-page mushaf with eight reciters, 25 translation editions, and search — plus Nawawi 40 and Riyad as-Salihin bundled, six more collections on demand.",
+    chips: ["604 pages", "123 tafsir", "8 reciters", "Search"],
     href: SITE_PATHS.features,
     span: "lg:col-span-3",
   },
@@ -90,7 +90,7 @@ const TILES: Tile[] = [
     title: "Step-by-step worship guides",
     description:
       "Learn how to pray, make wudu, calculate zakat, and perform hajj — practical fiqh with checklists, evidence, and a khushu' journal.",
-    chips: ["Salah guide", "Zakat calc", "Hajj steps", "Taharah"],
+    chips: ["Salah guide", "Zakat calc", "60 hajj steps", "Taharah"],
     href: SITE_PATHS.learn,
     span: "lg:col-span-3",
   },

@@ -60,8 +60,8 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Morning, evening, and situational adhkar with favorites, daily progress, and a tactile tasbeeh counter.",
     highlights: [
-      "Seven adhkar categories plus favorites you can reorder",
-      "Custom adhkar builder and free tasbeeh with presets",
+      "54 adhkar across seven categories plus favorites you can reorder",
+      "Custom adhkar builder with speech-to-text and a free tasbeeh counter",
       "Zikr-linked counters that save to your daily goal",
       "Bedtime-aware before-sleep reminders",
     ],
@@ -72,10 +72,10 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Read, search, and listen — Qur'an, hadith, duas, duroods, and the 99 Names bundled for the road.",
     highlights: [
-      "Full mushaf: surah, juz, 604-page view, khatm & hifz",
-      "Side-by-side translations, tafsir on demand, and recitation",
-      "Bundled Nawawi 40 & Riyad as-Salihin; six books on demand",
-      "Duas, duroods, 99 Names, and universal fuzzy search",
+      "Full mushaf: surah, juz, 604-page view, word-by-word, and tajweed coloring",
+      "25 translation editions (two bundled), 123 tafsir editions on demand, eight reciters",
+      "Bundled Nawawi 40 & Riyad as-Salihin; six major collections on demand",
+      "271 duas, 54 adhkar, nine duroods, 99 Names, and universal fuzzy search",
     ],
   },
   {
@@ -84,10 +84,10 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Study creed, the prophets, the seerah, and the Hereafter — structured lessons with progress, quizzes, and citations, not just a feed.",
     highlights: [
-      "Aqeedah, the 25 prophets, the seerah timeline, and the major battles",
-      "Jannah, Jahannam, and the Last Day with an interactive quiz",
-      "Per-topic progress tracking and a glossary of key terms",
-      "Every lesson referenced to Qur'an and graded hadith",
+      "Aqeedah (24 topics), 25 prophets, 30-event seerah, and 21 major battles",
+      "Jannah (45 topics), Jahannam (16), and the Last Day (20) with an interactive quiz",
+      "Sahaba (30), early Islamic history (15), learn dua (46), and new-Muslim guide (18)",
+      "Laylat al-Qadr, Eid, ruqyah, and Islamic finance — every lesson cited to source",
     ],
   },
   {
@@ -108,8 +108,8 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Learn how to pray, purify, fast, and give — practical fiqh guides with checklists, calculators, and clear evidence.",
     highlights: [
-      "Salah guide plus wudu and taharah with a daily checklist",
-      "Zakat calculator with nisab and an interactive hajj step tracker",
+      "Salah guide (24 lessons) plus taharah (28 topics) with a daily checklist",
+      "Zakat calculator, sadaqah tracking, and a 60-step hajj & umrah tracker",
       "Travel (qasr/jam'), illness, and hayd — worship at your capacity",
       "Ramadan tracker, tahajjud log, and khushu' prayer journal",
     ],
@@ -120,7 +120,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     summary:
       "Know when to pray and which way to face — accurate times, Hijri calendar, moon insights, and qibla compass.",
     highlights: [
-      "GPS or city search with 14 calculation methods and Asr madhab",
+      "GPS or city search with 13 calculation methods and Asr madhab",
       "Per-prayer tuning, high-latitude rules, and reminder offsets",
       "Hijri events calendar, moon phase, and optional weather",
       "Qibla compass with alignment haptic (native)",
@@ -165,10 +165,11 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
     id: "privacy",
     title: "Private by default",
     summary:
-      "Your journey stays on your device until you choose to sign in and sync with Google or Apple.",
+      "Your journey stays on your device until you choose to sign in and sync across devices.",
     highlights: [
       "No account required for full functionality",
       "Local backup export/import and offline download manager",
+      "Optional Google, Apple, or Facebook sign-in for cross-device sync",
       "Optional PIN / biometric app lock on native",
       "No ads in the app; delete account and data anytime",
     ],
@@ -220,7 +221,7 @@ export const APP_HOME_FEATURES: AppHomeFeature[] = [
     id: "learn",
     title: "Learn your deen",
     description:
-      "Creed, the prophets, seerah, and the Hereafter — structured lessons with progress, quizzes, and citations.",
+      "Creed, prophets, seerah, companions, dua, and the Hereafter — 350+ cited lessons with progress.",
     icon: "learn",
   },
   {

@@ -22,6 +22,7 @@ export const BUNDLED_DATA_CREDITS: readonly DataCredit[] = [
     attribution:
       "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Bengali Hisnul translations from ThelightHub/dua-api (MIT). Indonesian subset from fitrahive/dua-dhikr. Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
     url: "https://github.com/ThelightHub/dua-api",
+    note: "271 duas in 16 categories, 54 adhkar in seven categories, and nine duroods ship bundled.",
   },
   {
     id: "hadith-highlights",
@@ -66,8 +67,9 @@ export const RUNTIME_DATA_CREDITS: readonly DataCredit[] = [
     name: "Extra Qur'an translations & tafsir",
     license: "Free to use, © respective authors",
     attribution:
-      "Saheeh International, Clear Qur'an (Khattab), and other editions (including tafsir) fetched on demand via fawazahmed0/quran-api and related CDNs.",
+      "Saheeh International, Clear Qur'an (Khattab), and 23 more translation editions plus 123 tafsir editions fetched on demand via fawazahmed0/quran-api, spa5k/tafsir_api, and related CDNs.",
     url: "https://github.com/fawazahmed0/quran-api",
+    note: "Two translations ship bundled; the rest download on first open and stay cached offline.",
   },
   {
     id: "hadith-full",

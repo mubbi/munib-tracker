@@ -8,27 +8,36 @@ import { Reveal } from "@/components/ui/motion";
 import { trackCtaClick } from "@/lib/analytics";
 import { SITE_PATHS } from "@/lib/site";
 
+/** Closing call-to-action — the last chapter of the Day Arc journey. */
 export function CtaBand() {
   return (
-    <section className="noise relative overflow-hidden bg-gradient-to-br from-hero-from via-hero-via to-hero-to py-20 text-hero-text md:py-28">
+    <section className="relative overflow-hidden py-20 md:py-28">
+      {/* Warm dawn glow returning on the horizon — the journey begins again */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-hero-glow/20 blur-[120px]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-80 bg-[radial-gradient(60%_120%_at_50%_130%,rgba(224,150,70,0.22),transparent_70%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-24 -left-24 size-72 rounded-full bg-hero-gold/10 blur-[120px]"
+        className="pointer-events-none absolute -left-24 top-0 size-72 rounded-full bg-[#34d399]/10 blur-[120px]"
       />
-      <div className="hero-stars islamic-tiles absolute inset-0 opacity-40" aria-hidden />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 bottom-0 size-72 rounded-full bg-[#ecca7d]/10 blur-[120px]"
+      />
+
       <div className="relative mx-auto max-w-3xl px-6 text-center md:px-8">
         <Reveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-hero-gold">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#ecca7d] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
             Begin today
           </p>
-          <h2 className="mt-4 text-balance font-display text-3xl font-extrabold tracking-tight md:text-5xl">
-            Start your journey back to Allah
+          <h2 className="hero-text-shadow mt-4 text-balance font-sans text-3xl font-semibold tracking-tight text-white md:text-5xl">
+            Start your journey{" "}
+            <span className="bg-gradient-to-r from-[#f8e7b2] via-[#eecd81] to-[#dcae5e] bg-clip-text text-transparent [text-shadow:none]">
+              back to Allah
+            </span>
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-hero-muted">
+          <p className="hero-text-shadow-soft mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/80">
             Small, steady steps matter more than perfection. Track today, learn something new, and
             continue as a guest — or sign in to sync across devices.
           </p>

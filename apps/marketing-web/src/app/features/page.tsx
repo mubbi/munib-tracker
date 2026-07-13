@@ -9,7 +9,7 @@ import { ProgressDemo } from "@/components/progress-demo";
 import { Section } from "@/components/section";
 import { StoreBadges } from "@/components/store-badges";
 import { TrackedButton } from "@/components/tracked-button";
-import { Aurora, GridBackdrop } from "@/components/ui/backgrounds";
+import { Aurora, IslamicPatternBackdrop } from "@/components/ui/backgrounds";
 import { Badge } from "@/components/ui/badge";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
@@ -17,7 +17,7 @@ import { SITE_PATHS } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Features",
-  description: `Explore every feature in ${APP_NAME} — prayer tracking, qaza, dhikr, Qur'an, hadith, learning, widgets, and more.`,
+  description: `Explore every feature in ${APP_NAME} — salah tracking, qaza, 271 duas, 54 adhkar, Qur'an (25 translations, 123 tafsir), hadith, 350+ learn topics, widgets, and more.`,
 };
 
 const DETAILED_SECTIONS = [
@@ -26,10 +26,10 @@ const DETAILED_SECTIONS = [
     items: [
       "Prayer times hero with time-of-day sky, mosque silhouette, moon phase, and optional weather",
       "Hijri date, live clock, and countdown to the next prayer",
-      "A customizable grid of 30+ quick actions you can reorder and toggle",
-      "Toggleable home modules: continue reading, knowledge card, qaza, and today's schedule",
+      "43 quick actions you can reorder and toggle — tracker, Qur'an, learn paths, and more",
+      "Five toggleable home modules: continue reading, knowledge card, quick actions, qaza, and today's schedule",
       "Today's goal combining salah, zikr, and qaza with segmented progress",
-      "Devotion block with your Noor level, seasonal Hijri banners, and feature tours",
+      "Devotion block with your Noor level, nine seasonal Hijri banners, and feature tours",
     ],
   },
   {
@@ -56,30 +56,40 @@ const DETAILED_SECTIONS = [
   {
     title: "Duas, adhkar, duroods & 99 Names",
     items: [
-      "270+ duas across 16 categories, sourced from Hisnul Muslim",
-      "50+ adhkar in 7 categories (morning, evening, after-salah, before sleep, and more)",
-      "Custom adhkar builder — add your own with Arabic, transliteration, and translation",
-      "Salawat/duroods and the 99 Names of Allah with meanings and audio",
+      "271 duas across 16 categories, sourced from Hisnul Muslim",
+      "54 adhkar in seven categories (morning, evening, after-salah, before sleep, and more)",
+      "Custom adhkar builder — add your own with Arabic, transliteration, translation, and speech-to-text",
+      "Nine salawat/duroods and the 99 Names of Allah with meanings and audio",
       "Favorites, per-category search, and a tactile tasbeeh with custom targets",
     ],
   },
   {
     title: "Learn: creed, prophets & history",
     items: [
-      "Aqeedah course — 27 lessons on the articles of faith with a glossary",
+      "Aqeedah course — 24 topics on the articles of faith with a glossary",
       "Stories and lessons from the 25 named prophets, with a timeline",
-      "Seerah timeline of 26 key events in the life of the Prophet ﷺ",
-      "The major battles — lessons, key figures, verses, and a glossary",
+      "Seerah timeline of 30 key events in the life of the Prophet ﷺ",
+      "21 major battles — lessons, key figures, verses, and a glossary",
       "Per-topic progress and Qur'an + graded-hadith citations throughout",
     ],
   },
   {
     title: "Learn: the Hereafter",
     items: [
-      "Jannah — 51 topics, the eight gates, and a journey of deeds that lead there",
-      "Jahannam — the seven names, major sins, and the door of repentance",
-      "The Last Day — 29 lessons on the signs, the reckoning, the Scale, and the Bridge",
+      "Jannah — 45 topics, the eight gates, and a journey of deeds that lead there",
+      "Jahannam — 16 topics on its names, major sins, and the door of repentance",
+      "The Last Day — 20 lessons on the signs, the reckoning, the Scale, and the Bridge",
       "An interactive quiz, a timeline of the Hereafter, and preparation guidance",
+    ],
+  },
+  {
+    title: "Learn: companions & practical guides",
+    items: [
+      "Sahaba — 30 companions with virtues, lessons, and citations",
+      "Early Islamic history — 15 topics from the Khulafa Rashidun through the Umayyads",
+      "Learn dua — 46 topics on when and how to supplicate, with Arabic and evidence",
+      "New Muslim guide — 18 topics for converts starting salah, wudu, and daily worship",
+      "Laylat al-Qadr (8), Eid (6), ruqyah (8), and Islamic finance education (14)",
     ],
   },
   {
@@ -87,7 +97,7 @@ const DETAILED_SECTIONS = [
     items: [
       "A guided path: Read → Understand → Reflect → Memorize → Practice → Live",
       "28 Arabic letter cards, pronunciation drills, and the core tajweed rules",
-      "Memorization plans, 14 themes, prophet stories, and vocabulary by root",
+      "Memorization plans, 13 themes, prophet stories, and vocabulary by root",
       "Daily tadabbur reflections and apply-it challenges, linked to the mushaf reader",
     ],
   },
@@ -95,9 +105,9 @@ const DETAILED_SECTIONS = [
     title: "Worship guides (fiqh)",
     items: [
       "Salah guide — 24 lessons from why we pray to khushu' and making up missed prayers",
-      "Taharah — 31 topics on wudu, ghusl, and tayammum with a daily checklist",
-      "Zakat calculator with nisab thresholds, plus a checklist and evidence",
-      "Interactive hajj step tracker, and travel, illness, and hayd rulings",
+      "Taharah — 28 topics on wudu, ghusl, and tayammum with a daily checklist",
+      "Zakat calculator with nisab thresholds, sadaqah tracking, checklist, and evidence",
+      "60-step interactive hajj & umrah tracker, plus travel, illness, and hayd rulings",
       "Ramadan fasting tracker with suhoor/iftar countdown and a tahajjud log",
     ],
   },
@@ -105,9 +115,9 @@ const DETAILED_SECTIONS = [
     title: "Qur'an",
     items: [
       "All 114 surahs, juz browser, and Madani 604-page mushaf layout",
-      "Arabic, transliteration toggle, bundled translations, and side-by-side secondary edition",
-      "On-demand Saheeh International, Clear Qur'an, and tafsir downloads",
-      "Reciter selection with per-ayah and surah audio; ayah / page / mushaf layouts",
+      "Arabic, transliteration toggle, two bundled translations, and 23 more editions on demand",
+      "Word-by-word reader, tajweed coloring, and 123 tafsir editions fetched on demand",
+      "Eight reciters with per-ayah and surah audio; ayah / page / mushaf layouts",
       "Ayah bookmarks, khatm and hifz tracking, Arabic font picker, and offline search",
     ],
   },
@@ -122,10 +132,10 @@ const DETAILED_SECTIONS = [
   {
     title: "Times, qibla & calendar",
     items: [
-      "Prayer times from GPS or city search, with 14 calculation methods and Asr madhab",
+      "Prayer times from GPS or city search, with 13 calculation methods and Asr madhab",
       "Per-prayer minute offsets, high-latitude rules, reminder offsets, and 12/24-hour formatting",
-      "Qibla compass with alignment haptic on native",
-      "Hijri and Gregorian calendar with Islamic events",
+      "Qibla compass with alignment haptic on native; Hijri ↔ Gregorian date converter",
+      "Hijri and Gregorian calendar with Islamic events and moon phase",
     ],
   },
   {
@@ -134,7 +144,7 @@ const DETAILED_SECTIONS = [
       "Prayer reminders, sunnah alerts, qaza reminders, and after-adhan alerts",
       "Morning, evening, before-sleep, before-prayer, and after-prayer adhkar",
       "Daily content and Friday (Jumu'ah / Kahf) reminders",
-      "Play adhan on prayer with multiple adhan styles; achievement alerts",
+      "Play adhan on prayer with five adhan styles; achievement alerts",
       "iOS Live Activities / Dynamic Island for the next prayer; in-app notification center",
     ],
   },
@@ -155,7 +165,7 @@ const DETAILED_SECTIONS = [
       "Arabic font families and separate Arabic / translation sizes; scripture locale separate from UI",
       "Customize home modules, quick actions, and library menu order",
       "Local backup export/import, offline download manager, and bulk prayer import",
-      "Optional PIN / biometric app lock; full guest mode; Google or Apple sync when you want it",
+      "Optional PIN / biometric app lock; full guest mode; Google, Apple, or Facebook sync when you want it",
     ],
   },
 ] as const;
@@ -165,7 +175,7 @@ export default function FeaturesPage() {
     <>
       <section className="relative isolate overflow-hidden">
         <Aurora />
-        <GridBackdrop className="opacity-50" />
+        <IslamicPatternBackdrop />
         <div className="relative mx-auto max-w-4xl px-6 py-16 text-center md:px-8 md:py-24">
           <Reveal>
             <div className="flex justify-center">

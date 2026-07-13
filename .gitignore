@@ -56,6 +56,7 @@ Thumbs.db
 .tmp/
 .tmp-smoke/
 .tmp-gaps-*.json
+.edge-tmp*/
 apps/app/android-keys/
 apps/app/.screenshots-work/
 packages/shared/scripts/.overlay-translate-cache/
