@@ -6,6 +6,7 @@ import { PrayerInfoButton } from "@/components/prayer-info-button";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
 import { IconWell } from "@/components/ui/icon-well";
+import { LabeledIconButton } from "@/components/ui/labeled-icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
@@ -29,6 +30,10 @@ export type PrayerScheduleCardProps = {
   schedule: ScheduleItem[];
   nextIn: string;
   nextScheduleId: string | null;
+  /** Optional share action shown in the card header (schedule screen). */
+  onShare?: () => void;
+  shareLoading?: boolean;
+  shareGesturePending?: boolean;
 };
 
 type RowVisuals = {
@@ -474,7 +479,14 @@ function ScheduleFlexibleBlock({
   );
 }
 
-export function PrayerScheduleCard({ schedule, nextIn, nextScheduleId }: PrayerScheduleCardProps) {
+export function PrayerScheduleCard({
+  schedule,
+  nextIn,
+  nextScheduleId,
+  onShare,
+  shareLoading = false,
+  shareGesturePending = false,
+}: PrayerScheduleCardProps) {
   const { t } = useTranslation();
   const { colors } = useThemeTokens();
   const [pastExpanded, setPastExpanded] = useState(false);
@@ -497,13 +509,39 @@ export function PrayerScheduleCard({ schedule, nextIn, nextScheduleId }: PrayerS
   return (
     <Card padding="three">
       <View style={styles.header}>
-        <View style={styles.headerTitle}>
-          <SymbolView
-            name={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
-            size={18}
-            tintColor={colors.accent}
-          />
-          <ThemedText type="subtitle">{t("home.scheduleTitle")}</ThemedText>
+        <View style={styles.headerTop}>
+          <View style={styles.headerTitle}>
+            <SymbolView
+              name={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
+              size={18}
+              tintColor={colors.accent}
+            />
+            <ThemedText type="subtitle">{t("home.scheduleTitle")}</ThemedText>
+          </View>
+          {onShare ? (
+            <LabeledIconButton
+              name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+              label={
+                shareGesturePending
+                  ? t("share.tapToShare")
+                  : shareLoading
+                    ? t("share.preparing")
+                    : t("common.share")
+              }
+              iconSize={16}
+              tintColor={colors.mutedForeground}
+              accessibilityLabel={
+                shareLoading
+                  ? t("share.preparing")
+                  : shareGesturePending
+                    ? t("share.tapToShare")
+                    : t("schedule.shareA11y")
+              }
+              loading={shareLoading}
+              loadingLabel={t("share.preparing")}
+              onPress={onShare}
+            />
+          ) : null}
         </View>
         <ScheduleLegend />
       </View>
@@ -536,10 +574,18 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     marginBottom: Spacing.two,
   },
+  headerTop: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
+  },
   headerTitle: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
+    flex: 1,
+    minWidth: 0,
   },
   legend: {
     flexDirection: "row",

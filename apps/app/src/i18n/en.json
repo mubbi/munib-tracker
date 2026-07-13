@@ -1007,7 +1007,12 @@
     "decrease": "Decrease text size",
     "increase": "Increase text size",
     "reset": "Reset text size",
-    "sizeDefault": "Default"
+    "sizeDefault": "Default",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "Share",
@@ -1029,6 +1034,7 @@
     "sectionNames": "99 Names of Allah",
     "sectionAchievement": "Achievement",
     "sectionGuide": "Learn",
+    "sectionSchedule": "Today's schedule",
     "guideReadAt": "Read in Munib Tracker:",
     "preparing": "Sharing…",
     "tapToShare": "Tap to share"
@@ -2544,7 +2550,9 @@
   },
   "schedule": {
     "eyebrow": "Prayer times",
-    "subtitle": "Obligatory prayers, sunnah windows, and flexible acts for today"
+    "subtitle": "Obligatory prayers, sunnah windows, and flexible acts for today",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Learn",

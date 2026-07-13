@@ -7,17 +7,11 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
-import {
-  ensureIslamicFinanceContent,
-  getIslamicFinanceTopic,
-  getIslamicFinanceTopics,
-} from "@/lib/islamic-finance";
+import { getIslamicFinanceTopic, getIslamicFinanceTopics } from "@/lib/islamic-finance";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
-  await ensureIslamicFinanceContent();
+export function generateStaticParams() {
   return getIslamicFinanceTopics().map((topic) => ({ topic: topic.id }));
 }
 
@@ -25,7 +19,6 @@ export default function FinanceTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureIslamicFinanceContent);
   const topic = getIslamicFinanceTopic(topicId);
 
   const detailPath = topic ? `/finance/${topic.id}` : "/finance";
@@ -64,7 +57,7 @@ export default function FinanceTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("finance.notFound")}

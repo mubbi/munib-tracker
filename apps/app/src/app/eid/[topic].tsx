@@ -7,13 +7,11 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { ensureEidGuideContent, getEidGuideTopic, getEidGuideTopics } from "@/lib/eid-guide";
+import { getEidGuideTopic, getEidGuideTopics } from "@/lib/eid-guide";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
 export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
-  await ensureEidGuideContent();
   return getEidGuideTopics().map((topic) => ({ topic: topic.id }));
 }
 
@@ -21,7 +19,6 @@ export default function EidTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureEidGuideContent);
   const topic = getEidGuideTopic(topicId);
 
   const detailPath = topic ? `/eid/${topic.id}` : "/eid";
@@ -60,7 +57,7 @@ export default function EidTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("eid.notFound")}

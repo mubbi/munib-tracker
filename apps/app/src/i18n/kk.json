@@ -1007,7 +1007,12 @@
     "decrease": "Мәтін өлшемін азайтыңыз",
     "increase": "Мәтін өлшемін үлкейту",
     "reset": "Қайта орнату text size",
-    "sizeDefault": "Әдепкі"
+    "sizeDefault": "Әдепкі",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "Бөлісу",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "Үйрену",
     "guideReadAt": "Read ішінде Munib Tracker:",
     "preparing": "Бөлісу...",
-    "tapToShare": "Басыңыз ға бөлісу"
+    "tapToShare": "Басыңыз ға бөлісу",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "Жалыну",
@@ -2557,7 +2563,9 @@
   },
   "schedule": {
     "eyebrow": "Prayer times",
-    "subtitle": "Бүгінгі парыз намаздар, сүннет уақыттары және икемді амалдар"
+    "subtitle": "Бүгінгі парыз намаздар, сүннет уақыттары және икемді амалдар",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Үйрену",

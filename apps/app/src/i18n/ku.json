@@ -1007,7 +1007,12 @@
     "decrease": "Mezinahiya nivîsê kêm bike",
     "increase": "Mezinahiya nivîsê zêde bike",
     "reset": "Mezinahiya nivîsê vegerîne",
-    "sizeDefault": "Destçûnî"
+    "sizeDefault": "Destçûnî",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "Parve bike",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "Fêr bibe",
     "guideReadAt": "Read di Munib Tracker:",
     "preparing": "Parvekirin…",
-    "tapToShare": "Tap bo parve bike"
+    "tapToShare": "Tap bo parve bike",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "پاڕانەوە",
@@ -2557,7 +2563,9 @@
   },
   "schedule": {
     "eyebrow": "Demên nimêjê",
-    "subtitle": "Ji bo îro nimêjên ferz, pencereyên sunnetê û kirinên nerm"
+    "subtitle": "Ji bo îro nimêjên ferz, pencereyên sunnetê û kirinên nerm",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Fêr bibe",

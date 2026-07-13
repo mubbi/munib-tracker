@@ -967,7 +967,12 @@
     "decrease": "متن کا سائز کم کریں",
     "increase": "متن کا سائز بڑھائیں",
     "reset": "متن کا سائز ری سیٹ کریں",
-    "sizeDefault": "طے شدہ"
+    "sizeDefault": "طے شدہ",
+    "listen": "مضمون سنیں",
+    "listenStop": "سننا بند کریں",
+    "listenHint": "آپ کی ایپ زبان میں اس صفحے کو ڈیوائس کے ٹیکسٹ ٹو اسپیچ سے بلند آواز میں پڑھتا ہے",
+    "listenUnavailableTitle": "سننا دستیاب نہیں",
+    "listenUnavailableBody": "اس ڈیوائس پر ٹیکسٹ ٹو اسپیچ دستیاب نہیں۔ سسٹم سیٹنگز میں اپنی زبان کی آواز انسٹال چیک کریں۔"
   },
   "share": {
     "dialogTitle": "شیئر",
@@ -988,6 +993,7 @@
     "sectionNames": "اللہ کے 99 نام",
     "sectionAchievement": "کامیابی",
     "sectionGuide": "سیکھیں",
+    "sectionSchedule": "آج کا شیڈول",
     "guideReadAt": "Munib Tracker میں پڑھیں:",
     "preparing": "شیئر ہو رہا ہے…",
     "tapToShare": "شیئر کے لیے ٹیپ کریں",
@@ -2479,7 +2485,9 @@
   },
   "schedule": {
     "eyebrow": "نماز کے اوقات",
-    "subtitle": "آج کی فرض نمازیں، سنت کے اوقات، اور لچکدار عبادات"
+    "subtitle": "آج کی فرض نمازیں، سنت کے اوقات، اور لچکدار عبادات",
+    "shareA11y": "آج کا مکمل شیڈول تصویر کے طور پر شیئر کریں",
+    "shareMessageIntro": "آج کا شیڈول — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "سیکھیں",

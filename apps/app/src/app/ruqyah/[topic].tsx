@@ -7,13 +7,11 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureRuqyahContent, getRuqyahTopic, getRuqyahTopics } from "@/lib/ruqyah";
+import { getRuqyahTopic, getRuqyahTopics } from "@/lib/ruqyah";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
-  await ensureRuqyahContent();
+export function generateStaticParams() {
   return getRuqyahTopics().map((topic) => ({ topic: topic.id }));
 }
 
@@ -21,7 +19,6 @@ export default function RuqyahTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureRuqyahContent);
   const topic = getRuqyahTopic(topicId);
 
   const detailPath = topic ? `/ruqyah/${topic.id}` : "/ruqyah";
@@ -60,7 +57,7 @@ export default function RuqyahTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("ruqyah.notFound")}

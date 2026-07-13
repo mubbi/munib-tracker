@@ -5,6 +5,7 @@ jest.mock("expo-speech", () => ({
     options?.onDone?.();
   }),
   stop: jest.fn(async () => undefined),
+  isSpeakingAsync: jest.fn(async () => false),
   getAvailableVoicesAsync: jest.fn(async () => [
     { identifier: "en-US-x", name: "English", language: "en-US" },
     { identifier: "ur-PK-x", name: "Urdu", language: "ur-PK" },
@@ -12,7 +13,15 @@ jest.mock("expo-speech", () => ({
 }));
 
 import * as Speech from "expo-speech";
-import { getTtsVoices, speak, stopTts } from "@/lib/tts";
+import {
+  chunkTextForTts,
+  getTtsVoices,
+  resolveTtsVoice,
+  speak,
+  speakLong,
+  stopTts,
+  TTS_CHUNK_MAX_CHARS,
+} from "@/lib/tts";
 
 describe("tts", () => {
   it("speaks and resolves on done", async () => {
@@ -32,8 +41,30 @@ describe("tts", () => {
     expect(english[0].language).toBe("en-US");
   });
 
+  it("resolves preferred voice when still installed", async () => {
+    const id = await resolveTtsVoice("en", "en-US-x");
+    expect(id).toBe("en-US-x");
+  });
+
   it("stops speech", async () => {
     await stopTts();
     expect(Speech.stop).toHaveBeenCalled();
+  });
+
+  it("chunks long text under the platform limit", () => {
+    const long = `${"Sentence one is a bit longer for chunking. ".repeat(120)}Tail sentence.`;
+    expect(long.length).toBeGreaterThan(TTS_CHUNK_MAX_CHARS);
+    const chunks = chunkTextForTts(long);
+    expect(chunks.length).toBeGreaterThan(1);
+    for (const chunk of chunks) {
+      expect(chunk.length).toBeLessThanOrEqual(TTS_CHUNK_MAX_CHARS);
+    }
+  });
+
+  it("speakLong chains chunks then finishes", async () => {
+    (Speech.speak as jest.Mock).mockClear();
+    const long = `${"Sentence one is a bit longer for chunking. ".repeat(120)}Tail.`;
+    await speakLong(long, { lang: "en-US" });
+    expect((Speech.speak as jest.Mock).mock.calls.length).toBeGreaterThan(1);
   });
 });

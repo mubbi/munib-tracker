@@ -1007,7 +1007,12 @@
     "decrease": "کاهش text size",
     "increase": "افزایش text size",
     "reset": "بازنشانی text size",
-    "sizeDefault": "Default"
+    "sizeDefault": "Default",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "اشتراک",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "آموزش",
     "guideReadAt": "در مونیب ترکر بخوانید:",
     "preparing": "شیئر ہو رہا ہے…",
-    "tapToShare": "برای اشتراک‌گذاری بزنید"
+    "tapToShare": "برای اشتراک‌گذاری بزنید",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "دعا",
@@ -2557,7 +2563,9 @@
   },
   "schedule": {
     "eyebrow": "اوقات نماز",
-    "subtitle": "نمازهای واجب، پنجره‌های سنت و اعمال انعطاف‌پذیر امروز"
+    "subtitle": "نمازهای واجب، پنجره‌های سنت و اعمال انعطاف‌پذیر امروز",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "آموزش",

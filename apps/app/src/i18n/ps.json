@@ -1007,7 +1007,12 @@
     "decrease": "Decrese text size",
     "increase": "د متن اندازه زیاته کړئ",
     "reset": "بیا تنظیم text size",
-    "sizeDefault": "Defult"
+    "sizeDefault": "Defult",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "شریکول",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "زده کړئ",
     "guideReadAt": "په منيب ټريکر کې ولولئ:",
     "preparing": "Sharing…",
-    "tapToShare": "د شریکولو لپاره ټایپ کړئ"
+    "tapToShare": "د شریکولو لپاره ټایپ کړئ",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "Supplication",
@@ -2545,7 +2551,9 @@
   },
   "schedule": {
     "eyebrow": "د نماز وختونه",
-    "subtitle": "فرض نمازونه، سنت وختونه او نن لپاره اختیاري عبادتونه"
+    "subtitle": "فرض نمازونه، سنت وختونه او نن لپاره اختیاري عبادتونه",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "زده کړئ",

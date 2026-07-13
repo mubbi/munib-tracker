@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -101,6 +102,16 @@ export default function HajjScreen() {
     () => localizeList(guideSections, overlayList("HAJJ_GUIDE_SECTIONS")),
     [guideSections, i18n.language],
   );
+  const listenText = useMemo(
+    () =>
+      sections
+        .flatMap((section) => [
+          `${section.title}. ${section.summary}`,
+          ...section.steps.map((step) => `${step.title}. ${step.body}`),
+        ])
+        .join("\n\n"),
+    [sections],
+  );
 
   const totalSteps = useMemo(
     () => guideSections.reduce((sum, section) => sum + section.steps.length, 0),
@@ -120,61 +131,67 @@ export default function HajjScreen() {
     >
       <Seo path="/hajj" />
 
-      <Card padding="three" style={styles.progressCard}>
-        <View style={styles.progressHead}>
-          <ThemedText type="smallBold">
-            {t("hajj.progress", { done: doneCount, total: totalSteps })}
-          </ThemedText>
-          {doneCount > 0 ? (
-            <Button
-              label={t("hajj.reset")}
-              variant="ghost"
-              size="sm"
-              onPress={() => setResetOpen(true)}
-            />
-          ) : null}
-        </View>
-        <ProgressBar value={progress} height={6} color={tokens.status.success.color} />
-      </Card>
-
-      {sections.map((section) => (
-        <FocusHighlight key={section.id} ref={register(section.id)} active={isFocused(section.id)}>
-          <Card padding="three" style={styles.sectionCard}>
-            <View style={styles.sectionHead}>
-              <View style={styles.sectionTitleWrap}>
-                <ThemedText type="subtitle">{section.title}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {section.summary}
-                </ThemedText>
-              </View>
-              <Pill
-                label={
-                  section.kind === "prep"
-                    ? t("hajj.prepTag")
-                    : (section.day ??
-                      (section.kind === "umrah" ? t("hajj.umrahTag") : t("hajj.hajjTag")))
-                }
-                color={colors.accentText}
-                background={tokens.accentSoft}
+      <LearnReadingChrome surface="jannah" listenText={listenText}>
+        <Card padding="three" style={styles.progressCard}>
+          <View style={styles.progressHead}>
+            <ThemedText type="smallBold">
+              {t("hajj.progress", { done: doneCount, total: totalSteps })}
+            </ThemedText>
+            {doneCount > 0 ? (
+              <Button
+                label={t("hajj.reset")}
+                variant="ghost"
+                size="sm"
+                onPress={() => setResetOpen(true)}
               />
-            </View>
-            <View style={styles.steps}>
-              {section.steps.map((step) => (
-                <CheckStep
-                  key={step.id}
-                  step={step}
-                  done={!!done[step.id]}
-                  onToggle={() => void toggle(step.id)}
-                />
-              ))}
-            </View>
-          </Card>
-        </FocusHighlight>
-      ))}
+            ) : null}
+          </View>
+          <ProgressBar value={progress} height={6} color={tokens.status.success.color} />
+        </Card>
 
-      <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
-        {t("hajj.disclaimer")}
-      </ThemedText>
+        {sections.map((section) => (
+          <FocusHighlight
+            key={section.id}
+            ref={register(section.id)}
+            active={isFocused(section.id)}
+          >
+            <Card padding="three" style={styles.sectionCard}>
+              <View style={styles.sectionHead}>
+                <View style={styles.sectionTitleWrap}>
+                  <ThemedText type="subtitle">{section.title}</ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {section.summary}
+                  </ThemedText>
+                </View>
+                <Pill
+                  label={
+                    section.kind === "prep"
+                      ? t("hajj.prepTag")
+                      : (section.day ??
+                        (section.kind === "umrah" ? t("hajj.umrahTag") : t("hajj.hajjTag")))
+                  }
+                  color={colors.accentText}
+                  background={tokens.accentSoft}
+                />
+              </View>
+              <View style={styles.steps}>
+                {section.steps.map((step) => (
+                  <CheckStep
+                    key={step.id}
+                    step={step}
+                    done={!!done[step.id]}
+                    onToggle={() => void toggle(step.id)}
+                  />
+                ))}
+              </View>
+            </Card>
+          </FocusHighlight>
+        ))}
+
+        <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
+          {t("hajj.disclaimer")}
+        </ThemedText>
+      </LearnReadingChrome>
 
       <ConfirmDialog
         visible={resetOpen}

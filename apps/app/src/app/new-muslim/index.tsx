@@ -9,14 +9,10 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import {
-  ensureNewMuslimContent,
-  getNewMuslimSectionOrder,
-  getNewMuslimTopicsBySection,
-} from "@/lib/new-muslim";
+import { getNewMuslimSectionOrder, getNewMuslimTopicsBySection } from "@/lib/new-muslim";
 
 const SECTION_ICONS: Record<string, AppIcon> = {
   start: { ios: "sparkles", android: "auto_awesome", web: "auto_awesome" },
@@ -34,14 +30,13 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 export default function NewMuslimScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion } = useEnsureContent(ensureNewMuslimContent);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const overlayVersion = getContentOverlaysReadyVersion();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
   const topicsBySection = useMemo(
     () => getNewMuslimTopicsBySection(),
-    [i18n.language, contentVersion],
+    [i18n.language, overlayVersion],
   );
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const sectionOrder = useMemo(() => getNewMuslimSectionOrder(), [i18n.language, contentVersion]);
+  const sectionOrder = getNewMuslimSectionOrder();
 
   return (
     <ScreenLayout
@@ -51,7 +46,7 @@ export default function NewMuslimScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/new-muslim" />
-      <Stagger key={`new-muslim-${contentVersion}`}>
+      <Stagger>
         <JannahCallout tone="info">{t("newMuslim.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

@@ -131,7 +131,10 @@ export default function SahabaProfileScreen() {
         }
       />
       {profile ? (
-        <LearnReadingChrome surface="battles">
+        <LearnReadingChrome
+          surface="battles"
+          listenText={[profile.summary, profile.body].filter(Boolean).join("\n\n")}
+        >
           <Stagger>
             <Card padding="three">
               <View style={styles.header}>

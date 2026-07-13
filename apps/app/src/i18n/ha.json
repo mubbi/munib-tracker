@@ -1007,7 +1007,12 @@
     "decrease": "Rage text size",
     "increase": "Ƙara text size",
     "reset": "Sake saita text size",
-    "sizeDefault": "Varsashekaraan"
+    "sizeDefault": "Varsashekaraan",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "Raba",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "Koyi",
     "guideReadAt": "Read donde Munib Tracker:",
     "preparing": "Raba…",
-    "tapToShare": "Dokunun  pwatalaş"
+    "tapToShare": "Dokunun  pwatalaş",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "Roƙo",
@@ -2545,7 +2551,9 @@
   },
   "schedule": {
     "eyebrow": "Lokutan sallah",
-    "subtitle": "Sallar da ake wajibta, tagar sunnah, da ayyukan yau"
+    "subtitle": "Sallar da ake wajibta, tagar sunnah, da ayyukan yau",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Koyi",

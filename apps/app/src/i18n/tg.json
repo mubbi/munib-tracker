@@ -1007,7 +1007,12 @@
     "decrease": "Decrese text size",
     "increase": "Андозаи матнро зиёд кунед",
     "reset": "сбросить text size",
-    "sizeDefault": "Defult"
+    "sizeDefault": "Defult",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "Поделиться",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "Изучить",
     "guideReadAt": "Дар Munib Tracker хонед:",
     "preparing": "Sharing…",
-    "tapToShare": "Барои мубодила клик кунед"
+    "tapToShare": "Барои мубодила клик кунед",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "Supplication",
@@ -2545,7 +2551,9 @@
   },
   "schedule": {
     "eyebrow": "Время салята",
-    "subtitle": "Обязательные саляты, окна сунны и гибкие акты на сегодня"
+    "subtitle": "Обязательные саляты, окна сунны и гибкие акты на сегодня",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Изучить",

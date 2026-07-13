@@ -9,12 +9,8 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
-import {
-  ensureLaylatAlQadrContent,
-  getLaylatAlQadrSectionOrder,
-  getLaylatAlQadrTopicsBySection,
-} from "@/lib/laylat-al-qadr";
+import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
+import { getLaylatAlQadrSectionOrder, getLaylatAlQadrTopicsBySection } from "@/lib/laylat-al-qadr";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 
@@ -33,19 +29,13 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 export default function LaylatAlQadrScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion } = useEnsureContent(ensureLaylatAlQadrContent);
-  // Recompute per locale (and once content finishes loading) so translated
-  // topic titles/summaries render on switch instead of staying empty/English.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const overlayVersion = getContentOverlaysReadyVersion();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
   const topicsBySection = useMemo(
     () => getLaylatAlQadrTopicsBySection(),
-    [i18n.language, contentVersion],
+    [i18n.language, overlayVersion],
   );
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const sectionOrder = useMemo(
-    () => getLaylatAlQadrSectionOrder(),
-    [i18n.language, contentVersion],
-  );
+  const sectionOrder = getLaylatAlQadrSectionOrder();
 
   return (
     <ScreenLayout
@@ -55,7 +45,7 @@ export default function LaylatAlQadrScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/laylat-al-qadr" />
-      <Stagger key={`laylat-al-qadr-${contentVersion}`}>
+      <Stagger>
         <JannahCallout tone="info">{t("laylatAlQadr.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

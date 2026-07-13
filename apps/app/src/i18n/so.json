@@ -1007,7 +1007,12 @@
     "decrease": "Decrese text size",
     "increase": "gudhcrese text size",
     "reset": "dib u deji text size",
-    "sizeDefault": "Defult"
+    "sizeDefault": "Defult",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "La wadaag",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "Baro",
     "guideReadAt": "Ku akhri Munib Tracker:",
     "preparing": "Shrgudhg…",
-    "tapToShare": "Taabo si aad u wadaagto"
+    "tapToShare": "Taabo si aad u wadaagto",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "Supplictiku",
@@ -2545,7 +2551,9 @@
   },
   "schedule": {
     "eyebrow": "Waqtiyada salah",
-    "subtitle": "Salaha waajibka ah, daaqadaha sunnada iyo cibaadada maanta"
+    "subtitle": "Salaha waajibka ah, daaqadaha sunnada iyo cibaadada maanta",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Baro",

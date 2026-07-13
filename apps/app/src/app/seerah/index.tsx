@@ -3,6 +3,7 @@ import { SymbolView } from "expo-symbols";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -33,6 +34,10 @@ export default function SeerahScreen() {
     () => localizeList(seerahEvents, overlayList("SEERAH_EVENTS")),
     [i18n.language, seerahEvents],
   );
+  const listenText = useMemo(
+    () => events.map((event) => `${event.title}. ${event.body}`).join("\n\n"),
+    [events],
+  );
 
   return (
     <ScreenLayout
@@ -42,57 +47,59 @@ export default function SeerahScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/seerah" />
-      <Stagger>
-        {events.map((event, index) => (
-          <View key={event.id} style={styles.row}>
-            <View style={styles.railColumn}>
-              <View style={[styles.dot, { backgroundColor: colors.accent }]} />
-              {index < events.length - 1 ? (
-                <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
-              ) : null}
-            </View>
-            <Card padding="three" style={styles.card}>
-              <View style={styles.badges}>
-                <Pill
-                  label={t("seerah.ceBadge", { year: event.year })}
-                  compact
-                  color={colors.accentText}
-                  background={tokens.accentSoft}
-                />
-                {event.ah != null ? (
-                  <Pill
-                    label={t("seerah.ahBadge", { ah: event.ah })}
-                    compact
-                    color={tokens.status.success.color}
-                    background={tokens.status.success.soft}
-                  />
-                ) : null}
-                {event.location ? (
-                  <View style={styles.location}>
-                    <SymbolView
-                      name={{ ios: "mappin", android: "place", web: "place" }}
-                      size={11}
-                      tintColor={colors.mutedForeground}
-                    />
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {event.location}
-                    </ThemedText>
-                  </View>
+      <LearnReadingChrome surface="battles" listenText={listenText}>
+        <Stagger>
+          {events.map((event, index) => (
+            <View key={event.id} style={styles.row}>
+              <View style={styles.railColumn}>
+                <View style={[styles.dot, { backgroundColor: colors.accent }]} />
+                {index < events.length - 1 ? (
+                  <View style={[styles.rail, { backgroundColor: tokens.hairline }]} />
                 ) : null}
               </View>
-              <ThemedText type="smallBold" style={styles.title}>
-                {event.title}
-              </ThemedText>
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {event.body}
-              </ThemedText>
-            </Card>
-          </View>
-        ))}
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
-          {t("seerah.disclaimer")}
-        </ThemedText>
-      </Stagger>
+              <Card padding="three" style={styles.card}>
+                <View style={styles.badges}>
+                  <Pill
+                    label={t("seerah.ceBadge", { year: event.year })}
+                    compact
+                    color={colors.accentText}
+                    background={tokens.accentSoft}
+                  />
+                  {event.ah != null ? (
+                    <Pill
+                      label={t("seerah.ahBadge", { ah: event.ah })}
+                      compact
+                      color={tokens.status.success.color}
+                      background={tokens.status.success.soft}
+                    />
+                  ) : null}
+                  {event.location ? (
+                    <View style={styles.location}>
+                      <SymbolView
+                        name={{ ios: "mappin", android: "place", web: "place" }}
+                        size={11}
+                        tintColor={colors.mutedForeground}
+                      />
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {event.location}
+                      </ThemedText>
+                    </View>
+                  ) : null}
+                </View>
+                <ThemedText type="smallBold" style={styles.title}>
+                  {event.title}
+                </ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {event.body}
+                </ThemedText>
+              </Card>
+            </View>
+          ))}
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
+            {t("seerah.disclaimer")}
+          </ThemedText>
+        </Stagger>
+      </LearnReadingChrome>
     </ScreenLayout>
   );
 }

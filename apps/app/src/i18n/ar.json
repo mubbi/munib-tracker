@@ -987,7 +987,12 @@
     "decrease": "تصغير حجم النص",
     "increase": "تكبير حجم النص",
     "reset": "إعادة ضبط حجم النص",
-    "sizeDefault": "افتراضي"
+    "sizeDefault": "افتراضي",
+    "listen": "استمع إلى المقال",
+    "listenStop": "إيقاف الاستماع",
+    "listenHint": "يقرأ هذه الصفحة بصوت عالٍ بلغة التطبيق باستخدام تحويل النص إلى كلام في الجهاز",
+    "listenUnavailableTitle": "الاستماع غير متاح",
+    "listenUnavailableBody": "تحويل النص إلى كلام غير متاح على هذا الجهاز. تأكد من تثبيت صوت للغتك في إعدادات النظام."
   },
   "share": {
     "dialogTitle": "مشاركة",
@@ -1008,6 +1013,7 @@
     "sectionNames": "أسماء الله الحسنى",
     "sectionAchievement": "إنجاز",
     "sectionGuide": "تعلّم",
+    "sectionSchedule": "جدول اليوم",
     "guideReadAt": "اقرأ في Munib Tracker:",
     "preparing": "جارٍ المشاركة…",
     "tapToShare": "اضغط للمشاركة",
@@ -2563,7 +2569,9 @@
   },
   "schedule": {
     "eyebrow": "مواقيت الصلاة",
-    "subtitle": "الفرائض ونوافذ السنن والأعمال المرنة لهذا اليوم"
+    "subtitle": "الفرائض ونوافذ السنن والأعمال المرنة لهذا اليوم",
+    "shareA11y": "مشاركة جدول اليوم كاملاً كصورة",
+    "shareMessageIntro": "جدول اليوم — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "تعلّم",

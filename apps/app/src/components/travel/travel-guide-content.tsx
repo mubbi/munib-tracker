@@ -19,6 +19,7 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -69,6 +70,18 @@ export function TravelGuideContent() {
       ),
     [t],
   );
+  const listenBody = useMemo(
+    () => [
+      ...TRAVEL_SECTIONS.map((sectionKey) => t(`travel.${sectionKey}.body`)),
+      ...obligations,
+      ...quranRefs
+        .map((ref) => ref.excerpt)
+        .filter((excerpt): excerpt is string => Boolean(excerpt)),
+      ...hadithRefs.map((ref) => ref.excerpt),
+    ],
+    [hadithRefs, obligations, quranRefs, t],
+  );
+  useRegisterLearnListenText(listenBody);
 
   const handleMarkExcused = () => {
     void setDayExcused("travel");

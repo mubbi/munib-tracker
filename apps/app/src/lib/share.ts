@@ -16,4 +16,5 @@ export {
   formatGuideShare,
   formatHadithShare,
   formatReadingShare,
+  formatScheduleShare,
 } from "@/hooks/use-share-content-card";

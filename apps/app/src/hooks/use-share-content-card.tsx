@@ -7,9 +7,18 @@ import { ShareContentSnapshot } from "@/components/share/share-content-snapshot"
 import { ShareGuideContent } from "@/components/share/share-guide-content";
 import { ShareHadithContent } from "@/components/share/share-hadith-content";
 import { ShareReadingContent } from "@/components/share/share-reading-content";
+import {
+  ShareScheduleContent,
+  type ShareScheduleEntry,
+} from "@/components/share/share-schedule-content";
 import { absoluteUrl } from "@/config/seo";
 import { useShareSnapshotWidth } from "@/hooks/use-share-snapshot-width";
 import i18n from "@/i18n";
+import {
+  groupScheduleItemsInOrder,
+  SCHEDULE_GROUP_LABEL_KEY,
+  scheduleGroupFor,
+} from "@/lib/schedule-ui";
 import type { ShareableReading } from "@/lib/share";
 import { contentShareFilename } from "@/lib/share/shareFilename";
 import { formatShareExportStamp, SHARE_PROOF_QR_COUNT } from "@/lib/share/shareProofLayout";
@@ -40,7 +49,15 @@ export type ShareContentBody =
     }
   | { kind: "hadith"; arabic: string; english: string; reference: string }
   | { kind: "achievement"; title: string; description: string; trackLabel: string; level: number }
-  | { kind: "guide"; title: string; summary: string; excerpt?: string; url: string };
+  | { kind: "guide"; title: string; summary: string; excerpt?: string; url: string }
+  | {
+      kind: "schedule";
+      dateLabel: string;
+      locationLabel?: string;
+      items: ShareScheduleEntry[];
+      nextScheduleId: string | null;
+      nextIn?: string;
+    };
 
 export type ShareContentPayload = {
   message: string;
@@ -156,6 +173,44 @@ export function formatGuideShare({
   return appendShareBranding(lines.join("\n"));
 }
 
+/** Formats today's complete prayer schedule for the native share sheet. */
+export function formatScheduleShare({
+  dateLabel,
+  locationLabel,
+  items,
+  nextScheduleId,
+  nextIn,
+}: {
+  dateLabel: string;
+  locationLabel?: string;
+  items: ShareScheduleEntry[];
+  nextScheduleId: string | null;
+  nextIn?: string;
+}): string {
+  const lines = [i18n.t("schedule.shareMessageIntro", { date: dateLabel }), ""];
+  if (locationLabel) lines.push(locationLabel, "");
+
+  const groups = groupScheduleItemsInOrder(items, (id) =>
+    scheduleGroupFor(id as Parameters<typeof scheduleGroupFor>[0]),
+  );
+
+  for (const group of groups) {
+    lines.push(i18n.t(SCHEDULE_GROUP_LABEL_KEY[group.group]));
+    for (const item of group.items) {
+      const suffix =
+        item.status === "active"
+          ? ` · ${i18n.t("home.scheduleCurrent")}`
+          : nextScheduleId !== null && item.id === nextScheduleId && nextIn
+            ? ` · ${nextIn}`
+            : "";
+      lines.push(`${item.name}  ${item.time}${suffix}`);
+    }
+    lines.push("");
+  }
+
+  return appendShareBranding(lines.join("\n").trimEnd());
+}
+
 function renderShareBody(content: ShareContentBody) {
   switch (content.kind) {
     case "reading":
@@ -193,6 +248,16 @@ function renderShareBody(content: ShareContentBody) {
           summary={content.summary}
           excerpt={content.excerpt}
           url={content.url}
+        />
+      );
+    case "schedule":
+      return (
+        <ShareScheduleContent
+          dateLabel={content.dateLabel}
+          locationLabel={content.locationLabel}
+          items={content.items}
+          nextScheduleId={content.nextScheduleId}
+          nextIn={content.nextIn}
         />
       );
   }

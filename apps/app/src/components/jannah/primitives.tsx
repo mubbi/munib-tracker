@@ -11,6 +11,7 @@ import {
   HadithCitationBookmarkButton,
   QuranAyahBookmarkButton,
 } from "@/components/jannah/bookmark-button";
+import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { useReadingTypography } from "@/components/reading-typography-context";
 import { ThemedText } from "@/components/themed-text";
 import { Card } from "@/components/ui/card";
@@ -188,6 +189,7 @@ export function JannahQuickLinkGrid({
 export function JannahTakeaway({ text }: { text: string }) {
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
+  useRegisterLearnListenText(text);
 
   return (
     <View
@@ -220,6 +222,7 @@ export function JannahBody({
   uniform?: boolean;
 }) {
   const { sizes } = useReadingTypography();
+  useRegisterLearnListenText(paragraphs);
 
   return (
     <View style={styles.bodyBlock}>
@@ -343,6 +346,7 @@ export function JannahActionSteps({ steps }: { steps: string[] }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
+  useRegisterLearnListenText(steps);
 
   return (
     <Card padding="three">

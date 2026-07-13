@@ -9,9 +9,8 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import {
-  ensureIslamicFinanceContent,
   getIslamicFinanceSectionOrder,
   getIslamicFinanceTopicsBySection,
 } from "@/lib/islamic-finance";
@@ -34,17 +33,13 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 export default function FinanceScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion } = useEnsureContent(ensureIslamicFinanceContent);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const overlayVersion = getContentOverlaysReadyVersion();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
   const topicsBySection = useMemo(
     () => getIslamicFinanceTopicsBySection(),
-    [i18n.language, contentVersion],
+    [i18n.language, overlayVersion],
   );
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const sectionOrder = useMemo(
-    () => getIslamicFinanceSectionOrder(),
-    [i18n.language, contentVersion],
-  );
+  const sectionOrder = getIslamicFinanceSectionOrder();
 
   return (
     <ScreenLayout
@@ -54,7 +49,7 @@ export default function FinanceScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/finance" />
-      <Stagger key={`finance-${contentVersion}`}>
+      <Stagger>
         <JannahCallout tone="info">{t("finance.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

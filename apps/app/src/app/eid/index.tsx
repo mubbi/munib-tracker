@@ -9,12 +9,8 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
-import {
-  ensureEidGuideContent,
-  getEidGuideSectionOrder,
-  getEidGuideTopicsBySection,
-} from "@/lib/eid-guide";
+import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
+import { getEidGuideSectionOrder, getEidGuideTopicsBySection } from "@/lib/eid-guide";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 
@@ -30,14 +26,14 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 export default function EidScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion } = useEnsureContent(ensureEidGuideContent);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  // Topic list is sync; overlay version re-localizes titles when a locale pack lands.
+  const overlayVersion = getContentOverlaysReadyVersion();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
   const topicsBySection = useMemo(
     () => getEidGuideTopicsBySection(),
-    [i18n.language, contentVersion],
+    [i18n.language, overlayVersion],
   );
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const sectionOrder = useMemo(() => getEidGuideSectionOrder(), [i18n.language, contentVersion]);
+  const sectionOrder = getEidGuideSectionOrder();
 
   return (
     <ScreenLayout
@@ -47,9 +43,7 @@ export default function EidScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/eid" />
-      {/* Remount once the lazy corpus is ready so section rows aren't inserted
-          mid-entrance (first visit used to leave them empty / stuck). */}
-      <Stagger key={`eid-${contentVersion}`}>
+      <Stagger>
         <JannahCallout tone="info">{t("eid.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

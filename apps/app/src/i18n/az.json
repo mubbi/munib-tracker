@@ -1007,7 +1007,12 @@
     "decrease": "Decrese text size",
     "increase": "içindəcrese text size",
     "reset": "sıfırl text size",
-    "sizeDefault": "Defult"
+    "sizeDefault": "Defult",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "Paylaş",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "Öyrən",
     "guideReadAt": "Munib Tracker-də oxuyun:",
     "preparing": "Shriçindəg…",
-    "tapToShare": "Paylaşmaq üçün toxunun"
+    "tapToShare": "Paylaşmaq üçün toxunun",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "Supplictiüzərində",
@@ -2545,7 +2551,9 @@
   },
   "schedule": {
     "eyebrow": "Namaz vaxtları",
-    "subtitle": "Bu gün üçün fərz namazlar, sünna pəncərələri və əlavə ibadətlər"
+    "subtitle": "Bu gün üçün fərz namazlar, sünna pəncərələri və əlavə ibadətlər",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Öyrən",

@@ -1,4 +1,5 @@
 import { type Href, useRouter } from "expo-router";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
@@ -19,6 +20,16 @@ export default function LearnQuranVocabularyScreen() {
   const { t } = useTranslation();
   useEnsureContent(ensureQuranGuideContent);
   const words = getQuranGuideVocabulary();
+  const listenText = useMemo(
+    () =>
+      [
+        t("learnQuran.vocabIntro"),
+        ...words.map((word) =>
+          [word.transliteration, word.meaning, word.example].filter(Boolean).join(". "),
+        ),
+      ].join("\n\n"),
+    [t, words],
+  );
 
   return (
     <ScreenLayout
@@ -33,7 +44,7 @@ export default function LearnQuranVocabularyScreen() {
       <Stagger>
         <JannahCallout tone="info">{t("learnQuran.vocabIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="learn_quran">
+        <LearnReadingChrome surface="learn_quran" listenText={listenText}>
           <Card padding="three">
             <SectionHeader
               title={t("learnQuran.vocabListTitle")}

@@ -9,10 +9,10 @@ import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
+import { getContentOverlaysReadyVersion } from "@/lib/content-overlay-registry";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureRuqyahContent, getRuqyahSectionOrder, getRuqyahTopicsBySection } from "@/lib/ruqyah";
+import { getRuqyahSectionOrder, getRuqyahTopicsBySection } from "@/lib/ruqyah";
 
 const SECTION_ICONS: Record<string, AppIcon> = {
   basics: { ios: "book.fill", android: "menu_book", web: "menu_book" },
@@ -24,14 +24,13 @@ const SECTION_ICONS: Record<string, AppIcon> = {
 export default function RuqyahScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion } = useEnsureContent(ensureRuqyahContent);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
+  const overlayVersion = getContentOverlaysReadyVersion();
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or overlay packs change
   const topicsBySection = useMemo(
     () => getRuqyahTopicsBySection(),
-    [i18n.language, contentVersion],
+    [i18n.language, overlayVersion],
   );
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
-  const sectionOrder = useMemo(() => getRuqyahSectionOrder(), [i18n.language, contentVersion]);
+  const sectionOrder = getRuqyahSectionOrder();
 
   return (
     <ScreenLayout
@@ -41,7 +40,7 @@ export default function RuqyahScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/ruqyah" />
-      <Stagger key={`ruqyah-${contentVersion}`}>
+      <Stagger>
         <JannahCallout tone="info">{t("ruqyah.intro")}</JannahCallout>
 
         {sectionOrder.map((section) => {

@@ -1007,7 +1007,12 @@
     "decrease": "Decrease teks ukuran",
     "increase": "Increase teks ukuran",
     "reset": "Set semula text size",
-    "sizeDefault": "Varsayılan"
+    "sizeDefault": "Varsayılan",
+    "listen": "Listen to article",
+    "listenStop": "Stop listening",
+    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
+    "listenUnavailableTitle": "Listening unavailable",
+    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
   },
   "share": {
     "dialogTitle": "Bagikan",
@@ -1031,7 +1036,8 @@
     "sectionGuide": "Belajar",
     "guideReadAt": "Read di Munib Tracker:",
     "preparing": "Membagikan…",
-    "tapToShare": "Ketuk ke bagikan"
+    "tapToShare": "Ketuk ke bagikan",
+    "sectionSchedule": "Today's schedule"
   },
   "dua": {
     "eyebrow": "Dua",
@@ -2557,7 +2563,9 @@
   },
   "schedule": {
     "eyebrow": "Waktu solat",
-    "subtitle": "Solat fardu, tetingkap sunnah, dan amalan fleksibel untuk hari ini"
+    "subtitle": "Solat fardu, tetingkap sunnah, dan amalan fleksibel untuk hari ini",
+    "shareA11y": "Share today's complete schedule as an image",
+    "shareMessageIntro": "Today's schedule — {{date}}"
   },
   "salahGuide": {
     "eyebrow": "Belajar",

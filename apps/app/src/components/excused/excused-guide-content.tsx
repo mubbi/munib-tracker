@@ -8,6 +8,7 @@ import { StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahBody } from "@/components/jannah/primitives";
+import { useRegisterLearnListenText } from "@/components/learn-tts-context";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -58,6 +59,11 @@ export function ExcusedGuideContent({ reason }: ExcusedGuideContentProps) {
       Array.from({ length: config.obligationCount }, (_, index) => t(`${ns}.obligations.${index}`)),
     [config.obligationCount, ns, t],
   );
+  const listenExtras = useMemo(
+    () => [...hadithRefs.map((ref) => ref.excerpt), ...obligations],
+    [hadithRefs, obligations],
+  );
+  useRegisterLearnListenText(listenExtras);
 
   const handleMarkExcused = () => {
     void setDayExcused(reason);

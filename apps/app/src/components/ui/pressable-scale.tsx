@@ -81,6 +81,12 @@ function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
     } else {
       // Box model + host-only size (width/height) so %-based tiles size correctly.
       hostStyle[key] = value;
+      // Fixed pixel wells (topbar / Explore): also size the inner so centering and
+      // absolute badges resolve against the well. Percentage widths stay host-only
+      // so flex grids are not double-shrunk.
+      if ((key === "width" || key === "height") && typeof value === "number") {
+        innerStyle[key] = value;
+      }
     }
   }
   return { hostStyle: hostStyle as ViewStyle, innerStyle: innerStyle as ViewStyle };
@@ -208,8 +214,14 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
 });
 
 const styles = StyleSheet.create({
-  // Fill the host so column/card pressables stretch; shrink-wrapped hosts stay content-sized.
+  // Fill fixed-size hosts (Explore wells, hero topbar buttons) so
+  // alignItems/justifyContent on the inner can center children. When the host
+  // height is auto, RN treats percentage height as auto — shrink-wrapped
+  // pressables stay content-sized. Numeric width/height are also copied onto the
+  // inner in splitRippleHostStyles for platforms where % fill is unreliable.
   inner: {
     alignSelf: "stretch",
+    width: "100%",
+    height: "100%",
   },
 });

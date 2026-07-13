@@ -426,7 +426,9 @@ function HeroIconButton({
           !hasLiquidGlass && { backgroundColor: Brand.onHeroMutedSurface },
         ]}
       >
-        <SymbolView name={icon} size={18} tintColor={Brand.heroText} />
+        <View style={styles.iconButtonGlyph}>
+          <SymbolView name={icon} size={18} tintColor={Brand.heroText} />
+        </View>
         {badgeCount > 0 ? (
           <View style={styles.badge}>
             <ThemedText type="caption" style={styles.badgeText}>
@@ -502,6 +504,11 @@ const styles = StyleSheet.create({
     height: 42,
     borderRadius: Radius.md,
     borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  iconButtonGlyph: {
+    ...StyleSheet.absoluteFill,
     alignItems: "center",
     justifyContent: "center",
   },

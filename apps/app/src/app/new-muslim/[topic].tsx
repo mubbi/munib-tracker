@@ -7,13 +7,11 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureNewMuslimContent, getNewMuslimTopic, getNewMuslimTopics } from "@/lib/new-muslim";
+import { getNewMuslimTopic, getNewMuslimTopics } from "@/lib/new-muslim";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
-  await ensureNewMuslimContent();
+export function generateStaticParams() {
   return getNewMuslimTopics().map((topic) => ({ topic: topic.id }));
 }
 
@@ -21,7 +19,6 @@ export default function NewMuslimTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureNewMuslimContent);
   const topic = getNewMuslimTopic(topicId);
 
   const detailPath = topic ? `/new-muslim/${topic.id}` : "/new-muslim";
@@ -60,7 +57,7 @@ export default function NewMuslimTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("newMuslim.notFound")}

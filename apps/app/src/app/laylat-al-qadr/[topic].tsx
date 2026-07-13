@@ -7,17 +7,11 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
-import { useEnsureContent } from "@/hooks/use-ensure-content";
-import {
-  ensureLaylatAlQadrContent,
-  getLaylatAlQadrTopic,
-  getLaylatAlQadrTopics,
-} from "@/lib/laylat-al-qadr";
+import { getLaylatAlQadrTopic, getLaylatAlQadrTopics } from "@/lib/laylat-al-qadr";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
-export async function generateStaticParams(): Promise<Array<{ topic: string }>> {
-  await ensureLaylatAlQadrContent();
+export function generateStaticParams() {
   return getLaylatAlQadrTopics().map((topic) => ({ topic: topic.id }));
 }
 
@@ -25,7 +19,6 @@ export default function LaylatAlQadrTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureLaylatAlQadrContent);
   const topic = getLaylatAlQadrTopic(topicId);
 
   const detailPath = topic ? `/laylat-al-qadr/${topic.id}` : "/laylat-al-qadr";
@@ -64,7 +57,7 @@ export default function LaylatAlQadrTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("laylatAlQadr.notFound")}
