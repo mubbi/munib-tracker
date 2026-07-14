@@ -101,7 +101,7 @@ struct WatchNextPrayerComplicationView: View {
   private var inlineBody: some View {
     let line = section?.lockScreenLine
       ?? [prayerName, countdown].filter { !$0.isEmpty }.joined(separator: " · ")
-    Text(isLuminanceReduced ? prayerName : line)
+    return Text(isLuminanceReduced ? prayerName : line)
   }
 
   private var circularBody: some View {
