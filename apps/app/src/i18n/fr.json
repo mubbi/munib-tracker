@@ -1543,7 +1543,20 @@
     "apply": "Appliquer à mes comptoirs",
     "disclaimer": "Il s'agit uniquement d'une estimation. Les décisions concernant le rattrapage des prières manquées varient – ​​veuillez consulter un érudit compétent pour votre situation.",
     "confirmTitle": "Appliquer une estimation ?",
-    "confirmMsg": "Ceci remplace le décompte de qaza restant pour chaque prière fard et Witr par l'estimation ci-dessus. Les décomptes terminés sont conservés."
+    "confirmMsg": "Ceci remplace le décompte de qaza restant pour chaque prière fard et Witr par l'estimation ci-dessus. Les décomptes terminés sont conservés.",
+    "yearsPrayedHint": "Vous êtes tenu(e) depuis environ {{obligatedYears}} ans — les années de salah régulière ne peuvent pas dépasser cela.",
+    "enterAgePrompt": "Saisissez votre âge actuel ci-dessus pour voir une estimation.",
+    "resultBlocked": "Corrigez les champs surlignés pour débloquer une estimation.",
+    "fixGuideTitle": "Vérifiez vos chiffres",
+    "fixGuideBody": "Certaines valeurs ne concordent pas ; le calculateur ne peut pas encore estimer la salah manquée. Corrigez les champs ci-dessous.",
+    "zeroResultTitle": "Aucun jour manqué estimé",
+    "zeroResultBody": "D’après ces chiffres, les années de salah régulière couvrent la période depuis la puberté. Réduisez « années de salah régulière » si vous avez encore du qaza.",
+    "validation": {
+      "needCurrentAge": "Saisissez votre âge actuel pour estimer la salah manquée.",
+      "pubertyAfterAge": "L’âge de la puberté ne peut pas être postérieur à votre âge actuel.",
+      "yearsPrayedExceed": "Les années de salah ({{entered}}) ne peuvent pas dépasser les années depuis la puberté ({{obligatedYears}}).",
+      "exemptExceedsYear": "Les jours d’exonération ({{entered}}) ne peuvent pas dépasser la durée d’année choisie ({{maxDays}})."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -4667,7 +4680,7 @@
     "disclaimer": "Révision éducative uniquement — pas un classement spirituel. Préférez des sources authentiques et consultez un savant pour les règles personnelles.",
     "studiedCount": "{{count}} cartes étudiées",
     "endlessHint": "Pratique sans fin",
-    "answerHint": "Choisissez une réponse pour révéler l'explication.",
+    "answerHint": "Choisissez une réponse pour révéler l’explication, ou passez à une autre carte.",
     "pickAnswer": "Choisissez d'abord une réponse",
     "nextCard": "Carte suivante",
     "correctTitle": "Bien — c'est retenu",
@@ -4700,6 +4713,8 @@
       "hadith": "Hadith",
       "quran": "Coran",
       "duas": "Duas"
-    }
+    },
+    "skipHint": "Ignorez cette carte et voyez une autre question.",
+    "skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange."
   }
 }

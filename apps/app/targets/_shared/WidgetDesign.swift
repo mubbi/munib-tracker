@@ -58,6 +58,8 @@ struct WidgetEntryRouter<Home: View>: View {
   let lockDetail: String
   let deepLink: String
   var circularLabel: String?
+  /// 0…1 closed-ring fill for accessoryCircular (e.g. fard progress / countdown urgency).
+  var circularGauge: Double?
   @ViewBuilder let home: () -> Home
 
   var body: some View {
@@ -67,7 +69,11 @@ struct WidgetEntryRouter<Home: View>: View {
     case .accessoryRectangular:
       WidgetLockRectangular(title: lockLine, detail: lockDetail, deepLink: deepLink)
     case .accessoryCircular:
-      WidgetLockCircular(label: circularLabel ?? lockLine, deepLink: deepLink)
+      WidgetLockCircular(
+        label: circularLabel ?? lockLine,
+        deepLink: deepLink,
+        gaugeValue: circularGauge
+      )
     default:
       home()
     }
@@ -164,7 +170,8 @@ struct WidgetLockRectangular: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 2) {
       Text(title)
-        .font(.subheadline.weight(.semibold))
+        .font(.headline)
+        .widgetAccentable()
         .widgetFittingText()
       Text(detail)
         .font(.caption)
@@ -190,18 +197,30 @@ struct WidgetLockInline: View {
 struct WidgetLockCircular: View {
   let label: String
   let deepLink: String
+  var gaugeValue: Double? = nil
 
   var body: some View {
     ZStack {
       if #available(iOS 16.0, *) {
         AccessoryWidgetBackground()
       }
-      Text(label)
-        .font(.caption2.weight(.semibold))
-        .minimumScaleFactor(0.55)
-        .lineLimit(2)
-        .multilineTextAlignment(.center)
-        .padding(4)
+      if let gaugeValue {
+        Gauge(value: min(max(gaugeValue, 0), 1)) {
+          Text(label)
+            .font(.caption2.weight(.semibold))
+            .minimumScaleFactor(0.55)
+            .lineLimit(2)
+            .multilineTextAlignment(.center)
+        }
+        .gaugeStyle(.accessoryCircularCapacity)
+      } else {
+        Text(label)
+          .font(.caption2.weight(.semibold))
+          .minimumScaleFactor(0.55)
+          .lineLimit(2)
+          .multilineTextAlignment(.center)
+          .padding(4)
+      }
     }
     .widgetURL(URL(string: deepLink))
   }
@@ -226,20 +245,22 @@ struct WidgetTimeline {
   }
 
   static func timeline() -> Timeline<WidgetProviderEntry> {
-    let entry = entries()
-    let minutes = entry.snapshot?.nextPrayer?.minutesUntil ?? 15
-    let interval = max(min(Double(minutes) * 60, 900), 60)
-    return Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(interval)))
+    let snapshot = WidgetSnapshotStore.load()
+    let dates = WidgetReloadSchedule.timelineDates(from: snapshot)
+    let entries = dates.map { WidgetProviderEntry(date: $0, snapshot: snapshot) }
+    let reload = WidgetReloadSchedule.nextReloadDate(from: snapshot)
+    return Timeline(entries: entries, policy: .after(reload))
   }
 }
 
 struct BasicWidgetProvider: TimelineProvider {
   func placeholder(in context: Context) -> WidgetProviderEntry {
-    WidgetProviderEntry(date: Date(), snapshot: nil)
+    WidgetProviderEntry(date: Date(), snapshot: WidgetSnapshotStore.placeholder())
   }
 
   func getSnapshot(in context: Context, completion: @escaping (WidgetProviderEntry) -> Void) {
-    completion(WidgetTimeline.entries())
+    let snapshot = WidgetSnapshotStore.load() ?? (context.isPreview ? WidgetSnapshotStore.placeholder() : nil)
+    completion(WidgetProviderEntry(date: Date(), snapshot: snapshot))
   }
 
   func getTimeline(in context: Context, completion: @escaping (Timeline<WidgetProviderEntry>) -> Void) {

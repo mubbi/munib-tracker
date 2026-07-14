@@ -1543,7 +1543,20 @@
     "apply": "Aiwatar zuwa ma'auni na",
     "disclaimer": "Wannan kiyasi ne kawai. Hukunce-hukuncen gyare-gyaren sallolin da aka rasa sun bambanta - don Allah a tuntuɓi malami mai ilimi don halin ku.",
     "confirmTitle": "Aiwatar da kimanta?",
-    "confirmMsg": "Wannan ya maye gurbin sauran adadin qaza na kowace sallah farida da Witr da kiyasin da ke sama. Ana adana ƙidayar da aka kammala."
+    "confirmMsg": "Wannan ya maye gurbin sauran adadin qaza na kowace sallah farida da Witr da kiyasin da ke sama. Ana adana ƙidayar da aka kammala.",
+    "yearsPrayedHint": "An wajabta ku kusan shekaru {{obligatedYears}} — shekarun sallah na yau da kullum ba za su iya wuce wannan ba.",
+    "enterAgePrompt": "Shigar da shekarunku na yanzu a sama don ganin ƙididdiga.",
+    "resultBlocked": "Gyara filayen da aka yi haske don buɗe ƙididdiga.",
+    "fixGuideTitle": "Duba lambobinku",
+    "fixGuideBody": "Wasu ƙima ba su daidaita ba, saboda haka kalkuleta ba ta iya ƙiyasta sallah da aka rasa ba tukuna. Gyara filaye a ƙasa.",
+    "zeroResultTitle": "Babu kwanaki da aka rasa da aka ƙiyasta",
+    "zeroResultBody": "Bisa waɗannan lambobi, shekarun sallah na yau da kullum sun rufe lokaci tun balaga. Rage «shekarun sallah na yau da kullum» idan har yanzu kuna da qaza.",
+    "validation": {
+      "needCurrentAge": "Shigar da shekarun yanzu don ƙiyasta sallah da aka rasa.",
+      "pubertyAfterAge": "Shekarun balaga ba za su iya zama bayan shekarun yanzu ba.",
+      "yearsPrayedExceed": "Shekarun sallah ({{entered}}) ba za su iya wuce shekaru tun balaga ({{obligatedYears}}) ba.",
+      "exemptExceedsYear": "Kwanakin keɓancewa ({{entered}}) ba za su iya wuce tsawon shekara da kuka zaɓa ({{maxDays}}) ba."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -4575,7 +4588,7 @@
     "disclaimer": "Sake nazarin ilimi kawai — ba matsayi na ruhaniya ba. Fi son ingantaccen tushe kuma tambayi malami don hukunce-hukuncen kai.",
     "studiedCount": "An nazarci katuna {{count}}",
     "endlessHint": "Horon da ba shi iyaka",
-    "answerHint": "Zaɓi amsa don nuna bayanin.",
+    "answerHint": "Zaɓi amsa don nuna bayanin, ko tsallake zuwa wani kati.",
     "pickAnswer": "Zaɓi amsa da farko",
     "nextCard": "Kati na gaba",
     "correctTitle": "Da kyau — an ƙulla",
@@ -4608,6 +4621,8 @@
       "hadith": "Hadisi",
       "quran": "Alkur'ani",
       "duas": "Addu'o'i"
-    }
+    },
+    "skipHint": "Tsallake wannan kati ku ga wani tambaya.",
+    "skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa."
   }
 }

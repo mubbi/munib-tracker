@@ -31,6 +31,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import { useSetMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
+import { useIsTabScreen } from "@/hooks/use-tab-screen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWebTabLayout } from "@/hooks/use-web-tab-layout";
 import {
@@ -280,6 +281,8 @@ export function MiniPlayer() {
 // ── Compact bar ──────────────────────────────────────────────────────────────
 
 function CompactPlayer({ onExpand }: { onExpand: () => void }) {
+  const insets = useSafeAreaInsets();
+  const inTabs = useIsTabScreen();
   const tabBarOffset = useTabBarOffset();
   const { sideRailWidth } = useWebTabLayout();
   const setMiniPlayerInset = useSetMiniPlayerInset();
@@ -287,6 +290,10 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
   const { colors, tokens } = useThemeTokens();
   const skipPreviousIcon = useSkipPreviousIcon();
   const skipNextIcon = useSkipNextIcon();
+  // Stack screens: dock flush to the screen and pad the home indicator inside the
+  // bar. Tab roots: keep sitting above the tab bar (tabBarOffset includes safe area).
+  const dockBottom = inTabs ? tabBarOffset : 0;
+  const dockSafePad = inTabs ? 0 : insets.bottom;
   const {
     current,
     isPlaying,
@@ -360,10 +367,11 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
         style={[
           styles.container,
           {
-            bottom: tabBarOffset,
+            bottom: dockBottom,
             left: sideRailWidth,
             right: 0,
             borderColor: colors.border,
+            paddingBottom: dockSafePad,
           },
         ]}
       >

@@ -41,6 +41,73 @@ export interface QazaCalculatorResult {
   byPrayer: Record<QazaPrayer, number>;
 }
 
+export type QazaCalculatorIssueCode =
+  | "needCurrentAge"
+  | "pubertyAfterAge"
+  | "yearsPrayedExceed"
+  | "exemptExceedsYear";
+
+export type QazaCalculatorField = "currentAge" | "pubertyAge" | "yearsPrayed" | "exemptDays";
+
+export interface QazaCalculatorIssue {
+  code: QazaCalculatorIssueCode;
+  field: QazaCalculatorField;
+  /** Numbers for i18n interpolation (e.g. obligatedYears, maxDays). */
+  meta?: Record<string, number>;
+}
+
+/** Days used for a lunar or solar year in the lifetime estimate. */
+export function qazaCalculatorDaysPerYear(useLunarYear = true): number {
+  return useLunarYear === false ? 365 : 354;
+}
+
+/** Whole years of prayer obligation (current age − puberty age), never negative. */
+export function qazaObligatedYears(currentAge: number, pubertyAge: number): number {
+  if (!Number.isFinite(currentAge) || currentAge <= 0) return 0;
+  return Math.max(0, currentAge - Math.max(0, pubertyAge));
+}
+
+/**
+ * Returns input problems that would silently produce a zero (or nonsense) estimate.
+ * Call before trusting `computeLifetimeMissedPrayers` for UX messaging.
+ */
+export function validateQazaCalculatorInput(input: QazaCalculatorInput): QazaCalculatorIssue[] {
+  const daysPerYear = qazaCalculatorDaysPerYear(input.useLunarYear !== false);
+  const issues: QazaCalculatorIssue[] = [];
+
+  if (!Number.isFinite(input.currentAge) || input.currentAge <= 0) {
+    issues.push({ code: "needCurrentAge", field: "currentAge" });
+    return issues;
+  }
+
+  if (input.pubertyAge > input.currentAge) {
+    issues.push({ code: "pubertyAfterAge", field: "pubertyAge" });
+  }
+
+  const obligatedYears = qazaObligatedYears(input.currentAge, input.pubertyAge);
+  if (input.yearsPrayedConsistently > obligatedYears) {
+    issues.push({
+      code: "yearsPrayedExceed",
+      field: "yearsPrayed",
+      meta: {
+        entered: input.yearsPrayedConsistently,
+        obligatedYears,
+      },
+    });
+  }
+
+  const exempt = Math.max(0, input.annualExemptDays ?? 0);
+  if (exempt > daysPerYear) {
+    issues.push({
+      code: "exemptExceedsYear",
+      field: "exemptDays",
+      meta: { entered: exempt, maxDays: daysPerYear },
+    });
+  }
+
+  return issues;
+}
+
 /**
  * Estimates lifetime missed obligatory prayers (Qaza-e-Umri).
  *
@@ -50,7 +117,7 @@ export interface QazaCalculatorResult {
  * This is an estimate only — consult a scholar.
  */
 export function computeLifetimeMissedPrayers(input: QazaCalculatorInput): QazaCalculatorResult {
-  const daysPerYear = input.useLunarYear === false ? 365 : 354;
+  const daysPerYear = qazaCalculatorDaysPerYear(input.useLunarYear !== false);
   const missedYears = Math.max(
     0,
     input.currentAge - input.pubertyAge - input.yearsPrayedConsistently,

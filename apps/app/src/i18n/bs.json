@@ -1543,7 +1543,20 @@
     "apply": "Prijavite se na moje šaltere",
     "disclaimer": "Ovo je samo procjena. Odluke o nadoknađivanju propuštenih namaza se razlikuju - konsultujte se sa stručnjakom koji je upućen u vašu situaciju.",
     "confirmTitle": "Primijeniti procjenu?",
-    "confirmMsg": "Ovo zamjenjuje preostali broj qaza za svaki farz namaz i vitr s gornjom procjenom. Završeni brojevi se čuvaju."
+    "confirmMsg": "Ovo zamjenjuje preostali broj qaza za svaki farz namaz i vitr s gornjom procjenom. Završeni brojevi se čuvaju.",
+    "yearsPrayedHint": "Obavezni ste otprilike {{obligatedYears}} godina — godine redovne namaza ne mogu premašiti ovo.",
+    "enterAgePrompt": "Unesite svoju trenutnu starost iznad da vidite procjenu.",
+    "resultBlocked": "Ispravite označena polja da otključate procjenu.",
+    "fixGuideTitle": "Provjerite svoje brojeve",
+    "fixGuideBody": "Neke vrijednosti se ne slažu, pa kalkulator još ne može procijeniti propuštenu salah. Ispravite polja ispod.",
+    "zeroResultTitle": "Nema procijenjenih propuštenih dana",
+    "zeroResultBody": "Prema ovim brojevima, godine redovne namaza pokrivaju vrijeme od puberteta. Smanjite «godine redovne namaza» ako još dugujete qazu.",
+    "validation": {
+      "needCurrentAge": "Unesite trenutnu starost da procijenite propuštenu salah.",
+      "pubertyAfterAge": "Dob puberteta ne može biti kasnija od trenutne starosti.",
+      "yearsPrayedExceed": "Godine namaza ({{entered}}) ne mogu premašiti godine od puberteta ({{obligatedYears}}).",
+      "exemptExceedsYear": "Izuzeti dani ({{entered}}) ne mogu premašiti dužinu godine koju ste odabrali ({{maxDays}})."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -4667,7 +4680,7 @@
     "disclaimer": "Samo obrazovni pregled — ne duhovni rang. Preferirajte autentične izvore i pitajte učenjaka za lične propise.",
     "studiedCount": "{{count}} kartica proučeno",
     "endlessHint": "Beskrajna vježba",
-    "answerHint": "Odaberite odgovor da otkrijete objašnjenje.",
+    "answerHint": "Odaberite odgovor da otkrijete objašnjenje, ili preskočite na drugu karticu.",
     "pickAnswer": "Prvo odaberite odgovor",
     "nextCard": "Sljedeća kartica",
     "correctTitle": "Lijepo — zapamćeno",
@@ -4700,6 +4713,8 @@
       "hadith": "Hadis",
       "quran": "Kur'an",
       "duas": "Dove"
-    }
+    },
+    "skipHint": "Preskočite ovu karticu i pogledajte drugo pitanje.",
+    "skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje."
   }
 }

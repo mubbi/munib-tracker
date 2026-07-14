@@ -6,6 +6,8 @@ private final class WatchBridge: NSObject, WCSessionDelegate {
   static let shared = WatchBridge()
   var onCommand: (() -> Void)?
 
+  private static let snapshotKey = "widget_snapshot_v1"
+
   func activate() {
     guard WCSession.isSupported() else { return }
     let session = WCSession.default
@@ -52,6 +54,18 @@ private final class WatchBridge: NSObject, WCSessionDelegate {
       }
     }
   }
+
+  /// Mirror widget snapshot to the paired watch for the companion app + face complications.
+  func pushSnapshot(_ json: String) {
+    guard WCSession.isSupported() else { return }
+    let session = WCSession.default
+    guard session.activationState == .activated else { return }
+    let payload: [String: Any] = [Self.snapshotKey: json]
+    try? session.updateApplicationContext(payload)
+    if session.isComplicationEnabled {
+      session.transferCurrentComplicationUserInfo(payload)
+    }
+  }
 }
 
 public class MunibExternalCommandsModule: Module {
@@ -78,6 +92,11 @@ public class MunibExternalCommandsModule: Module {
 
     AsyncFunction("drainCommands") { () -> [String] in
       ExternalCommandQueue.drainAll()
+    }
+
+    AsyncFunction("pushWatchSnapshot") { (json: String) in
+      WatchBridge.shared.activate()
+      WatchBridge.shared.pushSnapshot(json)
     }
 
     AsyncFunction("pushWearSnapshot") { (json: String) in

@@ -1543,7 +1543,20 @@
     "apply": "to my counters Uygula",
     "disclaimer": "Bu diňe çaklamadyr. Geçen namazlaryň kazasy baradaky hökümler tapawutlanýar — ýagdaýyňyz üçin bilimli alyma ýüz tutuň.",
     "confirmTitle": "estimate? Uygula",
-    "confirmMsg": "Bu replaces  kalan kaza say için each fard namaz ve Vitir ile  tahmin above. Completed counts dir kept."
+    "confirmMsg": "Bu replaces  kalan kaza say için each fard namaz ve Vitir ile  tahmin above. Completed counts dir kept.",
+    "yearsPrayedHint": "Takmynan {{obligatedYears}} ýyldyr mükellefsiniz — yzygiderli namaz ýyllary muny aşup bilmez.",
+    "enterAgePrompt": "Bahalamany görmek üçin ýokarda häzirki ýaşyňyzy giriziň.",
+    "resultBlocked": "Bahalamany açmak üçin belleýilen meýdançalary düzediň.",
+    "fixGuideTitle": "Sanlaryňyzy barlaň",
+    "fixGuideBody": "Käbir bahalar gabat gelmeýär, şonuň üçin hasaplaýjy heniz sypdyrylan Salahy bahalap bilmeýär. Aşakdaky meýdançalary düzediň.",
+    "zeroResultTitle": "Bahalanan sypdyrylan gün ýok",
+    "zeroResultBody": "Bu sanlara görä, yzygiderli namaz ýyllary balagatdan bäri wagty örtýär. Entek Qazaňyz bar bolsa, «yzygiderli namaz ýyllary»ny azaltýň.",
+    "validation": {
+      "needCurrentAge": "Sypdyrylan Salahy bahalamak üçin häzirki ýaşyňyzy giriziň.",
+      "pubertyAfterAge": "Balagat ýaşy häzirki ýaşyňyzdan soň bolup bilmez.",
+      "yearsPrayedExceed": "Namaz ýyllary ({{entered}}) balagatdan bäri ýyllary ({{obligatedYears}}) aşup bilmez.",
+      "exemptExceedsYear": "Mugt günler ({{entered}}) saýlan ýylyňyzyň uzynlygyny ({{maxDays}}) aşup bilmez."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Gaza",
@@ -4575,7 +4588,7 @@
     "disclaimer": "Diňe bilimi gaýtalamak — ruhy derejelendirme däl. Ynamly çeşmeleri ileri tutuň we şahsy kararlar üçin alymdan soraň.",
     "studiedCount": "{{count}} kart öwrendi",
     "endlessHint": "Gutarmasyz tejribe",
-    "answerHint": "Düşündirişi görmek üçin jogap saýlaň.",
+    "answerHint": "Düşündirişi görmek üçin jogap saýlaň ýa-da başga karta geçiň.",
     "pickAnswer": "Ilki jogap saýlaň",
     "nextCard": "Indiki kart",
     "correctTitle": "Gowy — berkitildi",
@@ -4608,6 +4621,8 @@
       "hadith": "Hadis",
       "quran": "Guran",
       "duas": "Dogalar"
-    }
+    },
+    "skipHint": "Bu karty geçiň we başga soragy görüň.",
+    "skipDisabledHint": "Täze garyşdyrmak üçin bu soňky karta jogap beriň."
   }
 }

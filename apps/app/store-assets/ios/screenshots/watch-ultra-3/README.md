@@ -11,3 +11,5 @@ Upload these PNGs in App Store Connect → Apple Watch media (same size across a
 | `03-location.png` | Location denied empty state |
 
 Watch UI copy is English-only today — only `en/` is produced.
+
+Face **complications** (WidgetKit in `targets/munib-tracker-watch-widgets/`) are edited on the watch face in the simulator / device; the companion screenshot pipeline does not capture complication slots. Manual QA: add Next Salah / Progress / Schedule slots in Face Gallery after a native build.

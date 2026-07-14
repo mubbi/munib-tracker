@@ -1543,7 +1543,20 @@
     "apply": "pply - my counters",
     "disclaimer": "Bu yalnız təxmindir. Buraxılmış salahların qəzası barədə hökmlər fərqlidir — vəziyyətiniz üçün bilikli alimlə məsləhətləşin.",
     "confirmTitle": "pply estimte?",
-    "confirmMsg": "Bu, hər fərz salah və Witr üçün qalan qaza sayını yuxarıdakı təxminlə əvəz edir. Tamamlanan saylar qorunur."
+    "confirmMsg": "Bu, hər fərz salah və Witr üçün qalan qaza sayını yuxarıdakı təxminlə əvəz edir. Tamamlanan saylar qorunur.",
+    "yearsPrayedHint": "Təxminən {{obligatedYears}} ildir mükəlləfsiniz — müntəzəm namaz illəri bunu aşa bilməz.",
+    "enterAgePrompt": "Təxmini görmək üçün yuxarıda cari yaşınızı daxil edin.",
+    "resultBlocked": "Təxmini açmaq üçün vurğulanan sahələri düzəldin.",
+    "fixGuideTitle": "Rəqəmlərinizi yoxlayın",
+    "fixGuideBody": "Bəzi dəyərlər uyğun gəlmir, ona görə kalkulyator hələ buraxılmış salahları təxmin edə bilmir. Aşağıdakı sahələri düzəldin.",
+    "zeroResultTitle": "Təxmin edilən buraxılmış gün yoxdur",
+    "zeroResultBody": "Bu rəqəmlərə görə müntəzəm namaz illəri yetkinlikdən bəri olan müddəti örtür. Hələ qaza borcunuz varsa «müntəzəm namaz illəri»ni azaldın.",
+    "validation": {
+      "needCurrentAge": "Buraxılmış salahları təxmin etmək üçün cari yaşınızı daxil edin.",
+      "pubertyAfterAge": "Yetkinlik yaşı cari yaşınızdan sonra ola bilməz.",
+      "yearsPrayedExceed": "Namaz illəri ({{entered}}) yetkinlikdən bəri olan illəri ({{obligatedYears}}) aşa bilməz.",
+      "exemptExceedsYear": "Azad günlər ({{entered}}) seçdiyiniz il uzunluğunu ({{maxDays}}) aşa bilməz."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qz",
@@ -4575,7 +4588,7 @@
     "disclaimer": "Yalnız tədris təkrarı — ruhani reytinq deyil. Etibarlı mənbələrə üstünlük verin və şəxsi hökm üçün alimə müraciət edin.",
     "studiedCount": "{{count}} kart öyrənildi",
     "endlessHint": "Sonsuz məşq",
-    "answerHint": "İzahı görmək üçün cavab seçin.",
+    "answerHint": "İzahı görmək üçün cavab seçin və ya başqa karta keçin.",
     "pickAnswer": "Əvvəlcə cavab seçin",
     "nextCard": "Növbəti kart",
     "correctTitle": "Gözəl — yadda qaldı",
@@ -4608,6 +4621,8 @@
       "hadith": "Hədis",
       "quran": "Quran",
       "duas": "Dualar"
-    }
+    },
+    "skipHint": "Bu kartı keçin və başqa sual görün.",
+    "skipDisabledHint": "Yeni qarışdırma üçün bu son qalan karta cavab verin."
   }
 }

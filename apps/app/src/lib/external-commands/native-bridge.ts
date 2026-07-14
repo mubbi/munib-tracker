@@ -7,6 +7,7 @@ interface ExternalCommandsNativeModule {
   enqueueCommand(json: string): Promise<void>;
   drainCommands(): Promise<string[]>;
   pushWearSnapshot?(json: string): Promise<void>;
+  pushWatchSnapshot?(json: string): Promise<void>;
   activateWatchSession?(): Promise<void>;
   addListener?(event: "onCommandsAvailable", listener: () => void): { remove: () => void };
 }
@@ -63,6 +64,15 @@ export async function nativePushWearSnapshot(json: string): Promise<void> {
     await nativeModule.pushWearSnapshot(json);
   } catch {
     /* Wear API unavailable */
+  }
+}
+
+export async function nativePushWatchSnapshot(json: string): Promise<void> {
+  if (!nativeModule?.pushWatchSnapshot) return;
+  try {
+    await nativeModule.pushWatchSnapshot(json);
+  } catch {
+    /* WatchConnectivity unavailable */
   }
 }
 

@@ -1,6 +1,12 @@
 import { describe, expect, it } from "@jest/globals";
 import { TRAVEL_RAKATS } from "@munib-tracker/shared/content/travel-guide";
 import { getQuestionsForSection, LEARN_QUIZ_SECTIONS } from "@/lib/flash-cards";
+import {
+  advanceAfterAnswer,
+  advanceAfterSkip,
+  pickRandomCard,
+  startFlashDeck,
+} from "@/lib/flash-cards/flash-card-deck";
 import { mcqsFromGlossary } from "@/lib/flash-cards/from-glossary";
 import { mcqsFromTravelRakats } from "@/lib/flash-cards/from-hajj-travel";
 import { mcqsFromQuranMeta } from "@/lib/flash-cards/from-quran-meta";
@@ -12,7 +18,19 @@ import {
   sampleMcqs,
   truncateText,
 } from "@/lib/flash-cards/mcq-helpers";
+import type { StudyMcq } from "@/lib/flash-cards/types";
 import { getSurahMeta } from "@/lib/quran-meta";
+
+function fakeCard(id: string): StudyMcq {
+  return {
+    id,
+    sourceId: "aqeedah",
+    prompt: id,
+    options: ["a", "b", "c", "d"],
+    correctIndex: 0,
+    explanation: "e",
+  };
+}
 
 describe("flash-cards mcq helpers", () => {
   it("truncates long text with an ellipsis", () => {
@@ -53,6 +71,44 @@ describe("flash-cards mcq helpers", () => {
       explanation: "n/a",
     });
     expect(card).toBeNull();
+  });
+});
+
+describe("flash card deck cycle", () => {
+  const pool = [fakeCard("a"), fakeCard("b"), fakeCard("c"), fakeCard("d")];
+
+  it("starts with a shuffled remaining set and a current card", () => {
+    const deck = startFlashDeck(pool, () => 0);
+    expect(deck.remaining).toHaveLength(4);
+    expect(deck.current).not.toBeNull();
+    expect(deck.remaining.map((c) => c.id).sort()).toEqual(["a", "b", "c", "d"]);
+  });
+
+  it("does not repeat an answered card until the cycle is exhausted", () => {
+    let deck = startFlashDeck(pool, () => 0);
+    const seen = new Set<string>();
+    for (let i = 0; i < 4; i++) {
+      const id = deck.current?.id;
+      expect(id).toBeTruthy();
+      if (!id) return;
+      expect(seen.has(id)).toBe(false);
+      seen.add(id);
+      deck = advanceAfterAnswer(deck.remaining, id, pool, () => 0);
+    }
+    expect(seen.size).toBe(4);
+    expect(deck.remaining).toHaveLength(4);
+  });
+
+  it("skip keeps the card in remaining and draws a different one when possible", () => {
+    const remaining = [...pool];
+    const next = advanceAfterSkip(remaining, "a", () => 0.99);
+    expect(next.remaining).toHaveLength(4);
+    expect(next.current?.id).not.toBe("a");
+  });
+
+  it("pickRandomCard can exclude the current id", () => {
+    const picked = pickRandomCard(pool, "a", () => 0);
+    expect(picked?.id).not.toBe("a");
   });
 });
 

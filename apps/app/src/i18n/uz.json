@@ -1543,7 +1543,20 @@
     "apply": "pply -g my counters",
     "disclaimer": "Bu faqat taxmin. O‘tkazib yuborilgan salahlarni qazo qilish hukmlari turlicha — holatingiz uchun ilmli olim bilan maslahatlashing.",
     "confirmTitle": "pply estimte?",
-    "confirmMsg": "Bu har bir farz salah va Witr uchun qolgan qazo sonini yuqoridagi taxmin bilan almashtiradi. Bajarilgan sonlar saqlanadi."
+    "confirmMsg": "Bu har bir farz salah va Witr uchun qolgan qazo sonini yuqoridagi taxmin bilan almashtiradi. Bajarilgan sonlar saqlanadi.",
+    "yearsPrayedHint": "Siz taxminan {{obligatedYears}} yildan buyon mukallafsiz — muntazam namoz yillari bundan oshmasligi kerak.",
+    "enterAgePrompt": "Taxminni ko‘rish uchun yuqorida joriy yoshingizni kiriting.",
+    "resultBlocked": "Taxminni ochish uchun ajratilgan maydonlarni tuzating.",
+    "fixGuideTitle": "Raqamlaringizni tekshiring",
+    "fixGuideBody": "Ba'zi qiymatlar mos kelmaydi, shuning uchun kalkulyator hali o‘tkazib yuborilgan Salahni baholay olmaydi. Quyidagi maydonlarni tuzating.",
+    "zeroResultTitle": "Baholangan o‘tkazib yuborilgan kun yo‘q",
+    "zeroResultBody": "Bu raqamlarga ko‘ra, muntazam namoz yillari balog‘atdan keyingi davrni qamrab oladi. Agar hali Qaza bo‘lsangiz, «muntazam namoz yillari»ni kamaytiring.",
+    "validation": {
+      "needCurrentAge": "O‘tkazib yuborilgan Salahni baholash uchun joriy yoshingizni kiriting.",
+      "pubertyAfterAge": "Balog‘at yoshi joriy yoshingizdan keyin bo‘lishi mumkin emas.",
+      "yearsPrayedExceed": "Namoz yillari ({{entered}}) balog‘atdan keyingi yillardan ({{obligatedYears}}) oshmasligi kerak.",
+      "exemptExceedsYear": "Ozod kunlar ({{entered}}) tanlagan yil uzunligidan ({{maxDays}}) oshmasligi kerak."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qz",
@@ -4575,7 +4588,7 @@
     "disclaimer": "Faqat ta'limiy takrorlash — ma'naviy reyting emas. Ishonchli manbalarni afzal ko'ring va shaxsiy hukmlar uchun olimdan so'rang.",
     "studiedCount": "{{count}} karta o'rganildi",
     "endlessHint": "Cheksiz mashq",
-    "answerHint": "Tushuntirishni ko'rish uchun javob tanlang.",
+    "answerHint": "Tushuntirishni ko‘rish uchun javob tanlang yoki boshqa kartaga o‘ting.",
     "pickAnswer": "Avval javob tanlang",
     "nextCard": "Keyingi karta",
     "correctTitle": "Yaxshi — mustahkamlandi",
@@ -4608,6 +4621,8 @@
       "hadith": "Hadis",
       "quran": "Qur'on",
       "duas": "Duolar"
-    }
+    },
+    "skipHint": "Bu kartani o‘tkazib yuboring va boshqa savolni ko‘ring.",
+    "skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering."
   }
 }

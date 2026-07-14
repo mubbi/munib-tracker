@@ -13,7 +13,11 @@ import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import type { StudyMcq } from "@/lib/flash-cards";
-import { shuffleArray } from "@/lib/flash-cards";
+import {
+  advanceAfterAnswer,
+  advanceAfterSkip,
+  startFlashDeck,
+} from "@/lib/flash-cards/flash-card-deck";
 import type { AppIcon as AppIconType } from "@/lib/names-of-allah-ui";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -27,31 +31,33 @@ type FlashCardPlayerProps = {
 const LETTERS = ["A", "B", "C", "D"] as const;
 
 /**
- * Endless A/O-style flash cards — pick an answer, see feedback, then next.
- * No score, no deck length, no collections.
+ * Endless A/O-style flash cards — pick an answer (or skip), then next.
+ * Answered cards do not repeat until the remaining pool is exhausted.
+ * Opening (or pool refresh) starts a freshly shuffled random cycle.
  */
 export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const chevronForward = useChevronForward();
 
-  const [deck, setDeck] = useState<StudyMcq[]>(() => shuffleArray(pool));
-  const [deckIndex, setDeckIndex] = useState(0);
+  const [deck, setDeck] = useState(() => startFlashDeck(pool));
   const [selected, setSelected] = useState<number | null>(null);
   const [studied, setStudied] = useState(0);
   const [cardKey, setCardKey] = useState(0);
 
+  const remaining = deck.remaining;
+  const current = deck.current;
+
   useEffect(() => {
-    setDeck(shuffleArray(pool));
-    setDeckIndex(0);
+    setDeck(startFlashDeck(pool));
     setSelected(null);
     setCardKey((k) => k + 1);
   }, [pool]);
 
-  const current = deck[deckIndex] ?? null;
   const answered = selected != null;
   const wasCorrect = current != null && selected === current.correctIndex;
   const feedbackPalette = wasCorrect ? tokens.status.success : tokens.status.danger;
+  const canSkip = !answered && remaining.length > 1;
 
   const categoryLabel = useMemo(() => {
     if (!current?.categoryLabelKey) return undefined;
@@ -68,19 +74,19 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
   );
 
   const goNext = useCallback(() => {
-    if (!answered) return;
-    setStudied((n) => n + 1);
+    if (!answered || !current) return;
+    setDeck(advanceAfterAnswer(remaining, current.id, pool));
     setSelected(null);
-
-    const nextIndex = deckIndex + 1;
-    if (nextIndex >= deck.length) {
-      setDeck(shuffleArray(pool.length > 0 ? pool : deck));
-      setDeckIndex(0);
-    } else {
-      setDeckIndex(nextIndex);
-    }
+    setStudied((n) => n + 1);
     setCardKey((k) => k + 1);
-  }, [answered, deck, deckIndex, pool]);
+  }, [answered, current, remaining, pool]);
+
+  const skipCard = useCallback(() => {
+    if (!canSkip || !current) return;
+    setDeck(advanceAfterSkip(remaining, current.id));
+    setSelected(null);
+    setCardKey((k) => k + 1);
+  }, [canSkip, current, remaining]);
 
   if (!current) {
     return (
@@ -271,15 +277,28 @@ export function FlashCardPlayer({ pool, intro, footer }: FlashCardPlayerProps) {
             </ThemedText>
           )}
 
-          <Button
-            label={answered ? t("flashCards.nextCard") : t("flashCards.pickAnswer")}
-            variant="primary"
-            fullWidth
-            disabled={!answered}
-            trailingIcon={answered ? chevronForward : undefined}
-            onPress={goNext}
-            style={styles.nextButton}
-          />
+          {answered ? (
+            <Button
+              label={t("flashCards.nextCard")}
+              variant="primary"
+              fullWidth
+              trailingIcon={chevronForward}
+              onPress={goNext}
+              style={styles.nextButton}
+            />
+          ) : (
+            <Button
+              label={t("common.skip")}
+              variant="secondary"
+              fullWidth
+              disabled={!canSkip}
+              onPress={skipCard}
+              style={styles.nextButton}
+              accessibilityHint={
+                canSkip ? t("flashCards.skipHint") : t("flashCards.skipDisabledHint")
+              }
+            />
+          )}
         </Card>
       </Animated.View>
 

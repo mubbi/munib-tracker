@@ -45,6 +45,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-1.12 | More translations & reciters | `scripts/build-data/`, `REMOTE_EDITIONS` |
 | NF-1.13 | Side-by-side translations | `secondaryTranslationId` |
 | NF-1.14 | Offline download manager | `/settings/offline-data` |
+| NF-1.35 | Immersive Qur'an reading (web fullscreen + iOS/Android system bars) | `use-reading-fullscreen`, `reading-toolbar`, `screen-layout` |
 
 ---
 
@@ -100,7 +101,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-2.11 | Custom adhkar builder | `custom-adhkar-store`, `/adhkar-builder` (optional private images via `/user-media`; dictate Arabic/transliteration/meaning via `expo-speech-recognition` — requires a native dev/production build) |
 | NF-2.12 | Prayer journal / khushu | `khushu-store`, `/journal` |
 | NF-2.13 | Tahajjud streak | `computePrayerStreak`, `/tahajjud` |
-| NF-2.14 | Apple Watch / Wear OS | `targets/munib-tracker-watch`, `modules/munib-wear` |
+| NF-2.14 | Apple Watch / Wear OS | `targets/munib-tracker-watch`, `targets/munib-tracker-watch-widgets`, `modules/munib-wear` |
 | NF-2.15 | Siri / Assistant shortcuts | `targets/munib-tracker-intents`, `external-commands` |
 | NF-2.17 | App lock (PIN / biometrics) | `features/pin-lock`, `/settings/app-lock` |
 | NF-2.19 | Sync conflict resolution UI | SyncMetadata outcome, profile merge |

@@ -1543,7 +1543,20 @@
     "apply": "Omba kwa vihesabio vyangu",
     "disclaimer": "Haya ni makadirio pekee. Hukumu za kutunga maombi ambayo hayakujibiwa hutofautiana - tafadhali wasiliana na mwanachuoni mwenye ujuzi kuhusu hali yako.",
     "confirmTitle": "Je, ungependa kutumia makadirio?",
-    "confirmMsg": "Hii inachukua nafasi ya hesabu ya qaza iliyobaki kwa kila swalah ya fardhi na Witr kwa makadirio ya hapo juu. Hesabu zilizokamilishwa huhifadhiwa."
+    "confirmMsg": "Hii inachukua nafasi ya hesabu ya qaza iliyobaki kwa kila swalah ya fardhi na Witr kwa makadirio ya hapo juu. Hesabu zilizokamilishwa huhifadhiwa.",
+    "yearsPrayedHint": "Umekuwa na wajibu kwa takriban miaka {{obligatedYears}} — miaka ya salah ya kawaida haiwezi kuzidi hii.",
+    "enterAgePrompt": "Ingiza umri wako wa sasa hapo juu ili kuona makadirio.",
+    "resultBlocked": "Sahihisha sehemu zilizochorwa ili kufungua makadirio.",
+    "fixGuideTitle": "Angalia namba zako",
+    "fixGuideBody": "Baadhi ya thamani hazilingani, kwa hivyo kikokotoo bado hakiwezi kukadiria salah zilizokosekana. Sahihisha sehemu zilizo hapa chini.",
+    "zeroResultTitle": "Hakuna siku zilizokosekana zilizokadiriwa",
+    "zeroResultBody": "Kulingana na namba hizi, miaka ya salah ya kawaida inafunika muda tangu baligh. Punguza «miaka ya salah ya kawaida» ikiwa bado una qaza.",
+    "validation": {
+      "needCurrentAge": "Ingiza umri wa sasa ili kukadiria salah zilizokosekana.",
+      "pubertyAfterAge": "Umri wa baligh hauwezi kuwa baada ya umri wako wa sasa.",
+      "yearsPrayedExceed": "Miaka ya salah ({{entered}}) haiwezi kuzidi miaka tangu baligh ({{obligatedYears}}).",
+      "exemptExceedsYear": "Siku zisizohusika ({{entered}}) haziwezi kuzidi urefu wa mwaka uliochagua ({{maxDays}})."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -4667,7 +4680,7 @@
     "disclaimer": "Mapitio ya kielimu tu — si orodha ya kiroho. Pendekeza vyanzo sahihi na uulize mwanachuoni kwa hukumu za kibinafsi.",
     "studiedCount": "Kadi {{count}} zimesomwa",
     "endlessHint": "Mazoezi yasiyo na mwisho",
-    "answerHint": "Chagua jibu ili kuonyesha maelezo.",
+    "answerHint": "Chagua jibu ili kuonyesha maelezo, au ruka hadi kadi nyingine.",
     "pickAnswer": "Chagua jibu kwanza",
     "nextCard": "Kadi ifuatayo",
     "correctTitle": "Vizuri — imekaza",
@@ -4700,6 +4713,8 @@
       "hadith": "Hadithi",
       "quran": "Qur'ani",
       "duas": "Dua"
-    }
+    },
+    "skipHint": "Ruka kadi hii na uone swali lingine.",
+    "skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya."
   }
 }

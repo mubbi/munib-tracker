@@ -8,9 +8,11 @@ import {
   computeQazaEta,
   estimateQazaDailyMinutes,
   matchQazaPlanPreset,
+  qazaObligatedYears,
   suggestDailyQazaTargets,
   sumQazaDailyProgress,
   sumQazaScheduleTargets,
+  validateQazaCalculatorInput,
 } from "./qaza";
 
 describe.concurrent("computeLifetimeMissedPrayers", () => {
@@ -54,6 +56,75 @@ describe.concurrent("computeLifetimeMissedPrayers", () => {
     });
     expect(result.missedYears).toBe(0);
     expect(result.missedDays).toBe(0);
+  });
+});
+
+describe.concurrent("validateQazaCalculatorInput", () => {
+  it("asks for current age when missing", () => {
+    expect(
+      validateQazaCalculatorInput({
+        currentAge: 0,
+        pubertyAge: 15,
+        yearsPrayedConsistently: 0,
+      }),
+    ).toEqual([{ code: "needCurrentAge", field: "currentAge" }]);
+  });
+
+  it("flags puberty after current age", () => {
+    expect(
+      validateQazaCalculatorInput({
+        currentAge: 14,
+        pubertyAge: 15,
+        yearsPrayedConsistently: 0,
+      }),
+    ).toContainEqual({ code: "pubertyAfterAge", field: "pubertyAge" });
+  });
+
+  it("flags years prayed beyond years since puberty", () => {
+    const issues = validateQazaCalculatorInput({
+      currentAge: 16,
+      pubertyAge: 15,
+      yearsPrayedConsistently: 12,
+    });
+    expect(issues).toContainEqual({
+      code: "yearsPrayedExceed",
+      field: "yearsPrayed",
+      meta: { entered: 12, obligatedYears: 1 },
+    });
+  });
+
+  it("flags exempt days above the selected year length", () => {
+    expect(
+      validateQazaCalculatorInput({
+        currentAge: 30,
+        pubertyAge: 15,
+        yearsPrayedConsistently: 0,
+        annualExemptDays: 566,
+        useLunarYear: true,
+      }),
+    ).toContainEqual({
+      code: "exemptExceedsYear",
+      field: "exemptDays",
+      meta: { entered: 566, maxDays: 354 },
+    });
+  });
+
+  it("returns no issues for a coherent estimate", () => {
+    expect(
+      validateQazaCalculatorInput({
+        currentAge: 30,
+        pubertyAge: 15,
+        yearsPrayedConsistently: 5,
+        annualExemptDays: 54,
+      }),
+    ).toEqual([]);
+  });
+});
+
+describe.concurrent("qazaObligatedYears", () => {
+  it("uses current age minus puberty age", () => {
+    expect(qazaObligatedYears(16, 15)).toBe(1);
+    expect(qazaObligatedYears(0, 15)).toBe(0);
   });
 });
 

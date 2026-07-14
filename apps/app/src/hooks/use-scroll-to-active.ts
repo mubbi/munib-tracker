@@ -8,7 +8,7 @@ import type {
 } from "react-native";
 import { useWindowDimensions } from "react-native";
 
-import { useMiniPlayerInset, useTabBarOffset } from "@/hooks/use-content-bottom-inset";
+import { useObstructedBottomInset } from "@/hooks/use-content-bottom-inset";
 
 /**
  * Scrolls a `ScrollView` so the card matching `activeKey` is brought into view.
@@ -102,11 +102,9 @@ export type ScrollToActiveIndexConfig = {
 /** Compute a viewPosition that keeps rows above the docked mini-player. */
 export function useScrollFollowViewPosition(explicit?: number): number {
   const { height } = useWindowDimensions();
-  const miniPlayerInset = useMiniPlayerInset();
-  const tabBarOffset = useTabBarOffset();
+  const obstructed = useObstructedBottomInset();
   if (explicit != null) return explicit;
   if (height <= 0) return 0.35;
-  const obstructed = tabBarOffset + miniPlayerInset;
   return Math.max(0.22, Math.min(0.45, 0.5 - obstructed / height / 2));
 }
 

@@ -19,6 +19,12 @@ async function writeIosSnapshot(json: string): Promise<void> {
   } catch {
     /* ExtensionStorage unavailable in Expo Go. */
   }
+  try {
+    const { nativePushWatchSnapshot } = await import("@/lib/external-commands/native-bridge");
+    await nativePushWatchSnapshot(json);
+  } catch {
+    /* WatchConnectivity unavailable in Expo Go. */
+  }
 }
 
 function normalizeWidgetSnapshot(

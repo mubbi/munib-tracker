@@ -16,6 +16,7 @@ import {
   getFacebookAppId,
   getFacebookRedirectUri,
   getGoogleRedirectUri,
+  isAppleConfigured,
   isFacebookConfigured,
   isGoogleConfigured,
   resolveGoogleClientId,
@@ -59,7 +60,9 @@ export function useSocialAuth() {
   const { isGuest, linkProvider, signInWithProvider, completeSocialSession, applySessionDto } =
     useAuth();
   const [busy, setBusy] = useState<OAuthProvider | null>(null);
-  const [appleNativeAvailable, setAppleNativeAvailable] = useState(false);
+  // Optimistic on iOS so the Apple button is visible before isAvailableAsync settles.
+  // Corrected in the effect below when the OS reports otherwise.
+  const [appleNativeAvailable, setAppleNativeAvailable] = useState(Platform.OS === "ios");
 
   const googleClientId = useMemo(() => resolveGoogleClientId(), []);
   const googleRedirectUri = useMemo(() => getGoogleRedirectUri(), []);
@@ -126,7 +129,7 @@ export function useSocialAuth() {
   }, []);
 
   const googleConfigured = isGoogleConfigured();
-  const appleConfigured = appleNativeAvailable || !!appleServicesId;
+  const appleConfigured = isAppleConfigured(appleNativeAvailable);
   const facebookConfigured = isFacebookConfigured();
 
   const resumeGoogleFromUrl = useCallback(

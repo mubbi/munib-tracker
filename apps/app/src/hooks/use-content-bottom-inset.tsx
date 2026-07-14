@@ -44,9 +44,20 @@ export function useTabBarOffset(): number {
   return getNativeTabBarOffset(insets.bottom);
 }
 
-/** Scroll/list bottom padding: tab bar + mini-player + breathing room. */
-export function useContentBottomInset(extra = Spacing.four): number {
+/**
+ * Bottom chrome covering scroll content: tab bar and/or the docked mini-player.
+ * On stack screens the player docks at `bottom: 0` and pads the safe area itself,
+ * so its measured height already includes `insets.bottom`.
+ */
+export function useObstructedBottomInset(): number {
   const tabBarOffset = useTabBarOffset();
   const miniPlayerInset = useMiniPlayerInset();
-  return tabBarOffset + miniPlayerInset + extra;
+  const inTabs = useIsTabScreen();
+  if (miniPlayerInset > 0 && !inTabs) return miniPlayerInset;
+  return tabBarOffset + miniPlayerInset;
+}
+
+/** Scroll/list bottom padding: tab bar + mini-player + breathing room. */
+export function useContentBottomInset(extra = Spacing.four): number {
+  return useObstructedBottomInset() + extra;
 }

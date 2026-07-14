@@ -1543,7 +1543,20 @@
     "apply": "Serlêdana jimareyên min bikin",
     "disclaimer": "Ev tenê texmînek e. Hikmên li ser danîna nimêjên bêpar diguhere - ji kerema xwe ji bo rewşa xwe bi zanyarek zana şêwir bikin.",
     "confirmTitle": "Texmîna sepandin?",
-    "confirmMsg": "Ev ji bo her nimêja farz û Witr jimartina qezayê ya mayî bi texmîna jorîn diguhezîne. Hejmarên qedandî têne girtin."
+    "confirmMsg": "Ev ji bo her nimêja farz û Witr jimartina qezayê ya mayî bi texmîna jorîn diguhezîne. Hejmarên qedandî têne girtin.",
+    "yearsPrayedHint": "Hûn nêzîkî {{obligatedYears}} salan mukellef in — salên nimêja birêkûpêk nikarin ji vê derbas bibin.",
+    "enterAgePrompt": "Ji bo dîtina texmînê, temenê xwe yê niha li jor binivîsin.",
+    "resultBlocked": "Ji bo vekirina texmînê, qadên nîşankirî rast bikin.",
+    "fixGuideTitle": "Jimareyên xwe kontrol bikin",
+    "fixGuideBody": "Hin nirx li hev nayên, ji ber vê yekê hesabker hîn nikare salahên winda texmîn bike. Qadên jêrîn rast bikin.",
+    "zeroResultTitle": "Tu rojên windayî nehatin texmînkirin",
+    "zeroResultBody": "Li gor van jimareyan, salên nimêja birêkûpêk dema piştî balixiyê digire. Ger hîn qaza hebe, «salên nimêja birêkûpêk» kêm bikin.",
+    "validation": {
+      "needCurrentAge": "Ji bo texmîna salahên winda temenê xwe yê niha binivîsin.",
+      "pubertyAfterAge": "Temenê balixiyê nikare ji temenê niha paştir be.",
+      "yearsPrayedExceed": "Salên nimêjê ({{entered}}) nikarin ji salên piştî balixiyê ({{obligatedYears}}) derbas bibin.",
+      "exemptExceedsYear": "Rojên bêberpirsiyar ({{entered}}) nikarin ji dirêahiya sala ku we hilbijart ({{maxDays}}) derbas bibin."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -4667,7 +4680,7 @@
     "disclaimer": "Tenê vekolîna perwerdeyî — ne rêzkirina ruhî. Çavkaniyên rastîn tercîh bikin û ji alimekî ji bo hukmên şexsî bipirsin.",
     "studiedCount": "{{count}} kart hatin xwendin",
     "endlessHint": "Pratîka bêdawî",
-    "answerHint": "Ji bo dîtina şiroveyê bersivekê hilbijêrin.",
+    "answerHint": "Ji bo dîtina şiroveyê bersivekê hilbijêrin, an jî derbasî karta din bibin.",
     "pickAnswer": "Pêşî bersivekê hilbijêrin",
     "nextCard": "Karta din",
     "correctTitle": "Baş — hate girtin",
@@ -4700,6 +4713,8 @@
       "hadith": "Hedîs",
       "quran": "قورئان",
       "duas": "Dua"
-    }
+    },
+    "skipHint": "Vê kartê derbas bikin û pirsek din bibînin.",
+    "skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin."
   }
 }

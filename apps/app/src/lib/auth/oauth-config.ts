@@ -40,6 +40,17 @@ export function getAppleServicesId(): string {
   return env("EXPO_PUBLIC_APPLE_SERVICES_ID");
 }
 
+/**
+ * Whether the Sign in with Apple button should appear on the current platform.
+ *
+ * - **Web / Android:** requires `EXPO_PUBLIC_APPLE_SERVICES_ID` (Services ID OAuth).
+ * - **iOS:** native sheet when available, otherwise the same Services ID OAuth fallback.
+ */
+export function isAppleConfigured(nativeAvailable = false): boolean {
+  if (getAppleServicesId()) return true;
+  return Platform.OS === "ios" && nativeAvailable;
+}
+
 /** iOS bundle id used as Apple JWT `aud` for native Sign in with Apple. */
 export function getAppIdentifier(): string {
   return env("EXPO_PUBLIC_APP_IDENTIFIER") || "app.munibtracker";

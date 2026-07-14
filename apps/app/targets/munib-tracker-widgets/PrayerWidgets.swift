@@ -53,7 +53,8 @@ struct NextPrayerWidgetView: View {
       lockLine: section?.lockScreenLine ?? section?.title ?? "Next prayer",
       lockDetail: section?.lockScreenDetail ?? section?.countdownLabel ?? "—",
       deepLink: section?.deepLink ?? "munib-tracker://",
-      circularLabel: section?.prayerTime ?? "—"
+      circularLabel: section?.prayerName ?? section?.prayerTime ?? "—",
+      circularGauge: WidgetReloadSchedule.countdownFraction(minutesUntil: section?.minutesUntil)
     ) {
       NextPrayerWidgetHomeView(snapshot: snapshot)
     }
@@ -188,7 +189,8 @@ struct PrayerProgressWidgetView: View {
       lockLine: section?.lockScreenLine ?? section?.title ?? "Today's progress",
       lockDetail: section?.lockScreenDetail ?? section?.progressLabel ?? "0/5",
       deepLink: section?.deepLink ?? "munib-tracker://tracker",
-      circularLabel: section?.progressLabel ?? "0/5"
+      circularLabel: section?.progressLabel ?? "0/5",
+      circularGauge: (section?.progressPercent ?? 0) / 100
     ) {
       PrayerProgressWidgetHomeView(snapshot: snapshot)
     }

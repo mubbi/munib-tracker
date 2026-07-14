@@ -62,7 +62,7 @@ Support matrix: [`DEVICES.md`](./DEVICES.md)
 | ID | Goal | Status |
 |----|------|--------|
 | DS-1 | Native tablet / large-screen polish | Not started |
-| DS-2 | Watch / Wear maintenance QA | Built — release QA each native bump |
+| DS-2 | Watch / Wear maintenance QA | Built — include face complications (circular/corner/inline/rectangular) each native bump |
 | DS-3 | Apple TV / Android TV | Not started |
 | DS-4 | visionOS | Not started |
 | DS-5 | CarPlay / Android Auto | Not started |

@@ -1,5 +1,10 @@
 import { QAZA_PRAYERS } from "@munib-tracker/shared/constants";
-import { computeLifetimeMissedPrayers } from "@munib-tracker/shared/utils";
+import type { QazaCalculatorIssue } from "@munib-tracker/shared/utils";
+import {
+  computeLifetimeMissedPrayers,
+  qazaObligatedYears,
+  validateQazaCalculatorInput,
+} from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo, useState } from "react";
@@ -25,9 +30,18 @@ function toInt(value: string): number {
   return Number.isFinite(n) ? n : 0;
 }
 
+function issueMessage(
+  t: (key: string, options?: Record<string, string | number>) => string,
+  issue: QazaCalculatorIssue,
+): string {
+  const key = `qazaCalc.validation.${issue.code}` as const;
+  return t(key, issue.meta);
+}
+
 export default function QazaCalculatorScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { tokens } = useThemeTokens();
   const counters = useQazaCounters();
   const { adjustQaza } = useTrackerActions();
 
@@ -38,17 +52,29 @@ export default function QazaCalculatorScreen() {
   const [yearMode, setYearMode] = useState<"lunar" | "solar">("lunar");
   const [confirmOpen, setConfirmOpen] = useState(false);
 
-  const result = useMemo(
-    () =>
-      computeLifetimeMissedPrayers({
-        currentAge: toInt(currentAge),
-        pubertyAge: toInt(pubertyAge),
-        yearsPrayedConsistently: toInt(yearsPrayed),
-        annualExemptDays: toInt(exemptDays),
-        useLunarYear: yearMode === "lunar",
-      }),
+  const input = useMemo(
+    () => ({
+      currentAge: toInt(currentAge),
+      pubertyAge: toInt(pubertyAge),
+      yearsPrayedConsistently: toInt(yearsPrayed),
+      annualExemptDays: toInt(exemptDays),
+      useLunarYear: yearMode === "lunar",
+    }),
     [currentAge, pubertyAge, yearsPrayed, exemptDays, yearMode],
   );
+
+  const issues = useMemo(() => validateQazaCalculatorInput(input), [input]);
+  const hasIssues = issues.length > 0;
+  const result = useMemo(() => computeLifetimeMissedPrayers(input), [input]);
+  const obligatedYears = qazaObligatedYears(input.currentAge, input.pubertyAge);
+
+  const fieldError = (field: QazaCalculatorIssue["field"]) => {
+    const issue = issues.find((item) => item.field === field);
+    return issue ? issueMessage(t, issue) : undefined;
+  };
+
+  const canApply = !hasIssues && result.missedDays > 0;
+  const showLegitimateZero = !hasIssues && input.currentAge > 0 && result.missedDays === 0;
 
   const applyToCounters = () => {
     for (const prayerId of QAZA_PRAYERS) {
@@ -95,22 +121,31 @@ export default function QazaCalculatorScreen() {
               value={currentAge}
               onChange={setCurrentAge}
               placeholder="30"
+              error={fieldError("currentAge")}
             />
             <NumberField
               label={t("qazaCalc.pubertyAge")}
               value={pubertyAge}
               onChange={setPubertyAge}
+              error={fieldError("pubertyAge")}
             />
             <NumberField
               label={t("qazaCalc.yearsPrayed")}
               value={yearsPrayed}
               onChange={setYearsPrayed}
+              error={fieldError("yearsPrayed")}
+              hint={
+                input.currentAge > 0 && !fieldError("pubertyAge")
+                  ? t("qazaCalc.yearsPrayedHint", { obligatedYears })
+                  : undefined
+              }
             />
             <NumberField
               label={t("qazaCalc.exemptDays")}
               value={exemptDays}
               onChange={setExemptDays}
               hint={t("qazaCalc.exemptHint")}
+              error={fieldError("exemptDays")}
             />
             <View>
               <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
@@ -128,35 +163,73 @@ export default function QazaCalculatorScreen() {
           </View>
         </Card>
 
-        <Card>
+        {hasIssues ? (
+          <GuidanceBanner
+            tone="danger"
+            title={t("qazaCalc.fixGuideTitle")}
+            body={t("qazaCalc.fixGuideBody")}
+            details={issues.map((issue) => issueMessage(t, issue))}
+          />
+        ) : null}
+
+        {showLegitimateZero ? (
+          <GuidanceBanner
+            tone="warning"
+            title={t("qazaCalc.zeroResultTitle")}
+            body={t("qazaCalc.zeroResultBody")}
+          />
+        ) : null}
+
+        <Card style={hasIssues ? styles.resultMuted : undefined}>
           <View style={styles.resultHeader}>
             <ThemedText type="small" themeColor="mutedForeground">
               {t("qazaCalc.estimatedDays")}
             </ThemedText>
-            <ThemedText type="header">{result.missedDays.toLocaleString()}</ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("qazaCalc.resultYears", { years: result.missedYears })}
-            </ThemedText>
-          </View>
-          <View style={styles.perPrayer}>
-            {QAZA_PRAYERS.map((prayerId) => (
-              <View key={prayerId} style={styles.perPrayerItem}>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t(`prayers.${prayerId}`)}
+            {input.currentAge <= 0 && !hasIssues ? (
+              <ThemedText type="small" themeColor="mutedForeground" style={styles.enterPrompt}>
+                {t("qazaCalc.enterAgePrompt")}
+              </ThemedText>
+            ) : (
+              <>
+                <ThemedText
+                  type="header"
+                  style={hasIssues ? { color: tokens.status.danger.text } : undefined}
+                >
+                  {hasIssues ? "—" : result.missedDays.toLocaleString()}
                 </ThemedText>
-                <ThemedText type="smallBold">
-                  {result.byPrayer[prayerId].toLocaleString()}
-                </ThemedText>
-              </View>
-            ))}
+                {!hasIssues ? (
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("qazaCalc.resultYears", { years: result.missedYears })}
+                  </ThemedText>
+                ) : (
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t("qazaCalc.resultBlocked")}
+                  </ThemedText>
+                )}
+              </>
+            )}
           </View>
+          {!hasIssues && input.currentAge > 0 ? (
+            <View style={styles.perPrayer}>
+              {QAZA_PRAYERS.map((prayerId) => (
+                <View key={prayerId} style={styles.perPrayerItem}>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {t(`prayers.${prayerId}`)}
+                  </ThemedText>
+                  <ThemedText type="smallBold">
+                    {result.byPrayer[prayerId].toLocaleString()}
+                  </ThemedText>
+                </View>
+              ))}
+            </View>
+          ) : null}
         </Card>
 
         <Button
           label={t("qazaCalc.apply")}
           icon={{ ios: "square.and.arrow.down", android: "save", web: "save" }}
           fullWidth
-          disabled={result.missedDays === 0}
+          disabled={!canApply}
           onPress={() => setConfirmOpen(true)}
         />
 
@@ -181,14 +254,17 @@ function NumberField({
   onChange,
   placeholder,
   hint,
+  error,
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   hint?: string;
+  error?: string;
 }) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
+  const borderColor = error ? tokens.status.danger.border : colors.border;
   return (
     <View>
       <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldLabel}>
@@ -199,18 +275,71 @@ function NumberField({
         onChangeText={(text) => onChange(text.replace(/[^0-9]/g, "").slice(0, 3))}
         keyboardType="number-pad"
         accessibilityLabel={label}
+        accessibilityHint={error}
         placeholder={placeholder}
         placeholderTextColor={colors.mutedForeground}
         style={[
           styles.input,
-          { color: colors.foreground, backgroundColor: colors.muted, borderColor: colors.border },
+          {
+            color: colors.foreground,
+            backgroundColor: error ? tokens.status.danger.soft : colors.muted,
+            borderColor,
+          },
         ]}
       />
-      {hint ? (
+      {error ? (
+        <ThemedText type="caption" style={[styles.hint, { color: tokens.status.danger.text }]}>
+          {error}
+        </ThemedText>
+      ) : hint ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
           {hint}
         </ThemedText>
       ) : null}
+    </View>
+  );
+}
+
+function GuidanceBanner({
+  tone,
+  title,
+  body,
+  details,
+}: {
+  tone: "danger" | "warning";
+  title: string;
+  body: string;
+  details?: string[];
+}) {
+  const { tokens } = useThemeTokens();
+  const palette = tokens.status[tone];
+  return (
+    <View
+      style={[styles.guidance, { backgroundColor: palette.soft, borderColor: palette.border }]}
+      accessibilityRole="alert"
+    >
+      <SymbolView
+        name={
+          tone === "danger"
+            ? { ios: "exclamationmark.circle.fill", android: "error", web: "error" }
+            : { ios: "exclamationmark.triangle.fill", android: "warning", web: "warning" }
+        }
+        size={18}
+        tintColor={palette.color}
+      />
+      <View style={styles.guidanceCopy}>
+        <ThemedText type="smallBold" style={{ color: palette.text }}>
+          {title}
+        </ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {body}
+        </ThemedText>
+        {details?.map((detail) => (
+          <ThemedText key={detail} type="caption" style={{ color: palette.text }}>
+            • {detail}
+          </ThemedText>
+        ))}
+      </View>
     </View>
   );
 }
@@ -255,6 +384,13 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     marginBottom: Spacing.three,
   },
+  resultMuted: {
+    opacity: 0.72,
+  },
+  enterPrompt: {
+    textAlign: "center",
+    paddingHorizontal: Spacing.two,
+  },
   perPrayer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -265,6 +401,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     minWidth: "28%",
     gap: 2,
+  },
+  guidance: {
+    flexDirection: "row",
+    gap: Spacing.two,
+    padding: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  guidanceCopy: {
+    flex: 1,
+    gap: Spacing.one,
   },
   disclaimer: {
     flexDirection: "row",

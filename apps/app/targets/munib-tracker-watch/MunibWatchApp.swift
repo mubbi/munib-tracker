@@ -1,5 +1,6 @@
 import SwiftUI
 import WatchConnectivity
+import WidgetKit
 
 @main
 struct MunibTrackerWatchApp: App {
@@ -20,6 +21,9 @@ final class WatchPrayerModel: ObservableObject {
   private let session: WCSession? = WCSession.isSupported() ? WCSession.default : nil
 
   init() {
+    WatchSessionDelegate.shared.onSnapshotApplied = { [weak self] in
+      DispatchQueue.main.async { self?.reload() }
+    }
     session?.delegate = WatchSessionDelegate.shared
     session?.activate()
     reload()
@@ -39,7 +43,10 @@ final class WatchPrayerModel: ObservableObject {
       ExternalCommandQueue.appendCommandJson(json)
     }
     markStatus = "Sent"
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { self.reload() }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+      self.reload()
+      self.markStatus = nil
+    }
   }
 
   func markPrayer(id: String) {
@@ -64,7 +71,10 @@ final class WatchPrayerModel: ObservableObject {
       ExternalCommandQueue.appendCommandJson(json)
     }
     markStatus = "Sent"
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { self.reload() }
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+      self.reload()
+      self.markStatus = nil
+    }
   }
 
   private func sendToPhone(_ message: [String: Any]) {
@@ -75,7 +85,26 @@ final class WatchPrayerModel: ObservableObject {
 
 final class WatchSessionDelegate: NSObject, WCSessionDelegate {
   static let shared = WatchSessionDelegate()
-  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
+  var onSnapshotApplied: (() -> Void)?
+
+  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    if let json = session.receivedApplicationContext[WatchSnapshotSync.contextKey] as? String {
+      WatchSnapshotSync.applyLocally(json)
+      onSnapshotApplied?()
+    }
+  }
+
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
+    guard let json = applicationContext[WatchSnapshotSync.contextKey] as? String else { return }
+    WatchSnapshotSync.applyLocally(json)
+    onSnapshotApplied?()
+  }
+
+  func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+    guard let json = userInfo[WatchSnapshotSync.contextKey] as? String else { return }
+    WatchSnapshotSync.applyLocally(json)
+    onSnapshotApplied?()
+  }
 }
 
 struct WatchContentView: View {
@@ -84,9 +113,16 @@ struct WatchContentView: View {
   var body: some View {
     NavigationStack {
       List {
-        if model.snapshot?.locationDenied == true {
-          Text("Set location on iPhone")
-            .foregroundStyle(.secondary)
+        if model.snapshot == nil {
+          Section {
+            Text("Open Munib on iPhone to sync Salah times.")
+              .foregroundStyle(.secondary)
+          }
+        } else if model.snapshot?.locationDenied == true {
+          Section {
+            Text("Set location on iPhone")
+              .foregroundStyle(.secondary)
+          }
         } else if let next = model.snapshot?.nextPrayer {
           Section(next.title ?? "Next Salah") {
             Text(next.prayerName ?? "")
@@ -110,6 +146,10 @@ struct WatchContentView: View {
                   Text(row.time).foregroundStyle(.secondary)
                   if row.status == "completed" {
                     Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                  } else if row.status == "active" {
+                    Image(systemName: "circle.fill")
+                      .font(.caption2)
+                      .foregroundStyle(.tint)
                   }
                 }
               }

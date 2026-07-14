@@ -43,6 +43,7 @@ Ship with **EAS dev or production builds** — not Expo Go, not web.
 | Siri / Shortcuts | iOS | Mark Salah, open routes | `targets/munib-tracker-intents/` |
 | Google Assistant / App Actions | Android | Voice mark Salah | `plugins/withExternalCommands.cjs` |
 | Apple Watch app | watchOS 10+ | Schedule + mark Salah | `targets/munib-tracker-watch/` |
+| Apple Watch complications | watchOS 10+ | Next Salah / schedule / progress on face | `targets/munib-tracker-watch-widgets/` |
 | Wear OS tile | Wear OS (API 30+) | Next prayer tile; tap marks on phone | `plugins/withWearOs.cjs`, `modules/munib-wear/` |
 
 Watch and Wear are **companions tied to the phone app** — they read the shared widget snapshot and enqueue mark commands; they are not standalone full clients.
@@ -75,7 +76,7 @@ Also not in repo: App Clip, Mac Catalyst, Android TV Leanback, automotive SDKs.
 |--------|-------------|--------|
 | Main iOS app | Expo SDK 57 default (~iOS 15+) | Expo prebuild |
 | Widgets, Live Activity, Siri intents | **iOS 17.0** | `targets/munib-tracker-*/expo-target.config.js` |
-| Apple Watch | **watchOS 10.0** | `targets/munib-tracker-watch/expo-target.config.js` |
+| Apple Watch | **watchOS 10.0** | `targets/munib-tracker-watch/expo-target.config.js`, `targets/munib-tracker-watch-widgets/` |
 | Wear OS module | **API 30** (Android 11+) | `plugins/withWearOs.cjs` |
 | Main Android app | Expo SDK 57 default (~API 24+) | Expo prebuild |
 
@@ -90,6 +91,7 @@ Native surfaces require `EXPO_APPLE_TEAM_ID` for iOS extensions. See [`NATIVE_SU
 | `apps/app/app.json` | `supportsTablet`, `orientation`, iOS/Android identifiers |
 | `apps/app/app.config.js` | Plugins: apple-targets, Wear OS, widgets, external commands |
 | `apps/app/targets/munib-tracker-watch/` | Apple Watch companion |
+| `apps/app/targets/munib-tracker-watch-widgets/` | Apple Watch face complications (WidgetKit) |
 | `apps/app/targets/munib-tracker-widgets/` | WidgetKit + Live Activity |
 | `apps/app/targets/munib-tracker-intents/` | Siri App Intents |
 | `apps/app/plugins/withWearOs.cjs` | Wear OS tile scaffold |

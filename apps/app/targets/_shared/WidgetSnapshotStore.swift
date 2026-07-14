@@ -90,6 +90,50 @@ enum WidgetSnapshotStore {
     }
     return try? JSONDecoder().decode(WidgetSnapshotPayload.self, from: data)
   }
+
+  /// Face-gallery / first-install placeholder when App Group has no snapshot yet.
+  static func placeholder() -> WidgetSnapshotPayload {
+    let json = """
+    {"version":1,"locationDenied":false,"nextPrayer":{"title":"Next Salah","deepLink":"munib-tracker://","lockScreenLine":"Asr","lockScreenDetail":"in 42 min","prayerId":"asr","prayerName":"Asr","prayerTime":"4:18 PM","countdownLabel":"42 min","minutesUntil":42},"schedule":{"title":"Today","summary":"3 of 5","deepLink":"munib-tracker://tracker","lockScreenLine":"Today","lockScreenDetail":"3 of 5","rows":[{"id":"fajr","name":"Fajr","time":"5:12 AM","status":"completed"},{"id":"dhuhr","name":"Dhuhr","time":"12:34 PM","status":"completed"},{"id":"asr","name":"Asr","time":"4:18 PM","status":"active"},{"id":"maghrib","name":"Maghrib","time":"7:01 PM","status":"pending"},{"id":"isha","name":"Isha","time":"8:22 PM","status":"pending"}]},"progress":{"title":"Progress","deepLink":"munib-tracker://tracker","lockScreenLine":"Progress","lockScreenDetail":"3/5","progressLabel":"3/5","progressPercent":60,"completed":3,"total":5}}
+    """
+    let data = Data(json.utf8)
+    return (try? JSONDecoder().decode(WidgetSnapshotPayload.self, from: data))
+      ?? (try! JSONDecoder().decode(WidgetSnapshotPayload.self, from: Data("{\"version\":1}".utf8)))
+  }
+}
+
+/// Budgeted WidgetKit reload points — current snapshot plus next Salah boundary.
+enum WidgetReloadSchedule {
+  static func nextReloadDate(from snapshot: WidgetSnapshotPayload?, now: Date = Date()) -> Date {
+    timelineDates(from: snapshot, now: now).last ?? now.addingTimeInterval(900)
+  }
+
+  /// Returns ascending dates for timeline entries (always includes `now`).
+  static func timelineDates(from snapshot: WidgetSnapshotPayload?, now: Date = Date()) -> [Date] {
+    var dates: [Date] = [now]
+    if let minutes = snapshot?.nextPrayer?.minutesUntil, minutes > 0 {
+      let boundary = now.addingTimeInterval(TimeInterval(minutes * 60))
+      dates.append(boundary)
+      // Pre-Adhan glance window (~15 min) when the wait is longer.
+      if minutes > 20 {
+        dates.append(boundary.addingTimeInterval(-15 * 60))
+      }
+    } else {
+      dates.append(now.addingTimeInterval(900))
+    }
+    let unique = Array(Set(dates.map { $0.timeIntervalSince1970 }))
+      .sorted()
+      .map { Date(timeIntervalSince1970: $0) }
+      .filter { $0 >= now.addingTimeInterval(-1) }
+    return unique.isEmpty ? [now] : unique
+  }
+
+  /// 0…1 urgency for the next Salah window (fills as Adhan approaches within ~60m).
+  static func countdownFraction(minutesUntil: Int?) -> Double {
+    guard let minutesUntil, minutesUntil >= 0 else { return 0 }
+    let capped = min(Double(minutesUntil), 60)
+    return max(0, min(1, 1 - capped / 60))
+  }
 }
 
 enum WidgetPalette {

@@ -22,6 +22,7 @@ type ButtonProps = {
   disabled?: boolean;
   /** Override the label (and icon) color — useful on branded hero surfaces. */
   labelColor?: string;
+  accessibilityHint?: string;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -35,6 +36,7 @@ export function Button({
   fullWidth,
   disabled,
   labelColor,
+  accessibilityHint,
   style,
 }: ButtonProps) {
   const { colors, tokens } = useThemeTokens();
@@ -64,6 +66,7 @@ export function Button({
   return (
     <PressableScale
       accessibilityRole="button"
+      accessibilityHint={accessibilityHint}
       accessibilityState={{ disabled: !!disabled }}
       disabled={disabled}
       onPress={onPress}

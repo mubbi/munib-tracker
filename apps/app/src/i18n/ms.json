@@ -1543,7 +1543,20 @@
     "apply": "Mohon ke kaunter saya",
     "disclaimer": "Ini adalah anggaran sahaja. Hukuman mengqadha solat yang tertinggal berbeza-beza — sila berunding dengan ulama yang arif untuk situasi anda.",
     "confirmTitle": "Gunakan anggaran?",
-    "confirmMsg": "Ini menggantikan kiraan qaza yang tinggal bagi setiap solat fardhu dan witir dengan anggaran di atas. Kiraan yang lengkap disimpan."
+    "confirmMsg": "Ini menggantikan kiraan qaza yang tinggal bagi setiap solat fardhu dan witir dengan anggaran di atas. Kiraan yang lengkap disimpan.",
+    "yearsPrayedHint": "Anda telah diwajibkan selama kira-kira {{obligatedYears}} tahun — tahun solat konsisten tidak boleh melebihi ini.",
+    "enterAgePrompt": "Masukkan umur anda sekarang di atas untuk melihat anggaran.",
+    "resultBlocked": "Betulkan medan yang diserlahkan untuk membuka anggaran.",
+    "fixGuideTitle": "Semak nombor anda",
+    "fixGuideBody": "Sesetengah nilai tidak sepadan, jadi kalkulator belum dapat menganggarkan salah yang tertinggal. Betulkan medan di bawah.",
+    "zeroResultTitle": "Tiada hari tertinggal dianggarkan",
+    "zeroResultBody": "Berdasarkan nombor ini, tahun solat konsisten meliputi masa sejak baligh. Kurangkan «tahun solat konsisten» jika anda masih berhutang qaza.",
+    "validation": {
+      "needCurrentAge": "Masukkan umur sekarang untuk menganggarkan salah yang tertinggal.",
+      "pubertyAfterAge": "Umur baligh tidak boleh lebih lewat daripada umur sekarang.",
+      "yearsPrayedExceed": "Tahun solat ({{entered}}) tidak boleh melebihi tahun sejak baligh ({{obligatedYears}}).",
+      "exemptExceedsYear": "Hari dikecualikan ({{entered}}) tidak boleh melebihi panjang tahun yang anda pilih ({{maxDays}})."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -4667,7 +4680,7 @@
     "disclaimer": "Ulangkaji pendidikan sahaja — bukan kedudukan rohani. Utamakan sumber sahih dan tanya ulama untuk hukum peribadi.",
     "studiedCount": "{{count}} kad dikaji",
     "endlessHint": "Latihan tanpa henti",
-    "answerHint": "Pilih jawapan untuk mendedahkan penjelasan.",
+    "answerHint": "Pilih jawapan untuk mendedahkan penjelasan, atau langkau ke kad lain.",
     "pickAnswer": "Pilih jawapan dahulu",
     "nextCard": "Kad seterusnya",
     "correctTitle": "Bagus — telah diingat",
@@ -4700,6 +4713,8 @@
       "hadith": "Hadis",
       "quran": "Al-Quran",
       "duas": "Doa"
-    }
+    },
+    "skipHint": "Langkau kad ini dan lihat soalan lain.",
+    "skipDisabledHint": "Jawab kad terakhir ini untuk memulakan susunan baharu."
   }
 }

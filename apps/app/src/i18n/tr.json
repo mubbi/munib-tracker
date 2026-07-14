@@ -1543,7 +1543,20 @@
     "apply": "to my counters Uygula",
     "disclaimer": "Bu dir  tahmin only. Rulings  making up kaçırıldı prayers vary — please consult  knowledgeable alim için sizin situation.",
     "confirmTitle": "estimate? Uygula",
-    "confirmMsg": "Bu replaces  kalan kaza say için each fard namaz ve Vitir ile  tahmin above. Completed counts dir kept."
+    "confirmMsg": "Bu replaces  kalan kaza say için each fard namaz ve Vitir ile  tahmin above. Completed counts dir kept.",
+    "yearsPrayedHint": "Yaklaşık {{obligatedYears}} yıldır yükümlüsünüz — tutarlı namaz yılları bunu aşamaz.",
+    "enterAgePrompt": "Tahmini görmek için yukarıya mevcut yaşınızı girin.",
+    "resultBlocked": "Tahmini açmak için vurgulanan alanları düzeltin.",
+    "fixGuideTitle": "Sayılarınızı kontrol edin",
+    "fixGuideBody": "Bazı değerler tutarsız; hesaplayıcı henüz kaçırılan salahı tahmin edemiyor. Aşağıdaki alanları düzeltin.",
+    "zeroResultTitle": "Tahmini kaçırılan gün yok",
+    "zeroResultBody": "Bu sayılara göre tutarlı namaz yılları ergenlikten bu yana süreyi kapsıyor. Hâlâ qaza borcunuz varsa «tutarlı namaz yılları»nı düşürün.",
+    "validation": {
+      "needCurrentAge": "Kaçırılan salahı tahmin etmek için mevcut yaşınızı girin.",
+      "pubertyAfterAge": "Ergenlik yaşı mevcut yaşınızdan sonra olamaz.",
+      "yearsPrayedExceed": "Namaz yılları ({{entered}}), ergenlikten bu yana geçen yılları ({{obligatedYears}}) aşamaz.",
+      "exemptExceedsYear": "Muaf günler ({{entered}}), seçtiğiniz yıl uzunluğunu ({{maxDays}}) aşamaz."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Kaza",
@@ -4575,7 +4588,7 @@
     "disclaimer": "Yalnızca eğitim amaçlı tekrar — manevi bir sıralama değil. Sahih kaynakları tercih edin; kişisel hükümler için âlime danışın.",
     "studiedCount": "{{count}} kart çalışıldı",
     "endlessHint": "Sonsuz pratik",
-    "answerHint": "Açıklamayı görmek için bir cevap seçin.",
+    "answerHint": "Açıklamayı görmek için bir cevap seçin veya başka bir karta atlayın.",
     "pickAnswer": "Önce bir cevap seçin",
     "nextCard": "Sonraki kart",
     "correctTitle": "Güzel — yerleşti",
@@ -4608,6 +4621,8 @@
       "hadith": "Hadis",
       "quran": "Kur'an",
       "duas": "Dualar"
-    }
+    },
+    "skipHint": "Bu kartı atlayıp başka bir soru görün.",
+    "skipDisabledHint": "Yeniden karıştırmak için bu son kalan kartı yanıtlayın."
   }
 }

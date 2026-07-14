@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
@@ -13,9 +13,10 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 /**
  * Brand-locked styling for each sign-in button, following the official
  * Google, Apple, and Facebook sign-in guidelines. These colors intentionally
- * do NOT follow the app theme — brand buttons must keep their brand identity in
- * both light and dark mode so they stay instantly recognizable. Logos are the
- * official marks rendered as SVG (multi-color, so no `tintColor`).
+ * do NOT follow the app theme accent — brand buttons must keep their brand
+ * identity so they stay instantly recognizable. Apple switches black ↔ white
+ * with the color scheme (HIG) so the button remains visible on dark UI.
+ * Google/Facebook logos are multi-color SVGs (no `tintColor`).
  */
 type ProviderBrand = {
   background: string;
@@ -25,42 +26,47 @@ type ProviderBrand = {
   logo: number;
 };
 
-const PROVIDERS: { id: OAuthProvider; brand: ProviderBrand }[] = [
-  {
-    id: "google",
-    brand: {
+const GOOGLE_BRAND: ProviderBrand = {
+  background: "#FFFFFF",
+  foreground: "#1F1F1F",
+  border: "#DADCE0",
+  spinner: "#4285F4",
+  logo: require("@/assets/brands/google.svg"),
+};
+
+const FACEBOOK_BRAND: ProviderBrand = {
+  background: "#1877F2",
+  foreground: "#FFFFFF",
+  border: "#1877F2",
+  spinner: "#FFFFFF",
+  logo: require("@/assets/brands/facebook.svg"),
+};
+
+/** Apple HIG: white on dark backgrounds, black on light. */
+function appleBrand(scheme: "light" | "dark"): ProviderBrand {
+  if (scheme === "dark") {
+    return {
       background: "#FFFFFF",
-      foreground: "#1F1F1F",
-      border: "#DADCE0",
-      spinner: "#4285F4",
-      logo: require("@/assets/brands/google.svg"),
-    },
-  },
-  {
-    id: "apple",
-    brand: {
-      background: "#000000",
-      foreground: "#FFFFFF",
-      border: "rgba(255, 255, 255, 0.24)",
-      spinner: "#FFFFFF",
-      logo: require("@/assets/brands/apple.svg"),
-    },
-  },
-  {
-    id: "facebook",
-    brand: {
-      background: "#1877F2",
-      foreground: "#FFFFFF",
-      border: "#1877F2",
-      spinner: "#FFFFFF",
-      logo: require("@/assets/brands/facebook.svg"),
-    },
-  },
-];
+      foreground: "#000000",
+      border: "#E5E5E5",
+      spinner: "#000000",
+      logo: require("@/assets/brands/apple-black.svg"),
+    };
+  }
+  return {
+    background: "#000000",
+    foreground: "#FFFFFF",
+    border: "rgba(255, 255, 255, 0.24)",
+    spinner: "#FFFFFF",
+    logo: require("@/assets/brands/apple.svg"),
+  };
+}
+
+const PROVIDER_ORDER: OAuthProvider[] = ["google", "apple", "facebook"];
 
 export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
   const { t } = useTranslation();
-  const { tokens } = useThemeTokens();
+  const { tokens, scheme } = useThemeTokens();
   const { signIn, busy, googleConfigured, appleConfigured, facebookConfigured } = useSocialAuth();
   const [error, setError] = useState<string | null>(null);
 
@@ -70,7 +76,15 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
     facebook: facebookConfigured,
   };
 
-  const visibleProviders = PROVIDERS.filter(({ id }) => configured[id]);
+  const brands = useMemo((): Record<OAuthProvider, ProviderBrand> => {
+    return {
+      google: GOOGLE_BRAND,
+      apple: appleBrand(scheme),
+      facebook: FACEBOOK_BRAND,
+    };
+  }, [scheme]);
+
+  const visibleProviders = PROVIDER_ORDER.filter((id) => configured[id]);
 
   const connect = async (provider: OAuthProvider) => {
     setError(null);
@@ -90,36 +104,39 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
 
   return (
     <View style={styles.root}>
-      {visibleProviders.map(({ id, brand }) => (
-        <PressableScale
-          key={id}
-          haptic="light"
-          disabled={busy !== null}
-          onPress={() => connect(id)}
-          accessibilityRole="button"
-          accessibilityLabel={t(`login.${id}`)}
-          style={[
-            styles.providerButton,
-            { backgroundColor: brand.background, borderColor: brand.border },
-          ]}
-        >
-          {busy === id ? (
-            <ActivityIndicator color={brand.spinner} />
-          ) : (
-            <View style={styles.providerContent}>
-              <Image
-                source={brand.logo}
-                style={styles.providerLogo}
-                contentFit="contain"
-                accessible={false}
-              />
-              <ThemedText type="smallBold" style={{ color: brand.foreground }}>
-                {t(`login.${id}`)}
-              </ThemedText>
-            </View>
-          )}
-        </PressableScale>
-      ))}
+      {visibleProviders.map((id) => {
+        const brand = brands[id];
+        return (
+          <PressableScale
+            key={id}
+            haptic="light"
+            disabled={busy !== null}
+            onPress={() => connect(id)}
+            accessibilityRole="button"
+            accessibilityLabel={t(`login.${id}`)}
+            style={[
+              styles.providerButton,
+              { backgroundColor: brand.background, borderColor: brand.border },
+            ]}
+          >
+            {busy === id ? (
+              <ActivityIndicator color={brand.spinner} />
+            ) : (
+              <View style={styles.providerContent}>
+                <Image
+                  source={brand.logo}
+                  style={styles.providerLogo}
+                  contentFit="contain"
+                  accessible={false}
+                />
+                <ThemedText type="smallBold" style={{ color: brand.foreground }}>
+                  {t(`login.${id}`)}
+                </ThemedText>
+              </View>
+            )}
+          </PressableScale>
+        );
+      })}
 
       {error ? (
         <ThemedText

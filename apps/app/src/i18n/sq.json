@@ -1543,7 +1543,20 @@
     "apply": "Aplikoni në sportelet e mia",
     "disclaimer": "Ky është vetëm një vlerësim. Rregullat për plotësimin e lutjeve të humbura ndryshojnë - ju lutemi konsultohuni me një dijetar të ditur për situatën tuaj.",
     "confirmTitle": "Të zbatohet vlerësimi?",
-    "confirmMsg": "Kjo zëvendëson numrin e mbetur të kazave për çdo namaz farz dhe vitrin me vlerësimin e mësipërm. Numrat e përfunduara mbahen."
+    "confirmMsg": "Kjo zëvendëson numrin e mbetur të kazave për çdo namaz farz dhe vitrin me vlerësimin e mësipërm. Numrat e përfunduara mbahen.",
+    "yearsPrayedHint": "Jeni të detyruar prej rreth {{obligatedYears}} vjetësh — vitet e namazit të rregullt nuk mund ta tejkalojnë këtë.",
+    "enterAgePrompt": "Vendosni moshën tuaj aktuale më sipër për të parë një vlerësim.",
+    "resultBlocked": "Korrigjoni fushat e theksuara për të zhbllokuar vlerësimin.",
+    "fixGuideTitle": "Kontrolloni numrat tuaj",
+    "fixGuideBody": "Disa vlera nuk përputhen, prandaj llogaritësi nuk mund të vlerësojë ende salahun e humbur. Korrigjoni fushat më poshtë.",
+    "zeroResultTitle": "Nuk ka ditë të humbura të vlerësuara",
+    "zeroResultBody": "Sipas këtyre numrave, vitet e namazit të rregullt mbulojnë kohën që nga puberteti. Ulni «vitet e namazit të rregullt» nëse ende keni qaza.",
+    "validation": {
+      "needCurrentAge": "Vendosni moshën aktuale për të vlerësuar salahun e humbur.",
+      "pubertyAfterAge": "Mosha e pubertetit nuk mund të jetë më vonë se mosha aktuale.",
+      "yearsPrayedExceed": "Vitet e namazit ({{entered}}) nuk mund të tejkalojnë vitet që nga puberteti ({{obligatedYears}}).",
+      "exemptExceedsYear": "Ditët e përjashtuara ({{entered}}) nuk mund të tejkalojnë gjatësinë e vitit që zgjodhët ({{maxDays}})."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -4667,7 +4680,7 @@
     "disclaimer": "Vetëm rishikim edukativ — jo renditje shpirtërore. Preferoni burime autentike dhe pyesni një dijetar për vendime personale.",
     "studiedCount": "{{count}} karta të studiuara",
     "endlessHint": "Praktikë e pafund",
-    "answerHint": "Zgjidhni një përgjigje për të zbuluar shpjegimin.",
+    "answerHint": "Zgjidhni një përgjigje për të zbuluar shpjegimin, ose kaloni te një kartë tjetër.",
     "pickAnswer": "Zgjidhni fillimisht një përgjigje",
     "nextCard": "Karta tjetër",
     "correctTitle": "Mirë — u fiksua",
@@ -4700,6 +4713,8 @@
       "hadith": "Hadith",
       "quran": "Kurani",
       "duas": "Duaja"
-    }
+    },
+    "skipHint": "Kapërceni këtë kartë dhe shihni një pyetje tjetër.",
+    "skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re."
   }
 }

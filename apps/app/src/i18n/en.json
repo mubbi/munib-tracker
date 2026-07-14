@@ -1539,7 +1539,20 @@
     "apply": "Apply to my counters",
     "disclaimer": "This is an estimate only. Rulings on making up missed prayers vary — please consult a knowledgeable scholar for your situation.",
     "confirmTitle": "Apply estimate?",
-    "confirmMsg": "This replaces the remaining qaza count for each fard prayer and Witr with the estimate above. Completed counts are kept."
+    "confirmMsg": "This replaces the remaining qaza count for each fard prayer and Witr with the estimate above. Completed counts are kept.",
+    "yearsPrayedHint": "You have been obligated for about {{obligatedYears}} years — years prayed cannot exceed this.",
+    "enterAgePrompt": "Enter your current age above to see an estimate.",
+    "resultBlocked": "Fix the highlighted fields to unlock an estimate.",
+    "fixGuideTitle": "Check your numbers",
+    "fixGuideBody": "Some values do not add up, so the calculator cannot estimate missed salah yet. Correct the fields below.",
+    "zeroResultTitle": "No missed days estimated",
+    "zeroResultBody": "Based on these numbers, years prayed cover the time since puberty. Lower “years prayed consistently” if you still owe qaza.",
+    "validation": {
+      "needCurrentAge": "Enter your current age to estimate missed salah.",
+      "pubertyAfterAge": "Age at puberty cannot be later than your current age.",
+      "yearsPrayedExceed": "Years prayed ({{entered}}) cannot exceed years since puberty ({{obligatedYears}}).",
+      "exemptExceedsYear": "Exempt days ({{entered}}) cannot exceed the year length you selected ({{maxDays}})."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qaza",
@@ -3305,9 +3318,11 @@
     "disclaimer": "Educational review only — not a spiritual ranking. Prefer authentic sources and ask a scholar for personal rulings.",
     "studiedCount": "{{count}} cards studied",
     "endlessHint": "Endless practice",
-    "answerHint": "Choose an answer to reveal the explanation.",
+    "answerHint": "Choose an answer to reveal the explanation, or skip to another card.",
     "pickAnswer": "Pick an answer first",
     "nextCard": "Next card",
+    "skipHint": "Skip this card and see another question.",
+    "skipDisabledHint": "Answer this last remaining card to start a fresh shuffle.",
     "correctTitle": "Nice — locked in",
     "incorrectTitle": "Almost — here's the idea",
     "empty": "Building your flash card deck… open Learn topics or wait a moment.",

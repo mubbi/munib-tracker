@@ -17,8 +17,8 @@ import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { Durations } from "@/constants/motion";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useHorizontalWheelScroll } from "@/hooks/use-horizontal-wheel-scroll";
+import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { useWebFullscreen } from "@/hooks/use-web-fullscreen";
 import { filterValueTextStyle, ltrControlViewProps } from "@/lib/rtl";
 
 /** SF Symbols → Material fallbacks for each toolbar chip. */
@@ -125,12 +125,14 @@ export function QuranReadingToolbar({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const scrollRef = useHorizontalWheelScroll();
-  const fullscreen = useWebFullscreen();
-  const reveal = useSharedValue(visible ? 1 : 0);
+  const fullscreen = useReadingFullscreen({ exitOnBlur: true });
+  // Stay reachable while immersive so the reader can exit fullscreen.
+  const showBar = visible || fullscreen.active;
+  const reveal = useSharedValue(showBar ? 1 : 0);
 
   useEffect(() => {
-    reveal.value = withTiming(visible ? 1 : 0, { duration: Durations.fast });
-  }, [visible, reveal]);
+    reveal.value = withTiming(showBar ? 1 : 0, { duration: Durations.fast });
+  }, [showBar, reveal]);
 
   // Collapse to `display: none` once fully hidden so the bar takes up no space
   // and never intercepts taps meant for the header card beneath it.
@@ -144,7 +146,10 @@ export function QuranReadingToolbar({
     <Animated.View
       style={[
         styles.bar,
-        { borderBottomColor: tokens.hairline, pointerEvents: visible ? "auto" : "none" },
+        {
+          borderBottomColor: tokens.hairline,
+          pointerEvents: showBar ? "auto" : "none",
+        },
         animatedStyle,
       ]}
     >

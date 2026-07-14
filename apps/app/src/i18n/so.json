@@ -1543,7 +1543,20 @@
     "apply": "pply u my counters",
     "disclaimer": "Tani waa qiyaas oo keliya. Xukunnada ku saabsan gudista Salahyada maqan way kala duwan yihiin — xaaladdaada kala tasho caalim aqoon leh.",
     "confirmTitle": "pply estimte?",
-    "confirmMsg": "Tani waxay ku beddelaysaa tirada Qaza ee hadhay Salah kasta oo fard ah iyo Witr qiyaasta kore. Tirada la dhammaystiray waa la haynayaa."
+    "confirmMsg": "Tani waxay ku beddelaysaa tirada Qaza ee hadhay Salah kasta oo fard ah iyo Witr qiyaasta kore. Tirada la dhammaystiray waa la haynayaa.",
+    "yearsPrayedHint": "Waxaad waajib ku ahayd ilaa {{obligatedYears}} sano — sannadaha salaadda joogtada ah kama badnaan karaan tan.",
+    "enterAgePrompt": "Geli da'daada hadda ee kor ku qoran si aad u aragto qiyaas.",
+    "resultBlocked": "Sax goobaha la calaamadeeyay si aad u furto qiyaasta.",
+    "fixGuideTitle": "Hubi tirooyinkaaga",
+    "fixGuideBody": "Qiyamka qaarkood isma waafaqaan, sidaas darteed xisaabiyaha weli ma qiyaasi karo salahda la seegay. Sax goobaha hoose.",
+    "zeroResultTitle": "Ma jiraan maalin la seegay oo la qiyaasay",
+    "zeroResultBody": "Iyadoo lagu salaynayo tirooyinkan, sannadaha salaadda joogtada ah waxay daboolayaan waqtiga tan iyo baligh. Hoos u dhig «sannadaha salaadda joogtada ah» haddii aad weli leedahay qaza.",
+    "validation": {
+      "needCurrentAge": "Geli da'da hadda si aad u qiyaasto salahda la seegay.",
+      "pubertyAfterAge": "Da'da baligh kama dambayn karto da'daada hadda.",
+      "yearsPrayedExceed": "Sannadaha salaadda ({{entered}}) kama badnaan karaan sannadaha tan iyo baligh ({{obligatedYears}}).",
+      "exemptExceedsYear": "Maalmaha la dhaafay ({{entered}}) kama badnaan karaan dhererka sanadka aad dooratay ({{maxDays}})."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qz",
@@ -4575,7 +4588,7 @@
     "disclaimer": "Dib-u-eegis waxbarasho oo keliya — ma aha darajo ruuxi ah. Door ilo sax ah oo waydii aqoonyahan xukunnada shakhsiyeed.",
     "studiedCount": "{{count}} kaar ayaa la bartay",
     "endlessHint": "Tababar aan dhammaanayn",
-    "answerHint": "Dooro jawaab si sharaxaad loo muujiyo.",
+    "answerHint": "Dooro jawaab si sharaxaad loo muujiyo, ama u gudub kaarka kale.",
     "pickAnswer": "Marka hore dooro jawaab",
     "nextCard": "Kaarka xiga",
     "correctTitle": "Fiican — waa la xafiday",
@@ -4608,6 +4621,8 @@
       "hadith": "Xadiis",
       "quran": "Qur'aan",
       "duas": "Ducooyin"
-    }
+    },
+    "skipHint": "Ka bood kaarkan oo arag su'aal kale.",
+    "skipDisabledHint": "Ka jawaab kaarkan ugu dambeeya si aad u bilowdo isku-roogid cusub."
   }
 }

@@ -1,6 +1,8 @@
 import type { ContentReportKind } from "@munib-tracker/shared/types/content-report";
 import { BlurTargetView } from "expo-blur";
+import { NavigationBar } from "expo-navigation-bar";
 import { useFocusEffect, usePathname } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import type { ReactNode, RefObject } from "react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,8 +26,8 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { ReadingProgressBar } from "@/components/ui/reading-progress-bar";
 import { MaxContentWidth, Spacing } from "@/constants/theme";
 import { useContentBottomInset } from "@/hooks/use-content-bottom-inset";
+import { useReadingFullscreen } from "@/hooks/use-reading-fullscreen";
 import { useTheme } from "@/hooks/use-theme";
-import { useWebFullscreen } from "@/hooks/use-web-fullscreen";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 
@@ -92,12 +94,12 @@ export function ScreenLayout({
   const { width } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const contentBottomInset = useContentBottomInset();
-  const { active: fullscreenActive } = useWebFullscreen();
+  const { active: fullscreenActive } = useReadingFullscreen();
   const rootRef = useRef<View>(null);
   const contentBlurTargetRef = useRef<View>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
-  // Hide the title bar in browser fullscreen so the reading surface grows; keep
-  // any headerAccessory (e.g. Qur'an toolbar) for exit + reading controls.
+  // Hide the title bar in reading fullscreen so the surface grows; keep any
+  // headerAccessory (e.g. Qur'an toolbar) for exit + reading controls.
   const showAppHeader = !fullscreenActive;
 
   // Reading-progress line: driven by the built-in scroller. A plain ScrollView
@@ -256,13 +258,25 @@ export function ScreenLayout({
       {...(Platform.OS === "web" ? { tabIndex: -1 as const } : {})}
       style={[styles.root, { backgroundColor: colors.background }]}
     >
+      {/* Native immersive reading: hide status bar (iOS HIG / Android immersive).
+          Android also hides the nav bar; expo-navigation-bar uses transient
+          swipe-to-reveal (BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE). */}
+      {Platform.OS !== "web" ? (
+        <StatusBar hidden={fullscreenActive} hideTransitionAnimation="fade" />
+      ) : null}
+      {Platform.OS === "android" ? <NavigationBar hidden={fullscreenActive} /> : null}
       {screenBody}
       {/* Rendered last so it stacks above scrolling content on Android; content
           scrolls beneath the translucent material for the glass effect. Only the
           header bar itself is measured for the content inset — the accessory
           floats over content below it. */}
       <View
-        style={styles.headerFloat}
+        style={[
+          styles.headerFloat,
+          // Immersive: AppHeader (which owns the top safe-area pad) is gone — keep
+          // the floating reading toolbar clear of the notch / camera cutout.
+          !showAppHeader && headerAccessory ? { paddingTop: insets.top } : null,
+        ]}
         onLayout={(event) => setHeaderHeight(event.nativeEvent.layout.height)}
       >
         {showAppHeader ? (

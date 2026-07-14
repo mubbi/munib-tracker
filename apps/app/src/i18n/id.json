@@ -1543,7 +1543,20 @@
     "apply": "Terapkan to my counters",
     "disclaimer": "Ini adalah  perkiraan only. Rulings pada making up terlewat shalat vary — please consult  knowledgeable ulama untuk Anda situation.",
     "confirmTitle": "Terapkan estimate?",
-    "confirmMsg": "Ini replaces  tersisa qadha hitung untuk each fard shalat dan Witir dengan  perkiraan above. Selesai counts adalah kept."
+    "confirmMsg": "Ini replaces  tersisa qadha hitung untuk each fard shalat dan Witir dengan  perkiraan above. Selesai counts adalah kept.",
+    "yearsPrayedHint": "Anda sudah diwajibkan selama sekitar {{obligatedYears}} tahun — tahun shalat konsisten tidak boleh melebihi ini.",
+    "enterAgePrompt": "Masukkan usia Anda saat ini di atas untuk melihat perkiraan.",
+    "resultBlocked": "Perbaiki bidang yang disorot untuk membuka perkiraan.",
+    "fixGuideTitle": "Periksa angka Anda",
+    "fixGuideBody": "Beberapa nilai tidak cocok, jadi kalkulator belum bisa memperkirakan salah yang terlewat. Perbaiki bidang di bawah.",
+    "zeroResultTitle": "Tidak ada hari terlewat yang diperkirakan",
+    "zeroResultBody": "Berdasarkan angka ini, tahun shalat konsisten menutupi waktu sejak baligh. Turunkan «tahun shalat konsisten» jika Anda masih mempunyai qaza.",
+    "validation": {
+      "needCurrentAge": "Masukkan usia saat ini untuk memperkirakan salah yang terlewat.",
+      "pubertyAfterAge": "Usia baligh tidak boleh lebih lambat dari usia saat ini.",
+      "yearsPrayedExceed": "Tahun shalat ({{entered}}) tidak boleh melebihi tahun sejak baligh ({{obligatedYears}}).",
+      "exemptExceedsYear": "Hari dikecualikan ({{entered}}) tidak boleh melebihi panjang tahun yang Anda pilih ({{maxDays}})."
+    }
   },
   "qazaPlan": {
     "eyebrow": "Qadha",
@@ -4575,7 +4588,7 @@
     "disclaimer": "Hanya ulasan edukatif — bukan peringkat spiritual. Utamakan sumber autentik dan tanyakan ulama untuk hukum pribadi.",
     "studiedCount": "{{count}} kartu dipelajari",
     "endlessHint": "Latihan tanpa akhir",
-    "answerHint": "Pilih jawaban untuk menampilkan penjelasan.",
+    "answerHint": "Pilih jawaban untuk menampilkan penjelasan, atau lewati ke kartu lain.",
     "pickAnswer": "Pilih jawaban dulu",
     "nextCard": "Kartu berikutnya",
     "correctTitle": "Bagus — berhasil diingat",
@@ -4608,6 +4621,8 @@
       "hadith": "Hadits",
       "quran": "Al-Qur'an",
       "duas": "Doa"
-    }
+    },
+    "skipHint": "Lewati kartu ini dan lihat pertanyaan lain.",
+    "skipDisabledHint": "Jawab kartu terakhir ini untuk memulai pengocokan baru."
   }
 }
