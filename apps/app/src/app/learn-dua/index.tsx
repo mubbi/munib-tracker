@@ -9,6 +9,8 @@ import {
   JannahNavRow,
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -24,6 +26,7 @@ import {
   getLearnDuaLessonCount,
   getLearnDuaTopics,
   getLearnDuaTopicsBySection,
+  isLearnDuaContentReady,
 } from "@/lib/learn-dua";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -49,7 +52,10 @@ export default function LearnDuaScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureLearnDuaProgressLoaded();
-  const { version: contentVersion } = useEnsureContent(ensureLearnDuaContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureLearnDuaContent,
+    isLearnDuaContentReady,
+  );
   const completedCount = useLearnDuaCompletedCount();
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const lessonTotal = useMemo(() => getLearnDuaLessonCount(), [contentVersion]);
@@ -135,120 +141,128 @@ export default function LearnDuaScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/learn-dua" />
-      <Stagger>
-        <JannahCallout tone="info">{t("learnDua.intro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("learnDua.intro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("learnDua.quickLinksTitle")}
-            icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+          <LearnQuizNavRow
+            quizPath={"/learn-dua/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
           />
-          <JannahQuickLinkGrid items={quickLinks} />
-        </Card>
 
-        <JannahNavRow
-          icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-          title={t("learnDua.progressCardTitle")}
-          subtitle={t("learnDua.progressCardHint", {
-            completed: completedCount,
-            total: lessonTotal,
-          })}
-          badge={`${completedCount}/${lessonTotal}`}
-          tint={colors.accent}
-          onPress={() => router.push("/learn-dua/progress" as Href)}
-        />
-
-        {SECTION_ORDER.map((section) => {
-          const topics = TOPICS_BY_SECTION[section];
-          if (!topics?.length) return null;
-          return (
-            <Card key={section} padding="three">
-              <SectionHeader
-                title={t(`learnDua.section.${section}`)}
-                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-                {t(`learnDua.section.${section}Hint`)}
-              </ThemedText>
-              <View style={styles.rows}>
-                {topics.map((topic) => (
-                  <JannahNavRow
-                    key={topic.id}
-                    icon={
-                      TOPIC_ICONS[topic.id] ?? {
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
-                      }
-                    }
-                    title={topic.title}
-                    subtitle={topic.summary}
-                    badge={
-                      topic.importance ? t(`learnDua.importance.${topic.importance}`) : undefined
-                    }
-                    onPress={() =>
-                      router.push({
-                        pathname: "/learn-dua/[topic]",
-                        params: { topic: topic.id },
-                      })
-                    }
-                  />
-                ))}
-              </View>
-            </Card>
-          );
-        })}
-
-        {FEATURED_PHRASE ? (
-          <JannahDuaBlock
-            title={
-              FEATURED_TOPIC
-                ? t("learnDua.featuredPhraseTitleWithTopic", { topic: FEATURED_TOPIC.title })
-                : t("learnDua.featuredPhraseTitle")
-            }
-            arabic={FEATURED_PHRASE.arabic}
-            transliteration={FEATURED_PHRASE.transliteration}
-            translation={FEATURED_PHRASE.translation}
-            reference={FEATURED_PHRASE.reference}
-          />
-        ) : null}
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("learnDua.exploreTitle")}
-            icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-          />
-          <View style={styles.rows}>
-            <JannahNavRow
-              icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
-              title={t("learnDua.occasionsTitle")}
-              subtitle={t("learnDua.occasionsHint")}
-              onPress={() => router.push("/learn-dua/occasions" as Href)}
+          <Card padding="three">
+            <SectionHeader
+              title={t("learnDua.quickLinksTitle")}
+              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
             />
-            <JannahNavRow
-              icon={{
-                ios: "hands.sparkles.fill",
-                android: "volunteer_activism",
-                web: "volunteer_activism",
-              }}
-              title={t("dua.title")}
-              subtitle={t("learnDua.duaLibraryPointer")}
-              onPress={() => router.push("/dua")}
+            <JannahQuickLinkGrid items={quickLinks} />
+          </Card>
+
+          <JannahNavRow
+            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+            title={t("learnDua.progressCardTitle")}
+            subtitle={t("learnDua.progressCardHint", {
+              completed: completedCount,
+              total: lessonTotal,
+            })}
+            badge={`${completedCount}/${lessonTotal}`}
+            tint={colors.accent}
+            onPress={() => router.push("/learn-dua/progress" as Href)}
+          />
+
+          {SECTION_ORDER.map((section) => {
+            const topics = TOPICS_BY_SECTION[section];
+            if (!topics?.length) return null;
+            return (
+              <Card key={section} padding="three">
+                <SectionHeader
+                  title={t(`learnDua.section.${section}`)}
+                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+                  {t(`learnDua.section.${section}Hint`)}
+                </ThemedText>
+                <View style={styles.rows}>
+                  {topics.map((topic) => (
+                    <JannahNavRow
+                      key={topic.id}
+                      icon={
+                        TOPIC_ICONS[topic.id] ?? {
+                          ios: "text.book.closed",
+                          android: "article",
+                          web: "article",
+                        }
+                      }
+                      title={topic.title}
+                      subtitle={topic.summary}
+                      badge={
+                        topic.importance ? t(`learnDua.importance.${topic.importance}`) : undefined
+                      }
+                      onPress={() =>
+                        router.push({
+                          pathname: "/learn-dua/[topic]",
+                          params: { topic: topic.id },
+                        })
+                      }
+                    />
+                  ))}
+                </View>
+              </Card>
+            );
+          })}
+
+          {FEATURED_PHRASE ? (
+            <JannahDuaBlock
+              title={
+                FEATURED_TOPIC
+                  ? t("learnDua.featuredPhraseTitleWithTopic", { topic: FEATURED_TOPIC.title })
+                  : t("learnDua.featuredPhraseTitle")
+              }
+              arabic={FEATURED_PHRASE.arabic}
+              transliteration={FEATURED_PHRASE.transliteration}
+              translation={FEATURED_PHRASE.translation}
+              reference={FEATURED_PHRASE.reference}
+            />
+          ) : null}
+
+          <Card padding="three">
+            <SectionHeader
+              title={t("learnDua.exploreTitle")}
+              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+            />
+            <View style={styles.rows}>
+              <JannahNavRow
+                icon={{ ios: "calendar", android: "calendar_month", web: "calendar_month" }}
+                title={t("learnDua.occasionsTitle")}
+                subtitle={t("learnDua.occasionsHint")}
+                onPress={() => router.push("/learn-dua/occasions" as Href)}
+              />
+              <JannahNavRow
+                icon={{
+                  ios: "hands.sparkles.fill",
+                  android: "volunteer_activism",
+                  web: "volunteer_activism",
+                }}
+                title={t("dua.title")}
+                subtitle={t("learnDua.duaLibraryPointer")}
+                onPress={() => router.push("/dua")}
+              />
+            </View>
+          </Card>
+
+          <View style={styles.pillRow}>
+            <Pill
+              label={t("learnDua.phaseV1")}
+              compact
+              color={colors.mutedForeground}
+              background={colors.muted}
             />
           </View>
-        </Card>
 
-        <View style={styles.pillRow}>
-          <Pill
-            label={t("learnDua.phaseV1")}
-            compact
-            color={colors.mutedForeground}
-            background={colors.muted}
-          />
-        </View>
-
-        <JannahDisclaimer textKey="learnDua.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="learnDua.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

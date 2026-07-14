@@ -9,6 +9,8 @@ import {
   JannahNavRow,
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -25,6 +27,7 @@ import {
   getJahannamMajorSinTopics,
   getJahannamRefugeDua,
   getJahannamTopicsBySection,
+  isJahannamContentReady,
 } from "@/lib/jahannam";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -33,7 +36,10 @@ export default function JahannamScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { version: contentVersion } = useEnsureContent(ensureJahannamContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureJahannamContent,
+    isJahannamContentReady,
+  );
   // Recompute per locale so translated topic titles/summaries render on switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
   const TOPICS_BY_SECTION = useMemo(
@@ -145,137 +151,145 @@ export default function JahannamScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/jahannam" />
-      <Stagger>
-        <JannahCallout tone="warning">{t("jahannam.intro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="warning">{t("jahannam.intro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("jahannam.quickLinksTitle")}
-            icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+          <LearnQuizNavRow
+            quizPath={"/jahannam/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
           />
-          <JannahQuickLinkGrid items={quickLinks} />
-        </Card>
 
-        <JannahNavRow
-          icon={{ ios: "leaf.fill", android: "park", web: "park" }}
-          title={t("jahannam.jannahPairTitle")}
-          subtitle={t("jahannam.jannahPairHint")}
-          tint={tokens.status.success.color}
-          onPress={() => router.push("/jannah" as Href)}
-        />
+          <Card padding="three">
+            <SectionHeader
+              title={t("jahannam.quickLinksTitle")}
+              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+            />
+            <JannahQuickLinkGrid items={quickLinks} />
+          </Card>
 
-        {SECTION_ORDER.map((section) => {
-          if (section === "major-sins") return null;
-          const topics = TOPICS_BY_SECTION[section];
-          if (!topics?.length) return null;
-          return (
-            <Card key={section} padding="three">
-              <SectionHeader
-                title={t(`jahannam.section.${section}`)}
-                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-                {t(`jahannam.section.${section}Hint`)}
-              </ThemedText>
-              <View style={styles.rows}>
-                {topics.map((topic) => (
-                  <JannahNavRow
-                    key={topic.id}
-                    icon={{
-                      ios: "text.book.closed",
-                      android: "article",
-                      web: "article",
-                    }}
-                    title={topic.title}
-                    subtitle={topic.summary}
-                    badge={
-                      topic.importance ? t(`jahannam.importance.${topic.importance}`) : undefined
-                    }
-                    onPress={() =>
-                      router.push({
-                        pathname: "/jahannam/[topic]",
-                        params: { topic: topic.id },
-                      })
-                    }
-                  />
-                ))}
-              </View>
-            </Card>
-          );
-        })}
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("jahannam.majorSinsTitle")}
-            icon={{ ios: "exclamationmark.triangle.fill", android: "warning", web: "warning" }}
+          <JannahNavRow
+            icon={{ ios: "leaf.fill", android: "park", web: "park" }}
+            title={t("jahannam.jannahPairTitle")}
+            subtitle={t("jahannam.jannahPairHint")}
+            tint={tokens.status.success.color}
+            onPress={() => router.push("/jannah" as Href)}
           />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-            {t("jahannam.majorSinsHint")}
-          </ThemedText>
-          <View style={styles.sinGrid}>
-            {majorSins.map((topic) => (
-              <PressableScale
-                key={topic.id}
-                haptic="light"
-                accessibilityRole="button"
-                accessibilityLabel={`${topic.title}. ${topic.summary}`}
-                onPress={() =>
-                  router.push({
-                    pathname: "/jahannam/[topic]",
-                    params: { topic: topic.id },
-                  })
-                }
-                style={[styles.sinTile, { backgroundColor: colors.muted }]}
-              >
-                <ThemedText type="smallBold" numberOfLines={2}>
-                  {topic.title}
+
+          {SECTION_ORDER.map((section) => {
+            if (section === "major-sins") return null;
+            const topics = TOPICS_BY_SECTION[section];
+            if (!topics?.length) return null;
+            return (
+              <Card key={section} padding="three">
+                <SectionHeader
+                  title={t(`jahannam.section.${section}`)}
+                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+                  {t(`jahannam.section.${section}Hint`)}
                 </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={3}>
-                  {topic.summary}
-                </ThemedText>
-                {topic.importance ? (
-                  <Pill
-                    label={t(`jahannam.importance.${topic.importance}`)}
-                    compact
-                    color={colors.mutedForeground}
-                    background={colors.card}
-                  />
-                ) : null}
-              </PressableScale>
-            ))}
-          </View>
-        </Card>
+                <View style={styles.rows}>
+                  {topics.map((topic) => (
+                    <JannahNavRow
+                      key={topic.id}
+                      icon={{
+                        ios: "text.book.closed",
+                        android: "article",
+                        web: "article",
+                      }}
+                      title={topic.title}
+                      subtitle={topic.summary}
+                      badge={
+                        topic.importance ? t(`jahannam.importance.${topic.importance}`) : undefined
+                      }
+                      onPress={() =>
+                        router.push({
+                          pathname: "/jahannam/[topic]",
+                          params: { topic: topic.id },
+                        })
+                      }
+                    />
+                  ))}
+                </View>
+              </Card>
+            );
+          })}
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("jahannam.exploreTitle")}
-            icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-          />
-          <View style={styles.rows}>
-            {exploreLinks.map((link) => (
-              <JannahNavRow
-                key={link.id}
-                icon={link.icon}
-                title={link.title}
-                subtitle={link.subtitle}
-                onPress={link.onPress}
-              />
-            ))}
-          </View>
-        </Card>
+          <Card padding="three">
+            <SectionHeader
+              title={t("jahannam.majorSinsTitle")}
+              icon={{ ios: "exclamationmark.triangle.fill", android: "warning", web: "warning" }}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+              {t("jahannam.majorSinsHint")}
+            </ThemedText>
+            <View style={styles.sinGrid}>
+              {majorSins.map((topic) => (
+                <PressableScale
+                  key={topic.id}
+                  haptic="light"
+                  accessibilityRole="button"
+                  accessibilityLabel={`${topic.title}. ${topic.summary}`}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/jahannam/[topic]",
+                      params: { topic: topic.id },
+                    })
+                  }
+                  style={[styles.sinTile, { backgroundColor: colors.muted }]}
+                >
+                  <ThemedText type="smallBold" numberOfLines={2}>
+                    {topic.title}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={3}>
+                    {topic.summary}
+                  </ThemedText>
+                  {topic.importance ? (
+                    <Pill
+                      label={t(`jahannam.importance.${topic.importance}`)}
+                      compact
+                      color={colors.mutedForeground}
+                      background={colors.card}
+                    />
+                  ) : null}
+                </PressableScale>
+              ))}
+            </View>
+          </Card>
 
-        {refugeDua ? (
-          <JannahDuaBlock
-            title={t("jahannam.refugeDuaTitle")}
-            arabic={refugeDua.arabic}
-            transliteration={refugeDua.transliteration}
-            translation={refugeDua.translation}
-            reference={refugeDua.reference}
-          />
-        ) : null}
+          <Card padding="three">
+            <SectionHeader
+              title={t("jahannam.exploreTitle")}
+              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+            />
+            <View style={styles.rows}>
+              {exploreLinks.map((link) => (
+                <JannahNavRow
+                  key={link.id}
+                  icon={link.icon}
+                  title={link.title}
+                  subtitle={link.subtitle}
+                  onPress={link.onPress}
+                />
+              ))}
+            </View>
+          </Card>
 
-        <JannahDisclaimer textKey="jahannam.disclaimer" />
-      </Stagger>
+          {refugeDua ? (
+            <JannahDuaBlock
+              title={t("jahannam.refugeDuaTitle")}
+              arabic={refugeDua.arabic}
+              transliteration={refugeDua.transliteration}
+              translation={refugeDua.translation}
+              reference={refugeDua.reference}
+            />
+          ) : null}
+
+          <JannahDisclaimer textKey="jahannam.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

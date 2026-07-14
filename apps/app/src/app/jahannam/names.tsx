@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -16,7 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureJahannamContent, getJahannamNames } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamNames, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 
 function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean }) {
@@ -85,7 +86,7 @@ function NameRow({ entry, isLast }: { entry: JahannamNameEntry; isLast: boolean 
 export default function JahannamNamesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  useEnsureContent(ensureJahannamContent);
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const names = getJahannamNames();
 
   return (
@@ -96,27 +97,29 @@ export default function JahannamNamesScreen() {
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/names" />
-      <Stagger>
-        <LearnReadingChrome surface="jahannam">
-          <JannahCallout tone="warning">{t("jahannam.namesLead")}</JannahCallout>
-          <Card padding="three">
-            <SectionHeader
-              title={t("jahannam.namesListTitle")}
-              icon={{
-                ios: "flame.fill",
-                android: "local_fire_department",
-                web: "local_fire_department",
-              }}
-            />
-            <View style={styles.list}>
-              {names.map((entry, index) => (
-                <NameRow key={entry.id} entry={entry} isLast={index === names.length - 1} />
-              ))}
-            </View>
-          </Card>
-        </LearnReadingChrome>
-        <JannahDisclaimer textKey="jahannam.disclaimer" />
-      </Stagger>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="jahannam">
+            <JannahCallout tone="warning">{t("jahannam.namesLead")}</JannahCallout>
+            <Card padding="three">
+              <SectionHeader
+                title={t("jahannam.namesListTitle")}
+                icon={{
+                  ios: "flame.fill",
+                  android: "local_fire_department",
+                  web: "local_fire_department",
+                }}
+              />
+              <View style={styles.list}>
+                {names.map((entry, index) => (
+                  <NameRow key={entry.id} entry={entry} isLast={index === names.length - 1} />
+                ))}
+              </View>
+            </Card>
+          </LearnReadingChrome>
+          <JannahDisclaimer textKey="jahannam.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

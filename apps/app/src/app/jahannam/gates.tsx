@@ -3,6 +3,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -14,7 +15,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureJahannamContent, getJahannamGates } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamGates, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 
 function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean }) {
@@ -56,7 +57,7 @@ function GateRow({ gate, isLast }: { gate: JahannamGateEntry; isLast: boolean })
 export default function JahannamGatesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  useEnsureContent(ensureJahannamContent);
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const gates = getJahannamGates();
 
   return (
@@ -67,23 +68,25 @@ export default function JahannamGatesScreen() {
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/gates" />
-      <Stagger>
-        <LearnReadingChrome surface="jahannam">
-          <JannahCallout tone="warning">{t("jahannam.gatesLead")}</JannahCallout>
-          <Card padding="three">
-            <SectionHeader
-              title={t("jahannam.gatesListTitle")}
-              icon={{ ios: "door.left.hand.open", android: "door_front", web: "door_front" }}
-            />
-            <View style={styles.list}>
-              {gates.map((gate, index) => (
-                <GateRow key={gate.id} gate={gate} isLast={index === gates.length - 1} />
-              ))}
-            </View>
-          </Card>
-        </LearnReadingChrome>
-        <JannahDisclaimer textKey="jahannam.disclaimer" />
-      </Stagger>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="jahannam">
+            <JannahCallout tone="warning">{t("jahannam.gatesLead")}</JannahCallout>
+            <Card padding="three">
+              <SectionHeader
+                title={t("jahannam.gatesListTitle")}
+                icon={{ ios: "door.left.hand.open", android: "door_front", web: "door_front" }}
+              />
+              <View style={styles.list}>
+                {gates.map((gate, index) => (
+                  <GateRow key={gate.id} gate={gate} isLast={index === gates.length - 1} />
+                ))}
+              </View>
+            </Card>
+          </LearnReadingChrome>
+          <JannahDisclaimer textKey="jahannam.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

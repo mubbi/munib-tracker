@@ -9,6 +9,9 @@ import { overlayList } from "@/lib/content-overlay-registry";
 type AqeedahContent = typeof import("@munib-tracker/shared/content/aqeedah") &
   typeof import("@munib-tracker/shared/content/aqeedah-glossary");
 let contentCache: AqeedahContent | undefined;
+export function isAqeedahContentReady(): boolean {
+  return contentCache !== undefined;
+}
 
 export async function ensureAqeedahContent(): Promise<AqeedahContent> {
   if (!contentCache) {

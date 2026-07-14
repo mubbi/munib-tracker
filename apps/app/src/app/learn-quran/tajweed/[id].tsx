@@ -1,8 +1,9 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { JannahBody, JannahDisclaimer, JannahTakeaway } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -12,12 +13,13 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
-import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   ensureQuranGuideContent,
   getQuranGuideTajweedLesson,
   getQuranGuideTajweedLessons,
+  isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 
@@ -33,19 +35,17 @@ function paramId(raw: string | string[] | undefined): string | undefined {
 export default function LearnQuranTajweedDetailScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { colors } = useThemeTokens();
   const { id: idParam } = useLocalSearchParams<{ id: string }>();
   const id = paramId(idParam);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    void ensureQuranGuideContent().then(() => setReady(true));
-  }, []);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or corpus is ready
   const lesson = useMemo(
-    () => (ready ? getQuranGuideTajweedLesson(id) : undefined),
-    [id, i18n.language, ready],
+    () => (contentReady ? getQuranGuideTajweedLesson(id) : undefined),
+    [id, i18n.language, contentReady],
   );
 
   const detailPath = lesson ? `/learn-quran/tajweed/${lesson.id}` : "/learn-quran/tajweed";
@@ -86,10 +86,8 @@ export default function LearnQuranTajweedDetailScreen() {
             : undefined
         }
       />
-      {!ready ? (
-        <View style={styles.loading}>
-          <ActivityIndicator size="large" color={colors.accent} />
-        </View>
+      {!contentReady ? (
+        <LearnContentLoading />
       ) : !lesson ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
@@ -135,10 +133,6 @@ export default function LearnQuranTajweedDetailScreen() {
 }
 
 const styles = StyleSheet.create({
-  loading: {
-    paddingVertical: Spacing.six,
-    alignItems: "center",
-  },
   examples: { gap: Spacing.two, marginTop: Spacing.three },
   exampleArabic: { fontSize: 22, lineHeight: 36 },
 });

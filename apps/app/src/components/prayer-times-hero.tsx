@@ -369,7 +369,13 @@ export function PrayerTimesHero({
                     },
                   ]}
                 >
-                  <ThemedText type="caption" style={[styles.softShadow, { color: textColor }]}>
+                  <ThemedText
+                    type="caption"
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.8}
+                    style={[styles.softShadow, styles.prayerLabel, { color: textColor }]}
+                  >
                     {prayer.name}
                   </ThemedText>
                   <SymbolView
@@ -379,7 +385,14 @@ export function PrayerTimesHero({
                   />
                   <ThemedText
                     type="caption"
-                    style={[styles.softShadow, { color: textColor, fontWeight: "700" }]}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.75}
+                    style={[
+                      styles.softShadow,
+                      styles.prayerTime,
+                      { color: textColor, fontWeight: "700" },
+                    ]}
                   >
                     {prayer.time}
                   </ThemedText>
@@ -616,5 +629,17 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "transparent",
+    // Let flex children shrink below content width so long times (e.g. "12:39 PM")
+    // can scale instead of wrapping onto a second line.
+    minWidth: 0,
+  },
+  prayerLabel: {
+    width: "100%",
+    textAlign: "center",
+  },
+  prayerTime: {
+    width: "100%",
+    textAlign: "center",
+    fontVariant: ["tabular-nums"],
   },
 });

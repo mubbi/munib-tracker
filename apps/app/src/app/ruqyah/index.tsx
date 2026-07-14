@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer, JannahNavRow } from "@/components/jannah/primitives";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { Card } from "@/components/ui/card";
@@ -42,6 +43,12 @@ export default function RuqyahScreen() {
       <Seo path="/ruqyah" />
       <Stagger>
         <JannahCallout tone="info">{t("ruqyah.intro")}</JannahCallout>
+
+        <LearnQuizNavRow
+          quizPath={"/ruqyah/quiz" as Href}
+          titleKey="common.learnQuiz.title"
+          subtitleKey="common.learnQuiz.hint"
+        />
 
         {sectionOrder.map((section) => {
           const topics = topicsBySection[section];

@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Fuata safari yako ya kurudi kwa Allah.",
     "loadingRoute": "Inatayarisha…",
-    "loadingRouteHint": "Subiri kidogo skrini hii inapopakia."
+    "loadingRouteHint": "Subiri kidogo skrini hii inapopakia.",
+    "loadingContent": "Inapakia maudhui…",
+    "loadingContentHint": "Subiri kidogo somo hili linapopakia.",
+    "learnQuiz": {
+      "title": "Jaribio la mapitio",
+      "subtitle": "Jaribu uelewa wako — si hadhi yako mbele ya Allah",
+      "intro": "Mapitio mafupi kutoka masomo ya mwongozo huu. Chukua muda — lengo ni kujifunza.",
+      "hint": "Pitia ulichojifunza",
+      "empty": "Maswali ya mwongozo huu bado yanapakia. Fungua masomo machache, kisha jaribu tena."
+    }
   },
   "search": {
     "placeholder": "Tafuta Qur'ani, hadithi, dua, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Mwongozo wa Eid",
     "ruqyah": "Ruqyah",
     "newMuslim": "Mwongozo Mpya wa Waislamu",
-    "finance": "Fedha za Kiislamu"
+    "finance": "Fedha za Kiislamu",
+    "flashCards": "Kadi za kujifunzia"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -1008,11 +1018,18 @@
     "increase": "Washageza text size",
     "reset": "Weka upya text size",
     "sizeDefault": "Varsamwakaan",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Sikiliza makala",
+    "listenStop": "Acha kusikiliza",
+    "listenHint": "Chagua sauti, kisha sikiliza ukurasa huu ukisomwa kwa sauti katika lugha ya programu kwa kutumia ubadilishaji maandishi-hadi-usemi wa kifaa",
+    "listenUnavailableTitle": "Kusikiliza hakupatikani",
+    "listenUnavailableBody": "Ubadilishaji maandishi-hadi-usemi haupatikani kwenye kifaa hiki. Hakikisha sauti ya lugha yako imesakinishwa katika mipangilio ya mfumo.",
+    "listenLabel": "Sikiliza",
+    "listenStopLabel": "Simamisha",
+    "listenVoiceTitle": "Chagua sauti",
+    "listenVoiceHint": "Chagua sauti ili uanze kusikiliza",
+    "listenVoiceDefault": "Chaguo-msingi la mfumo",
+    "listenVoiceDefaultHint": "Tumia sauti inayopendelewa ya kifaa kwa lugha hii",
+    "listenVoiceEmpty": "Hakuna sauti zilizosakinishwa kwa lugha hii. Ongeza moja katika mipangilio ya mfumo."
   },
   "share": {
     "dialogTitle": "Shiriki",
@@ -2544,7 +2561,7 @@
   },
   "homeCustomize": {
     "title": "Geuza kukufaa",
-    "subtitle": "Chagua kinachoonekana kwenye skrini yako ya nyumbani na ya maktaba",
+    "subtitle": "Chagua kinachoonekana kwenye skrini yako ya nyumbani",
     "modulesTitle": "Kadi za nyumbani",
     "actionsTitle": "Vitendo vya haraka",
     "actionsHint": "Panga upya njia zako za mkato, au uondoe ambazo hutumii.",
@@ -4641,5 +4658,48 @@
     "exploreCalendarHint": "Tazama historia ya ibada siku baada ya siku",
     "exploreEvents": "Fungua matukio ya Kiislamu",
     "exploreEventsHint": "Maadhimisho na maadhimisho mbele"
+  },
+  "flashCards": {
+    "eyebrow": "Jifunze",
+    "title": "Kadi za kujifunzia",
+    "subtitle": "Fanya mazoezi ya ujuzi wa Kiislamu kadi moja baada ya nyingine — bila alama, bila shinikizo",
+    "intro": "Chota kutoka Qur'ani, hadithi, Majina ya Allah, na kila mwongozo wa Jifunze. Gusa jibu ili ujiangalie, kisha endelea kadri unavyotaka.",
+    "disclaimer": "Mapitio ya kielimu tu — si orodha ya kiroho. Pendekeza vyanzo sahihi na uulize mwanachuoni kwa hukumu za kibinafsi.",
+    "studiedCount": "Kadi {{count}} zimesomwa",
+    "endlessHint": "Mazoezi yasiyo na mwisho",
+    "answerHint": "Chagua jibu ili kuonyesha maelezo.",
+    "pickAnswer": "Chagua jibu kwanza",
+    "nextCard": "Kadi ifuatayo",
+    "correctTitle": "Vizuri — imekaza",
+    "incorrectTitle": "Karibu — hii ndiyo idea",
+    "empty": "Inajenga dek ya kadi zako… fungua mada za Jifunze au subiri kidogo.",
+    "category": {
+      "salahGuide": "Salah",
+      "jannah": "Jannah",
+      "lastDay": "Siku ya Mwisho",
+      "jahannam": "Jahannam",
+      "battles": "Vita",
+      "learnQuran": "Qur'ani",
+      "taharah": "Usafi",
+      "hayd": "Hayd",
+      "sick": "Ugonjwa",
+      "prophets": "Manabii",
+      "aqeedah": "Aqeedah",
+      "learnDua": "Dua",
+      "travel": "Safari",
+      "hajj": "Hajj",
+      "seerah": "Seerah",
+      "events": "Matukio",
+      "sahaba": "Sahaba",
+      "history": "Historia",
+      "laylatAlQadr": "Laylat al-Qadr",
+      "eid": "Eid",
+      "ruqyah": "Ruqyah",
+      "newMuslim": "Muislamu mpya",
+      "names": "Majina 99",
+      "hadith": "Hadithi",
+      "quran": "Qur'ani",
+      "duas": "Dua"
+    }
   }
 }

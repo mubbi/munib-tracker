@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -16,7 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureJannahContent, getJannahGates } from "@/lib/jannah";
+import { ensureJannahContent, getJannahGates, isJannahContentReady } from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
 
@@ -96,7 +97,7 @@ function GateRow({ gate, isLast }: { gate: JannahGate; isLast: boolean }) {
 }
 
 export default function JannahGatesScreen() {
-  useEnsureContent(ensureJannahContent);
+  const { ready: contentReady } = useEnsureContent(ensureJannahContent, isJannahContentReady);
   const router = useRouter();
   const { t } = useTranslation();
   const gates = getJannahGates();
@@ -109,25 +110,27 @@ export default function JannahGatesScreen() {
       onBack={() => goBackOrReplace(router, "/jannah")}
     >
       <Seo path="/jannah/gates" />
-      <Stagger>
-        <LearnReadingChrome surface="jannah">
-          <JannahCallout tone="accent">{t("jannah.gatesLead")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="jannah">
+            <JannahCallout tone="accent">{t("jannah.gatesLead")}</JannahCallout>
 
-          <Card padding="three">
-            <SectionHeader
-              title={t("jannah.gatesListTitle")}
-              icon={{ ios: "door.left.hand.open", android: "door_front", web: "door_front" }}
-            />
-            <View style={styles.list}>
-              {gates.map((gate, index) => (
-                <GateRow key={gate.id} gate={gate} isLast={index === gates.length - 1} />
-              ))}
-            </View>
-          </Card>
-        </LearnReadingChrome>
+            <Card padding="three">
+              <SectionHeader
+                title={t("jannah.gatesListTitle")}
+                icon={{ ios: "door.left.hand.open", android: "door_front", web: "door_front" }}
+              />
+              <View style={styles.list}>
+                {gates.map((gate, index) => (
+                  <GateRow key={gate.id} gate={gate} isLast={index === gates.length - 1} />
+                ))}
+              </View>
+            </Card>
+          </LearnReadingChrome>
 
-        <JannahDisclaimer />
-      </Stagger>
+          <JannahDisclaimer />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

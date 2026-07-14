@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "La soco safarkaaga ku soo noqoshada Allaah.",
     "loadingRoute": "Waa la diyaarinayaa…",
-    "loadingRouteHint": "Daawo yar — shaashadan ayaa soo raraysa."
+    "loadingRouteHint": "Daawo yar — shaashadan ayaa soo raraysa.",
+    "loadingContent": "Waxyaabaha ayaa soo raraya…",
+    "loadingContentHint": "Wax yar sug inta casharkan la soo rarayo.",
+    "learnQuiz": {
+      "title": "Imtixaanka dib-u-eegista",
+      "subtitle": "Tijaabi fahamkaaga — ma aha darajadaada Allaha hortiisa",
+      "intro": "Dib-u-eegis gaaban oo laga soo qaaday casharrada hagahaan. Waqti qaado — bartidu waa ujeedada.",
+      "hint": "Dib u eeg waxaad baratay",
+      "empty": "Su'aalaha hagahaan weli waa la soo rarayaa. Fur dhowr cashar, ka dib isku day mar kale."
+    }
   },
   "search": {
     "placeholder": "Raadi Qur'aanka, xadiiska, duacada, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Hagaha Ciida",
     "ruqyah": "Ruqyah",
     "newMuslim": "Hagaha Muslimka Cusub",
-    "finance": "Maaliyadda Islaamka"
+    "finance": "Maaliyadda Islaamka",
+    "flashCards": "Kaararka barashada"
   },
   "quickActions": {
     "checklistSubtitle": "Diiwaangeli salaha maanta",
@@ -1008,11 +1018,18 @@
     "increase": "gudhcrese text size",
     "reset": "dib u deji text size",
     "sizeDefault": "Defult",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Dhageyso maqaalka",
+    "listenStop": "Jooji dhageysiga",
+    "listenHint": "Dooro cod, ka dibna dhageyso boggan oo cod sare loogu akhriyay luqadda abka adigoo isticmaalaya qoraal-ilaa-hadalka aaladda",
+    "listenUnavailableTitle": "Dhageysigu ma heli karo",
+    "listenUnavailableBody": "Qoraal-ilaa-hadalka kuma jiro aaladdan. Hubi in cod loogu talagalay luqaddaada lagu rakibay goobaha nidaamka.",
+    "listenLabel": "Dhageyso",
+    "listenStopLabel": "Jooji",
+    "listenVoiceTitle": "Dooro cod",
+    "listenVoiceHint": "Dooro cod si aad u bilowdo dhageysiga",
+    "listenVoiceDefault": "Habka nidaamka",
+    "listenVoiceDefaultHint": "Isticmaal codka aaladda doorbida luqaddan",
+    "listenVoiceEmpty": "Ma jiraan codad loogu talagalay luqaddan. Ku dar mid goobaha nidaamka."
   },
   "share": {
     "dialogTitle": "La wadaag",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "Cusumize home",
-    "subtitle": "Choose wht ppers ku kg home iyo librry screens",
+    "subtitle": "Dooro waxa ka muuqda shaashadda gurigaaga",
     "modulesTitle": "Home crds",
     "actionsTitle": "Quick ctikus",
     "actionsHint": "Remder kg shmtcuts, m k sr kues dig dku't use.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "U fiirso taariikhda cibaadada maalinba maalinta ka dambeysa",
     "exploreEvents": "Furo dhacdooyinka Islaamka",
     "exploreEventsHint": "Horyaallada iyo xushmooyinka soo socda"
+  },
+  "flashCards": {
+    "eyebrow": "Baro",
+    "title": "Kaararka barashada",
+    "subtitle": "Ku tababar aqoonta Islaamka kaar ka dib kaar — dhibco la'aan, cadaadis la'aan",
+    "intro": "Ka soo qaado Qur'aanka, xadiiska, Magacyada Alle, iyo mid kasta oo hagaha Baro. Taabo jawaab si aad isku eegto, ka dib sii wad intaad rabto.",
+    "disclaimer": "Dib-u-eegis waxbarasho oo keliya — ma aha darajo ruuxi ah. Door ilo sax ah oo waydii aqoonyahan xukunnada shakhsiyeed.",
+    "studiedCount": "{{count}} kaar ayaa la bartay",
+    "endlessHint": "Tababar aan dhammaanayn",
+    "answerHint": "Dooro jawaab si sharaxaad loo muujiyo.",
+    "pickAnswer": "Marka hore dooro jawaab",
+    "nextCard": "Kaarka xiga",
+    "correctTitle": "Fiican — waa la xafiday",
+    "incorrectTitle": "Ku dhowaad — waa tan fikradda",
+    "empty": "Waxaa la dhisayaa xirmada kaararkaaga… fur mowduucyada Baro ama sug wax yar.",
+    "category": {
+      "salahGuide": "Salah",
+      "jannah": "Janno",
+      "lastDay": "Maalinta Dambe",
+      "jahannam": "Jahannam",
+      "battles": "Dagaallo",
+      "learnQuran": "Qur'aan",
+      "taharah": "Nadiifinta",
+      "hayd": "Xayd",
+      "sick": "Xanuun",
+      "prophets": "Nabiyaal",
+      "aqeedah": "Caqiidda",
+      "learnDua": "Duco",
+      "travel": "Safar",
+      "hajj": "Xaj",
+      "seerah": "Seerah",
+      "events": "Dhacdooyin",
+      "sahaba": "Saxaabada",
+      "history": "Taariikh",
+      "laylatAlQadr": "Laylatul Qadr",
+      "eid": "Ciid",
+      "ruqyah": "Ruqyah",
+      "newMuslim": "Muslim cusub",
+      "names": "99 Magac",
+      "hadith": "Xadiis",
+      "quran": "Qur'aan",
+      "duas": "Ducooyin"
+    }
   }
 }

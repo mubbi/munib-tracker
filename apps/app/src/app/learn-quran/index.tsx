@@ -8,6 +8,7 @@ import {
   JannahNavRow,
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -26,6 +27,7 @@ import {
   getQuranGuideLessonCount,
   getQuranGuideTopicRoute,
   getQuranGuideTopicsByJourney,
+  isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import {
   useEnsureQuranGuideProgressLoaded,
@@ -58,7 +60,10 @@ export default function LearnQuranScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureQuranGuideProgressLoaded();
-  const { version: contentVersion } = useEnsureContent(ensureQuranGuideContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
   const completedCount = useQuranGuideCompletedCount();
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes or content finishes loading
   const lessonTotal = useMemo(() => getQuranGuideLessonCount(), [contentVersion]);
@@ -123,119 +128,121 @@ export default function LearnQuranScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/learn-quran" />
-      <Stagger>
-        <JannahCallout tone="info">{t("learnQuran.intro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("learnQuran.intro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("learnQuran.quickLinksTitle")}
-            icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+          <Card padding="three">
+            <SectionHeader
+              title={t("learnQuran.quickLinksTitle")}
+              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+            />
+            <JannahQuickLinkGrid items={quickLinks} />
+          </Card>
+
+          <JannahNavRow
+            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+            title={t("learnQuran.progressCardTitle")}
+            subtitle={t("learnQuran.progressCardHint", {
+              completed: completedCount,
+              total: lessonTotal,
+            })}
+            badge={`${completedCount}/${lessonTotal}`}
+            tint={colors.accent}
+            onPress={() => router.push("/learn-quran/progress" as Href)}
           />
-          <JannahQuickLinkGrid items={quickLinks} />
-        </Card>
 
-        <JannahNavRow
-          icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-          title={t("learnQuran.progressCardTitle")}
-          subtitle={t("learnQuran.progressCardHint", {
-            completed: completedCount,
-            total: lessonTotal,
-          })}
-          badge={`${completedCount}/${lessonTotal}`}
-          tint={colors.accent}
-          onPress={() => router.push("/learn-quran/progress" as Href)}
-        />
-
-        {JOURNEY_ORDER.map((phase) => {
-          const topics = TOPICS_BY_JOURNEY[phase];
-          if (!topics?.length) return null;
-          return (
-            <Card key={phase} padding="three">
-              <SectionHeader
-                title={t(`learnQuran.journey.${phase}`)}
-                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.phaseHint}>
-                {t(`learnQuran.journey.${phase}Hint`)}
-              </ThemedText>
-              <View style={styles.rows}>
-                {topics.map((topic) => (
-                  <JannahNavRow
-                    key={topic.id}
-                    icon={
-                      TOPIC_ICONS[topic.id] ?? {
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
+          {JOURNEY_ORDER.map((phase) => {
+            const topics = TOPICS_BY_JOURNEY[phase];
+            if (!topics?.length) return null;
+            return (
+              <Card key={phase} padding="three">
+                <SectionHeader
+                  title={t(`learnQuran.journey.${phase}`)}
+                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.phaseHint}>
+                  {t(`learnQuran.journey.${phase}Hint`)}
+                </ThemedText>
+                <View style={styles.rows}>
+                  {topics.map((topic) => (
+                    <JannahNavRow
+                      key={topic.id}
+                      icon={
+                        TOPIC_ICONS[topic.id] ?? {
+                          ios: "text.book.closed",
+                          android: "article",
+                          web: "article",
+                        }
                       }
-                    }
-                    title={topic.title}
-                    subtitle={topic.summary}
-                    badge={
-                      topic.comingSoon
-                        ? t("learnQuran.comingSoon")
-                        : topic.importance
-                          ? t(`learnQuran.importance.${topic.importance}`)
-                          : undefined
-                    }
-                    onPress={() => router.push(getQuranGuideTopicRoute(topic.id) as Href)}
-                  />
-                ))}
-              </View>
-            </Card>
-          );
-        })}
+                      title={topic.title}
+                      subtitle={topic.summary}
+                      badge={
+                        topic.comingSoon
+                          ? t("learnQuran.comingSoon")
+                          : topic.importance
+                            ? t(`learnQuran.importance.${topic.importance}`)
+                            : undefined
+                      }
+                      onPress={() => router.push(getQuranGuideTopicRoute(topic.id) as Href)}
+                    />
+                  ))}
+                </View>
+              </Card>
+            );
+          })}
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("learnQuran.relatedTitle")}
-            icon={{ ios: "link", android: "link", web: "link" }}
-          />
-          <View style={styles.rows}>
-            <JannahNavRow
-              icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              title={t("actions.quran")}
-              subtitle={t("learnQuran.quranReaderPointer")}
-              onPress={() => router.push("/quran")}
+          <Card padding="three">
+            <SectionHeader
+              title={t("learnQuran.relatedTitle")}
+              icon={{ ios: "link", android: "link", web: "link" }}
             />
-            <JannahNavRow
-              icon={{ ios: "figure.stand", android: "self_improvement", web: "self_improvement" }}
-              title={t("actions.salahGuide")}
-              subtitle={t("learnQuran.salahPointer")}
-              onPress={() => router.push("/salah-guide")}
+            <View style={styles.rows}>
+              <JannahNavRow
+                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                title={t("actions.quran")}
+                subtitle={t("learnQuran.quranReaderPointer")}
+                onPress={() => router.push("/quran")}
+              />
+              <JannahNavRow
+                icon={{ ios: "figure.stand", android: "self_improvement", web: "self_improvement" }}
+                title={t("actions.salahGuide")}
+                subtitle={t("learnQuran.salahPointer")}
+                onPress={() => router.push("/salah-guide")}
+              />
+              <JannahNavRow
+                icon={{ ios: "leaf.fill", android: "park", web: "park" }}
+                title={t("actions.jannah")}
+                subtitle={t("learnQuran.jannahPointer")}
+                onPress={() => router.push("/jannah")}
+              />
+            </View>
+          </Card>
+
+          <View style={styles.pillRow}>
+            <Pill
+              label={t("learnQuran.phaseV1")}
+              compact
+              color={colors.mutedForeground}
+              background={colors.muted}
             />
-            <JannahNavRow
-              icon={{ ios: "leaf.fill", android: "park", web: "park" }}
-              title={t("actions.jannah")}
-              subtitle={t("learnQuran.jannahPointer")}
-              onPress={() => router.push("/jannah")}
+            <Pill
+              label={t("learnQuran.phaseV2")}
+              compact
+              color={colors.mutedForeground}
+              background={colors.muted}
+            />
+            <Pill
+              label={t("learnQuran.phaseV3")}
+              compact
+              color={colors.mutedForeground}
+              background={colors.muted}
             />
           </View>
-        </Card>
 
-        <View style={styles.pillRow}>
-          <Pill
-            label={t("learnQuran.phaseV1")}
-            compact
-            color={colors.mutedForeground}
-            background={colors.muted}
-          />
-          <Pill
-            label={t("learnQuran.phaseV2")}
-            compact
-            color={colors.mutedForeground}
-            background={colors.muted}
-          />
-          <Pill
-            label={t("learnQuran.phaseV3")}
-            compact
-            color={colors.mutedForeground}
-            background={colors.muted}
-          />
-        </View>
-
-        <JannahDisclaimer textKey="learnQuran.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="learnQuran.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

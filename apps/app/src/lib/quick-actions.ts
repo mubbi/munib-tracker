@@ -59,6 +59,7 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   names: "/names-of-allah",
   qibla: "/qibla",
   calendar: "/calendar",
+  dateConverter: "/calendar/converter",
   achievements: "/achievements",
   stats: "/statistics",
   journal: "/journal",
@@ -73,6 +74,7 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   ruqyah: "/ruqyah" as Href,
   newMuslim: "/new-muslim" as Href,
   finance: "/finance" as Href,
+  flashCards: "/flash-cards" as Href,
 };
 
 export const QUICK_ACTION_META: QuickActionDef[] = [
@@ -198,6 +200,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     id: "calendar",
     labelKey: "actions.calendar",
     icon: { ios: "calendar", android: "calendar_month", web: "calendar_month" },
+    tone: "warning",
+  },
+  {
+    id: "dateConverter",
+    labelKey: "dateConverter.title",
+    icon: { ios: "arrow.left.arrow.right", android: "sync_alt", web: "sync_alt" },
     tone: "warning",
   },
   {
@@ -334,6 +342,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     id: "newMuslim",
     labelKey: "actions.newMuslim",
     icon: { ios: "person.fill.badge.plus", android: "person_add", web: "person_add" },
+    tone: "accent",
+  },
+  {
+    id: "flashCards",
+    labelKey: "actions.flashCards",
+    icon: { ios: "rectangle.stack.fill", android: "style", web: "style" },
     tone: "accent",
   },
   {

@@ -273,7 +273,7 @@ export default function AdhkarBuilderScreen() {
                   onPress={() => void handleRemove(item.id)}
                 />
               </View>
-              <ReadingCard item={{ ...item, translation: item.translation ?? "" }} />
+              <ReadingCard item={{ ...item, translation: item.translation ?? "" }} enableTts />
               {item.images?.length ? (
                 <CustomAdhkarImageGallery images={item.images} compact />
               ) : null}

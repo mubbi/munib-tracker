@@ -5,6 +5,9 @@ import { overlayList } from "@/lib/content-overlay-registry";
 type SahabaContent = { profiles: SahabaProfile[]; categoryOrder: readonly SahabaCategory[] };
 
 let cache: SahabaContent | undefined;
+export function isSahabaContentReady(): boolean {
+  return cache !== undefined;
+}
 let inflight: Promise<void> | undefined;
 
 export function ensureSahabaContent(): Promise<void> {

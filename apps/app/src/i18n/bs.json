@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Pratite svoj put nazad Allahu.",
     "loadingRoute": "Priprema…",
-    "loadingRouteHint": "Samo trenutak dok se ovaj ekran učitava."
+    "loadingRouteHint": "Samo trenutak dok se ovaj ekran učitava.",
+    "loadingContent": "Učitavanje sadržaja…",
+    "loadingContentHint": "Trenutak dok se ova lekcija učitava.",
+    "learnQuiz": {
+      "title": "Kvizon pregleda",
+      "subtitle": "Provjerite razumijevanje — ne svoj položaj kod Allaha",
+      "intro": "Kratak pregled iz lekcija ovog vodiča. Ne žurite — cilj je učenje.",
+      "hint": "Pregledajte što ste naučili",
+      "empty": "Pitanja za ovaj vodič se još učitavaju. Otvorite nekoliko lekcija, zatim pokušajte ponovo."
+    }
   },
   "search": {
     "placeholder": "Pretraži Kur'an, hadith, duas, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Bajramski vodič",
     "ruqyah": "Ruqyah",
     "newMuslim": "Novi muslimanski vodič",
-    "finance": "Islamske finansije"
+    "finance": "Islamske finansije",
+    "flashCards": "Kartice"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -1008,11 +1018,18 @@
     "increase": "Increase text boyut",
     "reset": "text size Sıfırla",
     "sizeDefault": "Varsayılan",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Slušaj članak",
+    "listenStop": "Prestani slušati",
+    "listenHint": "Odaberite glas, zatim čujte ovu stranicu pročitanu naglas na jeziku aplikacije putem pretvorbe teksta u govor na uređaju",
+    "listenUnavailableTitle": "Slušanje nije dostupno",
+    "listenUnavailableBody": "Pretvorba teksta u govor nije dostupna na ovom uređaju. Provjerite da je glas instaliran za vaš jezik u sistemskim postavkama.",
+    "listenLabel": "Slušaj",
+    "listenStopLabel": "Zaustavi",
+    "listenVoiceTitle": "Odaberite glas",
+    "listenVoiceHint": "Odaberite glas da počnete slušati",
+    "listenVoiceDefault": "Sistemski zadano",
+    "listenVoiceDefaultHint": "Koristite preferirani glas uređaja za ovaj jezik",
+    "listenVoiceEmpty": "Nema instaliranih glasova za ovaj jezik. Dodajte jedan u sistemskim postavkama."
   },
   "share": {
     "dialogTitle": "Podijeli",
@@ -2544,7 +2561,7 @@
   },
   "homeCustomize": {
     "title": "Prilagodite dom",
-    "subtitle": "Odaberite šta će se pojaviti na vašem početnom ekranu i ekranu biblioteke",
+    "subtitle": "Odaberite što se pojavljuje na početnom ekranu",
     "modulesTitle": "Kućne karte",
     "actionsTitle": "Brze akcije",
     "actionsHint": "Promijenite redoslijed prečica ili uklonite one koje ne koristite.",
@@ -4641,5 +4658,48 @@
     "exploreCalendarHint": "Pogledajte istoriju bogosluženja iz dana u dan",
     "exploreEvents": "Otvoreni islamski događaji",
     "exploreEventsHint": "Prekretnice i obreda pred nama"
+  },
+  "flashCards": {
+    "eyebrow": "Nauči",
+    "title": "Kartice",
+    "subtitle": "Vježbajte islamsko znanje karticu po karticu — bez bodova, bez pritiska",
+    "intro": "Iz Kur'ana, hadisa, Imena Allaha i svakog Nauči vodiča. Dodirnite odgovor da se provjerite, zatim nastavite koliko želite.",
+    "disclaimer": "Samo obrazovni pregled — ne duhovni rang. Preferirajte autentične izvore i pitajte učenjaka za lične propise.",
+    "studiedCount": "{{count}} kartica proučeno",
+    "endlessHint": "Beskrajna vježba",
+    "answerHint": "Odaberite odgovor da otkrijete objašnjenje.",
+    "pickAnswer": "Prvo odaberite odgovor",
+    "nextCard": "Sljedeća kartica",
+    "correctTitle": "Lijepo — zapamćeno",
+    "incorrectTitle": "Skoro — evo ideje",
+    "empty": "Sastavljamo špil kartica… otvorite Nauči teme ili sačekajte trenutak.",
+    "category": {
+      "salahGuide": "Salah",
+      "jannah": "Džennet",
+      "lastDay": "Sudnji dan",
+      "jahannam": "Džehennem",
+      "battles": "Bitke",
+      "learnQuran": "Kur'an",
+      "taharah": "Čistoća",
+      "hayd": "Hajd",
+      "sick": "Bolest",
+      "prophets": "Poslanici",
+      "aqeedah": "Akida",
+      "learnDua": "Dova",
+      "travel": "Putovanje",
+      "hajj": "Hadž",
+      "seerah": "Sira",
+      "events": "Događaji",
+      "sahaba": "Ashabi",
+      "history": "Historija",
+      "laylatAlQadr": "Lejletul-kadr",
+      "eid": "Bajram",
+      "ruqyah": "Rukja",
+      "newMuslim": "Novi musliman",
+      "names": "99 imena",
+      "hadith": "Hadis",
+      "quran": "Kur'an",
+      "duas": "Dove"
+    }
   }
 }

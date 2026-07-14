@@ -8,6 +8,8 @@ import {
   JannahNavRow,
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -24,6 +26,7 @@ import {
   ensureTaharahContent,
   getTaharahLessonCount,
   getTaharahTopicsBySection,
+  isTaharahContentReady,
 } from "@/lib/taharah";
 import {
   useEnsureTaharahProgressLoaded,
@@ -43,7 +46,10 @@ export default function TaharahScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureTaharahProgressLoaded();
-  const { version: contentVersion } = useEnsureContent(ensureTaharahContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureTaharahContent,
+    isTaharahContentReady,
+  );
   const completedCount = useTaharahCompletedCount();
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const lessonTotal = useMemo(() => getTaharahLessonCount(), [contentVersion]);
@@ -120,153 +126,161 @@ export default function TaharahScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/taharah" />
-      <Stagger>
-        <JannahCallout tone="info">{t("taharah.intro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("taharah.intro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("taharah.quickLinksTitle")}
-            icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+          <LearnQuizNavRow
+            quizPath={"/taharah/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
           />
-          <JannahQuickLinkGrid items={quickLinks} />
-        </Card>
 
-        <JannahNavRow
-          icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-          title={t("taharah.progressCardTitle")}
-          subtitle={t("taharah.progressCardHint", {
-            completed: completedCount,
-            total: lessonTotal,
-          })}
-          badge={`${completedCount}/${lessonTotal}`}
-          tint={colors.accent}
-          onPress={() => router.push("/taharah/progress" as Href)}
-        />
+          <Card padding="three">
+            <SectionHeader
+              title={t("taharah.quickLinksTitle")}
+              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+            />
+            <JannahQuickLinkGrid items={quickLinks} />
+          </Card>
 
-        {SECTION_ORDER.map((section) => {
-          const topics = TOPICS_BY_SECTION[section];
-          if (!topics?.length) return null;
-          return (
-            <Card key={section} padding="three">
-              <SectionHeader
-                title={t(`taharah.section.${section}`)}
-                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-                {t(`taharah.section.${section}Hint`)}
-              </ThemedText>
-              <View style={styles.rows}>
-                {topics.map((topic) => (
-                  <JannahNavRow
-                    key={topic.id}
-                    icon={
-                      TOPIC_ICONS[topic.id] ?? {
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
+          <JannahNavRow
+            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+            title={t("taharah.progressCardTitle")}
+            subtitle={t("taharah.progressCardHint", {
+              completed: completedCount,
+              total: lessonTotal,
+            })}
+            badge={`${completedCount}/${lessonTotal}`}
+            tint={colors.accent}
+            onPress={() => router.push("/taharah/progress" as Href)}
+          />
+
+          {SECTION_ORDER.map((section) => {
+            const topics = TOPICS_BY_SECTION[section];
+            if (!topics?.length) return null;
+            return (
+              <Card key={section} padding="three">
+                <SectionHeader
+                  title={t(`taharah.section.${section}`)}
+                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+                  {t(`taharah.section.${section}Hint`)}
+                </ThemedText>
+                <View style={styles.rows}>
+                  {topics.map((topic) => (
+                    <JannahNavRow
+                      key={topic.id}
+                      icon={
+                        TOPIC_ICONS[topic.id] ?? {
+                          ios: "text.book.closed",
+                          android: "article",
+                          web: "article",
+                        }
                       }
-                    }
-                    title={topic.title}
-                    subtitle={topic.summary}
-                    badge={
-                      topic.importance ? t(`taharah.importance.${topic.importance}`) : undefined
-                    }
-                    onPress={() =>
-                      router.push({
-                        pathname: "/taharah/[topic]",
-                        params: { topic: topic.id },
-                      })
-                    }
-                  />
-                ))}
-              </View>
-            </Card>
-          );
-        })}
+                      title={topic.title}
+                      subtitle={topic.summary}
+                      badge={
+                        topic.importance ? t(`taharah.importance.${topic.importance}`) : undefined
+                      }
+                      onPress={() =>
+                        router.push({
+                          pathname: "/taharah/[topic]",
+                          params: { topic: topic.id },
+                        })
+                      }
+                    />
+                  ))}
+                </View>
+              </Card>
+            );
+          })}
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("taharah.exploreTitle")}
-            icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-          />
-          <View style={styles.rows}>
-            <JannahNavRow
-              icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
-              title={t("taharah.checklistTitle")}
-              subtitle={t("taharah.checklistHint")}
-              onPress={() => router.push("/taharah/checklist" as Href)}
+          <Card padding="three">
+            <SectionHeader
+              title={t("taharah.exploreTitle")}
+              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
             />
-            <JannahNavRow
-              icon={{ ios: "drop.fill", android: "water_drop", web: "water_drop" }}
-              title={t("taharah.wuduTitle")}
-              subtitle={t("taharah.wuduHint")}
-              onPress={() =>
-                router.push({
-                  pathname: "/taharah/[topic]",
-                  params: { topic: "wudu-steps" },
-                })
-              }
+            <View style={styles.rows}>
+              <JannahNavRow
+                icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
+                title={t("taharah.checklistTitle")}
+                subtitle={t("taharah.checklistHint")}
+                onPress={() => router.push("/taharah/checklist" as Href)}
+              />
+              <JannahNavRow
+                icon={{ ios: "drop.fill", android: "water_drop", web: "water_drop" }}
+                title={t("taharah.wuduTitle")}
+                subtitle={t("taharah.wuduHint")}
+                onPress={() =>
+                  router.push({
+                    pathname: "/taharah/[topic]",
+                    params: { topic: "wudu-steps" },
+                  })
+                }
+              />
+              <JannahNavRow
+                icon={{ ios: "figure.stand", android: "self_improvement", web: "self_improvement" }}
+                title={t("taharah.ghuslTitle")}
+                subtitle={t("taharah.ghuslHint")}
+                onPress={() =>
+                  router.push({
+                    pathname: "/taharah/[topic]",
+                    params: { topic: "ghusl-steps" },
+                  })
+                }
+              />
+            </View>
+          </Card>
+
+          <Card padding="three">
+            <SectionHeader
+              title={t("taharah.relatedTitle")}
+              icon={{ ios: "link", android: "link", web: "link" }}
             />
-            <JannahNavRow
-              icon={{ ios: "figure.stand", android: "self_improvement", web: "self_improvement" }}
-              title={t("taharah.ghuslTitle")}
-              subtitle={t("taharah.ghuslHint")}
-              onPress={() =>
-                router.push({
-                  pathname: "/taharah/[topic]",
-                  params: { topic: "ghusl-steps" },
-                })
-              }
+            <View style={styles.rows}>
+              <JannahNavRow
+                icon={{ ios: "figure.stand", android: "self_improvement", web: "self_improvement" }}
+                title={t("salahGuide.title")}
+                subtitle={t("taharah.salahGuidePointer")}
+                onPress={() => router.push("/salah-guide")}
+              />
+              <JannahNavRow
+                icon={{
+                  ios: "hands.and.sparkles.fill",
+                  android: "volunteer_activism",
+                  web: "volunteer_activism",
+                }}
+                title={t("learnDua.title")}
+                subtitle={t("taharah.learnDuaPointer")}
+                onPress={() => router.push("/learn-dua" as Href)}
+              />
+              <JannahNavRow
+                icon={{
+                  ios: "calendar.badge.exclamationmark",
+                  android: "event_busy",
+                  web: "event_busy",
+                }}
+                title={t("hayd.title")}
+                subtitle={t("taharah.haydPointer")}
+                onPress={() => router.push("/hayd")}
+              />
+            </View>
+          </Card>
+
+          <View style={styles.pillRow}>
+            <Pill
+              label={t("taharah.phaseV1")}
+              compact
+              color={colors.mutedForeground}
+              background={colors.muted}
             />
           </View>
-        </Card>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("taharah.relatedTitle")}
-            icon={{ ios: "link", android: "link", web: "link" }}
-          />
-          <View style={styles.rows}>
-            <JannahNavRow
-              icon={{ ios: "figure.stand", android: "self_improvement", web: "self_improvement" }}
-              title={t("salahGuide.title")}
-              subtitle={t("taharah.salahGuidePointer")}
-              onPress={() => router.push("/salah-guide")}
-            />
-            <JannahNavRow
-              icon={{
-                ios: "hands.and.sparkles.fill",
-                android: "volunteer_activism",
-                web: "volunteer_activism",
-              }}
-              title={t("learnDua.title")}
-              subtitle={t("taharah.learnDuaPointer")}
-              onPress={() => router.push("/learn-dua" as Href)}
-            />
-            <JannahNavRow
-              icon={{
-                ios: "calendar.badge.exclamationmark",
-                android: "event_busy",
-                web: "event_busy",
-              }}
-              title={t("hayd.title")}
-              subtitle={t("taharah.haydPointer")}
-              onPress={() => router.push("/hayd")}
-            />
-          </View>
-        </Card>
-
-        <View style={styles.pillRow}>
-          <Pill
-            label={t("taharah.phaseV1")}
-            compact
-            color={colors.mutedForeground}
-            background={colors.muted}
-          />
-        </View>
-
-        <JannahDisclaimer textKey="taharah.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="taharah.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

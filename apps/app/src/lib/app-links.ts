@@ -128,6 +128,7 @@ export const DEEP_LINK_DESTINATIONS = [
   "/ruqyah",
   "/new-muslim",
   "/finance",
+  "/flash-cards",
   // Qur'an extras
   "/quran/juz",
   "/quran/pages",
@@ -231,6 +232,7 @@ export const appLink = {
   ruqyah: () => link("/ruqyah"),
   newMuslim: () => link("/new-muslim"),
   finance: () => link("/finance"),
+  flashCards: () => link("/flash-cards"),
   quranJuz: () => link("/quran/juz"),
   quranPages: () => link("/quran/pages"),
   quranKhatm: () => link("/quran/khatm"),

@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -11,13 +12,13 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { ensureBattlesContent, getBattlesGlossary } from "@/lib/battles";
+import { ensureBattlesContent, getBattlesGlossary, isBattlesContentReady } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesGlossaryScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  useEnsureContent(ensureBattlesContent);
+  const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const terms = getBattlesGlossary();
 
   return (
@@ -28,35 +29,37 @@ export default function BattlesGlossaryScreen() {
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
     >
       <Seo path="/battles/glossary" />
-      <Stagger>
-        <JannahCallout tone="info">{t("battles.glossaryIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("battles.glossaryIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="battles">
-          <Card padding="three">
-            <SectionHeader
-              title={t("battles.glossaryListTitle")}
-              icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
-            />
-            <View style={styles.list}>
-              {terms.map((term) => (
-                <View key={term.id} style={styles.term}>
-                  <ThemedText type="smallBold">{term.term}</ThemedText>
-                  {term.transliteration ? (
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {term.transliteration}
+          <LearnReadingChrome surface="battles">
+            <Card padding="three">
+              <SectionHeader
+                title={t("battles.glossaryListTitle")}
+                icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
+              />
+              <View style={styles.list}>
+                {terms.map((term) => (
+                  <View key={term.id} style={styles.term}>
+                    <ThemedText type="smallBold">{term.term}</ThemedText>
+                    {term.transliteration ? (
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {term.transliteration}
+                      </ThemedText>
+                    ) : null}
+                    <ThemedText type="small" themeColor="mutedForeground" style={styles.definition}>
+                      {term.definition}
                     </ThemedText>
-                  ) : null}
-                  <ThemedText type="small" themeColor="mutedForeground" style={styles.definition}>
-                    {term.definition}
-                  </ThemedText>
-                </View>
-              ))}
-            </View>
-          </Card>
-        </LearnReadingChrome>
+                  </View>
+                ))}
+              </View>
+            </Card>
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="battles.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="battles.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

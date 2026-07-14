@@ -5,6 +5,9 @@ import { overlayList } from "@/lib/content-overlay-registry";
 type LearnDuaContent = typeof import("@munib-tracker/shared/content/learn-dua") &
   typeof import("@munib-tracker/shared/content/learn-dua-occasions");
 let contentCache: LearnDuaContent | undefined;
+export function isLearnDuaContentReady(): boolean {
+  return contentCache !== undefined;
+}
 export async function ensureLearnDuaContent(): Promise<LearnDuaContent> {
   if (!contentCache) {
     const [topics, occasions] = await Promise.all([

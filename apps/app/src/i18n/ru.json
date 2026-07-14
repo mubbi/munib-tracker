@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Отслеживайте свой путь обратно к Аллаху.",
     "loadingRoute": "Подготовка…",
-    "loadingRouteHint": "Минутку — этот экран загружается."
+    "loadingRouteHint": "Минутку — этот экран загружается.",
+    "loadingContent": "Загрузка содержимого…",
+    "loadingContentHint": "Минутку — этот урок загружается.",
+    "learnQuiz": {
+      "title": "Повторение — викторина",
+      "subtitle": "Проверьте понимание — не свой статус перед Аллахом",
+      "intro": "Краткий обзор уроков этого руководства. Не спешите — цель в обучении.",
+      "hint": "Повторите изученное",
+      "empty": "Вопросы к этому руководству ещё загружаются. Откройте несколько уроков и попробуйте снова."
+    }
   },
   "search": {
     "placeholder": "Поиск по Корану, хадисам, дуа, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Путеводитель по Ид",
     "ruqyah": "Рукия",
     "newMuslim": "Новый мусульманский гид",
-    "finance": "Исламские финансы"
+    "finance": "Исламские финансы",
+    "flashCards": "Карточки"
   },
   "quickActions": {
     "checklistSubtitle": "Отметить сегодняшние саляты",
@@ -1021,11 +1031,18 @@
     "increase": "Увеличить размер текста",
     "reset": "сбросить text size",
     "sizeDefault": "Defult",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Слушать статью",
+    "listenStop": "Остановить прослушивание",
+    "listenHint": "Выберите голос, затем прослушайте эту страницу в языке приложения через преобразование текста в речь на устройстве",
+    "listenUnavailableTitle": "Прослушивание недоступно",
+    "listenUnavailableBody": "Преобразование текста в речь недоступно на этом устройстве. Проверьте, что для вашего языка установлен голос в системных настройках.",
+    "listenLabel": "Слушать",
+    "listenStopLabel": "Стоп",
+    "listenVoiceTitle": "Выберите голос",
+    "listenVoiceHint": "Выберите голос, чтобы начать прослушивание",
+    "listenVoiceDefault": "Системный по умолчанию",
+    "listenVoiceDefaultHint": "Использовать предпочтительный голос устройства для этого языка",
+    "listenVoiceEmpty": "Для этого языка нет установленных голосов. Добавьте голос в системных настройках."
   },
   "share": {
     "dialogTitle": "Поделиться",
@@ -2573,7 +2590,7 @@
   },
   "homeCustomize": {
     "title": "Настроить дом",
-    "subtitle": "Choose wht ppers на ваш home и librry screens",
+    "subtitle": "Выберите, что отображается на главном экране",
     "modulesTitle": "Home crds",
     "actionsTitle": "Быстрые действия",
     "actionsHint": "Измените порядок ярлыков или удалите те, которые вы не используете.",
@@ -4590,5 +4607,48 @@
     "exploreCalendarHint": "Смотрите историю поклонения день за днём",
     "exploreEvents": "Открытые исламские мероприятия",
     "exploreEventsHint": "Вехи и памятные даты впереди"
+  },
+  "flashCards": {
+    "eyebrow": "Изучить",
+    "title": "Карточки",
+    "subtitle": "Практикуйте исламские знания по одной карточке — без баллов и давления",
+    "intro": "Из Корана, хадисов, имён Аллаха и каждого руководства «Изучить». Нажмите ответ, чтобы проверить себя, и продолжайте сколько угодно.",
+    "disclaimer": "Только учебный обзор — не духовный рейтинг. Предпочитайте достоверные источники и спрашивайте учёного о личных решениях.",
+    "studiedCount": "Изучено карточек: {{count}}",
+    "endlessHint": "Бесконечная практика",
+    "answerHint": "Выберите ответ, чтобы увидеть пояснение.",
+    "pickAnswer": "Сначала выберите ответ",
+    "nextCard": "Следующая карточка",
+    "correctTitle": "Отлично — закрепилось",
+    "incorrectTitle": "Почти — вот идея",
+    "empty": "Собираем колоду карточек… откройте темы «Изучить» или подождите немного.",
+    "category": {
+      "salahGuide": "Салят",
+      "jannah": "Джанна",
+      "lastDay": "Судный день",
+      "jahannam": "Джаханнам",
+      "battles": "Сражения",
+      "learnQuran": "Коран",
+      "taharah": "Очищение",
+      "hayd": "Хайд",
+      "sick": "Болезнь",
+      "prophets": "Пророки",
+      "aqeedah": "Акида",
+      "learnDua": "Дуа",
+      "travel": "Путешествие",
+      "hajj": "Хадж",
+      "seerah": "Сира",
+      "events": "События",
+      "sahaba": "Сахаба",
+      "history": "История",
+      "laylatAlQadr": "Ляйлят аль-Кадр",
+      "eid": "Ид",
+      "ruqyah": "Рукъя",
+      "newMuslim": "Новый мусульманин",
+      "names": "99 имён",
+      "hadith": "Хадис",
+      "quran": "Коран",
+      "duas": "Дуа"
+    }
   }
 }

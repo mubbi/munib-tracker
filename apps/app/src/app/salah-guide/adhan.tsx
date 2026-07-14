@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -20,7 +21,11 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { ADHAN_LEARN_STYLES, adhanTrack } from "@/lib/adhan-audio";
 import { prefetchAudioUri } from "@/lib/audio-cache";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureSalahGuideContent, getSalahGuideTopic } from "@/lib/salah-guide";
+import {
+  ensureSalahGuideContent,
+  getSalahGuideTopic,
+  isSalahGuideContentReady,
+} from "@/lib/salah-guide";
 import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
 
@@ -102,7 +107,10 @@ export default function SalahGuideAdhanScreen() {
   const { t, i18n } = useTranslation();
   const { tokens } = useThemeTokens();
   useEnsureSalahGuideProgressLoaded();
-  const { version: contentVersion } = useEnsureContent(ensureSalahGuideContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureSalahGuideContent,
+    isSalahGuideContentReady,
+  );
   // Recompute per locale so the translated topic renders on language switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
   const TOPIC = useMemo(() => getSalahGuideTopic("adhan"), [i18n.language, contentVersion]);
@@ -119,39 +127,41 @@ export default function SalahGuideAdhanScreen() {
       onBack={() => goBackOrReplace(router, "/salah-guide")}
     >
       <Seo path="/salah-guide/adhan" />
-      <Stagger>
-        <LearnReadingChrome surface="salah_guide">
-          <Card padding="three">
-            <SectionHeader
-              title={t("salahGuide.adhan.listenTitle")}
-              icon={{ ios: "speaker.wave.3.fill", android: "campaign", web: "campaign" }}
-            />
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.listenHint}>
-              {t("salahGuide.adhan.listenHint")}
-            </ThemedText>
-            <View style={styles.styles}>
-              {ADHAN_LEARN_STYLES.map((style) => (
-                <AdhanStyleRow
-                  key={style.id}
-                  styleId={style.id}
-                  name={t(`settings.adhanStyles.${style.id}.name`)}
-                  location={t(`settings.adhanStyles.${style.id}.location`)}
-                  credit={style.credit}
-                  uri={style.uri}
-                />
-              ))}
-            </View>
-            <View style={[styles.sourceNote, { backgroundColor: tokens.status.info.soft }]}>
-              <ThemedText type="caption" style={styles.sourceText}>
-                {t("salahGuide.adhan.sourceNote")}
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="salah_guide">
+            <Card padding="three">
+              <SectionHeader
+                title={t("salahGuide.adhan.listenTitle")}
+                icon={{ ios: "speaker.wave.3.fill", android: "campaign", web: "campaign" }}
+              />
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.listenHint}>
+                {t("salahGuide.adhan.listenHint")}
               </ThemedText>
-            </View>
-          </Card>
+              <View style={styles.styles}>
+                {ADHAN_LEARN_STYLES.map((style) => (
+                  <AdhanStyleRow
+                    key={style.id}
+                    styleId={style.id}
+                    name={t(`settings.adhanStyles.${style.id}.name`)}
+                    location={t(`settings.adhanStyles.${style.id}.location`)}
+                    credit={style.credit}
+                    uri={style.uri}
+                  />
+                ))}
+              </View>
+              <View style={[styles.sourceNote, { backgroundColor: tokens.status.info.soft }]}>
+                <ThemedText type="caption" style={styles.sourceText}>
+                  {t("salahGuide.adhan.sourceNote")}
+                </ThemedText>
+              </View>
+            </Card>
 
-          <SalahGuideTopicContent topic={TOPIC} />
-        </LearnReadingChrome>
-        <JannahDisclaimer textKey="salahGuide.disclaimer" />
-      </Stagger>
+            <SalahGuideTopicContent topic={TOPIC} />
+          </LearnReadingChrome>
+          <JannahDisclaimer textKey="salahGuide.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

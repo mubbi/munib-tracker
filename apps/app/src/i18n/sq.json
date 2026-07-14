@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Ndiqni rrugën tuaj të kthimit te Allahu.",
     "loadingRoute": "Duke u përgatitur…",
-    "loadingRouteHint": "Një moment ndërsa ky ekran ngarkohet."
+    "loadingRouteHint": "Një moment ndërsa ky ekran ngarkohet.",
+    "loadingContent": "Duke ngarkuar përmbajtjen…",
+    "loadingContentHint": "Një moment ndërsa ky mësim ngarkohet.",
+    "learnQuiz": {
+      "title": "Kuiz përsëritjeje",
+      "subtitle": "Testoni kuptimin tuaj — jo qëndrimin tuaj te Allahu",
+      "intro": "Një përsëritje e shkurtër nga mësimet e këtij udhëzuesi. Merrni kohën tuaj — qëllimi është të mësoni.",
+      "hint": "Rishikoni çfarë keni mësuar",
+      "empty": "Pyetjet e këtij udhëzuesi ende po ngarkohen. Hapni disa mësime, pastaj provoni përsëri."
+    }
   },
   "search": {
     "placeholder": "Kërko Kurani, hadith, duas, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Guida e Bajramit",
     "ruqyah": "Rukjah",
     "newMuslim": "Udhëzues i ri mysliman",
-    "finance": "Financa Islame"
+    "finance": "Financa Islame",
+    "flashCards": "Karta mësimi"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -1008,11 +1018,18 @@
     "increase": "Rritni madhësinë e tekstit",
     "reset": "Rivendos madhësinë e tekstit",
     "sizeDefault": "Defult",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Dëgjo artikullin",
+    "listenStop": "Ndalo dëgjimin",
+    "listenHint": "Zgjidhni një zë, pastaj dëgjoni këtë faqe të lexuar me zë në gjuhën e aplikacionit me sintetizimin e të folurit të pajisjes",
+    "listenUnavailableTitle": "Dëgjimi nuk është i disponueshëm",
+    "listenUnavailableBody": "Sinteza e të folurit nuk është e disponueshme në këtë pajisje. Kontrolloni që një zë është instaluar për gjuhën tuaj në cilësimet e sistemit.",
+    "listenLabel": "Dëgjo",
+    "listenStopLabel": "Ndalo",
+    "listenVoiceTitle": "Zgjidhni një zë",
+    "listenVoiceHint": "Zgjidhni një zë për të filluar dëgjimin",
+    "listenVoiceDefault": "Parazgjedhja e sistemit",
+    "listenVoiceDefaultHint": "Përdorni zërin e preferuar të pajisjes për këtë gjuhë",
+    "listenVoiceEmpty": "Nuk ka zëra të instaluar për këtë gjuhë. Shtoni një në cilësimet e sistemit."
   },
   "share": {
     "dialogTitle": "Ndaj",
@@ -2544,7 +2561,7 @@
   },
   "homeCustomize": {
     "title": "Personalizo shtëpinë",
-    "subtitle": "Zgjidhni atë që shfaqet në ekranet e shtëpisë dhe të bibliotekës suaj",
+    "subtitle": "Zgjidhni çfarë shfaqet në ekranin tuaj kryesor",
     "modulesTitle": "Kartat e shtëpisë",
     "actionsTitle": "Veprime të shpejta",
     "actionsHint": "Rirenditni shkurtoret tuaja ose hiqni ato që nuk i përdorni.",
@@ -4641,5 +4658,48 @@
     "exploreCalendarHint": "Shihni historinë e adhurimit dita ditës",
     "exploreEvents": "Hapni ngjarjet islame",
     "exploreEventsHint": "Piketat dhe ritet përpara"
+  },
+  "flashCards": {
+    "eyebrow": "Mëso",
+    "title": "Karta mësimi",
+    "subtitle": "Praktikoni njohuri islame kartë pas karte — pa pikë, pa presion",
+    "intro": "Nga Kurani, hadithet, Emrat e Allahut dhe çdo udhëzues Mëso. Prekni një përgjigje për t'u kontrolluar, pastaj vazhdoni sa të doni.",
+    "disclaimer": "Vetëm rishikim edukativ — jo renditje shpirtërore. Preferoni burime autentike dhe pyesni një dijetar për vendime personale.",
+    "studiedCount": "{{count}} karta të studiuara",
+    "endlessHint": "Praktikë e pafund",
+    "answerHint": "Zgjidhni një përgjigje për të zbuluar shpjegimin.",
+    "pickAnswer": "Zgjidhni fillimisht një përgjigje",
+    "nextCard": "Karta tjetër",
+    "correctTitle": "Mirë — u fiksua",
+    "incorrectTitle": "Pothuajse — ja ideja",
+    "empty": "Po ndërtohet paketa e kartave… hapni tema Mëso ose prisni një moment.",
+    "category": {
+      "salahGuide": "Salah",
+      "jannah": "Xhennet",
+      "lastDay": "Dita e Fundit",
+      "jahannam": "Xhehennem",
+      "battles": "Beteja",
+      "learnQuran": "Kurani",
+      "taharah": "Pastrim",
+      "hayd": "Hayd",
+      "sick": "Sëmundje",
+      "prophets": "Profetët",
+      "aqeedah": "Akide",
+      "learnDua": "Dua",
+      "travel": "Udhëtim",
+      "hajj": "Haxh",
+      "seerah": "Sire",
+      "events": "Ngjarje",
+      "sahaba": "Sahabë",
+      "history": "Histori",
+      "laylatAlQadr": "Lejletul-Kadr",
+      "eid": "Bajram",
+      "ruqyah": "Rukje",
+      "newMuslim": "Musliman i ri",
+      "names": "99 emra",
+      "hadith": "Hadith",
+      "quran": "Kurani",
+      "duas": "Duaja"
+    }
   }
 }

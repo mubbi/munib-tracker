@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "আল্লাহর দিকে আপনার যাত্রা ট্র্যাক করুন।",
     "loadingRoute": "প্রস্তুত হচ্ছে…",
-    "loadingRouteHint": "একটু অপেক্ষা করুন — এই স্ক্রিন লোড হচ্ছে।"
+    "loadingRouteHint": "একটু অপেক্ষা করুন — এই স্ক্রিন লোড হচ্ছে।",
+    "loadingContent": "কন্টেন্ট লোড হচ্ছে…",
+    "loadingContentHint": "একটু অপেক্ষা করুন — এই পাঠ লোড হচ্ছে।",
+    "learnQuiz": {
+      "title": "পর্যালোচনা কুইজ",
+      "subtitle": "আপনার বোঝাপড়া যাচাই করুন — আল্লাহর কাছে আপনার মর্যাদা নয়",
+      "intro": "এই গাইডের পাঠ থেকে একটি সংক্ষিপ্ত পর্যালোচনা। সময় নিন — শেখাই লক্ষ্য।",
+      "hint": "যা শিখেছেন তা পুনরালোচনা করুন",
+      "empty": "এই গাইডের প্রশ্ন এখনও লোড হচ্ছে। কয়েকটি পাঠ খুলুন, তারপর আবার চেষ্টা করুন।"
+    }
   },
   "search": {
     "placeholder": "কুরআন, হাদিস, দোয়া, আযকার অনুসন্ধান…",
@@ -165,7 +174,8 @@
     "eid": "ঈদ গাইড",
     "ruqyah": "রুকিয়াহ",
     "newMuslim": "নতুন মুসলিম গাইড",
-    "finance": "ইসলামিক ফাইন্যান্স"
+    "finance": "ইসলামিক ফাইন্যান্স",
+    "flashCards": "ফ্ল্যাশ কার্ড"
   },
   "quickActions": {
     "checklistSubtitle": "আজকের নামাজ লগ করুন",
@@ -1009,11 +1019,18 @@
     "increase": "Increase text আকার",
     "reset": "text size রিসেট",
     "sizeDefault": "ডিফল্ট",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "নিবন্ধটি শুনুন",
+    "listenStop": "শোনা বন্ধ করুন",
+    "listenHint": "একটি কণ্ঠ বেছে নিন, তারপর ডিভাইসের টেক্সট-টু-স্পিচ দিয়ে অ্যাপের ভাষায় এই পৃষ্ঠা জোরে পড়া শুনুন",
+    "listenUnavailableTitle": "শোনা উপলব্ধ নয়",
+    "listenUnavailableBody": "এই ডিভাইসে টেক্সট-টু-স্পিচ নেই। সিস্টেম সেটিংসে আপনার ভাষার কণ্ঠ ইনস্টল আছে কিনা দেখুন।",
+    "listenLabel": "শুনুন",
+    "listenStopLabel": "বন্ধ",
+    "listenVoiceTitle": "কণ্ঠ বেছে নিন",
+    "listenVoiceHint": "শোনা শুরু করতে একটি কণ্ঠ নির্বাচন করুন",
+    "listenVoiceDefault": "সিস্টেম ডিফল্ট",
+    "listenVoiceDefaultHint": "এই ভাষার জন্য ডিভাইসের পছন্দের কণ্ঠ ব্যবহার করুন",
+    "listenVoiceEmpty": "এই ভাষার জন্য কোনো কণ্ঠ ইনস্টল নেই। সিস্টেম সেটিংসে একটি যোগ করুন।"
   },
   "share": {
     "dialogTitle": "শেয়ার",
@@ -2541,7 +2558,7 @@
   },
   "homeCustomize": {
     "title": "Customize হোম",
-    "subtitle": "what appears on your home and library screens বেছে নিন",
+    "subtitle": "হোম স্ক্রিনে কী দেখাবে তা বেছে নিন",
     "modulesTitle": "হোম cards",
     "actionsTitle": "দ্রুত কাজ",
     "actionsHint": "Reorder আপনার shortcuts, অথবা remove ones আপনি don't use.",
@@ -4558,5 +4575,48 @@
     "exploreCalendarHint": "দিন দিন পূজার ইতিহাস দেখুন",
     "exploreEvents": "ইসলামিক ইভেন্ট খুলুন",
     "exploreEventsHint": "সামনে মাইলফলক এবং পালন"
+  },
+  "flashCards": {
+    "eyebrow": "শিখুন",
+    "title": "ফ্ল্যাশ কার্ড",
+    "subtitle": "একটি কার্ডে একটি করে ইসলামী জ্ঞান অনুশীলন করুন — কোনো স্কোর নয়, কোনো চাপ নয়",
+    "intro": "কুরআন, হাদিস, আল্লাহর নাম এবং প্রতিটি শিখন গাইড থেকে। উত্তর ট্যাপ করে নিজেকে যাচাই করুন, যতক্ষণ চান চালিয়ে যান।",
+    "disclaimer": "শুধু শিক্ষামূলক পর্যালোচনা — আধ্যাত্মিক র‌্যাংকিং নয়। প্রামাণিক উৎস প্রাধান্য দিন এবং ব্যক্তিগতত বিধানের জন্য আলেমের কাছে জানুন।",
+    "studiedCount": "{{count}} কার্ড অধ্যয়ন করা হয়েছে",
+    "endlessHint": "অবিরাম অনুশীলন",
+    "answerHint": "ব্যাখ্যা দেখতে একটি উত্তর বেছে নিন।",
+    "pickAnswer": "আগে একটি উত্তর বেছে নিন",
+    "nextCard": "পরবর্তী কার্ড",
+    "correctTitle": "ভালো — মনে রাখা হলো",
+    "incorrectTitle": "প্রায় — এই ধারণাটি",
+    "empty": "ফ্ল্যাশ কার্ড ডেক তৈরি হচ্ছে… শিখন বিষয় খুলুন বা একটু অপেক্ষা করুন।",
+    "category": {
+      "salahGuide": "সালাত",
+      "jannah": "জান্নাত",
+      "lastDay": "আখিরাত",
+      "jahannam": "জাহান্নাম",
+      "battles": "যুদ্ধ",
+      "learnQuran": "কুরআন",
+      "taharah": "পবিত্রতা",
+      "hayd": "হায়েজ",
+      "sick": "অসুস্থতা",
+      "prophets": "নবীগণ",
+      "aqeedah": "আকিদা",
+      "learnDua": "দোয়া",
+      "travel": "সফর",
+      "hajj": "হজ্জ",
+      "seerah": "সীরাত",
+      "events": "অনুষ্ঠান",
+      "sahaba": "সাহাবা",
+      "history": "ইতিহাস",
+      "laylatAlQadr": "লাইলাতুল কদর",
+      "eid": "ঈদ",
+      "ruqyah": "রুকইয়াহ",
+      "newMuslim": "নতুন মুসলিম",
+      "names": "৯৯ নাম",
+      "hadith": "হাদিস",
+      "quran": "কুরআন",
+      "duas": "দোয়া"
+    }
   }
 }

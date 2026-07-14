@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Allaha gaýdyp geliş ýoluňyzy yzarlaň.",
     "loadingRoute": "Taýýarlanylýar…",
-    "loadingRouteHint": "Bir pursat — bu ekran ýüklenýär."
+    "loadingRouteHint": "Bir pursat — bu ekran ýüklenýär.",
+    "loadingContent": "Mazmun ýüklenýär…",
+    "loadingContentHint": "Bu sapak ýüklenýänçä bir wagt garaşyň.",
+    "learnQuiz": {
+      "title": "Gaýtalama wiktorinasy",
+      "subtitle": "Düşünjäňizi synaň — Allaha ýanyňyzdaky ornuňyzy däl",
+      "intro": "Bu gollanmanyň sapaklaryndan gysgaça gaýtalama. Howlukmaň — maksat öwrenmek.",
+      "hint": "Öwreneniňizi gaýtalaň",
+      "empty": "Bu gollanmanyň soraglary heniz ýüklenýär. Birnäçe sapak açyň, soňra ýene synanyň."
+    }
   },
   "search": {
     "placeholder": "Guran, hadis, dua, zikir ara…",
@@ -165,7 +174,8 @@
     "eid": "Gurban baýramy",
     "ruqyah": "Rukýa",
     "newMuslim": "Täze musulman gollanmasy",
-    "finance": "Yslam Maliýe"
+    "finance": "Yslam Maliýe",
+    "flashCards": "Okuw kartlary"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -1008,11 +1018,18 @@
     "increase": "Increase text boyut",
     "reset": "text size Syfyrla",
     "sizeDefault": "Varsayylan",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Makalany diňläň",
+    "listenStop": "Diňlemegi duruz",
+    "listenHint": "Ses saýlaň, soňra enjamyň tekstden-sese aýratynlygy bilen bu sahypany programmanyň dilinde diňläň",
+    "listenUnavailableTitle": "Diňlemek elýeterli däl",
+    "listenUnavailableBody": "Bu enjamda tekstden-sese ýok. Ulgam sazlamalarynda diliňiz üçin ses gurnalandygyny barlaň.",
+    "listenLabel": "Diňle",
+    "listenStopLabel": "Duruz",
+    "listenVoiceTitle": "Ses saýlaň",
+    "listenVoiceHint": "Diňlemäge başlamak üçin ses saýlaň",
+    "listenVoiceDefault": "Ulgamyň deslapky",
+    "listenVoiceDefaultHint": "Bu dil üçin enjamyň ileri tutýan sesini ulanyň",
+    "listenVoiceEmpty": "Bu dil üçin gurnalan ses ýok. Ulgam sazlamalaryndan goşuň."
   },
   "share": {
     "dialogTitle": "Paylaş",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "Ana sayfayy özelleştir",
-    "subtitle": "what appears on your home and library screens Seç",
+    "subtitle": "Baş sahypada näme görünjegini saýlaň",
     "modulesTitle": "Ana sayfa cards",
     "actionsTitle": "Hyzly eylemler",
     "actionsHint": "Reorder sizin shortcuts, veya remove ones siz don't use.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "Ybadat taryhyna gün-günden serediň",
     "exploreEvents": "Yslam wakalaryny açyň",
     "exploreEventsHint": "Öňdäki wakalar we dabaralar"
+  },
+  "flashCards": {
+    "eyebrow": "Ögren",
+    "title": "Okuw kartlary",
+    "subtitle": "Yslam bilimini kart-kart öwreniň — bal ýok, basyş ýok",
+    "intro": "Gurandan, hadisten, Allahyň Atlaryndan we her Ögren gollanmasyndan. Özüňizi barlamak üçin jogap saýlaň, isläniňizçe dowam ediň.",
+    "disclaimer": "Diňe bilimi gaýtalamak — ruhy derejelendirme däl. Ynamly çeşmeleri ileri tutuň we şahsy kararlar üçin alymdan soraň.",
+    "studiedCount": "{{count}} kart öwrendi",
+    "endlessHint": "Gutarmasyz tejribe",
+    "answerHint": "Düşündirişi görmek üçin jogap saýlaň.",
+    "pickAnswer": "Ilki jogap saýlaň",
+    "nextCard": "Indiki kart",
+    "correctTitle": "Gowy — berkitildi",
+    "incorrectTitle": "Diýen ýaly — ine pikiri",
+    "empty": "Kart toplumy taýýarlanýar… Ögren mowzuklaryny açyň ýa-da biraz garaşyň.",
+    "category": {
+      "salahGuide": "Namaz",
+      "jannah": "Jennet",
+      "lastDay": "Ahiret güni",
+      "jahannam": "Jähennem",
+      "battles": "Uruşlar",
+      "learnQuran": "Guran",
+      "taharah": "Arassalyk",
+      "hayd": "Haýyz",
+      "sick": "Kesellik",
+      "prophets": "Pygamberler",
+      "aqeedah": "Akýda",
+      "learnDua": "Doga",
+      "travel": "Syýahat",
+      "hajj": "Hajj",
+      "seerah": "Siyra",
+      "events": "Çäreler",
+      "sahaba": "Sahabalar",
+      "history": "Taryh",
+      "laylatAlQadr": "Kadir gijesi",
+      "eid": "Baýram",
+      "ruqyah": "Rukýe",
+      "newMuslim": "Täze musulman",
+      "names": "99 At",
+      "hadith": "Hadis",
+      "quran": "Guran",
+      "duas": "Dogalar"
+    }
   }
 }

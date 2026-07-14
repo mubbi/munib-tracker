@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { HadithCitationBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -16,7 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureJahannamContent, getJahannamHadith } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamHadith, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 
 const THEME_ORDER = ["warning", "mercy", "repentance", "accountability", "protection"] as const;
@@ -33,7 +34,7 @@ export default function JahannamHadithScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  useEnsureContent(ensureJahannamContent);
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const { sizes } = useReadingTypography();
   const entries = getJahannamHadith();
 
@@ -56,68 +57,70 @@ export default function JahannamHadithScreen() {
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/hadith" />
-      <Stagger>
-        <LearnReadingChrome surface="jahannam">
-          <JannahCallout tone="info">{t("jahannam.hadithLead")}</JannahCallout>
-          {THEME_ORDER.map((theme) => {
-            const items = grouped.get(theme) ?? [];
-            if (items.length === 0) return null;
-            return (
-              <Card key={theme} padding="three">
-                <SectionHeader
-                  title={t(`jahannam.hadithTheme.${theme}`)}
-                  icon={THEME_ICONS[theme]}
-                />
-                <View style={styles.list}>
-                  {items.map((entry) => (
-                    <View
-                      key={entry.id}
-                      style={[styles.quote, { backgroundColor: tokens.accentSoft }]}
-                    >
-                      <View style={styles.quoteMeta}>
-                        <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
-                          {entry.hadith.collection} · {entry.hadith.citation}
-                        </ThemedText>
-                        <View style={styles.quoteMetaActions}>
-                          {entry.hadith.grade ? (
-                            <Pill
-                              label={t(`jahannam.grade.${entry.hadith.grade}`)}
-                              compact
-                              color={tokens.status.success.color}
-                              background={tokens.status.success.soft}
-                            />
-                          ) : null}
-                          <HadithCitationBookmarkButton
-                            collection={entry.hadith.collection}
-                            citation={entry.hadith.citation}
-                          />
-                        </View>
-                      </View>
-                      <ThemedText
-                        type="small"
-                        themeColor="mutedForeground"
-                        style={{
-                          fontSize: sizes.translation,
-                          lineHeight: sizes.translation * 1.45,
-                          fontStyle: "italic",
-                        }}
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="jahannam">
+            <JannahCallout tone="info">{t("jahannam.hadithLead")}</JannahCallout>
+            {THEME_ORDER.map((theme) => {
+              const items = grouped.get(theme) ?? [];
+              if (items.length === 0) return null;
+              return (
+                <Card key={theme} padding="three">
+                  <SectionHeader
+                    title={t(`jahannam.hadithTheme.${theme}`)}
+                    icon={THEME_ICONS[theme]}
+                  />
+                  <View style={styles.list}>
+                    {items.map((entry) => (
+                      <View
+                        key={entry.id}
+                        style={[styles.quote, { backgroundColor: tokens.accentSoft }]}
                       >
-                        "{entry.hadith.excerpt}"
-                      </ThemedText>
-                      {entry.context ? (
-                        <ThemedText type="caption" themeColor="mutedForeground">
-                          {entry.context}
+                        <View style={styles.quoteMeta}>
+                          <ThemedText type="caption" style={{ color: colors.accent, flex: 1 }}>
+                            {entry.hadith.collection} · {entry.hadith.citation}
+                          </ThemedText>
+                          <View style={styles.quoteMetaActions}>
+                            {entry.hadith.grade ? (
+                              <Pill
+                                label={t(`jahannam.grade.${entry.hadith.grade}`)}
+                                compact
+                                color={tokens.status.success.color}
+                                background={tokens.status.success.soft}
+                              />
+                            ) : null}
+                            <HadithCitationBookmarkButton
+                              collection={entry.hadith.collection}
+                              citation={entry.hadith.citation}
+                            />
+                          </View>
+                        </View>
+                        <ThemedText
+                          type="small"
+                          themeColor="mutedForeground"
+                          style={{
+                            fontSize: sizes.translation,
+                            lineHeight: sizes.translation * 1.45,
+                            fontStyle: "italic",
+                          }}
+                        >
+                          "{entry.hadith.excerpt}"
                         </ThemedText>
-                      ) : null}
-                    </View>
-                  ))}
-                </View>
-              </Card>
-            );
-          })}
-        </LearnReadingChrome>
-        <JannahDisclaimer textKey="jahannam.disclaimer" />
-      </Stagger>
+                        {entry.context ? (
+                          <ThemedText type="caption" themeColor="mutedForeground">
+                            {entry.context}
+                          </ThemedText>
+                        ) : null}
+                      </View>
+                    ))}
+                  </View>
+                </Card>
+              );
+            })}
+          </LearnReadingChrome>
+          <JannahDisclaimer textKey="jahannam.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

@@ -1,6 +1,7 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { SalahGuideTopicContent } from "@/components/salah-guide/topic-content";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -14,6 +15,7 @@ import {
   ensureSalahGuideContent,
   getSalahGuideTopic,
   getSalahGuideTopics,
+  isSalahGuideContentReady,
 } from "@/lib/salah-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureSalahGuideProgressLoaded } from "@/stores/salah-guide-progress-store";
@@ -26,7 +28,10 @@ export default function SalahGuideTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureSalahGuideContent);
+  const { ready: contentReady } = useEnsureContent(
+    ensureSalahGuideContent,
+    isSalahGuideContentReady,
+  );
   const topic = getSalahGuideTopic(topicId);
   const reportRef = useGuideContentReportRef("salah_guide", topic, "/salah-guide");
   useEnsureSalahGuideProgressLoaded();
@@ -67,7 +72,9 @@ export default function SalahGuideTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("salahGuide.notFound")}

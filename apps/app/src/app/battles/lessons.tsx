@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -12,14 +13,14 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureBattlesContent, getBattlesLessonCards } from "@/lib/battles";
+import { ensureBattlesContent, getBattlesLessonCards, isBattlesContentReady } from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function BattlesLessonsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  useEnsureContent(ensureBattlesContent);
+  const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const cards = getBattlesLessonCards();
 
   return (
@@ -30,44 +31,46 @@ export default function BattlesLessonsScreen() {
       onBack={() => goBackOrReplace(router, "/battles" as Href)}
     >
       <Seo path="/battles/lessons" />
-      <Stagger>
-        <JannahCallout tone="info">{t("battles.lessonsIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("battles.lessonsIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="battles">
-          {cards.map((card) => (
-            <PressableScale
-              key={card.id}
-              haptic="light"
-              accessibilityRole="button"
-              onPress={() =>
-                router.push({
-                  pathname: "/battles/[topic]",
-                  params: { topic: card.battleId },
-                })
-              }
-            >
-              <Card padding="three" style={styles.card}>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {card.battleTitle}
-                </ThemedText>
-                <ThemedText type="title" style={styles.lesson}>
-                  {card.lesson}
-                </ThemedText>
-                <ThemedText type="small" themeColor="mutedForeground" style={styles.detail}>
-                  {card.detail}
-                </ThemedText>
-                <View style={[styles.chip, { backgroundColor: tokens.accentSoft }]}>
-                  <ThemedText type="caption" style={{ color: colors.accent }}>
-                    {t("battles.readBattle")}
+          <LearnReadingChrome surface="battles">
+            {cards.map((card) => (
+              <PressableScale
+                key={card.id}
+                haptic="light"
+                accessibilityRole="button"
+                onPress={() =>
+                  router.push({
+                    pathname: "/battles/[topic]",
+                    params: { topic: card.battleId },
+                  })
+                }
+              >
+                <Card padding="three" style={styles.card}>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {card.battleTitle}
                   </ThemedText>
-                </View>
-              </Card>
-            </PressableScale>
-          ))}
-        </LearnReadingChrome>
+                  <ThemedText type="title" style={styles.lesson}>
+                    {card.lesson}
+                  </ThemedText>
+                  <ThemedText type="small" themeColor="mutedForeground" style={styles.detail}>
+                    {card.detail}
+                  </ThemedText>
+                  <View style={[styles.chip, { backgroundColor: tokens.accentSoft }]}>
+                    <ThemedText type="caption" style={{ color: colors.accent }}>
+                      {t("battles.readBattle")}
+                    </ThemedText>
+                  </View>
+                </Card>
+              </PressableScale>
+            ))}
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="battles.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="battles.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

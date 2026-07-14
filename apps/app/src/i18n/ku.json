@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Rêwîtiya Xwe Vegere ber Xwedê Bişopînin.",
     "loadingRoute": "ئامادە دەکرێت…",
-    "loadingRouteHint": "کەمێک چاوەڕێ بکە — ئەم شاشەیە بار دەکرێت."
+    "loadingRouteHint": "کەمێک چاوەڕێ بکە — ئەم شاشەیە بار دەکرێت.",
+    "loadingContent": "Naverok tê barkirin…",
+    "loadingContentHint": "Demek li bendê bin dema ku ev ders tê barkirin.",
+    "learnQuiz": {
+      "title": "Quîza vekolînê",
+      "subtitle": "Têgihîştina xwe biceribîne — ne rawestana xwe li cem Allah",
+      "intro": "Vekolînek kurt ji dersên vê rêberê. Demê xwe bistînin — armanc fêrbûn e.",
+      "hint": "Ya ku we fêr bû vekolînin",
+      "empty": "Pirsên vê rêberê hîn têne barkirin. Çend dersan vekin, paşê dîsa biceribînin."
+    }
   },
   "search": {
     "placeholder": "Qur'an, hədis, dua, adhkar axtar…",
@@ -165,7 +174,8 @@
     "eid": "ڕێبەری جەژن",
     "ruqyah": "ڕوقیە",
     "newMuslim": "ڕێبەری نوێی موسڵمانان",
-    "finance": "دارایی ئیسلامی"
+    "finance": "دارایی ئیسلامی",
+    "flashCards": "Kartên fêrbûnê"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -1008,11 +1018,18 @@
     "increase": "Mezinahiya nivîsê zêde bike",
     "reset": "Mezinahiya nivîsê vegerîne",
     "sizeDefault": "Destçûnî",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Gotarê guhdar bike",
+    "listenStop": "Guhdarîyê rawestîne",
+    "listenHint": "Dengêk hilbijêrin, paşê vê rûpelê bi zimanê sepanê bi rêya nivîs-bo-axaftina cîhazê bi dengê bilind bibihîzin",
+    "listenUnavailableTitle": "Guhdarî ne berdest e",
+    "listenUnavailableBody": "Nivîs-bo-axaftin li ser vî cîhazî ne berdest e. Kontrol bikin ku deng bo zimanê we di mîhengên pergalê de hatiye sazkirin.",
+    "listenLabel": "Guhdar bike",
+    "listenStopLabel": "Rawestîne",
+    "listenVoiceTitle": "Deng hilbijêre",
+    "listenVoiceHint": "Ji bo destpêkirina guhdarîyê deng hilbijêrin",
+    "listenVoiceDefault": "Pêşbirka pergalê",
+    "listenVoiceDefaultHint": "Dengê bijare yê cîhazê ji bo vî zimanî bikar bînin",
+    "listenVoiceEmpty": "Ji bo vî zimanî deng nehatine sazkirin. Yekê di mîhengên pergalê de zêde bikin."
   },
   "share": {
     "dialogTitle": "Parve bike",
@@ -2544,7 +2561,7 @@
   },
   "homeCustomize": {
     "title": "Malê xweş bikin",
-    "subtitle": "Tiştê ku li ser ekranên xanî û pirtûkxaneya we xuya dike hilbijêrin",
+    "subtitle": "Hilbijêrin ka li ser ekrana malê çi xuya dike",
     "modulesTitle": "Kartên malê",
     "actionsTitle": "Çalakiyên bilez",
     "actionsHint": "Kurtebirên xwe ji nû ve rêz bikin, an yên ku hûn bikar neynin jê bikin.",
@@ -4641,5 +4658,48 @@
     "exploreCalendarHint": "ڕۆژ بە ڕۆژ مێژووی پەرستن ببینە",
     "exploreEvents": "ڕووداوە ئیسلامییە کراوەکان",
     "exploreEventsHint": "بەردی بناغە و ئاهەنگەکانی پێشەنگ"
+  },
+  "flashCards": {
+    "eyebrow": "Fêr bibe",
+    "title": "Kartên fêrbûnê",
+    "subtitle": "Zanîna Îslamî kart bi kart bişixulin — bê skor, bê zext",
+    "intro": "Ji Qur'an, hedîs, Navên Allah û her rêbera Fêr bibe. Ji bo xwe kontrolkirinê bersivekê bitikînin, paşê digel xwe berdewam bikin.",
+    "disclaimer": "Tenê vekolîna perwerdeyî — ne rêzkirina ruhî. Çavkaniyên rastîn tercîh bikin û ji alimekî ji bo hukmên şexsî bipirsin.",
+    "studiedCount": "{{count}} kart hatin xwendin",
+    "endlessHint": "Pratîka bêdawî",
+    "answerHint": "Ji bo dîtina şiroveyê bersivekê hilbijêrin.",
+    "pickAnswer": "Pêşî bersivekê hilbijêrin",
+    "nextCard": "Karta din",
+    "correctTitle": "Baş — hate girtin",
+    "incorrectTitle": "Hema — ev e fikr",
+    "empty": "Desteya kartan tê amadekirin… mijarên Fêr bibe vekin an demekê li bendê bin.",
+    "category": {
+      "salahGuide": "Salah",
+      "jannah": "Cennet",
+      "lastDay": "Roja Dawîn",
+      "jahannam": "Cehenem",
+      "battles": "Şer",
+      "learnQuran": "قورئان",
+      "taharah": "Paqijî",
+      "hayd": "Hayd",
+      "sick": "Nexweşî",
+      "prophets": "Pêxember",
+      "aqeedah": "Eqîde",
+      "learnDua": "Dua",
+      "travel": "Rêwîtî",
+      "hajj": "Hec",
+      "seerah": "Sîre",
+      "events": "Bûyer",
+      "sahaba": "Sehabe",
+      "history": "Dîrok",
+      "laylatAlQadr": "Layletul Qadr",
+      "eid": "Cejn",
+      "ruqyah": "Ruqye",
+      "newMuslim": "Mislimanê nû",
+      "names": "99 nav",
+      "hadith": "Hedîs",
+      "quran": "قورئان",
+      "duas": "Dua"
+    }
   }
 }

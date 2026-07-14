@@ -1,17 +1,9 @@
 import { Image } from "expo-image";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import Animated, {
-  Easing,
-  Keyframe,
-  runOnJS,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import Animated, { Easing, Keyframe } from "react-native-reanimated";
 
-const SPLASH_FAILSAFE_MS = 2500;
-const SPLASH_FADE_MS = 450;
+import { useSplashDismissal } from "@/hooks/use-splash-dismissal";
+import { BOOT_BACKGROUND } from "@/lib/boot/cold-start";
 
 /**
  * Full-screen splash that stays mounted after fade-out.
@@ -20,43 +12,23 @@ const SPLASH_FADE_MS = 450;
  * `SwipeRefreshLayout` / overlay layout (home pull-to-refresh). That can fatal
  * with `getChildDrawingOrder() returned invalid index` (Sentry REACT-NATIVE-6).
  * Keep an inert host instead of removing the native child.
+ *
+ * Dismissal waits for prefs hydration + first destination paint (see
+ * `useSplashDismissal`) so home tabs/hero never flash before intro.
  */
 export function AnimatedSplashOverlay() {
-  const [dismissed, setDismissed] = useState(false);
-  const opacity = useSharedValue(1);
-  const fadingRef = useRef(false);
-
-  useEffect(() => {
-    void SplashScreen.hideAsync();
-
-    const fadeOut = () => {
-      if (fadingRef.current) return;
-      fadingRef.current = true;
-      opacity.value = withTiming(
-        0,
-        { duration: SPLASH_FADE_MS, easing: Easing.out(Easing.cubic) },
-        (finished) => {
-          if (finished) runOnJS(setDismissed)(true);
-        },
-      );
-    };
-
-    const failsafe = setTimeout(fadeOut, SPLASH_FAILSAFE_MS);
-    const early = setTimeout(fadeOut, 500);
-
-    return () => {
-      clearTimeout(failsafe);
-      clearTimeout(early);
-    };
-  }, [opacity]);
+  const { dismissed, opacity } = useSplashDismissal();
 
   return (
     <Animated.View
-      pointerEvents={dismissed ? "none" : "auto"}
       importantForAccessibility={dismissed ? "no-hide-descendants" : "yes"}
       accessibilityElementsHidden={dismissed}
       collapsable={false}
-      style={[styles.splashOverlay, { opacity }, dismissed ? styles.splashDismissed : null]}
+      style={[
+        styles.splashOverlay,
+        { opacity, pointerEvents: dismissed ? "none" : "auto" },
+        dismissed ? styles.splashDismissed : null,
+      ]}
     >
       {!dismissed ? (
         <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
@@ -128,7 +100,7 @@ const styles = StyleSheet.create({
   },
   splashOverlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: "#152921",
+    backgroundColor: BOOT_BACKGROUND,
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,

@@ -6,6 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -18,7 +19,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureJahannamContent, getJahannamVerses } from "@/lib/jahannam";
+import { ensureJahannamContent, getJahannamVerses, isJahannamContentReady } from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -138,7 +139,7 @@ export default function JahannamVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
 
-  useEnsureContent(ensureJahannamContent);
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   return (
     <ScreenLayout
       eyebrow={t("jahannam.eyebrow")}
@@ -147,12 +148,14 @@ export default function JahannamVersesScreen() {
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/verses" />
-      <Stagger>
-        <LearnReadingChrome surface="jahannam">
-          <JahannamVersesList />
-        </LearnReadingChrome>
-        <JannahDisclaimer textKey="jahannam.disclaimer" />
-      </Stagger>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="jahannam">
+            <JahannamVersesList />
+          </LearnReadingChrome>
+          <JannahDisclaimer textKey="jahannam.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

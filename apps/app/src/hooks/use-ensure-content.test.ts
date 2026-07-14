@@ -24,6 +24,13 @@ describe("useEnsureContent", () => {
     });
   });
 
+  it("starts ready when isCached reports a warm corpus", () => {
+    const ensure = jest.fn(() => Promise.resolve());
+    const { result } = renderHook(() => useEnsureContent(ensure, () => true));
+    expect(result.current.ready).toBe(true);
+    expect(result.current.version).toBe(1);
+  });
+
   it("still bumps ready after remount while ensure is in flight", async () => {
     let resolve!: () => void;
     const shared = new Promise<void>((r) => {

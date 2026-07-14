@@ -2,13 +2,19 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
 import { LastDayTopicContent } from "@/components/last-day/topic-content";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { ensureLastDayContent, getLastDayTopic, getLastDayTopics } from "@/lib/last-day";
+import {
+  ensureLastDayContent,
+  getLastDayTopic,
+  getLastDayTopics,
+  isLastDayContentReady,
+} from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLastDayProgressLoaded } from "@/stores/last-day-progress-store";
@@ -21,7 +27,7 @@ export default function LastDayTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureLastDayContent);
+  const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const topic = getLastDayTopic(topicId);
   useEnsureLastDayProgressLoaded();
 
@@ -61,7 +67,9 @@ export default function LastDayTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("lastDay.notFound")}

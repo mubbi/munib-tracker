@@ -1,6 +1,7 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnDuaTopicContent } from "@/components/learn-dua/topic-content";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -9,7 +10,12 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { ensureLearnDuaContent, getLearnDuaTopic, getLearnDuaTopics } from "@/lib/learn-dua";
+import {
+  ensureLearnDuaContent,
+  getLearnDuaTopic,
+  getLearnDuaTopics,
+  isLearnDuaContentReady,
+} from "@/lib/learn-dua";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureLearnDuaProgressLoaded } from "@/stores/learn-dua-progress-store";
@@ -22,7 +28,7 @@ export default function LearnDuaTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureLearnDuaContent);
+  const { ready: contentReady } = useEnsureContent(ensureLearnDuaContent, isLearnDuaContentReady);
   const topic = getLearnDuaTopic(topicId);
   const reportRef = useGuideContentReportRef("learn_dua", topic, "/learn-dua");
   useEnsureLearnDuaProgressLoaded();
@@ -64,7 +70,9 @@ export default function LearnDuaTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("learnDua.notFound")}

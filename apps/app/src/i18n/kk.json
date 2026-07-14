@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Аллаға оралу жолыңызды бақылаңыз.",
     "loadingRoute": "Дайындалуда…",
-    "loadingRouteHint": "Сәл күтіңіз — осы экран жүктелуде."
+    "loadingRouteHint": "Сәл күтіңіз — осы экран жүктелуде.",
+    "loadingContent": "Мазмұн жүктелуде…",
+    "loadingContentHint": "Бұл сабақ жүктелгенше бір сәт күтіңіз.",
+    "learnQuiz": {
+      "title": "Қайталау викторинасы",
+      "subtitle": "Түсінігіңізді тексеріңіз — Аллаһ алдындағы орныңызды емес",
+      "intro": "Осы нұсқаулық сабақтарынан қысқа қайталау. Асықпаңыз — мақсат үйрену.",
+      "hint": "Үйренгеніңізді қайталаңыз",
+      "empty": "Осы нұсқаулықтың сұрақтары әлі жүктелуде. Бірнеше сабақ ашып, қайта көріңіз."
+    }
   },
   "search": {
     "placeholder": "Іздеу по Құрану, хадисам, дуа, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Айт нұсқаулығы",
     "ruqyah": "Руқия",
     "newMuslim": "Жаңа мұсылман нұсқаулығы",
-    "finance": "Исламдық қаржыландыру"
+    "finance": "Исламдық қаржыландыру",
+    "flashCards": "Жад карталары"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's prayers",
@@ -1008,11 +1018,18 @@
     "increase": "Мәтін өлшемін үлкейту",
     "reset": "Қайта орнату text size",
     "sizeDefault": "Әдепкі",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Мақаланы тыңдау",
+    "listenStop": "Тыңдауды тоқтату",
+    "listenHint": "Дауыс таңдаңыз, содан кейін құрылғының мәтіннен сөйлеуі арқылы осы бетті қолданба тілінде тыңдаңыз",
+    "listenUnavailableTitle": "Тыңдау қолжетімсіз",
+    "listenUnavailableBody": "Бұл құрылғыда мәтіннен сөйлеу жоқ. Жүйе параметрлерінде тіліңіз үшін дауыс орнатылғанын тексеріңіз.",
+    "listenLabel": "Тыңдау",
+    "listenStopLabel": "Тоқтату",
+    "listenVoiceTitle": "Дауыс таңдаңыз",
+    "listenVoiceHint": "Тыңдауды бастау үшін дауыс таңдаңыз",
+    "listenVoiceDefault": "Жүйе әдепкісі",
+    "listenVoiceDefaultHint": "Осы тіл үшін құрылғының қалаулы дауысын пайдаланыңыз",
+    "listenVoiceEmpty": "Осы тіл үшін орнатылған дауыс жоқ. Жүйе параметрлерінен қосыңыз."
   },
   "share": {
     "dialogTitle": "Бөлісу",
@@ -2544,7 +2561,7 @@
   },
   "homeCustomize": {
     "title": "Үйді теңшеңіз",
-    "subtitle": "Үй және кітапхана экрандарында не көрсетілетінін таңдаңыз",
+    "subtitle": "Басты экранда не көрсетілетінін таңдаңыз",
     "modulesTitle": "Үй карталары",
     "actionsTitle": "Жылдам әрекеттер",
     "actionsHint": "Таңбашалардың ретін өзгертіңіз немесе пайдаланбайтындарын жойыңыз.",
@@ -4641,5 +4658,48 @@
     "exploreCalendarHint": "Күнделікті ғибадат тарихын қараңыз",
     "exploreEvents": "Ашық исламдық оқиғалар",
     "exploreEventsHint": "Алда белестер мен мерекелер"
+  },
+  "flashCards": {
+    "eyebrow": "Үйрену",
+    "title": "Жад карталары",
+    "subtitle": "Исламдық білімді карта-карта жаттығыңыз — ұпай жоқ, қысым жоқ",
+    "intro": "Құраннан, хадистен, Аллаһ есімдерінен және әр Үйрену нұсқаулығынан. Өзіңізді тексеру үшін жауапты түртіңіз, қалағаныңызша жалғастырыңыз.",
+    "disclaimer": "Тек оқулық қайталау — рухани рейтинг емес. Сенімді дереккөздерді ұстаныңыз және жеке үкім үшін ғалымнан сұраңыз.",
+    "studiedCount": "{{count}} карта оқылды",
+    "endlessHint": "Шексіз жаттығу",
+    "answerHint": "Түсініктемені көру үшін жауап таңдаңыз.",
+    "pickAnswer": "Алдымен жауап таңдаңыз",
+    "nextCard": "Келесі карта",
+    "correctTitle": "Жақсы — бекітілді",
+    "incorrectTitle": "Дерлік — міне идея",
+    "empty": "Карта дегі дайындалуда… Үйрену тақырыптарын ашыңыз немесе сәл күтіңіз.",
+    "category": {
+      "salahGuide": "Намаз",
+      "jannah": "Жәннат",
+      "lastDay": "Ақырғы күн",
+      "jahannam": "Жаһаннам",
+      "battles": "Шайқастар",
+      "learnQuran": "Құран",
+      "taharah": "Тазалық",
+      "hayd": "Хайз",
+      "sick": "Ауру",
+      "prophets": "Пайғамбарлар",
+      "aqeedah": "Ақида",
+      "learnDua": "Дұға",
+      "travel": "Саяхат",
+      "hajj": "Қажылық",
+      "seerah": "Сира",
+      "events": "Оқиғалар",
+      "sahaba": "Сахабалар",
+      "history": "Тарих",
+      "laylatAlQadr": "Қадір түні",
+      "eid": "Мереке",
+      "ruqyah": "Руқия",
+      "newMuslim": "Жаңа мұсылман",
+      "names": "99 есім",
+      "hadith": "Хадис",
+      "quran": "Құран",
+      "duas": "Дұғалар"
+    }
   }
 }

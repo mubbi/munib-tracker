@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -14,13 +15,20 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureQuranGuideContent, getQuranGuideMemorizationPlans } from "@/lib/quran-guide";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideMemorizationPlans,
+  isQuranGuideContentReady,
+} from "@/lib/quran-guide";
 
 export default function LearnQuranMemorizationScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
-  useEnsureContent(ensureQuranGuideContent);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
   const plans = getQuranGuideMemorizationPlans();
 
   return (
@@ -33,49 +41,51 @@ export default function LearnQuranMemorizationScreen() {
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/memorization" />
-      <Stagger>
-        <JannahCallout tone="info">{t("learnQuran.hifzIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("learnQuran.hifzIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="learn_quran">
-          {plans.map((plan) => (
-            <Card key={plan.id} padding="three" style={styles.card}>
-              <ThemedText type="title">{plan.title}</ThemedText>
-              <ThemedText type="small" themeColor="mutedForeground">
-                {plan.summary}
-              </ThemedText>
-              <SectionHeader
-                title={t("learnQuran.hifzSurahs")}
-                icon={{
-                  ios: "list.bullet",
-                  android: "format_list_bulleted",
-                  web: "format_list_bulleted",
-                }}
-              />
-              <View style={styles.surahs}>
-                {plan.surahs.map((surah) => (
-                  <ThemedText key={surah} type="small">
-                    • {surah}
-                  </ThemedText>
-                ))}
-              </View>
-              <View style={[styles.tipBox, { backgroundColor: tokens.status.info.soft }]}>
-                <ThemedText type="caption" style={{ color: tokens.status.info.color }}>
-                  {plan.tip}
+          <LearnReadingChrome surface="learn_quran">
+            {plans.map((plan) => (
+              <Card key={plan.id} padding="three" style={styles.card}>
+                <ThemedText type="title">{plan.title}</ThemedText>
+                <ThemedText type="small" themeColor="mutedForeground">
+                  {plan.summary}
                 </ThemedText>
-              </View>
-            </Card>
-          ))}
+                <SectionHeader
+                  title={t("learnQuran.hifzSurahs")}
+                  icon={{
+                    ios: "list.bullet",
+                    android: "format_list_bulleted",
+                    web: "format_list_bulleted",
+                  }}
+                />
+                <View style={styles.surahs}>
+                  {plan.surahs.map((surah) => (
+                    <ThemedText key={surah} type="small">
+                      • {surah}
+                    </ThemedText>
+                  ))}
+                </View>
+                <View style={[styles.tipBox, { backgroundColor: tokens.status.info.soft }]}>
+                  <ThemedText type="caption" style={{ color: tokens.status.info.color }}>
+                    {plan.tip}
+                  </ThemedText>
+                </View>
+              </Card>
+            ))}
 
-          <Button
-            label={t("learnQuran.openQuranHifz")}
-            variant="primary"
-            fullWidth
-            onPress={() => router.push("/quran")}
-          />
-        </LearnReadingChrome>
+            <Button
+              label={t("learnQuran.openQuranHifz")}
+              variant="primary"
+              fullWidth
+              onPress={() => router.push("/quran")}
+            />
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="learnQuran.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="learnQuran.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

@@ -9,6 +9,9 @@ import { overlayList } from "@/lib/content-overlay-registry";
 type SalahGuideContent = typeof import("@munib-tracker/shared/content/salah-guide") &
   typeof import("@munib-tracker/shared/content/salah-guide-phrases");
 let contentCache: SalahGuideContent | undefined;
+export function isSalahGuideContentReady(): boolean {
+  return contentCache !== undefined;
+}
 export async function ensureSalahGuideContent(): Promise<SalahGuideContent> {
   if (!contentCache) {
     const [guide, phrases] = await Promise.all([

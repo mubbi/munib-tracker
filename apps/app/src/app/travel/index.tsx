@@ -1,9 +1,11 @@
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { TravelGuideContent } from "@/components/travel/travel-guide-content";
+import { Stagger } from "@/components/ui/stagger";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function TravelGuideScreen() {
@@ -19,7 +21,14 @@ export default function TravelGuideScreen() {
     >
       <Seo path="/travel" />
       <LearnReadingChrome surface="jannah">
-        <TravelGuideContent />
+        <Stagger>
+          <LearnQuizNavRow
+            quizPath={"/travel/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
+          />
+          <TravelGuideContent />
+        </Stagger>
       </LearnReadingChrome>
     </ScreenLayout>
   );

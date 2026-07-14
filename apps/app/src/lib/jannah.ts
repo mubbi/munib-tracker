@@ -11,6 +11,9 @@ import { overlayList, overlayObject } from "@/lib/content-overlay-registry";
 
 type JannahContent = typeof import("@munib-tracker/shared/content/jannah");
 let contentCache: JannahContent | undefined;
+export function isJannahContentReady(): boolean {
+  return contentCache !== undefined;
+}
 
 /** Warm the Journey to Jannah corpus before reading its synchronous getters. */
 export async function ensureJannahContent(): Promise<JannahContent> {

@@ -6,6 +6,9 @@ type JahannamContent = typeof import("@munib-tracker/shared/content/jahannam") &
   typeof import("@munib-tracker/shared/content/jahannam-collections") &
   typeof import("@munib-tracker/shared/content/jahannam-major-sins");
 let contentCache: JahannamContent | undefined;
+export function isJahannamContentReady(): boolean {
+  return contentCache !== undefined;
+}
 export async function ensureJahannamContent(): Promise<JahannamContent> {
   if (!contentCache) {
     const modules = await Promise.all([

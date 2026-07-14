@@ -4,6 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -16,7 +17,11 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureJahannamContent, getJahannamReflections } from "@/lib/jahannam";
+import {
+  ensureJahannamContent,
+  getJahannamReflections,
+  isJahannamContentReady,
+} from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -61,7 +66,7 @@ function ReflectionRow({ entry }: { entry: JahannamReflectionEntry }) {
 export default function JahannamReflectionScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  useEnsureContent(ensureJahannamContent);
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const reflections = getJahannamReflections();
 
   return (
@@ -72,23 +77,25 @@ export default function JahannamReflectionScreen() {
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/reflection" />
-      <Stagger>
-        <LearnReadingChrome surface="jahannam">
-          <JannahCallout tone="accent">{t("jahannam.reflectionLead")}</JannahCallout>
-          <Card padding="three">
-            <SectionHeader
-              title={t("jahannam.reflectionListTitle")}
-              icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-            />
-            <View style={styles.list}>
-              {reflections.map((entry) => (
-                <ReflectionRow key={entry.id} entry={entry} />
-              ))}
-            </View>
-          </Card>
-        </LearnReadingChrome>
-        <JannahDisclaimer textKey="jahannam.disclaimer" />
-      </Stagger>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="jahannam">
+            <JannahCallout tone="accent">{t("jahannam.reflectionLead")}</JannahCallout>
+            <Card padding="three">
+              <SectionHeader
+                title={t("jahannam.reflectionListTitle")}
+                icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
+              />
+              <View style={styles.list}>
+                {reflections.map((entry) => (
+                  <ReflectionRow key={entry.id} entry={entry} />
+                ))}
+              </View>
+            </Card>
+          </LearnReadingChrome>
+          <JannahDisclaimer textKey="jahannam.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

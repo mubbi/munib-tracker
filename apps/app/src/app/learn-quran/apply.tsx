@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -15,7 +16,11 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureQuranGuideContent, getQuranGuideApplyChallengeForDate } from "@/lib/quran-guide";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideApplyChallengeForDate,
+  isQuranGuideContentReady,
+} from "@/lib/quran-guide";
 import {
   useEnsureQuranGuideProgressLoaded,
   useQuranGuideApplyChallengeCompleted,
@@ -26,7 +31,10 @@ export default function LearnQuranApplyScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { ready: contentReady } = useEnsureContent(ensureQuranGuideContent);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
   const challenge = getQuranGuideApplyChallengeForDate();
   useEnsureQuranGuideProgressLoaded();
   const completed = useQuranGuideApplyChallengeCompleted(challenge?.id ?? "");
@@ -42,7 +50,9 @@ export default function LearnQuranApplyScreen() {
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/apply" />
-      {!contentReady ? null : !challenge ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !challenge ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("learnQuran.notFound")}

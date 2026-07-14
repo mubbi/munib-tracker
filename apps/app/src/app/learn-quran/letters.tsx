@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -12,13 +13,20 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureQuranGuideContent, getQuranGuideLetters } from "@/lib/quran-guide";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideLetters,
+  isQuranGuideContentReady,
+} from "@/lib/quran-guide";
 
 export default function LearnQuranLettersScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  useEnsureContent(ensureQuranGuideContent);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
   const letters = getQuranGuideLetters();
 
   return (
@@ -31,37 +39,39 @@ export default function LearnQuranLettersScreen() {
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/letters" />
-      <Stagger>
-        <JannahCallout tone="info">{t("learnQuran.lettersIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("learnQuran.lettersIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="learn_quran">
-          <View style={styles.grid}>
-            {letters.map((letter) => (
-              <Card key={letter.id} padding="three" style={styles.tile}>
-                <ThemedText type="arabic" style={styles.glyph}>
-                  {letter.letter}
-                </ThemedText>
-                <ThemedText type="smallBold">{letter.name}</ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {letter.transliteration}
-                </ThemedText>
-                <ThemedText type="caption" style={styles.pronunciation}>
-                  {letter.pronunciation}
-                </ThemedText>
-                <View style={[styles.examplesBox, { backgroundColor: tokens.accentSoft }]}>
-                  {letter.examples.map((ex) => (
-                    <ThemedText key={ex} type="caption" style={{ color: colors.accent }}>
-                      {ex}
-                    </ThemedText>
-                  ))}
-                </View>
-              </Card>
-            ))}
-          </View>
-        </LearnReadingChrome>
+          <LearnReadingChrome surface="learn_quran">
+            <View style={styles.grid}>
+              {letters.map((letter) => (
+                <Card key={letter.id} padding="three" style={styles.tile}>
+                  <ThemedText type="arabic" style={styles.glyph}>
+                    {letter.letter}
+                  </ThemedText>
+                  <ThemedText type="smallBold">{letter.name}</ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground">
+                    {letter.transliteration}
+                  </ThemedText>
+                  <ThemedText type="caption" style={styles.pronunciation}>
+                    {letter.pronunciation}
+                  </ThemedText>
+                  <View style={[styles.examplesBox, { backgroundColor: tokens.accentSoft }]}>
+                    {letter.examples.map((ex) => (
+                      <ThemedText key={ex} type="caption" style={{ color: colors.accent }}>
+                        {ex}
+                      </ThemedText>
+                    ))}
+                  </View>
+                </Card>
+              ))}
+            </View>
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="learnQuran.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="learnQuran.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

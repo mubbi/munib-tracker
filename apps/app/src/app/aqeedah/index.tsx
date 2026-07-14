@@ -8,6 +8,8 @@ import {
   JannahNavRow,
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -22,6 +24,7 @@ import {
   ensureAqeedahContent,
   getAqeedahLessonCount,
   getAqeedahTopicsBySection,
+  isAqeedahContentReady,
 } from "@/lib/aqeedah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -46,7 +49,10 @@ export default function AqeedahScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureAqeedahProgressLoaded();
-  const { version: contentVersion } = useEnsureContent(ensureAqeedahContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureAqeedahContent,
+    isAqeedahContentReady,
+  );
   const completedCount = useAqeedahCompletedCount();
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const lessonTotal = useMemo(() => getAqeedahLessonCount(), [contentVersion]);
@@ -119,118 +125,126 @@ export default function AqeedahScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/aqeedah" />
-      <Stagger>
-        <JannahCallout tone="info">{t("aqeedah.intro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("aqeedah.intro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("aqeedah.quickLinksTitle")}
-            icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+          <LearnQuizNavRow
+            quizPath={"/aqeedah/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
           />
-          <JannahQuickLinkGrid items={quickLinks} />
-        </Card>
 
-        <JannahNavRow
-          icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-          title={t("aqeedah.progressCardTitle")}
-          subtitle={t("aqeedah.progressCardHint", {
-            completed: completedCount,
-            total: lessonTotal,
-          })}
-          badge={`${completedCount}/${lessonTotal}`}
-          tint={colors.accent}
-          onPress={() => router.push("/aqeedah/progress" as Href)}
-        />
+          <Card padding="three">
+            <SectionHeader
+              title={t("aqeedah.quickLinksTitle")}
+              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+            />
+            <JannahQuickLinkGrid items={quickLinks} />
+          </Card>
 
-        {SECTION_ORDER.map((section) => {
-          const topics = TOPICS_BY_SECTION[section];
-          if (!topics?.length) return null;
-          return (
-            <Card key={section} padding="three">
-              <SectionHeader
-                title={t(`aqeedah.section.${section}`)}
-                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
-                {t(`aqeedah.section.${section}Hint`)}
-              </ThemedText>
-              <View style={styles.rows}>
-                {topics.map((topic) => (
-                  <JannahNavRow
-                    key={topic.id}
-                    icon={
-                      TOPIC_ICONS[topic.id] ?? {
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
+          <JannahNavRow
+            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+            title={t("aqeedah.progressCardTitle")}
+            subtitle={t("aqeedah.progressCardHint", {
+              completed: completedCount,
+              total: lessonTotal,
+            })}
+            badge={`${completedCount}/${lessonTotal}`}
+            tint={colors.accent}
+            onPress={() => router.push("/aqeedah/progress" as Href)}
+          />
+
+          {SECTION_ORDER.map((section) => {
+            const topics = TOPICS_BY_SECTION[section];
+            if (!topics?.length) return null;
+            return (
+              <Card key={section} padding="three">
+                <SectionHeader
+                  title={t(`aqeedah.section.${section}`)}
+                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.sectionHint}>
+                  {t(`aqeedah.section.${section}Hint`)}
+                </ThemedText>
+                <View style={styles.rows}>
+                  {topics.map((topic) => (
+                    <JannahNavRow
+                      key={topic.id}
+                      icon={
+                        TOPIC_ICONS[topic.id] ?? {
+                          ios: "text.book.closed",
+                          android: "article",
+                          web: "article",
+                        }
                       }
-                    }
-                    title={topic.title}
-                    subtitle={topic.summary}
-                    badge={
-                      topic.importance ? t(`aqeedah.importance.${topic.importance}`) : undefined
-                    }
-                    onPress={() =>
-                      router.push({
-                        pathname: "/aqeedah/[topic]",
-                        params: { topic: topic.id },
-                      })
-                    }
-                  />
-                ))}
-              </View>
-            </Card>
-          );
-        })}
+                      title={topic.title}
+                      subtitle={topic.summary}
+                      badge={
+                        topic.importance ? t(`aqeedah.importance.${topic.importance}`) : undefined
+                      }
+                      onPress={() =>
+                        router.push({
+                          pathname: "/aqeedah/[topic]",
+                          params: { topic: topic.id },
+                        })
+                      }
+                    />
+                  ))}
+                </View>
+              </Card>
+            );
+          })}
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("aqeedah.exploreTitle")}
-            icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-          />
-          <View style={styles.rows}>
-            <JannahNavRow
-              icon={{ ios: "star.circle.fill", android: "stars", web: "stars" }}
-              title={t("aqeedah.sixArticlesTitle")}
-              subtitle={t("aqeedah.sixArticlesHint")}
-              onPress={() =>
-                router.push({
-                  pathname: "/aqeedah/[topic]",
-                  params: { topic: "six-articles" },
-                })
-              }
+          <Card padding="three">
+            <SectionHeader
+              title={t("aqeedah.exploreTitle")}
+              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
             />
-            <JannahNavRow
-              icon={{ ios: "circle.hexagongrid.fill", android: "hub", web: "hub" }}
-              title={t("aqeedah.tawheedTitle")}
-              subtitle={t("aqeedah.tawheedHint")}
-              onPress={() =>
-                router.push({
-                  pathname: "/aqeedah/[topic]",
-                  params: { topic: "tawheed-explained" },
-                })
-              }
-            />
-            <JannahNavRow
-              icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
-              title={t("aqeedah.glossaryTitle")}
-              subtitle={t("aqeedah.glossaryHint")}
-              onPress={() => router.push("/aqeedah/glossary" as Href)}
+            <View style={styles.rows}>
+              <JannahNavRow
+                icon={{ ios: "star.circle.fill", android: "stars", web: "stars" }}
+                title={t("aqeedah.sixArticlesTitle")}
+                subtitle={t("aqeedah.sixArticlesHint")}
+                onPress={() =>
+                  router.push({
+                    pathname: "/aqeedah/[topic]",
+                    params: { topic: "six-articles" },
+                  })
+                }
+              />
+              <JannahNavRow
+                icon={{ ios: "circle.hexagongrid.fill", android: "hub", web: "hub" }}
+                title={t("aqeedah.tawheedTitle")}
+                subtitle={t("aqeedah.tawheedHint")}
+                onPress={() =>
+                  router.push({
+                    pathname: "/aqeedah/[topic]",
+                    params: { topic: "tawheed-explained" },
+                  })
+                }
+              />
+              <JannahNavRow
+                icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
+                title={t("aqeedah.glossaryTitle")}
+                subtitle={t("aqeedah.glossaryHint")}
+                onPress={() => router.push("/aqeedah/glossary" as Href)}
+              />
+            </View>
+          </Card>
+
+          <View style={styles.pillRow}>
+            <Pill
+              label={t("aqeedah.phaseV1")}
+              compact
+              color={colors.mutedForeground}
+              background={colors.muted}
             />
           </View>
-        </Card>
 
-        <View style={styles.pillRow}>
-          <Pill
-            label={t("aqeedah.phaseV1")}
-            compact
-            color={colors.mutedForeground}
-            background={colors.muted}
-          />
-        </View>
-
-        <JannahDisclaimer textKey="aqeedah.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="aqeedah.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

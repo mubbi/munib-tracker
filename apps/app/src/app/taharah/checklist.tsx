@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -13,13 +14,13 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureTaharahContent, getTaharahChecklist } from "@/lib/taharah";
+import { ensureTaharahContent, getTaharahChecklist, isTaharahContentReady } from "@/lib/taharah";
 
 export default function TaharahChecklistScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { tokens } = useThemeTokens();
-  useEnsureContent(ensureTaharahContent);
+  const { ready: contentReady } = useEnsureContent(ensureTaharahContent, isTaharahContentReady);
   const items = getTaharahChecklist();
 
   return (
@@ -30,30 +31,32 @@ export default function TaharahChecklistScreen() {
       onBack={() => goBackOrReplace(router, "/taharah" as Href)}
     >
       <Seo path="/taharah/checklist" />
-      <Stagger>
-        <JannahCallout tone="info">{t("taharah.checklistIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("taharah.checklistIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="taharah">
-          <Card padding="three">
-            <SectionHeader
-              title={t("taharah.checklistListTitle")}
-              icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
-            />
-            <View style={styles.list}>
-              {items.map((item, index) => (
-                <View key={item.id} style={[styles.row, { backgroundColor: tokens.accentSoft }]}>
-                  <ThemedText type="smallBold">{`${index + 1}. ${item.title}`}</ThemedText>
-                  <ThemedText type="small" themeColor="mutedForeground" style={styles.hint}>
-                    {item.hint}
-                  </ThemedText>
-                </View>
-              ))}
-            </View>
-          </Card>
-        </LearnReadingChrome>
+          <LearnReadingChrome surface="taharah">
+            <Card padding="three">
+              <SectionHeader
+                title={t("taharah.checklistListTitle")}
+                icon={{ ios: "checklist", android: "checklist", web: "checklist" }}
+              />
+              <View style={styles.list}>
+                {items.map((item, index) => (
+                  <View key={item.id} style={[styles.row, { backgroundColor: tokens.accentSoft }]}>
+                    <ThemedText type="smallBold">{`${index + 1}. ${item.title}`}</ThemedText>
+                    <ThemedText type="small" themeColor="mutedForeground" style={styles.hint}>
+                      {item.hint}
+                    </ThemedText>
+                  </View>
+                ))}
+              </View>
+            </Card>
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="taharah.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="taharah.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

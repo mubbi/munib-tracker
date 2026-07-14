@@ -7,6 +7,7 @@ import {
   JannahDisclaimer,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -19,12 +20,19 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureQuranGuideContent, getQuranGuideDailyLessonForDate } from "@/lib/quran-guide";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideDailyLessonForDate,
+  isQuranGuideContentReady,
+} from "@/lib/quran-guide";
 
 export default function LearnQuranDailyScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { ready: contentReady } = useEnsureContent(ensureQuranGuideContent);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
   const lesson = getQuranGuideDailyLessonForDate();
 
   return (
@@ -37,7 +45,9 @@ export default function LearnQuranDailyScreen() {
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/daily" />
-      {!contentReady ? null : !lesson ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !lesson ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("learnQuran.notFound")}

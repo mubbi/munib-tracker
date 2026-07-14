@@ -2,6 +2,7 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { AqeedahTopicContent } from "@/components/aqeedah/topic-content";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -9,7 +10,12 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { ensureAqeedahContent, getAqeedahTopic, getAqeedahTopics } from "@/lib/aqeedah";
+import {
+  ensureAqeedahContent,
+  getAqeedahTopic,
+  getAqeedahTopics,
+  isAqeedahContentReady,
+} from "@/lib/aqeedah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureAqeedahProgressLoaded } from "@/stores/aqeedah-progress-store";
@@ -22,7 +28,7 @@ export default function AqeedahTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureAqeedahContent);
+  const { ready: contentReady } = useEnsureContent(ensureAqeedahContent, isAqeedahContentReady);
   const topic = getAqeedahTopic(topicId);
   const reportRef = useGuideContentReportRef("aqeedah", topic, "/aqeedah");
   useEnsureAqeedahProgressLoaded();
@@ -63,7 +69,9 @@ export default function AqeedahTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("aqeedah.notFound")}

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer, JannahDuaBlock } from "@/components/jannah/primitives";
 import { JannahTopicContent } from "@/components/jannah/topic-content";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -10,7 +11,12 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { ensureJannahContent, getJannahFirdawsDua, getJannahTopic } from "@/lib/jannah";
+import {
+  ensureJannahContent,
+  getJannahFirdawsDua,
+  getJannahTopic,
+  isJannahContentReady,
+} from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
@@ -22,7 +28,10 @@ export async function generateStaticParams(): Promise<Array<{ topic: string }>> 
 export default function JannahTopicScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion, ready: contentReady } = useEnsureContent(ensureJannahContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureJannahContent,
+    isJannahContentReady,
+  );
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
   const topic = getJannahTopic(topicId);
   const reportRef = useGuideContentReportRef("jannah", topic, "/jannah");
@@ -66,7 +75,9 @@ export default function JannahTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("jannah.notFound")}

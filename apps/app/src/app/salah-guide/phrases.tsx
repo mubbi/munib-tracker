@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReligiousTextStack } from "@/components/content/religious-text-stack";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -15,7 +16,11 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureSalahGuideContent, getSalahGuidePhrases } from "@/lib/salah-guide";
+import {
+  ensureSalahGuideContent,
+  getSalahGuidePhrases,
+  isSalahGuideContentReady,
+} from "@/lib/salah-guide";
 
 function PhraseCard({
   title,
@@ -90,7 +95,10 @@ function PhraseCard({
 export default function SalahGuidePhrasesScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { version: contentVersion } = useEnsureContent(ensureSalahGuideContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureSalahGuideContent,
+    isSalahGuideContentReady,
+  );
   // Recompute per locale so translated phrases render on language switch.
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize / content ready
   const phrases = useMemo(() => getSalahGuidePhrases(), [i18n.language, contentVersion]);
@@ -103,17 +111,19 @@ export default function SalahGuidePhrasesScreen() {
       onBack={() => goBackOrReplace(router, "/salah-guide")}
     >
       <Seo path="/salah-guide/phrases" />
-      <Stagger>
-        <LearnReadingChrome surface="salah_guide">
-          <JannahCallout tone="accent">{t("salahGuide.phrasesIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="salah_guide">
+            <JannahCallout tone="accent">{t("salahGuide.phrasesIntro")}</JannahCallout>
 
-          {phrases.map((phrase) => (
-            <PhraseCard key={phrase.id} {...phrase} />
-          ))}
-        </LearnReadingChrome>
+            {phrases.map((phrase) => (
+              <PhraseCard key={phrase.id} {...phrase} />
+            ))}
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="salahGuide.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="salahGuide.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

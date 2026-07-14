@@ -1,8 +1,9 @@
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -47,6 +48,11 @@ export default function IslamicEventsScreen() {
     >
       <Seo path="/events" />
       <View style={styles.list}>
+        <LearnQuizNavRow
+          quizPath={"/events/quiz" as Href}
+          titleKey="common.learnQuiz.title"
+          subtitleKey="common.learnQuiz.hint"
+        />
         {events.map((event) => (
           <FocusHighlight
             key={`${event.id}-${event.hijriYear}`}

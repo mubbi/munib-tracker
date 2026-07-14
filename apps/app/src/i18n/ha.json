@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Bi diddigin hanyar komawa zuwa Allah.",
     "loadingRoute": "Ana shiri…",
-    "loadingRouteHint": "Jira ɗan lokaci yayin da wannan allon ke lodawa."
+    "loadingRouteHint": "Jira ɗan lokaci yayin da wannan allon ke lodawa.",
+    "loadingContent": "Ana lodin abun ciki…",
+    "loadingContentHint": "Jira ɗan lokaci yayin da wannan darasi ke lodawa.",
+    "learnQuiz": {
+      "title": "Jarrabawar maimaitawa",
+      "subtitle": "Gwada fahimtalka — ba matsayinka a wurin Allah ba",
+      "intro": "Gajeren maimaitawa daga darussan wannan jagora. Ɗauki lokaci — koyo ne manufa.",
+      "hint": "Sake nazarin abin da ka koya",
+      "empty": "Tambayoyin wannan jagora har yanzu suna lodawa. Buɗe wasu darussa, sa'an nan sake gwadawa."
+    }
   },
   "search": {
     "placeholder": "Nemo Alkur'ani, hadisi, dua, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Jagoran Idi",
     "ruqyah": "Ruqyah",
     "newMuslim": "Sabon Jagoran Musulmi",
-    "finance": "Islamic Finance"
+    "finance": "Islamic Finance",
+    "flashCards": "Katunan koyo"
   },
   "quickActions": {
     "checklistSubtitle": "Rubuta sallar yau",
@@ -1008,11 +1018,18 @@
     "increase": "Ƙara text size",
     "reset": "Sake saita text size",
     "sizeDefault": "Varsashekaraan",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Saurari labarin",
+    "listenStop": "Dakatar da sauraro",
+    "listenHint": "Zaɓi murya, sa'an nan ji wannan shafi ana karanta shi da babbar murya a harshen app ta amfani da rubutu-zuwa-magana na na'ura",
+    "listenUnavailableTitle": "Sauraro ba ya samuwa",
+    "listenUnavailableBody": "Rubutu-zuwa-magana ba ya samuwa a wannan na'ura. Tabbatar an shigar da murya don harshenka a saitunan tsarin.",
+    "listenLabel": "Saurara",
+    "listenStopLabel": "Tsaya",
+    "listenVoiceTitle": "Zaɓi murya",
+    "listenVoiceHint": "Zaɓi murya don fara sauraro",
+    "listenVoiceDefault": "Tsohon tsarin na'ura",
+    "listenVoiceDefaultHint": "Yi amfani da muryar da na'ura ta fi so don wannan harshe",
+    "listenVoiceEmpty": "Babu muryoyin da aka shigar don wannan harshe. Ƙara ɗaya a cikin saitunan tsarin."
   },
   "share": {
     "dialogTitle": "Raba",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "Keɓance gida",
-    "subtitle": "Zaɓi abin da ke bayyana akan allon gidanku da ɗakin karatu",
+    "subtitle": "Zaɓi abin da ke bayyana a allon gidanka",
     "modulesTitle": "Katunan gida",
     "actionsTitle": "Ayyukan gaggawa",
     "actionsHint": "Sake tsara gajerun hanyoyin ku, ko cire waɗanda ba ku amfani da su.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "Duba tarihin ibada kowace rana",
     "exploreEvents": "Bude al'amuran Musulunci",
     "exploreEventsHint": "Mahimmanci da bukukuwan da ke gaba"
+  },
+  "flashCards": {
+    "eyebrow": "Koyi",
+    "title": "Katunan koyo",
+    "subtitle": "Yi horon ilimin Musulunci kati ɗaya bayan ɗaya — babu maki, babu matsala",
+    "intro": "Daga Alkur'ani, hadisai, Sunayen Allah, da kowane jagorar Koyi. Taɓa amsa don duba kanka, sa'an nan ci gaba har yadda kake so.",
+    "disclaimer": "Sake nazarin ilimi kawai — ba matsayi na ruhaniya ba. Fi son ingantaccen tushe kuma tambayi malami don hukunce-hukuncen kai.",
+    "studiedCount": "An nazarci katuna {{count}}",
+    "endlessHint": "Horon da ba shi iyaka",
+    "answerHint": "Zaɓi amsa don nuna bayanin.",
+    "pickAnswer": "Zaɓi amsa da farko",
+    "nextCard": "Kati na gaba",
+    "correctTitle": "Da kyau — an ƙulla",
+    "incorrectTitle": "Kusan — ga ra'ayin",
+    "empty": "Ana gina tarin katin ka… buɗe batutuwan Koyi ko jira ɗan lokaci.",
+    "category": {
+      "salahGuide": "Sallah",
+      "jannah": "Jannah",
+      "lastDay": "Ranar Ƙarshe",
+      "jahannam": "Jahannama",
+      "battles": "Yaƙe-yaƙe",
+      "learnQuran": "Alkur'ani",
+      "taharah": "Tsarki",
+      "hayd": "Haila",
+      "sick": "Ciwon",
+      "prophets": "Annabawa",
+      "aqeedah": "Akida",
+      "learnDua": "Addu'a",
+      "travel": "Tafiya",
+      "hajj": "Hajj",
+      "seerah": "Sira",
+      "events": "Abubuwan",
+      "sahaba": "Sahabbai",
+      "history": "Tarihi",
+      "laylatAlQadr": "Laylatul Qadr",
+      "eid": "Sallah",
+      "ruqyah": "Ruƙya",
+      "newMuslim": "Sabuwar Musulmi",
+      "names": "Sunaye 99",
+      "hadith": "Hadisi",
+      "quran": "Alkur'ani",
+      "duas": "Addu'o'i"
+    }
   }
 }

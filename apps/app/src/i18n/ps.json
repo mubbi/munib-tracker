@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "خپل لاره بیرته الله ته وڅارئ.",
     "loadingRoute": "چمتو کېږي…",
-    "loadingRouteHint": "یوه شیبه — دا پرده بارېږي."
+    "loadingRouteHint": "یوه شیبه — دا پرده بارېږي.",
+    "loadingContent": "محتوا بارېږي…",
+    "loadingContentHint": "یو څه صبر وکړئ — دا درس بارېږي.",
+    "learnQuiz": {
+      "title": "د بیاکتنې پوښتنه",
+      "subtitle": "خپل پوهاوی وازموئ — نه خپل مقام د الله په وړاندې",
+      "intro": "د دې لارښود له درسونو لنډه بیاکتنه. وخت ونیسئ — زده کړه موخه ده.",
+      "hint": "هغه څه بیا وګورئ چې زده کړي مو دي",
+      "empty": "د دې لارښود پوښتنې لا بارېږي. څو درسونه خلاص کړئ، بیا بیا هڅه وکړئ."
+    }
   },
   "search": {
     "placeholder": "قرآن، حدیث، دعا، اذکار لټون…",
@@ -165,7 +174,8 @@
     "eid": "د اختر لارښود",
     "ruqyah": "رقيه",
     "newMuslim": "نوی مسلمان لارښود",
-    "finance": "اسلامی مالیات"
+    "finance": "اسلامی مالیات",
+    "flashCards": "زده کړې کارتونه"
   },
   "quickActions": {
     "checklistSubtitle": "نننی نمازونه ثبت کړئ",
@@ -1008,11 +1018,18 @@
     "increase": "د متن اندازه زیاته کړئ",
     "reset": "بیا تنظیم text size",
     "sizeDefault": "Defult",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "مقاله واورئ",
+    "listenStop": "اورېدل ودروئ",
+    "listenHint": "یوه غږ وټاکئ، بیا د وسیله د متن-په-خبرې له لارې دا پاڼه د اپلیکیشن په ژبه په لوړ غږ واورئ",
+    "listenUnavailableTitle": "اورېدل شتون نلري",
+    "listenUnavailableBody": "په دې وسیله کې متن-په-خبرې نشته. په سیسټم ترتیباتو کې د خپلې ژبې غږ وګورئ.",
+    "listenLabel": "واورئ",
+    "listenStopLabel": "وډرول",
+    "listenVoiceTitle": "غږ وټاکئ",
+    "listenVoiceHint": "د اورېدو پیل لپاره غږ وټاکئ",
+    "listenVoiceDefault": "د سیسټم اصلي",
+    "listenVoiceDefaultHint": "د دې ژبې لپاره د وسیلې غوره شوی غږ وکاروئ",
+    "listenVoiceEmpty": "د دې ژبې لپاره هیڅ غږ نه دی نصب شوی. په سیسټم ترتیباتو کې یو اضافه کړئ."
   },
   "share": {
     "dialogTitle": "شریکول",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "کور جوړ کړئ",
-    "subtitle": "Choose wht ppers په ستاسو home او librry screens",
+    "subtitle": "وټاکئ چې په کور پاڼه څه ښکاري",
     "modulesTitle": "Home crds",
     "actionsTitle": "چټک اقدامات",
     "actionsHint": "خپل شارټ کټونه بیا تنظیم کړئ، یا هغه لرې کړئ چې تاسو یې نه کاروئ.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "د عبادت تاریخ ورځ په ورځ وګورئ",
     "exploreEvents": "اسلامي پیښې خلاصې کړئ",
     "exploreEventsHint": "مرحلې او لیدنې مخکې"
+  },
+  "flashCards": {
+    "eyebrow": "زده کړئ",
+    "title": "زده کړې کارتونه",
+    "subtitle": "اسلامي پوهه یو کارت وروسته بل تمرین کړئ — پرته له نمرې او فشار",
+    "intro": "له قرآن، حدیث، د الله له نومونو او هر زده کړې لارښود څخه. د ځان ازمویلو لپاره ځواب ووهئ، بیا څومره چې غواړئ ادامه ورکړئ.",
+    "disclaimer": "یوازې تعلیمي بیاکتنه — روحاني درجه بندي نه. باوري سرچینې غوره کړئ او د شخصي احکامو لپاره له عالم څخه پوښتنه وکړئ.",
+    "studiedCount": "{{count}} کارتونه مطالعه شول",
+    "endlessHint": "بې پایه تمرین",
+    "answerHint": "د توضیح لیدو لپاره ځواب وټاکئ.",
+    "pickAnswer": "لومړی یو ځواب وټاکئ",
+    "nextCard": "بل کارت",
+    "correctTitle": "ښه — ثبت شو",
+    "incorrectTitle": "نږدې — دا نظر دی",
+    "empty": "د کارتونو ډیک جوړېږي… د زده کړې موضوعات خلاص کړئ یا یو څه انتظار وکړئ.",
+    "category": {
+      "salahGuide": "لمونځ",
+      "jannah": "جنت",
+      "lastDay": "وروستۍ ورځ",
+      "jahannam": "دوزخ",
+      "battles": "جګړې",
+      "learnQuran": "قرآن",
+      "taharah": "پاکوالي",
+      "hayd": "حیض",
+      "sick": "ناروغي",
+      "prophets": "پیغمبران",
+      "aqeedah": "عقیده",
+      "learnDua": "دعا",
+      "travel": "سفر",
+      "hajj": "حج",
+      "seerah": "سیرت",
+      "events": "پیښې",
+      "sahaba": "صحابه",
+      "history": "تاریخ",
+      "laylatAlQadr": "د قدر شپه",
+      "eid": "عید",
+      "ruqyah": "رقیه",
+      "newMuslim": "نوی مسلمان",
+      "names": "۹۹ نومونه",
+      "hadith": "حدیث",
+      "quran": "قرآن",
+      "duas": "دعاوې"
+    }
   }
 }

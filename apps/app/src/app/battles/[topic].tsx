@@ -2,6 +2,7 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { BattlesTopicContent } from "@/components/battles/topic-content";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -9,7 +10,12 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
-import { ensureBattlesContent, getBattlesTopic, getBattlesTopics } from "@/lib/battles";
+import {
+  ensureBattlesContent,
+  getBattlesTopic,
+  getBattlesTopics,
+  isBattlesContentReady,
+} from "@/lib/battles";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureBattlesProgressLoaded } from "@/stores/battles-progress-store";
@@ -22,7 +28,7 @@ export default function BattlesTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureBattlesContent);
+  const { ready: contentReady } = useEnsureContent(ensureBattlesContent, isBattlesContentReady);
   const topic = getBattlesTopic(topicId);
   const reportRef = useGuideContentReportRef("battles", topic, "/battles");
   useEnsureBattlesProgressLoaded();
@@ -63,7 +69,9 @@ export default function BattlesTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("battles.notFound")}

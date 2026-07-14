@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Allah'a dönüş yolculuğunuzu takip edin.",
     "loadingRoute": "Hazırlanıyor…",
-    "loadingRouteHint": "Bu ekran yüklenirken bir an bekleyin."
+    "loadingRouteHint": "Bu ekran yüklenirken bir an bekleyin.",
+    "loadingContent": "İçerik yükleniyor…",
+    "loadingContentHint": "Bu ders yüklenirken bir an bekleyin.",
+    "learnQuiz": {
+      "title": "Tekrar quizi",
+      "subtitle": "Anlayışınızı sınayın — Allah katındaki yerinizi değil",
+      "intro": "Bu rehberin derslerinden kısa bir tekrar. Acele etmeyin — amaç öğrenmektir.",
+      "hint": "Öğrendiklerinizi gözden geçirin",
+      "empty": "Bu rehberin soruları hâlâ yükleniyor. Birkaç ders açın, sonra tekrar deneyin."
+    }
   },
   "search": {
     "placeholder": "Kur'an, hadis, dua, zikir ara…",
@@ -165,7 +174,8 @@
     "eid": "Bayram Rehberi",
     "ruqyah": "Ruqyah",
     "newMuslim": "Yeni Müslüman Rehberi",
-    "finance": "İslami Finans"
+    "finance": "İslami Finans",
+    "flashCards": "Bilgi kartları"
   },
   "quickActions": {
     "checklistSubtitle": "Bugünkü namazları kaydet",
@@ -499,8 +509,8 @@
     "yourVersion": "Sürümünüz",
     "latestVersion": "En son",
     "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
-    "hardBody": "Update to version {{version}} to keep using the app.",
-    "hardNote": "This update is required to continue.",
+    "hardBody": "Uygulamayı kullanabilmek için {{version}} sürümüne güncelleyin.",
+    "hardNote": "Bu güncelleme zorunludur.",
     "updateButton": "Şimdi güncelle",
     "webReloadButton": "Yeniden yükle",
     "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
@@ -569,7 +579,7 @@
     "updateAvailableTitle": "Güncelleme mevcut",
     "updateRequiredTitle": "Güncelleme gerekli",
     "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
-    "updateRequiredDesc": "Update to version {{latest}} to continue using the app.",
+    "updateRequiredDesc": "Uygulamayı kullanabilmek için {{latest}} sürümüne güncelleyin.",
     "updateNow": "Şimdi güncelle",
     "viewUpdateDetails": "Ayrıntıları gör",
     "remindInSettings": "Ayarlar'da hatırlat",
@@ -1008,11 +1018,18 @@
     "increase": "Increase text boyut",
     "reset": "text size Sıfırla",
     "sizeDefault": "Varsayılan",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Makaleyi dinle",
+    "listenStop": "Dinlemeyi durdur",
+    "listenHint": "Bir ses seçin, ardından cihazın metinden sese özelliğiyle bu sayfayı uygulama dilinde dinleyin",
+    "listenUnavailableTitle": "Dinleme kullanılamıyor",
+    "listenUnavailableBody": "Bu cihazda metinden sese özelliği yok. Sistem ayarlarında diliniz için bir ses yüklü olduğundan emin olun.",
+    "listenLabel": "Dinle",
+    "listenStopLabel": "Durdur",
+    "listenVoiceTitle": "Ses seçin",
+    "listenVoiceHint": "Dinlemeye başlamak için bir ses seçin",
+    "listenVoiceDefault": "Sistem varsayılanı",
+    "listenVoiceDefaultHint": "Bu dil için cihazın tercih ettiği sesi kullan",
+    "listenVoiceEmpty": "Bu dil için yüklü ses yok. Sistem ayarlarından bir ses ekleyin."
   },
   "share": {
     "dialogTitle": "Paylaş",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "Ana sayfayı özelleştir",
-    "subtitle": "what appears on your home and library screens Seç",
+    "subtitle": "Ana ekranınızda ne görüneceğini seçin",
     "modulesTitle": "Ana sayfa cards",
     "actionsTitle": "Hızlı eylemler",
     "actionsHint": "Reorder sizin shortcuts, veya remove ones siz don't use.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "İbadet geçmişini gün be gün görün",
     "exploreEvents": "Açık İslami etkinlikler",
     "exploreEventsHint": "Önümüzdeki kilometre taşları ve kutlamalar"
+  },
+  "flashCards": {
+    "eyebrow": "Öğren",
+    "title": "Bilgi kartları",
+    "subtitle": "İslami bilgiyi kart kart çalışın — puan yok, baskı yok",
+    "intro": "Kur'an, hadis, Allah'ın İsimleri ve her Öğren rehberinden. Kendinizi kontrol etmek için bir cevap seçin, istediğiniz kadar devam edin.",
+    "disclaimer": "Yalnızca eğitim amaçlı tekrar — manevi bir sıralama değil. Sahih kaynakları tercih edin; kişisel hükümler için âlime danışın.",
+    "studiedCount": "{{count}} kart çalışıldı",
+    "endlessHint": "Sonsuz pratik",
+    "answerHint": "Açıklamayı görmek için bir cevap seçin.",
+    "pickAnswer": "Önce bir cevap seçin",
+    "nextCard": "Sonraki kart",
+    "correctTitle": "Güzel — yerleşti",
+    "incorrectTitle": "Neredeyse — işte fikir",
+    "empty": "Bilgi kartları hazırlanıyor… Öğren konularını açın veya bir an bekleyin.",
+    "category": {
+      "salahGuide": "Namaz",
+      "jannah": "Cennet",
+      "lastDay": "Ahiret Günü",
+      "jahannam": "Cehennem",
+      "battles": "Gazveler",
+      "learnQuran": "Kur'an",
+      "taharah": "Temizlik",
+      "hayd": "Hayız",
+      "sick": "Hastalık",
+      "prophets": "Peygamberler",
+      "aqeedah": "Akaid",
+      "learnDua": "Dua",
+      "travel": "Yolculuk",
+      "hajj": "Hac",
+      "seerah": "Siyer",
+      "events": "Etkinlikler",
+      "sahaba": "Sahabe",
+      "history": "Tarih",
+      "laylatAlQadr": "Kadir Gecesi",
+      "eid": "Bayram",
+      "ruqyah": "Rukye",
+      "newMuslim": "Yeni müslüman",
+      "names": "99 İsim",
+      "hadith": "Hadis",
+      "quran": "Kur'an",
+      "duas": "Dualar"
+    }
   }
 }

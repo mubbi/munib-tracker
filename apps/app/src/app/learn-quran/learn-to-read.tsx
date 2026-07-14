@@ -2,6 +2,7 @@ import { type Href, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -13,13 +14,20 @@ import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureQuranGuideContent, getQuranGuideReadingLevels } from "@/lib/quran-guide";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideReadingLevels,
+  isQuranGuideContentReady,
+} from "@/lib/quran-guide";
 
 export default function LearnQuranLearnToReadScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  useEnsureContent(ensureQuranGuideContent);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
   const levels = getQuranGuideReadingLevels();
 
   return (
@@ -32,44 +40,46 @@ export default function LearnQuranLearnToReadScreen() {
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/learn-to-read" />
-      <Stagger>
-        <JannahCallout tone="info">{t("learnQuran.readingIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("learnQuran.readingIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="learn_quran">
-          {levels.map((level, index) => (
-            <View key={level.level} style={styles.levelRow}>
-              {index > 0 ? (
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.arrow}>
-                  ↓
-                </ThemedText>
-              ) : null}
-              <Card padding="three" style={styles.card}>
-                <Pill
-                  label={t("learnQuran.levelBadge", { level: level.level })}
-                  compact
-                  color={colors.accentText}
-                  background={tokens.accentSoft}
-                />
-                <ThemedText type="title" style={styles.levelTitle}>
-                  {level.title}
-                </ThemedText>
-                <ThemedText type="small" themeColor="mutedForeground">
-                  {level.summary}
-                </ThemedText>
-                <View style={styles.topics}>
-                  {level.topics.map((topic) => (
-                    <ThemedText key={topic} type="caption" themeColor="mutedForeground">
-                      • {topic}
-                    </ThemedText>
-                  ))}
-                </View>
-              </Card>
-            </View>
-          ))}
-        </LearnReadingChrome>
+          <LearnReadingChrome surface="learn_quran">
+            {levels.map((level, index) => (
+              <View key={level.level} style={styles.levelRow}>
+                {index > 0 ? (
+                  <ThemedText type="caption" themeColor="mutedForeground" style={styles.arrow}>
+                    ↓
+                  </ThemedText>
+                ) : null}
+                <Card padding="three" style={styles.card}>
+                  <Pill
+                    label={t("learnQuran.levelBadge", { level: level.level })}
+                    compact
+                    color={colors.accentText}
+                    background={tokens.accentSoft}
+                  />
+                  <ThemedText type="title" style={styles.levelTitle}>
+                    {level.title}
+                  </ThemedText>
+                  <ThemedText type="small" themeColor="mutedForeground">
+                    {level.summary}
+                  </ThemedText>
+                  <View style={styles.topics}>
+                    {level.topics.map((topic) => (
+                      <ThemedText key={topic} type="caption" themeColor="mutedForeground">
+                        • {topic}
+                      </ThemedText>
+                    ))}
+                  </View>
+                </Card>
+              </View>
+            ))}
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="learnQuran.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="learnQuran.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

@@ -1,6 +1,7 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -11,7 +12,12 @@ import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
-import { ensureTaharahContent, getTaharahTopic, getTaharahTopics } from "@/lib/taharah";
+import {
+  ensureTaharahContent,
+  getTaharahTopic,
+  getTaharahTopics,
+  isTaharahContentReady,
+} from "@/lib/taharah";
 import { useEnsureTaharahProgressLoaded } from "@/stores/taharah-progress-store";
 
 export function generateStaticParams(): Array<{ topic: string }> {
@@ -22,7 +28,7 @@ export default function TaharahTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureTaharahContent);
+  const { ready: contentReady } = useEnsureContent(ensureTaharahContent, isTaharahContentReady);
   const topic = getTaharahTopic(topicId);
   const reportRef = useGuideContentReportRef("taharah", topic, "/taharah");
   useEnsureTaharahProgressLoaded();
@@ -63,7 +69,9 @@ export default function TaharahTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("taharah.notFound")}

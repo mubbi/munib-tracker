@@ -14,6 +14,7 @@ import { useHomeHero } from "@/hooks/use-home-hero";
 import { useNotificationBadgeCount } from "@/hooks/use-notification-badge";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeatherDisplay } from "@/hooks/use-weather-display";
+import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { HOME_FAQ } from "@/lib/seo/faq-content";
 import { faqSchema } from "@/lib/seo/structured-data";
 import { useLocationActions } from "@/stores/location-store";
@@ -76,6 +77,7 @@ function HomeBelowFoldFallback() {
  * separate async chunk (web LCP / TBT).
  */
 export default function HomeScreen() {
+  useMarkColdStartReady();
   const BelowFold = HomeBelowFoldForTests ?? HomeBelowFoldLazy;
   const router = useRouter();
   const { t } = useTranslation();

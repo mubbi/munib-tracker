@@ -68,7 +68,16 @@
     "appName": "Pelacak Munib",
     "appTagline": "Lacak Perjalanan Anda Kembali kepada Allah.",
     "loadingRoute": "Menyiapkan…",
-    "loadingRouteHint": "Sebentar saja sementara layar ini dimuat."
+    "loadingRouteHint": "Sebentar saja sementara layar ini dimuat.",
+    "loadingContent": "Memuat konten…",
+    "loadingContentHint": "Sebentar saja sementara pelajaran ini dimuat.",
+    "learnQuiz": {
+      "title": "Kuis ulasan",
+      "subtitle": "Uji pemahaman Anda — bukan kedudukan Anda di sisi Allah",
+      "intro": "Ulasan singkat dari pelajaran panduan ini. Luangkan waktu — belajar adalah tujuannya.",
+      "hint": "Ulangi apa yang Anda pelajari",
+      "empty": "Pertanyaan untuk panduan ini masih dimuat. Buka beberapa pelajaran, lalu coba lagi."
+    }
   },
   "search": {
     "placeholder": "Cari Al- Qur'an, hadits, duas, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Panduan Idul Fitri",
     "ruqyah": "Ruqyah",
     "newMuslim": "Panduan Muslim Baru",
-    "finance": "Keuangan Islam"
+    "finance": "Keuangan Islam",
+    "flashCards": "Kartu flash"
   },
   "quickActions": {
     "checklistSubtitle": "Catat doa hari ini",
@@ -1008,11 +1018,18 @@
     "increase": "Increase teks ukuran",
     "reset": "Atur ulang text size",
     "sizeDefault": "Bawaan",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Dengarkan artikel",
+    "listenStop": "Berhenti mendengarkan",
+    "listenHint": "Pilih suara, lalu dengarkan halaman ini dibacakan dengan bahasa aplikasi menggunakan text-to-speech perangkat",
+    "listenUnavailableTitle": "Mendengarkan tidak tersedia",
+    "listenUnavailableBody": "Text-to-speech tidak tersedia di perangkat ini. Pastikan suara untuk bahasa Anda terpasang di pengaturan sistem.",
+    "listenLabel": "Dengar",
+    "listenStopLabel": "Berhenti",
+    "listenVoiceTitle": "Pilih suara",
+    "listenVoiceHint": "Pilih suara untuk mulai mendengarkan",
+    "listenVoiceDefault": "Default sistem",
+    "listenVoiceDefaultHint": "Gunakan suara pilihan perangkat untuk bahasa ini",
+    "listenVoiceEmpty": "Tidak ada suara yang terpasang untuk bahasa ini. Tambahkan di pengaturan sistem."
   },
   "share": {
     "dialogTitle": "Bagikan",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "Customize beranda",
-    "subtitle": "Pilih what appears on your home and library screens",
+    "subtitle": "Pilih apa yang muncul di beranda Anda",
     "modulesTitle": "Beranda cards",
     "actionsTitle": "Aksi cepat",
     "actionsHint": "Reorder Anda shortcuts, atau hapus ones Anda don't use.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "Lihat sejarah ibadah hari demi hari",
     "exploreEvents": "Buka acara Islami",
     "exploreEventsHint": "Tonggak sejarah dan peringatan ke depan"
+  },
+  "flashCards": {
+    "eyebrow": "Belajar",
+    "title": "Kartu flash",
+    "subtitle": "Latih pengetahuan Islam satu kartu demi satu — tanpa skor, tanpa tekanan",
+    "intro": "Ambil dari Al-Qur'an, hadits, Nama-Nama Allah, dan setiap panduan Belajar. Ketuk jawaban untuk memeriksa diri, lalu lanjutkan sesuka Anda.",
+    "disclaimer": "Hanya ulasan edukatif — bukan peringkat spiritual. Utamakan sumber autentik dan tanyakan ulama untuk hukum pribadi.",
+    "studiedCount": "{{count}} kartu dipelajari",
+    "endlessHint": "Latihan tanpa akhir",
+    "answerHint": "Pilih jawaban untuk menampilkan penjelasan.",
+    "pickAnswer": "Pilih jawaban dulu",
+    "nextCard": "Kartu berikutnya",
+    "correctTitle": "Bagus — berhasil diingat",
+    "incorrectTitle": "Hampir — ini idenya",
+    "empty": "Menyiapkan dek kartu flash… buka topik Belajar atau tunggu sebentar.",
+    "category": {
+      "salahGuide": "Salah",
+      "jannah": "Jannah",
+      "lastDay": "Hari Akhir",
+      "jahannam": "Jahannam",
+      "battles": "Pertempuran",
+      "learnQuran": "Al-Qur'an",
+      "taharah": "Thaharah",
+      "hayd": "Haid",
+      "sick": "Sakit",
+      "prophets": "Nabi",
+      "aqeedah": "Akidah",
+      "learnDua": "Doa",
+      "travel": "Perjalanan",
+      "hajj": "Haji",
+      "seerah": "Sirah",
+      "events": "Acara",
+      "sahaba": "Sahabat",
+      "history": "Sejarah",
+      "laylatAlQadr": "Lailatul Qadar",
+      "eid": "Idul",
+      "ruqyah": "Ruqyah",
+      "newMuslim": "Muslim baru",
+      "names": "99 Nama",
+      "hadith": "Hadits",
+      "quran": "Al-Qur'an",
+      "duas": "Doa"
+    }
   }
 }

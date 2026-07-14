@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Allaha qayıdış yolunuzu izləyin.",
     "loadingRoute": "Hazırlanır…",
-    "loadingRouteHint": "Bir an — bu ekran yüklənir."
+    "loadingRouteHint": "Bir an — bu ekran yüklənir.",
+    "loadingContent": "Məzmun yüklənir…",
+    "loadingContentHint": "Bu dərs yüklənərkən bir an gözləyin.",
+    "learnQuiz": {
+      "title": "Təkrar viktorinası",
+      "subtitle": "Anlayışınızı yoxlayın — Allah yanındakı yerinizi deyil",
+      "intro": "Bu bələdçinin dərslərindən qısa təkrar. Tələsməyin — məqsəd öyrənməkdir.",
+      "hint": "Öyrəndiklərinizi təkrarlayın",
+      "empty": "Bu bələdçinin sualları hələ yüklənir. Bir neçə dərs açın, sonra yenidən cəhd edin."
+    }
   },
   "search": {
     "placeholder": "Qur'an, hədis, dua, adhkar axtar…",
@@ -165,7 +174,8 @@
     "eid": "Bayram bələdçisi",
     "ruqyah": "Ruqyah",
     "newMuslim": "Yeni Müsəlman Bələdçisi",
-    "finance": "İslam Maliyyəsi"
+    "finance": "İslam Maliyyəsi",
+    "flashCards": "Fleş kartlar"
   },
   "quickActions": {
     "checklistSubtitle": "Bu günkü namazları qeyd et",
@@ -1008,11 +1018,18 @@
     "increase": "içindəcrese text size",
     "reset": "sıfırl text size",
     "sizeDefault": "Defult",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Məqaləni dinlə",
+    "listenStop": "Dinləməyi dayandır",
+    "listenHint": "Bir səs seçin, sonra cihazın mətn-nitq funksiyası ilə bu səhifəni tətbiq dilində dinləyin",
+    "listenUnavailableTitle": "Dinləmə əlçatan deyil",
+    "listenUnavailableBody": "Bu cihazda mətn-nitq yoxdur. Sistem ayarlarında diliniz üçün səs quraşdırıldığını yoxlayın.",
+    "listenLabel": "Dinlə",
+    "listenStopLabel": "Dayandır",
+    "listenVoiceTitle": "Səs seçin",
+    "listenVoiceHint": "Dinləməyə başlamaq üçün səs seçin",
+    "listenVoiceDefault": "Sistem standartı",
+    "listenVoiceDefaultHint": "Bu dil üçün cihazın üstünlük verdiyi səsi istifadə edin",
+    "listenVoiceEmpty": "Bu dil üçün quraşdırılmış səs yoxdur. Sistem ayarlarından birini əlavə edin."
   },
   "share": {
     "dialogTitle": "Paylaş",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "Cus-mize home",
-    "subtitle": "Choose wht ppers üzərində siziçində home və librry screens",
+    "subtitle": "Əsas ekranda nə görünəcəyini seçin",
     "modulesTitle": "Home crds",
     "actionsTitle": "Quick ctiüzərindəs",
     "actionsHint": "Revə yder siziçində shvə ytcuts, və y çıxrt üzərindəes siz düzərində't use.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "Gündən-günə ibadət tarixinə baxın",
     "exploreEvents": "İslami hadisələri açın",
     "exploreEventsHint": "Qarşıda mərhələlər və qeydlər"
+  },
+  "flashCards": {
+    "eyebrow": "Öyrən",
+    "title": "Fleş kartlar",
+    "subtitle": "İslami bilikləri kart-kart məşq edin — bal yox, təzyiq yox",
+    "intro": "Qurandan, hədislərdən, Allahın Adlarından və hər Öyrən bələdçisindən. Özünüzü yoxlamaq üçün cavab seçin, istədiyiniz qədər davam edin.",
+    "disclaimer": "Yalnız tədris təkrarı — ruhani reytinq deyil. Etibarlı mənbələrə üstünlük verin və şəxsi hökm üçün alimə müraciət edin.",
+    "studiedCount": "{{count}} kart öyrənildi",
+    "endlessHint": "Sonsuz məşq",
+    "answerHint": "İzahı görmək üçün cavab seçin.",
+    "pickAnswer": "Əvvəlcə cavab seçin",
+    "nextCard": "Növbəti kart",
+    "correctTitle": "Gözəl — yadda qaldı",
+    "incorrectTitle": "Demək olar — budur fikir",
+    "empty": "Kart dəsti hazırlanır… Öyrən mövzularını açın və ya bir az gözləyin.",
+    "category": {
+      "salahGuide": "Namaz",
+      "jannah": "Cənnət",
+      "lastDay": "Axirət günü",
+      "jahannam": "Cəhənnəm",
+      "battles": "Döyüşlər",
+      "learnQuran": "Quran",
+      "taharah": "Təmizlik",
+      "hayd": "Hayz",
+      "sick": "Xəstəlik",
+      "prophets": "Peyğəmbərlər",
+      "aqeedah": "Əqidə",
+      "learnDua": "Dua",
+      "travel": "Səyahət",
+      "hajj": "Həcc",
+      "seerah": "Sirə",
+      "events": "Tədbirlər",
+      "sahaba": "Səhabələr",
+      "history": "Tarix",
+      "laylatAlQadr": "Qədr gecəsi",
+      "eid": "Bayram",
+      "ruqyah": "Ruqyə",
+      "newMuslim": "Yeni müsəlman",
+      "names": "99 Ad",
+      "hadith": "Hədis",
+      "quran": "Quran",
+      "duas": "Dualar"
+    }
   }
 }

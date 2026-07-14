@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -9,6 +9,8 @@ import {
   JannahNavRow,
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -27,6 +29,7 @@ import {
   getSalahGuideLessonCount,
   getSalahGuidePhrases,
   getSalahGuideTopicsByJourney,
+  isSalahGuideContentReady,
 } from "@/lib/salah-guide";
 import {
   useEnsureSalahGuideProgressLoaded,
@@ -73,7 +76,10 @@ export default function SalahGuideScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   useEnsureSalahGuideProgressLoaded();
-  const { version: contentVersion } = useEnsureContent(ensureSalahGuideContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureSalahGuideContent,
+    isSalahGuideContentReady,
+  );
   const completedCount = useSalahGuideCompletedCount();
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const lessonTotal = useMemo(() => getSalahGuideLessonCount(), [contentVersion]);
@@ -144,165 +150,178 @@ export default function SalahGuideScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/salah-guide" />
-      <Stagger>
-        <JannahCallout tone="info">{t("salahGuide.intro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("salahGuide.intro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("salahGuide.quickLinksTitle")}
-            icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+          <LearnQuizNavRow
+            quizPath={"/salah-guide/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
           />
-          <JannahQuickLinkGrid items={quickLinks} />
-        </Card>
 
-        <JannahNavRow
-          icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
-          title={t("salahGuide.progressCardTitle")}
-          subtitle={t("salahGuide.progressCardHint", {
-            completed: completedCount,
-            total: lessonTotal,
-          })}
-          badge={`${completedCount}/${lessonTotal}`}
-          tint={colors.accent}
-          onPress={() => router.push("/salah-guide/progress")}
-        />
+          <Card padding="three">
+            <SectionHeader
+              title={t("salahGuide.quickLinksTitle")}
+              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+            />
+            <JannahQuickLinkGrid items={quickLinks} />
+          </Card>
 
-        {JOURNEY_ORDER.map((phase) => {
-          const topics = TOPICS_BY_JOURNEY[phase];
-          if (!topics?.length) return null;
-          return (
-            <Card key={phase} padding="three">
-              <SectionHeader
-                title={t(`salahGuide.journey.${phase}`)}
-                icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-              />
-              <ThemedText type="caption" themeColor="mutedForeground" style={styles.phaseHint}>
-                {t(`salahGuide.journey.${phase}Hint`)}
-              </ThemedText>
-              <View style={styles.rows}>
-                {topics.map((topic) => (
-                  <JannahNavRow
-                    key={topic.id}
-                    icon={
-                      TOPIC_ICONS[topic.id] ?? {
-                        ios: "text.book.closed",
-                        android: "article",
-                        web: "article",
+          <JannahNavRow
+            icon={{ ios: "chart.bar.fill", android: "bar_chart", web: "bar_chart" }}
+            title={t("salahGuide.progressCardTitle")}
+            subtitle={t("salahGuide.progressCardHint", {
+              completed: completedCount,
+              total: lessonTotal,
+            })}
+            badge={`${completedCount}/${lessonTotal}`}
+            tint={colors.accent}
+            onPress={() => router.push("/salah-guide/progress")}
+          />
+
+          {JOURNEY_ORDER.map((phase) => {
+            const topics = TOPICS_BY_JOURNEY[phase];
+            if (!topics?.length) return null;
+            return (
+              <Card key={phase} padding="three">
+                <SectionHeader
+                  title={t(`salahGuide.journey.${phase}`)}
+                  icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                />
+                <ThemedText type="caption" themeColor="mutedForeground" style={styles.phaseHint}>
+                  {t(`salahGuide.journey.${phase}Hint`)}
+                </ThemedText>
+                <View style={styles.rows}>
+                  {topics.map((topic) => (
+                    <JannahNavRow
+                      key={topic.id}
+                      icon={
+                        TOPIC_ICONS[topic.id] ?? {
+                          ios: "text.book.closed",
+                          android: "article",
+                          web: "article",
+                        }
                       }
-                    }
-                    title={topic.title}
-                    subtitle={topic.summary}
-                    badge={
-                      topic.importance ? t(`salahGuide.importance.${topic.importance}`) : undefined
-                    }
-                    onPress={() =>
-                      topic.id === "adhan"
-                        ? router.push("/salah-guide/adhan")
-                        : router.push({
-                            pathname: "/salah-guide/[topic]",
-                            params: { topic: topic.id },
-                          })
-                    }
-                  />
-                ))}
-              </View>
-            </Card>
-          );
-        })}
+                      title={topic.title}
+                      subtitle={topic.summary}
+                      badge={
+                        topic.importance
+                          ? t(`salahGuide.importance.${topic.importance}`)
+                          : undefined
+                      }
+                      onPress={() =>
+                        topic.id === "adhan"
+                          ? router.push("/salah-guide/adhan")
+                          : router.push({
+                              pathname: "/salah-guide/[topic]",
+                              params: { topic: topic.id },
+                            })
+                      }
+                    />
+                  ))}
+                </View>
+              </Card>
+            );
+          })}
 
-        {FEATURED_PHRASE ? (
-          <JannahDuaBlock
-            title={t("salahGuide.featuredPhraseTitle")}
-            arabic={FEATURED_PHRASE.arabic}
-            transliteration={FEATURED_PHRASE.transliteration}
-            translation={FEATURED_PHRASE.translation}
-            reference={FEATURED_PHRASE.reference}
-          />
-        ) : null}
+          {FEATURED_PHRASE ? (
+            <JannahDuaBlock
+              title={t("salahGuide.featuredPhraseTitle")}
+              arabic={FEATURED_PHRASE.arabic}
+              transliteration={FEATURED_PHRASE.transliteration}
+              translation={FEATURED_PHRASE.translation}
+              reference={FEATURED_PHRASE.reference}
+            />
+          ) : null}
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("salahGuide.rakatsTitle")}
-            icon={{
-              ios: "list.number",
-              android: "format_list_numbered",
-              web: "format_list_numbered",
-            }}
-          />
-          <View style={styles.tableHead}>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.colName}>
-              {t("salahGuide.prayer")}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
-              {t("salahGuide.fard")}
-            </ThemedText>
-            <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
-              {t("salahGuide.sunnah")}
-            </ThemedText>
-          </View>
-          {getPrayerRakats().map((row) => (
-            <View key={row.prayerId} style={[styles.tableRow, { borderTopColor: tokens.hairline }]}>
-              <ThemedText type="small" style={styles.colName}>
-                {t(`prayers.${row.prayerId}`)}
+          <Card padding="three">
+            <SectionHeader
+              title={t("salahGuide.rakatsTitle")}
+              icon={{
+                ios: "list.number",
+                android: "format_list_numbered",
+                web: "format_list_numbered",
+              }}
+            />
+            <View style={styles.tableHead}>
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.colName}>
+                {t("salahGuide.prayer")}
               </ThemedText>
-              <ThemedText type="small" style={styles.colNum}>
-                {row.fard || "—"}
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
+                {t("salahGuide.fard")}
               </ThemedText>
-              <ThemedText type="small" style={styles.colNum}>
-                {row.sunnahBefore + row.sunnahAfter || "—"}
+              <ThemedText type="caption" themeColor="mutedForeground" style={styles.colNum}>
+                {t("salahGuide.sunnah")}
               </ThemedText>
             </View>
-          ))}
-        </Card>
+            {getPrayerRakats().map((row) => (
+              <View
+                key={row.prayerId}
+                style={[styles.tableRow, { borderTopColor: tokens.hairline }]}
+              >
+                <ThemedText type="small" style={styles.colName}>
+                  {t(`prayers.${row.prayerId}`)}
+                </ThemedText>
+                <ThemedText type="small" style={styles.colNum}>
+                  {row.fard || "—"}
+                </ThemedText>
+                <ThemedText type="small" style={styles.colNum}>
+                  {row.sunnahBefore + row.sunnahAfter || "—"}
+                </ThemedText>
+              </View>
+            ))}
+          </Card>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("salahGuide.relatedTitle")}
-            icon={{ ios: "link", android: "link", web: "link" }}
-          />
-          <View style={styles.rows}>
-            <JannahNavRow
-              icon={{ ios: "airplane", android: "flight", web: "flight" }}
-              title={t("travel.title")}
-              subtitle={t("salahGuide.travelPointer")}
-              onPress={() => router.push("/travel")}
+          <Card padding="three">
+            <SectionHeader
+              title={t("salahGuide.relatedTitle")}
+              icon={{ ios: "link", android: "link", web: "link" }}
             />
-            <JannahNavRow
-              icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
-              title={t("salahGuide.qazaLink")}
-              subtitle={t("salahGuide.qazaLinkHint")}
-              onPress={() => router.push("/qaza")}
+            <View style={styles.rows}>
+              <JannahNavRow
+                icon={{ ios: "airplane", android: "flight", web: "flight" }}
+                title={t("travel.title")}
+                subtitle={t("salahGuide.travelPointer")}
+                onPress={() => router.push("/travel")}
+              />
+              <JannahNavRow
+                icon={{ ios: "clock.arrow.circlepath", android: "history", web: "history" }}
+                title={t("salahGuide.qazaLink")}
+                subtitle={t("salahGuide.qazaLinkHint")}
+                onPress={() => router.push("/qaza")}
+              />
+              <JannahNavRow
+                icon={{
+                  ios: "hands.and.sparkles.fill",
+                  android: "volunteer_activism",
+                  web: "volunteer_activism",
+                }}
+                title={t("salahGuide.duasLink")}
+                subtitle={t("salahGuide.duasLinkHint")}
+                onPress={() => router.push("/dua/prayer")}
+              />
+            </View>
+          </Card>
+
+          <View style={styles.pillRow}>
+            <Pill
+              label={t("salahGuide.phaseV1")}
+              compact
+              color={colors.mutedForeground}
+              background={colors.muted}
             />
-            <JannahNavRow
-              icon={{
-                ios: "hands.and.sparkles.fill",
-                android: "volunteer_activism",
-                web: "volunteer_activism",
-              }}
-              title={t("salahGuide.duasLink")}
-              subtitle={t("salahGuide.duasLinkHint")}
-              onPress={() => router.push("/dua/prayer")}
+            <Pill
+              label={t("salahGuide.phaseV2")}
+              compact
+              color={colors.mutedForeground}
+              background={colors.muted}
             />
           </View>
-        </Card>
 
-        <View style={styles.pillRow}>
-          <Pill
-            label={t("salahGuide.phaseV1")}
-            compact
-            color={colors.mutedForeground}
-            background={colors.muted}
-          />
-          <Pill
-            label={t("salahGuide.phaseV2")}
-            compact
-            color={colors.mutedForeground}
-            background={colors.muted}
-          />
-        </View>
-
-        <JannahDisclaimer textKey="salahGuide.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="salahGuide.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

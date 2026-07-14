@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -17,7 +18,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureLastDayContent, getLastDayLessonCount } from "@/lib/last-day";
+import { ensureLastDayContent, getLastDayLessonCount, isLastDayContentReady } from "@/lib/last-day";
 import type { LastDayPreparationRowId } from "@/lib/last-day-preparation";
 import { buildLastDayPreparation } from "@/lib/last-day-preparation";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
@@ -132,7 +133,10 @@ export default function LastDayPreparationScreen() {
   useEnsureLastDayProgressLoaded();
   const completedCount = useLastDayCompletedCount();
   const { toggleRepentance, toggleCharacter } = useLastDayProgressActions();
-  const { version: contentVersion } = useEnsureContent(ensureLastDayContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureLastDayContent,
+    isLastDayContentReady,
+  );
   const today = getLocalDateString();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
@@ -169,31 +173,33 @@ export default function LastDayPreparationScreen() {
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
     >
       <Seo path="/last-day/preparation" />
-      <Stagger>
-        <JannahCallout tone="info">{t("lastDay.preparationIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("lastDay.preparationIntro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("lastDay.preparationHabitsTitle")}
-            icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("lastDay.preparationHabitsHint")}
-          </ThemedText>
-          <View style={styles.list}>
-            {snapshot.rows.map((row) => (
-              <PreparationRow
-                key={row.id}
-                row={row}
-                today={today}
-                onPress={() => handleRowPress(row.id, row.route)}
-              />
-            ))}
-          </View>
-        </Card>
+          <Card padding="three">
+            <SectionHeader
+              title={t("lastDay.preparationHabitsTitle")}
+              icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+              {t("lastDay.preparationHabitsHint")}
+            </ThemedText>
+            <View style={styles.list}>
+              {snapshot.rows.map((row) => (
+                <PreparationRow
+                  key={row.id}
+                  row={row}
+                  today={today}
+                  onPress={() => handleRowPress(row.id, row.route)}
+                />
+              ))}
+            </View>
+          </Card>
 
-        <JannahDisclaimer textKey="lastDay.preparationDisclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="lastDay.preparationDisclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

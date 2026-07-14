@@ -2,10 +2,32 @@ import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 import Animated, { Easing, Keyframe } from "react-native-reanimated";
 
+import { useSplashDismissal } from "@/hooks/use-splash-dismissal";
+import i18n from "@/i18n";
+import { BOOT_BACKGROUND } from "@/lib/boot/cold-start";
+
 const DURATION = 300;
 
+/**
+ * Web cold-start overlay — covers hero/tabs until prefs hydrate and the first
+ * destination (intro or home) paints. Indexing bots skip via `useSplashDismissal`.
+ */
 export function AnimatedSplashOverlay() {
-  return null;
+  const { dismissed, opacity } = useSplashDismissal();
+
+  if (dismissed) {
+    return null;
+  }
+
+  return (
+    <Animated.View
+      accessibilityRole="progressbar"
+      accessibilityLabel={i18n.t("common.loadingRoute")}
+      style={[styles.splashOverlay, { opacity, pointerEvents: "auto" }]}
+    >
+      <Image style={styles.splashImage} source={require("@/assets/images/munib-logo.png")} />
+    </Animated.View>
+  );
 }
 
 const logoKeyframe = new Keyframe({
@@ -79,5 +101,16 @@ const styles = StyleSheet.create({
   image: {
     width: 128,
     height: 128,
+  },
+  splashOverlay: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: BOOT_BACKGROUND,
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 1000,
+  },
+  splashImage: {
+    width: 280,
+    height: 280,
   },
 });

@@ -1,10 +1,12 @@
 import type { HajjGuideStep } from "@munib-tracker/shared/types";
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { SymbolView } from "expo-symbols";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
+import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -16,10 +18,14 @@ import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { localizeList } from "@/lib/content-i18n";
-import { overlayList } from "@/lib/content-overlay-registry";
+import {
+  ensureHajjGuideContent,
+  getHajjGuideSections,
+  isHajjGuideContentReady,
+} from "@/lib/hajj-guide";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useEnsureHajjChecklistLoaded,
@@ -87,21 +93,14 @@ export default function HajjScreen() {
   const done = useHajjChecklist();
   const { toggle, reset } = useHajjChecklistActions();
   const [resetOpen, setResetOpen] = useState(false);
-  const [guideSections, setGuideSections] = useState<
-    Awaited<typeof import("@munib-tracker/shared/content/hajj-guide")>["HAJJ_GUIDE_SECTIONS"]
-  >([]);
-  useEffect(() => {
-    void import("@munib-tracker/shared/content/hajj-guide").then(({ HAJJ_GUIDE_SECTIONS }) =>
-      setGuideSections(HAJJ_GUIDE_SECTIONS),
-    );
-  }, []);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureHajjGuideContent,
+    isHajjGuideContentReady,
+  );
 
   // Recompute per locale so translated section titles/summaries/steps render on switch.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when the app language changes
-  const sections = useMemo(
-    () => localizeList(guideSections, overlayList("HAJJ_GUIDE_SECTIONS")),
-    [guideSections, i18n.language],
-  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize when language or corpus is ready
+  const sections = useMemo(() => getHajjGuideSections(), [contentVersion, i18n.language]);
   const listenText = useMemo(
     () =>
       sections
@@ -114,8 +113,8 @@ export default function HajjScreen() {
   );
 
   const totalSteps = useMemo(
-    () => guideSections.reduce((sum, section) => sum + section.steps.length, 0),
-    [guideSections],
+    () => sections.reduce((sum, section) => sum + section.steps.length, 0),
+    [sections],
   );
   const doneCount = useMemo(() => Object.values(done).filter(Boolean).length, [done]);
   const progress = totalSteps > 0 ? doneCount / totalSteps : 0;
@@ -131,67 +130,74 @@ export default function HajjScreen() {
     >
       <Seo path="/hajj" />
 
-      <LearnReadingChrome surface="jannah" listenText={listenText}>
-        <Card padding="three" style={styles.progressCard}>
-          <View style={styles.progressHead}>
-            <ThemedText type="smallBold">
-              {t("hajj.progress", { done: doneCount, total: totalSteps })}
-            </ThemedText>
-            {doneCount > 0 ? (
-              <Button
-                label={t("hajj.reset")}
-                variant="ghost"
-                size="sm"
-                onPress={() => setResetOpen(true)}
-              />
-            ) : null}
-          </View>
-          <ProgressBar value={progress} height={6} color={tokens.status.success.color} />
-        </Card>
-
-        {sections.map((section) => (
-          <FocusHighlight
-            key={section.id}
-            ref={register(section.id)}
-            active={isFocused(section.id)}
-          >
-            <Card padding="three" style={styles.sectionCard}>
-              <View style={styles.sectionHead}>
-                <View style={styles.sectionTitleWrap}>
-                  <ThemedText type="subtitle">{section.title}</ThemedText>
-                  <ThemedText type="caption" themeColor="mutedForeground">
-                    {section.summary}
-                  </ThemedText>
-                </View>
-                <Pill
-                  label={
-                    section.kind === "prep"
-                      ? t("hajj.prepTag")
-                      : (section.day ??
-                        (section.kind === "umrah" ? t("hajj.umrahTag") : t("hajj.hajjTag")))
-                  }
-                  color={colors.accentText}
-                  background={tokens.accentSoft}
+      <LearnContentGate ready={contentReady}>
+        <LearnReadingChrome surface="jannah" listenText={listenText}>
+          <LearnQuizNavRow
+            quizPath={"/hajj/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
+          />
+          <Card padding="three" style={styles.progressCard}>
+            <View style={styles.progressHead}>
+              <ThemedText type="smallBold">
+                {t("hajj.progress", { done: doneCount, total: totalSteps })}
+              </ThemedText>
+              {doneCount > 0 ? (
+                <Button
+                  label={t("hajj.reset")}
+                  variant="ghost"
+                  size="sm"
+                  onPress={() => setResetOpen(true)}
                 />
-              </View>
-              <View style={styles.steps}>
-                {section.steps.map((step) => (
-                  <CheckStep
-                    key={step.id}
-                    step={step}
-                    done={!!done[step.id]}
-                    onToggle={() => void toggle(step.id)}
-                  />
-                ))}
-              </View>
-            </Card>
-          </FocusHighlight>
-        ))}
+              ) : null}
+            </View>
+            <ProgressBar value={progress} height={6} color={tokens.status.success.color} />
+          </Card>
 
-        <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
-          {t("hajj.disclaimer")}
-        </ThemedText>
-      </LearnReadingChrome>
+          {sections.map((section) => (
+            <FocusHighlight
+              key={section.id}
+              ref={register(section.id)}
+              active={isFocused(section.id)}
+            >
+              <Card padding="three" style={styles.sectionCard}>
+                <View style={styles.sectionHead}>
+                  <View style={styles.sectionTitleWrap}>
+                    <ThemedText type="subtitle">{section.title}</ThemedText>
+                    <ThemedText type="caption" themeColor="mutedForeground">
+                      {section.summary}
+                    </ThemedText>
+                  </View>
+                  <Pill
+                    label={
+                      section.kind === "prep"
+                        ? t("hajj.prepTag")
+                        : (section.day ??
+                          (section.kind === "umrah" ? t("hajj.umrahTag") : t("hajj.hajjTag")))
+                    }
+                    color={colors.accentText}
+                    background={tokens.accentSoft}
+                  />
+                </View>
+                <View style={styles.steps}>
+                  {section.steps.map((step) => (
+                    <CheckStep
+                      key={step.id}
+                      step={step}
+                      done={!!done[step.id]}
+                      onToggle={() => void toggle(step.id)}
+                    />
+                  ))}
+                </View>
+              </Card>
+            </FocusHighlight>
+          ))}
+
+          <ThemedText type="caption" themeColor="mutedForeground" style={styles.disclaimer}>
+            {t("hajj.disclaimer")}
+          </ThemedText>
+        </LearnReadingChrome>
+      </LearnContentGate>
 
       <ConfirmDialog
         visible={resetOpen}

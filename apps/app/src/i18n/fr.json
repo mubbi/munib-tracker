@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Suivez votre chemin de retour vers Allah.",
     "loadingRoute": "Préparation…",
-    "loadingRouteHint": "Un instant pendant le chargement de cet écran."
+    "loadingRouteHint": "Un instant pendant le chargement de cet écran.",
+    "loadingContent": "Chargement du contenu…",
+    "loadingContentHint": "Un instant pendant le chargement de cette leçon.",
+    "learnQuiz": {
+      "title": "Quiz de révision",
+      "subtitle": "Testez votre compréhension — pas votre rang auprès d'Allah",
+      "intro": "Une courte révision tirée des leçons de ce guide. Prenez votre temps — l'apprentissage est le but.",
+      "hint": "Révisez ce que vous avez appris",
+      "empty": "Les questions de ce guide sont encore en cours de chargement. Ouvrez quelques leçons, puis réessayez."
+    }
   },
   "search": {
     "placeholder": "Rechercher Coran, hadith, duas, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Guide de l'Aïd",
     "ruqyah": "Ruqyah",
     "newMuslim": "Nouveau guide musulman",
-    "finance": "Finance Islamique"
+    "finance": "Finance Islamique",
+    "flashCards": "Cartes mémoire"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -1008,11 +1018,18 @@
     "increase": "Augmenter text size",
     "reset": "Réinitialiser text size",
     "sizeDefault": "Varsaannéean",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Écouter l'article",
+    "listenStop": "Arrêter l'écoute",
+    "listenHint": "Choisissez une voix, puis écoutez cette page lue à voix haute dans la langue de l'application via la synthèse vocale de l'appareil",
+    "listenUnavailableTitle": "Écoute indisponible",
+    "listenUnavailableBody": "La synthèse vocale n'est pas disponible sur cet appareil. Vérifiez qu'une voix est installée pour votre langue dans les paramètres système.",
+    "listenLabel": "Écouter",
+    "listenStopLabel": "Arrêter",
+    "listenVoiceTitle": "Choisir une voix",
+    "listenVoiceHint": "Sélectionnez une voix pour commencer l'écoute",
+    "listenVoiceDefault": "Par défaut du système",
+    "listenVoiceDefaultHint": "Utiliser la voix préférée de l'appareil pour cette langue",
+    "listenVoiceEmpty": "Aucune voix installée pour cette langue. Ajoutez-en une dans les paramètres système."
   },
   "share": {
     "dialogTitle": "Partager",
@@ -2544,7 +2561,7 @@
   },
   "homeCustomize": {
     "title": "Personnaliser la maison",
-    "subtitle": "Choisissez ce qui apparaît sur vos écrans d'accueil et de bibliothèque",
+    "subtitle": "Choisissez ce qui apparaît sur votre écran d'accueil",
     "modulesTitle": "Cartes maison",
     "actionsTitle": "Actions rapides",
     "actionsHint": "Réorganisez vos raccourcis ou supprimez ceux que vous n'utilisez pas.",
@@ -4641,5 +4658,48 @@
     "exploreCalendarHint": "Voir l'histoire du culte jour après jour",
     "exploreEvents": "Événements islamiques ouverts",
     "exploreEventsHint": "Jalons et célébrations à venir"
+  },
+  "flashCards": {
+    "eyebrow": "Apprendre",
+    "title": "Cartes mémoire",
+    "subtitle": "Entraînez-vous au savoir islamique, une carte à la fois — sans scores, sans pression",
+    "intro": "Tirez du Coran, des hadiths, des Noms d'Allah et de chaque guide Apprendre. Touchez une réponse pour vous vérifier, puis continuez aussi longtemps que vous voulez.",
+    "disclaimer": "Révision éducative uniquement — pas un classement spirituel. Préférez des sources authentiques et consultez un savant pour les règles personnelles.",
+    "studiedCount": "{{count}} cartes étudiées",
+    "endlessHint": "Pratique sans fin",
+    "answerHint": "Choisissez une réponse pour révéler l'explication.",
+    "pickAnswer": "Choisissez d'abord une réponse",
+    "nextCard": "Carte suivante",
+    "correctTitle": "Bien — c'est retenu",
+    "incorrectTitle": "Presque — voici l'idée",
+    "empty": "Préparation de votre jeu de cartes… ouvrez des sujets Apprendre ou attendez un instant.",
+    "category": {
+      "salahGuide": "Salah",
+      "jannah": "Jannah",
+      "lastDay": "Dernier Jour",
+      "jahannam": "Jahannam",
+      "battles": "Batailles",
+      "learnQuran": "Coran",
+      "taharah": "Purification",
+      "hayd": "Hayd",
+      "sick": "Maladie",
+      "prophets": "Prophètes",
+      "aqeedah": "Aqidah",
+      "learnDua": "Dua",
+      "travel": "Voyage",
+      "hajj": "Hajj",
+      "seerah": "Sira",
+      "events": "Événements",
+      "sahaba": "Compagnons",
+      "history": "Histoire",
+      "laylatAlQadr": "Laylat al-Qadr",
+      "eid": "Aïd",
+      "ruqyah": "Ruqyah",
+      "newMuslim": "Nouveau musulman",
+      "names": "99 Noms",
+      "hadith": "Hadith",
+      "quran": "Coran",
+      "duas": "Duas"
+    }
   }
 }

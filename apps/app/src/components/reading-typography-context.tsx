@@ -1,11 +1,12 @@
 import type { ReadingSurface } from "@munib-tracker/shared/types";
-import { createContext, type ReactNode, useContext, useMemo } from "react";
+import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 
 import { LearnTtsProvider, useLearnTts } from "@/components/learn-tts-context";
 import { ReadingFontControls } from "@/components/reading-font-controls";
 import { ThemedText } from "@/components/themed-text";
+import { TtsVoiceSheet } from "@/components/tts-voice-sheet";
 import { IconButton } from "@/components/ui/icon-button";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -67,25 +68,38 @@ function LearnListenButton() {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const tts = useLearnTts();
+  const [voiceSheetOpen, setVoiceSheetOpen] = useState(false);
   if (!tts?.hasText) return null;
 
   return (
-    <IconButton
-      name={
-        tts.speaking
-          ? { ios: "stop.fill", android: "stop", web: "stop" }
-          : { ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }
-      }
-      size={18}
-      tintColor={tts.speaking ? colors.accent : colors.mutedForeground}
-      accessibilityLabel={tts.speaking ? t("reading.listenStop") : t("reading.listen")}
-      accessibilityHint={t("reading.listenHint")}
-      accessibilityState={{ selected: tts.speaking }}
-      onPress={tts.toggle}
-      background={tts.speaking ? tokens.accentSoft : colors.muted}
-      hitTarget={36}
-      wellRadius={18}
-    />
+    <>
+      <IconButton
+        name={
+          tts.speaking
+            ? { ios: "stop.fill", android: "stop", web: "stop" }
+            : { ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" }
+        }
+        size={18}
+        tintColor={tts.speaking ? colors.accent : colors.mutedForeground}
+        accessibilityLabel={tts.speaking ? t("reading.listenStop") : t("reading.listen")}
+        accessibilityHint={t("reading.listenHint")}
+        accessibilityState={{ selected: tts.speaking }}
+        onPress={() => {
+          if (tts.speaking) tts.stop();
+          else setVoiceSheetOpen(true);
+        }}
+        background={tts.speaking ? tokens.accentSoft : colors.muted}
+        hitTarget={36}
+        wellRadius={18}
+      />
+      <TtsVoiceSheet
+        visible={voiceSheetOpen}
+        onClose={() => setVoiceSheetOpen(false)}
+        lang={tts.lang}
+        selectedVoiceId={tts.preferredVoiceId}
+        onSelectVoice={(voiceId) => tts.startWithVoice(voiceId)}
+      />
+    </>
   );
 }
 
@@ -95,11 +109,13 @@ export function ReadingTypographyBar({ surface }: { surface: ReadingSurface }) {
 
   return (
     <View style={styles.bar}>
-      <View style={styles.barStart}>
-        <ThemedText type="smallBold">{t("reading.textSize")}</ThemedText>
+      <ThemedText type="smallBold" style={styles.label}>
+        {t("reading.textSize")}
+      </ThemedText>
+      <View style={styles.barEnd}>
+        <ReadingFontControls surface={surface} />
         <LearnListenButton />
       </View>
-      <ReadingFontControls surface={surface} />
     </View>
   );
 }
@@ -136,11 +152,14 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     marginBottom: Spacing.two,
   },
-  barStart: {
+  label: {
+    flexShrink: 1,
+  },
+  barEnd: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
-    flexShrink: 1,
+    flexShrink: 0,
   },
   content: {
     gap: Spacing.four,

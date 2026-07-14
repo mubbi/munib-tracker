@@ -27,29 +27,34 @@ private struct CountdownText: View {
 
   var body: some View {
     let now = Date()
-    if state.locationDenied {
-      Text(state.countdownLabel)
-        .font(font)
-        .foregroundStyle(color)
-        .multilineTextAlignment(multilineAlignment)
-        .lineLimit(2)
-        .minimumScaleFactor(0.75)
-    } else if state.targetDate > now {
-      Text(timerInterval: now...state.targetDate, countsDown: true)
-        .font(font)
-        .monospacedDigit()
-        .foregroundStyle(color)
-        .multilineTextAlignment(multilineAlignment)
-        .lineLimit(1)
-        .minimumScaleFactor(0.7)
-    } else {
-      Text(state.countdownLabel)
-        .font(font)
-        .foregroundStyle(color)
-        .multilineTextAlignment(multilineAlignment)
-        .lineLimit(1)
-        .minimumScaleFactor(0.75)
+    // `Text(timerInterval:)` reports a greedy intrinsic width; without
+    // `fixedSize`, it can crush sibling content in Live Activity HStacks.
+    Group {
+      if state.locationDenied {
+        Text(state.countdownLabel)
+          .font(font)
+          .foregroundStyle(color)
+          .multilineTextAlignment(multilineAlignment)
+          .lineLimit(2)
+          .minimumScaleFactor(0.75)
+      } else if state.targetDate > now {
+        Text(timerInterval: now...state.targetDate, countsDown: true)
+          .font(font)
+          .monospacedDigit()
+          .foregroundStyle(color)
+          .multilineTextAlignment(multilineAlignment)
+          .lineLimit(1)
+          .minimumScaleFactor(0.7)
+      } else {
+        Text(state.countdownLabel)
+          .font(font)
+          .foregroundStyle(color)
+          .multilineTextAlignment(multilineAlignment)
+          .lineLimit(1)
+          .minimumScaleFactor(0.75)
+      }
     }
+    .fixedSize(horizontal: true, vertical: false)
   }
 }
 
@@ -106,6 +111,7 @@ struct PrayerLiveActivityLockScreen: View {
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)
+      .layoutPriority(1)
 
       VStack(alignment: .trailing, spacing: 4) {
         Text(state.remainingLabel.isEmpty ? state.countdownLabel : state.remainingLabel)
@@ -119,7 +125,7 @@ struct PrayerLiveActivityLockScreen: View {
           color: palette.accent
         )
       }
-      .layoutPriority(1)
+      .fixedSize(horizontal: true, vertical: false)
     }
     .padding(.horizontal, 16)
     .padding(.vertical, 14)
@@ -169,6 +175,7 @@ struct PrayerLiveActivity: Widget {
               color: palette.accent
             )
           }
+          .fixedSize(horizontal: true, vertical: false)
         }
         DynamicIslandExpandedRegion(.bottom) {
           HStack(spacing: 6) {

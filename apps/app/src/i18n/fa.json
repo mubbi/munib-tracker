@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "سفر بازگشت به الله را دنبال کنید.",
     "loadingRoute": "در حال آماده‌سازی…",
-    "loadingRouteHint": "لطفاً کمی صبر کنید — این صفحه در حال بارگذاری است."
+    "loadingRouteHint": "لطفاً کمی صبر کنید — این صفحه در حال بارگذاری است.",
+    "loadingContent": "در حال بارگذاری محتوا…",
+    "loadingContentHint": "لحظه‌ای صبر کنید تا این درس بارگذاری شود.",
+    "learnQuiz": {
+      "title": "آزمون مرور",
+      "subtitle": "درک خود را بیازمایید — نه مقام خود نزد الله",
+      "intro": "مرور کوتاهی از درس‌های این راهنما. عجله نکنید — هدف یادگیری است.",
+      "hint": "آنچه آموخته‌اید را مرور کنید",
+      "empty": "سؤالات این راهنما هنوز در حال بارگذاری است. چند درس باز کنید، سپس دوباره تلاش کنید."
+    }
   },
   "search": {
     "placeholder": "جستجوی قرآن، حدیث، دعا، اذکار…",
@@ -165,7 +174,8 @@
     "eid": "راهنمای عید",
     "ruqyah": "رقیه",
     "newMuslim": "راهنمای مسلمانان جدید",
-    "finance": "امور مالی اسلامی"
+    "finance": "امور مالی اسلامی",
+    "flashCards": "کارت‌های مرور"
   },
   "quickActions": {
     "checklistSubtitle": "ثبت نمازهای امروز",
@@ -1008,11 +1018,18 @@
     "increase": "افزایش text size",
     "reset": "بازنشانی text size",
     "sizeDefault": "Default",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "گوش دادن به مقاله",
+    "listenStop": "توقف شنیدن",
+    "listenHint": "یک صدا انتخاب کنید، سپس این صفحه با زبان برنامه از طریق تبدیل متن به گفتار دستگاه با صدای بلند خوانده می‌شود",
+    "listenUnavailableTitle": "شنیدن در دسترس نیست",
+    "listenUnavailableBody": "تبدیل متن به گفتار در این دستگاه موجود نیست. مطمئن شوید صدایی برای زبان شما در تنظیمات سیستم نصب است.",
+    "listenLabel": "گوش دهید",
+    "listenStopLabel": "توقف",
+    "listenVoiceTitle": "انتخاب صدا",
+    "listenVoiceHint": "برای شروع شنیدن یک صدا انتخاب کنید",
+    "listenVoiceDefault": "پیش‌فرض سیستم",
+    "listenVoiceDefaultHint": "از صدای ترجیحی دستگاه برای این زبان استفاده کنید",
+    "listenVoiceEmpty": "برای این زبان صدایی نصب نشده است. یکی را در تنظیمات سیستم اضافه کنید."
   },
   "share": {
     "dialogTitle": "اشتراک",
@@ -2544,7 +2561,7 @@
   },
   "homeCustomize": {
     "title": "خانه را سفارشی کنید",
-    "subtitle": "آنچه در صفحه خانه و کتابخانه شما نشان داده می شود را انتخاب کنید",
+    "subtitle": "آنچه در صفحه اصلی نشان داده می‌شود را انتخاب کنید",
     "modulesTitle": "کارت های خانه",
     "actionsTitle": "اقدامات سریع",
     "actionsHint": "میانبرهای خود را دوباره ترتیب دهید یا میانبرهایی را که استفاده نمی کنید حذف کنید.",
@@ -4641,5 +4658,48 @@
     "exploreCalendarHint": "تاریخ عبادت را روز به روز ببینید",
     "exploreEvents": "رویدادهای اسلامی را باز کنید",
     "exploreEventsHint": "نقاط عطف و مراسم پیش رو"
+  },
+  "flashCards": {
+    "eyebrow": "آموزش",
+    "title": "کارت‌های مرور",
+    "subtitle": "دانش اسلامی را کارت‌به‌کارت تمرین کنید — بدون امتیاز و بدون فشار",
+    "intro": "از قرآن، حدیث، اسماء الله و هر راهنمای آموزش. برای سنجش خود پاسخی را لمس کنید، سپس تا هر زمان خواستید ادامه دهید.",
+    "disclaimer": "فقط مرور آموزشی — رتبه‌بندی معنوی نیست. منابع معتبر را ترجیح دهید و برای احکام شخصی از عالم بپرسید.",
+    "studiedCount": "{{count}} کارت مطالعه شد",
+    "endlessHint": "تمرین بی‌پایان",
+    "answerHint": "برای دیدن توضیح یک پاسخ انتخاب کنید.",
+    "pickAnswer": "ابتدا یک پاسخ انتخاب کنید",
+    "nextCard": "کارت بعدی",
+    "correctTitle": "عالی — ثبت شد",
+    "incorrectTitle": "تقریباً — این ایده است",
+    "empty": "در حال ساخت دسته کارت‌ها… موضوعات آموزش را باز کنید یا لحظه‌ای صبر کنید.",
+    "category": {
+      "salahGuide": "نماز",
+      "jannah": "بهشت",
+      "lastDay": "قیامت",
+      "jahannam": "جهنم",
+      "battles": "غزوات",
+      "learnQuran": "قرآن",
+      "taharah": "طهارت",
+      "hayd": "حیض",
+      "sick": "بیماری",
+      "prophets": "پیامبران",
+      "aqeedah": "عقیده",
+      "learnDua": "دعا",
+      "travel": "سفر",
+      "hajj": "حج",
+      "seerah": "سیره",
+      "events": "مناسبت‌ها",
+      "sahaba": "صحابه",
+      "history": "تاریخ",
+      "laylatAlQadr": "شب قدر",
+      "eid": "عید",
+      "ruqyah": "رقیه",
+      "newMuslim": "مسلمان جدید",
+      "names": "۹۹ نام",
+      "hadith": "حدیث",
+      "quran": "قرآن",
+      "duas": "دعاها"
+    }
   }
 }

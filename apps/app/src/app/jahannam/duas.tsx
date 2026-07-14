@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
 import { JannahCallout, JannahDisclaimer, JannahDuaBlock } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -16,7 +17,12 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
-import { ensureJahannamContent, getJahannamDuas, getJahannamRefugeDua } from "@/lib/jahannam";
+import {
+  ensureJahannamContent,
+  getJahannamDuas,
+  getJahannamRefugeDua,
+  isJahannamContentReady,
+} from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
@@ -77,7 +83,7 @@ function JahannamDuaEntryBlock({
 export default function JahannamDuasScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  useEnsureContent(ensureJahannamContent);
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const entries = getJahannamDuas();
   const refugeDua = getJahannamRefugeDua();
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
@@ -95,28 +101,30 @@ export default function JahannamDuasScreen() {
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/duas" />
-      <Stagger>
-        <LearnReadingChrome surface="jahannam">
-          <JannahCallout tone="success">{t("jahannam.duasLead")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="jahannam">
+            <JannahCallout tone="success">{t("jahannam.duasLead")}</JannahCallout>
 
-          {refugeDua ? (
-            <JannahDuaBlock
-              title={t("jahannam.refugeDuaTitle")}
-              arabic={refugeDua.arabic}
-              transliteration={refugeDua.transliteration}
-              translation={refugeDua.translation}
-              reference={refugeDua.reference}
-            />
-          ) : null}
+            {refugeDua ? (
+              <JannahDuaBlock
+                title={t("jahannam.refugeDuaTitle")}
+                arabic={refugeDua.arabic}
+                transliteration={refugeDua.transliteration}
+                translation={refugeDua.translation}
+                reference={refugeDua.reference}
+              />
+            ) : null}
 
-          {entries.map((entry, index) => {
-            const dua = byId.get(entry.duaId);
-            if (!dua) return null;
-            return <JahannamDuaEntryBlock key={entry.id} entry={entry} dua={dua} index={index} />;
-          })}
-        </LearnReadingChrome>
-        <JannahDisclaimer textKey="jahannam.disclaimer" />
-      </Stagger>
+            {entries.map((entry, index) => {
+              const dua = byId.get(entry.duaId);
+              if (!dua) return null;
+              return <JahannamDuaEntryBlock key={entry.id} entry={entry} dua={dua} index={index} />;
+            })}
+          </LearnReadingChrome>
+          <JannahDisclaimer textKey="jahannam.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

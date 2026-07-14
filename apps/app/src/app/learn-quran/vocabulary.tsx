@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -13,12 +14,19 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureQuranGuideContent, getQuranGuideVocabulary } from "@/lib/quran-guide";
+import {
+  ensureQuranGuideContent,
+  getQuranGuideVocabulary,
+  isQuranGuideContentReady,
+} from "@/lib/quran-guide";
 
 export default function LearnQuranVocabularyScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  useEnsureContent(ensureQuranGuideContent);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
   const words = getQuranGuideVocabulary();
   const listenText = useMemo(
     () =>
@@ -41,43 +49,45 @@ export default function LearnQuranVocabularyScreen() {
       onBack={() => goBackOrReplace(router, "/learn-quran" as Href)}
     >
       <Seo path="/learn-quran/vocabulary" />
-      <Stagger>
-        <JannahCallout tone="info">{t("learnQuran.vocabIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("learnQuran.vocabIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="learn_quran" listenText={listenText}>
-          <Card padding="three">
-            <SectionHeader
-              title={t("learnQuran.vocabListTitle")}
-              icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
-            />
-            <View style={styles.list}>
-              {words.map((word) => (
-                <View key={word.id} style={styles.word}>
-                  <ThemedText type="arabic" style={styles.arabic}>
-                    {word.arabic}
-                  </ThemedText>
-                  <ThemedText type="smallBold">{word.transliteration}</ThemedText>
-                  <ThemedText type="small" themeColor="mutedForeground">
-                    {word.meaning}
-                  </ThemedText>
-                  {word.frequency ? (
-                    <ThemedText type="caption" themeColor="mutedForeground">
-                      {word.frequency}
+          <LearnReadingChrome surface="learn_quran" listenText={listenText}>
+            <Card padding="three">
+              <SectionHeader
+                title={t("learnQuran.vocabListTitle")}
+                icon={{ ios: "character.book.closed", android: "translate", web: "translate" }}
+              />
+              <View style={styles.list}>
+                {words.map((word) => (
+                  <View key={word.id} style={styles.word}>
+                    <ThemedText type="arabic" style={styles.arabic}>
+                      {word.arabic}
                     </ThemedText>
-                  ) : null}
-                  {word.example ? (
-                    <ThemedText type="caption" style={styles.example}>
-                      {word.example}
+                    <ThemedText type="smallBold">{word.transliteration}</ThemedText>
+                    <ThemedText type="small" themeColor="mutedForeground">
+                      {word.meaning}
                     </ThemedText>
-                  ) : null}
-                </View>
-              ))}
-            </View>
-          </Card>
-        </LearnReadingChrome>
+                    {word.frequency ? (
+                      <ThemedText type="caption" themeColor="mutedForeground">
+                        {word.frequency}
+                      </ThemedText>
+                    ) : null}
+                    {word.example ? (
+                      <ThemedText type="caption" style={styles.example}>
+                        {word.example}
+                      </ThemedText>
+                    ) : null}
+                  </View>
+                ))}
+              </View>
+            </Card>
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="learnQuran.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="learnQuran.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

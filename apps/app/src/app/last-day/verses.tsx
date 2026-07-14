@@ -5,6 +5,7 @@ import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -18,14 +19,14 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureLastDayContent, getLastDayVerses } from "@/lib/last-day";
+import { ensureLastDayContent, getLastDayVerses, isLastDayContentReady } from "@/lib/last-day";
 import { goBackOrReplace } from "@/lib/navigation";
 
 export default function LastDayVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  useEnsureContent(ensureLastDayContent);
+  const { ready: contentReady } = useEnsureContent(ensureLastDayContent, isLastDayContentReady);
   const { sizes } = useReadingTypography();
   const verses = getLastDayVerses();
 
@@ -49,78 +50,80 @@ export default function LastDayVersesScreen() {
       onBack={() => goBackOrReplace(router, "/last-day" as Href)}
     >
       <Seo path="/last-day/verses" />
-      <Stagger>
-        <JannahCallout tone="info">{t("lastDay.versesIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("lastDay.versesIntro")}</JannahCallout>
 
-        <LearnReadingChrome surface="last_day">
-          {themes.map((theme) => {
-            const items = grouped.get(theme) ?? [];
-            return (
-              <Card key={theme} padding="three">
-                <SectionHeader
-                  title={t(`lastDay.verseTheme.${theme}`)}
-                  icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
-                />
-                <View style={styles.list}>
-                  {items.map((verse, index) => (
-                    <PressableScale
-                      key={verse.id}
-                      haptic="light"
-                      accessibilityRole="link"
-                      onPress={() =>
-                        router.push({
-                          pathname: "/quran/[surah]",
-                          params: { surah: String(verse.surah), ayah: String(verse.ayahFrom) },
-                        })
-                      }
-                      style={[
-                        styles.row,
-                        index > 0 && {
-                          borderTopColor: tokens.hairline,
-                          borderTopWidth: StyleSheet.hairlineWidth,
-                        },
-                      ]}
-                    >
-                      <IconWell
-                        icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-                        tint={colors.accent}
-                        well={36}
-                        size={16}
-                      />
-                      <View style={styles.copy}>
-                        <ReferenceLine reference={verse.label} />
-                        <ThemedText
-                          type="small"
-                          style={{
-                            fontSize: sizes.translation,
-                            lineHeight: sizes.translation * 1.45,
-                          }}
-                        >
-                          {verse.excerpt}
-                        </ThemedText>
-                        <ThemedText type="caption" themeColor="mutedForeground">
-                          {verse.context}
-                        </ThemedText>
-                        {verse.tafsirSummary ? (
-                          <Pill
-                            label={verse.tafsirSummary}
-                            compact
-                            color={colors.mutedForeground}
-                            background={colors.muted}
-                          />
-                        ) : null}
-                      </View>
-                      <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
-                    </PressableScale>
-                  ))}
-                </View>
-              </Card>
-            );
-          })}
-        </LearnReadingChrome>
+          <LearnReadingChrome surface="last_day">
+            {themes.map((theme) => {
+              const items = grouped.get(theme) ?? [];
+              return (
+                <Card key={theme} padding="three">
+                  <SectionHeader
+                    title={t(`lastDay.verseTheme.${theme}`)}
+                    icon={{ ios: "book.closed.fill", android: "menu_book", web: "menu_book" }}
+                  />
+                  <View style={styles.list}>
+                    {items.map((verse, index) => (
+                      <PressableScale
+                        key={verse.id}
+                        haptic="light"
+                        accessibilityRole="link"
+                        onPress={() =>
+                          router.push({
+                            pathname: "/quran/[surah]",
+                            params: { surah: String(verse.surah), ayah: String(verse.ayahFrom) },
+                          })
+                        }
+                        style={[
+                          styles.row,
+                          index > 0 && {
+                            borderTopColor: tokens.hairline,
+                            borderTopWidth: StyleSheet.hairlineWidth,
+                          },
+                        ]}
+                      >
+                        <IconWell
+                          icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+                          tint={colors.accent}
+                          well={36}
+                          size={16}
+                        />
+                        <View style={styles.copy}>
+                          <ReferenceLine reference={verse.label} />
+                          <ThemedText
+                            type="small"
+                            style={{
+                              fontSize: sizes.translation,
+                              lineHeight: sizes.translation * 1.45,
+                            }}
+                          >
+                            {verse.excerpt}
+                          </ThemedText>
+                          <ThemedText type="caption" themeColor="mutedForeground">
+                            {verse.context}
+                          </ThemedText>
+                          {verse.tafsirSummary ? (
+                            <Pill
+                              label={verse.tafsirSummary}
+                              compact
+                              color={colors.mutedForeground}
+                              background={colors.muted}
+                            />
+                          ) : null}
+                        </View>
+                        <QuranAyahBookmarkButton surah={verse.surah} ayah={verse.ayahFrom} />
+                      </PressableScale>
+                    ))}
+                  </View>
+                </Card>
+              );
+            })}
+          </LearnReadingChrome>
 
-        <JannahDisclaimer textKey="lastDay.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="lastDay.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

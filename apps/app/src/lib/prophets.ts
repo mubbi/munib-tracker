@@ -10,6 +10,9 @@ import { overlayList } from "@/lib/content-overlay-registry";
 type ProphetsContent = typeof import("@munib-tracker/shared/content/prophets") &
   typeof import("@munib-tracker/shared/content/prophets-timeline");
 let contentCache: ProphetsContent | undefined;
+export function isProphetsContentReady(): boolean {
+  return contentCache !== undefined;
+}
 export async function ensureProphetsContent(): Promise<ProphetsContent> {
   if (!contentCache) {
     const [topics, timeline] = await Promise.all([

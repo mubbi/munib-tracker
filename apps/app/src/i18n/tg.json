@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Роҳи бозгашт ба Аллоҳро пайгирӣ кунед.",
     "loadingRoute": "Омода мешавад…",
-    "loadingRouteHint": "Як лаҳза — ин экран бор мешавад."
+    "loadingRouteHint": "Як лаҳза — ин экран бор мешавад.",
+    "loadingContent": "Мундариҷа бор мешавад…",
+    "loadingContentHint": "Лаҳзае интизор шавед — ин дарс бор мешавад.",
+    "learnQuiz": {
+      "title": "Викторинаи такрор",
+      "subtitle": "Фаҳмишатонро санҷед — на мақоматон назди Аллоҳ",
+      "intro": "Тақрори кӯтоҳ аз дарсҳои ин роҳнамо. Шитоб накунед — ҳадаф омӯзиш аст.",
+      "hint": "Он чи омӯхтед такрор кунед",
+      "empty": "Саволҳои ин роҳнамо ҳанӯз бор мешаванд. Чанд дарс кушоед, сипас бори дигар кӯшиш кунед."
+    }
   },
   "search": {
     "placeholder": "Ҷустуҷӯ по Қуръону, хадисам, дуа, adhkar…",
@@ -165,7 +174,8 @@
     "eid": "Роҳнамои Ид",
     "ruqyah": "Руқия",
     "newMuslim": "Роҳнамои нави мусалмонон",
-    "finance": "Молияи исломӣ"
+    "finance": "Молияи исломӣ",
+    "flashCards": "Кортҳои ёдгирӣ"
   },
   "quickActions": {
     "checklistSubtitle": "Отметить сегодняшние саляты",
@@ -1008,11 +1018,18 @@
     "increase": "Андозаи матнро зиёд кунед",
     "reset": "сбросить text size",
     "sizeDefault": "Defult",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Гӯш кардани мақола",
+    "listenStop": "Қатъи гӯш кардан",
+    "listenHint": "Овозе интихоб кунед, сипас ин саҳифаро бо забони барнома тавассути матн-ба-гуфтори дастгоҳ бо овози баланд гӯш кунед",
+    "listenUnavailableTitle": "Гӯш кардан дастрас нест",
+    "listenUnavailableBody": "Матн-ба-гуфтор дар ин дастгоҳ дастрас нест. Тафтиш кунед, ки барои забонатон овоз дар танзимоти система насб шудааст.",
+    "listenLabel": "Гӯш кунед",
+    "listenStopLabel": "Ист",
+    "listenVoiceTitle": "Овоз интихоб кунед",
+    "listenVoiceHint": "Барои оғози гӯш кардан овоз интихоб кунед",
+    "listenVoiceDefault": "Пешфарзи система",
+    "listenVoiceDefaultHint": "Овози дӯстдоштаи дастгоҳро барои ин забон истифода баред",
+    "listenVoiceEmpty": "Барои ин забон овоз насб нашудааст. Дар танзимоти система илова кунед."
   },
   "share": {
     "dialogTitle": "Поделиться",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "Хонаро танзим кунед",
-    "subtitle": "Choose wht ppers на ваш home и librry screens",
+    "subtitle": "Интихоб кунед, ки дар экрани асосӣ чӣ намоиш дода мешавад",
     "modulesTitle": "Home crds",
     "actionsTitle": "Амалҳои зуд",
     "actionsHint": "Миёнабурҳои худро аз нав тартиб диҳед ё онҳоеро, ки истифода намебаред, нест кунед.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "Таърихи ибодатро рӯз ба рӯз бубинед",
     "exploreEvents": "Ҳодисаҳои исломиро кушоед",
     "exploreEventsHint": "Марҳилаҳо ва ҷашнҳо дар пеш"
+  },
+  "flashCards": {
+    "eyebrow": "Омӯзиш",
+    "title": "Кортҳои ёдгирӣ",
+    "subtitle": "Дониши исломиро корт ба корт машқ кунед — бе хол ва бе фишор",
+    "intro": "Аз Қуръон, ҳадис, Номҳои Аллоҳ ва ҳар роҳнамои Омӯзиш. Барои санҷидани худ ҷавобро ламс кунед, сипас то хоҳед идома диҳед.",
+    "disclaimer": "Танҳо такрори таълимӣ — рейтинги рӯҳӣ нест. Манбаъҳои муътамадро афзал доред ва барои ҳукмҳои шахсӣ аз олим пурсед.",
+    "studiedCount": "{{count}} корт омӯхта шуд",
+    "endlessHint": "Машқи беохир",
+    "answerHint": "Барои дидани шарҳ ҷавоб интихоб кунед.",
+    "pickAnswer": "Аввал ҷавоб интихоб кунед",
+    "nextCard": "Корти навбатӣ",
+    "correctTitle": "Хуб — сабт шуд",
+    "incorrectTitle": "Қариб — ин идея аст",
+    "empty": "Дастаи кортҳо омода мешавад… мавзӯъҳои Омӯзишро кушоед ё лаҳзае интизор шавед.",
+    "category": {
+      "salahGuide": "Намоз",
+      "jannah": "Ҷаннат",
+      "lastDay": "Рӯзи Охир",
+      "jahannam": "Ҷаҳаннам",
+      "battles": "Ҷангҳо",
+      "learnQuran": "Қуръон",
+      "taharah": "Тозагӣ",
+      "hayd": "Ҳайз",
+      "sick": "Беморӣ",
+      "prophets": "Паёмбарон",
+      "aqeedah": "Ақида",
+      "learnDua": "Дуо",
+      "travel": "Сафар",
+      "hajj": "Ҳаҷ",
+      "seerah": "Сира",
+      "events": "Рӯйдодҳо",
+      "sahaba": "Саҳоба",
+      "history": "Таърих",
+      "laylatAlQadr": "Шаби Қадр",
+      "eid": "Ид",
+      "ruqyah": "Руқия",
+      "newMuslim": "Мусулмони нав",
+      "names": "99 ном",
+      "hadith": "Ҳадис",
+      "quran": "Қуръон",
+      "duas": "Дуоҳо"
+    }
   }
 }

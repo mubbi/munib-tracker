@@ -9,6 +9,8 @@ import {
   JannahNavRow,
   JannahQuickLinkGrid,
 } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
+import { LearnQuizNavRow } from "@/components/quiz/learn-quiz-nav-row";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -26,6 +28,7 @@ import {
   getJannahHubTopics,
   getJannahPathTopics,
   getJannahPromised,
+  isJannahContentReady,
 } from "@/lib/jannah";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -42,7 +45,10 @@ export default function JannahScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { version: contentVersion } = useEnsureContent(ensureJannahContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureJannahContent,
+    isJannahContentReady,
+  );
   const hubTopics = getJannahHubTopics();
   const pathTopics = getJannahPathTopics();
   const promised = getJannahPromised();
@@ -104,151 +110,159 @@ export default function JannahScreen() {
       onBack={() => goBackOrReplace(router, "/")}
     >
       <Seo path="/jannah" />
-      <Stagger>
-        <JannahCallout tone="info">{t("jannah.intro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="info">{t("jannah.intro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("jannah.quickLinksTitle")}
-            icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+          <LearnQuizNavRow
+            quizPath={"/jannah/quiz" as Href}
+            titleKey="common.learnQuiz.title"
+            subtitleKey="common.learnQuiz.hint"
           />
-          <JannahQuickLinkGrid items={quickLinks} />
-        </Card>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("jannah.learnTitle")}
-            icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
-          />
-          <View style={styles.rows}>
-            {hubTopics.map((topic) => (
-              <JannahNavRow
-                key={topic.id}
-                icon={
-                  HUB_ICONS[topic.id] ?? {
-                    ios: "text.book.closed",
-                    android: "article",
-                    web: "article",
+          <Card padding="three">
+            <SectionHeader
+              title={t("jannah.quickLinksTitle")}
+              icon={{ ios: "square.grid.2x2.fill", android: "apps", web: "apps" }}
+            />
+            <JannahQuickLinkGrid items={quickLinks} />
+          </Card>
+
+          <Card padding="three">
+            <SectionHeader
+              title={t("jannah.learnTitle")}
+              icon={{ ios: "book.fill", android: "menu_book", web: "menu_book" }}
+            />
+            <View style={styles.rows}>
+              {hubTopics.map((topic) => (
+                <JannahNavRow
+                  key={topic.id}
+                  icon={
+                    HUB_ICONS[topic.id] ?? {
+                      ios: "text.book.closed",
+                      android: "article",
+                      web: "article",
+                    }
                   }
-                }
-                title={topic.title}
-                subtitle={topic.summary}
-                onPress={() =>
-                  router.push({ pathname: "/jannah/[topic]", params: { topic: topic.id } })
-                }
-              />
-            ))}
-          </View>
-        </Card>
+                  title={topic.title}
+                  subtitle={topic.summary}
+                  onPress={() =>
+                    router.push({ pathname: "/jannah/[topic]", params: { topic: topic.id } })
+                  }
+                />
+              ))}
+            </View>
+          </Card>
 
-        {firdawsDua ? (
-          <JannahDuaBlock
-            title={t("jannah.firdawsCardTitle")}
-            arabic={firdawsDua.arabic}
-            transliteration={firdawsDua.transliteration}
-            translation={firdawsDua.translation}
-            reference={firdawsDua.reference}
-          />
-        ) : null}
+          {firdawsDua ? (
+            <JannahDuaBlock
+              title={t("jannah.firdawsCardTitle")}
+              arabic={firdawsDua.arabic}
+              transliteration={firdawsDua.transliteration}
+              translation={firdawsDua.translation}
+              reference={firdawsDua.reference}
+            />
+          ) : null}
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("jannah.pathsTitle")}
-            icon={{
-              ios: "point.topleft.down.curvedto.point.bottomright.up",
-              android: "route",
-              web: "route",
-            }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.pathsHint}>
-            {t("jannah.pathsHint")}
-          </ThemedText>
-          <View style={styles.pathGrid}>
-            {pathTopics.map((topic) => (
-              <PressableScale
-                key={topic.id}
-                haptic="light"
-                accessibilityRole="button"
-                accessibilityLabel={`${topic.title}. ${topic.summary}`}
-                onPress={() =>
-                  router.push({ pathname: "/jannah/[topic]", params: { topic: topic.id } })
-                }
-                style={[styles.pathTile, { backgroundColor: colors.muted }]}
-              >
-                <ThemedText type="smallBold" numberOfLines={2}>
-                  {topic.title}
-                </ThemedText>
-                <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={3}>
-                  {topic.summary}
-                </ThemedText>
-                {topic.importance ? (
-                  <Pill
-                    label={t(`jannah.importance.${topic.importance}`)}
-                    compact
-                    color={colors.mutedForeground}
-                    background={colors.card}
-                  />
-                ) : null}
-              </PressableScale>
-            ))}
-          </View>
-        </Card>
-
-        <Card padding="three">
-          <SectionHeader
-            title={t("jannah.promisedTitle")}
-            icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
-          />
-          <View style={styles.promised}>
-            {promised.map((entry) => (
-              <View
-                key={entry.id}
-                style={[styles.promisedItem, { borderLeftColor: withAlpha(colors.accent, 0.55) }]}
-              >
-                <ThemedText type="smallBold">{entry.name}</ThemedText>
-                <ThemedText
-                  type="caption"
-                  themeColor="mutedForeground"
-                  style={styles.promisedSummary}
+          <Card padding="three">
+            <SectionHeader
+              title={t("jannah.pathsTitle")}
+              icon={{
+                ios: "point.topleft.down.curvedto.point.bottomright.up",
+                android: "route",
+                web: "route",
+              }}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.pathsHint}>
+              {t("jannah.pathsHint")}
+            </ThemedText>
+            <View style={styles.pathGrid}>
+              {pathTopics.map((topic) => (
+                <PressableScale
+                  key={topic.id}
+                  haptic="light"
+                  accessibilityRole="button"
+                  accessibilityLabel={`${topic.title}. ${topic.summary}`}
+                  onPress={() =>
+                    router.push({ pathname: "/jannah/[topic]", params: { topic: topic.id } })
+                  }
+                  style={[styles.pathTile, { backgroundColor: colors.muted }]}
                 >
-                  {entry.summary}
-                </ThemedText>
-                {entry.note ? (
+                  <ThemedText type="smallBold" numberOfLines={2}>
+                    {topic.title}
+                  </ThemedText>
+                  <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={3}>
+                    {topic.summary}
+                  </ThemedText>
+                  {topic.importance ? (
+                    <Pill
+                      label={t(`jannah.importance.${topic.importance}`)}
+                      compact
+                      color={colors.mutedForeground}
+                      background={colors.card}
+                    />
+                  ) : null}
+                </PressableScale>
+              ))}
+            </View>
+          </Card>
+
+          <Card padding="three">
+            <SectionHeader
+              title={t("jannah.promisedTitle")}
+              icon={{ ios: "person.3.fill", android: "groups", web: "groups" }}
+            />
+            <View style={styles.promised}>
+              {promised.map((entry) => (
+                <View
+                  key={entry.id}
+                  style={[styles.promisedItem, { borderLeftColor: withAlpha(colors.accent, 0.55) }]}
+                >
+                  <ThemedText type="smallBold">{entry.name}</ThemedText>
                   <ThemedText
                     type="caption"
                     themeColor="mutedForeground"
-                    style={styles.promisedNote}
+                    style={styles.promisedSummary}
                   >
-                    {entry.note}
+                    {entry.summary}
                   </ThemedText>
-                ) : null}
-              </View>
-            ))}
-          </View>
-        </Card>
+                  {entry.note ? (
+                    <ThemedText
+                      type="caption"
+                      themeColor="mutedForeground"
+                      style={styles.promisedNote}
+                    >
+                      {entry.note}
+                    </ThemedText>
+                  ) : null}
+                </View>
+              ))}
+            </View>
+          </Card>
 
-        <JannahNavRow
-          icon={{
-            ios: "flame.fill",
-            android: "local_fire_department",
-            web: "local_fire_department",
-          }}
-          title={t("jannah.jahannamPointerTitle")}
-          subtitle={t("jannah.jahannamPointerHint")}
-          tint={tokens.status.warning.color}
-          onPress={() => router.push("/jahannam" as Href)}
-        />
+          <JannahNavRow
+            icon={{
+              ios: "flame.fill",
+              android: "local_fire_department",
+              web: "local_fire_department",
+            }}
+            title={t("jannah.jahannamPointerTitle")}
+            subtitle={t("jannah.jahannamPointerHint")}
+            tint={tokens.status.warning.color}
+            onPress={() => router.push("/jahannam" as Href)}
+          />
 
-        <JannahNavRow
-          icon={{ ios: "map.fill", android: "map", web: "map" }}
-          title={t("jannah.tourCta")}
-          subtitle={t("jannah.tourCtaHint")}
-          tint={colors.accent}
-          onPress={() => router.push({ pathname: "/tour", params: { tour: "jannah" } })}
-        />
+          <JannahNavRow
+            icon={{ ios: "map.fill", android: "map", web: "map" }}
+            title={t("jannah.tourCta")}
+            subtitle={t("jannah.tourCtaHint")}
+            tint={colors.accent}
+            onPress={() => router.push({ pathname: "/tour", params: { tour: "jannah" } })}
+          />
 
-        <JannahDisclaimer />
-      </Stagger>
+          <JannahDisclaimer />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

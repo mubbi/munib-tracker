@@ -2,13 +2,19 @@ import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JahannamTopicContent } from "@/components/jahannam/topic-content";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { ensureJahannamContent, getJahannamTopic, getJahannamTopics } from "@/lib/jahannam";
+import {
+  ensureJahannamContent,
+  getJahannamTopic,
+  getJahannamTopics,
+  isJahannamContentReady,
+} from "@/lib/jahannam";
 import { goBackOrReplace } from "@/lib/navigation";
 import { articleSchema } from "@/lib/seo/structured-data";
 
@@ -20,7 +26,7 @@ export default function JahannamTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureJahannamContent);
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const topic = getJahannamTopic(topicId);
 
   const detailPath = topic ? `/jahannam/${topic.id}` : "/jahannam";
@@ -59,7 +65,9 @@ export default function JahannamTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("jahannam.notFound")}

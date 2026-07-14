@@ -7,6 +7,7 @@ import {
   JannahQuranEvidence,
   JannahTakeaway,
 } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -23,6 +24,7 @@ import {
   ensureQuranGuideContent,
   getQuranGuideStories,
   getQuranGuideStory,
+  isQuranGuideContentReady,
 } from "@/lib/quran-guide";
 import { articleSchema } from "@/lib/seo/structured-data";
 
@@ -34,7 +36,10 @@ export default function LearnQuranStoryDetailScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureQuranGuideContent);
+  const { ready: contentReady } = useEnsureContent(
+    ensureQuranGuideContent,
+    isQuranGuideContentReady,
+  );
   const story = getQuranGuideStory(id);
 
   const detailPath = story ? `/learn-quran/story/${story.id}` : "/learn-quran/stories";
@@ -75,7 +80,9 @@ export default function LearnQuranStoryDetailScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !story ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !story ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("learnQuran.notFound")}

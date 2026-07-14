@@ -1,5 +1,5 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import {
@@ -7,6 +7,7 @@ import {
   ContentInlineLinkGroup,
 } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -17,6 +18,7 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
+import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -24,6 +26,7 @@ import {
   getBattlesFigureIdForSahaba,
   getSahabaProfile,
   getSahabaProfiles,
+  isSahabaContentReady,
 } from "@/lib/sahaba";
 import { articleSchema } from "@/lib/seo/structured-data";
 
@@ -70,16 +73,12 @@ export default function SahabaProfileScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    void ensureSahabaContent().then(() => setReady(true));
-  }, []);
+  const { ready: contentReady } = useEnsureContent(ensureSahabaContent, isSahabaContentReady);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: re-localize on language/content
   const profile = useMemo(
-    () => (ready ? getSahabaProfile(id) : undefined),
-    [id, i18n.language, ready],
+    () => (contentReady ? getSahabaProfile(id) : undefined),
+    [id, i18n.language, contentReady],
   );
   const battlesFigureId = profile ? getBattlesFigureIdForSahaba(profile.id) : undefined;
   const paragraphs = profile?.body.split("\n\n") ?? [];
@@ -93,7 +92,7 @@ export default function SahabaProfileScreen() {
       ]
     : undefined;
 
-  if (ready && !profile) {
+  if (contentReady && !profile) {
     return (
       <ScreenLayout
         eyebrow={t("sahaba.eyebrow")}
@@ -130,7 +129,9 @@ export default function SahabaProfileScreen() {
             : undefined
         }
       />
-      {profile ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : profile ? (
         <LearnReadingChrome
           surface="battles"
           listenText={[profile.summary, profile.body].filter(Boolean).join("\n\n")}

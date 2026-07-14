@@ -4,6 +4,7 @@ import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -16,7 +17,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureJahannamContent } from "@/lib/jahannam";
+import { ensureJahannamContent, isJahannamContentReady } from "@/lib/jahannam";
 import { buildJahannamJourney, type JahannamJourneyRow } from "@/lib/jahannam-journey";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
@@ -140,7 +141,7 @@ export default function JahannamJourneyScreen() {
   const intentionsSet = useJahannamIntentionsCount();
   const reflectionStreak = useJahannamReflectionStreak();
 
-  useEnsureContent(ensureJahannamContent);
+  const { ready: contentReady } = useEnsureContent(ensureJahannamContent, isJahannamContentReady);
   const locale = i18n.language?.split("-")[0];
   const formatCount = useCallback((value: number) => value.toLocaleString(locale), [locale]);
 
@@ -164,50 +165,52 @@ export default function JahannamJourneyScreen() {
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/journey" />
-      <Stagger>
-        <JannahCallout tone="accent">{t("jahannam.journeyBanner")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="accent">{t("jahannam.journeyBanner")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("jahannam.journeyToday")}
-            icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
-          />
-          {!snapshot.hasActivity ? (
-            <View style={styles.emptyWrap}>
-              <IconWell
-                icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-                well={48}
-                size={22}
-              />
-              <ThemedText type="small" themeColor="mutedForeground" style={styles.empty}>
-                {t("jahannam.journeyEmpty")}
-              </ThemedText>
+          <Card padding="three">
+            <SectionHeader
+              title={t("jahannam.journeyToday")}
+              icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
+            />
+            {!snapshot.hasActivity ? (
+              <View style={styles.emptyWrap}>
+                <IconWell
+                  icon={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+                  well={48}
+                  size={22}
+                />
+                <ThemedText type="small" themeColor="mutedForeground" style={styles.empty}>
+                  {t("jahannam.journeyEmpty")}
+                </ThemedText>
+              </View>
+            ) : null}
+            <View style={styles.rows}>
+              {snapshot.rows.map((row) => (
+                <MetricRow key={row.id} row={row} onPress={() => router.push(row.route)} />
+              ))}
             </View>
-          ) : null}
-          <View style={styles.rows}>
-            {snapshot.rows.map((row) => (
-              <MetricRow key={row.id} row={row} onPress={() => router.push(row.route)} />
-            ))}
-          </View>
-        </Card>
+          </Card>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("jahannam.intentionsTitle")}
-            icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.intentionsHint}>
-            {t("jahannam.intentionsHint")}
-          </ThemedText>
-          <View style={styles.intentions}>
-            {JAHANNAM_INTENTION_IDS.map((id) => (
-              <IntentionRow key={id} id={id} />
-            ))}
-          </View>
-        </Card>
+          <Card padding="three">
+            <SectionHeader
+              title={t("jahannam.intentionsTitle")}
+              icon={{ ios: "heart.text.square.fill", android: "favorite", web: "favorite" }}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.intentionsHint}>
+              {t("jahannam.intentionsHint")}
+            </ThemedText>
+            <View style={styles.intentions}>
+              {JAHANNAM_INTENTION_IDS.map((id) => (
+                <IntentionRow key={id} id={id} />
+              ))}
+            </View>
+          </Card>
 
-        <JannahDisclaimer textKey="jahannam.journeyDisclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="jahannam.journeyDisclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

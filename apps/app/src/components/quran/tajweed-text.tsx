@@ -88,7 +88,6 @@ export function TajweedText({ segments, fallback, fontSize, style }: TajweedText
     <View style={styles.wrap}>
       {activeRule ? (
         <View
-          pointerEvents="none"
           accessibilityRole="text"
           style={[
             styles.tooltip,
@@ -101,6 +100,7 @@ export function TajweedText({ segments, fallback, fontSize, style }: TajweedText
               shadowRadius: 10,
               shadowOffset: { width: 0, height: 4 },
               elevation: 6,
+              pointerEvents: "none",
             },
           ]}
         >

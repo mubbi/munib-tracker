@@ -3,6 +3,9 @@ import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
 
 let cache: IslamicHistoryEvent[] | undefined;
+export function isIslamicHistoryContentReady(): boolean {
+  return cache !== undefined;
+}
 let inflight: Promise<void> | undefined;
 
 export function ensureIslamicHistoryContent(): Promise<void> {

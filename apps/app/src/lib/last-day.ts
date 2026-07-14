@@ -9,6 +9,9 @@ type LastDayContent = typeof import("@munib-tracker/shared/content/last-day") &
   typeof import("@munib-tracker/shared/content/last-day-timeline") &
   typeof import("@munib-tracker/shared/content/last-day-verses");
 let contentCache: LastDayContent | undefined;
+export function isLastDayContentReady(): boolean {
+  return contentCache !== undefined;
+}
 export async function ensureLastDayContent(): Promise<LastDayContent> {
   if (!contentCache) {
     const modules = await Promise.all([

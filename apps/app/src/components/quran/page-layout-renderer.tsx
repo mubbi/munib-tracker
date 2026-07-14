@@ -31,7 +31,7 @@ type PageLayoutRendererProps = {
 
 const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 const ARABIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
-/** Unicode ARABIC END OF AYAH — drawn empty; digits are overlaid (font shaping is unreliable). */
+/** Unicode ARABIC END OF AYAH (۝) — empty circle; digits follow (or overlay on Android). */
 const END_OF_AYAH = "\u06DD";
 
 /** Renders a Western number as Arabic-Indic digits for the in-line ayah marker. */
@@ -41,9 +41,12 @@ function toArabicDigits(value: number): string {
 
 /**
  * Gilt end-of-ayah rosette with the verse number centered inside.
- * Native fonts often render U+06DD as an empty circle and place following digits
- * beside it (especially at larger reading sizes), so we draw the mark and the
- * digits as separate layers instead of relying on enclosing-mark shaping.
+ *
+ * iOS CoreText does not reserve horizontal advance for View-in-Text under
+ * RTL + `textAlign: "justify"`, so a nested View paints the ornament on top of
+ * the preceding Arabic word. Nested Text participates in the text run and keeps
+ * layout correct. Android still uses a layered View so digits stay centered when
+ * font enclosing-mark shaping places them beside the circle at large sizes.
  */
 function AyahEndMarker({
   ayah,
@@ -56,8 +59,32 @@ function AyahEndMarker({
 }) {
   const digits = toArabicDigits(ayah);
   const digitCount = digits.length;
-  const box = Math.round(fontSize * (digitCount >= 3 ? 1.15 : 1.02));
   const rosetteSize = Math.round(fontSize * (digitCount >= 3 ? 1.05 : 0.95));
+
+  // Nested Text only — required for correct RTL/justify advance on iOS (and fine
+  // on web). Hair spaces keep the ornament clear of the last letter. Digits may
+  // sit beside the circle when the typeface does not shape U+06DD as an enclosing
+  // mark; that is preferable to View-in-Text overlapping the Arabic.
+  if (Platform.OS !== "android") {
+    return (
+      <Text
+        accessibilityElementsHidden
+        importantForAccessibility="no-hide-descendants"
+        style={{
+          fontSize: rosetteSize,
+          lineHeight: Math.round(rosetteSize * 1.25),
+          color,
+        }}
+      >
+        {"\u200A"}
+        {END_OF_AYAH}
+        {digits}
+        {"\u200A"}
+      </Text>
+    );
+  }
+
+  const box = Math.round(fontSize * (digitCount >= 3 ? 1.15 : 1.02));
   const numberSize = Math.round(
     fontSize * (digitCount >= 3 ? 0.34 : digitCount === 2 ? 0.4 : 0.44),
   );
@@ -97,6 +124,8 @@ function AyahEndMarker({
             fontSize: numberSize,
             lineHeight: numberSize * 1.15,
             color,
+            includeFontPadding: false,
+            textAlignVertical: "center",
           },
         ]}
       >
@@ -319,16 +348,10 @@ const styles = StyleSheet.create({
   markerRosette: {
     position: "absolute",
     textAlign: "center",
-    ...Platform.select({
-      android: { includeFontPadding: false, textAlignVertical: "center" },
-      default: {},
-    }),
+    includeFontPadding: false,
+    textAlignVertical: "center",
   },
   markerNumber: {
     textAlign: "center",
-    ...Platform.select({
-      android: { includeFontPadding: false, textAlignVertical: "center" },
-      default: {},
-    }),
   },
 });

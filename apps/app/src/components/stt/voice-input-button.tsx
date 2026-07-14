@@ -96,7 +96,7 @@ function EqualizerBar({
   });
 
   return (
-    <View pointerEvents="none" style={styles.barCenter}>
+    <View style={[styles.barCenter, { pointerEvents: "none" }]}>
       <Animated.View
         style={[{ width: barWidth, borderRadius: barWidth / 2, backgroundColor: color }, style]}
       />
@@ -174,7 +174,6 @@ export function VoiceInputButton({
   return (
     <View style={[styles.wrap, { width: fieldSize, height: fieldSize }]}>
       <Animated.View
-        pointerEvents="none"
         style={[
           styles.glow,
           {
@@ -182,6 +181,7 @@ export function VoiceInputButton({
             height: preset.discSize * 1.55,
             borderRadius: (preset.discSize * 1.55) / 2,
             backgroundColor: colors.accent,
+            pointerEvents: "none",
           },
           glowStyle,
         ]}

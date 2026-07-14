@@ -1,6 +1,7 @@
 import { type Href, useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentLoading } from "@/components/learn-content-loading";
 import { ProphetsTopicContent } from "@/components/prophets/topic-content";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -10,7 +11,12 @@ import { Stagger } from "@/components/ui/stagger";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useGuideContentReportRef } from "@/hooks/use-guide-content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
-import { ensureProphetsContent, getProphetsTopic, getProphetsTopics } from "@/lib/prophets";
+import {
+  ensureProphetsContent,
+  getProphetsTopic,
+  getProphetsTopics,
+  isProphetsContentReady,
+} from "@/lib/prophets";
 import { articleSchema } from "@/lib/seo/structured-data";
 import { useEnsureProphetsProgressLoaded } from "@/stores/prophets-progress-store";
 
@@ -22,7 +28,7 @@ export default function ProphetsTopicScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { topic: topicId } = useLocalSearchParams<{ topic: string }>();
-  const { ready: contentReady } = useEnsureContent(ensureProphetsContent);
+  const { ready: contentReady } = useEnsureContent(ensureProphetsContent, isProphetsContentReady);
   const topic = getProphetsTopic(topicId);
   const reportRef = useGuideContentReportRef("prophets", topic, "/prophets");
   useEnsureProphetsProgressLoaded();
@@ -63,7 +69,9 @@ export default function ProphetsTopicScreen() {
             : undefined
         }
       />
-      {!contentReady ? null : !topic ? (
+      {!contentReady ? (
+        <LearnContentLoading />
+      ) : !topic ? (
         <EmptyState
           icon={{ ios: "questionmark.circle", android: "help", web: "help" }}
           title={t("prophets.notFound")}

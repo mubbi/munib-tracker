@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ReadingCard } from "@/components/content/reading-card";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -16,7 +17,7 @@ import { Radius, Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuaItems } from "@/lib/content-loaders";
-import { ensureJannahContent, getJannahDuas } from "@/lib/jannah";
+import { ensureJannahContent, getJannahDuas, isJannahContentReady } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
   useDuaFavoritesActions,
@@ -77,15 +78,25 @@ function JannahDuaEntryBlock({
 export default function JannahDuasScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { version: contentVersion } = useEnsureContent(ensureJannahContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureJannahContent,
+    isJannahContentReady,
+  );
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
+  const [duasCatalogReady, setDuasCatalogReady] = useState(false);
   useEffect(() => {
-    void loadDuaItems().then(setDuaItems);
+    void loadDuaItems()
+      .then(setDuaItems)
+      .catch(() => {
+        // Show jannah entries once catalog resolve settles (empty map → Empty-ish rows).
+      })
+      .then(() => setDuasCatalogReady(true));
   }, []);
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when jannah content finishes loading
   const entries = useMemo(() => getJannahDuas(), [contentVersion]);
   const byId = new Map(duaItems.map((item) => [item.id, item]));
   useEnsureDuaFavoritesLoaded();
+  const ready = contentReady && duasCatalogReady;
 
   return (
     <ScreenLayout
@@ -95,19 +106,21 @@ export default function JannahDuasScreen() {
       onBack={() => goBackOrReplace(router, "/jannah")}
     >
       <Seo path="/jannah/duas" />
-      <Stagger>
-        <LearnReadingChrome surface="jannah">
-          <JannahCallout tone="success">{t("jannah.duasLead")}</JannahCallout>
+      <LearnContentGate ready={ready}>
+        <Stagger>
+          <LearnReadingChrome surface="jannah">
+            <JannahCallout tone="success">{t("jannah.duasLead")}</JannahCallout>
 
-          {entries.map((entry, index) => {
-            const dua = byId.get(entry.duaId);
-            if (!dua) return null;
-            return <JannahDuaEntryBlock key={entry.id} entry={entry} dua={dua} index={index} />;
-          })}
-        </LearnReadingChrome>
+            {entries.map((entry, index) => {
+              const dua = byId.get(entry.duaId);
+              if (!dua) return null;
+              return <JannahDuaEntryBlock key={entry.id} entry={entry} dua={dua} index={index} />;
+            })}
+          </LearnReadingChrome>
 
-        <JannahDisclaimer />
-      </Stagger>
+          <JannahDisclaimer />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

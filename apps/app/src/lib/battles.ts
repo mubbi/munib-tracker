@@ -18,6 +18,9 @@ type BattlesContent = typeof import("@munib-tracker/shared/content/battles") &
   typeof import("@munib-tracker/shared/content/battles-timeline") &
   typeof import("@munib-tracker/shared/content/battles-verses");
 let contentCache: BattlesContent | undefined;
+export function isBattlesContentReady(): boolean {
+  return contentCache !== undefined;
+}
 
 export async function ensureBattlesContent(): Promise<BattlesContent> {
   if (!contentCache) {

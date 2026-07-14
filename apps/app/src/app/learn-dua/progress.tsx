@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ContentLinkList } from "@/components/content/content-inline-link";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -13,7 +14,11 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
-import { ensureLearnDuaContent, getLearnDuaLessonCount } from "@/lib/learn-dua";
+import {
+  ensureLearnDuaContent,
+  getLearnDuaLessonCount,
+  isLearnDuaContentReady,
+} from "@/lib/learn-dua";
 import { buildLearnDuaProgress } from "@/lib/learn-dua-progress";
 import { goBackOrReplace } from "@/lib/navigation";
 import {
@@ -27,7 +32,10 @@ export default function LearnDuaProgressScreen() {
   useEnsureLearnDuaProgressLoaded();
   const completedCount = useLearnDuaCompletedCount();
 
-  const { version: contentVersion } = useEnsureContent(ensureLearnDuaContent);
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureLearnDuaContent,
+    isLearnDuaContentReady,
+  );
   // biome-ignore lint/correctness/useExhaustiveDependencies: recompute when content finishes loading
   const snapshot = useMemo(
     () =>
@@ -48,65 +56,67 @@ export default function LearnDuaProgressScreen() {
       onBack={() => goBackOrReplace(router, "/learn-dua" as Href)}
     >
       <Seo path="/learn-dua/progress" />
-      <Stagger>
-        <JannahCallout tone="warning">{t("learnDua.progressIntro")}</JannahCallout>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <JannahCallout tone="warning">{t("learnDua.progressIntro")}</JannahCallout>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("learnDua.lessonsTitle")}
-            icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("learnDua.lessonsHint")}
-          </ThemedText>
-          <View style={styles.lessonRow}>
-            <ThemedText type="title">
-              {t("learnDua.lessonsCount", {
-                completed: snapshot.lessonsCompleted,
-                total: snapshot.lessonsTotal,
-              })}
+          <Card padding="three">
+            <SectionHeader
+              title={t("learnDua.lessonsTitle")}
+              icon={{ ios: "book.closed.fill", android: "school", web: "school" }}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+              {t("learnDua.lessonsHint")}
             </ThemedText>
-            <ProgressBar value={snapshot.lessonProgress} />
-          </View>
-        </Card>
+            <View style={styles.lessonRow}>
+              <ThemedText type="title">
+                {t("learnDua.lessonsCount", {
+                  completed: snapshot.lessonsCompleted,
+                  total: snapshot.lessonsTotal,
+                })}
+              </ThemedText>
+              <ProgressBar value={snapshot.lessonProgress} />
+            </View>
+          </Card>
 
-        <Card padding="three">
-          <SectionHeader
-            title={t("learnDua.exploreTitle")}
-            icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
-          />
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
-            {t("learnDua.progressExploreHint")}
-          </ThemedText>
-          <ContentLinkList
-            style={styles.links}
-            links={[
-              {
-                label: t("learnDua.morningEveningTitle"),
-                onPress: () =>
-                  router.push({
-                    pathname: "/learn-dua/[topic]",
-                    params: { topic: "morning-evening" },
-                  }),
-              },
-              {
-                label: t("learnDua.duaEtiquetteTitle"),
-                onPress: () =>
-                  router.push({
-                    pathname: "/learn-dua/[topic]",
-                    params: { topic: "dua-etiquette" },
-                  }),
-              },
-              {
-                label: t("learnDua.occasionsTitle"),
-                onPress: () => router.push("/learn-dua/occasions" as Href),
-              },
-            ]}
-          />
-        </Card>
+          <Card padding="three">
+            <SectionHeader
+              title={t("learnDua.exploreTitle")}
+              icon={{ ios: "compass.drawing", android: "explore", web: "explore" }}
+            />
+            <ThemedText type="caption" themeColor="mutedForeground" style={styles.hint}>
+              {t("learnDua.progressExploreHint")}
+            </ThemedText>
+            <ContentLinkList
+              style={styles.links}
+              links={[
+                {
+                  label: t("learnDua.morningEveningTitle"),
+                  onPress: () =>
+                    router.push({
+                      pathname: "/learn-dua/[topic]",
+                      params: { topic: "morning-evening" },
+                    }),
+                },
+                {
+                  label: t("learnDua.duaEtiquetteTitle"),
+                  onPress: () =>
+                    router.push({
+                      pathname: "/learn-dua/[topic]",
+                      params: { topic: "dua-etiquette" },
+                    }),
+                },
+                {
+                  label: t("learnDua.occasionsTitle"),
+                  onPress: () => router.push("/learn-dua/occasions" as Href),
+                },
+              ]}
+            />
+          </Card>
 
-        <JannahDisclaimer textKey="learnDua.disclaimer" />
-      </Stagger>
+          <JannahDisclaimer textKey="learnDua.disclaimer" />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

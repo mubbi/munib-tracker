@@ -6,6 +6,7 @@ import { StyleSheet, View } from "react-native";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { QuranAyahBookmarkButton } from "@/components/jannah/bookmark-button";
 import { JannahCallout, JannahDisclaimer } from "@/components/jannah/primitives";
+import { LearnContentGate } from "@/components/learn-content-loading";
 import { LearnReadingChrome, useReadingTypography } from "@/components/reading-typography-context";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
@@ -18,7 +19,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { useEnsureContent } from "@/hooks/use-ensure-content";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
-import { ensureJannahContent, getJannahVerses } from "@/lib/jannah";
+import { ensureJannahContent, getJannahVerses, isJannahContentReady } from "@/lib/jannah";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronForward } from "@/lib/rtl";
 
@@ -36,10 +37,9 @@ const THEME_ICONS: Record<(typeof THEME_ORDER)[number], SymbolViewProps["name"]>
   },
 };
 
-function JannahVersesList() {
+function JannahVersesList({ contentVersion }: { contentVersion: number }) {
   const router = useRouter();
   const { t } = useTranslation();
-  const { version: contentVersion } = useEnsureContent(ensureJannahContent);
   const { colors, tokens } = useThemeTokens();
   const { sizes } = useReadingTypography();
   const chevronForwardIcon = useChevronForward();
@@ -126,6 +126,10 @@ function JannahVersesList() {
 export default function JannahVersesScreen() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { version: contentVersion, ready: contentReady } = useEnsureContent(
+    ensureJannahContent,
+    isJannahContentReady,
+  );
 
   return (
     <ScreenLayout
@@ -135,13 +139,15 @@ export default function JannahVersesScreen() {
       onBack={() => goBackOrReplace(router, "/jannah")}
     >
       <Seo path="/jannah/verses" />
-      <Stagger>
-        <LearnReadingChrome surface="jannah">
-          <JannahVersesList />
-        </LearnReadingChrome>
+      <LearnContentGate ready={contentReady}>
+        <Stagger>
+          <LearnReadingChrome surface="jannah">
+            <JannahVersesList contentVersion={contentVersion} />
+          </LearnReadingChrome>
 
-        <JannahDisclaimer />
-      </Stagger>
+          <JannahDisclaimer />
+        </Stagger>
+      </LearnContentGate>
     </ScreenLayout>
   );
 }

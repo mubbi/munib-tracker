@@ -18,6 +18,9 @@ type QuranGuideContent = typeof import("@munib-tracker/shared/content/quran-guid
   typeof import("@munib-tracker/shared/content/quran-guide-timeline") &
   typeof import("@munib-tracker/shared/content/quran-guide-vocabulary");
 let contentCache: QuranGuideContent | undefined;
+export function isQuranGuideContentReady(): boolean {
+  return contentCache !== undefined;
+}
 export async function ensureQuranGuideContent(): Promise<QuranGuideContent> {
   if (!contentCache) {
     const modules = await Promise.all([

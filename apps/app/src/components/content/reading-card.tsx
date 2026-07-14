@@ -1,8 +1,10 @@
 import type { ReadingSurface } from "@munib-tracker/shared/types";
 import type { ContentReportReference } from "@munib-tracker/shared/types/content-report";
 import { SymbolView } from "expo-symbols";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
+import { ReadingTtsButton } from "@/components/content/reading-tts-button";
 import { ReferenceLine } from "@/components/content/reference-line";
 import { ContentReportButton } from "@/components/content-report/content-report-button";
 import { ThemedText } from "@/components/themed-text";
@@ -14,6 +16,7 @@ import { useScriptureTranslation } from "@/hooks/use-scripture-translation";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { buildDuroodActivity } from "@/lib/continue-activity";
+import { localeToBcp47 } from "@/lib/locale-bcp47";
 import {
   arabicReadingLayout,
   resolveReadingFontSizes,
@@ -53,6 +56,11 @@ export function ReadingCard({
   /** When set, reuses a parent screen's share snapshot host (e.g. duplicate share buttons). */
   shareCard: shareCardProp,
   contentRef,
+  /**
+   * When true and there is no recorded `audioUri`, show a TTS play control
+   * (voice sheet → speak). Used for user-authored custom adhkar.
+   */
+  enableTts,
 }: {
   item: ReadingItem;
   sourceHref?: string;
@@ -63,16 +71,28 @@ export function ReadingCard({
   shareCard?: ReturnType<typeof useShareContentCard>;
   /** When set, shows a report button for this content item. */
   contentRef?: ContentReportReference;
+  enableTts?: boolean;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const { fontPrefs, translationLocale } = usePreferences();
+  const { fontPrefs, translationLocale, locale } = usePreferences();
   const displayTranslation = useScriptureTranslation(item);
   const audio = useAudioPlayerContext();
   const internalShare = useShareContentCard();
   const { share, isSharing, isGesturePending, SnapshotHost } = shareCardProp ?? internalShare;
   const shareKey = item.id ?? item.reference ?? sourceHref ?? "reading";
   const { arabic: arabicSize, translation: textSize } = resolveReadingFontSizes(surface, fontPrefs);
+
+  const ttsPayload = useMemo(() => {
+    if (!enableTts || item.audioUri) return null;
+    const arabic = item.arabic.trim();
+    if (arabic) return { text: arabic, lang: "ar" };
+    const transliteration = item.transliteration?.trim();
+    if (transliteration) return { text: transliteration, lang: localeToBcp47(locale) };
+    const translation = displayTranslation.trim();
+    if (translation) return { text: translation, lang: localeToBcp47(locale) };
+    return null;
+  }, [displayTranslation, enableTts, item.arabic, item.audioUri, item.transliteration, locale]);
 
   const playAudio = () => {
     if (!item.audioUri) return;
@@ -144,6 +164,8 @@ export function ReadingCard({
                 accessibilityLabel={t("common.play")}
                 onPress={playAudio}
               />
+            ) : ttsPayload ? (
+              <ReadingTtsButton text={ttsPayload.text} lang={ttsPayload.lang} />
             ) : (
               <View />
             )}

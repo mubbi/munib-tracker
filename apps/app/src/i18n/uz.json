@@ -68,7 +68,16 @@
     "appName": "Munib Tracker",
     "appTagline": "Allohga qaytish yo'lingizni kuzating.",
     "loadingRoute": "Tayyorlanmoqda…",
-    "loadingRouteHint": "Bir lahza — bu ekran yuklanmoqda."
+    "loadingRouteHint": "Bir lahza — bu ekran yuklanmoqda.",
+    "loadingContent": "Kontent yuklanmoqda…",
+    "loadingContentHint": "Bu dars yuklanayotganda bir zum kuting.",
+    "learnQuiz": {
+      "title": "Takrorlash viktorinasi",
+      "subtitle": "Tushunchangizni sinang — Alloh oldidagi martabangizni emas",
+      "intro": "Ushbu qo'llanmaning darslaridan qisqa takrorlash. Shoshilmang — maqsad o'rganish.",
+      "hint": "O'rganganingizni takrorlang",
+      "empty": "Ushbu qo'llanma savollari hali yuklanmoqda. Bir necha dars oching, keyin qayta urinib ko'ring."
+    }
   },
   "search": {
     "placeholder": "Qur'on, hadis, duo, adhkar qidirish…",
@@ -165,7 +174,8 @@
     "eid": "Hayit uchun qo'llanma",
     "ruqyah": "Ruqya",
     "newMuslim": "Yangi musulmon qo'llanma",
-    "finance": "Islomiy moliya"
+    "finance": "Islomiy moliya",
+    "flashCards": "Yod kartalari"
   },
   "quickActions": {
     "checklistSubtitle": "Bugungi namozlarni qayd eting",
@@ -1008,11 +1018,18 @@
     "increase": "ichidcrese text size",
     "reset": "qyt tiklsh text size",
     "sizeDefault": "Defult",
-    "listen": "Listen to article",
-    "listenStop": "Stop listening",
-    "listenHint": "Reads this page aloud in your app language using device text-to-speech",
-    "listenUnavailableTitle": "Listening unavailable",
-    "listenUnavailableBody": "Text-to-speech is not available on this device. Check that a voice is installed for your language in system settings."
+    "listen": "Maqolani tinglang",
+    "listenStop": "Tinglashni to'xtatish",
+    "listenHint": "Ovoz tanlang, so'ng qurilmaning matndan nutqqa funksiyasi bilan ushbu sahifani ilova tilida tinglang",
+    "listenUnavailableTitle": "Tinglash mavjud emas",
+    "listenUnavailableBody": "Bu qurilmada matndan nutqqa yo'q. Tizim sozlamalarida tilingiz uchun ovoz o'rnatilganini tekshiring.",
+    "listenLabel": "Tinglash",
+    "listenStopLabel": "To'xtatish",
+    "listenVoiceTitle": "Ovoz tanlang",
+    "listenVoiceHint": "Tinglashni boshlash uchun ovoz tanlang",
+    "listenVoiceDefault": "Tizim standarti",
+    "listenVoiceDefaultHint": "Ushbu til uchun qurilmaning afzal ovozidan foydalaning",
+    "listenVoiceEmpty": "Ushbu til uchun ovoz o'rnatilmagan. Tizim sozlamalaridan qo'shing."
   },
   "share": {
     "dialogTitle": "Ulashish",
@@ -2532,7 +2549,7 @@
   },
   "homeCustomize": {
     "title": "Cus-gmize home",
-    "subtitle": "Choose wht ppers d siznichidg home v librry screens",
+    "subtitle": "Bosh ekranda nima ko'rinishini tanlang",
     "modulesTitle": "Home crds",
     "actionsTitle": "Quick ctids",
     "actionsHint": "Reyokider siznichidg shyokitcuts, yoki olib tshlsh des siz dd't use.",
@@ -4549,5 +4566,48 @@
     "exploreCalendarHint": "Ibodat tarixini kundan-kunga ko'ring",
     "exploreEvents": "Ochiq islomiy voqealar",
     "exploreEventsHint": "Oldinda marralar va marosimlar"
+  },
+  "flashCards": {
+    "eyebrow": "O'rganish",
+    "title": "Yod kartalari",
+    "subtitle": "Islomiy bilimni karta-karta mashq qiling — ball yo'q, bosim yo'q",
+    "intro": "Qur'on, hadis, Alloh ismlari va har bir O'rganish qo'llanmasidan. O'zingizni tekshirish uchun javobni bosing, xohlagancha davom eting.",
+    "disclaimer": "Faqat ta'limiy takrorlash — ma'naviy reyting emas. Ishonchli manbalarni afzal ko'ring va shaxsiy hukmlar uchun olimdan so'rang.",
+    "studiedCount": "{{count}} karta o'rganildi",
+    "endlessHint": "Cheksiz mashq",
+    "answerHint": "Tushuntirishni ko'rish uchun javob tanlang.",
+    "pickAnswer": "Avval javob tanlang",
+    "nextCard": "Keyingi karta",
+    "correctTitle": "Yaxshi — mustahkamlandi",
+    "incorrectTitle": "Deyarli — mana g'oya",
+    "empty": "Karta to'plami tayyorlanmoqda… O'rganish mavzularini oching yoki bir zum kuting.",
+    "category": {
+      "salahGuide": "Namoz",
+      "jannah": "Jannat",
+      "lastDay": "Oxirat kuni",
+      "jahannam": "Jahannam",
+      "battles": "Janglar",
+      "learnQuran": "Qur'on",
+      "taharah": "Poklik",
+      "hayd": "Hayz",
+      "sick": "Kasallik",
+      "prophets": "Payg'ambarlar",
+      "aqeedah": "Aqida",
+      "learnDua": "Duo",
+      "travel": "Safar",
+      "hajj": "Haj",
+      "seerah": "Sira",
+      "events": "Tadbirlar",
+      "sahaba": "Sahobalar",
+      "history": "Tarix",
+      "laylatAlQadr": "Qadr kechasi",
+      "eid": "Hayit",
+      "ruqyah": "Ruqya",
+      "newMuslim": "Yangi musulmon",
+      "names": "99 Ism",
+      "hadith": "Hadis",
+      "quran": "Qur'on",
+      "duas": "Duolar"
+    }
   }
 }

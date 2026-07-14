@@ -15,7 +15,7 @@ import { Alert } from "react-native";
 import { localeToBcp47 } from "@/lib/locale-bcp47";
 import { isTtsAvailable, resolveTtsVoice, speakLong, stopTts } from "@/lib/tts";
 import { usePreferences } from "@/stores/preferences-store";
-import { useQuranPrefs } from "@/stores/quran-store";
+import { useQuranActions, useQuranPrefs } from "@/stores/quran-store";
 
 type SegmentEntry = { order: number; text: string };
 
@@ -28,7 +28,14 @@ type LearnTtsContextValue = {
   setOverrideText: (text: string | null) => void;
   speaking: boolean;
   hasText: boolean;
-  toggle: () => void;
+  /** BCP-47 language used for voice filtering and speech. */
+  lang: string;
+  /** Preferred voice id for {@link lang}, if saved. */
+  preferredVoiceId?: string;
+  /** Persist a voice preference for the current lang, then speak. */
+  startWithVoice: (voiceId: string | undefined) => void;
+  /** Stop in-progress speech. */
+  stop: () => void;
 };
 
 const LearnTtsContext = createContext<LearnTtsContextValue | null>(null);
@@ -53,6 +60,7 @@ export function LearnTtsProvider({
   const { t } = useTranslation();
   const prefs = usePreferences();
   const quranPrefs = useQuranPrefs();
+  const { updatePrefs } = useQuranActions();
   const [segments, setSegments] = useState(() => new Map<string, SegmentEntry>());
   const [overrideText, setOverrideTextState] = useState<string | null>(null);
   const [speaking, setSpeaking] = useState(false);
@@ -110,44 +118,53 @@ export function LearnTtsProvider({
   }, [overrideText, segments]);
 
   const hasText = resolvedText.length > 0;
+  const lang = localeToBcp47(prefs.locale);
+  const preferredVoiceId = quranPrefs.ttsVoiceByLang?.[lang];
 
-  const toggle = useCallback(() => {
+  const stop = useCallback(() => {
     void (async () => {
-      if (speakingRef.current) {
-        await stopTts();
-        speakingRef.current = false;
-        setSpeaking(false);
-        return;
-      }
-
-      const text = resolvedText;
-      if (!text) return;
-
-      const available = await isTtsAvailable();
-      if (!available) {
-        Alert.alert(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
-        return;
-      }
-
-      const lang = localeToBcp47(prefs.locale);
-      const voice = await resolveTtsVoice(lang, quranPrefs.ttsVoiceByLang?.[lang]);
-
-      speakingRef.current = true;
-      setSpeaking(true);
-      await speakLong(text, {
-        lang,
-        voice,
-        onDone: () => {
-          speakingRef.current = false;
-          setSpeaking(false);
-        },
-        onError: () => {
-          speakingRef.current = false;
-          setSpeaking(false);
-        },
-      });
+      await stopTts();
+      speakingRef.current = false;
+      setSpeaking(false);
     })();
-  }, [prefs.locale, quranPrefs.ttsVoiceByLang, resolvedText, t]);
+  }, []);
+
+  const startWithVoice = useCallback(
+    (voiceId: string | undefined) => {
+      void (async () => {
+        const text = resolvedText;
+        if (!text) return;
+
+        const available = await isTtsAvailable();
+        if (!available) {
+          Alert.alert(t("reading.listenUnavailableTitle"), t("reading.listenUnavailableBody"));
+          return;
+        }
+
+        const nextVoices = { ...(quranPrefs.ttsVoiceByLang ?? {}) };
+        if (voiceId) nextVoices[lang] = voiceId;
+        else delete nextVoices[lang];
+        void updatePrefs({ ttsVoiceByLang: nextVoices });
+
+        const voice = await resolveTtsVoice(lang, voiceId);
+        speakingRef.current = true;
+        setSpeaking(true);
+        await speakLong(text, {
+          lang,
+          voice,
+          onDone: () => {
+            speakingRef.current = false;
+            setSpeaking(false);
+          },
+          onError: () => {
+            speakingRef.current = false;
+            setSpeaking(false);
+          },
+        });
+      })();
+    },
+    [lang, quranPrefs.ttsVoiceByLang, resolvedText, t, updatePrefs],
+  );
 
   const value = useMemo(
     () => ({
@@ -156,9 +173,22 @@ export function LearnTtsProvider({
       setOverrideText,
       speaking,
       hasText,
-      toggle,
+      lang,
+      preferredVoiceId,
+      startWithVoice,
+      stop,
     }),
-    [setSegment, clearSegment, setOverrideText, speaking, hasText, toggle],
+    [
+      setSegment,
+      clearSegment,
+      setOverrideText,
+      speaking,
+      hasText,
+      lang,
+      preferredVoiceId,
+      startWithVoice,
+      stop,
+    ],
   );
 
   return <LearnTtsContext.Provider value={value}>{children}</LearnTtsContext.Provider>;

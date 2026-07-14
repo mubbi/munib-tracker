@@ -20,6 +20,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
 import { useArrowForward } from "@/lib/rtl";
@@ -73,6 +74,7 @@ const HIGHLIGHT_ICON: SymbolViewProps["name"] = {
 };
 
 export default function OnboardingIntroScreen() {
+  useMarkColdStartReady();
   const router = useRouter();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();

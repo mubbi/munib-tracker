@@ -9,6 +9,9 @@ import { overlayList } from "@/lib/content-overlay-registry";
 type TaharahContent = typeof import("@munib-tracker/shared/content/taharah") &
   typeof import("@munib-tracker/shared/content/taharah-checklist");
 let contentCache: TaharahContent | undefined;
+export function isTaharahContentReady(): boolean {
+  return contentCache !== undefined;
+}
 export async function ensureTaharahContent(): Promise<TaharahContent> {
   if (!contentCache) {
     const [topics, checklist] = await Promise.all([

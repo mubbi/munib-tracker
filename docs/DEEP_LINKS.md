@@ -84,7 +84,7 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 
 ### Learning hubs
 
-`/salah-guide`, `/learn-quran`, `/learn-dua`, `/jannah`, `/jahannam`, `/last-day`, `/battles`, `/prophets`, `/aqeedah`, `/taharah`, `/travel`, `/hajj`, `/seerah`, `/zakat`, `/sahaba`, `/history`, `/laylat-al-qadr`, `/eid`, `/ruqyah`, `/new-muslim`, `/finance`
+`/salah-guide`, `/learn-quran`, `/learn-dua`, `/jannah`, `/jahannam`, `/last-day`, `/battles`, `/prophets`, `/aqeedah`, `/taharah`, `/travel`, `/hajj`, `/seerah`, `/zakat`, `/sahaba`, `/history`, `/laylat-al-qadr`, `/eid`, `/ruqyah`, `/new-muslim`, `/finance`, `/flash-cards`
 
 ### Settings (common)
 
