@@ -3405,7 +3405,10 @@
     "subtitle": "أذكارك وأدعيتك المحفوظة",
     "add": "إضافة ذكر",
     "newTitle": "ذكر جديد",
+    "editTitle": "تعديل الذكر",
     "delete": "حذف",
+    "confirmDeleteTitle": "حذف هذا الذكر؟",
+    "confirmDeleteMsg": "سيتم حذف «{{title}}» نهائيًا.",
     "emptyTitle": "لا أذكار مخصصة بعد",
     "emptyDesc": "أضف ذكرك الخاص بنصه العربي والنقحرة والمعنى.",
     "field": {

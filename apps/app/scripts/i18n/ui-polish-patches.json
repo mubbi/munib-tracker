@@ -623,7 +623,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Kwanakin keɓancewa ({{entered}}) ba za su iya wuce tsawon shekara da kuka zaɓa ({{maxDays}}) ba.",
     "flashCards.answerHint": "Zaɓi amsa don nuna bayanin, ko tsallake zuwa wani kati.",
     "flashCards.skipHint": "Tsallake wannan kati ku ga wani tambaya.",
-    "flashCards.skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa."
+    "flashCards.skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa.",
+    "customAdhkar.editTitle": "Gyara adhkar",
+    "customAdhkar.confirmDeleteTitle": "A share wannan adhkar?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” za a cire shi har abada."
   },
   "ku": {
     "home.streakStat": "Zincîre",
@@ -1203,7 +1206,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Rojên bêberpirsiyar ({{entered}}) nikarin ji dirêahiya sala ku we hilbijart ({{maxDays}}) derbas bibin.",
     "flashCards.answerHint": "Ji bo dîtina şiroveyê bersivekê hilbijêrin, an jî derbasî karta din bibin.",
     "flashCards.skipHint": "Vê kartê derbas bikin û pirsek din bibînin.",
-    "flashCards.skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin."
+    "flashCards.skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin.",
+    "customAdhkar.editTitle": "Adhkarê sererast bike",
+    "customAdhkar.confirmDeleteTitle": "Ev adhkar jê bibe?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” bi awayekî berdewam were jêbirin."
   },
   "bs": {
     "home.streakStat": "Niz",
@@ -1817,7 +1823,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Izuzeti dani ({{entered}}) ne mogu premašiti dužinu godine koju ste odabrali ({{maxDays}}).",
     "flashCards.answerHint": "Odaberite odgovor da otkrijete objašnjenje, ili preskočite na drugu karticu.",
     "flashCards.skipHint": "Preskočite ovu karticu i pogledajte drugo pitanje.",
-    "flashCards.skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje."
+    "flashCards.skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje.",
+    "customAdhkar.editTitle": "Uredi adhkar",
+    "customAdhkar.confirmDeleteTitle": "Obriši ovaj adhkar?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” bit će trajno uklonjen."
   },
   "ms": {
     "search.cat.zikr": "Adhkar",
@@ -2402,7 +2411,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Hari dikecualikan ({{entered}}) tidak boleh melebihi panjang tahun yang anda pilih ({{maxDays}}).",
     "flashCards.answerHint": "Pilih jawapan untuk mendedahkan penjelasan, atau langkau ke kad lain.",
     "flashCards.skipHint": "Langkau kad ini dan lihat soalan lain.",
-    "flashCards.skipDisabledHint": "Jawab kad terakhir ini untuk memulakan susunan baharu."
+    "flashCards.skipDisabledHint": "Jawab kad terakhir ini untuk memulakan susunan baharu.",
+    "customAdhkar.editTitle": "Sunting adhkar",
+    "customAdhkar.confirmDeleteTitle": "Padam adhkar ini?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” akan dibuang secara kekal."
   },
   "sw": {
     "common.quiz.answeredCount": "{{count}} imejibiwa",
@@ -2992,7 +3004,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Siku zisizohusika ({{entered}}) haziwezi kuzidi urefu wa mwaka uliochagua ({{maxDays}}).",
     "flashCards.answerHint": "Chagua jibu ili kuonyesha maelezo, au ruka hadi kadi nyingine.",
     "flashCards.skipHint": "Ruka kadi hii na uone swali lingine.",
-    "flashCards.skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya."
+    "flashCards.skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya.",
+    "customAdhkar.editTitle": "Hariri adhkar",
+    "customAdhkar.confirmDeleteTitle": "Futa adhkar hii?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” itaondolewa kabisa."
   },
   "id": {
     "search.cat.zikr": "Adzkar",
@@ -3522,7 +3537,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Hari dikecualikan ({{entered}}) tidak boleh melebihi panjang tahun yang Anda pilih ({{maxDays}}).",
     "flashCards.answerHint": "Pilih jawaban untuk menampilkan penjelasan, atau lewati ke kartu lain.",
     "flashCards.skipHint": "Lewati kartu ini dan lihat pertanyaan lain.",
-    "flashCards.skipDisabledHint": "Jawab kartu terakhir ini untuk memulai pengocokan baru."
+    "flashCards.skipDisabledHint": "Jawab kartu terakhir ini untuk memulai pengocokan baru.",
+    "customAdhkar.editTitle": "Ubah adhkar",
+    "customAdhkar.confirmDeleteTitle": "Hapus adhkar ini?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” akan dihapus secara permanen."
   },
   "ru": {
     "language.scriptureAvailable": "Перевод Корана доступен",
@@ -5355,7 +5373,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Дни освобождения ({{entered}}) не могут превышать выбранную длину года ({{maxDays}}).",
     "flashCards.answerHint": "Выберите ответ, чтобы увидеть пояснение, или пропустите карточку.",
     "flashCards.skipHint": "Пропустите эту карточку и посмотрите другой вопрос.",
-    "flashCards.skipDisabledHint": "Ответьте на эту последнюю карточку, чтобы начать новую перетасовку."
+    "flashCards.skipDisabledHint": "Ответьте на эту последнюю карточку, чтобы начать новую перетасовку.",
+    "customAdhkar.editTitle": "Изменить азкар",
+    "customAdhkar.confirmDeleteTitle": "Удалить этот азкар?",
+    "customAdhkar.confirmDeleteMsg": "«{{title}}» будет удалено навсегда."
   },
   "tr": {
     "home.continueListening": "Ses",
@@ -5918,7 +5939,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Muaf günler ({{entered}}), seçtiğiniz yıl uzunluğunu ({{maxDays}}) aşamaz.",
     "flashCards.answerHint": "Açıklamayı görmek için bir cevap seçin veya başka bir karta atlayın.",
     "flashCards.skipHint": "Bu kartı atlayıp başka bir soru görün.",
-    "flashCards.skipDisabledHint": "Yeniden karıştırmak için bu son kalan kartı yanıtlayın."
+    "flashCards.skipDisabledHint": "Yeniden karıştırmak için bu son kalan kartı yanıtlayın.",
+    "customAdhkar.editTitle": "Adhkarı düzenle",
+    "customAdhkar.confirmDeleteTitle": "Bu adhkar silinsin mi?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” kalıcı olarak kaldırılacak."
   },
   "fr": {
     "home.continueListening": "Audio",
@@ -6481,7 +6505,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Les jours d’exonération ({{entered}}) ne peuvent pas dépasser la durée d’année choisie ({{maxDays}}).",
     "flashCards.answerHint": "Choisissez une réponse pour révéler l’explication, ou passez à une autre carte.",
     "flashCards.skipHint": "Ignorez cette carte et voyez une autre question.",
-    "flashCards.skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange."
+    "flashCards.skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange.",
+    "customAdhkar.editTitle": "Modifier l’adhkar",
+    "customAdhkar.confirmDeleteTitle": "Supprimer cet adhkar ?",
+    "customAdhkar.confirmDeleteMsg": "« {{title}} » sera supprimé définitivement."
   },
   "fa": {
     "home.continueListening": "صدا",
@@ -7329,7 +7356,10 @@
     "qazaCalc.validation.exemptExceedsYear": "روزهای معاف ({{entered}}) نمی‌تواند از طول سال انتخاب‌شده ({{maxDays}}) بیشتر باشد.",
     "flashCards.answerHint": "برای دیدن توضیح یک پاسخ انتخاب کنید، یا به کارت دیگری بروید.",
     "flashCards.skipHint": "این کارت را رد کنید و سؤال دیگری ببینید.",
-    "flashCards.skipDisabledHint": "برای شروع چینش تازه، به این آخرین کارت پاسخ دهید."
+    "flashCards.skipDisabledHint": "برای شروع چینش تازه، به این آخرین کارت پاسخ دهید.",
+    "customAdhkar.editTitle": "ویرایش ذکر",
+    "customAdhkar.confirmDeleteTitle": "این ذکر حذف شود؟",
+    "customAdhkar.confirmDeleteMsg": "«{{title}}» برای همیشه حذف خواهد شد."
   },
   "az": {
     "language.scriptureAvailable": "Qur'an tərcüməsi mövcuddur",
@@ -8992,7 +9022,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Azad günlər ({{entered}}) seçdiyiniz il uzunluğunu ({{maxDays}}) aşa bilməz.",
     "flashCards.answerHint": "İzahı görmək üçün cavab seçin və ya başqa karta keçin.",
     "flashCards.skipHint": "Bu kartı keçin və başqa sual görün.",
-    "flashCards.skipDisabledHint": "Yeni qarışdırma üçün bu son qalan karta cavab verin."
+    "flashCards.skipDisabledHint": "Yeni qarışdırma üçün bu son qalan karta cavab verin.",
+    "customAdhkar.editTitle": "Adhkarı redaktə et",
+    "customAdhkar.confirmDeleteTitle": "Bu adhkar silinsin?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” həmişəlik silinəcək."
   },
   "ps": {
     "language.scriptureAvailable": "د قرآن ژباړه شتون لري",
@@ -10861,7 +10894,10 @@
     "qazaCalc.validation.exemptExceedsYear": "معاف ورځې ({{entered}}) ستاسو غوره شوی کال اوږدوالی ({{maxDays}}) نه شي زیاتولی.",
     "flashCards.answerHint": "د توضیح لیدو لپاره ځواب وټاکئ، یا بل کارت ته تېر شئ.",
     "flashCards.skipHint": "دا کارت تېر کړئ او بل پوښتنه وګورئ.",
-    "flashCards.skipDisabledHint": "د نوي ترتیب لپاره دې وروستي کارت ته ځواب ورکړئ."
+    "flashCards.skipDisabledHint": "د نوي ترتیب لپاره دې وروستي کارت ته ځواب ورکړئ.",
+    "customAdhkar.editTitle": "اذکار سمول",
+    "customAdhkar.confirmDeleteTitle": "دا اذکار ړنګ کړئ؟",
+    "customAdhkar.confirmDeleteMsg": "«{{title}}» به د تل لپاره لرې شي."
   },
   "so": {
     "language.scriptureAvailable": "Turjumaadda Quraanka waa la heli karaa",
@@ -12523,7 +12559,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Maalmaha la dhaafay ({{entered}}) kama badnaan karaan dhererka sanadka aad dooratay ({{maxDays}}).",
     "flashCards.answerHint": "Dooro jawaab si sharaxaad loo muujiyo, ama u gudub kaarka kale.",
     "flashCards.skipHint": "Ka bood kaarkan oo arag su'aal kale.",
-    "flashCards.skipDisabledHint": "Ka jawaab kaarkan ugu dambeeya si aad u bilowdo isku-roogid cusub."
+    "flashCards.skipDisabledHint": "Ka jawaab kaarkan ugu dambeeya si aad u bilowdo isku-roogid cusub.",
+    "customAdhkar.editTitle": "Wax ka beddel adhkar",
+    "customAdhkar.confirmDeleteTitle": "Tirtir adhkarkan?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” waa laga saari doonaa si joogto ah."
   },
   "uz": {
     "language.scriptureAvailable": "Qur'on tarjimasi mavjud",
@@ -14186,7 +14225,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Ozod kunlar ({{entered}}) tanlagan yil uzunligidan ({{maxDays}}) oshmasligi kerak.",
     "flashCards.answerHint": "Tushuntirishni ko‘rish uchun javob tanlang yoki boshqa kartaga o‘ting.",
     "flashCards.skipHint": "Bu kartani o‘tkazib yuboring va boshqa savolni ko‘ring.",
-    "flashCards.skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering."
+    "flashCards.skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering.",
+    "customAdhkar.editTitle": "Adhkarni tahrirlash",
+    "customAdhkar.confirmDeleteTitle": "Bu adhkar oʻchirilsinmi?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” butunlay olib tashlanadi."
   },
   "tg": {
     "language.scriptureAvailable": "Тарҷумаи Қуръон дастрас аст",
@@ -16021,7 +16063,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Рӯзҳои озод ({{entered}}) наметавонанд аз дарозии соли интихобкардаи шумо ({{maxDays}}) зиёд бошанд.",
     "flashCards.answerHint": "Барои дидани шарҳ ҷавоб интихоб кунед ё ба карти дигар гузаред.",
     "flashCards.skipHint": "Ин картаро гузаред ва саволи дигарро бинед.",
-    "flashCards.skipDisabledHint": "Барои оғози омехтаи нав ба ин карти охирин ҷавоб диҳед."
+    "flashCards.skipDisabledHint": "Барои оғози омехтаи нав ба ин карти охирин ҷавоб диҳед.",
+    "customAdhkar.editTitle": "Таҳрири adhkar",
+    "customAdhkar.confirmDeleteTitle": "Ин adhkar нест карда шавад?",
+    "customAdhkar.confirmDeleteMsg": "«{{title}}» барои ҳамеша нест карда мешавад."
   },
   "tk": {
     "language.scriptureAvailable": "Guran terjimesi elýeterli",
@@ -16592,7 +16637,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Mugt günler ({{entered}}) saýlan ýylyňyzyň uzynlygyny ({{maxDays}}) aşup bilmez.",
     "flashCards.answerHint": "Düşündirişi görmek üçin jogap saýlaň ýa-da başga karta geçiň.",
     "flashCards.skipHint": "Bu karty geçiň we başga soragy görüň.",
-    "flashCards.skipDisabledHint": "Täze garyşdyrmak üçin bu soňky karta jogap beriň."
+    "flashCards.skipDisabledHint": "Täze garyşdyrmak üçin bu soňky karta jogap beriň.",
+    "customAdhkar.editTitle": "Adhkary redaktirlemek",
+    "customAdhkar.confirmDeleteTitle": "Bu adhkar pozulsynmy?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” hemişelik öçüriler."
   },
   "kk": {
     "language.scriptureAvailable": "Құран аудармасы қолжетімді",
@@ -17096,7 +17144,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Босатылған күндер ({{entered}}) таңдаған жыл ұзындығынан ({{maxDays}}) аспауы керек.",
     "flashCards.answerHint": "Түсініктемені көру үшін жауап таңдаңыз немесе басқа картаға өтіңіз.",
     "flashCards.skipHint": "Бұл картаны өткізіп, басқа сұрақты көріңіз.",
-    "flashCards.skipDisabledHint": "Жаңа араластыруды бастау үшін осы соңғы картаға жауап беріңіз."
+    "flashCards.skipDisabledHint": "Жаңа араластыруды бастау үшін осы соңғы картаға жауап беріңіз.",
+    "customAdhkar.editTitle": "Adhkar өңдеу",
+    "customAdhkar.confirmDeleteTitle": "Осы adhkar жойылсын ба?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” біржола жойылады."
   },
   "sq": {
     "language.scriptureAvailable": "Përkthimi i Kur'anit është i disponueshëm",
@@ -17622,7 +17673,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Ditët e përjashtuara ({{entered}}) nuk mund të tejkalojnë gjatësinë e vitit që zgjodhët ({{maxDays}}).",
     "flashCards.answerHint": "Zgjidhni një përgjigje për të zbuluar shpjegimin, ose kaloni te një kartë tjetër.",
     "flashCards.skipHint": "Kapërceni këtë kartë dhe shihni një pyetje tjetër.",
-    "flashCards.skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re."
+    "flashCards.skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re.",
+    "customAdhkar.editTitle": "Redakto adhkar",
+    "customAdhkar.confirmDeleteTitle": "Fshi këtë adhkar?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” do të hiqet përgjithmonë."
   },
   "ky": {
     "language.scriptureAvailable": "Куран котормосу бар",
@@ -18135,7 +18189,10 @@
     "qazaCalc.validation.exemptExceedsYear": "Бошогон күндөр ({{entered}}) тандаган жыл узундугунан ({{maxDays}}) ашпашы керек.",
     "flashCards.answerHint": "Түшүндүрмөнү көрүү үчүн жооп тандаңыз же башка картага өтүңүз.",
     "flashCards.skipHint": "Бул картаны өткөрүп, башка суроону көрүңүз.",
-    "flashCards.skipDisabledHint": "Жаңы аралаштырууну баштоо үчүн ушул акыркы картага жооп бериңиз."
+    "flashCards.skipDisabledHint": "Жаңы аралаштырууну баштоо үчүн ушул акыркы картага жооп бериңиз.",
+    "customAdhkar.editTitle": "Adhkar түзөтүү",
+    "customAdhkar.confirmDeleteTitle": "Бул adhkar өчүрүлсүнбү?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” түбөлүккө өчүрүлөт."
   },
   "bn": {
     "onboarding.locationEyebrow": "অবস্থান ও অনুস্মারক",
@@ -18624,7 +18681,10 @@
     "qazaCalc.validation.exemptExceedsYear": "অব্যাহতি দিন ({{entered}}) আপনার বেছে নেওয়া বছরের দৈর্ঘ্য ({{maxDays}}) ছাড়াতে পারে না।",
     "flashCards.answerHint": "ব্যাখ্যা দেখতে একটি উত্তর বেছে নিন, অথবা অন্য কার্ডে যান।",
     "flashCards.skipHint": "এই কার্ড এড়িয়ে অন্য প্রশ্ন দেখুন।",
-    "flashCards.skipDisabledHint": "নতুন মিশ্রণ শুরু করতে এই শেষ কার্ডের উত্তর দিন।"
+    "flashCards.skipDisabledHint": "নতুন মিশ্রণ শুরু করতে এই শেষ কার্ডের উত্তর দিন।",
+    "customAdhkar.editTitle": "adhkar সম্পাদনা",
+    "customAdhkar.confirmDeleteTitle": "এই adhkar মুছবেন?",
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” স্থায়ীভাবে সরানো হবে।"
   },
   "ar": {
     "zakat.agriculture.cardHint": "مستحق عند الحصاد - 10% مطر/ ينابيع، 5% مروي.",

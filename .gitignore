@@ -55,9 +55,11 @@ Thumbs.db
 # Misc
 .vercel
 .tmp/
-.tmp-smoke/
+.tmp-*/
 .tmp-gaps-*.json
+.tmp-admin-lint.json
 .edge-tmp*/
+report.xml
 apps/app/android-keys/
 apps/app/.screenshots-work/
 packages/shared/scripts/.overlay-translate-cache/

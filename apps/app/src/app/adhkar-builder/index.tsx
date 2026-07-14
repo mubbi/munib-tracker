@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ReadingCard } from "@/components/content/reading-card";
 import {
   CustomAdhkarAttachments,
@@ -13,6 +14,7 @@ import { Seo } from "@/components/seo/seo";
 import { VoiceInputButton } from "@/components/stt/voice-input-button";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { IconButton } from "@/components/ui/icon-button";
 import { Sheet } from "@/components/ui/sheet";
@@ -29,6 +31,7 @@ import { deleteUserMediaMany, isGuestUserMediaError, uploadUserMedia } from "@/l
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
 import {
+  type CustomAdhkar,
   type CustomAdhkarInput,
   useCustomAdhkarActions,
   useCustomAdhkarList,
@@ -45,7 +48,7 @@ const DICTATABLE_FIELDS = new Set<string>(["arabic", "transliteration", "transla
 export default function AdhkarBuilderScreen() {
   const router = useRouter();
   const { t, i18n } = useTranslation();
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { fontPrefs } = usePreferences();
   const arabicFontFamily = useArabicFontFamily();
   const arabicInputLineHeight = resolveArabicLineHeight(20, fontPrefs.arabic.family);
@@ -54,15 +57,18 @@ export default function AdhkarBuilderScreen() {
   const toast = useToast();
   useEnsureCustomAdhkarLoaded();
   const items = useCustomAdhkarList();
-  const { create, remove } = useCustomAdhkarActions();
+  const { create, update, remove } = useCustomAdhkarActions();
 
   const [formOpen, setFormOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [pendingDelete, setPendingDelete] = useState<CustomAdhkar | null>(null);
   const [draft, setDraft] = useState<CustomAdhkarInput>(EMPTY);
   const [draftAttachments, setDraftAttachments] = useState<DraftAdhkarAttachment[]>([]);
   const [saving, setSaving] = useState(false);
   const sttFieldRef = useRef<DictatableField | null>(null);
 
   const canSave = draft.title.trim().length > 0 && draft.arabic.trim().length > 0 && !saving;
+  const isEditing = editingId !== null;
 
   const handleSttError = useCallback(
     (kind: SttErrorKind) => {
@@ -107,13 +113,35 @@ export default function AdhkarBuilderScreen() {
     stt.abort();
     setDraft(EMPTY);
     setDraftAttachments([]);
+    setEditingId(null);
+  };
+
+  const openCreate = () => {
+    resetForm();
+    setFormOpen(true);
+  };
+
+  const openEdit = (item: CustomAdhkar) => {
+    stt.abort();
+    setEditingId(item.id);
+    setDraft({
+      title: item.title,
+      arabic: item.arabic,
+      transliteration: item.transliteration ?? "",
+      translation: item.translation ?? "",
+      reference: item.reference ?? "",
+    });
+    setDraftAttachments([]);
+    setFormOpen(true);
   };
 
   const save = async () => {
     if (!canSave) return;
     setSaving(true);
     try {
-      if (draftAttachments.length > 0) {
+      if (isEditing && editingId) {
+        await update(editingId, draft);
+      } else if (draftAttachments.length > 0) {
         if (!isAuthenticated || !session?.accessToken) {
           toast.warning(t("customAdhkar.attachments.signInRequired"));
           return;
@@ -152,8 +180,8 @@ export default function AdhkarBuilderScreen() {
     }
   };
 
-  const handleRemove = async (id: string) => {
-    const removed = await remove(id);
+  const handleRemove = async (item: CustomAdhkar) => {
+    const removed = await remove(item.id);
     const mediaIds =
       removed?.images
         ?.map((image) => image.mediaId)
@@ -246,7 +274,7 @@ export default function AdhkarBuilderScreen() {
         label={t("customAdhkar.add")}
         icon={{ ios: "plus", android: "add", web: "add" }}
         fullWidth
-        onPress={() => setFormOpen(true)}
+        onPress={openCreate}
         style={styles.addButton}
       />
 
@@ -259,25 +287,42 @@ export default function AdhkarBuilderScreen() {
       ) : (
         <Stagger>
           {items.map((item) => (
-            <View key={item.id} style={styles.item}>
+            <Card key={item.id} padding="four" style={styles.itemCard}>
               <View style={styles.itemHeader}>
-                <ThemedText type="smallBold" style={styles.itemTitle}>
+                <ThemedText type="smallBold" style={styles.itemTitle} numberOfLines={2}>
                   {item.title}
                 </ThemedText>
-                <IconButton
-                  name={{ ios: "trash", android: "delete", web: "delete" }}
-                  size={16}
-                  tintColor={colors.mutedForeground}
-                  accessibilityLabel={t("customAdhkar.delete")}
-                  haptic="warning"
-                  onPress={() => void handleRemove(item.id)}
-                />
+                <View style={styles.itemActions}>
+                  <IconButton
+                    name={{ ios: "pencil", android: "edit", web: "edit" }}
+                    size={16}
+                    tintColor={colors.mutedForeground}
+                    background={tokens.accentSoft}
+                    accessibilityLabel={t("common.edit")}
+                    onPress={() => openEdit(item)}
+                  />
+                  <IconButton
+                    name={{ ios: "trash", android: "delete", web: "delete" }}
+                    size={16}
+                    tintColor={tokens.status.danger.color}
+                    background={tokens.status.danger.soft}
+                    accessibilityLabel={t("customAdhkar.delete")}
+                    haptic="warning"
+                    onPress={() => setPendingDelete(item)}
+                  />
+                </View>
               </View>
-              <ReadingCard item={{ ...item, translation: item.translation ?? "" }} enableTts />
+              <View style={[styles.itemDivider, { backgroundColor: tokens.hairline }]} />
+              <ReadingCard
+                item={{ ...item, translation: item.translation ?? "" }}
+                enableTts
+                enableContextMenu={false}
+                framed={false}
+              />
               {item.images?.length ? (
                 <CustomAdhkarImageGallery images={item.images} compact />
               ) : null}
-            </View>
+            </Card>
           ))}
         </Stagger>
       )}
@@ -292,7 +337,7 @@ export default function AdhkarBuilderScreen() {
         variant="bottom"
       >
         <ThemedText type="subtitle" style={styles.sheetTitle}>
-          {t("customAdhkar.newTitle")}
+          {isEditing ? t("customAdhkar.editTitle") : t("customAdhkar.newTitle")}
         </ThemedText>
         <ScrollView style={styles.form} showsVerticalScrollIndicator={false}>
           {input("title", "customAdhkar.field.title")}
@@ -300,11 +345,13 @@ export default function AdhkarBuilderScreen() {
           {input("transliteration", "customAdhkar.field.transliteration", { multiline: true })}
           {input("translation", "customAdhkar.field.translation", { multiline: true })}
           {input("reference", "customAdhkar.field.reference")}
-          <CustomAdhkarAttachments
-            attachments={draftAttachments}
-            onChange={setDraftAttachments}
-            canUpload={isAuthenticated}
-          />
+          {!isEditing ? (
+            <CustomAdhkarAttachments
+              attachments={draftAttachments}
+              onChange={setDraftAttachments}
+              canUpload={isAuthenticated}
+            />
+          ) : null}
         </ScrollView>
         <Button
           label={saving ? t("customAdhkar.attachments.uploading") : t("common.save")}
@@ -314,15 +361,43 @@ export default function AdhkarBuilderScreen() {
           style={styles.saveButton}
         />
       </Sheet>
+
+      <ConfirmDialog
+        visible={pendingDelete !== null}
+        title={t("customAdhkar.confirmDeleteTitle")}
+        message={
+          pendingDelete
+            ? t("customAdhkar.confirmDeleteMsg", { title: pendingDelete.title })
+            : undefined
+        }
+        confirmLabel={t("common.delete")}
+        destructive
+        onConfirm={() => {
+          if (pendingDelete) void handleRemove(pendingDelete);
+        }}
+        onClose={() => setPendingDelete(null)}
+      />
     </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
   addButton: { marginBottom: Spacing.three },
-  item: { gap: Spacing.two },
-  itemHeader: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
-  itemTitle: { flex: 1, marginStart: Spacing.one },
+  itemCard: {
+    gap: Spacing.three,
+  },
+  itemHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
+  itemTitle: { flex: 1, minWidth: 0 },
+  itemActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+  },
+  itemDivider: { height: StyleSheet.hairlineWidth },
   sheetTitle: { marginBottom: Spacing.two },
   form: { alignSelf: "stretch", maxHeight: 420 },
   field: { gap: Spacing.one, marginBottom: Spacing.three },

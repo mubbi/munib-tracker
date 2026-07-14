@@ -3939,7 +3939,10 @@
       "unavailable": "La reconnaissance vocale n'est pas disponible sur cet appareil.",
       "couldNotHear": "Je n'ai pas entendu cela – réessayez ou tapez.",
       "errorGeneric": "La dictée a échoué. Réessayez ou tapez."
-    }
+    },
+    "editTitle": "Modifier l’adhkar",
+    "confirmDeleteTitle": "Supprimer cet adhkar ?",
+    "confirmDeleteMsg": "« {{title}} » sera supprimé définitivement."
   },
   "tahajjud": {
     "eyebrow": "Night salah",

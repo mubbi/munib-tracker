@@ -3847,7 +3847,10 @@
       "unavailable": "Pengenalan ucapan tidak tersedia di perangkat ini.",
       "couldNotHear": "Tidak dapat mendengarnya — coba lagi atau ketik.",
       "errorGeneric": "Dikte gagal. Coba lagi atau ketik."
-    }
+    },
+    "editTitle": "Ubah adhkar",
+    "confirmDeleteTitle": "Hapus adhkar ini?",
+    "confirmDeleteMsg": "“{{title}}” akan dihapus secara permanen."
   },
   "tahajjud": {
     "eyebrow": "Malam shalat",

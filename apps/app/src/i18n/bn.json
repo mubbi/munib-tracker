@@ -3856,7 +3856,10 @@
       "unavailable": "এই ডিভাইসে বক্তৃতা শনাক্তকরণ অনুপলব্ধ৷",
       "couldNotHear": "শুনতে পাচ্ছিলাম না — আবার চেষ্টা করুন বা টাইপ করুন।",
       "errorGeneric": "ডিক্টেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন বা টাইপ করুন।"
-    }
+    },
+    "editTitle": "adhkar সম্পাদনা",
+    "confirmDeleteTitle": "এই adhkar মুছবেন?",
+    "confirmDeleteMsg": "“{{title}}” স্থায়ীভাবে সরানো হবে।"
   },
   "tahajjud": {
     "eyebrow": "Night নামাজ",

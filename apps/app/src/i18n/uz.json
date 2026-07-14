@@ -3847,7 +3847,10 @@
       "unavailable": "Bu qurilmada nutqni aniqlash funksiyasi mavjud emas.",
       "couldNotHear": "Bu eshitilmadi — qayta urining yoki yozing.",
       "errorGeneric": "Diktant yozilmadi. Qaytadan urining yoki yozing."
-    }
+    },
+    "editTitle": "Adhkarni tahrirlash",
+    "confirmDeleteTitle": "Bu adhkar oʻchirilsinmi?",
+    "confirmDeleteMsg": "“{{title}}” butunlay olib tashlanadi."
   },
   "tahajjud": {
     "eyebrow": "Tungi salah",

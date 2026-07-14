@@ -191,7 +191,7 @@ describe.each(localeCatalogs)("i18n translation quality (%s)", (name, catalog, s
  * Keep in sync with `scripts/i18n/fix-runglish-catalog.mjs` CORRUPT_RE.
  */
 const CORRUPTION_RE =
-  /\byhs\b|bookmrked|devam et|Fcebook|MYMEMORY WARNING|\bsecret\b.*\bnever\b|without review|Revэто|Revdiri|Revwiku|Revbuid|[a-zA-Z][а-яА-ЯёЁ]|[а-яА-ЯёЁ][a-zA-Z]/i;
+  /\byhs\b|bookmrked|\bdevam et\b|Fcebook|MYMEMORY WARNING|\bsecret\b.*\bnever\b|without review|Revэто|Revdiri|Revwiku|Revbuid|[a-zA-Z][а-яА-ЯёЁ]|[а-яА-ЯёЁ][a-zA-Z]/i;
 
 describe.each(localeCatalogs)("i18n corruption guard (%s)", (_name, catalog) => {
   it("has no mangled auto-translate fragments", () => {

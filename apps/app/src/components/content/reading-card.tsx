@@ -61,6 +61,16 @@ export function ReadingCard({
    * (voice sheet → speak). Used for user-authored custom adhkar.
    */
   enableTts,
+  /**
+   * Long-press context menu around the card. Off by default for nested /
+   * full-width custom layouts — iOS `MenuView` Hosts can mis-size full cards.
+   */
+  enableContextMenu = true,
+  /**
+   * When false, renders content without the elevated `Card` chrome (for nesting
+   * inside a parent card).
+   */
+  framed = true,
 }: {
   item: ReadingItem;
   sourceHref?: string;
@@ -72,6 +82,8 @@ export function ReadingCard({
   /** When set, shows a report button for this content item. */
   contentRef?: ContentReportReference;
   enableTts?: boolean;
+  enableContextMenu?: boolean;
+  framed?: boolean;
 }) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
@@ -148,113 +160,140 @@ export function ReadingCard({
     else if (id === "share") void onShare();
   };
 
+  const translationText = displayTranslation.trim();
+  const hasMeta =
+    !!item.transliteration?.trim() ||
+    !!translationText ||
+    !!item.virtues?.trim() ||
+    !!item.reference?.trim();
+
+  const body = (
+    <>
+      <View style={styles.header}>
+        {item.audioUri ? (
+          <LabeledIconButton
+            name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
+            label={t("common.play")}
+            iconSize={16}
+            tintColor={colors.accent}
+            background={tokens.accentSoft}
+            accessibilityLabel={t("common.play")}
+            onPress={playAudio}
+          />
+        ) : ttsPayload ? (
+          <ReadingTtsButton text={ttsPayload.text} lang={ttsPayload.lang} />
+        ) : (
+          <View />
+        )}
+        <View style={styles.headerActions}>
+          {onToggleFavorite ? (
+            <LabeledIconButton
+              name={
+                isFavorite
+                  ? { ios: "star.fill", android: "star", web: "star" }
+                  : { ios: "star", android: "star_border", web: "star_border" }
+              }
+              label={isFavorite ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
+              iconSize={16}
+              tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
+              labelColor={isFavorite ? tokens.status.warning.color : undefined}
+              accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
+              accessibilityState={{ selected: !!isFavorite }}
+              haptic="selection"
+              onPress={onToggleFavorite}
+            />
+          ) : null}
+          <LabeledIconButton
+            name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
+            label={isGesturePending(shareKey) ? t("share.tapToShare") : t("common.share")}
+            iconSize={16}
+            tintColor={colors.mutedForeground}
+            accessibilityLabel={t("reading.share")}
+            loading={isSharing(shareKey)}
+            loadingLabel={t("share.preparing")}
+            onPress={onShare}
+          />
+          {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
+        </View>
+      </View>
+
+      <ThemedText
+        type="arabic"
+        style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
+      >
+        {item.arabic}
+      </ThemedText>
+
+      {hasMeta ? <View style={[styles.divider, { backgroundColor: tokens.hairline }]} /> : null}
+
+      {item.transliteration?.trim() ? (
+        <ThemedText
+          type="small"
+          style={[
+            styles.transliteration,
+            { color: colors.accentText },
+            textSize ? { fontSize: textSize } : null,
+          ]}
+        >
+          {item.transliteration}
+        </ThemedText>
+      ) : null}
+      {translationText ? (
+        <ThemedText
+          type="default"
+          style={[
+            styles.translation,
+            textSize ? translationReadingStyle(translationLocale, textSize) : null,
+          ]}
+        >
+          {translationText}
+        </ThemedText>
+      ) : null}
+
+      {item.virtues ? (
+        <View style={[styles.note, { backgroundColor: tokens.status.success.soft }]}>
+          <SymbolView
+            name={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
+            size={16}
+            tintColor={tokens.status.success.color}
+          />
+          <ThemedText type="small" themeColor="mutedForeground" style={styles.noteText}>
+            {item.virtues}
+          </ThemedText>
+        </View>
+      ) : null}
+
+      {item.reference ? (
+        <ReferenceLine reference={item.reference} style={styles.reference} />
+      ) : null}
+    </>
+  );
+
+  const content = framed ? (
+    <Card padding="four">{body}</Card>
+  ) : (
+    <View style={styles.embed}>{body}</View>
+  );
+
   return (
     <>
       {shareCardProp ? null : SnapshotHost}
-      <ContextMenu actions={menuActions} onAction={onMenuAction}>
-        <Card padding="four">
-          <View style={styles.header}>
-            {item.audioUri ? (
-              <LabeledIconButton
-                name={{ ios: "play.fill", android: "play_arrow", web: "play_arrow" }}
-                label={t("common.play")}
-                iconSize={16}
-                tintColor={colors.accent}
-                background={tokens.accentSoft}
-                accessibilityLabel={t("common.play")}
-                onPress={playAudio}
-              />
-            ) : ttsPayload ? (
-              <ReadingTtsButton text={ttsPayload.text} lang={ttsPayload.lang} />
-            ) : (
-              <View />
-            )}
-            <View style={styles.headerActions}>
-              {onToggleFavorite ? (
-                <LabeledIconButton
-                  name={
-                    isFavorite
-                      ? { ios: "star.fill", android: "star", web: "star" }
-                      : { ios: "star", android: "star_border", web: "star_border" }
-                  }
-                  label={isFavorite ? t("quran.actionBookmarked") : t("quran.actionBookmark")}
-                  iconSize={16}
-                  tintColor={isFavorite ? tokens.status.warning.color : colors.mutedForeground}
-                  labelColor={isFavorite ? tokens.status.warning.color : undefined}
-                  accessibilityLabel={isFavorite ? t("dua.unfavorite") : t("dua.favorite")}
-                  accessibilityState={{ selected: !!isFavorite }}
-                  haptic="selection"
-                  onPress={onToggleFavorite}
-                />
-              ) : null}
-              <LabeledIconButton
-                name={{ ios: "square.and.arrow.up", android: "share", web: "share" }}
-                label={isGesturePending(shareKey) ? t("share.tapToShare") : t("common.share")}
-                iconSize={16}
-                tintColor={colors.mutedForeground}
-                accessibilityLabel={t("reading.share")}
-                loading={isSharing(shareKey)}
-                loadingLabel={t("share.preparing")}
-                onPress={onShare}
-              />
-              {contentRef ? <ContentReportButton contentRef={contentRef} /> : null}
-            </View>
-          </View>
-
-          <ThemedText
-            type="arabic"
-            style={[styles.arabic, arabicSize ? arabicReadingLayout(arabicSize) : null]}
-          >
-            {item.arabic}
-          </ThemedText>
-
-          <View style={[styles.divider, { backgroundColor: tokens.hairline }]} />
-
-          {item.transliteration ? (
-            <ThemedText
-              type="small"
-              style={[
-                styles.transliteration,
-                { color: colors.accentText },
-                textSize ? { fontSize: textSize } : null,
-              ]}
-            >
-              {item.transliteration}
-            </ThemedText>
-          ) : null}
-          <ThemedText
-            type="default"
-            style={[
-              styles.translation,
-              textSize ? translationReadingStyle(translationLocale, textSize) : null,
-            ]}
-          >
-            {displayTranslation}
-          </ThemedText>
-
-          {item.virtues ? (
-            <View style={[styles.note, { backgroundColor: tokens.status.success.soft }]}>
-              <SymbolView
-                name={{ ios: "sparkles", android: "auto_awesome", web: "auto_awesome" }}
-                size={16}
-                tintColor={tokens.status.success.color}
-              />
-              <ThemedText type="small" themeColor="mutedForeground" style={styles.noteText}>
-                {item.virtues}
-              </ThemedText>
-            </View>
-          ) : null}
-
-          {item.reference ? (
-            <ReferenceLine reference={item.reference} style={styles.reference} />
-          ) : null}
-        </Card>
-      </ContextMenu>
+      {enableContextMenu ? (
+        <ContextMenu actions={menuActions} onAction={onMenuAction}>
+          {content}
+        </ContextMenu>
+      ) : (
+        content
+      )}
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  embed: {
+    alignSelf: "stretch",
+    gap: 0,
+  },
   header: {
     flexDirection: "row",
     alignItems: "flex-start",

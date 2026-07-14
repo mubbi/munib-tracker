@@ -3847,7 +3847,10 @@
       "unavailable": "Babu gane magana akan wannan na'urar.",
       "couldNotHear": "Ba a iya jin haka - sake gwadawa ko buga.",
       "errorGeneric": "Kalmomi sun kasa. Sake gwadawa ko buga."
-    }
+    },
+    "editTitle": "Gyara adhkar",
+    "confirmDeleteTitle": "A share wannan adhkar?",
+    "confirmDeleteMsg": "“{{title}}” za a cire shi har abada."
   },
   "tahajjud": {
     "eyebrow": "Night sallah",

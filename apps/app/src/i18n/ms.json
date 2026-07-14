@@ -3939,7 +3939,10 @@
       "unavailable": "Pengecaman pertuturan tidak tersedia pada peranti ini.",
       "couldNotHear": "Tidak dapat mendengarnya — cuba lagi atau taip.",
       "errorGeneric": "Imlak gagal. Cuba lagi atau taip."
-    }
+    },
+    "editTitle": "Sunting adhkar",
+    "confirmDeleteTitle": "Padam adhkar ini?",
+    "confirmDeleteMsg": "“{{title}}” akan dibuang secara kekal."
   },
   "tahajjud": {
     "eyebrow": "Malam solat",

@@ -3939,7 +3939,10 @@
       "unavailable": "تشخیص گفتار در این دستگاه در دسترس نیست.",
       "couldNotHear": "شنیده نشد - دوباره امتحان کنید یا تایپ کنید.",
       "errorGeneric": "دیکته ناموفق بود. دوباره امتحان کنید یا تایپ کنید."
-    }
+    },
+    "editTitle": "ویرایش ذکر",
+    "confirmDeleteTitle": "این ذکر حذف شود؟",
+    "confirmDeleteMsg": "«{{title}}» برای همیشه حذف خواهد شد."
   },
   "tahajjud": {
     "eyebrow": "Night نماز",

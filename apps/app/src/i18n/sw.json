@@ -3939,7 +3939,10 @@
       "unavailable": "Utambuzi wa usemi haupatikani kwenye kifaa hiki.",
       "couldNotHear": "Haikuweza kusikia hilo - jaribu tena au chapa.",
       "errorGeneric": "Imeshindikana. Jaribu tena au chapa."
-    }
+    },
+    "editTitle": "Hariri adhkar",
+    "confirmDeleteTitle": "Futa adhkar hii?",
+    "confirmDeleteMsg": "“{{title}}” itaondolewa kabisa."
   },
   "tahajjud": {
     "eyebrow": "Night swala",

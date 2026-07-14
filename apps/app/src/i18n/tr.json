@@ -509,8 +509,8 @@
     "yourVersion": "Sürümünüz",
     "latestVersion": "En son",
     "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
-    "hardBody": "Uygulamayı kullanabilmek için {{version}} sürümüne güncelleyin.",
-    "hardNote": "Bu güncelleme zorunludur.",
+    "hardBody": "Update to version {{version}} to keep using the app.",
+    "hardNote": "This update is required to continue.",
     "updateButton": "Şimdi güncelle",
     "webReloadButton": "Yeniden yükle",
     "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
@@ -579,7 +579,7 @@
     "updateAvailableTitle": "Güncelleme mevcut",
     "updateRequiredTitle": "Güncelleme gerekli",
     "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
-    "updateRequiredDesc": "Uygulamayı kullanabilmek için {{latest}} sürümüne güncelleyin.",
+    "updateRequiredDesc": "Update to version {{latest}} to continue using the app.",
     "updateNow": "Şimdi güncelle",
     "viewUpdateDetails": "Ayrıntıları gör",
     "remindInSettings": "Ayarlar'da hatırlat",
@@ -3449,7 +3449,7 @@
       "debts": {
         "title": "Borçlar & kesintiler",
         "summary": "Immediate debts may be deducted önce calculating 2.5%",
-        "body": "Zekat, zekatlanabilir net servetiniz üzerinden hesaplanır, dolayısıyla borçlu olduğunuz gerçek borçlar, ödediğiniz tutarı azaltabilir. En açık örnek, ödenmemiş kişisel kredi, ödenmemiş kredi kartı bakiyesi, halihazırda ödenmemiş kira veya faturalar gibi vadesi dolmuş borçlardır. Çoğu akademisyen, %2,5'luk oranı uygulamadan önce bunların brüt servetinizden çıkarılmasına izin verir.\n\nİpotek veya çok yıllı taksit planı gibi uzun vadeli borçlar daha dikkatli bir şekilde ele alınır çünkü bakiyenin tamamının düşülmesi, ev kredisi olan hemen hemen herkesin zekatını yok eder. Yaygın olarak kullanılan çağdaş bir yaklaşım, ödenmemiş tutarın tamamını değil, yalnızca önümüzdeki yıl içinde ödenmesi gereken ödemeleri kesintiye uğratmaktır. Okullar ve akademisyenler burada farklılık gösterdiğinden, rehberlik altında tutarlı bir yöntem seçin.\n\nİki uyarı. İlk olarak, gelecekteki veya varsayımsal harcamaları indirilebilir borçlar olarak görmeyin; yalnızca gerçekte borçlu olduğunuz miktar dikkate alınır. İkincisi, geçen senenin ödenmemiş zekatını sıradan bir borçmuş gibi düşürmeyin; ödenmemiş zekat, ödenmesi gereken bir yükümlülük olmaya sürdürmektedir ve sadece ödenmesi gerekmektedir. Borç durumunuz karmaşık olduğunda, bir bilim adamının kararı kaba bir tahminden daha değerlidir."
+        "body": "Zekat, zekatlanabilir net servetiniz üzerinden hesaplanır, dolayısıyla borçlu olduğunuz gerçek borçlar, ödediğiniz tutarı azaltabilir. En açık örnek, ödenmemiş kişisel kredi, ödenmemiş kredi kartı bakiyesi, halihazırda ödenmemiş kira veya faturalar gibi vadesi dolmuş borçlardır. Çoğu akademisyen, %2,5'luk oranı uygulamadan önce bunların brüt servetinizden çıkarılmasına izin verir.\n\nİpotek veya çok yıllı taksit planı gibi uzun vadeli borçlar daha dikkatli bir şekilde ele alınır çünkü bakiyenin tamamının düşülmesi, ev kredisi olan hemen hemen herkesin zekatını yok eder. Yaygın olarak kullanılan çağdaş bir yaklaşım, ödenmemiş tutarın tamamını değil, yalnızca önümüzdeki yıl içinde ödenmesi gereken ödemeleri kesintiye uğratmaktır. Okullar ve akademisyenler burada farklılık gösterdiğinden, rehberlik altında tutarlı bir yöntem seçin.\n\nİki uyarı. İlk olarak, gelecekteki veya varsayımsal harcamaları indirilebilir borçlar olarak görmeyin; yalnızca gerçekte borçlu olduğunuz miktar dikkate alınır. İkincisi, geçen senenin ödenmemiş zekatını sıradan bir borçmuş gibi düşürmeyin; ödenmemiş zekat, ödenmesi gereken bir yükümlülük olmaya devam etmektedir ve sadece ödenmesi gerekmektedir. Borç durumunuz karmaşık olduğunda, bir bilim adamının kararı kaba bir tahminden daha değerlidir."
       },
       "recipients": {
         "title": "Who may receive zekat",
@@ -3847,7 +3847,10 @@
       "unavailable": "Bu cihazda konuşma tanıma kullanılamıyor.",
       "couldNotHear": "Bunu duyamadım; tekrar deneyin veya yazın.",
       "errorGeneric": "Dikte başarısız oldu. Tekrar deneyin veya yazın."
-    }
+    },
+    "editTitle": "Adhkarı düzenle",
+    "confirmDeleteTitle": "Bu adhkar silinsin mi?",
+    "confirmDeleteMsg": "“{{title}}” kalıcı olarak kaldırılacak."
   },
   "tahajjud": {
     "eyebrow": "Night namaz",

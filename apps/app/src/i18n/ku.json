@@ -3939,7 +3939,10 @@
       "unavailable": "ناسینەوەی قسەکردن لەسەر ئەم ئامێرە بەردەست نییە.",
       "couldNotHear": "نەمتوانی ئەوە ببیستێت — دووبارە هەوڵبدەرەوە یان بنووسە.",
       "errorGeneric": "دیکتەکردن شکستی هێنا. دووبارە هەوڵبدەرەوە یان بنووسە."
-    }
+    },
+    "editTitle": "Adhkarê sererast bike",
+    "confirmDeleteTitle": "Ev adhkar jê bibe?",
+    "confirmDeleteMsg": "“{{title}}” bi awayekî berdewam were jêbirin."
   },
   "tahajjud": {
     "eyebrow": "Night salah",

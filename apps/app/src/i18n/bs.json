@@ -3939,7 +3939,10 @@
       "unavailable": "Prepoznavanje govora nije dostupno na ovom uređaju.",
       "couldNotHear": "Ne čujem – pokušajte ponovo ili ukucajte.",
       "errorGeneric": "Diktat nije uspio. Pokušajte ponovo ili upišite."
-    }
+    },
+    "editTitle": "Uredi adhkar",
+    "confirmDeleteTitle": "Obriši ovaj adhkar?",
+    "confirmDeleteMsg": "“{{title}}” bit će trajno uklonjen."
   },
   "tahajjud": {
     "eyebrow": "Night salah",

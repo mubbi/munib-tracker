@@ -3847,7 +3847,10 @@
       "unavailable": "په دې وسیله د وینا پیژندنه شتون نلري.",
       "couldNotHear": "دا اوریدلی نشو - بیا هڅه وکړئ یا ټایپ کړئ.",
       "errorGeneric": "لیکدود ناکام شو. بیا هڅه وکړئ یا ټایپ کړئ."
-    }
+    },
+    "editTitle": "اذکار سمول",
+    "confirmDeleteTitle": "دا اذکار ړنګ کړئ؟",
+    "confirmDeleteMsg": "«{{title}}» به د تل لپاره لرې شي."
   },
   "tahajjud": {
     "eyebrow": "د شپې لمونځ",

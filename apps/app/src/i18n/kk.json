@@ -3939,7 +3939,10 @@
       "unavailable": "Бұл құрылғыда сөзді тану мүмкін емес.",
       "couldNotHear": "Бұл естілмеді — әрекетті қайталаңыз немесе теріңіз.",
       "errorGeneric": "Диктант орындалмады. Қайталап көріңіз немесе теріңіз."
-    }
+    },
+    "editTitle": "Adhkar өңдеу",
+    "confirmDeleteTitle": "Осы adhkar жойылсын ба?",
+    "confirmDeleteMsg": "“{{title}}” біржола жойылады."
   },
   "tahajjud": {
     "eyebrow": "Түнгі намаз",

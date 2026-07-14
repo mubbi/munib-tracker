@@ -3847,7 +3847,10 @@
       "unavailable": "Bu enjamda gepleýiş tanamak mümkin däl.",
       "couldNotHear": "Muny eşitmedim - gaýtadan synanyşyň ýa-da ýazyň.",
       "errorGeneric": "Diktasiýa başa barmady. Gaýtadan synap görüň ýa-da ýazyň."
-    }
+    },
+    "editTitle": "Adhkary redaktirlemek",
+    "confirmDeleteTitle": "Bu adhkar pozulsynmy?",
+    "confirmDeleteMsg": "“{{title}}” hemişelik öçüriler."
   },
   "tahajjud": {
     "eyebrow": "Night namaz",

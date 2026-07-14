@@ -3939,7 +3939,10 @@
       "unavailable": "Njohja e të folurit nuk ofrohet në këtë pajisje.",
       "couldNotHear": "Nuk mund ta dëgjoja - provo përsëri ose shkruani.",
       "errorGeneric": "Diktimi dështoi. Provo sërish ose shkruaj."
-    }
+    },
+    "editTitle": "Redakto adhkar",
+    "confirmDeleteTitle": "Fshi këtë adhkar?",
+    "confirmDeleteMsg": "“{{title}}” do të hiqet përgjithmonë."
   },
   "tahajjud": {
     "eyebrow": "Night salah",

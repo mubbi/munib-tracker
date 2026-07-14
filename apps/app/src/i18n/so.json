@@ -3847,7 +3847,10 @@
       "unavailable": "Aqoonsiga hadalka lagama heli karo qalabkan.",
       "couldNotHear": "Ma maqli karin taas - isku day mar kale ama qor.",
       "errorGeneric": "Af-ka-hadalku wuu fashilmay. Isku day mar kale ama ku qor"
-    }
+    },
+    "editTitle": "Wax ka beddel adhkar",
+    "confirmDeleteTitle": "Tirtir adhkarkan?",
+    "confirmDeleteMsg": "“{{title}}” waa laga saari doonaa si joogto ah."
   },
   "tahajjud": {
     "eyebrow": "Salah habeenkii",

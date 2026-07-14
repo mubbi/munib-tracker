@@ -63,6 +63,7 @@ interface CustomAdhkarState {
   isReady: boolean;
   load: () => Promise<void>;
   create: (input: CustomAdhkarInput) => Promise<CustomAdhkar>;
+  update: (id: string, input: CustomAdhkarInput) => Promise<CustomAdhkar | undefined>;
   remove: (id: string) => Promise<CustomAdhkar | undefined>;
 }
 
@@ -92,6 +93,25 @@ export const customAdhkarStore = createStore<CustomAdhkarState>((set, get) => ({
     return item;
   },
 
+  async update(id, input) {
+    const existing = get().items.find((item) => item.id === id);
+    if (!existing) return undefined;
+
+    const next: CustomAdhkar = {
+      ...existing,
+      title: input.title.trim(),
+      arabic: input.arabic.trim(),
+      transliteration: input.transliteration?.trim() || undefined,
+      translation: input.translation?.trim() || undefined,
+      reference: input.reference?.trim() || undefined,
+      images: input.images !== undefined ? normalizeImages(input.images) : existing.images,
+      updatedAt: new Date().toISOString(),
+    };
+    await collection.upsert(id, next);
+    set({ items: sortItems(get().items.map((item) => (item.id === id ? next : item))) });
+    return next;
+  },
+
   async remove(id) {
     const existing = get().items.find((item) => item.id === id);
     await collection.remove(id);
@@ -113,6 +133,7 @@ export function useCustomAdhkarList(): CustomAdhkar[] {
 const customAdhkarActions = {
   load: () => customAdhkarStore.getState().load(),
   create: (input: CustomAdhkarInput) => customAdhkarStore.getState().create(input),
+  update: (id: string, input: CustomAdhkarInput) => customAdhkarStore.getState().update(id, input),
   remove: (id: string) => customAdhkarStore.getState().remove(id),
 } as const;
 

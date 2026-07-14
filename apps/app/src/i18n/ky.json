@@ -3939,7 +3939,10 @@
       "unavailable": "Кепти таануу бул түзмөктө жеткиликсиз.",
       "couldNotHear": "Угулган жок — кайра аракет кылыңыз же териңиз.",
       "errorGeneric": "Диктант жазылбай калды. Кайталап көрүңүз же териңиз."
-    }
+    },
+    "editTitle": "Adhkar түзөтүү",
+    "confirmDeleteTitle": "Бул adhkar өчүрүлсүнбү?",
+    "confirmDeleteMsg": "“{{title}}” түбөлүккө өчүрүлөт."
   },
   "tahajjud": {
     "eyebrow": "Түнкү намаз",

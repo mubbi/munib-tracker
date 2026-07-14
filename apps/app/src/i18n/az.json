@@ -3847,7 +3847,10 @@
       "unavailable": "Bu cihazda nitqin tanınması əlçatan deyil.",
       "couldNotHear": "Bunu eşitmək mümkün olmadı – yenidən cəhd edin və ya yazın.",
       "errorGeneric": "Diktasiya alınmadı. Yenidən cəhd edin və ya yazın."
-    }
+    },
+    "editTitle": "Adhkarı redaktə et",
+    "confirmDeleteTitle": "Bu adhkar silinsin?",
+    "confirmDeleteMsg": "“{{title}}” həmişəlik silinəcək."
   },
   "tahajjud": {
     "eyebrow": "Gecə salahı",
