@@ -214,14 +214,13 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
 });
 
 const styles = StyleSheet.create({
-  // Fill fixed-size hosts (Explore wells, hero topbar buttons) so
-  // alignItems/justifyContent on the inner can center children. When the host
-  // height is auto, RN treats percentage height as auto — shrink-wrapped
-  // pressables stay content-sized. Numeric width/height are also copied onto the
-  // inner in splitRippleHostStyles for platforms where % fill is unreliable.
+  // Stretch to the host's content width so column/card pressables fill their
+  // lane. Do NOT set percentage width/height here — on native Yoga, `%` against
+  // an auto-sized host can inflate the host to the nearest definite ancestor
+  // (e.g. flex:1 screen), which stretched intro Buttons and the home hero/
+  // seasonal banners to full-screen. Fixed pixel wells (Explore / hero chrome)
+  // still get numeric width/height copied onto the inner via splitRippleHostStyles.
   inner: {
     alignSelf: "stretch",
-    width: "100%",
-    height: "100%",
   },
 });

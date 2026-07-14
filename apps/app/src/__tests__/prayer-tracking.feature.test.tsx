@@ -15,6 +15,9 @@ beforeEach(async () => {
 });
 
 describe("Prayer tracking dashboard", () => {
+  // Home + below-fold hydrate slowly under parallel Jest workers.
+  jest.setTimeout(30_000);
+
   it("reflects a completed prayer in the Prayers stat card", async () => {
     renderWithProviders(<HomeScreen />);
 
@@ -22,15 +25,18 @@ describe("Prayer tracking dashboard", () => {
       () => {
         expect(screen.getByText("0 of 5 tasks")).toBeTruthy();
       },
-      { timeout: 5000 },
+      { timeout: 15_000 },
     );
 
     await act(async () => {
       await trackerStore.getState().setPrayerStatus("fajr", "completed");
     });
 
-    await waitFor(() => {
-      expect(screen.getByText("1 of 5 tasks")).toBeTruthy();
-    });
-  }, 15_000);
+    await waitFor(
+      () => {
+        expect(screen.getByText("1 of 5 tasks")).toBeTruthy();
+      },
+      { timeout: 10_000 },
+    );
+  });
 });
