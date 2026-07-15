@@ -7,8 +7,8 @@ import {
   HttpStatus,
   Param,
   Post,
+  Req,
   StreamableFile,
-  UnauthorizedException,
   UploadedFiles,
   UseInterceptors,
 } from "@nestjs/common";
@@ -22,7 +22,9 @@ import {
   ApiOperation,
   ApiTags,
 } from "@nestjs/swagger";
+import type { Request } from "express";
 import { memoryStorage } from "multer";
+import { resolveAccessToken } from "../auth/resolve-access-token";
 import { UserMediaDto, UserMediaListResponseDto } from "./dto/user-media.dto";
 import {
   type UploadedUserMedia,
@@ -64,6 +66,7 @@ export class UserMediaController {
   )
   async upload(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @UploadedFiles() files?: Express.Multer.File[],
   ): Promise<UserMediaListResponseDto> {
     const uploaded: UploadedUserMedia[] = (files ?? []).map((file) => ({
@@ -73,7 +76,7 @@ export class UserMediaController {
       size: file.size,
     }));
     const items = await this.userMediaService.upload(
-      this.extractBearerToken(authorization),
+      resolveAccessToken(req, authorization),
       uploaded,
     );
     return { items };
@@ -85,9 +88,10 @@ export class UserMediaController {
   @ApiOkResponse({ type: UserMediaDto })
   getMeta(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Param("id") id: string,
   ): Promise<UserMediaDto> {
-    return this.userMediaService.getMeta(this.extractBearerToken(authorization), id);
+    return this.userMediaService.getMeta(resolveAccessToken(req, authorization), id);
   }
 
   @Get(":id/content")
@@ -97,10 +101,11 @@ export class UserMediaController {
   })
   async getContent(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Param("id") id: string,
   ): Promise<StreamableFile> {
     const { buffer, mimeType, filename } = await this.userMediaService.getContent(
-      this.extractBearerToken(authorization),
+      resolveAccessToken(req, authorization),
       id,
     );
     return new StreamableFile(buffer, {
@@ -115,15 +120,9 @@ export class UserMediaController {
   @ApiOperation({ summary: "Delete a media item owned by the current user" })
   async remove(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Param("id") id: string,
   ): Promise<void> {
-    await this.userMediaService.remove(this.extractBearerToken(authorization), id);
-  }
-
-  private extractBearerToken(authorization?: string): string {
-    if (!authorization?.startsWith("Bearer ")) {
-      throw new UnauthorizedException("Missing bearer token");
-    }
-    return authorization.slice("Bearer ".length).trim();
+    await this.userMediaService.remove(resolveAccessToken(req, authorization), id);
   }
 }

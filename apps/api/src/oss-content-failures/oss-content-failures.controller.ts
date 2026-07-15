@@ -1,13 +1,7 @@
-import {
-  Body,
-  Controller,
-  Headers,
-  HttpCode,
-  HttpStatus,
-  Post,
-  UnauthorizedException,
-} from "@nestjs/common";
+import { Body, Controller, Headers, HttpCode, HttpStatus, Post, Req } from "@nestjs/common";
 import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import type { Request } from "express";
+import { resolveAccessToken } from "../auth/resolve-access-token";
 import { ReportOssContentDownloadFailureDto } from "./dto/oss-content-failure.dto";
 import { OssContentFailuresService } from "./oss-content-failures.service";
 
@@ -25,15 +19,9 @@ export class OssContentFailuresController {
   @ApiCreatedResponse({ description: "Failure recorded" })
   report(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Body() dto: ReportOssContentDownloadFailureDto,
   ): Promise<void> {
-    return this.ossContentFailuresService.report(this.extractBearerToken(authorization), dto);
-  }
-
-  private extractBearerToken(authorization?: string): string {
-    if (!authorization?.startsWith("Bearer ")) {
-      throw new UnauthorizedException("Missing bearer token");
-    }
-    return authorization.slice("Bearer ".length);
+    return this.ossContentFailuresService.report(resolveAccessToken(req, authorization), dto);
   }
 }

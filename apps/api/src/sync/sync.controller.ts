@@ -7,9 +7,11 @@ import {
   HttpStatus,
   Post,
   Query,
-  UnauthorizedException,
+  Req,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import type { Request } from "express";
+import { resolveAccessToken } from "../auth/resolve-access-token";
 import {
   SyncPullQueryDto,
   SyncPullResponseDto,
@@ -29,9 +31,10 @@ export class SyncController {
   @ApiOkResponse({ type: SyncPullResponseDto })
   pull(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Query() query: SyncPullQueryDto,
   ): Promise<SyncPullResponseDto> {
-    return this.syncService.pull(this.extractBearerToken(authorization), query.since);
+    return this.syncService.pull(resolveAccessToken(req, authorization), query.since);
   }
 
   @Post("push")
@@ -40,16 +43,9 @@ export class SyncController {
   @ApiOkResponse({ type: SyncPushResponseDto })
   push(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Body() dto: SyncPushDto,
   ): Promise<SyncPushResponseDto> {
-    return this.syncService.push(this.extractBearerToken(authorization), dto);
-  }
-
-  private extractBearerToken(authorization?: string): string {
-    if (!authorization?.startsWith("Bearer ")) {
-      throw new UnauthorizedException("Missing bearer token");
-    }
-
-    return authorization.slice("Bearer ".length).trim();
+    return this.syncService.push(resolveAccessToken(req, authorization), dto);
   }
 }

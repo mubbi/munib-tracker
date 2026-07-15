@@ -1,9 +1,10 @@
-import { ApiError, getApiBaseUrl, getRegisteredTokenRefresher } from "@munib-tracker/api-client";
+import { apiFetch } from "@munib-tracker/api-client";
 import {
   isAllowedNotificationExternalUrl,
   NOTIFICATION_OPEN_EXTERNAL_ACTION,
 } from "@munib-tracker/shared/admin-broadcasts";
 
+import { apiAuthOptions } from "@/api/auth-options";
 import type { InAppNotification, InAppNotificationKind } from "@/lib/in-app-notifications/storage";
 
 export type ServerInAppNotification = {
@@ -19,48 +20,6 @@ export type ServerInAppNotification = {
   clickedAt?: string | null;
   createdAt: string;
 };
-
-async function fetchWithAuth<T>(path: string, init: RequestInit, accessToken: string): Promise<T> {
-  const url = `${getApiBaseUrl()}${path}`;
-  const send = (token: string) =>
-    fetch(url, {
-      ...init,
-      headers: {
-        "Content-Type": "application/json",
-        ...(init.headers ?? {}),
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-  let response = await send(accessToken);
-
-  if (response.status === 401) {
-    const refresher = getRegisteredTokenRefresher();
-    if (refresher) {
-      const refreshed = await refresher();
-      if (refreshed && refreshed !== accessToken) {
-        response = await send(refreshed);
-      }
-    }
-  }
-
-  if (response.status === 204) {
-    return undefined as T;
-  }
-
-  const body = await response.json().catch(() => undefined);
-  if (!response.ok) {
-    throw new ApiError(
-      typeof body === "object" && body && "message" in body
-        ? String((body as { message: string }).message)
-        : `Request failed with status ${response.status}`,
-      response.status,
-      body,
-    );
-  }
-
-  return body as T;
-}
 
 function isInAppKind(kind: string): kind is InAppNotificationKind {
   return (
@@ -98,20 +57,25 @@ export function mapServerInAppNotification(row: ServerInAppNotification): InAppN
 }
 
 export async function fetchInAppNotifications(accessToken: string): Promise<InAppNotification[]> {
-  const result = await fetchWithAuth<{ items: ServerInAppNotification[] }>(
-    "/notifications/in-app",
-    { method: "GET" },
-    accessToken,
+  const result = await apiFetch<{ items: ServerInAppNotification[] }>(
+    { url: "/notifications/in-app", method: "GET" },
+    apiAuthOptions(accessToken),
   );
   return (result.items ?? []).map(mapServerInAppNotification);
 }
 
 export async function markServerInAppRead(accessToken: string, serverId: number): Promise<void> {
-  await fetchWithAuth(`/notifications/in-app/${serverId}/read`, { method: "PATCH" }, accessToken);
+  await apiFetch(
+    { url: `/notifications/in-app/${serverId}/read`, method: "PATCH" },
+    apiAuthOptions(accessToken),
+  );
 }
 
 export async function markAllServerInAppRead(accessToken: string): Promise<void> {
-  await fetchWithAuth("/notifications/in-app/mark-all-read", { method: "POST" }, accessToken);
+  await apiFetch(
+    { url: "/notifications/in-app/mark-all-read", method: "POST" },
+    apiAuthOptions(accessToken),
+  );
 }
 
 export async function engageServerInApp(
@@ -119,10 +83,13 @@ export async function engageServerInApp(
   serverId: number,
   action: "open" | "click",
 ): Promise<void> {
-  await fetchWithAuth(
-    `/notifications/in-app/${serverId}/engage`,
-    { method: "POST", body: JSON.stringify({ action }) },
-    accessToken,
+  await apiFetch(
+    {
+      url: `/notifications/in-app/${serverId}/engage`,
+      method: "POST",
+      body: JSON.stringify({ action }),
+    },
+    apiAuthOptions(accessToken),
   );
 }
 
@@ -136,10 +103,13 @@ export async function upsertPushToken(
     clientPlatform?: string;
   },
 ): Promise<void> {
-  await fetchWithAuth(
-    "/notifications/push-token",
-    { method: "PUT", body: JSON.stringify(input) },
-    accessToken,
+  await apiFetch(
+    {
+      url: "/notifications/push-token",
+      method: "PUT",
+      body: JSON.stringify(input),
+    },
+    apiAuthOptions(accessToken),
   );
 }
 

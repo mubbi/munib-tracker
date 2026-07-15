@@ -5,13 +5,17 @@ import {
   type SyncPullResponseDto,
   type SyncPushResponseDto,
   type SyncRecordDto,
+  WEB_COOKIE_SESSION_TOKEN,
 } from "@munib-tracker/api-client";
+
+import { apiAuthOptions } from "@/api/auth-options";
 
 /**
  * Thin typed wrappers over the API. We call `apiFetch` directly (rather than the
  * generated hooks) because the generated request functions can't attach a JSON
  * body, and because we need per-request bearer tokens. Paths omit the `/api/v1`
- * prefix — `getApiBaseUrl()` already includes it.
+ * prefix — `getApiBaseUrl()` already includes it. Orval-generated paths that
+ * include `/api/v1` are normalized in `apiFetch` / `resolveApiUrl`.
  */
 
 type OAuthPayload = {
@@ -27,8 +31,8 @@ type OAuthPayload = {
 
 export type OAuthProvider = "google" | "apple" | "facebook";
 
-/** Marker stored instead of JWTs when the web app uses HttpOnly cookies. */
-export const WEB_COOKIE_SESSION_TOKEN = "cookie";
+/** @deprecated Import from `@munib-tracker/api-client` or `@/api/auth-options`. */
+export { WEB_COOKIE_SESSION_TOKEN };
 
 export type WebAuthSessionResponse = {
   user: AuthUserResponseDto;
@@ -153,7 +157,7 @@ export async function linkAccount(
 ): Promise<AuthSessionResponseDto> {
   const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>(
     { url: "/auth/link", method: "POST", body: JSON.stringify({ provider, ...payload }) },
-    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
+    apiAuthOptions(accessToken),
   );
   return normalizeAuthSessionResponse(body);
 }
@@ -170,30 +174,24 @@ export async function refreshSession(refreshToken: string): Promise<AuthSessionR
 export function getCurrentUser(accessToken: string): Promise<AuthUserResponseDto> {
   return apiFetch<AuthUserResponseDto>(
     { url: "/auth/me", method: "GET" },
-    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
+    apiAuthOptions(accessToken),
   );
 }
 
 export function logout(accessToken: string): Promise<void> {
-  return apiFetch<void>(
-    { url: "/auth/logout", method: "POST" },
-    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
-  );
+  return apiFetch<void>({ url: "/auth/logout", method: "POST" }, apiAuthOptions(accessToken));
 }
 
 /** Permanently deletes the current account and all its synced data on the server. */
 export function deleteAccount(accessToken: string): Promise<void> {
-  return apiFetch<void>(
-    { url: "/auth/me", method: "DELETE" },
-    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
-  );
+  return apiFetch<void>({ url: "/auth/me", method: "DELETE" }, apiAuthOptions(accessToken));
 }
 
 export function syncPull(accessToken: string, since?: string): Promise<SyncPullResponseDto> {
   const query = since ? `?since=${encodeURIComponent(since)}` : "";
   return apiFetch<SyncPullResponseDto>(
     { url: `/sync/pull${query}`, method: "GET" },
-    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
+    apiAuthOptions(accessToken),
   );
 }
 
@@ -205,6 +203,6 @@ export function syncPush(
     // The server DTO field is `changes` (SyncPushDto.changes) — the payload key
     // must match or the ValidationPipe rejects every push.
     { url: "/sync/push", method: "POST", body: JSON.stringify({ changes: records }) },
-    { accessToken: accessToken === WEB_COOKIE_SESSION_TOKEN ? undefined : accessToken },
+    apiAuthOptions(accessToken),
   );
 }

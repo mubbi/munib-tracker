@@ -1,4 +1,4 @@
-import { getApiBaseUrl } from "./api-base-url";
+import { resolveApiUrl } from "./api-base-url";
 import { getAppVersionHeaders, notifyVersionMetaFromResponse } from "./app-version-store";
 import {
   ApiBlockedError,
@@ -6,6 +6,7 @@ import {
   endApiRequest,
   isAppReloadInProgress,
 } from "./cloud-api-gate";
+import { isWebCookieSessionToken } from "./web-cookie-session";
 
 export type ApiFetchOptions = RequestInit & {
   accessToken?: string;
@@ -53,7 +54,8 @@ export function getRegisteredTokenRefresher(): TokenRefresher | null {
   return tokenRefresher;
 }
 
-export { getApiBaseUrl } from "./api-base-url";
+export { getApiBaseUrl, resolveApiUrl } from "./api-base-url";
+export { isWebCookieSessionToken, WEB_COOKIE_SESSION_TOKEN } from "./web-cookie-session";
 
 function isWebRuntime(): boolean {
   return typeof document !== "undefined";
@@ -61,6 +63,25 @@ function isWebRuntime(): boolean {
 
 function isLikelyWebCookieSession(): boolean {
   return isWebRuntime();
+}
+
+function isFormDataBody(body: unknown): boolean {
+  return typeof FormData !== "undefined" && body instanceof FormData;
+}
+
+function headersRecord(init?: HeadersInit): Record<string, string> {
+  if (!init) return {};
+  if (init instanceof Headers) {
+    const out: Record<string, string> = {};
+    init.forEach((value, key) => {
+      out[key] = value;
+    });
+    return out;
+  }
+  if (Array.isArray(init)) {
+    return Object.fromEntries(init);
+  }
+  return { ...init };
 }
 
 export async function apiFetch<T>(
@@ -72,7 +93,7 @@ export async function apiFetch<T>(
   }
 
   const { accessToken, headers, ...requestInit } = options;
-  let targetUrl = config.url.startsWith("http") ? config.url : `${getApiBaseUrl()}${config.url}`;
+  let targetUrl = resolveApiUrl(config.url);
 
   // orval-generated calls pass query params separately; append them to the URL.
   if (config.params) {
@@ -87,6 +108,7 @@ export async function apiFetch<T>(
   // Accept both a raw `body` (hand-written callers) and orval's `data` (JSON body).
   const requestBody =
     config.body ?? (config.data != null ? JSON.stringify(config.data) : undefined);
+  const formData = isFormDataBody(requestBody);
 
   const webHeaders: Record<string, string> = isWebRuntime()
     ? {
@@ -97,11 +119,20 @@ export async function apiFetch<T>(
 
   const send = (token?: string) => {
     const requestHeaders: Record<string, string> = {
-      "Content-Type": "application/json",
+      // Let the runtime set multipart boundaries for FormData.
+      ...(formData ? {} : { "Content-Type": "application/json" }),
       ...getAppVersionHeaders(),
       ...webHeaders,
+      ...headersRecord(config.headers),
+      ...headersRecord(headers),
     };
-    if (token && token !== "cookie") {
+    if (formData) {
+      // Orval often injects Content-Type: application/json — drop it for multipart.
+      delete requestHeaders["Content-Type"];
+      delete requestHeaders["content-type"];
+    }
+    // Web cookie sessions store the marker — never send it as Bearer.
+    if (token && !isWebCookieSessionToken(token)) {
       requestHeaders.Authorization = `Bearer ${token}`;
     }
     return fetch(targetUrl, {
@@ -110,11 +141,7 @@ export async function apiFetch<T>(
       body: requestBody,
       signal: config.signal,
       credentials: "include",
-      headers: {
-        ...requestHeaders,
-        ...(config.headers as Record<string, string> | undefined),
-        ...(headers as Record<string, string> | undefined),
-      },
+      headers: requestHeaders,
     });
   };
 
@@ -132,8 +159,8 @@ export async function apiFetch<T>(
     ) {
       const refreshed = await tokenRefresher();
       if (refreshed && refreshed !== accessToken) {
-        response = await send(refreshed === "cookie" ? undefined : refreshed);
-      } else if (refreshed === "cookie" || (refreshed && !accessToken)) {
+        response = await send(isWebCookieSessionToken(refreshed) ? undefined : refreshed);
+      } else if (isWebCookieSessionToken(refreshed) || (refreshed && !accessToken)) {
         response = await send(undefined);
       }
     }

@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { Linking } from "react-native";
@@ -58,14 +59,17 @@ export function InAppNotificationsProvider({ children }: { children: ReactNode }
   const router = useRouter();
   const { session, isAuthenticated } = useAuth();
   const [items, setItems] = useState<InAppNotification[]>([]);
+  const sessionRef = useRef(session);
+  sessionRef.current = session;
 
   const refresh = useCallback(async () => {
     setItems(await loadInAppNotifications());
   }, []);
 
   const syncFromServer = useCallback(async () => {
-    const token = session?.accessToken;
-    if (!isAuthenticated || !token) {
+    const token = sessionRef.current?.accessToken;
+    // Key server inbox identity by user, not by rotating access token.
+    if (!isAuthenticated || !session?.userId || !token) {
       await refresh();
       return;
     }
@@ -75,7 +79,7 @@ export function InAppNotificationsProvider({ children }: { children: ReactNode }
     } catch {
       await refresh();
     }
-  }, [isAuthenticated, refresh, session?.accessToken]);
+  }, [isAuthenticated, refresh, session?.userId]);
 
   useEffect(() => {
     void syncFromServer();

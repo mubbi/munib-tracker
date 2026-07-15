@@ -9,7 +9,7 @@ import {
   Param,
   Post,
   Query,
-  UnauthorizedException,
+  Req,
   UploadedFiles,
   UseInterceptors,
 } from "@nestjs/common";
@@ -25,7 +25,9 @@ import {
 } from "@nestjs/swagger";
 import { plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
+import type { Request } from "express";
 import { memoryStorage } from "multer";
+import { resolveAccessToken } from "../auth/resolve-access-token";
 import { ContentReportsService, type UploadedAttachment } from "./content-reports.service";
 import {
   ContentReportDetailDto,
@@ -70,6 +72,7 @@ export class ContentReportsController {
   )
   create(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Body("payload") payload: string,
     @UploadedFiles() files?: Express.Multer.File[],
   ): Promise<ContentReportDetailDto> {
@@ -81,7 +84,7 @@ export class ContentReportsController {
       size: file.size,
     }));
     return this.contentReportsService.create(
-      this.extractBearerToken(authorization),
+      resolveAccessToken(req, authorization),
       dto,
       attachments,
     );
@@ -93,10 +96,11 @@ export class ContentReportsController {
   @ApiOkResponse({ type: ContentReportListResponseDto })
   list(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Query() query: ContentReportListQueryDto,
   ): Promise<ContentReportListResponseDto> {
     return this.contentReportsService.list(
-      this.extractBearerToken(authorization),
+      resolveAccessToken(req, authorization),
       query.page,
       query.limit,
     );
@@ -108,9 +112,10 @@ export class ContentReportsController {
   @ApiOkResponse({ type: ContentReportDetailDto })
   getById(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Param("id") id: string,
   ): Promise<ContentReportDetailDto> {
-    return this.contentReportsService.getById(this.extractBearerToken(authorization), id);
+    return this.contentReportsService.getById(resolveAccessToken(req, authorization), id);
   }
 
   private parsePayload(payload: string): CreateContentReportDto {
@@ -132,13 +137,5 @@ export class ContentReportsController {
     }
 
     return dto;
-  }
-
-  private extractBearerToken(authorization?: string): string {
-    if (!authorization?.startsWith("Bearer ")) {
-      throw new UnauthorizedException("Missing bearer token");
-    }
-
-    return authorization.slice("Bearer ".length).trim();
   }
 }

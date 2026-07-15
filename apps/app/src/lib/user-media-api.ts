@@ -1,6 +1,8 @@
-import { ApiError, getApiBaseUrl, getRegisteredTokenRefresher } from "@munib-tracker/api-client";
+import { ApiError, apiFetch, getApiBaseUrl } from "@munib-tracker/api-client";
 import { USER_MEDIA_MAX_BYTES, USER_MEDIA_MAX_PER_ENTITY } from "@munib-tracker/shared/constants";
 import { Platform } from "react-native";
+
+import { apiAuthOptions } from "@/api/auth-options";
 
 /** @deprecated Prefer USER_MEDIA_MAX_PER_ENTITY from shared constants. */
 export const CUSTOM_ADHKAR_MAX_IMAGES = USER_MEDIA_MAX_PER_ENTITY;
@@ -21,47 +23,6 @@ export type UserMediaDto = {
   contentPath: string;
   createdAt: string;
 };
-
-async function fetchWithAuth<T>(path: string, init: RequestInit, accessToken: string): Promise<T> {
-  const url = `${getApiBaseUrl()}${path}`;
-  const send = (token: string) =>
-    fetch(url, {
-      ...init,
-      headers: {
-        ...(init.headers ?? {}),
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-  let response = await send(accessToken);
-
-  if (response.status === 401) {
-    const refresher = getRegisteredTokenRefresher();
-    if (refresher) {
-      const refreshed = await refresher();
-      if (refreshed && refreshed !== accessToken) {
-        response = await send(refreshed);
-      }
-    }
-  }
-
-  if (response.status === 204) {
-    return undefined as T;
-  }
-
-  const body = await response.json().catch(() => undefined);
-  if (!response.ok) {
-    throw new ApiError(
-      typeof body === "object" && body && "message" in body
-        ? String((body as { message: string }).message)
-        : `Request failed with status ${response.status}`,
-      response.status,
-      body,
-    );
-  }
-
-  return body as T;
-}
 
 export function userMediaContentUrl(mediaId: string): string {
   return `${getApiBaseUrl()}/user-media/${encodeURIComponent(mediaId)}/content`;
@@ -87,19 +48,17 @@ export async function uploadUserMedia(
     }
   }
 
-  const result = await fetchWithAuth<{ items: UserMediaDto[] }>(
-    "/user-media",
-    { method: "POST", body: form },
-    accessToken,
+  const result = await apiFetch<{ items: UserMediaDto[] }>(
+    { url: "/user-media", method: "POST", body: form },
+    apiAuthOptions(accessToken),
   );
   return result.items;
 }
 
 export async function deleteUserMedia(accessToken: string, mediaId: string): Promise<void> {
-  await fetchWithAuth<void>(
-    `/user-media/${encodeURIComponent(mediaId)}`,
-    { method: "DELETE" },
-    accessToken,
+  await apiFetch(
+    { url: `/user-media/${encodeURIComponent(mediaId)}`, method: "DELETE" },
+    apiAuthOptions(accessToken),
   );
 }
 

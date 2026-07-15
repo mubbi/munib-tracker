@@ -9,6 +9,8 @@ import { useIsOnline } from "@/hooks/use-is-online";
 import { needsExplicitVersionPolling } from "@/lib/app/app-version-background-check";
 import { useAuth } from "@/providers/auth-provider";
 
+const VERSION_FOCUS_MIN_INTERVAL_MS = 5 * 60 * 1000;
+
 /**
  * Version check via public GET /version/meta:
  * - Always on launch and when the app returns to foreground.
@@ -18,7 +20,7 @@ export function useAppVersionBackgroundSync(
   onMeta: (meta: AppVersionMeta) => void,
   enabled = true,
 ): void {
-  const { isAuthenticated, session } = useAuth();
+  const { isAuthenticated } = useAuth();
   const isOnline = useIsOnline();
   const pollOnInterval = needsExplicitVersionPolling({
     isLoggedIn: isAuthenticated,
@@ -28,15 +30,18 @@ export function useAppVersionBackgroundSync(
   const onMetaRef = useRef(onMeta);
   onMetaRef.current = onMeta;
   const inFlightRef = useRef(false);
-  const accessToken = session?.accessToken;
+  const lastRunAtRef = useRef(0);
 
   useEffect(() => {
     if (!enabled) return;
 
-    const run = () => {
+    const run = (force = false) => {
       if (inFlightRef.current) return;
+      if (!force && Date.now() - lastRunAtRef.current < VERSION_FOCUS_MIN_INTERVAL_MS) return;
       inFlightRef.current = true;
-      void fetchAppVersionMeta(accessToken)
+      lastRunAtRef.current = Date.now();
+      // Public endpoint: auth state/token rotation must not restart this effect.
+      void fetchAppVersionMeta()
         .then((meta) => {
           if (meta) onMetaRef.current(meta);
         })
@@ -45,16 +50,11 @@ export function useAppVersionBackgroundSync(
         });
     };
 
-    run();
+    run(true);
 
     const intervalId = pollOnInterval
       ? setInterval(run, APP_VERSION_BACKGROUND_POLL_MS)
       : undefined;
-
-    const onAppState = (next: AppStateStatus) => {
-      if (next === "active") run();
-    };
-    const appStateSub = AppState.addEventListener("change", onAppState);
 
     if (Platform.OS === "web" && typeof document !== "undefined") {
       const onVisibility = () => {
@@ -63,14 +63,18 @@ export function useAppVersionBackgroundSync(
       document.addEventListener("visibilitychange", onVisibility);
       return () => {
         if (intervalId !== undefined) clearInterval(intervalId);
-        appStateSub.remove();
         document.removeEventListener("visibilitychange", onVisibility);
       };
     }
+
+    const onAppState = (next: AppStateStatus) => {
+      if (next === "active") run();
+    };
+    const appStateSub = AppState.addEventListener("change", onAppState);
 
     return () => {
       if (intervalId !== undefined) clearInterval(intervalId);
       appStateSub.remove();
     };
-  }, [pollOnInterval, enabled, accessToken]);
+  }, [pollOnInterval, enabled]);
 }

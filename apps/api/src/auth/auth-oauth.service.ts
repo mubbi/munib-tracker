@@ -18,7 +18,6 @@ import {
   clearAccessTokenCookie,
   clearRefreshTokenCookie,
   isWebAuthClient,
-  readAccessTokenFromRequest,
   readRefreshTokenFromRequest,
   setAccessTokenCookie,
   setRefreshTokenCookie,
@@ -38,6 +37,7 @@ import { AuthProvider } from "./dto/auth.dto";
 import { verifyGoogleAccessToken } from "./google-access-token";
 import { OAuthProviderService } from "./oauth-provider.service";
 import { assertOAuthReturnUrlAllowed, assertRedirectUriAllowed } from "./oauth-redirect-allowlist";
+import { resolveAccessToken as resolveAccessTokenFromRequest } from "./resolve-access-token";
 
 function clientIp(req: Request): string {
   const forwarded = req.headers["x-forwarded-for"];
@@ -210,13 +210,7 @@ export class AuthOAuthService {
   }
 
   resolveAccessToken(req: Request, authorization?: string): string {
-    if (authorization?.startsWith("Bearer ")) {
-      const bearer = authorization.slice("Bearer ".length).trim();
-      if (bearer) return bearer;
-    }
-    const fromCookie = readAccessTokenFromRequest(req);
-    if (fromCookie) return fromCookie;
-    throw new UnauthorizedException("Missing bearer token");
+    return resolveAccessTokenFromRequest(req, authorization);
   }
 
   resolveRefreshToken(req: Request, bodyToken?: string): string {

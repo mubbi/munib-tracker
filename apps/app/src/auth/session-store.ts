@@ -25,7 +25,7 @@ const DEVICE_ID_KEY = "munib.deviceId";
 const WEB_ACCESS_KEY = "munib.accessSession";
 const WEB_REFRESH_KEY = "munib.refreshSession";
 const WEB_META_KEY = "munib.sessionMeta";
-const COOKIE_MARKER = "cookie";
+const COOKIE_MARKER = "cookie" as const; // keep in sync with WEB_COOKIE_SESSION_TOKEN
 
 const isWeb = Platform.OS === "web";
 

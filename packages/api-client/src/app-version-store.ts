@@ -6,6 +6,7 @@
 import { getApiBaseUrl } from "./api-base-url";
 import { type AppPlatform, normalizeAppPlatform } from "./app-version-platform";
 import { APP_VERSION_RESPONSE_HEADERS, getResponseHeader } from "./app-version-response-headers";
+import { isWebCookieSessionToken } from "./web-cookie-session";
 
 export type UpdateRequired = "none" | "soft" | "hard";
 
@@ -93,13 +94,18 @@ export async function fetchAppVersionMeta(accessToken?: string): Promise<AppVers
   const params = new URLSearchParams({ version, platform });
   const url = `${base.replace(/\/$/, "")}/version/meta?${params}`;
   try {
+    const headers: Record<string, string> = {
+      accept: "application/json",
+      ...getAppVersionHeaders(),
+    };
+    // Public endpoint — never send the web cookie-session marker as Bearer.
+    if (accessToken && !isWebCookieSessionToken(accessToken)) {
+      headers.Authorization = `Bearer ${accessToken}`;
+    }
     const response = await fetch(url, {
       method: "GET",
-      headers: {
-        accept: "application/json",
-        ...getAppVersionHeaders(),
-        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-      },
+      credentials: "include",
+      headers,
     });
     notifyVersionMetaFromResponse(response);
     if (!response.ok) return null;

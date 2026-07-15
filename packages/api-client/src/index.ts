@@ -33,6 +33,11 @@ export {
   apiFetch,
   getApiBaseUrl,
   getRegisteredTokenRefresher,
+  resolveApiUrl,
   setTokenRefresher,
 } from "./mutator";
 export { ApiQueryProvider, appQueryClient } from "./provider";
+export {
+  isWebCookieSessionToken,
+  WEB_COOKIE_SESSION_TOKEN,
+} from "./web-cookie-session";

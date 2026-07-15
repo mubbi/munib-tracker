@@ -10,6 +10,9 @@ async function loadExpoNotifications() {
   return import("expo-notifications");
 }
 
+let lastRegisteredKey: string | null = null;
+const pendingRegistrationKeys = new Set<string>();
+
 function resolveExpoProjectId(): string | undefined {
   const easConfig = Constants.easConfig as { projectId?: string } | null;
   const extra = Constants.expoConfig?.extra as { eas?: { projectId?: string } } | undefined;
@@ -37,13 +40,31 @@ export async function registerExpoPushTokenWithApi(accessToken: string | undefin
     if (!token) return;
 
     const deviceId = await SessionStore.getDeviceId();
-    await upsertPushToken(accessToken, {
+    const session = await SessionStore.get();
+    const registrationKey = [
+      session?.userId ?? "unknown",
       token,
       deviceId,
-      platform: "expo",
-      locale: i18n.language,
-      clientPlatform: Platform.OS,
-    });
+      i18n.language,
+      Platform.OS,
+    ].join(":");
+    if (registrationKey === lastRegisteredKey || pendingRegistrationKeys.has(registrationKey)) {
+      return;
+    }
+
+    pendingRegistrationKeys.add(registrationKey);
+    try {
+      await upsertPushToken(accessToken, {
+        token,
+        deviceId,
+        platform: "expo",
+        locale: i18n.language,
+        clientPlatform: Platform.OS,
+      });
+      lastRegisteredKey = registrationKey;
+    } finally {
+      pendingRegistrationKeys.delete(registrationKey);
+    }
   } catch {
     // Push registration is best-effort (simulator / missing projectId).
   }

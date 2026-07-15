@@ -7,6 +7,10 @@ export const appQueryClient = new QueryClient({
     queries: {
       staleTime: 30_000,
       retry: 1,
+      // Foreground/reconnect work is explicitly coordinated by the app. Avoid
+      // surprise refetches from generated hooks when a browser tab is reopened.
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
     },
   },
 });

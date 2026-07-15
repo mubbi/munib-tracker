@@ -1,4 +1,4 @@
-import { ApiError, getApiBaseUrl, getRegisteredTokenRefresher } from "@munib-tracker/api-client";
+import { ApiError, apiFetch } from "@munib-tracker/api-client";
 import type {
   ContentReportDetail,
   ContentReportListResponse,
@@ -6,52 +6,13 @@ import type {
 } from "@munib-tracker/shared/types/content-report";
 import { Platform } from "react-native";
 
+import { apiAuthOptions } from "@/api/auth-options";
+
 export type ReportAttachmentInput = {
   uri: string;
   mimeType: string;
   filename: string;
 };
-
-async function fetchWithAuth<T>(path: string, init: RequestInit, accessToken: string): Promise<T> {
-  const url = `${getApiBaseUrl()}${path}`;
-  const send = (token: string) =>
-    fetch(url, {
-      ...init,
-      headers: {
-        ...(init.headers ?? {}),
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-  let response = await send(accessToken);
-
-  if (response.status === 401) {
-    const refresher = getRegisteredTokenRefresher();
-    if (refresher) {
-      const refreshed = await refresher();
-      if (refreshed && refreshed !== accessToken) {
-        response = await send(refreshed);
-      }
-    }
-  }
-
-  if (response.status === 204) {
-    return undefined as T;
-  }
-
-  const body = await response.json().catch(() => undefined);
-  if (!response.ok) {
-    throw new ApiError(
-      typeof body === "object" && body && "message" in body
-        ? String((body as { message: string }).message)
-        : `Request failed with status ${response.status}`,
-      response.status,
-      body,
-    );
-  }
-
-  return body as T;
-}
 
 export async function submitContentReport(
   accessToken: string,
@@ -75,10 +36,9 @@ export async function submitContentReport(
     }
   }
 
-  return fetchWithAuth<ContentReportDetail>(
-    "/content-reports",
-    { method: "POST", body: form },
-    accessToken,
+  return apiFetch<ContentReportDetail>(
+    { url: "/content-reports", method: "POST", body: form },
+    apiAuthOptions(accessToken),
   );
 }
 
@@ -88,10 +48,13 @@ export async function listContentReports(
   limit = 20,
 ): Promise<ContentReportListResponse> {
   const query = new URLSearchParams({ page: String(page), limit: String(limit) });
-  return fetchWithAuth<ContentReportListResponse>(
-    `/content-reports?${query.toString()}`,
-    { method: "GET", headers: { Accept: "application/json" } },
-    accessToken,
+  return apiFetch<ContentReportListResponse>(
+    {
+      url: `/content-reports?${query.toString()}`,
+      method: "GET",
+      headers: { Accept: "application/json" },
+    },
+    apiAuthOptions(accessToken),
   );
 }
 
@@ -99,10 +62,13 @@ export async function getContentReport(
   accessToken: string,
   id: string,
 ): Promise<ContentReportDetail> {
-  return fetchWithAuth<ContentReportDetail>(
-    `/content-reports/${encodeURIComponent(id)}`,
-    { method: "GET", headers: { Accept: "application/json" } },
-    accessToken,
+  return apiFetch<ContentReportDetail>(
+    {
+      url: `/content-reports/${encodeURIComponent(id)}`,
+      method: "GET",
+      headers: { Accept: "application/json" },
+    },
+    apiAuthOptions(accessToken),
   );
 }
 

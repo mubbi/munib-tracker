@@ -1,4 +1,4 @@
-import type { SyncRecordDto } from "@munib-tracker/api-client";
+import type { SyncPushResponseDto, SyncRecordDto } from "@munib-tracker/api-client";
 import type {
   PrayerId,
   PrayerLog,
@@ -8,7 +8,7 @@ import type {
 import { isQazaPrayer } from "@munib-tracker/shared/validators";
 
 import { syncPull, syncPush } from "@/api/endpoints";
-import type { StoredSession } from "@/auth/session-store";
+import { SessionStore, type StoredSession } from "@/auth/session-store";
 import {
   HadithRepository,
   PrayerRepository,
@@ -293,13 +293,23 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
     ? allRecords.filter((record) => record.deletedAt != null || record.updatedAt > since)
     : allRecords;
 
-  const pushResult = await syncPush(session.accessToken, records);
+  // Pull-only syncs are common on foreground. Do not POST an empty change set.
+  const pushResult: SyncPushResponseDto =
+    records.length > 0
+      ? await syncPush(session.accessToken, records)
+      : { accepted: 0, conflicts: [], serverTime: nowIso };
   // The server resolved these in favour of another device — take its version.
   if (pushResult.conflicts.length) await applyRemoteRecords(pushResult.conflicts);
 
   // Pull before clearing tombstones / advancing watermarks. If pull fails after a
   // successful push, deletions must remain queued so the next sync re-pushes them.
-  const pullResult = await syncPull(session.accessToken, meta.lastSyncedAt);
+  // A push may have refreshed an expired native token through apiFetch's 401
+  // handler. Read the persisted session so pull does not retry with the old JWT.
+  const currentSession = await SessionStore.get();
+  const pullResult = await syncPull(
+    currentSession?.accessToken ?? session.accessToken,
+    meta.lastSyncedAt,
+  );
   if (pullResult.changes.length) await applyRemoteRecords(pullResult.changes);
 
   // Deletions we pushed were accepted (or superseded by a conflict applied above).
@@ -313,7 +323,9 @@ export async function runSync(session: StoredSession): Promise<SyncResult> {
   const conflictEntities = [...new Set(pushResult.conflicts.map((record) => record.entity))];
   await writeJSON<SyncMetadata>(DB_KEYS.syncMetadata, {
     lastSyncedAt: pullResult.serverTime,
-    lastPushedAt: nowIso,
+    // Preserve the watermark when no push occurred so a concurrent local write
+    // cannot be skipped by an empty foreground sync.
+    lastPushedAt: records.length > 0 ? nowIso : meta.lastPushedAt,
     lastOutcomeAt: nowIso,
     lastPushed: pushResult.accepted,
     lastPulled: pullResult.changes.length,

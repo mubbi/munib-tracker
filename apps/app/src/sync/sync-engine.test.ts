@@ -107,6 +107,19 @@ describe("runSync", () => {
     expect(meta.lastSyncedAt).toBe("2026-07-04T10:00:00.000Z");
   });
 
+  it("skips the push request when no local records changed", async () => {
+    await writeJSON(DB_KEYS.syncMetadata, {
+      lastPushedAt: "2999-01-01T00:00:00.000Z",
+      lastSyncedAt: "2026-07-04T00:00:00.000Z",
+    });
+
+    const result = await runSync(user);
+
+    expect(result.status).toBe("ok");
+    expect(mockPush).not.toHaveBeenCalled();
+    expect(mockPull).toHaveBeenCalledTimes(1);
+  });
+
   it("applies a pulled prayer log into the local store", async () => {
     mockPull.mockResolvedValue(
       pullResult({

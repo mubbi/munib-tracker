@@ -1,5 +1,7 @@
 import { appFeedbackControllerSubmit, type SubmitAppFeedbackDto } from "@munib-tracker/api-client";
 import type { AppFeedbackTriggerId } from "@munib-tracker/shared/reviews";
+
+import { apiAuthOptions } from "@/api/auth-options";
 import { SessionStore } from "@/auth/session-store";
 import { resolveAppPlatform } from "@/lib/app/resolve-app-platform";
 import { resolveAppVersion } from "@/lib/app/resolve-app-version";
@@ -33,6 +35,6 @@ export async function submitReviewFeedback(params: SubmitReviewFeedbackParams): 
       platform,
       locale: params.locale,
     } satisfies SubmitAppFeedbackDto,
-    { accessToken: session.accessToken },
+    apiAuthOptions(session.accessToken),
   );
 }

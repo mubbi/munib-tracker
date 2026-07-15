@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Modal, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-
+import { apiAuthHeaders } from "@/api/auth-options";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
@@ -44,7 +44,7 @@ function resolveViewerItems(
         uri: userMediaContentUrl(image.mediaId),
         mimeType,
         filename,
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: apiAuthHeaders(accessToken),
       });
       return;
     }

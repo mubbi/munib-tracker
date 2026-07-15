@@ -10,9 +10,11 @@ import {
   Patch,
   Post,
   Put,
-  UnauthorizedException,
+  Req,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import type { Request } from "express";
+import { resolveAccessToken } from "../auth/resolve-access-token";
 import {
   EngageInAppNotificationDto,
   InAppNotificationDto,
@@ -42,9 +44,10 @@ export class NotificationsController {
   @ApiOkResponse({ type: PushTokenResponseDto })
   upsertPushToken(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Body() dto: UpsertPushTokenDto,
   ): Promise<PushTokenResponseDto> {
-    return this.notificationsService.upsertPushToken(this.extractBearerToken(authorization), dto);
+    return this.notificationsService.upsertPushToken(resolveAccessToken(req, authorization), dto);
   }
 
   @Get("in-app")
@@ -53,8 +56,9 @@ export class NotificationsController {
   @ApiOkResponse({ type: InAppNotificationListResponseDto })
   listInApp(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
   ): Promise<InAppNotificationListResponseDto> {
-    return this.notificationsService.listInApp(this.extractBearerToken(authorization));
+    return this.notificationsService.listInApp(resolveAccessToken(req, authorization));
   }
 
   @Get("in-app/unread-count")
@@ -63,8 +67,9 @@ export class NotificationsController {
   @ApiOkResponse({ type: UnreadCountResponseDto })
   unreadCount(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
   ): Promise<UnreadCountResponseDto> {
-    return this.notificationsService.unreadCount(this.extractBearerToken(authorization));
+    return this.notificationsService.unreadCount(resolveAccessToken(req, authorization));
   }
 
   @Post("in-app/mark-all-read")
@@ -74,8 +79,9 @@ export class NotificationsController {
   @ApiOkResponse({ type: UnreadCountResponseDto })
   markAllRead(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
   ): Promise<UnreadCountResponseDto> {
-    return this.notificationsService.markAllRead(this.extractBearerToken(authorization));
+    return this.notificationsService.markAllRead(resolveAccessToken(req, authorization));
   }
 
   @Patch("in-app/:id/read")
@@ -84,9 +90,10 @@ export class NotificationsController {
   @ApiOkResponse({ type: InAppNotificationDto })
   markRead(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Param("id", ParseIntPipe) id: number,
   ): Promise<InAppNotificationDto> {
-    return this.notificationsService.markRead(this.extractBearerToken(authorization), id);
+    return this.notificationsService.markRead(resolveAccessToken(req, authorization), id);
   }
 
   @Post("in-app/:id/engage")
@@ -96,16 +103,10 @@ export class NotificationsController {
   @ApiOkResponse({ type: InAppNotificationDto })
   engage(
     @Headers("authorization") authorization: string | undefined,
+    @Req() req: Request,
     @Param("id", ParseIntPipe) id: number,
     @Body() dto: EngageInAppNotificationDto,
   ): Promise<InAppNotificationDto> {
-    return this.notificationsService.engage(this.extractBearerToken(authorization), id, dto);
-  }
-
-  private extractBearerToken(authorization: string | undefined): string {
-    if (!authorization?.startsWith("Bearer ")) {
-      throw new UnauthorizedException("Missing bearer token");
-    }
-    return authorization.slice("Bearer ".length).trim();
+    return this.notificationsService.engage(resolveAccessToken(req, authorization), id, dto);
   }
 }

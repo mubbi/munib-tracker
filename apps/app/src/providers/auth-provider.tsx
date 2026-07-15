@@ -55,6 +55,8 @@ export type OAuthPayload = {
  */
 export type ManualSyncOutcome = "ok" | "error" | "skipped";
 
+const FOREGROUND_SYNC_MIN_INTERVAL_MS = 5 * 60 * 1000;
+
 interface AuthContextValue {
   session: StoredSession | null;
   user: AuthUserResponseDto | null;
@@ -108,6 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isSyncing, setIsSyncing] = useState(false);
   const syncing = useRef(false);
   const refreshInFlight = useRef<Promise<StoredSession | null> | null>(null);
+  const lastSuccessfulSyncAt = useRef(0);
 
   // Access tokens are short-lived JWTs; rotate them (and the single-use refresh
   // token) using the stored refresh token. Refresh is single-flight: concurrent
@@ -162,9 +165,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     syncing.current = true;
     setIsSyncing(true);
     try {
-      const current = await refresh();
+      // apiFetch refreshes reactively on 401. Avoid rotating a valid access token
+      // before every sync (especially on web tab focus).
+      const current = await SessionStore.get();
       if (!current || current.accountType === "guest") return "skipped";
       await runSync(current);
+      lastSuccessfulSyncAt.current = Date.now();
       return "ok";
     } catch {
       // Offline or server error — try again on the next foreground.
@@ -174,7 +180,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       syncing.current = false;
       setIsSyncing(false);
     }
-  }, [refresh]);
+  }, []);
+
+  const syncAfterForeground = useCallback(() => {
+    if (Date.now() - lastSuccessfulSyncAt.current < FOREGROUND_SYNC_MIN_INTERVAL_MS) {
+      return;
+    }
+    void syncNow();
+  }, [syncNow]);
 
   // Let apiFetch transparently recover from an expired access token: on a 401 it
   // calls this to rotate the token and retry the request once.
@@ -391,11 +404,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Sync when returning to the foreground.
   useEffect(() => {
     const onChange = (status: AppStateStatus) => {
-      if (status === "active") void syncNow();
+      if (status === "active") syncAfterForeground();
     };
     const subscription = AppState.addEventListener("change", onChange);
     return () => subscription.remove();
-  }, [syncNow]);
+  }, [syncAfterForeground]);
 
   // Sync when connectivity returns (native NetInfo / web online event).
   const online = useIsOnline();
