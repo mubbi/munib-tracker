@@ -5,8 +5,8 @@ import { Platform } from "react-native";
 /** Custom URL scheme registered in app.json (`expo.scheme`). */
 export const APP_SCHEME = "munib-tracker";
 
-/** Path segment used in Google native OAuth redirect URIs. */
-export const GOOGLE_OAUTH_REDIRECT_PATH = "oauthredirect";
+/** Path segment used in Google native OAuth redirect URIs (matches Expo Router `oauth2redirect`). */
+export const GOOGLE_OAUTH_REDIRECT_PATH = "oauth2redirect";
 
 /** HTTPS App Link path for Apple OAuth return (Android + iOS OAuth fallback). */
 export const APPLE_OAUTH_NATIVE_PATH = "oauth/apple";

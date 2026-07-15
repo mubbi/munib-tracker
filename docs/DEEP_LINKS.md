@@ -146,8 +146,8 @@ Snapshot builder: `apps/app/src/lib/appSurfaces/widgets/buildWidgetSnapshot.ts`.
 
 | Path | Purpose |
 |------|---------|
-| `munib-tracker:/oauthredirect` / `oauth2redirect` route | Google OAuth resume when Custom Tabs dismiss |
-| `com.googleusercontent.apps.{client-id}:/oauthredirect` | Google OAuth return on native (reversed Android/iOS client ID) |
+| `munib-tracker:/oauth2redirect` / `oauth2redirect` route | Google OAuth resume when Custom Tabs dismiss |
+| `com.googleusercontent.apps.{client-id}:/oauth2redirect` | Google OAuth return on native (reversed Android/iOS client ID) |
 | `https://my.munibtracker.app/oauth/apple` | Apple OAuth App Link return (Android / iOS OAuth fallback) |
 | `https://api.munibtracker.app/api/v1/auth/apple/oauth/callback` | Apple web `form_post` callback (API) |
 

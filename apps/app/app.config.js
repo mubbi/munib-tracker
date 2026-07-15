@@ -12,6 +12,59 @@ const {
 
 loadAppEnv(__dirname);
 
+function googleClientIdToReversedScheme(clientId) {
+  const trimmed = String(clientId || "").trim();
+  const match = trimmed.match(/^([\w-]+)\.apps\.googleusercontent\.com$/i);
+  if (!match) return null;
+  return `com.googleusercontent.apps.${match[1]}`;
+}
+
+/** Reversed Google iOS client ID scheme (required for browser OAuth redirect on iOS). */
+function googleIosUrlSchemes() {
+  const scheme = googleClientIdToReversedScheme(process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS);
+  return scheme ? [scheme] : [];
+}
+
+/** Reversed Google Android client ID scheme (Custom Tab → app OAuth redirect). */
+function googleAndroidOAuthIntentFilter() {
+  const scheme = googleClientIdToReversedScheme(process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_ANDROID);
+  if (!scheme) return [];
+  return [
+    {
+      action: "VIEW",
+      category: ["BROWSABLE", "DEFAULT"],
+      data: [{ scheme, path: "/oauth2redirect" }],
+    },
+  ];
+}
+
+function withIosGoogleOAuthUrlSchemes(iosConfig) {
+  const googleSchemes = googleIosUrlSchemes();
+  if (!googleSchemes.length) return iosConfig;
+
+  const prevTypes = iosConfig.infoPlist?.CFBundleURLTypes ?? [];
+  const alreadyHasGoogle = prevTypes.some(
+    (entry) =>
+      Array.isArray(entry?.CFBundleURLSchemes) &&
+      entry.CFBundleURLSchemes.some((s) => googleSchemes.includes(s)),
+  );
+  if (alreadyHasGoogle) return iosConfig;
+
+  return {
+    ...iosConfig,
+    infoPlist: {
+      ...iosConfig.infoPlist,
+      CFBundleURLTypes: [
+        ...prevTypes,
+        {
+          CFBundleURLName: "google-oauth",
+          CFBundleURLSchemes: googleSchemes,
+        },
+      ],
+    },
+  };
+}
+
 /** @type {import('expo/config').ConfigContext} */
 module.exports = ({ config }) => {
   const prebuildPlatform = process.env.EXPO_PREBUILD_PLATFORM?.trim();
@@ -31,10 +84,14 @@ module.exports = ({ config }) => {
     return true;
   });
 
+  const baseAndroidFilters = Array.isArray(config.android?.intentFilters)
+    ? config.android.intentFilters
+    : [];
+
   return {
     ...config,
     version: appVersion,
-    ios: {
+    ios: withIosGoogleOAuthUrlSchemes({
       ...config.ios,
       buildNumber: iosBuildNumber,
       ...(appleTeamId ? { appleTeamId } : {}),
@@ -42,10 +99,11 @@ module.exports = ({ config }) => {
         ...(config.ios?.entitlements ?? {}),
         "com.apple.security.application-groups": [WIDGET_APP_GROUP],
       },
-    },
+    }),
     android: {
       ...config.android,
       versionCode: androidVersionCode,
+      intentFilters: [...baseAndroidFilters, ...googleAndroidOAuthIntentFilter()],
     },
     plugins: [
       ...pluginsWithoutQuickActions,

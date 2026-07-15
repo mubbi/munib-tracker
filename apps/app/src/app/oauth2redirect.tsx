@@ -1,5 +1,6 @@
+import * as Linking from "expo-linking";
 import { Redirect, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { useSocialAuth } from "@/hooks/use-social-auth";
 import { APP_SCHEME, GOOGLE_OAUTH_REDIRECT_PATH } from "@/lib/auth/oauth-config";
@@ -9,16 +10,33 @@ import { APP_SCHEME, GOOGLE_OAUTH_REDIRECT_PATH } from "@/lib/auth/oauth-config"
  * Used when Android Custom Tabs dismiss without delivering the auth-session result.
  */
 export default function OAuth2RedirectRoute() {
-  const params = useLocalSearchParams<{ code?: string; state?: string }>();
+  const params = useLocalSearchParams<{ code?: string | string[]; state?: string | string[] }>();
   const { resumeGoogleFromUrl } = useSocialAuth();
   const [done, setDone] = useState(false);
+  const started = useRef(false);
 
   useEffect(() => {
-    const query = new URLSearchParams();
-    if (typeof params.code === "string") query.set("code", params.code);
-    if (typeof params.state === "string") query.set("state", params.state);
-    const returnUrl = `${APP_SCHEME}:/${GOOGLE_OAUTH_REDIRECT_PATH}?${query.toString()}`;
-    void resumeGoogleFromUrl(returnUrl).finally(() => setDone(true));
+    if (started.current) return;
+    started.current = true;
+
+    void (async () => {
+      const codeParam = Array.isArray(params.code) ? params.code[0] : params.code;
+      const stateParam = Array.isArray(params.state) ? params.state[0] : params.state;
+
+      let returnUrl: string | null = null;
+      if (typeof codeParam === "string" && codeParam) {
+        const query = new URLSearchParams({ code: codeParam });
+        if (typeof stateParam === "string" && stateParam) query.set("state", stateParam);
+        returnUrl = `${APP_SCHEME}:/${GOOGLE_OAUTH_REDIRECT_PATH}?${query.toString()}`;
+      }
+      if (!returnUrl) {
+        returnUrl = await Linking.getInitialURL();
+      }
+      if (returnUrl) {
+        await resumeGoogleFromUrl(returnUrl);
+      }
+      setDone(true);
+    })();
   }, [params.code, params.state, resumeGoogleFromUrl]);
 
   if (!done) {

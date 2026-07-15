@@ -30,6 +30,7 @@ import {
 import { SessionPersistError, SessionStore, type StoredSession } from "@/auth/session-store";
 import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useIsOnline } from "@/hooks/use-is-online";
+import "@/lib/auth/auth-session-bootstrap";
 import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
 import { flushPendingOssContentFailures } from "@/lib/report-oss-content-download-failure";
 import { runSync } from "@/sync/sync-engine";

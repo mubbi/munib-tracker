@@ -1,6 +1,6 @@
 import * as AuthSession from "expo-auth-session";
 import * as Linking from "expo-linking";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Platform } from "react-native";
 
 import {
@@ -21,7 +21,13 @@ import {
   isGoogleConfigured,
   resolveGoogleClientId,
 } from "@/lib/auth/oauth-config";
+import {
+  clearAppleAuthorizationCodeExchangeGuard,
+  getOrCreateAppleOAuthExchange,
+  shouldSkipAppleAuthorizationCodeExchange,
+} from "@/lib/oauth/apple-oauth-exchange-guard";
 import { exchangeGoogleCodeAndClearPending } from "@/lib/oauth/complete-google-oauth";
+import { clearGoogleAuthorizationCodeExchangeGuard } from "@/lib/oauth/google-oauth-exchange-guard";
 import {
   clearAppleOAuthPendingSession,
   clearGoogleOAuthPendingSession,
@@ -50,6 +56,14 @@ function appleDisplayName(
   return parts.length ? parts.join(" ") : undefined;
 }
 
+function isNativeAppleCancel(error: unknown): boolean {
+  if (error && typeof error === "object" && "code" in error) {
+    if ((error as { code?: unknown }).code === "ERR_REQUEST_CANCELED") return true;
+  }
+  const message = error instanceof Error ? error.message : String(error);
+  return /cancel/i.test(message);
+}
+
 /**
  * Runs Google / Apple / Facebook OAuth with platform-specific flows matching
  * the Expense Trail sample: native Google on-device exchange, native Apple
@@ -74,7 +88,7 @@ export function useSocialAuth() {
   const googleDiscovery = AuthSession.useAutoDiscovery("https://accounts.google.com");
   const appleDiscovery = AuthSession.useAutoDiscovery(APPLE_DISCOVERY_URL);
 
-  const [googleRequest, , googlePromptAsync] = AuthSession.useAuthRequest(
+  const [googleRequest, googleResponse, googlePromptAsync] = AuthSession.useAuthRequest(
     {
       clientId: googleClientId || "__missing_google_client__",
       redirectUri: googleRedirectUri,
@@ -84,6 +98,20 @@ export function useSocialAuth() {
     },
     googleDiscovery,
   );
+
+  /** Expense Trail pattern: resolve sign-in from auth-session response, not only `promptAsync`. */
+  const googlePendingRef = useRef<{
+    resolve: () => void;
+    reject: (err: Error) => void;
+  } | null>(null);
+  /** Verifier captured when prompting — avoids PKCE mismatch if the request is recreated. */
+  const googlePkceVerifierRef = useRef<string | null>(null);
+
+  const applePendingRef = useRef<{
+    resolve: () => void;
+    reject: (err: Error) => void;
+  } | null>(null);
+  const applePkceVerifierRef = useRef<string | null>(null);
 
   const appleAuthRequestConfig = useMemo(
     () =>
@@ -106,7 +134,7 @@ export function useSocialAuth() {
     [appleRedirectUri, appleServicesId],
   );
 
-  const [appleRequest, , applePromptAsync] = AuthSession.useAuthRequest(
+  const [appleRequest, appleResponse, applePromptAsync] = AuthSession.useAuthRequest(
     appleAuthRequestConfig,
     appleDiscovery,
   );
@@ -144,10 +172,23 @@ export function useSocialAuth() {
       }
       try {
         const accessToken = await exchangeGoogleCodeAndClearPending(pending, parsed.code);
+        if (!accessToken) return "skipped";
         await completeSocialSession("google", "accessToken", { accessToken });
+        googlePkceVerifierRef.current = null;
+        const waiter = googlePendingRef.current;
+        if (waiter) {
+          waiter.resolve();
+          googlePendingRef.current = null;
+        }
         return "success";
-      } catch {
+      } catch (error) {
         await clearGoogleOAuthPendingSession();
+        googlePkceVerifierRef.current = null;
+        const waiter = googlePendingRef.current;
+        if (waiter) {
+          waiter.reject(error instanceof Error ? error : new Error(String(error)));
+          googlePendingRef.current = null;
+        }
         return "failed";
       }
     },
@@ -158,6 +199,7 @@ export function useSocialAuth() {
     async (returnUrl: string): Promise<"success" | "skipped" | "failed"> => {
       const parsed = parseAppleOAuthReturnUrl(returnUrl);
       if (!parsed) return "skipped";
+      if (shouldSkipAppleAuthorizationCodeExchange(parsed.code)) return "skipped";
       const pending = await loadAppleOAuthPendingSession();
       if (!pending) return "skipped";
       if (parsed.state && parsed.state !== pending.state) {
@@ -165,15 +207,30 @@ export function useSocialAuth() {
         return "failed";
       }
       try {
-        await completeSocialSession("apple", "appleOauth", {
-          code: parsed.code,
-          redirectUri: pending.redirectUri,
-          codeVerifier: pending.codeVerifier,
+        const exchanged = await getOrCreateAppleOAuthExchange(parsed.code, async () => {
+          await completeSocialSession("apple", "appleOauth", {
+            code: parsed.code,
+            redirectUri: pending.redirectUri,
+            codeVerifier: pending.codeVerifier,
+          });
         });
+        if (exchanged === null) return "skipped";
         await clearAppleOAuthPendingSession();
+        applePkceVerifierRef.current = null;
+        const waiter = applePendingRef.current;
+        if (waiter) {
+          waiter.resolve();
+          applePendingRef.current = null;
+        }
         return "success";
       } catch {
         await clearAppleOAuthPendingSession();
+        applePkceVerifierRef.current = null;
+        const waiter = applePendingRef.current;
+        if (waiter) {
+          waiter.reject(new Error("Apple sign-in failed."));
+          applePendingRef.current = null;
+        }
         return "failed";
       }
     },
@@ -213,6 +270,152 @@ export function useSocialAuth() {
     };
   }, [applySessionDto]);
 
+  /**
+   * Complete Google OAuth from the auth-session response (Expense Trail /
+   * expo-auth-session pattern). `maybeCompleteAuthSession` closes the web popup
+   * and populates `googleResponse`; we exchange the code here.
+   */
+  useEffect(() => {
+    if (!googleResponse) return;
+    const waiter = googlePendingRef.current;
+
+    if (googleResponse.type === "success" && googleResponse.params?.code) {
+      const code = googleResponse.params.code.trim();
+      if (!code) return;
+
+      const codeVerifier =
+        googlePkceVerifierRef.current?.trim() || googleRequest?.codeVerifier?.trim() || "";
+      if (!codeVerifier) {
+        if (waiter) {
+          waiter.reject(new Error("Sign-in lost PKCE verifier; try again."));
+          googlePendingRef.current = null;
+        }
+        return;
+      }
+
+      void (async () => {
+        try {
+          if (Platform.OS === "web") {
+            await clearGoogleOAuthPendingSession();
+            await completeSocialSession("google", "googleOauth", {
+              code,
+              redirectUri: googleRedirectUri,
+              codeVerifier,
+            });
+          } else {
+            const accessToken = await exchangeGoogleCodeAndClearPending(
+              {
+                codeVerifier,
+                redirectUri: googleRedirectUri,
+                clientId: googleClientId.trim(),
+                state: googleRequest?.state?.trim() ?? "",
+              },
+              code,
+            );
+            if (!accessToken) return;
+            await completeSocialSession("google", "accessToken", { accessToken });
+          }
+          googlePkceVerifierRef.current = null;
+          if (waiter) {
+            waiter.resolve();
+            googlePendingRef.current = null;
+          }
+        } catch (error) {
+          googlePkceVerifierRef.current = null;
+          await clearGoogleOAuthPendingSession();
+          if (waiter) {
+            waiter.reject(error instanceof Error ? error : new Error(String(error)));
+            googlePendingRef.current = null;
+          }
+        }
+      })();
+      return;
+    }
+
+    if (
+      googleResponse.type === "cancel" ||
+      googleResponse.type === "dismiss" ||
+      googleResponse.type === "error"
+    ) {
+      googlePkceVerifierRef.current = null;
+      // Android Custom Tab often returns dismiss before Linking; oauth2redirect completes sign-in.
+      if (Platform.OS === "android") return;
+      void clearGoogleOAuthPendingSession();
+      if (waiter) {
+        waiter.reject(new Error(OAUTH_CANCELLED));
+        googlePendingRef.current = null;
+      }
+    }
+  }, [completeSocialSession, googleClientId, googleRedirectUri, googleRequest, googleResponse]);
+
+  /**
+   * Native Apple OAuth (Android + iOS Services ID fallback): complete from
+   * `appleResponse`. Web uses form_post → API callback (handled separately).
+   * Android dismiss must not clear PKCE pending — App Link may still arrive.
+   */
+  useEffect(() => {
+    if (Platform.OS === "web") return;
+    if (!appleResponse) return;
+    const waiter = applePendingRef.current;
+
+    if (appleResponse.type === "success" && appleResponse.params?.code) {
+      const code = appleResponse.params.code.trim();
+      if (!code || shouldSkipAppleAuthorizationCodeExchange(code)) return;
+
+      const codeVerifier =
+        applePkceVerifierRef.current?.trim() || appleRequest?.codeVerifier?.trim() || "";
+      if (!codeVerifier) {
+        if (waiter) {
+          waiter.reject(new Error("Sign-in lost PKCE verifier; try again."));
+          applePendingRef.current = null;
+        }
+        return;
+      }
+
+      void (async () => {
+        try {
+          const exchanged = await getOrCreateAppleOAuthExchange(code, async () => {
+            await completeSocialSession("apple", "appleOauth", {
+              code,
+              redirectUri: appleRedirectUri,
+              codeVerifier,
+            });
+          });
+          if (exchanged === null) return;
+          await clearAppleOAuthPendingSession();
+          applePkceVerifierRef.current = null;
+          if (waiter) {
+            waiter.resolve();
+            applePendingRef.current = null;
+          }
+        } catch (error) {
+          applePkceVerifierRef.current = null;
+          await clearAppleOAuthPendingSession();
+          if (waiter) {
+            waiter.reject(error instanceof Error ? error : new Error(String(error)));
+            applePendingRef.current = null;
+          }
+        }
+      })();
+      return;
+    }
+
+    if (
+      appleResponse.type === "cancel" ||
+      appleResponse.type === "dismiss" ||
+      appleResponse.type === "error"
+    ) {
+      applePkceVerifierRef.current = null;
+      // Android Custom Tab often returns dismiss before the App Link lands.
+      if (Platform.OS === "android") return;
+      void clearAppleOAuthPendingSession();
+      if (waiter) {
+        waiter.reject(new Error(OAUTH_CANCELLED));
+        applePendingRef.current = null;
+      }
+    }
+  }, [appleRedirectUri, appleRequest, appleResponse, completeSocialSession]);
+
   const signInGoogle = useCallback(async () => {
     if (!googleConfigured || !googleRequest) {
       throw new Error("Google sign-in is not configured yet.");
@@ -223,6 +426,7 @@ export function useSocialAuth() {
       throw new Error("Sign-in is not ready yet; try again.");
     }
 
+    clearGoogleAuthorizationCodeExchangeGuard();
     await saveGoogleOAuthPendingSession({
       codeVerifier,
       redirectUri: googleRedirectUri,
@@ -230,53 +434,13 @@ export function useSocialAuth() {
       state,
     });
 
-    const result = await googlePromptAsync(
-      Platform.OS === "android" ? { showInRecents: true } : undefined,
-    );
-    if (result.type === "cancel" || result.type === "dismiss") {
-      await clearGoogleOAuthPendingSession();
-      throw new Error(OAUTH_CANCELLED);
-    }
-    if (result.type !== "success") {
-      await clearGoogleOAuthPendingSession();
-      throw new Error("Sign-in was not completed.");
-    }
-
-    const code = result.params.code?.trim();
-    if (!code) {
-      await clearGoogleOAuthPendingSession();
-      const providerError = result.params.error_description || result.params.error;
-      throw new Error(providerError || "The provider did not return an authorization code.");
-    }
-
-    if (Platform.OS === "web") {
-      await clearGoogleOAuthPendingSession();
-      await completeSocialSession("google", "googleOauth", {
-        code,
-        redirectUri: googleRedirectUri,
-        codeVerifier,
-      });
-      return;
-    }
-
-    const accessToken = await exchangeGoogleCodeAndClearPending(
-      {
-        codeVerifier,
-        redirectUri: googleRedirectUri,
-        clientId: googleClientId.trim(),
-        state,
-      },
-      code,
-    );
-    await completeSocialSession("google", "accessToken", { accessToken });
-  }, [
-    completeSocialSession,
-    googleClientId,
-    googleConfigured,
-    googlePromptAsync,
-    googleRedirectUri,
-    googleRequest,
-  ]);
+    googlePkceVerifierRef.current = codeVerifier;
+    const promise = new Promise<void>((resolve, reject) => {
+      googlePendingRef.current = { resolve, reject };
+    });
+    await googlePromptAsync(Platform.OS === "android" ? { showInRecents: true } : undefined);
+    return promise;
+  }, [googleClientId, googleConfigured, googlePromptAsync, googleRedirectUri, googleRequest]);
 
   const signInApple = useCallback(async () => {
     if (!appleConfigured) {
@@ -296,8 +460,7 @@ export function useSocialAuth() {
         });
         return;
       } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        if (/cancel/i.test(message)) throw new Error(OAUTH_CANCELLED);
+        if (isNativeAppleCancel(error)) throw new Error(OAUTH_CANCELLED);
         throw error;
       }
     }
@@ -325,32 +488,23 @@ export function useSocialAuth() {
       return;
     }
 
+    if (!state) {
+      throw new Error("Sign-in is not ready yet; try again.");
+    }
+
+    clearAppleAuthorizationCodeExchangeGuard();
     await saveAppleOAuthPendingSession({
       codeVerifier,
       redirectUri: appleRedirectUri,
-      state: state || "",
+      state,
     });
 
-    const result = await applePromptAsync();
-    if (result.type === "cancel" || result.type === "dismiss") {
-      await clearAppleOAuthPendingSession();
-      throw new Error(OAUTH_CANCELLED);
-    }
-    if (result.type !== "success") {
-      await clearAppleOAuthPendingSession();
-      throw new Error("Sign-in was not completed.");
-    }
-    const code = result.params.code?.trim();
-    if (!code) {
-      await clearAppleOAuthPendingSession();
-      throw new Error("The provider did not return an authorization code.");
-    }
-    await completeSocialSession("apple", "appleOauth", {
-      code,
-      redirectUri: appleRedirectUri,
-      codeVerifier,
+    applePkceVerifierRef.current = codeVerifier;
+    const promise = new Promise<void>((resolve, reject) => {
+      applePendingRef.current = { resolve, reject };
     });
-    await clearAppleOAuthPendingSession();
+    await applePromptAsync(Platform.OS === "android" ? { showInRecents: true } : undefined);
+    return promise;
   }, [
     appleConfigured,
     appleDiscovery,

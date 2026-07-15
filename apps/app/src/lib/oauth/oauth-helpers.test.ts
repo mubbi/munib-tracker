@@ -24,14 +24,14 @@ describe("googleClientIdToReversedScheme", () => {
 describe("buildGoogleNativeRedirectUri", () => {
   it("uses a single colon (not ://)", () => {
     expect(buildGoogleNativeRedirectUri("com.googleusercontent.apps.123")).toBe(
-      "com.googleusercontent.apps.123:/oauthredirect",
+      "com.googleusercontent.apps.123:/oauth2redirect",
     );
   });
 });
 
 describe("parseOAuthReturnUrl", () => {
   it("parses code from query", () => {
-    expect(parseOAuthReturnUrl("munib-tracker:/oauthredirect?code=abc&state=s1")).toEqual({
+    expect(parseOAuthReturnUrl("munib-tracker:/oauth2redirect?code=abc&state=s1")).toEqual({
       code: "abc",
       state: "s1",
     });

@@ -3,6 +3,8 @@
  * Headless widget updates do not mount app/_layout, so registration must happen here.
  */
 import "./src/lib/request-idle-callback-polyfill";
+// Must run before the app tree mounts so OAuth redirect popups can close.
+import "./src/lib/auth/auth-session-bootstrap";
 import { registerAndroidWidgetTaskHandler } from "./src/lib/appSurfaces/widgets/androidTaskHandler";
 import { initSentry } from "./src/lib/sentry";
 

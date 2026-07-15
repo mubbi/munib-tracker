@@ -10,6 +10,8 @@ Guide for **Sign in with Google**, **Sign in with Apple**, and **Sign in with Fa
 
 The Expo app uses **`expo-auth-session`** with **PKCE** (and **`expo-apple-authentication`** on iOS). The NestJS API validates tokens / exchanges codes and issues JWT access + refresh tokens. On **web**, Google/Apple sessions use **HttpOnly cookies** (`mt_access_token`, `mt_refresh_token`) when the client sends `x-munib-tracker-client: web`.
 
+**Web popups:** Google/Facebook open a browser popup that redirects back to the product origin with `?code=&state=`. `WebBrowser.maybeCompleteAuthSession()` (via `apps/app/src/lib/auth/auth-session-bootstrap.ts`, same pattern as Expense Trail) must run on that page — otherwise the popup stays open and the opener never receives the auth result.
+
 The **admin console** (`apps/admin`) is a different app: its own Google OAuth web client, cookie `mt_admin_session`, and allowlist table `admin_users`. Do not reuse product `GOOGLE_OAUTH_*` / `EXPO_PUBLIC_GOOGLE_*` for admin — see [Admin Google OAuth](#admin-google-oauth-ops-console) below.
 
 | Platform | Google | Apple | Facebook |
@@ -72,10 +74,18 @@ Put **all** platform client IDs in `GOOGLE_OAUTH_CLIENT_IDS` on the API as a com
 On native, `getGoogleRedirectUri()` uses:
 
 ```
-com.googleusercontent.apps.{android-or-ios-client-id}:/oauthredirect
+com.googleusercontent.apps.{android-or-ios-client-id}:/oauth2redirect
 ```
 
 Enable **Custom URI scheme** on each **Android** OAuth client. The app exchanges the code **on device**, then POSTs the access token to `/auth/google` (the web secret is never involved on native).
+
+Authorized redirect URI shape (must match exactly):
+
+```
+com.googleusercontent.apps.{android-or-ios-client-id}:/oauth2redirect
+```
+
+`app.config.js` registers the reversed iOS scheme (`CFBundleURLTypes`) and Android intent filter for that path when `EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS` / `_ANDROID` are set — re-run prebuild after changing client IDs.
 
 ---
 
@@ -119,7 +129,7 @@ If you offer **Google** sign-in on **iOS**, you must also offer **Sign in with A
 ## Facebook Developer
 
 1. Create an app at [developers.facebook.com](https://developers.facebook.com/) → **Facebook Login**.
-2. Add **Valid OAuth Redirect URIs** matching `getFacebookRedirectUri()` (web origin or `munib-tracker:/oauthredirect`).
+2. Add **Valid OAuth Redirect URIs** matching `getFacebookRedirectUri()` (web origin or `munib-tracker:/oauth2redirect`).
 3. Copy the **App ID** to `EXPO_PUBLIC_FACEBOOK_APP_ID` (app) and `FACEBOOK_APP_ID` (API).
 4. Copy the **App Secret** to `FACEBOOK_APP_SECRET` on the API only — never ship it in the Expo bundle.
 5. The Facebook button appears only when `EXPO_PUBLIC_FACEBOOK_APP_ID` is set.
@@ -183,7 +193,7 @@ EXPO_PUBLIC_APPLE_SERVICES_ID=com.munibtracker.web
 GOOGLE_OAUTH_CLIENT_IDS=<web>,<ios>,<android>
 GOOGLE_OAUTH_WEB_CLIENT_ID=<web-client-id>.apps.googleusercontent.com
 GOOGLE_OAUTH_WEB_CLIENT_SECRET=<web-secret>
-OAUTH_REDIRECT_URI_ALLOWLIST=https://my.munibtracker.app,https://my.munibtracker.app/oauth/apple,https://api.munibtracker.app/api/v1/auth/apple/oauth/callback,com.googleusercontent.apps.<android>:/oauthredirect,com.googleusercontent.apps.<ios>:/oauthredirect
+OAUTH_REDIRECT_URI_ALLOWLIST=https://my.munibtracker.app,https://my.munibtracker.app/oauth/apple,https://api.munibtracker.app/api/v1/auth/apple/oauth/callback,com.googleusercontent.apps.<android>:/oauth2redirect,com.googleusercontent.apps.<ios>:/oauth2redirect
 APPLE_CLIENT_IDS=app.munibtracker,com.munibtracker.web
 APPLE_SERVICES_ID=com.munibtracker.web
 APPLE_TEAM_ID=<team-id>
@@ -274,6 +284,7 @@ Create a dedicated Google Cloud **Web** OAuth client for the admin origin (or ad
 | Apple Android never returns | HTTPS App Link `https://my.munibtracker.app/oauth/apple` + Digital Asset Links (see [DEEP_LINKS.md](./DEEP_LINKS.md)) |
 | Web Apple form_post loses session | `mt_apple_oauth` cookie needs SameSite=None in prod; CORS credentials + allowlist |
 | Web session lost on reload | Cookie path/domain; `credentials: 'include'`; `CORS_ORIGINS` includes the web origin |
+| Web Google/Facebook popup shows `?code=` but main tab stays on “signing in” | Missing `WebBrowser.maybeCompleteAuthSession()` on the redirect page (`auth-session-bootstrap.ts` must load from app entry / AuthProvider) |
 | Social buttons missing | Empty `EXPO_PUBLIC_*` client IDs — buttons are hidden until configured |
 | Env renamed from older Munib installs | Old `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` / `APPLE_CLIENT_ID` → new sample names in the tables above |
 | Admin Google sign-in rejected | Email not in `admin_users` or `enabled = false`; wrong redirect URI; using product OAuth client IDs on admin |

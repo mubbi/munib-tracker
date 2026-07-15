@@ -1,6 +1,7 @@
 import type { DiscoveryDocument } from "expo-auth-session";
 import * as AuthSession from "expo-auth-session";
 
+import { getOrCreateGoogleOAuthExchange } from "@/lib/oauth/google-oauth-exchange-guard";
 import {
   clearGoogleOAuthPendingSession,
   type GoogleOAuthPendingSession,
@@ -34,12 +35,18 @@ export async function exchangeGoogleCodeForAccessToken(
   return accessToken;
 }
 
+/**
+ * Exchange once per code (shared across AuthSession + deep-link callers), then clear pending.
+ * Returns null when this code was already exchanged.
+ */
 export async function exchangeGoogleCodeAndClearPending(
   session: GoogleOAuthPendingSession,
   code: string,
-): Promise<string> {
+): Promise<string | null> {
   try {
-    return await exchangeGoogleCodeForAccessToken(session, code);
+    return await getOrCreateGoogleOAuthExchange(code, () =>
+      exchangeGoogleCodeForAccessToken(session, code),
+    );
   } finally {
     await clearGoogleOAuthPendingSession();
   }
