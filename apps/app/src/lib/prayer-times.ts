@@ -2,7 +2,13 @@ import type { PrayerId, SunnahPrayer, TimeFormat } from "@munib-tracker/shared/t
 import { CalculationMethod, Coordinates, HighLatitudeRule, Madhab, PrayerTimes } from "adhan";
 import type { SymbolViewProps } from "expo-symbols";
 
-import { formatDisplayTime, prayerDayAnchor, shiftPrayerDay } from "./time";
+import {
+  formatDisplayTime,
+  getZonedParts,
+  prayerDayAnchor,
+  shiftPrayerDay,
+  wallClockInTimeZoneToDate,
+} from "./time";
 
 /**
  * On-device prayer-time calculation with the `adhan` library (already a
@@ -311,10 +317,86 @@ function addMinutes(date: Date, minutes: number): Date {
   return new Date(date.getTime() + minutes * 60_000);
 }
 
+export interface NightDividers {
+  midNight: Date;
+  lastThird: Date;
+  /** Whole minutes from Maghrib to Fajr. */
+  nightDurationMinutes: number;
+}
+
+export interface WallClockTime {
+  hour: number;
+  minute: number;
+}
+
+/** Islamic night runs from Maghrib to the following Fajr. */
+export function nightBoundsFromWallClock(
+  maghrib: WallClockTime,
+  fajr: WallClockTime,
+  anchor: Date,
+  timeZone?: string,
+): { maghribAt: Date; fajrAt: Date } {
+  const y = anchor.getFullYear();
+  const m = anchor.getMonth() + 1;
+  const d = anchor.getDate();
+  const maghribAt = wallClockInTimeZoneToDate(y, m, d, maghrib.hour, maghrib.minute, timeZone);
+  const tomorrow = shiftPrayerDay(anchor, 1);
+  const fajrAt = wallClockInTimeZoneToDate(
+    tomorrow.getFullYear(),
+    tomorrow.getMonth() + 1,
+    tomorrow.getDate(),
+    fajr.hour,
+    fajr.minute,
+    timeZone,
+  );
+  return { maghribAt, fajrAt };
+}
+
+/** Midpoint of the Islamic night (halfway between Maghrib and Fajr). */
+export function midNightOfNight(maghrib: Date, fajr: Date): Date {
+  const nightMs = fajr.getTime() - maghrib.getTime();
+  return new Date(maghrib.getTime() + nightMs / 2);
+}
+
 /** Last third of the night — the preferred Tahajjud window. */
 export function lastThirdOfNight(maghrib: Date, fajr: Date): Date {
   const nightMs = fajr.getTime() - maghrib.getTime();
   return new Date(fajr.getTime() - nightMs / 3);
+}
+
+/** Mid-night and last-third markers for a Maghrib→Fajr night span. */
+export function computeNightDividers(maghrib: Date, fajr: Date): NightDividers {
+  const nightMs = fajr.getTime() - maghrib.getTime();
+  return {
+    midNight: new Date(maghrib.getTime() + nightMs / 2),
+    lastThird: new Date(fajr.getTime() - nightMs / 3),
+    nightDurationMinutes: Math.round(nightMs / 60_000),
+  };
+}
+
+/** Maghrib/Fajr wall-clock times for the upcoming Islamic night at a location. */
+export function detectNightPrayerWallClock(
+  coords: Coords,
+  now: Date,
+  method: CalculationMethodKey = DEFAULT_CALCULATION_METHOD,
+  madhab: MadhabKey = DEFAULT_MADHAB,
+  extras?: PrayerCalcExtras,
+  timeZone?: string,
+): { maghrib: WallClockTime; fajr: WallClockTime } {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const today = computePrayerTimes(coords, anchor, method, madhab, extras);
+  const tomorrow = computePrayerTimes(coords, shiftPrayerDay(anchor, 1), method, madhab, extras);
+  const yesterday = computePrayerTimes(coords, shiftPrayerDay(anchor, -1), method, madhab, extras);
+
+  const maghribAt = now.getTime() < today.fajr.getTime() ? yesterday.maghrib : today.maghrib;
+  const fajrAt = now.getTime() < today.fajr.getTime() ? today.fajr : tomorrow.fajr;
+
+  const maghrib = getZonedParts(maghribAt, timeZone);
+  const fajr = getZonedParts(fajrAt, timeZone);
+  return {
+    maghrib: { hour: maghrib.hour, minute: maghrib.minute },
+    fajr: { hour: fajr.hour, minute: fajr.minute },
+  };
 }
 
 export function ishraqTime(sunrise: Date): Date {

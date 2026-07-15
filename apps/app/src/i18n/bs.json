@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Novi muslimanski vodič",
     "finance": "Islamske finansije",
-    "flashCards": "Kartice"
+    "flashCards": "Kartice",
+    "verseDetector": "Detektor ajeta",
+    "lastThirdNight": "Posljednja trećina noći"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Traži autore…",
     "tafsirLoading": "Učitavanje tafsira…",
     "tafsirOffline": "Povežite se da preuzmete ovaj tefsir. Otvorena izdanja ostaju dostupna van mreže.",
-    "tafsirEmpty": "Za ovaj ajet u odabranom izdanju nije dostupan tefsir."
+    "tafsirEmpty": "Za ovaj ajet u odabranom izdanju nije dostupan tefsir.",
+    "detector": {
+      "title": "Detektor ajeta",
+      "subtitle": "Pronađite suru i ajet iz govornog ili pisanog arapskog ili engleskog",
+      "inputModeText": "Tekst",
+      "inputModeVoice": "Glas",
+      "langEnglish": "Engleski",
+      "langArabic": "Arapski",
+      "languageLabel": "Jezik unosa",
+      "textPlaceholder": "Zalijepite ili upišite odlomak ajeta, transliteraciju ili referencu poput 2:255…",
+      "voiceHint": "Dodirnite mikrofon i recitirajte ili citirajte ajet",
+      "listening": "Slušam… recitirajte ajet jasno",
+      "detecting": "Prepoznajem ajet…",
+      "detectHint": "Radi offline — usklađuje arapski tekst, engleski prijevod ili reference.",
+      "noResults": "Nije pronađen odgovarajući ajet",
+      "noResultsHint": "Pokušajte duži odlomak, promijenite jezik ili citirajte više ajeta.",
+      "resultsCount": "{{count}} podudaranja",
+      "confidence": "{{percent}} podudaranje",
+      "openInQuran": "Otvori u Kur'anu",
+      "readFull": "Pročitaj cijeli ajet",
+      "showLess": "Prikaži manje",
+      "examples": "Isprobaj primjer",
+      "exampleKursi": "Ajetul-Kursi",
+      "exampleFatiha": "Početak El-Fatihe",
+      "exampleIkhlas": "El-Ihlas",
+      "dictate": "Recitiraj ajet",
+      "stopDictate": "Prestani slušati",
+      "bestMatch": "Najbolje podudaranje",
+      "otherMatches": "Ostala podudaranja"
+    }
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -3959,7 +3990,9 @@
     "virtueTitle": "Virtue   night salah",
     "virtueBody": " best salah after  obligatory salah je  night salah.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Tahajjud serija"
+    "streakRow": "Tahajjud serija",
+    "calculatorCta": "Kalkulator posljednje trećine noći",
+    "calculatorHint": "Pronađite ponoć i najbolje vrijeme za Tahajjud od Maghriba i Fajra"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates su calculated estimates — local moon-sighting may differ.",
@@ -4719,5 +4752,23 @@
     },
     "skipHint": "Preskočite ovu karticu i pogledajte drugo pitanje.",
     "skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Noćna Salah",
+    "title": "Posljednja Trećina Noći",
+    "subtitle": "Najbolje vrijeme za Tahajjud i dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Koristi vremena Salaha",
+    "autoDetectHint": "{{location}} · dodirnite vrijeme za prilagodbu",
+    "lastThirdLabel": "Posljednja trećina počinje",
+    "midNightLabel": "Ponoć",
+    "nightDuration": "Dužina noći: {{duration}}",
+    "invalidTimes": "Maghrib mora biti prije Fajra sljedećeg jutra.",
+    "hadithTitle": "Vrijednost posljednje trećine",
+    "basedOn": "Na osnovu",
+    "editTime": "Uredi vrijeme {{prayer}}",
+    "editHint": "Rezultati se ažuriraju dok mijenjate vrijeme.",
+    "nightLengthLabel": "Dužina noći"
   }
 }

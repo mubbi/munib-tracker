@@ -175,7 +175,9 @@
     "ruqyah": "Rukýa",
     "newMuslim": "Täze musulman gollanmasy",
     "finance": "Yslam Maliýe",
-    "flashCards": "Okuw kartlary"
+    "flashCards": "Okuw kartlary",
+    "verseDetector": "Aýat anyklýan",
+    "lastThirdNight": "Gijäniň soňky üçden bire"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Awtorlary gözläň ...",
     "tafsirLoading": "Tafsir ýüklenýär…",
     "tafsirOffline": "Bu tafsiri göçürip almak üçin birikdiriň. Açylan neşirler awtonom görnüşde elýeterli.",
-    "tafsirEmpty": "Saýlanan neşirde bu aýat üçin tafsir ýok."
+    "tafsirEmpty": "Saýlanan neşirde bu aýat üçin tafsir ýok.",
+    "detector": {
+      "title": "Aýat anyklýan",
+      "subtitle": "Gürleýän ýa-da ýazylan arap ýa-da iňlis dilinden sura we aýaty tapyň",
+      "inputModeText": "Tekst",
+      "inputModeVoice": "Ses",
+      "langEnglish": "Iňlis",
+      "langArabic": "Arap",
+      "languageLabel": "Giriş dili",
+      "textPlaceholder": "Aýat bölegini, transliterasiýany ýa-da 2:255 ýaly salgyny goýuň ýa-da ýazyň…",
+      "voiceHint": "Mikrofona basyň we aýaty okaň ýa-da sitata getiriň",
+      "listening": "Diňlenilýär… aýaty anyk okaň",
+      "detecting": "Aýat anyklanýar…",
+      "detectHint": "Oflaýn işleýär — arap teksti, iňlis terjimesi ýa-da salgylary deňleşdirýär.",
+      "noResults": "Gabat gelýän aýat tapylmady",
+      "noResultsHint": "Has uzyn bölek synap görüň, dili çalyşyň ýa-da aýatdan has köp sitata getiriň.",
+      "resultsCount": "{{count}} gabat gelme",
+      "confidence": "{{percent}} gabat gelme",
+      "openInQuran": "Guranda aç",
+      "readFull": "Doly aýaty oka",
+      "showLess": "Az görkez",
+      "examples": "Mysal synap gör",
+      "exampleKursi": "Aýatul-Kursi",
+      "exampleFatiha": "El-Fatiha başlangyjy",
+      "exampleIkhlas": "El-Ihlas",
+      "dictate": "Aýaty aýd",
+      "stopDictate": "Diňlemegi bes et",
+      "bestMatch": "Iň gowy gabat gelme",
+      "otherMatches": "Beýleki gabat gelmeler"
+    }
   },
   "hadith": {
     "eyebrow": "Peygamber gelenegi",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "Virtue   night namaz",
     "virtueBody": " best namaz after  farz prayers dir  night namaz.",
     "virtueRef": "Sahih Muslim 1163",
-    "streakRow": "Teheccüd seri"
+    "streakRow": "Teheccüd seri",
+    "calculatorCta": "Gijäniň soňky üçden bir kalkulýatory",
+    "calculatorHint": "Maghrib we Fajr-dan gijäniň ortasy we iň gowy Tahajjud wagtyny tapyň"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates dir calculated estimates — local moon-sighting may differ.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "Bu karty geçiň we başga soragy görüň.",
     "skipDisabledHint": "Täze garyşdyrmak üçin bu soňky karta jogap beriň."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Gije namazy",
+    "title": "Gijäniň Soňky Üçden Bire",
+    "subtitle": "Tahajjud we dua üçin iň gowy wagt.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Namaz wagtlaryny ulanyň",
+    "autoDetectHint": "{{location}} · sazlamak üçin wagta basyň",
+    "lastThirdLabel": "Soňky üçden bir başlaýar",
+    "midNightLabel": "Gijäniň ortasy",
+    "nightDuration": "Gijäniň dowamlylygy: {{duration}}",
+    "invalidTimes": "Maghrib ertirki irden Fajr-dan ozal bolmaly.",
+    "hadithTitle": "Soňky üçden bireň faziletli",
+    "basedOn": "Esasy",
+    "editTime": "{{prayer}} wagtyny üýtget",
+    "editHint": "Wagty üýtgedeniňizde netijeler täzelenýär.",
+    "nightLengthLabel": "Gijäniň dowamlylygy"
   }
 }

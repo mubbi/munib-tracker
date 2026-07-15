@@ -32,16 +32,12 @@ export function LearnSectionQuizScreen({ sectionId }: LearnSectionQuizScreenProp
   const [version, setVersion] = useState(0);
 
   useEffect(() => {
-    let cancelled = false;
+    // Do not cancel on unmount — Strict Mode / brief remounts would leave the
+    // quiz empty on first visit while ensure settles.
     void ensureSectionQuizContent(sectionId).then(() => {
-      if (!cancelled) {
-        setReady(true);
-        setVersion((v) => v + 1);
-      }
+      setReady(true);
+      setVersion((v) => v + 1);
     });
-    return () => {
-      cancelled = true;
-    };
   }, [sectionId]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: locale + content version

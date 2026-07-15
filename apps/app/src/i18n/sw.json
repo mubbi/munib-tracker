@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Mwongozo Mpya wa Waislamu",
     "finance": "Fedha za Kiislamu",
-    "flashCards": "Kadi za kujifunzia"
+    "flashCards": "Kadi za kujifunzia",
+    "verseDetector": "Kitambulisho cha Aya",
+    "lastThirdNight": "Theluthi ya mwisho ya usiku"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Tafuta waandishi...",
     "tafsirLoading": "Inapakia tafsir...",
     "tafsirOffline": "Unganisha ili kupakua tafsir hii. Matoleo yaliyofunguliwa husalia yanapatikana nje ya mtandao.",
-    "tafsirEmpty": "Hakuna tafsir inayopatikana kwa aya hii katika toleo lililochaguliwa."
+    "tafsirEmpty": "Hakuna tafsir inayopatikana kwa aya hii katika toleo lililochaguliwa.",
+    "detector": {
+      "title": "Kitambulisho cha Aya",
+      "subtitle": "Tafuta sura na aya kutoka Kiarabu au Kiingereza kilichosemwa au kuandikwa",
+      "inputModeText": "Maandishi",
+      "inputModeVoice": "Sauti",
+      "langEnglish": "Kiingereza",
+      "langArabic": "Kiarabu",
+      "languageLabel": "Lugha ya ingizo",
+      "textPlaceholder": "Bandika au andika kipande cha aya, uandishi wa sauti, au rejea kama 2:255…",
+      "voiceHint": "Gusa kipaza sauti na soma au nukuu aya",
+      "listening": "Inasikiliza… soma aya kwa uwazi",
+      "detecting": "Inatambua aya…",
+      "detectHint": "Inafanya kazi nje ya mtandao — inalinganisha maandishi ya Kiarabu, tafsiri ya Kiingereza, au marejeo.",
+      "noResults": "Hakuna aya inayolingana",
+      "noResultsHint": "Jaribu kipande kirefu zaidi, badilisha lugha, au nukuu zaidi ya aya.",
+      "resultsCount": "{{count}} matokeo",
+      "confidence": "{{percent}} ulinganifu",
+      "openInQuran": "Fungua katika Qur'ani",
+      "readFull": "Soma aya kamili",
+      "showLess": "Onyesha kidogo",
+      "examples": "Jaribu mfano",
+      "exampleKursi": "Ayat al-Kursi",
+      "exampleFatiha": "Mwanzo wa Al-Fatiha",
+      "exampleIkhlas": "Al-Ikhlas",
+      "dictate": "Sema aya",
+      "stopDictate": "Acha kusikiliza",
+      "bestMatch": "Mechi bora",
+      "otherMatches": "Mechi nyingine"
+    }
   },
   "hadith": {
     "eyebrow": "Mila ya kinabii",
@@ -3959,7 +3990,9 @@
     "virtueTitle": "Virtue   night swala",
     "virtueBody": " best swala after  farz prmweziers dir  night swala.",
     "virtueRef": "صحيح مسلم ١١٦٣",
-    "streakRow": "Tahajjud seri"
+    "streakRow": "Tahajjud seri",
+    "calculatorCta": "Kikokotozo cha theluthi ya mwisho ya usiku",
+    "calculatorHint": "Pata usiku wa manane na dirisha bora la Tahajjud kutoka Maghrib na Fajr"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Tarehe ni makadirio yaliyokokotolewa - maono ya ndani ya mwezi yanaweza kutofautiana.",
@@ -4719,5 +4752,23 @@
     },
     "skipHint": "Ruka kadi hii na uone swali lingine.",
     "skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Salah ya usiku",
+    "title": "Theluthi ya Mwisho ya Usiku",
+    "subtitle": "Wakati bora wa Tahajjud na dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Tumia nyakati za Salah",
+    "autoDetectHint": "{{location}} · gusa muda kurekebisha",
+    "lastThirdLabel": "Theluthi ya mwisho huanza",
+    "midNightLabel": "Usiku wa manane",
+    "nightDuration": "Urefu wa usiku: {{duration}}",
+    "invalidTimes": "Maghrib lazima iwe kabla ya Fajr asubuhi inayofuata.",
+    "hadithTitle": "Fadhaa ya theluthi ya mwisho",
+    "basedOn": "Kulingana na",
+    "editTime": "Hariri muda wa {{prayer}}",
+    "editHint": "Matokeo husasishwa unapobadilisha muda.",
+    "nightLengthLabel": "Urefu wa usiku"
   }
 }

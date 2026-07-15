@@ -175,7 +175,9 @@
     "ruqyah": "Руқия",
     "newMuslim": "Роҳнамои нави мусалмонон",
     "finance": "Молияи исломӣ",
-    "flashCards": "Кортҳои ёдгирӣ"
+    "flashCards": "Кортҳои ёдгирӣ",
+    "verseDetector": "Ошёнасози оят",
+    "lastThirdNight": "Сеюми охири шаб"
   },
   "quickActions": {
     "checklistSubtitle": "Отметить сегодняшние саляты",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Ҷустуҷӯи муаллифон…",
     "tafsirLoading": "Loading тафсир…",
     "tafsirOffline": "Барои зеркашии ин тафсир пайваст шавед. Нашрҳои кушодашуда офлайн дастрас мемонанд.",
-    "tafsirEmpty": "Тафсири ин оят дар нашри интихобшуда мавҷуд нест."
+    "tafsirEmpty": "Тафсири ин оят дар нашри интихобшуда мавҷуд нест.",
+    "detector": {
+      "title": "Ошёнасози оят",
+      "subtitle": "Сура ва оятро аз арабӣ ё англисии гуфташуда ё навиштаёб ёбед",
+      "inputModeText": "Матн",
+      "inputModeVoice": "Овоз",
+      "langEnglish": "Англисӣ",
+      "langArabic": "Арабӣ",
+      "languageLabel": "Забони воридот",
+      "textPlaceholder": "Қисми оят, транслитератсия ё ишора ба монанди 2:255… гузошта ё нависед…",
+      "voiceHint": "Микрофонро пахш кунед ва оятро хонед ё иқтибос кунед",
+      "listening": "Гуш карда истодааст… оятро равшан хонед",
+      "detecting": "Оят муайян карда мешавад…",
+      "detectHint": "Офлайн кор мекунад — матни арабӣ, тарҷумаи англисӣ ё ишораҳоро мутобиқ мекунад.",
+      "noResults": "Ояти мувофиқ ёфт нашуд",
+      "noResultsHint": "Қисми дарозтарро санҷед, забонро иваз кунед ё бештар аз оят иқтибос кунед.",
+      "resultsCount": "{{count}} мувофиқат",
+      "confidence": "{{percent}} мувофиқат",
+      "openInQuran": "Дар Qur'an кушодан",
+      "readFull": "Хондани ояти пурра",
+      "showLess": "Камтар нишон додан",
+      "examples": "Мисол санҷед",
+      "exampleKursi": "Ояти Курси",
+      "exampleFatiha": "Оғози Ал-Фатиха",
+      "exampleIkhlas": "Ал-Ихлос",
+      "dictate": "Оятро гӯед",
+      "stopDictate": "Гуш карданро қатъ кунед",
+      "bestMatch": "бехтарин мувофиқат",
+      "otherMatches": "Мувофиқатҳои дигар"
+    }
   },
   "hadith": {
     "eyebrow": "Анъанаи пайғамбарӣ",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "Фазилати намози шаб",
     "virtueBody": "Беҳтарин намоз пас аз намозҳои фарз намози шаб аст.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Давраи таҳаҷҷуд"
+    "streakRow": "Давраи таҳаҷҷуд",
+    "calculatorCta": "Ҳисобкунаки сеюми охири шаб",
+    "calculatorHint": "Нимаи шаб ва бехтарин вақти Tahajjud-ро аз Maghrib ва Fajr ёбед"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Санаҳо тахминҳои ҳисобшуда мебошанд - дидани моҳҳои маҳаллӣ метавонад фарқ кунад.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "Ин картаро гузаред ва саволи дигарро бинед.",
     "skipDisabledHint": "Барои оғози омехтаи нав ба ин карти охирин ҷавоб диҳед."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Намози шаб",
+    "title": "Сеюми Охири Шаб",
+    "subtitle": "бехтарин вақт барои Tahajjud ва dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Вақтҳои намозро истифода баред",
+    "autoDetectHint": "{{location}} · барои танзим кардан ба вақт зер кунед",
+    "lastThirdLabel": "Сеюми охир оғоз мешавад",
+    "midNightLabel": "Нимаи шаб",
+    "nightDuration": "Дарозии шаб: {{duration}}",
+    "invalidTimes": "Maghrib бояд пеш аз Fajr-и субҳи оянда бошад.",
+    "hadithTitle": "Фазилати сеюми охир",
+    "basedOn": "Дар асоси",
+    "editTime": "Тағири вақти {{prayer}}",
+    "editHint": "Натиҷаҳо ҳангоми тағири вақт нав мешаванд.",
+    "nightLengthLabel": "Дарозии шаб"
   }
 }

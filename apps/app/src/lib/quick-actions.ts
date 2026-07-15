@@ -64,6 +64,7 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   stats: "/statistics",
   journal: "/journal",
   tahajjud: "/tahajjud",
+  lastThirdNight: "/last-third-night" as Href,
   hayd: "/hayd",
   sick: "/sick",
   adhkarBuilder: "/adhkar-builder",
@@ -75,6 +76,7 @@ export const QUICK_ACTION_ROUTES: Record<string, Href> = {
   newMuslim: "/new-muslim" as Href,
   finance: "/finance" as Href,
   flashCards: "/flash-cards" as Href,
+  verseDetector: "/verse-detector" as Href,
 };
 
 export const QUICK_ACTION_META: QuickActionDef[] = [
@@ -118,6 +120,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     id: "tahajjud",
     labelKey: "actions.tahajjud",
     icon: { ios: "moon.stars.fill", android: "nights_stay", web: "nights_stay" },
+    tone: "info",
+  },
+  {
+    id: "lastThirdNight",
+    labelKey: "actions.lastThirdNight",
+    icon: { ios: "clock.fill", android: "schedule", web: "schedule" },
     tone: "info",
   },
   {
@@ -354,6 +362,12 @@ export const QUICK_ACTION_META: QuickActionDef[] = [
     id: "finance",
     labelKey: "actions.finance",
     icon: { ios: "chart.pie.fill", android: "pie_chart", web: "pie_chart" },
+    tone: "success",
+  },
+  {
+    id: "verseDetector",
+    labelKey: "actions.verseDetector",
+    icon: { ios: "waveform", android: "graphic_eq", web: "graphic_eq" },
     tone: "success",
   },
 ];

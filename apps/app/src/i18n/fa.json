@@ -175,7 +175,9 @@
     "ruqyah": "رقیه",
     "newMuslim": "راهنمای مسلمانان جدید",
     "finance": "امور مالی اسلامی",
-    "flashCards": "کارت‌های مرور"
+    "flashCards": "کارت‌های مرور",
+    "lastThirdNight": "سه‌م آخر شب",
+    "verseDetector": "شناسای آیات"
   },
   "quickActions": {
     "checklistSubtitle": "ثبت نمازهای امروز",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "جستجوی نویسندگان…",
     "tafsirLoading": "در حال بارگیری تفسیر…",
     "tafsirOffline": "برای دانلود این تفسیر وصل شوید. نسخه های باز شده به صورت آفلاین در دسترس می مانند.",
-    "tafsirEmpty": "هیچ تفسیری برای این آیه در نسخه منتخب موجود نیست."
+    "tafsirEmpty": "هیچ تفسیری برای این آیه در نسخه منتخب موجود نیست.",
+    "detector": {
+      "title": "شناسای آیات",
+      "subtitle": "سوره و آیه را از عربی یا انگلیسی گفتاری یا نوشتاری بیابید",
+      "inputModeText": "متن",
+      "inputModeVoice": "صدا",
+      "langEnglish": "انگلیسی",
+      "langArabic": "عربی",
+      "languageLabel": "زبان ورودی",
+      "textPlaceholder": "بخشی از آیه، نگارش آوایی، یا مرجعی مثل 2:255… را بچسبانید یا بنویسید",
+      "voiceHint": "میکروفون را بزنید و آیه را بخوانید یا نقل کنید",
+      "listening": "در حال گوش دادن… آیه را واضح بخوانید",
+      "detecting": "در حال شناسایی آیه…",
+      "detectHint": "آفلاین کار می‌کند — متن عربی، ترجمه انگلیسی، یا مراجع را می‌یابد.",
+      "noResults": "آیه مطابق یافت نشد",
+      "noResultsHint": "بخش بلندتری امتحان کنید، زبان را عوض کنید، یا بیشتر از آیه را نقل کنید.",
+      "resultsCount": "{{count}} نتیجه",
+      "confidence": "{{percent}} تطابق",
+      "openInQuran": "باز کردن در قرآن",
+      "readFull": "خواندن آیه کامل",
+      "showLess": "نمایش کمتر",
+      "examples": "یک نمونه امتحان کنید",
+      "exampleKursi": "آیة الکرسی",
+      "exampleFatiha": "آغاز سوره فاتحه",
+      "exampleIkhlas": "سوره اخلاص",
+      "dictate": "آیه را بگویید",
+      "stopDictate": "توقف گوش دادن",
+      "bestMatch": "بهترین تطابق",
+      "otherMatches": "تطابق‌های دیگر"
+    }
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",
@@ -3959,7 +3990,9 @@
     "virtueTitle": "Virtue   night نماز",
     "virtueBody": "بهترین نماز پس از نمازهای واجب، نماز شب است.",
     "virtueRef": "صحیح مسلم ۱۱۶۳",
-    "streakRow": "تهجد seri"
+    "streakRow": "تهجد seri",
+    "calculatorCta": "محاسبه‌گر سه‌م آخر شب",
+    "calculatorHint": "نیمه‌شب و بهترین زمان تهجد را از مغرب و فجر بیابید"
   },
   "seasonalTheme": {
     "dateDisclaimer": "تاریخیں تخمینی ہیں — مقامی رؤیتِ ہلال سے فرق ہو سکتا ہے۔",
@@ -4719,5 +4752,23 @@
     },
     "skipHint": "این کارت را رد کنید و سؤال دیگری ببینید.",
     "skipDisabledHint": "برای شروع چینش تازه، به این آخرین کارت پاسخ دهید."
+  },
+  "lastThirdNight": {
+    "eyebrow": "نماز شب",
+    "title": "سه‌م آخر شب",
+    "subtitle": "بهترین زمان تهجد و دعا.",
+    "maghribLabel": "مغرب",
+    "fajrLabel": "فجر",
+    "autoDetect": "استفاده از اوقات نماز",
+    "autoDetectHint": "{{location}} · برای تنظیم روی زمان بزنید",
+    "lastThirdLabel": "آغاز سه‌م آخر",
+    "midNightLabel": "نیمه‌شب",
+    "nightDuration": "مدت شب: {{duration}}",
+    "invalidTimes": "مغرب باید قبل از فجر صبح بعد باشد.",
+    "hadithTitle": "فضیلت سه‌م آخر",
+    "basedOn": "بر اساس",
+    "editTime": "ویرایش وقت {{prayer}}",
+    "editHint": "با تغییر زمان، نتایج به‌روز می‌شوند.",
+    "nightLengthLabel": "مدت شب"
   }
 }

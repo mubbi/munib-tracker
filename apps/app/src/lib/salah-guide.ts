@@ -1,3 +1,5 @@
+import * as salahGuide from "@munib-tracker/shared/content/salah-guide";
+import * as salahPhrases from "@munib-tracker/shared/content/salah-guide-phrases";
 import type {
   SalahGuideJourney,
   SalahGuidePhrase,
@@ -6,30 +8,24 @@ import type {
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
 
-type SalahGuideContent = typeof import("@munib-tracker/shared/content/salah-guide") &
-  typeof import("@munib-tracker/shared/content/salah-guide-phrases");
-let contentCache: SalahGuideContent | undefined;
+/**
+ * English corpus is statically imported with the `/salah-guide` route chunk.
+ * Lazy `import()` left hubs empty/partial on first paint when the ensure effect
+ * lost the race; sync getters always have topics ready on first visit.
+ */
+const corpus = { ...salahGuide, ...salahPhrases };
+
 export function isSalahGuideContentReady(): boolean {
-  return contentCache !== undefined;
+  return true;
 }
-export async function ensureSalahGuideContent(): Promise<SalahGuideContent> {
-  if (!contentCache) {
-    const [guide, phrases] = await Promise.all([
-      import("@munib-tracker/shared/content/salah-guide"),
-      import("@munib-tracker/shared/content/salah-guide-phrases"),
-    ]);
-    contentCache = { ...guide, ...phrases };
-  }
-  return contentCache;
-}
-function content(): Partial<SalahGuideContent> {
-  if (!contentCache) void ensureSalahGuideContent();
-  return contentCache ?? {};
+
+export async function ensureSalahGuideContent(): Promise<typeof corpus> {
+  return corpus;
 }
 
 /** All Learn Salah topics, localized for the active app locale. */
 export function getSalahGuideTopics(): SalahGuideTopic[] {
-  return localizeList(content().SALAH_GUIDE_TOPICS ?? [], overlayList("SALAH_GUIDE_TOPICS"));
+  return localizeList(corpus.SALAH_GUIDE_TOPICS, overlayList("SALAH_GUIDE_TOPICS"));
 }
 
 /** One topic by id, or undefined. */
@@ -37,19 +33,9 @@ export function getSalahGuideTopic(id: string | undefined): SalahGuideTopic | un
   return getSalahGuideTopics().find((topic) => topic.id === id);
 }
 
-/** Fallback when the lazy content chunk has not loaded yet — matches SALAH_GUIDE_JOURNEY_ORDER. */
-const FALLBACK_JOURNEY_ORDER: readonly SalahGuideJourney[] = [
-  "why",
-  "prepare",
-  "learn",
-  "practice",
-  "perfect",
-  "consistency",
-];
-
 /** Topics grouped by learning journey phase. */
 export function getSalahGuideTopicsByJourney(): Record<SalahGuideJourney, SalahGuideTopic[]> {
-  const order = content().SALAH_GUIDE_JOURNEY_ORDER ?? FALLBACK_JOURNEY_ORDER;
+  const order = corpus.SALAH_GUIDE_JOURNEY_ORDER;
   const grouped = Object.fromEntries(
     order.map((phase) => [phase, [] as SalahGuideTopic[]]),
   ) as Record<SalahGuideJourney, SalahGuideTopic[]>;
@@ -62,13 +48,13 @@ export function getSalahGuideTopicsByJourney(): Record<SalahGuideJourney, SalahG
 }
 
 export function getSalahGuidePhrases(): SalahGuidePhrase[] {
-  return localizeList(content().SALAH_GUIDE_PHRASES ?? [], overlayList("SALAH_GUIDE_PHRASES"));
+  return localizeList(corpus.SALAH_GUIDE_PHRASES, overlayList("SALAH_GUIDE_PHRASES"));
 }
 
 export function getPrayerRakats() {
-  return content().PRAYER_RAKATS ?? [];
+  return corpus.PRAYER_RAKATS;
 }
 
 export function getSalahGuideLessonCount(): number {
-  return content().SALAH_GUIDE_TOPICS?.length ?? 0;
+  return corpus.SALAH_GUIDE_TOPICS.length;
 }

@@ -1,4 +1,5 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { afterEach, describe, expect, it, jest } from "@jest/globals";
+import { Platform } from "react-native";
 
 const mockIsRecognitionAvailable = jest.fn(() => true);
 const mockRequestPermissions = jest.fn(async () => ({
@@ -33,6 +34,13 @@ import {
 } from "@/lib/stt";
 
 describe("stt", () => {
+  const originalOS = Platform.OS;
+
+  afterEach(() => {
+    Platform.OS = originalOS;
+    mockRequestPermissions.mockClear();
+  });
+
   it("reports availability from the native module", () => {
     mockIsRecognitionAvailable.mockReturnValueOnce(true);
     expect(isSttAvailable()).toBe(true);
@@ -41,6 +49,7 @@ describe("stt", () => {
   });
 
   it("requests permissions and returns a simple grant flag", async () => {
+    Platform.OS = "ios";
     mockRequestPermissions.mockResolvedValueOnce({
       granted: false,
       canAskAgain: true,
@@ -50,6 +59,16 @@ describe("stt", () => {
       granted: false,
       canAskAgain: true,
     });
+    expect(mockRequestPermissions).toHaveBeenCalledTimes(1);
+  });
+
+  it("skips the unsupported permission API on web", async () => {
+    Platform.OS = "web";
+    await expect(requestSttPermissions()).resolves.toEqual({
+      granted: true,
+      canAskAgain: true,
+    });
+    expect(mockRequestPermissions).not.toHaveBeenCalled();
   });
 
   it("starts recognition with interim results and volume metering", () => {

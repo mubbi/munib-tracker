@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Жаңы мусулман жол көрсөткүчү",
     "finance": "Ислам каржылоосу",
-    "flashCards": "Жаттоо карталары"
+    "flashCards": "Жаттоо карталары",
+    "verseDetector": "Аят таангыч",
+    "lastThirdNight": "Түнүн акыркы үчтөн бири"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's prayers",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Авторлорду издөө…",
     "tafsirLoading": "Тафсир жүктөлүүдө…",
     "tafsirOffline": "Бул тафсирди жүктөп алуу үчүн туташыңыз. Ачылган басылмалар оффлайн режиминде жеткиликтүү болот.",
-    "tafsirEmpty": "Тандалган басылмада бул аят үчүн тафсир жок."
+    "tafsirEmpty": "Тандалган басылмада бул аят үчүн тафсир жок.",
+    "detector": {
+      "title": "Аят таангыч",
+      "subtitle": "Сүйлөгөн же жазылган араб же англис тилинен сура жана аятты табыңыз",
+      "inputModeText": "Текст",
+      "inputModeVoice": "Үн",
+      "langEnglish": "Англис",
+      "langArabic": "Араб",
+      "languageLabel": "Киргизүү тили",
+      "textPlaceholder": "Аят бөлүгүн, транслитерацияны же 2:255 сыяктуу шилтемени чаптаңыз же жазыңыз…",
+      "voiceHint": "Микрофонду басып, аятты окуп же дайексөз келтириңиз",
+      "listening": "Угулууда… аятты так окуп бериңиз",
+      "detecting": "Аят аныкталууда…",
+      "detectHint": "Офлайн иштейт — араб текст, англис котормосу же шилтемелерди дал келтирет.",
+      "noResults": "Дал келген аят табылган жок",
+      "noResultsHint": "Узунураак бөлүк байкап көрүңүз, тилди алмаштырыңыз же аяттан көбүрөөк дайексөз келтириңиз.",
+      "resultsCount": "{{count}} дал келүү",
+      "confidence": "{{percent}} дал келүү",
+      "openInQuran": "Куранда ачуу",
+      "readFull": "Толук аятты окуу",
+      "showLess": "Аз көрсөтүү",
+      "examples": "Мисал байкап көрүңүз",
+      "exampleKursi": "Аят аль-Курси",
+      "exampleFatiha": "Ал-Фатиха башталышы",
+      "exampleIkhlas": "Ал-Ихлас",
+      "dictate": "Аятты айтыңыз",
+      "stopDictate": "Угууну токтотуу",
+      "bestMatch": "Эң жакшы дал келүү",
+      "otherMatches": "Башка дал келүүлөр"
+    }
   },
   "hadith": {
     "eyebrow": "пайгамбарлык салт",
@@ -3959,7 +3990,9 @@
     "virtueTitle": "Түнкү намаздын пазилети",
     "virtueBody": "Парз намаздардан кийинки эң жакшы намаз түнкү намаз.",
     "virtueRef": "Сахих Муслим 1163",
-    "streakRow": "Tahajjud серия"
+    "streakRow": "Tahajjud серия",
+    "calculatorCta": "Түнүн акыркы үчтөн бир калькулятору",
+    "calculatorHint": "Maghrib жана Fajr аркылуу түн ортосун жана эң жакшы Tahajjud убакытын табыңыз"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Даталар эсептелген болжолдуу - жергиликтүү айды көрүү ар кандай болушу мүмкүн.",
@@ -4719,5 +4752,23 @@
     },
     "skipHint": "Бул картаны өткөрүп, башка суроону көрүңүз.",
     "skipDisabledHint": "Жаңы аралаштырууну баштоо үчүн ушул акыркы картага жооп бериңиз."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Түнкү Salah",
+    "title": "Түнүн Акыркы Үчтөн Бири",
+    "subtitle": "Tahajjud жана dua үчүн эң жакшы убакыт.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Намаз убакыттарын колдонуу",
+    "autoDetectHint": "{{location}} · тууралоо үчүн убакытка басыңыз",
+    "lastThirdLabel": "Акыркы үчтөн бир башталат",
+    "midNightLabel": "Түн ортосу",
+    "nightDuration": "Түн узундугу: {{duration}}",
+    "invalidTimes": "Maghrib кийки таң Fajr алдында болушу керек.",
+    "hadithTitle": "Акыркы үчтөн бирдин артыкчылыгы",
+    "basedOn": "Негизинде",
+    "editTime": "{{prayer}} убакытын өзгөртүү",
+    "editHint": "Убакытты өзгөрткөндө натыйжалар жаңыланат.",
+    "nightLengthLabel": "Түн узундугу"
   }
 }

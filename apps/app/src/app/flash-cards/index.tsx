@@ -17,16 +17,13 @@ export default function FlashCardsScreen() {
   const [poolVersion, setPoolVersion] = useState(0);
 
   useEffect(() => {
-    let cancelled = false;
+    // Do not cancel on unmount — Strict Mode / brief remounts would leave the
+    // pool empty on first visit while the warm corpora settle (same class of
+    // bug as the learn-hub lazy ensure race).
     void ensureFlashCardContent().then(() => {
-      if (!cancelled) {
-        setReady(true);
-        setPoolVersion((v) => v + 1);
-      }
+      setReady(true);
+      setPoolVersion((v) => v + 1);
     });
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: rebuild when locale or warm pool changes

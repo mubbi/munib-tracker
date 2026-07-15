@@ -175,7 +175,9 @@
     "ruqyah": "ڕوقیە",
     "newMuslim": "ڕێبەری نوێی موسڵمانان",
     "finance": "دارایی ئیسلامی",
-    "flashCards": "Kartên fêrbûnê"
+    "flashCards": "Kartên fêrbûnê",
+    "verseDetector": "Nasînayê ayetan",
+    "lastThirdNight": "Sêyemîn sêyemîn ê şevê"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "گەڕان بەدوای نووسەران...",
     "tafsirLoading": "بارکردنی tafsir...",
     "tafsirOffline": "بۆ دابەزاندنی ئەم تەفسیرە پەیوەندی بکە. چاپە کراوەکان لە ئۆفلاین بەردەست دەمێننەوە.",
-    "tafsirEmpty": "هیچ تەفسیرێک بۆ ئەم ئایەتە لە چاپی هەڵبژێردراودا بەردەست نییە."
+    "tafsirEmpty": "هیچ تەفسیرێک بۆ ئەم ئایەتە لە چاپی هەڵبژێردراودا بەردەست نییە.",
+    "detector": {
+      "title": "Nasînayê ayetan",
+      "subtitle": "Ji Erebî an Îngilîzî yê gotî an nivîsî sûre û ayetê bibîne",
+      "inputModeText": "Nivîs",
+      "inputModeVoice": "Deng",
+      "langEnglish": "Îngilîzî",
+      "langArabic": "Erebî",
+      "languageLabel": "Zimanê têketinê",
+      "textPlaceholder": "Beşek ji ayetê, transliterasyon, an referansek wek 2:255… pêve bike an binivîse…",
+      "voiceHint": "Mîkrofonê bitikîne û ayetê bixwîne an jî wergerîne",
+      "listening": "Guhdar dike… ayetê bi zelalî bixwîne",
+      "detecting": "Ayet tê nasîn…",
+      "detectHint": "Offline dixebite — bi nivîsa Erebî, wergera Îngilîzî, an referansan li hev dibe.",
+      "noResults": "Ayetek lihev nayê",
+      "noResultsHint": "Beşek dirêjtir biceribîne, zimanê biguherîne, an zêdetir ji ayetê wergerîne.",
+      "resultsCount": "{{count}} encam",
+      "confidence": "{{percent}} lihevok",
+      "openInQuran": "Di Qur'anê de veke",
+      "readFull": "Ayetê tev bixwîne",
+      "showLess": "Kêmtir nîşan bide",
+      "examples": "Mînakê biceribîne",
+      "exampleKursi": "Ayete'l-Kursî",
+      "exampleFatiha": "Destpêka El-Fatiha",
+      "exampleIkhlas": "El-Ikhlas",
+      "dictate": "Ayetê bêje",
+      "stopDictate": "Guhdariyê rawestîne",
+      "bestMatch": "Herî baş lihevok",
+      "otherMatches": "Lihevokên din"
+    }
   },
   "hadith": {
     "eyebrow": "Kevneşopiya pêxemberî",
@@ -3959,7 +3990,9 @@
     "virtueTitle": "Virtue ya  night salah",
     "virtueBody": " best salah after  obligatory salah e  night salah.",
     "virtueRef": "سەحیح موسلیم 1163",
-    "streakRow": "Tahajjud zincîre"
+    "streakRow": "Tahajjud zincîre",
+    "calculatorCta": "Hesabkera sêyemîn sêyemîn ê şevê",
+    "calculatorHint": "Nîvê şevê û pencera herî baş a Tahajjudê ji Maghrib û Fajr bibîne"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates in calculated estimates — local moon-sighting may differ.",
@@ -4719,5 +4752,23 @@
     },
     "skipHint": "Vê kartê derbas bikin û pirsek din bibînin.",
     "skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Salaha şevê",
+    "title": "Sêyemîn Sêyemîn ê Şevê",
+    "subtitle": "Dem herî baş ji bo Tahajjud û dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Demên Salah bi kar bîne",
+    "autoDetectHint": "{{location}} · ji bo sererastkirinê li demekê bitikîne",
+    "lastThirdLabel": "Sêyemîn sêyemîn dest pê dike",
+    "midNightLabel": "Nîvê şevê",
+    "nightDuration": "Dirêjiya şevê: {{duration}}",
+    "invalidTimes": "Maghrib divê berî Fajrê sibê paşîn be.",
+    "hadithTitle": "Fazîleta sêyemîn sêyemîn",
+    "basedOn": "Li ser bingeha",
+    "editTime": "Dema {{prayer}} biguherîne",
+    "editHint": "Encam dema tu demê biguherînî nû dibin.",
+    "nightLengthLabel": "Dirêjiya şevê"
   }
 }

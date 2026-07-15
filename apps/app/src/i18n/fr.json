@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Nouveau guide musulman",
     "finance": "Finance Islamique",
-    "flashCards": "Cartes mémoire"
+    "flashCards": "Cartes mémoire",
+    "verseDetector": "Détecteur de versets",
+    "lastThirdNight": "Dernier tiers de la nuit"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Rechercher des auteurs…",
     "tafsirLoading": "Chargement de tafsir…",
     "tafsirOffline": "Connectez-vous pour télécharger ce tafsir. Les éditions ouvertes restent disponibles hors ligne.",
-    "tafsirEmpty": "Aucun tafsir n'est disponible pour cet ayah dans l'édition sélectionnée."
+    "tafsirEmpty": "Aucun tafsir n'est disponible pour cet ayah dans l'édition sélectionnée.",
+    "detector": {
+      "title": "Détecteur de versets",
+      "subtitle": "Trouvez la sourate et le verset à partir de l'arabe ou de l'anglais parlé ou écrit",
+      "inputModeText": "Texte",
+      "inputModeVoice": "Voix",
+      "langEnglish": "Anglais",
+      "langArabic": "Arabe",
+      "languageLabel": "Langue d'entrée",
+      "textPlaceholder": "Collez ou saisissez un extrait de verset, une translittération ou une référence comme 2:255…",
+      "voiceHint": "Appuyez sur le micro et récitez ou citez le verset",
+      "listening": "Écoute… récitez le verset clairement",
+      "detecting": "Détection du verset…",
+      "detectHint": "Fonctionne hors ligne — correspond au texte arabe, à la traduction anglaise ou aux références.",
+      "noResults": "Aucun verset correspondant",
+      "noResultsHint": "Essayez un extrait plus long, changez de langue ou citez plus du verset.",
+      "resultsCount": "{{count}} résultats",
+      "confidence": "{{percent}} de correspondance",
+      "openInQuran": "Ouvrir dans le Coran",
+      "readFull": "Lire le verset complet",
+      "showLess": "Afficher moins",
+      "examples": "Essayer un exemple",
+      "exampleKursi": "Ayat al-Kursi",
+      "exampleFatiha": "Ouverture d'Al-Fatiha",
+      "exampleIkhlas": "Al-Ikhlas",
+      "dictate": "Réciter le verset",
+      "stopDictate": "Arrêter l'écoute",
+      "bestMatch": "Meilleure correspondance",
+      "otherMatches": "Autres correspondances"
+    }
   },
   "hadith": {
     "eyebrow": "Tradition prophétique",
@@ -3959,7 +3990,9 @@
     "virtueTitle": "Virtue   night salah",
     "virtueBody": " best salah after  farz prmoisers dir  night salah.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Tahajjud seri"
+    "streakRow": "Tahajjud seri",
+    "calculatorCta": "Calculateur du dernier tiers de la nuit",
+    "calculatorHint": "Trouvez minuit et la meilleure fenêtre de Tahajjud entre Maghrib et Fajr"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Les dates sont des estimations calculées – l’observation locale de la lune peut différer.",
@@ -4719,5 +4752,23 @@
     },
     "skipHint": "Ignorez cette carte et voyez une autre question.",
     "skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Salah de nuit",
+    "title": "Dernier Tiers de la Nuit",
+    "subtitle": "Meilleur moment pour le Tahajjud et la dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Utiliser les horaires de Salah",
+    "autoDetectHint": "{{location}} · touchez une heure pour ajuster",
+    "lastThirdLabel": "Le dernier tiers commence",
+    "midNightLabel": "Minuit",
+    "nightDuration": "Durée de la nuit : {{duration}}",
+    "invalidTimes": "Le Maghrib doit précéder le Fajr du lendemain matin.",
+    "hadithTitle": "Mérite du dernier tiers",
+    "basedOn": "Basé sur",
+    "editTime": "Modifier l'heure de {{prayer}}",
+    "editHint": "Les résultats se mettent à jour quand vous changez l'heure.",
+    "nightLengthLabel": "Durée de la nuit"
   }
 }

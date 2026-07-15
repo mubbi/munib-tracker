@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Hagaha Muslimka Cusub",
     "finance": "Maaliyadda Islaamka",
-    "flashCards": "Kaararka barashada"
+    "flashCards": "Kaararka barashada",
+    "verseDetector": "Aqoonsiga Aayadda",
+    "lastThirdNight": "Saddex-meelood meel ugu dambeysa"
   },
   "quickActions": {
     "checklistSubtitle": "Diiwaangeli salaha maanta",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Raadi qorayaasha…",
     "tafsirLoading": "Soodejinaya tafsiirka...",
     "tafsirOffline": "Ku xidhnow si aad u soo dejiso tafsiirkan. Daabacaad la furay waa la heli karaa offline",
-    "tafsirEmpty": "Ma jiro tafsiir loogu talagalay aayaddan daabacaada la doortay."
+    "tafsirEmpty": "Ma jiro tafsiir loogu talagalay aayaddan daabacaada la doortay.",
+    "detector": {
+      "title": "Aqoonsiga Aayadda",
+      "subtitle": "Ka hel surada iyo aayadda Carabi ama Ingiriis la hadlay ama qoray",
+      "inputModeText": "Qoraal",
+      "inputModeVoice": "Cod",
+      "langEnglish": "Ingiriis",
+      "langArabic": "Carabi",
+      "languageLabel": "Luqadda gelinta",
+      "textPlaceholder": "Ku dheji ama qor qayb aayad, transliteration, ama tixraac sida 2:255…",
+      "voiceHint": "Taabo makarafoonka oo akhri ama soo xig aayadda",
+      "listening": "Wuu dhagaysanayaa… si cad u akhri aayadda",
+      "detecting": "Waa la aqoonsanayaa aayadda…",
+      "detectHint": "Wuxuu shaqeeyaa offline — wuxuu la jaanqaadaa qoraalka Carabi, tarjumaadda Ingiriisiga, ama tixraacyada.",
+      "noResults": "Lama helin aayad la mid ah",
+      "noResultsHint": "Isku day qayb dheer, beddel luqadda, ama soo xig aayadda oo badan.",
+      "resultsCount": "{{count}} natiijo",
+      "confidence": "{{percent}} iswaafajin",
+      "openInQuran": "Ka fur Qur'aanka",
+      "readFull": "Akhri aayadda oo dhan",
+      "showLess": "Muuji wax yar",
+      "examples": "Isku day tusaale",
+      "exampleKursi": "Aayatul Kursi",
+      "exampleFatiha": "Bilowga Al-Fatiha",
+      "exampleIkhlas": "Al-Ikhlas",
+      "dictate": "Sheeg aayadda",
+      "stopDictate": "Jooji dhagaysiga",
+      "bestMatch": "Ugu habboon",
+      "otherMatches": "Kuwa kale ee la mid ah"
+    }
   },
   "hadith": {
     "eyebrow": "Dhaqanka nabiga",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "Fadliga Salah habeenkii",
     "virtueBody": "Salahda ugu fiican salaadaha waajibka ah ka dib waa Salah habeenkii.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Taxanaha Tahajjud"
+    "streakRow": "Taxanaha Tahajjud",
+    "calculatorCta": "Xisaabiyaha saddex-meelood meel ee ugu dambeeya habeenka",
+    "calculatorHint": "Hel bartamaha habeenka iyo waqtiga ugu fiican ee Tahajjud laga bilaabo Maghrib iyo Fajr"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Taariikhuhu waa qiyaaso la xisaabiyey — aragtida bisha ee deegaanka way kala duwanaan kartaa.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "Ka bood kaarkan oo arag su'aal kale.",
     "skipDisabledHint": "Ka jawaab kaarkan ugu dambeeya si aad u bilowdo isku-roogid cusub."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Salaha habeenka",
+    "title": "Saddex-meelood Meel ugu Dambeysa Habeenka",
+    "subtitle": "Waqtiga ugu fiican ee Tahajjud iyo dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Isticmaal waqtiyada Salah",
+    "autoDetectHint": "{{location}} · taabo waqti si aad u hagaajiso",
+    "lastThirdLabel": "Saddex-meelood meel ugu dambeysa waxay bilaabataa",
+    "midNightLabel": "Bartamaha habeenka",
+    "nightDuration": "Dhererka habeenka: {{duration}}",
+    "invalidTimes": "Maghrib waa inuu ka horreeyaa Fajr subaxda xigta.",
+    "hadithTitle": "Fadliga saddex-meelood meel ugu dambeysa",
+    "basedOn": "Ku saleysan",
+    "editTime": "Wax ka beddel waqtiga {{prayer}}",
+    "editHint": "Natiijooyinka way cusbooneysiisaa markaad waqtiga beddesho.",
+    "nightLengthLabel": "Dhererka habeenka"
   }
 }

@@ -1,4 +1,5 @@
 import type { HadithItem, PrayerId } from "@munib-tracker/shared/types";
+import { fetchRemoteCollection, isRemoteCollection } from "@/api/hadith-remote";
 import { ensureBundledCollection, getBundledCollection } from "@/lib/hadith";
 import type { DailyScheduleEntryId } from "@/lib/prayer-times";
 
@@ -92,10 +93,17 @@ export function resolveHadithItem(hadithId: string): HadithItem | undefined {
   return bundled?.items.find((item) => item.id === hadithId);
 }
 
-/** Resolve after ensuring the bundled collection chunk is loaded. */
+/** Resolve after ensuring the collection is available (bundled chunk or remote cache). */
 export async function ensureHadithItem(hadithId: string): Promise<HadithItem | undefined> {
   const collectionId = hadithId.split(":")[0];
-  if (collectionId) await ensureBundledCollection(collectionId);
+  if (!collectionId) return undefined;
+
+  if (isRemoteCollection(collectionId)) {
+    const data = await fetchRemoteCollection(collectionId);
+    return data.items.find((item) => item.id === hadithId);
+  }
+
+  await ensureBundledCollection(collectionId);
   return resolveHadithItem(hadithId);
 }
 

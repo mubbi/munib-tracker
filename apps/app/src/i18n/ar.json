@@ -175,7 +175,9 @@
     "ruqyah": "رقية",
     "newMuslim": "دليل المسلم الجديد",
     "finance": "التمويل الإسلامي",
-    "flashCards": "بطاقات تعليمية"
+    "flashCards": "بطاقات تعليمية",
+    "verseDetector": "كاشف الآيات",
+    "lastThirdNight": "حاسبة الثلث الأخير"
   },
   "quickActions": {
     "checklistSubtitle": "سجّل صلوات اليوم",
@@ -1285,7 +1287,36 @@
     "translationCount_zero": "{{count}} ترجمات",
     "translationCount_two": "{{count}} ترجمات",
     "translationCount_few": "{{count}} ترجمات",
-    "translationCount_many": "{{count}} ترجمات"
+    "translationCount_many": "{{count}} ترجمات",
+    "detector": {
+      "title": "كاشف الآيات",
+      "subtitle": "اعثر على السورة والآية من العربية أو الإنجليزية المنطوقة أو المكتوبة",
+      "inputModeText": "نص",
+      "inputModeVoice": "صوت",
+      "langEnglish": "الإنجليزية",
+      "langArabic": "العربية",
+      "languageLabel": "لغة الإدخال",
+      "textPlaceholder": "الصق أو اكتب مقطعاً من آية، أو نقحرة، أو مرجعاً مثل ٢:٢٥٥…",
+      "voiceHint": "اضغط الميكروفون واقرأ أو اقتبس الآية",
+      "listening": "جاري الاستماع… اقرأ الآية بوضوح",
+      "detecting": "جاري التعرف على الآية…",
+      "detectHint": "يعمل دون اتصال — يطابق النص العربي أو الترجمة الإنجليزية أو المراجع.",
+      "noResults": "لم تُعثر على آية مطابقة",
+      "noResultsHint": "جرّب مقطعاً أطول، أو غيّر اللغة، أو اقتبس المزيد من الآية.",
+      "resultsCount": "{{count}} نتيجة",
+      "confidence": "{{percent}} تطابق",
+      "openInQuran": "فتح في القرآن",
+      "readFull": "قراءة الآية كاملة",
+      "showLess": "عرض أقل",
+      "examples": "جرّب مثالاً",
+      "exampleKursi": "آية الكرسي",
+      "exampleFatiha": "افتتاحية الفاتحة",
+      "exampleIkhlas": "الإخلاص",
+      "dictate": "التلاوة صوتياً",
+      "stopDictate": "إيقاف الاستماع",
+      "bestMatch": "أفضل تطابق",
+      "otherMatches": "تطابقات أخرى"
+    }
   },
   "hadith": {
     "eyebrow": "السنة النبوية",
@@ -3492,7 +3523,9 @@
     "virtueTitle": "فضل صلاة الليل",
     "virtueBody": "أفضل الصلاة بعد الفريضة صلاة الليل.",
     "virtueRef": "صحيح مسلم ١١٦٣",
-    "streakRow": "سلسلة التهجّد"
+    "streakRow": "سلسلة التهجّد",
+    "calculatorCta": "حاسبة الثلث الأخير من الليل",
+    "calculatorHint": "اعثر على منتصف الليل وأفضل وقت للتهجد من المغرب والفجر"
   },
   "seasonalTheme": {
     "dateDisclaimer": "التواريخ تقديرية محسوبة — قد يختلف يوم الرؤية المحلي.",
@@ -4712,5 +4745,23 @@
       "quran": "القرآن",
       "duas": "الأدعية"
     }
+  },
+  "lastThirdNight": {
+    "eyebrow": "صلاة الليل",
+    "title": "الثلث الأخير من الليل",
+    "subtitle": "أفضل وقت للتهجد والدعاء.",
+    "maghribLabel": "المغرب",
+    "fajrLabel": "الفجر",
+    "autoDetect": "استخدم أوقات الصلاة",
+    "autoDetectHint": "{{location}} · اضغط على وقت للتعديل",
+    "lastThirdLabel": "يبدأ الثلث الأخير",
+    "midNightLabel": "منتصف الليل",
+    "nightDuration": "طول الليل: {{duration}}",
+    "invalidTimes": "يجب أن يكون المغرب قبل فجر الصباح التالي.",
+    "hadithTitle": "فضل الثلث الأخير",
+    "basedOn": "بناءً على",
+    "editTime": "تعديل وقت {{prayer}}",
+    "editHint": "تتحدث النتائج أثناء تغيير الوقت.",
+    "nightLengthLabel": "طول الليل"
   }
 }

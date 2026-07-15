@@ -87,11 +87,20 @@ export default function JahannamDuasScreen() {
   const entries = getJahannamDuas();
   const refugeDua = getJahannamRefugeDua();
   const [duaItems, setDuaItems] = useState<DuaItem[]>([]);
+  const [duasCatalogReady, setDuasCatalogReady] = useState(false);
   useEffect(() => {
-    void loadDuaItems().then(setDuaItems);
+    // Do not cancel — first visit must still mark the catalog settled so rows
+    // are not left blank after a Strict Mode remount.
+    void loadDuaItems()
+      .then(setDuaItems)
+      .catch(() => {
+        // Settle anyway; missing catalog entries skip individual rows below.
+      })
+      .then(() => setDuasCatalogReady(true));
   }, []);
   const byId = new Map(duaItems.map((item) => [item.id, item]));
   useEnsureDuaFavoritesLoaded();
+  const ready = contentReady && duasCatalogReady;
 
   return (
     <ScreenLayout
@@ -101,7 +110,7 @@ export default function JahannamDuasScreen() {
       onBack={() => goBackOrReplace(router, "/jahannam" as Href)}
     >
       <Seo path="/jahannam/duas" />
-      <LearnContentGate ready={contentReady}>
+      <LearnContentGate ready={ready}>
         <Stagger>
           <LearnReadingChrome surface="jahannam">
             <JannahCallout tone="success">{t("jahannam.duasLead")}</JannahCallout>

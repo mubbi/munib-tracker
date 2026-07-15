@@ -175,7 +175,9 @@
     "ruqyah": "Rukjah",
     "newMuslim": "Udhëzues i ri mysliman",
     "finance": "Financa Islame",
-    "flashCards": "Karta mësimi"
+    "flashCards": "Karta mësimi",
+    "verseDetector": "Zbuluesi i ajetit",
+    "lastThirdNight": "E treta e fundit e natës"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Kërko autorët…",
     "tafsirLoading": "Po ngarkohet tefsiri…",
     "tafsirOffline": "Lidhu për të shkarkuar këtë tefsir. Botimet e hapura qëndrojnë të disponueshme jashtë linje.",
-    "tafsirEmpty": "Nuk ka tefsir për këtë ajet në botimin e zgjedhur."
+    "tafsirEmpty": "Nuk ka tefsir për këtë ajet në botimin e zgjedhur.",
+    "detector": {
+      "title": "Zbuluesi i ajetit",
+      "subtitle": "Gjeni surën dhe ajetin nga arabishtja ose anglishtja e folur ose e shkruar",
+      "inputModeText": "Tekst",
+      "inputModeVoice": "Zë",
+      "langEnglish": "Anglisht",
+      "langArabic": "Arabisht",
+      "languageLabel": "Gjuha e hyrjes",
+      "textPlaceholder": "Ngjitni ose shkruani një pjesë ajeti, transliterim ose referencë si 2:255…",
+      "voiceHint": "Prekni mikrofonin dhe recitoni ose citoni ajetin",
+      "listening": "Duke dëgjuar… recitoni ajetin qartë",
+      "detecting": "Duke identifikuar ajetin…",
+      "detectHint": "Funksionon offline — përputh tekstin arab, përkthimin anglisht ose referencat.",
+      "noResults": "Nuk u gjet ajet i përputhshëm",
+      "noResultsHint": "Provoni një pjesë më të gjatë, ndryshoni gjuhën ose citoni më shumë nga ajeti.",
+      "resultsCount": "{{count}} përputhje",
+      "confidence": "{{percent}} përputhje",
+      "openInQuran": "Hape në Kur'an",
+      "readFull": "Lexo ajetin e plotë",
+      "showLess": "Shfaq më pak",
+      "examples": "Provo një shembull",
+      "exampleKursi": "Ajeti Kursi",
+      "exampleFatiha": "Hapja e El-Fatiha",
+      "exampleIkhlas": "El-Ihlasi",
+      "dictate": "Recito ajetin",
+      "stopDictate": "Ndalo dëgjimin",
+      "bestMatch": "Përputhja më e mirë",
+      "otherMatches": "Përputhje të tjera"
+    }
   },
   "hadith": {
     "eyebrow": "Tradita profetike",
@@ -3959,7 +3990,9 @@
     "virtueTitle": "Virtue e  night salah",
     "virtueBody": " best salah after  obligatory salah është  night salah.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Tahajjud seria"
+    "streakRow": "Tahajjud seria",
+    "calculatorCta": "Llogaritësi i të tretës së fundit të natës",
+    "calculatorHint": "Gjeni mesnatën dhe dritaren më të mirë të Tahajjud nga Maghrib dhe Fajr"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates janë calculated estimates — local moon-sighting may differ.",
@@ -4719,5 +4752,23 @@
     },
     "skipHint": "Kapërceni këtë kartë dhe shihni një pyetje tjetër.",
     "skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Salah e natës",
+    "title": "E Treta e Fundit e Natës",
+    "subtitle": "Koha më e mirë për Tahajjud dhe dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Përdor kohët e Salah",
+    "autoDetectHint": "{{location}} · prek një kohë për ta rregulluar",
+    "lastThirdLabel": "E treta e fundit fillon",
+    "midNightLabel": "Mesnatë",
+    "nightDuration": "Gjatësia e natës: {{duration}}",
+    "invalidTimes": "Maghrib duhet të jetë para Fajrit të mëngjesit të ardhshëm.",
+    "hadithTitle": "Vlera e të tretës së fundit",
+    "basedOn": "Bazuar në",
+    "editTime": "Ndrysho kohën e {{prayer}}",
+    "editHint": "Rezultatet përditësohen ndërsa ndryshon koha.",
+    "nightLengthLabel": "Gjatësia e natës"
   }
 }

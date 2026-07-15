@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Panduan Muslim Baru",
     "finance": "Keuangan Islam",
-    "flashCards": "Kartu flash"
+    "flashCards": "Kartu flash",
+    "verseDetector": "Detektor Ayat",
+    "lastThirdNight": "Sepertiga akhir malam"
   },
   "quickActions": {
     "checklistSubtitle": "Catat doa hari ini",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Cari penulis…",
     "tafsirLoading": "Memuat tafsir…",
     "tafsirOffline": "Hubungkan untuk mengunduh tafsir ini. Edisi terbuka tetap tersedia secara offline.",
-    "tafsirEmpty": "Tidak ada tafsir yang tersedia untuk ayat ini pada edisi yang dipilih."
+    "tafsirEmpty": "Tidak ada tafsir yang tersedia untuk ayat ini pada edisi yang dipilih.",
+    "detector": {
+      "title": "Detektor Ayat",
+      "subtitle": "Temukan surah dan ayat dari Arab atau Inggris lisan atau tertulis",
+      "inputModeText": "Teks",
+      "inputModeVoice": "Suara",
+      "langEnglish": "Inggris",
+      "langArabic": "Arab",
+      "languageLabel": "Bahasa masukan",
+      "textPlaceholder": "Tempel atau ketik cuplikan ayat, transliterasi, atau referensi seperti 2:255…",
+      "voiceHint": "Ketuk mikrofon dan bacakan atau kutip ayat",
+      "listening": "Mendengarkan… bacakan ayat dengan jelas",
+      "detecting": "Mendeteksi ayat…",
+      "detectHint": "Bekerja offline — mencocokkan teks Arab, terjemahan Inggris, atau referensi.",
+      "noResults": "Tidak ada ayat yang cocok",
+      "noResultsHint": "Coba cuplikan lebih panjang, ganti bahasa, atau kutip lebih banyak ayat.",
+      "resultsCount": "{{count}} hasil",
+      "confidence": "{{percent}} kecocokan",
+      "openInQuran": "Buka di Al-Qur'an",
+      "readFull": "Baca ayat lengkap",
+      "showLess": "Tampilkan lebih sedikit",
+      "examples": "Coba contoh",
+      "exampleKursi": "Ayat Kursi",
+      "exampleFatiha": "Pembukaan Al-Fatihah",
+      "exampleIkhlas": "Al-Ikhlas",
+      "dictate": "Ucapkan ayat",
+      "stopDictate": "Berhenti mendengarkan",
+      "bestMatch": "Kecocokan terbaik",
+      "otherMatches": "Kecocokan lain"
+    }
   },
   "hadith": {
     "eyebrow": "Tradisi kenabian",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "Virtue dari  malam shalat",
     "virtueBody": " best shalat after  wajib shalat adalah  malam shalat.",
     "virtueRef": "Sahih Muslim 1163",
-    "streakRow": "Tahajud streak"
+    "streakRow": "Tahajud streak",
+    "calculatorCta": "Kalkulator sepertiga akhir malam",
+    "calculatorHint": "Temukan tengah malam dan waktu Tahajjud terbaik dari Maghrib dan Fajr"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates adalah calculated estimates — local moon-sighting may differ.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "Lewati kartu ini dan lihat pertanyaan lain.",
     "skipDisabledHint": "Jawab kartu terakhir ini untuk memulai pengocokan baru."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Salah malam",
+    "title": "Sepertiga Akhir Malam",
+    "subtitle": "Waktu terbaik untuk Tahajjud dan dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Gunakan waktu salah",
+    "autoDetectHint": "{{location}} · ketuk waktu untuk menyesuaikan",
+    "lastThirdLabel": "Sepertiga akhir dimulai",
+    "midNightLabel": "Tengah malam",
+    "nightDuration": "Durasi malam: {{duration}}",
+    "invalidTimes": "Maghrib harus sebelum Fajr pagi berikutnya.",
+    "hadithTitle": "Keutamaan sepertiga akhir",
+    "basedOn": "Berdasarkan",
+    "editTime": "Edit waktu {{prayer}}",
+    "editHint": "Hasil diperbarui saat Anda mengubah waktu.",
+    "nightLengthLabel": "Durasi malam"
   }
 }

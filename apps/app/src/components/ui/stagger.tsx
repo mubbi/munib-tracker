@@ -22,9 +22,11 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { useLearnBodyReady } from "@/components/learn-content-loading";
 import { Durations, Stagger as StaggerTokens } from "@/constants/motion";
 import { Spacing } from "@/constants/theme";
 import { useHydrationSafeReducedMotion } from "@/hooks/use-hydration-safe-reduced-motion";
+import { LEARN_SECTION_ROUTES } from "@/lib/library-menu";
 import { registerStaggerLayoutListener } from "@/lib/stagger-entrances";
 
 /** Routes/screens whose stagger entrance has already played this session. */
@@ -102,7 +104,18 @@ export function Stagger({
   const resolvedKey = entranceKey ?? pathname;
   const resolvedKeyRef = useRef(resolvedKey);
   resolvedKeyRef.current = resolvedKey;
-  const skipFromKey = !animate || (resolvedKey ? completedEntrances.has(resolvedKey) : false);
+  // Learn hubs must show every section on first visit. Opacity-0 cascades after
+  // a heavy corpus mount can leave lower rows invisible until remount; skip
+  // entrances on learn routes and inside LearnContentGate.
+  const learnBodyReady = useLearnBodyReady();
+  const isLearnRoute = LEARN_SECTION_ROUTES.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
+  const skipFromKey =
+    !animate ||
+    learnBodyReady ||
+    isLearnRoute ||
+    (resolvedKey ? completedEntrances.has(resolvedKey) : false);
   const entranceComplete = useRef(skipFromKey);
   const [forceVisible, setForceVisible] = useState(skipFromKey);
   const items = Children.toArray(children);
@@ -156,11 +169,14 @@ export function Stagger({
 
   // Record completion after the slowest child would have settled, so normal
   // cascades still play once; later remounts of this route skip the fade-in.
+  // Cap at 500ms so learn hubs with many sections never leave lower children
+  // at opacity 0 on first visit (Reanimated can stall after heavy corpus eval).
   useEffect(() => {
     if (!animate || forceVisible || itemCount === 0) return;
 
     const lastIndex = itemCount - 1;
-    const totalDuration = delay + lastIndex * step + Durations.slow;
+    const naturalDuration = delay + lastIndex * step + Durations.slow;
+    const totalDuration = Math.min(naturalDuration, 500);
     const completeTimer = setTimeout(() => {
       markEntranceComplete();
     }, totalDuration);

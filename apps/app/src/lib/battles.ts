@@ -1,3 +1,9 @@
+import * as battles from "@munib-tracker/shared/content/battles";
+import * as battlesFigures from "@munib-tracker/shared/content/battles-figures";
+import * as battlesGlossary from "@munib-tracker/shared/content/battles-glossary";
+import * as battlesLessons from "@munib-tracker/shared/content/battles-lessons";
+import * as battlesTimeline from "@munib-tracker/shared/content/battles-timeline";
+import * as battlesVerses from "@munib-tracker/shared/content/battles-verses";
 import type { BattlesSection, BattlesTopic } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
@@ -11,39 +17,29 @@ export interface BattlesAfterProphetItem {
   location: string;
 }
 
-type BattlesContent = typeof import("@munib-tracker/shared/content/battles") &
-  typeof import("@munib-tracker/shared/content/battles-figures") &
-  typeof import("@munib-tracker/shared/content/battles-glossary") &
-  typeof import("@munib-tracker/shared/content/battles-lessons") &
-  typeof import("@munib-tracker/shared/content/battles-timeline") &
-  typeof import("@munib-tracker/shared/content/battles-verses");
-let contentCache: BattlesContent | undefined;
+/**
+ * English corpus is statically imported with the `/battles` route chunk.
+ * Lazy `import()` left hubs empty/partial on first paint.
+ */
+const corpus = {
+  ...battles,
+  ...battlesFigures,
+  ...battlesGlossary,
+  ...battlesLessons,
+  ...battlesTimeline,
+  ...battlesVerses,
+};
+
 export function isBattlesContentReady(): boolean {
-  return contentCache !== undefined;
+  return true;
 }
 
-export async function ensureBattlesContent(): Promise<BattlesContent> {
-  if (!contentCache) {
-    const modules = await Promise.all([
-      import("@munib-tracker/shared/content/battles"),
-      import("@munib-tracker/shared/content/battles-figures"),
-      import("@munib-tracker/shared/content/battles-glossary"),
-      import("@munib-tracker/shared/content/battles-lessons"),
-      import("@munib-tracker/shared/content/battles-timeline"),
-      import("@munib-tracker/shared/content/battles-verses"),
-    ]);
-    contentCache = Object.assign({}, ...modules) as BattlesContent;
-  }
-  return contentCache;
-}
-
-function content(): Partial<BattlesContent> {
-  if (!contentCache) void ensureBattlesContent();
-  return contentCache ?? {};
+export async function ensureBattlesContent(): Promise<typeof corpus> {
+  return corpus;
 }
 
 export function getBattlesTopics(): BattlesTopic[] {
-  return localizeList(content().BATTLES_TOPICS ?? [], overlayList("BATTLES_TOPICS"));
+  return localizeList(corpus.BATTLES_TOPICS, overlayList("BATTLES_TOPICS"));
 }
 
 export function getBattlesTopic(id: string | undefined): BattlesTopic | undefined {
@@ -52,7 +48,7 @@ export function getBattlesTopic(id: string | undefined): BattlesTopic | undefine
 }
 
 export function getBattlesSectionOrder(): readonly BattlesSection[] {
-  return content().BATTLES_SECTION_ORDER ?? [];
+  return corpus.BATTLES_SECTION_ORDER;
 }
 
 export function getBattlesTopicsBySection(): Record<BattlesSection, BattlesTopic[]> {
@@ -68,30 +64,30 @@ export function getBattlesTopicsBySection(): Record<BattlesSection, BattlesTopic
 }
 
 export function getBattlesLessonCount(): number {
-  return content().BATTLES_TOPICS?.length ?? 0;
+  return corpus.BATTLES_TOPICS.length;
 }
 
 export function getBattlesTimeline() {
-  return localizeList(content().BATTLES_TIMELINE ?? [], overlayList("BATTLES_TIMELINE"));
+  return localizeList(corpus.BATTLES_TIMELINE, overlayList("BATTLES_TIMELINE"));
 }
 
 export function getBattlesGlossary() {
-  return localizeList(content().BATTLES_GLOSSARY ?? [], overlayList("BATTLES_GLOSSARY"));
+  return localizeList(corpus.BATTLES_GLOSSARY, overlayList("BATTLES_GLOSSARY"));
 }
 
 export function getBattlesFigures() {
-  return localizeList(content().BATTLES_FIGURES ?? [], overlayList("BATTLES_FIGURES"));
+  return localizeList(corpus.BATTLES_FIGURES, overlayList("BATTLES_FIGURES"));
 }
 
 export function getBattlesLessonCards() {
-  return localizeList(content().BATTLES_LESSON_CARDS ?? [], overlayList("BATTLES_LESSON_CARDS"));
+  return localizeList(corpus.BATTLES_LESSON_CARDS, overlayList("BATTLES_LESSON_CARDS"));
 }
 
 export function getBattlesVerses() {
-  return localizeList(content().BATTLES_VERSES ?? [], overlayList("BATTLES_VERSES"));
+  return localizeList(corpus.BATTLES_VERSES, overlayList("BATTLES_VERSES"));
 }
 
 export function getBattlesAfterProphet(): BattlesAfterProphetItem[] {
-  const base: BattlesAfterProphetItem[] = [...(content().BATTLES_AFTER_PROPHET ?? [])];
+  const base: BattlesAfterProphetItem[] = [...corpus.BATTLES_AFTER_PROPHET];
   return localizeList(base, overlayList("BATTLES_AFTER_PROPHET"));
 }

@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Sabon Jagoran Musulmi",
     "finance": "Islamic Finance",
-    "flashCards": "Katunan koyo"
+    "flashCards": "Katunan koyo",
+    "verseDetector": "Mai nemo ayah",
+    "lastThirdNight": "Ƙarshen ɓangare na uku"
   },
   "quickActions": {
     "checklistSubtitle": "Rubuta sallar yau",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Bincika marubuta…",
     "tafsirLoading": "Ana loda tafsir…",
     "tafsirOffline": "Shiga domin saukar da wannan tafsiri. Buɗe buɗaɗɗen suna kasancewa a layi.",
-    "tafsirEmpty": "Babu tafsirin wannan aya a cikin zababben bugu."
+    "tafsirEmpty": "Babu tafsirin wannan aya a cikin zababben bugu.",
+    "detector": {
+      "title": "Mai nemo ayah",
+      "subtitle": "Nemo surah da ayah daga Larabci ko Ingilishi da aka faɗa ko rubuta",
+      "inputModeText": "Rubutu",
+      "inputModeVoice": "Murya",
+      "langEnglish": "Ingilishi",
+      "langArabic": "Larabci",
+      "languageLabel": "Harshen shigarwa",
+      "textPlaceholder": "Manna ko rubuta ɓangare na ayah, fassarar haruffa, ko nuni kamar 2:255…",
+      "voiceHint": "Danna makirufo ka karanta ko ka kwafi ayah",
+      "listening": "Ana sauraro… karanta ayah a bayyane",
+      "detecting": "Ana gano ayah…",
+      "detectHint": "Yana aiki offline — yana daidaita rubutun Larabci, fassarar Ingilishi, ko nuni.",
+      "noResults": "Ba a sami ayah da ta dace ba",
+      "noResultsHint": "Gwada ɓangare mai tsawo, canza harshe, ko kwafi ƙarin ayah.",
+      "resultsCount": "{{count}} sakamako",
+      "confidence": "{{percent}} daidaito",
+      "openInQuran": "Buɗe a Alkur'ani",
+      "readFull": "Karanta cikakken ayah",
+      "showLess": "Nuna kaɗan",
+      "examples": "Gwada misali",
+      "exampleKursi": "Ayatul Kursi",
+      "exampleFatiha": "Farkon Al-Fatiha",
+      "exampleIkhlas": "Al-Ikhlas",
+      "dictate": "Faɗi ayah",
+      "stopDictate": "Daina sauraro",
+      "bestMatch": "Mafi dacewa",
+      "otherMatches": "Wasu daidaito"
+    }
   },
   "hadith": {
     "eyebrow": "Hadisin annabci",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "Virtue   night sallah",
     "virtueBody": " best sallah after  farz prwataers dir  night sallah.",
     "virtueRef": "Sahih Muslim 1163",
-    "streakRow": "Tahajjud seri"
+    "streakRow": "Tahajjud seri",
+    "calculatorCta": "Kalkuleta na ɓangare na uku na daga cikin dare",
+    "calculatorHint": "Nemo tsakiyar dare da mafi kyawun lokacin Tahajjud daga Maghrib da Fajr"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Ana ƙididdige kwanan wata ƙididdiga - ganin wata na gida na iya bambanta.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "Tsallake wannan kati ku ga wani tambaya.",
     "skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Salah na dare",
+    "title": "Ƙarshen Ɓangare na Uku na Dare",
+    "subtitle": "Mafi kyawun lokaci na Tahajjud da dua.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Yi amfani da lokutan Salah",
+    "autoDetectHint": "{{location}} · danna lokaci don daidaitawa",
+    "lastThirdLabel": "Ƙarshen ɓangare na uku ya fara",
+    "midNightLabel": "Tsakiyar dare",
+    "nightDuration": "Tsawon dare: {{duration}}",
+    "invalidTimes": "Dole Maghrib ya kasance kafin Fajr safiyar gaba.",
+    "hadithTitle": "Falalar ƙarshen ɓangare na uku",
+    "basedOn": "Bisa ga",
+    "editTime": "Gyara lokacin {{prayer}}",
+    "editHint": "Sakamako suna sabuntawa yayin da kuka canza lokaci.",
+    "nightLengthLabel": "Tsawon dare"
   }
 }

@@ -175,7 +175,9 @@
     "ruqyah": "Ruqya",
     "newMuslim": "Yangi musulmon qo'llanma",
     "finance": "Islomiy moliya",
-    "flashCards": "Yod kartalari"
+    "flashCards": "Yod kartalari",
+    "verseDetector": "Oyat aniqlagich",
+    "lastThirdNight": "Tunning oxirgi uchtadan biri"
   },
   "quickActions": {
     "checklistSubtitle": "Bugungi namozlarni qayd eting",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Mualliflarni qidirish…",
     "tafsirLoading": "Tafsir yuklanmoqda…",
     "tafsirOffline": "Ushbu tafsirni yuklab olish uchun ulaning. Ochilgan nashrlar oflayn rejimda mavjud bo'lib qoladi.",
-    "tafsirEmpty": "Tanlangan nashrda bu oyat uchun tafsir mavjud emas."
+    "tafsirEmpty": "Tanlangan nashrda bu oyat uchun tafsir mavjud emas.",
+    "detector": {
+      "title": "Oyat aniqlagich",
+      "subtitle": "So'zlangan yoki yozilgan arab yoki ingliz tilidan sura va oyatni toping",
+      "inputModeText": "Matn",
+      "inputModeVoice": "Ovoz",
+      "langEnglish": "Ingliz",
+      "langArabic": "Arab",
+      "languageLabel": "Kiritish tili",
+      "textPlaceholder": "Oyat parchasi, transliteratsiya yoki 2:255 kabi havolani joylashtiring yoki yozing…",
+      "voiceHint": "Mikrofonga bosing va oyatni o'qing yoki iqtibos qiling",
+      "listening": "Tinglanmoqda… oyatni aniq o'qing",
+      "detecting": "Oyat aniqlanmoqda…",
+      "detectHint": "Oflayn ishlaydi — arab matni, ingliz tarjimasi yoki havolalarni moslashtiradi.",
+      "noResults": "Mos oyat topilmadi",
+      "noResultsHint": "Uzunroq parcha sinab ko'ring, tilni almashtiring yoki oyatdan ko'proq iqtibos qiling.",
+      "resultsCount": "{{count}} natija",
+      "confidence": "{{percent}} moslik",
+      "openInQuran": "Qur'onda ochish",
+      "readFull": "To'liq oyatni o'qish",
+      "showLess": "Kamroq ko'rsatish",
+      "examples": "Namuna sinab ko'ring",
+      "exampleKursi": "Oyatul Kursi",
+      "exampleFatiha": "Al-Fatiha boshlanishi",
+      "exampleIkhlas": "Al-Ikhlas",
+      "dictate": "Oyatni ayting",
+      "stopDictate": "Tinglashni to'xtatish",
+      "bestMatch": "Eng yaxshi moslik",
+      "otherMatches": "Boshqa mosliklar"
+    }
   },
   "hadith": {
     "eyebrow": "Payg'ambarlik an'anasi",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "Tungi salah fazilati",
     "virtueBody": "Farz salahdan keyin eng afzal salah tungi salahdir.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Tahajjud davomiyligi"
+    "streakRow": "Tahajjud davomiyligi",
+    "calculatorCta": "Tunning oxirgi uchtadan biri kalkulyatori",
+    "calculatorHint": "Maghrib va Fajrdan yarim tun va eng yaxshi Tahajjud vaqtini toping"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Sanalar hisoblangan taxmin — mahalliy oy kuzatuvi farq qilishi mumkin.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "Bu kartani o‘tkazib yuboring va boshqa savolni ko‘ring.",
     "skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Tungi Salah",
+    "title": "Tunning Oxirgi Uchtadan Biri",
+    "subtitle": "Tahajjud va dua uchun eng yaxshi vaqt.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Namoz vaqtlaridan foydalanish",
+    "autoDetectHint": "{{location}} · sozlash uchun vaqtga bosing",
+    "lastThirdLabel": "Oxirgi uchtadan bir boshlanadi",
+    "midNightLabel": "Yarim tun",
+    "nightDuration": "Tun davomiyligi: {{duration}}",
+    "invalidTimes": "Maghrib ertasi ertalab Fajrdan oldin bo'lishi kerak.",
+    "hadithTitle": "Oxirgi uchtadan birning fazilati",
+    "basedOn": "Asos",
+    "editTime": "{{prayer}} vaqtini tahrirlash",
+    "editHint": "Vaqtni o'zgartirsangiz, natijalar yangilanadi.",
+    "nightLengthLabel": "Tun davomiyligi"
   }
 }

@@ -1,10 +1,21 @@
-import type { ReactNode } from "react";
+import { createContext, type ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+
+/**
+ * When true, nested {@link Stagger} skips opacity-0 entrances so learn body
+ * content is fully visible on the first visit (not only after remount).
+ */
+const LearnBodyReadyContext = createContext(false);
+
+/** True when rendering inside a ready {@link LearnContentGate}. */
+export function useLearnBodyReady(): boolean {
+  return useContext(LearnBodyReadyContext);
+}
 
 /**
  * Inline body placeholder while a learn corpus finishes lazy-loading.
@@ -46,10 +57,15 @@ export function LearnContentLoading() {
   );
 }
 
-/** Renders a loader until `ready`, then children — use for learn body content. */
+/**
+ * Renders a loader until `ready`, then children — use for learn body content.
+ * Once ready, children mount with the corpus already warm (prefer sync imports
+ * in `lib/*` learn modules) and nested Stagger skips opacity-0 entrances so the
+ * first visit paints the full hub.
+ */
 export function LearnContentGate({ ready, children }: { ready: boolean; children: ReactNode }) {
   if (!ready) return <LearnContentLoading />;
-  return children;
+  return <LearnBodyReadyContext.Provider value={true}>{children}</LearnBodyReadyContext.Provider>;
 }
 
 const styles = StyleSheet.create({

@@ -175,7 +175,9 @@
     "ruqyah": "رقیہ",
     "newMuslim": "نیو مسلم گائیڈ",
     "finance": "اسلامی مالیات",
-    "flashCards": "فلیش کارڈز"
+    "flashCards": "فلیش کارڈز",
+    "verseDetector": "آیت تلاش",
+    "lastThirdNight": "آخری تہائی کیلکولیٹر"
   },
   "quickActions": {
     "checklistSubtitle": "آج کی نمازیں درج کریں",
@@ -1257,7 +1259,36 @@
     "translationRemote": "ضرورت پڑنے پر ڈاؤن لوڈ ہوگا",
     "backToLanguages": "تمام زبانیں",
     "searchTranslationLanguages": "زبانیں تلاش کریں…",
-    "searchTranslators": "مترجمین تلاش کریں…"
+    "searchTranslators": "مترجمین تلاش کریں…",
+    "detector": {
+      "title": "آیت تلاش",
+      "subtitle": "عربی یا انگریزی بولی یا لکھی گئی آیت سے سورت و آیت تلاش کریں",
+      "inputModeText": "تحریر",
+      "inputModeVoice": "آواز",
+      "langEnglish": "انگریزی",
+      "langArabic": "عربی",
+      "languageLabel": "زبانِ درج",
+      "textPlaceholder": "آیت کا حصہ، نقل حرفی، یا حوالہ جیسے 2:255… چسپاں یا ٹائپ کریں",
+      "voiceHint": "مائیکروفون دبائیں اور آیت پڑھیں یا اقتباس کریں",
+      "listening": "سن رہا ہے… آیت واضح طور پر پڑھیں",
+      "detecting": "آیت شناخت ہو رہی ہے…",
+      "detectHint": "آف لائن کام کرتا ہے — عربی متن، انگریزی ترجمہ، یا حوالہ ملاتا ہے۔",
+      "noResults": "کوئی مطابقت پذیر آیت نہیں ملی",
+      "noResultsHint": "لمبا حصہ آزمائیں، زبان بدلیں، یا آیت کا زیادہ حصہ اقتباس کریں۔",
+      "resultsCount": "{{count}} نتائج",
+      "confidence": "{{percent}} مطابقت",
+      "openInQuran": "قرآن میں کھولیں",
+      "readFull": "مکمل آیت پڑھیں",
+      "showLess": "کم دکھائیں",
+      "examples": "مثال آزمائیں",
+      "exampleKursi": "آیت الکرسی",
+      "exampleFatiha": "سورۃ الفاتحہ کا آغاز",
+      "exampleIkhlas": "سورۃ الاخلاص",
+      "dictate": "آیت بولیں",
+      "stopDictate": "سننا بند کریں",
+      "bestMatch": "بہترین مطابقت",
+      "otherMatches": "دیگر مطابقتیں"
+    }
   },
   "hadith": {
     "eyebrow": "سنتِ نبوی",
@@ -3408,7 +3439,9 @@
     "virtueTitle": "رات کی نماز کی فضیلت",
     "virtueBody": "فرض نمازوں کے بعد سب سے افضل نماز رات کی نماز ہے۔",
     "virtueRef": "صحیح مسلم ۱۱۶۳",
-    "streakRow": "تہجد کا تسلسل"
+    "streakRow": "تہجد کا تسلسل",
+    "calculatorCta": "رات کے آخری تہائی کا کیلکولیٹر",
+    "calculatorHint": "مغرب اور فجر سے نصف شب اور بہترین تہجد کا وقت معلوم کریں"
   },
   "seasonalTheme": {
     "dateDisclaimer": "تاریخیں تخمینی ہیں — مقامی رؤیتِ ہلال سے فرق ہو سکتا ہے۔",
@@ -4623,5 +4656,23 @@
       "quran": "قرآن",
       "duas": "دعائیں"
     }
+  },
+  "lastThirdNight": {
+    "eyebrow": "رات کی نماز",
+    "title": "رات کا آخری تہائی",
+    "subtitle": "تہجد اور دعا کا بہترین وقت۔",
+    "maghribLabel": "مغرب",
+    "fajrLabel": "فجر",
+    "autoDetect": "نماز کے اوقات استعمال کریں",
+    "autoDetectHint": "{{location}} · تبدیل کرنے کے لیے وقت پر تھپتھپائیں",
+    "lastThirdLabel": "آخری تہائی شروع",
+    "midNightLabel": "نصف شب",
+    "nightDuration": "رات کی لمبائی: {{duration}}",
+    "invalidTimes": "مغرب اگلی صبح کی فجر سے پہلے ہونا چاہیے۔",
+    "hadithTitle": "آخری تہائی کی فضیلت",
+    "basedOn": "مبنی بر",
+    "editTime": "{{prayer}} کا وقت تبدیل کریں",
+    "editHint": "وقت بدلتے ہی نتائج بدل جاتے ہیں۔",
+    "nightLengthLabel": "رات کی لمبائی"
   }
 }

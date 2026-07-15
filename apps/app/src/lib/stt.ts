@@ -3,6 +3,7 @@ import {
   ExpoSpeechRecognitionModule,
   type ExpoSpeechRecognitionOptions,
 } from "expo-speech-recognition";
+import { Platform } from "react-native";
 
 import { localeToBcp47, toAppLocale } from "@/lib/locale-bcp47";
 
@@ -55,6 +56,13 @@ export function isSttAvailable(): boolean {
 }
 
 export async function requestSttPermissions(): Promise<SttPermissionResult> {
+  // expo-speech-recognition stubs requestPermissionsAsync on web with a console.warn
+  // and always returns granted. Browser mic consent is prompted when SpeechRecognition
+  // starts — skip the unsupported call to avoid the noise.
+  if (Platform.OS === "web") {
+    return { granted: true, canAskAgain: true };
+  }
+
   try {
     const result = await ExpoSpeechRecognitionModule.requestPermissionsAsync();
     return { granted: result.granted, canAskAgain: result.canAskAgain };

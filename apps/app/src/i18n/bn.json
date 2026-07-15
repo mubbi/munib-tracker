@@ -175,7 +175,9 @@
     "ruqyah": "রুকিয়াহ",
     "newMuslim": "নতুন মুসলিম গাইড",
     "finance": "ইসলামিক ফাইন্যান্স",
-    "flashCards": "ফ্ল্যাশ কার্ড"
+    "flashCards": "ফ্ল্যাশ কার্ড",
+    "verseDetector": "আয়াত শনাক্তকারী",
+    "lastThirdNight": "রাতের শেষ তৃতীয়াংশ"
   },
   "quickActions": {
     "checklistSubtitle": "আজকের নামাজ লগ করুন",
@@ -1302,7 +1304,36 @@
     "searchTafsirAuthors": "লেখক খুঁজুন…",
     "tafsirLoading": "তাফসির লোড হচ্ছে...",
     "tafsirOffline": "এই তাফসির ডাউনলোড করতে সংযোগ করুন। খোলা সংস্করণ অফলাইনে উপলব্ধ থাকে।",
-    "tafsirEmpty": "নির্বাচিত সংস্করণে এই আয়াতের জন্য কোন তাফসির পাওয়া যায় না।"
+    "tafsirEmpty": "নির্বাচিত সংস্করণে এই আয়াতের জন্য কোন তাফসির পাওয়া যায় না।",
+    "detector": {
+      "title": "আয়াত শনাক্তকারী",
+      "subtitle": "কথ্য বা লিখিত আরবি বা ইংরেজি থেকে সূরা ও আয়াত খুঁজুন",
+      "inputModeText": "টেক্সট",
+      "inputModeVoice": "কণ্ঠ",
+      "langEnglish": "ইংরেজি",
+      "langArabic": "আরবি",
+      "languageLabel": "ইনপুট ভাষা",
+      "textPlaceholder": "আয়াতের অংশ, transliteration, বা 2:255-এর মতো রেফারেন্স পেস্ট বা টাইপ করুন…",
+      "voiceHint": "মাইক্রোফোনে ট্যাপ করে আয়াত তিলাওয়াত বা উদ্ধৃত করুন",
+      "listening": "শোনা হচ্ছে… আয়াত স্পষ্টভাবে পড়ুন",
+      "detecting": "আয়াত শনাক্ত করা হচ্ছে…",
+      "detectHint": "অফলাইনে কাজ করে — আরবি পাঠ, ইংরেজি অনুবাদ, বা রেফারেন্স মিলায়।",
+      "noResults": "কোনো মিল পাওয়া যায়নি",
+      "noResultsHint": "দীর্ঘ অংশ চেষ্টা করুন, ভাষা বদলান, বা আরও আয়াত উদ্ধৃত করুন।",
+      "resultsCount": "{{count}}টি ফলাফল",
+      "confidence": "{{percent}} মিল",
+      "openInQuran": "কুরআনে খুলুন",
+      "readFull": "সম্পূর্ণ আয়াত পড়ুন",
+      "showLess": "কম দেখান",
+      "examples": "উদাহরণ চেষ্টা করুন",
+      "exampleKursi": "আয়াতুল কুরসি",
+      "exampleFatiha": "আল-ফাতিহার সূচনা",
+      "exampleIkhlas": "আল-ইখলাস",
+      "dictate": "আয়াত বলুন",
+      "stopDictate": "শোনা বন্ধ করুন",
+      "bestMatch": "সেরা মিল",
+      "otherMatches": "অন্যান্য মিল"
+    }
   },
   "hadith": {
     "eyebrow": "নববী tradition",
@@ -3876,7 +3907,9 @@
     "virtueTitle": "Virtue এর  night নামাজ",
     "virtueBody": " best নামাজ after  ফরজ prayers হয়  night নামাজ.",
     "virtueRef": "Sahih Muslim 1163",
-    "streakRow": "তাহাজ্জুদ ধারাবাহিক"
+    "streakRow": "তাহাজ্জুদ ধারাবাহিক",
+    "calculatorCta": "রাতের শেষ তৃতীয়াংশ ক্যালকুলেটর",
+    "calculatorHint": "মাগরিব ও ফজর থেকে মধ্যরাত ও সেরা তাহাজ্জুদের সময় জানুন"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates হয় calculated estimates — local moon-sighting may differ.",
@@ -4636,5 +4669,23 @@
     },
     "skipHint": "এই কার্ড এড়িয়ে অন্য প্রশ্ন দেখুন।",
     "skipDisabledHint": "নতুন মিশ্রণ শুরু করতে এই শেষ কার্ডের উত্তর দিন।"
+  },
+  "lastThirdNight": {
+    "eyebrow": "রাতের সালাহ",
+    "title": "রাতের শেষ তৃতীয়াংশ",
+    "subtitle": "তাহাজ্জুদ ও দুআর সেরা সময়।",
+    "maghribLabel": "মাগরিব",
+    "fajrLabel": "ফজর",
+    "autoDetect": "নামাজের সময় ব্যবহার করুন",
+    "autoDetectHint": "{{location}} · সময় পরিবর্তন করতে ট্যাপ করুন",
+    "lastThirdLabel": "শেষ তৃতীয়াংশ শুরু",
+    "midNightLabel": "মধ্যরাত",
+    "nightDuration": "রাতের দৈর্ঘ্য: {{duration}}",
+    "invalidTimes": "মাগরিব পরের সকালের ফজরের আগে হতে হবে।",
+    "hadithTitle": "শেষ তৃতীয়াংশের ফজিলত",
+    "basedOn": "ভিত্তি",
+    "editTime": "{{prayer}}-এর সময় সম্পাদনা",
+    "editHint": "সময় বদলালে ফলাফল আপডেট হয়।",
+    "nightLengthLabel": "রাতের দৈর্ঘ্য"
   }
 }

@@ -1,3 +1,5 @@
+import * as prophets from "@munib-tracker/shared/content/prophets";
+import * as prophetsTimeline from "@munib-tracker/shared/content/prophets-timeline";
 import type { ContentOverlays, OverlayLocale } from "@munib-tracker/shared/content-i18n";
 import type {
   ProphetsSection,
@@ -7,25 +9,18 @@ import type {
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
 
-type ProphetsContent = typeof import("@munib-tracker/shared/content/prophets") &
-  typeof import("@munib-tracker/shared/content/prophets-timeline");
-let contentCache: ProphetsContent | undefined;
+/**
+ * English corpus is statically imported with the `/prophets` route chunk.
+ * Lazy `import()` left hubs empty/partial on first paint.
+ */
+const corpus = { ...prophets, ...prophetsTimeline };
+
 export function isProphetsContentReady(): boolean {
-  return contentCache !== undefined;
+  return true;
 }
-export async function ensureProphetsContent(): Promise<ProphetsContent> {
-  if (!contentCache) {
-    const [topics, timeline] = await Promise.all([
-      import("@munib-tracker/shared/content/prophets"),
-      import("@munib-tracker/shared/content/prophets-timeline"),
-    ]);
-    contentCache = { ...topics, ...timeline };
-  }
-  return contentCache;
-}
-function content(): Partial<ProphetsContent> {
-  if (!contentCache) void ensureProphetsContent();
-  return contentCache ?? {};
+
+export async function ensureProphetsContent(): Promise<typeof corpus> {
+  return corpus;
 }
 
 // The English PROPHETS_TOPICS is composed as
@@ -56,7 +51,7 @@ function prophetsTopicsOverlays(): ContentOverlays<ProphetsTopic> {
 }
 
 export function getProphetsTopics(): ProphetsTopic[] {
-  return localizeList(content().PROPHETS_TOPICS ?? [], prophetsTopicsOverlays());
+  return localizeList(corpus.PROPHETS_TOPICS, prophetsTopicsOverlays());
 }
 
 export function getProphetsTopic(id: string | undefined): ProphetsTopic | undefined {
@@ -66,7 +61,7 @@ export function getProphetsTopic(id: string | undefined): ProphetsTopic | undefi
 
 export function getProphetsTopicsBySection(): Record<ProphetsSection, ProphetsTopic[]> {
   const grouped = Object.fromEntries(
-    (content().PROPHETS_SECTION_ORDER ?? []).map((section) => [section, [] as ProphetsTopic[]]),
+    corpus.PROPHETS_SECTION_ORDER.map((section) => [section, [] as ProphetsTopic[]]),
   ) as Record<ProphetsSection, ProphetsTopic[]>;
 
   for (const topic of getProphetsTopics()) {
@@ -77,9 +72,9 @@ export function getProphetsTopicsBySection(): Record<ProphetsSection, ProphetsTo
 }
 
 export function getProphetsTimeline(): ProphetsTimelineEvent[] {
-  return localizeList(content().PROPHETS_TIMELINE ?? [], overlayList("PROPHETS_TIMELINE"));
+  return localizeList(corpus.PROPHETS_TIMELINE, overlayList("PROPHETS_TIMELINE"));
 }
 
 export function getProphetsLessonCount(): number {
-  return content().PROPHETS_TOPICS?.length ?? 0;
+  return corpus.PROPHETS_TOPICS.length;
 }

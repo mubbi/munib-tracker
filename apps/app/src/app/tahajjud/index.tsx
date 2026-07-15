@@ -17,12 +17,14 @@ import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Pill } from "@/components/ui/pill";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
 import { PrayerRepository } from "@/db/repositories/prayer-repository";
 import { useDefaultCalendar } from "@/hooks/use-calendar-format";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { formatCalendarDateFromIso, formatCompactGridDateFromIso } from "@/lib/calendar-format";
 import { goBackOrReplace } from "@/lib/navigation";
+import { chevronForward } from "@/lib/rtl";
 import { usePreferences } from "@/stores/preferences-store";
 import { usePrayerStatus, useTrackerActions } from "@/stores/tracker-store";
 
@@ -204,6 +206,37 @@ export default function TahajjudScreen() {
             {t("tahajjud.virtueRef")}
           </ThemedText>
         </Card>
+
+        <Card padding="three">
+          <PressableScale
+            onPress={() => router.push("/last-third-night")}
+            accessibilityRole="button"
+            accessibilityLabel={t("tahajjud.calculatorCta")}
+            accessibilityHint={t("tahajjud.calculatorHint")}
+          >
+            <View style={styles.calculatorRow}>
+              <View
+                style={[
+                  styles.calculatorIcon,
+                  { backgroundColor: withAlpha(tokens.status.info.color, 0.16) },
+                ]}
+              >
+                <SymbolView
+                  name={{ ios: "clock.fill", android: "schedule", web: "schedule" }}
+                  size={20}
+                  tintColor={tokens.status.info.color}
+                />
+              </View>
+              <View style={styles.calculatorCopy}>
+                <ThemedText type="smallBold">{t("tahajjud.calculatorCta")}</ThemedText>
+                <ThemedText type="caption" themeColor="mutedForeground">
+                  {t("tahajjud.calculatorHint")}
+                </ThemedText>
+              </View>
+              <SymbolView name={chevronForward()} size={14} tintColor={colors.mutedForeground} />
+            </View>
+          </PressableScale>
+        </Card>
       </View>
     </ScreenLayout>
   );
@@ -241,4 +274,14 @@ const styles = StyleSheet.create({
   },
   hadithHeader: { flexDirection: "row", alignItems: "center", gap: Spacing.two },
   hadithBody: { marginTop: Spacing.two, marginBottom: Spacing.one },
+  calculatorRow: { flexDirection: "row", alignItems: "center", gap: Spacing.three },
+  calculatorIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  calculatorCopy: { flex: 1, gap: 2 },
 });

@@ -1,35 +1,26 @@
+import { SAHABA_CATEGORY_ORDER, SAHABA_PROFILES } from "@munib-tracker/shared/content/sahaba";
 import type { SahabaCategory, SahabaProfile } from "@munib-tracker/shared/types";
 import { localizeList } from "@/lib/content-i18n";
 import { overlayList } from "@/lib/content-overlay-registry";
 
-type SahabaContent = { profiles: SahabaProfile[]; categoryOrder: readonly SahabaCategory[] };
-
-let cache: SahabaContent | undefined;
+/**
+ * English corpus is statically imported with the `/sahaba` route chunk.
+ * Lazy `import()` left the hub empty/partial on first paint.
+ */
 export function isSahabaContentReady(): boolean {
-  return cache !== undefined;
+  return true;
 }
-let inflight: Promise<void> | undefined;
 
 export function ensureSahabaContent(): Promise<void> {
-  if (cache) return Promise.resolve();
-  if (!inflight) {
-    inflight = import("@munib-tracker/shared/content/sahaba").then(
-      ({ SAHABA_PROFILES, SAHABA_CATEGORY_ORDER }) => {
-        cache = { profiles: SAHABA_PROFILES, categoryOrder: SAHABA_CATEGORY_ORDER };
-      },
-    );
-  }
-  return inflight;
+  return Promise.resolve();
 }
 
 export function getSahabaProfiles(): SahabaProfile[] {
-  if (!cache) void ensureSahabaContent();
-  return localizeList(cache?.profiles ?? [], overlayList("SAHABA_PROFILES"));
+  return localizeList(SAHABA_PROFILES, overlayList("SAHABA_PROFILES"));
 }
 
 export function getSahabaCategoryOrder(): readonly SahabaCategory[] {
-  if (!cache) void ensureSahabaContent();
-  return cache?.categoryOrder ?? [];
+  return SAHABA_CATEGORY_ORDER;
 }
 
 export function getSahabaProfile(id: string | undefined): SahabaProfile | undefined {

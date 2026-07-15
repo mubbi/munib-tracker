@@ -574,6 +574,17 @@
     "description": "Track and make up missed fasts (qaza roza). Estimate missed Ramadan fasts and record each make-up as you go.",
     "keywords": ["qaza roza", "missed fasts", "make up fasts", "ramadan qaza", "fasting tracker"]
   },
+  "/last-third-night": {
+    "title": "Last Third of Night Calculator — Best Tahajjud Time",
+    "description": "Calculate when the last third of the night begins and mid-night from Maghrib and Fajr. Auto-detect from your location or enter times manually — ideal for Tahajjud and dua.",
+    "keywords": [
+      "last third of night",
+      "tahajjud time",
+      "mid night islam",
+      "night prayer calculator",
+      "qiyam al-layl time"
+    ]
+  },
   "/qibla": {
     "title": "Qibla Direction Finder — Face the Kaaba",
     "description": "Find the qibla direction toward the Kaaba in Makkah from anywhere. A compass and precise bearing help you face the right direction for prayer.",
@@ -615,6 +626,12 @@
     "title": "Search the Qur'an",
     "description": "Search the Qur'an by word, translation, or transliteration and jump straight to any ayah. Works fully offline across the bundled translation.",
     "keywords": ["search Quran", "find ayah", "Quran verse search"],
+    "index": false
+  },
+  "/verse-detector": {
+    "title": "Qur'an Verse Detector",
+    "description": "Identify a Qur'an ayah from spoken or typed Arabic or English. Paste a snippet, dictate a verse, or enter a reference and jump to the surah in the reader.",
+    "keywords": ["Quran verse detector", "find ayah by voice", "identify Quran verse"],
     "index": false
   },
   "/ramadan": {

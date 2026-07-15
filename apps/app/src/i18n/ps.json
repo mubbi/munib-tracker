@@ -175,7 +175,9 @@
     "ruqyah": "رقيه",
     "newMuslim": "نوی مسلمان لارښود",
     "finance": "اسلامی مالیات",
-    "flashCards": "زده کړې کارتونه"
+    "flashCards": "زده کړې کارتونه",
+    "verseDetector": "د آیتونو پیژندونکی",
+    "lastThirdNight": "د شپې وروستی دریمه برخه"
   },
   "quickActions": {
     "checklistSubtitle": "نننی نمازونه ثبت کړئ",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "د لیکوالانو لټون…",
     "tafsirLoading": "د تفسیر بارول…",
     "tafsirOffline": "د دې تفسیر ډاونلوډ کولو لپاره اړیکه ونیسئ. پرانیستل شوي نسخې په آفلاین کې شتون لري.",
-    "tafsirEmpty": "په ټاکل شوې نسخه کې د دې آیت لپاره هیڅ تفسیر نشته."
+    "tafsirEmpty": "په ټاکل شوې نسخه کې د دې آیت لپاره هیڅ تفسیر نشته.",
+    "detector": {
+      "title": "د آیتونو پیژندونکی",
+      "subtitle": "د ویل شوې یا لیکل شوې عربي یا انګلیسي څخه سورت او آیت ومومئ",
+      "inputModeText": "متن",
+      "inputModeVoice": "غږ",
+      "langEnglish": "انګلیسي",
+      "langArabic": "عربي",
+      "languageLabel": "د داخلېدو ژبه",
+      "textPlaceholder": "د آیت برخه، لاتیني لیکنه، یا د 2:255 په څیر حواله پیسټ یا ولیکئ…",
+      "voiceHint": "مایکروفون ته ټک وکړئ او آیت ولولئ یا یادونه یې وکړئ",
+      "listening": "اورېږي… آیت په روښانه توګه ولولئ",
+      "detecting": "آیت پیژندل کیږي…",
+      "detectHint": "آفلاین کار کوي — عربي متن، انګلیسي ژباړه، یا حوالې سره سمون خوري.",
+      "noResults": "سم آیت ونه موندل شو",
+      "noResultsHint": "اوږده برخه وازمایئ، ژبه بدل کړئ، یا د آیت نور برخې ووایاست.",
+      "resultsCount": "{{count}} پایلې",
+      "confidence": "{{percent}} سمون",
+      "openInQuran": "په قرآن کې پرانیزئ",
+      "readFull": "بشپړ آیت ولولئ",
+      "showLess": "لږ وښایاست",
+      "examples": "یوه بیلګه وازمایئ",
+      "exampleKursi": "آیت الکرسی",
+      "exampleFatiha": "د الفاتحې پیل",
+      "exampleIkhlas": "اخلاص",
+      "dictate": "آیت ووایاست",
+      "stopDictate": "اورېدل بند کړئ",
+      "bestMatch": "غوره سمون",
+      "otherMatches": "نور سمونونه"
+    }
   },
   "hadith": {
     "eyebrow": "نبوي سنت",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "د شپې د لمانځه فضیلت",
     "virtueBody": "له فرض لمانځه وروسته غوره لمونځ د شپې لمونځ دی.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "د تهجد سلسله"
+    "streakRow": "د تهجد سلسله",
+    "calculatorCta": "د شپې وروستي دریم برخې محاسبه",
+    "calculatorHint": "د مغرب او فجر څخه د نیمې شپې او د تہجد غوره وخت ومومئ"
   },
   "seasonalTheme": {
     "dateDisclaimer": "نیټې محاسبه شوي اټکلونه دي - د ځایی سپوږمۍ لید ممکن توپیر ولري.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "دا کارت تېر کړئ او بل پوښتنه وګورئ.",
     "skipDisabledHint": "د نوي ترتیب لپاره دې وروستي کارت ته ځواب ورکړئ."
+  },
+  "lastThirdNight": {
+    "eyebrow": "د شپې لمانځه",
+    "title": "د شپې وروستۍ دریمه برخه",
+    "subtitle": "د تہجد او دعا لپاره غوره وخت.",
+    "maghribLabel": "مغرب",
+    "fajrLabel": "فجر",
+    "autoDetect": "د لمانځه وختونه وکاروئ",
+    "autoDetectHint": "{{location}} · د سمون لپاره وخت ته ټک وکړئ",
+    "lastThirdLabel": "وروستۍ دریمه برخه پیل",
+    "midNightLabel": "نیمه شپه",
+    "nightDuration": "د شپې اوږدوالی: {{duration}}",
+    "invalidTimes": "مغرب باید د راتلونکې سهار فجر نه مخکې وي.",
+    "hadithTitle": "د وروستي دریم برخې فضیلت",
+    "basedOn": "پر بنسټ",
+    "editTime": "د {{prayer}} وخت سمول",
+    "editHint": "په وخت بدلولو سره پایلې تازه کیږي.",
+    "nightLengthLabel": "د شپې اوږدوالی"
   }
 }

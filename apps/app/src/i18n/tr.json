@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Yeni Müslüman Rehberi",
     "finance": "İslami Finans",
-    "flashCards": "Bilgi kartları"
+    "flashCards": "Bilgi kartları",
+    "verseDetector": "Ayet Bulucu",
+    "lastThirdNight": "Gecenin son üçte biri"
   },
   "quickActions": {
     "checklistSubtitle": "Bugünkü namazları kaydet",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Yazarları ara…",
     "tafsirLoading": "Tefsir yükleniyor…",
     "tafsirOffline": "Bu tefsiri indirmek için bağlanın. Açılan sürümler çevrimdışı olarak kullanılabilir durumda kalır.",
-    "tafsirEmpty": "Bu ayetin seçilen nüshasında tefsiri bulunmamaktadır."
+    "tafsirEmpty": "Bu ayetin seçilen nüshasında tefsiri bulunmamaktadır.",
+    "detector": {
+      "title": "Ayet Bulucu",
+      "subtitle": "Konuşulan veya yazılan Arapça ya da İngilizceden sure ve ayeti bulun",
+      "inputModeText": "Metin",
+      "inputModeVoice": "Ses",
+      "langEnglish": "İngilizce",
+      "langArabic": "Arapça",
+      "languageLabel": "Giriş dili",
+      "textPlaceholder": "Ayet parçası, transliterasyon veya 2:255 gibi referans yapıştırın ya da yazın…",
+      "voiceHint": "Mikrofona dokunun ve ayeti okuyun veya alıntılayın",
+      "listening": "Dinleniyor… ayeti net okuyun",
+      "detecting": "Ayet tespit ediliyor…",
+      "detectHint": "Çevrimdışı çalışır — Arapça metin, İngilizce çeviri veya referansları eşleştirir.",
+      "noResults": "Eşleşen ayet bulunamadı",
+      "noResultsHint": "Daha uzun parça deneyin, dili değiştirin veya ayetten daha fazlasını alıntılayın.",
+      "resultsCount": "{{count}} eşleşme",
+      "confidence": "{{percent}} eşleşme",
+      "openInQuran": "Kur'an'da aç",
+      "readFull": "Tam ayeti oku",
+      "showLess": "Daha az göster",
+      "examples": "Örnek dene",
+      "exampleKursi": "Ayete'l-Kürsi",
+      "exampleFatiha": "Fatiha açılışı",
+      "exampleIkhlas": "İhlas suresi",
+      "dictate": "Ayeti söyle",
+      "stopDictate": "Dinlemeyi durdur",
+      "bestMatch": "En iyi eşleşme",
+      "otherMatches": "Diğer eşleşmeler"
+    }
   },
   "hadith": {
     "eyebrow": "Peygamber geleneği",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "Virtue   night namaz",
     "virtueBody": " best namaz after  farz prayers dir  night namaz.",
     "virtueRef": "Sahih Muslim 1163",
-    "streakRow": "Teheccüd seri"
+    "streakRow": "Teheccüd seri",
+    "calculatorCta": "Gecenin son üçte biri hesaplayıcı",
+    "calculatorHint": "Maghrib ve Fajr'dan gece yarısını ve en iyi Teheccüd penceresini bulun"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates dir calculated estimates — local moon-sighting may differ.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "Bu kartı atlayıp başka bir soru görün.",
     "skipDisabledHint": "Yeniden karıştırmak için bu son kalan kartı yanıtlayın."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Gece namazı",
+    "title": "Gecenin Son Üçte Biri",
+    "subtitle": "Teheccüd ve dua için en iyi zaman.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Namaz vakitlerini kullan",
+    "autoDetectHint": "{{location}} · ayarlamak için bir vakte dokunun",
+    "lastThirdLabel": "Son üçte bir başlar",
+    "midNightLabel": "Gece yarısı",
+    "nightDuration": "Gece süresi: {{duration}}",
+    "invalidTimes": "Maghrib ertesi sabah Fajr'dan önce olmalıdır.",
+    "hadithTitle": "Son üçte birin fazileti",
+    "basedOn": "Dayanak",
+    "editTime": "{{prayer}} vaktini düzenle",
+    "editHint": "Vakti değiştirdikçe sonuçlar güncellenir.",
+    "nightLengthLabel": "Gece süresi"
   }
 }

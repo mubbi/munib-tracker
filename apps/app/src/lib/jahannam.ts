@@ -1,39 +1,30 @@
+import * as jahannam from "@munib-tracker/shared/content/jahannam";
+import * as jahannamCollections from "@munib-tracker/shared/content/jahannam-collections";
+import * as jahannamMajorSins from "@munib-tracker/shared/content/jahannam-major-sins";
 import type { JahannamSection, JahannamTopic } from "@munib-tracker/shared/types";
 import { localizeList, localizeObject } from "@/lib/content-i18n";
 import { overlayList, overlayObject } from "@/lib/content-overlay-registry";
 
-type JahannamContent = typeof import("@munib-tracker/shared/content/jahannam") &
-  typeof import("@munib-tracker/shared/content/jahannam-collections") &
-  typeof import("@munib-tracker/shared/content/jahannam-major-sins");
-let contentCache: JahannamContent | undefined;
+/**
+ * English corpus is statically imported with the `/jahannam` route chunk.
+ * Lazy `import()` left hubs empty/partial on first paint.
+ */
+const corpus = { ...jahannam, ...jahannamCollections, ...jahannamMajorSins };
+
 export function isJahannamContentReady(): boolean {
-  return contentCache !== undefined;
+  return true;
 }
-export async function ensureJahannamContent(): Promise<JahannamContent> {
-  if (!contentCache) {
-    const modules = await Promise.all([
-      import("@munib-tracker/shared/content/jahannam"),
-      import("@munib-tracker/shared/content/jahannam-collections"),
-      import("@munib-tracker/shared/content/jahannam-major-sins"),
-    ]);
-    contentCache = Object.assign({}, ...modules) as JahannamContent;
-  }
-  return contentCache;
-}
-function content(): Partial<JahannamContent> {
-  if (!contentCache) void ensureJahannamContent();
-  return contentCache ?? {};
+
+export async function ensureJahannamContent(): Promise<typeof corpus> {
+  return corpus;
 }
 
 function getJahannamCoreTopics(): JahannamTopic[] {
-  return localizeList(content().JAHANNAM_CORE_TOPICS ?? [], overlayList("JAHANNAM_CORE_TOPICS"));
+  return localizeList(corpus.JAHANNAM_CORE_TOPICS, overlayList("JAHANNAM_CORE_TOPICS"));
 }
 
 export function getJahannamMajorSinTopics(): JahannamTopic[] {
-  return localizeList(
-    content().JAHANNAM_MAJOR_SIN_TOPICS ?? [],
-    overlayList("JAHANNAM_MAJOR_SIN_TOPICS"),
-  );
+  return localizeList(corpus.JAHANNAM_MAJOR_SIN_TOPICS, overlayList("JAHANNAM_MAJOR_SIN_TOPICS"));
 }
 
 export function getJahannamTopics(): JahannamTopic[] {
@@ -47,7 +38,7 @@ export function getJahannamTopic(id: string | undefined): JahannamTopic | undefi
 
 export function getJahannamTopicsBySection(): Record<JahannamSection, JahannamTopic[]> {
   const map = Object.fromEntries(
-    (content().JAHANNAM_SECTION_ORDER ?? []).map((section) => [section, [] as JahannamTopic[]]),
+    corpus.JAHANNAM_SECTION_ORDER.map((section) => [section, [] as JahannamTopic[]]),
   ) as Record<JahannamSection, JahannamTopic[]>;
   for (const topic of getJahannamTopics()) {
     const bucket = map[topic.section];
@@ -57,38 +48,37 @@ export function getJahannamTopicsBySection(): Record<JahannamSection, JahannamTo
 }
 
 export function getJahannamLessonCount(): number {
-  return content().JAHANNAM_TOPICS?.length ?? 0;
+  return corpus.JAHANNAM_TOPICS.length;
 }
 
 export function getJahannamNames() {
-  return localizeList(content().JAHANNAM_NAMES ?? [], overlayList("JAHANNAM_NAMES"));
+  return localizeList(corpus.JAHANNAM_NAMES, overlayList("JAHANNAM_NAMES"));
 }
 
 export function getJahannamGates() {
-  return localizeList(content().JAHANNAM_GATES ?? [], overlayList("JAHANNAM_GATES"));
+  return localizeList(corpus.JAHANNAM_GATES, overlayList("JAHANNAM_GATES"));
 }
 
 export function getJahannamVerses() {
-  return localizeList(content().JAHANNAM_VERSES ?? [], overlayList("JAHANNAM_VERSES"));
+  return localizeList(corpus.JAHANNAM_VERSES, overlayList("JAHANNAM_VERSES"));
 }
 
 export function getJahannamHadith() {
-  return localizeList(content().JAHANNAM_HADITH ?? [], overlayList("JAHANNAM_HADITH"));
+  return localizeList(corpus.JAHANNAM_HADITH, overlayList("JAHANNAM_HADITH"));
 }
 
 export function getJahannamDuas() {
-  return localizeList(content().JAHANNAM_DUAS ?? [], overlayList("JAHANNAM_DUAS"));
+  return localizeList(corpus.JAHANNAM_DUAS, overlayList("JAHANNAM_DUAS"));
 }
 
 export function getJahannamReflections() {
-  return localizeList(content().JAHANNAM_REFLECTIONS ?? [], overlayList("JAHANNAM_REFLECTIONS"));
+  return localizeList(corpus.JAHANNAM_REFLECTIONS, overlayList("JAHANNAM_REFLECTIONS"));
 }
 
 export function getJahannamReferences() {
-  return localizeList(content().JAHANNAM_REFERENCES ?? [], overlayList("JAHANNAM_REFERENCES"));
+  return localizeList(corpus.JAHANNAM_REFERENCES, overlayList("JAHANNAM_REFERENCES"));
 }
 
 export function getJahannamRefugeDua() {
-  const dua = content().JAHANNAM_REFUGE_DUA;
-  return dua ? localizeObject(dua, overlayObject("JAHANNAM_REFUGE_DUA")) : undefined;
+  return localizeObject(corpus.JAHANNAM_REFUGE_DUA, overlayObject("JAHANNAM_REFUGE_DUA"));
 }

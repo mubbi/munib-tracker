@@ -114,6 +114,7 @@ export const DEEP_LINK_DESTINATIONS = [
   "/qibla",
   "/calendar",
   "/calendar/converter",
+  "/last-third-night",
   "/achievements",
   "/statistics",
   "/journal",
@@ -135,6 +136,7 @@ export const DEEP_LINK_DESTINATIONS = [
   "/quran/khatm",
   "/quran/hifz",
   "/quran/search",
+  "/verse-detector",
   "/quran/bookmarks",
   // Hadith / qaza extras
   "/hadith/daily",

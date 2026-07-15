@@ -2,21 +2,26 @@ import {
   buildDailySchedule,
   buildPrayerTimeMap,
   type Coords,
+  computeNightDividers,
   computePrayerTimes,
+  detectNightPrayerWallClock,
   duhaWindow,
   formatPrayerTime,
   ishraqTime,
   ishraqWindow,
   lastThirdOfNight,
   midMorningTime,
+  midNightOfNight,
   nextPrayer,
   nextScheduleEntry,
+  nightBoundsFromWallClock,
   PRAYER_SLOT_ORDER,
   prayerSlots,
   tahajjudTime,
   witrTime,
   zawalTime,
 } from "@/lib/prayer-times";
+import { prayerDayAnchor } from "@/lib/time";
 
 const MAKKAH: Coords = { latitude: 21.4225, longitude: 39.8262 };
 const NYC: Coords = { latitude: 40.7128, longitude: -74.006 };
@@ -144,6 +149,38 @@ describe("nextPrayer currentIndex", () => {
   it("stays on Isha through the late night after it begins", () => {
     const now = new Date(2025, 5, 15, 23, 30, 0);
     expect(nextPrayer(MAKKAH, now).currentIndex).toBe(PRAYER_SLOT_ORDER.indexOf("isha"));
+  });
+});
+
+describe("night dividers", () => {
+  const anchor = new Date(2026, 6, 14, 12, 0, 0);
+
+  it("matches the public last-third calculator example", () => {
+    const { maghribAt, fajrAt } = nightBoundsFromWallClock(
+      { hour: 19, minute: 23 },
+      { hour: 4, minute: 25 },
+      anchor,
+    );
+    const dividers = computeNightDividers(maghribAt, fajrAt);
+
+    expect(dividers.nightDurationMinutes).toBe(542);
+    expect(formatPrayerTime(dividers.midNight, "12")).toMatch(/11:54 PM/);
+    expect(formatPrayerTime(dividers.lastThird, "12")).toMatch(/1:24 AM/);
+    expect(midNightOfNight(maghribAt, fajrAt).getTime()).toBe(dividers.midNight.getTime());
+    expect(lastThirdOfNight(maghribAt, fajrAt).getTime()).toBe(dividers.lastThird.getTime());
+  });
+
+  it("detects wall-clock Maghrib and Fajr for the upcoming night", () => {
+    const now = new Date(2025, 5, 15, 12, 0, 0);
+    const detected = detectNightPrayerWallClock(MAKKAH, now);
+    const { maghribAt, fajrAt } = nightBoundsFromWallClock(
+      detected.maghrib,
+      detected.fajr,
+      prayerDayAnchor(now),
+    );
+    const dividers = computeNightDividers(maghribAt, fajrAt);
+    expect(dividers.lastThird.getTime()).toBeGreaterThan(maghribAt.getTime());
+    expect(dividers.lastThird.getTime()).toBeLessThan(fajrAt.getTime());
   });
 });
 

@@ -175,7 +175,9 @@
     "ruqyah": "Ruqyah",
     "newMuslim": "Yeni Müsəlman Bələdçisi",
     "finance": "İslam Maliyyəsi",
-    "flashCards": "Fleş kartlar"
+    "flashCards": "Fleş kartlar",
+    "verseDetector": "Ayə axtarışı",
+    "lastThirdNight": "Gecənin son üçdə biri"
   },
   "quickActions": {
     "checklistSubtitle": "Bu günkü namazları qeyd et",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Müəllifləri axtarın...",
     "tafsirLoading": "Təfsir yüklənir...",
     "tafsirOffline": "Bu təfsiri yükləmək üçün qoşulun. Açılmış nəşrlər oflayn olaraq əlçatan qalır.",
-    "tafsirEmpty": "Seçilmiş nəşrdə bu ayə üçün heç bir təfsir yoxdur."
+    "tafsirEmpty": "Seçilmiş nəşrdə bu ayə üçün heç bir təfsir yoxdur.",
+    "detector": {
+      "title": "Ayə axtarışı",
+      "subtitle": "Danışılan və ya yazılan ərəb və ya ingilis dilindən surə və ayəni tapın",
+      "inputModeText": "Mətn",
+      "inputModeVoice": "Səs",
+      "langEnglish": "İngilis",
+      "langArabic": "Ərəb",
+      "languageLabel": "Daxiletmə dili",
+      "textPlaceholder": "Ayə parçası, transliterasiya və ya 2:255 kimi istinad yapışdırın və ya yazın…",
+      "voiceHint": "Mikrofona toxunun və ayəni oxuyun və ya sitat gətirin",
+      "listening": "Dinlənir… ayəni aydın oxuyun",
+      "detecting": "Ayə axtarılır…",
+      "detectHint": "Oflayn işləyir — ərəb mətni, ingilis tərcüməsi və ya istinadları uyğunlaşdırır.",
+      "noResults": "Uyğun ayə tapılmadı",
+      "noResultsHint": "Daha uzun parça sınayın, dili dəyişin və ya ayədən daha çox sitat gətirin.",
+      "resultsCount": "{{count}} uyğunluq",
+      "confidence": "{{percent}} uyğunluq",
+      "openInQuran": "Quranda aç",
+      "readFull": "Tam ayəni oxu",
+      "showLess": "Daha az göstər",
+      "examples": "Nümunə sına",
+      "exampleKursi": "Ayətül-Kürsi",
+      "exampleFatiha": "Əl-Fatiha açılışı",
+      "exampleIkhlas": "Əl-İxlas",
+      "dictate": "Ayəni de",
+      "stopDictate": "Dinləməni dayandır",
+      "bestMatch": "Ən yaxşı uyğunluq",
+      "otherMatches": "Digər uyğunluqlar"
+    }
   },
   "hadith": {
     "eyebrow": "Peyğəmbərlik ənənəsi",
@@ -3867,7 +3898,9 @@
     "virtueTitle": "Gecə salahının fəziləti",
     "virtueBody": "Vacib salahdan sonra ən fəzilətli salah gecə salahıdır.",
     "virtueRef": "Shih Muslim 1163",
-    "streakRow": "Təhəccüd ardıcıllığı"
+    "streakRow": "Təhəccüd ardıcıllığı",
+    "calculatorCta": "Gecənin son üçdə bir kalkulyatoru",
+    "calculatorHint": "Maghrib və Fajrdan gecə yarısı və ən yaxşı Tahajjud pəncərəsini tapın"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Tarixlər hesablanmış təxminlərdir — yerli ay müşahidəsi fərqli ola bilər.",
@@ -4627,5 +4660,23 @@
     },
     "skipHint": "Bu kartı keçin və başqa sual görün.",
     "skipDisabledHint": "Yeni qarışdırma üçün bu son qalan karta cavab verin."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Gecə namazı",
+    "title": "Gecənin Son Üçdə Biri",
+    "subtitle": "Tahajjud və dua üçün ən yaxşı vaxt.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Namaz vaxtlarından istifadə et",
+    "autoDetectHint": "{{location}} · düzəltmək üçün vaxta toxunun",
+    "lastThirdLabel": "Son üçdə bir başlayır",
+    "midNightLabel": "Gecə yarısı",
+    "nightDuration": "Gecə müddəti: {{duration}}",
+    "invalidTimes": "Maghrib ertəsi səhər Fajrdan əvvəl olmalıdır.",
+    "hadithTitle": "Son üçdə birin fəziləti",
+    "basedOn": "Əsas",
+    "editTime": "{{prayer}} vaxtını redaktə et",
+    "editHint": "Vaxtı dəyişdikcə nəticələr yenilənir.",
+    "nightLengthLabel": "Gecə müddəti"
   }
 }

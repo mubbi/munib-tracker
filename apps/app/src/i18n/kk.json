@@ -175,7 +175,9 @@
     "ruqyah": "Руқия",
     "newMuslim": "Жаңа мұсылман нұсқаулығы",
     "finance": "Исламдық қаржыландыру",
-    "flashCards": "Жад карталары"
+    "flashCards": "Жад карталары",
+    "verseDetector": "Аят анықтағыш",
+    "lastThirdNight": "Түннің соңғы үштен бірі"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's prayers",
@@ -1301,7 +1303,36 @@
     "searchTafsirAuthors": "Авторларды іздеу…",
     "tafsirLoading": "Тафсир жүктелуде…",
     "tafsirOffline": "Осы тафсирді жүктеп алу үшін қосылыңыз. Ашылған басылымдар офлайн режимінде қолжетімді болады.",
-    "tafsirEmpty": "Таңдалған басылымда бұл аятқа арналған тәпсір жоқ."
+    "tafsirEmpty": "Таңдалған басылымда бұл аятқа арналған тәпсір жоқ.",
+    "detector": {
+      "title": "Аят анықтағыш",
+      "subtitle": "Айтылған немесе жазылған араб немесе ағылшын тілінен сүре мен аятты табыңыз",
+      "inputModeText": "Мәтін",
+      "inputModeVoice": "Дауыс",
+      "langEnglish": "Ағылшын",
+      "langArabic": "Араб",
+      "languageLabel": "Енгізу тілі",
+      "textPlaceholder": "Аят үзіндісі, транслитерация немесе 2:255 сияқты сілтемені қойыңыз немесе жазыңыз…",
+      "voiceHint": "Микрофонды басып, аятты оқыңыз немесе дәйексөз келтіріңіз",
+      "listening": "Тыңдалуда… аятты анық оқыңыз",
+      "detecting": "Аят анықталуда…",
+      "detectHint": "Офлайн жұмыс істейді — араб мәтіні, ағылшын аудармасы немесе сілтемелерді сәйкестіреді.",
+      "noResults": "Сәйкес аят табылмады",
+      "noResultsHint": "Ұзынрақ үзінді байқап көріңіз, тілді ауыстырыңыз немесе аяттан көбірек дәйексөз келтіріңіз.",
+      "resultsCount": "{{count}} сәйкестік",
+      "confidence": "{{percent}} сәйкестік",
+      "openInQuran": "Құранда ашу",
+      "readFull": "Толық аятты оқу",
+      "showLess": "Аз көрсету",
+      "examples": "Мысал байқап көріңіз",
+      "exampleKursi": "Аят әл-Курси",
+      "exampleFatiha": "Әл-Фатиха басы",
+      "exampleIkhlas": "Әл-Ихлас",
+      "dictate": "Аятты айтыңыз",
+      "stopDictate": "Тындалуды тоқтату",
+      "bestMatch": "Ең жақсы сәйкестік",
+      "otherMatches": "Басқа сәйкестіктер"
+    }
   },
   "hadith": {
     "eyebrow": "Пайғамбарлық tradition",
@@ -3959,7 +3990,9 @@
     "virtueTitle": "Түнгі намаздың қасиеті",
     "virtueBody": " best salah after  міндетті salah   night salah.",
     "virtueRef": "Сахих Муслим 1163",
-    "streakRow": "Tahajjud серия"
+    "streakRow": "Tahajjud серия",
+    "calculatorCta": "Түннің соңғы үштен бір калькуляторы",
+    "calculatorHint": "Maghrib пен Fajr арқылы түн ортасы мен ең жақсы Tahajjud уақытын табыңыз"
   },
   "seasonalTheme": {
     "dateDisclaimer": "Dates  calculated estimates — local moon-sighting may айырмашылық.",
@@ -4719,5 +4752,23 @@
     },
     "skipHint": "Бұл картаны өткізіп, басқа сұрақты көріңіз.",
     "skipDisabledHint": "Жаңа араластыруды бастау үшін осы соңғы картаға жауап беріңіз."
+  },
+  "lastThirdNight": {
+    "eyebrow": "Түнгі Salah",
+    "title": "Түннің Соңғы Үштен Бірі",
+    "subtitle": "Tahajjud пен dua үшін ең жақсы уақыт.",
+    "maghribLabel": "Maghrib",
+    "fajrLabel": "Fajr",
+    "autoDetect": "Намаз уақыттарын пайдалану",
+    "autoDetectHint": "{{location}} · реттеу үшін уақытқа басыңыз",
+    "lastThirdLabel": "Соңғы үштен бір басталады",
+    "midNightLabel": "Түн ортасы",
+    "nightDuration": "Түн ұзақтығы: {{duration}}",
+    "invalidTimes": "Maghrib келесі таңертең Fajr алдында болуы керек.",
+    "hadithTitle": "Соңғы үштен бірдің артықшылығы",
+    "basedOn": "Негізі",
+    "editTime": "{{prayer}} уақытын өңдеу",
+    "editHint": "Уақытты өзгерткен сайын нәтижелер жаңартылады.",
+    "nightLengthLabel": "Түн ұзақтығы"
   }
 }
