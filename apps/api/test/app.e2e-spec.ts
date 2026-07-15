@@ -177,7 +177,14 @@ describe("API (e2e)", () => {
         expect(body.accepted).toBe(1);
       });
 
-    await http().delete("/api/v1/auth/me").set(bearer).expect(204);
+    await http()
+      .post("/api/v1/auth/delete-account")
+      .set(bearer)
+      .send({
+        confirmation: "DELETE",
+        primaryReason: "not_using",
+      })
+      .expect(204);
 
     // The session is revoked — the same token no longer authenticates.
     await http().get("/api/v1/sync/pull").set(bearer).expect(401);

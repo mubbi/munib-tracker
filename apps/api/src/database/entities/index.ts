@@ -432,6 +432,31 @@ export class InAppNotificationEntity {
   createdAt!: Date;
 }
 
+/** Closure analytics for deleted accounts — no PII. */
+@Entity("deleted_accounts")
+@Index(["deletedAt"])
+@Index(["primaryReason"])
+@Index(["formerUserId"])
+export class DeletedAccountEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column("uuid")
+  formerUserId!: string;
+
+  @Column({ type: "varchar", length: 64 })
+  primaryReason!: string;
+
+  @Column({ type: "text", nullable: true })
+  details?: string | null;
+
+  @Column({ type: TIMESTAMP_TYPE, nullable: true })
+  accountCreatedAt?: Date | null;
+
+  @CreateDateColumn({ type: TIMESTAMP_TYPE })
+  deletedAt!: Date;
+}
+
 /** Expo / web push tokens for linked users. */
 @Entity("push_tokens")
 @Index("push_tokens_userId_idx", ["userId"])

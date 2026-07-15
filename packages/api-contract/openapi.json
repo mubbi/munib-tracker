@@ -351,24 +351,6 @@
         "tags": [
           "auth"
         ]
-      },
-      "delete": {
-        "operationId": "AuthController_deleteAccount",
-        "parameters": [],
-        "responses": {
-          "204": {
-            "description": "Account, sessions, and all synced data were deleted"
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "summary": "Permanently delete the current account and all its data",
-        "tags": [
-          "auth"
-        ]
       }
     },
     "/api/v1/auth/logout": {
@@ -386,6 +368,37 @@
           }
         ],
         "summary": "Revoke the current session",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/delete-account": {
+      "post": {
+        "description": "Irreversible closure: wipes app data, revokes sessions, clears OAuth identity, and tombstones the email. Body must include confirmation set to the literal \"DELETE\", a primaryReason code, and optional details (max 500 characters).",
+        "operationId": "AuthController_deleteAccount",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteAccountDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Account closed and data removed"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Close account and remove user data",
         "tags": [
           "auth"
         ]
@@ -1297,6 +1310,39 @@
           "codeVerifier",
           "redirectUri",
           "returnUrl"
+        ]
+      },
+      "DeleteAccountDto": {
+        "type": "object",
+        "properties": {
+          "confirmation": {
+            "type": "string",
+            "description": "Must be the literal string \"DELETE\" to confirm irreversible closure",
+            "enum": [
+              "DELETE"
+            ],
+            "example": "DELETE"
+          },
+          "primaryReason": {
+            "type": "string",
+            "enum": [
+              "privacy_concerns",
+              "missing_features",
+              "too_complicated",
+              "switching_app",
+              "not_using",
+              "technical_issues",
+              "other"
+            ]
+          },
+          "details": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "confirmation",
+          "primaryReason"
         ]
       },
       "SyncRecordDto": {

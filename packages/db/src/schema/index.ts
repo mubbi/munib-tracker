@@ -5,6 +5,7 @@ export * from "./authSessions";
 export * from "./columnHelpers";
 export * from "./contactMessages";
 export * from "./contentReports";
+export * from "./deletedAccounts";
 export * from "./inAppNotifications";
 export * from "./ossContentDownloadFailures";
 export * from "./pushTokens";

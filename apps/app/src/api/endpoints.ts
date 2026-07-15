@@ -182,9 +182,23 @@ export function logout(accessToken: string): Promise<void> {
   return apiFetch<void>({ url: "/auth/logout", method: "POST" }, apiAuthOptions(accessToken));
 }
 
-/** Permanently deletes the current account and all its synced data on the server. */
-export function deleteAccount(accessToken: string): Promise<void> {
-  return apiFetch<void>({ url: "/auth/me", method: "DELETE" }, apiAuthOptions(accessToken));
+/** Closes the current account, wipes server data, and tombstones the identity. */
+export function deleteAccount(
+  accessToken: string,
+  body: {
+    confirmation: "DELETE";
+    primaryReason: string;
+    details?: string;
+  },
+): Promise<void> {
+  return apiFetch<void>(
+    {
+      url: "/auth/delete-account",
+      method: "POST",
+      body: JSON.stringify(body),
+    },
+    apiAuthOptions(accessToken),
+  );
 }
 
 export function syncPull(accessToken: string, since?: string): Promise<SyncPullResponseDto> {

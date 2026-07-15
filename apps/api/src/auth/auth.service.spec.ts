@@ -2,9 +2,16 @@ import { getRepositoryToken } from "@nestjs/typeorm";
 import type { Repository } from "typeorm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createAuthTestingModule } from "../../test/support/testing-module";
-import { AuthSessionEntity, SyncRecordEntity } from "../database/entities";
+import {
+  AuthSessionEntity,
+  DeletedAccountEntity,
+  SyncRecordEntity,
+  UserEntity,
+} from "../database/entities";
+import { isTombstoneValue } from "./account-tombstone";
 import { AuthService } from "./auth.service";
-import { AuthProvider } from "./dto/auth.dto";
+import { AccountClosureReason, AuthProvider } from "./dto/auth.dto";
+import { TokenService } from "./token.service";
 
 describe("AuthService", () => {
   let service: AuthService;
@@ -121,19 +128,23 @@ describe("AuthService", () => {
     ).rejects.toThrow("Only guest accounts can be linked");
   });
 
-  it("rejects linking a provider identity already owned by another user", async () => {
+  it("signs into the existing account when linking a provider identity already owned", async () => {
     // A different user has already signed in with this Google identity.
-    await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
+    const owned = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
 
-    // A separate guest tries to link the same Google identity — must be rejected,
-    // not silently merged/overwritten.
+    // A separate guest tries to "link" the same identity (e.g. Sign in after
+    // sign-out). Do not overwrite the guest onto that identity — sign into the
+    // existing account instead.
     const guest = await service.createGuestSession({ deviceId: "device-collision-xxxxxxxx" });
-    await expect(
-      service.linkGuestAccount(guest.accessToken, {
-        provider: AuthProvider.Google,
-        code: "auth-code",
-      }),
-    ).rejects.toThrow("already linked to another user");
+    const session = await service.linkGuestAccount(guest.accessToken, {
+      provider: AuthProvider.Google,
+      code: "auth-code",
+    });
+
+    expect(session.userId).toBe(owned.userId);
+    expect(session.userId).not.toBe(guest.userId);
+    expect(session.accountType).toBe("user");
+    expect(session.provider).toBe(AuthProvider.Google);
   });
 
   it("revokes a session on logout so its access token stops working", async () => {
@@ -151,7 +162,7 @@ describe("AuthService", () => {
     );
   });
 
-  it("permanently deletes the account, its sessions across devices, and all synced records", async () => {
+  it("closes the account, tombstones identity, and wipes synced data", async () => {
     const session = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
     const user = await service.getCurrentUser(session.accessToken);
 
@@ -173,7 +184,11 @@ describe("AuthService", () => {
     );
     await expect(sessionsRepo.count({ where: { userId: user.userId } })).resolves.toBe(2);
 
-    await service.deleteAccount(session.accessToken);
+    await service.deleteAccount(session.accessToken, {
+      confirmation: "DELETE",
+      primaryReason: AccountClosureReason.NotUsing,
+      details: "No longer tracking",
+    });
 
     // Synced data and every session for the user are gone.
     await expect(syncRepo.count({ where: { userId: user.userId } })).resolves.toBe(0);
@@ -187,10 +202,55 @@ describe("AuthService", () => {
       "Invalid or expired session",
     );
 
+    // User row is retained with tombstoned email; closure metadata is recorded.
+    const usersRepo = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
+    const closedUser = await usersRepo.findOne({ where: { id: user.userId } });
+    expect(closedUser).not.toBeNull();
+    expect(isTombstoneValue(closedUser?.email)).toBe(true);
+    expect(closedUser?.provider).toBeNull();
+    expect(closedUser?.providerAccountId).toBeNull();
+    expect(closedUser?.displayName).toBeNull();
+
+    const deletedRepo = module.get<Repository<DeletedAccountEntity>>(
+      getRepositoryToken(DeletedAccountEntity),
+    );
+    const closure = await deletedRepo.findOne({ where: { formerUserId: user.userId } });
+    expect(closure?.primaryReason).toBe(AccountClosureReason.NotUsing);
+    expect(closure?.details).toBe("No longer tracking");
+
     // Signing in again with the same identity yields a brand-new, empty account.
     const fresh = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
     const freshUser = await service.getCurrentUser(fresh.accessToken);
     expect(freshUser.userId).not.toBe(user.userId);
     await expect(syncRepo.count({ where: { userId: freshUser.userId } })).resolves.toBe(0);
+  });
+
+  it("rejects closing an already-closed account", async () => {
+    const session = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
+    const user = await service.getCurrentUser(session.accessToken);
+    const body = {
+      confirmation: "DELETE" as const,
+      primaryReason: AccountClosureReason.Other,
+    };
+
+    await service.deleteAccount(session.accessToken, body);
+
+    // Simulate a stale session row that outlived closure (should not happen in prod).
+    const sessionsRepo = module.get<Repository<AuthSessionEntity>>(
+      getRepositoryToken(AuthSessionEntity),
+    );
+    const staleSessionId = crypto.randomUUID();
+    await sessionsRepo.save(
+      sessionsRepo.create({
+        id: staleSessionId,
+        userId: user.userId,
+        refreshToken: crypto.randomUUID(),
+        refreshExpiresAt: new Date(Date.now() + 86_400_000),
+      }),
+    );
+    const tokenService = module.get(TokenService);
+    const staleAccess = tokenService.signAccessToken(user.userId, staleSessionId);
+
+    await expect(service.deleteAccount(staleAccess.token, body)).rejects.toThrow("Account closed");
   });
 });

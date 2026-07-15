@@ -1,5 +1,17 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
+import { IsEnum, IsIn, IsNotEmpty, IsOptional, IsString, MaxLength } from "class-validator";
+
+export enum AccountClosureReason {
+  PrivacyConcerns = "privacy_concerns",
+  MissingFeatures = "missing_features",
+  TooComplicated = "too_complicated",
+  SwitchingApp = "switching_app",
+  NotUsing = "not_using",
+  TechnicalIssues = "technical_issues",
+  Other = "other",
+}
+
+export const ACCOUNT_CLOSURE_CONFIRMATION = "DELETE" as const;
 
 export enum AuthProvider {
   Google = "google",
@@ -226,4 +238,24 @@ export class AuthUserResponseDto {
 export class WebAuthSessionResponseDto {
   @ApiProperty({ type: AuthUserResponseDto })
   user!: AuthUserResponseDto;
+}
+
+export class DeleteAccountDto {
+  @ApiProperty({
+    description: 'Must be the literal string "DELETE" to confirm irreversible closure',
+    enum: [ACCOUNT_CLOSURE_CONFIRMATION],
+    example: ACCOUNT_CLOSURE_CONFIRMATION,
+  })
+  @IsIn([ACCOUNT_CLOSURE_CONFIRMATION])
+  confirmation!: typeof ACCOUNT_CLOSURE_CONFIRMATION;
+
+  @ApiProperty({ enum: AccountClosureReason })
+  @IsEnum(AccountClosureReason)
+  primaryReason!: AccountClosureReason;
+
+  @ApiPropertyOptional({ maxLength: 500 })
+  @IsOptional()
+  @IsString()
+  @MaxLength(500)
+  details?: string;
 }

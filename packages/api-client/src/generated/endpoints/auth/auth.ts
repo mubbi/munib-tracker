@@ -32,6 +32,7 @@ import type {
   AuthGoogleOauthBodyDto,
   AuthSessionResponseDto,
   AuthUserResponseDto,
+  DeleteAccountDto,
   WebAuthSessionResponseDto
 } from '../../models';
 
@@ -765,67 +766,6 @@ export function useAuthControllerGetCurrentUser<TData = Awaited<ReturnType<typeo
 
 
 /**
- * @summary Permanently delete the current account and all its data
- */
-export const authControllerDeleteAccount = (
-    
- options?: SecondParameter<typeof apiFetch>,) => {
-      
-      
-      return apiFetch<void>(
-      {url: `/api/v1/auth/me`, method: 'DELETE'
-    },
-      options);
-    }
-  
-
-
-export const getAuthControllerDeleteAccountMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerDeleteAccount>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof authControllerDeleteAccount>>, TError,void, TContext> => {
-
-const mutationKey = ['authControllerDeleteAccount'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerDeleteAccount>>, void> = () => {
-          
-
-          return  authControllerDeleteAccount(requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type AuthControllerDeleteAccountMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerDeleteAccount>>>
-    
-    export type AuthControllerDeleteAccountMutationError = unknown
-
-    /**
- * @summary Permanently delete the current account and all its data
- */
-export const useAuthControllerDeleteAccount = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerDeleteAccount>>, TError,void, TContext>, request?: SecondParameter<typeof apiFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof authControllerDeleteAccount>>,
-        TError,
-        void,
-        TContext
-      > => {
-
-      const mutationOptions = getAuthControllerDeleteAccountMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    /**
  * @summary Revoke the current session
  */
 export const authControllerLogout = (
@@ -884,6 +824,71 @@ export const useAuthControllerLogout = <TError = unknown,
       > => {
 
       const mutationOptions = getAuthControllerLogoutMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * Irreversible closure: wipes app data, revokes sessions, clears OAuth identity, and tombstones the email. Body must include confirmation set to the literal "DELETE", a primaryReason code, and optional details (max 500 characters).
+ * @summary Close account and remove user data
+ */
+export const authControllerDeleteAccount = (
+    deleteAccountDto: DeleteAccountDto,
+ options?: SecondParameter<typeof apiFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return apiFetch<void>(
+      {url: `/api/v1/auth/delete-account`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: deleteAccountDto, signal
+    },
+      options);
+    }
+  
+
+
+export const getAuthControllerDeleteAccountMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerDeleteAccount>>, TError,{data: DeleteAccountDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof authControllerDeleteAccount>>, TError,{data: DeleteAccountDto}, TContext> => {
+
+const mutationKey = ['authControllerDeleteAccount'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof authControllerDeleteAccount>>, {data: DeleteAccountDto}> = (props) => {
+          const {data} = props ?? {};
+
+          return  authControllerDeleteAccount(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AuthControllerDeleteAccountMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerDeleteAccount>>>
+    export type AuthControllerDeleteAccountMutationBody = DeleteAccountDto
+    export type AuthControllerDeleteAccountMutationError = unknown
+
+    /**
+ * @summary Close account and remove user data
+ */
+export const useAuthControllerDeleteAccount = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerDeleteAccount>>, TError,{data: DeleteAccountDto}, TContext>, request?: SecondParameter<typeof apiFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof authControllerDeleteAccount>>,
+        TError,
+        {data: DeleteAccountDto},
+        TContext
+      > => {
+
+      const mutationOptions = getAuthControllerDeleteAccountMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }

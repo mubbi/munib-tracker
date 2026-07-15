@@ -30,6 +30,7 @@ import {
 import { SessionPersistError, SessionStore, type StoredSession } from "@/auth/session-store";
 import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useIsOnline } from "@/hooks/use-is-online";
+import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reasons";
 import "@/lib/auth/auth-session-bootstrap";
 import { isAppReloadInProgress } from "@/lib/cloud-api-reload-gate";
 import { flushPendingOssContentFailures } from "@/lib/report-oss-content-download-failure";
@@ -82,13 +83,10 @@ interface AuthContextValue {
   /** True while a cloud sync round-trip is in progress. */
   isSyncing: boolean;
   /**
-   * Permanently deletes the account. For a signed-in user this erases the server
-   * account and all synced data first, then returns to a fresh guest session.
-   * Returns `"error"` (having changed nothing) if the server can't be reached, so
-   * the caller knows not to wipe local data — a still-existing account would just
-   * repopulate on the next sync. `"ok"` for guests (nothing to delete server-side).
+   * Closes the account on the server (signed-in users) with survey + confirmation.
+   * Returns `"error"` if the server can't be reached so the caller skips local wipe.
    */
-  deleteAccount: () => Promise<"ok" | "error">;
+  deleteAccount: (body: DeleteAccountRequestBody) => Promise<"ok" | "error">;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -274,10 +272,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                   redirectUri: payload.redirectUri,
                   displayName: payload.displayName,
                 };
-        const dto = await linkAccount(current.accessToken, provider, linkPayload);
-        await persist(dto);
-        void syncNow();
-        return;
+        try {
+          const dto = await linkAccount(current.accessToken, provider, linkPayload);
+          await persist(dto);
+          void syncNow();
+          return;
+        } catch (error) {
+          // Returning user: this OAuth identity already owns another account.
+          // Fall through to normal sign-in instead of failing the "Sign in" button.
+          if (!(error instanceof ApiError) || error.status !== 409) throw error;
+        }
       }
 
       const dto = await runFresh();
@@ -311,10 +315,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await signInWithProvider(provider, payload);
         return;
       }
-      const dto = await linkAccount(current.accessToken, provider, payload);
-      await persist(dto);
-      // Push the guest's local data up to the newly linked account.
-      void syncNow();
+      try {
+        const dto = await linkAccount(current.accessToken, provider, payload);
+        await persist(dto);
+        // Push the guest's local data up to the newly linked account.
+        void syncNow();
+      } catch (error) {
+        // Provider identity already belongs to another user — sign into that
+        // account instead of leaving the guest stranded on a 409.
+        if (!(error instanceof ApiError) || error.status !== 409) throw error;
+        await signInWithProvider(provider, payload);
+      }
     },
     [persist, signInWithProvider, syncNow, refresh],
   );
@@ -339,31 +350,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [signInAsGuest]);
 
-  const deleteAccount = useCallback(async (): Promise<"ok" | "error"> => {
-    const current = await SessionStore.get();
-    if (current?.accountType === "user") {
-      // Use the freshest access token so the request isn't rejected as expired.
-      const fresh = (await refresh()) ?? current;
-      try {
-        await deleteAccountRequest(fresh.accessToken);
-      } catch {
-        // Server unreachable or errored — leave everything intact so the caller
-        // aborts the local wipe. The account still exists and must not appear gone.
-        return "error";
+  const deleteAccount = useCallback(
+    async (body: DeleteAccountRequestBody): Promise<"ok" | "error"> => {
+      const current = await SessionStore.get();
+      if (current?.accountType === "user") {
+        const fresh = (await refresh()) ?? current;
+        try {
+          await deleteAccountRequest(fresh.accessToken, body);
+        } catch {
+          return "error";
+        }
+        await SessionStore.clear();
+        setSession(null);
+        setUser(null);
+        try {
+          await signInAsGuest();
+        } catch {
+          // offline — a guest session initializes on next launch
+        }
       }
-      // Server account and all its sessions are gone; drop the dead local session
-      // and return to a fresh guest so local tracking keeps working.
-      await SessionStore.clear();
-      setSession(null);
-      setUser(null);
-      try {
-        await signInAsGuest();
-      } catch {
-        // offline — a guest session initializes on next launch
-      }
-    }
-    return "ok";
-  }, [refresh, signInAsGuest]);
+      return "ok";
+    },
+    [refresh, signInAsGuest],
+  );
 
   // Boot: resume a stored session, or create a guest one (best-effort offline).
   useEffect(() => {

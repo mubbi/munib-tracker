@@ -4,6 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Image, StyleSheet, TextInput, View } from "react-native";
+import { DeleteAccountModal } from "@/components/auth/delete-account-modal";
 import { SocialLoginButtons } from "@/components/auth/social-login-buttons";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -18,6 +19,7 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { usePinLock } from "@/features/pin-lock";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
+import type { DeleteAccountRequestBody } from "@/lib/auth/account-closure-reasons";
 import { goBackOrReplace } from "@/lib/navigation";
 import { formatRelativeWhen } from "@/lib/relative-time";
 import { wipeLocalDeviceData } from "@/lib/wipe-local-data";
@@ -59,7 +61,9 @@ export default function ProfileScreen() {
   const isGuest = !isAuthenticated;
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(displayName);
-  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmDeleteGuest, setConfirmDeleteGuest] = useState(false);
+  const [confirmDeleteAccount, setConfirmDeleteAccount] = useState(false);
+  const [confirmSignOut, setConfirmSignOut] = useState(false);
   const [syncMeta, setSyncMeta] = useState<SyncMetadata | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
   const locale = i18n.language?.split("-")[0];
@@ -98,21 +102,23 @@ export default function ProfileScreen() {
     setEditing(false);
   };
 
-  const deleteAccount = async () => {
-    // Signed-in users: delete the server account + all synced data FIRST. If the
-    // server can't be reached, abort without wiping locally — otherwise the still
-    // existing account would repopulate this device on the next login/sync, and
-    // the user would wrongly believe their data was gone. (Guests return "ok".)
-    const outcome = await deleteServerAccount();
-    if (outcome === "error") {
-      toast.error(t("profile.deleteFailed"));
-      return;
-    }
+  const finishLocalDelete = async () => {
     await wipeLocalDeviceData();
-    // Provider-owned memory (PIN gate + inbox badge) is outside reloadAllStores.
     await factoryResetPinLock();
     await clearInAppInbox();
     router.replace("/");
+  };
+
+  const deleteGuestAccount = async () => {
+    await finishLocalDelete();
+  };
+
+  const deleteSignedInAccount = async (body: DeleteAccountRequestBody) => {
+    const outcome = await deleteServerAccount(body);
+    if (outcome === "error") {
+      throw new Error("delete failed");
+    }
+    await finishLocalDelete();
   };
 
   return (
@@ -300,7 +306,7 @@ export default function ProfileScreen() {
                   web: "logout",
                 }}
                 fullWidth
-                onPress={() => void signOut()}
+                onPress={() => setConfirmSignOut(true)}
               />
             ) : null}
             <Button
@@ -308,7 +314,9 @@ export default function ProfileScreen() {
               variant="ghost"
               icon={{ ios: "trash", android: "delete", web: "delete" }}
               fullWidth
-              onPress={() => setConfirmDelete(true)}
+              onPress={() =>
+                isAuthenticated ? setConfirmDeleteAccount(true) : setConfirmDeleteGuest(true)
+              }
               style={{ borderColor: tokens.status.danger.border }}
             />
           </View>
@@ -316,13 +324,29 @@ export default function ProfileScreen() {
       </Stagger>
 
       <ConfirmDialog
-        visible={confirmDelete}
+        visible={confirmSignOut}
+        title={t("profile.signOutTitle")}
+        message={t("profile.signOutMsg")}
+        confirmLabel={t("common.signOut")}
+        onConfirm={() => void signOut()}
+        onClose={() => setConfirmSignOut(false)}
+      />
+
+      <ConfirmDialog
+        visible={confirmDeleteGuest}
         title={t("profile.deleteTitle")}
-        message={isAuthenticated ? t("profile.deleteMsgAccount") : t("profile.deleteMsg")}
+        message={t("profile.deleteMsg")}
         confirmLabel={t("profile.deleteConfirm")}
         destructive
-        onConfirm={() => void deleteAccount()}
-        onClose={() => setConfirmDelete(false)}
+        onConfirm={() => void deleteGuestAccount()}
+        onClose={() => setConfirmDeleteGuest(false)}
+      />
+
+      <DeleteAccountModal
+        visible={confirmDeleteAccount}
+        onClose={() => setConfirmDeleteAccount(false)}
+        onDeleted={() => toast.success(t("profile.deleteAccountSuccess"))}
+        deleteAccount={deleteSignedInAccount}
       />
     </ScreenLayout>
   );

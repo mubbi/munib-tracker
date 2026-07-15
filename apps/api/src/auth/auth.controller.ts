@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Headers,
   HttpCode,
@@ -32,6 +31,7 @@ import {
   AuthProvider,
   AuthSessionResponseDto,
   AuthUserResponseDto,
+  DeleteAccountDto,
   type GuestSessionDto,
   type LinkAccountDto,
   type OAuthCallbackDto,
@@ -213,18 +213,23 @@ export class AuthController {
     this.authOAuthService.clearAuthCookies(res);
   }
 
-  @Delete("me")
+  @Post("delete-account")
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiBearerAuth()
-  @ApiOperation({ summary: "Permanently delete the current account and all its data" })
-  @ApiNoContentResponse({ description: "Account, sessions, and all synced data were deleted" })
+  @ApiOperation({
+    summary: "Close account and remove user data",
+    description:
+      'Irreversible closure: wipes app data, revokes sessions, clears OAuth identity, and tombstones the email. Body must include confirmation set to the literal "DELETE", a primaryReason code, and optional details (max 500 characters).',
+  })
+  @ApiNoContentResponse({ description: "Account closed and data removed" })
   async deleteAccount(
     @Headers("authorization") authorization: string | undefined,
+    @Body() dto: DeleteAccountDto,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
     const accessToken = this.authOAuthService.resolveAccessToken(req, authorization);
-    await this.authService.deleteAccount(accessToken);
+    await this.authService.deleteAccount(accessToken, dto, clientIp(req));
     this.authOAuthService.clearAuthCookies(res);
   }
 }

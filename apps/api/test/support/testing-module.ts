@@ -13,6 +13,7 @@ import {
   AuthSessionEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
+  DeletedAccountEntity,
   InAppNotificationEntity,
   OssContentDownloadFailureEntity,
   PushTokenEntity,
@@ -34,6 +35,7 @@ const ENTITIES = [
   OssContentDownloadFailureEntity,
   InAppNotificationEntity,
   PushTokenEntity,
+  DeletedAccountEntity,
 ];
 
 /**

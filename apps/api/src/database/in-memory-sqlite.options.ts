@@ -6,6 +6,7 @@ import {
   ContactMessageEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
+  DeletedAccountEntity,
   InAppNotificationEntity,
   OssContentDownloadFailureEntity,
   PushTokenEntity,
@@ -27,6 +28,7 @@ const testEntities = [
   OssContentDownloadFailureEntity,
   InAppNotificationEntity,
   PushTokenEntity,
+  DeletedAccountEntity,
 ];
 
 /** Shared in-memory SQLite options for unit, e2e, and OpenAPI export runs. */

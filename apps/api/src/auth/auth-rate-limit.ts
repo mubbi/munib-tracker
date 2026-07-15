@@ -40,6 +40,18 @@ export async function isAuthOAuthRateLimited(identity: string): Promise<boolean>
   });
 }
 
+/** Delete account: 3 / 15 min per IP. */
+const DELETE_ACCOUNT_LIMIT = 3;
+const DELETE_ACCOUNT_WINDOW_MS = 15 * 60 * 1000;
+
+export async function isAuthDeleteAccountRateLimited(identity: string): Promise<boolean> {
+  return isRateLimited({
+    key: bucket("delete-account", identity),
+    limit: DELETE_ACCOUNT_LIMIT,
+    windowMs: DELETE_ACCOUNT_WINDOW_MS,
+  });
+}
+
 export function resetAuthRateLimits(): void {
   resetMemoryRateLimits();
 }

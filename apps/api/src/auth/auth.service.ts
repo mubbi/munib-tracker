@@ -1,7 +1,6 @@
 import { randomUUID } from "node:crypto";
 import {
   BadRequestException,
-  ConflictException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -13,14 +12,21 @@ import { DataSource, In, Repository } from "typeorm";
 import { AttachmentStorageService } from "../common/attachment-storage.service";
 import type { EnvironmentVariables } from "../config/env.schema";
 import {
+  AppFeedbackEntity,
   AuthSessionEntity,
   ContentReportAttachmentEntity,
   ContentReportEntity,
+  DeletedAccountEntity,
+  InAppNotificationEntity,
+  OssContentDownloadFailureEntity,
+  PushTokenEntity,
   SyncRecordEntity,
   UserEntity,
   UserMediaEntity,
 } from "../database/entities";
+import { buildTombstoneEmail, isTombstoneValue } from "./account-tombstone";
 import {
+  isAuthDeleteAccountRateLimited,
   isAuthGuestRateLimited,
   isAuthOAuthRateLimited,
   isAuthRefreshRateLimited,
@@ -29,6 +35,7 @@ import type {
   AuthProvider,
   AuthSessionResponseDto,
   AuthUserResponseDto,
+  DeleteAccountDto,
   GuestSessionDto,
   LinkAccountDto,
   OAuthCallbackDto,
@@ -128,14 +135,18 @@ export class AuthService {
       profile.displayName = dto.displayName.trim();
     }
 
-    // If this provider identity already belongs to another user, linking would
-    // hijack/collide with it. Reject rather than silently overwrite — the caller
-    // must sign in to that existing account instead.
+    // If this provider identity already belongs to another user, do not attach it
+    // to the guest (that would collide). The OAuth credential is already verified,
+    // so sign into the existing account instead — same outcome as a normal sign-in,
+    // and required for single-use auth codes that cannot be exchanged again.
     const existing = await this.usersRepository.findOne({
       where: { provider: dto.provider, providerAccountId: profile.providerAccountId },
     });
     if (existing && existing.id !== user.id) {
-      throw new ConflictException("This account is already linked to another user");
+      existing.email = profile.email ?? existing.email ?? null;
+      existing.displayName = profile.displayName ?? existing.displayName ?? null;
+      await this.usersRepository.save(existing);
+      return this.issueSession(existing);
     }
 
     user.accountType = "user";
@@ -204,16 +215,25 @@ export class AuthService {
   }
 
   /**
-   * Permanently deletes the authenticated user's account and every trace of their
-   * data: synced records, sessions across all devices, and content reports. Each
-   * table is cleared explicitly inside one transaction rather than relying on
-   * `ON DELETE CASCADE` — `sync_records` has only a plain `userId` column (no FK),
-   * and the SQLite test driver doesn't enforce foreign keys, so a cascade would
-   * leave orphans there. Attachment files are unlinked from disk afterwards, off
-   * the transaction's hot path, so a missing file can't reverse a committed wipe.
+   * Closes the authenticated user's account: records closure metadata, wipes all
+   * user-owned data, revokes every session, and tombstones the identity so the
+   * same OAuth provider or email can register a fresh account. The `users` row
+   * is retained (with prefixed email) for analytics linkage — not a hard delete.
    */
-  async deleteAccount(accessToken: string): Promise<void> {
+  async deleteAccount(
+    accessToken: string,
+    dto: DeleteAccountDto,
+    clientIp = "unknown",
+  ): Promise<void> {
+    if (await isAuthDeleteAccountRateLimited(`ip:${clientIp}`)) {
+      throw new HttpException("Too many delete account requests", HttpStatus.TOO_MANY_REQUESTS);
+    }
+
     const { user } = await this.getSessionByAccessToken(accessToken);
+    if (isTombstoneValue(user.email)) {
+      throw new BadRequestException("Account already closed");
+    }
+
     const userId = user.id;
 
     const reportIds = (
@@ -235,7 +255,19 @@ export class AuthService {
       .find({ where: { userId }, select: { id: true, storagePath: true } });
     const userMediaPaths = userMedia.map((media) => media.storagePath);
 
+    const primaryReason = dto.primaryReason;
+    const details = dto.details?.trim().slice(0, 500) || null;
+
     await this.dataSource.transaction(async (manager) => {
+      await manager.save(
+        manager.create(DeletedAccountEntity, {
+          formerUserId: userId,
+          primaryReason,
+          details,
+          accountCreatedAt: user.createdAt ?? null,
+        }),
+      );
+
       if (reportIds.length) {
         await manager.delete(ContentReportAttachmentEntity, { reportId: In(reportIds) });
       }
@@ -244,8 +276,25 @@ export class AuthService {
         await manager.delete(UserMediaEntity, { userId });
       }
       await manager.delete(SyncRecordEntity, { userId });
+      await manager.delete(AppFeedbackEntity, { userId });
+      await manager.delete(OssContentDownloadFailureEntity, { userId });
+      await manager.delete(InAppNotificationEntity, { userId });
+      await manager.delete(PushTokenEntity, { userId });
       await manager.delete(AuthSessionEntity, { userId });
-      await manager.delete(UserEntity, { id: userId });
+
+      const tombstoneEmail = buildTombstoneEmail(user.email ?? null, userId);
+      await manager.update(
+        UserEntity,
+        { id: userId },
+        {
+          email: tombstoneEmail,
+          provider: null,
+          providerAccountId: null,
+          displayName: null,
+          deviceId: null,
+          reviewReactivationLastWindowKey: null,
+        },
+      );
     });
 
     await Promise.all(
@@ -263,6 +312,9 @@ export class AuthService {
       where: { provider, providerAccountId: profile.providerAccountId },
     });
     if (existing) {
+      if (isTombstoneValue(existing.email)) {
+        throw new BadRequestException("This account has been closed");
+      }
       existing.email = profile.email ?? existing.email ?? null;
       existing.displayName = profile.displayName ?? existing.displayName ?? null;
       return this.usersRepository.save(existing);
@@ -306,6 +358,9 @@ export class AuthService {
     // still-unexpired JWT.
     if (!session?.user || session.userId !== claims.sub) {
       throw new UnauthorizedException("Invalid or expired session");
+    }
+    if (isTombstoneValue(session.user.email)) {
+      throw new UnauthorizedException("Account closed");
     }
 
     return { session, user: session.user };
