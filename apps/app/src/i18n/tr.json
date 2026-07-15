@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Dokunun için details",
     "waxing": "Hilal — her gece daha parlak",
-    "waning": "Waning — fading toward  yeni moon",
+    "waning": "Küçülen — aydınlık kısım daralıyor",
     "illuminationLabel": "Aydınlanmış",
     "hijriDate": "Hicrî tarih",
-    "lunarDay": "Kameri gün",
-    "lunarDayValue": "Gün {{day}}  {{month}}",
-    "age": "Ay yaşı",
-    "ageValue": "{{days}} gün since  yeni moon",
-    "nextNewMoon": "Sonraki yeni crescent",
-    "nextNewMoonValue": "~{{days}} gün · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White Gün",
       "whiteDaysBody": " 13th, 14th, ve 15th  each Islamic month fall around  full moon. Oruç these three bright gün dir  beloved sunnah   Prophet ﷺ.",
       "newMonthTitle": " yeni month begins",
-      "newMonthBody": " thin crescent (hilāl) marks  start  {{month}}. Each Islamic month begins when  yeni moon dir first sighted after sunset.",
+      "newMonthBody": "İnce hilal (hilāl) {{month}} ayının başlangıcını işaret eder. Her İslam ayı, hilal Maghribten sonra görüldüğünde başlar — astronomik kavuşumda değil.",
       "fullTitle": "Bu gece dolunay",
-      "fullBody": " moon dir fully lit near  middle  {{month}} —  nights   White Gün, when oruç dir especially recommended.",
-      "generalTitle": " takvim   moon",
-      "generalBody": " Islamic (Hicri) takvim follows  moon: every month dir 29 veya 30 gün, beginning ile  sighting   yeni crescent."
-    }
+      "fullBody": "Ay {{month}} ortasına yakın tamamen aydınlanır — Oruç tutmanın özellikle tavsiye edildiği Beyaz Günlerin geceleri.",
+      "generalTitle": "Ay takvimi",
+      "generalBody": "İslam (Hicrî) takvimi ayı esas alır: her ay 29 veya 30 gündür, görülen hilalle (hilāl) başlar. Buradaki tarihler konumunuz için tablo takvimine dayanır ve yerel gözlemden bir gün farklı olabilir.",
+      "monthTurnTitle": "Hilali arayın",
+      "monthTurnBody": "Maghribten sonra {{month}} hilalini arayın. İslam ayları görülen hilalle başlar; yerel ay gözlemi bu takvimden bir gün farklı olabilir."
+    },
+    "monthProgress": "Ay ilerlemesi",
+    "monthProgressValue": "{{month}} · {{length}} günün {{day}}. günü",
+    "nextMonth": "Sonraki İslam ayı",
+    "nextMonthValue": "~{{days}} gün · {{month}} başlar",
+    "nextMonthTonight": "Bu gece Maghribten sonra · {{month}} başlar",
+    "nextMonthOneDay": "~1 gün · {{month}} başlar"
   },
   "achievements": {
     "eyebrow": "Ilerleme",

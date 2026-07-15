@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Dokunun için details",
     "waxing": "Waxing — growing brighter each gije",
-    "waning": "Waning — fading toward  yeni moon",
+    "waning": "Kemelýän — ýagty bölegi kiçelýär",
     "illuminationLabel": "Aydynlanmyş",
     "hijriDate": "Hijri senesi",
-    "lunarDay": "Kameri gün",
-    "lunarDayValue": "Gün {{day}}  {{month}}",
-    "age": "Ay yaşy",
-    "ageValue": "{{days}} gün since  yeni moon",
-    "nextNewMoon": "Sonraki yeni crescent",
-    "nextNewMoonValue": "~{{days}} gün · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White Gün",
       "whiteDaysBody": " 13th, 14th, ve 15th  each Islamic month fall around  full moon. Oruç these three bright gün dir  beloved sunnah   Prophet ﷺ.",
       "newMonthTitle": " yeni month begins",
-      "newMonthBody": " thin crescent (hilāl) marks  start  {{month}}. Each Islamic month begins when  yeni moon dir first sighted after sunset.",
+      "newMonthBody": "Inç hilal (hilāl) {{month}} başlangyçyny görkezýär. Her islam aýy Magribden soň hilalyň görünmegi bilen başlaýar — astronomik birleşmede däl.",
       "fullTitle": "Bu gije doly aý",
-      "fullBody": " moon dir fully lit near  middle  {{month}} —  nights   White Gün, when oruç dir especially recommended.",
-      "generalTitle": " takvim   moon",
-      "generalBody": " Islamic (Hicri) takvim follows  moon: every month dir 29 veya 30 gün, beginning ile  sighting   yeni crescent."
-    }
+      "fullBody": "Aý {{month}} ortasyna ýakyn doly ýagtylanýar — Ak Günleriň gijeleri, oruç tutmak aýratyn maslahat berilýär.",
+      "generalTitle": "Aý senenamasy",
+      "generalBody": "Yslam (Hijri) senenamasy aýy yzarlaýar: her aý 29 ýa-da 30 gün, görünen hilal bilen (hilāl) başlaýar. Bu ýerdeki seneler ýeriňiz üçin tablisaly senenama esasynda we ýerli görmekden bir gün tapawutly bolup biler.",
+      "monthTurnTitle": "Hilaly gözläň",
+      "monthTurnBody": "Magribden soň {{month}} hilalyny gözläň. Yslam aýlary görünen hilal bilen başlaýar; ýerli aý görmegi bu senenamadan bir gün tapawutly bolup biler."
+    },
+    "monthProgress": "Aýyň ösüşi",
+    "monthProgressValue": "{{month}} · {{length}} günden {{day}}-nji gün",
+    "nextMonth": "Indiki islam aýy",
+    "nextMonthValue": "~{{days}} gün · {{month}} başlaýar",
+    "nextMonthTonight": "Bu gije Magribden soň · {{month}} başlaýar",
+    "nextMonthOneDay": "~1 gün · {{month}} başlaýar"
   },
   "achievements": {
     "eyebrow": "Ilerleme",

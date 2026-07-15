@@ -1883,24 +1883,26 @@
   "moonSheet": {
     "open": "{{phase}}. Tap for details",
     "waxing": "Waxing — growing brighter each night",
-    "waning": "Waning — fading toward the new moon",
+    "waning": "Waning — the lit portion is shrinking",
     "illuminationLabel": "Illuminated",
     "hijriDate": "Islamic date",
-    "lunarDay": "Lunar day",
-    "lunarDayValue": "Day {{day}} of {{month}}",
-    "age": "Moon age",
-    "ageValue": "{{days}} days since the new moon",
-    "nextNewMoon": "Next new crescent",
-    "nextNewMoonValue": "~{{days}} days · begins {{month}}",
+    "monthProgress": "Month progress",
+    "monthProgressValue": "Day {{day}} of {{length}} · {{month}}",
+    "nextMonth": "Next Islamic month",
+    "nextMonthValue": "~{{days}} days · begins {{month}}",
+    "nextMonthOneDay": "~1 day · begins {{month}}",
+    "nextMonthTonight": "Tonight after Maghrib · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ — the White Days",
       "whiteDaysBody": "The 13th, 14th, and 15th of each Islamic month fall around the full moon. Fasting these three bright days is a beloved sunnah of the Prophet ﷺ.",
       "newMonthTitle": "A new month begins",
-      "newMonthBody": "The thin crescent (hilāl) marks the start of {{month}}. Each Islamic month begins when the new moon is first sighted after sunset.",
+      "newMonthBody": "The thin crescent (hilāl) marks the start of {{month}}. Each Islamic month begins when the crescent is first sighted after Maghrib — not at the astronomical conjunction.",
+      "monthTurnTitle": "Look for the crescent",
+      "monthTurnBody": "After Maghrib, look for the hilāl of {{month}}. Islamic months begin with the sighted crescent; local moon-sighting may differ from this calendar by a day.",
       "fullTitle": "Full moon tonight",
       "fullBody": "The moon is fully lit near the middle of {{month}} — the nights of the White Days, when fasting is especially recommended.",
       "generalTitle": "A calendar of the moon",
-      "generalBody": "The Islamic (Hijri) calendar follows the moon: every month is 29 or 30 days, beginning with the sighting of the new crescent."
+      "generalBody": "The Islamic (Hijri) calendar follows the moon: every month is 29 or 30 days, beginning with the sighted crescent (hilāl). Dates here use a tabular calendar for your location and may differ from local sighting by a day."
     }
   },
   "achievements": {

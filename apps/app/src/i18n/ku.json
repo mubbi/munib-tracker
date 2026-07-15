@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Tap ji bo details",
     "waxing": "Waxing - her şev geştir dibe",
-    "waning": "Waning — fading toward  nû moon",
+    "waning": "Kêmbûn — beşa ronî teng dibe",
     "illuminationLabel": "Ronahî kirin",
     "hijriDate": "tarîxa îslamî",
-    "lunarDay": "Lunar roj",
-    "lunarDayValue": "Roj {{day}} ya {{month}}",
-    "age": "Temenê heyvê",
-    "ageValue": "{{days}} roj since  nû moon",
-    "nextNewMoon": "Heyva nû ya din",
-    "nextNewMoonValue": "~{{days}} roj · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White Roj",
       "whiteDaysBody": " 13th, 14th, û 15th ya each Islamic meh fall around  full moon. Rojî these three bright roj e  beloved sunnah ya  Prophet ﷺ.",
       "newMonthTitle": " nû meh begins",
-      "newMonthBody": " thin crescent (hilāl) marks  dest pê bike ya {{month}}. Each Islamic meh begins when  nû moon e yekem sighted after sunset.",
+      "newMonthBody": "Hilala tenik (hilāl) destpêka {{month}} nîşan dide. Her meha Îslamî piştî Magribê bi dîtina hilalê dest pê dike — ne li ser hevhatina stêrnasî.",
       "fullTitle": "îşev heyva tijî ye",
-      "fullBody": " moon e fully lit near  middle ya {{month}} —  nights ya  White Roj, when rojî e especially recommended.",
-      "generalTitle": " calendar ya  moon",
-      "generalBody": " Islamic (Hijri) calendar follows  moon: every meh e 29 an 30 roj, beginning bi  sighting ya  nû crescent."
-    }
+      "fullBody": "Heyv nêzîkî navenda {{month}} bi tevahî ronahî ye — şevên Rojên Spî, dema rojî bi taybetî tê pêşniyar kirin.",
+      "generalTitle": "Salnameya heyvê",
+      "generalBody": "Salnameya Îslamî (Hicrî) li gor heyvê ye: her meh 29 an 30 roj e, bi hilala dîtî (hilāl) dest pê dike. Dîrokên vir ji bo cihê we salnameya tabloyan bikar tînin û dibe ku ji dîtina herêmî bi yek roj cuda bin.",
+      "monthTurnTitle": "Li hilalê bigerin",
+      "monthTurnBody": "Piştî Magribê li hilala {{month}} bigerin. Mehên Îslamî bi hilala dîtî dest pê dikin; dîtina heyva herêmî dibe ku ji vê salnameyê bi yek roj cuda be."
+    },
+    "monthProgress": "Pêşveçûna mehê",
+    "monthProgressValue": "Roja {{day}} ji {{length}} · {{month}}",
+    "nextMonth": "Meha Îslamî ya din",
+    "nextMonthValue": "~{{days}} roj · destpêka {{month}}",
+    "nextMonthTonight": "Îşev piştî Magribê · destpêka {{month}}",
+    "nextMonthOneDay": "~1 roj · destpêka {{month}}"
   },
   "achievements": {
     "eyebrow": "Pêşverûtî",

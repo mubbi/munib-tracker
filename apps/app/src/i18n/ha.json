@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Dokunun don details",
     "waxing": "Kakin zuma - girma mai haske kowane dare",
-    "waning": "Waning - faɗuwa zuwa ga sabon wata",
+    "waning": "Raguwa — sashin da aka haskaka yana raguwa",
     "illuminationLabel": "Illumintiated",
     "hijriDate": "Musulunci kwanan wata",
-    "lunarDay": "Kameri rana",
-    "lunarDayValue": "Gün {{day}}  {{month}}",
-    "age": "shekarun wata",
-    "ageValue": "{{days}} rana since  yeni moon",
-    "nextNewMoon": "Na gaba new crescent",
-    "nextNewMoonValue": "~{{days}} rana · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyam al-Bīḍ - The White Days",
       "whiteDaysBody": " 13th, 14th, da 15th  each Islamic month fall around  full moon. Azumi these three bright rana dir  belodad sunnah   Prophet ﷺ.",
       "newMonthTitle": "Wani sabon wata ya fara",
-      "newMonthBody": "Siriri jinjirin wata (hilāl) alama ce ta farkon {{month}}. Kowane wata na Musulunci yana farawa ne lokacin da aka fara ganin wata bayan faduwar rana.",
+      "newMonthBody": "Ƙaramin wata (hilāl) yana nuna farawa {{month}}. Kowane wata na Musulunci yana farawa da ganin wata bayan Magrib — ba a haɗuwar taurari ba.",
       "fullTitle": "Cikakkiyar wata a daren yau",
       "fullBody": "Watan yana haskakawa a kusa da tsakiyar {{month}} - dararen Farin Rana, lokacin da aka fi so azumi.",
       "generalTitle": "Kalanda na wata",
-      "generalBody": "Kalandar Musulunci (Hijira) tana bin wata ne: kowane wata yana kwana 29 ko 30, yana farawa da ganin jinjirin watan."
-    }
+      "generalBody": "Kalandar Musulunci (Hijira) tana bin wata ne: kowane wata yana kwana 29 ko 30, yana farawa da wata da aka gani (hilāl). Kwanakin nan suna amfani da kalanda ta tebur don wurin ku kuma suna iya bambanta da ganin gida da kwana ɗaya.",
+      "monthTurnTitle": "Nemi wata",
+      "monthTurnBody": "Bayan Magrib, nemi hilāl na {{month}}. Watannin Musulunci suna farawa da wata da aka gani; ganin wata na gida na iya bambanta da wannan kalanda da kwana ɗaya."
+    },
+    "monthProgress": "Ci gaban wata",
+    "monthProgressValue": "Rana {{day}} cikin {{length}} · {{month}}",
+    "nextMonth": "Wata na Musulunci na gaba",
+    "nextMonthValue": "~{{days}} kwanaki · farawa {{month}}",
+    "nextMonthTonight": "A daren yau bayan Magrib · farawa {{month}}",
+    "nextMonthOneDay": "~kwana 1 · farawa {{month}}"
   },
   "achievements": {
     "eyebrow": "Ci gaba",

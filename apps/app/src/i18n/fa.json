@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Dokunun برای details",
     "waxing": "بڑھتا ہوا — ہر رات زیادہ روشن",
-    "waning": "گھٹتا ہوا — نئے چاند کی طرف مدھم",
+    "waning": "کاهشی — بخش روشن در حال کوچک شدن است",
     "illuminationLabel": "Illuminated",
     "hijriDate": "اسلامی تاریخ",
-    "lunarDay": "Kameri روز",
-    "lunarDayValue": "Gün {{day}}  {{month}}",
-    "age": "چاند کی عمر",
-    "ageValue": "{{days}} روز since  yeni moon",
-    "nextNewMoon": "بعدی new crescent",
-    "nextNewMoonValue": "~{{days}} روز · begins {{month}}",
     "note": {
       "whiteDaysTitle": "ایامِ بیض",
       "whiteDaysBody": "روزهای سیزدهم، چهاردهم و پانزدهم هر ماه اسلامی نزدیک ماه کامل‌اند. روزه این سه روز روشن، سنتی محبوب از پیامبر ﷺ است.",
       "newMonthTitle": "نئے مہینے کا آغاز",
-      "newMonthBody": "باریک ہلال {{month}} کے آغاز کی نشانی ہے۔ ہر اسلامی مہینہ غروبِ آفتاب کے بعد نیا چاند نظر آنے پر شروع ہوتا ہے۔",
+      "newMonthBody": "هلال نازک آغاز {{month}} را نشان می‌دهد. هر ماه اسلامی با دیدن هلال پس از مغرب آغاز می‌شود — نه در مقارنهٔ نجومی.",
       "fullTitle": "آج پورا چاند",
       "fullBody": "چاند {{month}} کے وسط کے قریب مکمل روشن ہے — ایامِ بیض کی راتیں، جن میں روزہ رکھنا مستحب ہے۔",
       "generalTitle": "قمری تقویم",
-      "generalBody": "The Islamic (هجری) calendar follows the moon: every month is 29 or 30 days, beginning with the sighting of the new crescent."
-    }
+      "generalBody": "تقویم اسلامی (هجری) از ماه پیروی می‌کند: هر ماه ۲۹ یا ۳۰ روز است و با هلال دیده‌شده (hilāl) آغاز می‌شود. تاریخ‌های اینجا بر اساس تقویم جدولی برای موقعیت شماست و ممکن است یک روز با رؤیت محلی متفاوت باشد.",
+      "monthTurnTitle": "به دنبال هلال باشید",
+      "monthTurnBody": "پس از مغرب به دنبال هلال {{month}} باشید. ماه‌های اسلامی با هلال دیده‌شده آغاز می‌شوند؛ رؤیت محلی ممکن است یک روز با این تقویم متفاوت باشد."
+    },
+    "monthProgress": "پیشرفت ماه",
+    "monthProgressValue": "روز {{day}} از {{length}} · {{month}}",
+    "nextMonth": "ماه اسلامی بعدی",
+    "nextMonthValue": "~{{days}} روز · آغاز {{month}}",
+    "nextMonthTonight": "امشب پس از مغرب · آغاز {{month}}",
+    "nextMonthOneDay": "~۱ روز · آغاز {{month}}"
   },
   "achievements": {
     "eyebrow": "پیشرفت",

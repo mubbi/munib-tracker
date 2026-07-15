@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Tap për details",
     "waxing": "Depilimi - bëhet më i ndritshëm çdo natë",
-    "waning": "Waning — fading toward  i ri moon",
+    "waning": "Zvogëlim — pjesa e ndriçuar po tkurret",
     "illuminationLabel": "I ndriçuar",
     "hijriDate": "datë islame",
-    "lunarDay": "Lunar ditë",
-    "lunarDayValue": "Ditë {{day}} e {{month}}",
-    "age": "Mosha e Hënës",
-    "ageValue": "{{days}} ditë since  i ri moon",
-    "nextNewMoon": "Tjetër i ri crescent",
-    "nextNewMoonValue": "~{{days}} ditë · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White Ditë",
       "whiteDaysBody": " 13th, 14th, dhe 15th e each Islamic muaj fall around  full moon. Agjërimi these three bright ditë është  beloved sunnah e  Prophet ﷺ.",
       "newMonthTitle": " i ri muaj begins",
-      "newMonthBody": " thin crescent (hilāl) marks  fillo e {{month}}. Each Islamic muaj begins when  i ri moon është i pari sighted after sunset.",
+      "newMonthBody": "Hëna e hollë (hilāl) shënon fillimin e {{month}}. Çdo muaj islam fillon kur hëna shihet pas Maghribit — jo në konjunkcionin astronomik.",
       "fullTitle": "Hëna e plotë sonte",
-      "fullBody": " moon është fully lit near  middle e {{month}} —  nights e  White Ditë, when agjërimi është especially recommended.",
-      "generalTitle": " calendar e  moon",
-      "generalBody": " Islamic (Hijri) calendar follows  moon: every muaj është 29 ose 30 ditë, beginning me  sighting e  i ri crescent."
-    }
+      "fullBody": "Hëna është plotësisht e ndriçuar afër mesit të {{month}} — netët e Ditëve të Bardha, kur agjërimi rekomandohet veçanërisht.",
+      "generalTitle": "Kalendar hënor",
+      "generalBody": "Kalendari islam (Hixhri) ndjek hënën: çdo muaj ka 29 ose 30 ditë, duke filluar me hënën e parë (hilāl). Datat këtu përdorin një kalendar tabular për vendndodhjen tuaj dhe mund të ndryshojnë nga vëzhgimi lokal me një ditë.",
+      "monthTurnTitle": "Kërkoni hënën e re",
+      "monthTurnBody": "Pas Maghribit, kërkoni hilāl e {{month}}. Muajt islam fillojnë me hënën e parë; vëzhgimi lokal i hënës mund të ndryshojë nga ky kalendar me një ditë."
+    },
+    "monthProgress": "Progresi i muajit",
+    "monthProgressValue": "Dita {{day}} nga {{length}} · {{month}}",
+    "nextMonth": "Muaji islam i ardhshëm",
+    "nextMonthValue": "~{{days}} ditë · fillon {{month}}",
+    "nextMonthTonight": "Sonte pas Maghribit · fillon {{month}}",
+    "nextMonthOneDay": "~1 ditë · fillon {{month}}"
   },
   "achievements": {
     "eyebrow": "Përparim",

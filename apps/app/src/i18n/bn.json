@@ -1888,25 +1888,27 @@
   "moonSheet": {
     "open": "{{phase}}. ট্যাপ জন্য details",
     "waxing": "Waxing — growing brighter each malam",
-    "waning": "Waning — fading toward  নতুন moon",
+    "waning": "ক্ষয়মান — আলোকিত অংশ সংকুচিত হচ্ছে",
     "illuminationLabel": "আলোকিত",
     "hijriDate": "Islamic তারিখ",
-    "lunarDay": "চান্দ্র দিন",
-    "lunarDayValue": "দিন {{day}} এর {{month}}",
-    "age": "চাঁদের বয়স",
-    "ageValue": "{{days}} দিন since  নতুন moon",
-    "nextNewMoon": "পরবর্তী নতুন crescent",
-    "nextNewMoonValue": "~{{days}} দিন · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White দিন",
       "whiteDaysBody": " 13th, 14th, এবং 15th এর each Islamic month fall around  full moon. রোজা these three bright দিন হয়  beloved sunnah এর  Prophet ﷺ.",
       "newMonthTitle": " নতুন month begins",
-      "newMonthBody": " thin crescent (hilāl) marks  start এর {{month}}. Each Islamic month begins when  নতুন moon হয় first sighted after sunset.",
+      "newMonthBody": "সূক্ষ্ম হিলাল {{month}} এর শুরু চিহ্নিত করে। প্রতিটি ইসলামি মাস মাগরিবের পর হিলাল দেখা গেলে শুরু হয় — জ্যোতির্বিদ্যাগত মিলনে নয়।",
       "fullTitle": "Penuh moon tonight",
       "fullBody": " moon হয় fully lit near  middle এর {{month}} —  nights এর  White দিন, when রোজা হয় especially recommended.",
       "generalTitle": " ক্যালেন্ডার এর  moon",
-      "generalBody": " Islamic (হিজরি) ক্যালেন্ডার follows  moon: every month হয় 29 অথবা 30 দিন, beginning সহ  sighting এর  নতুন crescent."
-    }
+      "generalBody": "ইসলামি (হিজরি) ক্যালেন্ডার চাঁদ অনুসরণ করে: প্রতিটি মাস ২৯ বা ৩০ দিনের, দেখা হিলাল (hilāl) দিয়ে শুরু হয়। এখানে তারিখগুলো আপনার অবস্থানের জন্য ট্যাবুলার ক্যালেন্ডার অনুযায়ী এবং স্থানীয় দর্শন থেকে এক দিন পার্থক্য হতে পারে।",
+      "monthTurnTitle": "হিলাল খুঁজুন",
+      "monthTurnBody": "মাগরিবের পর {{month}} এর হিলাল খুঁজুন। ইসলামি মাসগুলি দেখা হিলাল দিয়ে শুরু হয়; স্থানীয় চাঁদ দেখা এই ক্যালেন্ডার থেকে এক দিন পার্থক্য হতে পারে।"
+    },
+    "monthProgress": "মাসের অগ্রগতি",
+    "monthProgressValue": "{{month}} · {{length}} দিনের {{day}}তম দিন",
+    "nextMonth": "পরবর্তী ইসলামি মাস",
+    "nextMonthValue": "~{{days}} দিন · {{month}} শুরু",
+    "nextMonthTonight": "আজ মাগরিবের পর · {{month}} শুরু",
+    "nextMonthOneDay": "~১ দিন · {{month}} শুরু"
   },
   "achievements": {
     "eyebrow": "অগ্রগতি",

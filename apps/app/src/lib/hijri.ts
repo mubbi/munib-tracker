@@ -455,6 +455,21 @@ export function hijriMonthLength(year: number, month: number): number {
   return next - start;
 }
 
+/** Progress through the current Hijri month and identity of the next month. */
+export function hijriMonthProgress(hijri: HijriDate): {
+  length: number;
+  /** Whole days left in this month after today (0 on the last day). */
+  daysRemaining: number;
+  nextMonth: number;
+  nextYear: number;
+} {
+  const length = hijriMonthLength(hijri.year, hijri.month);
+  const daysRemaining = Math.max(0, length - hijri.day);
+  const nextMonth = hijri.month === 12 ? 1 : hijri.month + 1;
+  const nextYear = hijri.month === 12 ? hijri.year + 1 : hijri.year;
+  return { length, daysRemaining, nextMonth, nextYear };
+}
+
 /** Localized Hijri month name (1-based month). */
 export function hijriMonthName(month: number, locale: AppLocale): string {
   const names = HIJRI_MONTHS[locale] ?? HIJRI_MONTHS.en ?? [];

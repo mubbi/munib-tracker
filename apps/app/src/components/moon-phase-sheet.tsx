@@ -8,9 +8,9 @@ import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { gradientBackground } from "@/lib/gradient";
-import { formatHijriDate, gregorianToHijri, hijriMonthName } from "@/lib/hijri";
+import { formatHijriDate, gregorianToHijri, hijriMonthName, hijriMonthProgress } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
-import { daysUntilNewMoon, moonAgeDays, moonPhase } from "@/lib/moon";
+import { moonPhase } from "@/lib/moon";
 import { useLocation } from "@/stores/location-store";
 
 type MoonPhaseSheetProps = {
@@ -22,10 +22,11 @@ type MoonPhaseSheetProps = {
 
 /**
  * Details for the current moon phase, opened by tapping the moon in the hero.
- * Pairs the astronomical shape (phase, illumination, age, next crescent) with
- * its Islamic significance — the Hijri calendar is lunar, so the moon's shape
- * literally marks the date, the month's turn, and the White Days of fasting.
- * All values are computed on-device (offline) from the same `moon`/`hijri` libs.
+ *
+ * Illumination/phase describe the astronomical shape. Month progress and the
+ * next-month countdown come from the tabular Hijri calendar (anchored to the
+ * user's location timezone) — never from astronomical conjunction, which is
+ * not the Islamic month start.
  */
 export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) {
   const { t, i18n } = useTranslation();
@@ -33,20 +34,33 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
   const location = useLocation();
 
   const locale: AppLocale = toAppLocale(i18n.language ?? "en");
+  const timeZone = location.timeZone;
 
-  const { fraction, illumination, waxing, name } = moonPhase(date);
-  const hijri = gregorianToHijri(date);
+  const { illumination, waxing, name } = moonPhase(date);
+  const hijri = gregorianToHijri(date, timeZone);
+  const { length, daysRemaining, nextMonth } = hijriMonthProgress(hijri);
   const percent = Math.round(illumination * 100);
-  const age = Math.round(moonAgeDays(fraction));
-  const toNewMoon = Math.max(1, Math.round(daysUntilNewMoon(fraction)));
-  const nextMonthName = hijriMonthName(hijri.month === 12 ? 1 : hijri.month + 1, locale);
+  const nextMonthName = hijriMonthName(nextMonth, locale);
   const currentMonthName = hijriMonthName(hijri.month, locale);
 
-  const note = noteFor(hijri.day, name);
-  const noteBody =
+  const note = noteFor(hijri.day, length, name);
+  const noteMonth =
     note === "newMonth" || note === "full"
-      ? t(`moonSheet.note.${note}Body`, { month: currentMonthName })
+      ? currentMonthName
+      : note === "monthTurn"
+        ? nextMonthName
+        : null;
+  const noteBody =
+    noteMonth != null
+      ? t(`moonSheet.note.${note}Body`, { month: noteMonth })
       : t(`moonSheet.note.${note}Body`);
+
+  const nextMonthValue =
+    daysRemaining === 0
+      ? t("moonSheet.nextMonthTonight", { month: nextMonthName })
+      : daysRemaining === 1
+        ? t("moonSheet.nextMonthOneDay", { month: nextMonthName })
+        : t("moonSheet.nextMonthValue", { days: daysRemaining, month: nextMonthName });
 
   return (
     <Sheet visible={visible} onClose={onClose} variant="bottom">
@@ -76,19 +90,18 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
       <View style={[styles.rows, { backgroundColor: colors.muted }]}>
         <InfoRow label={t("moonSheet.illuminationLabel")} value={`${percent}%`} />
         <Divider color={colors.border} />
-        <InfoRow label={t("moonSheet.hijriDate")} value={formatHijriDate(date, locale)} />
+        <InfoRow label={t("moonSheet.hijriDate")} value={formatHijriDate(date, locale, timeZone)} />
         <Divider color={colors.border} />
         <InfoRow
-          label={t("moonSheet.lunarDay")}
-          value={t("moonSheet.lunarDayValue", { day: hijri.day, month: currentMonthName })}
+          label={t("moonSheet.monthProgress")}
+          value={t("moonSheet.monthProgressValue", {
+            day: hijri.day,
+            length,
+            month: currentMonthName,
+          })}
         />
         <Divider color={colors.border} />
-        <InfoRow label={t("moonSheet.age")} value={t("moonSheet.ageValue", { days: age })} />
-        <Divider color={colors.border} />
-        <InfoRow
-          label={t("moonSheet.nextNewMoon")}
-          value={t("moonSheet.nextNewMoonValue", { days: toNewMoon, month: nextMonthName })}
-        />
+        <InfoRow label={t("moonSheet.nextMonth")} value={nextMonthValue} />
       </View>
 
       <View style={[styles.note, { backgroundColor: tokens.accentSoft }]}>
@@ -104,12 +117,14 @@ export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) 
 }
 
 /** Picks the most relevant Islamic note for the current lunar day + phase. */
-function noteFor(
+export function noteFor(
   hijriDay: number,
+  monthLength: number,
   phaseName: string,
-): "whiteDays" | "newMonth" | "full" | "general" {
+): "whiteDays" | "newMonth" | "monthTurn" | "full" | "general" {
   if (hijriDay >= 13 && hijriDay <= 15) return "whiteDays";
   if (hijriDay <= 2) return "newMonth";
+  if (hijriDay >= monthLength - 1) return "monthTurn";
   if (phaseName === "full") return "full";
   return "general";
 }

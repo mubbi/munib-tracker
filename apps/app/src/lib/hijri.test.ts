@@ -4,6 +4,7 @@ import {
   hijriMonthLabel,
   hijriMonthLength,
   hijriMonthName,
+  hijriMonthProgress,
   hijriToGregorian,
 } from "@/lib/hijri";
 
@@ -56,6 +57,32 @@ describe("hijriMonthLength", () => {
     const nextStart = hijriToGregorian(1447, 10, 1);
     const days = Math.round((nextStart.getTime() - start.getTime()) / 86_400_000);
     expect(hijriMonthLength(1447, 9)).toBe(days);
+  });
+});
+
+describe("hijriMonthProgress", () => {
+  it("reports days remaining from the Hijri day, not the astronomical cycle", () => {
+    // 2026-07-15 → 29 Muharram 1448 (30-day month) → 1 day left until Safar.
+    const hijri = gregorianToHijri(new Date(2026, 6, 15));
+    expect(hijri).toEqual({ year: 1448, month: 1, day: 29 });
+    expect(hijriMonthProgress(hijri)).toEqual({
+      length: 30,
+      daysRemaining: 1,
+      nextMonth: 2,
+      nextYear: 1448,
+    });
+  });
+
+  it("reports zero days remaining on the last day of the month", () => {
+    const progress = hijriMonthProgress({ year: 1448, month: 1, day: 30 });
+    expect(progress.daysRemaining).toBe(0);
+    expect(progress.nextMonth).toBe(2);
+  });
+
+  it("rolls next month into the next Hijri year after Dhul-Hijjah", () => {
+    const progress = hijriMonthProgress({ year: 1448, month: 12, day: 20 });
+    expect(progress.nextMonth).toBe(1);
+    expect(progress.nextYear).toBe(1449);
   });
 });
 

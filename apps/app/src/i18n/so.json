@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. tbo u detils",
     "waxing": "Wxgudhg — growgudhg brighter ech hbeen",
-    "waning": "Wngudhg — fdgudhg uwrd  new moku",
+    "waning": "Hoos u dhaca — qaybta ifaysa way yaraanaysaa",
     "illuminationLabel": "Iftiimay",
     "hijriDate": "wlmic dte",
-    "lunarDay": "Lunr dy",
-    "lunarDayValue": "Day {{day}} of {{month}}",
-    "age": "Moku ge",
-    "ageValue": "{{days}} dys sgudhce  new moku",
-    "nextNewMoon": "Dayax cusub ee xiga",
-    "nextNewMoonValue": "~{{days}} dys · beggudhs {{month}}",
     "note": {
       "whiteDaysTitle": "yyām l-Bīḍ —  White Dys",
       "whiteDaysBody": "Maalmaha 13aad, 14aad iyo 15aad ee bil kasta oo Islaami ah waxay ku beegmaan dayaxa buuxa. Soonka saddexdan maalmood ee iftiinka ah waa sunnah uu Nabigu ﷺ jeclaa.",
       "newMonthTitle": " new mkuth beggudhs",
-      "newMonthBody": " thgudh crescent (hilāl) mrks  strt ee {{month}}. Ech wlmic mkuth beggudhs when  new moku w first sighted fter sunset.",
+      "newMonthBody": "Dayax yar (hilāl) wuxuu calaamad u yahay bilowga {{month}}. Bil kasta oo Islaami ah waxay bilaabataa marka dayaxa la arko ka dib Maghrib — ma aha isku dhafka xiddigiska.",
       "fullTitle": "Full moku uhbeen",
       "fullBody": " moku w fully lit ner  middle ee {{month}} —  hbeens ee  White Dys, when Sokuk w especidhmmny recommended.",
       "generalTitle": " jdwl ee  moku",
-      "generalBody": " wlmic (Hijri) jdwl follows  moku: every mkuth w 29 m 30 dys, beggudhngudhg with  sightgudhg ee  new crescent."
-    }
+      "generalBody": "Jadwalka Islaamka (Hijri) wuxuu raacaa dayaxa: bil kasta waa 29 ama 30 maalmood, oo ku bilaabata dayax la arkay (hilāl). Taariikhaha halkan waxay isticmaalaan jadwal jadwal ah oo goobtaada ah waxayna kala duwanaan karaan aragtida maxalliga ah hal maalin.",
+      "monthTurnTitle": "Raadi dayaxa",
+      "monthTurnBody": "Ka dib Maghrib, raadi hilāl {{month}}. Bilaha Islaamka waxay ku bilaabmaan dayax la arkay; aragtida dayaxa maxalliga ah waxay kala duwanaan kartaa jadwalkan hal maalin."
+    },
+    "monthProgress": "Horumarka bisha",
+    "monthProgressValue": "Maalin {{day}} ee {{length}} · {{month}}",
+    "nextMonth": "Bisha Islaamka ee xigta",
+    "nextMonthValue": "~{{days}} maalmood · bilaabashada {{month}}",
+    "nextMonthTonight": "Habeenkan ka dib Maghrib · bilaabashada {{month}}",
+    "nextMonthOneDay": "~1 maalin · bilaabashada {{month}}"
   },
   "achievements": {
     "eyebrow": "Horumar",

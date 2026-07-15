@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Tap үчүн details",
     "waxing": "Waxing - ар бир түнү жарык өсүүдө",
-    "waning": "Waning — fading toward  жаңы moon",
+    "waning": "Кемүүчү — жарык бөлүгү кичирейип баратат",
     "illuminationLabel": "агартылган",
     "hijriDate": "Ислам датасы",
-    "lunarDay": "Lunar күн",
-    "lunarDayValue": "Күн {{day}}  {{month}}",
-    "age": "ай жашы",
-    "ageValue": "{{days}} күн since  жаңы moon",
-    "nextNewMoon": "Кийинки жаңы crescent",
-    "nextNewMoonValue": "~{{days}} күн · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White Күн",
       "whiteDaysBody": " 13th, 14th, жана 15th  each Islamic ай fall around  full moon. Орозо these three bright күн   beloved sunnah   Prophet ﷺ.",
       "newMonthTitle": " жаңы ай begins",
-      "newMonthBody": " thin crescent (hilāl) marks  баштоо  {{month}}. Each Islamic ай begins when  жаңы moon  биринчи sighted after sunset.",
+      "newMonthBody": "Ичке ай (hilāl) {{month}} башталышын белгилейт. Ар бир ислам айы Магрибтен кийин ай көрүнгөндө башталат — астрономиялык кошулууда эмес.",
       "fullTitle": "Толук ай бүгүн кечинде",
-      "fullBody": " moon  fully lit near  middle  {{month}} —  nights   White Күн, when орозо  especially recommended.",
+      "fullBody": "Ай {{month}} ортосуна жакын толук жарыктанат — Ак Күндөрдүн түнү, орозо кармаган особо сунушталат.",
       "generalTitle": "Ай календары",
-      "generalBody": " Islamic (Hijri) calendar follows  moon: every ай  29 же 30 күн, beginning менен  sighting   жаңы crescent."
-    }
+      "generalBody": "Ислам (Хижри) календары айды эске алат: ар бир ай 29 же 30 күн, көрүнгөн ай менен (hilāl) башталат. Бул жердеги даталар сиздин жайгашкан жериңиз үчүн таблицалык календарьга негизделген жана жергиликтүү көрүүдөн бир күнгө айырмаланышы мүмкүн.",
+      "monthTurnTitle": "Айды издеңиз",
+      "monthTurnBody": "Магрибтен кийин {{month}} hilāl издеңиз. Ислам айлары көрүнгөн ай менен башталат; жергиликтүү ай көрүүсү бул календардан бир күнгө айырмаланышы мүмкүн."
+    },
+    "monthProgress": "Айдын прогресси",
+    "monthProgressValue": "{{month}} · {{length}} күндүн {{day}}-күнү",
+    "nextMonth": "Кийинки ислам айы",
+    "nextMonthValue": "~{{days}} күн · {{month}} башталат",
+    "nextMonthTonight": "Бүгүн Магрибтен кийин · {{month}} башталат",
+    "nextMonthOneDay": "~1 күн · {{month}} башталат"
   },
   "achievements": {
     "eyebrow": "Прогресс",

@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. -xunun üçün detils",
     "waxing": "Wxiçindəg — growiçindəg brighter ech gecə",
-    "waning": "Wniçindəg — fdiçindəg -wrd  new moüzərində",
+    "waning": "Azalan — işıqlanan hissə kiçilir",
     "illuminationLabel": "İşıqlanmış",
     "hijriDate": "dirlmic dte",
-    "lunarDay": "Lunr dy",
-    "lunarDayValue": "Day {{day}} of {{month}}",
-    "age": "Moüzərində ge",
-    "ageValue": "{{days}} dys siçindəce  new moüzərində",
-    "nextNewMoon": "Növbəti yeni hilal",
-    "nextNewMoonValue": "~{{days}} dys · begiçindəs {{month}}",
     "note": {
       "whiteDaysTitle": "yyām l-Bīḍ —  White Dys",
       "whiteDaysBody": "Hər hicri ayın 13, 14 və 15-ci günləri dolunay vaxtına düşür. Bu üç parlaq gündə oruc tutmaq Peyğəmbərin ﷺ sevimli sünnəsidir.",
       "newMonthTitle": " new müzərindəth begiçindəs",
-      "newMonthBody": " thiçində crescent (hilāl) mrks  strt -içində {{month}}. Ech dirlmic müzərindəth begiçindəs when  new moüzərində dir first sighted fter sunset.",
+      "newMonthBody": "İncə hilal {{month}} ayının başlanğıcını göstərir. Hər islam ayı Məğribdən sonra hilalın görünməsi ilə başlayır — astronomik birləşmədə yox.",
       "fullTitle": "Full moüzərində -gecə",
       "fullBody": " moüzərində dir fully lit ner  middle -içində {{month}} —  gecəs -içində  White Dys, when və yuc dir especihmısıy recommended.",
       "generalTitle": " təqvim -içində  moüzərində",
-      "generalBody": " dirlmic (Hijri) təqvim follows  moüzərində: every müzərindəth dir 29 və y 30 dys, begiçindəniçindəg with  sightiçindəg -içində  new crescent."
-    }
+      "generalBody": "İslam (Hicri) təqvimi ayı izləyir: hər ay 29 və ya 30 gündür, görünən hilalla (hilāl) başlayır. Buradakı tarixlər yeriniz üçün cədvəl təqviminə əsaslanır və yerli müşahidədən bir gün fərqlənə bilər.",
+      "monthTurnTitle": "Hilala baxın",
+      "monthTurnBody": "Məğribdən sonra {{month}} hilalını axtarın. İslam ayları görünən hilalla başlayır; yerli hilal müşahidəsi bu təqvimdən bir gün fərqlənə bilər."
+    },
+    "monthProgress": "Ayın irəliləməsi",
+    "monthProgressValue": "{{month}} · {{length}} gündən {{day}}-ci gün",
+    "nextMonth": "Növbəti islam ayı",
+    "nextMonthValue": "~{{days}} gün · {{month}} başlayır",
+    "nextMonthTonight": "Bu gecə Məğribdən sonra · {{month}} başlayır",
+    "nextMonthOneDay": "~1 gün · {{month}} başlayır"
   },
   "achievements": {
     "eyebrow": "İrəliləyiş",

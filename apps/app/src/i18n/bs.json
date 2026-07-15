@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Tap za details",
     "waxing": "Depilacija voskom — postaje sve svjetlija svake noći",
-    "waning": "Waning — fading toward  novi moon",
+    "waning": "Opadanje — osvijetljeni dio se smanjuje",
     "illuminationLabel": "Aydınlanmış",
     "hijriDate": "Islamski datum",
-    "lunarDay": "Lunar dan",
-    "lunarDayValue": "Dan {{day}}  {{month}}",
-    "age": "Ay yaşı",
-    "ageValue": "{{days}} dana since  novi moon",
-    "nextNewMoon": "Sljedeći novi crescent",
-    "nextNewMoonValue": "~{{days}} dana · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White Dana",
       "whiteDaysBody": " 13th, 14th, i 15th  each Islamic mjesec fall around  full moon. Post these three bright dana je  beloved sunnah   Prophet ﷺ.",
       "newMonthTitle": " novi mjesec begins",
-      "newMonthBody": " thin crescent (hilāl) marks  počni  {{month}}. Each Islamic mjesec begins when  novi moon je prvi sighted after sunset.",
+      "newMonthBody": "Tanki polumjesec (hilāl) označava početak {{month}}. Svaki islamski mjesec počinje kada se hilal prvi put vidi poslije Magriba — ne pri astronomskoj konjunkciji.",
       "fullTitle": "Pun mjesec večeras",
       "fullBody": " moon je fully lit near  middle  {{month}} —  nights   White Dana, when post je especially recommended.",
       "generalTitle": " calendar   moon",
-      "generalBody": " Islamic (Hijri) calendar follows  moon: every mjesec je 29 ili 30 dana, beginning sa  sighting   novi crescent."
-    }
+      "generalBody": "Islamski (Hidžretski) kalendar prati mjesec: svaki mjesec ima 29 ili 30 dana, počinje viđenim polumjesecom (hilāl). Datumi ovdje koriste tabularni kalendar za vašu lokaciju i mogu se razlikovati od lokalnog viđenja za jedan dan.",
+      "monthTurnTitle": "Tražite polumjesec",
+      "monthTurnBody": "Poslije Magriba tražite hilāl {{month}}. Islamski mjeseci počinju viđenim polumjesecom; lokalno viđenje mjeseca može se razlikovati od ovog kalendara za jedan dan."
+    },
+    "monthProgress": "Napredak mjeseca",
+    "monthProgressValue": "Dan {{day}} od {{length}} · {{month}}",
+    "nextMonth": "Sljedeći islamski mjesec",
+    "nextMonthValue": "~{{days}} dana · počinje {{month}}",
+    "nextMonthTonight": "Večeras poslije Magriba · počinje {{month}}",
+    "nextMonthOneDay": "~1 dan · počinje {{month}}"
   },
   "achievements": {
     "eyebrow": "Napredak",

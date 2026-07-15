@@ -104,12 +104,12 @@ export function moonPhase(date: Date): MoonPhase {
   return { fraction, illumination, waxing, name };
 }
 
-/** The moon's age — days elapsed since the last new moon. */
+/** The moon's age — days elapsed since the last astronomical conjunction. */
 export function moonAgeDays(fraction: number): number {
   return fraction * SYNODIC_MONTH;
 }
 
-/** Days remaining until the next new moon (the start of the next lunar month). */
+/** Days remaining until the next astronomical conjunction (not the Islamic month start). */
 export function daysUntilNewMoon(fraction: number): number {
   return (1 - fraction) * SYNODIC_MONTH;
 }

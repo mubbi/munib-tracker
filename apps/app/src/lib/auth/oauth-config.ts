@@ -11,8 +11,12 @@ export const GOOGLE_OAUTH_REDIRECT_PATH = "oauthredirect";
 /** HTTPS App Link path for Apple OAuth return (Android + iOS OAuth fallback). */
 export const APPLE_OAUTH_NATIVE_PATH = "oauth/apple";
 
-function env(key: string): string {
-  return (process.env[key] ?? "").trim();
+/**
+ * Trim a build-time env value. Callers must pass a *static* `process.env.EXPO_PUBLIC_*`
+ * member expression — Metro only inlines those; `process.env[key]` stays undefined on web.
+ */
+function trimEnv(value: string | undefined): string {
+  return (value ?? "").trim();
 }
 
 /**
@@ -21,14 +25,14 @@ function env(key: string): string {
  * (the API holds the matching secret); native ids validate access tokens.
  */
 export function resolveGoogleClientId(): string {
-  const fallback = env("EXPO_PUBLIC_GOOGLE_CLIENT_ID");
+  const fallback = trimEnv(process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID);
   if (Platform.OS === "web") {
-    return env("EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB") || fallback;
+    return trimEnv(process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB) || fallback;
   }
   if (Platform.OS === "ios") {
-    return env("EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS") || fallback;
+    return trimEnv(process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS) || fallback;
   }
-  return env("EXPO_PUBLIC_GOOGLE_CLIENT_ID_ANDROID") || fallback;
+  return trimEnv(process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_ANDROID) || fallback;
 }
 
 export function isGoogleConfigured(): boolean {
@@ -37,7 +41,7 @@ export function isGoogleConfigured(): boolean {
 
 /** Apple Services ID used for the web/Android Sign in with Apple OAuth flow. */
 export function getAppleServicesId(): string {
-  return env("EXPO_PUBLIC_APPLE_SERVICES_ID");
+  return trimEnv(process.env.EXPO_PUBLIC_APPLE_SERVICES_ID);
 }
 
 /**
@@ -53,7 +57,7 @@ export function isAppleConfigured(nativeAvailable = false): boolean {
 
 /** iOS bundle id used as Apple JWT `aud` for native Sign in with Apple. */
 export function getAppIdentifier(): string {
-  return env("EXPO_PUBLIC_APP_IDENTIFIER") || "app.munibtracker";
+  return trimEnv(process.env.EXPO_PUBLIC_APP_IDENTIFIER) || "app.munibtracker";
 }
 
 /**
@@ -62,8 +66,8 @@ export function getAppIdentifier(): string {
  */
 export function getWebAppOrigin(): string {
   return (
-    env("EXPO_PUBLIC_WEB_APP_ORIGIN") ||
-    env("EXPO_PUBLIC_APP_URL") ||
+    trimEnv(process.env.EXPO_PUBLIC_WEB_APP_ORIGIN) ||
+    trimEnv(process.env.EXPO_PUBLIC_APP_URL) ||
     "https://my.munibtracker.app"
   ).replace(/\/$/, "");
 }
@@ -124,7 +128,7 @@ export function getAppleOAuthReturnUrl(): string {
 
 /** Facebook App ID (same value as `FACEBOOK_APP_ID` on the API). */
 export function getFacebookAppId(): string {
-  return env("EXPO_PUBLIC_FACEBOOK_APP_ID");
+  return trimEnv(process.env.EXPO_PUBLIC_FACEBOOK_APP_ID);
 }
 
 export function isFacebookConfigured(): boolean {

@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. bosichidg uchun detils",
     "waxing": "Wxichidg — growichidg brighter ech tun",
-    "waning": "Wnichidg — fdichidg -gwrd  new mod",
+    "waning": "Kamayuvchi — yoritilgan qism kichraymoqda",
     "illuminationLabel": "Yoritilgan",
     "hijriDate": "bulmic dte",
-    "lunarDay": "Lunr dy",
-    "lunarDayValue": "Day {{day}} of {{month}}",
-    "age": "Mod ge",
-    "ageValue": "{{days}} dys sichidce  new mod",
-    "nextNewMoon": "Keyingi yangi yarim oy",
-    "nextNewMoonValue": "~{{days}} dys · begichids {{month}}",
     "note": {
       "whiteDaysTitle": "yyām l-Bīḍ —  White Dys",
       "whiteDaysBody": "Har hijriy oyning 13, 14 va 15-kunlari to‘lin oyga to‘g‘ri keladi. Ushbu uch yorug‘ kunda ro‘za tutish Payg‘ambarimiz ﷺ sevgan sunnatdir.",
       "newMonthTitle": " new mdth begichids",
-      "newMonthBody": " thichid crescent (hilāl) mrks  strt -nichidg {{month}}. Ech bulmic mdth begichids when  new mod bu first sighted fter sunset.",
+      "newMonthBody": "Ingich hilol (hilāl) {{month}} boshlanishini belgilaydi. Har bir islom oyi Magribdan keyin hilol ko‘rinishi bilan boshlanadi — astronomik qo‘shilishda emas.",
       "fullTitle": "Full mod -gtun",
       "fullBody": " mod bu fully lit ner  middle -nichidg {{month}} —  tuns -nichidg  White Dys, when Ro'z bu especibrchy recommended.",
       "generalTitle": " tqvim -nichidg  mod",
-      "generalBody": " bulmic (Hijri) tqvim follows  mod: every mdth bu 29 yoki 30 dys, begichidnichidg with  sightichidg -nichidg  new crescent."
-    }
+      "generalBody": "Islom (Hijri) taqvimi oyga amal qiladi: har oy 29 yoki 30 kun, ko‘rilgan hilol bilan (hilāl) boshlanadi. Bu yerdagi sanalar joylashuvingiz uchun jadval taqvimiga asoslangan va mahalliy ko‘rishdan bir kun farq qilishi mumkin.",
+      "monthTurnTitle": "Hilolni qidiring",
+      "monthTurnBody": "Magribdan keyin {{month}} hilolini qidiring. Islom oylari ko‘rilgan hilol bilan boshlanadi; mahalliy oy ko‘rish ushbu taqvimdan bir kun farq qilishi mumkin."
+    },
+    "monthProgress": "Oy jarayoni",
+    "monthProgressValue": "{{month}} · {{length}} kundan {{day}}-kun",
+    "nextMonth": "Keyingi islom oyi",
+    "nextMonthValue": "~{{days}} kun · {{month}} boshlanadi",
+    "nextMonthTonight": "Bugun Magribdan keyin · {{month}} boshlanadi",
+    "nextMonthOneDay": "~1 kun · {{month}} boshlanadi"
   },
   "achievements": {
     "eyebrow": "Jarayon",

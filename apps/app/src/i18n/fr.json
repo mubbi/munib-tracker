@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Dokunun pour details",
     "waxing": "Épilation à la cire – devenir plus lumineux chaque nuit",
-    "waning": "Déclin – s'estompant vers la nouvelle lune",
+    "waning": "Décroissant — la partie éclairée diminue",
     "illuminationLabel": "Illuminé",
     "hijriDate": "date islamique",
-    "lunarDay": "Kameri jour",
-    "lunarDayValue": "Gün {{day}}  {{month}}",
-    "age": "Âge de la lune",
-    "ageValue": "{{days}} jour since  yeni moon",
-    "nextNewMoon": "Suivant new crescent",
-    "nextNewMoonValue": "~{{days}} jour · begins {{month}}",
     "note": {
       "whiteDaysTitle": "yyām l-Bīḍ —  White Dys",
       "whiteDaysBody": " 13th, 14th, et 15th  each Islamic month fall around  full moon. Jeûne these three bright jour dir  beloetd sunnah   Prophet ﷺ.",
       "newMonthTitle": "Un nouveau mois commence",
-      "newMonthBody": "Le mince croissant (hilāl) marque le début de {{month}}. Chaque mois islamique commence lorsque la nouvelle lune est aperçue pour la première fois après le coucher du soleil.",
+      "newMonthBody": "Le mince croissant (hilāl) marque le début de {{month}}. Chaque mois islamique commence lorsque le croissant est aperçu après le Maghrib — pas à la conjonction astronomique.",
       "fullTitle": "Pleine lune ce soir",
       "fullBody": "La lune est entièrement éclairée vers le milieu de {{month}} – les nuits des Jours Blancs, lorsque le jeûne est particulièrement recommandé.",
       "generalTitle": "Un calendrier de la lune",
-      "generalBody": "Le calendrier islamique (Hijri) suit la lune : chaque mois dure 29 ou 30 jours, à compter de l'observation du nouveau croissant."
-    }
+      "generalBody": "Le calendrier islamique (Hijri) suit la lune : chaque mois dure 29 ou 30 jours, à compter du croissant aperçu (hilāl). Les dates ici utilisent un calendrier tabulaire pour votre emplacement et peuvent différer de l'observation locale d'un jour.",
+      "monthTurnTitle": "Cherchez le croissant",
+      "monthTurnBody": "Après le Maghrib, cherchez le hilāl de {{month}}. Les mois islamiques commencent avec le croissant aperçu ; l'observation locale peut différer de ce calendrier d'un jour."
+    },
+    "monthProgress": "Progression du mois",
+    "monthProgressValue": "Jour {{day}} sur {{length}} · {{month}}",
+    "nextMonth": "Prochain mois islamique",
+    "nextMonthValue": "~{{days}} jours · début de {{month}}",
+    "nextMonthTonight": "Ce soir après le Maghrib · début de {{month}}",
+    "nextMonthOneDay": "~1 jour · début de {{month}}"
   },
   "achievements": {
     "eyebrow": "Progrès",

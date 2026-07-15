@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Dokunun kwa details",
     "waxing": "Kung'aa - kukua zaidi kila usiku",
-    "waning": "Kufifia - kufifia kuelekea mwezi mpya",
+    "waning": "Kupungua — sehemu iliyoangaziwa inapungua",
     "illuminationLabel": "Illudakated",
     "hijriDate": "Tarehe ya Kiislamu",
-    "lunarDay": "Kameri siku",
-    "lunarDayValue": "Gün {{day}}  {{month}}",
-    "age": "Umri wa mwezi",
-    "ageValue": "{{days}} siku since  yeni moon",
-    "nextNewMoon": "Ifuatayo new crescent",
-    "nextNewMoonValue": "~{{days}} siku · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ - Siku Nyeupe",
       "whiteDaysBody": " 13th, 14th, na 15th  each Islamic month fall around  full moon. Kufunga these three bright siku dir  belonad sunnah   Prophet ﷺ.",
       "newMonthTitle": "Mwezi mpya huanza",
-      "newMonthBody": "Mwezi mpevu mwembamba (hilāl) huashiria mwanzo wa {{month}}. Kila mwezi wa Kiislamu huanza wakati mwezi mpya unapoonekana mara ya kwanza baada ya jua kutua.",
+      "newMonthBody": "Mwezi mpevu mwembamba (hilāl) huashiria mwanzo wa {{month}}. Kila mwezi wa Kiislamu huanza mwezi unapoonekana baada ya Maghrib — si katika muungano wa kiastronomia.",
       "fullTitle": "Mwezi kamili usiku wa leo",
       "fullBody": "Mwezi unamulika kabisa karibu na katikati ya {{month}} — usiku wa Siku Nyeupe, wakati kufunga kunapendekezwa haswa.",
       "generalTitle": "Kalenda ya mwezi",
-      "generalBody": "Kalenda ya Kiislamu (Hijri) hufuata mwezi: kila mwezi ni siku 29 au 30, kuanzia na muandamo wa mpevu mpya."
-    }
+      "generalBody": "Kalenda ya Kiislamu (Hijri) hufuata mwezi: kila mwezi ni siku 29 au 30, kuanzia na mwezi uliotazamwa (hilāl). Tarehe hapa hutumia kalenda ya jedwali kwa eneo lako na zinaweza kutofautiana na utazamaji wa ndani kwa siku moja.",
+      "monthTurnTitle": "Tafuta mwezi mpevu",
+      "monthTurnBody": "Baada ya Maghrib, tafuta hilāl ya {{month}}. Miezi ya Kiislamu huanza na mwezi uliotazamwa; utazamaji wa mwezi wa ndani unaweza kutofautiana na kalenda hii kwa siku moja."
+    },
+    "monthProgress": "Maendeleo ya mwezi",
+    "monthProgressValue": "Siku {{day}} kati ya {{length}} · {{month}}",
+    "nextMonth": "Mwezi wa Kiislamu ujao",
+    "nextMonthValue": "~siku {{days}} · mwanzo wa {{month}}",
+    "nextMonthTonight": "Usiku wa leo baada ya Maghrib · mwanzo wa {{month}}",
+    "nextMonthOneDay": "~siku 1 · mwanzo wa {{month}}"
   },
   "achievements": {
     "eyebrow": "Maendeleo",

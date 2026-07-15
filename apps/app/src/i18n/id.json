@@ -1887,25 +1887,27 @@
   "moonSheet": {
     "open": "{{phase}}. Ketuk untuk detail",
     "waxing": "Waxing — growing brighter each malam",
-    "waning": "Waning — fading toward  baru moon",
+    "waning": "Menyusut — bagian terang semakin mengecil",
     "illuminationLabel": "Bercahaya",
     "hijriDate": "Islamic tanggal",
-    "lunarDay": "Qamariah hari",
-    "lunarDayValue": "Hari {{day}} dari {{month}}",
-    "age": "Usia bulan",
-    "ageValue": "{{days}} hari since  baru moon",
-    "nextNewMoon": "Berikutnya baru crescent",
-    "nextNewMoonValue": "~{{days}} hari · begins {{month}}",
     "note": {
       "whiteDaysTitle": "Ayyām al-Bīḍ —  White Hari",
       "whiteDaysBody": " 13th, 14th, dan 15th dari each Islamic bulan fall around  penuh moon. Puasa these three bright hari adalah  beloved sunnah dari  Prophet ﷺ.",
       "newMonthTitle": " baru bulan begins",
-      "newMonthBody": " thin crescent (hilāl) marks  mulai dari {{month}}. Each Islamic bulan begins when  baru moon adalah first sighted after terbenam.",
-      "fullTitle": "Penuh moon tonight",
-      "fullBody": " moon adalah fully lit near  middle dari {{month}} —  nights dari  White Hari, when puasa adalah especially recommended.",
-      "generalTitle": " kalender dari  moon",
-      "generalBody": " Islamic (Hijriah) kalender follows  moon: every bulan adalah 29 atau 30 hari, beginning dengan  sighting dari  baru crescent."
-    }
+      "newMonthBody": "Hilal tipis (hilāl) menandakan awal {{month}}. Setiap bulan Islam dimulai saat hilal pertama kali terlihat setelah Maghrib — bukan pada konjungsi astronomis.",
+      "fullTitle": "Bulan purnama malam ini",
+      "fullBody": "Bulan sepenuhnya terang mendekati pertengahan {{month}} — malam-malam Hari Putih, saat puasa sangat dianjurkan.",
+      "generalTitle": "Kalender bulan",
+      "generalBody": "Kalender Islam (Hijriah) mengikuti bulan: setiap bulan 29 atau 30 hari, dimulai dengan hilal yang terlihat (hilāl). Tanggal di sini memakai kalender tabular untuk lokasi Anda dan dapat berbeda satu hari dari penglihatan lokal.",
+      "monthTurnTitle": "Cari hilal",
+      "monthTurnBody": "Setelah Maghrib, cari hilāl {{month}}. Bulan Islam dimulai dengan hilal yang terlihat; penglihatan bulan lokal dapat berbeda satu hari dari kalender ini."
+    },
+    "monthProgress": "Kemajuan bulan",
+    "monthProgressValue": "Hari ke-{{day}} dari {{length}} · {{month}}",
+    "nextMonth": "Bulan Islam berikutnya",
+    "nextMonthValue": "~{{days}} hari · mulai {{month}}",
+    "nextMonthTonight": "Malam ini setelah Maghrib · mulai {{month}}",
+    "nextMonthOneDay": "~1 hari · mulai {{month}}"
   },
   "achievements": {
     "eyebrow": "Kemajuan",
