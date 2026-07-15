@@ -99,7 +99,9 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
 
 ### API on Vercel
 
-- NestJS boots once per cold start via `api/index.js` → webpack `dist/vercel-handler.js` (`serverless-http` + Express adapter); `vercel.json` rewrites all paths to `/api`.
+- NestJS boots once per cold start via `api/index.js` → webpack `dist/vercel-handler.js`
+  (Express adapter; Vercel `(req, res)` forwarded directly to Express — not `serverless-http`);
+  `vercel.json` rewrites all paths to `/api`.
 - `vercel.json` sets `"framework": null` so Vercel does **not** use NestJS zero-config (that builder leaves `@munib-tracker/shared` as `.ts` requires Node cannot load). Webpack allowlists `@munib-tracker/*` so those sources are inlined into `dist/vercel-handler.js`. `"outputDirectory": "."` — API is functions-only (no static `public/` site).
 - Runtime is pinned to **Node 22.x** (`engines` in `apps/api/package.json`) — avoid Node 24 on Vercel (native optional deps like `dtrace-provider` from the monorepo lockfile fail to compile).
 - Build runs TypeORM migrations (`migration:run`) before `nest build`.

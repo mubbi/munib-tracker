@@ -23,6 +23,12 @@ module.exports = (options) => {
       // Expose `export default` from vercel-handler (Nest's default IIFE exports nothing).
       libraryTarget: "commonjs2",
     },
+    // Keep real __dirname so bundled deps (e.g. TypeORM app-root-path) resolve on Vercel.
+    node: {
+      ...(typeof options.node === "object" && options.node ? options.node : {}),
+      __dirname: true,
+      __filename: true,
+    },
     // Bundle workspace packages (package exports point at .ts sources). Keep
     // swagger-ui-dist external so absolute-path.js is not rewritten to dist/.
     externals: [
