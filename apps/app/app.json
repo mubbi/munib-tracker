@@ -18,7 +18,8 @@
         "UIBackgroundModes": ["remote-notification", "audio"],
         "NSSupportsLiveActivities": true,
         "NSCameraUsageDescription": "Munib Tracker uses the camera so you can attach photos to custom adhkar.",
-        "NSPhotoLibraryUsageDescription": "Munib Tracker uses your photo library so you can attach images to custom adhkar."
+        "NSPhotoLibraryUsageDescription": "Munib Tracker uses your photo library so you can attach images to custom adhkar.",
+        "NSUserNotificationsUsageDescription": "Munib Tracker sends prayer reminders, dhikr alerts, and official announcements when you enable notifications."
       }
     },
     "android": {
@@ -132,6 +133,60 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "iosAppVersion": "1.0.0",
+      "androidAppVersion": "1.0.0",
+      "webAppVersion": "1.0.0",
+      "vapidPublicKey": "vapid_9c7f2d18a4e64b9e9d5c3f7b1a8e62d",
+      "serviceWorkerPath": "/expo-service-worker.js",
+      "router": {
+        "asyncRoutes": {
+          "web": true,
+          "android": false,
+          "ios": false
+        }
+      },
+      "eas": {
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "bundleIdentifier": "app.munibtracker.munibtrackerwidgets",
+                  "targetName": "MunibTrackerWidgets",
+                  "entitlements": {
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
+                  }
+                },
+                {
+                  "bundleIdentifier": "app.munibtracker.munibtrackerwatch.widgets",
+                  "targetName": "MunibTrackerWatchWidgets",
+                  "entitlements": {
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
+                  }
+                },
+                {
+                  "bundleIdentifier": "app.munibtracker.munibtrackerwatch",
+                  "targetName": "MunibTrackerWatch",
+                  "entitlements": {
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
+                  }
+                },
+                {
+                  "bundleIdentifier": "app.munibtracker.munibtrackerintents",
+                  "targetName": "MunibTrackerIntents",
+                  "entitlements": {
+                    "com.apple.security.application-groups": ["group.app.munibtracker.widgets"]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "projectId": "f03cf5e8-c409-40a0-b025-948c3bd7e9f5"
+      }
+    },
+    "owner": "mubbiqureshi"
   }
 }
