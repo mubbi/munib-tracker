@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_SQ: DeepPartial<SalahGuideTopic>[] = [
@@ -593,7 +597,92 @@ export const SALAH_GUIDE_TOPICS_SQ: DeepPartial<SalahGuideTopic>[] = [
           "Nuk ka lutje për atë që nuk e lexon Hapjen e Librit. (Ubadah ibn es-Samit; gjithashtu Sahih Mysliman 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [{}, { label: "Leximi me zë dhe në heshtje" }, {}, {}, {}],
+  },
+  {
+    title: "Leximi me zë dhe në heshtje",
+    summary:
+      "Në cilat rekate imami lexon me zë, në cilat në heshtje, dhe çfarë bëni pas tij ose kur faleni vetëm.",
+    body: [
+      "Një nga pyetjet më të shpeshta bëhet e thjeshtë kur kuptohen dy parime: disa namaze lexohen me zë (xhehri), të tjerat në heshtje (sirri). Profeti ﷺ u fal në të dyja mënyrat, sahabët e transmetuan këtë rend dhe ai është vërtetuar në përmbledhjet kryesore të hadithit.",
+      "Dy rekatet e para të çdo namazi janë „rekatet e gjata“: Fatiha, pastaj një sure ose ajete të tjera. Në rekatet e mbetura të namazit me tri ose katër rekate, Profeti ﷺ zakonisht lexonte vetëm Fatihan. Prandaj leximi me zë në aksham dhe jaci mbaron pas rekatit të dytë, ndërsa dreka dhe ikindia janë në heshtje nga fillimi në fund.",
+      "Allahu nuk ka shpjeguar shprehimisht pse disa namaze janë me zë dhe të tjerat në heshtje. Dijetarët përmendin urtësi, por myslimanët e ndjekin këtë rend sepse është sunet. Allahu thotë: „Në të Dërguarin e Allahut keni shembullin më të mirë“ (33:21).",
+      "Pas imamit në namazin me zë ka pajtim që Kur'ani të dëgjohet dhe të mos lexohet një sure tjetër me zë. Leximi i Fatihas në heshtje ndërsa imami lexon është një nga mospajtimet e njohura mes katër medhhebeve; të gjitha janë qëndrime të pranuara. Në namazet e heshtura imami lexon në heshtje dhe secili vepron sipas medhhebit të vet.",
+      "Kur faleni vetëm, lexoni Fatihan në çdo rekat dhe një sure shtesë në dy të parat; në rekatet e fundit vetëm Fatihan. Në namazet me zë është e pëlqyeshme që personi të lexojë me zë të dëgjueshëm, por namazi është i vlefshëm edhe në heshtje.",
+    ],
+    steps: [
+      {
+        title: "Sabahu — të dy rekatet me zë",
+        body: "Imami lexon me zë në të dy rekatet. Dëgjoni pas tij dhe mos lexoni një sure tjetër me zë. Për Fatihan shihni hapin mbi medhhebet.",
+      },
+      {
+        title: "Dreka — të katër rekatet në heshtje",
+        body: "Imami lexon në heshtje në çdo rekat. Pas tij lexoni për vete sipas medhhebit tuaj.",
+      },
+      {
+        title: "Ikindia — të katër rekatet në heshtje",
+        body: "Si dreka: imami lexon tërësisht në heshtje dhe falësi pas tij vepron sipas medhhebit të vet.",
+      },
+      {
+        title: "Akshami — fillimisht me zë, pastaj në heshtje",
+        body: "Rekati i parë dhe i dytë janë me zë, i treti në heshtje. Dëgjoni dy të parat; në të tretin lexoni sipas medhhebit tuaj.",
+      },
+      {
+        title: "Jacia — fillimisht me zë, pastaj në heshtje",
+        body: "Dy rekatet e para janë me zë, i treti dhe i katërti në heshtje. Dëgjoni të parat; në dy të fundit lexoni për vete.",
+      },
+      {
+        title: "Pse vetëm dy rekatet e para?",
+        body: "Ebu Katade transmeton se Profeti ﷺ lexonte Fatihan dhe një sure në dy rekatet e para të drekës dhe ikindisë, ndërsa vetëm Fatihan në dy të fundit. Kjo shpjegon rekatet e gjata dhe të shkurtra.",
+      },
+      {
+        title: "Pas imamit në leximin me zë — pajtim",
+        body: "Kur Kur'ani lexohet me zë, dëgjoni. Mos garoni me imamin. Allahu thotë: „Kur të lexohet Kur'ani, dëgjojeni dhe heshtni, që të mëshiroheni“ (7:204).",
+      },
+      {
+        title: "Fatiha pas imamit — katër medhhebet",
+        body: "Hanefitë nuk e lexojnë në namazin me zë; malikitë zakonisht dëgjojnë; shafiitë e lexojnë në çdo rekat, edhe pas imamit; te hanbelitë ka dy transmetime dhe shumë e rekomandojnë kur ka mundësi.",
+        tip: "Ndiqni udhëzimin e medhhebit që keni mësuar nga një mësues i besuar. Asnjë medhheb nuk lejon leximin me zë mbi imamin.",
+      },
+      {
+        title: "Pas imamit në namazin e heshtur",
+        body: "Hanefitë, sipas qëndrimit të mbështetur, bëjnë dhikër në heshtje pa Fatihan; malikitë bëjnë dhikër të lehtë sipas rrethanave; shafiitë dhe hanbelitë lexojnë Fatihan në heshtje në çdo rekat.",
+      },
+      {
+        title: "Kur faleni vetëm",
+        body: "Teksti nuk ndryshon, vetëm zëri: Fatiha në çdo rekat, një sure në dy të parat, pastaj vetëm Fatiha. Leximi me zë në sabah, aksham dhe jaci është i pëlqyeshëm.",
+      },
+    ],
+    quran: [
+      { excerpt: "Në të Dërguarin e Allahut keni shembullin më të mirë." },
+      { excerpt: "Kur të lexohet Kur'ani, dëgjojeni dhe heshtni, që të mëshiroheni." },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Profeti ﷺ lexonte Fatihan dhe një sure në dy rekatet e para të drekës dhe ikindisë, dhe vetëm Fatihan në dy të fundit. (Ebu Katade; Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Nuk ka namaz për atë që nuk e lexon Hapjen e Librit. (Ubade ibn es-Samit; Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "Ai ua bënte të dallueshëm leximin më të gjatë në dy rekatet e para të drekës dhe ikindisë dhe më të shkurtër në dy të fundit. (Ebu Katade)",
+      },
+    ],
+    actions: [
+      "Në namazin e ardhshëm me xhemat vini re në cilat rekate imami lexon me zë.",
+      "Pyetni mësuesin e medhhebit tuaj nëse e lexoni Fatihan pas imamit gjatë leximit me zë.",
+      "Kur faleni vetëm, provoni ta lexoni sabahun me zë për ta përjetuar këtë sunet.",
+    ],
+    appLinks: [
+      { label: "Namazi hap pas hapi" },
+      { label: "Namazi me xhemat" },
+      { label: "Fjalët dhe kuptimet" },
+    ],
+    disclaimer:
+      "Katër medhhebet dallojnë për leximin e Fatihas pas imamit në namazet me zë dhe në heshtje. Ky mësim paraqet secilin qëndrim pa shpallur vetëm njërin si të saktë. Hollësitë e medhhebit tuaj mësojini nga një mësues i kualifikuar.",
   },
   {
     title: "Çdo pozicion",
@@ -691,7 +780,8 @@ export const SALAH_GUIDE_TOPICS_SQ: DeepPartial<SalahGuideTopic>[] = [
       "Pejgamberi ﷺ ka rekomanduar veprime që zbukurojnë dhe shumëfishojnë shpërblimin e namazit.",
     body: [
       "Përtej veprave të detyrueshme, Profeti ﷺ modeloi shumë praktika të rekomanduara (sunenet) rreth namazit. Ato nuk kërkohen, kështu që lënia e njërit nuk e prish namazin – por secili të afron më shumë me Allahun, fiton shpërblim shtesë dhe ndreq mangësitë në namazet e detyrueshme.",
-      "Kryesorja prej tyre janë namazet e rregullta sunet (sunet ravatib) të falura para dhe pas farzit: dy para sabahut (të cilin Profeti ﷺ e vlerësoi mbi të gjithë botën), katër para dhe dy pas Dhuhrit, dy pas akshamit dhe dy pas jacisë - dymbëdhjetë rekate shpërblimi i të cilëve është një shtëpi e ndërtuar në Xhenet.",
+      "Kryesorja prej tyre janë namazet e rregullta sunet (sune ravatib) të falura para dhe pas farzit. Jo çdo namaz vullnetar ka të njëjtën peshë: dijetarët dallojnë sunetin mu'akkadeh (i theksuar, i kryer rregullisht nga Profeti ﷺ), sunet ghayr mu'akkadeh (i rekomanduar, por më pak i theksuar) dhe nafl të përgjithshëm (fakultativ, pa numërim të caktuar). Njohja e ndryshimit ju ndihmon të jepni përparësi se çfarë të ruani çdo ditë.",
+      "Orari më i qartë ditor me dëshmitë më të forta është dymbëdhjetë revatibi: dy para sabahut, katër para muajit të mëngjesit, dy pas dhuhrit, dy pas akshamit dhe dy pas jacisë - dymbëdhjetë rekate shpërblimi i të cilëve është një shtëpi e ndërtuar në Xhenet. Shihni mësimin Llojet e namazit për një përmbledhje të plotë për çdo lutje me dëshmi.",
     ],
     actions: [
       "Përdorni misvakun (sivakun) para abdesit dhe namazit – Profeti a.s gati e bëri atë obligim.",
@@ -703,14 +793,28 @@ export const SALAH_GUIDE_TOPICS_SQ: DeepPartial<SalahGuideTopic>[] = [
     hadith: [
       {
         excerpt:
-          "Po të mos e ngarkoja umetin tim, do t'i kisha urdhëruar që të përdorin sivakun para çdo namazi. (Ebu Hurejre; gjithashtu Sahih Mysliman 252)",
+          "Po të mos e ngarkoja umetin tim, do t'i kisha urdhëruar që të përdorin sivakun para çdo namazi. (Ebu Hurejre; gjithashtu Sahih Muslim 252)",
       },
       {
         excerpt:
-          "Kush fal dymbëdhjetë rekate namaz vullnetar në ditë e natë, atij i ndërtohet një shtëpi në Xhenet. (Umm Habibah)",
+          "Pejgamberi ﷺ asnjëherë nuk i ka lënë pas dore dy rekatet para sabahut. (Aishja; gjithashtu Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kushdo që i fal rregullisht dymbëdhjetë rekate gjatë ditës dhe natës, Allahu do t'i ndërtojë një shtëpi në Xhenet - dy para sabahut, katër para muajit të mëngjesit, dy pas akshamit, dy pas akshamit dhe dy pas jacisë. (Umm Habibah)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Llojet e namazit - udhëzues ravatib",
+      },
+      {
+        label: "Sunneti dhe adkari pas namazit",
+      },
+      {
+        label: "Duat e xhamisë",
+      },
+    ],
   },
   {
     title: "Kushu - prania e zemrës",
@@ -802,10 +906,13 @@ export const SALAH_GUIDE_TOPICS_SQ: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Llojet e namazit",
-    summary: "Farzi, suneti, vitri dhe namazet vullnetare që e pasurojnë ditën e besimtarit.",
+    summary:
+      "Farz, sunet mu'akkade, sunet gajr mu'akkadeh, vitr dhe nefl i përgjithshëm - me dëshmi autentike për secilin.",
     body: [
-      "Namazet vlerësohen sipas detyrimit. Pesë namazet ditore janë farz - një detyrim i rreptë për çdo musliman të përgjegjshëm. Përreth dhe përtej tyre shtrihet një botë e pasur lutjesh vullnetare përmes së cilës Profeti ﷺ iu afrua gjithnjë e më shumë Allahut dhe përmes së cilës mundemi edhe ne.",
-      'Namazet vullnetare kanë rëndësi për dy arsye: ato janë vepra të dashura që e ngrenë gradën e besimtarit - Allahu thotë për adhurimin shtesë: "Robi Im vazhdon të më afrohet me vepra vullnetare derisa ta dua" - dhe ato ndreqin faljet e detyrueshme, pasi çdo mangësi në farz plotësohet nga falja vullnetare e njeriut në ditën e xhumasë.',
+      "Namazet vlerësohen sipas detyrimit. Pesë namazet ditore janë farz - një detyrim i rreptë për çdo musliman të përgjegjshëm. Përreth tyre shtrihet një botë e pasur lutjesh vullnetare përmes së cilës Profeti ﷺ iu afrua gjithnjë e më shumë Allahut dhe përmes së cilës mundemi edhe ne.",
+      "Për të mësuarit e shëndoshë, dalloni katër kategori vullnetare të bazuara në tekste autentike: sunet mu'akkadeh (e theksuar ravatib i Pejgamberit salAllahu alejhi ue selem), sunet ghayr mu'akkadeh (i rekomanduar por më pak i theksuar), vitr (mbahet në kategorinë e vet, sepse hanefitë e numërojnë atë vaxhib, ndërsa shumica e tyre e numërojnë sundah. lutjet pa një numërim fiks e të padiskutueshëm). Aty ku dijetarët ndryshojnë në një numër fiks – si për shembull gjashtë rekate pas akshamit si Salat al-Awwabin – ne paraqesim inkurajimin e përgjithshëm pa e trajtuar numrin e diskutueshëm si sunet të vendosur.",
+      "Namazet vullnetare kanë rëndësi për dy arsye: ato janë vepra të dashura që ngrenë gradën e besimtarit dhe ndreqin namazet farz, pasi çdo mangësi në farz plotësohet nga lutjet vullnetare të njeriut në Ditën e Gjykimit.",
+      "Dymbëdhjetë ravatibet më poshtë janë orari më i qartë i sunetit ditor me konsensusin më të fortë. Tabela e rekateve në qendrën Mësoni Namazin gjurmon këto dymbëdhjetë rekate të theksuara; Nafli fakultativ para ikindisë, para akshamit ose pas jacisë inkurajohet aty ku ka prova, por nuk përfshihet në atë numër të caktuar.",
     ],
     steps: [
       {
@@ -813,12 +920,36 @@ export const SALAH_GUIDE_TOPICS_SQ: DeepPartial<SalahGuideTopic>[] = [
         body: "Sabah, Dhuhr, Asr, Akshami, Isha - themeli i detyrueshëm, që nuk duhet braktisur kurrë.",
       },
       {
-        title: "Sunet ravatib",
-        body: "Rekatet e rregullta sunet para dhe pas farzit - dymbëdhjetë ditë fitojnë një shtëpi në Xhenet.",
+        title: "Sabah - 2 para (sunnet mu'akkade)",
+        body: "Dy rekate para farzit të sabahut janë sunet muekkade – Pejgamberi ﷺ kurrë nuk i ka lënë pas dore. Nuk ka sunet autentik të rregullt pas sabahut; namazi vullnetar në përgjithësi është i ndaluar pas sabahut deri në lindjen e diellit.",
       },
       {
-        title: "Vitr",
-        body: "Një namaz me numër tek pas jacisë, vula e namazit të natës - sunet muekkade për shumicën dhe vaxhib në shkollën hanefi.",
+        title: "Dhuhr - 4 para dhe 2 pas (sunetit muakkade)",
+        body: "Katër rekate para Dhuhrit dhe dy pas tij janë pjesë e dymbëdhjetë ravatibeve (sunetit muakkade). Më vete, Ummu Habibe ka transmetuar se kushdo që fal katër namaze para Dhuhrit dhe katër pas tij, Allahu e ndalon atë nga zjarri - kështu që dy rekate shtesë pas dy ravatibeve të rregullta rekomandohen nafl, dhe disa dijetarë gjithashtu rekomandojnë dy rekate shtesë përpara në gjithsej gjashtë.",
+      },
+      {
+        title: "Asr - 4 para (suneh gajr mu'akkadeh)",
+        body: "Katër rekate para ikindisë rekomandohen gjerësisht (sunnet ghayr mu'akkadeh). Nuk ka sunet autentik të rregullt pas ikindisë; namazi vullnetar në përgjithësi është i ndaluar pas ikindisë deri në perëndim të diellit.",
+      },
+      {
+        title: "Akshami - 2 para dhe 2 pas",
+        body: 'Dy rekate pas akshamit janë sunet mu\'akkade (pjesë e dymbëdhjetë ravatibit). Para akshamit, Pejgamberi salAllahu alejhi ue selem tha: "Faluni para akshamit" dy herë, pastaj shtoi "për këdo që dëshiron" - kështu që dy para janë nafl fakultativ, jo një ravatib fiks. Namazi i përgjithshëm vullnetar pas akshamit inkurajohet, por përcaktimi i famshëm i gjashtë rekateve si Namazi i Evabinit është i diskutueshëm në autenticitet; mos paraqisni një gjashtë të caktuar si sunet të vendosur.',
+      },
+      {
+        title: "Isha - 2 pas & opsionale para",
+        body: "Dy rekate pas jacisë janë sunet muekkade (pjesë e dymbëdhjetë ravatibit). Para jacisë, hadithi 'Ndër çdo dy thirrje ka një namaz' lejon dy ose katër rekate midis ezanit dhe ikametit - nafl i përgjithshëm, jo ​​sunet ravatib. Namazi shtesë vullnetar pas jacisë është i lejuar, por asnjë sunet autentik fiks nuk specifikon dy shtesë përtej ravatibit të rregullt.",
+      },
+      {
+        title: "Witr - kategori e veçantë",
+        body: "Vitri falet pas jacisë në numër tek (1, 3, 5, 7, 9, 11…). Hadithe të shumta autentike urdhërojnë dhe inkurajojnë atë. Hanefitë e konsiderojnë vaxhib; shumica e konsiderojnë sunet muekkade. Ai mbahet i ndarë nga dymbëdhjetë ravatibet për shkak të këtij dallimi të mendimit mbi vendimin e tij ligjor.",
+      },
+      {
+        title: "Dymbëdhjetë ravatib - orari i rënë dakord",
+        body: "Para Sabahut: 2. Para Dhuhrit: 4. Pas Dhuhrit: 2. Pas Akshamit: 2. Pas Jacisë: 2. Gjithsej: 12 rekate. Kush i fal rregullisht, Allahu ndërton një shtëpi në Xhenet.",
+      },
+      {
+        title: "Nafl i rekomanduar - ravatib jo i fiksuar",
+        body: "Para ikindisë: 4 (hasen). Para akshamit: 2 fakultative (sahih). Para jacisë: 2 ose 4 ndërmjet ezanit dhe ikametit (sahih). Shtesë para Dhuhrit: 2 të rekomanduara. Shtesë pas Dhuhrit: 2 (hasen/sahih). Pas akshamit dhe jacisë: inkurajohet nefli i përgjithshëm - pa një numër të caktuar kontestues.",
       },
       {
         title: "Tahaxhud (kijam el-lejl)",
@@ -847,10 +978,58 @@ export const SALAH_GUIDE_TOPICS_SQ: DeepPartial<SalahGuideTopic>[] = [
     ],
     hadith: [
       {
+        excerpt:
+          "Pejgamberi ﷺ asnjëherë nuk i ka lënë pas dore dy rekatet para sabahut. (Aishja; gjithashtu Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kushdo që i fal rregullisht dymbëdhjetë rekate gjatë ditës dhe natës, Allahu do t'i ndërtojë një shtëpi në Xhenet - dy para sabahut, katër para muajit të mëngjesit, dy pas akshamit, dy pas akshamit dhe dy pas jacisë. (Umm Habibah)",
+      },
+      {
+        excerpt:
+          "Kush fal katër rekate para Dhuhrit dhe katër pas tij, Allahu e ndalon atë nga zjarri. (Umm Habibah; e vlerësuar autentike nga shumë dijetarë)",
+      },
+      {
+        excerpt: "Allahu e mëshiroftë atë që fal katër rekate para ikindisë.",
+      },
+      {
+        excerpt:
+          "Falu para akshamit, falu para akshamit - pastaj tha: për atë që dëshiron. (Ibn Umeri)",
+      },
+      {
+        excerpt:
+          "Ndërmjet çdo dy thirrje (ezanit dhe ikametit) bëhet një namaz. (Enas ibn Malik; gjithashtu Sahih Muslim 838)",
+      },
+      {
+        excerpt:
+          "Vitri është një detyrë (hak), kështu që kush të dojë le të falë pesë namaz, kush të dojë le të falë tre, e kush të dojë le të falë një. (Ibn Umeri)",
+      },
+      {
         excerpt: "Namazi më i mirë pas namazit farz është namazi i natës. (Ebu Hurejre)",
       },
+      {
+        excerpt:
+          "Robi Im vazhdon të më afrohet Mua me vepra vullnetare derisa Unë ta dua atë. (Hadith Kudsi)",
+      },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "Filloni me dymbëdhjetë ravatib - ndërtoni zakonin përpara se të shtoni nafl opsional.",
+      "Përdorni tabelën e rekateve në këtë qendër për të gjurmuar sunetin e theksuar rreth çdo farz.",
+      "Lexoni kartat e provave më poshtë dhe shënoni hadithin që dëshironi të rishikoni.",
+    ],
+    appLinks: [
+      {
+        label: "Praktikat e Sunetit",
+      },
+      {
+        label: "Udhërrëfyes tehaxhud",
+      },
+      {
+        label: "Tabela e rekates",
+      },
+    ],
+    disclaimer:
+      "Vendimi ligjor i Vitr (vaxhib vs sunet mu'akkade), numërimi i saktë i rekateve fakultative para jacisë dhe namazi el-Auvabin pas Akshamit janë çështje me dallime dijetare. Ky mësim paraqet vetëm atë që ka një bazë tekstuale autentike dhe vë në dukje mosmarrëveshjet aty ku ekziston.",
   },
   {
     title: "Xhuma - namazi i xhumasë",
@@ -1054,5 +1233,150 @@ export const SALAH_GUIDE_PHRASES_SQ: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Paqja dhe mëshira e Allahut qofshin mbi ju.",
     meaning:
       "Ju e lini namazin ashtu siç do të linit shoqërinë e të nderuarve - me një përshëndetje paqeje për engjëjt që regjistrojnë në secilën shpatull dhe për ata që luten pranë jush. Selami është një shtyllë; me të plotësohet namazi.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_SQ: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Sa rekat sunet ravatib janë të rëna dakord çdo ditë?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "Dymbëdhjetë ravatib: 2 para Sabahut, 4 para Dhuhrit, 2 pas Dhuhrit, 2 pas Akshamit dhe 2 pas Jacisë (Sahih Muslim 728).",
+  },
+  {
+    prompt: "Para Sabahut, suneti i theksuar (mu'akkadeh) është:",
+    options: ["Asgjë", "2 rekate", "4 rekate", "Vetëm 2 rekate pas"],
+    explanation:
+      "Dy rekate para Sabahut janë sunet mu'akkadeh — Profeti ﷺ nuk i braktiste kurrë (Sahih al-Buhari 1169; Sahih Muslim 724).",
+  },
+  {
+    prompt: "Ravatibet e rëna dakord rreth Dhuhrit janë:",
+    options: ["2 para, 2 pas", "4 para, 2 pas", "4 para, 4 pas", "Vetëm 2 para"],
+    explanation:
+      "Katër para Dhuhrit dhe dy pas tij janë pjesë e dymbëdhjetë ravatibeve. Rekatet shtesë janë nafl i rekomanduar, jo ravatib fiks.",
+  },
+  {
+    prompt:
+      "E vërtetë apo e rreme: Katër rekate para Ikindisë janë pjesë e dymbëdhjetë ravatibeve fikse ditore.",
+    options: ["E vërtetë", "E rreme"],
+    explanation:
+      "Katër para Ikindisë janë sunet ghayr mu'akkadeh (gjerësisht i rekomanduar), por nuk llogariten midis dymbëdhjetë ravatibeve (Jami' at-Tirmidhi 430).",
+  },
+  {
+    prompt: "Pse Vitr mbahet në një kategori të veçantë në gjurmuesin e namazit?",
+    options: [
+      "Nuk përmendet në hadith",
+      "Hanefitë e konsiderojnë vaxhib, shumica sunet mu'akkadeh",
+      "Gjithmonë falet para Jacisë",
+      "Nuk ka numër të caktuar rekatesh",
+    ],
+    explanation:
+      "Vitr është i vendosur me dëshmi të forta, por dijetarët ndryshojnë nëse është vaxhib apo sunet mu'akkadeh — prandaj gjurmohet veç nga dymbëdhjetë ravatibet.",
+  },
+  {
+    prompt: "Në Sabahun me xhemat, imami reciton:",
+    options: [
+      "Në heshtje në të dy rekate",
+      "Me zë të lartë në të dy rekate",
+      "Me zë të lartë vetëm në të parën",
+      "Në heshtje në të parën, me zë të lartë në të dytën",
+    ],
+    explanation:
+      "Sabahu recitohet me zë të lartë (jahri) në të dy rekate. Pas imamit dëgjoni me vëmendje.",
+  },
+  {
+    prompt: "Dhuhri dhe Ikindia në xhemat recitohen:",
+    options: [
+      "Me zë të lartë në të gjitha rekate",
+      "Në heshtje në të gjitha rekate",
+      "Me zë të lartë në dy të parat, pastaj në heshtje",
+      "Në heshtje në dy të parat, pastaj me zë të lartë",
+    ],
+    explanation:
+      "Dhuhri dhe Ikindia janë plotësisht sirri — imami reciton në heshtje dhe çdo falës reciton për vete.",
+  },
+  {
+    prompt: "Në Aksham, imami reciton me zë të lartë në:",
+    options: [
+      "Të tre rekate",
+      "Vetëm dy rekate të parat",
+      "Vetëm rekatin e tretë",
+      "Asgjë — Akshami është plotësisht në heshtje",
+    ],
+    explanation:
+      "Akshami është jahri në rekatin e parë dhe të dytë, sirri në të tretën — i njëjti model i rekateve të gjata dhe të shkurtra.",
+  },
+  {
+    prompt: "Në Jaci, kur ndalet recitimi me zë të lartë?",
+    options: [
+      "Pas rekati të parë",
+      "Pas rekati të dytë",
+      "Pas rekati të tretë",
+      "Kurrë — të katër janë me zë të lartë",
+    ],
+    explanation:
+      "Jacia është me zë të lartë në dy rekate të parat dhe në heshtje në të tretën dhe të katërtën.",
+  },
+  {
+    prompt: "Në namazet me zë të lartë pas imamit, të gjithë bien dakord që duhet:",
+    options: [
+      "Të recitosh një sure tjetër me zë të lartë me imamin",
+      "Të dëgjosh me vëmendje dhe të mos recitosh një sure tjetër me zë të lartë",
+      "Të largohesh nga namazi pas Al-Fatihasë",
+      "Të recitosh vetëm në rekatin e fundit",
+    ],
+    explanation:
+      "Allahu thotë: 'Kur recitohet Kurani, dëgjojeni me vëmendje dhe qëndroni në heshtje' (Kurani 7:204).",
+  },
+  {
+    prompt: "Sipas shkollës Shafi'i, pas imamit në namaz me zë të lartë:",
+    options: [
+      "Nuk reciton Al-Fatihah fare",
+      "Reciton Al-Fatihah në çdo rekat",
+      "Reciton vetëm në rekate në heshtje",
+      "Reciton me zë të lartë me imamin",
+    ],
+    explanation:
+      "Shafi'itë e konsiderojnë recitimin e Al-Fatihasë të detyrueshëm për çdo falës në çdo rekat: 'Nuk ka namaz për atë që nuk reciton Hapjen e Librit' (Sahih al-Buhari 756).",
+  },
+  {
+    prompt: "Sipas shkollës Hanefi, në namazet me zë të lartë pas imamit:",
+    options: [
+      "Të recitosh Al-Fatihah në heshtje në çdo rekat",
+      "Të dëgjosh me vëmendje dhe të mos recitosh Al-Fatihah",
+      "Të recitosh vetëm suren pas Al-Fatihasë",
+      "Duhet të recitosh Al-Fatihah me zë të lartë",
+    ],
+    explanation:
+      "Qëndrimi i mbështetur i Hanefive është dëgjimi në namazet jahri; recitimi i imamit mjafton. Të katër shkollat sunnite janë pozicione të vlefshme.",
+  },
+  {
+    prompt: "Në dy rekate të parat e Dhuhrit, Profeti ﷺ zakonisht recitonte:",
+    options: [
+      "Vetëm Al-Fatihah",
+      "Al-Fatihah dhe një sure tjetër",
+      "Asgjë — plotësisht në heshtje",
+      "Vetëm tesbih",
+    ],
+    explanation:
+      "Ebu Katade raportoi se Profeti ﷺ recitonte Al-Fatihah dhe një sure tjetër në dy rekate të parat e Dhuhrit dhe Ikindisë, dhe vetëm Al-Fatihah në dy të fundit (Sahih al-Buhari 776; Sahih Muslim 451).",
+  },
+  {
+    prompt: "Kur fal Sabahun vetëm, është sunet:",
+    options: [
+      "Të recitosh vetëm në heshtje",
+      "Të recitosh me zë të lartë (edhe në heshtje është e vlefshme)",
+      "Të lësh suren pas Al-Fatihasë",
+      "Të falësh vetëm një rekat",
+    ],
+    explanation:
+      "Vetëm reciton të njëjtën gjë si në xhemat; në Sabah, Aksham dhe Jaci sunet është recitimi me zë të lartë.",
+  },
+  {
+    prompt:
+      "E vërtetë apo e rreme: Gjashtë rekate fikse pas Akshamit si Salat al-Awwabin është sunet i vendosur me pajtim unanim të dijetarëve.",
+    options: ["E vërtetë", "E rreme"],
+    explanation:
+      "Nafl i përgjithshëm pas Akshamit inkurajohet, por specifikimi i famshëm i saktësisht gjashtë rekateve si Awwabin është i diskutueshëm në autenticitet — mos e paraqisni gjashtëshe fikse si sunet të vendosur.",
   },
 ];

@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
@@ -588,7 +592,92 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
           "Ne postoji dova za onoga ko ne čita Otvaranje Knjige. (Ubadah ibn as-Samit; također Sahih Musliman 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [{}, { label: "Glasno i tiho učenje" }, {}, {}, {}],
+  },
+  {
+    title: "Glasno i tiho učenje",
+    summary:
+      "Koje rekate imam uči naglas, koje tiho, i šta vi činite iza njega ili kada klanjate sami.",
+    body: [
+      "Jedno od najčešćih pitanja postaje jednostavno kada razumijete dva načela: neki namazi uče se naglas (džehri), a neki tiho (sirri). Poslanik ﷺ klanjao je na oba načina, ashabi su prenijeli taj obrazac, a on je potvrđen u glavnim zbirkama hadisa.",
+      "Prva dva rekata svakog namaza su „dugi rekati“: Fatiha pa još jedna sura ili ajeti. Na preostalim rekatima trorekatnog ili četverorekatnog namaza Poslanik ﷺ obično je učio samo Fatihu. Zato glasno učenje u akšamu i jaciji završava nakon drugog rekata, dok su podne i ikindija tihi od početka do kraja.",
+      "Allah nije izričito objasnio zašto su neki namazi glasni, a drugi tihi. Učenjaci navode mudrosti, ali muslimani slijede ovaj obrazac zato što je sunnet. Allah kaže: „Vi u Allahovom Poslaniku imate divan uzor“ (33:21).",
+      "Iza imama na glasnom namazu postoji saglasnost da se sluša Kur'an i da se druga sura ne uči naglas. Tiho učenje Fatihe dok imam uči poznato je pitanje razilaženja četiri mezheba; sva mišljenja su priznata. Na tihim namazima imam uči tiho, a svaki klanjač postupa prema svom mezhebu.",
+      "Kada klanjate sami, učite Fatihu na svakom rekatu i dodatnu suru na prva dva; na kasnijim rekatima samo Fatihu. Na glasnim namazima pohvalno je da pojedinac uči čujno, ali namaz je ispravan i ako uči tiho.",
+    ],
+    steps: [
+      {
+        title: "Sabah — oba rekata naglas",
+        body: "Imam uči naglas na oba rekata. Slušajte iza njega i ne učite drugu suru naglas. Za Fatihu pogledajte korak o mezhebima.",
+      },
+      {
+        title: "Podne — sva četiri rekata tiho",
+        body: "Imam uči tiho na svakom rekatu. Iza njega učite za sebe prema svom mezhebu.",
+      },
+      {
+        title: "Ikindija — sva četiri rekata tiho",
+        body: "Kao podne: imam uči potpuno tiho, a klanjač iza njega postupa prema svom mezhebu.",
+      },
+      {
+        title: "Akšam — prvo naglas, zatim tiho",
+        body: "Prvi i drugi rekat su glasni, treći je tih. Slušajte prva dva; na trećem učite prema svom mezhebu.",
+      },
+      {
+        title: "Jacija — prvo naglas, zatim tiho",
+        body: "Prvi i drugi rekat su glasni, treći i četvrti tihi. Slušajte prva dva; na posljednja dva učite za sebe.",
+      },
+      {
+        title: "Zašto samo prva dva rekata?",
+        body: "Ebu Katada prenosi da je Poslanik ﷺ na prva dva rekata podne i ikindije učio Fatihu i suru, a na posljednja dva samo Fatihu. To objašnjava duge i kratke rekate.",
+      },
+      {
+        title: "Iza imama pri glasnom učenju — saglasnost",
+        body: "Kada se Kur'an uči naglas, slušajte. Ne nadmećite se s imamom. Allah kaže: „A kad se uči Kur'an, vi ga slušajte i šutite da biste bili pomilovani“ (7:204).",
+      },
+      {
+        title: "Fatiha iza imama — četiri mezheba",
+        body: "Hanefije ne uče Fatihu pri glasnom učenju; malikije uglavnom slušaju; šafije je uče na svakom rekatu, i iza imama; kod hanbelija postoje dva predanja, a mnogi je preporučuju kada ima prilike.",
+        tip: "Slijedite uputu mezheba koju ste naučili od pouzdanog učitelja. Nijedan mezheb ne dopušta glasno učenje sure preko imama.",
+      },
+      {
+        title: "Iza imama na tihom namazu",
+        body: "Hanefije prema pouzdanom stavu tiho slave Allaha i zikre bez Fatihe; malikije čine lagani zikr prema okolnostima; šafije i hanbelije tiho uče Fatihu na svakom rekatu.",
+      },
+      {
+        title: "Kada klanjate sami",
+        body: "Tekst se ne mijenja, samo jačina glasa: Fatiha na svakom rekatu, sura na prva dva, zatim samo Fatiha. Glasno učenje na sabahu, akšamu i jaciji je pohvalno.",
+      },
+    ],
+    quran: [
+      { excerpt: "Vi u Allahovom Poslaniku imate divan uzor." },
+      { excerpt: "A kad se uči Kur'an, vi ga slušajte i šutite da biste bili pomilovani." },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Poslanik ﷺ učio je Fatihu i suru na prva dva rekata podne i ikindije, a samo Fatihu na posljednja dva. (Ebu Katada; Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Nema namaza onome ko ne prouči Otvaranje Knjige. (Ubada ibn es-Samit; Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "Davao bi da se primijeti duže učenje na prva dva rekata podne i ikindije, a kraće na posljednja dva. (Ebu Katada)",
+      },
+    ],
+    actions: [
+      "Na sljedećem namazu u džematu primijetite koje rekate imam uči naglas.",
+      "Pitajte učitelja svog mezheba učite li Fatihu iza imama pri glasnom učenju.",
+      "Kada klanjate sami, pokušajte sabah učiti naglas da osjetite ovaj sunnet.",
+    ],
+    appLinks: [
+      { label: "Namaz korak po korak" },
+      { label: "Namaz u džematu" },
+      { label: "Riječi i značenja" },
+    ],
+    disclaimer:
+      "Četiri mezheba razlikuju se o učenju Fatihe iza imama na glasnim i tihim namazima. Ova lekcija izlaže sva mišljenja bez proglašavanja jednog jedinim ispravnim. Pojedinosti svog mezheba učite od kvalifikovanog učitelja.",
   },
   {
     title: "Svaka pozicija",
@@ -686,7 +775,8 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       "Poslanikov, sallallahu alejhi ve sellem, preporučuje radnje koje uljepšavaju i umnožavaju nagradu za namaz.",
     body: [
       "Osim obaveznih radnji, Poslanik, sallallahu alejhi ve sellem, je modelirao mnoge preporučene prakse (sunen) oko namaza. Nisu obavezni, tako da izostavljanje jednog ne poništava namaz - ali svaki vas približava Allahu, zarađuje dodatnu nagradu i popravlja nedostatke u obaveznim namazama.",
-      "Glavni među njima su redovni sunnet-namaz (sunen rawatib) koji se klanja prije i poslije farza: dva prije Fadžra (koji je Poslanik, sallallahu alejhi ve sellem, cijenio iznad cijelog svijeta), četiri prije i dva nakon zura, dva nakon Magriba i dva nakon iša - dvanaest rekata čija je nagrada kuća izgrađena u džennetu.",
+      "Glavni među njima su redovni sunnet-namaz (sunen rawatib) koji se klanja prije i poslije farza. Nema svaka dobrovoljna molitva istu težinu: učenjaci razlikuju sunnet mu'akkadah (naglašen, redovno obavlja Poslanik, sallallahu alejhi ve sellem), sunnet ghayr mu'akkada (preporučen, ali manje naglašen) i opći nafl (opciono, bez fiksnog brojanja). Poznavanje razlike pomaže vam da odredite prioritete onoga što treba da pazite svakodnevno.",
+      "Najjasniji dnevni raspored sa najjačim dokazima je dvanaest ravatiba: dva prije sabada, četiri prije zura, dva nakon zura, dva nakon magriba i dva nakon iša - dvanaest rekata čija je nagrada kuća izgrađena u raju. Pogledajte Vrste salaha lekcija za potpuni pregled po namazu s dokazima.",
     ],
     actions: [
       "Koristite misvak (siwak) prije vudua i namaza — Poslanik, sallallahu alejhi ve sellem, ga je skoro učinio obaveznim.",
@@ -698,14 +788,28 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
     hadith: [
       {
         excerpt:
-          "Da nisam opterećivao svoj ummet, naredio bih im da koriste sivak prije svakog namaza. (Ebu Hurejre; također Sahih Musliman 252)",
+          "Da nisam opterećivao svoj ummet, naredio bih im da koriste sivak prije svakog namaza. (Ebu Hurayrah; također Sahih Muslim 252)",
       },
       {
         excerpt:
-          "Ko klanja dvanaest rekata dobrovoljnog namaza danju i noću, sagradiće mu se kuća u Džennetu. (Umm Habibah)",
+          "Poslanik, sallallahu alejhi ve sellem, nikada nije zanemario dva rekata prije Fadžra. (Aishah; također Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Ko redovno klanja dvanaest rekata danju i noću, Allah će mu sagraditi kuću u džennetu - dva prije sabaha, četiri prije zura, dva nakon zura, dva nakon magriba i dva poslije iša. (Umm Habibah)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Vrste namaza — rawatib vodič",
+      },
+      {
+        label: "Sunnet i post-salah edhkar",
+      },
+      {
+        label: "Džamijske dove",
+      },
+    ],
   },
   {
     title: "Khushu — prisustvo srca",
@@ -796,10 +900,13 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Vrste namaza",
-    summary: "Farz, sunnet, vitr i dobrovoljni namazi koji obogaćuju dan vjernika.",
+    summary:
+      "Fard, sunnet mu'akkada, sunnet ghayr mu'akkadah, vitr i opći nafl — sa autentičnim dokazima za svaki.",
     body: [
-      "Namaz se ocjenjuje po obavezi. Pet dnevnih namaza su farz — stroga obaveza svakog odgovornog muslimana. Oko i iza njih nalazi se bogat svijet dobrovoljne molitve kroz koji se Poslanik, sallallahu alejhi ve sellem, sve više približavao Allahu, a kroz koji možemo i mi.",
-      "Dobrovoljni namazi su važni iz dva razloga: to su voljena djela koja podižu rang vjernika - Allah kaže o dodatnom ibadetu: 'Moj sluga Mi se približava dobrovoljnim djelima dok ga ne zavolim' - i oni popravljaju obavezne namaze, jer se svaki nedostatak u farzu dovršava dobrovoljnim namazom na Sudnjem danu.",
+      "Namaz se ocjenjuje po obavezi. Pet dnevnih namaza su farz — stroga obaveza svakog odgovornog muslimana. Oko njih se nalazi bogat svijet dobrovoljne molitve kroz koju se Poslanik, sallallahu alejhi ve sellem, sve više približavao Allahu, a kroz koji možemo i mi.",
+      "Za dobro učenje, razlikuju četiri dobrovoljne kategorije utemeljene na autentičnim tekstovima: sunnah mu'akkadah (naglašeno rawatib Poslanik, sallallahu alejhi ve sellem, rijetko ostavlja), sunnah ghayr mu'akkadah (preporučeno, ali manje naglašeno), witr (zadržano u svojoj kategoriji jer ga hanefije računaju kao veći dio wajiba), a generalno ga računaju na sunneta wajib. (fakultativne molitve bez fiksnog, neospornog brojanja). Tamo gdje se učenjaci razlikuju oko fiksnog broja — kao što je šest rekata nakon Magriba kao Salat al-Awwabin — mi predstavljamo opšte ohrabrenje bez tretiranja spornog brojanja kao utvrđenog sunneta.",
+      "Dobrovoljni namazi su važni iz dva razloga: to su voljena djela koja podižu rang vjernika i popravljaju obavezne namaze, jer se svaki nedostatak farza nadoknađuje dobrovoljnim namazom na Sudnjem danu.",
+      "Dvanaest ravatiba ispod su najjasniji dnevni raspored sunneta sa najjačim konsenzusom. Tabela rekata na čvorištu Learn Salah prati ovih dvanaest naglašenih rekata; opcioni nafl prije Asr-a, prije Maghrib-a ili nakon Isha-a se ohrabruje tamo gdje postoje dokazi, ali nije savijen u taj fiksni broj.",
     ],
     steps: [
       {
@@ -807,12 +914,36 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
         body: "Fajr, Zhuhr, Asr, Maghrib, Isha — obavezni temelj koji se nikada ne napušta.",
       },
       {
-        title: "Sunnet rawatib",
-        body: "Redovni sunnet rekati prije i poslije farza — dvanaest dnevno zarađuju kuću u džennetu.",
+        title: "Fadžr — 2 prije (sunnet mu'akkadah)",
+        body: "Dva rekata prije farza Fadžra su sunnet mu'akkada - Poslanik, sallallahu alejhi ve sellem, ih nikada nije zanemario. Ne postoji vjerodostojan redovni sunnet nakon sabaha; dobrovoljni namaz je općenito zabranjen nakon sabada do izlaska sunca.",
       },
       {
-        title: "Witr",
-        body: "Neparni namaz nakon iše, pečat noćnog namaza — sunnet mu'akkada za većinu i vadžib u hanefijskoj školi.",
+        title: "Zur — 4 prije i 2 poslije (sunnet mu'akkadah)",
+        body: "Četiri rekata prije zura i dva poslije njega dio su dvanaest ravatiba (sunnet mu'akkadah). Zasebno, Umm Habibah je prenijela da onaj ko klanja četiri klanja prije zura i četiri poslije njega, Allah mu zabranjuje Vatru - tako da se dva dodatna rekata nakon obična dva ravatiba preporučuju nafl, a neki učenjaci također preporučuju dva dodatna prije na ukupno šest.",
+      },
+      {
+        title: "Asr — 4 prije (sunnah ghayr mu'akkadah)",
+        body: "Četiri rekata prije Asra se široko preporučuju (sunnah ghayr mu'akkadah). Ne postoji vjerodostojan redovni sunnet nakon asra; dobrovoljni namaz je općenito zabranjen nakon asra do zalaska sunca.",
+      },
+      {
+        title: "Maghrib — 2 prije i 2 poslije",
+        body: "Dva rekata nakon Magriba su sunnet mu'akkada (dio od dvanaest ravatiba). Prije Magriba, Poslanik, sallallahu alejhi ve sellem, je dvaput rekao 'Molite prije Magriba', a zatim dodao 'za koga god želi' — tako da su dva prije neobavezna nafl, a ne fiksni ravatib. Ohrabruje se opća dobrovoljna molitva nakon Magriba, ali se osporava autentičnost čuvene specifikacije šest rekata kao Salat al-Awwabin; ne predstavljajte fiksnu šesticu kao utvrđeni sunnet.",
+      },
+      {
+        title: "Isha — 2 poslije i opciono prije",
+        body: "Dva rekata nakon iše su sunnet mu'akkada (dio od dvanaest ravatiba). Prije iše, hadis 'Između svaka dva poziva ima namaz' dopušta dva ili četiri rekata između ezana i ikameta - opći nafl, a ne ravatib sunnet. Dodatni dobrovoljni namaz nakon Isha je dozvoljen, ali nijedan autentični fiksni sunnet ne navodi dodatna dva osim redovnog ravatiba.",
+      },
+      {
+        title: "Witr — posebna kategorija",
+        body: "Vitr se klanja nakon Iše u neparnom broju (1, 3, 5, 7, 9, 11…). Brojni vjerodostojni hadisi nalažu i podstiču ga. Hanefije to smatraju vadžibom; većina to smatra sunnetom mu'akkada. On se drži odvojeno od dvanaest ravatiba zbog ove razlike u mišljenju o njegovoj pravnoj odluci.",
+      },
+      {
+        title: "Dvanaest ravatiba — dogovoreni raspored",
+        body: "Prije Fadžra: 2. Prije zura: 4. Nakon zura: 2. Nakon Magriba: 2. Nakon iša: 2. Ukupno: 12 rekata. Ko ih redovno klanja, Allah će sagraditi kuću u Džennetu.",
+      },
+      {
+        title: "Preporučeni nafl — nije fiksni rawatib",
+        body: "Prije asra: 4 (hasan). Prije Magriba: 2 opciona (sahih). Prije iše: 2 ili 4 između ezana i ikameta (sahiha). Dodatno prije Dhuhra: 2 preporučeno. Dodatak nakon zura: 2 (hasan/sahih). Nakon Maghrib & Isha: generalni nafl ohrabren - bez spornog fiksnog brojanja.",
       },
       {
         title: "tahadžud (qiyam al-layl)",
@@ -820,7 +951,7 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       },
       {
         title: "Duha",
-        body: "Jutarnji namaz (2-8 rekata) — dobročinstvo koje se plaća za svaki zglob tijela svakog dana.",
+        body: "Jutarnji namaz (2–8 rekata) — dobročinstvo koje se plaća za svaki tjelesni zglob svakog dana.",
       },
       {
         title: "Tarawih",
@@ -836,15 +967,63 @@ export const SALAH_GUIDE_TOPICS_BS: DeepPartial<SalahGuideTopic>[] = [
       },
       {
         title: "Janazah",
-        body: "Dženaza - zajednička obaveza (fard kifaja) koja se klanja stojeći, bez ruku ili sujuda.",
+        body: "Dženaza – zajednička obaveza (fard kifaja) koja se klanja stojeći, bez ruku ili sujuda.",
       },
     ],
     hadith: [
       {
+        excerpt:
+          "Poslanik, sallallahu alejhi ve sellem, nikada nije zanemario dva rekata prije Fadžra. (Aishah; također Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Ko redovno klanja dvanaest rekata danju i noću, Allah će mu sagraditi kuću u džennetu - dva prije sabaha, četiri prije zura, dva nakon zura, dva nakon magriba i dva poslije iša. (Umm Habibah)",
+      },
+      {
+        excerpt:
+          "Ko klanja četiri rekata prije zura i četiri poslije njega, Allah mu brani od Vatre. (Umm Habibah; mnogi učenjaci ocijenili autentičnim)",
+      },
+      {
+        excerpt: "Neka se Allah smiluje onome ko klanja četiri rekata prije asra.",
+      },
+      {
+        excerpt:
+          "Molite se pred Magribom, molite se pred Magribom — tada je rekao: za koga god želi. (Ibn 'Umar)",
+      },
+      {
+        excerpt:
+          "Između svaka dva poziva (ezan i ikamet) je namaz. (Anas ibn Malik; također Sahih Muslim 838)",
+      },
+      {
+        excerpt:
+          "Vitr je dužnost (haqq), pa ko želi neka klanja pet, ko želi neka klanja tri, a ko želi neka klanja jedan. (Ibn 'Umar)",
+      },
+      {
         excerpt: "Najbolji namaz nakon obaveznih namaza je noćni namaz. (Ebu Hurejre)",
       },
+      {
+        excerpt:
+          "Moj sluga mi se dobrovoljnim djelima približava sve dok ga ne zavolim. (Hadis Kudsi)",
+      },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "Počnite s dvanaest rawatiba — izgradite naviku prije dodavanja opcionog nafl-a.",
+      "Koristite tabelu rekata na ovom čvorištu da pratite naglašeni sunnet oko svakog farza.",
+      "Pročitajte donje kartice sa dokazima i označite hadis koji želite ponovo posjetiti.",
+    ],
+    appLinks: [
+      {
+        label: "Sunnetske prakse",
+      },
+      {
+        label: "Tahajjud guide",
+      },
+      {
+        label: "Rakats table",
+      },
+    ],
+    disclaimer:
+      "Vitrova pravna odluka (wajib vs sunnah mu'akkadah), tačan broj fakultativnih rekata prije Isha, i Salat al-Awwabin nakon Maghrib-a su predmeti naučnih razlika. Ova lekcija predstavlja samo ono što ima autentičnu tekstualnu osnovu i primećuje neslaganje tamo gde ono postoji.",
   },
   {
     title: "Džuma - namaz petkom",
@@ -1046,5 +1225,142 @@ export const SALAH_GUIDE_PHRASES_BS: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Mir i Allahova milost neka je na vama.",
     meaning:
       "Namaz napuštate kao što biste napustili društvo poštovanih — uz pozdrav mira anđelima koji snimaju na svakom ramenu i onima koji se mole pored vas. Selam je stub; time je molitva potpuna.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_BS: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Koliko sunnet rawatib rekata je dogovoreno svakodnevno?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "Dvanaest rawatiba: 2 prije Fajra, 4 prije Dhuhra, 2 poslije Dhuhra, 2 poslije Magriba i 2 poslije Iše (Sahih Muslim 728).",
+  },
+  {
+    prompt: "Prije Fajra, naglašeni (mu'akkadah) sunnet je:",
+    options: ["Ništa", "2 rekata", "4 rekata", "Samo 2 rekata poslije"],
+    explanation:
+      "Dva rekata prije Fajra su sunnet mu'akkadah — Poslanik, sallallahu alejhi ve sellem, ih nikada nije napuštao (Sahih al-Buhari 1169; Sahih Muslim 724).",
+  },
+  {
+    prompt: "Dogovoreni rawatib oko Dhuhra su:",
+    options: ["2 prije, 2 poslije", "4 prije, 2 poslije", "4 prije, 4 poslije", "Samo 2 prije"],
+    explanation:
+      "Četiri prije Dhuhra i dva poslije su dio dvanaest rawatiba. Dodatni rekati su preporučeni nafl, a ne fiksni rawatib.",
+  },
+  {
+    prompt: "Tačno ili netačno: Četiri rekata prije Asra su dio fiksnih dvanaest dnevnih rawatiba.",
+    options: ["Tačno", "Netačno"],
+    explanation:
+      "Četiri prije Asra su sunnet ghayr mu'akkadah (široko preporučeno), ali se ne računaju među dvanaest rawatiba (Jami' at-Tirmidhi 430).",
+  },
+  {
+    prompt: "Zašto je Vitr u praćenju namaza u posebnoj kategoriji?",
+    options: [
+      "Nije spomenut u hadisu",
+      "Hanefije ga smatraju wajibom, većina sunnetom mu'akkadah",
+      "Uvijek se klanja prije Iše",
+      "Nema određen broj rekata",
+    ],
+    explanation:
+      "Vitr je čvrsto utemeljen, ali učenjaci se razlikuju oko toga da li je wajib ili sunnet mu'akkadah — zato se prati odvojeno od dvanaest rawatiba.",
+  },
+  {
+    prompt: "U džematskom Fajru, imam recituje:",
+    options: [
+      "Tiho u oba rekata",
+      "Glasno u oba rekata",
+      "Glasno samo u prvom",
+      "Tiho u prvom, glasno u drugom",
+    ],
+    explanation: "Fajr se recituje glasno (jahri) u oba rekata. Iza imama pažljivo slušate.",
+  },
+  {
+    prompt: "Dhuhr i Asr u džematu se recituju:",
+    options: [
+      "Glasno u svim rekatima",
+      "Tiho u svim rekatima",
+      "Glasno u prva dva, tiho poslije",
+      "Tiho u prva dva, glasno poslije",
+    ],
+    explanation:
+      "Dhuhr i Asr su potpuno tihi (sirri) — imam recituje tiho i svaki klanjač recituje za sebe.",
+  },
+  {
+    prompt: "U Magribu, imam recituje glasno u:",
+    options: [
+      "Sva tri rekata",
+      "Samo prva dva rekata",
+      "Samo trećem rekatu",
+      "Nigdje — Magrib je potpuno tih",
+    ],
+    explanation:
+      "Magrib je jahri u prvom i drugom rekatu, sirri u trećem — isti obrazac dugih i kratkih rekata kao kod drugih namaza.",
+  },
+  {
+    prompt: "U Iši, kada prestaje glasna recitacija?",
+    options: [
+      "Poslije prvog rekata",
+      "Poslije drugog rekata",
+      "Poslije trećeg rekata",
+      "Nikada — sva četiri su glasna",
+    ],
+    explanation: "Isha je glasna u prva dva rekata i tiho u trećem i četvrtom.",
+  },
+  {
+    prompt: "U glasnim namazima iza imama, svi se slažu da treba:",
+    options: [
+      "Recitovati drugu suru glasno s imamom",
+      "Pažljivo slušati i ne recitovati drugu suru glasno",
+      "Napustiti namaz poslije Al-Fatihah",
+      "Recitovati samo u posljednjem rekatu",
+    ],
+    explanation:
+      "Allah kaže: 'Kada se recituje Kur'an, slušajte ga pažljivo i budite tihi' (Kur'an 7:204).",
+  },
+  {
+    prompt: "Prema šafiijskom mezhebu, iza imama u glasnom namazu:",
+    options: [
+      "Ne recituje se Al-Fatihah uopšte",
+      "Recituje se Al-Fatihah u svakom rekatu",
+      "Recituje se samo u tihim rekatima",
+      "Recituje se glasno s imamom",
+    ],
+    explanation:
+      "Šafiijci smatraju da je recitacija Al-Fatihah obavezna za svakog klanjača u svakom rekatu: 'Nema namaza za onoga ko ne recituje Otvorenje Knjige' (Sahih al-Buhari 756).",
+  },
+  {
+    prompt: "Prema hanafijskom mezhebu, u glasnim namazima iza imama:",
+    options: [
+      "Recitovati Al-Fatihah tiho u svakom rekatu",
+      "Pažljivo slušati i ne recitovati Al-Fatihah",
+      "Recitovati samo suru poslije Al-Fatihah",
+      "Mora se recitovati Al-Fatihah glasno",
+    ],
+    explanation:
+      "Hanafijski oslonjeni stav je slušanje u jahri namazima; imamova recitacija je dovoljna. Sva četiri sunnitska mezheba su validna stajališta.",
+  },
+  {
+    prompt: "U prva dva rekata Dhuhra, Poslanik ﷺ je općenito recitovao:",
+    options: ["Samo Al-Fatihah", "Al-Fatihah i drugu suru", "Ništa — potpuno tiho", "Samo tekbir"],
+    explanation:
+      "Ebu Katada prenosi da je Poslanik ﷺ recitovao Al-Fatihah i drugu suru u prva dva rekata Dhuhra i Asra, a samo Al-Fatihah u posljednja dva (Sahih al-Buhari 776; Sahih Muslim 451).",
+  },
+  {
+    prompt: "Kada klanjate Fajr sami, sunnet je:",
+    options: [
+      "Recitovati samo tiho",
+      "Recitovati glasno (i tiho je validno)",
+      "Preskočiti suru poslije Al-Fatihah",
+      "Klanjati samo jedan rekat",
+    ],
+    explanation:
+      "Sami recitujete isto kao u džematu; u Fajru, Magribu i Iši sunnet je glasna recitacija.",
+  },
+  {
+    prompt:
+      "Tačno ili netačno: Šest fiksnih rekata poslije Magriba kao Salat al-Awwabin je utvrđeni sunnet s jednoglasnim saglasjem učenjaka.",
+    options: ["Tačno", "Netačno"],
+    explanation:
+      "Opći nafl poslije Magriba se podstiče, ali poznata specifikacija tačno šest rekata kao Awwabin je sporna u autentičnosti — ne predstavljajte fiksnu šesticu kao utvrđeni sunnet.",
   },
 ];

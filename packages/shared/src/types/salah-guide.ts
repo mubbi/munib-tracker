@@ -70,3 +70,14 @@ export interface PrayerRakatSummary {
   /** Extra note, e.g. Witr being wajib for Hanafis. */
   note?: string;
 }
+
+/** Quiz question — educational review, not spiritual ranking. */
+export interface SalahGuideQuizQuestion {
+  id: string;
+  type: "multiple-choice" | "true-false" | "ordering" | "reflection";
+  prompt: string;
+  options?: string[];
+  /** Index into options for scored types; omitted for reflection. */
+  correctIndex?: number;
+  explanation: string;
+}

@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
@@ -594,7 +598,95 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
           "Babu addu'a ga wanda bai karanta Bukin Littafi ba. (Ubadah bn as-Samit; da kuma Sahih Musulmi 394).",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [{}, {}, {}, {}, { label: "Karatu a bayyane da a ɓoye" }],
+  },
+  {
+    title: "Karatu a bayyane da a ɓoye",
+    summary:
+      "Waɗanne raka'o'i liman yake karantawa a bayyane, waɗanne a ɓoye, da abin da za ka yi a bayansa ko kai kaɗai.",
+    body: [
+      "Ɗaya daga cikin tambayoyin da aka fi yi — ga sababbin Musulmi da waɗanda suka daɗe suna ibada — yana zama mai sauƙi idan an fahimci ƙa'idoji biyu: wasu salloli ana karanta su a bayyane (jahri), wasu kuma a ɓoye (sirri). Annabi ﷺ ya yi sallah ta hanyoyin biyu; Sahabbai sun isar da tsarin, kuma yana rubuce a manyan littattafan hadisi.",
+      "A kowace sallah raka'o'i biyu na farko su ne «dogaye»: Al-Fatihah tare da wata sura (ko ayoyi). A sauran raka'o'in sallah mai raka'a uku ko huɗu, Annabi ﷺ yawanci Al-Fatihah kaɗai yake karantawa. Shi ya sa karatu a bayyane yake tsayawa bayan raka'a ta biyu a Maghrib da Isha, alhali Dhuhr da Asr dukansu a ɓoye ake yi.",
+      "Allah bai bayyana dalilin da ya sa wasu salloli suke a bayyane wasu kuma a ɓoye ba. Malamai suna ambaton hikimomi — sallar dare ta dace da karatu a bayyane; sallolin rana suna faruwa cikin aiki da rayuwar jama'a; tsarin yana bambanta salloli — amma Musulmi suna binsa ne da farko domin Sunnah ce. Allah ya ce: «Lalle kuna da kyakkyawan abin koyi a cikin Manzon Allah» (33:21).",
+      "A bayan liman, abin da aka yarda a kai a sallolin bayyane shi ne a saurara da kyau, kada a karanta wata sura da ƙarfi. Ko za ka karanta Al-Fatihah a hankali yayin da liman yake karatu yana daga cikin sanannun bambance-bambancen mazhabobi huɗu na Ahlus-Sunnah — duk ra'ayoyi ne ingantattu na malamai. A sallolin ɓoye liman yana karatu a hankali, don haka kowane mai sallah yana karantawa wa kansa bisa koyarwar mazhabarsa.",
+      "Idan kana sallah kai kaɗai: karanta Al-Fatihah a kowace raka'a; ƙara sura a raka'o'i biyu na farko; a raka'a ko raka'o'in ƙarshe ka karanta Al-Fatihah kaɗai. A sallolin bayyane Sunnah ce ka karanta da ƙarfi idan kana kai kaɗai, ko da yake yin karatu a hankali ma sallar tana inganta.",
+    ],
+    steps: [
+      {
+        title: "Fajr — a bayyane a raka'o'in biyu",
+        body: "Liman yana karatu a bayyane a raka'o'in biyu. A bayansa: saurara da kyau; kada ka karanta wata sura da ƙarfi. Game da Al-Fatihah — duba matakin mazhabobi a ƙasa.",
+      },
+      {
+        title: "Dhuhr — a ɓoye a duk raka'o'i huɗu",
+        body: "Liman yana karatu a ɓoye a kowace raka'a. A bayansa: karanta Al-Fatihah da sura a hankali wa kanka bisa mazhabarka.",
+      },
+      {
+        title: "Asr — a ɓoye a duk raka'o'i huɗu",
+        body: "Kamar Dhuhr — liman yana karatu gaba ɗaya a ɓoye; kowane mai sallah yana karatu a hankali a bayansa.",
+      },
+      {
+        title: "Maghrib — a bayyane sannan a ɓoye",
+        body: "A bayyane a raka'a ta farko da ta biyu; a ɓoye a ta uku. A bayansa: saurara a biyun farko; a ta uku ka karanta wa kanka bisa mazhabarka.",
+      },
+      {
+        title: "Isha — a bayyane sannan a ɓoye",
+        body: "A bayyane a raka'a ta farko da ta biyu; a ɓoye a ta uku da ta huɗu. A bayansa: saurara a biyun farko; a biyun ƙarshe ka karanta wa kanka bisa mazhabarka.",
+      },
+      {
+        title: "Me ya sa raka'o'i biyu na farko kaɗai?",
+        body: "Abu Qatadah (RA) ya ruwaito cewa Annabi ﷺ yana karanta Al-Fatihah da wata sura a raka'o'i biyu na farko na Dhuhr da Asr, a biyun ƙarshe kuma Al-Fatihah kaɗai. Wannan tsarin yana bayyana dogayen da gajerun raka'o'i a kowace sallah mai raka'o'i da yawa.",
+      },
+      {
+        title: "A bayan liman a sallolin bayyane — kowa ya yarda",
+        body: "Ka saurara da kyau idan ana karanta Qur'ani a bayyane. Kada ka yi gogayya da liman ko ka karanta wata sura da ƙarfi. Allah ya ce: «Idan ana karanta Qur'ani, ku saurare shi kuma ku yi shiru domin a yi muku rahama» (7:204).",
+      },
+      {
+        title: "Al-Fatihah a bayan liman — mazhabobi huɗu",
+        body: "Hanafi: kada ka karanta Al-Fatihah a sallolin bayyane; ka saurara. Maliki: yawanci a saurara yayin karatu a bayyane. Shafi'i: a karanta Al-Fatihah a kowace raka'a, har a bayan liman. Hanbali: ra'ayoyi biyu; malamai Hanbali da yawa suna son a karanta ta a lokacin shiru ko idan ya yiwu. Duka huɗun ra'ayoyi ne sanannu na Ahlus-Sunnah.",
+        tip: "Bi koyarwar mazhabar da ka koya daga malami amintacce. Babu mazhabar da ta yarda a karanta wata sura da ƙarfi a kan muryar liman.",
+      },
+      {
+        title: "A bayan liman a sallolin ɓoye",
+        body: "Hanafi (ra'ayin da aka dogara da shi): karanta thana da dhikr a hankali amma ba Al-Fatihah ba — karatun liman ya wadatar. Maliki: zikiri a hankali; yadda ake yi ya bambanta. Shafi'i da Hanbali: ka karanta Al-Fatihah a hankali a kowace raka'a.",
+      },
+      {
+        title: "Yin sallah kai kaɗai",
+        body: "Babu bambanci a abin da kake karantawa — sai ko ka ɗaga murya. Kowace raka'a: Al-Fatihah. Raka'o'i biyu na farko: ƙara sura. Raka'a ko raka'o'in ƙarshe: Al-Fatihah kaɗai. A Fajr, Maghrib da Isha Sunnah ce a karanta a bayyane; Dhuhr da Asr a ɓoye ake karantawa.",
+      },
+    ],
+    quran: [
+      { excerpt: "Lalle kuna da kyakkyawan abin koyi a cikin Manzon Allah." },
+      {
+        excerpt:
+          "Idan ana karanta Qur'ani, ku saurare shi kuma ku yi shiru domin a yi muku rahama.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Annabi ﷺ yana karanta Al-Fatihah da wata sura a raka'o'i biyu na farko na Dhuhr da Asr, a biyun ƙarshe kuma Al-Fatihah kaɗai. (Abu Qatadah; also Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Babu sallah ga wanda bai karanta Buɗewar Littafi ba. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "A raka'o'i biyu na farko na Dhuhr da Asr yana karanta abin da zai sa ka zaci dogayen surori yake karantawa, a biyun ƙarshe kuma abin da zai sa ka zaci gajerun surori yake karantawa. (Abu Qatadah)",
+      },
+    ],
+    actions: [
+      "A sallar jam'i ta gaba, lura da raka'o'in da liman yake karantawa a bayyane.",
+      "Tambayi malami daga mazhabarka ko kana karanta Al-Fatihah a bayan liman a sallolin bayyane.",
+      "Idan kana sallah kai kaɗai, gwada karantawa a bayyane a Fajr domin ka ji Sunnah ta karatun jahri.",
+    ],
+    appLinks: [
+      { label: "Sallah mataki-mataki" },
+      { label: "Sallar jam'i" },
+      { label: "Kalmomi da ma'anoni" },
+    ],
+    disclaimer:
+      "Mazhabobi huɗu na Ahlus-Sunnah sun bambanta kan karanta Al-Fatihah a bayan liman a sallolin bayyane da na ɓoye. Wannan darasi yana gabatar da tabbataccen ra'ayin kowace mazhaba ba tare da ayyana ɗaya a matsayin kaɗai madaidaici ba. Koyi bayanan mazhabarka daga ƙwararren malami.",
   },
   {
     title: "Kowane matsayi",
@@ -691,7 +783,8 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
     summary: "Manzon Allah ﷺ ya kwadaitar da ayyukan da suke qawata sallah da ninka ladan sallah.",
     body: [
       "Bayan ayyukan farilla, Annabi ﷺ ya tsara ayyuka da dama (sunan) a wajen sallah. Ba a buqata su ba, don haka barin mutum baya bata sallah – amma kowanne yana kusantar ku zuwa ga Allah, yana samun lada mai yawa, kuma yana gyara kurakurai a cikin sallolin farilla.",
-      "Babban daga cikinsu shi ne sallolin sunna na yau da kullun (sunan rawatib) da ake yi kafin faɗuwa da bayan safiya: biyu kafin Asuba (waɗanda Annabi Sallallahu Alaihi Wasallama ya fifita su a kan duniya baki ɗaya), huɗu kafin sahur da biyu bayan sahur, biyu bayan Magariba, biyu bayan Isha’i – raka’a goma sha biyu wanda ladansa gida ne da aka gina a cikin Aljanna.",
+      "Mafi muhimmanci a cikinsu su ne sallolin sunnah na yau da kullum (sunan rawatib) da ake yi kafin da bayan farilla. Ba duk sallar nafila ce take da matsayi ɗaya ba: malamai suna bambance sunnah mu'akkadah (wadda aka jaddada kuma Annabi ﷺ ya dawwama a kanta), sunnah ghayr mu'akkadah (abin so amma ba a jaddada sosai ba), da nafl na gama-gari (na zaɓi ba tare da ƙayyadadden adadi ba). Sanin bambancin yana taimaka maka ka fifita abin da za ka kiyaye kullum.",
+      "Jadawalin yau da kullum mafi bayyani kuma mafi ƙarfi a dalili shi ne rawatib goma sha biyu: raka'a biyu kafin Fajr, huɗu kafin Dhuhr, biyu bayan Dhuhr, biyu bayan Maghrib, da biyu bayan Isha — raka'a goma sha biyu da ladansu gida ne a Aljanna. Duba darasin Nau'o'in sallah domin cikakken bayani na kowace sallah tare da dalilai.",
     ],
     actions: [
       "Yi amfani da miswak (siwak) kafin alwala da sallah - Annabi SAW ya kusa wajabta ta.",
@@ -707,10 +800,18 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
       },
       {
         excerpt:
-          "Wanda ya sallaci raka'a goma sha biyu na sallar nafila dare da rana, za'a gina masa gida a cikin Aljannah. (Ummu Habiba)",
+          "Annabi ﷺ bai taɓa barin raka'a biyu kafin Fajr ba. (Aishah; kuma Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Duk wanda ya dawwama yana yin raka'a goma sha biyu dare da rana, Allah zai gina masa gida a Aljanna — biyu kafin Fajr, huɗu kafin Dhuhr, biyu bayan Dhuhr, biyu bayan Maghrib, da biyu bayan Isha. (Umm Habibah)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      { label: "Nau'o'in sallah — jagorar rawatib" },
+      { label: "Sunnah da azkar bayan sallah" },
+      { label: "Addu'o'in masallaci" },
+    ],
   },
   {
     title: "Khushu - gaban zuciya",
@@ -802,55 +903,139 @@ export const SALAH_GUIDE_TOPICS_HA: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Nau'in sallah",
-    summary: "Fard, sunnah, witri, da salloli na son rai masu wadatar da ranar mumini.",
+    summary:
+      "Fard, sunnah mu'akkadah, sunnah ghayr mu'akkadah, witr, da nafl na gama-gari — tare da sahihan dalilai ga kowanne.",
     body: [
-      "Addu'o'in ana yin su ne bisa wajibci. Salloli biyar na farilla ne – farilla mai tsauri akan kowane musulmi mai hisabi. A wajensu da wajensu akwai yalwataccen duniya na addu’o’in son rai da Manzon Allah Sallallahu Alaihi Wasallama ke kusantar Allah da ita, kuma ta wannan hanyar mu ma za mu iya.",
-      'Sallar son rai tana da dalilai guda biyu: ayyuka ne soyuwa da suke daukaka darajar mumini - Allah Ya ce game da karin ibada, "Bawana yana kusantar Ni da ayyukan sa kai har sai na so shi" - kuma suna gyara sallolin farilla, tunda duk wata nakasu da ke cikin fardi tana cika ne daga sallolin nafila da mutum ya yi a ranar kiyama.',
+      "Ana rarraba salloli gwargwadon wajibcinsu. Salloli biyar na yau da kullum farilla ne — wajibi mai ƙarfi a kan kowane Musulmi mai alhaki. A kewaye da su akwai yalwar sallolin nafila da Annabi ﷺ ya ƙara kusantar Allah da su, kuma mu ma za mu iya.",
+      "Domin ingantaccen ilmantarwa, a bambance nau'o'in nafila huɗu da sahihan nassosi suka tabbatar: sunnah mu'akkadah (rawatib da Annabi ﷺ ba kasafai yake bari ba), sunnah ghayr mu'akkadah (abin so amma ba a jaddada sosai ba), witr (an ware shi domin Hanafiyya suna ɗaukarsa wajib, mafi rinjaye kuma sunnah mu'akkadah), da nafl na gama-gari (sallolin zaɓi ba tare da ƙayyadadden adadi da aka yi ittifaqi a kai ba). Idan malamai sun yi sabani a kan adadi — kamar raka'a shida bayan Maghrib da sunan Salat al-Awwabin — muna kawo ƙarfafawa ta gama-gari ba tare da ɗaukar adadin da aka yi sabani a kai a matsayin tabbatacciyar sunnah ba.",
+      "Sallolin nafila suna da muhimmanci saboda dalilai biyu: ayyuka ne ƙaunatattu da ke ɗaga matsayin mumini, kuma suna gyara sallolin farilla, domin duk wata nakasa a farilla za a cika ta daga nafilar mutum a ranar Alƙiyama.",
+      "Rawatib goma sha biyu da ke ƙasa su ne jadawalin sunnah na yau da kullum mafi bayyani kuma mafi ƙarfi a ittifaqi. Teburin raka'o'i a shafin Koyi Sallah yana bibiyar waɗannan raka'o'i goma sha biyu da aka jaddada; nafl kafin Asr, kafin Maghrib, ko bayan Isha ana ƙarfafa shi inda dalili ya tabbata amma ba a haɗa shi cikin ƙayyadadden adadin ba.",
     ],
     steps: [
       {
-        title: "Farin rana guda biyar",
-        body: "Fajr, Dhuhr, Asr, Maghrib, Isha - ginshiƙi na wajibi, wanda ba a taɓa barinsa ba.",
+        title: "Salloli biyar na farilla",
+        body: "Fajr, Dhuhr, Asr, Maghrib, Isha — tushen wajibi wanda ba a taɓa bari ba.",
+        ruling: "fard",
       },
       {
-        title: "Sunnah rawatib",
-        body: "Raka'o'in sunna da aka saba yi kafin a yi farida da bayan safiya - goma sha biyu kullum suna samun gida a cikin Aljanna.",
+        title: "Fajr — 2 kafin farilla (sunnah mu'akkadah)",
+        body: "Raka'a biyu kafin farillar Fajr sunnah mu'akkadah ce — Annabi ﷺ bai taɓa barinsu ba. Babu tabbatacciyar sunnah ta yau da kullum bayan Fajr; ana hana sallar nafila gaba ɗaya daga bayan Fajr har fitowar rana.",
+        ruling: "sunnah",
       },
       {
-        title: "Witr",
-        body: "Sallah mara adadi bayan isha'i, hatimin sallar dare - sunnah mu'akkadah ga rinjaye, da wajibci a mazhabar Hanafiyya.",
+        title: "Dhuhr — 4 kafin da 2 bayan (sunnah mu'akkadah)",
+        body: "Raka'a huɗu kafin Dhuhr da biyu bayansa suna cikin rawatib goma sha biyu. Umm Habibah ta ruwaito cewa wanda ya yi huɗu kafin Dhuhr da huɗu bayansa, Allah zai haramta masa Wuta — saboda haka ƙarin raka'a biyu bayan rawatib biyun nafl ne abin so, wasu malamai kuma suna son ƙarin biyu kafin domin su zama shida.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Asr — 4 kafin (sunnah ghayr mu'akkadah)",
+        body: "Raka'a huɗu kafin Asr ana son su sosai (sunnah ghayr mu'akkadah). Babu tabbatacciyar sunnah ta yau da kullum bayan Asr; ana hana nafila gaba ɗaya daga bayan Asr har faɗuwar rana.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Maghrib — 2 kafin da 2 bayan",
+        body: "Raka'a biyu bayan Maghrib sunnah mu'akkadah ce kuma suna cikin rawatib goma sha biyu. Kafin Maghrib, Annabi ﷺ ya ce “Ku yi sallah kafin Maghrib” sau biyu, sannan ya ƙara “ga wanda ya so” — saboda haka biyu kafin nafl ne na zaɓi, ba rawatib tabbatacciya ba. Ana ƙarfafa nafila bayan Maghrib gaba ɗaya, amma ƙayyade raka'a shida a matsayin Salat al-Awwabin an yi sabani a ingancinsa.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Isha — 2 bayan da na zaɓi kafin",
+        body: "Raka'a biyu bayan Isha sunnah mu'akkadah ce kuma suna cikin rawatib. Kafin Isha, hadisin “Tsakanin kowane kira biyu akwai sallah” yana ba da damar raka'a biyu ko huɗu tsakanin adhan da iqamah — nafl na gama-gari, ba rawatib ba. Ƙarin nafila bayan Isha halal ne, amma babu sahihiyar sunnah da ta ƙayyade ƙarin biyu bayan rawatib.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Witr — rukuni na musamman",
+        body: "Ana yin Witr bayan Isha da adadi marar lamba (1, 3, 5, 7, 9, 11…). Sahihan hadisai da yawa sun yi umarni da ƙarfafa shi. Hanafiyya suna ɗaukarsa wajib; mafi rinjaye sunnah mu'akkadah. An ware shi daga rawatib goma sha biyu saboda sabanin hukuncinsa.",
+        ruling: "wajib",
+      },
+      {
+        title: "Rawatib goma sha biyu — jadawalin da aka amince",
+        body: "Kafin Fajr: 2. Kafin Dhuhr: 4. Bayan Dhuhr: 2. Bayan Maghrib: 2. Bayan Isha: 2. Jimilla: raka'a 12. Wanda ya dawwama a kansu, Allah zai gina masa gida a Aljanna.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Nafl da ake so — ba rawatib tabbatacciya ba",
+        body: "Kafin Asr: 4 (hasan). Kafin Maghrib: 2 na zaɓi (sahih). Kafin Isha: 2 ko 4 tsakanin adhan da iqamah (sahih). Ƙarin 2 kafin Dhuhr abin so ne. Ƙarin 2 bayan Dhuhr (hasan/sahih). Bayan Maghrib da Isha: ana ƙarfafa nafl gaba ɗaya — ba tare da adadi tabbatacce da ake gardama a kai ba.",
+        ruling: "sunnah",
       },
       {
         title: "Tahajjud (qiyamul-laili)",
         body: "Sallar dare a cikin ukun karshe na dare - mafi kyawun addu'a na son rai, da dabi'ar salihai.",
+        ruling: "sunnah",
       },
       {
         title: "Duha",
         body: "Sallar tsakiyar safiya (raka'a 2 – 8) - Sadaka ce da ake wa kowane gabobi na jiki kowace rana.",
+        ruling: "sunnah",
       },
       {
         title: "Tarawih",
         body: "Sallar dare na jam'i na Ramadan - rayar da dararen watan mai albarka.",
+        ruling: "sunnah",
       },
       {
         title: "Idi biyu",
         body: "Raka'a biyu na Idin Al-Fitr da Idin Al-Adha, sai kuma hudubar.",
+        ruling: "fard",
       },
       {
         title: "Istikhara",
         body: "Sallar raka'a biyu tana neman tsarin Allah kafin yanke hukunci.",
+        ruling: "sunnah",
       },
       {
         title: "Janazah",
         body: "Sallar jana'iza - wajibcin gamayya (fard kifayah) da ake yi a tsaye, ba tare da ruku'u ko sujuda ba.",
+        ruling: "fard",
       },
     ],
     hadith: [
       {
-        excerpt: "Mafificiyar sallah bayan sallar farilla ita ce sallar dare. (Abu Huraira)",
+        excerpt:
+          "Annabi ﷺ bai taɓa barin raka'a biyu kafin Fajr ba. (Aishah; kuma Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Duk wanda ya dawwama yana yin raka'a goma sha biyu dare da rana, Allah zai gina masa gida a Aljanna — biyu kafin Fajr, huɗu kafin Dhuhr, biyu bayan Dhuhr, biyu bayan Maghrib, da biyu bayan Isha. (Umm Habibah)",
+      },
+      {
+        excerpt:
+          "Duk wanda ya yi raka'a huɗu kafin Dhuhr da huɗu bayansa, Allah zai haramta masa Wuta. (Umm Habibah; malamai da yawa sun inganta shi)",
+      },
+      {
+        excerpt: "Allah ya jiƙan wanda ya yi raka'a huɗu kafin Asr.",
+      },
+      {
+        excerpt:
+          "Ku yi sallah kafin Maghrib, ku yi sallah kafin Maghrib — sannan ya ce: ga wanda ya so. (Ibn 'Umar)",
+      },
+      {
+        excerpt:
+          "Tsakanin kowane kira biyu (adhan da iqamah) akwai sallah. (Anas ibn Malik; kuma Sahih Muslim 838)",
+      },
+      {
+        excerpt:
+          "Witr haƙƙi ne; wanda ya so ya yi biyar, wanda ya so ya yi uku, wanda ya so ya yi ɗaya. (Ibn 'Umar)",
+      },
+      {
+        excerpt: "Mafificiyar sallah bayan sallolin farilla ita ce sallar dare. (Abu Huraira)",
+      },
+      {
+        excerpt:
+          "Bawana yana ci gaba da kusantar Ni da nafiloli har sai Na ƙaunace shi. (Hadith Qudsi)",
       },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "Fara da rawatib goma sha biyu — gina ɗabi'ar kafin ƙara nafl na zaɓi.",
+      "Yi amfani da teburin raka'o'i a wannan shafi domin bibiyar sunnah da aka jaddada kusa da kowace farilla.",
+      "Karanta katunan dalilai da ke ƙasa, ka adana hadisai da kake son komawa gare su.",
+    ],
+    appLinks: [
+      { label: "Ayyukan Sunnah" },
+      { label: "Jagorar Tahajjud" },
+      { label: "Teburin raka'o'i" },
+    ],
+    disclaimer:
+      "Hukuncin Witr (wajib ko sunnah mu'akkadah), ainihin adadin raka'o'in na zaɓi kafin Isha, da Salat al-Awwabin bayan Maghrib batutuwa ne na sabanin malamai. Wannan darasi yana gabatar da abin da yake da sahihin dalili kawai kuma yana nuna sabani inda yake.",
   },
   {
     title: "Juma'ah - sallar Juma'a",
@@ -1054,5 +1239,149 @@ export const SALAH_GUIDE_PHRASES_HA: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Aminci da rahamar Allah su tabbata a gare ku.",
     meaning:
       "Kuna barin salla kamar yadda kuke barin jama'ar masu daraja - tare da gaisuwa ga mala'iku da suke rubuce a kowace kafada da masu yin addu'a a gefenku. Sallama ginshiki ne; da ita ake cika sallah.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_HA: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Raka'o'in sunna rawatib nawa aka yarda a kowace rana?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "Rawatib goma sha biyu sune: 2 kafin Asuba, 4 kafin Zuhr, 2 bayan Zuhr, 2 bayan Maghrib, da 2 bayan Isha (Sahih Muslim 728).",
+  },
+  {
+    prompt: "Kafin Asuba, sunnar da aka jaddada (mu'akkadah) ita ce:",
+    options: ["Babu", "Raka'a 2", "Raka'a 4", "Raka'a 2 bayan kawai"],
+    explanation:
+      "Raka'a biyu kafin Asuba sunna mu'akkadah ne — Annabi ﷺ bai taɓa barinsu ba (Sahih al-Bukhari 1169; Sahih Muslim 724).",
+  },
+  {
+    prompt: "Rawatib da aka yarda a kusa da Zuhr sune:",
+    options: ["2 kafin, 2 bayan", "4 kafin, 2 bayan", "4 kafin, 4 bayan", "2 kafin kawai"],
+    explanation:
+      "Huɗu kafin Zuhr da biyu bayan suna cikin rawatib goma sha biyu. Ƙarin raka'o'in da suka wuce waɗannan sunna ce mai ba da shawara, ba rawatib ba.",
+  },
+  {
+    prompt:
+      "Gaskiya ko ƙarya: Raka'a huɗu kafin La'asar suna cikin rawatib goma sha biyu na yau da kullun.",
+    options: ["Gaskiya", "Ƙarya"],
+    explanation:
+      "Huɗu kafin La'asar sunna ghayr mu'akkadah ne (ana ba da shawara sosai) amma ba sa cikin rawatib goma sha biyu (Jami' at-Tirmidhi 430).",
+  },
+  {
+    prompt: "Me ya sa ana ajiye Witr a rukunin sa a mai bin sallah?",
+    options: [
+      "Ba a ambace shi a cikin hadisi ba",
+      "Hanafiyya suna kiransa wajib yayin da jumhuriyya ke kiransa sunna mu'akkadah",
+      "Ana yinsa koyaushe kafin Isha",
+      "Ba shi da adadin raka'a da aka sanya",
+    ],
+    explanation:
+      "Witr yana da hujja mai ƙarfi, amma malamai suna bambanta ko wajib ne ko sunna mu'akkadah — don haka ana bin sa daban daga rawatib goma sha biyu.",
+  },
+  {
+    prompt: "A sallar Asuba a jama'a, liman yana karantawa:",
+    options: [
+      "A sirri a dukkan raka'o'in",
+      "Da ƙarfi a dukkan raka'o'in",
+      "Da ƙarfi a farkon kawai",
+      "A sirri a farko, da ƙarfi a na biyu",
+    ],
+    explanation:
+      "Asuba ana karanta ta da ƙarfi (jahri) a dukkan raka'o'in biyu. A bayan liman ka saurara da kyau.",
+  },
+  {
+    prompt: "Zuhr da La'asar a jama'a ana karanta su:",
+    options: [
+      "Da ƙarfi a dukkan raka'o'in",
+      "A sirri a dukkan raka'o'in",
+      "Da ƙarfi a farkon biyu, sannan a sirri",
+      "A sirri a farkon biyu, sannan da ƙarfi",
+    ],
+    explanation:
+      "Zuhr da La'asar sirri ne (a sirri) gaba ɗaya — liman yana karantawa a ƙasa kuma kowane mai sallah yana karantawa da kansa.",
+  },
+  {
+    prompt: "A Maghrib, liman yana karantawa da ƙarfi a:",
+    options: [
+      "Dukkan raka'o'in uku",
+      "Raka'o'in farko biyu kawai",
+      "Raka'a ta uku kawai",
+      "Babu — Maghrib sirri ne gaba ɗaya",
+    ],
+    explanation:
+      "Maghrib jahri ne a raka'o'in farko biyu kuma sirri ne a na uku — tsarin dogo/gajere kamar sauran salloli.",
+  },
+  {
+    prompt: "A Isha, yaushe karanta da ƙarfi ya tsaya?",
+    options: [
+      "Bayan raka'a ta farko",
+      "Bayan raka'a ta biyu",
+      "Bayan raka'a ta uku",
+      "Ba ta taɓa tsayawa — dukkan huɗu da ƙarfi",
+    ],
+    explanation: "Isha ana karanta ta da ƙarfi a farkon biyu kuma a sirri a na uku da na huɗu.",
+  },
+  {
+    prompt: "A sallolin da ƙarfi a bayan liman, kowa ya yarda cewa ya kamata ka:",
+    options: [
+      "Karanta wata sura da ƙarfi tare da liman",
+      "Saurara da kyau kuma kada ka karanta wata sura da ƙarfi",
+      "Fita daga sallah bayan Al-Fatihah",
+      "Karanta kawai a raka'a ta ƙarshe",
+    ],
+    explanation:
+      "Allah ya ce: «Idan an karanta Alkur'ani, ku saurara da kyau kuma ku yi shiru» (Alkur'ani 7:204).",
+  },
+  {
+    prompt: "A madhabin Shafi'i, a bayan liman a sallah mai ƙarfi ka:",
+    options: [
+      "Ba ka karanta Al-Fatihah ko kadan",
+      "Ka karanta Al-Fatihah a kowace raka'a",
+      "Ka karanta kawai a raka'o'in sirri",
+      "Ka karanta da ƙarfi tare da liman",
+    ],
+    explanation:
+      "Madhabin Shafi'i ya ce karanta Al-Fatihah dole ne ga kowane mai sallah a kowace raka'a, bisa «Babu sallah ga wanda bai karanta Fatiha ba» (Sahih al-Bukhari 756).",
+  },
+  {
+    prompt: "A madhabin Hanafi, a sallolin da ƙarfi a bayan liman ka:",
+    options: [
+      "Ka karanta Al-Fatihah a ƙasa a kowace raka'a",
+      "Ka saurara da kyau kuma kada ka karanta Al-Fatihah",
+      "Ka karanta sura kawai bayan Al-Fatihah",
+      "Dole ne ka karanta Al-Fatihah da ƙarfi",
+    ],
+    explanation:
+      "Matsayin da Hanafiyya suka dogara a kai shine saurara a sallolin jahri; karanta liman ya isa. Dukkan madhahiban Sunni huɗu matsayi ne mai inganci.",
+  },
+  {
+    prompt: "A farkon raka'o'in biyu na Zuhr, Annabi ﷺ yawanci yana karanta:",
+    options: [
+      "Al-Fatihah kawai",
+      "Al-Fatihah da wata sura",
+      "Komai — an yi sirri gaba ɗaya",
+      "Tasbih kawai",
+    ],
+    explanation:
+      "Abu Qatadah ya ruwaito cewa Annabi ﷺ yana karanta Al-Fatihah da wata sura a farkon raka'o'in biyu na Zuhr da La'asar, kuma Al-Fatihah kawai a na ƙarshe biyu (Sahih al-Bukhari 776; Sahih Muslim 451).",
+  },
+  {
+    prompt: "Idan ka yi sallar Asuba kaɗai, sunna ce ka:",
+    options: [
+      "Karanta a sirri kawai",
+      "Karanta da ƙarfi (duk da cewa sirri har yanzu inganci ne)",
+      "Ka bar sura bayan Al-Fatihah",
+      "Ka yi raka'a ɗaya kawai",
+    ],
+    explanation:
+      "Kaɗai, kana karanta abin da ake karanta a jama'a; a Asuba, Maghrib da Isha sunna ce a karanta da ƙarfi.",
+  },
+  {
+    prompt:
+      "Gaskiya ko ƙarya: Raka'a shida da aka sanya bayan Maghrib a matsayin Salat al-Awwabin sunna ce da aka tabbatar da ita da yardar malamai.",
+    options: ["Gaskiya", "Ƙarya"],
+    explanation:
+      "Ana ƙarfafa nafila bayan Maghrib gaba ɗaya, amma sanannen bayanin raka'a shida daidai a matsayin Awwabin ana jayayya game da sahihancinsa — bai kamata a gabatar da shi a matsayin sunna ce da aka sanya ba.",
   },
 ];

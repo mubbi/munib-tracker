@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
@@ -592,7 +596,95 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
           "Duco ma leh qofka aan akhriyin Furitaanka kitaabka. (Ubadah bin as-Samit; sidoo kale Saxiix Muslim 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [{}, {}, {}, {}, { label: "Akhriska codka dheer iyo kan hoose" }],
+  },
+  {
+    title: "Akhriska codka dheer iyo kan hoose",
+    summary:
+      "Rakcadaha uu imaamku cod dheer ku akhriyo, kuwa uu hoos u akhriyo, iyo waxa aad samaynayso gadaashiisa ama markaad keligaa tukanayso.",
+    body: [
+      "Mid ka mid ah su'aalaha ugu badan — Muslimiinta cusub iyo kuwa muddada dheerba — wuxuu fududaadaa markaad fahanto laba qodob: salaadaha qaarkood cod dheer ayaa loo akhriyaa (jahri), qaarna cod hoose (sirri). Nebigu ﷺ labada habba wuu u tukaday; Saxaabadu habkaas way soo gudbiyeen, waxaana lagu qoray ururinta waaweyn ee xadiiska.",
+      "Salaad kasta labada rakcadood ee hore waa kuwa «dhaadheer»: Al-Faatixa iyo suurad kale (ama dhowr aayadood). Rakcadaha kale ee salaad saddex ama afar rakcadood ah, Nebigu ﷺ guud ahaan Al-Faatixa oo keliya ayuu akhrin jiray. Sidaas awgeed akhriska codka dheer wuxuu joogsadaa rakcadda labaad ka dib ee Maghrib iyo Cishaha, halka Duhur iyo Casar ay dhammaantood cod hoose yihiin.",
+      "Alle si cad uma sheegin sababta salaadaha qaarkood cod dheer, qaarna cod hoose loogu akhriyo. Culimadu waxay xusaan xikmado — salaadaha habeenku waxay ku habboon yihiin akhriska la maqlo; salaadaha maalintu waxay dhacaan xilli shaqo iyo nolol bulsheed; habkani wuxuu kala saaraa salaadaha — laakiin Muslimiintu ugu horrayn waxay u raacaan inuu Sunnah yahay. Alle wuxuu yidhi: «Rasuulka Alle waxaad ku leedihiin ku dayasho wanaagsan» (33:21).",
+      "Markaad imaamka ka dambayso, xeerka lagu heshiiyey ee salaadaha codka dheer waa inaad si feejigan u dhegaysato oo aanad suurad kale cod dheer ku akhriyin. Inaad Al-Faatixa si hoose u akhrido inta imaamku akhrinayo iyo in kale waa mid ka mid ah khilaafaadka ugu caansan ee afarta madhhab ee Sunniga — dhammaantood waa aragtiyo la aqoonsan yahay oo culimo waaweyn qabaan. Salaadaha codka hoose imaamku hoos ayuu u akhriyaa, sidaas darteed qof kasta wuxuu isu akhriyaa sida madhhabkiisu dhigayo.",
+      "Markaad keligaa tukanayso: rakcad kasta ku akhri Al-Faatixa; labada rakcadood ee hore ku dar suurad; rakcadda ama rakcadaha ugu dambeeya Al-Faatixa oo keliya akhri. Salaadaha codka dheer, inaad cod dheer ku akhrido markaad keligaa tahay waa Sunnah, inkastoo akhriska codka hoose uu weli sax yahay.",
+    ],
+    steps: [
+      {
+        title: "Fajr — cod dheer labada rakcadoodba",
+        body: "Imaamku labada rakcadoodba cod dheer ayuu ku akhriyaa. Gadaashiisa: si feejigan u dhegayso; suurad kale cod dheer ha ku akhriyin. Al-Faatixa — eeg tallaabada madhhabada ee hoose.",
+      },
+      {
+        title: "Duhur — cod hoose afarta rakcadoodba",
+        body: "Imaamku rakcad kasta cod hoose ayuu ku akhriyaa. Gadaashiisa: Al-Faatixa iyo suuradda si hoose ugu akhri naftaada sida madhhabkaagu dhigayo.",
+      },
+      {
+        title: "Casar — cod hoose afarta rakcadoodba",
+        body: "Sida Duhur — imaamku gebi ahaan cod hoose ayuu u akhriyaa; qof kastaana si hoose ayuu gadaashiisa ugu akhriyaa.",
+      },
+      {
+        title: "Maghrib — cod dheer dabadeed cod hoose",
+        body: "Cod dheer rakcadaha koowaad iyo labaad; cod hoose rakcadda saddexaad. Gadaashiisa: dhegayso labada hore; rakcadda saddexaad naftaada ugu akhri sida madhhabkaagu dhigayo.",
+      },
+      {
+        title: "Cishaha — cod dheer dabadeed cod hoose",
+        body: "Cod dheer rakcadaha koowaad iyo labaad; cod hoose rakcadaha saddexaad iyo afraad. Gadaashiisa: dhegayso labada hore; labada dambe naftaada ugu akhri sida madhhabkaagu dhigayo.",
+      },
+      {
+        title: "Maxaa labada rakcadood ee hore oo keliya?",
+        body: "Abu Qatadah (RA) wuxuu soo weriyey in Nebigu ﷺ Al-Faatixa iyo suurad kale ku akhrin jiray labada rakcadood ee hore ee Duhur iyo Casar, labada dambena Al-Faatixa oo keliya. Habkani wuxuu sharxayaa rakcadaha dhaadheer iyo kuwa gaaban ee salaad kasta oo rakcado badan leh.",
+      },
+      {
+        title: "Gadaasha imaamka salaadaha codka dheer — dhammaan waa isku raacsan yihiin",
+        body: "Si fiican u dhegayso marka Qur'aanka cod dheer loo akhrinayo. Ha la tartamin imaamka, suurad kalena cod dheer ha ku akhriyin. Alle wuxuu yidhi: «Marka Qur'aanka la akhriyo, si feejigan u dhegaysta oo aamusnaada si laydiinku naxariisto» (7:204).",
+      },
+      {
+        title: "Al-Faatixa gadaasha imaamka — afarta madhhab",
+        body: "Xanafi: Al-Faatixa ha ku akhriyin salaadaha codka dheer; dhegayso. Maaliki: guud ahaan dhegayso akhriska codka dheer. Shaafici: rakcad kasta ku akhri Al-Faatixa, xataa gadaasha imaamka. Xanbali: laba aragti ayaa jirta; culimo badan oo Xanbali ah waxay ku taliyaan in la akhriyo marka imaamku hakado ama ay suurtagal tahay. Afartuba waa aragtiyo Sunni ah oo la aqoonsan yahay.",
+        tip: "Raac waxbaridda madhhabka aad ka baratay macallin lagu kalsoon yahay. Madhhabna ma oggola in suurad kale cod dheer lagaga dul akhriyo imaamka.",
+      },
+      {
+        title: "Gadaasha imaamka salaadaha codka hoose",
+        body: "Xanafi (aragtida lagu tiirsan yahay): thana iyo dikriga si hoose u akhri, laakiin Al-Faatixa ha akhriyin — akhriska imaamka ayaa ku filan. Maaliki: xus hoose; dhaqanku wuu kala duwanaan karaa. Shaafici iyo Xanbali: Al-Faatixa si hoose ugu akhri naftaada rakcad kasta.",
+      },
+      {
+        title: "Keligaa tukashada",
+        body: "Waxa aad akhrinayso waxba iskama beddelaan — farqigu waa kor u qaadidda codka oo keliya. Rakcad kasta: Al-Faatixa. Labada hore: ku dar suurad. Rakcadda ama rakcadaha dambe: Al-Faatixa oo keliya. Fajr, Maghrib iyo Cishaha cod dheer akhrisku waa Sunnah; Duhur iyo Casar cod hoose ayaa loo akhriyaa.",
+      },
+    ],
+    quran: [
+      { excerpt: "Rasuulka Alle waxaad ku leedihiin ku dayasho wanaagsan." },
+      {
+        excerpt:
+          "Marka Qur'aanka la akhriyo, si feejigan u dhegaysta oo aamusnaada si laydiinku naxariisto.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Nebigu ﷺ Al-Faatixa iyo suurad kale ayuu ku akhrin jiray labada rakcadood ee hore ee Duhur iyo Casar, labada dambena Al-Faatixa oo keliya. (Abu Qatadah; also Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Salaad uma sugna qofka aan akhriyin Furitaanka Kitaabka. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "Labada rakcadood ee hore ee Duhur iyo Casar wuxuu akhriyi jiray wax ku moodsiinaya inuu akhrinayo suuradaha dhaadheer, labada dambena wax ku moodsiinaya inuu akhrinayo kuwa gaagaaban. (Abu Qatadah)",
+      },
+    ],
+    actions: [
+      "Salaaddaada jamaacada ee soo socota, u fiirso rakcadaha uu imaamku cod dheer ku akhriyo.",
+      "Weydii macallin madhhabkaaga ah inaad Al-Faatixa gadaasha imaamka ku akhrido salaadaha codka dheer iyo in kale.",
+      "Markaad keligaa tukanayso, isku day inaad Fajr cod dheer ku akhrido si aad u waayo-aragto Sunnada akhriska jahri.",
+    ],
+    appLinks: [
+      { label: "Salaadda tallaabo tallaabo" },
+      { label: "Salaadda jamaacada" },
+      { label: "Erayada iyo macnayaasha" },
+    ],
+    disclaimer:
+      "Afarta madhhab ee Sunniga waxay ku kala duwan yihiin akhrinta Al-Faatixa gadaasha imaamka ee salaadaha codka dheer iyo kuwa hoose. Casharkani wuxuu soo bandhigayaa aragtida la sugay ee madhhab kasta isaga oo aan mid keliya ku dhawaaqin inuu sax yahay. Faahfaahinta madhhabkaaga ka baro macallin aqoon leh.",
   },
   {
     title: "Jago kasta",
@@ -689,7 +781,8 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
     summary: "Rasuulku ﷺ wuxuu ku taliyey ficillo qurxinaya oo badinaya ajarka salaadda.",
     body: [
       "Marka laga soo tago camalka waajibka ah, nabigu ﷺ wuxuu qaabeeyay dhaqamo badan oo lagu taliyay (sunan) salaadda agteeda. Looma baahna, sidaas darteed haddii qofku ka tago ma burinayo salaadda - laakiin mid kasta wuxuu kuu soo dhoweynayaa Eebbe, wuxuuna helayaa ajir dheeraad ah, wuxuuna hagaajinayaa wixii ka dhiman salaadaha faralka ah.",
-      "Waxaa ka mid ah salaadaha sunnaha ah ee la tukado ka hor iyo ka dib: laba Fajar ka hor, afar ka hor iyo laba ka dib Duhur, laba ka dib Maghrib, iyo laba ka dib Cisha - laba iyo toban rakcadood oo ajrigooda waa guri Jannada laga dhisay.",
+      "Kuwa ugu muhiimsan waxaa ka mid ah salaadaha sunnaha joogtada ah (sunan rawatib) ee ka horreeya ama ka dambeeya salaadaha faralka ah. Salaad kasta oo ikhtiyaari ahi isku darajo ma aha: culimadu waxay kala saaraan sunnah mu'akkadah (mid la adkeeyey oo Nebigu ﷺ joogteeyey), sunnah ghayr mu'akkadah (lagu taliyey balse aan sidaas loo adkayn), iyo nafl guud (ikhtiyaari aan tiro go'an lahayn). Kala duwanaanshahani wuxuu kaa caawinayaa inaad mudnaanta siiso waxa maalin kasta la joogteeyo.",
+      "Jadwalka maalinlaha ah ee ugu cad uguna xooggan daliilkiisu waa laba iyo tobanka rawatib: laba Fajr ka hor, afar Dhuhr ka hor, laba Dhuhr ka dib, laba Maghrib ka dib, iyo laba Isha ka dib. Ajarkoodu waa guri Jannada ku yaal. Faahfaahinta salaad kasta iyo daliilkeeda ka eeg casharka Noocyada Salaadda.",
     ],
     actions: [
       "Isticmaal miswak (siwak) ka hor ducada iyo salaadda - Nabiga ﷺ wuxuu ku sigtay inuu waajib ka dhigo.",
@@ -705,10 +798,18 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
       },
       {
         excerpt:
-          "Qofkii tukada laba iyo toban rakcadood oo salaad ah habeen iyo maalin, waxaa looga dhisayaa guri Jannada ku yaal. (Ummu Xabiibah)",
+          "Nebigu ﷺ waligiis kama tegin labada rakcadood ee Fajr ka hor. (Caa'ishah; sidoo kale Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Qofkii joogteeya laba iyo toban rakcadood habeen iyo maalin, Alle wuxuu uga dhisaa guri Jannada: laba Fajr ka hor, afar Dhuhr ka hor, laba Dhuhr ka dib, laba Maghrib ka dib, iyo laba Isha ka dib. (Ummu Xabiibah)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      { label: "Noocyada Salaadda — hagaha rawatib" },
+      { label: "Sunnada iyo adhkaarta salaadda ka dib" },
+      { label: "Ducooyinka masaajidka" },
+    ],
   },
   {
     title: "Khushu - joogitaanka wadnaha",
@@ -799,56 +900,137 @@ export const SALAH_GUIDE_TOPICS_SO: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Noocyada Salaadda",
-    summary: "Fard, sunne, witri, iyo salaadaha iskaa wax u qabso ee hodmiya maalinta mu’minka.",
+    summary:
+      "Fard, sunnah mu'akkadah, sunnah ghayr mu'akkadah, witr, iyo nafl guud — mid kasta oo leh daliil sax ah.",
     body: [
-      "Salaadda waxa lagu qiimeeyaa waajib. Shanta salaadood waa farad - Waajib adag oo saaran qof kasta oo Muslim ah oo lala xisaabtami karo. Hareerahooda iyo hareerahooda waxaa ku yaal duni qani ah oo duco ikhtiyaari ah oo uu Nebigu ﷺ ugu dhawaaday Alle, annaguna aan awoodno.",
-      "Salaadda iskaa wax u qabso ah laba arrimood dartood: waa camal la jecel yahay oo kor u qaadaya darajada qofka mu’minka ah – Eebbe wuxuu yidhi cibaadada dheeraadka ah, ‘Adoonkaygu wuxuu iigu soo dhawaadaa camal mutadawacnimo ah ilaa aan ka jeclaado’ — waxayna hagaajiyaan salaadaha waajibka ah, mar haddii ay ka dhammaato wax kasta oo fardku ku yimaaddo oo laga dhammeeyo salaadda is-xilqaanka ah ee qofka maalinta qiyaame.",
+      "Salaadaha waxaa loo kala darajeeyaa waajibnimadooda. Shanta salaadood ee maalinlaha ahi waa fard — waajib adag oo saaran Muslim kasta oo mas'uul ah. Hareerahooda waxaa ku jira salaado nafl ah oo badan oo Nebigu ﷺ ugu dhowaaday Alle, annaguna aan ugu dhowaan karno.",
+      "Si sax ah u kala garo afarta nooc ee daliillada saxda ahi caddeeyeen: sunnah mu'akkadah (rawatib uu Nebigu ﷺ caadi ahaan ka tegi jirin), sunnah ghayr mu'akkadah (lagu taliyey balse aan sidaas loo adkayn), witr (Xanafiyadu waxay u arkaan wajib, badankuna sunnah mu'akkadah), iyo nafl guud (salaad ikhtiyaari ah oo aan tiro lagu heshiiyey lahayn). Marka culimadu tiro isku khilaafaan — sida lix rakcadood Maghrib ka dib oo loo yaqaan Salat al-Awwabin — waxaan soo bandhignaa dhiirrigelinta guud annagoo tirada la isku khilaafay aan sunnah sugan ka dhigin.",
+      "Salaadaha naflku laba sababood ayay muhiim u yihiin: waa camallo la jecel yahay oo darajada mu'minka kor u qaada, waxayna dhammaystiraan salaadaha faralka ah; wixii ka dhiman fardka waxaa Maalinta Qiyaame laga buuxinayaa naflka qofka.",
+      "Laba iyo tobanka rawatib ee hoose waa jadwalka sunnada maalinlaha ah ee ugu cad uguna badan ee lagu heshiiyey. Jadwalka rakcadaha ee Baro Salaadda wuxuu raacaa laba iyo tobankaas rakcadood ee la adkeeyey; naflka Casr ka hor, Maghrib ka hor, ama Isha ka dib waa la dhiirrigeliyaa marka daliil jiro, laakiin laguma daro tirada go'an.",
     ],
     steps: [
       {
-        title: "Shanta fard ee maalinlaha ah",
-        body: "Fajr, Dhuhr, Casr, Maghrib, Isha - aasaaska waajibka ah, oo aan marnaba laga tegin.",
+        title: "Shanta salaadood ee faralka ah",
+        body: "Fajr, Dhuhr, Casr, Maghrib, iyo Isha — aasaaska waajibka ah ee aan marnaba laga tegin.",
+        ruling: "fard",
       },
       {
-        title: "Sunnah rawatib",
-        body: "Rakcooyinka sunnaha ah ee caadiga ah ka hor iyo ka dib Fardka - laba iyo toban maalin kasta waxay kasbadaan guri Jannada dhexdeeda ah.",
+        title: "Fajr — 2 fardka ka hor (sunnah mu'akkadah)",
+        body: "Labada rakcadood ee fardka Fajr ka hor waa sunnah mu'akkadah; Nebigu ﷺ waligiis kama tegin. Ma jiro sunnah maalinle ah oo sugan Fajr ka dib; naflka guud waa mamnuuc laga bilaabo Fajr ka dib ilaa qorraxdu ka soo baxdo.",
+        ruling: "sunnah",
       },
       {
-        title: "Witr",
-        body: "Salaad aan tiro lahayn oo cisha ka dib ah, shaabadda salaadda habeenka - sunnada mucakaddah ee badi, iyo waajibka mad-habka Xanafiyada.",
+        title: "Dhuhr — 4 ka hor iyo 2 ka dib (sunnah mu'akkadah)",
+        body: "Afar rakcadood Dhuhr ka hor iyo laba ka dib waxay ka mid yihiin laba iyo tobanka rawatib. Ummu Xabiibah waxay werisay in qofkii afar Dhuhr ka hor iyo afar ka dib tukada Alle Naarta ka xarrimayo; sidaas darteed labada dheeraadka ah ee ka dambeeya labada aasaasiga ahi waa nafl la jecel yahay, culimo qaarkoodna laba dheeraad ah ka hor ayay jecel yihiin.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Casr — 4 ka hor (sunnah ghayr mu'akkadah)",
+        body: "Afar rakcadood Casr ka hor aad baa loo jecel yahay. Ma jiro sunnah maalinle ah oo sugan Casr ka dib; naflka guud waa mamnuuc laga bilaabo Casr ka dib ilaa qorraxdu dhacdo.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Maghrib — 2 ka hor iyo 2 ka dib",
+        body: "Labada rakcadood ee Maghrib ka dib waa sunnah mu'akkadah kana mid ah rawatib. Maghrib ka hor Nebigu ﷺ laba jeer ayuu yiri “Tukada Maghrib ka hor”, dabadeed wuxuu raaciyey “qofkii doona”; sidaas darteed labada ka horreeyaa waa nafl ikhtiyaari ah, ma aha rawatib sugan. Naflka Maghrib ka dib guud ahaan waa la dhiirrigeliyaa, laakiin lix rakcadood oo Salat al-Awwabin loo cayimo saxnimadooda waa lagu khilaafay.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Isha — 2 ka dib, ikhtiyaari ka hor",
+        body: "Labada rakcadood ee Isha ka dib waa sunnah mu'akkadah kana mid ah rawatib. Xadiiska “Labada yeedhid dhexdooda salaad baa jirta” wuxuu oggolaanayaa laba ama afar rakcadood adhaanka iyo iqaamada dhexdooda — nafl guud, ma aha rawatib. Nafl dheeraad ah Isha ka dib waa bannaan yahay, laakiin ma jiro sunnah sax ah oo laba kale si gaar ah u cayimaya rawatib ka dib.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Witr — qayb gaar ah",
+        body: "Witr waxaa la tukadaa Isha ka dib tiro kinsi ah (1, 3, 5, 7, 9, 11…). Xadiisyo badan oo sax ah ayaa amraya oo adkaynaya. Xanafiyadu wajib ayay u arkaan, badankuna sunnah mu'akkadah. Kala duwanaanshaha xukunkaas awgiis ayuu uga go'an yahay laba iyo tobanka rawatib.",
+        ruling: "wajib",
+      },
+      {
+        title: "Laba iyo tobanka rawatib — jadwalka la isku raacsan yahay",
+        body: "Fajr ka hor: 2. Dhuhr ka hor: 4. Dhuhr ka dib: 2. Maghrib ka dib: 2. Isha ka dib: 2. Wadar: 12 rakcadood. Qofkii joogteeya, Alle wuxuu uga dhisaa guri Jannada.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Naflka lagu taliyey — ma aha rawatib sugan",
+        body: "Casr ka hor: 4 (hasan). Maghrib ka hor: 2 ikhtiyaari ah (sahih). Isha ka hor: 2 ama 4 adhaanka iyo iqaamada dhexdooda (sahih). Laba kale Dhuhr ka hor iyo laba kale Dhuhr ka dib (hasan/sahih) waa la jecel yahay. Maghrib iyo Isha ka dib naflka guud waa la dhiirrigeliyaa, iyadoo aan tiro muran leh la goyn.",
+        ruling: "sunnah",
       },
       {
         title: "Tahajjud (qiyam al-layl)",
         body: "Salaadda habeenka ee saddexaad ee ugu dambeeya habeenka - salaadda iskaa wax u qabso ee ugu fadliga badan, iyo caadada kuwa xaqa ah.",
+        ruling: "sunnah",
       },
       {
         title: "Duha",
         body: "Salaadda subaxda (2-8 rakcadood) - waa samafal ku aaddan mid kasta oo ka mid ah xubnaha jirka maalin kasta.",
+        ruling: "sunnah",
       },
       {
         title: "Taraawiixda",
         body: "Salaadda habeenka jameecada ee Ramadaan - soo noolaynta habeenada bisha barakeysan.",
+        ruling: "sunnah",
       },
       {
         title: "Labada Ciidood",
         body: "Laba rakcadood oo ah Ciidul Fidriga iyo Ciidul-Adxa, waxaa xigay wacdigii.",
+        ruling: "fard",
       },
       {
         title: "Istikharah",
         body: "Duco laba rakcadood ah oo hanuunka Alle ka hor inta aanad go'aan gaadhin.",
+        ruling: "sunnah",
       },
       {
         title: "Janaza",
         body: "Salaadda janaasada - Waajib wadaag ah (fard kifayah) oo la bixiyo taagan, iyada oo aan rukuuc iyo sujuud lahayn.",
+        ruling: "fard",
       },
     ],
     hadith: [
       {
         excerpt:
+          "Nebigu ﷺ waligiis kama tegin labada rakcadood ee Fajr ka hor. (Caa'ishah; sidoo kale Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Qofkii joogteeya laba iyo toban rakcadood habeen iyo maalin, Alle wuxuu uga dhisaa guri Jannada: laba Fajr ka hor, afar Dhuhr ka hor, laba Dhuhr ka dib, laba Maghrib ka dib, iyo laba Isha ka dib. (Ummu Xabiibah)",
+      },
+      {
+        excerpt:
+          "Qofkii afar rakcadood Dhuhr ka hor iyo afar ka dib tukada, Alle wuxuu Naarta ka xarrimayaa. (Ummu Xabiibah; culimo badan baa sax ka dhigay)",
+      },
+      { excerpt: "Alle ha u naxariisto qofka afar rakcadood Casr ka hor tukada." },
+      {
+        excerpt:
+          "Tukada Maghrib ka hor, tukada Maghrib ka hor — dabadeed wuxuu yiri: qofkii doona. (Ibn Cumar)",
+      },
+      {
+        excerpt:
+          "Labada yeedhid (adhaan iyo iqaamo) dhexdooda salaad baa jirta. (Anas ibn Maalik; sidoo kale Sahih Muslim 838)",
+      },
+      {
+        excerpt:
+          "Witr waa xaq; qofkii doona shan ha tukado, kii doona saddex, kii doonana hal. (Ibn Cumar)",
+      },
+      {
+        excerpt:
           "Salaadda ugu wanaagsan salaadaha faralka ah ka dib waa salaadda habeenka. (Abuu Hureyrah)",
       },
+      {
+        excerpt: "Addoonkaygu nafl ayuu iigu soo dhowaadaa ilaa aan jeclaado. (Hadith Qudsi)",
+      },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "Ka bilow laba iyo tobanka rawatib; caadadaas dhis ka hor intaadan nafl ikhtiyaari ah ku darin.",
+      "Adeegso jadwalka rakcadaha ee boggan si aad ula socoto sunnada la adkeeyey ee ku xeeran fard kasta.",
+      "Akhri kaararka daliilka ee hoose oo kaydi xadiisyada aad rabto inaad ku noqoto.",
+    ],
+    appLinks: [
+      { label: "Ku dhaqanka sunnada" },
+      { label: "Hagaha Tahajjud" },
+      { label: "Jadwalka rakcadaha" },
+    ],
+    disclaimer:
+      "Xukunka Witr (wajib ama sunnah mu'akkadah), tirada saxda ah ee rakcadaha ikhtiyaariga ah Isha ka hor, iyo Salat al-Awwabin Maghrib ka dib waa arrimo ay culimadu isku khilaafeen. Casharkani wuxuu soo bandhigayaa keliya waxa daliil sax ah leh, khilaafkana wuu tilmaamayaa.",
   },
   {
     title: "Jimcaha - salaadda Jimcaha",
@@ -1053,5 +1235,154 @@ export const SALAH_GUIDE_PHRASES_SO: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Asalaamu calaykum waraxmatulaahi wabarakaatuh.",
     meaning:
       "Waxaad uga tagtaa salaadda sidii aad uga bixi lahayd asxaabta sharafta leh - salaan nabadeed oo ku socota malaa'igta garabka kasta ku duuban iyo kuwa ku ag tukanaya. Salaantu waa tiir; iyada oo ay salaaddu ku dhammaatay.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_SO: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Imisa rakco oo sunna rawatib ah ayaa la isku raacay maalin kasta?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "Labo iyo toban rawatib waa: 2 ka hor Fajr, 4 ka hor Dhuxur, 2 ka dib Dhuxur, 2 ka dib Maqrib, iyo 2 ka dib Cisha (Sahih Muslim 728).",
+  },
+  {
+    prompt: "Ka hor Fajr, sunnada la xoojiyay (mu'akkadah) waa:",
+    options: ["Ma jiro", "2 rakco", "4 rakco", "2 rakco ka dib oo keliya"],
+    explanation:
+      "Laba rakco ka hor Fajr waa sunna mu'akkadah — Nabiga ﷺ marnaba kama tegin (Sahih al-Bukhari 1169; Sahih Muslim 724).",
+  },
+  {
+    prompt: "Rawatibka la isku raacay ee ku wareegsan Dhuxur waa:",
+    options: [
+      "2 ka hor, 2 ka dib",
+      "4 ka hor, 2 ka dib",
+      "4 ka hor, 4 ka dib",
+      "2 ka hor oo keliya",
+    ],
+    explanation:
+      "Afar ka hor Dhuxur iyo laba ka dib waxay ka mid yihiin labo iyo tobanka rawatib. Rakcooyin dheeraad ah oo ka baxsan kuwan waa nafl la taliyay, ma aha rawatib go'an.",
+  },
+  {
+    prompt:
+      "Run ama been: Afar rakco ka hor Casar waxay ka mid yihiin labo iyo tobanka rawatib ee maalinlaha ah.",
+    options: ["Run", "Been"],
+    explanation:
+      "Afar ka hor Casar waa sunna ghayr mu'akkadah (si ballaaran loo taliyay) laakiin kuma jiraan labo iyo tobanka rawatib (Jami' at-Tirmidhi 430).",
+  },
+  {
+    prompt: "Maxaa Witr loogu hayaa qayb u gaar ah raadraaca salaadda?",
+    options: [
+      "Hadith kuma xusan",
+      "Hanafiyadu waxay u tirinayaan wajib halka jumhuurtu sunna mu'akkadah",
+      "Had iyo jeer waxaa la tukadaa ka hor Cisha",
+      "Ma laha tiro go'an oo rakco ah",
+    ],
+    explanation:
+      "Witr waa la xaqiijiyay si adag, laakiin culimadu way kala duwan yihiin inuu yahay wajib ama sunna mu'akkadah — sidaas darteed waxaa laga raadraacaa si ka duwan labo iyo tobanka rawatib.",
+  },
+  {
+    prompt: "Fajr jamaacada, imaamku wuxuu akhriyaa:",
+    options: [
+      "Si aamusan labada rakco",
+      "Si weyn labada rakco",
+      "Si weyn kan koowaad oo keliya",
+      "Si aamusan kan koowaad, si weyn kan labaad",
+    ],
+    explanation:
+      "Fajr waxaa lagu akhriyaa si weyn (jahri) labada rakco. Ka dambe imaamka dhageyso si taxaddar leh.",
+  },
+  {
+    prompt: "Dhuxur iyo Casar jamaacada waxaa lagu akhriyaa:",
+    options: [
+      "Si weyn dhammaan rakcooyinka",
+      "Si aamusan dhammaan rakcooyinka",
+      "Si weyn labada koowaad, aamus ka dib",
+      "Si aamusan labada koowaad, si weyn ka dib",
+    ],
+    explanation:
+      "Dhuxur iyo Casar waa sirri (aamus) dhammaadka — imaamku si hoose ayuu u akhriyaa oo qof kasta wuxuu u akhriyaa naftiisa.",
+  },
+  {
+    prompt: "Maqrib, imaamku wuxuu si weyn u akhriyaa:",
+    options: [
+      "Saddexda rakco oo dhan",
+      "Laba rakco ee koowaad oo keliya",
+      "Rakcada saddexaad oo keliya",
+      "Midna — Maqrib waa aamus buuxa",
+    ],
+    explanation:
+      "Maqrib waa jahri rakcada koowaad iyo labaad, sirri rakcada saddexaad — qaabka dheer/gaaban ee salaaddaha kale.",
+  },
+  {
+    prompt: "Cisha, goorma ayay akhrinta codka leh joojisaa?",
+    options: [
+      "Ka dib rakcada koowaad",
+      "Ka dib rakcada labaad",
+      "Ka dib rakcada saddexaad",
+      "Marnaba — afarta oo dhan waa cod",
+    ],
+    explanation: "Cisha waa cod labada rakco ee koowaad, aamus rakcada saddexaad iyo afraad.",
+  },
+  {
+    prompt: "Salaadaha codka leh ee ka dambe imaamka, qof walba wuu isku raacayaa inaad:",
+    options: [
+      "Akhriyo suurad kale si weyn oo la socota imaamka",
+      "Dhageysato si taxaddar leh oo aadan suurad kale si weyn u akhrin",
+      "Ka baxdo salaadda ka dib Al-Fatihah",
+      "Akhriyo rakcada ugu dambeysa oo keliya",
+    ],
+    explanation:
+      "Alle wuxuu leeyahay: «Marka Qur'aanka la akhriyo, u dhageysta si taxaddar leh oo aamusa» (Qur'aanka 7:204).",
+  },
+  {
+    prompt: "Sida madhabka Shafi'i, ka dambe imaamka salaadda codka leh waxaad:",
+    options: [
+      "Ma akhrinaysid Al-Fatihah gabi ahaanba",
+      "Akhriyaa Al-Fatihah rakco kasta",
+      "Akhriyaa kaliya rakcooyinka aamusan",
+      "Akhriyaa si weyn oo la socota imaamka",
+    ],
+    explanation:
+      "Madhabka Shafi'i wuxuu qabaa in akhrinta Al-Fatihah ay tahay waajib qof kasta oo tukanaya rakco kasta, isagoo tixraacaya «Ma jiro salaad qofka aan akhrin Fatiha ee Kitaabka» (Sahih al-Bukhari 756).",
+  },
+  {
+    prompt: "Sida madhabka Hanafi, salaadaha codka leh ee ka dambe imaamka waxaad:",
+    options: [
+      "Akhriyaa Al-Fatihah si hoose rakco kasta",
+      "Dhageysataa si taxaddar leh oo ma akhrinaysid Al-Fatihah",
+      "Akhriyaa suurada ka dib Al-Fatihah oo keliya",
+      "Waa inaad Al-Fatihah si weyn u akhrisaa",
+    ],
+    explanation:
+      "Aragtida Hanafi ee la isku halleyn karo waa dhageysi salaadaha jahri; akhrinta imaamka ayaa ku filan. Afarta madhab ee Sunni waa aragtiyo sax ah.",
+  },
+  {
+    prompt: "Laba rakco ee koowaad ee Dhuxur, Nabiga ﷺ guud ahaan wuxuu akhriyay:",
+    options: [
+      "Al-Fatihah oo keliya",
+      "Al-Fatihah iyo suurad kale",
+      "Waxba — waxay ahayd aamus buuxa",
+      "Tasbih oo keliya",
+    ],
+    explanation:
+      "Abu Qatadah wuxuu sheegay in Nabiga ﷺ uu akhriyay Al-Fatihah iyo suurad kale labada rakco ee koowaad ee Dhuxur iyo Casar, Al-Fatihah oo keliya labada ugu dambeysa (Sahih al-Bukhari 776; Sahih Muslim 451).",
+  },
+  {
+    prompt: "Markaad Fajr keligaa tukato, waa sunna inaad:",
+    options: [
+      "Akhriyo si aamusan oo keliya",
+      "Akhriyo si weyn (inkastoo aamus weli sax yahay)",
+      "Ka tagto suurada ka dib Al-Fatihah",
+      "Tukato hal rakco oo keliya",
+    ],
+    explanation:
+      "Keligaa, waxaad akhrisaa waxa jamaacada lagu akhriyo; Fajr, Maqrib iyo Cisha waa sunna in si weyn loo akhriyo.",
+  },
+  {
+    prompt:
+      "Run ama been: Lix rakco oo go'an ka dib Maqrib oo Salat al-Awwabin ah waa sunna la xaqiijiyay oo culimadu isku raaceen.",
+    options: ["Run", "Been"],
+    explanation:
+      "Nafl guud ka dib Maqrib waa la dhiirrigeliyaa, laakiin caymiska caanka ah ee lix rakco oo sax ah sida Awwabin waxaa lagu murmaa saxnimadeeda — waa in aan loo soo bandhigin sida sunna go'an oo la xaqiijiyay.",
   },
 ];

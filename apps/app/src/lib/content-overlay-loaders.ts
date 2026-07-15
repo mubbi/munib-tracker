@@ -93,6 +93,7 @@ export const OVERLAY_BASE_KEY_CORPUS: Record<string, ContentOverlayCorpus> = {
   SAHABA_PROFILES: "sahaba",
   SALAH_GUIDE_TOPICS: "salah-guide",
   SALAH_GUIDE_PHRASES: "salah-guide",
+  SALAH_GUIDE_QUIZ: "salah-guide",
   SEERAH_EVENTS: "seerah",
   TAHARAH_TOPICS: "taharah",
   TAHARAH_CHECKLIST: "taharah",

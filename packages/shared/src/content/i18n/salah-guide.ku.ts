@@ -1,4 +1,8 @@
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 // Kurdish (Sorani) translation overlay for the Learn Salah content. Mirrors the order of
@@ -600,6 +604,95 @@ export const SALAH_GUIDE_TOPICS_KU: DeepPartial<SalahGuideTopic>[] = [
           "هیچ دوعایەک بۆ ئەو کەسە نییە کە کرانەوەی کتێب نەخوێنێتەوە. (عوبادەی کوڕی سامیت؛ هەروەها سەحیح موسلیم ٣٩٤)",
       },
     ],
+    appLinks: [{}, { label: "خوێندنەوە بە دەنگی بەرز و بێدەنگ" }, {}, {}, {}],
+  },
+  {
+    title: "خوێندنەوە بە دەنگی بەرز و بێدەنگ",
+    summary:
+      "ئیمام لە کام ڕکاتدا بە دەنگی بەرز و لە کامیاندا بێدەنگ دەخوێنێتەوە، و تۆ لە پشت ئەو یان کاتی نوێژی تاقانەدا چی دەکەیت.",
+    body: [
+      "یەکێک لە باوترین پرسیارەکان بە تێگەیشتن لە دوو بنەما ئاسان دەبێت: هەندێک نوێژ بە دەنگی بەرز (جەهری) و هەندێکی تر بێدەنگ (سری) دەخوێندرێنەوە. پێغەمبەر ﷺ بە هەردوو شێوەکە نوێژی کردووە، هاوەڵان ئەم ڕێکخستنەیان گێڕاوەتەوە و لە کۆکراوە سەرەکییەکانی فەرموودەدا سەلمێنراوە.",
+      "دوو ڕکاتی یەکەمی هەر نوێژێک «ڕکاتە درێژەکان»ن: فاتیحە و دوای ئەو سورەتێک یان چەند ئایەتێک. لە ڕکاتەکانی ماوەی نوێژی سێ یان چوار ڕکاتی، پێغەمبەر ﷺ زۆرجار تەنها فاتیحەی دەخوێندەوە. بۆیە خوێندنەوەی بەرز لە مەغریب و عیشا دوای ڕکاتی دووەم کۆتایی دێت، بەڵام زوهر و عەسر لە سەرەتاوە تا کۆتایی بێدەنگن.",
+      "خوا بە ڕوونی نەیفەرمووە بۆچی هەندێک نوێژ بەرز و هەندێکی تر بێدەنگە. زانایان حیکمەتەکان باس دەکەن، بەڵام موسڵمانان ئەم ڕێکخستنە پەیڕەو دەکەن چونکە سوننەتە. خوا دەفەرموێت: «بەڕاستی لە پێغەمبەری خوادا نموونەیەکی جوانتان هەیە» (٣٣:٢١).",
+      "لە نوێژی بەرزدا لە پشت ئیمام، لەسەر گوێگرتن لە قورئان و نەخوێندنەوەی سورەتێکی تر بە دەنگی بەرز ڕێککەوتن هەیە. خوێندنەوەی بێدەنگی فاتیحە کاتێک ئیمام دەخوێنێتەوە، یەکێکە لە ناکۆکییە ناسراوەکانی چوار مەزهەب؛ هەموویان بۆچوونی پەسەندکراون. لە نوێژی بێدەنگدا ئیمامیش بێدەنگ دەخوێنێتەوە و هەر نوێژخوێنێک بە پێی مەزهەبی خۆی کار دەکات.",
+      "ئەگەر بە تەنیا نوێژ دەکەیت، لە هەر ڕکاتێک فاتیحە و لە دوو ڕکاتی یەکەم سورەتێکی زیادە بخوێنەوە؛ لە ڕکاتەکانی دواتر تەنها فاتیحە. لە نوێژە بەرزەکاندا بۆ نوێژخوێنی تاقانە خوێندنەوە بە دەنگێکی بیستراو مستەحەبە، بەڵام بە بێدەنگییش نوێژەکە دروستە.",
+    ],
+    steps: [
+      {
+        title: "بەیانی — هەردوو ڕکات بە دەنگی بەرز",
+        body: "ئیمام لە هەردوو ڕکاتدا بە دەنگی بەرز دەخوێنێتەوە. لە پشتەوە گوێ بگرە و سورەتێکی تر بە دەنگی بەرز مەخوێنەوە. بۆ فاتیحە هەنگاوی مەزهەبەکان ببینە.",
+      },
+      {
+        title: "نیوەڕۆ — هەر چوار ڕکات بێدەنگ",
+        body: "ئیمام لە هەر ڕکاتێکدا بێدەنگ دەخوێنێتەوە. لە پشت ئەو بە پێی مەزهەبەکەت بۆ خۆت بخوێنەوە.",
+      },
+      {
+        title: "عەسر — هەر چوار ڕکات بێدەنگ",
+        body: "وەک نیوەڕۆ: ئیمام بە تەواوی بێدەنگ دەخوێنێتەوە و نوێژخوێن بە پێی مەزهەبی خۆی کار دەکات.",
+      },
+      {
+        title: "مەغریب — سەرەتا بەرز، پاشان بێدەنگ",
+        body: "ڕکاتی یەکەم و دووەم بەرزن، سێیەم بێدەنگە. لە دوو یەکەمدا گوێ بگرە؛ لە سێیەمدا بە پێی مەزهەبەکەت بخوێنەوە.",
+      },
+      {
+        title: "عیشا — سەرەتا بەرز، پاشان بێدەنگ",
+        body: "دوو ڕکاتی یەکەم بەرزن و سێیەم و چوارەم بێدەنگن. دوو یەکەم گوێ بگرە؛ لە دوو کۆتاییدا بۆ خۆت بخوێنەوە.",
+      },
+      {
+        title: "بۆچی تەنها دوو ڕکاتی یەکەم؟",
+        body: "ئەبو قەتادە گێڕایەوە کە پێغەمبەر ﷺ لە دوو ڕکاتی یەکەمی زوهر و عەسر فاتیحە و سورەتێکی، و لە دوو ڕکاتی کۆتایی تەنها فاتیحەی خوێندووەتەوە. ئەمە ڕکاتە درێژ و کورتەکان ڕوون دەکاتەوە.",
+      },
+      {
+        title: "لە پشت ئیمام لە خوێندنەوەی بەرزدا — ڕێککەوتن",
+        body: "کاتێک قورئان بە دەنگی بەرز دەخوێندرێتەوە، گوێ بگرە. لەگەڵ ئیمام ڕکابەری مەکە. خوا دەفەرموێت: «کاتێک قورئان دەخوێندرێتەوە، گوێی لێ بگرن و بێدەنگ بن، بۆ ئەوەی بەزەییتان پێدا بێتەوە» (٧:٢٠٤).",
+      },
+      {
+        title: "فاتیحە لە پشت ئیمام — چوار مەزهەب",
+        body: "حەنەفییەکان لە قیرائەتی بەرزدا فاتیحە ناخوێننەوە؛ مالیکییەکان زۆرجار گوێ دەگرن؛ شافیعییەکان لە هەر ڕکاتێک، تەنانەت لە پشت ئیمامیش دەیخوێننەوە؛ لە حەنبەلی دوو ڕیوایەت هەیە و زۆرێک کاتی هەڵکەوتدا بە مستەحەبی دەزانن.",
+        tip: "ڕێنمایی مەزهەبەکەت کە لە مامۆستایەکی متمانەپێکراو فێربوویت پەیڕەو بکە. هیچ مەزهەبێک ڕێگە بە خوێندنەوەی سورەت بە دەنگی بەرز لەسەر دەنگی ئیمام نادات.",
+      },
+      {
+        title: "لە پشت ئیمام لە نوێژی بێدەنگدا",
+        body: "لە بۆچوونی موعتەمەدی حەنەفیدا بەبێ فاتیحە بە بێدەنگی تەسبیح و زیکر دەکرێت؛ مالیکییەکان بە پێی دۆخەکە زیکری سووک دەکەن؛ شافیعی و حەنبەلییەکان لە هەر ڕکاتێک فاتیحە بە بێدەنگی دەخوێننەوە.",
+      },
+      {
+        title: "نوێژی تاقانە",
+        body: "دەقەکە ناگۆڕێت، تەنها ئاستی دەنگ: فاتیحە لە هەر ڕکاتێک، سورەت لە دوو یەکەم، پاشان تەنها فاتیحە. لە بەیانی، مەغریب و عیشادا خوێندنەوە بە دەنگی بەرز مستەحەبە.",
+      },
+    ],
+    quran: [
+      { excerpt: "بەڕاستی لە پێغەمبەری خوادا نموونەیەکی جوانتان هەیە." },
+      {
+        excerpt:
+          "کاتێک قورئان دەخوێندرێتەوە، گوێی لێ بگرن و بێدەنگ بن، بۆ ئەوەی بەزەییتان پێدا بێتەوە.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "پێغەمبەر ﷺ لە دوو ڕکاتی یەکەمی زوهر و عەسر فاتیحە و سورەتێکی، و لە دوو ڕکاتی کۆتایی تەنها فاتیحەی خوێدووەتەوە. (ئەبو قەتادە؛ سەحیح موسلیم ٤٥١)",
+      },
+      {
+        excerpt:
+          "نوێژ نییە بۆ ئەو کەسەی فاتیحەی کتێب نەخوێنێتەوە. (عوبادەی کوڕی سامیت؛ سەحیح موسلیم ٣٩٤)",
+      },
+      {
+        excerpt:
+          "لە دوو ڕکاتی یەکەمی زوهر و عەسر خوێندنەوەکەی درێژتر و لە دوو کۆتایی کورتتر دەکرد. (ئەبو قەتادە)",
+      },
+    ],
+    actions: [
+      "لە نوێژی جەماعەتی داهاتوودا سەرنج بدە ئیمام لە کام ڕکاتدا بە دەنگی بەرز دەخوێنێتەوە.",
+      "لە مامۆستای مەزهەبەکەت بپرسە: لە قیرائەتی بەرزدا فاتیحە لە پشت ئیمام دەخوێنیتەوە؟",
+      "کاتی نوێژی تاقانە، نوێژی بەیانی بە دەنگی بەرز بخوێنەوە بۆ هەستکردن بەو سوننەتە.",
+    ],
+    appLinks: [
+      { label: "نوێژ هەنگاو بە هەنگاو" },
+      { label: "نوێژی جەماعەت" },
+      { label: "وشە و واتاکان" },
+    ],
+    disclaimer:
+      "چوار مەزهەب لەسەر خوێندنەوەی فاتیحە لە پشت ئیمام لە نوێژە بەرز و بێدەنگەکاندا جیاوازن. ئەم وانەیە هەر بۆچوونێک دەخاتەڕوو، بێ ئەوەی یەکێکیان بە تەنها دروست بزانێت. وردەکارییەکانی مەزهەبەکەت لە مامۆستایەکی شایستە فێربە.",
   },
   {
     title: "هەموو هەڵوێستێک",
@@ -691,28 +784,43 @@ export const SALAH_GUIDE_TOPICS_KU: DeepPartial<SalahGuideTopic>[] = [
     ],
   },
   {
-    title: "پراکتیزەکردنی سوننەت",
+    title: "Pratîkên sunnetê",
     summary:
-      "پێغەمبەر صلى الله عليه وسلم ئەو کارانەی پێشنیار کردووە کە پاداشتی صلاح جوانتر و زۆرتر دەکەن.",
+      "Resûlê Xuda [dirûd û silavên Xuda lê bin] kirên ku xelata nimêjê xweş dike û zêde dike, tewsiye kiriye.",
     body: [
-      "لە دەرەوەی فەرزەکان، پێغەمبەر صلى الله عليه وسلم مۆدێلی زۆرێک لە پراکتیزە پێشنیارکراوەکانی (سونان) لە دەوری نوێژەکەدا کردووە. ئەوان پێویست نین، بۆیە نەهێشتنی یەکێکیان سەڵات پووچەڵ ناکاتەوە — بەڵام هەریەکەیان لە خوا نزیکترت دەکاتەوە و پاداشتی زیادە بەدەست دەهێنێت و کەموکوڕیەکانی نوێژە فەرزەکان چاک دەکاتەوە.",
-      "سەرەکیترینیان نوێژە سوننەتە ئاساییەکانە (سونانی ڕەواتیب) کە پێش فەرد و دوای فەرد دەکرێت: دوو پێش فەجر (کە پێغەمبەر صلى الله عليه وسلم لە هەموو جیهان بەنرخی زانیوە)، چوار پێش و دوو دوای ذهر، دوو دوای مەغریب و دوو دوای عیشا - دوانزە ڕکات کە پاداشتەکەی خانوویەکە کە لە بەهەشتدا دروستکراوە.",
+      "Pêxemberê Xuda [dirûd û silavên Xuda lê bin] li dora nimêjê, ji ferzên (sûnan) pê ve gelek edetên tewsiye kirine. Ew ne hewce ne, lewra nehiştina nimêja nimêjê betal nake, lê her yek we nêzîkî Xwedê dike, xelata zêde distîne û kêmasiyên nimêjên ferz çêdike.",
+      "Di nav wan de serek nimêja sunnetê ya birêkûpêk (sunnet rewatib) e ku berî û piştî ferizê tê kirin. Her nimêjê dilxwazî ​​yek giranî nagire: alim sunneta mu'ekkada (teqdîr, bi rêkûpêk ji hêla Pêxember ﷺ ve hatî kirin), sunneta geyr mu'akkadah (tewsiye kirin lê kêm tê çewisandin), û nefla giştî (bijartî, bê jimareyek sabit) ji hev cuda dikin. Zanîna cûdahiyê ji we re dibe alîkar ku pêşî li tiştê ku hûn rojane biparêzin bidin.",
+      "Bernameya rojane ya herî zelal û bi delîlên herî xurt dozdeh rewatîb e: Du berî Fecrê, çar berî Dehrê, dudu piştî Duhrê, du piştî Mexribê û du jî piştî Îşayê - donzdeh rekatên ku xelata wan xanîyek e ku li cennetê hatiye çêkirin e. Ji bo veqetandina tam a nimêjê bi delîlan li Cureyên dersa salah binêre.",
     ],
     actions: [
-      "پێش ودو و نوێژ میسواک (سیواک) بەکاربهێنە — پێغەمبەر صلى الله عليه وسلم نزیک بوو لە واجب.",
-      "بە هێمنی و زوو بەرەو مزگەوتەکە بڕۆن — هەر هەنگاوێک پلەیەک بەرز دەکاتەوە و گوناهێک دەسڕێتەوە.",
-      "پاسەوانی دوانزە ڕکاتی سوننەتی ڕواتیب بۆ ماڵێکی بەڵێندراو لە بەهەشتدا.",
-      "بە پێی ڕاست بچنە ناو مزگەوتەوە و بە چەپ دەربچن، هەریەکەیان دوعای خۆیان هەیە.",
-      "دوای هەموو نوێژێک ئەدکاری دامەزراو بخوێنە — سەیری دوای سەڵاح بکە.",
+      "Berî wudû û nimêjê miswak (sivak) bi kar bînin – Pêxember (s.a.a) hema wacib kirîye.",
+      "Bi aramî û zû ber bi mizgeftê ve bimeşin - her gav mertebeyek bilind dike û gunehek ji holê radike.",
+      "Dozdeh rekatên sunnetê rewatib ji bo maleke sozdayî li cennetê biparêzin.",
+      "Bi lingê rastê bikeve mizgeftê û bi lingê çepê her yek bi duayê xwe derkeve.",
+      "Piştî her nimêjê adkara sazkirî bixwîne - Binêre Piştî Salah.",
     ],
     hadith: [
       {
         excerpt:
-          "ئەگەر ئەوە نەبوایە ئومەتەکەم قورستر بکردایە، پێش هەموو نوێژێک فەرمانم پێدەکردن سیواک بەکاربهێنن. (ئەبو هورەیرە؛ هەروەها صحیح موسلیم ٢٥٢)",
+          "Heger ne ji ummeta xwe bar bikira, min ê emir li wan bikira ku berî her nimêjê siwakê bi kar bînin. (Ebû Hureyre; Sahih Muslim 252 jî)",
+      },
+      {
+        excerpt: "Hz. (Aîşa; jî Sahih Muslim 724)",
       },
       {
         excerpt:
-          "هەرکەسێک لە شەو و ڕۆژێکدا دوانزە ڕکات نوێژی خۆبەخشانە بکات، لە بەهەشت ماڵێکی بۆ دروست دەکرێت. (ئوم حەبیبە)",
+          "Kî di şev û roj de duwanzdeh rekat nimêj bike, Xwedê ji wî re di cennetê de malek çêdike – du berî sibeyê, çar berî sibeyê, dudu piştî nîvroyê, dudu paşî mexribê û duduyan jî piştî îşayê. (Umm Hebîbe)",
+      },
+    ],
+    appLinks: [
+      {
+        label: "Cûreyên salah - rêberiya rawatib",
+      },
+      {
+        label: "Sunnet û adkerên piştî selahiyetê",
+      },
+      {
+        label: "Duayên mizgeftê",
       },
     ],
   },
@@ -801,55 +909,129 @@ export const SALAH_GUIDE_TOPICS_KU: DeepPartial<SalahGuideTopic>[] = [
       "ئایا ئەو دوو سوجدە بەر لە سەلام دەکەون یان دوای سەلام ئەوە بەندە بە هەڵەکەوە، قوتابخانەکانیش جیاوازن. هەردووکیان لە سوننەتەوە؛ مەهێڵە نادڵنیایی لێرە ڕێگریت لێبکات لە نوێژکردن.",
   },
   {
-    title: "جۆرەکانی سەڵاح",
-    summary: "فەرد و سوننەت و ویتر و ئەو نوێژە خۆبەخشانەی کە ڕۆژی ئیماندار دەوڵەمەندتر دەکەن.",
+    title: "Cureyên salah",
+    summary:
+      "Ferd, sunnet mu'ekkede, sunnet geyr mu'ekkadeh, witr, û nefl giştî - bi delîlên rast ji bo her yekê.",
     body: [
-      "نوێژەکان بەپێی واجب پلەبەندی دەکرێن. پێنج نوێژی ڕۆژانە فەردن - واجبێکی توند لەسەر هەموو موسڵمانێکی لێپرسینەوە. لە دەوری و لە دەرەوەی ئەوان جیهانێکی دەوڵەمەندی نوێژی خۆبەخشانە هەیە کە لە ڕێگەیەوە پێغەمبەر صلى الله عليه وسلم زیاتر لە خوا نزیک بووەتەوە و لە ڕێگەیەوە ئێمەش دەتوانین.",
-      "نوێژی خۆبەخشانە لەبەر دوو هۆکار گرنگن: ئەوان کردەوەی خۆشەویستن کە پلەی ئیماندار بەرز دەکەنەوە - خوای گەورە لەبارەی عیبادەتی زیادەوە دەفەرموێت: 'بەندەکەم بەردەوام بە کردەوەی خۆبەخشانە لێم نزیک دەبێتەوە تا خۆشم دەوێت' - وە نوێژە فەرزەکان چاک دەکەنەوە، بەو پێیەی هەر کەموکورتییەک لە فەرددا لە نوێژی خۆبەخشانەی کەسێکەوە لە ڕۆژی قیامەتدا تەواو دەبێت.",
+      "Nimêj ji hêla ferzkirinê ve têne pîvandin. Pênc nimêjên rojane farz in - li ser her misilmanek berpirsiyar ferzek hişk. Li dora wan cîhanek nimêja dilxwazî ​​ya dewlemend heye ku Pêxember (s.a.w) her ku diçe nêzîkî Allah bûye û em jî bi wê re dikarin.",
+      "Ji bo hînbûna deng, çar kategoriyên dilxwaz ên ku di nivîsarên otantîk de hatine veqetandin ji hev cuda bikin: sunneta mu'ekkada (bi rawetîba Pêxember (s.a.a) kêm maye), sunnet ghayr mu'akkadah (tewsiye kirin lê kêm tê xêzkirin), witr (di kategoriya xwe de tê girtin ji ber ku henefî wê wacib û netew dihesibînin dema ku pirraniya wan sunnetah hesab dikin). nimêjên bê hejmartinek sabît, bê nîqaş). Li cihê ku alim li ser jimarek diyar ji hev cuda ne - wek şeş rekatên piştî Mexribê wek Salat el-Ewwabin - em teşwîqek giştî pêşkêş dikin bêyî ku jimareya nakok wek sunneta destnîşankirî bihesibînin.",
+      "Nimêjên bi dilxwazî ji ber du sedeman girîng in: Ew kirinên hezkirî ne ku mertebeya bawermend bilind dikin, û nimêjên wacib temîr dikin, ji ber ku her kêmasiyek di farzê de ji nimêjên bi dilxwazî yên roja qiyametê temam dibe.",
+      "Diwanzdeh rewatîbên jêrîn bernameya sunneta rojane ya herî zelal e ku bi lihevhatina herî xurt heye. Tabloya rekatê ya li ser navenda Fêrbûna Selah van diwanzdeh rekatên girankirî dişopîne; Nefla vebijarkî berî esrê, berî mexribê, an jî piştî îşayê, li cihê ku delîl hebin, lê di wê hejmartina sabît de nayê qewirandin, tê teşwîqkirin.",
     ],
     steps: [
       {
-        title: "پێنج فەردی ڕۆژانە",
-        body: "فەجر، ذهر، عەسر، مەغریب، عیشا — بناغەی فەرز، هەرگیز وازی لێ نەهێنرێت.",
+        title: "Pênc rojane farz",
+        body: "Fecr, Dhuhr, Esr, Magrib, Isha - bingehê ferz, ku tu carî nayê berdan.",
       },
       {
-        title: "سوننەت ڕەواتیب",
-        body: "ڕکاتە ئاساییەکانی سوننەت پێش فەرد و دوای فەرد — دوانزە ڕۆژانە خانوویەک لە بەهەشتدا بەدەست دەهێنن.",
+        title: "Fecr - 2 berî (sunnet mu'ekkade)",
+        body: "Du rekatên beriya farza Fecrê sunnet mueked in û Pêxember (s.a.w) qet îhmal nekiriye. Piştî Fecrê tu sunneta asayî ya resen tune; Nimêja dilxwazî ​​bi giştî piştî Cejna Remezanê heta hilatana rojê qedexe ye.",
       },
       {
-        title: "ویتر",
-        body: "نوێژێکی ژمارە نامۆ دوای عیشا، مۆری نوێژی شەو — سوننەت موعقەدە بۆ زۆرینە، و وەجیب لە قوتابخانەی حەنەفی.",
+        title: "Dûhr - 4 berî û 2 piştî (sunnet mu'ekkade)",
+        body: "Çar rekat beriya Demê û du reketên piştî wê jî parek ji dozdeh rewatib (sunneta mu'ekede) ne. Wekî din, Ummu Hebîbe radigihîne ku her kesê ku çaran berî saetê û çaran piştî wê nimêj bike, Xwedê wî ji agir qedexe dike - lewra du rekatên zêde piştî du rewatîban bi neflê tê tewsiyekirin û hin aliman jî du rekatên zêde berî nîvê şeşan tewsiye dikin.",
       },
       {
-        title: "تەحجود (قیام اللەیل)",
-        body: "شەو نوێژی لە سێیەمی کۆتایی شەودا — فەزیلەتترین نوێژی خۆبەخشانە، و خووی چاکەکاران.",
+        title: "Asr - 4 berî (sunneta geyr mu'ekkadah)",
+        body: "Çar rekat beriya esrê pir tê tewsiyekirin (sunnet ghayr mu'ekkadeh). Piştî esrê sunneteke birêkûpêk a resen nîne; Nimêja dilxwazî ​​bi gelemperî piştî esrê heta rojavabûnê qedexe ye.",
       },
       {
-        title: "دوها",
-        body: "نوێژی نیوەی بەیانی (٢-٨ ڕکات) — خێرێکە کە دەبێ بۆ هەریەک لە جومگەکانی جەستە هەموو ڕۆژێک بدرێت.",
+        title: "Mexrib - 2 berî û 2 piştî",
+        body: "Du rekatên piştî Mexribê sunneta muekede (parçeyek ji dozdeh rewatîbê). Pêxemberê Xuda [dirûd û silavên Xuda lê bin] berî mexribê du caran gotîye ‘berî mexribê nimêj bike’, dû re ‘ji bo kê bixwaze’ lê zêde kiriye, lewra dudu berê jî neflî bijartî ne, ne rewatîbeke sabit. Nimêja bi dilxwazî ​​ya giştî piştî Mexribê tê teşwîqkirin, lê danasîna navdar a şeş rekatan wekî Salat el-Ewwabin di rastiya xwe de tê nîqaş kirin; şeşek sabît wekî sunneta destnîşankirî pêşkêş nekin.",
       },
       {
-        title: "تەراویح",
-        body: "شەو نوێژی جەماعەتی ڕەمەزان — زیندووکردنەوەی شەوانی مانگی پیرۆز.",
+        title: "Isha - 2 piştî & bijarte berî",
+        body: "Du rekatên piştî Îşayê sunneta muekde (parçeyek ji dozdeh rewatib) e. Beriya Îşayê, hedîsa 'Di navbera her du bangan de nimêj heye' di navbera ezan û îqametê de du-çar rekat destûr dide - neflê giştî, ne sunnetek rewatib. Nimêja bi dilxwazî ​​ya zêde piştî îşayê rewa ye, lê tu sunneteke sabit ji rewatîba birêkûpêk wêdetir du duyan diyar nake.",
       },
       {
-        title: "ئەو دوو جەژنە",
-        body: "دوو ڕکاتی جەژنی قوربان و جەژنی قوربان، دواتر وتارەکە.",
+        title: "Witr - kategoriya cuda",
+        body: "Witr piştî Îşayê bi jimareke xas (1, 3, 5, 7, 9, 11…) tê dua kirin. Gelek hedîsên resen ferman dikin û teşwîq dikin. Henefî wacib dihesibînin; pirraniya wê sunnet mu'ekede. Ji ber vê cudahiya ramanê li ser hukmê wê yê qanûnî ji diwanzdeh rewatîbê cuda tê girtin.",
       },
       {
-        title: "ئیستیخارە",
-        body: "نوێژێکی دوو ڕکات کە داوای هیدایەتی خوای گەورە دەکات پێش بڕیاردان.",
+        title: "Diwanzdeh rawatib - bernameya lihevhatî",
+        body: "Beriya Demê: 2. Beriya Demê: 4. Piştî Demê: 2. Piştî Mexribê: 2. Piştî Îşayê: 2. Bi tevahî: 12 reket. Kî bi rêkûpêk wan nimêj bike, Xwedê li cennetê xanî ava dike.",
       },
       {
-        title: "جەنازا",
-        body: "نوێژی پرسە — ئەرکێکی کۆمەڵایەتی (فەرد کیفایە) کە بە وەستان پێشکەش دەکرێت، بەبێ ڕوکو و سوجود.",
+        title: "Nafl pêşniyar kirin - rawatîb ne sabît",
+        body: "Berî esrê: 4 (hesen). Beriya Mexribê: 2 bijartî (sahîh). Beriya îşayê: 2 an 4 di navbera ezan û îqametê (sahîh). Zêdeyî berî Duhrê: 2 pêşniyar kirin. Piştî Duhrê zêde: 2 (hesen/sahih). Piştî Mexrib û Îşayê: neflê giştî teşwîq kirin - bêyî hejmartinek sabît a nakokî.",
+      },
+      {
+        title: "Tehecûd (qiyam el-leyl)",
+        body: "Nimêja şevê di sisiya paşîn a şevê de - nimêja dilxwazî ya herî hêja û adetên rastdar e.",
+      },
+      {
+        title: "Duha",
+        body: "Nimêja nîvroyê (2-8 rekat) - her roj ji bo her yek ji movikên laş sedeqe ye.",
+      },
+      {
+        title: "Tarawih",
+        body: "Nimêja şevê ya Cemaetê ya Remezanê - vejandina şevên meha pîroz.",
+      },
+      {
+        title: "Du eyd",
+        body: "Du rekatên Eyda Remezanê û Cejna Qurbanê piştî xutbeyê.",
+      },
+      {
+        title: "Istikharah",
+        body: "Du rekat nimêja ku berî biryarê bide rêberiya Xwedê.",
+      },
+      {
+        title: "Janazah",
+        body: "Nimêja cenazê - wacibeke komî (ferd kifaye) ku li ser piyan, bê ruku û sucûd tê dayîn.",
       },
     ],
     hadith: [
       {
-        excerpt: "باشترین نوێژ دوای نوێژە فەرزەکان شەونوێژە. (ئەبو هورەیرە)",
+        excerpt: "Hz. (Aîşa; jî Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kî di şev û roj de duwanzdeh rekat nimêj bike, Xwedê ji wî re di cennetê de malek çêdike – du berî sibeyê, çar berî sibeyê, dudu piştî nîvroyê, dudu paşî mexribê û duduyan jî piştî îşayê. (Umm Hebîbe)",
+      },
+      {
+        excerpt:
+          "Kî çar reketan berî demjmêr û çar rekatan piştî wê nimêj bike, Xwedê wî ji agir heram dike. (Ummu Hebîbe; ji aliyê gelek alim ve rast hatiye nirxandin)",
+      },
+      {
+        excerpt: "Xwedê rehma xwe li kesê ku berî esrê çar reket nimêj bike.",
+      },
+      {
+        excerpt:
+          "Beriya Mexribê nimêj bike, berî Mexribê nimêj bike - Paşê got: Ji bo kê bixwaze. (Îbn Umer)",
+      },
+      {
+        excerpt:
+          "Di navbera her du bangan (ezanê û îqametê) de nimêj heye. (Enas ibn Malik; Sahih Muslim 838 jî)",
+      },
+      {
+        excerpt:
+          "Witr erkek e, îdî kî bixwaze bila pênc nimêj bike, kî bixwaze bila sê nimêj bike û kî bixwaze bila nimêjekî bike. (Îbn Umer)",
+      },
+      {
+        excerpt: "Piştî nimêja ferz nimêja herî baş nimêja şevê ye. (Ebû Hureyre)",
+      },
+      {
+        excerpt: "Evdê min heta ku ez jê hez bikim bi karên dilxwazî nêzî min dibe. (Hedîsa Qudsî)",
       },
     ],
+    actions: [
+      "Bi diwanzdeh rawatîbê dest pê bikin - berî ku naflê vebijarkî lê zêde bikin, adetê ava bikin.",
+      "Tabloya rekatê ya li ser vê navberê bikar bînin da ku li dora her farisê sunneta girankirî bişopînin.",
+      "Kartên delîlên li jêr bixwînin û hedîsa ku hûn dixwazin ji nû ve bişopînin nîşan bikin.",
+    ],
+    appLinks: [
+      {
+        label: "Pratîkên sunnetê",
+      },
+      {
+        label: "rêberê Tehecûd",
+      },
+      {
+        label: "Tabloya Rakats",
+      },
+    ],
+    disclaimer:
+      "Hukma qanûnî ya Wîtr (wacib û sunneta mu'ekkade), jimartina rast a rekatên bijarte yên berî Îşayê, û nimêja Ewwabin piştî Mexribê mijarên cudahiya zanistî ne. Ev ders tenê tiştê ku bingehek nivîsê ya otantîk heye pêşkêş dike û li ku derê ew lihevnekirin destnîşan dike.",
   },
   {
     title: "جومعە — نوێژی هەینی",
@@ -1050,5 +1232,141 @@ export const SALAH_GUIDE_PHRASES_KU: DeepPartial<SalahGuidePhrase>[] = [
     translation: "درود و ڕەحمەتی خواتان لەسەر بێت.",
     meaning:
       "تۆ نوێژەکە بەجێدەهێڵیت وەک چۆن لە کۆمەڵگەی ڕێزلێگیراوەکان بەجێدەهێڵیت — لەگەڵ سڵاوێکی ئاشتی بۆ ئەو فریشتانەی کە لەسەر هەر شانێک تۆماریان کردووە و بۆ ئەوانەی لە تەنیشتتەوە نوێژ دەکەن. سەلام ستوونێکە؛ لەگەڵیدا نوێژەکە تەواو دەبێت.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_KU: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "چەند ڕکاتی سوننەتی ڕەواتیب لە ڕۆژێکدا لەسەر یەک ڕێکەوتووە؟",
+    options: ["٨", "١٠", "١٢", "١٤"],
+    explanation:
+      "دوانزە ڕەواتیب: دوو پێش فەجر، چوار پێش زوهر، دوو دوای زوهر، دوو دوای مەغریب و دوو دوای عیشا (سەحیح موسلیم ٧٢٨).",
+  },
+  {
+    prompt: "پێش فەجر، سوننەتی مەککەدە (پەسەندکراو) بریتییە لە:",
+    options: ["هیچ", "٢ ڕکات", "٤ ڕکات", "تەنها دوای ٢ ڕکات"],
+    explanation:
+      "دوو ڕکات پێش فەجر سوننەتی مەککەدەیە — پێغەمبەر ﷺ هەرگیز وازیان نەهێنا (سەحیح بوخاری ١١٦٩؛ سەحیح موسلیم ٧٢٤).",
+  },
+  {
+    prompt: "ڕەواتیبە ڕێککەوتووەکان لە دەوری زوهر:",
+    options: ["٢ پێش، ٢ دوای", "٤ پێش، ٢ دوای", "٤ پێش، ٤ دوای", "تەنها ٢ پێش"],
+    explanation:
+      "چوار ڕکات پێش زوهر و دوو دوای ئەو بەشێکن لە دوانزە ڕەواتیب. زیادە لەسەریان نەفلی پێشنیارکراوە، نەک ڕەواتیبی جێگیر.",
+  },
+  {
+    prompt: "ڕاست یان هەڵە: چوار ڕکات پێش عەسر بەشێکە لە دوانزە ڕەواتیبی جێگیرەی ڕۆژانە.",
+    options: ["ڕاست", "هەڵە"],
+    explanation:
+      "چوار ڕکات پێش عەسر سوننەتی غەیری مەککەدەیە (بە شێوەیەکی بەرفراوان پێشنیار دەکرێت)، بەڵام لە دوانزە ڕەواتیبدا ناژمێردرێت (جامیع تورموزی ٤٣٠).",
+  },
+  {
+    prompt: "بۆچی ویتر لە پۆلێکی جیاوازدا لە شوێنکەوتووی نوێژدا دەپارێزرێت؟",
+    options: [
+      "لە حەدیسدا باس نەکراوە",
+      "حەنەفییەکان واجب دەزانن، زۆرینە سوننەتی مەککەدە دەزانن",
+      "هەمیشە پێش عیشا دەخوێنرێتەوە",
+      "ژمارەی ڕکاتەکەی دیاری نەکراوە",
+    ],
+    explanation:
+      "وتر بە بەڵگەی بەهێز جێگیرە، بەڵام زانایان لە حوکمی واجب یان سوننەتی مەککەدەدا جیاوازن — بۆیە جیا لە دوانزە ڕەواتیب دەپارێزرێت.",
+  },
+  {
+    prompt: "لە نوێژی فەجری کۆمەڵایەتی، ئیمام دەخوێنێتەوە:",
+    options: [
+      "بێدەنگ لە هەردوو ڕکاتدا",
+      "بە دەنگی بەرز لە هەردوو ڕکاتدا",
+      "بە دەنگی بەرز تەنها لە یەکەم",
+      "بێدەنگ لە یەکەم، بەرز لە دووەم",
+    ],
+    explanation: "فەجر لە هەردوو ڕکاتدا جەهرییە. لە پشت ئیمامەوە بە وریایی گوێ دەگریت.",
+  },
+  {
+    prompt: "زوهر و عەسر لە کۆمەڵایەتی دەخوێنرێنەوە:",
+    options: [
+      "بە دەنگی بەرز لە هەموو ڕکاتەکاندا",
+      "بێدەنگ لە هەموو ڕکاتەکاندا",
+      "بەرز لە یەکەم دوو، بێدەنگ دوای",
+      "بێدەنگ لە یەکەم دوو، بەرز دوای",
+    ],
+    explanation:
+      "زوهر و عەسر بە تەواوی سریین — ئیمام بە نزمی دەخوێنێتەوە و هەر نوێژخوێنێک بۆ خۆی دەخوێنێتەوە.",
+  },
+  {
+    prompt: "لە مەغریبدا، ئیمام بە دەنگی بەرز دەخوێنێتەوە لە:",
+    options: [
+      "هەر سێ ڕکاتدا",
+      "تەنها لە یەکەم دوو ڕکاتدا",
+      "تەنها لە ڕکاتی سێیەمدا",
+      "هیچ — مەغریب بە تەواوی بێدەنگە",
+    ],
+    explanation:
+      "مەغریب جەهرییە لە یەکەم و دووەم، سری لە سێیەم — هەمان شێوازی ڕکاتە درێژ و کورتەکان.",
+  },
+  {
+    prompt: "لە عیشادا، کەی خوێندنەوەی بەرز دەوەستێت؟",
+    options: [
+      "دوای ڕکاتی یەکەم",
+      "دوای ڕکاتی دووەم",
+      "دوای ڕکاتی سێیەم",
+      "هەرگیز — هەر چوار ڕکات بەرزن",
+    ],
+    explanation: "عیشا جەهرییە لە یەکەم دوو ڕکاتدا و سری لە سێیەم و چوارەم.",
+  },
+  {
+    prompt: "لە نوێژە بەرزەکاندا لە پشت ئیمام، هەموو کەس ڕێکدەخات:",
+    options: [
+      "سورەتێکی تر بە دەنگی بەرز لەگەڵ ئیمام بخوێنیتەوە",
+      "بە وریایی گوێ بگریت و سورەتێکی تر بە دەنگی بەرز نەخوێنیتەوە",
+      "دوای الفاتیحە نوێژەکە بەجێبهێڵیت",
+      "تەنها لە ڕکاتی کۆتاییدا بخوێنیتەوە",
+    ],
+    explanation: "خوا دەفەرموێت: «کاتێک قورئان دەخوێنرێتەوە، گوێی لێ بگرن و بێدەنگ بن» (٧:٢٠٤).",
+  },
+  {
+    prompt: "بەپێی مەزهەبی شافعی، لە پشت ئیمام لە نوێژی بەرزدا:",
+    options: [
+      "هەرگیز الفاتیحە ناخوێنیتەوە",
+      "الفاتیحە لە هەر ڕکاتێکدا دەخوێنیتەوە",
+      "تەنها لە ڕکاتە بێدەنگەکاندا دەخوێنیتەوە",
+      "بە دەنگی بەرز لەگەڵ ئیمام دەخوێنیتەوە",
+    ],
+    explanation:
+      "شافعییەکان خوێندنەوەی الفاتیحە لەسەر هەر نوێژخوێنێک لە هەر ڕکاتێکدا پێویست دەزانن: «هیچ نوێژێک نییە بۆ ئەوەی الفاتیحەی کتێب نەخوێنێتەوە» (سەحیح بوخاری ٧٥٦).",
+  },
+  {
+    prompt: "بەپێی مەزهەبی حەنەفی، لە نوێژە بەرزەکاندا لە پشت ئیمام:",
+    options: [
+      "الفاتیحە بە نزمی لە هەر ڕکاتێکدا بخوێنیتەوە",
+      "بە وریایی گوێ بگریت و الفاتیحە نەخوێنیتەوە",
+      "تەنها سورەتەکە دوای الفاتیحە بخوێنیتەوە",
+      "پێویستە الفاتیحە بە دەنگی بەرز بخوێنیتەوە",
+    ],
+    explanation:
+      "ڕای سەرەکی حەنەفییەکان گوێگرتنە لە نوێژە جەهرییەکاندا؛ خوێندنەوەی ئیمام بەسە. هەر چوار مەزهەبی سوننی پێگەی دروستن.",
+  },
+  {
+    prompt: "لە یەکەم دوو ڕکاتی زوهر، پێغەمبەر ﷺ بەگشتی دەخوێنی:",
+    options: ["تەنها الفاتیحە", "الفاتیحە و سورەتێکی تر", "هیچ — بە تەواوی بێدەنگ", "تەنها تەسبیح"],
+    explanation:
+      "ئەبو قەتادە گێڕاوەتەوە پێغەمبەر ﷺ لە یەکەم دوو ڕکاتی زوهر و عەسر الفاتیحە و سورەتێکی تر، لە دوایین دوو ڕکاتدا تەنها الفاتیحە دەخوانی (سەحیح بوخاری ٧٧٦؛ سەحیح موسلیم ٤٥١).",
+  },
+  {
+    prompt: "کاتێک فەجر بە تەنیا دەخوێنیتەوە، سوننەتە:",
+    options: [
+      "تەنها بێدەنگ بخوێنیتەوە",
+      "بە دەنگی بەرز بخوێنیتەوە (بێدەنگیش دروستە)",
+      "سورەتەکە دوای الفاتیحە بەجێبهێڵیت",
+      "تەنها یەک ڕکات بخوێنیتەوە",
+    ],
+    explanation:
+      "بە تەنیا هەمان شت دەخوێنیتەوە وەک لە کۆمەڵایەتی؛ لە فەجر، مەغریب و عیشادا خوێندنەوەی بەرز سوننەتە.",
+  },
+  {
+    prompt:
+      "ڕاست یان هەڵە: شەش ڕکاتی جێگیر دوای مەغریب وەک سەلات ئەلووابین سوننەتێکی جێگیرە بە یەکڕای زانایان.",
+    options: ["ڕاست", "هەڵە"],
+    explanation:
+      "نەفلی گشتی دوای مەغریب هانی دەدرێت، بەڵام دیاریکردنی بەتەواوی شەش ڕکات وەک ئەلووابین لە ڕاستییدا جێگیر نییە — وەک سوننەتێکی جێگیر پێشکەش مەکە.",
   },
 ];

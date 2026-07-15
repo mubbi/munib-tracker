@@ -1,4 +1,8 @@
-import type { LastDayQuizQuestion, QuranGuideQuizQuestion } from "@munib-tracker/shared/types";
+import type {
+  LastDayQuizQuestion,
+  QuranGuideQuizQuestion,
+  SalahGuideQuizQuestion,
+} from "@munib-tracker/shared/types";
 
 import type { StudyMcq, StudySourceId } from "./types";
 
@@ -43,4 +47,8 @@ export function mcqsFromLastDayQuiz(questions: readonly LastDayQuizQuestion[]): 
 
 export function mcqsFromQuranGuideQuiz(questions: readonly QuranGuideQuizQuestion[]): StudyMcq[] {
   return mapAuthored("learnQuran", questions, "learnQuran.quizCategory");
+}
+
+export function mcqsFromSalahGuideQuiz(questions: readonly SalahGuideQuizQuestion[]): StudyMcq[] {
+  return mapAuthored("salahGuide", questions, "flashCards.category.salahGuide");
 }

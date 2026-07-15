@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
@@ -595,7 +599,95 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
           "Il n'y a pas de prière pour celui qui ne récite pas l'Ouverture du Livre. (Ubadah ibn as-Samit ; ​​également Sahih Muslim 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [{}, {}, {}, {}, { label: "Récitation à voix haute et silencieuse" }],
+  },
+  {
+    title: "Récitation à voix haute et silencieuse",
+    summary:
+      "Dans quelles rak'ahs l'imam récite à voix haute, lesquelles sont silencieuses, et ce que vous devez faire derrière lui ou seul.",
+    body: [
+      "L'une des questions les plus courantes — chez les nouveaux musulmans comme chez les croyants de longue date — devient simple lorsque l'on comprend deux principes : certaines prières se récitent à voix haute (jahri) et d'autres silencieusement (sirri). Le Prophète ﷺ priait des deux manières ; les Compagnons ont transmis ce modèle, consigné dans les principaux recueils de hadiths.",
+      "Dans chaque prière, les deux premières rak'ahs sont les « longues » : Al-Fatihah suivie d'une autre sourate (ou de plusieurs versets). Dans les rak'ahs restantes d'une prière de trois ou quatre rak'ahs, le Prophète ﷺ récitait généralement uniquement Al-Fatihah. C'est pourquoi la récitation audible cesse après la deuxième rak'ah du Maghrib et de l'Isha, tandis que le Dhuhr et l'Asr restent entièrement silencieux.",
+      "Allah n'a pas indiqué de raison explicite pour laquelle certaines prières sont audibles et d'autres silencieuses. Les savants évoquent des sagesses — les prières nocturnes se prêtent à la récitation audible, celles du jour ont lieu au milieu du travail et de la vie publique, et ce modèle distingue les prières — mais les musulmans le suivent avant tout parce que c'est la Sunna. Allah dit : « Vous avez dans le Messager d'Allah un excellent modèle » (33:21).",
+      "Derrière l'imam, la règle reconnue dans les prières audibles est d'écouter attentivement et de ne pas réciter une autre sourate à voix haute. Réciter aussi Al-Fatihah à voix basse pendant la récitation de l'imam est l'une des divergences les plus connues entre les quatre écoles sunnites — toutes sont des positions valides soutenues par des savants reconnus. Dans les prières silencieuses, l'imam récite à voix basse et chaque fidèle récite pour lui-même selon l'enseignement de son école.",
+      "Lorsque vous priez seul : récitez Al-Fatihah dans chaque rak'ah ; ajoutez une sourate dans les deux premières rak'ahs de chaque prière ; dans la ou les dernières, récitez uniquement Al-Fatihah. Dans les prières audibles, réciter à voix haute lorsqu'on est seul est une sunna, mais prier à voix basse reste valide.",
+    ],
+    steps: [
+      {
+        title: "Fajr — à voix haute dans les deux rak'ahs",
+        body: "L'imam récite à voix haute dans les deux rak'ahs. Derrière lui : écoutez attentivement et ne récitez pas une autre sourate à voix haute. Pour Al-Fatihah, consultez l'étape sur les écoles ci-dessous.",
+      },
+      {
+        title: "Dhuhr — silencieux dans les quatre rak'ahs",
+        body: "L'imam récite silencieusement dans chaque rak'ah. Derrière lui, récitez Al-Fatihah et la sourate à voix basse pour vous-même selon votre école.",
+      },
+      {
+        title: "Asr — silencieux dans les quatre rak'ahs",
+        body: "Comme le Dhuhr : l'imam récite entièrement à voix basse et chaque fidèle récite silencieusement derrière lui.",
+      },
+      {
+        title: "Maghrib — à voix haute puis silencieux",
+        body: "À voix haute dans les première et deuxième rak'ahs, silencieux dans la troisième. Derrière lui : écoutez pendant les deux premières ; dans la troisième, récitez pour vous-même selon votre école.",
+      },
+      {
+        title: "Isha — à voix haute puis silencieux",
+        body: "À voix haute dans les première et deuxième rak'ahs, silencieux dans les troisième et quatrième. Derrière lui : écoutez pendant les deux premières ; dans les deux dernières, récitez pour vous-même selon votre école.",
+      },
+      {
+        title: "Pourquoi seulement les deux premières rak'ahs ?",
+        body: "Abu Qatadah (RA) rapporte que le Prophète ﷺ récitait Al-Fatihah et une autre sourate dans les deux premières rak'ahs du Dhuhr et de l'Asr, et uniquement Al-Fatihah dans les deux dernières. Ce modèle explique la structure des rak'ahs longues et courtes dans chaque prière qui en compte plusieurs.",
+      },
+      {
+        title: "Derrière l'imam dans les prières audibles — accord général",
+        body: "Écoutez attentivement lorsque le Qur'an est récité à voix haute. Ne rivalisez pas avec l'imam et ne récitez pas une autre sourate à voix haute. Allah dit : « Quand le Qur'an est récité, écoutez-le attentivement et gardez le silence afin qu'il vous soit fait miséricorde » (7:204).",
+      },
+      {
+        title: "Al-Fatihah derrière l'imam — les quatre écoles",
+        body: "Hanafite : ne récitez pas Al-Fatihah dans les prières audibles ; écoutez. Malikite : écoutez généralement pendant la récitation audible. Shafi'ite : récitez Al-Fatihah dans chaque rak'ah, même derrière l'imam. Hanbalite : deux avis ; de nombreux savants hanbalites recommandent de la réciter pendant les pauses ou lorsque c'est possible. Les quatre sont des positions sunnites reconnues.",
+        tip: "Suivez l'enseignement de l'école que vous avez appris auprès d'un professeur fiable. Aucune école ne permet de réciter une autre sourate à voix haute par-dessus l'imam.",
+      },
+      {
+        title: "Derrière l'imam dans les prières silencieuses",
+        body: "Hanafite (avis retenu) : récitez silencieusement le thana et le dhikr, mais pas Al-Fatihah — la récitation de l'imam suffit. Malikite : évocation à voix basse ; la pratique varie. Shafi'ite et hanbalite : récitez vous-même Al-Fatihah à voix basse dans chaque rak'ah.",
+      },
+      {
+        title: "Prier seul",
+        body: "Ce que vous récitez ne change pas, seule l'élévation de la voix diffère. Chaque rak'ah : Al-Fatihah. Les deux premières : ajoutez une sourate. La ou les dernières : Al-Fatihah seulement. Au Fajr, au Maghrib et à l'Isha, réciter à voix haute est une sunna ; le Dhuhr et l'Asr se récitent silencieusement.",
+      },
+    ],
+    quran: [
+      { excerpt: "Vous avez dans le Messager d'Allah un excellent modèle." },
+      {
+        excerpt:
+          "Quand le Qur'an est récité, écoutez-le attentivement et gardez le silence afin qu'il vous soit fait miséricorde.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Le Prophète ﷺ récitait Al-Fatihah et une autre sourate dans les deux premières rak'ahs du Dhuhr et de l'Asr, et uniquement Al-Fatihah dans les deux dernières. (Abu Qatadah; also Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Il n'y a pas de prière pour celui qui ne récite pas l'Ouverture du Livre. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "Dans les deux premières rak'ahs du Dhuhr et de l'Asr, il récitait ce qui faisait penser qu'il lisait les longues sourates, et dans les deux dernières ce qui faisait penser qu'il lisait les plus courtes. (Abu Qatadah)",
+      },
+    ],
+    actions: [
+      "Lors de votre prochaine prière en groupe, remarquez dans quelles rak'ahs l'imam récite à voix haute.",
+      "Demandez à un professeur de votre école si vous récitez Al-Fatihah derrière l'imam dans les prières audibles.",
+      "Lorsque vous priez seul, essayez de réciter à voix haute au Fajr pour vivre la sunna de la récitation jahri.",
+    ],
+    appLinks: [
+      { label: "La prière étape par étape" },
+      { label: "Prière en groupe" },
+      { label: "Paroles et significations" },
+    ],
+    disclaimer:
+      "Les quatre écoles sunnites divergent sur la récitation d'Al-Fatihah derrière l'imam dans les prières audibles et silencieuses. Cette leçon présente la position établie de chaque école sans déclarer qu'une seule est correcte. Apprenez les détails de votre école auprès d'un professeur qualifié.",
   },
   {
     title: "Chaque poste",
@@ -693,7 +785,8 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       "Les actes recommandés par le Prophète ﷺ qui embellissent et multiplient la récompense de la salah.",
     body: [
       "Au-delà des actes obligatoires, le Prophète ﷺ a modelé de nombreuses pratiques recommandées (sunan) autour de la prière. Elles ne sont pas obligatoires, donc en omettre une n’invalide pas la salah – mais chacune vous rapproche d’Allah, gagne une récompense supplémentaire et répare les lacunes des prières obligatoires.",
-      "Les principales d'entre elles sont les prières sunna régulières (sunan rawatib) offertes avant et après le fard : deux avant le Fajr (que le Prophète ﷺ chérissait plus que le monde entier), quatre avant et deux après Dhuhr, deux après Maghrib et deux après Isha – douze rak'ahs dont la récompense est une maison construite au Paradis.",
+      "Toutes les prières volontaires n'ont pas le même rang : la sunnah mu'akkadah était assidûment observée par le Prophète ﷺ, la sunnah ghayr mu'akkadah est recommandée avec une insistance moindre, et le nafl général n'a pas de nombre fixe.",
+      "Les douze rawatib sont : deux avant Fajr, quatre avant Dhuhr, deux après Dhuhr, deux après Maghrib et deux après Isha. Leur récompense est une maison au Paradis. Consultez la leçon Types de salah pour les détails et les preuves.",
     ],
     actions: [
       "Utilisez le miswak (siwak) avant le wudu et la prière – le Prophète ﷺ l'a presque rendu obligatoire.",
@@ -709,10 +802,18 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
       },
       {
         excerpt:
-          "Celui qui accomplit douze rak'ahs de prière volontaire par jour et par nuit, une maison lui sera construite au Paradis. (Oum Habibah)",
+          "Le Prophète ﷺ ne délaissait jamais les deux rak'ahs avant Fajr. ('Aishah ; également Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Quiconque accomplit régulièrement douze rak'ahs de jour et de nuit, Allah lui bâtira une maison au Paradis : deux avant Fajr, quatre avant Dhuhr, deux après Dhuhr, deux après Maghrib et deux après Isha. (Umm Habibah)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      { label: "Types de salah — guide des rawatib" },
+      { label: "Sunnah et adhkar après la salah" },
+      { label: "Invocations de la mosquée" },
+    ],
   },
   {
     title: "Khushu – présence du cœur",
@@ -805,23 +906,49 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
   {
     title: "Types de salah",
     summary:
-      "Fard, sunnah, witr et les prières volontaires qui enrichissent la journée d'un croyant.",
+      "Fard, sunnah mu'akkadah, sunnah ghayr mu'akkadah, witr et nafl général — avec leurs preuves authentiques.",
     body: [
       "Les prières sont classées par obligation. Les cinq prières quotidiennes sont le fard – une obligation stricte pour tout musulman responsable. Autour et au-delà d'eux se trouve un monde riche de prière volontaire à travers lequel le Prophète ﷺ s'est rapproché toujours plus d'Allah, et à travers lequel nous pouvons aussi le faire.",
-      "Les prières volontaires sont importantes pour deux raisons : ce sont des actes bien-aimés qui élèvent le rang d'un croyant – Allah dit à propos du culte supplémentaire : « Mon serviteur ne cesse de s'approcher de Moi par des actes volontaires jusqu'à ce que je l'aime » – et elles réparent les prières obligatoires, puisque toute lacune dans le fard est complétée par les prières volontaires d'une personne le Jour du Jugement.",
+      "Distinguez la sunnah mu'akkadah, la sunnah ghayr mu'akkadah, le witr — wajib chez les hanafites et sunnah mu'akkadah pour la majorité — et le nafl général. Lorsqu'un nombre précis est contesté, nous mentionnons l'encouragement général sans en faire une sunnah fixe.",
+      "Les prières volontaires élèvent le rang du croyant et complètent les manquements de ses prières obligatoires au Jour du Jugement.",
+      "Les douze rawatib constituent le programme quotidien le mieux établi. Le tableau des rak'ahs les suit ; les autres nafl recommandés ne sont pas inclus dans ce total fixe.",
     ],
     steps: [
       {
-        title: "Les cinq fards quotidiens",
+        title: "Les cinq fard quotidiens",
         body: "Fajr, Dhuhr, Asr, Maghrib, Isha — le fondement obligatoire, à ne jamais abandonner.",
       },
       {
-        title: "Sunna Rawatib",
-        body: "Les sunnah rak'ahs régulières avant et après le fard – douze par jour gagnent une maison au paradis.",
+        title: "Fajr — 2 avant (sunnah mu'akkadah)",
+        body: "Le Prophète ﷺ ne les délaissait jamais. Il n'existe pas de sunnah régulière authentique après Fajr.",
+      },
+      {
+        title: "Dhuhr — 4 avant et 2 après",
+        body: "Ces six rak'ahs font partie des douze rawatib ; deux supplémentaires après sont aussi recommandées.",
+      },
+      {
+        title: "Asr — 4 avant (sunnah ghayr mu'akkadah)",
+        body: "Quatre rak'ahs avant Asr sont recommandées ; il n'y a pas de sunnah régulière après Asr.",
+      },
+      {
+        title: "Maghrib — 2 avant et 2 après",
+        body: "Les deux après sont rawatib ; les deux avant sont un nafl facultatif. Le nombre fixe d'al-Awwabin est contesté.",
+      },
+      {
+        title: "Isha — 2 après et nafl avant",
+        body: "Les deux après sont rawatib. Avant Isha, deux ou quatre entre l'adhan et l'iqamah sont un nafl général.",
       },
       {
         title: "Witr",
-        body: "Une prière impaire après Isha, sceau de la prière de la nuit – sunnah mu'akkadah pour la majorité, et wajib dans l'école Hanafi.",
+        body: "Prière impaire après Isha : wajib chez les hanafites et sunnah mu'akkadah pour la majorité.",
+      },
+      {
+        title: "Les douze rawatib",
+        body: "2 avant Fajr, 4 avant Dhuhr, 2 après Dhuhr, 2 après Maghrib et 2 après Isha : 12 au total.",
+      },
+      {
+        title: "Nafl recommandés — hors rawatib",
+        body: "4 avant Asr, 2 avant Maghrib, 2 ou 4 avant Isha, et des rak'ahs supplémentaires autour de Dhuhr.",
       },
       {
         title: "Tahajjud (qiyam al-layl)",
@@ -851,10 +978,51 @@ export const SALAH_GUIDE_TOPICS_FR: DeepPartial<SalahGuideTopic>[] = [
     hadith: [
       {
         excerpt:
-          "La meilleure prière après les prières obligatoires est la prière du soir. (Abou Hourayra)",
+          "Le Prophète ﷺ ne délaissait jamais les deux rak'ahs avant Fajr. ('Aishah ; également Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Quiconque accomplit régulièrement douze rak'ahs, Allah lui bâtira une maison au Paradis. (Umm Habibah)",
+      },
+      {
+        excerpt:
+          "Quiconque prie quatre avant Dhuhr et quatre après, Allah l'interdira au Feu. (Umm Habibah ; classé authentique par de nombreux savants)",
+      },
+      {
+        excerpt: "Qu'Allah fasse miséricorde à celui qui prie quatre rak'ahs avant Asr.",
+      },
+      {
+        excerpt: "Priez avant Maghrib — puis il dit : pour celui qui le souhaite. (Ibn 'Umar)",
+      },
+      {
+        excerpt:
+          "Entre chaque deux appels (adhan et iqamah), il y a une prière. (Anas ibn Malik ; également Sahih Muslim 838)",
+      },
+      {
+        excerpt:
+          "Le witr est un droit : que celui qui veut en prie cinq, trois ou une. (Ibn 'Umar)",
+      },
+      {
+        excerpt:
+          "La meilleure prière après les prières obligatoires est la prière nocturne. (Abu Hurayrah)",
+      },
+      {
+        excerpt:
+          "Mon serviteur ne cesse de se rapprocher de Moi par les nafl jusqu'à ce que Je l'aime. (Hadith Qudsi)",
       },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "Commencez par les douze rawatib avant d'ajouter les nafl facultatifs.",
+      "Utilisez le tableau des rak'ahs pour suivre les sunnah fortement recommandées.",
+      "Lisez les preuves et enregistrez les hadiths à revoir.",
+    ],
+    appLinks: [
+      { label: "Pratiques de la Sunnah" },
+      { label: "Guide du Tahajjud" },
+      { label: "Tableau des rak'ahs" },
+    ],
+    disclaimer:
+      "Le statut du witr, le nombre précis avant Isha et Salat al-Awwabin après Maghrib font l'objet de divergences. Cette leçon retient les bases authentiques et signale les divergences.",
   },
   {
     title: "Jumu'ah - la prière du vendredi",
@@ -1060,5 +1228,151 @@ export const SALAH_GUIDE_PHRASES_FR: DeepPartial<SalahGuidePhrase>[] = [
     translation: "La paix et la miséricorde d'Allah soient sur vous.",
     meaning:
       "Vous quittez la prière comme vous quitteriez la compagnie des honorés – avec un salut de paix aux anges enregistrés sur chaque épaule et à ceux qui prient à côté de vous. Le salam est un pilier ; avec lui, la prière est complète.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_FR: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Combien de rak'ahs de sunna rawatib sont convenues chaque jour ?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "Les douze rawatib sont : 2 avant Fajr, 4 avant Dhuhr, 2 après Dhuhr, 2 après Maghrib et 2 après Isha (Sahih Muslim 728).",
+  },
+  {
+    prompt: "Avant Fajr, la sunnah soulignée (mu'akkadah) est :",
+    options: ["Aucune", "2 rak'ahs", "4 rak'ahs", "2 rak'ahs après seulement"],
+    explanation:
+      "Deux rak'ahs avant Fajr sont sunnah mu'akkadah — le Prophète ﷺ ne les négligeait jamais (Sahih al-Bukhari 1169 ; Sahih Muslim 724).",
+  },
+  {
+    prompt: "Les rawatib convenues autour de Dhuhr sont :",
+    options: ["2 avant, 2 après", "4 avant, 2 après", "4 avant, 4 après", "2 avant seulement"],
+    explanation:
+      "Quatre avant Dhuhr et deux après font partie des douze rawatib. Les rak'ahs supplémentaires au-delà sont du nafl recommandé, pas des rawatib fixes.",
+  },
+  {
+    prompt:
+      "Vrai ou faux : quatre rak'ahs avant Asr font partie des douze rawatib quotidiennes fixes.",
+    options: ["Vrai", "Faux"],
+    explanation:
+      "Quatre avant Asr sont sunnah ghayr mu'akkadah (largement recommandées) mais ne comptent pas parmi les douze rawatib (Jami' at-Tirmidhi 430).",
+  },
+  {
+    prompt: "Pourquoi le Witr est-il gardé dans sa propre catégorie dans le suivi de prière ?",
+    options: [
+      "Il n'est pas mentionné dans les hadiths",
+      "Les hanafites le comptent wajib tandis que la majorité le compte sunnah mu'akkadah",
+      "Il est toujours prié avant Isha",
+      "Il n'a pas de nombre fixe de rak'ahs",
+    ],
+    explanation:
+      "Le Witr est solidement établi, mais les savants diffèrent sur le fait qu'il soit wajib ou sunnah mu'akkadah — il est donc suivi séparément des douze rawatib.",
+  },
+  {
+    prompt: "En Fajr en congrégation, l'imam récite :",
+    options: [
+      "Silencieusement dans les deux rak'ahs",
+      "À voix haute dans les deux rak'ahs",
+      "À voix haute dans la première seulement",
+      "Silencieusement dans la première, à voix haute dans la seconde",
+    ],
+    explanation:
+      "Le Fajr est récité à voix haute (jahri) dans les deux rak'ahs. Derrière l'imam, vous écoutez attentivement.",
+  },
+  {
+    prompt: "Dhuhr et Asr en congrégation sont récités :",
+    options: [
+      "À voix haute dans toutes les rak'ahs",
+      "Silencieusement dans toutes les rak'ahs",
+      "À voix haute dans les deux premières, silencieusement après",
+      "Silencieusement dans les deux premières, à voix haute après",
+    ],
+    explanation:
+      "Dhuhr et Asr sont sirri (silencieux) tout au long — l'imam récite à voix basse et chaque fidèle récite pour lui-même.",
+  },
+  {
+    prompt: "Au Maghrib, l'imam récite à voix haute dans :",
+    options: [
+      "Les trois rak'ahs",
+      "Les deux premières rak'ahs seulement",
+      "La troisième rak'ah seulement",
+      "Aucune — Maghrib est entièrement silencieux",
+    ],
+    explanation:
+      "Maghrib est jahri dans la première et la deuxième rak'ah et sirri dans la troisième — le même schéma long/court que les autres prières.",
+  },
+  {
+    prompt: "À Isha, quand la récitation audible s'arrête-t-elle ?",
+    options: [
+      "Après la première rak'ah",
+      "Après la deuxième rak'ah",
+      "Après la troisième rak'ah",
+      "Jamais — les quatre sont à voix haute",
+    ],
+    explanation:
+      "Isha est à voix haute dans les deux premières rak'ahs et silencieux dans la troisième et la quatrième.",
+  },
+  {
+    prompt:
+      "Dans les prières à voix haute derrière l'imam, tous s'accordent pour dire que vous devez :",
+    options: [
+      "Réciter une autre sourate à voix haute avec l'imam",
+      "Écouter attentivement et ne pas réciter une autre sourate à voix haute",
+      "Quitter la prière après Al-Fatihah",
+      "Réciter seulement dans la dernière rak'ah",
+    ],
+    explanation:
+      "Allah dit : « Quand le Qur'an est récité, écoutez-le attentivement et demeurez silencieux » (Qur'an 7:204).",
+  },
+  {
+    prompt: "Selon l'école shafi'ite, derrière l'imam dans une prière à voix haute vous :",
+    options: [
+      "Ne récitez pas Al-Fatihah du tout",
+      "Récitez Al-Fatihah dans chaque rak'ah",
+      "Récitez seulement dans les rak'ahs silencieuses",
+      "Récitez à voix haute avec l'imam",
+    ],
+    explanation:
+      "L'école shafi'ite considère que la récitation d'Al-Fatihah est requise pour chaque fidèle dans chaque rak'ah, citant « Il n'y a pas de prière pour celui qui ne récite pas l'Ouverture du Livre » (Sahih al-Bukhari 756).",
+  },
+  {
+    prompt: "Selon l'école hanafite, dans les prières à voix haute derrière l'imam vous :",
+    options: [
+      "Récitez Al-Fatihah doucement dans chaque rak'ah",
+      "Écoutez attentivement et ne récitez pas Al-Fatihah",
+      "Récitez seulement la sourate après Al-Fatihah",
+      "Devez réciter Al-Fatihah à voix haute",
+    ],
+    explanation:
+      "La position retenue chez les hanafites est d'écouter dans les prières jahri ; la récitation de l'imam suffit. Les quatre écoles sunnites sont des positions valides.",
+  },
+  {
+    prompt: "Dans les deux premières rak'ahs de Dhuhr, le Prophète ﷺ récitait généralement :",
+    options: [
+      "Seulement Al-Fatihah",
+      "Al-Fatihah et une autre sourate",
+      "Rien — c'était entièrement silencieux",
+      "Seulement le tasbih",
+    ],
+    explanation:
+      "Abu Qatadah a rapporté que le Prophète ﷺ récitait Al-Fatihah et une autre sourate dans les deux premières rak'ahs de Dhuhr et Asr, et seulement Al-Fatihah dans les deux dernières (Sahih al-Bukhari 776 ; Sahih Muslim 451).",
+  },
+  {
+    prompt: "Lorsque vous priez Fajr seul, il est sunnah de :",
+    options: [
+      "Réciter silencieusement seulement",
+      "Réciter à voix haute (bien que le silence reste valide)",
+      "Omettre la sourate après Al-Fatihah",
+      "Ne prier qu'une seule rak'ah",
+    ],
+    explanation:
+      "Seul, vous récitez le même contenu qu'en congrégation ; au Fajr, Maghrib et Isha, il est sunnah de réciter à voix haute.",
+  },
+  {
+    prompt:
+      "Vrai ou faux : six rak'ahs fixes après Maghrib en tant que Salat al-Awwabin est une sunnah établie avec un accord unanime.",
+    options: ["Vrai", "Faux"],
+    explanation:
+      "Le nafl général après Maghrib est encouragé, mais la spécification célèbre de exactement six rak'ahs comme Awwabin est contestée dans son authenticité — elle ne doit pas être présentée comme une sunnah fixe établie.",
   },
 ];

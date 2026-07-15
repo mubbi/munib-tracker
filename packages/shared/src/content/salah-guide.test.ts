@@ -6,6 +6,7 @@ import {
   SALAH_GUIDE_CONTENT_VERSION,
   SALAH_GUIDE_JOURNEY_ORDER,
   SALAH_GUIDE_PHRASES,
+  SALAH_GUIDE_QUIZ,
   SALAH_GUIDE_TOPICS,
 } from "./salah-guide";
 
@@ -52,5 +53,16 @@ describe("salah guide content", () => {
   it("has a rakats row for every tracked qaza prayer", () => {
     const covered = new Set(PRAYER_RAKATS.map((r) => r.prayerId));
     for (const prayer of QAZA_PRAYERS) expect(covered.has(prayer)).toBe(true);
+  });
+
+  it("ships an authored quiz with scored multiple-choice questions", () => {
+    expect(SALAH_GUIDE_QUIZ.length).toBeGreaterThan(10);
+    for (const question of SALAH_GUIDE_QUIZ) {
+      expect(question.prompt.length).toBeGreaterThan(0);
+      expect(question.explanation.length).toBeGreaterThan(0);
+      if (question.type === "reflection") continue;
+      expect(question.options?.length).toBeGreaterThanOrEqual(2);
+      expect(question.correctIndex).toBeGreaterThanOrEqual(0);
+    }
   });
 });

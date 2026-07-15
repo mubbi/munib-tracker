@@ -47,13 +47,18 @@ import { ensureRuqyahContent, getRuqyahTopics } from "@/lib/ruqyah";
 import { ensureSahabaContent, getSahabaProfiles, isSahabaContentReady } from "@/lib/sahaba";
 import {
   ensureSalahGuideContent,
+  getSalahGuideQuiz,
   getSalahGuideTopics,
   isSalahGuideContentReady,
 } from "@/lib/salah-guide";
 import { ensureSeerahContent, getSeerahEvents, isSeerahContentReady } from "@/lib/seerah";
 import { ensureTaharahContent, getTaharahTopics, isTaharahContentReady } from "@/lib/taharah";
 
-import { mcqsFromLastDayQuiz, mcqsFromQuranGuideQuiz } from "./from-existing-quizzes";
+import {
+  mcqsFromLastDayQuiz,
+  mcqsFromQuranGuideQuiz,
+  mcqsFromSalahGuideQuiz,
+} from "./from-existing-quizzes";
 import { mcqsFromGlossary } from "./from-glossary";
 import { mcqsFromHajj, mcqsFromTravelRakats } from "./from-hajj-travel";
 import { mcqsFromNamedSummaries, mcqsFromProfiles } from "./from-named-summaries";
@@ -97,8 +102,15 @@ export const LEARN_QUIZ_SECTIONS: LearnSectionDef[] = [
     i18nNamespace: "salahGuide",
     ensure: ensureSalahGuideContent,
     isReady: isSalahGuideContentReady,
-    collect: () =>
-      mcqsFromTopics("salahGuide", getSalahGuideTopics(), "flashCards.category.salahGuide"),
+    collect: () => {
+      const authored = mcqsFromSalahGuideQuiz(getSalahGuideQuiz());
+      const topics = mcqsFromTopics(
+        "salahGuide",
+        getSalahGuideTopics(),
+        "flashCards.category.salahGuide",
+      );
+      return authored.length >= 4 ? [...authored, ...topics] : topics;
+    },
   },
   {
     id: "jannah",

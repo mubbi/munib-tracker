@@ -1,6 +1,7 @@
 import type { PrayerRakatSummary, SalahGuideTopic } from "../types/salah-guide";
 
 export { SALAH_GUIDE_PHRASES } from "./salah-guide-phrases";
+export { SALAH_GUIDE_QUIZ, SALAH_GUIDE_QUIZ_VERSION } from "./salah-guide-quiz";
 
 /**
  * Learn Salah — a complete beginner-to-consistency course on the prayer.
@@ -10,7 +11,7 @@ export { SALAH_GUIDE_PHRASES } from "./salah-guide-phrases";
  * difference is noted respectfully rather than presented as one ruling.
  * Bump the version whenever content changes so caches refresh.
  */
-export const SALAH_GUIDE_CONTENT_VERSION = 5;
+export const SALAH_GUIDE_CONTENT_VERSION = 7;
 
 /** Ordered journey phases shown on the hub. */
 export const SALAH_GUIDE_JOURNEY_ORDER = [
@@ -858,10 +859,129 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
     ],
     appLinks: [
       { label: "Words & meanings", route: "/salah-guide/phrases" },
+      { label: "Loud & silent recitation", route: "/salah-guide/jahri-sirri" },
       { label: "Every position", route: "/salah-guide/positions" },
       { label: "If you make a mistake (sujud as-sahw)", route: "/salah-guide/sujud-al-sahw" },
       { label: "Practice tracker", route: "/tracker" },
     ],
+  },
+  {
+    id: "jahri-sirri",
+    journey: "learn",
+    title: "Loud & silent recitation",
+    summary:
+      "Which rak'ahs the imam recites aloud, which are silent, and what you should do behind him or alone.",
+    importance: "foundational",
+    body: [
+      "One of the most common questions — for new Muslims and lifelong believers alike — becomes simple once you grasp two principles: some prayers are recited aloud (jahri) and some silently (sirri). The Prophet ﷺ prayed both ways; the Companions transmitted the pattern, and it is recorded across the major hadith collections.",
+      "In every prayer the first two rak'ahs are the 'long' ones: Al-Fatihah plus another surah (or several verses). In the remaining rak'ahs of a three- or four-rak'ah prayer, the Prophet ﷺ generally recited only Al-Fatihah. That is why audible recitation stops after the second rak'ah in Maghrib and Isha, while Dhuhr and Asr stay silent throughout.",
+      "Allah did not state an explicit reason for which prayers are loud or quiet. Scholars mention wisdoms — night prayers suit audible recitation; daytime prayers occur amid work and public life; the pattern distinguishes the prayers — but Muslims follow it primarily because it is the Sunnah. Allah says, 'Indeed, in the Messenger of Allah you have an excellent example' (33:21).",
+      "Behind the imam, the agreed rule in loud prayers is to listen attentively and not recite another surah aloud. Whether you also recite Al-Fatihah quietly while the imam recites is one of the best-known differences among the four Sunni schools — all are valid positions held by serious scholars. In silent prayers the imam recites quietly, so each worshipper recites for himself according to his school's teaching.",
+      "Praying alone: recite Al-Fatihah in every rak'ah; add a surah in the first two rak'ahs of each prayer; in the last rak'ah(s) recite only Al-Fatihah. In the aloud prayers it is sunnah to recite audibly when alone, though praying quietly is still valid.",
+    ],
+    steps: [
+      {
+        title: "Fajr — loud in both rak'ahs",
+        body: "Imam recites aloud in both rak'ahs. Behind him: listen attentively; do not recite another surah aloud. Al-Fatihah — see the madhhab step below.",
+        ruling: "fard",
+      },
+      {
+        title: "Dhuhr — silent in all four",
+        body: "Imam recites silently in every rak'ah. Behind him: recite Al-Fatihah and the surah quietly for yourself according to your madhhab.",
+        ruling: "fard",
+      },
+      {
+        title: "Asr — silent in all four",
+        body: "Same as Dhuhr — fully silent recitation by the imam; each worshipper recites quietly behind him.",
+        ruling: "fard",
+      },
+      {
+        title: "Maghrib — loud then silent",
+        body: "Loud in the 1st and 2nd rak'ahs; silent in the 3rd. Behind him: listen in the first two; in the third rak'ah recite for yourself according to your madhhab.",
+        ruling: "fard",
+      },
+      {
+        title: "Isha — loud then silent",
+        body: "Loud in the 1st and 2nd rak'ahs; silent in the 3rd and 4th. Behind him: listen in the first two; in the last two recite for yourself according to your madhhab.",
+        ruling: "fard",
+      },
+      {
+        title: "Why only the first two rak'ahs?",
+        body: "Abu Qatadah (RA) reported that the Prophet ﷺ recited Al-Fatihah and another surah in the first two rak'ahs of Dhuhr and Asr, and in the last two recited only Al-Fatihah. This pattern explains the long/short rak'ah structure in every multi-rak'ah prayer.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Behind the imam in loud prayers — everyone agrees",
+        body: "Listen carefully when the Qur'an is recited aloud. Do not compete with the imam or recite another surah aloud. Allah says: 'When the Qur'an is recited, listen to it attentively and remain silent so that you may receive mercy' (7:204).",
+        ruling: "fard",
+      },
+      {
+        title: "Al-Fatihah behind the imam — four madhhabs",
+        body: "Hanafi: do not recite Al-Fatihah in loud prayers; listen. Maliki: generally listen during loud recitation. Shafi'i: recite Al-Fatihah in every rak'ah, even behind the imam. Hanbali: two opinions; many Hanbali scholars recommend reciting Al-Fatihah during pauses or when possible. All four are recognised Sunni positions.",
+        ruling: "wajib",
+        tip: "Follow the teaching of the school you have learned from a reliable teacher. No school permits reciting another surah aloud over the imam.",
+      },
+      {
+        title: "Behind the imam in silent prayers",
+        body: "Hanafi (relied upon): recite thana and dhikr quietly but not Al-Fatihah — the imam's recitation suffices. Maliki: quiet remembrance; practice varies. Shafi'i & Hanbali: recite Al-Fatihah quietly yourself in every rak'ah.",
+        ruling: "fard",
+      },
+      {
+        title: "Praying alone",
+        body: "No difference in what you recite — only whether you raise your voice. Every rak'ah: Al-Fatihah. First two rak'ahs: add a surah. Last rak'ah(s): Al-Fatihah only. In Fajr, Maghrib, and Isha it is sunnah to recite aloud; Dhuhr and Asr are recited quietly.",
+        ruling: "fard",
+      },
+    ],
+    quran: [
+      {
+        surah: 33,
+        ayahFrom: 21,
+        label: "Qur'an 33:21",
+        excerpt: "Indeed, in the Messenger of Allah you have an excellent example.",
+      },
+      {
+        surah: 7,
+        ayahFrom: 204,
+        label: "Qur'an 7:204",
+        excerpt:
+          "When the Qur'an is recited, listen to it attentively and remain silent so that you may receive mercy.",
+      },
+    ],
+    hadith: [
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "776",
+        grade: "sahih",
+        excerpt:
+          "The Prophet ﷺ used to recite Al-Fatihah and another surah in the first two rak'ahs of Dhuhr and Asr, and in the last two recited only Al-Fatihah. (Abu Qatadah; also Sahih Muslim 451)",
+      },
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "756",
+        grade: "sahih",
+        excerpt:
+          "There is no prayer for the one who does not recite the Opening of the Book. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
+      },
+      {
+        collection: "Sahih Muslim",
+        citation: "451",
+        grade: "sahih",
+        excerpt:
+          "He used to recite in the first two rak'ahs of Dhuhr and Asr what would make you think he was reciting the longer surahs, and in the last two what would make you think he was reciting the shorter ones. (Abu Qatadah)",
+      },
+    ],
+    actions: [
+      "In your next congregational salah, notice which rak'ahs the imam recites aloud.",
+      "Ask a teacher from your madhhab whether you recite Al-Fatihah behind the imam in loud prayers.",
+      "When praying alone, try reciting aloud in Fajr to experience the sunnah of jahri recitation.",
+    ],
+    appLinks: [
+      { label: "Step-by-step salah", route: "/salah-guide/how-to-pray" },
+      { label: "Congregational prayer", route: "/salah-guide/congregational" },
+      { label: "Words & meanings", route: "/salah-guide/phrases" },
+    ],
+    disclaimer:
+      "The four Sunni schools differ on reciting Al-Fatihah behind the imam in loud and silent prayers. This lesson presents each school's established position without declaring one the only correct view. Learn your school's detailing from a qualified teacher.",
   },
   {
     id: "positions",
@@ -969,7 +1089,8 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
     summary: "The Prophet's ﷺ recommended acts that beautify and multiply the reward of salah.",
     body: [
       "Beyond the obligatory acts, the Prophet ﷺ modelled many recommended practices (sunan) around the prayer. They are not required, so omitting one does not invalidate salah — but each one draws you nearer to Allah, earns extra reward, and repairs shortfalls in the obligatory prayers.",
-      "Chief among them are the regular sunnah prayers (sunan rawatib) offered before and after the fard: two before Fajr (which the Prophet ﷺ prized above the whole world), four before and two after Dhuhr, two after Maghrib, and two after Isha — twelve rak'ahs whose reward is a house built in Paradise.",
+      "Chief among them are the regular sunnah prayers (sunan rawatib) offered before and after the fard. Not every voluntary prayer carries the same weight: scholars distinguish sunnah mu'akkadah (emphasised, regularly performed by the Prophet ﷺ), sunnah ghayr mu'akkadah (recommended but less emphasised), and general nafl (optional, without a fixed count). Knowing the difference helps you prioritise what to guard daily.",
+      "The clearest daily schedule with the strongest evidence is the twelve rawatib: two before Fajr, four before Dhuhr, two after Dhuhr, two after Maghrib, and two after Isha — twelve rak'ahs whose reward is a house built in Paradise. See the Types of salah lesson for a full per-prayer breakdown with evidence.",
     ],
     actions: [
       "Use the miswak (siwak) before wudu and prayer — the Prophet ﷺ nearly made it obligatory.",
@@ -987,14 +1108,22 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
           "Were it not that I would burden my ummah, I would have ordered them to use the siwak before every prayer. (Abu Hurayrah; also Sahih Muslim 252)",
       },
       {
+        collection: "Sahih al-Bukhari",
+        citation: "1169",
+        grade: "sahih",
+        excerpt:
+          "The Prophet ﷺ never neglected the two rak'ahs before Fajr. (Aishah; also Sahih Muslim 724)",
+      },
+      {
         collection: "Sahih Muslim",
         citation: "728",
         grade: "sahih",
         excerpt:
-          "Whoever prays twelve rak'ahs of voluntary prayer in a day and night, a house will be built for him in Paradise. (Umm Habibah)",
+          "Whoever regularly prays twelve rak'ahs during the day and night, Allah will build for him a house in Paradise — two before Fajr, four before Dhuhr, two after Dhuhr, two after Maghrib, and two after Isha. (Umm Habibah)",
       },
     ],
     appLinks: [
+      { label: "Types of salah — rawatib guide", route: "/salah-guide/prayer-types" },
       { label: "Sunnah & post-salah adhkar", route: "/zikr" },
       { label: "Mosque duas", route: "/dua/prayer" },
     ],
@@ -1122,61 +1251,167 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
     id: "prayer-types",
     journey: "consistency",
     title: "Types of salah",
-    summary: "Fard, sunnah, witr, and the voluntary prayers that enrich a believer's day.",
+    summary:
+      "Fard, sunnah mu'akkadah, sunnah ghayr mu'akkadah, witr, and general nafl — with authentic evidence for each.",
+    importance: "foundational",
     body: [
-      "Prayers are graded by obligation. The five daily prayers are fard — a strict obligation on every accountable Muslim. Around and beyond them lies a rich world of voluntary prayer through which the Prophet ﷺ drew ever closer to Allah, and through which we can too.",
-      "Voluntary prayers matter for two reasons: they are beloved acts that raise a believer's rank — Allah says of extra worship, 'My servant keeps drawing near to Me with voluntary deeds until I love him' — and they repair the obligatory prayers, since any deficiency in the fard is completed from a person's voluntary prayers on the Day of Judgment.",
+      "Prayers are graded by obligation. The five daily prayers are fard — a strict obligation on every accountable Muslim. Around them lies a rich world of voluntary prayer through which the Prophet ﷺ drew ever closer to Allah, and through which we can too.",
+      "For sound learning, distinguish four voluntary categories grounded in authentic texts: sunnah mu'akkadah (emphasised rawatib the Prophet ﷺ rarely left), sunnah ghayr mu'akkadah (recommended but less emphasised), witr (kept in its own category because Hanafis count it wajib while the majority count it sunnah mu'akkadah), and general nafl (optional prayers without a fixed, undisputed count). Where scholars differ on a fixed number — such as six rak'ahs after Maghrib as Salat al-Awwabin — we present the general encouragement without treating the disputed count as established sunnah.",
+      "Voluntary prayers matter for two reasons: they are beloved acts that raise a believer's rank, and they repair the obligatory prayers, since any deficiency in the fard is completed from a person's voluntary prayers on the Day of Judgment.",
+      "The twelve rawatib below are the clearest daily sunnah schedule with the strongest consensus. The rakats table on the Learn Salah hub tracks these twelve emphasised rak'ahs; optional nafl before Asr, before Maghrib, or after Isha is encouraged where evidence exists but is not folded into that fixed count.",
     ],
     steps: [
       {
         title: "The five daily fard",
         body: "Fajr, Dhuhr, Asr, Maghrib, Isha — the obligatory foundation, never to be abandoned.",
+        ruling: "fard",
       },
       {
-        title: "Sunnah rawatib",
-        body: "The regular sunnah rak'ahs before and after the fard — twelve daily earn a house in Paradise.",
+        title: "Fajr — 2 before (sunnah mu'akkadah)",
+        body: "Two rak'ahs before the fard of Fajr are sunnah mu'akkadah — the Prophet ﷺ never neglected them. There is no authentic regular sunnah after Fajr; voluntary prayer is generally prohibited after Fajr until sunrise.",
+        ruling: "sunnah",
       },
       {
-        title: "Witr",
-        body: "An odd-numbered prayer after Isha, the seal of the night's prayer — sunnah mu'akkadah for the majority, and wajib in the Hanafi school.",
+        title: "Dhuhr — 4 before & 2 after (sunnah mu'akkadah)",
+        body: "Four rak'ahs before Dhuhr and two after it are part of the twelve rawatib (sunnah mu'akkadah). Separately, Umm Habibah reported that whoever prays four before Dhuhr and four after it, Allah forbids him from the Fire — so two extra rak'ahs after the regular two rawatib are recommended nafl, and some scholars also recommend two extra before to total six.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Asr — 4 before (sunnah ghayr mu'akkadah)",
+        body: "Four rak'ahs before Asr are widely recommended (sunnah ghayr mu'akkadah). There is no authentic regular sunnah after Asr; voluntary prayer is generally prohibited after Asr until sunset.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Maghrib — 2 before & 2 after",
+        body: "Two rak'ahs after Maghrib are sunnah mu'akkadah (part of the twelve rawatib). Before Maghrib, the Prophet ﷺ said 'Pray before Maghrib' twice, then added 'for whoever wishes' — so two before are optional nafl, not a fixed rawatib. General voluntary prayer after Maghrib is encouraged, but the famous specification of six rak'ahs as Salat al-Awwabin is disputed in authenticity; do not present a fixed six as established sunnah.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Isha — 2 after & optional before",
+        body: "Two rak'ahs after Isha are sunnah mu'akkadah (part of the twelve rawatib). Before Isha, the hadith 'Between every two calls there is a prayer' permits two or four rak'ahs between the adhan and iqamah — general nafl, not a rawatib sunnah. Extra voluntary prayer after Isha is permissible, but no authentic fixed sunnah specifies an additional two beyond the regular rawatib.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Witr — separate category",
+        body: "Witr is prayed after Isha in an odd number (1, 3, 5, 7, 9, 11…). Numerous authentic hadith command and encourage it. Hanafis consider it wajib; the majority consider it sunnah mu'akkadah. It is kept separate from the twelve rawatib because of this difference of opinion on its legal ruling.",
+        ruling: "wajib",
+      },
+      {
+        title: "The twelve rawatib — agreed schedule",
+        body: "Before Fajr: 2. Before Dhuhr: 4. After Dhuhr: 2. After Maghrib: 2. After Isha: 2. Total: 12 rak'ahs. Whoever regularly prays them, Allah builds a house in Paradise.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Recommended nafl — not fixed rawatib",
+        body: "Before Asr: 4 (hasan). Before Maghrib: 2 optional (sahih). Before Isha: 2 or 4 between adhan and iqamah (sahih). Extra before Dhuhr: 2 recommended. Extra after Dhuhr: 2 (hasan/sahih). After Maghrib & Isha: general nafl encouraged — without a disputed fixed count.",
+        ruling: "sunnah",
       },
       {
         title: "Tahajjud (qiyam al-layl)",
         body: "Night prayer in the last third of the night — the most virtuous voluntary prayer, and the habit of the righteous.",
+        ruling: "sunnah",
       },
       {
         title: "Duha",
         body: "The mid-morning prayer (2–8 rak'ahs) — a charity due for each of the body's joints each day.",
+        ruling: "sunnah",
       },
       {
         title: "Tarawih",
         body: "The congregational night prayer of Ramadan — reviving the nights of the blessed month.",
+        ruling: "sunnah",
       },
       {
         title: "The two Eids",
         body: "Two rak'ahs of Eid al-Fitr and Eid al-Adha, followed by the sermon.",
+        ruling: "fard",
       },
       {
         title: "Istikharah",
         body: "A two-rak'ah prayer seeking Allah's guidance before making a decision.",
+        ruling: "sunnah",
       },
       {
         title: "Janazah",
         body: "The funeral prayer — a communal obligation (fard kifayah) offered standing, without ruku or sujud.",
+        ruling: "fard",
       },
     ],
     hadith: [
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "1169",
+        grade: "sahih",
+        excerpt:
+          "The Prophet ﷺ never neglected the two rak'ahs before Fajr. (Aishah; also Sahih Muslim 724)",
+      },
+      {
+        collection: "Sahih Muslim",
+        citation: "728",
+        grade: "sahih",
+        excerpt:
+          "Whoever regularly prays twelve rak'ahs during the day and night, Allah will build for him a house in Paradise — two before Fajr, four before Dhuhr, two after Dhuhr, two after Maghrib, and two after Isha. (Umm Habibah)",
+      },
+      {
+        collection: "Sunan Abi Dawud",
+        citation: "427",
+        grade: "hasan",
+        excerpt:
+          "Whoever prays four rak'ahs before Dhuhr and four after it, Allah forbids him from the Fire. (Umm Habibah; graded authentic by many scholars)",
+      },
+      {
+        collection: "Jami' at-Tirmidhi",
+        citation: "430",
+        grade: "hasan",
+        excerpt: "May Allah have mercy on one who prays four rak'ahs before Asr.",
+      },
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "1183",
+        grade: "sahih",
+        excerpt:
+          "Pray before Maghrib, pray before Maghrib — then he said: for whoever wishes. (Ibn 'Umar)",
+      },
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "624",
+        grade: "sahih",
+        excerpt:
+          "Between every two calls (the adhan and the iqamah) there is a prayer. (Anas ibn Malik; also Sahih Muslim 838)",
+      },
+      {
+        collection: "Sahih Muslim",
+        citation: "614",
+        grade: "sahih",
+        excerpt:
+          "Witr is a duty (haqq), so whoever wishes let him pray five, whoever wishes let him pray three, and whoever wishes let him pray one. (Ibn 'Umar)",
+      },
       {
         collection: "Sahih Muslim",
         citation: "1163",
         grade: "sahih",
         excerpt: "The best prayer after the obligatory prayers is the night prayer. (Abu Hurayrah)",
       },
+      {
+        collection: "Sahih al-Bukhari",
+        citation: "6502",
+        grade: "sahih",
+        excerpt:
+          "My servant keeps drawing near to Me with voluntary deeds until I love him. (Hadith Qudsi)",
+      },
+    ],
+    actions: [
+      "Start with the twelve rawatib — build the habit before adding optional nafl.",
+      "Use the rakats table on this hub to track the emphasised sunnah around each fard.",
+      "Read the evidence cards below and bookmark hadith you want to revisit.",
     ],
     appLinks: [
+      { label: "Sunnah practices", route: "/salah-guide/sunnah-practices" },
       { label: "Tahajjud guide", route: "/tahajjud" },
       { label: "Rakats table", route: "/salah-guide" },
     ],
+    disclaimer:
+      "Witr's legal ruling (wajib vs sunnah mu'akkadah), the exact count of optional rak'ahs before Isha, and Salat al-Awwabin after Maghrib are matters of scholarly difference. This lesson presents only what has an authentic textual basis and notes disagreement where it exists.",
   },
   {
     id: "jumuah",
@@ -1263,6 +1498,10 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
       "Pray at least one prayer in the mosque today, or gather your household into a row at home.",
       "Learn what to do as a latecomer: join at once, then complete your missed rak'ahs after the imam's salam.",
     ],
+    appLinks: [
+      { label: "Loud & silent recitation", route: "/salah-guide/jahri-sirri" },
+      { label: "Step-by-step salah", route: "/salah-guide/how-to-pray" },
+    ],
   },
   {
     id: "qada",
@@ -1334,11 +1573,41 @@ export const SALAH_GUIDE_TOPICS: SalahGuideTopic[] = [
 
 /** Fard + common sunnah rakats per prayer, aligned with the app's tracked prayers. */
 export const PRAYER_RAKATS: PrayerRakatSummary[] = [
-  { prayerId: "fajr", fard: 2, sunnahBefore: 2, sunnahAfter: 0 },
-  { prayerId: "dhuhr", fard: 4, sunnahBefore: 4, sunnahAfter: 2 },
-  { prayerId: "asr", fard: 4, sunnahBefore: 0, sunnahAfter: 0 },
-  { prayerId: "maghrib", fard: 3, sunnahBefore: 0, sunnahAfter: 2 },
-  { prayerId: "isha", fard: 4, sunnahBefore: 0, sunnahAfter: 2 },
+  {
+    prayerId: "fajr",
+    fard: 2,
+    sunnahBefore: 2,
+    sunnahAfter: 0,
+    note: "2 before — sunnah mu'akkadah (rawatib). No regular sunnah after.",
+  },
+  {
+    prayerId: "dhuhr",
+    fard: 4,
+    sunnahBefore: 4,
+    sunnahAfter: 2,
+    note: "4 before & 2 after — sunnah mu'akkadah (rawatib). Extra nafl optional.",
+  },
+  {
+    prayerId: "asr",
+    fard: 4,
+    sunnahBefore: 0,
+    sunnahAfter: 0,
+    note: "4 before Asr recommended (ghayr mu'akkadah) — not counted in the 12 rawatib.",
+  },
+  {
+    prayerId: "maghrib",
+    fard: 3,
+    sunnahBefore: 0,
+    sunnahAfter: 2,
+    note: "2 after — sunnah mu'akkadah. 2 before optional nafl.",
+  },
+  {
+    prayerId: "isha",
+    fard: 4,
+    sunnahBefore: 0,
+    sunnahAfter: 2,
+    note: "2 after — sunnah mu'akkadah. Witr separate; optional nafl before/after.",
+  },
   {
     prayerId: "witr",
     fard: 0,

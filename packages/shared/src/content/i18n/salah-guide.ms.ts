@@ -1,4 +1,8 @@
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 // Malay translation overlay for the Learn Salah content. Mirrors SALAH_GUIDE_TOPICS /
@@ -608,7 +612,112 @@ export const SALAH_GUIDE_TOPICS_MS: DeepPartial<SalahGuideTopic>[] = [
           "There is no prayer for the one who does not recite the Opening of the Book. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [
+      { label: "Perkataan & makna" },
+      { label: "Bacaan kuat & senyap" },
+      { label: "Setiap posisi" },
+      { label: "Jika anda silap (sujud sahw)" },
+      { label: "Penjejak latihan" },
+    ],
+  },
+  {
+    title: "Bacaan kuat & senyap",
+    summary:
+      "Rakaat mana imam membaca dengan suara kuat, mana yang senyap, dan apa yang anda lakukan di belakangnya atau semasa solat sendirian.",
+    body: [
+      "Salah satu soalan paling biasa — bagi Muslim baharu dan yang sudah lama solat — menjadi mudah setelah anda faham dua prinsip: sebahagian solat dibaca kuat (jahri) dan sebahagian senyap (sirri). Nabi ﷺ solat dengan kedua-dua cara; para Sahabat menyampaikan coraknya, dan ia direkodkan dalam koleksi hadis utama.",
+      "Dalam setiap solat, dua rakaat pertama ialah rakaat 'panjang': Al-Fatihah ditambah surah lain (atau beberapa ayat). Pada baki rakaat solat tiga atau empat rakaat, Nabi ﷺ biasanya hanya membaca Al-Fatihah. Itulah sebabnya bacaan kuat berhenti selepas rakaat kedua pada Maghrib dan Isyak, manakala Zohor dan Asar kekal senyap sepanjang solat.",
+      "Allah tidak menyatakan sebab jelas mengapa sebahagian solat kuat dan sebahagian senyap. Para ulama menyebut hikmah — solat malam sesuai dengan bacaan kuat; solat siang berlaku di tengah kesibukan; coraknya membezakan solat — tetapi Muslim mengikutinya terutamanya kerana ia Sunnah. Allah berfirman: 'Sesungguhnya pada Rasulullah ada teladan yang baik bagimu' (33:21).",
+      "Di belakang imam, peraturan yang dipersetujui pada solat kuat ialah mendengar dengan penuh perhatian dan tidak membaca surah lain dengan kuat. Sama ada anda juga membaca Al-Fatihah senyap semasa imam membaca ialah salah satu perbezaan paling dikenali antara empat mazhab Sunni — semuanya kedudukan sah yang dipegang ulama serius. Pada solat senyap imam membaca senyap, jadi setiap jemaah membaca untuk diri sendiri mengikut ajaran mazhabnya.",
+      "Solat sendirian: baca Al-Fatihah pada setiap rakaat; tambah surah pada dua rakaat pertama setiap solat; pada rakaat terakhir hanya Al-Fatihah. Pada solat kuat, sunnah membaca dengan suara kuat semasa sendirian, walaupun membaca senyap tetap sah.",
+    ],
+    steps: [
+      {
+        title: "Subuh — kuat pada kedua-dua rakaat",
+        body: "Imam membaca kuat pada kedua-dua rakaat. Di belakangnya: dengar dengan penuh perhatian; jangan baca surah lain dengan kuat. Al-Fatihah — lihat langkah mazhab di bawah.",
+        ruling: "fard",
+      },
+      {
+        title: "Zohor — senyap pada keempat-empat rakaat",
+        body: "Imam membaca senyap pada setiap rakaat. Di belakangnya: baca Al-Fatihah dan surah senyap untuk diri sendiri mengikut mazhab anda.",
+        ruling: "fard",
+      },
+      {
+        title: "Asar — senyap pada keempat-empat rakaat",
+        body: "Sama seperti Zohor — bacaan imam sepenuhnya senyap; setiap jemaah membaca senyap di belakangnya.",
+        ruling: "fard",
+      },
+      {
+        title: "Maghrib — kuat kemudian senyap",
+        body: "Kuat pada rakaat ke-1 dan ke-2; senyap pada ke-3. Di belakangnya: dengar pada dua pertama; pada rakaat ketiga baca untuk diri sendiri mengikut mazhab anda.",
+        ruling: "fard",
+      },
+      {
+        title: "Isyak — kuat kemudian senyap",
+        body: "Kuat pada rakaat ke-1 dan ke-2; senyap pada ke-3 dan ke-4. Di belakangnya: dengar pada dua pertama; pada dua terakhir baca untuk diri sendiri mengikut mazhab anda.",
+        ruling: "fard",
+      },
+      {
+        title: "Mengapa hanya dua rakaat pertama?",
+        body: "Abu Qatadah (RA) melaporkan Nabi ﷺ membaca Al-Fatihah dan surah lain pada dua rakaat pertama Zohor dan Asar, dan pada dua terakhir hanya Al-Fatihah. Corak ini menerangkan struktur rakaat panjang/pendek pada setiap solat berbilang rakaat.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Di belakang imam pada solat kuat — semua bersetuju",
+        body: "Dengar dengan teliti apabila Al-Quran dibaca kuat. Jangan bersaing dengan imam atau baca surah lain dengan kuat. Allah berfirman: 'Apabila Al-Quran dibacakan, dengarlah dan diamlah agar kamu dirahmati' (7:204).",
+        ruling: "fard",
+      },
+      {
+        title: "Al-Fatihah di belakang imam — empat mazhab",
+        body: "Hanafi: jangan baca Al-Fatihah pada solat kuat; dengar. Maliki: umumnya mendengar semasa bacaan kuat. Syafi'i: baca Al-Fatihah pada setiap rakaat, walaupun di belakang imam. Hanbali: dua pendapat; ramai ulama Hanbali menyarankan membaca Al-Fatihah pada jeda atau apabila boleh. Keempat-empatnya kedudukan Sunni yang diiktiraf.",
+        ruling: "wajib",
+        tip: "Ikuti ajaran mazhab yang anda pelajari daripada guru dipercayai. Tiada mazhab membenarkan membaca surah lain dengan kuat melebihi imam.",
+      },
+      {
+        title: "Di belakang imam pada solat senyap",
+        body: "Hanafi (yang diandalkan): baca thana dan zikir senyap tetapi bukan Al-Fatihah — bacaan imam sudah cukup. Maliki: zikir senyap; amalan berbeza. Syafi'i & Hanbali: baca Al-Fatihah senyap sendiri pada setiap rakaat.",
+        ruling: "fard",
+      },
+      {
+        title: "Solat sendirian",
+        body: "Tiada perbezaan pada apa yang anda baca — hanya sama ada anda mengangkat suara. Setiap rakaat: Al-Fatihah. Dua pertama: tambah surah. Rakaat terakhir: hanya Al-Fatihah. Pada Subuh, Maghrib, dan Isyak sunnah membaca kuat; Zohor dan Asar dibaca senyap.",
+        ruling: "fard",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Sesungguhnya pada Rasulullah ada teladan yang baik bagimu.",
+      },
+      {
+        excerpt: "Apabila Al-Quran dibacakan, dengarlah dan diamlah agar kamu dirahmati.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Nabi ﷺ biasanya membaca Al-Fatihah dan surah lain pada dua rakaat pertama Zohor dan Asar, dan pada dua terakhir hanya Al-Fatihah. (Abu Qatadah; juga Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Tiada solat bagi orang yang tidak membaca Pembukaan Kitab. (Ubadah bin as-Samit; juga Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "Beliau membaca pada dua rakaat pertama Zohor dan Asar sehingga anda menyangka beliau membaca surah-surah panjang, dan pada dua terakhir sehingga anda menyangka beliau membaca yang pendek. (Abu Qatadah)",
+      },
+    ],
+    actions: [
+      "Pada solat berjemaah seterusnya, perhatikan rakaat mana imam membaca dengan kuat.",
+      "Tanya guru dari mazhab anda sama ada anda membaca Al-Fatihah di belakang imam pada solat kuat.",
+      "Semasa solat sendirian, cuba baca kuat pada Subuh untuk merasai sunnah bacaan jahri.",
+    ],
+    appLinks: [
+      { label: "Solat langkah demi langkah" },
+      { label: "Solat berjemaah" },
+      { label: "Perkataan & makna" },
+    ],
+    disclaimer:
+      "Empat mazhab Sunni berbeza pendapat tentang membaca Al-Fatihah di belakang imam pada solat kuat dan senyap. Pelajaran ini menyajikan kedudukan mantap setiap mazhab tanpa mengisytiharkan salah satunya sebagai satu-satunya pandangan benar. Pelajari perincian mazhab anda daripada guru yang berkelayakan.",
   },
   {
     title: "Every position",
@@ -701,30 +810,39 @@ export const SALAH_GUIDE_TOPICS_MS: DeepPartial<SalahGuideTopic>[] = [
     appLinks: [{}],
   },
   {
-    title: "Sunnah practices",
-    summary: "The Prophet's ﷺ recommended acts that beautify and multiply the reward of salah.",
+    title: "Amalan sunnah",
+    summary: "Amalan anjuran Nabi ﷺ yang mencantikkan dan menggandakan pahala solat.",
     body: [
-      "Beyond the obligatory acts, the Prophet ﷺ modelled many recommended practices (sunan) around the prayer. They are not required, so omitting one does not invalidate salah — but each one draws you nearer to Allah, earns extra reward, and repairs shortfalls in the obligatory prayers.",
-      "Chief among them are the regular sunnah prayers (sunan rawatib) offered before and after the fard: two before Fajr (which the Prophet ﷺ prized above the whole world), four before and two after Dhuhr, two after Maghrib, and two after Isha — twelve rak'ahs whose reward is a house built in Paradise.",
+      "Selain amalan wajib, Nabi ﷺ mencontohkan banyak sunnah di sekitar solat. Meninggalkannya tidak membatalkan solat, namun setiap satunya mendekatkan diri kepada Allah, menambah pahala dan menampung kekurangan solat fardu.",
+      "Solat sukarela berbeza darjat: sunnah mu'akkadah sangat ditekankan, sunnah ghayr mu'akkadah dianjurkan dengan penekanan yang lebih ringan, manakala nafl umum tidak mempunyai bilangan tetap.",
+      "Dua belas rawatib ialah dua sebelum Subuh, empat sebelum Zohor, dua selepas Zohor, dua selepas Maghrib dan dua selepas Isyak. Ganjarannya sebuah rumah di Syurga. Lihat pelajaran Jenis-jenis solat untuk perincian dan dalil.",
     ],
     actions: [
-      "Use the miswak (siwak) before wudu and prayer — the Prophet ﷺ nearly made it obligatory.",
-      "Walk to the mosque calmly and early — each step raises a rank and erases a sin.",
-      "Guard the twelve rak'ahs of sunnah rawatib for a promised house in Paradise.",
-      "Enter the mosque with the right foot and leave with the left, each with its du'a.",
-      "Recite the established adhkar after every prayer — see After Salah.",
+      "Gunakan miswak sebelum wuduk dan solat — Nabi ﷺ hampir mewajibkannya.",
+      "Berjalan ke masjid dengan tenang dan awal — setiap langkah meninggikan darjat dan menghapus dosa.",
+      "Pelihara dua belas rakaat sunnah rawatib untuk rumah yang dijanjikan di Syurga.",
+      "Masuk masjid dengan kaki kanan dan keluar dengan kaki kiri, masing-masing dengan doanya.",
+      "Baca zikir yang sabit selepas setiap solat — lihat Selepas Solat.",
     ],
     hadith: [
       {
         excerpt:
-          "Were it not that I would burden my ummah, I would have ordered them to use the siwak before every prayer. (Abu Hurayrah; also Sahih Muslim 252)",
+          "Kalaulah tidak memberatkan umatku, nescaya aku perintahkan mereka bersiwak sebelum setiap solat. (Abu Hurayrah; also Sahih Muslim 252)",
       },
       {
         excerpt:
-          "Whoever prays twelve rak'ahs of voluntary prayer in a day and night, a house will be built for him in Paradise. (Umm Habibah)",
+          "Nabi ﷺ tidak pernah meninggalkan dua rakaat sebelum Subuh. ('Aishah; also Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Sesiapa yang menjaga dua belas rakaat sehari semalam, Allah membina baginya sebuah rumah di Syurga. (Umm Habibah)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      { label: "Jenis solat — panduan rawatib" },
+      { label: "Sunnah dan zikir selepas solat" },
+      { label: "Doa masjid" },
+    ],
   },
   {
     title: "Khushu — presence of heart",
@@ -814,24 +932,51 @@ export const SALAH_GUIDE_TOPICS_MS: DeepPartial<SalahGuideTopic>[] = [
       "Whether the two prostrations fall before or after the salam depends on the error, and the schools differ. Both are from the sunnah; do not let uncertainty here stop you from praying.",
   },
   {
-    title: "Types of salah",
-    summary: "Fard, sunnah, witr, and the voluntary prayers that enrich a believer's day.",
+    title: "Jenis-jenis solat",
+    summary:
+      "Fardu, sunnah mu'akkadah, sunnah ghayr mu'akkadah, witir dan nafl umum — berserta dalil sahih.",
     body: [
-      "Prayers are graded by obligation. The five daily prayers are fard — a strict obligation on every accountable Muslim. Around and beyond them lies a rich world of voluntary prayer through which the Prophet ﷺ drew ever closer to Allah, and through which we can too.",
-      "Voluntary prayers matter for two reasons: they are beloved acts that raise a believer's rank — Allah says of extra worship, 'My servant keeps drawing near to Me with voluntary deeds until I love him' — and they repair the obligatory prayers, since any deficiency in the fard is completed from a person's voluntary prayers on the Day of Judgment.",
+      "Solat dibahagikan menurut kewajipan. Lima solat harian ialah fardu bagi setiap Muslim mukalaf; di sekelilingnya terdapat solat sukarela yang mendekatkan diri kepada Allah.",
+      "Bezakan sunnah mu'akkadah, sunnah ghayr mu'akkadah, witir — wajib menurut Hanafi dan sunnah mu'akkadah menurut majoriti — serta nafl umum. Bilangan yang diperselisihkan tidak ditetapkan sebagai sunnah khusus.",
+      "Solat sukarela meninggikan darjat dan menampung kekurangan solat fardu pada Hari Kiamat.",
+      "Dua belas rawatib ialah jadual harian yang paling kukuh. Nafl lain tetap dianjurkan berdasarkan dalil tetapi tidak termasuk dalam jumlah tetap ini.",
     ],
     steps: [
       {
-        title: "The five daily fard",
-        body: "Fajr, Dhuhr, Asr, Maghrib, Isha — the obligatory foundation, never to be abandoned.",
+        title: "Lima fardu harian",
+        body: "Subuh, Zohor, Asar, Maghrib dan Isyak — asas wajib yang tidak boleh ditinggalkan.",
       },
       {
-        title: "Sunnah rawatib",
-        body: "The regular sunnah rak'ahs before and after the fard — twelve daily earn a house in Paradise.",
+        title: "Subuh — 2 sebelum",
+        body: "Sunnah mu'akkadah yang tidak pernah ditinggalkan Nabi ﷺ; tiada sunnah rutin selepas Subuh.",
       },
       {
-        title: "Witr",
-        body: "An odd-numbered prayer after Isha, the seal of the night's prayer — sunnah mu'akkadah for the majority, and wajib in the Hanafi school.",
+        title: "Zohor — 4 sebelum dan 2 selepas",
+        body: "Enam rakaat ini termasuk dua belas rawatib; dua lagi selepasnya juga dianjurkan.",
+      },
+      {
+        title: "Asar — 4 sebelum",
+        body: "Sunnah ghayr mu'akkadah; tiada sunnah rutin selepas Asar.",
+      },
+      {
+        title: "Maghrib — 2 sebelum dan 2 selepas",
+        body: "Dua selepas ialah rawatib; dua sebelumnya nafl pilihan. Bilangan tetap al-Awwabin diperselisihkan.",
+      },
+      {
+        title: "Isyak — 2 selepas dan nafl sebelum",
+        body: "Dua selepas ialah rawatib; sebelum Isyak boleh dua atau empat antara azan dan iqamah.",
+      },
+      {
+        title: "Witir",
+        body: "Solat ganjil selepas Isyak — wajib menurut Hanafi dan sunnah mu'akkadah menurut majoriti.",
+      },
+      {
+        title: "Dua belas rawatib",
+        body: "2 sebelum Subuh, 4 sebelum Zohor, 2 selepas Zohor, 2 selepas Maghrib dan 2 selepas Isyak.",
+      },
+      {
+        title: "Nafl tambahan",
+        body: "4 sebelum Asar, 2 sebelum Maghrib, 2 atau 4 sebelum Isyak dan tambahan di sekitar Zohor.",
       },
       {
         title: "Tahajjud (qiyam al-layl)",
@@ -860,10 +1005,44 @@ export const SALAH_GUIDE_TOPICS_MS: DeepPartial<SalahGuideTopic>[] = [
     ],
     hadith: [
       {
-        excerpt: "The best prayer after the obligatory prayers is the night prayer. (Abu Hurayrah)",
+        excerpt:
+          "Nabi ﷺ tidak pernah meninggalkan dua rakaat sebelum Subuh. ('Aishah; also Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Sesiapa menjaga dua belas rakaat, Allah membina baginya rumah di Syurga. (Umm Habibah)",
+      },
+      {
+        excerpt:
+          "Sesiapa solat empat sebelum Zohor dan empat selepasnya, Allah mengharamkannya daripada Neraka. (Umm Habibah; graded authentic by many scholars)",
+      },
+      { excerpt: "Semoga Allah merahmati orang yang solat empat rakaat sebelum Asar." },
+      {
+        excerpt:
+          "Solatlah sebelum Maghrib — kemudian baginda bersabda: bagi sesiapa yang mahu. (Ibn 'Umar)",
+      },
+      {
+        excerpt: "Antara setiap dua seruan terdapat solat. (Anas ibn Malik; also Sahih Muslim 838)",
+      },
+      { excerpt: "Witir itu hak; sesiapa mahu hendaklah solat lima, tiga atau satu. (Ibn 'Umar)" },
+      { excerpt: "Solat terbaik selepas solat fardu ialah solat malam. (Abu Hurayrah)" },
+      {
+        excerpt:
+          "Hamba-Ku terus mendekati-Ku dengan amalan nafl sehingga Aku mencintainya. (Hadith Qudsi)",
       },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "Mulakan dengan dua belas rawatib sebelum menambah nafl pilihan.",
+      "Gunakan jadual rakaat untuk menjejak sunnah yang ditekankan.",
+      "Baca dalil dan simpan hadis yang mahu dikaji semula.",
+    ],
+    appLinks: [
+      { label: "Amalan sunnah" },
+      { label: "Panduan tahajud" },
+      { label: "Jadual rakaat" },
+    ],
+    disclaimer:
+      "Hukum witir, bilangan sebelum Isyak dan Solat al-Awwabin selepas Maghrib diperselisihkan. Pelajaran ini menyampaikan dalil sahih dan mencatat khilaf.",
   },
   {
     title: "Jumu'ah — the Friday prayer",
@@ -1066,5 +1245,200 @@ export const SALAH_GUIDE_PHRASES_MS: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Peace and the mercy of Allah be upon you.",
     meaning:
       "You leave the prayer as you would leave the company of the honoured — with a greeting of peace to the angels recording on each shoulder and to those praying beside you. The salam is a pillar; with it the prayer is complete.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_MS: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    id: "rawatib-total",
+    type: "multiple-choice",
+    prompt: "Berapa rakaat sunnah rawatib yang dipersetujui setiap hari?",
+    options: ["8", "10", "12", "14"],
+    correctIndex: 2,
+    explanation:
+      "Dua belas rawatib ialah: 2 sebelum Subuh, 4 sebelum Zohor, 2 selepas Zohor, 2 selepas Maghrib, dan 2 selepas Isyak (Sahih Muslim 728).",
+  },
+  {
+    id: "rawatib-fajr",
+    type: "multiple-choice",
+    prompt: "Sebelum Subuh, sunnah yang ditekankan (mu'akkadah) ialah:",
+    options: ["Tiada", "2 rakaat", "4 rakaat", "Hanya 2 rakaat selepasnya"],
+    correctIndex: 1,
+    explanation:
+      "Dua rakaat sebelum Subuh adalah sunnah mu'akkadah — Nabi ﷺ tidak pernah meninggalkannya (Sahih al-Bukhari 1169; Sahih Muslim 724).",
+  },
+  {
+    id: "rawatib-dhuhr",
+    type: "multiple-choice",
+    prompt: "Rawatib yang dipersetujui sekitar Zohor ialah:",
+    options: [
+      "2 sebelum, 2 selepas",
+      "4 sebelum, 2 selepas",
+      "4 sebelum, 4 selepas",
+      "Hanya 2 sebelum",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Empat sebelum Zohor dan dua selepasnya termasuk dua belas rawatib. Rakaat tambahan di luar ini adalah nafl yang digalakkan, bukan rawatib tetap.",
+  },
+  {
+    id: "asr-ghayr-muakkadah",
+    type: "true-false",
+    prompt:
+      "Benar atau salah: Empat rakaat sebelum Asar termasuk dalam dua belas rawatib harian yang tetap.",
+    options: ["Benar", "Salah"],
+    correctIndex: 1,
+    explanation:
+      "Empat sebelum Asar adalah sunnah ghayr mu'akkadah (sangat digalakkan) tetapi tidak termasuk dalam dua belas rawatib (Jami' at-Tirmidhi 430).",
+  },
+  {
+    id: "witr-separate",
+    type: "multiple-choice",
+    prompt: "Mengapa Witir diasingkan dalam kategori tersendiri dalam penjejak solat?",
+    options: [
+      "Tidak disebut dalam hadis",
+      "Hanafi menganggapnya wajib manakala jumhur menganggapnya sunnah mu'akkadah",
+      "Sentiasa dilaksanakan sebelum Isyak",
+      "Tiada bilangan rakaat yang tetap",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Witir sangat kukuh dalilnya, tetapi ulama berbeza pendapat sama ada ia wajib atau sunnah mu'akkadah — jadi ia dijejak berasingan daripada dua belas rawatib.",
+  },
+  {
+    id: "jahri-fajr",
+    type: "multiple-choice",
+    prompt: "Dalam solat Subuh berjemaah, imam membaca:",
+    options: [
+      "Senyap dalam kedua-dua rakaat",
+      "Kuat dalam kedua-dua rakaat",
+      "Kuat hanya dalam rakaat pertama",
+      "Senyap dalam pertama, kuat dalam kedua",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Subuh dibaca kuat (jahri) dalam kedua-dua rakaat. Di belakang imam anda mendengar dengan penuh perhatian.",
+  },
+  {
+    id: "jahri-dhuhr-asr",
+    type: "multiple-choice",
+    prompt: "Zohor dan Asar dalam jemaah dibaca:",
+    options: [
+      "Kuat dalam semua rakaat",
+      "Senyap dalam semua rakaat",
+      "Kuat dalam dua pertama, senyap selepasnya",
+      "Senyap dalam dua pertama, kuat selepasnya",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Zohor dan Asar kedua-duanya sirri (senyap) — imam membaca perlahan dan setiap jemaah membaca untuk dirinya sendiri.",
+  },
+  {
+    id: "jahri-maghrib",
+    type: "multiple-choice",
+    prompt: "Dalam Maghrib, imam membaca kuat pada:",
+    options: [
+      "Ketiga-tiga rakaat",
+      "Hanya dua rakaat pertama",
+      "Hanya rakaat ketiga",
+      "Tiada — Maghrib sepenuhnya senyap",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Maghrib jahri dalam rakaat pertama dan kedua serta sirri dalam rakaat ketiga — corak panjang/pendek seperti solat lain.",
+  },
+  {
+    id: "jahri-isha",
+    type: "multiple-choice",
+    prompt: "Dalam Isyak, bila bacaan kuat berhenti?",
+    options: [
+      "Selepas rakaat pertama",
+      "Selepas rakaat kedua",
+      "Selepas rakaat ketiga",
+      "Tidak pernah — keempatnya kuat",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Isyak dibaca kuat dalam dua rakaat pertama dan senyap dalam rakaat ketiga dan keempat.",
+  },
+  {
+    id: "behind-imam-loud",
+    type: "multiple-choice",
+    prompt: "Dalam solat kuat di belakang imam, semua bersetuju bahawa anda harus:",
+    options: [
+      "Membaca surah lain kuat bersama imam",
+      "Mendengar dengan penuh perhatian dan tidak membaca surah lain kuat",
+      "Meninggalkan solat selepas Al-Fatihah",
+      "Hanya membaca dalam rakaat terakhir",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Allah berfirman: 'Apabila Al-Qur'an dibacakan, maka dengarkanlah dengan seksama dan diamlah' (QS 7:204).",
+  },
+  {
+    id: "fatihah-shafii",
+    type: "multiple-choice",
+    prompt: "Menurut mazhab Syafi'i, di belakang imam dalam solat kuat anda:",
+    options: [
+      "Tidak membaca Al-Fatihah langsung",
+      "Membaca Al-Fatihah dalam setiap rakaat",
+      "Hanya membaca dalam rakaat yang senyap",
+      "Membaca kuat bersama imam",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Mazhab Syafi'i berpendapat bahawa membaca Al-Fatihah wajib bagi setiap jemaah dalam setiap rakaat, merujuk 'Tidak sah solat bagi orang yang tidak membaca Pembukaan Kitab' (Sahih al-Bukhari 756).",
+  },
+  {
+    id: "fatihah-hanafi-loud",
+    type: "multiple-choice",
+    prompt: "Menurut mazhab Hanafi, dalam solat kuat di belakang imam anda:",
+    options: [
+      "Membaca Al-Fatihah perlahan dalam setiap rakaat",
+      "Mendengar dengan penuh perhatian dan tidak membaca Al-Fatihah",
+      "Hanya membaca surah selepas Al-Fatihah",
+      "Mesti membaca Al-Fatihah kuat",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Pandangan Hanafi yang diandalkan ialah mendengar dalam solat jahri; bacaan imam sudah mencukupi. Keempat-empat mazhab Sunni adalah kedudukan yang sah.",
+  },
+  {
+    id: "first-two-surah",
+    type: "multiple-choice",
+    prompt: "Dalam dua rakaat pertama Zohor, Nabi ﷺ biasanya membaca:",
+    options: [
+      "Hanya Al-Fatihah",
+      "Al-Fatihah dan surah lain",
+      "Tiada — sepenuhnya senyap",
+      "Hanya tasbih",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Abu Qatadah melaporkan bahawa Nabi ﷺ membaca Al-Fatihah dan surah lain dalam dua rakaat pertama Zohor dan Asar, dan hanya Al-Fatihah dalam dua rakaat terakhir (Sahih al-Bukhari 776; Sahih Muslim 451).",
+  },
+  {
+    id: "alone-fajr",
+    type: "multiple-choice",
+    prompt: "Apabila solat Subuh sendirian, sunnahnya:",
+    options: [
+      "Hanya membaca senyap",
+      "Membaca kuat (walaupun senyap tetap sah)",
+      "Melepaskan surah selepas Al-Fatihah",
+      "Hanya solat satu rakaat",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Sendirian anda membaca kandungan yang sama seperti dalam jemaah; dalam Subuh, Maghrib, dan Isyak sunnah membaca kuat.",
+  },
+  {
+    id: "awwabin-disputed",
+    type: "true-false",
+    prompt:
+      "Benar atau salah: Enam rakaat tetap selepas Maghrib sebagai Solat al-Awwabin adalah sunnah yang mantap dengan persetujuan ulama.",
+    options: ["Benar", "Salah"],
+    correctIndex: 1,
+    explanation:
+      "Nafl umum selepas Maghrib digalakkan, tetapi penetapan tepat enam rakaat sebagai Awwabin dipertikaikan keasliannya — jangan disajikan sebagai sunnah tetap yang mantap.",
   },
 ];

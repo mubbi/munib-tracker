@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
@@ -588,7 +592,92 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
           "Kitabın açılışını oxumayanın namazı yoxdur. (Ubadə ibn əs-Samit; həmçinin Səhih Müslim 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [{}, {}, {}, {}, { label: "Səsli və səssiz qiraət" }],
+  },
+  {
+    title: "Səsli və səssiz qiraət",
+    summary:
+      "İmamın hansı rükətlərdə səsli, hansılarda səssiz oxuduğu və onun arxasında, yaxud tək qılarkən nə etməli olduğunuz.",
+    body: [
+      "Ən çox verilən suallardan biri — həm yeni müsəlmanlar, həm də ömrü boyu namaz qılanlar üçün — iki prinsipi anlayanda sadələşir: bəzi namazlar səsli (cəhri), bəziləri isə səssiz (sirri) qılınır. Peyğəmbər ﷺ hər iki şəkildə namaz qılmış, səhabələr bu qaydanı nəql etmiş və o, əsas hədis məcmuələrində qeyd olunmuşdur.",
+      "Hər namazda ilk iki rükət «uzun» rükətlərdir: əl-Fatihə və əlavə bir surə (və ya bir neçə ayə). Üç və ya dörd rükətli namazların qalan rükətlərində Peyğəmbər ﷺ adətən yalnız əl-Fatihəni oxuyardı. Buna görə Məğrib və İşada səsli qiraət ikinci rükətdən sonra dayanır, Zöhr və Əsr isə başdan sona səssiz qalır.",
+      "Allah hansı namazların niyə səsli, hansılarının səssiz olduğuna dair açıq səbəb bildirməyib. Alimlər bəzi hikmətlər qeyd edirlər — gecə namazları səsli qiraətə uyğundur; gündüz namazları iş və ictimai həyat içində qılınır; bu qayda namazları bir-birindən fərqləndirir — lakin müsəlmanlar ilk növbədə Sünnə olduğu üçün ona əməl edirlər. Allah buyurur: «Həqiqətən, Allahın Elçisində sizin üçün gözəl bir nümunə vardır» (33:21).",
+      "İmamın arxasında səsli namazlarda razılaşdırılmış qayda diqqətlə dinləmək və başqa surəni səslə oxumamaqdır. İmam oxuyarkən əl-Fatihəni səssizcə oxuyub-oxumamaq dörd sünni məzhəbi arasında ən məşhur ixtilaflardan biridir — hamısı mötəbər alimlərin qəbul etdiyi etibarlı rəylərdir. Səssiz namazlarda imam səssiz oxuyur, buna görə hər namaz qılan öz məzhəbinin təliminə uyğun olaraq özü üçün oxuyur.",
+      "Tək namaz qılarkən: hər rükətdə əl-Fatihəni oxuyun; hər namazın ilk iki rükətində bir surə əlavə edin; son rükətdə və ya rükətlərdə yalnız əl-Fatihəni oxuyun. Səsli namazları tək qılarkən səsli oxumaq Sünnədir, lakin səssiz qılmaq da səhihdir.",
+    ],
+    steps: [
+      {
+        title: "Fəcr — hər iki rükətdə səsli",
+        body: "İmam hər iki rükətdə səsli oxuyur. Arxasında: diqqətlə dinləyin; başqa surəni səslə oxumayın. əl-Fatihə barədə aşağıdakı məzhəb addımına baxın.",
+      },
+      {
+        title: "Zöhr — dörd rükətin hamısında səssiz",
+        body: "İmam hər rükətdə səssiz oxuyur. Arxasında: məzhəbinizə uyğun olaraq əl-Fatihəni və surəni özünüz üçün səssiz oxuyun.",
+      },
+      {
+        title: "Əsr — dörd rükətin hamısında səssiz",
+        body: "Zöhr kimidir — imam tamamilə səssiz oxuyur; hər namaz qılan onun arxasında səssiz oxuyur.",
+      },
+      {
+        title: "Məğrib — əvvəl səsli, sonra səssiz",
+        body: "Birinci və ikinci rükətlərdə səsli, üçüncüdə səssiz. Arxasında: ilk ikisində dinləyin; üçüncü rükətdə məzhəbinizə uyğun olaraq özünüz üçün oxuyun.",
+      },
+      {
+        title: "İşa — əvvəl səsli, sonra səssiz",
+        body: "Birinci və ikinci rükətlərdə səsli, üçüncü və dördüncüdə səssiz. Arxasında: ilk ikisində dinləyin; son ikisində məzhəbinizə uyğun olaraq özünüz üçün oxuyun.",
+      },
+      {
+        title: "Niyə yalnız ilk iki rükət?",
+        body: "Abu Qatadah (RA) rəvayət edir ki, Peyğəmbər ﷺ Zöhr və Əsrin ilk iki rükətində əl-Fatihə ilə başqa bir surə, son iki rükətində isə yalnız əl-Fatihə oxuyardı. Bu qayda çoxrükətli hər namazda uzun və qısa rükətlərin quruluşunu izah edir.",
+      },
+      {
+        title: "Səsli namazlarda imamın arxasında — hamının razılaşdığı qayda",
+        body: "Quran səsli oxunarkən diqqətlə dinləyin. İmamla yarışmayın və başqa surəni səslə oxumayın. Allah buyurur: «Quran oxunduğu zaman onu dinləyin və susun ki, sizə rəhm olunsun» (7:204).",
+      },
+      {
+        title: "İmamın arxasında əl-Fatihə — dörd məzhəb",
+        body: "Hənəfi: səsli namazlarda əl-Fatihəni oxumayın; dinləyin. Maliki: səsli qiraət zamanı ümumən dinləyin. Şafii: hətta imamın arxasında belə hər rükətdə əl-Fatihəni oxuyun. Hənbəli: iki rəy var; bir çox Hənbəli alimi fasilələrdə və ya mümkün olduqda oxumağı tövsiyə edir. Dördü də tanınmış sünni mövqeləridir.",
+        tip: "Etibarlı müəllimdən öyrəndiyiniz məzhəbin təliminə əməl edin. Heç bir məzhəb imamın səsini üstələyərək başqa surəni səslə oxumağa icazə vermir.",
+      },
+      {
+        title: "Səssiz namazlarda imamın arxasında",
+        body: "Hənəfi (əsas götürülən rəy): səna və zikri səssiz oxuyun, amma əl-Fatihəni yox — imamın qiraəti kifayətdir. Maliki: səssiz zikr; tətbiq vəziyyətə görə dəyişir. Şafii və Hənbəli: hər rükətdə əl-Fatihəni özünüz səssiz oxuyun.",
+      },
+      {
+        title: "Tək namaz qılmaq",
+        body: "Oxuduğunuzda fərq yoxdur — yalnız səsi qaldırıb-qaldırmamaqda fərq var. Hər rükət: əl-Fatihə. İlk iki rükət: bir surə əlavə edin. Son rükət və ya rükətlər: yalnız əl-Fatihə. Fəcr, Məğrib və İşada səsli oxumaq Sünnədir; Zöhr və Əsr səssiz oxunur.",
+      },
+    ],
+    quran: [
+      { excerpt: "Həqiqətən, Allahın Elçisində sizin üçün gözəl bir nümunə vardır." },
+      { excerpt: "Quran oxunduğu zaman onu dinləyin və susun ki, sizə rəhm olunsun." },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Peyğəmbər ﷺ Zöhr və Əsrin ilk iki rükətində əl-Fatihə ilə başqa bir surə, son iki rükətində isə yalnız əl-Fatihə oxuyardı. (Abu Qatadah; also Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Kitabın Açılışını oxumayanın namazı yoxdur. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "Zöhr və Əsrin ilk iki rükətində uzun surələr oxuduğunu düşündürəcək qədər, son iki rükətində isə daha qısa surələr oxuduğunu düşündürəcək qədər qiraət edərdi. (Abu Qatadah)",
+      },
+    ],
+    actions: [
+      "Növbəti camaat namazınızda imamın hansı rükətlərdə səsli oxuduğuna diqqət edin.",
+      "Məzhəbinizdən olan müəllimdən səsli namazlarda imamın arxasında əl-Fatihəni oxuyub-oxumadığınızı soruşun.",
+      "Tək namaz qılarkən cəhri qiraət Sünnəsini yaşamaq üçün Fəcrdə səsli oxumağı sınayın.",
+    ],
+    appLinks: [
+      { label: "Addım-addım namaz" },
+      { label: "Camaat namazı" },
+      { label: "Sözlər və mənalar" },
+    ],
+    disclaimer:
+      "Dörd sünni məzhəbi səsli və səssiz namazlarda imamın arxasında əl-Fatihənin oxunması məsələsində fərqli rəylərə malikdir. Bu dərs birini yeganə doğru mövqe elan etmədən hər məzhəbin qəbul olunmuş mövqeyini təqdim edir. Məzhəbinizin təfərrüatlarını ixtisaslı müəllimdən öyrənin.",
   },
   {
     title: "Hər mövqe",
@@ -684,7 +773,8 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
     summary: "Peyğəmbər (s) namazı gözəlləşdirən və savabını artıran əməlləri tövsiyə etmişdir.",
     body: [
       "Peyğəmbər ﷺ vacib əməllərdən başqa, namaz ətrafında bir çox müstəhəbb əməlləri (sünən) nümunə götürmüşdür. Bunlar tələb olunmur, ona görə də birini tərk etmək namazı batil etməz, lakin hər biri sizi Allaha yaxınlaşdırar, əlavə savab qazanar və fərz namazlardakı çatışmazlıqları aradan qaldırar.",
-      "Bunlardan ən başlıcası fərzdən əvvəl və sonra qılınan adi sünnət namazlarıdır: iki sübhdən əvvəl (Peyğəmbər (sallallahu aleyhi və səlləm) bütün dünyadan üstündür), zöhrdən əvvəl dörd və iki, məğribdən sonra iki və işadan sonra iki rükət - mükafatı cənnətdə tikilmiş bir ev olan on iki rükət.",
+      "Bunların ən mühümü fərz namazlarından əvvəl və sonra qılınan müntəzəm sünnələrdir (sünən rəvatib). Bütün nafilələr eyni dərəcədə deyil: alimlər sünnə müəkkədəni (Peyğəmbərin ﷺ davamlı etdiyi vurğulanmış sünnə), sünnə qeyri-müəkkədəni (tövsiyə olunan, lakin az vurğulanan) və ümumi nafiləni (müəyyən sayı olmayan ixtiyari namaz) fərqləndirirlər. Bu fərq gündəlik nəyə üstünlük verməyi göstərir.",
+      "Ən aydın və ən güclü dəlilli gündəlik cədvəl on iki rəvatibdir: Fəcrdən əvvəl iki, Zöhrdən əvvəl dörd, Zöhrdən sonra iki, Məğribdən sonra iki və İşadan sonra iki rükət. Onların mükafatı Cənnətdə bir evdir. Hər namazın tam izahı və dəlilləri üçün “Namaz növləri” dərsinə baxın.",
     ],
     actions: [
       "Misvakdan dəstəmaz və namazdan əvvəl istifadə edin - Peyğəmbər az qala bunu vacib etdi.",
@@ -700,10 +790,18 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
       },
       {
         excerpt:
-          "Hər kim gecə-gündüz on iki rükət nafilə namaz qılarsa, onun üçün cənnətdə bir ev tikilər. (Ümmü Həbibə)",
+          "Peyğəmbər ﷺ Fəcrdən əvvəlki iki rükəti heç vaxt tərk etməzdi. (Aişə; həmçinin Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kim gecə-gündüz on iki rükətə davam edərsə, Allah ona Cənnətdə bir ev tikər: Fəcrdən əvvəl iki, Zöhrdən əvvəl dörd, Zöhrdən sonra iki, Məğribdən sonra iki və İşadan sonra iki. (Ümmü Həbibə)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      { label: "Namaz növləri — rəvatib bələdçisi" },
+      { label: "Namazdan sonrakı sünnə və zikrlər" },
+      { label: "Məscid duaları" },
+    ],
   },
   {
     title: "Xuşu - ürəyin varlığı",
@@ -794,55 +892,134 @@ export const SALAH_GUIDE_TOPICS_AZ: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Namaz növləri",
-    summary: "Möminin gününü zənginləşdirən fərz, sünnə, vitr və nafilə namazlar.",
+    summary:
+      "Fərz, sünnə müəkkədə, sünnə qeyri-müəkkədə, vitr və ümumi nafilə — hər biri üçün səhih dəlillərlə.",
     body: [
-      "Namazlar mükəlləfiyyətə görə təsnif edilir. Beş vaxt namaz fərzdir - hər bir müsəlman üçün ciddi bir fərzdir. Onların ətrafında və kənarında, Peyğəmbərin (sallallahu aleyhi və səlləm) Allaha getdikcə yaxınlaşdığı və bizim də onunla bacara biləcəyimiz zəngin bir könüllü dua dünyası var.",
-      'Nafilə namazların iki səbəbi var: möminin dərəcəsini yüksəldən sevimli əməllərdir - Allah əlavə ibadət haqqında buyurur: "Bəndəm mən onu sevənə qədər ibadətlə Mənə yaxınlaşmağa davam edər" - və fərz namazlarını düzəldir, çünki fərzdə olan hər hansı bir əskiklik Qiyamət günü insanın könüllü namazı ilə tamamlanır.',
+      "Namazlar vaciblik dərəcəsinə görə təsnif edilir. Beş vaxt namaz fərzdir — hər bir məsul müsəlmana qəti borcdur. Onların ətrafında Peyğəmbərin ﷺ Allaha yaxınlaşdığı və bizim də yaxınlaşa biləcəyimiz zəngin nafilə namazlar dünyası var.",
+      "Düzgün öyrənmək üçün səhih mətnlərlə təsdiqlənən dörd növü fərqləndirin: sünnə müəkkədə (Peyğəmbərin ﷺ adətən tərk etmədiyi rəvatib), sünnə qeyri-müəkkədə (tövsiyə olunan, lakin az vurğulanan), vitr (Hənəfilərə görə vacib, əksəriyyətə görə sünnə müəkkədə) və ümumi nafilə (razılaşdırılmış müəyyən sayı olmayan ixtiyari namaz). Alimlər sayda ixtilaf etdikdə — məsələn Məğribdən sonra Salat əl-Əvvabin adlandırılan altı rükətdə — mübahisəli sayı sabit sünnə saymadan ümumi təşviqi təqdim edirik.",
+      "Nafilə namazlar iki səbəbdən əhəmiyyətlidir: möminin dərəcəsini yüksəldən sevimli əməllərdir və fərz namazlarını tamamlayır; Qiyamət günü fərzdəki nöqsanlar insanın nafilələri ilə doldurular.",
+      "Aşağıdakı on iki rəvatib ən aydın və ən çox qəbul edilmiş gündəlik sünnə cədvəlidir. “Namazı öyrən” səhifəsindəki rükət cədvəli bu on iki vurğulanmış rükəti izləyir; Əsrdən və Məğribdən əvvəl, yaxud İşadan sonra nafilə dəlil olduqda təşviq edilir, lakin müəyyən saya daxil edilmir.",
     ],
     steps: [
       {
-        title: "Beş günlük fərz",
-        body: "Sübh, zöhr, əsr, məğrib, işa – vacib təməldir, heç vaxt tərk edilməz.",
+        title: "Beş fərz namaz",
+        body: "Fəcr, Zöhr, Əsr, Məğrib və İşa — heç vaxt tərk edilməyən vacib təməldir.",
+        ruling: "fard",
       },
       {
-        title: "Sünnə rəvatib",
-        body: "Fərzdən əvvəl və sonra müntəzəm sünnə rükətləri - gündə on iki cənnətdə ev qazanır.",
+        title: "Fəcr — fərzdən əvvəl 2 (sünnə müəkkədə)",
+        body: "Fəcr fərzindən əvvəlki iki rükət sünnə müəkkədədir; Peyğəmbər ﷺ onları heç vaxt tərk etməzdi. Fəcrdən sonra sabit gündəlik sünnə yoxdur; ümumi nafilə Fəcrdən günəş doğana qədər qadağandır.",
+        ruling: "sunnah",
       },
       {
-        title: "Vitr",
-        body: "İşadan sonra tək nömrəli namaz, gecə namazının möhürü — əksəriyyət üçün sünnə müəkkədə, Hənəfi məzhəbində isə vacib.",
+        title: "Zöhr — əvvəl 4, sonra 2 (sünnə müəkkədə)",
+        body: "Zöhrdən əvvəl dörd və sonra iki rükət on iki rəvatibdəndir. Ümmü Həbibə rəvayət edir ki, kim Zöhrdən əvvəl və sonra dörd rükət qılarsa, Allah onu Oddan qoruyar; buna görə əsas ikidən əlavə sonrakı iki rükət müstəhəb nafilədir, bəzi alimlər əvvəl də iki əlavə etməyi sevirlər.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Əsr — əvvəl 4 (sünnə qeyri-müəkkədə)",
+        body: "Əsrdən əvvəl dörd rükət güclü tövsiyə olunur. Əsrdən sonra sabit gündəlik sünnə yoxdur; ümumi nafilə Əsrdən gün batana qədər qadağandır.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Məğrib — əvvəl 2 və sonra 2",
+        body: "Məğribdən sonrakı iki rükət sünnə müəkkədə və rəvatibdəndir. Məğribdən əvvəl Peyğəmbər ﷺ iki dəfə “Məğribdən əvvəl namaz qılın”, sonra “istəyən” dedi; deməli əvvəlki iki rükət ixtiyari nafilədir, sabit rəvatib deyil. Məğribdən sonra nafilə ümumən təşviq olunur, lakin altı rükəti Salat əl-Əvvabin kimi müəyyənləşdirməyin səhihliyi ixtilaflıdır.",
+        ruling: "sunnah",
+      },
+      {
+        title: "İşa — sonra 2, əvvəl ixtiyari",
+        body: "İşadan sonrakı iki rükət sünnə müəkkədə və rəvatibdəndir. “Hər iki çağırış arasında namaz vardır” hədisi azanla iqamə arasında iki və ya dörd rükətə imkan verir — ümumi nafilədir, rəvatib deyil. İşadan sonra əlavə nafilə caizdir, lakin rəvatibdən sonra məhz iki əlavə rükət təyin edən səhih sünnə yoxdur.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Vitr — ayrıca kateqoriya",
+        body: "Vitr İşadan sonra tək sayda (1, 3, 5, 7, 9, 11…) qılınır. Çoxsaylı səhih hədislər onu əmr və təkid edir. Hənəfilər vacib, əksəriyyət sünnə müəkkədə sayır. Bu hökm fərqinə görə on iki rəvatibdən ayrıdır.",
+        ruling: "wajib",
+      },
+      {
+        title: "On iki rəvatib — qəbul edilmiş cədvəl",
+        body: "Fəcrdən əvvəl: 2. Zöhrdən əvvəl: 4. Zöhrdən sonra: 2. Məğribdən sonra: 2. İşadan sonra: 2. Cəmi: 12 rükət. Onlara davam edənə Allah Cənnətdə bir ev tikər.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Tövsiyə olunan nafilələr — sabit rəvatib deyil",
+        body: "Əsrdən əvvəl: 4 (hasan). Məğribdən əvvəl: ixtiyari 2 (sahih). İşadan əvvəl: azanla iqamə arasında 2 və ya 4 (sahih). Zöhrdən əvvəl əlavə 2 və sonra əlavə 2 (hasan/sahih) tövsiyə olunur. Məğrib və İşadan sonra nafilə ümumən təşviq edilir — mübahisəli sabit say olmadan.",
+        ruling: "sunnah",
       },
       {
         title: "Təhəccüd (qiyamul-leyl)",
         body: "Gecənin son üçdə birində gecə namazı - ən fəzilətli könüllü namaz və salehlərin vərdişi.",
+        ruling: "sunnah",
       },
       {
         title: "Duha",
         body: "Sübh namazı (2-8 rükət) - hər gün bədənin oynaqlarının hər biri üçün lazım olan sədəqədir.",
+        ruling: "sunnah",
       },
       {
         title: "Təravih",
         body: "Ramazan ayının camaat gecəsi namazı - mübarək ayın gecələrini dirildən.",
+        ruling: "sunnah",
       },
       {
         title: "İki bayram",
         body: "İki rükət Fitr və Qurban bayramı, ardınca xütbə oxunur.",
+        ruling: "fard",
       },
       {
         title: "İstixarə",
         body: "Qərar verməzdən əvvəl Allahdan hidayət istəyən iki rükət namaz.",
+        ruling: "sunnah",
       },
       {
         title: "Cənazə",
         body: "Cənazə namazı rüku və səcdəsiz ayaq üstə qılınan camaat (fərzi kifayə) namazıdır.",
+        ruling: "fard",
       },
     ],
     hadith: [
       {
-        excerpt: "Vacib namazlardan sonra ən fəzilətli namaz gecə namazıdır. (Əbu Hureyrə)",
+        excerpt:
+          "Peyğəmbər ﷺ Fəcrdən əvvəlki iki rükəti heç vaxt tərk etməzdi. (Aişə; həmçinin Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kim gecə-gündüz on iki rükətə davam edərsə, Allah ona Cənnətdə bir ev tikər: Fəcrdən əvvəl iki, Zöhrdən əvvəl dörd, Zöhrdən sonra iki, Məğribdən sonra iki və İşadan sonra iki. (Ümmü Həbibə)",
+      },
+      {
+        excerpt:
+          "Kim Zöhrdən əvvəl dörd və sonra dörd rükət qılarsa, Allah onu Oddan qoruyar. (Ümmü Həbibə; bir çox alim səhih saymışdır)",
+      },
+      { excerpt: "Əsrdən əvvəl dörd rükət qılan insana Allah rəhm etsin." },
+      {
+        excerpt:
+          "Məğribdən əvvəl namaz qılın, Məğribdən əvvəl namaz qılın — sonra dedi: istəyən. (İbn Ömər)",
+      },
+      {
+        excerpt:
+          "Hər iki çağırışın (azan və iqamənin) arasında namaz vardır. (Ənəs ibn Malik; həmçinin Sahih Muslim 838)",
+      },
+      {
+        excerpt: "Vitr haqdır; istəyən beş, istəyən üç, istəyən bir qılsın. (İbn Ömər)",
+      },
+      { excerpt: "Fərz namazlardan sonra ən fəzilətli namaz gecə namazıdır. (Əbu Hureyrə)" },
+      {
+        excerpt:
+          "Bəndəm nafilələrlə Mənə yaxınlaşmağa davam edər, nəhayət Mən onu sevərəm. (Hadith Qudsi)",
       },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "On iki rəvatiblə başlayın; ixtiyari nafilələri artırmazdan əvvəl bu vərdişi qurun.",
+      "Hər fərzin yanındakı vurğulanmış sünnələri izləmək üçün bu səhifədəki rükət cədvəlindən istifadə edin.",
+      "Aşağıdakı dəlil kartlarını oxuyun və qayıtmaq istədiyiniz hədisləri yadda saxlayın.",
+    ],
+    appLinks: [
+      { label: "Sünnə əməlləri" },
+      { label: "Təhəccüd bələdçisi" },
+      { label: "Rükət cədvəli" },
+    ],
+    disclaimer:
+      "Vitrin hökmü (vacib və ya sünnə müəkkədə), İşadan əvvəlki ixtiyari rükətlərin dəqiq sayı və Məğribdən sonrakı Salat əl-Əvvabin alimlərin ixtilaf etdiyi məsələlərdir. Bu dərs yalnız səhih dəlili olanları təqdim edir və ixtilafı qeyd edir.",
   },
   {
     title: "Cümə - cümə namazı",
@@ -1044,5 +1221,143 @@ export const SALAH_GUIDE_PHRASES_AZ: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Allahın salamı və rəhməti üzərinizə olsun.",
     meaning:
       "Namazı möhtərəmlərin yanından ayrıldığınız kimi tərk edirsiniz - hər çiyninizdə yazılan mələklərə və yanınızda namaz qılanlara salam verərək. Salam bir sütundur; onunla namaz tamam olur.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_AZ: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Hər gün neçə sünnət rəvatib rükəti razılaşdırılıb?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "On iki rəvatib: sübhə qabaq 2, zöhrə qabaq 4, zöhrdən sonra 2, məğribdən sonra 2 və işadan sonra 2 (Səhih Məslim 728).",
+  },
+  {
+    prompt: "Sübhə namazından əvvəl vurğulanan (müəkkədə) sünnət:",
+    options: ["Yoxdur", "2 rükət", "4 rükət", "Yalnız sonra 2 rükət"],
+    explanation:
+      "Sübhədən əvvəl iki rükət müəkkədə sünnətdir — Peyğəmbər ﷺ onları heç vaxt tərk etməzdi (Səhih əl-Buxari 1169; Səhih Məslim 724).",
+  },
+  {
+    prompt: "Zöhr ətrafında razılaşdırılmış rəvatiblər:",
+    options: ["Əvvəl 2, sonra 2", "Əvvəl 4, sonra 2", "Əvvəl 4, sonra 4", "Yalnız əvvəl 2"],
+    explanation:
+      "Zöhrə qabaq dörd və sonra iki rükət on iki rəvatibə daxildir. Bunlardan artıq rükətlər tövsiyə olunan nəfildir, sabit rəvatib deyil.",
+  },
+  {
+    prompt:
+      "Doğru və ya yanlış: Əsr namazından əvvəl dörd rükət gündəlik sabit on iki rəvatibə daxildir.",
+    options: ["Doğru", "Yanlış"],
+    explanation:
+      "Əsrə qabaq dörd rükət qeyri-müəkkədə sünnətdir (geniş tövsiyə olunur), lakin on iki rəvatibə daxil deyil (Camii ət-Tirmizi 430).",
+  },
+  {
+    prompt: "Niyə vitr namaz izləyicisində ayrıca kateqoriyada saxlanılır?",
+    options: [
+      "Hədislərdə qeyd olunmur",
+      "Hənəfilər onu vacib sayır, cəmiyyət isə müəkkədə sünnət",
+      "Həmişə işadan əvvəl qılınır",
+      "Sabit rükət sayı yoxdur",
+    ],
+    explanation:
+      "Vitr möhkəm sübuta malikdir, lakin alimlər onun vacib və ya müəkkədə sünnət olması barədə fikir ayrılığı var — ona görə on iki rəvatibdən ayrıca izlənilir.",
+  },
+  {
+    prompt: "Cəmətdə sübh namazında imam oxuyur:",
+    options: [
+      "Hər iki rükətdə səssiz",
+      "Hər iki rükətdə səsli",
+      "Yalnız birincidə səsli",
+      "Birincidə səssiz, ikincidə səsli",
+    ],
+    explanation:
+      "Sübh hər iki rükətdə səsli (cəhri) oxunur. İmamın arxasında diqqətlə dinləyirsiniz.",
+  },
+  {
+    prompt: "Cəmətdə zöhr və əsr namazları oxunur:",
+    options: [
+      "Bütün rükətlərdə səsli",
+      "Bütün rükətlərdə səssiz",
+      "İlk ikidə səsli, sonra səssiz",
+      "İlk ikidə səssiz, sonra səsli",
+    ],
+    explanation:
+      "Zöhr və əsr tamamilə sirri (səssiz)dir — imam pıçıldayır, hər ibadətçi özü üçün oxuyur.",
+  },
+  {
+    prompt: "Məğribdə imam səsli oxuyur:",
+    options: [
+      "Üç rükətin hamısında",
+      "Yalnız ilk iki rükətdə",
+      "Yalnız üçüncü rükətdə",
+      "Heç yerdə — məğrib tam səssizdir",
+    ],
+    explanation:
+      "Məğrib birinci və ikinci rükətdə cəhri, üçüncüdə sirridir — digər namazlardakı uzun/qısa nümunə.",
+  },
+  {
+    prompt: "İşada səsli oxuma nə vaxt dayanır?",
+    options: [
+      "Birinci rükətdən sonra",
+      "İkinci rükətdən sonra",
+      "Üçüncü rükətdən sonra",
+      "Heç vaxt — dördü də səsli",
+    ],
+    explanation: "İşa ilk iki rükətdə səsli, üçüncü və dördüncüdə səssiz oxunur.",
+  },
+  {
+    prompt: "İmamın arxasında səsli namazlarda hər kəs razılaşır ki, siz:",
+    options: [
+      "İmamla birlikdə başqa surəni səsli oxuyasınız",
+      "Diqqətlə dinləyib başqa surəni səsli oxumayasınız",
+      "Fatiha-dan sonra namazdan çıxasınız",
+      "Yalnız son rükətdə oxuyasınız",
+    ],
+    explanation: "Allah deyir: «Qur'an oxunanda ona diqqətlə qulaq asın və susun» (Qur'an 7:204).",
+  },
+  {
+    prompt: "Şafi məzhəbinə görə, səsli namazda imamın arxasında siz:",
+    options: [
+      "Fatiha-nı heç oxumursunuz",
+      "Hər rükətdə Fatiha oxuyursunuz",
+      "Yalnız səssiz rükətlərdə oxuyursunuz",
+      "İmamla birlikdə səsli oxuyursunuz",
+    ],
+    explanation:
+      "Şafi məzhəbi hər ibadətçinin hər rükətdə Fatiha oxumasını vacib sayır: «Kitabın açılışını oxumayanın namazı yoxdur» (Səhih əl-Buxari 756).",
+  },
+  {
+    prompt: "Hənəfi məzhəbinə görə, səsli namazlarda imamın arxasında siz:",
+    options: [
+      "Hər rükətdə Fatiha-nı pıçıldayaraq oxuyursunuz",
+      "Diqqətlə dinləyib Fatiha oxumursunuz",
+      "Yalnız Fatiha-dan sonrakı surəni oxuyursunuz",
+      "Fatiha-nı səsli oxumalısınız",
+    ],
+    explanation:
+      "Hənəfilərdə etibarlı görüş cəhri namazlarda dinləməkdir; imamın oxuması kifayətdir. Dörd sünni məzhəbin hamısı etibarlı mövqelərdir.",
+  },
+  {
+    prompt: "Zöhrün ilk iki rükətində Peyğəmbər ﷺ adətən oxuyurdu:",
+    options: ["Yalnız Fatiha", "Fatiha və başqa surə", "Heç nə — tam səssiz idi", "Yalnız təsbih"],
+    explanation:
+      "Əbu Qətadə rəvayət edir ki, Peyğəmbər ﷺ zöhr və əsrin ilk iki rükətində Fatiha və başqa surə, son iki rükətdə isə yalnız Fatiha oxuyurdu (Səhih əl-Buxari 776; Səhih Məslim 451).",
+  },
+  {
+    prompt: "Sübh namazını tək qılarkən sünnət:",
+    options: [
+      "Yalnız səssiz oxumaq",
+      "Səsli oxumaq (səssiz də etibarlıdır)",
+      "Fatiha-dan sonrakı surəni buraxmaq",
+      "Yalnız bir rükət qılmaq",
+    ],
+    explanation:
+      "Tək qılarkən cəmətdə oxunanı oxuyursunuz; sübh, məğrib və işada səsli oxumaq sünnətdir.",
+  },
+  {
+    prompt:
+      "Doğru və ya yanlış: Məğribdən sonra sabit altı rükət Salat əl-Əvvabin kimi bütün alimlərin razılığı ilə sabit sünnətdir.",
+    options: ["Doğru", "Yanlış"],
+    explanation:
+      "Məğribdən sonra ümumi nəfıl təşviq olunur, lakin məşhur altı rükətin Əvvabin kimi göstərilməsi etibarlılıqda mübahisəlidir — sabit sünnə kimi təqdim edilməməlidir.",
   },
 ];

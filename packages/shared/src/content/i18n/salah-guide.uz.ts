@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
@@ -590,7 +594,111 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
           "Kitobning ochilishini o'qimaganning namozi yo'q. (Uboda ibn as-Somit; Yana Sahihi Musulmon 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [
+      {},
+      {
+        label: "Ovoz chiqarib va ichida o‘qish",
+      },
+      {},
+      {},
+      {},
+    ],
+  },
+  {
+    title: "Ovoz chiqarib va ichida o‘qish",
+    summary:
+      "Imom qaysi rakatlarda ovoz chiqarib, qaysilarida ichida o‘qiydi va siz uning ortida yoki yolg‘iz namozda nima qilasiz.",
+    body: [
+      "Eng ko‘p beriladigan savollardan biri — yangi musulmonlar uchun ham, umr bo‘yi namoz o‘qiganlar uchun ham — ikki tamoyilni tushunganda osonlashadi: ayrim namozlar ovoz chiqarib (jahriy), ayrimlari esa ichida (sirriy) o‘qiladi. Payg‘ambar ﷺ ikkala usulda ham namoz o‘qiganlar, sahobalar bu tartibni rivoyat qilganlar va u asosiy hadis to‘plamlarida sobitdir.",
+      "Har bir namozning dastlabki ikki rakati «uzun rakatlar»dir: Fotiha, so‘ng yana bir sura yoki oyatlar o‘qiladi. Uch yoki to‘rt rakatli namozlarning qolgan rakatlarida Payg‘ambar ﷺ odatda faqat Fotihani o‘qiganlar. Shuning uchun shom va xuftonda ovozli qiroat ikkinchi rakatdan keyin tugaydi, peshin va asr esa boshidan oxirigacha ichida o‘qiladi.",
+      "Alloh ayrim namozlarning nega ovozli, boshqalarining esa ichida o‘qilishini ochiq bayon qilmagan. Ulamolar hikmatlarni zikr qiladilar — tungi namozlarga ovozli qiroat mosligi, kunduzgi mashg‘ulotlar va namozlarni bir-biridan ajratish — ammo musulmonlar bu tartibga sunnat bo‘lgani uchun amal qiladilar. Alloh aytadi: «Albatta, sizlar uchun Allohning Rasulida go‘zal namuna bordir» (33:21).",
+      "Imom ortida ovozli namozda Qur’on qiroat qilinayotganda tinglash va boshqa surani ovoz chiqarib o‘qimaslik borasida ittifoq bor. Imom o‘qiyotganda Fotihani ichida o‘qish esa to‘rt mazhab orasidagi mashhur ixtiloflardan biridir — barchasi e’tiborli qarashlardir. Ichida o‘qiladigan namozlarda imom ham ichida o‘qiydi va har bir namozxon mazhabiga ko‘ra o‘zi uchun qiroat qiladi.",
+      "Yolg‘iz namoz o‘qisangiz: har rakatda Fotihani, dastlabki ikki rakatda esa qo‘shimcha surani o‘qing; keyingi rakatlarda faqat Fotiha o‘qiladi. Ovozli namozlarda yolg‘iz kishi uchun eshitilarli ovozda o‘qish mustahab, ammo ichida o‘qisa ham namozi sahihdir.",
+    ],
+    steps: [
+      {
+        title: "Bomdod — ikki rakat ham ovozli",
+        body: "Imom ikkala rakatda ovoz chiqarib o‘qiydi. Uning ortida tinglang va boshqa surani ovoz chiqarib o‘qimang. Fotiha masalasi uchun mazhablar haqidagi qadamga qarang.",
+      },
+      {
+        title: "Peshin — to‘rt rakat ham ichida",
+        body: "Imom har rakatda ichida o‘qiydi. Uning ortida mazhabingizga ko‘ra Fotiha va surani o‘zingiz uchun ichingizda o‘qing.",
+      },
+      {
+        title: "Asr — to‘rt rakat ham ichida",
+        body: "Peshin kabi — imom to‘liq ichida o‘qiydi; har bir namozxon uning ortida ichida qiroat qiladi.",
+      },
+      {
+        title: "Shom — avval ovozli, so‘ng ichida",
+        body: "Birinchi va ikkinchi rakat ovozli, uchinchi rakat ichida o‘qiladi. Imom ortida dastlabki ikkitasini tinglang; uchinchisida mazhabingizga ko‘ra o‘zingiz o‘qing.",
+      },
+      {
+        title: "Xufton — avval ovozli, so‘ng ichida",
+        body: "Birinchi va ikkinchi rakat ovozli, uchinchi va to‘rtinchi rakat ichida o‘qiladi. Dastlabki ikkitasida tinglang; keyingi ikkitasida o‘zingiz uchun o‘qing.",
+      },
+      {
+        title: "Nega faqat dastlabki ikki rakat?",
+        body: "Abu Qatoda rivoyat qilganlar: Payg‘ambar ﷺ peshin va asrning dastlabki ikki rakatida Fotiha va surani, keyingi ikki rakatida esa faqat Fotihani o‘qiganlar. Bu uzun va qisqa rakatlar tuzilishini tushuntiradi.",
+      },
+      {
+        title: "Ovozli qiroatda imom ortida — ittifoq",
+        body: "Qur’on ovoz chiqarib o‘qilganda tinglang. Imom bilan bellashmang va uning ustidan ovoz chiqarib sura o‘qimang. Alloh aytadi: «Qur’on qiroat qilinganda, unga quloq soling va jim turing, shoyad rahm qilinsangiz» (7:204).",
+      },
+      {
+        title: "Imom ortida Fotiha — to‘rt mazhab",
+        body: "Hanafiylar: ovozli qiroatda Fotiha o‘qilmaydi, tinglanadi. Molikiylar: odatda ovozli qiroatda tinglanadi. Shofi’iylar: har rakatda, hatto imom ortida ham Fotiha o‘qiladi. Hanbaliylarda ikki rivoyat bor; ko‘plari imkon topilganda o‘qishni mustahab deydilar. Bularning barchasi e’tiborli sunniy mazhablardir.",
+        tip: "Ishonchli ustozdan o‘rgangan mazhabingiz ko‘rsatmasiga amal qiling. Hech bir mazhab imomning ovozli qiroati ustidan surani ovoz chiqarib o‘qishga ruxsat bermaydi.",
+      },
+      {
+        title: "Ichida o‘qiladigan namozda imom ortida",
+        body: "Hanafiylar (mu’tamad): Fotiha o‘qimasdan ichida sano va zikr aytiladi — imomning qiroati kifoya. Molikiylar: yengil zikr, holatga qarab farqlanadi. Shofi’iylar va hanbaliylar: har rakatda Fotihani ichida o‘qiydi.",
+      },
+      {
+        title: "Yolg‘iz namoz o‘qish",
+        body: "O‘qiladigan matn o‘zgarmaydi — faqat ovoz balandligi o‘zgaradi. Har rakatda Fotiha; dastlabki ikkitasida qo‘shimcha sura; keyingilarida faqat Fotiha. Bomdod, shom va xuftonda ovoz chiqarib o‘qish mustahab; peshin va asr ichida o‘qiladi.",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "Albatta, sizlar uchun Allohning Rasulida go‘zal namuna bordir.",
+      },
+      {
+        excerpt:
+          "Qur’on qiroat qilinganda, unga quloq soling va jim turing, shoyad rahm qilinsangiz.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Payg‘ambar ﷺ peshin va asrning dastlabki ikki rakatida Fotiha va surani, keyingi ikki rakatida esa faqat Fotihani o‘qiganlar. (Abu Qatoda; Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Fotiha surasini o‘qimagan kishining namozi yo‘q. (Uboda ibn Somit; Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "U zot peshin va asrning dastlabki ikki rakatida uzunroq, keyingi ikki rakatida esa qisqaroq qiroat qilayotganlarini sezdirardilar. (Abu Qatoda)",
+      },
+    ],
+    actions: [
+      "Keyingi jamoat namozingizda imom qaysi rakatlarda ovoz chiqarib o‘qishiga e’tibor bering.",
+      "Mazhabingizdagi ustozdan so‘rang: ovozli qiroatda imom ortida Fotihani o‘qiysizmi?",
+      "Yolg‘iz namoz o‘qiganda, ovozli qiroat sunnatini his qilish uchun bomdodda ovoz chiqarib o‘qib ko‘ring.",
+    ],
+    appLinks: [
+      {
+        label: "Namoz bosqichma-bosqich",
+      },
+      {
+        label: "Jamoat namozi",
+      },
+      {
+        label: "So‘zlar va ma’nolar",
+      },
+    ],
+    disclaimer:
+      "To‘rt mazhab ovozli va ichida o‘qiladigan namozlarda imom ortida Fotihani o‘qish masalasida farqlanadi. Bu dars har bir mazhab qarashini birini yagona to‘g‘ri deb e’lon qilmasdan bayon qiladi. Mazhabingiz tafsilotlarini malakali ustozdan o‘rganing.",
   },
   {
     title: "Har bir pozitsiya",
@@ -688,7 +796,8 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       "Nabiy sollallohu alayhi vasallam namozni ziynatlaydigan va savobini ziyoda qiladigan amallarni tavsiya qilganlar.",
     body: [
       "Rasululloh sollallohu alayhi vasallam farzlardan tashqari, namoz atrofida ko'plab tavsiya etilgan amallarni (sunanlarni) namuna qilib olganlar. Ular shart emas, shuning uchun birini tark etish namozni buzmaydi, lekin har biri sizni Allohga yaqinlashtiradi, qo'shimcha savob oladi va farz namozlaridagi kamchiliklarni tuzatadi.",
-      "Ularning eng asosiysi farzdan oldin va keyin o'qiladigan sunnat namozlari (sunan ravotib)dir: bomdoddan oldin ikki marta (bu Payg'ambarimiz sollallohu alayhi vasallam butun dunyodan ustundir), peshindan oldin to'rtta va ikki marta, shomdan keyin ikkita va xuftondan keyin ikkita o'n ikki rakat, savobi jannatda qurilgan uydir.",
+      "Ularning eng asosiysi farzdan oldin va keyin o'qiladigan muntazam sunnat namozlari (sunan ravotib). Har bir ixtiyoriy namoz bir xil vaznga ega emas: olimlar sunnat muakkadani (ta'kidlangan, Payg'ambar s. Farqni bilish har kuni nimaga e'tibor berish kerakligini aniqlashga yordam beradi.",
+      "Eng kuchli dalilga ega bo'lgan eng aniq kun tartibi o'n ikki ravotibdir: bomdoddan oldin ikkita, peshindan oldin to'rtta, peshindan keyin ikkita, shomdan keyin ikkita va xuftondan keyin ikki rakaat - savobi jannatda qurilgan uydir. Dalillar bilan namozning to'liq tavsifi uchun Namoz darsining turlariga qarang.",
     ],
     actions: [
       "Misvokni tahorat va namozdan oldin qo'llang - Rasululloh sollallohu alayhi vasallam buni farz qilishlariga sal qoldi.",
@@ -700,14 +809,28 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
     hadith: [
       {
         excerpt:
-          "Agar ummatimga og‘irlik qilmaganimda, har namozdan oldin misvok ishlatishni buyurgan bo‘lardim. (Abu Hurayra; Yana Sahih Musulmon 252)",
+          "Agar ummatimga og‘irlik qilmaganimda, har namozdan oldin misvok ishlatishni buyurgan bo‘lardim. (Abu Hurayra; shuningdek Sahih Muslim 252)",
       },
       {
         excerpt:
-          "Kim kechayu kunduzda o‘n ikki rakat nafl namoz o‘qisa, unga jannatda uy quriladi. (Ummu Habiba)",
+          "Rasululloh sollallohu alayhi vasallam bomdod namozidan oldin ikki rakat namozni hech qachon tark etmasdilar. (Oisha; shuningdek Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kim kechasi va kunduzi o'n ikki rakat namoz o'qisa, Alloh unga jannatda bir uy quradi - bomdoddan oldin ikkita, peshindan oldin to'rtta, peshindan keyin ikkita, shomdan keyin ikkita va xuftondan keyin ikkita. (Ummu Habiba)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Namoz turlari - ravotib qo'llanma",
+      },
+      {
+        label: "Sunnat va namozdan keyingi zikr",
+      },
+      {
+        label: "Masjid duolari",
+      },
+    ],
   },
   {
     title: "Xushu - yurakning mavjudligi",
@@ -798,10 +921,13 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Namoz turlari",
-    summary: "Farz, sunnat, vitr va mo'minning kunini boyituvchi nafl namozlar.",
+    summary:
+      "Farz, sunnat muakkada, sunnat g'ayri muakkada, vitr va umumiy nafl — har biri uchun sahih dalillar bilan.",
     body: [
-      "Ibodatlar majburiyat bilan baholanadi. Besh vaqt namoz o'qish farzdir - har bir hisobdor musulmon uchun qattiq farz. Ularning atrofida va orqasida Payg'ambarimiz sollallohu alayhi vasallam Allohga tobora yaqinlashib boradigan ixtiyoriy ibodatning boy dunyosi bor va bu orqali biz ham qila olamiz.",
-      "Nafl namozlar ikki sababga ko'ra muhim: mo'minning martabasini ko'taradigan sevimli amallardir - Alloh taolo ortiqcha ibodat haqida: \"Bandam uni yaxshi ko'rmagunimcha, menga nafl amallar bilan yaqinlashadi\", - deydi va farz namozlarini tuzatadi, chunki farzdagi har qanday kamchilik qiyomat kunida tugatiladi.",
+      "Ibodatlar majburiyat bilan baholanadi. Besh vaqt namoz o'qish farzdir - har bir hisobdor musulmon uchun qattiq farz. Ularning atrofida Payg'ambarimiz sollallohu alayhi vasallam Ollohga yaqinroq bo'lgan ixtiyoriy namozning boy dunyosi joylashganki, bu orqali biz ham qila olamiz.",
+      "To'g'ri o'rganish uchun to'rtta ixtiyoriy toifani ajratib ko'rsating: Muakkada sunnasi (Rasululloh sollallohu alayhi vasallam ta'kidlangan ravotib kamdan-kam hollarda qoldirgan), sunnat g'ayri muakkada (tavsiya etilgan, lekin kamroq ta'kidlangan), vitr (hanafiylar buni vojib deb hisoblagani uchun o'z toifasida saqlanadi) va umumiy sunnatni nafs deb hisoblaydilar. (belgilangan, shubhasiz hisobsiz ixtiyoriy ibodatlar). Agar ulamolar ma'lum miqdorda ixtilof qilgan bo'lsa, masalan, shom namozidan keyin olti rak'at, avvobin namozi kabi - biz ixtilofli sanoqni sobit sunnat deb hisoblamasdan, umumiy da'vatni keltiramiz.",
+      "Nafl namozlari ikki sababga ko'ra ahamiyatlidir: mo'minning martabasini ko'taradigan sevimli amallar va farz namozlarini tuzatadilar, chunki farzdagi har qanday kamchilik qiyomat kuni insonning nafl namozidan tugallanadi.",
+      "Quyidagi o'n ikki ravotib kunlik sunnatlarning eng aniq jadvali bo'lib, eng kuchli ijmo'dir. Namozni o'rganish markazidagi rak'atlar jadvali bu o'n ikki ta'kidlangan rak'atlarni kuzatib boradi; Naflni asrdan oldin, shomdan oldin yoki xuftondan keyin ixtiyoriy nafl dalil mavjud bo'lgan joyda rag'batlantiriladi, lekin bu sobit hisobga kiritilmaydi.",
     ],
     steps: [
       {
@@ -809,12 +935,36 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
         body: "Bomdod, peshin, asr, shom, xufton - farz poydevor, hech qachon tark etilmaydi.",
       },
       {
-        title: "Sunnat ravotib",
-        body: "Farzdan oldin va keyin muntazam o'qiladigan sunnat rakatlari - har kuni o'n ikki kishi jannatdan uy oladilar.",
+        title: "Bomdod - 2 oldin (sunnat muakkada)",
+        body: "Bomdod farzidan oldin ikki rakat sunnat muakkadadir - Payg'ambarimiz sollallohu alayhi vasallam ularni hech qachon e'tiborsiz qoldirmadilar. Bomdoddan keyin sahih muntazam sunnat yo'q; Odatda bomdoddan keyin quyosh chiqqunga qadar nafl namoz o‘qish taqiqlanadi.",
       },
       {
-        title: "Vitr",
-        body: "Xuftondan keyin toq sonli namoz, tungi namozning muhri — koʻpchilik uchun sunnat muakkada, Hanafiy mazhabida vojib.",
+        title: "Peshin - 4 oldin va keyin 2 (sunnat muakkada)",
+        body: "Peshindan oldin to'rt rakat va undan keyin ikki rakat namoz o'n ikki ravotib (sunnat muakkada)dandir. Ummu Habiba roziyallohu anhuning xabar berishicha, kim peshindan oldin to'rt va undan keyin to'rt namoz o'qisa, Alloh uni do'zaxdan qaytaradi, shuning uchun ikki ravotibdan keyin qo'shimcha ikki rakat o'qish nafl tavsiya qilinadi va ba'zi ulamolar jami olti namozdan oldin ikkita qo'shimcha o'qishni tavsiya qiladilar.",
+      },
+      {
+        title: "Asr - 4 oldin (sunnat g'ayri muakkada)",
+        body: "Asrdan oldin to'rt rakat o'qish keng tavsiya etilgan (sunnat g'ayri muakkada). Asrdan keyin sahih muntazam sunnat yo'q; Asrdan keyin quyosh botguncha nafl namoz o'qish taqiqlanadi.",
+      },
+      {
+        title: "Shom - 2 oldin va 2 keyin",
+        body: "Shom namozidan keyin ikki rakat namoz muakkada (o'n ikki ravotibning bir qismi) sunnatdir. Rasululloh sollallohu alayhi vasallam shomdan oldin ikki marta “Shomdan oldin namoz o‘qing” dedilar, so‘ng “kim xohlasalar uchun” deb qo‘shib qo‘ydilar, shuning uchun oldingi ikkitasi nafl nafldir, sobit ravotib emas. Shom namozidan keyin umumiy nafl namozni o'qish tavsiya qilinadi, ammo olti rakat namozning avvobin namozi ekanligining sahihligi ixtilof qilinadi; sobit oltitani sunnat sifatida ko'rsatma.",
+      },
+      {
+        title: "Isha - 2 keyin va ixtiyoriy oldin",
+        body: "Xuftondan keyin ikki rakat namoz muakkada (o'n ikki ravotibning bir qismi) sunnatdir. Xuftondan oldin “Har ikki azon orasida namoz bor” hadisi sharifda azon va iqomat oʻrtasida ikki yoki toʻrt rakat oʻqish joiz, yaʼni ravotib sunnat emas, umumiy nafl. Xuftondan keyin qo'shimcha ixtiyoriy namoz o'qish joizdir, lekin hech bir sahih sobit sunnatda odatdagi ravotibdan tashqari ikkita qo'shimcha namoz belgilanmagan.",
+      },
+      {
+        title: "Vitr - alohida toifa",
+        body: "Vitr namozi xuftondan keyin toq sonda o'qiladi (1, 3, 5, 7, 9, 11...). Ko'p sonli sahih hadis amr va uni rag'batlantirish. Hanafiylar buni vojib deb bilishadi; ko'pchilik buni sunnat muakkada deb biladi. Uning shariiy hukmidagi fikr xilma-xilligi sababli o'n ikki ravotibdan alohida saqlanadi.",
+      },
+      {
+        title: "O'n ikki ravotib - kelishilgan jadval",
+        body: "Bomdoddan oldin: 2. Peshindan oldin: 4. Peshindan keyin: 2. Shomdan keyin: 2. Xuftondan keyin: 2. Jami: 12 rakat. Kim ularni muntazam ravishda namoz o'qisa, Alloh taolo jannatda uy quradi.",
+      },
+      {
+        title: "Tavsiya etilgan nafl - sobit ravotib emas",
+        body: "Asrdan oldin: 4 (hasan). Shomdan oldin: 2 ta ixtiyoriy (sahih). Xuftondan oldin: azon va iqomat orasida 2 yoki 4 (sahih). Peshindan oldin qo'shimcha: 2 ta tavsiya. Peshindan keyingi ortiqcha: 2 (hasan/sahih). Shom va xuftondan keyin: umumiy nafl rag'batlantiriladi - bahsli sobit hisobsiz.",
       },
       {
         title: "Tahajjud (qiyom al-layl)",
@@ -830,7 +980,7 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
       },
       {
         title: "Ikki hayit",
-        body: "Ikki rakat Ramazon va Qurbon hayitlari, so‘ngra xutba o‘qiladi.",
+        body: "Ikki rakat Ramazon hayiti va Qurbon hayiti, so‘ng xutba o‘qiladi.",
       },
       {
         title: "Istixora",
@@ -843,10 +993,58 @@ export const SALAH_GUIDE_TOPICS_UZ: DeepPartial<SalahGuideTopic>[] = [
     ],
     hadith: [
       {
+        excerpt:
+          "Rasululloh sollallohu alayhi vasallam bomdod namozidan oldin ikki rakat namozni hech qachon tark etmasdilar. (Oisha; shuningdek Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kim kechasi va kunduzi o'n ikki rakat namoz o'qisa, Alloh unga jannatda bir uy quradi - bomdoddan oldin ikkita, peshindan oldin to'rtta, peshindan keyin ikkita, shomdan keyin ikkita va xuftondan keyin ikkita. (Ummu Habiba)",
+      },
+      {
+        excerpt:
+          "Kim peshindan oldin to'rt rakat va keyin to'rt rakat namoz o'qisa, Alloh uni do'zaxdan qaytaradi. (Ummu Habiba; ko‘p olimlar tomonidan sahih deb baholangan)",
+      },
+      {
+        excerpt: "Asrdan oldin to'rt rakat namoz o'qigan kishini Alloh rahmatiga olsin.",
+      },
+      {
+        excerpt:
+          "Shomdan oldin namoz o'qing, shomdan oldin namoz o'qing, keyin aytdilar: kim xohlasa. (Ibn Umar)",
+      },
+      {
+        excerpt:
+          "Har ikki azon (azon va iqomat) orasida namoz bor. (Anas ibn Molik; shuningdek Sahih Muslim 838)",
+      },
+      {
+        excerpt:
+          "Vitr farz (haq), kim hohlasa besh namoz o'qisin, kim xohlasa uch namoz o'qisin, kim xohlasa bir namoz o'qisin. (Ibn Umar)",
+      },
+      {
         excerpt: "Farz namozlaridan keyingi eng afzal namoz xuftondir. (Abu Hurayra)",
       },
+      {
+        excerpt:
+          "Men uni yaxshi ko'rmagunimcha bandam ixtiyoriy amallar bilan Menga yaqinlashadi. (Hadis Qudsiy)",
+      },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "O'n ikki ravotibdan boshlang - ixtiyoriy naflni qo'shishdan oldin odat hosil qiling.",
+      "Har bir farz atrofidagi ta'kidlangan sunnatni kuzatish uchun ushbu markazdagi rak'atlar jadvalidan foydalaning.",
+      "Quyidagi dalillar kartalarini o'qing va qayta ko'rib chiqmoqchi bo'lgan hadisni belgilang.",
+    ],
+    appLinks: [
+      {
+        label: "Sunnat amallari",
+      },
+      {
+        label: "Tahajjud yo'riqnomasi",
+      },
+      {
+        label: "Rakatlar stoli",
+      },
+    ],
+    disclaimer:
+      "Vitrning shariiy hukmi (vojib va sunnat muakkada), xuftondan oldingi nafl rakatlarning aniq sanasi va shomdan keyin avvobin namozlarining aniq soni ilmiy ixtilof masalasidir. Ushbu darsda faqat haqiqiy matn asosiga ega bo'lgan narsalar ko'rsatilgan va u mavjud bo'lgan joyda kelishmovchiliklar qayd etilgan.",
   },
   {
     title: "Juma - juma namozi",
@@ -1049,5 +1247,145 @@ export const SALAH_GUIDE_PHRASES_UZ: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Assalomu alaykum va rahmatullohi alayh.",
     meaning:
       "Namozni muhtaramlar safidan chiqqandek tark etasiz - har bir yelkangizda yozilgan farishtalarga va yoningizda namoz o'qiyotganlarga salom berib. Salom ustundir; u bilan namoz to'liq bo'ladi.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_UZ: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Har kuni kelishilgan sunnat ravotib necha rakat?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "O'n ikki ravotib: bomdoddan oldin 2, peshindan oldin 4, peshindan keyin 2, shomdan keyin 2 va xuftondan keyin 2 (Sahih Muslim 728).",
+  },
+  {
+    prompt: "Bomdoddan oldin ta'kidlangan (mu'akkada) sunnat:",
+    options: ["Yo'q", "2 rakat", "4 rakat", "Faqat keyin 2 rakat"],
+    explanation:
+      "Bomdoddan oldin ikki rakat sunnat mu'akkadadir — Rasululloh sollallohu alayhi vasallam ularni hech qachon tark etmas edi (Sahih al-Buxoriy 1169; Sahih Muslim 724).",
+  },
+  {
+    prompt: "Peshin atrofidagi kelishilgan ravotib:",
+    options: ["Oldin 2, keyin 2", "Oldin 4, keyin 2", "Oldin 4, keyin 4", "Faqat oldin 2"],
+    explanation:
+      "Peshindan oldin to'rt va keyin ikki rakat o'n ikki ravotibning bir qismidir. Bulardan ortiq rakatlar tavsiya etilgan nafl, sobit ravotib emas.",
+  },
+  {
+    prompt:
+      "To'g'ri yoki noto'g'ri: Asrdan oldin to'rt rakat har kungi o'n ikki ravotibning bir qismidir.",
+    options: ["To'g'ri", "Noto'g'ri"],
+    explanation:
+      "Asrdan oldin to'rt rakat sunnat g'ayr mu'akkada (keng tavsiya etiladi), lekin o'n ikki ravotibga kirmaydi (Jami' at-Tirmidhiy 430).",
+  },
+  {
+    prompt: "Nima uchun Vitr namoz kuzatuvchida alohida toifada saqlanadi?",
+    options: [
+      "Hadislarda zikr qilinmagan",
+      "Hanafiylar buni vojib, ko'pchilik sunnat mu'akkada deb biladi",
+      "U doimo xuftondan oldin o'qiladi",
+      "Rakat soni belgilanmagan",
+    ],
+    explanation:
+      "Vitr kuchli dalillar bilan sabit, lekin ulamolar uning vojib yoki sunnat mu'akkada ekanligi haqida ixtilof qiladi — shuning uchun o'n ikki ravotibdan alohida kuzatiladi.",
+  },
+  {
+    prompt: "Jamoat bomdodida imom qiroat qiladi:",
+    options: [
+      "Ikkala rakatda ham sirri",
+      "Ikkala rakatda ham jahriy",
+      "Faqat birinchi rakatda jahriy",
+      "Birinchi sirri, ikkinchi jahriy",
+    ],
+    explanation:
+      "Bomdod ikkala rakatda ham jahriy o'qiladi. Imom orqasida diqqat bilan tinglaysiz.",
+  },
+  {
+    prompt: "Jamoatda peshin va asr qiroati:",
+    options: [
+      "Barcha rakatlarda jahriy",
+      "Barcha rakatlarda sirri",
+      "Birinchi ikkita jahriy, keyin sirri",
+      "Birinchi ikkita sirri, keyin jahriy",
+    ],
+    explanation:
+      "Peshin va asr butunlay sirri — imom past ovozda o'qiydi va har bir namoz o'quvchi o'zi uchun o'qiydi.",
+  },
+  {
+    prompt: "Shomda imom qaysi rakatlarda jahriy o'qiydi:",
+    options: [
+      "Uch rakatning hammasida",
+      "Faqat birinchi ikki rakatda",
+      "Faqat uchinchi rakatda",
+      "Hech qayerda — shom to'liq sirri",
+    ],
+    explanation:
+      "Shom birinchi va ikkinchi rakatda jahriy, uchinchisida sirri — boshqa namozlardagi uzun/qisqa rakat naqshiga o'xshash.",
+  },
+  {
+    prompt: "Xuftonda baland ovozda qiroat qachon to'xtaydi?",
+    options: [
+      "Birinchi rakatdan keyin",
+      "Ikkinchi rakatdan keyin",
+      "Uchinchi rakatdan keyin",
+      "Hech qachon — to'rt rakat ham jahriy",
+    ],
+    explanation:
+      "Xufton birinchi ikki rakatda jahriy, uchinchi va to'rtinchi rakatda sirri o'qiladi.",
+  },
+  {
+    prompt: "Jahriy namozlarda imom orqasida hamma kelishadi:",
+    options: [
+      "Imom bilan birga baland ovozda boshqa sura o'qish kerak",
+      "Diqqat bilan tinglash va baland ovozda boshqa sura o'qimaslik",
+      "Fotiha o'qilgach namozdan chiqish",
+      "Faqat oxirgi rakatda o'qish",
+    ],
+    explanation:
+      "Alloh taolo: «Qur'on o'qilganda, uni diqqat bilan tinglang va jim turing» (Qur'on 7:204).",
+  },
+  {
+    prompt: "Shofi'iylikka ko'ra, jahriy namozda imom orqasida:",
+    options: [
+      "Fotiha umuman o'qilmaydi",
+      "Har rakatda Fotiha o'qiladi",
+      "Faqat sirri rakatlarda o'qiladi",
+      "Imom bilan birga baland ovozda o'qiladi",
+    ],
+    explanation:
+      "Shofi'iylik har bir namoz o'quvchidan har rakatda Fotiha o'qishni talab qiladi: «Kitobning boshidan o'qimagan kishining namozi yo'q» (Sahih al-Buxoriy 756).",
+  },
+  {
+    prompt: "Hanafiylikka ko'ra, jahriy namozda imom orqasida:",
+    options: [
+      "Har rakatda past ovozda Fotiha o'qish",
+      "Diqqat bilan tinglash va Fotiha o'qimaslik",
+      "Faqat Fotiha'dan keyingi surani o'qish",
+      "Fotihani baland ovozda o'qish shart",
+    ],
+    explanation:
+      "Hanafiylarning asosiy qarashiga ko'ra jahriy namozlarda tinglash kerak; imomning qiroati yetarli. To'rt sunniy mazhabning hammasi haqli pozitsiyalardir.",
+  },
+  {
+    prompt: "Peshinning birinchi ikki rakatida Payg'ambar ﷺ odatda o'qigan:",
+    options: ["Faqat Fotiha", "Fotiha va boshqa sura", "Hech narsa — to'liq sirri", "Faqat tasbih"],
+    explanation:
+      "Abu Qatoda rivoyat qilganidek, Payg'ambar ﷺ peshin va asrning birinchi ikki rakatida Fotiha va boshqa sura, oxirgi ikkitasida faqat Fotiha o'qigan (Sahih al-Buxoriy 776; Sahih Muslim 451).",
+  },
+  {
+    prompt: "Bomdodni yolg'iz o'qiganda sunnat:",
+    options: [
+      "Faqat sirri o'qish",
+      "Jahriy o'qish (sirri ham to'g'ri)",
+      "Fotiha'dan keyingi surani tark etish",
+      "Faqat bir rakat o'qish",
+    ],
+    explanation:
+      "Yolg'iz o'qiganda jamoatdagidek o'qiydi; bomdod, shom va xuftonda jahriy o'qish sunnatdir.",
+  },
+  {
+    prompt:
+      "To'g'ri yoki noto'g'ri: Shomdan keyin Salat al-Awwabin sifatida aniq olti rakat barcha ulamolar ijmosi bilan sobit sunnatdir.",
+    options: ["To'g'ri", "Noto'g'ri"],
+    explanation:
+      "Shomdan keyin umumiy nafl rag'batlantiriladi, lekin aynan olti rakatni Awwabin deb belgilash sahihligi borasida ixtilofli — uni sobit sunnat sifatida ko'rsatmaslik kerak.",
   },
 ];

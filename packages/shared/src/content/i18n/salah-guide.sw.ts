@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
@@ -590,7 +594,94 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
           "Hapana sala kwa asiyesoma Ufunguzi wa Kitabu. (Ubada ibn as-Samit; pia Sahih Muislamu 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [{}, {}, {}, {}, { label: "Usomaji wa sauti na wa kimya" }],
+  },
+  {
+    title: "Usomaji wa sauti na wa kimya",
+    summary:
+      "Ni rakaa zipi imamu husoma kwa sauti, zipi kimya, na unachopaswa kufanya nyuma yake au ukiwa peke yako.",
+    body: [
+      "Mojawapo ya maswali yanayoulizwa sana — na Waislamu wapya pamoja na waumini wa muda mrefu — huwa rahisi ukielewa kanuni mbili: baadhi ya sala husomwa kwa sauti (jahri) na nyingine kimya (sirri). Mtume ﷺ aliswali kwa njia zote mbili; Maswahaba walipitisha utaratibu huo, nao umeandikwa katika mikusanyo mikuu ya hadithi.",
+      "Katika kila sala rakaa mbili za kwanza ndizo «ndefu»: Al-Fatihah pamoja na sura nyingine (au aya kadhaa). Katika rakaa zilizobaki za sala ya rakaa tatu au nne, Mtume ﷺ kwa kawaida alisoma Al-Fatihah pekee. Ndiyo maana usomaji wa sauti hukoma baada ya rakaa ya pili katika Maghrib na Isha, huku Dhuhr na Asr zikiwa kimya mwanzo hadi mwisho.",
+      "Mwenyezi Mungu hakutaja sababu ya wazi kwa nini baadhi ya sala ni za sauti na nyingine kimya. Wanazuoni hutaja hekima mbalimbali — sala za usiku zinafaa usomaji wa sauti; sala za mchana hufanyika katikati ya kazi na maisha ya umma; utaratibu huu hutofautisha sala — lakini Waislamu huufuata hasa kwa sababu ni Sunnah. Mwenyezi Mungu anasema: «Hakika mnayo kielelezo chema kwa Mtume wa Mwenyezi Mungu» (33:21).",
+      "Ukiwa nyuma ya imamu, kanuni iliyokubaliwa katika sala za sauti ni kusikiliza kwa makini na kutosoma sura nyingine kwa sauti. Iwapo pia utasoma Al-Fatihah kwa kimya wakati imamu anasoma ni mojawapo ya tofauti zinazojulikana zaidi baina ya madhehebu manne ya Sunni — yote ni misimamo halali ya wanazuoni wakubwa. Katika sala za kimya imamu husoma kimya, hivyo kila mwenye kuswali hujisomea kulingana na mafundisho ya madhehebu yake.",
+      "Ukiwa unaswali peke yako: soma Al-Fatihah katika kila rakaa; ongeza sura katika rakaa mbili za kwanza za kila sala; katika rakaa ya mwisho au za mwisho soma Al-Fatihah pekee. Katika sala za sauti ni Sunnah kusoma kwa sauti ukiwa peke yako, ingawa kusoma kimya bado ni sahihi.",
+    ],
+    steps: [
+      {
+        title: "Fajr — kwa sauti katika rakaa zote mbili",
+        body: "Imamu husoma kwa sauti katika rakaa zote mbili. Nyuma yake: sikiliza kwa makini; usisome sura nyingine kwa sauti. Kuhusu Al-Fatihah — tazama hatua ya madhehebu hapa chini.",
+      },
+      {
+        title: "Dhuhr — kimya katika rakaa zote nne",
+        body: "Imamu husoma kimya katika kila rakaa. Nyuma yake: jisomee Al-Fatihah na sura kwa sauti ya chini kulingana na madhehebu yako.",
+      },
+      {
+        title: "Asr — kimya katika rakaa zote nne",
+        body: "Sawa na Dhuhr — imamu husoma kimya kabisa; kila mwenye kuswali husoma kimya nyuma yake.",
+      },
+      {
+        title: "Maghrib — kwa sauti kisha kimya",
+        body: "Kwa sauti katika rakaa ya kwanza na ya pili; kimya katika ya tatu. Nyuma yake: sikiliza katika mbili za kwanza; katika ya tatu jisomee kulingana na madhehebu yako.",
+      },
+      {
+        title: "Isha — kwa sauti kisha kimya",
+        body: "Kwa sauti katika rakaa ya kwanza na ya pili; kimya katika ya tatu na ya nne. Nyuma yake: sikiliza katika mbili za kwanza; katika mbili za mwisho jisomee kulingana na madhehebu yako.",
+      },
+      {
+        title: "Kwa nini rakaa mbili za kwanza tu?",
+        body: "Abu Qatadah (RA) amepokea kwamba Mtume ﷺ alisoma Al-Fatihah na sura nyingine katika rakaa mbili za kwanza za Dhuhr na Asr, na katika mbili za mwisho alisoma Al-Fatihah pekee. Utaratibu huu unaeleza muundo wa rakaa ndefu na fupi katika kila sala yenye rakaa nyingi.",
+      },
+      {
+        title: "Nyuma ya imamu katika sala za sauti — wote wanakubaliana",
+        body: "Sikiliza kwa makini Qur'an inaposomwa kwa sauti. Usishindane na imamu wala kusoma sura nyingine kwa sauti. Mwenyezi Mungu anasema: «Qur'an inaposomwa, isikilizeni kwa makini na nyamazeni ili mrehemewe» (7:204).",
+      },
+      {
+        title: "Al-Fatihah nyuma ya imamu — madhehebu manne",
+        body: "Hanafi: usisome Al-Fatihah katika sala za sauti; sikiliza. Maliki: kwa ujumla sikiliza wakati wa usomaji wa sauti. Shafi'i: soma Al-Fatihah katika kila rakaa, hata nyuma ya imamu. Hanbali: kuna maoni mawili; wanazuoni wengi wa Hanbali hupendekeza kuisoma wakati wa mapumziko au inapowezekana. Yote manne ni misimamo ya Sunni inayotambuliwa.",
+        tip: "Fuata mafundisho ya madhehebu uliyojifunza kwa mwalimu anayeaminika. Hakuna madhehebu inayoruhusu kusoma sura nyingine kwa sauti juu ya imamu.",
+      },
+      {
+        title: "Nyuma ya imamu katika sala za kimya",
+        body: "Hanafi (maoni yanayotegemewa): soma thana na dhikr kimya lakini si Al-Fatihah — usomaji wa imamu unatosha. Maliki: dhikr ya kimya; utendaji hutofautiana. Shafi'i na Hanbali: jisomee Al-Fatihah kimya katika kila rakaa.",
+      },
+      {
+        title: "Kuswali peke yako",
+        body: "Hakuna tofauti katika unachosoma — tofauti ni kuinua sauti tu. Kila rakaa: Al-Fatihah. Rakaa mbili za kwanza: ongeza sura. Rakaa ya mwisho au za mwisho: Al-Fatihah pekee. Katika Fajr, Maghrib na Isha ni Sunnah kusoma kwa sauti; Dhuhr na Asr husomwa kimya.",
+      },
+    ],
+    quran: [
+      { excerpt: "Hakika mnayo kielelezo chema kwa Mtume wa Mwenyezi Mungu." },
+      {
+        excerpt: "Qur'an inaposomwa, isikilizeni kwa makini na nyamazeni ili mrehemewe.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Mtume ﷺ alikuwa akisoma Al-Fatihah na sura nyingine katika rakaa mbili za kwanza za Dhuhr na Asr, na katika mbili za mwisho Al-Fatihah pekee. (Abu Qatadah; also Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Hakuna sala kwa yule asiyesoma Ufunguzi wa Kitabu. (Ubadah ibn as-Samit; also Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "Katika rakaa mbili za kwanza za Dhuhr na Asr alikuwa akisoma kiasi cha kukufanya udhani anasoma sura ndefu, na katika mbili za mwisho kiasi cha kukufanya udhani anasoma fupi zaidi. (Abu Qatadah)",
+      },
+    ],
+    actions: [
+      "Katika sala yako ijayo ya jamaa, tambua ni rakaa zipi imamu anasoma kwa sauti.",
+      "Muulize mwalimu wa madhehebu yako kama unasoma Al-Fatihah nyuma ya imamu katika sala za sauti.",
+      "Ukiwa unaswali peke yako, jaribu kusoma kwa sauti katika Fajr ili kuiona Sunnah ya usomaji wa jahri.",
+    ],
+    appLinks: [
+      { label: "Sala hatua kwa hatua" },
+      { label: "Sala ya jamaa" },
+      { label: "Maneno na maana" },
+    ],
+    disclaimer:
+      "Madhehebu manne ya Sunni hutofautiana kuhusu kusoma Al-Fatihah nyuma ya imamu katika sala za sauti na za kimya. Somo hili linaonyesha msimamo uliothibiti wa kila madhehebu bila kutangaza mmoja kuwa ndio pekee sahihi. Jifunze maelezo ya madhehebu yako kwa mwalimu aliyehitimu.",
   },
   {
     title: "Kila nafasi",
@@ -687,7 +778,8 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
     summary: "Mtume ﷺ alipendekeza vitendo vinavyopamba na kuzidisha malipo ya swala.",
     body: [
       "Zaidi ya matendo ya faradhi, Mtume ﷺ aliweka mfano wa desturi nyingi zilizopendekezwa (sunan) karibu na swala. Hazitakiwi, hivyo kuacha moja hakubatilishi Swalah - lakini kila moja inakukurubisha kwa Mwenyezi Mungu, inapata malipo ya ziada, na kurekebisha mapungufu katika sala za faradhi.",
-      "Swala kuu miongoni mwazo ni swala za kawaida za sunna (sunan rawatib) zinazoswaliwa kabla na baada ya fardhi: mbili kabla ya Alfajiri (ambazo Mtume ﷺ alizitukuza juu ya dunia nzima), nne kabla na mbili baada ya Dhuhr, mbili baada ya Maghrib, na mbili baada ya Isha - rakaa kumi na mbili ambazo malipo yake ni nyumba iliyojengwa Peponi.",
+      "Muhimu zaidi miongoni mwazo ni swala za Sunnah za kawaida (sunan rawatib) kabla na baada ya swala za faradhi. Si kila swala ya hiari ina daraja moja: wanazuoni hutofautisha sunnah mu'akkadah (iliyosisitizwa na kudumishwa mara kwa mara na Mtume ﷺ), sunnah ghayr mu'akkadah (inayopendekezwa lakini haikutiliwa mkazo sana), na nafl ya jumla (ya hiari bila idadi maalumu iliyowekwa). Kujua tofauti hii hukusaidia kutanguliza yale ya kudumisha kila siku.",
+      "Ratiba ya kila siku iliyo wazi zaidi na yenye ushahidi wenye nguvu zaidi ni rawatib kumi na mbili: rakaa mbili kabla ya Fajr, nne kabla ya Dhuhr, mbili baada ya Dhuhr, mbili baada ya Maghrib, na mbili baada ya Isha — rakaa kumi na mbili ambazo thawabu yake ni nyumba Peponi. Tazama somo la Aina za swala kwa maelezo kamili ya kila swala pamoja na ushahidi wake.",
     ],
     actions: [
       "Tumia miswak (siwak) kabla ya wudhu na swala - Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alikaribia kuifanya kuwa ni wajibu.",
@@ -703,10 +795,18 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
       },
       {
         excerpt:
-          "Mwenye kuswali rakaa kumi na mbili za hiari mchana na usiku, atajengewa nyumba Peponi. (Ummu Habibah)",
+          "Mtume ﷺ hakuwahi kuacha rakaa mbili kabla ya Fajr. (Aishah; pia Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Mwenye kudumu kuswali rakaa kumi na mbili usiku na mchana, Mwenyezi Mungu atamjengea nyumba Peponi — mbili kabla ya Fajr, nne kabla ya Dhuhr, mbili baada ya Dhuhr, mbili baada ya Maghrib, na mbili baada ya Isha. (Umm Habibah)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      { label: "Aina za swala — mwongozo wa rawatib" },
+      { label: "Sunnah na adhkar baada ya swala" },
+      { label: "Dua za msikitini" },
+    ],
   },
   {
     title: "Khushu - uwepo wa moyo",
@@ -797,55 +897,139 @@ export const SALAH_GUIDE_TOPICS_SW: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Aina za Swala",
-    summary: "Fard, sunna, witr, na sala za hiari ambazo huboresha siku ya muumini.",
+    summary:
+      "Fard, sunnah mu'akkadah, sunnah ghayr mu'akkadah, witr, na nafl ya jumla — pamoja na ushahidi sahihi kwa kila moja.",
     body: [
-      "Maombi yanapangwa kwa faradhi. Swala tano za kila siku ni fard - faradhi kali kwa kila Muislamu anayewajibika. Kando na nje yao kuna ulimwengu tajiri wa maombi ya hiari ambayo kwayo Mtume (Swalla Allaahu 'alayhi wa aalihi wa sallam) alijikurubisha zaidi kwa Mwenyezi Mungu, na kupitia kwayo sisi tunaweza pia.",
-      "Swalah za hiari zina umuhimu kwa sababu mbili: ni vitendo vipendwa vinavyopandisha daraja ya Muumini - Mwenyezi Mungu anasema juu ya ibada ya ziada, 'Mja Wangu huendelea kujikurubisha Kwangu kwa mambo ya khiyari mpaka nimpende' - na hutengeneza sala za faradhi, kwani upungufu wowote katika fardhi hukamilika kutokana na sala ya hiari ya mtu Siku ya Hukumu.",
+      "Swala hupangwa kulingana na kiwango cha ulazima wake. Swala tano za kila siku ni faradhi — wajibu mzito kwa kila Muislamu mwenye jukumu. Kuzizunguka kuna ulimwengu mpana wa swala za hiari ambazo Mtume ﷺ alizitumia kujikurubisha zaidi kwa Mwenyezi Mungu, nasi tunaweza kufanya vivyo hivyo.",
+      "Kwa ujifunzaji sahihi, tofautisha aina nne za swala za hiari zinazothibitishwa na maandiko sahihi: sunnah mu'akkadah (rawatib ambazo Mtume ﷺ hakuziacha kwa kawaida), sunnah ghayr mu'akkadah (inayopendekezwa lakini haikutiliwa mkazo sana), witr (imetengwa kwa sababu Hanafiyyah huihesabu kuwa wajib huku wengi wakiiweka kuwa sunnah mu'akkadah), na nafl ya jumla (swala za hiari bila idadi maalumu iliyokubaliwa). Pale wanazuoni wanapotofautiana juu ya idadi — kama rakaa sita baada ya Maghrib zinazoitwa Salat al-Awwabin — tunawasilisha himizo la jumla bila kudai idadi inayobishaniwa kuwa Sunnah iliyothibitishwa.",
+      "Swala za hiari zina makusudi mawili: ni matendo yanayopendwa ambayo huinua daraja la muumini, na hurekebisha swala za faradhi, kwa kuwa upungufu wowote katika faradhi utakamilishwa kutoka katika nafl za mtu Siku ya Kiyama.",
+      "Rawatib kumi na mbili zilizo hapa chini ndizo ratiba ya Sunnah ya kila siku iliyo wazi zaidi na inayokubaliwa kwa nguvu zaidi. Jedwali la rakaa katika Kijifunze Kuswali hufuatilia rakaa hizi kumi na mbili zilizosisitizwa; nafl kabla ya Asr, kabla ya Maghrib, au baada ya Isha inahimizwa pale ushahidi unapothibitisha lakini haijajumuishwa katika idadi maalumu.",
     ],
     steps: [
       {
-        title: "Fadhi tano za kila siku",
-        body: "Fajr, Dhuhr, Asr, Maghrib, Isha - msingi wa lazima, usiotelekezwa kamwe.",
+        title: "Swala tano za faradhi",
+        body: "Fajr, Dhuhr, Asr, Maghrib, Isha — msingi wa lazima ambao hauachwi kamwe.",
+        ruling: "fard",
       },
       {
-        title: "Sunnah rawatib",
-        body: "Rakaa za kawaida za sunna kabla na baada ya fard - kumi na mbili kila siku hupata nyumba Peponi.",
+        title: "Fajr — 2 kabla ya faradhi (sunnah mu'akkadah)",
+        body: "Rakaa mbili kabla ya faradhi ya Fajr ni sunnah mu'akkadah — Mtume ﷺ hakuwahi kuziacha. Hakuna Sunnah ya kawaida iliyothibitishwa baada ya Fajr; nafl kwa jumla imekatazwa kuanzia baada ya Fajr mpaka jua lichomoze.",
+        ruling: "sunnah",
       },
       {
-        title: "Witr",
-        body: "Swala yenye nambari isiyo ya kawaida baada ya Isha, muhuri wa sala ya usiku - sunna mu'akkadah kwa walio wengi, na wajib katika shule ya Hanafi.",
+        title: "Dhuhr — 4 kabla na 2 baada (sunnah mu'akkadah)",
+        body: "Rakaa nne kabla ya Dhuhr na mbili baada yake ni sehemu ya rawatib kumi na mbili. Umm Habibah ameripoti kwamba mwenye kuswali nne kabla ya Dhuhr na nne baada yake, Mwenyezi Mungu atamharamishia Moto — hivyo rakaa mbili za ziada baada ya rawatib mbili ni nafl inayopendekezwa, na baadhi ya wanazuoni pia hupendelea mbili zaidi kabla ili ziwe sita.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Asr — 4 kabla (sunnah ghayr mu'akkadah)",
+        body: "Rakaa nne kabla ya Asr zinapendekezwa sana (sunnah ghayr mu'akkadah). Hakuna Sunnah ya kawaida iliyothibitishwa baada ya Asr; nafl kwa jumla imekatazwa kuanzia baada ya Asr mpaka jua lizame.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Maghrib — 2 kabla na 2 baada",
+        body: "Rakaa mbili baada ya Maghrib ni sunnah mu'akkadah na sehemu ya rawatib kumi na mbili. Kabla ya Maghrib, Mtume ﷺ alisema “Swalini kabla ya Maghrib” mara mbili, kisha akaongeza “kwa anayetaka” — kwa hiyo mbili kabla ni nafl ya hiari, si rawatib iliyowekwa. Nafl baada ya Maghrib inahimizwa kwa jumla, lakini kuainisha rakaa sita kuwa Salat al-Awwabin kunabishaniwa kuhusu usahihi wake.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Isha — 2 baada na hiari kabla",
+        body: "Rakaa mbili baada ya Isha ni sunnah mu'akkadah na sehemu ya rawatib. Kabla ya Isha, hadith “Kati ya kila miito miwili kuna swala” inaruhusu rakaa mbili au nne kati ya adhan na iqamah — nafl ya jumla, si rawatib. Nafl zaidi baada ya Isha inaruhusiwa, lakini hakuna Sunnah sahihi inayoweka rakaa mbili maalumu zaidi baada ya rawatib.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Witr — aina maalumu",
+        body: "Witr huswaliwa baada ya Isha kwa idadi witiri (1, 3, 5, 7, 9, 11…). Hadith nyingi sahihi zinaiamuru na kuisisitiza. Hanafiyyah huihesabu kuwa wajib; wengi huihesabu kuwa sunnah mu'akkadah. Imetengwa na rawatib kumi na mbili kwa sababu ya tofauti hii ya hukumu.",
+        ruling: "wajib",
+      },
+      {
+        title: "Rawatib kumi na mbili — ratiba iliyokubaliwa",
+        body: "Kabla ya Fajr: 2. Kabla ya Dhuhr: 4. Baada ya Dhuhr: 2. Baada ya Maghrib: 2. Baada ya Isha: 2. Jumla: rakaa 12. Anayedumu nazo, Mwenyezi Mungu atamjengea nyumba Peponi.",
+        ruling: "sunnah",
+      },
+      {
+        title: "Nafl zinazopendekezwa — si rawatib zilizowekwa",
+        body: "Kabla ya Asr: 4 (hasan). Kabla ya Maghrib: 2 za hiari (sahih). Kabla ya Isha: 2 au 4 kati ya adhan na iqamah (sahih). Rakaa 2 zaidi kabla ya Dhuhr zinapendekezwa. Rakaa 2 zaidi baada ya Dhuhr (hasan/sahih). Baada ya Maghrib na Isha: nafl kwa jumla inahimizwa — bila idadi maalumu yenye utata.",
+        ruling: "sunnah",
       },
       {
         title: "Tahajjud (qiyam al-layl)",
         body: "Sala ya usiku katika theluthi ya mwisho ya usiku - sala ya hiari iliyo bora zaidi, na tabia ya watu wema.",
+        ruling: "sunnah",
       },
       {
         title: "Duha",
         body: "Swala ya katikati ya asubuhi (rakaa 2–8) — ni sadaka inayotozwa kwa kila kiungo cha mwili kila siku.",
+        ruling: "sunnah",
       },
       {
         title: "Tarawih",
         body: "Swala ya usiku ya mkusanyiko wa Ramadhani - kuhuisha usiku wa mwezi uliobarikiwa.",
+        ruling: "sunnah",
       },
       {
         title: "Eid mbili",
         body: "Rakaa mbili za Eid al-Fitr na Eid al-Adha, ikifuatiwa na khutba.",
+        ruling: "fard",
       },
       {
         title: "Istikharah",
         body: "Swala ya rakaa mbili ya kuomba mwongozo wa Mwenyezi Mungu kabla ya kufanya uamuzi.",
+        ruling: "sunnah",
       },
       {
         title: "Janazah",
         body: "Swala ya mazishi - wajibu wa jumuiya (fard kifayah) inayotolewa kwa kusimama, bila rukuu au sujud.",
+        ruling: "fard",
       },
     ],
     hadith: [
       {
-        excerpt: "Swala bora baada ya sala ya faradhi ni ile ya usiku. (Abu Hurayrah)",
+        excerpt:
+          "Mtume ﷺ hakuwahi kuacha rakaa mbili kabla ya Fajr. (Aishah; pia Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Mwenye kudumu kuswali rakaa kumi na mbili usiku na mchana, Mwenyezi Mungu atamjengea nyumba Peponi — mbili kabla ya Fajr, nne kabla ya Dhuhr, mbili baada ya Dhuhr, mbili baada ya Maghrib, na mbili baada ya Isha. (Umm Habibah)",
+      },
+      {
+        excerpt:
+          "Mwenye kuswali rakaa nne kabla ya Dhuhr na nne baada yake, Mwenyezi Mungu atamharamishia Moto. (Umm Habibah; imehakikishwa na wanazuoni wengi)",
+      },
+      {
+        excerpt: "Mwenyezi Mungu amrehemu mtu anayeswali rakaa nne kabla ya Asr.",
+      },
+      {
+        excerpt:
+          "Swalini kabla ya Maghrib, swalini kabla ya Maghrib — kisha akasema: kwa anayetaka. (Ibn 'Umar)",
+      },
+      {
+        excerpt:
+          "Kati ya kila miito miwili (adhan na iqamah) kuna swala. (Anas ibn Malik; pia Sahih Muslim 838)",
+      },
+      {
+        excerpt:
+          "Witr ni haki; anayetaka aswali tano, anayetaka tatu, na anayetaka moja. (Ibn 'Umar)",
+      },
+      {
+        excerpt: "Swala bora baada ya swala za faradhi ni swala ya usiku. (Abu Hurayrah)",
+      },
+      {
+        excerpt:
+          "Mja wangu huendelea kunikaribia kwa matendo ya hiari mpaka nimpende. (Hadith Qudsi)",
       },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "Anza na rawatib kumi na mbili — jenga mazoea hayo kabla ya kuongeza nafl za hiari.",
+      "Tumia jedwali la rakaa katika ukurasa huu kufuatilia Sunnah zilizosisitizwa karibu na kila faradhi.",
+      "Soma kadi za ushahidi zilizo hapa chini na uhifadhi hadith unazotaka kurejea.",
+    ],
+    appLinks: [
+      { label: "Matendo ya Sunnah" },
+      { label: "Mwongozo wa Tahajjud" },
+      { label: "Jedwali la rakaa" },
+    ],
+    disclaimer:
+      "Hukumu ya Witr (wajib au sunnah mu'akkadah), idadi halisi ya rakaa za hiari kabla ya Isha, na Salat al-Awwabin baada ya Maghrib ni masuala ambayo wanazuoni wametofautiana. Somo hili linawasilisha yaliyo na ushahidi sahihi pekee na kuonyesha tofauti pale inapokuwepo.",
   },
   {
     title: "Juma'ah - Swalah ya Ijumaa",
@@ -1047,5 +1231,150 @@ export const SALAH_GUIDE_PHRASES_SW: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Amani na rehema za Mwenyezi Mungu ziwe juu yenu.",
     meaning:
       "Unaiacha Sala kama unavyowaacha watu wa hishimiwa - kwa maamkio ya amani kwa Malaika wakiandika katika kila bega na kwa wanaoswali karibu nawe. Salamu ni nguzo; kwayo sala imekamilika.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_SW: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Rakaa ngapi za sunna rawatib zimekubaliwa kila siku?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "Rawatib kumi na mbili ni: 2 kabla ya Alfajiri, 4 kabla ya Dhuhr, 2 baada ya Dhuhr, 2 baada ya Maghrib, na 2 baada ya Isha (Sahih Muslim 728).",
+  },
+  {
+    prompt: "Kabla ya Alfajiri, sunna iliyosisitizwa (mu'akkadah) ni:",
+    options: ["Hakuna", "Rakaa 2", "Rakaa 4", "Rakaa 2 baada tu"],
+    explanation:
+      "Rakaa mbili kabla ya Alfajiri ni sunna mu'akkadah — Mtume ﷺ hakuwahi kuacha (Sahih al-Bukhari 1169; Sahih Muslim 724).",
+  },
+  {
+    prompt: "Rawatib zilizokubaliwa karibu na Dhuhr ni:",
+    options: ["2 kabla, 2 baada", "4 kabla, 2 baada", "4 kabla, 4 baada", "2 kabla tu"],
+    explanation:
+      "Nne kabla ya Dhuhr na mbili baada ni sehemu ya rawatib kumi na mbili. Rakaa za ziada zaidi ya hizi ni nafl zinazopendekezwa, si rawatib zilizowekwa.",
+  },
+  {
+    prompt:
+      "Kweli au si kweli: Rakaa nne kabla ya Asr ni sehemu ya rawatib kumi na mbili za kila siku.",
+    options: ["Kweli", "Si kweli"],
+    explanation:
+      "Nne kabla ya Asr ni sunna ghayr mu'akkadah (zinazopendekezwa sana) lakini hazihesabiwi miongoni mwa rawatib kumi na mbili (Jami' at-Tirmidhi 430).",
+  },
+  {
+    prompt: "Kwa nini Witr inawekwa katika kategoria yake katika kifuatiliaji cha swala?",
+    options: [
+      "Haijatajwa katika hadithi",
+      "Hanafi wanahesabu wajib huku wengi wakihesabu sunna mu'akkadah",
+      "Daima inaswaliwa kabla ya Isha",
+      "Haina idadi maalum ya rakaa",
+    ],
+    explanation:
+      "Witr imethibitishwa kwa nguvu, lakini wanachuoni wanatofautiana kama ni wajib au sunna mu'akkadah — kwa hivyo inafuatiliwa tofauti na rawatib kumi na mbili.",
+  },
+  {
+    prompt: "Katika Alfajiri kwa jamaa, imamu husoma:",
+    options: [
+      "Kimya katika rakaa zote mbili",
+      "Kwa sauti katika rakaa zote mbili",
+      "Kwa sauti katika ya kwanza tu",
+      "Kimya katika ya kwanza, kwa sauti katika ya pili",
+    ],
+    explanation:
+      "Alfajiri husomwa kwa sauti (jahri) katika rakaa zote mbili. Nyuma ya imamu unasikiliza kwa makini.",
+  },
+  {
+    prompt: "Dhuhr na Asr kwa jamaa husomwa:",
+    options: [
+      "Kwa sauti katika rakaa zote",
+      "Kimya katika rakaa zote",
+      "Kwa sauti katika mbili za kwanza, kimya baadaye",
+      "Kimya katika mbili za kwanza, kwa sauti baadaye",
+    ],
+    explanation:
+      "Dhuhr na Asr ni sirri (kimya) mwanzoni hadi mwisho — imamu husoma kwa sauti ya chini na kila muumini husoma kwa ajili yake mwenyewe.",
+  },
+  {
+    prompt: "Katika Maghrib, imamu husoma kwa sauti katika:",
+    options: [
+      "Rakaa zote tatu",
+      "Rakaa mbili za kwanza tu",
+      "Rakaa ya tatu tu",
+      "Hakuna — Maghrib ni kimya kabisa",
+    ],
+    explanation:
+      "Maghrib ni jahri katika rakaa ya kwanza na ya pili na sirri katika ya tatu — muundo wa ndefu/fupi kama swala zingine.",
+  },
+  {
+    prompt: "Katika Isha, kusoma kwa sauti huacha lini?",
+    options: [
+      "Baada ya rakaa ya kwanza",
+      "Baada ya rakaa ya pili",
+      "Baada ya rakaa ya tatu",
+      "Kamwe — nne zote ni kwa sauti",
+    ],
+    explanation:
+      "Isha ni kwa sauti katika rakaa mbili za kwanza na kimya katika ya tatu na ya nne.",
+  },
+  {
+    prompt: "Katika swala za sauti nyuma ya imamu, kila mtu anakubaliana kwamba unapaswa:",
+    options: [
+      "Kusoma sura nyingine kwa sauti pamoja na imamu",
+      "Kusikiliza kwa makini na usisome sura nyingine kwa sauti",
+      "Kuondoka swalani baada ya Al-Fatihah",
+      "Kusoma katika rakaa ya mwisho tu",
+    ],
+    explanation:
+      "Mwenyezi Mungu anasema: «Wakati Qur'ani inaposomwa, sikilizeni kwa makini na nyamazeni» (Qur'ani 7:204).",
+  },
+  {
+    prompt: "Kwa mujibu wa madhehebu ya Shafi'i, nyuma ya imamu katika swala ya sauti unapaswa:",
+    options: [
+      "Usisome Al-Fatihah kabisa",
+      "Soma Al-Fatihah katika kila rakaa",
+      "Soma tu katika rakaa za kimya",
+      "Soma kwa sauti pamoja na imamu",
+    ],
+    explanation:
+      "Madhehebu ya Shafi'i inashikilia kwamba kusoma Al-Fatihah kunahitajika kwa kila muumini katika kila rakaa, ikisita «Hakuna swala kwa asiyesoma Fatiha ya Kitabu» (Sahih al-Bukhari 756).",
+  },
+  {
+    prompt: "Kwa mujibu wa madhehebu ya Hanafi, katika swala za sauti nyuma ya imamu unapaswa:",
+    options: [
+      "Soma Al-Fatihah kwa sauti ya chini katika kila rakaa",
+      "Sikiliza kwa makini na usisome Al-Fatihah",
+      "Soma sura tu baada ya Al-Fatihah",
+      "Lazima usome Al-Fatihah kwa sauti",
+    ],
+    explanation:
+      "Mtazamo unaotegemewa kwa Hanafi ni kusikiliza katika swala za jahri; kusoma kwa imamu kunatosha. Madhehebu yote manne ya Sunni ni mitazamo halali.",
+  },
+  {
+    prompt: "Katika rakaa mbili za kwanza za Dhuhr, Mtume ﷺ kwa ujumla alisoma:",
+    options: [
+      "Al-Fatihah tu",
+      "Al-Fatihah na sura nyingine",
+      "Hakuna — ilikuwa kimya kabisa",
+      "Tasbih tu",
+    ],
+    explanation:
+      "Abu Qatadah aliriporti kwamba Mtume ﷺ alisoma Al-Fatihah na sura nyingine katika rakaa mbili za kwanza za Dhuhr na Asr, na Al-Fatihah tu katika mbili za mwisho (Sahih al-Bukhari 776; Sahih Muslim 451).",
+  },
+  {
+    prompt: "Unaposwali Alfajiri peke yako, ni sunna:",
+    options: [
+      "Kusoma kimya tu",
+      "Kusoma kwa sauti (ingawa kimya bado ni halali)",
+      "Kuacha sura baada ya Al-Fatihah",
+      "Kuswali rakaa moja tu",
+    ],
+    explanation:
+      "Peke yako, unasoma yale yaliyo katika jamaa; katika Alfajiri, Maghrib na Isha ni sunna kusoma kwa sauti.",
+  },
+  {
+    prompt:
+      "Kweli au si kweli: Rakaa sita zilizowekwa baada ya Maghrib kama Salat al-Awwabin ni sunna iliyothibitishwa kwa makubaliano wa wanachuoni.",
+    options: ["Kweli", "Si kweli"],
+    explanation:
+      "Nafl ya jumla baada ya Maghrib inahimizwa, lakini maelezo maarufu ya rakaa sita haswa kama Awwabin yanapingana katika uhalali — haipaswi kuwasilishwa kama sunna iliyowekwa iliyothibitishwa.",
   },
 ];

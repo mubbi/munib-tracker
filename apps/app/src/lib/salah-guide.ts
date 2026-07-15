@@ -1,5 +1,6 @@
 import * as salahGuide from "@munib-tracker/shared/content/salah-guide";
 import * as salahPhrases from "@munib-tracker/shared/content/salah-guide-phrases";
+import * as salahQuiz from "@munib-tracker/shared/content/salah-guide-quiz";
 import type {
   SalahGuideJourney,
   SalahGuidePhrase,
@@ -13,7 +14,7 @@ import { overlayList } from "@/lib/content-overlay-registry";
  * Lazy `import()` left hubs empty/partial on first paint when the ensure effect
  * lost the race; sync getters always have topics ready on first visit.
  */
-const corpus = { ...salahGuide, ...salahPhrases };
+const corpus = { ...salahGuide, ...salahPhrases, ...salahQuiz };
 
 export function isSalahGuideContentReady(): boolean {
   return true;
@@ -57,4 +58,9 @@ export function getPrayerRakats() {
 
 export function getSalahGuideLessonCount(): number {
   return corpus.SALAH_GUIDE_TOPICS.length;
+}
+
+/** Authored quiz questions for the Learn Salah hub and flash cards. */
+export function getSalahGuideQuiz() {
+  return localizeList(corpus.SALAH_GUIDE_QUIZ, overlayList("SALAH_GUIDE_QUIZ"));
 }

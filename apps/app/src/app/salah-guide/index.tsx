@@ -52,6 +52,7 @@ const TOPIC_ICONS: Record<string, AppIcon> = {
   qiblah: { ios: "location.north.fill", android: "explore", web: "explore" },
   adhan: { ios: "speaker.wave.3.fill", android: "campaign", web: "campaign" },
   "how-to-pray": { ios: "figure.stand", android: "self_improvement", web: "self_improvement" },
+  "jahri-sirri": { ios: "speaker.wave.2.fill", android: "volume_up", web: "volume_up" },
   positions: { ios: "figure.walk", android: "directions_walk", web: "directions_walk" },
   "common-mistakes": { ios: "xmark.circle.fill", android: "cancel", web: "cancel" },
   "sunnah-practices": { ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" },

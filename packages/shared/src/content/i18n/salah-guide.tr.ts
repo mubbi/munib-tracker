@@ -1,4 +1,8 @@
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 // Trabic translation overlay for the Learn Salah content. Mirrors the order of
@@ -670,6 +674,9 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         label: "الكلمات والمعاني",
       },
       {
+        label: "الجهر والإسرار في القراءة",
+      },
+      {
         label: "كل وضعية",
       },
       {
@@ -679,6 +686,109 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         label: "متتبِّع التمرين",
       },
     ],
+  },
+  {
+    title: "الجهر والإسرار في القراءة",
+    summary: "أي الركعات يجهر فيها الإمام، وأيها يسر، وماذا تفعل خلفه أو إذا صليتَ وحدك.",
+    body: [
+      "من أكثر الأسئلة شيوعًا — للمسلمين الجدد ومن عاش عمره في الصلاة — يصبح بسيطًا حين تفهم مبدأين: بعض الصلوات تُقرأ جهرًا (jahri) وبعضها سرًّا (sirri). وقد صلَّى النبي ﷺ بالطريقتين، ونقل الصحابة النمط، وهو مثبت في كتب الحديث الكبرى.",
+      "في كل صلاة الركعتان الأوليان هما «الطويلتان»: الفاتحة ثم سورة أخرى (أو آيات). وفي بقية ركعات الصلاة ثلاثية أو رباعية الركعات كان النبي ﷺ يقرأ الفاتحة فقط عمومًا. لذلك يتوقف الجهر بعد الركعة الثانية في المغرب والعشاء، بينما يبقى الظهر والعصر سرًّا كليهما.",
+      "لم يبيِّن الله سببًا صريحًا لكون بعض الصلوات جهرية وأخرى سرية. ويذكر العلماء حِكمًا — صلاة الليل تناسبها القراءة الجهرية؛ صلوات النهار في شغل الناس؛ التمييز بين الصلوات — لكن المسلمين يتبعون النمط لأنه السنة. يقول الله: «لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ» (٣٣:٢١).",
+      "خلف الإمام، الاتفاق في الصلوات الجهرية على الإنصات وعدم قراءة سورة أخرى جهرًا. أما قراءة الفاتحة سرًّا مع قراءة الإمام فمن أشهر خلافات المذاهب الأربعة — وكلها آراء معتبرة. وفي الصلوات السرية يقرأ الإمام سرًّا فيقرأ كل مصلٍّ لنفسه بحسب مذهبه.",
+      "إذا صليتَ وحدك: اقرأ الفاتحة في كل ركعة؛ وأضف سورة في الركعتين الأوليين؛ وفي الأخيرتين الفاتحة فقط. وفي الصلوات الجهرية تُستحب القراءة بصوت مسموع وحدك، وإن أسررتَ فالصلاة صحيحة.",
+    ],
+    steps: [
+      {
+        title: "الفجر — جهر في الركعتين",
+        body: "يجهر الإمام في الركعتين. خلفه: أنصت؛ لا تقرأ سورة أخرى جهرًا. الفاتحة — انظر خطوة المذاهب.",
+        ruling: "fard",
+      },
+      {
+        title: "الظهر — سر في الأربع",
+        body: "يقرأ الإمام سرًّا في كل ركعة. خلفه: اقرأ الفاتحة والسورة سرًّا لنفسك بحسب مذهبك.",
+        ruling: "fard",
+      },
+      {
+        title: "العصر — سر في الأربع",
+        body: "كالظهر — إسرار تام من الإمام؛ وكل مصلٍّ يقرأ سرًّا خلفه.",
+        ruling: "fard",
+      },
+      {
+        title: "المغرب — جهر ثم سر",
+        body: "جهر في الأولى والثانية؛ سر في الثالثة. خلفه: أنصت في الأوليين؛ وفي الثالثة اقرأ لنفسك بحسب مذهبك.",
+        ruling: "fard",
+      },
+      {
+        title: "العشاء — جهر ثم سر",
+        body: "جهر في الأولى والثانية؛ سر في الثالثة والرابعة. خلفه: أنصت في الأوليين؛ وفي الأخيرتين اقرأ لنفسك.",
+        ruling: "fard",
+      },
+      {
+        title: "لماذا الركعتان الأوليان فقط؟",
+        body: "روى أبو قتادة أن النبي ﷺ كان يقرأ الفاتحة وسورة في أول ركعتين من الظهر والعصر، وفي الأخيرتين الفاتحة فقط. وهذا يفسر بنية الركعات الطويلة والقصيرة.",
+        ruling: "sunnah",
+      },
+      {
+        title: "خلف الإمام في الجهر — اتفاق",
+        body: "أنصت حين يُقرأ القرآن جهرًا. لا تنافس الإمام ولا تقرأ سورة جهرًا. يقول الله: «فَاسْتَمِعُوا لَهُ وَأَنصِتُوا لَعَلَّكُمْ تُرْحَمُونَ» (٧:٢٠٤).",
+        ruling: "fard",
+      },
+      {
+        title: "الفاتحة خلف الإمام — المذاهب الأربعة",
+        body: "الحنفية: لا تقرأ الفاتحة في الجهر؛ أنصت. المالكية: الإنصات عمومًا في الجهر. الشافعية: تقرأ الفاتحة في كل ركعة حتى خلف الإمام. الحنابلة: قولان؛ كثير من الحنابلة يستحب قراءتها في الفرص المتاحة. كلها مذاهب سنية معتبرة.",
+        ruling: "wajib",
+        tip: "اتبع تعليم المذهب الذي تعلَّمته من معلم موثوق. لا مذهب يجيز قراءة سورة جهرًا فوق الإمام.",
+      },
+      {
+        title: "خلف الإمام في السر",
+        body: "الحنفية (المعتمد): ثناء وذكر سرًّا دون الفاتحة — قراءة الإمام تكفي. المالكية: ذكر خفيف؛ يختلف بالحال. الشافعية والحنابلة: تقرأ الفاتحة سرًّا في كل ركعة.",
+        ruling: "fard",
+      },
+      {
+        title: "الصلاة وحدك",
+        body: "لا فرق فيما تقرأ — فقط في رفع الصوت. كل ركعة: الفاتحة. الأوليان: سورة. الأخيرة: الفاتحة فقط. في الفجر والمغرب والعشاء يُستحب الجهر؛ الظهر والعصر سرًّا.",
+        ruling: "fard",
+      },
+    ],
+    quran: [
+      {
+        excerpt: "لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ.",
+      },
+      {
+        excerpt: "وَإِذَا قُرِئَ الْقُرْآنُ فَاسْتَمِعُوا لَهُ وَأَنصِتُوا لَعَلَّكُمْ تُرْحَمُونَ.",
+      },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "كان النبي ﷺ يقرأ في أول ركعتين من الظهر والعصر بالفاتحة وسورة، وفي الأخيرتين بالفاتحة فقط. (أبو قتادة؛ وأخرجه مسلم ٤٥١)",
+      },
+      {
+        excerpt: "لا صلاة لمن لم يقرأ بفاتحة الكتاب. (عبادة بن الصامت؛ وأخرجه مسلم ٣٩٤)",
+      },
+      {
+        excerpt:
+          "كان يقرأ في أول ركعتين من الظهر والعصر ما يجعلك تظن أنه يقرأ الطوال، وفي الأخيرتين ما يجعلك تظن أنه يقرأ الأقصر. (أبو قتادة)",
+      },
+    ],
+    actions: [
+      "في صلاتك الجماعية القادمة لاحظ أي الركعات يجهر فيها الإمام.",
+      "اسأل معلمًا من مذهبك: هل تقرأ الفاتحة خلف الإمام في الجهر؟",
+      "إذا صليتَ وحدك، جرِّب الجهر في الفجر لتجربة سنة القراءة الجهرية.",
+    ],
+    appLinks: [
+      {
+        label: "الصلاة خطوة بخطوة",
+      },
+      {
+        label: "صلاة الجماعة",
+      },
+      {
+        label: "الكلمات والمعاني",
+      },
+    ],
+    disclaimer:
+      "تختلف المذاهب الأربعة في قراءة الفاتحة خلف الإمام في الجهر والسر. يعرض هذا الدرس موقف كل مذهب دون إعلان أحدها الوحيد الصحيح. تعلَّم تفصيل مذهبك من معلم مؤهل.",
   },
   {
     title: "كل وضعية",
@@ -778,7 +888,8 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
     summary: "الأعمال المستحبة عن النبي ﷺ التي تُجمِّل الصلاة وتُضاعف أجرها.",
     body: [
       "فوق الأعمال المفروضة، أدَّى النبي ﷺ سننًا مستحبة كثيرة حول الصلاة. وهي غير واجبة، فتركُ إحداها لا يُبطل الصلاة — لكن كلًّا منها يُقرِّبك إلى الله، ويكسبك أجرًا زائدًا، ويجبر نقص الفرائض.",
-      "وأبرزها السنن الرواتب المؤدَّاة قبل الفرائض وبعدها: ركعتان قبل الفجر (وقد فضَّلها النبي ﷺ على الدنيا كلها)، وأربع قبل الظهر وركعتان بعده، وركعتان بعد المغرب، وركعتان بعد العشاء — اثنتا عشرة ركعة جزاؤها بيتٌ يُبنى في الجنة.",
+      "وأبرزها السنن الرواتب المؤدَّاة قبل الفرائض وبعدها. وليست كل نافلة على درجة واحدة: يُميِّز العلماء بين السنة المؤكَّدة (المشدَّد عليها وكان النبي ﷺ يداوم عليها)، والسنة غير المؤكَّدة (مستحبة بدرجة أقل)، والنفل العام (اختياري بلا عدد ثابت). معرفة الفرق تُساعدك على ترتيب أولوياتك اليومية.",
+      "أوضح جدول يومي بأقوى الأدلة هو الرواتب الاثنتا عشرة: ركعتان قبل الفجر، وأربع قبل الظهر، وركعتان بعده، وركعتان بعد المغرب، وركعتان بعد العشاء — اثنتا عشرة ركعة جزاؤها بيتٌ يُبنى في الجنة. انظر درس أنواع الصلاة للتفصيل مع الأدلة.",
     ],
     actions: [
       "استعمِل السواك قبل الوضوء والصلاة — كاد النبي ﷺ يفرضه.",
@@ -793,11 +904,17 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
           "لولا أن أشقَّ على أمتي لأمرتهم بالسواك عند كل صلاة. (أبو هريرة رضي الله عنه؛ وأخرجه مسلم ٢٥٢)",
       },
       {
+        excerpt: "ما كان النبي ﷺ يترك ركعتَي الفجر. (عائشة رضي الله عنها؛ وأخرجه مسلم ٧٢٤)",
+      },
+      {
         excerpt:
-          "من صلَّى في يوم وليلة اثنتي عشرة ركعة تطوُّعًا، بُني له بيت في الجنة. (أم حبيبة رضي الله عنها)",
+          "من صلَّى اثنتي عشرة ركعة في يوم وليلة بنى الله له بيتًا في الجنة: ركعتين قبل الفجر، وأربع قبل الظهر، وركعتين بعد الظهر، وركعتين بعد المغرب، وركعتين بعد العشاء. (أم حبيبة رضي الله عنها)",
       },
     ],
     appLinks: [
+      {
+        label: "دليل الرواتب — أنواع الصلاة",
+      },
       {
         label: "السنن وأذكار ما بعد الصلاة",
       },
@@ -910,10 +1027,12 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "أنواع الصلاة",
-    summary: "الفرض والسنة والوتر والنوافل التي تُثري يوم المؤمن.",
+    summary: "الفرض، والسنة المؤكَّدة، والسنة غير المؤكَّدة، والوتر، والنفل العام — مع أدلة صحيحة لكلٍّ.",
     body: [
-      "الصلوات متفاوتة في الوجوب. فالصلوات الخمس فرض — واجب مضيَّق على كل مسلم مكلَّف. وحولها وفوقها عالمٌ ثري من النافلة تقرَّب بها النبي ﷺ إلى الله دائمًا، ويمكننا نحن كذلك.",
-      "والنوافل مهمة لسببين: فهي أعمال محبوبة ترفع درجة المؤمن — يقول الله في نافلة العبادة: «وما يزال عبدي يتقرب إليَّ بالنوافل حتى أُحبَّه» — وهي تجبر الفرائض، إذ يُكمَّل نقصُ الفريضة من نافلة المرء يوم القيامة.",
+      "الصلوات متفاوتة في الوجوب. فالصلوات الخمس فرض — واجب مضيَّق على كل مسلم مكلَّف. وحولها عالمٌ ثري من النافلة تقرَّب بها النبي ﷺ إلى الله، ويمكننا نحن كذلك.",
+      "لتعلُّمٍ سليم، ميِّز أربع فئات من النافلة مبنية على نصوص صحيحة: السنة المؤكَّدة (الرواتب التي نادرًا ما تركها النبي ﷺ)، والسنة غير المؤكَّدة (مستحبة بدرجة أقل)، والوتر (فئة مستقلة لأن الحنفية يعدُّونه واجبًا والجمهور سنة مؤكَّدة)، والنفل العام (نوافل اختيارية بلا عدد ثابت بلا خلاف). وحيث يختلف العلماء في عدد ثابت — كست ركعات بعد المغرب باسم صلاة الأوّابين — نعرض التشجيع العام دون تقديم العدد المختلف فيه كسنة ثابتة.",
+      "والنوافل مهمة لسببين: فهي أعمال محبوبة ترفع درجة المؤمن، وهي تجبر الفرائض، إذ يُكمَّل نقصُ الفريضة من نافلة المرء يوم القيامة.",
+      "الرواتب الاثنتا عشرة أدناه أوضح جدول يومي للسنة بأقوى إجماع. جدول الركعات في صفحة تعلُّم الصلاة يتتبَّع هذه الاثنتي عشرة ركعة المؤكَّدة؛ أما النفل الاختياري قبل العصر أو المغرب أو بعد العشاء فيُستحبُّ حيث ورد الدليل دون إدخاله في العدد الثابت.",
     ],
     steps: [
       {
@@ -921,12 +1040,36 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         body: "الفجر والظهر والعصر والمغرب والعشاء — الأساس المفروض الذي لا يُترَك أبدًا.",
       },
       {
-        title: "السنن الرواتب",
-        body: "الركعات السنية الراتبة قبل الفرائض وبعدها — اثنتا عشرة يوميًّا تكسب بيتًا في الجنة.",
+        title: "الفجر — ركعتان قبل (سنة مؤكَّدة)",
+        body: "ركعتان قبل فريضة الفجر سنة مؤكَّدة — لم يكن النبي ﷺ يتركهما. لا سنة ثابتة بعد الفجر؛ والصلاة التطوُّعية بعد الفجر ممنوعة عمومًا حتى الشروق.",
       },
       {
-        title: "الوتر",
-        body: "صلاة وترية بعد العشاء، خاتمة صلاة الليل — سنة مؤكَّدة عند الجمهور، وواجبة عند الحنفية.",
+        title: "الظهر — أربع قبل وركعتان بعد (سنة مؤكَّدة)",
+        body: "أربع ركعات قبل الظهر وركعتان بعده من الرواتب الاثنتي عشرة (سنة مؤكَّدة). وروى أم حبيبة أن من صلَّى أربعًا قبل الظهر وأربعًا بعده حرَّمه الله على النار — فركعتان زائدتان بعد الركعتين الراتبتين نفل مستحب، ويستحب عند بعض العلماء ركعتان زائدتان قبل لتصبح ستًا.",
+      },
+      {
+        title: "العصر — أربع قبل (سنة غير مؤكَّدة)",
+        body: "أربع ركعات قبل العصر مستحبة على نطاق واسع (سنة غير مؤكَّدة). لا سنة ثابتة بعد العصر؛ والصلاة التطوُّعية بعد العصر ممنوعة عمومًا حتى الغروب.",
+      },
+      {
+        title: "المغرب — ركعتان قبل وبعد",
+        body: "ركعتان بعد المغرب سنة مؤكَّدة (من الرواتب). وقبل المغرب قال النبي ﷺ «صَلُّوا قبل المغرب» مرتين ثم «لمن شاء» — فركعتان قبل نفل اختياري. والصلاة التطوُّعية بعد المغرب مشجَّعة عمومًا، لكن تحديد ست ركعات باسم صلاة الأوّابين مُختلَف في صحته؛ لا تُقدَّم الستُّ كسنة ثابتة.",
+      },
+      {
+        title: "العشاء — ركعتان بعد واختياري قبل",
+        body: "ركعتان بعد العشاء سنة مؤكَّدة (من الرواتب). وقبل العشاء يجوز ركعتان أو أربع بين الأذان والإقامة — نفل عام. والصلاة التطوُّعية بعد العشاء جائزة، لكن لا سنة ثابتة بحدِّ ركعتين زائدتين بعد الراتبة.",
+      },
+      {
+        title: "الوتر — فئة مستقلة",
+        body: "يُصلَّى بعد العشاء بعدد وتر (١ أو ٣ أو ٥ أو ٧ أو ٩ أو ١١…). وردت أحاديث صحيحة كثيرة بالأمر به والحثِّ عليه. الحنفية يعدُّونه واجبًا والجمهور سنة مؤكَّدة. يُفصَل عن الاثنتي عشرة ركعة لاختلاف العلماء في حكمه.",
+      },
+      {
+        title: "الرواتب الاثنتا عشرة — الجدول المتفق عليه",
+        body: "قبل الفجر: ٢. قبل الظهر: ٤. بعد الظهر: ٢. بعد المغرب: ٢. بعد العشاء: ٢. المجموع: ١٢ ركعة. من داوم عليها بنى الله له بيتًا في الجنة.",
+      },
+      {
+        title: "نفل مستحب — ليس من الرواتب الثابتة",
+        body: "قبل العصر: ٤ (حسن). قبل المغرب: ٢ اختياري (صحيح). قبل العشاء: ٢ أو ٤ بين الأذان والإقامة (صحيح). زيادة قبل الظهر: ٢ مستحبة. زيادة بعد الظهر: ٢ (حسن/صحيح). بعد المغرب والعشاء: نفل عام مشجَّع — بلا عدد ثابت مُختلَف فيه.",
       },
       {
         title: "التهجد (قيام الليل)",
@@ -955,10 +1098,45 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
     ],
     hadith: [
       {
+        excerpt: "ما كان النبي ﷺ يترك ركعتَي الفجر. (عائشة رضي الله عنها؛ وأخرجه مسلم ٧٢٤)",
+      },
+      {
+        excerpt:
+          "من صلَّى اثنتي عشرة ركعة في يوم وليلة بنى الله له بيتًا في الجنة: ركعتين قبل الفجر، وأربع قبل الظهر، وركعتين بعد الظهر، وركعتين بعد المغرب، وركعتين بعد العشاء. (أم حبيبة رضي الله عنها)",
+      },
+      {
+        excerpt:
+          "من صلَّى أربع ركعات قبل الظهر وأربعًا بعده حرَّمه الله على النار. (أم حبيبة رضي الله عنها؛ صحَّحه كثير من العلماء)",
+      },
+      {
+        excerpt: "رحم الله امرأً صلَّى أربع ركعات قبل العصر.",
+      },
+      {
+        excerpt: "صَلُّوا قبل المغرب، صَلُّوا قبل المغرب — ثم قال: لمن شاء. (ابن عمر رضي الله عنه)",
+      },
+      {
+        excerpt: "بين كل أذانين صلاة. (أنس بن مالك رضي الله عنه؛ وأخرجه مسلم ٨٣٨)",
+      },
+      {
+        excerpt:
+          "الوتر حق، فمن شاء صلَّى خمسًا، ومن شاء صلَّى ثلاثًا، ومن شاء صلَّى واحدة. (ابن عمر رضي الله عنه)",
+      },
+      {
         excerpt: "أفضل الصلاة بعد الفريضة صلاة الليل. (أبو هريرة رضي الله عنه)",
       },
+      {
+        excerpt: "ما زال عبدي يتقرب إليَّ بالنوافل حتى أُحبَّه. (حديث قدسي)",
+      },
+    ],
+    actions: [
+      "ابدأ بالرواتب الاثنتي عشرة — عوِّد نفسك عليها قبل إضافة النفل الاختياري.",
+      "استخدم جدول الركعات في هذه الصفحة لتتبُّع السنة المؤكَّدة حول كل فريضة.",
+      "اقرأ بطاقات الأدلة أدناه واحفظ الأحاديث التي تريد مراجعتها.",
     ],
     appLinks: [
+      {
+        label: "السنن",
+      },
       {
         label: "دليل التهجد",
       },
@@ -966,6 +1144,8 @@ export const SALAH_GUIDE_TOPICS_TR: DeepPartial<SalahGuideTopic>[] = [
         label: "جدول الركعات",
       },
     ],
+    disclaimer:
+      "حكم الوتر (واجب أم سنة مؤكَّدة)، وعدد الركعات الاختيارية قبل العشاء، وصلاة الأوّابين بعد المغرب مسائل خلافية. يعرض هذا الدرس ما له أساس نصي صحيح ويُشير إلى الخلاف حيث وُجد.",
   },
   {
     title: "الجمعة — صلاة الجمعة",
@@ -1183,5 +1363,193 @@ export const SALAH_GUIDE_PHRASES_TR: DeepPartial<SalahGuidePhrase>[] = [
     translation: "السلام عليكم ورحمة الله.",
     meaning:
       "تخرج من الصلاة كما تخرج من مجلس المكرَّمين — بسلامٍ على الملَكين الكاتبين على كل منكب وعلى من يُصلِّي بجانبك. والسلام ركن؛ وبه تتم الصلاة.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_TR: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    id: "rawatib-total",
+    type: "multiple-choice",
+    prompt: "Her gün üzerinde ittifak edilen ravâtib sünnet rekat sayısı kaçtır?",
+    options: ["8", "10", "12", "14"],
+    correctIndex: 2,
+    explanation:
+      "On iki ravâtib şunlardır: Sabah namazından önce 2, öğle namazından önce 4, öğleden sonra 2, akşamdan sonra 2 ve yatsıdan sonra 2 (Sahih Müslim 728).",
+  },
+  {
+    id: "rawatib-fajr",
+    type: "multiple-choice",
+    prompt: "Sabah namazından önce vurgulanan (mu'akkade) sünnet:",
+    options: ["Yok", "2 rekat", "4 rekat", "Yalnızca sonrasında 2 rekat"],
+    correctIndex: 1,
+    explanation:
+      "Sabah namazından önce iki rekat sünnet-i mu'akkadedir — Peygamber ﷺ bunları asla terk etmezdi (Sahih el-Buhârî 1169; Sahih Müslim 724).",
+  },
+  {
+    id: "rawatib-dhuhr",
+    type: "multiple-choice",
+    prompt: "Öğle namazı etrafındaki ittifak edilen ravâtib:",
+    options: ["Önce 2, sonra 2", "Önce 4, sonra 2", "Önce 4, sonra 4", "Yalnızca önce 2"],
+    correctIndex: 1,
+    explanation:
+      "Öğleden önce dört ve sonrasında iki rekat, on iki ravâtibin parçasıdır. Bunların ötesindeki rekatlar tavsiye edilen nafiledir, sabit ravâtib değildir.",
+  },
+  {
+    id: "asr-ghayr-muakkadah",
+    type: "true-false",
+    prompt:
+      "Doğru mu yanlış mı: İkindi namazından önce dört rekat, sabit on iki günlük ravâtibin parçasıdır.",
+    options: ["Doğru", "Yanlış"],
+    correctIndex: 1,
+    explanation:
+      "İkindiden önce dört rekat, sünnet-i gayr-i mu'akkadedir (yaygın olarak tavsiye edilir) ancak on iki ravâtib arasında sayılmaz (Câmiu't-Tirmizî 430).",
+  },
+  {
+    id: "witr-separate",
+    type: "multiple-choice",
+    prompt: "Vitir neden namaz takipçisinde ayrı bir kategoride tutulur?",
+    options: [
+      "Hadislerde zikredilmez",
+      "Hanefîler onu vacip sayarken cümhur sünnet-i mu'akkade sayar",
+      "Her zaman yatsıdan önce kılınır",
+      "Sabit bir rekat sayısı yoktur",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Vitir güçlü delillerle sabittir, ancak âlimler vacip mi yoksa sünnet-i mu'akkade mi olduğunda ayrılır — bu yüzden on iki ravâtibden ayrı takip edilir.",
+  },
+  {
+    id: "jahri-fajr",
+    type: "multiple-choice",
+    prompt: "Cemaatle sabah namazında imam okur:",
+    options: [
+      "Her iki rekatta sessizce",
+      "Her iki rekatta yüksek sesle",
+      "Yalnızca birincide yüksek sesle",
+      "Birincide sessiz, ikincide yüksek sesle",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Sabah namazı her iki rekatta cehri (yüksek sesle) okunur. İmamın arkasında dikkatle dinlersiniz.",
+  },
+  {
+    id: "jahri-dhuhr-asr",
+    type: "multiple-choice",
+    prompt: "Cemaatle öğle ve ikindi namazları okunur:",
+    options: [
+      "Tüm rekatlarda yüksek sesle",
+      "Tüm rekatlarda sessizce",
+      "İlk ikisinde yüksek, sonrasında sessiz",
+      "İlk ikisinde sessiz, sonrasında yüksek",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Öğle ve ikindi her ikisi de sirrîdir (sessiz) — imam sessizce okur ve her cemaat kendi namazında okur.",
+  },
+  {
+    id: "jahri-maghrib",
+    type: "multiple-choice",
+    prompt: "Akşam namazında imam yüksek sesle okur:",
+    options: [
+      "Üç rekatın tamamında",
+      "Yalnızca ilk iki rekatta",
+      "Yalnızca üçüncü rekatta",
+      "Hiç — akşam tamamen sessizdir",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Akşam birinci ve ikinci rekatta cehri, üçüncüde sirrîdir — diğer namazlardaki uzun/kısa rekat düzeninin aynısı.",
+  },
+  {
+    id: "jahri-isha",
+    type: "multiple-choice",
+    prompt: "Yatsı namazında yüksek sesli okuma ne zaman durur?",
+    options: [
+      "Birinci rekattan sonra",
+      "İkinci rekattan sonra",
+      "Üçüncü rekattan sonra",
+      "Asla — dördü de yüksek sesle",
+    ],
+    correctIndex: 1,
+    explanation: "Yatsı ilk iki rekatta cehri, üçüncü ve dördüncü rekatta sirrî okunur.",
+  },
+  {
+    id: "behind-imam-loud",
+    type: "multiple-choice",
+    prompt: "Yüksek sesli namazlarda imamın arkasında herkes şunu yapmalıdır:",
+    options: [
+      "İmamla birlikte başka bir sureyi yüksek sesle okumak",
+      "Dikkatle dinlemek ve başka bir sureyi yüksek sesle okumamak",
+      "Fâtiha'dan sonra namazı terk etmek",
+      "Yalnızca son rekatta okumak",
+    ],
+    correctIndex: 1,
+    explanation: "Allah buyurur: 'Kur'an okunduğu zaman onu dinleyin ve susun' (Kur'an 7:204).",
+  },
+  {
+    id: "fatihah-shafii",
+    type: "multiple-choice",
+    prompt: "Şâfiî mezhebine göre, yüksek sesli namazda imamın arkasında:",
+    options: [
+      "Hiç Fâtiha okumazsınız",
+      "Her rekatta Fâtiha okursunuz",
+      "Yalnızca sessiz rekatlarda okursunuz",
+      "İmamla birlikte yüksek sesle okursunuz",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Şâfiî mezhebi, 'Kitabın Fâtiha'sını okumayanın namazı yoktur' (Sahih el-Buhârî 756) hadisine dayanarak her cemaatin her rekatta Fâtiha okumasını gerekli görür.",
+  },
+  {
+    id: "fatihah-hanafi-loud",
+    type: "multiple-choice",
+    prompt: "Hanefî mezhebine göre, yüksek sesli namazlarda imamın arkasında:",
+    options: [
+      "Her rekatta sessizce Fâtiha okursunuz",
+      "Dikkatle dinlersiniz ve Fâtiha okumazsınız",
+      "Yalnızca Fâtiha'dan sonraki sureyi okursunuz",
+      "Fâtiha'yı yüksek sesle okumak zorunludur",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Hanefîlerin güvenilir görüşü cehri namazlarda dinlemektir; imamın okuması yeterlidir. Dört Sünni mezhebin tamamı geçerli görüşlerdir.",
+  },
+  {
+    id: "first-two-surah",
+    type: "multiple-choice",
+    prompt: "Öğle namazının ilk iki rekatında Peygamber ﷺ genellikle okurdu:",
+    options: [
+      "Yalnızca Fâtiha",
+      "Fâtiha ve başka bir sure",
+      "Hiçbir şey — tamamen sessiz",
+      "Yalnızca tesbih",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Ebu Katâde, Peygamber ﷺ'in öğle ve ikindinin ilk iki rekatında Fâtiha ve başka bir sure, son iki rekatında yalnızca Fâtiha okuduğunu rivayet etmiştir (Sahih el-Buhârî 776; Sahih Müslim 451).",
+  },
+  {
+    id: "alone-fajr",
+    type: "multiple-choice",
+    prompt: "Sabah namazını yalnız kılarken sünnet:",
+    options: [
+      "Yalnızca sessizce okumak",
+      "Yüksek sesle okumak (sessiz de geçerlidir)",
+      "Fâtiha'dan sonraki sureyi atlamak",
+      "Yalnızca bir rekat kılmak",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Yalnızken cemaattekiyle aynı içeriği okursunuz; sabah, akşam ve yatsıda yüksek sesle okumak sünnettir.",
+  },
+  {
+    id: "awwabin-disputed",
+    type: "true-false",
+    prompt:
+      "Doğru mu yanlış mı: Akşamdan sonra Salâtü'l-Evvâbîn olarak tam altı sabit rekat, âlimlerin icmasıyla sabit sünnettir.",
+    options: ["Doğru", "Yanlış"],
+    correctIndex: 1,
+    explanation:
+      "Akşamdan sonra genel nafile teşvik edilir, ancak tam altı rekatın Evvâbîn olarak belirlenmesi sahihiyeti tartışmalıdır — sabit sünnet olarak sunulmamalıdır.",
   },
 ];

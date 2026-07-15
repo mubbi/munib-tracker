@@ -2,7 +2,11 @@
 // its English source in ../salah-guide*.ts (index-aligned); untranslated entries fall back
 // to English. Only human-readable text is translated — ids, routes, surah/ayah
 // numbers, collections, citations and grades stay in the English source.
-import type { SalahGuidePhrase, SalahGuideTopic } from "../../types/salah-guide";
+import type {
+  SalahGuidePhrase,
+  SalahGuideQuizQuestion,
+  SalahGuideTopic,
+} from "../../types/salah-guide";
 import type { DeepPartial } from "./localize";
 
 export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
@@ -589,7 +593,92 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
           "Kitabyň açylyşyny okamaýan adam üçin doga ýok. (Ubadah ibn-Samit; şeýle hem Sahih Musulman 394)",
       },
     ],
-    appLinks: [{}, {}, {}, {}],
+    appLinks: [{}, { label: "Sesli we içinden okamak" }, {}, {}, {}],
+  },
+  {
+    title: "Sesli we içinden okamak",
+    summary:
+      "Ymamyň haýsy rekagatlarda sesli, haýsylarynda içinden okaýandygy we onuň yzynda ýa-da ýeke namaz okanyňyzda näme etmelidigiňiz.",
+    body: [
+      "Iň köp soralýan sowallaryň biri iki ýörelgä düşünilende aňsatlaşýar: käbir namazlar sesli (jahri), beýlekileri içinden (sirri) okalýar. Pygamber ﷺ iki usulda-da namaz okady, sahabalar bu tertibi habar berdiler we ol esasy hadys ýygyndylarynda tassyklandy.",
+      "Her namazyň ilkinji iki rekagaty «uzyn rekagatlar»: Fatiha, soň başga bir süre ýa-da aýatlar okalýar. Üç ýa-da dört rekagatly namazyň galan rekagatlarynda Pygamber ﷺ adatça diňe Fatihany okady. Şonuň üçin agşam we ýassy namazlarynda sesli okamak ikinji rekagatdan soň gutarýar, öýle bilen ikindi bolsa başdan-aýak içinden okalýar.",
+      "Allah käbir namazlaryň näme üçin sesli, beýlekileriň içinden okalýandygyny açyk düşündirmedi. Alymlar hikmetleri agzaýarlar, emma musulmanlar bu tertibe sünnet bolandygy üçin eýerýärler. Allah: «Siziň üçin Allahyň Resulynda ajaýyp görelde bardyr» diýýär (33:21).",
+      "Sesli namazda ymamyň yzynda Gurhany diňlemek we başga süräni sesli okamazlyk barada ylalaşyk bar. Ymam okaýarka Fatihany içinden okamak dört mezhebiň arasyndaky meşhur pikir tapawutlarynyň biridir; olaryň ählisi ykrar edilen garaýyşlardyr. Içinden okalýan namazlarda ymam hem içinden okaýar, her namazçy öz mezhebine görä amal edýär.",
+      "Ýeke okasaňyz, her rekagatda Fatihany, ilkinji iki rekagatda goşmaça süräni okaň; soňky rekagatlarda diňe Fatiha. Sesli namazlary ýeke okanyňyzda eşidilýän ses bilen okamak mustahapdyr, emma içinden okasaňyz hem namaz dogrudyr.",
+    ],
+    steps: [
+      {
+        title: "Ertir — iki rekagat hem sesli",
+        body: "Ymam iki rekagatda-da sesli okaýar. Yzynda diňläň we başga süräni sesli okamaň. Fatiha üçin mezhepler baradaky ädime serediň.",
+      },
+      {
+        title: "Öýle — dört rekagat hem içinden",
+        body: "Ymam her rekagatda içinden okaýar. Onuň yzynda mezhebiňize görä özüňiz üçin içiňizden okaň.",
+      },
+      {
+        title: "Ikindi — dört rekagat hem içinden",
+        body: "Öýle ýaly: ymam tutuşlygyna içinden okaýar, onuň yzyndaky namazçy mezhebine görä amal edýär.",
+      },
+      {
+        title: "Agşam — ilki sesli, soň içinden",
+        body: "Birinji we ikinji rekagat sesli, üçünjisi içinden. Ilkinji ikisini diňläň; üçünjide mezhebiňize görä okaň.",
+      },
+      {
+        title: "Ýassy — ilki sesli, soň içinden",
+        body: "Birinji we ikinji rekagat sesli, üçünji we dördünji içinden. Ilkinji ikisini diňläň; soňky ikisinde özüňiz üçin okaň.",
+      },
+      {
+        title: "Näme üçin diňe ilkinji iki rekagat?",
+        body: "Abu Katada Pygamberiň ﷺ öýle we ikindiniň ilkinji iki rekagatynda Fatiha bilen süre, soňky iki rekagatynda diňe Fatiha okandygyny habar berdi. Bu uzyn we gysga rekagatlaryň gurluşyny düşündirýär.",
+      },
+      {
+        title: "Sesli kyraatda ymamyň yzynda — ylalaşyk",
+        body: "Gurhan sesli okalanda diňläň. Ymam bilen bäsleşmäň. Allah: «Gurhan okalanda, ony diňläň we dymyň, belki merhemet edilersiňiz» diýýär (7:204).",
+      },
+      {
+        title: "Ymamyň yzynda Fatiha — dört mezhep",
+        body: "Hanefiler sesli kyraatda okamaýarlar; mälikiler adatça diňleýärler; şafygylar her rekagatda, hatda ymamyň yzynda-da okaýarlar; hanbelilerde iki rowaýat bar we köpüsi mümkinçilik bolanda okamagy mustahap görýär.",
+        tip: "Ynamdar mugallymdan öwrenen mezhebiňiziň görkezmesine eýeriň. Hiç bir mezhep ymamyň sesiniň üstünden süräni sesli okamaga rugsat bermeýär.",
+      },
+      {
+        title: "Içinden okalýan namazda ymamyň yzynda",
+        body: "Hanefileriň ygtybarly garaýşynda Fatihasyz içinden tesbih we zikr aýdylýar; mälikiler ýagdaýa görä ýeňil zikr edýärler; şafygylar we hanbeliler her rekagatda Fatihany içinden okaýarlar.",
+      },
+      {
+        title: "Ýeke namaz okamak",
+        body: "Okalýan tekst üýtgemeýär, diňe ses derejesi: her rekagatda Fatiha, ilkinji ikisinde süre, soň diňe Fatiha. Ertir, agşam we ýassy namazlarynda sesli okamak mustahapdyr.",
+      },
+    ],
+    quran: [
+      { excerpt: "Siziň üçin Allahyň Resulynda ajaýyp görelde bardyr." },
+      { excerpt: "Gurhan okalanda, ony diňläň we dymyň, belki merhemet edilersiňiz." },
+    ],
+    hadith: [
+      {
+        excerpt:
+          "Pygamber ﷺ öýle we ikindiniň ilkinji iki rekagatynda Fatiha bilen süre, soňky iki rekagatynda diňe Fatiha okady. (Abu Katada; Sahih Muslim 451)",
+      },
+      {
+        excerpt:
+          "Kitabyň Açylşyny okamadyk adamyň namazy ýokdur. (Ubada ibn as-Samit; Sahih Muslim 394)",
+      },
+      {
+        excerpt:
+          "Ol öýle we ikindiniň ilkinji iki rekagatynda has uzyn, soňky ikisinde has gysga okaýandygyny duýdurardy. (Abu Katada)",
+      },
+    ],
+    actions: [
+      "Indiki jemagat namazyňyzda ymamyň haýsy rekagatlary sesli okaýandygyna üns beriň.",
+      "Mezhebiňizdäki mugallymdan sesli kyraatda ymamyň yzynda Fatihany okaýandygyňyzy soraň.",
+      "Ýeke namaz okanyňyzda bu sünneti duýmak üçin ertir namazyny sesli okap görüň.",
+    ],
+    appLinks: [
+      { label: "Namaz ädimme-ädim" },
+      { label: "Jemagat namazy" },
+      { label: "Sözler we manylar" },
+    ],
+    disclaimer:
+      "Dört mezhep sesli we içinden okalýan namazlarda ymamyň yzynda Fatihany okamak meselesinde tapawutlanýar. Bu sapak her garaýşy diňe birini dogry diýip yglan etmezden düşündirýär. Mezhebiňiziň jikme-jikliklerini ökde mugallymdan öwreniň.",
   },
   {
     title: "Her pozisiýa",
@@ -683,10 +772,11 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Sünnet amallary",
-    summary: "Pygamberimiziň (saw) namazynyň sylagyny owadanlaşdyrýan we köpeldýän amallary.",
+    summary: "Pygamberimiziň (saw) namazynyň sylagyny owadanlaşdyrýan we köpeldýän maslahatlary.",
     body: [
-      "Hökmany amallardan başga-da, Pygamber alaýhyssalam namazyň töwereginde köp maslahat berilýän amallary (sunan) nusga aldy. Olar talap edilmeýär, şonuň üçin birini taşlamak namazy ýatyrmaýar - ýöne hersi sizi Allaha ýakynlaşdyrýar, goşmaça sylag gazanýar we farz namazlarynda kemçilikleri düzedýär.",
-      "Olaryň arasynda iň esasysy, farzdan öň we soň okalýan yzygiderli sünnet namazlarydyr: ikisi Fajrdan (Pygamber alaýhyssalam bütin dünýäden ýokarydyr), dördüsi Duhrdan öň we ikisi, Magribden soň ikisi we Işadan soň ikisi - sylagy Jennetde gurlan on iki rekagat namazdyr.",
+      "Hökmany amallardan başga-da, Pygamberimiz namazyň töwereginde köp maslahat berilýän amallary (sunan) nusga aldy. Olar talap edilmeýär, şonuň üçin birini taşlamak namazy ýatyrmaýar - ýöne hersi sizi Allaha ýakynlaşdyrýar, goşmaça sylag gazanýar we farz namazlarynda kemçilikleri düzedýär.",
+      "Olaryň arasynda farzdan öň we soň okalýan yzygiderli sünnet namazlary (sunan rawatib). Her bir meýletin doga birmeňzeş agram salmaýar: alymlar sünnet mu'akkadany (Pygamberimiz tarapyndan yzygiderli ýerine ýetirilýär), sünnet geýr muakkadah (maslahat berilýär, ýöne az ähmiýet berilýär) we umumy nafl (islege bagly, belli bir hasaplamazdan) tapawutlandyrýarlar. Tapawudyny bilmek, her gün nämäni goramalydygyňyzy ileri tutmaga kömek edýär.",
+      "Iň güýçli subutnama bilen gündelik iş tertibi on iki rawatibdir: ikisi Fajrdan, dördüsi Dhuhrdan, ikisi Dhuhrdan soň, ikisi Magribden we ikisi Işadan soň - iki sany raka, sylagy Jennetde gurlan jaýdyr. Subutnamalar bilen namazyň doly okalmagy üçin namaz sapagynyň görnüşlerine serediň.",
     ],
     actions: [
       "Taharetden we namazdan öň miswak (siwak) ulanyň - Pygamberimiz hökmany diýen ýaly etdi.",
@@ -698,14 +788,28 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
     hadith: [
       {
         excerpt:
-          "Ymmatymy ýüklemeýän bolsam, her namazdan öň siwak ulanmagy buýrardym. (Abu Hureýra; şeýle hem Sahih Musulman 252)",
+          "Ymmatymy ýüklemeýän bolsam, her namazdan öň siwak ulanmagy buýrardym. (Abu Hureýra; Sahih Muslim 252)",
       },
       {
         excerpt:
-          "Kim gije-gündiz on iki rekagat namaz okasa, Jennetde onuň üçin jaý gurlar. (Umm Habibah)",
+          "Pygamber alaýhyssalam, iki rekagat namazdan öň hiç wagt üns bermedi. (Aýşa; Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kim gündizine we gündizine on iki rekagat namaz okasa, Allatagala oňa Jennetde bir jaý gurar - ikisi Fajrdan, dördüsi Duhrdan, ikisi Zhuhrdan, ikisi Magribden we ikisi Işadan soň. (Umm Habibah)",
       },
     ],
-    appLinks: [{}, {}],
+    appLinks: [
+      {
+        label: "Salahyň görnüşleri - rawatib gollanmasy",
+      },
+      {
+        label: "Sünnet we namazdan soňky adhkar",
+      },
+      {
+        label: "Metjit dualary",
+      },
+    ],
   },
   {
     title: "Huşu - ýüregiň barlygy",
@@ -796,10 +900,13 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
   },
   {
     title: "Namazyň görnüşleri",
-    summary: "Fard, sünnet, witr we imanlylaryň gününi baýlaşdyrýan meýletin dogalar.",
+    summary:
+      "Fard, sünnet mu'akkadah, sünnet geýr muakkada, witr we umumy nafl - her biri üçin hakyky subutnamalar bilen.",
     body: [
-      "Namazlar borçlar boýunça derejelendirilýär. Gündelik bäş namaz farzdyr - her bir musulman üçin berk borç. Olaryň töwereginde we daşynda Pygamberimiziň Allaha has ýakynlaşýan we biz hem edip bilýän meýletin doga dünýäsi bar.",
-      "Meýletin dogalar iki sebäbe görä möhümdir: olar imanlylaryň derejesini ýokarlandyrýan söýgüli amallardyr - Allah goşmaça ybadat hakda şeýle diýýär: 'Hyzmatkärim, söýýänçäm meýletin işler bilen maňa ýakynlaşýar' we farzdaky kemçilikler adamyň kyýamat güni doga-dileglerinden gutarýar.",
+      "Namazlar borçlar boýunça derejelendirilýär. Gündelik bäş namaz farzdyr - her bir musulman üçin berk borç. Olaryň töwereginde Pygamberimiziň Allaha has ýakynlaşýan we biz hem edip bilýän meýletin doga dünýäsi ýerleşýär.",
+      "Sagdyn öwrenmek üçin hakyky tekstlerde esaslandyrylan dört sany meýletin kategoriýany tapawutlandyryň: sünnet mu'akkadah (Pygamberimiz rawatibiň seýrek gabat gelýär), sünnet ghaýr mu'akkadah (maslahat berilýär, ýöne az ähmiýet berilýär), witr (öz kategoriýasynda saklanýar, sebäbi Hanafiler wajyp hasaplaýarlar, köpüsi sünnet mu'akkadah hasaplaýarlar) we umumy namaz hasaplaýarlar. Alymlaryň belli bir san boýunça tapawutlanýan ýerlerinde, meselem, Magribden soň alty rekagat namazyny Salat al-Awwabin ýaly - jedelli sanlary kesgitlenen sünnet hasaplamazdan umumy höweslendirýäris.",
+      "Meýletin dogalar iki sebäbe görä möhümdir: olar imanlylaryň derejesini ýokarlandyrýan söýgüli amallardyr we farzdaky kemçilikler kyýamat güni adamyň meýletin dogalaryndan tamamlanýandygy sebäpli farz namazlaryny abatlaýarlar.",
+      "Aşakdaky on iki rawatib, iň güýçli ylalaşyk bilen gündelik sünnetiň iň aýdyň tertibi. “Salah öwreniň” merkezindäki rakatlar tablisasy bu on iki sany rekagat namazyny yzarlaýar; islege bagly nafl, Asrdan öň, Magribden öň ýa-da subutnamanyň bar ýerinde işadan soň höweslendirilýär, ýöne bu kesgitlenen sanlara goşulmaýar.",
     ],
     steps: [
       {
@@ -807,23 +914,47 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Fajr, Dhuhr, Asr, Magrib, Isha - hökmany esas, hiç haçan taşlanmaly däl.",
       },
       {
-        title: "Sünnet çigatib",
-        body: "Farddan öň we soň yzygiderli sünnet rekagatlar - her gün on iki adam Jennetde jaý gazanýar.",
+        title: "Fajr - 2 öň (sünnet mu'akkadah)",
+        body: "Fajryň öňündäki iki rekagat sünnet mu'akkada - Pygamber alaýhyssalam olary hiç haçan äsgermezlik edipdir. Fajrdan soň hakyky yzygiderli sünnet ýok; meýletin namaz, adatça, Faýrdan soň gün dogýança gadagandyr.",
       },
       {
-        title: "Oysters",
-        body: "Işadan soň täsin sanly doga, gijeki doganyň möhri - köplük üçin sünnet mu'akkadah we Hanafi mekdebinde wajyp.",
+        title: "Dhuhr - 4-den öň we 2-den soň (sünnet mu'akkadah)",
+        body: "Dhuhrdan öň dört rekagat we on iki çigibiniň (sünnet mu'akkadah) bir bölegi. Umm Habibah, Dhuhrdan öň dört we ondan soň dört namaz okasa, Allatagalanyň ony otdan gadagan edýändigini habar berdi, şonuň üçin adaty iki çigatdan soň iki rekagat namaz okalýar we käbir alymlar jemi altydan öň iki goşmaça maslahat berýärler.",
+      },
+      {
+        title: "Asr - 4 öň (sünnet ghayr mu'akkadah)",
+        body: "Asrdan öň dört rekagat namaz okalýar (sünnet ghayr mu'akkadah). Asrdan soň hakyky yzygiderli sünnet ýok; meýletin namaz, Asrdan soň gün ýaşýança gadagan edilýär.",
+      },
+      {
+        title: "Magrib - 2-den öň we 2-den soň",
+        body: "Magribden soň iki rekagat sünnet mu'akkada (on iki çigibiniň bir bölegi). Pygamber alaýhyssalamdan öň iki gezek 'Magribiň öňünde doga et' diýdi, soň bolsa 'kim islese' goşdy - şonuň üçin öň ikisi kesgitlenen nafil däl-de, goşmaça nafl. Magribden soň umumy meýletin namaz okalýar, ýöne alty rekagat namazyň Salat al-Awwabin adynyň takyklygy jedelli; kesgitlenen alty sany sünnet hökmünde görkezmäň.",
+      },
+      {
+        title: "Işa - 2-den soň we islege görä",
+        body: "Işadan soň iki rekagat sünnet mu'akkada (on iki çigibiniň bir bölegi). Işadan öň “Her iki jaňyň arasynda doga bar” hadysy, adhan bilen ikamanyň arasynda iki ýa-da dört rekagat namaz okamaga rugsat berýär - çünki sünnet däl-de, umumy nafl. Işadan soň goşmaça meýletin doga etmäge rugsat berilýär, ýöne hiç bir hakyky sünnet adaty çigatdan başga goşmaça ikisini görkezmeýär.",
+      },
+      {
+        title: "Witr - aýratyn kategoriýa",
+        body: "Witr Işadan soň täsin mukdarda doga edilýär (1, 3, 5, 7, 9, 11…). Köp sanly hakyky hadys buýrugy we ony höweslendirýär. Hanafiler muny wajyp hasaplaýarlar; köplük muny sünnet mu'akkadah hasaplaýar. Kanuny karary baradaky pikir tapawudy sebäpli on iki rawatibden aýry saklanýar.",
+      },
+      {
+        title: "On iki rawatib - ylalaşylan meýilnama",
+        body: "Fajrdan öň 2. 2. Dhuhrdan öň: 4. Dhuhrdan soň: 2. Magribden soň: 2. Işadan soň: 2. Jemi: 12 rekagat. Kim yzygiderli dileg etse, Alla Jennetde jaý gurýar.",
+      },
+      {
+        title: "Maslahat berilýän nafl - kesgitlenen çigatib däl",
+        body: "Asrdan öň: 4 (hasan). Magribden öň: 2 islege bagly (sahih). Işadan öň: Adhan bilen Ykama (sahih) arasynda 2 ýa-da 4. Dhuhr-dan öň goşmaça: 2 maslahat berilýär. Dhuhrdan soň goşmaça: 2 (hasan / sahih). Maghrib & Isha-dan soň: umumy nafl höweslendirildi - jedelli kesgitlemän.",
       },
       {
         title: "Tahajjud (qiýam al-layl)",
         body: "Gijäniň soňky üçden birinde gijeki doga - iň oňat meýletin doga we dogruçyllaryň endigi.",
       },
       {
-        title: "IKINJI",
-        body: "Ertiriň dogasy (2-8 rekagat) - her gün bedeniň bogunlary üçin berilýän sadaka.",
+        title: "Duha",
+        body: "Ertiriň dogasy (2–8 rekagat) - her gün bedeniň bogunlary üçin berilýän sadaka.",
       },
       {
-        title: "Taraweeh",
+        title: "Tarawih",
         body: "Remezan jemagatynyň gijeki dogasy - mübärek aýyň gijelerini janlandyrmak.",
       },
       {
@@ -835,16 +966,63 @@ export const SALAH_GUIDE_TOPICS_TK: DeepPartial<SalahGuideTopic>[] = [
         body: "Karar bermezden ozal Allanyň ýoluny gözleýän iki rekagat namaz.",
       },
       {
-        title: "bier",
+        title: "Janazah",
         body: "Jynaza namazy - jemagat borjy (fard kifayah) ruku ýa-da sujudsyz durmagy teklip edýär.",
       },
     ],
     hadith: [
       {
+        excerpt:
+          "Pygamber alaýhyssalam, iki rekagat namazdan öň hiç wagt üns bermedi. (Aýşa; Sahih Muslim 724)",
+      },
+      {
+        excerpt:
+          "Kim gündizine we gündizine on iki rekagat namaz okasa, Allatagala oňa Jennetde bir jaý gurar - ikisi Fajrdan, dördüsi Duhrdan, ikisi Zhuhrdan, ikisi Magribden we ikisi Işadan soň. (Umm Habibah)",
+      },
+      {
+        excerpt:
+          "Kim Duhryň öňünde dört rekagat namaz okasa, Allatagala ony otdan saklar. (Umm Habibah; köp alym tarapyndan bahalandyrylan)",
+      },
+      {
+        excerpt: "Alla Asrdan öň dört rekagat namaz okaýan adama rehim etsin.",
+      },
+      {
+        excerpt:
+          "Magribiň öňünde doga et, Magribiň öňünde doga et, soň aýtdy: kim islese. (Ibni Umar)",
+      },
+      {
+        excerpt:
+          "Her iki jaňyň arasynda (adhan we ikama) namaz bar. (Anas ibn Mälik; Sahih Muslim 838)",
+      },
+      {
+        excerpt:
+          "Witr borjydyr, şonuň üçin kim islese bäş dileg etsin, kim üç dileg etsin, kim islese dileg etsin. (Ibni Umar)",
+      },
+      {
         excerpt: "Hökmany namazdan soň iň gowy doga, gijeki namazdyr. (Abu Hureýra)",
       },
+      {
+        excerpt: "Hyzmatkärim, ony söýýänçäm, meýletin işler bilen Maňa ýakynlaşýar. (Hadys Kudsi)",
+      },
     ],
-    appLinks: [{}, {}],
+    actions: [
+      "On iki rawatib bilen başlaň - goşmaça nafl goşmazdan ozal endigi dörediň.",
+      "Her merkeziň töwereginde nygtalýan sünnetleri yzarlamak üçin bu merkezdäki rakats tablisasyny ulanyň.",
+      "Aşakdaky subutnama kartalaryny we gaýtadan gözden geçirmek isleýän bellikleriňizi okaň.",
+    ],
+    appLinks: [
+      {
+        label: "Sünnet amallary",
+      },
+      {
+        label: "Tahajjud gollanmasy",
+      },
+      {
+        label: "Rakats stoly",
+      },
+    ],
+    disclaimer:
+      "Witriň kanuny karary (wajib vs sünnet mu'akkadah), Işadan öň goşmaça rakalaryň takyk mukdary we Magribden soň Salat al-Awwabin alymlaryň tapawudy. Bu sapakda diňe hakyky tekst esaslary bar we bar bolan ýerdäki düşünişmezlikleri görkezýär.",
   },
   {
     title: "Juma'a - Juma namazy",
@@ -1046,5 +1224,146 @@ export const SALAH_GUIDE_PHRASES_TK: DeepPartial<SalahGuidePhrase>[] = [
     translation: "Salam we Allanyň rahmeti bolsun.",
     meaning:
       "Hormatly adamlar bilen bile gideniňizde, her egniňizde ýazýan perişdelere we ýanyňyzda doga edýänlere parahatçylyk gutlagy bilen gidýärsiňiz. Salam sütün; bilen doga doly.",
+  },
+];
+
+export const SALAH_GUIDE_QUIZ_TK: DeepPartial<SalahGuideQuizQuestion>[] = [
+  {
+    prompt: "Her gün ylalaşylan sünnet rawatib näçe rekagat?",
+    options: ["8", "10", "12", "14"],
+    explanation:
+      "On iki rawatib: Fajrdan öň 2, Dhuhrdan öň 4, Dhuhrdan soň 2, Magribden soň 2 we Işadan soň 2 (Sahih Muslim 728).",
+  },
+  {
+    prompt: "Fajrdan öň, nygtalan (mu'akkadah) sünnet:",
+    options: ["Hiç zat", "2 rekagat", "4 rekagat", "Diňe soň 2 rekagat"],
+    explanation:
+      "Fajrdan öň iki rekagat sünnet mu'akkadah — Pygamber ﷺ olary hiç haçan taşlamady (Sahih al-Buhari 1169; Sahih Muslim 724).",
+  },
+  {
+    prompt: "Dhuhryň daşyndaky ylalaşylan rawatib:",
+    options: ["Öň 2, soň 2", "Öň 4, soň 2", "Öň 4, soň 4", "Diňe öň 2"],
+    explanation:
+      "Dhuhrdan öň dört we soň iki rekagat on iki rawatibyň bölegi. Goşmaça rekagatlar maslahat berilýän nafl, däl-de, kesgitlenen rawatib.",
+  },
+  {
+    prompt: "Dogry ýa-da nädogry: Asrdan öň dört rekagat gündelik on iki rawatibyň bölegi.",
+    options: ["Dogry", "Nädogry"],
+    explanation:
+      "Asrdan öň dört rekagat sünnet ghayr mu'akkadah (giň maslahat berilýär), ýöne on iki rawatiba girmeýär (Jami' at-Tirmidhi 430).",
+  },
+  {
+    prompt: "Näme üçin Witr namaz yzarlaýjysynda aýratyn kategoriýada saklanýar?",
+    options: [
+      "Hadysda agzalanmadyk",
+      "Hanafiler ony wajyp, köpüsi sünnet mu'akkadah hasaplaýar",
+      "Hemişe Işadan öň okalýar",
+      "Rekagat sany kesgitlenmedik",
+    ],
+    explanation:
+      "Witr güýçli subutnamalar bilen berkitilen, ýöne alymlar onuň wajyp ýa-da sünnet mu'akkadah bolmagy barada tapawutlanýar — şonuň üçin on iki rawatibden aýry yzarlanýar.",
+  },
+  {
+    prompt: "Jamaat Fajrynda imam okaýar:",
+    options: [
+      "Her iki rekagatda sessiz",
+      "Her iki rekagatda sesli",
+      "Diňe birinjide sesli",
+      "Birinjide sessiz, ikinjide sesli",
+    ],
+    explanation: "Fajr her iki rekagatda jahri (sesli) okalýar. Imamyň yzynda üns bilen diňläň.",
+  },
+  {
+    prompt: "Jamaatda Dhuhur we Asr okalýar:",
+    options: [
+      "Ähli rekagatlarda sesli",
+      "Ähli rekagatlarda sessiz",
+      "Ilkinji ikisinde sesli, soň sessiz",
+      "Ilkinji ikisinde sessiz, soň sesli",
+    ],
+    explanation: "Dhuhur we Asr doly sirri — imam sessiz okaýar we her doga ediji özü üçin okaýar.",
+  },
+  {
+    prompt: "Magribde imam sesli okaýar:",
+    options: [
+      "Üç rekagatyň hemmesinde",
+      "Diňe ilkinji iki rekagatda",
+      "Diňe üçünji rekagatda",
+      "Hiç ýerde — Magrib doly sessiz",
+    ],
+    explanation:
+      "Magrib birinji we ikinji rekagatda jahri, üçünjisinde sirri — beýleki namazlardaky uzyn/gysga rekagat nagşy ýaly.",
+  },
+  {
+    prompt: "Işada sesli okamak haçan bes edilýär?",
+    options: [
+      "Birinji rekagatdan soň",
+      "Ikinji rekagatdan soň",
+      "Üçünji rekagatdan soň",
+      "Hiç haçan — dört rekagatyň hemmesi sesli",
+    ],
+    explanation: "Işa ilkinji iki rekagatda jahri, üçünji we dördünjide sirri okalýar.",
+  },
+  {
+    prompt: "Sesli namazlarda imamyň yzynda hemmeler ylalaşýar:",
+    options: [
+      "Imam bilen sesli başga sura okamaly",
+      "Üns bilen diňlemeli we sesli başga sura okamaly däl",
+      "Al-Fatihadan soň namazy taşlamaly",
+      "Diňe soňky rekagatda okamaly",
+    ],
+    explanation:
+      "Allah aýdýar: 'Kur'an okaýlanda, ony üns bilen diňläň we sessiz galyň' (Kuran 7:204).",
+  },
+  {
+    prompt: "Şafi'i mezhebyna görä, sesli namazda imamyň yzynda:",
+    options: [
+      "Al-Fatihany hiç okamaly däl",
+      "Her rekagatda Al-Fatihany okamaly",
+      "Diňe sessiz rekagatlarda okamaly",
+      "Imam bilen sesli okamaly",
+    ],
+    explanation:
+      "Şafi'iler her doga edijiden her rekagatda Al-Fatihany okamagy hökmany hasaplaýarlar: 'Kitabyň başyny okamadyk kisiniň namazy ýok' (Sahih al-Buhari 756).",
+  },
+  {
+    prompt: "Hanafi mezhebyna görä, sesli namazlarda imamyň yzynda:",
+    options: [
+      "Her rekagatda sessiz Al-Fatihany okamak",
+      "Üns bilen diňlemek we Al-Fatihany okamamak",
+      "Diňe Al-Fatihadan soň surany okamak",
+      "Al-Fatihany sesli okamaly",
+    ],
+    explanation:
+      "Hanafileriň esasy pikiri jahri namazlarda diňlemekdir; imamyň okamagy ýeterlikdir. Dört sünni mezhebiň hemmesi dogry pozisiýalardyr.",
+  },
+  {
+    prompt: "Dhuhryň ilkinji iki rekagatynda Pygamber ﷺ adatça okaýardy:",
+    options: [
+      "Diňe Al-Fatihany",
+      "Al-Fatihany we başga surany",
+      "Hiç zat — doly sessiz",
+      "Diňe tesbih",
+    ],
+    explanation:
+      "Ebu Katada habar berýär, Pygamber ﷺ Dhuhur we Asryň ilkinji iki rekagatynda Al-Fatihany we başga surany, soňky ikisinde diňe Al-Fatihany okaýardy (Sahih al-Buhari 776; Sahih Muslim 451).",
+  },
+  {
+    prompt: "Fajry ýeke okanda sünnet:",
+    options: [
+      "Diňe sessiz okamak",
+      "Sesli okamak (sessiz hem dogry)",
+      "Al-Fatihadan soň surany taşlamak",
+      "Diňe bir rekagat okamak",
+    ],
+    explanation:
+      "Ýeke okanda jamaatdaky ýaly okaýarsyňyz; Fajr, Magrib we Işada sesli okamak sünnetdir.",
+  },
+  {
+    prompt:
+      "Dogry ýa-da nädogry: Magribden soň Salat al-Awwabin hökmünde kesgitlenen alty rekagat alymlaryň ylalaşygy bilen berkitilen sünnetdir.",
+    options: ["Dogry", "Nädogry"],
+    explanation:
+      "Magribden soň umumy nafl höweslendirilýär, ýöne takyk alty rekagaty Awwabin hökmünde kesgitlemek dogrulygy boýunça jedelli — kesgitlenen altyny berkitilen sünnet hökmünde görkezmäň.",
   },
 ];
