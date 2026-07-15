@@ -17,11 +17,20 @@ let ready: Promise<void> | undefined;
 function ensureReady(): Promise<void> {
   if (!ready) {
     ready = (async () => {
-      await connectRedisIfConfigured();
+      // Redis is optional — never block Nest/TypeORM boot on it. A hanging
+      // REDIS_URL used to stall every cold start until Vercel's 300s timeout.
+      void connectRedisIfConfigured();
+      console.log("[vercel-handler] creating Nest app");
       const nestApp = await createApp({ express: expressApp });
+      console.log("[vercel-handler] Nest create done; init()");
       await nestApp.init();
       handler = serverless(expressApp);
-    })();
+      console.log("[vercel-handler] ready");
+    })().catch((err) => {
+      ready = undefined;
+      handler = undefined;
+      throw err;
+    });
   }
   return ready;
 }

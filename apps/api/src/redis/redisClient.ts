@@ -1,16 +1,45 @@
 /**
  * Optional Redis connection for rate limiting, cron locks, and JSON caches.
  * When REDIS_URL is unset, all callers treat Redis as disabled (graceful degrade).
+ *
+ * Redis Cloud (`*.db.redis.io`): use the scheme from the console —
+ * `redis://` when TLS is off, `rediss://` when TLS is on. Optional `REDIS_TLS=true|false`
+ * overrides the scheme. Never assume TLS; forcing it against a plaintext endpoint
+ * times out with SSL "wrong version number".
  */
 
+import {
+  normalizeRedisUrl,
+  parseRedisTlsEnvFlag,
+} from "@munib-tracker/shared/utils/normalize-redis-url";
 import { Logger } from "@nestjs/common";
 import { createClient } from "redis";
 
 const logger = new Logger("Redis");
 
+/** Fail fast on unreachable Redis so Vercel cold starts never hang for minutes. */
+const REDIS_CONNECT_TIMEOUT_MS = 10_000;
+
 /** RESP2 keeps GET/INCR as string|null / number (avoids RESP3 `string | {}` under Vercel tsc). */
 function createAppRedisClient(url: string) {
-  return createClient({ url, RESP: 2 });
+  const forceTls = parseRedisTlsEnvFlag(process.env.REDIS_TLS);
+  const normalized = normalizeRedisUrl(url, { forceTls });
+  if (normalized !== url.trim()) {
+    logger.log(
+      `[Redis] REDIS_TLS=${String(forceTls)} adjusted URL scheme → ${
+        normalized.startsWith("rediss:") ? "rediss" : "redis"
+      }`,
+    );
+  }
+  return createClient({
+    url: normalized,
+    RESP: 2,
+    socket: {
+      connectTimeout: REDIS_CONNECT_TIMEOUT_MS,
+      // Serverless: fail fast on first connect; getRedisClient() retries later.
+      reconnectStrategy: false,
+    },
+  });
 }
 
 type AppRedisClient = ReturnType<typeof createAppRedisClient>;
@@ -99,10 +128,11 @@ export async function connectRedisIfConfigured(): Promise<void> {
   lastConnectAttemptAtMs = Date.now();
   connectAttempts += 1;
   connectInFlight = (async () => {
+    let c: AppRedisClient | null = null;
     try {
       const url = process.env.REDIS_URL?.trim();
       if (!url) return;
-      const c = createAppRedisClient(url);
+      c = createAppRedisClient(url);
       c.on("error", (err) => {
         lastErrorAtMs = Date.now();
         logger.error(`[Redis] client error: ${err instanceof Error ? err.message : String(err)}`);
@@ -113,13 +143,30 @@ export async function connectRedisIfConfigured(): Promise<void> {
         }
         logRedisTelemetry("disconnected");
       });
-      await c.connect();
+      // Belt-and-suspenders: node-redis socket timeout + hard Promise race so a
+      // misconfigured REDIS_URL cannot stall Nest boot on Vercel (504 @ 300s).
+      await Promise.race([
+        c.connect(),
+        new Promise<never>((_, reject) => {
+          setTimeout(() => {
+            reject(new Error(`Redis connect timed out after ${REDIS_CONNECT_TIMEOUT_MS}ms`));
+          }, REDIS_CONNECT_TIMEOUT_MS + 500);
+        }),
+      ]);
       client = c;
       lastConnectedAtMs = Date.now();
       logRedisTelemetry("connected");
     } catch (err) {
       lastErrorAtMs = Date.now();
       client = null;
+      if (c) {
+        try {
+          c.removeAllListeners();
+          await c.disconnect().catch(() => undefined);
+        } catch {
+          // Ignore cleanup errors after a failed connect.
+        }
+      }
       logger.error(
         `[Redis] failed to connect — continuing without Redis: ${
           err instanceof Error ? err.message : String(err)

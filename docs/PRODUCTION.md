@@ -116,7 +116,10 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
   version meta): set `REDIS_URL` (and optional `REDIS_KEY_PREFIX`) for durable
   limits across instances; otherwise in-memory fallback. Monitor via
   `GET /api/v1/health` → `redis` (`configured`, `connected`, …).
-  Upstash works with its TCP URL (`rediss://…`).
+  **Redis Cloud** (`*.db.redis.io`): paste the console URI as-is. If TLS is
+  **off** in the console, use `redis://…`; if TLS is **on**, use `rediss://…`.
+  Optional `REDIS_TLS=true|false` overrides the scheme. Ensure the database CIDR
+  allow list permits Vercel (or leave the public endpoint open with a strong password).
 - Optional `VAPID_PUBLIC_KEY` for Web Push subscription bootstrap (admin holds the private key).
 
 ### Redis (optional, multi-instance)
@@ -126,6 +129,10 @@ When **`REDIS_URL`** is set (`apps/api/.env.example`, same value on admin when u
 - Shared **rate limits** across API replicas
 - Short-lived **JSON caches** (app version meta on the API)
 - **Cron leader election** on admin broadcast processing (`process-broadcasts`)
+
+**Redis Cloud:** copy the connection string from the Redis console (username is
+usually `default`; public port is often `1xxxx`). Match TLS to the console
+toggle — do not force `rediss://` when TLS is disabled.
 
 When unset, apps degrade gracefully: in-memory rate limits per process, no Redis
 caches, cron may run on every overlapping trigger.

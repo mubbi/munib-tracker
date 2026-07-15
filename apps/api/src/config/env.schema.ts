@@ -248,11 +248,19 @@ export class EnvironmentVariables {
   /**
    * Optional Redis URL for shared rate limits, JSON caches, and cron locks.
    * When unset, rate limits stay in-memory per process and caches are skipped.
-   * Example: redis://localhost:6379 or rediss://default:…@….upstash.io:6379
+   * Redis Cloud: paste console URI as-is (`redis://` if TLS off, `rediss://` if on).
    */
   @IsString()
   @IsOptional()
   REDIS_URL?: string;
+
+  /**
+   * Optional override for REDIS_URL scheme: `true` → rediss://, `false` → redis://.
+   * Leave unset to keep the pasted scheme.
+   */
+  @IsString()
+  @IsOptional()
+  REDIS_TLS?: string;
 
   /**
    * Optional key namespace segment (defaults to NODE_ENV).

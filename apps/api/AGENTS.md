@@ -66,7 +66,7 @@ Key variables:
 | Apple | `APPLE_CLIENT_IDS`, `APPLE_SERVICES_ID`, `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` |
 | OAuth allowlist | `OAUTH_REDIRECT_URI_ALLOWLIST` (required in production for code exchange) |
 | Facebook | `FACEBOOK_APP_ID`, `FACEBOOK_APP_SECRET` |
-| Redis (optional) | `REDIS_URL`, `REDIS_KEY_PREFIX` — rate limits, app-version cache; graceful degrade when unset |
+| Redis (optional) | `REDIS_URL`, `REDIS_KEY_PREFIX`, optional `REDIS_TLS` — rate limits, app-version cache; graceful degrade when unset. Redis Cloud: paste console URI as-is (`redis://` if TLS off, `rediss://` if on) |
 | Web Push | `VAPID_PUBLIC_KEY` (optional; exposed at `GET /notifications/vapid-public-key`) |
 
 Full product OAuth console setup: [`docs/OAUTH_SETUP.md`](../../docs/OAUTH_SETUP.md). Production deploy: [`docs/PRODUCTION.md`](../../docs/PRODUCTION.md). Admin ops (separate app, same DB): [`docs/ADMIN.md`](../../docs/ADMIN.md) · [`docs/ADMIN_BROADCASTS.md`](../../docs/ADMIN_BROADCASTS.md).

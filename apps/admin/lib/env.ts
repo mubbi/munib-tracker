@@ -18,6 +18,10 @@ const envSchema = z.object({
   ADMIN_CRON_SECRET: z.preprocess(emptyToUndefined, z.string().min(16).optional()),
   /** Same Redis as apps/api — optional cron leader locks for broadcast processing. */
   REDIS_URL: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  REDIS_TLS: z.preprocess(
+    emptyToUndefined,
+    z.enum(["true", "false", "1", "0", "yes", "no"]).optional(),
+  ),
   REDIS_KEY_PREFIX: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
   /** Local `next dev` only — never set on Vercel. See `isLocalAuthBypassEnabled`. */
   ADMIN_DEV_BYPASS_AUTH: z.preprocess(emptyToUndefined, z.string().optional()),

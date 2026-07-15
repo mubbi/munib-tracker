@@ -17,6 +17,7 @@
     "./admin-broadcasts": "./src/admin-broadcasts.ts",
     "./validators": "./src/validators/index.ts",
     "./utils": "./src/utils/index.ts",
+    "./utils/normalize-redis-url": "./src/utils/normalize-redis-url.ts",
     "./content": "./src/content/index.ts",
     "./content/*": "./src/content/*.ts",
     "./content-i18n": "./src/content/i18n/index.ts",

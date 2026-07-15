@@ -58,6 +58,10 @@ import { resolvePostgresConnection, toTypeOrmPostgresOptions } from "./postgres-
           ],
           synchronize: false,
           autoLoadEntities: true,
+          // Fail fast on unreachable Postgres (default TCP wait can hit Vercel 300s).
+          extra: {
+            connectionTimeoutMillis: 15_000,
+          },
         };
       },
     }),

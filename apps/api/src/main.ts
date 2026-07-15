@@ -2,7 +2,8 @@ import { createApp, getListenPort } from "./create-app";
 import { closeRedis, connectRedisIfConfigured } from "./redis/redisClient";
 
 async function bootstrap() {
-  await connectRedisIfConfigured();
+  // Optional Redis — do not block HTTP listen on a slow/unreachable REDIS_URL.
+  void connectRedisIfConfigured();
   const app = await createApp();
 
   if (process.env.EXPORT_OPENAPI === "true") {
