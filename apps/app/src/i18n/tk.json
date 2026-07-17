@@ -177,7 +177,8 @@
     "finance": "Yslam Maliýe",
     "flashCards": "Okuw kartlary",
     "verseDetector": "Aýat anyklýan",
-    "lastThirdNight": "Gijäniň soňky üçden bire"
+    "lastThirdNight": "Gijäniň soňky üçden bire",
+    "friday": "Anna & Juma"
   },
   "quickActions": {
     "checklistSubtitle": "Şu günkü namazlary kaydet",
@@ -456,6 +457,14 @@
         "text": "Kysa bir tesbih oturumu da sayylyr. Zikr yalnyzca uzun oturuşlar için degildir — on ile başlayyn.",
         "topic": "zikir"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Ähli anna amallary bellendi — Alla kabul etsin.",
+      "openChecklist": "Jumu'ah sanawyny aç",
+      "badge": "Anna",
+      "reminderTitle": "Juma mübarek",
+      "reminderBody": "Jumu'ah namazyny okaň we anna gününiň sünnetlerini ýerine ýetiriň — Ghusl, Surah al-Kahf, salawat we Dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "{{prayer}} sonrasy",
     "afterSalahAdhkarReminderBody": "Tespeh ve namaz sonrasy zikirler için bir an ayyryn.",
     "afterSalahProgress": "Zikrler {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} sonrasy zikirler: bugün {{total}} içinden {{completed}} tamamlandy"
+    "afterSalahProgressA11y": "{{prayer}} sonrasy zikirler: bugün {{total}} içinden {{completed}} tamamlandy",
+    "friday": {
+      "title": "Jumu'ah sanawy",
+      "subtitle": "Anna üçin sünnet amallar — diňe anna gününde görkezilýär",
+      "progress": "{{completed}} / {{total}}",
+      "openRelated": "Baglanşykly mazmuny aç",
+      "learnMore": "Anna amallaryny öwren",
+      "items": {
+        "ghusl": {
+          "title": "Anna üçin Ghusl",
+          "hint": "Masjid-e gitmezden öň ýuwunyň"
+        },
+        "prepare": {
+          "title": "Iň gowy eşik we ys",
+          "hint": "Arassa geýniň we mümkin bolsa ýeňil ys sürüň"
+        },
+        "jumuah": {
+          "title": "Jumu'ah-a gatnaşyň (ýa-da Dhuhr okaň)",
+          "hint": "Hutba + iki rekat; mazeretli Dhuhr okar"
+        },
+        "kahf": {
+          "title": "Surah al-Kahf okaň",
+          "hint": "Iki anna arasyndaky ýagtylyk"
+        },
+        "salawat": {
+          "title": "Salawaty köpeldin",
+          "hint": "Pygambere ﷺ salawat iberiň"
+        },
+        "dua": {
+          "title": "Dua sagadyny gözläň",
+          "hint": "Aýratyn Asr-dan soňky soňky sagatda"
+        }
+      },
+      "details": "Jikme-jiklik",
+      "jumpTitle": "Jumu'ah sanawy",
+      "jumpHint": "Aşakda anna sünnet amallary",
+      "jumpA11y": "Bu sahypadaky Jumu'ah sanawyna git"
+    }
   },
   "update": {
     "title": "Täzelenme elýeterli",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries için bu category dir   way.",
     "detailEyebrow": "Zikr",
     "today": "Şu gün",
-    "openInTasbeeh": "in Tespeh Aç",
+    "openInTasbeeh": "Tespehte aç",
     "favorite": "Halanan",
     "favorited": "Favorilere eklendi",
     "share": "Paylaş",
@@ -1112,7 +1158,8 @@
     "favorites": "Favori salavatlar",
     "favSubtitle": "Ýazdyrmaktiginiz salavatlar",
     "favEmptyTitle": "Henüz favori salavat yok",
-    "favEmptyDesc": "Buraya kaydetmek için herhangi bir salavata yyldyza dokunun."
+    "favEmptyDesc": "Buraya kaydetmek için herhangi bir salavata yyldyza dokunun.",
+    "openInTasbeeh": "Tespehte aç"
   },
   "names": {
     "eyebrow": "Esmaü'l-Hüsna",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Bu gije doly aý",
       "fullBody": "Aý {{month}} ortasyna ýakyn doly ýagtylanýar — Ak Günleriň gijeleri, oruç tutmak aýratyn maslahat berilýär.",
       "generalTitle": "Aý senenamasy",
-      "generalBody": "Yslam (Hijri) senenamasy aýy yzarlaýar: her aý 29 ýa-da 30 gün, görünen hilal bilen (hilāl) başlaýar. Bu ýerdeki seneler ýeriňiz üçin tablisaly senenama esasynda we ýerli görmekden bir gün tapawutly bolup biler.",
+      "generalBody": "Yslam (Hijri) senenamasy aýy eýerleýär: her aý 29 ýa-da 30 gündür we görülen ýarymaý (hilāl) bilen başlaýar. Bu ýerdäki seneler ýerleşýän ýeriňizdäki aýyň görünmeginden hasaplanýar we ýerli häkimiýetiň bildirişinden bir gün tapawutlanyp biler.",
       "monthTurnTitle": "Hilaly gözläň",
-      "monthTurnBody": "Magribden soň {{month}} hilalyny gözläň. Yslam aýlary görünen hilal bilen başlaýar; ýerli aý görmegi bu senenamadan bir gün tapawutly bolup biler."
+      "monthTurnBody": "Maghrib-den soň {{month}} aýynyň hilāl-yny gözläň. Yslam aýlary görülen ýarymaý bilen başlaýar; ýerli häkimiýetiň bildirişi bu hasapdan bir gün tapawutlanyp biler."
     },
     "monthProgress": "Aýyň ösüşi",
     "monthProgressValue": "{{month}} · {{length}} günden {{day}}-nji gün",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Hesap",
     "title": "Profil",
-    "subtitle": "Sizin details ve account",
+    "subtitle": "At, sinhronizasiýa we giriş",
     "guestName": "Misafir",
     "changeAvatar": "Avatar degiştir",
     "signInToSync": "Senkronize etmek için giriş yapyn",
@@ -2154,7 +2201,17 @@
       "not_using": "Indi ulanmaýaryn",
       "technical_issues": "Tehniki meseleler ýa-da ýalňyşlyklar",
       "other": "Beýlekisi"
-    }
+    },
+    "editName": "Görkezilýän ady üýtget",
+    "signedInWith": "{{provider}} bilen girildi",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Salah, Zikr we Qaza-ny enjamlar arasynda ätiýaçlamak üçin hasaby baglaň.",
+    "sessionTitle": "Sessiýa",
+    "sessionHint": "Bu enjamdan çykyň. Bulut maglumatlaryňyz howpsuz galýar.",
+    "dangerTitle": "Howply sebit",
+    "dangerHint": "Hasabyňyzy we ýerli maglumatlary hemişelik pozýar. Bu yzyna gaýtarylmaýar."
   },
   "sync": {
     "title": "Bulut sinhronizasiýasy",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Ses {{value}}%",
     "buffering": "Tamponlanyyor…",
     "loading": "Yükleniyor…",
-    "streamingOnlyNote": "Streaming only — ses dir not kaydedildi  bu cihaz"
+    "streamingOnlyNote": "Streaming only — ses dir not kaydedildi  bu cihaz",
+    "ttsVoice": "Ses",
+    "ttsVoiceHint": "Tekstden-sese sesini saýlaň"
   },
   "errors": {
     "title": "Bir zatler nädogry boldy",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Ýerleşiş we ýatladyjylar",
       "description": "Takyk namaz wagtlary, gyla we islege bagly ýatladyjylar üçin ýerleşişe we bildirişlere rugsat beriň — ýa-da soň sazlaň."
+    },
+    "tasbeehDurood": {
+      "description": "Bu salavaty degişli tasbeeh hasaplaýjy bilen sanaň."
     }
   },
   "pwa": {
@@ -3406,7 +3468,7 @@
     "today": "Şu gün",
     "inDays": "içinde {{count}} gün",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Dates dir calculated estimates —  actual gün depends  local moon-sighting.",
+    "disclaimer": "Seneler ýerleşýän ýeriňizdäki aýyň görünmegini eýerleýär (ýa-da ony ulanýan sebitlerde resmi Umm al-Qura senenamasyny) we ýerli häkimiýetiň bildirişinden bir gün tapawutlanyp biler.",
     "names": {
       "newYear": "Islamic Yeni Year",
       "ashura": "Gün  Ashura",
@@ -3879,7 +3941,7 @@
       "label": "Goşundylar (islege görä)",
       "add": "Faýl goşuň",
       "remove": "Goşundyny aýyryň",
-      "hint": "5-e çenli faýl (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçijik suraty basyň.",
+      "hint": "5 faýla çenli (JPEG, PNG, WebP ýa-da PDF), hersi 1 MB. Aýyrmak üçin kiçi suratdaky ×-e basyň.",
       "signInRequired": "Adhkar-a şahsy faýllary birikdirmek üçin giriň.",
       "permissionDenied": "Faýllary birikdirmek üçin rugsat gerek.",
       "permissionTitle": "Girmäge rugsat beriň",
@@ -3905,7 +3967,10 @@
       "sourceGallery": "Surat kitaphanasy",
       "sourceGalleryHint": "Suratlaryňyzdan surat saýlaň",
       "sourceDocument": "Faýllar",
-      "sourceDocumentHint": "Faýllaryňyzdan surat ýa-da PDF saýlaň"
+      "sourceDocumentHint": "Faýllaryňyzdan surat ýa-da PDF saýlaň",
+      "loadingPdf": "PDF ýüklenýär…",
+      "pdfHint": "Aýyrmak · gysyp ýa-da +/− bilen ulaltmak · iki basyp täzeden · Paýlaşmak üçin PDF aç",
+      "pdfPreviewTitle": "PDF syny"
     },
     "stt": {
       "dictate": "Mikrofon bilen ýazyň",
@@ -3918,7 +3983,10 @@
     },
     "editTitle": "Adhkary redaktirlemek",
     "confirmDeleteTitle": "Bu adhkar pozulsynmy?",
-    "confirmDeleteMsg": "“{{title}}” hemişelik öçüriler."
+    "confirmDeleteMsg": "“{{title}}” hemişelik öçüriler.",
+    "searchPlaceholder": "Adhkarlaryňyzy gözläň",
+    "noResults": "Gabat gelýän adhkar ýok",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night namaz",
@@ -4365,7 +4433,7 @@
     "sourceLabel": "Sizin kaynak (istege bagly)",
     "sourcePlaceholder": "Book, alim, URL, veya citation supporting sizin correction.",
     "proofLabel": "Proof screenshots (istege bagly)",
-    "proofHint": "Up  3 images. Long-press  thumbnail  remove.",
+    "proofHint": "3 surata çenli. Aýyrmak üçin kiçi suratdaky ×-e basyň.",
     "addProof": "photo Ekle",
     "removeProof": "screenshot Kaldyr",
     "submit": "Submit bildir",
@@ -4402,7 +4470,11 @@
       "completed": "Tamamlandy",
       "cancelled": "Ýatyrmak edildi",
       "spam": "Islenmeýän"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri & sesli kysayollar",
@@ -4625,7 +4697,7 @@
     "eyebrow": "Senenama",
     "title": "Sene öwrüji",
     "subtitle": "Hijri we Gregorian kalendarlarynyň arasynda öwüriň",
-    "intro": "Kuweýt tablisasynyň algoritmini ulanyp, oflayn hasaplanan beýleki birine meňzeşini görmek üçin iki senenama senesini giriziň.",
+    "intro": "Islendik senenama bir sene giriziň, beýlekisindeki deňeşini görmek üçin — oflaýn ýerleşýän ýeriňizdäki aýyň görünmeginden hasaplanýar.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Gregorian senesi",
@@ -4635,7 +4707,7 @@
     "year": ".Yl",
     "useToday": "Şu gün ulanyň",
     "invalidDate": "Dogry senäni giriziň",
-    "disclaimer": "Bu arifmetiki ýakynlaşma (tablisa \"Kuweýt algoritmi\") we ýerli Aý görýän bildirişlerinden bir gün tapawutlanyp biler - dini seneler üçin hemişe ýerli metjidiňize ýa-da ygtyýaryňyza eýeriň.",
+    "disclaimer": "Seneler ýerleşýän ýeriňizdäki ýarymaýyň (hilāl) görünmeginden hasaplanýar we resmi aý gözegçiligi bildirişlerinden bir gün tapawutlanyp biler — dini seneler üçin hemişe ýerli masjid ýa-da häkimiýeti eýeriň.",
     "directionTitle": "Öwürmek ugry",
     "resultFrom": "{{date}}-den",
     "quickLinksTitle": "Baglanyşykly",
@@ -4714,6 +4786,25 @@
     "basedOn": "Esasy",
     "editTime": "{{prayer}} wagtyny üýtget",
     "editHint": "Wagty üýtgedeniňizde netijeler täzelenýär.",
-    "nightLengthLabel": "Gijäniň dowamlylygy"
+    "nightLengthLabel": "Gijäniň dowamlylygy",
+    "willStartIn": "{{time}} soň başlar",
+    "timeRemaining": "{{time}} galdy"
+  },
+  "friday": {
+    "eyebrow": "Öwren",
+    "title": "Anna & Juma",
+    "subtitle": "Faziletler, taýýarlyk, Surah al-Kahf, salawat we Dua sagady",
+    "intro": "Anna — güniň iň gowy dogan güni. Jumu'ah-yň hakyky amallaryny öwreniň — Ghusl, namaz, Surah al-Kahf, salawat we kabul edilen sagady gözlemek — Kuran we sahyh hadyslardan.",
+    "section": {
+      "virtues": "Anna gününiň faziletleri",
+      "obligation": "Jumu'ah namazy",
+      "prepare": "Taýýarlyk",
+      "kahf": "Kehf süräsi",
+      "salawat": "Salawat",
+      "dua": "Dua sagady"
+    },
+    "notFound": "Mowzuk tapylmady",
+    "disclaimer": "Bilim beriş syny — fetwa däl. Mekdepler tapawutlanýan ýerde (mysal üçin, anna Ghusl-y wajibmi ýa-da sunnah mu'akkadahmy), iki pozisiýa hem bellendi; imamyňyzy ýa-da ýerli hünärmen alymy eýeriň.",
+    "continueInApp": "Munib-de dowam et"
   }
 }

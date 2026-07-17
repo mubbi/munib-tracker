@@ -177,7 +177,8 @@
     "finance": "Islamic Finance",
     "flashCards": "Katunan koyo",
     "verseDetector": "Mai nemo ayah",
-    "lastThirdNight": "Ƙarshen ɓangare na uku"
+    "lastThirdNight": "Ƙarshen ɓangare na uku",
+    "friday": "Jumma'a da Jumu'ah"
   },
   "quickActions": {
     "checklistSubtitle": "Rubuta sallar yau",
@@ -456,6 +457,14 @@
         "text": "Dan guntun zaman tasbeeh yayi. Zikiri ba kawai don dogon zama ba - farawa da goma.",
         "topic": "zikiri"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "An rubuta duk ayyukan Jumma'a — Allah ya karɓe su.",
+      "openChecklist": "Buɗe jerin Jumu'ah",
+      "badge": "Jumma'a",
+      "reminderTitle": "Albarkar Jumu'ah",
+      "reminderBody": "Yi Jumu'ah kuma kammala sunnah na Jumma'a — Ghusl, Surah al-Kahf, salawat, da Dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "Bayan {{prayer}}",
     "afterSalahAdhkarReminderBody": "Ɗauki dan lokaci don tasbeeh da adhkar bayan salah.",
     "afterSalahProgress": "Adhkar {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "Adhkar bayan {{prayer}}: {{completed}} daga cikin {{total}} an gama a yau"
+    "afterSalahProgressA11y": "Adhkar bayan {{prayer}}: {{completed}} daga cikin {{total}} an gama a yau",
+    "friday": {
+      "title": "Jerin Jumu'ah",
+      "subtitle": "Sunnah na Jumma'a — ana nuna kawai a ranar Jumma'a",
+      "progress": "{{completed}} cikin {{total}}",
+      "openRelated": "Buɗe abubuwa masu alaƙa",
+      "learnMore": "Koyi sunnah na Jumma'a",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl na Jumma'a",
+          "hint": "Yi wanka kafin zuwa Masjid"
+        },
+        "prepare": {
+          "title": "Mafi kyawun tufafi da ƙamshi",
+          "hint": "Saka tufafi masu tsabta kuma yi ƙamshi mai sauƙi idan za ka iya"
+        },
+        "jumuah": {
+          "title": "Halarta Jumu'ah (ko yi Dhuhr)",
+          "hint": "Khutbah + raka'a biyu; wanda aka yi uzuri ya yi Dhuhr"
+        },
+        "kahf": {
+          "title": "Karanta Surah al-Kahf",
+          "hint": "Haske tsakanin Jumma'o'i biyu"
+        },
+        "salawat": {
+          "title": "Ƙara salawat",
+          "hint": "Ka aika albarka ga Annabi ﷺ"
+        },
+        "dua": {
+          "title": "Nemo sa'ar Dua",
+          "hint": "Musamman a sa'a ta ƙarshe bayan Asr"
+        }
+      },
+      "details": "Cikakkun bayanai",
+      "jumpTitle": "Jerin Jumu'ah",
+      "jumpHint": "Sunnah na Jumma'a a ƙasa",
+      "jumpA11y": "Je zuwa jerin Jumu'ah a wannan shafi"
+    }
   },
   "update": {
     "title": "Sabunta tana samuwa",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries don bu category dir   wwata.",
     "detailEyebrow": "Zikiri",
     "today": "Yau",
-    "openInTasbeeh": "in Tasbeeh Aç",
+    "openInTasbeeh": "Buɗe a Tasbeeh",
     "favorite": "Fi so",
     "favorited": "Akafi so",
     "share": "Raba",
@@ -1112,7 +1158,8 @@
     "favorites": "duroods da aka fi so",
     "favSubtitle": "Ajiyetiğiniz salavatlar",
     "favEmptyTitle": "Babu duroods da aka fi so tukuna",
-    "favEmptyDesc": "Wannanrwataa kwatadetmek don herhangi dwataa salavata shekaradıza dokunun."
+    "favEmptyDesc": "Wannanrwataa kwatadetmek don herhangi dwataa salavata shekaradıza dokunun.",
+    "openInTasbeeh": "Buɗe a Tasbeeh"
   },
   "names": {
     "eyebrow": "Asma'ul-Husna",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Cikakkiyar wata a daren yau",
       "fullBody": "Watan yana haskakawa a kusa da tsakiyar {{month}} - dararen Farin Rana, lokacin da aka fi so azumi.",
       "generalTitle": "Kalanda na wata",
-      "generalBody": "Kalandar Musulunci (Hijira) tana bin wata ne: kowane wata yana kwana 29 ko 30, yana farawa da wata da aka gani (hilāl). Kwanakin nan suna amfani da kalanda ta tebur don wurin ku kuma suna iya bambanta da ganin gida da kwana ɗaya.",
+      "generalBody": "Kalandar Musulunci (Hijira) tana bin wata: kowane wata yana da kwanaki 29 ko 30, yana farawa da wata da aka gani (hilāl). Ranaku anan an ƙididdige su daga ganin hilal a wurinku kuma na iya bambanta da sanarwar hukumar gida da rana ɗaya.",
       "monthTurnTitle": "Nemi wata",
-      "monthTurnBody": "Bayan Magrib, nemi hilāl na {{month}}. Watannin Musulunci suna farawa da wata da aka gani; ganin wata na gida na iya bambanta da wannan kalanda da kwana ɗaya."
+      "monthTurnBody": "Bayan Maghrib, nemo hilāl na {{month}}. Watanni na Musulunci suna farawa da wata da aka gani; sanarwar hukumar gida na iya bambanta da wannan lissafin da rana ɗaya."
     },
     "monthProgress": "Ci gaban wata",
     "monthProgressValue": "Rana {{day}} cikin {{length}} · {{month}}",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Asusu",
     "title": "Bayanan martaba",
-    "subtitle": "Bayanin ku da asusunku",
+    "subtitle": "Suna, daidaitawa, da shiga",
     "guestName": "Bako",
     "changeAvatar": "Canza avatar",
     "signInToSync": "Shiga don daidaitawa",
@@ -2154,7 +2201,17 @@
       "not_using": "Ba na amfani da shi kuma",
       "technical_issues": "Matsalolin fasaha ko kurakurai",
       "other": "Sauran"
-    }
+    },
+    "editName": "Gyara sunan nunawa",
+    "signedInWith": "An shiga da {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Haɗa asusu don ajiye Salah, Zikr, da Qaza akan na'urori daban-daban.",
+    "sessionTitle": "Zama",
+    "sessionHint": "Fita daga wannan na'ura. Bayanan girgije sun kasance lafiya.",
+    "dangerTitle": "Yankin haɗari",
+    "dangerHint": "Share asusunka da bayanan gida har abada. Ba za a iya mayar da wannan ba."
   },
   "sync": {
     "title": "Cloud daidaitawa",
@@ -2250,7 +2307,9 @@
     "volumeValue": "girma {{value}}%",
     "buffering": "Ana ɗora…",
     "loading": "Ana lodawa…",
-    "streamingOnlyNote": "Streamintig only — audio is not saved on this device"
+    "streamingOnlyNote": "Streamintig only — audio is not saved on this device",
+    "ttsVoice": "Murya",
+    "ttsVoiceHint": "Zaɓi muryar rubutu-zuwa-magana"
   },
   "errors": {
     "title": "Wani abu bai yi daidai ba",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Wuri da tunatarwa",
       "description": "Bada izinin wuri da sanarwa don ingantattun lokutan sallah, qibla, da zaɓaɓɓun tunatarwa — ko saita daga baya."
+    },
+    "tasbeehDurood": {
+      "description": "Ƙidaya wannan durood da ƙugiya mai taɓawa."
     }
   },
   "pwa": {
@@ -3406,7 +3468,7 @@
     "today": "Yau",
     "inDays": "a cikin kwanaki {{count}}",
     "hijriYear": "{{year}} AH",
-    "disclaimer": "Ana ƙididdige kwanan wata ƙididdiga - ainihin ranar ya dogara da ganin wata na gida.",
+    "disclaimer": "Ranaku suna bin ganin hilal a wurinku (ko kalandar Umm al-Qura a yankunan da ake amfani da ita) kuma na iya bambanta da sanarwar hukumar gida da rana ɗaya.",
     "names": {
       "newYear": "Sabuwar Shekarar Musulunci",
       "ashura": "Ranar Ashura",
@@ -3879,7 +3941,7 @@
       "label": "Haɗe-haɗe (na zaɓi)",
       "add": "Ƙara fayil",
       "remove": "Cire abin da aka makala",
-      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowane. Dogon latsa ɗan yatsa don cirewa.",
+      "hint": "Har zuwa fayiloli 5 (JPEG, PNG, WebP, ko PDF), 1 MB kowanne. Taɓa × a kan ƙaramin hoto don cirewa.",
       "signInRequired": "Shiga don haɗa fayiloli masu zaman kansu zuwa adhkar ku.",
       "permissionDenied": "Ana buƙatar izini don haɗa fayiloli.",
       "permissionTitle": "Bada damar shiga",
@@ -3905,7 +3967,10 @@
       "sourceGallery": "Laburaren hoto",
       "sourceGalleryHint": "Zaɓi hoto daga hotunanku",
       "sourceDocument": "Fayiloli",
-      "sourceDocumentHint": "Zaɓi hoto ko PDF daga fayilolinku"
+      "sourceDocumentHint": "Zaɓi hoto ko PDF daga fayilolinku",
+      "loadingPdf": "Ana lodin PDF…",
+      "pdfHint": "Gungura · matse ko yi amfani da +/− don ƙara girma · taɓa sau biyu don sake saiti · buɗe PDF don raba",
+      "pdfPreviewTitle": "Duban PDF"
     },
     "stt": {
       "dictate": "Yi magana da makirufo",
@@ -3918,7 +3983,10 @@
     },
     "editTitle": "Gyara adhkar",
     "confirmDeleteTitle": "A share wannan adhkar?",
-    "confirmDeleteMsg": "“{{title}}” za a cire shi har abada."
+    "confirmDeleteMsg": "“{{title}}” za a cire shi har abada.",
+    "searchPlaceholder": "Nemo adhkarka",
+    "noResults": "Babu adhkar da suka dace",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night sallah",
@@ -4365,7 +4433,7 @@
     "sourceLabel": "Kuin kwatanak (isteğe bağlı)",
     "sourcePlaceholder": "Book, alim, URL, ko citation supporting sizin correction.",
     "proofLabel": "Tabbataccen hotunan kariyar kwamfuta (na zaɓi)",
-    "proofHint": "Up  3 images. Long-press  thumbnail  remoda.",
+    "proofHint": "Har zuwa hotuna 3. Taɓa × a kan ƙaramin hoto don cirewa.",
     "addProof": "Ƙara photo",
     "removeProof": "Cire screenshot",
     "submit": "Aika report",
@@ -4402,7 +4470,11 @@
       "completed": "An kammala",
       "cancelled": "An soke",
       "spam": "Spam"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri & gajerun hanyoyin murya",
@@ -4625,7 +4697,7 @@
     "eyebrow": "Kalanda",
     "title": "Mai sauya kwanan wata",
     "subtitle": "Tuba tsakanin kalandar Hijiriyya da Miladiyya",
-    "intro": "Shigar da kwanan wata a cikin kowane kalanda don ganin kwatankwacinsa a ɗayan, ƙididdiga ta layi ta amfani da algorithm Kuwaiti tabular.",
+    "intro": "Shigar da rana a kowace kalanda don ganin daidaita ta a waccan, an ƙididdige a offline daga ganin hilal a wurinku.",
     "toHijri": "Gregorian → Hijira",
     "toGregorian": "Hijiriyya → Marigayi",
     "gregorianDateLabel": "Kwanan Gregorian",
@@ -4635,7 +4707,7 @@
     "year": "Shekara",
     "useToday": "Yi amfani a yau",
     "invalidDate": "Shigar da ingantaccen kwanan wata",
-    "disclaimer": "Wannan lissafin lissafin ƙididdiga ne (tabul ɗin \"Kuwaiti algorithm\") kuma yana iya bambanta da rana ɗaya daga sanarwar ganin wata na gida - koyaushe ku bi masallacin ku ko ikon ranakun addini.",
+    "disclaimer": "An ƙididdige ranaku daga ganin hilal (hilāl) a wurinku kuma na iya bambanta da sanarwar hukuma ta ganin wata da rana ɗaya — koyaushe bi Masjid ko hukumar gida don ranakun addini.",
     "directionTitle": "Hanyar juyawa",
     "resultFrom": "Daga {{date}}",
     "quickLinksTitle": "Masu alaƙa",
@@ -4714,6 +4786,25 @@
     "basedOn": "Bisa ga",
     "editTime": "Gyara lokacin {{prayer}}",
     "editHint": "Sakamako suna sabuntawa yayin da kuka canza lokaci.",
-    "nightLengthLabel": "Tsawon dare"
+    "nightLengthLabel": "Tsawon dare",
+    "willStartIn": "Zai fara a cikin {{time}}",
+    "timeRemaining": "{{time}} ya rage"
+  },
+  "friday": {
+    "eyebrow": "Koyo",
+    "title": "Jumma'a da Jumu'ah",
+    "subtitle": "Falala, shiri, Surah al-Kahf, salawat, da sa'ar Dua",
+    "intro": "Jumma'a ita ce mafi kyawun rana da rana ta fito a kai. Koyi ingantattun ayyukan Jumu'ah — Ghusl, sallah, Surah al-Kahf, salawat, da neman sa'ar da ake karɓa — daga Alƙur'ani da hadisi sahih.",
+    "section": {
+      "virtues": "Falalar Jumma'a",
+      "obligation": "Sallar Jumu'ah",
+      "prepare": "Shiri",
+      "kahf": "Surah al-Kahf",
+      "salawat": "Salawati",
+      "dua": "Sa'ar Dua"
+    },
+    "notFound": "Ba a sami batun ba",
+    "disclaimer": "Bayani na ilimi — ba fatwa ba. Inda mazhabobi suka bambanta (kamar ko Ghusl na Jumma'a wajib ne ko sunnah mu'akkadah), an ambaci ra'ayoyin biyu; bi imaminka ko malami na gida mai cancanta.",
+    "continueInApp": "Ci gaba a Munib"
   }
 }

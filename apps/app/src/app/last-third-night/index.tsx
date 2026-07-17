@@ -9,11 +9,13 @@ import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { IconWell } from "@/components/ui/icon-well";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Stagger } from "@/components/ui/stagger";
 import { WallClockPicker, type WallClockValue } from "@/components/ui/wall-clock-picker";
 import { Radius, Spacing, withAlpha } from "@/constants/theme";
+import { useNow } from "@/hooks/use-now";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useTimeFormat } from "@/hooks/use-time-format";
 import { locationCalcExtras, type StoredLocation } from "@/lib/location";
@@ -23,10 +25,10 @@ import {
   detectNightPrayerWallClock,
   formatDuration,
   formatPrayerTime,
-  nightBoundsFromWallClock,
+  resolveNightBoundsForNow,
 } from "@/lib/prayer-times";
 import { arrowForward } from "@/lib/rtl";
-import { formatDisplayHhMm, prayerDayAnchor } from "@/lib/time";
+import { formatDisplayHhMm } from "@/lib/time";
 import { useLocation } from "@/stores/location-store";
 
 /** Abu Huraira — Allah descends in the last third of the night (Sahih al-Bukhari 1145). */
@@ -51,6 +53,7 @@ export default function LastThirdNightScreen() {
   const { colors, tokens } = useThemeTokens();
   const timeFormat = useTimeFormat();
   const location = useLocation();
+  const now = useNow();
 
   const [seed] = useState(() => detectTimes(location));
   const [maghrib, setMaghrib] = useState<WallClockValue>(seed.maghrib);
@@ -64,16 +67,24 @@ export default function LastThirdNightScreen() {
   }, [location]);
 
   const result = useMemo(() => {
-    const anchor = prayerDayAnchor(new Date(), location.timeZone);
-    const { maghribAt, fajrAt } = nightBoundsFromWallClock(
-      maghrib,
-      fajr,
-      anchor,
-      location.timeZone,
-    );
-    if (fajrAt.getTime() <= maghribAt.getTime()) return undefined;
-    return computeNightDividers(maghribAt, fajrAt);
-  }, [fajr, location.timeZone, maghrib]);
+    const bounds = resolveNightBoundsForNow(maghrib, fajr, now, location.timeZone);
+    if (!bounds) return undefined;
+    return { ...computeNightDividers(bounds.maghribAt, bounds.fajrAt), fajrAt: bounds.fajrAt };
+  }, [fajr, location.timeZone, maghrib, now]);
+
+  const countdownLabel = useMemo(() => {
+    if (!result) return undefined;
+    const nowMs = now.getTime();
+    if (nowMs < result.lastThird.getTime()) {
+      const minutes = Math.max(0, Math.round((result.lastThird.getTime() - nowMs) / 60_000));
+      return t("lastThirdNight.willStartIn", { time: formatDuration(minutes) });
+    }
+    if (nowMs < result.fajrAt.getTime()) {
+      const minutes = Math.max(0, Math.round((result.fajrAt.getTime() - nowMs) / 60_000));
+      return t("lastThirdNight.timeRemaining", { time: formatDuration(minutes) });
+    }
+    return undefined;
+  }, [now, result, t]);
 
   const formatWall = (value: WallClockValue) =>
     formatDisplayHhMm(value.hour, value.minute, timeFormat);
@@ -109,6 +120,14 @@ export default function LastThirdNightScreen() {
               >
                 {formatPrayerTime(result.lastThird, timeFormat, location.timeZone)}
               </ThemedText>
+              {countdownLabel ? (
+                <ThemedText
+                  type="small"
+                  style={[styles.countdown, { color: tokens.status.info.text }]}
+                >
+                  {countdownLabel}
+                </ThemedText>
+              ) : null}
               <View style={styles.heroMeta}>
                 <View style={styles.metaItem}>
                   <ThemedText type="caption" themeColor="mutedForeground">
@@ -234,19 +253,22 @@ function TimeChip({
       onPress={onPress}
       style={[styles.chip, { backgroundColor: colors.muted }]}
     >
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {label}
-      </ThemedText>
-      <View style={styles.chipValueRow}>
-        <ThemedText type="title" style={{ color: colors.accent }}>
-          {value}
+      <View style={styles.chipHeader}>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {label}
         </ThemedText>
-        <SymbolView
-          name={{ ios: "pencil", android: "edit", web: "edit" }}
-          size={14}
-          tintColor={tokens.status.info.color}
+        <IconWell
+          icon={{ ios: "pencil", android: "edit", web: "edit" }}
+          size={13}
+          well={28}
+          radius={Radius.pill}
+          tint={colors.accent}
+          background={withAlpha(colors.accent, tokens.isDark ? 0.22 : 0.14)}
         />
       </View>
+      <ThemedText type="title" style={{ color: colors.accent }}>
+        {value}
+      </ThemedText>
     </PressableScale>
   );
 }
@@ -260,6 +282,10 @@ const styles = StyleSheet.create({
     fontSize: 48,
     lineHeight: 56,
     letterSpacing: -1,
+  },
+  countdown: {
+    opacity: 0.85,
+    textAlign: "center",
   },
   heroMeta: {
     flexDirection: "row",
@@ -302,13 +328,13 @@ const styles = StyleSheet.create({
   },
   chip: {
     flex: 1,
-    gap: Spacing.one,
+    gap: Spacing.two,
     paddingVertical: Spacing.three,
     paddingHorizontal: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
   },
-  chipValueRow: {
+  chipHeader: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

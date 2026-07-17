@@ -177,7 +177,8 @@
     "finance": "Financa Islame",
     "flashCards": "Karta mësimi",
     "verseDetector": "Zbuluesi i ajetit",
-    "lastThirdNight": "E treta e fundit e natës"
+    "lastThirdNight": "E treta e fundit e natës",
+    "friday": "E premte & Xhuma"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -456,6 +457,14 @@
         "text": "Një seancë e shkurtër tesbih vlen. Zikri nuk është vetëm për ulje të gjata - filloni me dhjetë.",
         "topic": "zikri"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Të gjitha praktikat e së premtes u regjistruan — Allahu i pranoftë.",
+      "openChecklist": "Hap listën e Jumu'ah",
+      "badge": "E premte",
+      "reminderTitle": "Xhuma Mubarek",
+      "reminderBody": "Falni Jumu'ah dhe plotësoni sunetin e së premtes — Ghusl, Surah al-Kahf, salawat dhe Dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "fter {{prayer}}",
     "afterSalahAdhkarReminderBody": "Take  moment për tasbeeh dhe after-salah adhkar.",
     "afterSalahProgress": "dhkr {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} e {{total}} përfunduar sot"
+    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} e {{total}} përfunduar sot",
+    "friday": {
+      "title": "Lista e Jumu'ah",
+      "subtitle": "Praktika suneti për të premten — shfaqet vetëm të premten",
+      "progress": "{{completed}} nga {{total}}",
+      "openRelated": "Hap përmbajtjen e lidhur",
+      "learnMore": "Mëso praktikat e së premtes",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl për të premten",
+          "hint": "Lahani para se të shkoni në masjid"
+        },
+        "prepare": {
+          "title": "Rrobat më të mira & aroma",
+          "hint": "Vishuni pastër dhe vendosni një aromë të lehtë nëse mundni"
+        },
+        "jumuah": {
+          "title": "Merrni pjesë në Jumu'ah (ose falni Dhuhr)",
+          "hint": "Hutbe + dy rekate; të justifikuarit falin Dhuhr"
+        },
+        "kahf": {
+          "title": "Lexoni Surah al-Kahf",
+          "hint": "Një dritë mes dy të premteve"
+        },
+        "salawat": {
+          "title": "Shtoni salawat",
+          "hint": "Dërgoni bekime mbi Profetin ﷺ"
+        },
+        "dua": {
+          "title": "Kërkoni orën e Duas",
+          "hint": "Sidomos në orën e fundit pas Asr"
+        }
+      },
+      "details": "Detaje",
+      "jumpTitle": "Lista e Jumu'ah",
+      "jumpHint": "Praktikat suneti të së premtes më poshtë",
+      "jumpA11y": "Shko te lista e Jumu'ah në këtë faqe"
+    }
   },
   "update": {
     "title": "Përditësim i disponueshëm",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries për kjo category janë në  way.",
     "detailEyebrow": "Zikri",
     "today": "Sot",
-    "openInTasbeeh": "Open në Tasbeeh",
+    "openInTasbeeh": "Hap në Tesbih",
     "favorite": "E preferuara",
     "favorited": "I preferuar",
     "share": "Ndaj",
@@ -1112,7 +1158,8 @@
     "favorites": "Duroodet e preferuara",
     "favSubtitle": "Durood që ke ruajtur",
     "favEmptyTitle": "Nuk ka ende durood të preferuar",
-    "favEmptyDesc": "Tap  star në any durood në ruaj it here."
+    "favEmptyDesc": "Tap  star në any durood në ruaj it here.",
+    "openInTasbeeh": "Hap në Tesbih"
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Hëna e plotë sonte",
       "fullBody": "Hëna është plotësisht e ndriçuar afër mesit të {{month}} — netët e Ditëve të Bardha, kur agjërimi rekomandohet veçanërisht.",
       "generalTitle": "Kalendar hënor",
-      "generalBody": "Kalendari islam (Hixhri) ndjek hënën: çdo muaj ka 29 ose 30 ditë, duke filluar me hënën e parë (hilāl). Datat këtu përdorin një kalendar tabular për vendndodhjen tuaj dhe mund të ndryshojnë nga vëzhgimi lokal me një ditë.",
+      "generalBody": "Kalendari islam (Hixhri) ndjek hënën: çdo muaj ka 29 ose 30 ditë, duke filluar me hënën e re të parë (hilāl). Datat këtu llogariten nga dukshmëria e hënës në vendndodhjen tuaj dhe mund të ndryshojnë nga njoftimi i autoritetit lokal me një ditë.",
       "monthTurnTitle": "Kërkoni hënën e re",
-      "monthTurnBody": "Pas Maghribit, kërkoni hilāl e {{month}}. Muajt islam fillojnë me hënën e parë; vëzhgimi lokal i hënës mund të ndryshojë nga ky kalendar me një ditë."
+      "monthTurnBody": "Pas Maghrib, kërkoni hilāl-in e {{month}}. Muajt islamë fillojnë me hënën e re të parë; njoftimi i autoritetit tuaj lokal mund të ndryshojë nga ky llogaritje me një ditë."
     },
     "monthProgress": "Progresi i muajit",
     "monthProgressValue": "Dita {{day}} nga {{length}} · {{month}}",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Llogaria",
     "title": "Profili",
-    "subtitle": "Detajet dhe llogaria juaj",
+    "subtitle": "Emri, sinkronizimi dhe hyrja",
     "guestName": "I ftuar",
     "changeAvatar": "Ndrysho avatarin",
     "signInToSync": "Identifikohu për të sinkronizuar",
@@ -2154,7 +2201,17 @@
       "not_using": "Nuk e përdor më",
       "technical_issues": "Probleme teknike ose gabime",
       "other": "Tjetër"
-    }
+    },
+    "editName": "Ndrysho emrin e shfaqur",
+    "signedInWith": "I identifikuar me {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Lidhni një llogari për të rezervuar Salah, Zikr dhe Qaza në pajisje të ndryshme.",
+    "sessionTitle": "Sesioni",
+    "sessionHint": "Dilni nga kjo pajisje. Të dhënat në re mbeten të sigurta.",
+    "dangerTitle": "Zona e rrezikut",
+    "dangerHint": "Fshin përgjithmonë llogarinë dhe të dhënat lokale. Kjo nuk mund të zhbëhet."
   },
   "sync": {
     "title": "Sinkronizimi në renë kompjuterike",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Vëllimi {{value}}%",
     "buffering": "Buferimi…",
     "loading": "Duke ngarkuar…",
-    "streamingOnlyNote": "Streaming only — audio është not saved në kjo pajisja"
+    "streamingOnlyNote": "Streaming only — audio është not saved në kjo pajisja",
+    "ttsVoice": "Zëri",
+    "ttsVoiceHint": "Zgjidhni një zë tekst-në-ligjërim"
   },
   "errors": {
     "title": "Diçka shkoi keq",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Vendndodhja dhe rikujtimet",
       "description": "Lejoni vendndodhjen dhe njoftimet për orare të sakta namazi, kiblë dhe rikujtime opsionale — ose vendosini më vonë."
+    },
+    "tasbeehDurood": {
+      "description": "Numëroni këtë salawat me një numërues tasbeeh me prekje."
     }
   },
   "pwa": {
@@ -3418,7 +3480,7 @@
     "today": "Sot",
     "inDays": "në {{count}} ditë",
     "hijriYear": "{{year}} AH",
-    "disclaimer": "Datat janë vlerësime të llogaritura - dita aktuale varet nga shikimi lokal i hënës.",
+    "disclaimer": "Datat ndjekin dukshmërinë e hënës në vendndodhjen tuaj (ose kalendarin zyrtar Umm al-Qura në rajonet që e përdorin) dhe mund të ndryshojnë me një ditë nga njoftimi i autoritetit lokal.",
     "names": {
       "newYear": "Viti i Ri Islamik",
       "ashura": "Dita e Ashures",
@@ -3971,7 +4033,7 @@
       "label": "Shtojcat (opsionale)",
       "add": "Shto skedar",
       "remove": "Hiq shtojcën",
-      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Shtypni gjatë një miniaturë për ta hequr.",
+      "hint": "Deri në 5 skedarë (JPEG, PNG, WebP ose PDF), 1 MB secili. Prekni × te miniaturë për ta hequr.",
       "signInRequired": "Identifikohu për të bashkëngjitur skedarë privatë në adkar-in tënd.",
       "permissionDenied": "Kërkohet leje për të bashkangjitur skedarët.",
       "permissionTitle": "Lejo qasjen",
@@ -3997,7 +4059,10 @@
       "sourceGallery": "Biblioteka e fotografive",
       "sourceGalleryHint": "Zgjidhni një imazh nga fotot tuaja",
       "sourceDocument": "Skedarët",
-      "sourceDocumentHint": "Zgjidhni një imazh ose PDF nga skedarët tuaj"
+      "sourceDocumentHint": "Zgjidhni një imazh ose PDF nga skedarët tuaj",
+      "loadingPdf": "Duke ngarkuar PDF…",
+      "pdfHint": "Rrëshqit · kap ose +/− për zmadhim · dy prekje për rivendosje · Hap PDF për të ndarë",
+      "pdfPreviewTitle": "Paraqitja e PDF"
     },
     "stt": {
       "dictate": "Diktoni me mikrofon",
@@ -4010,7 +4075,10 @@
     },
     "editTitle": "Redakto adhkar",
     "confirmDeleteTitle": "Fshi këtë adhkar?",
-    "confirmDeleteMsg": "“{{title}}” do të hiqet përgjithmonë."
+    "confirmDeleteMsg": "“{{title}}” do të hiqet përgjithmonë.",
+    "searchPlaceholder": "Kërkoni adhkar-et tuaja",
+    "noResults": "Nuk ka adhkar përputhëse",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night salah",
@@ -4457,7 +4525,7 @@
     "sourceLabel": "Juaj burimi (opsionale)",
     "sourcePlaceholder": "Book, dijetar, URL, ose citation supporting juaj correction.",
     "proofLabel": "Proof screenshots (opsionale)",
-    "proofHint": "Up në 3 images. Long-press  thumbnail në remove.",
+    "proofHint": "Deri në 3 imazhe. Prekni × te miniaturë për ta hequr.",
     "addProof": "Shto photo",
     "removeProof": "Hiq pamjen e ekranit",
     "submit": "Paraqisni raportin",
@@ -4494,7 +4562,11 @@
       "completed": "Përfunduar",
       "cancelled": "Ccelled",
       "spam": "Spm"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Shkurtoret e Siri dhe zëri",
@@ -4717,7 +4789,7 @@
     "eyebrow": "Kalendari",
     "title": "Konvertuesi i datës",
     "subtitle": "Konvertoni midis kalendarit Hixhri dhe Gregorian",
-    "intro": "Fut një datë në secilin nga kalendarët për të parë ekuivalentin e saj në tjetrin, të llogaritur jashtë linje duke përdorur algoritmin tabelor të Kuvajtit.",
+    "intro": "Futni një datë në secilin kalendar për të parë ekuivalentin në tjetrin, i llogaritur offline nga dukshmëria e hënës në vendndodhjen tuaj.",
     "toHijri": "Gregorian → Hixhri",
     "toGregorian": "Hixhri → Gregorian",
     "gregorianDateLabel": "Data Gregoriane",
@@ -4727,7 +4799,7 @@
     "year": "viti",
     "useToday": "Përdoreni sot",
     "invalidDate": "Fut një datë të vlefshme",
-    "disclaimer": "Ky është një përafrim aritmetik (\"algoritmi kuvajtian\" në formë tabele) dhe mund të ndryshojë për një ditë nga njoftimet lokale për shikimin e hënës - ndiqni gjithmonë xhaminë ose autoritetin tuaj lokal për datat fetare.",
+    "disclaimer": "Datat llogariten nga dukshmëria e hënës (hilāl) në vendndodhjen tuaj dhe mund të ndryshojnë me një ditë nga njoftimet zyrtare të vëzhgimit të hënës — ndiqni gjithmonë masjid-in ose autoritetin lokal për datat fetare.",
     "directionTitle": "Drejtimi i konvertimit",
     "resultFrom": "Nga {{date}}",
     "quickLinksTitle": "Të lidhura",
@@ -4806,6 +4878,25 @@
     "basedOn": "Bazuar në",
     "editTime": "Ndrysho kohën e {{prayer}}",
     "editHint": "Rezultatet përditësohen ndërsa ndryshon koha.",
-    "nightLengthLabel": "Gjatësia e natës"
+    "nightLengthLabel": "Gjatësia e natës",
+    "willStartIn": "Fillon pas {{time}}",
+    "timeRemaining": "{{time}} e mbetur"
+  },
+  "friday": {
+    "eyebrow": "Mëso",
+    "title": "E premte & Xhuma",
+    "subtitle": "Vlera, përgatitje, Surah al-Kahf, salawat dhe ora e Duas",
+    "intro": "E premtja është dita më e mirë ku lind dielli. Mësoni praktikat autentike të Jumu'ah — Ghusl, namazi, Surah al-Kahf, salawat dhe kërkimi i orës së pranuar — nga Kurani dhe hadithet sahih.",
+    "section": {
+      "virtues": "Vlerat e së premtes",
+      "obligation": "Namazi i Jumu'ah",
+      "prepare": "Përgatitja",
+      "kahf": "Surja el-Kehf",
+      "salawat": "Salavate",
+      "dua": "Ora e Duas"
+    },
+    "notFound": "Tema nuk u gjet",
+    "disclaimer": "Përmbledhje edukative — jo fetva. Ku shkollat ndryshojnë (p.sh. nëse Ghusl i së premtes është wajib apo sunnah mu'akkadah), shënohen të dyja pozitat; ndiqni imamin tuaj ose një dijetar lokal të kualifikuar.",
+    "continueInApp": "Vazhdo në Munib"
   }
 }

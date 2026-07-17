@@ -239,7 +239,8 @@ export class EnvironmentVariables {
 
   /**
    * Optional Cloudinary folder prefix for private custom-adhkar images
-   * (default: munib-tracker/custom-adhkar). Assets use authenticated delivery.
+   * (default: munib-tracker/custom-adhkar). Assets land in
+   * `{prefix}/{userId}/…` and use authenticated delivery.
    */
   @IsString()
   @IsOptional()

@@ -10,7 +10,7 @@ import { getLocalDateString } from "@munib-tracker/shared/utils";
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { type NativeScrollEvent, type NativeSyntheticEvent, StyleSheet, View } from "react-native";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -40,6 +40,7 @@ import { maybeDeliverReviewReactivation } from "@/features/reviews/lib/maybeDeli
 import { trackReviewInteraction } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useAfterSalahAdhkarReminder } from "@/hooks/use-after-salah-adhkar-reminder";
 import { useDailyPrayerTimes } from "@/hooks/use-daily-prayer-times";
+import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { milestoneTitle } from "@/lib/achievements-i18n";
 import { readPersistedAchievementIds } from "@/lib/achievements-persistence";
@@ -48,6 +49,7 @@ import {
   isZikrItemDone,
   totalAfterSalahProgress,
 } from "@/lib/after-salah-adhkar-progress";
+import { FRIDAY_CHECKLIST_FOCUS } from "@/lib/friday";
 import { triggerHaptic } from "@/lib/haptics";
 import { buildAchievementInAppNotification } from "@/lib/in-app-notifications/content";
 import { notifyAchievementUnlocked } from "@/lib/notifications/achievements";
@@ -113,6 +115,15 @@ export default function TrackerScreen() {
   const remindAfterSalahAdhkar = useAfterSalahAdhkarReminder();
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
   const [zikrReady, setZikrReady] = useState(false);
+  const { scrollRef, register, onScroll, isFocused } = useScreenFocus();
+  const scrollYRef = useRef(0);
+  const onTrackerScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      scrollYRef.current = event.nativeEvent.contentOffset.y;
+      onScroll(event);
+    },
+    [onScroll],
+  );
 
   useEffect(() => {
     let active = true;
@@ -366,6 +377,8 @@ export default function TrackerScreen() {
       eyebrow={t("tracker.eyebrow")}
       title={t("tracker.title")}
       subtitle={t("tracker.subtitle")}
+      scrollRef={scrollRef}
+      onScroll={onTrackerScroll}
     >
       <Seo path="/tracker" />
       <Stagger>
@@ -418,6 +431,10 @@ export default function TrackerScreen() {
           zikrCounts={zikrCounts}
           prayerTimes={prayerTimes}
           onPrayerPress={setActivePrayer}
+          scrollRef={scrollRef}
+          getScrollY={() => scrollYRef.current}
+          registerFocus={register}
+          fridayFocused={isFocused(FRIDAY_CHECKLIST_FOCUS)}
         />
 
         <Card padding="three">

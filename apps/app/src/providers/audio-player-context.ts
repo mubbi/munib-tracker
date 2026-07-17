@@ -55,6 +55,11 @@ export interface AudioContextValue {
   replay: () => void;
   setRate: (rate: number) => void;
   setVolume: (volume: number) => void;
+  /**
+   * Change the TTS voice for the active TTS queue and restart the current
+   * segment from the live position (no-op for file/remote audio).
+   */
+  setTtsVoice: (voiceId: string | undefined) => void;
   cycleLoopMode: () => void;
   setRepeatPlan: (plan: QuranRepeatPlan) => void;
   setTranslationAudio: (mode: TranslationAudioMode) => void;
@@ -99,6 +104,7 @@ export const SSR_AUDIO_CONTEXT: AudioContextValue = {
   replay: () => {},
   setRate: () => {},
   setVolume: () => {},
+  setTtsVoice: () => {},
   cycleLoopMode: () => {},
   setRepeatPlan: () => {},
   setTranslationAudio: () => {},

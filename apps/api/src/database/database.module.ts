@@ -40,9 +40,10 @@ import { resolvePostgresConnection, toTypeOrmPostgresOptions } from "./postgres-
 
         // Same URL-first resolver as the TypeORM CLI (DATABASE_URL or DATABASE_*).
         const connection = resolvePostgresConnection(process.env);
+        const pgOptions = toTypeOrmPostgresOptions(connection);
 
         return {
-          ...toTypeOrmPostgresOptions(connection),
+          ...pgOptions,
           entities: [
             UserEntity,
             AuthSessionEntity,
@@ -61,7 +62,9 @@ import { resolvePostgresConnection, toTypeOrmPostgresOptions } from "./postgres-
           synchronize: false,
           autoLoadEntities: true,
           // Fail fast on unreachable Postgres (default TCP wait can hit Vercel 300s).
+          // `options` forces UTF-8 client encoding (see toTypeOrmPostgresOptions).
           extra: {
+            ...pgOptions.extra,
             connectionTimeoutMillis: 15_000,
           },
         };

@@ -31,7 +31,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { allNameTracks, nameAudioTrack, namesCompleteTrack } from "@/lib/audio-tracks";
 import { loadNamesOfAllah } from "@/lib/content-loaders";
 import { buildNamesActivity } from "@/lib/continue-activity";
-import { cueStartSec, isNamesCompleteTrack, nameIdAtCueTime } from "@/lib/names-complete-cues";
+import { cueStartSec, isNamesCompleteTrack } from "@/lib/names-complete-cues";
 import { goBackOrReplace } from "@/lib/navigation";
 import { createNameSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
@@ -89,17 +89,12 @@ export default function NamesOfAllahScreen() {
     [readingProgress],
   );
 
-  const cuePositionSec = Math.floor(audio.position);
-
   const activeId = useMemo(() => {
     const trackId = audio.current?.id;
-    if (!trackId) return undefined;
-
-    const resolvedId = isNamesCompleteTrack(trackId) ? nameIdAtCueTime(cuePositionSec) : trackId;
-
-    if (!resolvedId || !names.some((n) => n.id === resolvedId)) return undefined;
-    return resolvedId;
-  }, [audio.current?.id, cuePositionSec, names]);
+    if (!trackId || isNamesCompleteTrack(trackId)) return undefined;
+    if (!names.some((n) => n.id === trackId)) return undefined;
+    return trackId;
+  }, [audio.current?.id, names]);
 
   const indexForKey = useCallback((id: string) => names.findIndex((n) => n.id === id), [names]);
   const { onScrollToIndexFailed } = useScrollToActiveIndex(listRef, activeId, indexForKey, {

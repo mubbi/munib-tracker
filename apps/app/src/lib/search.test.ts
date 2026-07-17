@@ -3,6 +3,7 @@ import { DUROOD_ITEMS, duasByCategory, NAMES_OF_ALLAH } from "@munib-tracker/sha
 import { getBundledCollection } from "@/lib/hadith";
 import { getSurahAyahs } from "@/lib/quran";
 import {
+  createCustomAdhkarSearch,
   createDuaSearch,
   createDuroodSearch,
   createFuzzyIndex,
@@ -223,6 +224,35 @@ describe("createDuroodSearch", () => {
   it("fuzzy-searches the duroods list", () => {
     const index = createDuroodSearch(DUROOD_ITEMS);
     expect(index.search("ibrahim").length).toBeGreaterThan(0);
+    expect(index.search("")).toEqual([]);
+  });
+});
+
+describe("createCustomAdhkarSearch", () => {
+  it("fuzzy-searches custom adhkar by title and body fields", () => {
+    const index = createCustomAdhkarSearch([
+      {
+        id: "a1",
+        title: "Morning protection",
+        arabic: "أعوذ بالله",
+        transliteration: "A'udhu billah",
+        translation: "I seek refuge in Allah",
+        createdAt: "2026-01-01T00:00:00.000Z",
+        updatedAt: "2026-01-01T00:00:00.000Z",
+      },
+      {
+        id: "a2",
+        title: "Evening dhikr",
+        arabic: "سبحان الله",
+        transliteration: "Subhanallah",
+        translation: "Glory be to Allah",
+        createdAt: "2026-01-02T00:00:00.000Z",
+        updatedAt: "2026-01-02T00:00:00.000Z",
+      },
+    ]);
+    expect(index.search("morning").map((item) => item.id)).toEqual(["a1"]);
+    expect(index.search("subhan").map((item) => item.id)).toEqual(["a2"]);
+    expect(index.search("refuge").map((item) => item.id)).toEqual(["a1"]);
     expect(index.search("")).toEqual([]);
   });
 });

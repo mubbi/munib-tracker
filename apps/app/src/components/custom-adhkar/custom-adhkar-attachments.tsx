@@ -2,7 +2,8 @@ import { USER_MEDIA_MAX_PER_ENTITY } from "@munib-tracker/shared/constants";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Image, Linking, Platform, Pressable, StyleSheet, View } from "react-native";
+import { Alert, Linking, Platform, Pressable, StyleSheet, View } from "react-native";
+import { AttachmentThumb } from "@/components/attachments/attachment-thumb";
 import { AttachmentSourceSheet } from "@/components/custom-adhkar/attachment-source-sheet";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -13,7 +14,7 @@ import {
   pickAttachmentFromSource,
   validatePickedAttachment,
 } from "@/lib/attachments/attachment-file-manager";
-import { attachmentPickErrorFromUnknown, isPdfMime } from "@/lib/attachments/attachment-mime";
+import { attachmentPickErrorFromUnknown } from "@/lib/attachments/attachment-mime";
 import { attachmentPickFailureFromOutcome } from "@/lib/attachments/map-attachment-pick-outcome";
 import { runAfterSheetDismiss } from "@/lib/platform/run-after-sheet-dismiss";
 import { useToast } from "@/providers/toast-provider";
@@ -144,54 +145,61 @@ export function CustomAdhkarAttachments({
       <ThemedText type="caption" themeColor="mutedForeground">
         {t("customAdhkar.attachments.label")}
       </ThemedText>
-      <View style={styles.grid}>
-        {attachments.map((attachment, index) => (
-          <Pressable
-            key={attachment.uri}
-            accessibilityLabel={t("customAdhkar.attachments.remove")}
-            onLongPress={() => removeAt(index)}
-            style={[styles.thumb, { borderColor: colors.border, backgroundColor: colors.muted }]}
-          >
-            {isPdfMime(attachment.mimeType) ? (
-              <View style={styles.pdfThumb}>
-                <SymbolView
-                  name={{ ios: "doc.richtext", android: "picture_as_pdf", web: "picture_as_pdf" }}
-                  size={28}
-                  tintColor={colors.accent}
-                />
-              </View>
-            ) : (
-              <Image source={{ uri: attachment.uri }} style={styles.image} />
-            )}
-          </Pressable>
-        ))}
-        {attachments.length < USER_MEDIA_MAX_PER_ENTITY ? (
+      {attachments.length < USER_MEDIA_MAX_PER_ENTITY ? (
+        <View style={[styles.addField, { backgroundColor: colors.muted }]}>
+          <View style={styles.addCopy}>
+            <ThemedText type="smallBold">{t("customAdhkar.attachments.add")}</ThemedText>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {canUpload
+                ? t("customAdhkar.attachments.hint")
+                : t("customAdhkar.attachments.signInRequired")}
+            </ThemedText>
+          </View>
           <PressableScale
             accessibilityRole="button"
             accessibilityLabel={t("customAdhkar.attachments.add")}
             onPress={openSourcePicker}
-            style={[styles.add, { backgroundColor: tokens.accentSoft, borderColor: colors.border }]}
+            style={[styles.addButton, { backgroundColor: tokens.accentSoft }]}
+            haptic="light"
           >
             <SymbolView
               name={{
-                ios: "plus.circle",
-                android: "add_circle",
-                web: "add_circle",
+                ios: "plus",
+                android: "add",
+                web: "add",
               }}
               size={22}
               tintColor={colors.accent}
             />
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("customAdhkar.attachments.add")}
-            </ThemedText>
           </PressableScale>
-        ) : null}
-      </View>
-      <ThemedText type="caption" themeColor="mutedForeground">
-        {canUpload
-          ? t("customAdhkar.attachments.hint")
-          : t("customAdhkar.attachments.signInRequired")}
-      </ThemedText>
+        </View>
+      ) : null}
+      {attachments.length > 0 ? (
+        <View style={styles.grid}>
+          {attachments.map((attachment, index) => (
+            <View
+              key={attachment.uri}
+              style={[styles.thumb, { borderColor: colors.border, backgroundColor: colors.muted }]}
+            >
+              <AttachmentThumb uri={attachment.uri} mimeType={attachment.mimeType} iconSize={28} />
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={t("customAdhkar.attachments.remove")}
+                hitSlop={8}
+                onPress={() => removeAt(index)}
+                onLongPress={() => removeAt(index)}
+                style={[styles.removeBadge, { backgroundColor: colors.background }]}
+              >
+                <SymbolView
+                  name={{ ios: "xmark", android: "close", web: "close" }}
+                  size={14}
+                  tintColor={colors.mutedForeground}
+                />
+              </Pressable>
+            </View>
+          ))}
+        </View>
+      ) : null}
 
       <AttachmentSourceSheet
         visible={sourceOpen}
@@ -204,6 +212,27 @@ export function CustomAdhkarAttachments({
 
 const styles = StyleSheet.create({
   wrap: { gap: Spacing.two, marginBottom: Spacing.three },
+  addField: {
+    minHeight: 72,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.three,
+    padding: Spacing.three,
+  },
+  addCopy: {
+    flex: 1,
+    gap: Spacing.one,
+  },
+  addButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -217,23 +246,14 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderWidth: StyleSheet.hairlineWidth,
   },
-  image: { width: "100%", height: "100%" },
-  pdfThumb: {
-    flex: 1,
+  removeBadge: {
+    position: "absolute",
+    top: Spacing.one,
+    end: Spacing.one,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
     alignItems: "center",
     justifyContent: "center",
-    gap: Spacing.one,
-    padding: Spacing.one,
-  },
-  add: {
-    width: 88,
-    height: 88,
-    borderRadius: Radius.md,
-    borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: Spacing.one,
-    padding: Spacing.one,
   },
 });

@@ -6,6 +6,7 @@ import { aqeedahProgressStore } from "@/stores/aqeedah-progress-store";
 import { battlesProgressStore } from "@/stores/battles-progress-store";
 import { customAdhkarStore } from "@/stores/custom-adhkar-store";
 import { fastingStore } from "@/stores/fasting-store";
+import { fridayChecklistStore } from "@/stores/friday-checklist-store";
 import { hajjChecklistStore } from "@/stores/hajj-checklist-store";
 import { hifzStore } from "@/stores/hifz-store";
 import { jahannamIntentionsStore } from "@/stores/jahannam-intentions-store";
@@ -90,6 +91,11 @@ export const BLOB_ENTITIES: BlobEntity[] = [
     entity: "hajj_checklist",
     storageKey: DB_KEYS.hajjChecklist,
     reload: reloadIfReady(hajjChecklistStore),
+  },
+  {
+    entity: "friday_checklist",
+    storageKey: DB_KEYS.fridayChecklist,
+    reload: reloadIfReady(fridayChecklistStore),
   },
   {
     entity: "jannah_intentions",
@@ -281,6 +287,7 @@ export async function applyRemoteBlob(
 const UNION_MERGE_ENTITIES = new Set([
   "fasting",
   "hajj_checklist",
+  "friday_checklist",
   "salah_guide_progress",
   "taharah_progress",
   "aqeedah_progress",

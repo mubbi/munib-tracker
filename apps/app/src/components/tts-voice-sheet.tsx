@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
@@ -37,14 +37,27 @@ export function TtsVoiceSheet({
 }: TtsVoiceSheetProps) {
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
-  const [voices, setVoices] = useState<TtsVoice[]>([]);
+  const [voices, setVoices] = useState<TtsVoice[] | null>(null);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible) {
+      setVoices(null);
+      return;
+    }
     let cancelled = false;
-    void getTtsVoices(lang).then((list) => {
-      if (!cancelled) setVoices(list);
-    });
+    setVoices(null);
+    void (async () => {
+      const filtered = await getTtsVoices(lang);
+      if (cancelled) return;
+      if (filtered.length > 0) {
+        setVoices(filtered);
+        return;
+      }
+      // Web often has no `ar` voice installed — fall back to every installed
+      // voice so the sheet matches learn listen instead of an empty state.
+      const all = await getTtsVoices();
+      if (!cancelled) setVoices(all);
+    })();
     return () => {
       cancelled = true;
     };
@@ -62,7 +75,11 @@ export function TtsVoiceSheet({
         {t("reading.listenVoiceHint")}
       </ThemedText>
 
-      {voices.length === 0 ? (
+      {voices === null ? (
+        <View style={styles.loading}>
+          <ActivityIndicator color={colors.accent} />
+        </View>
+      ) : voices.length === 0 ? (
         <ThemedText type="caption" themeColor="mutedForeground" style={styles.empty}>
           {t("reading.listenVoiceEmpty")}
         </ThemedText>
@@ -122,6 +139,10 @@ const styles = StyleSheet.create({
   hint: {
     marginTop: Spacing.one,
     marginBottom: Spacing.three,
+  },
+  loading: {
+    paddingVertical: Spacing.four,
+    alignItems: "center",
   },
   empty: {
     marginTop: Spacing.two,

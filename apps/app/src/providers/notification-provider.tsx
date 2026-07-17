@@ -3,6 +3,7 @@ import { type Href, useRouter } from "expo-router";
 import { type ReactNode, useEffect } from "react";
 import { AppState, Platform } from "react-native";
 import { maybeOpenReviewFunnelFromNotificationData } from "@/features/reviews/lib/reviewNotificationTap";
+import { hasOutstandingQazaDebt, isQazaReminderId } from "@/lib/notifications/build-reminders";
 import { isWeb } from "@/lib/notifications/platform";
 import { registerExpoPushTokenWithApi } from "@/lib/notifications/register-push-token";
 import { tryPlayWebAdhanForReminder } from "@/lib/notifications/web-adhan-playback";
@@ -18,8 +19,20 @@ import { useInAppNotifications } from "@/providers/in-app-notifications-provider
 import { useStore } from "@/stores/create-store";
 import { locationStore } from "@/stores/location-store";
 import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
+import { trackerStore } from "@/stores/tracker-store";
 
 const isNative = Platform.OS === "ios" || Platform.OS === "android";
+
+function readHasQazaDebt(): boolean {
+  const { qazaCounters, roza } = trackerStore.getState();
+  return hasOutstandingQazaDebt(qazaCounters, roza);
+}
+
+/** Drop stale Qaza nudges if debt was cleared after the OS/web timer was armed. */
+function shouldDeliverReminder(reminderId: string): boolean {
+  if (!isQazaReminderId(reminderId)) return true;
+  return readHasQazaDebt();
+}
 
 /**
  * Owns the local-notification lifecycle: configures channels once, reschedules
@@ -36,6 +49,11 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const bedtime = useStore(preferencesStore, (s) => s.prefs.bedtime);
   const location = useStore(locationStore, (s) => s.location);
   const locationReady = useStore(locationStore, (s) => s.isReady);
+  const _trackerReady = useStore(trackerStore, (s) => s.isReady);
+  const _qazaDebtKey = useStore(trackerStore, (s) => {
+    const salahRemaining = s.qazaCounters.reduce((sum, c) => sum + c.remaining, 0);
+    return `${salahRemaining}:${s.roza.remaining}`;
+  });
 
   useEffect(() => {
     void configureNotifications();
@@ -49,6 +67,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isWeb) return;
     setWebReminderFireHandler((reminder) => {
+      if (!shouldDeliverReminder(reminder.id)) return;
       tryPlayWebAdhanForReminder(reminder);
       void deliver({
         kind: "reminder",
@@ -140,6 +159,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
       receivedSub = Notifications.addNotificationReceivedListener((notification) => {
         const { content } = notification.request;
+        if (!shouldDeliverReminder(notification.request.identifier)) return;
         const title = content.title ?? "Reminder";
         const body = content.body ?? "";
         const route = (content.data as { route?: string } | undefined)?.route;

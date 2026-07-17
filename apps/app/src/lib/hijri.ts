@@ -1,23 +1,67 @@
 import type { AppLocale } from "@munib-tracker/shared/types";
 
+import {
+  gregorianToJDN,
+  type HijriDate,
+  inUmalquraJDNRange,
+  inUmalquraYearRange,
+  islamicTabularToJDN,
+  jdnToGregorian,
+  jdnToIslamicTabular,
+  jdnToUmalqura,
+  umalquraMonthLength,
+  umalquraToJDN,
+} from "@/lib/hijri-core";
+import {
+  type SightingObserver,
+  sightingAvailable,
+  sightingHijriFromJDN,
+  sightingJDNFromHijri,
+  sightingMonthLength,
+} from "@/lib/hijri-sighting";
 import { prayerDayAnchor } from "@/lib/timezone-anchor";
+
+export type { HijriDate };
 
 /**
  * Offline Gregorian → Hijri (Islamic) date conversion.
  *
- * Uses the tabular "Kuwaiti algorithm" (the arithmetic Islamic calendar used by
- * Microsoft's HijriCalendar and widely across Islamic apps). It stays within a
- * day of the Umm al-Qura calendar and needs zero network / native deps, so the
- * date works fully offline and identically on iOS, Android, and Web.
+ * **Single source of truth for the whole app.** Ramadan, calendar grids, the
+ * date converter, Islamic events, seasonal banners, widgets, and the prayer
+ * hero all call these helpers — never reimplement Hijri math elsewhere.
+ *
+ * When a location observer is registered (see {@link setHijriObserver}), dates
+ * come from actual crescent (hilāl) visibility computed for that latitude /
+ * longitude with the `astronomy-engine` ephemeris — matching regional
+ * moon-sighting outcomes (e.g. Pakistan's Ruet-e-Hilal dates in Karachi).
+ * Without an observer (and as fallback for polar latitudes or dates outside
+ * the covered range) the official Umm al-Qura month table is used
+ * (`hijri-umalqura-data.ts`, 1300–1600 AH ≈ 1882–2174 CE), then the tabular
+ * "Kuwaiti algorithm" for anything beyond that. All paths are pure math —
+ * fully offline and identical on iOS, Android, and Web.
+ *
+ * The location store keeps the observer in sync via `hijriObserverFor`
+ * (`hijri-authority.ts`): Umm al-Qura regions stay on the official calendar;
+ * everywhere else uses sighting at the stored lat/long.
  */
 
-export interface HijriDate {
-  /** Islamic year (AH). */
-  year: number;
-  /** Islamic month, 1–12. */
-  month: number;
-  /** Day of the Islamic month, 1–30. */
-  day: number;
+let hijriObserver: SightingObserver | null = null;
+
+/**
+ * Registers the coordinates Hijri dates should be computed for. The location
+ * store keeps this in sync with the user's chosen/GPS location so every date
+ * shown in the app reflects crescent visibility at that place.
+ */
+export function setHijriObserver(observer: SightingObserver | null): void {
+  hijriObserver =
+    observer && sightingAvailable(observer.latitude)
+      ? { latitude: observer.latitude, longitude: observer.longitude }
+      : null;
+}
+
+/** Currently registered sighting coordinates (null ⇒ Umm al-Qura dates). */
+export function getHijriObserver(): SightingObserver | null {
+  return hijriObserver;
 }
 
 const HIJRI_MONTHS_EN = [
@@ -377,81 +421,51 @@ const HIJRI_SUFFIX: Partial<Record<AppLocale, string>> = {
   so: "AH",
 };
 
-/** Gregorian (proleptic) calendar day → integer Julian Day Number. */
-function gregorianToJDN(gy: number, gm: number, gd: number): number {
-  const a = Math.floor((14 - gm) / 12);
-  const y = gy + 4800 - a;
-  const m = gm + 12 * a - 3;
-  return (
-    gd +
-    Math.floor((153 * m + 2) / 5) +
-    365 * y +
-    Math.floor(y / 4) -
-    Math.floor(y / 100) +
-    Math.floor(y / 400) -
-    32045
-  );
-}
-
-/** Julian Day Number → Gregorian { year, month (1-12), day }. */
-function jdnToGregorian(jdn: number): { year: number; month: number; day: number } {
-  const a = jdn + 32044;
-  const b = Math.floor((4 * a + 3) / 146097);
-  const c = a - Math.floor((146097 * b) / 4);
-  const d = Math.floor((4 * c + 3) / 1461);
-  const e = c - Math.floor((1461 * d) / 4);
-  const m = Math.floor((5 * e + 2) / 153);
-  return {
-    day: e - Math.floor((153 * m + 2) / 5) + 1,
-    month: m + 3 - 12 * Math.floor(m / 10),
-    year: 100 * b + d - 4800 + Math.floor(m / 10),
-  };
-}
-
-/** Julian Day Number → Islamic date (tabular "Kuwaiti algorithm"). */
-function jdnToIslamic(jdn: number): HijriDate {
-  let l = jdn - 1948440 + 10632;
-  const n = Math.floor((l - 1) / 10631);
-  l = l - 10631 * n + 354;
-  const j =
-    Math.floor((10985 - l) / 5316) * Math.floor((50 * l) / 17719) +
-    Math.floor(l / 5670) * Math.floor((43 * l) / 15238);
-  l =
-    l -
-    Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) -
-    Math.floor(j / 16) * Math.floor((15238 * j) / 43) +
-    29;
-  const month = Math.floor((24 * l) / 709);
-  const day = l - Math.floor((709 * month) / 24);
-  const year = 30 * n + j - 30;
-  return { year, month, day };
-}
-
-/** Islamic date → integer Julian Day Number (exact inverse of `jdnToIslamic`). */
-function islamicToJDN(hy: number, hm: number, hd: number): number {
-  return (
-    hd + Math.ceil(29.5 * (hm - 1)) + (hy - 1) * 354 + Math.floor((3 + 11 * hy) / 30) + 1948440 - 1
-  );
-}
-
-/** Converts a Gregorian calendar day to a Hijri date. Pass `timeZone` for manual locations. */
+/**
+ * Converts a Gregorian calendar day to a Hijri date. Pass `timeZone` for manual
+ * locations. Uses crescent visibility at the registered observer when set,
+ * otherwise the Umm al-Qura table, then the tabular fallback.
+ */
 export function gregorianToHijri(date: Date, timeZone?: string): HijriDate {
   const anchor = prayerDayAnchor(date, timeZone);
-  return jdnToIslamic(
-    gregorianToJDN(anchor.getFullYear(), anchor.getMonth() + 1, anchor.getDate()),
-  );
+  const jdn = gregorianToJDN(anchor.getFullYear(), anchor.getMonth() + 1, anchor.getDate());
+  if (hijriObserver) {
+    const sighted = sightingHijriFromJDN(hijriObserver, jdn);
+    if (sighted) return sighted;
+  }
+  if (inUmalquraJDNRange(jdn)) {
+    return jdnToUmalqura(jdn);
+  }
+  return jdnToIslamicTabular(jdn);
 }
 
 /** Converts a Hijri date to a Gregorian `Date` at local midnight. */
 export function hijriToGregorian(year: number, month: number, day: number): Date {
-  const { year: gy, month: gm, day: gd } = jdnToGregorian(islamicToJDN(year, month, day));
+  let jdn: number | null = null;
+  if (hijriObserver) {
+    jdn = sightingJDNFromHijri(hijriObserver, year, month, day);
+  }
+  if (jdn === null) {
+    jdn = inUmalquraYearRange(year)
+      ? umalquraToJDN(year, month, day)
+      : islamicTabularToJDN(year, month, day);
+  }
+  const { year: gy, month: gm, day: gd } = jdnToGregorian(jdn);
   return new Date(gy, gm - 1, gd);
 }
 
 /** Number of days (29 or 30) in the given Hijri month. */
 export function hijriMonthLength(year: number, month: number): number {
-  const start = islamicToJDN(year, month, 1);
-  const next = month === 12 ? islamicToJDN(year + 1, 1, 1) : islamicToJDN(year, month + 1, 1);
+  if (hijriObserver) {
+    const sighted = sightingMonthLength(hijriObserver, year, month);
+    if (sighted !== null) return sighted;
+  }
+  if (inUmalquraYearRange(year)) {
+    return umalquraMonthLength(year, month);
+  }
+  const start = islamicTabularToJDN(year, month, 1);
+  const next =
+    month === 12 ? islamicTabularToJDN(year + 1, 1, 1) : islamicTabularToJDN(year, month + 1, 1);
   return next - start;
 }
 

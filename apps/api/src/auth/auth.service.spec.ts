@@ -1,15 +1,19 @@
+import { randomUUID } from "node:crypto";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import type { Repository } from "typeorm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createAuthTestingModule } from "../../test/support/testing-module";
+import { AttachmentStorageService } from "../common/attachment-storage.service";
 import {
   AuthSessionEntity,
   DeletedAccountEntity,
   SyncRecordEntity,
   UserEntity,
+  UserMediaEntity,
 } from "../database/entities";
 import { isTombstoneValue } from "./account-tombstone";
 import { AuthService } from "./auth.service";
+import { resetAuthRateLimits } from "./auth-rate-limit";
 import { AccountClosureReason, AuthProvider } from "./dto/auth.dto";
 import { TokenService } from "./token.service";
 
@@ -18,11 +22,13 @@ describe("AuthService", () => {
   let module: Awaited<ReturnType<typeof createAuthTestingModule>>;
 
   beforeEach(async () => {
+    resetAuthRateLimits();
     module = await createAuthTestingModule();
     service = module.get(AuthService);
   });
 
   afterEach(() => {
+    resetAuthRateLimits();
     vi.useRealTimers();
   });
 
@@ -223,6 +229,45 @@ describe("AuthService", () => {
     const freshUser = await service.getCurrentUser(fresh.accessToken);
     expect(freshUser.userId).not.toBe(user.userId);
     await expect(syncRepo.count({ where: { userId: freshUser.userId } })).resolves.toBe(0);
+  });
+
+  it("purges Cloudinary user-media assets when closing an account", async () => {
+    const session = await service.completeOAuth(AuthProvider.Google, { code: "auth-code" });
+    const user = await service.getCurrentUser(session.accessToken);
+
+    const mediaRepo = module.get<Repository<UserMediaEntity>>(getRepositoryToken(UserMediaEntity));
+    const imagePath = "cloudinary:munib-tracker/custom-adhkar/u1/face";
+    const pdfPath = "cloudinary:raw:munib-tracker/custom-adhkar/u1/note";
+    await mediaRepo.save([
+      mediaRepo.create({
+        id: randomUUID(),
+        userId: user.userId,
+        mimeType: "image/jpeg",
+        filename: "face.jpg",
+        sizeBytes: 128,
+        storagePath: imagePath,
+      }),
+      mediaRepo.create({
+        id: randomUUID(),
+        userId: user.userId,
+        mimeType: "application/pdf",
+        filename: "note.pdf",
+        sizeBytes: 256,
+        storagePath: pdfPath,
+      }),
+    ]);
+
+    const storage = module.get(AttachmentStorageService);
+    const removeSpy = vi.spyOn(storage, "remove").mockResolvedValue(undefined);
+
+    await service.deleteAccount(session.accessToken, {
+      confirmation: "DELETE",
+      primaryReason: AccountClosureReason.PrivacyConcerns,
+    });
+
+    expect(removeSpy).toHaveBeenCalledWith(imagePath, "authenticated");
+    expect(removeSpy).toHaveBeenCalledWith(pdfPath, "authenticated");
+    await expect(mediaRepo.count({ where: { userId: user.userId } })).resolves.toBe(0);
   });
 
   it("rejects closing an already-closed account", async () => {

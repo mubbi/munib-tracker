@@ -177,7 +177,8 @@
     "finance": "امور مالی اسلامی",
     "flashCards": "کارت‌های مرور",
     "lastThirdNight": "سه‌م آخر شب",
-    "verseDetector": "شناسای آیات"
+    "verseDetector": "شناسای آیات",
+    "friday": "جمعه و نماز جمعه"
   },
   "quickActions": {
     "checklistSubtitle": "ثبت نمازهای امروز",
@@ -456,6 +457,14 @@
         "text": "یک جلسه تسبیح کوتاه مهم است. ذکر فقط برای نشستن های طولانی نیست - با ده شروع کنید.",
         "topic": "ذکر"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "همهٔ اعمال جمعه ثبت شد — الله قبول کند.",
+      "openChecklist": "باز کردن فهرست Jumu'ah",
+      "badge": "جمعه",
+      "reminderTitle": "جمعه مبارک",
+      "reminderBody": "Jumu'ah بخوانید و سنن جمعه را کامل کنید — Ghusl، Surah al-Kahf، salawat و Dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "{{prayer}} sonrası",
     "afterSalahAdhkarReminderBody": "تسبیح و نماز sonrası zikirler برای یک an ماهırın.",
     "afterSalahProgress": "Adhkar {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} از {{total}} completed today"
+    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} از {{total}} completed today",
+    "friday": {
+      "title": "فهرست Jumu'ah",
+      "subtitle": "سنن جمعه — فقط در روزهای جمعه نمایش داده می‌شود",
+      "progress": "{{completed}} از {{total}}",
+      "openRelated": "باز کردن محتوای مرتبط",
+      "learnMore": "آشنایی با سنن جمعه",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl جمعه",
+          "hint": "قبل از رفتن به Masjid غسل کنید"
+        },
+        "prepare": {
+          "title": "بهترین لباس و عطر",
+          "hint": "تمیز بپوشید و در صورت امکان عطر سبک بزنید"
+        },
+        "jumuah": {
+          "title": "حضور در Jumu'ah (یا خواندن Dhuhr)",
+          "hint": "خطبه + دو رکعت؛ معذور Dhuhr بخواند"
+        },
+        "kahf": {
+          "title": "خواندن Surah al-Kahf",
+          "hint": "نوری میان دو جمعه"
+        },
+        "salawat": {
+          "title": "افزایش salawat",
+          "hint": "بر پیامبر ﷺ درود بفرستید"
+        },
+        "dua": {
+          "title": "جست‌وجوی ساعت Dua",
+          "hint": "به‌ویژه در آخرین ساعت پس از Asr"
+        }
+      },
+      "details": "جزئیات",
+      "jumpTitle": "فهرست Jumu'ah",
+      "jumpHint": "سنن جمعه در پایین",
+      "jumpA11y": "رفتن به فهرست Jumu'ah در این صفحه"
+    }
   },
   "update": {
     "title": "به‌روزرسانی موجود است",
@@ -986,7 +1032,7 @@
     "emptyDesc": "موارد بیشتری برای این دسته به‌زودی افزوده می‌شود.",
     "detailEyebrow": "ذکر",
     "today": "امروز",
-    "openInTasbeeh": "in تسبیح Aç",
+    "openInTasbeeh": "در تسبیح باز کن",
     "favorite": "پسندیدہ بنائیں",
     "favorited": "پسندیدہ",
     "share": "اشتراک",
@@ -1112,7 +1158,8 @@
     "favorites": "پسندیدہ درود",
     "favSubtitle": "درودهایی که ذخیره کرده‌اید",
     "favEmptyTitle": "ابھی کوئی پسندیدہ درود نہیں",
-    "favEmptyDesc": "برای ذخیره هر درود در اینجا، روی ستاره آن بزنید."
+    "favEmptyDesc": "برای ذخیره هر درود در اینجا، روی ستاره آن بزنید.",
+    "openInTasbeeh": "در تسبیح باز کن"
   },
   "names": {
     "eyebrow": "اسمائے حُسنیٰ",
@@ -1907,9 +1954,9 @@
       "fullTitle": "آج پورا چاند",
       "fullBody": "چاند {{month}} کے وسط کے قریب مکمل روشن ہے — ایامِ بیض کی راتیں، جن میں روزہ رکھنا مستحب ہے۔",
       "generalTitle": "قمری تقویم",
-      "generalBody": "تقویم اسلامی (هجری) از ماه پیروی می‌کند: هر ماه ۲۹ یا ۳۰ روز است و با هلال دیده‌شده (hilāl) آغاز می‌شود. تاریخ‌های اینجا بر اساس تقویم جدولی برای موقعیت شماست و ممکن است یک روز با رؤیت محلی متفاوت باشد.",
+      "generalBody": "تقویم اسلامی (هجری) از ماه پیروی می‌کند: هر ماه ۲۹ یا ۳۰ روز است و با هلال دیده‌شده (hilāl) آغاز می‌شود. تاریخ‌های اینجا بر اساس رؤیت هلال در موقعیت شما محاسبه شده و ممکن است یک روز با اعلام مرجع محلی تفاوت داشته باشد.",
       "monthTurnTitle": "به دنبال هلال باشید",
-      "monthTurnBody": "پس از مغرب به دنبال هلال {{month}} باشید. ماه‌های اسلامی با هلال دیده‌شده آغاز می‌شوند؛ رؤیت محلی ممکن است یک روز با این تقویم متفاوت باشد."
+      "monthTurnBody": "پس از Maghrib به دنبال hilāl {{month}} باشید. ماه‌های اسلامی با هلال دیده‌شده آغاز می‌شوند؛ اعلام مرجع محلی شما ممکن است یک روز با این محاسبه تفاوت داشته باشد."
     },
     "monthProgress": "پیشرفت ماه",
     "monthProgressValue": "روز {{day}} از {{length}} · {{month}}",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "حساب",
     "title": "نمایه",
-    "subtitle": "مشخصات و حساب شما",
+    "subtitle": "نام، همگام‌سازی و ورود",
     "guestName": "مهمان",
     "changeAvatar": "تغییر آواتار",
     "signInToSync": "برای همگام سازی وارد سیستم شوید",
@@ -2154,7 +2201,17 @@
       "not_using": "دیگر استفاده نمی‌کنم",
       "technical_issues": "مشکلات فنی یا باگ",
       "other": "سایر"
-    }
+    },
+    "editName": "ویرایش نام نمایشی",
+    "signedInWith": "ورود با {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "حسابی متصل کنید تا Salah، Zikr و Qaza شما در همهٔ دستگاه‌ها پشتیبان‌گیری شود.",
+    "sessionTitle": "نشست",
+    "sessionHint": "از این دستگاه خارج شوید. داده‌های ابری شما امن می‌مانند.",
+    "dangerTitle": "منطقهٔ خطر",
+    "dangerHint": "حساب و داده‌های محلی را برای همیشه پاک کنید. این کار برگشت‌پذیر نیست."
   },
   "sync": {
     "title": "کلاؤڈ سِنک",
@@ -2250,7 +2307,9 @@
     "volumeValue": "آواز {{value}}%",
     "buffering": "بفر ہو رہا ہے…",
     "loading": "در حال بارگذاری…",
-    "streamingOnlyNote": "فقط پخش برخط — صوت روی این دستگاه ذخیره نمی‌شود"
+    "streamingOnlyNote": "فقط پخش برخط — صوت روی این دستگاه ذخیره نمی‌شود",
+    "ttsVoice": "صدا",
+    "ttsVoiceHint": "صدای تبدیل متن به گفتار را انتخاب کنید"
   },
   "errors": {
     "title": "مشکلی پیش آمد",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "موقعیت و یادآورها",
       "description": "برای اوقات نماز دقیق، قبله و یادآورهای اختیاری به موقعیت و اعلان‌ها اجازه دهید — یا بعداً تنظیم کنید."
+    },
+    "tasbeehDurood": {
+      "description": "این درود را با شمارنده لمسی تسبیح بشمارید."
     }
   },
   "pwa": {
@@ -3418,7 +3480,7 @@
     "today": "امروز",
     "inDays": "در {{count}} روز",
     "hijriYear": "{{year}} ق",
-    "disclaimer": "تاریخ ها تخمین های محاسبه شده هستند - روز واقعی به رصد محلی ماه بستگی دارد.",
+    "disclaimer": "تاریخ‌ها بر اساس رؤیت هلال در موقعیت شما (یا تقویم رسمی ام‌القری در مناطقی که از آن استفاده می‌کنند) است و می‌تواند یک روز با اعلام مرجع محلی تفاوت داشته باشد.",
     "names": {
       "newYear": "سال نو اسلامی",
       "ashura": "روز عاشورا",
@@ -3971,7 +4033,7 @@
       "label": "پیوست ها (اختیاری)",
       "add": "فایل اضافه کنید",
       "remove": "حذف پیوست",
-      "hint": "حداکثر 5 فایل (JPEG، PNG، WebP یا PDF)، هر کدام 1 مگابایت. برای حذف یک تصویر کوچک را طولانی فشار دهید.",
+      "hint": "تا ۵ فایل (JPEG، PNG، WebP یا PDF)، هر کدام ۱ مگابایت. برای حذف، روی تصویرک × بزنید.",
       "signInRequired": "برای پیوست کردن فایل های خصوصی به ادکار خود وارد شوید.",
       "permissionDenied": "برای پیوست کردن فایل ها مجوز لازم است.",
       "permissionTitle": "اجازه دسترسی",
@@ -3997,7 +4059,10 @@
       "sourceGallery": "کتابخانه عکس",
       "sourceGalleryHint": "یک تصویر از عکس های خود انتخاب کنید",
       "sourceDocument": "فایل ها",
-      "sourceDocumentHint": "یک تصویر یا PDF از فایل های خود انتخاب کنید"
+      "sourceDocumentHint": "یک تصویر یا PDF از فایل های خود انتخاب کنید",
+      "loadingPdf": "در حال بارگذاری PDF…",
+      "pdfHint": "پیمایش · دو انگشت یا +/− برای بزرگ‌نمایی · دو ضربه برای بازنشانی · باز کردن PDF برای اشتراک",
+      "pdfPreviewTitle": "پیش‌نمایش PDF"
     },
     "stt": {
       "dictate": "با میکروفون دیکته کنید",
@@ -4010,7 +4075,10 @@
     },
     "editTitle": "ویرایش ذکر",
     "confirmDeleteTitle": "این ذکر حذف شود؟",
-    "confirmDeleteMsg": "«{{title}}» برای همیشه حذف خواهد شد."
+    "confirmDeleteMsg": "«{{title}}» برای همیشه حذف خواهد شد.",
+    "searchPlaceholder": "جست‌وجوی اذکار شما",
+    "noResults": "اذکار منطبقی یافت نشد",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night نماز",
@@ -4457,7 +4525,7 @@
     "sourceLabel": "منبع شما (اختیاری)",
     "sourcePlaceholder": "Book, alim, URL, یا citation supporting شما correction.",
     "proofLabel": "ثبوت کی اسکرین شاٹ (اختیاری)",
-    "proofHint": "تا ۳ تصویر. برای حذف، روی تصویر بندانگشتی نگه دارید.",
+    "proofHint": "تا ۳ تصویر. برای حذف، روی تصویرک × بزنید.",
     "addProof": "افزودن photo",
     "removeProof": "حذف screenshot",
     "submit": "ارسال report",
@@ -4494,7 +4562,11 @@
       "completed": "انجام شد",
       "cancelled": "لغو شد",
       "spam": "سپیم"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri اور آواز کے شارٹ کٹ",
@@ -4717,7 +4789,7 @@
     "eyebrow": "تقویم",
     "title": "مبدل تاریخ",
     "subtitle": "تبدیل بین تقویم هجری و میلادی",
-    "intro": "یک تاریخ را در یکی از تقویم‌ها وارد کنید تا معادل آن را در تقویم دیگر مشاهده کنید، که با استفاده از الگوریتم جدولی کویتی به صورت آفلاین محاسبه می‌شود.",
+    "intro": "تاریخی در هر یک از دو تقویم وارد کنید تا معادل آن در دیگری را ببینید؛ به‌صورت آفلاین بر اساس رؤیت هلال در موقعیت شما محاسبه می‌شود.",
     "toHijri": "میلادی ← هجری",
     "toGregorian": "هجری ← میلادی",
     "gregorianDateLabel": "تاریخ میلادی",
@@ -4727,7 +4799,7 @@
     "year": "سال",
     "useToday": "امروز استفاده کنید",
     "invalidDate": "تاریخ معتبری وارد کنید",
-    "disclaimer": "این یک تقریب حسابی است («الگوریتم کویتی» جدولی) و می‌تواند یک روز با اعلان‌های محلی رویت ماه متفاوت باشد - همیشه مسجد یا مرجع محلی خود را برای تاریخ‌های مذهبی دنبال کنید.",
+    "disclaimer": "تاریخ‌ها بر اساس رؤیت هلال (hilāl) در موقعیت شما محاسبه می‌شوند و می‌توانند یک روز با اعلام رسمی رؤیت ماه تفاوت داشته باشند — برای تاریخ‌های مذهبی همیشه از Masjid یا مرجع محلی خود پیروی کنید.",
     "directionTitle": "جهت تبدیل",
     "resultFrom": "از {{date}}",
     "quickLinksTitle": "مرتبط",
@@ -4806,6 +4878,25 @@
     "basedOn": "بر اساس",
     "editTime": "ویرایش وقت {{prayer}}",
     "editHint": "با تغییر زمان، نتایج به‌روز می‌شوند.",
-    "nightLengthLabel": "مدت شب"
+    "nightLengthLabel": "مدت شب",
+    "willStartIn": "شروع در {{time}}",
+    "timeRemaining": "{{time}} باقی مانده"
+  },
+  "friday": {
+    "eyebrow": "یادگیری",
+    "title": "جمعه و نماز جمعه",
+    "subtitle": "فضائل، آمادگی، Surah al-Kahf، salawat و ساعت Dua",
+    "intro": "جمعه بهترین روزی است که خورشید بر آن طلوع می‌کند. سنن معتبر Jumu'ah — Ghusl، نماز، Surah al-Kahf، salawat و طلب ساعت اجابت — را از قرآن و حدیث صحیح بیاموزید.",
+    "section": {
+      "virtues": "فضائل جمعه",
+      "obligation": "نماز Jumu'ah",
+      "prepare": "آمادگی",
+      "kahf": "سوره کهف",
+      "salawat": "صلوات",
+      "dua": "ساعت Dua"
+    },
+    "notFound": "موضوع یافت نشد",
+    "disclaimer": "مروری آموزشی — فتوا نیست. جایی که مذاهب اختلاف دارند (مثلاً واجب یا سنت مؤکده بودن Ghusl جمعه)، هر دو نظر آمده است؛ از امام یا عالم محلی واجد صلاحیت خود پیروی کنید.",
+    "continueInApp": "ادامه در Munib"
   }
 }

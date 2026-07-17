@@ -1,20 +1,29 @@
 import { OBLIGATORY_PRAYERS, SUNNAH_PRAYERS, WITR_PRAYER } from "@munib-tracker/shared/constants";
 import type { ExcusedReason, PrayerId, PrayerStatus } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { Fragment, type RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { type ScrollView, StyleSheet, View } from "react-native";
 
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
+import { FridayTrackerSection } from "@/components/friday-tracker-section";
 import { PrayerTrackerRow } from "@/components/prayer-tracker-row";
 import { QazaDailyChecklist } from "@/components/qaza-daily-checklist";
 import { ThemedText } from "@/components/themed-text";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Card } from "@/components/ui/card";
+import { FocusHighlight } from "@/components/ui/focus-highlight";
+import { IconWell } from "@/components/ui/icon-well";
 import { NavRow } from "@/components/ui/nav-row";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
-import { Spacing } from "@/constants/theme";
+import { Radius, Spacing } from "@/constants/theme";
+import { scrollChildIntoView } from "@/hooks/use-scroll-to-active";
+import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { afterSalahProgressForPrayer } from "@/lib/after-salah-adhkar-progress";
 import { afterSalahAdhkarRoute } from "@/lib/after-salah-adhkar-reminder";
+import { FRIDAY_CHECKLIST_FOCUS, isFridayDateString } from "@/lib/friday";
+import { useChevronForward } from "@/lib/rtl";
 import { ensureZikrCorpus, zikrCategories } from "@/lib/zikr";
 
 function salahAdhkarCategories() {
@@ -23,6 +32,12 @@ function salahAdhkarCategories() {
     .map((id) => byId.get(id))
     .filter((category): category is NonNullable<typeof category> => category != null);
 }
+
+const FRIDAY_ICON = {
+  ios: "sun.max.fill",
+  android: "wb_sunny",
+  web: "wb_sunny",
+} as const;
 
 export type TrackerDayChecklistProps = {
   date: string;
@@ -36,6 +51,12 @@ export type TrackerDayChecklistProps = {
   onPrayerPress: (prayerId: PrayerId) => void;
   /** When omitted, excused chips use the tracker store and guide flow (today tab). */
   onExcusedChange?: (reason: ExcusedReason | null) => void;
+  /** Parent ScreenLayout scroll — used to jump to the Jumu'ah checklist. */
+  scrollRef?: RefObject<ScrollView | null>;
+  getScrollY?: () => number;
+  /** Deep-link registration for `?focus=friday` (Tracker tab). */
+  registerFocus?: (key: string) => (node: View | null) => void;
+  fridayFocused?: boolean;
 };
 
 export function TrackerDayChecklist({
@@ -49,10 +70,19 @@ export function TrackerDayChecklist({
   prayerTimes,
   onPrayerPress,
   onExcusedChange,
+  scrollRef,
+  getScrollY,
+  registerFocus,
+  fridayFocused = false,
 }: TrackerDayChecklistProps) {
   const router = useRouter();
   const { t } = useTranslation();
+  const { colors, tokens } = useThemeTokens();
+  const chevronForward = useChevronForward();
   const [, setZikrReady] = useState(false);
+  const fridaySectionRef = useRef<View>(null);
+  const [fridayHighlight, setFridayHighlight] = useState(false);
+  const showFriday = isFridayDateString(date);
 
   useEffect(() => {
     let active = true;
@@ -64,10 +94,33 @@ export function TrackerDayChecklist({
     };
   }, []);
 
+  useEffect(() => {
+    if (!fridayFocused) return;
+    setFridayHighlight(true);
+    const clear = setTimeout(() => setFridayHighlight(false), 2800);
+    return () => clearTimeout(clear);
+  }, [fridayFocused]);
+
   const openAfterSalah = (prayerId: Parameters<typeof afterSalahAdhkarRoute>[0]) => {
     if (!isToday) return;
     router.push(afterSalahAdhkarRoute(prayerId));
   };
+
+  const setFridaySectionRef = useCallback(
+    (node: View | null) => {
+      fridaySectionRef.current = node;
+      registerFocus?.(FRIDAY_CHECKLIST_FOCUS)(node);
+    },
+    [registerFocus],
+  );
+
+  const jumpToFridayChecklist = useCallback(() => {
+    setFridayHighlight(true);
+    if (scrollRef) {
+      scrollChildIntoView(scrollRef, fridaySectionRef, getScrollY?.() ?? 0, 80);
+    }
+    setTimeout(() => setFridayHighlight(false), 2800);
+  }, [getScrollY, scrollRef]);
 
   return (
     <View style={styles.stack}>
@@ -86,25 +139,57 @@ export function TrackerDayChecklist({
           {OBLIGATORY_PRAYERS.map((prayerId) => {
             const afterSalahProgress = afterSalahProgressForPrayer(prayerId, zikrCounts);
             return (
-              <PrayerTrackerRow
-                key={prayerId}
-                prayerId={prayerId}
-                status={status[prayerId] ?? "pending"}
-                time={prayerTimes[prayerId]}
-                hasNotes={!!notes[prayerId]}
-                isJama={jama[prayerId] ?? false}
-                afterSalahProgress={afterSalahProgress}
-                onPressAfterSalah={
-                  isToday && afterSalahProgress.total > 0
-                    ? () => openAfterSalah(prayerId)
-                    : undefined
-                }
-                onPress={() => onPrayerPress(prayerId)}
-              />
+              <Fragment key={prayerId}>
+                <PrayerTrackerRow
+                  prayerId={prayerId}
+                  status={status[prayerId] ?? "pending"}
+                  time={prayerTimes[prayerId]}
+                  hasNotes={!!notes[prayerId]}
+                  isJama={jama[prayerId] ?? false}
+                  afterSalahProgress={afterSalahProgress}
+                  onPressAfterSalah={
+                    isToday && afterSalahProgress.total > 0
+                      ? () => openAfterSalah(prayerId)
+                      : undefined
+                  }
+                  onPress={() => onPrayerPress(prayerId)}
+                />
+                {prayerId === "fajr" && showFriday ? (
+                  <PressableScale
+                    accessibilityRole="button"
+                    accessibilityLabel={t("tracker.friday.jumpA11y")}
+                    onPress={jumpToFridayChecklist}
+                    haptic="selection"
+                    scaleTo={0.98}
+                    style={[
+                      styles.fridayJump,
+                      {
+                        backgroundColor: tokens.accentSoft,
+                        borderColor: colors.border,
+                      },
+                    ]}
+                  >
+                    <IconWell icon={FRIDAY_ICON} size={16} well={32} radius={Radius.sm} />
+                    <View style={styles.fridayJumpCopy}>
+                      <ThemedText type="smallBold">{t("tracker.friday.jumpTitle")}</ThemedText>
+                      <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
+                        {t("tracker.friday.jumpHint")}
+                      </ThemedText>
+                    </View>
+                    <AppIcon icon={chevronForward} size={16} tintColor={colors.accent} />
+                  </PressableScale>
+                ) : null}
+              </Fragment>
             );
           })}
         </View>
       </Card>
+
+      {showFriday ? (
+        <FocusHighlight ref={setFridaySectionRef} active={fridayHighlight || fridayFocused}>
+          <FridayTrackerSection date={date} />
+        </FocusHighlight>
+      ) : null}
 
       <Card padding="three">
         <SectionHeader
@@ -209,5 +294,20 @@ const styles = StyleSheet.create({
   },
   hint: {
     marginTop: Spacing.two,
+  },
+  fridayJump: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingVertical: Spacing.two,
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  fridayJumpCopy: {
+    flex: 1,
+    minWidth: 0,
+    gap: 1,
   },
 });

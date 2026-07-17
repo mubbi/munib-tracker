@@ -177,7 +177,8 @@
     "finance": "Fedha za Kiislamu",
     "flashCards": "Kadi za kujifunzia",
     "verseDetector": "Kitambulisho cha Aya",
-    "lastThirdNight": "Theluthi ya mwisho ya usiku"
+    "lastThirdNight": "Theluthi ya mwisho ya usiku",
+    "friday": "Ijumaa na Jumu'ah"
   },
   "quickActions": {
     "checklistSubtitle": "Rekodi swala za leo",
@@ -456,6 +457,14 @@
         "text": "Kipindi kifupi cha tasbeeh kinahesabiwa. Zikr sio tu kwa vikao virefu - anza na kumi.",
         "topic": "zikr"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Vitendo vyote vya Ijumaa vimeandikishwa — Allah azikubali.",
+      "openChecklist": "Fungua orodha ya Jumu'ah",
+      "badge": "Ijumaa",
+      "reminderTitle": "Ijumaa Mubarak",
+      "reminderBody": "Omba Jumu'ah na kamilisha sunnah za Ijumaa — Ghusl, Surah al-Kahf, salawat, na Dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "Baada ya {{prayer}}",
     "afterSalahAdhkarReminderBody": "Chukua muda kwa tasbeeh na adhkar baada ya swala.",
     "afterSalahProgress": "Adhkar {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "Adhkar baada ya {{prayer}}: {{completed}} kati ya {{total}} imekamilika leo"
+    "afterSalahProgressA11y": "Adhkar baada ya {{prayer}}: {{completed}} kati ya {{total}} imekamilika leo",
+    "friday": {
+      "title": "Orodha ya Jumu'ah",
+      "subtitle": "Sunnah za Ijumaa — huonyeshwa Ijumaa pekee",
+      "progress": "{{completed}} kati ya {{total}}",
+      "openRelated": "Fungua maudhui yanayohusiana",
+      "learnMore": "Jifunze sunnah za Ijumaa",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl ya Ijumaa",
+          "hint": "Oga kabla ya kwenda Masjid"
+        },
+        "prepare": {
+          "title": "Nguo bora na harufu nzuri",
+          "hint": "Vaa safi na weka harufu nyepesi ukiweza"
+        },
+        "jumuah": {
+          "title": "Hudhuria Jumu'ah (au omba Dhuhr)",
+          "hint": "Khutbah + rakaa mbili; mwenye udhuru aombe Dhuhr"
+        },
+        "kahf": {
+          "title": "Soma Surah al-Kahf",
+          "hint": "Nuru kati ya Ijumaa mbili"
+        },
+        "salawat": {
+          "title": "Ongeza salawat",
+          "hint": "Tuma baraka kwa Mtume ﷺ"
+        },
+        "dua": {
+          "title": "Tafuta saa ya Dua",
+          "hint": "Haswa katika saa ya mwisho baada ya Asr"
+        }
+      },
+      "details": "Maelezo",
+      "jumpTitle": "Orodha ya Jumu'ah",
+      "jumpHint": "Sunnah za Ijumaa hapa chini",
+      "jumpA11y": "Nenda kwenye orodha ya Jumu'ah kwenye ukurasa huu"
+    }
   },
   "update": {
     "title": "Sasisho linapatikana",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries kwa bu category dir   wmwezi.",
     "detailEyebrow": "ذكر",
     "today": "Leo",
-    "openInTasbeeh": "in Tasbeeh Aç",
+    "openInTasbeeh": "Fungua katika Tasbeeh",
     "favorite": "Kipendwa",
     "favorited": "Imependekezwa",
     "share": "Shiriki",
@@ -1112,7 +1158,8 @@
     "favorites": "Duroods unazopenda",
     "favSubtitle": "Hifadhitiğiniz salavatlar",
     "favEmptyTitle": "Bado hakuna duroos unazopenda",
-    "favEmptyDesc": "Hiirmwezia kmwezidetmek kwa herhangi moja salavata mwakadıza dokunun."
+    "favEmptyDesc": "Hiirmwezia kmwezidetmek kwa herhangi moja salavata mwakadıza dokunun.",
+    "openInTasbeeh": "Fungua katika Tasbeeh"
   },
   "names": {
     "eyebrow": "الأسماء الحسنى",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Mwezi kamili usiku wa leo",
       "fullBody": "Mwezi unamulika kabisa karibu na katikati ya {{month}} — usiku wa Siku Nyeupe, wakati kufunga kunapendekezwa haswa.",
       "generalTitle": "Kalenda ya mwezi",
-      "generalBody": "Kalenda ya Kiislamu (Hijri) hufuata mwezi: kila mwezi ni siku 29 au 30, kuanzia na mwezi uliotazamwa (hilāl). Tarehe hapa hutumia kalenda ya jedwali kwa eneo lako na zinaweza kutofautiana na utazamaji wa ndani kwa siku moja.",
+      "generalBody": "Kalenda ya Kiislamu (Hijria) inafuata mwezi: kila mwezi una siku 29 au 30, ukianza na mwezi mwandamo unaoonekana (hilāl). Tarehe hapa zimehesabiwa kutoka kuonekana kwa hilal mahali pako na zinaweza kutofautiana na tangazo la mamlaka ya eneo kwa siku moja.",
       "monthTurnTitle": "Tafuta mwezi mpevu",
-      "monthTurnBody": "Baada ya Maghrib, tafuta hilāl ya {{month}}. Miezi ya Kiislamu huanza na mwezi uliotazamwa; utazamaji wa mwezi wa ndani unaweza kutofautiana na kalenda hii kwa siku moja."
+      "monthTurnBody": "Baada ya Maghrib, tafuta hilāl ya {{month}}. Miezi ya Kiislamu huanza kwa mwezi mwandamo unaoonekana; tangazo la mamlaka yako ya eneo linaweza kutofautiana na hesabu hii kwa siku moja."
     },
     "monthProgress": "Maendeleo ya mwezi",
     "monthProgressValue": "Siku {{day}} kati ya {{length}} · {{month}}",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Akaunti",
     "title": "Wasifu",
-    "subtitle": "Maelezo na akaunti yako",
+    "subtitle": "Jina, usawazishaji, na kuingia",
     "guestName": "Mgeni",
     "changeAvatar": "Badilisha avatar",
     "signInToSync": "Ingia ili kusawazisha",
@@ -2154,7 +2201,17 @@
       "not_using": "Siitumii tena",
       "technical_issues": "Matatizo ya kiufundi au hitilafu",
       "other": "Nyingine"
-    }
+    },
+    "editName": "Hariri jina linaloonekana",
+    "signedInWith": "Umeingia kwa {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Unganisha akaunti ili kuhifadhi Salah, Zikr, na Qaza kwenye vifaa vyako.",
+    "sessionTitle": "Kipindi",
+    "sessionHint": "Toka kwenye kifaa hiki. Data yako ya wingu inabaki salama.",
+    "dangerTitle": "Eneo hatari",
+    "dangerHint": "Futa akaunti yako na data ya ndani kabisa. Hii haiwezi kutenduliwa."
   },
   "sync": {
     "title": "Usawazishaji wa wingu",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Juzuu {{value}}%",
     "buffering": "Inaakibisha...",
     "loading": "Inapakia…",
-    "streamingOnlyNote": "Streadakg only — audio is not saved on this device"
+    "streamingOnlyNote": "Streadakg only — audio is not saved on this device",
+    "ttsVoice": "Sauti",
+    "ttsVoiceHint": "Chagua sauti ya maandishi-hadi-hotuba"
   },
   "errors": {
     "title": "Kuna tatizo limetokea",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Mahali na vikumbusho",
       "description": "Ruhusu mahali na arifa kwa nyakati sahihi za swala, qibla, na vikumbusho vya hiari — au weka baadaye."
+    },
+    "tasbeehDurood": {
+      "description": "Hesabu durood hii kwa kihesabu cha tasbeeh cha mguso."
     }
   },
   "pwa": {
@@ -3418,7 +3480,7 @@
     "today": "Leo",
     "inDays": "ndani ya siku {{count}}",
     "hijriYear": "{{year}} AH",
-    "disclaimer": "Tarehe ni makadirio yaliyokokotolewa - siku halisi inategemea maono ya ndani ya mwezi.",
+    "disclaimer": "Tarehe zinafuata kuonekana kwa hilal mahali pako (au kalenda rasmi ya Umm al-Qura katika maeneo yanayoitumia) na zinaweza kutofautiana kwa siku moja na tangazo la mamlaka ya eneo.",
     "names": {
       "newYear": "Mwaka Mpya wa Kiislamu",
       "ashura": "Siku ya Ashura",
@@ -3971,7 +4033,7 @@
       "label": "Viambatisho (si lazima)",
       "add": "Ongeza faili",
       "remove": "Ondoa kiambatisho",
-      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), MB 1 kila moja. Bonyeza kwa muda kijipicha ili kuondoa.",
+      "hint": "Hadi faili 5 (JPEG, PNG, WebP, au PDF), 1 MB kila moja. Gusa × kwenye kijipicha kuondoa.",
       "signInRequired": "Ingia ili kuambatisha faili za faragha kwenye adhkar yako.",
       "permissionDenied": "Ruhusa inahitajika ili kuambatisha faili.",
       "permissionTitle": "Ruhusu ufikiaji",
@@ -3997,7 +4059,10 @@
       "sourceGallery": "Maktaba ya picha",
       "sourceGalleryHint": "Chagua picha kutoka kwa picha zako",
       "sourceDocument": "Faili",
-      "sourceDocumentHint": "Chagua picha au PDF kutoka kwa faili zako"
+      "sourceDocumentHint": "Chagua picha au PDF kutoka kwa faili zako",
+      "loadingPdf": "Inapakia PDF…",
+      "pdfHint": "Sogeza · bana au tumia +/− kukuza · gusa mara mbili kuweka upya · fungua PDF kushiriki",
+      "pdfPreviewTitle": "Hakiki ya PDF"
     },
     "stt": {
       "dictate": "Amri kwa kutumia kipaza sauti",
@@ -4010,7 +4075,10 @@
     },
     "editTitle": "Hariri adhkar",
     "confirmDeleteTitle": "Futa adhkar hii?",
-    "confirmDeleteMsg": "“{{title}}” itaondolewa kabisa."
+    "confirmDeleteMsg": "“{{title}}” itaondolewa kabisa.",
+    "searchPlaceholder": "Tafuta adhkar zako",
+    "noResults": "Hakuna adhkar zinazolingana",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night swala",
@@ -4457,7 +4525,7 @@
     "sourceLabel": "Wewein kmwezinak (isteğe bağlı)",
     "sourcePlaceholder": "Book, alim, URL, au citation supporting sizin correction.",
     "proofLabel": "Uthibitisho wa picha za skrini (si lazima)",
-    "proofHint": "Up  3 images. Long-press  thumbnail  remona.",
+    "proofHint": "Hadi picha 3. Gusa × kwenye kijipicha kuondoa.",
     "addProof": "Washageza photo",
     "removeProof": "Washadoa screenshot",
     "submit": "Wasilisha report",
@@ -4494,7 +4562,11 @@
       "completed": "Imekamilika",
       "cancelled": "Imefutwa",
       "spam": "Barua taka"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri & njia za mkato za sauti",
@@ -4717,7 +4789,7 @@
     "eyebrow": "Kalenda",
     "title": "Kigeuzi cha tarehe",
     "subtitle": "Badilisha kati ya kalenda ya Hijri na Gregorian",
-    "intro": "Weka tarehe katika mojawapo ya kalenda ili kuona sawa katika nyingine, iliyokokotwa nje ya mtandao kwa kutumia algoriti ya Kuwaiti ya jedwali.",
+    "intro": "Weka tarehe katika kalenda yoyote ili kuona sawa yake katika nyingine, inayohesabiwa nje ya mtandao kutoka kuonekana kwa hilal mahali pako.",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
     "gregorianDateLabel": "Tarehe ya Gregorian",
@@ -4727,7 +4799,7 @@
     "year": "Mwaka",
     "useToday": "Tumia leo",
     "invalidDate": "Weka tarehe halali",
-    "disclaimer": "Huu ni ukadiriaji wa hesabu (jedwali la \"algorithm ya Kuwaiti\") na inaweza kutofautiana kwa siku kutoka kwa matangazo ya karibu ya kuona mwezi - fuata msikiti wa eneo lako au mamlaka ya tarehe za kidini kila wakati.",
+    "disclaimer": "Tarehe zimehesabiwa kutoka kuonekana kwa hilal (hilāl) mahali pako na zinaweza kutofautiana kwa siku moja na matangazo rasmi ya kuona mwezi — daima fuata Masjid au mamlaka yako ya eneo kwa tarehe za kidini.",
     "directionTitle": "Mwelekeo wa uongofu",
     "resultFrom": "Kutoka {{date}}",
     "quickLinksTitle": "Kuhusiana",
@@ -4806,6 +4878,25 @@
     "basedOn": "Kulingana na",
     "editTime": "Hariri muda wa {{prayer}}",
     "editHint": "Matokeo husasishwa unapobadilisha muda.",
-    "nightLengthLabel": "Urefu wa usiku"
+    "nightLengthLabel": "Urefu wa usiku",
+    "willStartIn": "Itaanza baada ya {{time}}",
+    "timeRemaining": "{{time}} imebaki"
+  },
+  "friday": {
+    "eyebrow": "Jifunze",
+    "title": "Ijumaa na Jumu'ah",
+    "subtitle": "Fadhila, maandalizi, Surah al-Kahf, salawat, na saa ya Dua",
+    "intro": "Ijumaa ni siku bora zaidi jua linapochomoza. Jifunze sunnah sahihi za Jumu'ah — Ghusl, swala, Surah al-Kahf, salawat, na kutafuta saa inayokubaliwa — kutoka Qur'ani na hadithi sahihi.",
+    "section": {
+      "virtues": "Fadhila za Ijumaa",
+      "obligation": "Swala ya Jumu'ah",
+      "prepare": "Maandalizi",
+      "kahf": "Surah al-Kahf",
+      "salawat": "Salawati",
+      "dua": "Saa ya Dua"
+    },
+    "notFound": "Mada haikupatikana",
+    "disclaimer": "Muhtasari wa kielimu — si fatwa. Ambapo madhehebu yanatofautiana (kama Ghusl ya Ijumaa ni wajib au sunnah mu'akkadah), maoni yote mawili yametajwa; fuata imamu wako au mwanachuoni wa eneo aliyestahili.",
+    "continueInApp": "Endelea katika Munib"
   }
 }

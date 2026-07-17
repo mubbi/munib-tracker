@@ -223,6 +223,37 @@ export function resolvePostgresConnection(
   };
 }
 
+/**
+ * Startup options for node-pg / TypeORM.
+ *
+ * Prefer an explicit UTF-8 client encoding. Pair with a UTF-8 *database*
+ * (`SHOW server_encoding` → UTF8); a WIN1252 database cannot store Arabic
+ * regardless of client settings.
+ */
+export const POSTGRES_CLIENT_UTF8_OPTIONS = "-c client_encoding=UTF8";
+
+/**
+ * Fail fast when the connected Postgres database is not UTF-8.
+ * Windows installs often default new DBs to WIN1252, which rejects Arabic in
+ * content-report snapshots and other Unicode text.
+ */
+export async function assertPostgresUtf8Encoding(
+  query: (sql: string) => Promise<Array<{ server_encoding?: string }>>,
+): Promise<void> {
+  const rows = await query("SHOW server_encoding");
+  const encoding = rows[0]?.server_encoding?.toUpperCase();
+  if (!encoding || encoding === "UTF8" || encoding === "UTF-8") {
+    return;
+  }
+
+  throw new Error(
+    `Postgres database encoding is ${encoding}, but Munib Tracker requires UTF8 ` +
+      `(Arabic and other Unicode text). Recreate the database, e.g.\n` +
+      `  CREATE DATABASE munib_tracker WITH ENCODING 'UTF8' TEMPLATE template0;\n` +
+      `then run: pnpm --filter api migration:run`,
+  );
+}
+
 /** TypeORM DataSource fields shared by CLI + Nest. */
 export function toTypeOrmPostgresOptions(connection: PostgresConnectionOptions): {
   type: "postgres";
@@ -233,12 +264,16 @@ export function toTypeOrmPostgresOptions(connection: PostgresConnectionOptions):
   password?: string;
   database?: string;
   ssl: DatabaseSslOption;
+  extra: { options: string };
 } {
+  const extra = { options: POSTGRES_CLIENT_UTF8_OPTIONS };
+
   if (connection.url) {
     return {
       type: "postgres",
       url: connection.url,
       ssl: connection.ssl,
+      extra,
     };
   }
 
@@ -250,5 +285,6 @@ export function toTypeOrmPostgresOptions(connection: PostgresConnectionOptions):
     password: connection.password,
     database: connection.database,
     ssl: connection.ssl,
+    extra,
   };
 }

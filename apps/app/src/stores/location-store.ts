@@ -1,4 +1,6 @@
 import { initDatabase, LocationRepository } from "@/db";
+import { setHijriObserver } from "@/lib/hijri";
+import { hijriObserverFor } from "@/lib/hijri-authority";
 import {
   DEFAULT_LOCATION,
   getDeviceLocation,
@@ -140,6 +142,21 @@ export const locationStore = createStore<LocationState>((set, get) => ({
     set({ location });
   },
 }));
+
+/**
+ * Keep the Hijri sighting observer in sync with the stored location so Hijri
+ * dates reflect crescent visibility at the user's place — except for regions
+ * whose authority follows the official Umm al-Qura calendar (see
+ * `hijriObserverFor`), and the seeded default before any fix exists.
+ */
+function syncHijriObserver(location: StoredLocation): void {
+  setHijriObserver(hijriObserverFor(location));
+}
+
+syncHijriObserver(locationStore.getState().location);
+locationStore.subscribe(() => {
+  syncHijriObserver(locationStore.getState().location);
+});
 
 export function useLocation(): StoredLocation {
   return useStore(locationStore, (s) => s.location);

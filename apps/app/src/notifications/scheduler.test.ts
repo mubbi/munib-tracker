@@ -38,6 +38,15 @@ jest.mock("@/lib/notifications/permissions", () => ({
   requestNotificationPermission: jest.fn(),
 }));
 
+jest.mock("@/stores/tracker-store", () => ({
+  trackerStore: {
+    getState: () => ({
+      qazaCounters: [],
+      roza: { remaining: 0, completed: 0 },
+    }),
+  },
+}));
+
 import * as Notifications from "expo-notifications";
 
 import { readNotificationPermissionUiState } from "@/lib/notifications/permissions";

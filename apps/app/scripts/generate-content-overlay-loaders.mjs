@@ -12,6 +12,7 @@ const CORPORA = [
   "aqeedah",
   "battles",
   "eid-guide",
+  "friday-guide",
   "hajj",
   "islamic-finance",
   "islamic-history",

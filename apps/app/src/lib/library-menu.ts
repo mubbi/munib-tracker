@@ -67,6 +67,7 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("history", "learn"),
   fromQuickAction("laylatAlQadr", "learn"),
   fromQuickAction("eid", "learn"),
+  fromQuickAction("friday", "learn"),
   fromQuickAction("ruqyah", "learn"),
   fromQuickAction("newMuslim", "learn"),
   fromQuickAction("flashCards", "learn"),

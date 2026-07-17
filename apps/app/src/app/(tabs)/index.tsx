@@ -157,6 +157,8 @@ export default function HomeScreen() {
               schedule={hero.schedule}
               nextIn={hero.nextIn}
               nextScheduleId={hero.nextScheduleId}
+              scheduleDateLabel={hero.displayDates.primary}
+              scheduleLocationLabel={hero.location}
             />
           </Suspense>
         </View>

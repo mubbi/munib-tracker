@@ -17,6 +17,7 @@ import {
   nightBoundsFromWallClock,
   PRAYER_SLOT_ORDER,
   prayerSlots,
+  resolveNightBoundsForNow,
   tahajjudTime,
   witrTime,
   zawalTime,
@@ -181,6 +182,23 @@ describe("night dividers", () => {
     const dividers = computeNightDividers(maghribAt, fajrAt);
     expect(dividers.lastThird.getTime()).toBeGreaterThan(maghribAt.getTime());
     expect(dividers.lastThird.getTime()).toBeLessThan(fajrAt.getTime());
+  });
+
+  it("resolves the overnight window before Fajr", () => {
+    const now = new Date(2026, 6, 15, 2, 0, 0);
+    const bounds = resolveNightBoundsForNow({ hour: 19, minute: 23 }, { hour: 4, minute: 25 }, now);
+    expect(bounds).toBeDefined();
+    expect(bounds?.maghribAt.getDate()).toBe(14);
+    expect(bounds?.fajrAt.getDate()).toBe(15);
+    expect(bounds?.fajrAt.getTime()).toBeGreaterThan(now.getTime());
+  });
+
+  it("resolves the upcoming night after Fajr", () => {
+    const now = new Date(2026, 6, 15, 12, 0, 0);
+    const bounds = resolveNightBoundsForNow({ hour: 19, minute: 23 }, { hour: 4, minute: 25 }, now);
+    expect(bounds).toBeDefined();
+    expect(bounds?.maghribAt.getDate()).toBe(15);
+    expect(bounds?.fajrAt.getDate()).toBe(16);
   });
 });
 

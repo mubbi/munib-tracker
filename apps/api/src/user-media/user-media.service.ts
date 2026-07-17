@@ -95,8 +95,9 @@ export class UserMediaService {
 
   async remove(accessToken: string, id: string): Promise<void> {
     const media = await this.getOwned(accessToken, id);
+    // Remove the blob first so a DB-only delete cannot leave Cloudinary orphans.
+    await this.attachmentStorage.remove(media.storagePath, "authenticated");
     await this.mediaRepository.delete({ id: media.id });
-    await this.attachmentStorage.remove(media.storagePath);
   }
 
   async removeMany(accessToken: string, ids: string[]): Promise<void> {
@@ -108,8 +109,10 @@ export class UserMediaService {
     });
     if (rows.length === 0) return;
 
+    await Promise.all(
+      rows.map((row) => this.attachmentStorage.remove(row.storagePath, "authenticated")),
+    );
     await this.mediaRepository.delete({ id: In(rows.map((row) => row.id)) });
-    await Promise.all(rows.map((row) => this.attachmentStorage.remove(row.storagePath)));
   }
 
   private async requireLinkedUser(accessToken: string) {

@@ -83,8 +83,12 @@ export function isGuestReportError(error: unknown): boolean {
   );
 }
 
+/**
+ * True only for transport / connectivity failures.
+ * HTTP 5xx must NOT queue — retrying the same payload on focus would resubmit forever.
+ */
 export function isOfflineReportError(error: unknown): boolean {
   if (error instanceof TypeError) return true;
-  if (error instanceof ApiError && error.status >= 500) return true;
+  if (error instanceof ApiError && error.status === 0) return true;
   return false;
 }

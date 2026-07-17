@@ -24,9 +24,9 @@ type MoonPhaseSheetProps = {
  * Details for the current moon phase, opened by tapping the moon in the hero.
  *
  * Illumination/phase describe the astronomical shape. Month progress and the
- * next-month countdown come from the tabular Hijri calendar (anchored to the
- * user's location timezone) — never from astronomical conjunction, which is
- * not the Islamic month start.
+ * next-month countdown come from the Hijri calendar (crescent visibility at
+ * the user's location, anchored to their timezone) — never from astronomical
+ * conjunction, which is not the Islamic month start.
  */
 export function MoonPhaseSheet({ visible, date, onClose }: MoonPhaseSheetProps) {
   const { t, i18n } = useTranslation();

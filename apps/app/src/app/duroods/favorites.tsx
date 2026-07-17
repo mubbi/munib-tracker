@@ -6,11 +6,13 @@ import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Stagger } from "@/components/ui/stagger";
 import { Spacing } from "@/constants/theme";
 import { loadDuroodItems } from "@/lib/content-loaders";
 import { goBackOrReplace } from "@/lib/navigation";
+import { TASBEEH_ICON } from "@/lib/quick-actions";
 import {
   useDuroodFavoritesActions,
   useEnsureDuroodFavoritesLoaded,
@@ -71,6 +73,17 @@ export default function DuroodFavoritesScreen() {
                 sourceHref="/duroods"
                 isFavorite
                 onToggleFavorite={() => toggle(item.id)}
+              />
+              <Button
+                label={t("duroods.openInTasbeeh")}
+                icon={TASBEEH_ICON}
+                fullWidth
+                onPress={() =>
+                  router.push({
+                    pathname: "/tasbeeh/durood/[id]",
+                    params: { id: item.id },
+                  })
+                }
               />
             </View>
           ))}

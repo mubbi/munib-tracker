@@ -177,7 +177,8 @@
     "finance": "دارایی ئیسلامی",
     "flashCards": "Kartên fêrbûnê",
     "verseDetector": "Nasînayê ayetan",
-    "lastThirdNight": "Sêyemîn sêyemîn ê şevê"
+    "lastThirdNight": "Sêyemîn sêyemîn ê şevê",
+    "friday": "În û Jumu'ah"
   },
   "quickActions": {
     "checklistSubtitle": "Nimêjên îro têkevin",
@@ -456,6 +457,14 @@
         "text": "Danişîna tesbîhek kurt tê hesibandin. Zikr ne tenê ji bo rûniştinên dirêj e - bi deh dest pê bikin.",
         "topic": "zikr"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Hemû kirinên înê hatin tomar kirin — Xwedê bila wan qebûl bike.",
+      "openChecklist": "Lîsteya Jumu'ah veke",
+      "badge": "În",
+      "reminderTitle": "Înê pîroz",
+      "reminderBody": "Jumu'ah bike û sunnetên înê temam bike — ghusl, Surah al-Kahf, salawat û dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "Piştî {{prayer}}",
     "afterSalahAdhkarReminderBody": "Demek ji bo tasbîh û adhkarê piştî salahê bigire.",
     "afterSalahProgress": "ئادکار {{completed}}/{{total}} .",
-    "afterSalahProgressA11y": "Adhkarê piştî {{prayer}}: {{completed}} ji {{total}} îro temam bûn"
+    "afterSalahProgressA11y": "Adhkarê piştî {{prayer}}: {{completed}} ji {{total}} îro temam bûn",
+    "friday": {
+      "title": "Lîsteya Jumu'ah",
+      "subtitle": "Sunnetên înê — tenê roja înê tê nîşandan",
+      "progress": "{{completed}} ji {{total}}",
+      "openRelated": "Naveroka têkildar veke",
+      "learnMore": "Kirinên înê fêr bibe",
+      "items": {
+        "ghusl": {
+          "title": "Ghuslê înê",
+          "hint": "Berî ku herî mizgeftê xwe bişo"
+        },
+        "prepare": {
+          "title": "Cilên herî baş û bîhnxweşî",
+          "hint": "Paqij cil bike û heke dikarî bîhnxweşiyeke sivik bikar bîne"
+        },
+        "jumuah": {
+          "title": "Beşdarî Jumu'ah bike (an Dhuhr bike)",
+          "hint": "Xutbe + du rek'et; yên bi behane Dhuhr dikin"
+        },
+        "kahf": {
+          "title": "Surah al-Kahf bixwîne",
+          "hint": "Ronahiyek di navbera her du înan de"
+        },
+        "salawat": {
+          "title": "Salawat zêde bike",
+          "hint": "Li ser Pêxember ﷺ silav û duayan bike"
+        },
+        "dua": {
+          "title": "Saeta dua bigere",
+          "hint": "Bi taybetî di saeta dawî de piştî Asr"
+        }
+      },
+      "details": "Hûrgulî",
+      "jumpTitle": "Lîsteya Jumu'ah",
+      "jumpHint": "Sunnetên înê li jêr",
+      "jumpA11y": "Biçe lîsteya Jumu'ah li ser vê rûpelê"
+    }
   },
   "update": {
     "title": "Nûkirin heye",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries ji bo ev category in li  way.",
     "detailEyebrow": "زیکر",
     "today": "Îro",
-    "openInTasbeeh": "Open di Tasbeeh",
+    "openInTasbeeh": "Di Tesbîhê de veke",
     "favorite": "Hezkirî",
     "favorited": "دڵخواز",
     "share": "Parve bike",
@@ -1112,7 +1158,8 @@
     "favorites": "Duroodên bijare",
     "favSubtitle": "Duroodên ku we xilas kirine",
     "favEmptyTitle": "No durood favorite hê",
-    "favEmptyDesc": "Tap  star li any durood bo tomar bike it here."
+    "favEmptyDesc": "Tap  star li any durood bo tomar bike it here.",
+    "openInTasbeeh": "Di Tesbîhê de veke"
   },
   "names": {
     "eyebrow": "Esma-ul-Husna",
@@ -1907,9 +1954,9 @@
       "fullTitle": "îşev heyva tijî ye",
       "fullBody": "Heyv nêzîkî navenda {{month}} bi tevahî ronahî ye — şevên Rojên Spî, dema rojî bi taybetî tê pêşniyar kirin.",
       "generalTitle": "Salnameya heyvê",
-      "generalBody": "Salnameya Îslamî (Hicrî) li gor heyvê ye: her meh 29 an 30 roj e, bi hilala dîtî (hilāl) dest pê dike. Dîrokên vir ji bo cihê we salnameya tabloyan bikar tînin û dibe ku ji dîtina herêmî bi yek roj cuda bin.",
+      "generalBody": "Salnameya Îslamî (Hicrî) li gor heyvê ye: her meh 29 an 30 roj e, bi hilala dîtî (hilāl) dest pê dike. Dîrokên vir ji dîtina hilalê li cîhê we têne hesab kirin û dibe ku ji ragihandina desthilatdariya herêmî bi yek roj cuda bin.",
       "monthTurnTitle": "Li hilalê bigerin",
-      "monthTurnBody": "Piştî Magribê li hilala {{month}} bigerin. Mehên Îslamî bi hilala dîtî dest pê dikin; dîtina heyva herêmî dibe ku ji vê salnameyê bi yek roj cuda be."
+      "monthTurnBody": "Piştî Magribê li hilāla {{month}} bigerin. Mehên Îslamî bi hilala dîtî dest pê dikin; ragihandina desthilatdariya herêmî dibe ku ji vê hesabê bi yek roj cuda be."
     },
     "monthProgress": "Pêşveçûna mehê",
     "monthProgressValue": "Roja {{day}} ji {{length}} · {{month}}",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Konto",
     "title": "Tengal",
-    "subtitle": "Agahdarî û hesabê we",
+    "subtitle": "Nav, hevdemkirin û têketin",
     "guestName": "Mêvan",
     "changeAvatar": "Avatar biguherînin",
     "signInToSync": "Têkeve ji bo senkronîzekirinê",
@@ -2154,7 +2201,17 @@
       "not_using": "Ez êdî nayê bikar anîn",
       "technical_issues": "Pirsgirêkên teknîkî an çewtiyên",
       "other": "Yên din"
-    }
+    },
+    "editName": "Navê nîşandanê sererast bike",
+    "signedInWith": "Bi {{provider}} têketî",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Hesabekê girêde da Salah, Zikr û Qaza li ser cîhazan paşve werin girtin.",
+    "sessionTitle": "Danişîn",
+    "sessionHint": "Li ser vê cîhazê derkeve. Daneyên te yên ewrê ewle dimînin.",
+    "dangerTitle": "Herêma xeterê",
+    "dangerHint": "Hesab û daneyên herêmî bi domdarî jê bibe. Ev nayê vegerandin."
   },
   "sync": {
     "title": "هاوکاتکردنی هەور",
@@ -2250,7 +2307,9 @@
     "volumeValue": "قەبارە {{value}}%",
     "buffering": "Tampkirin…",
     "loading": "Tê barkirin…",
-    "streamingOnlyNote": "Streaming only — audio e not saved li ev cîhaz"
+    "streamingOnlyNote": "Streaming only — audio e not saved li ev cîhaz",
+    "ttsVoice": "Deng",
+    "ttsVoiceHint": "Dengê nivîs-bo-axaftinê hilbijêre"
   },
   "errors": {
     "title": "Nəsə səhv getdi",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Cih û bîranîn",
       "description": "Ji bo demên nimêjê yên rast, qiblê û bîranînên vebijarkî destûrê bide cih û agahdariyan — an paşê saz bike."
+    },
+    "tasbeehDurood": {
+      "description": "Vê salawatê bi hejmarê tasbîhê yê destî bihejîne."
     }
   },
   "pwa": {
@@ -3418,7 +3480,7 @@
     "today": "Îro",
     "inDays": "di {{count}} rojan de",
     "hijriYear": "{{year}} AH",
-    "disclaimer": "Dîrok bi texmînan têne hesibandin - roja rastîn bi dîtina heyvê ya herêmî ve girêdayî ye.",
+    "disclaimer": "Dîrok li gor dîtina hilalê li cîhê we ne (an salnameya fermî ya Umm al-Qura li herêmên ku wê bikar tînin) û dibe ku ji ragihandina desthilatdariya herêmî bi yek roj cuda bin.",
     "names": {
       "newYear": "Newroza Îslamî",
       "ashura": "Roja Aşûrayê",
@@ -3971,7 +4033,7 @@
       "label": "هاوپێچەکان (ئیختیاری)",
       "add": "زیادکردنی فایل",
       "remove": "هاوپێچەکە لاببە",
-      "hint": "تا ٥ فایل (JPEG، PNG، WebP، یان PDF)، هەریەکەیان ١ مێگابایت. بۆ لابردنی وێنەیەکی بچووک بە درێژایی فشار بخەرە سەر.",
+      "hint": "Heta 5 pel (JPEG, PNG, WebP an PDF), her yek 1 MB. Ji bo jêbirinê li ser thumbnailê × bitikîne.",
       "signInRequired": "چوونەژوورەوە بۆ هاوپێچکردنی فایلە تایبەتەکان بە adhkar ـەکەتەوە.",
       "permissionDenied": "بۆ هاوپێچکردنی فایلەکان مۆڵەت پێویستە.",
       "permissionTitle": "ڕێگە بدە بە دەستگەیشتن",
@@ -3997,7 +4059,10 @@
       "sourceGallery": "کتێبخانەی وێنە",
       "sourceGalleryHint": "لە وێنەکانت وێنەیەک هەڵبژێرە",
       "sourceDocument": "فایلەکان",
-      "sourceDocumentHint": "وێنەیەک یان PDF لە فایلەکانت هەڵبژێرە"
+      "sourceDocumentHint": "وێنەیەک یان PDF لە فایلەکانت هەڵبژێرە",
+      "loadingPdf": "PDF tê barkirin…",
+      "pdfHint": "Bizivirîne · pinch an +/− bo mezin kirinê · du caran bitikîne bo vegerandinê · PDF veke bo parvekirinê",
+      "pdfPreviewTitle": "Pêşdîtina PDF"
     },
     "stt": {
       "dictate": "بە مایکرۆفۆن دیکتە بکە",
@@ -4010,7 +4075,10 @@
     },
     "editTitle": "Adhkarê sererast bike",
     "confirmDeleteTitle": "Ev adhkar jê bibe?",
-    "confirmDeleteMsg": "“{{title}}” bi awayekî berdewam were jêbirin."
+    "confirmDeleteMsg": "“{{title}}” bi awayekî berdewam were jêbirin.",
+    "searchPlaceholder": "Adhkarên xwe bigere",
+    "noResults": "Adhkarên lihevhatî tune",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night salah",
@@ -4457,7 +4525,7 @@
     "sourceLabel": "Çavkaniya we (vebijarkî)",
     "sourcePlaceholder": "Book, alim, URL, an citation supporting we correction.",
     "proofLabel": "Proof screenshots (ne ferz)",
-    "proofHint": "Up bo 3 images. Long-press  thumbnail bo remove.",
+    "proofHint": "Heta 3 wêne. Ji bo jêbirinê li ser thumbnailê × bitikîne.",
     "addProof": "Zêde bike photo",
     "removeProof": "Dîmenê jêbirin",
     "submit": "Raporê bişînin",
@@ -4494,7 +4562,11 @@
       "completed": "Temam kirin",
       "cancelled": "Betal kirin",
       "spam": "سپام"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Kurteyên Siri & deng",
@@ -4717,7 +4789,7 @@
     "eyebrow": "ساڵنامە",
     "title": "گۆڕینی بەروار",
     "subtitle": "گۆڕینی نێوان ساڵنامەی هیجری و زاینی",
-    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە بە بەکارهێنانی ئەلگۆریتمەکەی کوەیتی خشتەیی لە ئۆفلاین حیسابی بۆ کراوە.",
+    "intro": "بەروارێک لە هەر ساڵنامەیەکدا بنووسە بۆ بینینی هاوتاکەی لە ساڵنامەکەی تردا، کە لە ئۆفلاین لەسەر بنەمای بینینی مانگ لە شوێنەکەت حیسابی بۆ کراوە.",
     "toHijri": "گریگۆری → هیجری",
     "toGregorian": "هیجری → گریگۆری",
     "gregorianDateLabel": "بەرواری گریگۆری",
@@ -4727,7 +4799,7 @@
     "year": "ساڵ",
     "useToday": "ئەمڕۆ بەکاری بهێنە",
     "invalidDate": "بەروارێکی دروست بنووسە",
-    "disclaimer": "ئەمە نزیکبوونەوەیەکی ژمێریارییە (\"ئەلگۆریتمەکەی کوێت\"ی خشتەیی) و دەتوانێت ڕۆژێک جیاواز بێت لە ڕاگەیاندنەکانی بینینی مانگ لە ناوخۆدا — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
+    "disclaimer": "بەروارەکان لەسەر بنەمای بینینی مانگ (hilāl) لە شوێنەکەت حیساب دەکرێن و دەتوانن ڕۆژێک جیاواز بن لە ڕاگەیاندنە فەرمییەکانی بینینی مانگ — هەمیشە شوێن مزگەوتی ناوخۆیی خۆت یان دەسەڵاتەکەت بکەوە بۆ بەروارە ئاینییەکان.",
     "directionTitle": "ئاراستەی گۆڕانکاری",
     "resultFrom": "لە {{date}} ەوە",
     "quickLinksTitle": "پەیوەست",
@@ -4806,6 +4878,25 @@
     "basedOn": "Li ser bingeha",
     "editTime": "Dema {{prayer}} biguherîne",
     "editHint": "Encam dema tu demê biguherînî nû dibin.",
-    "nightLengthLabel": "Dirêjiya şevê"
+    "nightLengthLabel": "Dirêjiya şevê",
+    "willStartIn": "Di {{time}} de dest pê dike",
+    "timeRemaining": "{{time}} maye"
+  },
+  "friday": {
+    "eyebrow": "فێربوون",
+    "title": "هەینی و Jumu'ah",
+    "subtitle": "فەزیلەتەکان، ئامادەکاری، Surah al-Kahf، salawat و کاتی dua",
+    "intro": "هەینی باشترین ڕۆژە کە خۆر لەسەری هەڵدێت. پراکتیزە ڕەسەنەکانی Jumu'ah فێربە — ghusl، نوێژ، Surah al-Kahf، salawat و گەڕان بەدوای کاتی قبووڵکراو — لە قورئان و فەرموودەی صحیحەوە.",
+    "section": {
+      "virtues": "فەزیلەتەکانی هەینی",
+      "obligation": "نوێژی Jumu'ah",
+      "prepare": "ئامادەکاری",
+      "kahf": "Sûreta Kehf",
+      "salawat": "Silawat",
+      "dua": "کاتی dua"
+    },
+    "notFound": "بابەت نەدۆزرایەوە",
+    "disclaimer": "تێڕوانینێکی گشتی پەروەردەیی — نەک فەتوایەک. لەو شوێنانەی کە قوتابخانەکان جیاوازن (وەک ئەوەی ghuslی هەینی واجب بێت یان سوننەتی موئەککەدە)، هەردوو پۆستەکە دەخرێنەڕوو؛ شوێن ئیمامەکەت یان زانایەکی ناوخۆیی شارەزا بکەوە.",
+    "continueInApp": "لە Munib بەردەوام بە"
   }
 }

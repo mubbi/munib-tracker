@@ -58,3 +58,7 @@ export function getDuaByIdFrom(items: DuaItem[], id: string): DuaItem | undefine
 export function getZikrByIdFrom(items: ZikrItem[], id: string): ZikrItem | undefined {
   return items.find((item) => item.id === id);
 }
+
+export function getDuroodByIdFrom(items: DurudItem[], id: string): DurudItem | undefined {
+  return items.find((item) => item.id === id);
+}

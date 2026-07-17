@@ -154,6 +154,9 @@ export async function prefetchTrackDurations(
     const batch = tracks.slice(i, i + PREFETCH_BATCH);
     await Promise.all(
       batch.map(async (track) => {
+        if (track.source != null) return;
+        // TTS segments have no downloadable URI — duration is estimated elsewhere.
+        if (track.ttsPlayback?.text || !track.uri) return;
         const estimated = await estimateDurationFromUri(track.uri);
         if (estimated != null && estimated > 0) onDuration(track.id, estimated);
       }),

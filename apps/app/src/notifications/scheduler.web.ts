@@ -1,7 +1,11 @@
 import type { UserPreferences } from "@munib-tracker/shared/types";
 
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
-import { buildReminders, summarizeReminders } from "@/lib/notifications/build-reminders";
+import {
+  buildReminders,
+  hasOutstandingQazaDebt,
+  summarizeReminders,
+} from "@/lib/notifications/build-reminders";
 import {
   readNotificationPermissionUiState,
   requestNotificationPermission,
@@ -11,6 +15,7 @@ import {
   cancelWebReminderTimers,
   scheduleWebReminderTimers,
 } from "@/lib/notifications/web-reminder-scheduler";
+import { trackerStore } from "@/stores/tracker-store";
 
 /**
  * Web build of the notification scheduler. Uses in-app timers + optional browser
@@ -18,6 +23,11 @@ import {
  */
 
 export const SNOOZE_ACTION_IDENTIFIER = "snooze";
+
+function buildReminderOptions() {
+  const { qazaCounters, roza } = trackerStore.getState();
+  return { hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza) };
+}
 
 export async function configureNotifications(): Promise<void> {
   return;
@@ -41,7 +51,7 @@ export async function rescheduleAll(
   cancelWebReminderTimers();
   if (!prefs.notificationPrefs.masterEnabled) return;
 
-  const reminders = buildReminders(prefs, location);
+  const reminders = buildReminders(prefs, location, new Date(), buildReminderOptions());
   scheduleWebReminderTimers(reminders);
 }
 
@@ -57,7 +67,7 @@ export async function listScheduled(
 > {
   if (!prefs.notificationPrefs.masterEnabled) return [];
   return summarizeReminders(
-    buildReminders(prefs, location),
+    buildReminders(prefs, location, new Date(), buildReminderOptions()),
     prefs.timeFormat,
     new Date(),
     location.timeZone,

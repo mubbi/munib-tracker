@@ -94,6 +94,7 @@ export function parseReminderKey(key: string): ParsedReminder | null {
 
 export function extractReminderKey(rowId: string, inboxId?: string): string | undefined {
   if (inboxId?.startsWith("os-")) return inboxId.slice(3);
+  if (inboxId?.startsWith("web-")) return inboxId.slice(4);
   if (rowId.startsWith("scheduled:")) return rowId.slice("scheduled:".length);
   return undefined;
 }

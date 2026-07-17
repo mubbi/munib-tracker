@@ -55,15 +55,54 @@ export async function uploadUserMedia(
   return result.items;
 }
 
-export async function deleteUserMedia(accessToken: string, mediaId: string): Promise<void> {
+export async function deleteUserMedia(
+  accessToken: string | undefined,
+  mediaId: string,
+): Promise<void> {
   await apiFetch(
     { url: `/user-media/${encodeURIComponent(mediaId)}`, method: "DELETE" },
     apiAuthOptions(accessToken),
   );
 }
 
-export async function deleteUserMediaMany(accessToken: string, mediaIds: string[]): Promise<void> {
-  await Promise.all(mediaIds.map((id) => deleteUserMedia(accessToken, id).catch(() => undefined)));
+export async function deleteUserMediaMany(
+  accessToken: string | undefined,
+  mediaIds: string[],
+): Promise<void> {
+  const unique = [...new Set(mediaIds.filter(Boolean))];
+  if (unique.length === 0) return;
+  // Prefer success for every id; ignore 404 (already gone) so deletes stay idempotent.
+  await Promise.all(
+    unique.map(async (id) => {
+      try {
+        await deleteUserMedia(accessToken, id);
+      } catch (error) {
+        if (error instanceof ApiError && error.status === 404) return;
+        // Best-effort: continue other ids; caller may still remove the local adhkar.
+      }
+    }),
+  );
+}
+
+/** Media ids attached to a custom adhkar (Cloudinary / user-media rows). */
+export function customAdhkarMediaIds(
+  images: Array<{ mediaId?: string }> | undefined | null,
+): string[] {
+  if (!images?.length) return [];
+  return [
+    ...new Set(images.map((image) => image.mediaId).filter((id): id is string => Boolean(id))),
+  ];
+}
+
+/**
+ * Delete private attachments for a custom adhkar from the API (and Cloudinary).
+ * No-op when there are no media ids.
+ */
+export async function purgeCustomAdhkarAttachments(
+  accessToken: string | undefined,
+  images: Array<{ mediaId?: string }> | undefined | null,
+): Promise<void> {
+  await deleteUserMediaMany(accessToken, customAdhkarMediaIds(images));
 }
 
 export function isGuestUserMediaError(error: unknown): boolean {

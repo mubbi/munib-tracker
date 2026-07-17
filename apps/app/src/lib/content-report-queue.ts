@@ -3,7 +3,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { DB_KEYS } from "@/db/keys";
 import type { ReportAttachmentInput } from "@/lib/content-report-api";
-import { submitContentReport } from "@/lib/content-report-api";
+import { isOfflineReportError, submitContentReport } from "@/lib/content-report-api";
+
+/**
+ * Bump when queue semantics change. v1 incorrectly stored HTTP 5xx failures;
+ * clearing avoids resubmitting those poisoned payloads once the server recovers.
+ */
+const QUEUE_SCHEMA_VERSION = "2";
+const QUEUE_SCHEMA_KEY = `${DB_KEYS.contentReportQueue}:schema`;
 
 export type QueuedContentReport = {
   id: string;
@@ -17,7 +24,15 @@ export type QueuedContentReport = {
   }>;
 };
 
+async function ensureQueueSchema(): Promise<void> {
+  const version = await AsyncStorage.getItem(QUEUE_SCHEMA_KEY);
+  if (version === QUEUE_SCHEMA_VERSION) return;
+  await AsyncStorage.multiRemove([DB_KEYS.contentReportQueue, QUEUE_SCHEMA_KEY]);
+  await AsyncStorage.setItem(QUEUE_SCHEMA_KEY, QUEUE_SCHEMA_VERSION);
+}
+
 async function readQueue(): Promise<QueuedContentReport[]> {
+  await ensureQueueSchema();
   const raw = await AsyncStorage.getItem(DB_KEYS.contentReportQueue);
   if (!raw) return [];
   try {
@@ -29,6 +44,7 @@ async function readQueue(): Promise<QueuedContentReport[]> {
 }
 
 async function writeQueue(items: QueuedContentReport[]): Promise<void> {
+  await ensureQueueSchema();
   await AsyncStorage.setItem(DB_KEYS.contentReportQueue, JSON.stringify(items));
 }
 
@@ -61,7 +77,9 @@ export async function flushContentReportQueue(accessToken: string): Promise<numb
   const remaining: QueuedContentReport[] = [];
   let sent = 0;
 
-  for (const item of queue) {
+  for (let index = 0; index < queue.length; index += 1) {
+    const item = queue[index];
+    if (!item) continue;
     try {
       await submitContentReport(
         accessToken,
@@ -73,10 +91,14 @@ export async function flushContentReportQueue(accessToken: string): Promise<numb
         })),
       );
       sent += 1;
-    } catch {
-      const failedIndex = queue.indexOf(item);
-      remaining.push(...queue.slice(failedIndex));
-      break;
+    } catch (error) {
+      if (isOfflineReportError(error)) {
+        // Still offline — keep this item and everything after.
+        remaining.push(...queue.slice(index));
+        break;
+      }
+      // Permanent failure (4xx/5xx/validation) — drop and continue so focus
+      // flushes never hammer the same bad payload.
     }
   }
 
@@ -94,5 +116,5 @@ export async function readContentReportQueueForTests(): Promise<QueuedContentRep
 }
 
 export async function clearContentReportQueueForTests(): Promise<void> {
-  await AsyncStorage.removeItem(DB_KEYS.contentReportQueue);
+  await AsyncStorage.multiRemove([DB_KEYS.contentReportQueue, QUEUE_SCHEMA_KEY]);
 }

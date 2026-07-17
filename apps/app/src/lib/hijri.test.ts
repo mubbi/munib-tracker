@@ -9,15 +9,47 @@ import {
 } from "@/lib/hijri";
 
 describe("gregorianToHijri", () => {
-  // Reference dates cross-checked against the Umm al-Qura calendar (tabular
-  // conversion stays within a day of it).
+  // Reference dates from the official Umm al-Qura calendar (matches ICU's
+  // `islamic-umalqura` and mainstream Hijri converters exactly).
   it.each([
     ["2023-03-23", { year: 1444, month: 9, day: 1 }], // start of Ramadan 1444
     ["2000-01-01", { year: 1420, month: 9, day: 24 }],
-    ["2026-07-03", { year: 1448, month: 1, day: 17 }],
+    ["2026-07-03", { year: 1448, month: 1, day: 18 }],
+    ["2026-07-15", { year: 1448, month: 2, day: 1 }], // start of Safar 1448
+    ["2026-07-18", { year: 1448, month: 2, day: 4 }],
   ])("converts %s", (input, expected) => {
     const [y, m, d] = input.split("-").map(Number);
     expect(gregorianToHijri(new Date(y, m - 1, d))).toEqual(expected);
+  });
+
+  it("matches ICU's islamic-umalqura calendar exactly", () => {
+    const fmt = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+      timeZone: "UTC",
+    });
+    const icuHijri = (date: Date) => {
+      const parts = fmt.formatToParts(date);
+      const get = (type: string) => Number(parts.find((p) => p.type === type)?.value);
+      return { year: get("year"), month: get("month"), day: get("day") };
+    };
+    // Every day across 2024–2030, plus a sparse sweep over the full
+    // 1300–1600 AH table (every 97 days from 1883 to 2174).
+    const cursor = new Date(2024, 0, 1);
+    for (let i = 0; i < 2557; i += 1) {
+      expect(gregorianToHijri(cursor)).toEqual(
+        icuHijri(new Date(Date.UTC(cursor.getFullYear(), cursor.getMonth(), cursor.getDate(), 12))),
+      );
+      cursor.setDate(cursor.getDate() + 1);
+    }
+    const sweep = new Date(1883, 0, 15);
+    while (sweep.getFullYear() < 2174) {
+      expect(gregorianToHijri(sweep)).toEqual(
+        icuHijri(new Date(Date.UTC(sweep.getFullYear(), sweep.getMonth(), sweep.getDate(), 12))),
+      );
+      sweep.setDate(sweep.getDate() + 97);
+    }
   });
 
   it("produces months in 1..12 and days in 1..30", () => {
@@ -34,6 +66,19 @@ describe("hijriToGregorian", () => {
     // Walk every day across ~10 years and require a perfect round-trip.
     const cursor = new Date(2020, 0, 1);
     for (let i = 0; i < 3653; i += 1) {
+      const h = gregorianToHijri(cursor);
+      const back = hijriToGregorian(h.year, h.month, h.day);
+      expect(back.getFullYear()).toBe(cursor.getFullYear());
+      expect(back.getMonth()).toBe(cursor.getMonth());
+      expect(back.getDate()).toBe(cursor.getDate());
+      cursor.setDate(cursor.getDate() + 1);
+    }
+  });
+
+  it("round-trips outside the Umm al-Qura table via the tabular fallback", () => {
+    // 1850 predates the table (starts 1882-11-12 / 1300 AH).
+    const cursor = new Date(1850, 0, 1);
+    for (let i = 0; i < 366; i += 1) {
       const h = gregorianToHijri(cursor);
       const back = hijriToGregorian(h.year, h.month, h.day);
       expect(back.getFullYear()).toBe(cursor.getFullYear());
@@ -62,12 +107,12 @@ describe("hijriMonthLength", () => {
 
 describe("hijriMonthProgress", () => {
   it("reports days remaining from the Hijri day, not the astronomical cycle", () => {
-    // 2026-07-15 → 29 Muharram 1448 (30-day month) → 1 day left until Safar.
-    const hijri = gregorianToHijri(new Date(2026, 6, 15));
+    // 2026-07-14 → 29 Muharram 1448 (29-day month in Umm al-Qura) → last day.
+    const hijri = gregorianToHijri(new Date(2026, 6, 14));
     expect(hijri).toEqual({ year: 1448, month: 1, day: 29 });
     expect(hijriMonthProgress(hijri)).toEqual({
-      length: 30,
-      daysRemaining: 1,
+      length: 29,
+      daysRemaining: 0,
       nextMonth: 2,
       nextYear: 1448,
     });

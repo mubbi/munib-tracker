@@ -1,11 +1,12 @@
 import { Image } from "expo-image";
-import { SymbolView } from "expo-symbols";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { apiAuthHeaders } from "@/api/auth-options";
+import { AttachmentMediaLoader, AttachmentThumb } from "@/components/attachments/attachment-thumb";
+import { PdfPreview } from "@/components/attachments/pdf-preview";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
@@ -71,12 +72,17 @@ function ZoomableImage({
   width: number;
   height: number;
 }) {
+  const [ready, setReady] = useState(false);
   const scale = useSharedValue(1);
   const savedScale = useSharedValue(1);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const savedTranslateX = useSharedValue(0);
   const savedTranslateY = useSharedValue(0);
+
+  useEffect(() => {
+    setReady(false);
+  }, []);
 
   const clampTranslation = (nextScale: number, x: number, y: number) => {
     "worklet";
@@ -152,16 +158,22 @@ function ZoomableImage({
   }));
 
   return (
-    <GestureDetector gesture={composed}>
-      <Animated.View style={[{ width, height }, animatedStyle]}>
-        <Image
-          source={{ uri, headers }}
-          style={{ width, height }}
-          contentFit="contain"
-          accessibilityIgnoresInvertColors
-        />
-      </Animated.View>
-    </GestureDetector>
+    <View style={{ width, height }}>
+      {!ready ? <AttachmentMediaLoader onDark style={StyleSheet.absoluteFill} /> : null}
+      <GestureDetector gesture={composed}>
+        <Animated.View style={[{ width, height, opacity: ready ? 1 : 0 }, animatedStyle]}>
+          <Image
+            source={{ uri, headers }}
+            style={{ width, height }}
+            contentFit="contain"
+            transition={180}
+            onLoad={() => setReady(true)}
+            onError={() => setReady(true)}
+            accessibilityIgnoresInvertColors
+          />
+        </Animated.View>
+      </GestureDetector>
+    </View>
   );
 }
 
@@ -202,7 +214,7 @@ export function CustomAdhkarImageGallery({
     );
   }, [resolved.length]);
 
-  const openPdf = useCallback(
+  const openPdfExternally = useCallback(
     async (item: ViewerItem) => {
       try {
         await openAttachmentExternally({
@@ -210,6 +222,7 @@ export function CustomAdhkarImageGallery({
           mimeType: item.mimeType,
           fileName: item.filename,
           dialogTitle: t("customAdhkar.attachments.openPdf"),
+          headers: item.headers,
         });
       } catch {
         toast.error(t("customAdhkar.attachments.openFailed"));
@@ -223,6 +236,7 @@ export function CustomAdhkarImageGallery({
   const active = viewerIndex !== null ? resolved[viewerIndex] : null;
   const thumbSize = compact ? 72 : 96;
   const activeIsPdf = active ? isPdfMime(active.mimeType) : false;
+  const stageHeight = Math.max(240, windowHeight - (activeIsPdf ? 180 : 140));
 
   return (
     <>
@@ -232,13 +246,7 @@ export function CustomAdhkarImageGallery({
             key={item.key}
             accessibilityRole="button"
             accessibilityLabel={t("customAdhkar.attachments.open", { index: index + 1 })}
-            onPress={() => {
-              if (isPdfMime(item.mimeType)) {
-                void openPdf(item);
-                return;
-              }
-              setViewerIndex(index);
-            }}
+            onPress={() => setViewerIndex(index)}
             style={[
               styles.thumb,
               {
@@ -249,27 +257,18 @@ export function CustomAdhkarImageGallery({
               },
             ]}
           >
-            {isPdfMime(item.mimeType) ? (
-              <View style={styles.pdfThumb}>
-                <SymbolView
-                  name={{ ios: "doc.richtext", android: "picture_as_pdf", web: "picture_as_pdf" }}
-                  size={26}
-                  tintColor={colors.accent}
-                />
-              </View>
-            ) : (
-              <Image
-                source={{ uri: item.uri, headers: item.headers }}
-                style={styles.thumbImage}
-                contentFit="cover"
-              />
-            )}
+            <AttachmentThumb
+              uri={item.uri}
+              mimeType={item.mimeType}
+              headers={item.headers}
+              iconSize={compact ? 22 : 26}
+            />
           </Pressable>
         ))}
       </View>
 
       <Modal
-        visible={active !== null && !activeIsPdf}
+        visible={active !== null}
         transparent
         animationType="fade"
         onRequestClose={closeViewer}
@@ -294,20 +293,33 @@ export function CustomAdhkarImageGallery({
             />
           </View>
 
-          {active && !activeIsPdf ? (
-            <View style={styles.viewerStage}>
-              <ZoomableImage
-                key={active.key}
-                uri={active.uri}
-                headers={active.headers}
-                width={windowWidth}
-                height={Math.max(240, windowHeight - 140)}
-              />
+          {active ? (
+            <View style={[styles.viewerStage, { height: stageHeight }]}>
+              {activeIsPdf ? (
+                <PdfPreview
+                  key={active.key}
+                  uri={active.uri}
+                  fileName={active.filename}
+                  headers={active.headers}
+                  style={{ width: windowWidth - Spacing.four * 2, height: stageHeight }}
+                  onOpenExternally={() => void openPdfExternally(active)}
+                />
+              ) : (
+                <ZoomableImage
+                  key={active.key}
+                  uri={active.uri}
+                  headers={active.headers}
+                  width={windowWidth}
+                  height={stageHeight}
+                />
+              )}
             </View>
           ) : null}
 
           <ThemedText type="caption" style={styles.viewerHint}>
-            {t("customAdhkar.attachments.zoomHint")}
+            {activeIsPdf
+              ? t("customAdhkar.attachments.pdfHint")
+              : t("customAdhkar.attachments.zoomHint")}
           </ThemedText>
 
           {resolved.length > 1 ? (
@@ -335,7 +347,7 @@ export function CustomAdhkarImageGallery({
             <View style={styles.pdfActions}>
               <Button
                 label={t("customAdhkar.attachments.openPdf")}
-                onPress={() => void openPdf(active)}
+                onPress={() => void openPdfExternally(active)}
               />
             </View>
           ) : null}
@@ -357,12 +369,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderWidth: StyleSheet.hairlineWidth,
   },
-  thumbImage: { width: "100%", height: "100%" },
-  pdfThumb: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   viewerBackdrop: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.92)",
@@ -381,6 +387,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: Spacing.two,
   },
   viewerHint: {
     color: "rgba(255,255,255,0.72)",

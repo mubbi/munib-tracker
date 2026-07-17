@@ -19,6 +19,15 @@ export type AudioTrack = {
   uri: string;
   /** Bundled asset module (from `require()`), used instead of `uri` when set. */
   source?: number;
+  /**
+   * When set, the mini-player speaks this text via platform TTS instead of
+   * loading `uri`. Enables pause/rate/next for custom-adhkar listen.
+   */
+  ttsPlayback?: {
+    text: string;
+    lang: string;
+    voice?: string;
+  };
   /** Optional translation text spoken after the Arabic track via native TTS. */
   tts?: {
     text: string;

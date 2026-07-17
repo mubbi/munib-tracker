@@ -173,6 +173,7 @@
     "history": "Islamic History",
     "laylatAlQadr": "Laylat al-Qadr",
     "eid": "Eid Guide",
+    "friday": "Friday & Jumu'ah",
     "ruqyah": "Ruqyah",
     "newMuslim": "New Muslim Guide",
     "finance": "Islamic Finance",
@@ -307,6 +308,14 @@
     "gentleReminder": "Gentle reminder",
     "gentleReminderBody": "Small, steady steps matter more than perfection. Log what you complete and return tomorrow.",
     "knowledgeShuffle": "Show another card",
+    "fridayCard": {
+      "badge": "Friday",
+      "reminderTitle": "Jumu'ah Mubarak",
+      "reminderBody": "Pray Jumu'ah and complete Friday sunnah — ghusl, Surah al-Kahf, salawat, and dua.",
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "All Friday practices logged — may Allah accept them.",
+      "openChecklist": "Open Jumu'ah checklist"
+    },
     "knowledgeKind": {
       "quran": "Qur'an verse",
       "hadith": "Hadith",
@@ -488,6 +497,43 @@
       "adhkar": "Adhkar",
       "qaza": "Qaza",
       "a11y": "{{label}}: {{percent}}% complete, {{completed}} of {{total}}"
+    },
+    "friday": {
+      "title": "Jumu'ah checklist",
+      "subtitle": "Sunnah practices for Friday — shown only on Fridays",
+      "progress": "{{completed}} of {{total}}",
+      "details": "Details",
+      "openRelated": "Open related content",
+      "learnMore": "Learn Friday practices",
+      "jumpTitle": "Jumu'ah checklist",
+      "jumpHint": "Friday sunnah practices below",
+      "jumpA11y": "Go to Jumu'ah checklist on this page",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl for Friday",
+          "hint": "Bathe before going to the masjid"
+        },
+        "prepare": {
+          "title": "Best clothes & fragrance",
+          "hint": "Dress clean and apply a light scent if able"
+        },
+        "jumuah": {
+          "title": "Attend Jumu'ah (or pray Dhuhr)",
+          "hint": "Khutbah + two rak'ahs; excused pray Dhuhr"
+        },
+        "kahf": {
+          "title": "Read Surah al-Kahf",
+          "hint": "A light between the two Fridays"
+        },
+        "salawat": {
+          "title": "Increase salawat",
+          "hint": "Send blessings upon the Prophet ﷺ"
+        },
+        "dua": {
+          "title": "Seek the hour of dua",
+          "hint": "Especially in the last hour after Asr"
+        }
+      }
     },
     "allDone": "MashaAllah — all done",
     "freshStart": "A fresh start",
@@ -1109,6 +1155,7 @@
     "subtitle": "Sending blessings upon the Prophet ﷺ",
     "searchPlaceholder": "Search duroods…",
     "noResults": "No duroods match your search",
+    "openInTasbeeh": "Open in Tasbeeh",
     "favorites": "Favorite duroods",
     "favSubtitle": "Duroods you've saved",
     "favEmptyTitle": "No favorite duroods yet",
@@ -1907,11 +1954,11 @@
       "newMonthTitle": "A new month begins",
       "newMonthBody": "The thin crescent (hilāl) marks the start of {{month}}. Each Islamic month begins when the crescent is first sighted after Maghrib — not at the astronomical conjunction.",
       "monthTurnTitle": "Look for the crescent",
-      "monthTurnBody": "After Maghrib, look for the hilāl of {{month}}. Islamic months begin with the sighted crescent; local moon-sighting may differ from this calendar by a day.",
+      "monthTurnBody": "After Maghrib, look for the hilāl of {{month}}. Islamic months begin with the sighted crescent; your local authority's announcement may differ from this calculation by a day.",
       "fullTitle": "Full moon tonight",
       "fullBody": "The moon is fully lit near the middle of {{month}} — the nights of the White Days, when fasting is especially recommended.",
       "generalTitle": "A calendar of the moon",
-      "generalBody": "The Islamic (Hijri) calendar follows the moon: every month is 29 or 30 days, beginning with the sighted crescent (hilāl). Dates here use a tabular calendar for your location and may differ from local sighting by a day."
+      "generalBody": "The Islamic (Hijri) calendar follows the moon: every month is 29 or 30 days, beginning with the sighted crescent (hilāl). Dates here are calculated from crescent visibility at your location and may differ from your local authority's announcement by a day."
     }
   },
   "achievements": {
@@ -2118,10 +2165,20 @@
   "profile": {
     "eyebrow": "Account",
     "title": "Profile",
-    "subtitle": "Your details and account",
+    "subtitle": "Name, sync, and sign-in",
     "guestName": "Guest",
     "changeAvatar": "Change avatar",
+    "editName": "Edit display name",
+    "signedInWith": "Signed in with {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
     "signInToSync": "Sign in to sync",
+    "signInHint": "Link an account to back up your Salah, Zikr, and Qaza across devices.",
+    "sessionTitle": "Session",
+    "sessionHint": "Sign out on this device. Your cloud data stays safe.",
+    "dangerTitle": "Danger zone",
+    "dangerHint": "Permanently erase your account and local data. This cannot be undone.",
     "signOutTitle": "Sign out?",
     "signOutMsg": "You'll return to a guest session on this device. Your account and synced data stay safe — sign in again anytime to continue syncing.",
     "deleteAccount": "Delete account & data",
@@ -2241,6 +2298,8 @@
     "expand": "Expand player",
     "speed": "Playback speed",
     "speedValue": "Speed {{value}}×",
+    "ttsVoice": "Voice",
+    "ttsVoiceHint": "Choose a text-to-speech voice",
     "loopOff": "Repeat off",
     "loopAll": "Repeat all",
     "loopOne": "Repeat once",
@@ -2279,6 +2338,9 @@
     },
     "tasbeehZikr": {
       "description": "Count this zikr with a tactile tasbeeh counter."
+    },
+    "tasbeehDurood": {
+      "description": "Count this durood with a tactile tasbeeh counter."
     },
     "tasbeehCustom": {
       "description": "Your custom tasbeeh counter."
@@ -3450,7 +3512,7 @@
     "today": "Today",
     "inDays": "in {{count}} days",
     "hijriYear": "{{year}} AH",
-    "disclaimer": "Dates are calculated estimates — the actual day depends on local moon-sighting.",
+    "disclaimer": "Dates follow crescent visibility at your location (or the official Umm al-Qura calendar in regions that use it) and can differ by a day from a local authority announcement.",
     "names": {
       "newYear": "Islamic New Year",
       "ashura": "Day of Ashura",
@@ -3898,6 +3960,9 @@
     "confirmDeleteMsg": "“{{title}}” will be removed permanently.",
     "emptyTitle": "No custom adhkar yet",
     "emptyDesc": "Add your own zikr with its Arabic text, transliteration, and meaning.",
+    "searchPlaceholder": "Search your adhkar",
+    "noResults": "No matching adhkar",
+    "itemNumberLabel": "{{number}}. {{title}}",
     "field": {
       "title": "Title",
       "arabic": "Arabic text",
@@ -3926,7 +3991,7 @@
       "label": "Attachments (optional)",
       "add": "Add file",
       "remove": "Remove attachment",
-      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Long-press a thumbnail to remove.",
+      "hint": "Up to 5 files (JPEG, PNG, WebP, or PDF), 1 MB each. Tap × on a thumbnail to remove.",
       "signInRequired": "Sign in to attach private files to your adhkar.",
       "permissionDenied": "Permission is required to attach files.",
       "permissionTitle": "Allow access",
@@ -3945,6 +4010,9 @@
       "zoomHint": "Pinch to zoom, drag to pan, double-tap to reset",
       "previous": "Previous attachment",
       "next": "Next attachment",
+      "loadingPdf": "Loading PDF…",
+      "pdfHint": "Scroll · pinch or use +/− to zoom · double-tap to reset · Open PDF to share",
+      "pdfPreviewTitle": "PDF preview",
       "openPdf": "Open PDF",
       "sourceTitle": "Add attachment",
       "sourceCamera": "Take a photo",
@@ -3995,6 +4063,8 @@
     "editTime": "Edit {{prayer}} time",
     "editHint": "Results update as you change the time.",
     "lastThirdLabel": "Last third starts",
+    "willStartIn": "Will start in {{time}}",
+    "timeRemaining": "{{time}} remaining",
     "midNightLabel": "Mid night",
     "nightLengthLabel": "Night length",
     "nightDuration": "Night length: {{duration}}",
@@ -4422,14 +4492,18 @@
     "issueTypeLabel": "What type of issue is this?",
     "descriptionLabel": "What's wrong?",
     "descriptionPlaceholder": "Describe the issue in detail — what you expected vs what you see.",
+    "descriptionMinHint": "Minimum {{min}} characters required",
     "correctionLabel": "Suggested correction (optional)",
     "correctionPlaceholder": "Provide the correct Arabic, translation, reference, or missing text.",
     "sourceLabel": "Your source (optional)",
     "sourcePlaceholder": "Book, scholar, URL, or citation supporting your correction.",
     "proofLabel": "Proof screenshots (optional)",
-    "proofHint": "Up to 3 images. Long-press a thumbnail to remove.",
+    "proofHint": "Up to 3 images (JPEG, PNG, or WebP). Tap × on a thumbnail to remove.",
     "addProof": "Add photo",
     "removeProof": "Remove screenshot",
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
     "submit": "Submit report",
     "submitSuccess": "Report submitted — thank you",
     "submitFailed": "Could not submit report. Try again.",
@@ -4631,6 +4705,23 @@
     "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as the extra-takbir count), both positions are presented; follow your imam or a qualified local scholar.",
     "continueInApp": "Continue in Munib"
   },
+  "friday": {
+    "eyebrow": "Learn",
+    "title": "Friday & Jumu'ah",
+    "subtitle": "Virtues, preparation, Surah al-Kahf, salawat, and the hour of dua",
+    "intro": "Friday is the best day the sun rises on. Learn the authentic practices of Jumu'ah — ghusl, the prayer, Surah al-Kahf, salawat, and seeking the accepted hour — from the Qur'an and sahih hadith.",
+    "section": {
+      "virtues": "Virtues of Friday",
+      "obligation": "Jumu'ah prayer",
+      "prepare": "Preparation",
+      "kahf": "Surah al-Kahf",
+      "salawat": "Salawat",
+      "dua": "Hour of dua"
+    },
+    "notFound": "Topic not found",
+    "disclaimer": "Educational overview — not a fatwa. Where schools differ (such as whether Friday ghusl is wajib or sunnah mu'akkadah), both positions are noted; follow your imam or a qualified local scholar.",
+    "continueInApp": "Continue in Munib"
+  },
   "ruqyah": {
     "eyebrow": "Learn",
     "title": "Ruqyah",
@@ -4684,7 +4775,7 @@
     "eyebrow": "Calendar",
     "title": "Date converter",
     "subtitle": "Convert between the Hijri and Gregorian calendars",
-    "intro": "Enter a date in either calendar to see its equivalent in the other, calculated offline using the tabular Kuwaiti algorithm.",
+    "intro": "Enter a date in either calendar to see its equivalent in the other, calculated offline from crescent visibility at your location.",
     "directionTitle": "Conversion direction",
     "toHijri": "Gregorian → Hijri",
     "toGregorian": "Hijri → Gregorian",
@@ -4710,6 +4801,6 @@
     "exploreCalendarHint": "See worship history day by day",
     "exploreEvents": "Open Islamic events",
     "exploreEventsHint": "Milestones and observances ahead",
-    "disclaimer": "This is an arithmetic approximation (the tabular \"Kuwaiti algorithm\") and can differ by a day from local moon-sighting announcements — always follow your local masjid or authority for religious dates."
+    "disclaimer": "Dates are calculated from crescent (hilāl) visibility at your location and can differ by a day from official moon-sighting announcements — always follow your local masjid or authority for religious dates."
   }
 }

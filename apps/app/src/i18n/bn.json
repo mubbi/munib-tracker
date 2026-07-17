@@ -177,7 +177,8 @@
     "finance": "ইসলামিক ফাইন্যান্স",
     "flashCards": "ফ্ল্যাশ কার্ড",
     "verseDetector": "আয়াত শনাক্তকারী",
-    "lastThirdNight": "রাতের শেষ তৃতীয়াংশ"
+    "lastThirdNight": "রাতের শেষ তৃতীয়াংশ",
+    "friday": "শুক্রবার ও জুমুআহ"
   },
   "quickActions": {
     "checklistSubtitle": "আজকের নামাজ লগ করুন",
@@ -456,6 +457,14 @@
         "text": "ছোট তাসবীহ সেশনও গণনা হয়। যিকির শুধু দীর্ঘ বসার জন্য নয় — দশ দিয়ে শুরু করুন।",
         "topic": "যিকির"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "সব শুক্রবারের আমল নথিভুক্ত — আল্লাহ কবুল করুন।",
+      "openChecklist": "জুমুআহ চেকলিস্ট খুলুন",
+      "badge": "শুক্রবার",
+      "reminderTitle": "জুমআ মুবারক",
+      "reminderBody": "জুমুআহ আদায় করুন এবং শুক্রবারের সুন্নত পূর্ণ করুন — গোসল, সূরা আল-কাহফ, সালাওয়াত ও দুআ।"
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "{{prayer}}-এর পর",
     "afterSalahAdhkarReminderBody": "তাসবীহ ও নামাজ-পরবর্তী আযকারের জন্য একটু সময় নিন।",
     "afterSalahProgress": "আযকার {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}}-এর পর আযকার: আজ {{total}}-এর {{completed}} সম্পন্ন"
+    "afterSalahProgressA11y": "{{prayer}}-এর পর আযকার: আজ {{total}}-এর {{completed}} সম্পন্ন",
+    "friday": {
+      "title": "জুমুআহ চেকলিস্ট",
+      "subtitle": "শুক্রবারের সুন্নত আমল — শুধু শুক্রবারে দেখানো হয়",
+      "progress": "{{total}}-এর {{completed}}",
+      "openRelated": "সংশ্লিষ্ট বিষয় খুলুন",
+      "learnMore": "শুক্রবারের আমল শিখুন",
+      "items": {
+        "ghusl": {
+          "title": "শুক্রবারের গোসল",
+          "hint": "মসজিদে যাওয়ার আগে গোসল করুন"
+        },
+        "prepare": {
+          "title": "সেরা পোশাক ও সুগন্ধি",
+          "hint": "পরিচ্ছন্ন পোশাক পরুন এবং সক্ষম হলে হালকা সুগন্ধ লাগান"
+        },
+        "jumuah": {
+          "title": "জুমুআহে হাজির হন (বা যোহর আদায় করুন)",
+          "hint": "খুতবা + দুই রাকআত; ওজর থাকলে যোহর আদায়"
+        },
+        "kahf": {
+          "title": "সূরা আল-কাহফ পড়ুন",
+          "hint": "দুই শুক্রবারের মধ্যে এক নূর"
+        },
+        "salawat": {
+          "title": "সালাওয়াত বাড়ান",
+          "hint": "নবী ﷺ-এর উপর দরুদ পাঠান"
+        },
+        "dua": {
+          "title": "দুআর সময় খুঁজুন",
+          "hint": "বিশেষ করে আসরের পর শেষ ঘণ্টায়"
+        }
+      },
+      "details": "বিস্তারিত",
+      "jumpTitle": "জুমুআহ চেকলিস্ট",
+      "jumpHint": "নিচে শুক্রবারের সুন্নত আমল",
+      "jumpA11y": "এই পৃষ্ঠার জুমুআহ চেকলিস্টে যান"
+    }
   },
   "update": {
     "title": "আপডেট উপলব্ধ",
@@ -987,7 +1033,7 @@
     "emptyDesc": "More entries জন্য এই category হয় এ  way.",
     "detailEyebrow": "যিকির",
     "today": "আজ",
-    "openInTasbeeh": "in তাসবীহ খুলুন",
+    "openInTasbeeh": "তাসবীহে খুলুন",
     "favorite": "Favorit",
     "favorited": "Difavoritkan",
     "share": "শেয়ার",
@@ -1113,7 +1159,8 @@
     "favorites": "প্রিয় দরুদ",
     "favSubtitle": "আপনি যে দরুদ সংরক্ষণ করেছেন",
     "favEmptyTitle": "এখনো কোনো প্রিয় দরুদ নেই",
-    "favEmptyDesc": "এখানে সংরক্ষণ করতে যেকোনো দরুদে তারা আইকনে ট্যাপ করুন।"
+    "favEmptyDesc": "এখানে সংরক্ষণ করতে যেকোনো দরুদে তারা আইকনে ট্যাপ করুন।",
+    "openInTasbeeh": "তাসবীহে খুলুন"
   },
   "names": {
     "eyebrow": "আসমাউল হুসনা",
@@ -1908,9 +1955,9 @@
       "fullTitle": "Penuh moon tonight",
       "fullBody": " moon হয় fully lit near  middle এর {{month}} —  nights এর  White দিন, when রোজা হয় especially recommended.",
       "generalTitle": " ক্যালেন্ডার এর  moon",
-      "generalBody": "ইসলামি (হিজরি) ক্যালেন্ডার চাঁদ অনুসরণ করে: প্রতিটি মাস ২৯ বা ৩০ দিনের, দেখা হিলাল (hilāl) দিয়ে শুরু হয়। এখানে তারিখগুলো আপনার অবস্থানের জন্য ট্যাবুলার ক্যালেন্ডার অনুযায়ী এবং স্থানীয় দর্শন থেকে এক দিন পার্থক্য হতে পারে।",
+      "generalBody": "ইসলামি (হিজরি) ক্যালেন্ডার চাঁদ অনুসরণ করে: প্রতি মাস ২৯ বা ৩০ দিন, দৃশ্যমান হিলাল দিয়ে শুরু। এখানকার তারিখ আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে গণনা করা হয় এবং স্থানীয় কর্তৃপক্ষের ঘোষণা থেকে এক দিন আলাদা হতে পারে।",
       "monthTurnTitle": "হিলাল খুঁজুন",
-      "monthTurnBody": "মাগরিবের পর {{month}} এর হিলাল খুঁজুন। ইসলামি মাসগুলি দেখা হিলাল দিয়ে শুরু হয়; স্থানীয় চাঁদ দেখা এই ক্যালেন্ডার থেকে এক দিন পার্থক্য হতে পারে।"
+      "monthTurnBody": "মাগরিবের পর {{month}}-এর হিলাল খুঁজুন। ইসলামি মাস দৃশ্যমান হিলাল দিয়ে শুরু হয়; আপনার স্থানীয় কর্তৃপক্ষের ঘোষণা এই হিসাব থেকে এক দিন আলাদা হতে পারে।"
     },
     "monthProgress": "মাসের অগ্রগতি",
     "monthProgressValue": "{{month}} · {{length}} দিনের {{day}}তম দিন",
@@ -2128,7 +2175,7 @@
   "profile": {
     "eyebrow": "Akaun",
     "title": "প্রোফাইল",
-    "subtitle": "আপনার details এবং account",
+    "subtitle": "নাম, সিঙ্ক ও সাইন-ইন",
     "guestName": "অতিথি",
     "changeAvatar": "অবতার পরিবর্তন",
     "signInToSync": "Sign এ তে sync",
@@ -2163,7 +2210,17 @@
       "not_using": "আর ব্যবহার করি না",
       "technical_issues": "প্রযুক্তিগত সমস্যা বা বাগ",
       "other": "অন্যান্য"
-    }
+    },
+    "editName": "প্রদর্শন নাম সম্পাদনা",
+    "signedInWith": "{{provider}}-এর মাধ্যমে সাইন ইন",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "ডিভাইসজুড়ে আপনার Salah, Zikr ও Qaza ব্যাকআপ করতে একটি অ্যাকাউন্ট সংযুক্ত করুন।",
+    "sessionTitle": "সেশন",
+    "sessionHint": "এই ডিভাইস থেকে সাইন আউট করুন। ক্লাউড ডেটা নিরাপদ থাকবে।",
+    "dangerTitle": "বিপদ অঞ্চল",
+    "dangerHint": "আপনার অ্যাকাউন্ট ও স্থানীয় ডেটা স্থায়ীভাবে মুছে ফেলুন। এটি ফেরানো যায় না।"
   },
   "sync": {
     "title": "Cloud সিঙ্ক",
@@ -2259,7 +2316,9 @@
     "volumeValue": "ভলিউম {{value}}%",
     "buffering": "বাফার হচ্ছে…",
     "loading": "লোড হচ্ছে…",
-    "streamingOnlyNote": "Streaming only — অডিও হয় not সংরক্ষিত এ এই ডিভাইস"
+    "streamingOnlyNote": "Streaming only — অডিও হয় not সংরক্ষিত এ এই ডিভাইস",
+    "ttsVoice": "কণ্ঠস্বর",
+    "ttsVoiceHint": "একটি টেক্সট-টু-স্পিচ কণ্ঠ বেছে নিন"
   },
   "errors": {
     "title": "কিছু একটা ভুল হয়েছে",
@@ -2292,6 +2351,9 @@
     "introLocation": {
       "title": "অবস্থান ও অনুস্মারক",
       "description": "সঠিক নামাজের সময়, কিবলা ও ঐচ্ছিক অনুস্মারকের জন্য অবস্থান ও বিজ্ঞপ্তির অনুমতি দিন — অথবা পরে সাজান।"
+    },
+    "tasbeehDurood": {
+      "description": "স্পর্শ তাসবীহ কাউন্টারে এই দরুদ গণনা করুন।"
     }
   },
   "pwa": {
@@ -3415,7 +3477,7 @@
     "today": "আজ",
     "inDays": "এ {{count}} দিন",
     "hijriYear": "{{year}} হিজরি",
-    "disclaimer": "Dates হয় calculated estimates —  actual দিন depends এ local moon-sighting.",
+    "disclaimer": "তারিখ আপনার অবস্থানে হিলালের দৃশ্যমানতা অনুসরণ করে (বা যে অঞ্চলে ব্যবহার হয় সেখানে অফিসিয়াল উম্মুল কুরা ক্যালেন্ডার) এবং স্থানীয় কর্তৃপক্ষের ঘোষণা থেকে এক দিন আলাদা হতে পারে।",
     "names": {
       "newYear": "Islamic নতুন Year",
       "ashura": "দিন এর Ashura",
@@ -3888,7 +3950,7 @@
       "label": "সংযুক্তি (ঐচ্ছিক)",
       "add": "ফাইল যোগ করুন",
       "remove": "সংযুক্তি সরান",
-      "hint": "5টি পর্যন্ত ফাইল (JPEG, PNG, WebP, অথবা PDF), প্রতিটি 1 MB। একটি থাম্বনেইল অপসারণ করতে দীর্ঘক্ষণ প্রেস করুন।",
+      "hint": "সর্বোচ্চ ৫টি ফাইল (JPEG, PNG, WebP বা PDF), প্রতিটি ১ MB। সরাতে থাম্বনেইলে × ট্যাপ করুন।",
       "signInRequired": "আপনার adhkar ব্যক্তিগত ফাইল সংযুক্ত করতে সাইন ইন করুন.",
       "permissionDenied": "ফাইল সংযুক্ত করার জন্য অনুমতি প্রয়োজন.",
       "permissionTitle": "অ্যাক্সেসের অনুমতি দিন",
@@ -3914,7 +3976,10 @@
       "sourceGallery": "ফটো লাইব্রেরি",
       "sourceGalleryHint": "আপনার ছবি থেকে একটি ছবি চয়ন করুন",
       "sourceDocument": "ফাইল",
-      "sourceDocumentHint": "আপনার ফাইল থেকে একটি ছবি বা পিডিএফ চয়ন করুন"
+      "sourceDocumentHint": "আপনার ফাইল থেকে একটি ছবি বা পিডিএফ চয়ন করুন",
+      "loadingPdf": "PDF লোড হচ্ছে…",
+      "pdfHint": "স্ক্রোল · চিমটি বা +/− দিয়ে জুম · রিসেট করতে ডাবল-ট্যাপ · শেয়ার করতে PDF খুলুন",
+      "pdfPreviewTitle": "PDF প্রিভিউ"
     },
     "stt": {
       "dictate": "মাইক্রোফোন দিয়ে নির্দেশ করুন",
@@ -3927,7 +3992,10 @@
     },
     "editTitle": "adhkar সম্পাদনা",
     "confirmDeleteTitle": "এই adhkar মুছবেন?",
-    "confirmDeleteMsg": "“{{title}}” স্থায়ীভাবে সরানো হবে।"
+    "confirmDeleteMsg": "“{{title}}” স্থায়ীভাবে সরানো হবে।",
+    "searchPlaceholder": "আপনার আযকার খুঁজুন",
+    "noResults": "কোনো মিলযুক্ত আযকার নেই",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night নামাজ",
@@ -4374,7 +4442,7 @@
     "sourceLabel": "আপনার উৎস (ঐচ্ছিক)",
     "sourcePlaceholder": "Book, আলেম, URL, অথবা citation supporting আপনার correction.",
     "proofLabel": "Proof screenshots (ঐচ্ছিক)",
-    "proofHint": "Up তে 3 images. Long-press  thumbnail তে remove.",
+    "proofHint": "সর্বোচ্চ ৩টি ছবি। সরাতে থাম্বনেইলে × ট্যাপ করুন।",
     "addProof": "photo যোগ",
     "removeProof": "screenshot সরান",
     "submit": "Submit রিপোর্ট",
@@ -4411,7 +4479,11 @@
       "completed": "Selesai",
       "cancelled": "বাতিল",
       "spam": "স্প্যাম"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri ও ভয়েস শর্টকাট",
@@ -4634,7 +4706,7 @@
     "eyebrow": "ক্যালেন্ডার",
     "title": "তারিখ রূপান্তরকারী",
     "subtitle": "হিজরি এবং গ্রেগরিয়ান ক্যালেন্ডারের মধ্যে রূপান্তর করুন",
-    "intro": "সারণী কুয়েতি অ্যালগরিদম ব্যবহার করে অফলাইনে গণনা করা অন্য ক্যালেন্ডারে তার সমতুল্য দেখতে উভয় ক্যালেন্ডারে একটি তারিখ লিখুন।",
+    "intro": "যেকোনো ক্যালেন্ডারে একটি তারিখ লিখুন অন্যটিতে সমতুল্য দেখতে — আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে অফলাইনে গণনা করা।",
     "toHijri": "গ্রেগরিয়ান → হিজরি",
     "toGregorian": "হিজরি → গ্রেগরিয়ান",
     "gregorianDateLabel": "গ্রেগরিয়ান তারিখ",
@@ -4644,7 +4716,7 @@
     "year": "বছর",
     "useToday": "আজই ব্যবহার করুন",
     "invalidDate": "একটি বৈধ তারিখ লিখুন",
-    "disclaimer": "এটি একটি গাণিতিক আনুমানিক (সারণী \"কুয়েতি অ্যালগরিদম\") এবং স্থানীয় চাঁদ দেখার ঘোষণা থেকে একদিনে আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষকে অনুসরণ করুন।",
+    "disclaimer": "তারিখ আপনার অবস্থানে হিলালের দৃশ্যমানতা থেকে গণনা করা হয় এবং অফিসিয়াল চাঁদ দেখার ঘোষণা থেকে এক দিন আলাদা হতে পারে — ধর্মীয় তারিখের জন্য সর্বদা আপনার স্থানীয় মসজিদ বা কর্তৃপক্ষ অনুসরণ করুন।",
     "directionTitle": "রূপান্তর দিক",
     "resultFrom": "{{date}} থেকে",
     "quickLinksTitle": "সম্পর্কিত",
@@ -4723,6 +4795,25 @@
     "basedOn": "ভিত্তি",
     "editTime": "{{prayer}}-এর সময় সম্পাদনা",
     "editHint": "সময় বদলালে ফলাফল আপডেট হয়।",
-    "nightLengthLabel": "রাতের দৈর্ঘ্য"
+    "nightLengthLabel": "রাতের দৈর্ঘ্য",
+    "willStartIn": "{{time}}-এ শুরু হবে",
+    "timeRemaining": "{{time}} বাকি"
+  },
+  "friday": {
+    "eyebrow": "শিখুন",
+    "title": "শুক্রবার ও জুমুআহ",
+    "subtitle": "ফজিলত, প্রস্তুতি, সূরা আল-কাহফ, সালাওয়াত ও দুআর সময়",
+    "intro": "শুক্রবার সূর্যোদয়ের সবচেয়ে উত্তম দিন। জুমুআহর প্রামাণিক আমল শিখুন — গোসল, সালাত, সূরা আল-কাহফ, সালাওয়াত ও কবুলের সময় অন্বেষণ — কুরআন ও সহীহ হাদীস থেকে।",
+    "section": {
+      "virtues": "শুক্রবারের ফজিলত",
+      "obligation": "জুমুআহর সালাত",
+      "prepare": "প্রস্তুতি",
+      "kahf": "সূরা আল-কাহফ",
+      "salawat": "দরূদ",
+      "dua": "দুআর সময়"
+    },
+    "notFound": "বিষয় পাওয়া যায়নি",
+    "disclaimer": "শিক্ষামূলক সারসংক্ষেপ — ফতোয়া নয়। মাযহাব ভিন্ন হলে (যেমন শুক্রবারের গোসল ওয়াজিব না সুন্নত মুআক্কাদাহ), উভয় মত উল্লেখ করা হয়েছে; আপনার ইমাম বা যোগ্য স্থানীয় আলেমকে অনুসরণ করুন।",
+    "continueInApp": "Munib-এ চালিয়ে যান"
   }
 }

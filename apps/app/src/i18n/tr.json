@@ -177,7 +177,8 @@
     "finance": "İslami Finans",
     "flashCards": "Bilgi kartları",
     "verseDetector": "Ayet Bulucu",
-    "lastThirdNight": "Gecenin son üçte biri"
+    "lastThirdNight": "Gecenin son üçte biri",
+    "friday": "Cuma & Cuma namazı"
   },
   "quickActions": {
     "checklistSubtitle": "Bugünkü namazları kaydet",
@@ -456,6 +457,14 @@
         "text": "Kısa bir tesbih oturumu da sayılır. Zikir yalnızca uzun oturuşlar için değildir — on ile başlayın.",
         "topic": "zikir"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Tüm Cuma amelleri kaydedildi — Allah kabul etsin.",
+      "openChecklist": "Cuma namazı kontrol listesini aç",
+      "badge": "Cuma",
+      "reminderTitle": "Cuma Mübarek",
+      "reminderBody": "Cuma namazını kılın ve Cuma sünnetlerini tamamlayın — ghusl, Surah al-Kahf, salawat ve dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "{{prayer}} sonrası",
     "afterSalahAdhkarReminderBody": "Tesbih ve namaz sonrası zikirler için bir an ayırın.",
     "afterSalahProgress": "Zikirler {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} sonrası zikirler: bugün {{total}} içinden {{completed}} tamamlandı"
+    "afterSalahProgressA11y": "{{prayer}} sonrası zikirler: bugün {{total}} içinden {{completed}} tamamlandı",
+    "friday": {
+      "title": "Cuma namazı kontrol listesi",
+      "subtitle": "Cuma sünnetleri — yalnızca Cumaları gösterilir",
+      "progress": "{{completed}} / {{total}}",
+      "openRelated": "İlgili içeriği aç",
+      "learnMore": "Cuma amellerini öğren",
+      "items": {
+        "ghusl": {
+          "title": "Cuma için Ghusl",
+          "hint": "Masjide gitmeden önce yıkanın"
+        },
+        "prepare": {
+          "title": "En iyi giysiler ve koku",
+          "hint": "Temiz giyinin ve mümkünse hafif koku sürün"
+        },
+        "jumuah": {
+          "title": "Cuma namazına katılın (veya Dhuhr kılın)",
+          "hint": "Hutbe + iki rekât; mazeretli olan Dhuhr kılar"
+        },
+        "kahf": {
+          "title": "Surah al-Kahf okuyun",
+          "hint": "İki Cuma arasında bir nur"
+        },
+        "salawat": {
+          "title": "Salawatı artırın",
+          "hint": "Peygamber ﷺ'e salawat gönderin"
+        },
+        "dua": {
+          "title": "Dua saatini arayın",
+          "hint": "Özellikle Asr'dan sonraki son saatte"
+        }
+      },
+      "details": "Ayrıntılar",
+      "jumpTitle": "Cuma namazı kontrol listesi",
+      "jumpHint": "Aşağıda Cuma sünnetleri",
+      "jumpA11y": "Bu sayfadaki Cuma namazı kontrol listesine git"
+    }
   },
   "update": {
     "title": "Güncelleme mevcut",
@@ -511,8 +557,8 @@
     "yourVersion": "Sürümünüz",
     "latestVersion": "En son",
     "body": "{{version}} sürümü en son iyileştirme ve düzeltmelerle hazır.",
-    "hardBody": "Update to version {{version}} to keep using the app.",
-    "hardNote": "This update is required to continue.",
+    "hardBody": "Uygulamayı kullanabilmek için {{version}} sürümüne güncelleyin.",
+    "hardNote": "Bu güncelleme zorunludur.",
     "updateButton": "Şimdi güncelle",
     "webReloadButton": "Yeniden yükle",
     "webSoftRefreshHint": "En son sürümü almak için yeniden yükleyin. Verileriniz bu cihazda kalır.",
@@ -581,7 +627,7 @@
     "updateAvailableTitle": "Güncelleme mevcut",
     "updateRequiredTitle": "Güncelleme gerekli",
     "updateAvailableDesc": "{{latest}} sürümü mevcut. Siz {{current}} sürümündesiniz.",
-    "updateRequiredDesc": "Update to version {{latest}} to continue using the app.",
+    "updateRequiredDesc": "Uygulamayı kullanabilmek için {{latest}} sürümüne güncelleyin.",
     "updateNow": "Şimdi güncelle",
     "viewUpdateDetails": "Ayrıntıları gör",
     "remindInSettings": "Ayarlar'da hatırlat",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries için bu category dir   way.",
     "detailEyebrow": "Zikir",
     "today": "Bugün",
-    "openInTasbeeh": "in Tesbih Aç",
+    "openInTasbeeh": "Tesbih'te aç",
     "favorite": "Favori",
     "favorited": "Favorilere eklendi",
     "share": "Paylaş",
@@ -1112,7 +1158,8 @@
     "favorites": "Favori salavatlar",
     "favSubtitle": "Kaydettiğiniz salavatlar",
     "favEmptyTitle": "Henüz favori salavat yok",
-    "favEmptyDesc": "Buraya kaydetmek için herhangi bir salavata yıldıza dokunun."
+    "favEmptyDesc": "Buraya kaydetmek için herhangi bir salavata yıldıza dokunun.",
+    "openInTasbeeh": "Tesbih'te aç"
   },
   "names": {
     "eyebrow": "Esmaü'l-Hüsna",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Bu gece dolunay",
       "fullBody": "Ay {{month}} ortasına yakın tamamen aydınlanır — Oruç tutmanın özellikle tavsiye edildiği Beyaz Günlerin geceleri.",
       "generalTitle": "Ay takvimi",
-      "generalBody": "İslam (Hicrî) takvimi ayı esas alır: her ay 29 veya 30 gündür, görülen hilalle (hilāl) başlar. Buradaki tarihler konumunuz için tablo takvimine dayanır ve yerel gözlemden bir gün farklı olabilir.",
+      "generalBody": "İslami (Hicri) takvim ayı takip eder: her ay 29 veya 30 gündür ve görülen hilâl ile başlar. Buradaki tarihler konumunuzdaki hilāl görünürlüğünden hesaplanır ve yerel otoritenizin duyurusundan bir gün farklı olabilir.",
       "monthTurnTitle": "Hilali arayın",
-      "monthTurnBody": "Maghribten sonra {{month}} hilalini arayın. İslam ayları görülen hilalle başlar; yerel ay gözlemi bu takvimden bir gün farklı olabilir."
+      "monthTurnBody": "Maghrib'den sonra {{month}} hilālını arayın. İslami aylar görülen hilâl ile başlar; yerel otoritenizin duyurusu bu hesaplamadan bir gün farklı olabilir."
     },
     "monthProgress": "Ay ilerlemesi",
     "monthProgressValue": "{{month}} · {{length}} günün {{day}}. günü",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Hesap",
     "title": "Profil",
-    "subtitle": "Sizin details ve account",
+    "subtitle": "Ad, senkronizasyon ve giriş",
     "guestName": "Misafir",
     "changeAvatar": "Avatar değiştir",
     "signInToSync": "Senkronize etmek için giriş yapın",
@@ -2154,7 +2201,17 @@
       "not_using": "Artık kullanmıyorum",
       "technical_issues": "Teknik sorunlar veya hatalar",
       "other": "Diğer"
-    }
+    },
+    "editName": "Görünen adı düzenle",
+    "signedInWith": "{{provider}} ile giriş yapıldı",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Salah, Zikr ve Qaza verilerinizi cihazlar arasında yedeklemek için bir hesap bağlayın.",
+    "sessionTitle": "Oturum",
+    "sessionHint": "Bu cihazdan çıkış yapın. Bulut verileriniz güvende kalır.",
+    "dangerTitle": "Tehlikeli bölge",
+    "dangerHint": "Hesabınızı ve yerel verilerinizi kalıcı olarak silin. Bu geri alınamaz."
   },
   "sync": {
     "title": "Bulut senkronizasyonu",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Ses {{value}}%",
     "buffering": "Tamponlanıyor…",
     "loading": "Yükleniyor…",
-    "streamingOnlyNote": "Streaming only — ses dir not kaydedildi  bu cihaz"
+    "streamingOnlyNote": "Streaming only — ses dir not kaydedildi  bu cihaz",
+    "ttsVoice": "Ses",
+    "ttsVoiceHint": "Bir metinden sese sesi seçin"
   },
   "errors": {
     "title": "Bir şeyler ters gitti",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Konum ve hatırlatmalar",
       "description": "Doğru namaz vakitleri, kıble ve isteğe bağlı hatırlatmalar için konum ve bildirimlere izin verin — veya sonra ayarlayın."
+    },
+    "tasbeehDurood": {
+      "description": "Bu salavatı dokunmatik tesbih sayacıyla sayın."
     }
   },
   "pwa": {
@@ -3406,7 +3468,7 @@
     "today": "Bugün",
     "inDays": "içinde {{count}} gün",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Dates dir calculated estimates —  actual gün depends  local moon-sighting.",
+    "disclaimer": "Tarihler konumunuzdaki hilāl görünürlüğünü (veya kullanan bölgelerde resmi Umm al-Qura takvimini) takip eder ve yerel bir otorite duyurusundan bir gün farklı olabilir.",
     "names": {
       "newYear": "Islamic Yeni Year",
       "ashura": "Gün  Ashura",
@@ -3879,7 +3941,7 @@
       "label": "Ekler (isteğe bağlı)",
       "add": "Dosya ekle",
       "remove": "Eki kaldır",
-      "hint": "Her biri 1 MB boyutunda en fazla 5 dosya (JPEG, PNG, WebP veya PDF). Kaldırmak için küçük resme uzun basın.",
+      "hint": "En fazla 5 dosya (JPEG, PNG, WebP veya PDF), her biri 1 MB. Kaldırmak için küçük resimdeki × işaretine dokunun.",
       "signInRequired": "Adhkar'ınıza özel dosyalar eklemek için oturum açın.",
       "permissionDenied": "Dosya eklemek için izin gereklidir.",
       "permissionTitle": "Erişime izin ver",
@@ -3905,7 +3967,10 @@
       "sourceGallery": "Fotoğraf kitaplığı",
       "sourceGalleryHint": "Fotoğraflarınızdan bir resim seçin",
       "sourceDocument": "Dosyalar",
-      "sourceDocumentHint": "Dosyalarınızdan bir resim veya PDF seçin"
+      "sourceDocumentHint": "Dosyalarınızdan bir resim veya PDF seçin",
+      "loadingPdf": "PDF yükleniyor…",
+      "pdfHint": "Kaydırın · sıkıştırın veya +/− ile yakınlaştırın · sıfırlamak için çift dokunun · Paylaşmak için PDF'i açın",
+      "pdfPreviewTitle": "PDF önizleme"
     },
     "stt": {
       "dictate": "Mikrofonla dikte edin",
@@ -3918,7 +3983,10 @@
     },
     "editTitle": "Adhkarı düzenle",
     "confirmDeleteTitle": "Bu adhkar silinsin mi?",
-    "confirmDeleteMsg": "“{{title}}” kalıcı olarak kaldırılacak."
+    "confirmDeleteMsg": "“{{title}}” kalıcı olarak kaldırılacak.",
+    "searchPlaceholder": "Adhkarlarınızı arayın",
+    "noResults": "Eşleşen adhkar yok",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night namaz",
@@ -4365,7 +4433,7 @@
     "sourceLabel": "Sizin kaynak (isteğe bağlı)",
     "sourcePlaceholder": "Book, alim, URL, veya citation supporting sizin correction.",
     "proofLabel": "Proof screenshots (isteğe bağlı)",
-    "proofHint": "Up  3 images. Long-press  thumbnail  remove.",
+    "proofHint": "En fazla 3 görsel. Kaldırmak için küçük resimdeki × işaretine dokunun.",
     "addProof": "photo Ekle",
     "removeProof": "screenshot Kaldır",
     "submit": "Submit bildir",
@@ -4402,7 +4470,11 @@
       "completed": "Tamamlandı",
       "cancelled": "İptal edildi",
       "spam": "İstenmeyen"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri & sesli kısayollar",
@@ -4625,7 +4697,7 @@
     "eyebrow": "Takvim",
     "title": "Tarih dönüştürücü",
     "subtitle": "Hicri ve Gregoryen takvimleri arasında dönüştürme",
-    "intro": "Takvimlerden herhangi birine bir tarih girin ve bunun diğer takvimdeki eşdeğerini görmek için Kuveyt tablo algoritması kullanılarak çevrimdışı olarak hesaplayın.",
+    "intro": "Bir takvimde tarih girin; diğerindeki karşılığını konumunuzdaki hilāl görünürlüğünden çevrimdışı hesaplanmış olarak görün.",
     "toHijri": "Gregoryen → Hicri",
     "toGregorian": "Hicri → Gregoryen",
     "gregorianDateLabel": "Gregoryen tarihi",
@@ -4635,7 +4707,7 @@
     "year": "Yıl",
     "useToday": "Bugün kullanın",
     "invalidDate": "Geçerli bir tarih girin",
-    "disclaimer": "Bu aritmetik bir yaklaşımdır (tablo \"Kuveyt algoritması\") ve yerel ay gözlemi duyurularından bir gün farklılık gösterebilir; dini tarihler için daima yerel mescidinizi veya otoritenizi takip edin.",
+    "disclaimer": "Tarihler konumunuzdaki hilāl görünürlüğünden hesaplanır ve resmi ay gözlemi duyurularından bir gün farklı olabilir — dini tarihler için her zaman yerel masjid veya otoritenizi takip edin.",
     "directionTitle": "Dönüşüm yönü",
     "resultFrom": "{{date}}'den",
     "quickLinksTitle": "İlgili",
@@ -4714,6 +4786,25 @@
     "basedOn": "Dayanak",
     "editTime": "{{prayer}} vaktini düzenle",
     "editHint": "Vakti değiştirdikçe sonuçlar güncellenir.",
-    "nightLengthLabel": "Gece süresi"
+    "nightLengthLabel": "Gece süresi",
+    "willStartIn": "{{time}} içinde başlayacak",
+    "timeRemaining": "{{time}} kaldı"
+  },
+  "friday": {
+    "eyebrow": "Öğren",
+    "title": "Cuma & Cuma namazı",
+    "subtitle": "Faziletler, hazırlık, Surah al-Kahf, salawat ve dua saati",
+    "intro": "Cuma, güneşin üzerine doğduğu en hayırlı gündür. Cuma namazının sahih amellerini öğrenin — ghusl, namaz, Surah al-Kahf, salawat ve kabul edilen saati aramak — Kur'an ve sahih hadisten.",
+    "section": {
+      "virtues": "Cuma'nın faziletleri",
+      "obligation": "Cuma namazı",
+      "prepare": "Hazırlık",
+      "kahf": "Kehf suresi",
+      "salawat": "Salavat",
+      "dua": "Dua saati"
+    },
+    "notFound": "Konu bulunamadı",
+    "disclaimer": "Eğitici özet — fetva değildir. Mezheplerin ayrıldığı yerlerde (örneğin Cuma ghuslünün vacip mi yoksa sünnet-i müekkede mi olduğu), her iki görüş de not edilir; imamınızı veya nitelikli yerel bir âlimi takip edin.",
+    "continueInApp": "Munib'de sürdür"
   }
 }

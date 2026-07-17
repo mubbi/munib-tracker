@@ -177,7 +177,8 @@
     "finance": "Молияи исломӣ",
     "flashCards": "Кортҳои ёдгирӣ",
     "verseDetector": "Ошёнасози оят",
-    "lastThirdNight": "Сеюми охири шаб"
+    "lastThirdNight": "Сеюми охири шаб",
+    "friday": "Ҷумъа & Jumu'ah"
   },
   "quickActions": {
     "checklistSubtitle": "Отметить сегодняшние саляты",
@@ -456,6 +457,14 @@
         "text": "A short tasbeeh session counts. Zikr is not only for long sittings — start with ten.",
         "topic": "зикр"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Ҳамаи амалҳои ҷумъа сабт шуданд — Аллоҳ қабул кунад.",
+      "openChecklist": "Рӯйхати Jumu'ah-ро кушоед",
+      "badge": "Ҷумъа",
+      "reminderTitle": "Ҷумъа муборак",
+      "reminderBody": "Намози Jumu'ah хонед ва суннатҳои рӯзи ҷумъаро анҷом диҳед — Ghusl, Surah al-Kahf, salawat ва Dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "fter {{prayer}}",
     "afterSalahAdhkarReminderBody": "Лаҳзае барои тасбеҳ ва азкори баъд аз намоз ҷудо кунед.",
     "afterSalahProgress": "dhkr {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} адои пас аз намоз: {{completed}} аз {{total}} имрӯз анҷом ёфт"
+    "afterSalahProgressA11y": "{{prayer}} адои пас аз намоз: {{completed}} аз {{total}} имрӯз анҷом ёфт",
+    "friday": {
+      "title": "Рӯйхати Jumu'ah",
+      "subtitle": "Амалҳои суннат барои ҷумъа — танҳо дар рӯзи ҷумъа нишон дода мешавад",
+      "progress": "{{completed}} аз {{total}}",
+      "openRelated": "Мазмуни марбутро кушоед",
+      "learnMore": "Амалҳои ҷумъаро омӯзед",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl барои ҷумъа",
+          "hint": "Пеш аз рафтан ба masjid ғусл кунед"
+        },
+        "prepare": {
+          "title": "Либоси беҳтарин ва хушбӯй",
+          "hint": "Пок либос пӯшед ва агар тавонед хушбӯии сабук истифода баред"
+        },
+        "jumuah": {
+          "title": "Дар Jumu'ah иштирок кунед (ё Dhuhr хонед)",
+          "hint": "Хутба + ду ракъат; маъзурон Dhuhr мехонанд"
+        },
+        "kahf": {
+          "title": "Surah al-Kahf-ро хонед",
+          "hint": "Нур байни ду ҷумъа"
+        },
+        "salawat": {
+          "title": "Salawat-ро зиёд кунед",
+          "hint": "Ба Пайғамбар ﷺ салавот фиристед"
+        },
+        "dua": {
+          "title": "Соати Dua-ро ҷӯед",
+          "hint": "Махсусан дар соати охир пас аз Asr"
+        }
+      },
+      "details": "Тафсилот",
+      "jumpTitle": "Рӯйхати Jumu'ah",
+      "jumpHint": "Амалҳои суннати ҷумъа дар поён",
+      "jumpA11y": "Ба рӯйхати Jumu'ah дар ин саҳифа гузаред"
+    }
   },
   "update": {
     "title": "Навсозӣ дастрас аст",
@@ -986,7 +1032,7 @@
     "emptyDesc": "Воридоти бештар барои ин категория дар роҳ ҳастанд.",
     "detailEyebrow": "Зикр",
     "today": "Имрӯз",
-    "openInTasbeeh": "in Тасбеҳ Aç",
+    "openInTasbeeh": "Дар Тасбеҳ кушоед",
     "favorite": "Favorite",
     "favorited": "Favorited",
     "share": "Поделиться",
@@ -1112,7 +1158,8 @@
     "favorites": "Дурудҳои дӯстдошта",
     "favSubtitle": "Дурудҳое, ки шумо захира кардаед",
     "favEmptyTitle": "Ҳанӯз ягон давои дӯстдошта нест",
-    "favEmptyDesc": "нажмите  str на y durood к sve it here."
+    "favEmptyDesc": "нажмите  str на y durood к sve it here.",
+    "openInTasbeeh": "Дар Тасбеҳ кушоед"
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Имшаб моҳи пурра",
       "fullBody": "Моҳ дар наздикии миёнаи {{month}} — шабҳои Рӯзҳои Сафед, ки махсусан рӯза гирифтан тавсия дода мешавад, пурра равшан мешавад.",
       "generalTitle": "Тақвими моҳ",
-      "generalBody": "Тақвими исломӣ (ҳиҷрӣ) пас аз моҳ аст: ҳар моҳ 29 ё 30 рӯз аст, ки аз дидани ҳилоли нав оғоз мешавад.",
+      "generalBody": "Тақвими исломӣ (ҳиҷрӣ) моҳро пайравӣ мекунад: ҳар моҳ 29 ё 30 рӯз аст ва бо ҳилоли дидашуда (hilāl) оғоз мешавад. Санаҳо дар ин ҷо аз намоёнии ҳилол дар макони шумо ҳисоб мешаванд ва метавонанд аз эълони мақомоти маҳаллӣ як рӯз фарқ кунанд.",
       "monthTurnTitle": "Ҳилолро ҷустуҷӯ кунед",
-      "monthTurnBody": "Пас аз Мағриб, ҳилоли {{month}}-ро ҷустуҷӯ кунед. Моҳҳои исломӣ бо ҳилоли дидшуда оғоз мешаванд; дидани маҳаллии моҳ метавонад аз ин тақвим як рӯз фарқ кунад."
+      "monthTurnBody": "Пас аз Maghrib hilāl-и {{month}}-ро ҷӯед. Моҳҳои исломӣ бо ҳилоли дидашуда оғоз мешаванд; эълони мақомоти маҳаллӣ метавонад аз ин ҳисоб як рӯз фарқ кунад."
     },
     "monthProgress": "Пешрафти моҳ",
     "monthProgressValue": "Рӯзи {{day}} аз {{length}} · {{month}}",
@@ -2122,7 +2169,7 @@
   "profile": {
     "eyebrow": "аккаунт",
     "title": "профиль",
-    "subtitle": "ваш detils и аккаунт",
+    "subtitle": "Ном, синхронсозӣ ва вуруд",
     "guestName": "Гость",
     "changeAvatar": "Chge vtr",
     "signInToSync": "войти к sync",
@@ -2157,7 +2204,17 @@
       "not_using": "Дигар истифода намебарам",
       "technical_issues": "Мушкилоти техникӣ ё хатогиҳо",
       "other": "Дигар"
-    }
+    },
+    "editName": "Номи намоишӣро таҳрир кунед",
+    "signedInWith": "Воридшуда бо {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Ҳисобро пайваст кунед то Salah, Zikr ва Qaza-ро дар дастгоҳҳо захира кунед.",
+    "sessionTitle": "Ҷаласа",
+    "sessionHint": "Аз ин дастгоҳ бароед. Маълумоти абрии шумо бехатар мемонад.",
+    "dangerTitle": "Минтақаи хатар",
+    "dangerHint": "Ҳисоб ва маълумоти маҳаллиро доимо нест мекунад. Ин бозгардонӣ намешавад."
   },
   "sync": {
     "title": "Облачная синхронизация",
@@ -2253,7 +2310,9 @@
     "volumeValue": "Громкость {{value}}%",
     "buffering": "Buffering…",
     "loading": "Loading…",
-    "streamingOnlyNote": "Танҳо ҷараён — аудио дар ин дастгоҳ захира нашудааст"
+    "streamingOnlyNote": "Танҳо ҷараён — аудио дар ин дастгоҳ захира нашудааст",
+    "ttsVoice": "Овоз",
+    "ttsVoiceHint": "Овози матн-ба-гуфторро интихоб кунед"
   },
   "errors": {
     "title": "Чизе хато рафт",
@@ -2286,6 +2345,9 @@
     "introLocation": {
       "title": "Ҷойгиршавӣ ва ёдраскуниҳо",
       "description": "Барои вақтҳои дақиқи намоз, қибла ва ёдраскуниҳои ихтиёрӣ ба ҷойгиршавӣ ва огоҳиномаҳо иҷозат диҳед — ё дертар танзим кунед."
+    },
+    "tasbeehDurood": {
+      "description": "Ин дурудро бо ҳисобкунаки тактилӣ тасбеҳ бишуморед."
     }
   },
   "pwa": {
@@ -3409,7 +3471,7 @@
     "today": "Имрӯз",
     "inDays": "в {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Санаҳои ҳисобшуда ҳисоб карда мешаванд - рӯзи воқеӣ аз дидани моҳҳои маҳаллӣ вобаста аст.",
+    "disclaimer": "Санаҳо намоёнии ҳилолро дар макони шумо пайравӣ мекунанд (ё тақвими расмии Umm al-Qura дар минтақаҳое ки онро истифода мебаранд) ва метавонанд аз эълони мақомоти маҳаллӣ як рӯз фарқ кунанд.",
     "names": {
       "newYear": "Соли нави исломи",
       "ashura": "Рӯзи Ошуро",
@@ -3882,7 +3944,7 @@
       "label": "Замимаҳо (ихтиёрӣ)",
       "add": "Файл илова кунед",
       "remove": "Замимаро хориҷ кунед",
-      "hint": "То 5 файл (JPEG, PNG, WebP ё PDF), ҳар яки 1 МБ. Барои нест кардани тасвири ангурро дароз пахш кунед.",
+      "hint": "То 5 файл (JPEG, PNG, WebP ё PDF), ҳар кадом 1 МБ. Барои нест кардан ×-ро дар хурдсимо ламс кунед.",
       "signInRequired": "Барои замима кардани файлҳои хусусӣ ба adhkar-и худ ворид шавед.",
       "permissionDenied": "Барои замима кардани файлҳо иҷозат лозим аст.",
       "permissionTitle": "Ба дастрасӣ иҷозат диҳед",
@@ -3908,7 +3970,10 @@
       "sourceGallery": "Китобхонаи суратхо",
       "sourceGalleryHint": "Аз аксҳои худ тасвиреро интихоб кунед",
       "sourceDocument": "Файлҳо",
-      "sourceDocumentHint": "Аз файлҳои худ тасвир ё PDF-ро интихоб кунед"
+      "sourceDocumentHint": "Аз файлҳои худ тасвир ё PDF-ро интихоб кунед",
+      "loadingPdf": "Боркунии PDF…",
+      "pdfHint": "Лағжиш · фишурдан ё +/− барои калон кардан · ду бор ламс барои бозсозӣ · PDF-ро барои мубодила кушоед",
+      "pdfPreviewTitle": "Пешнамоиши PDF"
     },
     "stt": {
       "dictate": "Бо микрофон диктант кунед",
@@ -3921,7 +3986,10 @@
     },
     "editTitle": "Таҳрири adhkar",
     "confirmDeleteTitle": "Ин adhkar нест карда шавад?",
-    "confirmDeleteMsg": "«{{title}}» барои ҳамеша нест карда мешавад."
+    "confirmDeleteMsg": "«{{title}}» барои ҳамеша нест карда мешавад.",
+    "searchPlaceholder": "Adhkar-ҳои худро ҷустуҷӯ кунед",
+    "noResults": "Adhkar-и мувофиқ нест",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Намози шаб",
@@ -4368,7 +4436,7 @@
     "sourceLabel": "ваш source (необязательно)",
     "sourcePlaceholder": "Китоб, олим, URL ё иқтибосе, ки ислоҳи шуморо дастгирӣ мекунад.",
     "proofLabel": "Скриншотҳои тасдиқкунанда (ихтиёрӣ)",
-    "proofHint": "То 3 тасвир. Барои нест кардани тасвири ангурро дароз пахш кунед.",
+    "proofHint": "То 3 тасвир. Барои нест кардан ×-ро дар хурдсимо ламс кунед.",
     "addProof": "Иловаи акс",
     "removeProof": "убрать screenshot",
     "submit": "Ҳисоботро пешниҳод кунед",
@@ -4405,7 +4473,11 @@
       "completed": "выполнено",
       "cancelled": "Ccelled",
       "spam": "Spm"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Сири ва миёнабурҳои овозӣ",
@@ -4628,7 +4700,7 @@
     "eyebrow": "Тақвим",
     "title": "Табдилдиҳандаи сана",
     "subtitle": "Табдили байни тақвимҳои ҳиҷрӣ ва милодӣ",
-    "intro": "Барои дидани муодили он дар дигар, бо истифода аз алгоритми ҷадвали Кувайт, офлайн ҳисобшуда санаро дар ҳар як тақвим ворид кунед.",
+    "intro": "Санаро дар яке аз тақвимҳо ворид кунед то муодили онро дар дигар бинед, ки оффлайн аз намоёнии ҳилол дар макони шумо ҳисоб мешавад.",
     "toHijri": "Григорий → Ҳиҷрӣ",
     "toGregorian": "Ҳиҷрӣ → Григориан",
     "gregorianDateLabel": "Санаи григорианӣ",
@@ -4638,7 +4710,7 @@
     "year": "Соли",
     "useToday": "Имрӯз истифода баред",
     "invalidDate": "Санаи дурустро ворид кунед",
-    "disclaimer": "Ин тахмини арифметикӣ аст (ҷадвали \"алгоритми Кувайт\") ва метавонад як рӯз аз эълонҳои маҳаллӣ дар бораи дидани моҳ фарқ кунад - ҳамеша ба масҷиди маҳаллии худ ё мақомоти марбут ба санаҳои динӣ пайравӣ кунед.",
+    "disclaimer": "Санаҳо аз намоёнии ҳилол (hilāl) дар макони шумо ҳисоб мешаванд ва метавонанд аз эълонҳои расмии дидани моҳ як рӯз фарқ кунанд — барои санаҳои динӣ ҳамеша аз masjid ё мақомоти маҳаллӣ пайравӣ кунед.",
     "directionTitle": "Самти табдил",
     "resultFrom": "Аз {{date}}",
     "quickLinksTitle": "марбут",
@@ -4717,6 +4789,25 @@
     "basedOn": "Дар асоси",
     "editTime": "Тағири вақти {{prayer}}",
     "editHint": "Натиҷаҳо ҳангоми тағири вақт нав мешаванд.",
-    "nightLengthLabel": "Дарозии шаб"
+    "nightLengthLabel": "Дарозии шаб",
+    "willStartIn": "Пас аз {{time}} оғоз мешавад",
+    "timeRemaining": "{{time}} боқӣ мондааст"
+  },
+  "friday": {
+    "eyebrow": "Омӯзиш",
+    "title": "Ҷумъа & Jumu'ah",
+    "subtitle": "Фазилатҳо, омодагӣ, Surah al-Kahf, salawat ва соати Dua",
+    "intro": "Ҷумъа беҳтарин рӯзест, ки офтоб бармеояд. Амалҳои аслии Jumu'ah-ро омӯзед — Ghusl, намоз, Surah al-Kahf, salawat ва ҷустуҷӯи соати қабулшуда — аз Қуръон ва ҳадисҳои саҳеҳ.",
+    "section": {
+      "virtues": "Фазилатҳои ҷумъа",
+      "obligation": "Намози Jumu'ah",
+      "prepare": "Омодагӣ",
+      "kahf": "Сураи ал-Каҳф",
+      "salawat": "Салавот",
+      "dua": "Соати Dua"
+    },
+    "notFound": "Мавзӯъ ёфт нашуд",
+    "disclaimer": "Шарҳи таълимӣ — фатво нест. Дар ҷое ки мактабҳо фарқ мекунанд (масалан, оё Ghusl-и ҷумъа воҷиб аст ё sunnah mu'akkadah), ҳар ду мавқеъ қайд шудааст; аз имоми худ ё олими маҳаллии соҳибихтисос пайравӣ кунед.",
+    "continueInApp": "Дар Munib идома диҳед"
   }
 }

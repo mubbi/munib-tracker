@@ -96,6 +96,7 @@ Stable IDs (`NF-*`) for features beyond the MVP baseline. Open work: [`BACKLOG.m
 | NF-2.32 | New Muslim guide | `content/new-muslim.ts`, `/new-muslim` |
 | NF-2.33 | Islamic finance (edu) | `content/islamic-finance.ts`, `/finance` |
 | NF-2.34 | Hijri ↔ Gregorian converter | `lib/hijri.ts`, `/calendar/converter` |
+| NF-2.35 | Friday / Jumu'ah learn hub & checklist | `content/friday-guide.ts`, `/friday`, Today's Goal Friday reminder, `friday_checklist` sync |
 | NF-2.7 | Word-by-word + tajweed reader | `api/quran-words.ts`, `api/quran-tajweed.ts`, ayah reader toggles |
 | NF-2.10 | Daily hadith series | `lib/daily-hadith.ts`, `/hadith/daily` |
 | NF-2.11 | Custom adhkar builder | `custom-adhkar-store`, `/adhkar-builder` (optional private images via `/user-media`; dictate Arabic/transliteration/meaning via `expo-speech-recognition` — requires a native dev/production build) |

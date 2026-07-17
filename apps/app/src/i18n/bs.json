@@ -177,7 +177,8 @@
     "finance": "Islamske finansije",
     "flashCards": "Kartice",
     "verseDetector": "Detektor ajeta",
-    "lastThirdNight": "Posljednja trećina noći"
+    "lastThirdNight": "Posljednja trećina noći",
+    "friday": "Petak i džuma"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's salah",
@@ -456,6 +457,14 @@
         "text": "Kratka tasbeeh sesija se računa. Zikr nije samo za duga sjedenja – počnite s deset.",
         "topic": "zikr"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Sve petkove prakse zabilježene — neka Allah primi.",
+      "openChecklist": "Otvori Jumu'ah listu",
+      "badge": "Petak",
+      "reminderTitle": "Džuma mubarek",
+      "reminderBody": "Klanjajte Jumu'ah i ispunite petkovi sunnet — Ghusl, Surah al-Kahf, salawat i Dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "Nakon {{prayer}}",
     "afterSalahAdhkarReminderBody": "Take  moment za tasbeeh i after-salah adhkar.",
     "afterSalahProgress": "Zikirler {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}}  {{total}} završeno danas"
+    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}}  {{total}} završeno danas",
+    "friday": {
+      "title": "Jumu'ah lista",
+      "subtitle": "Sunnet prakse za petak — prikazano samo petkom",
+      "progress": "{{completed}} od {{total}}",
+      "openRelated": "Otvori povezani sadržaj",
+      "learnMore": "Nauči petkove prakse",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl za petak",
+          "hint": "Okupajte se prije odlaska u masjid"
+        },
+        "prepare": {
+          "title": "Najbolja odjeća i miris",
+          "hint": "Obucite se čisto i nanesite blagi miris ako možete"
+        },
+        "jumuah": {
+          "title": "Prisustvujte Jumu'ah (ili klanjajte Dhuhr)",
+          "hint": "Hutba + dva rekata; opravdani klanjaju Dhuhr"
+        },
+        "kahf": {
+          "title": "Pročitajte Surah al-Kahf",
+          "hint": "Svjetlost između dva petka"
+        },
+        "salawat": {
+          "title": "Povećajte salawat",
+          "hint": "Šaljite blagoslove na Poslanika ﷺ"
+        },
+        "dua": {
+          "title": "Tražite sat Dua",
+          "hint": "Posebno u posljednjem satu nakon Asr"
+        }
+      },
+      "details": "Detalji",
+      "jumpTitle": "Jumu'ah lista",
+      "jumpHint": "Petkove sunnet prakse ispod",
+      "jumpA11y": "Idi na Jumu'ah listu na ovoj stranici"
+    }
   },
   "update": {
     "title": "Ažuriranje dostupno",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries za ovo category su na  way.",
     "detailEyebrow": "Zikir",
     "today": "Danas",
-    "openInTasbeeh": "Open u Tasbeeh",
+    "openInTasbeeh": "Otvori u Tesbihu",
     "favorite": "Favorite",
     "favorited": "Favorilere eklendi",
     "share": "Podijeli",
@@ -1112,7 +1158,8 @@
     "favorites": "Favori salavatlar",
     "favSubtitle": "Kaydettiğiniz salavatlar",
     "favEmptyTitle": "Henüz favori salavat yok",
-    "favEmptyDesc": "Tap  star na any durood u sačuvaj it here."
+    "favEmptyDesc": "Tap  star na any durood u sačuvaj it here.",
+    "openInTasbeeh": "Otvori u Tesbihu"
   },
   "names": {
     "eyebrow": "Esmaü'l-Hüsna",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Pun mjesec večeras",
       "fullBody": " moon je fully lit near  middle  {{month}} —  nights   White Dana, when post je especially recommended.",
       "generalTitle": " calendar   moon",
-      "generalBody": "Islamski (Hidžretski) kalendar prati mjesec: svaki mjesec ima 29 ili 30 dana, počinje viđenim polumjesecom (hilāl). Datumi ovdje koriste tabularni kalendar za vašu lokaciju i mogu se razlikovati od lokalnog viđenja za jedan dan.",
+      "generalBody": "Islamski (hidžretski) kalendar prati mjesec: svaki mjesec ima 29 ili 30 dana i počinje viđenim polumjesecom (hilāl). Datumi ovdje se računaju iz vidljivosti polumjeseca na vašoj lokaciji i mogu se razlikovati od najave lokalne vlasti za jedan dan.",
       "monthTurnTitle": "Tražite polumjesec",
-      "monthTurnBody": "Poslije Magriba tražite hilāl {{month}}. Islamski mjeseci počinju viđenim polumjesecom; lokalno viđenje mjeseca može se razlikovati od ovog kalendara za jedan dan."
+      "monthTurnBody": "Nakon Maghrib potražite hilāl mjeseca {{month}}. Islamski mjeseci počinju viđenim polumjesecom; najava vaše lokalne vlasti može se razlikovati od ovog izračuna za jedan dan."
     },
     "monthProgress": "Napredak mjeseca",
     "monthProgressValue": "Dan {{day}} od {{length}} · {{month}}",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Račun",
     "title": "Profil",
-    "subtitle": "Vaši detalji i račun",
+    "subtitle": "Ime, sinhronizacija i prijava",
     "guestName": "Gost",
     "changeAvatar": "Promijeni avatar",
     "signInToSync": "Prijavite se za sinhronizaciju",
@@ -2154,7 +2201,17 @@
       "not_using": "Više ga ne koristim",
       "technical_issues": "Tehnički problemi ili greške",
       "other": "Ostalo"
-    }
+    },
+    "editName": "Uredi prikazano ime",
+    "signedInWith": "Prijavljeni putem {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Povežite račun da sačuvate Salah, Zikr i Qaza na više uređaja.",
+    "sessionTitle": "Sesija",
+    "sessionHint": "Odjavite se na ovom uređaju. Vaši podaci u oblaku ostaju sigurni.",
+    "dangerTitle": "Opasna zona",
+    "dangerHint": "Trajno briše vaš račun i lokalne podatke. Ovo se ne može poništiti."
   },
   "sync": {
     "title": "Sinhronizacija u oblaku",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Volumen {{value}}%",
     "buffering": "Tamponlanıyor…",
     "loading": "Učitavanje…",
-    "streamingOnlyNote": "Streaming only — audio je not saved na ovo uređaj"
+    "streamingOnlyNote": "Streaming only — audio je not saved na ovo uređaj",
+    "ttsVoice": "Glas",
+    "ttsVoiceHint": "Odaberite glas za tekst-u-govor"
   },
   "errors": {
     "title": "Bir şeyler ters gitti",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Lokacija i podsjetnici",
       "description": "Dozvolite lokaciju i obavještenja za tačna vremena namaza, kible i opcionalne podsjetnike — ili podesite kasnije."
+    },
+    "tasbeehDurood": {
+      "description": "Brojite ovaj salavat taktilnim brojačem tesbiha."
     }
   },
   "pwa": {
@@ -3418,7 +3480,7 @@
     "today": "Danas",
     "inDays": "za {{count}} dana",
     "hijriYear": "{{year}} AH",
-    "disclaimer": "Datumi su izračunate procjene — stvarni dan zavisi od lokalnog opažanja Mjeseca.",
+    "disclaimer": "Datumi prate vidljivost polumjeseca na vašoj lokaciji (ili službeni Umm al-Qura kalendar u regijama koje ga koriste) i mogu se razlikovati za jedan dan od najave lokalne vlasti.",
     "names": {
       "newYear": "Islamska Nova godina",
       "ashura": "Dan Ašure",
@@ -3971,7 +4033,7 @@
       "label": "Prilozi (opcionalno)",
       "add": "Dodaj fajl",
       "remove": "Uklonite prilog",
-      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), svaka od 1 MB. Dugo pritisnite sličicu za uklanjanje.",
+      "hint": "Do 5 datoteka (JPEG, PNG, WebP ili PDF), 1 MB svaka. Dodirnite × na sličici da uklonite.",
       "signInRequired": "Prijavite se da priložite privatne fajlove svom adhkaru.",
       "permissionDenied": "Za prilaganje fajlova potrebna je dozvola.",
       "permissionTitle": "Dozvoli pristup",
@@ -3997,7 +4059,10 @@
       "sourceGallery": "Biblioteka fotografija",
       "sourceGalleryHint": "Odaberite sliku sa svojih fotografija",
       "sourceDocument": "Fajlovi",
-      "sourceDocumentHint": "Odaberite sliku ili PDF iz svojih datoteka"
+      "sourceDocumentHint": "Odaberite sliku ili PDF iz svojih datoteka",
+      "loadingPdf": "Učitavanje PDF…",
+      "pdfHint": "Pomicanje · štipanje ili +/− za zum · dvostruki dodir za reset · Otvori PDF za dijeljenje",
+      "pdfPreviewTitle": "PDF pregled"
     },
     "stt": {
       "dictate": "Diktirajte mikrofonom",
@@ -4010,7 +4075,10 @@
     },
     "editTitle": "Uredi adhkar",
     "confirmDeleteTitle": "Obriši ovaj adhkar?",
-    "confirmDeleteMsg": "“{{title}}” bit će trajno uklonjen."
+    "confirmDeleteMsg": "“{{title}}” bit će trajno uklonjen.",
+    "searchPlaceholder": "Pretražite svoje adhkar",
+    "noResults": "Nema odgovarajućih adhkar",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night salah",
@@ -4457,7 +4525,7 @@
     "sourceLabel": "Vaš izvor (opcionalno)",
     "sourcePlaceholder": "Book, učenjak, URL, ili citation supporting vaš correction.",
     "proofLabel": "Proof screenshots (opcionalno)",
-    "proofHint": "Up u 3 images. Long-press  thumbnail u remove.",
+    "proofHint": "Do 3 slike. Dodirnite × na sličici da uklonite.",
     "addProof": "Dodaj photo",
     "removeProof": "screenshot Kaldır",
     "submit": "Submit bildir",
@@ -4494,7 +4562,11 @@
       "completed": "Završeno",
       "cancelled": "İptal edildi",
       "spam": "Spm"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri & sesli kısayollar",
@@ -4717,7 +4789,7 @@
     "eyebrow": "Kalendar",
     "title": "Konverter datuma",
     "subtitle": "Pretvorite između hidžretskog i gregorijanskog kalendara",
-    "intro": "Unesite datum u bilo koji kalendar da vidite njegov ekvivalent u drugom, izračunatom van mreže pomoću tabelarnog kuvajtskog algoritma.",
+    "intro": "Unesite datum u bilo kojem kalendaru da vidite ekvivalent u drugom, izračunat offline iz vidljivosti polumjeseca na vašoj lokaciji.",
     "toHijri": "Gregorijanski → Hidžri",
     "toGregorian": "hidžretski → gregorijanski",
     "gregorianDateLabel": "Gregorijanski datum",
@@ -4727,7 +4799,7 @@
     "year": "Godina",
     "useToday": "Iskoristite danas",
     "invalidDate": "Unesite važeći datum",
-    "disclaimer": "Ovo je aritmetička aproksimacija (tabelarni \"Kuvajtski algoritam\") i može se razlikovati za jedan dan od lokalnih najava o viđenju Mjeseca - uvijek pratite svoj lokalni mesdžid ili autoritet za vjerske datume.",
+    "disclaimer": "Datumi se računaju iz vidljivosti polumjeseca (hilāl) na vašoj lokaciji i mogu se razlikovati za jedan dan od službenih najava o viđenju mjeseca — uvijek slijedite lokalni masjid ili vlast za vjerske datume.",
     "directionTitle": "Smjer konverzije",
     "resultFrom": "Od {{date}}",
     "quickLinksTitle": "Povezano",
@@ -4806,6 +4878,25 @@
     "basedOn": "Na osnovu",
     "editTime": "Uredi vrijeme {{prayer}}",
     "editHint": "Rezultati se ažuriraju dok mijenjate vrijeme.",
-    "nightLengthLabel": "Dužina noći"
+    "nightLengthLabel": "Dužina noći",
+    "willStartIn": "Počinje za {{time}}",
+    "timeRemaining": "Preostalo {{time}}"
+  },
+  "friday": {
+    "eyebrow": "Uči",
+    "title": "Petak i džuma",
+    "subtitle": "Vrline, priprema, Surah al-Kahf, salawat i sat Dua",
+    "intro": "Petak je najbolji dan u kojem izlazi sunce. Naučite autentične prakse Jumu'ah — Ghusl, namaz, Surah al-Kahf, salawat i traženje prihvaćenog sata — iz Kur'ana i sahih hadisa.",
+    "section": {
+      "virtues": "Vrline petka",
+      "obligation": "Jumu'ah namaz",
+      "prepare": "Priprema",
+      "kahf": "Sura el-Kehf",
+      "salawat": "Salavat",
+      "dua": "Sat Dua"
+    },
+    "notFound": "Tema nije pronađena",
+    "disclaimer": "Edukativni pregled — nije fetva. Gdje se škole razlikuju (npr. da li je petkovi Ghusl wajib ili sunnah mu'akkadah), navedena su oba stava; slijedite svog imama ili kvalifikovanog lokalnog učenjaka.",
+    "continueInApp": "Nastavi u Munib"
   }
 }

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  assertPostgresUtf8Encoding,
   isTransactionPoolerUrl,
+  POSTGRES_CLIENT_UTF8_OPTIONS,
   parseDatabaseUrl,
   resolvePostgresConnection,
   toSessionPoolerUrl,
@@ -83,6 +85,17 @@ describe("resolvePostgresConnection", () => {
       type: "postgres",
       url: "postgresql://app:secret@db.neon.tech:5432/munib",
       ssl: { rejectUnauthorized: true },
+      extra: { options: POSTGRES_CLIENT_UTF8_OPTIONS },
+    });
+  });
+
+  it("forces UTF-8 client encoding so Windows WIN1252 locales accept Arabic", () => {
+    const conn = resolvePostgresConnection({
+      DATABASE_HOST: "localhost",
+      DATABASE_PASSWORD: "postgres",
+    });
+    expect(toTypeOrmPostgresOptions(conn).extra).toEqual({
+      options: POSTGRES_CLIENT_UTF8_OPTIONS,
     });
   });
 
@@ -134,5 +147,19 @@ describe("resolvePostgresConnection", () => {
     });
     expect(conn.host).toBe("localhost");
     expect(conn.ssl).toBe(false);
+  });
+});
+
+describe("assertPostgresUtf8Encoding", () => {
+  it("allows UTF8", async () => {
+    await expect(
+      assertPostgresUtf8Encoding(async () => [{ server_encoding: "UTF8" }]),
+    ).resolves.toBeUndefined();
+  });
+
+  it("rejects WIN1252 with a recreate hint", async () => {
+    await expect(
+      assertPostgresUtf8Encoding(async () => [{ server_encoding: "WIN1252" }]),
+    ).rejects.toThrow(/ENCODING 'UTF8'/);
   });
 });

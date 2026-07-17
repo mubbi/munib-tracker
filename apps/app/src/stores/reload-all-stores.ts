@@ -6,6 +6,7 @@ import { customTasbeehStore } from "./custom-tasbeeh-store";
 import { duaFavoritesStore } from "./dua-favorites-store";
 import { duroodFavoritesStore } from "./durood-favorites-store";
 import { fastingStore } from "./fasting-store";
+import { fridayChecklistStore } from "./friday-checklist-store";
 import { hajjChecklistStore } from "./hajj-checklist-store";
 import { hifzStore } from "./hifz-store";
 import { jahannamIntentionsStore } from "./jahannam-intentions-store";
@@ -50,6 +51,7 @@ export async function reloadAllStores(): Promise<void> {
     hifzStore.getState().load(),
     khushuStore.getState().load(),
     hajjChecklistStore.getState().load(),
+    fridayChecklistStore.getState().load(),
     toursStore.getState().load(),
     jannahIntentionsStore.getState().load(),
     jahannamIntentionsStore.getState().load(),

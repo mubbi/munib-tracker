@@ -29,6 +29,7 @@ import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
+import { useLocation } from "@/stores/location-store";
 
 export default function CalendarScreen() {
   const router = useRouter();
@@ -37,8 +38,10 @@ export default function CalendarScreen() {
   const chevronBackward = useChevronBackward();
   const chevronForward = useChevronForward();
   const defaultCalendar = useDefaultCalendar();
+  const location = useLocation();
   const now = new Date();
-  const todayHijri = gregorianToHijri(now);
+  // Same Hijri engine + location timezone as the prayer hero / Ramadan card.
+  const todayHijri = gregorianToHijri(now, location.timeZone);
   const [mode, setMode] = useState<CalendarMode>(defaultCalendar);
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth());
@@ -74,7 +77,7 @@ export default function CalendarScreen() {
   // active calendar plus its worship status (prayed / partial / missed / today).
   const describeDay = (date: string, isToday: boolean) => {
     const parsed = new Date(`${date}T00:00:00`);
-    const dateText = formatCalendarDate(parsed, mode, locale);
+    const dateText = formatCalendarDate(parsed, mode, locale, undefined, location.timeZone);
     const info = activity.get(date);
     let statusText: string | null;
     if (date > today) statusText = t("calDay.futureSubtitle");
@@ -255,7 +258,13 @@ export default function CalendarScreen() {
           </View>
           <ThemedText type="caption" themeColor="mutedForeground" style={styles.legendHint}>
             {t("calendar.legendHint", {
-              date: formatCalendarDate(new Date(`${today}T00:00:00`), mode, locale),
+              date: formatCalendarDate(
+                new Date(`${today}T00:00:00`),
+                mode,
+                locale,
+                undefined,
+                location.timeZone,
+              ),
             })}
           </ThemedText>
         </Card>

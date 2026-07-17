@@ -42,6 +42,7 @@ export const SYNC_ENTITIES = [
   "custom_adhkar",
   "khushu_journal",
   "hajj_checklist",
+  "friday_checklist",
   "jannah_intentions",
   "jahannam_intentions",
   "salah_guide_progress",

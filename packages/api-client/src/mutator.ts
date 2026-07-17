@@ -10,6 +10,13 @@ import { isWebCookieSessionToken } from "./web-cookie-session";
 
 export type ApiFetchOptions = RequestInit & {
   accessToken?: string;
+  /**
+   * When true, a 401 response is returned as-is instead of calling the registered
+   * token refresher. Required for `/auth/refresh` itself so a failed refresh cannot
+   * re-enter the refresher (deadlock on the single-flight promise) and leave the
+   * UI stuck in a signed-in zombie state.
+   */
+  skipAuthRefresh?: boolean;
 };
 
 export type OrvalRequestConfig = {
@@ -65,6 +72,16 @@ function isLikelyWebCookieSession(): boolean {
   return isWebRuntime();
 }
 
+/** True for the token-rotation endpoint — must never trigger another refresh. */
+function isAuthRefreshUrl(url: string): boolean {
+  try {
+    const path = new URL(url, "http://local.invalid").pathname.replace(/\/+$/, "");
+    return path.endsWith("/auth/refresh");
+  } catch {
+    return /\/auth\/refresh\/?(\?|$)/.test(url);
+  }
+}
+
 function isFormDataBody(body: unknown): boolean {
   return typeof FormData !== "undefined" && body instanceof FormData;
 }
@@ -92,7 +109,7 @@ export async function apiFetch<T>(
     throw new ApiBlockedError(config.method, config.url);
   }
 
-  const { accessToken, headers, ...requestInit } = options;
+  const { accessToken, skipAuthRefresh = false, headers, ...requestInit } = options;
   let targetUrl = resolveApiUrl(config.url);
 
   // orval-generated calls pass query params separately; append them to the URL.
@@ -151,8 +168,12 @@ export async function apiFetch<T>(
 
     // Transparently recover from an expired access token: refresh once and retry.
     // Cookie sessions (no Bearer) also refresh on 401 when a refresher is registered.
+    // Never refresh the refresh call itself — that deadlocks the single-flight
+    // refresher and leaves sessionStorage/UI looking signed in after a real 401.
     if (
       response.status === 401 &&
+      !skipAuthRefresh &&
+      !isAuthRefreshUrl(targetUrl) &&
       tokenRefresher &&
       !isAppReloadInProgress() &&
       (accessToken || isLikelyWebCookieSession())

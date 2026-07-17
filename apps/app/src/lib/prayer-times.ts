@@ -374,6 +374,26 @@ export function computeNightDividers(maghrib: Date, fajr: Date): NightDividers {
   };
 }
 
+/**
+ * Maghrib→Fajr instants for the Islamic night that still contains `now`
+ * (before Fajr), otherwise the upcoming night starting at tonight's Maghrib.
+ */
+export function resolveNightBoundsForNow(
+  maghrib: WallClockTime,
+  fajr: WallClockTime,
+  now: Date,
+  timeZone?: string,
+): { maghribAt: Date; fajrAt: Date } | undefined {
+  const anchor = prayerDayAnchor(now, timeZone);
+  const overnight = nightBoundsFromWallClock(maghrib, fajr, shiftPrayerDay(anchor, -1), timeZone);
+  const bounds =
+    now.getTime() < overnight.fajrAt.getTime()
+      ? overnight
+      : nightBoundsFromWallClock(maghrib, fajr, anchor, timeZone);
+  if (bounds.fajrAt.getTime() <= bounds.maghribAt.getTime()) return undefined;
+  return bounds;
+}
+
 /** Maghrib/Fajr wall-clock times for the upcoming Islamic night at a location. */
 export function detectNightPrayerWallClock(
   coords: Coords,

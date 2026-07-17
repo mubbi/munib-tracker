@@ -177,7 +177,8 @@
     "finance": "Finance Islamique",
     "flashCards": "Cartes mémoire",
     "verseDetector": "Détecteur de versets",
-    "lastThirdNight": "Dernier tiers de la nuit"
+    "lastThirdNight": "Dernier tiers de la nuit",
+    "friday": "Vendredi & Jumu'ah"
   },
   "quickActions": {
     "checklistSubtitle": "Enregistrer les prières du jour",
@@ -456,6 +457,14 @@
         "text": "Une courte séance de tasbeeh compte. Le Zikr n’est pas seulement destiné aux longues séances – commencez par dix.",
         "topic": "zikr"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Toutes les pratiques du vendredi sont enregistrées — qu'Allah les accepte.",
+      "openChecklist": "Ouvrir la checklist Jumu'ah",
+      "badge": "Vendredi",
+      "reminderTitle": "Jumu'ah Moubarak",
+      "reminderBody": "Priez la Jumu'ah et accomplissez les sunnahs du vendredi — ghusl, Surah al-Kahf, salawat et dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "{{prayer}} sonrası",
     "afterSalahAdhkarReminderBody": "Tasbeeh et salah sonrası zikirler pour un an moisırın.",
     "afterSalahProgress": "Zikrler {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} sur {{total}} completed today"
+    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}} sur {{total}} completed today",
+    "friday": {
+      "title": "Checklist Jumu'ah",
+      "subtitle": "Pratiques sunnah du vendredi — affichées uniquement le vendredi",
+      "progress": "{{completed}} sur {{total}}",
+      "openRelated": "Ouvrir le contenu associé",
+      "learnMore": "Apprendre les pratiques du vendredi",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl du vendredi",
+          "hint": "Se laver avant d'aller au masjid"
+        },
+        "prepare": {
+          "title": "Meilleurs vêtements et parfum",
+          "hint": "S'habiller proprement et appliquer un léger parfum si possible"
+        },
+        "jumuah": {
+          "title": "Assister à la Jumu'ah (ou prier Dhuhr)",
+          "hint": "Khutbah + deux rak'ahs ; dispensé : prier Dhuhr"
+        },
+        "kahf": {
+          "title": "Lire Surah al-Kahf",
+          "hint": "Une lumière entre les deux vendredis"
+        },
+        "salawat": {
+          "title": "Multiplier les salawat",
+          "hint": "Envoyer des bénédictions sur le Prophète ﷺ"
+        },
+        "dua": {
+          "title": "Chercher l'heure de la dua",
+          "hint": "Surtout dans la dernière heure après Asr"
+        }
+      },
+      "details": "Détails",
+      "jumpTitle": "Checklist Jumu'ah",
+      "jumpHint": "Pratiques sunnah du vendredi ci-dessous",
+      "jumpA11y": "Aller à la checklist Jumu'ah sur cette page"
+    }
   },
   "update": {
     "title": "Mise à jour disponible",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries pour bu category dir   wmois.",
     "detailEyebrow": "Зикр",
     "today": "Aujourd'hui",
-    "openInTasbeeh": "in Tasbeeh Aç",
+    "openInTasbeeh": "Ouvrir dans Tasbeeh",
     "favorite": "Préféré",
     "favorited": "Favoris",
     "share": "Partager",
@@ -1112,7 +1158,8 @@
     "favorites": "Duroos préférés",
     "favSubtitle": "Enregistrertiğiniz salavatlar",
     "favEmptyTitle": "Pas encore de duroods préférés",
-    "favEmptyDesc": "Cermoisa kmoisdetmek pour herhangi un salavata annéedıza dokunun."
+    "favEmptyDesc": "Cermoisa kmoisdetmek pour herhangi un salavata annéedıza dokunun.",
+    "openInTasbeeh": "Ouvrir dans Tasbeeh"
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Pleine lune ce soir",
       "fullBody": "La lune est entièrement éclairée vers le milieu de {{month}} – les nuits des Jours Blancs, lorsque le jeûne est particulièrement recommandé.",
       "generalTitle": "Un calendrier de la lune",
-      "generalBody": "Le calendrier islamique (Hijri) suit la lune : chaque mois dure 29 ou 30 jours, à compter du croissant aperçu (hilāl). Les dates ici utilisent un calendrier tabulaire pour votre emplacement et peuvent différer de l'observation locale d'un jour.",
+      "generalBody": "Le calendrier islamique (Hijri) suit la lune : chaque mois dure 29 ou 30 jours, à compter du croissant aperçu (hilāl). Les dates ici sont calculées d'après la visibilité du croissant à votre emplacement et peuvent différer de l'annonce de votre autorité locale d'un jour.",
       "monthTurnTitle": "Cherchez le croissant",
-      "monthTurnBody": "Après le Maghrib, cherchez le hilāl de {{month}}. Les mois islamiques commencent avec le croissant aperçu ; l'observation locale peut différer de ce calendrier d'un jour."
+      "monthTurnBody": "Après Maghrib, cherchez le hilāl de {{month}}. Les mois islamiques commencent avec le croissant aperçu ; l'annonce de votre autorité locale peut différer de ce calcul d'un jour."
     },
     "monthProgress": "Progression du mois",
     "monthProgressValue": "Jour {{day}} sur {{length}} · {{month}}",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Compte",
     "title": "Profil",
-    "subtitle": "Vos coordonnées et votre compte",
+    "subtitle": "Nom, synchronisation et connexion",
     "guestName": "Invité",
     "changeAvatar": "Changer d'avatar",
     "signInToSync": "Connectez-vous pour synchroniser",
@@ -2154,7 +2201,17 @@
       "not_using": "Je ne l'utilise plus",
       "technical_issues": "Problèmes techniques ou bugs",
       "other": "Autre"
-    }
+    },
+    "editName": "Modifier le nom affiché",
+    "signedInWith": "Connecté avec {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Liez un compte pour sauvegarder votre Salah, Zikr et Qaza sur tous vos appareils.",
+    "sessionTitle": "Session",
+    "sessionHint": "Déconnectez-vous sur cet appareil. Vos données cloud restent en sécurité.",
+    "dangerTitle": "Zone de danger",
+    "dangerHint": "Effacez définitivement votre compte et vos données locales. Cette action est irréversible."
   },
   "sync": {
     "title": "Synchronisation dans le cloud",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Громкость {{value}}%",
     "buffering": "Mise en mémoire tampon…",
     "loading": "Chargement…",
-    "streamingOnlyNote": "Streaming uniquement : l'audio n'est pas enregistré sur cet appareil"
+    "streamingOnlyNote": "Streaming uniquement : l'audio n'est pas enregistré sur cet appareil",
+    "ttsVoice": "Voix",
+    "ttsVoiceHint": "Choisir une voix de synthèse vocale"
   },
   "errors": {
     "title": "Une erreur s'est produite",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Localisation et rappels",
       "description": "Autorisez la localisation et les notifications pour des horaires de Salah précis, la qibla et des rappels optionnels — ou configurez-les plus tard."
+    },
+    "tasbeehDurood": {
+      "description": "Comptez ce salawat avec le compteur tactile de tasbeeh."
     }
   },
   "pwa": {
@@ -3418,7 +3480,7 @@
     "today": "Aujourd'hui",
     "inDays": "dans {{count}} jours",
     "hijriYear": "{{year}}AH",
-    "disclaimer": "Les dates sont des estimations calculées – le jour réel dépend de l’observation locale de la lune.",
+    "disclaimer": "Les dates suivent la visibilité du croissant à votre emplacement (ou le calendrier officiel Umm al-Qura dans les régions qui l'utilisent) et peuvent différer d'un jour de l'annonce d'une autorité locale.",
     "names": {
       "newYear": "Nouvel An islamique",
       "ashura": "Jour d'Achoura",
@@ -3971,7 +4033,7 @@
       "label": "Pièces jointes (facultatif)",
       "add": "Ajouter un fichier",
       "remove": "Supprimer la pièce jointe",
-      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez longuement sur une vignette pour la supprimer.",
+      "hint": "Jusqu'à 5 fichiers (JPEG, PNG, WebP ou PDF), 1 Mo chacun. Appuyez sur × sur une miniature pour retirer.",
       "signInRequired": "Connectez-vous pour joindre des fichiers privés à votre adhkar.",
       "permissionDenied": "Une autorisation est requise pour joindre des fichiers.",
       "permissionTitle": "Autoriser l'accès",
@@ -3997,7 +4059,10 @@
       "sourceGallery": "Photothèque",
       "sourceGalleryHint": "Choisissez une image parmi vos photos",
       "sourceDocument": "Fichiers",
-      "sourceDocumentHint": "Choisissez une image ou un PDF dans vos fichiers"
+      "sourceDocumentHint": "Choisissez une image ou un PDF dans vos fichiers",
+      "loadingPdf": "Chargement du PDF…",
+      "pdfHint": "Défiler · pincer ou utiliser +/− pour zoomer · double-tap pour réinitialiser · Ouvrir le PDF pour partager",
+      "pdfPreviewTitle": "Aperçu PDF"
     },
     "stt": {
       "dictate": "Dicter avec un microphone",
@@ -4010,7 +4075,10 @@
     },
     "editTitle": "Modifier l’adhkar",
     "confirmDeleteTitle": "Supprimer cet adhkar ?",
-    "confirmDeleteMsg": "« {{title}} » sera supprimé définitivement."
+    "confirmDeleteMsg": "« {{title}} » sera supprimé définitivement.",
+    "searchPlaceholder": "Rechercher vos adhkar",
+    "noResults": "Aucun adhkar correspondant",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Night salah",
@@ -4457,7 +4525,7 @@
     "sourceLabel": "Vousin kmoisnak (isteğe bağlı)",
     "sourcePlaceholder": "Book, alim, URL, ou citation supporting votre correction.",
     "proofLabel": "Captures d'écran de preuve (facultatif)",
-    "proofHint": "Up  3 images. Long-press  thumbnail  remoet.",
+    "proofHint": "Jusqu'à 3 images. Appuyez sur × sur une miniature pour retirer.",
     "addProof": "Ajouter photo",
     "removeProof": "Retirer screenshot",
     "submit": "Envoyer report",
@@ -4494,7 +4562,11 @@
       "completed": "Terminé",
       "cancelled": "Annulé",
       "spam": "Spm"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri et raccourcis vocaux",
@@ -4717,7 +4789,7 @@
     "eyebrow": "Calendrier",
     "title": "Convertisseur de dates",
     "subtitle": "Conversion entre les calendriers hégirien et grégorien",
-    "intro": "Entrez une date dans l'un ou l'autre calendrier pour voir son équivalent dans l'autre, calculé hors ligne à l'aide de l'algorithme tabulaire koweïtien.",
+    "intro": "Entrez une date dans l'un des calendriers pour voir son équivalent dans l'autre, calculé hors ligne d'après la visibilité du croissant à votre emplacement.",
     "toHijri": "Grégorien → Hijri",
     "toGregorian": "hijri → grégorien",
     "gregorianDateLabel": "date grégorienne",
@@ -4727,7 +4799,7 @@
     "year": "Année",
     "useToday": "Utiliser aujourd'hui",
     "invalidDate": "Entrez une date valide",
-    "disclaimer": "Il s'agit d'une approximation arithmétique (le tableau \"algorithme koweïtien\") et peut différer d'un jour des annonces locales d'observation de la lune - suivez toujours votre mosquée locale ou votre autorité pour les dates religieuses.",
+    "disclaimer": "Les dates sont calculées d'après la visibilité du croissant (hilāl) à votre emplacement et peuvent différer d'un jour des annonces officielles d'observation de la lune — suivez toujours votre masjid local ou autorité pour les dates religieuses.",
     "directionTitle": "Sens de conversion",
     "resultFrom": "De {{date}}",
     "quickLinksTitle": "Connexes",
@@ -4806,6 +4878,25 @@
     "basedOn": "Basé sur",
     "editTime": "Modifier l'heure de {{prayer}}",
     "editHint": "Les résultats se mettent à jour quand vous changez l'heure.",
-    "nightLengthLabel": "Durée de la nuit"
+    "nightLengthLabel": "Durée de la nuit",
+    "willStartIn": "Commence dans {{time}}",
+    "timeRemaining": "{{time}} restantes"
+  },
+  "friday": {
+    "eyebrow": "Apprendre",
+    "title": "Vendredi & Jumu'ah",
+    "subtitle": "Vertus, préparation, Surah al-Kahf, salawat et l'heure de la dua",
+    "intro": "Le vendredi est le meilleur jour sur lequel le soleil se lève. Apprenez les pratiques authentiques de la Jumu'ah — ghusl, la prière, Surah al-Kahf, salawat et la recherche de l'heure exaucée — d'après le Qur'an et les hadiths sahih.",
+    "section": {
+      "virtues": "Vertus du vendredi",
+      "obligation": "Prière de Jumu'ah",
+      "prepare": "Préparation",
+      "kahf": "Sourate al-Kahf",
+      "salawat": "Salawat",
+      "dua": "Heure de la dua"
+    },
+    "notFound": "Sujet introuvable",
+    "disclaimer": "Aperçu éducatif — pas une fatwa. Là où les écoles divergent (par exemple si le ghusl du vendredi est wajib ou sunnah mu'akkadah), les deux positions sont notées ; suivez votre imam ou un savant local qualifié.",
+    "continueInApp": "Continuer dans Munib"
   }
 }

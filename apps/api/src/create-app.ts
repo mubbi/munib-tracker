@@ -11,10 +11,12 @@ import cookieParser from "cookie-parser";
 import type { Express } from "express";
 import express from "express";
 import helmet from "helmet";
+import { DataSource } from "typeorm";
 import { AppModule } from "./app.module";
 import { AppOpenApiModule } from "./app.openapi.module";
 import { type EnvironmentVariables, NodeEnvironment } from "./config/env.schema";
 import { parseCorsOrigins } from "./config/env.validation";
+import { assertPostgresUtf8Encoding } from "./database/postgres-connection";
 import { APP_VERSION_CORS_EXPOSED_HEADERS } from "./version/lib/app-version-response-headers";
 
 export type CreateAppOptions = {
@@ -69,7 +71,29 @@ export async function createApp(
   const corsOrigins = parseCorsOrigins(configService.get("CORS_ORIGINS", { infer: true }));
   const enableSwagger = shouldEnableSwaggerUi(configService, options);
 
-  app.use(helmet());
+  if (process.env.EXPORT_OPENAPI !== "true") {
+    try {
+      const dataSource = app.get(DataSource);
+      if (dataSource.options.type === "postgres") {
+        await assertPostgresUtf8Encoding((sql) => dataSource.query(sql));
+      }
+    } catch (error) {
+      // DataSource may be absent in OpenAPI-only / sqlite test boots.
+      if (error instanceof Error && error.message.includes("requires UTF8")) {
+        throw error;
+      }
+    }
+  }
+
+  // CORP default is `same-origin`, which blocks Expo web (`my.*` / :8081) from
+  // embedding authenticated `/user-media/*/content` images served from the API
+  // host (`api.*` / :3001). Auth still gates bytes; SameSite cookies are not
+  // sent on cross-site embeds from unrelated origins.
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: { policy: "cross-origin" },
+    }),
+  );
   app.use(cookieParser());
   app.use(express.urlencoded({ extended: true }));
   // Only enable credentialed CORS against an explicit allowlist. When no origins

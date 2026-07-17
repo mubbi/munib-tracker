@@ -333,13 +333,36 @@ export function trimRemindersToBudget(
     .sort((a, b) => a.fireAt.getTime() - b.fireAt.getTime());
 }
 
+/** True when the user still owes make-up Salah and/or fasting. */
+export function hasOutstandingQazaDebt(
+  counters: { remaining: number }[],
+  roza: { remaining: number },
+): boolean {
+  return counters.some((counter) => counter.remaining > 0) || roza.remaining > 0;
+}
+
+/** Stable reminder ids used for the daily Qaza nudge (`qaza` or `qaza:YYYY-MM-DD`). */
+export function isQazaReminderId(id: string): boolean {
+  return id === "qaza" || id.startsWith("qaza:");
+}
+
+export type BuildRemindersOptions = {
+  /**
+   * When false, the daily Qaza nudge is omitted even if the preference is on.
+   * Defaults to false so empty/cleared debt never schedules a make-up reminder.
+   */
+  hasQazaDebt?: boolean;
+};
+
 export function buildReminders(
   prefs: UserPreferences,
   location: StoredLocation,
   now = new Date(),
+  options: BuildRemindersOptions = {},
 ): BuiltReminder[] {
   const n = prefs.notificationPrefs;
   const reminders: BuiltReminder[] = [];
+  const hasQazaDebt = options.hasQazaDebt === true;
 
   // Default Makkah coords are a display fallback only — never schedule Salah/Adhan
   // against them or users who skipped location get wrong-time alerts.
@@ -396,7 +419,7 @@ export function buildReminders(
     i18n.t("notif.reminders.qazaBody"),
     "qaza",
     "/qaza",
-    n.qaza,
+    n.qaza && hasQazaDebt,
     location,
     now,
     PRIORITY.qaza,

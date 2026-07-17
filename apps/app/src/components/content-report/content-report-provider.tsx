@@ -3,9 +3,9 @@ import type {
   ContentReportReference,
 } from "@munib-tracker/shared/types/content-report";
 import Constants from "expo-constants";
-import { type ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AppState, type AppStateStatus, Platform } from "react-native";
+import { Platform } from "react-native";
 
 import { ContentReportAuthGate } from "@/components/content-report/content-report-auth-gate";
 import { ContentReportContext } from "@/components/content-report/content-report-context";
@@ -30,38 +30,44 @@ export function ContentReportProvider({ children }: { children: ReactNode }) {
   const [authGateVisible, setAuthGateVisible] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  const toastRef = useRef(toast);
+  toastRef.current = toast;
+  const tRef = useRef(t);
+  tRef.current = t;
+  const flushInFlight = useRef(false);
+  const wasOnline = useRef(online);
+
   const flushQueue = useCallback(async () => {
     const token = session?.accessToken;
-    if (!token || isGuest) return;
+    if (!token || isGuest || flushInFlight.current) return;
+    flushInFlight.current = true;
     try {
       const sent = await flushContentReportQueue(token);
       if (sent > 0) {
-        toast.success(
+        toastRef.current.success(
           sent === 1
-            ? t("contentReport.queuedSentOne")
-            : t("contentReport.queuedSentMany", { count: sent }),
+            ? tRef.current("contentReport.queuedSentOne")
+            : tRef.current("contentReport.queuedSentMany", { count: sent }),
         );
       }
     } catch {
       // remain queued
+    } finally {
+      flushInFlight.current = false;
     }
-  }, [session?.accessToken, isGuest, toast, t]);
+  }, [session?.accessToken, isGuest]);
 
+  // Flush once when a linked session becomes available — not on tab focus/refocus.
   useEffect(() => {
     void flushQueue();
   }, [flushQueue]);
 
+  // Flush only on offline → online transitions (not every render while online).
   useEffect(() => {
-    if (online) void flushQueue();
+    const becameOnline = online && !wasOnline.current;
+    wasOnline.current = online;
+    if (becameOnline) void flushQueue();
   }, [online, flushQueue]);
-
-  useEffect(() => {
-    const onChange = (status: AppStateStatus) => {
-      if (status === "active") void flushQueue();
-    };
-    const subscription = AppState.addEventListener("change", onChange);
-    return () => subscription.remove();
-  }, [flushQueue]);
 
   const openReport = useCallback(
     (ref: ContentReportReference) => {

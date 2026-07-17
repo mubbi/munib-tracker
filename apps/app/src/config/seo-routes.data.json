@@ -102,7 +102,7 @@
   },
   "/calendar/converter": {
     "title": "Hijri-Gregorian Date Converter",
-    "description": "Convert dates between the Hijri (Islamic) and Gregorian calendars in either direction — offline, using the tabular Kuwaiti algorithm.",
+    "description": "Convert dates between the Hijri (Islamic) and Gregorian calendars in either direction — offline, from crescent visibility at your location.",
     "keywords": [
       "hijri converter",
       "islamic calendar converter",

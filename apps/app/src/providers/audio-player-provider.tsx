@@ -44,7 +44,15 @@ import { applyVolume } from "@/lib/audio-volume";
 import { buildAudioActivity } from "@/lib/continue-activity";
 import { triggerHaptic } from "@/lib/haptics";
 import { nextIndexForRepeatPlan } from "@/lib/quran-repeat";
-import { speak as speakTts, stopTts } from "@/lib/tts";
+import {
+  canPauseTts,
+  pauseTts,
+  playerRateToSpeechRate,
+  resumeTts,
+  speak as speakTts,
+  stopTts,
+} from "@/lib/tts";
+import { estimateTtsDurationSeconds, isTtsPlaybackTrack } from "@/lib/tts-audio-tracks";
 import {
   AudioContext,
   type AudioContextValue,
@@ -83,6 +91,20 @@ const LOOP_CYCLE: LoopMode[] = ["off", "all", "one"];
 /** Qur'an ayah track ids look like `2:255` — used to scope repeat/TTS to scripture queues. */
 function isQuranAyahTrack(track: AudioTrack | null | undefined): boolean {
   return Boolean(track?.id && /^\d+:\d+$/.test(track.id));
+}
+
+/** Approximate mid-utterance seek by slicing at a word boundary. */
+function sliceTtsTextFromProgress(text: string, progress: number): string {
+  const trimmed = text.trim();
+  if (!trimmed) return "";
+  const p = Math.min(1, Math.max(0, progress));
+  if (p <= 0.02) return trimmed;
+  if (p >= 0.98) return "";
+  const approx = Math.floor(trimmed.length * p);
+  const space = trimmed.indexOf(" ", approx);
+  const cut = space >= 0 ? space + 1 : approx;
+  const sliced = trimmed.slice(cut).trim();
+  return sliced || trimmed.slice(approx).trim();
 }
 
 /**
@@ -125,7 +147,7 @@ function warmUpcomingTrackUris(tracks: AudioTrack[], fromIndex: number): void {
   const end = Math.min(fromIndex + PREFETCH_AHEAD + 1, tracks.length);
   for (let i = fromIndex; i < end; i++) {
     const track = tracks[i];
-    if (track.source != null) continue;
+    if (!track || track.source != null || track.ttsPlayback || !track.uri) continue;
     prefetchAudioUri(track.uri);
     void preloadTrackUri(track.uri);
   }
@@ -230,6 +252,8 @@ function AudioPlayerProviderLive({
   const [isTransitioning, setIsTransitioning] = useState(false);
   /** User explicitly paused; auto-advance queues ignore raw `playing` gaps between tracks. */
   const [userPaused, setUserPaused] = useState(false);
+  /** Synthetic clock for TTS-only tracks (no expo-audio source). */
+  const [ttsClock, setTtsClock] = useState<{ position: number; duration: number } | null>(null);
 
   // Refs keep the finish handler current without re-subscribing every render.
   const indexRef = useRef(0);
@@ -259,6 +283,17 @@ function AudioPlayerProviderLive({
   // source's clock has genuinely reset (vs. still reporting the outgoing track).
   const transitionFromTimeRef = useRef(0);
   const lastEngineTimeRef = useRef(0);
+  const ttsGenerationRef = useRef(0);
+  const ttsTickRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const ttsProgressAnchorRef = useRef(0);
+  const ttsStartedAtRef = useRef<number | null>(null);
+  const ttsPausedPositionRef = useRef(0);
+  const ttsNeedsRestartRef = useRef(false);
+  const playIndexRef = useRef<
+    (tracks: AudioTrack[], startIndex: number, seamless?: boolean) => void
+  >(() => {});
+  const userPausedRef = useRef(false);
+  userPausedRef.current = userPaused;
 
   // Which physical player is active, and what track id (if any) each player
   // currently holds — kept in refs so the async preloader and the finish
@@ -272,6 +307,81 @@ function AudioPlayerProviderLive({
 
   const getActive = useCallback((): AudioPlayer => playersRef.current[activeSlotRef.current], []);
   const getIdleSlot = useCallback((): 0 | 1 => (activeSlotRef.current === 0 ? 1 : 0), []);
+
+  const clearTtsClock = useCallback(() => {
+    ttsGenerationRef.current += 1;
+    if (ttsTickRef.current) {
+      clearInterval(ttsTickRef.current);
+      ttsTickRef.current = null;
+    }
+    ttsStartedAtRef.current = null;
+    ttsProgressAnchorRef.current = 0;
+    ttsPausedPositionRef.current = 0;
+    setTtsClock(null);
+  }, []);
+
+  const pauseAudioEngines = useCallback(() => {
+    try {
+      playersRef.current[0].pause();
+      playersRef.current[1].pause();
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  const resolveNextIndexAfterFinish = useCallback(
+    (idx: number, finishingTrack: AudioTrack | undefined) => {
+      const q = queueRef.current;
+      const plan = repeatPlanRef.current;
+      if (plan.mode !== "off" && isQuranAyahTrack(finishingTrack)) {
+        return nextIndexForRepeatPlan(idx, q.length, plan);
+      }
+      if (loopRef.current === "one") {
+        loopRef.current = "off";
+        setLoopMode("off");
+        return idx;
+      }
+      const atLast = q.length > 0 && idx >= q.length - 1;
+      if (atLast && loopRef.current !== "all") return null;
+      return idx + 1 < q.length ? idx + 1 : 0;
+    },
+    [],
+  );
+
+  const advanceAfterTtsFinish = useCallback(() => {
+    const q = queueRef.current;
+    const idx = indexRef.current;
+    const finishingTrack = q[idx];
+    const finishedDuration = trackDurationsRef.current[finishingTrack?.id ?? ""] ?? 0;
+    if (finishingTrack && finishedDuration > 0) {
+      stableQueuePositionRef.current = Math.max(
+        stableQueuePositionRef.current,
+        computeQueuePosition(q, idx, finishedDuration, trackDurationsRef.current),
+      );
+    }
+
+    const nextIdx = resolveNextIndexAfterFinish(idx, finishingTrack);
+    finishHandlingRef.current = false;
+    if (nextIdx == null) {
+      setQueueFinished(true);
+      setUserPaused(true);
+      clearTtsClock();
+      return;
+    }
+    setQueueFinished(false);
+    setIndex(nextIdx);
+    playIndexRef.current(q, nextIdx, true);
+  }, [clearTtsClock, resolveNextIndexAfterFinish]);
+
+  const startTtsTick = useCallback((duration: number) => {
+    if (ttsTickRef.current) clearInterval(ttsTickRef.current);
+    ttsTickRef.current = setInterval(() => {
+      if (userPausedRef.current || ttsStartedAtRef.current == null) return;
+      const elapsed = (Date.now() - ttsStartedAtRef.current) / 1000;
+      const position = Math.min(duration, ttsProgressAnchorRef.current + elapsed);
+      setTtsClock({ position, duration });
+    }, 200);
+  }, []);
 
   const applyRateVolume = useCallback((p: AudioPlayer) => {
     try {
@@ -455,7 +565,7 @@ function AudioPlayerProviderLive({
       // Warm this clip plus the next few so their bytes are local before staging.
       warmUpcomingTrackUris(tracks, nextIndex);
 
-      if (!track) {
+      if (!track || isTtsPlaybackTrack(track)) {
         stagedTrackIdRef.current[idle] = null;
         return;
       }
@@ -507,6 +617,72 @@ function AudioPlayerProviderLive({
 
       // A fresh load on the active player invalidates any in-flight stage.
       preloadTokenRef.current++;
+
+      if (isTtsPlaybackTrack(track)) {
+        pauseAudioEngines();
+        stagedTrackIdRef.current[activeSlotRef.current] = track.id;
+        stageNext(tracks, startIndex + 1);
+
+        const playback = track.ttsPlayback;
+        const fullText = playback.text.trim();
+        const duration = estimateTtsDurationSeconds(fullText, rateRef.current);
+        setTrackDurations((prev) => {
+          const previous = prev[track.id];
+          return previous != null && Math.abs(previous - duration) < 0.25
+            ? prev
+            : { ...prev, [track.id]: duration };
+        });
+        trackDurationsRef.current[track.id] = duration;
+
+        const fromProgress =
+          pendingSeekRef.current != null && duration > 0
+            ? Math.min(1, Math.max(0, pendingSeekRef.current / duration))
+            : 0;
+        pendingSeekRef.current = null;
+
+        const speakText = sliceTtsTextFromProgress(fullText, fromProgress);
+        const startPosition = fromProgress * duration;
+        ttsProgressAnchorRef.current = startPosition;
+        ttsPausedPositionRef.current = startPosition;
+        ttsStartedAtRef.current = Date.now();
+        setTtsClock({ position: startPosition, duration });
+        userPausedRef.current = false;
+        setUserPaused(false);
+        ttsNeedsRestartRef.current = false;
+        startTtsTick(duration);
+        clearTransition();
+
+        if (!speakText) {
+          advanceAfterTtsFinish();
+          return;
+        }
+
+        const generation = ++ttsGenerationRef.current;
+        void (async () => {
+          await stopTts();
+          if (generation !== ttsGenerationRef.current) return;
+          await speakTts(speakText, {
+            lang: playback.lang,
+            voice: playback.voice,
+            rate: playerRateToSpeechRate(rateRef.current),
+            onDone: () => {
+              if (generation !== ttsGenerationRef.current) return;
+              if (userPausedRef.current) return;
+              setTtsClock({ position: duration, duration });
+              advanceAfterTtsFinish();
+            },
+            onError: () => {
+              if (generation !== ttsGenerationRef.current) return;
+              advanceAfterTtsFinish();
+            },
+          });
+        })();
+        return;
+      }
+
+      // File / remote audio — stop any prior TTS clock.
+      clearTtsClock();
+      void stopTts();
 
       const active = getActive();
       const startPlayback = (resolved: number | { uri: string }) => {
@@ -569,8 +745,13 @@ function AudioPlayerProviderLive({
       beginTransition,
       clearTransition,
       syncLockScreenForTrack,
+      pauseAudioEngines,
+      clearTtsClock,
+      startTtsTick,
+      advanceAfterTtsFinish,
     ],
   );
+  playIndexRef.current = playIndex;
 
   const cacheTrackDuration = useCallback((id: string, seconds: number) => {
     if (!Number.isFinite(seconds) || seconds <= 0) return;
@@ -584,11 +765,19 @@ function AudioPlayerProviderLive({
   const play = useCallback(
     (tracks: AudioTrack[], startIndex = 0, options?: { sourceHref?: string }) => {
       void stopTts();
+      clearTtsClock();
       setIsSpeakingTranslation(false);
       finishHandlingRef.current = false;
 
       const initialDurations: Record<string, number> = {};
       for (const track of tracks) {
+        if (isTtsPlaybackTrack(track) && track.ttsPlayback) {
+          initialDurations[track.id] = estimateTtsDurationSeconds(
+            track.ttsPlayback.text,
+            rateRef.current,
+          );
+          continue;
+        }
         const cached = getCachedTrackDuration(track.uri);
         if (cached != null) initialDurations[track.id] = cached;
       }
@@ -623,13 +812,51 @@ function AudioPlayerProviderLive({
         if (activity) recordContinueActivity(activity);
       }
     },
-    [playIndex, cacheTrackDuration, getIdleSlot],
+    [playIndex, cacheTrackDuration, getIdleSlot, clearTtsClock],
   );
 
   const toggle = useCallback(() => {
     // Instant tactile feedback on the tap, before the (possibly buffering) audio
     // engine responds.
     triggerHaptic("light");
+    const track = queueRef.current[indexRef.current];
+    if (isTtsPlaybackTrack(track)) {
+      if (userPausedRef.current) {
+        userPausedRef.current = false;
+        setUserPaused(false);
+        if (canPauseTts() && !ttsNeedsRestartRef.current) {
+          ttsStartedAtRef.current = Date.now();
+          ttsProgressAnchorRef.current = ttsPausedPositionRef.current;
+          void resumeTts();
+        } else {
+          ttsNeedsRestartRef.current = false;
+          pendingSeekRef.current = ttsPausedPositionRef.current;
+          playIndexRef.current(queueRef.current, indexRef.current, false);
+        }
+      } else {
+        const duration = ttsClock?.duration ?? trackDurationsRef.current[track.id] ?? 0;
+        let position = ttsPausedPositionRef.current;
+        if (ttsStartedAtRef.current != null) {
+          position = Math.min(
+            duration,
+            ttsProgressAnchorRef.current + (Date.now() - ttsStartedAtRef.current) / 1000,
+          );
+        }
+        ttsPausedPositionRef.current = position;
+        ttsStartedAtRef.current = null;
+        setTtsClock(duration > 0 ? { position, duration } : null);
+        userPausedRef.current = true;
+        setUserPaused(true);
+        if (canPauseTts()) {
+          void pauseTts();
+        } else {
+          ttsNeedsRestartRef.current = true;
+          void stopTts();
+        }
+      }
+      return;
+    }
+
     try {
       if (status.playing) {
         getActive().pause();
@@ -641,17 +868,35 @@ function AudioPlayerProviderLive({
     } catch {
       // ignore
     }
-  }, [getActive, status.playing]);
+  }, [getActive, status.playing, ttsClock?.duration]);
 
   const seekTo = useCallback(
     (seconds: number) => {
       setQueueFinished(false);
       stableQueuePositionRef.current = seconds;
+      const track = queueRef.current[indexRef.current];
+      if (isTtsPlaybackTrack(track)) {
+        const duration =
+          ttsClock?.duration ??
+          trackDurationsRef.current[track.id] ??
+          estimateTtsDurationSeconds(track.ttsPlayback?.text ?? "", rateRef.current);
+        const clamped = Math.min(Math.max(0, seconds), Math.max(duration, 0));
+        ttsNeedsRestartRef.current = true;
+        if (userPausedRef.current) {
+          ttsPausedPositionRef.current = clamped;
+          ttsProgressAnchorRef.current = clamped;
+          setTtsClock({ position: clamped, duration });
+          return;
+        }
+        pendingSeekRef.current = clamped;
+        playIndexRef.current(queueRef.current, indexRef.current, false);
+        return;
+      }
       void getActive()
         .seekTo(seconds)
         .catch(() => {});
     },
-    [getActive],
+    [getActive, ttsClock?.duration],
   );
 
   const seekToQueuePosition = useCallback(
@@ -758,6 +1003,67 @@ function AudioPlayerProviderLive({
       // ignore
     }
     void preferencesStore.getState().update({ audioSpeed: nextRate });
+
+    const track = queueRef.current[indexRef.current];
+    if (!isTtsPlaybackTrack(track) || userPausedRef.current) return;
+
+    // Restart the current TTS slice at the new speaking rate.
+    const duration =
+      trackDurationsRef.current[track.id] ??
+      estimateTtsDurationSeconds(track.ttsPlayback?.text ?? "", nextRate);
+    let position = ttsPausedPositionRef.current;
+    if (ttsStartedAtRef.current != null) {
+      position = Math.min(
+        duration,
+        ttsProgressAnchorRef.current + (Date.now() - ttsStartedAtRef.current) / 1000,
+      );
+    }
+    pendingSeekRef.current = position;
+    playIndexRef.current(queueRef.current, indexRef.current, false);
+  }, []);
+
+  const setTtsVoice = useCallback((voiceId: string | undefined) => {
+    const q = queueRef.current;
+    if (!q.some((track) => isTtsPlaybackTrack(track))) return;
+
+    const nextQueue = q.map((track) =>
+      track.ttsPlayback
+        ? {
+            ...track,
+            ttsPlayback: {
+              ...track.ttsPlayback,
+              voice: voiceId,
+            },
+          }
+        : track,
+    );
+    queueRef.current = nextQueue;
+    setQueue(nextQueue);
+
+    const track = nextQueue[indexRef.current];
+    if (!isTtsPlaybackTrack(track)) return;
+
+    const duration =
+      trackDurationsRef.current[track.id] ??
+      estimateTtsDurationSeconds(track.ttsPlayback?.text ?? "", rateRef.current);
+    let position = ttsPausedPositionRef.current;
+    if (!userPausedRef.current && ttsStartedAtRef.current != null) {
+      position = Math.min(
+        duration,
+        ttsProgressAnchorRef.current + (Date.now() - ttsStartedAtRef.current) / 1000,
+      );
+    }
+    ttsPausedPositionRef.current = position;
+    ttsProgressAnchorRef.current = position;
+    ttsNeedsRestartRef.current = true;
+
+    if (userPausedRef.current) {
+      setTtsClock(duration > 0 ? { position, duration } : null);
+      return;
+    }
+
+    pendingSeekRef.current = position;
+    playIndexRef.current(nextQueue, indexRef.current, false);
   }, []);
 
   const setVolume = useCallback((nextVolume: number) => {
@@ -793,6 +1099,7 @@ function AudioPlayerProviderLive({
 
   const stop = useCallback(() => {
     void stopTts();
+    clearTtsClock();
     setIsSpeakingTranslation(false);
     finishHandlingRef.current = false;
     try {
@@ -814,27 +1121,33 @@ function AudioPlayerProviderLive({
     clearTransition();
     stableQueueDurationRef.current = 0;
     stableQueuePositionRef.current = 0;
-  }, [clearTransition]);
+  }, [clearTransition, clearTtsClock]);
 
   const readPlaybackSeconds = useCallback(() => {
+    const track = queueRef.current[indexRef.current];
+    if (isTtsPlaybackTrack(track)) {
+      return ttsClock?.position ?? ttsPausedPositionRef.current;
+    }
     try {
       return getActive().currentTime;
     } catch {
       return status.currentTime ?? 0;
     }
-  }, [getActive, status.currentTime]);
+  }, [getActive, status.currentTime, ttsClock?.position]);
 
-  const isLoaded = status.isLoaded ?? false;
+  const ttsTrackActive = isTtsPlaybackTrack(current);
+  const isLoaded = ttsTrackActive ? true : (status.isLoaded ?? false);
 
   // Replace estimates with the loaded duration for the active track.
   useEffect(() => {
-    if (!current || !isLoaded || isTransitioning) return;
+    if (!current || ttsTrackActive || !isLoaded || isTransitioning) return;
     const loadedDuration = status.duration ?? 0;
     if (loadedDuration > 0) cacheTrackDuration(current.id, loadedDuration);
     // Re-apply after the native/web source loads so pitch correction sticks.
     applyRateVolume(player);
   }, [
     current,
+    ttsTrackActive,
     isLoaded,
     isTransitioning,
     status.duration,
@@ -845,11 +1158,12 @@ function AudioPlayerProviderLive({
 
   // Apply a pending queue-wide seek once the target track has loaded.
   useEffect(() => {
+    if (ttsTrackActive) return;
     if (!isLoaded || pendingSeekRef.current == null) return;
     const target = pendingSeekRef.current;
     pendingSeekRef.current = null;
     seekTo(target);
-  }, [isLoaded, seekTo]);
+  }, [isLoaded, seekTo, ttsTrackActive]);
 
   // End the seamless transition only once the new source's clock has genuinely
   // reset. After a swap/replace the engine can briefly report the outgoing
@@ -870,6 +1184,7 @@ function AudioPlayerProviderLive({
   useEffect(
     () => () => {
       if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
+      if (ttsTickRef.current) clearInterval(ttsTickRef.current);
     },
     [],
   );
@@ -1066,12 +1381,15 @@ function AudioPlayerProviderLive({
   // once expo-audio flips its own `isBuffering` flag. Suppress during queue hops.
   const isBuffering =
     Boolean(current) &&
+    !ttsTrackActive &&
     !isTransitioning &&
     !transitionRef.current &&
-    ((status.isBuffering ?? false) || !isLoaded);
+    ((status.isBuffering ?? false) || !(status.isLoaded ?? false));
 
-  const position = status.currentTime ?? 0;
-  const duration = status.duration ?? 0;
+  const position = ttsTrackActive ? (ttsClock?.position ?? 0) : (status.currentTime ?? 0);
+  const duration = ttsTrackActive
+    ? (ttsClock?.duration ?? trackDurations[current?.id ?? ""] ?? 0)
+    : (status.duration ?? 0);
   lastEngineTimeRef.current = position;
   const computedQueueDurationForProgress = queueDurationForProgress(
     queue,
@@ -1124,11 +1442,13 @@ function AudioPlayerProviderLive({
   const smoothQueueProgress =
     smoothQueueDuration > 0 ? Math.min(smoothQueuePosition / smoothQueueDuration, 1) : 0;
 
-  const isPlaying = userPaused
-    ? status.playing
-    : isQueueSessionActive
-      ? true
-      : status.playing || isTransitioning || willAutoAdvance;
+  const isPlaying = ttsTrackActive
+    ? Boolean(current) && !userPaused && !queueFinished
+    : userPaused
+      ? status.playing
+      : isQueueSessionActive
+        ? true
+        : status.playing || isTransitioning || willAutoAdvance;
   const value = useMemo<AudioContextValue>(
     () => ({
       current,
@@ -1162,6 +1482,7 @@ function AudioPlayerProviderLive({
       replay,
       setRate,
       setVolume,
+      setTtsVoice,
       cycleLoopMode,
       setRepeatPlan,
       setTranslationAudio,
@@ -1200,6 +1521,7 @@ function AudioPlayerProviderLive({
       replay,
       setRate,
       setVolume,
+      setTtsVoice,
       cycleLoopMode,
       setRepeatPlan,
       setTranslationAudio,

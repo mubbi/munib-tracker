@@ -30,6 +30,7 @@ export * from "./generated/endpoints/sync/sync";
 export * from "./generated/models";
 export {
   ApiError,
+  type ApiFetchOptions,
   apiFetch,
   getApiBaseUrl,
   getRegisteredTokenRefresher,

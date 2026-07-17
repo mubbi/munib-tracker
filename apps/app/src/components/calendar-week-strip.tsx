@@ -13,6 +13,7 @@ import { buildWeekContainingDate, localizedWeekdayInitials } from "@/lib/calenda
 import { formatCalendarDate } from "@/lib/calendar-format";
 import { gregorianToHijri } from "@/lib/hijri";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
+import { useLocation } from "@/stores/location-store";
 
 type CalendarWeekStripProps = {
   date: string;
@@ -31,6 +32,7 @@ export function CalendarWeekStrip({
 }: CalendarWeekStripProps) {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const location = useLocation();
   const chevronBackward = useChevronBackward();
   const chevronForward = useChevronForward();
   const today = getLocalDateString();
@@ -39,7 +41,7 @@ export function CalendarWeekStrip({
 
   const describeDay = (iso: string, isToday: boolean, isSelected: boolean) => {
     const parsed = new Date(`${iso}T00:00:00`);
-    const dateText = formatCalendarDate(parsed, calendarMode, locale);
+    const dateText = formatCalendarDate(parsed, calendarMode, locale, undefined, location.timeZone);
     const info = activity.get(iso);
     let statusText: string | null;
     if (iso > today) statusText = t("calDay.futureSubtitle");
@@ -68,10 +70,16 @@ export function CalendarWeekStrip({
         />
         <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.headerLabel}>
           {t("calDay.weekOf", {
-            date: formatCalendarDate(new Date(`${date}T00:00:00`), calendarMode, locale, {
-              month: "short",
-              day: "numeric",
-            }),
+            date: formatCalendarDate(
+              new Date(`${date}T00:00:00`),
+              calendarMode,
+              locale,
+              {
+                month: "short",
+                day: "numeric",
+              },
+              location.timeZone,
+            ),
           })}
         </ThemedText>
         <NavButton
@@ -101,7 +109,7 @@ export function CalendarWeekStrip({
             level > 0 ? withAlpha(tokens.status.success.color, 0.2 + level * 0.55) : "transparent";
           const displayDay =
             calendarMode === "hijri"
-              ? gregorianToHijri(new Date(`${day.date}T00:00:00`)).day
+              ? gregorianToHijri(new Date(`${day.date}T00:00:00`), location.timeZone).day
               : day.day;
 
           return (

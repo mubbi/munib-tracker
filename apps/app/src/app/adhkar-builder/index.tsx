@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { SymbolView } from "expo-symbols";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { ConfirmDialog } from "@/components/confirm-dialog";
@@ -26,8 +27,14 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { goBackOrReplace } from "@/lib/navigation";
 import { resolveArabicLineHeight } from "@/lib/reading-typography";
 import { arabicTextAlign, useIsRTL } from "@/lib/rtl";
+import { createCustomAdhkarSearch } from "@/lib/search";
 import type { SttErrorKind } from "@/lib/stt";
-import { deleteUserMediaMany, isGuestUserMediaError, uploadUserMedia } from "@/lib/user-media-api";
+import {
+  deleteUserMediaMany,
+  isGuestUserMediaError,
+  purgeCustomAdhkarAttachments,
+  uploadUserMedia,
+} from "@/lib/user-media-api";
 import { useAuth } from "@/providers/auth-provider";
 import { useToast } from "@/providers/toast-provider";
 import {
@@ -59,6 +66,7 @@ export default function AdhkarBuilderScreen() {
   const items = useCustomAdhkarList();
   const { create, update, remove } = useCustomAdhkarActions();
 
+  const [query, setQuery] = useState("");
   const [formOpen, setFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [pendingDelete, setPendingDelete] = useState<CustomAdhkar | null>(null);
@@ -66,6 +74,15 @@ export default function AdhkarBuilderScreen() {
   const [draftAttachments, setDraftAttachments] = useState<DraftAdhkarAttachment[]>([]);
   const [saving, setSaving] = useState(false);
   const sttFieldRef = useRef<DictatableField | null>(null);
+
+  const searchIndex = useMemo(() => createCustomAdhkarSearch(items), [items]);
+  const searching = query.trim().length > 0;
+  const visibleItems = searching ? searchIndex.search(query) : items;
+  /** Stable 1-based list numbers from the full library order (not search rank). */
+  const numberById = useMemo(
+    () => new Map(items.map((item, index) => [item.id, index + 1])),
+    [items],
+  );
 
   const canSave = draft.title.trim().length > 0 && draft.arabic.trim().length > 0 && !saving;
   const isEditing = editingId !== null;
@@ -181,14 +198,10 @@ export default function AdhkarBuilderScreen() {
   };
 
   const handleRemove = async (item: CustomAdhkar) => {
-    const removed = await remove(item.id);
-    const mediaIds =
-      removed?.images
-        ?.map((image) => image.mediaId)
-        .filter((mediaId): mediaId is string => !!mediaId) ?? [];
-    if (mediaIds.length > 0 && session?.accessToken) {
-      void deleteUserMediaMany(session.accessToken, mediaIds);
-    }
+    // Purge Cloudinary / user-media first so orphans are not left if the local
+    // row disappears before the network call finishes.
+    await purgeCustomAdhkarAttachments(session?.accessToken, item.images);
+    await remove(item.id);
   };
 
   const toggleDictate = (key: DictatableField) => {
@@ -210,54 +223,58 @@ export default function AdhkarBuilderScreen() {
 
     return (
       <View style={styles.field}>
-        <View style={styles.labelRow}>
-          <ThemedText type="caption" themeColor="mutedForeground" style={styles.labelText}>
-            {t(labelKey)}
-          </ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground">
+          {t(labelKey)}
+        </ThemedText>
+        <View style={styles.inputWrap}>
+          <TextInput
+            value={draft[key] ?? ""}
+            onChangeText={(v) => {
+              if (stt.listening && stt.activeField === key) stt.abort();
+              setDraft((prev) => ({ ...prev, [key]: v }));
+            }}
+            placeholder={t(labelKey)}
+            placeholderTextColor={colors.mutedForeground}
+            accessibilityLabel={t(labelKey)}
+            multiline={opts?.multiline}
+            style={[
+              styles.input,
+              opts?.multiline ? styles.inputMultiline : null,
+              dictatable && stt.available ? styles.inputWithVoice : null,
+              opts?.rtl
+                ? [
+                    styles.inputRtl,
+                    {
+                      fontFamily: arabicFontFamily,
+                      lineHeight: arabicInputLineHeight,
+                      textAlign: arabicTextAlign(rtl),
+                    },
+                  ]
+                : null,
+              {
+                backgroundColor: colors.muted,
+                color: colors.foreground,
+                borderWidth: listeningHere ? 1.5 : 0,
+                borderColor: listeningHere ? colors.accent : "transparent",
+              },
+            ]}
+          />
           {dictatable && stt.available ? (
-            <VoiceInputButton
-              listening={!!listeningHere}
-              level={stt.level}
-              accessibilityLabel={
-                listeningHere ? t("customAdhkar.stt.stopDictate") : t("customAdhkar.stt.dictate")
-              }
-              accessibilityHint={listeningHere ? t("customAdhkar.stt.listening") : undefined}
-              disabled={saving}
-              onPress={() => toggleDictate(key as DictatableField)}
-            />
+            <View style={styles.voiceButton}>
+              <VoiceInputButton
+                listening={!!listeningHere}
+                level={stt.level}
+                accessibilityLabel={
+                  listeningHere ? t("customAdhkar.stt.stopDictate") : t("customAdhkar.stt.dictate")
+                }
+                accessibilityHint={listeningHere ? t("customAdhkar.stt.listening") : undefined}
+                disabled={saving}
+                onPress={() => toggleDictate(key as DictatableField)}
+                size="sm"
+              />
+            </View>
           ) : null}
         </View>
-        <TextInput
-          value={draft[key] ?? ""}
-          onChangeText={(v) => {
-            if (stt.listening && stt.activeField === key) stt.abort();
-            setDraft((prev) => ({ ...prev, [key]: v }));
-          }}
-          placeholder={t(labelKey)}
-          placeholderTextColor={colors.mutedForeground}
-          accessibilityLabel={t(labelKey)}
-          multiline={opts?.multiline}
-          style={[
-            styles.input,
-            opts?.multiline ? styles.inputMultiline : null,
-            opts?.rtl
-              ? [
-                  styles.inputRtl,
-                  {
-                    fontFamily: arabicFontFamily,
-                    lineHeight: arabicInputLineHeight,
-                    textAlign: arabicTextAlign(rtl),
-                  },
-                ]
-              : null,
-            {
-              backgroundColor: colors.muted,
-              color: colors.foreground,
-              borderWidth: listeningHere ? 1.5 : 0,
-              borderColor: listeningHere ? colors.accent : "transparent",
-            },
-          ]}
-        />
       </View>
     );
   };
@@ -278,52 +295,99 @@ export default function AdhkarBuilderScreen() {
         style={styles.addButton}
       />
 
+      {items.length > 0 ? (
+        <Card padding="three" style={styles.searchCard}>
+          <View style={[styles.searchBox, { backgroundColor: colors.muted }]}>
+            <SymbolView
+              name={{ ios: "magnifyingglass", android: "search", web: "search" }}
+              size={17}
+              tintColor={colors.mutedForeground}
+            />
+            <TextInput
+              value={query}
+              onChangeText={setQuery}
+              placeholder={t("customAdhkar.searchPlaceholder")}
+              placeholderTextColor={colors.mutedForeground}
+              accessibilityLabel={t("customAdhkar.searchPlaceholder")}
+              autoCorrect={false}
+              returnKeyType="search"
+              style={[styles.searchInput, { color: colors.foreground }]}
+            />
+          </View>
+        </Card>
+      ) : null}
+
       {items.length === 0 ? (
         <EmptyState
           icon={{ ios: "square.and.pencil", android: "edit_note", web: "edit_note" }}
           title={t("customAdhkar.emptyTitle")}
           description={t("customAdhkar.emptyDesc")}
         />
+      ) : visibleItems.length === 0 ? (
+        <EmptyState
+          icon={{ ios: "magnifyingglass", android: "search", web: "search" }}
+          title={t("customAdhkar.noResults")}
+        />
       ) : (
         <Stagger>
-          {items.map((item) => (
-            <Card key={item.id} padding="four" style={styles.itemCard}>
-              <View style={styles.itemHeader}>
-                <ThemedText type="smallBold" style={styles.itemTitle} numberOfLines={2}>
-                  {item.title}
-                </ThemedText>
-                <View style={styles.itemActions}>
-                  <IconButton
-                    name={{ ios: "pencil", android: "edit", web: "edit" }}
-                    size={16}
-                    tintColor={colors.mutedForeground}
-                    background={tokens.accentSoft}
-                    accessibilityLabel={t("common.edit")}
-                    onPress={() => openEdit(item)}
-                  />
-                  <IconButton
-                    name={{ ios: "trash", android: "delete", web: "delete" }}
-                    size={16}
-                    tintColor={tokens.status.danger.color}
-                    background={tokens.status.danger.soft}
-                    accessibilityLabel={t("customAdhkar.delete")}
-                    haptic="warning"
-                    onPress={() => setPendingDelete(item)}
-                  />
+          {visibleItems.map((item) => {
+            const listNumber = numberById.get(item.id) ?? 0;
+            return (
+              <Card key={item.id} padding="four" style={styles.itemCard}>
+                <View style={styles.itemHeader}>
+                  <View
+                    style={[styles.number, { backgroundColor: tokens.accentSoft }]}
+                    accessibilityElementsHidden
+                    importantForAccessibility="no-hide-descendants"
+                  >
+                    <ThemedText type="caption" style={{ color: colors.accentText }}>
+                      {listNumber}
+                    </ThemedText>
+                  </View>
+                  <ThemedText
+                    type="smallBold"
+                    style={styles.itemTitle}
+                    numberOfLines={2}
+                    accessibilityLabel={t("customAdhkar.itemNumberLabel", {
+                      number: listNumber,
+                      title: item.title,
+                    })}
+                  >
+                    {item.title}
+                  </ThemedText>
+                  <View style={styles.itemActions}>
+                    <IconButton
+                      name={{ ios: "pencil", android: "edit", web: "edit" }}
+                      size={16}
+                      tintColor={colors.mutedForeground}
+                      background={tokens.accentSoft}
+                      accessibilityLabel={t("common.edit")}
+                      onPress={() => openEdit(item)}
+                    />
+                    <IconButton
+                      name={{ ios: "trash", android: "delete", web: "delete" }}
+                      size={16}
+                      tintColor={tokens.status.danger.color}
+                      background={tokens.status.danger.soft}
+                      accessibilityLabel={t("customAdhkar.delete")}
+                      haptic="warning"
+                      onPress={() => setPendingDelete(item)}
+                    />
+                  </View>
                 </View>
-              </View>
-              <View style={[styles.itemDivider, { backgroundColor: tokens.hairline }]} />
-              <ReadingCard
-                item={{ ...item, translation: item.translation ?? "" }}
-                enableTts
-                enableContextMenu={false}
-                framed={false}
-              />
-              {item.images?.length ? (
-                <CustomAdhkarImageGallery images={item.images} compact />
-              ) : null}
-            </Card>
-          ))}
+                <View style={[styles.itemDivider, { backgroundColor: tokens.hairline }]} />
+                <ReadingCard
+                  item={{ ...item, translation: item.translation ?? "" }}
+                  enableTts
+                  enableContextMenu={false}
+                  framed={false}
+                />
+                {item.images?.length ? (
+                  <CustomAdhkarImageGallery images={item.images} compact />
+                ) : null}
+              </Card>
+            );
+          })}
         </Stagger>
       )}
 
@@ -383,6 +447,20 @@ export default function AdhkarBuilderScreen() {
 
 const styles = StyleSheet.create({
   addButton: { marginBottom: Spacing.three },
+  searchCard: { marginBottom: Spacing.three },
+  searchBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  searchInput: {
+    flex: 1,
+    paddingVertical: Spacing.two + 2,
+    fontSize: 15,
+  },
   itemCard: {
     gap: Spacing.three,
   },
@@ -390,6 +468,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.two,
+  },
+  number: {
+    minWidth: 28,
+    height: 28,
+    paddingHorizontal: Spacing.one,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
+    alignItems: "center",
+    justifyContent: "center",
   },
   itemTitle: { flex: 1, minWidth: 0 },
   itemActions: {
@@ -401,13 +488,7 @@ const styles = StyleSheet.create({
   sheetTitle: { marginBottom: Spacing.two },
   form: { alignSelf: "stretch", maxHeight: 420 },
   field: { gap: Spacing.one, marginBottom: Spacing.three },
-  labelRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    minHeight: 56,
-  },
-  labelText: { flex: 1, marginEnd: Spacing.two },
+  inputWrap: { position: "relative" },
   input: {
     borderRadius: Radius.md,
     borderCurve: "continuous",
@@ -416,6 +497,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   inputMultiline: { minHeight: 72, textAlignVertical: "top" },
+  inputWithVoice: { paddingEnd: 64 },
+  voiceButton: {
+    position: "absolute",
+    top: 5,
+    end: 5,
+  },
   inputRtl: { writingDirection: "rtl", fontSize: 20 },
   saveButton: { marginTop: Spacing.two },
 });

@@ -5,6 +5,8 @@ export * from "./duas";
 export * from "./duroods";
 export * from "./eid-guide";
 export * from "./excused-guide";
+export * from "./friday-checklist";
+export * from "./friday-guide";
 export * from "./hajj-guide";
 export * from "./islamic-finance";
 export * from "./islamic-history";

@@ -177,7 +177,8 @@
     "finance": "Исламдық қаржыландыру",
     "flashCards": "Жад карталары",
     "verseDetector": "Аят анықтағыш",
-    "lastThirdNight": "Түннің соңғы үштен бірі"
+    "lastThirdNight": "Түннің соңғы үштен бірі",
+    "friday": "Жұма және Jumu'ah"
   },
   "quickActions": {
     "checklistSubtitle": "Log today's prayers",
@@ -456,6 +457,14 @@
         "text": "Қысқа тасбих сеансы есептеледі. Зікір ұзақ отыру үшін ғана емес, оннан бастаңыз.",
         "topic": "зікір"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Барлық жұма амалдары тіркелді — Алла қабыл етсін.",
+      "openChecklist": "Jumu'ah тізімін ашу",
+      "badge": "Жұма",
+      "reminderTitle": "Жұма мүбәрак",
+      "reminderBody": "Jumu'ah оқыңыз және жұма сүннеттерін орындаңыз — ghusl, Surah al-Kahf, salawat және dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "{{prayer}} кейін",
     "afterSalahAdhkarReminderBody": "Take  moment үшін tasbeeh және after-salah adhkar.",
     "afterSalahProgress": "Адхкар {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}}  {{total}} орындалды бүгін"
+    "afterSalahProgressA11y": "{{prayer}} after-salah adhkar: {{completed}}  {{total}} орындалды бүгін",
+    "friday": {
+      "title": "Jumu'ah тізімі",
+      "subtitle": "Жұма сүннеттері — тек жұма күні көрсетіледі",
+      "progress": "{{completed}} / {{total}}",
+      "openRelated": "Қатысты мазмұнды ашу",
+      "learnMore": "Жұма амалдарын үйрену",
+      "items": {
+        "ghusl": {
+          "title": "Жұма ghusl",
+          "hint": "Мешітке бармас бұрын жуыныңыз"
+        },
+        "prepare": {
+          "title": "Ең жақсы киім және хош иіс",
+          "hint": "Таза киініңіз және мүмкін болса жеңіл иіссу жағыңыз"
+        },
+        "jumuah": {
+          "title": "Jumu'ah-ға қатысыңыз (немесе Dhuhr оқыңыз)",
+          "hint": "Хұтба + екі ракағат; кешірімділер Dhuhr оқиды"
+        },
+        "kahf": {
+          "title": "Surah al-Kahf оқыңыз",
+          "hint": "Екі жұма арасындағы нұр"
+        },
+        "salawat": {
+          "title": "Salawat көбейтіңіз",
+          "hint": "Пайғамбар ﷺ-ға салауат айтыңыз"
+        },
+        "dua": {
+          "title": "Dua сағатын іздеңіз",
+          "hint": "Әсіресе Asr-дан кейінгі соңғы сағатта"
+        }
+      },
+      "details": "Толығырақ",
+      "jumpTitle": "Jumu'ah тізімі",
+      "jumpHint": "Жұма сүннеттері төменде",
+      "jumpA11y": "Осы беттегі Jumu'ah тізіміне өту"
+    }
   },
   "update": {
     "title": "Жаңарту қолжетімді",
@@ -986,7 +1032,7 @@
     "emptyDesc": "More entries үшін бұл category  үстінде  way.",
     "detailEyebrow": "Зікір",
     "today": "Бүгін",
-    "openInTasbeeh": "Ашу ішінде Tasbeeh",
+    "openInTasbeeh": "Тасбихта ашу",
     "favorite": "Таңдаулы",
     "favorited": "Таңдаулы",
     "share": "Бөлісу",
@@ -1112,7 +1158,8 @@
     "favorites": "Сүйікті демалыс күндері",
     "favSubtitle": "Сіз сақтаған Duroods",
     "favEmptyTitle": "Жоқ favorite duroods yet",
-    "favEmptyDesc": "Басыңыз  star үстінде any durood ға сақтау it here."
+    "favEmptyDesc": "Басыңыз  star үстінде any durood ға сақтау it here.",
+    "openInTasbeeh": "Тасбихта ашу"
   },
   "names": {
     "eyebrow": "Асма-ул-Хусна",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Бүгін түнде толық ай",
       "fullBody": "Ай {{month}} ортасына жақын толық жарықтанады — Ақ Күндердің түндері, ораза ұстау ерекше ұсынылады.",
       "generalTitle": "Ай күнтізбесі",
-      "generalBody": "Ислам (Хижри) күнтізбесі айды ескереді: әр ай 29 немесе 30 күн, көрінген аймен (hilāl) басталады. Мұндағы күндер сіздің орныңызға арналған кестелік күнтізбеге негізделген және жергілікті көруден бір күнге ерекшеленуі мүмкін.",
+      "generalBody": "Ислам (Хижри) күнтізбесі айды ескереді: әр ай 29 немесе 30 күн, көрінген аймен (hilāl) басталады. Мұндағы күндер сіздің орныңыздағы ай көрінуінен есептеледі және жергілікті билік хабарландыруынан бір күнге ерекшеленуі мүмкін.",
       "monthTurnTitle": "Айды іздеңіз",
-      "monthTurnBody": "Мағрибтен кейін {{month}} hilāl іздеңіз. Ислам айлары көрінген аймен басталады; жергілікті ай көруі осы күнтізбеден бір күнге ерекшеленуі мүмкін."
+      "monthTurnBody": "Мағрибтен кейін {{month}} hilāl-ын іздеңіз. Ислам айлары көрінген аймен басталады; жергілікті биліктің хабарландыруы осы есептеуден бір күнге ерекшеленуі мүмкін."
     },
     "monthProgress": "Айдың прогрессі",
     "monthProgressValue": "{{month}} · {{length}} күннің {{day}}-ші күні",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Есептік жазба",
     "title": "Профиль",
-    "subtitle": "Сіздің мәліметтеріңіз және тіркелгіңіз",
+    "subtitle": "Ат, синхрондау және кіру",
     "guestName": "Қонақ",
     "changeAvatar": "Аватарды өзгерту",
     "signInToSync": "Синхрондау үшін жүйеге кіріңіз",
@@ -2154,7 +2201,17 @@
       "not_using": "Енді пайдаланбаймын",
       "technical_issues": "Техникалық мәселелер немесе қателер",
       "other": "Басқа"
-    }
+    },
+    "editName": "Көрсетілетін атты өзгерту",
+    "signedInWith": "{{provider}} арқылы кірдіңіз",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Salah, Zikr және Qaza деректерін құрылғылар арасында сақтықтау үшін есептік жазбаны байланыстырыңыз.",
+    "sessionTitle": "Сеанс",
+    "sessionHint": "Осы құрылғыдан шығыңыз. Бұлттық деректеріңіз қауіпсіз қалады.",
+    "dangerTitle": "Қауіпті аймақ",
+    "dangerHint": "Есептік жазбаңызды және жергілікті деректерді біржола өшіріңіз. Бұны кері қайтару мүмкін емес."
   },
   "sync": {
     "title": "Бұлтты синхрондау",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Дыбыс деңгейі {{value}}%",
     "buffering": "Буферлеу…",
     "loading": "Жүктелуде…",
-    "streamingOnlyNote": "Streaming only — audio  емес saved үстінде бұл құрылғы"
+    "streamingOnlyNote": "Streaming only — audio  емес saved үстінде бұл құрылғы",
+    "ttsVoice": "Дауыс",
+    "ttsVoiceHint": "Мәтіннен сөйлеу дауысын таңдаңыз"
   },
   "errors": {
     "title": "Бірдеңе дұрыс болмады",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Орналасу және еске салғыштар",
       "description": "Дәл намаз уақыттары, қыбла және қосымша еске салғыштар үшін орналасу мен хабарландыруларға рұқсат беріңіз — немесе кейін баптаңыз."
+    },
+    "tasbeehDurood": {
+      "description": "Бұл салаватты тактильді тасбих есептегішімен санаңыз."
     }
   },
   "pwa": {
@@ -3418,7 +3480,7 @@
     "today": "Бүгін",
     "inDays": "{{count}} күннен кейін",
     "hijriYear": "{{year}} б.з.",
-    "disclaimer": "Күндер есептелген бағалар — нақты күн жергілікті айды көруге байланысты.",
+    "disclaimer": "Күндер сіздің орныңыздағы ай көрінуін (немесе оны қолданатын өңірлерде ресми Umm al-Qura күнтізбесін) ұстанады және жергілікті билік хабарландыруынан бір күнге ерекшеленуі мүмкін.",
     "names": {
       "newYear": "Исламдық Жаңа жыл",
       "ashura": "Ашура күні",
@@ -3971,7 +4033,7 @@
       "label": "Қосымшалар (міндетті емес)",
       "add": "Файл қосу",
       "remove": "Қосымшаны алып тастаңыз",
-      "hint": "5 файлға дейін (JPEG, PNG, WebP немесе PDF), әрқайсысы 1 МБ. Жою үшін нобайды ұзақ басып тұрыңыз.",
+      "hint": "5 файлға дейін (JPEG, PNG, WebP немесе PDF), әрқайсысы 1 MB. Жою үшін нобайдағы × түртіңіз.",
       "signInRequired": "Жеке файлдарды adhkar-ға тіркеу үшін жүйеге кіріңіз.",
       "permissionDenied": "Файлдарды тіркеу үшін рұқсат қажет.",
       "permissionTitle": "Қол жеткізу",
@@ -3997,7 +4059,10 @@
       "sourceGallery": "Фото кітапхана",
       "sourceGalleryHint": "Фотосуреттерден суретті таңдаңыз",
       "sourceDocument": "Файлдар",
-      "sourceDocumentHint": "Файлдардан суретті немесе PDF файлын таңдаңыз"
+      "sourceDocumentHint": "Файлдардан суретті немесе PDF файлын таңдаңыз",
+      "loadingPdf": "PDF жүктелуде…",
+      "pdfHint": "Жылжытыңыз · қысып немесе +/− арқылы үлкейтіңіз · қалпына келтіру үшін екі рет түртіңіз · бөлісу үшін PDF ашыңыз",
+      "pdfPreviewTitle": "PDF алдын ала қарау"
     },
     "stt": {
       "dictate": "Микрофонмен диктант жазу",
@@ -4010,7 +4075,10 @@
     },
     "editTitle": "Adhkar өңдеу",
     "confirmDeleteTitle": "Осы adhkar жойылсын ба?",
-    "confirmDeleteMsg": "“{{title}}” біржола жойылады."
+    "confirmDeleteMsg": "“{{title}}” біржола жойылады.",
+    "searchPlaceholder": "Adhkar іздеу",
+    "noResults": "Сәйкес adhkar жоқ",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Түнгі намаз",
@@ -4457,7 +4525,7 @@
     "sourceLabel": "Сіздің дереккөз (міндетті емес)",
     "sourcePlaceholder": "Book, ғалым, URL, немесе citation supporting сіздің correction.",
     "proofLabel": "Proof screenshots (міндетті емес)",
-    "proofHint": "Up ға 3 images. Long-press  thumbnail ға remove.",
+    "proofHint": "3 суретке дейін. Жою үшін нобайдағы × түртіңіз.",
     "addProof": "Қосу photo",
     "removeProof": "Скриншотты жою",
     "submit": "Submit хабарлау",
@@ -4494,7 +4562,11 @@
       "completed": "Орындалды",
       "cancelled": "Бас тартылды",
       "spam": "Спам"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri және дауыс таңбашалары",
@@ -4717,7 +4789,7 @@
     "eyebrow": "Күнтізбе",
     "title": "Күнді түрлендіргіш",
     "subtitle": "Хижри және Григориан күнтізбелері арасында түрлендіру",
-    "intro": "Кувейттің кестелік алгоритмі арқылы есептелген басқа күнтізбеде оның баламасын көру үшін кез келген күнтізбеге күнді енгізіңіз.",
+    "intro": "Кез келген күнтізбеде күн енгізіңіз — екіншісіндегі тең мәнін көріңіз; офлайн, орныңыздағы ай көрінуінен есептеледі.",
     "toHijri": "Григориан → Хижри",
     "toGregorian": "Хижри → Григориан",
     "gregorianDateLabel": "Григориан күні",
@@ -4727,7 +4799,7 @@
     "year": "Жыл",
     "useToday": "Бүгін пайдаланыңыз",
     "invalidDate": "Жарамды күнді енгізіңіз",
-    "disclaimer": "Бұл арифметикалық жуықтау (кестелік «Кувейт алгоритмі») және жергілікті айды көру туралы хабарландырулардан бір тәулікке ерекшеленуі мүмкін — әрқашан жергілікті мешітті немесе діни даталар бойынша мекемені бақылаңыз.",
+    "disclaimer": "Күндер сіздің орныңыздағы ай (hilāl) көрінуінен есептеледі және ресми ай көру хабарландыруларынан бір күнге ерекшеленуі мүмкін — діни күндер үшін әрқашан жергілікті мешіт немесе билікке еріңіз.",
     "directionTitle": "Түрлендіру бағыты",
     "resultFrom": "{{date}} бастап",
     "quickLinksTitle": "Қатысты",
@@ -4806,6 +4878,25 @@
     "basedOn": "Негізі",
     "editTime": "{{prayer}} уақытын өңдеу",
     "editHint": "Уақытты өзгерткен сайын нәтижелер жаңартылады.",
-    "nightLengthLabel": "Түн ұзақтығы"
+    "nightLengthLabel": "Түн ұзақтығы",
+    "willStartIn": "{{time}} ішінде басталады",
+    "timeRemaining": "{{time}} қалды"
+  },
+  "friday": {
+    "eyebrow": "Үйрену",
+    "title": "Жұма және Jumu'ah",
+    "subtitle": "Фазылдар, дайындық, Surah al-Kahf, salawat және dua сағаты",
+    "intro": "Жұма — күн шығатын ең жақсы күн. Jumu'ah-ның шынайы амалдарын үйреніңіз — ghusl, намаз, Surah al-Kahf, salawat және қабыл сағатын іздеу — Құран мен сахих хадистен.",
+    "section": {
+      "virtues": "Жұма фазылдары",
+      "obligation": "Jumu'ah намазы",
+      "prepare": "Дайындық",
+      "kahf": "Әл-Кәһф сүресі",
+      "salawat": "Салават",
+      "dua": "Dua сағаты"
+    },
+    "notFound": "Тақырып табылмады",
+    "disclaimer": "Білім беру шолуы — фетва емес. Мектептер айырмашылық болған жерде (мысалы, жұма ghusl уәжіп пе әлде сүннет муаккада ма) екі ұстаным да көрсетілген; имамыңызға немесе білікті жергілікті ғалымға еріңіз.",
+    "continueInApp": "Munib-те жалғастыру"
   }
 }

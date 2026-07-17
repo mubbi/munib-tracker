@@ -163,11 +163,15 @@ export async function linkAccount(
 }
 
 export async function refreshSession(refreshToken: string): Promise<AuthSessionResponseDto> {
-  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>({
-    url: "/auth/refresh",
-    method: "POST",
-    body: JSON.stringify(refreshToken === WEB_COOKIE_SESSION_TOKEN ? {} : { refreshToken }),
-  });
+  const body = await apiFetch<AuthSessionResponseDto | WebAuthSessionResponse>(
+    {
+      url: "/auth/refresh",
+      method: "POST",
+      body: JSON.stringify(refreshToken === WEB_COOKIE_SESSION_TOKEN ? {} : { refreshToken }),
+    },
+    // Never recurse into the token refresher from the refresh call itself.
+    { skipAuthRefresh: true },
+  );
   return normalizeAuthSessionResponse(body);
 }
 
@@ -179,7 +183,11 @@ export function getCurrentUser(accessToken: string): Promise<AuthUserResponseDto
 }
 
 export function logout(accessToken: string): Promise<void> {
-  return apiFetch<void>({ url: "/auth/logout", method: "POST" }, apiAuthOptions(accessToken));
+  return apiFetch<void>(
+    { url: "/auth/logout", method: "POST" },
+    // Ending the session — do not try to refresh a dying/expired access token.
+    { ...apiAuthOptions(accessToken), skipAuthRefresh: true },
+  );
 }
 
 /** Closes the current account, wipes server data, and tombstones the identity. */

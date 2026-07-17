@@ -16,6 +16,7 @@ import { useScreenFocus } from "@/hooks/use-screen-focus";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getUpcomingEvents } from "@/lib/islamic-events";
 import { goBackOrReplace } from "@/lib/navigation";
+import { useLocation } from "@/stores/location-store";
 
 export default function IslamicEventsScreen() {
   const router = useRouter();
@@ -23,8 +24,12 @@ export default function IslamicEventsScreen() {
   const { colors, tokens } = useThemeTokens();
   const { formatIso } = useFormatCalendarDate();
   const { scrollRef, register, onScroll, isFocused } = useScreenFocus();
+  const location = useLocation();
 
-  const events = useMemo(() => getUpcomingEvents(undefined, 12), []);
+  const events = useMemo(
+    () => getUpcomingEvents(undefined, 12, location.timeZone),
+    [location.timeZone],
+  );
 
   const formatDate = (iso: string) =>
     formatIso(iso, {

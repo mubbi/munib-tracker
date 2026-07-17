@@ -27,6 +27,7 @@ import {
   type SearchResult,
 } from "@/lib/search-types";
 import { resolveHadithTranslation, resolveTranslationField } from "@/lib/translation-locale";
+import type { CustomAdhkar } from "@/stores/custom-adhkar-store";
 import { preferencesStore } from "@/stores/preferences-store";
 
 export type { FuzzyField, FuzzyIndex } from "@/lib/search-fuse";
@@ -278,6 +279,20 @@ function getNameFuse(): Fuse<FuseDoc<NameOfAllah>> {
 /** A fuzzy index over the duroods list, for the in-screen search bar. */
 export function createDuroodSearch(items: DurudItem[]): FuzzyIndex<DurudItem> {
   return createFuzzyIndex(items, DUROOD_FIELDS);
+}
+
+/** Shared custom-adhkar field weights for the My adhkar screen search bar. */
+const CUSTOM_ADHKAR_FIELDS: FuzzyField<CustomAdhkar>[] = [
+  { key: "title", weight: 5, get: (a) => a.title },
+  { key: "translit", weight: 3, get: (a) => a.transliteration },
+  { key: "translation", weight: 2, get: (a) => a.translation },
+  { key: "arabic", weight: 2, get: (a) => a.arabic },
+  { key: "reference", weight: 1, get: (a) => a.reference },
+];
+
+/** A fuzzy index over the user's custom adhkar list. */
+export function createCustomAdhkarSearch(items: CustomAdhkar[]): FuzzyIndex<CustomAdhkar> {
+  return createFuzzyIndex(items, CUSTOM_ADHKAR_FIELDS);
 }
 
 /** A fuzzy index over the 99 names, for the in-screen search bar. */

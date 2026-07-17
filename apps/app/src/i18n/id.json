@@ -177,7 +177,8 @@
     "finance": "Keuangan Islam",
     "flashCards": "Kartu flash",
     "verseDetector": "Detektor Ayat",
-    "lastThirdNight": "Sepertiga akhir malam"
+    "lastThirdNight": "Sepertiga akhir malam",
+    "friday": "Jumat & Jumu'ah"
   },
   "quickActions": {
     "checklistSubtitle": "Catat doa hari ini",
@@ -456,6 +457,14 @@
         "text": "Sesi tasbih singkat tetap dihitung. Zikir tidak hanya untuk duduk lama — mulai dengan sepuluh.",
         "topic": "zikir"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Semua amalan Jumat tercatat — semoga Allah menerimanya.",
+      "openChecklist": "Buka daftar periksa Jumu'ah",
+      "badge": "Jumat",
+      "reminderTitle": "Jumat Mubarak",
+      "reminderBody": "Shalat Jumu'ah dan lengkapi sunnah Jumat — ghusl, Surah al-Kahf, salawat, dan dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "Setelah {{prayer}}",
     "afterSalahAdhkarReminderBody": "Luangkan waktu untuk tasbih dan adhkar setelah shalat.",
     "afterSalahProgress": "Adzkar {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "Adhkar setelah {{prayer}}: {{completed}} dari {{total}} selesai hari ini"
+    "afterSalahProgressA11y": "Adhkar setelah {{prayer}}: {{completed}} dari {{total}} selesai hari ini",
+    "friday": {
+      "title": "Daftar periksa Jumu'ah",
+      "subtitle": "Amalan sunnah Jumat — hanya ditampilkan pada hari Jumat",
+      "progress": "{{completed}} dari {{total}}",
+      "openRelated": "Buka konten terkait",
+      "learnMore": "Pelajari amalan Jumat",
+      "items": {
+        "ghusl": {
+          "title": "Ghusl untuk Jumat",
+          "hint": "Mandi sebelum pergi ke masjid"
+        },
+        "prepare": {
+          "title": "Pakaian terbaik & wewangian",
+          "hint": "Berpakaian bersih dan pakai aroma ringan jika mampu"
+        },
+        "jumuah": {
+          "title": "Hadiri Jumu'ah (atau shalat Dhuhr)",
+          "hint": "Khutbah + dua rakaat; yang berhalangan shalat Dhuhr"
+        },
+        "kahf": {
+          "title": "Baca Surah al-Kahf",
+          "hint": "Cahaya di antara dua Jumat"
+        },
+        "salawat": {
+          "title": "Perbanyak salawat",
+          "hint": "Kirimkan salawat kepada Nabi ﷺ"
+        },
+        "dua": {
+          "title": "Carilah waktu mustajab dua",
+          "hint": "Terutama di jam terakhir setelah Asr"
+        }
+      },
+      "details": "Detail",
+      "jumpTitle": "Daftar periksa Jumu'ah",
+      "jumpHint": "Amalan sunnah Jumat di bawah",
+      "jumpA11y": "Pergi ke daftar periksa Jumu'ah di halaman ini"
+    }
   },
   "update": {
     "title": "Pembaruan tersedia",
@@ -986,7 +1032,7 @@
     "emptyDesc": "Lebih entries untuk ini category adalah pada  way.",
     "detailEyebrow": "Zikir",
     "today": "Hari ini",
-    "openInTasbeeh": "Buka in Tasbih",
+    "openInTasbeeh": "Buka di Tasbih",
     "favorite": "Favorit",
     "favorited": "Difavoritkan",
     "share": "Bagikan",
@@ -1112,7 +1158,8 @@
     "favorites": "Shalawat favorit",
     "favSubtitle": "Shalawat yang Anda simpan",
     "favEmptyTitle": "Belum ada shalawat favorit",
-    "favEmptyDesc": "Ketuk bintang pada shalawat apa pun untuk menyimpannya di sini."
+    "favEmptyDesc": "Ketuk bintang pada shalawat apa pun untuk menyimpannya di sini.",
+    "openInTasbeeh": "Buka di Tasbih"
   },
   "names": {
     "eyebrow": "Asmaul Husna",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Bulan purnama malam ini",
       "fullBody": "Bulan sepenuhnya terang mendekati pertengahan {{month}} — malam-malam Hari Putih, saat puasa sangat dianjurkan.",
       "generalTitle": "Kalender bulan",
-      "generalBody": "Kalender Islam (Hijriah) mengikuti bulan: setiap bulan 29 atau 30 hari, dimulai dengan hilal yang terlihat (hilāl). Tanggal di sini memakai kalender tabular untuk lokasi Anda dan dapat berbeda satu hari dari penglihatan lokal.",
+      "generalBody": "Kalender Islam (Hijri) mengikuti bulan: setiap bulan 29 atau 30 hari, dimulai dengan sabit yang terlihat (hilāl). Tanggal di sini dihitung dari visibilitas sabit di lokasi Anda dan mungkin berbeda dari pengumuman otoritas setempat sehari.",
       "monthTurnTitle": "Cari hilal",
-      "monthTurnBody": "Setelah Maghrib, cari hilāl {{month}}. Bulan Islam dimulai dengan hilal yang terlihat; penglihatan bulan lokal dapat berbeda satu hari dari kalender ini."
+      "monthTurnBody": "Setelah Maghrib, carilah hilāl {{month}}. Bulan Islam dimulai dengan sabit yang terlihat; pengumuman otoritas setempat Anda mungkin berbeda dari perhitungan ini sehari."
     },
     "monthProgress": "Kemajuan bulan",
     "monthProgressValue": "Hari ke-{{day}} dari {{length}} · {{month}}",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "Akaun",
     "title": "Profil",
-    "subtitle": "Anda detail dan akun",
+    "subtitle": "Nama, sinkronisasi, dan masuk",
     "guestName": "Tamu",
     "changeAvatar": "Ubah avatar",
     "signInToSync": "Sign di ke sinkron",
@@ -2154,7 +2201,17 @@
       "not_using": "Saya tidak lagi menggunakannya",
       "technical_issues": "Masalah teknis atau bug",
       "other": "Lainnya"
-    }
+    },
+    "editName": "Edit nama tampilan",
+    "signedInWith": "Masuk dengan {{provider}}",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Tautkan akun untuk mencadangkan Salah, Zikr, dan Qaza Anda di semua perangkat.",
+    "sessionTitle": "Sesi",
+    "sessionHint": "Keluar di perangkat ini. Data cloud Anda tetap aman.",
+    "dangerTitle": "Zona bahaya",
+    "dangerHint": "Hapus permanen akun dan data lokal Anda. Ini tidak dapat dibatalkan."
   },
   "sync": {
     "title": "Cloud sinkron",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Volume {{value}}%",
     "buffering": "Membuffer…",
     "loading": "Memuat…",
-    "streamingOnlyNote": "Streaming only — audio adalah tidak tersimpan pada ini perangkat"
+    "streamingOnlyNote": "Streaming only — audio adalah tidak tersimpan pada ini perangkat",
+    "ttsVoice": "Suara",
+    "ttsVoiceHint": "Pilih suara teks-ke-ucapan"
   },
   "errors": {
     "title": "Terjadi kesalahan",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Lokasi & pengingat",
       "description": "Izinkan lokasi dan notifikasi untuk waktu sholat akurat, kiblat, dan pengingat opsional — atau atur nanti."
+    },
+    "tasbeehDurood": {
+      "description": "Hitung shalawat ini dengan penghitung tasbih sentuh."
     }
   },
   "pwa": {
@@ -3406,7 +3468,7 @@
     "today": "Hari ini",
     "inDays": "di {{count}} hari",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Dates adalah calculated estimates —  actual hari depends pada local moon-sighting.",
+    "disclaimer": "Tanggal mengikuti visibilitas sabit di lokasi Anda (atau kalender resmi Umm al-Qura di wilayah yang menggunakannya) dan dapat berbeda sehari dari pengumuman otoritas lokal.",
     "names": {
       "newYear": "Islamic Baru Tahun",
       "ashura": "Hari dari Ashura",
@@ -3879,7 +3941,7 @@
       "label": "Lampiran (opsional)",
       "add": "Tambahkan berkas",
       "remove": "Hapus lampiran",
-      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), masing-masing 1 MB. Tekan lama thumbnail untuk menghapusnya.",
+      "hint": "Hingga 5 file (JPEG, PNG, WebP, atau PDF), 1 MB masing-masing. Ketuk × pada thumbnail untuk menghapus.",
       "signInRequired": "Masuk untuk melampirkan file pribadi ke adhkar Anda.",
       "permissionDenied": "Izin diperlukan untuk melampirkan file.",
       "permissionTitle": "Izinkan akses",
@@ -3905,7 +3967,10 @@
       "sourceGallery": "Perpustakaan foto",
       "sourceGalleryHint": "Pilih gambar dari foto Anda",
       "sourceDocument": "File",
-      "sourceDocumentHint": "Pilih gambar atau PDF dari file Anda"
+      "sourceDocumentHint": "Pilih gambar atau PDF dari file Anda",
+      "loadingPdf": "Memuat PDF…",
+      "pdfHint": "Gulir · cubit atau gunakan +/− untuk zoom · ketuk dua kali untuk atur ulang · Buka PDF untuk berbagi",
+      "pdfPreviewTitle": "Pratinjau PDF"
     },
     "stt": {
       "dictate": "Dikte dengan mikrofon",
@@ -3918,7 +3983,10 @@
     },
     "editTitle": "Ubah adhkar",
     "confirmDeleteTitle": "Hapus adhkar ini?",
-    "confirmDeleteMsg": "“{{title}}” akan dihapus secara permanen."
+    "confirmDeleteMsg": "“{{title}}” akan dihapus secara permanen.",
+    "searchPlaceholder": "Cari adhkar Anda",
+    "noResults": "Tidak ada adhkar yang cocok",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Malam shalat",
@@ -4365,7 +4433,7 @@
     "sourceLabel": "Anda sumber (sunah)",
     "sourcePlaceholder": "Book, ulama, URL, atau citation supporting Anda correction.",
     "proofLabel": "Proof screenshots (sunah)",
-    "proofHint": "Up ke 3 images. Long-press  thumbnail ke hapus.",
+    "proofHint": "Hingga 3 gambar. Ketuk × pada thumbnail untuk menghapus.",
     "addProof": "Tambah photo",
     "removeProof": "Buang screenshot",
     "submit": "Submit laporkan",
@@ -4402,7 +4470,11 @@
       "completed": "Selesai",
       "cancelled": "Dibatalkan",
       "spam": "Spam"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri & pintasan suara",
@@ -4625,7 +4697,7 @@
     "eyebrow": "Kalender",
     "title": "Konverter tanggal",
     "subtitle": "Konversi antara kalender Hijriah dan Masehi",
-    "intro": "Masukkan tanggal di salah satu kalender untuk melihat padanannya di kalender lain, dihitung secara offline menggunakan algoritma tabular Kuwait.",
+    "intro": "Masukkan tanggal di salah satu kalender untuk melihat setaranya di kalender lain, dihitung offline dari visibilitas sabit di lokasi Anda.",
     "toHijri": "Masehi → Hijriah",
     "toGregorian": "Hijriah → Masehi",
     "gregorianDateLabel": "tanggal Gregorian",
@@ -4635,7 +4707,7 @@
     "year": "Tahun",
     "useToday": "Gunakan hari ini",
     "invalidDate": "Masukkan tanggal yang valid",
-    "disclaimer": "Ini adalah perkiraan aritmatika (\"algoritme Kuwait\") dan dapat berbeda satu hari dengan pengumuman penampakan bulan setempat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
+    "disclaimer": "Tanggal dihitung dari visibilitas sabit (hilāl) di lokasi Anda dan dapat berbeda sehari dari pengumuman resmi rukyat — selalu ikuti masjid atau otoritas setempat untuk tanggal keagamaan.",
     "directionTitle": "Arah konversi",
     "resultFrom": "Dari {{date}}",
     "quickLinksTitle": "Terkait",
@@ -4714,6 +4786,25 @@
     "basedOn": "Berdasarkan",
     "editTime": "Edit waktu {{prayer}}",
     "editHint": "Hasil diperbarui saat Anda mengubah waktu.",
-    "nightLengthLabel": "Durasi malam"
+    "nightLengthLabel": "Durasi malam",
+    "willStartIn": "Akan dimulai dalam {{time}}",
+    "timeRemaining": "{{time}} tersisa"
+  },
+  "friday": {
+    "eyebrow": "Belajar",
+    "title": "Jumat & Jumu'ah",
+    "subtitle": "Keutamaan, persiapan, Surah al-Kahf, salawat, dan waktu dua",
+    "intro": "Jumat adalah hari terbaik saat matahari terbit. Pelajari amalan autentik Jumu'ah — ghusl, shalat, Surah al-Kahf, salawat, dan mencari waktu mustajab — dari Qur'an dan hadits sahih.",
+    "section": {
+      "virtues": "Keutamaan Jumat",
+      "obligation": "Shalat Jumu'ah",
+      "prepare": "Persiapan",
+      "kahf": "Surah al-Kahf",
+      "salawat": "Shalawat",
+      "dua": "Waktu dua"
+    },
+    "notFound": "Topik tidak ditemukan",
+    "disclaimer": "Ringkasan edukatif — bukan fatwa. Jika mazhab berbeda (misalnya apakah ghusl Jumat wajib atau sunnah mu'akkadah), kedua pendapat dicatat; ikuti imam atau ulama lokal yang berkualifikasi.",
+    "continueInApp": "Lanjutkan di Munib"
   }
 }

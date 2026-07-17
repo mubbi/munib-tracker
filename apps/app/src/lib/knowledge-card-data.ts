@@ -1,6 +1,10 @@
 /** Curated pool entries for the home knowledge flash card. */
 
+import { isFriday } from "@/lib/friday";
+
 export type MotivationTopic = "prayer" | "qaza" | "zikr" | "fasting" | "steadfastness" | "general";
+
+export { isFriday };
 
 export type KnowledgeCardEntry =
   | { kind: "quran"; surah: number; ayah: number }
@@ -188,8 +192,4 @@ export function buildKnowledgeCardPool(date: Date): KnowledgeCardEntry[] {
   }
 
   return pool;
-}
-
-export function isFriday(date: Date): boolean {
-  return date.getDay() === 5;
 }

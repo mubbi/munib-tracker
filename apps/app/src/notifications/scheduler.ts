@@ -8,6 +8,7 @@ import {
   ADHAN_NOTIFICATION_SOUND,
   type BuiltReminder,
   buildReminders,
+  hasOutstandingQazaDebt,
   type ScheduledReminderRow,
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
@@ -22,6 +23,13 @@ import {
 } from "@/lib/notifications/permissions";
 import { isLocalNotificationSupported } from "@/lib/notifications/platform";
 import { formatDisplayHhMm } from "@/lib/time";
+import { trackerStore } from "@/stores/tracker-store";
+
+/** Snapshot current Qaza/roza debt for reminder builds. */
+function buildReminderOptions() {
+  const { qazaCounters, roza } = trackerStore.getState();
+  return { hasQazaDebt: hasOutstandingQazaDebt(qazaCounters, roza) };
+}
 
 const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
@@ -136,7 +144,7 @@ export async function rescheduleAll(
     if (!isLocalNotificationSupported()) return;
     if ((await getPermissionStatus()) !== "granted") return;
 
-    const reminders = buildReminders(prefs, location);
+    const reminders = buildReminders(prefs, location, new Date(), buildReminderOptions());
     const now = Date.now();
     for (const reminder of reminders) {
       if (reminder.fireAt.getTime() <= now - 60_000) continue;
@@ -175,10 +183,11 @@ export async function listScheduled(
   prefs: UserPreferences,
   location: StoredLocation,
 ): Promise<ScheduledReminderRow[]> {
+  const options = buildReminderOptions();
   if (!isNative) {
     if (!prefs.notificationPrefs.masterEnabled) return [];
     return summarizeReminders(
-      buildReminders(prefs, location),
+      buildReminders(prefs, location, new Date(), options),
       prefs.timeFormat,
       new Date(),
       location.timeZone,
@@ -226,7 +235,7 @@ export async function listScheduled(
     if (parsed.length === 0) {
       if (!prefs.notificationPrefs.masterEnabled) return [];
       return summarizeReminders(
-        buildReminders(prefs, location),
+        buildReminders(prefs, location, new Date(), options),
         prefs.timeFormat,
         new Date(),
         location.timeZone,
@@ -256,7 +265,7 @@ export async function listScheduled(
 
   if (!prefs.notificationPrefs.masterEnabled) return [];
   return summarizeReminders(
-    buildReminders(prefs, location),
+    buildReminders(prefs, location, new Date(), options),
     prefs.timeFormat,
     new Date(),
     location.timeZone,

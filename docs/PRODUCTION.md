@@ -112,8 +112,9 @@ In each Vercel project settings, confirm **Root Directory** matches the table ab
   `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` so uploads survive serverless
   cold starts. Optional `CLOUDINARY_FOLDER` (default `munib-tracker/reports`) and
   `CLOUDINARY_USER_MEDIA_FOLDER` (default `munib-tracker/custom-adhkar`; authenticated
-  delivery). Local disk (`REPORT_ATTACHMENTS_DIR` / `USER_MEDIA_DIR`) is for
-  development only.
+  delivery). Uploads use `asset_folder` `{prefix}/{userOrReportId}` so each owner’s
+  media stays in one folder. Local disk (`REPORT_ATTACHMENTS_DIR` / `USER_MEDIA_DIR`)
+  is for development only.
 - Rate limits (content reports, app feedback, auth) and short-lived caches (app
   version meta): set `REDIS_URL` (and optional `REDIS_KEY_PREFIX`) for durable
   limits across instances; otherwise in-memory fallback. Monitor via

@@ -1,4 +1,5 @@
 import {
+  extractReminderKey,
   parseReminderKey,
   resolveNotificationVisual,
 } from "@/lib/notifications/notification-visuals";
@@ -20,6 +21,12 @@ describe("notification-visuals", () => {
   it("maps qaza daily reminders to qaza visuals", () => {
     const visual = resolveNotificationVisual({ reminderKey: "qaza" });
     expect(visual.category).toBe("qaza");
+  });
+
+  it("extracts reminder keys from os- and web- inbox ids", () => {
+    expect(extractReminderKey("inbox:os-qaza", "os-qaza")).toBe("qaza");
+    expect(extractReminderKey("inbox:web-qaza", "web-qaza")).toBe("qaza");
+    expect(extractReminderKey("scheduled:morningZikr")).toBe("morningZikr");
   });
 
   it("maps date-suffixed daily reminders to the correct category", () => {

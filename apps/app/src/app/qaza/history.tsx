@@ -31,6 +31,7 @@ import { gregorianToHijri, hijriMonthLabel } from "@/lib/hijri";
 import { toAppLocale } from "@/lib/locale-bcp47";
 import { goBackOrReplace } from "@/lib/navigation";
 import { useChevronBackward, useChevronForward } from "@/lib/rtl";
+import { useLocation } from "@/stores/location-store";
 
 type HistoryEntry = { date: string; total: number; progress: QazaDailyProgress };
 
@@ -43,8 +44,8 @@ function parseGregorianMonth(date: string): { year: number; month: number } {
   return { year: parsed.getFullYear(), month: parsed.getMonth() };
 }
 
-function parseHijriMonth(date: string): { year: number; month: number } {
-  const hijri = gregorianToHijri(new Date(`${date}T00:00:00`));
+function parseHijriMonth(date: string, timeZone?: string): { year: number; month: number } {
+  const hijri = gregorianToHijri(new Date(`${date}T00:00:00`), timeZone);
   return { year: hijri.year, month: hijri.month };
 }
 
@@ -55,9 +56,10 @@ export default function QazaHistoryScreen() {
   const chevronBackward = useChevronBackward();
   const chevronForward = useChevronForward();
   const defaultCalendar = useDefaultCalendar();
+  const location = useLocation();
   const now = new Date();
   const today = getLocalDateString();
-  const todayHijri = gregorianToHijri(now);
+  const todayHijri = gregorianToHijri(now, location.timeZone);
   const [mode, setMode] = useState<CalendarMode>(defaultCalendar);
   const [byDate, setByDate] = useState<Map<string, HistoryEntry>>(new Map());
   const [loaded, setLoaded] = useState(false);
@@ -87,7 +89,7 @@ export default function QazaHistoryScreen() {
         setByDate(next);
         if (latestDate && !initialMonthSet.current) {
           const gregorian = parseGregorianMonth(latestDate);
-          const hijri = parseHijriMonth(latestDate);
+          const hijri = parseHijriMonth(latestDate, location.timeZone);
           setYear(gregorian.year);
           setMonth(gregorian.month);
           setHYear(hijri.year);
@@ -99,7 +101,7 @@ export default function QazaHistoryScreen() {
       return () => {
         active = false;
       };
-    }, []),
+    }, [location.timeZone]),
   );
 
   const locale: AppLocale = toAppLocale(i18n.language ?? "en");

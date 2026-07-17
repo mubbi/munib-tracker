@@ -5,6 +5,7 @@
 import { getAqeedahTopics, isAqeedahContentReady } from "@/lib/aqeedah";
 import { getBattlesTopics, isBattlesContentReady } from "@/lib/battles";
 import { getEidGuideTopics } from "@/lib/eid-guide";
+import { getFridayGuideTopics } from "@/lib/friday-guide";
 import { getHajjGuideSections, isHajjGuideContentReady } from "@/lib/hajj-guide";
 import { getIslamicHistoryEvents, isIslamicHistoryContentReady } from "@/lib/islamic-history";
 import { getJahannamTopics, isJahannamContentReady } from "@/lib/jahannam";
@@ -51,6 +52,7 @@ describe("learn corpora first-visit readiness", () => {
 
   it("small sync guides expose topics without ensure", () => {
     expect(getEidGuideTopics().length).toBeGreaterThan(0);
+    expect(getFridayGuideTopics().length).toBeGreaterThan(0);
     expect(getRuqyahTopics().length).toBeGreaterThan(0);
     expect(getNewMuslimTopics().length).toBeGreaterThan(0);
     expect(getLaylatAlQadrTopics().length).toBeGreaterThan(0);
@@ -86,6 +88,7 @@ describe("learn corpora first-visit readiness", () => {
       "/history",
       "/laylat-al-qadr",
       "/eid",
+      "/friday",
       "/ruqyah",
       "/new-muslim",
       "/flash-cards",

@@ -1,3 +1,4 @@
+import { usePathname } from "expo-router";
 import {
   createContext,
   type ReactNode,
@@ -13,7 +14,9 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 
 import { localeToBcp47 } from "@/lib/locale-bcp47";
-import { isTtsAvailable, resolveTtsVoice, speakLong, stopTts } from "@/lib/tts";
+import { isTtsAvailable, resolveTtsVoice } from "@/lib/tts";
+import { buildReadingTtsQueue } from "@/lib/tts-audio-tracks";
+import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { usePreferences } from "@/stores/preferences-store";
 import { useQuranActions, useQuranPrefs } from "@/stores/quran-store";
 
@@ -26,15 +29,16 @@ type LearnTtsContextValue = {
   clearSegment: (id: string) => void;
   /** Optional explicit full article text that replaces auto-collected segments. */
   setOverrideText: (text: string | null) => void;
+  /** True while this screen's learn TTS queue is loaded in the mini-player. */
   speaking: boolean;
   hasText: boolean;
   /** BCP-47 language used for voice filtering and speech. */
   lang: string;
   /** Preferred voice id for {@link lang}, if saved. */
   preferredVoiceId?: string;
-  /** Persist a voice preference for the current lang, then speak. */
+  /** Persist a voice preference for the current lang, then play via mini-player. */
   startWithVoice: (voiceId: string | undefined) => void;
-  /** Stop in-progress speech. */
+  /** Stop in-progress learn TTS (closes the mini-player queue). */
   stop: () => void;
 };
 
@@ -58,14 +62,17 @@ export function LearnTtsProvider({
   children: ReactNode;
 }) {
   const { t } = useTranslation();
+  const pathname = usePathname();
   const prefs = usePreferences();
   const quranPrefs = useQuranPrefs();
   const { updatePrefs } = useQuranActions();
+  const audio = useAudioPlayerContext();
   const [segments, setSegments] = useState(() => new Map<string, SegmentEntry>());
   const [overrideText, setOverrideTextState] = useState<string | null>(null);
-  const [speaking, setSpeaking] = useState(false);
   const orderRef = useRef(0);
-  const speakingRef = useRef(false);
+  const sessionId = useId().replace(/:/g, "");
+  const queueId = `learn-${sessionId}`;
+  const trackPrefix = `${queueId}:tts:`;
 
   const setSegment = useCallback((id: string, text: string) => {
     setSegments((prev) => {
@@ -105,13 +112,6 @@ export function LearnTtsProvider({
     setOverrideTextState(listenText?.trim() ? listenText.trim() : null);
   }, [listenText]);
 
-  useEffect(() => {
-    return () => {
-      void stopTts();
-      speakingRef.current = false;
-    };
-  }, []);
-
   const resolvedText = useMemo(() => {
     if (overrideText) return overrideText;
     return joinSegments(segments);
@@ -120,14 +120,12 @@ export function LearnTtsProvider({
   const hasText = resolvedText.length > 0;
   const lang = localeToBcp47(prefs.locale);
   const preferredVoiceId = quranPrefs.ttsVoiceByLang?.[lang];
+  const isThisQueue = Boolean(audio.current?.id.startsWith(trackPrefix));
+  const speaking = isThisQueue && !audio.isQueueFinished;
 
   const stop = useCallback(() => {
-    void (async () => {
-      await stopTts();
-      speakingRef.current = false;
-      setSpeaking(false);
-    })();
-  }, []);
+    if (isThisQueue) audio.stop();
+  }, [audio, isThisQueue]);
 
   const startWithVoice = useCallback(
     (voiceId: string | undefined) => {
@@ -147,23 +145,24 @@ export function LearnTtsProvider({
         void updatePrefs({ ttsVoiceByLang: nextVoices });
 
         const voice = await resolveTtsVoice(lang, voiceId);
-        speakingRef.current = true;
-        setSpeaking(true);
-        await speakLong(text, {
+        const queue = buildReadingTtsQueue({
+          id: queueId,
+          title: t("reading.listenLabel"),
+          text,
           lang,
           voice,
-          onDone: () => {
-            speakingRef.current = false;
-            setSpeaking(false);
-          },
-          onError: () => {
-            speakingRef.current = false;
-            setSpeaking(false);
-          },
         });
+        if (queue.length === 0) return;
+
+        const sourceHref = pathname?.startsWith("/")
+          ? pathname
+          : pathname
+            ? `/${pathname}`
+            : undefined;
+        audio.play(queue, 0, sourceHref ? { sourceHref } : undefined);
       })();
     },
-    [lang, quranPrefs.ttsVoiceByLang, resolvedText, t, updatePrefs],
+    [audio, lang, pathname, queueId, quranPrefs.ttsVoiceByLang, resolvedText, t, updatePrefs],
   );
 
   const value = useMemo(

@@ -125,15 +125,27 @@ export class AttachmentStorageService {
     return readFile(storagePath);
   }
 
-  async remove(storagePath: string): Promise<void> {
-    if (storagePath.startsWith(CLOUDINARY_PREFIX)) {
+  async remove(
+    storagePath: string,
+    deliveryType: CloudinaryDeliveryType = "upload",
+  ): Promise<void> {
+    if (
+      storagePath.startsWith(CLOUDINARY_PREFIX) ||
+      storagePath.startsWith(CLOUDINARY_RAW_PREFIX)
+    ) {
       const { publicId, resourceType } = parseCloudinaryPath(storagePath);
       if (!publicId || !this.cloudinaryConfigured) return;
       try {
-        await cloudinary.uploader.destroy(publicId, {
+        const result = (await cloudinary.uploader.destroy(publicId, {
           resource_type: resourceType,
+          type: deliveryType,
           invalidate: true,
-        });
+        })) as { result?: string };
+        if (result?.result && result.result !== "ok" && result.result !== "not found") {
+          this.logger.warn(
+            `Cloudinary destroy for ${publicId} returned unexpected result: ${result.result}`,
+          );
+        }
       } catch (error) {
         this.logger.warn(
           `Failed to delete Cloudinary asset ${publicId}: ${
@@ -189,13 +201,14 @@ export class AttachmentStorageService {
     resourceType: CloudinaryResourceType;
   }): Promise<string> {
     const stem = options.filename.replace(/\.[^.]+$/, "") || options.filename;
-    const folder = `${options.folderRoot}/${options.folderSegment}`;
+    const assetFolder = `${options.folderRoot}/${options.folderSegment}`;
 
     const result = await new Promise<UploadApiResponse>((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         {
-          folder,
+          asset_folder: assetFolder,
           public_id: stem,
+          use_asset_folder_as_public_id_prefix: true,
           resource_type: options.resourceType,
           type: options.deliveryType,
           overwrite: true,

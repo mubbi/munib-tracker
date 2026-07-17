@@ -4,6 +4,7 @@ import { aggregateByDate, type DayActivity, getLocalDateString } from "@munib-tr
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { NativeScrollEvent, NativeSyntheticEvent, ScrollView } from "react-native";
 import { CalendarWeekStrip } from "@/components/calendar-week-strip";
 import { PrayerStatusSheet } from "@/components/prayer-status-sheet";
 import { ScreenLayout } from "@/components/screen-layout";
@@ -47,6 +48,11 @@ export default function CalendarDayScreen() {
   const [zikrCounts, setZikrCounts] = useState<Record<string, number>>({});
   const [activity, setActivity] = useState<Map<string, DayActivity>>(new Map());
   const [activePrayer, setActivePrayer] = useState<PrayerId | null>(null);
+  const scrollRef = useRef<ScrollView>(null);
+  const scrollYRef = useRef(0);
+  const onDayScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    scrollYRef.current = event.nativeEvent.contentOffset.y;
+  }, []);
   const lastActivePrayer = useRef<PrayerId | null>(activePrayer);
   if (activePrayer) lastActivePrayer.current = activePrayer;
   const sheetPrayer = activePrayer ?? lastActivePrayer.current;
@@ -164,6 +170,8 @@ export default function CalendarDayScreen() {
           : t("calDay.summary", { completed, total: OBLIGATORY_PRAYERS.length })
       }
       onBack={() => goBackOrReplace(router, "/")}
+      scrollRef={scrollRef}
+      onScroll={onDayScroll}
     >
       <Seo
         path={`/calendar/${date}`}
@@ -198,6 +206,8 @@ export default function CalendarDayScreen() {
             prayerTimes={prayerTimes}
             onPrayerPress={setActivePrayer}
             onExcusedChange={(reason) => void applyExcused(reason)}
+            scrollRef={scrollRef}
+            getScrollY={() => scrollYRef.current}
           />
         )}
       </Stagger>

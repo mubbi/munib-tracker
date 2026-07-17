@@ -24,6 +24,7 @@ import { gregorianToHijri, hijriMonthLabel, hijriMonthLength, hijriToGregorian }
 import { toAppLocale } from "@/lib/locale-bcp47";
 import type { AppIcon } from "@/lib/names-of-allah-ui";
 import { goBackOrReplace } from "@/lib/navigation";
+import { useLocation } from "@/stores/location-store";
 
 type ConverterDirection = "toHijri" | "toGregorian";
 
@@ -37,8 +38,10 @@ export default function DateConverterScreen() {
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const locale: AppLocale = toAppLocale(i18n.language ?? "en");
+  const location = useLocation();
   const now = new Date();
-  const todayHijri = gregorianToHijri(now);
+  // Shared Hijri engine (sighting / Umm al-Qura) + the stored location timezone.
+  const todayHijri = gregorianToHijri(now, location.timeZone);
 
   const [direction, setDirection] = useState<ConverterDirection>("toHijri");
 
@@ -52,7 +55,7 @@ export default function DateConverterScreen() {
 
   function resetToToday() {
     const nowLocal = new Date();
-    const hijriNow = gregorianToHijri(nowLocal);
+    const hijriNow = gregorianToHijri(nowLocal, location.timeZone);
     setGYear(String(nowLocal.getFullYear()));
     setGMonth(String(nowLocal.getMonth() + 1));
     setGDay(String(nowLocal.getDate()));
@@ -70,7 +73,7 @@ export default function DateConverterScreen() {
       if (m < 1 || m > 12 || d < 1 || d > 31) return undefined;
       const source = new Date(y, m - 1, d);
       if (source.getMonth() !== m - 1) return undefined;
-      const hijri = gregorianToHijri(source);
+      const hijri = gregorianToHijri(source, location.timeZone);
       return {
         primary: `${hijri.day} ${hijriMonthLabel(hijri.year, hijri.month, locale)}`,
         sourceLabel: formatCalendarDate(source, "gregorian", locale),
@@ -87,7 +90,7 @@ export default function DateConverterScreen() {
       primary: formatCalendarDate(gregorian, "gregorian", locale),
       sourceLabel: `${d} ${hijriMonthLabel(y, m, locale)}`,
     };
-  }, [direction, gYear, gMonth, gDay, hYear, hMonth, hDay, locale]);
+  }, [direction, gYear, gMonth, gDay, hYear, hMonth, hDay, locale, location.timeZone]);
 
   const quickLinks = useMemo(
     () => [

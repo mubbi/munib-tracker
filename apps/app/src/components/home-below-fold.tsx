@@ -6,6 +6,7 @@ import { ContinueCard } from "@/components/continue-card";
 import { DefaultLocationBanner } from "@/components/default-location-banner";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
+import { FridayGoalReminder } from "@/components/friday-goal-reminder";
 import { KnowledgeFlashCard } from "@/components/knowledge-flash-card";
 import type { PrayerScheduleCardProps } from "@/components/prayer-schedule-card";
 import { PrayerScheduleCard } from "@/components/prayer-schedule-card";
@@ -25,8 +26,10 @@ import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing, type StatusKey } from "@/constants/theme";
 import { useReviewRouteTrigger } from "@/features/reviews/hooks/useReviewRouteTrigger";
 import { useReviewStreakTrigger } from "@/features/reviews/hooks/useReviewStreakTrigger";
+import { useShareContentCard } from "@/hooks/use-share-content-card";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { useWeeklyReport } from "@/hooks/use-weekly-report";
+import { isFriday } from "@/lib/friday";
 import {
   buildQuickActionItems,
   DEFAULT_QUICK_ACTION_ORDER,
@@ -34,6 +37,9 @@ import {
   QUICK_ACTION_META,
 } from "@/lib/quick-actions";
 import { useArrowForward } from "@/lib/rtl";
+import { currentSeasonalTheme } from "@/lib/seasonal-themes";
+import { formatScheduleShare } from "@/lib/share";
+import { useLocation } from "@/stores/location-store";
 import { usePreferences } from "@/stores/preferences-store";
 import {
   useDailySummary,
@@ -43,6 +49,8 @@ import {
   useRoza,
   useStreak,
 } from "@/stores/tracker-store";
+
+const SCHEDULE_SHARE_KEY = "home-today-schedule";
 
 type SymbolName = SymbolViewProps["name"];
 
@@ -75,16 +83,28 @@ function resolveGoalTier(done: number, total: number): { tone: StatusKey; icon: 
 export type HomeBelowFoldProps = Pick<
   PrayerScheduleCardProps,
   "schedule" | "nextIn" | "nextScheduleId"
->;
+> & {
+  /** Primary date label for schedule share (matches schedule screen). */
+  scheduleDateLabel: string;
+  /** Location label for schedule share. */
+  scheduleLocationLabel: string;
+};
 
 /**
  * Below-fold home content — separate module so web asyncRoutes can parse the
  * hero/shell first without pulling continue/knowledge/ramadan/schedule cards.
  */
-export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFoldProps) {
+export function HomeBelowFold({
+  schedule,
+  nextIn,
+  nextScheduleId,
+  scheduleDateLabel,
+  scheduleLocationLabel,
+}: HomeBelowFoldProps) {
   const router = useRouter();
   const { t, i18n } = useTranslation();
   const { colors, tokens } = useThemeTokens();
+  const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const summary = useDailySummary();
   const excusedReason = useDayExcused();
   const streak = useStreak();
@@ -95,8 +115,44 @@ export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFol
   useReviewRouteTrigger("home");
   useReviewStreakTrigger(streak);
   const { quickActionOrder, hiddenHomeModules } = usePreferences();
+  const location = useLocation();
   const arrowForward = useArrowForward();
   const hiddenModules = new Set(hiddenHomeModules ?? []);
+  const showDefaultLocationBanner = location.source === "default";
+  const showSeasonalBanner = currentSeasonalTheme(new Date(), location.timeZone) != null;
+
+  const onShareSchedule = async () => {
+    const locationLabel = scheduleLocationLabel || undefined;
+    const items = schedule.map((item) => ({
+      id: item.id,
+      name: item.name,
+      time: item.time,
+      kind: item.kind,
+      status: item.status,
+    }));
+
+    await share({
+      message: formatScheduleShare({
+        dateLabel: scheduleDateLabel,
+        locationLabel,
+        items,
+        nextScheduleId,
+        nextIn,
+      }),
+      sectionTitle: t("share.sectionSchedule"),
+      contentLabel: locationLabel ? `${scheduleDateLabel} · ${locationLabel}` : scheduleDateLabel,
+      filenameSlug: "schedule",
+      shareKey: SCHEDULE_SHARE_KEY,
+      content: {
+        kind: "schedule",
+        dateLabel: scheduleDateLabel,
+        locationLabel,
+        items,
+        nextScheduleId,
+        nextIn,
+      },
+    });
+  };
 
   const tasksDone = summary.salahCompleted + summary.zikrCompleted + summary.qazaCompletedToday;
   const tasksTotal = summary.salahTotal + summary.zikrTotal + summary.qazaTargetToday;
@@ -136,11 +192,14 @@ export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFol
 
   return (
     <View style={styles.body}>
+      {SnapshotHost}
       <IosPwaInstallBanner />
 
       <Stagger entranceKey="home">
-        <DefaultLocationBanner />
-        <SeasonalThemeBanner />
+        {/* Mount only when visible — empty Stagger wrappers keep flex `gap` and
+            cancel the hero overlap (`marginTop: -Spacing.five`). */}
+        {showDefaultLocationBanner ? <DefaultLocationBanner /> : null}
+        {showSeasonalBanner ? <SeasonalThemeBanner /> : null}
 
         <Card>
           <View style={styles.goalHeader}>
@@ -156,25 +215,38 @@ export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFol
                     : t("home.checklistHint")}
               </ThemedText>
             </View>
-            {isExcused ? (
-              <Pill
-                label={t("home.excusedPausedLabel")}
-                color={tokens.status.info.color}
-                background={colors.card}
-                icon={{
-                  ios: "pause.circle.fill",
-                  android: "pause_circle",
-                  web: "pause_circle",
-                }}
-              />
-            ) : (
-              <Pill
-                label={`${progressPct}%`}
-                color={colors.accentForeground}
-                background={colors.accent}
-              />
-            )}
+            <View style={styles.goalPills}>
+              {isFriday() ? (
+                <Pill
+                  label={t("home.fridayCard.badge")}
+                  compact
+                  color={colors.accent}
+                  background={tokens.accentSoft}
+                  icon={{ ios: "sun.max.fill", android: "wb_sunny", web: "wb_sunny" }}
+                />
+              ) : null}
+              {isExcused ? (
+                <Pill
+                  label={t("home.excusedPausedLabel")}
+                  color={tokens.status.info.color}
+                  background={colors.card}
+                  icon={{
+                    ios: "pause.circle.fill",
+                    android: "pause_circle",
+                    web: "pause_circle",
+                  }}
+                />
+              ) : (
+                <Pill
+                  label={`${progressPct}%`}
+                  color={colors.accentForeground}
+                  background={colors.accent}
+                />
+              )}
+            </View>
           </View>
+
+          <FridayGoalReminder />
 
           {isExcused ? (
             <View
@@ -328,7 +400,14 @@ export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFol
         ) : null}
 
         {!hiddenModules.has("schedule") ? (
-          <PrayerScheduleCard schedule={schedule} nextIn={nextIn} nextScheduleId={nextScheduleId} />
+          <PrayerScheduleCard
+            schedule={schedule}
+            nextIn={nextIn}
+            nextScheduleId={nextScheduleId}
+            onShare={onShareSchedule}
+            shareLoading={isSharing(SCHEDULE_SHARE_KEY)}
+            shareGesturePending={isGesturePending(SCHEDULE_SHARE_KEY)}
+          />
         ) : null}
       </Stagger>
     </View>
@@ -336,6 +415,7 @@ export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFol
 }
 
 const styles = StyleSheet.create({
+  // Tuck into the hero curve without covering the prayer-time row.
   body: { paddingHorizontal: Spacing.four, marginTop: -Spacing.five, gap: Spacing.four, zIndex: 1 },
   goalHeader: {
     flexDirection: "row",
@@ -345,6 +425,13 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.three,
   },
   goalTitle: { flex: 1, gap: 2 },
+  goalPills: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-end",
+    gap: Spacing.one + 2,
+    maxWidth: "46%",
+  },
   goalProgress: { gap: Spacing.two },
   goalBreakdown: {
     flexDirection: "row",

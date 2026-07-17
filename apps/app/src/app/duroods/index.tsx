@@ -7,6 +7,7 @@ import { ReadingCard } from "@/components/content/reading-card";
 import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EmptyState } from "@/components/ui/empty-state";
 import { SavedNavCard } from "@/components/ui/saved-nav-card";
@@ -16,6 +17,7 @@ import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { loadDuroodItems } from "@/lib/content-loaders";
 import { buildContentReportRef } from "@/lib/content-report-ref";
 import { goBackOrReplace } from "@/lib/navigation";
+import { TASBEEH_ICON } from "@/lib/quick-actions";
 import { createDuroodSearch } from "@/lib/search";
 import { webPageSchema } from "@/lib/seo/structured-data";
 import {
@@ -129,6 +131,17 @@ export default function DuroodsScreen() {
                     reference: item.reference,
                   },
                 })}
+              />
+              <Button
+                label={t("duroods.openInTasbeeh")}
+                icon={TASBEEH_ICON}
+                fullWidth
+                onPress={() =>
+                  router.push({
+                    pathname: "/tasbeeh/durood/[id]",
+                    params: { id: item.id },
+                  })
+                }
               />
             </View>
           ))

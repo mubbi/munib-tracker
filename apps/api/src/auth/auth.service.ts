@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -48,6 +49,8 @@ const MIN_DEVICE_ID_LENGTH = 16;
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>,
@@ -215,8 +218,9 @@ export class AuthService {
   }
 
   /**
-   * Closes the authenticated user's account: records closure metadata, wipes all
-   * user-owned data, revokes every session, and tombstones the identity so the
+   * Closes the authenticated user's account: records closure metadata, purges
+   * Cloudinary/disk blobs (custom-adhkar media + report attachments), wipes
+   * user-owned rows, revokes every session, and tombstones the identity so the
    * same OAuth provider or email can register a fresh account. The `users` row
    * is retained (with prefixed email) for analytics linkage — not a hard delete.
    */
@@ -254,6 +258,14 @@ export class AuthService {
       .getRepository(UserMediaEntity)
       .find({ where: { userId }, select: { id: true, storagePath: true } });
     const userMediaPaths = userMedia.map((media) => media.storagePath);
+
+    // Purge blobs before the DB transaction so Cloudinary/disk cleanup always
+    // has the storage paths even if the transaction later fails mid-way.
+    await this.purgeAccountBlobStorage({
+      userId,
+      reportAttachmentPaths: attachmentPaths,
+      userMediaPaths,
+    });
 
     const primaryReason = dto.primaryReason;
     const details = dto.details?.trim().slice(0, 500) || null;
@@ -296,10 +308,34 @@ export class AuthService {
         },
       );
     });
+  }
 
-    await Promise.all(
-      [...attachmentPaths, ...userMediaPaths].map((path) => this.attachmentStorage.remove(path)),
-    );
+  /**
+   * Best-effort deletion of every blob owned by the closing account. Failures
+   * are logged inside {@link AttachmentStorageService.remove}; we still proceed
+   * with the DB wipe so account closure is not blocked by a flaky CDN.
+   */
+  private async purgeAccountBlobStorage(options: {
+    userId: string;
+    reportAttachmentPaths: string[];
+    userMediaPaths: string[];
+  }): Promise<void> {
+    const { userId, reportAttachmentPaths, userMediaPaths } = options;
+    if (reportAttachmentPaths.length === 0 && userMediaPaths.length === 0) {
+      return;
+    }
+
+    const results = await Promise.allSettled([
+      ...reportAttachmentPaths.map((path) => this.attachmentStorage.remove(path)),
+      ...userMediaPaths.map((path) => this.attachmentStorage.remove(path, "authenticated")),
+    ]);
+
+    const failed = results.filter((result) => result.status === "rejected").length;
+    if (failed > 0) {
+      this.logger.warn(
+        `Account ${userId}: ${failed}/${results.length} blob purge(s) failed during delete-account`,
+      );
+    }
   }
 
   private async upsertProviderUser(

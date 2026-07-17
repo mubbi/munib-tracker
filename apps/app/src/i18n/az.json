@@ -177,7 +177,8 @@
     "finance": "İslam Maliyyəsi",
     "flashCards": "Fleş kartlar",
     "verseDetector": "Ayə axtarışı",
-    "lastThirdNight": "Gecənin son üçdə biri"
+    "lastThirdNight": "Gecənin son üçdə biri",
+    "friday": "Cümə və Cümə namazı"
   },
   "quickActions": {
     "checklistSubtitle": "Bu günkü namazları qeyd et",
@@ -456,6 +457,14 @@
         "text": " shvə yt tsbeeh sessiüzərində counts. Zikr dir deyil üzərindəly üçün lüzərindəg sittiçindəgs — strt with ten.",
         "topic": "zikr"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Bütün cümə əməlləri qeyd olundu — Allah qəbul etsin.",
+      "openChecklist": "Jumu'ah siyahısını aç",
+      "badge": "Cümə",
+      "reminderTitle": "Cümə mübarək",
+      "reminderBody": "Jumu'ah qılın və cümə sünnələrini tamamlayın — Ghusl, Surah al-Kahf, salawat və Dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "fter {{prayer}}",
     "afterSalahAdhkarReminderBody": "tasbeeh və sonra salah adhkar üçün bir az vaxt ayırın.",
     "afterSalahProgress": "dhkr {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} sonra-salah adhkar: {{total}}-dən {{completed}} bu gün tamamlandı"
+    "afterSalahProgressA11y": "{{prayer}} sonra-salah adhkar: {{total}}-dən {{completed}} bu gün tamamlandı",
+    "friday": {
+      "title": "Jumu'ah siyahısı",
+      "subtitle": "Cümə sünnələri — yalnız cümə günləri göstərilir",
+      "progress": "{{completed}} / {{total}}",
+      "openRelated": "Əlaqəli məzmunu aç",
+      "learnMore": "Cümə sünnələrini öyrən",
+      "items": {
+        "ghusl": {
+          "title": "Cümə üçün Ghusl",
+          "hint": "Masjid-ə getməzdən əvvəl yuyunun"
+        },
+        "prepare": {
+          "title": "Ən yaxşı paltar və ətir",
+          "hint": "Təmiz geyinin və mümkün olduqda yüngül ətir çəkin"
+        },
+        "jumuah": {
+          "title": "Jumu'ah-da iştirak edin (və ya Dhuhr qılın)",
+          "hint": "Xütbə + iki rəkət; üzrlü olan Dhuhr qılır"
+        },
+        "kahf": {
+          "title": "Surah al-Kahf oxuyun",
+          "hint": "İki cümə arasındakı nur"
+        },
+        "salawat": {
+          "title": "Salawatı artırın",
+          "hint": "Peyğəmbərə ﷺ salavat göndərin"
+        },
+        "dua": {
+          "title": "Dua saatını axtarın",
+          "hint": "Xüsusilə Asr-dan sonrakı son saatda"
+        }
+      },
+      "details": "Ətraflı",
+      "jumpTitle": "Jumu'ah siyahısı",
+      "jumpHint": "Cümə sünnələri aşağıda",
+      "jumpA11y": "Bu səhifədəki Jumu'ah siyahısına keç"
+    }
   },
   "update": {
     "title": "Yeniləmə mövcuddur",
@@ -986,7 +1032,7 @@
     "emptyDesc": "Bu kateqoriya üçün daha çox giriş yoldadır.",
     "detailEyebrow": "Zikrlər",
     "today": "bu gün",
-    "openInTasbeeh": "çın içində Tsbeeh",
+    "openInTasbeeh": "Təsbehdə aç",
     "favorite": "Fvvə yite",
     "favorited": "Fvvə yited",
     "share": "Paylaş",
@@ -1112,7 +1158,8 @@
     "favorites": "Sevimli durodlar",
     "favSubtitle": "Yadda saxladığınız müddətlər",
     "favEmptyTitle": "Hələlik sevimli durodlar yoxdur",
-    "favEmptyDesc": "-xunun  str üzərində ny durood - sxl it here."
+    "favEmptyDesc": "-xunun  str üzərində ny durood - sxl it here.",
+    "openInTasbeeh": "Təsbehdə aç"
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Full moüzərində -gecə",
       "fullBody": " moüzərində dir fully lit ner  middle -içində {{month}} —  gecəs -içində  White Dys, when və yuc dir especihmısıy recommended.",
       "generalTitle": " təqvim -içində  moüzərində",
-      "generalBody": "İslam (Hicri) təqvimi ayı izləyir: hər ay 29 və ya 30 gündür, görünən hilalla (hilāl) başlayır. Buradakı tarixlər yeriniz üçün cədvəl təqviminə əsaslanır və yerli müşahidədən bir gün fərqlənə bilər.",
+      "generalBody": "İslam (Hicri) təqvimi Ayı izləyir: hər ay 29 və ya 30 gündür və görünən hilalla (hilāl) başlayır. Buradakı tarixlər yerinizdəki hilal görünürlüyünə görə hesablanıb və yerli orqanın elanından bir gün fərqlənə bilər.",
       "monthTurnTitle": "Hilala baxın",
-      "monthTurnBody": "Məğribdən sonra {{month}} hilalını axtarın. İslam ayları görünən hilalla başlayır; yerli hilal müşahidəsi bu təqvimdən bir gün fərqlənə bilər."
+      "monthTurnBody": "Maghrib-dən sonra {{month}} ayının hilāl-ını axtarın. İslam ayları görünən hilalla başlayır; yerli orqanın elanı bu hesablamadan bir gün fərqlənə bilər."
     },
     "monthProgress": "Ayın irəliləməsi",
     "monthProgressValue": "{{month}} · {{length}} gündən {{day}}-ci gün",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "hesb",
     "title": "pr-içindəil",
-    "subtitle": "siziçində detils və hesb",
+    "subtitle": "Ad, sinxronizasiya və giriş",
     "guestName": "Qonaq",
     "changeAvatar": "Chnge vtr",
     "signInToSync": "dxil ol - sync",
@@ -2154,7 +2201,17 @@
       "not_using": "Artıq istifadə etmirəm",
       "technical_issues": "Texniki problemlər və ya səhvlər",
       "other": "Digər"
-    }
+    },
+    "editName": "Göstərilən adı redaktə et",
+    "signedInWith": "{{provider}} ilə daxil olunub",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Salah, Zikr və Qaza-nızı cihazlar arasında ehtiyat nüsxələmək üçün hesab bağlayın.",
+    "sessionTitle": "Sessiya",
+    "sessionHint": "Bu cihazdan çıxış edin. Bulud məlumatlarınız təhlükəsiz qalır.",
+    "dangerTitle": "Təhlükəli zona",
+    "dangerHint": "Hesabınızı və yerli məlumatları birdəfəlik silin. Bu geri qaytarıla bilməz."
   },
   "sync": {
     "title": "Bulud sinxronizasiyası",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Səs {{value}}%",
     "buffering": "Bufferiçindəg…",
     "loading": "yüklənir…",
-    "streamingOnlyNote": "Yalnız yayım — audio bu cihazda yadda saxlanmayıb"
+    "streamingOnlyNote": "Yalnız yayım — audio bu cihazda yadda saxlanmayıb",
+    "ttsVoice": "Səs",
+    "ttsVoiceHint": "Mətn-nitq səsini seçin"
   },
   "errors": {
     "title": "Nəsə səhv getdi",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Məkan və xatırlatmalar",
       "description": "Dəqiq namaz vaxtları, qiblə və istəyə bağlı xatırlatmalar üçün məkan və bildirişlərə icazə verin — və ya sonra qurun."
+    },
+    "tasbeehDurood": {
+      "description": "Bu salavatı toxunma təsbeh sayğacı ilə sayın."
     }
   },
   "pwa": {
@@ -3406,7 +3468,7 @@
     "today": "bu gün",
     "inDays": "içində {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Tarixlər hesablanmış təxminlərdir - faktiki gün yerli ayın görünməsindən asılıdır.",
+    "disclaimer": "Tarixlər yerinizdəki hilal görünürlüyünə (və ya istifadə olunan bölgələrdə rəsmi Ümm əl-Qura təqviminə) uyğundur və yerli orqanın elanından bir gün fərqlənə bilər.",
     "names": {
       "newYear": "İslam Yeni ili",
       "ashura": "Aşura günü",
@@ -3879,7 +3941,7 @@
       "label": "Qoşmalar (isteğe bağlı)",
       "add": "Fayl əlavə edin",
       "remove": "Qoşmanı çıxarın",
-      "hint": "5-ə qədər fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürə uzun basın.",
+      "hint": "Ən çox 5 fayl (JPEG, PNG, WebP və ya PDF), hər biri 1 MB. Silmək üçün miniatürdə × toxunun.",
       "signInRequired": "Şəxsi faylları adhkarınıza əlavə etmək üçün daxil olun.",
       "permissionDenied": "Faylları əlavə etmək üçün icazə tələb olunur.",
       "permissionTitle": "Girişə icazə verin",
@@ -3905,7 +3967,10 @@
       "sourceGallery": "Foto kitabxana",
       "sourceGalleryHint": "Şəkillərinizdən bir şəkil seçin",
       "sourceDocument": "Fayllar",
-      "sourceDocumentHint": "Fayllarınızdan şəkil və ya PDF seçin"
+      "sourceDocumentHint": "Fayllarınızdan şəkil və ya PDF seçin",
+      "loadingPdf": "PDF yüklənir…",
+      "pdfHint": "Sürüşdürün · böyütmək üçün sıxın və ya +/− · sıfırlamaq üçün iki dəfə toxunun · paylaşmaq üçün PDF açın",
+      "pdfPreviewTitle": "PDF önizləməsi"
     },
     "stt": {
       "dictate": "Mikrofonla diktə edin",
@@ -3918,7 +3983,10 @@
     },
     "editTitle": "Adhkarı redaktə et",
     "confirmDeleteTitle": "Bu adhkar silinsin?",
-    "confirmDeleteMsg": "“{{title}}” həmişəlik silinəcək."
+    "confirmDeleteMsg": "“{{title}}” həmişəlik silinəcək.",
+    "searchPlaceholder": "Adhkarlarınızı axtarın",
+    "noResults": "Uyğun adhkar yoxdur",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Gecə salahı",
@@ -4365,7 +4433,7 @@
     "sourceLabel": "siziçində source (ixtiyri)",
     "sourcePlaceholder": "Düzəlişinizi dəstəkləyən kitab, alim, URL və ya sitat.",
     "proofLabel": "Sübut ekran görüntüləri (isteğe bağlı)",
-    "proofHint": "3 şəkilə qədər. Silmək üçün miniatürə uzun basın.",
+    "proofHint": "Ən çox 3 şəkil. Silmək üçün miniatürdə × toxunun.",
     "addProof": "Foto əlavə edin",
     "removeProof": "çıxrt screenshot",
     "submit": "Hesabat təqdim edin",
@@ -4402,7 +4470,11 @@
       "completed": "tmmlvəı",
       "cancelled": "ləğv etled",
       "spam": "Spm"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri və səs qısa yolları",
@@ -4625,7 +4697,7 @@
     "eyebrow": "Təqvim",
     "title": "Tarix çeviricisi",
     "subtitle": "Hicri və Miladi təqvimlər arasında çevirin",
-    "intro": "Cədvəl Küveyt alqoritmi ilə oflayn hesablanmış digərində ekvivalentini görmək üçün hər iki təqvimə tarixi daxil edin.",
+    "intro": "İstənilən təqvimdə tarix daxil edin ki, digərindəki ekvivalentini görün — yerinizdəki hilal görünürlüyünə görə oflayn hesablanır.",
     "toHijri": "Qriqorian → hicri",
     "toGregorian": "Hicri → Qriqorian",
     "gregorianDateLabel": "Qriqorian tarixi",
@@ -4635,7 +4707,7 @@
     "year": "il",
     "useToday": "Bu gün istifadə edin",
     "invalidDate": "Etibarlı tarix daxil edin",
-    "disclaimer": "Bu arifmetik təxmindir (cədvəl \"Küveyt alqoritmi\") və yerli ayın görünməsi ilə bağlı elanlardan bir gün fərqlənə bilər - həmişə yerli məscidinizi və ya dini tarixlər üçün səlahiyyətli orqanı izləyin.",
+    "disclaimer": "Tarixlər yerinizdəki hilal (hilāl) görünürlüyünə görə hesablanır və rəsmi ay görünməsi elanlarından bir gün fərqlənə bilər — dini tarixlər üçün həmişə yerli Masjid və ya orqanı izləyin.",
     "directionTitle": "Dönüşüm istiqaməti",
     "resultFrom": "{{date}}-dən",
     "quickLinksTitle": "Əlaqədar",
@@ -4714,6 +4786,25 @@
     "basedOn": "Əsas",
     "editTime": "{{prayer}} vaxtını redaktə et",
     "editHint": "Vaxtı dəyişdikcə nəticələr yenilənir.",
-    "nightLengthLabel": "Gecə müddəti"
+    "nightLengthLabel": "Gecə müddəti",
+    "willStartIn": "{{time}} sonra başlayacaq",
+    "timeRemaining": "{{time}} qalıb"
+  },
+  "friday": {
+    "eyebrow": "Öyrən",
+    "title": "Cümə və Cümə namazı",
+    "subtitle": "Fəzilətlər, hazırlıq, Surah al-Kahf, salawat və Dua saatı",
+    "intro": "Cümə günəşin doğduğu ən yaxşı gündür. Jumu'ah-ın səhih sünnələrini — Ghusl, namaz, Surah al-Kahf, salawat və qəbul olunan saatı — Quran və səhih hədisdən öyrənin.",
+    "section": {
+      "virtues": "Cümənin fəzilətləri",
+      "obligation": "Jumu'ah namazı",
+      "prepare": "Hazırlıq",
+      "kahf": "Kəhf surəsi",
+      "salawat": "Salavat",
+      "dua": "Dua saatı"
+    },
+    "notFound": "Mövzu tapılmadı",
+    "disclaimer": "Təhsil icmalı — fətva deyil. Məzhəblər fərqləndikdə (məsələn, cümə Ghusl-unun vacib və ya sünnə müəkkədə olması) hər iki mövqe qeyd olunur; imamınıza və ya ixtisaslı yerli alimə tabe olun.",
+    "continueInApp": "Munib-də davam et"
   }
 }

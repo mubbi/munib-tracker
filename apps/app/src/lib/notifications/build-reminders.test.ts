@@ -4,6 +4,8 @@ import type { UserPreferences } from "@munib-tracker/shared/types";
 import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
 import {
   buildReminders,
+  hasOutstandingQazaDebt,
+  isQazaReminderId,
   MAX_PENDING_REMINDERS,
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
@@ -323,5 +325,47 @@ describe("buildReminders", () => {
     );
     expect(morning).toHaveLength(1);
     expect(morning[0]?.repeat).toBe("daily");
+  });
+
+  it("skips the Qaza reminder when there is no outstanding Salah or fasting debt", () => {
+    const prefs: UserPreferences = {
+      ...basePrefs,
+      notificationPrefs: { ...basePrefs.notificationPrefs, qaza: true },
+    };
+    const withoutDebt = buildReminders(prefs, SET_LOCATION, FIXED_NOW, { hasQazaDebt: false });
+    expect(withoutDebt.some((r) => r.id === "qaza" || r.id.startsWith("qaza:"))).toBe(false);
+
+    const withDebt = buildReminders(prefs, SET_LOCATION, FIXED_NOW, { hasQazaDebt: true });
+    const qaza = withDebt.find((r) => r.id === "qaza");
+    expect(qaza).toBeDefined();
+    expect(qaza?.repeat).toBe("daily");
+    expect(qaza?.route).toBe("/qaza");
+  });
+});
+
+describe("hasOutstandingQazaDebt", () => {
+  it("is false when Salah and fasting remaining are both zero", () => {
+    expect(hasOutstandingQazaDebt([{ remaining: 0 }, { remaining: 0 }], { remaining: 0 })).toBe(
+      false,
+    );
+  });
+
+  it("is true when any Salah remaining is positive", () => {
+    expect(hasOutstandingQazaDebt([{ remaining: 0 }, { remaining: 2 }], { remaining: 0 })).toBe(
+      true,
+    );
+  });
+
+  it("is true when fasting remaining is positive", () => {
+    expect(hasOutstandingQazaDebt([{ remaining: 0 }], { remaining: 1 })).toBe(true);
+  });
+});
+
+describe("isQazaReminderId", () => {
+  it("matches the daily Qaza reminder ids", () => {
+    expect(isQazaReminderId("qaza")).toBe(true);
+    expect(isQazaReminderId("qaza:2026-07-06")).toBe(true);
+    expect(isQazaReminderId("morningZikr")).toBe(false);
+    expect(isQazaReminderId("prayer:fajr:2026-07-06")).toBe(false);
   });
 });

@@ -47,6 +47,8 @@ export const DB_KEYS = {
   khushuJournal: `${PREFIX}/khushu_journal`,
   // Hajj & Umrah checklist completion state (per rite id) — NF-2.3.
   hajjChecklist: `${PREFIX}/hajj_checklist`,
+  // Friday / Jumu'ah checklist completion (itemId::date) — cloud-synced blob.
+  fridayChecklist: `${PREFIX}/friday_checklist`,
   // Ids of in-app feature tours the user has completed/dismissed — NF-2.24.
   toursSeen: `${PREFIX}/tours_seen`,
   // Private daily intention toggles on Journey to Jannah (not synced).
@@ -139,6 +141,7 @@ const KEY_PERSISTENCE: Record<keyof typeof DB_KEYS, KeyPersistence> = {
   customAdhkar: "userData",
   khushuJournal: "userData",
   hajjChecklist: "userData",
+  fridayChecklist: "userData",
   toursSeen: "deviceLocal",
   jannahIntentions: "userData",
   jahannamIntentions: "userData",

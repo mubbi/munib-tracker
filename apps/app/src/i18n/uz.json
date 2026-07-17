@@ -177,7 +177,8 @@
     "finance": "Islomiy moliya",
     "flashCards": "Yod kartalari",
     "verseDetector": "Oyat aniqlagich",
-    "lastThirdNight": "Tunning oxirgi uchtadan biri"
+    "lastThirdNight": "Tunning oxirgi uchtadan biri",
+    "friday": "Juma va Jumu'ah"
   },
   "quickActions": {
     "checklistSubtitle": "Bugungi namozlarni qayd eting",
@@ -456,6 +457,14 @@
         "text": " shyokit tsbeeh sessid counts. Zikr bu ems dly uchun ldg sittichidgs — strt with ten.",
         "topic": "zikr"
       }
+    },
+    "fridayCard": {
+      "progress": "{{completed}}/{{total}}",
+      "allDone": "Barcha juma amallari qayd etildi — Alloh qabul qilsin.",
+      "openChecklist": "Jumu'ah ro'yxatini ochish",
+      "badge": "Juma",
+      "reminderTitle": "Juma muborak",
+      "reminderBody": "Jumu'ah o'qing va juma sunnatlarini bajarib boring — ghusl, Surah al-Kahf, salawat va dua."
     }
   },
   "tracker": {
@@ -501,7 +510,44 @@
     "afterSalahAdhkarReminderTitle": "fter {{prayer}}",
     "afterSalahAdhkarReminderBody": "tasbeeh va keyin salah adhkar uchun bir oz vaqt ajrating.",
     "afterSalahProgress": "dhkr {{completed}}/{{total}}",
-    "afterSalahProgressA11y": "{{prayer}} keyin-salah adhkar: {{completed}} {{total}} bugun yakunlandi"
+    "afterSalahProgressA11y": "{{prayer}} keyin-salah adhkar: {{completed}} {{total}} bugun yakunlandi",
+    "friday": {
+      "title": "Jumu'ah ro'yxati",
+      "subtitle": "Juma sunnatlari — faqat jumada ko'rsatiladi",
+      "progress": "{{completed}} / {{total}}",
+      "openRelated": "Tegishli kontentni ochish",
+      "learnMore": "Juma amallarini o'rganish",
+      "items": {
+        "ghusl": {
+          "title": "Juma ghusli",
+          "hint": "Masjidga borishdan oldin yuvining"
+        },
+        "prepare": {
+          "title": "Eng yaxshi kiyim va xushbo'y",
+          "hint": "Toza kiyining va imkon bo'lsa yengil atir surting"
+        },
+        "jumuah": {
+          "title": "Jumu'ahga boring (yoki Dhuhr o'qing)",
+          "hint": "Xutba + ikki rakat; uzrli bo'lsa Dhuhr o'qing"
+        },
+        "kahf": {
+          "title": "Surah al-Kahf o'qing",
+          "hint": "Ikki juma orasidagi nur"
+        },
+        "salawat": {
+          "title": "Salawatni ko'paytiring",
+          "hint": "Payg'ambar ﷺ ga salovat ayting"
+        },
+        "dua": {
+          "title": "Dua soatini izlang",
+          "hint": "Ayniqsa Asrdan keyingi so'nggi soatda"
+        }
+      },
+      "details": "Tafsilotlar",
+      "jumpTitle": "Jumu'ah ro'yxati",
+      "jumpHint": "Juma sunnatlari pastda",
+      "jumpA11y": "Ushbu sahifadagi Jumu'ah ro'yxatiga o'ting"
+    }
   },
   "update": {
     "title": "Yangilanish mavjud",
@@ -986,7 +1032,7 @@
     "emptyDesc": "Bu turkumga qoʻshimcha arizalar hozirda.",
     "detailEyebrow": "Zikrlar",
     "today": "bugun",
-    "openInTasbeeh": "ochichidg ichid Tsbeeh",
+    "openInTasbeeh": "Tasbehda ochish",
     "favorite": "Fvyokiite",
     "favorited": "Fvyokiited",
     "share": "Ulashish",
@@ -1112,7 +1158,8 @@
     "favorites": "Sevimli durodlar",
     "favSubtitle": "Siz saqlagan vaqtlar",
     "favEmptyTitle": "Sevimli durodlar hali yo'q",
-    "favEmptyDesc": "bosichidg  str d ny durood -g sqlsh it here."
+    "favEmptyDesc": "bosichidg  str d ny durood -g sqlsh it here.",
+    "openInTasbeeh": "Tasbehda ochish"
   },
   "names": {
     "eyebrow": "sm-ul-Husn",
@@ -1907,9 +1954,9 @@
       "fullTitle": "Full mod -gtun",
       "fullBody": " mod bu fully lit ner  middle -nichidg {{month}} —  tuns -nichidg  White Dys, when Ro'z bu especibrchy recommended.",
       "generalTitle": " tqvim -nichidg  mod",
-      "generalBody": "Islom (Hijri) taqvimi oyga amal qiladi: har oy 29 yoki 30 kun, ko‘rilgan hilol bilan (hilāl) boshlanadi. Bu yerdagi sanalar joylashuvingiz uchun jadval taqvimiga asoslangan va mahalliy ko‘rishdan bir kun farq qilishi mumkin.",
+      "generalBody": "Islom (Hijri) taqvimi oyga amal qiladi: har oy 29 yoki 30 kun, ko'rilgan hilol (hilāl) bilan boshlanadi. Bu yerdagi sanalar joylashuvingizdagi hilol ko'rinishidan hisoblanadi va mahalliy hokimiyat e'lonidan bir kun farq qilishi mumkin.",
       "monthTurnTitle": "Hilolni qidiring",
-      "monthTurnBody": "Magribdan keyin {{month}} hilolini qidiring. Islom oylari ko‘rilgan hilol bilan boshlanadi; mahalliy oy ko‘rish ushbu taqvimdan bir kun farq qilishi mumkin."
+      "monthTurnBody": "Magribdan keyin {{month}} hilālini qidiring. Islom oylari ko'rilgan hilol bilan boshlanadi; mahalliy hokimiyat e'loni ushbu hisobdan bir kun farq qilishi mumkin."
     },
     "monthProgress": "Oy jarayoni",
     "monthProgressValue": "{{month}} · {{length}} kundan {{day}}-kun",
@@ -2119,7 +2166,7 @@
   "profile": {
     "eyebrow": "hbuob",
     "title": "pr-nichidgil",
-    "subtitle": "siznichidg detils v hbuob",
+    "subtitle": "Nom, sinxronlash va kirish",
     "guestName": "Mehmon",
     "changeAvatar": "Chnge vtr",
     "signInToSync": "kirbuh -g sync",
@@ -2154,7 +2201,17 @@
       "not_using": "Endi foydalanmayman",
       "technical_issues": "Texnik muammolar yoki xatolar",
       "other": "Boshqa"
-    }
+    },
+    "editName": "Ko'rsatiladigan nomni tahrirlash",
+    "signedInWith": "{{provider}} orqali kirilgan",
+    "providerGoogle": "Google",
+    "providerApple": "Apple",
+    "providerFacebook": "Facebook",
+    "signInHint": "Hisobni ulang — Salah, Zikr va Qaza ni qurilmalar bo'ylab zaxiralash uchun.",
+    "sessionTitle": "Sessiya",
+    "sessionHint": "Ushbu qurilmadan chiqing. Bulutdagi ma'lumotlaringiz xavfsiz qoladi.",
+    "dangerTitle": "Xavfli zona",
+    "dangerHint": "Hisobingiz va mahalliy ma'lumotlarni butunlay o'chiring. Buni qaytarib bo'lmaydi."
   },
   "sync": {
     "title": "Bulutli sinxronlash",
@@ -2250,7 +2307,9 @@
     "volumeValue": "Ovoz {{value}}%",
     "buffering": "Bufferichidg…",
     "loading": "yuklnmoqd…",
-    "streamingOnlyNote": "Faqat striming — audio bu qurilmada saqlanmaydi"
+    "streamingOnlyNote": "Faqat striming — audio bu qurilmada saqlanmaydi",
+    "ttsVoice": "Ovoz",
+    "ttsVoiceHint": "Matndan nutqqa ovoz tanlang"
   },
   "errors": {
     "title": "Nimadir notoʻgʻri ketdi",
@@ -2283,6 +2342,9 @@
     "introLocation": {
       "title": "Joylashuv va eslatmalar",
       "description": "Aniq namoz vaqtlari, qibla va ixtiyoriy eslatmalar uchun joylashuv va bildirishnomalarga ruxsat bering — yoki keyin sozlang."
+    },
+    "tasbeehDurood": {
+      "description": "Bu salavotni teginishli tasbeeh hisoblagichi bilan sanang."
     }
   },
   "pwa": {
@@ -3406,7 +3468,7 @@
     "today": "bugun",
     "inDays": "ichid {{count}} dys",
     "hijriYear": "{{year}} H",
-    "disclaimer": "Sanalar hisoblangan taxminlar - haqiqiy kun mahalliy oyni ko'rishga bog'liq.",
+    "disclaimer": "Sanalar joylashuvingizdagi hilol ko'rinishiga (yoki uni ishlatadigan mintaqalarda rasmiy Umm al-Qura taqvimiga) amal qiladi va mahalliy hokimiyat e'lonidan bir kun farq qilishi mumkin.",
     "names": {
       "newYear": "Islomiy Yangi yil",
       "ashura": "Ashuro kuni",
@@ -3879,7 +3941,7 @@
       "label": "Qo'shimchalar (ixtiyoriy)",
       "add": "Fayl qo'shish",
       "remove": "Qo'shimchani olib tashlang",
-      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Oʻchirish uchun eskizni uzoq bosib turing.",
+      "hint": "5 tagacha fayl (JPEG, PNG, WebP yoki PDF), har biri 1 MB. Olib tashlash uchun eskizdagi × ni bosing.",
       "signInRequired": "Adhkaringizga shaxsiy fayllarni biriktirish uchun tizimga kiring.",
       "permissionDenied": "Fayllarni biriktirish uchun ruxsat talab qilinadi.",
       "permissionTitle": "Kirishga ruxsat bering",
@@ -3905,7 +3967,10 @@
       "sourceGallery": "Foto kutubxonasi",
       "sourceGalleryHint": "Rasmlaringizdan rasm tanlang",
       "sourceDocument": "Fayllar",
-      "sourceDocumentHint": "Fayllaringizdan rasm yoki PDF-ni tanlang"
+      "sourceDocumentHint": "Fayllaringizdan rasm yoki PDF-ni tanlang",
+      "loadingPdf": "PDF yuklanmoqda…",
+      "pdfHint": "Aylantiring · chimdib yoki +/− bilan kattalashtiring · qayta tiklash uchun ikki marta bosing · ulashish uchun PDF oching",
+      "pdfPreviewTitle": "PDF ko'rinishi"
     },
     "stt": {
       "dictate": "Mikrofon bilan diktant qiling",
@@ -3918,7 +3983,10 @@
     },
     "editTitle": "Adhkarni tahrirlash",
     "confirmDeleteTitle": "Bu adhkar oʻchirilsinmi?",
-    "confirmDeleteMsg": "“{{title}}” butunlay olib tashlanadi."
+    "confirmDeleteMsg": "“{{title}}” butunlay olib tashlanadi.",
+    "searchPlaceholder": "Adhkarlaringizni qidiring",
+    "noResults": "Mos adhkar topilmadi",
+    "itemNumberLabel": "{{number}}. {{title}}"
   },
   "tahajjud": {
     "eyebrow": "Tungi salah",
@@ -4365,7 +4433,7 @@
     "sourceLabel": "siznichidg source (ixtiyyokiiy)",
     "sourcePlaceholder": "Tuzatishingizni tasdiqlovchi kitob, olim, URL yoki iqtibos.",
     "proofLabel": "Tasdiqlangan skrinshotlar (ixtiyoriy)",
-    "proofHint": "3 tagacha rasm. Oʻchirish uchun eskizni uzoq bosib turing.",
+    "proofHint": "3 tagacha rasm. Olib tashlash uchun eskizdagi × ni bosing.",
     "addProof": "Surat qo'shish",
     "removeProof": "olib tshlsh screenshot",
     "submit": "Hisobot yuborish",
@@ -4402,7 +4470,11 @@
       "completed": "bjrildi",
       "cancelled": "bekyoki qilbuhled",
       "spam": "Spm"
-    }
+    },
+    "imagesOnly": "Only images are supported (JPEG, PNG, or WebP).",
+    "permissionDenied": "Photo library permission is required to attach proof.",
+    "pickFailed": "Could not add that photo. Try another image.",
+    "descriptionMinHint": "Minimum {{min}} characters required"
   },
   "externalCommands": {
     "titleIos": "Siri va ovozli yorliqlar",
@@ -4625,7 +4697,7 @@
     "eyebrow": "Kalendar",
     "title": "Sana konvertori",
     "subtitle": "Hijriy va Grigoriy kalendarlari oʻrtasida oʻzgartirish",
-    "intro": "Jadvalli Quvayt algoritmi yordamida oflayn hisoblangan boshqasida ekvivalentini ko‘rish uchun har bir taqvimga sana kiriting.",
+    "intro": "Bir taqvimda sana kiriting — ikkinchisidagi tengini ko'ring; oflayn, joylashuvingizdagi hilol ko'rinishidan hisoblanadi.",
     "toHijri": "Grigoriy → hijriy",
     "toGregorian": "Hijriy → Grigoriy",
     "gregorianDateLabel": "Grigorian sanasi",
@@ -4635,7 +4707,7 @@
     "year": "Yil",
     "useToday": "Bugun foydalaning",
     "invalidDate": "Yaroqli sanani kiriting",
-    "disclaimer": "Bu arifmetik taxmindir (“Quvayt algoritmi” jadvali) va oyni koʻrish haqidagi mahalliy eʼlonlardan bir kun farq qilishi mumkin — har doim mahalliy masjidga yoki diniy sanalar boʻyicha maʼmuriyatga amal qiling.",
+    "disclaimer": "Sanalar joylashuvingizdagi hilol (hilāl) ko'rinishidan hisoblanadi va rasmiy oy ko'rish e'lonlaridan bir kun farq qilishi mumkin — diniy sanalar uchun doimo mahalliy masjid yoki hokimiyatga amal qiling.",
     "directionTitle": "Konvertatsiya yo'nalishi",
     "resultFrom": "{{date}} dan",
     "quickLinksTitle": "Aloqador",
@@ -4714,6 +4786,25 @@
     "basedOn": "Asos",
     "editTime": "{{prayer}} vaqtini tahrirlash",
     "editHint": "Vaqtni o'zgartirsangiz, natijalar yangilanadi.",
-    "nightLengthLabel": "Tun davomiyligi"
+    "nightLengthLabel": "Tun davomiyligi",
+    "willStartIn": "{{time}} dan keyin boshlanadi",
+    "timeRemaining": "{{time}} qoldi"
+  },
+  "friday": {
+    "eyebrow": "O'rganish",
+    "title": "Juma va Jumu'ah",
+    "subtitle": "Fazilatlar, tayyorgarlik, Surah al-Kahf, salawat va dua soati",
+    "intro": "Juma — quyosh chiqadigan eng yaxshi kun. Jumu'ahning ishonchli amallarini o'rganing — ghusl, namoz, Surah al-Kahf, salawat va qabul soatini izlash — Qur'on va sahih hadisdan.",
+    "section": {
+      "virtues": "Juma fazilatlari",
+      "obligation": "Jumu'ah namozi",
+      "prepare": "Tayyorgarlik",
+      "kahf": "Kahf surasi",
+      "salawat": "Salavat",
+      "dua": "Dua soati"
+    },
+    "notFound": "Mavzu topilmadi",
+    "disclaimer": "Ta'limiy sharh — fatvo emas. Mazhablar farq qilgan joylarda (masalan, juma ghusli wajibmi yoki sunnah mu'akkadahmi) ikkala qarash ham keltirilgan; imomingiz yoki malakali mahalliy olimga rioya qiling.",
+    "continueInApp": "Munibda davom eting"
   }
 }

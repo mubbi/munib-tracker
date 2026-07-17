@@ -12,7 +12,6 @@ import { ISSUE_TYPE_ICONS, ISSUE_TYPE_ORDER } from "@/components/content-report/
 import { ThemedText } from "@/components/themed-text";
 import { AppIcon } from "@/components/ui/app-icon";
 import { Button } from "@/components/ui/button";
-import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Sheet } from "@/components/ui/sheet";
 import { Radius, Spacing } from "@/constants/theme";
@@ -62,7 +61,9 @@ export function ContentReportSheet({
     setAttachments([]);
   }, [visible]);
 
-  const canSubmit = description.trim().length >= MIN_DESCRIPTION && !submitting;
+  const descriptionLength = description.trim().length;
+  const meetsMinDescription = descriptionLength >= MIN_DESCRIPTION;
+  const canSubmit = meetsMinDescription && !submitting;
 
   const snapshotLabel = useMemo(() => {
     if (!contentRef) return "";
@@ -146,9 +147,16 @@ export function ContentReportSheet({
             textAlignVertical="top"
             style={[styles.input, styles.multiline, fieldStyle(colors)]}
           />
-          <ThemedText type="caption" themeColor="mutedForeground">
-            {description.length}/{MAX_DESCRIPTION}
-          </ThemedText>
+          <View style={styles.fieldMeta}>
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {description.length}/{MAX_DESCRIPTION}
+            </ThemedText>
+            {!meetsMinDescription ? (
+              <ThemedText type="caption" style={{ color: colors.accent }}>
+                {t("contentReport.descriptionMinHint", { min: MIN_DESCRIPTION })}
+              </ThemedText>
+            ) : null}
+          </View>
         </Field>
 
         <Field label={t("contentReport.correctionLabel")}>
@@ -179,12 +187,14 @@ export function ContentReportSheet({
       <View style={styles.actions}>
         <Button
           variant="primary"
+          fullWidth
           label={t("contentReport.submit")}
           disabled={!canSubmit || submitting}
           onPress={submit}
         />
         <Button
           variant="ghost"
+          fullWidth
           label={t("common.cancel")}
           onPress={onClose}
           disabled={submitting}
@@ -210,7 +220,11 @@ function Field({
         <ThemedText type="caption" themeColor="mutedForeground">
           {label}
         </ThemedText>
-        {required ? <Pill label="*" color={colors.accent} /> : null}
+        {required ? (
+          <ThemedText type="caption" style={{ color: colors.accent }}>
+            *
+          </ThemedText>
+        ) : null}
       </View>
       {children}
     </View>
@@ -247,6 +261,7 @@ const styles = StyleSheet.create({
   },
   field: { gap: Spacing.one },
   fieldLabel: { flexDirection: "row", alignItems: "center", gap: Spacing.one },
+  fieldMeta: { gap: Spacing.half },
   input: {
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: Radius.md,
@@ -256,5 +271,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   multiline: { minHeight: 96 },
-  actions: { marginTop: Spacing.three, gap: Spacing.two },
+  actions: {
+    marginTop: Spacing.three,
+    gap: Spacing.two,
+    paddingTop: Spacing.two,
+  },
 });

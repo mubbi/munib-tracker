@@ -75,8 +75,9 @@ describe("AttachmentStorageService (Cloudinary)", () => {
     expect(stored.storagePath).toBe("cloudinary:munib-tracker/reports/r1/file-id");
     expect(uploadStreamMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        folder: "munib-tracker/reports/r1",
+        asset_folder: "munib-tracker/reports/r1",
         public_id: "file-id",
+        use_asset_folder_as_public_id_prefix: true,
         resource_type: "image",
         type: "upload",
         format: "jpg",
@@ -111,7 +112,9 @@ describe("AttachmentStorageService (Cloudinary)", () => {
     expect(stored.storagePath).toBe("cloudinary:munib-tracker/custom-adhkar/u1/media-id");
     expect(uploadStreamMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        folder: "munib-tracker/custom-adhkar/u1",
+        asset_folder: "munib-tracker/custom-adhkar/u1",
+        public_id: "media-id",
+        use_asset_folder_as_public_id_prefix: true,
         type: "authenticated",
       }),
       expect.any(Function),
@@ -133,6 +136,27 @@ describe("AttachmentStorageService (Cloudinary)", () => {
 
     expect(destroyMock).toHaveBeenCalledWith("munib-tracker/reports/r1/file-id", {
       resource_type: "image",
+      type: "upload",
+      invalidate: true,
+    });
+  });
+
+  it("destroys authenticated user media with the correct delivery type", async () => {
+    destroyMock.mockResolvedValue({ result: "ok" });
+
+    const service = new AttachmentStorageService(
+      makeConfig({
+        CLOUDINARY_CLOUD_NAME: "demo",
+        CLOUDINARY_API_KEY: "key",
+        CLOUDINARY_API_SECRET: "secret",
+      }),
+    );
+
+    await service.remove("cloudinary:munib-tracker/custom-adhkar/u1/media-id", "authenticated");
+
+    expect(destroyMock).toHaveBeenCalledWith("munib-tracker/custom-adhkar/u1/media-id", {
+      resource_type: "image",
+      type: "authenticated",
       invalidate: true,
     });
   });

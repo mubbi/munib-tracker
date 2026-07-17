@@ -40,7 +40,7 @@ export function CustomTasbeehFormModal({
   onSubmit,
   onClose,
 }: CustomTasbeehFormModalProps) {
-  const { colors } = useThemeTokens();
+  const { colors, tokens } = useThemeTokens();
   const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -161,12 +161,12 @@ export function CustomTasbeehFormModal({
                   onPress={() => setPreset(option.id)}
                   style={[
                     styles.presetSegment,
-                    active && { backgroundColor: colors.card, ...Shadows.sm },
+                    active && { backgroundColor: tokens.segmentThumb, ...Shadows.sm },
                   ]}
                 >
                   <ThemedText
                     type="smallBold"
-                    style={{ color: active ? colors.accentText : colors.mutedForeground }}
+                    style={{ color: active ? colors.foreground : colors.mutedForeground }}
                   >
                     {option.label}
                   </ThemedText>

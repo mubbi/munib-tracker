@@ -113,12 +113,13 @@ export function JannahNavRow({
   const { colors } = useThemeTokens();
   const chevronForward = useChevronForward();
   const iconTint = tint ?? colors.accent;
+  const accessibilityLabel = [title, subtitle, badge].filter(Boolean).join(". ");
 
   return (
     <PressableScale
       haptic="light"
       accessibilityRole="button"
-      accessibilityLabel={subtitle ? `${title}. ${subtitle}` : title}
+      accessibilityLabel={accessibilityLabel}
       onPress={onPress}
       style={[styles.navRow, { backgroundColor: colors.muted }]}
     >
@@ -128,14 +129,20 @@ export function JannahNavRow({
           {title}
         </ThemedText>
         {subtitle ? (
-          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={2}>
+          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={3}>
             {subtitle}
           </ThemedText>
         ) : null}
+        {badge ? (
+          <Pill
+            label={badge}
+            compact
+            color={colors.mutedForeground}
+            background={colors.card}
+            style={styles.navBadge}
+          />
+        ) : null}
       </View>
-      {badge ? (
-        <Pill label={badge} compact color={colors.mutedForeground} background={colors.card} />
-      ) : null}
       <SymbolView name={chevronForward} size={16} tintColor={colors.mutedForeground} />
     </PressableScale>
   );
@@ -456,7 +463,8 @@ const styles = StyleSheet.create({
     borderCurve: "continuous",
     minHeight: 56,
   },
-  navCopy: { flex: 1, gap: 2 },
+  navCopy: { flex: 1, gap: Spacing.half, minWidth: 0 },
+  navBadge: { alignSelf: "flex-start", marginTop: Spacing.half },
   quickGrid: {
     flexDirection: "row",
     flexWrap: "wrap",

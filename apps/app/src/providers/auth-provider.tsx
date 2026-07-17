@@ -109,6 +109,47 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const syncing = useRef(false);
   const refreshInFlight = useRef<Promise<StoredSession | null> | null>(null);
   const lastSuccessfulSyncAt = useRef(0);
+  const invalidatingSession = useRef(false);
+
+  const clearSessionState = useCallback(async () => {
+    await SessionStore.clear();
+    setSession(null);
+    setUser(null);
+  }, []);
+
+  const signInAsGuest = useCallback(async () => {
+    const deviceId = await SessionStore.getDeviceId();
+    const dto = await requestGuestSession(deviceId);
+    const stored = toStored(dto);
+    await SessionStore.set(stored);
+    setSession(stored);
+    setUser(null);
+  }, []);
+
+  /** Drop a revoked session and return to guest so the UI never stays "signed in". */
+  const invalidateAuthSession = useCallback(async () => {
+    if (invalidatingSession.current) return;
+    invalidatingSession.current = true;
+    try {
+      const current = await SessionStore.get();
+      if (current) {
+        try {
+          // Best-effort: clears HttpOnly web cookies when the access token still works.
+          await logoutRequest(current.accessToken);
+        } catch {
+          // ignore — local clear below still fixes the zombie signed-in UI
+        }
+      }
+      await clearSessionState();
+      try {
+        await signInAsGuest();
+      } catch {
+        // offline — stay signed out locally; guest boots on next launch
+      }
+    } finally {
+      invalidatingSession.current = false;
+    }
+  }, [clearSessionState, signInAsGuest]);
 
   // Access tokens are short-lived JWTs; rotate them (and the single-use refresh
   // token) using the stored refresh token. Guests must refresh too — Google /
@@ -129,9 +170,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           // Server already rotated the one-time refresh token — if we cannot
           // persist it, drop the session rather than keeping a zombie in memory.
           if (error instanceof SessionPersistError) {
-            await SessionStore.clear();
-            setSession(null);
-            setUser(null);
+            await invalidateAuthSession();
             return null;
           }
           throw error;
@@ -140,10 +179,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return stored;
       } catch (error) {
         // Revoked / expired refresh — clear so the UI does not look signed in.
+        // Only 401/403 clear; network/5xx keep the existing tokens for retry.
         if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
-          await SessionStore.clear();
-          setSession(null);
-          setUser(null);
+          await invalidateAuthSession();
           return null;
         }
         // Offline or 5xx — keep the existing session for a later retry.
@@ -155,7 +193,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       refreshInFlight.current = null;
     });
     return run;
-  }, []);
+  }, [invalidateAuthSession]);
 
   const syncNow = useCallback(async (): Promise<ManualSyncOutcome> => {
     // Claim the guard synchronously, before any await, so two overlapping calls
@@ -300,12 +338,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [persist, refresh, syncNow],
   );
 
-  const signInAsGuest = useCallback(async () => {
-    const deviceId = await SessionStore.getDeviceId();
-    const dto = await requestGuestSession(deviceId);
-    await persist(dto);
-  }, [persist]);
-
   const signInWithProvider = useCallback(
     async (provider: OAuthProvider, payload: OAuthPayload = {}) => {
       const dto = await completeOAuth(provider, payload);
@@ -342,24 +374,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const signOut = useCallback(async () => {
-    const current = await SessionStore.get();
-    if (current) {
-      try {
-        await logoutRequest(current.accessToken);
-      } catch {
-        // best-effort
-      }
-    }
-    await SessionStore.clear();
-    setSession(null);
-    setUser(null);
-    // Return to a fresh guest session so local tracking keeps working.
-    try {
-      await signInAsGuest();
-    } catch {
-      // offline — stay signed out locally
-    }
-  }, [signInAsGuest]);
+    await invalidateAuthSession();
+  }, [invalidateAuthSession]);
 
   const deleteAccount = useCallback(
     async (body: DeleteAccountRequestBody): Promise<"ok" | "error"> => {
@@ -371,18 +387,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } catch {
           return "error";
         }
-        await SessionStore.clear();
-        setSession(null);
-        setUser(null);
-        try {
-          await signInAsGuest();
-        } catch {
-          // offline — a guest session initializes on next launch
-        }
+        await invalidateAuthSession();
       }
       return "ok";
     },
-    [refresh, signInAsGuest],
+    [refresh, invalidateAuthSession],
   );
 
   // Boot: resume a stored session, or create a guest one (best-effort offline).
@@ -396,10 +405,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           try {
             const profile = await getCurrentUser(stored.accessToken);
             if (mounted) setUser(profile);
-          } catch {
-            // offline
+          } catch (error) {
+            // apiFetch already tried refresh on 401. If refresh revoked the
+            // session, storage is cleared — mirror that in React and restore guest.
+            const remaining = await SessionStore.get();
+            if (remaining?.accountType !== "user") {
+              if (mounted) {
+                setSession(remaining);
+                setUser(null);
+              }
+              if (!remaining) {
+                try {
+                  await signInAsGuest();
+                } catch {
+                  // offline — local-only mode
+                }
+              }
+            } else if (
+              error instanceof ApiError &&
+              (error.status === 401 || error.status === 403)
+            ) {
+              // Refresh did not clear (e.g. refresher not registered yet) — force logout.
+              await invalidateAuthSession();
+            }
+            // Offline / 5xx: keep the stored user session for a later retry.
           }
-          void syncNow();
+          const stillUser = (await SessionStore.get())?.accountType === "user";
+          if (stillUser) void syncNow();
         }
       } else {
         try {
@@ -413,7 +445,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => {
       mounted = false;
     };
-  }, [signInAsGuest, syncNow]);
+  }, [signInAsGuest, syncNow, invalidateAuthSession]);
 
   // Flush OSS CDN failure reports that queued before a guest/user token existed.
   useEffect(() => {

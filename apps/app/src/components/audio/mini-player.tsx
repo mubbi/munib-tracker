@@ -22,7 +22,7 @@ import Reanimated, {
   withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
+import { TtsVoiceControl } from "@/components/audio/tts-voice-control";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { QuranPlaybackSettingsControl } from "@/components/quran/quran-playback-settings-control";
 import { ThemedText } from "@/components/themed-text";
@@ -478,6 +478,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
               style={loopActive ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
             />
             <QuranPlaybackSettingsControl size={18} wellRadius={20} />
+            <TtsVoiceControl size={18} wellRadius={20} />
             {hasQueue ? (
               <IconButton
                 name={skipPreviousIcon}
@@ -1232,6 +1233,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
             style={loopActive ? { borderWidth: 1.5, borderColor: colors.accent } : undefined}
           />
           <QuranPlaybackSettingsControl size={22} wellRadius={24} />
+          <TtsVoiceControl size={22} wellRadius={24} />
           <IconButton
             name={skipPreviousIcon}
             size={26}
