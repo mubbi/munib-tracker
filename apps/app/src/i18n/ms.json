@@ -666,7 +666,9 @@
     "facebook": "Teruskan dengan Facebook",
     "heroGuest": "Anda menggunakan akun tetamu. Hubungkan penyedia untuk cadangkan dan sinkronkan data — tidak ada yang hilang.",
     "heroUser": "Log masuk untuk menjaga solat, qadha, dan zikr Anda aman di cloud.",
-    "error": "Tidak dapat log masuk. Pastikan server API berjalan dan penyedia ini dikonfigurasi."
+    "error": "Tidak dapat log masuk. Pastikan pelayan API berjalan dan penyedia ini dikonfigurasi.",
+    "providersUnavailableTitle": "Log masuk belum tersedia",
+    "providersUnavailableBody": "Penyedia segerak awan belum dikonfigurasi dalam binaan ini. Teruskan sebagai tetamu — kemajuan kekal pada peranti ini."
   },
   "onboarding": {
     "begin": "Mula",
@@ -716,7 +718,9 @@
     "locationAllow": "Benarkan lokasi & pemberitahuan",
     "locationLocating": "Menyediakan…",
     "locationSkip": "Sediakan kemudian",
-    "locationHighlight4": "Langkau bila-bila masa — tetapkan lokasi atau dayakan pemberitahuan kemudian"
+    "locationHighlight4": "Langkau bila-bila masa — tetapkan lokasi atau dayakan pemberitahuan kemudian",
+    "chooseLanguage": "Pilih bahasa",
+    "chooseLanguageHint": "Tukar bahasa aplikasi supaya anda boleh mengikuti pengenalan ini"
   },
   "appearance": {
     "eyebrow": "Tetapan",
@@ -940,7 +944,9 @@
         "subtitle": "Makluman semasa tingkap Duha"
       }
     },
-    "groupContent": "Kandungan harian"
+    "groupContent": "Kandungan harian",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Tetapan",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran dan Shia communities",
       "Turkey": "Turki (Diyanet)",
       "Other": "Atur manually elsewhere"
-    }
+    },
+    "defaultLabel": "Makkah, Arab Saudi",
+    "defaultTimesHint": "Waktu Salah kini menggunakan Makkah. Tetapkan bandar anda untuk waktu yang tepat. Peringatan Salah dan Azan kekal dimatikan sehingga itu.",
+    "setLocation": "Tetapkan lokasi"
   },
   "moon": {
     "aria": "Fase bulan: {{phase}}",

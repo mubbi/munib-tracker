@@ -66,7 +66,7 @@
     "sync:pwa-manifest": "node scripts/sync-pwa-manifest.mjs",
     "clear:web-cache": "node -e \"require('node:fs').rmSync('.expo/web/cache',{recursive:true,force:true})\"",
     "clear:metro-cache": "node -e \"console.log('Cleared', require('./scripts/lib/native-script-utils.cjs').clearMetroDiskCache(), 'Metro cache entries')\"",
-    "build:web": "node scripts/sync-pwa-manifest.mjs && node scripts/metro-node-heap.cjs export --platform web && node scripts/inject-seo-head.mjs && node scripts/generate-seo-files.mjs",
+    "build:web": "node scripts/sync-pwa-manifest.mjs && node scripts/generate-well-known.mjs && node scripts/metro-node-heap.cjs export --platform web && node scripts/inject-seo-head.mjs && node scripts/generate-seo-files.mjs",
     "screenshots:validate": "node scripts/screenshots/validate.mjs",
     "screenshots:android": "node scripts/screenshots/capture-android.mjs",
     "screenshots:ios": "node scripts/screenshots/capture-ios.mjs",

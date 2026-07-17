@@ -255,7 +255,7 @@ export function useHomeHero(): HomeHeroData {
           : t("hero.nextPrayerAway", { prayer: prayerName, min: minutesUntil });
 
     return {
-      location: location.label,
+      location: location.source === "default" ? t("location.defaultLabel") : location.label,
       displayDates: formatDualCalendarDate(now, defaultCalendar, locale, location.timeZone),
       currentTime: formatPrayerTime(now, timeFormat, tz),
       countdown,

@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   weightNote: { marginTop: Spacing.two, lineHeight: 18 },
   recipientList: { gap: Spacing.three, marginTop: Spacing.three },
   recipientItem: {
-    borderLeftWidth: 3,
+    borderStartWidth: 3,
     paddingStart: Spacing.three,
     gap: Spacing.half,
   },

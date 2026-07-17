@@ -666,7 +666,9 @@
     "facebook": "Facebook арқылы жалғастырыңыз",
     "heroGuest": "You're using  guest есептік жазба. Link  provider ға артқа up және sync сіздің деректер — nothing  lost.",
     "heroUser": "Sign ішінде ға keep сіздің salah, qaza, және zikr қауіпсіз ішінде  cloud.",
-    "error": "Couldn't sign ішінде. Make sure  API server  running және бұл provider  configured."
+    "error": "Кіру мүмкін болмады. API сервері істеп тұрғанын және осы провайдер бапталғанын тексеріңіз.",
+    "providersUnavailableTitle": "Кіру әзірге қолжетімсіз",
+    "providersUnavailableBody": "Бұл құрастыруда бұлтты синхрон провайдерлері бапталмаған. Қонақ ретінде жалғастырыңыз — прогресс осы құрылғыда қалады."
   },
   "onboarding": {
     "begin": "Бастау",
@@ -716,7 +718,9 @@
     "locationAllow": "Орналасу мен хабарландыруларға рұқсат беру",
     "locationLocating": "Дайындалуда…",
     "locationSkip": "Кейін баптау",
-    "locationHighlight4": "Кез келген уақытта өткізіп жіберіңіз — орналасуды немесе хабарландыруларды кейін баптаңыз"
+    "locationHighlight4": "Кез келген уақытта өткізіп жіберіңіз — орналасуды немесе хабарландыруларды кейін баптаңыз",
+    "chooseLanguage": "Тілді таңдаңыз",
+    "chooseLanguageHint": "Осы кіріспеді түсіну үшін қолданба тілін өзгертіңіз"
   },
   "appearance": {
     "eyebrow": "Баптаулар",
@@ -940,7 +944,9 @@
         "subtitle": "Duha терезесінде ескерту"
       }
     },
-    "groupContent": "Күнделікті мазмұн"
+    "groupContent": "Күнделікті мазмұн",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Баптаулар",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran және Shia communities",
       "Turkey": "Түркия (Диянет)",
       "Other": "Басқа жерде қолмен орнатыңыз"
-    }
+    },
+    "defaultLabel": "Мекке, Сауд Арабиясы",
+    "defaultTimesHint": "Намаз уақыттары қазір Мекке бойынша. Дәл уақыт үшін қалаңызды орнатыңыз. Намаз бен азан еске салғыштары сол кезге дейін өшірулі болады.",
+    "setLocation": "Орналасуды орнату"
   },
   "moon": {
     "aria": "Ай фазасы: {{phase}}",

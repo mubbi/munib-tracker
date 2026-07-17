@@ -666,7 +666,9 @@
     "facebook": "Nastavite s Facebookom",
     "heroGuest": "You're using  guest račun. Link  provider u back up i sync vaš podaci — nothing je lost.",
     "heroUser": "Sign u u keep vaš salah, qaza, i zikr sigurno u  cloud.",
-    "error": "Couldn't sign u. Make sure  API server je running i ovo provider je configured."
+    "error": "Prijava nije uspjela. Provjerite da API server radi i da je ovaj pružatelj konfiguriran.",
+    "providersUnavailableTitle": "Prijava još nije dostupna",
+    "providersUnavailableBody": "Pružatelji cloud sinkronizacije nisu konfigurirani u ovoj verziji. Nastavite kao gost — napredak ostaje na ovom uređaju."
   },
   "onboarding": {
     "begin": "Započni",
@@ -716,7 +718,9 @@
     "locationAllow": "Dozvoli lokaciju i obavještenja",
     "locationLocating": "Priprema…",
     "locationSkip": "Podesi kasnije",
-    "locationHighlight4": "Preskočite bilo kada — lokaciju ili obavještenja podesite kasnije"
+    "locationHighlight4": "Preskočite bilo kada — lokaciju ili obavještenja podesite kasnije",
+    "chooseLanguage": "Odaberite jezik",
+    "chooseLanguageHint": "Promijenite jezik aplikacije kako biste mogli pratiti ovaj uvod"
   },
   "appearance": {
     "eyebrow": "Postavke",
@@ -940,7 +944,9 @@
         "subtitle": "Upozorenje tokom prozora Duha"
       }
     },
-    "groupContent": "Dnevni sadržaj"
+    "groupContent": "Dnevni sadržaj",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Postavke",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran i Shia communities",
       "Turkey": "Türkiye (Diyanet)",
       "Other": "manually elsewhere Ayarla"
-    }
+    },
+    "defaultLabel": "Meka, Saudijska Arabija",
+    "defaultTimesHint": "Vremena namaza trenutno koriste Meku. Postavite svoj grad za tačna vremena. Podsjetnici za namaz i ezan ostaju isključeni do tada.",
+    "setLocation": "Postavi lokaciju"
   },
   "moon": {
     "aria": "Ay evresi: {{phase}}",

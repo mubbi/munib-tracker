@@ -196,7 +196,7 @@ export function SideRail(props: TabListProps) {
         {
           paddingTop: Math.max(insets.top, Spacing.four),
           paddingBottom: Math.max(insets.bottom, Spacing.four),
-          borderRightColor: tokens.hairline,
+          borderEndColor: tokens.hairline,
         },
       ]}
     >
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
   railContainer: {
     width: SIDE_RAIL_WIDTH,
     height: "100%",
-    borderRightWidth: StyleSheet.hairlineWidth,
+    borderEndWidth: StyleSheet.hairlineWidth,
     paddingHorizontal: Spacing.three,
     overflow: "hidden",
   },

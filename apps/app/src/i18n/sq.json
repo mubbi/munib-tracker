@@ -666,7 +666,9 @@
     "facebook": "Vazhdo me Facebook",
     "heroGuest": "You're using  guest llogaria. Link  provider në back up dhe sync juaj të dhënat — nothing është lost.",
     "heroUser": "Sign në në keep juaj salah, qaza, dhe zikr i sigurt në  cloud.",
-    "error": "Couldn't sign në. Make sure  API server është running dhe kjo provider është configured."
+    "error": "Nuk u krye hyrja. Sigurohu që serveri API është duke u ekzekutuar dhe ky ofrues është konfiguruar.",
+    "providersUnavailableTitle": "Hyrja nuk është e disponueshme ende",
+    "providersUnavailableBody": "Ofruesit e sinkronizimit në re nuk janë konfiguruar në këtë version. Vazhdo si mysafir — përparimi yt mbetet në këtë pajisje."
   },
   "onboarding": {
     "begin": "Filloni",
@@ -716,7 +718,9 @@
     "locationAllow": "Lejo vendndodhjen dhe njoftimet",
     "locationLocating": "Duke u përgatitur…",
     "locationSkip": "Vendos më vonë",
-    "locationHighlight4": "Anashkaloje kur të duash — vendose vendndodhjen ose njoftimet më vonë"
+    "locationHighlight4": "Anashkaloje kur të duash — vendose vendndodhjen ose njoftimet më vonë",
+    "chooseLanguage": "Zgjidh gjuhën",
+    "chooseLanguageHint": "Ndrysho gjuhën e aplikacionit që të ndjekësh këtë hyrje"
   },
   "appearance": {
     "eyebrow": "Cilësimet",
@@ -940,7 +944,9 @@
         "subtitle": "Alarmi gjatë dritares së Duhas"
       }
     },
-    "groupContent": "Përmbajtje ditore"
+    "groupContent": "Përmbajtje ditore",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Cilësimet",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran dhe Shia communities",
       "Turkey": "Turkey (Diyet)",
       "Other": "Vendoseni manualisht diku tjetër"
-    }
+    },
+    "defaultLabel": "Meka, Arabia Saudite",
+    "defaultTimesHint": "Kohët e namazit aktualisht përdorin Mekën. Vendos qytetin tënd për kohë të sakta. Kujtesat e namazit dhe ezanit mbeten të fikura deri atëherë.",
+    "setLocation": "Vendos vendndodhjen"
   },
   "moon": {
     "aria": "Faza e hënës: {{phase}}",

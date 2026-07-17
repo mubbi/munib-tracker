@@ -666,7 +666,9 @@
     "facebook": "Facebook ile giriş yap",
     "heroGuest": "Misafir hesabı kullanıyorsunuz. Verilerinizi yedeklemek ve senkronize etmek için bir sağlayıcı bağlayın — hiçbir şey kaybolmaz.",
     "heroUser": "Namazlarınızı, kazalarınızı ve zikirlerinizi bulutta güvende tutmak için giriş yapın.",
-    "error": "Giriş yapılamadı. API sunucusunun çalıştığından ve bu sağlayıcının yapılandırıldığından emin olun."
+    "error": "Giriş yapılamadı. API sunucusunun çalıştığından ve bu sağlayıcının yapılandırıldığından emin olun.",
+    "providersUnavailableTitle": "Giriş henüz kullanılamıyor",
+    "providersUnavailableBody": "Bu sürümde bulut senkron sağlayıcıları yapılandırılmamış. Misafir olarak devam edin — ilerlemeniz bu cihazda kalır."
   },
   "onboarding": {
     "begin": "Başla",
@@ -716,7 +718,9 @@
     "locationAllow": "Konuma ve bildirimlere izin ver",
     "locationLocating": "Hazırlanıyor…",
     "locationSkip": "Sonra ayarla",
-    "locationHighlight4": "İstediğiniz zaman atlayın — konumu veya bildirimleri sonra ayarlayın"
+    "locationHighlight4": "İstediğiniz zaman atlayın — konumu veya bildirimleri sonra ayarlayın",
+    "chooseLanguage": "Dil seçin",
+    "chooseLanguageHint": "Bu tanıtımı takip edebilmek için uygulama dilini değiştirin"
   },
   "appearance": {
     "eyebrow": "Ayarlar",
@@ -940,7 +944,9 @@
         "subtitle": "Alert during  Duha window"
       }
     },
-    "groupContent": "Günlük content"
+    "groupContent": "Günlük content",
+    "defaultLocationTitle": "Salah uyarilari icin konumunuzu ayarlayin",
+    "defaultLocationMessage": "Salah ve Ezan hatirlaticilari icin sehriniz gerekir. Saatlik Zikr ve Kaza hatirlaticilari yine planlanir."
   },
   "fonts": {
     "eyebrow": "Ayarlar",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran ve Shia communities",
       "Turkey": "Türkiye (Diyanet)",
       "Other": "manually elsewhere Ayarla"
-    }
+    },
+    "defaultLabel": "Mekke, Suudi Arabistan",
+    "defaultTimesHint": "Salah vakitleri şu an Mekke'ye göre. Bulunduğunuz yer için şehrinizi ayarlayın. Salah ve Ezan hatırlatıcıları o zamana kadar kapalı kalır.",
+    "setLocation": "Konumu ayarla"
   },
   "moon": {
     "aria": "Ay evresi: {{phase}}",
@@ -2104,7 +2113,7 @@
     "cardinalE": "D",
     "cardinalS": "G",
     "cardinalW": "B",
-    "defaultLocationHint": "Using  varsayılan konum (Makkah). Ayarla sizin city için  doğru kıble bearing where siz dir.",
+    "defaultLocationHint": "Varsayilan konum (Mekke) kullaniliyor. Bulundugunuz yer icin dogru kible yonu icin sehrinizi ayarlayin.",
     "setLocation": "Konum ayarla"
   },
   "profile": {
@@ -3362,13 +3371,13 @@
   "library": {
     "eyebrow": "Kütüphane",
     "title": "Kütüphane",
-    "subtitle": "Oku, dua et ve öğren",
+    "subtitle": "Kur'an, araclar ve ogrenme — gunluk kontrol listesi Takip sekmesinde",
     "explore": "Keşfet",
     "track": "Takip",
     "read": "Oku",
     "supplicate": "Dua et",
     "learn": "Öğren",
-    "more": "Daha fazla"
+    "more": "Araclar ve daha fazlasi"
   },
   "offlineData": {
     "title": "Çevrimdışı veri",

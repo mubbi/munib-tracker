@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Platform, StyleSheet, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { Seo } from "@/components/seo/seo";
@@ -122,41 +122,49 @@ export default function OnboardingLocationScreen() {
         <View style={styles.skipButton} />
       </View>
 
-      <View style={styles.content}>
-        <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
-          <SymbolView name={LOCATION_ICON} size={52} tintColor={Brand.heroAccent} />
-        </View>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.content}>
+          <View style={[styles.icon, { backgroundColor: Brand.onHeroStrongSurface }]}>
+            <SymbolView name={LOCATION_ICON} size={52} tintColor={Brand.heroAccent} />
+          </View>
 
-        <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
-          {t("onboarding.locationEyebrow")}
-        </ThemedText>
-        <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
-          {t("onboarding.locationTitle")}
-        </ThemedText>
-        <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
-          {t("onboarding.locationBody")}
-        </ThemedText>
-
-        <View style={styles.highlights}>
-          {highlights.map((line) => (
-            <View key={line} style={styles.highlightRow}>
-              <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
-              <ThemedText type="small" style={[styles.highlightText, { color: Brand.heroText }]}>
-                {line}
-              </ThemedText>
-            </View>
-          ))}
-        </View>
-
-        <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
-          <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
-            {t("onboarding.locationPrivacyTitle")}
+          <ThemedText type="label" style={[styles.eyebrow, { color: Brand.heroAccent }]}>
+            {t("onboarding.locationEyebrow")}
           </ThemedText>
-          <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
-            {t("onboarding.locationPrivacyBody")}
+          <ThemedText type="title" style={[styles.title, { color: Brand.heroText }]}>
+            {t("onboarding.locationTitle")}
           </ThemedText>
+          <ThemedText type="default" style={[styles.body, { color: Brand.heroSubtext }]}>
+            {t("onboarding.locationBody")}
+          </ThemedText>
+
+          <View style={styles.highlights}>
+            {highlights.map((line) => (
+              <View key={line} style={styles.highlightRow}>
+                <SymbolView name={HIGHLIGHT_ICON} size={18} tintColor={Brand.heroAccent} />
+                <ThemedText type="small" style={[styles.highlightText, { color: Brand.heroText }]}>
+                  {line}
+                </ThemedText>
+              </View>
+            ))}
+          </View>
+
+          <View style={[styles.privacyCard, { backgroundColor: Brand.onHeroMutedSurface }]}>
+            <ThemedText type="smallBold" style={{ color: Brand.heroText }}>
+              {t("onboarding.locationPrivacyTitle")}
+            </ThemedText>
+            <ThemedText type="small" style={[styles.privacyBody, { color: Brand.heroSubtext }]}>
+              {t("onboarding.locationPrivacyBody")}
+            </ThemedText>
+          </View>
         </View>
-      </View>
+      </ScrollView>
 
       <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.four }]}>
         <View style={styles.actions}>
@@ -197,8 +205,15 @@ const styles = StyleSheet.create({
     minWidth: 44,
     minHeight: 44,
   },
-  content: {
+  scroll: {
     flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: "center",
+    paddingBottom: Spacing.three,
+  },
+  content: {
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: Spacing.four,

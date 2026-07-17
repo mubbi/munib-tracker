@@ -666,7 +666,9 @@
     "facebook": "Continue with Facebook",
     "heroGuest": "You're using a guest account. Link a provider to back up and sync your data — nothing is lost.",
     "heroUser": "Sign in to keep your prayers, qaza, and zikr safe in the cloud.",
-    "error": "Couldn't sign in. Make sure the API server is running and this provider is configured."
+    "error": "Couldn't sign in. Make sure the API server is running and this provider is configured.",
+    "providersUnavailableTitle": "Sign-in is not available yet",
+    "providersUnavailableBody": "Cloud sync providers are not configured in this build. Continue as guest — your progress stays on this device."
   },
   "onboarding": {
     "begin": "Begin",
@@ -716,7 +718,9 @@
     "locationPrivacyBody": "Your coordinates stay on this device for salah times and qibla. Notifications are local reminders — we do not track your movements or sell your data.",
     "locationAllow": "Allow location & notifications",
     "locationLocating": "Setting up…",
-    "locationSkip": "Set up later"
+    "locationSkip": "Set up later",
+    "chooseLanguage": "Choose language",
+    "chooseLanguageHint": "Change the app language so you can follow this introduction"
   },
   "appearance": {
     "eyebrow": "Settings",
@@ -806,6 +810,8 @@
     "footer": "Delivery of these reminders is scheduled once notifications are enabled on your device.",
     "permissionBannerTitle": "Enable reminders",
     "permissionBannerMessage": "Allow notifications so Munib Tracker can remind you about Salah, Zikr, and Qaza.",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule.",
     "permissionGrantedTitle": "Notifications enabled",
     "permissionGrantedMessage": "Reminders are scheduled on this device. Manage categories below.",
     "permissionDenied": "Notifications blocked",
@@ -1831,6 +1837,9 @@
     "manualBadge": "Set by you",
     "gpsBadge": "From device",
     "defaultBadge": "Default",
+    "defaultLabel": "Makkah, Saudi Arabia",
+    "defaultTimesHint": "Salah times currently use Makkah. Set your city for accurate times where you are. Salah and Adhan reminders stay off until then.",
+    "setLocation": "Set location",
     "calculationTitle": "Prayer calculation",
     "method": "Calculation method",
     "methodHint": "Pick the authority whose method matches your region so salah times line up with your local masjid.",
@@ -3361,13 +3370,13 @@
   "library": {
     "eyebrow": "Library",
     "title": "Library",
-    "subtitle": "Read, supplicate, and learn",
+    "subtitle": "Qur'an, tools, and learning — daily checklist lives on Tracker",
     "explore": "Explore",
     "track": "Track",
     "read": "Read",
     "supplicate": "Supplicate",
     "learn": "Learn",
-    "more": "More"
+    "more": "Tools & more"
   },
   "flashCards": {
     "eyebrow": "Learn",

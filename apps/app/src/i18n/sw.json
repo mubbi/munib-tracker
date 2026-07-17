@@ -666,7 +666,9 @@
     "facebook": "Endelea na Facebook",
     "heroGuest": "Mgeni hesabı kullanıyorsunuz. Vernarinizi yedeklemek na senkronize etmek kwa moja sağlmweziıcı bağlmweziın — hiçmoja şey kmwezibolmaz.",
     "heroUser": "Swalalarınızı, kazalarınızı na zikirlerinizi bulutta günande tutmak kwa giriş yapın.",
-    "error": "Ingiaılamadı. API sunucusunun çalıştığından na bu sağlmweziıcının yapılandırıldığından emin olun."
+    "error": "Imeshindwa kuingia. Hakikisha seva ya API inaendesha na mtoa huduma huyu amewekwa.",
+    "providersUnavailableTitle": "Kuingia bado hakupatikani",
+    "providersUnavailableBody": "Watoa huduma wa usawazishaji wa wingu hawajawekwa katika toleo hili. Endelea kama mgeni — maendeleo yako yanabaki kwenye kifaa hiki."
   },
   "onboarding": {
     "begin": "Anza",
@@ -716,7 +718,9 @@
     "locationAllow": "Ruhusu mahali na arifa",
     "locationLocating": "Inaandaa…",
     "locationSkip": "Weka baadaye",
-    "locationHighlight4": "Ruka wakati wowote — weka mahali au washa arifa baadaye"
+    "locationHighlight4": "Ruka wakati wowote — weka mahali au washa arifa baadaye",
+    "chooseLanguage": "Chagua lugha",
+    "chooseLanguageHint": "Badilisha lugha ya programu ili uweze kufuata utangulizi huu"
   },
   "appearance": {
     "eyebrow": "Mipangilio",
@@ -940,7 +944,9 @@
         "subtitle": "Tahadhari wakati wa dirisha la Duha"
       }
     },
-    "groupContent": "Maudhui ya kila siku"
+    "groupContent": "Maudhui ya kila siku",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Mipangilio",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran na Shia communities",
       "Turkey": "Uturuki (Diyanet)",
       "Other": "Weka manually elsewhere"
-    }
+    },
+    "defaultLabel": "Makkah, Saudia",
+    "defaultTimesHint": "Nyakati za Salah kwa sasa zinatumia Makkah. Weka jiji lako kwa nyakati sahihi. Vikumbusho vya Salah na Adhan vinabaki zimwe hadi hapo.",
+    "setLocation": "Weka eneo"
   },
   "moon": {
     "aria": "Awamu ya mwezi: {{phase}}",

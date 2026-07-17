@@ -341,8 +341,12 @@ export function buildReminders(
   const n = prefs.notificationPrefs;
   const reminders: BuiltReminder[] = [];
 
-  for (let offset = 0; offset < SCHEDULE_DAYS_AHEAD; offset += 1) {
-    pushPrayerReminders(reminders, prefs, location, offset);
+  // Default Makkah coords are a display fallback only — never schedule Salah/Adhan
+  // against them or users who skipped location get wrong-time alerts.
+  if (location.source !== "default") {
+    for (let offset = 0; offset < SCHEDULE_DAYS_AHEAD; offset += 1) {
+      pushPrayerReminders(reminders, prefs, location, offset);
+    }
   }
 
   pushDailyReminder(

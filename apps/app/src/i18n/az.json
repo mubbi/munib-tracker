@@ -666,7 +666,9 @@
     "facebook": "Facebook ilə davam edin",
     "heroGuest": "Siz qonaq hesabından istifadə edirsiniz. Datanızın ehtiyat nüsxəsini çıxarmaq və sinxronlaşdırmaq üçün provayderi əlaqələndirin – heç nə itirilmir.",
     "heroUser": "namazlarınızı, qaza və zikr-i buludda təhlükəsiz saxlamaq üçün daxil olun.",
-    "error": "Daxil olmaq mümkün olmadı. API serverinin işlədiyinə və bu provayderin konfiqurasiya edildiyinə əmin olun."
+    "error": "Daxil olmaq mümkün olmadı. API serverinin işlədiyinə və bu provayderin konfiqurasiya olunduğuna əmin olun.",
+    "providersUnavailableTitle": "Giriş hələ əlçatan deyil",
+    "providersUnavailableBody": "Bu yığımda bulud sinxron provayderləri konfiqurasiya olunmayıb. Qonaq kimi davam edin — irəliləyişiniz bu cihazda qalır."
   },
   "onboarding": {
     "begin": "Begiçində",
@@ -716,7 +718,9 @@
     "locationAllow": "Məkan və bildirişlərə icazə ver",
     "locationLocating": "Hazırlanır…",
     "locationSkip": "Sonra qur",
-    "locationHighlight4": "İstədiyiniz vaxt keçin — məkanı və ya bildirişləri sonra qurun"
+    "locationHighlight4": "İstədiyiniz vaxt keçin — məkanı və ya bildirişləri sonra qurun",
+    "chooseLanguage": "Dil seçin",
+    "chooseLanguageHint": "Bu təqdimatı izləyə bilmək üçün tətbiq dilini dəyişin"
   },
   "appearance": {
     "eyebrow": "Parametrlər",
@@ -940,7 +944,9 @@
         "subtitle": "Duha pəncərəsi zamanı xəbərdarlıq"
       }
     },
-    "groupContent": "Gündəlik məzmun"
+    "groupContent": "Gündəlik məzmun",
+    "defaultLocationTitle": "Namaz bildirişləri üçün məkanı təyin edin",
+    "defaultLocationMessage": "Namaz və azan xatırlatmaları üçün şəhəriniz lazımdır. Saat üzrə zikr və qəza xatırlatmaları yenə planlanır."
   },
   "fonts": {
     "eyebrow": "Parametrlər",
@@ -1871,7 +1877,10 @@
       "Tehran": "Irn və Shi communities",
       "Turkey": "Turkey (Diynet)",
       "Other": "Başqa yerdə əl ilə təyin edin"
-    }
+    },
+    "defaultLabel": "Məkkə, Səudiyyə Ərəbistanı",
+    "defaultTimesHint": "Namaz vaxtları hazırda Məkkəyə görədir. Dəqiq vaxtlar üçün şəhərinizi təyin edin. Namaz və azan xatırlatmaları o vaxta qədər sönülü qalır.",
+    "setLocation": "Məkanı təyin et"
   },
   "moon": {
     "aria": "Moüzərində phse: {{phase}}",
@@ -3362,13 +3371,13 @@
   "library": {
     "eyebrow": "Librry",
     "title": "Librry",
-    "subtitle": "Red, supplicte, və lern",
+    "subtitle": "Quran, alətlər və öyrənmə — gündəlik siyahı İzləmə sekmesindədir",
     "explore": "Kəşf et",
     "track": "Trck",
     "read": "Red",
     "supplicate": "Supplicte",
     "learn": "Öyrən",
-    "more": "Mvə ye"
+    "more": "Alətlər və digər"
   },
   "offlineData": {
     "title": "-içindəlyn dt",

@@ -435,8 +435,8 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   iconBtn: {
-    width: 36,
-    height: 36,
+    width: 44,
+    height: 44,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
     alignItems: "center",

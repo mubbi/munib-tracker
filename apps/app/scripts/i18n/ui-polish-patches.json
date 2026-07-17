@@ -626,7 +626,15 @@
     "flashCards.skipDisabledHint": "Amsa wannan katin ƙarshe don fara sabon jujjuyawa.",
     "customAdhkar.editTitle": "Gyara adhkar",
     "customAdhkar.confirmDeleteTitle": "A share wannan adhkar?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” za a cire shi har abada."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” za a cire shi har abada.",
+    "onboarding.chooseLanguage": "Zaɓi harshe",
+    "onboarding.chooseLanguageHint": "Canza harshen app ɗin don ku iya bin wannan gabatarwa",
+    "login.error": "An kasa shiga. Tabbatar da cewa uwar garken API yana aiki kuma an saita wannan mai bayarwa.",
+    "login.providersUnavailableTitle": "Shiga bai samu ba tukuna",
+    "login.providersUnavailableBody": "Ba a saita masu daidaita girgije a wannan ginin ba. Ci gaba a matsayin baƙo — ci gaban ku yana kan wannan na'ura.",
+    "location.defaultLabel": "Makka, Saudi Arabiya",
+    "location.defaultTimesHint": "Lokutan Salah yanzu suna amfani da Makka. Saita garinku don daidaitattun lokuta. Tunatarwa na Salah da Adhan za su kasance kashe har sai lokacin.",
+    "location.setLocation": "Saita wuri"
   },
   "ku": {
     "home.streakStat": "Zincîre",
@@ -1209,7 +1217,15 @@
     "flashCards.skipDisabledHint": "Ji bo destpêkirina tevliheviyek nû, bersiva vê karta dawîn bidin.",
     "customAdhkar.editTitle": "Adhkarê sererast bike",
     "customAdhkar.confirmDeleteTitle": "Ev adhkar jê bibe?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” bi awayekî berdewam were jêbirin."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” bi awayekî berdewam were jêbirin.",
+    "onboarding.chooseLanguage": "Ziman hilbijêre",
+    "onboarding.chooseLanguageHint": "Zimanê sepanê biguherîne da ku tu karibî vê pêşkêşiyê bişopînî",
+    "login.error": "Nikarî têketinê bike. Piştrast bike ku servera API dixebite û ev pêşkêşker hatîne mîhengkirin.",
+    "login.providersUnavailableTitle": "Têketin hîn ne amade ye",
+    "login.providersUnavailableBody": "Pêşkêşkerên hevdemkirina ewrî di vê avahiyê de nehatine mîhengkirin. Wekî mêvan berdewam bike — pêşveçûna te li ser vê amûrê dimîne.",
+    "location.defaultLabel": "Mekke, Erebistana Siûdî",
+    "location.defaultTimesHint": "Demên nimêjê niha Mekkê bikar tînin. Ji bo demên rast bajarê xwe diyar bike. Bîranînên nimêj û ezanê heta wê demê girtî dimînin.",
+    "location.setLocation": "Cihê diyar bike"
   },
   "bs": {
     "home.streakStat": "Niz",
@@ -1826,7 +1842,15 @@
     "flashCards.skipDisabledHint": "Odgovorite na ovu posljednju karticu da započnete novo miješanje.",
     "customAdhkar.editTitle": "Uredi adhkar",
     "customAdhkar.confirmDeleteTitle": "Obriši ovaj adhkar?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” bit će trajno uklonjen."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” bit će trajno uklonjen.",
+    "onboarding.chooseLanguage": "Odaberite jezik",
+    "onboarding.chooseLanguageHint": "Promijenite jezik aplikacije kako biste mogli pratiti ovaj uvod",
+    "login.error": "Prijava nije uspjela. Provjerite da API server radi i da je ovaj pružatelj konfiguriran.",
+    "login.providersUnavailableTitle": "Prijava još nije dostupna",
+    "login.providersUnavailableBody": "Pružatelji cloud sinkronizacije nisu konfigurirani u ovoj verziji. Nastavite kao gost — napredak ostaje na ovom uređaju.",
+    "location.defaultLabel": "Meka, Saudijska Arabija",
+    "location.defaultTimesHint": "Vremena namaza trenutno koriste Meku. Postavite svoj grad za tačna vremena. Podsjetnici za namaz i ezan ostaju isključeni do tada.",
+    "location.setLocation": "Postavi lokaciju"
   },
   "ms": {
     "search.cat.zikr": "Adhkar",
@@ -2414,7 +2438,15 @@
     "flashCards.skipDisabledHint": "Jawab kad terakhir ini untuk memulakan susunan baharu.",
     "customAdhkar.editTitle": "Sunting adhkar",
     "customAdhkar.confirmDeleteTitle": "Padam adhkar ini?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” akan dibuang secara kekal."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” akan dibuang secara kekal.",
+    "onboarding.chooseLanguage": "Pilih bahasa",
+    "onboarding.chooseLanguageHint": "Tukar bahasa aplikasi supaya anda boleh mengikuti pengenalan ini",
+    "login.error": "Tidak dapat log masuk. Pastikan pelayan API berjalan dan penyedia ini dikonfigurasi.",
+    "login.providersUnavailableTitle": "Log masuk belum tersedia",
+    "login.providersUnavailableBody": "Penyedia segerak awan belum dikonfigurasi dalam binaan ini. Teruskan sebagai tetamu — kemajuan kekal pada peranti ini.",
+    "location.defaultLabel": "Makkah, Arab Saudi",
+    "location.defaultTimesHint": "Waktu Salah kini menggunakan Makkah. Tetapkan bandar anda untuk waktu yang tepat. Peringatan Salah dan Azan kekal dimatikan sehingga itu.",
+    "location.setLocation": "Tetapkan lokasi"
   },
   "sw": {
     "common.quiz.answeredCount": "{{count}} imejibiwa",
@@ -3007,7 +3039,15 @@
     "flashCards.skipDisabledHint": "Jibu kadi hii ya mwisho ili kuanza mchanganyo mpya.",
     "customAdhkar.editTitle": "Hariri adhkar",
     "customAdhkar.confirmDeleteTitle": "Futa adhkar hii?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” itaondolewa kabisa."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” itaondolewa kabisa.",
+    "onboarding.chooseLanguage": "Chagua lugha",
+    "onboarding.chooseLanguageHint": "Badilisha lugha ya programu ili uweze kufuata utangulizi huu",
+    "login.error": "Imeshindwa kuingia. Hakikisha seva ya API inaendesha na mtoa huduma huyu amewekwa.",
+    "login.providersUnavailableTitle": "Kuingia bado hakupatikani",
+    "login.providersUnavailableBody": "Watoa huduma wa usawazishaji wa wingu hawajawekwa katika toleo hili. Endelea kama mgeni — maendeleo yako yanabaki kwenye kifaa hiki.",
+    "location.defaultLabel": "Makkah, Saudia",
+    "location.defaultTimesHint": "Nyakati za Salah kwa sasa zinatumia Makkah. Weka jiji lako kwa nyakati sahihi. Vikumbusho vya Salah na Adhan vinabaki zimwe hadi hapo.",
+    "location.setLocation": "Weka eneo"
   },
   "id": {
     "search.cat.zikr": "Adzkar",
@@ -3540,7 +3580,15 @@
     "flashCards.skipDisabledHint": "Jawab kartu terakhir ini untuk memulai pengocokan baru.",
     "customAdhkar.editTitle": "Ubah adhkar",
     "customAdhkar.confirmDeleteTitle": "Hapus adhkar ini?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” akan dihapus secara permanen."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” akan dihapus secara permanen.",
+    "onboarding.chooseLanguage": "Pilih bahasa",
+    "onboarding.chooseLanguageHint": "Ubah bahasa aplikasi agar Anda bisa mengikuti pengenalan ini",
+    "login.error": "Tidak dapat masuk. Pastikan server API berjalan dan penyedia ini dikonfigurasi.",
+    "login.providersUnavailableTitle": "Masuk belum tersedia",
+    "login.providersUnavailableBody": "Penyedia sinkronisasi cloud belum dikonfigurasi di build ini. Lanjutkan sebagai tamu — progres tetap di perangkat ini.",
+    "location.defaultLabel": "Makkah, Arab Saudi",
+    "location.defaultTimesHint": "Waktu Salah saat ini memakai Makkah. Atur kota Anda untuk waktu yang akurat. Pengingat Salah dan Adzan tetap nonaktif sampai itu.",
+    "location.setLocation": "Atur lokasi"
   },
   "ru": {
     "language.scriptureAvailable": "Перевод Корана доступен",
@@ -4146,7 +4194,7 @@
     "login.subtitle": "Синхронизируйте поклонение между устройствами",
     "login.heroGuest": "Вы используете гостевую учетную запись. Свяжите провайдера для резервного копирования и синхронизации ваших данных — ничего не потеряется.",
     "login.heroUser": "Войдите, чтобы сохранить намазы, казу и зикр в облаке.",
-    "login.error": "Не удалось войти. Убедитесь, что сервер API работает и этот поставщик настроен.",
+    "login.error": "Не удалось войти. Убедитесь, что API-сервер запущен и этот провайдер настроен.",
     "onboarding.brandDuaLabel": "Просьба о легкости",
     "onboarding.brandDuaTranslation": "О Аллах, нет облегчения кроме того, что Ты облегчаешь, и Ты облегчаешь трудное, если пожелаешь.",
     "onboarding.slide1Title": "Отслеживайте свои намазы",
@@ -5376,7 +5424,14 @@
     "flashCards.skipDisabledHint": "Ответьте на эту последнюю карточку, чтобы начать новую перетасовку.",
     "customAdhkar.editTitle": "Изменить азкар",
     "customAdhkar.confirmDeleteTitle": "Удалить этот азкар?",
-    "customAdhkar.confirmDeleteMsg": "«{{title}}» будет удалено навсегда."
+    "customAdhkar.confirmDeleteMsg": "«{{title}}» будет удалено навсегда.",
+    "onboarding.chooseLanguage": "Выберите язык",
+    "onboarding.chooseLanguageHint": "Смените язык приложения, чтобы следовать этому введению",
+    "login.providersUnavailableTitle": "Вход пока недоступен",
+    "login.providersUnavailableBody": "Облачные провайдеры синхронизации не настроены в этой сборке. Продолжайте как гость — прогресс останется на этом устройстве.",
+    "location.defaultLabel": "Мекка, Саудовская Аравия",
+    "location.defaultTimesHint": "Времена намаза сейчас по Мекке. Укажите свой город для точных времён. Напоминания о намазе и азане отключены, пока вы этого не сделаете.",
+    "location.setLocation": "Указать местоположение"
   },
   "tr": {
     "home.continueListening": "Ses",
@@ -5942,7 +5997,15 @@
     "flashCards.skipDisabledHint": "Yeniden karıştırmak için bu son kalan kartı yanıtlayın.",
     "customAdhkar.editTitle": "Adhkarı düzenle",
     "customAdhkar.confirmDeleteTitle": "Bu adhkar silinsin mi?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” kalıcı olarak kaldırılacak."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” kalıcı olarak kaldırılacak.",
+    "onboarding.chooseLanguage": "Dil seçin",
+    "onboarding.chooseLanguageHint": "Bu tanıtımı takip edebilmek için uygulama dilini değiştirin",
+    "login.error": "Giriş yapılamadı. API sunucusunun çalıştığından ve bu sağlayıcının yapılandırıldığından emin olun.",
+    "login.providersUnavailableTitle": "Giriş henüz kullanılamıyor",
+    "login.providersUnavailableBody": "Bu sürümde bulut senkron sağlayıcıları yapılandırılmamış. Misafir olarak devam edin — ilerlemeniz bu cihazda kalır.",
+    "location.defaultLabel": "Mekke, Suudi Arabistan",
+    "location.defaultTimesHint": "Salah vakitleri şu an Mekke'ye göre. Bulunduğunuz yer için şehrinizi ayarlayın. Salah ve Ezan hatırlatıcıları o zamana kadar kapalı kalır.",
+    "location.setLocation": "Konumu ayarla"
   },
   "fr": {
     "home.continueListening": "Audio",
@@ -6508,7 +6571,15 @@
     "flashCards.skipDisabledHint": "Répondez à cette dernière carte pour recommencer un mélange.",
     "customAdhkar.editTitle": "Modifier l’adhkar",
     "customAdhkar.confirmDeleteTitle": "Supprimer cet adhkar ?",
-    "customAdhkar.confirmDeleteMsg": "« {{title}} » sera supprimé définitivement."
+    "customAdhkar.confirmDeleteMsg": "« {{title}} » sera supprimé définitivement.",
+    "onboarding.chooseLanguage": "Choisir la langue",
+    "onboarding.chooseLanguageHint": "Changez la langue de l'application pour suivre cette introduction",
+    "login.error": "Connexion impossible. Vérifiez que le serveur API est démarré et que ce fournisseur est configuré.",
+    "login.providersUnavailableTitle": "Connexion indisponible pour le moment",
+    "login.providersUnavailableBody": "Les fournisseurs de synchronisation cloud ne sont pas configurés dans cette version. Continuez en invité — votre progression reste sur cet appareil.",
+    "location.defaultLabel": "La Mecque, Arabie saoudite",
+    "location.defaultTimesHint": "Les horaires de Salah utilisent actuellement La Mecque. Définissez votre ville pour des horaires précis. Les rappels Salah et Adhan restent désactivés jusque-là.",
+    "location.setLocation": "Définir le lieu"
   },
   "fa": {
     "home.continueListening": "صدا",
@@ -7359,7 +7430,14 @@
     "flashCards.skipDisabledHint": "برای شروع چینش تازه، به این آخرین کارت پاسخ دهید.",
     "customAdhkar.editTitle": "ویرایش ذکر",
     "customAdhkar.confirmDeleteTitle": "این ذکر حذف شود؟",
-    "customAdhkar.confirmDeleteMsg": "«{{title}}» برای همیشه حذف خواهد شد."
+    "customAdhkar.confirmDeleteMsg": "«{{title}}» برای همیشه حذف خواهد شد.",
+    "onboarding.chooseLanguage": "انتخاب زبان",
+    "onboarding.chooseLanguageHint": "زبان برنامه را تغییر دهید تا این معرفی را دنبال کنید",
+    "login.providersUnavailableTitle": "ورود هنوز در دسترس نیست",
+    "login.providersUnavailableBody": "ارائه‌دهندگان همگام‌سازی ابری در این ساخت پیکربندی نشده‌اند. به‌عنوان مهمان ادامه دهید — پیشرفت روی همین دستگاه می‌ماند.",
+    "location.defaultLabel": "مکه، عربستان سعودی",
+    "location.defaultTimesHint": "اوقات نماز فعلاً بر اساس مکه است. شهر خود را برای اوقات دقیق تنظیم کنید. یادآورهای نماز و اذان تا آن زمان خاموش می‌مانند.",
+    "location.setLocation": "تنظیم مکان"
   },
   "az": {
     "language.scriptureAvailable": "Qur'an tərcüməsi mövcuddur",
@@ -7940,7 +8018,7 @@
     "login.subtitle": "İbadətinizi cihazlar arasında sinxronlaşdırın",
     "login.heroGuest": "Siz qonaq hesabından istifadə edirsiniz. Datanızın ehtiyat nüsxəsini çıxarmaq və sinxronlaşdırmaq üçün provayderi əlaqələndirin – heç nə itirilmir.",
     "login.heroUser": "namazlarınızı, qaza və zikr-i buludda təhlükəsiz saxlamaq üçün daxil olun.",
-    "login.error": "Daxil olmaq mümkün olmadı. API serverinin işlədiyinə və bu provayderin konfiqurasiya edildiyinə əmin olun.",
+    "login.error": "Daxil olmaq mümkün olmadı. API serverinin işlədiyinə və bu provayderin konfiqurasiya olunduğuna əmin olun.",
     "onboarding.brandDuaLabel": "Asanlıq üçün bir dua",
     "onboarding.brandDuaTranslation": "Ey Allah, asanlaşdırdığın şeydən başqa asanlıq yoxdur, əgər istəsən çətinliyi də asanlaşdırarsan.",
     "onboarding.slide1Title": "Namazlarınızı izləyin",
@@ -9025,7 +9103,14 @@
     "flashCards.skipDisabledHint": "Yeni qarışdırma üçün bu son qalan karta cavab verin.",
     "customAdhkar.editTitle": "Adhkarı redaktə et",
     "customAdhkar.confirmDeleteTitle": "Bu adhkar silinsin?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” həmişəlik silinəcək."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” həmişəlik silinəcək.",
+    "onboarding.chooseLanguage": "Dil seçin",
+    "onboarding.chooseLanguageHint": "Bu təqdimatı izləyə bilmək üçün tətbiq dilini dəyişin",
+    "login.providersUnavailableTitle": "Giriş hələ əlçatan deyil",
+    "login.providersUnavailableBody": "Bu yığımda bulud sinxron provayderləri konfiqurasiya olunmayıb. Qonaq kimi davam edin — irəliləyişiniz bu cihazda qalır.",
+    "location.defaultLabel": "Məkkə, Səudiyyə Ərəbistanı",
+    "location.defaultTimesHint": "Namaz vaxtları hazırda Məkkəyə görədir. Dəqiq vaxtlar üçün şəhərinizi təyin edin. Namaz və azan xatırlatmaları o vaxta qədər sönülü qalır.",
+    "location.setLocation": "Məkanı təyin et"
   },
   "ps": {
     "language.scriptureAvailable": "د قرآن ژباړه شتون لري",
@@ -9606,7 +9691,7 @@
     "login.subtitle": "خپل عبادت د وسیلو په اوږدو کې همغږي کړئ",
     "login.heroGuest": "تاسو د میلمه حساب کاروئ. ستاسو د معلوماتو بیک اپ او همغږي کولو لپاره چمتو کونکي سره اړیکه ونیسئ - هیڅ شی له لاسه نه ورکوي.",
     "login.heroUser": "په ورېځ کې د خپلو لمونځونو، قضا او ذکر د خوندي ساتلو لپاره ننوتل.",
-    "login.error": "ننوتل نشو کولی. ډاډ ترلاسه کړئ چې د API سرور روان دی او دا چمتو کوونکی ترتیب شوی.",
+    "login.error": "ننوتل ممکن نشول. ډاډ ترلاسه کړئ چې API سرور روان دی او دا چمتو کوونکی تنظیم شوی دی.",
     "onboarding.brandDuaLabel": "د اسانتیا لپاره یوه دعا",
     "onboarding.brandDuaTranslation": "ای الله، په هغه څه کې چې ته یې آسانه کړې، هیڅ آساني نشته او که ته وغواړې، سختې یې اسانه کړې.",
     "onboarding.slide1Title": "خپل لمونځونه تعقیب کړئ",
@@ -10897,7 +10982,14 @@
     "flashCards.skipDisabledHint": "د نوي ترتیب لپاره دې وروستي کارت ته ځواب ورکړئ.",
     "customAdhkar.editTitle": "اذکار سمول",
     "customAdhkar.confirmDeleteTitle": "دا اذکار ړنګ کړئ؟",
-    "customAdhkar.confirmDeleteMsg": "«{{title}}» به د تل لپاره لرې شي."
+    "customAdhkar.confirmDeleteMsg": "«{{title}}» به د تل لپاره لرې شي.",
+    "onboarding.chooseLanguage": "ژبه وټاکئ",
+    "onboarding.chooseLanguageHint": "د دې پېژندنې تعقیب لپاره د اپلیکیشن ژبه بدل کړئ",
+    "login.providersUnavailableTitle": "ننوتل لا هم شتون نلري",
+    "login.providersUnavailableBody": "په دې جوړښت کې د کلاوډ همغږۍ چمتو کوونکي نه دي تنظیم شوي. د میلمه په توګه دوام ورکړئ — پرمختګ په همدې وسیله پاتې کېږي.",
+    "location.defaultLabel": "مکه، سعودي عربستان",
+    "location.defaultTimesHint": "د لمانځه وختونه اوس مکه کاروي. د دقیقو وختونو لپاره خپل ښار وټاکئ. د لمانځه او اذان یادونې تر هغه بندې پاتې کېږي.",
+    "location.setLocation": "ځای وټاکئ"
   },
   "so": {
     "language.scriptureAvailable": "Turjumaadda Quraanka waa la heli karaa",
@@ -11478,7 +11570,7 @@
     "login.subtitle": "Isku xidh cibaadadaada aaladaha oo dhan",
     "login.heroGuest": "Waxaad isticmaalaysaa akoon martida Ku xidh bixiyaha si aad u kaydiso oo aad u habayso xogtaada - ma jiraan wax lumay.",
     "login.heroUser": "Saxiix si aad u ilaaliso salaadadaada, qaza, iyo zikr si badbaado leh daruuraha ugu jira.",
-    "login.error": "Ma soo geli karo",
+    "login.error": "Waa lagu fashilmay gelitaanka. Hubi in server-ka API uu shaqeynayo oo bixiyahan la habeeyay.",
     "onboarding.brandDuaLabel": "Duco fudud",
     "onboarding.brandDuaTranslation": "Allah, wax fududaan ma jiro waxaad fududayso mooyee, waxaadna fudaydaysaa dhib haddaad doonto.",
     "onboarding.slide1Title": "Lasoco salaadadaada",
@@ -12562,7 +12654,14 @@
     "flashCards.skipDisabledHint": "Ka jawaab kaarkan ugu dambeeya si aad u bilowdo isku-roogid cusub.",
     "customAdhkar.editTitle": "Wax ka beddel adhkar",
     "customAdhkar.confirmDeleteTitle": "Tirtir adhkarkan?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” waa laga saari doonaa si joogto ah."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” waa laga saari doonaa si joogto ah.",
+    "onboarding.chooseLanguage": "Dooro luqadda",
+    "onboarding.chooseLanguageHint": "Beddel luqadda app-ka si aad u raaci karto hordhaca",
+    "login.providersUnavailableTitle": "Saxiixitaanka weli ma heli karo",
+    "login.providersUnavailableBody": "Bixiyeyaasha sync-ga daruuraha laguma dejin dhisiddaan. Sii wad marti ahaan — horumarkaagu wuxuu ku sii jiraa qalabkan.",
+    "location.defaultLabel": "Makka, Sacuudi Carabiya",
+    "location.defaultTimesHint": "Waqtiyada Salaadda hadda waxay isticmaalayaan Makka. Deji magaaladaada waqti sax ah. Xusuusinta Salaadda iyo Adhaanka way xiran yihiin ilaa markaas.",
+    "location.setLocation": "Deji goobta"
   },
   "uz": {
     "language.scriptureAvailable": "Qur'on tarjimasi mavjud",
@@ -13143,7 +13242,7 @@
     "login.subtitle": "Ibodatlaringizni qurilmalar oʻrtasida sinxronlashtiring",
     "login.heroGuest": "Siz mehmon hisobidan foydalanmoqdasiz. Maʼlumotlaringizni zaxiralash va sinxronlashtirish uchun provayder bilan bogʻlaning – hech narsa yoʻqolmaydi.",
     "login.heroUser": "Ibodatlaringizni qaza va zikr bulutda xavfsiz saqlash uchun tizimga kiring.",
-    "login.error": "Tizimga kirib boʻlmadi. API server ishlayotganiga va bu provayder sozlanganligiga ishonch hosil qiling.",
+    "login.error": "Kirib bo‘lmadi. API server ishlayotganini va bu provayder sozlanganini tekshiring.",
     "onboarding.brandDuaLabel": "Osonlik uchun iltijo",
     "onboarding.brandDuaTranslation": "Ey Allah, O'zing oson qilgan narsadan boshqa osonlik yo'q va agar xohlasang, qiyinni osonlashtirursan.",
     "onboarding.slide1Title": "Ibodatlaringizni kuzatib boring",
@@ -14228,14 +14327,21 @@
     "flashCards.skipDisabledHint": "Yangi aralashtirish uchun shu so‘nggi kartaga javob bering.",
     "customAdhkar.editTitle": "Adhkarni tahrirlash",
     "customAdhkar.confirmDeleteTitle": "Bu adhkar oʻchirilsinmi?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” butunlay olib tashlanadi."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” butunlay olib tashlanadi.",
+    "onboarding.chooseLanguage": "Tilni tanlang",
+    "onboarding.chooseLanguageHint": "Ushbu tanishuvni kuzatish uchun ilova tilini o‘zgartiring",
+    "login.providersUnavailableTitle": "Kirish hali mavjud emas",
+    "login.providersUnavailableBody": "Bu yig‘ilmada bulut sync provayderlari sozlanmagan. Mehmon sifatida davom eting — taraqqiyotingiz shu qurilmada qoladi.",
+    "location.defaultLabel": "Makka, Saudiya Arabistoni",
+    "location.defaultTimesHint": "Namoz vaqtlari hozir Makka bo‘yicha. Aniq vaqtlar uchun shahringizni belgilang. Namoz va azon eslatmalari shu paytgacha o‘chiq qoladi.",
+    "location.setLocation": "Joylashuvni belgilash"
   },
   "tg": {
     "language.scriptureAvailable": "Тарҷумаи Қуръон дастрас аст",
     "language.scriptureUnavailable": "Танҳо интерфейс — матнҳои муқаддас ба англисӣ мемонанд",
     "language.subtitle": "Забони барнома ва тарҷума",
     "pinLock.backspace": "Пок кардан",
-    "seo.intro.title": "Хуш омaded",
+    "seo.intro.title": "Хуш омадед",
     "common.appTagline": "Роҳи бозгашт ба Аллоҳро пайгирӣ кунед.",
     "settings.haptics": "Бозгашти ламсӣ",
     "onboarding.pageOf": "Саҳифа {{page}} аз {{total}}",
@@ -14809,7 +14915,7 @@
     "login.subtitle": "Ибодати худро дар байни дастгоҳҳо ҳамоҳанг созед",
     "login.heroGuest": "Шумо ҳисоби меҳмонро истифода мебаред. Провайдерро барои нусхабардорӣ ва ҳамоҳангсозии маълумоти шумо пайваст кунед - ҳеҷ чиз гум намешавад.",
     "login.heroUser": "Ворид шавед, то намоз, қазо ва зикри худро дар абр эмин нигоҳ доред.",
-    "login.error": "Ворид шудан муяссар нашуд. Боварӣ ҳосил кунед, ки сервери API кор мекунад ва ин провайдер танзим шудааст.",
+    "login.error": "Вуруд нашуд. Боварӣ ҳосил кунед, ки сервери API кор мекунад ва ин провайдер танзим шудааст.",
     "onboarding.brandDuaLabel": "Дуо барои осонӣ",
     "onboarding.brandDuaTranslation": "Худоё, ҳеҷ осоние нест ҷуз дар он чӣ Ту осон мекунӣ ва агар бихоҳӣ мушкилро осон мекунӣ.",
     "onboarding.slide1Title": "Намозҳои худро пайгирӣ кунед",
@@ -16066,7 +16172,14 @@
     "flashCards.skipDisabledHint": "Барои оғози омехтаи нав ба ин карти охирин ҷавоб диҳед.",
     "customAdhkar.editTitle": "Таҳрири adhkar",
     "customAdhkar.confirmDeleteTitle": "Ин adhkar нест карда шавад?",
-    "customAdhkar.confirmDeleteMsg": "«{{title}}» барои ҳамеша нест карда мешавад."
+    "customAdhkar.confirmDeleteMsg": "«{{title}}» барои ҳамеша нест карда мешавад.",
+    "onboarding.chooseLanguage": "Забонро интихоб кунед",
+    "onboarding.chooseLanguageHint": "Барои пайгирии ин муқаддима забони барномаро иваз кунед",
+    "login.providersUnavailableTitle": "Вуруд ҳанӯз дастрас нест",
+    "login.providersUnavailableBody": "Провайдерҳои ҳамоҳангсозии абрӣ дар ин сохт танзим нашудаанд. Ҳамчун меҳмон идома диҳед — пешрафти шумо дар ҳамин дастгоҳ мемонад.",
+    "location.defaultLabel": "Макка, Арабистони Саудӣ",
+    "location.defaultTimesHint": "Вақтҳои намоз ҳоло аз рӯи Маккаанд. Барои вақтҳои дақиқ шаҳри худро танзим кунед. Ёдрасҳои намоз ва азон то он вақт хомӯш мемонанд.",
+    "location.setLocation": "Маконро танзим кунед"
   },
   "tk": {
     "language.scriptureAvailable": "Guran terjimesi elýeterli",
@@ -16640,7 +16753,15 @@
     "flashCards.skipDisabledHint": "Täze garyşdyrmak üçin bu soňky karta jogap beriň.",
     "customAdhkar.editTitle": "Adhkary redaktirlemek",
     "customAdhkar.confirmDeleteTitle": "Bu adhkar pozulsynmy?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” hemişelik öçüriler."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” hemişelik öçüriler.",
+    "onboarding.chooseLanguage": "Dili saýlaň",
+    "onboarding.chooseLanguageHint": "Bu giriş bilen yzarlamak üçin programmanyň dilini üýtgediň",
+    "login.error": "Girip bolmady. API serweriniň işleýändigini we bu üpjünçiniň sazlanandygyny barlaň.",
+    "login.providersUnavailableTitle": "Giriş heniz elýeterli däl",
+    "login.providersUnavailableBody": "Bu guruluşda bulut sinhron üpjünçileri sazlanmadyk. Myhman hökmünde dowam ediň — öňegidişligiňiz şu enjamda galýar.",
+    "location.defaultLabel": "Mekke, Saud Arabystany",
+    "location.defaultTimesHint": "Namaz wagtlary häzir Mekkä görä. Takyk wagtlar üçin şäheriňizi belläň. Namaz we ezan ýatladyjylary şol wagtça öçürilen galýar.",
+    "location.setLocation": "Ýerleşişi belläň"
   },
   "kk": {
     "language.scriptureAvailable": "Құран аудармасы қолжетімді",
@@ -17147,7 +17268,15 @@
     "flashCards.skipDisabledHint": "Жаңа араластыруды бастау үшін осы соңғы картаға жауап беріңіз.",
     "customAdhkar.editTitle": "Adhkar өңдеу",
     "customAdhkar.confirmDeleteTitle": "Осы adhkar жойылсын ба?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” біржола жойылады."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” біржола жойылады.",
+    "onboarding.chooseLanguage": "Тілді таңдаңыз",
+    "onboarding.chooseLanguageHint": "Осы кіріспеді түсіну үшін қолданба тілін өзгертіңіз",
+    "login.error": "Кіру мүмкін болмады. API сервері істеп тұрғанын және осы провайдер бапталғанын тексеріңіз.",
+    "login.providersUnavailableTitle": "Кіру әзірге қолжетімсіз",
+    "login.providersUnavailableBody": "Бұл құрастыруда бұлтты синхрон провайдерлері бапталмаған. Қонақ ретінде жалғастырыңыз — прогресс осы құрылғыда қалады.",
+    "location.defaultLabel": "Мекке, Сауд Арабиясы",
+    "location.defaultTimesHint": "Намаз уақыттары қазір Мекке бойынша. Дәл уақыт үшін қалаңызды орнатыңыз. Намаз бен азан еске салғыштары сол кезге дейін өшірулі болады.",
+    "location.setLocation": "Орналасуды орнату"
   },
   "sq": {
     "language.scriptureAvailable": "Përkthimi i Kur'anit është i disponueshëm",
@@ -17676,7 +17805,15 @@
     "flashCards.skipDisabledHint": "Përgjigjuni kësaj karte të fundit për të filluar një përzierje të re.",
     "customAdhkar.editTitle": "Redakto adhkar",
     "customAdhkar.confirmDeleteTitle": "Fshi këtë adhkar?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” do të hiqet përgjithmonë."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” do të hiqet përgjithmonë.",
+    "onboarding.chooseLanguage": "Zgjidh gjuhën",
+    "onboarding.chooseLanguageHint": "Ndrysho gjuhën e aplikacionit që të ndjekësh këtë hyrje",
+    "login.error": "Nuk u krye hyrja. Sigurohu që serveri API është duke u ekzekutuar dhe ky ofrues është konfiguruar.",
+    "login.providersUnavailableTitle": "Hyrja nuk është e disponueshme ende",
+    "login.providersUnavailableBody": "Ofruesit e sinkronizimit në re nuk janë konfiguruar në këtë version. Vazhdo si mysafir — përparimi yt mbetet në këtë pajisje.",
+    "location.defaultLabel": "Meka, Arabia Saudite",
+    "location.defaultTimesHint": "Kohët e namazit aktualisht përdorin Mekën. Vendos qytetin tënd për kohë të sakta. Kujtesat e namazit dhe ezanit mbeten të fikura deri atëherë.",
+    "location.setLocation": "Vendos vendndodhjen"
   },
   "ky": {
     "language.scriptureAvailable": "Куран котормосу бар",
@@ -18192,7 +18329,15 @@
     "flashCards.skipDisabledHint": "Жаңы аралаштырууну баштоо үчүн ушул акыркы картага жооп бериңиз.",
     "customAdhkar.editTitle": "Adhkar түзөтүү",
     "customAdhkar.confirmDeleteTitle": "Бул adhkar өчүрүлсүнбү?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” түбөлүккө өчүрүлөт."
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” түбөлүккө өчүрүлөт.",
+    "onboarding.chooseLanguage": "Тилди тандаңыз",
+    "onboarding.chooseLanguageHint": "Бул киришүүнү түшүнүү үчүн колдонмонун тилин өзгөртүңүз",
+    "login.error": "Кирүү мүмкүн болбоду. API сервери иштеп жатканын жана бул провайдер жөндөлгөнүн текшериңиз.",
+    "login.providersUnavailableTitle": "Кирүү азырынча жеткиликсиз",
+    "login.providersUnavailableBody": "Бул жыйнакта булут синхрон провайдерлери жөндөлгөн эмес. Конок катары улантыңыз — прогресс ушул түзмөктө калат.",
+    "location.defaultLabel": "Мекке, Сауд Арабиясы",
+    "location.defaultTimesHint": "Намаз убакыттары азыр Мекке боюнча. Так убакыт үчүн шаарыңызды коюңуз. Намаз жана азан эскертүүлөрү ошол кезге чейин өчүк болот.",
+    "location.setLocation": "Жайгашкан жерди коюу"
   },
   "bn": {
     "onboarding.locationEyebrow": "অবস্থান ও অনুস্মারক",
@@ -18684,7 +18829,15 @@
     "flashCards.skipDisabledHint": "নতুন মিশ্রণ শুরু করতে এই শেষ কার্ডের উত্তর দিন।",
     "customAdhkar.editTitle": "adhkar সম্পাদনা",
     "customAdhkar.confirmDeleteTitle": "এই adhkar মুছবেন?",
-    "customAdhkar.confirmDeleteMsg": "“{{title}}” স্থায়ীভাবে সরানো হবে।"
+    "customAdhkar.confirmDeleteMsg": "“{{title}}” স্থায়ীভাবে সরানো হবে।",
+    "onboarding.chooseLanguage": "ভাষা বেছে নিন",
+    "onboarding.chooseLanguageHint": "এই পরিচিতি অনুসরণ করতে অ্যাপের ভাষা পরিবর্তন করুন",
+    "login.error": "সাইন ইন করা যায়নি। API সার্ভার চালু আছে এবং এই প্রোভাইডার কনফিগার করা আছে কিনা নিশ্চিত করুন।",
+    "login.providersUnavailableTitle": "সাইন-ইন এখনও উপলব্ধ নয়",
+    "login.providersUnavailableBody": "এই বিল্ডে ক্লাউড সিঙ্ক প্রোভাইডার কনফিগার করা নেই। অতিথি হিসেবে চালিয়ে যান — আপনার অগ্রগতি এই ডিভাইসেই থাকবে।",
+    "location.defaultLabel": "মক্কা, সৌদি আরব",
+    "location.defaultTimesHint": "সালাতের সময় এখন মক্কা অনুসারে। আপনার শহর সেট করলে স্থানীয় সঠিক সময় পাবেন। ততক্ষণ সালাত ও আযানের রিমাইন্ডার বন্ধ থাকবে।",
+    "location.setLocation": "অবস্থান সেট করুন"
   },
   "ar": {
     "zakat.agriculture.cardHint": "مستحق عند الحصاد - 10% مطر/ ينابيع، 5% مروي.",
@@ -19153,7 +19306,15 @@
     "qazaCalc.validation.exemptExceedsYear": "الأيام المعفاة ({{entered}}) لا يمكن أن تتجاوز طول السنة الذي اخترته ({{maxDays}}).",
     "flashCards.answerHint": "اختر إجابة ليظهر التوضيح، أو تخطَّ إلى بطاقة أخرى.",
     "flashCards.skipHint": "تخطَّ هذه البطاقة وشاهد سؤالًا آخر.",
-    "flashCards.skipDisabledHint": "أجب عن هذه البطاقة الأخيرة لتبدأ خلطًا جديدًا."
+    "flashCards.skipDisabledHint": "أجب عن هذه البطاقة الأخيرة لتبدأ خلطًا جديدًا.",
+    "onboarding.chooseLanguage": "اختر اللغة",
+    "onboarding.chooseLanguageHint": "غيّر لغة التطبيق لتتابع هذه المقدمة",
+    "login.error": "تعذّر تسجيل الدخول. تأكّد من تشغيل خادم API وأن هذا المزوّد مُهيّأ.",
+    "login.providersUnavailableTitle": "تسجيل الدخول غير متاح بعد",
+    "login.providersUnavailableBody": "مزوّدو المزامنة السحابية غير مهيأين في هذا الإصدار. تابع كضيف — يبقى تقدّمك على هذا الجهاز.",
+    "location.defaultLabel": "مكة، المملكة العربية السعودية",
+    "location.defaultTimesHint": "أوقات الصلاة تستخدم مكة حالياً. حدّد مدينتك لأوقات دقيقة حيث أنت. تبقى تذكيرات الصلاة والأذان متوقفة حتى ذلك الحين.",
+    "location.setLocation": "تعيين الموقع"
   },
   "ur": {
     "zakat.agriculture.cardHint": "کٹائی کے وقت - 10% بارش/ چشمے، 5% آبپاشی۔",
@@ -19622,6 +19783,14 @@
     "qazaCalc.validation.exemptExceedsYear": "مستثنیٰ دن ({{entered}}) منتخب سال کی لمبائی ({{maxDays}}) سے زیادہ نہیں ہو سکتے۔",
     "flashCards.answerHint": "وضاحت دیکھنے کے لیے جواب چُنیں، یا اگلے کارڈ پر جائیں۔",
     "flashCards.skipHint": "اس کارڈ کو چھوڑ کر دوسرا سوال دیکھیں۔",
-    "flashCards.skipDisabledHint": "تازہ ترتیب کے لیے اس آخری کارڈ کا جواب دیں۔"
+    "flashCards.skipDisabledHint": "تازہ ترتیب کے لیے اس آخری کارڈ کا جواب دیں۔",
+    "onboarding.chooseLanguage": "زبان منتخب کریں",
+    "onboarding.chooseLanguageHint": "اس تعارف کو سمجھنے کے لیے ایپ کی زبان تبدیل کریں",
+    "login.error": "سائن اِن نہیں ہو سکا۔ یقینی بنائیں کہ API سرور چل رہا ہے اور یہ فراہم کنندہ ترتیب شدہ ہے۔",
+    "login.providersUnavailableTitle": "سائن اِن ابھی دستیاب نہیں",
+    "login.providersUnavailableBody": "اس بلڈ میں کلاؤڈ سنک فراہم کنندگان ترتیب نہیں ہیں۔ مہمان کے طور پر جاری رکھیں — آپ کی پیش رفت اسی آلہ پر رہے گی۔",
+    "location.defaultLabel": "مکہ، سعودی عرب",
+    "location.defaultTimesHint": "نماز کے اوقات فی الحال مکہ کے مطابق ہیں۔ درست اوقات کے لیے اپنا شہر سیٹ کریں۔ اس وقت تک نماز اور اذان کی یاددہانیاں بند رہیں گی۔",
+    "location.setLocation": "مقام سیٹ کریں"
   }
 }

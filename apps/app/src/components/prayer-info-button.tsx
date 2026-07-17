@@ -18,7 +18,7 @@ type PrayerInfoButtonProps = {
   prayerId: PrayerInfoId;
   /** Glyph tint; defaults to muted foreground. */
   tintColor?: string;
-  /** Smaller tap target for dense rows (defaults to 36). */
+  /** Smaller tap target for dense rows (defaults to 44). */
   hitTarget?: number;
   /** When true, shows a compact "Learn more" label beside the icon. */
   showLabel?: boolean;
@@ -27,7 +27,7 @@ type PrayerInfoButtonProps = {
 export function PrayerInfoButton({
   prayerId,
   tintColor,
-  hitTarget = 36,
+  hitTarget = 44,
   showLabel = false,
 }: PrayerInfoButtonProps) {
   const { t } = useTranslation();
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexShrink: 0,
     gap: Spacing.half + 2,
-    paddingVertical: 0,
+    minHeight: 44,
+    paddingVertical: Spacing.one,
   },
 });

@@ -167,25 +167,19 @@ Apple OAuth on Android (and iOS OAuth fallback) returns to **`https://my.munibtr
 
 **Native App Links beyond OAuth** are not store-verified yet (Android filter is OAuth-only). Shareable `https://my.munibtracker.app/{path}` URLs still open the **web** product app; use `munib-tracker://` for reliable native cold-start until `.well-known` host verification lands (see backlog).
 
-Host verification files still need to be served from the product web origin at build/deploy time:
+Host verification files are generated into `apps/app/public/.well-known/` by `scripts/generate-well-known.mjs` (runs as part of `build:web`):
 
 | File | URL |
 |------|-----|
 | Apple App Site Association | `https://my.munibtracker.app/.well-known/apple-app-site-association` |
 | Digital Asset Links | `https://my.munibtracker.app/.well-known/assetlinks.json` |
 
-**Still to wire for store-grade verification** (mirror Expense Trail / Expo web deploy pattern):
-
-1. Generate `.well-known` at web build time (team ID, package, SHA-256 fingerprints).
-2. Centralize allowed App Link paths in a JSON manifest if you add more HTTPS routes.
-3. Optional locale-prefixed web redirect routes for shareable non-OAuth URLs.
-
-**Env for verification (web deploy):**
+**Deploy env for production verification:**
 
 | Variable | Purpose |
 |----------|---------|
-| `EXPO_APPLE_TEAM_ID` | AASA `appID` prefix |
-| `ANDROID_APP_LINK_SHA256_FINGERPRINTS` | Play App Signing + debug SHA-256 (comma-separated) |
+| `EXPO_APPLE_TEAM_ID` | AASA `appID` prefix (required for real iOS verification; placeholder `TEAMID` if unset) |
+| `ANDROID_APP_LINK_SHA256_FINGERPRINTS` | Play App Signing + debug SHA-256 (comma-separated; falls back to bundled fingerprint) |
 | `EXPO_PUBLIC_APP_IDENTIFIER` | iOS bundle ID (`app.munibtracker`) |
 | `EXPO_PUBLIC_ANDROID_PACKAGE` | Android package (`app.munibtracker`) |
 | `EXPO_PUBLIC_WEB_APP_ORIGIN` | Product web origin used for Apple redirect URIs (falls back to `EXPO_PUBLIC_APP_URL`) |

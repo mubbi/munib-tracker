@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAMID.app.munibtracker",
+        "paths": [
+          "/oauth/apple",
+          "/oauth/apple/*"
+        ]
+      }
+    ]
+  }
+}

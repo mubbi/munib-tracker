@@ -666,7 +666,9 @@
     "facebook": "Facebook менен улантыңыз",
     "heroGuest": "You're using  guest эсеп. Link  provider га back up жана sync сиздин маалыматтар — nothing  lost.",
     "heroUser": "Sign ичинде га keep сиздин salah, qaza, жана zikr коопсуз ичинде  cloud.",
-    "error": "Couldn't sign ичинде. Make sure  API server  running жана бул provider  configured."
+    "error": "Кирүү мүмкүн болбоду. API сервери иштеп жатканын жана бул провайдер жөндөлгөнүн текшериңиз.",
+    "providersUnavailableTitle": "Кирүү азырынча жеткиликсиз",
+    "providersUnavailableBody": "Бул жыйнакта булут синхрон провайдерлери жөндөлгөн эмес. Конок катары улантыңыз — прогресс ушул түзмөктө калат."
   },
   "onboarding": {
     "begin": "баштоо",
@@ -716,7 +718,9 @@
     "locationAllow": "Жайгашуу жана билдирмелерге уруксат берүү",
     "locationLocating": "Даярдалууда…",
     "locationSkip": "Кийин жөндөө",
-    "locationHighlight4": "Каалаган убакта өткөрүп жибериңиз — жайгашууну же билдирмелерди кийин жөндөңүз"
+    "locationHighlight4": "Каалаган убакта өткөрүп жибериңиз — жайгашууну же билдирмелерди кийин жөндөңүз",
+    "chooseLanguage": "Тилди тандаңыз",
+    "chooseLanguageHint": "Бул киришүүнү түшүнүү үчүн колдонмонун тилин өзгөртүңүз"
   },
   "appearance": {
     "eyebrow": "Жөндөөлөр",
@@ -940,7 +944,9 @@
         "subtitle": "Духа терезеси учурунда эскертүү"
       }
     },
-    "groupContent": "Күнүмдүк мазмун"
+    "groupContent": "Күнүмдүк мазмун",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Жөндөөлөр",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran жана Shia communities",
       "Turkey": "Түркия (Дин иштери)",
       "Other": "Башка жерге кол менен коюу"
-    }
+    },
+    "defaultLabel": "Мекке, Сауд Арабиясы",
+    "defaultTimesHint": "Намаз убакыттары азыр Мекке боюнча. Так убакыт үчүн шаарыңызды коюңуз. Намаз жана азан эскертүүлөрү ошол кезге чейин өчүк болот.",
+    "setLocation": "Жайгашкан жерди коюу"
   },
   "moon": {
     "aria": "Ай фазасы: {{phase}}",

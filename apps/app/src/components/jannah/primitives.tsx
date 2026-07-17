@@ -486,7 +486,7 @@ const styles = StyleSheet.create({
   bodyParagraph: { lineHeight: 24, flexShrink: 1, alignSelf: "stretch" },
   evidenceList: { gap: Spacing.three, marginTop: Spacing.three },
   quranQuote: {
-    borderLeftWidth: 3,
+    borderStartWidth: 3,
     paddingStart: Spacing.three,
     paddingVertical: Spacing.two,
     borderRadius: Radius.sm,

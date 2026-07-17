@@ -1,19 +1,24 @@
 import { APP_NAME } from "@munib-tracker/shared/constants";
+import type { AppLocale } from "@munib-tracker/shared/types";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type NativeScrollEvent,
   type NativeSyntheticEvent,
+  Platform,
   ScrollView,
   StyleSheet,
   useWindowDimensions,
   View,
+  type ViewStyle,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { LanguagePickerSheet } from "@/components/language-picker-sheet";
+import { LocaleFlag } from "@/components/locale-flag";
 import { MosqueSilhouette } from "@/components/mosque-silhouette";
 import { Seo } from "@/components/seo/seo";
 import { ThemedText } from "@/components/themed-text";
@@ -23,7 +28,9 @@ import { Brand, Radius, Spacing, withAlpha } from "@/constants/theme";
 import { useMarkColdStartReady } from "@/lib/boot/cold-start";
 import { gradientBackground } from "@/lib/gradient";
 import { triggerHaptic } from "@/lib/haptics";
-import { useArrowForward } from "@/lib/rtl";
+import { APP_LOCALES } from "@/lib/locale-display";
+import { useArrowForward, useIsRTL } from "@/lib/rtl";
+import { usePreferences, usePreferencesActions } from "@/stores/preferences-store";
 
 type SlideKind = "brand" | "feature" | "cta";
 
@@ -73,19 +80,46 @@ const HIGHLIGHT_ICON: SymbolViewProps["name"] = {
   web: "check_circle",
 };
 
+const PAGE_COUNT = SLIDES.length;
+
+/** Pager page index (LTR content offset units) ↔ narrative slide index. */
+function pageIndexForLogical(logical: number, rtl: boolean): number {
+  return rtl ? PAGE_COUNT - 1 - logical : logical;
+}
+
+function logicalForPageIndex(page: number, rtl: boolean): number {
+  return rtl ? PAGE_COUNT - 1 - page : page;
+}
+
 export default function OnboardingIntroScreen() {
   useMarkColdStartReady();
   const router = useRouter();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const arrowForward = useArrowForward();
+  const isRtl = useIsRTL();
   const { width } = useWindowDimensions();
   const scrollRef = useRef<ScrollView>(null);
+  const buttonDrivenScrollRef = useRef(false);
   const [index, setIndex] = useState(0);
+  const [languagePickerOpen, setLanguagePickerOpen] = useState(false);
+  const prefs = usePreferences();
+  const { setLocale, update } = usePreferencesActions();
 
   const slide = SLIDES[index];
-  const isLast = index === SLIDES.length - 1;
+  const isLast = index === PAGE_COUNT - 1;
   const isBrand = slide.kind === "brand";
+  const localeName =
+    APP_LOCALES.find((entry) => entry.code === prefs.locale)?.name ?? APP_LOCALES[0].name;
+
+  // RTL: reverse children inside an LTR pager so "next" decreases offset (content moves right).
+  const pagerSlides = useMemo(() => (isRtl ? [...SLIDES].reverse() : SLIDES), [isRtl]);
+
+  const offsetForLogical = (logical: number) => pageIndexForLogical(logical, isRtl) * width;
+
+  const scrollToLogical = (logical: number, animated: boolean) => {
+    scrollRef.current?.scrollTo({ x: offsetForLogical(logical), animated });
+  };
 
   /** Carousel complete → location permission step (onboarding finishes there). */
   const goToLocationStep = (destination: "/" | "/login") => {
@@ -95,14 +129,47 @@ export default function OnboardingIntroScreen() {
     });
   };
 
+  const onSelectLocale = (locale: AppLocale) => {
+    void setLocale(locale);
+    // Match scripture meaning language on first run so content aligns with the UI.
+    void update({ translationLocale: locale });
+  };
+
+  const commitPageFromOffset = (offsetX: number) => {
+    if (width <= 0) return;
+    const page = Math.round(offsetX / width);
+    const logical = logicalForPageIndex(Math.min(Math.max(page, 0), PAGE_COUNT - 1), isRtl);
+    setIndex((current) => (current === logical ? current : logical));
+  };
+
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    setIndex(Math.round(event.nativeEvent.contentOffset.x / width));
+    if (buttonDrivenScrollRef.current) return;
+    commitPageFromOffset(event.nativeEvent.contentOffset.x);
+  };
+
+  const onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    buttonDrivenScrollRef.current = false;
+    commitPageFromOffset(event.nativeEvent.contentOffset.x);
   };
 
   const goNext = () => {
     if (isLast) return;
-    scrollRef.current?.scrollTo({ x: (index + 1) * width, animated: true });
+    const next = index + 1;
+    buttonDrivenScrollRef.current = true;
+    setIndex(next);
+    scrollToLogical(next, true);
   };
+
+  // Re-snap after width / direction changes.
+  const indexRef = useRef(index);
+  indexRef.current = index;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: snap only when geometry/direction changes; scrollToLogical closes over width/isRtl
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      scrollToLogical(indexRef.current, false);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [width, isRtl]);
 
   return (
     <View
@@ -123,7 +190,34 @@ export default function OnboardingIntroScreen() {
       <StatusBar style="light" />
       <MosqueSilhouette color={Brand.heroBottom} opacity={0.3} scale={1.6} />
 
-      <View style={styles.skipRow}>
+      <View style={styles.topBar}>
+        <PressableScale
+          accessibilityRole="button"
+          accessibilityLabel={t("onboarding.chooseLanguage")}
+          accessibilityHint={t("onboarding.chooseLanguageHint")}
+          hitSlop={8}
+          style={styles.languageChip}
+          onPress={() => {
+            triggerHaptic("light");
+            setLanguagePickerOpen(true);
+          }}
+        >
+          <LocaleFlag
+            locale={prefs.locale}
+            size="sm"
+            backgroundColor={Brand.onHeroMutedSurface}
+            borderColor={withAlpha(Brand.heroText, 0.2)}
+          />
+          <ThemedText type="smallBold" style={styles.languageChipLabel} numberOfLines={1}>
+            {localeName}
+          </ThemedText>
+          <SymbolView
+            name={{ ios: "chevron.down", android: "arrow_drop_down", web: "arrow_drop_down" }}
+            size={14}
+            tintColor={Brand.heroSubtext}
+          />
+        </PressableScale>
+
         {!isBrand ? (
           <PressableScale
             accessibilityRole="button"
@@ -149,12 +243,18 @@ export default function OnboardingIntroScreen() {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        decelerationRate="fast"
         scrollEventThrottle={16}
         onScroll={onScroll}
-        onMomentumScrollEnd={onScroll}
-        style={styles.slidePager}
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        // LTR pager geometry; RTL advances by reversing slide order (next → content moves right).
+        style={[
+          styles.slidePager,
+          Platform.OS !== "web" ? ({ direction: "ltr" } satisfies ViewStyle) : null,
+        ]}
+        {...(Platform.OS === "web" ? ({ dir: "ltr" } as const) : null)}
       >
-        {SLIDES.map((item) => (
+        {pagerSlides.map((item) => (
           <View key={item.key} style={[styles.slidePage, { width }]}>
             <ScrollView
               style={styles.slideScroll}
@@ -177,20 +277,24 @@ export default function OnboardingIntroScreen() {
       <View
         style={styles.dots}
         accessibilityRole="progressbar"
-        accessibilityLabel={t("onboarding.pageOf", { page: index + 1, total: SLIDES.length })}
+        accessibilityLabel={t("onboarding.pageOf", { page: index + 1, total: PAGE_COUNT })}
       >
-        {SLIDES.map((item, i) => (
-          <View
-            key={item.key}
-            style={[
-              styles.dot,
-              {
-                backgroundColor: i === index ? Brand.heroAccent : Brand.onHeroStrongSurface,
-                width: i === index ? 22 : 8,
-              },
-            ]}
-          />
-        ))}
+        {SLIDES.map((item, i) => {
+          const active = i === index;
+          return (
+            <View key={item.key} style={styles.dotSlot} accessibilityElementsHidden>
+              <View
+                style={[
+                  styles.dot,
+                  active ? styles.dotActive : styles.dotIdle,
+                  {
+                    backgroundColor: active ? Brand.heroAccent : Brand.onHeroStrongSurface,
+                  },
+                ]}
+              />
+            </View>
+          );
+        })}
       </View>
 
       <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.four }]}>
@@ -222,6 +326,13 @@ export default function OnboardingIntroScreen() {
           />
         )}
       </View>
+
+      <LanguagePickerSheet
+        visible={languagePickerOpen}
+        value={prefs.locale}
+        onSelect={onSelectLocale}
+        onClose={() => setLanguagePickerOpen(false)}
+      />
     </View>
   );
 }
@@ -336,11 +447,34 @@ function CtaSlide({ icon }: { icon?: SymbolViewProps["name"] }) {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  skipRow: {
-    alignItems: "flex-end",
+  topBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: Spacing.two,
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.two,
     minHeight: 44,
+  },
+  languageChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-start",
+    gap: Spacing.one + 2,
+    minHeight: 44,
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.one,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+    backgroundColor: Brand.onHeroMutedSurface,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: withAlpha(Brand.heroText, 0.22),
+  },
+  languageChipLabel: {
+    color: Brand.heroText,
+    // Cap long locale names without collapsing short ones (flexShrink was ellipsizing "English").
+    maxWidth: 180,
+    flexShrink: 0,
   },
   skipButton: {
     minWidth: 44,
@@ -488,12 +622,27 @@ const styles = StyleSheet.create({
   dots: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: Spacing.one + 2,
+    alignItems: "center",
+    gap: Spacing.one,
     paddingVertical: Spacing.three,
+  },
+  /** Fixed-width slot so active pill ↔ idle circle never shifts neighbors. */
+  dotSlot: {
+    width: 22,
+    height: 8,
+    alignItems: "center",
+    justifyContent: "center",
   },
   dot: {
     height: 8,
-    borderRadius: 4,
+    borderRadius: Radius.pill,
+    borderCurve: "continuous",
+  },
+  dotIdle: {
+    width: 8,
+  },
+  dotActive: {
+    width: 22,
   },
   footer: {
     paddingHorizontal: Spacing.four,

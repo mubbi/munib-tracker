@@ -1,13 +1,20 @@
 import { DEFAULT_NOTIFICATION_PREFERENCES } from "@munib-tracker/shared/constants";
 import type { UserPreferences } from "@munib-tracker/shared/types";
 
-import { DEFAULT_LOCATION } from "@/lib/location";
+import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
 import {
   buildReminders,
   MAX_PENDING_REMINDERS,
   summarizeReminders,
 } from "@/lib/notifications/build-reminders";
 import { computePrayerTimes } from "@/lib/prayer-times";
+
+/** Same coords as the seeded fallback, but marked as a real fix so prayer reminders schedule. */
+const SET_LOCATION: StoredLocation = {
+  ...DEFAULT_LOCATION,
+  source: "device",
+  updatedAt: "2026-07-01T00:00:00.000Z",
+};
 
 const basePrefs: UserPreferences = {
   locale: "en",
@@ -53,8 +60,19 @@ afterEach(() => {
 });
 
 describe("buildReminders", () => {
-  it("includes prayer, azan, and before-prayer slots for enabled toggles", () => {
+  it("skips Salah/Adhan reminders while location is still the Makkah default", () => {
     const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const ids = reminders.map((item) => item.id.split(":")[0]);
+    expect(ids).not.toContain("prayer");
+    expect(ids).not.toContain("afterAzan");
+    expect(ids).not.toContain("beforePrayer");
+    expect(ids).not.toContain("afterPrayer");
+    // Wall-clock nudges still schedule.
+    expect(ids).toContain("morningZikr");
+  });
+
+  it("includes prayer, azan, and before-prayer slots for enabled toggles", () => {
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
     const ids = reminders.map((item) => item.id.split(":")[0]);
 
     expect(ids).toContain("prayer");
@@ -65,7 +83,7 @@ describe("buildReminders", () => {
   });
 
   it("deep-links each reminder to the collection it is about", () => {
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
 
     // Every reminder carries a non-empty in-app route so a tap always lands somewhere useful.
     expect(reminders.every((item) => typeof item.route === "string" && item.route.length > 0)).toBe(
@@ -83,7 +101,7 @@ describe("buildReminders", () => {
   });
 
   it("carries the reminder route through to summary rows", () => {
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
     const rows = summarizeReminders(reminders, "24");
 
     const azan = rows.find((row) => row.id.startsWith("afterAzan:"));
@@ -91,7 +109,7 @@ describe("buildReminders", () => {
   });
 
   it("does not schedule after-adhan reminders for Witr", () => {
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
 
     expect(reminders.some((item) => item.id.startsWith("afterAzan:witr:"))).toBe(false);
     expect(reminders.some((item) => item.id.startsWith("afterAzan:fajr:"))).toBe(true);
@@ -99,7 +117,7 @@ describe("buildReminders", () => {
   });
 
   it("computes Fajr's fireAt from the prayer-times engine, not a static hint", () => {
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
 
     // Take the first surviving Fajr reminder (past ones are pruned, so this may be
     // a later day in the 7-day window). Its id encodes the day it was built for.
@@ -126,7 +144,7 @@ describe("buildReminders", () => {
   });
 
   it("summarizeReminders collapses multi-day prayer slots to one row per template", () => {
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
     const rows = summarizeReminders(reminders, "12");
 
     const keys = rows.map((row) => `${row.title}\0${row.body}`);
@@ -139,7 +157,7 @@ describe("buildReminders", () => {
 
   it("drops reminders that have already passed relative to now", () => {
     const future = new Date(FIXED_NOW.getTime() + 30 * 24 * 60 * 60 * 1000);
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION, future);
+    const reminders = buildReminders(basePrefs, SET_LOCATION, future);
 
     expect(reminders.length).toBeGreaterThan(0);
     expect(reminders.every((r) => r.fireAt.getTime() > future.getTime() - 60_000)).toBe(true);
@@ -150,7 +168,7 @@ describe("buildReminders", () => {
       ...basePrefs,
       notificationPrefs: { ...basePrefs.notificationPrefs, playAdhanOnPrayer: true },
     };
-    const reminders = buildReminders(withAdhan, DEFAULT_LOCATION);
+    const reminders = buildReminders(withAdhan, SET_LOCATION);
 
     const fard = reminders.find((r) => r.id.startsWith("prayer:fajr:"));
     expect(fard?.sound).toBe("adhan.mp3");
@@ -165,7 +183,7 @@ describe("buildReminders", () => {
   });
 
   it("keeps obligatory prayers silent when the adhan option is off", () => {
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
     const fard = reminders.find((r) => r.id.startsWith("prayer:fajr:"));
     expect(fard?.sound).toBeUndefined();
     expect(fard?.channelId).toBe("prayer");
@@ -176,10 +194,10 @@ describe("buildReminders", () => {
       ...basePrefs,
       prayerReminderOffsets: { fajr: -15 },
     };
-    const base = buildReminders(basePrefs, DEFAULT_LOCATION).find((r) =>
+    const base = buildReminders(basePrefs, SET_LOCATION).find((r) =>
       r.id.startsWith("prayer:fajr:"),
     );
-    const shifted = buildReminders(withOffset, DEFAULT_LOCATION).find((r) =>
+    const shifted = buildReminders(withOffset, SET_LOCATION).find((r) =>
       r.id.startsWith("prayer:fajr:"),
     );
     expect(base && shifted).toBeTruthy();
@@ -188,7 +206,7 @@ describe("buildReminders", () => {
       expect(base.fireAt.getTime() - shifted.fireAt.getTime()).toBe(15 * 60_000);
     }
     // The before-prayer nudge stays anchored to the true prayer time (10 min before it).
-    const before = buildReminders(withOffset, DEFAULT_LOCATION).find((r) =>
+    const before = buildReminders(withOffset, SET_LOCATION).find((r) =>
       r.id.startsWith("beforePrayer:fajr:"),
     );
     expect(before).toBeDefined();
@@ -208,10 +226,10 @@ describe("buildReminders", () => {
       prayerReminderOffsets: { dhuhr: 999 },
     };
 
-    const baseMaghrib = buildReminders(basePrefs, DEFAULT_LOCATION).find((r) =>
+    const baseMaghrib = buildReminders(basePrefs, SET_LOCATION).find((r) =>
       r.id.startsWith("prayer:maghrib:"),
     );
-    const lateMaghrib = buildReminders(late, DEFAULT_LOCATION).find((r) =>
+    const lateMaghrib = buildReminders(late, SET_LOCATION).find((r) =>
       r.id.startsWith("prayer:maghrib:"),
     );
     expect(baseMaghrib && lateMaghrib).toBeTruthy();
@@ -219,10 +237,10 @@ describe("buildReminders", () => {
       expect(lateMaghrib.fireAt.getTime() - baseMaghrib.fireAt.getTime()).toBe(120 * 60_000);
     }
 
-    const baseIsha = buildReminders(basePrefs, DEFAULT_LOCATION).find((r) =>
+    const baseIsha = buildReminders(basePrefs, SET_LOCATION).find((r) =>
       r.id.startsWith("prayer:isha:"),
     );
-    const earlyIsha = buildReminders(early, DEFAULT_LOCATION).find((r) =>
+    const earlyIsha = buildReminders(early, SET_LOCATION).find((r) =>
       r.id.startsWith("prayer:isha:"),
     );
     expect(baseIsha && earlyIsha).toBeTruthy();
@@ -230,15 +248,15 @@ describe("buildReminders", () => {
       expect(baseIsha.fireAt.getTime() - earlyIsha.fireAt.getTime()).toBe(120 * 60_000);
     }
 
-    const baseDhuhr = buildReminders(basePrefs, DEFAULT_LOCATION).find((r) =>
+    const baseDhuhr = buildReminders(basePrefs, SET_LOCATION).find((r) =>
       r.id.startsWith("prayer:dhuhr:"),
     );
-    const clampedDhuhr = buildReminders(clamped, DEFAULT_LOCATION).find((r) =>
+    const clampedDhuhr = buildReminders(clamped, SET_LOCATION).find((r) =>
       r.id.startsWith("prayer:dhuhr:"),
     );
     const maxDhuhr = buildReminders(
       { ...basePrefs, prayerReminderOffsets: { dhuhr: 120 } },
-      DEFAULT_LOCATION,
+      SET_LOCATION,
     ).find((r) => r.id.startsWith("prayer:dhuhr:"));
     expect(baseDhuhr && clampedDhuhr && maxDhuhr).toBeTruthy();
     if (baseDhuhr && clampedDhuhr && maxDhuhr) {
@@ -247,7 +265,7 @@ describe("buildReminders", () => {
   });
 
   it("emits daily-content and Friday reminders only when opted in", () => {
-    const off = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const off = buildReminders(basePrefs, SET_LOCATION);
     expect(off.some((r) => r.id === "dailyContent" || r.id.startsWith("dailyContent:"))).toBe(
       false,
     );
@@ -257,7 +275,7 @@ describe("buildReminders", () => {
       ...basePrefs,
       notificationPrefs: { ...basePrefs.notificationPrefs, dailyContent: true, friday: true },
     };
-    const reminders = buildReminders(on, DEFAULT_LOCATION);
+    const reminders = buildReminders(on, SET_LOCATION);
     const daily = reminders.find((r) => r.id === "dailyContent");
     expect(daily).toBeDefined();
     expect(daily?.repeat).toBe("daily");
@@ -272,7 +290,7 @@ describe("buildReminders", () => {
   });
 
   it("stays within the iOS pending-notification budget", () => {
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
     expect(reminders.length).toBeLessThanOrEqual(MAX_PENDING_REMINDERS);
 
     // Worst case: every nudge on — still capped.
@@ -295,13 +313,11 @@ describe("buildReminders", () => {
         playAdhanOnPrayer: true,
       },
     };
-    expect(buildReminders(allOn, DEFAULT_LOCATION).length).toBeLessThanOrEqual(
-      MAX_PENDING_REMINDERS,
-    );
+    expect(buildReminders(allOn, SET_LOCATION).length).toBeLessThanOrEqual(MAX_PENDING_REMINDERS);
   });
 
   it("uses a single DAILY slot for fixed-clock zikr reminders", () => {
-    const reminders = buildReminders(basePrefs, DEFAULT_LOCATION);
+    const reminders = buildReminders(basePrefs, SET_LOCATION);
     const morning = reminders.filter(
       (r) => r.id === "morningZikr" || r.id.startsWith("morningZikr:"),
     );

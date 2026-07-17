@@ -29,13 +29,7 @@ function fromQuickAction(id: string, section: LibrarySectionId): LibraryMenuDef 
 
 /** Every entry on the Library tab — same destinations as home Explore shortcuts. */
 export const LIBRARY_MENU_META: LibraryMenuDef[] = [
-  fromQuickAction("checklist", "track"),
-  fromQuickAction("schedule", "track"),
-  fromQuickAction("qaza", "track"),
-  fromQuickAction("tasbeeh", "track"),
-  fromQuickAction("ramadan", "track"),
-  fromQuickAction("tahajjud", "track"),
-  fromQuickAction("journal", "track"),
+  // Read first — Qur'an / hadith are primary destinations, not buried under Track.
   fromQuickAction("quran", "read"),
   fromQuickAction("verseDetector", "read"),
   fromQuickAction("hadith", "read"),
@@ -45,6 +39,14 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("adhkarBuilder", "supplicate"),
   fromQuickAction("duroods", "supplicate"),
   fromQuickAction("names", "supplicate"),
+  // Track: devotionals first; checklist/schedule last (also on the Tracker tab).
+  fromQuickAction("qaza", "track"),
+  fromQuickAction("tasbeeh", "track"),
+  fromQuickAction("ramadan", "track"),
+  fromQuickAction("tahajjud", "track"),
+  fromQuickAction("journal", "track"),
+  fromQuickAction("checklist", "track"),
+  fromQuickAction("schedule", "track"),
   fromQuickAction("salahGuide", "learn"),
   fromQuickAction("jannah", "learn"),
   fromQuickAction("lastDay", "learn"),
@@ -68,10 +70,11 @@ export const LIBRARY_MENU_META: LibraryMenuDef[] = [
   fromQuickAction("ruqyah", "learn"),
   fromQuickAction("newMuslim", "learn"),
   fromQuickAction("flashCards", "learn"),
+  // Tools & more — Qibla first (high-frequency worship tool).
+  fromQuickAction("qibla", "more"),
   fromQuickAction("calendar", "more"),
   fromQuickAction("dateConverter", "more"),
   fromQuickAction("lastThirdNight", "more"),
-  fromQuickAction("qibla", "more"),
   fromQuickAction("zakat", "more"),
   fromQuickAction("finance", "more"),
   fromQuickAction("achievements", "more"),
@@ -96,15 +99,6 @@ export const LIBRARY_SECTIONS: {
   icon: SymbolViewProps["name"];
 }[] = [
   {
-    id: "track",
-    titleKey: "library.track",
-    icon: {
-      ios: "list.bullet.clipboard.fill",
-      android: "checklist",
-      web: "checklist",
-    },
-  },
-  {
     id: "read",
     titleKey: "library.read",
     icon: { ios: "books.vertical.fill", android: "library_books", web: "library_books" },
@@ -116,6 +110,15 @@ export const LIBRARY_SECTIONS: {
       ios: "hands.and.sparkles.fill",
       android: "volunteer_activism",
       web: "volunteer_activism",
+    },
+  },
+  {
+    id: "track",
+    titleKey: "library.track",
+    icon: {
+      ios: "list.bullet.clipboard.fill",
+      android: "checklist",
+      web: "checklist",
     },
   },
   {

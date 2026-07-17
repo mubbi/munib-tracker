@@ -666,7 +666,9 @@
     "facebook": "Ku sii wad Facebook",
     "heroGuest": "Waxaad isticmaalaysaa akoon martida Ku xidh bixiyaha si aad u kaydiso oo aad u habayso xogtaada - ma jiraan wax lumay.",
     "heroUser": "Saxiix si aad u ilaaliso salaadadaada, qaza, iyo zikr si badbaado leh daruuraha ugu jira.",
-    "error": "Ma soo geli karo"
+    "error": "Waa lagu fashilmay gelitaanka. Hubi in server-ka API uu shaqeynayo oo bixiyahan la habeeyay.",
+    "providersUnavailableTitle": "Saxiixitaanka weli ma heli karo",
+    "providersUnavailableBody": "Bixiyeyaasha sync-ga daruuraha laguma dejin dhisiddaan. Sii wad marti ahaan — horumarkaagu wuxuu ku sii jiraa qalabkan."
   },
   "onboarding": {
     "begin": "Beggudh",
@@ -716,7 +718,9 @@
     "locationAllow": "Oggolow goobta & ogeysiisyada",
     "locationLocating": "Waa la diyaarinayaa…",
     "locationSkip": "Dambe deji",
-    "locationHighlight4": "Ka bood waqti kasta — goobta ama ogeysiisyada dambe deji"
+    "locationHighlight4": "Ka bood waqti kasta — goobta ama ogeysiisyada dambe deji",
+    "chooseLanguage": "Dooro luqadda",
+    "chooseLanguageHint": "Beddel luqadda app-ka si aad u raaci karto hordhaca"
   },
   "appearance": {
     "eyebrow": "Dejinta",
@@ -940,7 +944,9 @@
         "subtitle": "Feejignaanta inta lagu jiro daaqada Duha"
       }
     },
-    "groupContent": "Waxyaabaha maalinlaha ah"
+    "groupContent": "Waxyaabaha maalinlaha ah",
+    "defaultLocationTitle": "Deji goobtaada digniinaha Salaadda",
+    "defaultLocationMessage": "Xusuusinta Salaadda iyo Adhaanka waxay u baahan yihiin magaaladaada. Xusuusinta Zikr iyo Qaza ee saacadda wali waa la qorsheeyaa."
   },
   "fonts": {
     "eyebrow": "Dejinta",
@@ -1871,7 +1877,10 @@
       "Tehran": "Irn iyo Shi communities",
       "Turkey": "Turkey (Diynet)",
       "Other": "U deji gacanta meel kale"
-    }
+    },
+    "defaultLabel": "Makka, Sacuudi Carabiya",
+    "defaultTimesHint": "Waqtiyada Salaadda hadda waxay isticmaalayaan Makka. Deji magaaladaada waqti sax ah. Xusuusinta Salaadda iyo Adhaanka way xiran yihiin ilaa markaas.",
+    "setLocation": "Deji goobta"
   },
   "moon": {
     "aria": "Moku phse: {{phase}}",
@@ -3362,13 +3371,13 @@
   "library": {
     "eyebrow": "Librry",
     "title": "Librry",
-    "subtitle": "Red, supplicte, iyo lern",
+    "subtitle": "Quraanka, qalabka, iyo barashada — liiska maalinlaha ah wuxuu ku jiraa Tracker",
     "explore": "Sahami",
     "track": "Trck",
     "read": "Red",
     "supplicate": "Supplicte",
     "learn": "Baro",
-    "more": "Mme"
+    "more": "Qalabka & wax kale"
   },
   "offlineData": {
     "title": "eeflgudhe dt",

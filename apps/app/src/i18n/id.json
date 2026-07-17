@@ -666,7 +666,9 @@
     "facebook": "Lanjutkan dengan Facebook",
     "heroGuest": "Anda menggunakan akun tamu. Hubungkan penyedia untuk cadangkan dan sinkronkan data — tidak ada yang hilang.",
     "heroUser": "Masuk untuk menjaga shalat, qadha, dan zikir Anda aman di cloud.",
-    "error": "Tidak dapat masuk. Pastikan server API berjalan dan penyedia ini dikonfigurasi."
+    "error": "Tidak dapat masuk. Pastikan server API berjalan dan penyedia ini dikonfigurasi.",
+    "providersUnavailableTitle": "Masuk belum tersedia",
+    "providersUnavailableBody": "Penyedia sinkronisasi cloud belum dikonfigurasi di build ini. Lanjutkan sebagai tamu — progres tetap di perangkat ini."
   },
   "onboarding": {
     "begin": "Mulai",
@@ -716,7 +718,9 @@
     "locationAllow": "Izinkan lokasi & notifikasi",
     "locationLocating": "Menyiapkan…",
     "locationSkip": "Atur nanti",
-    "locationHighlight4": "Lewati kapan saja — atur lokasi atau aktifkan notifikasi nanti"
+    "locationHighlight4": "Lewati kapan saja — atur lokasi atau aktifkan notifikasi nanti",
+    "chooseLanguage": "Pilih bahasa",
+    "chooseLanguageHint": "Ubah bahasa aplikasi agar Anda bisa mengikuti pengenalan ini"
   },
   "appearance": {
     "eyebrow": "Pengaturan",
@@ -940,7 +944,9 @@
         "subtitle": "Peringatan during  Duha jendela"
       }
     },
-    "groupContent": "content harian"
+    "groupContent": "content harian",
+    "defaultLocationTitle": "Atur lokasi untuk peringatan Salah",
+    "defaultLocationMessage": "Pengingat Salah dan Adzan membutuhkan kota Anda. Pengingat Zikr dan Qaza berdasarkan jam tetap dijadwalkan."
   },
   "fonts": {
     "eyebrow": "Pengaturan",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran dan Shia communities",
       "Turkey": "Turki (Diyanet)",
       "Other": "Atur manually elsewhere"
-    }
+    },
+    "defaultLabel": "Makkah, Arab Saudi",
+    "defaultTimesHint": "Waktu Salah saat ini memakai Makkah. Atur kota Anda untuk waktu yang akurat. Pengingat Salah dan Adzan tetap nonaktif sampai itu.",
+    "setLocation": "Atur lokasi"
   },
   "moon": {
     "aria": "Fase bulan: {{phase}}",
@@ -2104,7 +2113,7 @@
     "cardinalE": "T",
     "cardinalS": "S",
     "cardinalW": "B",
-    "defaultLocationHint": "Using  default lokasi (Makkah). Atur Anda city untuk  akurat kiblat bearing where Anda adalah.",
+    "defaultLocationHint": "Menggunakan lokasi bawaan (Makkah). Atur kota Anda untuk arah kiblat yang akurat.",
     "setLocation": "Tetapkan Lokasi"
   },
   "profile": {
@@ -3362,13 +3371,13 @@
   "library": {
     "eyebrow": "Perpustakaan",
     "title": "Perpustakaan",
-    "subtitle": "Baca, berdoa, dan belajar",
+    "subtitle": "Qur'an, alat, dan belajar — daftar harian ada di tab Tracker",
     "explore": "Jelajahi",
     "track": "Lacak",
     "read": "Baca",
     "supplicate": "Berdoa",
     "learn": "Belajar",
-    "more": "Lainnya"
+    "more": "Alat & lainnya"
   },
   "offlineData": {
     "title": "Data offline",

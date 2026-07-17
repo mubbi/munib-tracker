@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     padding: Spacing.three,
     borderRadius: Radius.md,
     borderCurve: "continuous",
-    borderLeftWidth: 3,
+    borderStartWidth: 3,
   },
   quoteMuted: {
     gap: Spacing.one,

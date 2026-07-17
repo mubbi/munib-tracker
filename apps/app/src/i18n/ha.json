@@ -666,7 +666,9 @@
     "facebook": "Ci gaba da Facebook",
     "heroGuest": "Baƙo hesabı kullanıyorsunuz. Vertare darinizi yedeklemek da senkronize etmek don dwataa sağlwataıcı bağlwataın — hiçdwataa şey kwatabolmaz.",
     "heroUser": "Sallahlarınızı, kazalarınızı da zikirlerinizi bulutta güdande tutmak don giriş yapın.",
-    "error": "Shigaılamadı. API sunucusunun çalıştığından da bu sağlwataıcının yapılandırıldığından emin olun."
+    "error": "An kasa shiga. Tabbatar da cewa uwar garken API yana aiki kuma an saita wannan mai bayarwa.",
+    "providersUnavailableTitle": "Shiga bai samu ba tukuna",
+    "providersUnavailableBody": "Ba a saita masu daidaita girgije a wannan ginin ba. Ci gaba a matsayin baƙo — ci gaban ku yana kan wannan na'ura."
   },
   "onboarding": {
     "begin": "Fara",
@@ -716,7 +718,9 @@
     "locationAllow": "Bada izinin wuri da sanarwa",
     "locationLocating": "Ana shiryawa…",
     "locationSkip": "Saita daga baya",
-    "locationHighlight4": "Tsallake kowane lokaci — saita wuri ko kunna sanarwa daga baya"
+    "locationHighlight4": "Tsallake kowane lokaci — saita wuri ko kunna sanarwa daga baya",
+    "chooseLanguage": "Zaɓi harshe",
+    "chooseLanguageHint": "Canza harshen app ɗin don ku iya bin wannan gabatarwa"
   },
   "appearance": {
     "eyebrow": "Saituna",
@@ -940,7 +944,9 @@
         "subtitle": "Fadakarwa yayin taga Duha"
       }
     },
-    "groupContent": "Abubuwan yau da kullun"
+    "groupContent": "Abubuwan yau da kullun",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Saituna",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran da Shia communities",
       "Turkey": "Turkiyya (Diyanet)",
       "Other": "Saita manually elsewhere"
-    }
+    },
+    "defaultLabel": "Makka, Saudi Arabiya",
+    "defaultTimesHint": "Lokutan Salah yanzu suna amfani da Makka. Saita garinku don daidaitattun lokuta. Tunatarwa na Salah da Adhan za su kasance kashe har sai lokacin.",
+    "setLocation": "Saita wuri"
   },
   "moon": {
     "aria": "Tsarin wata: {{phase}}",

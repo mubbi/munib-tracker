@@ -666,7 +666,9 @@
     "facebook": "Facebook bilan davom eting",
     "heroGuest": "Siz mehmon hisobidan foydalanmoqdasiz. Maʼlumotlaringizni zaxiralash va sinxronlashtirish uchun provayder bilan bogʻlaning – hech narsa yoʻqolmaydi.",
     "heroUser": "Ibodatlaringizni qaza va zikr bulutda xavfsiz saqlash uchun tizimga kiring.",
-    "error": "Tizimga kirib boʻlmadi. API server ishlayotganiga va bu provayder sozlanganligiga ishonch hosil qiling."
+    "error": "Kirib bo‘lmadi. API server ishlayotganini va bu provayder sozlanganini tekshiring.",
+    "providersUnavailableTitle": "Kirish hali mavjud emas",
+    "providersUnavailableBody": "Bu yig‘ilmada bulut sync provayderlari sozlanmagan. Mehmon sifatida davom eting — taraqqiyotingiz shu qurilmada qoladi."
   },
   "onboarding": {
     "begin": "Begichid",
@@ -716,7 +718,9 @@
     "locationAllow": "Joylashuv va bildirishnomalarga ruxsat bering",
     "locationLocating": "Tayyorlanmoqda…",
     "locationSkip": "Keyin sozlash",
-    "locationHighlight4": "Istalgan vaqtda o‘tkazing — joylashuv yoki bildirishnomalarni keyin sozlang"
+    "locationHighlight4": "Istalgan vaqtda o‘tkazing — joylashuv yoki bildirishnomalarni keyin sozlang",
+    "chooseLanguage": "Tilni tanlang",
+    "chooseLanguageHint": "Ushbu tanishuvni kuzatish uchun ilova tilini o‘zgartiring"
   },
   "appearance": {
     "eyebrow": "Sozlamalar",
@@ -940,7 +944,9 @@
         "subtitle": "Duha oynasida ogohlantirish"
       }
     },
-    "groupContent": "Kundalik tarkib"
+    "groupContent": "Kundalik tarkib",
+    "defaultLocationTitle": "Namoz ogohlantirishlari uchun joylashuvni belgilang",
+    "defaultLocationMessage": "Namoz va azon eslatmalari uchun shahringiz kerak. Soat bo'yicha zikr va qazo eslatmalari baribir rejalashtiriladi."
   },
   "fonts": {
     "eyebrow": "Sozlamalar",
@@ -1871,7 +1877,10 @@
       "Tehran": "Irn v Shi communities",
       "Turkey": "Turkey (Diynet)",
       "Other": "Boshqa joyga qo'lda o'rnating"
-    }
+    },
+    "defaultLabel": "Makka, Saudiya Arabistoni",
+    "defaultTimesHint": "Namoz vaqtlari hozir Makka bo‘yicha. Aniq vaqtlar uchun shahringizni belgilang. Namoz va azon eslatmalari shu paytgacha o‘chiq qoladi.",
+    "setLocation": "Joylashuvni belgilash"
   },
   "moon": {
     "aria": "Mod phse: {{phase}}",
@@ -3362,13 +3371,13 @@
   "library": {
     "eyebrow": "Librry",
     "title": "Librry",
-    "subtitle": "Red, supplicte, v lern",
+    "subtitle": "Qur'on, vositalar va o'rganish — kunlik ro'yxat Kuzatuv yorlig'ida",
     "explore": "Tadqiq qilish",
     "track": "Trck",
     "read": "Red",
     "supplicate": "Supplicte",
     "learn": "O'rganish",
-    "more": "Myokie"
+    "more": "Vositalar va boshqalar"
   },
   "offlineData": {
     "title": "-nichidglyn dt",

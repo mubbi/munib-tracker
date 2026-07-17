@@ -666,7 +666,9 @@
     "facebook": "Continuer avec Facebook",
     "heroGuest": "Invité hesabı kullanıyorsunuz. Veraetcrinizi yedeklemek et senkronize etmek pour un sağlmoisıcı bağlmoisın — hiçun şey kmoisbolmaz.",
     "heroUser": "Salahlarınızı, kazalarınızı et zikirlerinizi bulutta güetnde tutmak pour giriş yapın.",
-    "error": "Se connecterılamadı. API sunucusunun çalıştığından et bu sağlmoisıcının yapılandırıldığından emin olun."
+    "error": "Connexion impossible. Vérifiez que le serveur API est démarré et que ce fournisseur est configuré.",
+    "providersUnavailableTitle": "Connexion indisponible pour le moment",
+    "providersUnavailableBody": "Les fournisseurs de synchronisation cloud ne sont pas configurés dans cette version. Continuez en invité — votre progression reste sur cet appareil."
   },
   "onboarding": {
     "begin": "Commencer",
@@ -716,7 +718,9 @@
     "locationAllow": "Autoriser la localisation et les notifications",
     "locationLocating": "Configuration…",
     "locationSkip": "Configurer plus tard",
-    "locationHighlight4": "Ignorez à tout moment — définissez la localisation ou activez les notifications plus tard"
+    "locationHighlight4": "Ignorez à tout moment — définissez la localisation ou activez les notifications plus tard",
+    "chooseLanguage": "Choisir la langue",
+    "chooseLanguageHint": "Changez la langue de l'application pour suivre cette introduction"
   },
   "appearance": {
     "eyebrow": "Paramètres",
@@ -940,7 +944,9 @@
         "subtitle": "Alerte pendant la fenêtre Duha"
       }
     },
-    "groupContent": "Contenu quotidien"
+    "groupContent": "Contenu quotidien",
+    "defaultLocationTitle": "Definissez votre lieu pour les alertes Salah",
+    "defaultLocationMessage": "Les rappels Salah et Adhan necessitent votre ville. Les rappels Zikr et Qaza a heure fixe restent planifies."
   },
   "fonts": {
     "eyebrow": "Paramètres",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran et Shia communities",
       "Turkey": "Turkey (Diyet)",
       "Other": "Définir manually elsewhere"
-    }
+    },
+    "defaultLabel": "La Mecque, Arabie saoudite",
+    "defaultTimesHint": "Les horaires de Salah utilisent actuellement La Mecque. Définissez votre ville pour des horaires précis. Les rappels Salah et Adhan restent désactivés jusque-là.",
+    "setLocation": "Définir le lieu"
   },
   "moon": {
     "aria": "Phase de lune : {{phase}}",
@@ -2104,7 +2113,7 @@
     "cardinalE": "В",
     "cardinalS": "Ю",
     "cardinalW": "З",
-    "defaultLocationHint": "Using  varsaannéean konum (Makkah). Ayarla votre city pour  doğru kıble bearing where siz dir.",
+    "defaultLocationHint": "Utilisation du lieu par defaut (La Mecque). Definissez votre ville pour une direction de qibla precise.",
     "setLocation": "Définir l'emplacement"
   },
   "profile": {
@@ -3374,13 +3383,13 @@
   "library": {
     "eyebrow": "Bibliothèque",
     "title": "Bibliothèque",
-    "subtitle": "Oku, dua et et öğren",
+    "subtitle": "Coran, outils et apprentissage — la checklist quotidienne est dans Tracker",
     "explore": "Explorer",
     "track": "Suivi",
     "read": "Red",
     "supplicate": "Supplicte",
     "learn": "Apprendre",
-    "more": "Plus"
+    "more": "Outils et plus"
   },
   "offlineData": {
     "title": "Données hors ligne",

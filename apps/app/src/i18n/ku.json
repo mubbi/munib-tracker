@@ -666,7 +666,9 @@
     "facebook": "لەگەڵ فەیسبووک بەردەوام بن",
     "heroGuest": "You're using  guest hesab. Link  provider bo back up û sync we daneyên — nothing e lost.",
     "heroUser": "Sign di bo keep we salah, qaza, û zikr ewle di  cloud.",
-    "error": "Couldn't sign di. Make sure  API server e running û ev provider e configured."
+    "error": "Nikarî têketinê bike. Piştrast bike ku servera API dixebite û ev pêşkêşker hatîne mîhengkirin.",
+    "providersUnavailableTitle": "Têketin hîn ne amade ye",
+    "providersUnavailableBody": "Pêşkêşkerên hevdemkirina ewrî di vê avahiyê de nehatine mîhengkirin. Wekî mêvan berdewam bike — pêşveçûna te li ser vê amûrê dimîne."
   },
   "onboarding": {
     "begin": "Destpêkirin",
@@ -716,7 +718,9 @@
     "locationAllow": "Destûrê bide cih û agahdariyan",
     "locationLocating": "Tê amadekirin…",
     "locationSkip": "Paşê saz bike",
-    "locationHighlight4": "Her dem derbas bike — cih an agahdariyan paşê saz bike"
+    "locationHighlight4": "Her dem derbas bike — cih an agahdariyan paşê saz bike",
+    "chooseLanguage": "Ziman hilbijêre",
+    "chooseLanguageHint": "Zimanê sepanê biguherîne da ku tu karibî vê pêşkêşiyê bişopînî"
   },
   "appearance": {
     "eyebrow": "Mîheng",
@@ -940,7 +944,9 @@
         "subtitle": "Di dema pencereya Duhayê de hişyar bikin"
       }
     },
-    "groupContent": "Naveroka rojane"
+    "groupContent": "Naveroka rojane",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Mîheng",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran û Shia communities",
       "Turkey": "Tirkiye (Diyanet)",
       "Other": "Bi destan li cîhek din bicîh bikin"
-    }
+    },
+    "defaultLabel": "Mekke, Erebistana Siûdî",
+    "defaultTimesHint": "Demên nimêjê niha Mekkê bikar tînin. Ji bo demên rast bajarê xwe diyar bike. Bîranînên nimêj û ezanê heta wê demê girtî dimînin.",
+    "setLocation": "Cihê diyar bike"
   },
   "moon": {
     "aria": "Qonaxa heyvê: {{phase}}",

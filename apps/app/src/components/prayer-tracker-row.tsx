@@ -219,7 +219,7 @@ export function PrayerTrackerRow({
             icon={status === "pending" ? undefined : meta.icon}
             compact
           />
-          <PrayerInfoButton prayerId={prayerId} hitTarget={32} showLabel />
+          <PrayerInfoButton prayerId={prayerId} hitTarget={44} showLabel />
         </View>
       </View>
     </View>

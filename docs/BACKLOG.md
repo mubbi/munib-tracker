@@ -50,7 +50,7 @@ Guides: [`OAUTH_SETUP.md`](./OAUTH_SETUP.md) · [`DEEP_LINKS.md`](./DEEP_LINKS.m
 
 | Priority | Task |
 |----------|------|
-| P1 | Serve `.well-known/apple-app-site-association` + `assetlinks.json` from `my.munibtracker.app` at web build (`app.json` App Links + Apple OAuth route shipped; host verification files still needed) |
+| P1 | Serve `.well-known/apple-app-site-association` + `assetlinks.json` from `my.munibtracker.app` | Generated at web build (`scripts/generate-well-known.mjs`); set `EXPO_APPLE_TEAM_ID` + Play SHA fingerprints in deploy env |
 | P2 | Fill production OAuth secrets (`GOOGLE_OAUTH_*`, `APPLE_*`, `OAUTH_REDIRECT_URI_ALLOWLIST`) per environment |
 
 ---

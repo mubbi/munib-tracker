@@ -99,7 +99,22 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
   };
 
   if (visibleProviders.length === 0) {
-    return null;
+    return (
+      <View
+        style={[
+          styles.unavailable,
+          { backgroundColor: tokens.surfaceRaised, borderColor: tokens.hairline },
+        ]}
+        accessibilityRole="text"
+      >
+        <ThemedText type="smallBold" style={{ textAlign: "center" }}>
+          {t("login.providersUnavailableTitle")}
+        </ThemedText>
+        <ThemedText type="caption" themeColor="mutedForeground" style={{ textAlign: "center" }}>
+          {t("login.providersUnavailableBody")}
+        </ThemedText>
+      </View>
+    );
   }
 
   return (
@@ -153,6 +168,13 @@ export function SocialLoginButtons({ onSuccess }: { onSuccess?: () => void }) {
 const styles = StyleSheet.create({
   root: {
     gap: Spacing.two,
+  },
+  unavailable: {
+    gap: Spacing.two,
+    padding: Spacing.three,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
   },
   providerButton: {
     minHeight: 44,

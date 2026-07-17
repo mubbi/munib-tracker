@@ -1,8 +1,15 @@
 import { DEFAULT_NOTIFICATION_PREFERENCES } from "@munib-tracker/shared/constants";
 import type { UserPreferences } from "@munib-tracker/shared/types";
 
-import { DEFAULT_LOCATION } from "@/lib/location";
+import { DEFAULT_LOCATION, type StoredLocation } from "@/lib/location";
 import { buildReminders } from "@/lib/notifications/build-reminders";
+
+/** Same coords as the seeded fallback, but marked as a real fix so prayer reminders schedule. */
+const SET_LOCATION: StoredLocation = {
+  ...DEFAULT_LOCATION,
+  source: "device",
+  updatedAt: "2026-07-01T00:00:00.000Z",
+};
 
 // jest.mock is hoisted above the imports, so expo-notifications and the
 // permission/platform helpers are mocked before scheduler.ts imports them.
@@ -93,10 +100,10 @@ beforeEach(() => {
 describe("rescheduleAll", () => {
   it("cancels existing notifications then schedules one per built reminder", async () => {
     const prefs = makePrefs();
-    await rescheduleAll(prefs, DEFAULT_LOCATION);
+    await rescheduleAll(prefs, SET_LOCATION);
 
     // buildReminders with the same prefs/location is the source of truth for the count.
-    const expected = buildReminders(prefs, DEFAULT_LOCATION);
+    const expected = buildReminders(prefs, SET_LOCATION);
 
     expect(mockCancelAll).toHaveBeenCalledTimes(1);
     expect(mockSchedule).toHaveBeenCalledTimes(expected.length);
@@ -109,7 +116,7 @@ describe("rescheduleAll", () => {
   });
 
   it("cancels but schedules nothing when masterEnabled is false", async () => {
-    await rescheduleAll(makePrefs({ masterEnabled: false }), DEFAULT_LOCATION);
+    await rescheduleAll(makePrefs({ masterEnabled: false }), SET_LOCATION);
 
     expect(mockCancelAll).toHaveBeenCalledTimes(1);
     expect(mockSchedule).not.toHaveBeenCalled();
@@ -117,7 +124,7 @@ describe("rescheduleAll", () => {
 
   it("schedules nothing when permission is denied", async () => {
     mockPermission.mockResolvedValue("denied");
-    await rescheduleAll(makePrefs(), DEFAULT_LOCATION);
+    await rescheduleAll(makePrefs(), SET_LOCATION);
 
     expect(mockCancelAll).toHaveBeenCalledTimes(1);
     expect(mockSchedule).not.toHaveBeenCalled();
@@ -125,16 +132,16 @@ describe("rescheduleAll", () => {
 
   it("schedules nothing when local notifications are unsupported", async () => {
     mockSupported.mockReturnValue(false);
-    await rescheduleAll(makePrefs(), DEFAULT_LOCATION);
+    await rescheduleAll(makePrefs(), SET_LOCATION);
 
     expect(mockSchedule).not.toHaveBeenCalled();
   });
 
   it("uses DATE triggers for prayer slots and DAILY for fixed-clock reminders", async () => {
     const prefs = makePrefs();
-    await rescheduleAll(prefs, DEFAULT_LOCATION);
+    await rescheduleAll(prefs, SET_LOCATION);
 
-    const built = buildReminders(prefs, DEFAULT_LOCATION);
+    const built = buildReminders(prefs, SET_LOCATION);
     const byId = new Map(built.map((r) => [r.id, r]));
 
     for (const [arg] of mockSchedule.mock.calls) {
@@ -153,7 +160,7 @@ describe("rescheduleAll", () => {
   });
 
   it("gives date triggers an absolute fire instant", async () => {
-    await rescheduleAll(makePrefs(), DEFAULT_LOCATION);
+    await rescheduleAll(makePrefs(), SET_LOCATION);
 
     const date = mockSchedule.mock.calls
       .map(([arg]) => (arg as { trigger: Record<string, unknown> }).trigger)
@@ -164,9 +171,9 @@ describe("rescheduleAll", () => {
 
   it("uses stable reminder ids as notification identifiers", async () => {
     const prefs = makePrefs();
-    await rescheduleAll(prefs, DEFAULT_LOCATION);
+    await rescheduleAll(prefs, SET_LOCATION);
 
-    const built = buildReminders(prefs, DEFAULT_LOCATION);
+    const built = buildReminders(prefs, SET_LOCATION);
     const identifiers = mockSchedule.mock.calls.map(
       ([arg]) => (arg as { identifier: string }).identifier,
     );
@@ -188,10 +195,7 @@ describe("rescheduleAll", () => {
       return "id";
     });
 
-    await Promise.all([
-      rescheduleAll(prefs, DEFAULT_LOCATION),
-      rescheduleAll(prefs, DEFAULT_LOCATION),
-    ]);
+    await Promise.all([rescheduleAll(prefs, SET_LOCATION), rescheduleAll(prefs, SET_LOCATION)]);
 
     expect(ops.indexOf("cancel:end")).toBeLessThan(ops.indexOf("schedule"));
 

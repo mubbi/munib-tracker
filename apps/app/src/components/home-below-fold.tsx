@@ -3,6 +3,7 @@ import { SymbolView, type SymbolViewProps } from "expo-symbols";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { ContinueCard } from "@/components/continue-card";
+import { DefaultLocationBanner } from "@/components/default-location-banner";
 import { DevotionAchievementSummary } from "@/components/devotion-achievement-summary";
 import { ExcusedDayPicker } from "@/components/excused-day-picker";
 import { KnowledgeFlashCard } from "@/components/knowledge-flash-card";
@@ -138,6 +139,7 @@ export function HomeBelowFold({ schedule, nextIn, nextScheduleId }: HomeBelowFol
       <IosPwaInstallBanner />
 
       <Stagger entranceKey="home">
+        <DefaultLocationBanner />
         <SeasonalThemeBanner />
 
         <Card>

@@ -667,7 +667,9 @@
     "facebook": "ফেসবুকের সাথে চালিয়ে যান",
     "heroGuest": "আপনি অতিথি অ্যাকাউন্ট ব্যবহার করছেন। ব্যাকআপ ও সিঙ্কের জন্য একটি প্রোভাইডার সংযুক্ত করুন — কিছুই হারাবে না।",
     "heroUser": "আপনার নামাজ, কাজা ও যিকির ক্লাউডে নিরাপদ রাখতে সাইন ইন করুন।",
-    "error": "সাইন ইন করা যায়নি। API সার্ভার চালু আছে এবং এই প্রোভাইডার কনফিগার করা আছে কিনা দেখুন।"
+    "error": "সাইন ইন করা যায়নি। API সার্ভার চালু আছে এবং এই প্রোভাইডার কনফিগার করা আছে কিনা নিশ্চিত করুন।",
+    "providersUnavailableTitle": "সাইন-ইন এখনও উপলব্ধ নয়",
+    "providersUnavailableBody": "এই বিল্ডে ক্লাউড সিঙ্ক প্রোভাইডার কনফিগার করা নেই। অতিথি হিসেবে চালিয়ে যান — আপনার অগ্রগতি এই ডিভাইসেই থাকবে।"
   },
   "onboarding": {
     "begin": "শুরু",
@@ -717,7 +719,9 @@
     "locationAllow": "অবস্থান ও বিজ্ঞপ্তির অনুমতি দিন",
     "locationLocating": "প্রস্তুত হচ্ছে…",
     "locationSkip": "পরে সাজান",
-    "locationHighlight4": "যখন খুশি এড়িয়ে যান — পরে অবস্থান বা বিজ্ঞপ্তি চালু করুন"
+    "locationHighlight4": "যখন খুশি এড়িয়ে যান — পরে অবস্থান বা বিজ্ঞপ্তি চালু করুন",
+    "chooseLanguage": "ভাষা বেছে নিন",
+    "chooseLanguageHint": "এই পরিচিতি অনুসরণ করতে অ্যাপের ভাষা পরিবর্তন করুন"
   },
   "appearance": {
     "eyebrow": "সেটিংস",
@@ -941,7 +945,9 @@
         "subtitle": "Alert during  Duha window"
       }
     },
-    "groupContent": "দৈনিক content"
+    "groupContent": "দৈনিক content",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "সেটিংস",
@@ -1872,7 +1878,10 @@
       "Tehran": "Iran এবং Shia communities",
       "Turkey": "Turki (Diyanet)",
       "Other": "manually elsewhere সেট"
-    }
+    },
+    "defaultLabel": "মক্কা, সৌদি আরব",
+    "defaultTimesHint": "সালাতের সময় এখন মক্কা অনুসারে। আপনার শহর সেট করলে স্থানীয় সঠিক সময় পাবেন। ততক্ষণ সালাত ও আযানের রিমাইন্ডার বন্ধ থাকবে।",
+    "setLocation": "অবস্থান সেট করুন"
   },
   "moon": {
     "aria": "চাঁদের পর্যায়: {{phase}}",

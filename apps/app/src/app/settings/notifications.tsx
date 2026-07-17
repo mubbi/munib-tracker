@@ -14,6 +14,7 @@ import { ScreenLayout } from "@/components/screen-layout";
 import { Seo } from "@/components/seo/seo";
 import { SettingsRow, ToggleRow } from "@/components/settings/settings-rows";
 import { ThemedText } from "@/components/themed-text";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Stagger } from "@/components/ui/stagger";
@@ -171,6 +172,20 @@ export default function NotificationsScreen() {
       <Seo path="/settings/notifications" />
       <Stagger>
         <NotificationPermissionBanner />
+
+        {location.source === "default" ? (
+          <Card padding="three" style={styles.defaultLocationCard}>
+            <ThemedText type="smallBold">{t("notif.defaultLocationTitle")}</ThemedText>
+            <ThemedText type="small" themeColor="mutedForeground">
+              {t("notif.defaultLocationMessage")}
+            </ThemedText>
+            <Button
+              label={t("location.setLocation")}
+              variant="secondary"
+              onPress={() => router.push("/location")}
+            />
+          </Card>
+        ) : null}
 
         <Card padding="three">
           <ToggleRow
@@ -357,6 +372,9 @@ export default function NotificationsScreen() {
 }
 
 const styles = StyleSheet.create({
+  defaultLocationCard: {
+    gap: Spacing.three,
+  },
   rows: {
     gap: Spacing.two,
     marginTop: Spacing.three,

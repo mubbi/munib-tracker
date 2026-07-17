@@ -666,7 +666,9 @@
     "facebook": "“Facebook” bilen dowam ediň",
     "heroGuest": "Misafir hesaby kullanyyorsunuz. Verilerinizi yedeklemek ve senkronize etmek için bir saglayycy baglayyn — hiçbir şey kaybolmaz.",
     "heroUser": "Namazlarynyzy, kazalarynyzy ve zikirlerinizi bulutta güvende tutmak için giriş yapyn.",
-    "error": "Girmek yapylamady. API sunucusunun çalyştygyndan ve bu saglayycynyn yapylandyryldygyndan emin olun."
+    "error": "Girip bolmady. API serweriniň işleýändigini we bu üpjünçiniň sazlanandygyny barlaň.",
+    "providersUnavailableTitle": "Giriş heniz elýeterli däl",
+    "providersUnavailableBody": "Bu guruluşda bulut sinhron üpjünçileri sazlanmadyk. Myhman hökmünde dowam ediň — öňegidişligiňiz şu enjamda galýar."
   },
   "onboarding": {
     "begin": "Başla",
@@ -716,7 +718,9 @@
     "locationAllow": "Ýerleşişe we bildirişlere rugsat beriň",
     "locationLocating": "Taýýarlanýar…",
     "locationSkip": "Soň sazla",
-    "locationHighlight4": "Islän wagtyňyz geçiriň — ýerleşişi ýa-da bildirişleri soň sazlaň"
+    "locationHighlight4": "Islän wagtyňyz geçiriň — ýerleşişi ýa-da bildirişleri soň sazlaň",
+    "chooseLanguage": "Dili saýlaň",
+    "chooseLanguageHint": "Bu giriş bilen yzarlamak üçin programmanyň dilini üýtgediň"
   },
   "appearance": {
     "eyebrow": "Sazlamalar",
@@ -940,7 +944,9 @@
         "subtitle": "Alert during  Duha window"
       }
     },
-    "groupContent": "Günlük content"
+    "groupContent": "Günlük content",
+    "defaultLocationTitle": "Set your location for Salah alerts",
+    "defaultLocationMessage": "Salah and Adhan reminders need your city. Wall-clock Zikr and Qaza nudges still schedule."
   },
   "fonts": {
     "eyebrow": "Sazlamalar",
@@ -1871,7 +1877,10 @@
       "Tehran": "Iran ve Shia communities",
       "Turkey": "Türkiye (Diyanet)",
       "Other": "manually elsewhere Ayarla"
-    }
+    },
+    "defaultLabel": "Mekke, Saud Arabystany",
+    "defaultTimesHint": "Namaz wagtlary häzir Mekkä görä. Takyk wagtlar üçin şäheriňizi belläň. Namaz we ezan ýatladyjylary şol wagtça öçürilen galýar.",
+    "setLocation": "Ýerleşişi belläň"
   },
   "moon": {
     "aria": "Ay evresi: {{phase}}",
