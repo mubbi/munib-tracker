@@ -111,14 +111,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const lastSuccessfulSyncAt = useRef(0);
 
   // Access tokens are short-lived JWTs; rotate them (and the single-use refresh
-  // token) using the stored refresh token. Refresh is single-flight: concurrent
+  // token) using the stored refresh token. Guests must refresh too — Google /
+  // Apple sign-in links the guest via Bearer auth, and a stale guest JWT surfaces
+  // as "Invalid or expired access token". Refresh is single-flight: concurrent
   // callers (boot, foreground, a 401 retry) await the same rotation so the
   // one-time refresh token can't be double-spent into a revoked session.
   const refresh = useCallback((): Promise<StoredSession | null> => {
     if (refreshInFlight.current) return refreshInFlight.current;
     const run = (async (): Promise<StoredSession | null> => {
       const current = await SessionStore.get();
-      if (current?.accountType !== "user" || !current.refreshToken) return current;
+      if (!current?.refreshToken) return current;
       try {
         const stored = toStored(await refreshSession(current.refreshToken));
         try {
@@ -258,29 +260,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const current = await SessionStore.get();
       if (current?.accountType === "guest") {
-        const linkPayload: OAuthPayload =
-          kind === "accessToken"
-            ? { accessToken: payload.accessToken }
-            : kind === "identityToken"
-              ? {
-                  idToken: payload.identityToken ?? payload.idToken,
-                  displayName: payload.displayName,
-                }
-              : {
-                  code: payload.code,
-                  codeVerifier: payload.codeVerifier,
-                  redirectUri: payload.redirectUri,
-                  displayName: payload.displayName,
-                };
-        try {
-          const dto = await linkAccount(current.accessToken, provider, linkPayload);
-          await persist(dto);
-          void syncNow();
-          return;
-        } catch (error) {
-          // Returning user: this OAuth identity already owns another account.
-          // Fall through to normal sign-in instead of failing the "Sign in" button.
-          if (!(error instanceof ApiError) || error.status !== 409) throw error;
+        // Rotate the guest access JWT before linking — guests share the same
+        // short-lived TTL as signed-in users.
+        const fresh = (await refresh()) ?? (await SessionStore.get());
+        if (fresh?.accountType === "guest") {
+          const linkPayload: OAuthPayload =
+            kind === "accessToken"
+              ? { accessToken: payload.accessToken }
+              : kind === "identityToken"
+                ? {
+                    idToken: payload.identityToken ?? payload.idToken,
+                    displayName: payload.displayName,
+                  }
+                : {
+                    code: payload.code,
+                    codeVerifier: payload.codeVerifier,
+                    redirectUri: payload.redirectUri,
+                    displayName: payload.displayName,
+                  };
+          try {
+            const dto = await linkAccount(fresh.accessToken, provider, linkPayload);
+            await persist(dto);
+            void syncNow();
+            return;
+          } catch (error) {
+            // 409: OAuth identity already owns another account → sign into that one.
+            // 401: guest session unusable after refresh → still complete OAuth sign-in.
+            if (!(error instanceof ApiError) || (error.status !== 409 && error.status !== 401)) {
+              throw error;
+            }
+          }
         }
       }
 
@@ -288,7 +297,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await persist(dto);
       void syncNow();
     },
-    [persist, syncNow],
+    [persist, refresh, syncNow],
   );
 
   const signInAsGuest = useCallback(async () => {
@@ -321,9 +330,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Push the guest's local data up to the newly linked account.
         void syncNow();
       } catch (error) {
-        // Provider identity already belongs to another user — sign into that
-        // account instead of leaving the guest stranded on a 409.
-        if (!(error instanceof ApiError) || error.status !== 409) throw error;
+        // 409: identity belongs to another user. 401: guest JWT unusable.
+        // Either way, complete a normal OAuth sign-in instead of stranding the UI.
+        if (!(error instanceof ApiError) || (error.status !== 409 && error.status !== 401)) {
+          throw error;
+        }
         await signInWithProvider(provider, payload);
       }
     },
