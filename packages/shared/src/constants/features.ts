@@ -75,7 +75,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Full mushaf: surah, juz, 604-page view, word-by-word, and tajweed coloring",
       "25 translation editions (two bundled), 123 tafsir editions on demand, eight reciters",
       "Bundled Nawawi 40 & Riyad as-Salihin; six major collections on demand",
-      "271 duas, 54 adhkar, nine duroods, 99 Names, and universal fuzzy search",
+      "270 duas, 54 adhkar, nine duroods, 99 Names, and universal fuzzy search",
     ],
   },
   {
@@ -87,7 +87,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Aqeedah (24 topics), 25 prophets, 30-event seerah, and 21 major battles",
       "Jannah (45 topics), Jahannam (16), and the Last Day (20) with an interactive quiz",
       "Sahaba (30), early Islamic history (15), learn dua (46), and new-Muslim guide (18)",
-      "Laylat al-Qadr, Eid, ruqyah, and Islamic finance — every lesson cited to source",
+      "Laylat al-Qadr, Eid, Friday/Jumu'ah, ruqyah, and Islamic finance — every lesson cited to source",
     ],
   },
   {
@@ -109,7 +109,7 @@ export const APP_FEATURE_PILLARS: AppFeaturePillar[] = [
       "Learn how to pray, purify, fast, and give — practical fiqh guides with checklists, calculators, and clear evidence.",
     highlights: [
       "Salah guide (24 lessons) plus taharah (28 topics) with a daily checklist",
-      "Zakat calculator, sadaqah tracking, and a 60-step hajj & umrah tracker",
+      "Zakat calculator, Friday/Jumu'ah hub, and a 60-step hajj & umrah tracker",
       "Travel (qasr/jam'), illness, and hayd — worship at your capacity",
       "Ramadan tracker, tahajjud log, and khushu' prayer journal",
     ],
@@ -199,7 +199,7 @@ export const APP_HOME_FEATURES: AppHomeFeature[] = [
   },
   {
     id: "dhikr",
-    title: "Dhikr & tasbeeh",
+    title: "Zikr & tasbeeh",
     description: "Remember Allah throughout the day with categorized adhkar and a tactile counter.",
     icon: "dhikr",
   },
@@ -228,7 +228,7 @@ export const APP_HOME_FEATURES: AppHomeFeature[] = [
     id: "guides",
     title: "Worship guides",
     description:
-      "How to pray, make wudu, calculate zakat, and perform hajj — practical fiqh, step by step.",
+      "How to pray, make wudu, calculate zakat, prepare for Friday, and perform hajj — practical fiqh, step by step.",
     icon: "guides",
   },
   {
@@ -294,7 +294,7 @@ export const APP_ACHIEVEMENTS = [
   },
   {
     name: "Zikr Track",
-    trigger: "Complete remembrance sessions — milestones scale with your dhikr habit",
+    trigger: "Complete remembrance sessions — milestones scale with your zikr habit",
   },
   {
     name: "Consistency Track",

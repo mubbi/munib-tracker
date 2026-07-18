@@ -172,17 +172,15 @@ plain redistribution (rare — usually you'd just fetch those via API instead).
 | **fitrahive/dua-dhikr** (GitHub) | "Authentic Sunnah Dua & Dhikr" REST API, categorized, Arabic + translit + translation + source | Open | ✅ Clean structure that maps directly to your `DuaItem`/`ZikrItem`. |
 | **Seen-Arabic/Morning-And-Evening-Adhkar-DB** | Morning/evening adhkar, Arabic + English, **JSON/CSV/SQL/SQLite** | Open | ✅ Great for the morning/evening categories you already have. |
 | **wafaaelmaandy/Hisn-Muslim-Json** | Full Hisnul Muslim, Arabic + English JSON | Open | ✅ Full Fortress-of-the-Muslim corpus. |
-| **ThelightHub/dua-api** | Hisnul Muslim book 1, Arabic + Bengali segments (~133 chapters) | Open API | ✅ **Shipped** in `build-adhkar.mjs` for `bn` (~128/270 duas matched by Arabic prefix). |
+| **ThelightHub/dua-api** | Hisnul Muslim book 1, Arabic + Bengali segments (~133 chapters) | Open API | ✅ **Shipped** in `build-adhkar.mjs` for `bn` (~158/270 duas matched by Arabic prefix). |
 | **fitrahive/dua-dhikr** | Subset of duas, Indonesian | Open | ✅ Partial `id` translations in adhkar pipeline. |
 | **BetimShala/mburoja-api** | Hisnul Muslim chapters + invocations API | Open | ◻︎ Alternative API form. |
 | **ahegazy/muslimKit azkar JSON** | Azkar with `zekr`, `repeat`, `bless`(source) | Open | ✅ Includes repeat-count → maps to your `targetCount`. |
 
-**Recommendation:** **Bundle** a processed Hisnul Muslim dataset into
-`packages/shared/src/content/` (or `assets/adhkar/*.json`), mapped onto your existing
-`ZikrItem`/`DuaItem` shapes (`arabic, transliteration, translation, virtues, reference,
-targetCount, categoryId`). Cross-check every dua's **reference** field against Hisnul Muslim's cited
-Qur'an/Hadith. Bump `ZIKR_CONTENT_VERSION` / `DUA_CONTENT_VERSION` to trigger re-seed via
-`migrations.ts`. This is the highest-value, lowest-risk expansion — do it first.
+**Status:** **Shipped** — full Hisnul Muslim corpus (**270** duas + expanded adhkar/duroods) lives in
+`packages/shared/src/content/` via `build-adhkar.mjs`. Open work is locale coverage (e.g. Bengali
+~158/270) and literary review — see [`BACKLOG.md`](./BACKLOG.md) i18n — not re-bundling the English
+Arabic corpus.
 
 ---
 
@@ -190,9 +188,9 @@ Qur'an/Hadith. Bump `ZIKR_CONTENT_VERSION` / `DUA_CONTENT_VERSION` to trigger re
 
 - Standard **Asma-ul-Husna** list (99) is available in essentially every dataset above
   (fawazahmed0, QUL, muslimKit, awesome-Islam collections) and is uncontroversial.
-- **Bundle** the full 99 into `packages/shared/src/content/names.ts`, keeping your existing shape
-  (`id, arabic, transliteration, translation`) and optionally adding a short `meaning`/`benefit`
-  string. Bump `NAMES_CONTENT_VERSION`.
+- **Shipped** — all 99 in `packages/shared/src/content/names.ts` via `build-names.mjs` (existing
+  shape: `id, arabic, transliteration, translation`; optional `meaning`/`benefit` enrichments only).
+  Bump `NAMES_CONTENT_VERSION` when regenerating.
 
 ---
 
@@ -352,12 +350,13 @@ Ship a **"Data Sources & Credits"** screen listing every dataset + license + lin
   fawazahmed0, cache-first over AsyncStorage (offline after first open).
 - **Hadith:** bundled highlights (40 Nawawi, Riyad as-Salihin) offline + full six books via
   fawazahmed0 CDN (cache-first). Reference + grade always shown ("Ungraded" when absent).
-- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas:** full Hisnul Muslim corpus (~266) across 16 categories — sourced from `sheikhhanif/Hisnul_Muslim_Database` CSV via `build-adhkar.mjs`. Transliteration only where a clean OSS source provides it (never auto-generated).
+- **Content:** complete 99 Names; expanded adhkar/duroods (every item carries a reference). **Duas:** full Hisnul Muslim corpus (**270**) across 16 categories — sourced from `sheikhhanif/Hisnul_Muslim_Database` CSV via `build-adhkar.mjs`. Transliteration only where a clean OSS source provides it (never auto-generated). Bengali meaning coverage ~158/270 (prefix match) — see backlog i18n P3.
 - **Credits screen** renders from `assets/data/manifest.json` (SHA-256 per file) + runtime sources.
 - **Build pipeline:** `pnpm --filter app build:data` (dev/CI only) — cached fetch, validation,
   deterministic committed output.
+- **Adhan call audio (D11):** bundled baseline `adhan.mp3` + remote CDN styles (`Kiwifu/adhan-mp3` via jsDelivr) in `lib/adhan-audio.ts`. Open work: expand the full local MP3 set under `assets/audio/adhan/`.
 
-**Still open:** bundled adhan-call MP3 (D11) — see
+**Still open:** fuller local adhan-call set (D11 expand) — see
 `apps/app/assets/audio/adhan/README.md`. Content audio (`audioUri`, D9) infrastructure is wired but
 play controls stay hidden until real per-item audio URLs are supplied (nothing fabricated).
 

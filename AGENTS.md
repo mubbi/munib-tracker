@@ -32,7 +32,7 @@ Import via workspace package names:
 ## Conventions
 
 - **Lint/format:** Biome at repo root (`pnpm lint`, `pnpm format-and-lint:fix`)
-- **Tests:** Vitest (marketing-web, packages) + Jest (apps/app). No Playwright or Maestro.
+- **Tests:** Vitest (marketing-web, packages) + Jest (apps/app). No Playwright/Maestro **E2E in CI** — Maestro is used only for store screenshot capture (`pnpm screenshots:*`, [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)).
 - **Product theme:** All screens use `useTheme()` from `apps/app/src/providers/theme-provider.tsx` — no hardcoded colors.
 - **Marketing styling:** Tailwind CSS v4.3 with `@source` scanning monorepo packages in `globals.css`.
 - **Fuzzy search:** Fuse.js v7 in `apps/app` — canonical module `apps/app/src/lib/search.ts`. See [apps/app/AGENTS.md](apps/app/AGENTS.md) and `.agents/skills/fuse-js/SKILL.md`.
@@ -89,7 +89,7 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 
 | Doc | Role |
 |-----|------|
-| [`BACKLOG.md`](docs/BACKLOG.md) | Open work (product, i18n, perf, devices) |
+| [`BACKLOG.md`](docs/BACKLOG.md) | Open work (product, i18n, perf, devices, content) |
 | [`FEATURES.md`](docs/FEATURES.md) | Shipped NF-* feature catalog |
 | [`I18N_GUIDE.md`](docs/I18N_GUIDE.md) | 23-locale i18n ops, scripture rules |
 | [`OAUTH_SETUP.md`](docs/OAUTH_SETUP.md) | Google / Apple / Facebook sign-in (native + web) |
@@ -100,6 +100,9 @@ Planning + reference lives in [`docs/`](docs/) — start at [`docs/README.md`](d
 | [`DATA_INGESTION.md`](docs/DATA_INGESTION.md) + [`FREE_OPEN_SOURCE_DATA.md`](docs/FREE_OPEN_SOURCE_DATA.md) | Content pipeline & OSS sources |
 | [`PROFILING.md`](docs/PROFILING.md) | Web/native perf profile + remaining `__common` work |
 | [`NATIVE_SURFACES.md`](docs/NATIVE_SURFACES.md) | Widgets, Live Activities, Siri, Watch, Wear |
+| [`DEVICES.md`](docs/DEVICES.md) | Platform support matrix |
+| [`STORE_ASSETS.md`](docs/STORE_ASSETS.md) | App Store / Play screenshots (Maestro) |
+| [`IOS_APP_COPY.md`](docs/IOS_APP_COPY.md) · [`ANDROID_APP_COPY.md`](docs/ANDROID_APP_COPY.md) | Store listing copy |
 
 ## AI skills (installed via `pnpm dlx skills add`)
 

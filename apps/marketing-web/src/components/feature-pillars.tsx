@@ -60,13 +60,22 @@ function PillarCard({ pillar }: { pillar: AppFeaturePillar }) {
   );
 }
 
-export function FeaturePillars({ limit }: { limit?: number }) {
+export function FeaturePillars({
+  limit,
+  align = "center",
+  eyebrow = "Your companion",
+}: {
+  limit?: number;
+  align?: "center" | "left";
+  eyebrow?: string;
+}) {
   const pillars = limit ? APP_FEATURE_PILLARS.slice(0, limit) : APP_FEATURE_PILLARS;
 
   return (
     <Section
       id="pillars"
-      eyebrow="Your companion"
+      align={align}
+      eyebrow={eyebrow}
       title="Tools for every step of the journey"
       description="From daily salah to clearing qaza, learning your deen, and remembering Allah — Munib Tracker walks with you."
     >

@@ -1,4 +1,10 @@
-import { APP_DESCRIPTION, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import {
+  APP_DESCRIPTION,
+  APP_NAME,
+  APP_TAGLINE,
+  OFFICIAL_ANDROID_PLAY_STORE_URL,
+  OFFICIAL_IOS_APP_STORE_URL,
+} from "@munib-tracker/shared/constants";
 
 import {
   absoluteUrl,
@@ -92,10 +98,12 @@ export function softwareApplicationSchema(): JsonLd {
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     publisher: { "@id": ORGANIZATION_ID },
     image: ogImageUrl,
+    installUrl: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, SEO_ORIGIN],
+    sameAs: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, MARKETING_ORIGIN],
     featureList: [
       "Salah tracking with streaks and calendar",
       "Qaza calculator, planner, and roza tracking",
-      "Dhikr, tasbeeh, and daily adhkar",
+      "Zikr, tasbeeh, and daily adhkar",
       "Offline Qur'an, hadith, duas, and the 99 Names of Allah",
       "Prayer times, Hijri calendar, and qibla compass",
       "Universal offline search and gentle reminders",

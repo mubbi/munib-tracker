@@ -11,14 +11,16 @@ This is a **pnpm + Turborepo** monorepo:
 | **Product app** | `apps/app` | Expo SDK 57 — iOS, Android, Web (single codebase) |
 | **Marketing site** | `apps/marketing-web` | Next.js 16 landing site (port 3000) |
 | **API server** | `apps/api` | NestJS 11 — auth + cloud sync (port 3001) |
+| **Admin console** | `apps/admin` | Next.js ops console (port 3002) — users, reports, broadcasts |
 | `@munib-tracker/shared` | `packages/shared` | Domain types, constants, validators, content, achievements |
+| `@munib-tracker/db` | `packages/db` | Drizzle schema mirror for admin (DDL owned by API TypeORM migrations) |
 | `@munib-tracker/theme` | `packages/theme` | Design tokens, accent palette, `resolveTheme()` |
 | `@munib-tracker/api-contract` | `packages/api-contract` | OpenAPI spec exported from the API |
 | `@munib-tracker/api-client` | `packages/api-client` | Orval-generated fetch + TanStack Query SDK |
 | `@munib-tracker/typescript-config` | `packages/typescript-config` | Shared TS configs |
 | `@munib-tracker/vitest-config` | `packages/vitest-config` | Vitest presets |
 
-**Note:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), and `apps/app web` (Expo, ~8081) are three different apps.
+**Note:** `apps/marketing-web` (port 3000), `apps/api` (port 3001), `apps/admin` (port 3002), and `apps/app` web (Expo, ~8081) are different apps.
 
 ## Prerequisites
 
@@ -123,15 +125,16 @@ pnpm --filter marketing-web test       # Vitest
 pnpm --filter app test                 # Jest + Testing Library RN
 ```
 
-Unit + feature tests only — no Playwright or Maestro E2E.
+Unit + feature tests only — no Playwright or Maestro **E2E in CI**. Maestro drives store screenshot capture (`pnpm screenshots:*`; see [`docs/STORE_ASSETS.md`](docs/STORE_ASSETS.md)).
 
 ## AI agent context
 
 - Root: [`AGENTS.md`](AGENTS.md) — monorepo conventions
 - Product: [`apps/app/AGENTS.md`](apps/app/AGENTS.md) — Expo app + Fuse.js search rules
 - Marketing: [`apps/marketing-web/AGENTS.md`](apps/marketing-web/AGENTS.md)
+- Admin: [`apps/admin/AGENTS.md`](apps/admin/AGENTS.md)
 - API: [`apps/api/AGENTS.md`](apps/api/AGENTS.md) — NestJS backend
-- Planning: [`docs/`](docs) — phased PRD, feature backlog, and content-sourcing plans
+- Planning: [`docs/`](docs) — [`BACKLOG.md`](docs/BACKLOG.md), [`FEATURES.md`](docs/FEATURES.md), and topic guides ([`docs/README.md`](docs/README.md))
 
 Official skills installed: `vercel/turborepo`, `expo/skills`, `vercel/next.js`, plus `.agents/skills/{nestjs,fuse-js}`.
 

@@ -74,7 +74,8 @@ describe("storeReview", () => {
     expect(resolveReviewStoreListingTarget()).toBe("ios");
     const ok = await openReviewStoreListing({ locale: "en" });
     expect(ok).toBe(true);
-    expect(mockOpenURL).toHaveBeenCalledWith(expect.stringContaining("munibtracker.app/download"));
+    expect(mockOpenURL).toHaveBeenCalledWith(expect.stringContaining("apps.apple.com"));
+    expect(mockOpenURL).toHaveBeenCalledWith(expect.stringContaining("id6787222180"));
   });
 
   it("opens store listing URLs directly", async () => {

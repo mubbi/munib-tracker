@@ -125,7 +125,7 @@ export default function PressPage() {
           <li>
             Website: <a href={SITE_URL}>{SITE_URL}</a>
           </li>
-          <li>App: iOS and Google Play (coming soon) · Web app available now</li>
+          <li>App: App Store and Google Play · Web app available now</li>
         </ul>
       </ContentSection>
 

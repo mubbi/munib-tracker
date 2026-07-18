@@ -20,13 +20,12 @@ import {
   WifiOff,
 } from "lucide-react";
 import type { Metadata } from "next";
+import { PageAtmosphere, PageMasthead } from "@/components/content-page";
 import { CtaBand } from "@/components/cta-band";
 import { Section } from "@/components/section";
 import { TrackedButton } from "@/components/tracked-button";
-import { Aurora, IslamicPatternBackdrop } from "@/components/ui/backgrounds";
-import { Badge } from "@/components/ui/badge";
 import { SpotlightCard } from "@/components/ui/interactive";
-import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { SITE_PATHS } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -248,26 +247,16 @@ function AreaGrid({ areas }: { areas: Area[] }) {
 
 export default function LearnPage() {
   return (
-    <>
-      <section className="relative isolate overflow-hidden">
-        <Aurora />
-        <IslamicPatternBackdrop />
-        <div className="relative mx-auto max-w-4xl px-6 py-16 text-center md:px-8 md:py-24">
-          <Reveal>
-            <div className="flex justify-center">
-              <Badge icon={<GraduationCap className="size-3.5 text-brand" />}>
-                Learning library
-              </Badge>
-            </div>
-            <h1 className="mt-6 text-balance font-display text-4xl font-extrabold tracking-tight md:text-6xl">
-              Learn your deen, <span className="text-gradient">deeply</span>
-            </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted">
-              {APP_NAME} is more than a tracker. It&apos;s a structured path reviewed for
-              authenticity — creed, history, the Qur&apos;an, and fiqh with progress, quizzes, and
-              citations on every lesson.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+    <div className="relative flex flex-1 flex-col">
+      <PageAtmosphere />
+
+      <div className="relative mx-auto w-full max-w-6xl px-6 pt-8 md:px-8 md:pt-12">
+        <PageMasthead
+          eyebrow="Learn"
+          title="Learn your deen, deeply"
+          intro={`${APP_NAME} is more than a tracker. It's a structured path reviewed for authenticity — creed, history, the Qur'an, and fiqh with progress, quizzes, and citations on every lesson.`}
+          actions={
+            <>
               <TrackedButton href={SITE_PATHS.download} size="lg" cta="get_app" placement="learn">
                 Get the app
               </TrackedButton>
@@ -280,12 +269,13 @@ export default function LearnPage() {
               >
                 See all features
               </TrackedButton>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+            </>
+          }
+        />
+      </div>
 
       <Section
+        align="left"
         eyebrow="Islamic knowledge"
         title="Creed, history & the Hereafter"
         description="Ground your imaan in what you believe, where you come from, and where you're going."
@@ -294,6 +284,7 @@ export default function LearnPage() {
       </Section>
 
       <Section
+        align="left"
         variant="muted"
         eyebrow="The Qur'an"
         title="Read, understand, and memorize"
@@ -303,6 +294,7 @@ export default function LearnPage() {
       </Section>
 
       <Section
+        align="left"
         eyebrow="Fiqh & how-to"
         title="Practical worship guides"
         description="Clear, evidence-based guides with checklists, calculators, and trackers for everyday worship."
@@ -311,6 +303,7 @@ export default function LearnPage() {
       </Section>
 
       <Section
+        align="left"
         variant="muted"
         eyebrow="Beyond the basics"
         title="Companions, dua & life guides"
@@ -320,6 +313,7 @@ export default function LearnPage() {
       </Section>
 
       <Section
+        align="left"
         eyebrow="Built on trust"
         title="Knowledge you can rely on"
         description="The library is designed to teach faithfully — cited, tracked, and always available."
@@ -342,6 +336,6 @@ export default function LearnPage() {
       </Section>
 
       <CtaBand />
-    </>
+    </div>
   );
 }

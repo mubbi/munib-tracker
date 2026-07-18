@@ -1,7 +1,8 @@
-import { APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import { APP_NAME, APP_TAGLINE, OFFICIAL_IOS_APP_STORE_ID } from "@munib-tracker/shared/constants";
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@/components/analytics";
+import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { SiteBackground } from "@/components/day-arc/site-background";
 import { Footer } from "@/components/footer";
 import { JsonLd } from "@/components/json-ld";
@@ -80,10 +81,13 @@ export const metadata: Metadata = {
     title: APP_NAME,
     statusBarStyle: "black-translucent",
   },
+  other: {
+    "apple-itunes-app": `app-id=${OFFICIAL_IOS_APP_STORE_ID}`,
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#060f1c",
+  themeColor: "#07141f",
   colorScheme: "dark",
 };
 
@@ -101,7 +105,7 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className="day-arc-scope relative isolate flex min-h-full flex-col bg-[#060f1c] text-foreground">
+      <body className="day-arc-scope relative isolate flex min-h-full flex-col bg-[#07141f] text-foreground">
         <SiteBackground />
         <SkipLink />
         <Analytics />
@@ -110,6 +114,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CookieConsentBanner />
       </body>
     </html>
   );

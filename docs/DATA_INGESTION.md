@@ -71,11 +71,11 @@
 | D4 | **Qur'an English audio-translation** | **Streamed**, per-surah | `QuranicAudio.com` (Ibrahim Walk / Saheeh Intl) |
 | D5 | **Hadith — curated highlights (40 Nawawi, Riyad as-Salihin)** | **Bundled JSON**, offline | `AhmedBaset/hadith-json` (build-time; license policy §12) |
 | D6 | **Hadith — full six-books browse/search** | **Live CDN, on-demand**, cached | `fawazahmed0/hadith-api` jsDelivr (no key) |
-| D7 | **Duas + Adhkar → full Hisnul Muslim** | **Bundled static content** (expand existing files) | `wafaaelmaandy/Hisn-Muslim-Json` + `Seen-Arabic/…ADB` |
-| D8 | **Names of Allah → complete 99** | **Bundled static content** | standard Asma-ul-Husna (from fawazahmed0 / muslimKit) |
+| D7 | **Duas + Adhkar → full Hisnul Muslim** | **Bundled** (`packages/shared` via `build-adhkar.mjs`) — **270** duas | `sheikhhanif/Hisnul_Muslim_Database` + related OSS |
+| D8 | **Names of Allah → complete 99** | **Bundled** (`names.ts` via `build-names.mjs`) | standard Asma-ul-Husna (from fawazahmed0 / muslimKit) |
 | D9 | **Dua/Adhkar/99-Names audio** | **Streamed** | Internet Archive (Hisnul Muslim audio, Asma-ul-Husna) |
 | D10 | **Prayer times / Qibla** | **On-device calc (unchanged)** | `adhan` (installed) + `expo-location` |
-| D11 | **Adhan call audio (for notifications)** | **Bundled single MP3 per style** (small) | Internet Archive muezzin clip |
+| D11 | **Adhan call audio (for notifications)** | **Bundled baseline MP3** + remote CDN styles; expand local set | `assets/audio/adhan/` + Kiwifu/adhan-mp3 |
 | D12 | **Integrity, not encryption** | SHA-256 per data file in a manifest; **no encryption of scripture** | `expo-crypto` (installed) |
 
 **Why these specific no-key sources:** `sunnah.com` and `Quran.Foundation` require a
@@ -230,11 +230,11 @@ packages/shared/src/
     quran.ts                          # Surah, Ayah, AyahEdition types (§6)
     hadith.ts                         # HadithItem, HadithCollection types (§6)
   content/
-    duas.ts        (EXPAND)           # → full Hisnul Muslim dua set
-    zikr.ts        (EXPAND)           # → full adhkar set
-    duroods.ts     (EXPAND)
-    names.ts       (EXPAND → 99)
-    hadith-highlights.ts (NEW, optional if not using assets/)
+    duas.ts                           # full Hisnul Muslim (270) — regenerate via build-adhkar.mjs
+    zikr.ts                           # expanded adhkar — regenerate via build-adhkar.mjs
+    duroods.ts                        # regenerate via build-adhkar.mjs
+    names.ts                          # all 99 — regenerate via build-names.mjs
+    hadith-highlights.ts (optional if not using assets/)
     index.ts       (export new)
 ```
 
@@ -352,7 +352,8 @@ required.
 
 ## 7. Content expansion — Duas, Adhkar, Duroods, 99 Names (D7, D8)
 
-**This is Phase 1 — do it first (lowest risk, highest value; no new screens needed).**
+**Phase 1 is shipped** — full Hisnul corpus (**270** duas), expanded adhkar/duroods, and all **99**
+Names. Re-run builders when sources or locale overlays change; do not AI-author religious text.
 
 - Regenerate `packages/shared/src/content/{duas,zikr,duroods,names}.ts` from the §3 sources via
   `build-adhkar.mjs` / `build-names.mjs`.
@@ -363,15 +364,17 @@ required.
   `DuaCategoryId` (`sunnah|quranic|daily`). Hisnul Muslim chapters that don't map cleanly → put in
   `anytime` (adhkar) or `daily`/`sunnah` (duas) and set `chapter`.
 - **Every item must keep a `reference`** (Hisnul Muslim cites Qur'an/Hadith). Do not drop it.
-- **99 Names:** fill `names.ts` to all 99 with `id, arabic, transliteration, translation, meaning?,
+- **99 Names:** `names.ts` holds all 99 with `id, arabic, transliteration, translation, meaning?,
   audioUri?`.
 - **Bump** `ZIKR_CONTENT_VERSION`, `DUA_CONTENT_VERSION`, `DUROOD_CONTENT_VERSION`,
-  `NAMES_CONTENT_VERSION`.
+  `NAMES_CONTENT_VERSION` when regenerating.
 - **No AsyncStorage change** — these are read directly by `src/lib/*` (mirror `zikrByCategory`).
-- Existing tests `content.test.ts` / `zikr.test.ts` must still pass; extend them to assert new counts
-  (e.g. names length === 99) and that every dua has a non-empty `reference`.
+- Existing tests `content.test.ts` / `zikr.test.ts` must still pass; assert names length === 99 and
+  every dua has a non-empty `reference`.
 
-Acceptance: app's existing Zikr/Dua/Names screens now show the full sets with **no UI code change**.
+Open follow-ups (locale overlays, Bengali coverage, per-item `audioUri`): [`BACKLOG.md`](./BACKLOG.md).
+
+Acceptance: Zikr/Dua/Names screens show the full sets with **no UI code change** after regenerate.
 
 ---
 
@@ -462,9 +465,10 @@ Acceptance: app's existing Zikr/Dua/Names screens now show the full sets with **
 - **Transliteration has no separate audio** — reuse the item's Arabic recitation URL for its track.
 - Adhkar/Dua/Name items: show the play button only when the item resolves an `audioUri`. A `ZikrRow`
   / dua row play button calls `play([{ id, title, uri }])`.
-- Adhan-call audio (D11): bundle one small MP3 per style under `apps/app/assets/audio/adhan/`
-  (`require()`d, auto-bundled by Expo); wire to the existing prayer notification flow. Do not autoplay
-  in-app without user action.
+- Adhan-call audio (D11): baseline bundled `adhan.mp3` plus remote CDN styles in `lib/adhan-audio.ts`
+  (notification sound + style picker shipped). Expand additional local MP3s under
+  `apps/app/assets/audio/adhan/` when adding offline styles. Do not autoplay in-app without user
+  action.
 - **Never bundle Qur'an/hadith audio** — stream. Optional "download surah for offline" is out of scope
   unless trivial.
 - **Optional (needs native rebuild, not a new dep):** for lock-screen / background Qur'an playback,

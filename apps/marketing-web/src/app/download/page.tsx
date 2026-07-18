@@ -1,9 +1,14 @@
-import { APP_NAME } from "@munib-tracker/shared/constants";
+import {
+  APP_NAME,
+  OFFICIAL_ANDROID_PLAY_STORE_URL,
+  OFFICIAL_IOS_APP_STORE_URL,
+} from "@munib-tracker/shared/constants";
 import type { LucideIcon } from "lucide-react";
 import { Apple, Globe, Smartphone } from "lucide-react";
 import type { Metadata } from "next";
 import { ContentPage, ContentSection } from "@/components/content-page";
 import { StoreBadges } from "@/components/store-badges";
+import { TrackedButton } from "@/components/tracked-button";
 import { TrackedWebAppButton } from "@/components/tracked-web-app-button";
 import { SpotlightCard } from "@/components/ui/interactive";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
@@ -20,7 +25,10 @@ type Platform = {
   status: string;
   available: boolean;
   description: string;
-  cta: { label: string; href: string } | null;
+  cta:
+    | { kind: "web"; label: string; href: string }
+    | { kind: "store"; label: string; href: string; cta: "get_app" }
+    | null;
 };
 
 const PLATFORMS: Platform[] = [
@@ -31,25 +39,35 @@ const PLATFORMS: Platform[] = [
     available: true,
     description:
       "Use Munib Tracker in any modern browser. Works offline as a progressive web app with notification support and the full learning library.",
-    cta: { label: "Open web app", href: PRODUCT_APP_URL },
+    cta: { kind: "web", label: "Open web app", href: PRODUCT_APP_URL },
   },
   {
     icon: Apple,
     name: "iOS",
-    status: "Coming to the App Store",
-    available: false,
+    status: "App Store",
+    available: true,
     description:
-      "Native tabs, haptics, compass qibla, widgets, Live Activities, Apple Watch, Siri shortcuts, app lock, and Apple Sign In. TestFlight builds available during beta.",
-    cta: null,
+      "Native tabs, haptics, compass qibla, widgets, Live Activities, Apple Watch, Siri shortcuts, app lock, and Apple Sign In.",
+    cta: {
+      kind: "store",
+      label: "Open App Store",
+      href: OFFICIAL_IOS_APP_STORE_URL,
+      cta: "get_app",
+    },
   },
   {
     icon: Smartphone,
     name: "Android",
-    status: "Coming to Google Play",
-    available: false,
+    status: "Google Play",
+    available: true,
     description:
       "Full native experience with magnetometer qibla, home-screen widgets, Wear OS, Assistant shortcuts, app lock, Google Sign In, and local notifications.",
-    cta: null,
+    cta: {
+      kind: "store",
+      label: "Open Google Play",
+      href: OFFICIAL_ANDROID_PLAY_STORE_URL,
+      cta: "get_app",
+    },
   },
 ];
 
@@ -59,7 +77,7 @@ export default function DownloadPage() {
       wide
       eyebrow="Download"
       title="Get the app"
-      intro={`${APP_NAME} runs on iOS, Android, and web from one codebase. Start in the browser today — native store listings are on the way.`}
+      intro={`${APP_NAME} runs on iOS, Android, and web from one codebase. Install from the stores or start in the browser.`}
     >
       <Stagger className="grid gap-5 md:grid-cols-3">
         {PLATFORMS.map((platform) => {
@@ -88,7 +106,18 @@ export default function DownloadPage() {
                 </p>
                 {platform.cta ? (
                   <div className="mt-6">
-                    <TrackedWebAppButton href={platform.cta.href} label={platform.cta.label} />
+                    {platform.cta.kind === "web" ? (
+                      <TrackedWebAppButton href={platform.cta.href} label={platform.cta.label} />
+                    ) : (
+                      <TrackedButton
+                        href={platform.cta.href}
+                        cta={platform.cta.cta}
+                        placement="download"
+                        size="sm"
+                      >
+                        {platform.cta.label}
+                      </TrackedButton>
+                    )}
                   </div>
                 ) : null}
               </SpotlightCard>
@@ -105,8 +134,8 @@ export default function DownloadPage() {
       <ContentSection heading="System requirements">
         <ul className="list-inside list-disc text-muted">
           <li>Web: Chrome, Safari, Firefox, or Edge (latest two versions)</li>
-          <li>iOS 15+ for the native app (when available)</li>
-          <li>Android 8+ for the native app (when available)</li>
+          <li>iOS 15+ for the native app</li>
+          <li>Android 8+ for the native app</li>
           <li>Internet required only for sign-in, sync, and on-demand content downloads</li>
         </ul>
       </ContentSection>

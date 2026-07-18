@@ -1,11 +1,13 @@
 /**
  * Consent-aware GA4 helpers for the marketing site.
  *
- * Cookie consent uses Google Consent Mode v2 so Google’s Privacy & Messaging
- * (default Google cookie consent popup) can grant/deny storage — no custom banner.
+ * Cookie consent uses Google Consent Mode v2: defaults deny storage, then the
+ * first-party banner calls `gtag('consent','update')` when the visitor chooses.
  *
  * Empty `NEXT_PUBLIC_GA_MEASUREMENT_ID` disables GA entirely.
  */
+
+import type { ConsentPreferences } from "@/lib/consent-storage";
 
 export type GtagEventParams = Record<string, string | number | boolean | undefined>;
 
@@ -50,6 +52,19 @@ export function ensureGtag(): GtagFn | null {
 /** True once the gtag runtime is present (script may still be loading). */
 export function isGoogleAnalyticsReady(): boolean {
   return Boolean(getGaMeasurementId() && browserGlobal()?.gtag);
+}
+
+/** Apply Consent Mode v2 from cookie preferences (ads always denied). */
+export function applyAnalyticsFromCookiePreferences(prefs: ConsentPreferences): void {
+  const gtag = ensureGtag();
+  if (!gtag) return;
+
+  gtag("consent", "update", {
+    analytics_storage: prefs.analytics ? "granted" : "denied",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
 }
 
 export function trackGtagEvent(eventName: string, params?: GtagEventParams): void {

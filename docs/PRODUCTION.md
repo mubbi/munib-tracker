@@ -8,6 +8,8 @@ Canonical URLs live in [`packages/shared/src/constants/site.ts`](../packages/sha
 | API (`apps/api`) | `https://api.munibtracker.app` | `CORS_ORIGINS`, `DATABASE_*`, `JWT_SECRET`, OAuth secrets (see below) |
 | Expo web (`apps/app`) | `https://my.munibtracker.app` | `EXPO_PUBLIC_API_URL`, `EXPO_PUBLIC_APP_URL` / `EXPO_PUBLIC_WEB_APP_ORIGIN`, `EXPO_PUBLIC_SITE_URL`, OAuth client IDs |
 | Admin (`apps/admin`) | `https://admin.munibtracker.app` | `DATABASE_URL`, `ADMIN_SESSION_SECRET`, Google admin OAuth, `ADMIN_CRON_SECRET`, VAPID (see [ADMIN.md](./ADMIN.md)) |
+| App Store | `https://apps.apple.com/app/id6787222180` | ID `6787222180`, bundle `app.munibtracker` (`OFFICIAL_IOS_APP_STORE_*`) |
+| Google Play | `https://play.google.com/store/apps/details?id=app.munibtracker` | Package `app.munibtracker` (`OFFICIAL_ANDROID_*`) |
 
 ## CORS
 
@@ -73,7 +75,7 @@ Git auto-deploy is off (`git.deploymentEnabled: false`) — deploy with the Verc
 - Cron (cron-job.org every 15 min): `GET|POST https://admin.munibtracker.app/api/cron/process-broadcasts` with `Authorization: Bearer $ADMIN_CRON_SECRET`
 - Web Push: set the same VAPID pair on admin (`VAPID_PUBLIC_KEY` + `VAPID_PRIVATE_KEY`); set `VAPID_PUBLIC_KEY` on the API so `GET /api/v1/notifications/vapid-public-key` works for the PWA
 
-Web export uses Expo Router **`asyncRoutes` (web only)** and ships ~458 JS chunks. Home critical-path size / Lighthouse lab scores: [`PROFILING.md`](./PROFILING.md). After deploy, optional CrUX/field Web Vitals remain open.
+Web export uses Expo Router **`asyncRoutes` (web only)** and ships ~468 JS chunks (2026-07-12 measure). Home critical-path size / Lighthouse lab scores: [`PROFILING.md`](./PROFILING.md). After deploy, optional CrUX/field Web Vitals remain open.
 
 Set env vars per project from `apps/*/.env.example`.
 
@@ -176,7 +178,7 @@ Production client env (baked at build time):
 | `NEXT_PUBLIC_SITE_URL` | `https://munibtracker.app` |
 | `NEXT_PUBLIC_PRODUCT_APP_URL` | `https://my.munibtracker.app` |
 | `NEXT_PUBLIC_API_URL` | `https://api.munibtracker.app/api/v1` (if the site calls the API) |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | `G-XXXXXXXX` (optional GA4; empty disables). Enable Google Privacy & Messaging for the cookie consent popup |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | `G-XXXXXXXX` (optional GA4; empty disables). First-party cookie banner + Consent Mode v2 gates analytics storage |
 
 ## Verify after deploy
 
@@ -187,4 +189,4 @@ curl -sI https://munibtracker.app/
 curl -sI https://admin.munibtracker.app/
 ```
 
-Deep-link well-known files (when shipped): see [DEEP_LINKS.md](./DEEP_LINKS.md).
+Deep-link well-known files: generated at web/export build (`apps/app/scripts/generate-well-known.mjs`); verify hosts + env fingerprints per [DEEP_LINKS.md](./DEEP_LINKS.md) and the Auth ops backlog.

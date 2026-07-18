@@ -47,21 +47,6 @@ export function trackSelectContent(params: {
   });
 }
 
-export function trackDemoEngage(params: {
-  demo: "audio_recitation" | "prayer_progress";
-  action: "play" | "pause" | "complete" | "toggle_prayer";
-  prayer?: string;
-  completed_count?: number;
-}): void {
-  trackGtagEvent("demo_engage", {
-    demo: params.demo,
-    action: params.action,
-    ...(params.prayer ? { prayer: params.prayer } : {}),
-    ...(params.completed_count !== undefined ? { completed_count: params.completed_count } : {}),
-    placement: "features",
-  });
-}
-
 export function trackFileDownload(params: {
   file_name: string;
   link_url: string;
@@ -104,4 +89,11 @@ export function trackWebDemoLaunch(placement: DownloadPlacement): void {
 
 export function trackMarketingEvent(eventName: string, params?: GtagEventParams): void {
   trackGtagEvent(eventName, params);
+}
+
+export function trackCookieConsent(
+  action: "accept_all" | "essential_only" | "save_choices",
+  prefs: { analytics: boolean },
+): void {
+  trackGtagEvent("cookie_consent", { action, analytics: prefs.analytics });
 }

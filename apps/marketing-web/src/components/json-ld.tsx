@@ -1,4 +1,10 @@
-import { APP_DESCRIPTION, APP_NAME, APP_TAGLINE } from "@munib-tracker/shared/constants";
+import {
+  APP_DESCRIPTION,
+  APP_NAME,
+  APP_TAGLINE,
+  OFFICIAL_ANDROID_PLAY_STORE_URL,
+  OFFICIAL_IOS_APP_STORE_URL,
+} from "@munib-tracker/shared/constants";
 import type { FaqItem } from "@/lib/faq";
 import { PRODUCT_APP_URL, SITE_URL } from "@/lib/site";
 
@@ -18,17 +24,17 @@ export function JsonLd() {
     },
     url: SITE_URL,
     downloadUrl: PRODUCT_APP_URL,
+    installUrl: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, PRODUCT_APP_URL],
+    sameAs: [OFFICIAL_IOS_APP_STORE_URL, OFFICIAL_ANDROID_PLAY_STORE_URL, PRODUCT_APP_URL],
     featureList: [
       "Salah tracking with streaks and calendar",
       "Qaza calculator, planner, and roza tracking",
-      "Dhikr, tasbeeh, and daily adhkar",
+      "Zikr, tasbeeh, and daily adhkar",
       "Offline Qur'an, hadith, duas, and 99 Names",
       "Learning library: aqeedah, prophets, seerah, and the Hereafter",
       "Learn the Qur'an: Arabic letters, tajweed, and memorization",
-      "Worship guides: salah, wudu, zakat calculator, and hajj checklist",
+      "Worship guides: salah, wudu, zakat calculator, Friday hub, and hajj checklist",
       "Prayer times, Hijri calendar, and qibla compass",
-      "Universal search and gentle reminders",
-      "Optional cloud sync",
     ],
     inLanguage: ["en", "ar", "ur"],
     isAccessibleForFree: true,

@@ -16,17 +16,21 @@ export const OFFICIAL_ANDROID_PACKAGE = "app.munibtracker" as const;
 /** iOS bundle identifier (App Store / TestFlight). */
 export const OFFICIAL_IOS_BUNDLE_IDENTIFIER = "app.munibtracker" as const;
 
+/** Numeric App Store Connect / iTunes app ID. */
+export const OFFICIAL_IOS_APP_STORE_ID = "6787222180" as const;
+
 /**
- * iOS download / App Store URL. Points to the marketing download page until a
- * live App Store listing ID is available — update when the app ships.
+ * Official App Store listing URL.
+ * Uses the numeric app ID so the link resolves as soon as the listing is live.
  */
-export const OFFICIAL_IOS_APP_STORE_URL = `${OFFICIAL_SITE_ORIGIN}/download` as const;
+export const OFFICIAL_IOS_APP_STORE_URL =
+  `https://apps.apple.com/app/id${OFFICIAL_IOS_APP_STORE_ID}` as const;
 
 /** Official Google Play listing for the native Android app. */
 export const OFFICIAL_ANDROID_PLAY_STORE_URL =
   `https://play.google.com/store/apps/details?id=${OFFICIAL_ANDROID_PACKAGE}` as const;
 
-/** App locales supported in the product (en, ar, ur). */
+/** App locales supported for storefront URL hints (en, ar, ur). */
 export type AppLocaleCode = "en" | "ar" | "ur";
 
 export function normalizeAppLocale(raw?: string): AppLocaleCode {
@@ -34,12 +38,19 @@ export function normalizeAppLocale(raw?: string): AppLocaleCode {
   return "en";
 }
 
-/** Localized App Store URL — adds a lang hint for non-English locales. */
+/** App Store country path for a UI locale hint (Apple still geo-routes by storefront). */
+const IOS_STORE_COUNTRY: Record<AppLocaleCode, string | null> = {
+  en: null,
+  ar: "sa",
+  ur: "pk",
+};
+
+/** Localized App Store URL — optional country storefront for ar/ur. */
 export function buildLocalizedIosAppStoreUrl(rawLocale?: string): string {
   const locale = normalizeAppLocale(rawLocale);
-  if (locale === "en") return OFFICIAL_IOS_APP_STORE_URL;
-  const separator = OFFICIAL_IOS_APP_STORE_URL.includes("?") ? "&" : "?";
-  return `${OFFICIAL_IOS_APP_STORE_URL}${separator}lang=${locale}`;
+  const country = IOS_STORE_COUNTRY[locale];
+  if (!country) return OFFICIAL_IOS_APP_STORE_URL;
+  return `https://apps.apple.com/${country}/app/id${OFFICIAL_IOS_APP_STORE_ID}`;
 }
 
 /** Localized Google Play URL (`hl` query per Play Console locale). */

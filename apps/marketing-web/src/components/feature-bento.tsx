@@ -59,7 +59,7 @@ const TILES: Tile[] = [
   {
     id: "dhikr_tasbeeh",
     icon: Hand,
-    title: "Dhikr & tasbeeh",
+    title: "Zikr & tasbeeh",
     description:
       "Morning, evening, and situational adhkar (54 items) with a tactile counter, custom targets, and a custom adhkar builder.",
     href: SITE_PATHS.features,
@@ -89,8 +89,8 @@ const TILES: Tile[] = [
     icon: ScrollText,
     title: "Step-by-step worship guides",
     description:
-      "Learn how to pray, make wudu, calculate zakat, and perform hajj — practical fiqh with checklists, evidence, and a khushu' journal.",
-    chips: ["Salah guide", "Zakat calc", "60 hajj steps", "Taharah"],
+      "Learn how to pray, make wudu, calculate zakat, prepare for Friday, and perform hajj — practical fiqh with checklists, evidence, and a khushu' journal.",
+    chips: ["Salah guide", "Friday", "Zakat calc", "60 hajj steps"],
     href: SITE_PATHS.learn,
     span: "lg:col-span-3",
   },

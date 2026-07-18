@@ -1,10 +1,73 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Aurora } from "@/components/ui/backgrounds";
 import { Reveal } from "@/components/ui/motion";
 import { SITE_PATHS } from "@/lib/site";
 import { cn } from "@/lib/utils";
+
+/** Soft radial wash under the sticky chrome — fades out, no hard band. */
+export function PageAtmosphere() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[28rem]">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_-5%,rgba(52,211,153,0.10),transparent_68%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_12%_18%,rgba(226,192,138,0.07),transparent_60%)]" />
+    </div>
+  );
+}
+
+type PageMastheadProps = {
+  eyebrow?: string;
+  title: ReactNode;
+  intro?: ReactNode;
+  /** Optional CTAs or secondary content under the intro. */
+  actions?: ReactNode;
+  className?: string;
+};
+
+/**
+ * Shared page masthead for marketing/content pages — back link, eyebrow,
+ * title, intro, optional actions, and a soft hairline before body content.
+ */
+export function PageMasthead({ eyebrow, title, intro, actions, className }: PageMastheadProps) {
+  return (
+    <header className={cn("relative pb-12 md:pb-16", className)}>
+      <Link
+        href={SITE_PATHS.home}
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-white/55 transition-colors hover:text-brand"
+      >
+        <ArrowLeft className="size-4" />
+        Back to home
+      </Link>
+      <Reveal>
+        {eyebrow ? (
+          <p className="mt-10 text-sm font-semibold uppercase tracking-[0.18em] text-brand md:mt-12">
+            {eyebrow}
+          </p>
+        ) : null}
+        <h1
+          className={cn(
+            "max-w-3xl text-balance font-display text-4xl font-extrabold tracking-tight text-white md:text-5xl",
+            eyebrow ? "mt-3" : "mt-10 md:mt-12",
+          )}
+        >
+          {title}
+        </h1>
+        {intro ? (
+          <p className="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-white/70 md:mt-6">
+            {intro}
+          </p>
+        ) : null}
+        {actions ? (
+          <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10">{actions}</div>
+        ) : null}
+      </Reveal>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
+      />
+    </header>
+  );
+}
 
 type ContentPageProps = {
   eyebrow?: string;
@@ -12,43 +75,29 @@ type ContentPageProps = {
   intro?: string;
   children: ReactNode;
   wide?: boolean;
+  actions?: ReactNode;
 };
 
 /** Shared shell for long-form marketing/legal pages. */
-export function ContentPage({ eyebrow, title, intro, children, wide = false }: ContentPageProps) {
+export function ContentPage({
+  eyebrow,
+  title,
+  intro,
+  children,
+  wide = false,
+  actions,
+}: ContentPageProps) {
   return (
     <div className="relative flex flex-1 flex-col">
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[26rem]">
-        <Aurora className="opacity-70" />
-        <div className="islamic-tiles-soft absolute inset-0 opacity-[0.14] [mask-image:radial-gradient(90%_80%_at_15%_20%,#000_0%,rgba(0,0,0,0.45)_50%,transparent_80%)]" />
-      </div>
+      <PageAtmosphere />
       <article
         className={cn(
-          "relative mx-auto w-full px-6 py-14 md:px-8 md:py-20",
+          "relative mx-auto w-full px-6 pb-20 pt-8 md:px-8 md:pb-28 md:pt-12",
           wide ? "max-w-4xl" : "max-w-3xl",
         )}
       >
-        <Link
-          href={SITE_PATHS.home}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-brand"
-        >
-          <ArrowLeft className="size-4" />
-          Back to home
-        </Link>
-        <Reveal>
-          {eyebrow ? (
-            <p className="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-brand">
-              {eyebrow}
-            </p>
-          ) : null}
-          <h1 className="mt-3 text-balance font-display text-4xl font-extrabold tracking-tight md:text-5xl">
-            {title}
-          </h1>
-          {intro ? (
-            <p className="mt-5 text-pretty text-lg leading-relaxed text-muted">{intro}</p>
-          ) : null}
-        </Reveal>
-        <div className="mt-12 flex flex-col gap-10 text-base leading-relaxed">{children}</div>
+        <PageMasthead eyebrow={eyebrow} title={title} intro={intro} actions={actions} />
+        <div className="mt-10 flex flex-col gap-12 md:mt-12">{children}</div>
       </article>
     </div>
   );
@@ -58,9 +107,7 @@ export function ContentPage({ eyebrow, title, intro, children, wide = false }: C
 export function ContentSection({ heading, children }: { heading: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="font-display text-xl font-semibold tracking-tight text-foreground">
-        {heading}
-      </h2>
+      <h2 className="font-display text-xl font-semibold tracking-tight text-white">{heading}</h2>
       {children}
     </section>
   );

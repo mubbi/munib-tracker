@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/ui/motion";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +15,7 @@ type SectionProps = {
 
 const variantClasses = {
   default: "",
-  muted: "border-y border-white/10 bg-white/[0.03]",
+  muted: "bg-white/[0.025]",
   "hero-band": "border-y border-white/10 bg-[#0a1c2e]/45 text-white",
 };
 
@@ -38,11 +37,22 @@ export function Section({
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <Reveal>
           <div className={cn("max-w-2xl", centered && "mx-auto text-center")}>
-            {eyebrow ? <Badge tone={isHeroBand ? "hero" : "default"}>{eyebrow}</Badge> : null}
+            {eyebrow ? (
+              isHeroBand ? (
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-hero-gold">
+                  {eyebrow}
+                </p>
+              ) : (
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand">
+                  {eyebrow}
+                </p>
+              )
+            ) : null}
             <h2
               className={cn(
-                "mt-5 text-balance font-display text-3xl font-bold tracking-tight md:text-[2.6rem] md:leading-[1.1]",
-                isHeroBand ? "text-hero-text" : "text-foreground",
+                "text-balance font-display text-3xl font-bold tracking-tight text-white md:text-[2.35rem] md:leading-[1.15]",
+                eyebrow ? "mt-3" : null,
+                isHeroBand && "text-hero-text",
               )}
             >
               {title}
@@ -51,7 +61,7 @@ export function Section({
               <p
                 className={cn(
                   "mt-4 text-pretty text-lg leading-relaxed",
-                  isHeroBand ? "text-hero-muted" : "text-muted",
+                  isHeroBand ? "text-hero-muted" : "text-white/65",
                 )}
               >
                 {description}
@@ -59,7 +69,7 @@ export function Section({
             ) : null}
           </div>
         </Reveal>
-        {children ? <div className="mt-14">{children}</div> : null}
+        {children ? <div className="mt-12 md:mt-14">{children}</div> : null}
       </div>
     </section>
   );

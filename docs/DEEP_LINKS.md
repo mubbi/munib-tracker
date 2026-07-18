@@ -13,6 +13,9 @@ Munib Tracker uses a **custom URL scheme** (`munib-tracker://`) for widgets, Sir
 | Custom scheme | `munib-tracker` | `apps/app/app.json` → `expo.scheme` |
 | iOS bundle ID | `app.munibtracker` | `app.json` → `ios.bundleIdentifier` |
 | Android package | `app.munibtracker` | `app.json` → `android.package` |
+| App Store ID | `6787222180` | App Store Connect numeric ID |
+| App Store URL | `https://apps.apple.com/app/id6787222180` | `OFFICIAL_IOS_APP_STORE_URL` in `@munib-tracker/shared` |
+| Play Store URL | `https://play.google.com/store/apps/details?id=app.munibtracker` | `OFFICIAL_ANDROID_PLAY_STORE_URL` |
 | Product web origin | `https://my.munibtracker.app` | `EXPO_PUBLIC_APP_URL` |
 | Marketing site | `https://munibtracker.app` | `EXPO_PUBLIC_SITE_URL` |
 
@@ -84,7 +87,7 @@ Static paths live in `DEEP_LINK_PATHS` (asserted against `QUICK_ACTION_ROUTES` i
 
 ### Learning hubs
 
-`/salah-guide`, `/learn-quran`, `/learn-dua`, `/jannah`, `/jahannam`, `/last-day`, `/battles`, `/prophets`, `/aqeedah`, `/taharah`, `/travel`, `/hajj`, `/seerah`, `/zakat`, `/sahaba`, `/history`, `/laylat-al-qadr`, `/eid`, `/ruqyah`, `/new-muslim`, `/finance`, `/flash-cards`
+`/salah-guide`, `/learn-quran`, `/learn-dua`, `/jannah`, `/jahannam`, `/last-day`, `/last-third-night`, `/battles`, `/prophets`, `/aqeedah`, `/taharah`, `/travel`, `/hajj`, `/seerah`, `/zakat`, `/sahaba`, `/history`, `/laylat-al-qadr`, `/eid`, `/friday`, `/ruqyah`, `/new-muslim`, `/finance`, `/flash-cards`
 
 ### Settings (common)
 

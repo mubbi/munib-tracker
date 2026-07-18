@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { MosqueSkyline } from "@/components/day-arc/mosque-skyline";
 import { trackOutboundClick, trackWebDemoLaunch } from "@/lib/analytics";
+import { openCookiePreferences } from "@/lib/cookie-preferences-events";
+import { isGoogleAnalyticsConfigured } from "@/lib/gtag";
 import { FOOTER_GROUPS, PRODUCT_APP_URL, SITE_PATHS } from "@/lib/site";
 
 const COPYRIGHT_YEAR = 2026;
@@ -13,6 +15,7 @@ const COPYRIGHT_YEAR = 2026;
 /** Day Arc footer — the night at the end of the journey: starlit sky, girih
  *  lattice, and the mosque resting over still water beneath the links. */
 export function Footer() {
+  const showCookiePreferences = isGoogleAnalyticsConfigured();
   return (
     <footer className="relative mt-auto overflow-x-hidden border-t border-white/10 bg-[linear-gradient(180deg,#0a1830_0%,#0b2226_55%,#04101a_100%)] text-white">
       {/* Night texture: pattern + twinkling stars */}
@@ -126,6 +129,17 @@ export function Footer() {
                       )}
                     </li>
                   ))}
+                  {group.heading === "Legal" && showCookiePreferences ? (
+                    <li>
+                      <button
+                        type="button"
+                        className="block w-full cursor-pointer border-0 bg-transparent p-0 text-left text-sm whitespace-nowrap text-white/65 transition-colors hover:text-white"
+                        onClick={() => openCookiePreferences()}
+                      >
+                        Cookie preferences
+                      </button>
+                    </li>
+                  ) : null}
                 </ul>
               </div>
             ))}

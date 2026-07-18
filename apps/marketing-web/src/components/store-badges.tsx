@@ -1,9 +1,12 @@
 "use client";
 
+import {
+  OFFICIAL_ANDROID_PLAY_STORE_URL,
+  OFFICIAL_IOS_APP_STORE_URL,
+} from "@munib-tracker/shared/constants";
 import { Globe } from "lucide-react";
-import Link from "next/link";
 import { type DownloadPlacement, trackDownloadClick, trackWebDemoLaunch } from "@/lib/analytics";
-import { PRODUCT_APP_URL, SITE_PATHS } from "@/lib/site";
+import { PRODUCT_APP_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type StoreBadgesProps = {
@@ -25,9 +28,11 @@ export function StoreBadges({
 
   return (
     <div className={cn(flexClass, className)}>
-      <Link
-        href={SITE_PATHS.download}
-        aria-label="View iOS download options"
+      <a
+        href={OFFICIAL_IOS_APP_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Download Munib Tracker on the App Store"
         className={badge}
         data-analytics-event="download_ios_click"
         onClick={() => trackDownloadClick("ios", placement)}
@@ -39,11 +44,13 @@ export function StoreBadges({
             App Store
           </span>
         </span>
-      </Link>
+      </a>
 
-      <Link
-        href={SITE_PATHS.download}
-        aria-label="View Android download options"
+      <a
+        href={OFFICIAL_ANDROID_PLAY_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Get Munib Tracker on Google Play"
         className={badge}
         data-analytics-event="download_android_click"
         onClick={() => trackDownloadClick("android", placement)}
@@ -57,7 +64,7 @@ export function StoreBadges({
             Google Play
           </span>
         </span>
-      </Link>
+      </a>
 
       <a
         href={PRODUCT_APP_URL}

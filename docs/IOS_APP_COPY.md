@@ -2,6 +2,8 @@
 
 > **Last updated:** July 2026
 >
+> **App Store Connect ID:** `6787222180` · **Bundle ID:** `app.munibtracker` · **Public URL:** https://apps.apple.com/app/id6787222180
+>
 > Covers all **23 app-shipped locales** from [`packages/shared/src/i18n/locale-registry.ts`](../packages/shared/src/i18n/locale-registry.ts), plus **7 optional ASO-only locales** (de, es, hi, pt-BR, ja, vi, zh) for markets where the in-app UI is English today. Each section follows the same structure so you can copy-paste directly into App Store Connect.
 >
 > **Character limits are strictly enforced by Apple.** An estimated count is noted after each field.
@@ -65,7 +67,7 @@ Structured lessons on aqeedah, the 25 prophets, the seerah timeline, major battl
 Accurate times for your location (GPS or city search). Hijri calendar with Islamic events. Qibla compass with alignment haptic on native. Optional adhan at prayer time.
 
 **GUIDES & SEASONS**
-Salah and wudu guides, zakat calculator, hajj checklist, Ramadan mode, travel (Qasr/Jam') rulings, hayd/excused periods, and tahajjud night log.
+Salah and wudu guides, zakat calculator, Friday/Jumu'ah hub, hajj checklist, Ramadan mode, travel (Qasr/Jam') rulings, hayd/excused periods, and tahajjud night log.
 
 **SEE YOUR PROGRESS**
 Week, month, and year charts. Infinite achievement tracks for salah, streaks, zikr, and consistency. Growing Noor devotion levels. Optional prayer, zikr, and qaza reminders — every category off until you enable it.

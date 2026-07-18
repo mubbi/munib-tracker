@@ -1,3 +1,4 @@
+import { OFFICIAL_IOS_APP_STORE_ID } from "@munib-tracker/shared/constants";
 import { ScrollViewStyleReset } from "expo-router/html";
 import type { PropsWithChildren } from "react";
 
@@ -44,6 +45,7 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content={PWA_SHORT_NAME} />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-itunes-app" content={`app-id=${OFFICIAL_IOS_APP_STORE_ID}`} />
         <link rel="apple-touch-icon" sizes="180x180" href={PWA_APPLE_TOUCH_ICON} />
         <link rel="apple-touch-icon" href={PWA_ICON_PATHS.appleTouchRoot} />
         <link rel="icon" href={PWA_ICON_PATHS.faviconIco} sizes="any" />

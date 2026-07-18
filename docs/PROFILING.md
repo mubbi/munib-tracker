@@ -36,8 +36,8 @@
 
 | Metric | Value |
 |--------|------:|
-| Expo route files (`apps/app/src/app/**/*.tsx`) | **162** |
-| Largest route families | `learn-quran` (20), `settings` (18), `jahannam` (10), `quran` / `last-day` (9) |
+| Expo route files (`apps/app/src/app/**/*.tsx`) | **206** |
+| Largest route families | `learn-quran` (20), `settings` (18), `jahannam` (11), `battles` / `last-day` / `quran` (9) |
 | `apps/app/src` total | **~5.2 MB** |
 | Bundled religious data (`assets/data`) | **~12 MB** (Qur’an ~9.1 MB, Hadith ~2.4 MB) |
 | All `apps/app/assets` | **~15 MB** |
@@ -111,7 +111,7 @@ pnpm release:app:android   # or EAS production AAB
 bundletool get-size total --apks=app.apks
 ```
 
-**Native takeaway:** Install size is driven by **RN/Hermes/Reanimated/QuickCrypto/.so**, not by whether each of the 162 routes uses `React.lazy`. Route code-splitting will not shrink those native libraries.
+**Native takeaway:** Install size is driven by **RN/Hermes/Reanimated/QuickCrypto/.so**, not by whether each of the 206 routes uses `React.lazy`. Route code-splitting will not shrink those native libraries.
 
 ---
 
@@ -122,7 +122,7 @@ bundletool get-size total --apks=app.apks
 | Platform | Recommendation |
 |----------|----------------|
 | **iOS / Android production** | **Skip.** Expo docs: async / split routes are **not** applied as production native bundle splits; suspense boundaries are disabled when bundling native production. Wrapping every screen in `React.lazy` adds complexity without a meaningful download win. |
-| **Web production** | **`asyncRoutes.web: true` is on** (~458 chunks). Do **not** hand-wrap every screen in `React.lazy`. Further wins come from shrinking `__common` (what ≥2 routes share), not more route wrappers. |
+| **Web production** | **`asyncRoutes.web: true` is on** (~468 chunks as of 2026-07-12). Do **not** hand-wrap every screen in `React.lazy`. Further wins come from shrinking `__common` (what ≥2 routes share), not more route wrappers. |
 | **UI atoms** (`PressableScale`, cards, rows) | **Do not lazy-load.** Cost is tiny; churn hurts DX. |
 
 Official reference: [Async routes (Expo Router)](https://docs.expo.dev/router/web/async-routes/).
@@ -236,7 +236,7 @@ Preserve the existing i18n guard/parity tests (they can keep importing all local
 | Remote corpora | Cache-first CDN for extras |
 | Single native JS bundle | Matches Hermes / Expo production model |
 | No per-component lazy | Correct default for this codebase size |
-| Web async routes | Enabled; ~458 chunks |
+| Web async routes | Enabled; ~468 chunks |
 
 ---
 

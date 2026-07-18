@@ -1,3 +1,6 @@
+"use client";
+
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 /** Ogee "onion" dome outline (pinches at the base, bulges, tapers to a point). */
@@ -50,6 +53,10 @@ const WINDOW_XS = [214, 254, 294, 334, 374, 414, 454];
  * Full coded horizon: layered mountain ridges, a grand mosque silhouette with
  * warm lit windows, a lit waterline and a still-water reflection with light
  * streaks — matching the photographic depth of the Day Arc concept.
+ *
+ * Gradient / filter / group ids are scoped with `useId` so hero + footer
+ * instances on the same page do not collide (duplicate `url(#…)` paint servers
+ * make fills fail and the skyline look faded or missing).
  */
 export function MosqueSkyline({
   className,
@@ -59,6 +66,8 @@ export function MosqueSkyline({
   className?: string;
   fit?: "slice" | "meet";
 }) {
+  const uid = useId().replace(/:/g, "");
+  const id = (name: string) => `ms-${uid}-${name}`;
   const WATER = 196;
   return (
     <svg
@@ -69,41 +78,41 @@ export function MosqueSkyline({
     >
       <title>Mosque over still water at dusk</title>
       <defs>
-        <linearGradient id="ms-mosque" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={id("mosque")} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#132534" />
           <stop offset="0.55" stopColor="#0a1826" />
           <stop offset="1" stopColor="#050e18" />
         </linearGradient>
-        <linearGradient id="ms-ridge-far" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={id("ridge-far")} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#2a3a4d" />
           <stop offset="1" stopColor="#14222f" />
         </linearGradient>
-        <linearGradient id="ms-ridge-near" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={id("ridge-near")} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#1c2c3d" />
           <stop offset="1" stopColor="#0d1a26" />
         </linearGradient>
-        <linearGradient id="ms-water" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={id("water")} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#453527" />
           <stop offset="0.35" stopColor="#1d2432" />
           <stop offset="1" stopColor="#070f1a" />
         </linearGradient>
-        <linearGradient id="ms-streak" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={id("streak")} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#ffd9a0" stopOpacity="0.5" />
           <stop offset="1" stopColor="#ffd9a0" stopOpacity="0" />
         </linearGradient>
-        <linearGradient id="ms-waterline" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id={id("waterline")} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stopColor="#ffcf96" stopOpacity="0" />
           <stop offset="0.35" stopColor="#ffd9a8" stopOpacity="0.6" />
           <stop offset="0.7" stopColor="#ffcf96" stopOpacity="0.22" />
           <stop offset="1" stopColor="#ffcf96" stopOpacity="0" />
         </linearGradient>
-        <filter id="ms-soft" x="-20%" y="-20%" width="140%" height="140%">
+        <filter id={id("soft")} x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="1.4" />
         </filter>
-        <filter id="ms-soft4" x="-20%" y="-20%" width="140%" height="140%">
+        <filter id={id("soft4")} x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="3.2" />
         </filter>
-        <filter id="ms-glow" x="-200%" y="-200%" width="500%" height="500%">
+        <filter id={id("glow")} x="-200%" y="-200%" width="500%" height="500%">
           <feGaussianBlur stdDeviation="2.2" />
         </filter>
       </defs>
@@ -111,19 +120,19 @@ export function MosqueSkyline({
       {/* Distant ridge, hazy */}
       <path
         d="M0 176 L90 158 L200 170 L330 152 L470 168 L610 154 L760 170 L900 156 L1050 168 L1200 152 L1330 164 L1440 156 L1440 196 L0 196 Z"
-        fill="url(#ms-ridge-far)"
+        fill={`url(#${id("ridge-far")})`}
         opacity="0.75"
-        filter="url(#ms-soft)"
+        filter={`url(#${id("soft")})`}
       />
       {/* Near ridge */}
       <path
         d="M0 184 L120 168 L260 180 L420 164 L600 180 L780 166 L960 180 L1130 164 L1300 178 L1440 168 L1440 196 L0 196 Z"
-        fill="url(#ms-ridge-near)"
+        fill={`url(#${id("ridge-near")})`}
         opacity="0.9"
       />
 
       {/* ── Mosque complex ── */}
-      <g id="ms-mosque-g" fill="url(#ms-mosque)">
+      <g id={id("mosque-g")} fill={`url(#${id("mosque")})`}>
         {/* long prayer-hall wall */}
         <rect x="150" y="162" width="380" height={WATER - 162} rx="3" />
         {/* arcade of small domes along the wall */}
@@ -161,7 +170,7 @@ export function MosqueSkyline({
               rx="2.2"
               fill="#ffd9a0"
               opacity="0.9"
-              filter="url(#ms-glow)"
+              filter={`url(#${id("glow")})`}
             />
             <rect x={x - 1.4} y="177" width="2.8" height="6" rx="1.4" fill="#ffe9c4" />
           </g>
@@ -175,21 +184,21 @@ export function MosqueSkyline({
             r="1.6"
             fill="#ffd9a0"
             opacity="0.85"
-            filter="url(#ms-glow)"
+            filter={`url(#${id("glow")})`}
           />
         ))}
       </g>
 
       {/* ── Water ── */}
-      <rect x="0" y={WATER} width="1440" height={240 - WATER} fill="url(#ms-water)" />
+      <rect x="0" y={WATER} width="1440" height={240 - WATER} fill={`url(#${id("water")})`} />
       {/* lit waterline */}
-      <rect x="0" y={WATER - 1} width="1440" height="2" fill="url(#ms-waterline)" />
+      <rect x="0" y={WATER - 1} width="1440" height="2" fill={`url(#${id("waterline")})`} />
       {/* blurred mirrored mosque reflection */}
       <use
-        href="#ms-mosque-g"
+        href={`#${id("mosque-g")}`}
         transform={`translate(0 ${2 * WATER}) scale(1 -1)`}
         opacity="0.22"
-        filter="url(#ms-soft4)"
+        filter={`url(#${id("soft4")})`}
       />
       {/* light streaks from windows */}
       {WINDOW_XS.map((x) => (
@@ -199,7 +208,7 @@ export function MosqueSkyline({
           y={WATER + 2}
           width="2.8"
           height="32"
-          fill="url(#ms-streak)"
+          fill={`url(#${id("streak")})`}
           opacity="0.8"
         />
       ))}
@@ -210,7 +219,7 @@ export function MosqueSkyline({
           y={WATER + 2}
           width="1.8"
           height="42"
-          fill="url(#ms-streak)"
+          fill={`url(#${id("streak")})`}
           opacity="0.5"
         />
       ))}

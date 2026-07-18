@@ -53,7 +53,7 @@ Opt-in iOS lock-screen + Dynamic Island countdown. Toggle in **Settings → Noti
 
 **Presentations (Apple HIG):** Lock Screen + StandBy (`isActivityFullscreen`) show next salah, meta, countdown, and today’s progress bar; Dynamic Island covers compact (glyph + timer), minimal (circular countdown), and expanded (leading/trailing/center/bottom + progress). Accent `keylineTint` ties the island to the app palette.
 
-**Requirements:** iOS **16.2+**; `NSSupportsLiveActivities: true`; EAS dev/production build (not Expo Go).
+**Requirements:** iOS **17.0+** (widget / Live Activity target `deploymentTarget`); `NSSupportsLiveActivities: true`; EAS dev/production build (not Expo Go). ActivityKit itself supports 16.2+, but Munib’s extension targets **17.0**.
 
 **Attributes duplication:** ActivityKit matches by attributes type + Codable shape in both main app and widget extension — change both files together.
 

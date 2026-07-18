@@ -104,7 +104,7 @@ export default async function VersionsPage({ searchParams }: VersionsPageProps) 
                 <Input
                   name="storeUrl"
                   type="url"
-                  placeholder="https://…"
+                  placeholder="https://apps.apple.com/app/id6787222180 or Play Store URL"
                   defaultValue={editing?.storeUrl ?? ""}
                 />
               </Field>

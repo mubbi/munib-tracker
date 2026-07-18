@@ -22,7 +22,7 @@ export const BUNDLED_DATA_CREDITS: readonly DataCredit[] = [
     attribution:
       "Duas from the full Hisnul Muslim (Fortress of the Muslim) corpus (sheikhhanif/Hisnul_Muslim_Database); adhkar & transliteration from fitrahive/dua-dhikr (Arabic, transliteration, translation). Bengali Hisnul translations from ThelightHub/dua-api (MIT). Indonesian subset from fitrahive/dua-dhikr. Audio streamed from sheikhhanif/Hisnul_Muslim_Database.",
     url: "https://github.com/ThelightHub/dua-api",
-    note: "271 duas in 16 categories, 54 adhkar in seven categories, and nine duroods ship bundled.",
+    note: "270 duas in 16 categories, 54 adhkar in seven categories, and nine duroods ship bundled.",
   },
   {
     id: "hadith-highlights",

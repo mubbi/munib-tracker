@@ -7,9 +7,10 @@ import { Stagger, StaggerItem } from "@/components/ui/motion";
 
 const ICONS: LucideIcon[] = [Gem, Trophy, Flame, Target, Sparkles, Award];
 
-export function AchievementsSection() {
+export function AchievementsSection({ align = "center" }: { align?: "center" | "left" }) {
   return (
     <Section
+      align={align}
       variant="muted"
       eyebrow="Milestones"
       title="Encouragement that never runs out"

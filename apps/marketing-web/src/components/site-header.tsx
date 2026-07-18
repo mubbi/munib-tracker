@@ -18,6 +18,8 @@ export function SiteHeader() {
   const menuId = useId();
   const pathname = usePathname();
   const onHome = pathname === "/";
+  /** Inner pages always show chrome so nav never blends into body copy. */
+  const showChrome = scrolled || !onHome || open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -35,16 +37,24 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50">
       <div
         className={cn(
-          "border-b transition-all duration-300",
-          scrolled
-            ? "border-white/10 bg-[#0a1626]/85 backdrop-blur-xl"
-            : "border-transparent bg-transparent",
+          "relative transition-[background-color,backdrop-filter,box-shadow] duration-300",
+          showChrome
+            ? "bg-[#07141f]/80 shadow-[0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-xl backdrop-saturate-150"
+            : "bg-transparent",
         )}
       >
+        {/* Soft dissolve into the page — avoids a hard slab edge */}
+        {showChrome ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-full h-10 bg-gradient-to-b from-[#07141f]/50 to-transparent"
+          />
+        ) : null}
+
         <div
           className={cn(
-            "relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 transition-all duration-300 md:px-8",
-            scrolled ? "h-[84px]" : "h-24",
+            "relative mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 transition-[height] duration-300 md:px-8",
+            showChrome ? "h-[4.5rem]" : "h-[5.25rem]",
           )}
         >
           <Link
@@ -54,9 +64,9 @@ export function SiteHeader() {
             <Image
               src="/munib-logo.png"
               alt=""
-              width={176}
-              height={176}
-              className="size-[86px] rounded-2xl"
+              width={112}
+              height={112}
+              className="size-14 rounded-xl md:size-[3.75rem]"
               priority
             />
             <span className="font-display text-lg font-semibold [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">
@@ -135,7 +145,7 @@ export function SiteHeader() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="border-b border-white/10 bg-[#0a1626]/95 px-5 pb-5 pt-2 backdrop-blur-xl lg:hidden"
+            className="border-b border-white/[0.06] bg-[#07141f]/95 px-5 pb-5 pt-2 backdrop-blur-xl lg:hidden"
           >
             <ul className="flex flex-col gap-1">
               {NAV_LINKS.map((link) => (

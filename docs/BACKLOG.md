@@ -4,9 +4,22 @@ Open work only. Shipped features: [`FEATURES.md`](./FEATURES.md). Guides: [`READ
 
 ---
 
+## Product
+
+Open lifestyle / worship features (not yet shipped). Shipped catalog: [`FEATURES.md`](./FEATURES.md).
+
+| ID | Feature | Notes |
+|----|---------|-------|
+| NF-2.5 | Fidyah / kaffarah helpers for missed fasts | Fed-poor estimates + scholarly caveats — helpers only, not auto-rulings |
+| NF-2.6 | Janazah practical guide | Steps + existing funeral duas (`packages/shared` Hisnul items) in one flow; deepen beyond salah-guide mention |
+| NF-2.16 | Nearby masjid finder | Maps + Friday times — common competitor feature; keep optional / opt-in |
+| NF-2.18 | Sadaqah goals | Daily/weekly intention + log beyond the zakat calculator (`NF-2.2`) |
+
+---
+
 ## Product — data-blocked
 
-All software-achievable NF items are shipped. These need **OSS datasets** before implementation (do not AI-generate):
+These need **OSS datasets** before implementation (do not AI-generate):
 
 | ID | Feature | Blocker | When unblocked |
 |----|---------|---------|----------------|
@@ -23,7 +36,7 @@ Guide: [`I18N_GUIDE.md`](./I18N_GUIDE.md)
 |----------|------|-----|
 | P1 | Native UI for `az`, `ps`, `so`, `uz`, `tg` high-traffic screens | Fix mangled auto-translate strings; expand `ui-polish-patches.json`. Corrupted catalogs fall back to English via `fix-runglish-catalog.mjs`. |
 | P2 | Full Hisnul for `ur`/`tr`/`fr` | Source OSS corpus; extend `build-adhkar.mjs` — no AI |
-| P3 | Bengali dua coverage (~128/270 → higher) | Improve prefix matching in `build-adhkar.mjs` |
+| P3 | Bengali dua coverage (~158/270 → higher) | Improve prefix matching in `build-adhkar.mjs` |
 | P4 | Literary review of learn overlays | Human pass on `packages/shared/src/content/i18n/` |
 | P5 | Per-locale device QA | Language picker, RTL, fonts, notifications, widgets |
 
@@ -78,5 +91,5 @@ See [`FREE_OPEN_SOURCE_DATA.md`](./FREE_OPEN_SOURCE_DATA.md) and [`DATA_INGESTIO
 
 | Item | Notes |
 |------|-------|
-| Bundled adhan-call MP3 (full set) | Infra exists; expand `assets/audio/adhan/` |
-| Per-item content `audioUri` | Types wired; populate from OSS where available |
+| Bundled adhan-call MP3 (full local set) | Baseline `adhan.mp3` + remote CDN styles shipped (`lib/adhan-audio.ts`); expand local files under `assets/audio/adhan/` |
+| Per-item content `audioUri` | Types wired; populate from OSS where available (play UI stays hidden until real URLs) |
