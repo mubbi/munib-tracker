@@ -94,7 +94,7 @@ export function adminDbErrorMessage(code: AdminDbErrorCode): string {
     case "db_schema":
       return "Admin tables were not found in the database this deployment connected to. Copy DATABASE_URL verbatim from the API Vercel project (same Supabase project and database name), redeploy admin, then check /api/health/db?iAmAdmin=1.";
     case "db_connect":
-      return "Could not connect to Postgres. Set DATABASE_URL on the admin Vercel project to the exact same value as the API project.";
+      return "Could not connect to Postgres (network, auth, or TLS). Set DATABASE_URL on the admin Vercel project to the exact same value as the API project, then check /api/health/db?iAmAdmin=1.";
     default:
       return "Database error during sign-in. Open /api/health/db?iAmAdmin=1 for diagnostics and check Vercel function logs for the underlying Postgres error.";
   }

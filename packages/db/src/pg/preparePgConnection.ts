@@ -1,6 +1,5 @@
 import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { SUPABASE_ROOT_CA_2021 } from "./supabase-ca";
 
 export type PgSslOption = { rejectUnauthorized: boolean; ca?: string };
 
@@ -8,25 +7,6 @@ export type PreparedPgConnection = {
   connectionString: string;
   ssl?: PgSslOption;
 };
-
-const SUPABASE_CA_PATH = join(
-  dirname(fileURLToPath(import.meta.url)),
-  "../../certs/supabase-root-2021.crt",
-);
-
-let supabaseCaCache: string | null | undefined;
-
-function getSupabaseCa(): string | undefined {
-  if (supabaseCaCache !== undefined) {
-    return supabaseCaCache ?? undefined;
-  }
-  try {
-    supabaseCaCache = readFileSync(SUPABASE_CA_PATH, "utf8");
-  } catch {
-    supabaseCaCache = null;
-  }
-  return supabaseCaCache ?? undefined;
-}
 
 export function isLocalHost(hostname: string): boolean {
   const h = hostname.trim().toLowerCase();
@@ -165,7 +145,9 @@ function resolveCa(url: string, env: NodeJS.ProcessEnv): string | undefined {
   try {
     const { hostname } = new URL(normalizePgUrl(url));
     if (isSupabaseHost(hostname)) {
-      return getSupabaseCa();
+      // Embed the PEM (do not readFileSync) — Next/Vercel serverless has no
+      // packages/db/certs on disk, which caused SELF_SIGNED_CERT_IN_CHAIN.
+      return SUPABASE_ROOT_CA_2021;
     }
   } catch {
     return undefined;

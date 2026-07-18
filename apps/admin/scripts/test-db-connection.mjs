@@ -1,27 +1,19 @@
 /**
- * Standalone Postgres probe — same stack as createPgDatabase (preparePgConnection + pg.Pool).
+ * Standalone Postgres probe — same SSL rules as createPgDatabase / preparePgConnection.
  * Usage (from apps/admin): pnpm test:db
  */
 
 import fs from "node:fs";
-import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { config } from "dotenv";
+import pg from "pg";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const adminRoot = path.join(__dirname, "..");
-const supabaseCaPath = path.resolve(adminRoot, "../api/db/certs/supabase-root-2021.crt");
+const supabaseCaPath = path.resolve(adminRoot, "../../packages/db/certs/supabase-root-2021.crt");
 
 config({ path: path.join(adminRoot, ".env.local"), override: false });
-
-if (!process.env.DATABASE_SSL_CA && fs.existsSync(supabaseCaPath)) {
-  process.env.DATABASE_SSL_CA = supabaseCaPath;
-}
-
-const require = createRequire(import.meta.url);
-const { preparePgConnection } = require("../../api/db/connection-ssl.cjs");
-const pg = require("pg");
 
 const rawUrl = process.env.DATABASE_URL?.trim();
 if (!rawUrl) {
@@ -38,29 +30,37 @@ function redactUrl(url) {
   }
 }
 
-function sanitizeDatabaseUrl(url) {
-  const usesPostgresScheme = /^postgres:\/\//i.test(url);
-  const normalized = url.replace(/^postgres:\/\//i, "postgresql://");
+function prepareSsl(url) {
   try {
-    const parsed = new URL(normalized);
-    for (const key of [...parsed.searchParams.keys()]) {
-      if (key.startsWith("supa")) parsed.searchParams.delete(key);
+    const hostname = new URL(
+      url.replace(/^postgres:\/\//i, "postgresql://"),
+    ).hostname.toLowerCase();
+    if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1") {
+      return undefined;
     }
-    let out = parsed.toString();
-    if (usesPostgresScheme) out = out.replace(/^postgresql:/i, "postgres:");
-    return out;
+    if (
+      process.env.DATABASE_SSL_REJECT_UNAUTHORIZED === "false" ||
+      process.env.DATABASE_SSL_NO_VERIFY === "1" ||
+      process.env.DATABASE_SSL_NO_VERIFY === "true"
+    ) {
+      return { rejectUnauthorized: false };
+    }
+    if (hostname.includes("supabase") && fs.existsSync(supabaseCaPath)) {
+      return { rejectUnauthorized: true, ca: fs.readFileSync(supabaseCaPath, "utf8") };
+    }
+    return { rejectUnauthorized: true };
   } catch {
-    return url;
+    return undefined;
   }
 }
 
-const runtimeUrl = sanitizeDatabaseUrl(rawUrl);
-const { connectionString, ssl } = preparePgConnection(runtimeUrl);
-console.log("DATABASE_URL target:", redactUrl(runtimeUrl));
+const ssl = prepareSsl(rawUrl);
+console.log("DATABASE_URL target:", redactUrl(rawUrl));
 console.log("SSL enabled:", Boolean(ssl));
+console.log("SSL CA pinned:", Boolean(ssl?.ca));
 
 const pool = new pg.Pool({
-  connectionString,
+  connectionString: rawUrl,
   ssl,
   max: 1,
   connectionTimeoutMillis: 15_000,

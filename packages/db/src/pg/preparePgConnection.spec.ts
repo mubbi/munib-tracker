@@ -57,17 +57,27 @@ describe("transaction → session pooler", () => {
 });
 
 describe("preparePgConnection", () => {
-  it("enables verified TLS for Supabase hosts", () => {
+  it("enables verified TLS with pinned Supabase CA", () => {
     const conn = preparePgConnection(
       "postgresql://u:p@aws-0-eu.pooler.supabase.com:5432/postgres",
       {},
     );
     expect(conn.ssl).toMatchObject({ rejectUnauthorized: true });
+    expect(conn.ssl).toHaveProperty("ca");
+    expect(conn.ssl?.ca).toContain("BEGIN CERTIFICATE");
     expect(conn.connectionString).not.toContain("sslmode=");
   });
 
   it("keeps localhost plaintext", () => {
     const conn = preparePgConnection("postgresql://postgres:@localhost:5432/munib", {});
     expect(conn.ssl).toBeUndefined();
+  });
+
+  it("relaxes verification when DATABASE_SSL_REJECT_UNAUTHORIZED=false", () => {
+    const conn = preparePgConnection(
+      "postgresql://u:p@aws-0-eu.pooler.supabase.com:5432/postgres",
+      { DATABASE_SSL_REJECT_UNAUTHORIZED: "false" },
+    );
+    expect(conn.ssl).toEqual({ rejectUnauthorized: false });
   });
 });

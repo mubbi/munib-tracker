@@ -16,6 +16,7 @@ import pg from "pg";
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const adminRoot = resolve(scriptDir, "..");
 const apiRoot = resolve(adminRoot, "../api");
+const supabaseCaPath = resolve(adminRoot, "../../packages/db/certs/supabase-root-2021.crt");
 
 function loadEnvFile(path) {
   if (!existsSync(path)) return;
@@ -59,6 +60,29 @@ function resolveDatabaseUrl() {
   return `postgresql://${auth}@${host}:${port}/${name}`;
 }
 
+function poolSslOptions(url) {
+  try {
+    const hostname = new URL(
+      url.replace(/^postgres:\/\//i, "postgresql://"),
+    ).hostname.toLowerCase();
+    if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1") {
+      return undefined;
+    }
+    if (hostname.includes("supabase") && existsSync(supabaseCaPath)) {
+      return { rejectUnauthorized: true, ca: readFileSync(supabaseCaPath, "utf8") };
+    }
+    if (
+      process.env.DATABASE_SSL_REJECT_UNAUTHORIZED === "false" ||
+      process.env.DATABASE_SSL_NO_VERIFY === "1"
+    ) {
+      return { rejectUnauthorized: false };
+    }
+    return { rejectUnauthorized: true };
+  } catch {
+    return undefined;
+  }
+}
+
 const email = process.argv[2]?.trim().toLowerCase();
 if (!email?.includes("@")) {
   console.error("Usage: node apps/admin/scripts/seed-admin.mjs you@example.com");
@@ -73,7 +97,7 @@ if (!url) {
   process.exit(1);
 }
 
-const pool = new pg.Pool({ connectionString: url });
+const pool = new pg.Pool({ connectionString: url, ssl: poolSslOptions(url) });
 try {
   const existing = await pool.query(`SELECT id, role, enabled FROM admin_users WHERE email = $1`, [
     email,
