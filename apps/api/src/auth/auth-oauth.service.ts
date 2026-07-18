@@ -34,7 +34,7 @@ import type {
   WebAuthSessionResponseDto,
 } from "./dto/auth.dto";
 import { AuthProvider } from "./dto/auth.dto";
-import { verifyGoogleAccessToken } from "./google-access-token";
+import { GoogleAccessTokenAudienceError, verifyGoogleAccessToken } from "./google-access-token";
 import { OAuthProviderService } from "./oauth-provider.service";
 import { assertOAuthReturnUrlAllowed, assertRedirectUriAllowed } from "./oauth-redirect-allowlist";
 import { resolveAccessToken as resolveAccessTokenFromRequest } from "./resolve-access-token";
@@ -82,6 +82,9 @@ export class AuthOAuthService {
     try {
       info = await verifyGoogleAccessToken(this.configService, dto.accessToken);
     } catch (error) {
+      if (error instanceof GoogleAccessTokenAudienceError) {
+        throw new UnauthorizedException(error.message);
+      }
       throw new BadRequestException(
         error instanceof Error ? error.message : "Google sign-in is not configured on the server",
       );

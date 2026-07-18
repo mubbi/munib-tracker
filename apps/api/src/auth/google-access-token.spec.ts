@@ -2,7 +2,7 @@ import type { ConfigService } from "@nestjs/config";
 import { describe, expect, it, vi } from "vitest";
 import type { EnvironmentVariables } from "../config/env.schema";
 import { NodeEnvironment } from "../config/env.schema";
-import { verifyGoogleAccessToken } from "./google-access-token";
+import { GoogleAccessTokenAudienceError, verifyGoogleAccessToken } from "./google-access-token";
 import { assertOAuthReturnUrlAllowed, assertRedirectUriAllowed } from "./oauth-redirect-allowlist";
 
 function makeConfig(env: Partial<EnvironmentVariables> = {}) {
@@ -77,7 +77,7 @@ describe("verifyGoogleAccessToken", () => {
         }),
         "ya29.token",
       ),
-    ).resolves.toBeNull();
+    ).rejects.toBeInstanceOf(GoogleAccessTokenAudienceError);
 
     vi.unstubAllGlobals();
   });

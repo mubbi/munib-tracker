@@ -9,6 +9,21 @@ export interface GoogleTokenInfo {
   picture?: string;
 }
 
+/** Thrown when tokeninfo succeeds but azp/aud is not in `GOOGLE_OAUTH_CLIENT_IDS`. */
+export class GoogleAccessTokenAudienceError extends Error {
+  readonly clientId: string | undefined;
+
+  constructor(clientId: string | undefined) {
+    super(
+      clientId
+        ? `Google token audience mismatch: token was issued for "${clientId}", which is not in GOOGLE_OAUTH_CLIENT_IDS. Include the Web, iOS, and Android client IDs (comma-separated).`
+        : "Google token is missing azp/aud; cannot validate audience against GOOGLE_OAUTH_CLIENT_IDS.",
+    );
+    this.name = "GoogleAccessTokenAudienceError";
+    this.clientId = clientId;
+  }
+}
+
 function isGoogleEmailVerified(value: unknown): boolean {
   return value === true || value === "true";
 }
@@ -83,6 +98,9 @@ async function fetchGoogleUserInfo(
  * Verify access token via Google tokeninfo and ensure azp/aud matches configured
  * client IDs in production. Fetches OpenID userinfo for display name when the
  * token includes profile scope.
+ *
+ * Token is sent in the POST body (not the query string) — Google rejects tokens
+ * passed as query params on many endpoints.
  */
 export async function verifyGoogleAccessToken(
   config: ConfigService<EnvironmentVariables, true>,
@@ -91,10 +109,14 @@ export async function verifyGoogleAccessToken(
   const trimmed = accessToken.trim();
   if (!trimmed) return null;
 
-  const res = await fetch(
-    `https://oauth2.googleapis.com/tokeninfo?access_token=${encodeURIComponent(trimmed)}`,
-    { headers: { Accept: "application/json" } },
-  );
+  const res = await fetch("https://oauth2.googleapis.com/tokeninfo", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ access_token: trimmed }),
+  });
   if (!res.ok) return null;
 
   const data = (await res.json()) as GoogleTokenInfoResponse;
@@ -111,7 +133,9 @@ export async function verifyGoogleAccessToken(
 
   if (allowed.length > 0) {
     const clientId = (data.azp ?? data.aud)?.trim();
-    if (!clientId || !allowed.includes(clientId)) return null;
+    if (!clientId || !allowed.includes(clientId)) {
+      throw new GoogleAccessTokenAudienceError(clientId || undefined);
+    }
   }
 
   const tokenEmail = verifiedGoogleEmail(data.email, data.email_verified);

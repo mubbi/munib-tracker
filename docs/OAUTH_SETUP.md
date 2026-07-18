@@ -279,7 +279,7 @@ Create a dedicated Google Cloud **Web** OAuth client for the admin origin (or ad
 | Symptom | Check |
 |---------|-------|
 | Google works on web, fails on native | Native must use on-device exchange + `/auth/google`; do not send native codes to `/auth/google/oauth` |
-| Google access token rejected | `GOOGLE_OAUTH_CLIENT_IDS` must include the platform client that minted the token |
+| Google access token rejected / "Invalid Google token" | `GOOGLE_OAUTH_CLIENT_IDS` on the **API** must include **all** platform clients that mint tokens: Web + iOS + Android (comma-separated). A web-only allowlist rejects native iOS/Android access tokens (`azp` mismatch). |
 | Apple fails with audience mismatch | `APPLE_CLIENT_IDS` must include bundle ID **and** Services ID |
 | Apple Android never returns | HTTPS App Link `https://my.munibtracker.app/oauth/apple` + Digital Asset Links (see [DEEP_LINKS.md](./DEEP_LINKS.md)) |
 | Web Apple form_post loses session | `mt_apple_oauth` cookie needs SameSite=None in prod; CORS credentials + allowlist |

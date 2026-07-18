@@ -10,7 +10,7 @@ import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/
 import { ConfigService } from "@nestjs/config";
 import type { EnvironmentVariables } from "../config/env.schema";
 import type { AuthProvider, OAuthCallbackDto } from "./dto/auth.dto";
-import { verifyGoogleAccessToken } from "./google-access-token";
+import { GoogleAccessTokenAudienceError, verifyGoogleAccessToken } from "./google-access-token";
 
 /** Normalised identity returned by every provider exchange. */
 export interface OAuthProfile {
@@ -134,7 +134,15 @@ export class OAuthProviderService {
 
     // Native Google: on-device PKCE exchange yields an access token verified via tokeninfo.
     if (dto.accessToken?.trim()) {
-      const info = await verifyGoogleAccessToken(this.configService, dto.accessToken);
+      let info: Awaited<ReturnType<typeof verifyGoogleAccessToken>>;
+      try {
+        info = await verifyGoogleAccessToken(this.configService, dto.accessToken);
+      } catch (error) {
+        if (error instanceof GoogleAccessTokenAudienceError) {
+          throw new UnauthorizedException(error.message);
+        }
+        throw error;
+      }
       if (!info?.sub) {
         throw new UnauthorizedException("Invalid Google access token");
       }
