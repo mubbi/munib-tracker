@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
-import {
-  InteractionManager,
-  Platform,
-  RefreshControl,
-  type RefreshControlProps,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Platform, RefreshControl, type RefreshControlProps, StyleSheet, View } from "react-native";
+
+import { runWhenIdle } from "@/lib/run-when-idle";
 
 /**
  * Android `SwipeRefreshLayout.getChildDrawingOrder` can return a stale
  * `mCircleViewIndex` (≥ childCount) during cold-start layout races — the exact
  * `getChildDrawingOrder() returned invalid index N (child count is N)` fatal
- * (Sentry REACT-NATIVE-6). Defer attaching the native control until after
- * interactions so splash/overlays settle first. iOS is unchanged.
+ * (Sentry REACT-NATIVE-6). Defer attaching the native control until the JS
+ * thread is idle so splash/overlays settle first. iOS is unchanged.
  */
 export function useDeferredAndroidRefreshReady(): boolean {
   const [ready, setReady] = useState(Platform.OS !== "android");
@@ -22,7 +17,7 @@ export function useDeferredAndroidRefreshReady(): boolean {
     if (Platform.OS !== "android") return;
 
     let cancelled = false;
-    const task = InteractionManager.runAfterInteractions(() => {
+    const task = runWhenIdle(() => {
       requestAnimationFrame(() => {
         if (!cancelled) setReady(true);
       });

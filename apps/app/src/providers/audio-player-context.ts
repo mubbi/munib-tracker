@@ -9,6 +9,19 @@ import type {
 
 export type { AudioTrack, LoopMode, QuranRepeatPlan, TranslationAudioMode };
 
+/**
+ * High-frequency playback clock. Kept in a separate context so screens that only
+ * need session state (queue / now-playing / controls) do not re-render on every
+ * `currentTime` tick — that was thrashing large FlatLists during playback.
+ */
+export interface AudioProgressValue {
+  position: number;
+  /** Elapsed time across the whole queue (sum of prior tracks + current position). */
+  queuePosition: number;
+  /** Smoothed 0–1 progress across the queue (for progress bars). */
+  queueProgress: number;
+}
+
 export interface AudioContextValue {
   current: AudioTrack | null;
   queue: AudioTrack[];
@@ -22,14 +35,9 @@ export interface AudioContextValue {
   isTransitioning: boolean;
   /** True once the current source has finished loading and can play. */
   isLoaded: boolean;
-  position: number;
   duration: number;
-  /** Elapsed time across the whole queue (sum of prior tracks + current position). */
-  queuePosition: number;
   /** Total duration across the whole queue. */
   queueDuration: number;
-  /** Smoothed 0–1 progress across the queue (for progress bars). */
-  queueProgress: number;
   /** True when playback has reached the end of the queue (loop off). */
   isQueueFinished: boolean;
   rate: number;
@@ -71,6 +79,12 @@ export interface AudioContextValue {
 /** Leaf module — keep free of provider/engine imports so Metro never duplicates this context. */
 export const AudioContext = createContext<AudioContextValue | null>(null);
 
+export const AudioProgressContext = createContext<AudioProgressValue>({
+  position: 0,
+  queuePosition: 0,
+  queueProgress: 0,
+});
+
 /** No-op context for web SSR — `expo-audio` calls `new Audio()` which Node lacks. */
 export const SSR_AUDIO_CONTEXT: AudioContextValue = {
   current: null,
@@ -81,11 +95,8 @@ export const SSR_AUDIO_CONTEXT: AudioContextValue = {
   isBuffering: false,
   isTransitioning: false,
   isLoaded: false,
-  position: 0,
   duration: 0,
-  queuePosition: 0,
   queueDuration: 0,
-  queueProgress: 0,
   isQueueFinished: false,
   rate: 1,
   volume: 1,
@@ -112,8 +123,19 @@ export const SSR_AUDIO_CONTEXT: AudioContextValue = {
   readPlaybackSeconds: () => 0,
 };
 
+export const SSR_AUDIO_PROGRESS: AudioProgressValue = {
+  position: 0,
+  queuePosition: 0,
+  queueProgress: 0,
+};
+
 export function useAudioPlayerContext(): AudioContextValue {
   const context = useContext(AudioContext);
   if (!context) throw new Error("useAudioPlayerContext must be used within an AudioPlayerProvider");
   return context;
+}
+
+/** Subscribe only when you need the live scrubber clock (mini-player, etc.). */
+export function useAudioProgressContext(): AudioProgressValue {
+  return useContext(AudioProgressContext);
 }

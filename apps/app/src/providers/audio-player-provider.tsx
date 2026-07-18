@@ -28,7 +28,6 @@ import {
   deactivateLockScreenControls,
   ensureAndroidMediaNotificationPermission,
   type LockScreenQueueContext,
-  updateLockScreenControls,
 } from "@/lib/audio-lock-screen";
 import { applyPlaybackRate } from "@/lib/audio-playback-rate";
 import {
@@ -56,7 +55,10 @@ import { estimateTtsDurationSeconds, isTtsPlaybackTrack } from "@/lib/tts-audio-
 import {
   AudioContext,
   type AudioContextValue,
+  AudioProgressContext,
+  type AudioProgressValue,
   SSR_AUDIO_CONTEXT,
+  SSR_AUDIO_PROGRESS,
 } from "@/providers/audio-player-context";
 import type {
   AudioTrack,
@@ -67,7 +69,10 @@ import type {
 import { recordContinueActivity } from "@/stores/continue-store";
 import { preferencesStore, usePreferencesReady } from "@/stores/preferences-store";
 
-export { useAudioPlayerContext } from "@/providers/audio-player-context";
+export {
+  useAudioPlayerContext,
+  useAudioProgressContext,
+} from "@/providers/audio-player-context";
 export type {
   AudioTrack,
   LoopMode,
@@ -205,6 +210,7 @@ class AudioEngineBoundary extends Component<{ children: ReactNode }, { failed: b
  */
 export function AudioPlayerProvider({ children }: { children: ReactNode }) {
   const [value, setValue] = useState<AudioContextValue>(SSR_AUDIO_CONTEXT);
+  const [progress, setProgress] = useState<AudioProgressValue>(SSR_AUDIO_PROGRESS);
   const [live, setLive] = useState(() => Platform.OS !== "web");
 
   useLayoutEffect(() => {
@@ -213,18 +219,24 @@ export function AudioPlayerProvider({ children }: { children: ReactNode }) {
 
   return (
     <AudioContext.Provider value={value}>
-      <AudioEngineBoundary>
-        {live ? <AudioPlayerProviderLive onValueChange={setValue} /> : null}
-      </AudioEngineBoundary>
-      {children}
+      <AudioProgressContext.Provider value={progress}>
+        <AudioEngineBoundary>
+          {live ? (
+            <AudioPlayerProviderLive onValueChange={setValue} onProgressChange={setProgress} />
+          ) : null}
+        </AudioEngineBoundary>
+        {children}
+      </AudioProgressContext.Provider>
     </AudioContext.Provider>
   );
 }
 
 function AudioPlayerProviderLive({
   onValueChange,
+  onProgressChange,
 }: {
   onValueChange: (value: AudioContextValue) => void;
+  onProgressChange: (value: AudioProgressValue) => void;
 }) {
   // Double-buffered players: one plays the current track while the other is
   // preloaded with the next one, so auto-advance is a near-instant hand-off
@@ -1123,17 +1135,22 @@ function AudioPlayerProviderLive({
     stableQueuePositionRef.current = 0;
   }, [clearTransition, clearTtsClock]);
 
+  const ttsClockRef = useRef(ttsClock);
+  ttsClockRef.current = ttsClock;
+  const statusCurrentTimeRef = useRef(status.currentTime);
+  statusCurrentTimeRef.current = status.currentTime;
+
   const readPlaybackSeconds = useCallback(() => {
     const track = queueRef.current[indexRef.current];
     if (isTtsPlaybackTrack(track)) {
-      return ttsClock?.position ?? ttsPausedPositionRef.current;
+      return ttsClockRef.current?.position ?? ttsPausedPositionRef.current;
     }
     try {
       return getActive().currentTime;
     } catch {
-      return status.currentTime ?? 0;
+      return statusCurrentTimeRef.current ?? 0;
     }
-  }, [getActive, status.currentTime, ttsClock?.position]);
+  }, [getActive]);
 
   const ttsTrackActive = isTtsPlaybackTrack(current);
   const isLoaded = ttsTrackActive ? true : (status.isLoaded ?? false);
@@ -1363,18 +1380,10 @@ function AudioPlayerProviderLive({
     }
   }, [current, queue, index, status.currentTime, trackDurations, rate]);
 
-  // Refresh lock-screen metadata when the active track changes on the same player.
-  useEffect(() => {
-    if (Platform.OS === "web" || !current) return;
-    const playbackPosition = status.currentTime ?? 0;
-    const queueCtx: LockScreenQueueContext = {
-      queueIndex: index,
-      queueLength: queue.length,
-      queuePosition: computeQueuePosition(queue, index, playbackPosition, trackDurations),
-      queueDuration: queueDuration(queue, trackDurations),
-    };
-    updateLockScreenControls(getActive(), current, queueCtx, current.id);
-  }, [current, index, queue, status.currentTime, trackDurations, getActive]);
+  // Native lock-screen Now Playing is activated in `syncLockScreenForTrack` via
+  // `setActiveForLockScreen`. Do NOT call `updateLockScreenMetadata` on every
+  // `currentTime` tick — Android logs "service not connected" while the media
+  // playback service is still binding after activate.
 
   // Treat an unloaded source with a live track as "buffering" too, so the play
   // button spins immediately after a tap while the engine spins up, not just
@@ -1459,11 +1468,8 @@ function AudioPlayerProviderLive({
       isBuffering,
       isTransitioning,
       isLoaded,
-      position,
       duration,
-      queuePosition: smoothQueuePosition,
       queueDuration: smoothQueueDuration,
-      queueProgress: smoothQueueProgress,
       isQueueFinished: queueFinished && queue.length > 0,
       rate,
       volume,
@@ -1498,11 +1504,8 @@ function AudioPlayerProviderLive({
       isTransitioning,
       isBuffering,
       isLoaded,
-      position,
       duration,
-      smoothQueuePosition,
       smoothQueueDuration,
-      smoothQueueProgress,
       queueFinished,
       rate,
       volume,
@@ -1530,9 +1533,22 @@ function AudioPlayerProviderLive({
     ],
   );
 
+  const progressValue = useMemo<AudioProgressValue>(
+    () => ({
+      position,
+      queuePosition: smoothQueuePosition,
+      queueProgress: smoothQueueProgress,
+    }),
+    [position, smoothQueuePosition, smoothQueueProgress],
+  );
+
   useLayoutEffect(() => {
     onValueChange(value);
   }, [onValueChange, value]);
+
+  useLayoutEffect(() => {
+    onProgressChange(progressValue);
+  }, [onProgressChange, progressValue]);
 
   // Parent shell owns AudioContext.Provider + children (avoids remount / context gaps).
   return null;

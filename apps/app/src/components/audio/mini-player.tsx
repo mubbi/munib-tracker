@@ -1,12 +1,13 @@
 import { type Href, useRouter } from "expo-router";
 import { SymbolView, type SymbolViewProps } from "expo-symbols";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   type AccessibilityActionEvent,
   ActivityIndicator,
   FlatList,
   type LayoutChangeEvent,
+  type ListRenderItem,
   PanResponder,
   Platform,
   Pressable,
@@ -46,6 +47,7 @@ import {
   type AudioTrack,
   type LoopMode,
   useAudioPlayerContext,
+  useAudioProgressContext,
 } from "@/providers/audio-player-provider";
 import { usePreferences } from "@/stores/preferences-store";
 
@@ -305,11 +307,8 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
     replay,
     stop,
     isQueueFinished,
-    position,
     duration,
-    queuePosition,
     queueDuration,
-    queueProgress,
     queue,
     index,
     trackDurations,
@@ -321,6 +320,7 @@ function CompactPlayer({ onExpand }: { onExpand: () => void }) {
     cycleLoopMode,
     readPlaybackSeconds,
   } = useAudioPlayerContext();
+  const { position, queuePosition, queueProgress } = useAudioProgressContext();
   const cacheAudioLocally = usePreferences().cacheAudioLocally !== false;
 
   useEffect(() => () => setMiniPlayerInset(0), [setMiniPlayerInset]);
@@ -955,9 +955,7 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
   const skipNextIcon = useSkipNextIcon();
   const cacheAudioLocally = usePreferences().cacheAudioLocally !== false;
   const audio = useAudioPlayerContext();
-  const playlistRef = useRef<FlatList<AudioTrack>>(null);
-  const playlistHeightRef = useRef(0);
-  const [playlistHeight, setPlaylistHeight] = useState(0);
+  const { position, queuePosition, queueProgress } = useAudioProgressContext();
 
   const {
     current,
@@ -970,11 +968,8 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
     volume,
     loopMode,
     sourceHref,
-    position,
     duration,
-    queuePosition,
     queueDuration,
-    queueProgress,
     trackDurations,
     isQueueFinished,
     toggle,
@@ -990,49 +985,6 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
     stop,
     readPlaybackSeconds,
   } = audio;
-
-  const listCenterInset = Math.max(0, playlistHeight / 2 - PLAYLIST_ROW_HEIGHT / 2);
-
-  const scrollActiveToCenter = useCallback((targetIndex: number, animated = true) => {
-    try {
-      playlistRef.current?.scrollToIndex({
-        index: targetIndex,
-        ...PLAYLIST_CENTER_VIEW,
-        animated,
-      });
-    } catch {
-      const centerInset = Math.max(0, playlistHeightRef.current / 2 - PLAYLIST_ROW_HEIGHT / 2);
-      playlistRef.current?.scrollToOffset({
-        offset: Math.max(0, centerInset + targetIndex * PLAYLIST_ROW_HEIGHT),
-        animated,
-      });
-    }
-  }, []);
-
-  const onScrollToIndexFailed = useCallback(
-    (info: { index: number; averageItemLength: number }) => {
-      const centerInset = Math.max(0, playlistHeightRef.current / 2 - info.averageItemLength / 2);
-      playlistRef.current?.scrollToOffset({
-        offset: Math.max(0, centerInset + info.index * info.averageItemLength),
-        animated: false,
-      });
-      setTimeout(() => scrollActiveToCenter(info.index), 80);
-    },
-    [scrollActiveToCenter],
-  );
-
-  const onPlaylistLayout = useCallback((event: LayoutChangeEvent) => {
-    const height = event.nativeEvent.layout.height;
-    playlistHeightRef.current = height;
-    setPlaylistHeight(height);
-  }, []);
-
-  // Keep the active playlist row centered when the track changes or the sheet opens.
-  useEffect(() => {
-    if (!current || queue.length <= 1 || playlistHeight <= 0) return;
-    const timer = setTimeout(() => scrollActiveToCenter(index), 60);
-    return () => clearTimeout(timer);
-  }, [index, current, queue.length, playlistHeight, scrollActiveToCenter]);
 
   useEffect(() => {
     setMiniPlayerInset(0);
@@ -1332,40 +1284,8 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
           </PressableScale>
         ) : null}
 
-        {/* Playlist */}
-        {hasQueue ? (
-          <>
-            <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.upNext}>
-              {t("player.upNext")}
-            </ThemedText>
-            <FlatList
-              ref={playlistRef}
-              data={queue}
-              keyExtractor={(track) => track.id}
-              style={styles.playlist}
-              onLayout={onPlaylistLayout}
-              contentContainerStyle={{
-                paddingTop: listCenterInset,
-                paddingBottom: listCenterInset + Spacing.three,
-              }}
-              showsVerticalScrollIndicator={false}
-              onScrollToIndexFailed={onScrollToIndexFailed}
-              getItemLayout={(_, i) => ({
-                length: PLAYLIST_ROW_HEIGHT,
-                offset: listCenterInset + PLAYLIST_ROW_HEIGHT * i,
-                index: i,
-              })}
-              renderItem={({ item: track, index: i }) => (
-                <PlaylistRow
-                  track={track}
-                  position={i + 1}
-                  active={i === index}
-                  onPress={() => jumpTo(i)}
-                />
-              )}
-            />
-          </>
-        ) : null}
+        {/* Playlist — isolated so progress-clock re-renders don't thrash FlatList */}
+        {hasQueue ? <ExpandedPlaylist queue={queue} activeIndex={index} onJumpTo={jumpTo} /> : null}
       </View>
       <ConfirmDialog
         visible={confirmClose}
@@ -1380,7 +1300,115 @@ function ExpandedPlayer({ onCollapse }: { onCollapse: () => void }) {
   );
 }
 
-function PlaylistRow({
+const ExpandedPlaylist = memo(function ExpandedPlaylist({
+  queue,
+  activeIndex,
+  onJumpTo,
+}: {
+  queue: AudioTrack[];
+  activeIndex: number;
+  onJumpTo: (index: number) => void;
+}) {
+  const { t } = useTranslation();
+  const playlistRef = useRef<FlatList<AudioTrack>>(null);
+  const playlistHeightRef = useRef(0);
+  const [playlistHeight, setPlaylistHeight] = useState(0);
+  const listCenterInset = Math.max(0, playlistHeight / 2 - PLAYLIST_ROW_HEIGHT / 2);
+
+  const scrollActiveToCenter = useCallback((targetIndex: number, animated = true) => {
+    try {
+      playlistRef.current?.scrollToIndex({
+        index: targetIndex,
+        ...PLAYLIST_CENTER_VIEW,
+        animated,
+      });
+    } catch {
+      const centerInset = Math.max(0, playlistHeightRef.current / 2 - PLAYLIST_ROW_HEIGHT / 2);
+      playlistRef.current?.scrollToOffset({
+        offset: Math.max(0, centerInset + targetIndex * PLAYLIST_ROW_HEIGHT),
+        animated,
+      });
+    }
+  }, []);
+
+  const onScrollToIndexFailed = useCallback(
+    (info: { index: number; averageItemLength: number }) => {
+      const centerInset = Math.max(0, playlistHeightRef.current / 2 - info.averageItemLength / 2);
+      playlistRef.current?.scrollToOffset({
+        offset: Math.max(0, centerInset + info.index * info.averageItemLength),
+        animated: false,
+      });
+      setTimeout(() => scrollActiveToCenter(info.index), 80);
+    },
+    [scrollActiveToCenter],
+  );
+
+  const onPlaylistLayout = useCallback((event: LayoutChangeEvent) => {
+    const height = event.nativeEvent.layout.height;
+    playlistHeightRef.current = height;
+    setPlaylistHeight(height);
+  }, []);
+
+  useEffect(() => {
+    if (queue.length <= 1 || playlistHeight <= 0) return;
+    const timer = setTimeout(() => scrollActiveToCenter(activeIndex), 60);
+    return () => clearTimeout(timer);
+  }, [activeIndex, queue.length, playlistHeight, scrollActiveToCenter]);
+
+  const renderItem = useCallback<ListRenderItem<AudioTrack>>(
+    ({ item: track, index: i }) => (
+      <PlaylistRow
+        track={track}
+        position={i + 1}
+        active={i === activeIndex}
+        onPress={() => onJumpTo(i)}
+      />
+    ),
+    [activeIndex, onJumpTo],
+  );
+
+  const getItemLayout = useCallback(
+    (_: ArrayLike<AudioTrack> | null | undefined, i: number) => ({
+      length: PLAYLIST_ROW_HEIGHT,
+      offset: listCenterInset + PLAYLIST_ROW_HEIGHT * i,
+      index: i,
+    }),
+    [listCenterInset],
+  );
+
+  const keyExtractor = useCallback((track: AudioTrack) => track.id, []);
+
+  return (
+    <>
+      <ThemedText type="smallBold" themeColor="mutedForeground" style={styles.upNext}>
+        {t("player.upNext")}
+      </ThemedText>
+      <FlatList
+        ref={playlistRef}
+        data={queue}
+        extraData={activeIndex}
+        keyExtractor={keyExtractor}
+        style={styles.playlist}
+        onLayout={onPlaylistLayout}
+        contentContainerStyle={{
+          paddingTop: listCenterInset,
+          paddingBottom: listCenterInset + Spacing.three,
+        }}
+        showsVerticalScrollIndicator={false}
+        onScrollToIndexFailed={onScrollToIndexFailed}
+        getItemLayout={getItemLayout}
+        renderItem={renderItem}
+        initialNumToRender={8}
+        maxToRenderPerBatch={6}
+        windowSize={5}
+        updateCellsBatchingPeriod={100}
+        removeClippedSubviews
+      />
+    </>
+  );
+});
+
+const PlaylistRow = memo(function PlaylistRow({
   track,
   position,
   active,
@@ -1457,16 +1485,10 @@ function PlaylistRow({
           size={16}
           tintColor={colors.accent}
         />
-      ) : (
-        <SymbolView
-          name={{ ios: "play.circle", android: "play_circle", web: "play_circle" }}
-          size={20}
-          tintColor={colors.mutedForeground}
-        />
-      )}
+      ) : null}
     </PressableScale>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

@@ -58,8 +58,12 @@ export function ZakatSummaryBar({
           },
         ]}
       >
+        {/* No `backdropCapture`: this bar lives inside the root BlurTargetView, so
+            capturing that ancestor would nest BlurView under its target and crash
+            Android RenderThread (stack overflow in computeTransformImpl). Same
+            pattern as page-reader-footer / reading-toolbar in-screen chrome. */}
         <View style={[StyleSheet.absoluteFill, { pointerEvents: "none" }]}>
-          <GlassSurface style={StyleSheet.absoluteFill} intensity={50} backdropCapture />
+          <GlassSurface style={StyleSheet.absoluteFill} intensity={50} />
         </View>
         <View
           style={[

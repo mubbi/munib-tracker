@@ -1,10 +1,12 @@
 import { cacheDirectory, downloadAsync, makeDirectoryAsync } from "expo-file-system/legacy";
 import * as Sharing from "expo-sharing";
-import { InteractionManager, Linking, Platform, Share } from "react-native";
+import { Linking, Platform, Share } from "react-native";
 
-function waitForInteractions(): Promise<void> {
+import { runWhenIdle } from "@/lib/run-when-idle";
+
+function waitForIdle(): Promise<void> {
   return new Promise((resolve) => {
-    InteractionManager.runAfterInteractions(() => {
+    runWhenIdle(() => {
       setTimeout(resolve, 150);
     });
   });
@@ -75,7 +77,7 @@ export async function openAttachmentExternally(options: {
     return;
   }
 
-  await waitForInteractions();
+  await waitForIdle();
 
   let openUri = uri;
   if (uri.startsWith("http")) {

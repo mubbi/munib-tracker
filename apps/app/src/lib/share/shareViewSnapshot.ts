@@ -160,16 +160,11 @@ export async function shareViewSnapshot(
   await waitForIdle();
 
   try {
-    if (options.message) {
-      if (Platform.OS === "ios") {
-        await Share.share({ message: options.message, url: shareUri });
-      } else {
-        await Share.share({
-          message: options.message,
-          url: shareUri,
-          title: options.dialogTitle,
-        });
-      }
+    // iOS Share.share can attach both text and a local image via `url`.
+    // Android's Share module only sends EXTRA_TEXT and drops local file URLs —
+    // always use expo-sharing there so the branded PNG actually leaves the app.
+    if (Platform.OS === "ios" && options.message) {
+      await Share.share({ message: options.message, url: shareUri });
       return {};
     }
 
@@ -182,9 +177,23 @@ export async function shareViewSnapshot(
       return {};
     }
 
+    if (options.message) {
+      await Share.share({
+        message: options.message,
+        title: options.dialogTitle,
+      });
+      return {};
+    }
+
     await Share.share({ url: shareUri, title: options.dialogTitle });
   } finally {
-    deleteCachedSnapshot(shareUri);
+    // Delay cleanup so Android apps that open the FileProvider URI after the
+    // share sheet dismisses can still read the PNG.
+    if (Platform.OS === "android") {
+      setTimeout(() => deleteCachedSnapshot(shareUri), 60_000);
+    } else {
+      deleteCachedSnapshot(shareUri);
+    }
   }
 
   return {};

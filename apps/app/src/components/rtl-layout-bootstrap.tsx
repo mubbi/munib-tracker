@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import { InteractionManager, Platform } from "react-native";
+import { Platform } from "react-native";
 
 import { consumePendingRtlReloadLocale } from "@/i18n";
 import { applyRtlForLocale } from "@/lib/i18n/rtl";
+import { runWhenIdle } from "@/lib/run-when-idle";
 
 /**
  * Runs a deferred native RTL reload after the first paint so startup hydration
@@ -18,7 +19,7 @@ export function RtlLayoutBootstrap() {
     if (!locale) return;
 
     started.current = true;
-    const task = InteractionManager.runAfterInteractions(() => {
+    const task = runWhenIdle(() => {
       void applyRtlForLocale(locale);
     });
 
