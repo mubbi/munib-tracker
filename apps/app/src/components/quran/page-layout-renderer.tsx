@@ -8,6 +8,7 @@ import { SurahBanner } from "@/components/quran/surah-banner";
 import { ThemedText } from "@/components/themed-text";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
+import { useArabicFontFamily } from "@/hooks/use-arabic-font-family";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { getSurahByNumber } from "@/lib/quran";
 import { arabicReadingLayout } from "@/lib/reading-typography";
@@ -31,7 +32,7 @@ type PageLayoutRendererProps = {
 
 const BISMILLAH = "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
 const ARABIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
-/** Unicode ARABIC END OF AYAH (۝) — empty circle; digits follow (or overlay on Android). */
+/** Unicode ARABIC END OF AYAH (۝) — empty ornament; digits are overlaid inside. */
 const END_OF_AYAH = "\u06DD";
 
 /** Renders a Western number as Arabic-Indic digits for the in-line ayah marker. */
@@ -40,77 +41,57 @@ function toArabicDigits(value: number): string {
 }
 
 /**
+ * Metrics for the gilt end-of-ayah rosette. Numbers are sized to the *inner*
+ * diameter of U+06DD (~half the glyph) so 1–3 digits stay inside the ornament
+ * instead of spilling over the rim — especially at large reading sizes.
+ */
+function ayahMarkerMetrics(fontSize: number, digitCount: number) {
+  const box = Math.round(fontSize * (digitCount >= 3 ? 1.28 : digitCount === 2 ? 1.12 : 1.02));
+  const rosetteSize = box;
+  // Usable inner area is ~50% of the glyph; leave a rim margin.
+  const numberSize = Math.max(
+    8,
+    Math.round(box * (digitCount >= 3 ? 0.24 : digitCount === 2 ? 0.3 : 0.34)),
+  );
+  const gutter = Math.max(3, Math.round(fontSize * 0.08));
+  return { box, rosetteSize, numberSize, gutter };
+}
+
+/**
  * Gilt end-of-ayah rosette with the verse number centered inside.
  *
- * iOS CoreText does not reserve horizontal advance for View-in-Text under
- * RTL + `textAlign: "justify"`, so a nested View paints the ornament on top of
- * the preceding Arabic word. Nested Text participates in the text run and keeps
- * layout correct. Android still uses a layered View so digits stay centered when
- * font enclosing-mark shaping places them beside the circle at large sizes.
+ * Fonts rarely shape U+06DD as a true enclosing mark at reading sizes, so the
+ * ornament and digits are separate layers. iOS CoreText does not reserve
+ * horizontal advance for View-in-Text under RTL + `textAlign: "justify"`, so an
+ * invisible U+06DD spacer holds the slot and the painted marker is pulled back
+ * over it with a negative start margin.
  */
 function AyahEndMarker({
   ayah,
   fontSize,
   color,
+  fontFamily,
 }: {
   ayah: number;
   fontSize: number;
   color: string;
+  fontFamily?: string;
 }) {
   const digits = toArabicDigits(ayah);
-  const digitCount = digits.length;
-  const rosetteSize = Math.round(fontSize * (digitCount >= 3 ? 1.05 : 0.95));
+  const { box, rosetteSize, numberSize, gutter } = ayahMarkerMetrics(fontSize, digits.length);
 
-  // Nested Text only — required for correct RTL/justify advance on iOS (and fine
-  // on web). Hair spaces keep the ornament clear of the last letter. Digits may
-  // sit beside the circle when the typeface does not shape U+06DD as an enclosing
-  // mark; that is preferable to View-in-Text overlapping the Arabic.
-  if (Platform.OS !== "android") {
-    return (
-      <Text
-        accessibilityElementsHidden
-        importantForAccessibility="no-hide-descendants"
-        style={{
-          fontSize: rosetteSize,
-          lineHeight: Math.round(rosetteSize * 1.25),
-          color,
-        }}
-      >
-        {"\u200A"}
-        {END_OF_AYAH}
-        {digits}
-        {"\u200A"}
-      </Text>
-    );
-  }
-
-  const box = Math.round(fontSize * (digitCount >= 3 ? 1.15 : 1.02));
-  const numberSize = Math.round(
-    fontSize * (digitCount >= 3 ? 0.34 : digitCount === 2 ? 0.4 : 0.44),
-  );
-
-  return (
-    <View
-      accessibilityElementsHidden
-      importantForAccessibility="no-hide-descendants"
-      style={[
-        styles.marker,
-        {
-          width: box,
-          height: box,
-          marginHorizontal: Math.max(3, Math.round(fontSize * 0.08)),
-        },
-      ]}
-    >
+  const markerBody = (
+    <>
       <Text
         style={[
           styles.markerRosette,
           {
             fontSize: rosetteSize,
-            lineHeight: rosetteSize,
+            lineHeight: box,
             color,
             width: box,
             height: box,
+            fontFamily,
             pointerEvents: "none",
           },
         ]}
@@ -118,19 +99,78 @@ function AyahEndMarker({
         {END_OF_AYAH}
       </Text>
       <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.55}
         style={[
           styles.markerNumber,
           {
             fontSize: numberSize,
-            lineHeight: numberSize * 1.15,
+            lineHeight: numberSize,
             color,
+            fontFamily,
             includeFontPadding: false,
             textAlignVertical: "center",
+            maxWidth: Math.round(box * 0.55),
           },
         ]}
       >
         {digits}
       </Text>
+    </>
+  );
+
+  // iOS: spacer Text reserves advance in the justified RTL run; overlay paints
+  // on top of that slot so digits stay inside without covering the prior word.
+  if (Platform.OS === "ios") {
+    return (
+      <>
+        <Text
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+          style={{
+            fontSize: rosetteSize,
+            lineHeight: box,
+            fontFamily,
+            opacity: 0,
+          }}
+        >
+          {END_OF_AYAH}
+        </Text>
+        <View
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+          style={[
+            styles.marker,
+            {
+              width: box,
+              height: box,
+              marginStart: -box,
+              marginEnd: gutter,
+            },
+          ]}
+        >
+          {markerBody}
+        </View>
+      </>
+    );
+  }
+
+  return (
+    <View
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+      collapsable={false}
+      style={[
+        styles.marker,
+        {
+          width: box,
+          height: box,
+          marginHorizontal: gutter,
+        },
+      ]}
+    >
+      {markerBody}
     </View>
   );
 }
@@ -179,13 +219,19 @@ export function PageLayoutRenderer({
   const { t } = useTranslation();
   const { colors, tokens } = useThemeTokens();
   const { mushaf } = tokens;
+  const arabicFontFamily = useArabicFontFamily();
   const groups = useMemo(() => groupBySurah(ayahs), [ayahs]);
   const interleaved = showTransliteration || showTranslation;
 
   // Gilt end-of-ayah rosette with the verse number centered inside, sized to
   // the running Arabic so it sits on the baseline like a printed mushaf.
   const renderMarker = (ayah: Ayah) => (
-    <AyahEndMarker ayah={ayah.ayah} fontSize={arabicSize} color={mushaf.ink} />
+    <AyahEndMarker
+      ayah={ayah.ayah}
+      fontSize={arabicSize}
+      color={mushaf.ink}
+      fontFamily={arabicFontFamily}
+    />
   );
 
   return (
@@ -353,5 +399,6 @@ const styles = StyleSheet.create({
   },
   markerNumber: {
     textAlign: "center",
+    zIndex: 1,
   },
 });

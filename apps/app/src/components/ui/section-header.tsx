@@ -100,6 +100,9 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     minHeight: 44,
     justifyContent: "center",
+    paddingHorizontal: Spacing.two,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
   },
   actionRow: {
     flexDirection: "row",

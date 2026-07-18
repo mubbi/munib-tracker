@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { type LayoutChangeEvent, Pressable, StyleSheet, View } from "react-native";
+import { type LayoutChangeEvent, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/themed-text";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Springs } from "@/constants/motion";
 import { Radius, Shadows, Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -85,10 +86,13 @@ export function SegmentedControl<T extends string>({
       {options.map((option) => {
         const selected = option.id === value;
         return (
-          <Pressable
+          <PressableScale
             key={option.id}
             accessibilityRole="button"
             accessibilityState={{ selected }}
+            haptic={false}
+            scaleTo={0.98}
+            rippleRadius={Radius.sm}
             onPress={() => {
               if (!selected) triggerHaptic("selection");
               onChange(option.id);
@@ -101,7 +105,7 @@ export function SegmentedControl<T extends string>({
             >
               {option.label}
             </ThemedText>
-          </Pressable>
+          </PressableScale>
         );
       })}
     </View>

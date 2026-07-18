@@ -2,7 +2,7 @@ import { USER_MEDIA_MAX_PER_ENTITY } from "@munib-tracker/shared/constants";
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Linking, Platform, Pressable, StyleSheet, View } from "react-native";
+import { Alert, Linking, Platform, StyleSheet, View } from "react-native";
 import { AttachmentThumb } from "@/components/attachments/attachment-thumb";
 import { AttachmentSourceSheet } from "@/components/custom-adhkar/attachment-source-sheet";
 import { ThemedText } from "@/components/themed-text";
@@ -182,10 +182,12 @@ export function CustomAdhkarAttachments({
               style={[styles.thumb, { borderColor: colors.border, backgroundColor: colors.muted }]}
             >
               <AttachmentThumb uri={attachment.uri} mimeType={attachment.mimeType} iconSize={28} />
-              <Pressable
+              <PressableScale
                 accessibilityRole="button"
                 accessibilityLabel={t("customAdhkar.attachments.remove")}
                 hitSlop={8}
+                haptic="light"
+                scaleTo={0.9}
                 onPress={() => removeAt(index)}
                 onLongPress={() => removeAt(index)}
                 style={[styles.removeBadge, { backgroundColor: colors.background }]}
@@ -195,7 +197,7 @@ export function CustomAdhkarAttachments({
                   size={14}
                   tintColor={colors.mutedForeground}
                 />
-              </Pressable>
+              </PressableScale>
             </View>
           ))}
         </View>

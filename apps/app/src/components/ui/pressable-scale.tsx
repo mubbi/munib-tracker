@@ -7,12 +7,13 @@ import {
   type PressableProps,
   type StyleProp,
   StyleSheet,
-  type View,
+  View,
   type ViewStyle,
 } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 
 import { Springs } from "@/constants/motion";
+import { Radius } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { blurActiveElement } from "@/lib/blur-active-element";
 import { type HapticFeedback, triggerHaptic } from "@/lib/haptics";
@@ -59,6 +60,53 @@ const RIPPLE_HOST_LAYOUT_KEYS = [
   "maxHeight",
 ] as const satisfies readonly (keyof ViewStyle)[];
 
+/**
+ * Positioning that must live on the Android clip wrapper so margins/absolute
+ * offsets aren't left on the Pressable inside the clip. Size/flex are duplicated
+ * on both wrapper and Pressable so the touchable still fills the clip host.
+ */
+const CLIP_WRAPPER_POSITION_KEYS = [
+  "margin",
+  "marginTop",
+  "marginRight",
+  "marginBottom",
+  "marginLeft",
+  "marginStart",
+  "marginEnd",
+  "marginHorizontal",
+  "marginVertical",
+  "position",
+  "top",
+  "right",
+  "bottom",
+  "left",
+  "start",
+  "end",
+  "zIndex",
+  "elevation",
+] as const satisfies readonly (keyof ViewStyle)[];
+
+const CLIP_WRAPPER_KEYS = [
+  ...RIPPLE_HOST_LAYOUT_KEYS,
+  ...CLIP_WRAPPER_POSITION_KEYS,
+] as const satisfies readonly (keyof ViewStyle)[];
+
+const CORNER_RADIUS_KEYS = [
+  "borderRadius",
+  "borderTopLeftRadius",
+  "borderTopRightRadius",
+  "borderBottomLeftRadius",
+  "borderBottomRightRadius",
+  "borderTopStartRadius",
+  "borderTopEndRadius",
+  "borderBottomStartRadius",
+  "borderBottomEndRadius",
+  "borderCurve",
+] as const satisfies readonly (keyof ViewStyle)[];
+
+/** Default corner radius for bounded Android ripples when the surface is unrounded. */
+const DEFAULT_RIPPLE_RADIUS = Radius.md;
+
 /** Keeps box model on the ripple host; flex layout lives on the inner wrapper. */
 function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
   hostStyle: ViewStyle;
@@ -92,6 +140,54 @@ function splitRippleHostStyles(flatStyle: ViewStyle | undefined): {
   return { hostStyle: hostStyle as ViewStyle, innerStyle: innerStyle as ViewStyle };
 }
 
+function pickStyleKeys(style: ViewStyle, keys: readonly (keyof ViewStyle)[]): ViewStyle {
+  const out: Record<string, ViewStyle[keyof ViewStyle]> = {};
+  for (const key of keys) {
+    const value = style[key];
+    if (value != null) out[key] = value;
+  }
+  return out as ViewStyle;
+}
+
+function omitStyleKeys(style: ViewStyle, keys: readonly (keyof ViewStyle)[]): ViewStyle {
+  const skip = new Set<string>(keys as readonly string[]);
+  const out: Record<string, ViewStyle[keyof ViewStyle]> = {};
+  for (const [key, value] of Object.entries(style) as [
+    keyof ViewStyle,
+    ViewStyle[keyof ViewStyle],
+  ][]) {
+    if (value == null || skip.has(key)) continue;
+    out[key] = value;
+  }
+  return out as ViewStyle;
+}
+
+/** Resolve a single radius for clip wrappers — prefers uniform `borderRadius`. */
+function resolveRippleRadius(style: ViewStyle | undefined): number {
+  if (!style) return DEFAULT_RIPPLE_RADIUS;
+  if (typeof style.borderRadius === "number") return style.borderRadius;
+
+  const corners = [
+    style.borderTopLeftRadius,
+    style.borderTopRightRadius,
+    style.borderBottomLeftRadius,
+    style.borderBottomRightRadius,
+    style.borderTopStartRadius,
+    style.borderTopEndRadius,
+    style.borderBottomStartRadius,
+    style.borderBottomEndRadius,
+  ].filter((value): value is number => typeof value === "number");
+
+  if (corners.length > 0) return Math.max(...corners);
+  return DEFAULT_RIPPLE_RADIUS;
+}
+
+function hasExplicitCornerRadius(style: ViewStyle | undefined): boolean {
+  if (!style) return false;
+  if (typeof style.borderRadius === "number") return true;
+  return CORNER_RADIUS_KEYS.some((key) => key !== "borderCurve" && typeof style[key] === "number");
+}
+
 type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
   children?: ReactNode;
   /** Target scale while pressed. Lower = more pronounced. */
@@ -111,6 +207,11 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
   rippleColor?: string;
   /** Circular, unbounded ripple — for icon-only / capsule controls. */
   rippleBorderless?: boolean;
+  /**
+   * Corner radius used to clip the Android ripple when `style` does not set one.
+   * Defaults to `Radius.md` so unstyled rows/chips still match rounded surfaces.
+   */
+  rippleRadius?: number;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -121,6 +222,11 @@ type PressableScaleProps = Omit<PressableProps, "style" | "children"> & {
  * presses feel platform-native, not just scaled. Replaces ad-hoc
  * `opacity`/`transform` press states so motion stays consistent app-wide.
  * Honors reduced-motion automatically via Reanimated.
+ *
+ * Android ripples are masked to a rectangle by the platform drawable. RN's
+ * `overflow: "hidden"` on the Pressable only clips *children*, not the ripple
+ * drawn as background/foreground — so we wrap bounded ripples in a rounded
+ * clip View (borderRadius + overflow hidden) that clips the whole Pressable.
  */
 export const PressableScale = forwardRef<View, PressableScaleProps>(function PressableScale(
   {
@@ -131,6 +237,7 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     ripple = true,
     rippleColor,
     rippleBorderless,
+    rippleRadius,
     android_ripple,
     style,
     onPressIn,
@@ -144,10 +251,25 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
   const { tokens } = useThemeTokens();
   const pressed = useSharedValue(0);
 
-  // Native Material ripple on Android. `foreground: true` clips the ripple to
-  // the view's rounded outline (API 23+), so pills and cards ripple correctly
-  // without an extra `overflow: "hidden"` wrapper. An explicit `android_ripple`
-  // prop or a config passed via `ripple` always wins over the themed default.
+  const flatStyle = StyleSheet.flatten(style) as ViewStyle | undefined;
+  const { hostStyle, innerStyle } = splitRippleHostStyles(flatStyle);
+
+  const boundedRipple =
+    Platform.OS === "android" &&
+    ripple !== false &&
+    !rippleBorderless &&
+    !(typeof ripple === "object" && ripple.borderless) &&
+    !android_ripple?.borderless;
+
+  const clipRadius = useMemo(() => {
+    if (!boundedRipple) return undefined;
+    if (typeof rippleRadius === "number") return rippleRadius;
+    if (hasExplicitCornerRadius(flatStyle)) return resolveRippleRadius(flatStyle);
+    return DEFAULT_RIPPLE_RADIUS;
+  }, [boundedRipple, rippleRadius, flatStyle]);
+
+  // Native Material ripple on Android. An explicit `android_ripple` prop or a
+  // config passed via `ripple` always wins over the themed default.
   const androidRipple = useMemo<PressableAndroidRippleConfig | undefined>(() => {
     if (Platform.OS !== "android") return undefined;
     if (android_ripple) return android_ripple;
@@ -156,6 +278,8 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     return {
       color: rippleColor ?? tokens.ripple,
       borderless: rippleBorderless ?? false,
+      // Foreground keeps the ripple above opaque children (icons, pills). The
+      // outer clip wrapper is what rounds it — not `overflow` on this view.
       foreground: true,
     };
   }, [android_ripple, ripple, rippleColor, rippleBorderless, tokens.ripple]);
@@ -186,18 +310,33 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
     onPressOut?.(event);
   };
 
-  const flatStyle = StyleSheet.flatten(style);
-  const { hostStyle, innerStyle } = splitRippleHostStyles(flatStyle);
-  // Reanimated transforms on the same view as `android_ripple` prevent the ripple
-  // from clipping to rounded corners on Android. Keep press scale on an inner
-  // animated wrapper on every platform so layout/entrance animations on ancestors
-  // never compete with the spring transform on this view.
-  const rippleClipStyle =
-    Platform.OS === "android" && androidRipple != null && !androidRipple.borderless
-      ? ({ overflow: "hidden" } as const)
-      : undefined;
+  const useClipWrapper = boundedRipple && clipRadius != null;
+  const cornerStyle = pickStyleKeys(hostStyle, CORNER_RADIUS_KEYS);
+  const explicitCorners = hasExplicitCornerRadius(flatStyle);
+  const roundedClipStyle: ViewStyle = {
+    ...(explicitCorners ? cornerStyle : { borderRadius: clipRadius }),
+    borderCurve: hostStyle.borderCurve ?? ("continuous" as const),
+  };
 
-  return (
+  const layoutOnWrapper = useClipWrapper ? pickStyleKeys(hostStyle, CLIP_WRAPPER_KEYS) : null;
+  const sizeOnPressable = useClipWrapper ? pickStyleKeys(hostStyle, RIPPLE_HOST_LAYOUT_KEYS) : null;
+
+  const wrapperStyle = useClipWrapper
+    ? ([layoutOnWrapper, roundedClipStyle, { overflow: "hidden" as const }] as StyleProp<ViewStyle>)
+    : undefined;
+
+  const pressableStyle = useClipWrapper
+    ? ([
+        omitStyleKeys(hostStyle, [...CLIP_WRAPPER_POSITION_KEYS, ...CORNER_RADIUS_KEYS]),
+        sizeOnPressable,
+        roundedClipStyle,
+        // Transparent paint so Android still builds a hit target when the
+        // surface color lives only on children (see sheet backdrop note).
+        hostStyle.backgroundColor == null ? { backgroundColor: "transparent" } : null,
+      ] as StyleProp<ViewStyle>)
+    : hostStyle;
+
+  const pressable = (
     <Pressable
       ref={ref}
       disabled={disabled}
@@ -205,12 +344,16 @@ export const PressableScale = forwardRef<View, PressableScaleProps>(function Pre
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       onPress={handlePress}
-      style={[hostStyle, rippleClipStyle]}
+      style={pressableStyle}
       {...rest}
     >
       <Animated.View style={[styles.inner, innerStyle, animatedStyle]}>{children}</Animated.View>
     </Pressable>
   );
+
+  if (!useClipWrapper) return pressable;
+
+  return <View style={wrapperStyle}>{pressable}</View>;
 });
 
 const styles = StyleSheet.create({

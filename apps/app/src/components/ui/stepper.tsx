@@ -143,6 +143,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: Spacing.one,
+    paddingHorizontal: Spacing.one,
+    borderRadius: Radius.sm,
+    borderCurve: "continuous",
   },
   count: {
     textAlign: "center",

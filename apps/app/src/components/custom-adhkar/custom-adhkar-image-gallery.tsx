@@ -1,7 +1,7 @@
 import { Image } from "expo-image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { Modal, StyleSheet, useWindowDimensions, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { apiAuthHeaders } from "@/api/auth-options";
@@ -10,6 +10,7 @@ import { PdfPreview } from "@/components/attachments/pdf-preview";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Spacing } from "@/constants/theme";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
 import { isPdfMime } from "@/lib/attachments/attachment-mime";
@@ -242,10 +243,11 @@ export function CustomAdhkarImageGallery({
     <>
       <View style={styles.grid}>
         {resolved.map((item, index) => (
-          <Pressable
+          <PressableScale
             key={item.key}
             accessibilityRole="button"
             accessibilityLabel={t("customAdhkar.attachments.open", { index: index + 1 })}
+            haptic="light"
             onPress={() => setViewerIndex(index)}
             style={[
               styles.thumb,
@@ -263,7 +265,7 @@ export function CustomAdhkarImageGallery({
               headers={item.headers}
               iconSize={compact ? 22 : 26}
             />
-          </Pressable>
+          </PressableScale>
         ))}
       </View>
 

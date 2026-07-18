@@ -68,46 +68,54 @@ export const ZikrRow = memo(function ZikrRow({
         {index != null ? <ListIndexBadge index={index} /> : null}
 
         <View style={styles.body}>
-          <ThemedText type="small" numberOfLines={2}>
-            {item.title}
-          </ThemedText>
-          <ThemedText type="caption" themeColor="mutedForeground" numberOfLines={1}>
-            {item.transliteration}
-          </ThemedText>
+          <ThemedText type="small">{item.title}</ThemedText>
+          {item.transliteration ? (
+            <ThemedText type="caption" themeColor="mutedForeground">
+              {item.transliteration}
+            </ThemedText>
+          ) : null}
+
+          {completed || progressLabel || item.targetCount || categoryLabel ? (
+            <View style={styles.badges}>
+              {completed ? (
+                <Pill
+                  compact
+                  label={progressLabel ?? t("zikr.done")}
+                  color={tokens.status.success.color}
+                  background={tokens.status.success.soft}
+                  icon={{ ios: "checkmark", android: "check", web: "check" }}
+                  style={styles.badge}
+                />
+              ) : progressLabel ? (
+                <Pill
+                  compact
+                  label={progressLabel}
+                  color={colors.mutedForeground}
+                  background={colors.card}
+                  style={styles.badge}
+                />
+              ) : item.targetCount ? (
+                <Pill
+                  compact
+                  label={`×${item.targetCount}`}
+                  color={colors.accent}
+                  background={tokens.accentSoft}
+                  style={styles.badge}
+                />
+              ) : null}
+
+              {categoryLabel ? (
+                <Pill
+                  compact
+                  label={categoryLabel}
+                  color={colors.mutedForeground}
+                  background={colors.card}
+                  style={styles.badge}
+                />
+              ) : null}
+            </View>
+          ) : null}
         </View>
-
-        {completed ? (
-          <Pill
-            compact
-            label={progressLabel ?? t("zikr.done")}
-            color={tokens.status.success.color}
-            background={tokens.status.success.soft}
-            icon={{ ios: "checkmark", android: "check", web: "check" }}
-          />
-        ) : progressLabel ? (
-          <Pill
-            compact
-            label={progressLabel}
-            color={colors.mutedForeground}
-            background={colors.card}
-          />
-        ) : item.targetCount ? (
-          <Pill
-            compact
-            label={`×${item.targetCount}`}
-            color={colors.accent}
-            background={tokens.accentSoft}
-          />
-        ) : null}
-
-        {categoryLabel ? (
-          <Pill
-            compact
-            label={categoryLabel}
-            color={colors.mutedForeground}
-            background={colors.card}
-          />
-        ) : null}
 
         {onToggleFavorite ? <View style={styles.favoriteSlot} /> : null}
 
@@ -148,7 +156,18 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
+    minWidth: 0,
     gap: 2,
+  },
+  badges: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: Spacing.one,
+    marginTop: Spacing.half,
+  },
+  badge: {
+    alignSelf: "flex-start",
   },
   favoriteSlot: {
     width: FAVORITE_SIZE,

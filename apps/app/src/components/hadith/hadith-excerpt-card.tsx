@@ -2,9 +2,10 @@ import type { HadithItem } from "@munib-tracker/shared/types";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, Pressable, StyleSheet, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/button";
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { useHadithTranslation } from "@/hooks/use-hadith-translation";
 import { useThemeTokens } from "@/hooks/use-theme-tokens";
@@ -101,16 +102,18 @@ function HadithExcerptCardContent({
         </ThemedText>
       ) : null}
 
-      <Pressable
+      <PressableScale
         accessibilityRole="link"
         accessibilityLabel={t("reading.openReference", { ref: hadith.reference })}
         onPress={onOpen}
         hitSlop={8}
+        haptic="light"
+        style={styles.referenceHit}
       >
         <ThemedText type="caption" style={{ color: colors.accent }}>
           {t("reading.reference", { ref: hadith.reference })}
         </ThemedText>
-      </Pressable>
+      </PressableScale>
 
       <Button
         label={t("prayerInfo.viewHadith")}
@@ -129,6 +132,14 @@ const styles = StyleSheet.create({
     gap: Spacing.two,
     padding: Spacing.three,
     borderRadius: Radius.md,
+    borderCurve: "continuous",
+  },
+  referenceHit: {
+    alignSelf: "flex-start",
+    paddingVertical: Spacing.half,
+    paddingHorizontal: Spacing.one,
+    marginHorizontal: -Spacing.one,
+    borderRadius: Radius.sm,
     borderCurve: "continuous",
   },
   arabic: {

@@ -55,9 +55,11 @@ export function LabeledIconButton({
       onPress={loading ? undefined : onPress}
       haptic={haptic}
       hitSlop={4}
+      rippleRadius={Radius.sm}
       style={[
         styles.base,
-        background ? { backgroundColor: background, borderRadius: Radius.sm } : null,
+        { borderRadius: Radius.sm },
+        background ? { backgroundColor: background } : null,
         isDisabled ? styles.disabled : null,
       ]}
     >

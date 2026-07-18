@@ -93,19 +93,30 @@ export function isBundledCollection(id: string): boolean {
 }
 
 function toCollectionData(bundled: BundledHadithCollection): HadithCollectionData {
+  // Mirror remote collections: stamp each item with its chapter/book title so
+  // in-collection search can match section names (e.g. "Good Manners").
+  const chapterName = new Map(
+    bundled.chapters.map((ch) => [ch.id, ch.nameEnglish || ch.nameArabic || `Chapter ${ch.id}`]),
+  );
+  const items: HadithItem[] = bundled.items.map((item) => {
+    if (item.book || !item.chapterId) return item;
+    const book = chapterName.get(item.chapterId);
+    return book ? { ...item, book } : item;
+  });
+
   const counts = new Map<string, number>();
-  for (const item of bundled.items) {
+  for (const item of items) {
     const key = item.chapterId ?? "";
     counts.set(key, (counts.get(key) ?? 0) + 1);
   }
   const sections: HadithSection[] = bundled.chapters
     .map((ch) => ({
       id: ch.id,
-      name: ch.nameEnglish || ch.nameArabic || `Chapter ${ch.id}`,
+      name: chapterName.get(ch.id) ?? `Chapter ${ch.id}`,
       count: counts.get(ch.id) ?? 0,
     }))
     .filter((s) => s.count > 0);
-  return { sections, items: bundled.items };
+  return { sections, items };
 }
 
 /** Group a bundled collection into the same {sections, items} shape as remote. */

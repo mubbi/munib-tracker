@@ -96,6 +96,14 @@ function shellResponsive(serial) {
   return result.status === 0 && (result.stdout || "").trim() === "1";
 }
 
+function androidUserHome() {
+  return (
+    process.env.ANDROID_USER_HOME ||
+    (process.env.ANDROID_SDK_HOME && path.join(process.env.ANDROID_SDK_HOME, ".android")) ||
+    path.join(os.homedir(), ".android")
+  );
+}
+
 function resetAdb() {
   console.log("Resetting adb server…");
   adb(["kill-server"], { stdio: "ignore" });
@@ -106,6 +114,37 @@ function resetAdb() {
   }
   adb(["start-server"], { stdio: "ignore" });
   sleep(1000);
+}
+
+/**
+ * After a wipe (or corrupted host keys), adb can stick on `unauthorized`.
+ * Regenerating ~/.android/adbkey* forces the next emulator boot to inject a
+ * fresh androidboot.qemu.adb.pubkey and accept the host again.
+ */
+function regenerateAdbKeys() {
+  const dir = androidUserHome();
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+  } catch {
+    // best-effort
+  }
+  const stamp = Date.now();
+  for (const name of ["adbkey", "adbkey.pub"]) {
+    const file = path.join(dir, name);
+    if (!fs.existsSync(file)) continue;
+    try {
+      fs.copyFileSync(file, `${file}.bak.${stamp}`);
+      fs.rmSync(file, { force: true });
+    } catch {
+      // leave existing key if locked
+    }
+  }
+  console.log(`Regenerated adb host keys under ${dir}`);
+  resetAdb();
+}
+
+function hasUnauthorizedTransport() {
+  return emulatorTransports().some((t) => t.state === "unauthorized");
 }
 
 function avdHomes() {
@@ -159,6 +198,49 @@ function cleanStaleAvdLocks(avd) {
   if (removed > 0) console.log(`Cleaned ${removed} stale lock file(s) for "${avd}".`);
 }
 
+/**
+ * `-wipe-data` persists forceColdBoot=yes in config.ini on some emulator
+ * versions, so every later boot is a slow cold start. Restore Quick Boot.
+ */
+function restoreQuickBootConfig(avd) {
+  const dir = avdDataDir(avd);
+  if (!dir) return;
+  const configPath = path.join(dir, "config.ini");
+  if (!fs.existsSync(configPath)) return;
+  let text;
+  try {
+    text = fs.readFileSync(configPath, "utf8");
+  } catch {
+    return;
+  }
+  const next = text
+    .replace(/^fastboot\.forceColdBoot=yes$/m, "fastboot.forceColdBoot=no")
+    .replace(/^fastboot\.forceFastBoot=no$/m, "fastboot.forceFastBoot=yes");
+  if (next === text) return;
+  try {
+    fs.writeFileSync(configPath, next, "utf8");
+    console.log(`Restored Quick Boot flags in ${configPath}`);
+  } catch {
+    // non-fatal
+  }
+}
+
+function emulatorProcessAlive() {
+  if (!isWin) {
+    const result = spawnSync("pgrep", ["-f", "qemu-system"], { encoding: "utf8" });
+    return result.status === 0 && Boolean((result.stdout || "").trim());
+  }
+  for (const image of ["qemu-system-x86_64.exe", "qemu-system-aarch64.exe", "emulator.exe"]) {
+    const result = spawnSync("tasklist", ["/FI", `IMAGENAME eq ${image}`, "/NH"], {
+      encoding: "utf8",
+    });
+    if (result.status === 0 && (result.stdout || "").toLowerCase().includes(image.toLowerCase())) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function killRunningEmulators(serials) {
   console.log(`Stopping running emulator(s): ${serials.join(", ") || "(none)"}…`);
   for (const serial of serials) {
@@ -183,14 +265,49 @@ function bootCompleted() {
 
 function waitForBoot(timeoutMs = 180_000) {
   const start = Date.now();
-  adb(["wait-for-device"], { timeout: timeoutMs });
+  let refreshedKeys = false;
   process.stdout.write("Waiting for Android to finish booting");
   while (Date.now() - start < timeoutMs) {
+    const transports = emulatorTransports();
+    if (transports.some((t) => t.state === "unauthorized")) {
+      process.stdout.write("U");
+      if (!refreshedKeys) {
+        process.stdout.write("\n");
+        console.warn(
+          "adb reports unauthorized (common after wipe). Regenerating host keys and reconnecting…",
+        );
+        regenerateAdbKeys();
+        adb(["reconnect"], { stdio: "ignore" });
+        refreshedKeys = true;
+        // Guest still has the old injected pubkey until next cold boot — keep waiting;
+        // if it stays unauthorized the caller should cold-restart.
+      } else {
+        adb(["reconnect"], { stdio: "ignore" });
+      }
+      sleep(2000);
+      continue;
+    }
+    if (transports.some((t) => t.state === "offline")) {
+      process.stdout.write("o");
+      if ((Date.now() - start) % 10_000 < 2500) adb(["reconnect", "offline"], { stdio: "ignore" });
+      sleep(2000);
+      continue;
+    }
     if (bootCompleted()) {
       process.stdout.write(" done.\n");
       return true;
     }
-    process.stdout.write(".");
+    if (transports.some((t) => t.state === "device")) {
+      process.stdout.write(".");
+    } else {
+      process.stdout.write(".");
+      // Process died mid-boot — fail fast so wipe/restart can retry.
+      if (Date.now() - start > 15_000 && !emulatorProcessAlive()) {
+        process.stdout.write("\n");
+        console.warn("Emulator process exited before boot completed.");
+        return false;
+      }
+    }
     sleep(2000);
   }
   process.stdout.write("\n");
@@ -218,12 +335,26 @@ function resolveAvd() {
 function runDoctor() {
   console.log("Android emulator doctor — repairing adb/device connectivity.\n");
   resetAdb();
-  const transports = emulatorTransports();
+  let transports = emulatorTransports();
   if (transports.length === 0) {
     console.log("No emulator transport detected. Start one with: pnpm dev:app:android:emulator\n");
     return;
   }
-  if (transports.some((t) => t.state !== "device")) {
+  if (hasUnauthorizedTransport()) {
+    console.warn(
+      `adb unauthorized (${transports.map((t) => `${t.serial}=${t.state}`).join(", ")}).\n` +
+        "Regenerating host keys — if it stays unauthorized, cold-restart so the guest picks up the new pubkey:\n" +
+        "  pnpm dev:app:android:restart\n",
+    );
+    regenerateAdbKeys();
+    adb(["reconnect"], { stdio: "ignore" });
+    for (let i = 0; i < 8; i += 1) {
+      sleep(2000);
+      transports = emulatorTransports();
+      if (onlineEmulators().length > 0) break;
+      if (!hasUnauthorizedTransport()) break;
+    }
+  } else if (transports.some((t) => t.state !== "device")) {
     console.log(
       `Reconnecting (states: ${transports.map((t) => `${t.serial}=${t.state}`).join(", ")})…`,
     );
@@ -235,7 +366,16 @@ function runDoctor() {
   }
   const online = onlineEmulators();
   if (online.length === 0) {
-    console.warn("Emulator still not `device`. Do a clean restart: pnpm dev:app:android:restart\n");
+    if (hasUnauthorizedTransport()) {
+      console.warn(
+        "Still unauthorized after key regen. Cold-restart the AVD so it injects the new pubkey:\n" +
+          "  pnpm dev:app:android:restart\n",
+      );
+    } else {
+      console.warn(
+        "Emulator still not `device`. Do a clean restart: pnpm dev:app:android:restart\n",
+      );
+    }
     return;
   }
   const start = Date.now();
@@ -251,9 +391,25 @@ function runDoctor() {
   }
 }
 
+function spawnEmulator(args) {
+  const child = spawn(emulatorBin, args, {
+    detached: true,
+    stdio: "ignore",
+    windowsHide: false,
+    // On Windows, start in a new process group so qemu survives the launcher.
+    ...(isWin ? { windowsVerbatimArguments: false } : {}),
+  });
+  child.on("error", (err) => {
+    console.error(`Failed to spawn emulator: ${err.message}`);
+  });
+  child.unref();
+  return child;
+}
+
 function launch(avd) {
   const transports = emulatorTransports();
   const online = transports.filter((t) => t.state === "device").map((t) => t.serial);
+  const unauthorized = hasUnauthorizedTransport();
 
   if (!COLD && !WIPE) {
     if (online.length > 0) {
@@ -270,31 +426,54 @@ function launch(avd) {
       );
       killRunningEmulators(online);
       resetAdb();
+    } else if (unauthorized) {
+      console.warn("Emulator is unauthorized over adb. Regenerating keys and cold-restarting…\n");
+      killRunningEmulators(transports.map((t) => t.serial));
+      regenerateAdbKeys();
     } else if (transports.length > 0) {
       resetAdb();
     }
   } else {
     if (transports.length > 0) killRunningEmulators(transports.map((t) => t.serial));
-    resetAdb();
+    // Wipe clears guest authorized_keys; refresh host keys so the next boot
+    // injects a matching androidboot.qemu.adb.pubkey.
+    if (WIPE || unauthorized) regenerateAdbKeys();
+    else resetAdb();
   }
 
   cleanStaleAvdLocks(avd);
+  if (WIPE) restoreQuickBootConfig(avd);
 
   const gpu = process.env.ANDROID_EMULATOR_GPU || "auto";
   const args = ["-avd", avd, "-gpu", gpu, "-no-boot-anim", "-netfast"];
-  if (COLD) args.push("-no-snapshot-load");
+  // After wipe/key regen, always cold-boot so the guest picks up the new pubkey.
+  if (COLD || WIPE) args.push("-no-snapshot-load");
   if (WIPE) args.push("-wipe-data");
   if (NO_SAVE) args.push("-no-snapshot-save");
 
   const mode = WIPE ? "factory reset" : COLD ? "cold boot" : "Quick Boot";
   console.log(`Launching emulator "${avd}" (${mode}, gpu=${gpu})…`);
 
-  const child = spawn(emulatorBin, args, { detached: true, stdio: "ignore", windowsHide: false });
-  child.unref();
+  spawnEmulator(args);
 
-  sleep(3000);
+  // Confirm the process tree actually came up (stdio:ignore can hide spawn failures).
+  let alive = false;
+  for (let i = 0; i < 10; i += 1) {
+    sleep(1000);
+    if (emulatorProcessAlive() || emulatorTransports().length > 0) {
+      alive = true;
+      break;
+    }
+  }
+  if (!alive) {
+    console.warn("Emulator process did not appear — retrying launch once…");
+    spawnEmulator(args);
+    sleep(3000);
+  }
 
   const booted = waitForBoot();
+  if (WIPE) restoreQuickBootConfig(avd);
+
   if (booted && shellResponsive()) {
     console.log(`\nEmulator "${avd}" is ready. Start the app with: pnpm dev:app:android\n`);
   } else if (booted) {
@@ -302,10 +481,17 @@ function launch(avd) {
       `\nEmulator booted but its shell is not responding yet.\n` +
         "If it stays wedged: pnpm dev:app:android:restart\n",
     );
+  } else if (hasUnauthorizedTransport()) {
+    console.warn(
+      `\nEmulator stayed unauthorized after key regen.\n` +
+        "Kill it and cold-restart so the guest injects the new pubkey:\n" +
+        "  pnpm dev:app:android:restart\n",
+    );
   } else {
     console.warn(
       `\nEmulator did not report boot completion in time.\n` +
-        "If it stays stuck: pnpm dev:app:android:restart (or :wipe if corrupted).\n",
+        "If it stays stuck: pnpm dev:app:android:restart (or :wipe if corrupted).\n" +
+        "GPU fallback: ANDROID_EMULATOR_GPU=swiftshader_indirect pnpm dev:app:android:restart\n",
     );
   }
 }

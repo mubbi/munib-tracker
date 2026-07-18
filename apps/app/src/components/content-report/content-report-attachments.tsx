@@ -1,7 +1,7 @@
 import * as ImagePicker from "expo-image-picker";
 import { SymbolView } from "expo-symbols";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { AttachmentThumb } from "@/components/attachments/attachment-thumb";
 import { ThemedText } from "@/components/themed-text";
@@ -122,10 +122,12 @@ export function ContentReportAttachments({
               style={[styles.thumb, { borderColor: colors.border, backgroundColor: colors.muted }]}
             >
               <AttachmentThumb uri={attachment.uri} mimeType={attachment.mimeType} iconSize={28} />
-              <Pressable
+              <PressableScale
                 accessibilityRole="button"
                 accessibilityLabel={t("contentReport.removeProof")}
                 hitSlop={8}
+                haptic="light"
+                scaleTo={0.9}
                 onPress={() => removeAt(index)}
                 onLongPress={() => removeAt(index)}
                 style={[styles.removeBadge, { backgroundColor: colors.background }]}
@@ -135,7 +137,7 @@ export function ContentReportAttachments({
                   size={14}
                   tintColor={colors.mutedForeground}
                 />
-              </Pressable>
+              </PressableScale>
             </View>
           ))}
         </View>

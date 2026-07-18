@@ -72,15 +72,20 @@ export function IconButton({
       onPress={loading ? undefined : onPress}
       haptic={haptic}
       hitSlop={8}
-      // A bare glyph reads best with a circular (borderless) Android ripple; a
-      // filled well clips a bounded ripple to its rounded square.
-      rippleBorderless={!background && !useGlass}
+      // Always clip a bounded ripple to the well radius — even without a filled
+      // background — so icon controls match rounded cards/rows on Android.
+      rippleRadius={wellRadius}
       style={[
         styles.base,
-        { minWidth: hitTarget, minHeight: hitTarget, opacity: disabled ? 0.4 : 1 },
+        {
+          minWidth: hitTarget,
+          minHeight: hitTarget,
+          opacity: disabled ? 0.4 : 1,
+          borderRadius: wellRadius,
+        },
         // The glass wrapper supplies the well; only paint a solid background
         // when we're not rendering Liquid Glass.
-        !useGlass && background ? { backgroundColor: background, borderRadius: wellRadius } : null,
+        !useGlass && background ? { backgroundColor: background } : null,
         style,
       ]}
     >

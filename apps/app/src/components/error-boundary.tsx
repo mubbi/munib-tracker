@@ -1,7 +1,8 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Radius, Spacing } from "@/constants/theme";
 import { recordReviewErrorMarker } from "@/features/reviews/lib/reviewEngagementBridge";
 import { useTheme } from "@/hooks/use-theme";
@@ -15,19 +16,17 @@ export function ErrorFallback({ onReset }: { onReset: () => void }) {
     <View style={[styles.root, { backgroundColor: colors.background }]}>
       <Text style={[styles.title, { color: colors.foreground }]}>{t("errors.title")}</Text>
       <Text style={[styles.body, { color: colors.mutedForeground }]}>{t("errors.body")}</Text>
-      <Pressable
+      <PressableScale
         onPress={onReset}
         accessibilityRole="button"
         accessibilityLabel={t("common.tryAgain")}
-        style={({ pressed }) => [
-          styles.button,
-          { backgroundColor: colors.accent, opacity: pressed ? 0.85 : 1 },
-        ]}
+        haptic="light"
+        style={[styles.button, { backgroundColor: colors.accent }]}
       >
         <Text style={[styles.buttonLabel, { color: colors.accentForeground }]}>
           {t("common.tryAgain")}
         </Text>
-      </Pressable>
+      </PressableScale>
     </View>
   );
 }

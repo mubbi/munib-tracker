@@ -121,7 +121,12 @@ const styles = StyleSheet.create({
   railColumn: { alignItems: "center", width: 16, paddingTop: Spacing.three },
   dot: { width: 12, height: 12, borderRadius: Radius.pill },
   rail: { width: 2, flex: 1, marginTop: Spacing.one },
-  cardPressable: { flex: 1, marginBottom: Spacing.three },
+  cardPressable: {
+    flex: 1,
+    marginBottom: Spacing.three,
+    borderRadius: Radius.lg,
+    borderCurve: "continuous",
+  },
   card: { flex: 1 },
   badges: {
     flexDirection: "row",

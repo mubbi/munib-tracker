@@ -7,7 +7,7 @@ import type {
   Surah,
   ZikrItem,
 } from "@munib-tracker/shared/types";
-import type Fuse from "fuse.js";
+import Fuse from "fuse.js";
 
 import { ensureBundledCollection, getBundledCollection, getBundledCollections } from "@/lib/hadith";
 import { getSurahMeta } from "@/lib/quran-meta";
@@ -18,7 +18,10 @@ import {
   type FuzzyIndex,
   fusePattern,
   fuseSearch,
+  MIN_TOKEN_LENGTH,
   makeFuse,
+  normalize,
+  tokenize,
 } from "@/lib/search-fuse";
 import {
   SEARCH_CATEGORY_ORDER,
@@ -340,7 +343,7 @@ function exactSurahNumberMatch(query: string): Surah | null {
   return getSurahMeta().find((surah) => surah.number === number) ?? null;
 }
 
-/** Shared hadith field weights, used by the global index and per-collection search. */
+/** Shared hadith field weights for the universal (Nawawi) Fuse index. */
 const HADITH_FIELDS: FuzzyField<HadithItem>[] = [
   { key: "english", weight: 3, get: (h) => h.english },
   {
@@ -350,6 +353,8 @@ const HADITH_FIELDS: FuzzyField<HadithItem>[] = [
   },
   { key: "narrator", weight: 2, get: (h) => h.narrator },
   { key: "reference", weight: 2, get: (h) => h.reference },
+  { key: "book", weight: 2, get: (h) => h.book },
+  { key: "number", weight: 2, get: (h) => h.number },
   { key: "arabic", weight: 1, get: (h) => h.arabic },
 ];
 
@@ -368,13 +373,105 @@ function getHadithFuse(): Fuse<FuseDoc<HadithItem>> {
   return hadithFuse;
 }
 
+type HadithSearchDoc = {
+  item: HadithItem;
+  haystack: string;
+  english: string;
+  translation: string;
+  narrator: string;
+  reference: string;
+  book: string;
+  number: string;
+  arabic: string;
+};
+
 /**
- * A fuzzy index over one hadith collection's items, for the in-collection search
- * bar. Memoize per collection (its item list is stable once loaded) — a remote
- * collection can hold thousands of hadith, so don't rebuild on every keystroke.
+ * In-collection hadith search for bundled highlights and downloaded full books.
+ *
+ * Full collections (Bukhari ≈ 7.5k) are too large for Fuse Bitap on every
+ * keystroke (~300–1000 ms). We pre-normalize a single haystack per item and
+ * AND-match query tokens with substring includes (≈5 ms on Bukhari). Typo
+ * tolerance falls back to a lazily built Fuse index only when the fast path
+ * misses — cheap on Nawawi, rare on large corpora.
+ *
+ * Memoize per item list (stable once loaded) — never rebuild on each keystroke.
  */
 export function createHadithSearch(items: HadithItem[]): FuzzyIndex<HadithItem> {
-  return createFuzzyIndex(items, HADITH_FIELDS);
+  const prefs = preferencesStore.getState().prefs;
+  const docs: HadithSearchDoc[] = items.map((item) => {
+    const english = normalize(item.english);
+    const translation = normalize(resolveHadithTranslation(item, prefs));
+    const narrator = normalize(item.narrator ?? "");
+    const reference = normalize(item.reference);
+    const book = normalize(item.book ?? "");
+    const number = normalize(item.number ?? "");
+    const arabic = normalize(item.arabic ?? "");
+    const haystack = [english, translation, narrator, reference, book, number, arabic]
+      .filter(Boolean)
+      .join(" ");
+    return {
+      item,
+      haystack,
+      english,
+      translation,
+      narrator,
+      reference,
+      book,
+      number,
+      arabic,
+    };
+  });
+
+  let fuse: Fuse<HadithSearchDoc> | null = null;
+  const getFuse = (): Fuse<HadithSearchDoc> => {
+    fuse ??= new Fuse(docs, {
+      includeScore: true,
+      ignoreLocation: true,
+      threshold: 0.2,
+      minMatchCharLength: MIN_TOKEN_LENGTH,
+      useExtendedSearch: true,
+      keys: [
+        { name: "english", weight: 3 },
+        { name: "translation", weight: 3 },
+        { name: "narrator", weight: 2 },
+        { name: "reference", weight: 2 },
+        { name: "book", weight: 2 },
+        { name: "number", weight: 2 },
+        { name: "arabic", weight: 1 },
+      ],
+    });
+    return fuse;
+  };
+
+  return {
+    search(query, limit) {
+      const tokens = tokenize(query).filter((token) => token.length >= MIN_TOKEN_LENGTH);
+      if (tokens.length === 0) return [];
+
+      const fast: HadithItem[] = [];
+      for (const doc of docs) {
+        if (!tokens.every((token) => doc.haystack.includes(token))) continue;
+        fast.push(doc.item);
+        if (limit && fast.length >= limit) break;
+      }
+      if (fast.length > 0) return fast;
+
+      // Typo-tolerant fallback (e.g. "mesenger" → "messenger").
+      const pattern = tokens.join(" ");
+      const matches = getFuse().search(pattern, limit ? { limit } : undefined);
+      return matches.map((match) => match.item.item);
+    },
+    count(query) {
+      const tokens = tokenize(query).filter((token) => token.length >= MIN_TOKEN_LENGTH);
+      if (tokens.length === 0) return 0;
+      let n = 0;
+      for (const doc of docs) {
+        if (tokens.every((token) => doc.haystack.includes(token))) n += 1;
+      }
+      if (n > 0) return n;
+      return getFuse().search(tokens.join(" ")).length;
+    },
+  };
 }
 
 /**

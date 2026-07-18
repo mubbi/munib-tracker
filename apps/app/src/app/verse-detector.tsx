@@ -12,6 +12,7 @@ import {
   View,
 } from "react-native";
 
+import { JannahCallout } from "@/components/jannah/primitives";
 import {
   ReadingTypographyBar,
   ReadingTypographyProvider,
@@ -28,6 +29,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Pill } from "@/components/ui/pill";
 import { PressableScale } from "@/components/ui/pressable-scale";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Stagger } from "@/components/ui/stagger";
 import { Radius, Spacing } from "@/constants/theme";
 import { useShareContentCard } from "@/hooks/use-share-content-card";
@@ -127,41 +129,6 @@ function HighlightedText({
         </Text>
       ))}
     </Text>
-  );
-}
-
-function LangChip({
-  label,
-  selected,
-  onPress,
-}: {
-  label: string;
-  selected: boolean;
-  onPress: () => void;
-}) {
-  const { colors, tokens } = useThemeTokens();
-  return (
-    <PressableScale
-      haptic="selection"
-      accessibilityRole="button"
-      accessibilityState={{ selected }}
-      accessibilityLabel={label}
-      onPress={onPress}
-      style={[
-        styles.langChip,
-        {
-          backgroundColor: selected ? tokens.accentSoft : colors.muted,
-          borderColor: selected ? colors.accent : "transparent",
-        },
-      ]}
-    >
-      <ThemedText
-        type="smallBold"
-        style={{ color: selected ? colors.accent : colors.mutedForeground }}
-      >
-        {label}
-      </ThemedText>
-    </PressableScale>
   );
 }
 
@@ -318,7 +285,7 @@ function DetectorBody() {
   const router = useRouter();
   const { t } = useTranslation();
   const toast = useToast();
-  const { colors, tokens } = useThemeTokens();
+  const { colors } = useThemeTokens();
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
 
   const [lang, setLang] = useState<VerseDetectorLang>("en");
@@ -476,46 +443,40 @@ function DetectorBody() {
     [share, t],
   );
 
+  const langOptions = useMemo(
+    () => [
+      { id: "en" as const, label: t("quran.detector.langEnglish") },
+      { id: "ar" as const, label: t("quran.detector.langArabic") },
+    ],
+    [t],
+  );
+
   return (
     <>
       {SnapshotHost}
       <Stagger>
-        <ReadingTypographyBar surface="quran" />
-
-        <Card padding="three" style={styles.composer}>
-          <View style={styles.composerTop}>
-            <View style={styles.langRow}>
-              <LangChip
-                label={t("quran.detector.langEnglish")}
-                selected={lang === "en"}
-                onPress={() => setLang("en")}
-              />
-              <LangChip
-                label={t("quran.detector.langArabic")}
-                selected={lang === "ar"}
-                onPress={() => setLang("ar")}
-              />
-            </View>
-            {busy ? (
-              <View style={styles.statusInline}>
-                <ActivityIndicator size="small" color={colors.accent} />
-                <ThemedText type="caption" themeColor="mutedForeground">
-                  {t("quran.detector.detecting")}
-                </ThemedText>
-              </View>
-            ) : results.length > 0 ? (
-              <ThemedText type="caption" themeColor="mutedForeground">
-                {t("quran.detector.resultsCount", { count: results.length })}
-              </ThemedText>
-            ) : null}
+        <Card
+          padding="four"
+          style={[
+            styles.composer,
+            {
+              borderWidth: 1,
+              borderColor: colors.border,
+            },
+          ]}
+        >
+          <View style={styles.fieldGroup}>
+            <ThemedText type="smallBold">{t("quran.detector.languageLabel")}</ThemedText>
+            <SegmentedControl options={langOptions} value={lang} onChange={setLang} />
           </View>
 
           <View
             style={[
               styles.textField,
               {
-                backgroundColor: colors.muted,
-                borderColor: stt.listening ? colors.accent : tokens.hairline,
+                backgroundColor: colors.background,
+                borderColor: stt.listening ? colors.accent : colors.border,
+                borderWidth: stt.listening ? 1.5 : 1,
               },
             ]}
           >
@@ -550,9 +511,7 @@ function DetectorBody() {
                   </ThemedText>
                 </View>
               ) : (
-                <ThemedText type="caption" themeColor="mutedForeground" style={styles.fieldHint}>
-                  {t("quran.detector.detectHint")}
-                </ThemedText>
+                <View style={styles.footerSpacer} />
               )}
               <View style={styles.textFieldActions}>
                 {hasInput ? (
@@ -580,10 +539,21 @@ function DetectorBody() {
             </View>
           </View>
 
+          {!hasInput && !stt.listening ? (
+            <JannahCallout tone="info">{t("quran.detector.detectHint")}</JannahCallout>
+          ) : null}
+
+          {busy ? (
+            <View style={styles.statusRow}>
+              <ActivityIndicator size="small" color={colors.accent} />
+              <ThemedText type="caption" themeColor="mutedForeground">
+                {t("quran.detector.detecting")}
+              </ThemedText>
+            </View>
+          ) : null}
+
           <View style={styles.examplesBlock}>
-            <ThemedText type="caption" themeColor="mutedForeground">
-              {t("quran.detector.examples")}
-            </ThemedText>
+            <ThemedText type="smallBold">{t("quran.detector.examples")}</ThemedText>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -597,9 +567,17 @@ function DetectorBody() {
                   accessibilityRole="button"
                   accessibilityLabel={example.label}
                   onPress={() => applyExample(example.id)}
-                  style={[styles.exampleChip, { backgroundColor: colors.background }]}
+                  style={[
+                    styles.exampleChip,
+                    {
+                      backgroundColor: colors.muted,
+                      borderColor: colors.border,
+                    },
+                  ]}
                 >
-                  <ThemedText type="caption">{example.label}</ThemedText>
+                  <ThemedText type="caption" style={{ color: colors.foreground }}>
+                    {example.label}
+                  </ThemedText>
                 </PressableScale>
               ))}
             </ScrollView>
@@ -619,7 +597,17 @@ function DetectorBody() {
         ) : null}
 
         {!busy && topHit ? (
-          <Card padding="three" style={styles.resultsCard}>
+          <Card
+            padding="three"
+            style={[
+              styles.resultsCard,
+              {
+                borderWidth: 1,
+                borderColor: colors.border,
+              },
+            ]}
+          >
+            <ReadingTypographyBar surface="quran" />
             <VerseResultCard
               hit={topHit}
               featured
@@ -689,41 +677,16 @@ export default function QuranVerseDetectorScreen() {
 
 const styles = StyleSheet.create({
   composer: { gap: Spacing.three },
-  composerTop: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: Spacing.two,
-  },
-  langRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    flexShrink: 1,
-  },
-  langChip: {
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
-    borderRadius: Radius.pill,
-    borderCurve: "continuous",
-    borderWidth: 1.5,
-  },
-  statusInline: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.two,
-    flexShrink: 0,
-  },
+  fieldGroup: { gap: Spacing.two },
   textField: {
     borderRadius: Radius.lg,
     borderCurve: "continuous",
-    borderWidth: StyleSheet.hairlineWidth,
     padding: Spacing.three,
     gap: Spacing.two,
   },
   textInput: {
-    minHeight: 72,
-    maxHeight: 140,
+    minHeight: 88,
+    maxHeight: 160,
     fontSize: 16,
     lineHeight: 24,
     padding: 0,
@@ -733,8 +696,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: Spacing.two,
+    minHeight: 36,
   },
-  fieldHint: { flex: 1 },
+  footerSpacer: { flex: 1 },
   listeningBadge: {
     flex: 1,
     flexDirection: "row",
@@ -747,6 +711,11 @@ const styles = StyleSheet.create({
     gap: Spacing.one,
     flexShrink: 0,
   },
+  statusRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+  },
   examplesBlock: { gap: Spacing.two },
   examplesRow: { gap: Spacing.two, paddingEnd: Spacing.two },
   exampleChip: {
@@ -754,9 +723,10 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.two,
     borderRadius: Radius.pill,
     borderCurve: "continuous",
+    borderWidth: StyleSheet.hairlineWidth,
   },
-  resultsCard: { gap: Spacing.four },
-  resultsList: { gap: Spacing.three, marginTop: Spacing.three },
+  resultsCard: { gap: Spacing.three },
+  resultsList: { gap: Spacing.three, marginTop: Spacing.two },
   otherBlock: { gap: Spacing.one },
   resultCard: {
     gap: Spacing.three,

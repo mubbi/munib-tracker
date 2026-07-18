@@ -1,6 +1,6 @@
 import { DUROOD_ITEMS, duasByCategory, NAMES_OF_ALLAH } from "@munib-tracker/shared/content";
 
-import { getBundledCollection } from "@/lib/hadith";
+import { getBundledCollection, getBundledCollectionData } from "@/lib/hadith";
 import { getSurahAyahs } from "@/lib/quran";
 import {
   createCustomAdhkarSearch,
@@ -195,10 +195,44 @@ describe("createHadithSearch", () => {
     const items = getBundledCollection("nawawi40")?.items ?? [];
     const index = createHadithSearch(items);
     expect(index.search("messenger").length).toBeGreaterThan(0);
-    // typo-tolerant (missing an 's')
+    // typo-tolerant (missing an 's') — Fuse fallback when substring misses
     expect(index.search("mesenger").length).toBeGreaterThan(0);
     expect(index.count("messenger")).toBeGreaterThan(0);
     expect(index.search("")).toEqual([]);
+  });
+
+  it("matches section/book titles on enriched collection items", () => {
+    const items = getBundledCollectionData("riyad_assalihin")?.items ?? [];
+    const index = createHadithSearch(items);
+    // "The Book of Good Manners" is stamped onto items via chapter metadata.
+    expect(index.search("manners").length).toBeGreaterThan(10);
+  });
+
+  it("matches downloaded-style items by book name and number", () => {
+    const items = [
+      {
+        id: "bukhari:1",
+        collection: "bukhari",
+        number: "1",
+        arabic: "إنما الأعمال بالنيات",
+        english: "Actions are by intentions.",
+        reference: "Sahih al-Bukhari 1",
+        book: "Revelation",
+      },
+      {
+        id: "bukhari:2",
+        collection: "bukhari",
+        number: "2",
+        arabic: "",
+        english: "Something about prayer and fasting.",
+        reference: "Sahih al-Bukhari 2",
+        book: "Belief",
+      },
+    ];
+    const index = createHadithSearch(items);
+    expect(index.search("revelation").map((h) => h.id)).toEqual(["bukhari:1"]);
+    expect(index.search("intentions").map((h) => h.id)).toEqual(["bukhari:1"]);
+    expect(index.search("belief").map((h) => h.id)).toEqual(["bukhari:2"]);
   });
 });
 

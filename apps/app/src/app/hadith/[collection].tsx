@@ -41,6 +41,10 @@ import { useAudioPlayerContext } from "@/providers/audio-player-provider";
 import { recordContinueActivity } from "@/stores/continue-store";
 import { usePreferences } from "@/stores/preferences-store";
 
+/** Stable empty sentinels so `?? []` does not churn effect deps every render. */
+const EMPTY_HADITH_ITEMS: HadithItem[] = [];
+const EMPTY_SECTIONS: HadithSection[] = [];
+
 /**
  * Pre-render a static HTML page for every bundled hadith collection at web
  * export time, so each has its own crawlable URL and metadata.
@@ -79,8 +83,8 @@ export default function HadithCollectionScreen() {
 
   const collection = bundled?.collection ?? getRemoteCollection(collectionId);
   const data = remote ? remoteQuery.data : bundledData;
-  const sections = data?.sections ?? [];
-  const allItems = data?.items ?? [];
+  const sections = data?.sections ?? EMPTY_SECTIONS;
+  const allItems = data?.items ?? EMPTY_HADITH_ITEMS;
   const { share, isSharing, isGesturePending, SnapshotHost } = useShareContentCard();
   const { translationLocale } = usePreferences();
 
@@ -115,17 +119,26 @@ export default function HadithCollectionScreen() {
   // changes — never per keystroke.
   const [hadithIndex, setHadithIndex] = useState<{
     key: HadithItem[];
+    locale: string;
     index: FuzzyIndex<HadithItem>;
   } | null>(null);
-  const activeIndex = hadithIndex?.key === allItems ? hadithIndex.index : null;
+  const activeIndex =
+    hadithIndex?.key === allItems && hadithIndex.locale === translationLocale
+      ? hadithIndex.index
+      : null;
   useEffect(() => {
-    // Already have an index for exactly this item list — nothing to do.
-    if (hadithIndex?.key === allItems) return;
+    // Already have an index for exactly this item list + translation — nothing to do.
+    if (hadithIndex?.key === allItems && hadithIndex.locale === translationLocale) return;
     if (allItems.length === 0) {
       if (hadithIndex) setHadithIndex(null);
       return;
     }
-    const build = () => setHadithIndex({ key: allItems, index: createHadithSearch(allItems) });
+    const build = () =>
+      setHadithIndex({
+        key: allItems,
+        locale: translationLocale,
+        index: createHadithSearch(allItems),
+      });
     // Searching now: build synchronously so results aren't stalled behind a
     // pending interaction (also covers the `q`-seeded arrival case).
     if (searching) {
@@ -135,7 +148,7 @@ export default function HadithCollectionScreen() {
     // Idle: defer the build so it doesn't compete with mount/nav animations.
     const handle = runWhenIdle(build);
     return () => handle.cancel();
-  }, [allItems, searching, hadithIndex]);
+  }, [allItems, searching, hadithIndex, translationLocale]);
 
   const [bookmarked, setBookmarked] = useState<Set<string>>(new Set());
   useEffect(() => {
@@ -346,8 +359,8 @@ export default function HadithCollectionScreen() {
           ListEmptyComponent={
             <EmptyState
               icon={{ ios: "text.magnifyingglass", android: "search", web: "search" }}
-              title={t("hadith.emptyTitle")}
-              description={t("hadith.emptyDesc")}
+              title={searching ? t("search.noResultsTitle") : t("hadith.emptyTitle")}
+              description={searching ? t("search.noResultsDesc") : t("hadith.emptyDesc")}
             />
           }
         />

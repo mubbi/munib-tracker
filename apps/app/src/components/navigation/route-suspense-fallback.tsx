@@ -6,13 +6,13 @@ import {
   Appearance,
   type ColorSchemeName,
   I18nManager,
-  Pressable,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { PressableScale } from "@/components/ui/pressable-scale";
 import { Fonts, MaxContentWidth, Radius, Shadows, Spacing, withAlpha } from "@/constants/theme";
 import i18n from "@/i18n";
 
@@ -69,15 +69,16 @@ export function SuspenseFallback({ route }: SuspenseFallbackProps) {
             },
           ]}
         >
-          <Pressable
+          <PressableScale
             accessibilityRole="button"
             accessibilityLabel={i18n.t("common.goBack")}
             hitSlop={8}
+            haptic="light"
             onPress={() => router.back()}
             style={[styles.backBtn, { backgroundColor: palette.accentSoft }]}
           >
             <SymbolView name={backChevron()} size={19} tintColor={palette.accent} />
-          </Pressable>
+          </PressableScale>
         </View>
       ) : null}
 
